@@ -1,9 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router';
 
 const Item = (props) => (
   <tr>
-    <td>{props.data.key}</td>
-    <td>{props.data.fields.label.value}</td>
+    <td><Link to={'/detail/' + props.data.key}>{props.data.key}</Link></td>
+    <td><Link to={'/detail/' + props.data.key}>{props.data.fields.label.value}</Link></td>
   </tr>
 )
 
