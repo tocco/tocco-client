@@ -10,7 +10,12 @@ const SearchForm = (props) => (
         type="text"
         className="form-control"
         value={props.searchTerm}
-        onChange={e => props.updateSearchTerm(e.target.value)}
+        onChange={e => {
+          props.updateSearchTerm(e.target.value)
+          if (props.liveSearch === true) {
+            props.submit(e.target.value)
+          }
+        }}
       />
     </form>
   </div>
@@ -19,7 +24,8 @@ const SearchForm = (props) => (
 SearchForm.propTypes = {
   searchTerm: React.PropTypes.string.isRequired,
   updateSearchTerm: React.PropTypes.func.isRequired,
-  submit: React.PropTypes.func.isRequired
+  submit: React.PropTypes.func.isRequired,
+  liveSearch: React.PropTypes.bool
 }
 
 export default SearchForm

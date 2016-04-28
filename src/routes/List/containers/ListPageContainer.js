@@ -1,18 +1,21 @@
 import { connect } from 'react-redux'
 import { fetchEvents } from '../modules/list'
 import { updateSearchTerm } from '../modules/searchTerm'
+import { setLiveSearch } from '../modules/liveSearch'
 
 import ListPage from '../components/ListPage'
 
 const mapActionCreators = {
   fetchEvents,
-  updateSearchTerm
+  updateSearchTerm,
+  setLiveSearch
 }
 
 const mapStateToProps = (state) => {
   return {
     list: state.list,
-    searchTerm: state.searchTerm
+    searchTerm: state.searchTerm,
+    liveSearch: state.liveSearch
   }
 }
 

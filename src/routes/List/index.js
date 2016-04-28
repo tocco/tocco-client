@@ -9,9 +9,11 @@ export default (store) => ({
       const List = require('./containers/ListPageContainer').default
       const listReducer = require('./modules/list').default
       const searchTermReducer = require('./modules/searchTerm').default
+      const liveSearchReducer = require('./modules/liveSearch').default
 
       injectReducer(store, { key: 'list', reducer: listReducer })
       injectReducer(store, { key: 'searchTerm', reducer: searchTermReducer })
+      injectReducer(store, { key: 'liveSearch', reducer: liveSearchReducer })
 
       next(null, List)
     })
