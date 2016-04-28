@@ -40,6 +40,11 @@ export function fetchEvent(key) {
 }
 
 const ACTION_HANDLERS = {
+  [REQUEST_EVENT]: activeEvent => Object.assign({}, activeEvent, {
+    data: null,
+    loading: true,
+    failure: false
+  }),
   [RECEIVE_EVENT]: (activeEvent, { event: newEvent }) => Object.assign({}, activeEvent, {
     data: newEvent,
     loading: false
