@@ -1,58 +1,58 @@
 import fetch from 'isomorphic-fetch'
 
-export const REQUEST_EVENT = 'REQUEST_EVENT'
-export const RECEIVE_EVENT = 'RECEIVE_EVENT'
-export const REQUEST_EVENT_FAILURE = 'REQUEST_EVENT_FAILURE'
+export const REQUEST_ENTITY = 'REQUEST_ENTITY'
+export const RECEIVE_ENTITY = 'RECEIVE_ENTITY'
+export const REQUEST_ENTITY_FAILURE = 'REQUEST_ENTITY_FAILURE'
 
-function requestEvent() {
+function requestEntity() {
   return {
-    type: REQUEST_EVENT
+    type: REQUEST_ENTITY
   }
 }
 
-function receiveEvent(json) {
+function receiveEntity(json) {
   return {
-    type: RECEIVE_EVENT,
-    event: json,
+    type: RECEIVE_ENTITY,
+    data: json,
     receivedAt: Date.now()
   }
 }
 
-function requestEventFailure() {
+function requestEntityFailure() {
   return {
-    type: REQUEST_EVENT_FAILURE
+    type: REQUEST_ENTITY_FAILURE
   }
 }
 
-export function fetchEvent(key) {
+export function fetchEntity(model, key) {
   return dispatch => {
-    dispatch(requestEvent())
-    return fetch(`http://localhost:8080/nice2/rest/entities/Event/${key}`)
+    dispatch(requestEntity())
+    return fetch(`http://localhost:8080/nice2/rest/entities/${model}/${key}`)
       .then(resp => {
         if (resp.ok === true) {
           return resp.json()
         }
         throw Error(resp.statusText)
       })
-      .then(json => dispatch(receiveEvent(json)))
+      .then(json => dispatch(receiveEntity(json)))
       .catch(error => {
         if (console) console.error(error)
-        dispatch(requestEventFailure())
+        dispatch(requestEntityFailure())
       })
   }
 }
 
 const ACTION_HANDLERS = {
-  [REQUEST_EVENT]: activeEvent => Object.assign({}, activeEvent, {
+  [REQUEST_ENTITY]: state => Object.assign({}, state, {
     data: null,
     loading: true,
     failure: false
   }),
-  [RECEIVE_EVENT]: (activeEvent, { event: newEvent }) => Object.assign({}, activeEvent, {
-    data: newEvent,
+  [RECEIVE_ENTITY]: (state, { data }) => Object.assign({}, state, {
+    data,
     loading: false
   }),
-  [REQUEST_EVENT_FAILURE]: activeEvent => Object.assign({}, activeEvent, {
+  [REQUEST_ENTITY_FAILURE]: state => Object.assign({}, state, {
     data: null,
     loading: false,
     failure: true

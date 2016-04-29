@@ -6,12 +6,12 @@ import classes from './DetailPage.scss'
 class DetailPage extends React.Component {
 
   componentWillMount() {
-    this.props.fetchForm('Event_detail')
-    this.props.fetchEvent(this.props.eventKey)
+    this.props.fetchForm(this.props.formName)
+    this.props.fetchEntity(this.props.entityModel, this.props.entityKey)
   }
 
   render() {
-    if (this.props.detail.loading === true || !this.props.forms['Event_detail']) {
+    if (this.props.detail.loading === true || !this.props.forms[this.props.formName]) {
       return (
         <div className={classes.DetailPage}>
           <div>Daten werden geladen</div>
@@ -28,7 +28,7 @@ class DetailPage extends React.Component {
 
     return (
       <div className={classes.DetailPage}>
-        <DetailForm data={this.props.detail.data} form={this.props.forms['Event_detail']}/>
+        <DetailForm data={this.props.detail.data} form={this.props.forms[this.props.formName]}/>
       </div>
     )
   }
@@ -36,8 +36,10 @@ class DetailPage extends React.Component {
 
 DetailPage.propTypes = {
   detail:  React.PropTypes.object.isRequired,
-  eventKey: React.PropTypes.string.isRequired,
-  fetchEvent: React.PropTypes.func.isRequired,
+  entityModel: React.PropTypes.string.isRequired,
+  entityKey: React.PropTypes.string.isRequired,
+  formName: React.PropTypes.string.isRequired,
+  fetchEntity: React.PropTypes.func.isRequired,
   fetchForm: React.PropTypes.func.isRequired,
   forms: React.PropTypes.object.isRequired,
 }

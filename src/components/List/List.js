@@ -19,7 +19,7 @@ const value = (data, column) => {
 const Item = (props) => (
   <tr>
     {props.columns.map((column, index) =>
-      <td key={index}><Link to={'/detail/' + props.data.key}>{value(props.data, column)}</Link></td>
+      <td key={index}><Link to={'/detail/' + props.data.model + '/' + props.data.key}>{value(props.data, column)}</Link></td>
     )}
   </tr>
 )

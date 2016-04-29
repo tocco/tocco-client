@@ -1,7 +1,7 @@
 import { injectReducer } from '../../store/reducers'
 
 export default (store) => ({
-  path: 'detail/:eventKey',
+  path: 'detail/:entityModel/:entityKey',
   getComponent (nextState, next) {
     require.ensure([
       './containers/DetailPageContainer'
