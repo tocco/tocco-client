@@ -13,9 +13,7 @@ const mapActionCreators = {
 
 const mapStateToProps = (state) => {
   return {
-    list: state.list,
-    searchTerm: state.searchTerm,
-    liveSearch: state.liveSearch
+    list: state.list
   }
 }
 
