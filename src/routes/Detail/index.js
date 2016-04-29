@@ -7,9 +7,9 @@ export default (store) => ({
       './containers/DetailPageContainer'
     ], (require) => {
       const DetailPage = require('./containers/DetailPageContainer').default
-      const activeEventReducer = require('./modules/activeEvent').default
+      const reducer = require('./modules/detail').default
 
-      injectReducer(store, { key: 'activeEvent', reducer: activeEventReducer })
+      injectReducer(store, { key: 'detail', reducer })
 
       next(null, DetailPage)
     })

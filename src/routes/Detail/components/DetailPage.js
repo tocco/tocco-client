@@ -18,14 +18,14 @@ class DetailPage extends React.Component {
   }
 
   render() {
-    if (this.props.activeEvent.loading === true) {
+    if (this.props.detail.loading === true) {
       return (
         <div className={classes.DetailPage}>
           <div>Daten werden geladen</div>
         </div>
       )
     }
-    if (this.props.activeEvent.failure === true) {
+    if (this.props.detail.failure === true) {
       return (
         <div className={classes.DetailPage}>
           <div>Daten konnten nicht geladen werden</div>
@@ -35,14 +35,20 @@ class DetailPage extends React.Component {
 
     return (
       <div className={classNames(classes.DetailPage, 'form-horizontal')}>
-        {Object.keys(this.props.activeEvent.data.fields).map(key => {
-          const field = this.props.activeEvent.data.fields[key]
+        {Object.keys(this.props.detail.data.fields).map(key => {
+          const field = this.props.detail.data.fields[key]
           const data = Object.assign({}, field, {key})
           return <Field key={key} data={data}/>
         })}
       </div>
     )
   }
+}
+
+DetailPage.propTypes = {
+  detail:  React.PropTypes.object.isRequired,
+  eventKey: React.PropTypes.string.isRequired,
+  fetchEvent: React.PropTypes.func.isRequired
 }
 
 

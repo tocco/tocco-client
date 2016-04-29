@@ -62,7 +62,7 @@ const initialState = {
   failure: false
 }
 
-export default function activeEventReducer (state = initialState, action: Action) {
+export default function detailReducer(state = initialState, action: Action) {
   const handler = ACTION_HANDLERS[action.type]
   return handler ? handler(state, action) : state
 }

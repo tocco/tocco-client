@@ -5,7 +5,7 @@ import DetailPage from '../components/DetailPage'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    activeEvent: state.activeEvent,
+    detail: state.detail,
     eventKey: ownProps.routeParams.eventKey
   }
 }
