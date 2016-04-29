@@ -1,24 +1,17 @@
 import React from 'react'
 import classNames from 'classnames'
+import DetailForm from '../../../components/DetailForm'
 import classes from './DetailPage.scss'
-
-const Field = props => (
-  <div className="form-group">
-    <label className="control-label col-sm-3">{props.data.key}:</label>
-    <div className="col-sm-7">
-      <p className="form-control-static">{typeof props.data.value !== 'object' ? props.data.value : null}</p>
-    </div>
-  </div>
-)
 
 class DetailPage extends React.Component {
 
   componentWillMount() {
+    this.props.fetchForm('Event_detail')
     this.props.fetchEvent(this.props.eventKey)
   }
 
   render() {
-    if (this.props.detail.loading === true) {
+    if (this.props.detail.loading === true || !this.props.forms['Event_detail']) {
       return (
         <div className={classes.DetailPage}>
           <div>Daten werden geladen</div>
@@ -34,12 +27,8 @@ class DetailPage extends React.Component {
     }
 
     return (
-      <div className={classNames(classes.DetailPage, 'form-horizontal')}>
-        {Object.keys(this.props.detail.data.fields).map(key => {
-          const field = this.props.detail.data.fields[key]
-          const data = Object.assign({}, field, {key})
-          return <Field key={key} data={data}/>
-        })}
+      <div className={classes.DetailPage}>
+        <DetailForm data={this.props.detail.data} form={this.props.forms['Event_detail']}/>
       </div>
     )
   }
@@ -48,7 +37,9 @@ class DetailPage extends React.Component {
 DetailPage.propTypes = {
   detail:  React.PropTypes.object.isRequired,
   eventKey: React.PropTypes.string.isRequired,
-  fetchEvent: React.PropTypes.func.isRequired
+  fetchEvent: React.PropTypes.func.isRequired,
+  fetchForm: React.PropTypes.func.isRequired,
+  forms: React.PropTypes.object.isRequired,
 }
 
 
