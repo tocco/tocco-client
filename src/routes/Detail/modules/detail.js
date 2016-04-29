@@ -35,7 +35,10 @@ export function fetchEvent(key) {
         throw Error(resp.statusText)
       })
       .then(json => dispatch(receiveEvent(json)))
-      .catch(error => dispatch(requestEventFailure()))
+      .catch(error => {
+        if (console) console.error(error)
+        dispatch(requestEventFailure())
+      })
   }
 }
 
