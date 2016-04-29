@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { fetchEvent } from '../modules/activeEvent'
+import { fetchEvent } from '../modules/detail'
 
 import DetailPage from '../components/DetailPage'
 
