@@ -59,7 +59,8 @@ const component = (obj, data) => {
         />
       )
     default:
-      throw Error('unknown type ' + obj.type)
+      if (console) console.error('unknown type ' + obj.type)
+      return null
   }
 }
 
