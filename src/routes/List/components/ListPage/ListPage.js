@@ -23,6 +23,14 @@ class ListPage extends React.Component {
   }
 
   render() {
+    if (this.props.list.form === null) {
+      return (
+        <div className="ListPage" style={{padding: '1em'}}>
+          <div>Liste wird geladen</div>
+        </div>
+      )
+    }
+
     return (
       <div className="ListPage" style={{padding: '1em'}}>
         <SearchForm
@@ -32,7 +40,7 @@ class ListPage extends React.Component {
           liveSearch={this.props.list.liveSearch}
         />
         <LiveSearch liveSearch={this.props.list.liveSearch} setLiveSearch={this.props.setLiveSearch}/>
-        <List data={this.props.list.list}/>
+        <List data={this.props.list.list} form={this.props.list.form}/>
       </div>
     )
   }
