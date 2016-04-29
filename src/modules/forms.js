@@ -20,7 +20,10 @@ function receiveForm(name, json) {
 }
 
 export function fetchForm(name) {
-  return dispatch => {
+  return (dispatch, getState) => {
+    if (getState().forms[name]) {
+      return null
+    }
     dispatch(requestForm(name))
     return fetch(`http://localhost:8080/nice2/rest/forms/${name}`)
       .then(response => response.json())
