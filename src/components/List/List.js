@@ -9,7 +9,7 @@ const Item = (props) => (
 )
 
 const List = (props) => {
-  if (props.list.length === 0) {
+  if (props.data.length === 0) {
     return <div className="List empty">Keine Einträge gefunden</div>
   }
   return (
@@ -21,14 +21,14 @@ const List = (props) => {
         </tr>
       </thead>
       <tbody>
-        {props.list.map((item, index) => <Item key={index} data={item}/>)}
+        {props.data.map((item, index) => <Item key={index} data={item}/>)}
       </tbody>
     </table>
   )
 }
 
 List.propTypes = {
-  list: React.PropTypes.array.isRequired
+  data: React.PropTypes.array.isRequired
 }
 
 export default List

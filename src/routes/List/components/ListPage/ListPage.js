@@ -32,7 +32,7 @@ class ListPage extends React.Component {
           liveSearch={this.props.list.liveSearch}
         />
         <LiveSearch liveSearch={this.props.list.liveSearch} setLiveSearch={this.props.setLiveSearch}/>
-        <List list={this.props.list.list}/>
+        <List data={this.props.list.list}/>
       </div>
     )
   }
