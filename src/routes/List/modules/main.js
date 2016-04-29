@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux'
 
-import listReducer from './list'
-import searchTermReducer from './searchTerm'
-import liveSearchReducer from './liveSearch'
+import list from './list'
+import searchTerm from './searchTerm'
+import liveSearch from './liveSearch'
+import form from './form'
 
 export default combineReducers({
-  list: listReducer,
-  searchTerm: searchTermReducer,
-  liveSearch: liveSearchReducer
+  list,
+  searchTerm,
+  liveSearch,
+  form
 })

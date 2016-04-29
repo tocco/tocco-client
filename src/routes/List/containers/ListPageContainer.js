@@ -2,13 +2,15 @@ import { connect } from 'react-redux'
 import { fetchEvents } from '../modules/list'
 import { updateSearchTerm } from '../modules/searchTerm'
 import { setLiveSearch } from '../modules/liveSearch'
+import { fetchForm } from '../modules/form'
 
 import ListPage from '../components/ListPage'
 
 const mapActionCreators = {
   fetchEvents,
   updateSearchTerm,
-  setLiveSearch
+  setLiveSearch,
+  fetchForm
 }
 
 const mapStateToProps = (state) => {
