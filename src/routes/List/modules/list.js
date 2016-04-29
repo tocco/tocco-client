@@ -1,40 +1,40 @@
 import fetch from 'isomorphic-fetch'
 
-export const REQUEST_EVENTS = 'REQUEST_EVENTS'
-export const RECEIVE_EVENTS = 'RECEIVE_EVENTS'
+export const REQUEST_ENTITIES = 'REQUEST_ENTITIES'
+export const RECEIVE_ENTITIES = 'RECEIVE_ENTITIES'
 
-function requestEvents() {
+function requestEntities() {
   return {
-    type: REQUEST_EVENTS
+    type: REQUEST_ENTITIES
   }
 }
 
-function receiveEvents(json) {
+function receiveEntities(json) {
   return {
-    type: RECEIVE_EVENTS,
-    events: json.data,
+    type: RECEIVE_ENTITIES,
+    data: json.data,
     receivedAt: Date.now()
   }
 }
 
-export function fetchEvents(searchTerm) {
+export function fetchEntities(model, searchTerm) {
   return dispatch => {
-    dispatch(requestEvents())
-    return fetch(`http://localhost:8080/nice2/rest/entities/Event?_search=${searchTerm}`)
+    dispatch(requestEntities())
+    return fetch(`http://localhost:8080/nice2/rest/entities/${model}?_search=${searchTerm}`)
       .then(response => response.json())
-      .then(json => dispatch(receiveEvents(json)))
+      .then(json => dispatch(receiveEntities(json)))
   }
 }
 
 const ACTION_HANDLERS = {
-  [RECEIVE_EVENTS]: (events, { events: newEvents }) => {
-    return [].concat(newEvents);
+  [RECEIVE_ENTITIES]: (state, { data }) => {
+    return [].concat(data);
   }
 }
 
 const initialState = []
 
-export default function listReducer (state: list = initialState, action: Action): list {
+export default function listReducer(state = initialState, action: Action) {
   const handler = ACTION_HANDLERS[action.type]
   return handler ? handler(state, action) : state
 }

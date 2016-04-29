@@ -18,14 +18,12 @@ const LiveSearch = props => (
 class ListPage extends React.Component {
 
   componentWillMount() {
-    if (!this.props.forms['Event_list']) {
-      this.props.fetchForm('Event_list')
-    }
-    this.props.fetchEvents(this.props.list.searchTerm)
+    this.props.fetchForm(this.props.list.entityModel + '_list')
+    this.props.fetchEntities(this.props.list.entityModel, this.props.list.searchTerm)
   }
 
   render() {
-    if (!this.props.forms['Event_list']) {
+    if (!this.props.forms[this.props.list.entityModel + '_list']) {
       return (
         <div className="ListPage" style={{padding: '1em'}}>
           <div>Liste wird geladen</div>
@@ -36,13 +34,14 @@ class ListPage extends React.Component {
     return (
       <div className="ListPage" style={{padding: '1em'}}>
         <SearchForm
+          entityModel={this.props.list.entityModel}
           searchTerm={this.props.list.searchTerm}
           updateSearchTerm={this.props.updateSearchTerm}
-          submit={this.props.fetchEvents}
+          submit={searchTerm => { this.props.fetchEntities(this.props.list.entityModel, searchTerm) }}
           liveSearch={this.props.list.liveSearch}
         />
         <LiveSearch liveSearch={this.props.list.liveSearch} setLiveSearch={this.props.setLiveSearch}/>
-        <List data={this.props.list.list} form={this.props.forms['Event_list']}/>
+        <List data={this.props.list.list} form={this.props.forms[this.props.list.entityModel + '_list']}/>
       </div>
     )
   }
@@ -51,7 +50,7 @@ class ListPage extends React.Component {
 ListPage.propTypes = {
   list: React.PropTypes.object.isRequired,
   updateSearchTerm: React.PropTypes.func.isRequired,
-  fetchEvents: React.PropTypes.func.isRequired,
+  fetchEntities: React.PropTypes.func.isRequired,
   fetchForm: React.PropTypes.func.isRequired,
   forms: React.PropTypes.object.isRequired,
   setLiveSearch: React.PropTypes.func
