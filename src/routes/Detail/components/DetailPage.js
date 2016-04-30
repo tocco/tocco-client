@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router';
 import classNames from 'classnames'
 import DetailForm from '../../../components/DetailForm'
 import classes from './DetailPage.scss'
@@ -14,6 +15,7 @@ class DetailPage extends React.Component {
     if (this.props.detail.loading === true || !this.props.forms[this.props.formName]) {
       return (
         <div className={classes.DetailPage}>
+          <Link to="/">Zurück zur Übersicht</Link>
           <div>Daten werden geladen</div>
         </div>
       )
@@ -21,6 +23,7 @@ class DetailPage extends React.Component {
     if (this.props.detail.failure === true) {
       return (
         <div className={classes.DetailPage}>
+          <Link to="/">Zurück zur Übersicht</Link>
           <div>Daten konnten nicht geladen werden</div>
         </div>
       )
@@ -28,6 +31,7 @@ class DetailPage extends React.Component {
 
     return (
       <div className={classes.DetailPage}>
+        <Link to="/">Zurück zur Übersicht</Link>
         <DetailForm data={this.props.detail.data} form={this.props.forms[this.props.formName]}/>
       </div>
     )
