@@ -50,6 +50,11 @@ const component = (obj, data) => {
     case 'ch.tocco.nice2.model.form.components.simple.DocumentField':
     case 'ch.tocco.nice2.model.form.components.simple.EmailField':
     case 'ch.tocco.nice2.model.form.components.simple.UrlField':
+    case 'ch.tocco.nice2.model.form.components.simple.DescriptionField':
+    case 'ch.tocco.nice2.model.form.components.simple.BirthDateField':
+    case 'ch.tocco.nice2.model.form.components.simple.PhoneField':
+    case 'ch.tocco.nice2.model.form.components.simple.HtmlField':
+    case 'ch.tocco.nice2.model.form.components.simple.CodeField':
       return (
         <Field
           key={obj.name}
