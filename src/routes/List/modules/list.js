@@ -17,12 +17,23 @@ function receiveEntities(json) {
   }
 }
 
-export function fetchEntities(model, searchTerm) {
-  return dispatch => {
-    dispatch(requestEntities())
-    return fetch(`http://localhost:8080/nice2/rest/entities/${model}?_search=${searchTerm}`)
-      .then(response => response.json())
-      .then(json => dispatch(receiveEntities(json)))
+export function fetchEntities(model, searchTerm, delay = 0) {
+  return (dispatch, getState) => {
+    const request = () => {
+      dispatch(requestEntities())
+      fetch(`http://localhost:8080/nice2/rest/entities/${model}?_search=${searchTerm}`)
+        .then(response => response.json())
+        .then(json => dispatch(receiveEntities(json)))
+    }
+    if (delay > 0) {
+      setTimeout(() => {
+        if (getState().list.searchTerm === searchTerm) {
+          request()
+        }
+      }, delay)
+    } else {
+      request()
+    }
   }
 }
 

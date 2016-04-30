@@ -72,7 +72,7 @@ class ListPage extends React.Component {
           entityModel={entityModel}
           searchTerm={this.props.list.searchTerm}
           updateSearchTerm={this.props.updateSearchTerm}
-          submit={searchTerm => { this.props.fetchEntities(entityModel, searchTerm) }}
+          submit={(searchTerm, delay) => { this.props.fetchEntities(entityModel, searchTerm, delay) }}
           liveSearch={this.props.list.liveSearch}
           disabled={!entityModelSelected}
         />

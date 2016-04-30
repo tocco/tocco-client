@@ -17,7 +17,7 @@ const SearchForm = (props) => (
           if (props.disabled !== true) {
             props.updateSearchTerm(e.target.value)
             if (props.liveSearch === true) {
-              props.submit(e.target.value)
+              props.submit(e.target.value, 500)
             }
           }
         }}
