@@ -11,7 +11,7 @@ const ACTION_HANDLERS = {
   [SET_ENTITY_MODEL]: (entityModel, { entityModel: newEntityModel }) => newEntityModel
 }
 
-const initialState = 'Event'
+const initialState = null
 
 export default function entityModelReducer(state = initialState, action: Action) {
   const handler = ACTION_HANDLERS[action.type]
