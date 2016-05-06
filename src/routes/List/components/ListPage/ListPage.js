@@ -7,7 +7,7 @@ const EntityModelSelector = props => (
     <div className="form-group">
       <select className="form-control" value={props.value ? props.value : ''} onChange={e => props.setEntityModel(e.target.value)}>
         <option key="empty" value="">Entität auswählen</option>
-        {props.options.map(option => <option key={option} value={option}>{option}</option>)}
+        {props.options.map(option => <option key={option.name} value={option.name}>{option.label}</option>)}
       </select>
     </div>
   </div>

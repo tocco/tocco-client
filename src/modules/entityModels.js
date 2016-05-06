@@ -30,9 +30,11 @@ export function fetchEntityModels() {
 }
 
 const ACTION_HANDLERS = {
-  [RECEIVE_ENTITY_MODELS]: (entityModels, { models }) => {
-    return Object.keys(models._links).filter(key => key !== 'self')
-  }
+  [RECEIVE_ENTITY_MODELS]: (entityModels, { models }) =>
+    Object.keys(models.entities).map(modelName => ({
+      name: modelName,
+      label: models.entities[modelName].metaData.label
+    }))
 }
 
 const initialState = []
