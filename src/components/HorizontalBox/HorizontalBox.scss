@@ -1,5 +1,6 @@
 .HorizontalBox {
   display: flex;
+  flex-wrap: wrap;
 
   > * {
     flex-basis: 0;
@@ -7,5 +8,11 @@
     flex-shrink: 1;
     overflow: hidden;
     margin: 0.5em;
+  }
+
+  @media(max-width: 768px) {
+    > * {
+      flex-basis: 100%;
+    }
   }
 }
