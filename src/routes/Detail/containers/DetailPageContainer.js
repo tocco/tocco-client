@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { fetchEntity } from '../modules/detail'
+import { updateEntity } from '../modules/detail'
 import { fetchForm } from '../../../modules/forms'
 
 import DetailPage from '../components/DetailPage'
@@ -7,6 +7,7 @@ import DetailPage from '../components/DetailPage'
 const mapStateToProps = (state, ownProps) => {
   return {
     detail: state.detail,
+    form: state.form,
     entityModel: ownProps.routeParams.entityModel,
     entityKey: ownProps.routeParams.entityKey,
     formName: ownProps.routeParams.entityModel + '_detail',
@@ -15,8 +16,8 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapActionCreators = {
-  fetchEntity,
-  fetchForm
+  fetchForm,
+  updateEntity
 }
 
 export default connect(mapStateToProps, mapActionCreators)(DetailPage)
