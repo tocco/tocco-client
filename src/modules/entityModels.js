@@ -23,7 +23,9 @@ export function fetchEntityModels() {
       return null
     }
     dispatch(requestEntityModels())
-    return fetch(`http://localhost:8080/nice2/rest/entities`)
+    return fetch(`http://localhost:8080/nice2/rest/entities`, {
+      credentials: 'include'
+    })
       .then(response => response.json())
       .then(json => dispatch(receiveEntityModels(json)))
   }
