@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux'
 import { routerReducer as router } from 'react-router-redux'
+import { reducer as form } from 'redux-form';
 import forms from '../modules/forms'
 import entityModels from '../modules/entityModels'
 
 export const reducers = (asyncReducers) => {
   return combineReducers({
-    // Add sync reducers here
+    form,
     router,
     forms,
     entityModels,
