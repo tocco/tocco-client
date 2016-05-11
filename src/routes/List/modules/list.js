@@ -21,7 +21,9 @@ export function fetchEntities(model, searchTerm, delay = 0) {
   return (dispatch, getState) => {
     const request = () => {
       dispatch(requestEntities())
-      fetch(`http://localhost:8080/nice2/rest/entities/${model}?_search=${searchTerm}`)
+      fetch(`http://localhost:8080/nice2/rest/entities/${model}?_search=${searchTerm}`, {
+        credentials: 'include'
+      })
         .then(response => response.json())
         .then(json => dispatch(receiveEntities(json)))
     }
