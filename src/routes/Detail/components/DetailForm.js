@@ -51,6 +51,23 @@ class FormBuilder extends Visitor {
   }
 }
 
+const validate = (values, props) => {
+  const errors = {}
+
+  if (props.data && props.data.data && props.data.data.fields) {
+    const fields = props.data.data.fields
+    Object.keys(fields).forEach(name => {
+      if (fields[name].type === 'boolean') {
+        if (values[name] !== undefined && values[name] !== null && values[name] !== 'true' && values[name] !== 'false') {
+          errors[name] = 'Allowed values: "true" or "false"'
+        }
+      }
+    })
+  }
+
+  return errors
+}
+
 const Field = props => (
   <div className="form-group">
     <label className="control-label col-sm-5">{props.label}:</label>
@@ -58,6 +75,7 @@ const Field = props => (
       <p className="form-control-static">{typeof props.value !== 'object' ? (
         <input type="text" className="form-control" {...props.field}/>
       ) : null}</p>
+      {props.field.touched && props.field.error && <div>{props.field.error}</div>}
     </div>
   </div>
 )
@@ -96,7 +114,8 @@ DetailForm.propTypes = {
 }
 
 export default reduxForm({
-  form: 'detail'
+  form: 'detail',
+  validate
 },
 state => { // mapStateToProps
   const values = {};
