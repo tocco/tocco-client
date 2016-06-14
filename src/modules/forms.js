@@ -25,7 +25,7 @@ export function fetchForm(name) {
       return null
     }
     dispatch(requestForm(name))
-    return fetch(`http://localhost:8080/nice2/rest/forms/${name}`)
+    return fetch(`${__BACKEND_URL__}/nice2/rest/forms/${name}`)
       .then(response => response.json())
       .then(json => dispatch(receiveForm(name, json)))
   }

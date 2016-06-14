@@ -36,14 +36,6 @@ const config = {
     chunkModules : false,
     colors : true
   },
-  compiler_vendor : [
-    'history',
-    'react',
-    'react-redux',
-    'react-router',
-    'react-router-redux',
-    'redux'
-  ],
 
   // ----------------------------------
   // Test Configuration
@@ -77,24 +69,9 @@ config.globals = {
   '__PROD__'     : config.env === 'production',
   '__TEST__'     : config.env === 'test',
   '__DEBUG__'    : config.env === 'development' && !argv.no_debug,
-  '__BASENAME__' : JSON.stringify(process.env.BASENAME || '')
+  '__BASENAME__' : JSON.stringify(process.env.BASENAME || ''),
+  '__BACKEND_URL__': JSON.stringify('')
 }
-
-// ------------------------------------
-// Validate Vendor Dependencies
-// ------------------------------------
-const pkg = require('../package.json')
-
-config.compiler_vendor = config.compiler_vendor
-  .filter((dep) => {
-    if (pkg.dependencies[dep]) return true
-
-    debug(
-      `Package "${dep}" was not found as an npm dependency in package.json; ` +
-      `it won't be included in the webpack vendor bundle.
-       Consider removing it from vendor_dependencies in ~/config/index.js`
-    )
-  })
 
 // ------------------------------------
 // Utilities

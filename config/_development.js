@@ -10,5 +10,8 @@ export default (config) => ({
       host: 'http://localhost:8000',
       match: /^\/api\/.*/
     }
-  }
+  },
+  globals: Object.assign({}, config.globals, {
+    __BACKEND_URL__: JSON.stringify('http://localhost:8080')
+  })
 })

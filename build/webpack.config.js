@@ -4,10 +4,13 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import config from '../config'
 import _debug from 'debug'
+import CreatePackageJsonPlugin from '../bin/create-package-json'
 
 const debug = _debug('app:webpack:config')
 const paths = config.utils_paths
 const {__DEV__, __PROD__, __TEST__} = config.globals
+
+const packageName = require(paths.base('package.json')).name
 
 debug('Create configuration.')
 const webpackConfig = {
@@ -29,36 +32,40 @@ webpackConfig.entry = {
   app: __DEV__
     ? [APP_ENTRY_PATH, `webpack-hot-middleware/client?path=${config.compiler_public_path}__webpack_hmr`]
     : [APP_ENTRY_PATH],
-  vendor: config.compiler_vendor
 }
 
 // ------------------------------------
 // Bundle Output
 // ------------------------------------
 webpackConfig.output = {
-  filename: `[name].[${config.compiler_hash_type}].js`,
+  filename: `index.js`,
   path: paths.dist(),
   publicPath: config.compiler_public_path
+}
+if (__PROD__) {
+  webpackConfig.output.publicPath = `/nice2/node_modules/${packageName}/`
 }
 
 // ------------------------------------
 // Plugins
 // ------------------------------------
 webpackConfig.plugins = [
-  new webpack.DefinePlugin(config.globals),
-  new HtmlWebpackPlugin({
-    template: paths.client('index.html'),
-    hash: false,
-    favicon: paths.client('static/favicon.ico'),
-    filename: 'index.html',
-    inject: 'body',
-    minify: {
-      collapseWhitespace: true
-    }
-  })
+  new webpack.DefinePlugin(config.globals)
 ]
 
 if (__DEV__) {
+  webpackConfig.plugins.push(
+    new HtmlWebpackPlugin({
+      template: paths.client('index.html'),
+      hash: false,
+      filename: 'index.html',
+      inject: 'body',
+      minify: {
+        collapseWhitespace: true
+      }
+    })
+  )
+
   debug('Enable plugins for live development (HMR, NoErrors).')
   webpackConfig.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
@@ -75,15 +82,10 @@ if (__DEV__) {
         dead_code: true,
         warnings: false
       }
-    })
-  )
-}
-
-// Don't split bundles during testing, since we only want import one bundle
-if (!__TEST__) {
-  webpackConfig.plugins.push(
-    new webpack.optimize.CommonsChunkPlugin({
-      names: ['vendor']
+    }),
+    new CreatePackageJsonPlugin({
+      sourcePackageFile: paths.base('package.json'),
+      targetDir: paths.dist()
     })
   )
 }
@@ -272,7 +274,7 @@ if (!__DEV__) {
   })
 
   webpackConfig.plugins.push(
-    new ExtractTextPlugin('[name].[contenthash].css', {
+    new ExtractTextPlugin('app.css', {
       allChunks: true
     })
   )

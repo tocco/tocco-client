@@ -33,7 +33,7 @@ function requestEntityFailure() {
 export function fetchEntity(model, key) {
   return dispatch => {
     dispatch(requestEntity())
-    return fetch(`http://localhost:8080/nice2/rest/entities/${model}/${key}`, {
+    return fetch(`${__BACKEND_URL__}/nice2/rest/entities/${model}/${key}`, {
       credentials: 'include'
     })
       .then(resp => {
@@ -92,7 +92,7 @@ export function updateEntity(data) {
       credentials: 'include'
     }
 
-    return fetch(`http://localhost:8080/nice2/rest/entities/${model}/${key}`, options)
+    return fetch(`${__BACKEND_URL__}/nice2/rest/entities/${model}/${key}`, options)
       .then(resp => {
         if (resp.ok === true) {
           dispatch(updateEntitySuccess())
