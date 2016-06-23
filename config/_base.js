@@ -70,7 +70,8 @@ config.globals = {
   '__TEST__'     : config.env === 'test',
   '__DEBUG__'    : config.env === 'development' && !argv.no_debug,
   '__BASENAME__' : JSON.stringify(process.env.BASENAME || ''),
-  '__BACKEND_URL__': JSON.stringify('')
+  '__BACKEND_URL__': JSON.stringify(''),
+  '__APP_NAME__'   : JSON.stringify(require(path.resolve(config.path_base, 'package.json')).name)
 }
 
 // ------------------------------------

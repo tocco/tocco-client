@@ -10,8 +10,8 @@ export default class CreatePackageJsonPlugin {
   apply(compiler) {
     compiler.plugin('done', () => {
       const sourceJson = require(this.options.sourcePackageFile)
-      const { name, version, description, main } = sourceJson
-      const newJson = { name, version, description, main }
+      const { name, version, description, main, peerDependencies } = sourceJson
+      const newJson = { name, version, description, main, peerDependencies }
 
       const targetPath = path.resolve(this.options.targetDir, 'package.json')
 

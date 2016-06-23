@@ -5,58 +5,70 @@ import { Router, useRouterHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import createStore from './store/createStore'
 import { Provider } from 'react-redux'
+import useMultiHash from './history/useMultiHash'
 
-const MOUNT_ELEMENT = document.getElementById('root')
+const init = (id) => {
+  // Configure history for react-router
+  const hashHistory = useRouterHistory(useMultiHash(createHashHistory))({
+    basename: __BASENAME__,
+    queryKey: false,
+    id,
+  })
 
-// Configure history for react-router
-const hashHistory = useRouterHistory(createHashHistory)({
-  basename: __BASENAME__,
-  queryKey: false,
-})
+  // Create redux store and sync with react-router-redux. We have installed the
+  // react-router-redux reducer under the key "router" in src/routes/index.js,
+  // so we need to provide a custom `selectLocationState` to inform
+  // react-router-redux of its location.
+  const store = createStore(window.__INITIAL_STATE__, hashHistory)
+  const history = syncHistoryWithStore(hashHistory, store, {
+    selectLocationState: (state) => state.router
+  })
 
-// Create redux store and sync with react-router-redux. We have installed the
-// react-router-redux reducer under the key "router" in src/routes/index.js,
-// so we need to provide a custom `selectLocationState` to inform
-// react-router-redux of its location.
-const store = createStore(window.__INITIAL_STATE__, hashHistory)
-const history = syncHistoryWithStore(hashHistory, store, {
-  selectLocationState: (state) => state.router
-})
-
-let render = (key = null) => {
   const routes = require('./routes/index').default(store)
-  const App = (
+
+  const App = () => (
     <Provider store={store}>
-      <div style={{ height: '100%' }}>
-        <Router history={history} children={routes} key={key} />
-      </div>
+      <Router history={history} children={routes} />
     </Provider>
   )
-  ReactDOM.render(App, MOUNT_ELEMENT)
+
+  return App
 }
 
-// Enable HMR and catch runtime errors in RedBox
-// This code is excluded from production bundle
-if (__DEV__ && module.hot) {
-  const renderApp = render
-  const renderError = (error) => {
-    const RedBox = require('redbox-react')
+if (__DEV__) {
+  const mountElement = document.getElementById('root')
 
-    ReactDOM.render(<RedBox error={error}/>, MOUNT_ELEMENT)
+  let render = () => {
+    const element = React.createElement(init());
+    ReactDOM.render(element, mountElement)
   }
-  render = () => {
-    try {
-      renderApp(Math.random())
-    } catch (error) {
-      renderError(error)
+
+  // Enable HMR and catch runtime errors in RedBox
+  // This code is excluded from production bundle
+  if (__DEV__ && module.hot) {
+    const renderApp = render
+    const renderError = (error) => {
+      const RedBox = require('redbox-react')
+
+      ReactDOM.render(<RedBox error={error}/>, mountElement)
     }
+    render = () => {
+      try {
+        renderApp()
+      } catch (error) {
+        renderError(error)
+      }
+    }
+    module.hot.accept(['./routes/index'], () => render())
   }
-  module.hot.accept(['./routes/index'], () => render())
-}
 
-// Use Redux DevTools chrome extension
-if (__DEBUG__) {
-  if (window.devToolsExtension) window.devToolsExtension.open()
-}
+  if (__DEBUG__) {
+    if (window.devToolsExtension) window.devToolsExtension.open()
+  }
 
-render()
+  render()
+} else {
+  if (window.reactRegistry) {
+    window.reactRegistry.register(__APP_NAME__, init)
+  }
+}
