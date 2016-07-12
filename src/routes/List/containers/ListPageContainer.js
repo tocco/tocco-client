@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import { fetchEntities } from '../modules/list'
 import { updateSearchTerm } from '../modules/searchTerm'
 import { setLiveSearch } from '../modules/liveSearch'
+import { setOrdering } from '../modules/ordering'
 import { setEntityModel } from '../modules/entityModel'
 import { fetchForm } from '../../../modules/forms'
 import { fetchEntityModels } from '../../../modules/entityModels'
@@ -12,6 +13,7 @@ const mapActionCreators = {
   fetchEntities,
   updateSearchTerm,
   setLiveSearch,
+  setOrdering,
   fetchForm,
   setEntityModel,
   fetchEntityModels

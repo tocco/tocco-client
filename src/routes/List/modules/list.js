@@ -17,11 +17,11 @@ function receiveEntities(json) {
   }
 }
 
-export function fetchEntities(model, searchTerm, delay = 0) {
+export function fetchEntities(model, searchTerm, ordering, delay = 0) {
   return (dispatch, getState) => {
     const request = () => {
       dispatch(requestEntities())
-      fetch(`${__BACKEND_URL__}/nice2/rest/entities/${model}?_search=${searchTerm}`, {
+      fetch(`${__BACKEND_URL__}/nice2/rest/entities/${model}?_search=${searchTerm}&_sort=${ordering ? (ordering.name + ' ' + ordering.direction) : ''}`, {
         credentials: 'include'
       })
         .then(response => response.json())

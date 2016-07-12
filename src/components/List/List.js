@@ -26,7 +26,11 @@ const Item = (props) => (
 
 const Header = props => (
   <tr>
-    {props.columns.map((column, index) => <th key={index}>{column.label}</th>)}
+    {props.columns.map((column, index) => <th key={index} onClick={() => props.onClick(column)} style={{cursor: 'pointer'}}>
+      {column.label}
+      {(props.ordering && props.ordering.name === column.name && props.ordering.direction === 'asc') && ' ▲'}
+      {(props.ordering && props.ordering.name === column.name && props.ordering.direction === 'desc') && ' ▼'}
+    </th>)}
   </tr>
 )
 
@@ -38,7 +42,7 @@ const List = (props) => {
   return (
     <table className="List table table-hover">
       <thead>
-        <Header columns={cols}/>
+        <Header columns={cols} ordering={props.ordering} onClick={column => props.setOrdering(column.name)}/>
       </thead>
       <tbody>
         {props.data.map((item, index) => <Item key={index} data={item} columns={cols}/>)}
@@ -50,6 +54,8 @@ const List = (props) => {
 List.propTypes = {
   data: React.PropTypes.array.isRequired,
   form: React.PropTypes.object.isRequired,
+  ordering: React.PropTypes.object.isRequired,
+  setOrdering: React.PropTypes.func.isRequired,
 }
 
 export default List

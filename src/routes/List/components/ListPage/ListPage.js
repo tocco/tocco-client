@@ -32,14 +32,14 @@ class ListPage extends React.Component {
     this.props.fetchEntityModels()
     if (this.props.list.entityModel) {
       this.props.fetchForm(this.props.list.entityModel + '_list')
-      this.props.fetchEntities(this.props.list.entityModel, this.props.list.searchTerm)
+      this.props.fetchEntities(this.props.list.entityModel, this.props.list.searchTerm, this.props.list.ordering)
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.list.entityModel && this.props.list.entityModel !== nextProps.list.entityModel) {
       this.props.fetchForm(nextProps.list.entityModel + '_list')
-      this.props.fetchEntities(nextProps.list.entityModel, nextProps.list.searchTerm)
+      this.props.fetchEntities(nextProps.list.entityModel, nextProps.list.searchTerm, nextProps.list.ordering)
     }
   }
 
@@ -50,6 +50,7 @@ class ListPage extends React.Component {
     const formName = entityModelSelected ? entityModel + '_list' : null
     const formAvailable = formName && this.props.forms[formName]
     const form = formAvailable ? this.props.forms[formName] : null
+    const ordering = this.props.list.ordering
 
     let component = null
 
@@ -58,7 +59,7 @@ class ListPage extends React.Component {
     } else if (!formAvailable) {
       component = <div>Liste wird geladen</div>
     } else {
-      component = <List data={this.props.list.list} form={form}/>
+      component = <List data={this.props.list.list} form={form} ordering={ordering} setOrdering={this.props.setOrdering}/>
     }
 
     return (
@@ -72,7 +73,7 @@ class ListPage extends React.Component {
           entityModel={entityModel}
           searchTerm={this.props.list.searchTerm}
           updateSearchTerm={this.props.updateSearchTerm}
-          submit={(searchTerm, delay) => { this.props.fetchEntities(entityModel, searchTerm, delay) }}
+          submit={(searchTerm, delay) => { this.props.fetchEntities(entityModel, searchTerm, ordering, delay) }}
           liveSearch={this.props.list.liveSearch}
           disabled={!entityModelSelected}
         />
@@ -91,6 +92,8 @@ ListPage.propTypes = {
   fetchEntityModels: React.PropTypes.func.isRequired,
   forms: React.PropTypes.object.isRequired,
   entityModels: React.PropTypes.array.isRequired,
+  ordering: React.PropTypes.object.isRequired,
+  setOrdering: React.PropTypes.func.isRequired,
   setLiveSearch: React.PropTypes.func,
   setEntityModel: React.PropTypes.func
 }
