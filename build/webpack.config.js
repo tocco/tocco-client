@@ -21,12 +21,16 @@ const webpackConfig = {
     root: paths.client(),
     extensions: ['', '.js', '.jsx', '.json']
   },
-  module: {},
-  externals: {
+  module: {}
+}
+
+if (!__TEST__) {
+  webpackConfig.externals = {
     react: 'React',
     'react-dom': 'ReactDOM'
   }
 }
+
 // ------------------------------------
 // Entry Points
 // ------------------------------------
