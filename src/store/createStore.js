@@ -5,9 +5,9 @@ import createSagaMiddleware from 'redux-saga'
 
 import reducers, { sagas } from './reducers'
 
-export default (initialState = {}, history) => {
-  const sagaMiddleware = createSagaMiddleware()
+export const sagaMiddleware = createSagaMiddleware()
 
+export default (initialState = {}, history) => {
   let middleware = applyMiddleware(thunk, routerMiddleware(history), sagaMiddleware)
 
   // Use DevTools chrome extension in development
