@@ -5,7 +5,7 @@ import { setLiveSearch } from '../modules/liveSearch'
 import { setOrdering } from '../modules/ordering'
 import { setEntityModel } from '../modules/entityModel'
 import { fetchForm } from '../../../modules/forms'
-import { fetchEntityModels } from '../../../modules/entityModels'
+import { requestEntityModels } from '../../../modules/entityModels'
 
 import ListPage from '../components/ListPage'
 
@@ -16,7 +16,7 @@ const mapActionCreators = {
   setOrdering,
   fetchForm,
   setEntityModel,
-  fetchEntityModels
+  requestEntityModels
 }
 
 const mapStateToProps = (state) => {

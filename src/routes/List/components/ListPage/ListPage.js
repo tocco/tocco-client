@@ -29,7 +29,7 @@ const LiveSearch = props => (
 class ListPage extends React.Component {
 
   componentWillMount() {
-    this.props.fetchEntityModels()
+    this.props.requestEntityModels()
     if (this.props.list.entityModel) {
       this.props.fetchForm(this.props.list.entityModel + '_list')
       this.props.fetchEntities(this.props.list.entityModel, this.props.list.searchTerm, this.props.list.ordering)
@@ -89,7 +89,7 @@ ListPage.propTypes = {
   updateSearchTerm: React.PropTypes.func.isRequired,
   fetchEntities: React.PropTypes.func.isRequired,
   fetchForm: React.PropTypes.func.isRequired,
-  fetchEntityModels: React.PropTypes.func.isRequired,
+  requestEntityModels: React.PropTypes.func.isRequired,
   forms: React.PropTypes.object.isRequired,
   entityModels: React.PropTypes.array.isRequired,
   ordering: React.PropTypes.object.isRequired,
