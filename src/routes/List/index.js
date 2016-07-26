@@ -1,4 +1,5 @@
 import { injectReducer } from '../../store/reducers'
+import { sagaMiddleware } from '../../store/createStore'
 
 export default (store) => ({
   getComponent (nextState, next) {
@@ -7,9 +8,13 @@ export default (store) => ({
       './modules/list'
     ], (require) => {
       const List = require('./containers/ListPageContainer').default
-      const reducer = require('./modules/main').default
+
+      const mainModule = require('./modules/main')
+      const reducer = mainModule.default
+      const sagas = mainModule.sagas
 
       injectReducer(store, { key: 'list', reducer })
+      sagaMiddleware.run(sagas)
 
       next(null, List)
     })

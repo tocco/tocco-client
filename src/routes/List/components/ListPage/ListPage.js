@@ -32,14 +32,14 @@ class ListPage extends React.Component {
     this.props.requestEntityModels()
     if (this.props.list.entityModel) {
       this.props.fetchForm(this.props.list.entityModel + '_list')
-      this.props.fetchEntities(this.props.list.entityModel, this.props.list.searchTerm, this.props.list.ordering)
+      this.props.requestEntities(this.props.list.entityModel, this.props.list.searchTerm, this.props.list.ordering)
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.list.entityModel && this.props.list.entityModel !== nextProps.list.entityModel) {
       this.props.fetchForm(nextProps.list.entityModel + '_list')
-      this.props.fetchEntities(nextProps.list.entityModel, nextProps.list.searchTerm, nextProps.list.ordering)
+      this.props.requestEntities(nextProps.list.entityModel, nextProps.list.searchTerm, nextProps.list.ordering)
     }
   }
 
@@ -73,7 +73,7 @@ class ListPage extends React.Component {
           entityModel={entityModel}
           searchTerm={this.props.list.searchTerm}
           updateSearchTerm={this.props.updateSearchTerm}
-          submit={(searchTerm, delay) => { this.props.fetchEntities(entityModel, searchTerm, ordering, delay) }}
+          submit={(searchTerm, delay) => { this.props.requestEntities(entityModel, searchTerm, ordering, delay) }}
           liveSearch={this.props.list.liveSearch}
           disabled={!entityModelSelected}
         />
@@ -87,7 +87,7 @@ class ListPage extends React.Component {
 ListPage.propTypes = {
   list: React.PropTypes.object.isRequired,
   updateSearchTerm: React.PropTypes.func.isRequired,
-  fetchEntities: React.PropTypes.func.isRequired,
+  requestEntities: React.PropTypes.func.isRequired,
   fetchForm: React.PropTypes.func.isRequired,
   requestEntityModels: React.PropTypes.func.isRequired,
   forms: React.PropTypes.object.isRequired,
