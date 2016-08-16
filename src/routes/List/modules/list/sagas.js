@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch'
-import { takeLatest, delay } from 'redux-saga'
-import { call, put, fork } from 'redux-saga/effects'
+import { takeLatest, delay  } from 'redux-saga'
+import { call, put, fork, take, select } from 'redux-saga/effects'
 import * as actions from './actions'
 
 export function loadEntities(model, searchTerm, ordering) {
@@ -12,15 +12,28 @@ export function loadEntities(model, searchTerm, ordering) {
   })
 }
 
-export function* fetchEntities(action) {
-  const { model, searchTerm, ordering, timeout } = action.payload
+
+function* fetchEntities(action) {
+  const { entityModel, searchTerm, ordering, timeout } = action.payload
   yield call(delay, timeout)
-  const entities = yield call(loadEntities, model, searchTerm, ordering)
+  const entities = yield call(loadEntities, entityModel, searchTerm, ordering)
   yield put(actions.receiveEntities(entities))
 }
 
+
+export function* orderingWatcher() {
+  while (true) {
+    yield take('SET_ORDERING')
+    const listState = yield select(state => state.list)
+
+    yield call(fetchEntities, {payload: listState})
+  }
+}
+
+
 export default function* sagas() {
   yield [
-    fork(takeLatest, actions.REQUEST_ENTITIES, fetchEntities)
+    fork(takeLatest, actions.REQUEST_ENTITIES, fetchEntities),
+    fork(orderingWatcher)
   ]
 }
