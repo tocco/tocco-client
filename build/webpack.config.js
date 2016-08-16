@@ -128,6 +128,14 @@ webpackConfig.eslint = {
 // Loaders
 // ------------------------------------
 // JavaScript / JSON
+
+var presets = ['es2015', 'react', 'stage-0'];
+
+if (__DEV__) {
+  presets.push('react-hmre')
+}
+
+
 webpackConfig.module.loaders = [{
   test: /\.(js|jsx)$/,
   exclude: /node_modules/,
@@ -135,7 +143,7 @@ webpackConfig.module.loaders = [{
   query: {
     cacheDirectory: true,
     plugins: ['transform-runtime'],
-    presets: ['es2015', 'react', 'stage-0'],
+    presets: presets,
     env: {
       production: {
         plugins: [
@@ -150,6 +158,7 @@ webpackConfig.module.loaders = [{
   test: /\.json$/,
   loader: 'json'
 }]
+
 
 // ------------------------------------
 // Style Loaders
