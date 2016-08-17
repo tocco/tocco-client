@@ -5,7 +5,10 @@ export default (store) => ({
   getComponent (nextState, next) {
     require.ensure([
       './containers/ListPageContainer',
-      './modules/list'
+      './modules/data',
+      './modules/entityModel',
+      './modules/ordering',
+      './modules/searchTerm',
     ], (require) => {
       const List = require('./containers/ListPageContainer').default
 

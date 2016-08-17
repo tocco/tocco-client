@@ -1,23 +1,21 @@
-import { combineReducers } from 'redux'
-import { fork } from 'redux-saga/effects'
+import {combineReducers} from 'redux'
+import {fork} from 'redux-saga/effects'
+import moduleSagas from './sagas'
 
-
-import list, { sagas as listSagas } from './list'
+import data from './data'
 import searchTerm from './searchTerm'
-import liveSearch from './liveSearch'
 import ordering from './ordering'
 import entityModel from './entityModel'
 
 export default combineReducers({
-  list,
+  data,
   searchTerm,
-  liveSearch,
   ordering,
   entityModel
 })
 
 export function* sagas() {
   yield [
-    fork(listSagas)
+    fork(moduleSagas)
   ]
 }

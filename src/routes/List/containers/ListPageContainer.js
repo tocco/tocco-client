@@ -1,10 +1,8 @@
 import { connect } from 'react-redux'
-import { requestEntities } from '../modules/list'
+import { requestEntities, lazyLoading } from '../modules/data'
 import { updateSearchTerm } from '../modules/searchTerm'
-import { setLiveSearch } from '../modules/liveSearch'
 import { setOrdering } from '../modules/ordering'
 import { setEntityModel } from '../modules/entityModel'
-import { lazyLoading } from '../modules/lazyLoad'
 import { fetchForm } from '../../../modules/forms'
 import { requestEntityModels } from '../../../modules/entityModels'
 
@@ -13,7 +11,6 @@ import ListPage from '../components/ListPage'
 const mapActionCreators = {
   requestEntities,
   updateSearchTerm,
-  setLiveSearch,
   setOrdering,
   fetchForm,
   setEntityModel,

@@ -68,7 +68,7 @@ class ListPage extends React.Component {
     } else if (!formAvailable) {
       component = <div>Liste wird geladen</div>
     } else {
-      component = <List data={this.props.list.list} form={form} ordering={ordering} setOrdering={this.props.setOrdering} lazyLoading={this.props.lazyLoading}/>
+      component = <List data={this.props.list.data} form={form} ordering={ordering} setOrdering={this.props.setOrdering} lazyLoading={this.props.lazyLoading}/>
     }
 
     return (

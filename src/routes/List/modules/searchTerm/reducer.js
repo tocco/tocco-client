@@ -1,11 +1,4 @@
-export const SET_SEARCH_TERM = 'SET_SEARCH_TERM'
-
-export function updateSearchTerm(searchTerm) {
-  return {
-    type: SET_SEARCH_TERM,
-    searchTerm
-  }
-}
+import {SET_SEARCH_TERM} from './actions';
 
 const ACTION_HANDLERS = {
   [SET_SEARCH_TERM]: (searchTerm, { searchTerm: newSearchTerm }) => newSearchTerm
