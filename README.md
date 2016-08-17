@@ -25,3 +25,8 @@ in the npm registry.
 npm install
 npm run publish
 ```
+
+### Setup Linting with IntelliJ
+- Install ESLint Plugin
+- Settings (Preferences on Mac) | Languages & Frameworks | JavaScript |  Code Quality Tools --enable
+- Settings (Preferences on Mac) | Editor | Inspections | Code style issues | Unterminated statement -- disable
