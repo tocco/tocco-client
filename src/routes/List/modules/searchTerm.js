@@ -1,14 +1,14 @@
-export const UPDATE_SEARCH_TERM = 'UPDATE_SEARCH_TERM'
+export const SET_SEARCH_TERM = 'SET_SEARCH_TERM'
 
 export function updateSearchTerm(searchTerm) {
   return {
-    type: UPDATE_SEARCH_TERM,
+    type: SET_SEARCH_TERM,
     searchTerm
   }
 }
 
 const ACTION_HANDLERS = {
-  [UPDATE_SEARCH_TERM]: (searchTerm, { searchTerm: newSearchTerm }) => newSearchTerm
+  [SET_SEARCH_TERM]: (searchTerm, { searchTerm: newSearchTerm }) => newSearchTerm
 }
 
 const initialState = ''

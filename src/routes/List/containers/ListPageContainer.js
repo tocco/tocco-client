@@ -4,6 +4,7 @@ import { updateSearchTerm } from '../modules/searchTerm'
 import { setLiveSearch } from '../modules/liveSearch'
 import { setOrdering } from '../modules/ordering'
 import { setEntityModel } from '../modules/entityModel'
+import { lazyLoading } from '../modules/lazyLoad'
 import { fetchForm } from '../../../modules/forms'
 import { requestEntityModels } from '../../../modules/entityModels'
 
@@ -16,7 +17,8 @@ const mapActionCreators = {
   setOrdering,
   fetchForm,
   setEntityModel,
-  requestEntityModels
+  requestEntityModels,
+  lazyLoading
 }
 
 const mapStateToProps = (state) => {

@@ -1,11 +1,17 @@
 import * as actions from './actions'
 
 function receiveEntities(state, { data }) {
-  return [].concat(data)
+  return [].concat(state).concat(data)
+}
+
+
+function clearEntityList() {
+  return []
 }
 
 const ACTION_HANDLERS = {
-  [actions.RECEIVE_ENTITIES]: receiveEntities
+  [actions.RECEIVE_ENTITIES]: receiveEntities,
+  [actions.CLEAR_ENTITY_LIST]: clearEntityList
 }
 
 const initialState = []

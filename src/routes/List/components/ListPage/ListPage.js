@@ -2,12 +2,21 @@ import React from 'react'
 import SearchForm from '../../../../components/SearchForm'
 import List from '../../../../components/List'
 
+
+var labelComparer = (a, b) => {
+  if (a.label < b.label)
+    return -1;
+  if (a.label > b.label)
+    return 1;
+  return 0;
+}
+
 const EntityModelSelector = props => (
   <div className="form-horizontal">
     <div className="form-group">
       <select className="form-control" value={props.value ? props.value : ''} onChange={e => props.setEntityModel(e.target.value)}>
         <option key="empty" value="">Entität auswählen</option>
-        {props.options.map(option => <option key={option.name} value={option.name}>{option.label}</option>)}
+        {props.options.sort(labelComparer).map(option => <option key={option.name} value={option.name}>{option.label} ({option.name})</option>)}
       </select>
     </div>
   </div>
@@ -39,7 +48,7 @@ class ListPage extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.list.entityModel && this.props.list.entityModel !== nextProps.list.entityModel) {
       this.props.fetchForm(nextProps.list.entityModel + '_list')
-      this.props.requestEntities(nextProps.list.entityModel, nextProps.list.searchTerm, nextProps.list.ordering)
+      this.props.requestEntities()
     }
   }
 
@@ -59,7 +68,7 @@ class ListPage extends React.Component {
     } else if (!formAvailable) {
       component = <div>Liste wird geladen</div>
     } else {
-      component = <List data={this.props.list.list} form={form} ordering={ordering} setOrdering={this.props.setOrdering}/>
+      component = <List data={this.props.list.list} form={form} ordering={ordering} setOrdering={this.props.setOrdering} lazyLoading={this.props.lazyLoading}/>
     }
 
     return (
@@ -73,7 +82,7 @@ class ListPage extends React.Component {
           entityModel={entityModel}
           searchTerm={this.props.list.searchTerm}
           updateSearchTerm={this.props.updateSearchTerm}
-          submit={(searchTerm, delay) => { this.props.requestEntities(entityModel, searchTerm, ordering, delay) }}
+          submit={this.props.updateSearchTerm}
           liveSearch={this.props.list.liveSearch}
           disabled={!entityModelSelected}
         />
@@ -95,7 +104,8 @@ ListPage.propTypes = {
   ordering: React.PropTypes.object.isRequired,
   setOrdering: React.PropTypes.func.isRequired,
   setLiveSearch: React.PropTypes.func,
-  setEntityModel: React.PropTypes.func
+  setEntityModel: React.PropTypes.func,
+  lazyLoading: React.PropTypes.func.isRequired
 }
 
 export default ListPage
