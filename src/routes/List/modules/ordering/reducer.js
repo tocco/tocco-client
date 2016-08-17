@@ -1,6 +1,5 @@
-import {SET_ORDERING} from './actions';
-import {INIT_LIST} from "../actions";
-
+import {SET_ORDERING} from './actions'
+import {INIT_LIST} from '../actions'
 
 var setOrdering = (ordering, { ordering: newOrdering }) => {
   var state = {name: newOrdering}
@@ -19,7 +18,8 @@ const ACTION_HANDLERS = {
 
 const initialState = null
 
-export default function orderingReducer(state: ordering = initialState, action: Action) {
+export default function orderingReducer(state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
   return handler ? handler(state, action) : state
 }
+

@@ -2,13 +2,12 @@ import React from 'react'
 import SearchForm from '../../../../components/SearchForm'
 import List from '../../../../components/List'
 
-
 var labelComparer = (a, b) => {
   if (a.label < b.label)
-    return -1;
+    return -1
   if (a.label > b.label)
-    return 1;
-  return 0;
+    return 1
+  return 0
 }
 
 const EntityModelSelector = props => (
@@ -68,7 +67,8 @@ class ListPage extends React.Component {
     } else if (!formAvailable) {
       component = <div>Liste wird geladen</div>
     } else {
-      component = <List data={this.props.list.data} form={form} ordering={ordering} setOrdering={this.props.setOrdering} lazyLoading={this.props.lazyLoading}/>
+      component = <List data={this.props.list.data} form={form} ordering={ordering}
+        setOrdering={this.props.setOrdering} lazyLoading={this.props.lazyLoading} />
     }
 
     return (

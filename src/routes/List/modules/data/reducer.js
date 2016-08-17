@@ -1,6 +1,5 @@
 import {RECEIVE_ENTITIES, CLEAR_ENTITY_LIST} from './actions'
-import {INIT_LIST} from "../actions";
-
+import {INIT_LIST} from '../actions'
 
 function receiveEntities(state, {data}) {
   return [].concat(state).concat(data)
