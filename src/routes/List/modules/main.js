@@ -14,7 +14,7 @@ export default combineReducers({
   entityModel
 })
 
-export function* sagas () {
+export function* sagas() {
   yield [
     fork(moduleSagas)
   ]
