@@ -4,13 +4,12 @@ import {call, put, fork, select} from 'redux-saga/effects'
 
 import {SET_SEARCH_TERM} from './searchTerm/actions'
 import {SET_ORDERING} from './ordering/actions'
-import {REQUEST_ENTITIES, LAZY_LOAD, receiveEntities, clearEntityList} from './data/actions'
+import {REQUEST_ENTITIES, LAZY_LOAD, receiveEntities, clearEntityList, requestEntities} from './data/actions'
 import {SET_ENTITY_MODEL} from './entityModel/actions'
 import {initList} from './actions'
 
 export function loadEntities(model, searchTerm, ordering, offSet) {
   return new Promise(resolve => {
-
     const sort = ordering ? (ordering.name + ' ' + ordering.direction) : ''
     var url = `${__BACKEND_URL__}/nice2/rest/entities/${model}?_search=${searchTerm}&_sort=${sort}&_offset=${offSet}&_limit=${3}`
     fetch(url, {
@@ -30,16 +29,17 @@ function* fetchEntities() {
 
 export function* searchTermWatcher() {
   yield put(clearEntityList())
-  yield call(fetchEntities)
+  yield put(requestEntities())
 }
 
 export function* orderingWatcher() {
   yield put(clearEntityList())
-  yield call(fetchEntities)
+  yield put(requestEntities())
 }
 
 export function* entityModelWatcher() {
   yield put(initList())
+  yield put(requestEntities())
 }
 
 export default function* sagas() {

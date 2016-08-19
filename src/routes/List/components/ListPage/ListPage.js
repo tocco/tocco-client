@@ -40,14 +40,13 @@ class ListPage extends React.Component {
     this.props.requestEntityModels()
     if (this.props.list.entityModel) {
       this.props.fetchForm(this.props.list.entityModel + '_list')
-      this.props.requestEntities(this.props.list.entityModel, this.props.list.searchTerm, this.props.list.ordering)
+    //  this.props.requestEntities(this.props.list.entityModel, this.props.list.searchTerm, this.props.list.ordering)
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.list.entityModel && this.props.list.entityModel !== nextProps.list.entityModel) {
       this.props.fetchForm(nextProps.list.entityModel + '_list')
-      this.props.requestEntities()
     }
   }
 

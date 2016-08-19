@@ -7,19 +7,23 @@ import createStore from './store/createStore'
 import { Provider } from 'react-redux'
 import useMultiHash from './history/useMultiHash'
 
-const init = (id) => {
+const init = (id, input) => {
   // Configure history for react-router
   const hashHistory = useRouterHistory(useMultiHash(createHashHistory))({
     basename: __BASENAME__,
     queryKey: false,
-    id,
+    id
   })
 
-  // Create redux store and sync with react-router-redux. We have installed the
-  // react-router-redux reducer under the key "router" in src/routes/index.js,
-  // so we need to provide a custom `selectLocationState` to inform
-  // react-router-redux of its location.
-  const store = createStore(window.__INITIAL_STATE__, hashHistory)
+  var inititalState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {}
+
+  //input = {entityName: 'Membership', selectedEntities:[ '1', '2']}
+
+  if (input) {
+    inititalState.input = input
+  }
+  console.log('initstate', inititalState)
+  const store = createStore(inititalState, hashHistory)
   const history = syncHistoryWithStore(hashHistory, store, {
     selectLocationState: (state) => state.router
   })
@@ -39,7 +43,7 @@ if (__DEV__) {
   const mountElement = document.getElementById('root')
 
   let render = () => {
-    const element = React.createElement(init());
+    const element = React.createElement(init())
     ReactDOM.render(element, mountElement)
   }
 
