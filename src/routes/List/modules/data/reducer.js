@@ -1,7 +1,11 @@
-import {RECEIVE_ENTITIES, CLEAR_ENTITY_LIST} from './actions'
+import {RECEIVE_ENTITIES, RECEIVE_LAZYLOADED_ENTITIES, CLEAR_ENTITY_LIST} from './actions'
 import {INIT_LIST} from '../actions'
 
 function receiveEntities(state, {data}) {
+  return [].concat(data)
+}
+
+function receiveLazyLoadedEntities(state, {data}) {
   return [].concat(state).concat(data)
 }
 
@@ -11,6 +15,7 @@ function clearEntityList() {
 
 const ACTION_HANDLERS = {
   [RECEIVE_ENTITIES]: receiveEntities,
+  [RECEIVE_LAZYLOADED_ENTITIES]: receiveLazyLoadedEntities,
   [CLEAR_ENTITY_LIST]: clearEntityList,
   [INIT_LIST]: clearEntityList
 }

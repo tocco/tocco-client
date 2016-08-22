@@ -1,10 +1,11 @@
 import fetch from 'isomorphic-fetch'
-import {takeLatest, delay} from 'redux-saga'
+import {takeLatest, takeEvery, delay} from 'redux-saga'
 import {call, put, fork, select} from 'redux-saga/effects'
 
 import {SET_SEARCH_TERM} from './searchTerm/actions'
 import {SET_ORDERING} from './ordering/actions'
-import {REQUEST_ENTITIES, LAZY_LOAD, receiveEntities, clearEntityList, requestEntities} from './data/actions'
+import {receiveEntities, receiveLazyLoadedEntities, clearEntityList, requestEntities} from './data/actions'
+import {REQUEST_ENTITIES, LAZY_LOAD} from './data/actions'
 import {SET_ENTITY_MODEL} from './entityModel/actions'
 import {initList} from './actions'
 
@@ -21,23 +22,25 @@ export function loadEntities(model, searchTerm, ordering, offSet) {
 function* fetchEntities() {
   var listState = yield select(state => state.list)
   const {entityModel, searchTerm, ordering} = listState
-  var offSet = listState.data.length
   yield call(delay, 300)
-  const entities = yield call(loadEntities, entityModel, searchTerm, ordering, offSet)
+  const entities = yield call(loadEntities, entityModel, searchTerm, ordering, 0)
   yield put(receiveEntities(entities))
 }
 
-export function* searchTermWatcher() {
+function* lazyFetchEntities() {
+  var listState = yield select(state => state.list)
+  const {entityModel, searchTerm, ordering} = listState
+  var offSet = listState.data.length
+  const entities = yield call(loadEntities, entityModel, searchTerm, ordering, offSet)
+  yield put(receiveLazyLoadedEntities(entities))
+}
+
+export function* clearListAndRequestEntities() {
   yield put(clearEntityList())
   yield put(requestEntities())
 }
 
-export function* orderingWatcher() {
-  yield put(clearEntityList())
-  yield put(requestEntities())
-}
-
-export function* entityModelWatcher() {
+export function* initListAndRequestEntites() {
   yield put(initList())
   yield put(requestEntities())
 }
@@ -45,9 +48,9 @@ export function* entityModelWatcher() {
 export default function* sagas() {
   yield [
     fork(takeLatest, REQUEST_ENTITIES, fetchEntities),
-    fork(takeLatest, SET_ORDERING, orderingWatcher),
-    fork(takeLatest, LAZY_LOAD, fetchEntities),
-    fork(takeLatest, SET_SEARCH_TERM, searchTermWatcher),
-    fork(takeLatest, SET_ENTITY_MODEL, entityModelWatcher)
+    fork(takeLatest, SET_ORDERING, clearListAndRequestEntities),
+    fork(takeLatest, SET_SEARCH_TERM, clearListAndRequestEntities),
+    fork(takeEvery, LAZY_LOAD, lazyFetchEntities),
+    fork(takeLatest, SET_ENTITY_MODEL, initListAndRequestEntites)
   ]
 }

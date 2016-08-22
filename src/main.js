@@ -22,7 +22,6 @@ const init = (id, input) => {
   if (input) {
     inititalState.input = input
   }
-  console.log('initstate', inititalState)
   const store = createStore(inititalState, hashHistory)
   const history = syncHistoryWithStore(hashHistory, store, {
     selectLocationState: (state) => state.router
