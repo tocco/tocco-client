@@ -11,7 +11,7 @@ const config = {
   // Project Structure
   // ----------------------------------
   path_base  : path.resolve(__dirname, '..'),
-  dir_client : 'src',
+  dir_client : '',
   dir_dist   : 'dist',
   dir_server : 'server',
   dir_test   : 'tests',
@@ -71,7 +71,7 @@ config.globals = {
   '__DEBUG__'    : config.env === 'development' && !argv.no_debug,
   '__BASENAME__' : JSON.stringify(process.env.BASENAME || ''),
   '__BACKEND_URL__': JSON.stringify(''),
-  '__APP_NAME__'   : JSON.stringify(require(path.resolve(config.path_base, 'package.json')).name)
+  '__PACKAGE__'   : process.env.npm_config_package
 }
 
 // ------------------------------------
@@ -83,8 +83,7 @@ const base = (...args) =>
 
 config.utils_paths = {
   base   : base,
-  client : base.bind(null, config.dir_client),
-  dist   : base.bind(null, config.dir_dist)
+  client : base.bind(null, config.dir_client)
 }
 
 export default config

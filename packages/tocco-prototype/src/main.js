@@ -72,6 +72,6 @@ if (__DEV__) {
   render()
 } else {
   if (window.reactRegistry) {
-    window.reactRegistry.register(__APP_NAME__, init)
+    window.reactRegistry.register(__PACKAGE__, init)
   }
 }

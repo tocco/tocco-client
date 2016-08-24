@@ -4,13 +4,15 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import config from '../config'
 import _debug from 'debug'
-import CreatePackageJsonPlugin from '../bin/create-package-json'
 
 const debug = _debug('app:webpack:config')
 const paths = config.utils_paths
-const {__DEV__, __PROD__, __TEST__} = config.globals
+const {__DEV__, __PROD__, __TEST__, __PACKAGE__} = config.globals
+console.log('--------------------------------- -----------------------')
+const packageDir = `packages/${__PACKAGE__}`
+const absolutePackagePath = paths.client(`${packageDir}/`)
 
-const packageName = require(paths.base('package.json')).name
+const outputDir = absolutePackagePath + '/dist'
 
 debug('Create configuration.')
 const webpackConfig = {
@@ -18,7 +20,7 @@ const webpackConfig = {
   target: 'web',
   devtool: config.compiler_devtool,
   resolve: {
-    root: paths.client(),
+    root: paths.client() + packageDir,
     extensions: ['', '.js', '.jsx', '.json']
   },
   module: {}
@@ -34,7 +36,7 @@ if (!__TEST__) {
 // ------------------------------------
 // Entry Points
 // ------------------------------------
-const APP_ENTRY_PATH = paths.client('main.js')
+const APP_ENTRY_PATH = paths.client(`${packageDir}/src/main.js`)
 
 webpackConfig.entry = {
   app: __DEV__
@@ -46,12 +48,12 @@ webpackConfig.entry = {
 // Bundle Output
 // ------------------------------------
 webpackConfig.output = {
-  filename: `index.js`,
-  path: paths.dist(),
+  filename: 'index.js',
+  path: outputDir,
   publicPath: config.compiler_public_path
 }
 if (__PROD__) {
-  webpackConfig.output.publicPath = `/nice2/node_modules/${packageName}/`
+  webpackConfig.output.publicPath = `/nice2/node_modules/${__PACKAGE__}/dist/`
 }
 
 // ------------------------------------
@@ -64,7 +66,7 @@ webpackConfig.plugins = [
 if (__DEV__) {
   webpackConfig.plugins.push(
     new HtmlWebpackPlugin({
-      template: paths.client('index.html'),
+      template: paths.client('server/index.html'),
       hash: false,
       filename: 'index.html',
       inject: 'body',
@@ -90,51 +92,15 @@ if (__DEV__) {
         dead_code: true,
         warnings: false
       }
-    }),
-    new CreatePackageJsonPlugin({
-      sourcePackageFile: paths.base('package.json'),
-      targetDir: paths.dist()
     })
   )
 }
 
-// ------------------------------------
-// Pre-Loaders
-// ------------------------------------
-/*
-[ NOTE ]
-We no longer use eslint-loader due to it severely impacting build
-times for larger projects. `npm run lint` still exists to aid in
-deploy processes (such as with CI), and it's recommended that you
-use a linting plugin for your IDE in place of this loader.
-
-If you do wish to continue using the loader, you can uncomment
-the code below and run `npm i --save-dev eslint-loader`. This code
-will be removed in a future release.
-
-webpackConfig.module.preLoaders = [{
-  test: /\.(js|jsx)$/,
-  loader: 'eslint',
-  exclude: /node_modules/
-}]
-
-webpackConfig.eslint = {
-  configFile: paths.base('.eslintrc'),
-  emitWarning: __DEV__
-}
-*/
-
-// ------------------------------------
-// Loaders
-// ------------------------------------
-// JavaScript / JSON
-
-var presets = ['es2015', 'react', 'stage-0'];
+var presets = ['es2015', 'react', 'stage-0']
 
 if (__DEV__) {
   presets.push('react-hmre')
 }
-
 
 webpackConfig.module.loaders = [{
   test: /\.(js|jsx)$/,
@@ -158,7 +124,6 @@ webpackConfig.module.loaders = [{
   test: /\.json$/,
   loader: 'json'
 }]
-
 
 // ------------------------------------
 // Style Loaders
