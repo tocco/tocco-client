@@ -1,4 +1,7 @@
 import React from 'react'
+
+import {ToccoLogo} from 'tocco-ui'
+
 import SearchForm from '../../../../components/SearchForm'
 import List from '../../../../components/List'
 
@@ -72,6 +75,7 @@ class ListPage extends React.Component {
 
     return (
       <div className="ListPage" style={{padding: '1em'}}>
+        <ToccoLogo />
         <EntityModelSelector
           value={this.props.list.entityModel}
           options={this.props.entityModels}

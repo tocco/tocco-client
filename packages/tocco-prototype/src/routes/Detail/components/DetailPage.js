@@ -1,6 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router';
-import classNames from 'classnames'
+import { Link } from 'react-router'
 import DetailForm from './DetailForm'
 import classes from './DetailPage.scss'
 import { visit, Visitor } from '../../../utils/formVisitor'
@@ -55,8 +54,7 @@ DetailPage.propTypes = {
   formName: React.PropTypes.string.isRequired,
   updateEntity: React.PropTypes.func.isRequired,
   fetchForm: React.PropTypes.func.isRequired,
-  forms: React.PropTypes.object.isRequired,
+  forms: React.PropTypes.object.isRequired
 }
-
 
 export default DetailPage

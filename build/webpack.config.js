@@ -8,7 +8,7 @@ import _debug from 'debug'
 const debug = _debug('app:webpack:config')
 const paths = config.utils_paths
 const {__DEV__, __PROD__, __TEST__, __PACKAGE__} = config.globals
-console.log('--------------------------------- -----------------------')
+
 const packageDir = `packages/${__PACKAGE__}`
 const absolutePackagePath = paths.client(`${packageDir}/`)
 
@@ -50,7 +50,8 @@ webpackConfig.entry = {
 webpackConfig.output = {
   filename: 'index.js',
   path: outputDir,
-  publicPath: config.compiler_public_path
+  publicPath: config.compiler_public_path,
+  libraryTarget: 'umd'
 }
 if (__PROD__) {
   webpackConfig.output.publicPath = `/nice2/node_modules/${__PACKAGE__}/dist/`
