@@ -6,7 +6,7 @@
           "name": "user_nr",
           "type": "counter",
           "value": 87,
-          "writable": true
+          "writable": false
         },
         "firstname": {
           "name": "firstname",
@@ -46,7 +46,7 @@
           "name": "relUser_status",
           "values": [
             {
-              "checked": false,
+              "checked": true,
               "label": "Prüfen",
               "pk": "3"
             }
@@ -59,7 +59,7 @@
             {
               "checked": true,
               "label": "Präsident",
-              "pk":  "1"
+              "pk": "1"
             },
             {
               "checked": true,
@@ -133,12 +133,12 @@
               "pk": "1"
             },
             {
-              "checked": true,
+              "checked": false,
               "label": "Geschäftsleitung",
               "pk": "2"
             }
           ],
-          "writable": false
+          "writable": true
         }
       }
     }
@@ -183,8 +183,5 @@
         "toMany": true
       }
     ]
-  },
-  "layoutConfig": {
-    "columns": 3
   }
 }

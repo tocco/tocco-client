@@ -22,9 +22,7 @@ const init = (id, input) => {
 
   if (input) {
     inititalState.input = input
-    console.log('got input', input)
   }
-
 
   const store = createStore(inititalState, hashHistory)
   const history = syncHistoryWithStore(hashHistory, store, {

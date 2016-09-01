@@ -1,47 +1,27 @@
 import {takeEvery} from 'redux-saga'
 import {call, fork, select, put} from 'redux-saga/effects'
-
+import sendDrwRequest from '../../../utils/Dwr'
+import createMergeResult from '../../../utils/MergeActionResult'
 import {SAVE_MERGE} from './actions'
 import {CHANGE_TARGET_ENTITY} from './actions'
-
 import {selectSourceField, selectSourceRelation} from './selections/actions'
 
-function createMergeResult(mergeMatrixState) {
-  var result = {
-    model: 'User',
-    targetEntity: mergeMatrixState.targetEntityPk,
-    data: mergeMatrixState.selections
-  }
-
-  return result
-}
-
-function sendDwr(mergeResult) {
-  return new Promise((resolve) => {
-    console.log('send dwr')
-    console.log('nice2.netui.dwr.RemoteService.call', nice2.netui.dwr.RemoteService.call)
-
-    nice2.netui.dwr.RemoteService.call({
-      remoteService: 'nice2_entityoperation_MergeEntitiesService',
-      method: 'getMergeConfig',
-      args: [mergeResult],
-      success: function(res) {
-        resolve(res)
-      }
+function sendDwr(mergeActionResult) {
+  if (__DEV__) {
+    console.log('dev mode. would send dwr', mergeActionResult,JSON.stringify(mergeActionResult))
+    return new Promise((resolve) => {
+      return resolve()
     })
-  })
+  } else {
+    return sendDrwRequest('nice2_entityoperation_MergeEntitiesService')
+  }
 }
 
 function* save() {
   var mergeMatrixState = yield select(state => state.mergeMatrix)
-  console.log('mergeMatrixState', mergeMatrixState)
-  var result = createMergeResult(mergeMatrixState)
-
-  if (__DEV__) {
-    console.log('Would send drw:', result)
-  } else {
-    const result = yield call(sendDwr, result)
-  }
+  var mergeActionResult = createMergeResult(mergeMatrixState)
+  var requestResult = yield call(sendDwr, mergeActionResult)
+  console.log('requestResult', requestResult)
 }
 
 function* selectTargetEntityFields({pk}) {
