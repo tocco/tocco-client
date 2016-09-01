@@ -1,9 +1,9 @@
 import React from 'react'
-import classes from './ToccoLogo.scss'
+import './ToccoLogo.css'
 
 const ToccoLogo = (props) => (
   <div>
-    <h1 className={classes.MyRedTitle}>Tocco AG</h1>
+    <h1 className="MyRedTitle">Tocco AG</h1>
   </div>
 )
 
