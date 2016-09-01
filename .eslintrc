@@ -25,6 +25,8 @@
     "generator-star-spacing": 0,
     "babel/generator-star-spacing": 1,
     "space-before-function-paren": [2, "never"],
-    "no-trailing-spaces": ["error", { "skipBlankLines": true }]
+    "no-trailing-spaces": ["error", { "skipBlankLines": true }],
+
+    "react/jsx-space-before-closing": [2, "never"]
   }
 }
