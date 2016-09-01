@@ -1,0 +1,20 @@
+.merger-matrix-selected-col{
+ background-color: AliceBlue ;
+}
+
+.merger-matrix-selected-th{
+  color: LightCoral;
+}
+
+.merger-matrix-th{
+  color: lightgrey;
+}
+
+.merger-icon-spacer{
+  width: 20px;
+  float:left
+}
+
+.disabled {
+  color: gray;
+}

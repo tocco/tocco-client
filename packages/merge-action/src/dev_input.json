@@ -1,0 +1,190 @@
+{
+  "entities": [
+    {
+      "fields": {
+        "user_nr": {
+          "name": "user_nr",
+          "type": "counter",
+          "value": 87,
+          "writable": true
+        },
+        "firstname": {
+          "name": "firstname",
+          "type": "string",
+          "value": "Steven",
+          "writable": false
+        },
+        "lastname": {
+          "name": "lastname",
+          "type": "string",
+          "value": "Busse",
+          "writable": true
+        },
+        "email": {
+          "name": "email",
+          "type": "email",
+          "value": "",
+          "writable": true
+        },
+        "callname": {
+          "name": "callname",
+          "type": "string",
+          "value": "",
+          "writable": true
+        },
+        "birthdate": {
+          "name": "birthdate",
+          "type": "birthdate",
+          "value": "1976-03-15T23:00:00.000Z",
+          "writable": true
+        }
+      },
+      "label": "Busse, Steven",
+      "pk": "1268",
+      "relations": {
+        "relUser_status": {
+          "name": "relUser_status",
+          "values": [
+            {
+              "checked": false,
+              "label": "Prüfen",
+              "pk": "3"
+            }
+          ],
+          "writable": true
+        },
+        "relUser_code1": {
+          "name": "relUser_code1",
+          "values": [
+            {
+              "checked": true,
+              "label": "Präsident",
+              "pk":  "1"
+            },
+            {
+              "checked": true,
+              "label": "Geschäftsleitung",
+              "pk": "2"
+            }
+          ],
+          "writable": true
+        }
+      }
+    },
+    {
+      "fields": {
+        "user_nr": {
+          "name": "user_nr",
+          "type": "counter",
+          "value": 105,
+          "writable": true
+        },
+        "firstname": {
+          "name": "firstname",
+          "type": "string",
+          "value": "testnl",
+          "writable": true
+        },
+        "lastname": {
+          "name": "lastname",
+          "type": "string",
+          "value": "test",
+          "writable": true
+        },
+        "email": {
+          "name": "email",
+          "type": "email",
+          "value": "testnl@tocco.ch",
+          "writable": true
+        },
+        "callname": {
+          "name": "callname",
+          "type": "string",
+          "value": "test",
+          "writable": true
+        },
+        "birthdate": {
+          "name": "birthdate",
+          "type": "birthdate",
+          "value": null,
+          "writable": true
+        }
+      },
+      "label": "test, testnl",
+      "pk": "2152",
+      "relations": {
+        "relUser_status": {
+          "name": "relUser_status",
+          "values": [
+            {
+              "checked": true,
+              "label": "Aktiv",
+              "pk": "1"
+            }
+          ],
+          "writable": true
+        },
+        "relUser_code1": {
+          "name": "relUser_code1",
+          "values": [
+            {
+              "checked": false,
+              "label": "Präsident",
+              "pk": "1"
+            },
+            {
+              "checked": true,
+              "label": "Geschäftsleitung",
+              "pk": "2"
+            }
+          ],
+          "writable": false
+        }
+      }
+    }
+  ],
+  "model": {
+    "fields": [
+      {
+        "label": "Personen-Nr.",
+        "name": "user_nr"
+      },
+      {
+        "label": "Vorname",
+        "name": "firstname"
+      },
+      {
+        "label": "Nachname",
+        "name": "lastname"
+      },
+      {
+        "label": "E-Mail",
+        "name": "email"
+      },
+      {
+        "label": "Rufname",
+        "name": "callname"
+      },
+      {
+        "label": "Geburtsdatum",
+        "name": "birthdate"
+      }
+    ],
+    "modelName": "User",
+    "relations": [
+      {
+        "label": "Status Person",
+        "name": "relUser_status",
+        "toMany": false
+      },
+      {
+        "label": "Personen-Code 1",
+        "name": "relUser_code1",
+        "toMany": true
+      }
+    ]
+  },
+  "layoutConfig": {
+    "columns": 3
+  }
+}
