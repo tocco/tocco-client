@@ -6,6 +6,8 @@ import {SAVE_MERGE} from './actions'
 import {CHANGE_TARGET_ENTITY} from './actions'
 import {selectSourceField, selectSourceRelation} from './selections/actions'
 
+export const mergeMatrixSelector = state => state.mergeMatrix
+
 function sendDwr(mergeActionResult) {
   if (__DEV__) {
     console.log('dev mode. would send dwr', mergeActionResult,JSON.stringify(mergeActionResult))
@@ -18,14 +20,14 @@ function sendDwr(mergeActionResult) {
 }
 
 function* save() {
-  var mergeMatrixState = yield select(state => state.mergeMatrix)
+  var mergeMatrixState = yield select(mergeMatrixSelector)
   var mergeActionResult = createMergeResult(mergeMatrixState)
   var requestResult = yield call(sendDwr, mergeActionResult)
   console.log('requestResult', requestResult)
 }
 
-function* selectTargetEntityFields({pk}) {
-  var mergeMatrixState = yield select(state => state.mergeMatrix)
+export function* selectTargetEntityFields({pk}) {
+  var mergeMatrixState = yield select(mergeMatrixSelector)
 
   yield mergeMatrixState.model.fields.map(field => put(selectSourceField(field.name, pk)))
 
