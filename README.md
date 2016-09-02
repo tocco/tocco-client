@@ -14,8 +14,20 @@ npm install
 lerna bootstrap
 npm start --package={PACKAGE_NAME}
 ```
-
 Open http://localhost:3000 and start coding!
+
+#### Tests
+All packages:
+```
+npm test
+```
+
+Single Package:
+```
+npm test --package={PACKAGE_NAME}
+```
+
+
 
 ## Publish bundle
 

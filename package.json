@@ -145,6 +145,7 @@
     "karma-mocha": "^1.1.1",
     "karma-mocha-reporter": "^2.0.4",
     "karma-phantomjs-launcher": "^1.0.1",
+    "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack-with-fast-source-maps": "^1.9.2",
     "lerna": "2.0.0-beta.26",
     "mocha": "^2.2.5",

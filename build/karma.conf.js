@@ -6,12 +6,17 @@ import _debug from 'debug'
 const debug = _debug('app:karma')
 debug('Create configuration.')
 
+var packageDir = ''
+if (config.globals.__PACKAGE__) {
+  packageDir = `/packages/${config.globals.__PACKAGE__}/`
+}
+
 const karmaConfig = {
   basePath: '../', // project root in relation to bin/karma.js
   files: [
     './node_modules/phantomjs-polyfill/bind-polyfill.js',
     {
-      pattern: `./${config.dir_test}/test-bundler.js`,
+      pattern: `./${packageDir}/${config.dir_test}/test-bundler.js`,
       watched: false,
       served: true,
       included: true
@@ -21,11 +26,11 @@ const karmaConfig = {
   frameworks: ['mocha'],
   reporters: ['mocha'],
   preprocessors: {
-    [`${config.dir_test}/test-bundler.js`]: ['webpack']
+    [`./${packageDir}/${config.dir_test}/test-bundler.js`]: ['webpack', 'sourcemap']
   },
   browsers: ['PhantomJS'],
   webpack: {
-    devtool: 'cheap-module-source-map',
+    devtool: 'inline-source-map',
     resolve: {
       ...webpackConfig.resolve,
       alias: {
