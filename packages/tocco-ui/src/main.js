@@ -1,5 +1,4 @@
 import ToccoLogo from './ToccoLogo'
-//import 'ToccoLogo/ToccoLogo.scss'
 
 var exports = { ToccoLogo }
 
