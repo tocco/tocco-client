@@ -15,20 +15,6 @@ const init = (id, input) => {
     id
   })
 
-  console.log("DWR")
-  console.log("m", nice2.netui.dwr.RemoteService)
-
-  nice2.netui.dwr.RemoteService.call({
-    remoteService : 'nice2_optional_correspondence_CorrespondenceActionService',
-    method : 'getTargets',
-    args : [],
-    mask : false,
-    success : function (communicationTargets) {
-      console.log("succc")
-      console.log(communicationTargets)
-    }
-  });
-
 
   var inititalState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {}
 
