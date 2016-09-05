@@ -12,6 +12,8 @@ const MultiSelection = props => {
       props.entity.pk)
   }
 
+  var clickFnc = (value) => props.onChange(props.relationName, value.pk, props.entity.pk)
+
   return (
     <div>
       {
@@ -22,10 +24,10 @@ const MultiSelection = props => {
                 type="checkbox"
                 className="merger-icon-spacer"
                 disabled={disabled}
-                onChange={() => props.onChange(props.relationName, value.pk, props.entity.pk)}
+                onChange={() => clickFnc(value)}
                 checked={isChecked(value.pk)}
               />
-              <span className={disabled}>{value.label}</span>
+              <span onClick={() => clickFnc(value)} className={disabled}>{value.label}</span>
             </div>
           )
         })

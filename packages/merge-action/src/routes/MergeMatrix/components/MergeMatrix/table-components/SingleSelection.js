@@ -3,16 +3,17 @@ import React from 'react'
 const SingleSelectionCell = props => {
   var cls = props.disabled ? 'disabled' : ''
 
+  var clickFnc = () => props.onChange(props.identifier, props.pk)
   return (
     <div className={cls}>
       <input
         className="merger-icon-spacer"
         type="radio"
         disabled={cls}
-        onChange={() => props.onChange(props.identifier, props.pk)}
+        onChange={clickFnc}
         name={props.identifier} checked={props.checked}
       />
-      {props.children}
+      <span onClick={clickFnc}>{props.children}</span>
     </div>
   )
 }
