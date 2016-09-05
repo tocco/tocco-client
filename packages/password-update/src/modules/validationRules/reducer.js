@@ -1,5 +1,7 @@
+import * as actions from './actions'
 
 const ACTION_HANDLERS = {
+  [actions.SET_VALIDATION_RULES]: (state, action) => action.payload.rules
 }
 
 const initialState = []

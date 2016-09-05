@@ -25,6 +25,10 @@ PasswordInput.propTypes = {
 
 class PasswordUpdateDialog extends Component {
 
+  componentWillMount() {
+    this.props.fetchValidationRules();
+  }
+
   render() {
     const { password, validationRules, updateOldPassword, updateNewPassword, updateNewPasswordRepeat } = this.props
 
@@ -69,7 +73,8 @@ PasswordUpdateDialog.propTypes = {
   validationRules: React.PropTypes.array.isRequired,
   updateOldPassword: React.PropTypes.func.isRequired,
   updateNewPassword: React.PropTypes.func.isRequired,
-  updateNewPasswordRepeat: React.PropTypes.func.isRequired
+  updateNewPasswordRepeat: React.PropTypes.func.isRequired,
+  fetchValidationRules: React.PropTypes.func.isRequired
 }
 
 export default PasswordUpdateDialog

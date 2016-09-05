@@ -8,7 +8,7 @@ const init = (id, input) => {
   var initialState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {}
 
   if (__DEV__) {
-    initialState.validationRules = require('./dev_validationRules.json')
+    //initialState.validationRules = require('./dev_validationRules.json')
   }
 
   if (input) {
