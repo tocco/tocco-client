@@ -5,13 +5,17 @@ import { Provider } from 'react-redux'
 import PasswordUpdateDialog from './containers/PasswordUpdateDialogContainer'
 
 const init = (id, input) => {
-  var inititalState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {}
+  var initialState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {}
 
-  if (input) {
-    inititalState.input = input
+  if (__DEV__) {
+    initialState.validationRules = require('./dev_validationRules.json')
   }
 
-  const store = createStore(inititalState)
+  if (input) {
+    initialState.input = input
+  }
+
+  const store = createStore(initialState)
 
   const App = () => (
     <Provider store={store}>

@@ -1,4 +1,5 @@
-import {UPDATE_OLD_PASSWORD, UPDATE_NEW_PASSWORD, UPDATE_NEW_PASSWORD_REPEAT} from './actions'
+import {UPDATE_OLD_PASSWORD, SET_NEW_PASSWORD, SET_NEW_PASSWORD_VALIDATION_ERRORS, UPDATE_NEW_PASSWORD_REPEAT} from './actions'
+import validate from './validate'
 
 function updateOldPassword(state, {payload}) {
   return Object.assign({}, state, {
@@ -6,9 +7,15 @@ function updateOldPassword(state, {payload}) {
   })
 }
 
-function updateNewPassword(state, {payload}) {
+function setNewPassword(state, {payload}) {
   return Object.assign({}, state, {
     newPassword: payload.newPassword
+  })
+}
+
+function setNewPasswordValidationErrors(state, {payload}) {
+  return Object.assign({}, state, {
+    newPasswordValidationErrors: payload.errors
   })
 }
 
@@ -20,7 +27,8 @@ function updateNewPasswordRepeat(state, {payload}) {
 
 const ACTION_HANDLERS = {
   [UPDATE_OLD_PASSWORD]: updateOldPassword,
-  [UPDATE_NEW_PASSWORD]: updateNewPassword,
+  [SET_NEW_PASSWORD]: setNewPassword,
+  [SET_NEW_PASSWORD_VALIDATION_ERRORS]: setNewPasswordValidationErrors,
   [UPDATE_NEW_PASSWORD_REPEAT]: updateNewPasswordRepeat
 }
 
@@ -28,7 +36,7 @@ const initialState = {
   oldPassword: '',
   newPassword: '',
   newPasswordRepeat: '',
-  newPasswordValid: false
+  newPasswordValidationErrors: null
 }
 
 export default function reducer(state = initialState, action) {
