@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import { SaveButton } from 'tocco-ui'
 import PasswordInput from './PasswordInput'
+import PasswordMatchDisplay from './PasswordMatchDisplay'
 import ValidationRules from '../ValidationRules'
 
 class PasswordUpdateDialog extends Component {
@@ -36,6 +38,11 @@ class PasswordUpdateDialog extends Component {
           value={password.newPasswordRepeat}
           onChange={updateNewPasswordRepeat}
           readOnly={!password.newPassword || Object.keys(password.newPasswordValidationErrors).length > 0}
+        />
+        <PasswordMatchDisplay password={password.newPassword} passwordRepeat={password.newPasswordRepeat}/>
+        <SaveButton
+          label="Passwort ändern"
+          disabled={!password.newPasswordRepeat || password.newPassword !== password.newPasswordRepeat}
         />
       </div>
     )
