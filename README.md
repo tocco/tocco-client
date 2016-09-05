@@ -27,6 +27,10 @@ Single Package:
 npm test --package={PACKAGE_NAME}
 ```
 
+During development with watch:
+```
+npm run test:dev --package={PACKAGE_NAME}
+```
 
 
 ## Publish bundle
