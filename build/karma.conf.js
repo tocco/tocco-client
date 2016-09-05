@@ -14,7 +14,7 @@ if (config.globals.__PACKAGE__) {
 const karmaConfig = {
   basePath: '../', // project root in relation to bin/karma.js
   files: [
-    './node_modules/phantomjs-polyfill/bind-polyfill.js',
+    './node_modules/babel-polyfill/dist/polyfill.js',
     {
       pattern: `./${packageDir}/${config.dir_test}/test-bundler.js`,
       watched: false,
