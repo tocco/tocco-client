@@ -11,7 +11,7 @@
   },
   "betterScripts": {
     "deploy": {
-      "command": "npm run clean && npm run compile --package=merge-action",
+      "command": "npm run clean && npm run compile --package=password-update",
       "env": {
         "DEBUG": "app:*"
       }
