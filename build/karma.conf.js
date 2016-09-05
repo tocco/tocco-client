@@ -25,6 +25,9 @@ const karmaConfig = {
   singleRun: !argv.watch,
   frameworks: ['mocha'],
   reporters: ['mocha'],
+  mochaReporter: {
+    showDiff: true
+  },
   preprocessors: {
     [`./${packageDir}/${config.dir_test}/test-bundler.js`]: ['webpack', 'sourcemap']
   },
