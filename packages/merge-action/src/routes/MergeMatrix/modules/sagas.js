@@ -8,7 +8,7 @@ import {selectSourceField, selectSourceRelation} from './selections/actions'
 
 export const mergeMatrixSelector = state => state.mergeMatrix
 
-function sendDwr(mergeActionResult) {
+export function sendDwr(mergeActionResult) {
   if (__DEV__) {
     console.log('dev mode. would send dwr', mergeActionResult,JSON.stringify(mergeActionResult))
     return new Promise((resolve) => {
@@ -19,11 +19,10 @@ function sendDwr(mergeActionResult) {
   }
 }
 
-function* save() {
+export function* save() {
   var mergeMatrixState = yield select(mergeMatrixSelector)
-  var mergeActionResult = createMergeResult(mergeMatrixState)
-  var requestResult = yield call(sendDwr, mergeActionResult)
-  console.log('requestResult', requestResult)
+  var mergeActionResult = yield call(createMergeResult, mergeMatrixState)
+  yield call(sendDwr, mergeActionResult)
 }
 
 export function* selectTargetEntityFields({pk}) {
