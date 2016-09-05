@@ -14,5 +14,21 @@ describe('merge-action', function () {
       expect(onButtonClick).to.have.property('callCount', 1);
     });
 
+    it('can be disabled', () => {
+      const enabled = shallow(
+        <SaveButton/>
+      )
+      expect(enabled.find('button')).to.not.have.attr('disabled')
+
+      const enabledExplicitly = shallow(
+        <SaveButton disabled={false}/>
+      )
+      expect(enabledExplicitly.find('button')).to.not.have.attr('disabled')
+
+      const disabled = shallow(
+        <SaveButton disabled={true}/>
+      )
+      expect(disabled.find('button')).to.have.attr('disabled')
+    })
   })
 })
