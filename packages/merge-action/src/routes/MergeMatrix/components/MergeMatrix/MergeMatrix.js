@@ -3,7 +3,7 @@ import React from 'react'
 import './MegerMatrix.css'
 
 import {HeaderRow, ToManyRelationRow, FieldRow, RelationRow} from './table-components'
-import SaveButton from '../../../../components/SaveButton'
+import { SaveButton } from 'tocco-ui'
 
 class MergeMatrix extends React.Component {
 
