@@ -8,7 +8,7 @@ export const principalPkInputSelector = state => state.input.principalPk
 export const passwordSelector = state => state.password
 
 function storePassword(principalPk, oldPassword, newPassword) {
-  if (__DEV__ && false) {
+  if (__DEV__) {
     if (console) console.log('Store password call would take place now')
     return new Promise(resolve => resolve())
   } else {
