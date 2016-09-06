@@ -13,7 +13,7 @@ Rule.propTypes = {
 const ValidationRules = (props) => (
   <div className="ValidationRules">
     {props.rules.map((rule, index) => {
-      const status = props.errors === null ? 'unknown' : (props.errors[rule.id] === true ? 'invalid' : 'valid')
+      const status = props.errors === null ? 'unknown' : (props.errors[rule.name] === true ? 'invalid' : 'valid')
       return <Rule key={index} status={status} message={rule.message}/>
     })}
   </div>
