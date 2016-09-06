@@ -14,7 +14,8 @@ const mapActionCreators = {
 const mapStateToProps = (state) => {
   return {
     password: state.password,
-    validationRules: state.validationRules
+    validationRules: state.validationRules,
+    showOldPasswordField: state.input.showOldPasswordField
   }
 }
 

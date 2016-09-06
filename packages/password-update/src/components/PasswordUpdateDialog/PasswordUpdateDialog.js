@@ -17,7 +17,9 @@ class PasswordUpdateDialog extends Component {
       = this.props
 
     const oldPasswordReadOnly = password.passwordUpdatePending
-    const newPasswordReadOnly = !password.oldPassword || password.passwordUpdatePending
+    const newPasswordReadOnly =
+      (!password.oldPassword && this.props.showOldPasswordField) ||
+      password.passwordUpdatePending
     const newPasswordRepeatReadOnly =
       !password.newPassword ||
       password.passwordUpdatePending ||
@@ -29,13 +31,14 @@ class PasswordUpdateDialog extends Component {
 
     return (
       <div className="PasswordUpdateDialog">
-        <PasswordInput
-          label="Altes Passwort"
-          name="oldPassword"
-          value={password.oldPassword}
-          onChange={updateOldPassword}
-          readOnly={oldPasswordReadOnly}
-        />
+        {this.props.showOldPasswordField === true &&
+          <PasswordInput
+            label="Altes Passwort"
+            name="oldPassword"
+            value={password.oldPassword}
+            onChange={updateOldPassword}
+            readOnly={oldPasswordReadOnly}
+          />}
         <PasswordInput
           label="Neues Passwort"
           name="newPassword"
@@ -75,6 +78,7 @@ PasswordUpdateDialog.propTypes = {
     newPasswordValidationErrors: React.PropTypes.object
   }).isRequired,
   validationRules: React.PropTypes.array.isRequired,
+  showOldPasswordField: React.PropTypes.bool.isRequired,
   updateOldPassword: React.PropTypes.func.isRequired,
   updateNewPassword: React.PropTypes.func.isRequired,
   updateNewPasswordRepeat: React.PropTypes.func.isRequired,
