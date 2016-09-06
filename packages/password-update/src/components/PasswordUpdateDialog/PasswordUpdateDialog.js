@@ -3,6 +3,8 @@ import { SaveButton } from 'tocco-ui'
 import PasswordInput from './PasswordInput'
 import PasswordMatchDisplay from './PasswordMatchDisplay'
 import ValidationRules from '../ValidationRules'
+import FailureMessage from '../FailureMessage'
+import './PasswordUpdateDialog.scss'
 
 class PasswordUpdateDialog extends Component {
 
@@ -11,22 +13,38 @@ class PasswordUpdateDialog extends Component {
   }
 
   render() {
-    const { password, validationRules, updateOldPassword, updateNewPassword, updateNewPasswordRepeat } = this.props
+    const { password, validationRules, updateOldPassword, updateNewPassword, updateNewPasswordRepeat, savePassword }
+      = this.props
+
+    const oldPasswordReadOnly = password.passwordUpdatePending
+    const newPasswordReadOnly =
+      (!password.oldPassword && this.props.showOldPasswordField) ||
+      password.passwordUpdatePending
+    const newPasswordRepeatReadOnly =
+      !password.newPassword ||
+      password.passwordUpdatePending ||
+      Object.keys(password.newPasswordValidationErrors).length > 0
+    const saveButtonDisabled =
+      !password.newPasswordRepeat ||
+      password.newPassword !== password.newPasswordRepeat ||
+      password.passwordUpdatePending
 
     return (
       <div className="PasswordUpdateDialog">
-        <PasswordInput
-          label="Altes Passwort"
-          name="oldPassword"
-          value={password.oldPassword}
-          onChange={updateOldPassword}
-        />
+        {this.props.showOldPasswordField === true &&
+          <PasswordInput
+            label="Altes Passwort"
+            name="oldPassword"
+            value={password.oldPassword}
+            onChange={updateOldPassword}
+            readOnly={oldPasswordReadOnly}
+          />}
         <PasswordInput
           label="Neues Passwort"
           name="newPassword"
           value={password.newPassword}
           onChange={updateNewPassword}
-          readOnly={!password.oldPassword}
+          readOnly={newPasswordReadOnly}
         />
         <ValidationRules
           rules={validationRules}
@@ -37,13 +55,16 @@ class PasswordUpdateDialog extends Component {
           name="newPasswordRepeat"
           value={password.newPasswordRepeat}
           onChange={updateNewPasswordRepeat}
-          readOnly={!password.newPassword || Object.keys(password.newPasswordValidationErrors).length > 0}
+          readOnly={newPasswordRepeatReadOnly}
         />
         <PasswordMatchDisplay password={password.newPassword} passwordRepeat={password.newPasswordRepeat}/>
         <SaveButton
           label="Passwort ändern"
-          disabled={!password.newPasswordRepeat || password.newPassword !== password.newPasswordRepeat}
+          disabled={saveButtonDisabled}
+          onClick={savePassword}
+          className={password.passwordUpdatePending ? 'update-pending' : ''}
         />
+        {password.passwordUpdateFailed === true && <FailureMessage/>}
       </div>
     )
   }
@@ -57,10 +78,12 @@ PasswordUpdateDialog.propTypes = {
     newPasswordValidationErrors: React.PropTypes.object
   }).isRequired,
   validationRules: React.PropTypes.array.isRequired,
+  showOldPasswordField: React.PropTypes.bool.isRequired,
   updateOldPassword: React.PropTypes.func.isRequired,
   updateNewPassword: React.PropTypes.func.isRequired,
   updateNewPasswordRepeat: React.PropTypes.func.isRequired,
-  fetchValidationRules: React.PropTypes.func.isRequired
+  fetchValidationRules: React.PropTypes.func.isRequired,
+  savePassword: React.PropTypes.func.isRequired
 }
 
 export default PasswordUpdateDialog

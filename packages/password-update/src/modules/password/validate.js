@@ -1,7 +1,15 @@
-const CHARACTER_TYPE_EXPRESSIONS = {
-  'LowerCase': /[a-z]/g,
-  'UpperCase': /[A-Z]/g,
-  'Digit': /[0-9]/g
+
+function validateCharacterRule(password, regex, min, max) {
+  if (typeof password !== 'string') {
+    return false
+  }
+
+  const initialLength = password.length;
+  const lengthWithoutSpecificChars = password.replace(regex, '').length;
+  const specificCharsCount = initialLength - lengthWithoutSpecificChars;
+
+  return (min === undefined || min === null || specificCharsCount >= min)
+    && (max === undefined || max === null || specificCharsCount <= max)
 }
 
 const VALIDATORS = {
@@ -13,17 +21,14 @@ const VALIDATORS = {
     && (rule.params.min === undefined || rule.params.min === null || newPassword.length >= rule.params.min)
     && (rule.params.max === undefined || rule.params.max === null || newPassword.length <= rule.params.max)
   ),
-  CHARACTER: (newPassword, oldPassword, rule) => {
-    if (typeof newPassword !== 'string') {
-      return false
-    }
-
-    const initialLength = newPassword.length;
-    const lengthWithoutSpecificChars = newPassword.replace(CHARACTER_TYPE_EXPRESSIONS[rule.params.type], '').length;
-    const specificCharsCount = initialLength - lengthWithoutSpecificChars;
-
-    return (rule.params.min === undefined || rule.params.min === null || specificCharsCount >= rule.params.min)
-      && (rule.params.max === undefined || rule.params.max === null || specificCharsCount <= rule.params.max)
+  CHARACTER_INSUFFICIENT_LOWERCASE: (newPassword, oldPassword, rule) => {
+    return validateCharacterRule(newPassword, /[a-z]/g, rule.params.min, rule.params.max)
+  },
+  CHARACTER_INSUFFICIENT_UPPERCASE: (newPassword, oldPassword, rule) => {
+    return validateCharacterRule(newPassword, /[A-Z]/g, rule.params.min, rule.params.max)
+  },
+  CHARACTER_INSUFFICIENT_DIGIT: (newPassword, oldPassword, rule) => {
+    return validateCharacterRule(newPassword, /[0-9]/g, rule.params.min, rule.params.max)
   }
 }
 
@@ -36,7 +41,7 @@ function validate(newPassword, oldPassword, validationRules) {
       if (validator) {
         const valid = validator(newPassword, oldPassword, rule)
         if (valid !== true) {
-          errors[rule.id] = true
+          errors[rule.name] = true
         }
       }
     })
