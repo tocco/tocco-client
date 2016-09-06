@@ -1,20 +1,33 @@
 import React from 'react'
-import './ValidationRules.scss'
 
 const Rule = (props) => (
-  <div className={'status-' + props.status}>{props.message}</div>
+  <div className={props.className}>{props.message}</div>
 )
 
 Rule.propTypes = {
-  status: React.PropTypes.oneOf(['valid', 'invalid', 'unknown']).isRequired,
+  className: React.PropTypes.string,
   message: React.PropTypes.string.isRequired
 }
 
 const ValidationRules = (props) => (
   <div className="ValidationRules">
     {props.rules.map((rule, index) => {
-      const status = props.errors === null ? 'unknown' : (props.errors[rule.name] === true ? 'invalid' : 'valid')
-      return <Rule key={index} status={status} message={rule.message}/>
+      let className = null
+      let message = rule.message
+
+      if (props.errors) {
+        const error = props.errors[rule.name]
+        if (error === true) {
+          className = 'text-danger'
+        } else if (typeof error === 'string') {
+          className = 'text-danger'
+          message = error
+        } else {
+          className = 'text-success'
+        }
+      }
+
+      return <Rule key={index} className={className} message={message}/>
     })}
   </div>
 )

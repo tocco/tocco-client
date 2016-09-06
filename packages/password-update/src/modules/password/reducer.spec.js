@@ -8,7 +8,9 @@ describe('password-update', () => {
         oldPassword: '',
         newPassword: '',
         newPasswordRepeat: '',
-        newPasswordValidationErrors: null
+        newPasswordValidationErrors: null,
+        passwordUpdateFailed: false,
+        passwordUpdatePending: false
       })
     });
 

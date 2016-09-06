@@ -6,7 +6,7 @@ const PasswordMatchDisplay = (props) => {
     : '\u00a0'
 
   return (
-    <div className="PasswordMatchDisplay">
+    <div className="PasswordMatchDisplay text-danger">
       {message}
     </div>
   )
