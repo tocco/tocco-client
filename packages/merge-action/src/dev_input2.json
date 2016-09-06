@@ -1,0 +1,312 @@
+{
+  "entities": [
+    {
+      "fields": {
+        "user_nr": {
+          "name": "user_nr",
+          "type": "counter",
+          "value": 104,
+          "writable": true
+        },
+        "firstname": {
+          "name": "firstname",
+          "type": "string",
+          "value": "Oliver",
+          "writable": true
+        },
+        "lastname": {
+          "name": "lastname",
+          "type": "string",
+          "value": "Streuli",
+          "writable": true
+        },
+        "email": {
+          "name": "email",
+          "type": "email",
+          "value": "olst@tocco.ch",
+          "writable": true
+        },
+        "callname": {
+          "name": "callname",
+          "type": "string",
+          "value": "Superstar",
+          "writable": true
+        },
+        "other_title": {
+          "name": "other_title",
+          "type": "string",
+          "value": "",
+          "writable": true
+        },
+        "birthdate": {
+          "name": "birthdate",
+          "type": "birthdate",
+          "value": null,
+          "writable": true
+        },
+        "phone_company": {
+          "name": "phone_company",
+          "type": "phone",
+          "value": "",
+          "writable": true
+        },
+        "phone_mobile": {
+          "name": "phone_mobile",
+          "type": "phone",
+          "value": "",
+          "writable": true
+        },
+        "website": {
+          "name": "website",
+          "type": "url",
+          "value": "",
+          "writable": true
+        },
+        "c_address": {
+          "name": "c_address",
+          "type": "text",
+          "value": "Pizzastrasse 1337\n8302 Kloten",
+          "writable": true
+        },
+        "b_address": {
+          "name": "b_address",
+          "type": "text",
+          "value": "Pizzastrasse 1337\n8302 Kloten",
+          "writable": true
+        },
+        "preview_picture": {
+          "name": "preview_picture",
+          "type": "document",
+          "value": null,
+          "writable": true
+        },
+        "hometown": {
+          "name": "hometown",
+          "type": "string",
+          "value": "",
+          "writable": true
+        },
+        "account_nr": {
+          "name": "account_nr",
+          "type": "string",
+          "value": "",
+          "writable": true
+        },
+        "entrance": {
+          "name": "entrance",
+          "type": "date",
+          "value": null,
+          "writable": true
+        }
+      },
+      "label": "Streuli, Oliver",
+      "pk": "2122",
+      "relations": {
+        "relUser_source": {
+          "name": "relUser_source",
+          "values": [
+            {
+              "checked": true,
+              "label": "Manuell",
+              "pk": "2"
+            }
+          ],
+          "writable": true
+        }
+      }
+    },
+    {
+      "fields": {
+        "user_nr": {
+          "name": "user_nr",
+          "type": "counter",
+          "value": 1,
+          "writable": true
+        },
+        "firstname": {
+          "name": "firstname",
+          "type": "string",
+          "value": "Support",
+          "writable": true
+        },
+        "lastname": {
+          "name": "lastname",
+          "type": "string",
+          "value": "Tocco AG",
+          "writable": true
+        },
+        "email": {
+          "name": "email",
+          "type": "email",
+          "value": "jzimmermann@tocco.ch",
+          "writable": true
+        },
+        "callname": {
+          "name": "callname",
+          "type": "string",
+          "value": "ter",
+          "writable": true
+        },
+        "other_title": {
+          "name": "other_title",
+          "type": "string",
+          "value": "nee",
+          "writable": true
+        },
+        "birthdate": {
+          "name": "birthdate",
+          "type": "birthdate",
+          "value": "1997-12-31T23:00:00.000Z",
+          "writable": true
+        },
+        "phone_company": {
+          "name": "phone_company",
+          "type": "phone",
+          "value": "+41443886000",
+          "writable": true
+        },
+        "phone_mobile": {
+          "name": "phone_mobile",
+          "type": "phone",
+          "value": "+41790000000",
+          "writable": true
+        },
+        "website": {
+          "name": "website",
+          "type": "url",
+          "value": "http://www.tocco.ch",
+          "writable": true
+        },
+        "c_address": {
+          "name": "c_address",
+          "type": "text",
+          "value": "Tocco AG <strong>strong</strong>, Technology meets spirit\nRiedtlistrasse 27\n8004 Zürich",
+          "writable": true
+        },
+        "b_address": {
+          "name": "b_address",
+          "type": "text",
+          "value": "Tocco AG <strong>strong</strong>, Technology meets spirit\nRiedtlistrasse 27\n8004 Zürich",
+          "writable": true
+        },
+        "preview_picture": {
+          "name": "preview_picture",
+          "type": "document",
+          "value": {
+            "hash": "3cb65f83ec7afa3063d863f36ef29d8e1ff8d46c"
+          },
+          "writable": true
+        },
+        "hometown": {
+          "name": "hometown",
+          "type": "string",
+          "value": "Zurich",
+          "writable": true
+        },
+        "account_nr": {
+          "name": "account_nr",
+          "type": "string",
+          "value": "35345",
+          "writable": true
+        },
+        "entrance": {
+          "name": "entrance",
+          "type": "date",
+          "value": "2015-10-08T22:00:00.000Z",
+          "writable": true
+        }
+      },
+      "label": "Tocco AG, Support",
+      "pk": "1",
+      "relations": {
+        "relUser_source": {
+          "name": "relUser_source",
+          "values": [
+            {
+              "checked": true,
+              "label": "Veranstaltung",
+              "pk": "4"
+            }
+          ],
+          "writable": true
+        }
+      }
+    }
+  ],
+  "model": {
+    "fields": [
+      {
+        "label": "Personen-Nr.",
+        "name": "user_nr"
+      },
+      {
+        "label": "Vorname",
+        "name": "firstname"
+      },
+      {
+        "label": "Nachname",
+        "name": "lastname"
+      },
+      {
+        "label": "E-Mail",
+        "name": "email"
+      },
+      {
+        "label": "Rufname",
+        "name": "callname"
+      },
+      {
+        "label": "Andere Titel",
+        "name": "other_title"
+      },
+      {
+        "label": "Geburtsdatum",
+        "name": "birthdate"
+      },
+      {
+        "label": "Telefon G",
+        "name": "phone_company"
+      },
+      {
+        "label": "Telefon M",
+        "name": "phone_mobile"
+      },
+      {
+        "label": "Website",
+        "name": "website"
+      },
+      {
+        "label": "Korresp.-Adresse",
+        "name": "c_address"
+      },
+      {
+        "label": "Rg.-Adresse",
+        "name": "b_address"
+      },
+      {
+        "label": "Vorschaubild",
+        "name": "preview_picture"
+      },
+      {
+        "label": "Heimatort 1",
+        "name": "hometown"
+      },
+      {
+        "label": "Konto-Nr.",
+        "name": "account_nr"
+      },
+      {
+        "label": "Eintritt",
+        "name": "entrance"
+      }
+    ],
+    "modelName": "User",
+    "relations": [
+      {
+        "label": "Person-Quelle",
+        "name": "relUser_source",
+        "toMany": false
+      }
+    ]
+  }
+}

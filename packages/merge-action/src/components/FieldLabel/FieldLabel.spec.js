@@ -8,8 +8,7 @@ describe('merge-action', function () {
     it('should render a string value', function () {
       var field = {type: 'string', value: 'Test123'}
       let wrapper = shallow(<FieldLabel field={field}/>)
-
-      expect(wrapper.text()).to.contain('Test123');
+      expect(wrapper.find('StringLabel')).to.have.length(1);
     })
 
     it('should render a date value', function () {

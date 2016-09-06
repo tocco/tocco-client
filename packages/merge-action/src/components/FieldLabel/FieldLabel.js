@@ -1,15 +1,8 @@
 import React from 'react'
-import DateFieldLabel from './DateFieldLabel'
+import labelProvider from './LabelProvider'
 
 const FieldLabel = props => {
-  var content
-  if (props.field.type === 'date' || props.field.type === 'birthdate') {
-    content = <DateFieldLabel value={props.field.value}/>
-  } else {
-    content = <span>{props.field.value}</span>
-  }
-
-  return <div>{content}</div>
+  return labelProvider(props.field)
 }
 
 FieldLabel.propTypes = {

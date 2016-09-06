@@ -6,13 +6,13 @@
           "name": "user_nr",
           "type": "counter",
           "value": 87,
-          "writable": false
+          "writable": true
         },
         "firstname": {
           "name": "firstname",
           "type": "string",
           "value": "Steven",
-          "writable": false
+          "writable": true
         },
         "lastname": {
           "name": "lastname",

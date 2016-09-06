@@ -1,5 +1,5 @@
 import React from 'react'
-import SelectionUtil from '../../../../../utils/SelectionUtil'
+import SelectionUtil from '../../../utils/SelectionUtil'
 
 const MultiSelection = props => {
   var disabled = (props.disabled) ? 'disabled' : ''
@@ -21,13 +21,12 @@ const MultiSelection = props => {
           return (
             <div key={`multiselection${idx}`}>
               <input
-                type="checkbox"
-                className="merger-icon-spacer"
+                type='checkbox'
                 disabled={disabled}
                 onChange={() => clickFnc(value)}
                 checked={isChecked(value.pk)}
               />
-              <span onClick={() => clickFnc(value)} className={disabled}>{value.label}</span>
+              <span onClick={() => { if (disabled !== 'disabled')clickFnc(value) }} className={disabled}>&nbsp;&nbsp;{value.label}</span>
             </div>
           )
         })

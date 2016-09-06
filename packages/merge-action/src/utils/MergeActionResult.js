@@ -6,32 +6,69 @@ function stringToPk(pkString) {
     ]
   }
 }
-export default function createMergeResult(state) {
-
+export default function createMergeResult(mergeMatrixState) {
   var result = {
-    modelName: state.model.modelName,
-    targetEntity: stringToPk(state.targetEntityPk),
-    sourceEntities: state.entities.map(e => stringToPk(e.pk)),
+    modelName: mergeMatrixState.model.modelName,
+    targetEntity: mergeMatrixState.targetEntityPk,
+    sourceEntities: mergeMatrixState.entities.map(e => e.pk),
     data: {
-      fields: Object.keys(state.selections.fields).map((fieldName) => {
-        return {
-          fieldName,
-          sourceEntity: stringToPk(state.selections.fields[fieldName])
-        }
-      }),
-      relations: Object.keys(state.selections.relations).map((relationName) => {
-        return {
-          relationName,
-          sourceEntity: stringToPk(state.selections.relations[relationName])
-        }
-      }),
-      toManyRelations: Object.keys(state.selections.toManyRelations).map((relationName) => {
-        return {
-          relationName,
-          values: state.selections.toManyRelations[relationName][state.targetEntityPk].map(v => stringToPk(v))
-        }
-      })
+      fields: extractFields(mergeMatrixState),
+      relations: extractRelations(mergeMatrixState),
+      toManyRelations: extractToManyRelations(mergeMatrixState)
     }
+  }
+  return result
+}
+
+function extractFields(state) {
+  var result = []
+  if (state.selections.fields) {
+
+    Object.keys(state.selections.fields).map((fieldName) => {
+      var value = state.selections.fields[fieldName]
+
+      if (value !== state.targetEntityPk) {
+        result.push({
+          name: fieldName,
+          pk: value
+        })
+      }
+    })
+  }
+
+  return result
+}
+
+function extractRelations(state) {
+  var result = []
+
+  if (state.selections.relations) {
+    Object.keys(state.selections.relations).map((relationName) => {
+      var entityPk = state.selections.relations[relationName]
+
+      if (entityPk !== state.targetEntityPk) {
+        var entity = state.entities.find(e => e.pk === entityPk)
+        result.push({
+          name: relationName,
+          keys: [entity.relations[relationName].values[0].pk]
+        })
+      }
+    })
+  }
+
+  return result
+}
+
+function extractToManyRelations(state) {
+  var result = []
+
+  if (state.selections.toManyRelations) {
+    Object.keys(state.selections.toManyRelations).map((relationName) => {
+      result.push({
+        name: relationName,
+        keys: state.selections.toManyRelations[relationName][state.targetEntityPk]
+      })
+    })
   }
 
   return result

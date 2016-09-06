@@ -1,5 +1,5 @@
 import React from 'react'
-import FieldLabel from '../../../../../components/FieldLabel'
+import FieldLabel from '../../FieldLabel'
 import SingleSelection from './SingleSelection'
 
 const FieldRow = props => {

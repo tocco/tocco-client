@@ -1,39 +1,34 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import createHashHistory from 'history/lib/createHashHistory'
-import { Router, useRouterHistory } from 'react-router'
-import { syncHistoryWithStore } from 'react-router-redux'
 import createStore from './store/createStore'
-import { Provider } from 'react-redux'
+import {Provider} from 'react-redux'
+import MergeMatrixContainer from './containers/MergeMatrixContainer'
+import dispatchInput from './utils/dispatchInput'
+import CoreLayout from './layouts/CoreLayout'
+import {registerEvents} from './utils/ExternalEvents'
 
-const init = (id, input) => {
-  // Configure history for react-router
-  const hashHistory = useRouterHistory(createHashHistory)({
-    basename: __BASENAME__,
-    queryKey: false,
-    id
-  })
-
+const init = (id, input, externalEvents) => {
   var inititalState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {}
 
   if (__DEV__) {
     input = require('./dev_input.json')
   }
-
+  
   if (input) {
     inititalState.input = input
   }
 
-  const store = createStore(inititalState, hashHistory)
-  const history = syncHistoryWithStore(hashHistory, store, {
-    selectLocationState: (state) => state.router
-  })
+  if (externalEvents) registerEvents(externalEvents)
 
-  const routes = require('./routes/index').default(store)
+  const store = createStore(inititalState)
+
+  dispatchInput(store)
 
   const App = () => (
     <Provider store={store}>
-      <Router history={history} children={routes} />
+      <CoreLayout>
+        <MergeMatrixContainer/>
+      </CoreLayout>
     </Provider>
   )
 
@@ -55,7 +50,7 @@ if (__DEV__) {
     const renderError = (error) => {
       const RedBox = require('redbox-react')
 
-      ReactDOM.render(<RedBox error={error} />, mountElement)
+      ReactDOM.render(<RedBox error={error}/>, mountElement)
     }
     render = () => {
       try {
@@ -64,7 +59,7 @@ if (__DEV__) {
         renderError(error)
       }
     }
-    module.hot.accept(['./routes/index'], () => render())
+    //module.hot.accept(['./routes/index'], () => render())
   }
 
   // if (__DEBUG__) {

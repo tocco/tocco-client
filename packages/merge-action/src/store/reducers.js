@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux'
-import { routerReducer as router } from 'react-router-redux'
-import { reducer as form } from 'redux-form';
+import { fork } from 'redux-saga/effects';
+import mergeMatrix, { sagas as mergeMatrixSagas } from './../modules/MergeMatrix/'
 import input from './input/reducer'
 
 export const reducers = (asyncReducers) => {
   return combineReducers({
-    form,
-    router,
     input,
-    ...asyncReducers })
+    mergeMatrix,
+    ...asyncReducers
+  })
 }
 
 export const injectReducer = (store, { key, reducer }) => {
@@ -20,6 +20,6 @@ export default reducers
 
 export const sagas = function* rootSaga() {
   yield [
-
+    fork(mergeMatrixSagas)
   ]
 }

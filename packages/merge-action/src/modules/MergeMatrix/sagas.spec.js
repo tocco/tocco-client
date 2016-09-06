@@ -1,7 +1,8 @@
 import {call, put, select} from 'redux-saga/effects'
 import * as sagas from './sagas'
 import {selectSourceField, selectSourceRelation} from './selections/actions'
-import createMergeResult from '../../../utils/MergeActionResult'
+import createMergeResult from './../../utils/MergeActionResult'
+import invokeExternalEvent from './../../utils/ExternalEvents'
 
 describe('merge-action', () => {
   describe('module sagas ', () => {
@@ -46,6 +47,7 @@ describe('merge-action', () => {
         expect(generator.next().value).to.deep.equal(select(sagas.mergeMatrixSelector))
         expect(generator.next(state).value).to.eql(call(createMergeResult, state))
         expect(generator.next(result).value).to.eql(call(sagas.sendDwr, result))
+        expect(generator.next().value).to.eql(call(invokeExternalEvent, 'close'))
         expect(generator.next().done).to.equal(true)
       })
 

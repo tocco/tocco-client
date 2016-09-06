@@ -2,7 +2,7 @@ import React from 'react'
 import '../../styles/core.scss'
 
 export const CoreLayout = ({ children }) => (
-  <div className='container' style={{margin: '10px'}}>
+  <div className='container' style={{margin: '10px', marginBottom: '0px'}}>
     {children}
   </div>
 )
