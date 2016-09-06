@@ -1,8 +1,9 @@
 import React from 'react'
+import classNames from 'classnames';
 
 const SaveButton = props => {
   return (
-    <button onClick={props.onClick} className="btn btn-primary" disabled={props.disabled}>
+    <button onClick={props.onClick} className={classNames('btn', 'btn-primary', props.className)} disabled={props.disabled}>
       <i className="glyphicon glyphicon-floppy-save"></i> {props.label}
     </button>)
 }
@@ -10,7 +11,8 @@ const SaveButton = props => {
 SaveButton.propTypes = {
   label: React.PropTypes.string,
   onClick: React.PropTypes.func.isRequired,
-  disabled: React.PropTypes.bool
+  disabled: React.PropTypes.bool,
+  className: React.PropTypes.string
 }
 
 export default SaveButton
