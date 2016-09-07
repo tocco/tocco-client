@@ -2,6 +2,7 @@ import * as actions from './actions'
 import {takeLatest} from 'redux-saga'
 import {call, fork, select, put} from 'redux-saga/effects'
 import validate from './validate'
+import invokeExternalEvent from '../../utils/ExternalEvents'
 
 export const validationRulesSelector = state => state.validationRules
 export const principalPkInputSelector = state => state.input.principalPk
@@ -64,6 +65,7 @@ function* savePassword() {
     }
   } else {
     yield put(actions.savePasswordSuccess())
+    yield call(invokeExternalEvent, 'close')
   }
 }
 

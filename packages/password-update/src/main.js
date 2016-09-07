@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom'
 import createStore from './store/createStore'
 import { Provider } from 'react-redux'
 import PasswordUpdateDialog from './containers/PasswordUpdateDialogContainer'
+import {registerEvents} from './utils/ExternalEvents'
 
-const init = (id, input) => {
+const init = (id, input, externalEvents) => {
   var initialState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {}
 
   if (__DEV__) {
@@ -14,6 +15,8 @@ const init = (id, input) => {
   if (input) {
     initialState.input = input
   }
+
+  if (externalEvents) registerEvents(externalEvents)
 
   const store = createStore(initialState)
 
