@@ -12,6 +12,12 @@ class PasswordUpdateDialog extends Component {
     this.props.fetchValidationRules();
   }
 
+  onPwRepeatKeyDown(e) {
+    if (e.keyCode === 13 && this.isSubmittable() === true) {
+      this.props.savePassword()
+    }
+  }
+
   render() {
     const { password, validationRules, updateOldPassword, updateNewPassword, updateNewPasswordRepeat, savePassword }
       = this.props
@@ -24,10 +30,6 @@ class PasswordUpdateDialog extends Component {
       !password.newPassword ||
       password.passwordUpdatePending ||
       Object.keys(password.newPasswordValidationErrors).length > 0
-    const saveButtonDisabled =
-      !password.newPasswordRepeat ||
-      password.newPassword !== password.newPasswordRepeat ||
-      password.passwordUpdatePending
 
     return (
       <div className="PasswordUpdateDialog">
@@ -56,17 +58,31 @@ class PasswordUpdateDialog extends Component {
           value={password.newPasswordRepeat}
           onChange={updateNewPasswordRepeat}
           readOnly={newPasswordRepeatReadOnly}
+          onKeyDown={this.onPwRepeatKeyDown.bind(this)}
         />
         <PasswordMatchDisplay password={password.newPassword} passwordRepeat={password.newPasswordRepeat}/>
         <SaveButton
           label="Passwort ändern"
-          disabled={saveButtonDisabled}
+          disabled={this.isSubmittable() === false}
           onClick={savePassword}
           className={password.passwordUpdatePending ? 'update-pending' : ''}
         />
         {password.passwordUpdateFailed === true && <FailureMessage/>}
       </div>
     )
+  }
+
+  isSubmittable() {
+    if (!this.props.password.newPasswordRepeat) {
+      return false
+    }
+    if (this.props.password.newPassword !== this.props.password.newPasswordRepeat) {
+      return false
+    }
+    if (this.props.password.passwordUpdatePending) {
+      return false
+    }
+    return true
   }
 }
 
