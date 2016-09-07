@@ -11,7 +11,9 @@ export const passwordSelector = state => state.password
 function storePassword(principalPk, oldPassword, newPassword) {
   if (__DEV__) {
     if (console) console.log('Store password call would take place now')
-    return new Promise(resolve => resolve())
+    return new Promise(resolve => resolve({
+      error: null
+    }))
   } else {
     const data = {
       oldPassword,
