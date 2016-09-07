@@ -21,6 +21,9 @@ const webpackConfig = {
   devtool: config.compiler_devtool,
   resolve: {
     root: paths.client() + packageDir,
+    alias: {
+      'React': `${__dirname}/../node_modules/react/react.js`
+    },
     extensions: ['', '.js', '.jsx', '.json']
   },
   module: {}
