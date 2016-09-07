@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import createStore from './store/createStore'
 import {Provider} from 'react-redux'
 import MergeMatrixContainer from './containers/MergeMatrixContainer'
-import dispatchInput from './utils/dispatchInput'
+import dispatchInput from './utils/DispatchInput'
 import CoreLayout from './layouts/CoreLayout'
 import {registerEvents} from './utils/ExternalEvents'
 
