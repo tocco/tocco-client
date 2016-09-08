@@ -64,10 +64,11 @@ export function savePasswordSuccess() {
   }
 }
 
-export function savePasswordFailure(validationMessages) {
+export function savePasswordFailure(errorCode, validationMessages) {
   return {
     type: SAVE_PASSWORD_FAILURE,
     payload: {
+      errorCode,
       validationMessages
     }
   }

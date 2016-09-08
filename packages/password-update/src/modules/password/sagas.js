@@ -61,9 +61,9 @@ function* savePassword() {
   const result = yield call(storePassword, principalPk, password.oldPassword, password.newPassword)
   if (result.error) {
     if (result.error.valid === false) {
-      yield put(actions.savePasswordFailure(result.error.validationMessages))
+      yield put(actions.savePasswordFailure(null, result.error.validationMessages))
     } else {
-      yield put(actions.savePasswordFailure())
+      yield put(actions.savePasswordFailure(result.error.errorCode))
     }
   } else {
     yield put(actions.savePasswordSuccess())

@@ -67,7 +67,7 @@ class PasswordUpdateDialog extends Component {
           onClick={savePassword}
           className={password.passwordUpdatePending ? 'update-pending' : ''}
         />
-        {password.passwordUpdateFailed === true && <FailureMessage/>}
+        {password.passwordUpdateFailed === true && <FailureMessage errorCode={password.passwordUpdateErrorCode}/>}
       </div>
     )
   }
@@ -91,7 +91,9 @@ PasswordUpdateDialog.propTypes = {
     oldPassword: React.PropTypes.string.isRequired,
     newPassword: React.PropTypes.string.isRequired,
     newPasswordRepeat: React.PropTypes.string.isRequired,
-    newPasswordValidationErrors: React.PropTypes.object
+    newPasswordValidationErrors: React.PropTypes.object,
+    passwordUpdatePending: React.PropTypes.bool.isRequired,
+    passwordUpdateErrorCode: React.PropTypes.string
   }).isRequired,
   validationRules: React.PropTypes.array.isRequired,
   showOldPasswordField: React.PropTypes.bool.isRequired,

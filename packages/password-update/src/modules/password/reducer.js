@@ -1,5 +1,4 @@
 import * as actions from './actions'
-import validate from './validate'
 
 const initialState = {
   oldPassword: '',
@@ -58,7 +57,8 @@ function savePasswordFailure(state, {payload}) {
   } else {
     return Object.assign({}, state, {
       passwordUpdatePending: false,
-      passwordUpdateFailed: true
+      passwordUpdateFailed: true,
+      passwordUpdateErrorCode: payload.errorCode
     })
   }
 }
