@@ -6,23 +6,42 @@ import SearchForm from '../../../../components/SearchForm'
 import List from '../../../../components/List'
 
 var labelComparer = (a, b) => {
-  if (a.label < b.label)
+  if (a.label < b.label) {
     return -1
-  if (a.label > b.label)
+  }
+  if (a.label > b.label) {
     return 1
+  }
+
   return 0
 }
 
 const EntityModelSelector = props => (
   <div className="form-horizontal">
     <div className="form-group">
-      <select className="form-control" value={props.value ? props.value : ''} onChange={e => props.setEntityModel(e.target.value)}>
+      <select
+        className="form-control"
+        value={props.value ? props.value : ''}
+        onChange={e => props.setEntityModel(e.target.value)}
+      >
         <option key="empty" value="">Entität auswählen</option>
-        {props.options.sort(labelComparer).map(option => <option key={option.name} value={option.name}>{option.label} ({option.name})</option>)}
+        {props.options.sort(labelComparer).map(option =>
+          <option
+            key={option.name}
+            value={option.name}
+          >
+            {option.label} ({option.name})
+          </option>
+        )}
       </select>
     </div>
   </div>
 )
+
+EntityModelSelector.propTypes = {
+  options: React.PropTypes.array.isRequired,
+  value: React.PropTypes.object
+}
 
 const LiveSearch = props => (
   <div className="checkbox">
@@ -30,12 +49,17 @@ const LiveSearch = props => (
       <input
         type="checkbox"
         checked={props.liveSearch === true}
-        onChange={e => {if (typeof props.setLiveSearch === 'function') props.setLiveSearch(e.target.checked) }}
+        onChange={e => { if (typeof props.setLiveSearch === 'function') props.setLiveSearch(e.target.checked) }}
       />
       Livesuche
     </label>
   </div>
 )
+
+LiveSearch.propTypes = {
+  liveSearch: React.PropTypes.bool,
+  setLiveSearch: React.PropTypes.func
+}
 
 class ListPage extends React.Component {
 
@@ -43,7 +67,7 @@ class ListPage extends React.Component {
     this.props.requestEntityModels()
     if (this.props.list.entityModel) {
       this.props.fetchForm(this.props.list.entityModel + '_list')
-    //  this.props.requestEntities(this.props.list.entityModel, this.props.list.searchTerm, this.props.list.ordering)
+      //  this.props.requestEntities(this.props.list.entityModel, this.props.list.searchTerm, this.props.list.ordering)
     }
   }
 
@@ -69,13 +93,17 @@ class ListPage extends React.Component {
     } else if (!formAvailable) {
       component = <div>Liste wird geladen</div>
     } else {
-      component = <List data={this.props.list.data} form={form} ordering={ordering}
-        setOrdering={this.props.setOrdering} lazyLoading={this.props.lazyLoading} />
+      component = <List
+        data={this.props.list.data}
+        form={form} ordering={ordering}
+        setOrdering={this.props.setOrdering}
+        lazyLoading={this.props.lazyLoading}
+      />
     }
 
     return (
       <div className="ListPage" style={{padding: '1em'}}>
-        <ToccoLogo />
+        <ToccoLogo/>
         <EntityModelSelector
           value={this.props.list.entityModel}
           options={this.props.entityModels}
@@ -104,7 +132,7 @@ ListPage.propTypes = {
   requestEntityModels: React.PropTypes.func.isRequired,
   forms: React.PropTypes.object.isRequired,
   entityModels: React.PropTypes.array.isRequired,
-  ordering: React.PropTypes.object.isRequired,
+  ordering: React.PropTypes.object,
   setOrdering: React.PropTypes.func.isRequired,
   setLiveSearch: React.PropTypes.func,
   setEntityModel: React.PropTypes.func,

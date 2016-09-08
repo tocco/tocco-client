@@ -1,5 +1,13 @@
-coverage/**
-node_modules/**
-dist/**
+
+
 *.spec.js
-src/index.html
+
+
+
+node_modules/**
+coverage/**
+.idea/
+
+packages/*/dist/**
+packages/*/node_modules/**
+packages/*/coverage/**

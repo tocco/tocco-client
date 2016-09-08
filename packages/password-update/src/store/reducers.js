@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { fork } from 'redux-saga/effects';
+import { fork } from 'redux-saga/effects'
 import input from './input/reducer'
 import validationRules, { sagas as validationRulesSagas } from '../modules/validationRules'
 import password, { sagas as passwordSagas } from '../modules/password'

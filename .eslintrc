@@ -22,11 +22,16 @@
   "rules": {
     "semi" : [2, "never"],
     "max-len": [2, 120, 2],
-    "generator-star-spacing": 0,
-    "babel/generator-star-spacing": 1,
-    "space-before-function-paren": [2, "never"],
     "no-trailing-spaces": ["error", { "skipBlankLines": true }],
+    "space-before-function-paren": [2, "never"],
+    "operator-linebreak": [2, "before"],
 
-    "react/jsx-space-before-closing": [2, "never"]
+    "generator-star-spacing": 0,
+    "babel/generator-star-spacing": [2, "after"],
+
+    "react/jsx-space-before-closing": [2, "never"],
+    "jsx-quotes": [2, "prefer-double"],
+    "react/jsx-no-bind": [2, { "allowArrowFunctions": true, "allowBind": true }]
+
   }
 }

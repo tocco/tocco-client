@@ -1,9 +1,9 @@
-import { requestEntityModels } from './actions';
-import reducer from './reducer';
-import sagas from './sagas.js';
+import { requestEntityModels } from './actions'
+import reducer from './reducer'
+import sagas from './sagas.js'
 
-export { requestEntityModels };
+export { requestEntityModels }
 
-export { sagas };
+export { sagas }
 
-export default reducer;
+export default reducer

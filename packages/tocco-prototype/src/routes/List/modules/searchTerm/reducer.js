@@ -1,4 +1,4 @@
-import {SET_SEARCH_TERM} from './actions';
+import {SET_SEARCH_TERM} from './actions'
 
 const ACTION_HANDLERS = {
   [SET_SEARCH_TERM]: (searchTerm, { searchTerm: newSearchTerm }) => newSearchTerm

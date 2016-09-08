@@ -3,10 +3,8 @@ import {call, fork, select, put} from 'redux-saga/effects'
 import sendDwrRequest from '../../utils/Dwr'
 import createMergeResult from '../../utils/MergeActionResult'
 import invokeExternalEvent from '../../utils/ExternalEvents'
-import {SAVE_MERGE} from './actions'
-import {CHANGE_TARGET_ENTITY} from './actions'
+import {SAVE_MERGE, CHANGE_TARGET_ENTITY} from './actions'
 import {selectSourceField, selectSourceRelation} from './selections/actions'
-
 
 export const mergeMatrixSelector = state => state.mergeMatrix
 

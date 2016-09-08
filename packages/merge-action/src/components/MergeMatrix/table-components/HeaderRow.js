@@ -5,7 +5,7 @@ const HeaderRow = props => {
 
   return (
     <tr>
-      <th></th>
+      <th/>
       {
         props.entities.map((entity, idx) => {
           var cls = isTargetEntity(entity.pk) ? 'merger-matrix-selected-th' : 'merger-matrix-th'

@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React from 'react'
 
 const PasswordMatchDisplay = (props) => {
   const message = (props.passwordRepeat && props.password !== props.passwordRepeat)
@@ -14,7 +14,7 @@ const PasswordMatchDisplay = (props) => {
 
 PasswordMatchDisplay.propTypes = {
   password: React.PropTypes.string.isRequired,
-  passwordRepeat: React.PropTypes.string.isRequired,
+  passwordRepeat: React.PropTypes.string.isRequired
 }
 
 export default PasswordMatchDisplay

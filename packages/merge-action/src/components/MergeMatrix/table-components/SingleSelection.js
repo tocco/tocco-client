@@ -23,7 +23,8 @@ SingleSelectionCell.propTypes = {
   onChange: React.PropTypes.func.isRequired,
   identifier: React.PropTypes.string.isRequired,
   pk: React.PropTypes.string.isRequired,
-  disabled: React.PropTypes.bool.isRequired
+  disabled: React.PropTypes.bool.isRequired,
+  children: React.PropTypes.node
 }
 
 export default SingleSelectionCell

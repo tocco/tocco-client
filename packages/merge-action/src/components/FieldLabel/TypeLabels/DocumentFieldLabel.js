@@ -1,10 +1,10 @@
 import React from 'react'
 
 const DocumentFieldLabel = props => {
- console.log('props', props)
+  console.log('props', props)
 
   return (
-    <span></span>
+    <span/>
   )
 }
 

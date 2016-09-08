@@ -11,7 +11,7 @@ export const createRoutes = (store) => {
     path: '/',
     component: CoreLayout,
     indexRoute: List(store),
-    getChildRoutes (location, next) {
+    getChildRoutes(location, next) {
       require.ensure([], (require) => {
         next(null, [
           require('./Detail').default(store)

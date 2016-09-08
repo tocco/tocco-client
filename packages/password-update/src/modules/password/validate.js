@@ -4,9 +4,9 @@ function validateCharacterRule(password, regex, min, max) {
     return false
   }
 
-  const initialLength = password.length;
-  const lengthWithoutSpecificChars = password.replace(regex, '').length;
-  const specificCharsCount = initialLength - lengthWithoutSpecificChars;
+  const initialLength = password.length
+  const lengthWithoutSpecificChars = password.replace(regex, '').length
+  const specificCharsCount = initialLength - lengthWithoutSpecificChars
 
   return (min === undefined || min === null || specificCharsCount >= min)
     && (max === undefined || max === null || specificCharsCount <= max)

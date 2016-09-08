@@ -44,7 +44,7 @@ if (__DEV__) {
     const renderError = (error) => {
       const RedBox = require('redbox-react')
 
-      ReactDOM.render(<RedBox error={error} />, mountElement)
+      ReactDOM.render(<RedBox error={error}/>, mountElement)
     }
     render = () => {
       try {
@@ -59,6 +59,6 @@ if (__DEV__) {
   render()
 } else {
   if (window.reactRegistry) {
-    window.reactRegistry.register('password-update', init) //TODO: replace string with var
+    window.reactRegistry.register('password-update', init) // TODO: replace string with var
   }
 }

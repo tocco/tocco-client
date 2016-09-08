@@ -1,4 +1,4 @@
-import {SET_ENTITY_MODEL} from './actions';
+import {SET_ENTITY_MODEL} from './actions'
 
 const ACTION_HANDLERS = {
   [SET_ENTITY_MODEL]: (entityModel, { entityModel: newEntityModel }) => newEntityModel

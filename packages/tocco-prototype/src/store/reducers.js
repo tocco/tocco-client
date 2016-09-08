@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
 import { routerReducer as router } from 'react-router-redux'
-import { reducer as form } from 'redux-form';
-import { fork } from 'redux-saga/effects';
+import { reducer as form } from 'redux-form'
+import { fork } from 'redux-saga/effects'
 import forms from '../modules/forms'
 import entityModels, { sagas as entityModelSagas } from '../modules/entityModels'
 import input from './input/reducer'

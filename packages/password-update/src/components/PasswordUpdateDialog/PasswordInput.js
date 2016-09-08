@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 const PasswordInput = (props) => (
-  <div className={"form-group " + props.name}>
-    <label htmlFor={props.name + "Input"}>{props.label}</label>
+  <div className={'form-group ' + props.name}>
+    <label htmlFor={props.name + 'Input'}>{props.label}</label>
     <input
       type="password"
       className="form-control"
-      id={props.name + "Input"}
+      id={props.name + 'Input'}
       value={props.value}
       onChange={e => props.onChange(e.target.value)}
       readOnly={props.readOnly === true}

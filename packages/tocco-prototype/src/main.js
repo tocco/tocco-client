@@ -15,10 +15,9 @@ const init = (id, input) => {
     id
   })
 
-
   var inititalState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {}
 
-  //input = {entityName: 'Membership', selectedEntities:[ '1', '2']}
+  // input = {entityName: 'Membership', selectedEntities:[ '1', '2']}
 
   if (input) {
     inititalState.input = input
@@ -32,7 +31,7 @@ const init = (id, input) => {
 
   const App = () => (
     <Provider store={store}>
-      <Router history={history} children={routes} />
+      <Router history={history} children={routes}/>
     </Provider>
   )
 
@@ -73,6 +72,6 @@ if (__DEV__) {
   render()
 } else {
   if (window.reactRegistry) {
-    window.reactRegistry.register("tocco-prototype", init)
+    window.reactRegistry.register('tocco-prototype', init)
   }
 }

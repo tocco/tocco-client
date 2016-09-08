@@ -58,7 +58,10 @@ const validate = (values, props) => {
     const fields = props.data.data.fields
     Object.keys(fields).forEach(name => {
       if (fields[name].type === 'boolean') {
-        if (values[name] !== undefined && values[name] !== null && values[name] !== 'true' && values[name] !== 'false') {
+        if (values[name] !== undefined
+          && values[name] !== null
+          && values[name] !== 'true'
+          && values[name] !== 'false') {
           errors[name] = 'Allowed values: "true" or "false"'
         }
       }
@@ -66,6 +69,10 @@ const validate = (values, props) => {
   }
 
   return errors
+}
+
+validate.propTypes = {
+  data: React.PropTypes.object.isRequired
 }
 
 const Field = props => (
@@ -80,6 +87,12 @@ const Field = props => (
   </div>
 )
 
+Field.propTypes = {
+  label: React.PropTypes.string.isRequired,
+  value: React.PropTypes.object.isRequired,
+  field: React.PropTypes.object.isRequired
+}
+
 class DetailForm extends React.Component {
 
   componentWillMount() {
@@ -87,7 +100,7 @@ class DetailForm extends React.Component {
   }
 
   render() {
-    const { layout, fields, entityModel, entityKey, handleSubmit, submitting } = this.props
+    const { layout, fields, handleSubmit, submitting } = this.props
 
     const builder = new FormBuilder(fields)
     visit(layout, builder)
@@ -110,7 +123,8 @@ DetailForm.propTypes = {
   entityKey: React.PropTypes.string.isRequired,
   fields: React.PropTypes.object.isRequired,
   handleSubmit: React.PropTypes.func.isRequired,
-  submitting: React.PropTypes.bool.isRequired
+  submitting: React.PropTypes.bool.isRequired,
+  fetchEntity: React.PropTypes.func.isRequired
 }
 
 export default reduxForm({
@@ -118,7 +132,7 @@ export default reduxForm({
   validate
 },
 state => { // mapStateToProps
-  const values = {};
+  const values = {}
 
   const data = state.detail.data
   if (data) {
@@ -131,7 +145,7 @@ state => { // mapStateToProps
     initialValues: values
   }
 },
-{  // mapDispatchToProps
-  fetchEntity
-}
+  {  // mapDispatchToProps
+    fetchEntity
+  }
 )(DetailForm)

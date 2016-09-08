@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { SaveButton } from 'tocco-ui'
+import React, {Component} from 'react'
+import {SaveButton} from 'tocco-ui'
 import PasswordInput from './PasswordInput'
 import PasswordMatchDisplay from './PasswordMatchDisplay'
 import ValidationRules from '../ValidationRules'
@@ -9,7 +9,7 @@ import './PasswordUpdateDialog.scss'
 class PasswordUpdateDialog extends Component {
 
   componentWillMount() {
-    this.props.fetchValidationRules();
+    this.props.fetchValidationRules()
   }
 
   onPwRepeatKeyDown(e) {
@@ -19,28 +19,26 @@ class PasswordUpdateDialog extends Component {
   }
 
   render() {
-    const { password, validationRules, updateOldPassword, updateNewPassword, updateNewPasswordRepeat, savePassword }
+    const {password, validationRules, updateOldPassword, updateNewPassword, updateNewPasswordRepeat, savePassword}
       = this.props
 
     const oldPasswordReadOnly = password.passwordUpdatePending
-    const newPasswordReadOnly =
-      (!password.oldPassword && this.props.showOldPasswordField) ||
-      password.passwordUpdatePending
-    const newPasswordRepeatReadOnly =
-      !password.newPassword ||
-      password.passwordUpdatePending ||
-      Object.keys(password.newPasswordValidationErrors).length > 0
+    const newPasswordReadOnly = (!password.oldPassword && this.props.showOldPasswordField)
+      || password.passwordUpdatePending
+    const newPasswordRepeatReadOnly = !password.newPassword
+      || password.passwordUpdatePending
+      || Object.keys(password.newPasswordValidationErrors).length > 0
 
     return (
       <div className="PasswordUpdateDialog">
-        {this.props.showOldPasswordField === true &&
-          <PasswordInput
-            label="Altes Passwort"
-            name="oldPassword"
-            value={password.oldPassword}
-            onChange={updateOldPassword}
-            readOnly={oldPasswordReadOnly}
-          />}
+        {this.props.showOldPasswordField === true
+        && <PasswordInput
+          label="Altes Passwort"
+          name="oldPassword"
+          value={password.oldPassword}
+          onChange={updateOldPassword}
+          readOnly={oldPasswordReadOnly}
+        />}
         <PasswordInput
           label="Neues Passwort"
           name="newPassword"

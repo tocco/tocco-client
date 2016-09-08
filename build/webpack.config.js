@@ -1,7 +1,5 @@
 import webpack from 'webpack'
-import cssnano from 'cssnano'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import config from '../config'
 import _debug from 'debug'
 
@@ -44,7 +42,7 @@ const APP_ENTRY_PATH = paths.client(`${packageDir}/src/main.js`)
 webpackConfig.entry = {
   app: __DEV__
     ? [APP_ENTRY_PATH, `webpack-hot-middleware/client?path=${config.compiler_public_path}__webpack_hmr`]
-    : [APP_ENTRY_PATH],
+    : [APP_ENTRY_PATH]
 }
 
 // ------------------------------------
@@ -147,8 +145,5 @@ webpackConfig.module.loaders.push(
   { test: /\.(png|jpg)$/,    loader: 'url?limit=8192' }
 )
 /* eslint-enable */
-
-
-
 
 export default webpackConfig

@@ -26,7 +26,7 @@ export class Visitor {
 
 class Component {
   constructor(cmp) {
-    this.cmp = cmp;
+    this.cmp = cmp
   }
 
   accept(visitor) {

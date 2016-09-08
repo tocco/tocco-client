@@ -11,7 +11,7 @@ export function updateOldPassword(oldPassword) {
   return {
     type: UPDATE_OLD_PASSWORD,
     payload: {
-      oldPassword,
+      oldPassword
     }
   }
 }
@@ -20,7 +20,7 @@ export function updateNewPassword(newPassword) {
   return {
     type: UPDATE_NEW_PASSWORD,
     payload: {
-      newPassword,
+      newPassword
     }
   }
 }
@@ -29,7 +29,7 @@ export function setNewPassword(newPassword) {
   return {
     type: SET_NEW_PASSWORD,
     payload: {
-      newPassword,
+      newPassword
     }
   }
 }
@@ -38,7 +38,7 @@ export function setNewPasswordValidationErrors(errors) {
   return {
     type: SET_NEW_PASSWORD_VALIDATION_ERRORS,
     payload: {
-      errors,
+      errors
     }
   }
 }
@@ -47,7 +47,7 @@ export function updateNewPasswordRepeat(newPasswordRepeat) {
   return {
     type: UPDATE_NEW_PASSWORD_REPEAT,
     payload: {
-      newPasswordRepeat,
+      newPasswordRepeat
     }
   }
 }

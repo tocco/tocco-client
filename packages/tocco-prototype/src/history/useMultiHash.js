@@ -1,5 +1,5 @@
 function useMultiHash(createHistory) {
-  return function (options={}) {
+  return function(options = {}) {
     const history = createHistory(options)
 
     const { id, separator = ';' } = options
@@ -64,7 +64,7 @@ function useMultiHash(createHistory) {
 
     // Override all read methods with prefix-aware versions.
     function listenBefore(hook) {
-      return history.listenBefore(function (location, callback) {
+      return history.listenBefore(function(location, callback) {
         const result = hook(extractPath(location), callback)
         if (hook.length < 2) {
           // Assume the hook runs synchronously and automatically
@@ -75,7 +75,7 @@ function useMultiHash(createHistory) {
     }
 
     function listen(listener) {
-      return history.listen(function (location) {
+      return history.listen(function(location) {
         listener(extractPath(location))
       })
     }

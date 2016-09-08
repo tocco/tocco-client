@@ -1,7 +1,7 @@
 import React from 'react'
 
 const StringLabel = props => {
- var content = props.value || ''
+  var content = props.value || ''
 
   return (
     <span>{content}</span>

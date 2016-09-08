@@ -38,7 +38,7 @@ FieldRow.propTypes = {
   entities: React.PropTypes.array.isRequired,
   targetEntity: React.PropTypes.object.isRequired,
   selections: React.PropTypes.object.isRequired,
-  selectSourceField: React.PropTypes.func.isRequired,
+  selectSourceField: React.PropTypes.func.isRequired
 }
 
 export default FieldRow

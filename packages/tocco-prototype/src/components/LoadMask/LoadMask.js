@@ -9,7 +9,7 @@ const LoadMask = () => (
     width: '100%',
     backgroundColor: '#fff',
     opacity: 0.5
-  }}></div>
+  }}/>
 )
 
 export default LoadMask

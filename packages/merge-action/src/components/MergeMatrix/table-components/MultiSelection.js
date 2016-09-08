@@ -21,12 +21,15 @@ const MultiSelection = props => {
           return (
             <div key={`multiselection${idx}`}>
               <input
-                type='checkbox'
+                type="checkbox"
                 disabled={disabled}
                 onChange={() => clickFnc(value)}
                 checked={isChecked(value.pk)}
               />
-              <span onClick={() => { if (disabled !== 'disabled')clickFnc(value) }} className={disabled}>&nbsp;&nbsp;{value.label}</span>
+              <span
+                onClick={() => { if (disabled !== 'disabled')clickFnc(value) }}
+                className={disabled}
+              >&nbsp;&nbsp;{value.label}</span>
             </div>
           )
         })

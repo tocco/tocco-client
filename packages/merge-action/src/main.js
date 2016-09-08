@@ -59,7 +59,7 @@ if (__DEV__) {
         renderError(error)
       }
     }
-    //module.hot.accept(['./routes/index'], () => render())
+    // module.hot.accept(['./routes/index'], () => render())
   }
 
   // if (__DEBUG__) {
@@ -69,6 +69,6 @@ if (__DEV__) {
   render()
 } else {
   if (window.reactRegistry) {
-    window.reactRegistry.register('merge-action', init) //TODO: replace string with var
+    window.reactRegistry.register('merge-action', init) // TODO: replace string with var
   }
 }

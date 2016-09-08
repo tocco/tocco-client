@@ -9,7 +9,6 @@ export const UPDATE_ENTITY = 'UPDATE_ENTITY'
 export const UPDATE_ENTITY_SUCCESS = 'UPDATE_ENTITY_SUCCESS'
 export const UPDATE_ENTITY_FAILURE = 'UPDATE_ENTITY_FAILURE'
 
-
 function requestEntity() {
   return {
     type: REQUEST_ENTITY
@@ -121,7 +120,7 @@ const ACTION_HANDLERS = {
     data: null,
     loading: false,
     failure: true
-  }),
+  })
 }
 
 const initialState = {
@@ -130,7 +129,7 @@ const initialState = {
   failure: false
 }
 
-export default function detailReducer(state = initialState, action: Action) {
+export default function detailReducer(state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]
   return handler ? handler(state, action) : state
 }

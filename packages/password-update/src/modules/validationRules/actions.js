@@ -11,7 +11,7 @@ export function setValidationRules(rules) {
   return {
     type: SET_VALIDATION_RULES,
     payload: {
-      rules,
+      rules
     }
   }
 }

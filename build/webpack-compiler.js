@@ -5,7 +5,7 @@ import config from '../config'
 const debug = _debug('app:build:webpack-compiler')
 const DEFAULT_STATS_FORMAT = config.compiler_stats
 
-export default function webpackCompiler (webpackConfig, statsFormat = DEFAULT_STATS_FORMAT) {
+export default function webpackCompiler(webpackConfig, statsFormat = DEFAULT_STATS_FORMAT) {
   return new Promise((resolve, reject) => {
     const compiler = webpack(webpackConfig)
 

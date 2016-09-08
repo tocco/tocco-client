@@ -6,7 +6,7 @@ import config from '../../config'
 const paths = config.utils_paths
 const debug = _debug('app:server:webpack-dev')
 
-export default function (compiler, publicPath) {
+export default function(compiler, publicPath) {
   debug('Enable webpack dev middleware.')
 
   const middleware = WebpackDevMiddleware(compiler, {
@@ -19,10 +19,10 @@ export default function (compiler, publicPath) {
     stats: config.compiler_stats
   })
 
-  return async function koaWebpackDevMiddleware (ctx, next) {
+  return async function koaWebpackDevMiddleware(ctx, next) {
     let hasNext = await applyExpressMiddleware(middleware, ctx.req, {
       end: (content) => (ctx.body = content),
-      setHeader: function () {
+      setHeader: function() {
         ctx.set.apply(ctx, arguments)
       }
     })

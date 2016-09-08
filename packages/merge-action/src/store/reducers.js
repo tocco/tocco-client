@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { fork } from 'redux-saga/effects';
+import { fork } from 'redux-saga/effects'
 import mergeMatrix, { sagas as mergeMatrixSagas } from './../modules/MergeMatrix/'
 import input from './input/reducer'
 

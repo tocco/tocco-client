@@ -1,5 +1,5 @@
-import reducer from './reducer';
+import reducer from './reducer'
 import {setOrdering} from './actions'
-export default reducer;
+export default reducer
 
 export { setOrdering }

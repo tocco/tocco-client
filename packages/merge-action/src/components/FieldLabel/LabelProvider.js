@@ -5,7 +5,7 @@ import UrlFieldLabel from './TypeLabels/UrlFieldLabel'
 import DocumentFieldLabel from './TypeLabels/DocumentFieldLabel'
 
 export default function(field) {
-  if (map[field.type]){
+  if (map[field.type]) {
     return React.createElement(map[field.type], {value: field.value})
   }
 

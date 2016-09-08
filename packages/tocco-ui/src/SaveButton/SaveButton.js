@@ -1,10 +1,14 @@
 import React from 'react'
-import classNames from 'classnames';
+import classNames from 'classnames'
 
 const SaveButton = props => {
   return (
-    <button onClick={props.onClick} className={classNames('btn', 'btn-primary', props.className)} disabled={props.disabled}>
-      <i className="glyphicon glyphicon-floppy-save"></i> {props.label}
+    <button
+      onClick={props.onClick}
+      className={classNames('btn', 'btn-primary', props.className)}
+      disabled={props.disabled}
+    >
+      <i className="glyphicon glyphicon-floppy-save"/> {props.label}
     </button>)
 }
 

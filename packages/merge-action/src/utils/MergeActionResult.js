@@ -1,11 +1,3 @@
-function stringToPk(pkString) {
-  return {
-    className: 'nice2.entity.PrimaryKey',
-    _chunks: [
-      pkString
-    ]
-  }
-}
 export default function createMergeResult(mergeMatrixState) {
   var result = {
     modelName: mergeMatrixState.model.modelName,
@@ -23,7 +15,6 @@ export default function createMergeResult(mergeMatrixState) {
 function extractFields(state) {
   var result = []
   if (state.selections.fields) {
-
     Object.keys(state.selections.fields).map((fieldName) => {
       var value = state.selections.fields[fieldName]
 
