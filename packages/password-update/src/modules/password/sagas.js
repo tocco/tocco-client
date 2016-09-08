@@ -31,7 +31,7 @@ function doRequest(data, principalPk, action, onSuccess, onError) {
 }
 
 function storePassword(principalPk, oldPassword, newPassword) {
-  if (!__DEV__) {
+  if (__DEV__) {
     if (console) console.log('Store password call would take place now')
     return new Promise(resolve => resolve({
       error: null
@@ -54,18 +54,19 @@ function storePassword(principalPk, oldPassword, newPassword) {
       }))
     }
 
-    return doRequest(data, principalPk, "password-update", onSuccess, onError)
+    return doRequest(data, principalPk, 'password-update', onSuccess, onError)
   }
 }
 
 function remoteValidatePassword(principalPk, oldPassword, newPassword) {
-  if (!__DEV__) {
+  if (__DEV__) {
     if (console) console.log('Validate password call would take place now')
-    if (newPassword.includes("tocco")) {
+    if (newPassword.includes('tocco')) {
       return new Promise(resolve => resolve({
         error: {
           valid: false,
-          validationMessages: [{ruleName: 'DICTIONARY', message: 'Das neue Passwort darf das Wort "tocco" nicht enthalten'}]
+          validationMessages: [{ruleName: 'DICTIONARY',
+            message: 'Das neue Passwort darf das Wort "tocco" nicht enthalten'}]
         }
       }))
     } else {
@@ -90,7 +91,7 @@ function remoteValidatePassword(principalPk, oldPassword, newPassword) {
       }))
     }
 
-    return doRequest(data, principalPk, "password-validation", onSuccess, onError)
+    return doRequest(data, principalPk, 'password-validation', onSuccess, onError)
   }
 }
 
@@ -107,7 +108,7 @@ function* updateNewPassword(action) {
 }
 
 function isEmptyObject(object) {
-  //http://stackoverflow.com/questions/679915/how-do-i-test-for-an-empty-javascript-object
+  // http://stackoverflow.com/questions/679915/how-do-i-test-for-an-empty-javascript-object
   return Object.keys(object).length === 0 && object.constructor === Object
 }
 
