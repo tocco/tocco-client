@@ -6,7 +6,8 @@ const initialState = {
   newPasswordRepeat: '',
   newPasswordValidationErrors: null,
   passwordUpdatePending: false,
-  passwordUpdateFailed: false
+  passwordUpdateFailed: false,
+  passwordUpdateErrorCode: null
 }
 
 function updateOldPassword(state, {payload}) {
