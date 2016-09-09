@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Rule = (props) => (
+export const Rule = (props) => (
   <div className={props.className}>{props.message}</div>
 )
 
