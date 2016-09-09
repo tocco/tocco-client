@@ -1,4 +1,5 @@
 import * as actions from './actions'
+import {validationMessagesToErrorMap} from './utils'
 
 const initialState = {
   oldPassword: '',
@@ -47,10 +48,7 @@ function savePasswordSuccess(state) {
 
 function savePasswordFailure(state, {payload}) {
   if (payload.validationMessages) {
-    const errors = {}
-    payload.validationMessages.forEach(message => {
-      errors[message.ruleName] = message.message
-    })
+    const errors = validationMessagesToErrorMap(payload.validationMessages)
     return Object.assign({}, state, {
       passwordUpdatePending: false,
       newPasswordValidationErrors: errors
