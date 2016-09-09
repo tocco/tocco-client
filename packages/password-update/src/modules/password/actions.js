@@ -6,6 +6,7 @@ export const UPDATE_NEW_PASSWORD_REPEAT = 'PasswordUpdateDialog/UPDATE_NEW_PASSW
 export const SAVE_PASSWORD = 'PasswordUpdateDialog/SAVE_PASSWORD'
 export const SAVE_PASSWORD_SUCCESS = 'PasswordUpdateDialog/SAVE_PASSWORD_SUCCESS'
 export const SAVE_PASSWORD_FAILURE = 'PasswordUpdateDialog/SAVE_PASSWORD_FAILURE'
+export const VALIDATE = 'PasswordUpdateDialog/VALIDATE'
 
 export function updateOldPassword(oldPassword) {
   return {
@@ -71,5 +72,11 @@ export function savePasswordFailure(errorCode, validationMessages) {
       errorCode,
       validationMessages
     }
+  }
+}
+
+export function validate() {
+  return {
+    type: VALIDATE
   }
 }
