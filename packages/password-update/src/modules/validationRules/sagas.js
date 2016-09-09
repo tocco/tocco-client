@@ -18,7 +18,7 @@ export function loadValidationRules(principalPk) {
   })
 }
 
-function* fetchValidationRules(action) {
+export function* fetchValidationRules() {
   const principalPk = yield select(principalPkInputSelector)
   const response = yield call(loadValidationRules, principalPk)
   yield put(actions.setValidationRules(response.rules))
