@@ -1,5 +1,4 @@
 import { applyMiddleware, compose, createStore } from 'redux'
-import { routerMiddleware } from 'react-router-redux'
 import thunk from 'redux-thunk'
 import createSagaMiddleware from 'redux-saga'
 
@@ -7,8 +6,8 @@ import reducers, { sagas } from './reducers'
 
 export const sagaMiddleware = createSagaMiddleware()
 
-export default (initialState = {}, history) => {
-  let middleware = applyMiddleware(thunk, routerMiddleware(history), sagaMiddleware)
+export default (initialState = {}) => {
+  let middleware = applyMiddleware(thunk, sagaMiddleware)
 
   // Use DevTools chrome extension in development
   if (__DEBUG__) {
@@ -26,7 +25,7 @@ export default (initialState = {}, history) => {
   if (module.hot) {
     module.hot.accept('./reducers', () => {
       const reducers = require('./reducers').default
-
+  
       store.replaceReducer(reducers)
     })
   }

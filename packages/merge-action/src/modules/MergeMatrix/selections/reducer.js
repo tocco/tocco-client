@@ -1,4 +1,4 @@
-import {SELECT_SOURCE_FIELD, SELECT_SOURCE_RELATION, TOGGLE_RELATION_MANY} from './actions'
+import {SELECT_SOURCE_FIELD, SELECT_SOURCE_RELATION, TOGGLE_RELATION_MANY, CLEAR_RELATION_MANY} from './actions'
 
 function changeSourceField(state, {payload}) {
   return {...state, fields: {...state.fields, [payload.field]: payload.entityPk}}
@@ -9,6 +9,7 @@ function changeSourceRelation(state, {payload}) {
 }
 
 function toggleRelationMany(state, {payload}) {
+  console.log('toggle', state, payload)
   var newState = {...state}
 
   if (!newState.toManyRelations[payload.relationName]) {
@@ -32,10 +33,15 @@ function toggleRelationMany(state, {payload}) {
   return newState
 }
 
+function clearRelationMany(state) {
+  return {...state, toManyRelations: {}}
+}
+
 const ACTION_HANDLERS = {
   [SELECT_SOURCE_FIELD]: changeSourceField,
   [SELECT_SOURCE_RELATION]: changeSourceRelation,
-  [TOGGLE_RELATION_MANY]: toggleRelationMany
+  [TOGGLE_RELATION_MANY]: toggleRelationMany,
+  [CLEAR_RELATION_MANY]: clearRelationMany
 }
 
 const initialState = {fields: {}, relations: {}, toManyRelations: {}}
