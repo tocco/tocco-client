@@ -1,12 +1,8 @@
 import React from 'react'
+import {messages, DEFAULT as DEFAULT_MESSAGE} from './messages'
 
 function getMessage(errorCode) {
-  switch (errorCode) {
-    case 'INVALID_CREDENTIALS':
-      return 'Das Passwort konnte nicht geändert werden. Das alte Passwort ist nicht korrekt.'
-    default:
-      return 'Das Passwort konnte nicht geändert werden.'
-  }
+  return messages[errorCode] || DEFAULT_MESSAGE
 }
 
 const FailureMessage = (props) => (
