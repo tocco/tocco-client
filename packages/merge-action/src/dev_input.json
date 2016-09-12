@@ -5,90 +5,19 @@
         "user_nr": {
           "name": "user_nr",
           "type": "counter",
-          "value": 87,
-          "writable": true
-        },
-        "firstname": {
-          "name": "firstname",
-          "type": "string",
-          "value": "Steven",
-          "writable": true
-        },
-        "lastname": {
-          "name": "lastname",
-          "type": "string",
-          "value": "Busse",
-          "writable": true
-        },
-        "email": {
-          "name": "email",
-          "type": "email",
-          "value": "",
-          "writable": true
-        },
-        "callname": {
-          "name": "callname",
-          "type": "string",
-          "value": "",
-          "writable": true
-        },
-        "birthdate": {
-          "name": "birthdate",
-          "type": "birthdate",
-          "value": "1976-03-15T23:00:00.000Z",
-          "writable": true
-        }
-      },
-      "label": "Busse, Steven",
-      "pk": "1268",
-      "relations": {
-        "relUser_status": {
-          "name": "relUser_status",
-          "values": [
-            {
-              "checked": true,
-              "label": "Prüfen",
-              "pk": "3"
-            }
-          ],
-          "writable": true
-        },
-        "relUser_code1": {
-          "name": "relUser_code1",
-          "values": [
-            {
-              "checked": true,
-              "label": "Präsident",
-              "pk": "1"
-            },
-            {
-              "checked": true,
-              "label": "Geschäftsleitung",
-              "pk": "2"
-            }
-          ],
-          "writable": true
-        }
-      }
-    },
-    {
-      "fields": {
-        "user_nr": {
-          "name": "user_nr",
-          "type": "counter",
           "value": 105,
           "writable": true
         },
         "firstname": {
           "name": "firstname",
           "type": "string",
-          "value": "testnl",
+          "value": "Oliver",
           "writable": true
         },
         "lastname": {
           "name": "lastname",
           "type": "string",
-          "value": "test",
+          "value": "Busse",
           "writable": true
         },
         "email": {
@@ -110,20 +39,9 @@
           "writable": true
         }
       },
-      "label": "test, testnl",
+      "label": "Busse, Oliver",
       "pk": "2152",
       "relations": {
-        "relUser_status": {
-          "name": "relUser_status",
-          "values": [
-            {
-              "checked": true,
-              "label": "Aktiv",
-              "pk": "1"
-            }
-          ],
-          "writable": true
-        },
         "relUser_code1": {
           "name": "relUser_code1",
           "values": [
@@ -134,6 +52,66 @@
             },
             {
               "checked": false,
+              "label": "Geschäftsleitung",
+              "pk": "2"
+            }
+          ],
+          "writable": true
+        }
+      }
+    },
+    {
+      "fields": {
+        "user_nr": {
+          "name": "user_nr",
+          "type": "counter",
+          "value": 106,
+          "writable": true
+        },
+        "firstname": {
+          "name": "firstname",
+          "type": "string",
+          "value": "John",
+          "writable": true
+        },
+        "lastname": {
+          "name": "lastname",
+          "type": "string",
+          "value": "Doe",
+          "writable": true
+        },
+        "email": {
+          "name": "email",
+          "type": "email",
+          "value": "john@mail.com",
+          "writable": true
+        },
+        "callname": {
+          "name": "callname",
+          "type": "string",
+          "value": "J",
+          "writable": true
+        },
+        "birthdate": {
+          "name": "birthdate",
+          "type": "birthdate",
+          "value": "1980-01-31T23:00:00.000Z",
+          "writable": true
+        }
+      },
+      "label": "Doe, John",
+      "pk": "2310",
+      "relations": {
+        "relUser_code1": {
+          "name": "relUser_code1",
+          "values": [
+            {
+              "checked": true,
+              "label": "Präsident",
+              "pk": "1"
+            },
+            {
+              "checked": true,
               "label": "Geschäftsleitung",
               "pk": "2"
             }
@@ -173,15 +151,43 @@
     "modelName": "User",
     "relations": [
       {
-        "label": "Status Person",
-        "name": "relUser_status",
-        "toMany": false
-      },
-      {
         "label": "Personen-Code 1",
         "name": "relUser_code1",
         "toMany": true
       }
     ]
-  }
+  },
+  "sourceEntitiesOptions": [
+    {
+      "type": "field",
+      "fieldType": "string",
+      "name": "firstName",
+      "label": "Vorname",
+      "defaultValue": "- Deleted -"
+    },
+    {
+      "type": "field",
+      "fieldType": "string",
+      "name": "lastname",
+      "label": "Nachname",
+      "defaultValue": "- sdf -"
+    },    {
+      "type": "field",
+      "fieldType": "string",
+      "name": "age",
+      "label": "Alter",
+      "defaultValue": "16"
+    },
+    {
+      "type": "relation",
+      "name": "relUser_status",
+      "label": "Status",
+      "defaultValue": "check",
+      "values": {
+        "active": "Aktiv",
+        "archive": "Archiv",
+        "check": "Prüfen"
+      }
+    }
+  ]
 }

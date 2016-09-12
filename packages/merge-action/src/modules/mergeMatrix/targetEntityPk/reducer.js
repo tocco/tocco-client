@@ -1,11 +1,11 @@
-import {RECEIVE_ENTITIES} from './actions'
+import {CHANGE_TARGET_ENTITY} from '../actions'
 
-function receiveEntities(state, {payload}) {
-  return [].concat(payload.entities)
+function changeTargetEntity(state, {pk}) {
+  return pk
 }
 
 const ACTION_HANDLERS = {
-  [RECEIVE_ENTITIES]: receiveEntities
+  [CHANGE_TARGET_ENTITY]: changeTargetEntity
 
 }
 

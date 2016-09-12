@@ -1,8 +1,10 @@
-export const RETRIEVE_ENTITIES = 'MergeMatrix/RETRIEVE_ENTITIES'
+export const RECEIVE_ENTITIES = 'MergeMatrix/RECEIVE_ENTITIES'
 
-export function retrieveEntities(entities) {
+export function receiveEntitites(entities) {
   return {
-    type: RETRIEVE_ENTITIES,
-    entities
+    type: RECEIVE_ENTITIES,
+    payload: {
+      entities
+    }
   }
 }

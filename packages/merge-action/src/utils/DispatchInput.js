@@ -1,17 +1,19 @@
-import {retrieveEntities} from '../modules/MergeMatrix/entities/actions'
-import {retrieveModel} from '../modules/MergeMatrix/model/actions'
-import {changeTargetEntity} from '../modules/MergeMatrix/actions'
-import {toggleRelationMany, clearRelationMany} from '../modules/MergeMatrix/selections/actions'
+import {receiveEntitites} from '../modules/mergeMatrix/entities/actions'
+import {retrieveOptions} from '../modules/mergeStrategy/options/actions'
+import {retrieveModel} from '../modules/mergeMatrix/model/actions'
+import {changeTargetEntity} from '../modules/mergeMatrix/actions'
+import {toggleRelationMany, clearRelationMany} from '../modules/mergeMatrix/selections/actions'
 
 export default function dispatchInput(store) {
   var state = store.getState()
   if (state.input) {
     const {input} = state
-    store.dispatch(retrieveEntities(input.entities))
+    store.dispatch(receiveEntitites(input.entities))
     store.dispatch(retrieveModel(input.model))
     store.dispatch(changeTargetEntity(input.entities[0].pk))
     store.dispatch(clearRelationMany())
     dispatchToManySelections(input, store)
+    store.dispatch(retrieveOptions(input.sourceEntitiesOptions))
   }
 }
 

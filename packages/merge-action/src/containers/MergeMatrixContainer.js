@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
-import {changeTargetEntity, saveMerge} from '../modules/MergeMatrix/actions'
-import {selectSourceField, selectSourceRelation} from '../modules/MergeMatrix/selections'
+import {changeTargetEntity, saveMerge} from '../modules/mergeMatrix/actions'
+import {selectSourceField, selectSourceRelation} from '../modules/mergeMatrix/selections'
 import MergeMatrix from '../components/MergeMatrix'
-import {toggleRelationMany} from '../modules/MergeMatrix/selections/actions'
+import {toggleRelationMany} from '../modules/mergeMatrix/selections/actions'
 
 const mapActionCreators = {
   changeTargetEntity,
