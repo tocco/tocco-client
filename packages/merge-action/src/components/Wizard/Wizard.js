@@ -1,23 +1,15 @@
 import React from 'react'
+import {SaveButton} from 'tocco-ui'
 
-export class WizardPage extends React.Component {
-
-  render() {
-    return (
-      <div>
-        <button onClick={this.props.doNext}>Next</button>
-        <div>{this.props.children}</div>
-      </div>
-    )
-  }
-}
+import './styles.css'
 
 export class Wizard extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       index: 0,
-      amountPages: props.children.length
+      amountPages: props.children.length,
+      allowNext: true
     }
   }
 
@@ -29,29 +21,72 @@ export class Wizard extends React.Component {
 
   backClick = () => {
     if (this.state.index > 0) {
-      this.setState(function (previousState) {
+      this.setState((previousState) => {
         return {index: previousState.index - 1}
       })
     }
   }
 
+  changeAllowNext = (allow) => {
+    this.setState(() => {
+      return {allowNext: allow}
+    })
+  }
+
   nextClick = () => {
-    if (this.state.index < (this.state.amountPages - 1)) {
-      this.setState(function (previousState) {
+    var result = true
+    console.log('this.currentRender', this.currentRender)
+    if (this.currentRender && this.currentRender.getWrappedInstance) {
+      console.log('wraped instance')
+      if (this.currentRender.getWrappedInstance().wizardNext) {
+        result = this.currentRender.getWrappedInstance().wizardNext()
+      }
+    }
+    if (result && (this.state.index < (this.state.amountPages - 1))) {
+      this.setState((previousState) => {
         return {index: previousState.index + 1}
       })
     }
   }
 
   render() {
-    var decoratedChild = this.getCurrentPage()
-    var t = <WizardPage {...decoratedChild.props} doNext={this.nextClick}></WizardPage>
+    var currentPage = this.getCurrentPage()
+    var t = React.cloneElement(currentPage,
+      {
+        wizardAllowNext: this.changeAllowNext,
+        ref: (ref) => this.currentRender = ref
+      }
+    )
+
     return (
-      <div>
-        <h1>{this.state.index}</h1>
-        {t}
-        {(this.state.index > 0) && <button className="btn" onClick={this.backClick}>Back</button>}
-        {(this.state.index < this.state.amountPages - 1) && <button className="btn" onClick={this.nextClick}>Next</button>}
+      <div className="wizard">
+        <div className="wizard-body">
+          {t}
+        </div>
+        <div className="wizard-footer">
+          {
+            (this.state.index > 0)
+            && <button className="btn wizard-back-button" onClick={this.backClick}>Zurück</button>
+          }
+          {
+            (this.state.index < this.state.amountPages - 1)
+            && <button
+              className="btn wizard-next-button"
+              onClick={this.nextClick}
+              disabled={!this.state.allowNext}
+            >
+              Weiter
+            </button>
+          }
+          {
+            (this.state.index === this.state.amountPages - 1)
+            && <SaveButton
+              className="btn wizard-next-button"
+              label={this.props.save.label}
+              onClick={this.props.save.fn}
+            />
+          }
+        </div>
       </div>
     )
   }
@@ -60,5 +95,3 @@ export class Wizard extends React.Component {
 Wizard.propTypes = {
   children: React.PropTypes.arrayOf(React.PropTypes.element)
 }
-
-

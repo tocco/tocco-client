@@ -2,10 +2,12 @@ import {combineReducers} from 'redux'
 import {fork} from 'redux-saga/effects'
 import moduleSagas from './sagas'
 
-import options from './options'
+import editOptions from './editOptions'
+import strategies from './strategies'
 
 export default combineReducers({
-  options
+  editOptions,
+  strategies
 })
 
 export function* sagas() {

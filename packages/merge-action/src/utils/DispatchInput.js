@@ -1,5 +1,5 @@
 import {receiveEntitites} from '../modules/mergeMatrix/entities/actions'
-import {retrieveOptions} from '../modules/mergeStrategy/options/actions'
+import {retrieveEditOptions} from '../modules/mergeStrategy/editOptions/actions'
 import {retrieveModel} from '../modules/mergeMatrix/model/actions'
 import {changeTargetEntity} from '../modules/mergeMatrix/actions'
 import {toggleRelationMany, clearRelationMany} from '../modules/mergeMatrix/selections/actions'
@@ -13,7 +13,7 @@ export default function dispatchInput(store) {
     store.dispatch(changeTargetEntity(input.entities[0].pk))
     store.dispatch(clearRelationMany())
     dispatchToManySelections(input, store)
-    store.dispatch(retrieveOptions(input.sourceEntitiesOptions))
+    store.dispatch(retrieveEditOptions(input.sourceEntitiesOptions))
   }
 }
 

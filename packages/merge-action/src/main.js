@@ -2,11 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import createStore from './store/createStore'
 import {Provider} from 'react-redux'
-import MergeMatrixContainer from './containers/MergeMatrixContainer'
-import MergeStrategyContainer from './containers/MergeStrategyContainer'
-import {Wizard, WizardPage} from './components/Wizard'
+
+import MergeWizardContainer from './containers/MergeWizardContainer'
 import dispatchInput from './utils/DispatchInput'
-import CoreLayout from './layouts/CoreLayout'
 import {registerEvents} from './utils/ExternalEvents'
 
 const init = (id, input, externalEvents) => {
@@ -29,10 +27,7 @@ const init = (id, input, externalEvents) => {
 
   const App = () => (
     <Provider store={store}>
-      <CoreLayout>
-        <MergeStrategyContainer/>
-        <MergeMatrixContainer/>
-      </CoreLayout>
+      <MergeWizardContainer/>
     </Provider>
   )
 

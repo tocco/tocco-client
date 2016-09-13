@@ -1,29 +1,64 @@
 import React from 'react'
 
-import Option from './Option'
+import EditOption from './EditOption'
 
 class MergeStrategy extends React.Component {
   render() {
+    // this.props.wizardAllowNext(false)
     return (
       <div>
         <form>
-          <div className="form-group">
-            <label>Kopieren?</label>
-            <input type="radio" className="form-check-input" name="copy" id="optionsRadios1" value="option1"/> Yes
-            <input type="radio" className="form-check-input" name="copy" id="optionsRadios2" value="option2"/> No
-          </div>
-          <div className="form-group">
-            <label>Was soll geschehen?</label>
-            {
-              this.props.options.map((options, idx) => {
-                return <Option
-                  key={`fieldset${idx}`}
-                  fieldSet={options}
-                  activateOption={this.props.activateOption}
-                  onValueChange={this.props.changeOptionValue}
+          <div>
+            <h4>Sollen alle Relationen der Ausgangsdatensätzen aug den Zieldatensatz mitkopiert werden?</h4>
+            <div className="answer">
+              <div>
+                <input
+                  type="radio"
+                  className="form-check-input"
+                  checked={this.props.strategies.transferRelations}
+                  onChange={() => this.props.changeStrategy('transferRelations', true)}
                 />
-              })
-            }
+                <span style={{paddingLeft: '5px'}}>Yes</span>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  className="form-check-input"
+                  checked={!this.props.strategies.transferRelations}
+                  onChange={() => this.props.changeStrategy('transferRelations', false)}
+                />
+                <span style={{paddingLeft: '5px'}}>No</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h4>Was soll mit den Ausgansdatensätzen passieren?</h4>
+            <div className="answer">
+              <select
+                className="form-control"
+                value={this.props.strategies.sourceEntityAction}
+                onChange={(event) => this.props.changeStrategy('sourceEntityAction', event.target.value)}
+              >
+                <option value="noAction">Keine Aktion</option>
+                <option value="delete">Löschen</option>
+                <option value="edit">Bearbeiten</option>
+              </select>
+            </div>
+            <div className={this.props.strategies.sourceEntityAction === 'edit' ? '' : 'hidden'}>
+              <h5>Bearbeiten</h5>
+              <div className="answer">
+                {
+                  this.props.editOptions.map((editOption, idx) => {
+                    return <EditOption
+                      key={`fieldset${idx}`}
+                      editOption={editOption}
+                      activateEditOption={this.props.activateEditOption}
+                      onValueChange={this.props.changeEditOptionValue}
+                    />
+                  })
+                }
+              </div>
+            </div>
           </div>
         </form>
       </div>
@@ -32,9 +67,11 @@ class MergeStrategy extends React.Component {
 }
 
 MergeStrategy.propTypes = {
-  options: React.PropTypes.array.isRequired,
-  changeOptionValue: React.PropTypes.func.isRequired,
-  activateOption: React.PropTypes.func.isRequired
+  editOptions: React.PropTypes.array.isRequired,
+  changeEditOptionValue: React.PropTypes.func.isRequired,
+  activateEditOption: React.PropTypes.func.isRequired,
+  strategies: React.PropTypes.object.isRequired,
+  changeStrategy: React.PropTypes.func.isRequired
 }
 
 export default MergeStrategy

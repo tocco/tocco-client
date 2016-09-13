@@ -1,17 +1,20 @@
 import { connect } from 'react-redux'
 import MergeStrategy from '../components/MergeStrategy'
-import {changeOptionValue, activateOption} from '../modules/mergeStrategy/options/actions'
+import {changeEditOptionValue, activateEditOption} from '../modules/mergeStrategy/editOptions/actions'
+import {changeStrategy} from '../modules/mergeStrategy/strategies/actions'
 
 const mapActionCreators = {
-  changeOptionValue: changeOptionValue,
-  activateOption: activateOption
+  changeEditOptionValue,
+  activateEditOption,
+  changeStrategy
 }
 
 const mapStateToProps = (state) => {
   return {
-    options: state.mergeStrategy.options
+    editOptions: state.mergeStrategy.editOptions,
+    strategies: state.mergeStrategy.strategies
   }
 }
 
-export default connect(mapStateToProps, mapActionCreators)(MergeStrategy)
+export default connect(mapStateToProps, mapActionCreators, null, { withRef: true })(MergeStrategy)
 

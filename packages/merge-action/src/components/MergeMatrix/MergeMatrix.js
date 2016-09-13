@@ -3,7 +3,7 @@ import React from 'react'
 import './MegerMatrix.css'
 
 import {HeaderRow, ToManyRelationRow, FieldRow, RelationRow} from './table-components'
-import { SaveButton } from 'tocco-ui'
+
 
 class MergeMatrix extends React.Component {
 
@@ -11,12 +11,6 @@ class MergeMatrix extends React.Component {
     var targetEntity = this.props.entities.find(e => e.pk === this.props.targetEntityPk)
     return (
       <div>
-        <div>
-          <SaveButton
-            label="Zusammenführen"
-            onClick={this.props.saveMerge}
-          />
-        </div>
         <table className="table table-striped table-hover">
           <thead>
             <HeaderRow
@@ -83,7 +77,6 @@ MergeMatrix.propTypes = {
   targetEntityPk: React.PropTypes.string,
   selections: React.PropTypes.object,
   changeTargetEntity: React.PropTypes.func.isRequired,
-  saveMerge: React.PropTypes.func.isRequired,
   selectSourceField: React.PropTypes.func.isRequired,
   selectSourceRelation: React.PropTypes.func.isRequired,
   toggleRelationMany: React.PropTypes.func.isRequired
