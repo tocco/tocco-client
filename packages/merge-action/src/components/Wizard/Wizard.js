@@ -54,7 +54,7 @@ export class Wizard extends React.Component {
     var t = React.cloneElement(currentPage,
       {
         wizardAllowNext: this.changeAllowNext,
-        ref: (ref) => this.currentRender = ref
+        ref: (ref) => (this.currentRender = ref)
       }
     )
 
@@ -93,5 +93,6 @@ export class Wizard extends React.Component {
 }
 
 Wizard.propTypes = {
-  children: React.PropTypes.arrayOf(React.PropTypes.element)
+  children: React.PropTypes.arrayOf(React.PropTypes.element),
+  save: React.PropTypes.object.isRequired
 }

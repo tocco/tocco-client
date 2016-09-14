@@ -29,7 +29,7 @@
         "callname": {
           "name": "callname",
           "type": "string",
-          "value": "test",
+          "value": "testtesttesttesttesttesttesttesttesttesttest",
           "writable": true
         },
         "birthdate": {
@@ -159,27 +159,27 @@
   },
   "sourceEntitiesOptions": [
     {
-      "type": "field",
+      "type": "set-field-source-entity-strategy",
       "fieldType": "string",
       "name": "firstName",
       "label": "Vorname",
       "defaultValue": "- Deleted -"
     },
     {
-      "type": "field",
+      "type": "set-field-source-entity-strategy",
       "fieldType": "string",
       "name": "lastname",
       "label": "Nachname",
       "defaultValue": "- sdf -"
     },    {
-      "type": "field",
+      "type": "set-field-source-entity-strategy",
       "fieldType": "string",
       "name": "age",
       "label": "Alter",
       "defaultValue": "16"
     },
     {
-      "type": "relation",
+      "type": "set-relation-source-entity-strategy",
       "name": "relUser_status",
       "label": "Status",
       "defaultValue": "check",

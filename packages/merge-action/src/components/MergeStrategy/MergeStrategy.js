@@ -16,18 +16,18 @@ class MergeStrategy extends React.Component {
                   type="radio"
                   className="form-check-input"
                   checked={this.props.strategies.transferRelations}
-                  onChange={() => this.props.changeStrategy('transferRelations', true)}
+                  onChange={() => this.props.changeStrategy('copyRelations', true)}
                 />
-                <span style={{paddingLeft: '5px'}}>Yes</span>
+                <span style={{paddingLeft: '5px'}}>Ja</span>
               </div>
               <div>
                 <input
                   type="radio"
                   className="form-check-input"
                   checked={!this.props.strategies.transferRelations}
-                  onChange={() => this.props.changeStrategy('transferRelations', false)}
+                  onChange={() => this.props.changeStrategy('copyRelations', false)}
                 />
-                <span style={{paddingLeft: '5px'}}>No</span>
+                <span style={{paddingLeft: '5px'}}>Nein</span>
               </div>
             </div>
           </div>

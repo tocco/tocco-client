@@ -4,7 +4,6 @@ import './MegerMatrix.css'
 
 import {HeaderRow, ToManyRelationRow, FieldRow, RelationRow} from './table-components'
 
-
 class MergeMatrix extends React.Component {
 
   render() {

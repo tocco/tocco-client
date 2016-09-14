@@ -5,7 +5,7 @@ import RelationOption from './RelationOption'
 
 const EditOption = props => {
   var input
-  if (props.editOption.type === 'field') {
+  if (props.editOption.type === 'set-field-source-entity-strategy') {
     input = <FieldOption
       name={props.editOption.name}
       fieldType={props.editOption.fieldType}
@@ -13,7 +13,7 @@ const EditOption = props => {
       onChange={props.onValueChange}
       disabled={!props.editOption.active}
     />
-  } else if (props.editOption.type === 'relation') {
+  } else if (props.editOption.type === 'set-relation-source-entity-strategy') {
     input = <RelationOption
       name={props.editOption.name}
       value={props.editOption.value}

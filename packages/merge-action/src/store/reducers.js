@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import { fork } from 'redux-saga/effects'
 import mergeMatrix, { sagas as mergeMatrixSagas } from './../modules/mergeMatrix/'
 import mergeStrategy, { sagas as mergeStrategySagas } from './../modules/mergeStrategy/'
+import { sagas as wizardSagas } from './../modules/wizard/'
 import input from './input/reducer'
 
 export const reducers = (asyncReducers) => {
@@ -23,6 +24,7 @@ export default reducers
 export const sagas = function* rootSaga() {
   yield [
     fork(mergeMatrixSagas),
-    fork(mergeStrategySagas)
+    fork(mergeStrategySagas),
+    fork(wizardSagas)
   ]
 }

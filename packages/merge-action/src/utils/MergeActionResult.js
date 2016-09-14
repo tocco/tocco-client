@@ -1,21 +1,60 @@
-export default function createMergeResult(mergeMatrixState) {
-  var result = {
+export default function createMergeResult(state) {
+  var mergeStrategy = getMergeStrategyResult(state.mergeStrategy)
+  var mergeMatrixResult = getMergeMatrixResult(state.mergeMatrix)
+
+  return {...mergeStrategy, ...mergeMatrixResult}
+}
+
+export function getMergeStrategyResult(mergeStrategyState) {
+  var deleteSourceEntities = (mergeStrategyState.strategies.sourceEntityAction === 'delete')
+  return {
+    isCopyRemainingRelations: mergeStrategyState.strategies.copyRelations,
+    sourceEntityConfig: {
+      deleteSourceEntities,
+      updateValues: extractUpdateValues(mergeStrategyState)
+    }
+
+  }
+}
+
+function extractUpdateValues(mergeStrategyState) {
+  if (mergeStrategyState.strategies.sourceEntityAction !== 'edit'
+    || !mergeStrategyState.editOptions) {
+    return []
+  }
+
+  var result = []
+  mergeStrategyState.editOptions.forEach(editOptions => {
+    if (editOptions.active) {
+      result.push(
+        {
+          type: editOptions.type,
+          name: editOptions.name,
+          value: editOptions.value
+        }
+      )
+    }
+  })
+  return result
+}
+
+export function getMergeMatrixResult(mergeMatrixState) {
+  return {
     modelName: mergeMatrixState.model.modelName,
     targetEntity: mergeMatrixState.targetEntityPk,
-    sourceEntities: mergeMatrixState.entities.map(e => e.pk),
+    sourceEntities: mergeMatrixState.entities.filter(e => e.pk !== mergeMatrixState.targetEntityPk).map(e => e.pk),
     data: {
       fields: extractFields(mergeMatrixState),
       relations: extractRelations(mergeMatrixState),
       toManyRelations: extractToManyRelations(mergeMatrixState)
     }
   }
-  return result
 }
 
 function extractFields(state) {
   var result = []
   if (state.selections.fields) {
-    Object.keys(state.selections.fields).map((fieldName) => {
+    Object.keys(state.selections.fields).forEach((fieldName) => {
       var value = state.selections.fields[fieldName]
 
       if (value !== state.targetEntityPk) {
@@ -34,7 +73,7 @@ function extractRelations(state) {
   var result = []
 
   if (state.selections.relations) {
-    Object.keys(state.selections.relations).map((relationName) => {
+    Object.keys(state.selections.relations).forEach((relationName) => {
       var entityPk = state.selections.relations[relationName]
 
       if (entityPk !== state.targetEntityPk) {
@@ -54,7 +93,7 @@ function extractToManyRelations(state) {
   var result = []
 
   if (state.selections.toManyRelations) {
-    Object.keys(state.selections.toManyRelations).map((relationName) => {
+    Object.keys(state.selections.toManyRelations).forEach((relationName) => {
       result.push({
         name: relationName,
         keys: state.selections.toManyRelations[relationName][state.targetEntityPk]

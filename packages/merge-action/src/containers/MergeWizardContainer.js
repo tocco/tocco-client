@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import MergeWizard from './../components/MergeWizard'
-import {saveMerge} from '../modules/mergeMatrix/actions'
+import {saveMerge} from '../modules/wizard/actions'
 
 const mapActionCreators = {
   saveMerge
