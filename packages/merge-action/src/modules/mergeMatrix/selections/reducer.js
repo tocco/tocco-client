@@ -9,7 +9,6 @@ function changeSourceRelation(state, {payload}) {
 }
 
 function toggleRelationMany(state, {payload}) {
-  console.log('toggle', state, payload)
   var newState = {...state}
 
   if (!newState.toManyRelations[payload.relationName]) {

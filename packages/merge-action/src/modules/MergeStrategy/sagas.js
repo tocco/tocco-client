@@ -1,5 +1,5 @@
 import {takeEvery} from 'redux-saga'
-import {call, fork, select, put} from 'redux-saga/effects'
+import {fork} from 'redux-saga/effects'
 
 export function* save() {
 
