@@ -3,7 +3,7 @@ import * as sagas from './sagas'
 import * as actions from './actions'
 
 describe('password-update', () => {
-  describe('password sagas', () => {
+  describe('validationRules sagas', () => {
     describe('fetchValidationRules', () => {
       it('should load validation rules', () => {
         const generator = sagas.fetchValidationRules()
