@@ -9,7 +9,7 @@ const ACTION_HANDLERS = {
   [CHANGE_STRATEGY]: setStrategy
 }
 
-const initialState = {copyRelations: true, sourceEntityAction: 'noAction'}
+const initialState = {copyRelations: true, sourceEntityAction: 'NO_ACTION'}
 
 export default function reducer(state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]

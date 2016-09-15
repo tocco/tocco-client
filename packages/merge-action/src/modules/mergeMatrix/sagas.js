@@ -5,7 +5,8 @@ import {selectSourceField, selectSourceRelation} from './selections/actions'
 
 export const mergeMatrixSelector = state => state.mergeMatrix
 
-export function* selectTargetEntityFields({pk}) {
+export function* selectTargetEntityFields({payload}) {
+  var pk = payload.pk
   var mergeMatrixState = yield select(mergeMatrixSelector)
 
   yield mergeMatrixState.model.fields.map(field => put(selectSourceField(field.name, pk)))
