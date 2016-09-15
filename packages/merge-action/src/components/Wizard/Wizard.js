@@ -1,7 +1,7 @@
 import React from 'react'
 import {SaveButton} from 'tocco-ui'
 
-import './styles.css'
+import './styles.scss'
 
 export class Wizard extends React.Component {
   constructor(props) {

@@ -1,10 +1,14 @@
 import React from 'react'
-
+import classNames from 'classnames'
 import EditOption from './EditOption'
+import {SourceEntityAction} from '../../types/SourceEntityAction'
 
 class MergeStrategy extends React.Component {
   render() {
-    // this.props.wizardAllowNext(false)
+    var editClassNames = classNames({
+      hidden: this.props.strategies.sourceEntityAction !== SourceEntityAction.EDIT
+    })
+
     return (
       <div>
         <form>
@@ -15,19 +19,19 @@ class MergeStrategy extends React.Component {
                 <input
                   type="radio"
                   className="form-check-input"
-                  checked={this.props.strategies.transferRelations}
+                  checked={this.props.strategies.copyRelations}
                   onChange={() => this.props.changeStrategy('copyRelations', true)}
                 />
-                <span style={{paddingLeft: '5px'}}>Ja</span>
+                <span className="p-l-5">Ja</span>
               </div>
               <div>
                 <input
                   type="radio"
                   className="form-check-input"
-                  checked={!this.props.strategies.transferRelations}
+                  checked={!this.props.strategies.copyRelations}
                   onChange={() => this.props.changeStrategy('copyRelations', false)}
                 />
-                <span style={{paddingLeft: '5px'}}>Nein</span>
+                <span className="p-l-5">Nein</span>
               </div>
             </div>
           </div>
@@ -39,12 +43,12 @@ class MergeStrategy extends React.Component {
                 value={this.props.strategies.sourceEntityAction}
                 onChange={(event) => this.props.changeStrategy('sourceEntityAction', event.target.value)}
               >
-                <option value="noAction">Keine Aktion</option>
-                <option value="delete">Löschen</option>
-                <option value="edit">Bearbeiten</option>
+                <option value={SourceEntityAction.NOACTION}>Keine Aktion</option>
+                <option value={SourceEntityAction.DELETE}>Löschen</option>
+                <option value={SourceEntityAction.EDIT}>Bearbeiten</option>
               </select>
             </div>
-            <div className={this.props.strategies.sourceEntityAction === 'edit' ? '' : 'hidden'}>
+            <div className={editClassNames}>
               <h5>Bearbeiten</h5>
               <div className="answer">
                 {

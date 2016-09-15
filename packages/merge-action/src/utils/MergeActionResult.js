@@ -1,3 +1,5 @@
+import {SourceEntityAction} from './../types/SourceEntityAction'
+
 export default function createMergeResult(state) {
   var mergeStrategy = getMergeStrategyResult(state.mergeStrategy)
   var mergeMatrixResult = getMergeMatrixResult(state.mergeMatrix)
@@ -6,7 +8,7 @@ export default function createMergeResult(state) {
 }
 
 export function getMergeStrategyResult(mergeStrategyState) {
-  var deleteSourceEntities = (mergeStrategyState.strategies.sourceEntityAction === 'delete')
+  var deleteSourceEntities = (mergeStrategyState.strategies.sourceEntityAction === SourceEntityAction.DELETE)
   return {
     isCopyRemainingRelations: mergeStrategyState.strategies.copyRelations,
     sourceEntityConfig: {
@@ -18,7 +20,7 @@ export function getMergeStrategyResult(mergeStrategyState) {
 }
 
 function extractUpdateValues(mergeStrategyState) {
-  if (mergeStrategyState.strategies.sourceEntityAction !== 'edit'
+  if (mergeStrategyState.strategies.sourceEntityAction !== SourceEntityAction.EDIT
     || !mergeStrategyState.editOptions) {
     return []
   }

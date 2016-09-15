@@ -12,7 +12,6 @@ class MergeStrategy extends React.Component {
         <Wizard save={{fn: this.props.saveMerge, label: 'Zusammenführen'}}>
           <MergeStrategyContainer/>
           <MergeMatrixContainer/>
-
         </Wizard>
       </div>
     )

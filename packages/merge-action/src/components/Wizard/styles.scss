@@ -1,0 +1,35 @@
+.wizard {
+  height: 100%;
+
+  &-body {
+    padding: 10px;
+    height: calc(100% - 50px);
+    overflow-y: auto;
+  }
+
+  &-footer{
+    height: 50px;
+  }
+
+  &-back-button{
+    width: 150px;
+    position: absolute;
+    margin-top: 8px;
+    left: 10px;
+  }
+
+  &-next-button{
+    width: 150px;
+    position: absolute;
+    margin-top: 8px;
+    right: 10px;
+  }
+}
+
+
+
+
+
+
+
+

@@ -6,7 +6,11 @@ const FieldOption = props => {
 
   return (
     <div>
-      <FieldInput field={field} onChange={props.onChange} disabled={props.disabled}/>
+      <FieldInput
+        field={field}
+        onChange={props.onChange}
+        disabled={props.disabled}
+      />
     </div>
   )
 }
