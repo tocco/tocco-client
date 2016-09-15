@@ -3,39 +3,31 @@ export const SELECT_SOURCE_RELATION = 'MergeMatrix/SELECT_SOURCE_RELATION'
 export const TOGGLE_RELATION_MANY = 'MergeMatrix/TOGGLE_RELATION_MANY'
 export const CLEAR_RELATION_MANY = 'MergeMatrix/CLEAR_RELATION_MANY'
 
-export function selectSourceField(field, entityPk) {
-  return {
-    type: SELECT_SOURCE_FIELD,
-    payload: {
-      entityPk,
-      field
-    }
+export const selectSourceField = (field, entityPk) => ({
+  type: SELECT_SOURCE_FIELD,
+  payload: {
+    entityPk,
+    field
   }
-}
+})
 
-export function selectSourceRelation(relationName, entityPk) {
-  return {
-    type: SELECT_SOURCE_RELATION,
-    payload: {
-      relationName,
-      entityPk
-    }
+export const selectSourceRelation = (relationName, entityPk) => ({
+  type: SELECT_SOURCE_RELATION,
+  payload: {
+    relationName,
+    entityPk
   }
-}
+})
 
-export function toggleRelationMany(relationName, relationPk, entityPk) {
-  return {
-    type: TOGGLE_RELATION_MANY,
-    payload: {
-      relationName,
-      relationPk,
-      entityPk
-    }
+export const toggleRelationMany = (relationName, relationPk, entityPk) => ({
+  type: TOGGLE_RELATION_MANY,
+  payload: {
+    relationName,
+    relationPk,
+    entityPk
   }
-}
+})
 
-export function clearRelationMany() {
-  return {
-    type: CLEAR_RELATION_MANY
-  }
-}
+export const clearRelationMany = () => ({
+  type: CLEAR_RELATION_MANY
+})
