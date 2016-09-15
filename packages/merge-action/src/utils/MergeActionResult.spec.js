@@ -152,7 +152,7 @@ describe('merge-action', () => {
 
         var state2 = {
           strategies: {
-            sourceEntityAction: 'delete'
+            sourceEntityAction: 'DELETE'
           }
         }
 
@@ -164,7 +164,7 @@ describe('merge-action', () => {
         var state = {
 
           strategies: {
-            sourceEntityAction: 'edit'
+            sourceEntityAction: 'EDIT'
           },
           editOptions: [
             {

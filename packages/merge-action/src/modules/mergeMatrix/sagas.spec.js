@@ -7,7 +7,7 @@ describe('merge-action', () => {
   describe('matrix module sagas ', () => {
     describe('selectTargetEntityFields', () => {
       it('should dispatch the selection of new target entity', () => {
-        const generator = sagas.selectTargetEntityFields({pk: '1'})
+        const generator = sagas.selectTargetEntityFields({payload: {pk: '1'}})
 
         var state = {
           model: {
