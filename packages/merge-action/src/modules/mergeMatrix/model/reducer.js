@@ -1,12 +1,11 @@
 import {RETRIEVE_MODEL} from './actions'
 
-function receiveEntities(state, {model}) {
-  return model
+function receiveEntities(state, {payload}) {
+  return payload.model
 }
 
 const ACTION_HANDLERS = {
   [RETRIEVE_MODEL]: receiveEntities
-
 }
 
 const initialState = []

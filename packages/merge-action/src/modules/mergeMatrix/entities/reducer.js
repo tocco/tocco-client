@@ -6,7 +6,6 @@ function receiveEntities(state, {payload}) {
 
 const ACTION_HANDLERS = {
   [RECEIVE_ENTITIES]: receiveEntities
-
 }
 
 const initialState = []

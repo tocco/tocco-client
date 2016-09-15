@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './MegerMatrix.css'
+import './MegerMatrix.scss'
 
 import {HeaderRow, ToManyRelationRow, FieldRow, RelationRow} from './table-components'
 

@@ -1,7 +1,7 @@
 import {CHANGE_TARGET_ENTITY} from '../actions'
 
-function changeTargetEntity(state, {pk}) {
-  return pk
+function changeTargetEntity(state, {payload}) {
+  return payload.pk
 }
 
 const ACTION_HANDLERS = {

@@ -1,5 +1,5 @@
-import { receiveEntitites } from './actions'
+import { receiveEntities } from './actions'
 import reducer from './reducer'
 
-export { receiveEntitites }
+export { receiveEntities }
 export default reducer

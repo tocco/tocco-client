@@ -1,4 +1,4 @@
-import {receiveEntitites} from '../modules/mergeMatrix/entities/actions'
+import {receiveEntities} from '../modules/mergeMatrix/entities/actions'
 import {retrieveEditOptions} from '../modules/mergeStrategy/editOptions/actions'
 import {retrieveModel} from '../modules/mergeMatrix/model/actions'
 import {changeTargetEntity} from '../modules/mergeMatrix/actions'
@@ -8,7 +8,7 @@ export default function dispatchInput(store) {
   var state = store.getState()
   if (state.input) {
     const {input} = state
-    store.dispatch(receiveEntitites(input.entities))
+    store.dispatch(receiveEntities(input.entities))
     store.dispatch(retrieveModel(input.model))
     store.dispatch(changeTargetEntity(input.entities[0].pk))
     store.dispatch(clearRelationMany())
