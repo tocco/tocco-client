@@ -7,21 +7,20 @@ import MergeWizardContainer from './containers/MergeWizardContainer'
 import dispatchInput from './utils/DispatchInput'
 import {registerEvents} from './utils/ExternalEvents'
 
-const init = (id, input, externalEvents) => {
-  var inititalState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {}
+import './styles/core.scss'
 
+const init = (id, input, externalEvents) => {
+  var initialState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {}
   if (__DEV__) {
     input = require('./dev_input.json')
   }
 
   if (input) {
-    inititalState.input = input
+    initialState.input = input
   }
 
   if (externalEvents) registerEvents(externalEvents)
-
-  console.log('input', input)
-  const store = createStore(inititalState)
+  const store = createStore(initialState)
 
   dispatchInput(store)
 
@@ -42,8 +41,6 @@ if (__DEV__) {
     ReactDOM.render(element, mountElement)
   }
 
-  // Enable HMR and catch runtime errors in RedBox
-  // This code is excluded from production bundle
   if (__DEV__ && module.hot) {
     const renderApp = render
     const renderError = (error) => {
@@ -58,12 +55,7 @@ if (__DEV__) {
         renderError(error)
       }
     }
-    // module.hot.accept(['./routes/index'], () => render())
   }
-
-  // if (__DEBUG__) {
-  //   if (window.devToolsExtension) window.devToolsExtension.open('buttom')
-  // }
 
   render()
 } else {
