@@ -4,13 +4,15 @@ import mergeMatrix, { sagas as mergeMatrixSagas } from './../modules/mergeMatrix
 import mergeStrategy from './../modules/mergeStrategy/'
 import { sagas as wizardSagas } from './../modules/wizard/'
 import input from './input/reducer'
+import {intlReducer} from 'react-intl-redux'
 
 export const reducers = (asyncReducers) => {
   return combineReducers({
     input,
     mergeMatrix,
     mergeStrategy,
-    ...asyncReducers
+    ...asyncReducers,
+    intl: intlReducer
   })
 }
 

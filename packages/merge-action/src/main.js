@@ -2,6 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import createStore from './store/createStore'
 import {Provider} from 'react-redux'
+import {IntlProvider} from 'react-intl-redux'
+import {LoadMask} from 'tocco-ui'
+import initIntl from './utils/InitIntl'
 
 import MergeWizardContainer from './containers/MergeWizardContainer'
 import dispatchInput from './utils/DispatchInput'
@@ -24,9 +27,15 @@ const init = (id, input, externalEvents) => {
 
   dispatchInput(store)
 
+  const initIntlPromise = initIntl(store, 'entityoperation.action.merge')
+
   const App = () => (
     <Provider store={store}>
-      <MergeWizardContainer/>
+      <LoadMask promises={[initIntlPromise]}>
+        <IntlProvider>
+          <MergeWizardContainer/>
+        </IntlProvider>
+      </LoadMask>
     </Provider>
   )
 
