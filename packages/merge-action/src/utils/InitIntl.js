@@ -19,15 +19,15 @@ export default function initIntl(store, moduleName) {
 }
 
 export function getUserInfo() {
-  if (__DEV__){
-    return Promise.resolve({locale: 'de_CH'})
+  if (__DEV__) {
+    return Promise.resolve({ locale: 'de_CH' })
   }
   return fetch(`${__BACKEND_URL__}/nice2/username`)
     .then(response => response.json())
 }
 
 export function loadTextResources(locale, moduleName) {
-  if (__DEV__){
+  if (__DEV__) {
     return Promise.resolve({})
   }
   return fetch(`${__BACKEND_URL__}/nice2/textresource?locale=${locale}${moduleName ? `&module=${moduleName}` : ''}`)
