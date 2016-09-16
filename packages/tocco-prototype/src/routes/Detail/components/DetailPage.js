@@ -10,7 +10,7 @@ function getFields(form) {
     visitField(component) {
       fields.push(component.name)
     }
-  })
+  }())
   return fields
 }
 
