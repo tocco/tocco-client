@@ -13,7 +13,7 @@ export default function dispatchInput(store) {
     store.dispatch(changeTargetEntity(input.entities[0].pk))
     store.dispatch(clearRelationMany())
     dispatchToManySelections(input, store)
-    store.dispatch(retrieveEditOptions(input.sourceEntitiesOptions))
+    store.dispatch(retrieveEditOptions(input.sourceEntitiesEditOptions))
   }
 }
 

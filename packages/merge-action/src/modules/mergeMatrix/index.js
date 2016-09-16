@@ -12,7 +12,6 @@ export default combineReducers({
   model,
   targetEntityPk,
   selections
-
 })
 
 export function* sagas() {

@@ -157,7 +157,7 @@
       }
     ]
   },
-  "sourceEntitiesOptions": [
+  "sourceEntitiesEditOptions": [
     {
       "type": "set-field-source-entity-strategy",
       "fieldType": "string",

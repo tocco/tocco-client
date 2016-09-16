@@ -37,7 +37,6 @@ export class Wizard extends React.Component {
     var result = true
     console.log('this.currentRender', this.currentRender)
     if (this.currentRender && this.currentRender.getWrappedInstance) {
-      console.log('wraped instance')
       if (this.currentRender.getWrappedInstance().wizardNext) {
         result = this.currentRender.getWrappedInstance().wizardNext()
       }
