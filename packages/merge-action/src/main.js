@@ -1,15 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import createStore from './store/createStore'
 import {Provider} from 'react-redux'
+import {storeFactory, hotReloadReducers} from 'tocco-util'
 import {IntlProvider} from 'react-intl-redux'
 import {LoadMask} from 'tocco-ui'
-import initIntl from './utils/InitIntl'
 
+import initIntl from './utils/InitIntl'
 import MergeWizardContainer from './containers/MergeWizardContainer'
 import dispatchInput from './utils/DispatchInput'
 import {registerEvents} from './utils/ExternalEvents'
-
+import reducers, {sagas} from './modules/reducers'
 import './styles/core.scss'
 
 const init = (id, input, externalEvents) => {
@@ -23,7 +23,15 @@ const init = (id, input, externalEvents) => {
   }
 
   if (externalEvents) registerEvents(externalEvents)
-  const store = createStore(initialState)
+  const store = storeFactory(initialState, reducers, sagas)
+
+  if (module.hot) {
+    module.hot.accept('./modules/reducers', () => {
+      const reducersH = require('./modules/reducers').default
+
+      hotReloadReducers(store, reducersH)
+    })
+  }
 
   dispatchInput(store)
 

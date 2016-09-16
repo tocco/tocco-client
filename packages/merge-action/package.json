@@ -1,6 +1,6 @@
 {
   "name": "merge-action",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "v2 merge action",
   "main": "dist/index.js",
   "scripts": {
@@ -47,6 +47,7 @@
     "redux-thunk": "^2.0.0",
     "rimraf": "^2.5.3",
     "tocco-ui": "^0.1.0",
-    "classnames": "~2.2.4"
+    "classnames": "~2.2.4",
+    "tocco-util": "^0.0.1"
   }
 }
