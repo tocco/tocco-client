@@ -1,7 +1,12 @@
 import SaveButton from './SaveButton'
 import ToccoLogo from './ToccoLogo'
+import LoadMask from './LoadMask'
 
-var exports = { SaveButton, ToccoLogo }
+var exports = {
+  SaveButton,
+  ToccoLogo,
+  LoadMask
+}
 
 module.exports = exports
 //
