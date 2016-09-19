@@ -12,8 +12,10 @@ class PasswordUpdateDialog extends Component {
     this.props.fetchValidationRules()
   }
 
-  onPwRepeatKeyDown(e) {
-    if (e.keyCode === 13 && this.isSubmittable() === true) {
+  handleSubmit(e) {
+    e.preventDefault()
+
+    if (this.isSubmittable() === true) {
       this.props.savePassword()
     }
   }
@@ -30,7 +32,7 @@ class PasswordUpdateDialog extends Component {
       || password.newPasswordValidationErrors && Object.keys(password.newPasswordValidationErrors).length > 0
 
     return (
-      <div className="PasswordUpdateDialog">
+      <form className="PasswordUpdateDialog" onSubmit={this.handleSubmit.bind(this)}>
         {this.props.showOldPasswordField === true
         && <PasswordInput
           label="Altes Passwort"
@@ -56,17 +58,15 @@ class PasswordUpdateDialog extends Component {
           value={password.newPasswordRepeat}
           onChange={updateNewPasswordRepeat}
           readOnly={newPasswordRepeatReadOnly}
-          onKeyDown={this.onPwRepeatKeyDown.bind(this)}
         />
         <PasswordMatchDisplay password={password.newPassword} passwordRepeat={password.newPasswordRepeat}/>
         <SaveButton
           label="Passwort ändern"
           disabled={this.isSubmittable() === false}
-          onClick={savePassword}
           className={password.passwordUpdatePending ? 'update-pending' : ''}
         />
         {password.passwordUpdateFailed === true && <FailureMessage errorCode={password.passwordUpdateErrorCode}/>}
-      </div>
+      </form>
     )
   }
 
