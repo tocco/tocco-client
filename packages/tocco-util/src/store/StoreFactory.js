@@ -38,6 +38,3 @@ export default class StoreFactory {
     store.replaceReducer(reducers)
   }
 }
-
-
-

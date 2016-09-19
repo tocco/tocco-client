@@ -16,7 +16,6 @@ import en from 'react-intl/locale-data/en'
 import fr from 'react-intl/locale-data/fr'
 import it from 'react-intl/locale-data/it'
 
-
 const init = (id, input, externalEvents) => {
   try {
     var initialState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {}
@@ -53,7 +52,6 @@ const init = (id, input, externalEvents) => {
       </Provider>
     )
     return App
-
   } catch (e) {
     console.log('Error loading react application: ', e)
   }

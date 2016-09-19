@@ -44,11 +44,17 @@ class MergeStrategy extends React.Component {
                 value={this.props.strategies.sourceEntityAction}
                 onChange={(event) => this.props.changeStrategy('sourceEntityAction', event.target.value)}
               >
-                <option value={SourceEntityAction.NO_ACTION}><FormattedMessage id="client.entityoperation.action.merge.strategyNoAction"/></option>
-                <option value={SourceEntityAction.DELETE}><FormattedMessage id="client.entityoperation.action.merge.strategyDelete"/></option>
+                <option value={SourceEntityAction.NO_ACTION}>
+                  <FormattedMessage id="client.entityoperation.action.merge.strategyNoAction"/>
+                </option>
+                <option value={SourceEntityAction.DELETE}>
+                  <FormattedMessage id="client.entityoperation.action.merge.strategyDelete"/>
+                </option>
                 {
                   (this.props.editOptions.length > 0
-                    && <option value={SourceEntityAction.EDIT}><FormattedMessage id="client.entityoperation.action.merge.strategyEdit"/></option>
+                    && <option value={SourceEntityAction.EDIT}>
+                      <FormattedMessage id="client.entityoperation.action.merge.strategyEdit"/>
+                    </option>
                   )
                 }
 

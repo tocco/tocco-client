@@ -1,6 +1,6 @@
 import React from 'react'
 import {SaveButton} from 'tocco-ui'
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage} from 'react-intl'
 
 import './styles.scss'
 

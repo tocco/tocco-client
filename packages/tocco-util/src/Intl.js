@@ -4,10 +4,12 @@ export default class Intl {
   static initIntl(store, moduleName) {
     return Intl.getUserInfo()
       .then(userInfo => Intl.loadTextResources(userInfo.locale, moduleName)
-        .then(textResources => store.dispatch(updateIntl({
+        .then(textResources => store.dispatch(updateIntl(
+          {
             locale: userInfo.locale.replace('_', '-'),
             messages: textResources
-          }))
+          }
+          ))
         ))
   }
 
@@ -21,10 +23,3 @@ export default class Intl {
       .then(response => response.json())
   }
 }
-
-
-
-
-
-
-

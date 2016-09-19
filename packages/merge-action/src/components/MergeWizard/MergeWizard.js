@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 import MergeMatrixContainer from './../../containers/MergeMatrixContainer'
 import MergeStrategyContainer from './../../containers/MergeStrategyContainer'
 
