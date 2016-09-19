@@ -1,20 +1,23 @@
-export default class ExternalEvents {
-  constructor() {
-    this.events = {}
+var events = {}
+
+function registerEvents(externalEvents) {
+  events = {...events, ...externalEvents}
+}
+
+function invokeExternalEvent(eventName) {
+  if (__DEV__) {
+    console.log('would call external event', eventName)
+    return
   }
 
-  registerEvents(externalEvents) {
-    this.events = {...this.events, ...externalEvents}
-  }
-
-  invokeExternalEvent(eventName) {
-    if (__DEV__) {
-      console.log('would call external event', eventName)
-      return
-    }
-
-    if (this.events[eventName]) {
-      this.events[eventName]()
-    }
+  if (events[eventName]) {
+    events[eventName]()
   }
 }
+
+const obj = {
+  invokeExternalEvent,
+  registerEvents
+}
+
+export default obj

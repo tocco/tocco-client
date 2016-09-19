@@ -4,7 +4,7 @@ import Intl from './Intl'
 
 var exports = {
   StoreFactory,
-  ExternalEvents: new ExternalEvents(),
+  ExternalEvents,
   Intl
 }
 
