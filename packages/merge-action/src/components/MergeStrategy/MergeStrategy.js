@@ -45,7 +45,12 @@ class MergeStrategy extends React.Component {
               >
                 <option value={SourceEntityAction.NO_ACTION}>Keine Aktion</option>
                 <option value={SourceEntityAction.DELETE}>Löschen</option>
-                <option value={SourceEntityAction.EDIT}>Bearbeiten</option>
+                {
+                  (this.props.editOptions.length > 0
+                    && <option value={SourceEntityAction.EDIT}>Bearbeiten</option>
+                  )
+                }
+
               </select>
             </div>
             <div className={editClassNames}>
