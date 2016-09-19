@@ -1,6 +1,6 @@
 {
   "name": "password-update",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "password update dialog",
   "main": "dist/index.js",
   "scripts": {
