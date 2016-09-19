@@ -1,5 +1,6 @@
 import React from 'react'
 import {SaveButton} from 'tocco-ui'
+import {FormattedMessage} from 'react-intl';
 
 import './styles.scss'
 
@@ -65,7 +66,12 @@ export class Wizard extends React.Component {
         <div className="wizard-footer">
           {
             (this.state.index > 0)
-            && <button className="btn wizard-back-button" onClick={this.backClick}>Zurück</button>
+            && <button
+              className="btn wizard-back-button"
+              onClick={this.backClick}
+            >
+              <FormattedMessage id="client.entityoperation.action.merge.back"/>
+            </button>
           }
           {
             (this.state.index < this.state.amountPages - 1)
@@ -74,7 +80,7 @@ export class Wizard extends React.Component {
               onClick={this.nextClick}
               disabled={!this.state.allowNext}
             >
-              Weiter
+              <FormattedMessage id="client.entityoperation.action.merge.next"/>
             </button>
           }
           {

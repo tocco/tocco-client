@@ -1,4 +1,5 @@
 import React from 'react'
+import {FormattedMessage} from 'react-intl'
 import classNames from 'classnames'
 import EditOption from './EditOption'
 import {SourceEntityAction} from '../../types/SourceEntityAction'
@@ -13,7 +14,7 @@ class MergeStrategy extends React.Component {
       <div>
         <form>
           <div>
-            <h4>Sollen alle Relationen der Ausgangsdatensätzen aug den Zieldatensatz mitkopiert werden?</h4>
+            <h4><FormattedMessage id="client.entityoperation.action.merge.copyRelationsTitle"/></h4>
             <div className="answer">
               <div>
                 <input
@@ -22,7 +23,7 @@ class MergeStrategy extends React.Component {
                   checked={this.props.strategies.copyRelations}
                   onChange={() => this.props.changeStrategy('copyRelations', true)}
                 />
-                <span className="p-l-5">Ja</span>
+                <span className="p-l-5"><FormattedMessage id="client.entityoperation.action.merge.yes"/></span>
               </div>
               <div>
                 <input
@@ -31,30 +32,30 @@ class MergeStrategy extends React.Component {
                   checked={!this.props.strategies.copyRelations}
                   onChange={() => this.props.changeStrategy('copyRelations', false)}
                 />
-                <span className="p-l-5">Nein</span>
+                <span className="p-l-5"><FormattedMessage id="client.entityoperation.action.merge.no"/></span>
               </div>
             </div>
           </div>
           <div>
-            <h4>Was soll mit den Ausgansdatensätzen passieren?</h4>
+            <h4><FormattedMessage id="client.entityoperation.action.merge.strategyTitle"/></h4>
             <div className="answer">
               <select
                 className="form-control"
                 value={this.props.strategies.sourceEntityAction}
                 onChange={(event) => this.props.changeStrategy('sourceEntityAction', event.target.value)}
               >
-                <option value={SourceEntityAction.NO_ACTION}>Keine Aktion</option>
-                <option value={SourceEntityAction.DELETE}>Löschen</option>
+                <option value={SourceEntityAction.NO_ACTION}><FormattedMessage id="client.entityoperation.action.merge.strategyNoAction"/></option>
+                <option value={SourceEntityAction.DELETE}><FormattedMessage id="client.entityoperation.action.merge.strategyDelete"/></option>
                 {
                   (this.props.editOptions.length > 0
-                    && <option value={SourceEntityAction.EDIT}>Bearbeiten</option>
+                    && <option value={SourceEntityAction.EDIT}><FormattedMessage id="client.entityoperation.action.merge.strategyEdit"/></option>
                   )
                 }
 
               </select>
             </div>
             <div className={editClassNames}>
-              <h5>Bearbeiten</h5>
+              <h5><FormattedMessage id="client.entityoperation.action.merge.editTitle"/></h5>
               <div className="answer">
                 {
                   this.props.editOptions.map((editOption, idx) => {

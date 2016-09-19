@@ -1,15 +1,21 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
-import {StoreFactory, ExternalEvents} from 'tocco-util'
+import {StoreFactory, ExternalEvents, Intl} from 'tocco-util'
+import {addLocaleData} from 'react-intl'
 import {IntlProvider} from 'react-intl-redux'
 import {LoadMask} from 'tocco-ui'
 
-import initIntl from './utils/InitIntl'
 import MergeWizardContainer from './containers/MergeWizardContainer'
 import dispatchInput from './utils/DispatchInput'
 import reducers, {sagas} from './modules/reducers'
 import './styles/core.scss'
+
+import de from 'react-intl/locale-data/de'
+import en from 'react-intl/locale-data/en'
+import fr from 'react-intl/locale-data/fr'
+import it from 'react-intl/locale-data/it'
+
 
 const init = (id, input, externalEvents) => {
   try {
@@ -34,7 +40,8 @@ const init = (id, input, externalEvents) => {
 
     dispatchInput(store)
 
-    const initIntlPromise = initIntl(store, 'entityoperation.action.merge')
+    addLocaleData([...de, ...en, ...fr, ...it])
+    const initIntlPromise = Intl.initIntl(store, 'entityoperation.action.merge')
 
     const App = () => (
       <Provider store={store}>
