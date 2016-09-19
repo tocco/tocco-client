@@ -28,6 +28,7 @@ const init = (id, input, externalEvents) => {
     }
 
     if (externalEvents) ExternalEvents.registerEvents(externalEvents)
+    
     const store = StoreFactory.createStore(initialState, reducers, sagas)
 
     if (module.hot) {

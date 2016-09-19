@@ -1,7 +1,7 @@
 {
   "name": "merge-action",
-  "version": "0.0.8",
-  "description": "v2 merge action",
+  "version": "0.0.11",
+  "description": "merge action",
   "main": "dist/index.js",
   "scripts": {
     "clean": "rimraf dist",
@@ -24,10 +24,6 @@
         "DEBUG": "app:*"
       }
     }
-  },
-  "peerDependencies": {
-    "react": "^15.2.1",
-    "react-dom": "^15.2.1"
   },
   "dependencies": {},
   "devDependencies": {

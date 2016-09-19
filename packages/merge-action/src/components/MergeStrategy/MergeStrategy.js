@@ -1,5 +1,5 @@
 import React from 'react'
-import {FormattedMessage} from 'react-intl'
+import {FormattedMessage, injectIntl} from 'react-intl'
 import classNames from 'classnames'
 import EditOption from './EditOption'
 import {SourceEntityAction} from '../../types/SourceEntityAction'
@@ -45,15 +45,15 @@ class MergeStrategy extends React.Component {
                 onChange={(event) => this.props.changeStrategy('sourceEntityAction', event.target.value)}
               >
                 <option value={SourceEntityAction.NO_ACTION}>
-                  <FormattedMessage id="client.entityoperation.action.merge.strategyNoAction"/>
+                  {this.props.intl.formatMessage({id: 'client.entityoperation.action.merge.strategyNoAction'})}
                 </option>
                 <option value={SourceEntityAction.DELETE}>
-                  <FormattedMessage id="client.entityoperation.action.merge.strategyDelete"/>
+                  {this.props.intl.formatMessage({id: 'client.entityoperation.action.merge.strategyDelete'})}
                 </option>
                 {
                   (this.props.editOptions.length > 0
                     && <option value={SourceEntityAction.EDIT}>
-                      <FormattedMessage id="client.entityoperation.action.merge.strategyEdit"/>
+                      {this.props.intl.formatMessage({id: 'client.entityoperation.action.merge.strategyEdit'})}
                     </option>
                   )
                 }
@@ -87,7 +87,8 @@ MergeStrategy.propTypes = {
   changeEditOptionValue: React.PropTypes.func.isRequired,
   activateEditOption: React.PropTypes.func.isRequired,
   strategies: React.PropTypes.object.isRequired,
-  changeStrategy: React.PropTypes.func.isRequired
+  changeStrategy: React.PropTypes.func.isRequired,
+  intl: React.PropTypes.object.isRequired
 }
 
-export default MergeStrategy
+export default injectIntl(MergeStrategy)
