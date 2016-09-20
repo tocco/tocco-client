@@ -18,6 +18,7 @@ class MergeStrategy extends React.Component {
             <div className="answer">
               <div>
                 <input
+                  disabled
                   type="radio"
                   className="form-check-input"
                   checked={this.props.strategies.copyRelations}
@@ -27,6 +28,7 @@ class MergeStrategy extends React.Component {
               </div>
               <div>
                 <input
+                  disabled
                   type="radio"
                   className="form-check-input"
                   checked={!this.props.strategies.copyRelations}
@@ -47,7 +49,7 @@ class MergeStrategy extends React.Component {
                 <option value={SourceEntityAction.NO_ACTION}>
                   {this.props.intl.formatMessage({id: 'client.entityoperation.action.merge.strategyNoAction'})}
                 </option>
-                <option value={SourceEntityAction.DELETE}>
+                <option value={SourceEntityAction.DELETE} disabled>
                   {this.props.intl.formatMessage({id: 'client.entityoperation.action.merge.strategyDelete'})}
                 </option>
                 {
