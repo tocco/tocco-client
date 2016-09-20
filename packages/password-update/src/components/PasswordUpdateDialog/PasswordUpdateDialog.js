@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {intlShape} from 'react-intl'
-import {SaveButton} from 'tocco-ui'
+import {SaveButton, LoadMask} from 'tocco-ui'
 import PasswordInput from './PasswordInput'
 import PasswordMatchDisplay from './PasswordMatchDisplay'
 import ValidationRules from '../ValidationRules'
@@ -24,6 +24,10 @@ class PasswordUpdateDialog extends Component {
   render() {
     const {password, validationRules, updateOldPassword, updateNewPassword, updateNewPasswordRepeat}
       = this.props
+
+    if (!validationRules) {
+      return <LoadMask/>
+    }
 
     const oldPasswordReadOnly = password.passwordUpdatePending
     const newPasswordReadOnly = (!password.oldPassword && this.props.showOldPasswordField)
@@ -100,7 +104,7 @@ PasswordUpdateDialog.propTypes = {
     passwordUpdatePending: React.PropTypes.bool.isRequired,
     passwordUpdateErrorCode: React.PropTypes.string
   }).isRequired,
-  validationRules: React.PropTypes.array.isRequired,
+  validationRules: React.PropTypes.array,
   showOldPasswordField: React.PropTypes.bool.isRequired,
   updateOldPassword: React.PropTypes.func.isRequired,
   updateNewPassword: React.PropTypes.func.isRequired,

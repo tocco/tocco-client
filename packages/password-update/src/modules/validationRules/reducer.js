@@ -4,7 +4,7 @@ const ACTION_HANDLERS = {
   [actions.SET_VALIDATION_RULES]: (state, action) => action.payload.rules
 }
 
-const initialState = []
+const initialState = null
 
 export default function reducer(state = initialState, action) {
   const handler = ACTION_HANDLERS[action.type]

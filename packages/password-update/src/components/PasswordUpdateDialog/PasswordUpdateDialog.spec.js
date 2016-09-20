@@ -1,6 +1,6 @@
 import React from 'react'
 import PasswordUpdateDialog from './PasswordUpdateDialog'
-import {SaveButton} from 'tocco-ui'
+import {SaveButton, LoadMask} from 'tocco-ui'
 import {mount, render, shallow} from 'enzyme'
 
 const intl = {
@@ -20,9 +20,19 @@ describe('password-update', () => {
         expect(fetchValidationRules).to.have.property('callCount', 1);
       })
 
+      it ('displays LoadMask until rules loaded', () => {
+        const wrapper = shallow(<PasswordUpdateDialog
+          fetchValidationRules={() => undefined}
+          validationRules={null}
+          intl={intl}
+        />)
+        expect(wrapper.find(LoadMask)).to.have.length(1)
+      })
+
       it('disables everything except of old password', () => {
         const wrapper = shallow(<PasswordUpdateDialog
           fetchValidationRules={() => undefined}
+          validationRules={[]}
           showOldPasswordField={true}
           password={{}}
           intl={intl}
@@ -36,6 +46,7 @@ describe('password-update', () => {
       it('enables new password as soon as old password is filled', () => {
         const wrapper = shallow(<PasswordUpdateDialog
           fetchValidationRules={() => undefined}
+          validationRules={[]}
           showOldPasswordField={true}
           password={{
             oldPassword: 'oldpw'
@@ -51,6 +62,7 @@ describe('password-update', () => {
       it('enables new password repeat as soon as new password is filled and valid', () => {
         const invalidWrapper = shallow(<PasswordUpdateDialog
           fetchValidationRules={() => undefined}
+          validationRules={[]}
           showOldPasswordField={true}
           password={{
             oldPassword: 'oldpw',
@@ -68,6 +80,7 @@ describe('password-update', () => {
 
         const validWrapper = shallow(<PasswordUpdateDialog
           fetchValidationRules={() => undefined}
+          validationRules={[]}
           showOldPasswordField={true}
           password={{
             oldPassword: 'oldpw',
@@ -85,6 +98,7 @@ describe('password-update', () => {
       it('enables save button as soon as new password repeat is filled and matches new password', () => {
         const newPwRepeatEmptyWrapper = shallow(<PasswordUpdateDialog
           fetchValidationRules={() => undefined}
+          validationRules={[]}
           showOldPasswordField={true}
           password={{
             oldPassword: 'oldpw',
@@ -100,6 +114,7 @@ describe('password-update', () => {
 
         const newPwRepeatNoMatchWrapper = shallow(<PasswordUpdateDialog
           fetchValidationRules={() => undefined}
+          validationRules={[]}
           showOldPasswordField={true}
           password={{
             oldPassword: 'oldpw',
@@ -115,6 +130,7 @@ describe('password-update', () => {
 
         const newPwRepeatMatchWrapper = shallow(<PasswordUpdateDialog
           fetchValidationRules={() => undefined}
+          validationRules={[]}
           showOldPasswordField={true}
           password={{
             oldPassword: 'oldpw',
