@@ -7,7 +7,7 @@ const SingleSelectionCell = props => {
   return (
     <div className={cls}>
       <input
-        className="merger-icon-spacer"
+        className="merge-icon-spacer"
         type="radio"
         disabled={cls}
         onChange={clickFnc}

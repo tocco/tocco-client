@@ -36,7 +36,6 @@ export class Wizard extends React.Component {
 
   nextClick = () => {
     var result = true
-    console.log('this.currentRender', this.currentRender)
     if (this.currentRender && this.currentRender.getWrappedInstance) {
       if (this.currentRender.getWrappedInstance().wizardNext) {
         result = this.currentRender.getWrappedInstance().wizardNext()
