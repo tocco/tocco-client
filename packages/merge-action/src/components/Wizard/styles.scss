@@ -13,16 +13,15 @@
 
   &-back-button{
     width: 150px;
-    position: absolute;
     margin-top: 8px;
-    left: 10px;
+    margin-left: 10px;
   }
 
   &-next-button{
     width: 150px;
-    position: absolute;
     margin-top: 8px;
-    right: 10px;
+    float: right;
+    margin-right: 10px;
   }
 }
 
