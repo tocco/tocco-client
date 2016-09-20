@@ -10,7 +10,7 @@ export default function createMergeResult(state) {
 export function getMergeStrategyResult(mergeStrategyState) {
   var deleteSourceEntities = (mergeStrategyState.strategies.sourceEntityAction === SourceEntityAction.DELETE)
   return {
-    isCopyRemainingRelations: mergeStrategyState.strategies.copyRelations,
+    copyRemainingRelations: mergeStrategyState.strategies.copyRelations,
     sourceEntityConfig: {
       deleteSourceEntities,
       updateValues: extractUpdateValues(mergeStrategyState)

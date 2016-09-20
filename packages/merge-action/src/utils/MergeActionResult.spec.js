@@ -124,7 +124,7 @@ describe('merge-action', () => {
         )
       })
 
-      it('should set isCopyRemainingRelations', () => {
+      it('should set copyRemainingRelations', () => {
         var state = {
           strategies: {
             copyRelations: true
@@ -133,8 +133,8 @@ describe('merge-action', () => {
 
         var result = getMergeStrategyResult(state)
 
-        result.should.have.property('isCopyRemainingRelations')
-        result.isCopyRemainingRelations.should.be.true
+        result.should.have.property('copyRemainingRelations')
+        result.copyRemainingRelations.should.be.true
       })
 
       it('should set sourceEntityConfig delete flag', () => {
