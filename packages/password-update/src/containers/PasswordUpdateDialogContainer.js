@@ -1,4 +1,5 @@
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
+import {injectIntl} from 'react-intl'
 import PasswordUpdateDialog from '../components/PasswordUpdateDialog'
 import {updateOldPassword, updateNewPassword, updateNewPasswordRepeat, savePassword} from '../modules/password'
 import {fetchValidationRules} from '../modules/validationRules'
@@ -19,4 +20,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, mapActionCreators)(PasswordUpdateDialog)
+export default connect(mapStateToProps, mapActionCreators)(injectIntl(PasswordUpdateDialog))

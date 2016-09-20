@@ -3,6 +3,10 @@ import PasswordUpdateDialog from './PasswordUpdateDialog'
 import {SaveButton} from 'tocco-ui'
 import {mount, render, shallow} from 'enzyme'
 
+const intl = {
+  formatMessage: (obj) => obj.id
+}
+
 describe('password-update', () => {
   describe('components', () => {
     describe('PasswordUpdateDialog', () => {
@@ -11,6 +15,7 @@ describe('password-update', () => {
         shallow(<PasswordUpdateDialog
           fetchValidationRules={fetchValidationRules}
           password={{}}
+          intl={intl}
         />)
         expect(fetchValidationRules).to.have.property('callCount', 1);
       })
@@ -20,6 +25,7 @@ describe('password-update', () => {
           fetchValidationRules={() => undefined}
           showOldPasswordField={true}
           password={{}}
+          intl={intl}
         />)
         expect(wrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(undefined)
         expect(wrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(true)
@@ -34,6 +40,7 @@ describe('password-update', () => {
           password={{
             oldPassword: 'oldpw'
           }}
+          intl={intl}
         />)
         expect(wrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(undefined)
         expect(wrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(undefined)
@@ -52,6 +59,7 @@ describe('password-update', () => {
               LENGTH: true
             }
           }}
+          intl={intl}
         />)
         expect(invalidWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(undefined)
         expect(invalidWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(undefined)
@@ -66,6 +74,7 @@ describe('password-update', () => {
             newPassword: 'validnewpw',
             newPasswordValidationErrors: {}
           }}
+          intl={intl}
         />)
         expect(validWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(undefined)
         expect(validWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(undefined)
@@ -82,6 +91,7 @@ describe('password-update', () => {
             newPassword: 'newpw',
             newPasswordRepeat: ''
           }}
+          intl={intl}
         />)
         expect(newPwRepeatEmptyWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(undefined)
         expect(newPwRepeatEmptyWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(undefined)
@@ -96,6 +106,7 @@ describe('password-update', () => {
             newPassword: 'newpw',
             newPasswordRepeat: 'nomatch'
           }}
+          intl={intl}
         />)
         expect(newPwRepeatNoMatchWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(undefined)
         expect(newPwRepeatNoMatchWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(undefined)
@@ -110,6 +121,7 @@ describe('password-update', () => {
             newPassword: 'newpw',
             newPasswordRepeat: 'newpw'
           }}
+          intl={intl}
         />)
         expect(newPwRepeatMatchWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(undefined)
         expect(newPwRepeatMatchWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(undefined)

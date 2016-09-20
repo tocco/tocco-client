@@ -1,4 +1,5 @@
 import React from 'react'
+import {FormattedMessage} from 'react-intl'
 import {messages, DEFAULT as DEFAULT_MESSAGE} from './messages'
 
 function getMessage(errorCode) {
@@ -6,7 +7,7 @@ function getMessage(errorCode) {
 }
 
 const FailureMessage = (props) => (
-  <div className="FailureMessage text-danger">{getMessage(props.errorCode)}</div>
+  <div className="FailureMessage text-danger"><FormattedMessage id={getMessage(props.errorCode)}/></div>
 )
 
 FailureMessage.propTypes = {

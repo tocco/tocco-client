@@ -3,12 +3,14 @@ import { fork } from 'redux-saga/effects'
 import input from './input/reducer'
 import validationRules, { sagas as validationRulesSagas } from '../modules/validationRules'
 import password, { sagas as passwordSagas } from '../modules/password'
+import {intlReducer} from 'react-intl-redux'
 
 export const reducers = (asyncReducers) => {
   return combineReducers({
     input,
     password,
     validationRules,
+    intl: intlReducer,
     ...asyncReducers })
 }
 

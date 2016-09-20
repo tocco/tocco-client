@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {intlShape} from 'react-intl'
 import {SaveButton} from 'tocco-ui'
 import PasswordInput from './PasswordInput'
 import PasswordMatchDisplay from './PasswordMatchDisplay'
@@ -21,7 +22,7 @@ class PasswordUpdateDialog extends Component {
   }
 
   render() {
-    const {password, validationRules, updateOldPassword, updateNewPassword, updateNewPasswordRepeat, savePassword}
+    const {password, validationRules, updateOldPassword, updateNewPassword, updateNewPasswordRepeat}
       = this.props
 
     const oldPasswordReadOnly = password.passwordUpdatePending
@@ -35,14 +36,14 @@ class PasswordUpdateDialog extends Component {
       <form className="PasswordUpdateDialog" onSubmit={this.handleSubmit.bind(this)}>
         {this.props.showOldPasswordField === true
         && <PasswordInput
-          label="Altes Passwort"
+          label={this.msg('client.action.passwordUpdate.oldPassword')}
           name="oldPassword"
           value={password.oldPassword}
           onChange={updateOldPassword}
           readOnly={oldPasswordReadOnly}
         />}
         <PasswordInput
-          label="Neues Passwort"
+          label={this.msg('client.action.passwordUpdate.newPassword')}
           name="newPassword"
           value={password.newPassword}
           onChange={updateNewPassword}
@@ -53,7 +54,7 @@ class PasswordUpdateDialog extends Component {
           errors={password.newPasswordValidationErrors}
         />
         <PasswordInput
-          label="Neues Passwort bestätigen"
+          label={this.msg('client.action.passwordUpdate.newPasswordRepeat')}
           name="newPasswordRepeat"
           value={password.newPasswordRepeat}
           onChange={updateNewPasswordRepeat}
@@ -61,7 +62,7 @@ class PasswordUpdateDialog extends Component {
         />
         <PasswordMatchDisplay password={password.newPassword} passwordRepeat={password.newPasswordRepeat}/>
         <SaveButton
-          label="Passwort ändern"
+          label={this.msg('client.action.passwordUpdate.saveButton')}
           disabled={this.isSubmittable() === false}
           className={password.passwordUpdatePending ? 'update-pending' : ''}
         />
@@ -82,6 +83,12 @@ class PasswordUpdateDialog extends Component {
     }
     return true
   }
+
+  msg(id) {
+    return this.props.intl.formatMessage({
+      id
+    })
+  }
 }
 
 PasswordUpdateDialog.propTypes = {
@@ -99,7 +106,8 @@ PasswordUpdateDialog.propTypes = {
   updateNewPassword: React.PropTypes.func.isRequired,
   updateNewPasswordRepeat: React.PropTypes.func.isRequired,
   fetchValidationRules: React.PropTypes.func.isRequired,
-  savePassword: React.PropTypes.func.isRequired
+  savePassword: React.PropTypes.func.isRequired,
+  intl: intlShape.isRequired
 }
 
 export default PasswordUpdateDialog

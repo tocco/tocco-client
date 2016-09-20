@@ -1,8 +1,9 @@
 import React from 'react'
+import {FormattedMessage} from 'react-intl';
 
 const PasswordMatchDisplay = (props) => {
   const message = (props.passwordRepeat && props.password !== props.passwordRepeat)
-    ? 'Die Passwörter stimmen nicht überein'
+    ? <FormattedMessage id="client.action.passwordUpdate.noMatch"/>
     : '\u00a0'
 
   return (

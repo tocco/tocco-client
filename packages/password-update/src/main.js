@@ -1,9 +1,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import {Provider} from 'react-redux'
+import {addLocaleData} from 'react-intl'
+import {IntlProvider} from 'react-intl-redux'
+import {Intl} from 'tocco-util'
+import {LoadMask} from 'tocco-ui'
 import createStore from './store/createStore'
-import { Provider } from 'react-redux'
 import PasswordUpdateDialog from './containers/PasswordUpdateDialogContainer'
 import {registerEvents} from './utils/ExternalEvents'
+
+import de from 'react-intl/locale-data/de'
+import en from 'react-intl/locale-data/en'
+import fr from 'react-intl/locale-data/fr'
+import it from 'react-intl/locale-data/it'
 
 const init = (id, input, externalEvents) => {
   var initialState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {}
@@ -20,9 +29,16 @@ const init = (id, input, externalEvents) => {
 
   const store = createStore(initialState)
 
+  addLocaleData([...de, ...en, ...fr, ...it])
+  const initIntlPromise = Intl.initIntl(store, 'action.passwordUpdate')
+
   const App = () => (
     <Provider store={store}>
-      <PasswordUpdateDialog/>
+      <LoadMask promises={[initIntlPromise]}>
+        <IntlProvider>
+          <PasswordUpdateDialog/>
+        </IntlProvider>
+      </LoadMask>
     </Provider>
   )
 
@@ -53,7 +69,6 @@ if (__DEV__) {
         renderError(error)
       }
     }
-    render()
   }
 
   render()
