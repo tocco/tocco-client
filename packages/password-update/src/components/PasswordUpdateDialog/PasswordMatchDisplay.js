@@ -1,5 +1,5 @@
 import React from 'react'
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage} from 'react-intl'
 
 const PasswordMatchDisplay = (props) => {
   const message = (props.passwordRepeat && props.password !== props.passwordRepeat)

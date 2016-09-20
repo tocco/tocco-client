@@ -1,7 +1,7 @@
 import {put, select, call} from 'redux-saga/effects'
 import * as sagas from './sagas'
 import * as actions from './actions'
-import invokeExternalEvent from '../../utils/ExternalEvents'
+import {ExternalEvents} from 'tocco-util'
 
 
 describe('password-update', () => {
@@ -157,7 +157,7 @@ describe('password-update', () => {
         }
 
         expect(generator.next(result).value).to.deep.equal(put(actions.savePasswordSuccess()))
-        expect(generator.next().value).to.deep.equal(call(invokeExternalEvent, 'close'))
+        expect(generator.next().value).to.deep.equal(call(ExternalEvents.invokeExternalEvent, 'close'))
 
         expect(generator.next(result).done).to.equal(true)
       })

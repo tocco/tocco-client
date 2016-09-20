@@ -2,7 +2,7 @@ import * as actions from './actions'
 import {takeLatest} from 'redux-saga'
 import {call, fork, select, put} from 'redux-saga/effects'
 import localValidate from './validate'
-import invokeExternalEvent from '../../utils/ExternalEvents'
+import {ExternalEvents} from 'tocco-util'
 import {isEmptyObject, validationMessagesToErrorMap} from './utils'
 
 export const validationRulesSelector = state => state.validationRules
@@ -123,7 +123,7 @@ export function* savePassword() {
     }
   } else {
     yield put(actions.savePasswordSuccess())
-    yield call(invokeExternalEvent, 'close')
+    yield call(ExternalEvents.invokeExternalEvent, 'close')
   }
 }
 
