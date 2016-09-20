@@ -12,7 +12,11 @@ export class LoadMask extends React.Component {
   }
 
   componentDidMount() {
-    Promise.all(this.props.promises || [Promise.resolve()]).then(() => this.setState({initialized: true}))
+    if (this.props.promises) {
+      Promise.all(this.props.promises).then(() => {
+        this.setState({initialized: true})
+      })
+    }
   }
 
   render() {
