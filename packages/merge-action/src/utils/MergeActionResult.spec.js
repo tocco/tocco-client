@@ -81,6 +81,27 @@ describe('merge-action', () => {
         )
       })
 
+      it('relations: should return empty array if to one relation is selected with no value', () => {
+        var state = {
+          model: {modelName: 'User'},
+          entities: [
+            {pk: '113'},
+            {pk: '114', relations: {rel_a: {values: []}}}],
+          targetEntityPk: '113',
+          selections: {
+            relations: {
+              rel_a: '114',
+            }
+          }
+        }
+        
+        var result = getMergeMatrixResult(state)
+        result.data.relations.should.have.length(1)
+        result.data.relations[0].should.eql(
+          {name: 'rel_a', keys: []}
+        )
+      })
+
       it('should map to many relations', () => {
         var state = {
           model: {modelName: 'User'},

@@ -80,9 +80,14 @@ function extractRelations(state) {
 
       if (entityPk !== state.targetEntityPk) {
         var entity = state.entities.find(e => e.pk === entityPk)
+
+        var pks = []
+        if (entity.relations[relationName] && entity.relations[relationName].values.length > 0) {
+          pks.push(entity.relations[relationName].values[0].pk)
+        }
         result.push({
           name: relationName,
-          keys: [entity.relations[relationName].values[0].pk]
+          keys: pks
         })
       }
     })

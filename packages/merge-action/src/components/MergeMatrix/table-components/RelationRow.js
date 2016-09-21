@@ -13,7 +13,6 @@ const RelationRow = props => {
         props.entities.map((entity, idx) => {
           var cls = isTargetEntity(entity.pk) ? 'merger-matrix-selected-col' : ''
           var entityRelationValue = entity.relations[props.relation.name].values[0]
-
           return (
             <td className={cls} key={'td' + idx}>
               <SingleSelection
@@ -23,7 +22,7 @@ const RelationRow = props => {
                 checked={props.selections.relations[props.relation.name] === entity.pk}
                 disabled={isWritableRow}
               >
-                <div>{entityRelationValue.label}</div>
+                <div>{entityRelationValue && entityRelationValue.label}</div>
               </SingleSelection>
             </td>
           )
