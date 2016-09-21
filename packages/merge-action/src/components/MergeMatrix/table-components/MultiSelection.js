@@ -1,5 +1,6 @@
 import React from 'react'
 import SelectionUtil from '../../../utils/SelectionUtil'
+import sortBy from 'lodash/sortBy'
 
 const MultiSelection = props => {
   var disabled = (props.disabled) ? 'disabled' : ''
@@ -13,11 +14,10 @@ const MultiSelection = props => {
   }
 
   var clickFnc = (value) => props.onChange(props.relationName, value.pk, props.entity.pk)
-
   return (
     <div>
       {
-        props.values.map((value, idx) => {
+        sortBy(props.values, (v) => v.pk).map((value, idx) => {
           return (
             <div key={`multiselection${idx}`}>
               <input
