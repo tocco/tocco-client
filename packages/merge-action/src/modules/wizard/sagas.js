@@ -17,10 +17,14 @@ export function sendDwr(mergeActionResult) {
 }
 
 export function* save() {
-  var state = yield select()
-  var mergeActionResult = yield call(createMergeResult, state)
-  yield call(sendDwr, mergeActionResult)
-  yield call(ExternalEvents.invokeExternalEvent, 'close')
+  try {
+    var state = yield select()
+    var mergeActionResult = yield call(createMergeResult, state)
+    yield call(sendDwr, mergeActionResult)
+    yield call(ExternalEvents.invokeExternalEvent, 'close')
+  } catch (error) {
+    console.log('An error occurred during merge:', error)
+  }
 }
 
 export default function* sagas() {
