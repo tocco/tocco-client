@@ -5,7 +5,7 @@ describe('merge-action', () => {
   describe('module mergeStrategy sagas', () => {
     describe('strategies reducer', () => {
       it('should create a valid initial state', () => {
-        expect(reducer(undefined, {})).to.deep.equal({copyRelations: false, sourceEntityAction: 'NO_ACTION'})
+        expect(reducer(undefined, {})).to.deep.equal({copyRelations: true, sourceEntityAction: 'NO_ACTION'})
       });
 
       it('handels new strategy', () => {

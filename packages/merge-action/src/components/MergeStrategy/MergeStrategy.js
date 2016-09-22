@@ -16,23 +16,20 @@ class MergeStrategy extends React.Component {
           <div>
             <h4><FormattedMessage id="client.entityoperation.action.merge.copyRelationsTitle"/></h4>
             <div className="answer">
-              <div>
+              <div onClick={() => this.props.changeStrategy('copyRelations', true)}>
                 <input
-                  disabled
                   type="radio"
                   className="form-check-input"
                   checked={this.props.strategies.copyRelations}
-                  onChange={() => this.props.changeStrategy('copyRelations', true)}
+
                 />
                 <span className="p-l-5"><FormattedMessage id="client.entityoperation.action.merge.yes"/></span>
               </div>
-              <div>
+              <div onClick={() => this.props.changeStrategy('copyRelations', false)}>
                 <input
-                  disabled
                   type="radio"
                   className="form-check-input"
                   checked={!this.props.strategies.copyRelations}
-                  onChange={() => this.props.changeStrategy('copyRelations', false)}
                 />
                 <span className="p-l-5"><FormattedMessage id="client.entityoperation.action.merge.no"/></span>
               </div>
@@ -49,7 +46,7 @@ class MergeStrategy extends React.Component {
                 <option value={SourceEntityAction.NO_ACTION}>
                   {this.props.intl.formatMessage({id: 'client.entityoperation.action.merge.strategyNoAction'})}
                 </option>
-                <option value={SourceEntityAction.DELETE} disabled>
+                <option value={SourceEntityAction.DELETE} hidden>
                   {this.props.intl.formatMessage({id: 'client.entityoperation.action.merge.strategyDelete'})}
                 </option>
                 {

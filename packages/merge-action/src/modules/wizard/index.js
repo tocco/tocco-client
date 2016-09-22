@@ -1,10 +1,8 @@
-import {combineReducers} from 'redux'
 import {fork} from 'redux-saga/effects'
 import moduleSagas from './sagas'
+import reducer from './reducer'
 
-export default combineReducers({
-
-})
+export default reducer
 
 export function* sagas() {
   yield [

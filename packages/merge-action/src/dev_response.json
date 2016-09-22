@@ -1,0 +1,10 @@
+{
+  "notCopiedRelations":[
+    {"pk": "66", "entity": "Resource", "name": "default display"},
+    {"pk": "66", "entity": "Resource", "name": "default display"}
+  ],
+  "notDeletedEntities":[
+    {"pk": "66", "entity": "Resource","name": "default display"},
+    {"pk": "66", "entity": "Resource","name": "default display"}
+  ]
+}
