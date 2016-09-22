@@ -12,7 +12,7 @@ const EntityResponseTable = (props) => {
         <thead>
           <tr>
             <th><FormattedMessage id="client.entityoperation.action.merge.entity"/></th>
-            <th><FormattedMessage id="client.entityoperation.action.merge.key"/></th>
+            <th><FormattedMessage id="client.entityoperation.action.merge.primaryKey"/></th>
             <th><FormattedMessage id="client.entityoperation.action.merge.label"/></th>
           </tr>
         </thead>
@@ -43,7 +43,7 @@ class MergeResponse extends React.Component {
   render() {
     console.log('this.props.mergeResponse', this.props.mergeResponse)
     return (
-      <div>
+      <div className="merge-response">
         <h1><FormattedMessage id="client.entityoperation.action.merge.responseTitle"/></h1>
         <span><FormattedMessage id="client.entityoperation.action.merge.responseDescription"/></span>
         <EntityResponseTable

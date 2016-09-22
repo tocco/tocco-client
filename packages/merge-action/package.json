@@ -1,6 +1,6 @@
 {
   "name": "merge-action",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "merge action",
   "main": "dist/index.js",
   "scripts": {

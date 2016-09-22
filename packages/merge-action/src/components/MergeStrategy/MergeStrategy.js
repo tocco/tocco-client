@@ -21,7 +21,7 @@ class MergeStrategy extends React.Component {
                   type="radio"
                   className="form-check-input"
                   checked={this.props.strategies.copyRelations}
-
+                  onChange={() => {}}
                 />
                 <span className="p-l-5"><FormattedMessage id="client.entityoperation.action.merge.yes"/></span>
               </div>
@@ -30,6 +30,7 @@ class MergeStrategy extends React.Component {
                   type="radio"
                   className="form-check-input"
                   checked={!this.props.strategies.copyRelations}
+                  onChange={() => {}}
                 />
                 <span className="p-l-5"><FormattedMessage id="client.entityoperation.action.merge.no"/></span>
               </div>
