@@ -53,6 +53,6 @@
     "redux-saga": "^0.11.0",
     "rimraf": "^2.5.3",
     "tocco-ui": "^0.1.0",
-    "tocco-util": "^0.0.1"
+    "tocco-util": "^0.1.0"
   }
 }
