@@ -1,4 +1,4 @@
-# Tocco Client
+# Tocco Client [![Build Status](https://travis-ci.org/tocco/tocco-client.svg?branch=master)](https://travis-ci.org/tocco/tocco-client)
 This repository contains the web client for the [Tocco Business Framework](https://www.tocco.ch).
 
 This project is based on following technologies, tools and libraries:
