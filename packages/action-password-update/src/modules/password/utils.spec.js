@@ -1,6 +1,6 @@
 import * as utils from './utils'
 
-describe('password-update', () => {
+describe('action-password-update', () => {
   describe('password utils', () => {
     describe('isEmptyObject', () => {
       it('should return true if object is empty', () => {

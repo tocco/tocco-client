@@ -4,7 +4,7 @@ import * as actions from './actions'
 import {ExternalEvents} from 'tocco-util'
 
 
-describe('password-update', () => {
+describe('action-password-update', () => {
   describe('password sagas', () => {
     describe('updateNewPassword', () => {
       it('should set new password and trigger validation', () => {

@@ -11,7 +11,7 @@ const EXPECTED_INITIAL_STATE = {
   passwordUpdateErrorCode: null
 }
 
-describe('password-update', () => {
+describe('action-password-update', () => {
   describe('password reducer', () => {
     it('creates initial state', () => {
       expect(reducer(undefined, {})).to.deep.equal(EXPECTED_INITIAL_STATE)

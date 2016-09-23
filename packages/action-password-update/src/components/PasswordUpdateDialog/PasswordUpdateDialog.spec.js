@@ -7,7 +7,7 @@ const intl = {
   formatMessage: (obj) => obj.id
 }
 
-describe('password-update', () => {
+describe('action-password-update', () => {
   describe('components', () => {
     describe('PasswordUpdateDialog', () => {
       it('fetches rules on mount', () => {

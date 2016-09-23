@@ -2,7 +2,7 @@ import {put, select, call} from 'redux-saga/effects'
 import * as sagas from './sagas'
 import * as actions from './actions'
 
-describe('password-update', () => {
+describe('action-password-update', () => {
   describe('validationRules sagas', () => {
     describe('fetchValidationRules', () => {
       it('should load validation rules', () => {

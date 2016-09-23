@@ -4,7 +4,7 @@ import {mount, render, shallow} from 'enzyme'
 import FailureMessage from './FailureMessage'
 import {messages, DEFAULT as DEFAULT_MESSAGE} from './messages'
 
-describe('password-update', function() {
+describe('action-password-update', function() {
   describe('components', function() {
     describe('FailureMessage', function() {
       it('should render default message if no error code', () => {

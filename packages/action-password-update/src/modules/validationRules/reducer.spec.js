@@ -3,7 +3,7 @@ import * as actions from './actions'
 
 const EXPECTED_INITIAL_STATE = null
 
-describe('password-update', () => {
+describe('action-password-update', () => {
   describe('validationRules reducer', () => {
     it('creates initial state', () => {
       expect(reducer(undefined, {})).to.deep.equal(EXPECTED_INITIAL_STATE)

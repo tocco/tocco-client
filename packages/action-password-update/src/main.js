@@ -81,6 +81,6 @@ if (__DEV__) {
   render()
 } else {
   if (window.reactRegistry) {
-    window.reactRegistry.register('password-update', init) // TODO: replace string with var
+    window.reactRegistry.register('action-password-update', init) // TODO: replace string with var
   }
 }
