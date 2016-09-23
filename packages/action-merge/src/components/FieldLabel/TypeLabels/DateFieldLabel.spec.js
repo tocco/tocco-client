@@ -6,12 +6,12 @@ import {mount, render, shallow} from 'enzyme'
 describe('action-merge', function () {
   describe('DateLabel Component', function () {
     it('should format value', function () {
-      let wrapper = shallow(<DateFieldLabel value="1976-03-15T23:00:00.000Z"/>)
+      let wrapper = shallow(<DateFieldLabel value="1976-03-15T12:00:00.000Z"/>)
       expect(wrapper.text()).to.equal('16. Mrz. 1976');
     })
 
     it('should format value accorind to locale', function () {
-      let wrapper = shallow(<DateFieldLabel value="1976-03-15T23:00:00.000Z" locale="en"/>)
+      let wrapper = shallow(<DateFieldLabel value="1976-03-15T12:00:00.000Z" locale="en"/>)
       expect(wrapper.text()).to.equal('Mar 16, 1976');
     })
   })
