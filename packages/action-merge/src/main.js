@@ -85,6 +85,6 @@ if (__DEV__) {
   render()
 } else {
   if (window.reactRegistry) {
-    window.reactRegistry.register('action-merge', init) // TODO: replace string with var
+    window.reactRegistry.register('action-merge', init) // git TODO: replace string with var
   }
 }
