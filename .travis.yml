@@ -1,0 +1,19 @@
+sudo: true
+language: node_js
+node_js:
+  - "5.0"
+
+cache:
+  directories:
+    - node_modules
+
+install:
+  - npm install --global lerna@^2.0.0-beta.28
+  - npm install
+  - lerna bootstrap
+
+script:
+  - npm run lint
+  - npm run test
+
+after_success:
