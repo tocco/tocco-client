@@ -17,17 +17,17 @@ const EntityResponseTable = (props) => {
           </tr>
         </thead>
         <tbody>
-        {
-          props.responseEntities.map((e, idx) => {
-            return (
-              <tr key={idx}>
-                <td>{e.entity}</td>
-                <td>{e.pk}</td>
-                <td>{e.name}</td>
-              </tr>
-            )
-          })
-        }
+          {
+            props.responseEntities.map((e, idx) => {
+              return (
+                <tr key={idx}>
+                  <td>{e.entity}</td>
+                  <td>{e.pk}</td>
+                  <td>{e.name}</td>
+                </tr>
+              )
+            })
+          }
         </tbody>
       </table>
     </div>

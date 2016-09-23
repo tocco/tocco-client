@@ -20,49 +20,49 @@ class MergeMatrix extends React.Component {
             />
           </thead>
           <tbody>
-          {
-            this.props.model.fields.map((field, idx) => {
-              return (
-                <FieldRow
-                  key={`fieldrow${idx}`}
-                  field={field}
-                  selections={this.props.selections}
-                  targetEntity={targetEntity}
-                  entities={this.props.entities}
-                  selectSourceField={this.props.selectSourceField}
-                />
-              )
-            })
-          }
-          {
-            this.props.model.relations.filter(r => !r.toMany).map((relation, idx) => {
-              return (
-                <RelationRow
-                  key={`relationrow${idx}`}
-                  relation={relation}
-                  selections={this.props.selections}
-                  targetEntity={targetEntity}
-                  entities={this.props.entities}
-                  selectSourceRelation={this.props.selectSourceRelation}
-                  toggleRelationMany={this.props.toggleRelationMany}
-                />
-              )
-            })
-          }
-          {
-            this.props.model.relations.filter(r => r.toMany).map((relation, idx) => {
-              return (
-                <ToManyRelationRow
-                  key={`relationrow${idx}`}
-                  relation={relation}
-                  selections={this.props.selections}
-                  targetEntity={targetEntity}
-                  entities={this.props.entities}
-                  toggleRelationMany={this.props.toggleRelationMany}
-                />
-              )
-            })
-          }
+            {
+              this.props.model.fields.map((field, idx) => {
+                return (
+                  <FieldRow
+                    key={`fieldrow${idx}`}
+                    field={field}
+                    selections={this.props.selections}
+                    targetEntity={targetEntity}
+                    entities={this.props.entities}
+                    selectSourceField={this.props.selectSourceField}
+                  />
+                )
+              })
+            }
+            {
+              this.props.model.relations.filter(r => !r.toMany).map((relation, idx) => {
+                return (
+                  <RelationRow
+                    key={`relationrow${idx}`}
+                    relation={relation}
+                    selections={this.props.selections}
+                    targetEntity={targetEntity}
+                    entities={this.props.entities}
+                    selectSourceRelation={this.props.selectSourceRelation}
+                    toggleRelationMany={this.props.toggleRelationMany}
+                  />
+                )
+              })
+            }
+            {
+              this.props.model.relations.filter(r => r.toMany).map((relation, idx) => {
+                return (
+                  <ToManyRelationRow
+                    key={`relationrow${idx}`}
+                    relation={relation}
+                    selections={this.props.selections}
+                    targetEntity={targetEntity}
+                    entities={this.props.entities}
+                    toggleRelationMany={this.props.toggleRelationMany}
+                  />
+                )
+              })
+            }
           </tbody>
         </table>
       </div>
