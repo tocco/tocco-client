@@ -1,4 +1,4 @@
-import StoreFactory from './store/storeFactory'
+import StoreFactory from './store/StoreFactory'
 import ExternalEvents from './ExternalEvents'
 import Intl from './Intl'
 
