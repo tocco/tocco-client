@@ -62,7 +62,7 @@ const List = (props) => {
           <Header columns={cols} ordering={props.ordering} onClick={column => props.setOrdering(column.name)}/>
         </thead>
         <tbody>
-        {props.data.map((item, index) => <Item key={index} data={item} columns={cols}/>)}
+          {props.data.map((item, index) => <Item key={index} data={item} columns={cols}/>)}
         </tbody>
       </table>
       <input type="button" onClick={props.lazyLoading} value="Load More Data"/>
