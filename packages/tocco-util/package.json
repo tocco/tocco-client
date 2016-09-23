@@ -1,6 +1,6 @@
 {
   "name": "tocco-util",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "tocco util",
   "main": "src/main.js",
   "dependencies": {},
