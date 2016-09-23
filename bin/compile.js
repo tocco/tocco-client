@@ -12,7 +12,7 @@ const debug = _debug('app:bin:compile')
 
     var packageName = process.env.npm_config_package
 
-    if (!packageName || !packagesExists(packageName)){
+    if (!packageName || !packagesExists(packageName)) {
       debug('Please select a valid package with --package={PACKAGE_NAME} parameter.')
       process.exit(1)
     }

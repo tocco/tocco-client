@@ -9,11 +9,10 @@ const host = config.server_host
 
 var packageName = process.env.npm_config_package
 
-if (!packageName || !packagesExists(packageName)){
+if (!packageName || !packagesExists(packageName)) {
   debug('Please select a valid package with --package={PACKAGE_NAME} parameter.')
   process.exit(1)
 }
-
 
 server.listen(port)
 debug(`Server is now running at http://${host}:${port}.`)
