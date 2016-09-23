@@ -32,6 +32,8 @@ const karmaConfig = {
     [`./${packageDir}/${config.dir_test}/test-bundler.js`]: ['webpack', 'sourcemap']
   },
   browsers: ['PhantomJS'],
+  browserDisconnectTimeout: 10000,
+  browserNoActivityTimeout: 60000,
   webpack: {
     devtool: 'inline-source-map',
     resolve: {
