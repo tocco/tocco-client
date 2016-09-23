@@ -1,6 +1,6 @@
 {
-  "name": "tocco-react",
-  "version": "0.1.1",
+  "name": "tocco-client",
+  "version": "0.1.2",
   "description": "Monorepo for react.js projects using lerna",
   "engines": {
     "node": ">=4.2.0",
