@@ -123,7 +123,9 @@ export function* savePassword() {
     }
   } else {
     yield put(actions.savePasswordSuccess())
-    yield call(ExternalEvents.invokeExternalEvent, 'success')
+    yield call(ExternalEvents.invokeExternalEvent, 'success', {
+      newPassword: data.newPassword
+    })
   }
 }
 
