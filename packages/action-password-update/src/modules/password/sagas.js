@@ -6,7 +6,7 @@ import {ExternalEvents} from 'tocco-util'
 import {isEmptyObject, validationMessagesToErrorMap} from './utils'
 
 export const validationRulesSelector = state => state.validationRules
-export const principalPkInputSelector = state => state.input.principalPk
+export const inputSelector = state => state.input
 export const passwordSelector = state => state.password
 
 function doRequest(data, principalPk, action) {
@@ -27,18 +27,13 @@ function doRequest(data, principalPk, action) {
   })
 }
 
-export function storePassword(principalPk, oldPassword, newPassword) {
+export function storePassword(principalPk, data) {
   if (__DEV__) {
     if (console) console.log('Store password call would take place now')
     return new Promise(resolve => resolve({
       error: null
     }))
   } else {
-    const data = {
-      oldPassword,
-      newPassword
-    }
-
     return new Promise((resolve, reject) => {
       doRequest(data, principalPk, 'password-update')
         .then(resp => {
@@ -56,10 +51,10 @@ export function storePassword(principalPk, oldPassword, newPassword) {
   }
 }
 
-export function remoteValidate(principalPk, oldPassword, newPassword) {
+export function remoteValidate(principalPk, data) {
   if (__DEV__) {
     if (console) console.log('Validate password call would take place now')
-    if (newPassword.includes('tocco')) {
+    if (data.newPassword.includes('tocco')) {
       return new Promise(resolve => resolve({
         valid: false,
         validationMessages: [{
@@ -73,14 +68,18 @@ export function remoteValidate(principalPk, oldPassword, newPassword) {
       }))
     }
   } else {
-    const data = {
-      newPassword
-    }
-
     return new Promise((resolve, reject) => {
       doRequest(data, principalPk, 'password-validation')
         .then(resp => {
-          resp.json().then(json => resolve(json))
+          if (resp.ok === true) {
+            resp.json().then(json => resolve(json))
+          } else {
+            resp.json().then(() => resolve({
+              // validation request failed for some reason. we ignore that.
+              // (validation takes place on actual update request again)
+              valid: true
+            }))
+          }
         })
     })
   }
@@ -100,8 +99,9 @@ export function* validate() {
   if (!isEmptyObject(errors)) {
     yield put(actions.setNewPasswordValidationErrors(errors))
   } else {
-    const principalPk = yield select(principalPkInputSelector)
-    const result = yield call(remoteValidate, principalPk, password.oldPassword, password.newPassword)
+    const input = yield select(inputSelector)
+    const data = yield call(getData)
+    const result = yield call(remoteValidate, input.principalPk, data)
     if (result.valid === true) {
       yield put(actions.setNewPasswordValidationErrors({}))
     } else {
@@ -112,9 +112,9 @@ export function* validate() {
 }
 
 export function* savePassword() {
-  const principalPk = yield select(principalPkInputSelector)
-  const password = yield select(passwordSelector)
-  const result = yield call(storePassword, principalPk, password.oldPassword, password.newPassword)
+  const input = yield select(inputSelector)
+  const data = yield call(getData)
+  const result = yield call(storePassword, input.principalPk, data)
   if (result.error) {
     if (result.error.valid === false) {
       yield put(actions.savePasswordFailure(null, result.error.validationMessages))
@@ -124,6 +124,25 @@ export function* savePassword() {
   } else {
     yield put(actions.savePasswordSuccess())
     yield call(ExternalEvents.invokeExternalEvent, 'close')
+  }
+}
+
+export function* getData() {
+  const input = yield select(inputSelector)
+  const password = yield select(passwordSelector)
+
+  let username
+  let oldPassword = password.oldPassword
+
+  if (input.username && input.oldPassword) {
+    username = input.username
+    oldPassword = input.oldPassword
+  }
+
+  return {
+    username,
+    oldPassword,
+    newPassword: password.newPassword
   }
 }
 
