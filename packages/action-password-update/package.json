@@ -1,6 +1,6 @@
 {
   "name": "tocco-action-password-update",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "password update dialog",
   "main": "dist/index.js",
   "scripts": {
