@@ -29,6 +29,36 @@ describe('action-password-update', () => {
         expect(wrapper.find(LoadMask)).to.have.length(1)
       })
 
+      it('hides old password by default', () => {
+        const wrapper = shallow(<PasswordUpdateDialog
+          fetchValidationRules={() => undefined}
+          validationRules={[]}
+          password={{}}
+          intl={intl}
+        />)
+        expect(wrapper.find({name: 'oldPassword'}).length).to.equal(0)
+      })
+
+      it('handles showOldPasswordField prop', () => {
+        const showFieldWrapper = shallow(<PasswordUpdateDialog
+          fetchValidationRules={() => undefined}
+          validationRules={[]}
+          password={{}}
+          intl={intl}
+          showOldPasswordField={true}
+        />)
+        expect(showFieldWrapper.find({name: 'oldPassword'}).length).to.equal(1)
+
+        const hideFieldWrapper = shallow(<PasswordUpdateDialog
+          fetchValidationRules={() => undefined}
+          validationRules={[]}
+          password={{}}
+          intl={intl}
+          showOldPasswordField={false}
+        />)
+        expect(hideFieldWrapper.find({name: 'oldPassword'}).length).to.equal(0)
+      })
+
       it('disables everything except of old password', () => {
         const wrapper = shallow(<PasswordUpdateDialog
           fetchValidationRules={() => undefined}

@@ -105,7 +105,7 @@ PasswordUpdateDialog.propTypes = {
     passwordUpdateErrorCode: React.PropTypes.string
   }).isRequired,
   validationRules: React.PropTypes.array,
-  showOldPasswordField: React.PropTypes.bool.isRequired,
+  showOldPasswordField: React.PropTypes.bool,
   updateOldPassword: React.PropTypes.func.isRequired,
   updateNewPassword: React.PropTypes.func.isRequired,
   updateNewPasswordRepeat: React.PropTypes.func.isRequired,
