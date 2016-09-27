@@ -45,6 +45,7 @@ class PasswordUpdateDialog extends Component {
           value={password.oldPassword}
           onChange={updateOldPassword}
           readOnly={oldPasswordReadOnly}
+          autoFocus
         />}
         <PasswordInput
           label={this.msg('client.action.passwordUpdate.newPassword')}
@@ -52,6 +53,7 @@ class PasswordUpdateDialog extends Component {
           value={password.newPassword}
           onChange={updateNewPassword}
           readOnly={newPasswordReadOnly}
+          autoFocus={this.props.showOldPasswordField !== true}
         />
         <ValidationRules
           rules={validationRules}

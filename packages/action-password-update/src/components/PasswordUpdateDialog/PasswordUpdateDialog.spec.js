@@ -174,6 +174,29 @@ describe('action-password-update', () => {
         expect(newPwRepeatMatchWrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(undefined)
         expect(newPwRepeatMatchWrapper.find(SaveButton).prop('disabled')).to.equal(false)
       })
+
+      it('auto focuses old password field if present', () => {
+        const wrapper = shallow(<PasswordUpdateDialog
+          fetchValidationRules={() => undefined}
+          validationRules={[]}
+          showOldPasswordField={true}
+          password={{}}
+          intl={intl}
+        />)
+        expect(wrapper.find({name: 'oldPassword'}).prop('autoFocus')).to.equal(true)
+        expect(wrapper.find({name: 'newPassword'}).prop('autoFocus')).to.equal(false)
+      })
+
+      it('auto focuses new password field if old password field not present', () => {
+        const wrapper = shallow(<PasswordUpdateDialog
+          fetchValidationRules={() => undefined}
+          validationRules={[]}
+          showOldPasswordField={false}
+          password={{}}
+          intl={intl}
+        />)
+        expect(wrapper.find({name: 'newPassword'}).prop('autoFocus')).to.equal(true)
+      })
     })
   })
 })
