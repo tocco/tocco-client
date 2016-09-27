@@ -171,7 +171,7 @@ describe('action-password-update', () => {
         }
 
         expect(generator.next(result).value).to.deep.equal(put(actions.savePasswordSuccess()))
-        expect(generator.next().value).to.deep.equal(call(ExternalEvents.invokeExternalEvent, 'close'))
+        expect(generator.next().value).to.deep.equal(call(ExternalEvents.invokeExternalEvent, 'success'))
 
         expect(generator.next(result).done).to.equal(true)
       })

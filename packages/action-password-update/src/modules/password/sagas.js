@@ -123,7 +123,7 @@ export function* savePassword() {
     }
   } else {
     yield put(actions.savePasswordSuccess())
-    yield call(ExternalEvents.invokeExternalEvent, 'close')
+    yield call(ExternalEvents.invokeExternalEvent, 'success')
   }
 }
 
