@@ -1,6 +1,6 @@
 import React from 'react'
 import Highlight from 'react-highlight'
-import 'highlight.js/styles/Github.css'
+import '../../node_modules/highlight.js/styles/Github.css'
 import {extractExampleCode, extractRealImports, removeIndent} from './../util/ExampleParser'
 
 const Example = (props) => {
