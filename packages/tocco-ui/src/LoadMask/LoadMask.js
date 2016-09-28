@@ -3,7 +3,10 @@ import classNames from 'classnames'
 
 import './styles.scss'
 
-export class LoadMask extends React.Component {
+/**
+ * A loadmask that can hide elements as long as promises are not resolved
+ */
+class LoadMask extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -33,8 +36,17 @@ export class LoadMask extends React.Component {
 }
 
 LoadMask.propTypes = {
+  /**
+   * Extend the the mask with any css classes separated by a space
+   */
   className: React.PropTypes.string,
+  /**
+   * An array of promises.
+   */
   promises: React.PropTypes.array,
+  /**
+   * Will be shown once promises are resolved
+   */
   children: React.PropTypes.node
 }
 
