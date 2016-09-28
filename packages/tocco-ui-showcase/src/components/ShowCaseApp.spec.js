@@ -2,9 +2,29 @@ import React from 'react'
 import {mount} from 'enzyme'
 import ShowCaseApp from './ShowCaseApp'
 
-import ToccoLogoRaw from '!raw!../../../tocco-ui/src/ToccoLogo/ToccoLogo'
-import ToccoLogoExample from '../../../tocco-ui/src/ToccoLogo/example'
-import ToccoLogoExampleRaw from '!raw!../../../tocco-ui/src/ToccoLogo/example'
+const cpn = () => {return ''}
+cpn.propTypes = {}
+
+var cpnRaw = `
+import React from 'react'
+import classNames from 'classnames'
+
+/**
+ * SampleComponent
+ */
+const SampleComponent = props => {
+  return <div/>
+}
+
+SaveButton.propTypes = {
+  /**
+   * some text
+   */
+  sample: React.PropTypes.string.isRequired,
+}
+
+export default SampleComponent
+`
 
 describe('tocco-ui-showcase', function() {
   describe('components', function() {
@@ -17,18 +37,18 @@ describe('tocco-ui-showcase', function() {
             components: [
               {
                 name: 'ToccoLogo',
-                raw: ToccoLogoRaw,
+                raw: cpnRaw,
                 example: {
-                  component: ToccoLogoExample,
-                  raw: ToccoLogoExampleRaw
+                  component: cpn,
+                  raw: cpnRaw
                 }
               },
               {
                 name: 'ToccoLogo2',
-                raw: ToccoLogoRaw,
+                raw: cpnRaw,
                 example: {
-                  component: ToccoLogoExample,
-                  raw: ToccoLogoExampleRaw
+                  component: cpn,
+                  raw: cpnRaw
                 }
               }]
           }
