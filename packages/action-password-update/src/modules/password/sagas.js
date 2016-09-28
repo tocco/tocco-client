@@ -133,17 +133,8 @@ export function* getData() {
   const input = yield select(inputSelector)
   const password = yield select(passwordSelector)
 
-  let username
-  let oldPassword = password.oldPassword
-
-  if (input.username && input.oldPassword) {
-    username = input.username
-    oldPassword = input.oldPassword
-  }
-
   return {
-    username,
-    oldPassword,
+    oldPassword: input.oldPassword ? input.oldPassword : password.oldPassword,
     newPassword: password.newPassword
   }
 }

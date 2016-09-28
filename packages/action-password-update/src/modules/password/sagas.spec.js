@@ -249,20 +249,17 @@ describe('action-password-update', () => {
         expect(generator.next().value).to.deep.equal(select(sagas.inputSelector))
 
         const input = {
-          username: 'input-username',
           oldPassword: 'input-oldpassword'
         }
 
         expect(generator.next(input).value).to.deep.equal(select(sagas.passwordSelector))
 
         const password = {
-          username: 'password-username',
           oldPassword: 'password-oldpassword',
           newPassword: 'password-newpassword'
         }
 
         expect(generator.next(password).value).to.deep.equal({
-          username:'input-username',
           oldPassword: 'input-oldpassword',
           newPassword: 'password-newpassword'
         })
@@ -285,7 +282,6 @@ describe('action-password-update', () => {
         }
 
         expect(generator.next(password).value).to.deep.equal({
-          username: undefined,
           oldPassword: 'password-oldpassword',
           newPassword: 'password-newpassword'
         })
