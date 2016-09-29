@@ -34,4 +34,6 @@ if (__DEV__) {
   module.hot.accept()
 }
 
-render()
+if (__PROD__) {
+  render()
+}
