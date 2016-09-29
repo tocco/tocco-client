@@ -30,8 +30,8 @@ const removeIndent = (txt) => {
  *  Get all lines between example start and example end string or the whole string if not present
  */
 const extractExampleCode = (txt) => {
-  let startString = '{/* start example */}'
-  let endString = '{/* end example */}'
+  const startString = '{/* start example */}'
+  const endString = '{/* end example */}'
 
   if (txt.indexOf(startString) <= -1 || txt.indexOf(endString) <= -1) return txt
 

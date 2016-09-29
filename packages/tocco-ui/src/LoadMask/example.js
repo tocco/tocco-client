@@ -3,7 +3,7 @@ import LoadMask from './'
 // real-import:import {LoadMask} from 'tocco-ui'
 
 export default () => {
-  var promise = new Promise((resolve) => {
+  const promise = new Promise((resolve) => {
   })
   return (
     <div style={{height: '50px'}}>

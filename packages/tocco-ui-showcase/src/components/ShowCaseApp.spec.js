@@ -12,9 +12,7 @@ import classNames from 'classnames'
 /**
  * SampleComponent
  */
-const SampleComponent = props => {
-  return <div/>
-}
+const SampleComponent = props => <div/>
 
 SaveButton.propTypes = {
   /**
@@ -30,8 +28,7 @@ describe('tocco-ui-showcase', function() {
   describe('components', function() {
     describe('ShowCaseApp', function() {
       it('should render showcases from component tree and create sections for category and component', () => {
-
-        var componentsTree =[
+        let componentsTree = [
           {
             category: 'FORMS',
             components: [
@@ -54,7 +51,7 @@ describe('tocco-ui-showcase', function() {
           }
         ]
 
-        const wrapper = mount(<ShowCaseApp componentsTree={componentsTree} />)
+        const wrapper = mount(<ShowCaseApp componentsTree={componentsTree}/>)
 
         expect(wrapper.find('ShowCase')).to.have.length(2);
         expect(wrapper.find('section')).to.have.length(3);

@@ -4,33 +4,28 @@ describe('tocco-ui-showcase', () => {
   describe('utils ', () => {
     describe('ExampleParser', () => {
       it('should extract examplecode line', () => {
-
-        var example = '<div>\n {/* start example */}\n CODE\n{/* end example */}\n</div>'
-        var result = extractExampleCode(example)
+        const example = '<div>\n {/* start example */}\n CODE\n{/* end example */}\n</div>'
+        const result = extractExampleCode(example)
 
         result.should.eql(' CODE')
       })
 
       it('should return whole example text if no start string present', () => {
-
-        var example = `CODE`
-        var result = extractExampleCode(example)
+        const example = `CODE`
+        const result = extractExampleCode(example)
 
         result.should.eql('CODE')
       })
 
-
       it('should return whole example text if no start string present', () => {
-
-        var example = `CODE`
-        var result = extractExampleCode(example)
+        const example = `CODE`
+        const result = extractExampleCode(example)
 
         result.should.eql('CODE')
       })
 
       it('should extract real import', () => {
-
-        var example = `
+        const example = `
         //real-import:import x from 'y'
         <div>
           {/* start example */}
@@ -44,9 +39,8 @@ describe('tocco-ui-showcase', () => {
       })
 
       it('should extract real import', () => {
-
-        var example = '    4Spaces\n     5Spaces'
-        var result = removeIndent(example)
+        const example = '    4Spaces\n     5Spaces'
+        const result = removeIndent(example)
 
         result.should.eql('4Spaces\n 5Spaces')
       })
