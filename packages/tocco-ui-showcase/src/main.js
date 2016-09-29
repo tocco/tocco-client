@@ -7,15 +7,15 @@ import componentsTree from './uiComponentsTree'
 
 const init = () => () => <ShowCaseApp componentsTree={componentsTree}/>
 
+const mountElement = document.getElementById('root')
+
+let render = () => {
+  const element = React.createElement(init())
+  ReactDOM.render(element, mountElement)
+}
+
 if (__DEV__) {
-  const mountElement = document.getElementById('root')
-
-  let render = () => {
-    const element = React.createElement(init())
-    ReactDOM.render(element, mountElement)
-  }
-
-  if (__DEV__ && module.hot) {
+  if (module.hot) {
     const renderApp = render
     const renderError = error => {
       const RedBox = require('redbox-react')
@@ -34,3 +34,4 @@ if (__DEV__) {
   module.hot.accept()
 }
 
+render()
