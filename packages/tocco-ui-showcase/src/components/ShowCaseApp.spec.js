@@ -5,7 +5,7 @@ import ShowCaseApp from './ShowCaseApp'
 const cpn = () => ''
 cpn.propTypes = {}
 
-var cpnRaw = `
+const cpnRaw = `
 import React from 'react'
 import classNames from 'classnames'
 
@@ -18,7 +18,7 @@ SaveButton.propTypes = {
   /**
    * some text
    */
-  sample: React.PropTypes.string.isRequired,
+  sample: React.PropTypes.string.isRequired
 }
 
 export default SampleComponent
@@ -28,7 +28,7 @@ describe('tocco-ui-showcase', function() {
   describe('components', function() {
     describe('ShowCaseApp', function() {
       it('should render showcases from component tree and create sections for category and component', () => {
-        let componentsTree = [
+        const componentsTree = [
           {
             category: 'FORMS',
             components: [

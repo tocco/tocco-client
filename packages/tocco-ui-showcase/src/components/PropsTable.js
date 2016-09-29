@@ -10,7 +10,7 @@ const PropsTable = (props) => {
         <tr key={propName}>
           <td>{propName}</td>
           <td>{prop.description}</td>
-          <td>{prop.required && <span className="glyphicon glyphicon-exclamation-sign required-prop"/> }</td>
+          <td>{prop.required && <span className="glyphicon glyphicon-exclamation-sign required-prop"/>}</td>
           <td>{prop.type.name}</td>
         </tr>
       )
