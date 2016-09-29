@@ -3,7 +3,7 @@ import classNames from 'classnames'
 
 const StringInput = props => {
   var value = props.value || ''
-  var handleOnChange = (event) => {
+  var handleOnChange = event => {
     props.onChange(props.name, event.target.value)
   }
 

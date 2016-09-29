@@ -18,7 +18,7 @@ const mapActionCreators = {
   lazyLoading
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     list: state.list,
     forms: state.forms,

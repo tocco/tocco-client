@@ -9,7 +9,7 @@ import {mergingWithoutProblems} from '../../utils/MergeResponse'
 export function sendDwr(mergeActionResult) {
   if (__DEV__) {
     console.log('dev mode. would send dwr', mergeActionResult, JSON.stringify(mergeActionResult))
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       return resolve(require('../../dev_response.json'))
     })
   } else {

@@ -1,7 +1,7 @@
 import React from 'react'
 
 const RelationOption = props => {
-  var handleOnChange = (event) => {
+  var handleOnChange = event => {
     props.onChange(props.name, event.target.value)
   }
 

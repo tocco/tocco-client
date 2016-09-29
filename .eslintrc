@@ -22,6 +22,10 @@
   "rules": {
     "semi" : [2, "never"],
     "max-len": [2, 120, 2],
+    "arrow-parens": [
+      2,
+      "as-needed"
+    ],
     "no-trailing-spaces": ["error", { "skipBlankLines": true }],
     "space-before-function-paren": [2, "never"],
     "operator-linebreak": [2, "before"],

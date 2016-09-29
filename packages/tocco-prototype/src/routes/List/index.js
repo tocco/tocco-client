@@ -19,7 +19,7 @@ function dispatchInput(store) {
   }
 }
 
-export default (store) => ({
+export default store => ({
   getComponent(nextState, next) {
     require.ensure([
       './containers/ListPageContainer',
@@ -27,7 +27,7 @@ export default (store) => ({
       './modules/entityModel',
       './modules/ordering',
       './modules/searchTerm'
-    ], (require) => {
+    ], require => {
       const List = require('./containers/ListPageContainer').default
 
       const mainModule = require('./modules/main')

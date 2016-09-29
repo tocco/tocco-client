@@ -1,8 +1,8 @@
 import React from 'react'
 
-const SearchForm = (props) => (
+const SearchForm = props => (
   <div className="SearchForm">
-    <form onSubmit={(e) => {
+    <form onSubmit={e => {
       e.preventDefault()
       if (props.disabled !== true) {
         props.submit(props.searchTerm)

@@ -23,7 +23,7 @@ export default class StoreFactory {
 
     store.asyncReducers = {}
 
-    const createGenerator = (sagas) => {
+    const createGenerator = sagas => {
       return function* rootSaga() {
         yield sagas
       }
