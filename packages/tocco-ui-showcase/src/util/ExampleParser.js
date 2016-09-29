@@ -1,8 +1,10 @@
+import escapeRegExp from 'lodash/escapeRegExp'
+
 /**
  * Get all lines with '// real-import:' prefix and returns them
  */
 const extractRealImports = (txt) => {
-  const regexExpr = /\/\/ real-import:(.*)/g
+  const regexExpr = /\/\/ *real-import:(.*)/g
   let match = regexExpr.exec(txt)
 
   if (!match) return ''
@@ -24,10 +26,6 @@ const removeIndent = (txt) => {
   return txt.replace(regexExp, '')
 }
 
-const escapeRegExp = (str) => {
-  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&')
-}
-
 /**
  *  Get all lines between example start and example end string or the whole string if not present
  */
@@ -35,7 +33,7 @@ const extractExampleCode = (txt) => {
   let startString = '{/* start example */}'
   let endString = '{/* end example */}'
 
-  if (txt.indexOf(startString) <= -1) return txt
+  if (txt.indexOf(startString) <= -1 || txt.indexOf(endString) <= -1) return txt
 
   let regexExpr = new RegExp(`${escapeRegExp(startString)}[\\r\\n]([\\s\\S]*?)[\r\n].*${escapeRegExp(endString)}`, '')
   return txt.match(regexExpr).pop()

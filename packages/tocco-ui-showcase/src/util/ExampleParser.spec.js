@@ -31,7 +31,7 @@ describe('tocco-ui-showcase', () => {
       it('should extract real import', () => {
 
         var example = `
-        // real-import:import x from 'y'
+        //real-import:import x from 'y'
         <div>
           {/* start example */}
             CODE
