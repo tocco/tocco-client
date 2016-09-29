@@ -14,7 +14,6 @@ const categories = {
   CORPORATE_IDENTITY: 'Corporate identity',
   FORMS: 'From Controls',
   LAYOUT: 'Layout'
-
 }
 
 export default [
@@ -30,7 +29,6 @@ export default [
         }
       }]
   },
-
   {
     category: categories.CORPORATE_IDENTITY,
     components: [

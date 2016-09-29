@@ -18,7 +18,7 @@ export default class ShowCaseApp extends React.Component {
         <div className="col-md-9">
           <ShowCaseList componentsTree={this.props.componentsTree}/>
         </div>
-        <div className="col-md-2  hidden-xs hidden-sm">
+        <div className="col-md-2 hidden-xs hidden-sm">
           <Affix className="navi-affix" offset={80}>
             <Navigation componentsTree={this.props.componentsTree}/>
           </Affix>

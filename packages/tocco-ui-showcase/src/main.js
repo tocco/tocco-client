@@ -5,9 +5,7 @@ import './styles.scss'
 
 import componentsTree from './uiComponentsTree'
 
-const init = () => {
-  return () => <ShowCaseApp componentsTree={componentsTree}/>
-}
+const init = () => () => <ShowCaseApp componentsTree={componentsTree}/>
 
 if (__DEV__) {
   const mountElement = document.getElementById('root')

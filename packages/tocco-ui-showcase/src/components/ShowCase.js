@@ -1,6 +1,7 @@
 import React from 'react'
 import PropsTable from './PropsTable'
 import Example from './Example'
+
 export default class ShowCase extends React.Component {
   static propTypes = {
     componentName: React.PropTypes.string.isRequired,
@@ -23,7 +24,6 @@ export default class ShowCase extends React.Component {
             </div>
           </div>
         </div>
-
       </div>
     )
   }

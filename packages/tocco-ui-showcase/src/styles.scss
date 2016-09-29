@@ -18,7 +18,7 @@ body {
   height: 80px;
 }
 
-.navi-affix.affix{
+.navi-affix.affix {
   top: 0;
 }
 
@@ -27,8 +27,8 @@ body {
   a {
     color: black;
     text-decoration: none;
-    padding-left:10px;
-    padding-bottom:2px;
+    padding-left: 10px;
+    padding-bottom: 2px;
   }
   ul {
     padding-left: 0;
@@ -36,20 +36,20 @@ body {
   li {
     list-style-type: none;
   }
-  ul  li {
+  ul li {
     font-weight: 500;
     padding-left: 5px;
   }
   ul > li > ul > li {
     font-weight: normal;
   }
-  > ul > li.current-nav > a{
+  > ul > li.current-nav > a {
     border-left: 2px solid $tocco-red;
-    color:$tocco-red;
+    color: $tocco-red;
   }
   ul > li.current-nav > ul > li.current-nav {
     a {
-      color:$tocco-red;
+      color: $tocco-red;
     }
     border-left: 2px solid $tocco-red;
   }
@@ -59,7 +59,7 @@ body {
   margin-left: 10px;
 }
 
-.required-prop{
+.required-prop {
   color: orange;
 }
 
