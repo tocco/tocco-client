@@ -6,7 +6,7 @@ import forms from '../modules/forms'
 import entityModels, { sagas as entityModelSagas } from '../modules/entityModels'
 import input from './input/reducer'
 
-export const reducers = (asyncReducers) => {
+export const reducers = asyncReducers => {
   return combineReducers({
     form,
     router,

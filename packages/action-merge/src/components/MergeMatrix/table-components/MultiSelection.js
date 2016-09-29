@@ -13,11 +13,11 @@ const MultiSelection = props => {
       props.entity.pk)
   }
 
-  var clickFnc = (value) => props.onChange(props.relationName, value.pk, props.entity.pk)
+  var clickFnc = value => props.onChange(props.relationName, value.pk, props.entity.pk)
   return (
     <div>
       {
-        sortBy(props.values, (v) => v.pk).map((value, idx) => {
+        sortBy(props.values, v => v.pk).map((value, idx) => {
           return (
             <div key={`multiselection${idx}`}>
               <input

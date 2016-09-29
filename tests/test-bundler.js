@@ -24,7 +24,7 @@ global.should = chai.should()
 // for some reason an array literal without a trailing `;` causes
 // some build environments to fail.
 const __karmaWebpackManifest__ = new Array() // eslint-disable-line
-const inManifest = (path) => ~__karmaWebpackManifest__.indexOf(path)
+const inManifest = path => ~__karmaWebpackManifest__.indexOf(path)
 
 // require all `tests/**/*.spec.js`
 const testsContext = require.context('../packages', true, /^\.\/+[^\/]+\/src\/+.*\.spec\.js$/)

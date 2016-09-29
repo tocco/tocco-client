@@ -1,6 +1,6 @@
 import React from 'react'
 
-const PasswordInput = (props) => (
+const PasswordInput = props => (
   <div className={'form-group ' + props.name}>
     <label htmlFor={props.name + 'Input'}>{props.label}</label>
     <input

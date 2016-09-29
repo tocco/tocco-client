@@ -1,7 +1,7 @@
 import React from 'react'
 import {FormattedMessage} from 'react-intl'
 
-const PasswordMatchDisplay = (props) => {
+const PasswordMatchDisplay = props => {
   const message = (props.passwordRepeat && props.password !== props.passwordRepeat)
     ? <FormattedMessage id="client.action.passwordUpdate.noMatch"/>
     : '\u00a0'
