@@ -8,8 +8,8 @@ const Example = (props) => {
     return <span/>
   }
 
-  var imports = extractRealImports(props.example.raw)
-  var exampleCode = extractExampleCode(props.example.raw)
+  const imports = extractRealImports(props.example.raw)
+  let exampleCode = extractExampleCode(props.example.raw)
   exampleCode = removeIndent(exampleCode)
 
   return (

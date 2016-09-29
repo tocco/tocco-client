@@ -3,7 +3,7 @@ import {Scrollspy} from 'react-scrollspy'
 
 const Navigation = props => {
   const getComponentSections = (categoryName) => {
-    var sections = []
+    const sections = []
     props.componentsTree.map((componentGroup) => {
       if (componentGroup.category === categoryName) {
         componentGroup.components.map((comp) => {
@@ -15,7 +15,7 @@ const Navigation = props => {
   }
 
   const getGroupSections = () => {
-    var sections = []
+    const sections = []
     props.componentsTree.map((componentGroup) => {
       sections.push(componentGroup.category)
     })

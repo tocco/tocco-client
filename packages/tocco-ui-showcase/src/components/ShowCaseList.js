@@ -13,7 +13,7 @@ const ShowCaseList = props => {
               <h2>{componentGroup.category}</h2>
               {
                 componentGroup.components.map((comp) => {
-                  var componentInfo = parse(comp.raw)
+                  const componentInfo = parse(comp.raw)
                   return (
                     <section key={comp.name} id={comp.name}>
                       <ShowCase componentName={comp.name} componentInfo={componentInfo} example={comp.example}/>

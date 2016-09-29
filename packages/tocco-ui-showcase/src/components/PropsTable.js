@@ -1,11 +1,11 @@
 import React from 'react'
 
 const PropsTable = (props) => {
-  var rows = []
+  const rows = []
 
-  for (var propName in props.props) {
+  for (let propName in props.props) {
     if (props.props.hasOwnProperty(propName)) {
-      var prop = props.props[propName]
+      let prop = props.props[propName]
       rows.push(
         <tr key={propName}>
           <td>{propName}</td>
