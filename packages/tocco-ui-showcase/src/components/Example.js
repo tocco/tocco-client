@@ -14,7 +14,7 @@ const Example = (props) => {
 
   return (
     <div>
-      <h4>Example</h4>
+      <h1>Example</h1>
       <div className="list-group">
         <div className="list-group-item">
           {props.example.component()}

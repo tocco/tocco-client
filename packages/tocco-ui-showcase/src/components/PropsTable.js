@@ -19,7 +19,7 @@ const PropsTable = (props) => {
 
   return (
     <div>
-      <h4>Properties</h4>
+      <h1>Properties</h1>
       <table className="table table-striped table-hover">
         <thead>
           <tr>

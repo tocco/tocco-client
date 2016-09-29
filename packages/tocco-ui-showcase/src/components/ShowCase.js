@@ -12,7 +12,9 @@ export default class ShowCase extends React.Component {
   render() {
     return (
       <div className="panel panel-default show-case">
-        <div className="panel-heading"><h3 className="panel-title">{this.props.componentName}</h3></div>
+        <div className="panel-heading">
+          <h1 className="panel-title">{this.props.componentName}</h1>
+        </div>
         <div className="panel-body">
           <div>{this.props.componentInfo.description}</div>
           <div className="row">

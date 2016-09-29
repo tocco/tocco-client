@@ -13,7 +13,7 @@ export default class ShowCaseApp extends React.Component {
     return (
       <div className="show-case-app">
         <div className="col title">
-          <h1>Tocco UI</h1>
+          <span>Tocco UI</span>
         </div>
         <div className="col-md-9">
           <ShowCaseList componentsTree={this.props.componentsTree}/>

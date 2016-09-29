@@ -6,13 +6,18 @@ body {
   position: relative;
 }
 
+h1 {
+  font-size: initial;
+}
+
 .show-case-app {
   margin: 0;
 }
 
 .title {
   color: #fff;
-  padding-top: 1px;
+  font-size: 40px;
+  padding-top: 10px;
   padding-left: 10px;
   background-color: $tocco-red;
   height: 80px;
