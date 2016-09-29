@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Rule = (props) => (
+export const Rule = props => (
   <div className={props.className}>{props.message}</div>
 )
 
@@ -9,7 +9,7 @@ Rule.propTypes = {
   message: React.PropTypes.string.isRequired
 }
 
-const ValidationRules = (props) => (
+const ValidationRules = props => (
   <div className="ValidationRules">
     {props.rules.map((rule, index) => {
       let className = null

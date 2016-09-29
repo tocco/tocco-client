@@ -2,7 +2,7 @@ import React from 'react'
 import {ExternalEvents} from 'tocco-util'
 import {FormattedMessage, injectIntl} from 'react-intl'
 
-const EntityResponseTable = (props) => {
+const EntityResponseTable = props => {
   console.log('props.responseEntites', props.responseEntities)
   if (!props.responseEntities || props.responseEntities.length === 0) return <div/>
   return (

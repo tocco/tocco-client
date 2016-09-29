@@ -6,7 +6,7 @@ function getMessage(errorCode) {
   return messages[errorCode] || DEFAULT_MESSAGE
 }
 
-const FailureMessage = (props) => (
+const FailureMessage = props => (
   <div className="FailureMessage text-danger"><FormattedMessage id={getMessage(props.errorCode)}/></div>
 )
 

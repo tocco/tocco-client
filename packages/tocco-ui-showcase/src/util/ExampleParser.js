@@ -3,7 +3,7 @@ import escapeRegExp from 'lodash/escapeRegExp'
 /**
  * Get all lines with '// real-import:' prefix and returns them
  */
-const extractRealImports = (txt) => {
+const extractRealImports = txt => {
   const regexExpr = /\/\/ *real-import:(.*)/g
   let match = regexExpr.exec(txt)
 
@@ -20,7 +20,7 @@ const extractRealImports = (txt) => {
 /**
  *  Counts number of leading spaces on first line and removes them on every line
  */
-const removeIndent = (txt) => {
+const removeIndent = txt => {
   const amountLeadingSpaced = txt.search(/\S/)
   const regexExp = new RegExp(`^( {${amountLeadingSpaced}})`, 'gm')
   return txt.replace(regexExp, '')
@@ -29,7 +29,7 @@ const removeIndent = (txt) => {
 /**
  *  Get all lines between example start and example end string or the whole string if not present
  */
-const extractExampleCode = (txt) => {
+const extractExampleCode = txt => {
   const startString = '{/* start example */}'
   const endString = '{/* end example */}'
 

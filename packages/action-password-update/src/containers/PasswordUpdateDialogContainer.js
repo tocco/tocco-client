@@ -12,7 +12,7 @@ const mapActionCreators = {
   savePassword
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     password: state.password,
     validationRules: state.validationRules,

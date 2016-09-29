@@ -16,7 +16,7 @@ const value = (data, column) => {
   return null
 }
 
-const Item = (props) => (
+const Item = props => (
   <tr>
     {props.columns.map((column, index) =>
       <td key={index}><Link to={'/detail/' + props.data.model + '/' + props.data.key}>{value(props.data, column)}</Link>
@@ -50,7 +50,7 @@ Header.propTypes = {
   ordering: React.PropTypes.object.isRequired
 }
 
-const List = (props) => {
+const List = props => {
   if (props.data.length === 0) {
     return <div className="List empty">Keine Einträge gefunden</div>
   }

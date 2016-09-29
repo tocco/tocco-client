@@ -9,7 +9,7 @@ const mapActionCreators = {
   changeStrategy
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     editOptions: state.mergeStrategy.editOptions,
     strategies: state.mergeStrategy.strategies

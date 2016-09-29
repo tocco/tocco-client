@@ -84,4 +84,4 @@ if (config.coverage_enabled) {
 }
 
 // cannot use `export default` because of Karma.
-module.exports = (cfg) => cfg.set(karmaConfig)
+module.exports = cfg => cfg.set(karmaConfig)

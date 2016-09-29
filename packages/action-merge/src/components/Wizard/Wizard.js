@@ -22,13 +22,13 @@ export class Wizard extends React.Component {
 
   backClick = () => {
     if (this.state.index > 0) {
-      this.setState((previousState) => {
+      this.setState(previousState => {
         return {index: previousState.index - 1}
       })
     }
   }
 
-  changeAllowNext = (allow) => {
+  changeAllowNext = allow => {
     this.setState(() => {
       return {allowNext: allow}
     })
@@ -42,7 +42,7 @@ export class Wizard extends React.Component {
       }
     }
     if (result && (this.state.index < (this.state.amountPages - 1))) {
-      this.setState((previousState) => {
+      this.setState(previousState => {
         return {index: previousState.index + 1}
       })
     }
@@ -53,7 +53,7 @@ export class Wizard extends React.Component {
     var t = React.cloneElement(currentPage,
       {
         wizardAllowNext: this.changeAllowNext,
-        ref: (ref) => (this.currentRender = ref)
+        ref: ref => (this.currentRender = ref)
       }
     )
 
