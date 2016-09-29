@@ -11,7 +11,7 @@ const mapActionCreators = {
   toggleRelationMany
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     entities: state.mergeMatrix.entities,
     model: state.mergeMatrix.model,

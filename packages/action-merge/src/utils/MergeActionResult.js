@@ -56,7 +56,7 @@ export function getMergeMatrixResult(mergeMatrixState) {
 function extractFields(state) {
   var result = []
   if (state.selections.fields) {
-    Object.keys(state.selections.fields).forEach((fieldName) => {
+    Object.keys(state.selections.fields).forEach(fieldName => {
       var value = state.selections.fields[fieldName]
 
       if (value !== state.targetEntityPk) {
@@ -75,7 +75,7 @@ function extractRelations(state) {
   var result = []
 
   if (state.selections.relations) {
-    Object.keys(state.selections.relations).forEach((relationName) => {
+    Object.keys(state.selections.relations).forEach(relationName => {
       var entityPk = state.selections.relations[relationName]
 
       if (entityPk !== state.targetEntityPk) {
@@ -100,7 +100,7 @@ function extractToManyRelations(state) {
   var result = []
 
   if (state.selections.toManyRelations) {
-    Object.keys(state.selections.toManyRelations).forEach((relationName) => {
+    Object.keys(state.selections.toManyRelations).forEach(relationName => {
       result.push({
         name: relationName,
         keys: state.selections.toManyRelations[relationName][state.targetEntityPk]

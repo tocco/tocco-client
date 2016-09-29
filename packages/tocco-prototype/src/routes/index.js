@@ -2,7 +2,7 @@
 import CoreLayout from '../layouts/CoreLayout/CoreLayout'
 import List from './List'
 
-export const createRoutes = (store) => {
+export const createRoutes = store => {
 /*  Note: Instead of using JSX, we are using react-router PlainRoute,
     a simple javascript object to provide route definitions.
     When creating a new async route, pass the instantiated store!   */
@@ -12,7 +12,7 @@ export const createRoutes = (store) => {
     component: CoreLayout,
     indexRoute: List(store),
     getChildRoutes(location, next) {
-      require.ensure([], (require) => {
+      require.ensure([], require => {
         next(null, [
           require('./Detail').default(store)
         ])

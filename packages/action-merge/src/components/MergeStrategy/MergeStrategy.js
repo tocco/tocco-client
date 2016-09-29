@@ -42,7 +42,7 @@ class MergeStrategy extends React.Component {
               <select
                 className="form-control"
                 value={this.props.strategies.sourceEntityAction}
-                onChange={(event) => this.props.changeStrategy('sourceEntityAction', event.target.value)}
+                onChange={event => this.props.changeStrategy('sourceEntityAction', event.target.value)}
               >
                 <option value={SourceEntityAction.NO_ACTION}>
                   {this.props.intl.formatMessage({id: 'client.entityoperation.action.merge.strategyNoAction'})}

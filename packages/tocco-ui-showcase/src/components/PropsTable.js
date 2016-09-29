@@ -1,6 +1,6 @@
 import React from 'react'
 
-const PropsTable = (props) => {
+const PropsTable = props => {
   const rows = []
 
   for (const propName in props.props) {

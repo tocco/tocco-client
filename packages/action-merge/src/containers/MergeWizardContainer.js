@@ -6,7 +6,7 @@ const mapActionCreators = {
   saveMerge
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     mergeResponse: state.wizard.mergeResponse
   }

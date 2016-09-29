@@ -1,11 +1,11 @@
 import { injectReducer } from '../../store/reducers'
 
-export default (store) => ({
+export default store => ({
   path: 'detail/:entityModel/:entityKey',
   getComponent(nextState, next) {
     require.ensure([
       './containers/DetailPageContainer'
-    ], (require) => {
+    ], require => {
       const DetailPage = require('./containers/DetailPageContainer').default
       const reducer = require('./modules/detail').default
 

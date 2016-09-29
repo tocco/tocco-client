@@ -24,7 +24,7 @@ const init = (id, input) => {
   }
   const store = createStore(inititalState, hashHistory)
   const history = syncHistoryWithStore(hashHistory, store, {
-    selectLocationState: (state) => state.router
+    selectLocationState: state => state.router
   })
 
   const routes = require('./routes/index').default(store)
@@ -50,7 +50,7 @@ if (__DEV__) {
   // This code is excluded from production bundle
   if (__DEV__ && module.hot) {
     const renderApp = render
-    const renderError = (error) => {
+    const renderError = error => {
       const RedBox = require('redbox-react')
 
       ReactDOM.render(<RedBox error={error}/>, mountElement)

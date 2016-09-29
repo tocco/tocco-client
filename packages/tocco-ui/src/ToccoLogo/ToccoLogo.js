@@ -5,7 +5,7 @@ import classNames from 'classnames'
 /**
  * Shows the red circle (tocco logo) with a link to the homepage. More of an example but feel free to use.
  */
-const ToccoLogo = (props) => {
+const ToccoLogo = props => {
   var logo = require('./tocco.png')
   return (
     <a

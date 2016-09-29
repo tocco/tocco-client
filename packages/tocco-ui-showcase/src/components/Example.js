@@ -3,7 +3,7 @@ import Highlight from 'react-highlight'
 import 'highlight.js/styles/github.css'
 import {extractExampleCode, extractRealImports, removeIndent} from './../util/ExampleParser'
 
-const Example = (props) => {
+const Example = props => {
   if (!props.example) {
     return <span/>
   }

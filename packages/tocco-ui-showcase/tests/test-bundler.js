@@ -14,7 +14,7 @@ global.expect = chai.expect
 global.should = chai.should()
 
 const __karmaWebpackManifest__ = [] // eslint-disable-line
-const inManifest = (path) => ~__karmaWebpackManifest__.indexOf(path)
+const inManifest = path => ~__karmaWebpackManifest__.indexOf(path)
 
 const testsContext = require.context('../src', true, /\.spec\.js$/)
 
