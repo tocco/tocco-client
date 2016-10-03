@@ -5,7 +5,7 @@ import _debug from 'debug'
 
 const debug = _debug('app:webpack:config')
 const paths = config.utils_paths
-const {__DEV__, __PROD__, __TEST__, __PACKAGE__} = config.globals
+const {__DEV__, __PROD__, __STANDALONE__, __TEST__, __PACKAGE__} = config.globals
 
 const packageDir = `packages/${__PACKAGE__}`
 const absolutePackagePath = paths.client(`${packageDir}/`)
@@ -58,6 +58,10 @@ if (__PROD__) {
   webpackConfig.output.publicPath = `/nice2/node_modules/${__PACKAGE__}/dist/`
 }
 
+if (__STANDALONE__) {
+  webpackConfig.output.publicPath = ''
+}
+
 // ------------------------------------
 // Plugins
 // ------------------------------------
@@ -65,7 +69,7 @@ webpackConfig.plugins = [
   new webpack.DefinePlugin(config.globals)
 ]
 
-if (__DEV__) {
+if (__DEV__ || __STANDALONE__) {
   webpackConfig.plugins.push(
     new HtmlWebpackPlugin({
       template: paths.client('server/index.html'),

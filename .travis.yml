@@ -18,6 +18,7 @@ script:
   - npm run test
 
 after_success:
+  - npm run deploy:standalone --package=tocco-ui-showcase
   - bash deploy_showcase.sh
 
 env:

@@ -65,6 +65,7 @@ config.globals = {
   'NODE_ENV'     : config.env,
   '__DEV__'      : config.env === 'development',
   '__PROD__'     : config.env === 'production',
+  '__STANDALONE__': config.env === 'standalone',
   '__TEST__'     : config.env === 'test',
   '__DEBUG__'    : config.env === 'development' && !argv.no_debug,
   '__BASENAME__' : JSON.stringify(process.env.BASENAME || ''),

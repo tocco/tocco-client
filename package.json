@@ -19,6 +19,7 @@
     "deploy": "better-npm-run deploy",
     "deploy:dev": "better-npm-run deploy:dev",
     "deploy:prod": "better-npm-run deploy:prod",
+    "deploy:standalone": "better-npm-run deploy:standalone",
     "publish": "better-npm-run publish",
     "codecov": "cat coverage/*/lcov.info | codecov"
   },
@@ -53,6 +54,13 @@
       "command": "npm run deploy",
       "env": {
         "NODE_ENV": "production",
+        "DEBUG": "app:*"
+      }
+    },
+    "deploy:standalone": {
+      "command": "npm run deploy",
+      "env": {
+        "NODE_ENV": "standalone",
         "DEBUG": "app:*"
       }
     },
