@@ -8,7 +8,7 @@ cache:
     - node_modules
 
 install:
-  - npm install --global lerna@^2.0.0-beta.28
+  - npm install --global lerna@2.0.0-beta.28
   - npm install
   - lerna bootstrap
 
