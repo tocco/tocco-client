@@ -17,9 +17,9 @@ script:
   - npm run test
 
 after_success:
-  - bash deploy-showcase.sh
+  - bash deploy_showcase.sh
 
 env:
   global:
   - ENCRYPTION_LABEL: "49dedc788d53"
-  - COMMIT_AUTHOR_EMAIL: "client-bot@tocco.ch"
+  - COMMIT_AUTHOR_EMAIL: "dkeller.ch@gmail.com"
