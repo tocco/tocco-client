@@ -6,20 +6,24 @@ node_js:
 cache:
   directories:
     - node_modules
+    - packages/tocco-ui/node_modules
+    - packages/tocco-ui-showcase/node_modules
+    - packages/tocco-ui-util/node_modules
+    - packages/tocco-prototype/node_modules
+    - packages/action-merge/node_modules
+    - packages/action-password-update/node_modules
 
 install:
-  - npm install --global lerna@2.0.0-beta.28
+  - npm list -g lerna –depth=0 || npm install -g lerna@2.0.0-beta.28
   - npm install
   - lerna bootstrap
-  - npm run deploy:dev --package=tocco-ui-showcase
 
 script:
   - npm run lint
   - npm run test
 
 after_success:
-  - npm run deploy:standalone --package=tocco-ui-showcase
-  - bash deploy_showcase.sh
+  - bash deployment/deploy_showcase.sh
 
 env:
   global:

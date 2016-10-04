@@ -7,7 +7,7 @@
     "clean": "rimraf dist",
     "compile": "babel-node ../../bin/compile",
     "deploy": "better-npm-run deploy",
-    "prepublish": "better-npm-run deploy:prod"
+    "prepublish": "better-npm-run deploy:standalone"
   },
   "betterScripts": {
     "deploy": {
@@ -16,10 +16,10 @@
         "DEBUG": "app:*"
       }
     },
-    "deploy:prod": {
+    "deploy:standalone": {
       "command": "npm run deploy",
       "env": {
-        "NODE_ENV": "production",
+        "NODE_ENV": "standalone",
         "DEBUG": "app:*"
       }
     }
