@@ -24,4 +24,4 @@ after_success:
 env:
   global:
   - ENCRYPTION_LABEL: "49dedc788d53"
-  - COMMIT_AUTHOR_EMAIL: "dkeller.ch@gmail.com"
+  - COMMIT_AUTHOR_EMAIL: "bot@tocco.ch"
