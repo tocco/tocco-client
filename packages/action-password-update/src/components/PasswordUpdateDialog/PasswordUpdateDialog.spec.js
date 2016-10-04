@@ -20,6 +20,28 @@ describe('action-password-update', () => {
         expect(fetchValidationRules).to.have.property('callCount', 1);
       })
 
+      it('calls initialized callback once rules rendered', () => {
+        window.requestAnimationFrame = fn => fn()
+
+        const initialized = sinon.spy();
+
+        const wrapper = mount(<PasswordUpdateDialog
+          fetchValidationRules={() => undefined}
+          validationRules={null}
+          password={{}}
+          intl={intl}
+          initialized={initialized}
+        />)
+
+        expect(initialized).to.have.property('callCount', 0);
+
+        wrapper.setProps({
+          validationRules: []
+        })
+
+        expect(initialized).to.have.property('callCount', 1);
+      })
+
       it ('displays LoadMask until rules loaded', () => {
         const wrapper = shallow(<PasswordUpdateDialog
           fetchValidationRules={() => undefined}

@@ -1,3 +1,4 @@
+import mainSagas from './sagas'
 import password, { sagas as passwordSagas } from './password/'
 import validationRules, { sagas as validationRulesSagas } from './validationRules/'
 import {intlReducer} from 'react-intl-redux'
@@ -9,6 +10,7 @@ export default {
 }
 
 export const sagas = [
+  mainSagas,
   passwordSagas,
   validationRulesSagas
 ]
