@@ -21,6 +21,14 @@ class PasswordUpdateDialog extends Component {
     }
   }
 
+  componentDidUpdate() {
+    if (this.props.validationRules) {
+      window.requestAnimationFrame(() => {
+        this.props.initialized()
+      })
+    }
+  }
+
   render() {
     const {password, validationRules, updateOldPassword, updateNewPassword, updateNewPasswordRepeat}
       = this.props
@@ -113,6 +121,7 @@ PasswordUpdateDialog.propTypes = {
   updateNewPasswordRepeat: React.PropTypes.func.isRequired,
   fetchValidationRules: React.PropTypes.func.isRequired,
   savePassword: React.PropTypes.func.isRequired,
+  initialized: React.PropTypes.func.isRequired,
   intl: intlShape.isRequired
 }
 

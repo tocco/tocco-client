@@ -12,4 +12,5 @@
 
 | Name                   | Description
 |------------------------|------------
+| `initialized`          | This event is fired once the dialog is fully initialized (validation rules have been loaded and rendered)
 | `success`              | This event is fired after password has been updated successfully

@@ -1,6 +1,7 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 import PasswordUpdateDialog from '../components/PasswordUpdateDialog'
+import {initialized} from '../modules/actions'
 import {updateOldPassword, updateNewPassword, updateNewPasswordRepeat, savePassword} from '../modules/password'
 import {fetchValidationRules} from '../modules/validationRules'
 
@@ -9,7 +10,8 @@ const mapActionCreators = {
   updateNewPassword,
   updateNewPasswordRepeat,
   fetchValidationRules,
-  savePassword
+  savePassword,
+  initialized
 }
 
 const mapStateToProps = state => {
