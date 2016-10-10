@@ -122,6 +122,15 @@ webpackConfig.module.loaders = [{
           'transform-react-remove-prop-types',
           'transform-react-constant-elements'
         ]
+      },
+      test: {
+        plugins: [['istanbul', {
+          'exclude': [
+            '**/*/*.spec.js',
+            '**/tocco-ui/**/example.js',
+            '**/tocco-ui/dist'
+          ]
+        }]]
       }
     }
   }
