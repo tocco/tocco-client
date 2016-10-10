@@ -21,7 +21,7 @@
     "deploy:prod": "better-npm-run deploy:prod",
     "deploy:standalone": "better-npm-run deploy:standalone",
     "publish": "better-npm-run publish",
-    "codecov": "cat ./coverage/lcov/lcov.info | ./node_modules/codecov/bin/codecov.js",
+    "codecov": "cat ./coverage/lcov/lcov.info | codecov",
     "coveralls": "cat ./coverage/lcov/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "betterScripts": {
