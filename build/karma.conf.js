@@ -13,18 +13,19 @@ if (config.globals.__PACKAGE__) {
 } else {
   packages = getAllPackages()
 }
+debug(`Run tests for packages: ${packages.join(', ')}`)
+
 var testBundles = []
 packages.forEach(pck => {
   testBundles.push(`packages/${pck}/${config.dir_test}/test-bundler.js`)
 })
-
 var bundlePreprocessors = {}
 testBundles.forEach(bundle => {
   bundlePreprocessors[bundle] = ['webpack', 'sourcemap']
 })
 
 const karmaConfig = {
-  basePath: '../', // project root in relation to bin/karma.js
+  basePath: '../',
   files: [
     './node_modules/babel-polyfill/dist/polyfill.js',
     ...testBundles
@@ -75,21 +76,7 @@ const karmaConfig = {
   webpackMiddleware: {
     noInfo: true
   },
-  coverageReporter: {
-    dir: 'coverage',
-    reporters: [
-      {type: 'text-summary'},
-      {
-        type: 'html',
-        subdir: 'report-html'
-      },
-      {
-        type: 'lcov',
-        subdir: 'lcov'
-      }
-
-    ]
-  }
+  coverageReporter: config.coverage_reporters
 }
 
 // cannot use `export default` because of Karma.
