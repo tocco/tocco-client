@@ -1,35 +1,43 @@
-import { argv } from 'yargs'
+import {argv} from 'yargs'
 import config from '../config'
 import webpackConfig from './webpack.config'
 import _debug from 'debug'
+import {getAllPackages} from '../bin/packages'
 
 const debug = _debug('app:karma')
 debug('Create configuration.')
 
-var packageDir = ''
+var packages
 if (config.globals.__PACKAGE__) {
-  packageDir = `/packages/${config.globals.__PACKAGE__}/`
+  packages = [config.globals.__PACKAGE__]
+} else {
+  packages = getAllPackages()
 }
+debug(`Run tests for packages: ${packages.join(', ')}`)
+
+var testBundles = []
+packages.forEach(pck => {
+  testBundles.push(`packages/${pck}/${config.dir_test}/test-bundler.js`)
+})
+var bundlePreprocessors = {}
+testBundles.forEach(bundle => {
+  bundlePreprocessors[bundle] = ['webpack', 'sourcemap']
+})
 
 const karmaConfig = {
-  basePath: '../', // project root in relation to bin/karma.js
+  basePath: '../',
   files: [
     './node_modules/babel-polyfill/dist/polyfill.js',
-    {
-      pattern: `./${packageDir}/${config.dir_test}/test-bundler.js`,
-      watched: false,
-      served: true,
-      included: true
-    }
+    ...testBundles
   ],
   singleRun: !argv.watch,
   frameworks: ['mocha'],
-  reporters: ['mocha'],
+  reporters: ['mocha', 'coverage'],
   mochaReporter: {
     showDiff: true
   },
   preprocessors: {
-    [`./${packageDir}/${config.dir_test}/test-bundler.js`]: ['webpack', 'sourcemap']
+    ...bundlePreprocessors
   },
   browsers: ['PhantomJS'],
   browserDisconnectTimeout: 10000,
@@ -68,19 +76,7 @@ const karmaConfig = {
   webpackMiddleware: {
     noInfo: true
   },
-  coverageReporter: {
-    reporters: config.coverage_reporters
-  }
-}
-
-if (config.coverage_enabled) {
-  karmaConfig.reporters.push('coverage')
-  karmaConfig.webpack.module.preLoaders = [{
-    test: /\.(js|jsx)$/,
-    include: new RegExp(config.dir_client),
-    loader: 'isparta',
-    exclude: /node_modules/
-  }]
+  coverageReporter: config.coverage_reporters
 }
 
 // cannot use `export default` because of Karma.

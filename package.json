@@ -21,7 +21,8 @@
     "deploy:prod": "better-npm-run deploy:prod",
     "deploy:standalone": "better-npm-run deploy:standalone",
     "publish": "better-npm-run publish",
-    "codecov": "cat coverage/*/lcov.info | codecov"
+    "codecov": "cat ./coverage/lcov/lcov.info | codecov",
+    "coveralls": "cat ./coverage/lcov/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "betterScripts": {
     "compile": {
@@ -93,6 +94,7 @@
     "babel-core": "^6.14.0",
     "babel-eslint": "^6.1.2",
     "babel-loader": "^6.2.5",
+    "babel-plugin-istanbul": "^2.0.1",
     "babel-plugin-react-transform": "^2.0.2",
     "babel-plugin-transform-react-constant-elements": "^6.9.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.2.9",
@@ -110,6 +112,7 @@
     "cheerio": "^0.22.0",
     "classnames": "~2.2.5",
     "codecov": "^1.0.1",
+    "coveralls": "^2.11.14",
     "css-loader": "^0.25.0",
     "debug": "^2.2.0",
     "enzyme": "^2.4.1",

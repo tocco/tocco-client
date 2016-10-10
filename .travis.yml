@@ -23,6 +23,8 @@ script:
   - npm run test
 
 after_success:
+  - npm run coveralls
+  - npm run codecov
   - bash deployment/deploy_showcase.sh
 
 env:

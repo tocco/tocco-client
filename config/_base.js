@@ -38,11 +38,21 @@ const config = {
   // ----------------------------------
   // Test Configuration
   // ----------------------------------
-  coverage_enabled   : !argv.watch,
-  coverage_reporters : [
-    { type : 'text-summary' },
-    { type : 'lcov', dir : 'coverage' }
-  ]
+  coverage_reporters: {
+    dir: 'coverage',
+    reporters: [
+      {type: 'text-summary'},
+      {
+        type: 'html',
+        subdir: 'report-html'
+      },
+      {
+        type: 'lcov',
+        subdir: 'lcov'
+      }
+
+    ]
+  }
 }
 
 /************************************************
