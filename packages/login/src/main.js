@@ -5,6 +5,7 @@ import {StoreFactory, ExternalEvents, Intl} from 'tocco-util'
 import {addLocaleData} from 'react-intl'
 import {IntlProvider} from 'react-intl-redux'
 import {LoadMask} from 'tocco-ui'
+import LoginForm from './components/LoginForm'
 
 import reducers, {sagas} from './modules/reducers'
 import './styles/core.scss'
@@ -40,7 +41,7 @@ const init = (id, input, externalEvents) => {
       <Provider store={store}>
         <LoadMask promises={[initIntlPromise]}>
           <IntlProvider>
-            <div>Login</div>
+            <LoginForm/>
           </IntlProvider>
         </LoadMask>
       </Provider>
