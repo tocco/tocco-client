@@ -22,7 +22,8 @@
     "deploy:standalone": "better-npm-run deploy:standalone",
     "publish": "better-npm-run publish",
     "codecov": "cat ./coverage/lcov/lcov.info | codecov",
-    "coveralls": "cat ./coverage/lcov/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "coveralls": "cat ./coverage/lcov/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "setup": "npm install && cd server/static && npm install"
   },
   "betterScripts": {
     "compile": {

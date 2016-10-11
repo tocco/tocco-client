@@ -1,8 +1,10 @@
 *.spec.js
-docs/**
 node_modules/**
 coverage/**
 .idea/
+
+server/static/node_modules
+
 packages/*/dist/**
 packages/*/node_modules/**
 packages/*/coverage/**
