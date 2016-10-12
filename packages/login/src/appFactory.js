@@ -1,23 +1,32 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
+import {StoreFactory, ExternalEvents, Intl} from 'tocco-util'
 import {addLocaleData} from 'react-intl'
 import {IntlProvider} from 'react-intl-redux'
-import {StoreFactory, ExternalEvents, Intl} from 'tocco-util'
 import {LoadMask} from 'tocco-ui'
-import reducers, {sagas} from './modules/reducers'
+
+import LoginForm from './components/LoginForm'
 import PasswordUpdateDialog from './containers/PasswordUpdateDialogContainer'
+import reducers, {sagas} from './modules/reducers'
 
 import de from 'react-intl/locale-data/de'
 import en from 'react-intl/locale-data/en'
 import fr from 'react-intl/locale-data/fr'
 import it from 'react-intl/locale-data/it'
 
-const init = (id, input, externalEvents) => {
+export const loginFactory = (id, input, externalEvents) => (
+  factory('loginForm', 'action.login', id, input, externalEvents)
+)
+
+export const passwordUpdateFactory = (id, input, externalEvents) => (
+  factory('passwordUpdate', 'action.passwordUpdate', id, input, externalEvents)
+)
+
+const factory = (component, moduleName, id, input, externalEvents) => {
   try {
     var initialState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {}
     if (__DEV__) {
-      input = require('./dev_input.json')
+      input = require('./dev/input.json')
     }
 
     if (input) {
@@ -25,7 +34,6 @@ const init = (id, input, externalEvents) => {
     }
 
     if (externalEvents) ExternalEvents.registerEvents(externalEvents)
-
     const store = StoreFactory.createStore(initialState, reducers, sagas)
 
     if (module.hot) {
@@ -38,49 +46,25 @@ const init = (id, input, externalEvents) => {
     addLocaleData([...de, ...en, ...fr, ...it])
     const initIntlPromise = Intl.initIntl(store, 'action.passwordUpdate')
 
+    var content
+    if (component === 'passwordUpdate') {
+      content = <PasswordUpdateDialog/>
+    } else {
+      content = <LoginForm/>
+    }
+
     const App = () => (
       <Provider store={store}>
         <LoadMask promises={[initIntlPromise]}>
           <IntlProvider>
-            <PasswordUpdateDialog/>
+            {content}
           </IntlProvider>
         </LoadMask>
       </Provider>
     )
-
+    console.log('App', App)
     return App
   } catch (e) {
     console.log('Error loading react application: ', e)
-  }
-}
-
-if (__DEV__) {
-  const mountElement = document.getElementById('root')
-
-  let render = () => {
-    const element = React.createElement(init())
-    ReactDOM.render(element, mountElement)
-  }
-
-  if (__DEV__ && module.hot) {
-    const renderApp = render
-    const renderError = error => {
-      const RedBox = require('redbox-react')
-
-      ReactDOM.render(<RedBox error={error}/>, mountElement)
-    }
-    render = () => {
-      try {
-        renderApp()
-      } catch (error) {
-        renderError(error)
-      }
-    }
-  }
-
-  render()
-} else {
-  if (window.reactRegistry) {
-    window.reactRegistry.register('action-password-update', init) // TODO: replace string with var
   }
 }

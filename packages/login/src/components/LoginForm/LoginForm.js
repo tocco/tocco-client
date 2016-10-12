@@ -12,8 +12,7 @@ export class LoginForm extends React.Component {
           </div>
           <div className="input-group">
             <span className="input-group-addon"><i className="glyphicon glyphicon-lock"/></span>
-            <input id="password" type="password" className="form-control" name="password"
-                   placeholder="Passwort"/>
+            <input id="password" type="password" className="form-control" name="password" placeholder="Passwort"/>
           </div>
           <div>
             <div>

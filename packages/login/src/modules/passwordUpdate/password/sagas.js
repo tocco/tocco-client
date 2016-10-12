@@ -5,9 +5,9 @@ import localValidate from './validate'
 import {ExternalEvents} from 'tocco-util'
 import {isEmptyObject, validationMessagesToErrorMap} from './utils'
 
-export const validationRulesSelector = state => state.validationRules
+export const validationRulesSelector = state => state.passwordUpdate.validationRules
 export const inputSelector = state => state.input
-export const passwordSelector = state => state.password
+export const passwordSelector = state => state.passwordUpdate.password
 
 function doRequest(data, principalPk, action) {
   const options = {

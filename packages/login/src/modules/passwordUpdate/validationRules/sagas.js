@@ -8,7 +8,7 @@ export const principalPkInputSelector = state => state.input.principalPk
 export function loadValidationRules(principalPk) {
   return new Promise(resolve => {
     if (__DEV__) {
-      const rules = require('../../dev_validationRules.json')
+      const rules = require('../../../dev/validationRules.json')
       resolve(rules)
     } else {
       fetch(`${__BACKEND_URL__}/nice2/rest/principals/${principalPk}/password-rules`, {
