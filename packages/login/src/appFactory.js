@@ -5,7 +5,7 @@ import {addLocaleData} from 'react-intl'
 import {IntlProvider} from 'react-intl-redux'
 import {LoadMask} from 'tocco-ui'
 
-import LoginForm from './components/LoginForm'
+import LoginContainer from './containers/LognContainer'
 import PasswordUpdateDialog from './containers/PasswordUpdateDialogContainer'
 import reducers, {sagas} from './modules/reducers'
 
@@ -50,7 +50,7 @@ const factory = (component, moduleName, id, input, externalEvents) => {
     if (component === 'passwordUpdate') {
       content = <PasswordUpdateDialog/>
     } else {
-      content = <LoginForm/>
+      content = <LoginContainer headless={false}/>
     }
 
     const App = () => (
