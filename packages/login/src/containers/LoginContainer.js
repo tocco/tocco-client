@@ -1,9 +1,12 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
-
 import Login from '../components/Login'
+import {initialized, login} from '../modules/actions'
 
-const mapActionCreators = {}
+const mapActionCreators = {
+  login,
+  initialized
+}
 
 const mapStateToProps = (state, props) => {
   return {
@@ -13,3 +16,4 @@ const mapStateToProps = (state, props) => {
 }
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(Login))
+

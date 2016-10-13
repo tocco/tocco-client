@@ -5,7 +5,7 @@ import {addLocaleData} from 'react-intl'
 import {IntlProvider} from 'react-intl-redux'
 import {LoadMask} from 'tocco-ui'
 
-import LoginContainer from './containers/LognContainer'
+import LoginContainer from './containers/LoginContainer'
 import PasswordUpdateDialog from './containers/PasswordUpdateDialogContainer'
 import reducers, {sagas} from './modules/reducers'
 
