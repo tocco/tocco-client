@@ -1,6 +1,11 @@
 import * as actions from './actions'
 import {takeLatest} from 'redux-saga'
-import {fork} from 'redux-saga/effects'
+import {fork, put} from 'redux-saga/effects'
+
+import {setMessage} from './loginForm/actions'
+import {changePage} from './login/actions'
+import {Pages} from '../types/Pages'
+
 import {getResponse} from '../dev/loginResponseMocks'
 
 function doRequest(data) {
@@ -23,16 +28,69 @@ function getOptions(data) {
   }
 }
 
+function doDevRequest(data) {
+  console.log('DEV MODE: Would send following request in PROD MODE:', getOptions(data))
+  var response = getResponse(data)
+  return new Promise(resolve => {
+    resolve(response)
+  })
+}
+
+export function* handleTwoStepLoginResponse(body) {
+  yield put(changePage(Pages.PASSWORD_REQUEST)) // TODO: Change to TwoStep
+  console.log('REQUESTEDCODE:', body.REQUESTEDCODE)
+}
+
+export function* handlePasswortUpdateResponse(body) {
+  yield put(changePage(Pages.PASSWORD_UPDATE))
+}
+
+export function* handleOneTilLBlockResponse(body) {
+  yield put(setMessage('1 last try', true))
+}
+
+export function* handleBlockResponse(body) {
+  yield put(setMessage('bocked', true))
+}
+
+export function* handleFailedResponse(body) {
+  yield put(setMessage('FAIL', true))
+}
+
+export function* handleSuccessfullyResponse() {
+  console.log('Successfully, redirect...') // Todo: Call Redirect event
+}
+
+function getBody(response) {
+  return response.json().then(function (json) {
+    return json
+  })
+}
+
 export function* loginSaga({payload}) {
+  let response
   if (__DEV__) {
-    console.log('DEV MODE: Would send following request in PROD MODE:', getOptions(payload))
-    var response = getResponse(payload)
-    return new Promise((resolve, reject) => {
-      console.log('DEV MODE: Response -> ', response)
-      resolve(response)
-    })
+    response = yield doDevRequest(payload)
   } else {
-    doRequest(payload)
+    response = yield doRequest(payload)
+  }
+
+  const body = yield getBody(response)
+
+  if (body.success) {
+    yield handleSuccessfullyResponse()
+  } else {
+    if (body.TWOSTEPLOGIN) {
+      yield handleTwoStepLoginResponse(body)
+    } else if (body.RESET_PASSWORD_REQUIRED) {
+      yield handlePasswortUpdateResponse(body)
+    } else if (body.ONE_TILL_BLOCK) {
+      yield handleOneTilLBlockResponse(body)
+    } else if (body.LOGIN_BLOCKED) {
+      yield handleBlockResponse(body)
+    } else {
+      yield handleFailedResponse(body)
+    }
   }
 }
 

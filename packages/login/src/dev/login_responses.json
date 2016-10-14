@@ -1,10 +1,28 @@
 {
   "credentials" : [
-    { "username": "tocco_success", "response_type": "success"},
-    { "username": "tocco_auth_fail", "response_type": "auth_fail"},
-    { "username": "tocco_two_factor", "response_type": "two_factor"},
-    { "username": "tocco_reset_pw", "response_type": "reset_password"},
-    { "username": "tocco_before_blocked", "response_type": "before_blocked"},
-    { "username": "tocco_blocked", "response_type": "blocked"}
+    {
+      "username": "succ",
+      "response_type": "success"
+    },
+    {
+      "username": "fail",
+      "response_type": "auth_fail"
+    },
+    {
+      "username": "two",
+      "response_type": "two_factor"
+    },
+    {
+      "username": "reset",
+      "response_type": "reset_password"
+    },
+    {
+      "username": "before_blocked",
+      "response_type": "before_blocked"
+    },
+    {
+      "username": "blocked",
+      "response_type": "blocked"
+    }
   ]
 }
