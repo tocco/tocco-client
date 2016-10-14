@@ -2,14 +2,17 @@ import {put, select} from 'redux-saga/effects'
 import * as sagas from './sagas'
 import {changePage} from './login/actions'
 import {setMessage, setPending} from './loginForm/actions'
-
+import {setRequestedCode} from './twoStepLogin/actions'
 
 describe('action-login', () => {
   describe('module sagas ', () => {
     describe('login', () => {
-      it('handleTwoStepLoginResponse: should dispatch action changePage', () => {
-        const gen = sagas.handleTwoStepLoginResponse({})
-        expect(gen.next().value).to.deep.equal(put(changePage('PASSWORD_REQUEST')))
+      it('handleTwoStepLoginResponse: should dispatch actions `setRequestedCode` and `changePage`', () => {
+        const gen = sagas.handleTwoStepLoginResponse({
+          REQUESTEDCODE: 'code'
+        })
+        expect(gen.next().value).to.deep.equal(put(setRequestedCode('code')))
+        expect(gen.next().value).to.deep.equal(put(changePage('TWOSTEPLOGIN')))
         expect(gen.next().done).to.deep.equal(true)
       })
 
