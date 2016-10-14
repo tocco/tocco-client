@@ -7,7 +7,9 @@ function getMessage(errorCode) {
 }
 
 const FailureMessage = props => (
-  <div className="FailureMessage text-danger"><FormattedMessage id={getMessage(props.errorCode)}/></div>
+  <div className="FailureMessage text-danger">
+    <FormattedMessage id={getMessage(props.errorCode)}/>
+  </div>
 )
 
 FailureMessage.propTypes = {
