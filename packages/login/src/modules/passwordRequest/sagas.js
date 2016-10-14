@@ -9,7 +9,7 @@ import {Pages} from '../../types/Pages'
 export function doRequest(username) {
   if (__DEV__) {
     console.log('dev mode. would send request to reset password for user:', username)
-    return Promise.resolve({"status": 200})
+    return Promise.resolve({'status': 200})
   } else {
     return fetch(`${__BACKEND_URL__}/nice2/rest/principals/${username}/password-reset`, {
       method: 'POST'
