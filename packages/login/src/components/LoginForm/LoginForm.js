@@ -6,11 +6,11 @@ export class LoginForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    this.props.login(this.state.username, this.state.password)
+    this.props.login(this.props.username, this.state.password)
   }
 
   handleUsername(e) {
-    this.setState({username: e.target.value})
+    this.props.setUsername(e.target.value)
   }
 
   handlePassword(e) {
@@ -21,20 +21,13 @@ export class LoginForm extends Component {
     return (
       <div className="login-form">
         {
-          !this.props.headless
+          this.props.showTitle
           && <div>
             <h1>Login</h1>
             <p>Dieser Bereich ist privat. Bitte melden Sie sich an.</p>
           </div>
         }
-        <form
-          name="form"
-          id="form"
-          className="form-horizontal"
-          method="POST"
-          encType="multipart/form-data"
-          onSubmit={this.handleSubmit.bind(this)}
-        >
+        <form>
           <div className="input-group">
             <span className="input-group-addon"><i className="glyphicon glyphicon-user"/></span>
             <input
@@ -44,6 +37,7 @@ export class LoginForm extends Component {
               name="user"
               onChange={this.handleUsername.bind(this)}
               placeholder="Benutzername / E-Mail"
+              value={this.props.username}
             />
           </div>
           <div className="input-group">
@@ -57,10 +51,17 @@ export class LoginForm extends Component {
               placeholder="Passwort"
             />
           </div>
+          {
+            this.props.message && this.props.message.text
+            && <p className={this.props.message.negative ? 'negative' : ''}>{this.props.message.text}</p>
+          }
           <div>
             <div>
-              <button type="submit" href="#" className="btn btn-primary submit-button"><i
-                className="glyphicon glyphicon-log-in"/> Log in
+              <button
+                className="btn btn-primary submit-button"
+                onClick={this.handleSubmit.bind(this)}
+              >
+                <i className="glyphicon glyphicon-log-in"/> Log in
               </button>
               <div>
                 <a onClick={() => this.props.changePage(Pages.PASSWORD_REQUEST)}>Passwort vergessen</a>
@@ -76,5 +77,8 @@ export class LoginForm extends Component {
 LoginForm.propTypes = {
   login: React.PropTypes.func.isRequired,
   changePage: React.PropTypes.func.isRequired,
-  headless: React.PropTypes.bool
+  setUsername: React.PropTypes.func.isRequired,
+  message: React.PropTypes.object,
+  showTitle: React.PropTypes.bool,
+  username: React.PropTypes.string
 }

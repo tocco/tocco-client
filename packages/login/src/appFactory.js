@@ -46,11 +46,13 @@ const factory = (component, moduleName, id, input, externalEvents) => {
     addLocaleData([...de, ...en, ...fr, ...it])
     const initIntlPromise = Intl.initIntl(store, 'action.passwordUpdate')
 
+    var showTitle = input ? input.showTitle : false
+
     var content
     if (component === 'passwordUpdate') {
-      content = <PasswordUpdateDialog/>
+      content = <PasswordUpdateDialog showTitle={showTitle}/>
     } else {
-      content = <LoginContainer headless={false}/>
+      content = <LoginContainer showTitle={showTitle}/>
     }
 
     const App = () => (
@@ -62,7 +64,6 @@ const factory = (component, moduleName, id, input, externalEvents) => {
         </LoadMask>
       </Provider>
     )
-    console.log('App', App)
     return App
   } catch (e) {
     console.log('Error loading react application: ', e)

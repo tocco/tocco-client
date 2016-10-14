@@ -4,9 +4,11 @@ import {injectIntl} from 'react-intl'
 import PasswordRequest from '../components/PasswordRequest'
 
 import {changePage} from '../modules/login/actions'
+import {requestPassword} from '../modules/passwordRequest/actions'
 
 const mapActionCreators = {
-  changePage
+  changePage,
+  requestPassword
 }
 
 const mapStateToProps = state => {

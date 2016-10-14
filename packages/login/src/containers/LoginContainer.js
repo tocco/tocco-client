@@ -11,7 +11,7 @@ const mapActionCreators = {
 const mapStateToProps = (state, props) => {
   return {
     currentPage: state.login.currentPage,
-    headless: props.headless
+    showTitle: props.showTitle
   }
 }
 

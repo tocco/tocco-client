@@ -1,4 +1,5 @@
 {
   "principalPk": "2441",
-  "showOldPasswordField": true
+  "showOldPasswordField": true,
+  "showTitle": true
 }

@@ -12,11 +12,11 @@ export class Login extends React.Component {
         {(() => {
           switch (this.props.currentPage) {
             case Pages.PASSWORD_UPDATE:
-              return <PasswordUpdateContainer showTitle={this.props.headless}/>
+              return <PasswordUpdateContainer showTitle={this.props.showTitle}/>
             case Pages.PASSWORD_REQUEST:
-              return <PasswordRequestContainer showTitle={this.props.headless}/>
+              return <PasswordRequestContainer showTitle={this.props.showTitle}/>
             default:
-              return <LoginFormContainer headless={this.props.headless}/>
+              return <LoginFormContainer showTitle={this.props.showTitle}/>
           }
         })()}
       </div>
@@ -26,5 +26,5 @@ export class Login extends React.Component {
 
 Login.propTypes = {
   currentPage: React.PropTypes.string,
-  headless: React.PropTypes.bool
+  showTitle: React.PropTypes.bool
 }
