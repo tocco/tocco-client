@@ -1,12 +1,4 @@
-import {SET_USERNAME, SET_MESSAGE} from './actions'
-
-function setUsername(state, {payload}) {
-  const {username} = payload
-  return {
-    ...state,
-    username: username
-  }
-}
+import {SET_MESSAGE} from './actions'
 
 function setMessage(state, {payload}) {
   const {text, negative} = payload
@@ -20,12 +12,10 @@ function setMessage(state, {payload}) {
 }
 
 const ACTION_HANDLERS = {
-  [SET_USERNAME]: setUsername,
   [SET_MESSAGE]: setMessage
 }
 
 var initialState = {
-  username: '',
   message: {}
 }
 

@@ -6,7 +6,7 @@ export class LoginForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    this.props.login(this.props.username, this.state.password)
+    this.props.login(this.props.username, this.props.password)
   }
 
   handleUsername(e) {
@@ -14,7 +14,7 @@ export class LoginForm extends Component {
   }
 
   handlePassword(e) {
-    this.setState({password: e.target.value})
+    this.props.setPassword(e.target.value)
   }
 
   render() {
@@ -78,7 +78,9 @@ LoginForm.propTypes = {
   login: React.PropTypes.func.isRequired,
   changePage: React.PropTypes.func.isRequired,
   setUsername: React.PropTypes.func.isRequired,
+  setPassword: React.PropTypes.func.isRequired,
   message: React.PropTypes.object,
   showTitle: React.PropTypes.bool,
-  username: React.PropTypes.string
+  username: React.PropTypes.string,
+  password: React.PropTypes.string
 }

@@ -2,19 +2,20 @@ import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 
 import LoginForm from '../components/LoginForm'
-import {changePage} from '../modules/login/actions'
-import {setUsername} from '../modules/loginForm/actions'
+import {changePage, setUsername, setPassword} from '../modules/login/actions'
 import {login} from '../modules/actions'
 
 const mapActionCreators = {
   changePage,
   setUsername,
+  setPassword,
   login
 }
 
 const mapStateToProps = state => {
   return {
-    username: state.loginForm.username,
+    username: state.login.username,
+    password: state.login.password,
     message: state.loginForm.message
   }
 }
