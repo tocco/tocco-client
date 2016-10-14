@@ -38,6 +38,7 @@ export class LoginForm extends Component {
               onChange={this.handleUsername.bind(this)}
               placeholder="Benutzername / E-Mail"
               value={this.props.username}
+              required
             />
           </div>
           <div className="input-group">
@@ -49,6 +50,7 @@ export class LoginForm extends Component {
               name="password"
               onChange={this.handlePassword.bind(this)}
               placeholder="Passwort"
+              required
             />
           </div>
           {
@@ -58,8 +60,9 @@ export class LoginForm extends Component {
           <div>
             <div>
               <button
-                className="btn btn-primary submit-button"
+                className={'btn btn-primary submit-button ' + (this.props.loginPending ? 'update-pending' : '')}
                 onClick={this.handleSubmit.bind(this)}
+                disabled={this.props.loginPending}
               >
                 <i className="glyphicon glyphicon-log-in"/> Log in
               </button>
@@ -78,6 +81,7 @@ LoginForm.propTypes = {
   login: React.PropTypes.func.isRequired,
   changePage: React.PropTypes.func.isRequired,
   setUsername: React.PropTypes.func.isRequired,
+  loginPending: React.PropTypes.bool.isRequired,
   setPassword: React.PropTypes.func.isRequired,
   message: React.PropTypes.object,
   showTitle: React.PropTypes.bool,

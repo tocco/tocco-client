@@ -1,4 +1,5 @@
-import {SET_MESSAGE} from './actions'
+import {SET_MESSAGE, SET_PENDING} from './actions'
+import {LOGIN} from '../actions'
 
 function setMessage(state, {payload}) {
   const {text, negative} = payload
@@ -11,12 +12,25 @@ function setMessage(state, {payload}) {
   }
 }
 
+const setPending = (state, {payload}) => ({
+  ...state,
+  loginPending: payload.pending
+})
+
+const login = state => ({
+  ...state,
+  loginPending: true
+})
+
 const ACTION_HANDLERS = {
-  [SET_MESSAGE]: setMessage
+  [SET_MESSAGE]: setMessage,
+  [SET_PENDING]: setPending,
+  [LOGIN]: login
 }
 
 var initialState = {
-  message: {}
+  message: {},
+  loginPending: false
 }
 
 export default function reducer(state = initialState, action) {

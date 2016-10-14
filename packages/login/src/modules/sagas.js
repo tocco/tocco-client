@@ -1,8 +1,8 @@
 import * as actions from './actions'
-import {takeLatest} from 'redux-saga'
+import {takeLatest, delay} from 'redux-saga'
 import {fork, put} from 'redux-saga/effects'
 
-import {setMessage} from './loginForm/actions'
+import {setMessage, setPending} from './loginForm/actions'
 import {changePage} from './login/actions'
 import {Pages} from '../types/Pages'
 
@@ -30,34 +30,37 @@ function getOptions(data) {
 
 function doDevRequest(data) {
   console.log('DEV MODE: Would send following request in PROD MODE:', getOptions(data))
-  var response = getResponse(data)
-  return new Promise(resolve => {
-    resolve(response)
-  })
+  return Promise.resolve(getResponse(data))
 }
 
 export function* handleTwoStepLoginResponse(body) {
   yield put(changePage(Pages.PASSWORD_REQUEST)) // TODO: Change to TwoStep
+  yield put(setPending(false))
   console.log('REQUESTEDCODE:', body.REQUESTEDCODE)
 }
 
-export function* handlePasswortUpdateResponse(body) {
+export function* handlePasswordUpdateResponse(body) {
   yield put(changePage(Pages.PASSWORD_UPDATE))
+  yield put(setPending(false))
 }
 
 export function* handleOneTilLBlockResponse(body) {
   yield put(setMessage('1 last try', true))
+  yield put(setPending(false))
 }
 
 export function* handleBlockResponse(body) {
   yield put(setMessage('bocked', true))
+  yield put(setPending(false))
 }
 
 export function* handleFailedResponse(body) {
   yield put(setMessage('FAIL', true))
+  yield put(setPending(false))
 }
 
 export function* handleSuccessfullyResponse() {
+  yield put(setPending(false))
   console.log('Successfully, redirect...') // Todo: Call Redirect event
 }
 
@@ -70,6 +73,7 @@ function getBody(response) {
 export function* loginSaga({payload}) {
   let response
   if (__DEV__) {
+    yield delay(1000)
     response = yield doDevRequest(payload)
   } else {
     response = yield doRequest(payload)
@@ -83,7 +87,7 @@ export function* loginSaga({payload}) {
     if (body.TWOSTEPLOGIN) {
       yield handleTwoStepLoginResponse(body)
     } else if (body.RESET_PASSWORD_REQUIRED) {
-      yield handlePasswortUpdateResponse(body)
+      yield handlePasswordUpdateResponse(body)
     } else if (body.ONE_TILL_BLOCK) {
       yield handleOneTilLBlockResponse(body)
     } else if (body.LOGIN_BLOCKED) {
