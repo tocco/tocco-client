@@ -62,9 +62,9 @@ export function* handleSuccessfullyResponse() {
 }
 
 function getBody(response) {
-  return response.json().then(function (json) {
-    return json
-  })
+  return response.json().then(json => (
+    json
+  ))
 }
 
 export function* loginSaga({payload}) {
