@@ -35,28 +35,23 @@ function doDevRequest(data) {
 
 export function* handleTwoStepLoginResponse(body) {
   yield put(changePage(Pages.PASSWORD_REQUEST)) // TODO: Change to TwoStep
-  yield put(setPending(false))
   console.log('REQUESTEDCODE:', body.REQUESTEDCODE)
 }
 
 export function* handlePasswordUpdateResponse(body) {
   yield put(changePage(Pages.PASSWORD_UPDATE))
-  yield put(setPending(false))
 }
 
 export function* handleOneTilLBlockResponse(body) {
   yield put(setMessage('1 last try', true))
-  yield put(setPending(false))
 }
 
 export function* handleBlockResponse(body) {
   yield put(setMessage('bocked', true))
-  yield put(setPending(false))
 }
 
 export function* handleFailedResponse(body) {
   yield put(setMessage('FAIL', true))
-  yield put(setPending(false))
 }
 
 export function* handleSuccessfullyResponse() {
@@ -96,6 +91,8 @@ export function* loginSaga({payload}) {
       yield handleFailedResponse(body)
     }
   }
+
+  yield put(setPending(false))
 }
 
 export default function* mainSagas() {
