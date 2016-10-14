@@ -48,7 +48,7 @@ export function* handleOneTilLBlockResponse(body) {
 }
 
 export function* handleBlockResponse(body) {
-  yield put(setMessage('bocked', true))
+  yield put(setMessage('blocked', true))
 }
 
 export function* handleFailedResponse(body) {
@@ -56,7 +56,6 @@ export function* handleFailedResponse(body) {
 }
 
 export function* handleSuccessfullyResponse() {
-  yield put(setPending(false))
   console.log('Successfully, redirect...') // Todo: Call Redirect event
 }
 
