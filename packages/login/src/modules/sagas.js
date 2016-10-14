@@ -36,7 +36,6 @@ function doDevRequest(data) {
 export function* handleTwoStepLoginResponse(body) {
   yield put(setRequestedCode(body.REQUESTEDCODE))
   yield put(changePage(Pages.TWOSTEPLOGIN))
-  yield put(setPending(false))
 }
 
 export function* handlePasswordUpdateResponse(body) {
