@@ -3,13 +3,12 @@ import {injectIntl} from 'react-intl'
 
 import LoginForm from '../components/LoginForm'
 import {changePage, setUsername, setPassword} from '../modules/login/actions'
-import {login, setPending} from '../modules/actions'
+import {login} from '../modules/actions'
 
 const mapActionCreators = {
   changePage,
   setUsername,
   setPassword,
-  setPending,
   login
 }
 

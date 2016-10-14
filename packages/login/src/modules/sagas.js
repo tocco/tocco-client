@@ -3,18 +3,14 @@ import {takeLatest, delay} from 'redux-saga'
 import {fork, put} from 'redux-saga/effects'
 
 import {setMessage, setPending} from './loginForm/actions'
+import {setRequestedCode} from './twoStepLogin/actions'
 import {changePage} from './login/actions'
 import {Pages} from '../types/Pages'
 
 import {getResponse} from '../dev/loginResponseMocks'
 
 function doRequest(data) {
-  return new Promise((resolve, reject) => {
-    fetch(`${__BACKEND_URL__}/nice2/login`, getOptions(data))
-      .then(resp => {
-        resolve(resp)
-      })
-  })
+  return fetch(`${__BACKEND_URL__}/nice2/login`, getOptions(data))
 }
 
 function getOptions(data) {
@@ -24,18 +20,23 @@ function getOptions(data) {
       'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
     }),
     credentials: 'include',
-    body: 'username=' + data.username + '&password=' + data.password
+    body: Object.keys(data)
+      .filter(k => !!data[k])
+      .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`).join('&')
   }
 }
 
 function doDevRequest(data) {
   console.log('DEV MODE: Would send following request in PROD MODE:', getOptions(data))
-  return Promise.resolve(getResponse(data))
+  var response = getResponse(data)
+  console.log('DEV MODE: Response -> ', response)
+  return Promise.resolve(response)
 }
 
 export function* handleTwoStepLoginResponse(body) {
-  yield put(changePage(Pages.PASSWORD_REQUEST)) // TODO: Change to TwoStep
-  console.log('REQUESTEDCODE:', body.REQUESTEDCODE)
+  yield put(setRequestedCode(body.REQUESTEDCODE))
+  yield put(changePage(Pages.TWOSTEPLOGIN))
+  yield put(setPending(false))
 }
 
 export function* handlePasswordUpdateResponse(body) {

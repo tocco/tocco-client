@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import './styles.scss'
+import '../Login/styles.scss'
 import {Pages} from '../../types/Pages'
 
 export class LoginForm extends Component {

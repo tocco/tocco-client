@@ -1,5 +1,5 @@
 import React from 'react'
-import './styles.scss'
+import '../Login/styles.scss'
 import {Pages} from '../../types/Pages'
 
 export class PasswordRequest extends React.Component {

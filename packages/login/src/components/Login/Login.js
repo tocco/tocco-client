@@ -4,6 +4,7 @@ import {Pages} from '../../types/Pages'
 import LoginFormContainer from '../../containers/LoginFormContainer'
 import PasswordUpdateContainer from '../../containers/PasswordUpdateDialogContainer'
 import PasswordRequestContainer from '../../containers/PasswordRequestContainer'
+import TwoStepLoginContainer from '../../containers/TwoStepLoginContainer'
 
 export class Login extends React.Component {
   render() {
@@ -15,6 +16,8 @@ export class Login extends React.Component {
               return <PasswordUpdateContainer showTitle={this.props.showTitle}/>
             case Pages.PASSWORD_REQUEST:
               return <PasswordRequestContainer showTitle={this.props.showTitle}/>
+            case Pages.TWOSTEPLOGIN:
+              return <TwoStepLoginContainer showTitle={this.props.showTitle}/>
             default:
               return <LoginFormContainer showTitle={this.props.showTitle}/>
           }

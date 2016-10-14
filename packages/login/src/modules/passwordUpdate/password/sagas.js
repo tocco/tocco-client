@@ -18,13 +18,7 @@ function doRequest(data, principalPk, action) {
     }),
     credentials: 'include'
   }
-
-  return new Promise((resolve, reject) => {
-    fetch(`${__BACKEND_URL__}/nice2/rest/principals/${principalPk}/${action}`, options)
-      .then(resp => {
-        resolve(resp)
-      })
-  })
+  return fetch(`${__BACKEND_URL__}/nice2/rest/principals/${principalPk}/${action}`, options)
 }
 
 export function storePassword(principalPk, data) {
