@@ -1,5 +1,5 @@
 {
-  "name": "tocco-action-merge",
+  "name": "tocco-login",
   "version": "0.1.0",
   "description": "merge action",
   "main": "dist/index.js",
