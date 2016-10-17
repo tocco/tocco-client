@@ -2,7 +2,7 @@ import React from 'react'
 import ValidationRules, {Rule} from './ValidationRules'
 import {mount, render, shallow} from 'enzyme'
 
-describe('action-password-update', () => {
+describe('login', () => {
   describe('components', () => {
     describe('ValidationRules', () => {
       it('should render empty div if no rules', () => {
