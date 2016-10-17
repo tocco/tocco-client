@@ -11,147 +11,151 @@ const EXPECTED_INITIAL_STATE = {
   passwordUpdateErrorCode: null
 }
 
-describe('action-password-update', () => {
-  describe('password reducer', () => {
-    it('creates initial state', () => {
-      expect(reducer(undefined, {})).to.deep.equal(EXPECTED_INITIAL_STATE)
-    });
+describe('login', () => {
+  describe('modules', () => {
+    describe('passwordUpdate', () => {
+      describe('reducer', () => {
+        it('creates initial state', () => {
+          expect(reducer(undefined, {})).to.deep.equal(EXPECTED_INITIAL_STATE)
+        });
 
-    it('handles UPDATE_OLD_PASSWORD', () => {
-      const stateBefore = {
-        oldPassword: ''
-      }
+        it('handles UPDATE_OLD_PASSWORD', () => {
+          const stateBefore = {
+            oldPassword: ''
+          }
 
-      const expectedStateAfter = {
-        oldPassword: 'oldpw'
-      }
+          const expectedStateAfter = {
+            oldPassword: 'oldpw'
+          }
 
-      expect(reducer(stateBefore, actions.updateOldPassword('oldpw'))).to.deep.equal(expectedStateAfter)
-    });
+          expect(reducer(stateBefore, actions.updateOldPassword('oldpw'))).to.deep.equal(expectedStateAfter)
+        });
 
-    it('handles SET_NEW_PASSWORD', () => {
-      const stateBefore = {
-        newPassword: ''
-      }
+        it('handles SET_NEW_PASSWORD', () => {
+          const stateBefore = {
+            newPassword: ''
+          }
 
-      const expectedStateAfter = {
-        newPassword: 'newpw'
-      }
+          const expectedStateAfter = {
+            newPassword: 'newpw'
+          }
 
-      expect(reducer(stateBefore, actions.setNewPassword('newpw'))).to.deep.equal(expectedStateAfter)
-    });
+          expect(reducer(stateBefore, actions.setNewPassword('newpw'))).to.deep.equal(expectedStateAfter)
+        });
 
-    it('handles SET_NEW_PASSWORD_VALIDATION_ERRORS', () => {
-      const stateBefore = {
-        newPasswordValidationErrors: null
-      }
+        it('handles SET_NEW_PASSWORD_VALIDATION_ERRORS', () => {
+          const stateBefore = {
+            newPasswordValidationErrors: null
+          }
 
-      const errors = {
-        'rule1': true,
-        'rule3': true
-      }
-      const expectedStateAfter = {
-        newPasswordValidationErrors: errors
-      }
+          const errors = {
+            'rule1': true,
+            'rule3': true
+          }
+          const expectedStateAfter = {
+            newPasswordValidationErrors: errors
+          }
 
-      expect(reducer(stateBefore, actions.setNewPasswordValidationErrors(errors))).to.deep.equal(expectedStateAfter)
-    });
+          expect(reducer(stateBefore, actions.setNewPasswordValidationErrors(errors))).to.deep.equal(expectedStateAfter)
+        });
 
-    it('handles UPDATE_NEW_PASSWORD_REPEAT', () => {
-      const stateBefore = {
-        newPasswordRepeat: ''
-      }
+        it('handles UPDATE_NEW_PASSWORD_REPEAT', () => {
+          const stateBefore = {
+            newPasswordRepeat: ''
+          }
 
-      const expectedStateAfter = {
-        newPasswordRepeat: 'newpwrepeat'
-      }
+          const expectedStateAfter = {
+            newPasswordRepeat: 'newpwrepeat'
+          }
 
-      expect(reducer(stateBefore, actions.updateNewPasswordRepeat('newpwrepeat'))).to.deep.equal(expectedStateAfter)
-    });
+          expect(reducer(stateBefore, actions.updateNewPasswordRepeat('newpwrepeat'))).to.deep.equal(expectedStateAfter)
+        });
 
-    it('handles SAVE_PASSWORD', () => {
-      const stateBefore = {
-        passwordUpdatePending: false,
-        passwordUpdateFailed: true
-      }
+        it('handles SAVE_PASSWORD', () => {
+          const stateBefore = {
+            passwordUpdatePending: false,
+            passwordUpdateFailed: true
+          }
 
-      const expectedStateAfter = {
-        passwordUpdatePending: true,
-        passwordUpdateFailed: false
-      }
+          const expectedStateAfter = {
+            passwordUpdatePending: true,
+            passwordUpdateFailed: false
+          }
 
-      expect(reducer(stateBefore, actions.savePassword())).to.deep.equal(expectedStateAfter)
-    });
+          expect(reducer(stateBefore, actions.savePassword())).to.deep.equal(expectedStateAfter)
+        });
 
-    it('handles SAVE_PASSWORD_SUCCESS', () => {
-      const stateBefore = {
-        oldPassword: 'old',
-        newPassword: 'new',
-        newPasswordRepeat: 'new',
-        newPasswordValidationErrors: null,
-        passwordUpdateFailed: false,
-        passwordUpdatePending: true,
-        passwordUpdateErrorCode: null
-      }
+        it('handles SAVE_PASSWORD_SUCCESS', () => {
+          const stateBefore = {
+            oldPassword: 'old',
+            newPassword: 'new',
+            newPasswordRepeat: 'new',
+            newPasswordValidationErrors: null,
+            passwordUpdateFailed: false,
+            passwordUpdatePending: true,
+            passwordUpdateErrorCode: null
+          }
 
-      expect(reducer(stateBefore, actions.savePasswordSuccess())).to.deep.equal(EXPECTED_INITIAL_STATE)
-    });
+          expect(reducer(stateBefore, actions.savePasswordSuccess())).to.deep.equal(EXPECTED_INITIAL_STATE)
+        });
 
-    it('handles SAVE_PASSWORD_FAILURE with error code', () => {
-      const stateBefore = {
-        oldPassword: 'old',
-        newPassword: 'new',
-        newPasswordRepeat: 'new',
-        newPasswordValidationErrors: null,
-        passwordUpdateFailed: false,
-        passwordUpdatePending: true,
-        passwordUpdateErrorCode: null
-      }
+        it('handles SAVE_PASSWORD_FAILURE with error code', () => {
+          const stateBefore = {
+            oldPassword: 'old',
+            newPassword: 'new',
+            newPasswordRepeat: 'new',
+            newPasswordValidationErrors: null,
+            passwordUpdateFailed: false,
+            passwordUpdatePending: true,
+            passwordUpdateErrorCode: null
+          }
 
-      const expectedStateAfter = {
-        oldPassword: 'old',
-        newPassword: 'new',
-        newPasswordRepeat: 'new',
-        newPasswordValidationErrors: null,
-        passwordUpdateFailed: true,
-        passwordUpdatePending: false,
-        passwordUpdateErrorCode: 'MY_ERROR_CODE'
-      }
+          const expectedStateAfter = {
+            oldPassword: 'old',
+            newPassword: 'new',
+            newPasswordRepeat: 'new',
+            newPasswordValidationErrors: null,
+            passwordUpdateFailed: true,
+            passwordUpdatePending: false,
+            passwordUpdateErrorCode: 'MY_ERROR_CODE'
+          }
 
-      expect(reducer(stateBefore, actions.savePasswordFailure("MY_ERROR_CODE", null))).to.deep.equal(expectedStateAfter)
-    });
+          expect(reducer(stateBefore, actions.savePasswordFailure("MY_ERROR_CODE", null))).to.deep.equal(expectedStateAfter)
+        });
 
-    it('handles SAVE_PASSWORD_FAILURE with validation messages', () => {
-      const stateBefore = {
-        oldPassword: 'old',
-        newPassword: 'new',
-        newPasswordRepeat: 'new',
-        newPasswordValidationErrors: null,
-        passwordUpdateFailed: false,
-        passwordUpdatePending: true,
-        passwordUpdateErrorCode: null
-      }
+        it('handles SAVE_PASSWORD_FAILURE with validation messages', () => {
+          const stateBefore = {
+            oldPassword: 'old',
+            newPassword: 'new',
+            newPasswordRepeat: 'new',
+            newPasswordValidationErrors: null,
+            passwordUpdateFailed: false,
+            passwordUpdatePending: true,
+            passwordUpdateErrorCode: null
+          }
 
-      const validationMessages = [
-        {ruleName: 'RULE_1', message: 'Rule 1 failed'},
-        {ruleName: 'RULE_2', message: 'Rule 2 failed'}
-      ]
+          const validationMessages = [
+            {ruleName: 'RULE_1', message: 'Rule 1 failed'},
+            {ruleName: 'RULE_2', message: 'Rule 2 failed'}
+          ]
 
-      const expectedStateAfter = {
-        oldPassword: 'old',
-        newPassword: 'new',
-        newPasswordRepeat: 'new',
-        newPasswordValidationErrors: {
-          RULE_1: 'Rule 1 failed',
-          RULE_2: 'Rule 2 failed'
-        },
-        passwordUpdateFailed: false,
-        passwordUpdatePending: false,
-        passwordUpdateErrorCode: null
-      }
+          const expectedStateAfter = {
+            oldPassword: 'old',
+            newPassword: 'new',
+            newPasswordRepeat: 'new',
+            newPasswordValidationErrors: {
+              RULE_1: 'Rule 1 failed',
+              RULE_2: 'Rule 2 failed'
+            },
+            passwordUpdateFailed: false,
+            passwordUpdatePending: false,
+            passwordUpdateErrorCode: null
+          }
 
-      expect(reducer(stateBefore, actions.savePasswordFailure(null, validationMessages))).to.deep.equal(expectedStateAfter)
+          expect(reducer(stateBefore, actions.savePasswordFailure(null, validationMessages))).to.deep.equal(expectedStateAfter)
 
-    });
+        });
+      })
+    })
   })
 })
