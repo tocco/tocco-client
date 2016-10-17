@@ -9,8 +9,9 @@ if (__DEV__) {
   const mountElement = document.getElementById('root')
 
   let render = () => {
-    const element = React.createElement(loginFactory())
-    // const element = React.createElement(passwordUpdateFactory())
+    const component = loginFactory()
+    // const component = passwordUpdateFactory()
+    const element = React.createElement(component.renderComponent)
     ReactDOM.render(element, mountElement)
   }
 
