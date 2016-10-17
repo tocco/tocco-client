@@ -1,6 +1,6 @@
-export const INITIALIZED = 'INITIALIZED'
-export const LOGIN = 'LOGIN'
-export const UPDATE_LOGIN_CHANGE = 'UPDATE_LOGIN_CHANGE'
+export const INITIALIZED = 'Login/INITIALIZED'
+export const LOGIN = 'Login/LOGIN'
+export const CHECK_SESSION = 'Login/CHECK_SESSION'
 
 export const initialized = () => ({
   type: INITIALIZED
@@ -13,5 +13,11 @@ export function login(username, password) {
       username,
       password
     }
+  }
+}
+
+export function checkSession() {
+  return {
+    type: CHECK_SESSION
   }
 }

@@ -9,8 +9,12 @@ import {Pages} from '../types/Pages'
 
 import {getResponse} from '../dev/loginResponseMocks'
 
-function doRequest(data) {
+function doLoginRequest(data) {
   return fetch(`${__BACKEND_URL__}/nice2/login`, getOptions(data))
+}
+
+function doSessionRequest(data) {
+  return fetch(`${__BACKEND_URL__}/nice2/session`, getOptions({}))
 }
 
 function getOptions(data) {
@@ -54,7 +58,7 @@ export function* handleFailedResponse(body) {
   yield put(setMessage('FAIL', true))
 }
 
-export function* handleSuccessfullyResponse() {
+export function* handleSuccessfullLogin() {
   console.log('Successfully, redirect...') // Todo: Call Redirect event
 }
 
@@ -70,13 +74,13 @@ export function* loginSaga({payload}) {
     yield delay(1000)
     response = yield doDevRequest(payload)
   } else {
-    response = yield doRequest(payload)
+    response = yield doLoginRequest(payload)
   }
 
   const body = yield getBody(response)
 
   if (body.success) {
-    yield handleSuccessfullyResponse()
+    yield handleSuccessfullLogin()
   } else {
     if (body.TWOSTEPLOGIN) {
       yield handleTwoStepLoginResponse(body)
@@ -94,9 +98,24 @@ export function* loginSaga({payload}) {
   yield put(setPending(false))
 }
 
+export function* checkSessionSaga() {
+  let response
+  if (__DEV__) {
+    response = yield getResponse({username: 'fail'})
+  } else {
+    response = yield doSessionRequest()
+  }
+  const body = yield getBody(response)
+
+  if (body.success) {
+    yield handleSuccessfullLogin()
+  }
+}
+
 export default function* mainSagas() {
   yield [
-    fork(takeLatest, actions.LOGIN, loginSaga)
+    fork(takeLatest, actions.LOGIN, loginSaga),
+    fork(takeLatest, actions.CHECK_SESSION, checkSessionSaga)
   ]
 }
 

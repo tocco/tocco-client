@@ -1,11 +1,10 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 import Login from '../components/Login'
-import {initialized, login} from '../modules/actions'
+import {checkSession} from '../modules/actions'
 
 const mapActionCreators = {
-  login,
-  initialized
+  checkSession
 }
 
 const mapStateToProps = (state, props) => {

@@ -7,6 +7,10 @@ import PasswordRequestContainer from '../../containers/PasswordRequestContainer'
 import TwoStepLoginContainer from '../../containers/TwoStepLoginContainer'
 
 export class Login extends React.Component {
+  componentDidMount() {
+    this.props.checkSession()
+  }
+
   render() {
     return (
       <div>
@@ -28,6 +32,7 @@ export class Login extends React.Component {
 }
 
 Login.propTypes = {
+  checkSession: React.PropTypes.func.isRequired,
   currentPage: React.PropTypes.string,
   showTitle: React.PropTypes.bool
 }
