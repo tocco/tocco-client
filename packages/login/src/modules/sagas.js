@@ -1,11 +1,13 @@
 import * as actions from './actions'
 import {takeLatest, delay} from 'redux-saga'
 import {fork, put, select, call} from 'redux-saga/effects'
+import {ExternalEvents} from 'tocco-util'
 
 import {setMessage, setPending} from './loginForm/actions'
 import {setRequestedCode} from './twoStepLogin/actions'
 import {changePage} from './login/actions'
 import {Pages} from '../types/Pages'
+
 
 import {getResponse} from '../dev/loginResponseMocks'
 
@@ -64,7 +66,7 @@ export function* handleFailedResponse(body) {
 }
 
 export function* handleSuccessfullLogin() {
-  console.log('Successfully, redirect...') // Todo: Call Redirect event
+  ExternalEvents.invokeExternalEvent('successfullyLogin')
 }
 
 export function getBody(response) {
