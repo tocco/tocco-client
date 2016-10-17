@@ -1,4 +1,4 @@
-import {call, put} from 'redux-saga/effects'
+import {call, put, select} from 'redux-saga/effects'
 import * as sagas from './sagas'
 import {changePage, setUsername} from '../login/actions'
 import {setMessage} from '../loginForm/actions'

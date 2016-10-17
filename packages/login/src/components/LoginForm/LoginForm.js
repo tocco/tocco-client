@@ -25,8 +25,8 @@ export class LoginForm extends Component {
         {
           this.props.showTitle
           && <div>
-            <h1><FormattedMessage id='client.login.form.title'/></h1>
-            <p><FormattedMessage id='client.login.form.introduction'/></p>
+            <h1><FormattedMessage id="client.login.form.title"/></h1>
+            <p><FormattedMessage id="client.login.form.introduction"/></p>
           </div>
         }
         <form>
@@ -69,13 +69,13 @@ export class LoginForm extends Component {
                 disabled={this.props.loginPending || this.props.username === '' || this.props.password === ''}
               >
                 <i className="glyphicon glyphicon-log-in"/>
-                <span className="p-l-5"><FormattedMessage id='client.login.form.button'/></span>
+                <span className="p-l-5"><FormattedMessage id="client.login.form.button"/></span>
               </button>
               <div>
                 <a
                   onClick={() => this.props.changePage(Pages.PASSWORD_REQUEST)}
                 >
-                  <FormattedMessage id='client.login.form.forgotLink'/>
+                  <FormattedMessage id="client.login.form.forgotLink"/>
                 </a>
               </div>
             </div>

@@ -20,13 +20,13 @@ export class TwoStepLoginForm extends Component {
         {
           this.props.showTitle
           && <div>
-            <h1><FormattedMessage id='client.login.form.title'/></h1>
+            <h1><FormattedMessage id="client.login.form.title"/></h1>
 
           </div>
         }
         <form>
-          <p><FormattedMessage id='client.login.twoStepLogin.introduction'/></p>
-          <p><FormattedMessage id='client.login.twoStepLogin.requestedCode'/>{this.props.requestedCode}</p>
+          <p><FormattedMessage id="client.login.twoStepLogin.introduction"/></p>
+          <p><FormattedMessage id="client.login.twoStepLogin.requestedCode"/>{this.props.requestedCode}</p>
           <div className="input-group">
             <span className="input-group-addon"><i className="glyphicon glyphicon-lock"/></span>
             <input
@@ -45,7 +45,7 @@ export class TwoStepLoginForm extends Component {
                 className={'btn btn-primary p-t-5'}
                 onClick={this.handleSubmit.bind(this)}
               >
-                <i className="glyphicon glyphicon-log-in"/><FormattedMessage id='client.login.form.button'/>
+                <i className="glyphicon glyphicon-log-in"/><FormattedMessage id="client.login.form.button"/>
               </button>
             </div>
           </div>

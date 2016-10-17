@@ -26,8 +26,8 @@ export class PasswordRequest extends React.Component {
         {
           this.props.showTitle
           && <div>
-            <h1><FormattedMessage id='client.login.passwordRequest.title'/></h1>
-            <p><FormattedMessage id='client.login.passwordRequest.introduction'/></p>
+            <h1><FormattedMessage id="client.login.passwordRequest.title"/></h1>
+            <p><FormattedMessage id="client.login.passwordRequest.introduction"/></p>
           </div>
         }
         <form>
@@ -51,7 +51,7 @@ export class PasswordRequest extends React.Component {
                 onClick={this.handleSubmit.bind(this)}
               >
                 <i className="glyphicon glyphicon-log-in"/>
-                <span className="p-l-5"><FormattedMessage id='client.login.passwordRequest.button'/></span>
+                <span className="p-l-5"><FormattedMessage id="client.login.passwordRequest.button"/></span>
               </button>
               <button
                 type="button"
@@ -59,7 +59,7 @@ export class PasswordRequest extends React.Component {
                 className="btn btn-primary m-l-5 m-t-5"
               >
                 <i className="glyphicon glyphicon-remove"/>
-                <span className="p-l-5"><FormattedMessage id='client.login.passwordRequest.abortButton'/></span>
+                <span className="p-l-5"><FormattedMessage id="client.login.passwordRequest.abortButton"/></span>
               </button>
             </div>
           </div>

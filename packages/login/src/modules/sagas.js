@@ -84,7 +84,6 @@ export function* loginSaga({payload}) {
 
   const body = yield getBody(response)
 
-
   if (body.success) {
     yield handleSuccessfullLogin()
   } else {

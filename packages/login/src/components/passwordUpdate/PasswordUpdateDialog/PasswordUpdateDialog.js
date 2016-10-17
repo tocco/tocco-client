@@ -48,14 +48,13 @@ class PasswordUpdateDialog extends Component {
       <div>
         <div>
           {this.props.showTitle
-          && <h1><FormattedMessage id='client.login.passwordUpdate.title'/></h1>
+          && <h1><FormattedMessage id="client.login.passwordUpdate.title"/></h1>
           }
           {
             this.props.forcedUpdate
-            && <p><FormattedMessage id='client.login.passwordUpdate.introduction'/></p>
+            && <p><FormattedMessage id="client.login.passwordUpdate.introduction"/></p>
           }
         </div>
-
 
         <form className="PasswordUpdateDialog" onSubmit={this.handleSubmit.bind(this)}>
           {this.props.showOldPasswordField === true

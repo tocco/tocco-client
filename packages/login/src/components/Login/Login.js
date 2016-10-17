@@ -17,7 +17,7 @@ export class Login extends React.Component {
         {(() => {
           switch (this.props.currentPage) {
             case Pages.PASSWORD_UPDATE:
-              return <PasswordUpdateContainer showTitle={this.props.showTitle} forcedUpdate={true}/>
+              return <PasswordUpdateContainer showTitle={this.props.showTitle} forcedUpdate/>
             case Pages.PASSWORD_REQUEST:
               return <PasswordRequestContainer showTitle={this.props.showTitle}/>
             case Pages.TWOSTEPLOGIN:
