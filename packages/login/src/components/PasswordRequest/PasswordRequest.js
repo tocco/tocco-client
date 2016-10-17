@@ -1,6 +1,8 @@
 import React from 'react'
-import '../Login/styles.scss'
+import {FormattedMessage, intlShape} from 'react-intl'
 import {Pages} from '../../types/Pages'
+
+import '../Login/styles.scss'
 
 export class PasswordRequest extends React.Component {
 
@@ -24,8 +26,8 @@ export class PasswordRequest extends React.Component {
         {
           this.props.showTitle
           && <div>
-            <h1>Passwort vergessen?</h1>
-            <p>Geben Sie Ihren Benutzernamen an. Wir senden Ihnen das Passwort umgehend per E-Mail.</p>
+            <h1><FormattedMessage id='client.login.passwordRequest.title'/></h1>
+            <p><FormattedMessage id='client.login.passwordRequest.introduction'/></p>
           </div>
         }
         <form>
@@ -36,7 +38,7 @@ export class PasswordRequest extends React.Component {
               type="text"
               className="form-control"
               name="user"
-              placeholder="Benutzername / E-Mail"
+              placeholder={this.msg('client.login.form.userPlaceholder')}
               onChange={this.handleUsername.bind(this)}
             />
           </div>
@@ -48,14 +50,16 @@ export class PasswordRequest extends React.Component {
                 className="btn btn-primary  m-t-5"
                 onClick={this.handleSubmit.bind(this)}
               >
-                <i className="glyphicon glyphicon-log-in"/> Anfordern
+                <i className="glyphicon glyphicon-log-in"/>
+                <span className="p-l-5"><FormattedMessage id='client.login.passwordRequest.button'/></span>
               </button>
               <button
                 type="button"
                 onClick={() => this.props.changePage(Pages.LOGIN_FORM)}
                 className="btn btn-primary m-l-5 m-t-5"
               >
-                <i className="glyphicon glyphicon-remove"/> Abbrechen
+                <i className="glyphicon glyphicon-remove"/>
+                <span className="p-l-5"><FormattedMessage id='client.login.passwordRequest.abortButton'/></span>
               </button>
             </div>
           </div>
@@ -63,9 +67,16 @@ export class PasswordRequest extends React.Component {
       </div>
     )
   }
+
+  msg(id) {
+    return this.props.intl.formatMessage({
+      id
+    })
+  }
 }
 
 PasswordRequest.propTypes = {
+  intl: intlShape.isRequired,
   changePage: React.PropTypes.func.isRequired,
   requestPassword: React.PropTypes.func.isRequired,
   showTitle: React.PropTypes.bool

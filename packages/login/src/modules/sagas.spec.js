@@ -24,19 +24,22 @@ describe('action-login', () => {
 
       it('handleOneTilLBlockResponse: should dispatch action setMessage', () => {
         const gen = sagas.handleOneTilLBlockResponse({})
-        expect(gen.next().value).to.deep.equal(put(setMessage('1 last try', true)))
+        expect(gen.next().value).to.deep.equal(select(sagas.textResourceSelector))
+        expect(gen.next({'client.login.form.lastTry': 'msg'}).value).to.deep.equal(put(setMessage('msg', true)))
         expect(gen.next().done).to.deep.equal(true)
       })
 
       it('handleBlockResponse: should dispatch action setMessage', () => {
         const gen = sagas.handleBlockResponse({})
-        expect(gen.next().value).to.deep.equal(put(setMessage('blocked', true)))
+        expect(gen.next().value).to.deep.equal(select(sagas.textResourceSelector))
+        expect(gen.next({'client.login.form.blocked': 'msg'}).value).to.deep.equal(put(setMessage('msg', true)))
         expect(gen.next().done).to.deep.equal(true)
       })
 
       it('handleFailedResponse: should dispatch action setMessage', () => {
         const gen = sagas.handleFailedResponse({})
-        expect(gen.next().value).to.deep.equal(put(setMessage('FAIL', true)))
+        expect(gen.next().value).to.deep.equal(select(sagas.textResourceSelector))
+        expect(gen.next({'client.login.form.failed': 'msg'}).value).to.deep.equal(put(setMessage('msg', true)))
         expect(gen.next().done).to.deep.equal(true)
       })
     })

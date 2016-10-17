@@ -1,6 +1,6 @@
 import * as actions from './actions'
 import {takeLatest, delay} from 'redux-saga'
-import {fork, put} from 'redux-saga/effects'
+import {fork, put, select} from 'redux-saga/effects'
 
 import {setMessage, setPending} from './loginForm/actions'
 import {setRequestedCode} from './twoStepLogin/actions'
@@ -8,6 +8,8 @@ import {changePage} from './login/actions'
 import {Pages} from '../types/Pages'
 
 import {getResponse} from '../dev/loginResponseMocks'
+
+export const textResourceSelector = state => state.intl.messages
 
 function doLoginRequest(data) {
   return fetch(`${__BACKEND_URL__}/nice2/login`, getOptions(data))
@@ -47,15 +49,18 @@ export function* handlePasswordUpdateResponse(body) {
 }
 
 export function* handleOneTilLBlockResponse(body) {
-  yield put(setMessage('1 last try', true))
+  const textResources = yield select(textResourceSelector)
+  yield put(setMessage(textResources['client.login.form.lastTry'], true))
 }
 
 export function* handleBlockResponse(body) {
-  yield put(setMessage('blocked', true))
+  const textResources = yield select(textResourceSelector)
+  yield put(setMessage(textResources['client.login.form.blocked'], true))
 }
 
 export function* handleFailedResponse(body) {
-  yield put(setMessage('FAIL', true))
+  const textResources = yield select(textResourceSelector)
+  yield put(setMessage(textResources['client.login.form.failed'], true))
 }
 
 export function* handleSuccessfullLogin() {
@@ -78,6 +83,7 @@ export function* loginSaga({payload}) {
   }
 
   const body = yield getBody(response)
+
 
   if (body.success) {
     yield handleSuccessfullLogin()

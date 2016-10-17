@@ -1,5 +1,5 @@
-export const DEFAULT = 'client.action.passwordUpdate.failure'
+export const DEFAULT = 'client.login.passwordUpdate.failure'
 
 export const messages = {
-  INVALID_CREDENTIALS: 'client.action.passwordUpdate.invalidCredentials'
+  INVALID_CREDENTIALS: 'client.login.passwordUpdate.invalidCredentials'
 }

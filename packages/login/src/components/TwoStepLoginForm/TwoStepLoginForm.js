@@ -1,4 +1,6 @@
 import React, {Component} from 'react'
+import {FormattedMessage, intlShape} from 'react-intl'
+
 import '../Login/styles.scss'
 
 export class TwoStepLoginForm extends Component {
@@ -18,12 +20,13 @@ export class TwoStepLoginForm extends Component {
         {
           this.props.showTitle
           && <div>
-            <h1>Login</h1>
-            <p>Code benötigt.</p>
+            <h1><FormattedMessage id='client.login.form.title'/></h1>
+
           </div>
         }
         <form>
-          <p>Code: {this.props.requestedCode}</p>
+          <p><FormattedMessage id='client.login.twoStepLogin.introduction'/></p>
+          <p><FormattedMessage id='client.login.twoStepLogin.requestedCode'/>{this.props.requestedCode}</p>
           <div className="input-group">
             <span className="input-group-addon"><i className="glyphicon glyphicon-lock"/></span>
             <input
@@ -33,16 +36,16 @@ export class TwoStepLoginForm extends Component {
               name="code"
               autoComplete="off"
               onChange={this.handleUserCode.bind(this)}
-              placeholder="Code"
+              placeholder={this.msg('client.login.twoStepLogin.codePlaceholder')}
             />
           </div>
           <div>
             <div>
               <button
-                className={'btn btn-primary submit-button'}
+                className={'btn btn-primary p-t-5'}
                 onClick={this.handleSubmit.bind(this)}
               >
-                <i className="glyphicon glyphicon-log-in"/> Log in
+                <i className="glyphicon glyphicon-log-in"/><FormattedMessage id='client.login.form.button'/>
               </button>
             </div>
           </div>
@@ -50,9 +53,16 @@ export class TwoStepLoginForm extends Component {
       </div>
     )
   }
+
+  msg(id) {
+    return this.props.intl.formatMessage({
+      id
+    })
+  }
 }
 
 TwoStepLoginForm.propTypes = {
+  intl: intlShape.isRequired,
   twoStepLogin: React.PropTypes.func.isRequired,
   changePage: React.PropTypes.func.isRequired,
   username: React.PropTypes.string,

@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
-import '../Login/styles.scss'
+import {FormattedMessage, intlShape} from 'react-intl'
 import {Pages} from '../../types/Pages'
+
+import '../Login/styles.scss'
 
 export class LoginForm extends Component {
 
@@ -23,8 +25,8 @@ export class LoginForm extends Component {
         {
           this.props.showTitle
           && <div>
-            <h1>Login</h1>
-            <p>Dieser Bereich ist privat. Bitte melden Sie sich an.</p>
+            <h1><FormattedMessage id='client.login.form.title'/></h1>
+            <p><FormattedMessage id='client.login.form.introduction'/></p>
           </div>
         }
         <form>
@@ -36,7 +38,7 @@ export class LoginForm extends Component {
               className="form-control"
               name="user"
               onChange={this.handleUsername.bind(this)}
-              placeholder="Benutzername / E-Mail"
+              placeholder={this.msg('client.login.form.userPlaceholder')}
               value={this.props.username}
               required
             />
@@ -49,7 +51,7 @@ export class LoginForm extends Component {
               className="form-control"
               name="password"
               onChange={this.handlePassword.bind(this)}
-              placeholder="Passwort"
+              placeholder={this.msg('client.login.form.passwordPlaceholder')}
               required
             />
           </div>
@@ -66,10 +68,15 @@ export class LoginForm extends Component {
                 onClick={this.handleSubmit.bind(this)}
                 disabled={this.props.loginPending}
               >
-                <i className="glyphicon glyphicon-log-in"/> Log in
+                <i className="glyphicon glyphicon-log-in"/>
+                <span className="p-l-5"><FormattedMessage id='client.login.form.button'/></span>
               </button>
               <div>
-                <a onClick={() => this.props.changePage(Pages.PASSWORD_REQUEST)}>Passwort vergessen</a>
+                <a
+                  onClick={() => this.props.changePage(Pages.PASSWORD_REQUEST)}
+                >
+                  <FormattedMessage id='client.login.form.forgotLink'/>
+                </a>
               </div>
             </div>
           </div>
@@ -77,9 +84,16 @@ export class LoginForm extends Component {
       </div>
     )
   }
+
+  msg(id) {
+    return this.props.intl.formatMessage({
+      id
+    })
+  }
 }
 
 LoginForm.propTypes = {
+  intl: intlShape.isRequired,
   login: React.PropTypes.func.isRequired,
   changePage: React.PropTypes.func.isRequired,
   setUsername: React.PropTypes.func.isRequired,

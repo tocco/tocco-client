@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {intlShape} from 'react-intl'
+import {FormattedMessage, intlShape} from 'react-intl'
 import {SaveButton, LoadMask} from 'tocco-ui'
 import PasswordInput from './PasswordInput'
 import PasswordMatchDisplay from './PasswordMatchDisplay'
@@ -45,43 +45,56 @@ class PasswordUpdateDialog extends Component {
       || password.newPasswordValidationErrors && Object.keys(password.newPasswordValidationErrors).length > 0
 
     return (
-      <form className="PasswordUpdateDialog" onSubmit={this.handleSubmit.bind(this)}>
-        {this.props.showOldPasswordField === true
-        && <PasswordInput
-          label={this.msg('client.action.passwordUpdate.oldPassword')}
-          name="oldPassword"
-          value={password.oldPassword}
-          onChange={updateOldPassword}
-          readOnly={oldPasswordReadOnly}
-          autoFocus
-        />}
-        <PasswordInput
-          label={this.msg('client.action.passwordUpdate.newPassword')}
-          name="newPassword"
-          value={password.newPassword}
-          onChange={updateNewPassword}
-          readOnly={newPasswordReadOnly}
-          autoFocus={this.props.showOldPasswordField !== true}
-        />
-        <ValidationRules
-          rules={validationRules}
-          errors={password.newPasswordValidationErrors}
-        />
-        <PasswordInput
-          label={this.msg('client.action.passwordUpdate.newPasswordRepeat')}
-          name="newPasswordRepeat"
-          value={password.newPasswordRepeat}
-          onChange={updateNewPasswordRepeat}
-          readOnly={newPasswordRepeatReadOnly}
-        />
-        <PasswordMatchDisplay password={password.newPassword} passwordRepeat={password.newPasswordRepeat}/>
-        <SaveButton
-          label={this.msg('client.action.passwordUpdate.saveButton')}
-          disabled={this.isSubmittable() === false}
-          className={password.passwordUpdatePending ? 'update-pending' : ''}
-        />
-        {password.passwordUpdateFailed === true && <FailureMessage errorCode={password.passwordUpdateErrorCode}/>}
-      </form>
+      <div>
+        <div>
+          {this.props.showTitle
+          && <h1><FormattedMessage id='client.login.passwordUpdate.title'/></h1>
+          }
+          {
+            this.props.forcedUpdate
+            && <p><FormattedMessage id='client.login.passwordUpdate.introduction'/></p>
+          }
+        </div>
+
+
+        <form className="PasswordUpdateDialog" onSubmit={this.handleSubmit.bind(this)}>
+          {this.props.showOldPasswordField === true
+          && <PasswordInput
+            label={this.msg('client.login.passwordUpdate.oldPassword')}
+            name="oldPassword"
+            value={password.oldPassword}
+            onChange={updateOldPassword}
+            readOnly={oldPasswordReadOnly}
+            autoFocus
+          />}
+          <PasswordInput
+            label={this.msg('client.login.passwordUpdate.newPassword')}
+            name="newPassword"
+            value={password.newPassword}
+            onChange={updateNewPassword}
+            readOnly={newPasswordReadOnly}
+            autoFocus={this.props.showOldPasswordField !== true}
+          />
+          <ValidationRules
+            rules={validationRules}
+            errors={password.newPasswordValidationErrors}
+          />
+          <PasswordInput
+            label={this.msg('client.login.passwordUpdate.newPasswordRepeat')}
+            name="newPasswordRepeat"
+            value={password.newPasswordRepeat}
+            onChange={updateNewPasswordRepeat}
+            readOnly={newPasswordRepeatReadOnly}
+          />
+          <PasswordMatchDisplay password={password.newPassword} passwordRepeat={password.newPasswordRepeat}/>
+          <SaveButton
+            label={this.msg('client.login.passwordUpdate.saveButton')}
+            disabled={this.isSubmittable() === false}
+            className={password.passwordUpdatePending ? 'update-pending' : ''}
+          />
+          {password.passwordUpdateFailed === true && <FailureMessage errorCode={password.passwordUpdateErrorCode}/>}
+        </form>
+      </div>
     )
   }
 
@@ -122,7 +135,9 @@ PasswordUpdateDialog.propTypes = {
   fetchValidationRules: React.PropTypes.func.isRequired,
   savePassword: React.PropTypes.func.isRequired,
   initialized: React.PropTypes.func.isRequired,
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
+  showTitle: React.PropTypes.bool,
+  forcedUpdate: React.PropTypes.bool
 }
 
 export default PasswordUpdateDialog

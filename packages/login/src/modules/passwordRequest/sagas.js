@@ -1,10 +1,12 @@
 import {takeLatest} from 'redux-saga'
-import {fork, put, call} from 'redux-saga/effects'
+import {fork, put, call, select} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import {changePage, setUsername} from '../login/actions'
 import {setMessage} from '../loginForm/actions'
 import {Pages} from '../../types/Pages'
+
+export const textResourceSelector = state => state.intl.messages
 
 export function doRequest(username) {
   if (__DEV__) {
@@ -20,7 +22,8 @@ export function doRequest(username) {
 export function* requestPasswordSaga({payload}) {
   yield call(doRequest, payload.username)
   yield put(setUsername(payload.username))
-  yield put(setMessage('Passwort wurde angefordert'))
+  const textResourcesState = yield select(textResourceSelector)
+  yield put(setMessage(textResourcesState['client.login.from.passwordRequested']))
   yield put(changePage(Pages.LOGIN_FORM))
 }
 

@@ -15,14 +15,14 @@ import fr from 'react-intl/locale-data/fr'
 import it from 'react-intl/locale-data/it'
 
 export const loginFactory = (id, input, externalEvents) => (
-  factory('loginForm', 'action.login', id, input, externalEvents)
+  factory('loginForm', 'login', id, input, externalEvents)
 )
 
 export const passwordUpdateFactory = (id, input, externalEvents) => (
-  factory('passwordUpdate', 'action.passwordUpdate', id, input, externalEvents)
+  factory('passwordUpdate', 'login.passwordUpdate', id, input, externalEvents)
 )
 
-const factory = (component, moduleName, id, input, externalEvents) => {
+const factory = (component, resourcePrefix, id, input, externalEvents) => {
   try {
     var initialState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {}
     if (__DEV__) {
@@ -44,7 +44,7 @@ const factory = (component, moduleName, id, input, externalEvents) => {
     }
 
     addLocaleData([...de, ...en, ...fr, ...it])
-    const initIntlPromise = Intl.initIntl(store, 'action.passwordUpdate')
+    const initIntlPromise = Intl.initIntl(store, resourcePrefix)
 
     var showTitle = input ? input.showTitle : false
 
