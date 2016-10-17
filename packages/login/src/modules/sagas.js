@@ -8,7 +8,6 @@ import {setRequestedCode} from './twoStepLogin/actions'
 import {changePage} from './login/actions'
 import {Pages} from '../types/Pages'
 
-
 import {getResponse} from '../dev/loginResponseMocks'
 
 export const textResourceSelector = state => state.intl.messages
