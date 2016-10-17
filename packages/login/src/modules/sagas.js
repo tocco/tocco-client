@@ -1,6 +1,6 @@
 import * as actions from './actions'
 import {takeLatest, delay} from 'redux-saga'
-import {fork, put, select} from 'redux-saga/effects'
+import {fork, put, select, call} from 'redux-saga/effects'
 
 import {setMessage, setPending} from './loginForm/actions'
 import {setRequestedCode} from './twoStepLogin/actions'
@@ -11,7 +11,7 @@ import {getResponse} from '../dev/loginResponseMocks'
 
 export const textResourceSelector = state => state.intl.messages
 
-function doLoginRequest(data) {
+export function doLoginRequest(data) {
   return fetch(`${__BACKEND_URL__}/nice2/login`, getOptions(data))
 }
 
@@ -67,7 +67,7 @@ export function* handleSuccessfullLogin() {
   console.log('Successfully, redirect...') // Todo: Call Redirect event
 }
 
-function getBody(response) {
+export function getBody(response) {
   return response.json().then(json => (
     json
   ))
@@ -79,24 +79,24 @@ export function* loginSaga({payload}) {
     yield delay(1000)
     response = yield doDevRequest(payload)
   } else {
-    response = yield doLoginRequest(payload)
+    response = yield call(doLoginRequest, payload)
   }
 
-  const body = yield getBody(response)
+  const body = yield call(getBody, response)
 
   if (body.success) {
-    yield handleSuccessfullLogin()
+    yield call(handleSuccessfullLogin)
   } else {
     if (body.TWOSTEPLOGIN) {
-      yield handleTwoStepLoginResponse(body)
+      yield call(handleTwoStepLoginResponse, body)
     } else if (body.RESET_PASSWORD_REQUIRED) {
-      yield handlePasswordUpdateResponse(body)
+      yield call(handlePasswordUpdateResponse, body)
     } else if (body.ONE_TILL_BLOCK) {
-      yield handleOneTilLBlockResponse(body)
+      yield call(handleOneTilLBlockResponse, body)
     } else if (body.LOGIN_BLOCKED) {
-      yield handleBlockResponse(body)
+      yield call(handleBlockResponse, body)
     } else {
-      yield handleFailedResponse(body)
+      yield call(handleFailedResponse, body)
     }
   }
 
