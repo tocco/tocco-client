@@ -44,7 +44,8 @@ const factory = (component, resourcePrefix, id, input, externalEvents) => {
     }
 
     addLocaleData([...de, ...en, ...fr, ...it])
-    const initIntlPromise = Intl.initIntl(store, resourcePrefix)
+    const locale = input ? input.locale : null
+    const initIntlPromise = Intl.initIntl(store, resourcePrefix, locale)
 
     var showTitle = input ? input.showTitle : false
 
@@ -64,7 +65,13 @@ const factory = (component, resourcePrefix, id, input, externalEvents) => {
         </LoadMask>
       </Provider>
     )
-    return App
+
+    return {
+      renderComponent: App,
+      methods: {
+        setLocale: locale => Intl.setLocale(store, resourcePrefix, locale)
+      }
+    }
   } catch (e) {
     console.log('Error loading react application: ', e)
   }

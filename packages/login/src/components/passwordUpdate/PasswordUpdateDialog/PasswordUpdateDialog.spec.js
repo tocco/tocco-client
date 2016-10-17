@@ -1,6 +1,6 @@
 import React from 'react'
 import PasswordUpdateDialog from './PasswordUpdateDialog'
-import {SaveButton, LoadMask} from 'tocco-ui'
+import {Button, LoadMask} from 'tocco-ui'
 import {mount, render, shallow} from 'enzyme'
 
 const intl = {
@@ -92,7 +92,7 @@ describe('login', () => {
         expect(wrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(undefined)
         expect(wrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(true)
         expect(wrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(true)
-        expect(wrapper.find(SaveButton).prop('disabled')).to.equal(true)
+        expect(wrapper.find(Button).prop('disabled')).to.equal(true)
       })
 
       it('enables new password as soon as old password is filled', () => {
@@ -108,7 +108,7 @@ describe('login', () => {
         expect(wrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(undefined)
         expect(wrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(undefined)
         expect(wrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(true)
-        expect(wrapper.find(SaveButton).prop('disabled')).to.equal(true)
+        expect(wrapper.find(Button).prop('disabled')).to.equal(true)
       })
 
       it('enables new password repeat as soon as new password is filled and valid', () => {
@@ -128,7 +128,7 @@ describe('login', () => {
         expect(invalidWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(undefined)
         expect(invalidWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(undefined)
         expect(invalidWrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(true)
-        expect(invalidWrapper.find(SaveButton).prop('disabled')).to.equal(true)
+        expect(invalidWrapper.find(Button).prop('disabled')).to.equal(true)
 
         const validWrapper = shallow(<PasswordUpdateDialog
           fetchValidationRules={() => undefined}
@@ -144,7 +144,7 @@ describe('login', () => {
         expect(validWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(undefined)
         expect(validWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(undefined)
         expect(validWrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(false)
-        expect(validWrapper.find(SaveButton).prop('disabled')).to.equal(true)
+        expect(validWrapper.find(Button).prop('disabled')).to.equal(true)
       })
 
       it('enables save button as soon as new password repeat is filled and matches new password', () => {
@@ -162,7 +162,7 @@ describe('login', () => {
         expect(newPwRepeatEmptyWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(undefined)
         expect(newPwRepeatEmptyWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(undefined)
         expect(newPwRepeatEmptyWrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(undefined)
-        expect(newPwRepeatEmptyWrapper.find(SaveButton).prop('disabled')).to.equal(true)
+        expect(newPwRepeatEmptyWrapper.find(Button).prop('disabled')).to.equal(true)
 
         const newPwRepeatNoMatchWrapper = shallow(<PasswordUpdateDialog
           fetchValidationRules={() => undefined}
@@ -178,7 +178,7 @@ describe('login', () => {
         expect(newPwRepeatNoMatchWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(undefined)
         expect(newPwRepeatNoMatchWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(undefined)
         expect(newPwRepeatNoMatchWrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(undefined)
-        expect(newPwRepeatNoMatchWrapper.find(SaveButton).prop('disabled')).to.equal(true)
+        expect(newPwRepeatNoMatchWrapper.find(Button).prop('disabled')).to.equal(true)
 
         const newPwRepeatMatchWrapper = shallow(<PasswordUpdateDialog
           fetchValidationRules={() => undefined}
@@ -194,7 +194,7 @@ describe('login', () => {
         expect(newPwRepeatMatchWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(undefined)
         expect(newPwRepeatMatchWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(undefined)
         expect(newPwRepeatMatchWrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(undefined)
-        expect(newPwRepeatMatchWrapper.find(SaveButton).prop('disabled')).to.equal(false)
+        expect(newPwRepeatMatchWrapper.find(Button).prop('disabled')).to.equal(false)
       })
 
       it('auto focuses old password field if present', () => {

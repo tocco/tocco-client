@@ -1,5 +1,6 @@
 {
   "principalPk": "2441",
   "showOldPasswordField": true,
-  "showTitle": true
+  "showTitle": true,
+  "locale": "de-CH"
 }
