@@ -3,13 +3,18 @@
     max-width: 500px;
   }
 
-  .submit-button {
-    margin-top: 25px;
-    min-width: 120px;
-  }
-
   .negative {
     color: darkred;
+  }
+
+  .message-box {
+    min-height: 25px;
+    font-weight: bold;
+    padding: 5px 0 0 5px;
+  }
+
+  button {
+    min-width: 120px;
   }
 
   button.update-pending {

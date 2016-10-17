@@ -45,7 +45,7 @@ export class PasswordRequest extends React.Component {
               <button
                 type="button"
                 disabled={!this.state.username}
-                className="btn btn-primary submit-button"
+                className="btn btn-primary  m-t-5"
                 onClick={this.handleSubmit.bind(this)}
               >
                 <i className="glyphicon glyphicon-log-in"/> Anfordern
@@ -53,7 +53,7 @@ export class PasswordRequest extends React.Component {
               <button
                 type="button"
                 onClick={() => this.props.changePage(Pages.LOGIN_FORM)}
-                className="btn btn-primary submit-button"
+                className="btn btn-primary m-l-5 m-t-5"
               >
                 <i className="glyphicon glyphicon-remove"/> Abbrechen
               </button>

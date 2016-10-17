@@ -41,7 +41,7 @@ export class LoginForm extends Component {
               required
             />
           </div>
-          <div className="input-group">
+          <div className="input-group m-t-5">
             <span className="input-group-addon"><i className="glyphicon glyphicon-lock"/></span>
             <input
               id="password"
@@ -53,14 +53,16 @@ export class LoginForm extends Component {
               required
             />
           </div>
-          {
+          <div className="message-box">
+            {
             this.props.message && this.props.message.text
-            && <p className={this.props.message.negative ? 'negative' : ''}>{this.props.message.text}</p>
+            && <span className={this.props.message.negative ? 'negative' : ''}>{this.props.message.text}</span>
           }
+          </div>
           <div>
             <div>
               <button
-                className={'btn btn-primary submit-button ' + (this.props.loginPending ? 'update-pending' : '')}
+                className={'btn btn-primary m-t-5 ' + (this.props.loginPending ? 'update-pending' : '')}
                 onClick={this.handleSubmit.bind(this)}
                 disabled={this.props.loginPending}
               >
