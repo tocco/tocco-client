@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
 import {Pages} from '../../types/Pages'
+import * as Tocco from 'tocco-ui'
 
 import '../Login/styles.scss'
 
@@ -63,14 +64,13 @@ export class LoginForm extends Component {
           </div>
           <div>
             <div>
-              <button
-                className={'btn btn-primary m-t-5 ' + (this.props.loginPending ? 'update-pending' : '')}
+              <Tocco.Button
+                label="Log in"
                 onClick={this.handleSubmit.bind(this)}
                 disabled={this.props.loginPending || this.props.username === '' || this.props.password === ''}
-              >
-                <i className="glyphicon glyphicon-log-in"/>
-                <span className="p-l-5"><FormattedMessage id="client.login.form.button"/></span>
-              </button>
+                pending={this.props.loginPending}
+                icon="glyphicon-log-in"
+              />
               <div>
                 <a
                   onClick={() => this.props.changePage(Pages.PASSWORD_REQUEST)}

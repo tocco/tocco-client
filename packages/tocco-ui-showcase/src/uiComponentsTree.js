@@ -2,9 +2,9 @@ import ToccoLogoRaw from '!raw!../../tocco-ui/src/ToccoLogo/ToccoLogo'
 import ToccoLogoExample from '../../tocco-ui/src/ToccoLogo/example'
 import ToccoLogoExampleRaw from '!raw!../../tocco-ui/src/ToccoLogo/example'
 
-import SaveButtonRaw from '!raw!../../tocco-ui/src/SaveButton/SaveButton'
-import SaveButtonExample from '../../tocco-ui/src/SaveButton/example'
-import SaveButtonExampleRaw from '!raw!../../tocco-ui/src/SaveButton/example'
+import ButtonRaw from '!raw!../../tocco-ui/src/Button/Button'
+import ButtonExample from '../../tocco-ui/src/Button/example'
+import ButtonExampleRaw from '!raw!../../tocco-ui/src/Button/example'
 
 import LoadMaskRaw from '!raw!../../tocco-ui/src/LoadMask/LoadMask'
 import LoadMaskExample from '../../tocco-ui/src/LoadMask/example'
@@ -21,11 +21,11 @@ export default [
     category: categories.FORMS,
     components: [
       {
-        name: 'SaveButton',
-        raw: SaveButtonRaw,
+        name: 'Button',
+        raw: ButtonRaw,
         example: {
-          component: SaveButtonExample,
-          raw: SaveButtonExampleRaw
+          component: ButtonExample,
+          raw: ButtonExampleRaw
         }
       }]
   },

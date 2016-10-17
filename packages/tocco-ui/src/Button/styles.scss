@@ -1,0 +1,9 @@
+button.pending {
+  i.glyphicon {
+    animation: spin 2s infinite linear;
+  }
+
+  i.glyphicon:before {
+    content: "\e031"
+  }
+}
