@@ -1,5 +1,7 @@
-import {put, select, call} from 'redux-saga/effects'
-import * as sagas from './sagas'
+import {takeLatest} from 'redux-saga'
+import {put, select, call, fork} from 'redux-saga/effects'
+import * as actions from './actions'
+import rootSaga, * as sagas from './sagas'
 import {ExternalEvents} from 'tocco-util'
 import {changePage} from './login/actions'
 import {setMessage, setPending} from './loginForm/actions'
@@ -9,6 +11,17 @@ import {Pages} from '../types/Pages'
 describe('login', () => {
   describe('modules', () => {
     describe('sagas', () => {
+      describe('root saga', () => {
+        it('should fork child sagas', () => {
+          const generator = rootSaga()
+          expect(generator.next().value).to.deep.equal([
+            fork(takeLatest, actions.LOGIN, sagas.loginSaga),
+            fork(takeLatest, actions.CHECK_SESSION, sagas.checkSessionSaga)
+          ])
+          expect(generator.next().done).to.equal(true)
+        })
+      })
+
       describe('loginSaga', () => {
         it('handle successfully login', () => {
           const gen = sagas.loginSaga({payload: {}})
