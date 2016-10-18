@@ -3,34 +3,129 @@ import React from 'react'
 import Button from './Button'
 import {mount, render, shallow} from 'enzyme'
 
-describe('merge-action', function () {
-  describe('Button Component', function () {
+describe('tocco-ui', function () {
+  describe('Button', function () {
     it('handles click events', () => {
       const onButtonClick = sinon.spy();
       const wrapper = shallow(
-        <Button onClick={onButtonClick} />
+        <Button
+          label=''
+          onClick={onButtonClick}
+        />
       );
       wrapper.find('button').simulate('click');
       expect(onButtonClick).to.have.property('callCount', 1);
-    });
+    })
 
+    it('shows label', () => {
+      const wrapper = shallow(<Button
+          label='test'
+          onClick={() => undefined}
+        />
+      )
+      expect(wrapper.find('button').text()).to.equal(' test')
+    })
 
-    // it('can be disabled', () => {
-    //   let wrapper = shallow(
-    //     <Button/>
-    //   )
-    //   expect(wrapper.find('button')).to.not.have.property('disabled')
-    //
-    //   wrapper = shallow(
-    //     <Button disabled={false}/>
-    //   )
-    //   expect(wrapper.find('button')).to.not.have.property('disabled')
-    //
-    //   wrapper = shallow(
-    //     <Button disabled={true}/>
-    //   )
-    //
-    //  expect(wrapper.find('button')).to.have.attr('disabled', true)
-    // })
+    if('can add classNames', () => {
+      const defaultClasses = 'btn btn-primary'
+      let wrapper = shallow(<Button
+          label=''
+          onClick={() => undefined}
+        />
+      )
+      expect(wrapper.find('button').prop('class')).to.equal(defaultClasses)
+
+      wrapper = shallow(<Button
+          label=''
+          className='class1'
+          onClick={() => undefined}
+        />
+      )
+      expect(wrapper.find('button').hasClass('class')).to.equal(true)
+
+      wrapper = shallow(<Button
+          label=''
+          className='class1, class2, class3'
+          onClick={() => undefined}
+        />
+      )
+      expect(wrapper.find('button').hasClass('class1')).to.equal(true)
+      expect(wrapper.find('button').hasClass('class2')).to.equal(true)
+      expect(wrapper.find('button').hasClass('class3')).to.equal(true)
+    })
+
+    it('can be disabled', () => {
+      let wrapper = shallow(
+        <Button
+          label=''
+          onClick={() => undefined}
+        />
+      )
+      expect(wrapper.find('button')).to.not.have.property('disabled')
+
+      wrapper = shallow(
+        <Button
+          label=''
+          onClick={() => undefined}
+          disabled={false}
+        />
+      )
+      expect(wrapper.find('button')).to.not.have.property('disabled')
+
+      wrapper = shallow(
+        <Button
+          label=''
+          onClick={() => undefined}
+          disabled={true}/>
+      )
+      expect(wrapper.find('button')).to.have.attr('disabled', 'disabled')
+    })
+
+    it('shows pending spinner', () => {
+      let wrapper = shallow(
+        <Button
+          label=''
+          onClick={() => undefined}
+        />
+      )
+      expect(wrapper.find('button').hasClass('pending')).to.equal(false)
+
+      wrapper = shallow(
+        <Button
+          label=''
+          onClick={() => undefined}
+          pending={false}
+        />
+      )
+      expect(wrapper.find('button').hasClass('pending')).to.equal(false)
+
+      wrapper = shallow(
+        <Button
+          label=''
+          onClick={() => undefined}
+          pending={true}
+        />
+      )
+      expect(wrapper.find('button').hasClass('pending')).to.equal(true)
+    })
+
+    it('shows icon', () => {
+      let wrapper = shallow(
+        <Button
+          label=''
+          onClick={() => undefined}
+          icon='icon'
+        />
+      )
+      expect(wrapper.find('i').hasClass('icon')).to.equal(true)
+
+      wrapper = shallow(
+        <Button
+          label=''
+          onClick={() => undefined}
+        />
+      )
+      expect(wrapper.find('i').prop('className')).to.equal('glyphicon')
+    })
   })
 })
