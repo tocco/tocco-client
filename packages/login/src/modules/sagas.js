@@ -78,7 +78,7 @@ export function* loginSaga({payload}) {
   let response
   if (__DEV__) {
     yield delay(1000)
-    response = yield doDevRequest(payload)
+    response = yield call(doDevRequest, payload)
   } else {
     response = yield call(doLoginRequest, payload)
   }
@@ -88,6 +88,7 @@ export function* loginSaga({payload}) {
   if (body.success) {
     yield call(handleSuccessfullLogin)
   } else {
+    yield put(changePage(Pages.LOGIN_FORM)) // in order to display possible error message
     if (body.TWOSTEPLOGIN) {
       yield call(handleTwoStepLoginResponse, body)
     } else if (body.RESET_PASSWORD_REQUIRED) {

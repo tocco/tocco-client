@@ -3,6 +3,7 @@ import * as sagas from './sagas'
 import {changePage} from './login/actions'
 import {setMessage, setPending} from './loginForm/actions'
 import {setRequestedCode} from './twoStepLogin/actions'
+import {Pages} from '../types/Pages'
 
 describe('login', () => {
   describe('modules', () => {
@@ -12,8 +13,19 @@ describe('login', () => {
           const gen = sagas.loginSaga({payload: {}})
           expect(gen.next().value).to.eql(call(sagas.doLoginRequest, {}))
           expect(gen.next(new Response()).value).to.eql(call(sagas.getBody, new Response()))
-          var body = {success: true}
+          const body = {success: true}
           expect(gen.next(body).value).to.eql(call(sagas.handleSuccessfullLogin))
+          expect(gen.next().value).to.eql(put(setPending(false)))
+          expect(gen.next().done).to.deep.equal(true)
+        })
+
+        it('loginSaga: handle unsuccessful login', () => {
+          const gen = sagas.loginSaga({payload: {}})
+          expect(gen.next().value).to.eql(call(sagas.doLoginRequest, {}))
+          expect(gen.next(new Response()).value).to.eql(call(sagas.getBody, new Response()))
+          const body = {success: false}
+          expect(gen.next(body).value).to.deep.equal(put(changePage(Pages.LOGIN_FORM)))
+          expect(gen.next(new Response()).value).to.eql(call(sagas.handleFailedResponse, body))
           expect(gen.next().value).to.eql(put(setPending(false)))
           expect(gen.next().done).to.deep.equal(true)
         })
