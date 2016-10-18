@@ -10,6 +10,8 @@ import {Pages} from '../types/Pages'
 
 import {getResponse} from '../dev/loginResponseMocks'
 
+export const DEFAULT_TIMEOUT = 30
+
 export const textResourceSelector = state => state.intl.messages
 
 export function doLoginRequest(data) {
@@ -64,8 +66,12 @@ export function* handleFailedResponse(body) {
   yield put(setMessage(textResources['client.login.form.failed'], true))
 }
 
-export function* handleSuccessfullLogin() {
-  ExternalEvents.invokeExternalEvent('successfullyLogin')
+export function* handleSuccessfulLogin(body) {
+  var timeout = DEFAULT_TIMEOUT
+  if (body.timeout) {
+    timeout = body.timeout
+  }
+  yield call(ExternalEvents.invokeExternalEvent, 'successfullyLogin', {timeout})
 }
 
 export function getBody(response) {
@@ -86,7 +92,7 @@ export function* loginSaga({payload}) {
   const body = yield call(getBody, response)
 
   if (body.success) {
-    yield call(handleSuccessfullLogin)
+    yield call(handleSuccessfulLogin, body)
   } else {
     yield put(changePage(Pages.LOGIN_FORM)) // in order to display possible error message
     if (body.TWOSTEPLOGIN) {
@@ -115,7 +121,7 @@ export function* checkSessionSaga() {
   const body = yield getBody(response)
 
   if (body.success) {
-    yield handleSuccessfullLogin()
+    yield handleSuccessfulLogin(body)
   }
 }
 
