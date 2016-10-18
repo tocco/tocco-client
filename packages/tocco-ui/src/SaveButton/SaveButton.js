@@ -13,8 +13,8 @@ const SaveButton = props => {
     >
       <i
         className={classNames('fa', 'fa-floppy-o')}
-        aria-hidden='true'
-      ></i> {props.label}
+        aria-hidden="true"
+       /> {props.label}
     </button>)
 }
 
