@@ -76,9 +76,10 @@ describe('tocco-ui', function () {
         <Button
           label=''
           onClick={() => undefined}
-          disabled={true}/>
+          disabled={true}
+        />
       )
-      expect(wrapper.find('button')).to.have.attr('disabled', 'disabled')
+      expect(wrapper.find('button').prop('disabled')).to.equal(true)
     })
 
     it('shows pending spinner', () => {
