@@ -7,19 +7,21 @@ describe('login', () => {
   describe('modules', () => {
     describe('passwordUpdate', () => {
       describe('validationRules', () => {
-        it('creates initial state', () => {
-          expect(reducer(undefined, {})).to.deep.equal(EXPECTED_INITIAL_STATE)
-        });
+        describe('reducer', () => {
+          it('creates initial state', () => {
+            expect(reducer(undefined, {})).to.deep.equal(EXPECTED_INITIAL_STATE)
+          });
 
-        it('handles SET_VALIDATION_RULES', () => {
-          const rules = [{
-            name: "PASSWORD_NOT_CHANGED",
-            params: {},
-            message: "Das neue Passwort muss sich vom alten Passwort unterscheiden."
-          }]
+          it('handles SET_VALIDATION_RULES', () => {
+            const rules = [{
+              name: "PASSWORD_NOT_CHANGED",
+              params: {},
+              message: "Das neue Passwort muss sich vom alten Passwort unterscheiden."
+            }]
 
-          expect(reducer(EXPECTED_INITIAL_STATE, actions.setValidationRules(rules))).to.deep.equal(rules)
-        });
+            expect(reducer(EXPECTED_INITIAL_STATE, actions.setValidationRules(rules))).to.deep.equal(rules)
+          });
+        })
       })
     })
   })
