@@ -10,7 +10,7 @@ export default class Intl {
   }
 
   static setLocale(store, moduleName, locale) {
-    Intl.loadTextResources(locale, moduleName)
+    return Intl.loadTextResources(locale, moduleName)
       .then(textResources => store.dispatch(updateIntl({
         locale: locale.replace('_', '-'),
         messages: textResources
