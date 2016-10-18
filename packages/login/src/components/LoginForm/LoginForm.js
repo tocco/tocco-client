@@ -73,6 +73,7 @@ export class LoginForm extends Component {
               />
               <div>
                 <a
+                  className="pointer"
                   onClick={() => this.props.changePage(Pages.PASSWORD_REQUEST)}
                 >
                   <FormattedMessage id="client.login.form.forgotLink"/>

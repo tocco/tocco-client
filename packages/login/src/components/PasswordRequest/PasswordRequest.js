@@ -27,9 +27,9 @@ export class PasswordRequest extends React.Component {
           this.props.showTitle
           && <div>
             <h1><FormattedMessage id="client.login.passwordRequest.title"/></h1>
-            <p><FormattedMessage id="client.login.passwordRequest.introduction"/></p>
           </div>
         }
+        <p><FormattedMessage id="client.login.passwordRequest.introduction"/></p>
         <form>
           <div className="input-group">
             <span className="input-group-addon"><i className="glyphicon glyphicon-user"/></span>
