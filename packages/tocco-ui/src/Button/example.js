@@ -14,13 +14,13 @@ export default () => {
 
       <Button
         label="Pending"
+        pending
         onClick={() => alert('do something')}
-        pending="true"
       />
 
       <Button
         label="Disabled"
-        disabled="true"
+        disabled
         onClick={() => alert('do something')}
       />
       {/* end example */}
