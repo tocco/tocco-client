@@ -65,7 +65,7 @@ export class LoginForm extends Component {
           <div>
             <div>
               <Tocco.Button
-                label="Log in"
+                label={this.msg('client.login.form.button')}
                 onClick={this.handleSubmit.bind(this)}
                 disabled={this.props.loginPending || this.props.username === '' || this.props.password === ''}
                 pending={this.props.loginPending}
