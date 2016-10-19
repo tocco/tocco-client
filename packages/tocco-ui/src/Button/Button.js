@@ -29,7 +29,7 @@ Button.propTypes = {
   /**
    * Set the name of the button
    */
-   name: React.PropTypes.string,
+  name: React.PropTypes.string,
   /**
    * If true, the button will be disabled
    */
