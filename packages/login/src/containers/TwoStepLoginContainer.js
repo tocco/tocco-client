@@ -2,11 +2,9 @@ import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 
 import TwoStepLoginForm from '../components/TwoStepLoginForm'
-import {changePage} from '../modules/login/actions'
 import {twoStepLogin} from '../modules/twoStepLogin/actions'
 
 const mapActionCreators = {
-  changePage,
   twoStepLogin
 }
 
