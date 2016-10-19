@@ -12,11 +12,11 @@ export class LoginForm extends Component {
     this.props.login(this.props.username, this.props.password)
   }
 
-  handleUsername(e) {
+  handleUsernameChange(e) {
     this.props.setUsername(e.target.value)
   }
 
-  handlePassword(e) {
+  handlePasswordChange(e) {
     this.props.setPassword(e.target.value)
   }
 
@@ -34,11 +34,10 @@ export class LoginForm extends Component {
           <div className="input-group">
             <span className="input-group-addon"><i className="glyphicon glyphicon-user"/></span>
             <input
-              id="user"
               type="text"
               className="form-control"
               name="user"
-              onChange={this.handleUsername.bind(this)}
+              onChange={this.handleUsernameChange.bind(this)}
               placeholder={this.msg('client.login.form.userPlaceholder')}
               value={this.props.username}
               required
@@ -47,11 +46,10 @@ export class LoginForm extends Component {
           <div className="input-group m-t-5">
             <span className="input-group-addon"><i className="glyphicon glyphicon-lock"/></span>
             <input
-              id="password"
               type="password"
               className="form-control"
               name="password"
-              onChange={this.handlePassword.bind(this)}
+              onChange={this.handlePasswordChange.bind(this)}
               placeholder={this.msg('client.login.form.passwordPlaceholder')}
               required
             />
@@ -73,7 +71,7 @@ export class LoginForm extends Component {
               />
               <div>
                 <a
-                  className="pointer"
+                  className="forgot-password pointer"
                   onClick={() => this.props.changePage(Pages.PASSWORD_REQUEST)}
                 >
                   <FormattedMessage id="client.login.form.forgotLink"/>
