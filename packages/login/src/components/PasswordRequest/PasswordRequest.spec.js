@@ -32,7 +32,7 @@ describe('login', () => {
             requestPassword={() => undefined}
           />
         )
-        expect(wrapper.state().username).to.equal('');
+        expect(wrapper.state().username).to.equal('')
       })
 
       it('should update username state on username change', () => {
@@ -51,7 +51,7 @@ describe('login', () => {
           }
         })
 
-        expect(wrapper.state().username).to.equal('user1');
+        expect(wrapper.state().username).to.equal('user1')
       })
 
       it('should disable submit button if username is not set', () => {
@@ -127,14 +127,14 @@ describe('login', () => {
 
         wrapper.find('button[name="submit"]').simulate('click', {
           preventDefault
-        });
+        })
 
         expect(preventDefault).to.have.property('callCount', 1)
         expect(requestPassword).to.have.property('callCount', 1)
       })
 
       it('should call changePage on abort', () => {
-        const changePage = sinon.spy();
+        const changePage = sinon.spy()
 
         const wrapper = shallow(
           <PasswordRequest
@@ -146,7 +146,7 @@ describe('login', () => {
 
         wrapper.find('button[name="abort"]').simulate('click')
 
-        expect(changePage).to.have.property('callCount', 1);
+        expect(changePage).to.have.property('callCount', 1)
         expect(changePage.firstCall.args).to.eql([Pages.LOGIN_FORM])
       })
     })

@@ -10,7 +10,7 @@ describe('login', () => {
         describe('reducer', () => {
           it('creates initial state', () => {
             expect(reducer(undefined, {})).to.deep.equal(EXPECTED_INITIAL_STATE)
-          });
+          })
 
           it('handles SET_VALIDATION_RULES', () => {
             const rules = [{
@@ -20,7 +20,7 @@ describe('login', () => {
             }]
 
             expect(reducer(EXPECTED_INITIAL_STATE, actions.setValidationRules(rules))).to.deep.equal(rules)
-          });
+          })
         })
       })
     })

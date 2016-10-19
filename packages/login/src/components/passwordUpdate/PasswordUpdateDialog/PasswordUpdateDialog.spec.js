@@ -11,19 +11,19 @@ describe('login', () => {
   describe('components', () => {
     describe('PasswordUpdateDialog', () => {
       it('fetches rules on mount', () => {
-        const fetchValidationRules = sinon.spy();
+        const fetchValidationRules = sinon.spy()
         shallow(<PasswordUpdateDialog
           fetchValidationRules={fetchValidationRules}
           password={{}}
           intl={intl}
         />)
-        expect(fetchValidationRules).to.have.property('callCount', 1);
+        expect(fetchValidationRules).to.have.property('callCount', 1)
       })
 
       it('calls initialized callback once rules rendered', () => {
         window.requestAnimationFrame = fn => fn()
 
-        const initialized = sinon.spy();
+        const initialized = sinon.spy()
 
         const wrapper = mount(<PasswordUpdateDialog
           fetchValidationRules={() => undefined}
@@ -33,13 +33,13 @@ describe('login', () => {
           initialized={initialized}
         />)
 
-        expect(initialized).to.have.property('callCount', 0);
+        expect(initialized).to.have.property('callCount', 0)
 
         wrapper.setProps({
           validationRules: []
         })
 
-        expect(initialized).to.have.property('callCount', 1);
+        expect(initialized).to.have.property('callCount', 1)
       })
 
       it ('displays LoadMask until rules loaded', () => {

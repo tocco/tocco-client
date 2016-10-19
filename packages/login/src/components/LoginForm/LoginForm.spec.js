@@ -22,8 +22,8 @@ describe('login', () => {
               loginPending={false}
             />
         )
-        expect(wrapper.find(Tocco.Button)).to.have.length(1);
-        expect(wrapper.find(FormattedMessage)).to.have.length(1);
+        expect(wrapper.find(Tocco.Button)).to.have.length(1)
+        expect(wrapper.find(FormattedMessage)).to.have.length(1)
       })
 
       it('should three <FormattedMessage> components if title is shown', () => {
@@ -38,8 +38,8 @@ describe('login', () => {
               showTitle={true}
             />
         )
-        expect(wrapper.find(Tocco.Button)).to.have.length(1);
-        expect(wrapper.find(FormattedMessage)).to.have.length(3);
+        expect(wrapper.find(Tocco.Button)).to.have.length(1)
+        expect(wrapper.find(FormattedMessage)).to.have.length(3)
       })
 
       it ('Button is disabled if username and password are not set', () => {

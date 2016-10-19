@@ -18,7 +18,7 @@ describe('login', () => {
         describe('reducer', () => {
           it('creates initial state', () => {
             expect(reducer(undefined, {})).to.deep.equal(EXPECTED_INITIAL_STATE)
-          });
+          })
 
           it('handles UPDATE_OLD_PASSWORD', () => {
             const stateBefore = {
@@ -30,7 +30,7 @@ describe('login', () => {
             }
 
             expect(reducer(stateBefore, actions.updateOldPassword('oldpw'))).to.deep.equal(expectedStateAfter)
-          });
+          })
 
           it('handles SET_NEW_PASSWORD', () => {
             const stateBefore = {
@@ -42,7 +42,7 @@ describe('login', () => {
             }
 
             expect(reducer(stateBefore, actions.setNewPassword('newpw'))).to.deep.equal(expectedStateAfter)
-          });
+          })
 
           it('handles SET_NEW_PASSWORD_VALIDATION_ERRORS', () => {
             const stateBefore = {
@@ -58,7 +58,7 @@ describe('login', () => {
             }
 
             expect(reducer(stateBefore, actions.setNewPasswordValidationErrors(errors))).to.deep.equal(expectedStateAfter)
-          });
+          })
 
           it('handles UPDATE_NEW_PASSWORD_REPEAT', () => {
             const stateBefore = {
@@ -70,7 +70,7 @@ describe('login', () => {
             }
 
             expect(reducer(stateBefore, actions.updateNewPasswordRepeat('newpwrepeat'))).to.deep.equal(expectedStateAfter)
-          });
+          })
 
           it('handles SAVE_PASSWORD', () => {
             const stateBefore = {
@@ -84,7 +84,7 @@ describe('login', () => {
             }
 
             expect(reducer(stateBefore, actions.savePassword())).to.deep.equal(expectedStateAfter)
-          });
+          })
 
           it('handles SAVE_PASSWORD_SUCCESS', () => {
             const stateBefore = {
@@ -98,7 +98,7 @@ describe('login', () => {
             }
 
             expect(reducer(stateBefore, actions.savePasswordSuccess())).to.deep.equal(EXPECTED_INITIAL_STATE)
-          });
+          })
 
           it('handles SAVE_PASSWORD_FAILURE with error code', () => {
             const stateBefore = {
@@ -122,7 +122,7 @@ describe('login', () => {
             }
 
             expect(reducer(stateBefore, actions.savePasswordFailure("MY_ERROR_CODE", null))).to.deep.equal(expectedStateAfter)
-          });
+          })
 
           it('handles SAVE_PASSWORD_FAILURE with validation messages', () => {
             const stateBefore = {
@@ -155,7 +155,7 @@ describe('login', () => {
 
             expect(reducer(stateBefore, actions.savePasswordFailure(null, validationMessages))).to.deep.equal(expectedStateAfter)
 
-          });
+          })
         })
       })
     })
