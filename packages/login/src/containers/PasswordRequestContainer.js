@@ -12,7 +12,9 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = state => {
-  return {}
+  return {
+    pending: state.loginForm.loginPending
+  }
 }
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(PasswordRequest))

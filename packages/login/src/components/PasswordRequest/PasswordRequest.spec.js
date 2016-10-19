@@ -2,6 +2,7 @@ import React from 'react'
 import {PasswordRequest} from './PasswordRequest'
 import {mount, render, shallow} from 'enzyme'
 import {Pages} from '../../types/Pages'
+import {Button} from 'tocco-ui'
 
 const intl = {
   formatMessage: (obj) => obj.id
@@ -20,8 +21,7 @@ describe('login', () => {
         )
 
         expect(wrapper.find('input[name="user"]')).to.have.length(1)
-        expect(wrapper.find('button[name="submit"]')).to.have.length(1)
-        expect(wrapper.find('button[name="abort"]')).to.have.length(1)
+        expect(wrapper.find(Button)).to.have.length(2)
       })
 
       it('should have an initial password state', () => {
@@ -63,9 +63,8 @@ describe('login', () => {
           />
         )
 
-        expect(wrapper.find('button[name="submit"]')).to.have.length(1)
-        const button = wrapper.find('button[name="submit"]')
-
+        const button = wrapper.find('[name="submit"]')
+        expect(button).to.have.length(1)
         expect(button.prop('disabled')).to.equal(true)
       })
 
@@ -82,10 +81,10 @@ describe('login', () => {
           username: 'user1'
         })
 
-        expect(wrapper.find('button[name="submit"]')).to.have.length(1)
-        const button = wrapper.find('button[name="submit"]')
+        const button = wrapper.find('[name="submit"]')
+        expect(button).to.have.length(1)
 
-        expect(button.prop('disabled')).to.equal(false)
+        expect(button).to.not.have.property('disabled')
       })
 
       it('should hide title by default', () => {
@@ -125,7 +124,7 @@ describe('login', () => {
           />
         )
 
-        wrapper.find('button[name="submit"]').simulate('click', {
+        wrapper.find('[name="submit"]').simulate('click', {
           preventDefault
         })
 
@@ -144,7 +143,7 @@ describe('login', () => {
           />
         )
 
-        wrapper.find('button[name="abort"]').simulate('click')
+        wrapper.find('[name="abort"]').simulate('click')
 
         expect(changePage).to.have.property('callCount', 1)
         expect(changePage.firstCall.args).to.eql([Pages.LOGIN_FORM])

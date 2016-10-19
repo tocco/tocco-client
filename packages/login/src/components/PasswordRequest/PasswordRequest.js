@@ -1,6 +1,7 @@
 import React from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
 import {Pages} from '../../types/Pages'
+import * as Tocco from 'tocco-ui'
 
 import '../Login/styles.scss'
 
@@ -42,25 +43,23 @@ export class PasswordRequest extends React.Component {
           </div>
           <div>
             <div>
-              <button
-                type="button"
+              <Tocco.Button
+                label="client.login.passwordRequest.button"
                 name="submit"
-                disabled={!this.state.username}
-                className="btn btn-primary m-t-5"
                 onClick={this.handleSubmit.bind(this)}
-              >
-                <i className="glyphicon glyphicon-log-in"/>
-                <span className="p-l-5"><FormattedMessage id="client.login.passwordRequest.button"/></span>
-              </button>
-              <button
-                type="button"
+                disabled={!this.state.username || this.props.pending}
+                pending={this.props.pending}
+                icon="glyphicon-log-in"
+                className="m-t-5"
+              />
+              <Tocco.Button
+                label="client.login.passwordRequest.abortButton"
                 name="abort"
                 onClick={() => this.props.changePage(Pages.LOGIN_FORM)}
-                className="btn btn-primary m-l-5 m-t-5"
-              >
-                <i className="glyphicon glyphicon-remove"/>
-                <span className="p-l-5"><FormattedMessage id="client.login.passwordRequest.abortButton"/></span>
-              </button>
+                disabled={this.props.pending}
+                icon="glyphicon-remove"
+                className="m-l-5 m-t-5"
+              />
             </div>
           </div>
         </form>
@@ -79,5 +78,6 @@ PasswordRequest.propTypes = {
   intl: intlShape.isRequired,
   changePage: React.PropTypes.func.isRequired,
   requestPassword: React.PropTypes.func.isRequired,
-  showTitle: React.PropTypes.bool
+  showTitle: React.PropTypes.bool,
+  pending: React.PropTypes.boo
 }
