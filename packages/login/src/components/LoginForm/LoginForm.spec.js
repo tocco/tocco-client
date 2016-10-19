@@ -4,10 +4,7 @@ import {mount, render, shallow} from 'enzyme'
 import {FormattedMessage} from 'react-intl'
 import * as Tocco from 'tocco-ui'
 import {Pages} from '../../types/Pages'
-
-const intl = {
-  formatMessage: (obj) => obj.id
-}
+import intl from '../../../tests/intlStub'
 
 describe('login', () => {
   describe('components', () => {
@@ -27,7 +24,7 @@ describe('login', () => {
         expect(wrapper.find(FormattedMessage)).to.have.length(1)
       })
 
-      it('should three <FormattedMessage> components if title is shown', () => {
+      it('should render three <FormattedMessage> components if title is shown', () => {
         const wrapper = shallow(
             <LoginForm
               intl={intl}

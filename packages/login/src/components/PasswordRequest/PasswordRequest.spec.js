@@ -3,10 +3,7 @@ import {PasswordRequest} from './PasswordRequest'
 import {mount, render, shallow} from 'enzyme'
 import {Pages} from '../../types/Pages'
 import {Button} from 'tocco-ui'
-
-const intl = {
-  formatMessage: (obj) => obj.id
-}
+import intl from '../../../tests/intlStub'
 
 describe('login', () => {
   describe('components', () => {
