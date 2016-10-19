@@ -1,5 +1,6 @@
-import {put, select, call} from 'redux-saga/effects'
-import * as sagas from './sagas'
+import {takeLatest} from 'redux-saga'
+import {put, select, call, fork} from 'redux-saga/effects'
+import rootSaga, * as sagas from './sagas'
 import * as actions from './actions'
 import {ExternalEvents} from 'tocco-util'
 
@@ -8,16 +9,29 @@ describe('login', () => {
     describe('passwordUpdate', () => {
       describe('password', () => {
         describe('sagas', () => {
-
-          it('should set new password and trigger validation', () => {
-            const generator = sagas.updateNewPassword({
-              payload: {
-                newPassword: 'newpw'
-              }
+          describe('root saga', () => {
+            it('should fork child sagas', () => {
+              const generator = rootSaga()
+              expect(generator.next().value).to.deep.equal([
+                fork(takeLatest, actions.UPDATE_NEW_PASSWORD, sagas.updateNewPassword),
+                fork(takeLatest, actions.VALIDATE, sagas.validate),
+                fork(takeLatest, actions.SAVE_PASSWORD, sagas.savePassword)
+              ])
+              expect(generator.next().done).to.equal(true)
             })
-            expect(generator.next().value).to.deep.equal(put(actions.setNewPassword('newpw')))
-            expect(generator.next().value).to.deep.equal(put(actions.validate()))
-            expect(generator.next().done).to.equal(true)
+          })
+
+          describe('updateNewPassword', () => {
+            it('should set new password and trigger validation', () => {
+              const generator = sagas.updateNewPassword({
+                payload: {
+                  newPassword: 'newpw'
+                }
+              })
+              expect(generator.next().value).to.deep.equal(put(actions.setNewPassword('newpw')))
+              expect(generator.next().value).to.deep.equal(put(actions.validate()))
+              expect(generator.next().done).to.equal(true)
+            })
           })
 
           describe('validate', () => {
