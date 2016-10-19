@@ -43,6 +43,62 @@ describe('login', () => {
           expect(gen.next().value).to.eql(put(setPending(false)))
           expect(gen.next().done).to.deep.equal(true)
         })
+
+        it('should handle two step response', () => {
+          const gen = sagas.loginSaga({payload: {}})
+          expect(gen.next().value).to.eql(call(sagas.doLoginRequest, {}))
+          expect(gen.next(new Response()).value).to.eql(call(sagas.getBody, new Response()))
+          const body = {
+            success: false,
+            TWOSTEPLOGIN: true
+          }
+          expect(gen.next(body).value).to.eql(put(changePage(Pages.LOGIN_FORM)))
+          expect(gen.next(new Response()).value).to.eql(call(sagas.handleTwoStepLoginResponse, body))
+          expect(gen.next().value).to.eql(put(setPending(false)))
+          expect(gen.next().done).to.eql(true)
+        })
+
+        it('should handle password reset response', () => {
+          const gen = sagas.loginSaga({payload: {}})
+          expect(gen.next().value).to.eql(call(sagas.doLoginRequest, {}))
+          expect(gen.next(new Response()).value).to.eql(call(sagas.getBody, new Response()))
+          const body = {
+            success: false,
+            RESET_PASSWORD_REQUIRED: true
+          }
+          expect(gen.next(body).value).to.eql(put(changePage(Pages.LOGIN_FORM)))
+          expect(gen.next(new Response()).value).to.eql(call(sagas.handlePasswordUpdateResponse, body))
+          expect(gen.next().value).to.eql(put(setPending(false)))
+          expect(gen.next().done).to.eql(true)
+        })
+
+        it('should handle one till block response', () => {
+          const gen = sagas.loginSaga({payload: {}})
+          expect(gen.next().value).to.eql(call(sagas.doLoginRequest, {}))
+          expect(gen.next(new Response()).value).to.eql(call(sagas.getBody, new Response()))
+          const body = {
+            success: false,
+            ONE_TILL_BLOCK: true
+          }
+          expect(gen.next(body).value).to.eql(put(changePage(Pages.LOGIN_FORM)))
+          expect(gen.next(new Response()).value).to.eql(call(sagas.handleOneTilLBlockResponse, body))
+          expect(gen.next().value).to.eql(put(setPending(false)))
+          expect(gen.next().done).to.eql(true)
+        })
+
+        it('should handle login blocked response', () => {
+          const gen = sagas.loginSaga({payload: {}})
+          expect(gen.next().value).to.eql(call(sagas.doLoginRequest, {}))
+          expect(gen.next(new Response()).value).to.eql(call(sagas.getBody, new Response()))
+          const body = {
+            success: false,
+            LOGIN_BLOCKED: true
+          }
+          expect(gen.next(body).value).to.eql(put(changePage(Pages.LOGIN_FORM)))
+          expect(gen.next(new Response()).value).to.eql(call(sagas.handleBlockResponse, body))
+          expect(gen.next().value).to.eql(put(setPending(false)))
+          expect(gen.next().done).to.eql(true)
+        })
       })
 
       describe('handleSuccessfulLogin', () => {
@@ -100,6 +156,40 @@ describe('login', () => {
           expect(gen.next().value).to.deep.equal(select(sagas.textResourceSelector))
           expect(gen.next({'client.login.form.failed': 'msg'}).value).to.deep.equal(put(setMessage('msg', true)))
           expect(gen.next().done).to.deep.equal(true)
+        })
+      })
+
+      describe('checkSessionSaga', () => {
+        it('should call handleSuccessfulLogin on success', () => {
+          const gen = sagas.checkSessionSaga()
+          expect(gen.next().value).to.deep.equal(call(sagas.doSessionRequest))
+          const response = {}
+          expect(gen.next(response).value).to.deep.equal(call(sagas.getBody, response))
+          const body = {success: true}
+          expect(gen.next(body).value).to.deep.equal(call(sagas.handleSuccessfulLogin, body))
+          expect(gen.next().done).to.deep.equal(true)
+        })
+
+        it('should do nothing if not success', () => {
+          const gen = sagas.checkSessionSaga()
+          expect(gen.next().value).to.deep.equal(call(sagas.doSessionRequest))
+          const response = {}
+          expect(gen.next(response).value).to.deep.equal(call(sagas.getBody, response))
+          const body = {success: false}
+          expect(gen.next(body).done).to.deep.equal(true)
+        })
+      })
+
+      describe('getBody', () => {
+        it('should return body', done => {
+          const response = new Response('{"test":true}')
+          const promise = sagas.getBody(response)
+          promise.then(json => {
+            expect(json).to.deep.equal({
+              test: true
+            })
+            done()
+          })
         })
       })
     })

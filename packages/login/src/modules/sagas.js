@@ -18,7 +18,7 @@ export function doLoginRequest(data) {
   return fetch(`${__BACKEND_URL__}/nice2/login`, getOptions(data))
 }
 
-function doSessionRequest(data) {
+export function doSessionRequest() {
   return fetch(`${__BACKEND_URL__}/nice2/session`, getOptions({}))
 }
 
@@ -116,12 +116,12 @@ export function* checkSessionSaga() {
   if (__DEV__) {
     response = yield getResponse({username: 'fail'})
   } else {
-    response = yield doSessionRequest()
+    response = yield call(doSessionRequest)
   }
-  const body = yield getBody(response)
+  const body = yield call(getBody, response)
 
   if (body.success) {
-    yield handleSuccessfulLogin(body)
+    yield call(handleSuccessfulLogin, body)
   }
 }
 
