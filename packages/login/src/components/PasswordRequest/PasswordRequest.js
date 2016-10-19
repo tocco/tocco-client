@@ -44,7 +44,7 @@ export class PasswordRequest extends React.Component {
           <div>
             <div>
               <Tocco.Button
-                label="client.login.passwordRequest.button"
+                label={this.msg('client.login.passwordRequest.button')}
                 name="submit"
                 onClick={this.handleSubmit.bind(this)}
                 disabled={!this.state.username || this.props.pending}
@@ -53,7 +53,7 @@ export class PasswordRequest extends React.Component {
                 className="m-t-5"
               />
               <Tocco.Button
-                label="client.login.passwordRequest.abortButton"
+                label={this.msg('client.login.passwordRequest.abortButton')}
                 name="abort"
                 onClick={() => this.props.changePage(Pages.LOGIN_FORM)}
                 disabled={this.props.pending}
@@ -79,5 +79,5 @@ PasswordRequest.propTypes = {
   changePage: React.PropTypes.func.isRequired,
   requestPassword: React.PropTypes.func.isRequired,
   showTitle: React.PropTypes.bool,
-  pending: React.PropTypes.boo
+  pending: React.PropTypes.bool
 }
