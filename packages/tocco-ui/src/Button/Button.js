@@ -8,6 +8,7 @@ import './styles.scss'
 const Button = props => {
   return (
     <button
+      name={props.name}
       onClick={props.onClick}
       className={classNames('btn', 'btn-primary', props.className, props.pending ? 'pending' : '')}
       disabled={props.disabled}
@@ -25,6 +26,10 @@ Button.propTypes = {
    * Function that will be triggered on click event
    */
   onClick: React.PropTypes.func.isRequired,
+  /**
+   * Set the name of the button
+   */
+   name: React.PropTypes.string,
   /**
    * If true, the button will be disabled
    */

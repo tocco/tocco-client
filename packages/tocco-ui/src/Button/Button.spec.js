@@ -26,6 +26,16 @@ describe('tocco-ui', function () {
       expect(wrapper.find('button').text()).to.equal(' test')
     })
 
+    it('can add name property', () => {
+      const wrapper = shallow(<Button
+        label=''
+        onClick={() => undefined}
+        name='test_name'
+      />
+      )
+      expect(wrapper.find('button').prop('name')).to.equal('test_name')
+    })
+
     if('can add classNames', () => {
       const defaultClasses = 'btn btn-primary'
       let wrapper = shallow(<Button
