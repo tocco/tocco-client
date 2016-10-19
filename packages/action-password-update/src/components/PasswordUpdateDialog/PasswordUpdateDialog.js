@@ -52,7 +52,8 @@ class PasswordUpdateDialog extends Component {
           name="oldPassword"
           value={password.oldPassword}
           onChange={updateOldPassword}
-          readOnly={oldPasswordReadOnly}
+
+          disabled={oldPasswordReadOnly}
           autoFocus
         />}
         <PasswordInput
@@ -60,7 +61,7 @@ class PasswordUpdateDialog extends Component {
           name="newPassword"
           value={password.newPassword}
           onChange={updateNewPassword}
-          readOnly={newPasswordReadOnly}
+          disabled={newPasswordReadOnly}
           autoFocus={this.props.showOldPasswordField !== true}
         />
         <ValidationRules
@@ -72,7 +73,7 @@ class PasswordUpdateDialog extends Component {
           name="newPasswordRepeat"
           value={password.newPasswordRepeat}
           onChange={updateNewPasswordRepeat}
-          readOnly={newPasswordRepeatReadOnly}
+          disabled={newPasswordRepeatReadOnly}
         />
         <PasswordMatchDisplay password={password.newPassword} passwordRepeat={password.newPasswordRepeat}/>
         <SaveButton
