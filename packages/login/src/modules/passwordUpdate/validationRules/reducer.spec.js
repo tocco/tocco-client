@@ -8,11 +8,11 @@ describe('login', () => {
     describe('passwordUpdate', () => {
       describe('validationRules', () => {
         describe('reducer', () => {
-          it('creates initial state', () => {
+          it('should create a valid initial state', () => {
             expect(reducer(undefined, {})).to.deep.equal(EXPECTED_INITIAL_STATE)
           })
 
-          it('handles SET_VALIDATION_RULES', () => {
+          it('should handle SET_VALIDATION_RULES', () => {
             const rules = [{
               name: "PASSWORD_NOT_CHANGED",
               params: {},

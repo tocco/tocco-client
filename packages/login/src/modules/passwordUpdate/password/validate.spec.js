@@ -6,14 +6,14 @@ describe('login', () => {
       describe('password', () => {
         describe('validate', () => {
           describe('rule PASSWORD_NOT_CHANGED', () => {
-            it('succeeds with different passwords', () => {
+            it('should succeed with different passwords', () => {
               const errors = validate('new', 'old', [{
                 name: rules.RULE_PASSWORD_NOT_CHANGED
               }])
               expect(errors).to.deep.equal({})
             })
 
-            it('fails with same passwords', () => {
+            it('should fail with same passwords', () => {
               const errors = validate('same', 'same', [{
                 name: rules.RULE_PASSWORD_NOT_CHANGED
               }])
@@ -24,7 +24,7 @@ describe('login', () => {
           })
 
           describe('rule LENGTH', () => {
-            it('succeeds if valid', () => {
+            it('should succeed if valid', () => {
               const errors = validate('new', 'old', [{
                 name: rules.RULE_LENGTH,
                 params: {
@@ -35,7 +35,7 @@ describe('login', () => {
               expect(errors).to.deep.equal({})
             })
 
-            it('fails if too short', () => {
+            it('should fail if too short', () => {
               const errors = validate('new', 'old', [{
                 name: rules.RULE_LENGTH,
                 params: {
@@ -47,7 +47,7 @@ describe('login', () => {
               })
             })
 
-            it('fails if too long', () => {
+            it('should fail if too long', () => {
               const errors = validate('new', 'old', [{
                 name: rules.RULE_LENGTH,
                 params: {
@@ -61,7 +61,7 @@ describe('login', () => {
           })
 
           describe('rule CHARACTER_INSUFFICIENT_LOWERCASE', () => {
-            it('succeeds if valid', () => {
+            it('should succeed if valid', () => {
               const errors = validate('nEW', 'old', [{
                 name: rules.RULE_CHARACTER_INSUFFICIENT_LOWERCASE,
                 params: {
@@ -72,7 +72,7 @@ describe('login', () => {
               expect(errors).to.deep.equal({})
             })
 
-            it('fails if too few lower case characters', () => {
+            it('should fail if too few lower case characters', () => {
               const errors = validate('NEW', 'old', [{
                 name: rules.RULE_CHARACTER_INSUFFICIENT_LOWERCASE,
                 params: {
@@ -84,7 +84,7 @@ describe('login', () => {
               })
             })
 
-            it('fails if too many lower case characters', () => {
+            it('should fail if too many lower case characters', () => {
               const errors = validate('neW', 'old', [{
                 name: rules.RULE_CHARACTER_INSUFFICIENT_LOWERCASE,
                 params: {
@@ -98,7 +98,7 @@ describe('login', () => {
           })
 
           describe('rule CHARACTER_INSUFFICIENT_UPPERCASE', () => {
-            it('succeeds if valid', () => {
+            it('should succeed if valid', () => {
               const errors = validate('neW', 'old', [{
                 name: rules.RULE_CHARACTER_INSUFFICIENT_UPPERCASE,
                 params: {
@@ -109,7 +109,7 @@ describe('login', () => {
               expect(errors).to.deep.equal({})
             })
 
-            it('fails if too few upper case characters', () => {
+            it('should fail if too few upper case characters', () => {
               const errors = validate('new', 'old', [{
                 name: rules.RULE_CHARACTER_INSUFFICIENT_UPPERCASE,
                 params: {
@@ -121,7 +121,7 @@ describe('login', () => {
               })
             })
 
-            it('fails if too many lower case characters', () => {
+            it('should fail if too many lower case characters', () => {
               const errors = validate('nEW', 'old', [{
                 name: rules.RULE_CHARACTER_INSUFFICIENT_UPPERCASE,
                 params: {
@@ -135,7 +135,7 @@ describe('login', () => {
           })
 
           describe('rule CHARACTER_INSUFFICIENT_DIGIT', () => {
-            it('succeeds if valid', () => {
+            it('should succeed if valid', () => {
               const errors = validate('new1', 'old', [{
                 name: rules.RULE_CHARACTER_INSUFFICIENT_DIGIT,
                 params: {
@@ -146,7 +146,7 @@ describe('login', () => {
               expect(errors).to.deep.equal({})
             })
 
-            it('fails if too few upper case characters', () => {
+            it('should fail if too few upper case characters', () => {
               const errors = validate('new', 'old', [{
                 name: rules.RULE_CHARACTER_INSUFFICIENT_DIGIT,
                 params: {
@@ -158,7 +158,7 @@ describe('login', () => {
               })
             })
 
-            it('fails if too many upper case characters', () => {
+            it('should fail if too many upper case characters', () => {
               const errors = validate('new12', 'old', [{
                 name: rules.RULE_CHARACTER_INSUFFICIENT_DIGIT,
                 params: {

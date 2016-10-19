@@ -16,11 +16,11 @@ describe('login', () => {
     describe('passwordUpdate', () => {
       describe('password', () => {
         describe('reducer', () => {
-          it('creates initial state', () => {
+          it('should create a valid initial state', () => {
             expect(reducer(undefined, {})).to.deep.equal(EXPECTED_INITIAL_STATE)
           })
 
-          it('handles UPDATE_OLD_PASSWORD', () => {
+          it('should handle UPDATE_OLD_PASSWORD', () => {
             const stateBefore = {
               oldPassword: ''
             }
@@ -32,7 +32,7 @@ describe('login', () => {
             expect(reducer(stateBefore, actions.updateOldPassword('oldpw'))).to.deep.equal(expectedStateAfter)
           })
 
-          it('handles SET_NEW_PASSWORD', () => {
+          it('should handle SET_NEW_PASSWORD', () => {
             const stateBefore = {
               newPassword: ''
             }
@@ -44,7 +44,7 @@ describe('login', () => {
             expect(reducer(stateBefore, actions.setNewPassword('newpw'))).to.deep.equal(expectedStateAfter)
           })
 
-          it('handles SET_NEW_PASSWORD_VALIDATION_ERRORS', () => {
+          it('should handle SET_NEW_PASSWORD_VALIDATION_ERRORS', () => {
             const stateBefore = {
               newPasswordValidationErrors: null
             }
@@ -60,7 +60,7 @@ describe('login', () => {
             expect(reducer(stateBefore, actions.setNewPasswordValidationErrors(errors))).to.deep.equal(expectedStateAfter)
           })
 
-          it('handles UPDATE_NEW_PASSWORD_REPEAT', () => {
+          it('should handle UPDATE_NEW_PASSWORD_REPEAT', () => {
             const stateBefore = {
               newPasswordRepeat: ''
             }
@@ -72,7 +72,7 @@ describe('login', () => {
             expect(reducer(stateBefore, actions.updateNewPasswordRepeat('newpwrepeat'))).to.deep.equal(expectedStateAfter)
           })
 
-          it('handles SAVE_PASSWORD', () => {
+          it('should handle SAVE_PASSWORD', () => {
             const stateBefore = {
               passwordUpdatePending: false,
               passwordUpdateFailed: true
@@ -86,7 +86,7 @@ describe('login', () => {
             expect(reducer(stateBefore, actions.savePassword())).to.deep.equal(expectedStateAfter)
           })
 
-          it('handles SAVE_PASSWORD_SUCCESS', () => {
+          it('should handle SAVE_PASSWORD_SUCCESS', () => {
             const stateBefore = {
               oldPassword: 'old',
               newPassword: 'new',
@@ -100,7 +100,7 @@ describe('login', () => {
             expect(reducer(stateBefore, actions.savePasswordSuccess())).to.deep.equal(EXPECTED_INITIAL_STATE)
           })
 
-          it('handles SAVE_PASSWORD_FAILURE with error code', () => {
+          it('should handle SAVE_PASSWORD_FAILURE with error code', () => {
             const stateBefore = {
               oldPassword: 'old',
               newPassword: 'new',
@@ -124,7 +124,7 @@ describe('login', () => {
             expect(reducer(stateBefore, actions.savePasswordFailure("MY_ERROR_CODE", null))).to.deep.equal(expectedStateAfter)
           })
 
-          it('handles SAVE_PASSWORD_FAILURE with validation messages', () => {
+          it('should handle SAVE_PASSWORD_FAILURE with validation messages', () => {
             const stateBefore = {
               oldPassword: 'old',
               newPassword: 'new',

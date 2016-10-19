@@ -23,7 +23,7 @@ describe('login', () => {
       })
 
       describe('loginSaga', () => {
-        it('handle successfully login', () => {
+        it('should handle successful login', () => {
           const gen = sagas.loginSaga({payload: {}})
           expect(gen.next().value).to.eql(call(sagas.doLoginRequest, {}))
           expect(gen.next(new Response()).value).to.eql(call(sagas.getBody, new Response()))
@@ -33,7 +33,7 @@ describe('login', () => {
           expect(gen.next().done).to.deep.equal(true)
         })
 
-        it('handle unsuccessful login', () => {
+        it('should handle unsuccessful login', () => {
           const gen = sagas.loginSaga({payload: {}})
           expect(gen.next().value).to.eql(call(sagas.doLoginRequest, {}))
           expect(gen.next(new Response()).value).to.eql(call(sagas.getBody, new Response()))

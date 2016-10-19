@@ -9,11 +9,11 @@ describe('login', () => {
   describe('modules', () => {
     describe('twoStepLogin', () => {
       describe('reducer', () => {
-        it('creates initial state', () => {
+        it('should create a valid initial state', () => {
           expect(reducer(undefined, {})).to.deep.equal(EXPECTED_INITIAL_STATE)
         })
 
-        it('handles SET_REQUESTED_CODE', () => {
+        it('should handle SET_REQUESTED_CODE', () => {
           const stateBefore = {
             requestedCode: ''
           }

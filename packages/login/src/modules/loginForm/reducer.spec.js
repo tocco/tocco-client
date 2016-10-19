@@ -10,11 +10,11 @@ describe('login', () => {
   describe('modules', () => {
     describe('loginForm', () => {
       describe('reducer', () => {
-        it('creates initial state', () => {
+        it('should create a valid initial state', () => {
           expect(reducer(undefined, {})).to.deep.equal(EXPECTED_INITIAL_STATE)
         })
 
-        it('handles SET_MESSAGE (negative)', () => {
+        it('should handle SET_MESSAGE (negative)', () => {
           const stateBefore = {
             message: {
               text: '',
@@ -32,7 +32,7 @@ describe('login', () => {
           expect(reducer(stateBefore, actions.setMessage('NEGATIVE MESSAGE', true))).to.deep.equal(expectedStateAfter)
         })
 
-        it('handles SET_MESSAGE (negative)', () => {
+        it('should handle SET_MESSAGE (negative)', () => {
           const stateBefore = {
             message: {
               text: '',
@@ -50,7 +50,7 @@ describe('login', () => {
           expect(reducer(stateBefore, actions.setMessage('POSITIVE MESSAGE', false))).to.deep.equal(expectedStateAfter)
         })
 
-        it('handles SET_PENDING', () => {
+        it('should handle SET_PENDING', () => {
           const stateBefore = {
             loginPending: false
           }

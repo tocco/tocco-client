@@ -12,11 +12,11 @@ describe('login', () => {
   describe('modules', () => {
     describe('login', () => {
       describe('reducer', () => {
-        it('creates initial state', () => {
+        it('should create a valid initial state', () => {
           expect(reducer(undefined, {})).to.deep.equal(EXPECTED_INITIAL_STATE)
         })
 
-        it('handles CHANGE_PAGE', () => {
+        it('should handle CHANGE_PAGE', () => {
           const stateBefore = {
             currentPage: Pages.LOGIN_FORM
           }
@@ -28,7 +28,7 @@ describe('login', () => {
           expect(reducer(stateBefore, actions.changePage(Pages.PASSWORD_UPDATE))).to.deep.equal(expectedStateAfter)
         })
 
-        it('handles SET_USERNAME', () => {
+        it('should handle SET_USERNAME', () => {
           const stateBefore = {
             username: 'abc'
           }
@@ -40,7 +40,7 @@ describe('login', () => {
           expect(reducer(stateBefore, actions.setUsername('abcd'))).to.deep.equal(expectedStateAfter)
         })
 
-        it('handles SET_PASSWORD', () => {
+        it('should handle SET_PASSWORD', () => {
           const stateBefore = {
             password: '123'
           }
