@@ -9,7 +9,7 @@ const PasswordInput = props => (
       id={props.name + 'Input'}
       value={props.value}
       onChange={e => props.onChange(e.target.value)}
-      disabled={props.readOnly === true}
+      disabled={props.disabled === true}
       onKeyDown={props.onKeyDown}
       autoFocus={props.autoFocus}
     />
