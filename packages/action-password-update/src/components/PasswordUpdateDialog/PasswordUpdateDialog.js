@@ -37,8 +37,8 @@ class PasswordUpdateDialog extends Component {
       return <LoadMask className="PasswordUpdateDialog"/>
     }
 
-    const oldPasswordReadOnly = password.passwordUpdatePending
-    const newPasswordReadOnly = (!password.oldPassword && this.props.showOldPasswordField)
+    const oldPasswordDisabled = password.passwordUpdatePending
+    const newPasswordDisabled = (!password.oldPassword && this.props.showOldPasswordField)
       || password.passwordUpdatePending
     const newPasswordRepeatReadOnly = !password.newPassword
       || password.passwordUpdatePending
@@ -52,8 +52,7 @@ class PasswordUpdateDialog extends Component {
           name="oldPassword"
           value={password.oldPassword}
           onChange={updateOldPassword}
-
-          disabled={oldPasswordReadOnly}
+          disabled={oldPasswordDisabled}
           autoFocus
         />}
         <PasswordInput
@@ -61,7 +60,7 @@ class PasswordUpdateDialog extends Component {
           name="newPassword"
           value={password.newPassword}
           onChange={updateNewPassword}
-          disabled={newPasswordReadOnly}
+          disabled={newPasswordDisabled}
           autoFocus={this.props.showOldPasswordField !== true}
         />
         <ValidationRules
