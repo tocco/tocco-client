@@ -86,20 +86,18 @@ describe('login', () => {
                 newPassword: 'validnewpw'
               }
 
-              expect(generator.next(passwordState).value).to.deep.equal(select(sagas.inputSelector))
+              expect(generator.next(passwordState).value).to.deep.equal(select(sagas.usernameSelector))
 
-              const input = {
-                principalPk: '999'
-              }
+              const username = 'user1'
 
-              expect(generator.next(input).value).to.deep.equal(call(sagas.getData))
+              expect(generator.next(username).value).to.deep.equal(call(sagas.getData))
 
               const data = {
                 oldPassword: 'oldpw',
                 newPassword: 'validnewpw'
               }
 
-              expect(generator.next(data).value).to.deep.equal(call(sagas.remoteValidate, input.principalPk, data))
+              expect(generator.next(data).value).to.deep.equal(call(sagas.remoteValidate, username, data))
 
               const result = {
                 valid: true,
@@ -131,20 +129,18 @@ describe('login', () => {
                 newPassword: 'validnewpw'
               }
 
-              expect(generator.next(passwordState).value).to.deep.equal(select(sagas.inputSelector))
+              expect(generator.next(passwordState).value).to.deep.equal(select(sagas.usernameSelector))
 
-              const input = {
-                principalPk: '999'
-              }
+              const username = 'user1'
 
-              expect(generator.next(input).value).to.deep.equal(call(sagas.getData))
+              expect(generator.next(username).value).to.deep.equal(call(sagas.getData))
 
               const data = {
                 oldPassword: 'oldpw',
                 newPassword: 'validnewpw'
               }
 
-              expect(generator.next(data).value).to.deep.equal(call(sagas.remoteValidate, input.principalPk, data))
+              expect(generator.next(data).value).to.deep.equal(call(sagas.remoteValidate, username, data))
 
               const result = {
                 valid: false,
@@ -166,29 +162,31 @@ describe('login', () => {
             it('should save password', () => {
               const generator = sagas.savePassword()
 
-              expect(generator.next().value).to.deep.equal(select(sagas.inputSelector))
+              expect(generator.next().value).to.deep.equal(select(sagas.usernameSelector))
 
-              const input = {
-                principalPk: '999'
-              }
+              const username = 'user1'
 
-              expect(generator.next(input).value).to.deep.equal(call(sagas.getData))
+              expect(generator.next(username).value).to.deep.equal(call(sagas.getData))
 
               const data = {
                 oldPassword: 'oldpw',
                 newPassword: 'validnewpw'
               }
 
-              expect(generator.next(data).value).to.deep.equal(call(sagas.storePassword, input.principalPk, data))
+              expect(generator.next(data).value).to.deep.equal(call(sagas.storePassword, username, data))
 
               const result = {
                 error: null
               }
 
-              expect(generator.next(result).value).to.deep.equal(put(actions.savePasswordSuccess()))
-              expect(generator.next().value).to.deep.equal(call(ExternalEvents.invokeExternalEvent, 'success', {
+              expect(generator.next(result).value).to.deep.equal(select(sagas.standaloneSelector))
+
+              var standalone = true
+
+              expect(generator.next(standalone).value).to.deep.equal(call(ExternalEvents.invokeExternalEvent, 'success', {
                 newPassword: 'validnewpw'
               }))
+              expect(generator.next().value).to.deep.equal(put(actions.savePasswordSuccess()))
 
               expect(generator.next(result).done).to.equal(true)
             })
@@ -196,20 +194,18 @@ describe('login', () => {
             it('should set validation errors if validation failed', () => {
               const generator = sagas.savePassword()
 
-              expect(generator.next().value).to.deep.equal(select(sagas.inputSelector))
+              expect(generator.next().value).to.deep.equal(select(sagas.usernameSelector))
 
-              const input = {
-                principalPk: '999'
-              }
+              const username = 'user1'
 
-              expect(generator.next(input).value).to.deep.equal(call(sagas.getData))
+              expect(generator.next(username).value).to.deep.equal(call(sagas.getData))
 
               const data = {
                 oldPassword: 'oldpw',
                 newPassword: 'validnewpw'
               }
 
-              expect(generator.next(data).value).to.deep.equal(call(sagas.storePassword, input.principalPk, data))
+              expect(generator.next(data).value).to.deep.equal(call(sagas.storePassword, username, data))
 
               const validationMessages = [{
                 ruleName: 'DICTIONARY',
@@ -230,20 +226,18 @@ describe('login', () => {
             it('should set error code if saving failed', () => {
               const generator = sagas.savePassword()
 
-              expect(generator.next().value).to.deep.equal(select(sagas.inputSelector))
+              expect(generator.next().value).to.deep.equal(select(sagas.usernameSelector))
 
-              const input = {
-                principalPk: '999'
-              }
+              const username = 'user1'
 
-              expect(generator.next(input).value).to.deep.equal(call(sagas.getData))
+              expect(generator.next(username).value).to.deep.equal(call(sagas.getData))
 
               const data = {
                 oldPassword: 'oldpw',
                 newPassword: 'validnewpw'
               }
 
-              expect(generator.next(data).value).to.deep.equal(call(sagas.storePassword, input.principalPk, data))
+              expect(generator.next(data).value).to.deep.equal(call(sagas.storePassword, username, data))
 
               const result = {
                 error: {

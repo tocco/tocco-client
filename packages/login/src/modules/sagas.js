@@ -1,10 +1,12 @@
-import * as actions from './actions'
 import {takeLatest, delay} from 'redux-saga'
 import {fork, put, select, call} from 'redux-saga/effects'
 import {ExternalEvents} from 'tocco-util'
 
+import * as actions from './actions'
 import {setMessage, setPending} from './loginForm/actions'
 import {setRequestedCode} from './twoStepLogin/actions'
+import {updateOldPassword} from './passwordUpdate/password/actions'
+import {setUsername} from './passwordUpdate/dialog/actions'
 import {changePage} from './login/actions'
 import {Pages} from '../types/Pages'
 
@@ -13,6 +15,7 @@ import {getResponse} from '../dev/loginResponseMocks'
 export const DEFAULT_TIMEOUT = 30
 
 export const textResourceSelector = state => state.intl.messages
+export const loginSelector = state => state.login
 
 export function doLoginRequest(data) {
   return fetch(`${__BACKEND_URL__}/nice2/login`, getOptions(data))
@@ -47,7 +50,10 @@ export function* handleTwoStepLoginResponse(body) {
   yield put(changePage(Pages.TWOSTEPLOGIN))
 }
 
-export function* handlePasswordUpdateResponse(body) {
+export function* handlePasswordUpdateResponse() {
+  const login = yield select(loginSelector)
+  yield put(updateOldPassword(login.password))
+  yield put(setUsername(login.username))
   yield put(changePage(Pages.PASSWORD_UPDATE))
 }
 

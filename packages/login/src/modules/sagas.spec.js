@@ -3,9 +3,13 @@ import {put, select, call, fork} from 'redux-saga/effects'
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
 import {ExternalEvents} from 'tocco-util'
+
 import {changePage} from './login/actions'
 import {setMessage, setPending} from './loginForm/actions'
 import {setRequestedCode} from './twoStepLogin/actions'
+import {setPrincipalPk} from './passwordUpdate/password/actions'
+import {updateOldPassword} from './passwordUpdate/password/actions'
+import {setUsername} from './passwordUpdate/dialog/actions'
 import {Pages} from '../types/Pages'
 
 describe('login', () => {
@@ -126,7 +130,16 @@ describe('login', () => {
         })
 
         it('should dispatch action changePage', () => {
-          const gen = sagas.handlePasswordUpdateResponse({})
+          const gen = sagas.handlePasswordUpdateResponse()
+          expect(gen.next().value).to.deep.equal(select(sagas.loginSelector))
+
+          var login = {
+            username: 'user1',
+            password: 'pwd1'
+          }
+
+          expect(gen.next(login).value).to.deep.equal(put(updateOldPassword(login.password)))
+          expect(gen.next().value).to.deep.equal(put(setUsername(login.username)))
           expect(gen.next().value).to.deep.equal(put(changePage('PASSWORD_UPDATE')))
           expect(gen.next().done).to.deep.equal(true)
         })

@@ -20,7 +20,8 @@ const mapStateToProps = state => {
   return {
     password: state.passwordUpdate.password,
     validationRules: state.passwordUpdate.validationRules,
-    showOldPasswordField: state.input.showOldPasswordField
+    showOldPasswordField: state.passwordUpdate.dialog.showOldPasswordField,
+    forcedUpdate: state.passwordUpdate.dialog.forcedUpdate
   }
 }
 

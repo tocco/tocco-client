@@ -1,33 +1,57 @@
 import React from 'react'
+import {combineReducers} from 'redux'
 import {Provider} from 'react-redux'
 import {StoreFactory, ExternalEvents, Intl} from 'tocco-util'
 import {addLocaleData} from 'react-intl'
-import {IntlProvider} from 'react-intl-redux'
+import {IntlProvider, intlReducer} from 'react-intl-redux'
 import {LoadMask} from 'tocco-ui'
 
 import LoginContainer from './containers/LoginContainer'
 import PasswordUpdateDialog from './containers/PasswordUpdateDialogContainer'
-import reducers, {sagas} from './modules/reducers'
+import passwordUpdateReducers from './modules/passwordUpdate/reducers'
+import loginReducers, {sagas} from './modules/reducers'
+
+import {setUsername} from './modules/login/actions'
+import * as passwordUpdate from './modules/passwordUpdate/dialog/actions'
 
 import de from 'react-intl/locale-data/de'
 import en from 'react-intl/locale-data/en'
 import fr from 'react-intl/locale-data/fr'
 import it from 'react-intl/locale-data/it'
 
-export const loginFactory = (id, input, externalEvents) => (
-  factory('loginForm', 'login', id, input, externalEvents)
-)
+export const loginFactory = (id, input, externalEvents) => {
+  var showTitle = input ? input.showTitle : false
 
-export const passwordUpdateFactory = (id, input, externalEvents) => (
-  factory('passwordUpdate', 'login.passwordUpdate', id, input, externalEvents)
-)
+  var content = <LoginContainer showTitle={showTitle}/>
+  var dispatches = [
+    passwordUpdate.setShowOldPasswordField(false),
+    passwordUpdate.setForcedUpdate(true),
+    passwordUpdate.setStandalone(false)
+  ]
 
-const factory = (component, resourcePrefix, id, input, externalEvents) => {
+  return factory(content, 'login', loginReducers, id, input, externalEvents, dispatches)
+}
+
+export const passwordUpdateFactory = (id, input, externalEvents) => {
+  var showTitle = input ? input.showTitle : false
+
+  var content = <PasswordUpdateDialog showTitle={showTitle}/>
+
+  var dispatches = [
+    passwordUpdate.setUsername(input.username)
+  ]
+
+  if (input.showOldPasswordField !== undefined) {
+    dispatches.push(passwordUpdate.setShowOldPasswordField(input.showOldPasswordField))
+  }
+
+  var reducers = {passwordUpdate: combineReducers(passwordUpdateReducers), intl: intlReducer}
+  return factory(content, 'login.passwordUpdate', reducers, id, input, externalEvents, dispatches)
+}
+
+const factory = (content, resourcePrefix, reducers, id, input, externalEvents, dispatches) => {
   try {
     var initialState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {}
-    if (__DEV__) {
-      input = require('./dev/input.json')
-    }
 
     if (input) {
       initialState.input = input
@@ -47,14 +71,13 @@ const factory = (component, resourcePrefix, id, input, externalEvents) => {
     const locale = input ? input.locale : null
     const initIntlPromise = Intl.initIntl(store, resourcePrefix, locale)
 
-    var showTitle = input ? input.showTitle : false
-
-    var content
-    if (component === 'passwordUpdate') {
-      content = <PasswordUpdateDialog showTitle={showTitle}/>
-    } else {
-      content = <LoginContainer showTitle={showTitle}/>
+    if (input && input.username) {
+      store.dispatch(setUsername(input.username))
     }
+
+    dispatches.forEach(f => {
+      store.dispatch(f)
+    })
 
     const App = () => (
       <Provider store={store}>
