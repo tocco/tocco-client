@@ -18,28 +18,32 @@ function updateOldPassword(state, {payload}) {
 }
 
 function setNewPassword(state, {payload}) {
-  return Object.assign({}, state, {
+  return {
+    ...state,
     newPassword: payload.newPassword
-  })
+  }
 }
 
 function setNewPasswordValidationErrors(state, {payload}) {
-  return Object.assign({}, state, {
+  return {
+    ...state,
     newPasswordValidationErrors: payload.errors
-  })
+  }
 }
 
 function updateNewPasswordRepeat(state, {payload}) {
-  return Object.assign({}, state, {
+  return {
+    ...state,
     newPasswordRepeat: payload.newPasswordRepeat
-  })
+  }
 }
 
 function savePassword(state) {
-  return Object.assign({}, state, {
+  return {
+    ...state,
     passwordUpdatePending: true,
     passwordUpdateFailed: false
-  })
+  }
 }
 
 function savePasswordSuccess(state) {
@@ -49,16 +53,18 @@ function savePasswordSuccess(state) {
 function savePasswordFailure(state, {payload}) {
   if (payload.validationMessages) {
     const errors = validationMessagesToErrorMap(payload.validationMessages)
-    return Object.assign({}, state, {
+    return {
+      ...state,
       passwordUpdatePending: false,
       newPasswordValidationErrors: errors
-    })
+    }
   } else {
-    return Object.assign({}, state, {
+    return {
+      ...state,
       passwordUpdatePending: false,
       passwordUpdateFailed: true,
       passwordUpdateErrorCode: payload.errorCode
-    })
+    }
   }
 }
 
