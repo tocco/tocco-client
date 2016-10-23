@@ -77,7 +77,7 @@ export function* handleSuccessfulLogin(body) {
   if (body.timeout) {
     timeout = body.timeout
   }
-  yield call(ExternalEvents.invokeExternalEvent, 'successfullyLogin', {timeout})
+  yield call(ExternalEvents.invokeExternalEvent, 'loginSuccess', {timeout})
 }
 
 export function getBody(response) {
