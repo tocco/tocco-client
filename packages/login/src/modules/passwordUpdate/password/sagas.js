@@ -27,7 +27,7 @@ function doRequest(data, username, action) {
 
 export function storePassword(username, data) {
   if (__DEV__) {
-    if (console) console.log('Store password call would take place now')
+    if (console) console.log('DEV MODE: Store password call would take place now')
     return new Promise(resolve => resolve({
       error: null
     }))
@@ -51,7 +51,7 @@ export function storePassword(username, data) {
 
 export function remoteValidate(username, data) {
   if (__DEV__) {
-    if (console) console.log('Validate password call would take place now')
+    if (console) console.log('DEV MODE: Validate password call would take place now')
     if (data.newPassword.includes('tocco')) {
       return new Promise(resolve => resolve({
         valid: false,
@@ -127,7 +127,6 @@ export function* savePassword() {
       })
     } else {
       const loginData = yield call(getLoginData)
-      console.log('loginData', loginData)
       yield call(loginSaga, loginData)
     }
 
