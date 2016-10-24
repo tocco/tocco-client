@@ -22,11 +22,11 @@ describe('login', () => {
             it('should load validation rules', () => {
               const generator = sagas.fetchValidationRules()
 
-              expect(generator.next().value).to.deep.equal(select(sagas.principalPkInputSelector))
+              expect(generator.next().value).to.deep.equal(select(sagas.usernameSelector))
 
-              const principalPk = '999'
+              const username = 'user1'
 
-              expect(generator.next(principalPk).value).to.deep.equal(call(sagas.loadValidationRules, principalPk))
+              expect(generator.next(username).value).to.deep.equal(call(sagas.loadValidationRules, username))
 
               const rules = [{
                 name: "PASSWORD_NOT_CHANGED",

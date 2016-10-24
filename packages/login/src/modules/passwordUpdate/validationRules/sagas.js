@@ -3,15 +3,15 @@ import * as actions from './actions'
 import {takeLatest} from 'redux-saga'
 import {call, fork, put, select} from 'redux-saga/effects'
 
-export const principalPkInputSelector = state => state.input.principalPk
+export const usernameSelector = state => state.passwordUpdate.dialog.username
 
-export function loadValidationRules(principalPk) {
+export function loadValidationRules(username) {
   return new Promise(resolve => {
     if (__DEV__) {
       const rules = require('../../../dev/validationRules.json')
       resolve(rules)
     } else {
-      fetch(`${__BACKEND_URL__}/nice2/rest/principals/${principalPk}/password-rules`, {
+      fetch(`${__BACKEND_URL__}/nice2/rest/principals/${username}/password-rules`, {
         credentials: 'include'
       }).then(response => resolve(response.json()))
     }
@@ -19,8 +19,8 @@ export function loadValidationRules(principalPk) {
 }
 
 export function* fetchValidationRules() {
-  const principalPk = yield select(principalPkInputSelector)
-  const response = yield call(loadValidationRules, principalPk)
+  const username = yield select(usernameSelector)
+  const response = yield call(loadValidationRules, username)
   yield put(actions.setValidationRules(response.rules))
 }
 
