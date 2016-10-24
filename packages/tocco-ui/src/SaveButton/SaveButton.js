@@ -11,7 +11,10 @@ const SaveButton = props => {
       className={classNames('btn', 'btn-primary', props.className)}
       disabled={props.disabled}
     >
-      <i className="glyphicon glyphicon-floppy-save"/> {props.label}
+      <i
+        className={classNames('fa', 'fa-floppy-o')}
+        aria-hidden="true"
+       /> {props.label}
     </button>)
 }
 
