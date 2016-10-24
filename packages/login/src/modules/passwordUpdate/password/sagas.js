@@ -11,7 +11,7 @@ export const validationRulesSelector = state => state.passwordUpdate.validationR
 export const inputSelector = state => state.input
 export const usernameSelector = state => state.passwordUpdate.dialog.username
 export const passwordSelector = state => state.passwordUpdate.password
-export const standaloneSelector = state => state.passwordUpdate.standalone
+export const standaloneSelector = state => state.passwordUpdate.dialog.standalone
 
 function doRequest(data, username, action) {
   const options = {
