@@ -26,7 +26,7 @@ Name: login
 
 | Name                   | Description
 |------------------------|------------
-| `successfullyLogin`    | This event is fired after successful login attempt
+| `loginSuccess`         | This event is fired after successful login attempt
 
 
 
