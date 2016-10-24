@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const Rule = props => (
-  <div className={props.className}>{props.message}</div>
+  <li className={props.className}>{props.message}</li>
 )
 
 Rule.propTypes = {
@@ -10,7 +10,7 @@ Rule.propTypes = {
 }
 
 const ValidationRules = props => (
-  <div className="ValidationRules">
+  <ul className="ValidationRules icon-list">
     {props.rules.map((rule, index) => {
       let className = null
       let message = rule.message
@@ -25,11 +25,13 @@ const ValidationRules = props => (
         } else {
           className = 'text-success'
         }
+      } else {
+        className = 'text-danger'
       }
 
       return <Rule key={index} className={className} message={message}/>
     })}
-  </div>
+  </ul>
 )
 
 ValidationRules.propTypes = {

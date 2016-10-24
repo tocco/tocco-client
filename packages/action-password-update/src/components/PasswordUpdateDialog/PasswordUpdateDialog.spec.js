@@ -89,9 +89,9 @@ describe('action-password-update', () => {
           password={{}}
           intl={intl}
         />)
-        expect(wrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(undefined)
-        expect(wrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(true)
-        expect(wrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(true)
+        expect(wrapper.find({name: 'oldPassword'}).prop('disabled')).to.equal(undefined)
+        expect(wrapper.find({name: 'newPassword'}).prop('disabled')).to.equal(true)
+        expect(wrapper.find({name: 'newPasswordRepeat'}).prop('disabled')).to.equal(true)
         expect(wrapper.find(SaveButton).prop('disabled')).to.equal(true)
       })
 
@@ -105,9 +105,9 @@ describe('action-password-update', () => {
           }}
           intl={intl}
         />)
-        expect(wrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(undefined)
-        expect(wrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(undefined)
-        expect(wrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(true)
+        expect(wrapper.find({name: 'oldPassword'}).prop('disabled')).to.equal(undefined)
+        expect(wrapper.find({name: 'newPassword'}).prop('disabled')).to.equal(undefined)
+        expect(wrapper.find({name: 'newPasswordRepeat'}).prop('disabled')).to.equal(true)
         expect(wrapper.find(SaveButton).prop('disabled')).to.equal(true)
       })
 
@@ -125,9 +125,9 @@ describe('action-password-update', () => {
           }}
           intl={intl}
         />)
-        expect(invalidWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(undefined)
-        expect(invalidWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(undefined)
-        expect(invalidWrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(true)
+        expect(invalidWrapper.find({name: 'oldPassword'}).prop('disabled')).to.equal(undefined)
+        expect(invalidWrapper.find({name: 'newPassword'}).prop('disabled')).to.equal(undefined)
+        expect(invalidWrapper.find({name: 'newPasswordRepeat'}).prop('disabled')).to.equal(true)
         expect(invalidWrapper.find(SaveButton).prop('disabled')).to.equal(true)
 
         const validWrapper = shallow(<PasswordUpdateDialog
@@ -141,9 +141,9 @@ describe('action-password-update', () => {
           }}
           intl={intl}
         />)
-        expect(validWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(undefined)
-        expect(validWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(undefined)
-        expect(validWrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(false)
+        expect(validWrapper.find({name: 'oldPassword'}).prop('disabled')).to.equal(undefined)
+        expect(validWrapper.find({name: 'newPassword'}).prop('disabled')).to.equal(undefined)
+        expect(validWrapper.find({name: 'newPasswordRepeat'}).prop('disabled')).to.equal(false)
         expect(validWrapper.find(SaveButton).prop('disabled')).to.equal(true)
       })
 
@@ -159,9 +159,9 @@ describe('action-password-update', () => {
           }}
           intl={intl}
         />)
-        expect(newPwRepeatEmptyWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(undefined)
-        expect(newPwRepeatEmptyWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(undefined)
-        expect(newPwRepeatEmptyWrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(undefined)
+        expect(newPwRepeatEmptyWrapper.find({name: 'oldPassword'}).prop('disabled')).to.equal(undefined)
+        expect(newPwRepeatEmptyWrapper.find({name: 'newPassword'}).prop('disabled')).to.equal(undefined)
+        expect(newPwRepeatEmptyWrapper.find({name: 'newPasswordRepeat'}).prop('disabled')).to.equal(undefined)
         expect(newPwRepeatEmptyWrapper.find(SaveButton).prop('disabled')).to.equal(true)
 
         const newPwRepeatNoMatchWrapper = shallow(<PasswordUpdateDialog
@@ -175,9 +175,9 @@ describe('action-password-update', () => {
           }}
           intl={intl}
         />)
-        expect(newPwRepeatNoMatchWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(undefined)
-        expect(newPwRepeatNoMatchWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(undefined)
-        expect(newPwRepeatNoMatchWrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(undefined)
+        expect(newPwRepeatNoMatchWrapper.find({name: 'oldPassword'}).prop('disabled')).to.equal(undefined)
+        expect(newPwRepeatNoMatchWrapper.find({name: 'newPassword'}).prop('disabled')).to.equal(undefined)
+        expect(newPwRepeatNoMatchWrapper.find({name: 'newPasswordRepeat'}).prop('disabled')).to.equal(undefined)
         expect(newPwRepeatNoMatchWrapper.find(SaveButton).prop('disabled')).to.equal(true)
 
         const newPwRepeatMatchWrapper = shallow(<PasswordUpdateDialog
@@ -191,9 +191,9 @@ describe('action-password-update', () => {
           }}
           intl={intl}
         />)
-        expect(newPwRepeatMatchWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(undefined)
-        expect(newPwRepeatMatchWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(undefined)
-        expect(newPwRepeatMatchWrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(undefined)
+        expect(newPwRepeatMatchWrapper.find({name: 'oldPassword'}).prop('disabled')).to.equal(undefined)
+        expect(newPwRepeatMatchWrapper.find({name: 'newPassword'}).prop('disabled')).to.equal(undefined)
+        expect(newPwRepeatMatchWrapper.find({name: 'newPasswordRepeat'}).prop('disabled')).to.equal(undefined)
         expect(newPwRepeatMatchWrapper.find(SaveButton).prop('disabled')).to.equal(false)
       })
 
