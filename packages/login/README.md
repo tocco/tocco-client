@@ -30,7 +30,7 @@ Name: login
 
 
 
-## Password-Update - Standanlone
+## Password-Update - Standalone
 
 Name: password-update
 
