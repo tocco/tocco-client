@@ -20,7 +20,7 @@ describe('login', () => {
           it('should invoke initialized event', () => {
             const generator = initializeWatcher()
             expect(generator.next().value).to.deep.equal(take(actions.INITIALIZED))
-            expect(generator.next().value).to.deep.equal(call(ExternalEvents.invokeExternalEvent, 'initialized'))
+            expect(generator.next().value).to.deep.equal(call(ExternalEvents.invokeExternalEvent, 'resize'))
             expect(generator.next().done).to.equal(true)
           })
         })

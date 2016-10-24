@@ -1,5 +1,6 @@
 # Login
 
+App to authenticate with nice2 services, request or update password.
 Password-update can be embedded independently.
 
 ##Login-Form
@@ -27,6 +28,7 @@ Name: login
 | Name                   | Description
 |------------------------|------------
 | `loginSuccess`         | This event is fired after successful login attempt
+| `resize`         | This event is fired whenever the app size has changed
 
 
 
@@ -47,6 +49,6 @@ Name: password-update
 
 | Name                   | Description
 |------------------------|------------
-| `initialized`          | This event is fired once the dialog is fully initialized (validation rules have been loaded and rendered)
 | `success`              | This event is fired after password has been updated successfully
+| `resize`          | This event is fired whenever the app size has changed
 
