@@ -1,6 +1,7 @@
 import React from 'react'
 import {TwoStepLoginForm} from './TwoStepLoginForm'
 import {shallow} from 'enzyme'
+import {Button} from 'tocco-ui'
 import intl from '../../../tests/intlStub'
 
 describe('login', () => {
@@ -16,7 +17,7 @@ describe('login', () => {
         )
 
         expect(wrapper.find('input[name="code"]')).to.have.length(1)
-        expect(wrapper.find('button[name="submit"]')).to.have.length(1)
+        expect(wrapper.find(Button)).to.have.length(1)
       })
 
       it('should have an initial code state', () => {

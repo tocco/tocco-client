@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
+import * as Tocco from 'tocco-ui'
 
 import '../Login/styles.scss'
 
@@ -42,16 +43,16 @@ export class TwoStepLoginForm extends Component {
             />
           </div>
           <div>
-            <div>
-              <button
-                name="submit"
-                className={'btn btn-primary p-t-5'}
-                onClick={this.handleSubmit.bind(this)}
-                disabled={!this.state.userCode}
-              >
-                <i className="glyphicon glyphicon-log-in"/> <FormattedMessage id="client.login.form.button"/>
-              </button>
-            </div>
+            <span>TEST: {this.props.loginPending}</span>
+            <Tocco.Button
+              label={this.msg('client.login.form.button')}
+              name="submit"
+              onClick={this.handleSubmit.bind(this)}
+              disabled={!this.state.userCode || this.props.loginPending}
+              pending={this.props.loginPending}
+              icon="glyphicon-log-in"
+              className="m-t-5"
+            />
           </div>
         </form>
       </div>
@@ -71,5 +72,6 @@ TwoStepLoginForm.propTypes = {
   username: React.PropTypes.string,
   password: React.PropTypes.string,
   requestedCode: React.PropTypes.string,
-  showTitle: React.PropTypes.bool
+  showTitle: React.PropTypes.bool,
+  loginPending: React.PropTypes.bool
 }
