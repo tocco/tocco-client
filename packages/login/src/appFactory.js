@@ -19,8 +19,8 @@ import en from 'react-intl/locale-data/en'
 import fr from 'react-intl/locale-data/fr'
 import it from 'react-intl/locale-data/it'
 
-export const loginFactory = (id, input, externalEvents) => {
-  var showTitle = input ? input.showTitle : false
+export const loginFactory = (id, input = {}, externalEvents) => {
+  const showTitle = typeof input.showTitle === 'boolean' ? input.showTitle : false
 
   var content = <LoginContainer showTitle={showTitle}/>
   var dispatches = [
@@ -32,16 +32,21 @@ export const loginFactory = (id, input, externalEvents) => {
   return factory(content, 'login', loginReducers, id, input, externalEvents, dispatches)
 }
 
-export const passwordUpdateFactory = (id, input, externalEvents) => {
-  var showTitle = input ? input.showTitle : false
+export const passwordUpdateFactory = (id, input = {}, externalEvents) => {
+  const showTitle = typeof input.showTitle === 'boolean' ? input.showTitle : false
 
   var content = <PasswordUpdateDialog showTitle={showTitle}/>
+
+  if (!input.username || typeof input.username !== 'string') {
+    console.log('Mandatory input "username" is not set on password-update')
+    return
+  }
 
   var dispatches = [
     passwordUpdate.setUsername(input.username)
   ]
 
-  if (input.showOldPasswordField !== undefined) {
+  if (typeof input.showOldPasswordField === 'boolean') {
     dispatches.push(passwordUpdate.setShowOldPasswordField(input.showOldPasswordField))
   }
 
