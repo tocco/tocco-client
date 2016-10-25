@@ -7,12 +7,10 @@ const mapActionCreators = {
   checkSession
 }
 
-const mapStateToProps = (state, props) => {
-  return {
-    currentPage: state.login.currentPage,
-    showTitle: props.showTitle
-  }
-}
+const mapStateToProps = (state, props) => ({
+  currentPage: state.login.currentPage,
+  showTitle: props.showTitle
+})
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(Login))
 

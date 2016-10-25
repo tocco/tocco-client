@@ -68,9 +68,9 @@ export class TwoStepLoginForm extends Component {
 TwoStepLoginForm.propTypes = {
   intl: intlShape.isRequired,
   twoStepLogin: React.PropTypes.func.isRequired,
-  username: React.PropTypes.string,
-  password: React.PropTypes.string,
-  requestedCode: React.PropTypes.string,
+  username: React.PropTypes.string.isRequired,
+  password: React.PropTypes.string.isRequired,
+  requestedCode: React.PropTypes.string.isRequired,
   showTitle: React.PropTypes.bool,
   loginPending: React.PropTypes.bool
 }

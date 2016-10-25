@@ -98,7 +98,10 @@ LoginForm.propTypes = {
   setUsername: React.PropTypes.func.isRequired,
   loginPending: React.PropTypes.bool.isRequired,
   setPassword: React.PropTypes.func.isRequired,
-  message: React.PropTypes.object,
+  message: React.PropTypes.shape({
+    text: React.PropTypes.string,
+    negative: React.PropTypes.bool
+  }),
   showTitle: React.PropTypes.bool,
   username: React.PropTypes.string,
   password: React.PropTypes.string
