@@ -1,7 +1,7 @@
 import React from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
 import {Pages} from '../../types/Pages'
-import * as Tocco from 'tocco-ui'
+import * as ToccoUI from 'tocco-ui'
 
 import '../Login/styles.scss'
 
@@ -43,7 +43,7 @@ export class PasswordRequest extends React.Component {
           </div>
           <div>
             <div>
-              <Tocco.Button
+              <ToccoUI.Button
                 label={this.msg('client.login.passwordRequest.button')}
                 name="submit"
                 onClick={this.handleSubmit.bind(this)}
@@ -52,7 +52,7 @@ export class PasswordRequest extends React.Component {
                 icon="glyphicon-log-in"
                 className="m-t-5"
               />
-              <Tocco.Button
+              <ToccoUI.Button
                 label={this.msg('client.login.passwordRequest.abortButton')}
                 name="abort"
                 onClick={() => this.props.changePage(Pages.LOGIN_FORM)}

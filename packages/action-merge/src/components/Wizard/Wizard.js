@@ -1,5 +1,5 @@
 import React from 'react'
-import * as Tocco from 'tocco-ui'
+import * as ToccoUI from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
 
 import './styles.scss'
@@ -84,7 +84,7 @@ export class Wizard extends React.Component {
           }
           {
             (this.state.index === this.state.amountPages - 1)
-            && <Tocco.Button
+            && <ToccoUI.Button
               className="btn wizard-next-button"
               label={this.props.save.label}
               onClick={this.props.save.fn}

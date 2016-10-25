@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
-import * as Tocco from 'tocco-ui'
+import * as ToccoUI from 'tocco-ui'
 import PasswordInput from './PasswordInput'
 import PasswordMatchDisplay from './PasswordMatchDisplay'
 import ValidationRules from '../ValidationRules'
@@ -34,7 +34,7 @@ class PasswordUpdateDialog extends Component {
       = this.props
 
     if (!validationRules) {
-      return <Tocco.LoadMask className="PasswordUpdateDialog"/>
+      return <ToccoUI.LoadMask className="PasswordUpdateDialog"/>
     }
 
     const oldPasswordReadOnly = password.passwordUpdatePending
@@ -86,7 +86,7 @@ class PasswordUpdateDialog extends Component {
             readOnly={newPasswordRepeatReadOnly}
           />
           <PasswordMatchDisplay password={password.newPassword} passwordRepeat={password.newPasswordRepeat}/>
-          <Tocco.Button
+          <ToccoUI.Button
             label={this.msg('client.login.passwordUpdate.saveButton')}
             disabled={this.isSubmittable() === false}
             className={password.passwordUpdatePending ? 'update-pending' : ''}
