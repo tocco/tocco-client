@@ -43,7 +43,6 @@ export class TwoStepLoginForm extends Component {
             />
           </div>
           <div>
-            <span>TEST: {this.props.loginPending}</span>
             <Tocco.Button
               label={this.msg('client.login.form.button')}
               name="submit"
