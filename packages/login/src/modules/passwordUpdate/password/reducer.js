@@ -16,7 +16,6 @@ const updateOldPassword = (state, {payload}) => ({
   oldPassword: payload.oldPassword
 })
 
-
 const setNewPassword = (state, {payload}) => ({
   ...state,
   newPassword: payload.newPassword
@@ -32,13 +31,13 @@ const updateNewPasswordRepeat = (state, {payload}) => ({
   newPasswordRepeat: payload.newPasswordRepeat
 })
 
-const savePassword = (state) => ({
+const savePassword = state => ({
   ...state,
   passwordUpdatePending: true,
   passwordUpdateFailed: false
 })
 
-const savePasswordSuccess = (state) => (
+const savePasswordSuccess = state => (
   initialState
 )
 
