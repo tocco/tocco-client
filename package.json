@@ -22,7 +22,6 @@
     "deploy:standalone": "better-npm-run deploy:standalone",
     "publish": "better-npm-run publish",
     "codecov": "cat ./coverage/lcov/lcov.info | codecov",
-    "coveralls": "cat ./coverage/lcov/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "setup": "npm install && cd server/static && npm install"
   },
   "betterScripts": {
@@ -114,7 +113,6 @@
     "cheerio": "^0.22.0",
     "classnames": "~2.2.5",
     "codecov": "^1.0.1",
-    "coveralls": "^2.11.14",
     "css-loader": "^0.25.0",
     "debug": "^2.2.0",
     "enzyme": "^2.4.1",
