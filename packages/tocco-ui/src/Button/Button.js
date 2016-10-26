@@ -50,7 +50,7 @@ Button.propTypes = {
   /**
    * HTML Button type. Default is 'button'. Possible values: button|submit|reset
    */
-  type: React.PropTypes.string
+  type: React.PropTypes.oneOf(['button', 'submit', 'reset'])
 }
 
 export default Button
