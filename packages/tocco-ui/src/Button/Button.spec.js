@@ -28,10 +28,10 @@ describe('tocco-ui', function () {
 
     it('can add name property', () => {
       const wrapper = shallow(<Button
-        label=''
-        onClick={() => undefined}
-        name='test_name'
-      />
+          label=''
+          onClick={() => undefined}
+          name='test_name'
+        />
       )
       expect(wrapper.find('button').prop('name')).to.equal('test_name')
     })
@@ -39,10 +39,10 @@ describe('tocco-ui', function () {
     if ('can add classNames', () => {
         const defaultClasses = 'btn btn-primary'
         let wrapper = shallow(<Button
-          label=''
-          onClick={() => undefined}
-        />
-      )
+            label=''
+            onClick={() => undefined}
+          />
+        )
         expect(wrapper.find('button').prop('class')).to.equal(defaultClasses)
 
         wrapper = shallow(<Button
@@ -51,46 +51,46 @@ describe('tocco-ui', function () {
             onClick={() => undefined}
           />
         )
-      expect(wrapper.find('button').hasClass('class')).to.equal(true)
+        expect(wrapper.find('button').hasClass('class')).to.equal(true)
 
-      wrapper = shallow(<Button
-          label=''
-          className='class1, class2, class3'
-          onClick={() => undefined}
-        />
-      )
-      expect(wrapper.find('button').hasClass('class1')).to.equal(true)
-      expect(wrapper.find('button').hasClass('class2')).to.equal(true)
-      expect(wrapper.find('button').hasClass('class3')).to.equal(true)
-    })
+        wrapper = shallow(<Button
+            label=''
+            className='class1, class2, class3'
+            onClick={() => undefined}
+          />
+        )
+        expect(wrapper.find('button').hasClass('class1')).to.equal(true)
+        expect(wrapper.find('button').hasClass('class2')).to.equal(true)
+        expect(wrapper.find('button').hasClass('class3')).to.equal(true)
+      })
 
-    it('can be disabled', () => {
-      let wrapper = shallow(
-        <Button
-          label=''
-          onClick={() => undefined}
-        />
-      )
-      expect(wrapper.find('button')).to.not.have.property('disabled')
+      it('can be disabled', () => {
+        let wrapper = shallow(
+          <Button
+            label=''
+            onClick={() => undefined}
+          />
+        )
+        expect(wrapper.find('button')).to.not.have.property('disabled')
 
-      wrapper = shallow(
-        <Button
-          label=''
-          onClick={() => undefined}
-          disabled={false}
-        />
-      )
-      expect(wrapper.find('button')).to.not.have.property('disabled')
+        wrapper = shallow(
+          <Button
+            label=''
+            onClick={() => undefined}
+            disabled={false}
+          />
+        )
+        expect(wrapper.find('button')).to.not.have.property('disabled')
 
-      wrapper = shallow(
-        <Button
-          label=''
-          onClick={() => undefined}
-          disabled={true}
-        />
-      )
-      expect(wrapper.find('button').prop('disabled')).to.equal(true)
-    })
+        wrapper = shallow(
+          <Button
+            label=''
+            onClick={() => undefined}
+            disabled={true}
+          />
+        )
+        expect(wrapper.find('button').prop('disabled')).to.equal(true)
+      })
 
     it('shows pending spinner', () => {
       let wrapper = shallow(
