@@ -36,21 +36,21 @@ describe('tocco-ui', function () {
       expect(wrapper.find('button').prop('name')).to.equal('test_name')
     })
 
-    if('can add classNames', () => {
-      const defaultClasses = 'btn btn-primary'
-      let wrapper = shallow(<Button
+    if ('can add classNames', () => {
+        const defaultClasses = 'btn btn-primary'
+        let wrapper = shallow(<Button
           label=''
           onClick={() => undefined}
         />
       )
-      expect(wrapper.find('button').prop('class')).to.equal(defaultClasses)
+        expect(wrapper.find('button').prop('class')).to.equal(defaultClasses)
 
-      wrapper = shallow(<Button
-          label=''
-          className='class1'
-          onClick={() => undefined}
-        />
-      )
+        wrapper = shallow(<Button
+            label=''
+            className='class1'
+            onClick={() => undefined}
+          />
+        )
       expect(wrapper.find('button').hasClass('class')).to.equal(true)
 
       wrapper = shallow(<Button
@@ -137,6 +137,25 @@ describe('tocco-ui', function () {
         />
       )
       expect(wrapper.find('i').prop('className')).to.equal('glyphicon')
+    })
+
+    it('sets default type to button', () => {
+      var wrapper = shallow(
+        <Button
+          label=''
+        />
+      )
+      expect(wrapper.find('button').prop('type')).to.equal('button')
+    })
+
+    it('set type ', () => {
+      var wrapper = shallow(
+        <Button
+          label=''
+          type="submit"
+        />
+      )
+      expect(wrapper.find('button').prop('type')).to.equal('submit')
     })
   })
 })
