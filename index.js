@@ -53986,7 +53986,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 466 */
 /***/ function(module, exports) {
 
-	module.exports = "import React from 'react'\nimport classNames from 'classnames'\nimport './styles.scss'\n\n/**\n * Styled Button\n */\nconst Button = props => {\n  return (\n    <button\n      name={props.name}\n      onClick={props.onClick}\n      className={classNames('btn', 'btn-primary', props.className, props.pending ? 'pending' : '')}\n      disabled={props.disabled}\n      type={props.type ? props.type : 'button'}\n    >\n      <i className={classNames('glyphicon', props.icon)}/> {props.label}\n    </button>)\n}\n\nButton.propTypes = {\n  /**\n   * Will be displayed on button\n   */\n  label: React.PropTypes.string.isRequired,\n  /**\n   * Function that will be triggered on click event\n   */\n  onClick: React.PropTypes.func,\n  /**\n   * Set the name of the button\n   */\n  name: React.PropTypes.string,\n  /**\n   * If true, the button will be disabled\n   */\n  disabled: React.PropTypes.bool,\n /**\n  * If true, a spinner will be shown on the button\n  */\n  pending: React.PropTypes.bool,\n  /**\n   * Extend the button with any css classes separated by a space\n   */\n  className: React.PropTypes.string,\n  /**\n   * Add an icon to the button. Possible icons are defined here: http://glyphicons.bootstrapcheatsheets.com/\n   */\n  icon: React.PropTypes.string,\n  /**\n   * HTML Button type. Default is 'button'. Possible values: button|submit|reset\n   */\n  type: React.PropTypes.string\n}\n\nexport default Button\n"
+	module.exports = "import React from 'react'\nimport classNames from 'classnames'\nimport './styles.scss'\n\n/**\n * Styled Button\n */\nconst Button = props => {\n  return (\n    <button\n      name={props.name}\n      onClick={props.onClick}\n      className={classNames('btn', 'btn-primary', props.className, props.pending ? 'pending' : '')}\n      disabled={props.disabled}\n      type={props.type ? props.type : 'button'}\n    >\n      <i className={classNames('glyphicon', props.icon)}/> {props.label}\n    </button>)\n}\n\nButton.propTypes = {\n  /**\n   * Will be displayed on button\n   */\n  label: React.PropTypes.string.isRequired,\n  /**\n   * Function that will be triggered on click event\n   */\n  onClick: React.PropTypes.func,\n  /**\n   * Set the name of the button\n   */\n  name: React.PropTypes.string,\n  /**\n   * If true, the button will be disabled\n   */\n  disabled: React.PropTypes.bool,\n /**\n  * If true, a spinner will be shown on the button\n  */\n  pending: React.PropTypes.bool,\n  /**\n   * Extend the button with any css classes separated by a space\n   */\n  className: React.PropTypes.string,\n  /**\n   * Add an icon to the button. Possible icons are defined here: http://glyphicons.bootstrapcheatsheets.com/\n   */\n  icon: React.PropTypes.string,\n  /**\n   * HTML Button type. Default is 'button'. Possible values: button|submit|reset\n   */\n  type: React.PropTypes.oneOf(['button', 'submit', 'reset'])\n}\n\nexport default Button\n"
 
 /***/ },
 /* 467 */
@@ -54127,7 +54127,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  /**
 	   * HTML Button type. Default is 'button'. Possible values: button|submit|reset
 	   */
-	  type: _react2.default.PropTypes.string
+	  type: _react2.default.PropTypes.oneOf(['button', 'submit', 'reset'])
 	};
 	
 	exports.default = Button;
