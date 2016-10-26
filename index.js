@@ -53986,7 +53986,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 466 */
 /***/ function(module, exports) {
 
-	module.exports = "import React from 'react'\nimport classNames from 'classnames'\nimport './styles.scss'\n\n/**\n * Styled Button that triggers a function on click\n */\nconst Button = props => {\n  return (\n    <button\n      name={props.name}\n      onClick={props.onClick}\n      className={classNames('btn', 'btn-primary', props.className, props.pending ? 'pending' : '')}\n      disabled={props.disabled}\n    >\n      <i className={classNames('glyphicon', props.icon)}/> {props.label}\n    </button>)\n}\n\nButton.propTypes = {\n  /**\n   * Will be displayed on button\n   */\n  label: React.PropTypes.string.isRequired,\n  /**\n   * Function that will be triggered on click event\n   */\n  onClick: React.PropTypes.func.isRequired,\n  /**\n   * Set the name of the button\n   */\n  name: React.PropTypes.string,\n  /**\n   * If true, the button will be disabled\n   */\n  disabled: React.PropTypes.bool,\n /**\n  * If true, a spinner will be shown on the button\n  */\n  pending: React.PropTypes.bool,\n  /**\n   * Extend the button with any css classes separated by a space\n   */\n  className: React.PropTypes.string,\n  /**\n   * Add an icon to the button. Possible icons are defined here: http://glyphicons.bootstrapcheatsheets.com/\n   */\n  icon: React.PropTypes.string\n}\n\nexport default Button\n"
+	module.exports = "import React from 'react'\nimport classNames from 'classnames'\nimport './styles.scss'\n\n/**\n * Styled Button\n */\nconst Button = props => {\n  return (\n    <button\n      name={props.name}\n      onClick={props.onClick}\n      className={classNames('btn', 'btn-primary', props.className, props.pending ? 'pending' : '')}\n      disabled={props.disabled}\n      type={props.type ? props.type : 'button'}\n    >\n      <i className={classNames('glyphicon', props.icon)}/> {props.label}\n    </button>)\n}\n\nButton.propTypes = {\n  /**\n   * Will be displayed on button\n   */\n  label: React.PropTypes.string.isRequired,\n  /**\n   * Function that will be triggered on click event\n   */\n  onClick: React.PropTypes.func,\n  /**\n   * Set the name of the button\n   */\n  name: React.PropTypes.string,\n  /**\n   * If true, the button will be disabled\n   */\n  disabled: React.PropTypes.bool,\n /**\n  * If true, a spinner will be shown on the button\n  */\n  pending: React.PropTypes.bool,\n  /**\n   * Extend the button with any css classes separated by a space\n   */\n  className: React.PropTypes.string,\n  /**\n   * Add an icon to the button. Possible icons are defined here: http://glyphicons.bootstrapcheatsheets.com/\n   */\n  icon: React.PropTypes.string,\n  /**\n   * HTML Button type. Default is 'button'. Possible values: button|submit|reset\n   */\n  type: React.PropTypes.string\n}\n\nexport default Button\n"
 
 /***/ },
 /* 467 */
@@ -54017,9 +54017,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _react2.default.createElement(_2.default, {
 	      label: 'Save',
 	      icon: 'glyphicon-floppy-save',
-	      onClick: function onClick() {
-	        return alert('do something');
-	      }
+	      type: 'submit'
 	    }),
 	    _react2.default.createElement(_2.default, {
 	      label: 'Pending',
@@ -54079,7 +54077,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	/**
-	 * Styled Button that triggers a function on click
+	 * Styled Button
 	 */
 	var Button = function Button(props) {
 	  return _react2.default.createElement(
@@ -54088,7 +54086,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      name: props.name,
 	      onClick: props.onClick,
 	      className: (0, _classnames2.default)('btn', 'btn-primary', props.className, props.pending ? 'pending' : ''),
-	      disabled: props.disabled
+	      disabled: props.disabled,
+	      type: props.type ? props.type : 'button'
 	    },
 	    _react2.default.createElement('i', { className: (0, _classnames2.default)('glyphicon', props.icon) }),
 	    ' ',
@@ -54104,7 +54103,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  /**
 	   * Function that will be triggered on click event
 	   */
-	  onClick: _react2.default.PropTypes.func.isRequired,
+	  onClick: _react2.default.PropTypes.func,
 	  /**
 	   * Set the name of the button
 	   */
@@ -54124,7 +54123,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  /**
 	   * Add an icon to the button. Possible icons are defined here: http://glyphicons.bootstrapcheatsheets.com/
 	   */
-	  icon: _react2.default.PropTypes.string
+	  icon: _react2.default.PropTypes.string,
+	  /**
+	   * HTML Button type. Default is 'button'. Possible values: button|submit|reset
+	   */
+	  type: _react2.default.PropTypes.string
 	};
 	
 	exports.default = Button;
@@ -54173,7 +54176,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 472 */
 /***/ function(module, exports) {
 
-	module.exports = "import React from 'react'\nimport Button from './'\n// real-import:import {Button} from 'tocco-ui'\n\nexport default () => {\n  return (\n    <div>\n      {/* start example */}\n      <Button\n        label=\"Save\"\n        icon=\"glyphicon-floppy-save\"\n        onClick={() => alert('do something')}\n      />\n\n      <Button\n        label=\"Pending\"\n        pending\n        onClick={() => alert('do something')}\n      />\n\n      <Button\n        label=\"Disabled\"\n        disabled\n        onClick={() => alert('do something')}\n      />\n      {/* end example */}\n    </div>\n  )\n}\n"
+	module.exports = "import React from 'react'\nimport Button from './'\n// real-import:import {Button} from 'tocco-ui'\n\nexport default () => {\n  return (\n    <div>\n      {/* start example */}\n      <Button\n        label=\"Save\"\n        icon=\"glyphicon-floppy-save\"\n        type=\"submit\"\n      />\n\n      <Button\n        label=\"Pending\"\n        pending\n        onClick={() => alert('do something')}\n      />\n\n      <Button\n        label=\"Disabled\"\n        disabled\n        onClick={() => alert('do something')}\n      />\n      {/* end example */}\n    </div>\n  )\n}\n"
 
 /***/ },
 /* 473 */
