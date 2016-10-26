@@ -12,7 +12,7 @@ if (__DEV__) {
     let input
     let component
 
-    const passwordUpdate = false;
+    const passwordUpdate = false
     if (passwordUpdate) {
       input = require('./dev/password_update_input.json')
       component = passwordUpdateFactory('', input)
