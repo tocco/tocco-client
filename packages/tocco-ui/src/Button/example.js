@@ -9,7 +9,7 @@ export default () => {
       <Button
         label="Save"
         icon="glyphicon-floppy-save"
-        onClick={() => alert('do something')}
+        type="submit"
       />
 
       <Button

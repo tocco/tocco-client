@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import './styles.scss'
 
 /**
- * Styled Button that triggers a function on click
+ * Styled Button
  */
 const Button = props => {
   return (
@@ -12,6 +12,7 @@ const Button = props => {
       onClick={props.onClick}
       className={classNames('btn', 'btn-primary', props.className, props.pending ? 'pending' : '')}
       disabled={props.disabled}
+      type={props.type ? props.type : 'button'}
     >
       <i className={classNames('glyphicon', props.icon)}/> {props.label}
     </button>)
@@ -25,7 +26,7 @@ Button.propTypes = {
   /**
    * Function that will be triggered on click event
    */
-  onClick: React.PropTypes.func.isRequired,
+  onClick: React.PropTypes.func,
   /**
    * Set the name of the button
    */
@@ -45,7 +46,11 @@ Button.propTypes = {
   /**
    * Add an icon to the button. Possible icons are defined here: http://glyphicons.bootstrapcheatsheets.com/
    */
-  icon: React.PropTypes.string
+  icon: React.PropTypes.string,
+  /**
+   * HTML Button type. Default is 'button'. Possible values: button|submit|reset
+   */
+  type: React.PropTypes.string
 }
 
 export default Button
