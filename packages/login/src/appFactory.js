@@ -37,7 +37,7 @@ export const passwordUpdateFactory = (id, input = {}, externalEvents) => {
 
   var content = <PasswordUpdateDialog showTitle={showTitle}/>
 
-  if (!input.username || typeof input.username !== 'string') {
+  if (typeof input.username !== 'string' || input.username.length === 0) {
     console.log('Mandatory input "username" is not set on password-update')
     return
   }
