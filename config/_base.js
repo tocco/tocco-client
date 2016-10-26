@@ -38,6 +38,7 @@ const config = {
   // ----------------------------------
   // Test Configuration
   // ----------------------------------
+  excluded_packages: ['tocco-prototype'],
   coverage_reporters: {
     dir: 'coverage',
     reporters: [
