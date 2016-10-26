@@ -1,7 +1,7 @@
 import * as actions from './actions'
 import {Pages} from './../../types/Pages'
 
-function changePage(state, {payload}) {
+const changePage = (state, {payload}) => {
   const {page} = payload
   return {
     ...state,
@@ -9,7 +9,7 @@ function changePage(state, {payload}) {
   }
 }
 
-function setUsername(state, {payload}) {
+const setUsername = (state, {payload}) => {
   const {username} = payload
   return {
     ...state,
@@ -17,7 +17,7 @@ function setUsername(state, {payload}) {
   }
 }
 
-function setPassword(state, {payload}) {
+const setPassword = (state, {payload}) => {
   const {password} = payload
   return {
     ...state,

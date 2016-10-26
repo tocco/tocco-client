@@ -11,46 +11,38 @@ const initialState = {
   passwordUpdateErrorCode: null
 }
 
-function updateOldPassword(state, {payload}) {
-  return Object.assign({}, state, {
-    oldPassword: payload.oldPassword
-  })
-}
+const updateOldPassword = (state, {payload}) => ({
+  ...state,
+  oldPassword: payload.oldPassword
+})
 
-function setNewPassword(state, {payload}) {
-  return {
-    ...state,
-    newPassword: payload.newPassword
-  }
-}
 
-function setNewPasswordValidationErrors(state, {payload}) {
-  return {
-    ...state,
-    newPasswordValidationErrors: payload.errors
-  }
-}
+const setNewPassword = (state, {payload}) => ({
+  ...state,
+  newPassword: payload.newPassword
+})
 
-function updateNewPasswordRepeat(state, {payload}) {
-  return {
-    ...state,
-    newPasswordRepeat: payload.newPasswordRepeat
-  }
-}
+const setNewPasswordValidationErrors = (state, {payload}) => ({
+  ...state,
+  newPasswordValidationErrors: payload.errors
+})
 
-function savePassword(state) {
-  return {
-    ...state,
-    passwordUpdatePending: true,
-    passwordUpdateFailed: false
-  }
-}
+const updateNewPasswordRepeat = (state, {payload}) => ({
+  ...state,
+  newPasswordRepeat: payload.newPasswordRepeat
+})
 
-function savePasswordSuccess(state) {
-  return initialState
-}
+const savePassword = (state) => ({
+  ...state,
+  passwordUpdatePending: true,
+  passwordUpdateFailed: false
+})
 
-function savePasswordFailure(state, {payload}) {
+const savePasswordSuccess = (state) => (
+  initialState
+)
+
+const savePasswordFailure = (state, {payload}) => {
   if (payload.validationMessages) {
     const errors = validationMessagesToErrorMap(payload.validationMessages)
     return {
