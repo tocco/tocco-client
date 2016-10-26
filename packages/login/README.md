@@ -17,9 +17,9 @@ Name: login
 
 ### Methods
 
-| Name                   | Params    | Description
-|------------------------|-----------|-------------
-| `setLocale`            | locale (string)          | Change locale on the fly
+| Name                   | Params         | Description
+|------------------------|----------------|-------------
+| `setLocale`            | locale (string)| Change locale on the fly
 
 
 
@@ -28,7 +28,7 @@ Name: login
 | Name                   | Description
 |------------------------|------------
 | `loginSuccess`         | This event is fired after successful login attempt
-| `resize`         | This event is fired whenever the app size has changed
+| `resize`               | This event is fired whenever the app size has changed
 
 
 
@@ -50,5 +50,5 @@ Name: password-update
 | Name                   | Description
 |------------------------|------------
 | `success`              | This event is fired after password has been updated successfully
-| `resize`          | This event is fired whenever the app size has changed
+| `resize`               | This event is fired whenever the app size has changed
 
