@@ -1,7 +1,7 @@
 {
   "name": "tocco-login",
   "version": "0.1.6",
-  "description": "merge action",
+  "description": "Login dialog with password-update dialog that can run independently",
   "main": "dist/index.js",
   "scripts": {
     "clean": "rimraf dist",
