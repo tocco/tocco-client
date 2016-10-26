@@ -34,7 +34,7 @@ class PasswordUpdateDialog extends Component {
       = this.props
 
     if (!validationRules) {
-      return <ToccoUI.LoadMask className="PasswordUpdateDialog"/>
+      return <ToccoUI.LoadMask className="password-update-dialog"/>
     }
 
     const oldPasswordReadOnly = password.passwordUpdatePending
@@ -56,7 +56,7 @@ class PasswordUpdateDialog extends Component {
           }
         </div>
 
-        <form className="PasswordUpdateDialog" onSubmit={this.handleSubmit.bind(this)}>
+        <form className="password-update-dialog" onSubmit={this.handleSubmit.bind(this)}>
           {this.props.showOldPasswordField === true
           && <PasswordInput
             label={this.msg('client.login.passwordUpdate.oldPassword')}
