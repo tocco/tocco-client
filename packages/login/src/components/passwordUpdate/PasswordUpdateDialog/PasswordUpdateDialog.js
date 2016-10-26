@@ -91,6 +91,7 @@ class PasswordUpdateDialog extends Component {
             disabled={this.isSubmittable() === false}
             className={password.passwordUpdatePending ? 'update-pending' : ''}
             icon="glyphicon-floppy-save"
+            type="submit"
           />
           {password.passwordUpdateFailed === true && <FailureMessage errorCode={password.passwordUpdateErrorCode}/>}
         </form>

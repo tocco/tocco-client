@@ -30,7 +30,7 @@ export class PasswordRequest extends React.Component {
       <div className="login-form">
         {this.props.showTitle && <h1><FormattedMessage id="client.login.passwordRequest.title"/></h1>}
         <p><FormattedMessage id="client.login.passwordRequest.introduction"/></p>
-        <form>
+        <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="input-group">
             <span className="input-group-addon"><i className="glyphicon glyphicon-user"/></span>
             <input
@@ -45,16 +45,15 @@ export class PasswordRequest extends React.Component {
             <div>
               <ToccoUI.Button
                 label={this.msg('client.login.passwordRequest.button')}
-                name="submit"
-                onClick={this.handleSubmit.bind(this)}
+                type="submit"
                 disabled={!this.state.username || this.props.pending}
                 pending={this.props.pending}
                 icon="glyphicon-log-in"
                 className="m-t-5"
               />
               <ToccoUI.Button
-                label={this.msg('client.login.passwordRequest.abortButton')}
                 name="abort"
+                label={this.msg('client.login.passwordRequest.abortButton')}
                 onClick={() => this.props.changePage(Pages.LOGIN_FORM)}
                 disabled={this.props.pending}
                 icon="glyphicon-remove"

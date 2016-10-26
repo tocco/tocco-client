@@ -30,7 +30,7 @@ export class LoginForm extends Component {
             <p><FormattedMessage id="client.login.form.introduction"/></p>
           </div>
         }
-        <form>
+        <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="input-group">
             <span className="input-group-addon"><i className="glyphicon glyphicon-user"/></span>
             <input
@@ -64,7 +64,7 @@ export class LoginForm extends Component {
             <div>
               <ToccoUI.Button
                 label={this.msg('client.login.form.button')}
-                onClick={this.handleSubmit.bind(this)}
+                type="submit"
                 disabled={this.props.loginPending || this.props.username === '' || this.props.password === ''}
                 pending={this.props.loginPending}
                 icon="glyphicon-log-in"

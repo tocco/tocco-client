@@ -61,7 +61,7 @@ describe('login', () => {
           />
         )
 
-        const button = wrapper.find('[name="submit"]')
+        const button = wrapper.find('[type="submit"]')
         expect(button).to.have.length(1)
         expect(button.prop('disabled')).to.equal(true)
       })
@@ -79,7 +79,7 @@ describe('login', () => {
           userCode: '1234'
         })
 
-        const button = wrapper.find('[name="submit"]')
+        const button = wrapper.find('[type="submit"]')
         expect(button).to.have.length(1)
         expect(button).to.not.have.property('disabled')
       })
@@ -121,7 +121,7 @@ describe('login', () => {
           />
         )
 
-        wrapper.find('[name="submit"]').simulate('click', {
+        wrapper.find('form').simulate('submit', {
           preventDefault
         })
 

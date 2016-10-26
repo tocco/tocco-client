@@ -203,7 +203,7 @@ describe('login', () => {
             />
         )
 
-        wrapper.find(ToccoUI.Button).simulate('click', {
+        wrapper.find('form').simulate('submit', {
           preventDefault
         })
 

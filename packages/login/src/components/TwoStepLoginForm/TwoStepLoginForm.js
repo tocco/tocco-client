@@ -28,7 +28,7 @@ export class TwoStepLoginForm extends Component {
     return (
       <div className="login-form">
         {this.props.showTitle && <h1><FormattedMessage id="client.login.form.title"/></h1>}
-        <form>
+        <form onSubmit={this.handleSubmit.bind(this)}>
           <p><FormattedMessage id="client.login.twoStepLogin.introduction"/></p>
           <p><FormattedMessage id="client.login.twoStepLogin.requestedCode"/>{this.props.requestedCode}</p>
           <div className="input-group">
@@ -46,7 +46,7 @@ export class TwoStepLoginForm extends Component {
             <ToccoUI.Button
               label={this.msg('client.login.form.button')}
               name="submit"
-              onClick={this.handleSubmit.bind(this)}
+              type="submit"
               disabled={!this.state.userCode || this.props.loginPending}
               pending={this.props.loginPending}
               icon="glyphicon-log-in"
