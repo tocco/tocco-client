@@ -1,9 +1,9 @@
-import SaveButton from './SaveButton'
+import Button from './Button'
 import ToccoLogo from './ToccoLogo'
 import LoadMask from './LoadMask'
 
 var exports = {
-  SaveButton,
+  Button,
   ToccoLogo,
   LoadMask
 }

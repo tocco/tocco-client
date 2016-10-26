@@ -14,7 +14,7 @@ import classNames from 'classnames'
  */
 const SampleComponent = props => <div/>
 
-SaveButton.propTypes = {
+Button.propTypes = {
   /**
    * some text
    */
