@@ -1,7 +1,7 @@
 import {SET_MESSAGE, SET_PENDING} from './actions'
 import {LOGIN} from '../actions'
 
-function setMessage(state, {payload}) {
+const setMessage = (state, {payload}) => {
   const {text, negative} = payload
   return {
     ...state,
