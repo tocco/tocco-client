@@ -1,10 +1,10 @@
 #Login
-App to authenticate with nice2 services and request or update password.
+App to authenticate with nice2 services and request or update passwords.
 
 ##Development
 
 ###Users
-The following user can be entered to simulate different scenarios
+The following users can be entered to simulate different scenarios
 
 | Login          	  | Effect                                 	|
 |----------------	  |----------------------------------------	|
@@ -46,7 +46,7 @@ React-registry name: `login`
 
 
 # Password-Update
-Password-update can be embedded independently.
+Password-update can be embedded independently and works without login dialog.
 
 ##Development
 To run password-update dialog separately, const `passwordUpdate` (main.js:15) must be changed to `true`
