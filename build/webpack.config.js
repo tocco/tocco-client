@@ -2,6 +2,7 @@ import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import config from '../config'
 import _debug from 'debug'
+import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
 
 const debug = _debug('app:webpack:config')
 const paths = config.utils_paths
@@ -81,6 +82,11 @@ if (__DEV__ || __STANDALONE__) {
       }
     })
   )
+}
+
+if (__DEV__) {
+  debug('Enable plugin for case-sensitive path check')
+  webpackConfig.plugins.push(new CaseSensitivePathsPlugin())
 
   debug('Enable plugins for live development (HMR, NoErrors).')
   webpackConfig.plugins.push(
@@ -108,37 +114,39 @@ if (__DEV__) {
   presets.push('react-hmre')
 }
 
-webpackConfig.module.loaders = [{
-  test: /\.(js|jsx)$/,
-  exclude: /node_modules/,
-  loader: 'babel',
-  query: {
-    cacheDirectory: true,
-    plugins: ['transform-runtime'],
-    presets: presets,
-    env: {
-      production: {
-        plugins: [
-          'transform-react-remove-prop-types',
-          'transform-react-constant-elements'
-        ]
-      },
-      test: {
-        plugins: [['istanbul', {
-          'exclude': [
-            '**/*/*.spec.js',
-            '**/tocco-ui/**/example.js',
-            '**/tocco-ui/dist'
+webpackConfig.module.loaders = [
+  {
+    test: /\.(js|jsx)$/,
+    exclude: /node_modules/,
+    loader: 'babel',
+    query: {
+      cacheDirectory: true,
+      plugins: ['transform-runtime'],
+      presets: presets,
+      env: {
+        production: {
+          plugins: [
+            'transform-react-remove-prop-types',
+            'transform-react-constant-elements'
           ]
-        }]]
+        },
+        test: {
+          plugins: [['istanbul', {
+            'exclude': [
+              '**/*/*.spec.js',
+              '**/tocco-ui/**/example.js',
+              '**/tocco-ui/dist'
+            ]
+          }]]
+        }
       }
     }
+  },
+  {
+    test: /\.json$/,
+    loader: 'json'
   }
-},
-{
-  test: /\.json$/,
-  loader: 'json'
-}]
+]
 
 webpackConfig.module.loaders.push(
   { test: /\.css$/, loader: 'style-loader!css-loader' },
