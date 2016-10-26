@@ -16,13 +16,11 @@ const mapActionCreators = {
   initialized
 }
 
-const mapStateToProps = state => {
-  return {
-    password: state.passwordUpdate.password,
-    validationRules: state.passwordUpdate.validationRules,
-    showOldPasswordField: state.passwordUpdate.dialog.showOldPasswordField,
-    forcedUpdate: state.passwordUpdate.dialog.forcedUpdate
-  }
-}
+const mapStateToProps = state => ({
+  password: state.passwordUpdate.password,
+  validationRules: state.passwordUpdate.validationRules,
+  showOldPasswordField: state.passwordUpdate.dialog.showOldPasswordField,
+  forcedUpdate: state.passwordUpdate.dialog.forcedUpdate
+})
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(PasswordUpdateDialog))

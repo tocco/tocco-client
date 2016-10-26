@@ -11,10 +11,8 @@ const mapActionCreators = {
   requestPassword
 }
 
-const mapStateToProps = state => {
-  return {
-    pending: state.loginForm.loginPending
-  }
-}
+const mapStateToProps = state => ({
+  pending: state.loginForm.loginPending
+})
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(PasswordRequest))

@@ -12,13 +12,11 @@ const mapActionCreators = {
   login
 }
 
-const mapStateToProps = state => {
-  return {
-    username: state.login.username,
-    password: state.login.password,
-    message: state.loginForm.message,
-    loginPending: state.loginForm.loginPending
-  }
-}
+const mapStateToProps = state => ({
+  username: state.login.username,
+  password: state.login.password,
+  message: state.loginForm.message,
+  loginPending: state.loginForm.loginPending
+})
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(LoginForm))
