@@ -181,7 +181,7 @@ describe('login', () => {
 
               expect(generator.next(result).value).to.deep.equal(select(sagas.standaloneSelector))
 
-              var standalone = true
+              const standalone = true
 
               expect(generator.next(standalone).value).to.deep.equal(call(ExternalEvents.invokeExternalEvent, 'success', {
                 newPassword: 'validnewpw'

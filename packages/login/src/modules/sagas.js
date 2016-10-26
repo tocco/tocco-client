@@ -40,7 +40,7 @@ function getOptions(data) {
 
 function doDevRequest(data) {
   console.log('DEV MODE: Would send following request in PROD MODE:', getOptions(data))
-  var response = getResponse(data)
+  const response = getResponse(data)
   console.log('DEV MODE: Response -> ', response)
   return Promise.resolve(response)
 }
@@ -73,10 +73,7 @@ export function* handleFailedResponse(body) {
 }
 
 export function* handleSuccessfulLogin(body) {
-  var timeout = DEFAULT_TIMEOUT
-  if (body.timeout) {
-    timeout = body.timeout
-  }
+  const timeout = body.timeout || DEFAULT_TIMEOUT
   yield call(ExternalEvents.invokeExternalEvent, 'loginSuccess', {timeout})
 }
 

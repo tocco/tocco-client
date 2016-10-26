@@ -20,7 +20,7 @@ describe('login', () => {
         describe('twoStep saga', () => {
           it('should set pending and call login saga', () => {
             const generator = sagas.twoStepSaga()
-            var args = undefined
+            const args = undefined
             expect(generator.next().value).to.eql(put(setPending(true)))
             expect(generator.next().value).to.eql(call(loginSaga, args))
             expect(generator.next().done).to.equal(true)

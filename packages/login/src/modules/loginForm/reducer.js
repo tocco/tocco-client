@@ -28,7 +28,7 @@ const ACTION_HANDLERS = {
   [LOGIN]: login
 }
 
-var initialState = {
+const initialState = {
   message: {},
   loginPending: false
 }

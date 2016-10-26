@@ -22,8 +22,8 @@ import it from 'react-intl/locale-data/it'
 export const loginFactory = (id, input = {}, externalEvents) => {
   const showTitle = typeof input.showTitle === 'boolean' ? input.showTitle : false
 
-  var content = <LoginContainer showTitle={showTitle}/>
-  var dispatches = [
+  const content = <LoginContainer showTitle={showTitle}/>
+  const dispatches = [
     passwordUpdate.setShowOldPasswordField(false),
     passwordUpdate.setForcedUpdate(true),
     passwordUpdate.setStandalone(false)
@@ -35,14 +35,14 @@ export const loginFactory = (id, input = {}, externalEvents) => {
 export const passwordUpdateFactory = (id, input = {}, externalEvents) => {
   const showTitle = typeof input.showTitle === 'boolean' ? input.showTitle : false
 
-  var content = <PasswordUpdateDialog showTitle={showTitle}/>
+  const content = <PasswordUpdateDialog showTitle={showTitle}/>
 
   if (typeof input.username !== 'string' || input.username.length === 0) {
     console.log('Mandatory input "username" is not set on password-update')
     return
   }
 
-  var dispatches = [
+  const dispatches = [
     passwordUpdate.setUsername(input.username)
   ]
 
@@ -50,13 +50,13 @@ export const passwordUpdateFactory = (id, input = {}, externalEvents) => {
     dispatches.push(passwordUpdate.setShowOldPasswordField(input.showOldPasswordField))
   }
 
-  var reducers = {passwordUpdate: combineReducers(passwordUpdateReducers), intl: intlReducer}
+  const reducers = {passwordUpdate: combineReducers(passwordUpdateReducers), intl: intlReducer}
   return factory(content, 'login.passwordUpdate', reducers, id, input, externalEvents, dispatches)
 }
 
 const factory = (content, resourcePrefix, reducers, id, input, externalEvents, dispatches) => {
   try {
-    var initialState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {}
+    const initialState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {}
 
     if (input) {
       initialState.input = input

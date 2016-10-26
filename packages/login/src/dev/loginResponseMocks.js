@@ -1,8 +1,8 @@
 export function getResponse(data) {
   const headers = {'Content-Type': 'application/json; charset=utf-8'}
 
-  var response
-  var type = getResponseType(data)
+  let response
+  const type = getResponseType(data)
   switch (type) {
     case 'success':
       response = new Response('{"success":true}', {

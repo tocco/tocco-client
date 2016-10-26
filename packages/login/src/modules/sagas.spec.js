@@ -133,7 +133,7 @@ describe('login', () => {
           const gen = sagas.handlePasswordUpdateResponse()
           expect(gen.next().value).to.deep.equal(select(sagas.loginSelector))
 
-          var login = {
+          const login = {
             username: 'user1',
             password: 'pwd1'
           }

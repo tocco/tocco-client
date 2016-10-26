@@ -9,8 +9,8 @@ if (__DEV__) {
   const mountElement = document.getElementById('root')
 
   let render = () => {
-    // var input = require('./dev/password_update_input.json')
-    var input = require('./dev/login_input.json')
+    // const input = require('./dev/password_update_input.json')
+    const input = require('./dev/login_input.json')
     const component = loginFactory('a', input)
     // const component = passwordUpdateFactory('a', input)
     const element = React.createElement(component.renderComponent)
