@@ -45,7 +45,7 @@ http://localhost:8080
 
 ### Getting started
 ```
-npm install --global lerna@^2.0.0-beta.28
+npm install --global lerna@v2.0.0-beta.30
 npm run setup
 lerna bootstrap
 npm start --package={PACKAGE_NAME}
