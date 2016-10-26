@@ -1,6 +1,6 @@
 import React from 'react'
 import PasswordUpdateDialog from './PasswordUpdateDialog'
-import {Button, LoadMask} from 'tocco-ui'
+import * as ToccoUI from 'tocco-ui'
 import {mount, render, shallow} from 'enzyme'
 import intl from '../../../../tests/intlStub'
 
@@ -55,7 +55,7 @@ describe('login', () => {
         expect(initialized).to.have.property('callCount', 1)
       })
 
-      it ('should display LoadMask until rules loaded', () => {
+      it('should display ToccoUI.LoadMask until rules loaded', () => {
         const wrapper = shallow(<PasswordUpdateDialog
           fetchValidationRules={() => undefined}
           validationRules={null}
@@ -67,7 +67,7 @@ describe('login', () => {
           updateNewPassword={() => undefined}
           updateNewPasswordRepeat={() => undefined}
         />)
-        expect(wrapper.find(LoadMask)).to.have.length(1)
+        expect(wrapper.find(ToccoUI.LoadMask)).to.have.length(1)
       })
 
       it('should hide old password by default', () => {
@@ -131,7 +131,7 @@ describe('login', () => {
         expect(wrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(false)
         expect(wrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(true)
         expect(wrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(true)
-        expect(wrapper.find(Button).prop('disabled')).to.equal(true)
+        expect(wrapper.find(ToccoUI.Button).prop('disabled')).to.equal(true)
       })
 
       it('should enable new password as soon as old password is filled', () => {
@@ -153,7 +153,7 @@ describe('login', () => {
         expect(wrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(false)
         expect(wrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(false)
         expect(wrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(true)
-        expect(wrapper.find(Button).prop('disabled')).to.equal(true)
+        expect(wrapper.find(ToccoUI.Button).prop('disabled')).to.equal(true)
       })
 
       it('should enable new password repeat as soon as new password is filled and valid', () => {
@@ -179,7 +179,7 @@ describe('login', () => {
         expect(invalidWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(false)
         expect(invalidWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(false)
         expect(invalidWrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(true)
-        expect(invalidWrapper.find(Button).prop('disabled')).to.equal(true)
+        expect(invalidWrapper.find(ToccoUI.Button).prop('disabled')).to.equal(true)
 
         const validWrapper = shallow(<PasswordUpdateDialog
           fetchValidationRules={() => undefined}
@@ -201,10 +201,10 @@ describe('login', () => {
         expect(validWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(false)
         expect(validWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(false)
         expect(validWrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(false)
-        expect(validWrapper.find(Button).prop('disabled')).to.equal(true)
+        expect(validWrapper.find(ToccoUI.Button).prop('disabled')).to.equal(true)
       })
 
-      it('should enable save button as soon as new password repeat is filled and matches new password', () => {
+      it('should enable save ToccoUI.Button as soon as new password repeat is filled and matches new password', () => {
         const newPwRepeatEmptyWrapper = shallow(<PasswordUpdateDialog
           fetchValidationRules={() => undefined}
           validationRules={[]}
@@ -225,7 +225,7 @@ describe('login', () => {
         expect(newPwRepeatEmptyWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(false)
         expect(newPwRepeatEmptyWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(false)
         expect(newPwRepeatEmptyWrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(undefined)
-        expect(newPwRepeatEmptyWrapper.find(Button).prop('disabled')).to.equal(true)
+        expect(newPwRepeatEmptyWrapper.find(ToccoUI.Button).prop('disabled')).to.equal(true)
 
         const newPwRepeatNoMatchWrapper = shallow(<PasswordUpdateDialog
           fetchValidationRules={() => undefined}
@@ -247,7 +247,7 @@ describe('login', () => {
         expect(newPwRepeatNoMatchWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(false)
         expect(newPwRepeatNoMatchWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(false)
         expect(newPwRepeatNoMatchWrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(undefined)
-        expect(newPwRepeatNoMatchWrapper.find(Button).prop('disabled')).to.equal(true)
+        expect(newPwRepeatNoMatchWrapper.find(ToccoUI.Button).prop('disabled')).to.equal(true)
 
         const newPwRepeatMatchWrapper = shallow(<PasswordUpdateDialog
           fetchValidationRules={() => undefined}
@@ -269,7 +269,7 @@ describe('login', () => {
         expect(newPwRepeatMatchWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(false)
         expect(newPwRepeatMatchWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(false)
         expect(newPwRepeatMatchWrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(undefined)
-        expect(newPwRepeatMatchWrapper.find(Button).prop('disabled')).to.equal(false)
+        expect(newPwRepeatMatchWrapper.find(ToccoUI.Button).prop('disabled')).to.equal(false)
       })
 
       it('should auto focus old password field if present', () => {
