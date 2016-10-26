@@ -11,10 +11,10 @@ cache:
     - packages/tocco-ui-util/node_modules
     - packages/tocco-prototype/node_modules
     - packages/action-merge/node_modules
-    - packages/action-password-update/node_modules
+    - packages/login/node_modules
 
 install:
-  - npm list -g lerna –depth=0 || npm install -g lerna@2.0.0-beta.28
+  - npm list -g lerna –depth=0 || npm install -g lerna@2.0.0-beta.30
   - npm install
   - lerna bootstrap
 
