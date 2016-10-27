@@ -12,6 +12,10 @@ if (config.globals.__PACKAGE__) {
   packages = [config.globals.__PACKAGE__]
 } else {
   packages = getAllPackages()
+
+  packages = packages.filter(pck => (
+    !config.test_excluded_packages.includes(pck)
+  ))
 }
 debug(`Run tests for packages: ${packages.join(', ')}`)
 

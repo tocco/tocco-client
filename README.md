@@ -1,4 +1,5 @@
-# Tocco Client [![Build Status](https://travis-ci.org/tocco/tocco-client.svg?branch=master)](https://travis-ci.org/tocco/tocco-client)
+# Tocco Client [![Build Status](https://travis-ci.org/tocco/tocco-client.svg?branch=master)](https://travis-ci.org/tocco/tocco-client) [![codecov](https://codecov.io/gh/tocco/tocco-client/branch/master/graph/badge.svg)](https://codecov.io/gh/tocco/tocco-client)
+
 This repository contains the web client for the [Tocco Business Framework](https://www.tocco.ch).
 
 This project is based on following technologies, tools and libraries:
@@ -45,7 +46,7 @@ http://localhost:8080
 
 ### Getting started
 ```
-npm install --global lerna@^2.0.0-beta.28
+npm install --global lerna@v2.0.0-beta.30
 npm run setup
 lerna bootstrap
 npm start --package={PACKAGE_NAME}

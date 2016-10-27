@@ -70,10 +70,24 @@ webpackConfig.plugins = [
   new webpack.DefinePlugin(config.globals)
 ]
 
-if (__DEV__ || __STANDALONE__) {
+if (__DEV__) {
   webpackConfig.plugins.push(
     new HtmlWebpackPlugin({
       template: paths.client('server/index.html'),
+      hash: false,
+      filename: 'index.html',
+      inject: 'body',
+      minify: {
+        collapseWhitespace: true
+      }
+    })
+  )
+}
+
+if (__STANDALONE__) {
+  webpackConfig.plugins.push(
+    new HtmlWebpackPlugin({
+      template: paths.client('server/standalone.html'),
       hash: false,
       filename: 'index.html',
       inject: 'body',
