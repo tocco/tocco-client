@@ -14,7 +14,7 @@ if (config.globals.__PACKAGE__) {
   packages = getAllPackages()
 
   packages = packages.filter(pck => (
-    !config.excluded_packages.includes(pck)
+    !config.test_excluded_packages.includes(pck)
   ))
 }
 debug(`Run tests for packages: ${packages.join(', ')}`)
