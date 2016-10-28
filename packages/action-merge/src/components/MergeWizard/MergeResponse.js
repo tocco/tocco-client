@@ -1,10 +1,9 @@
 import React from 'react'
 import {ExternalEvents} from 'tocco-util'
-import {FormattedMessage, injectIntl} from 'react-intl'
+import {FormattedMessage} from 'react-intl'
 
-const EntityResponseTable = props => {
-  console.log('props.responseEntites', props.responseEntities)
-  if (!props.responseEntities || props.responseEntities.length === 0) return <div/>
+export const EntityResponseTable = props => {
+  if (!props.responseEntities || props.responseEntities.length === 0) return (<div/>)
   return (
     <div>
       <h4>{props.title}</h4>
@@ -39,6 +38,19 @@ EntityResponseTable.propTypes = {
   responseEntities: React.PropTypes.array.isRequired
 }
 
+export const PermissionMessageBox = props => {
+  if (!props.showPermissionMessage || props.showPermissionMessage === false) return <div/>
+  return (
+    <div className="alert alert-info">
+      <FormattedMessage id="client.entityoperation.action.merge.missingReadPermissions"/>
+    </div>
+  )
+}
+
+PermissionMessageBox.propTypes = {
+  showPermissionMessage: React.PropTypes.bool.isRequired
+}
+
 class MergeResponse extends React.Component {
   render() {
     console.log('this.props.mergeResponse', this.props.mergeResponse)
@@ -53,6 +65,9 @@ class MergeResponse extends React.Component {
         <EntityResponseTable
           title={this.props.intl.formatMessage({id: 'client.entityoperation.action.merge.notDeletedEntitiesTitle'})}
           responseEntities={this.props.mergeResponse.notDeletedEntities}
+        />
+        <PermissionMessageBox
+          showPermissionMessage={this.props.mergeResponse.showPermissionMessage}
         />
         <button
           className="btn btn-primary close-button"
@@ -70,4 +85,4 @@ MergeResponse.propTypes = {
   intl: React.PropTypes.object.isRequired
 }
 
-export default injectIntl(MergeResponse)
+export default MergeResponse
