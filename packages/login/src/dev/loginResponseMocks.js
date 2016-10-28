@@ -1,55 +1,44 @@
 export function getResponse(data) {
-  const headers = {'Content-Type': 'application/json; charset=utf-8'}
-
-  let response
   const type = getResponseType(data)
   switch (type) {
     case 'success':
-      response = new Response('{"success":true}', {
-        headers
-      })
-      break
+      return {
+        success: true
+      }
     case 'two_factor':
-      response = new Response('{"TWOSTEPLOGIN":true,"success":false,"REQUESTEDCODE":"A8","timeout":30}', {
-        headers
-      })
-      break
+      return {
+        TWOSTEPLOGIN: true,
+        success: false,
+        REQUESTEDCODE: 'A8',
+        timeout: 30
+      }
     case 'reset_password':
-      response = new Response('{"RESET_PASSWORD_REQUIRED":true,"success":false,"principal_id":"12345","timeout":30}', {
-        headers
-      })
-      break
+      return {
+        RESET_PASSWORD_REQUIRED: true,
+        success: false,
+        principal_id: '12345',
+        timeout: 30
+      }
     case 'before_blocked':
-      response = new Response('{"ONE_TILL_BLOCK":true,"success":false}', {
-        headers,
-        ok: false,
-        status: 401,
-        statusText: 'Unauthorized'
-      })
-      break
+      return {
+        ONE_TILL_BLOCK: true,
+        success: false
+      }
     case 'blocked':
-      response = new Response('{"LOGIN_BLOCKED":true,"success":false}', {
-        headers,
-        ok: false,
-        status: 401,
-        statusText: 'Unauthorized'
-      })
-      break
+      return {
+        LOGIN_BLOCKED: true,
+        success: false
+      }
     default:
-      response = new Response('{"success":false}', {
-        headers,
-        ok: false,
-        status: 401,
-        statusText: 'Unauthorized'
-      })
+      return {
+        success: false
+      }
   }
-
-  return response
 }
 
 function getResponseType(data) {
   const mapCredentialsToResponses = require('./login_responses.json')
-  for (let value of mapCredentialsToResponses.credentials) {
+  for (const value of mapCredentialsToResponses.credentials) {
     if (data.username === value.username) {
       return value.response_type
     }
