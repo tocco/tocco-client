@@ -148,8 +148,8 @@ describe('login', () => {
       describe('handleOneTilLBlockResponse', () => {
         it('should dispatch action setMessage', () => {
           const gen = sagas.handleOneTilLBlockResponse({})
-          expect(gen.next().value).to.deep.equal(select(sagas.textResourceSelector))
-          expect(gen.next({'client.login.form.lastTry': 'msg'}).value).to.deep.equal(put(setMessage('msg', true)))
+          expect(gen.next().value).to.deep.equal(select(sagas.textResourceSelector, 'client.login.form.lastTry'))
+          expect(gen.next('msg').value).to.deep.equal(put(setMessage('msg', true)))
           expect(gen.next().done).to.deep.equal(true)
         })
       })
@@ -157,8 +157,8 @@ describe('login', () => {
       describe('handleBlockResponse', () => {
         it('should dispatch action setMessage', () => {
           const gen = sagas.handleBlockResponse({})
-          expect(gen.next().value).to.deep.equal(select(sagas.textResourceSelector))
-          expect(gen.next({'client.login.form.blocked': 'msg'}).value).to.deep.equal(put(setMessage('msg', true)))
+          expect(gen.next().value).to.deep.equal(select(sagas.textResourceSelector, 'client.login.form.blocked'))
+          expect(gen.next('msg').value).to.deep.equal(put(setMessage('msg', true)))
           expect(gen.next().done).to.deep.equal(true)
         })
       })
@@ -166,8 +166,8 @@ describe('login', () => {
       describe('handleFailedResponse', () => {
         it('should dispatch action setMessage', () => {
           const gen = sagas.handleFailedResponse({})
-          expect(gen.next().value).to.deep.equal(select(sagas.textResourceSelector))
-          expect(gen.next({'client.login.form.failed': 'msg'}).value).to.deep.equal(put(setMessage('msg', true)))
+          expect(gen.next().value).to.deep.equal(select(sagas.textResourceSelector, 'client.login.form.failed'))
+          expect(gen.next('msg').value).to.deep.equal(put(setMessage('msg', true)))
           expect(gen.next().done).to.deep.equal(true)
         })
       })
