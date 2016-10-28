@@ -6,5 +6,6 @@
   "notDeletedEntities":[
     {"pk": "66", "entity": "Resource","name": "default display"},
     {"pk": "66", "entity": "Resource","name": "default display"}
-  ]
+  ],
+  "showPermissionMessage": true
 }
