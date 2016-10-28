@@ -14,7 +14,7 @@ import {getResponse} from '../dev/loginResponseMocks'
 
 export const DEFAULT_TIMEOUT = 30
 
-export const textResourceSelector = state => state.intl.messages
+export const textResourceSelector = (state, key) => state.intl.messages[key] || key
 export const loginSelector = state => state.login
 
 export function doLoginRequest(data) {
@@ -58,18 +58,18 @@ export function* handlePasswordUpdateResponse() {
 }
 
 export function* handleOneTilLBlockResponse(body) {
-  const textResources = yield select(textResourceSelector)
-  yield put(setMessage(textResources['client.login.form.lastTry'], true))
+  const text = yield select(textResourceSelector, 'client.login.form.lastTry')
+  yield put(setMessage(text, true))
 }
 
 export function* handleBlockResponse(body) {
-  const textResources = yield select(textResourceSelector)
-  yield put(setMessage(textResources['client.login.form.blocked'], true))
+  const text = yield select(textResourceSelector, 'client.login.form.blocked')
+  yield put(setMessage(text, true))
 }
 
 export function* handleFailedResponse(body) {
-  const textResources = yield select(textResourceSelector)
-  yield put(setMessage(textResources['client.login.form.failed'], true))
+  const text = yield select(textResourceSelector, 'client.login.form.failed')
+  yield put(setMessage(text, true))
 }
 
 export function* handleSuccessfulLogin(body) {
