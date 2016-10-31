@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+import {injectIntl} from 'react-intl'
 import MergeWizard from './../components/MergeWizard'
 import {saveMerge} from '../modules/wizard/actions'
 
@@ -12,5 +13,5 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, mapActionCreators)(MergeWizard)
+export default connect(mapStateToProps, mapActionCreators)(injectIntl(MergeWizard))
 
