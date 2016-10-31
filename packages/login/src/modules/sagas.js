@@ -7,7 +7,7 @@ import {setMessage, setPending} from './loginForm/actions'
 import {setRequestedCode} from './twoStepLogin/actions'
 import {updateOldPassword} from './passwordUpdate/password/actions'
 import {setUsername} from './passwordUpdate/dialog/actions'
-import {changePage} from './login/actions'
+import {changePage, setPassword} from './login/actions'
 import {Pages} from '../types/Pages'
 
 import {getResponse} from '../dev/loginResponseMocks'
@@ -83,6 +83,7 @@ export function* handleFailedResponse() {
 export function* handleSuccessfulLogin(response) {
   const timeout = response.timeout || DEFAULT_TIMEOUT
   yield call(ExternalEvents.invokeExternalEvent, 'loginSuccess', {timeout})
+  yield put(setPassword(''))
 }
 
 export function* loginSaga({payload}) {
