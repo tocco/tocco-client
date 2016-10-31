@@ -1,0 +1,38 @@
+{
+  "name": "tocco-test-util",
+  "version": "0.1.0",
+  "description": "A package with the most necessary test mocks",
+  "main": "dist/index.js",
+  "scripts": {
+    "clean": "rimraf dist",
+    "compile": "babel-node ../../bin/compile",
+    "deploy": "better-npm-run deploy",
+    "prepublish": "better-npm-run deploy:prod"
+  },
+  "betterScripts": {
+    "deploy": {
+      "command": "npm run clean && npm run compile --package=tocco-test-util",
+      "env": {
+        "DEBUG": "app:*"
+      }
+    },
+    "deploy:prod": {
+      "command": "npm run deploy",
+      "env": {
+        "NODE_ENV": "production",
+        "DEBUG": "app:*"
+      }
+    }
+  },
+  "peerDependencies": {
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.10.1",
+    "better-npm-run": "0.0.9",
+    "react": "latest",
+    "react-dom": "latest",
+    "rimraf": "^2.5.3"
+  }
+}
