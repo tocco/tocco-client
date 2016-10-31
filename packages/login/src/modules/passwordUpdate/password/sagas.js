@@ -6,6 +6,7 @@ import * as actions from './actions'
 import localValidate from './validate'
 import {isEmptyObject, validationMessagesToErrorMap} from './utils'
 import {loginSaga} from '../../sagas'
+import {setPassword} from '../../login/actions'
 
 export const validationRulesSelector = state => state.passwordUpdate.validationRules
 export const inputSelector = state => state.input
@@ -127,6 +128,7 @@ export function* savePassword() {
       })
     } else {
       const loginData = yield call(getLoginData)
+      yield put(setPassword(loginData.payload.password))
       yield call(loginSaga, loginData)
     }
 

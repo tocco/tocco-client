@@ -3,6 +3,8 @@ import {put, select, call, fork} from 'redux-saga/effects'
 import rootSaga, * as sagas from './sagas'
 import * as actions from './actions'
 import {ExternalEvents} from 'tocco-util'
+import {setPassword} from '../../login/actions'
+import {loginSaga} from '../../sagas'
 
 describe('login', () => {
   describe('modules', () => {
@@ -159,7 +161,7 @@ describe('login', () => {
           })
 
           describe('savePassword', () => {
-            it('should save password', () => {
+            it('should call external event on standalone mode', () => {
               const generator = sagas.savePassword()
 
               expect(generator.next().value).to.deep.equal(select(sagas.usernameSelector))
@@ -189,6 +191,42 @@ describe('login', () => {
               expect(generator.next().value).to.deep.equal(put(actions.savePasswordSuccess()))
 
               expect(generator.next(result).done).to.equal(true)
+            })
+
+
+            it('should call login saga if not standalone', () => {
+              const generator = sagas.savePassword()
+
+              expect(generator.next().value).to.deep.equal(select(sagas.usernameSelector))
+
+              const username = 'user1'
+
+              expect(generator.next(username).value).to.deep.equal(call(sagas.getData))
+
+              const data = {
+                oldPassword: 'oldpw',
+                newPassword: 'validnewpw'
+              }
+
+              expect(generator.next(data).value).to.deep.equal(call(sagas.storePassword, username, data))
+
+              const result = {
+                error: null
+              }
+
+              expect(generator.next(result).value).to.deep.equal(select(sagas.standaloneSelector))
+
+              const standalone = false
+
+              expect(generator.next(standalone).value).to.deep.equal(call(sagas.getLoginData))
+              const loginData = {payload: {username: 'user1', password: '123'}}
+
+              expect(generator.next(loginData).value).to.deep.equal(put(setPassword('123')))
+              expect(generator.next().value).to.deep.equal(call(loginSaga, loginData))
+
+              expect(generator.next().value).to.deep.equal(put(actions.savePasswordSuccess()))
+              expect(generator.next(result).done).to.be.true
+
             })
 
             it('should set validation errors if validation failed', () => {
