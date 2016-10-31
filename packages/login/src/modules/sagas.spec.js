@@ -4,10 +4,9 @@ import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
 import {ExternalEvents} from 'tocco-util'
 
-import {changePage} from './login/actions'
+import {changePage, setPassword} from './login/actions'
 import {setMessage, setPending} from './loginForm/actions'
 import {setRequestedCode} from './twoStepLogin/actions'
-import {setPrincipalPk} from './passwordUpdate/password/actions'
 import {updateOldPassword} from './passwordUpdate/password/actions'
 import {setUsername} from './passwordUpdate/dialog/actions'
 import {Pages} from '../types/Pages'
@@ -103,12 +102,14 @@ describe('login', () => {
         it('should call external event with timeout of reponse body', () => {
           const gen = sagas.handleSuccessfulLogin({timeout: 33})
           expect(gen.next().value).to.eql(call(ExternalEvents.invokeExternalEvent, 'loginSuccess', {timeout: 33}))
+          expect(gen.next().value).to.deep.equal(put(setPassword('')))
           expect(gen.next().done).to.deep.equal(true)
         })
 
         it('should call external event with default timeout if none in body', () => {
           const gen = sagas.handleSuccessfulLogin({})
           expect(gen.next().value).to.eql(call(ExternalEvents.invokeExternalEvent, 'loginSuccess', {timeout: sagas.DEFAULT_TIMEOUT}))
+          expect(gen.next().value).to.deep.equal(put(setPassword('')))
           expect(gen.next().done).to.deep.equal(true)
         })
       })
