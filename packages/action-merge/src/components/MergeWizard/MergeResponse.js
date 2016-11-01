@@ -56,7 +56,7 @@ class MergeResponse extends React.Component {
           ? <div className="alert alert-info">
             <FormattedMessage id="client.entityoperation.action.merge.missingReadPermissions"/>
           </div>
-          : <div/>
+          : null
         }
         <button
           className="btn btn-primary close-button"

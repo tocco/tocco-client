@@ -3,10 +3,7 @@ import MergeResponse from './MergeResponse'
 import {EntityResponseTable} from './MergeResponse'
 import {mount, render, shallow} from 'enzyme'
 import {FormattedMessage} from 'react-intl'
-
-const intl = {
-  formatMessage: (obj) => obj.id
-}
+import {IntlStub} from 'tocco-test-util'
 
 describe('action-merge', () => {
   describe('components', () => {
@@ -23,7 +20,7 @@ describe('action-merge', () => {
         const wrapper = shallow(
           <MergeResponse
             mergeResponse={mergeResponse}
-            intl={intl}
+            intl={IntlStub}
           />
         )
 
@@ -41,7 +38,7 @@ describe('action-merge', () => {
         const wrapper = shallow(
           <MergeResponse
             mergeResponse={mergeResponse}
-            intl={intl}
+            intl={IntlStub}
           />
         )
 
