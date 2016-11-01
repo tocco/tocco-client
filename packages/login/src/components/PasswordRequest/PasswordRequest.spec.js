@@ -3,7 +3,7 @@ import {PasswordRequest} from './PasswordRequest'
 import {mount, render, shallow} from 'enzyme'
 import {Pages} from '../../types/Pages'
 import {Button} from 'tocco-ui'
-import intl from '../../../tests/intlStub'
+import {IntlStub} from 'tocco-test-util'
 
 describe('login', () => {
   describe('components', () => {
@@ -11,7 +11,7 @@ describe('login', () => {
       it('should render components', () => {
         const wrapper = shallow(
           <PasswordRequest
-            intl={intl}
+            intl={IntlStub}
             changePage={() => undefined}
             requestPassword={() => undefined}
           />
@@ -24,7 +24,7 @@ describe('login', () => {
       it('should have an initial password state', () => {
         const wrapper = shallow(
           <PasswordRequest
-            intl={intl}
+            intl={IntlStub}
             changePage={() => undefined}
             requestPassword={() => undefined}
           />
@@ -35,7 +35,7 @@ describe('login', () => {
       it('should update username state on username change', () => {
         const wrapper = shallow(
           <PasswordRequest
-            intl={intl}
+            intl={IntlStub}
             changePage={() => undefined}
             requestPassword={() => undefined}
           />
@@ -54,7 +54,7 @@ describe('login', () => {
       it('should disable submit button if username is not set', () => {
         const wrapper = shallow(
           <PasswordRequest
-            intl={intl}
+            intl={IntlStub}
             changePage={() => undefined}
             requestPassword={() => undefined}
           />
@@ -68,7 +68,7 @@ describe('login', () => {
       it('should enable submit button if username is set', () => {
         const wrapper = shallow(
           <PasswordRequest
-            intl={intl}
+            intl={IntlStub}
             changePage={() => undefined}
             requestPassword={() => undefined}
           />
@@ -87,7 +87,7 @@ describe('login', () => {
       it('should hide title by default', () => {
         const wrapper = shallow(
           <PasswordRequest
-            intl={intl}
+            intl={IntlStub}
             changePage={() => undefined}
             requestPassword={() => undefined}
           />
@@ -99,7 +99,7 @@ describe('login', () => {
       it('should display title if showTitle prop is true', () => {
         const wrapper = shallow(
           <PasswordRequest
-            intl={intl}
+            intl={IntlStub}
             changePage={() => undefined}
             requestPassword={() => undefined}
             showTitle
@@ -115,7 +115,7 @@ describe('login', () => {
 
         const wrapper = shallow(
           <PasswordRequest
-            intl={intl}
+            intl={IntlStub}
             changePage={() => undefined}
             requestPassword={requestPassword}
           />
@@ -134,7 +134,7 @@ describe('login', () => {
 
         const wrapper = shallow(
           <PasswordRequest
-            intl={intl}
+            intl={IntlStub}
             changePage={changePage}
             requestPassword={() => undefined}
           />
