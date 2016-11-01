@@ -1,5 +1,5 @@
 # Tocco-test-util
-This package contains the most needed mocks for tests.
+This package contains utilities for writing tests.
 
 ##Mocks
 

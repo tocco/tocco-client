@@ -1,7 +1,7 @@
 {
   "name": "tocco-test-util",
   "version": "0.1.0",
-  "description": "A package with the most necessary test mocks",
+  "description": "A package with utilities for writing tests",
   "main": "dist/index.js",
   "scripts": {
     "clean": "rimraf dist",
