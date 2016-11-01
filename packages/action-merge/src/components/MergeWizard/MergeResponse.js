@@ -53,10 +53,9 @@ class MergeResponse extends React.Component {
           responseEntities={this.props.mergeResponse.notDeletedEntities}
         />
         {(this.props.mergeResponse.showPermissionMessage)
-          ? <div className="alert alert-info">
-            <FormattedMessage id="client.entityoperation.action.merge.missingReadPermissions"/>
-          </div>
-          : null
+        && <div className="alert alert-info">
+          <FormattedMessage id="client.entityoperation.action.merge.missingReadPermissions"/>
+        </div>
         }
         <button
           className="btn btn-primary close-button"
