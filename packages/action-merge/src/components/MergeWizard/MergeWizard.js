@@ -1,5 +1,4 @@
 import React from 'react'
-import {injectIntl} from 'react-intl'
 
 import MergeMatrixContainer from './../../containers/MergeMatrixContainer'
 import MergeStrategyContainer from './../../containers/MergeStrategyContainer'
@@ -24,7 +23,10 @@ class MergeStrategy extends React.Component {
       )
     } else {
       return (
-        <MergeResponse mergeResponse={this.props.mergeResponse}/>
+        <MergeResponse
+          mergeResponse={this.props.mergeResponse}
+          intl={this.props.intl}
+        />
       )
     }
   }
@@ -36,4 +38,4 @@ MergeStrategy.propTypes = {
   mergeResponse: React.PropTypes.object
 }
 
-export default injectIntl(MergeStrategy)
+export default MergeStrategy
