@@ -4,7 +4,7 @@ import {mount, render, shallow} from 'enzyme'
 import {FormattedMessage} from 'react-intl'
 import * as ToccoUI from 'tocco-ui'
 import {Pages} from '../../types/Pages'
-import intl from '../../../tests/intlStub'
+import {IntlStub} from 'tocco-test-util'
 
 describe('login', () => {
   describe('components', () => {
@@ -12,7 +12,7 @@ describe('login', () => {
       it('should render some components', () => {
         const wrapper = shallow(
             <LoginForm
-              intl={intl}
+              intl={IntlStub}
               login={() => undefined}
               changePage={() => undefined}
               setUsername={() => undefined}
@@ -27,7 +27,7 @@ describe('login', () => {
       it('should render three <FormattedMessage> components if title is shown', () => {
         const wrapper = shallow(
             <LoginForm
-              intl={intl}
+              intl={IntlStub}
               login={() => undefined}
               changePage={() => undefined}
               setUsername={() => undefined}
@@ -43,7 +43,7 @@ describe('login', () => {
       it('should disable button if username and password are not set', () => {
         const wrapper = shallow(
             <LoginForm
-              intl={intl}
+              intl={IntlStub}
               login={() => undefined}
               changePage={() => undefined}
               setUsername={() => undefined}
@@ -61,7 +61,7 @@ describe('login', () => {
       it('should disable button if only username is set', () => {
         const wrapper = shallow(
             <LoginForm
-              intl={intl}
+              intl={IntlStub}
               login={() => undefined}
               changePage={() => undefined}
               setUsername={() => undefined}
@@ -79,7 +79,7 @@ describe('login', () => {
       it('should disable button if only password is set', () => {
         const wrapper = shallow(
             <LoginForm
-              intl={intl}
+              intl={IntlStub}
               login={() => undefined}
               changePage={() => undefined}
               setUsername={() => undefined}
@@ -97,7 +97,7 @@ describe('login', () => {
       it('should enable button if username and password are set', () => {
         const wrapper = shallow(
             <LoginForm
-              intl={intl}
+              intl={IntlStub}
               login={() => undefined}
               changePage={() => undefined}
               setUsername={() => undefined}
@@ -117,7 +117,7 @@ describe('login', () => {
 
         const wrapper = shallow(
             <LoginForm
-              intl={intl}
+              intl={IntlStub}
               login={() => undefined}
               changePage={changePage}
               setUsername={() => undefined}
@@ -139,7 +139,7 @@ describe('login', () => {
 
         const wrapper = shallow(
             <LoginForm
-              intl={intl}
+              intl={IntlStub}
               login={() => undefined}
               changePage={() => undefined}
               setUsername={setUsername}
@@ -165,7 +165,7 @@ describe('login', () => {
 
         const wrapper = shallow(
             <LoginForm
-              intl={intl}
+              intl={IntlStub}
               login={() => undefined}
               changePage={() => undefined}
               setUsername={() => undefined}
@@ -192,7 +192,7 @@ describe('login', () => {
 
         const wrapper = shallow(
             <LoginForm
-              intl={intl}
+              intl={IntlStub}
               login={login}
               changePage={() => undefined}
               setUsername={() => undefined}

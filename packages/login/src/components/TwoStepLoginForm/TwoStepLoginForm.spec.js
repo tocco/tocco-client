@@ -2,7 +2,7 @@ import React from 'react'
 import {TwoStepLoginForm} from './TwoStepLoginForm'
 import {shallow} from 'enzyme'
 import {Button} from 'tocco-ui'
-import intl from '../../../tests/intlStub'
+import {IntlStub} from 'tocco-test-util'
 
 describe('login', () => {
   describe('components', () => {
@@ -10,7 +10,7 @@ describe('login', () => {
       it('should render components', () => {
         const wrapper = shallow(
           <TwoStepLoginForm
-            intl={intl}
+            intl={IntlStub}
             changePage={() => undefined}
             twoStepLogin={() => undefined}
           />
@@ -23,7 +23,7 @@ describe('login', () => {
       it('should have an initial code state', () => {
         const wrapper = shallow(
           <TwoStepLoginForm
-            intl={intl}
+            intl={IntlStub}
             changePage={() => undefined}
             twoStepLogin={() => undefined}
           />
@@ -34,7 +34,7 @@ describe('login', () => {
       it('should update code state on code change', () => {
         const wrapper = shallow(
           <TwoStepLoginForm
-            intl={intl}
+            intl={IntlStub}
             changePage={() => undefined}
             twoStepLogin={() => undefined}
           />
@@ -55,7 +55,7 @@ describe('login', () => {
       it('should disable submit button if code is not set', () => {
         const wrapper = shallow(
           <TwoStepLoginForm
-            intl={intl}
+            intl={IntlStub}
             changePage={() => undefined}
             twoStepLogin={() => undefined}
           />
@@ -69,7 +69,7 @@ describe('login', () => {
       it('should enable submit button if code is set', () => {
         const wrapper = shallow(
           <TwoStepLoginForm
-            intl={intl}
+            intl={IntlStub}
             changePage={() => undefined}
             twoStepLogin={() => undefined}
           />
@@ -87,7 +87,7 @@ describe('login', () => {
       it('should hide title by default', () => {
         const wrapper = shallow(
           <TwoStepLoginForm
-            intl={intl}
+            intl={IntlStub}
             changePage={() => undefined}
             twoStepLogin={() => undefined}
           />
@@ -99,7 +99,7 @@ describe('login', () => {
       it('should display title if showTitle prop is true', () => {
         const wrapper = shallow(
           <TwoStepLoginForm
-            intl={intl}
+            intl={IntlStub}
             changePage={() => undefined}
             twoStepLogin={() => undefined}
             showTitle
@@ -115,7 +115,7 @@ describe('login', () => {
 
         const wrapper = shallow(
           <TwoStepLoginForm
-            intl={intl}
+            intl={IntlStub}
             changePage={() => undefined}
             twoStepLogin={twoStepLogin}
           />

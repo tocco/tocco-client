@@ -44,6 +44,7 @@
     "redux-thunk": "^2.0.0",
     "rimraf": "^2.5.3",
     "tocco-ui": "^0.1.0",
-    "tocco-util": "^0.1.0"
+    "tocco-util": "^0.1.0",
+    "tocco-test-util": "^0.1.0"
   }
 }

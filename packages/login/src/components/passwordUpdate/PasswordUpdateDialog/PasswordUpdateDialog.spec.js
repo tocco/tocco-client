@@ -2,7 +2,7 @@ import React from 'react'
 import PasswordUpdateDialog from './PasswordUpdateDialog'
 import * as ToccoUI from 'tocco-ui'
 import {mount, render, shallow} from 'enzyme'
-import intl from '../../../../tests/intlStub'
+import {IntlStub} from 'tocco-test-util'
 
 describe('login', () => {
   describe('components', () => {
@@ -19,7 +19,7 @@ describe('login', () => {
         shallow(<PasswordUpdateDialog
           fetchValidationRules={fetchValidationRules}
           password={emptyPasswordProp}
-          intl={intl}
+          intl={IntlStub}
           initialized={() => undefined}
           savePassword={() => undefined}
           updateOldPassword={() => undefined}
@@ -38,7 +38,7 @@ describe('login', () => {
           fetchValidationRules={() => undefined}
           validationRules={null}
           password={emptyPasswordProp}
-          intl={intl}
+          intl={IntlStub}
           initialized={initialized}
           savePassword={() => undefined}
           updateOldPassword={() => undefined}
@@ -60,7 +60,7 @@ describe('login', () => {
           fetchValidationRules={() => undefined}
           validationRules={null}
           password={emptyPasswordProp}
-          intl={intl}
+          intl={IntlStub}
           initialized={() => undefined}
           savePassword={() => undefined}
           updateOldPassword={() => undefined}
@@ -75,7 +75,7 @@ describe('login', () => {
           fetchValidationRules={() => undefined}
           validationRules={[]}
           password={emptyPasswordProp}
-          intl={intl}
+          intl={IntlStub}
           initialized={() => undefined}
           savePassword={() => undefined}
           updateOldPassword={() => undefined}
@@ -90,7 +90,7 @@ describe('login', () => {
           fetchValidationRules={() => undefined}
           validationRules={[]}
           password={emptyPasswordProp}
-          intl={intl}
+          intl={IntlStub}
           initialized={() => undefined}
           savePassword={() => undefined}
           updateOldPassword={() => undefined}
@@ -104,7 +104,7 @@ describe('login', () => {
           fetchValidationRules={() => undefined}
           validationRules={[]}
           password={emptyPasswordProp}
-          intl={intl}
+          intl={IntlStub}
           initialized={() => undefined}
           savePassword={() => undefined}
           updateOldPassword={() => undefined}
@@ -121,7 +121,7 @@ describe('login', () => {
           validationRules={[]}
           showOldPasswordField={true}
           password={emptyPasswordProp}
-          intl={intl}
+          intl={IntlStub}
           initialized={() => undefined}
           savePassword={() => undefined}
           updateOldPassword={() => undefined}
@@ -143,7 +143,7 @@ describe('login', () => {
             ...emptyPasswordProp,
             oldPassword: 'oldpw'
           }}
-          intl={intl}
+          intl={IntlStub}
           initialized={() => undefined}
           savePassword={() => undefined}
           updateOldPassword={() => undefined}
@@ -169,7 +169,7 @@ describe('login', () => {
               LENGTH: true
             }
           }}
-          intl={intl}
+          intl={IntlStub}
           initialized={() => undefined}
           savePassword={() => undefined}
           updateOldPassword={() => undefined}
@@ -191,7 +191,7 @@ describe('login', () => {
             newPassword: 'validnewpw',
             newPasswordValidationErrors: {}
           }}
-          intl={intl}
+          intl={IntlStub}
           initialized={() => undefined}
           savePassword={() => undefined}
           updateOldPassword={() => undefined}
@@ -215,7 +215,7 @@ describe('login', () => {
             newPassword: 'newpw',
             newPasswordRepeat: ''
           }}
-          intl={intl}
+          intl={IntlStub}
           initialized={() => undefined}
           savePassword={() => undefined}
           updateOldPassword={() => undefined}
@@ -237,7 +237,7 @@ describe('login', () => {
             newPassword: 'newpw',
             newPasswordRepeat: 'nomatch'
           }}
-          intl={intl}
+          intl={IntlStub}
           initialized={() => undefined}
           savePassword={() => undefined}
           updateOldPassword={() => undefined}
@@ -259,7 +259,7 @@ describe('login', () => {
             newPassword: 'newpw',
             newPasswordRepeat: 'newpw'
           }}
-          intl={intl}
+          intl={IntlStub}
           initialized={() => undefined}
           savePassword={() => undefined}
           updateOldPassword={() => undefined}
@@ -278,7 +278,7 @@ describe('login', () => {
           validationRules={[]}
           showOldPasswordField={true}
           password={emptyPasswordProp}
-          intl={intl}
+          intl={IntlStub}
           initialized={() => undefined}
           savePassword={() => undefined}
           updateOldPassword={() => undefined}
@@ -295,7 +295,7 @@ describe('login', () => {
           validationRules={[]}
           showOldPasswordField={false}
           password={emptyPasswordProp}
-          intl={intl}
+          intl={IntlStub}
           initialized={() => undefined}
           savePassword={() => undefined}
           updateOldPassword={() => undefined}
