@@ -32,8 +32,6 @@ describe('merge', () => {
         expect(generator.next().value).to.deep.equal([put(selectSourceRelation('rel_one', '1'))])
         expect(generator.next().done).to.equal(true)
       })
-
     })
   })
-
 })

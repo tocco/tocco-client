@@ -11,7 +11,7 @@ describe('login', () => {
         oldPassword: '',
         newPassword: '',
         newPasswordRepeat: '',
-        passwordUpdatePending: false,
+        passwordUpdatePending: false
       }
 
       it('should fetch rules on mount', () => {
@@ -96,7 +96,7 @@ describe('login', () => {
           updateOldPassword={() => undefined}
           updateNewPassword={() => undefined}
           updateNewPasswordRepeat={() => undefined}
-          showOldPasswordField={true}
+          showOldPasswordField
         />)
         expect(showFieldWrapper.find({name: 'oldPassword'}).length).to.equal(1)
 
@@ -119,7 +119,7 @@ describe('login', () => {
         const wrapper = shallow(<PasswordUpdateDialog
           fetchValidationRules={() => undefined}
           validationRules={[]}
-          showOldPasswordField={true}
+          showOldPasswordField
           password={emptyPasswordProp}
           intl={IntlStub}
           initialized={() => undefined}
@@ -138,7 +138,7 @@ describe('login', () => {
         const wrapper = shallow(<PasswordUpdateDialog
           fetchValidationRules={() => undefined}
           validationRules={[]}
-          showOldPasswordField={true}
+          showOldPasswordField
           password={{
             ...emptyPasswordProp,
             oldPassword: 'oldpw'
@@ -160,7 +160,7 @@ describe('login', () => {
         const invalidWrapper = shallow(<PasswordUpdateDialog
           fetchValidationRules={() => undefined}
           validationRules={[]}
-          showOldPasswordField={true}
+          showOldPasswordField
           password={{
             ...emptyPasswordProp,
             oldPassword: 'oldpw',
@@ -184,7 +184,7 @@ describe('login', () => {
         const validWrapper = shallow(<PasswordUpdateDialog
           fetchValidationRules={() => undefined}
           validationRules={[]}
-          showOldPasswordField={true}
+          showOldPasswordField
           password={{
             ...emptyPasswordProp,
             oldPassword: 'oldpw',
@@ -208,7 +208,7 @@ describe('login', () => {
         const newPwRepeatEmptyWrapper = shallow(<PasswordUpdateDialog
           fetchValidationRules={() => undefined}
           validationRules={[]}
-          showOldPasswordField={true}
+          showOldPasswordField
           password={{
             ...emptyPasswordProp,
             oldPassword: 'oldpw',
@@ -230,7 +230,7 @@ describe('login', () => {
         const newPwRepeatNoMatchWrapper = shallow(<PasswordUpdateDialog
           fetchValidationRules={() => undefined}
           validationRules={[]}
-          showOldPasswordField={true}
+          showOldPasswordField
           password={{
             ...emptyPasswordProp,
             oldPassword: 'oldpw',
@@ -252,7 +252,7 @@ describe('login', () => {
         const newPwRepeatMatchWrapper = shallow(<PasswordUpdateDialog
           fetchValidationRules={() => undefined}
           validationRules={[]}
-          showOldPasswordField={true}
+          showOldPasswordField
           password={{
             ...emptyPasswordProp,
             oldPassword: 'oldpw',
@@ -276,7 +276,7 @@ describe('login', () => {
         const wrapper = shallow(<PasswordUpdateDialog
           fetchValidationRules={() => undefined}
           validationRules={[]}
-          showOldPasswordField={true}
+          showOldPasswordField
           password={emptyPasswordProp}
           intl={IntlStub}
           initialized={() => undefined}

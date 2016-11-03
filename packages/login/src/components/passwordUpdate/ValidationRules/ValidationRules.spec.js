@@ -21,7 +21,7 @@ describe('login', () => {
         const wrapper = shallow(<ValidationRules rules={rules}/>)
         expect(wrapper.containsAllMatchingElements([
           <Rule message="Must have at least 8 characters"/>,
-          <Rule message="Must have at least 1 digit"/>,
+          <Rule message="Must have at least 1 digit"/>
         ])).to.equal(true)
       })
 
@@ -37,7 +37,7 @@ describe('login', () => {
         const wrapper = shallow(<ValidationRules rules={rules} errors={errors}/>)
         expect(wrapper.containsAllMatchingElements([
           <Rule message="Must have at least 8 characters" className="text-success"/>,
-          <Rule message="Must have at least 1 digit" className="text-success"/>,
+          <Rule message="Must have at least 1 digit" className="text-success"/>
         ])).to.equal(true)
       })
 
@@ -55,7 +55,7 @@ describe('login', () => {
         const wrapper = shallow(<ValidationRules rules={rules} errors={errors}/>)
         expect(wrapper.containsAllMatchingElements([
           <Rule message="Must have at least 8 characters" className="text-danger"/>,
-          <Rule message="Must have at least 1 digit" className="text-success"/>,
+          <Rule message="Must have at least 1 digit" className="text-success"/>
         ])).to.equal(true)
       })
 
@@ -68,12 +68,12 @@ describe('login', () => {
           message: 'Must have at least 1 digit'
         }]
         const errors = {
-          LENGTH: "Two more characters required!"
+          LENGTH: 'Two more characters required!'
         }
         const wrapper = shallow(<ValidationRules rules={rules} errors={errors}/>)
         expect(wrapper.containsAllMatchingElements([
           <Rule message="Two more characters required!" className="text-danger"/>,
-          <Rule message="Must have at least 1 digit" className="text-success"/>,
+          <Rule message="Must have at least 1 digit" className="text-success"/>
         ])).to.equal(true)
       })
     })

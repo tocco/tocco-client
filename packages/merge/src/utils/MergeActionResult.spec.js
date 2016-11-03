@@ -13,8 +13,7 @@ describe('merge', () => {
         var result = getMergeMatrixResult(state)
 
         result.should.have.property('modelName')
-        result.modelName.should.equal('User');
-
+        result.modelName.should.equal('User')
       })
 
       it('should set sourceEntities without including target', () => {
@@ -69,7 +68,6 @@ describe('merge', () => {
           }
         }
 
-
         var result = getMergeMatrixResult(state)
 
         result.should.have.property('data')
@@ -90,7 +88,7 @@ describe('merge', () => {
           targetEntityPk: '113',
           selections: {
             relations: {
-              rel_a: '114',
+              rel_a: '114'
             }
           }
         }
@@ -123,13 +121,11 @@ describe('merge', () => {
           }
         }
 
-
         var result = getMergeMatrixResult(state)
 
         result.should.have.property('data')
         result.data.should.have.property('toManyRelations')
         result.data.toManyRelations.should.have.length(2)
-
 
         result.data.toManyRelations[0].should.eql(
           {
@@ -209,7 +205,6 @@ describe('merge', () => {
         result.sourceEntityConfig.should.have.property('updateValues')
 
         result.sourceEntityConfig.updateValues.length.should.eql(1)
-
       })
 
       it('should  set emtpy edit values if other action', () => {

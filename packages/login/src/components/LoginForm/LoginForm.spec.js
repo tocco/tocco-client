@@ -11,13 +11,13 @@ describe('login', () => {
     describe('LoginForm', () => {
       it('should render some components', () => {
         const wrapper = shallow(
-            <LoginForm
-              intl={IntlStub}
-              login={() => undefined}
-              changePage={() => undefined}
-              setUsername={() => undefined}
-              setPassword={() => undefined}
-              loginPending={false}
+          <LoginForm
+            intl={IntlStub}
+            login={() => undefined}
+            changePage={() => undefined}
+            setUsername={() => undefined}
+            setPassword={() => undefined}
+            loginPending={false}
             />
         )
         expect(wrapper.find(ToccoUI.Button)).to.have.length(1)
@@ -26,14 +26,14 @@ describe('login', () => {
 
       it('should render three <FormattedMessage> components if title is shown', () => {
         const wrapper = shallow(
-            <LoginForm
-              intl={IntlStub}
-              login={() => undefined}
-              changePage={() => undefined}
-              setUsername={() => undefined}
-              setPassword={() => undefined}
-              loginPending={false}
-              showTitle={true}
+          <LoginForm
+            intl={IntlStub}
+            login={() => undefined}
+            changePage={() => undefined}
+            setUsername={() => undefined}
+            setPassword={() => undefined}
+            loginPending={false}
+            showTitle
             />
         )
         expect(wrapper.find(ToccoUI.Button)).to.have.length(1)
@@ -42,15 +42,15 @@ describe('login', () => {
 
       it('should disable button if username and password are not set', () => {
         const wrapper = shallow(
-            <LoginForm
-              intl={IntlStub}
-              login={() => undefined}
-              changePage={() => undefined}
-              setUsername={() => undefined}
-              setPassword={() => undefined}
-              loginPending={false}
-              username=''
-              password=''
+          <LoginForm
+            intl={IntlStub}
+            login={() => undefined}
+            changePage={() => undefined}
+            setUsername={() => undefined}
+            setPassword={() => undefined}
+            loginPending={false}
+            username=""
+            password=""
             />
         )
         expect(wrapper.find(ToccoUI.Button)).to.have.length(1)
@@ -60,15 +60,15 @@ describe('login', () => {
 
       it('should disable button if only username is set', () => {
         const wrapper = shallow(
-            <LoginForm
-              intl={IntlStub}
-              login={() => undefined}
-              changePage={() => undefined}
-              setUsername={() => undefined}
-              setPassword={() => undefined}
-              loginPending={false}
-              username='username'
-              password=''
+          <LoginForm
+            intl={IntlStub}
+            login={() => undefined}
+            changePage={() => undefined}
+            setUsername={() => undefined}
+            setPassword={() => undefined}
+            loginPending={false}
+            username="username"
+            password=""
             />
         )
         expect(wrapper.find(ToccoUI.Button)).to.have.length(1)
@@ -78,15 +78,15 @@ describe('login', () => {
 
       it('should disable button if only password is set', () => {
         const wrapper = shallow(
-            <LoginForm
-              intl={IntlStub}
-              login={() => undefined}
-              changePage={() => undefined}
-              setUsername={() => undefined}
-              setPassword={() => undefined}
-              loginPending={false}
-              username=''
-              password='password'
+          <LoginForm
+            intl={IntlStub}
+            login={() => undefined}
+            changePage={() => undefined}
+            setUsername={() => undefined}
+            setPassword={() => undefined}
+            loginPending={false}
+            username=""
+            password="password"
             />
         )
         expect(wrapper.find(ToccoUI.Button)).to.have.length(1)
@@ -96,15 +96,15 @@ describe('login', () => {
 
       it('should enable button if username and password are set', () => {
         const wrapper = shallow(
-            <LoginForm
-              intl={IntlStub}
-              login={() => undefined}
-              changePage={() => undefined}
-              setUsername={() => undefined}
-              setPassword={() => undefined}
-              loginPending={false}
-              username='username'
-              password='password'
+          <LoginForm
+            intl={IntlStub}
+            login={() => undefined}
+            changePage={() => undefined}
+            setUsername={() => undefined}
+            setPassword={() => undefined}
+            loginPending={false}
+            username="username"
+            password="password"
             />
         )
         expect(wrapper.find(ToccoUI.Button)).to.have.length(1)
@@ -116,15 +116,15 @@ describe('login', () => {
         const changePage = sinon.spy()
 
         const wrapper = shallow(
-            <LoginForm
-              intl={IntlStub}
-              login={() => undefined}
-              changePage={changePage}
-              setUsername={() => undefined}
-              setPassword={() => undefined}
-              loginPending={false}
-              username='username'
-              password='password'
+          <LoginForm
+            intl={IntlStub}
+            login={() => undefined}
+            changePage={changePage}
+            setUsername={() => undefined}
+            setPassword={() => undefined}
+            loginPending={false}
+            username="username"
+            password="password"
             />
         )
         expect(wrapper.find('.forgot-password')).to.have.length(1)
@@ -138,15 +138,15 @@ describe('login', () => {
         const setUsername = sinon.spy()
 
         const wrapper = shallow(
-            <LoginForm
-              intl={IntlStub}
-              login={() => undefined}
-              changePage={() => undefined}
-              setUsername={setUsername}
-              setPassword={() => undefined}
-              loginPending={false}
-              username='username'
-              password='password'
+          <LoginForm
+            intl={IntlStub}
+            login={() => undefined}
+            changePage={() => undefined}
+            setUsername={setUsername}
+            setPassword={() => undefined}
+            loginPending={false}
+            username="username"
+            password="password"
             />
         )
 
@@ -164,15 +164,15 @@ describe('login', () => {
         const setPassword = sinon.spy()
 
         const wrapper = shallow(
-            <LoginForm
-              intl={IntlStub}
-              login={() => undefined}
-              changePage={() => undefined}
-              setUsername={() => undefined}
-              setPassword={setPassword}
-              loginPending={false}
-              username='username'
-              password='password'
+          <LoginForm
+            intl={IntlStub}
+            login={() => undefined}
+            changePage={() => undefined}
+            setUsername={() => undefined}
+            setPassword={setPassword}
+            loginPending={false}
+            username="username"
+            password="password"
             />
         )
 
@@ -191,15 +191,15 @@ describe('login', () => {
         const login = sinon.spy()
 
         const wrapper = shallow(
-            <LoginForm
-              intl={IntlStub}
-              login={login}
-              changePage={() => undefined}
-              setUsername={() => undefined}
-              setPassword={() => undefined}
-              loginPending={false}
-              username='username'
-              password='password'
+          <LoginForm
+            intl={IntlStub}
+            login={login}
+            changePage={() => undefined}
+            setUsername={() => undefined}
+            setPassword={() => undefined}
+            loginPending={false}
+            username="username"
+            password="password"
             />
         )
 

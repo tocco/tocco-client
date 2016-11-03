@@ -1,7 +1,6 @@
 import React from 'react'
 import StringInput from './typeInputs/StringInput'
 
-
 export default function(field, onChange, disabled) {
   if (map[field.type]) {
     return React.createElement(

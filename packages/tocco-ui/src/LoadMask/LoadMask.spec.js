@@ -6,7 +6,6 @@ import {mount, render, shallow} from 'enzyme'
 describe('tocco-ui', function () {
   describe('LoadMask', function () {
     it('shows spinner while promise is not finished', done => {
-
       const promise = new Promise(resolve => resolve())
 
       const wrapper = shallow(
@@ -46,7 +45,7 @@ describe('tocco-ui', function () {
       wrapper = shallow(
         <LoadMask
           promises={[promise]}
-          className='class'
+          className="class"
         />
       )
 
@@ -56,7 +55,7 @@ describe('tocco-ui', function () {
       wrapper = shallow(
         <LoadMask
           promises={[promise]}
-          className='class1 class2 class3'
+          className="class1 class2 class3"
         />
       )
 

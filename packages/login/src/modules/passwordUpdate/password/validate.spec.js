@@ -39,7 +39,7 @@ describe('login', () => {
               const errors = validate('new', 'old', [{
                 name: rules.RULE_LENGTH,
                 params: {
-                  min: 4,
+                  min: 4
                 }
               }])
               expect(errors).to.deep.equal({
@@ -76,7 +76,7 @@ describe('login', () => {
               const errors = validate('NEW', 'old', [{
                 name: rules.RULE_CHARACTER_INSUFFICIENT_LOWERCASE,
                 params: {
-                  min: 1,
+                  min: 1
                 }
               }])
               expect(errors).to.deep.equal({
@@ -113,7 +113,7 @@ describe('login', () => {
               const errors = validate('new', 'old', [{
                 name: rules.RULE_CHARACTER_INSUFFICIENT_UPPERCASE,
                 params: {
-                  min: 1,
+                  min: 1
                 }
               }])
               expect(errors).to.deep.equal({
@@ -150,7 +150,7 @@ describe('login', () => {
               const errors = validate('new', 'old', [{
                 name: rules.RULE_CHARACTER_INSUFFICIENT_DIGIT,
                 params: {
-                  min: 1,
+                  min: 1
                 }
               }])
               expect(errors).to.deep.equal({

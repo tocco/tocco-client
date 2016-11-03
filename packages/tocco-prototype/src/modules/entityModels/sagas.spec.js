@@ -2,7 +2,6 @@ import { take, call, put, fork, select } from 'redux-saga/effects'
 import * as sagas from './sagas'
 import * as actions from './actions'
 
-
 describe('Prototype', () => {
   describe('entityModels sagas', () => {
     describe('fetchEntityModels', () => {
@@ -14,7 +13,7 @@ describe('Prototype', () => {
         const models = [{
           name: 'User',
           label: 'User'
-        }];
+        }]
 
         expect(generator.next(models).done).to.equal(true)
       })

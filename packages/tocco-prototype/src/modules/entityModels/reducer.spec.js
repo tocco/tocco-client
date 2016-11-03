@@ -1,11 +1,11 @@
-import entityModels from './reducer';
-import * as actions from './actions';
+import entityModels from './reducer'
+import * as actions from './actions'
 
 describe('Prototype', () => {
   describe('entityModels reducer', () => {
     it('should handle initial state', () => {
-      expect(entityModels(undefined, {})).to.deep.equal([]);
-    });
+      expect(entityModels(undefined, {})).to.deep.equal([])
+    })
 
     describe(actions.RECEIVE_ENTITY_MODELS, () => {
       it('should set received models', () => {

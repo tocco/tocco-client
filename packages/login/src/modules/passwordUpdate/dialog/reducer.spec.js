@@ -15,7 +15,7 @@ describe('login', () => {
         describe('reducer', () => {
           it('creates initial state', () => {
             expect(reducer(undefined, {})).to.deep.equal(EXPECTED_INITIAL_STATE)
-          });
+          })
 
           it('handles SET_SHOW_OLD_PASSWORD', () => {
             const stateBefore = {
@@ -27,7 +27,7 @@ describe('login', () => {
             }
 
             expect(reducer(stateBefore, actions.setShowOldPasswordField(true))).to.deep.equal(expectedStateAfter)
-          });
+          })
         })
       })
     })

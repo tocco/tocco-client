@@ -5,7 +5,6 @@ describe('merge', () => {
   describe('module mergeStrategy sagas', () => {
     describe('edit reducer', () => {
       it('handels change EditOption Value', () => {
-
         var stateBefore = [
           {
             name: 'field1',
@@ -21,7 +20,7 @@ describe('merge', () => {
         ]
 
         expect(reducer(stateBefore, changeEditOptionValue('field1', 'new_val'))).to.deep.equal(expectedStateAfter)
-      });
+      })
 
       it('handels activate EditOption', () => {
         var stateBefore = [
@@ -39,8 +38,7 @@ describe('merge', () => {
         ]
 
         expect(reducer(stateBefore, activateEditOption('field1', true))).to.deep.equal(expectedStateAfter)
-      });
+      })
     })
   })
-
 })

@@ -6,7 +6,8 @@ import {packagesExists} from './packages'
 
 const debug = _debug('app:bin:compile')
 
-;(async function () {
+  ;
+(async function () {
   try {
     debug('Run compiler')
 

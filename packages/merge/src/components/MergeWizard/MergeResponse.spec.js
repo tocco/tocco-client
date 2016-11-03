@@ -8,11 +8,10 @@ import {IntlStub} from 'tocco-test-util'
 describe('merge', () => {
   describe('components', () => {
     describe('MergeResponse', () => {
-
       it('should render EntityResponseTable', () => {
         const mergeResponse = {
           notCopiedRelations: [
-            { pk: "pk", entity: "entity", name: "name" }
+            {pk: 'pk', entity: 'entity', name: 'name'}
           ],
           notDeletedEntities: []
         }
@@ -50,7 +49,7 @@ describe('merge', () => {
           <EntityResponseTable
             title=""
             responseEntities={[
-              { pk: "pk", entity: "entity", name: "name" }
+              {pk: 'pk', entity: 'entity', name: 'name'}
             ]}
           />
         )

@@ -6,7 +6,7 @@ describe('merge', () => {
     describe('strategies reducer', () => {
       it('should create a valid initial state', () => {
         expect(reducer(undefined, {})).to.deep.equal({copyRelations: true, sourceEntityAction: 'NO_ACTION'})
-      });
+      })
 
       it('handels new strategy', () => {
         var expectedStateAfter =
@@ -15,7 +15,7 @@ describe('merge', () => {
         }
 
         expect(reducer({}, changeStrategy('stgi1', 'old_val'))).to.deep.equal(expectedStateAfter)
-      });
+      })
 
       it('handels update strategy', () => {
         var stateBefore = {
@@ -28,8 +28,7 @@ describe('merge', () => {
         }
 
         expect(reducer(stateBefore, changeStrategy('stgi1', 'new_val'))).to.deep.equal(expectedStateAfter)
-      });
+      })
     })
   })
-
 })

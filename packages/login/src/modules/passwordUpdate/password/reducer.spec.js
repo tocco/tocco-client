@@ -121,7 +121,7 @@ describe('login', () => {
               passwordUpdateErrorCode: 'MY_ERROR_CODE'
             }
 
-            expect(reducer(stateBefore, actions.savePasswordFailure("MY_ERROR_CODE", null))).to.deep.equal(expectedStateAfter)
+            expect(reducer(stateBefore, actions.savePasswordFailure('MY_ERROR_CODE', null))).to.deep.equal(expectedStateAfter)
           })
 
           it('should handle SAVE_PASSWORD_FAILURE with validation messages', () => {
@@ -154,7 +154,6 @@ describe('login', () => {
             }
 
             expect(reducer(stateBefore, actions.savePasswordFailure(null, validationMessages))).to.deep.equal(expectedStateAfter)
-
           })
         })
       })

@@ -9,13 +9,13 @@ describe('merge', function () {
     it('should render a string value', function () {
       var field = {type: 'string', value: 'Test123'}
       let wrapper = shallow(<FieldLabel field={field}/>)
-      expect(wrapper.find(StringLabel)).to.have.length(1);
+      expect(wrapper.find(StringLabel)).to.have.length(1)
     })
 
     it('should render a date value', function () {
-      var field = {type: 'date', value: "1976-03-15T23:00:00.000Z"}
+      var field = {type: 'date', value: '1976-03-15T23:00:00.000Z'}
       let wrapper = shallow(<FieldLabel field={field}/>)
-      expect(wrapper.find(DateFieldLabel)).to.have.length(1);
+      expect(wrapper.find(DateFieldLabel)).to.have.length(1)
     })
   })
 })

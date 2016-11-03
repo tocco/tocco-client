@@ -53,8 +53,8 @@ describe('tocco-ui-showcase', function() {
 
         const wrapper = mount(<ShowCaseApp componentsTree={componentsTree}/>)
 
-        expect(wrapper.find('ShowCase')).to.have.length(2);
-        expect(wrapper.find('section')).to.have.length(3);
+        expect(wrapper.find('ShowCase')).to.have.length(2)
+        expect(wrapper.find('section')).to.have.length(3)
       })
     })
   })
