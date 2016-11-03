@@ -10,7 +10,6 @@ const debug = _debug('app:bin:compile')
 (async function () {
   try {
     debug('Run compiler')
-
     var packageName = process.env.npm_config_package
 
     if (!packageName || !packagesExists(packageName)) {
