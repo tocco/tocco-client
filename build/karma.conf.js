@@ -32,6 +32,7 @@ const karmaConfig = {
   basePath: '../',
   files: [
     './node_modules/babel-polyfill/dist/polyfill.js',
+    './node_modules/intl/dist/Intl.js',
     './build/test-setup.js',
     ...testBundles
 
