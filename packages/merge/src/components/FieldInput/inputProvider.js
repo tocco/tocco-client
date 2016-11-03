@@ -1,6 +1,7 @@
 import React from 'react'
 import StringInput from './typeInputs/StringInput'
 
+
 export default function(field, onChange, disabled) {
   if (map[field.type]) {
     return React.createElement(
@@ -15,7 +16,7 @@ export default function(field, onChange, disabled) {
   }
 
   console.log('no input defined for type', field.type, field)
-  return <div/>
+  return React.createElement('div')
 }
 
 var map = {

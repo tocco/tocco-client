@@ -4,7 +4,7 @@ import * as sagas from './sagas'
 import createMergeResult from './../../utils/MergeActionResult'
 import {setMergeResponse} from './actions'
 
-describe('action-merge', () => {
+describe('merge', () => {
   describe('wizard module sagas', () => {
     describe('save', () => {
       it('should extract mergeResult from state and send dwr request', () => {

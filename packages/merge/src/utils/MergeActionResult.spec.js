@@ -1,6 +1,6 @@
 import createMergeResult, {getMergeMatrixResult, getMergeStrategyResult} from './MergeActionResult'
 
-describe('action-merge', () => {
+describe('merge', () => {
   describe('utils ', () => {
     describe('MergeActionResult', () => {
       it('should map modelName', () => {
@@ -94,7 +94,7 @@ describe('action-merge', () => {
             }
           }
         }
-        
+
         var result = getMergeMatrixResult(state)
         result.data.relations.should.have.length(1)
         result.data.relations[0].should.eql(

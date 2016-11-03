@@ -4,7 +4,7 @@ import {shallow} from 'enzyme'
 import DateFieldLabel from './TypeLabels/DateFieldLabel'
 import StringLabel from './TypeLabels/StringLabel'
 
-describe('action-merge', function () {
+describe('merge', function () {
   describe('FieldLabel Component', function () {
     it('should render a string value', function () {
       var field = {type: 'string', value: 'Test123'}

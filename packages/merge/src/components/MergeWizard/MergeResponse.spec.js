@@ -5,7 +5,7 @@ import {mount, render, shallow} from 'enzyme'
 import {FormattedMessage} from 'react-intl'
 import {IntlStub} from 'tocco-test-util'
 
-describe('action-merge', () => {
+describe('merge', () => {
   describe('components', () => {
     describe('MergeResponse', () => {
 

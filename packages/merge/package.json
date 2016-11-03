@@ -1,5 +1,5 @@
 {
-  "name": "tocco-action-merge",
+  "name": "tocco-merge",
   "version": "0.1.0",
   "description": "merge action",
   "main": "dist/index.js",
@@ -12,7 +12,7 @@
   },
   "betterScripts": {
     "deploy": {
-      "command": "npm run clean && npm run compile --package=action-merge",
+      "command": "npm run clean && npm run compile --package=merge",
       "env": {
         "DEBUG": "app:*"
       }

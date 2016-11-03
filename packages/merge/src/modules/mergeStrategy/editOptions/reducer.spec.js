@@ -1,7 +1,7 @@
 import reducer from './index'
 import {changeEditOptionValue, activateEditOption} from './actions'
 
-describe('action-merge', () => {
+describe('merge', () => {
   describe('module mergeStrategy sagas', () => {
     describe('edit reducer', () => {
       it('handels change EditOption Value', () => {

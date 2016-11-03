@@ -28,7 +28,7 @@ const init = (id, input, externalEvents) => {
     }
 
     if (externalEvents) ExternalEvents.registerEvents(externalEvents)
-    
+
     const store = StoreFactory.createStore(initialState, reducers, sagas)
 
     if (module.hot) {
@@ -85,6 +85,6 @@ if (__DEV__) {
   render()
 } else {
   if (window.reactRegistry) {
-    window.reactRegistry.register('action-merge', init) // git TODO: replace string with var
+    window.reactRegistry.register('merge', init) // git TODO: replace string with var
   }
 }

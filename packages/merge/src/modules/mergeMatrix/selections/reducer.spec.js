@@ -1,7 +1,7 @@
 import reducer from './index'
 import {selectSourceField, selectSourceRelation, toggleRelationMany} from './actions'
 
-describe('action-merge', () => {
+describe('merge', () => {
   describe('selections reducer', () => {
     it('should create a valid initial state', () => {
       expect(reducer(undefined, {})).to.deep.equal({fields: {}, relations: {}, toManyRelations: {}})

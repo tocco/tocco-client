@@ -1,7 +1,7 @@
 import reducer from './index'
 import {changeStrategy} from './actions'
 
-describe('action-merge', () => {
+describe('merge', () => {
   describe('module mergeStrategy sagas', () => {
     describe('strategies reducer', () => {
       it('should create a valid initial state', () => {

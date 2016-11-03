@@ -1,6 +1,6 @@
 import {mergingWithoutProblems} from './MergeResponse'
 
-describe('action-merge', () => {
+describe('merge', () => {
   describe('utils ', () => {
     describe('MergeResponse', () => {
       it('should be successfully if both arrays empty', () => {
