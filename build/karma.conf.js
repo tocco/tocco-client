@@ -32,7 +32,9 @@ const karmaConfig = {
   basePath: '../',
   files: [
     './node_modules/babel-polyfill/dist/polyfill.js',
+    './build/test-setup.js',
     ...testBundles
+
   ],
   singleRun: !argv.watch,
   frameworks: ['mocha'],
@@ -41,6 +43,7 @@ const karmaConfig = {
     showDiff: true
   },
   preprocessors: {
+    './build/test-setup.js': ['webpack'],
     ...bundlePreprocessors
   },
   browsers: ['PhantomJS'],
