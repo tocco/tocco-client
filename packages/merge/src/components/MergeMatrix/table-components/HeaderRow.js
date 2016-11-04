@@ -1,5 +1,5 @@
 import React from 'react'
-import {injectIntl} from 'react-intl'
+import {intlShape} from 'react-intl'
 
 const HeaderRow = props => {
   const isTargetEntity = pk => pk === props.targetEntityPk
@@ -33,10 +33,10 @@ const HeaderRow = props => {
 }
 
 HeaderRow.propTypes = {
+  intl: intlShape.isRequired,
   entities: React.PropTypes.array.isRequired,
   changeTargetEntity: React.PropTypes.func.isRequired,
-  targetEntityPk: React.PropTypes.string.isRequired,
-  intl: React.PropTypes.object.isRequired
+  targetEntityPk: React.PropTypes.string.isRequired
 }
 
-export default injectIntl(HeaderRow)
+export default HeaderRow

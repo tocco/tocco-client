@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+import {injectIntl} from 'react-intl'
 import MergeStrategy from '../components/MergeStrategy'
 import {changeEditOptionValue, activateEditOption} from '../modules/mergeStrategy/editOptions/actions'
 import {changeStrategy} from '../modules/mergeStrategy/strategies/actions'
@@ -16,5 +17,5 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, mapActionCreators, null, { withRef: true })(MergeStrategy)
+export default connect(mapStateToProps, mapActionCreators, null, {withRef: true})(injectIntl(MergeStrategy))
 

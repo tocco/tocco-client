@@ -1,13 +1,8 @@
 import {shallow, mount} from 'enzyme'
-
+import {IntlStub} from 'tocco-test-util'
 import React from 'react'
+import {IntlProvider} from 'react-intl'
 import MergeStrategy from './MergeStrategy'
-import {mountWithIntlProvider} from 'tocco-test-util/intl-enzyme'
-
-import {
-  IntlProvider,
-  FormattedRelative,
-} from 'react-intl';
 
 describe('merge', () => {
   describe('MergeStrategy Component', () => {
@@ -23,13 +18,36 @@ describe('merge', () => {
               "active": "Aktiv",
               "archive": "Archiv",
               "check": "Prüfen"
-            }
+            },
+            value: 'archive'
+
           }
         ]
 
         const strategies = {copyRelations: true, sourceEntityAction: 'NO_ACTION'}
-        const wrapper = mountWithIntlProvider(
-          <MergeStrategy editOptions={editOptions} strategies={strategies}/>
+        const wrapper = mount(
+          <IntlProvider
+            locale={'en-US'}
+            messages={{
+              'client.entityoperation.action.merge.yes': ' ',
+              'client.entityoperation.action.merge.no': ' ',
+              'client.entityoperation.action.merge.copyRelationsTitle': ' ',
+              'client.entityoperation.action.merge.editTitle': ' ',
+              'client.entityoperation.action.merge.strategyTitle': ' '
+            }}
+          >
+            <MergeStrategy
+              intl={IntlStub}
+              editOptions={editOptions}
+              strategies={strategies}
+              changeEditOptionValue={()=> {
+              }}
+              activateEditOption={()=> {
+              }}
+              changeStrategy={()=> {
+              }}
+            />
+          </IntlProvider>
         )
 
         expect(wrapper.find('select')).to.have.length(2)

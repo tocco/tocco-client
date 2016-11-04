@@ -1,4 +1,5 @@
 import React from 'react'
+import {intlShape} from 'react-intl'
 
 import './MegerMatrix.scss'
 
@@ -17,6 +18,7 @@ class MergeMatrix extends React.Component {
               changeTargetEntity={this.props.changeTargetEntity}
               selectSourceField={this.props.selectSourceField}
               targetEntityPk={this.props.targetEntityPk}
+              intl={this.props.intl}
             />
           </thead>
           <tbody>
@@ -78,7 +80,8 @@ MergeMatrix.propTypes = {
   changeTargetEntity: React.PropTypes.func.isRequired,
   selectSourceField: React.PropTypes.func.isRequired,
   selectSourceRelation: React.PropTypes.func.isRequired,
-  toggleRelationMany: React.PropTypes.func.isRequired
+  toggleRelationMany: React.PropTypes.func.isRequired,
+  intl: intlShape.isRequired
 }
 
 export default MergeMatrix

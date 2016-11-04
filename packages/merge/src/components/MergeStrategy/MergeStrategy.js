@@ -1,5 +1,5 @@
 import React from 'react'
-import {FormattedMessage, injectIntl} from 'react-intl'
+import {intlShape, FormattedMessage} from 'react-intl'
 import classNames from 'classnames'
 import EditOption from './EditOption'
 import {SourceEntityAction} from '../../types/SourceEntityAction'
@@ -83,12 +83,12 @@ class MergeStrategy extends React.Component {
 }
 
 MergeStrategy.propTypes = {
+  intl: intlShape.isRequired,
   editOptions: React.PropTypes.array.isRequired,
   changeEditOptionValue: React.PropTypes.func.isRequired,
   activateEditOption: React.PropTypes.func.isRequired,
   strategies: React.PropTypes.object.isRequired,
-  changeStrategy: React.PropTypes.func.isRequired,
-  intl: React.PropTypes.object.isRequired
+  changeStrategy: React.PropTypes.func.isRequired
 }
 
-export default injectIntl(MergeStrategy)
+export default MergeStrategy

@@ -2,23 +2,32 @@ import {shallow, mount} from 'enzyme'
 
 import React from 'react'
 import MergeMatrix from './MergeMatrix'
-import {mountWithIntlProvider} from 'tocco-test-util/intl-enzyme'
+import {IntlStub} from 'tocco-test-util'
 import {HeaderRow, ToManyRelationRow, FieldRow, RelationRow} from './table-components'
-
-import {
-  IntlProvider,
-  FormattedRelative,
-} from 'react-intl';
 
 describe('merge', () => {
   describe('MergeMatrix Component', () => {
+
     describe('', () => {
       it('should load the matrix as a table with the desired amount of rows ', () => {
-
-        const wrapper = mountWithIntlProvider(
-          <MergeMatrix targetEntityPk="498" entities={testData.entities} model={testData.model}
-                       selections={{fields: {}, relations: {}, toManyRelations: {}}}></MergeMatrix>
+        const wrapper = mount(
+          <MergeMatrix
+            targetEntityPk="498"
+            entities={testData.entities}
+            model={testData.model}
+            selections={{fields: {}, relations: {}, toManyRelations: {}}}
+            changeTargetEntity={() => {
+            }}
+            selectSourceField={() => {
+            }}
+            selectSourceRelation={() => {
+            }}
+            toggleRelationMany={() => {
+            }}
+            intl={IntlStub}
+          />
         )
+
         expect(wrapper.find('table')).to.have.length(1)
         expect(wrapper.find(HeaderRow)).to.have.length(1)
         expect(wrapper.find(FieldRow)).to.have.length(testData.model.fields.length)
