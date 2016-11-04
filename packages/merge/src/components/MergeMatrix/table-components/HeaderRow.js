@@ -2,15 +2,15 @@ import React from 'react'
 import {injectIntl} from 'react-intl'
 
 const HeaderRow = props => {
-  var isTargetEntity = pk => pk === props.targetEntityPk
+  const isTargetEntity = pk => pk === props.targetEntityPk
 
   return (
     <tr>
       <th/>
       {
         props.entities.map((entity, idx) => {
-          var cls = isTargetEntity(entity.pk) ? 'merge-matrix-th-selected' : 'merge-matrix-th'
-          var attributes = {}
+          const cls = isTargetEntity(entity.pk) ? 'merge-matrix-th-selected' : 'merge-matrix-th'
+          const attributes = {}
           if (!isTargetEntity(entity.pk)) {
             attributes.title = props.intl.formatMessage({id: 'client.entityoperation.action.merge.selectTargetTitle'})
           }

@@ -10,7 +10,7 @@ import './styles.scss'
 
 class MergeStrategy extends React.Component {
   render() {
-    var saveButtonLabel = this.props.intl.formatMessage({id: 'client.entityoperation.action.merge.saveButton'})
+    const saveButtonLabel = this.props.intl.formatMessage({id: 'client.entityoperation.action.merge.saveButton'})
 
     if (!this.props.mergeResponse.merged) {
       return (

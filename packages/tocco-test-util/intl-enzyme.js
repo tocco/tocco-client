@@ -1,6 +1,6 @@
 import {mountWithIntlProvider, shallowWithIntlProvider} from './src/intl-enzyme'
 
-var exports = {
+const exports = {
   mountWithIntlProvider,
   shallowWithIntlProvider
 }

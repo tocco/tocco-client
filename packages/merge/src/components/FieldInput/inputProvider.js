@@ -18,6 +18,6 @@ export default function(field, onChange, disabled) {
   return React.createElement('div')
 }
 
-var map = {
+const map = {
   'string': StringInput
 }

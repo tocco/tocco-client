@@ -2,9 +2,9 @@ import React from 'react'
 import moment from 'moment'
 
 const DateFieldLabel = props => {
-  var formatted = ''
+  let formatted = ''
   if (props.value && props.value !== '') {
-    var loc = props.locale || 'de'
+    const loc = props.locale || 'de'
     moment.locale(loc)
     formatted = moment(props.value).format('ll')
   }

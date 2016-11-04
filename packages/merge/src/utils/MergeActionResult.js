@@ -1,14 +1,14 @@
 import {SourceEntityAction} from './../types/SourceEntityAction'
 
 export default function createMergeResult(state) {
-  var mergeStrategy = getMergeStrategyResult(state.mergeStrategy)
-  var mergeMatrixResult = getMergeMatrixResult(state.mergeMatrix)
+  const mergeStrategy = getMergeStrategyResult(state.mergeStrategy)
+  const mergeMatrixResult = getMergeMatrixResult(state.mergeMatrix)
 
   return {...mergeStrategy, ...mergeMatrixResult}
 }
 
 export function getMergeStrategyResult(mergeStrategyState) {
-  var deleteSourceEntities = (mergeStrategyState.strategies.sourceEntityAction === SourceEntityAction.DELETE)
+  const deleteSourceEntities = (mergeStrategyState.strategies.sourceEntityAction === SourceEntityAction.DELETE)
   return {
     copyRemainingRelations: mergeStrategyState.strategies.copyRelations,
     sourceEntityConfig: {
@@ -25,7 +25,7 @@ function extractUpdateValues(mergeStrategyState) {
     return []
   }
 
-  var result = []
+  const result = []
   mergeStrategyState.editOptions.forEach(editOptions => {
     if (editOptions.active) {
       result.push(
@@ -54,10 +54,10 @@ export function getMergeMatrixResult(mergeMatrixState) {
 }
 
 function extractFields(state) {
-  var result = []
+  const result = []
   if (state.selections.fields) {
     Object.keys(state.selections.fields).forEach(fieldName => {
-      var value = state.selections.fields[fieldName]
+      const value = state.selections.fields[fieldName]
 
       if (value !== state.targetEntityPk) {
         result.push({
@@ -72,16 +72,16 @@ function extractFields(state) {
 }
 
 function extractRelations(state) {
-  var result = []
+  const result = []
 
   if (state.selections.relations) {
     Object.keys(state.selections.relations).forEach(relationName => {
-      var entityPk = state.selections.relations[relationName]
+      const entityPk = state.selections.relations[relationName]
 
       if (entityPk !== state.targetEntityPk) {
-        var entity = state.entities.find(e => e.pk === entityPk)
+        const entity = state.entities.find(e => e.pk === entityPk)
 
-        var pks = []
+        const pks = []
         if (entity.relations[relationName] && entity.relations[relationName].values.length > 0) {
           pks.push(entity.relations[relationName].values[0].pk)
         }
@@ -97,7 +97,7 @@ function extractRelations(state) {
 }
 
 function extractToManyRelations(state) {
-  var result = []
+  const result = []
 
   if (state.selections.toManyRelations) {
     Object.keys(state.selections.toManyRelations).forEach(relationName => {

@@ -122,7 +122,7 @@ if (__DEV__) {
   )
 }
 
-var presets = ['es2015', 'react', 'stage-0']
+const presets = ['es2015', 'react', 'stage-0']
 
 if (__DEV__) {
   presets.push('react-hmre')

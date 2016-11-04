@@ -3,16 +3,16 @@ import FieldLabel from '../../FieldLabel'
 import SingleSelection from './SingleSelection'
 
 const FieldRow = props => {
-  var isTargetEntity = pk => pk === props.targetEntity.pk
-  var isWritableRow = props.targetEntity.fields[props.field.name].writable
+  const isTargetEntity = pk => pk === props.targetEntity.pk
+  const isWritableRow = props.targetEntity.fields[props.field.name].writable
 
   return (
     <tr>
       <td className="bold">{props.field.label}</td>
       {
         props.entities.map((entity, idx) => {
-          var cls = isTargetEntity(entity.pk) ? 'merger-matrix-selected-col' : ''
-          var entityField = entity.fields[props.field.name]
+          const cls = isTargetEntity(entity.pk) ? 'merger-matrix-selected-col' : ''
+          const entityField = entity.fields[props.field.name]
 
           return (
             <td className={cls} key={'td' + idx}>

@@ -12,8 +12,8 @@ import {initList} from './actions'
 export function loadEntities(model, searchTerm, ordering, offSet) {
   return new Promise(resolve => {
     const sort = ordering ? (ordering.name + ' ' + ordering.direction) : ''
-    var entitiesRestUrl = `${__BACKEND_URL__}/nice2/rest/entities/`
-    var url = `${entitiesRestUrl}/${model}?_search=${searchTerm}&_sort=${sort}&_offset=${offSet}&_limit=${3}`
+    const entitiesRestUrl = `${__BACKEND_URL__}/nice2/rest/entities/`
+    const url = `${entitiesRestUrl}/${model}?_search=${searchTerm}&_sort=${sort}&_offset=${offSet}&_limit=${3}`
     fetch(url, {
       credentials: 'include'
     }).then(response => resolve(response.json()))
@@ -21,7 +21,7 @@ export function loadEntities(model, searchTerm, ordering, offSet) {
 }
 
 function* fetchEntities() {
-  var listState = yield select(state => state.list)
+  const listState = yield select(state => state.list)
   const {entityModel, searchTerm, ordering} = listState
   yield call(delay, 300)
   const entities = yield call(loadEntities, entityModel, searchTerm, ordering, 0)
@@ -29,9 +29,9 @@ function* fetchEntities() {
 }
 
 function* lazyFetchEntities() {
-  var listState = yield select(state => state.list)
+  const listState = yield select(state => state.list)
   const {entityModel, searchTerm, ordering} = listState
-  var offSet = listState.data.length
+  const offSet = listState.data.length
   const entities = yield call(loadEntities, entityModel, searchTerm, ordering, offSet)
   yield put(receiveLazyLoadedEntities(entities))
 }

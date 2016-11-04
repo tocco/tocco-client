@@ -6,7 +6,7 @@ import {SourceEntityAction} from '../../types/SourceEntityAction'
 
 class MergeStrategy extends React.Component {
   render() {
-    var editClassNames = classNames({
+    const editClassNames = classNames({
       hidden: this.props.strategies.sourceEntityAction !== SourceEntityAction.EDIT
     })
 

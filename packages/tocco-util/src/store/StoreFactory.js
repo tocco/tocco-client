@@ -7,7 +7,7 @@ import input from './input/reducer'
 
 export default class StoreFactory {
   static createStore = (initialState = {}, reducers, sagas) => {
-    var sagaMiddleware = createSagaMiddleware()
+    const sagaMiddleware = createSagaMiddleware()
     let middleware = applyMiddleware(thunk, sagaMiddleware)
 
     if (__DEBUG__) {

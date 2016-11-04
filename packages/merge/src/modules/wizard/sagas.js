@@ -19,9 +19,9 @@ export function sendDwr(mergeActionResult) {
 
 export function* save() {
   try {
-    var state = yield select()
-    var mergeActionResult = yield call(createMergeResult, state)
-    var mergeResponse = yield call(sendDwr, mergeActionResult)
+    const state = yield select()
+    const mergeActionResult = yield call(createMergeResult, state)
+    const mergeResponse = yield call(sendDwr, mergeActionResult)
 
     if (mergingWithoutProblems(mergeResponse)) {
       yield call(ExternalEvents.invokeExternalEvent, 'close')

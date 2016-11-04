@@ -2,17 +2,17 @@ import React from 'react'
 import SingleSelection from './SingleSelection'
 
 const RelationRow = props => {
-  var isTargetEntity = pk => pk === props.targetEntity.pk
+  const isTargetEntity = pk => pk === props.targetEntity.pk
 
-  var isWritableRow = !props.targetEntity.relations[props.relation.name].writable
+  const isWritableRow = !props.targetEntity.relations[props.relation.name].writable
 
   return (
     <tr>
       <td className="bold">{props.relation.label}</td>
       {
         props.entities.map((entity, idx) => {
-          var cls = isTargetEntity(entity.pk) ? 'merger-matrix-selected-col' : ''
-          var entityRelationValue = entity.relations[props.relation.name].values[0]
+          const cls = isTargetEntity(entity.pk) ? 'merger-matrix-selected-col' : ''
+          const entityRelationValue = entity.relations[props.relation.name].values[0]
           return (
             <td className={cls} key={'td' + idx}>
               <SingleSelection

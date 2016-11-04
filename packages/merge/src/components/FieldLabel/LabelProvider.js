@@ -13,7 +13,7 @@ export default function(field) {
   return <div/>
 }
 
-var map = {
+const map = {
   'string': StringLabel,
   'phone': StringLabel,
   'counter': StringLabel,

@@ -2,7 +2,7 @@ import Button from './Button'
 import ToccoLogo from './ToccoLogo'
 import LoadMask from './LoadMask'
 
-var exports = {
+const exports = {
   Button,
   ToccoLogo,
   LoadMask

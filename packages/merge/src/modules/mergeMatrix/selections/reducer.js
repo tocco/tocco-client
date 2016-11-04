@@ -9,19 +9,19 @@ function changeSourceRelation(state, {payload}) {
 }
 
 function toggleRelationMany(state, {payload}) {
-  var newState = {...state}
+  const newState = {...state}
 
   if (!newState.toManyRelations[payload.relationName]) {
     newState.toManyRelations[payload.relationName] = {}
   }
 
-  var relation = newState.toManyRelations[payload.relationName]
+  const relation = newState.toManyRelations[payload.relationName]
 
   if (!relation[payload.entityPk]) {
     relation[payload.entityPk] = []
   }
 
-  var idx = relation[payload.entityPk].indexOf(payload.relationPk)
+  const idx = relation[payload.entityPk].indexOf(payload.relationPk)
 
   if (idx >= 0) {
     relation[payload.entityPk].splice(idx, 1)

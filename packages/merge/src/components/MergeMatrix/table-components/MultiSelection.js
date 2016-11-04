@@ -3,9 +3,9 @@ import * as SelectionUtil from '../../../utils/SelectionUtil'
 import sortBy from 'lodash/sortBy'
 
 const MultiSelection = props => {
-  var disabled = (props.disabled) ? 'disabled' : ''
+  const disabled = (props.disabled) ? 'disabled' : ''
 
-  var isChecked = relationPk => {
+  const isChecked = relationPk => {
     return SelectionUtil.isToManySelected(
       props.selections.toManyRelations,
       props.relationName,
@@ -13,7 +13,7 @@ const MultiSelection = props => {
       props.entity.pk)
   }
 
-  var clickFnc = value => props.onChange(props.relationName, value.pk, props.entity.pk)
+  const clickFnc = value => props.onChange(props.relationName, value.pk, props.entity.pk)
   return (
     <div>
       {

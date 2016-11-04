@@ -1,7 +1,7 @@
 import React from 'react'
 
 const UrlFieldLabel = props => {
-  var content = props.value || ''
+  const content = props.value || ''
 
   return (
     <span><a href={content}>{content}</a></span>

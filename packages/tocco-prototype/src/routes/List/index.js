@@ -4,7 +4,7 @@ import { setEntityModel } from './modules/entityModel/actions'
 import {updateSearchTerm} from './modules/searchTerm/actions'
 
 function dispatchInput(store) {
-  var state = store.getState()
+  const state = store.getState()
   if (state.input) {
     const { input } = state
 
@@ -13,7 +13,7 @@ function dispatchInput(store) {
     }
 
     if (input.selectedEntities && input.selectedEntities.length > 0) {
-      var query = input.selectedEntities.map(k => `pk:${k}`).join(' OR ')
+      const query = input.selectedEntities.map(k => `pk:${k}`).join(' OR ')
       store.dispatch(updateSearchTerm(query))
     }
   }

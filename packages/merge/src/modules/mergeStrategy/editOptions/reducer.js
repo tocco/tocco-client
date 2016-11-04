@@ -1,7 +1,7 @@
 import {RECEIVE_EDIT_OPTIONS, CHANGE_EDIT_OPTION_VALUE, ACTIVATE_EDIT_OPTION} from './actions'
 
 function receiveEditOption(state, {payload}) {
-  var newState = [].concat(payload.editOptions)
+  const newState = [].concat(payload.editOptions)
   newState.forEach(editOption => {
     editOption.value = editOption.defaultValue
     delete editOption.defaultValue
@@ -13,16 +13,16 @@ function receiveEditOption(state, {payload}) {
 
 function changeEditOptionValue(state, {payload}) {
   const {name, value} = payload
-  var newState = [].concat(state)
-  var editOption = newState.find(eO => eO.name === name)
+  const newState = [].concat(state)
+  const editOption = newState.find(eO => eO.name === name)
   if (editOption) editOption.value = value
   return newState
 }
 
 function activateEditOption(state, {payload}) {
   const {name, activate} = payload
-  var newState = [].concat(state)
-  var editOption = newState.find(eO => eO.name === name)
+  const newState = [].concat(state)
+  const editOption = newState.find(eO => eO.name === name)
   if (editOption) editOption.active = activate
   return newState
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import inputProvider from './inputProvider'
 
 const FieldInput = props => {
-  var disabled = props.disabled ? props.disabled : false
+  const disabled = props.disabled ? props.disabled : false
   return inputProvider(props.field, props.onChange, disabled)
 }
 

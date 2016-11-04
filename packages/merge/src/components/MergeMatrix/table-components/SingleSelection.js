@@ -1,9 +1,9 @@
 import React from 'react'
 
 const SingleSelectionCell = props => {
-  var cls = props.disabled ? 'disabled' : ''
+  const cls = props.disabled ? 'disabled' : ''
 
-  var clickFnc = () => props.onChange(props.identifier, props.pk)
+  const clickFnc = () => props.onChange(props.identifier, props.pk)
   return (
     <div className={cls}>
       <input

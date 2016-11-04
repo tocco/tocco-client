@@ -2,18 +2,18 @@ import React from 'react'
 import MultiSelection from './MultiSelection'
 
 const ToManyRelationRow = props => {
-  var isTargetEntity = pk => pk === props.targetEntity.pk
+  const isTargetEntity = pk => pk === props.targetEntity.pk
 
-  var isWritableRow = props.targetEntity.relations[props.relation.name].writable
+  const isWritableRow = props.targetEntity.relations[props.relation.name].writable
 
   return (
     <tr>
       <td className="bold">{props.relation.label}</td>
       {
         props.entities.map((entity, idx) => {
-          var cls = isTargetEntity(entity.pk) ? 'merger-matrix-selected-col' : ''
-          var disabled = !(props.targetEntity.pk === entity.pk)
-          var values = entity.relations[props.relation.name].values
+          const cls = isTargetEntity(entity.pk) ? 'merger-matrix-selected-col' : ''
+          const disabled = !(props.targetEntity.pk === entity.pk)
+          const values = entity.relations[props.relation.name].values
 
           return (
             <td className={cls} key={'td' + idx}>

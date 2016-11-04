@@ -2,7 +2,7 @@ import React from 'react'
 import FieldInput from '../FieldInput/FieldInput'
 
 const FieldOption = props => {
-  var field = {name: props.name, value: props.value, type: props.fieldType}
+  const field = {name: props.name, value: props.value, type: props.fieldType}
 
   return (
     <div>

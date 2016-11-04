@@ -35,7 +35,7 @@ export class Wizard extends React.Component {
   }
 
   nextClick = () => {
-    var result = true
+    let result = true
     if (this.currentRender && this.currentRender.getWrappedInstance) {
       if (this.currentRender.getWrappedInstance().wizardNext) {
         result = this.currentRender.getWrappedInstance().wizardNext()
@@ -49,8 +49,8 @@ export class Wizard extends React.Component {
   }
 
   render() {
-    var currentPage = this.getCurrentPage()
-    var t = React.cloneElement(currentPage,
+    const currentPage = this.getCurrentPage()
+    const t = React.cloneElement(currentPage,
       {
         wizardAllowNext: this.changeAllowNext,
         ref: ref => (this.currentRender = ref)

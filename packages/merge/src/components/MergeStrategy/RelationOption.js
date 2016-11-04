@@ -1,12 +1,12 @@
 import React from 'react'
 
 const RelationOption = props => {
-  var handleOnChange = event => {
+  const handleOnChange = event => {
     props.onChange(props.name, event.target.value)
   }
 
-  var options = []
-  for (var propertyName in props.values) {
+  const options = []
+  for (const propertyName in props.values) {
     options.push(
       <option
         key={`fieldset${props.name}${propertyName}`}

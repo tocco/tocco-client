@@ -18,7 +18,7 @@ import it from 'react-intl/locale-data/it'
 
 const init = (id, input, externalEvents) => {
   try {
-    var initialState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {}
+    const initialState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {}
     if (__DEV__) {
       input = require('./dev_input.json')
     }

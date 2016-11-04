@@ -2,8 +2,8 @@ import React from 'react'
 import classNames from 'classnames'
 
 const StringInput = props => {
-  var value = props.value || ''
-  var handleOnChange = event => {
+  const value = props.value || ''
+  const handleOnChange = event => {
     props.onChange(props.name, event.target.value)
   }
 

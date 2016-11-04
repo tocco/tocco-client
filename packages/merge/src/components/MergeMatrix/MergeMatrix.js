@@ -7,7 +7,7 @@ import {HeaderRow, ToManyRelationRow, FieldRow, RelationRow} from './table-compo
 class MergeMatrix extends React.Component {
 
   render() {
-    var targetEntity = this.props.entities.find(e => e.pk === this.props.targetEntityPk)
+    const targetEntity = this.props.entities.find(e => e.pk === this.props.targetEntityPk)
     return (
       <div>
         <table className="table table-striped table-hover">

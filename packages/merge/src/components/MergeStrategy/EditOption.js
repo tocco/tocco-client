@@ -6,7 +6,7 @@ import RelationOption from './RelationOption'
 import {EditOptionType} from './../../types/EditOptionType'
 
 const EditOption = props => {
-  var input
+  let input
   if (props.editOption.type === EditOptionType.field) {
     input = <FieldOption
       name={props.editOption.name}
@@ -25,11 +25,11 @@ const EditOption = props => {
     />
   }
 
-  var handleCheck = () => {
+  const handleCheck = () => {
     props.activateEditOption(props.editOption.name, !props.editOption.active)
   }
 
-  var labelClasses = classNames(
+  const labelClasses = classNames(
     {
       'disabled': !props.editOption.active
     }

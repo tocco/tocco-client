@@ -5,7 +5,7 @@ import {ToccoLogo} from 'tocco-ui'
 import SearchForm from '../../../../components/SearchForm'
 import List from '../../../../components/List'
 
-var labelComparer = (a, b) => {
+const labelComparer = (a, b) => {
   if (a.label < b.label) {
     return -1
   }

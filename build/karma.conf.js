@@ -7,7 +7,7 @@ import {getAllPackages} from '../bin/packages'
 const debug = _debug('app:karma')
 debug('Create configuration.')
 
-var packages
+let packages
 if (config.globals.__PACKAGE__) {
   packages = [config.globals.__PACKAGE__]
 } else {
@@ -19,11 +19,11 @@ if (config.globals.__PACKAGE__) {
 }
 debug(`Run tests for packages: ${packages.join(', ')}`)
 
-var testBundles = []
+const testBundles = []
 packages.forEach(pck => {
   testBundles.push(`packages/${pck}/${config.dir_test}/test-bundler.js`)
 })
-var bundlePreprocessors = {}
+const bundlePreprocessors = {}
 testBundles.forEach(bundle => {
   bundlePreprocessors[bundle] = ['webpack', 'sourcemap']
 })

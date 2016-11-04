@@ -1,4 +1,4 @@
-var events = {}
+let events = {}
 
 function registerEvents(externalEvents) {
   events = {...events, ...externalEvents}

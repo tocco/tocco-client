@@ -5,7 +5,7 @@ import {changeTargetEntity} from '../modules/mergeMatrix/actions'
 import {toggleRelationMany, clearRelationMany} from '../modules/mergeMatrix/selections/actions'
 
 export default function dispatchInput(store) {
-  var state = store.getState()
+  const state = store.getState()
   if (state.input) {
     const {input} = state
     store.dispatch(receiveEntities(input.entities))
@@ -21,7 +21,7 @@ function dispatchToManySelections(input, store) {
   input.model.relations.map(relation => {
     if (relation.toMany) {
       input.entities.map(entity => {
-        var userRelation = entity.relations[relation.name]
+        const userRelation = entity.relations[relation.name]
         userRelation.values.map(userRelationValue => {
           if (userRelationValue.checked) {
             store.dispatch(toggleRelationMany(relation.name, userRelationValue.pk, entity.pk))
