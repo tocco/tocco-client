@@ -3,8 +3,8 @@ import {shallow, mount} from 'enzyme'
 import StringInput from './typeInputs/StringInput'
 
 describe('merge', () => {
-  describe('FieldInput Component', () => {
-    describe('inputProvider', () => {
+  describe('components', () => {
+    describe('InputProvider', () => {
       it('should return string input and set props', () => {
         const disabled = true
         const onChange = () => {

@@ -2,42 +2,47 @@ import reducer from './index'
 import {changeEditOptionValue, activateEditOption} from './actions'
 
 describe('merge', () => {
-  describe('module mergeStrategy sagas', () => {
-    describe('edit reducer', () => {
-      it('handels change EditOption Value', () => {
-        var stateBefore = [
-          {
-            name: 'field1',
-            value: 'old_val'
-          }
-        ]
+  describe('modules', () => {
+    describe('mergeStrategy', () => {
+      describe('editOptions', () => {
+        describe('reducer', () => {
 
-        var expectedStateAfter = [
-          {
-            name: 'field1',
-            value: 'new_val'
-          }
-        ]
+          it('handels change EditOption Value', () => {
+            var stateBefore = [
+              {
+                name: 'field1',
+                value: 'old_val'
+              }
+            ]
 
-        expect(reducer(stateBefore, changeEditOptionValue('field1', 'new_val'))).to.deep.equal(expectedStateAfter)
-      })
+            var expectedStateAfter = [
+              {
+                name: 'field1',
+                value: 'new_val'
+              }
+            ]
 
-      it('handels activate EditOption', () => {
-        var stateBefore = [
-          {
-            name: 'field1',
-            active: false
-          }
-        ]
+            expect(reducer(stateBefore, changeEditOptionValue('field1', 'new_val'))).to.deep.equal(expectedStateAfter)
+          })
 
-        var expectedStateAfter = [
-          {
-            name: 'field1',
-            active: true
-          }
-        ]
+          it('handels activate EditOption', () => {
+            var stateBefore = [
+              {
+                name: 'field1',
+                active: false
+              }
+            ]
 
-        expect(reducer(stateBefore, activateEditOption('field1', true))).to.deep.equal(expectedStateAfter)
+            var expectedStateAfter = [
+              {
+                name: 'field1',
+                active: true
+              }
+            ]
+
+            expect(reducer(stateBefore, activateEditOption('field1', true))).to.deep.equal(expectedStateAfter)
+          })
+        })
       })
     })
   })

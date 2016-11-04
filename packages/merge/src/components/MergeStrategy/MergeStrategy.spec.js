@@ -5,8 +5,8 @@ import {IntlProvider} from 'react-intl'
 import MergeStrategy from './MergeStrategy'
 
 describe('merge', () => {
-  describe('MergeStrategy Component', () => {
-    describe('', () => {
+  describe('components', () => {
+    describe('MergeStrategy', () => {
       it('should load stategy with input fields', () => {
         const editOptions = [
           {

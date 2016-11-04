@@ -6,9 +6,8 @@ import {IntlStub} from 'tocco-test-util'
 import {HeaderRow, ToManyRelationRow, FieldRow, RelationRow} from './table-components'
 
 describe('merge', () => {
-  describe('MergeMatrix Component', () => {
-
-    describe('', () => {
+  describe('components', () => {
+    describe('MergeMatrix', () => {
       it('should load the matrix as a table with the desired amount of rows ', () => {
         const wrapper = mount(
           <MergeMatrix
