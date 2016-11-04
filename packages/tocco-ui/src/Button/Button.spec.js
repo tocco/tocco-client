@@ -1,10 +1,9 @@
-import assert from 'assert'
 import React from 'react'
 import Button from './Button'
-import {mount, render, shallow} from 'enzyme'
+import {shallow} from 'enzyme'
 
-describe('tocco-ui', function () {
-  describe('Button', function () {
+describe('tocco-ui', function() {
+  describe('Button', function() {
     it('handles click events', () => {
       const onButtonClick = sinon.spy()
       const wrapper = shallow(
@@ -17,7 +16,7 @@ describe('tocco-ui', function () {
       expect(onButtonClick).to.have.property('callCount', 1)
     })
 
-    it('shows label', () => {
+    it('should show label', () => {
       const wrapper = shallow(<Button
         label="test"
         onClick={() => undefined}
@@ -26,7 +25,7 @@ describe('tocco-ui', function () {
       expect(wrapper.find('button').text()).to.equal(' test')
     })
 
-    it('can add name property', () => {
+    it('should add name property', () => {
       const wrapper = shallow(<Button
         label=""
         onClick={() => undefined}
@@ -36,61 +35,54 @@ describe('tocco-ui', function () {
       expect(wrapper.find('button').prop('name')).to.equal('test_name')
     })
 
-    if ('can add classNames', () => {
-        const defaultClasses = 'btn btn-primary'
-        let wrapper = shallow(<Button
+    it('should add classNames', () => {
+      let wrapper = shallow(<Button
+        label=""
+        onClick={() => undefined}
+        />
+      )
+
+      console.log('wrapper.html()', wrapper.html())
+      expect(wrapper.find('button')).to.have.className('btn-primary')
+
+      wrapper = shallow(<Button
+        label=""
+        className="class1 class2 class3"
+        onClick={() => undefined}
+        />
+      )
+      expect(wrapper.find('button')).to.have.className('class1')
+      expect(wrapper.find('button')).to.have.className('class2')
+      expect(wrapper.find('button')).to.have.className('class3')
+    })
+
+    it('can be disabled', () => {
+      let wrapper = shallow(
+        <Button
           label=""
           onClick={() => undefined}
-          />
-        )
-        expect(wrapper.find('button').prop('class')).to.equal(defaultClasses)
+        />
+      )
+      expect(wrapper.find('button')).to.not.have.property('disabled')
 
-        wrapper = shallow(<Button
+      wrapper = shallow(
+        <Button
           label=""
-          className="class1"
           onClick={() => undefined}
-          />
-        )
-        expect(wrapper.find('button').hasClass('class')).to.equal(true)
+          disabled={false}
+        />
+      )
+      expect(wrapper.find('button')).to.not.have.property('disabled')
 
-        wrapper = shallow(<Button
+      wrapper = shallow(
+        <Button
           label=""
-          className="class1, class2, class3"
           onClick={() => undefined}
-          />
-        )
-        expect(wrapper.find('button').hasClass('class1')).to.equal(true)
-        expect(wrapper.find('button').hasClass('class2')).to.equal(true)
-        expect(wrapper.find('button').hasClass('class3')).to.equal(true)
-      }) {
-      it('can be disabled', () => {
-        let wrapper = shallow(
-          <Button
-            label=""
-            onClick={() => undefined}
-          />
-        )
-        expect(wrapper.find('button')).to.not.have.property('disabled')
-
-        wrapper = shallow(
-          <Button
-            label=""
-            onClick={() => undefined}
-            disabled={false}
-          />
-        )
-        expect(wrapper.find('button')).to.not.have.property('disabled')
-
-        wrapper = shallow(
-          <Button
-            label=""
-            onClick={() => undefined}
-            disabled
-          />
-        )
-        expect(wrapper.find('button')).to.be.disabled()
-      })
-    }
+          disabled
+        />
+      )
+      expect(wrapper.find('button')).to.be.disabled()
+    })
 
     it('shows pending spinner', () => {
       let wrapper = shallow(
@@ -140,7 +132,7 @@ describe('tocco-ui', function () {
     })
 
     it('sets default type to button', () => {
-      var wrapper = shallow(
+      let wrapper = shallow(
         <Button
           label=""
         />
@@ -149,7 +141,7 @@ describe('tocco-ui', function () {
     })
 
     it('set type ', () => {
-      var wrapper = shallow(
+      const wrapper = shallow(
         <Button
           label=""
           type="submit"

@@ -185,9 +185,9 @@ describe('login', () => {
 
               const standalone = true
 
-              expect(generator.next(standalone).value).to.deep.equal(call(ExternalEvents.invokeExternalEvent, 'success', {
-                newPassword: 'validnewpw'
-              }))
+              expect(generator.next(standalone).value).to.deep.equal(
+                call(ExternalEvents.invokeExternalEvent, 'success', {newPassword: 'validnewpw'})
+              )
               expect(generator.next().value).to.deep.equal(put(actions.savePasswordSuccess()))
 
               expect(generator.next(result).done).to.equal(true)
@@ -254,7 +254,9 @@ describe('login', () => {
                 }
               }
 
-              expect(generator.next(result).value).to.deep.equal(put(actions.savePasswordFailure(null, validationMessages)))
+              expect(generator.next(result).value).to.deep.equal(
+                put(actions.savePasswordFailure(null, validationMessages))
+              )
 
               expect(generator.next(result).done).to.equal(true)
             })

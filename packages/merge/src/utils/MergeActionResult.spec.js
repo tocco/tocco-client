@@ -1,37 +1,37 @@
-import createMergeResult, {getMergeMatrixResult, getMergeStrategyResult} from './MergeActionResult'
+import {getMergeMatrixResult, getMergeStrategyResult} from './MergeActionResult'
 
 describe('merge', () => {
   describe('utils ', () => {
     describe('MergeActionResult', () => {
       it('should map modelName', () => {
-        var state = {
+        const state = {
           model: {modelName: 'User'},
           entities: [],
           selections: {}
         }
 
-        var result = getMergeMatrixResult(state)
+        const result = getMergeMatrixResult(state)
 
         result.should.have.property('modelName')
         result.modelName.should.equal('User')
       })
 
       it('should set sourceEntities without including target', () => {
-        var state = {
+        const state = {
           model: {modelName: 'User'},
           targetEntityPk: '2',
           entities: [{pk: '1'}, {pk: '2'}, {pk: '3'}],
           selections: {}
         }
 
-        var result = getMergeMatrixResult(state)
+        const result = getMergeMatrixResult(state)
 
         result.should.have.property('sourceEntities')
         result.sourceEntities.should.eql(['1', '3'])
       })
 
       it('should map fields and exclude target entity selections', () => {
-        var state = {
+        const state = {
           model: {modelName: 'User'},
           entities: [{pk: '1'}, {pk: '2'}],
           targetEntityPk: '1',
@@ -43,7 +43,7 @@ describe('merge', () => {
           }
         }
 
-        var result = getMergeMatrixResult(state)
+        const result = getMergeMatrixResult(state)
 
         result.should.have.property('data')
         result.data.should.have.property('fields')
@@ -54,7 +54,7 @@ describe('merge', () => {
       })
 
       it('should map relations and exclude target entity selections', () => {
-        var state = {
+        const state = {
           model: {modelName: 'User'},
           entities: [
             {pk: '113'},
@@ -68,7 +68,7 @@ describe('merge', () => {
           }
         }
 
-        var result = getMergeMatrixResult(state)
+        const result = getMergeMatrixResult(state)
 
         result.should.have.property('data')
         result.data.should.have.property('relations')
@@ -80,7 +80,7 @@ describe('merge', () => {
       })
 
       it('relations: should return empty array if to one relation is selected with no value', () => {
-        var state = {
+        const state = {
           model: {modelName: 'User'},
           entities: [
             {pk: '113'},
@@ -93,7 +93,7 @@ describe('merge', () => {
           }
         }
 
-        var result = getMergeMatrixResult(state)
+        const result = getMergeMatrixResult(state)
         result.data.relations.should.have.length(1)
         result.data.relations[0].should.eql(
           {name: 'rel_a', keys: []}
@@ -101,7 +101,7 @@ describe('merge', () => {
       })
 
       it('should map to many relations', () => {
-        var state = {
+        const state = {
           model: {modelName: 'User'},
           entities: [
             {pk: '113'},
@@ -121,7 +121,7 @@ describe('merge', () => {
           }
         }
 
-        var result = getMergeMatrixResult(state)
+        const result = getMergeMatrixResult(state)
 
         result.should.have.property('data')
         result.data.should.have.property('toManyRelations')
@@ -142,32 +142,32 @@ describe('merge', () => {
       })
 
       it('should set copyRemainingRelations', () => {
-        var state = {
+        const state = {
           strategies: {
             copyRelations: true
           }
         }
 
-        var result = getMergeStrategyResult(state)
+        const result = getMergeStrategyResult(state)
 
         result.should.have.property('copyRemainingRelations')
         result.copyRemainingRelations.should.be.true
       })
 
       it('should set sourceEntityConfig delete flag', () => {
-        var state = {
+        const state = {
           strategies: {
             sourceEntityAction: 'something'
           }
         }
 
-        var result = getMergeStrategyResult(state)
+        let result = getMergeStrategyResult(state)
 
         result.should.have.property('sourceEntityConfig')
         result.sourceEntityConfig.should.have.property('deleteSourceEntities')
         result.sourceEntityConfig.deleteSourceEntities.should.be.false
 
-        var state2 = {
+        const state2 = {
           strategies: {
             sourceEntityAction: 'DELETE'
           }
@@ -178,7 +178,7 @@ describe('merge', () => {
       })
 
       it('should set edit values', () => {
-        var state = {
+        const state = {
 
           strategies: {
             sourceEntityAction: 'EDIT'
@@ -199,7 +199,7 @@ describe('merge', () => {
           ]
         }
 
-        var result = getMergeStrategyResult(state)
+        const result = getMergeStrategyResult(state)
 
         result.should.have.property('sourceEntityConfig')
         result.sourceEntityConfig.should.have.property('updateValues')
@@ -208,7 +208,7 @@ describe('merge', () => {
       })
 
       it('should  set emtpy edit values if other action', () => {
-        var state = {
+        const state = {
 
           strategies: {
             sourceEntityAction: 'noAction'
@@ -223,7 +223,7 @@ describe('merge', () => {
           ]
         }
 
-        var result = getMergeStrategyResult(state)
+        const result = getMergeStrategyResult(state)
 
         result.should.have.property('sourceEntityConfig')
         result.sourceEntityConfig.should.have.property('updateValues')

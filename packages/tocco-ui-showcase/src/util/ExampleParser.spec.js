@@ -33,7 +33,7 @@ describe('tocco-ui-showcase', () => {
           {/* end example */}
         </div>
         // real-import:import z from 'y'`
-        var result = extractRealImports(example)
+        const result = extractRealImports(example)
 
         result.should.eql('import x from \'y\'\nimport z from \'y\'')
       })

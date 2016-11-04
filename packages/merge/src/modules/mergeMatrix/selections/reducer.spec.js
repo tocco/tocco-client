@@ -11,11 +11,11 @@ describe('merge', () => {
           })
 
           it('handels changeSourceRelation', () => {
-            var stateBefore = {
+            const stateBefore = {
               fields: {}
             }
 
-            var expectedStateAfter = {
+            const expectedStateAfter = {
               fields: {
                 firstname: '1'
               }
@@ -25,11 +25,11 @@ describe('merge', () => {
           })
 
           it('handels changeSourceRelation', () => {
-            var stateBefore = {
+            const stateBefore = {
               relations: {}
             }
 
-            var expectedStateAfter = {
+            const expectedStateAfter = {
               relations: {
                 ref_a: '1'
               }
@@ -39,19 +39,19 @@ describe('merge', () => {
           })
 
           it('handels toggleRelationMany', () => {
-            var stateBefore = {toManyRelations: {}}
+            const stateBefore = {toManyRelations: {}}
 
-            var expectedStateAfterAdd = {
+            const expectedStateAfterAdd = {
               toManyRelations: {
                 ref_b: {1: ['33', '34']}
               }
             }
 
-            var stateAfter = reducer(stateBefore, toggleRelationMany('ref_b', '33', '1'))
+            let stateAfter = reducer(stateBefore, toggleRelationMany('ref_b', '33', '1'))
             stateAfter = reducer(stateAfter, toggleRelationMany('ref_b', '34', '1'))
             expect(stateAfter).to.deep.equal(expectedStateAfterAdd)
 
-            var expectedStateAfterRemove = {
+            const expectedStateAfterRemove = {
               toManyRelations: {
                 ref_b: {1: ['34']}
               }

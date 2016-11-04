@@ -15,7 +15,7 @@ describe('merge', () => {
           }
         }
 
-        var result = isToManySelected(toManySelections, desiredRelationName, desiredToMany, desiredEntityPk)
+        const result = isToManySelected(toManySelections, desiredRelationName, desiredToMany, desiredEntityPk)
         result.should.be.true
       })
 
@@ -31,7 +31,7 @@ describe('merge', () => {
           }
         }
 
-        var result = isToManySelected(toManySelections, desiredRelationName, desiredToMany, desiredEntityPk)
+        const result = isToManySelected(toManySelections, desiredRelationName, desiredToMany, desiredEntityPk)
         result.should.be.false
       })
 
@@ -47,7 +47,7 @@ describe('merge', () => {
           }
         }
 
-        var result = isToManySelected(toManySelections, desiredRelationName, desiredToMany, desiredEntityPk)
+        const result = isToManySelected(toManySelections, desiredRelationName, desiredToMany, desiredEntityPk)
         result.should.be.false
       })
     })

@@ -1,6 +1,6 @@
 import React from 'react'
 import {PasswordRequest} from './PasswordRequest'
-import {mount, render, shallow} from 'enzyme'
+import {shallow} from 'enzyme'
 import {Pages} from '../../types/Pages'
 import {Button} from 'tocco-ui'
 import {IntlStub} from 'tocco-test-util'

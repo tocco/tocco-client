@@ -1,6 +1,6 @@
 import React from 'react'
 import ValidationRules, {Rule} from './ValidationRules'
-import {mount, render, shallow} from 'enzyme'
+import {shallow} from 'enzyme'
 
 describe('login', () => {
   describe('components', () => {

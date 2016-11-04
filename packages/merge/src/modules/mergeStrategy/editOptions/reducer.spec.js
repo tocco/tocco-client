@@ -6,16 +6,15 @@ describe('merge', () => {
     describe('mergeStrategy', () => {
       describe('editOptions', () => {
         describe('reducer', () => {
-
           it('handels change EditOption Value', () => {
-            var stateBefore = [
+            const stateBefore = [
               {
                 name: 'field1',
                 value: 'old_val'
               }
             ]
 
-            var expectedStateAfter = [
+            const expectedStateAfter = [
               {
                 name: 'field1',
                 value: 'new_val'
@@ -26,14 +25,14 @@ describe('merge', () => {
           })
 
           it('handels activate EditOption', () => {
-            var stateBefore = [
+            const stateBefore = [
               {
                 name: 'field1',
                 active: false
               }
             ]
 
-            var expectedStateAfter = [
+            const expectedStateAfter = [
               {
                 name: 'field1',
                 active: true

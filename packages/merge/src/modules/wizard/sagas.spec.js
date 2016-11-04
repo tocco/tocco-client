@@ -12,10 +12,10 @@ describe('merge', () => {
           it('should extract mergeResult from state and send dwr request', () => {
             const generator = sagas.save()
 
-            var state = {}
-            var result = {}
+            const state = {}
+            const result = {}
 
-            var mergeResult = {}
+            const mergeResult = {}
 
             expect(generator.next().value).to.deep.equal(select())
             expect(generator.next(state).value).to.eql(call(createMergeResult, state))
@@ -27,7 +27,7 @@ describe('merge', () => {
           it('should handle respsonse with problems', () => {
             const generator = sagas.save()
 
-            var mergeResponse = {notCopiedRelations: [{}]}
+            const mergeResponse = {notCopiedRelations: [{}]}
 
             generator.next()
             generator.next()

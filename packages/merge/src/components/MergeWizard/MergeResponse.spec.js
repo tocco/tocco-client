@@ -1,7 +1,6 @@
 import React from 'react'
-import MergeResponse from './MergeResponse'
-import {EntityResponseTable} from './MergeResponse'
-import {mount, render, shallow} from 'enzyme'
+import MergeResponse, {EntityResponseTable} from './MergeResponse'
+import {shallow} from 'enzyme'
 import {FormattedMessage} from 'react-intl'
 import {IntlStub} from 'tocco-test-util'
 

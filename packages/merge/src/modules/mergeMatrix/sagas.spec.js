@@ -10,7 +10,7 @@ describe('merge', () => {
           it('should dispatch the selection of new target entity', () => {
             const generator = sagas.selectTargetEntityFields({payload: {pk: '1'}})
 
-            var state = {
+            const state = {
               model: {
                 fields: [
                   {label: 'First Name', name: 'firstname'},

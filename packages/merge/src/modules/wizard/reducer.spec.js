@@ -15,7 +15,7 @@ describe('merge', () => {
       })
 
       it('should handle setMergeResponse', () => {
-        var expectedStateAfter = {
+        const expectedStateAfter = {
           mergeResponse: {
             merged: true,
             xyz: 'asd'

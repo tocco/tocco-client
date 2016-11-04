@@ -1,6 +1,6 @@
 import React from 'react'
 import {LoginForm} from './LoginForm'
-import {mount, render, shallow} from 'enzyme'
+import {shallow} from 'enzyme'
 import {FormattedMessage} from 'react-intl'
 import * as ToccoUI from 'tocco-ui'
 import {Pages} from '../../types/Pages'

@@ -1,4 +1,4 @@
-import {shallow, mount} from 'enzyme'
+import {mount} from 'enzyme'
 import {IntlStub} from 'tocco-test-util'
 import React from 'react'
 import {IntlProvider} from 'react-intl'
@@ -10,14 +10,14 @@ describe('merge', () => {
       it('should load strategy with input fields', () => {
         const editOptions = [
           {
-            "defaultValue": "archive",
-            "label": "Status Person",
-            "name": "relUser_status",
-            "type": "set-relation-source-entity-strategy",
-            "values": {
-              "active": "Aktiv",
-              "archive": "Archiv",
-              "check": "Prüfen"
+            defaultValue: 'archive',
+            label: 'Status Person',
+            name: 'relUser_status',
+            type: 'set-relation-source-entity-strategy',
+            values: {
+              active: 'Aktiv',
+              archive: 'Archiv',
+              check: 'Prüfen'
             },
             value: 'archive'
           }

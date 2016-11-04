@@ -1,10 +1,9 @@
-import assert from 'assert'
 import React from 'react'
 import LoadMask from './LoadMask'
-import {mount, render, shallow} from 'enzyme'
+import {shallow} from 'enzyme'
 
-describe('tocco-ui', function () {
-  describe('LoadMask', function () {
+describe('tocco-ui', function() {
+  describe('LoadMask', function() {
     it('shows spinner while promise is not finished', done => {
       const promise = new Promise(resolve => resolve())
 
