@@ -54475,7 +54475,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 467 */
 /***/ function(module, exports) {
 
-	module.exports = "import React from 'react'\nimport './ToccoLogo.scss'\nimport classNames from 'classnames'\n\n/**\n * Shows the red circle (tocco logo) with a link to the homepage. More of an example but feel free to use.\n */\nconst ToccoLogo = props => {\n  var logo = require('./tocco.png')\n  return (\n    <a\n      className={classNames('tocco-logo ', props.className)}\n      href=\"http://www.tocco.ch\"\n      target=\"_blank\"\n      title=\"Tocco AG\"\n    >\n      <img src={logo}/>\n    </a>\n  )\n}\n\nToccoLogo.propTypes = {\n  /**\n   * Extend the logo with any css classes separated by a space\n   */\n  className: React.PropTypes.string\n}\n\nexport default ToccoLogo\n"
+	module.exports = "import React from 'react'\nimport './ToccoLogo.scss'\nimport classNames from 'classnames'\n\n/**\n * Shows the red circle (tocco logo) with a link to the homepage. More of an example but feel free to use.\n */\nconst ToccoLogo = props => {\n  const logo = require('./tocco.png')\n  return (\n    <a\n      className={classNames('tocco-logo ', props.className)}\n      href=\"http://www.tocco.ch\"\n      target=\"_blank\"\n      title=\"Tocco AG\"\n    >\n      <img src={logo}/>\n    </a>\n  )\n}\n\nToccoLogo.propTypes = {\n  /**\n   * Extend the logo with any css classes separated by a space\n   */\n  className: React.PropTypes.string\n}\n\nexport default ToccoLogo\n"
 
 /***/ },
 /* 468 */
