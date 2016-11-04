@@ -35,7 +35,6 @@ describe('merge', () => {
   })
 })
 
-
 const testData = {
   entities: [
     {

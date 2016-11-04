@@ -42,7 +42,6 @@ describe('tocco-ui', function() {
         />
       )
 
-      console.log('wrapper.html()', wrapper.html())
       expect(wrapper.find('button')).to.have.className('btn-primary')
 
       wrapper = shallow(<Button
