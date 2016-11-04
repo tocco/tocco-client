@@ -1,4 +1,4 @@
-function isToManySelected(toManySelections, relationName, toManyPk, entityPk) {
+export const isToManySelected = (toManySelections, relationName, toManyPk, entityPk) => {
   var toManyRelationSelection = toManySelections[relationName]
   if (!toManyRelationSelection) return false
 
@@ -8,4 +8,3 @@ function isToManySelected(toManySelections, relationName, toManyPk, entityPk) {
   return (entitySelection.indexOf(toManyPk) >= 0)
 }
 
-export default {isToManySelected}

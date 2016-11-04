@@ -1,5 +1,5 @@
 import React from 'react'
-import SelectionUtil from '../../../utils/SelectionUtil'
+import * as SelectionUtil from '../../../utils/SelectionUtil'
 import sortBy from 'lodash/sortBy'
 
 const MultiSelection = props => {
