@@ -18,7 +18,11 @@
     "__COVERAGE__" : false,
     "__BASENAME__" : false,
     "__BACKEND_URL__" : false,
-    "__PACKAGE__" : false
+    "__PACKAGE__": false,
+    "it": false,
+    "expect": false,
+    "describe": false,
+    "sinon": false
   },
   "rules": {
     "semi" : [2, "never"],
