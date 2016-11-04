@@ -1,8 +1,8 @@
 import {SET_ORDERING} from './actions'
 import {INIT_LIST} from '../actions'
 
-var setOrdering = (ordering, { ordering: newOrdering }) => {
-  var state = {name: newOrdering}
+const setOrdering = (ordering, {ordering: newOrdering}) => {
+  const state = {name: newOrdering}
   if (ordering && newOrdering && newOrdering === ordering.name && ordering.direction === 'asc') {
     state.direction = 'desc'
   } else {

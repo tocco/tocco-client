@@ -15,7 +15,7 @@ const init = (id, input) => {
     id
   })
 
-  var inititalState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {}
+  const inititalState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {}
 
   // input = {entityName: 'Membership', selectedEntities:[ '1', '2']}
 

@@ -10,7 +10,7 @@ cache:
     - packages/tocco-ui-showcase/node_modules
     - packages/tocco-ui-util/node_modules
     - packages/tocco-prototype/node_modules
-    - packages/action-merge/node_modules
+    - packages/merge/node_modules
     - packages/login/node_modules
 
 install:

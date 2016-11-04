@@ -1,6 +1,6 @@
 import React from 'react'
 import {FormattedMessage} from 'react-intl'
-import {mount, render, shallow} from 'enzyme'
+import {shallow} from 'enzyme'
 import FailureMessage from './FailureMessage'
 import {messages, DEFAULT as DEFAULT_MESSAGE} from './messages'
 

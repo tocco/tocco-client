@@ -29,9 +29,9 @@ describe('login', () => {
               expect(generator.next(username).value).to.deep.equal(call(sagas.loadValidationRules, username))
 
               const rules = [{
-                name: "PASSWORD_NOT_CHANGED",
+                name: 'PASSWORD_NOT_CHANGED',
                 params: {},
-                message: "Das neue Passwort muss sich vom alten Passwort unterscheiden."
+                message: 'Das neue Passwort muss sich vom alten Passwort unterscheiden.'
               }]
 
               expect(generator.next({rules}).value).to.deep.equal(put(actions.setValidationRules(rules)))

@@ -108,7 +108,9 @@ describe('login', () => {
 
         it('should call external event with default timeout if none in body', () => {
           const gen = sagas.handleSuccessfulLogin({})
-          expect(gen.next().value).to.eql(call(ExternalEvents.invokeExternalEvent, 'loginSuccess', {timeout: sagas.DEFAULT_TIMEOUT}))
+          expect(gen.next().value).to.eql(
+            call(ExternalEvents.invokeExternalEvent, 'loginSuccess', {timeout: sagas.DEFAULT_TIMEOUT})
+          )
           expect(gen.next().value).to.deep.equal(put(setPassword('')))
           expect(gen.next().done).to.deep.equal(true)
         })

@@ -1,4 +1,4 @@
-*.spec.js
+test-bundler.js
 node_modules/**
 coverage/**
 .idea/

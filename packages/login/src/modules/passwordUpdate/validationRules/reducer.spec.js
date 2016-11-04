@@ -14,9 +14,9 @@ describe('login', () => {
 
           it('should handle SET_VALIDATION_RULES', () => {
             const rules = [{
-              name: "PASSWORD_NOT_CHANGED",
+              name: 'PASSWORD_NOT_CHANGED',
               params: {},
-              message: "Das neue Passwort muss sich vom alten Passwort unterscheiden."
+              message: 'Das neue Passwort muss sich vom alten Passwort unterscheiden.'
             }]
 
             expect(reducer(EXPECTED_INITIAL_STATE, actions.setValidationRules(rules))).to.deep.equal(rules)

@@ -57,7 +57,9 @@ describe('login', () => {
               newPasswordValidationErrors: errors
             }
 
-            expect(reducer(stateBefore, actions.setNewPasswordValidationErrors(errors))).to.deep.equal(expectedStateAfter)
+            expect(reducer(stateBefore, actions.setNewPasswordValidationErrors(errors))).to.deep.equal(
+              expectedStateAfter
+            )
           })
 
           it('should handle UPDATE_NEW_PASSWORD_REPEAT', () => {
@@ -69,7 +71,9 @@ describe('login', () => {
               newPasswordRepeat: 'newpwrepeat'
             }
 
-            expect(reducer(stateBefore, actions.updateNewPasswordRepeat('newpwrepeat'))).to.deep.equal(expectedStateAfter)
+            expect(reducer(stateBefore, actions.updateNewPasswordRepeat('newpwrepeat'))).to.deep.equal(
+              expectedStateAfter
+            )
           })
 
           it('should handle SAVE_PASSWORD', () => {
@@ -121,7 +125,9 @@ describe('login', () => {
               passwordUpdateErrorCode: 'MY_ERROR_CODE'
             }
 
-            expect(reducer(stateBefore, actions.savePasswordFailure("MY_ERROR_CODE", null))).to.deep.equal(expectedStateAfter)
+            expect(reducer(stateBefore, actions.savePasswordFailure('MY_ERROR_CODE', null))).to.deep.equal(
+              expectedStateAfter
+            )
           })
 
           it('should handle SAVE_PASSWORD_FAILURE with validation messages', () => {
@@ -153,8 +159,9 @@ describe('login', () => {
               passwordUpdateErrorCode: null
             }
 
-            expect(reducer(stateBefore, actions.savePasswordFailure(null, validationMessages))).to.deep.equal(expectedStateAfter)
-
+            expect(reducer(stateBefore, actions.savePasswordFailure(null, validationMessages))).to.deep.equal(
+              expectedStateAfter
+            )
           })
         })
       })

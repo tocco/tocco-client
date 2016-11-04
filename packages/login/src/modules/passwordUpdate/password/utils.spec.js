@@ -27,7 +27,7 @@ describe('login', () => {
 
               const errors = {
                 RULE_1: 'Rule 1 failed',
-                RULE_2: 'Rule 2 failed',
+                RULE_2: 'Rule 2 failed'
               }
 
               expect(utils.validationMessagesToErrorMap(messages)).to.deep.equal(errors)

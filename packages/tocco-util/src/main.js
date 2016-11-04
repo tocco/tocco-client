@@ -2,7 +2,7 @@ import StoreFactory from './store/StoreFactory'
 import ExternalEvents from './ExternalEvents'
 import Intl from './Intl'
 
-var exports = {
+const exports = {
   StoreFactory,
   ExternalEvents,
   Intl

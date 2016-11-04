@@ -3,7 +3,6 @@ import sagas, {initializeWatcher} from './sagas'
 import * as actions from './actions'
 import {ExternalEvents} from 'tocco-util'
 
-
 describe('login', () => {
   describe('modules', () => {
     describe('passwordUpdate', () => {
