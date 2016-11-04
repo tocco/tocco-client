@@ -4,7 +4,6 @@ describe('merge', () => {
   describe('utils ', () => {
     describe('SelectionUtil', () => {
       it('should return true if key is present in selection array', () => {
-
         const desiredToMany = 23
         const desiredEntityPk = 33
         const desiredRelationName = 'rel3'
@@ -13,7 +12,6 @@ describe('merge', () => {
             [desiredEntityPk]: [
               desiredToMany, 34, 44
             ]
-
           }
         }
 
@@ -22,7 +20,6 @@ describe('merge', () => {
       })
 
       it('should return false if relation is not in input', () => {
-
         const desiredToMany = 23
         const desiredEntityPk = 33
         const desiredRelationName = 'rel3'
@@ -31,7 +28,6 @@ describe('merge', () => {
             [desiredEntityPk]: [
               desiredToMany, 34, 44
             ]
-
           }
         }
 
@@ -40,7 +36,6 @@ describe('merge', () => {
       })
 
       it('should return false if key is not in selection array', () => {
-
         const desiredToMany = 23
         const desiredEntityPk = 33
         const desiredRelationName = 'rel3'
@@ -49,7 +44,6 @@ describe('merge', () => {
             [desiredEntityPk]: [
               34, 44
             ]
-
           }
         }
 

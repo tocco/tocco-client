@@ -1,28 +1,26 @@
 import {shallow, mount} from 'enzyme'
-
 import React from 'react'
-import MergeMatrix from './MergeMatrix'
 import {IntlStub} from 'tocco-test-util'
+import MergeMatrix from './MergeMatrix'
 import {HeaderRow, ToManyRelationRow, FieldRow, RelationRow} from './table-components'
 
 describe('merge', () => {
   describe('components', () => {
     describe('MergeMatrix', () => {
       it('should load the matrix as a table with the desired amount of rows ', () => {
+        const emptyFnc = () => {
+        }
+
         const wrapper = mount(
           <MergeMatrix
             targetEntityPk="498"
             entities={testData.entities}
             model={testData.model}
             selections={{fields: {}, relations: {}, toManyRelations: {}}}
-            changeTargetEntity={() => {
-            }}
-            selectSourceField={() => {
-            }}
-            selectSourceRelation={() => {
-            }}
-            toggleRelationMany={() => {
-            }}
+            changeTargetEntity={emptyFnc}
+            selectSourceField={emptyFnc}
+            selectSourceRelation={emptyFnc}
+            toggleRelationMany={emptyFnc}
             intl={IntlStub}
           />
         )
@@ -38,7 +36,6 @@ describe('merge', () => {
     })
   })
 })
-
 
 const testData = {
   "entities": [
