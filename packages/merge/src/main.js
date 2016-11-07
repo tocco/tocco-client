@@ -41,7 +41,7 @@ const init = (id, input, externalEvents) => {
     dispatchInput(store)
 
     addLocaleData([...de, ...en, ...fr, ...it])
-    const initIntlPromise = Intl.initIntl(store, 'entityoperation.action.merge')
+    const initIntlPromise = Intl.initIntl(store, 'merge')
 
     const App = () => (
       <Provider store={store}>
