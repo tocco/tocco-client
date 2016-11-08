@@ -69,7 +69,7 @@ export class Wizard extends React.Component {
               className="btn wizard-back-button"
               onClick={this.backClick}
             >
-              <FormattedMessage id="client.entityoperation.action.merge.back"/>
+              <FormattedMessage id="client.merge.back"/>
             </button>
           }
           {
@@ -79,7 +79,7 @@ export class Wizard extends React.Component {
               onClick={this.nextClick}
               disabled={!this.state.allowNext}
             >
-              <FormattedMessage id="client.entityoperation.action.merge.next"/>
+              <FormattedMessage id="client.merge.next"/>
             </button>
           }
           {

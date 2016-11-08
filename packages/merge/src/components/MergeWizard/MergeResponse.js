@@ -10,9 +10,9 @@ export const EntityResponseTable = props => {
       <table className="table table-striped table-hover">
         <thead>
           <tr>
-            <th><FormattedMessage id="client.entityoperation.action.merge.entity"/></th>
-            <th><FormattedMessage id="client.entityoperation.action.merge.primaryKey"/></th>
-            <th><FormattedMessage id="client.entityoperation.action.merge.label"/></th>
+            <th><FormattedMessage id="client.merge.entity"/></th>
+            <th><FormattedMessage id="client.merge.primaryKey"/></th>
+            <th><FormattedMessage id="client.merge.label"/></th>
           </tr>
         </thead>
         <tbody>
@@ -42,26 +42,26 @@ class MergeResponse extends React.Component {
   render() {
     return (
       <div className="merge-response">
-        <h1><FormattedMessage id="client.entityoperation.action.merge.responseTitle"/></h1>
-        <span><FormattedMessage id="client.entityoperation.action.merge.responseDescription"/></span>
+        <h1><FormattedMessage id="client.merge.responseTitle"/></h1>
+        <span><FormattedMessage id="client.merge.responseDescription"/></span>
         <EntityResponseTable
-          title={this.props.intl.formatMessage({id: 'client.entityoperation.action.merge.notCopiedRelationsTitle'})}
+          title={this.props.intl.formatMessage({id: 'client.merge.notCopiedRelationsTitle'})}
           responseEntities={this.props.mergeResponse.notCopiedRelations}
         />
         <EntityResponseTable
-          title={this.props.intl.formatMessage({id: 'client.entityoperation.action.merge.notDeletedEntitiesTitle'})}
+          title={this.props.intl.formatMessage({id: 'client.merge.notDeletedEntitiesTitle'})}
           responseEntities={this.props.mergeResponse.notDeletedEntities}
         />
         {(this.props.mergeResponse.showPermissionMessage)
         && <div className="alert alert-info">
-          <FormattedMessage id="client.entityoperation.action.merge.missingReadPermissions"/>
+          <FormattedMessage id="client.merge.missingReadPermissions"/>
         </div>
         }
         <button
           className="btn btn-primary close-button"
           onClick={() => { ExternalEvents.invokeExternalEvent('close') }}
         >
-          <FormattedMessage id="client.entityoperation.action.merge.close"/>
+          <FormattedMessage id="client.merge.close"/>
         </button>
       </div>
     )
