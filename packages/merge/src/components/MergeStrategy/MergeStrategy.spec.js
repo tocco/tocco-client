@@ -30,11 +30,11 @@ describe('merge', () => {
           <IntlProvider
             locale={'en-US'}
             messages={{
-              'client.entityoperation.action.merge.yes': ' ',
-              'client.entityoperation.action.merge.no': ' ',
-              'client.entityoperation.action.merge.copyRelationsTitle': ' ',
-              'client.entityoperation.action.merge.editTitle': ' ',
-              'client.entityoperation.action.merge.strategyTitle': ' '
+              'client.merge.yes': ' ',
+              'client.merge.no': ' ',
+              'client.merge.copyRelationsTitle': ' ',
+              'client.merge.editTitle': ' ',
+              'client.merge.strategyTitle': ' '
             }}
           >
             <MergeStrategy

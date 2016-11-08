@@ -12,7 +12,7 @@ const HeaderRow = props => {
           const cls = isTargetEntity(entity.pk) ? 'merge-matrix-th-selected' : 'merge-matrix-th'
           const attributes = {}
           if (!isTargetEntity(entity.pk)) {
-            attributes.title = props.intl.formatMessage({id: 'client.entityoperation.action.merge.selectTargetTitle'})
+            attributes.title = props.intl.formatMessage({id: 'client.merge.selectTargetTitle'})
           }
 
           return (
