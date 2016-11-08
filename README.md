@@ -108,11 +108,11 @@ npm run lint:fix
 ## Contribute
 ### Pull requests
 - Create a remote branch that fits the following naming convention: `pr/{package}-{description-of-contribution}`
-- Push commits to this branch. Set a commit message as described bellow.
+- Push commits to this branch. Set a commit message as described below.
 - Once all changes are pushed, create a pull request. The changes should never break a package and therefore must be self-contained.
 - The pull request will be verified by TravisCI and Codecov. If one of them returns a bad result, the problems have to be fixed.
-- Optionally assign a reviewer manually
-- Once the pull request is merged, the branch must be deleted
+- Optionally assign a reviewer manually.
+- Once the pull request is merged, the branch must be deleted.
 
 ### Git Commit Msg
 Similar to [Karma](http://karma-runner.github.io/0.10/dev/git-commit-msg.html) commit messages follow this convention:

@@ -82,5 +82,5 @@ https://github.com/tocco/tocco-client/blob/master/.eslintrc
 
 ```js
   // Good
-  const wrapper = shallow(<Foo onButtonClick={onButtonClick} />);
+  const wrapper = shallow(<Foo onButtonClick={onButtonClick} />)
 ```
