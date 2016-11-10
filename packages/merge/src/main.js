@@ -9,7 +9,6 @@ import {LoadMask} from 'tocco-ui'
 import MergeWizardContainer from './containers/MergeWizardContainer'
 import dispatchInput from './utils/DispatchInput'
 import reducers, {sagas} from './modules/reducers'
-import './styles/core.scss'
 
 import de from 'react-intl/locale-data/de'
 import en from 'react-intl/locale-data/en'
@@ -46,7 +45,7 @@ const init = (id, input, externalEvents) => {
     const App = () => (
       <Provider store={store}>
         <LoadMask promises={[initIntlPromise]}>
-          <IntlProvider>
+          <IntlProvider className="tocco-merge">
             <MergeWizardContainer/>
           </IntlProvider>
         </LoadMask>

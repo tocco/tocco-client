@@ -10,11 +10,13 @@ import './styles.scss'
 
 class MergeStrategy extends React.Component {
   render() {
+
     const saveButtonLabel = this.props.intl.formatMessage({id: 'client.merge.saveButton'})
 
+    let content
     if (!this.props.mergeResponse.merged) {
-      return (
-        <div>
+      content = (
+        <div >
           <Wizard save={{fn: this.props.saveMerge, label: saveButtonLabel}}>
             <MergeStrategyContainer/>
             <MergeMatrixContainer/>
@@ -22,13 +24,18 @@ class MergeStrategy extends React.Component {
         </div>
       )
     } else {
-      return (
-        <MergeResponse
-          mergeResponse={this.props.mergeResponse}
-          intl={this.props.intl}
+      content = (
+        <MergeResponse className="merge-wizard"
+                       mergeResponse={this.props.mergeResponse}
+                       intl={this.props.intl}
         />
       )
     }
+    return (
+      <div className="merge-wizard">
+        {content}
+      </div>
+    )
   }
 }
 

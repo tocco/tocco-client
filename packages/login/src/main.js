@@ -1,8 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import './styles/core.scss'
-
 import {loginFactory, passwordUpdateFactory} from './appFactory'
 
 if (__DEV__) {
