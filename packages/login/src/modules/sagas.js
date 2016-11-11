@@ -1,4 +1,4 @@
-import {takeLatest, delay} from 'redux-saga'
+import {takeLatest} from 'redux-saga'
 import {fork, put, select, call} from 'redux-saga/effects'
 import {ExternalEvents} from 'tocco-util'
 
@@ -9,8 +9,6 @@ import {updateOldPassword} from './passwordUpdate/password/actions'
 import {setUsername} from './passwordUpdate/dialog/actions'
 import {changePage, setPassword} from './login/actions'
 import {Pages} from '../types/Pages'
-
-import {getResponse} from '../dev/loginResponseMocks'
 
 export const DEFAULT_TIMEOUT = 30
 
@@ -87,14 +85,7 @@ export function* handleSuccessfulLogin(response) {
 }
 
 export function* loginSaga({payload}) {
-  let response
-  if (__DEV__) {
-    yield delay(1000)
-    response = getResponse(payload)
-  } else {
-    response = yield call(doLoginRequest, payload)
-  }
-
+  const response = yield call(doLoginRequest, payload)
   if (response.success) {
     yield call(handleSuccessfulLogin, response)
   } else {
@@ -116,12 +107,7 @@ export function* loginSaga({payload}) {
 }
 
 export function* checkSessionSaga() {
-  let response
-  if (__DEV__) {
-    response = yield getResponse({username: 'fail'})
-  } else {
-    response = yield call(doSessionRequest)
-  }
+  const response = yield call(doSessionRequest)
 
   if (response.success) {
     yield call(handleSuccessfulLogin, response)

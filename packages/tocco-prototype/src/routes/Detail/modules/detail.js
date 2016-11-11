@@ -1,4 +1,3 @@
-import fetch from 'isomorphic-fetch'
 import getChangedFields from '../../../utils/changedFields'
 
 export const REQUEST_ENTITY = 'REQUEST_ENTITY'
