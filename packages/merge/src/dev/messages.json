@@ -1,0 +1,23 @@
+[
+  "client.merge.copyRelationsTitle",
+  "client.merge.yes",
+  "client.merge.no",
+  "client.merge.strategyTitle",
+  "client.merge.strategyNoAction",
+  "client.merge.strategyEdit",
+  "client.merge.next",
+  "client.merge.saveButton",
+  "client.merge.back",
+  "client.merge.selectTargetTitle",
+  "client.merge.close",
+  "client.merge.missingReadPermissions",
+  "client.merge.notDeletedEntitiesTitle",
+  "client.merge.entity",
+  "client.merge.primaryKey",
+  "client.merge.label",
+  "client.merge.notCopiedRelationsTitle",
+  "client.merge.responseDescription",
+  "client.merge.responseTitle",
+  "client.merge.editTitle",
+  "client.merge.strategyDelete"
+]
