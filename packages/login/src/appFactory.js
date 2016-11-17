@@ -19,7 +19,7 @@ import en from 'react-intl/locale-data/en'
 import fr from 'react-intl/locale-data/fr'
 import it from 'react-intl/locale-data/it'
 
-export const loginFactory = (id, input = {}, externalEvents) => {
+export const loginFactory = (id, input = {}, externalEvents, publicPath) => {
   const showTitle = typeof input.showTitle === 'boolean' ? input.showTitle : false
 
   const content = <LoginContainer showTitle={showTitle}/>
@@ -29,10 +29,10 @@ export const loginFactory = (id, input = {}, externalEvents) => {
     passwordUpdate.setStandalone(false)
   ]
 
-  return factory(content, 'login', loginReducers, id, input, externalEvents, dispatches)
+  return factory(content, 'login', loginReducers, id, input, externalEvents, dispatches, publicPath)
 }
 
-export const passwordUpdateFactory = (id, input = {}, externalEvents) => {
+export const passwordUpdateFactory = (id, input = {}, externalEvents, publicPath) => {
   const showTitle = typeof input.showTitle === 'boolean' ? input.showTitle : false
 
   const content = <PasswordUpdateDialog showTitle={showTitle}/>
@@ -51,11 +51,16 @@ export const passwordUpdateFactory = (id, input = {}, externalEvents) => {
   }
 
   const reducers = {passwordUpdate: combineReducers(passwordUpdateReducers), intl: intlReducer}
-  return factory(content, 'login.passwordUpdate', reducers, id, input, externalEvents, dispatches)
+  return factory(content, 'login.passwordUpdate', reducers, id, input, externalEvents, dispatches, publicPath)
 }
 
-const factory = (content, resourcePrefix, reducers, id, input, externalEvents, dispatches) => {
+const factory = (content, resourcePrefix, reducers, id, input, externalEvents, dispatches, publicPath) => {
   try {
+    if (publicPath) {
+      /* eslint camelcase: 0 */
+      __webpack_public_path__ = publicPath
+    }
+
     const initialState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {}
 
     if (input) {

@@ -19,6 +19,7 @@
     "__BASENAME__" : false,
     "__BACKEND_URL__" : false,
     "__PACKAGE__": false,
+    "__webpack_public_path__": true,
     "it": false,
     "expect": false,
     "describe": false,
