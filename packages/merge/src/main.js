@@ -19,8 +19,13 @@ import en from 'react-intl/locale-data/en'
 import fr from 'react-intl/locale-data/fr'
 import it from 'react-intl/locale-data/it'
 
-const init = (id, input, externalEvents) => {
+const init = (id, input, externalEvents, publicPath) => {
   try {
+    if (publicPath) {
+      /* eslint camelcase: 0 */
+      __webpack_public_path__ = publicPath
+    }
+
     const initialState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {}
     if (__DEV__) {
       input = require('./dev_input.json')
