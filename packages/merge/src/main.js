@@ -1,3 +1,4 @@
+import fetchMock from 'fetch-mock'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
@@ -9,6 +10,7 @@ import {LoadMask} from 'tocco-ui'
 import MergeWizardContainer from './containers/MergeWizardContainer'
 import dispatchInput from './utils/DispatchInput'
 import reducers, {sagas} from './modules/reducers'
+import fetchMocks from './dev/fetchMocks'
 
 import de from 'react-intl/locale-data/de'
 import en from 'react-intl/locale-data/en'
@@ -58,6 +60,8 @@ const init = (id, input, externalEvents) => {
 }
 
 if (__DEV__) {
+  fetchMocks(fetchMock)
+
   const mountElement = document.getElementById('root')
 
   let render = () => {

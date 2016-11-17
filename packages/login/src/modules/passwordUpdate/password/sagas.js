@@ -27,61 +27,33 @@ function doRequest(data, username, action) {
 }
 
 export function storePassword(username, data) {
-  if (__DEV__) {
-    if (console) console.log('DEV MODE: Store password call would take place now')
-    return new Promise(resolve => resolve({
-      error: null
-    }))
-  } else {
-    return new Promise((resolve, reject) => {
-      doRequest(data, username, 'password-update')
-        .then(resp => {
-          if (resp.ok === true) {
-            resolve({
-              error: null
-            })
-          } else {
-            resp.json().then(json => resolve({
-              error: json
-            }))
-          }
-        })
+  return doRequest(data, username, 'password-update')
+    .then(resp => {
+      if (resp.ok) {
+        return {
+          error: null
+        }
+      } else {
+        return resp.json().then(json => ({
+          error: json
+        }))
+      }
     })
-  }
 }
 
 export function remoteValidate(username, data) {
-  if (__DEV__) {
-    if (console) console.log('DEV MODE: Validate password call would take place now')
-    if (data.newPassword.includes('tocco')) {
-      return new Promise(resolve => resolve({
-        valid: false,
-        validationMessages: [{
-          ruleName: 'DICTIONARY',
-          message: 'Das neue Passwort darf das Wort "tocco" nicht enthalten'
-        }]
-      }))
-    } else {
-      return new Promise(resolve => resolve({
-        valid: true
-      }))
-    }
-  } else {
-    return new Promise((resolve, reject) => {
-      doRequest(data, username, 'password-validation')
-        .then(resp => {
-          if (resp.ok === true) {
-            resp.json().then(json => resolve(json))
-          } else {
-            resp.json().then(() => resolve({
-              // validation request failed for some reason. we ignore that.
-              // (validation takes place on actual update request again)
-              valid: true
-            }))
-          }
-        })
+  return doRequest(data, username, 'password-validation')
+    .then(resp => {
+      if (resp.ok) {
+        return resp.json().then(json => json)
+      } else {
+        // validation request failed for some reason. we ignore that.
+        // (validation takes place on actual update request again)
+        return resp.json().then(() => ({
+          valid: true
+        }))
+      }
     })
-  }
 }
 
 export function* updateNewPassword(action) {
