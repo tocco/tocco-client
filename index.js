@@ -24575,11 +24575,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	        .field("pattern", String)
 	        .field("flags", String);
 	
+	    var ObjectExpressionProperty = or(
+	      def("Property"),
+	      def("ObjectMethod"),
+	      def("ObjectProperty"),
+	      def("SpreadProperty")
+	    );
+	
 	    // Split Property -> ObjectProperty and ObjectMethod
 	    def("ObjectExpression")
 	        .bases("Expression")
 	        .build("properties")
-	        .field("properties", [or(def("Property"), def("ObjectMethod"), def("ObjectProperty"), def("SpreadProperty"))]);
+	        .field("properties", [ObjectExpressionProperty]);
 	
 	    // ObjectMethod hoist .value properties to own properties
 	    def("ObjectMethod")
@@ -24603,11 +24610,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	        .field("value", or(def("Expression"), def("Pattern")))
 	        .field("computed", Boolean, defaults["false"]);
 	
+	    var ClassBodyElement = or(
+	      def("MethodDefinition"),
+	      def("VariableDeclarator"),
+	      def("ClassPropertyDefinition"),
+	      def("ClassProperty"),
+	      def("ClassMethod")
+	    );
+	
 	    // MethodDefinition -> ClassMethod
 	    def("ClassBody")
 	        .bases("Declaration")
 	        .build("body")
-	        .field("body", [or(def("ClassMethod"), def("ClassProperty"))]);
+	        .field("body", [ClassBodyElement]);
 	
 	    def("ClassMethod")
 	        .bases("Declaration", "Function")
@@ -24624,12 +24639,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	            or([def("Decorator")], null),
 	            defaults["null"]);
 	
+	    var ObjectPatternProperty = or(
+	        def("Property"),
+	        def("PropertyPattern"),
+	        def("SpreadPropertyPattern"),
+	        def("SpreadProperty"), // Used by Esprima
+	        def("ObjectProperty"), // Babel 6
+	        def("RestProperty") // Babel 6
+	    );
+	
 	    // Split into RestProperty and SpreadProperty
 	    def("ObjectPattern")
 	        .bases("Pattern")
 	        .build("properties")
-	        .field("properties", [or(def("Property"), def("RestProperty"), def("ObjectProperty"))])
-	        .field("decorators", [def("Decorator")]);
+	        .field("properties", [ObjectPatternProperty])
+	        .field("decorators",
+	               or([def("Decorator")], null),
+	               defaults["null"]);
 	
 	    def("SpreadProperty")
 	      .bases("Node")
