@@ -11,7 +11,7 @@ const FieldRow = props => {
       <td className="bold">{props.field.label}</td>
       {
         props.entities.map((entity, idx) => {
-          const cls = isTargetEntity(entity.pk) ? 'merger-matrix-selected-col' : ''
+          const cls = isTargetEntity(entity.pk) ? 'merge-matrix-selected-col' : ''
           const entityField = entity.fields[props.field.name]
 
           return (

@@ -11,7 +11,7 @@ const ToManyRelationRow = props => {
       <td className="bold">{props.relation.label}</td>
       {
         props.entities.map((entity, idx) => {
-          const cls = isTargetEntity(entity.pk) ? 'merger-matrix-selected-col' : ''
+          const cls = isTargetEntity(entity.pk) ? 'merge-matrix-selected-col' : ''
           const disabled = !(props.targetEntity.pk === entity.pk)
           const values = entity.relations[props.relation.name].values
 

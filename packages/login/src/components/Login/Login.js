@@ -13,7 +13,7 @@ export class Login extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="tocco-login">
         {(() => {
           switch (this.props.currentPage) {
             case Pages.PASSWORD_UPDATE:
