@@ -1,5 +1,3 @@
-import fetch from 'isomorphic-fetch'
-
 export const REQUEST_FORM = 'REQUEST_FORM'
 export const RECEIVE_FORM = 'RECEIVE_FORM'
 

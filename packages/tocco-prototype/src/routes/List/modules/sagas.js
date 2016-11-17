@@ -1,4 +1,3 @@
-import fetch from 'isomorphic-fetch'
 import {takeLatest, takeEvery, delay} from 'redux-saga'
 import {call, put, fork, select} from 'redux-saga/effects'
 

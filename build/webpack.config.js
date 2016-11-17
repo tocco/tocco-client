@@ -139,6 +139,7 @@ webpackConfig.module.loaders = [
         test: {
           plugins: [['istanbul', {
             'exclude': [
+              '**/dev/**',
               '**/*/*.spec.js',
               '**/tocco-ui/**/example.js',
               '**/tocco-ui/dist'

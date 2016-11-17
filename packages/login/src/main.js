@@ -1,11 +1,15 @@
+import fetchMock from 'fetch-mock'
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+import {loginFactory, passwordUpdateFactory} from './appFactory'
+import fetchMocks from './dev/fetchMocks'
+
 import './styles/core.scss'
 
-import {loginFactory, passwordUpdateFactory} from './appFactory'
-
 if (__DEV__) {
+  fetchMocks(fetchMock)
+
   const mountElement = document.getElementById('root')
 
   let render = () => {
