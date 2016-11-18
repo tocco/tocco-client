@@ -12,8 +12,9 @@ class MergeStrategy extends React.Component {
   render() {
     const saveButtonLabel = this.props.intl.formatMessage({id: 'client.merge.saveButton'})
 
+    let content
     if (!this.props.mergeResponse.merged) {
-      return (
+      content = (
         <div>
           <Wizard save={{fn: this.props.saveMerge, label: saveButtonLabel}}>
             <MergeStrategyContainer/>
@@ -22,13 +23,19 @@ class MergeStrategy extends React.Component {
         </div>
       )
     } else {
-      return (
+      content = (
         <MergeResponse
+          className="merge-wizard"
           mergeResponse={this.props.mergeResponse}
           intl={this.props.intl}
         />
       )
     }
+    return (
+      <div className="merge-wizard">
+        {content}
+      </div>
+    )
   }
 }
 

@@ -1,12 +1,29 @@
-.close-button {
-  width: 150px;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  float: right;
-  margin-right: 10px;
-}
+.merge-wizard {
+  .close-button {
+    width: 150px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    float: right;
+    margin-right: 10px;
+  }
 
-.merge-response{
-  padding: 0 10px 10px;
-}
+  .merge-response {
+    padding: 0 10px 10px;
+  }
 
+  .disabled {
+    color: gray;
+  }
+
+  .w20 {
+    width: 20px;
+  }
+
+  .p-l-5 {
+    padding-left: 5px;
+  }
+
+  .bold {
+    font-weight: bold;
+  }
+}

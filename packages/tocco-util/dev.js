@@ -1,4 +1,4 @@
-import utilFetchMocks from './src/dev/utilFetchMocks'
+import utilFetchMocks from './src/dev/fetchMock'
 
 module.exports = {
   utilFetchMocks

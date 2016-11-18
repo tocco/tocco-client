@@ -1,7 +1,9 @@
 import {utilFetchMocks} from 'tocco-util/dev'
 
-export default function fetchMocks(fetchMock) {
-  utilFetchMocks(fetchMock)
+export default function setupFetchMock(fetchMock) {
+  utilFetchMocks.sessionFetchMock(fetchMock)
+  utilFetchMocks.textResourceFetchMock(fetchMock, require('./messages.json'))
+
   fetchMock.post(new RegExp('^.*?/nice2/login$'), function(url, opts) {
     if (opts.body.includes('username=succ')) {
       return {success: true}
@@ -37,7 +39,7 @@ export default function fetchMocks(fetchMock) {
   fetchMock.post(new RegExp('^.*?/nice2/rest/principals/.*/password-reset$'), {})
   fetchMock.post(new RegExp('^.*?/nice2/rest/principals/.*/password-update$'), {})
   fetchMock.get(new RegExp('^.*?/nice2/rest/principals/.*/password-rules$'), function() {
-    return require('../dev/validationRules.json')
+    return require('./validationRules.json')
   })
   fetchMock.post(new RegExp('^.*?/nice2/rest/principals/.*/password-validation$'), function(url, opts) {
     if (JSON.parse(opts.body).newPassword.includes('tocco')) {

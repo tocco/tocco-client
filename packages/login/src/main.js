@@ -3,12 +3,10 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import {loginFactory, passwordUpdateFactory} from './appFactory'
-import fetchMocks from './dev/fetchMocks'
-
-import './styles/core.scss'
+import setupFetchMock from './dev/fetchMocks'
 
 if (__DEV__) {
-  fetchMocks(fetchMock)
+  setupFetchMock(fetchMock)
 
   const mountElement = document.getElementById('root')
 
