@@ -11,7 +11,7 @@ const RelationRow = props => {
       <td className="bold">{props.relation.label}</td>
       {
         props.entities.map((entity, idx) => {
-          const cls = isTargetEntity(entity.pk) ? 'merger-matrix-selected-col' : ''
+          const cls = isTargetEntity(entity.pk) ? 'merge-matrix-selected-col' : ''
           const entityRelationValue = entity.relations[props.relation.name].values[0]
           return (
             <td className={cls} key={'td' + idx}>

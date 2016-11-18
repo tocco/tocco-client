@@ -45,7 +45,7 @@ class PasswordUpdateDialog extends Component {
       || password.newPasswordValidationErrors && Object.keys(password.newPasswordValidationErrors).length > 0
 
     return (
-      <div>
+      <div className="tocco-login">
         <div>
           {this.props.showTitle
           && <h1><FormattedMessage id="client.login.passwordUpdate.title"/></h1>

@@ -5,8 +5,6 @@ import ReactDOM from 'react-dom'
 import {loginFactory, passwordUpdateFactory} from './appFactory'
 import setupFetchMock from './dev/fetchMocks'
 
-import './styles/core.scss'
-
 if (__DEV__) {
   setupFetchMock(fetchMock)
 

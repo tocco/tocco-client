@@ -1,4 +1,4 @@
-.login-form {
+.tocco-login {
   .input-group {
     max-width: 500px;
   }
@@ -26,4 +26,22 @@
       content: "\e031"
     }
   }
+
+  .m-t-5 {
+    margin-top: 5px;
+  }
+
+  .m-l-5 {
+    margin-left: 5px;
+  }
+
+  .p-l-5 {
+    padding-left: 5px;
+  }
+
+  .pointer {
+    cursor: pointer;
+  }
+
 }
+
