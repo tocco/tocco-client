@@ -10,7 +10,7 @@ import {LoadMask} from 'tocco-ui'
 import MergeWizardContainer from './containers/MergeWizardContainer'
 import dispatchInput from './utils/DispatchInput'
 import reducers, {sagas} from './modules/reducers'
-import fetchMocks from './dev/fetchMocks'
+import setupFetchMock from './dev/fetchMocks'
 
 import de from 'react-intl/locale-data/de'
 import en from 'react-intl/locale-data/en'
@@ -65,7 +65,7 @@ const init = (id, input, externalEvents, publicPath) => {
 }
 
 if (__DEV__) {
-  fetchMocks(fetchMock)
+  setupFetchMock(fetchMock)
 
   const mountElement = document.getElementById('root')
 
