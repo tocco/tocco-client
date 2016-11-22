@@ -1,0 +1,24 @@
+.tocco-pagination {
+  .total{
+    font-style:italic;
+    padding-right: 8px;
+  }
+
+  button{
+    background-color: white;
+    border-color: grey;
+    margin-left: 2px;
+  }
+
+  #currentPage{
+    margin-left: 4px;
+  }
+
+  input[type='number'] {
+    -moz-appearance:textfield;
+  }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+}
