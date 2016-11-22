@@ -11,6 +11,6 @@ export default config => ({
     }
   },
   globals: Object.assign({}, config.globals, {
-    __BACKEND_URL__: JSON.stringify('http://:8080')
+    __BACKEND_URL__: "'http://' + window.location.hostname + ':8080'"
   })
 })
