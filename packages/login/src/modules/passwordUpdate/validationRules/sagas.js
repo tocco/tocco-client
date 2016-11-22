@@ -7,7 +7,9 @@ export const usernameSelector = state => state.passwordUpdate.dialog.username
 export function loadValidationRules(username) {
   return fetch(`${__BACKEND_URL__}/nice2/rest/principals/${username}/password-rules`, {
     credentials: 'include'
-  }).then(response => response.json())
+  }).then(response => response.json()).then(json => {
+    console.log('json', json)
+  })
 }
 
 export function* fetchValidationRules() {

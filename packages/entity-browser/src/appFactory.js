@@ -5,6 +5,8 @@ import {addLocaleData} from 'react-intl'
 import {IntlProvider} from 'react-intl-redux'
 import {LoadMask} from 'tocco-ui'
 
+import {setEntityName} from './modules/entityBrowser/actions'
+
 import EntityBrowserContainer from './containers/EntityBrowserContainer'
 
 import de from 'react-intl/locale-data/de'
@@ -15,10 +17,11 @@ import it from 'react-intl/locale-data/it'
 import reducers, {sagas} from './modules/reducers'
 
 export default (id, input = {}, externalEvents, publicPath) => {
-  return factory('entity-browser', input, externalEvents, publicPath, 'entity-browser', reducers)
+  const dispatches = [setEntityName(input.entityName)]
+  return factory('entity-browser', input, externalEvents, publicPath, 'entity-browser', reducers, dispatches)
 }
 
-const factory = (id, input = {}, externalEvents, publicPath, resourcePrefix, reducers) => {
+const factory = (id, input = {}, externalEvents, publicPath, resourcePrefix, reducers, dispatches) => {
   try {
     if (publicPath) {
       /* eslint camelcase: 0 */
@@ -39,6 +42,10 @@ const factory = (id, input = {}, externalEvents, publicPath, resourcePrefix, red
         StoreFactory.hotReloadReducers(store, reducers)
       })
     }
+
+    dispatches.forEach(f => {
+      store.dispatch(f)
+    })
 
     addLocaleData([...de, ...en, ...fr, ...it])
     const locale = input ? input.locale : null
