@@ -85,10 +85,11 @@ export class Wizard extends React.Component {
           {
             (this.state.index === this.state.amountPages - 1)
             && <ToccoUI.Button
-              className="btn wizard-next-button"
+              className="wizard-next-button"
               label={this.props.save.label}
               onClick={this.props.save.fn}
               icon="glyphicon-floppy-save"
+              primary
             />
           }
         </div>

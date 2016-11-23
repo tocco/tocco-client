@@ -8,6 +8,7 @@ export default () => {
       {/* start example */}
       <Button
         label="Save"
+        primary
         icon="glyphicon-floppy-save"
         type="submit"
       />

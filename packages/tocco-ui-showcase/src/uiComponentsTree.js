@@ -10,6 +10,10 @@ import LoadMaskRaw from '!raw!../../tocco-ui/src/LoadMask/LoadMask'
 import LoadMaskExample from '../../tocco-ui/src/LoadMask/example'
 import LoadMaskExampleRaw from '!raw!../../tocco-ui/src/LoadMask/example'
 
+import PaginationRaw from '!raw!../../tocco-ui/src/Pagination/Pagination'
+import PaginationExample from '../../tocco-ui/src/Pagination/example'
+import PaginationExampleRaw from '!raw!../../tocco-ui/src/Pagination/example'
+
 const categories = {
   CORPORATE_IDENTITY: 'Corporate identity',
   FORMS: 'From Controls',
@@ -20,6 +24,14 @@ export default [
   {
     category: categories.FORMS,
     components: [
+      {
+        name: 'Pagination',
+        raw: PaginationRaw,
+        example: {
+          component: PaginationExample,
+          raw: PaginationExampleRaw
+        }
+      },
       {
         name: 'Button',
         raw: ButtonRaw,

@@ -51,6 +51,7 @@ export class TwoStepLoginForm extends Component {
               pending={this.props.loginPending}
               icon="glyphicon-log-in"
               className="m-t-5"
+              primary
             />
           </div>
         </form>
