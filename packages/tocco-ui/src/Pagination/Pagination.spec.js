@@ -29,14 +29,14 @@ describe('tocco-ui', function() {
     })
 
     it('should disable forward and back button depending on current page', () => {
-      const wrapper = shallow(<Pagination totalRecords={20} recordsPerPage={10}/>)
+      const wrapper = shallow(<Pagination totalRecords={30} recordsPerPage={10}/>)
 
       expect(wrapper.find('#forwardButton')).to.not.be.disabled()
       expect(wrapper.find('#toLastButton')).to.not.be.disabled()
       expect(wrapper.find('#toFirstButton')).to.be.disabled()
       expect(wrapper.find('#backButton')).to.be.disabled()
 
-      wrapper.find('#forwardButton').simulate('click')
+      wrapper.find('#toLastButton').simulate('click')
 
       expect(wrapper.find('#forwardButton')).to.be.disabled()
       expect(wrapper.find('#toLastButton')).to.be.disabled()
@@ -44,6 +44,13 @@ describe('tocco-ui', function() {
       expect(wrapper.find('#backButton')).to.not.be.disabled()
 
       wrapper.find('#backButton').simulate('click')
+
+      expect(wrapper.find('#forwardButton')).to.not.be.disabled()
+      expect(wrapper.find('#toLastButton')).to.not.be.disabled()
+      expect(wrapper.find('#toFirstButton')).to.not.be.disabled()
+      expect(wrapper.find('#backButton')).to.not.be.disabled()
+
+      wrapper.find('#toFirstButton').simulate('click')
 
       expect(wrapper.find('#forwardButton')).to.not.be.disabled()
       expect(wrapper.find('#toLastButton')).to.not.be.disabled()
