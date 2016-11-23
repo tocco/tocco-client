@@ -2,7 +2,7 @@ import React from 'react'
 import * as ToccoUI from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
 
-import './styles.scss'
+import './Wizard.scss'
 
 export class Wizard extends React.Component {
   constructor(props) {

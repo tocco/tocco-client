@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
 import * as ToccoUI from 'tocco-ui'
 
-import '../Login/styles.scss'
+import '../Login/Login.scss'
 
 export class TwoStepLoginForm extends Component {
 

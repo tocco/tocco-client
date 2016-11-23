@@ -3,7 +3,7 @@ import {FormattedMessage, intlShape} from 'react-intl'
 import {Pages} from '../../types/Pages'
 import * as ToccoUI from 'tocco-ui'
 
-import '../Login/styles.scss'
+import '../Login/Login.scss'
 
 export class PasswordRequest extends React.Component {
 

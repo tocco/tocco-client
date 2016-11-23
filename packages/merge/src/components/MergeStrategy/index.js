@@ -1,4 +1,4 @@
 import MergeStrategy from './MergeStrategy'
-import './styles.scss'
+import './MergeStrategy.scss'
 
 export default MergeStrategy
