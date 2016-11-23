@@ -50,6 +50,7 @@ export class PasswordRequest extends React.Component {
                 pending={this.props.pending}
                 icon="glyphicon-log-in"
                 className="m-t-5"
+                primary
               />
               <ToccoUI.Button
                 name="abort"
@@ -58,6 +59,7 @@ export class PasswordRequest extends React.Component {
                 disabled={this.props.pending}
                 icon="glyphicon-remove"
                 className="m-l-5 m-t-5"
+                primary
               />
             </div>
           </div>

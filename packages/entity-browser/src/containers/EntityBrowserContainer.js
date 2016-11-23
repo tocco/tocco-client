@@ -2,8 +2,11 @@ import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 
 import EntityBrowser from '../components/EntityBrowser'
+import {requestRecords} from '../modules/entityBrowser/actions'
 
-const mapActionCreators = {}
+const mapActionCreators = {
+  requestRecords
+}
 
 const mapStateToProps = (state, props) => ({})
 

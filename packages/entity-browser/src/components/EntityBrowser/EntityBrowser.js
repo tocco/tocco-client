@@ -3,6 +3,10 @@ import React from 'react'
 import './styles.scss'
 
 export class EntityBrowser extends React.Component {
+  constructor(props) {
+    super()
+    props.requestRecords()
+  }
 
   render() {
     return (
@@ -13,4 +17,6 @@ export class EntityBrowser extends React.Component {
   }
 }
 
-EntityBrowser.propTypes = {}
+EntityBrowser.propTypes = {
+  requestRecords: React.PropTypes.func.isRequired
+}

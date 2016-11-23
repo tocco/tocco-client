@@ -4,147 +4,111 @@ import {shallow} from 'enzyme'
 
 describe('tocco-ui', function() {
   describe('Button', function() {
-    it('handles click events', () => {
+    it('should handle click events', () => {
       const onButtonClick = sinon.spy()
       const wrapper = shallow(
-        <Button
-          label=""
-          onClick={onButtonClick}
-        />
+        <Button onClick={onButtonClick}/>
       )
       wrapper.find('button').simulate('click')
       expect(onButtonClick).to.have.property('callCount', 1)
     })
 
     it('should show label', () => {
-      const wrapper = shallow(<Button
-        label="test"
-        onClick={() => undefined}
-        />
+      const wrapper = shallow(
+        <Button label="test"/>
       )
       expect(wrapper.find('button').text()).to.equal(' test')
     })
 
     it('should add name property', () => {
-      const wrapper = shallow(<Button
-        label=""
-        onClick={() => undefined}
-        name="test_name"
-        />
+      const wrapper = shallow(
+        <Button name="test_name"/>
       )
       expect(wrapper.find('button').prop('name')).to.equal('test_name')
     })
 
     it('should add classNames', () => {
-      let wrapper = shallow(<Button
-        label=""
-        onClick={() => undefined}
-        />
+      let wrapper = shallow(
+        <Button/>
       )
 
-      expect(wrapper.find('button')).to.have.className('btn-primary')
+      expect(wrapper.find('button')).to.have.className('btn')
 
-      wrapper = shallow(<Button
-        label=""
-        className="class1 class2 class3"
-        onClick={() => undefined}
-        />
+      wrapper = shallow(
+        <Button className="class1 class2 class3"/>
       )
+
       expect(wrapper.find('button')).to.have.className('class1')
       expect(wrapper.find('button')).to.have.className('class2')
       expect(wrapper.find('button')).to.have.className('class3')
     })
 
-    it('can be disabled', () => {
+    it('should add primary class if primary prop is set', () => {
       let wrapper = shallow(
-        <Button
-          label=""
-          onClick={() => undefined}
-        />
+        <Button primary/>
+      )
+
+      expect(wrapper.find('button')).to.have.className('btn-primary')
+    })
+
+    it('should be disabled and hidden', () => {
+      let wrapper = shallow(
+        <Button/>
       )
       expect(wrapper.find('button')).to.not.have.property('disabled')
 
       wrapper = shallow(
-        <Button
-          label=""
-          onClick={() => undefined}
-          disabled={false}
-        />
+        <Button disabled={false}/>
       )
       expect(wrapper.find('button')).to.not.have.property('disabled')
 
       wrapper = shallow(
-        <Button
-          label=""
-          onClick={() => undefined}
-          disabled
-        />
+        <Button disabled/>
       )
       expect(wrapper.find('button')).to.be.disabled()
     })
 
-    it('shows pending spinner', () => {
+    it('should show pending spinner', () => {
       let wrapper = shallow(
-        <Button
-          label=""
-          onClick={() => undefined}
-        />
+        <Button/>
       )
       expect(wrapper.find('button').hasClass('pending')).to.equal(false)
 
       wrapper = shallow(
         <Button
-          label=""
-          onClick={() => undefined}
           pending={false}
         />
       )
       expect(wrapper.find('button').hasClass('pending')).to.equal(false)
 
       wrapper = shallow(
-        <Button
-          label=""
-          onClick={() => undefined}
-          pending
-        />
+        <Button pending/>
       )
       expect(wrapper.find('button').hasClass('pending')).to.equal(true)
     })
 
-    it('shows icon', () => {
+    it('should show icon', () => {
       let wrapper = shallow(
-        <Button
-          label=""
-          onClick={() => undefined}
-          icon="icon"
-        />
+        <Button icon="icon"/>
       )
       expect(wrapper.find('i').hasClass('icon')).to.equal(true)
 
       wrapper = shallow(
-        <Button
-          label=""
-          onClick={() => undefined}
-        />
+        <Button/>
       )
       expect(wrapper.find('i').prop('className')).to.equal('glyphicon')
     })
 
-    it('sets default type to button', () => {
+    it('should set default type to button', () => {
       let wrapper = shallow(
-        <Button
-          label=""
-        />
+        <Button/>
       )
       expect(wrapper.find('button').prop('type')).to.equal('button')
     })
 
-    it('set type ', () => {
+    it('should set type', () => {
       const wrapper = shallow(
-        <Button
-          label=""
-          type="submit"
-        />
+        <Button type="submit"/>
       )
       expect(wrapper.find('button').prop('type')).to.equal('submit')
     })

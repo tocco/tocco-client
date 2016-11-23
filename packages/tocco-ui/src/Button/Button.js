@@ -6,23 +6,33 @@ import './styles.scss'
  * Styled Button
  */
 const Button = props => {
+  const classes = classNames(
+    'btn',
+    'btn-default',
+    props.className,
+    {
+      'pending': props.pending,
+      'btn-primary': props.primary
+    }
+  )
+
   return (
     <button
       name={props.name}
       onClick={props.onClick}
-      className={classNames('btn', 'btn-primary', props.className, props.pending ? 'pending' : '')}
+      className={classes}
       disabled={props.disabled}
       type={props.type ? props.type : 'button'}
     >
-      <i className={classNames('glyphicon', props.icon)}/> {props.label}
+      <i className={classNames('glyphicon', props.icon)}/> {props.label || ''}
     </button>)
 }
 
 Button.propTypes = {
   /**
-   * Will be displayed on button
+   * Will be displayed on button, default is an empty string
    */
-  label: React.PropTypes.string.isRequired,
+  label: React.PropTypes.string,
   /**
    * Function that will be triggered on click event
    */
@@ -43,6 +53,10 @@ Button.propTypes = {
    * Extend the button with any css classes separated by a space
    */
   className: React.PropTypes.string,
+  /**
+   * If true, button will be shown as primary button
+   */
+  primary: React.PropTypes.bool,
   /**
    * Add an icon to the button. Possible icons are defined here: http://glyphicons.bootstrapcheatsheets.com/
    */

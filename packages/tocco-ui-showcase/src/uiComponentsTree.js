@@ -14,6 +14,10 @@ import ToccoLogoRaw from '!raw!../../tocco-ui/src/ToccoLogo/ToccoLogo'
 import ToccoLogoExample from '../../tocco-ui/src/ToccoLogo/example'
 import ToccoLogoExampleRaw from '!raw!../../tocco-ui/src/ToccoLogo/example'
 
+import PaginationRaw from '!raw!../../tocco-ui/src/Pagination/Pagination'
+import PaginationExample from '../../tocco-ui/src/Pagination/example'
+import PaginationExampleRaw from '!raw!../../tocco-ui/src/Pagination/example'
+
 const categories = {
   CONTENT: 'Content',
   FORMS: 'From Controls',
@@ -44,6 +48,14 @@ export default [
   {
     category: categories.FORMS,
     components: [
+      {
+        name: 'Pagination',
+        raw: PaginationRaw,
+        example: {
+          component: PaginationExample,
+          raw: PaginationExampleRaw
+        }
+      },
       {
         name: 'Button',
         raw: ButtonRaw,
