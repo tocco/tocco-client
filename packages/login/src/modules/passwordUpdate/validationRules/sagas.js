@@ -5,11 +5,10 @@ import {call, fork, put, select} from 'redux-saga/effects'
 export const usernameSelector = state => state.passwordUpdate.dialog.username
 
 export function loadValidationRules(username) {
+  console.log('1', `${__BACKEND_URL__}/nice2/rest/principals/${username}/password-rules`)
   return fetch(`${__BACKEND_URL__}/nice2/rest/principals/${username}/password-rules`, {
     credentials: 'include'
-  }).then(response => response.json()).then(json => {
-    console.log('json', json)
-  })
+  }).then(response => response.json())
 }
 
 export function* fetchValidationRules() {
