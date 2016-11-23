@@ -1,5 +1,7 @@
 import React from 'react'
 import _debounce from 'lodash/debounce'
+
+import Button from '../Button'
 import './styles.scss'
 
 /**
@@ -74,24 +76,22 @@ class Pagination extends React.Component {
 
     return (
       <div className="tocco-pagination">
-        <button
+        <Button
           id="toFirstButton"
           type="button"
           className="btn"
           onClick={this.handleToFirst}
           disabled={this.onFirstPage()}
-        >
-          <span className="glyphicon glyphicon-fast-backward"/>
-        </button>
-        <button
+          icon="glyphicon-fast-backward"
+        />
+        <Button
           id="backButton"
           type="button"
           className="btn"
           onClick={this.handleOneBack}
           disabled={this.onFirstPage()}
-        >
-          <span className="glyphicon glyphicon-step-backward"/>
-        </button>
+          icon="glyphicon-step-backward"
+        />
         {
           this.props.noInput
           && <span id="currentPage">{this.state.currentPage}</span>
@@ -109,24 +109,20 @@ class Pagination extends React.Component {
           />
         }
         <span> / </span><span id="total">{this.state.totalPages}</span>
-        <button
+        <Button
           id="forwardButton"
           type="button"
-          className="btn"
           onClick={this.handleOneForward}
           disabled={this.onLastPage()}
-        >
-          <span className="glyphicon glyphicon-step-forward"/>
-        </button>
-        <button
+          icon="glyphicon-step-forward"
+        />
+        <Button
           id="toLastButton"
           type="button"
-          className="btn"
           onClick={this.handleToLast}
           disabled={this.onLastPage()}
-        >
-          <span className="glyphicon glyphicon-fast-forward"/>
-        </button>
+          icon="glyphicon-fast-forward"
+        />
       </div>
     )
   }
