@@ -37,6 +37,14 @@ export default [
         }
       },
       {
+        name: 'Pagination',
+        raw: PaginationRaw,
+        example: {
+          component: PaginationExample,
+          raw: PaginationExampleRaw
+        }
+      },
+      {
         name: 'LoadMask',
         raw: LoadMaskRaw,
         example: {
@@ -48,14 +56,6 @@ export default [
   {
     category: categories.FORMS,
     components: [
-      {
-        name: 'Pagination',
-        raw: PaginationRaw,
-        example: {
-          component: PaginationExample,
-          raw: PaginationExampleRaw
-        }
-      },
       {
         name: 'Button',
         raw: ButtonRaw,
