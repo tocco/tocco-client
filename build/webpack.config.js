@@ -65,7 +65,7 @@ webpackConfig.plugins = [
 
 if (__DEV__) {
   webpackConfig.plugins.push(
-    new ExtractTextPlugin("index.css")
+    new ExtractTextPlugin('index.css')
   )
   webpackConfig.plugins.push(
     new HtmlWebpackPlugin({
@@ -166,7 +166,7 @@ webpackConfig.module.loaders.push(
   },
   {
     test: /\.scss$/,
-    loader: ExtractTextPlugin.extract("css-loader!sass-loader")
+    loader: ExtractTextPlugin.extract('css-loader!sass-loader')
   }
 )
 
