@@ -68,6 +68,7 @@ export class LoginForm extends Component {
                 disabled={this.props.loginPending || this.props.username === '' || this.props.password === ''}
                 pending={this.props.loginPending}
                 icon="glyphicon-log-in"
+                primary
               />
               <div>
                 <a
