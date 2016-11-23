@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import ShowCaseApp from './components/ShowCaseApp'
-import './styles.scss'
+import './UiShowcase.scss'
 
 import componentsTree from './uiComponentsTree'
 
