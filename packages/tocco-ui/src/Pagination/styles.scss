@@ -1,21 +1,21 @@
 .tocco-pagination {
-  .total{
-    font-style:italic;
+  .total {
+    font-style: italic;
     padding-right: 8px;
   }
 
-  button{
+  button {
     background-color: white;
     border-color: grey;
     margin-left: 2px;
   }
 
-  #currentPage{
+  #currentPage {
     margin-left: 4px;
   }
 
   input[type='number'] {
-    -moz-appearance:textfield;
+    -moz-appearance: textfield;
   }
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {

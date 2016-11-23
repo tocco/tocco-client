@@ -53,8 +53,8 @@ class Pagination extends React.Component {
   handleInputUpdate = event => {
     let value = parseInt(event.target.value)
 
-    if (value < 0) {
-      value = 0
+    if (value < 1) {
+      value = 1
     }
     if (value > this.state.totalPages) {
       value = this.state.totalPages
@@ -146,7 +146,7 @@ Pagination.propTypes = {
    */
   onPageChange: React.PropTypes.func,
   /**
-   * If set to false (default true) a label, instead of a input field to enter page, is displayed.
+   * If set to false (default true) a label, instead of an input field to enter page, is displayed.
    */
   noInput: React.PropTypes.bool
 }
