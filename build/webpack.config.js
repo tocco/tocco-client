@@ -1,6 +1,7 @@
 import path from 'path'
 import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import config from '../config'
 import _debug from 'debug'
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
@@ -76,6 +77,9 @@ webpackConfig.plugins = [
 ]
 
 if (__DEV__) {
+  webpackConfig.plugins.push(
+    new ExtractTextPlugin('index.css')
+  )
   webpackConfig.plugins.push(
     new HtmlWebpackPlugin({
       template: paths.client('server/index.html'),
@@ -229,7 +233,7 @@ webpackConfig.module.rules.push(
   },
   {
     test: /\.scss$/,
-    use: ['style-loader', 'css-loader', 'sass-loader']
+    loader: ExtractTextPlugin.extract('css-loader!sass-loader')
   }
 )
 
