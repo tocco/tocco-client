@@ -12,11 +12,28 @@ class Pagination extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentPage: 1,
+      currentPage: props.currentPage || 1,
       totalPages: Math.ceil(props.totalRecords / props.recordsPerPage)
     }
 
     this.callOnPageChanged = _debounce(this.callOnPageChanged, 800)
+  }
+
+  componentWillReceiveProps = nextProps => {
+    if (this.props.totalRecords !== nextProps.totalRecords
+      || this.props.recordsPerPage !== nextProps.recordsPerPage) {
+      this.setState({
+        ...this.state,
+        totalPages: Math.ceil(nextProps.totalRecords / nextProps.recordsPerPage)
+      })
+    }
+
+    if (this.props.currentPage !== nextProps.currentPage) {
+      this.setState({
+        ...this.state,
+        currentPage: nextProps.currentPage
+      })
+    }
   }
 
   onLastPage = () => this.state.currentPage >= this.state.totalPages
@@ -66,14 +83,13 @@ class Pagination extends React.Component {
   }
 
   callOnPageChanged = () => {
-    if (this.props.onPageChange) {
+    if (this.props.onPageChange && !isNaN(this.state.currentPage)) {
       this.props.onPageChange(this.state.currentPage)
     }
   }
 
   render() {
     const approximateWidth = this.state.totalPages.toString().length * 8 + 10
-
     return (
       <div className="tocco-pagination">
         <Button
@@ -102,7 +118,7 @@ class Pagination extends React.Component {
             id="currentPage"
             type="number"
             min="1"
-            max="20"
+            max={this.state.totalPages}
             onChange={this.handleInputUpdate}
             style={{width: `${approximateWidth}px`}}
             value={this.state.currentPage}
@@ -141,6 +157,10 @@ Pagination.propTypes = {
    * Get called everytime the current page changes. Given the current number as first argument.
    */
   onPageChange: React.PropTypes.func,
+  /**
+   * If set to false (default true) a label, instead of an input field to enter page, is displayed.
+   */
+  currentPage: React.PropTypes.number,
   /**
    * If set to false (default true) a label, instead of an input field to enter page, is displayed.
    */
