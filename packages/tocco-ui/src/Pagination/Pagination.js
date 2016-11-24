@@ -16,7 +16,7 @@ class Pagination extends React.Component {
       totalPages: Math.ceil(props.totalRecords / props.recordsPerPage)
     }
 
-    this.callOnPageChanged = _debounce(this.callOnPageChanged, 800)
+    this.callOnPageChanged = _debounce(this.callOnPageChanged, 200)
   }
 
   componentWillReceiveProps = nextProps => {
@@ -36,35 +36,37 @@ class Pagination extends React.Component {
     }
   }
 
-  onLastPage = () => this.state.currentPage >= this.state.totalPages
-  onFirstPage = () => this.state.currentPage <= 1
+  isOnLastPage = () => this.state.currentPage >= this.state.totalPages
+  isOnFirstPage = () => this.state.currentPage <= 1
 
-  updateCurrentPage = val => {
+  updateCurrentPage = (val, notify = true) => {
     this.setState({...this.state, 'currentPage': val})
 
-    this.callOnPageChanged()
+    if (notify) {
+      this.callOnPageChanged()
+    }
   }
 
-  handleOneForward = () => {
-    if (!this.onLastPage()) {
+  handleOneForwardClick = () => {
+    if (!this.isOnLastPage()) {
       this.updateCurrentPage(this.state.currentPage + 1)
     }
   }
 
-  handleOneBack = () => {
-    if (!this.onFirstPage()) {
+  handleOneBackClick = () => {
+    if (!this.isOnFirstPage()) {
       this.updateCurrentPage(this.state.currentPage - 1)
     }
   }
 
-  handleToLast = () => {
-    if (!this.onLastPage()) {
+  handleToLastClick = () => {
+    if (!this.isOnLastPage()) {
       this.updateCurrentPage(this.state.totalPages)
     }
   }
 
-  handleToFirst = () => {
-    if (!this.onFirstPage()) {
+  handleToFirstClick = () => {
+    if (!this.isOnFirstPage()) {
       this.updateCurrentPage(1)
     }
   }
@@ -79,7 +81,17 @@ class Pagination extends React.Component {
       value = this.state.totalPages
     }
 
-    this.updateCurrentPage(value)
+    this.updateCurrentPage(value, false)
+  }
+
+  handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      this.callOnPageChanged()
+    }
+  }
+
+  handleOnInputBlur = () => {
+    this.callOnPageChanged()
   }
 
   callOnPageChanged = () => {
@@ -96,16 +108,16 @@ class Pagination extends React.Component {
           id="toFirstButton"
           type="button"
           className="btn"
-          onClick={this.handleToFirst}
-          disabled={this.onFirstPage()}
+          onClick={this.handleToFirstClick}
+          disabled={this.isOnFirstPage()}
           icon="glyphicon-fast-backward"
         />
         <Button
           id="backButton"
           type="button"
           className="btn"
-          onClick={this.handleOneBack}
-          disabled={this.onFirstPage()}
+          onClick={this.handleOneBackClick}
+          disabled={this.isOnFirstPage()}
           icon="glyphicon-step-backward"
         />
         {
@@ -122,21 +134,24 @@ class Pagination extends React.Component {
             onChange={this.handleInputUpdate}
             style={{width: `${approximateWidth}px`}}
             value={this.state.currentPage}
+            onKeyPress={this.handleKeyPress}
+            onBlur={this.handleOnInputBlur}
+
           />
         }
         <span> / </span><span id="total">{this.state.totalPages}</span>
         <Button
           id="forwardButton"
           type="button"
-          onClick={this.handleOneForward}
-          disabled={this.onLastPage()}
+          onClick={this.handleOneForwardClick}
+          disabled={this.isOnLastPage()}
           icon="glyphicon-step-forward"
         />
         <Button
           id="toLastButton"
           type="button"
-          onClick={this.handleToLast}
-          disabled={this.onLastPage()}
+          onClick={this.handleToLastClick}
+          disabled={this.isOnLastPage()}
           icon="glyphicon-fast-forward"
         />
       </div>
