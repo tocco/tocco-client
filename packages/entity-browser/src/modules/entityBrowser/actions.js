@@ -1,15 +1,23 @@
 export const INITIALIZED = 'INITIALIZED'
+export const INITIALIZE_TABLE = 'INITIALIZE'
 export const REQUEST_RECORDS = 'REQUEST_RECORDS'
 export const SET_ENTITY_NAME = 'SET_ENTITY_NAME'
 export const SET_RECORDS = 'SET_RECORDS'
 export const SET_COLUMN_DEFINITION = 'SET_COLUMN_DEFINITION'
 export const SET_ORDER_BY = 'SET_ORDER_BY'
-export const SET_MAX_RECORDS = 'SET_MAX_RECORDS'
+export const SET_LIMIT = 'SET_LIMIT'
 export const SET_SEARCH_TERM = 'SET_SEARCH_TERM'
 export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+export const SET_RECORD_COUNT = 'SET_RECORD_COUNT'
+export const ADD_RECORDS_TO_CACHE = 'ADD_RECORDS_TO_CACHE'
+export const CLEAR_RECORDS_CACHE = 'CLEAR_RECORDS_CACHE'
 
 export const initialized = () => ({
-  type: INITIALIZED
+  type: INITIALIZE_TABLE
+})
+
+export const initializeTable = () => ({
+  type: INITIALIZE_TABLE
 })
 
 export const setEntityName = entityName => ({
@@ -30,6 +38,25 @@ export const setRecords = records => ({
   }
 })
 
+export const addRecordsToCache = (page, records) => ({
+  type: ADD_RECORDS_TO_CACHE,
+  payload: {
+    page,
+    records
+  }
+})
+
+export const clearRecordsCache = () => ({
+  type: CLEAR_RECORDS_CACHE
+})
+
+export const setRecordCount = recordCount => ({
+  type: SET_RECORD_COUNT,
+  payload: {
+    recordCount
+  }
+})
+
 export const setColumnDefinition = columnDefinition => ({
   type: SET_COLUMN_DEFINITION,
   payload: {
@@ -44,10 +71,10 @@ export const setOrderBy = orderBy => ({
   }
 })
 
-export const setMaxRecords = maxRecords => ({
-  type: SET_MAX_RECORDS,
+export const setLimit = limit => ({
+  type: SET_LIMIT,
   payload: {
-    maxRecords
+    limit
   }
 })
 

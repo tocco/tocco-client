@@ -1,0 +1,230 @@
+{
+  "key": "1",
+  "model": "User",
+  "version": 3,
+  "fields": {
+    "firstname": {
+      "value": "First-Name",
+      "type": "string",
+      "readable": true,
+      "writable": true
+    },
+    "lastname": {
+      "value": "Last-Name",
+      "type": "string",
+      "readable": true,
+      "writable": true
+    },
+    "email": {
+      "value": "test@tocco.ch",
+      "type": "email",
+      "readable": true,
+      "writable": true
+    },
+    "user_nr": {
+      "value": 1,
+      "type": "counter",
+      "readable": true,
+      "writable": false
+    },
+    "birthdate": {
+      "value": null,
+      "type": "birthdate",
+      "readable": true,
+      "writable": true
+    },
+    "abbreviation": {
+      "value": "",
+      "type": "string",
+      "readable": true,
+      "writable": true
+    },
+    "phone_company": {
+      "value": "",
+      "type": "phone",
+      "readable": true,
+      "writable": true
+    },
+    "phone_private": {
+      "value": "",
+      "type": "phone",
+      "readable": true,
+      "writable": true
+    },
+    "phone_mobile": {
+      "value": "",
+      "type": "phone",
+      "readable": true,
+      "writable": true
+    },
+    "social_security_nr": {
+      "value": "",
+      "type": "string",
+      "readable": true,
+      "writable": true
+    },
+    "profession": {
+      "value": "",
+      "type": "string",
+      "readable": true,
+      "writable": true
+    },
+    "job": {
+      "value": "",
+      "type": "string",
+      "readable": true,
+      "writable": true
+    },
+    "learner_nr": {
+      "value": "",
+      "type": "string",
+      "readable": true,
+      "writable": true
+    },
+    "contract_nr": {
+      "value": "",
+      "type": "string",
+      "readable": true,
+      "writable": true
+    },
+    "apprenticeship_start_date": {
+      "value": null,
+      "type": "date",
+      "readable": true,
+      "writable": true
+    },
+    "apprenticeship_end_date": {
+      "value": null,
+      "type": "date",
+      "readable": true,
+      "writable": true
+    }
+  },
+  "singleRelations": [
+    {
+      "entityModel": "User",
+      "entityKey": "6",
+      "name": "relCorrespondence_language",
+      "entities": [
+        {
+          "key": "3",
+          "model": "Correspondence_language",
+          "version": 2,
+          "fields": {},
+          "singleRelations": [],
+          "multiRelations": []
+        }
+      ],
+      "readable": true,
+      "writable": true
+    },
+    {
+      "entityModel": "User",
+      "entityKey": "6",
+      "name": "relMeals",
+      "entities": [],
+      "readable": true,
+      "writable": true
+    },
+    {
+      "entityModel": "User",
+      "entityKey": "6",
+      "name": "relSubvention_canton",
+      "entities": [],
+      "readable": true,
+      "writable": true
+    },
+    {
+      "entityModel": "User",
+      "entityKey": "6",
+      "name": "relApprenticeship_current_year",
+      "entities": [],
+      "readable": true,
+      "writable": true
+    },
+    {
+      "entityModel": "User",
+      "entityKey": "6",
+      "name": "relGender",
+      "entities": [
+        {
+          "key": "1",
+          "model": "Gender",
+          "version": 3,
+          "fields": {},
+          "singleRelations": [],
+          "multiRelations": []
+        }
+      ],
+      "readable": true,
+      "writable": true
+    },
+    {
+      "entityModel": "User",
+      "entityKey": "6",
+      "name": "relUser_status",
+      "entities": [
+        {
+          "key": "1",
+          "model": "User_status",
+          "version": 3,
+          "fields": {},
+          "singleRelations": [],
+          "multiRelations": []
+        }
+      ],
+      "readable": true,
+      "writable": true
+    },
+    {
+      "entityModel": "User",
+      "entityKey": "6",
+      "name": "relLearner_status",
+      "entities": [],
+      "readable": true,
+      "writable": true
+    },
+    {
+      "entityModel": "User",
+      "entityKey": "6",
+      "name": "relAcademic_title",
+      "entities": [],
+      "readable": true,
+      "writable": true
+    },
+    {
+      "entityModel": "User",
+      "entityKey": "6",
+      "name": "relJob_variant",
+      "entities": [],
+      "readable": true,
+      "writable": true
+    },
+    {
+      "entityModel": "User",
+      "entityKey": "6",
+      "name": "relAddress_c",
+      "entities": [],
+      "readable": true,
+      "writable": true
+    }
+  ],
+  "multiRelations": [
+    {
+      "entityModel": "User",
+      "entityKey": "6",
+      "name": "relUser_newsletter_category",
+      "entities": [],
+      "readable": true,
+      "writable": true
+    },
+    {
+      "entityModel": "User",
+      "entityKey": "6",
+      "name": "relSpecialcase",
+      "entities": [],
+      "readable": true,
+      "writable": true
+    }
+  ]
+}
