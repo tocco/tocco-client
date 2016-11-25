@@ -84,7 +84,7 @@ class Pagination extends React.Component {
     this.updateCurrentPage(value, false)
   }
 
-  handleKeyPress = (e) => {
+  handleKeyPress = e => {
     if (e.key === 'Enter') {
       this.callOnPageChanged()
     }
