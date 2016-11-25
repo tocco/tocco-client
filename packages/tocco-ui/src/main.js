@@ -1,11 +1,13 @@
 import Button from './Button'
-import ToccoLogo from './ToccoLogo'
 import LoadMask from './LoadMask'
+import Theme from './Theme'
+import ToccoLogo from './ToccoLogo'
 
 const exports = {
   Button,
-  ToccoLogo,
-  LoadMask
+  LoadMask,
+  Theme,
+  ToccoLogo
 }
 
 module.exports = exports

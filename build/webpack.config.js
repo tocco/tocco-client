@@ -64,11 +64,11 @@ webpackConfig.plugins = [
   new webpack.DefinePlugin(config.globals)
 ]
 
-if (__DEV__) {
-  webpackConfig.plugins.push(
-    new ExtractTextPlugin('index.css')
-  )
+webpackConfig.plugins.push(
+  new ExtractTextPlugin('index.css')
+)
 
+if (__DEV__) {
   webpackConfig.plugins.push(
     new CopyWebpackPlugin([
       {

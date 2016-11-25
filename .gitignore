@@ -10,3 +10,4 @@ coverage
 .idea
 *.iml
 
+server/static/theme.css

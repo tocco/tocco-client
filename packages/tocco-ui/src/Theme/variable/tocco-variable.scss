@@ -1,0 +1,9 @@
+/*
+ * tocco variables
+ * Define all additional variables here, which does not belong to a vendor styling framework.
+ * Eliminate decimal points by floor().
+*/
+
+.check-if-partial-is-included {content: 'tocco-ui/src/Theme/variable/tocco-variable.scss'}  // TODO remove before going live
+
+$line-height-computed-double: floor(($line-height-computed * 2)) !default;

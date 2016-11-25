@@ -1,0 +1,34 @@
+/* tocco theme for react components
+ * TODO may Theme needs to be a package instead of a component to ensure that it can loaded before all other styles. Due to alphabetic order Button.scss and LoadMask.scss is declared before Theme.scss in tocco-ui/dist/index.scss.
+ * TODO may extend CSS class .tocco-ui-theme with .version-X-Y-Z to use versions parallel
+ * CSS class .tocco-ui-theme is used to scope styles.
+ * CSS class .tocco-ui-theme is used to increase specificity compared to standard vendors implementation. Hence Tocco's Bootstrap has a higher specificity than Bootstrap.
+*/
+
+.tocco-ui-theme {
+    // load variables
+    @import "variable/bootstrap-variable";
+    @import "variable/font-awesome-variable";
+    @import "variable/tocco-variable";
+
+    // load vendor styling frameworks
+    @import "vendor/bootstrap";
+    @import "vendor/font-awesome";
+
+    // load tocco's vendor extension
+    @import "vendor-extension/bootstrap/normalize";
+    @import "vendor-extension/bootstrap/icon-list";
+
+    // load tocco's standalone extension
+    @import "tocco-extension/convenience-classes";
+
+    // load react components
+    // @import "login/dist/scss/Login.scss"
+    // @import "login/dist/scss/PasswordUpdateDialog.scss"
+    // @import "merge/dist/scss/MergerMatrix.scss"
+
+    // load webpack environment specifics
+    @import "tocco-extension/webpack-environment-specific";
+
+    .check-if-partial-is-included {content: 'tocco-ui/src/Theme/Theme.scss'}  // TODO remove before going live
+}
