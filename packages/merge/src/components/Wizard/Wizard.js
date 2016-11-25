@@ -2,8 +2,6 @@ import React from 'react'
 import {Button} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
 
-import './Wizard.scss'
-
 export class Wizard extends React.Component {
   constructor(props) {
     super(props)

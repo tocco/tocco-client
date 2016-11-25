@@ -1,13 +1,13 @@
 {
-  "name": "tocco-ui",
+  "name": "tocco-theme",
   "version": "0.1.0",
-  "description": "some ui elements",
+  "description": "styling framework",
   "main": "dist/index.js",
   "scripts": {
-    "clean": "../../node_modules/rimraf/bin.js dist",
+    "clean": "rimraf dist",
     "compile": "babel-node ../../bin/compile",
-    "deploy": "cd ../../ && ./node_modules/better-npm-run/index.js deploy --package=tocco-ui",
-    "prepublish": "cd ../../ && ./node_modules/better-npm-run/index.js deploy:prod --package=tocco-ui"
+    "deploy": "",
+    "prepublish": ""
   },
   "betterScripts": {
     "deploy": {
@@ -29,8 +29,7 @@
     "react-dom": "^15.2.1"
   },
   "devDependencies": {
-    "flatpickr": "^2.3.4",
-    "react-select": "^1.0.0-rc.2",
-    "tocco-theme": "0.1.0"
+    "bootstrap-sass": "^3.3.7",
+    "font-awesome": "^4.7.0"
   }
 }

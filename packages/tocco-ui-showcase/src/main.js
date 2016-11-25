@@ -1,8 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import ShowCaseApp from './components/ShowCaseApp'
-import './UiShowcase.scss'
-
 import componentsTree from './uiComponentsTree'
 
 const init = () => () => <ShowCaseApp componentsTree={componentsTree}/>
@@ -15,6 +13,8 @@ let render = () => {
 }
 
 if (__DEV__) {
+  require('tocco-theme/src/ToccoTheme/theme.scss')
+
   if (module.hot) {
     const renderApp = render
     const renderError = error => {

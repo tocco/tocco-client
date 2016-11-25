@@ -1,0 +1,7 @@
+/*
+ * tocco variables
+ * Define all additional variables here, which does not belong to a vendor styling framework.
+ * Eliminate decimal points by floor().
+*/
+
+$line-height-computed-double: floor(($line-height-computed * 2)) !default;

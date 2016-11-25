@@ -4,7 +4,9 @@ import DetailForm from './DetailForm'
 import syncValidation from '../../util/syncValidation'
 import {asyncValidate, AsyncValidationException} from '../../util/asyncValidation'
 
-import './styles.scss'
+if (__DEV__) {
+  require('tocco-theme/src/ToccoTheme/theme.scss')
+}
 
 class DetailView extends React.Component {
   constructor(props) {

@@ -6,8 +6,6 @@ import MergeStrategyContainer from './../../containers/MergeStrategyContainer'
 import {Wizard} from './../Wizard'
 import MergeResponse from './MergeResponse'
 
-import './MergeStrategy.scss'
-
 class MergeStrategy extends React.Component {
   render() {
     const saveButtonLabel = this.props.intl.formatMessage({id: 'client.merge.saveButton'})

@@ -6,24 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="node_modules/react/dist/react.js"></script>
   <script src="node_modules/react-dom/dist/react-dom.js"></script>
-  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
-  <style>
-    /*****
-    * tocco-client boilerplate
-    * for styling convenience while developing, only used inside monorepo tocco-client
-    * TODO replace #root with .development-sever-root for boilerplate styling
-    * TODO place tocco-client boilerplate css in a scss file
-    * TODO listen on changes and update localhost
-    * TODO add functionality to change #root width instantaneously to check representation according bootstrap's standard grids
-    */
-    #root {
-      margin: 10px;
-      border: 1px dashed #ddd;
-    }
-  </style>
 </head>
 
-<body>
+<!-- TODO CLIENT find better naming for .server-env-dev and #root -->
+<!-- TODO CLIENT may use .development-sever-root instead of #root -->
+<!-- TODO CLIENT listen on changes and update localhost -->
+<!-- TODO CLIENT add functionality to change #root width instantaneously to check representation according bootstrap's standard grids -->
+<body class="tocco-ui-theme server-env-dev">
   <div id="root"></div>
 </body>
 </html>
