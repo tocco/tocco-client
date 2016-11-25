@@ -9,8 +9,7 @@ export class EntityBrowser extends React.Component {
   }
 
   onPageChange = page => {
-    this.props.setCurrentPage(page)
-    this.props.requestRecords()
+    this.props.changePage(page)
   }
 
   render() {
@@ -18,12 +17,23 @@ export class EntityBrowser extends React.Component {
 
     return (
       <div className="entity-browser">
+
         <h1>EntityBrowser</h1>
-        <ToccoUI.Table columnDefinitions={props.columnDefinitions} records={props.records} className="table-striped"/>
+
+        <ToccoUI.Table
+          columnDefinitions={props.columnDefinitions}
+          records={props.records}
+          className="table-striped"
+          loading={props.recordRequestInProgress}
+        />
         <ToccoUI.Pagination
           totalRecords={props.recordCount}
-          recordsPerPage={25}
-          onPageChange={this.onPageChange}/>
+          recordsPerPage={props.limit}
+          onPageChange={this.onPageChange}
+          currentPage={props.currentPage}
+
+        />
+        <button onClick={props.resetDataSet}>Reset</button>
       </div>
     )
   }
@@ -31,10 +41,13 @@ export class EntityBrowser extends React.Component {
 
 EntityBrowser.propTypes = {
   initializeTable: React.PropTypes.func.isRequired,
-  requestRecords: React.PropTypes.func.isRequired,
+  changePage: React.PropTypes.func.isRequired,
   records: React.PropTypes.array,
   currentPage: React.PropTypes.number,
+  limit: React.PropTypes.number,
   columnDefinitions: React.PropTypes.array,
   recordCount: React.PropTypes.number,
-  setCurrentPage: React.PropTypes.func
+  setCurrentPage: React.PropTypes.func,
+  resetDataSet: React.PropTypes.func,
+  recordRequestInProgress: React.PropTypes.bool
 }

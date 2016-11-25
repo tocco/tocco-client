@@ -1,17 +1,17 @@
 import * as actions from './actions'
 import {singleTransferReducer} from 'tocco-util/reducers'
 
-const addRecordToCache = (state, {payload}) => ({
+const addRecordToStore = (state, {payload}) => ({
   ...state,
-  recordsCache: {
-    ...state.recordsCache,
+  recordStore: {
+    ...state.recordStore,
     [payload.page]: payload.records
   }
 })
 
-const clearRecordCache = (state, {payload}) => ({
+const clearRecordStore = (state, {payload}) => ({
   ...state,
-  recordsCache: {}
+  recordStore: {}
 })
 
 const ACTION_HANDLERS = {
@@ -23,8 +23,9 @@ const ACTION_HANDLERS = {
   [actions.SET_CURRENT_PAGE]: singleTransferReducer('currentPage'),
   [actions.SET_ORDER_BY]: singleTransferReducer('orderBy'),
   [actions.SET_RECORD_COUNT]: singleTransferReducer('recordCount'),
-  [actions.ADD_RECORDS_TO_CACHE]: addRecordToCache,
-  [actions.CLEAR_RECORDS_CACHE]: clearRecordCache
+  [actions.ADD_RECORDS_TO_STORE]: addRecordToStore,
+  [actions.CLEAR_RECORDS_STORE]: clearRecordStore,
+  [actions.SET_RECORD_REQUEST_IN_PROGRESS]: singleTransferReducer('recordRequestInProgress')
 }
 
 const initialState = {
@@ -36,7 +37,8 @@ const initialState = {
   orderBy: [],
   columnDefinition: [],
   recordCount: 0,
-  recordsCache: {}
+  recordStore: {},
+  recordRequestInProgress: false
 }
 
 export default function reducer(state = initialState, action) {

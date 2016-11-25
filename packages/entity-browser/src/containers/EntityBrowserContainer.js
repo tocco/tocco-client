@@ -2,19 +2,22 @@ import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 
 import EntityBrowser from '../components/EntityBrowser'
-import {requestRecords, setCurrentPage, initializeTable} from '../modules/entityBrowser/actions'
+import {changePage, setCurrentPage, initializeTable, resetDataSet} from '../modules/entityBrowser/actions'
 
 const mapActionCreators = {
-  requestRecords,
+  changePage,
   setCurrentPage,
-  initializeTable
+  initializeTable,
+  resetDataSet
 }
 
 const mapStateToProps = (state, props) => ({
   currentPage: state.entityBrowser.currentPage,
   records: state.entityBrowser.records,
   columnDefinitions: state.entityBrowser.columnDefinition,
-  recordCount: state.entityBrowser.recordCount
+  recordCount: state.entityBrowser.recordCount,
+  limit: state.entityBrowser.limit,
+  recordRequestInProgress: state.entityBrowser.recordRequestInProgress
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(EntityBrowser))

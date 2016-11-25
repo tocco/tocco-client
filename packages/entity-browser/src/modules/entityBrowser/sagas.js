@@ -1,27 +1,62 @@
-import {takeEvery} from 'redux-saga'
-import {call, put, fork, select} from 'redux-saga/effects'
+import {takeEvery, takeLatest, delay} from 'redux-saga'
+import {call, put, fork, select, spawn} from 'redux-saga/effects'
 import * as actions from './actions'
 
 export const entityBrowserSelector = state => state.entityBrowser
 
 export default function* sagas() {
   yield [
-    fork(takeEvery, actions.INITIALIZE_TABLE, initializeEntityBrowser),
-    fork(takeEvery, actions.REQUEST_RECORDS, requestRecords)
+    fork(takeLatest, actions.INITIALIZE_TABLE, initializeEntityBrowser),
+    fork(takeLatest, actions.CHANGE_PAGE, changePage),
+    fork(takeEvery, actions.REQUEST_RECORDS, requestRecords),
+    fork(takeEvery, actions.RESET_DATA_SET, resetDataSet)
   ]
 }
 
-export function* requestRecords() {
-  const entityBrowser = yield select(entityBrowserSelector)
-  const {entityName, limit, currentPage, recordsCache} = entityBrowser
+export function* changePage({payload}) {
+  const {page} = payload
+  yield put(actions.setCurrentPage(page))
+  yield put(actions.requestRecords(page))
+}
 
-  if (recordsCache[currentPage]) {
-    yield put(actions.setRecords(recordsCache[currentPage]))
-  } else {
-    const records = yield call(requestRecordsOfPage, entityName, currentPage, limit)
-    yield put(actions.setRecords(records))
-    yield put(actions.addRecordsToCache(currentPage, records))
+export function* fetchRecordsAndAddToStore(page) {
+  const entityBrowser = yield select(entityBrowserSelector)
+  const {entityName, limit, recordStore} = entityBrowser
+
+  if (!recordStore[page]) {
+    yield put(actions.addRecordsToStore(page, []))
+    const records = yield call(fetchRecords, entityName, page, limit)
+    yield put(actions.addRecordsToStore(page, records))
   }
+}
+
+export function* requestRecords({payload}) {
+  const {page} = payload
+
+  yield put(actions.setRecordRequestInProgress(true))
+
+  const entityBrowser = yield select(entityBrowserSelector)
+  let {recordStore} = entityBrowser
+
+  if (recordStore[page]) {
+    if (recordStore[page].length === 0) {
+      yield call(delay, 1000)
+      yield put(actions.requestRecords(page))
+    }
+  } else {
+    yield call(fetchRecordsAndAddToStore, page)
+  }
+
+  yield call(displayRecord, page)
+  yield spawn(fetchRecordsAndAddToStore, page + 1)
+}
+
+export function* displayRecord(page) {
+  const entityBrowser = yield select(entityBrowserSelector)
+  const records = entityBrowser.recordStore[page]
+  yield put(actions.setRecords(records))
+
+  yield put(actions.setRecordRequestInProgress(false))
 }
 
 export function* initializeEntityBrowser() {
@@ -32,17 +67,18 @@ export function* initializeEntityBrowser() {
   yield put(actions.setColumnDefinition(columnDefinition))
 
   yield call(resetDataSet)
-  yield call(requestRecords)
 }
 
 export function* resetDataSet() {
+  yield put(actions.setRecords([]))
   const entityBrowser = yield select(entityBrowserSelector)
   const {entityName} = entityBrowser
-  const recordCount = yield call(requestRecordCount, entityName)
+  const recordCount = yield call(fetchRecordCount, entityName)
   yield put(actions.setRecordCount(recordCount))
-  yield put(actions.clearRecordsCache())
-  yield put(actions.setRecords([]))
+  yield put(actions.clearRecordStore())
   yield put(actions.setCurrentPage(1))
+
+  yield put(actions.requestRecords(1))
 }
 
 const getParameterString = params => {
@@ -51,8 +87,8 @@ const getParameterString = params => {
   }
 
   const valueStrings = []
-  for (let propyName in params) {
-    valueStrings.push(`${propyName}=${params[propyName]}`)
+  for (let param in params) {
+    valueStrings.push(`${param}=${params[param]}`)
   }
 
   return `?${valueStrings.join('&')}`
@@ -73,7 +109,7 @@ const fetchRequest = (resource, params) => {
   return fetch(`${__BACKEND_URL__}/nice2/rest/${resource}${paramString}`, options)
 }
 
-function requestRecordsOfPage(entityName, page, limit) {
+function fetchRecords(entityName, page, limit) {
   const params = {
     '_limit': limit,
     '_offset': (page - 1) * limit
@@ -84,7 +120,7 @@ function requestRecordsOfPage(entityName, page, limit) {
     .then(json => json.data.map(e => e.fields))
 }
 
-function requestRecordCount(entityName) {
+function fetchRecordCount(entityName) {
   return fetchRequest(`entities/${entityName}/count`)
     .then(resp => resp.json())
     .then(json => json.count)

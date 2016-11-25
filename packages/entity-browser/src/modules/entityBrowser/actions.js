@@ -9,8 +9,11 @@ export const SET_LIMIT = 'SET_LIMIT'
 export const SET_SEARCH_TERM = 'SET_SEARCH_TERM'
 export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 export const SET_RECORD_COUNT = 'SET_RECORD_COUNT'
-export const ADD_RECORDS_TO_CACHE = 'ADD_RECORDS_TO_CACHE'
-export const CLEAR_RECORDS_CACHE = 'CLEAR_RECORDS_CACHE'
+export const ADD_RECORDS_TO_STORE = 'ADD_RECORDS_TO_STORE'
+export const CLEAR_RECORD_STORE = 'CLEAR_RECORDS_CACHE'
+export const RESET_DATA_SET = 'RESET_DATA_SET'
+export const SET_RECORD_REQUEST_IN_PROGRESS = 'RECORD_REQUEST_IN_PROGRESS'
+export const CHANGE_PAGE = 'CHANGE_PAGE'
 
 export const initialized = () => ({
   type: INITIALIZE_TABLE
@@ -27,8 +30,12 @@ export const setEntityName = entityName => ({
   }
 })
 
-export const requestRecords = () => ({
-  type: REQUEST_RECORDS
+export const requestRecords = (page, show) => ({
+  type: REQUEST_RECORDS,
+  payload: {
+    page,
+    show
+  }
 })
 
 export const setRecords = records => ({
@@ -38,16 +45,16 @@ export const setRecords = records => ({
   }
 })
 
-export const addRecordsToCache = (page, records) => ({
-  type: ADD_RECORDS_TO_CACHE,
+export const addRecordsToStore = (page, records) => ({
+  type: ADD_RECORDS_TO_STORE,
   payload: {
     page,
     records
   }
 })
 
-export const clearRecordsCache = () => ({
-  type: CLEAR_RECORDS_CACHE
+export const clearRecordStore = () => ({
+  type: CLEAR_RECORD_STORE
 })
 
 export const setRecordCount = recordCount => ({
@@ -85,9 +92,27 @@ export const setSearchTerm = searchTerm => ({
   }
 })
 
+export const resetDataSet = () => ({
+  type: RESET_DATA_SET
+})
+
 export const setCurrentPage = currentPage => ({
   type: SET_CURRENT_PAGE,
   payload: {
     currentPage
+  }
+})
+
+export const setRecordRequestInProgress = recordRequestInProgress => ({
+  type: SET_RECORD_REQUEST_IN_PROGRESS,
+  payload: {
+    recordRequestInProgress
+  }
+})
+
+export const changePage = page => ({
+  type: CHANGE_PAGE,
+  payload: {
+    page
   }
 })
