@@ -30,6 +30,7 @@ const allRecords = createRecords(1000)
 export default function setupFetchMock(fetchMock) {
   utilFetchMocks.sessionFetchMock(fetchMock)
   utilFetchMocks.textResourceFetchMock(fetchMock, require('./messages.json'))
+  fetchMock.get(new RegExp('^.*?/nice2/rest/form/.*?'), require('./user_list.json'))
 
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/.*/count?'), {'count': 1000})
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/.*?'), (url, opts) => {

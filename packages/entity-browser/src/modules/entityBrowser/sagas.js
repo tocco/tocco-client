@@ -126,23 +126,24 @@ function fetchRecordCount(entityName) {
     .then(json => json.count)
 }
 
-function requestColumnDefinition(entityName, formName) {
-  // TODO: Load form with rest and transform
-  return [
-    {
-      label: 'Vorname',
-      value: 'firstname',
-      order: 2
-    },
-    {
-      label: 'Nachname',
-      value: 'lastname',
-      order: 1
-    },
-    {
-      label: 'Nummer',
-      value: 'user_nr',
-      order: 0
-    }
-  ]
+
+function fetchForm(formName, formType) {
+  return fetchRequest(`forms/${formName}`)
+    .then(resp => resp.json())
+    .then(json => {
+      const {form} = json
+      return form.children.find(child => child.name === formType)
+    })
+}
+
+
+function* requestColumnDefinition(entityName) {
+  const table = yield call(fetchForm, entityName + '_list', 'table')
+
+  const columns = table.children.filter(column => column.displayType !== 'HIDDEN')
+
+  return columns.map(c => ({
+    label: c.label,
+    value: c.name
+  }))
 }
