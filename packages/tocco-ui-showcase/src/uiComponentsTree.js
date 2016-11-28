@@ -10,6 +10,10 @@ import ButtonRaw from '!raw!../../tocco-ui/src/Button/Button'
 import ButtonExample from '../../tocco-ui/src/Button/example'
 import ButtonExampleRaw from '!raw!../../tocco-ui/src/Button/example'
 
+import SearchBoxRaw from '!raw!../../tocco-ui/src/SearchBox/SearchBox'
+import SearchBoxExample from '../../tocco-ui/src/SearchBox/example'
+import SearchBoxExampleRaw from '!raw!../../tocco-ui/src/SearchBox/example'
+
 import ToccoLogoRaw from '!raw!../../tocco-ui/src/ToccoLogo/ToccoLogo'
 import ToccoLogoExample from '../../tocco-ui/src/ToccoLogo/example'
 import ToccoLogoExampleRaw from '!raw!../../tocco-ui/src/ToccoLogo/example'
@@ -62,6 +66,14 @@ export default [
         example: {
           component: ButtonExample,
           raw: ButtonExampleRaw
+        }
+      },
+      {
+        name: 'SearchBox',
+        raw: SearchBoxRaw,
+        example: {
+          component: SearchBoxExample,
+          raw: SearchBoxExampleRaw
         }
       }]
   },
