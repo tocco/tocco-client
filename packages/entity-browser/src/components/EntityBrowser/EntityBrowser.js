@@ -13,7 +13,7 @@ export class EntityBrowser extends React.Component {
   }
 
   cellRenderer = (field, record) => {
-    if (field && field.value){
+    if (field && field.value) {
       return <span>{field.value.toString()}</span>
     }
 

@@ -1,4 +1,4 @@
-import {takeEvery, takeLatest, delay} from 'redux-saga'
+import {takeEvery, takeLatest} from 'redux-saga'
 import {call, put, fork, select, spawn} from 'redux-saga/effects'
 import * as actions from './actions'
 
@@ -12,7 +12,6 @@ export default function* sagas() {
     fork(takeEvery, actions.RESET_DATA_SET, resetDataSet)
   ]
 }
-
 
 export function* changePage({payload}) {
   const {page} = payload
@@ -72,7 +71,7 @@ export function* resetDataSet() {
   yield put(actions.setRecordCount(recordCount))
   yield put(actions.clearRecordStore())
 
-  yield call(changePage, {payload:{page: 1}})
+  yield call(changePage, {payload: {page: 1}})
 }
 
 const getParameterString = params => {
@@ -120,7 +119,6 @@ function fetchRecordCount(entityName) {
     .then(json => json.count)
 }
 
-
 function fetchForm(formName, formType) {
   return fetchRequest(`forms/${formName}`)
     .then(resp => resp.json())
@@ -129,7 +127,6 @@ function fetchForm(formName, formType) {
       return form.children.find(child => child.name === formType)
     })
 }
-
 
 function* requestColumnDefinition(entityName) {
   const table = yield call(fetchForm, entityName + '_list', 'table')

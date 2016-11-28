@@ -9,7 +9,7 @@ const addRecordToStore = (state, {payload}) => ({
   }
 })
 
-const clearRecordStore = (state) => ({
+const clearRecordStore = state => ({
   ...state,
   recordStore: {}
 })
