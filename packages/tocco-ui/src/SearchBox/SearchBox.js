@@ -11,26 +11,33 @@ class SearchBox extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      inputValue: ''
+      inputValue: ""
     }
-    this.search = _debounce(this.search, props.debounce)
+
+    this.liveSearch = _debounce(this.liveSearch, props.debounce)
   }
 
   updateValue = evt => {
-    this.setState({'inputValue': evt.target.value})
+    this.setState({inputValue: evt.target.value})
   }
 
-  search = () => {
+  liveSearch = () => {
     const value = this.state.inputValue
-    if (this.props.liveSearch || (value && value.length >= this.props.minInputLength)) {
+    if (value && value.length >= this.props.minInputLength) {
       this.props.onSearch(value)
     }
   }
 
+  explicitSearch = () => {
+    const value = this.state.inputValue
+    this.props.onSearch(value)
+  }
+
   keyDownHandler = evt => {
-    const KEY_ENTER_CODE = 13
-    if (this.props.liveSearch || evt.keyCode === KEY_ENTER_CODE) {
-      this.search()
+    if (this.props.liveSearch) {
+      this.liveSearch();
+    } else if (evt.key === 'Enter') {
+      this.explicitSearch()
     }
   }
 
@@ -38,8 +45,7 @@ class SearchBox extends React.Component {
     return (
       <div
         className="tocco-searchbox row">
-        <div
-          className="col-lg-6">
+        <div>
           <div
             className="input-group">
             <input
@@ -55,10 +61,9 @@ class SearchBox extends React.Component {
               <Button
                 type="button"
                 className="btn"
-                onClick={this.search}
+                onClick={this.explicitSearch}
                 icon="glyphicon-search"
-                disabled={this.props.liveSearch
-                  || !this.state.inputValue || this.state.inputValue.length < this.props.minInputLength}
+                disabled={this.props.liveSearch}
               />
             </span>
           </div>
@@ -87,11 +92,14 @@ SearchBox.propTypes = {
    */
   liveSearch: React.PropTypes.bool,
   /**
-   * Amount of milli seconds before the search starts. The default is set to `200`.
+   * Amount of milli seconds before the next search will be invoked. The default is set to `200`.
+   * Can be used to reduce the amount of search requests in the live search.
+   * This property is only considered if the `liveSearch` property is set to true.
    */
   debounce: React.PropTypes.number,
   /**
    * Amount of minimum characters before the search starts. The default is set to `3`.
+   * This property is only considered if the `liveSearch` property is set to true.
    */
   minInputLength: React.PropTypes.number
 }

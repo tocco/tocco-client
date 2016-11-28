@@ -12,7 +12,7 @@ describe('tocco-ui', function() {
     it('should render', () => {
       const wrapper = shallow(<SearchBox onSearch={() => {}}/>)
       expect(wrapper.find('.tocco-searchbox')).to.have.length(1)
-      expect(wrapper.find(Button)).to.be.disabled()
+      expect(wrapper.find(Button)).to.not.be.disabled()
     })
 
     it('should call search function on button click', done => {
@@ -31,22 +31,6 @@ describe('tocco-ui', function() {
       }, DEFAULT_DEBOUNCE)
     })
 
-    it('should not call search function on button click before default debounce', done => {
-      const searchFunc = sinon.spy()
-      const wrapper = shallow(<SearchBox
-        onSearch={searchFunc}
-      />)
-
-      wrapper.setState({'inputValue': SEARCH_STRING})
-      const button = wrapper.find(Button)
-      button.simulate('click')
-      expect(button).to.not.be.disabled()
-      setTimeout(() => {
-        expect(searchFunc).to.not.have.been.called
-        done()
-      }, DEFAULT_DEBOUNCE - 10)
-    })
-
     it('should not call search function on button click on empty input value', done => {
       const searchFunc = sinon.spy()
       const wrapper = shallow(<SearchBox
@@ -55,9 +39,9 @@ describe('tocco-ui', function() {
 
       const button = wrapper.find(Button)
       button.simulate('click')
-      expect(button).to.be.disabled()
+      expect(button).to.not.be.disabled()
       setTimeout(() => {
-        expect(searchFunc).to.not.have.been.called
+        expect(searchFunc).to.have.been.calledWith("")
         done()
       }, DEFAULT_DEBOUNCE)
     })
@@ -69,7 +53,7 @@ describe('tocco-ui', function() {
       />)
 
       wrapper.setState({'inputValue': SEARCH_STRING})
-      wrapper.find('input').simulate('keyDown', {keyCode: 13})
+      wrapper.find('input').simulate('keyDown', {key: 'Enter'})
       expect(wrapper.find(Button)).to.not.be.disabled()
       setTimeout(() => {
         expect(searchFunc).to.have.been.calledWith(SEARCH_STRING)
@@ -77,52 +61,34 @@ describe('tocco-ui', function() {
       }, DEFAULT_DEBOUNCE)
     })
 
-    it('should not call search function on key `Enter` on empty input value', done => {
+    it('should call search function on key `Enter` on empty input value', done => {
       const searchFunc = sinon.spy(() => {})
       const wrapper = shallow(<SearchBox
         onSearch={searchFunc}
       />)
       const input = wrapper.find('input')
-      input.simulate('keyDown', {keyCode: 13})
+      input.simulate('keyDown', {key: 'Enter'})
 
-      expect(wrapper.find(Button)).to.be.disabled()
+      expect(wrapper.find(Button)).to.not.be.disabled()
       setTimeout(() => {
-        expect(searchFunc).to.not.have.been.called
+        expect(searchFunc).to.not.have.been.calledWith(undefined)
         done()
       }, DEFAULT_DEBOUNCE)
     })
 
-    it('should not call search function on any other key than `enter`', done => {
+    it('should not call search function on any other key than `Enter`', done => {
       const func = sinon.spy(() => {})
       const wrapper = shallow(<SearchBox
         onSearch={func}
-        minInputLength={10}
       />)
 
       const input = wrapper.find('input')
-      input.simulate('keyDown', {keyCode: 40})
-      expect(wrapper.find(Button)).to.be.disabled()
+      input.simulate('keyDown', {key: 'ArrowLeft'})
+      expect(wrapper.find(Button)).to.not.be.disabled()
       setTimeout(() => {
         expect(func).to.not.have.been.called
         done()
       }, DEFAULT_DEBOUNCE)
-    })
-
-    it('should call search function on button click after specified debounce', done => {
-      const searchFunc = sinon.spy(() => {})
-      const wrapper = shallow(<SearchBox
-        onSearch={searchFunc}
-        debounce={50}
-      />)
-
-      wrapper.setState({'inputValue': SEARCH_STRING})
-      const button = wrapper.find(Button)
-      button.simulate('click')
-      expect(button).to.not.be.disabled()
-      setTimeout(() => {
-        expect(searchFunc).to.be.calledWith(SEARCH_STRING)
-        done()
-      }, 50)
     })
 
     it('should render the placeholder', () => {
