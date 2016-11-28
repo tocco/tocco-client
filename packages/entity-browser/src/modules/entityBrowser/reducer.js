@@ -9,7 +9,7 @@ const addRecordToStore = (state, {payload}) => ({
   }
 })
 
-const clearRecordStore = (state, {payload}) => ({
+const clearRecordStore = (state) => ({
   ...state,
   recordStore: {}
 })
@@ -24,7 +24,7 @@ const ACTION_HANDLERS = {
   [actions.SET_ORDER_BY]: singleTransferReducer('orderBy'),
   [actions.SET_RECORD_COUNT]: singleTransferReducer('recordCount'),
   [actions.ADD_RECORDS_TO_STORE]: addRecordToStore,
-  [actions.CLEAR_RECORDS_STORE]: clearRecordStore,
+  [actions.CLEAR_RECORD_STORE]: clearRecordStore,
   [actions.SET_RECORD_REQUEST_IN_PROGRESS]: singleTransferReducer('recordRequestInProgress')
 }
 
