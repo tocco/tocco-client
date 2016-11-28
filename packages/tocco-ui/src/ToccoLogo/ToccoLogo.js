@@ -1,5 +1,4 @@
 import React from 'react'
-import './ToccoLogo.scss'
 import classNames from 'classnames'
 
 /**

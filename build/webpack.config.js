@@ -73,8 +73,35 @@ if (__DEV__) {
     new CopyWebpackPlugin([
       {
         from: `${packageDir}/src/**/*.scss`,
-        to: `scss`,
+        flatten: false
+      }
+    ])
+  )
+
+  // TODO create index.scss dynamically rather than copying it to prevent duplications and boilerplate code
+  webpackConfig.plugins.push(
+    new CopyWebpackPlugin([
+      {
+        from: `${packageDir}/src/index.scss`,
         flatten: true
+      }
+    ])
+  )
+
+  webpackConfig.plugins.push(
+    new CopyWebpackPlugin([
+      {
+        from: `${packageDir}/node_modules/font-awesome/scss/*.scss`,
+        flatten: false
+      }
+    ])
+  )
+
+  webpackConfig.plugins.push(
+    new CopyWebpackPlugin([
+      {
+        from: `${packageDir}/node_modules/bootstrap-sass/assets/stylesheets/**/*.scss`,
+        flatten: false
       }
     ])
   )
@@ -176,10 +203,16 @@ webpackConfig.module.loaders.push(
     test: /\.css$/,
     loader: 'style-loader!css-loader'
   },
+  // INFO separate css from js
   {
     test: /\.scss$/,
     loader: ExtractTextPlugin.extract('css-loader!sass-loader')
   }
+  // INFO inject immediately in change (hot reload is isolated to package)
+  // {
+  //   test: /\.scss$/,
+  //   loaders: ['style', 'css', 'sass']
+  // }
 )
 
 // File loaders

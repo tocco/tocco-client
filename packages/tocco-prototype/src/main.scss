@@ -1,0 +1,6 @@
+.check-if-partial-is-included {content: 'tocco-prototype/src/main.scss'}  // TODO remove before going live
+
+// load components
+@import "components/HorizontalBox/HorizontalBox.scss";
+@import "components/VerticalBox/VerticalBox.scss";
+@import "routes/Detail/components/DetailPage.scss";

@@ -1,0 +1,9 @@
+.check-if-partial-is-included {content: 'tocco-ui/src/main.scss'}  // TODO remove before going live
+
+// load theme
+@import "Theme/Theme.scss";
+
+// load components
+@import "Button/Button.scss";
+@import "LoadMask/LoadMask.scss";
+@import "ToccoLogo/ToccoLogo.scss";

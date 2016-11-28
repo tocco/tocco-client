@@ -1,12 +1,13 @@
 import Button from './Button'
 import LoadMask from './LoadMask'
-import Theme from './Theme'
 import ToccoLogo from './ToccoLogo'
+
+import './main.scss'
+
 
 const exports = {
   Button,
   LoadMask,
-  Theme,
   ToccoLogo
 }
 

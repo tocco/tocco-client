@@ -1,6 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
-import classes from './VerticalBox.scss'
+
 
 const VerticalBox = props => {
   if (props.label) {

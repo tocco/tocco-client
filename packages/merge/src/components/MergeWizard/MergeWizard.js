@@ -6,7 +6,6 @@ import MergeStrategyContainer from './../../containers/MergeStrategyContainer'
 import {Wizard} from './../Wizard'
 import MergeResponse from './MergeResponse'
 
-import '../MergeStrategy/MergeStrategy.scss'
 
 class MergeStrategy extends React.Component {
   render() {

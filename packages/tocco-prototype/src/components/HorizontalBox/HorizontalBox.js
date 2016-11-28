@@ -1,6 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
-import classes from './HorizontalBox.scss'
+
 
 const HorizontalBox = props => {
   if (props.label) {

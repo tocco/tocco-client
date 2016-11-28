@@ -7,6 +7,9 @@ import createStore from './store/createStore'
 import { Provider } from 'react-redux'
 import useMultiHash from './history/useMultiHash'
 
+import './main.scss'
+
+
 const init = (id, input) => {
   // Configure history for react-router
   const hashHistory = useRouterHistory(useMultiHash(createHashHistory))({

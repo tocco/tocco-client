@@ -1,9 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import ShowCaseApp from './components/ShowCaseApp'
-import './UiShowcase.scss'
-
 import componentsTree from './uiComponentsTree'
+
+import './main.scss'
+
 
 const init = () => () => <ShowCaseApp componentsTree={componentsTree}/>
 

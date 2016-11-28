@@ -17,6 +17,9 @@ import en from 'react-intl/locale-data/en'
 import fr from 'react-intl/locale-data/fr'
 import it from 'react-intl/locale-data/it'
 
+import './main.scss'
+
+
 const init = (id, input, externalEvents, publicPath) => {
   try {
     if (publicPath) {

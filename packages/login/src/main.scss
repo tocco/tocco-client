@@ -1,0 +1,5 @@
+.check-if-partial-is-included {content: 'login/src/main.scss'}  // TODO remove before going live
+
+// load components
+@import "components/Login/Login.scss";
+@import "components/passwordUpdate/PasswordUpdateDialog/PasswordUpdateDialog.scss";

@@ -1,9 +1,12 @@
 /* tocco theme for react components
  * TODO may Theme needs to be a package instead of a component to ensure that it can loaded before all other styles. Due to alphabetic order Button.scss and LoadMask.scss is declared before Theme.scss in tocco-ui/dist/index.scss.
  * TODO may extend CSS class .tocco-ui-theme with .version-X-Y-Z to use versions parallel
+ * TODO create switch to import components styling for different environments (@import "../../login/src/main.scss"; vs. @import "../../login/dist/index.scss";)
  * CSS class .tocco-ui-theme is used to scope styles.
  * CSS class .tocco-ui-theme is used to increase specificity compared to standard vendors implementation. Hence Tocco's Bootstrap has a higher specificity than Bootstrap.
 */
+
+.check-if-partial-is-included {content: 'tocco-ui/src/Theme/Theme.scss'}  // TODO remove before going live
 
 .tocco-ui-theme {
     // load variables
@@ -22,13 +25,14 @@
     // load tocco's standalone extension
     @import "tocco-extension/convenience-classes";
 
-    // load react components
-    // @import "login/dist/scss/Login.scss"
-    // @import "login/dist/scss/PasswordUpdateDialog.scss"
-    // @import "merge/dist/scss/MergerMatrix.scss"
+    // load react components from monorepo while developing
+    @import "../../login/src/main.scss";
+    @import "../../merge/src/main.scss";
+
+    // load react components as node module for production
+    // @import "../../login/dist/index.scss";
+    // @import "../../merge/dist/index.scss";
 
     // load webpack environment specifics
     @import "tocco-extension/webpack-environment-specific";
-
-    .check-if-partial-is-included {content: 'tocco-ui/src/Theme/Theme.scss'}  // TODO remove before going live
 }

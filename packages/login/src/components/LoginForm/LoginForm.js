@@ -3,7 +3,6 @@ import {FormattedMessage, intlShape} from 'react-intl'
 import {Pages} from '../../types/Pages'
 import * as ToccoUI from 'tocco-ui'
 
-import '../Login/Login.scss'
 
 export class LoginForm extends Component {
 

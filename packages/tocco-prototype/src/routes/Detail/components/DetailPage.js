@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router'
 import DetailForm from './DetailForm'
-import classes from './DetailPage.scss'
 import { visit, Visitor } from '../../../utils/formVisitor'
+
 
 function getFields(form) {
   const fields = []

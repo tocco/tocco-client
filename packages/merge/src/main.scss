@@ -1,0 +1,7 @@
+.check-if-partial-is-included {content: 'merge/src/main.scss'}  // TODO remove before going live
+
+// load components
+@import "components/MergeMatrix/MergeMatrix.scss";
+@import "components/MergeStrategy/MergeStrategy.scss";
+@import "components/MergeWizard/MergeWizard.scss";
+@import "components/Wizard/Wizard.scss";
