@@ -13,6 +13,7 @@ export default function* sagas() {
   ]
 }
 
+
 export function* changePage({payload}) {
   const {page} = payload
   yield put(actions.setCurrentPage(page))
@@ -24,7 +25,6 @@ export function* fetchRecordsAndAddToStore(page) {
   const {entityName, limit, recordStore} = entityBrowser
 
   if (!recordStore[page]) {
-    yield put(actions.addRecordsToStore(page, []))
     const records = yield call(fetchRecords, entityName, page, limit)
     yield put(actions.addRecordsToStore(page, records))
   }
@@ -38,12 +38,7 @@ export function* requestRecords({payload}) {
   const entityBrowser = yield select(entityBrowserSelector)
   let {recordStore} = entityBrowser
 
-  if (recordStore[page]) {
-    if (recordStore[page].length === 0) {
-      yield call(delay, 1000)
-      yield put(actions.requestRecords(page))
-    }
-  } else {
+  if (!recordStore[page]) {
     yield call(fetchRecordsAndAddToStore, page)
   }
 
@@ -76,9 +71,8 @@ export function* resetDataSet() {
   const recordCount = yield call(fetchRecordCount, entityName)
   yield put(actions.setRecordCount(recordCount))
   yield put(actions.clearRecordStore())
-  yield put(actions.setCurrentPage(1))
 
-  yield put(actions.requestRecords(1))
+  yield call(changePage, {payload:{page: 1}})
 }
 
 const getParameterString = params => {
