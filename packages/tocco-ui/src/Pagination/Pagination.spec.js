@@ -12,7 +12,16 @@ describe('tocco-ui', function() {
 
     it('should show correct last page', () => {
       const wrapper = shallow(<Pagination totalRecords={99} recordsPerPage={5}/>)
+
       expect(wrapper.find('#total').text()).to.eql('20')
+    })
+
+    it('should recalculate on prop change', () => {
+      const wrapper = shallow(<Pagination totalRecords={99} recordsPerPage={5}/>)
+
+      wrapper.setProps({ recordsPerPage: 10 })
+
+      expect(wrapper.find('#total').text()).to.eql('10')
     })
 
     it('should call callback on page change', done => {
@@ -25,7 +34,7 @@ describe('tocco-ui', function() {
       setTimeout(() => {
         expect(onPageChange).to.be.calledWith(2)
         done()
-      }, 1000)
+      }, 200)
     })
 
     it('should disable forward and back button depending on current page', () => {

@@ -28,42 +28,49 @@ const Table = props => {
     }
   }
 
+  const tableClasses = classNames(
+    'table',
+    props.className,
+    {
+      'loading': props.loading
+    }
+  )
   return (
-    <table className={classNames('table tocco-table', props.className)}>
-      <thead>
-        <tr>
+    <div className="tocco-table">
+      <table className={tableClasses}>
+        <thead>
+          <tr>
+            {
+              columnDefinitions.map((c, idx) =>
+                <th key={idx}>{getLabel(c)}</th>
+              )
+            }
+          </tr>
+        </thead>
+        <tbody>
           {
-          columnDefinitions.map((c, idx) => {
+          props.records.map((r, ridx) => {
             return (
-              <th key={idx}>{getLabel(c)}</th>
+              <tr key={ridx} onClick={() => handleOnClick(r)}>
+                {
+                  columnDefinitions.map((c, cidx) => {
+                    const id = `${ridx}-${cidx}`
+                    return (
+                      <td key={id}>
+                        {
+                          renderValue(r[c.value], r)
+                        }
+                      </td>
+                    )
+                  })
+                }
+              </tr>
             )
           })
         }
-        </tr>
-      </thead>
-      <tbody>
-        {
-        props.records.map((r, ridx) => {
-          return (
-            <tr key={ridx} onClick={() => handleOnClick(r)}>
-              {
-                columnDefinitions.map((c, cidx) => {
-                  const id = `${ridx}-${cidx}`
-                  return (
-                    <td key={id}>
-                      {
-                        renderValue(r[c.value], r)
-                      }
-                    </td>
-                  )
-                })
-              }
-            </tr>
-          )
-        })
-      }
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
   )
 }
 
@@ -100,7 +107,12 @@ Table.propTypes = {
   /**
    * Extend the table with any css classes separated by a space.
    */
-  className: React.PropTypes.string
+  className: React.PropTypes.string,
+  /**
+   * If true, a transparent layer is shown on tbody
+   */
+  loading: React.PropTypes.bool
+
 }
 
 export default Table
