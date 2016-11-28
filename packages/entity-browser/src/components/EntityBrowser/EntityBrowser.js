@@ -56,7 +56,6 @@ EntityBrowser.propTypes = {
   limit: React.PropTypes.number,
   columnDefinitions: React.PropTypes.array,
   recordCount: React.PropTypes.number,
-  setCurrentPage: React.PropTypes.func,
   resetDataSet: React.PropTypes.func,
   recordRequestInProgress: React.PropTypes.bool
 }

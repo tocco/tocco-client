@@ -42,6 +42,8 @@ export function* requestRecords({payload}) {
   }
 
   yield call(displayRecord, page)
+  yield put(actions.setRecordRequestInProgress(false))
+
   yield spawn(fetchRecordsAndAddToStore, page + 1)
 }
 
@@ -49,8 +51,6 @@ export function* displayRecord(page) {
   const entityBrowser = yield select(entityBrowserSelector)
   const records = entityBrowser.recordStore[page]
   yield put(actions.setRecords(records))
-
-  yield put(actions.setRecordRequestInProgress(false))
 }
 
 export function* initializeEntityBrowser() {

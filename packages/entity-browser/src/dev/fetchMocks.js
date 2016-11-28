@@ -1,31 +1,8 @@
 import {utilFetchMocks} from 'tocco-util/dev'
 
-const createRecords = amount => {
-  const records = []
-  const userTemplate = require('./user_template.json')
+import {createUsers} from './recordFactory'
 
-  for (let i = 0; i < amount; i++) {
-    records.push({
-      ...userTemplate,
-      key: i,
-      fields: {
-        ...userTemplate.fields,
-        user_nr: {
-          type: 'counter',
-          value: i
-        },
-        firstname: {
-          value: 'Test' + i,
-          type: 'string'
-        }
-      }
-    }
-    )
-  }
-  return records
-}
-
-const allRecords = createRecords(1000)
+const allRecords = createUsers(1000)
 
 export default function setupFetchMock(fetchMock) {
   utilFetchMocks.sessionFetchMock(fetchMock)

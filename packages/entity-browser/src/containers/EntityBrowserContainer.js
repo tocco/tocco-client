@@ -2,11 +2,10 @@ import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 
 import EntityBrowser from '../components/EntityBrowser'
-import {changePage, setCurrentPage, initializeTable, resetDataSet} from '../modules/entityBrowser/actions'
+import {changePage, initializeTable, resetDataSet} from '../modules/entityBrowser/actions'
 
 const mapActionCreators = {
   changePage,
-  setCurrentPage,
   initializeTable,
   resetDataSet
 }
