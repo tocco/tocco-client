@@ -17,8 +17,7 @@ export const createUsers = amount => {
           type: 'string'
         }
       }
-    }
-    )
+    })
   }
   return records
 }

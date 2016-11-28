@@ -41,12 +41,10 @@ const Table = props => {
         <thead>
           <tr>
             {
-            columnDefinitions.map((c, idx) => {
-              return (
+              columnDefinitions.map((c, idx) =>
                 <th key={idx}>{getLabel(c)}</th>
               )
-            })
-          }
+            }
           </tr>
         </thead>
         <tbody>

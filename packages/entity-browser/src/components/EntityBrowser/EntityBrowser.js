@@ -40,7 +40,6 @@ export class EntityBrowser extends React.Component {
           recordsPerPage={props.limit}
           onPageChange={this.onPageChange}
           currentPage={props.currentPage}
-
         />
         <button onClick={props.resetDataSet}>Reset</button>
       </div>
