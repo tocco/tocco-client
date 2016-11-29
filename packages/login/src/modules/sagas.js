@@ -47,6 +47,7 @@ function getOptions(data = {}) {
     credentials: 'include',
     body: Object.keys(data)
       .filter(k => !!data[k])
+      .sort()
       .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(data[k])}`).join('&')
   }
 }
