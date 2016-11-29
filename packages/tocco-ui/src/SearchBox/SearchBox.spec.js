@@ -41,7 +41,7 @@ describe('tocco-ui', function() {
       button.simulate('click')
       expect(button).to.not.be.disabled()
       setTimeout(() => {
-        expect(searchFunc).to.have.been.calledWith("")
+        expect(searchFunc).to.have.been.calledWith('')
         done()
       }, DEFAULT_DEBOUNCE)
     })

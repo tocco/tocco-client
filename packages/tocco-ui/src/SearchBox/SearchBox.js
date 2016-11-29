@@ -11,7 +11,7 @@ class SearchBox extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      inputValue: ""
+      inputValue: ''
     }
 
     this.liveSearch = _debounce(this.liveSearch, props.debounce)
@@ -35,7 +35,7 @@ class SearchBox extends React.Component {
 
   keyDownHandler = evt => {
     if (this.props.liveSearch) {
-      this.liveSearch();
+      this.liveSearch()
     } else if (evt.key === 'Enter') {
       this.explicitSearch()
     }
