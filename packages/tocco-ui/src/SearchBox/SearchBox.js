@@ -44,7 +44,7 @@ class SearchBox extends React.Component {
   render() {
     return (
       <div
-        className="tocco-searchbox row">
+        className="tocco-searchbox">
         <div>
           <div
             className="input-group">
