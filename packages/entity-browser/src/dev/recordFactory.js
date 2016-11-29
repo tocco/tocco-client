@@ -13,7 +13,11 @@ export const createUsers = amount => {
           value: i
         },
         firstname: {
-          value: 'Test' + i,
+          value: 'Firstname ' + i,
+          type: 'string'
+        },
+        lastname: {
+          value: 'Lastname ' + (amount - i),
           type: 'string'
         }
       }

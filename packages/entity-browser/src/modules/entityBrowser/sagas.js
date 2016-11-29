@@ -9,6 +9,7 @@ export default function* sagas() {
     fork(takeLatest, actions.INITIALIZE_TABLE, initializeEntityBrowser),
     fork(takeLatest, actions.CHANGE_PAGE, changePage),
     fork(takeEvery, actions.REQUEST_RECORDS, requestRecords),
+    fork(takeEvery, actions.SET_ORDER_BY, resetDataSet),
     fork(takeEvery, actions.RESET_DATA_SET, resetDataSet)
   ]
 }
@@ -21,10 +22,10 @@ export function* changePage({payload}) {
 
 export function* fetchRecordsAndAddToStore(page) {
   const entityBrowser = yield select(entityBrowserSelector)
-  const {entityName, limit, recordStore} = entityBrowser
+  const {entityName, orderBy, limit, recordStore} = entityBrowser
 
   if (!recordStore[page]) {
-    const records = yield call(fetchRecords, entityName, page, limit)
+    const records = yield call(fetchRecords, entityName, page, orderBy, limit)
     yield put(actions.addRecordsToStore(page, records))
   }
 }
@@ -75,16 +76,14 @@ export function* resetDataSet() {
 }
 
 const getParameterString = params => {
-  if (!params) {
-    return ''
+  const paramString = Object.keys(params || [])
+    .filter(k => !!params[k])
+    .sort()
+    .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`).join('&')
+  if (paramString) {
+    return `?${paramString}`
   }
-
-  const valueStrings = []
-  for (let param in params) {
-    valueStrings.push(`${param}=${params[param]}`)
-  }
-
-  return `?${valueStrings.join('&')}`
+  return ''
 }
 
 const fetchRequest = (resource, params) => {
@@ -102,8 +101,9 @@ const fetchRequest = (resource, params) => {
   return fetch(`${__BACKEND_URL__}/nice2/rest/${resource}${paramString}`, options)
 }
 
-function fetchRecords(entityName, page, limit) {
+function fetchRecords(entityName, page, orderBy, limit) {
   const params = {
+    '_sort': Object.keys(orderBy).length === 2 ? `${orderBy.name} ${orderBy.direction}` : undefined,
     '_limit': limit,
     '_offset': (page - 1) * limit
   }
