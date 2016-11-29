@@ -48,8 +48,8 @@ describe('tocco-ui', function() {
         <Table records={records} columnDefinitions={columnDefinitions}/>
       )
 
-      expect(wrapper.contains(<th>a</th>)).to.be.true
-      expect(wrapper.contains(<th>CLabel</th>)).to.be.true
+      expect(wrapper.find('th').last().text()).to.equal('a')
+      expect(wrapper.find('th').first().text()).to.equal('CLabel')
     })
 
     it('should render the right amount of columns and order them ', () => {
@@ -88,14 +88,8 @@ describe('tocco-ui', function() {
         <Table records={records} columnDefinitions={columnDefinitions}/>
       )
 
-      expect(wrapper.contains(
-        <thead>
-          <tr>
-            <th>CLabel</th>
-            <th>ALabel</th>
-          </tr>
-        </thead>
-      )).to.be.true
+      expect(wrapper.find('th').first().text()).to.equal('CLabel')
+      expect(wrapper.find('th').last().text()).to.equal('ALabel')
 
       expect(wrapper.contains(<th>BLabel</th>)).to.be.false
 
@@ -127,6 +121,57 @@ describe('tocco-ui', function() {
         <Table className="table-striped abc" records={[]} columnDefinitions={[]}/>
       )
       expect(wrapper.find('table.table-striped.abc')).to.have.length(1)
+    })
+
+    it('should add a order-by-change click handler', () => {
+      const record = {a: {value: 'a'}, b: {value: 'b'}}
+
+      const onClick = sinon.spy()
+      const wrapper = shallow(
+        <Table
+          onOrderByChange={onClick}
+          records={[record]}
+          columnDefinitions={[{value: 'a'}, {value: 'b'}]}
+        />
+      )
+
+      wrapper.find('tr').first().find('th').first().simulate('click')
+
+      expect(onClick).to.have.calledOnce
+      expect(onClick).to.have.been.calledWith({name: 'a', direction: 'desc'})
+
+      wrapper.find('tr').first().find('th').first().simulate('click')
+
+      expect(onClick).to.have.calledTwice
+      expect(onClick).to.have.been.calledWith({name: 'a', direction: 'asc'})
+
+      wrapper.find('tr').first().find('th').last().simulate('click')
+
+      expect(onClick).to.have.calledThrice
+      expect(onClick).to.have.been.calledWith({name: 'b', direction: 'desc'})
+    })
+
+    it('should add a order-by-change click handler with default ordering', () => {
+      const record = {a: {value: 'a'}, b: {value: 'b'}}
+      const orderBy = {
+        name: 'a',
+        direction: 'desc'
+      }
+
+      const onClick = sinon.spy()
+      const wrapper = shallow(
+        <Table
+          onOrderByChange={onClick}
+          orderBy={orderBy}
+          records={[record]}
+          columnDefinitions={[{value: 'a'}, {value: 'b'}]}
+        />
+      )
+
+      wrapper.find('tr').first().find('th').first().simulate('click')
+
+      expect(onClick).to.have.calledOnce
+      expect(onClick).to.have.been.calledWith({name: 'a', direction: 'asc'})
     })
 
     it('should add a row click handler', () => {

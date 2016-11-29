@@ -57,6 +57,11 @@ export default () => {
     }
   ]
 
+  const orderBy = {
+    name: 'user_nr',
+    direction: 'desc'
+  }
+
   const cellRenderer = fields => {
     const valueElements = fields.map(field =>
       field.type === 'counter'
@@ -73,6 +78,8 @@ export default () => {
         cellRenderer={cellRenderer}
         records={records}
         className="table-striped"
+        orderBy={orderBy}
+        onOrderByChange={r => console.log('order-by change', r)}
         onRowClick={r => console.log('row clicked', r)}
       />
       {/* end example */}

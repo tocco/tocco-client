@@ -7,73 +7,110 @@ import './styles.scss'
 /**
  * Table to list records easily.
  */
-const Table = props => {
-  const columnDefinitions = sortBy(props.columnDefinitions, v => v.order)
+class Table extends React.Component {
 
-  const renderValue = (fields, record) => {
-    if (props.cellRenderer) {
-      return props.cellRenderer(fields, record)
-    } else {
-      return (
-        <span>{fields.map(field => field.value).join(', ')}</span>
-      )
-    }
+  constructor(props) {
+    super(props)
+    this.state = {orderBy: props.orderBy}
   }
 
-  const getLabel = c => (c.label || c.value)
+  render() {
+    const columnDefinitions = sortBy(this.props.columnDefinitions, v => v.order)
 
-  const handleOnClick = record => {
-    if (props.onRowClick) {
-      props.onRowClick(record)
+    const renderValue = (fields, record) => {
+      if (this.props.cellRenderer) {
+        return this.props.cellRenderer(fields, record)
+      } else {
+        return (
+          <span>{fields.map(field => field.value).join(', ')}</span>
+        )
+      }
     }
-  }
 
-  const tableClasses = classNames(
-    'table',
-    props.className,
-    {
-      'loading': props.loading
+    const getLabel = c => (c.label || c.value)
+
+    const handleOnClick = record => {
+      if (this.props.onRowClick) {
+        this.props.onRowClick(record)
+      }
     }
-  )
-  return (
-    <div className="tocco-table">
-      <table className={tableClasses}>
-        <thead>
-          <tr>
-            {
-              columnDefinitions.map((c, idx) =>
-                <th key={idx}>{getLabel(c)}</th>
-              )
-            }
-          </tr>
-        </thead>
-        <tbody>
-          {
-          props.records.map((r, ridx) => {
-            return (
-              <tr key={ridx} onClick={() => handleOnClick(r)}>
-                {
-                  columnDefinitions.map((c, cidx) => {
-                    const id = `${ridx}-${cidx}`
-                    const valueNames = Array.isArray(c.value) ? c.value : [c.value]
-                    const fields = valueNames.map(value => r[value])
-                    return (
-                      <td key={id}>
-                        {
-                          renderValue(fields, r)
-                        }
-                      </td>
-                    )
-                  })
-                }
-              </tr>
-            )
-          })
+
+    const handleOrderByClick = columnName => {
+      const newState = {
+        orderBy: {
+          name: columnName
         }
-        </tbody>
-      </table>
-    </div>
-  )
+      }
+      if (this.state.orderBy && this.state.orderBy.name === columnName && this.state.orderBy.direction === 'desc') {
+        newState.orderBy.direction = 'asc'
+      } else {
+        newState.orderBy.direction = 'desc'
+      }
+      this.setState(newState)
+
+      if (this.props.onOrderByChange) {
+        this.props.onOrderByChange(newState.orderBy)
+      }
+    }
+
+    const tableClasses = classNames(
+      'table',
+      this.props.className,
+      {
+        'loading': this.props.loading
+      }
+    )
+    return (
+      <div className="tocco-table">
+        <table className={tableClasses}>
+          <thead>
+            <tr>
+              {
+                columnDefinitions.map((c, idx) => {
+                  return (
+                    <th
+                      key={idx}
+                      onClick={() => handleOrderByClick(c.value)}
+                    >
+                      {getLabel(c)}
+                      {(this.state.orderBy && this.state.orderBy.name === c.value
+                        && this.state.orderBy.direction === 'asc') && ' ▲'}
+                      {(this.state.orderBy && this.state.orderBy.name === c.value
+                        && this.state.orderBy.direction === 'desc') && ' ▼'}
+                    </th>
+                  )
+                })
+              }
+            </tr>
+          </thead>
+          <tbody>
+            {
+              this.props.records.map((r, ridx) => {
+                return (
+                  <tr key={ridx} onClick={() => handleOnClick(r)}>
+                    {
+                      columnDefinitions.map((c, cidx) => {
+                        const id = `${ridx}-${cidx}`
+                        const valueNames = Array.isArray(c.value) ? c.value : [c.value]
+                        const fields = valueNames.map(value => r[value])
+                        return (
+                          <td key={id}>
+                            {
+                              renderValue(fields, r)
+                            }
+                          </td>
+                        )
+                      })
+                    }
+                  </tr>
+                )
+              })
+            }
+          </tbody>
+        </table>
+      </div>
+    )
+  }
 }
 
 Table.propTypes = {
@@ -110,6 +147,16 @@ Table.propTypes = {
    * Callback of a row click. Gets clicked record as first argument.
    */
   onRowClick: React.PropTypes.func,
+
+  /**
+   * Initial ordering. See #onOrderByChange for required format.
+   */
+  orderBy: React.PropTypes.object,
+  /**
+   * Callback on header click. Order-object consisting of properties 'name' and 'direction'
+   * is passed as argument ({name: 'firstname', direction: 'asc'}).
+   */
+  onOrderByChange: React.PropTypes.func,
   /**
    * Extend the table with any css classes separated by a space.
    */
