@@ -122,6 +122,16 @@ describe('tocco-ui', function() {
       expect(wrapper.contains('a, b')).to.be.true
     })
 
+    it('should ignore unknown column', () => {
+      const record = {a: {value: 'a'}}
+
+      const wrapper = shallow(
+        <Table records={[record]} columnDefinitions={[{value: 'unknown'}]}/>
+      )
+
+      expect(wrapper.find('td')).to.have.text('')
+    })
+
     it('should add class attribute to table', () => {
       const wrapper = shallow(
         <Table className="table-striped abc" records={[]} columnDefinitions={[]}/>

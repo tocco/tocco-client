@@ -57,6 +57,7 @@ const Table = props => {
                     const id = `${ridx}-${cidx}`
                     const valueNames = Array.isArray(c.value) ? c.value : [c.value]
                     const fields = valueNames.map(value => r[value])
+                      .filter(field => field !== undefined && field !== null)
                     return (
                       <td key={id}>
                         {
