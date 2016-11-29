@@ -29,7 +29,7 @@ export class EntityBrowser extends React.Component {
   }
 
   renderSearchForm(formDefinition) {
-    if(formDefinition.filter(c => c.name === 'txtFulltext').length > 0) {
+    if (formDefinition.filter(c => c.name === 'txtFulltext').length > 0) {
       return (
         <div className="search-form">
           <ToccoUI.SearchBox
@@ -37,9 +37,9 @@ export class EntityBrowser extends React.Component {
             onSearch={this.onSearch}
             liveSearch
            />
-       </div>);
+        </div>)
     }
-    return <div className="search-form"></div>
+    return <div className="search-form"/>
   }
 
   render() {
