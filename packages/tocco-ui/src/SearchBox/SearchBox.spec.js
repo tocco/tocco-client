@@ -102,5 +102,135 @@ describe('tocco-ui', function() {
       expect(searchBox).to.have.length(1)
       expect(searchBox.find('input').prop('placeholder')).to.equal(placeholder)
     })
+
+    it('should call search function on keyDown events with live search', done => {
+      const searchFunc = sinon.spy()
+      const wrapper = shallow(<SearchBox
+        onSearch={searchFunc}
+        liveSearch
+      />)
+
+      wrapper.setState({'inputValue': SEARCH_STRING})
+
+      const input = wrapper.find('input')
+      input.simulate('keyDown', {key: 'a'})
+
+      expect(wrapper.find(Button)).to.be.disabled()
+      setTimeout(() => {
+        expect(searchFunc).to.have.been.calledWith(SEARCH_STRING)
+        done()
+      }, DEFAULT_DEBOUNCE)
+    })
+
+    it('should not call search function on keyDown events with live search', done => {
+      const searchFunc = sinon.spy()
+      const wrapper = shallow(<SearchBox
+        onSearch={searchFunc}
+        liveSearch
+      />)
+
+      wrapper.setState({'inputValue': 'ab'})
+
+      const input = wrapper.find('input')
+      input.simulate('keyDown', {key: 'a'})
+
+      expect(wrapper.find(Button)).to.be.disabled()
+      setTimeout(() => {
+        expect(searchFunc).to.not.have.been.called
+        done()
+      }, DEFAULT_DEBOUNCE)
+    })
+
+    it('should call search function on keyDown events with live search and minInputLength', done => {
+      const searchFunc = sinon.spy()
+      const wrapper = shallow(<SearchBox
+        onSearch={searchFunc}
+        liveSearch
+        minInputLength={1}
+      />)
+
+      wrapper.setState({'inputValue': 'ab'})
+
+      const input = wrapper.find('input')
+      input.simulate('keyDown', {key: 'a'})
+
+      expect(wrapper.find(Button)).to.be.disabled()
+      setTimeout(() => {
+        expect(searchFunc).to.have.been.calledWith('ab')
+        done()
+      }, DEFAULT_DEBOUNCE)
+    })
+
+    it('should not call search function on keyDown events with live search and minInputLength', done => {
+      const searchFunc = sinon.spy()
+      const wrapper = shallow(<SearchBox
+        onSearch={searchFunc}
+        liveSearch
+        minInputLength={5}
+      />)
+
+      wrapper.setState({'inputValue': 'abcd'})
+
+      const input = wrapper.find('input')
+      input.simulate('keyDown', {key: 'a'})
+
+      expect(wrapper.find(Button)).to.be.disabled()
+      setTimeout(() => {
+        expect(searchFunc).to.not.have.been.called
+        done()
+      }, DEFAULT_DEBOUNCE)
+    })
+
+    it('should call search function on keyDown events after debounce time', done => {
+      const searchFunc = sinon.spy()
+      const wrapper = shallow(<SearchBox
+        onSearch={searchFunc}
+        liveSearch
+        debounce={10}
+      />)
+
+      wrapper.setState({'inputValue': SEARCH_STRING})
+
+      const input = wrapper.find('input')
+      input.simulate('keyDown', {key: 'a'})
+
+      expect(wrapper.find(Button)).to.be.disabled()
+      setTimeout(() => {
+        expect(searchFunc).to.have.been.calledWith(SEARCH_STRING)
+        done()
+      }, 10)
+    })
+
+    it('should not call search function on keyDown events before debounce time', done => {
+      const searchFunc = sinon.spy()
+      const wrapper = shallow(<SearchBox
+        onSearch={searchFunc}
+        liveSearch
+        debounce={10}
+      />)
+
+      wrapper.setState({'inputValue': SEARCH_STRING})
+
+      const input = wrapper.find('input')
+      input.simulate('keyDown', {key: 'a'})
+
+      expect(wrapper.find(Button)).to.be.disabled()
+      setTimeout(() => {
+        expect(searchFunc).to.not.have.been.called
+        done()
+      }, 5)
+    })
+
+    it('should update the input value', () => {
+      const searchFunc = sinon.spy()
+      const wrapper = shallow(<SearchBox
+        onSearch={searchFunc}
+      />)
+
+      const input = wrapper.find('input')
+      input.simulate('change', { target: { value: SEARCH_STRING } })
+
+      expect(wrapper.state().inputValue).to.equal(SEARCH_STRING)
+    })
   })
 })
