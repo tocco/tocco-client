@@ -8,6 +8,10 @@ export class EntityBrowser extends React.Component {
     props.initializeTable()
   }
 
+  onOrderByChange = orderBy => {
+    this.props.setOrderBy(orderBy)
+  }
+
   onPageChange = page => {
     this.props.changePage(page)
   }
@@ -32,6 +36,8 @@ export class EntityBrowser extends React.Component {
           columnDefinitions={props.columnDefinitions}
           records={props.records}
           className="table-striped"
+          onOrderByChange={this.onOrderByChange}
+          orderBy={props.orderBy}
           loading={props.recordRequestInProgress}
           cellRenderer={this.cellRenderer}
         />
@@ -55,6 +61,8 @@ EntityBrowser.propTypes = {
   limit: React.PropTypes.number,
   columnDefinitions: React.PropTypes.array,
   recordCount: React.PropTypes.number,
+  setOrderBy: React.PropTypes.func,
+  orderBy: React.PropTypes.object.isRequired,
   resetDataSet: React.PropTypes.func,
   recordRequestInProgress: React.PropTypes.bool
 }

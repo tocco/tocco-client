@@ -34,7 +34,7 @@ const initialState = {
   searchTerm: '',
   limit: 50,
   currentPage: 1,
-  orderBy: [],
+  orderBy: {},
   columnDefinition: [],
   recordCount: 0,
   recordStore: {},
