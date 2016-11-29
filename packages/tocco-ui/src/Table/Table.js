@@ -149,9 +149,12 @@ Table.propTypes = {
   onRowClick: React.PropTypes.func,
 
   /**
-   * Initial ordering. See #onOrderByChange for required format.
+   * Initial ordering.
    */
-  orderBy: React.PropTypes.object,
+  orderBy: React.PropTypes.shape({
+    name: React.PropTypes.string.isRequired,
+    direction: React.PropTypes.string.isRequired
+  }),
   /**
    * Callback on header click. Order-object consisting of properties 'name' and 'direction'
    * is passed as argument ({name: 'firstname', direction: 'asc'}).
