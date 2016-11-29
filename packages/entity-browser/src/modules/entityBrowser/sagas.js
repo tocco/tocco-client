@@ -11,7 +11,7 @@ export default function* sagas() {
     fork(takeEvery, actions.REQUEST_RECORDS, requestRecords),
     fork(takeEvery, actions.SET_ORDER_BY, resetDataSet),
     fork(takeEvery, actions.SET_SEARCH_TERM, resetDataSet),
-    fork(takeEvery, actions.RESET_DATA_SET, resetDataSet),
+    fork(takeEvery, actions.RESET_DATA_SET, resetDataSet)
   ]
 }
 
@@ -159,10 +159,8 @@ function fetchSearchForm(formName) {
 function* requestSearchFormDefinition(entityName) {
   let fields = yield call(fetchSearchForm, entityName + '_search')
   fields = fields.filter(f => f.displayType !== 'HIDDEN')
-  const arr = fields.map(f => ({
+  return fields.map(f => ({
     label: f.label,
     name: f.name
   }))
-  console.log(arr)
-  return arr;
 }

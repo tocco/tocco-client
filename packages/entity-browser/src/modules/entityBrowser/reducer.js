@@ -38,7 +38,6 @@ const initialState = {
   currentPage: 1,
   orderBy: {},
   searchFormDefinition: [],
-  searchTerm: '',
   columnDefinition: [],
   recordCount: 0,
   recordStore: {},
