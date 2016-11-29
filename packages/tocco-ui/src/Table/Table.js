@@ -10,12 +10,12 @@ import './styles.scss'
 const Table = props => {
   const columnDefinitions = sortBy(props.columnDefinitions, v => v.order)
 
-  const renderValue = (field, record) => {
+  const renderValue = (fields, record) => {
     if (props.cellRenderer) {
-      return props.cellRenderer(field, record)
+      return props.cellRenderer(fields, record)
     } else {
       return (
-        <span>{field.value.toString()}</span>
+        <span>{fields.map(field => field.value).join(', ')}</span>
       )
     }
   }
@@ -55,10 +55,12 @@ const Table = props => {
                 {
                   columnDefinitions.map((c, cidx) => {
                     const id = `${ridx}-${cidx}`
+                    const valueNames = Array.isArray(c.value) ? c.value : [c.value]
+                    const fields = valueNames.map(value => r[value])
                     return (
                       <td key={id}>
                         {
-                          renderValue(r[c.value], r)
+                          renderValue(fields, r)
                         }
                       </td>
                     )
@@ -77,12 +79,16 @@ const Table = props => {
 Table.propTypes = {
   /**
    * Specifies the columns that are displayed. An array of objects containing an optional label, the value which
-   * will be referenced on each record as well as an optional order number. Lower numbers are getting displayed first.
+   * will be referenced (single string or array of strings) on each record as well as an optional order number.
+   * Lower numbers are getting displayed first.
    */
   columnDefinitions: React.PropTypes.arrayOf(
     React.PropTypes.shape(
       {
-        value: React.PropTypes.string.isRequired,
+        value: React.PropTypes.oneOfType([
+          React.PropTypes.string,
+          React.PropTypes.arrayOf(React.PropTypes.string)
+        ]).isRequired,
         label: React.PropTypes.string,
         order: React.PropTypes.int
       }
@@ -96,8 +102,8 @@ Table.propTypes = {
     React.PropTypes.shape
   ).isRequired,
   /**
-   * A cell-renderer allows to render each cell content separately. Given the value as first argument and the whole
-   * record as second, the cell renderer function can return any kind of valid component.
+   * A cell-renderer allows to render each cell content separately. Given the field values as first argument
+   * and the whole record as second, the cell renderer function can return any kind of valid component.
    */
   cellRenderer: React.PropTypes.func,
   /**

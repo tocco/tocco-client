@@ -112,6 +112,16 @@ describe('tocco-ui', function() {
       expect(wrapper.contains('c3')).to.be.true
     })
 
+    it('should join multiple cell values', () => {
+      const record = {a: {value: 'a'}, b: {value: 'b'}}
+
+      const wrapper = shallow(
+        <Table records={[record]} columnDefinitions={[{value: ['a', 'b']}]}/>
+      )
+
+      expect(wrapper.contains('a, b')).to.be.true
+    })
+
     it('should add class attribute to table', () => {
       const wrapper = shallow(
         <Table className="table-striped abc" records={[]} columnDefinitions={[]}/>
@@ -142,8 +152,8 @@ describe('tocco-ui', function() {
       )
 
       expect(cellRenderer).to.have.calledTwice
-      expect(cellRenderer).to.have.been.calledWith(record.a, record)
-      expect(cellRenderer).to.have.been.calledWith(record.b, record)
+      expect(cellRenderer).to.have.been.calledWith([record.a], record)
+      expect(cellRenderer).to.have.been.calledWith([record.b], record)
     })
   })
 })

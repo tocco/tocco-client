@@ -19,6 +19,10 @@ export default () => {
       label: '#',
       value: 'user_nr',
       order: 0
+    },
+    {
+      label: 'Full name',
+      value: ['lastname', 'firstname']
     }
   ]
 
@@ -53,16 +57,12 @@ export default () => {
     }
   ]
 
-  const cellRenderer = field => {
-    if (field.type === 'counter') {
-      return (
-        <span style={{fontWeight: 'bold'}}>{field.value}</span>
-      )
-    }
-
-    return (
-      <span>{field.value}</span>
-    )
+  const cellRenderer = fields => {
+    const valueElements = fields.map(field =>
+      field.type === 'counter'
+       ? <div style={{fontWeight: 'bold'}}>{field.value}</div>
+       : <div>{field.value}</div>)
+    return <div>{valueElements}</div>
   }
 
   return (
