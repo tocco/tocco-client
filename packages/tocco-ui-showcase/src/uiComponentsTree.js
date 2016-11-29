@@ -1,3 +1,7 @@
+import FormattedValueRaw from '!raw!../../tocco-ui/src/FormattedValue/FormattedValue'
+import FormattedValueExample from '../../tocco-ui/src/FormattedValue/example'
+import FormattedValueExampleRaw from '!raw!../../tocco-ui/src/FormattedValue/example'
+
 import TableRaw from '!raw!../../tocco-ui/src/Table/Table'
 import TableExample from '../../tocco-ui/src/Table/example'
 import TableExampleRaw from '!raw!../../tocco-ui/src/Table/example'
@@ -32,6 +36,14 @@ export default [
   {
     category: categories.CONTENT,
     components: [
+      {
+        name: 'FormattedValue',
+        raw: FormattedValueRaw,
+        example: {
+          component: FormattedValueExample,
+          raw: FormattedValueExampleRaw
+        }
+      },
       {
         name: 'Table',
         raw: TableRaw,

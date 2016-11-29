@@ -23,7 +23,8 @@
     "it": false,
     "expect": false,
     "describe": false,
-    "sinon": false
+    "sinon": false,
+    "before": false
   },
   "rules": {
     "semi" : [2, "never"],
