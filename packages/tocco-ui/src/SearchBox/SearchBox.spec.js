@@ -12,7 +12,6 @@ describe('tocco-ui', function() {
     it('should render', () => {
       const wrapper = shallow(<SearchBox onSearch={() => {}}/>)
       expect(wrapper.find('.tocco-searchbox')).to.have.length(1)
-      expect(wrapper.find(Button)).to.not.be.disabled()
     })
 
     it('should call search function on button click', done => {
@@ -24,7 +23,6 @@ describe('tocco-ui', function() {
       wrapper.setState({'inputValue': SEARCH_STRING})
       const button = wrapper.find(Button)
       button.simulate('click')
-      expect(button).to.not.be.disabled()
       setTimeout(() => {
         expect(searchFunc).to.have.been.calledWith(SEARCH_STRING)
         done()
@@ -39,7 +37,6 @@ describe('tocco-ui', function() {
 
       const button = wrapper.find(Button)
       button.simulate('click')
-      expect(button).to.not.be.disabled()
       setTimeout(() => {
         expect(searchFunc).to.have.been.calledWith('')
         done()
@@ -54,7 +51,6 @@ describe('tocco-ui', function() {
 
       wrapper.setState({'inputValue': SEARCH_STRING})
       wrapper.find('input').simulate('keyDown', {key: 'Enter'})
-      expect(wrapper.find(Button)).to.not.be.disabled()
       setTimeout(() => {
         expect(searchFunc).to.have.been.calledWith(SEARCH_STRING)
         done()
@@ -69,7 +65,6 @@ describe('tocco-ui', function() {
       const input = wrapper.find('input')
       input.simulate('keyDown', {key: 'Enter'})
 
-      expect(wrapper.find(Button)).to.not.be.disabled()
       setTimeout(() => {
         expect(searchFunc).to.not.have.been.calledWith(undefined)
         done()
@@ -84,7 +79,6 @@ describe('tocco-ui', function() {
 
       const input = wrapper.find('input')
       input.simulate('keyDown', {key: 'ArrowLeft'})
-      expect(wrapper.find(Button)).to.not.be.disabled()
       setTimeout(() => {
         expect(func).to.not.have.been.called
         done()
@@ -115,7 +109,6 @@ describe('tocco-ui', function() {
       const input = wrapper.find('input')
       input.simulate('keyDown', {key: 'a'})
 
-      expect(wrapper.find(Button)).to.be.disabled()
       setTimeout(() => {
         expect(searchFunc).to.have.been.calledWith(SEARCH_STRING)
         done()
@@ -134,7 +127,6 @@ describe('tocco-ui', function() {
       const input = wrapper.find('input')
       input.simulate('keyDown', {key: 'a'})
 
-      expect(wrapper.find(Button)).to.be.disabled()
       setTimeout(() => {
         expect(searchFunc).to.not.have.been.called
         done()
@@ -154,7 +146,6 @@ describe('tocco-ui', function() {
       const input = wrapper.find('input')
       input.simulate('keyDown', {key: 'a'})
 
-      expect(wrapper.find(Button)).to.be.disabled()
       setTimeout(() => {
         expect(searchFunc).to.have.been.calledWith('ab')
         done()
@@ -174,7 +165,6 @@ describe('tocco-ui', function() {
       const input = wrapper.find('input')
       input.simulate('keyDown', {key: 'a'})
 
-      expect(wrapper.find(Button)).to.be.disabled()
       setTimeout(() => {
         expect(searchFunc).to.not.have.been.called
         done()
@@ -194,7 +184,6 @@ describe('tocco-ui', function() {
       const input = wrapper.find('input')
       input.simulate('keyDown', {key: 'a'})
 
-      expect(wrapper.find(Button)).to.be.disabled()
       setTimeout(() => {
         expect(searchFunc).to.have.been.calledWith(SEARCH_STRING)
         done()
@@ -214,7 +203,6 @@ describe('tocco-ui', function() {
       const input = wrapper.find('input')
       input.simulate('keyDown', {key: 'a'})
 
-      expect(wrapper.find(Button)).to.be.disabled()
       setTimeout(() => {
         expect(searchFunc).to.not.have.been.called
         done()

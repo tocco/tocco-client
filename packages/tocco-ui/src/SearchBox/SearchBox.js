@@ -60,10 +60,8 @@ class SearchBox extends React.Component {
               className="input-group-btn">
               <Button
                 type="button"
-                className="btn"
                 onClick={this.explicitSearch}
                 icon="glyphicon-search"
-                disabled={this.props.liveSearch}
               />
             </span>
           </div>
