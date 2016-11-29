@@ -1,10 +1,10 @@
 import React from 'react'
 
 const UrlFormatter = props => {
-  const content = props.value || ''
+  if (typeof props.value === undefined || props.value === '') {}
 
   return (
-    <span><a href={content}>{content}</a></span>
+    <span><a href={props.value}>{props.value}</a></span>
   )
 }
 
