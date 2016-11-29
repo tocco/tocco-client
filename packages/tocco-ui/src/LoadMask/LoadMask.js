@@ -1,7 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
 
-
 /**
  * A loadmask that can hide elements as long as promises are not resolved
  */

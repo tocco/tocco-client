@@ -3,7 +3,6 @@ import { Link } from 'react-router'
 import DetailForm from './DetailForm'
 import { visit, Visitor } from '../../../utils/formVisitor'
 
-
 function getFields(form) {
   const fields = []
   visit(form, new class extends Visitor {

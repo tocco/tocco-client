@@ -1,7 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
 
-
 const HorizontalBox = props => {
   if (props.label) {
     return (

@@ -3,7 +3,6 @@ import {FormattedMessage, intlShape} from 'react-intl'
 import {Pages} from '../../types/Pages'
 import * as ToccoUI from 'tocco-ui'
 
-
 export class PasswordRequest extends React.Component {
 
   constructor(props) {

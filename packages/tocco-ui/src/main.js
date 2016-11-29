@@ -4,7 +4,6 @@ import ToccoLogo from './ToccoLogo'
 
 import './main.scss'
 
-
 const exports = {
   Button,
   LoadMask,

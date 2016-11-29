@@ -6,7 +6,6 @@ import PasswordMatchDisplay from './PasswordMatchDisplay'
 import ValidationRules from '../ValidationRules'
 import FailureMessage from '../FailureMessage'
 
-
 class PasswordUpdateDialog extends Component {
 
   componentWillMount() {

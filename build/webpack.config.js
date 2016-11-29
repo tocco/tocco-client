@@ -37,7 +37,6 @@ if (!__TEST__) {
   }
 }
 
-
 // ------------------------------------
 // Entry Points
 // ------------------------------------
@@ -50,7 +49,6 @@ webpackConfig.entry = {
     : [APP_ENTRY_PATH]
 }
 
-
 // ------------------------------------
 // Bundle Output
 // ------------------------------------
@@ -60,7 +58,6 @@ webpackConfig.output = {
   path: outputDir,
   libraryTarget: 'umd'
 }
-
 
 // ------------------------------------
 // Plugins
@@ -77,8 +74,10 @@ if (__PROD__) {
   )
 
   // provide an scss entrypoint
-  // TODO Enhance handling of index.scss this by creating it dynamically rather than copying it to prevent duplications and boilerplate code. Afterwards all index.scss can be removed from packages.
-  if ( __PACKAGE__ !== 'tocco-test-util' ) {
+  // TODO Enhance handling of index.scss this by creating it dynamically rather than copying it
+  // to prevent duplications and boilerplate code. Afterwards all index.scss can be removed from
+  // packages.
+  if (__PACKAGE__ !== 'tocco-test-util') {
     webpackConfig.plugins.push(
       new CopyWebpackPlugin([
         {
@@ -100,9 +99,9 @@ if (__PROD__) {
     ])
   )
 
-  if ( __PACKAGE__ === 'tocco-ui' ) {
+  if (__PACKAGE__ === 'tocco-ui') {
     // copy Font Awesome's scss files
-    debug(`copy scss files from ${__PACKAGE__}/node_modules/font-awesome/ to ${__PACKAGE__}/dist/`);
+    debug(`copy scss files from ${__PACKAGE__}/node_modules/font-awesome/ to ${__PACKAGE__}/dist/`)  // eslint-disable-line
     webpackConfig.plugins.push(
       new CopyWebpackPlugin([
         {
@@ -113,7 +112,7 @@ if (__PROD__) {
     )
 
     // copy Bootstrap's scss files
-    debug(`copy scss files from ${__PACKAGE__}/node_modules/bootstrap-sass/ to ${__PACKAGE__}/dist/`);
+    debug(`copy scss files from ${__PACKAGE__}/node_modules/bootstrap-sass/ to ${__PACKAGE__}/dist/`)
     webpackConfig.plugins.push(
       new CopyWebpackPlugin([
         {
@@ -177,7 +176,6 @@ if (__DEV__) {
   )
 }
 
-
 // ------------------------------------
 // Presets
 // ------------------------------------
@@ -187,7 +185,6 @@ const presets = ['es2015', 'react', 'stage-0']
 if (__DEV__) {
   presets.push('react-hmre')
 }
-
 
 // ------------------------------------
 // Loaders
@@ -230,12 +227,12 @@ webpackConfig.module.loaders = [
 
 // find all css files and integrate into index.js
 webpackConfig.module.loaders.push({
-    test: /\.css$/,
-    loader: 'style-loader!css-loader'
-  })
+  test: /\.css$/,
+  loader: 'style-loader!css-loader'
+})
 
 // TODO remove "&& false" to separate css from js. Currently this would result in unstyled components.
-if (__PROD__ && false) {
+if (__PROD__) {
   // find all scss files and separate it from index.js
   webpackConfig.module.loaders.push({
     test: /\.scss$/,

@@ -5,7 +5,6 @@ import componentsTree from './uiComponentsTree'
 
 import './main.scss'
 
-
 const init = () => () => <ShowCaseApp componentsTree={componentsTree}/>
 
 const mountElement = document.getElementById('root')

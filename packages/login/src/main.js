@@ -7,7 +7,6 @@ import setupFetchMock from './dev/fetchMocks'
 
 import './main.scss'
 
-
 if (__DEV__) {
   setupFetchMock(fetchMock)
 

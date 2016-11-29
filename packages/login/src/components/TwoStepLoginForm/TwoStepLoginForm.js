@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
 import * as ToccoUI from 'tocco-ui'
 
-
 export class TwoStepLoginForm extends Component {
 
   constructor(props) {
