@@ -37,9 +37,11 @@ if (!__TEST__) {
   }
 }
 
+
 // ------------------------------------
 // Entry Points
 // ------------------------------------
+
 const APP_ENTRY_PATH = paths.client(`${packageDir}/src/main.js`)
 
 webpackConfig.entry = {
@@ -48,27 +50,47 @@ webpackConfig.entry = {
     : [APP_ENTRY_PATH]
 }
 
+
 // ------------------------------------
 // Bundle Output
 // ------------------------------------
+
 webpackConfig.output = {
   filename: 'index.js',
   path: outputDir,
   libraryTarget: 'umd'
 }
 
+
 // ------------------------------------
 // Plugins
 // ------------------------------------
+
 webpackConfig.plugins = [
   new webpack.DefinePlugin(config.globals)
 ]
 
-webpackConfig.plugins.push(
-  new ExtractTextPlugin('index.css')
-)
+if (__PROD__) {
+  // extract css from js and generate a separate file
+  webpackConfig.plugins.push(
+    new ExtractTextPlugin('index.css')
+  )
 
-if (__DEV__) {
+  // provide an scss entrypoint
+  // TODO Enhance handling of index.scss this by creating it dynamically rather than copying it to prevent duplications and boilerplate code. Afterwards all index.scss can be removed from packages.
+  if ( __PACKAGE__ !== 'tocco-test-util' ) {
+    webpackConfig.plugins.push(
+      new CopyWebpackPlugin([
+        {
+          context: absolutePackagePath,
+          from: 'src/index.scss',
+          flatten: true
+        }
+      ])
+    )
+  }
+
+  // copy all scss files for recompilation
   webpackConfig.plugins.push(
     new CopyWebpackPlugin([
       {
@@ -78,34 +100,32 @@ if (__DEV__) {
     ])
   )
 
-  // TODO create index.scss dynamically rather than copying it to prevent duplications and boilerplate code
-  webpackConfig.plugins.push(
-    new CopyWebpackPlugin([
-      {
-        from: `${packageDir}/src/index.scss`,
-        flatten: true
-      }
-    ])
-  )
+  if ( __PACKAGE__ === 'tocco-ui' ) {
+    // copy Font Awesome's scss files
+    debug(`copy scss files from ${__PACKAGE__}/node_modules/font-awesome/ to ${__PACKAGE__}/dist/`);
+    webpackConfig.plugins.push(
+      new CopyWebpackPlugin([
+        {
+          from: `${packageDir}/node_modules/font-awesome/scss/*.scss`,
+          flatten: false
+        }
+      ])
+    )
 
-  webpackConfig.plugins.push(
-    new CopyWebpackPlugin([
-      {
-        from: `${packageDir}/node_modules/font-awesome/scss/*.scss`,
-        flatten: false
-      }
-    ])
-  )
+    // copy Bootstrap's scss files
+    debug(`copy scss files from ${__PACKAGE__}/node_modules/bootstrap-sass/ to ${__PACKAGE__}/dist/`);
+    webpackConfig.plugins.push(
+      new CopyWebpackPlugin([
+        {
+          from: `${packageDir}/node_modules/bootstrap-sass/assets/stylesheets/**/*.scss`,
+          flatten: false
+        }
+      ])
+    )
+  }
+}
 
-  webpackConfig.plugins.push(
-    new CopyWebpackPlugin([
-      {
-        from: `${packageDir}/node_modules/bootstrap-sass/assets/stylesheets/**/*.scss`,
-        flatten: false
-      }
-    ])
-  )
-
+if (__DEV__) {
   webpackConfig.plugins.push(
     new HtmlWebpackPlugin({
       template: paths.client('server/index.html'),
@@ -157,11 +177,21 @@ if (__DEV__) {
   )
 }
 
+
+// ------------------------------------
+// Presets
+// ------------------------------------
+
 const presets = ['es2015', 'react', 'stage-0']
 
 if (__DEV__) {
   presets.push('react-hmre')
 }
+
+
+// ------------------------------------
+// Loaders
+// ------------------------------------
 
 webpackConfig.module.loaders = [
   {
@@ -198,22 +228,26 @@ webpackConfig.module.loaders = [
   }
 ]
 
-webpackConfig.module.loaders.push(
-  {
+// find all css files and integrate into index.js
+webpackConfig.module.loaders.push({
     test: /\.css$/,
     loader: 'style-loader!css-loader'
-  },
-  // INFO separate css from js
-  {
+  })
+
+// TODO remove "&& false" to separate css from js. Currently this would result in unstyled components.
+if (__PROD__ && false) {
+  // find all scss files and separate it from index.js
+  webpackConfig.module.loaders.push({
     test: /\.scss$/,
     loader: ExtractTextPlugin.extract('css-loader!sass-loader')
-  }
-  // INFO inject immediately in change (hot reload is isolated to package)
-  // {
-  //   test: /\.scss$/,
-  //   loaders: ['style', 'css', 'sass']
-  // }
-)
+  })
+} else {
+  // find all css files and integrate into index.js
+  webpackConfig.module.loaders.push({
+    test: /\.scss$/,
+    loaders: ['style', 'css', 'sass']
+  })
+}
 
 // File loaders
 /* eslint-disable */

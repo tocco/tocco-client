@@ -26,8 +26,8 @@
     @import "tocco-extension/convenience-classes";
 
     // load react components from monorepo while developing
-    @import "../../login/src/main.scss";
-    @import "../../merge/src/main.scss";
+    // @import "../../login/src/main.scss";
+    // @import "../../merge/src/main.scss";
 
     // load react components as node module for production
     // @import "../../login/dist/index.scss";
