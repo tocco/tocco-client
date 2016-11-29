@@ -58,10 +58,10 @@ export default () => {
   ]
 
   const cellRenderer = fields => {
-    const valueElements = fields.map(field =>
+    const valueElements = fields.map((field, index) =>
       field.type === 'counter'
-       ? <div style={{fontWeight: 'bold'}}>{field.value}</div>
-       : <div>{field.value}</div>)
+       ? <div key={index} style={{fontWeight: 'bold'}}>{field.value}</div>
+       : <div key={index}>{field.value}</div>)
     return <div>{valueElements}</div>
   }
 
