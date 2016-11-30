@@ -135,6 +135,10 @@ function* requestColumnDefinition(entityName) {
 
   return columns.map(c => ({
     label: c.label,
-    value: c.name
+    value: c.children
+      .filter(child =>
+        child.type !== 'ch.tocco.nice2.model.form.components.action.Action'
+        && !child.name.startsWith('custom:'))
+      .map(child => child.name)
   }))
 }
