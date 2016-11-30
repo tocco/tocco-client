@@ -19,6 +19,11 @@ $icon-list-indent: $icon-list-icon-size;
   list-style-type: none;
   padding-left: $icon-list-indent;
 
+  ul,
+  ol {
+    list-style-type: none;
+  }
+
   li {
     position: relative;
 
