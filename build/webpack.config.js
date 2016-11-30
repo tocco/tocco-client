@@ -232,7 +232,7 @@ webpackConfig.module.loaders.push({
 })
 
 // TODO remove "&& false" to separate css from js. Currently this would result in unstyled components.
-if (__PROD__) {
+if (__PROD__ && false ) {  // eslint-disable-line
   // find all scss files and separate it from index.js
   webpackConfig.module.loaders.push({
     test: /\.scss$/,
