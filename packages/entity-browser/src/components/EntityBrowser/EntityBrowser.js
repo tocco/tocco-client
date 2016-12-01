@@ -25,10 +25,6 @@ export class EntityBrowser extends React.Component {
     return <span>_</span>
   }
 
-  onSearch = value => {
-    this.props.setSearchTerm(value)
-  }
-
   renderSearchForm(formDefinition) {
     if (formDefinition && formDefinition.length > 0) {
       return (
@@ -91,5 +87,5 @@ EntityBrowser.propTypes = {
   setOrderBy: React.PropTypes.func,
   orderBy: React.PropTypes.object.isRequired,
   resetDataSet: React.PropTypes.func,
-  recordRequestInProgress: React.PropTypes.bool
+  recordRequestInProgress: React.PropTypes.bool,
 }
