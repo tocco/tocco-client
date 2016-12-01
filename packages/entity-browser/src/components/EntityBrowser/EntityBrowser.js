@@ -87,5 +87,5 @@ EntityBrowser.propTypes = {
   setOrderBy: React.PropTypes.func,
   orderBy: React.PropTypes.object.isRequired,
   resetDataSet: React.PropTypes.func,
-  recordRequestInProgress: React.PropTypes.bool,
+  recordRequestInProgress: React.PropTypes.bool
 }
