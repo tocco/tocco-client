@@ -23,7 +23,7 @@ class SearchBox extends React.Component {
 
   liveSearch = () => {
     const value = this.state.inputValue
-    if (value && value.length >= this.props.minInputLength) {
+    if (value.length === 0 || value.length >= this.props.minInputLength) {
       this.props.onSearch(value)
     }
   }
