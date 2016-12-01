@@ -59,7 +59,7 @@ export function* initializeEntityBrowser() {
   const entityBrowser = yield select(entityBrowserSelector)
   const {entityName} = entityBrowser
 
-  const searchFormDefinition = yield call(requestSearchFormDefinition, entityName, '')
+  const searchFormDefinition = yield call(getSearchFormDefinition, entityName, '')
   const columnDefinition = yield call(requestColumnDefinition, entityName, '')
   yield put(actions.setSearchFormDefinition(searchFormDefinition))
   yield put(actions.setColumnDefinition(columnDefinition))
@@ -152,11 +152,13 @@ function fetchSearchForm(formName) {
     })
 }
 
-function* requestSearchFormDefinition(entityName) {
-  let fields = yield call(fetchSearchForm, entityName + '_search')
-  fields = fields.filter(f => f.displayType !== 'HIDDEN')
+function* getSearchFormDefinition(entityName) {
+  const fields = yield call(fetchSearchForm, entityName + '_search')
   return fields.map(f => ({
+    name: f.name,
+    type: f.type,
+    displayType: f.displayType,
     label: f.label,
-    name: f.name
+    useLabel: f.useLabel
   }))
 }
