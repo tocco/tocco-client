@@ -1,6 +1,6 @@
 {
   "name": "tocco-entity-browser",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Lists entities and allows to sort and search them",
   "main": "dist/index.js",
   "scripts": {
@@ -12,7 +12,7 @@
   },
   "betterScripts": {
     "deploy": {
-      "command": "npm run clean && npm run compile --package=login",
+      "command": "npm run clean && npm run compile --package=entity-browser",
       "env": {
         "DEBUG": "app:*"
       }

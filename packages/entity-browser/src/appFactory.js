@@ -5,7 +5,7 @@ import {addLocaleData} from 'react-intl'
 import {IntlProvider} from 'react-intl-redux'
 import {LoadMask} from 'tocco-ui'
 
-import {setEntityName} from './modules/entityBrowser/actions'
+import {setEntityName, setLimit, setFormBase} from './modules/entityBrowser/actions'
 
 import EntityBrowserContainer from './containers/EntityBrowserContainer'
 
@@ -17,7 +17,8 @@ import it from 'react-intl/locale-data/it'
 import reducers, {sagas} from './modules/reducers'
 
 export default (id, input = {}, externalEvents, publicPath) => {
-  const dispatches = [setEntityName(input.entityName)]
+  const dispatches = validateInput(input)
+
   return factory('entity-browser', input, externalEvents, publicPath, 'entity-browser', reducers, dispatches)
 }
 
@@ -71,3 +72,37 @@ const factory = (id, input = {}, externalEvents, publicPath, resourcePrefix, red
     console.log('Error loading react application: ', e)
   }
 }
+
+const validateInput = input => {
+  const dispatches = []
+
+  inputsFields.forEach(f => {
+    if (input[f.name]) {
+      dispatches.push(f.action(input[f.name]))
+    } else {
+      if (f.mandatory) {
+        console.error(`EntityBrowser: Mandatory field '${f.name}' not set in input`)
+      }
+    }
+  })
+  return dispatches
+}
+
+const inputsFields = [
+  {
+    name: 'entityName',
+    action: setEntityName,
+    mandatory: true
+  },
+  {
+    name: 'formBase',
+    action: setFormBase,
+    mandatory: false
+  },
+  {
+    name: 'limit',
+    action: setLimit,
+    mandatory: false
+  }
+]
+
