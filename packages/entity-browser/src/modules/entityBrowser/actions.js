@@ -3,6 +3,7 @@ export const INITIALIZE_TABLE = 'INITIALIZE'
 export const REQUEST_RECORDS = 'REQUEST_RECORDS'
 export const SET_ENTITY_NAME = 'SET_ENTITY_NAME'
 export const SET_RECORDS = 'SET_RECORDS'
+export const SET_SEARCH_FORM_DEFINITION = 'SET_SEARCH_FORM_DEFINITION'
 export const SET_COLUMN_DEFINITION = 'SET_COLUMN_DEFINITION'
 export const SET_ORDER_BY = 'SET_ORDER_BY'
 export const SET_LIMIT = 'SET_LIMIT'
@@ -61,6 +62,13 @@ export const setRecordCount = recordCount => ({
   type: SET_RECORD_COUNT,
   payload: {
     recordCount
+  }
+})
+
+export const setSearchFormDefinition = searchFormDefinition => ({
+  type: SET_SEARCH_FORM_DEFINITION,
+  payload: {
+    searchFormDefinition
   }
 })
 

@@ -7,6 +7,7 @@ const allRecords = createUsers(1003)
 export default function setupFetchMock(fetchMock) {
   utilFetchMocks.sessionFetchMock(fetchMock)
   utilFetchMocks.textResourceFetchMock(fetchMock, require('./messages.json'))
+  fetchMock.get(new RegExp('^.*?/nice2/rest/forms/User_search'), require('./user_search.json'))
   fetchMock.get(new RegExp('^.*?/nice2/rest/forms/.*'), require('./user_list.json'))
 
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/.*/count$'), {'count': allRecords.length})
@@ -15,6 +16,7 @@ export default function setupFetchMock(fetchMock) {
     const limit = parseInt(getParameterByName('_limit', url)) || 25
     const offset = parseInt(getParameterByName('_offset', url)) || 0
     const orderBy = getParameterByName('_sort', url)
+    const searchTerm = getParameterByName('_search', url)
 
     if (orderBy) {
       const parts = orderBy.split(' ')
@@ -28,6 +30,10 @@ export default function setupFetchMock(fetchMock) {
       if (direction === 'desc') {
         allRecords.reverse()
       }
+    }
+
+    if (searchTerm === 'few') {
+      return wrapResponse(allRecords.slice(0, 10))
     }
 
     return wrapResponse(allRecords.slice(offset, offset + limit))
