@@ -8,6 +8,7 @@ const EXPECTED_INITIAL_STATE = {
   limit: 50,
   currentPage: 1,
   orderBy: {},
+  searchFormDefinition: [],
   columnDefinition: [],
   recordCount: 0,
   recordStore: {},
@@ -215,6 +216,21 @@ describe('entity-browser', () => {
           }
 
           expect(reducer(stateBefore, actions.setRecordRequestInProgress(true))).to.deep.equal(expectedStateAfter)
+        })
+
+        it('should handle SET_SEARCH_FORM_DEFINITION', () => {
+          const stateBefore = {
+            searchFormDefinition: undefined
+          }
+          const definition = [
+            {name: 'name1', type: 'type1', label: 'label1', displayType: 'displayType1', useLabel: true}
+          ]
+
+          const expectedStateAfter = {
+            searchFormDefinition: definition
+          }
+
+          expect(reducer(stateBefore, actions.setSearchFormDefinition(definition))).to.deep.equal(expectedStateAfter)
         })
       })
     })
