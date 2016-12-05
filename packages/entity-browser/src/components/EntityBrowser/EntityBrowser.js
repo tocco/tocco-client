@@ -17,6 +17,15 @@ export class EntityBrowser extends React.Component {
     this.props.changePage(page)
   }
 
+  cellRenderer = (v, r) => {
+    //temporary solution. Should display combined values as well
+    if (v.length > 0){
+      return <ToccoUI.FormattedValue type={v[0].type} value={v[0].value}/>
+    } else {
+      return <span/>
+    }
+  }
+
   render() {
     const props = this.props
 
@@ -37,6 +46,7 @@ export class EntityBrowser extends React.Component {
           onOrderByChange={this.onOrderByChange}
           orderBy={props.orderBy}
           loading={props.recordRequestInProgress}
+          cellRenderer={this.cellRenderer}
         />
         <ToccoUI.Pagination
           totalRecords={props.recordCount}

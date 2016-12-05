@@ -4,31 +4,43 @@
   "version": 3,
   "fields": {
     "firstname": {
-      "value": "First-Name",
+      "value": "Daniel",
       "type": "string",
       "readable": true,
       "writable": true
     },
     "lastname": {
-      "value": "Last-Name",
+      "value": "Keller",
       "type": "string",
       "readable": true,
       "writable": true
     },
     "email": {
-      "value": "test@tocco.ch",
+      "value": "dkeller@tocco.ch",
       "type": "email",
       "readable": true,
       "writable": true
     },
     "user_nr": {
-      "value": 1,
+      "value": 110,
       "type": "counter",
       "readable": true,
       "writable": false
     },
+    "callname": {
+      "value": "dake",
+      "type": "string",
+      "readable": true,
+      "writable": true
+    },
+    "other_title": {
+      "value": "",
+      "type": "string",
+      "readable": true,
+      "writable": true
+    },
     "birthdate": {
-      "value": null,
+      "value": "1988-11-22",
       "type": "birthdate",
       "readable": true,
       "writable": true
@@ -39,14 +51,20 @@
       "readable": true,
       "writable": true
     },
-    "phone_company": {
+    "email_alternative": {
       "value": "",
+      "type": "email",
+      "readable": true,
+      "writable": true
+    },
+    "phone_company": {
+      "value": "0444005555",
       "type": "phone",
       "readable": true,
       "writable": true
     },
     "phone_private": {
-      "value": "",
+      "value": "+41716884523",
       "type": "phone",
       "readable": true,
       "writable": true
@@ -54,6 +72,24 @@
     "phone_mobile": {
       "value": "",
       "type": "phone",
+      "readable": true,
+      "writable": true
+    },
+    "fax": {
+      "value": "",
+      "type": "phone",
+      "readable": true,
+      "writable": true
+    },
+    "website": {
+      "value": "http://www.google.ch",
+      "type": "url",
+      "readable": true,
+      "writable": true
+    },
+    "ahv_nr": {
+      "value": "123456789",
+      "type": "string",
       "readable": true,
       "writable": true
     },
@@ -70,6 +106,138 @@
       "writable": true
     },
     "job": {
+      "value": "",
+      "type": "string",
+      "readable": true,
+      "writable": true
+    },
+    "hometown": {
+      "value": "",
+      "type": "string",
+      "readable": true,
+      "writable": true
+    },
+    "hometown2": {
+      "value": "",
+      "type": "string",
+      "readable": true,
+      "writable": true
+    },
+    "bank_account": {
+      "value": "",
+      "type": "string",
+      "readable": true,
+      "writable": true
+    },
+    "bank_sort_code": {
+      "value": "",
+      "type": "string",
+      "readable": true,
+      "writable": true
+    },
+    "account_nr": {
+      "value": "",
+      "type": "string",
+      "readable": true,
+      "writable": true
+    },
+    "iban_nr": {
+      "value": "",
+      "type": "string",
+      "readable": true,
+      "writable": true
+    },
+    "spouse": {
+      "value": "This is a long text\nwith newline\nother new line",
+      "type": "text",
+      "readable": true,
+      "writable": true
+    },
+    "children": {
+      "value": "",
+      "type": "text",
+      "readable": true,
+      "writable": true
+    },
+    "comment": {
+      "value": "",
+      "type": "text",
+      "readable": true,
+      "writable": true
+    },
+    "c_address": {
+      "value": "",
+      "type": "text",
+      "readable": true,
+      "writable": false
+    },
+    "b_address": {
+      "value": "",
+      "type": "text",
+      "readable": true,
+      "writable": false
+    },
+    "publish": {
+      "value": true,
+      "type": "boolean",
+      "readable": true,
+      "writable": true
+    },
+    "publish_detail": {
+      "value": false,
+      "type": "boolean",
+      "readable": true,
+      "writable": true
+    },
+    "best_reached": {
+      "value": "",
+      "type": "string",
+      "readable": true,
+      "writable": true
+    },
+    "detail_picture": {
+      "value": null,
+      "type": "document",
+      "readable": true,
+      "writable": true
+    },
+    "other_language": {
+      "value": "",
+      "type": "string",
+      "readable": true,
+      "writable": true
+    },
+    "preview_picture": {
+      "value": null,
+      "type": "document",
+      "readable": true,
+      "writable": true
+    },
+    "signature": {
+      "value": "",
+      "type": "text",
+      "readable": true,
+      "writable": true
+    },
+    "entrance": {
+      "value": null,
+      "type": "date",
+      "readable": true,
+      "writable": false
+    },
+    "exit": {
+      "value": null,
+      "type": "date",
+      "readable": true,
+      "writable": false
+    },
+    "personnel_number": {
+      "value": "18628461621",
+      "type": "string",
+      "readable": true,
+      "writable": true
+    },
+    "instructor_id": {
       "value": "",
       "type": "string",
       "readable": true,
@@ -96,6 +264,24 @@
     "apprenticeship_end_date": {
       "value": null,
       "type": "date",
+      "readable": true,
+      "writable": true
+    },
+    "class": {
+      "value": "",
+      "type": "string",
+      "readable": true,
+      "writable": true
+    },
+    "bms": {
+      "value": "",
+      "type": "string",
+      "readable": true,
+      "writable": true
+    },
+    "salary": {
+      "value": "1000.00",
+      "type": "moneyamount",
       "readable": true,
       "writable": true
     }
