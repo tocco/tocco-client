@@ -52,8 +52,8 @@ describe('entityBrowser', () => {
           ]
 
           expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
-          expect(gen.next(state).value).to.eql(call(sagas.getSearchFormDefinition, entityName, ''))
-          expect(gen.next(searchFormDefinition).value).to.eql(call(sagas.requestColumnDefinition, entityName, ''))
+          expect(gen.next(state).value).to.eql(call(sagas.getSearchFormDefinition, entityName))
+          expect(gen.next(searchFormDefinition).value).to.eql(call(sagas.requestColumnDefinition, entityName))
           expect(gen.next(columnDefinition).value).to.eql(put(actions.setSearchFormDefinition(searchFormDefinition)))
           expect(gen.next().value).to.eql(put(actions.setColumnDefinition(columnDefinition)))
           expect(gen.next().value).to.eql(call(sagas.resetDataSet))

@@ -59,8 +59,8 @@ export function* initializeEntityBrowser() {
   const entityBrowser = yield select(entityBrowserSelector)
   const {entityName} = entityBrowser
 
-  const searchFormDefinition = yield call(getSearchFormDefinition, entityName, '')
-  const columnDefinition = yield call(requestColumnDefinition, entityName, '')
+  const searchFormDefinition = yield call(getSearchFormDefinition, entityName)
+  const columnDefinition = yield call(requestColumnDefinition, entityName)
   yield put(actions.setSearchFormDefinition(searchFormDefinition))
   yield put(actions.setColumnDefinition(columnDefinition))
 
@@ -104,7 +104,7 @@ const fetchRequest = (resource, params) => {
   return fetch(`${__BACKEND_URL__}/nice2/rest/${resource}${paramString}`, options)
 }
 
-function fetchRecords(entityName, page, orderBy, limit, searchTerm) {
+export function fetchRecords(entityName, page, orderBy, limit, searchTerm) {
   const params = {
     '_sort': Object.keys(orderBy).length === 2 ? `${orderBy.name} ${orderBy.direction}` : undefined,
     '_limit': limit,
@@ -117,7 +117,7 @@ function fetchRecords(entityName, page, orderBy, limit, searchTerm) {
     .then(json => json.data.map(e => e.fields))
 }
 
-function fetchRecordCount(entityName) {
+export function fetchRecordCount(entityName) {
   return fetchRequest(`entities/${entityName}/count`)
     .then(resp => resp.json())
     .then(json => json.count)
@@ -132,7 +132,7 @@ function fetchForm(formName, formType) {
     })
 }
 
-function* requestColumnDefinition(entityName) {
+export function* requestColumnDefinition(entityName) {
   const table = yield call(fetchForm, entityName + '_list', 'table')
 
   const columns = table.children.filter(column => column.displayType !== 'HIDDEN')
@@ -156,7 +156,7 @@ function fetchSearchForm(formName) {
     })
 }
 
-function* getSearchFormDefinition(entityName) {
+export function* getSearchFormDefinition(entityName) {
   const fields = yield call(fetchSearchForm, entityName + '_search')
   return fields.map(f => ({
     name: f.name,
