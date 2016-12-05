@@ -10,6 +10,7 @@ export default function* sagas() {
     fork(takeLatest, actions.CHANGE_PAGE, changePage),
     fork(takeEvery, actions.REQUEST_RECORDS, requestRecords),
     fork(takeEvery, actions.SET_ORDER_BY, resetDataSet),
+    fork(takeEvery, actions.SET_SEARCH_TERM, resetDataSet),
     fork(takeEvery, actions.RESET_DATA_SET, resetDataSet)
   ]
 }
@@ -22,10 +23,10 @@ export function* changePage({payload}) {
 
 export function* fetchRecordsAndAddToStore(page) {
   const entityBrowser = yield select(entityBrowserSelector)
-  const {entityName, orderBy, limit, recordStore} = entityBrowser
+  const {entityName, orderBy, limit, recordStore, searchTerm} = entityBrowser
 
   if (!recordStore[page]) {
-    const records = yield call(fetchRecords, entityName, page, orderBy, limit)
+    const records = yield call(fetchRecords, entityName, page, orderBy, limit, searchTerm)
     yield put(actions.addRecordsToStore(page, records))
   }
 }
@@ -58,7 +59,9 @@ export function* initializeEntityBrowser() {
   const entityBrowser = yield select(entityBrowserSelector)
   const {entityName} = entityBrowser
 
+  const searchFormDefinition = yield call(getSearchFormDefinition, entityName, '')
   const columnDefinition = yield call(requestColumnDefinition, entityName, '')
+  yield put(actions.setSearchFormDefinition(searchFormDefinition))
   yield put(actions.setColumnDefinition(columnDefinition))
 
   yield call(resetDataSet)
@@ -101,11 +104,12 @@ const fetchRequest = (resource, params) => {
   return fetch(`${__BACKEND_URL__}/nice2/rest/${resource}${paramString}`, options)
 }
 
-function fetchRecords(entityName, page, orderBy, limit) {
+function fetchRecords(entityName, page, orderBy, limit, searchTerm) {
   const params = {
     '_sort': Object.keys(orderBy).length === 2 ? `${orderBy.name} ${orderBy.direction}` : undefined,
     '_limit': limit,
-    '_offset': (page - 1) * limit
+    '_offset': (page - 1) * limit,
+    '_search': searchTerm
   }
 
   return fetchRequest(`entities/${entityName}`, params)
@@ -140,5 +144,25 @@ function* requestColumnDefinition(entityName) {
         child.type !== 'ch.tocco.nice2.model.form.components.action.Action'
         && !child.name.startsWith('custom:'))
       .map(child => child.name)
+  }))
+}
+
+function fetchSearchForm(formName) {
+  return fetchRequest(`forms/${formName}`)
+    .then(resp => resp.json())
+    .then(json => {
+      const {form} = json
+      return form.children[0].children
+    })
+}
+
+function* getSearchFormDefinition(entityName) {
+  const fields = yield call(fetchSearchForm, entityName + '_search')
+  return fields.map(f => ({
+    name: f.name,
+    type: f.type,
+    displayType: f.displayType,
+    label: f.label,
+    useLabel: f.useLabel
   }))
 }
