@@ -1,7 +1,7 @@
 import React from 'react'
 import {TextFieldInputHandler} from './TypeHandler'
 
-const InputFactory = ({fieldDefinition, setSearchTerm}) => {
+const InputFactory = props => {
   const getTypeMap = () => {
     return {
       'ch.tocco.nice2.model.form.components.simple.TextField': TextFieldInputHandler
@@ -13,9 +13,10 @@ const InputFactory = ({fieldDefinition, setSearchTerm}) => {
   }
 
   return (
-    showField(fieldDefinition)
+    showField(props.fieldDefinition)
     && React.createElement(
-      getTypeMap()[fieldDefinition.type], {'fieldDefinition': fieldDefinition, 'setSearchTerm': setSearchTerm}
+      getTypeMap()[props.fieldDefinition.type],
+      {'fieldDefinition': props.fieldDefinition, 'setSearchTerm': props.setSearchTerm}
     )
   )
 }

@@ -1,10 +1,10 @@
 import React from 'react'
 import * as ToccoUI from 'tocco-ui'
 
-const TextFieldInputHandler = ({fieldDefinition, setSearchTerm}) => {
+const TextFieldInputHandler = props => {
   const onSearch = value => {
-    setSearchTerm({
-      name: fieldDefinition.name,
+    props.setSearchTerm({
+      name: props.fieldDefinition.name,
       value: value
     })
   }
@@ -12,7 +12,7 @@ const TextFieldInputHandler = ({fieldDefinition, setSearchTerm}) => {
   return (
     <ToccoUI.SearchBox
       onSearch={onSearch}
-      placeholder={fieldDefinition.label}
+      placeholder={props.fieldDefinition.label}
       liveSearch
     />
   )
