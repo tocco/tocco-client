@@ -17,7 +17,7 @@ const SearchForm = props => {
 
 SearchForm.propTypes = {
   formDefinition: React.PropTypes.array.isRequired,
-  setSearchTerm: React.PropTypes.func
+  setSearchTerm: React.PropTypes.func.isRequired
 }
 
 export default SearchForm
