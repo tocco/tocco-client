@@ -1,24 +1,21 @@
 import React from 'react'
 import * as ToccoUI from 'tocco-ui'
 
-class TextFieldInputHandler extends React.Component {
-
-  onSearch = value => {
-    this.props.setSearchTerm({
-      name: this.props.fieldDefinition.name,
+const TextFieldInputHandler = ({fieldDefinition, setSearchTerm}) => {
+  const onSearch = value => {
+    setSearchTerm({
+      name: fieldDefinition.name,
       value: value
     })
   }
 
-  render() {
-    return (
-      <ToccoUI.SearchBox
-        onSearch={this.onSearch}
-        placeholder={this.props.fieldDefinition.label}
-        liveSearch
-      />
-    )
-  }
+  return (
+    <ToccoUI.SearchBox
+      onSearch={onSearch}
+      placeholder={fieldDefinition.label}
+      liveSearch
+    />
+  )
 }
 
 TextFieldInputHandler.propTypes = {

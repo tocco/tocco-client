@@ -1,7 +1,7 @@
 import React from 'react'
 import * as ToccoUI from 'tocco-ui'
 import './styles.scss'
-import {InputFactory} from './InputFactory'
+import {SearchForm} from './SearchForm'
 
 export class EntityBrowser extends React.Component {
   constructor(props) {
@@ -25,34 +25,18 @@ export class EntityBrowser extends React.Component {
     return <span>_</span>
   }
 
-  renderSearchForm(formDefinition) {
-    if (formDefinition && formDefinition.length > 0) {
-      return (
-        <div className="search-form">
-          <form>
-            {formDefinition.map(definition => {
-              return (
-                <InputFactory key={definition.name} fieldDefinition={definition}/>
-              )
-            })
-          }
-          </form>
-        </div>
-      )
-    }
-    return null
-  }
-
   render() {
     const props = this.props
-    const searchForm = this.renderSearchForm(props.searchFormDefinition)
 
     return (
       <div className="entity-browser">
 
         <h1>EntityBrowser</h1>
 
-        {searchForm}
+        <SearchForm
+          formDefinition={props.searchFormDefinition}
+          setSearchTerm={props.setSearchTerm}
+        />
 
         <ToccoUI.Table
           columnDefinitions={props.columnDefinitions}
@@ -87,5 +71,6 @@ EntityBrowser.propTypes = {
   setOrderBy: React.PropTypes.func,
   orderBy: React.PropTypes.object.isRequired,
   resetDataSet: React.PropTypes.func,
-  recordRequestInProgress: React.PropTypes.bool
+  recordRequestInProgress: React.PropTypes.bool,
+  setSearchTerm: React.PropTypes.func
 }

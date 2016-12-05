@@ -1,28 +1,28 @@
 import React from 'react'
-import TextFieldInputHandlerContainer from './../../../containers/TextFieldInputHandlerContainer'
+import {TextFieldInputHandler} from './TypeHandler'
 
-class InputFactory extends React.Component {
-
-  showField = () => {
-    return this.props.fieldDefinition.displayType !== 'HIDDEN'
-  }
-
-  getTypeMap = () => ({
-    'ch.tocco.nice2.model.form.components.simple.TextField': TextFieldInputHandlerContainer
-  })
-
-  render() {
-    const map = this.getTypeMap()
-    if (this.showField() && map.hasOwnProperty(this.props.fieldDefinition.type)) {
-      const typeHandler = map[this.props.fieldDefinition.type]
-      return React.createElement(typeHandler, {'fieldDefinition': this.props.fieldDefinition})
+const InputFactory = ({fieldDefinition, setSearchTerm}) => {
+  const getTypeMap = () => {
+    return {
+      'ch.tocco.nice2.model.form.components.simple.TextField': TextFieldInputHandler
     }
-    return null
   }
+
+  const showField = fieldDefinition => {
+    return fieldDefinition.displayType !== 'HIDDEN' && getTypeMap().hasOwnProperty(fieldDefinition.type)
+  }
+
+  return (
+    showField(fieldDefinition)
+    && React.createElement(
+      getTypeMap()[fieldDefinition.type], {'fieldDefinition': fieldDefinition, 'setSearchTerm': setSearchTerm}
+    )
+  )
 }
 
 InputFactory.propTypes = {
-  fieldDefinition: React.PropTypes.object.isRequired
+  fieldDefinition: React.PropTypes.object.isRequired,
+  setSearchTerm: React.PropTypes.func
 }
 
 export default InputFactory
