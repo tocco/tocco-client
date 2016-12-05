@@ -99,6 +99,13 @@ if (__DEV__) {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   )
+
+  webpackConfig.module.preLoaders = [
+    {
+      test: /\.jsx?$/,
+      loaders: ['eslint']
+    }
+  ]
 } else if (__PROD__) {
   debug('Enable plugins for production (OccurenceOrder, Dedupe & UglifyJS).')
   webpackConfig.plugins.push(
