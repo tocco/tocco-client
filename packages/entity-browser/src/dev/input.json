@@ -1,3 +1,5 @@
 {
-  "entityName": "User"
+  "entityName": "User",
+  "limit": 50,
+  "formBase": "UserSearch"
 }

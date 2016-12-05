@@ -2,6 +2,7 @@ export const INITIALIZED = 'INITIALIZED'
 export const INITIALIZE_TABLE = 'INITIALIZE'
 export const REQUEST_RECORDS = 'REQUEST_RECORDS'
 export const SET_ENTITY_NAME = 'SET_ENTITY_NAME'
+export const SET_FORM_BASE = 'SET_FORM_BASE'
 export const SET_RECORDS = 'SET_RECORDS'
 export const SET_COLUMN_DEFINITION = 'SET_COLUMN_DEFINITION'
 export const SET_ORDER_BY = 'SET_ORDER_BY'
@@ -27,6 +28,13 @@ export const setEntityName = entityName => ({
   type: SET_ENTITY_NAME,
   payload: {
     entityName
+  }
+})
+
+export const setFormBase = formBase => ({
+  type: SET_FORM_BASE,
+  payload: {
+    formBase
   }
 })
 
