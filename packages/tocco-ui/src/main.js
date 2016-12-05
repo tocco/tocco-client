@@ -4,6 +4,7 @@ import LoadMask from './LoadMask'
 import Table from './Table'
 import Pagination from './Pagination'
 import SearchBox from './SearchBox'
+import FormattedValue from './FormattedValue'
 
 const exports = {
   Button,
@@ -11,7 +12,8 @@ const exports = {
   LoadMask,
   Table,
   Pagination,
-  SearchBox
+  SearchBox,
+  FormattedValue
 }
 
 module.exports = exports
