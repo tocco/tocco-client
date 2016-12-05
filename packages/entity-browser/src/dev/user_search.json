@@ -27,17 +27,17 @@
           {
             "name":"relAddress_user.relAddress",
             "type":"ch.tocco.nice2.model.form.components.simple.TextField",
-            "displayType":"EDITABLE",
+            "displayType":"HIDDEN",
             "children":[
 
             ],
             "label":"Adresse",
-            "useLabel":"YES"
+            "useLabel":"HIDDEN"
           },
           {
             "name":"relUser_code1",
             "type":"ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
-            "displayType":"EDITABLE",
+            "displayType":"HIDDEN",
             "children":[
 
             ],
@@ -47,7 +47,7 @@
           {
             "name":"relUser_code2",
             "type":"ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
-            "displayType":"EDITABLE",
+            "displayType":"HIDDEN",
             "children":[
 
             ],
@@ -57,7 +57,7 @@
           {
             "name":"relUser_code3",
             "type":"ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
-            "displayType":"EDITABLE",
+            "displayType":"HIDDEN",
             "children":[
 
             ],
@@ -67,7 +67,7 @@
           {
             "name":"relUser_code4",
             "type":"ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
-            "displayType":"EDITABLE",
+            "displayType":"HIDDEN",
             "children":[
 
             ],

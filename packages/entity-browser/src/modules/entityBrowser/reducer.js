@@ -16,6 +16,7 @@ const clearRecordStore = state => ({
 
 const ACTION_HANDLERS = {
   [actions.SET_ENTITY_NAME]: singleTransferReducer('entityName'),
+  [actions.SET_FORM_BASE]: singleTransferReducer('formBase'),
   [actions.SET_RECORDS]: singleTransferReducer('records'),
   [actions.SET_SEARCH_FORM_DEFINITION]: singleTransferReducer('searchFormDefinition'),
   [actions.SET_COLUMN_DEFINITION]: singleTransferReducer('columnDefinition'),

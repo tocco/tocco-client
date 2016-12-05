@@ -1,6 +1,7 @@
 import React from 'react'
 import * as ToccoUI from 'tocco-ui'
 import './styles.scss'
+import {SearchForm} from './SearchForm'
 
 export class EntityBrowser extends React.Component {
   constructor(props) {
@@ -16,34 +17,18 @@ export class EntityBrowser extends React.Component {
     this.props.changePage(page)
   }
 
-  onSearch = value => {
-    this.props.setSearchTerm(value)
-  }
-
-  renderSearchForm(formDefinition) {
-    if (formDefinition.filter(c => c.name === 'txtFulltext').length > 0) {
-      return (
-        <div className="search-form">
-          <ToccoUI.SearchBox
-            placeholder="Suche ..."
-            onSearch={this.onSearch}
-            liveSearch
-           />
-        </div>)
-    }
-    return <div className="search-form"/>
-  }
-
   render() {
     const props = this.props
-    const searchForm = this.renderSearchForm(props.searchFormDefinition)
 
     return (
       <div className="entity-browser">
 
         <h1>EntityBrowser</h1>
 
-        {searchForm}
+        <SearchForm
+          formDefinition={props.searchFormDefinition}
+          setSearchTerm={props.setSearchTerm}
+        />
 
         <ToccoUI.Table
           columnDefinitions={props.columnDefinitions}
@@ -72,11 +57,11 @@ EntityBrowser.propTypes = {
   currentPage: React.PropTypes.number,
   limit: React.PropTypes.number,
   searchFormDefinition: React.PropTypes.array,
-  setSearchTerm: React.PropTypes.func,
   columnDefinitions: React.PropTypes.array,
   recordCount: React.PropTypes.number,
   setOrderBy: React.PropTypes.func,
   orderBy: React.PropTypes.object.isRequired,
   resetDataSet: React.PropTypes.func,
-  recordRequestInProgress: React.PropTypes.bool
+  recordRequestInProgress: React.PropTypes.bool,
+  setSearchTerm: React.PropTypes.func
 }
