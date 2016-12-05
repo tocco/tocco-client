@@ -14,14 +14,6 @@ const clearRecordStore = state => ({
   recordStore: {}
 })
 
-const setSearchTerm = (state, {payload}) => {
-  const term = payload.searchTerm
-  return {
-    ...state,
-    searchTerm: term.value
-  }
-}
-
 const ACTION_HANDLERS = {
   [actions.SET_ENTITY_NAME]: singleTransferReducer('entityName'),
   [actions.SET_RECORDS]: singleTransferReducer('records'),
@@ -31,7 +23,6 @@ const ACTION_HANDLERS = {
   [actions.SET_LIMIT]: singleTransferReducer('limit'),
   [actions.SET_CURRENT_PAGE]: singleTransferReducer('currentPage'),
   [actions.SET_ORDER_BY]: singleTransferReducer('orderBy'),
-  [actions.SET_SEARCH_TERM]: setSearchTerm,
   [actions.SET_RECORD_COUNT]: singleTransferReducer('recordCount'),
   [actions.ADD_RECORDS_TO_STORE]: addRecordToStore,
   [actions.CLEAR_RECORD_STORE]: clearRecordStore,
