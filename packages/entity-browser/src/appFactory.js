@@ -79,10 +79,8 @@ const validateInput = input => {
   inputsFields.forEach(f => {
     if (input[f.name]) {
       dispatches.push(f.action(input[f.name]))
-    } else {
-      if (f.mandatory) {
-        console.error(`EntityBrowser: Mandatory field '${f.name}' not set in input`)
-      }
+    } else if (f.mandatory) {
+      console.error(`EntityBrowser: Mandatory field '${f.name}' not set in input`)
     }
   })
   return dispatches
@@ -105,4 +103,3 @@ const inputsFields = [
     mandatory: false
   }
 ]
-
