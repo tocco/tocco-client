@@ -3,7 +3,8 @@ import * as ToccoUI from 'tocco-ui'
 
 const TextFieldInputHandler = props => {
   return (
-    <ToccoUI.SearchBox
+    props.fieldDefinition.name === 'txtFulltext'
+    && <ToccoUI.SearchBox
       onSearch={props.setSearchTerm}
       placeholder={props.fieldDefinition.label}
       liveSearch
