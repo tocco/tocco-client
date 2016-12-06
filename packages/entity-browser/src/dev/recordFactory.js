@@ -1,9 +1,8 @@
 const getRandomDate = (startYear, endYear) => {
-  var start = new Date(startYear, 1, 1)
-  var end = new Date(endYear, 1, 1)
+  const start = new Date(startYear, 1, 1)
+  const end = new Date(endYear, 1, 1)
 
-  var date = new Date(+start + Math.random() * (end - start));
-  return date;
+  return new Date(+start + Math.random() * (end - start))
 }
 
 export const createUsers = amount => {
@@ -33,7 +32,7 @@ export const createUsers = amount => {
           type: 'birthdate'
         },
         salary: {
-          value: 1000 + i*2.1,
+          value: 1000 + i * 2.1,
           type: 'moneyamount'
         }
       }

@@ -18,8 +18,8 @@ export class EntityBrowser extends React.Component {
   }
 
   cellRenderer = (v, r) => {
-    //temporary solution. Should display combined values as well
-    if (v.length > 0){
+    // temporary solution. Should display combined values as well
+    if (v.length > 0) {
       return <ToccoUI.FormattedValue type={v[0].type} value={v[0].value}/>
     } else {
       return <span/>
