@@ -139,6 +139,99 @@ describe('entityBrowser', () => {
           expect(gen.next().value).to.eql(call(sagas.changePage, {payload: {page: 1}}))
         })
       })
+
+      describe('getSearchFormDefinition saga', () => {
+        it('should create a search from definition', () => {
+          const entityName = 'User'
+          const jsonArr = [
+            {
+              name: 'name1',
+              type: 'type',
+              displayType: 'displayType',
+              label: 'label1',
+              useLabel: true,
+              otherFieldA: 'some_input'
+            }, {
+              name: 'name2',
+              type: 'type',
+              displayType: 'displayType',
+              label: 'label2',
+              useLabel: true,
+              otherFieldB: 'some_input'
+            }
+          ]
+
+          const result = [
+            {
+              name: 'name1',
+              type: 'type',
+              displayType: 'displayType',
+              label: 'label1',
+              useLabel: true
+            }, {
+              name: 'name2',
+              type: 'type',
+              displayType: 'displayType',
+              label: 'label2',
+              useLabel: true
+            }
+          ]
+
+          const gen = sagas.getSearchFormDefinition(entityName)
+          expect(gen.next().value).to.eql(call(sagas.fetchSearchForm, entityName + '_search'))
+          expect(gen.next(jsonArr).value).to.eql(result)
+          expect(gen.next().done).to.deep.equal(true)
+        })
+      })
+
+      describe('requestColumnDefinition saga', () => {
+        it('should create the column definition', () => {
+          const entityName = 'User'
+          const gen = sagas.requestColumnDefinition(entityName)
+
+          const tableData = {
+            children: [
+              {
+                displayType: 'EDITABLE',
+                label: 'label1',
+                children: [{name: 'name1', type: 'type', displayType: 'EDITABLE', label: 'label'}]
+              }, {
+                displayType: 'HIDDEN',
+                label: 'label2',
+                children: [{name: 'name2', type: 'type', displayType: 'HIDDEN', label: 'label'}]
+              }, {
+                displayType: 'EDITABLE',
+                label: 'label3',
+                children: [{name: 'custom:name3', type: 'type', displayType: 'EDITABLE', label: 'label'}]
+              }, {
+                displayType: 'EDITABLE',
+                label: 'label4',
+                children: [{
+                  name: 'name4',
+                  type: 'ch.tocco.nice2.model.form.components.action.Action',
+                  displayType: 'EDITABLE',
+                  label: 'label'
+                }]
+              }, {
+                displayType: 'EDITABLE',
+                label: 'label5',
+                children: [{name: 'name5', type: 'type', displayType: 'EDITABLE', label: 'label'}]
+              }
+            ]
+          }
+
+          const result = [
+            {label: 'label1', value: ['name1']},
+            {label: 'label3', value: []},
+            {label: 'label4', value: []},
+            {label: 'label5', value: ['name5']}
+          ]
+
+          expect(gen.next().value).to.eql(call(sagas.fetchForm, entityName + '_list', 'table'))
+          expect(gen.next(tableData).value).to.eql(result)
+          expect(gen.next().done).to.deep.equal(true)
+        })
+      })
     })
   })
 })

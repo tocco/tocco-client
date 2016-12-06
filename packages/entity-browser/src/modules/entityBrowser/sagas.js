@@ -123,7 +123,7 @@ export function fetchRecordCount(entityName) {
     .then(json => json.count)
 }
 
-function fetchForm(formName, formType) {
+export function fetchForm(formName, formType) {
   return fetchRequest(`forms/${formName}`)
     .then(resp => resp.json())
     .then(json => {
@@ -147,7 +147,7 @@ export function* requestColumnDefinition(entityName) {
   }))
 }
 
-function fetchSearchForm(formName) {
+export function fetchSearchForm(formName) {
   return fetchRequest(`forms/${formName}`)
     .then(resp => resp.json())
     .then(json => {
