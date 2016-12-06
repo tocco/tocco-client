@@ -10,6 +10,7 @@ export class EntityBrowser extends React.Component {
   }
 
   onOrderByChange = orderBy => {
+    console.log(orderBy)
     this.props.setOrderBy(orderBy)
   }
 
@@ -53,15 +54,15 @@ export class EntityBrowser extends React.Component {
 EntityBrowser.propTypes = {
   initializeTable: React.PropTypes.func.isRequired,
   changePage: React.PropTypes.func.isRequired,
-  records: React.PropTypes.array,
+  records: React.PropTypes.array.isRequired,
+  searchFormDefinition: React.PropTypes.array.isRequired,
+  orderBy: React.PropTypes.object.isRequired,
+  setSearchTerm: React.PropTypes.func.isRequired,
   currentPage: React.PropTypes.number,
   limit: React.PropTypes.number,
-  searchFormDefinition: React.PropTypes.array,
   columnDefinitions: React.PropTypes.array,
   recordCount: React.PropTypes.number,
   setOrderBy: React.PropTypes.func,
-  orderBy: React.PropTypes.object.isRequired,
   resetDataSet: React.PropTypes.func,
-  recordRequestInProgress: React.PropTypes.bool,
-  setSearchTerm: React.PropTypes.func
+  recordRequestInProgress: React.PropTypes.bool
 }
