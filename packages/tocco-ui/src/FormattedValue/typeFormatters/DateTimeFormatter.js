@@ -1,10 +1,10 @@
 import React from 'react'
 import {FormattedDate} from 'react-intl'
 
-const DateFormatter = props => {
+const DateTimeFormatter = props => {
   const timestamp = Date.parse(props.value)
   if (isNaN(timestamp)) {
-    console.error('DateFormatter: Invalid date', props.value)
+    console.error('DateTimeFormatter: Invalid date', props.value)
     return <span/>
   }
 
@@ -14,14 +14,16 @@ const DateFormatter = props => {
     <FormattedDate
       value={date}
       year="numeric"
-      month="short"
+      month="numeric"
       day="2-digit"
+      hour="2-digit"
+      minute="2-digit"
     />
   )
 }
 
-DateFormatter.propTypes = {
+DateTimeFormatter.propTypes = {
   value: React.PropTypes.string.isRequired
 }
 
-export default DateFormatter
+export default DateTimeFormatter

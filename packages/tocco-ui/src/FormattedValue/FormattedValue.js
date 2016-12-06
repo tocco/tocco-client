@@ -20,21 +20,32 @@ FormattedValue.propTypes = {
    */
   type: React.PropTypes.oneOf([
     'string',
+    'char',
+    'text',
+    'short',
+    'integer',
+    'long',
+    'decimal',
+    'double',
     'phone',
     'counter',
-    'number',
-    'text',
     'url',
     'date',
     'birthdate',
+    'datetime',
+    'time',
+    'duration',
     'email',
     'moneyamount',
-    'boolean'
+    'boolean',
+    'latitude',
+    'longitude'
   ]).isRequired,
   /**
    * Value that should be formatted
    */
-  value: React.PropTypes.node.isRequired
+  value: React.PropTypes.any.isRequired
 }
 
 export default FormattedValue
+
