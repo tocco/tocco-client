@@ -29,7 +29,6 @@ class Example extends React.Component {
 
   changeLocale(locale) {
     this.setState({locale})
-    console.log('ok')
   }
 
   render() {
