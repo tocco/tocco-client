@@ -1,5 +1,5 @@
 import React from 'react'
-import {FormattedDate} from 'react-intl'
+import {FormattedDate, FormattedTime} from 'react-intl'
 
 const DateTimeFormatter = props => {
   const timestamp = Date.parse(props.value)
@@ -11,14 +11,17 @@ const DateTimeFormatter = props => {
   const date = new Date(timestamp)
 
   return (
-    <FormattedDate
+    <span>
+      <FormattedDate
+        value={date}
+        year="numeric"
+        month="numeric"
+        day="2-digit"
+    />,&nbsp;
+    <FormattedTime
       value={date}
-      year="numeric"
-      month="numeric"
-      day="2-digit"
-      hour="2-digit"
-      minute="2-digit"
     />
+    </span>
   )
 }
 

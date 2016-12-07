@@ -1,5 +1,5 @@
 import React from 'react'
-import {FormattedDate} from 'react-intl'
+import {FormattedTime} from 'react-intl'
 
 const TimeFormatter = props => {
   const hours = parseInt(props.value.value.hourOfDay || 0)
@@ -10,10 +10,8 @@ const TimeFormatter = props => {
   const date = new Date(2000, 1, 1, hours, minutes, seconds, milliSeconds)
 
   return (
-    <FormattedDate
+    <FormattedTime
       value={date}
-      hour="2-digit"
-      minute="2-digit"
     />
   )
 }

@@ -1,6 +1,5 @@
 import React from 'react'
 
-// {"username":"ek"}
 const LoginFormatter = props => (
   <span>{props.value.username}</span>
 )

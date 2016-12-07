@@ -23,11 +23,10 @@ export default (type, value) => {
   return <div/>
 }
 
-// link, uuid
-
 const map = {
   'string': StringFormatter,
   'char': StringFormatter,
+  'uuid': StringFormatter,
 
   'text': TextFormatter,
 
