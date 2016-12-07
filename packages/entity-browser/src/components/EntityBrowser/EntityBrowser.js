@@ -17,14 +17,15 @@ export class EntityBrowser extends React.Component {
     this.props.changePage(page)
   }
 
-  cellRenderer = (v, r) => {
-    // temporary solution. Should display combined values as well
-    if (v.length > 0) {
-      return <ToccoUI.FormattedValue type={v[0].type} value={v[0].value}/>
-    } else {
-      return <span/>
-    }
-  }
+  cellRenderer = (values, r) => (
+    <span>
+      {
+        values.map((v, idx) => {
+          return <ToccoUI.FormattedValue key={idx} type={v.type} value={v.value}/>
+        })
+      }
+    </span>
+  )
 
   render() {
     const props = this.props
