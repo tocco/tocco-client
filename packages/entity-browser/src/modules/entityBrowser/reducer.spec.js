@@ -26,9 +26,8 @@ describe('entity-browser', () => {
         it('should handle CLEAR_RECORD_STORE', () => {
           const stateBefore = {
             recordStore: {
-              page: 1,
               records: {
-                data: 'data'
+                1: [{}]
               }
             }
           }
@@ -137,10 +136,10 @@ describe('entity-browser', () => {
         })
 
         it('should handle SET_SEARCH_TERM', () => {
-          const newSearchTerm = '_search=New_search_term'
+          const newSearchTerm = 'New_search_term'
 
           const stateBefore = {
-            searchTerm: '_search=Old_search_term'
+            searchTerm: 'Old_search_term'
           }
 
           const expectedStateAfter = {

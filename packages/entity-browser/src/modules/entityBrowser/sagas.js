@@ -1,6 +1,7 @@
 import {takeEvery, takeLatest} from 'redux-saga'
 import {call, put, fork, select, spawn} from 'redux-saga/effects'
 import * as actions from './actions'
+import {fetchRequest} from './fetches'
 
 export const entityBrowserSelector = state => state.entityBrowser
 
@@ -76,32 +77,6 @@ export function* resetDataSet() {
   yield put(actions.clearRecordStore())
 
   yield call(changePage, {payload: {page: 1}})
-}
-
-const getParameterString = params => {
-  const paramString = Object.keys(params || [])
-    .filter(k => !!params[k])
-    .sort()
-    .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`).join('&')
-  if (paramString) {
-    return `?${paramString}`
-  }
-  return ''
-}
-
-const fetchRequest = (resource, params) => {
-  const options = {
-    method: 'GET',
-
-    headers: new Headers({
-      'Content-Type': 'application/json'
-    }),
-    credentials: 'include'
-  }
-
-  const paramString = getParameterString(params)
-
-  return fetch(`${__BACKEND_URL__}/nice2/rest/${resource}${paramString}`, options)
 }
 
 export function fetchRecords(entityName, page, orderBy, limit, searchTerm) {

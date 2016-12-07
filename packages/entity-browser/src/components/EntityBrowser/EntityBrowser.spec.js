@@ -1,6 +1,6 @@
 import React from 'react'
 import {EntityBrowser} from './EntityBrowser'
-import {SearchForm} from './SearchForm'
+import {SearchForm} from './../SearchForm'
 import * as ToccoUI from 'tocco-ui'
 
 import {mount, shallow} from 'enzyme'
@@ -45,8 +45,15 @@ describe('entity-browser', () => {
         expect(changePage).to.have.calledOnce
       })
 
-      it('should handle records', () => {
+      it('should pass properties to the ToccoUI.Table component', () => {
         const records = ['my', 'records']
+        const orderBy = {
+          name: 'name',
+          direction: 'asc'
+        }
+        const columnDefinitions = ['my', 'column', 'definition']
+        const recordRequestInProgress = true
+        const orderByChange = sinon.spy()
 
         const wrapper = shallow(<EntityBrowser
           initializeTable={EMPTY_FUNC}
@@ -54,10 +61,18 @@ describe('entity-browser', () => {
           setSearchTerm={EMPTY_FUNC}
           records={records}
           searchFormDefinition={[]}
-          orderBy={{}}
+          orderBy={orderBy}
+          columnDefinitions={columnDefinitions}
+          recordRequestInProgress={recordRequestInProgress}
+          setOrderBy={orderByChange}
         />)
 
         expect(wrapper.find(ToccoUI.Table).props().records).to.eql(records)
+        expect(wrapper.find(ToccoUI.Table).props().orderBy).to.eql(orderBy)
+        expect(wrapper.find(ToccoUI.Table).props().columnDefinitions).to.eql(columnDefinitions)
+        expect(wrapper.find(ToccoUI.Table).props().loading).to.eql(recordRequestInProgress)
+        wrapper.find(ToccoUI.Table).simulate('orderByChange')
+        expect(orderByChange).to.have.calledOnce
       })
 
       it('should handle the searchFormDefinition', () => {
@@ -74,25 +89,6 @@ describe('entity-browser', () => {
         />)
 
         expect(wrapper.find(SearchForm).props().formDefinition).to.eql(searchFormDefinition)
-      })
-
-      it('should handle orderBy', () => {
-        const orderBy = {
-          name: 'name',
-          direction: 'asc'
-        }
-
-        const wrapper = shallow(<EntityBrowser
-          initializeTable={EMPTY_FUNC}
-          changePage={EMPTY_FUNC}
-          setOrderBy={EMPTY_FUNC}
-          setSearchTerm={EMPTY_FUNC}
-          records={[]}
-          searchFormDefinition={[]}
-          orderBy={orderBy}
-        />)
-
-        expect(wrapper.find(ToccoUI.Table).props().orderBy).to.eql(orderBy)
       })
 
       it('should handle currentPage', () => {
@@ -129,23 +125,6 @@ describe('entity-browser', () => {
         expect(wrapper.find(ToccoUI.Pagination).props().recordsPerPage).to.eql(limit)
       })
 
-      it('should handle columnDefinition', () => {
-        const columnDefinitions = ['my', 'column', 'definition']
-
-        const wrapper = shallow(<EntityBrowser
-          initializeTable={EMPTY_FUNC}
-          changePage={EMPTY_FUNC}
-          setOrderBy={EMPTY_FUNC}
-          setSearchTerm={EMPTY_FUNC}
-          records={[]}
-          searchFormDefinition={[]}
-          orderBy={{}}
-          columnDefinitions={columnDefinitions}
-        />)
-
-        expect(wrapper.find(ToccoUI.Table).props().columnDefinitions).to.eql(columnDefinitions)
-      })
-
       it('should handle recordCount', () => {
         const recordCount = 1234
 
@@ -163,23 +142,6 @@ describe('entity-browser', () => {
         expect(wrapper.find(ToccoUI.Pagination).props().totalRecords).to.eql(recordCount)
       })
 
-      it('should call onOrderByChange', () => {
-        const orderByChange = sinon.spy()
-
-        const wrapper = shallow(<EntityBrowser
-          initializeTable={EMPTY_FUNC}
-          changePage={EMPTY_FUNC}
-          setOrderBy={orderByChange}
-          setSearchTerm={EMPTY_FUNC}
-          records={[]}
-          searchFormDefinition={[]}
-          orderBy={{}}
-        />)
-
-        wrapper.find(ToccoUI.Table).simulate('orderByChange')
-        expect(orderByChange).to.have.calledOnce
-      })
-
       it('should call resetDataSet', () => {
         const reset = sinon.spy()
 
@@ -195,23 +157,6 @@ describe('entity-browser', () => {
 
         wrapper.find('button').simulate('click')
         expect(reset).to.have.calledOnce
-      })
-
-      it('should handle recordRequestInProgress', () => {
-        const recordRequestInProgress = true
-
-        const wrapper = shallow(<EntityBrowser
-          initializeTable={EMPTY_FUNC}
-          changePage={EMPTY_FUNC}
-          setOrderBy={EMPTY_FUNC}
-          setSearchTerm={EMPTY_FUNC}
-          records={[]}
-          searchFormDefinition={[]}
-          orderBy={{}}
-          recordRequestInProgress={recordRequestInProgress}
-        />)
-
-        expect(wrapper.find(ToccoUI.Table).props().loading).to.eql(recordRequestInProgress)
       })
     })
   })

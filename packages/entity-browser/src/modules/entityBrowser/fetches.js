@@ -1,0 +1,25 @@
+const getParameterString = params => {
+  const paramString = Object.keys(params || [])
+    .filter(k => !!params[k])
+    .sort()
+    .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`).join('&')
+  if (paramString) {
+    return `?${paramString}`
+  }
+  return ''
+}
+
+export const fetchRequest = (resource, params) => {
+  const options = {
+    method: 'GET',
+
+    headers: new Headers({
+      'Content-Type': 'application/json'
+    }),
+    credentials: 'include'
+  }
+
+  const paramString = getParameterString(params)
+
+  return fetch(`${__BACKEND_URL__}/nice2/rest/${resource}${paramString}`, options)
+}

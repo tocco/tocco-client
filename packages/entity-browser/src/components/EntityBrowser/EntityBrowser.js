@@ -1,7 +1,7 @@
 import React from 'react'
 import * as ToccoUI from 'tocco-ui'
 import './styles.scss'
-import {SearchForm} from './SearchForm'
+import {SearchForm} from './../SearchForm'
 
 export class EntityBrowser extends React.Component {
   constructor(props) {
@@ -10,7 +10,6 @@ export class EntityBrowser extends React.Component {
   }
 
   onOrderByChange = orderBy => {
-    console.log(orderBy)
     this.props.setOrderBy(orderBy)
   }
 
