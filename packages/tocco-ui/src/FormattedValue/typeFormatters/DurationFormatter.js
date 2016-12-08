@@ -2,7 +2,7 @@ import React from 'react'
 import {FormattedDate} from 'react-intl'
 
 const DurationFormatter = props => {
-  const milliSeconds = parseInt(props.value || 0)
+  const milliSeconds = parseInt(props.value) || 0
 
   const date = new Date(2000, 1, 1, 0, 0, 0, milliSeconds)
 

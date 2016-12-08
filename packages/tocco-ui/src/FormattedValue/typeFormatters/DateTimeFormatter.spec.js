@@ -36,7 +36,7 @@ describe('tocco-ui', function() {
         expect(wrapper.text()).to.not.equal('')
       })
 
-      it('should not format unvalid date', function() {
+      it('should not format invalid date', function() {
         const wrapper = mount(<IntlProvider locale="de"><DateTimeFormatter
           value="abc123"/></IntlProvider>)
         expect(wrapper.html()).to.equal('<span></span>')
