@@ -1,6 +1,6 @@
 import React from 'react'
 
-const DateFormatter = props => {
+const BooleanFormatter = props => {
   if (typeof props.value === 'undefined') {
     return <span/>
   }
@@ -12,8 +12,8 @@ const DateFormatter = props => {
   )
 }
 
-DateFormatter.propTypes = {
-  value: React.PropTypes.boolean
+BooleanFormatter.propTypes = {
+  value: React.PropTypes.bool
 }
 
-export default DateFormatter
+export default BooleanFormatter

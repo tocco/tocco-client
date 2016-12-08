@@ -111,6 +111,40 @@
             "useLabel": "YES"
           },
           {
+            "name": "birthdate",
+            "type": "ch.tocco.nice2.model.form.components.table.Column",
+            "displayType": "EDITABLE",
+            "children": [
+              {
+                "name": "birthdate",
+                "type": "ch.tocco.nice2.model.form.components.simple.BirthdateField",
+                "displayType": "EDITABLE",
+                "children": [],
+                "label": "Geburi",
+                "useLabel": "YES"
+              }
+            ],
+            "label": "Geburi",
+            "useLabel": "YES"
+          },
+          {
+            "name": "salary",
+            "type": "ch.tocco.nice2.model.form.components.table.Column",
+            "displayType": "EDITABLE",
+            "children": [
+              {
+                "name": "salary",
+                "type": "ch.tocco.nice2.model.form.components.simple.MoneyAmountField",
+                "displayType": "EDITABLE",
+                "children": [],
+                "label": "Lohn",
+                "useLabel": "YES"
+              }
+            ],
+            "label": "Lohn",
+            "useLabel": "YES"
+          },
+          {
             "name": "relUser_status",
             "type": "ch.tocco.nice2.model.form.components.table.Column",
             "displayType": "EDITABLE",
@@ -145,37 +179,37 @@
             "useLabel": "YES"
           },
           {
-            "name": "phone_private",
+            "name": "publish",
             "type": "ch.tocco.nice2.model.form.components.table.Column",
             "displayType": "EDITABLE",
             "children": [
               {
-                "name": "phone_private",
-                "type": "ch.tocco.nice2.model.form.components.simple.PhoneField",
+                "name": "publish",
+                "type": "ch.tocco.nice2.model.form.components.simple.BooleanField",
                 "displayType": "EDITABLE",
                 "children": [],
-                "label": "Telefon P",
+                "label": "Publiziert",
                 "useLabel": "YES"
               }
             ],
-            "label": "Telefon P",
+            "label": "Publiziert",
             "useLabel": "YES"
           },
           {
-            "name": "phone_mobile",
+            "name": "website",
             "type": "ch.tocco.nice2.model.form.components.table.Column",
             "displayType": "EDITABLE",
             "children": [
               {
-                "name": "phone_mobile",
-                "type": "ch.tocco.nice2.model.form.components.simple.PhoneField",
+                "name": "website",
+                "type": "ch.tocco.nice2.model.form.components.simple.WebsiteField",
                 "displayType": "EDITABLE",
                 "children": [],
-                "label": "Telefon M",
+                "label": "Webseite",
                 "useLabel": "YES"
               }
             ],
-            "label": "Telefon M",
+            "label": "Webseite",
             "useLabel": "YES"
           },
           {
