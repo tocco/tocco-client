@@ -1,3 +1,5 @@
+import _union from 'lodash/union'
+
 export const getParameterString = params => {
   const paramString = Object.keys(params || [])
     .filter(k => !!params[k])
@@ -24,17 +26,38 @@ const fetchRequest = (resource, params) => {
   return fetch(`${__BACKEND_URL__}/nice2/rest/${resource}${paramString}`, options)
 }
 
-export function fetchRecords(entityName, page, orderBy, limit, searchTerm) {
+const pathMagic = columnDefinition => {
+  return _union(...columnDefinition.map(field => (field.value))).join(',')
+}
+
+export function fetchRecords(entityName, page, orderBy, limit, searchTerm, columnDefinition) {
   const params = {
     '_sort': Object.keys(orderBy).length === 2 ? `${orderBy.name} ${orderBy.direction}` : undefined,
     '_limit': limit,
     '_offset': (page - 1) * limit,
-    '_search': searchTerm
+    '_search': searchTerm,
+    '_path': pathMagic(columnDefinition)
   }
 
   return fetchRequest(`entities/${entityName}`, params)
     .then(resp => resp.json())
-    .then(json => json.data.map(e => e.fields))
+    .then(json => json.data.map(entity => {
+      const result = {}
+      const paths = entity.paths
+      for (let path in paths) {
+        const type = paths[path].type
+        if (type === 'field') {
+          result[path] = paths[path].value
+        } else if (type === 'entity') {
+          result[path] = {
+            type: 'string',
+            value: paths[path].value.display
+          }
+        }
+      }
+
+      return result
+    }))
 }
 
 export function fetchRecordCount(entityName) {

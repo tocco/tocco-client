@@ -84,12 +84,14 @@ describe('entity-browser', () => {
 
           it('should add records to store', () => {
             const state = generateState({}, 1)
-            const {entityName, page, orderBy, limit, searchTerm} = state
+            const {entityName, page, orderBy, limit, searchTerm, columnDefinition} = state
 
             const gen = sagas.fetchRecordsAndAddToStore(1)
 
             expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
-            expect(gen.next(state).value).to.eql(call(api.fetchRecords, entityName, page, orderBy, limit, searchTerm))
+            expect(gen.next(state).value).to.eql(call(
+              api.fetchRecords, entityName, page, orderBy, limit, searchTerm, columnDefinition
+            ))
             expect(gen.next().value).to.eql(put(actions.addRecordsToStore(page, undefined)))
             expect(gen.next().done).to.be.true
           })

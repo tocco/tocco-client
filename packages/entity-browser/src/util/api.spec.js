@@ -46,10 +46,11 @@ describe('entity-browser', () => {
           fetchMock.reset()
           fetchMock.get('*', {data: [{fields: {a: 'a'}}]})
 
-          api.fetchRecords('User', 2, 'firstname', 20, 'test').then(() => {
+          const columneDefinition = [{label: 'l1', value: ['f1', 'f2']}, {label: 'l1', value: ['f2']}]
+          api.fetchRecords('User', 2, 'firstname', 20, 'test', columneDefinition).then(() => {
             expect(fetchMock.calls().matched).to.have.length(1)
             const lastCall = fetchMock.lastCall()[0]
-            expect(lastCall).to.eql('/nice2/rest/entities/User?_limit=20&_offset=20&_search=test')
+            expect(lastCall).to.eql('/nice2/rest/entities/User?_limit=20&_offset=20&_path=f1%2Cf2&_search=test')
             done()
           })
         })
@@ -63,20 +64,6 @@ describe('entity-browser', () => {
             expect(fetchMock.calls().matched).to.have.length(1)
             const lastCallUrl = fetchMock.lastCall()[0]
             expect(lastCallUrl).to.eql('/nice2/rest/entities/User/count')
-            done()
-          })
-        })
-      })
-
-      describe('fetchSearchForm', () => {
-        it('should call fetch', done => {
-          fetchMock.reset()
-          fetchMock.get('*', {data: [{fields: {a: 'a'}}]})
-
-          api.fetchRecords('User', 2, 'firstname', 20, 'test').then(() => {
-            expect(fetchMock.calls().matched).to.have.length(1)
-            const lastCall = fetchMock.lastCall()[0]
-            expect(lastCall).to.eql('/nice2/rest/entities/User?_limit=20&_offset=20&_search=test')
             done()
           })
         })

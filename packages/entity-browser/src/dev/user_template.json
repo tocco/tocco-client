@@ -2,415 +2,147 @@
   "key": "1",
   "model": "User",
   "version": 3,
-  "fields": {
+  "paths": {
     "firstname": {
-      "value": "Daniel",
-      "type": "string",
-      "readable": true,
-      "writable": true
+      "type": "field",
+      "value": {
+        "value": "fistname",
+        "type": "string",
+        "readable": true,
+        "writable": true
+      }
     },
     "lastname": {
-      "value": "Keller",
-      "type": "string",
-      "readable": true,
-      "writable": true
+      "type": "field",
+      "value": {
+        "value": "lastname",
+        "type": "string",
+        "readable": true,
+        "writable": true
+      }
     },
     "email": {
-      "value": "dkeller@tocco.ch",
-      "type": "email",
-      "readable": true,
-      "writable": true
+      "type": "field",
+      "value": {
+        "value": "mail@tocco.ch",
+        "type": "email",
+        "readable": true,
+        "writable": true
+      }
     },
     "user_nr": {
-      "value": 110,
-      "type": "counter",
-      "readable": true,
-      "writable": false
-    },
-    "callname": {
-      "value": "dake",
-      "type": "string",
-      "readable": true,
-      "writable": true
-    },
-    "other_title": {
-      "value": "",
-      "type": "string",
-      "readable": true,
-      "writable": true
+      "type": "field",
+      "value": {
+        "value": 110,
+        "type": "counter",
+        "readable": true,
+        "writable": false
+      }
     },
     "birthdate": {
-      "value": "1988-11-22",
-      "type": "birthdate",
-      "readable": true,
-      "writable": true
-    },
-    "abbreviation": {
-      "value": "",
-      "type": "string",
-      "readable": true,
-      "writable": true
-    },
-    "email_alternative": {
-      "value": "",
-      "type": "email",
-      "readable": true,
-      "writable": true
+      "type": "field",
+      "value": {
+        "value": "1988-11-22",
+        "type": "birthdate",
+        "readable": true,
+        "writable": true
+      }
     },
     "phone_company": {
-      "value": "0444005555",
-      "type": "phone",
-      "readable": true,
-      "writable": true
-    },
-    "phone_private": {
-      "value": "+41716884523",
-      "type": "phone",
-      "readable": true,
-      "writable": true
-    },
-    "phone_mobile": {
-      "value": "",
-      "type": "phone",
-      "readable": true,
-      "writable": true
-    },
-    "fax": {
-      "value": "",
-      "type": "phone",
-      "readable": true,
-      "writable": true
+      "type": "field",
+      "value": {
+        "value": "41716884523",
+        "type": "phone",
+        "readable": true,
+        "writable": true
+      }
     },
     "website": {
-      "value": "http://www.google.ch",
-      "type": "url",
-      "readable": true,
-      "writable": true
-    },
-    "ahv_nr": {
-      "value": "123456789",
-      "type": "string",
-      "readable": true,
-      "writable": true
-    },
-    "social_security_nr": {
-      "value": "",
-      "type": "string",
-      "readable": true,
-      "writable": true
+      "type": "field",
+      "value": {
+        "value": "http://www.google.ch",
+        "type": "url",
+        "readable": true,
+        "writable": true
+      }
     },
     "profession": {
-      "value": "",
-      "type": "string",
-      "readable": true,
-      "writable": true
-    },
-    "job": {
-      "value": "",
-      "type": "string",
-      "readable": true,
-      "writable": true
-    },
-    "hometown": {
-      "value": "",
-      "type": "string",
-      "readable": true,
-      "writable": true
-    },
-    "hometown2": {
-      "value": "",
-      "type": "string",
-      "readable": true,
-      "writable": true
-    },
-    "bank_account": {
-      "value": "",
-      "type": "string",
-      "readable": true,
-      "writable": true
-    },
-    "bank_sort_code": {
-      "value": "",
-      "type": "string",
-      "readable": true,
-      "writable": true
-    },
-    "account_nr": {
-      "value": "",
-      "type": "string",
-      "readable": true,
-      "writable": true
-    },
-    "iban_nr": {
-      "value": "",
-      "type": "string",
-      "readable": true,
-      "writable": true
+      "type": "field",
+      "value": {
+        "value": "",
+        "type": "string",
+        "readable": true,
+        "writable": true
+      }
     },
     "spouse": {
-      "value": "This is a long text\nwith newline\nother new line",
-      "type": "text",
-      "readable": true,
-      "writable": true
-    },
-    "children": {
-      "value": "",
-      "type": "text",
-      "readable": true,
-      "writable": true
-    },
-    "comment": {
-      "value": "",
-      "type": "text",
-      "readable": true,
-      "writable": true
-    },
-    "c_address": {
-      "value": "",
-      "type": "text",
-      "readable": true,
-      "writable": false
-    },
-    "b_address": {
-      "value": "",
-      "type": "text",
-      "readable": true,
-      "writable": false
+      "type": "field",
+      "value": {
+        "value": "This is a long text\nwith newline\nother new line",
+        "type": "text",
+        "readable": true,
+        "writable": true
+      }
     },
     "publish": {
-      "value": true,
-      "type": "boolean",
-      "readable": true,
-      "writable": true
-    },
-    "publish_detail": {
-      "value": false,
-      "type": "boolean",
-      "readable": true,
-      "writable": true
-    },
-    "best_reached": {
-      "value": "",
-      "type": "string",
-      "readable": true,
-      "writable": true
+      "type": "field",
+      "value": {
+        "value": true,
+        "type": "boolean",
+        "readable": true,
+        "writable": true
+      }
     },
     "detail_picture": {
-      "value": null,
-      "type": "document",
-      "readable": true,
-      "writable": true
-    },
-    "other_language": {
-      "value": "",
-      "type": "string",
-      "readable": true,
-      "writable": true
-    },
-    "preview_picture": {
-      "value": null,
-      "type": "document",
-      "readable": true,
-      "writable": true
-    },
-    "signature": {
-      "value": "",
-      "type": "text",
-      "readable": true,
-      "writable": true
+      "type": "field",
+      "value": {
+        "value": null,
+        "type": "document",
+        "readable": true,
+        "writable": true
+      }
     },
     "entrance": {
-      "value": null,
-      "type": "date",
-      "readable": true,
-      "writable": false
-    },
-    "exit": {
-      "value": null,
-      "type": "date",
-      "readable": true,
-      "writable": false
-    },
-    "personnel_number": {
-      "value": "18628461621",
-      "type": "string",
-      "readable": true,
-      "writable": true
-    },
-    "instructor_id": {
-      "value": "",
-      "type": "string",
-      "readable": true,
-      "writable": true
-    },
-    "learner_nr": {
-      "value": "",
-      "type": "string",
-      "readable": true,
-      "writable": true
-    },
-    "contract_nr": {
-      "value": "",
-      "type": "string",
-      "readable": true,
-      "writable": true
-    },
-    "apprenticeship_start_date": {
-      "value": null,
-      "type": "date",
-      "readable": true,
-      "writable": true
-    },
-    "apprenticeship_end_date": {
-      "value": null,
-      "type": "date",
-      "readable": true,
-      "writable": true
-    },
-    "class": {
-      "value": "",
-      "type": "string",
-      "readable": true,
-      "writable": true
-    },
-    "bms": {
-      "value": "",
-      "type": "string",
-      "readable": true,
-      "writable": true
+      "type": "field",
+      "value": {
+        "value": null,
+        "type": "date",
+        "readable": true,
+        "writable": false
+      }
     },
     "salary": {
-      "value": "1000.00",
-      "type": "moneyamount",
-      "readable": true,
-      "writable": true
+      "type": "field",
+      "value": {
+        "value": "1000.00",
+        "type": "moneyamount",
+        "readable": true,
+        "writable": true
+      }
+    },
+    "relUser_status": {
+      "type": "entity",
+      "value": {
+        "key": "1",
+        "model": "User_status",
+        "version": 3,
+        "display": "Aktiv",
+        "fields": {},
+        "singleRelations": [],
+        "multiRelations": []
+      }
+    },
+    "relGender": {
+      "type": "entity",
+      "value": {
+        "key": "1",
+        "model": "Gender",
+        "version": 3,
+        "display": "Männlich",
+        "fields": {},
+        "singleRelations": [],
+        "multiRelations": []
+      }
     }
-  },
-  "singleRelations": [
-    {
-      "entityModel": "User",
-      "entityKey": "6",
-      "name": "relCorrespondence_language",
-      "entities": [
-        {
-          "key": "3",
-          "model": "Correspondence_language",
-          "version": 2,
-          "fields": {},
-          "singleRelations": [],
-          "multiRelations": []
-        }
-      ],
-      "readable": true,
-      "writable": true
-    },
-    {
-      "entityModel": "User",
-      "entityKey": "6",
-      "name": "relMeals",
-      "entities": [],
-      "readable": true,
-      "writable": true
-    },
-    {
-      "entityModel": "User",
-      "entityKey": "6",
-      "name": "relSubvention_canton",
-      "entities": [],
-      "readable": true,
-      "writable": true
-    },
-    {
-      "entityModel": "User",
-      "entityKey": "6",
-      "name": "relApprenticeship_current_year",
-      "entities": [],
-      "readable": true,
-      "writable": true
-    },
-    {
-      "entityModel": "User",
-      "entityKey": "6",
-      "name": "relGender",
-      "entities": [
-        {
-          "key": "1",
-          "model": "Gender",
-          "version": 3,
-          "fields": {},
-          "singleRelations": [],
-          "multiRelations": []
-        }
-      ],
-      "readable": true,
-      "writable": true
-    },
-    {
-      "entityModel": "User",
-      "entityKey": "6",
-      "name": "relUser_status",
-      "entities": [
-        {
-          "key": "1",
-          "model": "User_status",
-          "version": 3,
-          "fields": {},
-          "singleRelations": [],
-          "multiRelations": []
-        }
-      ],
-      "readable": true,
-      "writable": true
-    },
-    {
-      "entityModel": "User",
-      "entityKey": "6",
-      "name": "relLearner_status",
-      "entities": [],
-      "readable": true,
-      "writable": true
-    },
-    {
-      "entityModel": "User",
-      "entityKey": "6",
-      "name": "relAcademic_title",
-      "entities": [],
-      "readable": true,
-      "writable": true
-    },
-    {
-      "entityModel": "User",
-      "entityKey": "6",
-      "name": "relJob_variant",
-      "entities": [],
-      "readable": true,
-      "writable": true
-    },
-    {
-      "entityModel": "User",
-      "entityKey": "6",
-      "name": "relAddress_c",
-      "entities": [],
-      "readable": true,
-      "writable": true
-    }
-  ],
-  "multiRelations": [
-    {
-      "entityModel": "User",
-      "entityKey": "6",
-      "name": "relUser_newsletter_category",
-      "entities": [],
-      "readable": true,
-      "writable": true
-    },
-    {
-      "entityModel": "User",
-      "entityKey": "6",
-      "name": "relSpecialcase",
-      "entities": [],
-      "readable": true,
-      "writable": true
-    }
-  ]
+  }
 }

@@ -21,8 +21,10 @@ export class EntityBrowser extends React.Component {
     <span>
       {
         values.map((v, idx) => {
-          return <ToccoUI.FormattedValue key={idx} type={v.type} value={v.value}/>
-        })
+          return (
+            <ToccoUI.FormattedValue key={idx} type={v.type} value={v.value}/>
+          )
+        }).reduce((prev, curr) => [prev, ', ', curr])
       }
     </span>
   )

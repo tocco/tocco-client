@@ -24,10 +24,10 @@ export function* changePage({payload}) {
 
 export function* fetchRecordsAndAddToStore(page) {
   const entityBrowser = yield select(entityBrowserSelector)
-  const {entityName, orderBy, limit, recordStore, searchTerm} = entityBrowser
+  const {entityName, orderBy, limit, recordStore, searchTerm, columnDefinition} = entityBrowser
 
   if (!recordStore[page]) {
-    const records = yield call(api.fetchRecords, entityName, page, orderBy, limit, searchTerm)
+    const records = yield call(api.fetchRecords, entityName, page, orderBy, limit, searchTerm, columnDefinition)
     yield put(actions.addRecordsToStore(page, records))
   }
 }

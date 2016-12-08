@@ -10,39 +10,6 @@
         "displayType": "EDITABLE",
         "children": [
           {
-            "name": "relMark.relMark_definition.label",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "EDITABLE",
-            "children": [
-              {
-                "name": "custom:nice2.marking.MarkProvider",
-                "type": "ch.tocco.nice2.model.form.components.simple.Checkbox",
-                "displayType": "EDITABLE",
-                "children": [],
-                "label": null,
-                "useLabel": "NO"
-              },
-              {
-                "name": "nice2.marking.MarkAction",
-                "type": "ch.tocco.nice2.model.form.components.action.Action",
-                "displayType": "EDITABLE",
-                "children": [],
-                "label": null,
-                "useLabel": "NO"
-              },
-              {
-                "name": "nice2.marking.UnmarkAction",
-                "type": "ch.tocco.nice2.model.form.components.action.Action",
-                "displayType": "EDITABLE",
-                "children": [],
-                "label": null,
-                "useLabel": "NO"
-              }
-            ],
-            "label": "*",
-            "useLabel": "YES"
-          },
-          {
             "name": "user_nr",
             "type": "ch.tocco.nice2.model.form.components.table.Column",
             "displayType": "EDITABLE",
@@ -213,12 +180,12 @@
             "useLabel": "YES"
           },
           {
-            "name": "relAddress_c",
+            "name": "relGender",
             "type": "ch.tocco.nice2.model.form.components.table.Column",
             "displayType": "EDITABLE",
             "children": [
               {
-                "name": "relAddress_c",
+                "name": "relGender",
                 "type": "ch.tocco.nice2.model.form.components.simple.RemoteField",
                 "displayType": "EDITABLE",
                 "children": [],
@@ -226,7 +193,33 @@
                 "useLabel": "YES"
               }
             ],
-            "label": "Korresp.-Adresse",
+            "label": "Geschlecht",
+            "useLabel": "YES"
+          }
+        ,
+          {
+            "name": "fullname",
+            "type": "ch.tocco.nice2.model.form.components.table.Column",
+            "displayType": "EDITABLE",
+            "children": [
+              {
+                "name": "firstname",
+                "type": "ch.tocco.nice2.model.form.components.simple.RemoteField",
+                "displayType": "EDITABLE",
+                "children": [],
+                "label": "Adresse",
+                "useLabel": "YES"
+              },
+              {
+                "name": "lastname",
+                "type": "ch.tocco.nice2.model.form.components.simple.RemoteField",
+                "displayType": "EDITABLE",
+                "children": [],
+                "label": "Adresse",
+                "useLabel": "YES"
+              }
+            ],
+            "label": "Fullname",
             "useLabel": "YES"
           },
           {
@@ -278,6 +271,23 @@
               }
             ],
             "label": "Geschlecht",
+            "useLabel": "YES"
+          },
+          {
+            "name": "fullname",
+            "type": "ch.tocco.nice2.model.form.components.table.Column",
+            "displayType": "HIDDEN",
+            "children": [
+              {
+                "name": "relGender",
+                "type": "ch.tocco.nice2.model.form.components.simple.SingleSelectBox",
+                "displayType": "HIDDEN",
+                "children": [],
+                "label": "Geschlecht",
+                "useLabel": "YES"
+              }
+            ],
+            "label": "Fullname",
             "useLabel": "YES"
           },
           {
