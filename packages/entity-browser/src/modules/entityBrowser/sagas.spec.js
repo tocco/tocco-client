@@ -3,6 +3,7 @@ import {put, select, call, fork, spawn} from 'redux-saga/effects'
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
 import fetchMock from 'fetch-mock'
+import * as api from '../../util/api'
 
 const generateState = (recordStore = {}, page) => ({
   entityName: '',
@@ -13,7 +14,7 @@ const generateState = (recordStore = {}, page) => ({
   page
 })
 
-describe('entityBrowser', () => {
+describe('entity-browser', () => {
   describe('modules', () => {
     describe('entityBrowser', () => {
       describe('sagas', () => {
@@ -75,7 +76,7 @@ describe('entityBrowser', () => {
           it('should not add records to store', () => {
             const gen = sagas.fetchRecordsAndAddToStore(1)
 
-            const state = generateState({ 1: true })
+            const state = generateState({1: true})
 
             expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
             expect(gen.next(state).done).to.be.true
@@ -88,7 +89,7 @@ describe('entityBrowser', () => {
             const gen = sagas.fetchRecordsAndAddToStore(1)
 
             expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
-            expect(gen.next(state).value).to.eql(call(sagas.fetchRecords, entityName, page, orderBy, limit, searchTerm))
+            expect(gen.next(state).value).to.eql(call(api.fetchRecords, entityName, page, orderBy, limit, searchTerm))
             expect(gen.next().value).to.eql(put(actions.addRecordsToStore(page, undefined)))
             expect(gen.next().done).to.be.true
           })
@@ -133,7 +134,7 @@ describe('entityBrowser', () => {
 
             expect(gen.next().value).to.eql(put(actions.setRecords([])))
             expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
-            expect(gen.next(state).value).to.eql(call(sagas.fetchRecordCount, entityName))
+            expect(gen.next(state).value).to.eql(call(api.fetchRecordCount, entityName))
             expect(gen.next(recordCount).value).to.eql(put(actions.setRecordCount(recordCount)))
             expect(gen.next().value).to.eql(put(actions.clearRecordStore()))
             expect(gen.next().value).to.eql(call(sagas.changePage, {payload: {page: 1}}))
@@ -178,7 +179,7 @@ describe('entityBrowser', () => {
             ]
 
             const gen = sagas.getSearchFormDefinition(entityName)
-            expect(gen.next().value).to.eql(call(sagas.fetchSearchForm, entityName + '_search'))
+            expect(gen.next().value).to.eql(call(api.fetchSearchForm, entityName + '_search'))
             expect(gen.next(jsonArr).value).to.eql(result)
             expect(gen.next().done).to.be.true
           })
@@ -227,7 +228,7 @@ describe('entityBrowser', () => {
               {label: 'label5', value: ['name5']}
             ]
 
-            expect(gen.next().value).to.eql(call(sagas.fetchForm, entityName + '_list', 'table'))
+            expect(gen.next().value).to.eql(call(api.fetchForm, entityName + '_list', 'table'))
             expect(gen.next(tableData).value).to.eql(result)
             expect(gen.next().done).to.be.true
           })
@@ -256,20 +257,9 @@ describe('entityBrowser', () => {
               }]
 
             fetchMock.get('*', require('./../../dev/test_user_search.json'))
-            sagas.fetchSearchForm(formName).then(result => {
-              expect(result).to.be.eql(expectedResult)
-              fetchMock.restore()
-              done()
-            })
-          })
-        })
 
-        describe('fetchRecordCount', () => {
-          it('should fetch the record count', done => {
-            const count = 100
-            fetchMock.get('/nice2/rest/entities/User/count', {count: count})
-            sagas.fetchRecordCount('User').then(result => {
-              expect(result).to.be.eql(count)
+            api.fetchSearchForm(formName).then(result => {
+              expect(result).to.be.eql(expectedResult)
               fetchMock.restore()
               done()
             })
