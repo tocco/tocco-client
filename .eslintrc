@@ -24,7 +24,8 @@
     "expect": false,
     "describe": false,
     "sinon": false,
-    "before": false
+    "before": false,
+    "beforeEach": false
   },
   "rules": {
     "semi" : [2, "never"],

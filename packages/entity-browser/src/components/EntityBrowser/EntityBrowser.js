@@ -1,7 +1,7 @@
 import React from 'react'
 import * as ToccoUI from 'tocco-ui'
 import './styles.scss'
-import {SearchForm} from './SearchForm'
+import {SearchForm} from './../SearchForm'
 
 export class EntityBrowser extends React.Component {
   constructor(props) {
@@ -64,15 +64,15 @@ export class EntityBrowser extends React.Component {
 EntityBrowser.propTypes = {
   initializeTable: React.PropTypes.func.isRequired,
   changePage: React.PropTypes.func.isRequired,
-  records: React.PropTypes.array,
+  records: React.PropTypes.array.isRequired,
+  searchFormDefinition: React.PropTypes.array.isRequired,
+  orderBy: React.PropTypes.object.isRequired,
+  setSearchTerm: React.PropTypes.func.isRequired,
   currentPage: React.PropTypes.number,
   limit: React.PropTypes.number,
-  searchFormDefinition: React.PropTypes.array,
   columnDefinitions: React.PropTypes.array,
   recordCount: React.PropTypes.number,
   setOrderBy: React.PropTypes.func,
-  orderBy: React.PropTypes.object.isRequired,
   resetDataSet: React.PropTypes.func,
-  recordRequestInProgress: React.PropTypes.bool,
-  setSearchTerm: React.PropTypes.func
+  recordRequestInProgress: React.PropTypes.bool
 }

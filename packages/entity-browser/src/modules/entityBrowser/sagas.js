@@ -1,6 +1,7 @@
 import {takeEvery, takeLatest} from 'redux-saga'
 import {call, put, fork, select, spawn} from 'redux-saga/effects'
 import * as actions from './actions'
+import * as api from '../../util/api'
 
 export const entityBrowserSelector = state => state.entityBrowser
 
@@ -26,7 +27,7 @@ export function* fetchRecordsAndAddToStore(page) {
   const {entityName, orderBy, limit, recordStore, searchTerm} = entityBrowser
 
   if (!recordStore[page]) {
-    const records = yield call(fetchRecords, entityName, page, orderBy, limit, searchTerm)
+    const records = yield call(api.fetchRecords, entityName, page, orderBy, limit, searchTerm)
     yield put(actions.addRecordsToStore(page, records))
   }
 }
@@ -59,81 +60,16 @@ export function* initializeEntityBrowser() {
   const entityBrowser = yield select(entityBrowserSelector)
   const {entityName} = entityBrowser
 
-  const searchFormDefinition = yield call(getSearchFormDefinition, entityName, '')
-  const columnDefinition = yield call(requestColumnDefinition, entityName, '')
+  const searchFormDefinition = yield call(getSearchFormDefinition, entityName)
+  const columnDefinition = yield call(requestColumnDefinition, entityName)
   yield put(actions.setSearchFormDefinition(searchFormDefinition))
   yield put(actions.setColumnDefinition(columnDefinition))
 
   yield call(resetDataSet)
 }
 
-export function* resetDataSet() {
-  yield put(actions.setRecords([]))
-  const entityBrowser = yield select(entityBrowserSelector)
-  const {entityName} = entityBrowser
-  const recordCount = yield call(fetchRecordCount, entityName)
-  yield put(actions.setRecordCount(recordCount))
-  yield put(actions.clearRecordStore())
-
-  yield call(changePage, {payload: {page: 1}})
-}
-
-const getParameterString = params => {
-  const paramString = Object.keys(params || [])
-    .filter(k => !!params[k])
-    .sort()
-    .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`).join('&')
-  if (paramString) {
-    return `?${paramString}`
-  }
-  return ''
-}
-
-const fetchRequest = (resource, params) => {
-  const options = {
-    method: 'GET',
-
-    headers: new Headers({
-      'Content-Type': 'application/json'
-    }),
-    credentials: 'include'
-  }
-
-  const paramString = getParameterString(params)
-
-  return fetch(`${__BACKEND_URL__}/nice2/rest/${resource}${paramString}`, options)
-}
-
-function fetchRecords(entityName, page, orderBy, limit, searchTerm) {
-  const params = {
-    '_sort': Object.keys(orderBy).length === 2 ? `${orderBy.name} ${orderBy.direction}` : undefined,
-    '_limit': limit,
-    '_offset': (page - 1) * limit,
-    '_search': searchTerm
-  }
-
-  return fetchRequest(`entities/${entityName}`, params)
-    .then(resp => resp.json())
-    .then(json => json.data.map(e => e.fields))
-}
-
-function fetchRecordCount(entityName) {
-  return fetchRequest(`entities/${entityName}/count`)
-    .then(resp => resp.json())
-    .then(json => json.count)
-}
-
-function fetchForm(formName, formType) {
-  return fetchRequest(`forms/${formName}`)
-    .then(resp => resp.json())
-    .then(json => {
-      const {form} = json
-      return form.children.find(child => child.name === formType)
-    })
-}
-
-function* requestColumnDefinition(entityName) {
-  const table = yield call(fetchForm, entityName + '_list', 'table')
+export function* requestColumnDefinition(entityName) {
+  const table = yield call(api.fetchForm, entityName + '_list', 'table')
 
   const columns = table.children.filter(column => column.displayType !== 'HIDDEN')
 
@@ -141,23 +77,14 @@ function* requestColumnDefinition(entityName) {
     label: c.label,
     value: c.children
       .filter(child =>
-        child.type !== 'ch.tocco.nice2.model.form.components.action.Action'
-        && !child.name.startsWith('custom:'))
+      child.type !== 'ch.tocco.nice2.model.form.components.action.Action'
+      && !child.name.startsWith('custom:'))
       .map(child => child.name)
   }))
 }
 
-function fetchSearchForm(formName) {
-  return fetchRequest(`forms/${formName}`)
-    .then(resp => resp.json())
-    .then(json => {
-      const {form} = json
-      return form.children[0].children
-    })
-}
-
-function* getSearchFormDefinition(entityName) {
-  const fields = yield call(fetchSearchForm, entityName + '_search')
+export function* getSearchFormDefinition(entityName) {
+  const fields = yield call(api.fetchSearchForm, entityName + '_search')
   return fields.map(f => ({
     name: f.name,
     type: f.type,
@@ -165,4 +92,15 @@ function* getSearchFormDefinition(entityName) {
     label: f.label,
     useLabel: f.useLabel
   }))
+}
+
+export function* resetDataSet() {
+  yield put(actions.setRecords([]))
+  const entityBrowser = yield select(entityBrowserSelector)
+  const {entityName} = entityBrowser
+  const recordCount = yield call(api.fetchRecordCount, entityName)
+  yield put(actions.setRecordCount(recordCount))
+  yield put(actions.clearRecordStore())
+
+  yield call(changePage, {payload: {page: 1}})
 }
