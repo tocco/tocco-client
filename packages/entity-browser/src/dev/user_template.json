@@ -143,6 +143,29 @@
         "singleRelations": [],
         "multiRelations": []
       }
+    },
+    "relUser_code": {
+      "type": "entity-list",
+      "value": [
+        {
+          "key": "1",
+          "model": "User_status",
+          "version": 1,
+          "display": "DR",
+          "fields": {},
+          "singleRelations": [],
+          "multiRelations": []
+        },
+        {
+          "key": "2",
+          "model": "User_status",
+          "version": 1,
+          "display": "Prof",
+          "fields": {},
+          "singleRelations": [],
+          "multiRelations": []
+        }
+      ]
     }
   }
 }

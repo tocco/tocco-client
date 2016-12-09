@@ -2,7 +2,6 @@ import {takeLatest, takeEvery} from 'redux-saga'
 import {put, select, call, fork, spawn} from 'redux-saga/effects'
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
-import fetchMock from 'fetch-mock'
 import * as api from '../../util/api'
 
 const generateState = (recordStore = {}, page) => ({
@@ -53,8 +52,10 @@ describe('entity-browser', () => {
             ]
 
             expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
-            expect(gen.next(state).value).to.eql(call(sagas.getSearchFormDefinition, entityName))
-            expect(gen.next(searchFormDefinition).value).to.eql(call(sagas.requestColumnDefinition, entityName))
+            expect(gen.next(state).value).to.eql(call(api.fetchSearchForm, entityName + '_search'))
+            expect(gen.next(searchFormDefinition).value).to.eql(
+              call(api.fetchColumnDefinition, entityName + '_list', 'table')
+            )
             expect(gen.next(columnDefinition).value).to.eql(put(actions.setSearchFormDefinition(searchFormDefinition)))
             expect(gen.next().value).to.eql(put(actions.setColumnDefinition(columnDefinition)))
             expect(gen.next().value).to.eql(call(sagas.resetDataSet))
@@ -140,131 +141,6 @@ describe('entity-browser', () => {
             expect(gen.next(recordCount).value).to.eql(put(actions.setRecordCount(recordCount)))
             expect(gen.next().value).to.eql(put(actions.clearRecordStore()))
             expect(gen.next().value).to.eql(call(sagas.changePage, {payload: {page: 1}}))
-          })
-        })
-
-        describe('getSearchFormDefinition saga', () => {
-          it('should create a search from definition', () => {
-            const entityName = 'User'
-            const jsonArr = [
-              {
-                name: 'name1',
-                type: 'type',
-                displayType: 'displayType',
-                label: 'label1',
-                useLabel: true,
-                otherFieldA: 'some_input'
-              }, {
-                name: 'name2',
-                type: 'type',
-                displayType: 'displayType',
-                label: 'label2',
-                useLabel: true,
-                otherFieldB: 'some_input'
-              }
-            ]
-
-            const result = [
-              {
-                name: 'name1',
-                type: 'type',
-                displayType: 'displayType',
-                label: 'label1',
-                useLabel: true
-              }, {
-                name: 'name2',
-                type: 'type',
-                displayType: 'displayType',
-                label: 'label2',
-                useLabel: true
-              }
-            ]
-
-            const gen = sagas.getSearchFormDefinition(entityName)
-            expect(gen.next().value).to.eql(call(api.fetchSearchForm, entityName + '_search'))
-            expect(gen.next(jsonArr).value).to.eql(result)
-            expect(gen.next().done).to.be.true
-          })
-        })
-
-        describe('requestColumnDefinition saga', () => {
-          it('should create the column definition', () => {
-            const entityName = 'User'
-            const gen = sagas.requestColumnDefinition(entityName)
-
-            const tableData = {
-              children: [
-                {
-                  displayType: 'EDITABLE',
-                  label: 'label1',
-                  children: [{name: 'name1', type: 'type', displayType: 'EDITABLE', label: 'label'}]
-                }, {
-                  displayType: 'HIDDEN',
-                  label: 'label2',
-                  children: [{name: 'name2', type: 'type', displayType: 'HIDDEN', label: 'label'}]
-                }, {
-                  displayType: 'EDITABLE',
-                  label: 'label3',
-                  children: [{name: 'custom:name3', type: 'type', displayType: 'EDITABLE', label: 'label'}]
-                }, {
-                  displayType: 'EDITABLE',
-                  label: 'label4',
-                  children: [{
-                    name: 'name4',
-                    type: 'ch.tocco.nice2.model.form.components.action.Action',
-                    displayType: 'EDITABLE',
-                    label: 'label'
-                  }]
-                }, {
-                  displayType: 'EDITABLE',
-                  label: 'label5',
-                  children: [{name: 'name5', type: 'type', displayType: 'EDITABLE', label: 'label'}]
-                }
-              ]
-            }
-
-            const result = [
-              {label: 'label1', value: ['name1']},
-              {label: 'label3', value: []},
-              {label: 'label4', value: []},
-              {label: 'label5', value: ['name5']}
-            ]
-
-            expect(gen.next().value).to.eql(call(api.fetchForm, entityName + '_list', 'table'))
-            expect(gen.next(tableData).value).to.eql(result)
-            expect(gen.next().done).to.be.true
-          })
-        })
-
-        describe('fetchSearchForm saga', () => {
-          it('should fetch the search form', done => {
-            const formName = 'User_search'
-
-            const expectedResult = [
-              {
-                name: 'txtFulltext',
-                type: 'ch.tocco.nice2.model.form.components.simple.TextField',
-                displayType: 'EDITABLE',
-                children: [],
-                label: 'Person',
-                useLabel: 'YES'
-              },
-              {
-                name: 'relAddress_user.relAddress',
-                type: 'ch.tocco.nice2.model.form.components.simple.TextField',
-                displayType: 'HIDDEN',
-                children: [],
-                label: 'Adresse',
-                useLabel: 'HIDDEN'
-              }]
-
-            fetchMock.get('*', require('./../../dev/test_user_search.json'))
-
-            api.fetchSearchForm(formName).then(result => {
-              expect(result).to.be.eql(expectedResult)
-              fetchMock.restore()
-              done()
-            })
           })
         })
       })

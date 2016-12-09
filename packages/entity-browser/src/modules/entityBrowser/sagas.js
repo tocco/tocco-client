@@ -60,38 +60,12 @@ export function* initializeEntityBrowser() {
   const entityBrowser = yield select(entityBrowserSelector)
   const {entityName} = entityBrowser
 
-  const searchFormDefinition = yield call(getSearchFormDefinition, entityName)
-  const columnDefinition = yield call(requestColumnDefinition, entityName)
+  const searchFormDefinition = yield call(api.fetchSearchForm, entityName + '_search')
+  const columnDefinition = yield call(api.fetchColumnDefinition, entityName + '_list', 'table')
   yield put(actions.setSearchFormDefinition(searchFormDefinition))
   yield put(actions.setColumnDefinition(columnDefinition))
 
   yield call(resetDataSet)
-}
-
-export function* requestColumnDefinition(entityName) {
-  const table = yield call(api.fetchForm, entityName + '_list', 'table')
-
-  const columns = table.children.filter(column => column.displayType !== 'HIDDEN')
-
-  return columns.map(c => ({
-    label: c.label,
-    value: c.children
-      .filter(child =>
-      child.type !== 'ch.tocco.nice2.model.form.components.action.Action'
-      && !child.name.startsWith('custom:'))
-      .map(child => child.name)
-  }))
-}
-
-export function* getSearchFormDefinition(entityName) {
-  const fields = yield call(api.fetchSearchForm, entityName + '_search')
-  return fields.map(f => ({
-    name: f.name,
-    type: f.type,
-    displayType: f.displayType,
-    label: f.label,
-    useLabel: f.useLabel
-  }))
 }
 
 export function* resetDataSet() {

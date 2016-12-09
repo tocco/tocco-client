@@ -17,17 +17,21 @@ export class EntityBrowser extends React.Component {
     this.props.changePage(page)
   }
 
-  cellRenderer = (values, r) => (
-    <span>
-      {
-        values.map((v, idx) => {
-          return (
-            <ToccoUI.FormattedValue key={idx} type={v.type} value={v.value}/>
-          )
-        }).reduce((prev, curr) => [prev, ', ', curr])
-      }
-    </span>
-  )
+  cellRenderer = (values, r) => {
+    if (values.length > 0) {
+      return (
+        <span>
+          {
+            values.map((v, idx) => {
+              return (
+                <ToccoUI.FormattedValue key={idx} type={v.type} value={v.value}/>
+              )
+            }).reduce((prev, curr) => [prev, ', ', curr])
+          }
+        </span>
+      )
+    }
+  }
 
   render() {
     const props = this.props

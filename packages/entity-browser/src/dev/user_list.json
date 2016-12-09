@@ -195,8 +195,7 @@
             ],
             "label": "Geschlecht",
             "useLabel": "YES"
-          }
-        ,
+          },
           {
             "name": "fullname",
             "type": "ch.tocco.nice2.model.form.components.table.Column",
@@ -220,6 +219,23 @@
               }
             ],
             "label": "Fullname",
+            "useLabel": "YES"
+          },
+          {
+            "name": "fullname",
+            "type": "ch.tocco.nice2.model.form.components.table.Column",
+            "displayType": "EDITABLE",
+            "children": [
+              {
+                "name": "relUser_code",
+                "type": "ch.tocco.nice2.model.form.components.simple.RemoteField",
+                "displayType": "EDITABLE",
+                "children": [],
+                "label": "Adresse",
+                "useLabel": "YES"
+              }
+            ],
+            "label": "Titles (n:n)",
             "useLabel": "YES"
           },
           {
