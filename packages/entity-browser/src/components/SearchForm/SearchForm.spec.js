@@ -11,7 +11,6 @@ describe('entity-browser', () => {
         it('should render', () => {
           const wrapper = shallow(<SearchForm formDefinition={[]} setSearchTerm={() => {}}/>)
           expect(wrapper.find('.search-form')).to.have.length(1)
-          expect(wrapper.find('form')).to.have.length(1)
         })
 
         it('should render an input', () => {
@@ -27,7 +26,6 @@ describe('entity-browser', () => {
             setSearchTerm={() => {}}
           />)
 
-          expect(wrapper.find('form')).to.have.length(1)
           expect(wrapper.find(InputFactory)).to.have.length(1)
         })
 
@@ -49,7 +47,6 @@ describe('entity-browser', () => {
             setSearchTerm={() => {}}
           />)
 
-          expect(wrapper.find('form')).to.have.length(1)
           expect(wrapper.find(InputFactory)).to.have.length(formDefinition.length)
         })
       })

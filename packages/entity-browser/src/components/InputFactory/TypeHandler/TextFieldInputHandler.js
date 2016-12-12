@@ -8,6 +8,7 @@ const TextFieldInputHandler = props => {
       onSearch={props.setSearchTerm}
       placeholder={props.fieldDefinition.label}
       liveSearch
+      minInputLength={1}
     />
   )
 }

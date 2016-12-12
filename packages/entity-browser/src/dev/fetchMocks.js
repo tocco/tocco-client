@@ -10,7 +10,7 @@ export default function setupFetchMock(fetchMock) {
   fetchMock.get(new RegExp('^.*?/nice2/rest/forms/User_search'), require('./user_search.json'))
   fetchMock.get(new RegExp('^.*?/nice2/rest/forms/.*'), require('./user_list.json'))
 
-  fetchMock.get(new RegExp('^.*?/nice2/rest/entities/.*/count$'), {'count': allRecords.length})
+  fetchMock.get(new RegExp('^.*?/nice2/rest/entities/.*/count'), {'count': allRecords.length})
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/.*'), (url, opts) => {
     console.log('fetchMock: called fetch entities', url)
     const limit = parseInt(getParameterByName('_limit', url)) || 25

@@ -9,7 +9,7 @@ export default function* sagas() {
   yield [
     fork(takeLatest, actions.INITIALIZE_TABLE, initializeEntityBrowser),
     fork(takeLatest, actions.CHANGE_PAGE, changePage),
-    fork(takeEvery, actions.REQUEST_RECORDS, requestRecords),
+    fork(takeLatest, actions.REQUEST_RECORDS, requestRecords),
     fork(takeEvery, actions.SET_ORDER_BY, resetDataSet),
     fork(takeEvery, actions.SET_SEARCH_TERM, resetDataSet),
     fork(takeEvery, actions.RESET_DATA_SET, resetDataSet)
@@ -47,7 +47,9 @@ export function* requestRecords({payload}) {
   yield call(displayRecord, page)
   yield put(actions.setRecordRequestInProgress(false))
 
-  yield spawn(fetchRecordsAndAddToStore, page + 1)
+  if ((entityBrowser.limit * page) < entityBrowser.recordCount) {
+    yield spawn(fetchRecordsAndAddToStore, page + 1)
+  }
 }
 
 export function* displayRecord(page) {
@@ -60,8 +62,11 @@ export function* initializeEntityBrowser() {
   const entityBrowser = yield select(entityBrowserSelector)
   const {entityName} = entityBrowser
 
-  const searchFormDefinition = yield call(api.fetchSearchForm, entityName + '_search')
-  const columnDefinition = yield call(api.fetchColumnDefinition, entityName + '_list', 'table')
+  console.log('entityName', entityName)
+  const [searchFormDefinition, columnDefinition] = yield [
+    call(api.fetchSearchForm, entityName + '_search'),
+    call(api.fetchColumnDefinition, entityName + '_list', 'table')
+  ]
   yield put(actions.setSearchFormDefinition(searchFormDefinition))
   yield put(actions.setColumnDefinition(columnDefinition))
 
@@ -71,8 +76,8 @@ export function* initializeEntityBrowser() {
 export function* resetDataSet() {
   yield put(actions.setRecords([]))
   const entityBrowser = yield select(entityBrowserSelector)
-  const {entityName} = entityBrowser
-  const recordCount = yield call(api.fetchRecordCount, entityName)
+  const {entityName, searchTerm} = entityBrowser
+  const recordCount = yield call(api.fetchRecordCount, entityName, searchTerm)
   yield put(actions.setRecordCount(recordCount))
   yield put(actions.clearRecordStore())
 

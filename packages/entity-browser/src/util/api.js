@@ -68,8 +68,11 @@ const transformRecordsResult = json => {
   })
 }
 
-export function fetchRecordCount(entityName) {
-  return fetchRequest(`entities/${entityName}/count`)
+export function fetchRecordCount(entityName, searchTerm) {
+  const params = {
+    '_search': searchTerm
+  }
+  return fetchRequest(`entities/${entityName}/count`, params)
     .then(resp => resp.json())
     .then(json => json.count)
 }
