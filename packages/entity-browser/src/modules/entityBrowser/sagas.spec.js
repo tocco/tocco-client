@@ -26,7 +26,8 @@ describe('entity-browser', () => {
               fork(takeLatest, actions.REQUEST_RECORDS, sagas.requestRecords),
               fork(takeEvery, actions.SET_ORDER_BY, sagas.resetDataSet),
               fork(takeEvery, actions.SET_SEARCH_TERM, sagas.resetDataSet),
-              fork(takeEvery, actions.RESET_DATA_SET, sagas.resetDataSet)
+              fork(takeEvery, actions.RESET_DATA_SET, sagas.resetDataSet),
+              fork(takeLatest, actions.REFRESH, sagas.refresh)
             ])
             expect(generator.next().done).to.be.true
           })
@@ -165,6 +166,21 @@ describe('entity-browser', () => {
             expect(gen.next(recordCount).value).to.eql(put(actions.setRecordCount(recordCount)))
             expect(gen.next().value).to.eql(put(actions.clearRecordStore()))
             expect(gen.next().value).to.eql(call(sagas.changePage, {payload: {page: 1}}))
+          })
+        })
+
+
+        describe('refresh saga', () => {
+          it('should refresh current page', () => {
+            const page = 33
+            const gen = sagas.refresh()
+            const records = [{}]
+            const state = {currentPage: page}
+
+            expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
+            expect(gen.next(state).value).to.eql(put(actions.clearRecordStore(records)))
+            expect(gen.next(state).value).to.eql(put(actions.requestRecords(page)))
+            expect(gen.next().done).to.be.true
           })
         })
       })

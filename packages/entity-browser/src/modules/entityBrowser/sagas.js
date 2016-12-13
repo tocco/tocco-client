@@ -12,8 +12,16 @@ export default function* sagas() {
     fork(takeLatest, actions.REQUEST_RECORDS, requestRecords),
     fork(takeEvery, actions.SET_ORDER_BY, resetDataSet),
     fork(takeEvery, actions.SET_SEARCH_TERM, resetDataSet),
-    fork(takeEvery, actions.RESET_DATA_SET, resetDataSet)
+    fork(takeEvery, actions.RESET_DATA_SET, resetDataSet),
+    fork(takeLatest, actions.REFRESH, refresh)
   ]
+}
+
+export function* refresh() {
+  const entityBrowser = yield select(entityBrowserSelector)
+  const {currentPage} = entityBrowser
+  yield put(actions.clearRecordStore())
+  yield put(actions.requestRecords(currentPage))
 }
 
 export function* changePage({payload}) {
@@ -62,7 +70,6 @@ export function* initializeEntityBrowser() {
   const entityBrowser = yield select(entityBrowserSelector)
   const {entityName} = entityBrowser
 
-  console.log('entityName', entityName)
   const [searchFormDefinition, columnDefinition] = yield [
     call(api.fetchSearchForm, entityName + '_search'),
     call(api.fetchColumnDefinition, entityName + '_list', 'table')

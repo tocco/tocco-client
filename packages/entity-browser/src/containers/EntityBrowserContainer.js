@@ -2,14 +2,14 @@ import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 
 import EntityBrowser from '../components/EntityBrowser'
-import {changePage, setSearchTerm, setOrderBy, initializeTable, resetDataSet} from '../modules/entityBrowser/actions'
+import {changePage, setSearchTerm, setOrderBy, initializeTable, refresh} from '../modules/entityBrowser/actions'
 
 const mapActionCreators = {
   changePage,
   setSearchTerm,
   setOrderBy,
   initializeTable,
-  resetDataSet
+  refresh
 }
 
 const mapStateToProps = (state, props) => ({

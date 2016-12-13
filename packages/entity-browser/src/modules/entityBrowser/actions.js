@@ -16,6 +16,7 @@ export const CLEAR_RECORD_STORE = 'CLEAR_RECORDS_CACHE'
 export const RESET_DATA_SET = 'RESET_DATA_SET'
 export const SET_RECORD_REQUEST_IN_PROGRESS = 'RECORD_REQUEST_IN_PROGRESS'
 export const CHANGE_PAGE = 'CHANGE_PAGE'
+export const REFRESH = 'REFRESH'
 
 export const initialized = () => ({
   type: INITIALIZE_TABLE
@@ -131,4 +132,8 @@ export const changePage = page => ({
   payload: {
     page
   }
+})
+
+export const refresh = () => ({
+  type: REFRESH
 })

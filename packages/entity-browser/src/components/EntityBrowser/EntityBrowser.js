@@ -38,14 +38,10 @@ export class EntityBrowser extends React.Component {
 
     return (
       <div className="entity-browser">
-
-        <h1>EntityBrowser</h1>
-
         <SearchForm
           formDefinition={props.searchFormDefinition}
           setSearchTerm={props.setSearchTerm}
         />
-
         <ToccoUI.Table
           columnDefinitions={props.columnDefinitions}
           records={props.records}
@@ -61,7 +57,13 @@ export class EntityBrowser extends React.Component {
           onPageChange={this.onPageChange}
           currentPage={props.currentPage}
         />
-        <button onClick={props.resetDataSet}>Reset</button>
+        <ToccoUI.Button
+          onClick={props.refresh}
+          icon="glyphicon-refresh"
+          className="refresh-button"
+        >
+          Reset
+        </ToccoUI.Button>
       </div>
     )
   }
@@ -79,6 +81,6 @@ EntityBrowser.propTypes = {
   columnDefinitions: React.PropTypes.array,
   recordCount: React.PropTypes.number,
   setOrderBy: React.PropTypes.func,
-  resetDataSet: React.PropTypes.func,
+  refresh: React.PropTypes.func,
   recordRequestInProgress: React.PropTypes.bool
 }
