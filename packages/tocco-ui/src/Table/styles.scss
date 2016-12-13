@@ -17,4 +17,15 @@
     background-size: 50px 50px;
     content: "";
   }
+
+  table {
+    thead tr th {
+      cursor: pointer;
+      -webkit-touch-callout:none;
+      -webkit-user-select:none;
+      -moz-user-select:none;
+      -ms-user-select:none;
+      user-select:none;
+    }
+  }
 }
