@@ -67126,7 +67126,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	// module
-	exports.push([module.id, ".tocco-table table {\n  width: 100%; }\n\n.tocco-table table.loading {\n  position: relative; }\n\n.tocco-table table.loading:after {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: rgba(255, 255, 255, 0.5);\n  background-size: 50px 50px;\n  content: \"\"; }\n", ""]);
+	exports.push([module.id, ".tocco-table table {\n  width: 100%; }\n\n.tocco-table table.loading {\n  position: relative; }\n\n.tocco-table table.loading:after {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: rgba(255, 255, 255, 0.5);\n  background-size: 50px 50px;\n  content: \"\"; }\n\n.tocco-table table thead tr th:hover {\n  cursor: pointer; }\n", ""]);
 	
 	// exports
 
