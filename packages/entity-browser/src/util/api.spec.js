@@ -53,7 +53,7 @@ describe('entity-browser', () => {
           })
         })
 
-        it('should return an an array with flatten attributes', () => {
+        it('should return an array with flatten attributes', () => {
           const entityName = 'User'
           const fetchResult = {
             data: [
@@ -189,10 +189,8 @@ describe('entity-browser', () => {
                     children: [{name: 'name5', type: 'type', displayType: 'EDITABLE', label: 'label'}]
                   }
                 ]
-              }
-              ]
+              }]
             }
-
           }
 
           fetchMock.get('*', fetchResult)

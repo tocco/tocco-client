@@ -14,7 +14,7 @@ class SearchBox extends React.Component {
       inputValue: ''
     }
 
-    this.liveSearch = _debounce(this.liveSearch, props.debounce)
+    this.liveSearch = _debounce(this.onSearch, props.debounce)
   }
 
   onChange = evt => {
@@ -26,10 +26,6 @@ class SearchBox extends React.Component {
         this.liveSearch()
       }
     }
-  }
-
-  liveSearch = () => {
-    this.onSearch()
   }
 
   lastSearched = ''
