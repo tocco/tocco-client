@@ -60,6 +60,17 @@ class Table extends React.Component {
         'loading': this.props.loading
       }
     )
+
+    const orderSymbol = c => {
+      if (this.state.orderBy && this.state.orderBy.name === c.value) {
+        if (this.state.orderBy.direction === 'desc') {
+          return <span>&nbsp;▲</span>
+        } else if (this.state.orderBy.direction === 'asc') {
+          return <span>&nbsp;▼</span>
+        }
+      }
+    }
+
     return (
       <div className="tocco-table">
         <table className={tableClasses}>
@@ -73,10 +84,7 @@ class Table extends React.Component {
                       onClick={() => handleOrderByClick(c.value)}
                     >
                       {getLabel(c)}
-                      {(this.state.orderBy && this.state.orderBy.name === c.value
-                        && this.state.orderBy.direction === 'asc') && ' ▲'}
-                      {(this.state.orderBy && this.state.orderBy.name === c.value
-                        && this.state.orderBy.direction === 'desc') && ' ▼'}
+                      {orderSymbol(c)}
                     </th>
                   )
                 })
