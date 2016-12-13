@@ -6,6 +6,7 @@ import * as api from '../../util/api'
 
 const generateState = (recordStore = {}, page) => ({
   entityName: '',
+  formBase: '',
   orderBy: '',
   limit: '',
   searchTerm: '',
@@ -34,7 +35,7 @@ describe('entity-browser', () => {
         })
 
         describe('initializeEntityBrowser saga', () => {
-          it('should initialize the entity browser', () => {
+          it('should initialize the entity browser by entity name', () => {
             const gen = sagas.initializeEntityBrowser()
 
             const entityName = 'User'
@@ -57,6 +58,39 @@ describe('entity-browser', () => {
             expect(gen.next(state).value).to.eql([
               call(api.fetchSearchForm, entityName + '_search'),
               call(api.fetchColumnDefinition, entityName + '_list', 'table')
+            ])
+            expect(gen.next([searchFormDefinition, columnDefinition]).value).to.eql(
+              put(actions.setSearchFormDefinition(searchFormDefinition))
+            )
+            expect(gen.next().value).to.eql(put(actions.setColumnDefinition(columnDefinition)))
+            expect(gen.next().value).to.eql(call(sagas.resetDataSet))
+            expect(gen.next().done).to.be.true
+          })
+
+          it('should initialize the entity browser by form base', () => {
+            const gen = sagas.initializeEntityBrowser()
+
+            const entityName = 'User'
+            const formBase = 'Base_form'
+            const state = {...generateState(), formBase: formBase}
+
+            const searchFormDefinition = [{
+              name: entityName,
+              type: 'type',
+              displayType: 'displayType',
+              label: 'label',
+              useLabel: true
+            }]
+
+            const columnDefinition = [
+              {label: 'Label', value: []}
+            ]
+
+            expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
+
+            expect(gen.next(state).value).to.eql([
+              call(api.fetchSearchForm, formBase + '_search'),
+              call(api.fetchColumnDefinition, formBase + '_list', 'table')
             ])
             expect(gen.next([searchFormDefinition, columnDefinition]).value).to.eql(
               put(actions.setSearchFormDefinition(searchFormDefinition))

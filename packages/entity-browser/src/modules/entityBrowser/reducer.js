@@ -33,6 +33,7 @@ const ACTION_HANDLERS = {
 
 const initialState = {
   entityName: '',
+  formBase: '',
   records: [],
   searchTerm: '',
   limit: 50,

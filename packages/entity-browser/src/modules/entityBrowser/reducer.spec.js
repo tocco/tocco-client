@@ -3,6 +3,7 @@ import * as actions from './actions'
 
 const EXPECTED_INITIAL_STATE = {
   entityName: '',
+  formBase: '',
   records: [],
   searchTerm: '',
   limit: 50,
@@ -83,6 +84,20 @@ describe('entity-browser', () => {
           }
 
           expect(reducer(stateBefore, actions.setEntityName('EntityAfter'))).to.deep.equal(expectedStateAfter)
+        })
+
+        it('should handle SET_FORM_BASE', () => {
+          const formAfter = 'FormAfter'
+
+          const stateBefore = {
+            formBase: 'FormBefore'
+          }
+
+          const expectedStateAfter = {
+            formBase: formAfter
+          }
+
+          expect(reducer(stateBefore, actions.setFormBase(formAfter))).to.deep.equal(expectedStateAfter)
         })
 
         it('should handle SET_RECORDS', () => {
