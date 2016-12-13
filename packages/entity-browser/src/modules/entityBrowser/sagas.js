@@ -9,11 +9,19 @@ export default function* sagas() {
   yield [
     fork(takeLatest, actions.INITIALIZE_TABLE, initializeEntityBrowser),
     fork(takeLatest, actions.CHANGE_PAGE, changePage),
-    fork(takeEvery, actions.REQUEST_RECORDS, requestRecords),
+    fork(takeLatest, actions.REQUEST_RECORDS, requestRecords),
     fork(takeEvery, actions.SET_ORDER_BY, resetDataSet),
     fork(takeEvery, actions.SET_SEARCH_TERM, resetDataSet),
-    fork(takeEvery, actions.RESET_DATA_SET, resetDataSet)
+    fork(takeEvery, actions.RESET_DATA_SET, resetDataSet),
+    fork(takeLatest, actions.REFRESH, refresh)
   ]
+}
+
+export function* refresh() {
+  const entityBrowser = yield select(entityBrowserSelector)
+  const {currentPage} = entityBrowser
+  yield put(actions.clearRecordStore())
+  yield put(actions.requestRecords(currentPage))
 }
 
 export function* changePage({payload}) {
@@ -24,10 +32,10 @@ export function* changePage({payload}) {
 
 export function* fetchRecordsAndAddToStore(page) {
   const entityBrowser = yield select(entityBrowserSelector)
-  const {entityName, orderBy, limit, recordStore, searchTerm} = entityBrowser
+  const {entityName, orderBy, limit, recordStore, searchTerm, columnDefinition} = entityBrowser
 
   if (!recordStore[page]) {
-    const records = yield call(api.fetchRecords, entityName, page, orderBy, limit, searchTerm)
+    const records = yield call(api.fetchRecords, entityName, page, orderBy, limit, searchTerm, columnDefinition)
     yield put(actions.addRecordsToStore(page, records))
   }
 }
@@ -47,7 +55,9 @@ export function* requestRecords({payload}) {
   yield call(displayRecord, page)
   yield put(actions.setRecordRequestInProgress(false))
 
-  yield spawn(fetchRecordsAndAddToStore, page + 1)
+  if ((entityBrowser.limit * page) < entityBrowser.recordCount) {
+    yield spawn(fetchRecordsAndAddToStore, page + 1)
+  }
 }
 
 export function* displayRecord(page) {
@@ -60,45 +70,21 @@ export function* initializeEntityBrowser() {
   const entityBrowser = yield select(entityBrowserSelector)
   const {entityName} = entityBrowser
 
-  const searchFormDefinition = yield call(getSearchFormDefinition, entityName)
-  const columnDefinition = yield call(requestColumnDefinition, entityName)
+  const [searchFormDefinition, columnDefinition] = yield [
+    call(api.fetchSearchForm, entityName + '_search'),
+    call(api.fetchColumnDefinition, entityName + '_list', 'table')
+  ]
   yield put(actions.setSearchFormDefinition(searchFormDefinition))
   yield put(actions.setColumnDefinition(columnDefinition))
 
   yield call(resetDataSet)
 }
 
-export function* requestColumnDefinition(entityName) {
-  const table = yield call(api.fetchForm, entityName + '_list', 'table')
-
-  const columns = table.children.filter(column => column.displayType !== 'HIDDEN')
-
-  return columns.map(c => ({
-    label: c.label,
-    value: c.children
-      .filter(child =>
-      child.type !== 'ch.tocco.nice2.model.form.components.action.Action'
-      && !child.name.startsWith('custom:'))
-      .map(child => child.name)
-  }))
-}
-
-export function* getSearchFormDefinition(entityName) {
-  const fields = yield call(api.fetchSearchForm, entityName + '_search')
-  return fields.map(f => ({
-    name: f.name,
-    type: f.type,
-    displayType: f.displayType,
-    label: f.label,
-    useLabel: f.useLabel
-  }))
-}
-
 export function* resetDataSet() {
   yield put(actions.setRecords([]))
   const entityBrowser = yield select(entityBrowserSelector)
-  const {entityName} = entityBrowser
-  const recordCount = yield call(api.fetchRecordCount, entityName)
+  const {entityName, searchTerm} = entityBrowser
+  const recordCount = yield call(api.fetchRecordCount, entityName, searchTerm)
   yield put(actions.setRecordCount(recordCount))
   yield put(actions.clearRecordStore())
 

@@ -10,7 +10,7 @@ export default function setupFetchMock(fetchMock) {
   fetchMock.get(new RegExp('^.*?/nice2/rest/forms/User_search'), require('./user_search.json'))
   fetchMock.get(new RegExp('^.*?/nice2/rest/forms/.*'), require('./user_list.json'))
 
-  fetchMock.get(new RegExp('^.*?/nice2/rest/entities/.*/count$'), {'count': allRecords.length})
+  fetchMock.get(new RegExp('^.*?/nice2/rest/entities/.*/count'), {'count': allRecords.length})
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/.*'), (url, opts) => {
     console.log('fetchMock: called fetch entities', url)
     const limit = parseInt(getParameterByName('_limit', url)) || 25
@@ -23,8 +23,8 @@ export default function setupFetchMock(fetchMock) {
       const fieldName = parts[0]
       const direction = parts[1]
       allRecords.sort((a, b) => {
-        const A = a.fields[fieldName] ? a.fields[fieldName].value : 0
-        const B = b.fields[fieldName] ? b.fields[fieldName].value : 0
+        const A = a.paths[fieldName].value.value || 0
+        const B = b.paths[fieldName].value.value || 0
         return ((A < B) ? -1 : ((A > B) ? 1 : 0))
       })
       if (direction === 'desc') {

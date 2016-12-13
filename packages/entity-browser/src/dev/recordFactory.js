@@ -13,27 +13,49 @@ export const createUsers = amount => {
     records.push({
       ...userTemplate,
       key: i,
-      fields: {
-        ...userTemplate.fields,
+      paths: {
+        ...userTemplate.paths,
         user_nr: {
-          type: 'counter',
-          value: i
+          type: 'field',
+          value: {
+            type: 'counter',
+            value: i
+          }
         },
         firstname: {
-          value: 'Firstname ' + i,
-          type: 'string'
+          type: 'field',
+          value: {
+            value: 'Firstname ' + i,
+            type: 'string'
+          }
         },
         lastname: {
-          value: 'Lastname ' + (amount - i),
-          type: 'string'
+          type: 'field',
+          value: {
+            value: 'Lastname ' + (amount - i),
+            type: 'string'
+          }
         },
         birthdate: {
-          value: getRandomDate(1980, 2010),
-          type: 'birthdate'
+          type: 'field',
+          value: {
+            value: getRandomDate(1980, 2010),
+            type: 'birthdate'
+          }
         },
         salary: {
-          value: 1000 + i * 2.1,
-          type: 'moneyamount'
+          type: 'field',
+          value: {
+            value: 1000 + i * 2.1,
+            type: 'moneyamount'
+          }
+        },
+        publish: {
+          type: 'field',
+          value: {
+            value: (i % 2 === 0),
+            type: 'boolean'
+          }
         }
       }
     })

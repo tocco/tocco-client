@@ -3,17 +3,11 @@
     width: 100%;
   }
 
-  table thead,
-  table tbody {
-    //display: table;
-    width: 100%;
-  }
-
-  table.loading tbody {
+  table.loading {
     position: relative;
   }
 
-  table.loading tbody:after {
+  table.loading:after {
     position: absolute;
     top: 0;
     left: 0;

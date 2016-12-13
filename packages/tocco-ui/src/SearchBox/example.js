@@ -11,7 +11,7 @@ export default () => {
         onSearch={value => console.log('Searching: ' + value)}
         liveSearch
         debounce={300}
-        minInputLength={1}
+        minInputLength={2}
       />
       <SearchBox
         placeholder="Search..."

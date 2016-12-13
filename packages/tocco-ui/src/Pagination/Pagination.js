@@ -103,7 +103,7 @@ class Pagination extends React.Component {
   render() {
     const approximateWidth = this.state.totalPages.toString().length * 8 + 10
     return (
-      <div className="tocco-pagination">
+      <span className="tocco-pagination">
         <Button
           id="toFirstButton"
           type="button"
@@ -118,7 +118,7 @@ class Pagination extends React.Component {
           className="btn"
           onClick={this.handleOneBackClick}
           disabled={this.isOnFirstPage()}
-          icon="glyphicon-step-backward"
+          icon="glyphicon-triangle-left"
         />
         {
           this.props.noInput
@@ -145,7 +145,7 @@ class Pagination extends React.Component {
           type="button"
           onClick={this.handleOneForwardClick}
           disabled={this.isOnLastPage()}
-          icon="glyphicon-step-forward"
+          icon="glyphicon-triangle-right"
         />
         <Button
           id="toLastButton"
@@ -154,7 +154,7 @@ class Pagination extends React.Component {
           disabled={this.isOnLastPage()}
           icon="glyphicon-fast-forward"
         />
-      </div>
+      </span>
     )
   }
 }

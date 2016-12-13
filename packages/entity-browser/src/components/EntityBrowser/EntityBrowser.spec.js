@@ -142,21 +142,21 @@ describe('entity-browser', () => {
         expect(wrapper.find(ToccoUI.Pagination).props().totalRecords).to.eql(recordCount)
       })
 
-      it('should call resetDataSet', () => {
-        const reset = sinon.spy()
+      it('should call refresh', () => {
+        const spy = sinon.spy()
 
         const wrapper = shallow(<EntityBrowser
           initializeTable={EMPTY_FUNC}
           changePage={EMPTY_FUNC}
           setSearchTerm={EMPTY_FUNC}
-          resetDataSet={reset}
+          refresh={spy}
           records={[]}
           searchFormDefinition={[]}
           orderBy={{}}
         />)
 
-        wrapper.find('button').simulate('click')
-        expect(reset).to.have.calledOnce
+        wrapper.find('.refresh-button').simulate('click')
+        expect(spy).to.have.calledOnce
       })
     })
   })

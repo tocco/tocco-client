@@ -4,13 +4,11 @@ import {InputFactory} from './../InputFactory'
 const SearchForm = props => {
   return (
     <div className="search-form">
-      <form>
-        {props.formDefinition.map(definition => <InputFactory
-          key={definition.name}
-          fieldDefinition={definition}
-          setSearchTerm={props.setSearchTerm}
-        />)}
-      </form>
+      {props.formDefinition.map(definition => <InputFactory
+        key={definition.name}
+        fieldDefinition={definition}
+        setSearchTerm={props.setSearchTerm}
+      />)}
     </div>
   )
 }

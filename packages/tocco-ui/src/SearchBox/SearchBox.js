@@ -14,59 +14,53 @@ class SearchBox extends React.Component {
       inputValue: ''
     }
 
-    this.liveSearch = _debounce(this.liveSearch, props.debounce)
+    this.liveSearch = _debounce(this.onSearch, props.debounce)
   }
 
-  updateValue = evt => {
-    this.setState({inputValue: evt.target.value})
-  }
+  onChange = evt => {
+    const inputValue = evt.target.value
+    this.setState({inputValue})
 
-  liveSearch = () => {
-    const value = this.state.inputValue
-    if (value.length === 0 || value.length >= this.props.minInputLength) {
-      this.props.onSearch(value)
-    }
-  }
-
-  explicitSearch = () => {
-    const value = this.state.inputValue
-    this.props.onSearch(value)
-  }
-
-  keyDownHandler = evt => {
     if (this.props.liveSearch) {
-      this.liveSearch()
-    } else if (evt.key === 'Enter') {
-      this.explicitSearch()
+      if ((inputValue.length === 0 || inputValue.length >= this.props.minInputLength)) {
+        this.liveSearch()
+      }
     }
+  }
+
+  lastSearched = ''
+  onSearch = () => {
+    const inputValue = this.state.inputValue
+    if (inputValue !== this.lastSearched) {
+      this.props.onSearch(inputValue)
+      this.lastSearched = inputValue
+    }
+  }
+
+  handleSubmit = e => {
+    e.preventDefault()
+    this.onSearch()
   }
 
   render() {
     return (
-      <div
-        className="tocco-searchbox">
-        <div>
-          <div
-            className="input-group">
-            <input
-              type="text"
-              className="form-control"
-              onKeyDown={this.keyDownHandler}
-              placeholder={this.props.placeholder}
-              value={this.state.inputValue}
-              onChange={this.updateValue}
-             />
-            <span
-              className="input-group-btn">
-              <Button
-                type="button"
-                onClick={this.explicitSearch}
-                icon="glyphicon-search"
-              />
-            </span>
-          </div>
+      <form onSubmit={this.handleSubmit} className="tocco-searchbox">
+        <div className="input-group">
+          <input
+            type="text"
+            className="form-control"
+            placeholder={this.props.placeholder}
+            value={this.state.inputValue}
+            onChange={this.onChange}
+          />
+          <span className="input-group-btn">
+            <Button
+              type="submit"
+              icon="glyphicon-search"
+            />
+          </span>
         </div>
-      </div>
+      </form>
     )
   }
 }
