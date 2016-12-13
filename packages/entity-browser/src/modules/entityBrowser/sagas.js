@@ -68,11 +68,12 @@ export function* displayRecord(page) {
 
 export function* initializeEntityBrowser() {
   const entityBrowser = yield select(entityBrowserSelector)
-  const {entityName} = entityBrowser
+  const {entityName, formBase} = entityBrowser
+  const formName = formBase !== '' ? formBase : entityName
 
   const [searchFormDefinition, columnDefinition] = yield [
-    call(api.fetchSearchForm, entityName + '_search'),
-    call(api.fetchColumnDefinition, entityName + '_list', 'table')
+    call(api.fetchSearchForm, formName + '_search'),
+    call(api.fetchColumnDefinition, formName + '_list', 'table')
   ]
   yield put(actions.setSearchFormDefinition(searchFormDefinition))
   yield put(actions.setColumnDefinition(columnDefinition))
