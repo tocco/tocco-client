@@ -17,4 +17,10 @@
     background-size: 50px 50px;
     content: "";
   }
+
+  table {
+    thead tr th:hover {
+      cursor: pointer;
+    }
+  }
 }
