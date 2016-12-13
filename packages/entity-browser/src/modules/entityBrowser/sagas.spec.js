@@ -169,7 +169,6 @@ describe('entity-browser', () => {
           })
         })
 
-
         describe('refresh saga', () => {
           it('should refresh current page', () => {
             const page = 33
