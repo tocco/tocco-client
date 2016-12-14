@@ -7,7 +7,6 @@
 'use strict'
 
 let fs = require('fs')
-let util = require('util')
 
 const allowedMaxLength = 70
 const allowedPattern = /^(\w*)(\(.*\))?: (.+)$/
@@ -21,22 +20,22 @@ const allowedTypes = [
   'chore'
 ]
 
-const error = function() {
-  console.error('INVALID COMMIT MSG: ' + util.format.apply(null, arguments))
+const error = message => {
+  console.error(`INVALID COMMIT MSG: ${message}`)
 }
 
 const isFirstLineValid = line => {
   let isValid = true
 
   if (line.length > allowedMaxLength) {
-    error('is longer than %d characters !', allowedMaxLength)
+    error(`is longer than ${allowedMaxLength} characters!`)
     isValid = false
   }
 
   const match = allowedPattern.exec(line)
 
   if (!match) {
-    error('does not match "<type>(<scope>): <subject>" ! was: ' + line)
+    error(`does not match pattern "<type>(<scope>): <subject>" ! was: ${line}`)
     return false
   }
 
@@ -45,7 +44,7 @@ const isFirstLineValid = line => {
   // const subject = match[4]
 
   if (allowedTypes.indexOf(type) < 0) {
-    error('"%s" is not allowed type !', type)
+    error(`"${type}" is not allowed type !`)
     return false
   }
 
@@ -72,7 +71,7 @@ fs.readFile(
     const secondLine = getLineFromBuffer(buffer, 1)
 
     if (err) {
-      error('"Error reading file: ', err)
+      error(`Error reading file: ${err}`)
     }
 
     if (isFirstLineValid(firstLine) && isSecondLineValid(secondLine)) {
@@ -86,7 +85,7 @@ fs.readFile(
 function getGitFolder() {
   let gitDirLocation = './.git'
   if (!fs.existsSync(gitDirLocation)) {
-    throw new Error('Cannot find file ' + gitDirLocation)
+    error(`Cannot find file ${gitDirLocation}`)
   }
 
   if (!fs.lstatSync(gitDirLocation).isDirectory()) {
@@ -95,7 +94,7 @@ function getGitFolder() {
   }
 
   if (!fs.existsSync(gitDirLocation)) {
-    throw new Error('Cannot find file ' + gitDirLocation)
+    error(`Cannot find file ${gitDirLocation}`)
   }
 
   return gitDirLocation
