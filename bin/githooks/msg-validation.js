@@ -6,10 +6,10 @@
 
 'use strict'
 
-let fs = require('fs')
+const fs = require('fs')
 
 const allowedMaxLength = 70
-const allowedPattern = /^(\w*)(\(.*\))?: (.+)$/
+const allowedPattern = /^(\w+)(\(.+\))?: (.+)$/
 const allowedTypes = [
   'feat',
   'fix',
@@ -25,11 +25,9 @@ const error = message => {
 }
 
 const isFirstLineValid = line => {
-  let isValid = true
-
   if (line.length > allowedMaxLength) {
     error(`is longer than ${allowedMaxLength} characters!`)
-    isValid = false
+    return false
   }
 
   const match = allowedPattern.exec(line)
@@ -43,12 +41,12 @@ const isFirstLineValid = line => {
   // const scope = match[3]
   // const subject = match[4]
 
-  if (allowedTypes.indexOf(type) < 0) {
+  if (!allowedTypes.includes(type)) {
     error(`"${type}" is not allowed type !`)
     return false
   }
 
-  return isValid
+  return true
 }
 
 const isSecondLineValid = line => {
@@ -59,11 +57,11 @@ const isSecondLineValid = line => {
   return true
 }
 
-let getLineFromBuffer = function(buffer, lineNumber) {
+const getLineFromBuffer = function(buffer, lineNumber) {
   return buffer.toString().split('\n')[lineNumber]
 }
 
-let commitMsgFile = process.argv[2] || getGitFolder() + '/COMMIT_EDITMSG'
+const commitMsgFile = process.argv[2] || getGitFolder() + '/COMMIT_EDITMSG'
 
 fs.readFile(
   commitMsgFile, function(err, buffer) {
@@ -89,7 +87,7 @@ function getGitFolder() {
   }
 
   if (!fs.lstatSync(gitDirLocation).isDirectory()) {
-    let unparsedText = '' + fs.readFileSync(gitDirLocation)
+    const unparsedText = '' + fs.readFileSync(gitDirLocation)
     gitDirLocation = unparsedText.substring('gitdir: '.length).trim()
   }
 
