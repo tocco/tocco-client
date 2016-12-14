@@ -63,9 +63,9 @@ class Table extends React.Component {
 
     const orderSymbol = c => {
       if (this.state.orderBy && this.state.orderBy.name === c.value) {
-        if (this.state.orderBy.direction === 'desc') {
+        if (this.state.orderBy.direction === 'asc') {
           return <span>&nbsp;▲</span>
-        } else if (this.state.orderBy.direction === 'asc') {
+        } else if (this.state.orderBy.direction === 'desc') {
           return <span>&nbsp;▼</span>
         }
       }
