@@ -4,7 +4,6 @@
  * GIT COMMIT-MSG hook for validating commit message to fit schema.
  */
 
-console.log('test')
 'use strict'
 
 let fs = require('fs')
@@ -27,7 +26,6 @@ const error = function() {
 }
 
 const isFirstLineValid = line => {
-  console.log('line', line)
   let isValid = true
 
   if (line.length > allowedMaxLength) {
