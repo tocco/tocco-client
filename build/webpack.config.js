@@ -99,7 +99,7 @@ if (__DEV__) {
     new webpack.HotModuleReplacementPlugin(),
   )
 
-  //Run linting but only show errors as warning
+  // Run linting but only show errors as warning
   webpackConfig.module.preLoaders = [
     {
       test: /\.jsx?$/,
@@ -109,7 +109,6 @@ if (__DEV__) {
   webpackConfig.eslint = {
     emitWarning: true
   }
-
 } else if (__PROD__) {
   debug('Enable plugins for production (OccurenceOrder, Dedupe & UglifyJS).')
   webpackConfig.plugins.push(
