@@ -1,0 +1,171 @@
+{
+  "key": "1",
+  "model": "User",
+  "version": 3,
+  "paths": {
+    "firstname": {
+      "type": "field",
+      "value": {
+        "value": "fistname",
+        "type": "string",
+        "readable": true,
+        "writable": true
+      }
+    },
+    "lastname": {
+      "type": "field",
+      "value": {
+        "value": "lastname",
+        "type": "string",
+        "readable": true,
+        "writable": true
+      }
+    },
+    "email": {
+      "type": "field",
+      "value": {
+        "value": "mail@tocco.ch",
+        "type": "email",
+        "readable": true,
+        "writable": true
+      }
+    },
+    "user_nr": {
+      "type": "field",
+      "value": {
+        "value": 110,
+        "type": "counter",
+        "readable": true,
+        "writable": false
+      }
+    },
+    "birthdate": {
+      "type": "field",
+      "value": {
+        "value": "1988-11-22",
+        "type": "birthdate",
+        "readable": true,
+        "writable": true
+      }
+    },
+    "phone_company": {
+      "type": "field",
+      "value": {
+        "value": "41716884523",
+        "type": "phone",
+        "readable": true,
+        "writable": true
+      }
+    },
+    "website": {
+      "type": "field",
+      "value": {
+        "value": "http://www.google.ch",
+        "type": "url",
+        "readable": true,
+        "writable": true
+      }
+    },
+    "profession": {
+      "type": "field",
+      "value": {
+        "value": "",
+        "type": "string",
+        "readable": true,
+        "writable": true
+      }
+    },
+    "spouse": {
+      "type": "field",
+      "value": {
+        "value": "This is a long text\nwith newline\nother new line",
+        "type": "text",
+        "readable": true,
+        "writable": true
+      }
+    },
+    "publish": {
+      "type": "field",
+      "value": {
+        "value": true,
+        "type": "boolean",
+        "readable": true,
+        "writable": true
+      }
+    },
+    "detail_picture": {
+      "type": "field",
+      "value": {
+        "value": null,
+        "type": "document",
+        "readable": true,
+        "writable": true
+      }
+    },
+    "entrance": {
+      "type": "field",
+      "value": {
+        "value": null,
+        "type": "date",
+        "readable": true,
+        "writable": false
+      }
+    },
+    "salary": {
+      "type": "field",
+      "value": {
+        "value": "1000.00",
+        "type": "moneyamount",
+        "readable": true,
+        "writable": true
+      }
+    },
+    "relUser_status": {
+      "type": "entity",
+      "value": {
+        "key": "1",
+        "model": "User_status",
+        "version": 3,
+        "display": "Aktiv",
+        "fields": {},
+        "singleRelations": [],
+        "multiRelations": []
+      }
+    },
+    "relGender": {
+      "type": "entity",
+      "value": {
+        "key": "1",
+        "model": "Gender",
+        "version": 3,
+        "display": "Männlich",
+        "fields": {},
+        "singleRelations": [],
+        "multiRelations": []
+      }
+    },
+    "relUser_code": {
+      "type": "entity-list",
+      "value": [
+        {
+          "key": "1",
+          "model": "User_status",
+          "version": 1,
+          "display": "DR",
+          "fields": {},
+          "singleRelations": [],
+          "multiRelations": []
+        },
+        {
+          "key": "2",
+          "model": "User_status",
+          "version": 1,
+          "display": "Prof",
+          "fields": {},
+          "singleRelations": [],
+          "multiRelations": []
+        }
+      ]
+    }
+  }
+}

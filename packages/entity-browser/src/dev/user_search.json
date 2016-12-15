@@ -1,0 +1,185 @@
+{
+  "_links":{
+    "self":{
+      "href":"https://master.tocco.ch/nice2/rest/forms/UserSearch_search"
+    }
+  },
+  "form":{
+    "name":"UserSearch_search",
+    "type":"ch.tocco.nice2.model.form.components.Form",
+    "displayType":"EDITABLE",
+    "children":[
+      {
+        "name":"box1",
+        "type":"ch.tocco.nice2.model.form.components.layout.VerticalBox",
+        "displayType":"EDITABLE",
+        "children":[
+          {
+            "name":"txtFulltext",
+            "type":"ch.tocco.nice2.model.form.components.simple.TextField",
+            "displayType":"EDITABLE",
+            "children":[
+
+            ],
+            "label":"Person",
+            "useLabel":"YES"
+          },
+          {
+            "name":"relAddress_user.relAddress",
+            "type":"ch.tocco.nice2.model.form.components.simple.TextField",
+            "displayType":"HIDDEN",
+            "children":[
+
+            ],
+            "label":"Adresse",
+            "useLabel":"HIDDEN"
+          },
+          {
+            "name":"relUser_code1",
+            "type":"ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
+            "displayType":"HIDDEN",
+            "children":[
+
+            ],
+            "label":"Personen-Code 1",
+            "useLabel":"YES"
+          },
+          {
+            "name":"relUser_code2",
+            "type":"ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
+            "displayType":"HIDDEN",
+            "children":[
+
+            ],
+            "label":"Personen-Code 2",
+            "useLabel":"YES"
+          },
+          {
+            "name":"relUser_code3",
+            "type":"ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
+            "displayType":"HIDDEN",
+            "children":[
+
+            ],
+            "label":"Personen-Code 3",
+            "useLabel":"YES"
+          },
+          {
+            "name":"relUser_code4",
+            "type":"ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
+            "displayType":"HIDDEN",
+            "children":[
+
+            ],
+            "label":"Personen-Code 4",
+            "useLabel":"YES"
+          },
+          {
+            "name":"user_nr",
+            "type":"ch.tocco.nice2.model.form.components.simple.RangeField",
+            "displayType":"HIDDEN",
+            "children":[
+
+            ],
+            "label":"Person-Nr.",
+            "useLabel":"YES"
+          },
+          {
+            "name":"relGender",
+            "type":"ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
+            "displayType":"HIDDEN",
+            "children":[
+
+            ],
+            "label":"Geschlecht",
+            "useLabel":"YES"
+          },
+          {
+            "name":"relAcademic_title",
+            "type":"ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
+            "displayType":"HIDDEN",
+            "children":[
+
+            ],
+            "label":"Akad. Titel",
+            "useLabel":"YES"
+          },
+          {
+            "name":"birthdate",
+            "type":"ch.tocco.nice2.model.form.components.simple.RangeField",
+            "displayType":"HIDDEN",
+            "children":[
+
+            ],
+            "label":"Geburtsdatum",
+            "useLabel":"YES"
+          },
+          {
+            "name":"relCorrespondence_language",
+            "type":"ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
+            "displayType":"HIDDEN",
+            "children":[
+
+            ],
+            "label":"Sprache",
+            "useLabel":"YES"
+          },
+          {
+            "name":"relSalutation",
+            "type":"ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
+            "displayType":"HIDDEN",
+            "children":[
+
+            ],
+            "label":"Anrede",
+            "useLabel":"YES"
+          },
+          {
+            "name":"create_timestamp",
+            "type":"ch.tocco.nice2.model.form.components.simple.RangeField",
+            "displayType":"HIDDEN",
+            "children":[
+
+            ],
+            "label":"Erstellt",
+            "useLabel":"YES"
+          },
+          {
+            "name":"update_timestamp",
+            "type":"ch.tocco.nice2.model.form.components.simple.RangeField",
+            "displayType":"HIDDEN",
+            "children":[
+
+            ],
+            "label":"Aktualisiert",
+            "useLabel":"YES"
+          },
+          {
+            "name":"version",
+            "type":"ch.tocco.nice2.model.form.components.simple.RangeField",
+            "displayType":"HIDDEN",
+            "children":[
+
+            ],
+            "label":"Version",
+            "useLabel":"YES"
+          },
+          {
+            "name":"pk",
+            "type":"ch.tocco.nice2.model.form.components.simple.RangeField",
+            "displayType":"HIDDEN",
+            "children":[
+
+            ],
+            "label":"Schlüssel",
+            "useLabel":"YES"
+          }
+        ],
+        "label":null,
+        "useLabel":"NO"
+      }
+    ],
+    "label":"##forms.UserSearch_search:de_CH:nice2.optional.usersearch",
+    "useLabel":"YES"
+  }
+}

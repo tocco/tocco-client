@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import classNames from 'classnames'
 import {FormattedMessage, intlShape} from 'react-intl'
 import * as ToccoUI from 'tocco-ui'
 import PasswordInput from './PasswordInput'
@@ -89,9 +90,10 @@ class PasswordUpdateDialog extends Component {
           <ToccoUI.Button
             label={this.msg('client.login.passwordUpdate.saveButton')}
             disabled={this.isSubmittable() === false}
-            className={password.passwordUpdatePending ? 'update-pending' : ''}
+            className={classNames({'update-pending': password.passwordUpdatePending})}
             icon="glyphicon-floppy-save"
             type="submit"
+            primary
           />
           {password.passwordUpdateFailed === true && <FailureMessage errorCode={password.passwordUpdateErrorCode}/>}
         </form>

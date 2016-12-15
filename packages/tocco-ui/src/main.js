@@ -1,11 +1,19 @@
 import Button from './Button'
 import ToccoLogo from './ToccoLogo'
 import LoadMask from './LoadMask'
+import Table from './Table'
+import Pagination from './Pagination'
+import SearchBox from './SearchBox'
+import FormattedValue from './FormattedValue'
 
 const exports = {
   Button,
   ToccoLogo,
-  LoadMask
+  LoadMask,
+  Table,
+  Pagination,
+  SearchBox,
+  FormattedValue
 }
 
 module.exports = exports

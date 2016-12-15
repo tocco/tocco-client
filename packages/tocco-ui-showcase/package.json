@@ -39,6 +39,8 @@
     "react-docgen": "^2.12.1",
     "react-dom": "latest",
     "react-highlight": "^0.9.0",
+    "react-intl": "^2.1.5",
+    "react-intl-redux": "^0.1.1",
     "react-scrollspy": "^2.5.0",
     "rimraf": "^2.5.4"
   }
