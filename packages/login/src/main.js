@@ -7,8 +7,9 @@ import setupFetchMock from './dev/fetchMocks'
 
 // TODO find better solution than using relative paths
 import '../../../packages/tocco-theme/src/ToccoTheme/theme.scss'
+// TODO load main.scss inside themes.scss or one of it's ancestors
+//      to provide variables for all scss files
 
-// TODO find a solution to integrate main.scss inside an ancestor of themes.scss. main.scss need the ability to use Sass variables which are definde in ancestors of theme.scss
 import './main.scss'
 
 if (__DEV__) {

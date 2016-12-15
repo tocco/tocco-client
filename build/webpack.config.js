@@ -75,10 +75,11 @@ if (__PROD__) {
 
   if (__PACKAGE__ !== 'tocco-theme') {
     // copy components scss files for recompilation
+    // TODO ensure that all scss files reside inside a components directory
     webpackConfig.plugins.push(
       new CopyWebpackPlugin([
         {
-          context: `${packageDir}/src/components/`,  // TODO ensure that all scss files reside inside a components directory
+          context: `${packageDir}/src/components/`,
           from: '**/*.scss'
         }
       ])
@@ -211,7 +212,7 @@ if (__PROD__ && false ) {  // eslint-disable-line
   // find all scss files and separate it from index.js
   webpackConfig.module.loaders.push({
     test: /\.scss$/,
-    loader: ExtractTextPlugin.extract(`css-loader!sass-loader?includePaths[]=${paths.client()}/packages/tocco-theme/node_modules/`)
+    loader: ExtractTextPlugin.extract(`css-loader!sass-loader?includePaths[]=${paths.client()}/packages/tocco-theme/node_modules/`)  // eslint-disable-line
   })
 } else {
   // find all css files and integrate into index.js

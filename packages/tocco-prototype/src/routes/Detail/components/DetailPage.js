@@ -1,3 +1,5 @@
+/* global classes:true */
+
 import React from 'react'
 import { Link } from 'react-router'
 import DetailForm from './DetailForm'

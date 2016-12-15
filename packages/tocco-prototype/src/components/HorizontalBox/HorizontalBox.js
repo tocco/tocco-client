@@ -1,3 +1,5 @@
+/* global classes:true */
+
 import React from 'react'
 import classNames from 'classnames'
 
