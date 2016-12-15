@@ -55,12 +55,20 @@ npm start --package={PACKAGE_NAME}
 ```
 Open http://localhost:3000 and start coding!
 
+#### Pro Tip
+When working on a package and parallel develop tocco-ui components, the import statement of tocco-ui can temporarily be changed to:
+``import * as ToccoUI from '../../../../tocco-ui/src/main'``
+
+This enables hot-reloading and thus a better development experience.
+
 #### Tests
 Tests are using following tools and libraries:
 * [Karma](https://karma-runner.github.io/)
 * [Mocha](https://mochajs.org/)
 * [Sinon](http://sinonjs.org/)
 * [Chai](http://chaijs.com/)
+* [Enzyme](https://github.com/airbnb/enzyme)
+
 
 All packages:
 ```
