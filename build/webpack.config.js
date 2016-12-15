@@ -73,51 +73,25 @@ if (__PROD__) {
     new ExtractTextPlugin('index.css')
   )
 
-  // provide an scss entrypoint
-  // TODO Enhance handling of index.scss this by creating it dynamically rather than copying it
-  // to prevent duplications and boilerplate code. Afterwards all index.scss can be removed from
-  // packages.
-  if (__PACKAGE__ !== 'tocco-test-util') {
+  if (__PACKAGE__ !== 'tocco-theme') {
+    // copy components scss files for recompilation
     webpackConfig.plugins.push(
       new CopyWebpackPlugin([
         {
-          context: absolutePackagePath,
-          from: 'src/index.scss',
-          flatten: true
+          context: `${packageDir}/src/components/`,  // TODO ensure that all scss files reside inside a components directory
+          from: '**/*.scss'
         }
       ])
     )
   }
 
-  // copy all scss files for recompilation
-  webpackConfig.plugins.push(
-    new CopyWebpackPlugin([
-      {
-        from: `${packageDir}/src/**/*.scss`,
-        flatten: false
-      }
-    ])
-  )
-
-  if (__PACKAGE__ === 'tocco-ui') {
-    // copy Font Awesome's scss files
-    debug(`copy scss files from ${__PACKAGE__}/node_modules/font-awesome/ to ${__PACKAGE__}/dist/`)  // eslint-disable-line
+  // copy all assets of tocco's theme to dist folder
+  if (__PACKAGE__ === 'tocco-theme') {
     webpackConfig.plugins.push(
       new CopyWebpackPlugin([
         {
-          from: `${packageDir}/node_modules/font-awesome/scss/*.scss`,
-          flatten: false
-        }
-      ])
-    )
-
-    // copy Bootstrap's scss files
-    debug(`copy scss files from ${__PACKAGE__}/node_modules/bootstrap-sass/ to ${__PACKAGE__}/dist/`)
-    webpackConfig.plugins.push(
-      new CopyWebpackPlugin([
-        {
-          from: `${packageDir}/node_modules/bootstrap-sass/assets/stylesheets/**/*.scss`,
-          flatten: false
+          context: `${packageDir}/src/ToccoTheme`,
+          from: '**/*.scss'
         }
       ])
     )
@@ -152,6 +126,7 @@ if (__STANDALONE__) {
   )
 }
 
+// TODO combine all environment conditionals
 if (__DEV__) {
   debug('Enable plugin for case-sensitive path check')
   webpackConfig.plugins.push(new CaseSensitivePathsPlugin())
@@ -232,17 +207,18 @@ webpackConfig.module.loaders.push({
 })
 
 // TODO remove "&& false" to separate css from js. Currently this would result in unstyled components.
+// TODO change absolute path to relative path (/Users/tocco/Projects/tocco-client/)
 if (__PROD__ && false ) {  // eslint-disable-line
   // find all scss files and separate it from index.js
   webpackConfig.module.loaders.push({
     test: /\.scss$/,
-    loader: ExtractTextPlugin.extract('css-loader!sass-loader')
+    loader: ExtractTextPlugin.extract('css-loader!sass-loader?includePaths[]=/Users/tocco/Projects/tocco-client/packages/tocco-theme/node_modules/')
   })
 } else {
   // find all css files and integrate into index.js
   webpackConfig.module.loaders.push({
     test: /\.scss$/,
-    loaders: ['style', 'css', 'sass']
+    loaders: ['style', 'css', 'sass?includePaths[]=/Users/tocco/Projects/tocco-client/packages/tocco-theme/node_modules/']
   })
 }
 
@@ -258,7 +234,8 @@ webpackConfig.module.loaders.push(
     loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff2'
   },
   {
-    test: /\.otf(\?.*)?$/, loader: 'file?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=font/opentype'
+    test: /\.otf(\?.*)?$/,
+    loader: 'file?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=font/opentype'
   },
   {
     test: /\.ttf(\?.*)?$/,
