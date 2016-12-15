@@ -2,13 +2,15 @@ import React from 'react'
 import {FormattedNumber} from 'react-intl'
 
 const MoneyFormatter = props => {
-  return (
-    <FormattedNumber
-      value={props.value}
-      style="decimal"
-      minimumFractionDigits={2}
-    />
-  )
+  if (props.value) {
+    return (
+      <FormattedNumber
+        value={props.value}
+        style="decimal"
+        minimumFractionDigits={2}
+      />
+    )
+  }
 }
 
 MoneyFormatter.propTypes = {

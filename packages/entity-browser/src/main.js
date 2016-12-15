@@ -12,7 +12,7 @@ if (__DEV__) {
 
   let render = () => {
     const input = require('./dev/input.json')
-    let component = appFactory('', input)
+    const component = appFactory('', input)
 
     const element = React.createElement(component.renderComponent)
     ReactDOM.render(element, mountElement)

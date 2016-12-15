@@ -19,27 +19,26 @@ FormattedValue.propTypes = {
    * Type of value. E.g. Phone
    */
   type: React.PropTypes.oneOf([
-    'string',
-    'char',
-    'text',
-    'short',
-    'integer',
-    'long',
+    'birthdate',
+    'boolean',
+    'char', 'counter',
+    'date',
+    'datetime',
     'decimal',
     'double',
-    'phone',
-    'counter',
-    'url',
-    'date',
-    'birthdate',
-    'datetime',
-    'time',
     'duration',
     'email',
-    'moneyamount',
-    'boolean',
+    'integer',
     'latitude',
-    'longitude'
+    'long',
+    'longitude',
+    'moneyamount',
+    'phone',
+    'short',
+    'string',
+    'text',
+    'time',
+    'url'
   ]).isRequired,
   /**
    * Value that should be formatted
