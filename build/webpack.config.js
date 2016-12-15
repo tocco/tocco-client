@@ -207,18 +207,17 @@ webpackConfig.module.loaders.push({
 })
 
 // TODO remove "&& false" to separate css from js. Currently this would result in unstyled components.
-// TODO change absolute path to relative path (/Users/tocco/Projects/tocco-client/)
 if (__PROD__ && false ) {  // eslint-disable-line
   // find all scss files and separate it from index.js
   webpackConfig.module.loaders.push({
     test: /\.scss$/,
-    loader: ExtractTextPlugin.extract('css-loader!sass-loader?includePaths[]=/Users/tocco/Projects/tocco-client/packages/tocco-theme/node_modules/')
+    loader: ExtractTextPlugin.extract(`css-loader!sass-loader?includePaths[]=${paths.client()}/packages/tocco-theme/node_modules/`)
   })
 } else {
   // find all css files and integrate into index.js
   webpackConfig.module.loaders.push({
     test: /\.scss$/,
-    loaders: ['style', 'css', 'sass?includePaths[]=/Users/tocco/Projects/tocco-client/packages/tocco-theme/node_modules/']
+    loaders: ['style', 'css', `sass?includePaths[]=${paths.client()}/packages/tocco-theme/node_modules/`]
   })
 }
 
