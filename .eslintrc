@@ -38,9 +38,7 @@
     "no-trailing-spaces": ["error", { "skipBlankLines": true }],
     "space-before-function-paren": [2, "never"],
     "operator-linebreak": [2, "before"],
-
-    "generator-star-spacing": 0,
-    "babel/generator-star-spacing": [2, "after"],
+    "generator-star-spacing": [2, {"before": false, "after": true}],
 
     "react/jsx-space-before-closing": [2, "never"],
     "jsx-quotes": [2, "prefer-double"],

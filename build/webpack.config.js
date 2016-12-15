@@ -97,15 +97,18 @@ if (__DEV__) {
   debug('Enable plugins for live development (HMR, NoErrors).')
   webpackConfig.plugins.push(
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
   )
 
+  // Run linting but only show errors as warning
   webpackConfig.module.preLoaders = [
     {
       test: /\.jsx?$/,
       loaders: ['eslint']
     }
   ]
+  webpackConfig.eslint = {
+    emitWarning: true
+  }
 } else if (__PROD__) {
   debug('Enable plugins for production (OccurenceOrder, Dedupe & UglifyJS).')
   webpackConfig.plugins.push(
