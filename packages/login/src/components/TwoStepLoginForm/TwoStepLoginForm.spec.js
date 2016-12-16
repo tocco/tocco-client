@@ -13,6 +13,9 @@ describe('login', () => {
             intl={IntlStub}
             changePage={() => undefined}
             twoStepLogin={() => undefined}
+            username=""
+            password=""
+            requestedCode=""
           />
         )
 
@@ -26,6 +29,9 @@ describe('login', () => {
             intl={IntlStub}
             changePage={() => undefined}
             twoStepLogin={() => undefined}
+            username=""
+            password=""
+            requestedCode=""
           />
         )
         expect(wrapper.state().userCode).to.equal('')
@@ -37,6 +43,9 @@ describe('login', () => {
             intl={IntlStub}
             changePage={() => undefined}
             twoStepLogin={() => undefined}
+            username=""
+            password=""
+            requestedCode=""
           />
         )
 
@@ -58,6 +67,9 @@ describe('login', () => {
             intl={IntlStub}
             changePage={() => undefined}
             twoStepLogin={() => undefined}
+            username=""
+            password=""
+            requestedCode=""
           />
         )
 
@@ -72,6 +84,9 @@ describe('login', () => {
             intl={IntlStub}
             changePage={() => undefined}
             twoStepLogin={() => undefined}
+            username=""
+            password=""
+            requestedCode=""
           />
         )
 
@@ -90,6 +105,9 @@ describe('login', () => {
             intl={IntlStub}
             changePage={() => undefined}
             twoStepLogin={() => undefined}
+            username=""
+            password=""
+            requestedCode=""
           />
         )
 
@@ -103,6 +121,9 @@ describe('login', () => {
             changePage={() => undefined}
             twoStepLogin={() => undefined}
             showTitle
+            username=""
+            password=""
+            requestedCode=""
           />
         )
 
@@ -118,6 +139,9 @@ describe('login', () => {
             intl={IntlStub}
             changePage={() => undefined}
             twoStepLogin={twoStepLogin}
+            username=""
+            password=""
+            requestedCode=""
           />
         )
 
