@@ -8,7 +8,7 @@
   },
   "scripts": {
     "compile": "better-npm-run compile",
-    "lint": "eslint .",
+    "lint": "eslint .  --cache",
     "lint:fix": "npm run lint -- --fix",
     "start": "better-npm-run start",
     "dev": "better-npm-run dev",

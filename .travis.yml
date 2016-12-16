@@ -1,4 +1,4 @@
-sudo: true
+sudo: false
 language: node_js
 node_js:
   - "5.0"
@@ -6,11 +6,14 @@ node_js:
 cache:
   directories:
     - node_modules
+    - packages/entity-browser/node_modules
+    - packages/login/node_modules
+    - packages/merge/node_modules
+    - packages/tocco-test-util/node_modules
     - packages/tocco-ui/node_modules
     - packages/tocco-ui-showcase/node_modules
-    - packages/tocco-ui-util/node_modules
-    - packages/merge/node_modules
-    - packages/login/node_modules
+    - packages/tocco-util/node_modules
+    - .eslintcache
 
 install:
   - npm install
