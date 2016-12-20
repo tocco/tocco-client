@@ -30,6 +30,7 @@ FormattedValue.propTypes = {
     'email',
     'integer',
     'latitude',
+    'login',
     'long',
     'longitude',
     'moneyamount',
