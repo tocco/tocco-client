@@ -5,6 +5,7 @@ import Table from './Table'
 import Pagination from './Pagination'
 import SearchBox from './SearchBox'
 import FormattedValue from './FormattedValue'
+import EditableValue from './EditableValue'
 
 const exports = {
   Button,
@@ -13,7 +14,8 @@ const exports = {
   Table,
   Pagination,
   SearchBox,
-  FormattedValue
+  FormattedValue,
+  EditableValue
 }
 
 module.exports = exports
