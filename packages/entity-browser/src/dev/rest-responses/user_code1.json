@@ -1,0 +1,114 @@
+{
+  "metaData": {
+    "modelName": "User_code1",
+    "label": "Personen-Code 1"
+  },
+  "data": [
+    {
+      "key": "1",
+      "model": "User_code1",
+      "version": 1,
+      "display": "Präsident",
+      "fields": {
+        "unique_id": {
+          "value": "president",
+          "type": "identifier",
+          "readable": true,
+          "writable": true
+        },
+        "label_de": {
+          "value": "Präsident",
+          "type": "string",
+          "readable": true,
+          "writable": true
+        },
+        "label_fr": {
+          "value": "Président",
+          "type": "string",
+          "readable": true,
+          "writable": true
+        },
+        "label_it": {
+          "value": "Präsident",
+          "type": "string",
+          "readable": true,
+          "writable": true
+        },
+        "label_en": {
+          "value": "President",
+          "type": "string",
+          "readable": true,
+          "writable": true
+        },
+        "sorting": {
+          "value": 10,
+          "type": "sorting",
+          "readable": true,
+          "writable": true
+        },
+        "active": {
+          "value": true,
+          "type": "boolean",
+          "readable": true,
+          "writable": true
+        }
+      },
+      "singleRelations": [],
+      "multiRelations": [],
+      "paths": {}
+    },
+    {
+      "key": "2",
+      "model": "User_code1",
+      "version": 1,
+      "display": "Geschäftsleitung",
+      "fields": {
+        "unique_id": {
+          "value": "executive_board",
+          "type": "identifier",
+          "readable": true,
+          "writable": true
+        },
+        "label_de": {
+          "value": "Geschäftsleitung",
+          "type": "string",
+          "readable": true,
+          "writable": true
+        },
+        "label_fr": {
+          "value": "Direction",
+          "type": "string",
+          "readable": true,
+          "writable": true
+        },
+        "label_it": {
+          "value": "Geschäftsleitung",
+          "type": "string",
+          "readable": true,
+          "writable": true
+        },
+        "label_en": {
+          "value": "Executive board",
+          "type": "string",
+          "readable": true,
+          "writable": true
+        },
+        "sorting": {
+          "value": 20,
+          "type": "sorting",
+          "readable": true,
+          "writable": true
+        },
+        "active": {
+          "value": true,
+          "type": "boolean",
+          "readable": true,
+          "writable": true
+        }
+      },
+      "singleRelations": [],
+      "multiRelations": [],
+      "paths": {}
+    }
+  ]
+}
