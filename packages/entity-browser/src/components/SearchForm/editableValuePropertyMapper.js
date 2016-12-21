@@ -10,7 +10,7 @@ export default searchFieldType => {
       return (name, value, relationEntities, entityModel) => {
         let possibleValues = []
         if (relationEntities[entityModel[name].targetEntity]) {
-          possibleValues = relationEntities[entityModel[name].targetEntity].data.map(r => ({
+          possibleValues = relationEntities[entityModel[name].targetEntity].map(r => ({
             label: r.displayName,
             value: r.value
           }))

@@ -3,7 +3,7 @@ import fetchMock from 'fetch-mock'
 
 describe('entity-browser', () => {
   describe('util', () => {
-    describe('api', () => {
+    describe('rest', () => {
       describe('getParameterString', () => {
         it('should order params', () => {
           const params = {

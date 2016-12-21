@@ -53,12 +53,10 @@ export function fetchRelationRecords(entityName) {
 export const transformRelationEntitiesResults = data => {
   const result = {}
   data.forEach(entities => {
-    result[entities.metaData.modelName] = {
-      data: entities.data.map(record => ({
-        displayName: record.display,
-        value: record.key
-      }))
-    }
+    result[entities.metaData.modelName] = entities.data.map(record => ({
+      displayName: record.display,
+      value: record.key
+    }))
   })
 
   return result

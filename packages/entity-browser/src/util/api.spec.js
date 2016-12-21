@@ -123,6 +123,73 @@ describe('entity-browser', () => {
         })
       })
 
+      describe('fetchRelationRecords', () => {
+        it('should fetch entities with a limit', () => {
+          fetchMock.get('*', {})
+
+          return api.fetchRelationRecords('User_code1').then(result => {
+            expect(fetchMock.calls().matched).to.have.length(1)
+            const lastCallUrl = fetchMock.lastCall()[0]
+            expect(lastCallUrl).to.eql('/nice2/rest/entities/User_code1?_limit=50')
+          })
+        })
+      })
+
+      describe('transformRelationEntitiesResults', () => {
+        it('should transform array of entities into object', () => {
+          const data = [
+            {
+              metaData: {
+                modelName: 'User_code2'
+              },
+              data: [
+                {
+                  display: 'CEO',
+                  key: '33'
+                }
+              ]
+            },
+            {
+              metaData: {
+                modelName: 'Gender'
+              },
+              data: [
+                {
+                  display: 'M',
+                  key: '1'
+                },
+                {
+                  display: 'F',
+                  key: '2'
+                }
+              ]
+            }
+          ]
+
+          const expectedResult = {
+            User_code2: [
+              {
+                displayName: 'CEO',
+                value: '33'
+              }
+            ],
+            Gender: [
+              {
+                displayName: 'M',
+                value: '1'
+              },
+              {
+                displayName: 'F',
+                value: '2'
+              }
+            ]
+          }
+
+          const transformedResult = api.transformRelationEntitiesResults(data)
+          expect(transformedResult).to.eql(expectedResult)
+        })
+      })
+
       describe('fetchColumnDefinition', () => {
         it('should call fetch and transform form to ColumnDefinition', () => {
           const fetchResult = {
@@ -195,6 +262,51 @@ describe('entity-browser', () => {
                   useLabel: 'YES'
                 }
               ]
+              expect(res).to.eql(expectedResult)
+            })
+          })
+        })
+
+        describe('fetchModel', () => {
+          it('should call fetch and transform result', () => {
+            const fetchResult = {
+              'name': 'User',
+              'fields': [
+                {
+                  'fieldName': 'pk',
+                  'type': 'serial'
+                },
+                {
+                  'fieldName': 'firstname',
+                  'type': 'string'
+                }
+              ],
+              'relations': [
+                {
+                  'relationName': 'some_relation',
+                  'targetEntity': 'Address',
+                  'multi': true
+                }
+              ]
+            }
+
+            fetchMock.get('*', fetchResult)
+            return api.fetchModel('User').then(res => {
+              expect(fetchMock.calls().matched).to.have.length(1)
+              const lastCallUrl = fetchMock.lastCall()[0]
+              expect(lastCallUrl).to.eql('/nice2/rest/entities/User/model')
+              const expectedResult = {
+                pk: {
+                  type: 'serial'
+                },
+                firstname: {
+                  type: 'string'
+                },
+                some_relation: {
+                  type: 'relation',
+                  targetEntity: 'Address'
+                }
+              }
               expect(res).to.eql(expectedResult)
             })
           })
