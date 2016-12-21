@@ -4,6 +4,7 @@ import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import rootSaga, * as sagas from './sagas'
 import * as api from '../../util/api'
+import _clone from 'lodash/clone'
 
 const generateState = (recordStore = {}, page) => ({
   entityName: '',
@@ -184,6 +185,15 @@ describe('entity-browser', () => {
             expect(gen.next(state).value).to.eql(put(actions.clearRecordStore(records)))
             expect(gen.next(state).value).to.eql(put(actions.requestRecords(page)))
             expect(gen.next().done).to.be.true
+          })
+        })
+
+        describe('getSearchInputs saga', () => {
+          it('should get searchInputs', () => {
+            const gen = sagas.getSearchInputs()
+            expect(gen.next().value).to.eql(select(sagas.searchFormSelector))
+            expect(gen.next({searchInputs: {}}).value).to.eql(call(_clone, {}))
+            expect(gen.next({txtFulltext: 'foo'}).done).to.be.true
           })
         })
       })

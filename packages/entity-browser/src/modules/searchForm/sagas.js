@@ -32,7 +32,7 @@ export function* initializeSearchForm(action) {
     return call(api.fetchRelationRecords, entityName)
   })
 
-  const relationEntitiesTransformed = api.transformRelationEntitiesResults(relationEntities)
+  const relationEntitiesTransformed = yield call(api.transformRelationEntitiesResults, relationEntities)
 
   yield put(actions.setRelationEntities(relationEntitiesTransformed))
 }

@@ -35,7 +35,7 @@ export function* changePage({payload}) {
 
 export function* getSearchInputs() {
   const searchForm = yield select(searchFormSelector)
-  const searchInputs = _clone(searchForm.searchInputs)
+  const searchInputs = yield call(_clone, searchForm.searchInputs)
 
   if (searchInputs && searchInputs.txtFulltext) {
     searchInputs._search = searchInputs.txtFulltext

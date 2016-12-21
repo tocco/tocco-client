@@ -19,18 +19,29 @@ describe('entity-browser', () => {
         })
 
         it('should handle SET_FORM_DEFINITION', () => {
-          const stateBefore = {
-            formDefinition: undefined
-          }
           const definition = [
             {name: 'name1', type: 'type1', label: 'label1', displayType: 'displayType1', useLabel: true}
           ]
 
-          const expectedStateAfter = {
-            formDefinition: definition
-          }
+          expect(reducer(EXPECTED_INITIAL_STATE, actions.setFormDefinition(definition)).formDefinition).to.deep.equal(
+            definition
+          )
+        })
 
-          expect(reducer(stateBefore, actions.setFormDefinition(definition))).to.deep.equal(expectedStateAfter)
+        it('should handle SET_FORM', () => {
+          const stateAfter = reducer(EXPECTED_INITIAL_STATE, actions.setForm('User', 'UserSearch'))
+
+          expect(stateAfter.entityName).to.deep.equal('User')
+          expect(stateAfter.formName).to.deep.equal('UserSearch')
+        })
+
+        it('should handle SET_SEARCH_INPUT', () => {
+          let state = EXPECTED_INITIAL_STATE
+
+          state = reducer(state, actions.setSearchInput('firstname', 'Dan'))
+          state = reducer(state, actions.setSearchInput('age', 18))
+
+          expect(state.searchInputs).to.deep.equal({firstname: 'Dan', age: 18})
         })
       })
     })
