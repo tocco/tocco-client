@@ -1,0 +1,23 @@
+[
+  {
+    "name": "txtFulltext",
+    "type": "ch.tocco.nice2.model.form.components.simple.TextField",
+    "displayType": "EDITABLE",
+    "label": "Person",
+    "useLabel": "YES"
+  },
+  {
+    "name": "relAddress_user.relAddress",
+    "type": "ch.tocco.nice2.model.form.components.simple.TextField",
+    "displayType": "EDITABLE",
+    "label": "Adresse",
+    "useLabel": "YES"
+  },
+  {
+    "name": "relUser_code1",
+    "type": "ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
+    "displayType": "EDITABLE",
+    "label": "Personen-Code 1",
+    "useLabel": "YES"
+  }
+]

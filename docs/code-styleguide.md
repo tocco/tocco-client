@@ -5,6 +5,15 @@ Most code styles are enforced by eslint. The Travis CI build will fail if not ev
 Active ESlint rules can be seen here:
 https://github.com/tocco/tocco-client/blob/master/.eslintrc
 
+## Folders and structure
+### Naming conventions folders 
+
+| What       | Case   | Example        |
+|------------|--------|----------------|
+| Packages   | Kebab  | entity-browser |
+| Components | Pascal | SearchField    |
+| Module     | Camel  | searchForm     |
+| Any other  | Kebab  | test-data      |
 
 ## Actions
  - Wrap arguments in payload attribute

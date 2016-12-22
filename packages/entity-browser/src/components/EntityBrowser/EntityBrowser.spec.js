@@ -1,6 +1,5 @@
 import React from 'react'
 import {EntityBrowser} from './EntityBrowser'
-import {SearchForm} from './../SearchForm'
 import * as ToccoUI from 'tocco-ui'
 
 import {mount, shallow} from 'enzyme'
@@ -23,7 +22,6 @@ describe('entity-browser', () => {
         />)
 
         expect(wrapper.find(EntityBrowser)).to.have.length(1)
-        expect(wrapper.find(SearchForm)).to.have.length(1)
         expect(wrapper.find(ToccoUI.Table)).to.have.length(1)
         expect(wrapper.find(ToccoUI.Pagination)).to.have.length(1)
         expect(initializeTable).to.have.calledOnce
@@ -73,22 +71,6 @@ describe('entity-browser', () => {
         expect(wrapper.find(ToccoUI.Table).props().loading).to.eql(recordRequestInProgress)
         wrapper.find(ToccoUI.Table).simulate('orderByChange')
         expect(orderByChange).to.have.calledOnce
-      })
-
-      it('should handle the searchFormDefinition', () => {
-        const searchFormDefinition = []
-
-        const wrapper = shallow(<EntityBrowser
-          initializeTable={EMPTY_FUNC}
-          changePage={EMPTY_FUNC}
-          setSearchTerm={EMPTY_FUNC}
-          resetDataSet={EMPTY_FUNC}
-          records={[]}
-          searchFormDefinition={searchFormDefinition}
-          orderBy={{}}
-        />)
-
-        expect(wrapper.find(SearchForm).props().formDefinition).to.eql(searchFormDefinition)
       })
 
       it('should handle currentPage', () => {

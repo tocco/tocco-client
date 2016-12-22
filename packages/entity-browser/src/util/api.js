@@ -1,44 +1,16 @@
 import _union from 'lodash/union'
+import * as rest from './rest'
 
-export const getParameterString = params => {
-  const paramString = Object.keys(params || [])
-    .filter(k => !!params[k])
-    .sort()
-    .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`).join('&')
-  if (paramString) {
-    return `?${paramString}`
-  }
-  return ''
-}
-
-const fetchRequest = (resource, params) => {
-  const options = {
-    method: 'GET',
-    headers: new Headers({
-      'Content-Type': 'application/json'
-    }),
-    credentials: 'include'
-  }
-
-  const paramString = getParameterString(params)
-
-  return fetch(`${__BACKEND_URL__}/nice2/rest/${resource}${paramString}`, options)
-}
-
-const getPathsValue = columnDefinition => {
-  return _union(...columnDefinition.map(field => (field.value))).join(',')
-}
-
-export function fetchRecords(entityName, page, orderBy, limit, searchTerm, columnDefinition) {
+export function fetchRecords(entityName, page, orderBy, limit, columnDefinition, searchInputs) {
   const params = {
     '_sort': Object.keys(orderBy).length === 2 ? `${orderBy.name} ${orderBy.direction}` : undefined,
     '_limit': limit,
     '_offset': (page - 1) * limit,
-    '_search': searchTerm,
-    '_paths': getPathsValue(columnDefinition)
+    '_paths': _union(...columnDefinition.map(field => (field.value))).join(','),
+    ...searchInputs
   }
 
-  return fetchRequest(`entities/${entityName}`, params)
+  return rest.fetchRequest(`entities/${entityName}`, params)
     .then(resp => resp.json())
     .then(json => transformRecordsResult(json))
 }
@@ -46,9 +18,11 @@ export function fetchRecords(entityName, page, orderBy, limit, searchTerm, colum
 const transformRecordsResult = json => {
   return json.data.map(entity => {
     const result = {}
+    result.display = entity.display
     const paths = entity.paths
     for (let path in paths) {
       const type = paths[path].type
+
       if (type === 'field') {
         result[path] = paths[path].value
       } else if (type === 'entity') {
@@ -67,17 +41,38 @@ const transformRecordsResult = json => {
   })
 }
 
-export function fetchRecordCount(entityName, searchTerm) {
+export function fetchRelationRecords(entityName) {
   const params = {
-    '_search': searchTerm
+    '_limit': 50
   }
-  return fetchRequest(`entities/${entityName}/count`, params)
+
+  return rest.fetchRequest(`entities/${entityName}`, params)
+    .then(resp => resp.json())
+}
+
+export const transformRelationEntitiesResults = data => {
+  const result = {}
+  data.forEach(entities => {
+    result[entities.metaData.modelName] = entities.data.map(record => ({
+      displayName: record.display,
+      value: record.key
+    }))
+  })
+
+  return result
+}
+
+export function fetchRecordCount(entityName, searchInputs) {
+  const params = {
+    ...searchInputs
+  }
+  return rest.fetchRequest(`entities/${entityName}/count`, params)
     .then(resp => resp.json())
     .then(json => json.count)
 }
 
 export function fetchColumnDefinition(formName, formType) {
-  return fetchRequest(`forms/${formName}`)
+  return rest.fetchRequest(`forms/${formName}`)
     .then(resp => resp.json())
     .then(json => transformFormResult(json, formType))
 }
@@ -99,19 +94,45 @@ const transformFormResult = (json, formType) => {
 }
 
 export function fetchSearchForm(formName) {
-  return fetchRequest(`forms/${formName}`)
+  return rest.fetchRequest(`forms/${formName}`)
     .then(resp => resp.json())
     .then(json => transformSearchFormResult(json))
 }
 
 const transformSearchFormResult = json => {
   const {form} = json
-  return form.children[0].children.map(f => ({
-    name: f.name,
-    type: f.type,
-    displayType: f.displayType,
-    label: f.label,
-    useLabel: f.useLabel
-  }))
+  const fields = form.children[0].children
+
+  return fields
+    .filter(f => f.displayType !== 'HIDDEN')
+    .map(f => ({
+      name: f.name,
+      type: f.type,
+      displayType: f.displayType,
+      label: f.label,
+      useLabel: f.useLabel
+    }))
 }
 
+export function fetchModel(entityName) {
+  return rest.fetchRequest(`entities/${entityName}/model`)
+    .then(resp => resp.json())
+    .then(json => transformModel(json))
+}
+
+const transformModel = json => {
+  const model = {}
+  json.fields.forEach(f => {
+    model[f.fieldName] = {
+      type: f.type
+    }
+  })
+
+  json.relations.forEach(r => {
+    model[r.relationName] = {
+      type: 'relation',
+      targetEntity: r.targetEntity
+    }
+  })
+  return model
+}

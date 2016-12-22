@@ -7,6 +7,7 @@ import {LoadMask} from 'tocco-ui'
 
 import {setEntityName, setLimit, setFormBase} from './modules/entityBrowser/actions'
 
+import SearchFormContainer from './containers/SearchFormContainer'
 import EntityBrowserContainer from './containers/EntityBrowserContainer'
 
 import de from 'react-intl/locale-data/de'
@@ -56,7 +57,10 @@ const factory = (id, input = {}, externalEvents, publicPath, resourcePrefix, red
       <Provider store={store}>
         <LoadMask promises={[initIntlPromise]}>
           <IntlProvider>
-            <EntityBrowserContainer/>
+            <div>
+              <SearchFormContainer/>
+              <EntityBrowserContainer/>
+            </div>
           </IntlProvider>
         </LoadMask>
       </Provider>

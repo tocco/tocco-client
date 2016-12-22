@@ -9,44 +9,12 @@ describe('entity-browser', () => {
         fetchMock.restore()
       })
 
-      describe('getParameterString', () => {
-        it('should order params', () => {
-          const params = {
-            'param1': 'val1',
-            'param3': 'val3',
-            'param2': 'val2'
-          }
-          const res = api.getParameterString(params)
-
-          expect(res).to.eql('?param1=val1&param2=val2&param3=val3')
-        })
-
-        it('should remove empty params', () => {
-          const params = {
-            'param1': '',
-            'param2': 'val2'
-          }
-          const res = api.getParameterString(params)
-
-          expect(res).to.eql('?param2=val2')
-        })
-
-        it('should decode string', () => {
-          const params = {
-            'param1': '%'
-          }
-          const res = api.getParameterString(params)
-
-          expect(res).to.eql('?param1=%25')
-        })
-      })
-
       describe('fetchRecord', () => {
         it('should call fetch', () => {
           fetchMock.get('*', {data: [{fields: {a: 'a'}}]})
 
           const columnDefinition = [{label: 'l1', value: ['f1', 'f2']}, {label: 'l1', value: ['f2']}]
-          return api.fetchRecords('User', 2, 'firstname', 20, 'test', columnDefinition).then(() => {
+          return api.fetchRecords('User', 2, 'firstname', 20, columnDefinition, {_search: 'test'}).then(() => {
             expect(fetchMock.calls().matched).to.have.length(1)
             const lastCall = fetchMock.lastCall()[0]
             expect(lastCall).to.eql('/nice2/rest/entities/User?_limit=20&_offset=20&_paths=f1%2Cf2&_search=test')
@@ -125,7 +93,7 @@ describe('entity-browser', () => {
 
           const columnDefinition = [{label: 'Firstname', value: ['firstname']}, {label: 'Gender', value: ['relGender']}]
 
-          return api.fetchRecords(entityName, 2, 'firstname', 20, 'test', columnDefinition).then(res => {
+          return api.fetchRecords(entityName, 2, 'firstname', 20, columnDefinition, {_search: 'test'}).then(res => {
             expect(res).to.be.a('array')
             expect(res).to.have.length(2)
             expect(res[0]).to.have.property('firstname')
@@ -152,6 +120,73 @@ describe('entity-browser', () => {
             const lastCallUrl = fetchMock.lastCall()[0]
             expect(lastCallUrl).to.eql('/nice2/rest/entities/User/count')
           })
+        })
+      })
+
+      describe('fetchRelationRecords', () => {
+        it('should fetch entities with a limit', () => {
+          fetchMock.get('*', {})
+
+          return api.fetchRelationRecords('User_code1').then(result => {
+            expect(fetchMock.calls().matched).to.have.length(1)
+            const lastCallUrl = fetchMock.lastCall()[0]
+            expect(lastCallUrl).to.eql('/nice2/rest/entities/User_code1?_limit=50')
+          })
+        })
+      })
+
+      describe('transformRelationEntitiesResults', () => {
+        it('should transform array of entities into object', () => {
+          const data = [
+            {
+              metaData: {
+                modelName: 'User_code2'
+              },
+              data: [
+                {
+                  display: 'CEO',
+                  key: '33'
+                }
+              ]
+            },
+            {
+              metaData: {
+                modelName: 'Gender'
+              },
+              data: [
+                {
+                  display: 'M',
+                  key: '1'
+                },
+                {
+                  display: 'F',
+                  key: '2'
+                }
+              ]
+            }
+          ]
+
+          const expectedResult = {
+            User_code2: [
+              {
+                displayName: 'CEO',
+                value: '33'
+              }
+            ],
+            Gender: [
+              {
+                displayName: 'M',
+                value: '1'
+              },
+              {
+                displayName: 'F',
+                value: '2'
+              }
+            ]
+          }
+
+          const transformedResult = api.transformRelationEntitiesResults(data)
+          expect(transformedResult).to.eql(expectedResult)
         })
       })
 
@@ -211,7 +246,7 @@ describe('entity-browser', () => {
 
         describe('fetchSearchForm', () => {
           it('should call fetch ', () => {
-            const fetchResult = require('../dev/test_user_search.json')
+            const fetchResult = require('../dev/test-data/user_search.json')
             fetchMock.get('*', fetchResult)
             return api.fetchSearchForm('User_search').then(res => {
               expect(fetchMock.calls().matched).to.have.length(1)
@@ -225,14 +260,53 @@ describe('entity-browser', () => {
                   displayType: 'EDITABLE',
                   label: 'Person',
                   useLabel: 'YES'
+                }
+              ]
+              expect(res).to.eql(expectedResult)
+            })
+          })
+        })
+
+        describe('fetchModel', () => {
+          it('should call fetch and transform result', () => {
+            const fetchResult = {
+              'name': 'User',
+              'fields': [
+                {
+                  'fieldName': 'pk',
+                  'type': 'serial'
                 },
                 {
-                  name: 'relAddress_user.relAddress',
-                  type: 'ch.tocco.nice2.model.form.components.simple.TextField',
-                  displayType: 'HIDDEN',
-                  label: 'Adresse',
-                  useLabel: 'HIDDEN'
-                }]
+                  'fieldName': 'firstname',
+                  'type': 'string'
+                }
+              ],
+              'relations': [
+                {
+                  'relationName': 'some_relation',
+                  'targetEntity': 'Address',
+                  'multi': true
+                }
+              ]
+            }
+
+            fetchMock.get('*', fetchResult)
+            return api.fetchModel('User').then(res => {
+              expect(fetchMock.calls().matched).to.have.length(1)
+              const lastCallUrl = fetchMock.lastCall()[0]
+              expect(lastCallUrl).to.eql('/nice2/rest/entities/User/model')
+              const expectedResult = {
+                pk: {
+                  type: 'serial'
+                },
+                firstname: {
+                  type: 'string'
+                },
+                some_relation: {
+                  type: 'relation',
+                  targetEntity: 'Address'
+                }
+              }
               expect(res).to.eql(expectedResult)
             })
           })
