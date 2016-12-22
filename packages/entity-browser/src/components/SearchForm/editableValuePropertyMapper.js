@@ -3,7 +3,8 @@ export default searchFieldType => {
     case 'ch.tocco.nice2.model.form.components.simple.TextField':
       return (name, value, relationEntities, entityModel) => ({
         type: 'string',
-        value: value
+        value: value,
+        id: name
       })
 
     case 'ch.tocco.nice2.model.form.components.simple.MultiSelectBox':
@@ -21,7 +22,8 @@ export default searchFieldType => {
           options: {
             possibleValues
           },
-          value: value
+          value: value,
+          id: name
         }
       }
 

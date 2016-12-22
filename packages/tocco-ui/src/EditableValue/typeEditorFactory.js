@@ -8,9 +8,9 @@ export const map = {
   'multi-select': MultiSelect
 }
 
-export default (type, value, onChange, options) => {
+export default (type, value, onChange, options, id) => {
   if (map[type]) {
-    return React.createElement(map[type], {value, onChange, options})
+    return React.createElement(map[type], {value, onChange, options, id})
   }
 
   console.error('No type-editor defined for type', type)
