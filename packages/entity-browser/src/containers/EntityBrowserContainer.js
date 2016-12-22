@@ -18,7 +18,7 @@ const mapStateToProps = (state, props) => ({
   columnDefinitions: state.entityBrowser.columnDefinition,
   recordCount: state.entityBrowser.recordCount,
   limit: state.entityBrowser.limit,
-  recordRequestInProgress: state.entityBrowser.recordRequestInProgress
+  inProgress: state.entityBrowser.inProgress
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(EntityBrowser))

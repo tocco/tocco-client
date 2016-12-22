@@ -41,7 +41,7 @@ export class EntityBrowser extends React.Component {
           className="table-striped"
           onOrderByChange={this.onOrderByChange}
           orderBy={props.orderBy}
-          loading={props.recordRequestInProgress}
+          loading={props.inProgress}
           cellRenderer={this.cellRenderer}
         />
         <ToccoUI.Pagination
@@ -73,5 +73,5 @@ EntityBrowser.propTypes = {
   recordCount: React.PropTypes.number,
   setOrderBy: React.PropTypes.func,
   refresh: React.PropTypes.func,
-  recordRequestInProgress: React.PropTypes.bool
+  inProgress: React.PropTypes.bool
 }
