@@ -25,7 +25,7 @@ const ACTION_HANDLERS = {
   [actions.SET_RECORD_COUNT]: singleTransferReducer('recordCount'),
   [actions.ADD_RECORDS_TO_STORE]: addRecordToStore,
   [actions.CLEAR_RECORD_STORE]: clearRecordStore,
-  [actions.SET_RECORD_REQUEST_IN_PROGRESS]: singleTransferReducer('recordRequestInProgress')
+  [actions.SET_IN_PROGRESS]: singleTransferReducer('inProgress')
 }
 
 const initialState = {
@@ -38,7 +38,7 @@ const initialState = {
   columnDefinition: [],
   recordCount: 0,
   recordStore: {},
-  recordRequestInProgress: false
+  inProgress: false
 }
 
 export default function reducer(state = initialState, action) {

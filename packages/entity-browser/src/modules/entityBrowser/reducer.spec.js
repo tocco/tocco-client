@@ -11,7 +11,7 @@ const EXPECTED_INITIAL_STATE = {
   columnDefinition: [],
   recordCount: 0,
   recordStore: {},
-  recordRequestInProgress: false
+  inProgress: false
 }
 
 describe('entity-browser', () => {
@@ -204,16 +204,16 @@ describe('entity-browser', () => {
           expect(reducer(stateBefore, actions.setRecordCount(newRecordCount))).to.deep.equal(expectedStateAfter)
         })
 
-        it('should handle SET_RECORD_REQUEST_IN_PROGRESS', () => {
+        it('should handle SET_IN_PROGRESS', () => {
           const stateBefore = {
-            recordRequestInProgress: false
+            inProgress: false
           }
 
           const expectedStateAfter = {
-            recordRequestInProgress: true
+            inProgress: true
           }
 
-          expect(reducer(stateBefore, actions.setRecordRequestInProgress(true))).to.deep.equal(expectedStateAfter)
+          expect(reducer(stateBefore, actions.setInProgress(true))).to.deep.equal(expectedStateAfter)
         })
       })
     })

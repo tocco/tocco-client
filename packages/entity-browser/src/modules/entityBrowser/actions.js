@@ -12,7 +12,7 @@ export const SET_RECORD_COUNT = 'SET_RECORD_COUNT'
 export const ADD_RECORDS_TO_STORE = 'ADD_RECORDS_TO_STORE'
 export const CLEAR_RECORD_STORE = 'CLEAR_RECORDS_CACHE'
 export const RESET_DATA_SET = 'RESET_DATA_SET'
-export const SET_RECORD_REQUEST_IN_PROGRESS = 'RECORD_REQUEST_IN_PROGRESS'
+export const SET_IN_PROGRESS = 'SET_IN_PROGRESS'
 export const CHANGE_PAGE = 'CHANGE_PAGE'
 export const REFRESH = 'REFRESH'
 
@@ -104,10 +104,10 @@ export const setCurrentPage = currentPage => ({
   }
 })
 
-export const setRecordRequestInProgress = recordRequestInProgress => ({
-  type: SET_RECORD_REQUEST_IN_PROGRESS,
+export const setInProgress = inProgress => ({
+  type: SET_IN_PROGRESS,
   payload: {
-    recordRequestInProgress
+    inProgress
   }
 })
 

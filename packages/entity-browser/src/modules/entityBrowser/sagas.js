@@ -12,7 +12,6 @@ export default function* sagas() {
   yield [
     fork(takeLatest, actions.INITIALIZE_TABLE, initializeEntityBrowser),
     fork(takeLatest, actions.CHANGE_PAGE, changePage),
-    fork(takeLatest, actions.REQUEST_RECORDS, requestRecords),
     fork(takeLatest, searchFormActions.SEARCH_TERM_CHANGE, resetDataSet),
     fork(takeEvery, actions.SET_ORDER_BY, resetDataSet),
     fork(takeEvery, actions.RESET_DATA_SET, resetDataSet),
@@ -21,16 +20,20 @@ export default function* sagas() {
 }
 
 export function* refresh() {
+  yield put(actions.setInProgress(true))
   const entityBrowser = yield select(entityBrowserSelector)
   const {currentPage} = entityBrowser
   yield put(actions.clearRecordStore())
-  yield put(actions.requestRecords(currentPage))
+  yield call(requestRecords, currentPage)
+  yield put(actions.setInProgress(false))
 }
 
 export function* changePage({payload}) {
   const {page} = payload
+  yield put(actions.setInProgress(true))
   yield put(actions.setCurrentPage(page))
-  yield put(actions.requestRecords(page))
+  yield call(requestRecords, page)
+  yield put(actions.setInProgress(false))
 }
 
 export function* getSearchInputs() {
@@ -56,11 +59,7 @@ export function* fetchRecordsAndAddToStore(page) {
   }
 }
 
-export function* requestRecords({payload}) {
-  const {page} = payload
-
-  yield put(actions.setRecordRequestInProgress(true))
-
+export function* requestRecords(page) {
   const entityBrowser = yield select(entityBrowserSelector)
   let {recordStore} = entityBrowser
 
@@ -69,7 +68,6 @@ export function* requestRecords({payload}) {
   }
 
   yield call(displayRecord, page)
-  yield put(actions.setRecordRequestInProgress(false))
 
   if ((entityBrowser.limit * page) < entityBrowser.recordCount) {
     yield spawn(fetchRecordsAndAddToStore, page + 1)
@@ -83,6 +81,7 @@ export function* displayRecord(page) {
 }
 
 export function* initializeEntityBrowser() {
+  yield put(actions.setInProgress(true))
   const entityBrowser = yield select(entityBrowserSelector)
   const {entityName, formBase} = entityBrowser
   const formName = formBase !== '' ? formBase : entityName
@@ -93,10 +92,11 @@ export function* initializeEntityBrowser() {
   yield put(actions.setColumnDefinition(columnDefinition))
 
   yield call(resetDataSet)
+  yield put(actions.setInProgress(false))
 }
 
 export function* resetDataSet() {
-  yield put(actions.setRecords([]))
+  yield put(actions.setInProgress(true))
   const entityBrowser = yield select(entityBrowserSelector)
   const {entityName} = entityBrowser
   const searchInputs = yield call(getSearchInputs)
@@ -105,4 +105,5 @@ export function* resetDataSet() {
   yield put(actions.clearRecordStore())
 
   yield call(changePage, {payload: {page: 1}})
+  yield put(actions.setInProgress(false))
 }
