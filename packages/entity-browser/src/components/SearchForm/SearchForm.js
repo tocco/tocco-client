@@ -24,7 +24,7 @@ const SearchForm = props => {
       {
         props.searchFormDefinition.map((definition, idx) => (
           <div key={idx} className="form-group row">
-            <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">{definition.label}</label>
+            <label htmlFor={definition.name} className="col-sm-2 col-form-label">{definition.label}</label>
             <div className="col-sm-10">
               <SearchField
                 value={props.searchInputs ? props.searchInputs[definition.name] : undefined}

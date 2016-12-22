@@ -10,14 +10,22 @@ const StringEdit = props => {
   }
 
   return (
-    <input type="text" className="form-control" name={props.name} value={value} onChange={handleChange}/>
+    <input
+      type="text"
+      className="form-control"
+      name={props.name}
+      value={value}
+      onChange={handleChange}
+      id={props.id}
+    />
   )
 }
 
 StringEdit.propTypes = {
   onChange: React.PropTypes.func,
   value: React.PropTypes.node,
-  name: React.PropTypes.string
+  name: React.PropTypes.string,
+  id: React.PropTypes.string
 }
 
 export default StringEdit
