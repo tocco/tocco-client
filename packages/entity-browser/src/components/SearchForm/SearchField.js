@@ -21,8 +21,19 @@ const SearchField = props => {
 SearchField.propTypes = {
   type: React.PropTypes.string.isRequired,
   name: React.PropTypes.string.isRequired,
-  entityModel: React.PropTypes.object.isRequired,
-  relationEntities: React.PropTypes.object.isRequired,
+  entityModel: React.PropTypes.objectOf(
+    React.PropTypes.shape({
+      type: React.PropTypes.string.isRequired,
+      targetEntity: React.PropTypes.string
+    })
+  ).isRequired,
+  relationEntities: React.PropTypes.objectOf(
+    React.PropTypes.arrayOf(
+      React.PropTypes.shape({
+        displayName: React.PropTypes.string.isRequired,
+        value: React.PropTypes.string.isRequired
+      })
+    )).isRequired,
   setSearchInput: React.PropTypes.func.isRequired,
   value: React.PropTypes.any
 }

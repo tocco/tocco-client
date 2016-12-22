@@ -15,13 +15,12 @@ const SearchForm = props => {
             <label htmlFor="inputEmail3" className="col-sm-2 col-form-label">{definition.label}</label>
             <div className="col-sm-10">
               <SearchField
-                value={props.searchInputs[definition.name]}
+                value={props.searchInputs ? props.searchInputs[definition.name] : undefined}
                 type={definition.type}
                 name={definition.name}
                 relationEntities={props.relationEntities}
                 entityModel={props.entityModel}
                 setSearchInput={props.setSearchInput}
-                searchInputs={props.searchInputs}
               />
             </div>
           </div>
@@ -38,11 +37,30 @@ const SearchForm = props => {
 }
 
 SearchForm.propTypes = {
-  entityModel: React.PropTypes.object.isRequired,
-  searchFormDefinition: React.PropTypes.array.isRequired,
+  entityModel: React.PropTypes.objectOf(
+    React.PropTypes.shape({
+      type: React.PropTypes.string.isRequired,
+      targetEntity: React.PropTypes.string
+    })
+  ).isRequired,
+  searchFormDefinition: React.PropTypes.arrayOf(
+    React.PropTypes.shape({
+      name: React.PropTypes.string.isRequired,
+      type: React.PropTypes.string.isRequired,
+      displayType: React.PropTypes.string.isRequired,
+      label: React.PropTypes.string.isRequired,
+      useLabel: React.PropTypes.string.isRequired
+    })
+  ).isRequired,
   setSearchInput: React.PropTypes.func.isRequired,
-  relationEntities: React.PropTypes.object.isRequired,
-  searchInputs: React.PropTypes.object.isRequired,
+  relationEntities: React.PropTypes.objectOf(
+    React.PropTypes.arrayOf(
+      React.PropTypes.shape({
+        displayName: React.PropTypes.string.isRequired,
+        value: React.PropTypes.string.isRequired
+      })
+    )).isRequired,
+  searchInputs: React.PropTypes.objectOf(React.PropTypes.any),
   reset: React.PropTypes.func.isRequired
 }
 
