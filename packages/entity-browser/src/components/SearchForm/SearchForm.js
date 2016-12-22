@@ -45,13 +45,13 @@ const SearchForm = props => {
             <ToccoUI.Button
               type="submit"
               icon="glyphicon-search"
-              label={msg('client.entityBrowser.search')}
+              label={msg('client.entity-browser.search')}
               primary
             />
             <ToccoUI.Button
               type="button"
               icon="glyphicon-repeat"
-              label={msg('client.entityBrowser.reset')}
+              label={msg('client.entity-browser.reset')}
               onClick={handleResetClick}
             />
           </div>
