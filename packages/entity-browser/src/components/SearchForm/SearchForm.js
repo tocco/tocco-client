@@ -27,9 +27,11 @@ const SearchForm = props => {
         ))
       }
       <div className="form-group row">
-        <div className="offset-sm-2 col-sm-10">
-          <ToccoUI.Button type="submit" icon="glyphicon-search" label="Search" primary/>
-          <ToccoUI.Button type="button" icon="glyphicon-repeat" label="Reset" onClick={handleResetClick}/>
+        <div className="col-sm-10">
+          <div className="btn-toolbar">
+            <ToccoUI.Button type="submit" icon="glyphicon-search" label="Search" primary/>
+            <ToccoUI.Button type="button" icon="glyphicon-repeat" label="Reset" onClick={handleResetClick}/>
+          </div>
         </div>
       </div>
     </form>
