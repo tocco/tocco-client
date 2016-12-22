@@ -1,25 +1,26 @@
 import React from 'react'
-import _values from 'lodash/values'
+import Select from 'react-select'
+
+import 'react-select/dist/react-select.css'
 
 const MultiSelect = props => {
   const handleChange = e => {
     if (props.onChange) {
-      const options = e.target.options
-      const selectedValues = _values(options).filter(o => o.selected).map(o => o.value)
-      props.onChange(selectedValues)
+      const newKeys = e.map(o => o.value)
+      props.onChange(newKeys)
     }
   }
 
   return (
-    <select multiple onChange={handleChange} value={props.value} className="form-control">
-      {
-        props.options.possibleValues.map(value => (
-          <option key={value.value} value={value.value}>
-            {value.label}
-          </option>
-        ))
-      }
-    </select>
+    <Select
+      multi
+      clearable
+      placeholder=""
+      noResultsText="-"
+      value={props.value}
+      onChange={handleChange}
+      options={props.options.possibleValues}
+    />
   )
 }
 

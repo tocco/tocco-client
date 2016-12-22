@@ -21,6 +21,7 @@ const webpackConfig = {
   resolve: {
     root: paths.client() + packageDir,
     alias: {
+      'ReactDOM': `${__dirname}/../node_modules/react-dom/index.js`,
       'React': `${__dirname}/../node_modules/react/react.js`
     },
     extensions: ['', '.js', '.jsx', '.json']
@@ -30,8 +31,10 @@ const webpackConfig = {
 
 if (!__TEST__) {
   webpackConfig.externals = {
-    react: 'React',
-    'react-dom': 'ReactDOM'
+    'react': 'React',
+    'React': 'React',
+    'react-dom': 'ReactDOM',
+    'ReactDOM': 'ReactDOM'
   }
 }
 
