@@ -1,4 +1,5 @@
 import React from 'react'
+import {intlShape} from 'react-intl'
 import * as ToccoUI from 'tocco-ui'
 import SearchField from './SearchField'
 
@@ -7,8 +8,19 @@ const SearchForm = props => {
     props.reset()
   }
 
+  const handleSubmit = e => {
+    e.preventDefault()
+    props.setSearchInput()
+  }
+
+  const msg = id => {
+    return props.intl.formatMessage({
+      id
+    })
+  }
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       {
         props.searchFormDefinition.map((definition, idx) => (
           <div key={idx} className="form-group row">
@@ -21,6 +33,7 @@ const SearchForm = props => {
                 relationEntities={props.relationEntities}
                 entityModel={props.entityModel}
                 setSearchInput={props.setSearchInput}
+
               />
             </div>
           </div>
@@ -29,8 +42,18 @@ const SearchForm = props => {
       <div className="form-group row">
         <div className="col-sm-10">
           <div className="btn-toolbar">
-            <ToccoUI.Button type="submit" icon="glyphicon-search" label="Search" primary/>
-            <ToccoUI.Button type="button" icon="glyphicon-repeat" label="Reset" onClick={handleResetClick}/>
+            <ToccoUI.Button
+              type="submit"
+              icon="glyphicon-search"
+              label={msg('client.entityBrowser.search')}
+              primary
+            />
+            <ToccoUI.Button
+              type="button"
+              icon="glyphicon-repeat"
+              label={msg('client.entityBrowser.reset')}
+              onClick={handleResetClick}
+            />
           </div>
         </div>
       </div>
@@ -39,6 +62,7 @@ const SearchForm = props => {
 }
 
 SearchForm.propTypes = {
+  intl: intlShape.isRequired,
   entityModel: React.PropTypes.objectOf(
     React.PropTypes.shape({
       type: React.PropTypes.string.isRequired,

@@ -1,1 +1,4 @@
-[]
+[
+  "client.entityBrowser.search",
+  "client.entityBrowser.reset"
+]

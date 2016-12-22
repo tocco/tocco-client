@@ -7,13 +7,19 @@ const setForm = (state, {payload}) => ({
   formName: payload.formName
 })
 
-const setSearchInput = (state, {payload}) => ({
-  ...state,
-  searchInputs: {
-    ...state.searchInputs,
-    [payload.field]: payload.value
+const setSearchInput = (state, {payload}) => {
+  if (payload.field) {
+    return {
+      ...state,
+      searchInputs: {
+        ...state.searchInputs,
+        [payload.field]: payload.value
+      }
+    }
   }
-})
+
+  return state
+}
 
 const reset = state => ({
   ...state,
