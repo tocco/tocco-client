@@ -10,7 +10,13 @@ export default () => {
         <tbody>
           <tr>
             <td>String</td>
-            <td><EditableValue type="string" value="Test String" onChange={v => console.log(v)}/></td>
+            <td>
+              <EditableValue
+                type="string"
+                value="Test String"
+                onChange={console.log}
+              />
+            </td>
           </tr>
           <tr>
             <td>Multi-Select</td>
@@ -18,6 +24,7 @@ export default () => {
               <EditableValue
                 type="multi-select"
                 value={[2, 4]}
+                onChange={console.log}
                 options={{
                   possibleValues: [{value: 2, label: 'Two'}, {value: 3, label: 'Three'}, {value: 4, label: 'Four'}]
                 }}
