@@ -1,4 +1,5 @@
 import React from 'react'
+import {IntlStub} from 'tocco-test-util'
 import SearchField from './SearchField'
 import SearchForm from './'
 import {mount} from 'enzyme'
@@ -19,6 +20,7 @@ describe('entity-browser', () => {
           relationEntities={{}}
           searchInputs={{}}
           reset={EMPTY_FUNC}
+          intl={IntlStub}
         />)
 
         expect(wrapper.find(SearchField)).to.have.length(searchFormDefinition.length)
