@@ -50,7 +50,7 @@ describe('entity-browser', () => {
           direction: 'asc'
         }
         const columnDefinitions = ['my', 'column', 'definition']
-        const recordRequestInProgress = true
+        const inProgress = true
         const orderByChange = sinon.spy()
 
         const wrapper = shallow(<EntityBrowser
@@ -61,14 +61,14 @@ describe('entity-browser', () => {
           searchFormDefinition={[]}
           orderBy={orderBy}
           columnDefinitions={columnDefinitions}
-          recordRequestInProgress={recordRequestInProgress}
+          inProgress={inProgress}
           setOrderBy={orderByChange}
         />)
 
         expect(wrapper.find(ToccoUI.Table).props().records).to.eql(records)
         expect(wrapper.find(ToccoUI.Table).props().orderBy).to.eql(orderBy)
         expect(wrapper.find(ToccoUI.Table).props().columnDefinitions).to.eql(columnDefinitions)
-        expect(wrapper.find(ToccoUI.Table).props().loading).to.eql(recordRequestInProgress)
+        expect(wrapper.find(ToccoUI.Table).props().loading).to.eql(inProgress)
         wrapper.find(ToccoUI.Table).simulate('orderByChange')
         expect(orderByChange).to.have.calledOnce
       })
