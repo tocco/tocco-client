@@ -1,4 +1,4 @@
-import {takeLatest} from 'redux-saga'
+import {takeLatest, delay} from 'redux-saga'
 import {call, put, fork, select} from 'redux-saga/effects'
 import * as actions from './actions'
 import * as api from '../../util/api'
@@ -38,6 +38,7 @@ export function* initializeSearchForm(action) {
 }
 
 export function* setSearchTerm() {
+  yield call(delay, 400)
   const searchValues = yield select(searchValuesSelector)
   yield put(actions.searchTermChange(searchValues))
 }

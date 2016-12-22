@@ -1,4 +1,4 @@
-import {takeLatest} from 'redux-saga'
+import {takeLatest, delay} from 'redux-saga'
 import {put, select, call, fork} from 'redux-saga/effects'
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
@@ -67,9 +67,10 @@ describe('entity-browser', () => {
         })
 
         describe('setSearchTerm saga', () => {
-          it('should notify', () => {
+          it('should notify with delay (debounce)', () => {
             const gen = sagas.setSearchTerm()
 
+            expect(gen.next().value).to.eql(call(delay, 400))
             expect(gen.next().value).to.eql(select(sagas.searchValuesSelector))
             expect(gen.next({}).value).to.eql(put(actions.searchTermChange({})))
           })
