@@ -19,7 +19,7 @@ describe('tocco-ui', function() {
 
         const wrapper = mount(<IntlProvider locale="en"><DurationFormatter
           value={durationMilliseconds}/></IntlProvider>)
-        expect(wrapper.text()).to.equal('01:30:01')
+        expect(wrapper.text().replace(/\u200E/g, '')).to.equal('01:30:01')
       })
     })
   })

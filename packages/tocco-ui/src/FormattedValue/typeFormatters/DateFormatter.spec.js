@@ -17,13 +17,13 @@ describe('tocco-ui', function() {
       it('should format value', function() {
         const wrapper = mount(<IntlProvider locale="en"><DateFormatter
           value="1976-11-16"/></IntlProvider>)
-        expect(wrapper.text()).to.equal('11/16/1976')
+        expect(wrapper.text().replace(/\u200E/g, '')).to.equal('11/16/1976')
       })
 
       it('should format value accorind to locale', function() {
         const wrapper = mount(<IntlProvider locale="de"><DateFormatter
           value="1976-11-16"/></IntlProvider>)
-        expect(wrapper.text()).to.equal('16.11.1976')
+        expect(wrapper.text().replace(/\u200E/g, '')).to.equal('16.11.1976')
       })
 
       it('should not format invalid date', function() {

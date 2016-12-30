@@ -26,13 +26,13 @@ describe('tocco-ui', function() {
       it('should format value', function() {
         const wrapper = mount(<IntlProvider locale="en"><TimeFormatter
           value={timeValue}/></IntlProvider>)
-        expect(wrapper.text()).to.equal('11:15 PM')
+        expect(wrapper.text().replace(/\u200E/g, '')).to.equal('11:15 PM')
       })
 
       it('should format value accorind to locale', function() {
         const wrapper = mount(<IntlProvider locale="de"><TimeFormatter
           value={timeValue}/></IntlProvider>)
-        expect(wrapper.text()).to.equal('23:15')
+        expect(wrapper.text().replace(/\u200E/g, '')).to.equal('23:15')
       })
     })
   })
