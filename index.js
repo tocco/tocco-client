@@ -62417,9 +62417,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  return _react2.default.createElement(_reactIntl.FormattedDate, {
 	    value: date,
+	    timeZone: 'UTC',
 	    year: 'numeric',
-	    month: 'short',
-	    day: '2-digit'
+	    month: 'numeric',
+	    day: 'numeric'
 	  });
 	};
 	
@@ -62542,7 +62543,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: date,
 	    hour: '2-digit',
 	    minute: '2-digit',
-	    second: '2-digit'
+	    second: '2-digit',
+	    hour12: false
 	  });
 	};
 	
@@ -62672,7 +62674,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return _react2.default.createElement(_reactIntl.FormattedNumber, {
 	    value: number,
 	    style: 'decimal',
-	    maximumFractionDigits: 17
+	    maximumFractionDigits: 15
 	  });
 	};
 	
