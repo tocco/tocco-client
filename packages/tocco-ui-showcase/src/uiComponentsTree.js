@@ -1,30 +1,30 @@
-import FormattedValueRaw from '!raw!../../tocco-ui/src/FormattedValue/FormattedValue'
+import FormattedValueRaw from '!raw-loader!../../tocco-ui/src/FormattedValue/FormattedValue'
 import FormattedValueExample from '../../tocco-ui/src/FormattedValue/example'
-import FormattedValueExampleRaw from '!raw!../../tocco-ui/src/FormattedValue/example'
+import FormattedValueExampleRaw from '!raw-loader!../../tocco-ui/src/FormattedValue/example'
 
-import TableRaw from '!raw!../../tocco-ui/src/Table/Table'
+import TableRaw from '!raw-loader!../../tocco-ui/src/Table/Table'
 import TableExample from '../../tocco-ui/src/Table/example'
-import TableExampleRaw from '!raw!../../tocco-ui/src/Table/example'
+import TableExampleRaw from '!raw-loader!../../tocco-ui/src/Table/example'
 
-import LoadMaskRaw from '!raw!../../tocco-ui/src/LoadMask/LoadMask'
+import LoadMaskRaw from '!raw-loader!../../tocco-ui/src/LoadMask/LoadMask'
 import LoadMaskExample from '../../tocco-ui/src/LoadMask/example'
-import LoadMaskExampleRaw from '!raw!../../tocco-ui/src/LoadMask/example'
+import LoadMaskExampleRaw from '!raw-loader!../../tocco-ui/src/LoadMask/example'
 
-import ButtonRaw from '!raw!../../tocco-ui/src/Button/Button'
+import ButtonRaw from '!raw-loader!../../tocco-ui/src/Button/Button'
 import ButtonExample from '../../tocco-ui/src/Button/example'
-import ButtonExampleRaw from '!raw!../../tocco-ui/src/Button/example'
+import ButtonExampleRaw from '!raw-loader!../../tocco-ui/src/Button/example'
 
-import SearchBoxRaw from '!raw!../../tocco-ui/src/SearchBox/SearchBox'
+import SearchBoxRaw from '!raw-loader!../../tocco-ui/src/SearchBox/SearchBox'
 import SearchBoxExample from '../../tocco-ui/src/SearchBox/example'
-import SearchBoxExampleRaw from '!raw!../../tocco-ui/src/SearchBox/example'
+import SearchBoxExampleRaw from '!raw-loader!../../tocco-ui/src/SearchBox/example'
 
-import ToccoLogoRaw from '!raw!../../tocco-ui/src/ToccoLogo/ToccoLogo'
+import ToccoLogoRaw from '!raw-loader!../../tocco-ui/src/ToccoLogo/ToccoLogo'
 import ToccoLogoExample from '../../tocco-ui/src/ToccoLogo/example'
-import ToccoLogoExampleRaw from '!raw!../../tocco-ui/src/ToccoLogo/example'
+import ToccoLogoExampleRaw from '!raw-loader!../../tocco-ui/src/ToccoLogo/example'
 
-import PaginationRaw from '!raw!../../tocco-ui/src/Pagination/Pagination'
+import PaginationRaw from '!raw-loader!../../tocco-ui/src/Pagination/Pagination'
 import PaginationExample from '../../tocco-ui/src/Pagination/example'
-import PaginationExampleRaw from '!raw!../../tocco-ui/src/Pagination/example'
+import PaginationExampleRaw from '!raw-loader!../../tocco-ui/src/Pagination/example'
 
 const categories = {
   CONTENT: 'Content',
