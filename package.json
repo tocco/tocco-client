@@ -3,7 +3,7 @@
   "version": "0.1.2",
   "description": "Monorepo for react.js projects using lerna",
   "engines": {
-    "node": ">=4.2.0",
+    "node": ">=4.5.0",
     "npm": "^3.0.0"
   },
   "scripts": {
@@ -34,7 +34,7 @@
       }
     },
     "dev": {
-      "command": "nodemon --exec babel-node bin/server",
+      "command": "nodemon --exec babel-node bin/dev-server",
       "env": {
         "NODE_ENV": "development",
         "DEBUG": "app:*"
@@ -71,7 +71,7 @@
       "command": "npm run deploy:prod && npm publish dist"
     },
     "start": {
-      "command": "babel-node bin/server",
+      "command": "babel-node bin/dev-server",
       "env": {
         "DEBUG": "app:*"
       }
