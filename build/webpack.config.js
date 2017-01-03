@@ -152,9 +152,12 @@ webpackConfig.module.loaders = [
     loader: 'babel',
     query: {
       cacheDirectory: true,
-      plugins: ['transform-runtime'],
+      plugins: ['transform-runtime', 'transform-flow-strip-types'],
       presets: presets,
       env: {
+        development: {
+          plugins: ['flow-react-proptypes']
+        },
         production: {
           plugins: [
             'transform-react-remove-prop-types',
