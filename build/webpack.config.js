@@ -130,6 +130,21 @@ if (__DEV__) {
   presets.push('react-hmre')
 }
 
+const testPlugins = []
+
+// see: https://github.com/karma-runner/karma-sauce-launcher/issues/95
+if (!process || !process.env || !process.env.DISABLE_ISTANBUL_COVERAGE) {
+  debug('Enable instanbul test plugin.')
+  testPlugins.push(['istanbul', {
+    'exclude': [
+      '**/dev/**',
+      '**/*/*.spec.js',
+      '**/tocco-ui/**/example.js',
+      '**/tocco-ui/dist'
+    ]
+  }])
+}
+
 webpackConfig.module.loaders = [
   {
     test: /\.(js|jsx)$/,
@@ -150,14 +165,7 @@ webpackConfig.module.loaders = [
           ]
         },
         test: {
-          plugins: [['istanbul', {
-            'exclude': [
-              '**/dev/**',
-              '**/*/*.spec.js',
-              '**/tocco-ui/**/example.js',
-              '**/tocco-ui/dist'
-            ]
-          }]]
+          plugins: testPlugins
         }
       }
     }
