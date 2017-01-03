@@ -161,9 +161,6 @@ webpackConfig.module.rules = [
         'stage-0'
       ],
       env: {
-        development: {
-          plugins: ['flow-react-proptypes']
-        },
         production: {
           plugins: [
             'transform-react-remove-prop-types',
@@ -171,7 +168,8 @@ webpackConfig.module.rules = [
           ]
         },
         development: {
-          'presets': [
+          plugins: ['flow-react-proptypes'],
+          presets: [
             'react-hmre'
           ]
         },
