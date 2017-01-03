@@ -2,10 +2,11 @@ import React from 'react'
 import {FormattedNumber} from 'react-intl'
 
 const NumberFormatter = props => {
-  if (props.value) {
+  const content = props.value
+  if (typeof content !== 'undefined' && content !== null) {
     return (
       <FormattedNumber
-        value={props.value}
+        value={content}
         style="decimal"
         maximumFractionDigits={0}
       />

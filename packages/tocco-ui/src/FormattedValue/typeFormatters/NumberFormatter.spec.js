@@ -20,6 +20,12 @@ describe('tocco-ui', function() {
         expect(wrapper.text()).to.equal('1,337')
       })
 
+      it('should format number 0', function() {
+        const wrapper = mount(<IntlProvider locale="en"><NumberFormatter
+          value={0}/></IntlProvider>)
+        expect(wrapper.text()).to.equal('0')
+      })
+
       it('should format value accorind to locale DE', function() {
         const wrapper = mount(<IntlProvider locale="de"><NumberFormatter
           value={1337}/></IntlProvider>)
