@@ -7,6 +7,7 @@
     "npm": "^3.0.0"
   },
   "scripts": {
+    "clean": "rimraf node_modules && cd server/static && rimraf node_modules && lerna clean",
     "compile": "better-npm-run compile",
     "lint": "eslint .  --cache",
     "lint:fix": "npm run lint -- --fix",
@@ -23,7 +24,7 @@
     "deploy:standalone": "better-npm-run deploy:standalone",
     "publish": "better-npm-run publish",
     "codecov": "cat ./coverage/lcov/lcov.info | codecov",
-    "setup": "npm install && cd server/static && npm install",
+    "setup": "yarn && cd server/static && yarn",
     "commitmsg": "babel-node bin/githooks/msg-validation",
     "precommit": "npm run lint"
   },

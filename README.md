@@ -47,6 +47,8 @@ Run a Tocco Business Framework application with enabled REST API on:
 http://localhost:8080
 
 ### Getting started
+Just install yarn  https://yarnpkg.com/en/docs/install 
+and execute the following commands:
 ```
 npm install --global lerna@v2.0.0-beta.31
 npm run setup
