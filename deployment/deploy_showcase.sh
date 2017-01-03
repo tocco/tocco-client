@@ -3,6 +3,12 @@ set -e # Exit with nonzero exit code if anything fails
 SOURCE_BRANCH="master"
 TARGET_BRANCH="gh-pages"
 
+if [ "$TRAVIS_PULL_REQUEST" != "false"  ]
+then
+  echo "This is a pull request. No deploy of showcase app!"
+  exit 0
+fi
+
 if [ "$TRAVIS_BRANCH" != "$SOURCE_BRANCH"  ]
 then
   echo "This commit was made against the $TRAVIS_BRANCH and not the master! No deploy of showcase app!"
@@ -15,9 +21,6 @@ cd packages/tocco-ui-showcase/dist
 git init
 git config user.name "Travis CI"
 git config user.email "$COMMIT_AUTHOR_EMAIL"
-
-
-
 
 git remote add upstream "https://github.com/tocco/tocco-client.git"
 git fetch upstream
