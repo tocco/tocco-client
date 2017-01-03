@@ -14,12 +14,14 @@ describe('tocco-ui', function() {
         addLocaleData([...en, ...de])
       })
 
+      const leftToRightMark = /\u200E/g // required for browser Edge
+
       it('should format value', function() {
         const durationMilliseconds = 5401000
 
         const wrapper = mount(<IntlProvider locale="en"><DurationFormatter
           value={durationMilliseconds}/></IntlProvider>)
-        expect(wrapper.text().replace(/\u200E/g, '')).to.equal('01:30:01')
+        expect(wrapper.text().replace(leftToRightMark, '')).to.equal('01:30:01')
       })
     })
   })
