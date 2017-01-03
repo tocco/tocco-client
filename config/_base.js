@@ -38,7 +38,6 @@ const config = {
   // Test Configuration
   // ----------------------------------
   test_excluded_packages: [
-    'tocco-prototype',
     'tocco-test-util'
   ],
   coverage_reporters: {
