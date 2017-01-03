@@ -30,6 +30,10 @@ const isFirstLineValid = line => {
     return false
   }
 
+  if (line.startsWith('Merge branch')) {
+    return true
+  }
+
   const match = allowedPattern.exec(line)
 
   if (!match) {
