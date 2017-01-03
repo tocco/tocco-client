@@ -1,7 +1,10 @@
 import React from 'react'
 
 const StringFormatter = props => {
-  const content = props.value || ''
+  const content = props.value
+  if (typeof content === 'undefined' || content === null) {
+    return <span/>
+  }
 
   return (
     <span>{content}</span>
