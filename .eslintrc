@@ -32,8 +32,7 @@
     "describe": false,
     "sinon": false,
     "before": false,
-    "beforeEach": false,
-    "Generator": true
+    "beforeEach": false
   },
   "rules": {
     "key-spacing" : 0,
