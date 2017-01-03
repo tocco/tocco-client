@@ -29,6 +29,9 @@ const webpackConfig = {
     },
     extensions: ['.js', '.jsx', '.json']
   },
+  performance: {
+    hints: __PROD__ ? 'warning' : false
+  },
   module: {}
 }
 

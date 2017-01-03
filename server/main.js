@@ -25,7 +25,8 @@ if (config.env === 'development') {
     hot: true,
     quiet: false,
     noInfo: false,
-    lazy: false
+    lazy: false,
+    stats: {colors: true}
   }))
   app.use(require('webpack-hot-middleware')(compiler, {
     path: `/__webpack_hmr`
@@ -36,7 +37,6 @@ if (config.env === 'development') {
   // of development since this directory will be copied into ~/dist
   // when the application is compiled.
 
-  console.log('publicPath', publicPath)
   app.use(express.static(publicPath))
   app.use(express.static('server/static'))
 

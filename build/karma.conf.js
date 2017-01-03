@@ -51,6 +51,9 @@ const karmaConfig = {
   browserDisconnectTimeout: 10000,
   browserNoActivityTimeout: 60000,
   webpack: {
+    performance: {
+      hints: false
+    },
     devtool: 'cheap-module-source-map',
     resolve: {
       ...webpackConfig.resolve,
