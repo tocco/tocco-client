@@ -36,7 +36,6 @@ const karmaConfig = {
     './node_modules/whatwg-fetch/fetch.js',
     './build/test-setup.js',
     ...testBundles
-
   ],
   singleRun: !argv.watch,
   frameworks: ['mocha'],
@@ -52,7 +51,10 @@ const karmaConfig = {
   browserDisconnectTimeout: 10000,
   browserNoActivityTimeout: 60000,
   webpack: {
-    devtool: 'inline-source-map',
+    performance: {
+      hints: false
+    },
+    devtool: 'cheap-module-source-map',
     resolve: {
       ...webpackConfig.resolve,
       alias: {
@@ -65,10 +67,10 @@ const karmaConfig = {
       noParse: [
         /\/sinon\.js/
       ],
-      loaders: webpackConfig.module.loaders.concat([
+      loaders: webpackConfig.module.rules.concat([
         {
           test: /sinon(\\|\/)pkg(\\|\/)sinon\.js/,
-          loader: 'imports?define=>false,require=>false'
+          loader: 'imports-loader?define=>false,require=>false'
         }
       ])
     },
