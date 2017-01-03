@@ -14,16 +14,18 @@ describe('tocco-ui', function() {
         addLocaleData([...en, ...de])
       })
 
+      const leftToRightMark = /\u200E/g // required for browser Edge
+
       it('should format value', function() {
         const wrapper = mount(<IntlProvider locale="en"><DateFormatter
-          value="1976-03-16"/></IntlProvider>)
-        expect(wrapper.text()).to.equal('Mar 16, 1976')
+          value="1976-11-16"/></IntlProvider>)
+        expect(wrapper.text().replace(leftToRightMark, '')).to.equal('11/16/1976')
       })
 
       it('should format value accorind to locale', function() {
         const wrapper = mount(<IntlProvider locale="de"><DateFormatter
-          value="1976-03-16"/></IntlProvider>)
-        expect(wrapper.text()).to.equal('16. März 1976')
+          value="1976-11-16"/></IntlProvider>)
+        expect(wrapper.text().replace(leftToRightMark, '')).to.equal('16.11.1976')
       })
 
       it('should not format invalid date', function() {
