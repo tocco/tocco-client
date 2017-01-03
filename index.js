@@ -57396,10 +57396,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var StringFormatter = function StringFormatter(props) {
-	  var content = props.value;
-	  if (typeof content === 'undefined' || content === null) {
-	    return _react2.default.createElement('span', null);
-	  }
+	  var content = props.value || '';
 	
 	  return _react2.default.createElement(
 	    'span',
@@ -57471,10 +57468,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var NumberFormatter = function NumberFormatter(props) {
-	  var content = props.value;
-	  if (typeof content !== 'undefined' && content !== null) {
+	  if (props.value) {
 	    return _react2.default.createElement(_reactIntl.FormattedNumber, {
-	      value: content,
+	      value: props.value,
 	      style: 'decimal',
 	      maximumFractionDigits: 0
 	    });
