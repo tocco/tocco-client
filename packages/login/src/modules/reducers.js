@@ -1,7 +1,10 @@
+// @flow
+
 import {intlReducer} from 'react-intl-redux'
 import {combineReducers} from 'redux'
 import passwordUpdateReducers, {sagas as passwordUpdateSagas} from './passwordUpdate/reducers'
 import login from './login'
+import type {State as LoginState} from './login'
 import loginForm from './loginForm'
 import twoStepLogin, {sagas as twoStepLoginSagas} from './twoStepLogin'
 import mainSagas from './sagas'
@@ -21,3 +24,8 @@ export const sagas = [
   twoStepLoginSagas,
   ...passwordUpdateSagas
 ]
+
+export type GlobalState = {
+  intl: IntlState,
+  login: LoginState
+}
