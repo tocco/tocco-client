@@ -31,7 +31,7 @@ module.exports = cfg => {
   }
 
   cfg.set({
-    reporters: ['saucelabs', 'mocha', 'coverage'],
+    reporters: ['saucelabs', 'mocha'],
     concurrency: 5,
     customLaunchers: customLaunchers,
     browsers: Object.keys(customLaunchers),

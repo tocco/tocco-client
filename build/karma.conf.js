@@ -67,7 +67,7 @@ const karmaConfig = {
       noParse: [
         /\/sinon\.js/
       ],
-      loaders: webpackConfig.module.rules.concat([
+      rules: webpackConfig.module.rules.concat([
         {
           test: /sinon(\\|\/)pkg(\\|\/)sinon\.js/,
           loader: 'imports-loader?define=>false,require=>false'
