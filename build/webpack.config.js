@@ -63,7 +63,7 @@ webpackConfig.output = {
   filename: 'index.js',
   path: outputDir,
   libraryTarget: 'umd',
-  publicPath: '/'
+  publicPath: ''
 }
 
 // ------------------------------------
