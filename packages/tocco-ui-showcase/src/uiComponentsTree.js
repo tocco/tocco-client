@@ -2,6 +2,10 @@ import FormattedValueRaw from '!raw-loader!../../tocco-ui/src/FormattedValue/For
 import FormattedValueExample from '../../tocco-ui/src/FormattedValue/example'
 import FormattedValueExampleRaw from '!raw-loader!../../tocco-ui/src/FormattedValue/example'
 
+import EditableValueRaw from '!raw-loader!../../tocco-ui/src/EditableValue/EditableValue'
+import EditableValueExample from '../../tocco-ui/src/EditableValue/example'
+import EditableValueExampleRaw from '!raw-loader!../../tocco-ui/src/EditableValue/example'
+
 import TableRaw from '!raw-loader!../../tocco-ui/src/Table/Table'
 import TableExample from '../../tocco-ui/src/Table/example'
 import TableExampleRaw from '!raw-loader!../../tocco-ui/src/Table/example'
@@ -42,6 +46,14 @@ export default [
         example: {
           component: FormattedValueExample,
           raw: FormattedValueExampleRaw
+        }
+      },
+      {
+        name: 'EditableValue',
+        raw: EditableValueRaw,
+        example: {
+          component: EditableValueExample,
+          raw: EditableValueExampleRaw
         }
       },
       {

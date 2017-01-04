@@ -6,10 +6,13 @@ const allRecords = createUsers(1003)
 
 export default function setupFetchMock(fetchMock) {
   utilFetchMocks.sessionFetchMock(fetchMock)
-  utilFetchMocks.textResourceFetchMock(fetchMock, require('./messages.json'))
-  fetchMock.get(new RegExp('^.*?/nice2/rest/forms/User_search'), require('./user_search.json'))
-  fetchMock.get(new RegExp('^.*?/nice2/rest/forms/UserSearch_search'), require('./user_search.json'))
-  fetchMock.get(new RegExp('^.*?/nice2/rest/forms/.*'), require('./user_list.json'))
+  utilFetchMocks.textResourceFetchMock(fetchMock, require('./rest-responses/messages.json'))
+  fetchMock.get(new RegExp('^.*?/nice2/rest/forms/User_search'), require('./rest-responses/user_search.json'))
+  fetchMock.get(new RegExp('^.*?/nice2/rest/forms/UserSearch_search'), require('./rest-responses/user_search.json'))
+  fetchMock.get(new RegExp('^.*?/nice2/rest/forms/.*'), require('./rest-responses/user_list.json'))
+
+  fetchMock.get(new RegExp('^.*?/nice2/rest/entities/User_code1.*'), require('./rest-responses/user_code1.json'))
+  fetchMock.get(new RegExp('^.*?/nice2/rest/entities/User/model.*'), require('./rest-responses/user_model.json'))
 
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/.*/count'), {'count': allRecords.length})
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/.*'), (url, opts) => {

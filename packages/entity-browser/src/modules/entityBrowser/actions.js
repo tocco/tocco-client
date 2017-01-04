@@ -4,22 +4,20 @@ export const REQUEST_RECORDS = 'REQUEST_RECORDS'
 export const SET_ENTITY_NAME = 'SET_ENTITY_NAME'
 export const SET_FORM_BASE = 'SET_FORM_BASE'
 export const SET_RECORDS = 'SET_RECORDS'
-export const SET_SEARCH_FORM_DEFINITION = 'SET_SEARCH_FORM_DEFINITION'
 export const SET_COLUMN_DEFINITION = 'SET_COLUMN_DEFINITION'
 export const SET_ORDER_BY = 'SET_ORDER_BY'
 export const SET_LIMIT = 'SET_LIMIT'
-export const SET_SEARCH_TERM = 'SET_SEARCH_TERM'
 export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 export const SET_RECORD_COUNT = 'SET_RECORD_COUNT'
 export const ADD_RECORDS_TO_STORE = 'ADD_RECORDS_TO_STORE'
 export const CLEAR_RECORD_STORE = 'CLEAR_RECORDS_CACHE'
 export const RESET_DATA_SET = 'RESET_DATA_SET'
-export const SET_RECORD_REQUEST_IN_PROGRESS = 'RECORD_REQUEST_IN_PROGRESS'
+export const SET_IN_PROGRESS = 'SET_IN_PROGRESS'
 export const CHANGE_PAGE = 'CHANGE_PAGE'
 export const REFRESH = 'REFRESH'
 
 export const initialized = () => ({
-  type: INITIALIZE_TABLE
+  type: INITIALIZED
 })
 
 export const initializeTable = () => ({
@@ -74,13 +72,6 @@ export const setRecordCount = recordCount => ({
   }
 })
 
-export const setSearchFormDefinition = searchFormDefinition => ({
-  type: SET_SEARCH_FORM_DEFINITION,
-  payload: {
-    searchFormDefinition
-  }
-})
-
 export const setColumnDefinition = columnDefinition => ({
   type: SET_COLUMN_DEFINITION,
   payload: {
@@ -102,13 +93,6 @@ export const setLimit = limit => ({
   }
 })
 
-export const setSearchTerm = searchTerm => ({
-  type: SET_SEARCH_TERM,
-  payload: {
-    searchTerm
-  }
-})
-
 export const resetDataSet = () => ({
   type: RESET_DATA_SET
 })
@@ -120,10 +104,10 @@ export const setCurrentPage = currentPage => ({
   }
 })
 
-export const setRecordRequestInProgress = recordRequestInProgress => ({
-  type: SET_RECORD_REQUEST_IN_PROGRESS,
+export const setInProgress = inProgress => ({
+  type: SET_IN_PROGRESS,
   payload: {
-    recordRequestInProgress
+    inProgress
   }
 })
 
@@ -137,3 +121,4 @@ export const changePage = page => ({
 export const refresh = () => ({
   type: REFRESH
 })
+

@@ -5,15 +5,13 @@ const EXPECTED_INITIAL_STATE = {
   entityName: '',
   formBase: '',
   records: [],
-  searchTerm: '',
   limit: 50,
   currentPage: 1,
   orderBy: {},
-  searchFormDefinition: [],
   columnDefinition: [],
   recordCount: 0,
   recordStore: {},
-  recordRequestInProgress: false
+  inProgress: false
 }
 
 describe('entity-browser', () => {
@@ -150,20 +148,6 @@ describe('entity-browser', () => {
           expect(reducer(stateBefore, actions.setColumnDefinition(newDefinition))).to.deep.equal(expectedStateAfter)
         })
 
-        it('should handle SET_SEARCH_TERM', () => {
-          const newSearchTerm = 'New_search_term'
-
-          const stateBefore = {
-            searchTerm: 'Old_search_term'
-          }
-
-          const expectedStateAfter = {
-            searchTerm: newSearchTerm
-          }
-
-          expect(reducer(stateBefore, actions.setSearchTerm(newSearchTerm))).to.deep.equal(expectedStateAfter)
-        })
-
         it('should handle SET_LIMIT', () => {
           const newLimit = 100
 
@@ -220,31 +204,16 @@ describe('entity-browser', () => {
           expect(reducer(stateBefore, actions.setRecordCount(newRecordCount))).to.deep.equal(expectedStateAfter)
         })
 
-        it('should handle SET_RECORD_REQUEST_IN_PROGRESS', () => {
+        it('should handle SET_IN_PROGRESS', () => {
           const stateBefore = {
-            recordRequestInProgress: false
+            inProgress: false
           }
 
           const expectedStateAfter = {
-            recordRequestInProgress: true
+            inProgress: true
           }
 
-          expect(reducer(stateBefore, actions.setRecordRequestInProgress(true))).to.deep.equal(expectedStateAfter)
-        })
-
-        it('should handle SET_SEARCH_FORM_DEFINITION', () => {
-          const stateBefore = {
-            searchFormDefinition: undefined
-          }
-          const definition = [
-            {name: 'name1', type: 'type1', label: 'label1', displayType: 'displayType1', useLabel: true}
-          ]
-
-          const expectedStateAfter = {
-            searchFormDefinition: definition
-          }
-
-          expect(reducer(stateBefore, actions.setSearchFormDefinition(definition))).to.deep.equal(expectedStateAfter)
+          expect(reducer(stateBefore, actions.setInProgress(true))).to.deep.equal(expectedStateAfter)
         })
       })
     })
