@@ -8,7 +8,7 @@ const LongitudeFormatter = props => {
     <FormattedNumber
       value={number}
       style="decimal"
-      maximumFractionDigits={17}
+      maximumFractionDigits={15}
     />
   )
 }

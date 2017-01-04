@@ -7,6 +7,7 @@ This project is based on following technologies, tools and libraries:
 * [React](https://facebook.github.io/react/)
 * [Redux](https://github.com/reactjs/redux)
 * [redux-saga](https://github.com/yelouafi/redux-saga)
+* [flowtype](https://flowtype.org/)
 * [npm](https://www.npmjs.com/)
 * [webpack](https://webpack.github.io/)
 * [Lerna](https://lernajs.io/)
@@ -47,6 +48,8 @@ Run a Tocco Business Framework application with enabled REST API on:
 http://localhost:8080
 
 ### Getting started
+Just install yarn  https://yarnpkg.com/en/docs/install 
+and execute the following commands:
 ```
 npm install --global lerna@v2.0.0-beta.31
 npm run setup

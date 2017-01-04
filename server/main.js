@@ -1,35 +1,67 @@
-import Koa from 'koa'
-import convert from 'koa-convert'
-import webpack from 'webpack'
-import webpackConfig from '../build/webpack.config'
-import historyApiFallback from 'koa-connect-history-api-fallback'
-import serve from 'koa-static'
-import proxy from 'koa-proxy'
-import config from '../config'
-import webpackDevMiddleware from './middleware/webpack-dev'
-import webpackHMRMiddleware from './middleware/webpack-hmr'
+const express = require('express')
+const debug = require('debug')('app:server')
+const path = require('path')
+const webpack = require('webpack')
+const webpackConfig = require('../build/webpack.config').default
+const config = require('../config').default
+const compress = require('compression')
 
-const app = new Koa()
+const app = express()
 
-// Enable koa-proxy if it has been enabled in the config.
-if (config.proxy && config.proxy.enabled) {
-  app.use(convert(proxy(config.proxy.options)))
-}
+// Apply gzip compression
+app.use(compress())
 
-// This rewrites all routes requests to the root /index.html file
-// (ignoring file requests). If you want to implement isomorphic
-// rendering, you'll want to remove this middleware.
-app.use(convert(historyApiFallback({
-  verbose: false
-})))
+// ------------------------------------
+// Apply Webpack HMR Middleware
+// ------------------------------------
+const publicPath = webpackConfig.output.path
 
 if (config.env === 'development') {
   const compiler = webpack(webpackConfig)
-  const { publicPath } = webpackConfig.output
 
-  app.use(webpackDevMiddleware(compiler, publicPath))
-  app.use(webpackHMRMiddleware(compiler))
-  app.use(serve('server/static'))
+  debug('Enabling webpack dev and HMR middleware')
+  app.use(require('webpack-dev-middleware')(compiler, {
+    publicPath: '/',
+    hot: true,
+    quiet: false,
+    noInfo: false,
+    lazy: false,
+    stats: {colors: true}
+  }))
+  app.use(require('webpack-hot-middleware')(compiler, {
+    path: `/__webpack_hmr`
+  }))
+
+  // Serve static assets from ~/public since Webpack is unaware of
+  // these files. This middleware doesn't need to be enabled outside
+  // of development since this directory will be copied into ~/dist
+  // when the application is compiled.
+
+  app.use(express.static(publicPath))
+  app.use(express.static('server/static'))
+
+  // This rewrites all routes requests to the root /index.html file
+  // (ignoring file requests). If you want to implement universal
+  // rendering, you'll want to remove this middleware.
+  app.use('*', function(req, res, next) {
+    const filename = path.join(compiler.outputPath, 'index.html')
+    compiler.outputFileSystem.readFile(filename, (err, result) => {
+      if (err) {
+        return next(err)
+      }
+      res.set('content-type', 'text/html')
+      res.send(result)
+      res.end()
+    })
+  })
+} else {
+  debug(
+    'Server is being run outside of live development mode, meaning it will '
+    + 'only serve the compiled application bundle in ~/dist. Generally you '
+    + 'do not need an application server for this and can instead use a web '
+    + 'server such as nginx to serve your static files. See the "deployment" '
+    + 'section in the README for more information on deployment strategies.'
+  )
 }
 
-export default app
+module.exports = app

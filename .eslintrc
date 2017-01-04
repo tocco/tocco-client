@@ -2,16 +2,23 @@
   "parser"  : "babel-eslint",
   "extends" : [
     "standard",
-    "standard-react"
+    "standard-react",
+    "plugin:flowtype/recommended"
   ],
   "plugins": [
-    "babel"
+    "babel",
+    "react",
+    "promise",
+    "flowtype-errors",
+    "flowtype",
+    "import"
   ],
   "env"     : {
     "browser" : true
   },
   "globals" : {
     "__DEV__"      : false,
+    "__TEST__"     : false,
     "__PROD__"     : false,
     "__DEBUG__"    : false,
     "__STANDALONE__": false,
@@ -28,6 +35,7 @@
     "beforeEach": false
   },
   "rules": {
+    "key-spacing" : 0,
     "semi" : [2, "never"],
     "max-len": [2, 120, 2],
     "arrow-parens": [
@@ -42,7 +50,16 @@
 
     "react/jsx-space-before-closing": [2, "never"],
     "jsx-quotes": [2, "prefer-double"],
-    "react/jsx-no-bind": [2, { "allowArrowFunctions": true, "allowBind": true }]
+    "react/jsx-no-bind": [2, { "allowArrowFunctions": true, "allowBind": true }],
 
+    "flowtype-errors/show-errors": 2,
+
+    // "no-duplicate-imports" rule does not support importing types ("import type ...") and
+    // regular values from the same module. Therefore, we have to use "import/no-duplicates",
+    // until "no-duplicate-imports" is fixed.
+    //
+    // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-duplicates.md
+    "no-duplicate-imports": 0,
+    "import/no-duplicates": 2
   }
 }
