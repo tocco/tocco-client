@@ -1,4 +1,5 @@
 import React from 'react'
+import {intlShape} from 'react-intl'
 import * as ToccoUI from 'tocco-ui'
 import './styles.scss'
 
@@ -47,23 +48,38 @@ export class ListView extends React.Component {
         />
         <ToccoUI.Button
           onClick={props.refresh}
+          label={this.msg('client.entity-browser.refresh')}
           icon="glyphicon-refresh"
           className="refresh-button"
-        >
-          Reset
-        </ToccoUI.Button>
+        />
       </div>
     )
   }
 }
 
 ListView.propTypes = {
+  intl: intlShape.isRequired,
   changePage: React.PropTypes.func.isRequired,
   records: React.PropTypes.array.isRequired,
-  orderBy: React.PropTypes.object.isRequired,
+  orderBy: React.PropTypes.shape({
+    name: React.PropTypes.string.isRequired,
+    direction: React.PropTypes.string.isRequired
+  }),
+  onRecordClick: React.PropTypes.func.isRequired,
   currentPage: React.PropTypes.number,
   limit: React.PropTypes.number,
-  columnDefinitions: React.PropTypes.array,
+  columnDefinitions: React.PropTypes.arrayOf(
+    React.PropTypes.shape(
+      {
+        value: React.PropTypes.oneOfType([
+          React.PropTypes.string,
+          React.PropTypes.arrayOf(React.PropTypes.string)
+        ]).isRequired,
+        label: React.PropTypes.string,
+        order: React.PropTypes.int
+      }
+    )
+  ).isRequired,
   recordCount: React.PropTypes.number,
   setOrderBy: React.PropTypes.func,
   refresh: React.PropTypes.func,

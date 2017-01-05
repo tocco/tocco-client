@@ -1,4 +1,5 @@
 import React from 'react'
+import {IntlStub} from 'tocco-test-util'
 import {ListView} from './ListView'
 import * as ToccoUI from 'tocco-ui'
 
@@ -16,6 +17,7 @@ describe('entity-browser', () => {
           records={[]}
           searchFormDefinition={[]}
           orderBy={{}}
+          intl={IntlStub}
         />)
 
         expect(wrapper.find(ListView)).to.have.length(1)
@@ -33,6 +35,7 @@ describe('entity-browser', () => {
           records={[]}
           searchFormDefinition={[]}
           orderBy={{}}
+          intl={IntlStub}
         />)
 
         wrapper.find(ToccoUI.Pagination).simulate('pageChange')
@@ -59,6 +62,7 @@ describe('entity-browser', () => {
           columnDefinitions={columnDefinitions}
           inProgress={inProgress}
           setOrderBy={orderByChange}
+          intl={IntlStub}
         />)
 
         expect(wrapper.find(ToccoUI.Table).props().records).to.eql(records)
@@ -81,6 +85,7 @@ describe('entity-browser', () => {
           searchFormDefinition={[]}
           orderBy={{}}
           currentPage={currentPage}
+          intl={IntlStub}
         />)
 
         expect(wrapper.find(ToccoUI.Pagination).props().currentPage).to.eql(currentPage)
@@ -98,6 +103,7 @@ describe('entity-browser', () => {
           searchFormDefinition={[]}
           orderBy={{}}
           limit={limit}
+          intl={IntlStub}
         />)
 
         expect(wrapper.find(ToccoUI.Pagination).props().recordsPerPage).to.eql(limit)
@@ -115,6 +121,7 @@ describe('entity-browser', () => {
           searchFormDefinition={[]}
           orderBy={{}}
           recordCount={recordCount}
+          intl={IntlStub}
         />)
 
         expect(wrapper.find(ToccoUI.Pagination).props().totalRecords).to.eql(recordCount)
@@ -131,6 +138,7 @@ describe('entity-browser', () => {
           records={[]}
           searchFormDefinition={[]}
           orderBy={{}}
+          intl={IntlStub}
         />)
 
         wrapper.find('.refresh-button').simulate('click')
