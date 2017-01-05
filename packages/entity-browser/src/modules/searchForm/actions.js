@@ -1,16 +1,16 @@
-export const SET_FORM = 'SET_FORM'
-export const SET_FORM_DEFINITION = 'SET_FORM_DEFINITION'
-export const SET_ENTITY_MODEL = 'SET_ENTITY_MODEL'
-export const SET_RELATION_ENTITIES = 'SET_RELATION_ENTITIES'
-export const SET_SEARCH_INPUT = 'SET_SEARCH_INPUT'
-export const SEARCH_TERM_CHANGE = 'SEARCH_TERM_CHANGE'
-export const RESET = 'RESET'
+export const INITIALIZE = 'searchForm/INITIALIZE'
+export const SET_FORM_DEFINITION = 'searchForm/SET_FORM_DEFINITION'
+export const SET_ENTITY_MODEL = 'searchForm/SET_ENTITY_MODEL'
+export const SET_RELATION_ENTITIES = 'searchForm/SET_RELATION_ENTITIES'
+export const SET_SEARCH_INPUT = 'searchForm/SET_SEARCH_INPUT'
+export const SEARCH_TERM_CHANGE = 'searchForm/SEARCH_TERM_CHANGE'
+export const RESET = 'searchForm/RESET'
 
-export const setForm = (entityName, formName) => ({
-  type: SET_FORM,
+export const initialize = (entityName, formBase) => ({
+  type: INITIALIZE,
   payload: {
     entityName,
-    formName
+    formBase
   }
 })
 
