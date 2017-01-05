@@ -5,15 +5,20 @@ import ListViewContainer from '../../containers/ListViewContainer'
 
 import './styles.scss'
 
-export const EntityBrowser = props => {
-  props.initialize()
+export class EntityBrowser extends React.Component {
+  constructor(props) {
+    super(props)
+    props.initialize()
+  }
 
-  return (
-    <div className="entity-browser">
-      <SearchFormContainer/>
-      <ListViewContainer/>
-    </div>
-  )
+  render() {
+    return (
+      <div className="entity-browser">
+        <SearchFormContainer/>
+        <ListViewContainer/>
+      </div>
+    )
+  }
 }
 
 EntityBrowser.propTypes = {

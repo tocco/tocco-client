@@ -3,16 +3,16 @@ import {intlShape} from 'react-intl'
 import * as ToccoUI from 'tocco-ui'
 import './styles.scss'
 
-export class ListView extends React.Component {
-  onOrderByChange = orderBy => {
-    this.props.setOrderBy(orderBy)
+export const ListView = props => {
+  const onOrderByChange = orderBy => {
+    props.setOrderBy(orderBy)
   }
 
-  onPageChange = page => {
-    this.props.changePage(page)
+  const onPageChange = page => {
+    props.changePage(page)
   }
 
-  cellRenderer = (values, record) => {
+  const cellRenderer = (values, record) => {
     const formattedValues = values.map((v, idx) => (
       <ToccoUI.FormattedValue key={idx} type={v.type} value={v.value}/>
     ))
@@ -26,35 +26,37 @@ export class ListView extends React.Component {
     }
   }
 
-  render() {
-    const props = this.props
-
-    return (
-      <div className="list-view">
-        <ToccoUI.Table
-          columnDefinitions={props.columnDefinitions}
-          records={props.records}
-          className="table-striped"
-          onOrderByChange={this.onOrderByChange}
-          orderBy={props.orderBy}
-          loading={props.inProgress}
-          cellRenderer={this.cellRenderer}
-        />
-        <ToccoUI.Pagination
-          totalRecords={props.recordCount}
-          recordsPerPage={props.limit}
-          onPageChange={this.onPageChange}
-          currentPage={props.currentPage}
-        />
-        <ToccoUI.Button
-          onClick={props.refresh}
-          label={this.msg('client.entity-browser.refresh')}
-          icon="glyphicon-refresh"
-          className="refresh-button"
-        />
-      </div>
-    )
+  const msg = id => {
+    return props.intl.formatMessage({
+      id
+    })
   }
+
+  return (
+    <div className="list-view">
+      <ToccoUI.Table
+        columnDefinitions={props.columnDefinitions}
+        records={props.records}
+        className="table-striped"
+        onOrderByChange={onOrderByChange}
+        orderBy={props.orderBy}
+        loading={props.inProgress}
+        cellRenderer={cellRenderer}
+      />
+      <ToccoUI.Pagination
+        totalRecords={props.recordCount}
+        recordsPerPage={props.limit}
+        onPageChange={onPageChange}
+        currentPage={props.currentPage}
+      />
+      <ToccoUI.Button
+        onClick={props.refresh}
+        label={msg('client.entity-browser.refresh')}
+        icon="glyphicon-refresh"
+        className="refresh-button"
+      />
+    </div>
+  )
 }
 
 ListView.propTypes = {
@@ -65,7 +67,6 @@ ListView.propTypes = {
     name: React.PropTypes.string.isRequired,
     direction: React.PropTypes.string.isRequired
   }),
-  onRecordClick: React.PropTypes.func.isRequired,
   currentPage: React.PropTypes.number,
   limit: React.PropTypes.number,
   columnDefinitions: React.PropTypes.arrayOf(
