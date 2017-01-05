@@ -6,6 +6,7 @@ import Pagination from './Pagination'
 import SearchBox from './SearchBox'
 import FormattedValue from './FormattedValue'
 import EditableValue from './EditableValue'
+import LayoutBox from './LayoutBox'
 
 const exports = {
   Button,
@@ -15,7 +16,8 @@ const exports = {
   Pagination,
   SearchBox,
   FormattedValue,
-  EditableValue
+  EditableValue,
+  LayoutBox
 }
 
 module.exports = exports
