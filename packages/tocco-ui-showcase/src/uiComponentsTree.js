@@ -22,18 +22,18 @@ import SearchBoxRaw from '!raw-loader!../../tocco-ui/src/SearchBox/SearchBox'
 import SearchBoxExample from '../../tocco-ui/src/SearchBox/example'
 import SearchBoxExampleRaw from '!raw-loader!../../tocco-ui/src/SearchBox/example'
 
-import ToccoLogoRaw from '!raw-loader!../../tocco-ui/src/ToccoLogo/ToccoLogo'
-import ToccoLogoExample from '../../tocco-ui/src/ToccoLogo/example'
-import ToccoLogoExampleRaw from '!raw-loader!../../tocco-ui/src/ToccoLogo/example'
-
 import PaginationRaw from '!raw-loader!../../tocco-ui/src/Pagination/Pagination'
 import PaginationExample from '../../tocco-ui/src/Pagination/example'
 import PaginationExampleRaw from '!raw-loader!../../tocco-ui/src/Pagination/example'
 
+import LayoutBoxRaw from '!raw-loader!../../tocco-ui/src/LayoutBox/LayoutBox'
+import LayoutBoxExample from '../../tocco-ui/src/LayoutBox/example'
+import LayoutBoxExampleRaw from '!raw-loader!../../tocco-ui/src/LayoutBox/example'
+
 const categories = {
   CONTENT: 'Content',
   FORMS: 'From Controls',
-  CORPORATE_IDENTITY: 'Corporate identity'
+  LAYOUT: 'Layout'
 }
 
 export default [
@@ -102,14 +102,14 @@ export default [
       }]
   },
   {
-    category: categories.CORPORATE_IDENTITY,
+    category: categories.LAYOUT,
     components: [
       {
-        name: 'ToccoLogo',
-        raw: ToccoLogoRaw,
+        name: 'Box Layouts',
+        raw: LayoutBoxRaw,
         example: {
-          component: ToccoLogoExample,
-          raw: ToccoLogoExampleRaw
+          component: LayoutBoxExample,
+          raw: LayoutBoxExampleRaw
         }
       }
     ]

@@ -12,7 +12,7 @@ describe('entity-browser', () => {
           it('should fork child sagas', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal([
-              fork(takeLatest, actions.SET_FORM, sagas.initializeSearchForm),
+              fork(takeLatest, actions.INITIALIZE, sagas.initialize),
               fork(takeLatest, actions.SET_SEARCH_INPUT, sagas.setSearchTerm),
               fork(takeLatest, actions.RESET, sagas.setSearchTerm)
             ])
@@ -23,12 +23,12 @@ describe('entity-browser', () => {
         describe('initializeSearchForm saga', () => {
           it('should set model and from definition and  retrieve relevant entities', () => {
             const entityName = 'User'
-            const formName = 'UserSearch'
+            const formBase = 'UserSearch'
 
-            const gen = sagas.initializeSearchForm({payload: {formName, entityName}})
+            const gen = sagas.initialize({payload: {entityName, formBase}})
 
             expect(gen.next().value).to.eql([
-              call(api.fetchSearchForm, formName),
+              call(api.fetchSearchForm, formBase + '_search'),
               call(api.fetchModel, entityName)
             ])
 

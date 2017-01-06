@@ -7,17 +7,17 @@ export const searchValuesSelector = state => state.searchForm.searchValues
 
 export default function* sagas() {
   yield [
-    fork(takeLatest, actions.SET_FORM, initializeSearchForm),
+    fork(takeLatest, actions.INITIALIZE, initialize),
     fork(takeLatest, actions.SET_SEARCH_INPUT, setSearchTerm),
     fork(takeLatest, actions.RESET, setSearchTerm)
   ]
 }
 
-export function* initializeSearchForm(action) {
-  const {entityName, formName} = action.payload
+export function* initialize({payload}) {
+  const {entityName, formBase} = payload
 
   const [formDefinition, entityModel] = yield [
-    call(api.fetchSearchForm, formName),
+    call(api.fetchSearchForm, formBase + '_search'),
     call(api.fetchModel, entityName)
   ]
 

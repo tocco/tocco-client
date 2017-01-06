@@ -1,12 +1,6 @@
 import * as actions from './actions'
 import {singleTransferReducer} from 'tocco-util/reducers'
 
-const setForm = (state, {payload}) => ({
-  ...state,
-  entityName: payload.entityName,
-  formName: payload.formName
-})
-
 const setSearchInput = (state, {payload}) => {
   if (payload.field) {
     return {
@@ -28,7 +22,6 @@ const reset = state => ({
 
 const ACTION_HANDLERS = {
   [actions.SET_SEARCH_INPUT]: setSearchInput,
-  [actions.SET_FORM]: setForm,
   [actions.RESET]: reset,
   [actions.SET_FORM_DEFINITION]: singleTransferReducer('formDefinition'),
   [actions.SET_ENTITY_MODEL]: singleTransferReducer('entityModel'),
@@ -36,8 +29,6 @@ const ACTION_HANDLERS = {
 }
 
 const initialState = {
-  entityName: '',
-  formName: '',
   formDefinition: [],
   entityModel: {},
   relationEntities: {},

@@ -2,8 +2,6 @@ import reducer from './index'
 import * as actions from './actions'
 
 const EXPECTED_INITIAL_STATE = {
-  entityName: '',
-  formName: '',
   formDefinition: [],
   entityModel: {},
   relationEntities: {},
@@ -26,13 +24,6 @@ describe('entity-browser', () => {
           expect(reducer(EXPECTED_INITIAL_STATE, actions.setFormDefinition(definition)).formDefinition).to.deep.equal(
             definition
           )
-        })
-
-        it('should handle SET_FORM', () => {
-          const stateAfter = reducer(EXPECTED_INITIAL_STATE, actions.setForm('User', 'UserSearch'))
-
-          expect(stateAfter.entityName).to.deep.equal('User')
-          expect(stateAfter.formName).to.deep.equal('UserSearch')
         })
 
         it('should handle SET_SEARCH_INPUT', () => {
