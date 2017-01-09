@@ -2,13 +2,14 @@ import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 
 import ListView from '../components/ListView'
-import {changePage, setOrderBy, initializeListView, refresh} from '../modules/listView/actions'
+import {changePage, setOrderBy, refresh} from '../modules/listView/actions'
+import {showRecordDetail} from '../modules/entityBrowser/actions'
 
 const mapActionCreators = {
   changePage,
   setOrderBy,
-  initializeListView,
-  refresh
+  refresh,
+  onRecordClick: showRecordDetail
 }
 
 const mapStateToProps = (state, props) => ({

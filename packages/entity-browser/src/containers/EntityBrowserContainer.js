@@ -9,6 +9,7 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state, props) => ({
+  showDetailRecordId: state.entityBrowser.showDetailRecordId
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(EntityBrowser))

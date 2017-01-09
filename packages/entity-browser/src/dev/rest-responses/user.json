@@ -1,0 +1,333 @@
+{
+  "_links": {
+    "self": {
+      "href": "https://master.tocco.ch/nice2/rest/entities/User/1"
+    },
+    "model": {
+      "href": "https://master.tocco.ch/nice2/rest/entities/User/model"
+    },
+    "entity-list": {
+      "href": "https://master.tocco.ch/nice2/rest/entities/User"
+    },
+    "entity-model-list": {
+      "href": "https://master.tocco.ch/nice2/rest/entities"
+    }
+  },
+  "key": "1",
+  "model": "User",
+  "version": 7,
+  "display": "Tocco AG, Support",
+  "fields": null,
+  "singleRelations": [ ],
+  "multiRelations": [ ],
+  "paths": {
+    "email": {
+      "path": "email",
+      "type": "field",
+      "value": {
+        "value": "ml@tocco.ch",
+        "type": "email",
+        "readable": true,
+        "writable": false
+      }
+    },
+    "user_nr": {
+      "path": "user_nr",
+      "type": "field",
+      "value": {
+        "value": 1,
+        "type": "counter",
+        "readable": true,
+        "writable": false
+      }
+    },
+    "relSalutation": {
+      "path": "relSalutation",
+      "type": "entity",
+      "value": {
+        "_links": {
+          "self": {
+            "href": "https://master.tocco.ch/nice2/rest/entities/Salutation/1"
+          },
+          "model": {
+            "href": "https://master.tocco.ch/nice2/rest/entities/Salutation/model"
+          },
+          "entity-list": {
+            "href": "https://master.tocco.ch/nice2/rest/entities/Salutation"
+          },
+          "entity-model-list": {
+            "href": "https://master.tocco.ch/nice2/rest/entities"
+          }
+        },
+        "key": "1",
+        "model": "Salutation",
+        "version": 3,
+        "display": "Formell",
+        "fields": null,
+        "singleRelations": [ ],
+        "multiRelations": [ ],
+        "paths": null
+      }
+    },
+    "lastname": {
+      "path": "lastname",
+      "type": "field",
+      "value": {
+        "value": "Tocco AG",
+        "type": "string",
+        "readable": true,
+        "writable": false
+      }
+    },
+    "relGender": {
+      "path": "relGender",
+      "type": "entity",
+      "value": {
+        "_links": {
+          "self": {
+            "href": "https://master.tocco.ch/nice2/rest/entities/Gender/1"
+          },
+          "model": {
+            "href": "https://master.tocco.ch/nice2/rest/entities/Gender/model"
+          },
+          "entity-list": {
+            "href": "https://master.tocco.ch/nice2/rest/entities/Gender"
+          },
+          "entity-model-list": {
+            "href": "https://master.tocco.ch/nice2/rest/entities"
+          }
+        },
+        "key": "1",
+        "model": "Gender",
+        "version": 3,
+        "display": "Männlich",
+        "fields": null,
+        "singleRelations": [ ],
+        "multiRelations": [ ],
+        "paths": null
+      }
+    },
+    "phone_mobile": {
+      "path": "phone_mobile",
+      "type": "field",
+      "value": {
+        "value": "",
+        "type": "phone",
+        "readable": true,
+        "writable": false
+      }
+    },
+    "other_title": {
+      "path": "other_title",
+      "type": "field",
+      "value": {
+        "value": "",
+        "type": "string",
+        "readable": true,
+        "writable": false
+      }
+    },
+    "firstname": {
+      "path": "firstname",
+      "type": "field",
+      "value": {
+        "value": "Support",
+        "type": "string",
+        "readable": true,
+        "writable": false
+      }
+    },
+    "birthdate": {
+      "path": "birthdate",
+      "type": "field",
+      "value": {
+        "value": "2016-02-01",
+        "type": "birthdate",
+        "readable": true,
+        "writable": false
+      }
+    },
+    "c_address": {
+      "path": "c_address",
+      "type": "field",
+      "value": {
+        "value": "Tocco AG, Technology meets spirit Riedtlistrasse 27 8006 Zürich",
+        "type": "text",
+        "readable": true,
+        "writable": false
+      }
+    },
+    "phone_company": {
+      "path": "phone_company",
+      "type": "field",
+      "value": {
+        "value": "",
+        "type": "phone",
+        "readable": true,
+        "writable": false
+      }
+    },
+    "relUser_code2": {
+      "path": "relUser_code2",
+      "type": "entity-list",
+      "value": [ ]
+    },
+    "relUser_code3": {
+      "path": "relUser_code3",
+      "type": "entity-list",
+      "value": [ ]
+    },
+    "relUser_code1": {
+      "path": "relUser_code1",
+      "type": "entity-list",
+      "value": [
+        {
+          "_links": {
+            "self": {
+              "href": "https://master.tocco.ch/nice2/rest/entities/User_code1/1"
+            },
+            "model": {
+              "href": "https://master.tocco.ch/nice2/rest/entities/User_code1/model"
+            },
+            "entity-list": {
+              "href": "https://master.tocco.ch/nice2/rest/entities/User_code1"
+            },
+            "entity-model-list": {
+              "href": "https://master.tocco.ch/nice2/rest/entities"
+            }
+          },
+          "key": "1",
+          "model": "User_code1",
+          "version": 9,
+          "display": "Präsident",
+          "fields": null,
+          "singleRelations": [ ],
+          "multiRelations": [ ],
+          "paths": null
+        },
+        {
+          "_links": {
+            "self": {
+              "href": "https://master.tocco.ch/nice2/rest/entities/User_code1/2"
+            },
+            "model": {
+              "href": "https://master.tocco.ch/nice2/rest/entities/User_code1/model"
+            },
+            "entity-list": {
+              "href": "https://master.tocco.ch/nice2/rest/entities/User_code1"
+            },
+            "entity-model-list": {
+              "href": "https://master.tocco.ch/nice2/rest/entities"
+            }
+          },
+          "key": "2",
+          "model": "User_code1",
+          "version": 1,
+          "display": "Geschäftsleitung",
+          "fields": null,
+          "singleRelations": [ ],
+          "multiRelations": [ ],
+          "paths": null
+        }
+      ]
+    },
+    "phone_private": {
+      "path": "phone_private",
+      "type": "field",
+      "value": {
+        "value": "",
+        "type": "phone",
+        "readable": true,
+        "writable": false
+      }
+    },
+    "email_alternative": {
+      "path": "email_alternative",
+      "type": "field",
+      "value": {
+        "value": "",
+        "type": "email",
+        "readable": true,
+        "writable": false
+      }
+    },
+    "relUser_code4": {
+      "path": "relUser_code4",
+      "type": "entity-list",
+      "value": [ ]
+    },
+    "fax": {
+      "path": "fax",
+      "type": "field",
+      "value": {
+        "value": "",
+        "type": "phone",
+        "readable": true,
+        "writable": false
+      }
+    },
+    "relCorrespondence_language": {
+      "path": "relCorrespondence_language",
+      "type": "entity",
+      "value": {
+        "_links": {
+          "self": {
+            "href": "https://master.tocco.ch/nice2/rest/entities/Correspondence_language/3"
+          },
+          "model": {
+            "href": "https://master.tocco.ch/nice2/rest/entities/Correspondence_language/model"
+          },
+          "entity-list": {
+            "href": "https://master.tocco.ch/nice2/rest/entities/Correspondence_language"
+          },
+          "entity-model-list": {
+            "href": "https://master.tocco.ch/nice2/rest/entities"
+          }
+        },
+        "key": "3",
+        "model": "Correspondence_language",
+        "version": 2,
+        "display": "Deutsch",
+        "fields": null,
+        "singleRelations": [ ],
+        "multiRelations": [ ],
+        "paths": null
+      }
+    },
+    "b_address": {
+      "path": "b_address",
+      "type": "field",
+      "value": {
+        "value": "Tocco AG, Technology meets spirit Riedtlistrasse 27 8006 Zürich",
+        "type": "text",
+        "readable": true,
+        "writable": false
+      }
+    },
+    "abbreviation": {
+      "path": "abbreviation",
+      "type": "field",
+      "value": {
+        "value": "",
+        "type": "string",
+        "readable": true,
+        "writable": false
+      }
+    },
+    "relAcademic_title": {
+      "path": "relAcademic_title",
+      "type": "entity",
+      "value": null
+    },
+    "website": {
+      "path": "website",
+      "type": "field",
+      "value": {
+        "value": "",
+        "type": "url",
+        "readable": true,
+        "writable": false
+      }
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import _union from 'lodash/union'
 import * as rest from './rest'
+import {getFieldsOfDetailForm} from './api/form'
 
 export function fetchRecords(entityName, page, orderBy, limit, columnDefinition, searchInputs) {
   const params = {
@@ -17,21 +18,23 @@ export function fetchRecords(entityName, page, orderBy, limit, columnDefinition,
 
 const transformRecordsResult = json => {
   return json.data.map(entity => {
-    const result = {}
-    result.display = entity.display
+    const result = {
+      id: entity.key,
+      values: {}
+    }
+
     const paths = entity.paths
     for (let path in paths) {
       const type = paths[path].type
-
       if (type === 'field') {
-        result[path] = paths[path].value
+        result.values[path] = paths[path].value
       } else if (type === 'entity') {
-        result[path] = {
+        result.values[path] = {
           type: 'string',
           value: paths[path].value ? paths[path].value.display : ''
         }
       } else if (type === 'entity-list') {
-        result[path] = {
+        result.values[path] = {
           type: 'string',
           value: paths[path].value ? paths[path].value.map(v => v.display).join(', ') : ''
         }
@@ -136,3 +139,24 @@ const transformModel = json => {
   })
   return model
 }
+
+export function fetchDetailForm(formName) {
+  return rest.fetchRequest(`forms/${formName}`)
+    .then(resp => resp.json())
+    .then(json => transformDetailFormResult(json))
+}
+
+const transformDetailFormResult = json => {
+  const {form} = json
+  return form
+}
+
+export function fetchRecord(entityName, id, formDefinition) {
+  const params = {
+    '_paths': getFieldsOfDetailForm(formDefinition).join(',')
+  }
+
+  return rest.fetchRequest(`entities/${entityName}/${id}`, params)
+    .then(resp => resp.json())
+}
+
