@@ -30,7 +30,7 @@ const DetailForm = props => {
           const alignment = layoutComponent === 'HorizontalBox' ? 'horizontal' : 'vertical'
           const label = field.useLabel ? field.label : undefined
           return (
-            <ToccoUi.LayoutBox label={label} alignment={alignment}>
+            <ToccoUi.LayoutBox key={idx} label={label} alignment={alignment}>
               {formTraverser(field.children)}
             </ToccoUi.LayoutBox>
           )

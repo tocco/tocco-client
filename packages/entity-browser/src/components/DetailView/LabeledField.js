@@ -27,8 +27,8 @@ LabeledField.propTypes = {
     name: React.PropTypes.string,
     onChange: React.PropTypes.func
   }),
-  label: React.PropTypes.object,
-  type: React.PropTypes.object,
+  label: React.PropTypes.string,
+  type: React.PropTypes.string,
   meta: React.PropTypes.shape({
     touched: React.PropTypes.bool,
     error: React.PropTypes.string,
