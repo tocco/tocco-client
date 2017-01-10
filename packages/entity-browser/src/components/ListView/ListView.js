@@ -3,7 +3,7 @@ import {intlShape} from 'react-intl'
 import * as ToccoUI from 'tocco-ui'
 import './styles.scss'
 
-export const ListView = props => {
+const ListView = props => {
   const onOrderByChange = orderBy => {
     props.setOrderBy(orderBy)
   }
@@ -92,3 +92,5 @@ ListView.propTypes = {
   refresh: React.PropTypes.func,
   inProgress: React.PropTypes.bool
 }
+
+export default ListView

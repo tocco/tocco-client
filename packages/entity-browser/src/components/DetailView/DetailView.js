@@ -1,6 +1,5 @@
 import React from 'react'
 import DetailForm from './DetailForm'
-import './styles.scss'
 
 import * as ToccoUi from 'tocco-ui'
 

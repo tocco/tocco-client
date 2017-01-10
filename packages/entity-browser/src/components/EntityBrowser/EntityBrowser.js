@@ -4,8 +4,6 @@ import SearchFormContainer from '../../containers/SearchFormContainer'
 import ListViewContainer from '../../containers/ListViewContainer'
 import DetailViewContainer from '../../containers/DetailViewContainer'
 
-import './styles.scss'
-
 export class EntityBrowser extends React.Component {
   constructor(props) {
     super(props)
