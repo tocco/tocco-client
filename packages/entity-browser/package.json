@@ -40,12 +40,12 @@
     "react-router": "^3.0.0",
     "react-router-redux": "^4.0.7",
     "redux": "^3.6.0",
-    "redux-form": "^6.3.2",
+    "redux-form": "^6.4.3",
     "redux-saga": "^0.13.0",
     "redux-thunk": "^2.1.0",
     "rimraf": "^2.5.4",
+    "tocco-test-util": "^0.1.0",
     "tocco-ui": "^0.1.0",
-    "tocco-util": "^0.1.0",
-    "tocco-test-util": "^0.1.0"
+    "tocco-util": "^0.1.0"
   }
 }

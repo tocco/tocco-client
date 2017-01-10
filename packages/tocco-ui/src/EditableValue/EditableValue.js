@@ -10,7 +10,7 @@ const EditableValue = props => {
   return (
     <span className="tocco-editable-value">
       {
-        typeEditorFactory(props.type, props.value, props.onChange, props.options, props.id)
+        typeEditorFactory(props.type, props.value, props.onChange, props.options, props.id, props.events)
       }
     </span>
   )
@@ -38,7 +38,11 @@ EditableValue.propTypes = {
   /**
    * Id of element (for htmlFor)
    */
-  id: React.PropTypes.string
+  id: React.PropTypes.string,
+  /**
+   * Object of functions that gets assigned to the component. E.g. {onBlur: ()=>{}}
+   */
+  events: React.PropTypes.objectOf(React.PropTypes.func)
 }
 
 export default EditableValue

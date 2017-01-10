@@ -1,4 +1,5 @@
 [
   "client.entity-browser.search",
-  "client.entity-browser.reset"
+  "client.entity-browser.reset",
+  "client.entity-browser.refresh"
 ]

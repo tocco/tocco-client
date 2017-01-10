@@ -1,8 +1,6 @@
 import React from 'react'
 
-const StringEdit = props => {
-  const value = props.value || ''
-
+const TextEdit = props => {
   const handleChange = e => {
     if (props.onChange) {
       props.onChange(e.target.value)
@@ -10,19 +8,22 @@ const StringEdit = props => {
   }
 
   return (
-    <input
-      type="text"
+    <textarea
       className="form-control"
       name={props.name}
-      value={value}
       onChange={handleChange}
       id={props.id}
       {...props.events}
+      value={props.value}
     />
   )
 }
 
-StringEdit.propTypes = {
+TextEdit.defaultProps = {
+  value: ''
+}
+
+TextEdit.propTypes = {
   onChange: React.PropTypes.func,
   value: React.PropTypes.node,
   name: React.PropTypes.string,
@@ -30,4 +31,4 @@ StringEdit.propTypes = {
   events: React.PropTypes.objectOf(React.PropTypes.func)
 }
 
-export default StringEdit
+export default TextEdit

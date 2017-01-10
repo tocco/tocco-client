@@ -3,7 +3,7 @@ import {intlShape} from 'react-intl'
 import * as ToccoUI from 'tocco-ui'
 import './styles.scss'
 
-export const ListView = props => {
+const ListView = props => {
   const onOrderByChange = orderBy => {
     props.setOrderBy(orderBy)
   }
@@ -26,6 +26,10 @@ export const ListView = props => {
     }
   }
 
+  const handleRowClick = recordId => {
+    props.onRecordClick(recordId)
+  }
+
   const msg = id => {
     return props.intl.formatMessage({
       id
@@ -42,6 +46,7 @@ export const ListView = props => {
         orderBy={props.orderBy}
         loading={props.inProgress}
         cellRenderer={cellRenderer}
+        onRowClick={handleRowClick}
       />
       <ToccoUI.Pagination
         totalRecords={props.recordCount}
@@ -64,9 +69,10 @@ ListView.propTypes = {
   changePage: React.PropTypes.func.isRequired,
   records: React.PropTypes.array.isRequired,
   orderBy: React.PropTypes.shape({
-    name: React.PropTypes.string.isRequired,
-    direction: React.PropTypes.string.isRequired
+    name: React.PropTypes.string,
+    direction: React.PropTypes.string
   }),
+  onRecordClick: React.PropTypes.func,
   currentPage: React.PropTypes.number,
   limit: React.PropTypes.number,
   columnDefinitions: React.PropTypes.arrayOf(
@@ -86,3 +92,5 @@ ListView.propTypes = {
   refresh: React.PropTypes.func,
   inProgress: React.PropTypes.bool
 }
+
+export default ListView

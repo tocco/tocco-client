@@ -2,8 +2,7 @@ import React from 'react'
 
 import SearchFormContainer from '../../containers/SearchFormContainer'
 import ListViewContainer from '../../containers/ListViewContainer'
-
-import './styles.scss'
+import DetailViewContainer from '../../containers/DetailViewContainer'
 
 export class EntityBrowser extends React.Component {
   constructor(props) {
@@ -12,15 +11,27 @@ export class EntityBrowser extends React.Component {
   }
 
   render() {
+    let content
+    if (this.props.showDetailRecordId) {
+      content = <DetailViewContainer recordId={this.props.showDetailRecordId}/>
+    } else {
+      content = (
+        <div>
+          <SearchFormContainer/>
+          <ListViewContainer/>
+        </div>
+      )
+    }
+
     return (
       <div className="entity-browser">
-        <SearchFormContainer/>
-        <ListViewContainer/>
+        {content}
       </div>
     )
   }
 }
 
 EntityBrowser.propTypes = {
-  initialize: React.PropTypes.func.isRequired
+  initialize: React.PropTypes.func.isRequired,
+  showDetailRecordId: React.PropTypes.number
 }

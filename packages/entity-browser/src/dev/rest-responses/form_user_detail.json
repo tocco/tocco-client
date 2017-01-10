@@ -1,0 +1,165 @@
+{
+  "_links": {
+    "self": {
+      "href": "https://test.tocco.ch/nice2/rest/forms/UserSearch_detail"
+    }
+  },
+  "form": {
+    "name": "UserSearch_detail",
+    "type": "ch.tocco.nice2.model.form.components.Form",
+    "displayType": "READONLY",
+    "children": [
+      {
+        "name": "box1",
+        "type": "ch.tocco.nice2.model.form.components.layout.VerticalBox",
+        "displayType": "READONLY",
+        "children": [
+          {
+            "name": "box1",
+            "type": "ch.tocco.nice2.model.form.components.layout.HorizontalBox",
+            "displayType": "READONLY",
+            "children": [
+              {
+                "name": "address_info",
+                "type": "ch.tocco.nice2.model.form.components.layout.VerticalBox",
+                "displayType": "READONLY",
+                "children": [
+                  {
+                    "name": "address",
+                    "type": "ch.tocco.nice2.model.form.components.simple.TextArea",
+                    "displayType": "READONLY",
+                    "children": [],
+                    "label": "Adresse",
+                    "useLabel": "YES"
+                  }
+                ],
+                "label": "Adress-Informationen",
+                "useLabel": "YES"
+              },
+              {
+                "name": "user_information",
+                "type": "ch.tocco.nice2.model.form.components.layout.VerticalBox",
+                "displayType": "READONLY",
+                "children": [
+                  {
+                    "name": "user_nr",
+                    "type": "ch.tocco.nice2.model.form.components.simple.NumberField",
+                    "displayType": "READONLY",
+                    "children": [],
+                    "label": "Person-Nr.",
+                    "useLabel": "YES"
+                  },
+                  {
+                    "name": "firstname",
+                    "type": "ch.tocco.nice2.model.form.components.simple.TextField",
+                    "displayType": "READONLY",
+                    "children": [],
+                    "label": "Vorname",
+                    "useLabel": "YES"
+                  },
+                  {
+                    "name": "lastname",
+                    "type": "ch.tocco.nice2.model.form.components.simple.TextField",
+                    "displayType": "READONLY",
+                    "children": [],
+                    "label": "Nachname",
+                    "useLabel": "YES"
+                  },
+                  {
+                    "name": "relGender",
+                    "type": "ch.tocco.nice2.model.form.components.simple.SingleSelectBox",
+                    "displayType": "READONLY",
+                    "children": [],
+                    "label": "Geschlecht",
+                    "useLabel": "YES"
+                  },
+                  {
+                    "name": "birthdate",
+                    "type": "ch.tocco.nice2.model.form.components.simple.BirthDateField",
+                    "displayType": "READONLY",
+                    "children": [],
+                    "label": "Geburtsdatum",
+                    "useLabel": "YES"
+                  }
+                ],
+                "label": "Personenangaben",
+                "useLabel": "YES"
+              }
+            ]
+          },
+          {
+            "name": "box1",
+            "type": "ch.tocco.nice2.model.form.components.layout.HorizontalBox",
+            "displayType": "READONLY",
+            "children": [
+              {
+                "name": "communication_information",
+                "type": "ch.tocco.nice2.model.form.components.layout.VerticalBox",
+                "displayType": "READONLY",
+                "children": [
+                  {
+                    "name": "email",
+                    "type": "ch.tocco.nice2.model.form.components.simple.EmailField",
+                    "displayType": "READONLY",
+                    "children": [],
+                    "label": "E-Mail",
+                    "useLabel": "YES"
+                  },
+                  {
+                    "name": "phone_company",
+                    "type": "ch.tocco.nice2.model.form.components.simple.PhoneField",
+                    "displayType": "READONLY",
+                    "children": [],
+                    "label": "Telefon G",
+                    "useLabel": "YES"
+                  },
+                  {
+                    "name": "website",
+                    "type": "ch.tocco.nice2.model.form.components.simple.UrlField",
+                    "displayType": "READONLY",
+                    "children": [],
+                    "label": "Website",
+                    "useLabel": "YES"
+                  }
+                ],
+                "label": "Communication",
+                "useLabel": "YES"
+              },
+              {
+                "name": "marketing_information",
+                "type": "ch.tocco.nice2.model.form.components.layout.VerticalBox",
+                "displayType": "READONLY",
+                "children": [
+                  {
+                    "name": "relUser_code",
+                    "type": "ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
+                    "displayType": "READONLY",
+                    "children": [],
+                    "label": "Personen-Code",
+                    "useLabel": "YES"
+                  },
+                  {
+                    "name": "publish",
+                    "type": "ch.tocco.nice2.model.form.components.simple.CheckBox",
+                    "displayType": "READONLY",
+                    "children": [],
+                    "label": "Publiziert",
+                    "useLabel": "YES"
+                  }
+                ],
+                "label": "Marketing",
+                "useLabel": "YES"
+              }
+            ],
+            "label": null,
+            "useLabel": "NO"
+          }
+        ],
+        "label": null,
+        "useLabel": "NO"
+      }
+    ],
+    "label": "##forms.UserSearch_detail:de_CH:nice2.optional.usersearch",
+    "useLabel": "YES"
+  }
+}

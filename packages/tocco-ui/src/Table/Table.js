@@ -31,7 +31,7 @@ class Table extends React.Component {
 
     const handleOnClick = record => {
       if (this.props.onRowClick) {
-        this.props.onRowClick(record)
+        this.props.onRowClick(record.id, record)
       }
     }
 
@@ -77,44 +77,44 @@ class Table extends React.Component {
           <thead>
             <tr>
               {
-                columnDefinitions.map((c, idx) => {
-                  return (
-                    <th
-                      key={idx}
-                      onClick={() => handleOrderByClick(c.value)}
-                    >
-                      {getLabel(c)}
-                      {orderSymbol(c)}
-                    </th>
-                  )
-                })
-              }
+              columnDefinitions.map((c, idx) => {
+                return (
+                  <th
+                    key={idx}
+                    onClick={() => handleOrderByClick(c.value)}
+                  >
+                    {getLabel(c)}
+                    {orderSymbol(c)}
+                  </th>
+                )
+              })
+            }
             </tr>
           </thead>
           <tbody>
             {
-              this.props.records.map((r, ridx) => {
-                return (
-                  <tr key={ridx} onClick={() => handleOnClick(r)}>
-                    {
-                      columnDefinitions.map((c, cidx) => {
-                        const id = `${ridx}-${cidx}`
-                        const valueNames = Array.isArray(c.value) ? c.value : [c.value]
-                        const fields = valueNames.map(value => r[value])
-                          .filter(field => field !== undefined && field !== null)
-                        return (
-                          <td key={id}>
-                            {
-                              renderValue(fields, r)
-                            }
-                          </td>
-                        )
-                      })
-                    }
-                  </tr>
-                )
-              })
-            }
+            this.props.records.map((record, ridx) => {
+              return (
+                <tr key={ridx} onClick={() => handleOnClick(record)}>
+                  {
+                    columnDefinitions.map((c, cidx) => {
+                      const id = `${ridx}-${cidx}`
+                      const valueNames = Array.isArray(c.value) ? c.value : [c.value]
+                      const fields = valueNames.map(value => record.values[value])
+                        .filter(field => field !== undefined && field !== null)
+                      return (
+                        <td key={id}>
+                          {
+                            renderValue(fields, record)
+                          }
+                        </td>
+                      )
+                    })
+                  }
+                </tr>
+              )
+            })
+          }
           </tbody>
         </table>
       </div>
@@ -145,7 +145,14 @@ Table.propTypes = {
    * A record should consist of attributes that contain a value and a type attribute.
    */
   records: React.PropTypes.arrayOf(
-    React.PropTypes.shape
+    React.PropTypes.shape({
+      id: React.PropTypes.any,
+      values: React.PropTypes.objectOf(
+        React.PropTypes.shape({
+          value: React.PropTypes.any,
+          type: React.PropTypes.string.isRequired
+        })).isRequired
+    })
   ).isRequired,
   /**
    * A cell-renderer allows to render each cell content separately. Given the field values as first argument

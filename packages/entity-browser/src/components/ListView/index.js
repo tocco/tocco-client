@@ -1,3 +1,3 @@
-import {ListView} from './ListView'
+import ListView from './ListView'
 
 export default ListView
