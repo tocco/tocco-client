@@ -1,6 +1,6 @@
 import React from 'react'
 import {IntlStub} from 'tocco-test-util'
-import {ListView} from './ListView'
+import ListView from './ListView'
 import * as ToccoUI from 'tocco-ui'
 
 import {mount, shallow} from 'enzyme'
