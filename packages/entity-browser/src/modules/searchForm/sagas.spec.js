@@ -56,8 +56,8 @@ describe('entity-browser', () => {
             expect(gen.next().value).to.eql(put(actions.setFormDefinition(formDefinition)))
 
             expect(gen.next().value).to.eql([
-              call(api.fetchRelationRecords, 'testEntity1'),
-              call(api.fetchRelationRecords, 'testEntity2')
+              call(api.fetchRelationEntities, 'testEntity1'),
+              call(api.fetchRelationEntities, 'testEntity2')
             ])
 
             expect(gen.next({}).value).to.eql(call(api.transformRelationEntitiesResults, {}))

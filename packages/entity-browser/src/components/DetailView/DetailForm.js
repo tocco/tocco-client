@@ -17,7 +17,7 @@ const validate = values => {
 }
 
 const DetailForm = props => {
-  if (!props.record.paths) {
+  if (!props.entity.paths) {
     return <div/>
   }
 
@@ -37,8 +37,8 @@ const DetailForm = props => {
         }
       }
 
-      if (props.record.paths[field.name].value !== null) {
-        const type = props.record.paths[field.name].value.type
+      if (props.entity.paths[field.name].value !== null) {
+        const type = props.entity.paths[field.name].value.type
         return <Field name={field.name} type={type} key={idx} label={field.label} component={LabeledField}/>
       }
 
@@ -57,7 +57,7 @@ const DetailForm = props => {
 DetailForm.propTypes = {
   handleSubmit: React.PropTypes.func,
   formDefinition: React.PropTypes.object,
-  record: React.PropTypes.object
+  entity: React.PropTypes.object
 }
 
 export default reduxForm({

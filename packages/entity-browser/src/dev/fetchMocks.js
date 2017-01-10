@@ -1,8 +1,8 @@
 import {utilFetchMocks} from 'tocco-util/dev'
 
-import {createUsers} from './recordFactory'
+import {createUsers} from './entityFactory'
 
-const allRecords = createUsers(1003)
+const allEntities = createUsers(1003)
 
 export default function setupFetchMock(fetchMock) {
   utilFetchMocks.sessionFetchMock(fetchMock)
@@ -20,11 +20,11 @@ export default function setupFetchMock(fetchMock) {
 
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/User_code1.*'), require('./rest-responses/user_code1.json'))
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/User/model.*'), require('./rest-responses/model_user.json'))
-  fetchMock.get(new RegExp('^.*?/nice2/rest/entities/User/count?.*'), {'count': allRecords.length})
+  fetchMock.get(new RegExp('^.*?/nice2/rest/entities/User/count?.*'), {'count': allEntities.length})
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/User/[0-9]?.*'), (url, opts) => {
     console.log('fetchMock: called fetch entitiy', url, opts)
     const id = url.match(/^.*\/User\/(\d+)/)[1]
-    return allRecords[id]
+    return allEntities[id]
   })
 
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/User?.*'), (url, opts) => {
@@ -38,32 +38,32 @@ export default function setupFetchMock(fetchMock) {
       const parts = orderBy.split(' ')
       const fieldName = parts[0]
       const direction = parts[1]
-      allRecords.sort((a, b) => {
+      allEntities.sort((a, b) => {
         const A = a.paths[fieldName].value.value || 0
         const B = b.paths[fieldName].value.value || 0
         return ((A < B) ? -1 : ((A > B) ? 1 : 0))
       })
       if (direction === 'desc') {
-        allRecords.reverse()
+        allEntities.reverse()
       }
     }
 
     if (searchTerm === 'few') {
-      return wrapResponse(allRecords.slice(0, 10))
+      return wrapResponse(allEntities.slice(0, 10))
     }
 
-    return wrapResponse(allRecords.slice(offset, offset + limit))
+    return wrapResponse(allEntities.slice(offset, offset + limit))
   })
 
   fetchMock.spy()
 }
 
-const wrapResponse = records => ({
+const wrapResponse = entities => ({
   metaData: {
     modelName: 'User',
     label: 'Person'
   },
-  data: records
+  data: entities
 })
 
 const getParameterByName = (name, url) => {

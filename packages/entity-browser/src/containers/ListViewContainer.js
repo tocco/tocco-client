@@ -3,21 +3,21 @@ import {injectIntl} from 'react-intl'
 
 import ListView from '../components/ListView'
 import {changePage, setOrderBy, refresh} from '../modules/listView/actions'
-import {showRecordDetail} from '../modules/entityBrowser/actions'
+import {showEntityDetail} from '../modules/entityBrowser/actions'
 
 const mapActionCreators = {
   changePage,
   setOrderBy,
   refresh,
-  onRecordClick: showRecordDetail
+  onEntityClick: showEntityDetail
 }
 
 const mapStateToProps = (state, props) => ({
   currentPage: state.listView.currentPage,
   orderBy: state.listView.orderBy,
-  records: state.listView.records,
+  entities: state.listView.entities,
   columnDefinitions: state.listView.columnDefinition,
-  recordCount: state.listView.recordCount,
+  entityCount: state.listView.entityCount,
   limit: state.listView.limit,
   inProgress: state.listView.inProgress
 })

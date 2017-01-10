@@ -10,7 +10,7 @@ export const entityBrowserSelector = state => state.entityBrowser
 export default function* sagas() {
   yield [
     fork(takeLatest, actions.INITIALIZE, initialize),
-    fork(takeLatest, actions.SHOW_RECORD_DETAIL, showRecordDetail)
+    fork(takeLatest, actions.SHOW_ENTITY_DETAIL, showEntityDetail)
   ]
 }
 
@@ -28,6 +28,6 @@ export function* initialize() {
   yield put(detailViewActions.initialize(entityName, formBase))
 }
 
-export function* showRecordDetail({payload}) {
-  yield put(detailViewActions.loadRecord(payload.recordId))
+export function* showEntityDetail({payload}) {
+  yield put(detailViewActions.loadEntity(payload.entityId))
 }

@@ -8,8 +8,8 @@ export const detailViewSelector = state => state.detailView
 export default function* sagas() {
   yield [
     fork(takeLatest, actions.INITIALIZE, initialize),
-    fork(takeLatest, actions.LOAD_RECORD, loadRecord),
-    fork(takeEvery, actions.SAVE_RECORD, saveRecord)
+    fork(takeLatest, actions.LOAD_ENTITY, loadEntity),
+    fork(takeEvery, actions.SAVE_ENTITY, saveEntity)
   ]
 }
 
@@ -21,15 +21,15 @@ export function* initialize({payload}) {
   yield put(actions.setFormDefinition(detailFormDefinition))
 }
 
-export function* loadRecord({payload}) {
-  const {recordId} = payload
+export function* loadEntity({payload}) {
+  const {entityId} = payload
   const listView = yield select(detailViewSelector)
   const {entityName, formDefinition} = listView
-  const record = yield call(api.fetchRecord, entityName, recordId, formDefinition)
+  const entity = yield call(api.fetchEntity, entityName, entityId, formDefinition)
 
-  yield put(actions.setRecord(record))
+  yield put(actions.setEntity(entity))
 }
 
-export function* saveRecord({payload}) {
-  console.log('would save record:', payload.record)
+export function* saveEntity({payload}) {
+  console.log('would save entity:', payload.entity)
 }

@@ -29,7 +29,7 @@ export function* initialize({payload}) {
   ).map(searchField => {
     const relationName = searchField.name
     const entityName = entityModel[relationName].targetEntity
-    return call(api.fetchRelationRecords, entityName)
+    return call(api.fetchRelationEntities, entityName)
   })
 
   const relationEntitiesTransformed = yield call(api.transformRelationEntitiesResults, relationEntities)

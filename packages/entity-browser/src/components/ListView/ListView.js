@@ -12,7 +12,7 @@ const ListView = props => {
     props.changePage(page)
   }
 
-  const cellRenderer = (values, record) => {
+  const cellRenderer = (values, entity) => {
     const formattedValues = values.map((v, idx) => (
       <ToccoUI.FormattedValue key={idx} type={v.type} value={v.value}/>
     ))
@@ -26,8 +26,8 @@ const ListView = props => {
     }
   }
 
-  const handleRowClick = recordId => {
-    props.onRecordClick(recordId)
+  const handleRowClick = entityId => {
+    props.onEntityClick(entityId)
   }
 
   const msg = id => {
@@ -40,7 +40,7 @@ const ListView = props => {
     <div className="list-view">
       <ToccoUI.Table
         columnDefinitions={props.columnDefinitions}
-        records={props.records}
+        records={props.entities}
         className="table-striped"
         onOrderByChange={onOrderByChange}
         orderBy={props.orderBy}
@@ -49,7 +49,7 @@ const ListView = props => {
         onRowClick={handleRowClick}
       />
       <ToccoUI.Pagination
-        totalRecords={props.recordCount}
+        totalRecords={props.entityCount}
         recordsPerPage={props.limit}
         onPageChange={onPageChange}
         currentPage={props.currentPage}
@@ -67,12 +67,12 @@ const ListView = props => {
 ListView.propTypes = {
   intl: intlShape.isRequired,
   changePage: React.PropTypes.func.isRequired,
-  records: React.PropTypes.array.isRequired,
+  entities: React.PropTypes.array.isRequired,
   orderBy: React.PropTypes.shape({
     name: React.PropTypes.string,
     direction: React.PropTypes.string
   }),
-  onRecordClick: React.PropTypes.func,
+  onEntityClick: React.PropTypes.func,
   currentPage: React.PropTypes.number,
   limit: React.PropTypes.number,
   columnDefinitions: React.PropTypes.arrayOf(
@@ -87,7 +87,7 @@ ListView.propTypes = {
       }
     )
   ).isRequired,
-  recordCount: React.PropTypes.number,
+  entityCount: React.PropTypes.number,
   setOrderBy: React.PropTypes.func,
   refresh: React.PropTypes.func,
   inProgress: React.PropTypes.bool

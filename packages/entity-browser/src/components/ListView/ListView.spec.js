@@ -14,7 +14,7 @@ describe('entity-browser', () => {
         const wrapper = mount(<ListView
           changePage={EMPTY_FUNC}
           setSearchTerm={EMPTY_FUNC}
-          records={[]}
+          entities={[]}
           searchFormDefinition={[]}
           orderBy={{}}
           intl={IntlStub}
@@ -32,7 +32,7 @@ describe('entity-browser', () => {
           initializeTable={EMPTY_FUNC}
           changePage={changePage}
           setSearchTerm={EMPTY_FUNC}
-          records={[]}
+          entities={[]}
           searchFormDefinition={[]}
           orderBy={{}}
           intl={IntlStub}
@@ -43,7 +43,7 @@ describe('entity-browser', () => {
       })
 
       it('should pass properties to the ToccoUI.Table component', () => {
-        const records = ['my', 'records']
+        const entities = ['my', 'entities']
         const orderBy = {
           name: 'name',
           direction: 'asc'
@@ -56,7 +56,7 @@ describe('entity-browser', () => {
           initializeTable={EMPTY_FUNC}
           changePage={EMPTY_FUNC}
           setSearchTerm={EMPTY_FUNC}
-          records={records}
+          entities={entities}
           searchFormDefinition={[]}
           orderBy={orderBy}
           columnDefinitions={columnDefinitions}
@@ -65,7 +65,7 @@ describe('entity-browser', () => {
           intl={IntlStub}
         />)
 
-        expect(wrapper.find(ToccoUI.Table).props().records).to.eql(records)
+        expect(wrapper.find(ToccoUI.Table).props().records).to.eql(entities)
         expect(wrapper.find(ToccoUI.Table).props().orderBy).to.eql(orderBy)
         expect(wrapper.find(ToccoUI.Table).props().columnDefinitions).to.eql(columnDefinitions)
         expect(wrapper.find(ToccoUI.Table).props().loading).to.eql(inProgress)
@@ -81,7 +81,7 @@ describe('entity-browser', () => {
           changePage={EMPTY_FUNC}
           setOrderBy={EMPTY_FUNC}
           setSearchTerm={EMPTY_FUNC}
-          records={[]}
+          entities={[]}
           searchFormDefinition={[]}
           orderBy={{}}
           currentPage={currentPage}
@@ -99,7 +99,7 @@ describe('entity-browser', () => {
           changePage={EMPTY_FUNC}
           setOrderBy={EMPTY_FUNC}
           setSearchTerm={EMPTY_FUNC}
-          records={[]}
+          entities={[]}
           searchFormDefinition={[]}
           orderBy={{}}
           limit={limit}
@@ -109,22 +109,22 @@ describe('entity-browser', () => {
         expect(wrapper.find(ToccoUI.Pagination).props().recordsPerPage).to.eql(limit)
       })
 
-      it('should handle recordCount', () => {
-        const recordCount = 1234
+      it('should handle entityCount', () => {
+        const entityCount = 1234
 
         const wrapper = shallow(<ListView
           initializeTable={EMPTY_FUNC}
           changePage={EMPTY_FUNC}
           setOrderBy={EMPTY_FUNC}
           setSearchTerm={EMPTY_FUNC}
-          records={[]}
+          entities={[]}
           searchFormDefinition={[]}
           orderBy={{}}
-          recordCount={recordCount}
+          entityCount={entityCount}
           intl={IntlStub}
         />)
 
-        expect(wrapper.find(ToccoUI.Pagination).props().totalRecords).to.eql(recordCount)
+        expect(wrapper.find(ToccoUI.Pagination).props().totalRecords).to.eql(entityCount)
       })
 
       it('should call refresh', () => {
@@ -135,7 +135,7 @@ describe('entity-browser', () => {
           changePage={EMPTY_FUNC}
           setSearchTerm={EMPTY_FUNC}
           refresh={spy}
-          records={[]}
+          entities={[]}
           searchFormDefinition={[]}
           orderBy={{}}
           intl={IntlStub}

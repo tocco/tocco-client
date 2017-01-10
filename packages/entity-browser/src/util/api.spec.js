@@ -9,12 +9,12 @@ describe('entity-browser', () => {
         fetchMock.restore()
       })
 
-      describe('fetchRecord', () => {
+      describe('fetchEntity', () => {
         it('should call fetch', () => {
           fetchMock.get('*', {data: [{fields: {a: 'a'}}]})
 
           const columnDefinition = [{label: 'l1', value: ['f1', 'f2']}, {label: 'l1', value: ['f2']}]
-          return api.fetchRecords('User', 2, 'firstname', 20, columnDefinition, {_search: 'test'}).then(() => {
+          return api.fetchEntities('User', 2, 'firstname', 20, columnDefinition, {_search: 'test'}).then(() => {
             expect(fetchMock.calls().matched).to.have.length(1)
             const lastCall = fetchMock.lastCall()[0]
             expect(lastCall).to.eql('/nice2/rest/entities/User?_limit=20&_offset=20&_paths=f1%2Cf2&_search=test')
@@ -93,7 +93,7 @@ describe('entity-browser', () => {
 
           const columnDefinition = [{label: 'Firstname', value: ['firstname']}, {label: 'Gender', value: ['relGender']}]
 
-          return api.fetchRecords(entityName, 2, 'firstname', 20, columnDefinition, {_search: 'test'}).then(res => {
+          return api.fetchEntities(entityName, 2, 'firstname', 20, columnDefinition, {_search: 'test'}).then(res => {
             expect(res).to.be.a('array')
             expect(res).to.have.length(2)
             expect(res[0].values).to.have.property('firstname')
@@ -110,10 +110,10 @@ describe('entity-browser', () => {
         })
       })
 
-      describe('fetchRecordCount', () => {
+      describe('fetchEntityCount', () => {
         it('should call fetch and return correct amount', () => {
           fetchMock.get('*', {count: 99})
-          return api.fetchRecordCount('User').then(result => {
+          return api.fetchEntityCount('User').then(result => {
             expect(result).to.be.eql(99)
 
             expect(fetchMock.calls().matched).to.have.length(1)
@@ -123,11 +123,11 @@ describe('entity-browser', () => {
         })
       })
 
-      describe('fetchRelationRecords', () => {
+      describe('fetchRelationEntities', () => {
         it('should fetch entities with a limit', () => {
           fetchMock.get('*', {})
 
-          return api.fetchRelationRecords('User_code1').then(result => {
+          return api.fetchRelationEntities('User_code1').then(result => {
             expect(fetchMock.calls().matched).to.have.length(1)
             const lastCallUrl = fetchMock.lastCall()[0]
             expect(lastCallUrl).to.eql('/nice2/rest/entities/User_code1?_limit=50')

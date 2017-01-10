@@ -3,11 +3,11 @@ import DetailForm from './DetailForm'
 
 import * as ToccoUi from 'tocco-ui'
 
-const recordToInitialValues = record => {
-  if (!record || !record.paths) return {}
+const entityToInitialValues = entity => {
+  if (!entity || !entity.paths) return {}
   const result = {}
-  const paths = record.paths
-  Object.keys(record.paths).forEach(key => {
+  const paths = entity.paths
+  Object.keys(entity.paths).forEach(key => {
     if (paths[key].value !== null) {
       result[key] = paths[key].value.value
     }
@@ -15,28 +15,28 @@ const recordToInitialValues = record => {
   return result
 }
 
-const formValuesToRecord = (values, record) => {
+const formValuesToEntity = (values, entity) => {
   Object.keys(values).forEach(key => {
-    record.paths[key].value.value = values[key]
+    entity.paths[key].value.value = values[key]
   })
 
-  return record
+  return entity
 }
 
 const DetailView = props => {
   const handleSubmit = values => {
-    props.saveRecord(formValuesToRecord(values, props.record))
+    props.saveEntity(formValuesToEntity(values, props.entity))
   }
 
   return (
     <div className="detail-view">
-      <ToccoUi.Button icon="glyphicon-chevron-left" onClick={props.closeRecordDetail} label="Back"/>
+      <ToccoUi.Button icon="glyphicon-chevron-left" onClick={props.closeEntityDetail} label="Back"/>
       <h3>DetailView</h3>
       <DetailForm
         onSubmit={handleSubmit}
         formDefinition={props.formDefinition}
-        record={props.record}
-        initialValues={recordToInitialValues(props.record)}
+        entity={props.entity}
+        initialValues={entityToInitialValues(props.entity)}
       />
     </div>
   )
@@ -46,9 +46,9 @@ DetailView.propTypes = {
   formDefinition: React.PropTypes.shape({
     children: React.PropTypes.array
   }).isRequired,
-  closeRecordDetail: React.PropTypes.func.isRequired,
-  record: React.PropTypes.object,
-  saveRecord: React.PropTypes.func
+  closeEntityDetail: React.PropTypes.func.isRequired,
+  entity: React.PropTypes.object,
+  saveEntity: React.PropTypes.func
 }
 
 export default DetailView

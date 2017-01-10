@@ -12,8 +12,8 @@ export class EntityBrowser extends React.Component {
 
   render() {
     let content
-    if (this.props.showDetailRecordId) {
-      content = <DetailViewContainer recordId={this.props.showDetailRecordId}/>
+    if (this.props.showDetailEntityId) {
+      content = <DetailViewContainer entityId={this.props.showDetailEntityId}/>
     } else {
       content = (
         <div>
@@ -33,5 +33,5 @@ export class EntityBrowser extends React.Component {
 
 EntityBrowser.propTypes = {
   initialize: React.PropTypes.func.isRequired,
-  showDetailRecordId: React.PropTypes.number
+  showDetailEntityId: React.PropTypes.number
 }

@@ -2,7 +2,7 @@ import _union from 'lodash/union'
 import * as rest from './rest'
 import {getFieldsOfDetailForm} from './api/form'
 
-export function fetchRecords(entityName, page, orderBy, limit, columnDefinition, searchInputs) {
+export function fetchEntities(entityName, page, orderBy, limit, columnDefinition, searchInputs) {
   const params = {
     '_sort': Object.keys(orderBy).length === 2 ? `${orderBy.name} ${orderBy.direction}` : undefined,
     '_limit': limit,
@@ -13,10 +13,10 @@ export function fetchRecords(entityName, page, orderBy, limit, columnDefinition,
 
   return rest.fetchRequest(`entities/${entityName}`, params)
     .then(resp => resp.json())
-    .then(json => transformRecordsResult(json))
+    .then(json => transformEntitiesResult(json))
 }
 
-const transformRecordsResult = json => {
+const transformEntitiesResult = json => {
   return json.data.map(entity => {
     const result = {
       id: entity.key,
@@ -44,7 +44,7 @@ const transformRecordsResult = json => {
   })
 }
 
-export function fetchRelationRecords(entityName) {
+export function fetchRelationEntities(entityName) {
   const params = {
     '_limit': 50
   }
@@ -56,16 +56,16 @@ export function fetchRelationRecords(entityName) {
 export const transformRelationEntitiesResults = data => {
   const result = {}
   data.forEach(entities => {
-    result[entities.metaData.modelName] = entities.data.map(record => ({
-      displayName: record.display,
-      value: record.key
+    result[entities.metaData.modelName] = entities.data.map(entity => ({
+      displayName: entity.display,
+      value: entity.key
     }))
   })
 
   return result
 }
 
-export function fetchRecordCount(entityName, searchInputs) {
+export function fetchEntityCount(entityName, searchInputs) {
   const params = {
     ...searchInputs
   }
@@ -151,7 +151,7 @@ const transformDetailFormResult = json => {
   return form
 }
 
-export function fetchRecord(entityName, id, formDefinition) {
+export function fetchEntity(entityName, id, formDefinition) {
   const params = {
     '_paths': getFieldsOfDetailForm(formDefinition).join(',')
   }

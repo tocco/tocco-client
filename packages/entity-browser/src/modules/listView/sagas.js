@@ -23,8 +23,8 @@ export function* refresh() {
   yield put(actions.setInProgress(true))
   const entityBrowser = yield select(listViewSelector)
   const {currentPage} = entityBrowser
-  yield put(actions.clearRecordStore())
-  yield call(requestRecords, currentPage)
+  yield put(actions.clearEntityStore())
+  yield call(requestEntities, currentPage)
   yield put(actions.setInProgress(false))
 }
 
@@ -32,7 +32,7 @@ export function* changePage({payload}) {
   const {page} = payload
   yield put(actions.setInProgress(true))
   yield put(actions.setCurrentPage(page))
-  yield call(requestRecords, page)
+  yield call(requestEntities, page)
   yield put(actions.setInProgress(false))
 }
 
@@ -48,37 +48,37 @@ export function* getSearchInputs() {
   return searchInputs
 }
 
-export function* fetchRecordsAndAddToStore(page) {
+export function* fetchEntitiesAndAddToStore(page) {
   const entityBrowser = yield select(listViewSelector)
-  const {entityName, orderBy, limit, recordStore, columnDefinition} = entityBrowser
+  const {entityName, orderBy, limit, entityStore, columnDefinition} = entityBrowser
 
-  if (!recordStore[page]) {
+  if (!entityStore[page]) {
     const searchInputs = yield call(getSearchInputs)
 
-    const records = yield call(api.fetchRecords, entityName, page, orderBy, limit, columnDefinition, searchInputs)
-    yield put(actions.addRecordsToStore(page, records))
+    const entities = yield call(api.fetchEntities, entityName, page, orderBy, limit, columnDefinition, searchInputs)
+    yield put(actions.addEntitiesToStore(page, entities))
   }
 }
 
-export function* requestRecords(page) {
+export function* requestEntities(page) {
   const entityBrowser = yield select(listViewSelector)
-  let {recordStore} = entityBrowser
+  let {entityStore} = entityBrowser
 
-  if (!recordStore[page]) {
-    yield call(fetchRecordsAndAddToStore, page)
+  if (!entityStore[page]) {
+    yield call(fetchEntitiesAndAddToStore, page)
   }
 
-  yield call(displayRecord, page)
+  yield call(displayEntity, page)
 
-  if ((entityBrowser.limit * page) < entityBrowser.recordCount) {
-    yield spawn(fetchRecordsAndAddToStore, page + 1)
+  if ((entityBrowser.limit * page) < entityBrowser.entityCount) {
+    yield spawn(fetchEntitiesAndAddToStore, page + 1)
   }
 }
 
-export function* displayRecord(page) {
+export function* displayEntity(page) {
   const entityBrowser = yield select(listViewSelector)
-  const records = entityBrowser.recordStore[page]
-  yield put(actions.setRecords(records))
+  const entities = entityBrowser.entityStore[page]
+  yield put(actions.setEntities(entities))
 }
 
 export function* initialize({payload}) {
@@ -98,9 +98,9 @@ export function* resetDataSet() {
   const entityBrowser = yield select(listViewSelector)
   const {entityName} = entityBrowser
   const searchInputs = yield call(getSearchInputs)
-  const recordCount = yield call(api.fetchRecordCount, entityName, searchInputs)
-  yield put(actions.setRecordCount(recordCount))
-  yield put(actions.clearRecordStore())
+  const entityCount = yield call(api.fetchEntityCount, entityName, searchInputs)
+  yield put(actions.setEntityCount(entityCount))
+  yield put(actions.clearEntityStore())
 
   yield call(changePage, {payload: {page: 1}})
   yield put(actions.setInProgress(false))

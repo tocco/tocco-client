@@ -1,9 +1,9 @@
 export const INITIALIZE = 'detailView/INITIALIZE'
 export const SET_FORM_DEFINITION = 'detailView/SET_FORM_DEFINITION'
-export const LOAD_RECORD = 'detailView/LOAD_RECORD'
-export const SET_RECORD = 'detailView/SET_RECORD'
+export const LOAD_ENTITY = 'detailView/LOAD_ENTITY'
+export const SET_ENTITY = 'detailView/SET_ENTITY'
 export const SET_ENTITY_NAME = 'detailView/SET_ENTITY_NAME'
-export const SAVE_RECORD = 'detailView/SAVE_RECORD'
+export const SAVE_ENTITY = 'detailView/SAVE_ENTITY'
 
 export const initialize = (entityName, formBase) => ({
   type: INITIALIZE,
@@ -20,10 +20,10 @@ export const setFormDefinition = formDefinition => ({
   }
 })
 
-export const loadRecord = recordId => ({
-  type: LOAD_RECORD,
+export const loadEntity = entityId => ({
+  type: LOAD_ENTITY,
   payload: {
-    recordId
+    entityId
   }
 })
 
@@ -34,16 +34,16 @@ export const setEntityName = entityName => ({
   }
 })
 
-export const setRecord = record => ({
-  type: SET_RECORD,
+export const setEntity = entity => ({
+  type: SET_ENTITY,
   payload: {
-    record
+    entity
   }
 })
 
-export const saveRecord = record => ({
-  type: SAVE_RECORD,
+export const saveEntity = entity => ({
+  type: SAVE_ENTITY,
   payload: {
-    record
+    entity
   }
 })

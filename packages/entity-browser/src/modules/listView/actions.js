@@ -1,15 +1,15 @@
 export const INITIALIZE = 'listView/INITIALIZE'
 
-export const REQUEST_RECORDS = 'listView/REQUEST_RECORDS'
+export const REQUEST_ENTITIES = 'listView/REQUEST_ENTITIES'
 export const SET_ENTITY_NAME = 'listView/SET_ENTITY_NAME'
-export const SET_RECORDS = 'listView/SET_RECORDS'
+export const SET_ENTITIES = 'listView/SET_ENTITIES'
 export const SET_COLUMN_DEFINITION = 'listView/SET_COLUMN_DEFINITION'
 export const SET_ORDER_BY = 'listView/SET_ORDER_BY'
 export const SET_LIMIT = 'listView/SET_LIMIT'
 export const SET_CURRENT_PAGE = 'listView/SET_CURRENT_PAGE'
-export const SET_RECORD_COUNT = 'listView/SET_RECORD_COUNT'
-export const ADD_RECORDS_TO_STORE = 'listView/ADD_RECORDS_TO_STORE'
-export const CLEAR_RECORD_STORE = 'listView/CLEAR_RECORDS_CACHE'
+export const SET_ENTITY_COUNT = 'listView/SET_ENTITY_COUNT'
+export const ADD_ENTITIES_TO_STORE = 'listView/ADD_ENTITIES_TO_STORE'
+export const CLEAR_ENTITY_STORE = 'listView/CLEAR_ENTITIES_CACHE'
 export const RESET_DATA_SET = 'listView/RESET_DATA_SET'
 export const SET_IN_PROGRESS = 'listView/SET_IN_PROGRESS'
 export const CHANGE_PAGE = 'listView/CHANGE_PAGE'
@@ -30,37 +30,37 @@ export const setEntityName = entityName => ({
   }
 })
 
-export const requestRecords = (page, show) => ({
-  type: REQUEST_RECORDS,
+export const requestEntities = (page, show) => ({
+  type: REQUEST_ENTITIES,
   payload: {
     page,
     show
   }
 })
 
-export const setRecords = records => ({
-  type: SET_RECORDS,
+export const setEntities = entities => ({
+  type: SET_ENTITIES,
   payload: {
-    records
+    entities
   }
 })
 
-export const addRecordsToStore = (page, records) => ({
-  type: ADD_RECORDS_TO_STORE,
+export const addEntitiesToStore = (page, entities) => ({
+  type: ADD_ENTITIES_TO_STORE,
   payload: {
     page,
-    records
+    entities
   }
 })
 
-export const clearRecordStore = () => ({
-  type: CLEAR_RECORD_STORE
+export const clearEntityStore = () => ({
+  type: CLEAR_ENTITY_STORE
 })
 
-export const setRecordCount = recordCount => ({
-  type: SET_RECORD_COUNT,
+export const setEntityCount = entityCount => ({
+  type: SET_ENTITY_COUNT,
   payload: {
-    recordCount
+    entityCount
   }
 })
 

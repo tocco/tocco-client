@@ -4,8 +4,8 @@ export const INITIALIZE = 'entityBrowser/INITIALIZE'
 export const SET_ENTITY_NAME = 'SET_ENTITY_NAME'
 export const SET_FORM_BASE = 'SET_FORM_BASE'
 
-export const SHOW_RECORD_DETAIL = 'SHOW_RECORD_DETAIL'
-export const CLOSE_RECORD_DETAIL = 'CLOSE_RECORD_DETAIL'
+export const SHOW_ENTITY_DETAIL = 'SHOW_ENTITY_DETAIL'
+export const CLOSE_ENTITY_DETAIL = 'CLOSE_ENTITY_DETAIL'
 
 export const initialized = () => ({
   type: INITIALIZED
@@ -29,16 +29,16 @@ export const setFormBase = formBase => ({
   }
 })
 
-export const showRecordDetail = recordId => ({
-  type: SHOW_RECORD_DETAIL,
+export const showEntityDetail = entityId => ({
+  type: SHOW_ENTITY_DETAIL,
   payload: {
-    recordId
+    entityId
   }
 })
 
-export const closeRecordDetail = () => ({
-  type: SHOW_RECORD_DETAIL,
+export const closeEntityDetail = () => ({
+  type: SHOW_ENTITY_DETAIL,
   payload: {
-    recordId: undefined
+    entityId: undefined
   }
 })

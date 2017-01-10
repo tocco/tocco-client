@@ -4,13 +4,13 @@ import {singleTransferReducer} from 'tocco-util/reducers'
 const ACTION_HANDLERS = {
   [actions.SET_FORM_DEFINITION]: singleTransferReducer('formDefinition'),
   [actions.SET_ENTITY_NAME]: singleTransferReducer('entityName'),
-  [actions.SET_RECORD]: singleTransferReducer('record')
+  [actions.SET_ENTITY]: singleTransferReducer('entity')
 }
 
 const initialState = {
   entityName: '',
   formDefinition: [],
-  record: {}
+  entity: {}
 }
 
 export default function reducer(state = initialState, action) {
