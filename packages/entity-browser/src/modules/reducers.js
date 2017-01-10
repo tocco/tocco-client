@@ -1,4 +1,6 @@
 import {intlReducer} from 'react-intl-redux'
+import { reducer as form } from 'redux-form'
+
 import entityBrowser from './entityBrowser'
 import listView from './listView'
 import detailView from './detailView'
@@ -11,6 +13,7 @@ import searchFormSagas from './searchForm/sagas'
 
 export default {
   intl: intlReducer,
+  form,
   entityBrowser,
   listView,
   detailView,

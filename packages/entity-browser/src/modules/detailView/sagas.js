@@ -1,4 +1,4 @@
-import {takeLatest} from 'redux-saga'
+import {takeLatest, takeEvery} from 'redux-saga'
 import {call, put, fork, select} from 'redux-saga/effects'
 import * as actions from './actions'
 import * as api from '../../util/api'
@@ -8,7 +8,8 @@ export const detailViewSelector = state => state.detailView
 export default function* sagas() {
   yield [
     fork(takeLatest, actions.INITIALIZE, initialize),
-    fork(takeLatest, actions.LOAD_RECORD, loadRecord)
+    fork(takeLatest, actions.LOAD_RECORD, loadRecord),
+    fork(takeEvery, actions.SAVE_RECORD, saveRecord)
   ]
 }
 
@@ -27,4 +28,8 @@ export function* loadRecord({payload}) {
   const record = yield call(api.fetchRecord, entityName, recordId, formDefinition)
 
   yield put(actions.setRecord(record))
+}
+
+export function* saveRecord({payload}) {
+  console.log('would save record:', payload.record)
 }

@@ -1,61 +1,44 @@
 import React from 'react'
-import {LayoutBox, EditableValue} from 'tocco-ui'
+import DetailForm from './DetailForm'
 import './styles.scss'
 
-const Field = props => {
-  let value = {}
-  let type = ''
-  // temporary solution
-  if (props.record.paths) {
-    try {
-      value = props.record.paths[props.field.name].value.value
-      type = props.record.paths[props.field.name].value.type
-    } catch (e) {
+import * as ToccoUi from 'tocco-ui'
+
+const recordToInitialValues = record => {
+  if (!record || !record.paths) return {}
+  const result = {}
+  const paths = record.paths
+  Object.keys(record.paths).forEach(key => {
+    if (paths[key].value !== null) {
+      result[key] = paths[key].value.value
     }
-  }
-  return (
-    <div className="form-group">
-      <label className="control-label col-sm-5">{props.field.label}:</label>
-      <div className="col-sm-7">
-        <p className="form-control-static">
-          <EditableValue type={type} value={value}/>
-        </p>
-      </div>
-    </div>
-  )
+  })
+  return result
 }
 
-Field.propTypes = {
-  field: React.PropTypes.object.isRequired,
-  record: React.PropTypes.object
+const formValuesToRecord = (values, record) => {
+  Object.keys(values).forEach(key => {
+    record.paths[key].value.value = values[key]
+  })
+
+  return record
 }
 
-export const DetailView = props => {
-  const formTraverser = children => {
-    return children.map(child => {
-      const layoutType = 'ch.tocco.nice2.model.form.components.layout.'
-      if (child.type.indexOf(layoutType) === 0) {
-        const layoutComponent = child.type.substr(layoutType.length, child.type.length)
-        if (layoutComponent === 'HorizontalBox' || layoutComponent === 'VerticalBox') {
-          const alignment = layoutComponent === 'HorizontalBox' ? 'horizontal' : 'vertical'
-          const label = child.useLabel ? child.label : undefined
-          return (
-            <LayoutBox label={label} alignment={alignment}>
-              {formTraverser(child.children)}
-            </LayoutBox>
-          )
-        }
-      }
-
-      return <Field field={child} record={props.record}/>
-    })
+const DetailView = props => {
+  const handleSubmit = values => {
+    props.saveRecord(formValuesToRecord(values, props.record))
   }
 
   return (
     <div className="detail-view">
-      <button onClick={props.closeRecordDetail}>Back</button>
+      <ToccoUi.Button icon="glyphicon-chevron-left" onClick={props.closeRecordDetail} label="Back"/>
       <h3>DetailView</h3>
-      <span>{formTraverser(props.formDefinition.children)}</span>
+      <DetailForm
+        onSubmit={handleSubmit}
+        formDefinition={props.formDefinition}
+        record={props.record}
+        initialValues={recordToInitialValues(props.record)}
+      />
     </div>
   )
 }
@@ -65,5 +48,9 @@ DetailView.propTypes = {
     children: React.PropTypes.array
   }).isRequired,
   closeRecordDetail: React.PropTypes.func.isRequired,
-  record: React.PropTypes.object
+  record: React.PropTypes.object,
+  saveRecord: React.PropTypes.func
 }
+
+export default DetailView
+

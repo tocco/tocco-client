@@ -2,11 +2,13 @@ import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 
 import {closeRecordDetail} from '../modules/entityBrowser/actions'
+import {saveRecord} from '../modules/detailView/actions'
 
 import DetailView from '../components/DetailView'
 
 const mapActionCreators = {
-  closeRecordDetail
+  closeRecordDetail,
+  saveRecord
 }
 
 const mapStateToProps = (state, props) => ({

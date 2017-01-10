@@ -1,3 +1,3 @@
-import {DetailView} from './DetailView'
+import DetailView from './DetailView'
 
 export default DetailView
