@@ -11,6 +11,10 @@ export const map = {
   'birthdate': StringEdit,
   'count': StringEdit,
   'phone': StringEdit,
+  'website': StringEdit,
+  'boolean': StringEdit,
+  'email': StringEdit,
+  'counter': StringEdit,
   'text': TextEdit,
   'multi-select': MultiSelect
 }
@@ -20,7 +24,7 @@ export default (type, value, onChange, options, id, events) => {
     return React.createElement(map[type], {value, onChange, options, id, events})
   }
 
-  console.error('No type-editor defined for type', type)
+  console.info('No type-editor defined for type', type)
   return null
 }
 
