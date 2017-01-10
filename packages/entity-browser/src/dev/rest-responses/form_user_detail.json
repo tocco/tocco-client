@@ -11,12 +11,12 @@
     "children": [
       {
         "name": "box1",
-        "type": "ch.tocco.nice2.model.form.components.layout.HorizontalBox",
+        "type": "ch.tocco.nice2.model.form.components.layout.VerticalBox",
         "displayType": "READONLY",
         "children": [
           {
             "name": "box1",
-            "type": "ch.tocco.nice2.model.form.components.layout.VerticalBox",
+            "type": "ch.tocco.nice2.model.form.components.layout.HorizontalBox",
             "displayType": "READONLY",
             "children": [
               {
@@ -28,7 +28,7 @@
                     "name": "address",
                     "type": "ch.tocco.nice2.model.form.components.simple.TextArea",
                     "displayType": "READONLY",
-                    "children": [ ],
+                    "children": [],
                     "label": "Adresse",
                     "useLabel": "YES"
                   }
@@ -45,7 +45,7 @@
                     "name": "user_nr",
                     "type": "ch.tocco.nice2.model.form.components.simple.NumberField",
                     "displayType": "READONLY",
-                    "children": [ ],
+                    "children": [],
                     "label": "Person-Nr.",
                     "useLabel": "YES"
                   },
@@ -53,7 +53,7 @@
                     "name": "firstname",
                     "type": "ch.tocco.nice2.model.form.components.simple.TextField",
                     "displayType": "READONLY",
-                    "children": [ ],
+                    "children": [],
                     "label": "Vorname",
                     "useLabel": "YES"
                   },
@@ -61,7 +61,7 @@
                     "name": "lastname",
                     "type": "ch.tocco.nice2.model.form.components.simple.TextField",
                     "displayType": "READONLY",
-                    "children": [ ],
+                    "children": [],
                     "label": "Nachname",
                     "useLabel": "YES"
                   },
@@ -69,7 +69,7 @@
                     "name": "relGender",
                     "type": "ch.tocco.nice2.model.form.components.simple.SingleSelectBox",
                     "displayType": "READONLY",
-                    "children": [ ],
+                    "children": [],
                     "label": "Geschlecht",
                     "useLabel": "YES"
                   },
@@ -77,14 +77,21 @@
                     "name": "birthdate",
                     "type": "ch.tocco.nice2.model.form.components.simple.BirthDateField",
                     "displayType": "READONLY",
-                    "children": [ ],
+                    "children": [],
                     "label": "Geburtsdatum",
                     "useLabel": "YES"
                   }
                 ],
                 "label": "Personenangaben",
                 "useLabel": "YES"
-              },
+              }
+            ]
+          },
+          {
+            "name": "box1",
+            "type": "ch.tocco.nice2.model.form.components.layout.HorizontalBox",
+            "displayType": "READONLY",
+            "children": [
               {
                 "name": "communication_information",
                 "type": "ch.tocco.nice2.model.form.components.layout.VerticalBox",
@@ -94,7 +101,7 @@
                     "name": "email",
                     "type": "ch.tocco.nice2.model.form.components.simple.EmailField",
                     "displayType": "READONLY",
-                    "children": [ ],
+                    "children": [],
                     "label": "E-Mail",
                     "useLabel": "YES"
                   },
@@ -102,7 +109,7 @@
                     "name": "phone_company",
                     "type": "ch.tocco.nice2.model.form.components.simple.PhoneField",
                     "displayType": "READONLY",
-                    "children": [ ],
+                    "children": [],
                     "label": "Telefon G",
                     "useLabel": "YES"
                   },
@@ -110,7 +117,7 @@
                     "name": "website",
                     "type": "ch.tocco.nice2.model.form.components.simple.UrlField",
                     "displayType": "READONLY",
-                    "children": [ ],
+                    "children": [],
                     "label": "Website",
                     "useLabel": "YES"
                   }
@@ -127,7 +134,7 @@
                     "name": "relUser_code",
                     "type": "ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
                     "displayType": "READONLY",
-                    "children": [ ],
+                    "children": [],
                     "label": "Personen-Code",
                     "useLabel": "YES"
                   },
@@ -135,7 +142,7 @@
                     "name": "publish",
                     "type": "ch.tocco.nice2.model.form.components.simple.CheckBox",
                     "displayType": "READONLY",
-                    "children": [ ],
+                    "children": [],
                     "label": "Publiziert",
                     "useLabel": "YES"
                   }
