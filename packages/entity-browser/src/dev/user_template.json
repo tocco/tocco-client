@@ -120,6 +120,15 @@
         "writable": true
       }
     },
+    "address": {
+      "type": "field",
+      "value": {
+        "value": "Riedtlistrasse 16\n8006 Zürich",
+        "type": "text",
+        "readable": true,
+        "writable": true
+      }
+    },
     "relUser_status": {
       "type": "entity",
       "value": {

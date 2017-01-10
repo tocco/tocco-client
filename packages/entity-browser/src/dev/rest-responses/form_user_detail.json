@@ -25,19 +25,11 @@
                 "displayType": "READONLY",
                 "children": [
                   {
-                    "name": "c_address",
+                    "name": "address",
                     "type": "ch.tocco.nice2.model.form.components.simple.TextArea",
                     "displayType": "READONLY",
                     "children": [ ],
-                    "label": "Korresp.-Adresse",
-                    "useLabel": "YES"
-                  },
-                  {
-                    "name": "b_address",
-                    "type": "ch.tocco.nice2.model.form.components.simple.TextArea",
-                    "displayType": "READONLY",
-                    "children": [ ],
-                    "label": "Rg.-Adresse",
+                    "label": "Adresse",
                     "useLabel": "YES"
                   }
                 ],
@@ -82,51 +74,11 @@
                     "useLabel": "YES"
                   },
                   {
-                    "name": "relAcademic_title",
-                    "type": "ch.tocco.nice2.model.form.components.simple.SingleSelectBox",
-                    "displayType": "READONLY",
-                    "children": [ ],
-                    "label": "Akad. Titel",
-                    "useLabel": "YES"
-                  },
-                  {
-                    "name": "other_title",
-                    "type": "ch.tocco.nice2.model.form.components.simple.TextField",
-                    "displayType": "READONLY",
-                    "children": [ ],
-                    "label": "Andere Titel",
-                    "useLabel": "YES"
-                  },
-                  {
                     "name": "birthdate",
                     "type": "ch.tocco.nice2.model.form.components.simple.BirthDateField",
                     "displayType": "READONLY",
                     "children": [ ],
                     "label": "Geburtsdatum",
-                    "useLabel": "YES"
-                  },
-                  {
-                    "name": "abbreviation",
-                    "type": "ch.tocco.nice2.model.form.components.simple.TextField",
-                    "displayType": "READONLY",
-                    "children": [ ],
-                    "label": "Kurzbez.",
-                    "useLabel": "YES"
-                  },
-                  {
-                    "name": "relCorrespondence_language",
-                    "type": "ch.tocco.nice2.model.form.components.simple.SingleSelectBox",
-                    "displayType": "READONLY",
-                    "children": [ ],
-                    "label": "Sprache",
-                    "useLabel": "YES"
-                  },
-                  {
-                    "name": "relSalutation",
-                    "type": "ch.tocco.nice2.model.form.components.simple.SingleSelectBox",
-                    "displayType": "READONLY",
-                    "children": [ ],
-                    "label": "Anrede",
                     "useLabel": "YES"
                   }
                 ],
@@ -147,43 +99,11 @@
                     "useLabel": "YES"
                   },
                   {
-                    "name": "email_alternative",
-                    "type": "ch.tocco.nice2.model.form.components.simple.EmailField",
-                    "displayType": "READONLY",
-                    "children": [ ],
-                    "label": "Alternative E-Mail-Adresse",
-                    "useLabel": "YES"
-                  },
-                  {
                     "name": "phone_company",
                     "type": "ch.tocco.nice2.model.form.components.simple.PhoneField",
                     "displayType": "READONLY",
                     "children": [ ],
                     "label": "Telefon G",
-                    "useLabel": "YES"
-                  },
-                  {
-                    "name": "phone_private",
-                    "type": "ch.tocco.nice2.model.form.components.simple.PhoneField",
-                    "displayType": "READONLY",
-                    "children": [ ],
-                    "label": "Telefon P",
-                    "useLabel": "YES"
-                  },
-                  {
-                    "name": "phone_mobile",
-                    "type": "ch.tocco.nice2.model.form.components.simple.PhoneField",
-                    "displayType": "READONLY",
-                    "children": [ ],
-                    "label": "Telefon M",
-                    "useLabel": "YES"
-                  },
-                  {
-                    "name": "fax",
-                    "type": "ch.tocco.nice2.model.form.components.simple.PhoneField",
-                    "displayType": "READONLY",
-                    "children": [ ],
-                    "label": "Fax",
                     "useLabel": "YES"
                   },
                   {
@@ -195,7 +115,7 @@
                     "useLabel": "YES"
                   }
                 ],
-                "label": "Kommunikationsangaben",
+                "label": "Communication",
                 "useLabel": "YES"
               },
               {
@@ -204,39 +124,23 @@
                 "displayType": "READONLY",
                 "children": [
                   {
-                    "name": "relUser_code1",
+                    "name": "relUser_code",
                     "type": "ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
                     "displayType": "READONLY",
                     "children": [ ],
-                    "label": "Personen-Code 1",
+                    "label": "Personen-Code",
                     "useLabel": "YES"
                   },
                   {
-                    "name": "relUser_code2",
-                    "type": "ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
+                    "name": "publish",
+                    "type": "ch.tocco.nice2.model.form.components.simple.CheckBox",
                     "displayType": "READONLY",
                     "children": [ ],
-                    "label": "Personen-Code 2",
-                    "useLabel": "YES"
-                  },
-                  {
-                    "name": "relUser_code3",
-                    "type": "ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
-                    "displayType": "READONLY",
-                    "children": [ ],
-                    "label": "Personen-Code 3",
-                    "useLabel": "YES"
-                  },
-                  {
-                    "name": "relUser_code4",
-                    "type": "ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
-                    "displayType": "READONLY",
-                    "children": [ ],
-                    "label": "Personen-Code 4",
+                    "label": "Publiziert",
                     "useLabel": "YES"
                   }
                 ],
-                "label": "Marketinginformationen",
+                "label": "Marketing",
                 "useLabel": "YES"
               }
             ],
