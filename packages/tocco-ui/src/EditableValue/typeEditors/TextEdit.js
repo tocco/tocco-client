@@ -14,9 +14,8 @@ const TextEdit = props => {
       onChange={handleChange}
       id={props.id}
       {...props.events}
-    >
-      {props.value}
-    </textarea>
+      value={props.value}
+    />
   )
 }
 
