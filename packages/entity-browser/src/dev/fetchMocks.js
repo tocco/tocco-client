@@ -19,6 +19,7 @@ export default function setupFetchMock(fetchMock) {
   fetchMock.get(new RegExp('^.*?/nice2/rest/forms/UserSearch_list'), require('./rest-responses/form_user_list.json'))
 
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/User_code1.*'), require('./rest-responses/user_code1.json'))
+  fetchMock.get(new RegExp('^.*?/nice2/rest/entities/Gender.*'), require('./rest-responses/gender.json'))
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/User/model.*'), require('./rest-responses/model_user.json'))
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/User/count?.*'), {'count': allEntities.length})
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/User/[0-9]?.*'), (url, opts) => {

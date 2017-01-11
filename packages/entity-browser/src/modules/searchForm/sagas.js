@@ -26,6 +26,7 @@ export function* initialize({payload}) {
 
   const relationEntities = yield formDefinition.filter(searchField =>
     searchField.type === 'ch.tocco.nice2.model.form.components.simple.MultiSelectBox'
+    || searchField.type === 'ch.tocco.nice2.model.form.components.simple.SingleSelectBox'
   ).map(searchField => {
     const relationName = searchField.name
     const entityName = entityModel[relationName].targetEntity
