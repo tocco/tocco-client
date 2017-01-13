@@ -2,6 +2,7 @@ test-bundler.js
 node_modules/**
 coverage/**
 .idea/
+templates
 
 server/static/node_modules
 
