@@ -1,8 +1,8 @@
 import {utilFetchMocks} from 'tocco-util/dev'
-
 import {createUsers} from './entityFactory'
 
 const allEntities = createUsers(1003)
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 export default function setupFetchMock(fetchMock) {
   utilFetchMocks.sessionFetchMock(fetchMock)
@@ -21,6 +21,20 @@ export default function setupFetchMock(fetchMock) {
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/User_code1.*'), require('./rest-responses/user_code1.json'))
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/User/model.*'), require('./rest-responses/model_user.json'))
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/User/count?.*'), {'count': allEntities.length})
+  fetchMock.post(new RegExp('^.*?/nice2/rest/entities/User/[0-9]/validate.*'), (url, opts) => {
+    const fields = {}
+    const entity = opts.body
+    const requiredFields = ['firstname', 'lastname']
+    requiredFields.forEach(requiredField => {
+      if (!entity.paths[requiredField].value.value
+        || entity.paths[requiredField].value.value === '') {
+        fields[requiredField] = {required: 'Required!', some: 'Another error'}
+      }
+    })
+
+    return sleep(1000).then(() => ({fields}))
+  })
+
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/User/[0-9]?.*'), (url, opts) => {
     console.log('fetchMock: called fetch entitiy', url, opts)
     const id = url.match(/^.*\/User\/(\d+)/)[1]
