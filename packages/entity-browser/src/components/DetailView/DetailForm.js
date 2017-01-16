@@ -2,19 +2,7 @@ import React from 'react'
 import LabeledField from './LabeledField'
 import {Field, reduxForm} from 'redux-form'
 import * as ToccoUi from 'tocco-ui'
-
-const validate = values => {
-  // temporary code
-  const errors = {}
-  if (!values.firstname) {
-    errors.firstname = 'Required'
-  }
-  if (!values.lastname) {
-    errors.lastname = 'Required'
-  }
-
-  return errors
-}
+import {asyncValidate} from './validate'
 
 const DetailForm = props => {
   if (!props.entity.paths) {
@@ -49,13 +37,14 @@ const DetailForm = props => {
   return (
     <form onSubmit={props.handleSubmit}>
       {formTraverser(props.formDefinition.children)}
-      <ToccoUi.Button type="submit" label="Save" icon="glyphicon-floppy-save" primary/>
+      <ToccoUi.Button type="submit" label="Save" icon="glyphicon-floppy-save" disabled={props.submitting} primary/>
     </form>
   )
 }
 
 DetailForm.propTypes = {
   handleSubmit: React.PropTypes.func,
+  submitting: React.PropTypes.bool,
   formDefinition: React.PropTypes.object,
   entity: React.PropTypes.object
 }
@@ -64,5 +53,5 @@ export default reduxForm({
   form: 'detailForm',
   destroyOnUnmount: false,
   enableReinitialize: true,
-  validate
+  asyncValidate
 })(DetailForm)

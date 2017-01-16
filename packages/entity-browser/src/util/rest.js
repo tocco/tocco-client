@@ -19,9 +19,10 @@ export const getParameterString = params => {
   return ''
 }
 
-export const fetchRequest = (resource, params) => {
+export const fetchRequest = (resource, params, method = 'GET', body = {}) => {
   const options = {
-    method: 'GET',
+    method,
+    body,
     headers: new Headers({
       'Content-Type': 'application/json'
     }),

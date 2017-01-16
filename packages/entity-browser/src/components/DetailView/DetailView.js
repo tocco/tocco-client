@@ -1,31 +1,16 @@
 import React from 'react'
 import DetailForm from './DetailForm'
-
 import * as ToccoUi from 'tocco-ui'
+import {formValuesToEntity, entityToFormValues} from '../../util/forms'
+import {submitValidate} from './validate'
 
-const entityToInitialValues = entity => {
-  if (!entity || !entity.paths) return {}
-  const result = {}
-  const paths = entity.paths
-  Object.keys(entity.paths).forEach(key => {
-    if (paths[key].value !== null) {
-      result[key] = paths[key].value.value
-    }
-  })
-  return result
-}
-
-const formValuesToEntity = (values, entity) => {
-  Object.keys(values).forEach(key => {
-    entity.paths[key].value.value = values[key]
-  })
-
-  return entity
-}
+import './styles.scss'
 
 const DetailView = props => {
   const handleSubmit = values => {
-    props.saveEntity(formValuesToEntity(values, props.entity))
+    return submitValidate(values, true).then(() => {
+      props.saveEntity(formValuesToEntity(values, props.entity))
+    })
   }
 
   return (
@@ -36,7 +21,7 @@ const DetailView = props => {
         onSubmit={handleSubmit}
         formDefinition={props.formDefinition}
         entity={props.entity}
-        initialValues={entityToInitialValues(props.entity)}
+        initialValues={entityToFormValues(props.entity)}
       />
     </div>
   )
