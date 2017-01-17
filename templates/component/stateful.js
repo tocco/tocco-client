@@ -5,7 +5,7 @@ import * as ToccoUi from 'tocco-ui'
 
 class {{pascalCase componentName}} extends React.Component {
   constructor(props) {
-    super()
+    super(props)
   }
 
   render() {
@@ -20,7 +20,6 @@ class {{pascalCase componentName}} extends React.Component {
 }
 
 {{pascalCase componentName}}.propTypes = {
-  val: React.PropTypes.func.isRequired
 }
 
 export default {{pascalCase componentName}}

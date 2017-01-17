@@ -12,7 +12,6 @@ const {{pascalCase componentName}} = props => {
 }
 
 {{pascalCase componentName}}.propTypes = {
-  val: React.PropTypes.string
 }
 
 export default {{pascalCase componentName}}
