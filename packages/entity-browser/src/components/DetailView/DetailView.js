@@ -1,7 +1,7 @@
 import React from 'react'
 import DetailForm from './DetailForm'
 import * as ToccoUi from 'tocco-ui'
-import {formValuesToEntity, entityToFormValues} from '../../util/forms'
+import {formValuesToEntity, entityToFormValues} from '../../util/reduxForms'
 import {submitValidate} from './validate'
 
 import './styles.scss'

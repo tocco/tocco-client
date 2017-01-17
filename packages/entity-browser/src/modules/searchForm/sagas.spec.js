@@ -2,7 +2,8 @@ import {takeLatest, delay} from 'redux-saga'
 import {put, select, call, fork} from 'redux-saga/effects'
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
-import * as api from '../../util/api'
+import {fetchForm, searchFormTransformer} from '../../util/api/forms'
+import {fetchModel, combineEntitiesInObject, fetchEntities} from '../../util/api/entities'
 
 describe('entity-browser', () => {
   describe('modules', () => {
@@ -21,15 +22,15 @@ describe('entity-browser', () => {
         })
 
         describe('initializeSearchForm saga', () => {
-          it('should set model and from definition and  retrieve relevant entities', () => {
+          it('should set model and from definition and retrieve relevant entities', () => {
             const entityName = 'User'
             const formBase = 'UserSearch'
 
             const gen = sagas.initialize({payload: {entityName, formBase}})
 
             expect(gen.next().value).to.eql([
-              call(api.fetchSearchForm, formBase + '_search'),
-              call(api.fetchModel, entityName)
+              call(fetchForm, formBase + '_search', searchFormTransformer),
+              call(fetchModel, entityName)
             ])
 
             const formDefinition = [
@@ -56,11 +57,11 @@ describe('entity-browser', () => {
             expect(gen.next().value).to.eql(put(actions.setFormDefinition(formDefinition)))
 
             expect(gen.next().value).to.eql([
-              call(api.fetchRelationEntities, 'testEntity1'),
-              call(api.fetchRelationEntities, 'testEntity2')
+              call(fetchEntities, 'testEntity1'),
+              call(fetchEntities, 'testEntity2')
             ])
 
-            expect(gen.next({}).value).to.eql(call(api.transformRelationEntitiesResults, {}))
+            expect(gen.next({}).value).to.eql(call(combineEntitiesInObject, {}))
             expect(gen.next({}).value).to.eql(put(actions.setRelationEntities({})))
             expect(gen.next().done).to.be.true
           })

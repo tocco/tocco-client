@@ -1,4 +1,4 @@
-import {formValuesToEntity} from '../../util/forms'
+import {formValuesToEntity} from '../../util/reduxForms'
 import {fetchRequest} from '../../util/rest'
 import {SubmissionError} from 'redux-form'
 

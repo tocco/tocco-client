@@ -1,8 +1,10 @@
 import {takeEvery, takeLatest} from 'redux-saga'
 import {call, put, fork, select, spawn} from 'redux-saga/effects'
+import _union from 'lodash/union'
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
-import * as api from '../../util/api'
+import {fetchForm, columnDefinitionTransformer} from '../../util/api/forms'
+import {fetchEntityCount, fetchEntities, entitiesListTransformer} from '../../util/api/entities'
 import _clone from 'lodash/clone'
 
 export const listViewSelector = state => state.listView
@@ -55,7 +57,10 @@ export function* fetchEntitiesAndAddToStore(page) {
   if (!entityStore[page]) {
     const searchInputs = yield call(getSearchInputs)
 
-    const entities = yield call(api.fetchEntities, entityName, page, orderBy, limit, columnDefinition, searchInputs)
+    const fields = _union(...columnDefinition.map(field => (field.value)))
+    const entities = yield call(
+      fetchEntities, entityName, page, orderBy, limit, fields, searchInputs, entitiesListTransformer
+    )
     yield put(actions.addEntitiesToStore(page, entities))
   }
 }
@@ -86,7 +91,7 @@ export function* initialize({payload}) {
   yield put(actions.setInProgress(true))
   yield put(actions.setEntityName(entityName))
 
-  const columnDefinition = yield call(api.fetchColumnDefinition, formBase + '_list', 'table')
+  const columnDefinition = yield call(fetchForm, formBase + '_list', columnDefinitionTransformer)
   yield put(actions.setColumnDefinition(columnDefinition))
 
   yield call(resetDataSet)
@@ -98,7 +103,7 @@ export function* resetDataSet() {
   const entityBrowser = yield select(listViewSelector)
   const {entityName} = entityBrowser
   const searchInputs = yield call(getSearchInputs)
-  const entityCount = yield call(api.fetchEntityCount, entityName, searchInputs)
+  const entityCount = yield call(fetchEntityCount, entityName, searchInputs)
   yield put(actions.setEntityCount(entityCount))
   yield put(actions.clearEntityStore())
 
