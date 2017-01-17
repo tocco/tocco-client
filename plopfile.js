@@ -36,7 +36,7 @@ module.exports = function(plop) {
       }, {
         type: 'checkbox',
         name: 'features',
-        message: 'What features would you like?',
+        message: 'What features would you like to use?',
         choices: [
           {name: 'Tests', value: 'tests', checked: true},
           {name: 'Tocco-Ui', value: 'toccoui'}
@@ -56,7 +56,7 @@ module.exports = function(plop) {
 
       actions.push({
         type: 'add',
-        path: `${targetFolder}//index.js`,
+        path: `${targetFolder}/index.js`,
         templateFile: `${baseTemplateFolder}/index.js`
       })
 
