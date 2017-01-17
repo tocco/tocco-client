@@ -27,7 +27,8 @@ export function* loadEntity({payload}) {
   const {entityId} = payload
   const listView = yield select(detailViewSelector)
   const {entityName, formDefinition} = listView
-  const entity = yield call(fetchEntity, entityName, entityId, getFieldsOfDetailForm(formDefinition))
+  const fields = yield call(getFieldsOfDetailForm, formDefinition)
+  const entity = yield call(fetchEntity, entityName, entityId, fields)
 
   yield put(actions.setEntity(entity))
 }
