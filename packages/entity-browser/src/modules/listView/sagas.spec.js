@@ -3,7 +3,8 @@ import {put, select, call, fork, spawn} from 'redux-saga/effects'
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import rootSaga, * as sagas from './sagas'
-import * as api from '../../util/api'
+import {fetchForm, columnDefinitionTransformer} from '../../util/api/forms'
+import {fetchEntityCount, fetchEntities, entitiesListTransformer} from '../../util/api/entities'
 import _clone from 'lodash/clone'
 
 const generateState = (entityStore = {}, page) => ({
@@ -12,6 +13,7 @@ const generateState = (entityStore = {}, page) => ({
   orderBy: '',
   limit: '',
   entityStore,
+  columnDefinition: [],
   page
 })
 
@@ -43,7 +45,7 @@ describe('entity-browser', () => {
 
             expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
             expect(gen.next().value).to.eql(put(actions.setEntityName(entityName)))
-            expect(gen.next().value).to.eql(call(api.fetchColumnDefinition, formBase + '_list', 'table'))
+            expect(gen.next().value).to.eql(call(fetchForm, formBase + '_list', columnDefinitionTransformer))
             expect(gen.next({}).value).to.eql(put(actions.setColumnDefinition({})))
             expect(gen.next().value).to.eql(call(sagas.resetDataSet))
             expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
@@ -83,7 +85,7 @@ describe('entity-browser', () => {
             expect(gen.next().value).to.eql(select(sagas.listViewSelector))
             expect(gen.next(state).value).to.eql(call(sagas.getSearchInputs))
             expect(gen.next(searchInputs).value).to.eql(call(
-              api.fetchEntities, entityName, page, orderBy, limit, columnDefinition, searchInputs
+              fetchEntities, entityName, page, orderBy, limit, columnDefinition, searchInputs, entitiesListTransformer
             ))
             expect(gen.next(entities).value).to.eql(put(actions.addEntitiesToStore(page, entities)))
             expect(gen.next().done).to.be.true
@@ -146,7 +148,7 @@ describe('entity-browser', () => {
             expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
             expect(gen.next().value).to.eql(select(sagas.listViewSelector))
             expect(gen.next(state).value).to.eql(call(sagas.getSearchInputs))
-            expect(gen.next(searchInputs).value).to.eql(call(api.fetchEntityCount, entityName, searchInputs))
+            expect(gen.next(searchInputs).value).to.eql(call(fetchEntityCount, entityName, searchInputs))
             expect(gen.next(entityCount).value).to.eql(put(actions.setEntityCount(entityCount)))
             expect(gen.next().value).to.eql(put(actions.clearEntityStore()))
             expect(gen.next().value).to.eql(call(sagas.changePage, {payload: {page: 1}}))

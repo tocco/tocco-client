@@ -1,4 +1,4 @@
-export const wholeEntityField = '___entity'
+const wholeEntityField = '___entity'
 
 export const formValuesToEntity = values => {
   const entity = values[wholeEntityField]

@@ -1,7 +1,9 @@
 import {takeLatest, takeEvery} from 'redux-saga'
 import {call, put, fork, select} from 'redux-saga/effects'
 import * as actions from './actions'
-import * as api from '../../util/api'
+
+import {fetchEntity} from '../../util/api/entities'
+import {fetchForm, getFieldsOfDetailForm} from '../../util/api/forms'
 
 export const detailViewSelector = state => state.detailView
 
@@ -17,7 +19,7 @@ export function* initialize({payload}) {
   const {entityName, formBase} = payload
 
   yield put(actions.setEntityName(entityName))
-  const detailFormDefinition = yield call(api.fetchDetailForm, formBase + '_detail', 'table')
+  const detailFormDefinition = yield call(fetchForm, formBase + '_detail')
   yield put(actions.setFormDefinition(detailFormDefinition))
 }
 
@@ -25,7 +27,7 @@ export function* loadEntity({payload}) {
   const {entityId} = payload
   const listView = yield select(detailViewSelector)
   const {entityName, formDefinition} = listView
-  const entity = yield call(api.fetchEntity, entityName, entityId, formDefinition)
+  const entity = yield call(fetchEntity, entityName, entityId, getFieldsOfDetailForm(formDefinition))
 
   yield put(actions.setEntity(entity))
 }
