@@ -2,7 +2,7 @@ import React from 'react'
 import LabeledField from './LabeledField'
 import {Field, reduxForm} from 'redux-form'
 import * as ToccoUi from 'tocco-ui'
-import {asyncValidate} from './validate'
+import {asyncValidate} from '../../util/reduxForms'
 
 export const DetailForm = props => {
   if (!props.entity.paths) {

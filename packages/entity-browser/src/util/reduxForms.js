@@ -1,4 +1,6 @@
 const wholeEntityField = '___entity'
+import {fetchRequest} from './rest'
+import {SubmissionError} from 'redux-form'
 
 export const formValuesToEntity = values => {
   const entity = values[wholeEntityField]
@@ -24,4 +26,33 @@ export const entityToFormValues = entity => {
 
   result[wholeEntityField] = entity
   return result
+}
+
+const hasError = errors => (
+  Object.keys(errors).length > 0
+)
+
+const validateRequest = values => {
+  const entity = formValuesToEntity(values)
+  return fetchRequest(`entities/${entity.model}/${entity.key}/validate`, {}, 'POST', entity)
+    .then(resp => resp.json())
+    .then(json => json.fields)
+}
+
+export const submitValidate = values => {
+  return validateRequest(values)
+    .then(errors => {
+      if (hasError(errors)) {
+        throw new SubmissionError(errors)
+      }
+    })
+}
+
+export const asyncValidate = values => {
+  return validateRequest(values)
+    .then(errors => {
+      if (hasError(errors)) {
+        throw errors
+      }
+    })
 }
