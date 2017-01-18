@@ -4,34 +4,38 @@ import {Field, reduxForm} from 'redux-form'
 import * as ToccoUi from 'tocco-ui'
 import {asyncValidate} from './validate'
 
-const DetailForm = props => {
+export const DetailForm = props => {
   if (!props.entity.paths) {
     return <div/>
   }
 
+  const layoutType = 'ch.tocco.nice2.model.form.components.layout.'
+
   const formTraverser = children => {
-    return children.map((field, idx) => {
-      const layoutType = 'ch.tocco.nice2.model.form.components.layout.'
-      if (field.type.indexOf(layoutType) === 0) {
+    const result = []
+    for (let i = 0; i < children.length; i++) {
+      const field = children[i]
+
+      if (children[i].type.indexOf(layoutType) === 0) {
         const layoutComponent = field.type.substr(layoutType.length, field.type.length)
         if (layoutComponent === 'HorizontalBox' || layoutComponent === 'VerticalBox') {
           const alignment = layoutComponent === 'HorizontalBox' ? 'horizontal' : 'vertical'
           const label = field.useLabel ? field.label : undefined
-          return (
-            <ToccoUi.LayoutBox key={idx} label={label} alignment={alignment}>
+          result.push(
+            <ToccoUi.LayoutBox key={i} label={label} alignment={alignment}>
               {formTraverser(field.children)}
             </ToccoUi.LayoutBox>
           )
         }
+      } else {
+        if (props.entity.paths[field.name].value !== null) {
+          const type = props.entity.paths[field.name].value.type
+          result.push(<Field name={field.name} type={type} key={i} label={field.label} component={LabeledField}/>)
+        }
       }
+    }
 
-      if (props.entity.paths[field.name].value !== null) {
-        const type = props.entity.paths[field.name].value.type
-        return <Field name={field.name} type={type} key={idx} label={field.label} component={LabeledField}/>
-      }
-
-      return <span/>
-    })
+    return result
   }
 
   return (
@@ -55,3 +59,4 @@ export default reduxForm({
   enableReinitialize: true,
   asyncValidate
 })(DetailForm)
+
