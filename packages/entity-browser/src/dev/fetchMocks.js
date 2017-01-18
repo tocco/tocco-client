@@ -4,7 +4,8 @@ import {
   createValidateResponse,
   createEntitiesReponse,
   createCountReponse,
-  createEntityResponse
+  createEntityResponse,
+  createEntityUpdateResponse
 } from './fetchMockHelpers'
 
 export default function setupFetchMock(fetchMock) {
@@ -28,6 +29,8 @@ export default function setupFetchMock(fetchMock) {
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/User?.*'), createEntitiesReponse)
 
   fetchMock.post(new RegExp('^.*?/nice2/rest/entities/User/[0-9]/validate.*'), createValidateResponse)
+  fetchMock.post(new RegExp('^.*?/nice2/rest/entities/User/[0-9]'), createEntityUpdateResponse)
+  fetchMock.put(new RegExp('^.*?/nice2/rest/entities/User/[0-9]'), createEntityUpdateResponse)
 
   fetchMock.spy()
 }
