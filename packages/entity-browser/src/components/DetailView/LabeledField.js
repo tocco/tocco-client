@@ -52,8 +52,7 @@ LabeledField.propTypes = {
   type: React.PropTypes.string,
   meta: React.PropTypes.shape({
     touched: React.PropTypes.bool,
-    error: React.PropTypes.objectOf(React.PropTypes.string),
-    warning: React.PropTypes.string
+    error: React.PropTypes.objectOf(React.PropTypes.string)
   })
 }
 
