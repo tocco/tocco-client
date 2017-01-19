@@ -2,6 +2,8 @@ import React from 'react'
 import _clone from 'lodash/clone'
 import * as ToccoUi from 'tocco-ui'
 
+// import editableValuePropertyMapper from '../..//util/editableValuePropertyMapper'
+
 const ErrorList = props => {
   if (!props.errors) {
     return null
@@ -23,7 +25,7 @@ ErrorList.propTypes = {
   ).isRequired
 }
 
-const LabeledField = ({input, label, type, meta: {touched, error}}) => {
+const LabeledField = ({input, label, type, options, meta: {touched, error}}) => {
   const events = _clone(input)
   delete events.name
   delete events.value
@@ -34,7 +36,8 @@ const LabeledField = ({input, label, type, meta: {touched, error}}) => {
       <label className="control-label col-sm-5">{label}:</label>
       <div className="col-sm-7">
         <div className="form-control-static">
-          <ToccoUi.EditableValue value={input.value} onChange={input.onChange} type={type} events={events}/>
+          <ToccoUi.EditableValue value={input.value} onChange={input.onChange} type={type} events={events}
+            options={options}/>
           {touched && error && <ErrorList errors={error}/>}
         </div>
       </div>
@@ -53,7 +56,8 @@ LabeledField.propTypes = {
   meta: React.PropTypes.shape({
     touched: React.PropTypes.bool,
     error: React.PropTypes.objectOf(React.PropTypes.string)
-  })
+  }),
+  options: React.PropTypes.object
 }
 
 export default LabeledField
