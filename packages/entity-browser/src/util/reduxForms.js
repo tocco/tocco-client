@@ -19,7 +19,7 @@ export const entityToFormValues = entity => {
   const result = {}
   const paths = entity.paths
   Object.keys(entity.paths).forEach(key => {
-    if (paths[key].value !== null) {
+    if (paths[key].value != null) {
       result[key] = paths[key].value.value
     }
   })
