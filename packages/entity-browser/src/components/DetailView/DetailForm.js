@@ -9,8 +9,6 @@ export const DetailForm = props => {
     return <div/>
   }
 
-  console.log('PROPS', props)
-
   const layoutType = 'ch.tocco.nice2.model.form.components.layout.'
 
   const formTraverser = children => {
