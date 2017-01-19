@@ -7,8 +7,7 @@ export const createValidateResponse = (url, opts) => {
   const entity = opts.body
   const requiredFields = ['firstname', 'lastname']
   requiredFields.forEach(requiredField => {
-    if (!entity.paths[requiredField].value.value
-      || entity.paths[requiredField].value.value === '') {
+    if (!entity.paths[requiredField].value.value) {
       fields[requiredField] = {required: 'Required!', some: 'Another error'}
     }
   })

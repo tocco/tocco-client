@@ -1,6 +1,5 @@
 import {takeEvery, takeLatest} from 'redux-saga'
 import {call, put, fork, select, spawn} from 'redux-saga/effects'
-import _union from 'lodash/union'
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import {fetchForm, columnDefinitionTransformer} from '../../util/api/forms'
@@ -50,14 +49,23 @@ export function* getSearchInputs() {
   return searchInputs
 }
 
+const extractFields = columnDefinition => {
+  let fields = []
+
+  columnDefinition.forEach(column => {
+    fields = fields.concat(column.value)
+  })
+
+  return fields
+}
+
 export function* fetchEntitiesAndAddToStore(page) {
   const entityBrowser = yield select(listViewSelector)
   const {entityName, orderBy, limit, entityStore, columnDefinition} = entityBrowser
 
   if (!entityStore[page]) {
     const searchInputs = yield call(getSearchInputs)
-
-    const fields = _union(...columnDefinition.map(field => (field.value)))
+    const fields = extractFields(columnDefinition)
     const entities = yield call(
       fetchEntities, entityName, page, orderBy, limit, fields, searchInputs, entitiesListTransformer
     )
