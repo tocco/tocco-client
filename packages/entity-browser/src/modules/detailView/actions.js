@@ -3,7 +3,7 @@ export const SET_FORM_DEFINITION = 'detailView/SET_FORM_DEFINITION'
 export const LOAD_ENTITY = 'detailView/LOAD_ENTITY'
 export const SET_ENTITY = 'detailView/SET_ENTITY'
 export const SET_ENTITY_NAME = 'detailView/SET_ENTITY_NAME'
-export const SAVE_ENTITY = 'detailView/SAVE_ENTITY'
+export const SUBMIT_FORM = 'detailView/SUBMIT_FORM'
 
 export const initialize = (entityName, formBase) => ({
   type: INITIALIZE,
@@ -41,9 +41,6 @@ export const setEntity = entity => ({
   }
 })
 
-export const saveEntity = entity => ({
-  type: SAVE_ENTITY,
-  payload: {
-    entity
-  }
+export const submitForm = () => ({
+  type: SUBMIT_FORM
 })

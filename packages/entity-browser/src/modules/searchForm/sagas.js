@@ -1,7 +1,8 @@
 import {takeLatest, delay} from 'redux-saga'
 import {call, put, fork, select} from 'redux-saga/effects'
 import * as actions from './actions'
-import * as api from '../../util/api'
+import {fetchForm, searchFormTransformer} from '../../util/api/forms'
+import {fetchModel, combineEntitiesInObject, fetchEntities} from '../../util/api/entities'
 
 export const searchValuesSelector = state => state.searchForm.searchValues
 
@@ -17,8 +18,8 @@ export function* initialize({payload}) {
   const {entityName, formBase} = payload
 
   const [formDefinition, entityModel] = yield [
-    call(api.fetchSearchForm, formBase + '_search'),
-    call(api.fetchModel, entityName)
+    call(fetchForm, formBase + '_search', searchFormTransformer),
+    call(fetchModel, entityName)
   ]
 
   yield put(actions.setEntityModel(entityModel))
@@ -30,10 +31,10 @@ export function* initialize({payload}) {
   ).map(searchField => {
     const relationName = searchField.name
     const entityName = entityModel[relationName].targetEntity
-    return call(api.fetchRelationEntities, entityName)
+    return call(fetchEntities, entityName)
   })
 
-  const relationEntitiesTransformed = yield call(api.transformRelationEntitiesResults, relationEntities)
+  const relationEntitiesTransformed = yield call(combineEntitiesInObject, relationEntities)
 
   yield put(actions.setRelationEntities(relationEntitiesTransformed))
 }

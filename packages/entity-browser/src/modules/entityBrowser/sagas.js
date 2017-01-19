@@ -29,5 +29,8 @@ export function* initialize() {
 }
 
 export function* showEntityDetail({payload}) {
-  yield put(detailViewActions.loadEntity(payload.entityId))
+  const entityId = payload.entityId
+  if (entityId) {
+    yield put(detailViewActions.loadEntity(entityId))
+  }
 }

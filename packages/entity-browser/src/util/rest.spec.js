@@ -47,6 +47,7 @@ describe('entity-browser', () => {
 
       describe('fetchRequest', () => {
         it('should order params', () => {
+          fetchMock.get('*', {})
           const resource = 'Entities/Contact'
           const params = {
             _search: 'test',
