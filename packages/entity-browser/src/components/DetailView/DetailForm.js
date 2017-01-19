@@ -38,25 +38,42 @@ export const DetailForm = props => {
     return result
   }
 
+  const handleSubmit = e => {
+    props.submitForm()
+    e.preventDefault()
+  }
+
   return (
-    <form onSubmit={props.handleSubmit}>
+    <form onSubmit={handleSubmit}>
       {formTraverser(props.formDefinition.children)}
-      <ToccoUi.Button type="submit" label="Save" icon="glyphicon-floppy-save" disabled={props.submitting} primary/>
+      <ToccoUi.Button
+        type="submit"
+        label="Save"
+        icon="glyphicon-floppy-save"
+        pending={props.submitting}
+        disabled={props.submitting}
+        primary
+      />
+      <div>submitFailed: {props.submitFailed && props.submitFailed.toString()}</div>
+      <div>submitSucceeded: {props.submitSucceeded && props.submitSucceeded.toString()}</div>
+      <div>anyTouched: {props.anyTouched && props.anyTouched.toString()}</div>
     </form>
   )
 }
 
 DetailForm.propTypes = {
-  handleSubmit: React.PropTypes.func,
+  submitForm: React.PropTypes.func.isRequired,
+  formDefinition: React.PropTypes.object.isRequired,
+  entity: React.PropTypes.object.isRequired,
   submitting: React.PropTypes.bool,
-  formDefinition: React.PropTypes.object,
-  entity: React.PropTypes.object
+  submitFailed: React.PropTypes.bool,
+  submitSucceeded: React.PropTypes.bool,
+  anyTouched: React.PropTypes.bool
 }
 
 export default reduxForm({
   form: 'detailForm',
   destroyOnUnmount: false,
-  enableReinitialize: true,
   asyncValidate
 })(DetailForm)
 

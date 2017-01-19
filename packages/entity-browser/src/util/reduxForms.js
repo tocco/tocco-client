@@ -29,7 +29,7 @@ export const entityToFormValues = entity => {
 }
 
 const hasError = errors => (
-  Object.keys(errors).length > 0
+  errors && Object.keys(errors).length > 0
 )
 
 const validateRequest = values => {

@@ -9,6 +9,11 @@ export function fetchEntity(entityName, id, fields) {
     .then(resp => resp.json())
 }
 
+export function updateEntity(entity) {
+  return rest.fetchRequest(`entities/${entity.model}/${entity.key}`, {}, 'PUT', entity)
+    .then(resp => resp.json())
+}
+
 export const defaultModelTransformer = json => {
   const model = {}
   json.fields.forEach(f => {
