@@ -27,8 +27,7 @@ describe('entity-browser', () => {
             const formBase = 'Base_form'
             const entityName = 'User'
 
-            const gen = sagas.initialize({payload: {entityName, formBase}})
-
+            const gen = sagas.initialize(actions.initialize(entityName, formBase))
             expect(gen.next().value).to.eql(put(actions.setEntityName(entityName)))
             expect(gen.next().value).to.eql(call(fetchForm, formBase + '_detail'))
             expect(gen.next([]).value).to.eql(put(actions.setFormDefinition([])))
@@ -41,8 +40,7 @@ describe('entity-browser', () => {
             const entityName = 'User'
             const formDefinition = {}
 
-            const gen = sagas.loadEntity({payload: {entityId}})
-
+            const gen = sagas.loadEntity(actions.loadEntity(entityId))
             expect(gen.next().value).to.eql(select(sagas.detailViewSelector))
             expect(gen.next({entityName, formDefinition}).value).to.eql(call(getFieldsOfDetailForm, formDefinition))
             expect(gen.next([]).value).to.eql(

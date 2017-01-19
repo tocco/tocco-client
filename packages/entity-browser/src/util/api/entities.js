@@ -49,7 +49,7 @@ export const entitiesListTransformer = json => {
     }
 
     const paths = entity.paths
-    for (let path in paths) {
+    for (const path in paths) {
       const type = paths[path].type
       if (type === 'field') {
         result.values[path] = paths[path].value

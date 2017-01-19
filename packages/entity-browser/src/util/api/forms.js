@@ -33,13 +33,14 @@ export const columnDefinitionTransformer = json => {
   const columns = form.children.find(child => child.name === 'table')
     .children.filter(column => column.displayType !== 'HIDDEN')
 
+  const isDisplayableType = child => {
+    return child.type !== 'ch.tocco.nice2.model.form.components.action.Action'
+      && !child.name.startsWith('custom:')
+  }
+
   return columns.map(c => ({
     label: c.label,
-    value: c.children
-      .filter(child =>
-      child.type !== 'ch.tocco.nice2.model.form.components.action.Action'
-      && !child.name.startsWith('custom:'))
-      .map(child => child.name)
+    value: c.children.filter(isDisplayableType).map(child => child.name)
   }))
 }
 
