@@ -2,8 +2,6 @@ import React from 'react'
 import _clone from 'lodash/clone'
 import * as ToccoUi from 'tocco-ui'
 
-// import editableValuePropertyMapper from '../..//util/editableValuePropertyMapper'
-
 const ErrorList = props => {
   if (!props.errors) {
     return null
