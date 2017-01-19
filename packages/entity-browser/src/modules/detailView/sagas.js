@@ -48,15 +48,15 @@ export function* loadEntity({payload}) {
 
 export function* submitForm() {
   const formId = 'detailForm'
-  const values = yield select(getFormValues(formId))
+  const values = yield select(getFormValues, formId)
   yield put(startSubmit(formId))
   try {
-    yield submitValidate(values, true)
+    yield call(submitValidate, values)
     const entity = yield call(formValuesToEntity, values)
     const updatedEntity = yield call(updateEntity, entity)
 
     const updatedFormValues = yield call(entityToFormValues, updatedEntity)
-    yield put(initializeForm('detailForm', updatedFormValues))
+    yield put(initializeForm(formId, updatedFormValues))
     yield put(stopSubmit(formId))
   } catch (err) {
     if (err instanceof SubmissionError) {

@@ -56,9 +56,9 @@ export const DetailForm = props => {
         disabled={props.submitting}
         primary
       />
-      <div>submitFailed: {props.submitFailed.toString()}</div>
-      <div>submitSucceeded: {props.submitSucceeded.toString()}</div>
-      <div>anyTouched: {props.anyTouched.toString()}</div>
+      <div>submitFailed: {props.submitFailed && props.submitFailed.toString()}</div>
+      <div>submitSucceeded: {props.submitSucceeded && props.submitSucceeded.toString()}</div>
+      <div>anyTouched: {props.anyTouched && props.anyTouched.toString()}</div>
     </form>
   )
 }
