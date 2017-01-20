@@ -31,6 +31,14 @@
             "useLabel": "YES"
           },
           {
+            "name": "relGender",
+            "type": "ch.tocco.nice2.model.form.components.simple.SingleSelectBox",
+            "displayType": "EDITABLE",
+            "children": [],
+            "label": "Geschlecht",
+            "useLabel": "YES"
+          },
+          {
             "name": "relUser_code1",
             "type": "ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
             "displayType": "EDITABLE",

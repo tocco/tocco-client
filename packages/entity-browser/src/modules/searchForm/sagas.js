@@ -25,13 +25,13 @@ export function* initialize({payload}) {
   yield put(actions.setEntityModel(entityModel))
   yield put(actions.setFormDefinition(formDefinition))
 
-  const relationEntities = yield formDefinition.filter(searchField =>
-    searchField.type === 'ch.tocco.nice2.model.form.components.simple.MultiSelectBox'
-  ).map(searchField => {
-    const relationName = searchField.name
-    const entityName = entityModel[relationName].targetEntity
-    return call(fetchEntities, entityName)
-  })
+  const relationEntities = yield formDefinition.filter(searchField => [
+    'ch.tocco.nice2.model.form.components.simple.MultiSelectBox',
+    'ch.tocco.nice2.model.form.components.simple.SingleSelectBox'].includes(searchField.type)).map(searchField => {
+      const relationName = searchField.name
+      const entityName = entityModel[relationName].targetEntity
+      return call(fetchEntities, entityName)
+    })
 
   const relationEntitiesTransformed = yield call(combineEntitiesInObject, relationEntities)
 

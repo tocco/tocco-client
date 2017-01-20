@@ -1,32 +1,27 @@
 import React from 'react'
 import Select from 'react-select'
 
-import '!style-loader!css-loader!react-select/dist/react-select.css'
-
-const MultiSelect = props => {
-  const handleChange = e => {
-    if (props.onChange) {
-      const newKeys = e.map(o => o.value)
-      props.onChange(newKeys)
-    }
+const SingleSelect = props => {
+  const onChange = e => {
+    props.onChange(e)
   }
 
   return (
     <Select
-      multi
+      single
       clearable
       placeholder=""
       noResultsText="-"
       value={props.value}
-      onChange={handleChange}
+      onChange={onChange}
       options={props.options.store}
     />
   )
 }
 
-MultiSelect.propTypes = {
+SingleSelect.propTypes = {
   onChange: React.PropTypes.func,
-  value: React.PropTypes.array,
+  value: React.PropTypes.string,
   options: React.PropTypes.shape({
     store: React.PropTypes.arrayOf(
       React.PropTypes.shape({
@@ -36,4 +31,4 @@ MultiSelect.propTypes = {
   })
 }
 
-export default MultiSelect
+export default SingleSelect

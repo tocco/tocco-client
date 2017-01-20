@@ -28,9 +28,21 @@ export const DetailForm = props => {
           )
         }
       } else {
-        if (props.entity.paths[field.name].value !== null) {
-          const type = props.entity.paths[field.name].value.type
-          result.push(<Field name={field.name} type={type} key={i} label={field.label} component={LabeledField}/>)
+        const entityField = props.entity.paths[field.name]
+        if (entityField && entityField.value != null) {
+          let fieldProps = {}
+          if (entityField.type === 'field') {
+            fieldProps.type = entityField.value.type
+          } else if (entityField.type === 'entity') {
+            fieldProps.type = 'single-select'
+            fieldProps.options = {store: [{value: entityField.value.key, label: entityField.value.display}]}
+          } else if (entityField.type === 'entity-list') {
+            fieldProps.type = 'multi-select'
+            const store = entityField.value.map(e => ({value: e.key, label: e.display}))
+            fieldProps.options = {store}
+          }
+
+          result.push(<Field name={field.name} key={i} label={field.label} component={LabeledField} {...fieldProps}/>)
         }
       }
     }

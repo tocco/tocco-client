@@ -7,20 +7,40 @@ export default searchFieldType => {
         id: name
       })
 
+    case 'ch.tocco.nice2.model.form.components.simple.SingleSelectBox':
+      return (name, value, relationEntities, entityModel) => {
+        let store = []
+        if (relationEntities[entityModel[name].targetEntity]) {
+          store = relationEntities[entityModel[name].targetEntity].map(r => ({
+            value: r.value,
+            label: r.displayName
+          }))
+        }
+
+        return {
+          type: 'single-select',
+          options: {
+            store
+          },
+          value: value,
+          id: name
+        }
+      }
+
     case 'ch.tocco.nice2.model.form.components.simple.MultiSelectBox':
       return (name, value, relationEntities, entityModel) => {
-        let possibleValues = []
+        let store = []
         if (relationEntities[entityModel[name].targetEntity]) {
-          possibleValues = relationEntities[entityModel[name].targetEntity].map(r => ({
-            label: r.displayName,
-            value: r.value
+          store = relationEntities[entityModel[name].targetEntity].map(r => ({
+            value: r.value,
+            label: r.displayName
           }))
         }
 
         return {
           type: 'multi-select',
           options: {
-            possibleValues
+            store
           },
           value: value,
           id: name

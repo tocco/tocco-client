@@ -19,6 +19,23 @@ export default () => {
             </td>
           </tr>
           <tr>
+            <td>Single-Select</td>
+            <td>
+              <EditableValue
+                type="single-select"
+                value="1"
+                options={{
+                  store: [
+                    {value: '1', label: 'One'},
+                    {value: '2', label: 'Two'},
+                    {value: '3', label: 'Three'}
+                  ]
+                }}
+                onChange={console.log}
+            />
+            </td>
+          </tr>
+          <tr>
             <td>Multi-Select</td>
             <td>
               <EditableValue
@@ -26,7 +43,7 @@ export default () => {
                 value={[2, 4]}
                 onChange={console.log}
                 options={{
-                  possibleValues: [{value: 2, label: 'Two'}, {value: 3, label: 'Three'}, {value: 4, label: 'Four'}]
+                  store: [{value: 2, label: 'Two'}, {value: 3, label: 'Three'}, {value: 4, label: 'Four'}]
                 }}
             />
             </td>
