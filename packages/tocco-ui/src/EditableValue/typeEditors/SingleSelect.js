@@ -25,7 +25,7 @@ SingleSelect.propTypes = {
   options: React.PropTypes.shape({
     store: React.PropTypes.arrayOf(
       React.PropTypes.shape({
-        key: React.PropTypes.any,
+        value: React.PropTypes.any,
         label: React.PropTypes.string
       }))
   })

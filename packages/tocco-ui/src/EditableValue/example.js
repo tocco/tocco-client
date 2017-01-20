@@ -3,10 +3,6 @@ import EditableValue from './'
 // real-import:import {EditableValue} from 'tocco-ui'
 
 export default () => {
-  const log = value => {
-    console.log(value)
-  }
-
   return (
     <div>
       {/* start example */}
@@ -18,7 +14,7 @@ export default () => {
               <EditableValue
                 type="string"
                 value="Test String"
-                onChange={log}
+                onChange={console.log}
               />
             </td>
           </tr>
@@ -35,7 +31,7 @@ export default () => {
                     {value: '3', label: 'Three'}
                   ]
                 }}
-                onChange={log}
+                onChange={console.log}
             />
             </td>
           </tr>
@@ -45,9 +41,9 @@ export default () => {
               <EditableValue
                 type="multi-select"
                 value={[2, 4]}
-                onChange={log}
+                onChange={console.log}
                 options={{
-                  possibleValues: [{value: 2, label: 'Two'}, {value: 3, label: 'Three'}, {value: 4, label: 'Four'}]
+                  store: [{value: 2, label: 'Two'}, {value: 3, label: 'Three'}, {value: 4, label: 'Four'}]
                 }}
             />
             </td>
