@@ -1,40 +1,40 @@
 {
-  "_links":{
+  "_links": {
     "next":null,
     "prev":null,
-    "entity-model-list":{
+    "entity-model-list": {
       "href":"https://master.tocco.ch/nice2/rest/entities"
     },
-    "self":{
+    "self": {
       "href":"https://master.tocco.ch/nice2/rest/entities/Gender"
     },
-    "form-list":{
+    "form-list": {
       "href":"https://master.tocco.ch/nice2/rest/forms/Gender_list"
     },
-    "form-search":{
+    "form-search": {
       "href":"https://master.tocco.ch/nice2/rest/forms/Gender_search"
     },
-    "form-detail":{
+    "form-detail": {
       "href":"https://master.tocco.ch/nice2/rest/forms/Gender_detail"
     }
   },
-  "metaData":{
+  "metaData": {
     "modelName":"Gender",
     "label":"Geschlecht"
   },
-  "data":[
+  "data": [
     {
-      "_links":{
-        "self":{
+      "_links": {
+        "self": {
           "href":"https://master.tocco.ch/nice2/rest/entities/Gender/1"
         },
-        "model":{
+        "model": {
           "href":"https://master.tocco.ch/nice2/rest/entities/Gender/model"
         },
-        "entity-list":{
+        "entity-list": {
           "href":"https://master.tocco.ch/nice2/rest/entities/Gender"
         },
-        "entity-model-list":{
+        "entity-model-list": {
           "href":"https://master.tocco.ch/nice2/rest/entities"
         }
       },
@@ -42,72 +42,72 @@
       "model":"Gender",
       "version":3,
       "display":"Männlich",
-      "fields":{
-        "unique_id":{
+      "fields": {
+        "unique_id": {
           "value":"male",
           "type":"identifier",
           "readable":true,
           "writable":true
         },
-        "label_de":{
+        "label_de": {
           "value":"Männlich",
           "type":"string",
           "readable":true,
           "writable":true
         },
-        "label_fr":{
+        "label_fr": {
           "value":"Masculin",
           "type":"string",
           "readable":true,
           "writable":true
         },
-        "label_it":{
+        "label_it": {
           "value":"Maschile",
           "type":"string",
           "readable":true,
           "writable":true
         },
-        "label_en":{
+        "label_en": {
           "value":"Male",
           "type":"string",
           "readable":true,
           "writable":true
         },
-        "sorting":{
+        "sorting": {
           "value":10,
           "type":"sorting",
           "readable":true,
           "writable":true
         },
-        "active":{
+        "active": {
           "value":true,
           "type":"boolean",
           "readable":true,
           "writable":true
         }
       },
-      "singleRelations":[
+      "singleRelations": [
 
       ],
-      "multiRelations":[
+      "multiRelations": [
 
       ],
-      "paths":{
+      "paths": {
 
       }
     },
     {
-      "_links":{
-        "self":{
+      "_links": {
+        "self": {
           "href":"https://master.tocco.ch/nice2/rest/entities/Gender/2"
         },
-        "model":{
+        "model": {
           "href":"https://master.tocco.ch/nice2/rest/entities/Gender/model"
         },
-        "entity-list":{
+        "entity-list": {
           "href":"https://master.tocco.ch/nice2/rest/entities/Gender"
         },
-        "entity-model-list":{
+        "entity-model-list": {
           "href":"https://master.tocco.ch/nice2/rest/entities"
         }
       },
@@ -115,57 +115,57 @@
       "model":"Gender",
       "version":3,
       "display":"Weiblich",
-      "fields":{
-        "unique_id":{
+      "fields": {
+        "unique_id": {
           "value":"female",
           "type":"identifier",
           "readable":true,
           "writable":true
         },
-        "label_de":{
+        "label_de": {
           "value":"Weiblich",
           "type":"string",
           "readable":true,
           "writable":true
         },
-        "label_fr":{
+        "label_fr": {
           "value":"Féminin",
           "type":"string",
           "readable":true,
           "writable":true
         },
-        "label_it":{
+        "label_it": {
           "value":"Femmina",
           "type":"string",
           "readable":true,
           "writable":true
         },
-        "label_en":{
+        "label_en": {
           "value":"Female",
           "type":"string",
           "readable":true,
           "writable":true
         },
-        "sorting":{
+        "sorting": {
           "value":20,
           "type":"sorting",
           "readable":true,
           "writable":true
         },
-        "active":{
+        "active": {
           "value":true,
           "type":"boolean",
           "readable":true,
           "writable":true
         }
       },
-      "singleRelations":[
+      "singleRelations": [
 
       ],
-      "multiRelations":[
+      "multiRelations": [
 
       ],
-      "paths":{
+      "paths": {
 
       }
     }

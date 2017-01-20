@@ -55,7 +55,12 @@ LabeledField.propTypes = {
     touched: React.PropTypes.bool,
     error: React.PropTypes.objectOf(React.PropTypes.string)
   }),
-  options: React.PropTypes.object
+  options: React.PropTypes.shape({
+    store: React.PropTypes.arrayOf({
+      value: React.PropTypes.string,
+      label: React.PropTypes.string
+    })
+  })
 }
 
 export default LabeledField

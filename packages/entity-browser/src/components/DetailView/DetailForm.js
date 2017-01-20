@@ -29,7 +29,7 @@ export const DetailForm = props => {
         }
       } else {
         const fieldProperties = props.entity.paths[field.name]
-        if (fieldProperties && fieldProperties.value !== null) {
+        if (fieldProperties && fieldProperties.value != null) {
           if (fieldProperties.type === 'field') {
             const type = props.entity.paths[field.name].value.type
             result.push(<Field name={field.name} type={type} key={i} label={field.label} component={LabeledField}/>)
@@ -37,7 +37,6 @@ export const DetailForm = props => {
             const v = fieldProperties.value.key
             result.push(<Field name={field.name} type="single-select" key={i} label={field.label}
               component={LabeledField} options={{store: [{value: v, label: fieldProperties.value.display}]}}/>)
-            console.log(fieldProperties.value)
           } else if (fieldProperties.type === 'entity-list') {
             const values = fieldProperties.value
             const possibleValues = values.map(e => {
