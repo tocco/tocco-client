@@ -12,8 +12,8 @@ export default searchFieldType => {
         let store = []
         if (relationEntities[entityModel[name].targetEntity]) {
           store = relationEntities[entityModel[name].targetEntity].map(r => ({
-            label: r.displayName,
-            value: r.value
+            value: r.value,
+            label: r.displayName
           }))
         }
 
@@ -29,18 +29,18 @@ export default searchFieldType => {
 
     case 'ch.tocco.nice2.model.form.components.simple.MultiSelectBox':
       return (name, value, relationEntities, entityModel) => {
-        let possibleValues = []
+        let store = []
         if (relationEntities[entityModel[name].targetEntity]) {
-          possibleValues = relationEntities[entityModel[name].targetEntity].map(r => ({
-            label: r.displayName,
-            value: r.value
+          store = relationEntities[entityModel[name].targetEntity].map(r => ({
+            value: r.value,
+            label: r.displayName
           }))
         }
 
         return {
           type: 'multi-select',
           options: {
-            possibleValues
+            store
           },
           value: value,
           id: name

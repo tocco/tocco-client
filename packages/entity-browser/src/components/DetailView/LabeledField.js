@@ -56,10 +56,11 @@ LabeledField.propTypes = {
     error: React.PropTypes.objectOf(React.PropTypes.string)
   }),
   options: React.PropTypes.shape({
-    store: React.PropTypes.arrayOf({
-      value: React.PropTypes.string,
-      label: React.PropTypes.string
-    })
+    store: React.PropTypes.arrayOf(
+      React.PropTypes.shape({
+        value: React.PropTypes.any,
+        label: React.PropTypes.string
+      }))
   })
 }
 

@@ -34,16 +34,16 @@ export const DetailForm = props => {
             const type = props.entity.paths[field.name].value.type
             result.push(<Field name={field.name} type={type} key={i} label={field.label} component={LabeledField}/>)
           } else if (fieldProperties.type === 'entity') {
-            const v = fieldProperties.value.key
+            const value = fieldProperties.value.key
             result.push(<Field name={field.name} type="single-select" key={i} label={field.label}
-              component={LabeledField} options={{store: [{value: v, label: fieldProperties.value.display}]}}/>)
+              component={LabeledField} options={{store: [{value, label: fieldProperties.value.display}]}}/>)
           } else if (fieldProperties.type === 'entity-list') {
             const values = fieldProperties.value
-            const possibleValues = values.map(e => {
+            const store = values.map(e => {
               return {value: e.key, label: e.display}
             })
             result.push(<Field name={field.name} type="multi-select" key={i} label={field.label}
-              component={LabeledField} options={{possibleValues: possibleValues}}/>)
+              component={LabeledField} options={{store: store}}/>)
           }
         }
       }
