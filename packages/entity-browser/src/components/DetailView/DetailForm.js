@@ -28,23 +28,21 @@ export const DetailForm = props => {
           )
         }
       } else {
-        const fieldProperties = props.entity.paths[field.name]
-        if (fieldProperties && fieldProperties.value != null) {
-          if (fieldProperties.type === 'field') {
-            const type = props.entity.paths[field.name].value.type
-            result.push(<Field name={field.name} type={type} key={i} label={field.label} component={LabeledField}/>)
-          } else if (fieldProperties.type === 'entity') {
-            const value = fieldProperties.value.key
-            result.push(<Field name={field.name} type="single-select" key={i} label={field.label}
-              component={LabeledField} options={{store: [{value, label: fieldProperties.value.display}]}}/>)
-          } else if (fieldProperties.type === 'entity-list') {
-            const values = fieldProperties.value
-            const store = values.map(e => {
-              return {value: e.key, label: e.display}
-            })
-            result.push(<Field name={field.name} type="multi-select" key={i} label={field.label}
-              component={LabeledField} options={{store: store}}/>)
+        const entityField = props.entity.paths[field.name]
+        if (entityField && entityField.value != null) {
+          let fieldProps = {}
+          if (entityField.type === 'field') {
+            fieldProps.type = entityField.value.type
+          } else if (entityField.type === 'entity') {
+            fieldProps.type = 'single-select'
+            fieldProps.options = {store: [{value: entityField.value.key, label: entityField.value.display}]}
+          } else if (entityField.type === 'entity-list') {
+            fieldProps.type = 'multi-select'
+            const store = entityField.value.map(e => ({value: e.key, label: e.display}))
+            fieldProps.options = {store}
           }
+
+          result.push(<Field name={field.name} key={i} label={field.label} component={LabeledField} {...fieldProps}/>)
         }
       }
     }
