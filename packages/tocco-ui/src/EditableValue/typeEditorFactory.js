@@ -12,7 +12,7 @@ export const map = {
   'birthdate': StringEdit,
   'count': StringEdit,
   'phone': StringEdit,
-  'website': StringEdit,
+  'url': StringEdit,
   'boolean': StringEdit,
   'email': StringEdit,
   'counter': StringEdit,
