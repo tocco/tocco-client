@@ -1,3 +1,6 @@
 .tocco-editable-value {
-
+  input[readonly].date-edit {
+    background-color: #fff;
+    z-index: auto;
+  }
 }

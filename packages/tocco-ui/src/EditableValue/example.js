@@ -1,8 +1,14 @@
 import React from 'react'
 import EditableValue from './'
 // real-import:import {EditableValue} from 'tocco-ui'
+import {addLocaleData} from 'react-intl'
+import de from 'react-intl/locale-data/de'
+import en from 'react-intl/locale-data/en'
+import fr from 'react-intl/locale-data/fr'
+import it from 'react-intl/locale-data/it'
 
 export default () => {
+  addLocaleData([...de, ...en, ...fr, ...it])
   return (
     <div>
       {/* start example */}
@@ -28,7 +34,17 @@ export default () => {
                 options={{
                   possibleValues: [{value: 2, label: 'Two'}, {value: 3, label: 'Three'}, {value: 4, label: 'Four'}]
                 }}
-            />
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Date</td>
+            <td>
+              <EditableValue
+                type="date"
+                value="2015-12-18"
+                onChange={console.log}
+              />
             </td>
           </tr>
         </tbody>
