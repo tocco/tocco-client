@@ -4,11 +4,12 @@ import SingleSelect from './typeEditors/SingleSelect'
 import MultiSelect from './typeEditors/MultiSelect'
 import StringEdit from './typeEditors/StringEdit'
 import TextEdit from './typeEditors/TextEdit'
+import DateEdit from './typeEditors/DateEdit'
 
 export const map = {
   'string': StringEdit,
   'number': StringEdit,
-  'date': StringEdit,
+  'date': DateEdit,
   'birthdate': StringEdit,
   'count': StringEdit,
   'phone': StringEdit,
