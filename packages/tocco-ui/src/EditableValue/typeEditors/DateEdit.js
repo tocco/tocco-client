@@ -38,6 +38,9 @@ class DateEdit extends React.Component {
     if (props.intl) {
       this.flatpickr.set('locale', this.localeMap[props.intl.locale])
     }
+    if (props.value) {
+      this.flatpickr.setDate(props.value)
+    }
   }
 
   handleOnChange(selectedDates, dateStr) {

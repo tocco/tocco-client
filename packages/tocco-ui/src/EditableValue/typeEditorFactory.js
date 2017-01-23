@@ -10,7 +10,7 @@ export const map = {
   'string': StringEdit,
   'number': StringEdit,
   'date': DateEdit,
-  'birthdate': StringEdit,
+  'birthdate': DateEdit,
   'count': StringEdit,
   'phone': StringEdit,
   'url': StringEdit,
