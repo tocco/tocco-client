@@ -5,12 +5,14 @@ import MultiSelect from './typeEditors/MultiSelect'
 import StringEdit from './typeEditors/StringEdit'
 import TextEdit from './typeEditors/TextEdit'
 import DateEdit from './typeEditors/DateEdit'
+import DateTimeEdit from './typeEditors/DateTimeEdit'
 
 export const map = {
   'string': StringEdit,
   'number': StringEdit,
   'date': DateEdit,
   'birthdate': DateEdit,
+  'datetime': DateTimeEdit,
   'count': StringEdit,
   'phone': StringEdit,
   'url': StringEdit,

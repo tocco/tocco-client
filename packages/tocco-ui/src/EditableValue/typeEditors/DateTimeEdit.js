@@ -3,8 +3,10 @@ import DateAbstract from './DateAbstract'
 
 const DateTimeEdit = props => {
   const options = {
-    altFormat: 'd.m.Y',
-    dateFormat: 'Y-m-d',
+    enableTime: true,
+    altFormat: 'd.m.Y H:i',
+    dateFormat: 'Y-m-d\\TH:i:s.000\\Z',
+    time_24hr: true,
     ...props.options
   }
 

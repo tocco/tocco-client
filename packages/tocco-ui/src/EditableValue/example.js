@@ -64,6 +64,16 @@ export default () => {
               />
             </td>
           </tr>
+          <tr>
+            <td>Date Time</td>
+            <td>
+              <EditableValue
+                type="datetime"
+                value="2017-01-25T15:15:00.000Z"
+                onChange={console.log}
+              />
+            </td>
+          </tr>
         </tbody>
       </table>
       {/* end example */}
