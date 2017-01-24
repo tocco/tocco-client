@@ -7,7 +7,7 @@ import {
   stopSubmit,
   initialize as initializeForm
 } from 'redux-form'
-import {fetchEntity, updateEntity, fetchEntities} from '../../util/api/entities'
+import {fetchEntity, updateEntity, fetchEntities, fetchModel} from '../../util/api/entities'
 import {fetchForm, getFieldsOfDetailForm} from '../../util/api/forms'
 import {formValuesToEntity, entityToFormValues, submitValidate} from '../../util/reduxForms'
 
@@ -35,6 +35,8 @@ describe('entity-browser', () => {
 
             const gen = sagas.initialize(actions.initialize(entityName, formBase))
             expect(gen.next().value).to.eql(put(actions.setEntityName(entityName)))
+            expect(gen.next().value).to.eql(call(fetchModel, entityName))
+            expect(gen.next({}).value).to.eql(put(actions.setEntityModel({})))
             expect(gen.next().value).to.eql(call(fetchForm, formBase + '_detail'))
             expect(gen.next([]).value).to.eql(put(actions.setFormDefinition([])))
           })
@@ -120,7 +122,12 @@ describe('entity-browser', () => {
             const entityName = 'User'
 
             const detailView = {
-              stores: {}
+              stores: {},
+              entityModel: {
+                relUser: {
+                  targetEntity: 'User'
+                }
+              }
             }
 
             const gen = sagas.loadRelationEntities(actions.loadRelationEntities(relationEntityName))

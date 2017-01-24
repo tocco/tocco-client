@@ -7,6 +7,7 @@ export const SUBMIT_FORM = 'detailView/SUBMIT_FORM'
 export const LOAD_RELATION_ENTITIES = 'detailView/LOAD_RELATION_ENTITIES'
 export const SET_STORE = 'detailView/SET_STORE'
 export const SET_STORE_LOADED = 'detailView/SET_STORE_LOADED'
+export const SET_ENTITY_MODEL = 'searchForm/SET_ENTITY_MODEL'
 
 export const initialize = (entityName, formBase) => ({
   type: INITIALIZE,
@@ -68,5 +69,12 @@ export const setStoreLoaded = (entityName, loaded) => ({
   payload: {
     entityName,
     loaded
+  }
+})
+
+export const setEntityModel = entityModel => ({
+  type: SET_ENTITY_MODEL,
+  payload: {
+    entityModel
   }
 })

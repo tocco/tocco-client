@@ -29,14 +29,16 @@ const ACTION_HANDLERS = {
   [actions.SET_ENTITY]: singleTransferReducer('entity'),
   [actions.LOAD_RELATION_ENTITIES]: singleTransferReducer('relationEntities'),
   [actions.SET_STORE]: setStore,
-  [actions.SET_STORE_LOADED]: setStoreLoaded
+  [actions.SET_STORE_LOADED]: setStoreLoaded,
+  [actions.SET_ENTITY_MODEL]: singleTransferReducer('entityModel')
 }
 
 const initialState = {
   entityName: '',
   formDefinition: [],
   entity: {},
-  stores: {}
+  stores: {},
+  entityModel: {}
 }
 
 export default function reducer(state = initialState, action) {
