@@ -41,6 +41,7 @@ export class LoginForm extends Component {
               placeholder={this.msg('client.login.form.userPlaceholder')}
               value={this.props.username}
               required
+              autoFocus
             />
           </div>
           <div className="input-group m-t-5">
