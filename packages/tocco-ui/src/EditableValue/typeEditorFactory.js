@@ -24,9 +24,9 @@ export const map = {
   'single-select': SingleSelect
 }
 
-export default (type, value, onChange, options, id, events) => {
+export default (type, value, onChange, options, id, events, readonly = false) => {
   if (map[type]) {
-    return React.createElement(map[type], {value, onChange, options, id, events})
+    return React.createElement(map[type], {value, onChange, options, id, events, readonly})
   }
 
   console.info('No type-editor defined for type', type)
