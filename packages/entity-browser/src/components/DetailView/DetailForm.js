@@ -29,20 +29,15 @@ export const DetailForm = props => {
         }
       } else {
         const entityField = props.entity.paths[field.name]
+        const selectTypes = ['entity', 'entity-list']
         if (entityField && entityField.value != null) {
           let fieldProps = {}
           if (entityField.type === 'field') {
             fieldProps.type = entityField.value.type
-          } else if (entityField.type === 'entity' && props.stores[field.name] !== undefined) {
-            fieldProps.type = 'single-select'
-            const store = props.stores[field.name].data
+          } else if (selectTypes.includes(entityField.type) && props.selectBoxStores[field.name] !== undefined) {
+            fieldProps.type = entityField.type === 'entity' ? 'single-select' : 'multi-select'
+            const store = props.selectBoxStores[field.name].data
             fieldProps.options = {store}
-          } else if (entityField.type === 'entity-list' && props.stores[field.name] !== undefined) {
-            fieldProps.type = 'multi-select'
-            const store = props.stores[field.name].data
-            fieldProps.options = {store}
-          } else {
-            fieldProps.options = {store: []}
           }
 
           result.push(<div key={i} onFocus={() => props.loadRelationEntities(field.name)}>
@@ -86,7 +81,7 @@ DetailForm.propTypes = {
   submitSucceeded: React.PropTypes.bool,
   anyTouched: React.PropTypes.bool,
   loadRelationEntities: React.PropTypes.func,
-  stores: React.PropTypes.shape({
+  selectBoxStores: React.PropTypes.shape({
     entityName: React.PropTypes.shape({
       loaded: React.PropTypes.bool,
       data: React.PropTypes.arrayOf(

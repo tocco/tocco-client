@@ -18,7 +18,7 @@ const mapActionCreators = {
 const mapStateToProps = (state, props) => ({
   formDefinition: state.detailView.formDefinition,
   entity: state.detailView.entity,
-  stores: state.detailView.stores,
+  selectBoxStores: state.detailView.selectBoxStores,
   formSubmitSucceeded: hasSubmitSucceeded('detailForm')(state),
   formSubmitFailed: hasSubmitFailed('detailForm')(state)
 })

@@ -3,8 +3,8 @@ import {singleTransferReducer} from 'tocco-util/reducers'
 
 const setStore = (state, {payload}) => ({
   ...state,
-  stores: {
-    ...state.stores,
+  selectBoxStores: {
+    ...state.selectBoxStores,
     [payload.entityName]: {
       data: payload.store,
       loaded: false
@@ -14,10 +14,10 @@ const setStore = (state, {payload}) => ({
 
 const setStoreLoaded = (state, {payload}) => ({
   ...state,
-  stores: {
-    ...state.stores,
+  selectBoxStores: {
+    ...state.selectBoxStores,
     [payload.entityName]: {
-      data: state.stores[payload.entityName].data,
+      data: state.selectBoxStores[payload.entityName].data,
       loaded: payload.loaded
     }
   }
@@ -37,7 +37,7 @@ const initialState = {
   entityName: '',
   formDefinition: [],
   entity: {},
-  stores: {},
+  selectBoxStores: {},
   entityModel: {}
 }
 

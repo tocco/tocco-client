@@ -92,8 +92,8 @@ export function* submitForm() {
 export function* loadRelationEntities({payload}) {
   const {entityName} = payload
   const detailView = yield select(detailViewSelector)
-  const {stores, entityModel} = detailView
-  if (stores[entityName] === undefined || !stores[entityName].loaded) {
+  const {selectBoxStores, entityModel} = detailView
+  if (selectBoxStores[entityName] === undefined || !selectBoxStores[entityName].loaded) {
     const modelName = entityModel[entityName].targetEntity
     const entities = yield call(fetchEntities, modelName)
     const fieldStore = entities.data.map(e => ({label: e.display, value: e.key}))

@@ -122,7 +122,7 @@ describe('entity-browser', () => {
             const entityName = 'User'
 
             const detailView = {
-              stores: {},
+              selectBoxStores: {},
               entityModel: {
                 relUser: {
                   targetEntity: 'User'
@@ -141,7 +141,7 @@ describe('entity-browser', () => {
           it('should not load the store', () => {
             const relationEntityName = 'relUser'
             const detailView = {
-              stores: {
+              selectBoxStores: {
                 relUser: {
                   data: [],
                   loaded: true

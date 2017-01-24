@@ -14,7 +14,7 @@ const DetailView = props => {
         formDefinition={props.formDefinition}
         entity={props.entity}
         loadRelationEntities={props.loadRelationEntities}
-        stores={props.stores}
+        selectBoxStores={props.selectBoxStores}
       />
     </div>
   )
@@ -30,7 +30,7 @@ DetailView.propTypes = {
   }).isRequired,
   entity: React.PropTypes.object,
   loadRelationEntities: React.PropTypes.func,
-  stores: React.PropTypes.shape({
+  selectBoxStores: React.PropTypes.shape({
     entityName: React.PropTypes.shape({
       loaded: React.PropTypes.bool,
       data: React.PropTypes.arrayOf(

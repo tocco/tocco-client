@@ -5,7 +5,7 @@ const EXPECTED_INITIAL_STATE = {
   entityName: '',
   formDefinition: [],
   entity: {},
-  stores: {},
+  selectBoxStores: {},
   entityModel: {}
 }
 
@@ -31,7 +31,7 @@ describe('entity-browser', () => {
 
         it('should handle the SET_STORE action', () => {
           const stateBefore = {
-            stores: {
+            selectBoxStores: {
               entity1: {
                 loaded: true,
                 data: []
@@ -45,7 +45,7 @@ describe('entity-browser', () => {
           ]
 
           const expectedStateAfter = {
-            stores: {
+            selectBoxStores: {
               entity1: {
                 loaded: true,
                 data: []
