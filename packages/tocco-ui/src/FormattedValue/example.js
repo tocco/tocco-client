@@ -111,6 +111,12 @@ class Example extends React.Component {
                     <FormattedValue type="login" value={{username: 'dake'}}/>
                   </td>
                 </tr>
+                <tr>
+                  <td>Percent</td>
+                  <td>
+                    <FormattedValue type="percent" value={99.9}/>
+                  </td>
+                </tr>
               </tbody>
 
             </table>

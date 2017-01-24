@@ -1,6 +1,6 @@
 import React from 'react'
 
-import provider from './typeFormatterProvider'
+import provider, {map as typeMap} from './typeFormatterProvider'
 import './styles.scss'
 
 /**
@@ -18,29 +18,9 @@ FormattedValue.propTypes = {
   /**
    * Type of value. E.g. Phone
    */
-  type: React.PropTypes.oneOf([
-    'birthdate',
-    'boolean',
-    'char', 'counter',
-    'date',
-    'datetime',
-    'decimal',
-    'double',
-    'duration',
-    'email',
-    'integer',
-    'latitude',
-    'login',
-    'long',
-    'longitude',
-    'moneyamount',
-    'phone',
-    'short',
-    'string',
-    'text',
-    'time',
-    'url'
-  ]).isRequired,
+  type: React.PropTypes.oneOf(
+    Object.keys(typeMap)
+  ).isRequired,
   /**
    * Value that should be formatted
    */

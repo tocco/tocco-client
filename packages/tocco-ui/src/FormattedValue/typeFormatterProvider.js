@@ -13,52 +13,47 @@ import MoneyFormatter from './typeFormatters/MoneyFormatter'
 import BooleanFormatter from './typeFormatters/BooleanFormatter'
 import LoginFormatter from './typeFormatters/LoginFormatter'
 import LongitudeFormatter from './typeFormatters/LongitudeFormatter'
+import PercentFormatter from './typeFormatters/PercentFormatter'
 
 export default (type, value) => {
   if (map[type]) {
     return React.createElement(map[type], {value})
   }
 
-  console.error('No label defined for type', type, value)
+  console.error('No FormattedValue mapper defined for type', type, value)
   return <div/>
 }
 
-const map = {
+export const map = {
   'string': StringFormatter,
   'char': StringFormatter,
   'uuid': StringFormatter,
-
+  'identifier': StringFormatter,
+  'postcode': StringFormatter,
+  'ipaddress': StringFormatter,
+  'html': StringFormatter,
   'text': TextFormatter,
-
   'short': NumberFormatter,
   'integer': NumberFormatter,
+  'sorting': NumberFormatter,
   'long': NumberFormatter,
-
+  'version': NumberFormatter,
+  'dataamount': NumberFormatter,
   'decimal': DecimalFormatter,
+  'percent': PercentFormatter,
   'double': DecimalFormatter,
-
   'phone': StringFormatter,
   'counter': StringFormatter,
-
   'url': UrlFormatter,
-
   'date': DateFormatter,
   'birthdate': DateFormatter,
-
   'datetime': DateTimeFormatter,
-
   'time': TimeFormatter,
   'duration': DurationFormatter,
-
   'email': StringFormatter,
-
   'moneyamount': MoneyFormatter,
-
   'boolean': BooleanFormatter,
-
   'latitude': LongitudeFormatter,
   'longitude': LongitudeFormatter,
-
   'login': LoginFormatter
-
 }
