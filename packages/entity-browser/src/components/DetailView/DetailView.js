@@ -30,6 +30,16 @@ DetailView.propTypes = {
   }).isRequired,
   entity: React.PropTypes.object,
   loadRelationEntities: React.PropTypes.func,
-  stores: React.PropTypes.object
+  stores: React.PropTypes.shape({
+    entityName: React.PropTypes.shape({
+      loaded: React.PropTypes.bool,
+      data: React.PropTypes.arrayOf(
+        React.PropTypes.shape({
+          value: React.PropTypes.string,
+          label: React.PropTypes.string
+        })
+      )
+    })
+  })
 }
 
