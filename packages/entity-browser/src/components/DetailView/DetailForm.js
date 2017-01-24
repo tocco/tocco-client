@@ -33,16 +33,20 @@ export const DetailForm = props => {
           let fieldProps = {}
           if (entityField.type === 'field') {
             fieldProps.type = entityField.value.type
-          } else if (entityField.type === 'entity') {
+          } else if (entityField.type === 'entity' && props.stores[field.name] !== undefined) {
             fieldProps.type = 'single-select'
-            fieldProps.options = {store: [{value: entityField.value.key, label: entityField.value.display}]}
-          } else if (entityField.type === 'entity-list') {
-            fieldProps.type = 'multi-select'
-            const store = entityField.value.map(e => ({value: e.key, label: e.display}))
+            const store = props.stores[field.name].data
             fieldProps.options = {store}
+          } else if (entityField.type === 'entity-list' && props.stores[field.name] !== undefined) {
+            fieldProps.type = 'multi-select'
+            const store = props.stores[field.name].data
+            fieldProps.options = {store}
+          } else {
+            fieldProps.options = {store: []}
           }
 
-          result.push(<Field name={field.name} key={i} label={field.label} component={LabeledField} {...fieldProps}/>)
+          result.push(<div key={i} onFocus={() => props.loadRelationEntities(field.name)}>
+            <Field name={field.name} key={i} label={field.label} component={LabeledField} {...fieldProps}/></div>)
         }
       }
     }
@@ -80,7 +84,9 @@ DetailForm.propTypes = {
   submitting: React.PropTypes.bool,
   submitFailed: React.PropTypes.bool,
   submitSucceeded: React.PropTypes.bool,
-  anyTouched: React.PropTypes.bool
+  anyTouched: React.PropTypes.bool,
+  loadRelationEntities: React.PropTypes.func,
+  stores: React.PropTypes.object
 }
 
 export default reduxForm({

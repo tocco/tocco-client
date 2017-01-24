@@ -6,18 +6,19 @@ import {
 } from 'redux-form'
 
 import {closeEntityDetail} from '../modules/entityBrowser/actions'
-import {submitForm} from '../modules/detailView/actions'
-
+import {submitForm, loadRelationEntities} from '../modules/detailView/actions'
 import DetailView from '../components/DetailView'
 
 const mapActionCreators = {
   closeEntityDetail,
-  submitForm
+  submitForm,
+  loadRelationEntities
 }
 
 const mapStateToProps = (state, props) => ({
   formDefinition: state.detailView.formDefinition,
   entity: state.detailView.entity,
+  stores: state.detailView.stores,
   formSubmitSucceeded: hasSubmitSucceeded('detailForm')(state),
   formSubmitFailed: hasSubmitFailed('detailForm')(state)
 })

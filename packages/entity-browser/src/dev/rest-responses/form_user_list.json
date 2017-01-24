@@ -227,7 +227,7 @@
             "displayType": "EDITABLE",
             "children": [
               {
-                "name": "relUser_code",
+                "name": "relUser_code1",
                 "type": "ch.tocco.nice2.model.form.components.simple.RemoteField",
                 "displayType": "EDITABLE",
                 "children": [],

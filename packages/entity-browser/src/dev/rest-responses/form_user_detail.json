@@ -131,7 +131,7 @@
                 "displayType": "READONLY",
                 "children": [
                   {
-                    "name": "relUser_code",
+                    "name": "relUser_code1",
                     "type": "ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
                     "displayType": "READONLY",
                     "children": [],

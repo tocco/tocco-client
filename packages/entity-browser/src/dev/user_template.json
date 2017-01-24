@@ -153,23 +153,14 @@
         "multiRelations": []
       }
     },
-    "relUser_code": {
+    "relUser_code1": {
       "type": "entity-list",
       "value": [
         {
           "key": "1",
-          "model": "User_status",
+          "model": "User_code1",
           "version": 1,
-          "display": "DR",
-          "fields": {},
-          "singleRelations": [],
-          "multiRelations": []
-        },
-        {
-          "key": "2",
-          "model": "User_status",
-          "version": 1,
-          "display": "Prof",
+          "display": "Präsident",
           "fields": {},
           "singleRelations": [],
           "multiRelations": []
