@@ -23,19 +23,32 @@ ErrorList.propTypes = {
   ).isRequired
 }
 
-const LabeledField = ({input, label, type, options, meta: {touched, error}}) => {
-  const events = _clone(input)
-  delete events.name
-  delete events.value
-  delete events.onChange
+const LabeledField = props => {
+  const {input, label, type, options, meta: {touched, error, submitting}} = props
+
+  const extractEventsFromInput = () => {
+    const events = _clone(input)
+    delete events.name
+    delete events.value
+    delete events.onChange
+    return events
+  }
+
+  const events = extractEventsFromInput()
 
   return (
     <div className="form-group">
       <label className="control-label col-sm-5">{label}:</label>
       <div className="col-sm-7">
         <div className="form-control-static">
-          <ToccoUi.EditableValue value={input.value} onChange={input.onChange} type={type} events={events}
-            options={options}/>
+          <ToccoUi.EditableValue
+            readOnly={submitting}
+            value={input.value}
+            onChange={input.onChange}
+            type={type}
+            events={events}
+            options={options}
+          />
           {touched && error && <ErrorList errors={error}/>}
         </div>
       </div>
