@@ -54,12 +54,14 @@ export function* loadEntity({payload}) {
     let fieldStore
     const key = keys[i]
     const field = entity.paths[key]
-    if (field.type === 'entity') {
-      fieldStore = [{value: field.value.key, label: field.value.display}]
-      yield put(actions.setStore(key, fieldStore))
-    } else if (field.type === 'entity-list') {
-      fieldStore = field.value.map(e => ({value: e.key, label: e.display}))
-      yield put(actions.setStore(key, fieldStore))
+    if (field.value !== undefined) {
+      if (field.type === 'entity') {
+        fieldStore = [{value: field.value.key, label: field.value.display}]
+        yield put(actions.setStore(key, fieldStore))
+      } else if (field.type === 'entity-list') {
+        fieldStore = field.value.map(e => ({value: e.key, label: e.display}))
+        yield put(actions.setStore(key, fieldStore))
+      }
     }
   }
 
