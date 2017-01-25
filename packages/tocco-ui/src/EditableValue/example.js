@@ -6,83 +6,117 @@ class Example extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      readonly: false
+      readOnly: false,
+      values: {
+        string: 'Test String',
+        text: 'Line\nLine2',
+        singleSelect: 2,
+        multiSelect: ['b', 'c'],
+        date: '2015-12-18',
+        datetime: '2017-01-25T15:15:00.000Z'
+      }
     }
   }
 
-  toggleReadOnly() {
-    this.setState({readonly: !this.state.readonly})
+  togglereadOnly() {
+    this.setState({
+      ...this.state,
+      readOnly: !this.state.readOnly
+    })
+  }
+
+  changeValue(name, value) {
+    console.log('changeValue', name, value)
+    this.setState({
+      ...this.state,
+      values: {
+        ...this.state.values,
+        [name]: value
+      }
+    })
   }
 
   render() {
     return (
       <div>
-        <input type="checkbox" checked={this.state.readonly} onClick={this.toggleReadOnly.bind(this)}/> readonly
+        <input type="checkbox" checked={this.state.readOnly} onClick={this.togglereadOnly.bind(this)}/> readOnly
         {/* start example */}
         <table className="table table-striped">
           <tbody>
             <tr>
-              <td>String</td>
+              <td>string</td>
               <td>
                 <EditableValue
                   type="string"
-                  value="Test String"
-                  onChange={console.log}
-                  readonly={this.state.readonly}
+                  value={this.state.values.string}
+                  onChange={v => this.changeValue('string', v)}
+                  readOnly={this.state.readOnly}
               />
               </td>
             </tr>
             <tr>
-              <td>Single-Select</td>
+              <td>text</td>
+              <td>
+                <EditableValue
+                  type="text"
+                  value={this.state.values.text}
+                  onChange={v => this.changeValue('text', v)}
+                  readOnly={this.state.readOnly}
+              />
+              </td>
+            </tr>
+            <tr>
+              <td>single-select</td>
               <td>
                 <EditableValue
                   type="single-select"
-                  value="1"
                   options={{
                     store: [
-                    {value: '1', label: 'One'},
-                    {value: '2', label: 'Two'},
-                    {value: '3', label: 'Three'}
+                    {value: 1, label: 'One'},
+                    {value: 2, label: 'Two'},
+                    {value: 3, label: 'Three'}
                     ]
                   }}
-                  onChange={console.log}
-                  readonly={this.state.readonly}
+                  value={this.state.values.singleSelect}
+                  onChange={v => this.changeValue('singleSelect', v)}
+                  readOnly={this.state.readOnly}
               />
               </td>
             </tr>
             <tr>
-              <td>Multi-Select</td>
+              <td>multi-select</td>
               <td>
                 <EditableValue
                   type="multi-select"
-                  value={[2, 4]}
-                  onChange={console.log}
+                  value={this.state.values.multiSelect}
+                  onChange={v => this.changeValue('multiSelect', v)}
                   options={{
-                    store: [{value: 2, label: 'Two'}, {value: 3, label: 'Three'}, {value: 4, label: 'Four'}]
+                    store: [{value: 'a', label: 'One'}, {value: 'b', label: 'Two'},
+                    {value: 'c', label: 'Three'}, {value: 'd', label: 'Four'}]
                   }}
-                  readonly={this.state.readonly}
+                  readOnly={this.state.readOnly}
               />
               </td>
             </tr>
             <tr>
-              <td>Date</td>
+              <td>date</td>
               <td>
                 <EditableValue
                   type="date"
-                  value="2015-12-18"
-                  onChange={console.log}
-                  readonly={this.state.readonly}
+                  value={this.state.values.date}
+                  onChange={v => this.changeValue('date', v)}
+                  readOnly={this.state.readOnly}
               />
               </td>
             </tr>
             <tr>
-              <td>Date Time</td>
+              <td>datetime</td>
               <td>
                 <EditableValue
                   type="datetime"
-                  value="2017-01-25T15:15:00.000Z"
-                  onChange={console.log}
-                  readonly={this.state.readonly}
+                  value={this.state.values.datetime}
+                  onChange={v => this.changeValue('datetime', v)}
+                  readOnly={this.state.readOnly}
               />
               </td>
             </tr>

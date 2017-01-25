@@ -44,6 +44,7 @@ class DateAbstract extends React.Component {
   }
 
   handleOnChange(selectedDates, dateStr) {
+    console.log('selectedDates', selectedDates, dateStr)
     this.props.onChange(dateStr)
   }
 
@@ -52,13 +53,13 @@ class DateAbstract extends React.Component {
   }
 
   toggle() {
-    if (!this.props.readonly) {
+    if (!this.props.readOnly) {
       this.flatpickr.toggle()
     }
   }
 
   render() {
-    const spanClass = this.props.readonly ? 'disabled' : ''
+    const spanClass = this.props.readOnly ? 'disabled' : ''
     return (
       <span
         className={'input-group date-edit ' + spanClass}
@@ -84,7 +85,7 @@ DateAbstract.propTypes = {
   onChange: React.PropTypes.func,
   value: React.PropTypes.string,
   options: React.PropTypes.object,
-  readonly: React.PropTypes.bool
+  readOnly: React.PropTypes.bool
 }
 
 export default injectIntl(DateAbstract)

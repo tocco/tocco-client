@@ -17,7 +17,7 @@ const EditableValue = props => {
           props.options,
           props.id,
           props.events,
-          props.readonly
+          props.readOnly
         )
       }
     </span>
@@ -54,7 +54,7 @@ EditableValue.propTypes = {
   /**
    * Determines if value is editable
    */
-  readonly: React.PropTypes.bool
+  readOnly: React.PropTypes.bool
 }
 
 export default EditableValue
