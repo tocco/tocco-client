@@ -104,7 +104,7 @@ describe('tocco-ui', function() {
       const wrapper = shallow(<SearchBox
         onSearch={searchFunc}
         liveSearch
-        debounce={10}
+        debounce={100}
       />)
 
       wrapper.setState({'inputValue': SEARCH_STRING})
@@ -114,8 +114,12 @@ describe('tocco-ui', function() {
 
       setTimeout(() => {
         expect(searchFunc).to.not.have.been.called
+      }, 10)
+
+      setTimeout(() => {
+        expect(searchFunc).to.have.been.called
         done()
-      }, 15)
+      }, 200)
     })
 
     it('should update the input value', () => {
