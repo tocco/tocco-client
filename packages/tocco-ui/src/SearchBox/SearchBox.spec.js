@@ -115,7 +115,7 @@ describe('tocco-ui', function() {
       setTimeout(() => {
         expect(searchFunc).to.not.have.been.called
         done()
-      }, 5)
+      }, 15)
     })
 
     it('should update the input value', () => {
