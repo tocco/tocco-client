@@ -18,6 +18,7 @@ const StringEdit = props => {
       onChange={handleChange}
       id={props.id}
       {...props.events}
+      readOnly={props.readonly}
     />
   )
 }
@@ -27,7 +28,8 @@ StringEdit.propTypes = {
   value: React.PropTypes.node,
   name: React.PropTypes.string,
   id: React.PropTypes.string,
-  events: React.PropTypes.objectOf(React.PropTypes.func)
+  events: React.PropTypes.objectOf(React.PropTypes.func),
+  readonly: React.PropTypes.bool
 }
 
 export default StringEdit

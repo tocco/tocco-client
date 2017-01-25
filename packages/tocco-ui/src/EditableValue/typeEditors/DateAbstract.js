@@ -21,6 +21,7 @@ class DateAbstract extends React.Component {
       wrap: true,
       altInput: true,
       onChange: this.handleOnChange.bind(this),
+      clickOpens: false,
       ...this.props.options
     }
 
@@ -50,18 +51,27 @@ class DateAbstract extends React.Component {
     this.wrapper = ref
   }
 
-  render() {
-    return (
-      <span className="input-group" data-wrap="true" ref={this.refMapper.bind(this)}>
+  toggle() {
+    if (!this.props.readonly) {
+      this.flatpickr.toggle()
+    }
+  }
 
+  render() {
+    const spanClass = this.props.readonly ? 'disabled' : ''
+    return (
+      <span
+        className={'input-group date-edit ' + spanClass}
+        onClick={this.toggle.bind(this)}
+        ref={this.refMapper.bind(this)}
+        data-wrap
+      >
         <input
           placeholder="Pick date"
           defaultValue={this.props.value}
-          className="form-control date-edit"
           data-input
-          data-open
         />
-        <span className="input-group-addon" data-toggle>
+        <span className="input-group-addon">
           <span className="glyphicon glyphicon-calendar"/>
         </span>
       </span>
@@ -73,7 +83,8 @@ DateAbstract.propTypes = {
   intl: intlShape.isRequired,
   onChange: React.PropTypes.func,
   value: React.PropTypes.string,
-  options: React.PropTypes.object
+  options: React.PropTypes.object,
+  readonly: React.PropTypes.bool
 }
 
 export default injectIntl(DateAbstract)

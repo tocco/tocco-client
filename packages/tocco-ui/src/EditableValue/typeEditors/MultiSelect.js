@@ -20,6 +20,7 @@ const MultiSelect = props => {
       value={props.value}
       onChange={handleChange}
       options={props.options.store}
+      disabled={props.readonly}
     />
   )
 }
@@ -33,7 +34,8 @@ MultiSelect.propTypes = {
         value: React.PropTypes.any,
         label: React.PropTypes.string
       }))
-  })
+  }),
+  readonly: React.PropTypes.bool
 }
 
 export default MultiSelect

@@ -15,6 +15,7 @@ const SingleSelect = props => {
       value={props.value}
       onChange={onChange}
       options={props.options.store}
+      disabled={props.readonly}
     />
   )
 }
@@ -28,7 +29,8 @@ SingleSelect.propTypes = {
         value: React.PropTypes.any,
         label: React.PropTypes.string
       }))
-  })
+  }),
+  readonly: React.PropTypes.bool
 }
 
 export default SingleSelect
