@@ -13,9 +13,11 @@ import {
 import {fetchEntity, updateEntity} from '../../util/api/entities'
 import {fetchForm, getFieldsOfDetailForm} from '../../util/api/forms'
 
-import {formValuesToEntity, entityToFormValues, submitValidate} from '../../util/reduxForms'
+import {formValuesToEntity, entityToFormValues, submitValidate, getDirtyFields} from '../../util/reduxForms'
 
 export const detailViewSelector = state => state.detailView
+export const formInitialValueSelector = formId =>
+  state => state.form[formId].initial
 
 export default function* sagas() {
   yield [
@@ -49,10 +51,12 @@ export function* loadEntity({payload}) {
 export function* submitForm() {
   const formId = 'detailForm'
   const values = yield select(getFormValues(formId))
+  const initialValues = yield select(formInitialValueSelector(formId))
   yield put(startSubmit(formId))
   try {
     yield call(submitValidate, values)
-    const entity = yield call(formValuesToEntity, values)
+    const dirtyFields = yield call(getDirtyFields, initialValues, values)
+    const entity = yield call(formValuesToEntity, values, dirtyFields)
     const updatedEntity = yield call(updateEntity, entity)
 
     const updatedFormValues = yield call(entityToFormValues, updatedEntity)

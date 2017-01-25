@@ -5,10 +5,10 @@ const allEntities = createUsers(1003)
 export const createValidateResponse = (url, opts) => {
   console.log('fetchMock: called validate entity', url)
   const fields = {}
-  const entity = opts.body
+  const entity = JSON.parse(opts.body)
   const requiredFields = ['firstname', 'lastname']
   requiredFields.forEach(requiredField => {
-    if (!entity.paths[requiredField].value.value) {
+    if (!entity.paths[requiredField]) {
       fields[requiredField] = {required: 'Required!', some: 'Another error'}
     }
   })
