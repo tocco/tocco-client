@@ -10,12 +10,13 @@ import {
   initialize as initializeForm
 } from 'redux-form'
 
-import {fetchEntity, updateEntity, fetchEntities, fetchModel} from '../../util/api/entities'
+import {fetchEntity, updateEntity, fetchEntities} from '../../util/api/entities'
 import {fetchForm, getFieldsOfDetailForm} from '../../util/api/forms'
 
 import {formValuesToEntity, entityToFormValues, submitValidate} from '../../util/reduxForms'
 
 export const detailViewSelector = state => state.detailView
+export const entityBrowserSelector = state => state.entityBrowser
 
 export default function* sagas() {
   yield [
@@ -28,11 +29,7 @@ export default function* sagas() {
 
 export function* initialize({payload}) {
   const {entityName, formBase} = payload
-
   yield put(actions.setEntityName(entityName))
-  const entityModel = yield call(fetchModel, entityName)
-  yield put(actions.setEntityModel(entityModel))
-
   const detailFormDefinition = yield call(fetchForm, formBase + '_detail')
   yield put(actions.setFormDefinition(detailFormDefinition))
 }
@@ -95,8 +92,8 @@ export function* submitForm() {
 
 export function* loadRelationEntities({payload}) {
   const {entityName} = payload
-  const detailView = yield select(detailViewSelector)
-  const {selectBoxStores, entityModel} = detailView
+  const {selectBoxStores} = yield select(detailViewSelector)
+  const {entityModel} = yield select(entityBrowserSelector)
   const model = entityModel[entityName]
   if (model.type === 'relation' && (selectBoxStores[entityName] === undefined || !selectBoxStores[entityName].loaded)) {
     const modelName = model.targetEntity

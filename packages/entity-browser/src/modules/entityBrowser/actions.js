@@ -7,6 +7,8 @@ export const SET_FORM_BASE = 'SET_FORM_BASE'
 export const SHOW_ENTITY_DETAIL = 'SHOW_ENTITY_DETAIL'
 export const CLOSE_ENTITY_DETAIL = 'CLOSE_ENTITY_DETAIL'
 
+export const SET_ENTITY_MODEL = 'entityBrowser/SET_ENTITY_MODEL'
+
 export const initialized = () => ({
   type: INITIALIZED
 })
@@ -40,5 +42,12 @@ export const closeEntityDetail = () => ({
   type: SHOW_ENTITY_DETAIL,
   payload: {
     entityId: undefined
+  }
+})
+
+export const setEntityModel = entityModel => ({
+  type: SET_ENTITY_MODEL,
+  payload: {
+    entityModel
   }
 })

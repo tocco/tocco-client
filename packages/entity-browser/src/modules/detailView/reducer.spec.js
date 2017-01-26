@@ -5,8 +5,7 @@ const EXPECTED_INITIAL_STATE = {
   entityName: '',
   formDefinition: [],
   entity: {},
-  selectBoxStores: {},
-  entityModel: {}
+  selectBoxStores: {}
 }
 
 describe('entity-browser', () => {
