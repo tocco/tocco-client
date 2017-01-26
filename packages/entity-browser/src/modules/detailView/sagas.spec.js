@@ -125,6 +125,7 @@ describe('entity-browser', () => {
               selectBoxStores: {},
               entityModel: {
                 relUser: {
+                  type: 'relation',
                   targetEntity: 'User'
                 }
               }
@@ -138,13 +139,40 @@ describe('entity-browser', () => {
             expect(gen.next().done).to.be.true
           })
 
-          it('should not load the store', () => {
+          it('should not load the store because loaded is set', () => {
             const relationEntityName = 'relUser'
             const detailView = {
+              entityModel: {
+                relUser: {
+                  type: 'relation'
+                }
+              },
               selectBoxStores: {
                 relUser: {
                   data: [],
                   loaded: true
+                }
+              }
+            }
+
+            const gen = sagas.loadRelationEntities(actions.loadRelationEntities(relationEntityName))
+            expect(gen.next().value).to.eql(select(sagas.detailViewSelector))
+            gen.next(detailView).value
+            expect(gen.next().done).to.be.true
+          })
+
+          it('should not load the store because type is not equal `relation`', () => {
+            const relationEntityName = 'relUser'
+            const detailView = {
+              entityModel: {
+                relUser: {
+                  type: 'NOT_RELATION'
+                }
+              },
+              selectBoxStores: {
+                relUser: {
+                  data: [],
+                  loaded: false
                 }
               }
             }

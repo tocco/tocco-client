@@ -51,18 +51,20 @@ export function* loadEntity({payload}) {
   // initialize store for fields of the types `entity` and `entity-list`
   const keys = Object.keys(entity.paths)
   for (let i = 0; i < keys.length; i++) {
-    let fieldStore
+    let fieldStore = []
     const key = keys[i]
     const field = entity.paths[key]
-    if (field.value !== undefined) {
-      if (field.type === 'entity') {
+    if (field.type === 'entity') {
+      if (field.value != null) {
         fieldStore = [{value: field.value.key, label: field.value.display}]
-        yield put(actions.setStore(key, fieldStore))
-      } else if (field.type === 'entity-list') {
+      }
+    } else if (field.type === 'entity-list') {
+      if (field.value != null && field.value.length > 0) {
         fieldStore = field.value.map(e => ({value: e.key, label: e.display}))
-        yield put(actions.setStore(key, fieldStore))
       }
     }
+
+    yield put(actions.setStore(key, fieldStore))
   }
 
   yield put(initializeForm('detailForm', formValues))
@@ -95,8 +97,9 @@ export function* loadRelationEntities({payload}) {
   const {entityName} = payload
   const detailView = yield select(detailViewSelector)
   const {selectBoxStores, entityModel} = detailView
-  if (selectBoxStores[entityName] === undefined || !selectBoxStores[entityName].loaded) {
-    const modelName = entityModel[entityName].targetEntity
+  const model = entityModel[entityName]
+  if (model.type === 'relation' && (selectBoxStores[entityName] === undefined || !selectBoxStores[entityName].loaded)) {
+    const modelName = model.targetEntity
     const entities = yield call(fetchEntities, modelName)
     const fieldStore = entities.data.map(e => ({label: e.display, value: e.key}))
     yield put(actions.setStore(entityName, fieldStore))
