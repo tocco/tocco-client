@@ -13,7 +13,8 @@ class Example extends React.Component {
         singleSelect: 2,
         multiSelect: ['b', 'c'],
         date: '2015-12-18',
-        datetime: '2017-01-25T15:15:00.000Z'
+        datetime: '2017-01-25T15:15:00.000Z',
+        boolean: false
       }
     }
   }
@@ -63,6 +64,17 @@ class Example extends React.Component {
                   onChange={v => this.changeValue('text', v)}
                   readOnly={this.state.readOnly}
               />
+              </td>
+            </tr>
+            <tr>
+              <td>boolean</td>
+              <td>
+                <EditableValue
+                  type="boolean"
+                  value={this.state.values.boolean}
+                  onChange={v => this.changeValue('boolean', v)}
+                  readOnly={this.state.readOnly}
+                />
               </td>
             </tr>
             <tr>
