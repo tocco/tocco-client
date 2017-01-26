@@ -6,6 +6,7 @@ import StringEdit from './typeEditors/StringEdit'
 import TextEdit from './typeEditors/TextEdit'
 import DateEdit from './typeEditors/DateEdit'
 import DateTimeEdit from './typeEditors/DateTimeEdit'
+import BoolEdit from './typeEditors/BoolEdit'
 
 export const map = {
   'string': StringEdit,
@@ -16,7 +17,7 @@ export const map = {
   'count': StringEdit,
   'phone': StringEdit,
   'url': StringEdit,
-  'boolean': StringEdit,
+  'boolean': BoolEdit,
   'email': StringEdit,
   'counter': StringEdit,
   'text': TextEdit,
