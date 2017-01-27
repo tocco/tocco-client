@@ -16,7 +16,7 @@ export const DetailForm = props => {
     for (let i = 0; i < children.length; i++) {
       const field = children[i]
 
-      if (children[i].type.indexOf(layoutType) === 0) {
+      if (field.type.indexOf(layoutType) === 0) {
         const layoutComponent = field.type.substr(layoutType.length, field.type.length)
         if (layoutComponent === 'HorizontalBox' || layoutComponent === 'VerticalBox') {
           const alignment = layoutComponent === 'HorizontalBox' ? 'horizontal' : 'vertical'
@@ -29,21 +29,18 @@ export const DetailForm = props => {
         }
       } else {
         const entityField = props.entity.paths[field.name]
-        if (entityField && entityField.value != null) {
-          let fieldProps = {}
-          if (entityField.type === 'field') {
-            fieldProps.type = entityField.value.type
-          } else if (entityField.type === 'entity') {
-            fieldProps.type = 'single-select'
-            fieldProps.options = {store: [{value: entityField.value.key, label: entityField.value.display}]}
-          } else if (entityField.type === 'entity-list') {
-            fieldProps.type = 'multi-select'
-            const store = entityField.value.map(e => ({value: e.key, label: e.display}))
-            fieldProps.options = {store}
-          }
-
-          result.push(<Field name={field.name} key={i} label={field.label} component={LabeledField} {...fieldProps}/>)
+        const selectTypes = ['entity', 'entity-list']
+        let fieldProps = {}
+        if (entityField.type === 'field') {
+          fieldProps.type = entityField.value.type
+        } else if (selectTypes.includes(entityField.type) && props.selectBoxStores[field.name] !== undefined) {
+          fieldProps.type = entityField.type === 'entity' ? 'single-select' : 'multi-select'
+          const store = props.selectBoxStores[field.name].data
+          fieldProps.options = {store}
         }
+
+        result.push(<div key={i} onFocus={() => props.loadRelationEntities(field.name)}>
+          <Field name={field.name} key={i} label={field.label} component={LabeledField} {...fieldProps}/></div>)
       }
     }
 
@@ -80,7 +77,19 @@ DetailForm.propTypes = {
   submitting: React.PropTypes.bool,
   submitFailed: React.PropTypes.bool,
   submitSucceeded: React.PropTypes.bool,
-  anyTouched: React.PropTypes.bool
+  anyTouched: React.PropTypes.bool,
+  loadRelationEntities: React.PropTypes.func,
+  selectBoxStores: React.PropTypes.shape({
+    entityName: React.PropTypes.shape({
+      loaded: React.PropTypes.bool,
+      data: React.PropTypes.arrayOf(
+        React.PropTypes.shape({
+          value: React.PropTypes.string,
+          label: React.PropTypes.string
+        })
+      )
+    })
+  })
 }
 
 export default reduxForm({

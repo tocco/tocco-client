@@ -1,9 +1,10 @@
 import {takeLatest} from 'redux-saga'
-import {put, fork, select} from 'redux-saga/effects'
+import {put, fork, select, call} from 'redux-saga/effects'
 import * as actions from './actions'
 import * as listViewActions from '../listView/actions'
 import * as detailViewActions from '../detailView/actions'
 import * as searchFormActions from '../searchForm/actions'
+import {fetchModel} from '../../util/api/entities'
 
 export const entityBrowserSelector = state => state.entityBrowser
 
@@ -17,6 +18,9 @@ export default function* sagas() {
 export function* initialize() {
   const entityBrowser = yield select(entityBrowserSelector)
   let {entityName, formBase} = entityBrowser
+
+  const entityModel = yield call(fetchModel, entityName)
+  yield put(actions.setEntityModel(entityModel))
 
   if (formBase === '') {
     formBase = entityName
