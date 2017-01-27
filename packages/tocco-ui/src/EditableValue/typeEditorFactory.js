@@ -1,19 +1,36 @@
 import React from 'react'
 
+import SingleSelect from './typeEditors/SingleSelect'
 import MultiSelect from './typeEditors/MultiSelect'
 import StringEdit from './typeEditors/StringEdit'
+import TextEdit from './typeEditors/TextEdit'
+import DateEdit from './typeEditors/DateEdit'
+import DateTimeEdit from './typeEditors/DateTimeEdit'
+import BoolEdit from './typeEditors/BoolEdit'
 
 export const map = {
   'string': StringEdit,
-  'multi-select': MultiSelect
+  'number': StringEdit,
+  'date': DateEdit,
+  'birthdate': DateEdit,
+  'datetime': DateTimeEdit,
+  'count': StringEdit,
+  'phone': StringEdit,
+  'url': StringEdit,
+  'boolean': BoolEdit,
+  'email': StringEdit,
+  'counter': StringEdit,
+  'text': TextEdit,
+  'multi-select': MultiSelect,
+  'single-select': SingleSelect
 }
 
-export default (type, value, onChange, options, id) => {
+export default (type, value, onChange, options, id, events, readOnly = false) => {
   if (map[type]) {
-    return React.createElement(map[type], {value, onChange, options, id})
+    return React.createElement(map[type], {value, onChange, options, id, events, readOnly})
   }
 
-  console.error('No type-editor defined for type', type)
+  console.info('No type-editor defined for type', type)
   return null
 }
 

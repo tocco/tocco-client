@@ -15,7 +15,7 @@ describe('tocco-ui', function() {
       const recordsAmount = 100
       const records = []
       for (let i = 0; i < recordsAmount; i++) {
-        records.push({a: {value: i.toString()}})
+        records.push({values: {a: {value: i.toString()}}})
       }
 
       const wrapper = shallow(
@@ -26,11 +26,9 @@ describe('tocco-ui', function() {
 
     it('should show a label if provided and default value if not', () => {
       const records = [
-        {
-          a: {value: 'a1'},
-          b: {value: 'b1'},
-          c: {value: 'c1'}
-        }
+        {values: {a: {value: 'a1'}}},
+        {values: {b: {value: 'b1'}}},
+        {values: {c: {value: 'c1'}}}
       ]
 
       const columnDefinitions = [
@@ -55,19 +53,25 @@ describe('tocco-ui', function() {
     it('should render the right amount of columns and order them ', () => {
       const records = [
         {
-          a: {value: 'a1'},
-          b: {value: 'b1'},
-          c: {value: 'c1'}
+          values: {
+            a: {value: 'a1'},
+            b: {value: 'b1'},
+            c: {value: 'c1'}
+          }
         },
         {
-          a: {value: 'a2'},
-          b: {value: 'b2'},
-          c: {value: 'c2'}
+          values: {
+            a: {value: 'a2'},
+            b: {value: 'b2'},
+            c: {value: 'c2'}
+          }
         },
         {
-          a: {value: 'a3'},
-          b: {value: 'b3'},
-          c: {value: 'c3'}
+          values: {
+            a: {value: 'a3'},
+            b: {value: 'b3'},
+            c: {value: 'c3'}
+          }
         }
       ]
 
@@ -107,7 +111,7 @@ describe('tocco-ui', function() {
     })
 
     it('should join multiple cell values', () => {
-      const record = {a: {value: 'a'}, b: {value: 'b'}}
+      const record = {values: {a: {value: 'a'}, b: {value: 'b'}}}
 
       const wrapper = shallow(
         <Table records={[record]} columnDefinitions={[{value: ['a', 'b']}]}/>
@@ -117,7 +121,7 @@ describe('tocco-ui', function() {
     })
 
     it('should ignore unknown column', () => {
-      const record = {a: {value: 'a'}}
+      const record = {values: {a: {value: 'a'}}}
 
       const wrapper = shallow(
         <Table records={[record]} columnDefinitions={[{value: 'unknown'}]}/>
@@ -134,7 +138,7 @@ describe('tocco-ui', function() {
     })
 
     it('should add a order-by-change click handler', () => {
-      const record = {a: {value: 'a'}, b: {value: 'b'}}
+      const record = {values: {a: {value: 'a'}, b: {value: 'b'}}}
 
       const onClick = sinon.spy()
       const wrapper = shallow(
@@ -162,7 +166,7 @@ describe('tocco-ui', function() {
     })
 
     it('should add a order-by-change click handler with default ordering', () => {
-      const record = {a: {value: 'a'}, b: {value: 'b'}}
+      const record = {values: {a: {value: 'a'}, b: {value: 'b'}}}
       const orderBy = {
         name: 'a',
         direction: 'desc'
@@ -185,7 +189,7 @@ describe('tocco-ui', function() {
     })
 
     it('should add a row click handler', () => {
-      const record = {a: {value: 'a'}}
+      const record = {id: 99, values: {a: {value: 'a'}}}
 
       const onClick = sinon.spy()
       const wrapper = shallow(
@@ -195,11 +199,11 @@ describe('tocco-ui', function() {
       wrapper.find('tr').last().simulate('click')
 
       expect(onClick).to.have.calledOnce
-      expect(onClick).to.have.been.calledWith(record)
+      expect(onClick).to.have.been.calledWith(99, record)
     })
 
     it('should use the cell renderer', () => {
-      const record = {a: {value: 'a'}, b: {value: 'b'}}
+      const record = {values: {a: {value: 'a'}, b: {value: 'b'}}}
 
       const cellRenderer = sinon.spy()
       shallow(
@@ -207,8 +211,8 @@ describe('tocco-ui', function() {
       )
 
       expect(cellRenderer).to.have.calledTwice
-      expect(cellRenderer).to.have.been.calledWith([record.a], record)
-      expect(cellRenderer).to.have.been.calledWith([record.b], record)
+      expect(cellRenderer).to.have.been.calledWith([record.values.a], record)
+      expect(cellRenderer).to.have.been.calledWith([record.values.b], record)
     })
   })
 })

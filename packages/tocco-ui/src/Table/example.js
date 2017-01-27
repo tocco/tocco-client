@@ -28,31 +28,37 @@ export default () => {
 
   const records = [
     {
-      firstname: {
-        value: 'Homer',
-        type: 'string'
-      },
-      lastname: {
-        value: 'Simpson',
-        type: 'string'
-      },
-      user_nr: {
-        value: 1,
-        type: 'counter'
+      id: 22,
+      values: {
+        firstname: {
+          value: 'Homer',
+          type: 'string'
+        },
+        lastname: {
+          value: 'Simpson',
+          type: 'string'
+        },
+        user_nr: {
+          value: 1,
+          type: 'counter'
+        }
       }
     },
     {
-      firstname: {
-        value: 'Peter',
-        type: 'string'
-      },
-      lastname: {
-        value: 'Griffin',
-        type: 'string'
-      },
-      user_nr: {
-        value: 33,
-        type: 'counter'
+      id: 33,
+      values: {
+        firstname: {
+          value: 'Peter',
+          type: 'string'
+        },
+        lastname: {
+          value: 'Griffin',
+          type: 'string'
+        },
+        user_nr: {
+          value: 33,
+          type: 'counter'
+        }
       }
     }
   ]

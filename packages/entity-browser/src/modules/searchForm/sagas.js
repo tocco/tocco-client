@@ -1,38 +1,39 @@
 import {takeLatest, delay} from 'redux-saga'
 import {call, put, fork, select} from 'redux-saga/effects'
 import * as actions from './actions'
-import * as api from '../../util/api'
+import {fetchForm, searchFormTransformer} from '../../util/api/forms'
+import {fetchModel, combineEntitiesInObject, fetchEntities} from '../../util/api/entities'
 
 export const searchValuesSelector = state => state.searchForm.searchValues
 
 export default function* sagas() {
   yield [
-    fork(takeLatest, actions.SET_FORM, initializeSearchForm),
+    fork(takeLatest, actions.INITIALIZE, initialize),
     fork(takeLatest, actions.SET_SEARCH_INPUT, setSearchTerm),
     fork(takeLatest, actions.RESET, setSearchTerm)
   ]
 }
 
-export function* initializeSearchForm(action) {
-  const {entityName, formName} = action.payload
+export function* initialize({payload}) {
+  const {entityName, formBase} = payload
 
   const [formDefinition, entityModel] = yield [
-    call(api.fetchSearchForm, formName),
-    call(api.fetchModel, entityName)
+    call(fetchForm, formBase + '_search', searchFormTransformer),
+    call(fetchModel, entityName)
   ]
 
   yield put(actions.setEntityModel(entityModel))
   yield put(actions.setFormDefinition(formDefinition))
 
-  const relationEntities = yield formDefinition.filter(searchField =>
-    searchField.type === 'ch.tocco.nice2.model.form.components.simple.MultiSelectBox'
-  ).map(searchField => {
-    const relationName = searchField.name
-    const entityName = entityModel[relationName].targetEntity
-    return call(api.fetchRelationRecords, entityName)
-  })
+  const relationEntities = yield formDefinition.filter(searchField => [
+    'ch.tocco.nice2.model.form.components.simple.MultiSelectBox',
+    'ch.tocco.nice2.model.form.components.simple.SingleSelectBox'].includes(searchField.type)).map(searchField => {
+      const relationName = searchField.name
+      const entityName = entityModel[relationName].targetEntity
+      return call(fetchEntities, entityName)
+    })
 
-  const relationEntitiesTransformed = yield call(api.transformRelationEntitiesResults, relationEntities)
+  const relationEntitiesTransformed = yield call(combineEntitiesInObject, relationEntities)
 
   yield put(actions.setRelationEntities(relationEntitiesTransformed))
 }

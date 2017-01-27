@@ -19,13 +19,17 @@ export const getParameterString = params => {
   return ''
 }
 
-export const fetchRequest = (resource, params) => {
+export const fetchRequest = (resource, params, method = 'GET', body) => {
   const options = {
-    method: 'GET',
+    method,
     headers: new Headers({
       'Content-Type': 'application/json'
     }),
     credentials: 'include'
+  }
+
+  if (body) {
+    options.body = JSON.stringify(body)
   }
 
   const paramString = getParameterString(params)

@@ -3,28 +3,29 @@ import {put, select, call, fork, spawn} from 'redux-saga/effects'
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import rootSaga, * as sagas from './sagas'
-import * as api from '../../util/api'
+import {fetchForm, columnDefinitionTransformer} from '../../util/api/forms'
+import {fetchEntityCount, fetchEntities, entitiesListTransformer} from '../../util/api/entities'
 import _clone from 'lodash/clone'
 
-const generateState = (recordStore = {}, page) => ({
+const generateState = (entityStore = {}, page) => ({
   entityName: '',
   formBase: '',
   orderBy: '',
   limit: '',
-  recordStore,
+  entityStore,
+  columnDefinition: [],
   page
 })
 
 describe('entity-browser', () => {
   describe('modules', () => {
-    describe('entityBrowser', () => {
+    describe('listView', () => {
       describe('sagas', () => {
         describe('rootSaga', () => {
           it('should fork child sagas', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal([
-
-              fork(takeLatest, actions.INITIALIZE_TABLE, sagas.initializeEntityBrowser),
+              fork(takeLatest, actions.INITIALIZE, sagas.initialize),
               fork(takeLatest, actions.CHANGE_PAGE, sagas.changePage),
               fork(takeLatest, searchFormActions.SEARCH_TERM_CHANGE, sagas.resetDataSet),
               fork(takeEvery, actions.SET_ORDER_BY, sagas.resetDataSet),
@@ -36,32 +37,15 @@ describe('entity-browser', () => {
         })
 
         describe('initializeEntityBrowser saga', () => {
-          it('should initialize the entity browser by entity name and set searchform', () => {
-            const entityName = 'User'
-            const state = {...generateState(), entityName}
-
-            const gen = sagas.initializeEntityBrowser()
-            expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
-            expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
-            expect(gen.next(state).value).to.eql(put(searchFormActions.setForm(entityName, entityName + '_search')))
-            expect(gen.next().value).to.eql(call(api.fetchColumnDefinition, entityName + '_list', 'table'))
-            expect(gen.next({}).value).to.eql(put(actions.setColumnDefinition({})))
-            expect(gen.next().value).to.eql(call(sagas.resetDataSet))
-            expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
-            expect(gen.next().done).to.be.true
-          })
-
           it('should initialize the entity browser by form base', () => {
             const formBase = 'Base_form'
             const entityName = 'User'
-            const state = {...generateState(), formBase, entityName}
 
-            const gen = sagas.initializeEntityBrowser()
+            const gen = sagas.initialize({payload: {entityName, formBase}})
 
             expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
-            expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
-            expect(gen.next(state).value).to.eql(put(searchFormActions.setForm(entityName, formBase + '_search')))
-            expect(gen.next().value).to.eql(call(api.fetchColumnDefinition, formBase + '_list', 'table'))
+            expect(gen.next().value).to.eql(put(actions.setEntityName(entityName)))
+            expect(gen.next().value).to.eql(call(fetchForm, formBase + '_list', columnDefinitionTransformer))
             expect(gen.next({}).value).to.eql(put(actions.setColumnDefinition({})))
             expect(gen.next().value).to.eql(call(sagas.resetDataSet))
             expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
@@ -70,103 +54,103 @@ describe('entity-browser', () => {
         })
 
         describe('changePage saga', () => {
-          it('should set currentPage and requestRecords', () => {
+          it('should set currentPage and requestEntities', () => {
             const page = 1
             const gen = sagas.changePage({payload: {page: page}})
             expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
             expect(gen.next().value).to.eql(put(actions.setCurrentPage(page)))
-            expect(gen.next().value).to.eql(call(sagas.requestRecords, page))
+            expect(gen.next().value).to.eql(call(sagas.requestEntities, page))
             expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
             expect(gen.next().done).to.be.true
           })
         })
 
-        describe('fetchRecordsAndAddToStore saga', () => {
-          it('should not add records to store', () => {
-            const gen = sagas.fetchRecordsAndAddToStore(1)
+        describe('fetchEntitiesAndAddToStore saga', () => {
+          it('should not add entities to store', () => {
+            const gen = sagas.fetchEntitiesAndAddToStore(1)
 
             const state = generateState({1: true})
 
-            expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
+            expect(gen.next().value).to.eql(select(sagas.listViewSelector))
             expect(gen.next(state).done).to.be.true
           })
 
-          it('should add records to store', () => {
+          it('should add entities to store', () => {
             const state = generateState({}, 1)
             const searchInputs = {}
-            const records = []
+            const entities = []
             const {entityName, page, orderBy, limit, columnDefinition} = state
 
-            const gen = sagas.fetchRecordsAndAddToStore(1)
-            expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
+            const gen = sagas.fetchEntitiesAndAddToStore(1)
+            expect(gen.next().value).to.eql(select(sagas.listViewSelector))
             expect(gen.next(state).value).to.eql(call(sagas.getSearchInputs))
             expect(gen.next(searchInputs).value).to.eql(call(
-              api.fetchRecords, entityName, page, orderBy, limit, columnDefinition, searchInputs
+              fetchEntities, entityName, page, orderBy, limit, columnDefinition, searchInputs, entitiesListTransformer
             ))
-            expect(gen.next(records).value).to.eql(put(actions.addRecordsToStore(page, records)))
+            expect(gen.next(entities).value).to.eql(put(actions.addEntitiesToStore(page, entities)))
             expect(gen.next().done).to.be.true
           })
         })
 
-        describe('requestRecords saga', () => {
-          it('should request records', () => {
+        describe('requestEntities saga', () => {
+          it('should request entities', () => {
             const page = 1
-            const gen = sagas.requestRecords(page)
+            const gen = sagas.requestEntities(page)
 
             const state = generateState({}, page)
             state.limit = 50
-            state.recordCount = 1000
+            state.entityCount = 1000
 
-            expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
-            expect(gen.next(state).value).to.eql(call(sagas.fetchRecordsAndAddToStore, page))
-            expect(gen.next().value).to.eql(call(sagas.displayRecord, page))
-            expect(gen.next().value).to.eql(spawn(sagas.fetchRecordsAndAddToStore, page + 1))
+            expect(gen.next().value).to.eql(select(sagas.listViewSelector))
+            expect(gen.next(state).value).to.eql(call(sagas.fetchEntitiesAndAddToStore, page))
+            expect(gen.next().value).to.eql(call(sagas.displayEntity, page))
+            expect(gen.next().value).to.eql(spawn(sagas.fetchEntitiesAndAddToStore, page + 1))
             expect(gen.next().done).to.be.true
           })
 
           it('should not cache if at end', () => {
             const page = 1
-            const gen = sagas.requestRecords(page)
+            const gen = sagas.requestEntities(page)
 
             const state = generateState({}, page)
             state.limit = 50
-            state.recordCount = 49
+            state.entityCount = 49
 
-            expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
-            expect(gen.next(state).value).to.eql(call(sagas.fetchRecordsAndAddToStore, page))
-            expect(gen.next().value).to.eql(call(sagas.displayRecord, page))
+            expect(gen.next().value).to.eql(select(sagas.listViewSelector))
+            expect(gen.next(state).value).to.eql(call(sagas.fetchEntitiesAndAddToStore, page))
+            expect(gen.next().value).to.eql(call(sagas.displayEntity, page))
 
             expect(gen.next().done).to.be.true
           })
         })
 
-        describe('displayRecord saga', () => {
-          it('should display record', () => {
+        describe('displayEntity saga', () => {
+          it('should display entity', () => {
             const page = 1
-            const gen = sagas.displayRecord(page)
-            const records = [{}]
-            const state = generateState({1: records})
-            expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
-            expect(gen.next(state).value).to.eql(put(actions.setRecords(records)))
+            const gen = sagas.displayEntity(page)
+            const entities = [{}]
+            const state = generateState({1: entities})
+            expect(gen.next().value).to.eql(select(sagas.listViewSelector))
+            expect(gen.next(state).value).to.eql(put(actions.setEntities(entities)))
             expect(gen.next().done).to.be.true
           })
         })
 
         describe('resetDataSet saga', () => {
-          it('should clear the record store', () => {
+          it('should clear the entity store', () => {
             const gen = sagas.resetDataSet()
 
             const entityName = 'User'
             const searchInputs = {}
             const state = {...generateState(), entityName: entityName}
-            const recordCount = 100
+            const entityCount = 100
 
             expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
-            expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
+            expect(gen.next().value).to.eql(select(sagas.listViewSelector))
             expect(gen.next(state).value).to.eql(call(sagas.getSearchInputs))
-            expect(gen.next(searchInputs).value).to.eql(call(api.fetchRecordCount, entityName, searchInputs))
-            expect(gen.next(recordCount).value).to.eql(put(actions.setRecordCount(recordCount)))
-            expect(gen.next().value).to.eql(put(actions.clearRecordStore()))
+            expect(gen.next(searchInputs).value).to.eql(call(fetchEntityCount, entityName, searchInputs))
+            expect(gen.next(entityCount).value).to.eql(put(actions.setEntityCount(entityCount)))
+            expect(gen.next().value).to.eql(put(actions.clearEntityStore()))
             expect(gen.next().value).to.eql(call(sagas.changePage, {payload: {page: 1}}))
             expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
             expect(gen.next().done).to.be.true
@@ -177,13 +161,13 @@ describe('entity-browser', () => {
           it('should refresh current page', () => {
             const page = 33
             const gen = sagas.refresh()
-            const records = [{}]
+            const entities = [{}]
             const state = {currentPage: page}
 
             expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
-            expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
-            expect(gen.next(state).value).to.eql(put(actions.clearRecordStore(records)))
-            expect(gen.next(state).value).to.eql(call(sagas.requestRecords, page))
+            expect(gen.next().value).to.eql(select(sagas.listViewSelector))
+            expect(gen.next(state).value).to.eql(put(actions.clearEntityStore(entities)))
+            expect(gen.next(state).value).to.eql(call(sagas.requestEntities, page))
             expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
             expect(gen.next().done).to.be.true
           })

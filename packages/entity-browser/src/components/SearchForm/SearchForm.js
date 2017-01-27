@@ -33,7 +33,6 @@ const SearchForm = props => {
                 relationEntities={props.relationEntities}
                 entityModel={props.entityModel}
                 setSearchInput={props.setSearchInput}
-
               />
             </div>
           </div>

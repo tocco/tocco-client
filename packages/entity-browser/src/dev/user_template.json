@@ -120,17 +120,18 @@
         "writable": true
       }
     },
+    "address": {
+      "type": "field",
+      "value": {
+        "value": "Riedtlistrasse 16\n8006 Zürich",
+        "type": "text",
+        "readable": true,
+        "writable": true
+      }
+    },
     "relUser_status": {
       "type": "entity",
-      "value": {
-        "key": "1",
-        "model": "User_status",
-        "version": 3,
-        "display": "Aktiv",
-        "fields": {},
-        "singleRelations": [],
-        "multiRelations": []
-      }
+      "value": null
     },
     "relGender": {
       "type": "entity",
@@ -144,23 +145,57 @@
         "multiRelations": []
       }
     },
-    "relUser_code": {
+    "relUser_code1": {
       "type": "entity-list",
       "value": [
         {
           "key": "1",
-          "model": "User_status",
+          "model": "User_code1",
           "version": 1,
-          "display": "DR",
+          "display": "Präsident",
+          "fields": {},
+          "singleRelations": [],
+          "multiRelations": []
+        }
+      ]
+    },
+    "relSingle_entity1": {
+      "type": "entity",
+      "value": null
+    },
+    "relSingle_entity2": {
+      "type": "entity",
+      "value": {
+        "key": "2",
+        "model": "Dummy_entity",
+        "version": 1,
+        "display": "Entity Label 2",
+        "fields": {},
+        "singleRelations": [],
+        "multiRelations": []
+      }
+    },
+    "relMulti_entity1": {
+      "type": "entity-list",
+      "value": []
+    },
+    "relMulti_entity2": {
+      "type": "entity-list",
+      "value": [
+        {
+          "key": "1",
+          "model": "Dummy_entity",
+          "version": "1",
+          "display": "Entity Label 1",
           "fields": {},
           "singleRelations": [],
           "multiRelations": []
         },
         {
-          "key": "2",
-          "model": "User_status",
-          "version": 1,
-          "display": "Prof",
+          "key": "3",
+          "model": "Dummy_entity",
+          "version": "1",
+          "display": "Entity Label 3",
           "fields": {},
           "singleRelations": [],
           "multiRelations": []

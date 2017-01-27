@@ -1,16 +1,16 @@
 const getRandomDate = (startYear, endYear) => {
   const start = new Date(startYear, 1, 1)
   const end = new Date(endYear, 1, 1)
-
-  return new Date(+start + Math.random() * (end - start))
+  const date = new Date(+start + Math.random() * (end - start))
+  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
 }
 
 export const createUsers = amount => {
-  const records = []
+  const entities = []
   const userTemplate = require('./user_template.json')
 
   for (let i = 0; i < amount; i++) {
-    records.push({
+    entities.push({
       ...userTemplate,
       key: i,
       paths: {
@@ -60,5 +60,5 @@ export const createUsers = amount => {
       }
     })
   }
-  return records
+  return entities
 }

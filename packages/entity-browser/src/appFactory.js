@@ -5,9 +5,9 @@ import {addLocaleData} from 'react-intl'
 import {IntlProvider} from 'react-intl-redux'
 import {LoadMask} from 'tocco-ui'
 
-import {setEntityName, setLimit, setFormBase} from './modules/entityBrowser/actions'
+import {setEntityName, setFormBase} from './modules/entityBrowser/actions'
+import {setLimit} from './modules/listView/actions'
 
-import SearchFormContainer from './containers/SearchFormContainer'
 import EntityBrowserContainer from './containers/EntityBrowserContainer'
 
 import de from 'react-intl/locale-data/de'
@@ -57,10 +57,7 @@ const factory = (id, input = {}, externalEvents, publicPath, resourcePrefix, red
       <Provider store={store}>
         <LoadMask promises={[initIntlPromise]}>
           <IntlProvider>
-            <div>
-              <SearchFormContainer/>
-              <EntityBrowserContainer/>
-            </div>
+            <EntityBrowserContainer/>
           </IntlProvider>
         </LoadMask>
       </Provider>
@@ -81,10 +78,10 @@ const validateInput = input => {
   const dispatches = []
 
   inputsFields.forEach(f => {
-    if (input[f.name]) {
-      dispatches.push(f.action(input[f.name]))
+    if (input.hasOwnProperty(f.key)) {
+      dispatches.push(f.action(input[f.key]))
     } else if (f.mandatory) {
-      console.error(`EntityBrowser: Mandatory field '${f.name}' not set in input`)
+      console.error(`EntityBrowser: Mandatory field '${f.key}' not set in input`)
     }
   })
   return dispatches
@@ -92,17 +89,17 @@ const validateInput = input => {
 
 const inputsFields = [
   {
-    name: 'entityName',
+    key: 'entityName',
     action: setEntityName,
     mandatory: true
   },
   {
-    name: 'formBase',
+    key: 'formBase',
     action: setFormBase,
     mandatory: false
   },
   {
-    name: 'limit',
+    key: 'limit',
     action: setLimit,
     mandatory: false
   }

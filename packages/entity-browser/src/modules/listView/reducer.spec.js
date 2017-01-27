@@ -4,53 +4,53 @@ import * as actions from './actions'
 const EXPECTED_INITIAL_STATE = {
   entityName: '',
   formBase: '',
-  records: [],
+  entities: [],
   limit: 50,
   currentPage: 1,
   orderBy: {},
   columnDefinition: [],
-  recordCount: 0,
-  recordStore: {},
+  entityCount: 0,
+  entityStore: {},
   inProgress: false
 }
 
 describe('entity-browser', () => {
   describe('modules', () => {
-    describe('entityBrowser', () => {
+    describe('listView', () => {
       describe('reducer', () => {
         it('should create a valid initial state', () => {
           expect(reducer(undefined, {})).to.deep.equal(EXPECTED_INITIAL_STATE)
         })
 
-        it('should handle CLEAR_RECORD_STORE', () => {
+        it('should handle CLEAR_ENTITY_STORE', () => {
           const stateBefore = {
-            recordStore: {
-              records: {
+            entityStore: {
+              entities: {
                 1: [{}]
               }
             }
           }
 
           const expectedStateAfter = {
-            recordStore: {}
+            entityStore: {}
           }
 
-          expect(reducer(stateBefore, actions.clearRecordStore())).to.deep.equal(expectedStateAfter)
+          expect(reducer(stateBefore, actions.clearEntityStore())).to.deep.equal(expectedStateAfter)
         })
 
-        it('should handle ADD_RECORDS_TO_STORE', () => {
-          const existingRecords = {
+        it('should handle ADD_ENTITIES_TO_STORE', () => {
+          const existingEntities = {
             '1': [
               {field: 'value1'},
               {field: 'value2'}
             ]
           }
-          const newRecords = [
+          const newEntities = [
             {field: 'value3'},
             {field: 'value4'}
           ]
 
-          const mergedRecords = {
+          const mergedEntities = {
             '1': [
               {field: 'value1'},
               {field: 'value2'}
@@ -62,14 +62,14 @@ describe('entity-browser', () => {
           }
 
           const stateBefore = {
-            recordStore: existingRecords
+            entityStore: existingEntities
           }
 
           const expectedStateAfter = {
-            recordStore: mergedRecords
+            entityStore: mergedEntities
           }
 
-          expect(reducer(stateBefore, actions.addRecordsToStore(2, newRecords))).to.deep.equal(expectedStateAfter)
+          expect(reducer(stateBefore, actions.addEntitiesToStore(2, newEntities))).to.deep.equal(expectedStateAfter)
         })
 
         it('should handle SET_ENTITY_NAME', () => {
@@ -84,22 +84,8 @@ describe('entity-browser', () => {
           expect(reducer(stateBefore, actions.setEntityName('EntityAfter'))).to.deep.equal(expectedStateAfter)
         })
 
-        it('should handle SET_FORM_BASE', () => {
-          const formAfter = 'FormAfter'
-
-          const stateBefore = {
-            formBase: 'FormBefore'
-          }
-
-          const expectedStateAfter = {
-            formBase: formAfter
-          }
-
-          expect(reducer(stateBefore, actions.setFormBase(formAfter))).to.deep.equal(expectedStateAfter)
-        })
-
-        it('should handle SET_RECORDS', () => {
-          const newRecords = [
+        it('should handle SET_ENTITIES', () => {
+          const newEntities = [
             {
               lastname: 'Lastname1',
               firstname: 'Firstname1'
@@ -111,7 +97,7 @@ describe('entity-browser', () => {
           ]
 
           const stateBefore = {
-            records: [
+            entities: [
               {
                 lastname: 'LastnameBefore',
                 firstname: 'FirstnameBefore'
@@ -120,10 +106,10 @@ describe('entity-browser', () => {
           }
 
           const expectedStateAfter = {
-            records: newRecords
+            entities: newEntities
           }
 
-          expect(reducer(stateBefore, actions.setRecords(newRecords))).to.deep.equal(expectedStateAfter)
+          expect(reducer(stateBefore, actions.setEntities(newEntities))).to.deep.equal(expectedStateAfter)
         })
 
         it('should handle SET_COLUMN_DEFINITION', () => {
@@ -190,18 +176,18 @@ describe('entity-browser', () => {
           expect(reducer(stateBefore, actions.setOrderBy(newOrderBy))).to.deep.equal(expectedStateAfter)
         })
 
-        it('should handle SET_RECORD_COUNT', () => {
-          const newRecordCount = 100
+        it('should handle SET_ENTITY_COUNT', () => {
+          const newEntityCount = 100
 
           const stateBefore = {
-            recordCount: 50
+            entityCount: 50
           }
 
           const expectedStateAfter = {
-            recordCount: newRecordCount
+            entityCount: newEntityCount
           }
 
-          expect(reducer(stateBefore, actions.setRecordCount(newRecordCount))).to.deep.equal(expectedStateAfter)
+          expect(reducer(stateBefore, actions.setEntityCount(newEntityCount))).to.deep.equal(expectedStateAfter)
         })
 
         it('should handle SET_IN_PROGRESS', () => {
