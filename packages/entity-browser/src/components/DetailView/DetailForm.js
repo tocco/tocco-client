@@ -3,7 +3,6 @@ import LabeledField from './LabeledField'
 import {Field, reduxForm} from 'redux-form'
 import * as ToccoUi from 'tocco-ui'
 import {asyncValidate} from '../../util/reduxForms'
-
 export const DetailForm = props => {
   if (!props.entity.paths) {
     return <div/>
@@ -48,8 +47,14 @@ export const DetailForm = props => {
   }
 
   const handleSubmit = e => {
-    props.submitForm()
     e.preventDefault()
+    if (props.valid) {
+      props.submitForm()
+    } else {
+      if (props.formSyncErrors) {
+        Object.keys(props.formSyncErrors).forEach(f => props.touch(f))
+      }
+    }
   }
 
   return (
@@ -89,7 +94,9 @@ DetailForm.propTypes = {
         })
       )
     })
-  })
+  }),
+  formSyncErrors: React.PropTypes.object,
+  valid: React.PropTypes.bool
 }
 
 export default reduxForm({

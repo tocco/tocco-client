@@ -16,16 +16,16 @@ export function updateEntity(entity) {
 
 export const defaultModelTransformer = json => {
   const model = {}
-  json.fields.forEach(f => {
-    model[f.fieldName] = {
-      type: f.type
+  json.fields.forEach(field => {
+    model[field.fieldName] = {
+      ...field
     }
   })
 
-  json.relations.forEach(r => {
-    model[r.relationName] = {
+  json.relations.forEach(relation => {
+    model[relation.relationName] = {
       type: 'relation',
-      targetEntity: r.targetEntity
+      targetEntity: relation.targetEntity
     }
   })
   return model
