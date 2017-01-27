@@ -20,7 +20,6 @@ export const formInitialValueSelector = formId =>
   state => state.form[formId].initial
 export const entityBrowserSelector = state => state.entityBrowser
 
-
 export default function* sagas() {
   yield [
     fork(takeLatest, actions.INITIALIZE, initialize),
