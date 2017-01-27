@@ -26,6 +26,7 @@
     "publish": "better-npm-run publish",
     "codecov": "cat ./coverage/lcov/lcov.info | codecov",
     "setup": "yarn && cd server/static && yarn",
+    "plop": "babel-node ./node_modules/plop",
     "commitmsg": "babel-node bin/githooks/msg-validation",
     "precommit": "npm run lint"
   },
@@ -168,6 +169,7 @@
     "node-sass": "^4.0.0",
     "nodemon": "^1.11.0",
     "phantomjs-prebuilt": "^2.1.14",
+    "plop": "^1.7.3",
     "postcss-loader": "^1.2.1",
     "react": "^15.4.1",
     "react-addons-test-utils": "^15.4.1",
