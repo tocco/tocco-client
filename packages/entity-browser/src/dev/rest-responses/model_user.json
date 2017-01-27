@@ -1408,6 +1408,26 @@
       "relationName": "relTest_result",
       "targetEntity": "Test_result",
       "multi": true
+    },
+    {
+      "relationName": "relSingle_entity1",
+      "targetEntity": "Dummy_entity",
+      "multi": false
+    },
+    {
+      "relationName": "relSingle_entity2",
+      "targetEntity": "Dummy_entity",
+      "multi": false
+    },
+    {
+      "relationName": "relMulti_entity1",
+      "targetEntity": "Dummy_entity",
+      "multi": true
+    },
+    {
+      "relationName": "relMulti_entity2",
+      "targetEntity": "Dummy_entity",
+      "multi": true
     }
   ]
 }

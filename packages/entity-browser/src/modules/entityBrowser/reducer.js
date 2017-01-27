@@ -10,13 +10,15 @@ const ACTION_HANDLERS = {
   [actions.SET_ENTITY_NAME]: singleTransferReducer('entityName'),
   [actions.SET_FORM_BASE]: singleTransferReducer('formBase'),
   [actions.SHOW_ENTITY_DETAIL]: showEntityDetail,
-  [actions.CLOSE_ENTITY_DETAIL]: showEntityDetail
+  [actions.CLOSE_ENTITY_DETAIL]: showEntityDetail,
+  [actions.SET_ENTITY_MODEL]: singleTransferReducer('entityModel')
 }
 
 const initialState = {
   entityName: '',
   formBase: '',
-  showDetailEntityId: undefined
+  showDetailEntityId: undefined,
+  entityModel: {}
 }
 
 export default function reducer(state = initialState, action) {

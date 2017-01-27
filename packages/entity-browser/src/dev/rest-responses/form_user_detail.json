@@ -66,14 +66,6 @@
                     "useLabel": "YES"
                   },
                   {
-                    "name": "relGender",
-                    "type": "ch.tocco.nice2.model.form.components.simple.SingleSelectBox",
-                    "displayType": "READONLY",
-                    "children": [],
-                    "label": "Geschlecht",
-                    "useLabel": "YES"
-                  },
-                  {
                     "name": "birthdate",
                     "type": "ch.tocco.nice2.model.form.components.simple.BirthDateField",
                     "displayType": "READONLY",
@@ -131,11 +123,35 @@
                 "displayType": "READONLY",
                 "children": [
                   {
-                    "name": "relUser_code",
+                    "name": "relMulti_entity1",
                     "type": "ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
                     "displayType": "READONLY",
                     "children": [],
-                    "label": "Personen-Code",
+                    "label": "Dummy entity (multi) 1",
+                    "useLabel": "YES"
+                  },
+                  {
+                    "name": "relMulti_entity2",
+                    "type": "ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
+                    "displayType": "READONLY",
+                    "children": [],
+                    "label": "Dummy entity (multi) 2",
+                    "useLabel": "YES"
+                  },
+                  {
+                    "name": "relSingle_entity1",
+                    "type": "ch.tocco.nice2.model.form.components.simple.SingleSelectBox",
+                    "displayType": "READONLY",
+                    "children": [],
+                    "label": "Dummy entity (single) 1",
+                    "useLabel": "YES"
+                  },
+                  {
+                    "name": "relSingle_entity2",
+                    "type": "ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
+                    "displayType": "READONLY",
+                    "children": [],
+                    "label": "Dummy entity (single) 2",
                     "useLabel": "YES"
                   },
                   {

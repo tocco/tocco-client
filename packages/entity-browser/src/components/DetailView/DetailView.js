@@ -13,6 +13,8 @@ const DetailView = props => {
         submitForm={props.submitForm}
         formDefinition={props.formDefinition}
         entity={props.entity}
+        loadRelationEntities={props.loadRelationEntities}
+        selectBoxStores={props.selectBoxStores}
       />
     </div>
   )
@@ -26,6 +28,18 @@ DetailView.propTypes = {
   formDefinition: React.PropTypes.shape({
     children: React.PropTypes.array
   }).isRequired,
-  entity: React.PropTypes.object
+  entity: React.PropTypes.object,
+  loadRelationEntities: React.PropTypes.func,
+  selectBoxStores: React.PropTypes.shape({
+    entityName: React.PropTypes.shape({
+      loaded: React.PropTypes.bool,
+      data: React.PropTypes.arrayOf(
+        React.PropTypes.shape({
+          value: React.PropTypes.string,
+          label: React.PropTypes.string
+        })
+      )
+    })
+  })
 }
 

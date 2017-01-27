@@ -13,6 +13,7 @@ describe('entity-browser', () => {
           closeEntityDetail={EMPTY_FUNC}
           entity={{}}
           saveEntity={EMPTY_FUNC}
+          stores={{}}
         />)
 
         expect(wrapper.find('.detail-view')).to.have.length(1)
