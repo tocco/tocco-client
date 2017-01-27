@@ -9,18 +9,17 @@ describe('entity-browser', () => {
         it('should return entity with updated values', () => {
           const values = {
             firstname: 'peter',
-            lastname: 'griffin',
+            gender: '2',
             ___entity: {
+              version: 2,
+              model: 'User',
+              key: 99,
               paths: {
                 firstname: {
-                  value: {
-                    value: 'OldName'
-                  }
+                  type: 'field'
                 },
-                lastname: {
-                  value: {
-                    value: 'Old'
-                  }
+                gender: {
+                  type: 'entity'
                 }
               }
             }
@@ -29,21 +28,45 @@ describe('entity-browser', () => {
           const result = reduxForms.formValuesToEntity(values)
 
           const expectedEntity = {
+            version: 2,
+            model: 'User',
+            key: 99,
             paths: {
-              firstname: {
-                value: {
-                  value: 'peter'
-                }
-              },
-              lastname: {
-                value: {
-                  value: 'griffin'
-                }
-              }
+              firstname: 'peter',
+              gender: {key: '2'}
             }
           }
 
           expect(result).to.eql(expectedEntity)
+        })
+
+        it('should ignore pristine fields', () => {
+          const values = {
+            firstname: 'peter',
+            lastname: 'asdasd',
+            somefield: '',
+            ___entity: {
+              version: 2,
+              model: 'User',
+              key: 99,
+              paths: {
+                firstname: {
+                  type: 'field'
+                },
+                lastname: {
+                  type: 'field'
+                },
+                somefield: {
+                  type: 'field'
+                }
+              }
+            }
+          }
+          const result = reduxForms.formValuesToEntity(values, ['firstname', 'somefield'])
+
+          expect(result.paths).to.include.keys('firstname')
+          expect(result.paths).to.not.include.keys('lastname')
+          expect(result.paths).to.include.keys('somefield')
         })
       })
 
@@ -78,6 +101,29 @@ describe('entity-browser', () => {
           }
 
           expect(result).to.eql(expectedValues)
+        })
+      })
+
+      describe('getDirtyFields', () => {
+        it('should return an array of changed fields', () => {
+          const values = {
+            firstname: 'peter',
+            lastname: 'griffin',
+            bool: true,
+            array1: [1, 2, 3],
+            array2: [1, 2, 3]
+          }
+
+          const initialValues = {
+            firstname: 'martin',
+            lastname: 'griffin',
+            bool: false,
+            array1: [1, 2, 3],
+            array2: [1, 2, 4]
+          }
+          const diryFields = reduxForms.getDirtyFields(initialValues, values)
+
+          expect(diryFields).to.eql(['firstname', 'bool', 'array2'])
         })
       })
 

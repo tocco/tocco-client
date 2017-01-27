@@ -5,10 +5,10 @@ const allEntities = createUsers(1003)
 export const createValidateResponse = (url, opts) => {
   console.log('fetchMock: called validate entity', url)
   const fields = {}
-  const entity = opts.body
+  const entity = JSON.parse(opts.body)
   const requiredFields = ['firstname', 'lastname']
   requiredFields.forEach(requiredField => {
-    if (!entity.paths[requiredField].value.value) {
+    if (!entity.paths[requiredField]) {
       fields[requiredField] = {required: 'Required!', some: 'Another error'}
     }
   })
@@ -54,9 +54,21 @@ export const createEntityResponse = (url, opts) => {
 
 export const createEntityUpdateResponse = (url, opts) => {
   console.log('fetchMock: create/update entity', url, opts)
-  const entity = opts.body
-  allEntities[entity.key] = entity
-  return sleep(2000).then(() => (entity))
+
+  const entity = JSON.parse(opts.body)
+  const oldEntity = allEntities[entity.key]
+
+  const updatedEntity = {
+    ...oldEntity,
+    entity: entity.version + 1
+  }
+
+  Object.keys(entity.paths).forEach(field => {
+    updatedEntity.paths[field].value.value = entity.paths[field]
+  })
+
+  allEntities[entity.key] = updatedEntity
+  return sleep(1000).then(() => (updatedEntity))
 }
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))

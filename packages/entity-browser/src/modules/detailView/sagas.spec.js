@@ -9,7 +9,7 @@ import {
 } from 'redux-form'
 import {fetchEntity, updateEntity, fetchEntities} from '../../util/api/entities'
 import {fetchForm, getFieldsOfDetailForm} from '../../util/api/forms'
-import {formValuesToEntity, entityToFormValues, submitValidate} from '../../util/reduxForms'
+import {formValuesToEntity, entityToFormValues, submitValidate, getDirtyFields} from '../../util/reduxForms'
 
 describe('entity-browser', () => {
   describe('modules', () => {
@@ -97,15 +97,19 @@ describe('entity-browser', () => {
           it('should validate from and reload saved entity', () => {
             const formId = 'detailForm'
             const values = {firstname: 'peter'}
+            const initialValues = {firstname: 'pet'}
+            const dirtyFields = ['firstname']
             const entity = {}
             const updatedFormValues = {}
             const updatedEntity = {}
             const gen = sagas.submitForm()
 
             gen.next().value // not working : expect(gen.next().value).to.eql(select(getFormValues(formId)))
-            expect(gen.next(values).value).to.eql(put(startSubmit(formId)))
+            gen.next(values).value // expect(gen.next().value).to.eql(select(formInitialValueSelector(formId)))
+            expect(gen.next(initialValues).value).to.eql(put(startSubmit(formId)))
             expect(gen.next().value).to.eql(call(submitValidate, values))
-            expect(gen.next().value).to.eql(call(formValuesToEntity, values))
+            expect(gen.next().value).to.eql(call(getDirtyFields, initialValues, values))
+            expect(gen.next(dirtyFields).value).to.eql(call(formValuesToEntity, values, dirtyFields))
             expect(gen.next(entity).value).to.eql(call(updateEntity, entity))
             expect(gen.next(updatedEntity).value).to.eql(call(entityToFormValues, updatedEntity))
             expect(gen.next(updatedFormValues).value).to.eql(put(initializeForm(formId, updatedFormValues)))

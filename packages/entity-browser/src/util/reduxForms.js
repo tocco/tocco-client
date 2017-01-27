@@ -1,17 +1,30 @@
 const wholeEntityField = '___entity'
 import {fetchRequest} from './rest'
 import {SubmissionError} from 'redux-form'
+import _reduce from 'lodash/reduce'
+import _isEqual from 'lodash/isEqual'
 
-export const formValuesToEntity = values => {
+export const formValuesToEntity = (values, dirtyFields) => {
   const entity = values[wholeEntityField]
+  const {model, version, key} = entity
+
+  const result = {model, version, key, paths: {}}
+
+  const ignoreField = fieldName => (fieldName === wholeEntityField || (dirtyFields && !dirtyFields.includes(fieldName)))
 
   Object.keys(values).forEach(key => {
-    if (key !== wholeEntityField) {
-      entity.paths[key].value.value = values[key]
+    if (!ignoreField(key)) {
+      const type = entity.paths[key].type
+      if (type === 'field') {
+        result.paths[key] = values[key]
+      } else if (type === 'entity') {
+        result.paths[key] = {key: values[key]}
+      } else if (type === 'entity-list') {
+        result.paths[key] = {keys: values[key]}
+      }
     }
   })
-
-  return entity
+  return result
 }
 
 export const entityToFormValues = entity => {
@@ -33,6 +46,14 @@ export const entityToFormValues = entity => {
   result[wholeEntityField] = entity
   return result
 }
+
+export const getDirtyFields = (initialValues, values) => (
+  _reduce(
+    initialValues,
+    (result, value, key) => _isEqual(value, values[key]) ? result : result.concat(key),
+    []
+  )
+)
 
 const hasError = errors => (
   errors && Object.keys(errors).length > 0

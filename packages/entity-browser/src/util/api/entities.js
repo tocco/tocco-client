@@ -10,7 +10,7 @@ export function fetchEntity(entityName, id, fields) {
 }
 
 export function updateEntity(entity) {
-  return rest.fetchRequest(`entities/${entity.model}/${entity.key}`, {}, 'PUT', entity)
+  return rest.fetchRequest(`entities/${entity.model}/${entity.key}`, {}, 'PATCH', entity)
     .then(resp => resp.json())
 }
 
