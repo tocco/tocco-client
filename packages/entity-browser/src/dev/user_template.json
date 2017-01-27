@@ -21,6 +21,15 @@
         "writable": true
       }
     },
+    "callname": {
+      "type": "field",
+      "value": {
+        "value": "",
+        "type": "string",
+        "readable": true,
+        "writable": true
+      }
+    },
     "email": {
       "type": "field",
       "value": {
@@ -44,6 +53,15 @@
       "value": {
         "value": "1988-11-22",
         "type": "birthdate",
+        "readable": true,
+        "writable": true
+      }
+    },
+    "date_time": {
+      "type": "field",
+      "value": {
+        "value": "2016-04-01T06:07:00.000Z",
+        "type": "datetime",
         "readable": true,
         "writable": true
       }
@@ -128,36 +146,6 @@
         "readable": true,
         "writable": true
       }
-    },
-    "relUser_status": {
-      "type": "entity",
-      "value": null
-    },
-    "relGender": {
-      "type": "entity",
-      "value": {
-        "key": "1",
-        "model": "Gender",
-        "version": 3,
-        "display": "Männlich",
-        "fields": {},
-        "singleRelations": [],
-        "multiRelations": []
-      }
-    },
-    "relUser_code1": {
-      "type": "entity-list",
-      "value": [
-        {
-          "key": "1",
-          "model": "User_code1",
-          "version": 1,
-          "display": "Präsident",
-          "fields": {},
-          "singleRelations": [],
-          "multiRelations": []
-        }
-      ]
     },
     "relSingle_entity1": {
       "type": "entity",

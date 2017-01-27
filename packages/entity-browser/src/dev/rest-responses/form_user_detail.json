@@ -72,6 +72,13 @@
                     "children": [],
                     "label": "Geburtsdatum",
                     "useLabel": "YES"
+                  },             {
+                    "name": "callname",
+                    "type": "ch.tocco.nice2.model.form.components.simple.TextField",
+                    "displayType": "READONLY",
+                    "children": [],
+                    "label": "Required Callname",
+                    "useLabel": "YES"
                   }
                 ],
                 "label": "Personenangaben",
@@ -111,6 +118,22 @@
                     "displayType": "READONLY",
                     "children": [],
                     "label": "Website",
+                    "useLabel": "YES"
+                  },
+                  {
+                    "name": "date_time",
+                    "type": "ch.tocco.nice2.model.form.components.simple.DateTimeField",
+                    "displayType": "READONLY",
+                    "children": [],
+                    "label": "Date Time",
+                    "useLabel": "YES"
+                  },
+                  {
+                    "name": "publish",
+                    "type": "ch.tocco.nice2.model.form.components.simple.CheckBox",
+                    "displayType": "READONLY",
+                    "children": [],
+                    "label": "Publiziert",
                     "useLabel": "YES"
                   }
                 ],
@@ -152,14 +175,6 @@
                     "displayType": "READONLY",
                     "children": [],
                     "label": "Dummy entity (single) 2",
-                    "useLabel": "YES"
-                  },
-                  {
-                    "name": "publish",
-                    "type": "ch.tocco.nice2.model.form.components.simple.CheckBox",
-                    "displayType": "READONLY",
-                    "children": [],
-                    "label": "Publiziert",
                     "useLabel": "YES"
                   }
                 ],
