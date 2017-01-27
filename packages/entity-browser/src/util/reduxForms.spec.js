@@ -40,7 +40,7 @@ describe('entity-browser', () => {
           expect(result).to.eql(expectedEntity)
         })
 
-        it('should ignore no dirty fields', () => {
+        it('should ignore pristine fields', () => {
           const values = {
             firstname: 'peter',
             lastname: 'asdasd',

@@ -47,11 +47,13 @@ export const entityToFormValues = entity => {
   return result
 }
 
-export const getDirtyFields = (initialValues, values) => {
-  return _reduce(initialValues, function(result, value, key) {
-    return _isEqual(value, values[key]) ? result : result.concat(key)
-  }, [])
-}
+export const getDirtyFields = (initialValues, values) => (
+  _reduce(
+    initialValues,
+    (result, value, key) => _isEqual(value, values[key]) ? result : result.concat(key),
+    []
+  )
+)
 
 const hasError = errors => (
   errors && Object.keys(errors).length > 0
