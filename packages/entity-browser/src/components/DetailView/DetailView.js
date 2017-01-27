@@ -20,6 +20,7 @@ const DetailView = props => {
         selectBoxStores={props.selectBoxStores}
         a={props.syncErrors}
         formSyncErrors={props.formSyncErrors}
+        entityModel={props.entityModel}
       />
     </div>
   )

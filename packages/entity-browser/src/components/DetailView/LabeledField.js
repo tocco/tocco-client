@@ -38,7 +38,7 @@ const LabeledField = props => {
 
   return (
     <div className="form-group">
-      <label className="control-label col-sm-5">{label}:</label>
+      <label className="control-label col-sm-5">{label}:{props.mandatory && '*'}</label>
       <div className="col-sm-7">
         <div className="form-control-static">
           <ToccoUi.EditableValue
@@ -74,7 +74,8 @@ LabeledField.propTypes = {
         value: React.PropTypes.any,
         label: React.PropTypes.string
       }))
-  })
+  }),
+  mandatory: React.PropTypes.bool
 }
 
 export default LabeledField

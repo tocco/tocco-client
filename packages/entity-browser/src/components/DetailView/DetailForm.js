@@ -38,8 +38,23 @@ export const DetailForm = props => {
           fieldProps.options = {store}
         }
 
-        result.push(<div key={i} onFocus={() => props.loadRelationEntities(field.name)}>
-          <Field name={field.name} key={i} label={field.label} component={LabeledField} {...fieldProps}/></div>)
+        const isMandatoryField = fieldName => (
+          props.entityModel[fieldName]
+          && props.entityModel[fieldName].validate
+          && props.entityModel[fieldName].validate.mandatory
+        )
+
+        result.push(
+          <div key={i} onFocus={() => props.loadRelationEntities(field.name)}>
+            <Field
+              name={field.name}
+              key={i}
+              label={field.label}
+              component={LabeledField}
+              mandatory={isMandatoryField(field.name)}
+              {...fieldProps}
+            />
+          </div>)
       }
     }
 
@@ -76,6 +91,7 @@ export const DetailForm = props => {
 }
 
 DetailForm.propTypes = {
+  entityModel: React.PropTypes.object.isRequired,
   submitForm: React.PropTypes.func.isRequired,
   formDefinition: React.PropTypes.object.isRequired,
   entity: React.PropTypes.object.isRequired,
