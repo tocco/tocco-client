@@ -1,4 +1,3 @@
-import fetchMock from 'fetch-mock'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
@@ -10,7 +9,6 @@ import {LoadMask} from 'tocco-ui'
 import MergeWizardContainer from './containers/MergeWizardContainer'
 import dispatchInput from './utils/DispatchInput'
 import reducers, {sagas} from './modules/reducers'
-import setupFetchMock from './dev/fetchMocks'
 
 import de from 'react-intl/locale-data/de'
 import en from 'react-intl/locale-data/en'
@@ -65,7 +63,10 @@ const init = (id, input, externalEvents, publicPath) => {
 }
 
 if (__DEV__) {
-  setupFetchMock(fetchMock)
+  const fetchMock = require('fetch-mock')
+  const setupFetchMocks = require('./dev/fetchMocks')
+
+  setupFetchMocks(fetchMock)
 
   const mountElement = document.getElementById('root')
 

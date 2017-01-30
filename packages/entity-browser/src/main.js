@@ -1,11 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import fetchMock from 'fetch-mock'
 
 import appFactory from './appFactory'
-import setupFetchMocks from './dev/fetchMocks'
 
 if (__DEV__) {
+  const fetchMock = require('fetch-mock')
+  const setupFetchMocks = require('./dev/fetchMocks')
+
   setupFetchMocks(fetchMock)
 
   const mountElement = document.getElementById('root')
