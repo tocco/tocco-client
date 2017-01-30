@@ -4,10 +4,10 @@
   "description": "some ui elements",
   "main": "dist/index.js",
   "scripts": {
-    "clean": "rimraf dist",
+    "clean": "../../node_modules/rimraf/bin.js dist",
     "compile": "babel-node ../../bin/compile",
-    "deploy": "better-npm-run deploy",
-    "prepublish": "better-npm-run deploy:standalone"
+    "deploy": "cd ../../ && ./node_modules/better-npm-run/index.js deploy --package=tocco-ui-showcase",
+    "prepublish": "cd ../../ && ./node_modules/better-npm-run/index.js deploy:standalone --package=tocco-ui-showcase"
   },
   "betterScripts": {
     "deploy": {
@@ -29,19 +29,10 @@
     "react-dom": "^15.2.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.18.0",
-    "babel-core": "^6.20.0",
-    "better-npm-run": "0.0.13",
     "highlight.js": "^9.9.0",
-    "lodash": "^4.17.2",
     "raw-loader": "^0.5.1",
-    "react": "latest",
     "react-docgen": "^2.12.1",
-    "react-dom": "latest",
     "react-highlight": "^0.9.0",
-    "react-intl": "^2.1.5",
-    "react-intl-redux": "^0.1.1",
-    "react-scrollspy": "^2.5.0",
-    "rimraf": "^2.5.4"
+    "react-scrollspy": "^2.5.0"
   }
 }

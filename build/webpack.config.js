@@ -22,7 +22,8 @@ const webpackConfig = {
   resolve: {
     modules: [
       path.resolve(paths.client(), packageDir, 'src'),
-      'node_modules'
+      'node_modules',
+      path.resolve(paths.client(), 'node_modules')
     ],
     alias: {
       'ReactDOM': `${__dirname}/../node_modules/react-dom/index.js`,
