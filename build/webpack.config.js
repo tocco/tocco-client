@@ -4,6 +4,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import config from '../config'
 import _debug from 'debug'
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
+import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
 
 const debug = _debug('app:webpack:config')
 const paths = config.utils_paths
@@ -116,6 +117,8 @@ if (__DEV__) {
         minimize: true,
         debug: false
       }),
+      new LodashModuleReplacementPlugin(),
+      new webpack.optimize.OccurrenceOrderPlugin(),
       new webpack.optimize.UglifyJsPlugin({
         compress: {
           warnings: false,
