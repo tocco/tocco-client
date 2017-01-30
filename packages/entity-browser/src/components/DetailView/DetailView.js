@@ -1,29 +1,37 @@
 import React from 'react'
-import validate from './syncValidation'
-import DetailForm from './DetailForm'
 import * as ToccoUi from 'tocco-ui'
+import DetailForm from './DetailForm'
+import syncValidation from '../../util/syncValidation'
+import {asyncValidate} from '../../util/reduxForms'
 
 import './styles.scss'
 
-const DetailView = props => {
-  return (
-    <div className="detail-view">
-      <ToccoUi.Button icon="glyphicon-chevron-left" onClick={props.closeEntityDetail} label="Back"/>
-      <h3>DetailView</h3>
+class DetailView extends React.Component {
+  constructor(props) {
+    super(props)
+    this.validate = syncValidation(props.entityModel)
+  }
 
-      <DetailForm
-        validate={validate(props.entityModel)}
-        submitForm={props.submitForm}
-        formDefinition={props.formDefinition}
-        entity={props.entity}
-        loadRelationEntities={props.loadRelationEntities}
-        selectBoxStores={props.selectBoxStores}
-        a={props.syncErrors}
-        formSyncErrors={props.formSyncErrors}
-        entityModel={props.entityModel}
-      />
-    </div>
-  )
+  render() {
+    const props = this.props
+    return (
+      <div className="detail-view">
+        <ToccoUi.Button icon="glyphicon-chevron-left" onClick={props.closeEntityDetail} label="Back"/>
+        <h3>DetailView</h3>
+        <DetailForm
+          validate={this.validate}
+          asyncValidate={asyncValidate}
+          submitForm={props.submitForm}
+          formDefinition={props.formDefinition}
+          entity={props.entity}
+          loadRelationEntities={props.loadRelationEntities}
+          selectBoxStores={props.selectBoxStores}
+          formSyncErrors={props.formSyncErrors}
+          entityModel={props.entityModel}
+        />
+      </div>
+    )
+  }
 }
 
 export default DetailView

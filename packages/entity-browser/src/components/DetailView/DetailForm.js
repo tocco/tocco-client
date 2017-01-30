@@ -2,7 +2,6 @@ import React from 'react'
 import LabeledField from './LabeledField'
 import {Field, reduxForm} from 'redux-form'
 import * as ToccoUi from 'tocco-ui'
-import {asyncValidate} from '../../util/reduxForms'
 export const DetailForm = props => {
   if (!props.entity.paths) {
     return <div/>
@@ -83,9 +82,10 @@ export const DetailForm = props => {
         disabled={props.submitting}
         primary
       />
-      <div>submitFailed: {props.submitFailed && props.submitFailed.toString()}</div>
-      <div>submitSucceeded: {props.submitSucceeded && props.submitSucceeded.toString()}</div>
-      <div>anyTouched: {props.anyTouched && props.anyTouched.toString()}</div>
+      <div>valid: {props.valid ? 'true' : 'false'}</div>
+      <div>submitFailed: {props.submitFailed ? 'true' : 'false'}</div>
+      <div>submitSucceeded: {props.submitSucceeded ? 'true' : 'false'}</div>
+      <div>anyTouched: {props.anyTouched ? 'true' : 'false'}</div>
     </form>
   )
 }
@@ -117,7 +117,6 @@ DetailForm.propTypes = {
 
 export default reduxForm({
   form: 'detailForm',
-  destroyOnUnmount: false,
-  asyncValidate
+  destroyOnUnmount: false
 })(DetailForm)
 

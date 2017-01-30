@@ -17,7 +17,8 @@
       "fieldName": "firstname",
       "type": "string",
       "validate": {
-        "mandatory": true
+        "mandatory": true,
+        "minLength": 3
       }
     },
     {
@@ -80,7 +81,8 @@
       "fieldName": "callname",
       "type": "string",
       "validate": {
-        "mandatory": true
+        "mandatory": true,
+        "maxLength": 10
       }
     },
     {
