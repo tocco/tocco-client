@@ -1,7 +1,4 @@
 import React from 'react'
-{{#ifIn 'toccoui' features}}
-import * as ToccoUi from 'tocco-ui'
-{{/ifIn}}
 
 class {{pascalCase componentName}} extends React.Component {
   constructor(props) {

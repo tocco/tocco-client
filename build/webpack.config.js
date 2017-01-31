@@ -158,7 +158,16 @@ webpackConfig.module.rules = [
     loader: 'babel-loader',
     options: {
       cacheDirectory: true,
-      plugins: ['transform-runtime', 'transform-flow-strip-types'],
+      plugins: [
+        ['transform-imports', {
+          'tocco-ui': {
+            'transform': 'tocco-ui/src/${member}', // eslint-disable-line no-template-curly-in-string
+            'preventFullImport': true
+          }
+        }],
+        'transform-runtime',
+        'transform-flow-strip-types'
+      ],
       presets: [
         ['es2015', { 'modules': false }],
         'react',

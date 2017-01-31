@@ -1,7 +1,7 @@
 import React from 'react'
 import LabeledField from './LabeledField'
 import {Field, reduxForm} from 'redux-form'
-import * as ToccoUi from 'tocco-ui'
+import {Button, LayoutBox} from 'tocco-ui'
 import {asyncValidate} from '../../util/reduxForms'
 
 export const DetailForm = props => {
@@ -22,9 +22,9 @@ export const DetailForm = props => {
           const alignment = layoutComponent === 'HorizontalBox' ? 'horizontal' : 'vertical'
           const label = field.useLabel ? field.label : undefined
           result.push(
-            <ToccoUi.LayoutBox key={i} label={label} alignment={alignment}>
+            <LayoutBox key={i} label={label} alignment={alignment}>
               {formTraverser(field.children)}
-            </ToccoUi.LayoutBox>
+            </LayoutBox>
           )
         }
       } else {
@@ -55,7 +55,7 @@ export const DetailForm = props => {
   return (
     <form onSubmit={handleSubmit}>
       {formTraverser(props.formDefinition.children)}
-      <ToccoUi.Button
+      <Button
         type="submit"
         label="Save"
         icon="glyphicon-floppy-save"

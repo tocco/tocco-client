@@ -2,7 +2,7 @@ import React from 'react'
 import {LoginForm} from './LoginForm'
 import {shallow} from 'enzyme'
 import {FormattedMessage} from 'react-intl'
-import * as ToccoUI from 'tocco-ui'
+import {Button} from 'tocco-ui'
 import {Pages} from '../../types/Pages'
 import {IntlStub} from 'tocco-test-util'
 
@@ -20,7 +20,7 @@ describe('login', () => {
             loginPending={false}
             />
         )
-        expect(wrapper.find(ToccoUI.Button)).to.have.length(1)
+        expect(wrapper.find(Button)).to.have.length(1)
         expect(wrapper.find(FormattedMessage)).to.have.length(1)
       })
 
@@ -36,7 +36,7 @@ describe('login', () => {
             showTitle
             />
         )
-        expect(wrapper.find(ToccoUI.Button)).to.have.length(1)
+        expect(wrapper.find(Button)).to.have.length(1)
         expect(wrapper.find(FormattedMessage)).to.have.length(3)
       })
 
@@ -53,8 +53,8 @@ describe('login', () => {
             password=""
             />
         )
-        expect(wrapper.find(ToccoUI.Button)).to.have.length(1)
-        const button = wrapper.find(ToccoUI.Button)
+        expect(wrapper.find(Button)).to.have.length(1)
+        const button = wrapper.find(Button)
         expect(button.prop('disabled')).to.equal(true)
       })
 
@@ -71,8 +71,8 @@ describe('login', () => {
             password=""
             />
         )
-        expect(wrapper.find(ToccoUI.Button)).to.have.length(1)
-        const button = wrapper.find(ToccoUI.Button)
+        expect(wrapper.find(Button)).to.have.length(1)
+        const button = wrapper.find(Button)
         expect(button.prop('disabled')).to.equal(true)
       })
 
@@ -89,8 +89,8 @@ describe('login', () => {
             password="password"
             />
         )
-        expect(wrapper.find(ToccoUI.Button)).to.have.length(1)
-        const button = wrapper.find(ToccoUI.Button)
+        expect(wrapper.find(Button)).to.have.length(1)
+        const button = wrapper.find(Button)
         expect(button.prop('disabled')).to.equal(true)
       })
 
@@ -107,8 +107,8 @@ describe('login', () => {
             password="password"
             />
         )
-        expect(wrapper.find(ToccoUI.Button)).to.have.length(1)
-        const button = wrapper.find(ToccoUI.Button)
+        expect(wrapper.find(Button)).to.have.length(1)
+        const button = wrapper.find(Button)
         expect(button.prop('disabled')).to.equal(false)
       })
 

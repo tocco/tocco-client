@@ -1,6 +1,6 @@
 import React from 'react'
 import {intlShape} from 'react-intl'
-import * as ToccoUI from 'tocco-ui'
+import {Button, FormattedValue, Pagination, Table} from 'tocco-ui'
 import './styles.scss'
 
 const ListView = props => {
@@ -14,7 +14,7 @@ const ListView = props => {
 
   const cellRenderer = (values, entity) => {
     const formattedValues = values.map((v, idx) => (
-      <ToccoUI.FormattedValue key={idx} type={v.type} value={v.value}/>
+      <FormattedValue key={idx} type={v.type} value={v.value}/>
     ))
 
     if (formattedValues.length > 0) {
@@ -38,7 +38,7 @@ const ListView = props => {
 
   return (
     <div className="list-view">
-      <ToccoUI.Table
+      <Table
         columnDefinitions={props.columnDefinitions}
         records={props.entities}
         className="table-striped"
@@ -48,13 +48,13 @@ const ListView = props => {
         cellRenderer={cellRenderer}
         onRowClick={handleRowClick}
       />
-      <ToccoUI.Pagination
+      <Pagination
         totalRecords={props.entityCount}
         recordsPerPage={props.limit}
         onPageChange={onPageChange}
         currentPage={props.currentPage}
       />
-      <ToccoUI.Button
+      <Button
         onClick={props.refresh}
         label={msg('client.entity-browser.refresh')}
         icon="glyphicon-refresh"

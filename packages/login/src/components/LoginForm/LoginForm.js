@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
 import {Pages} from '../../types/Pages'
-import * as ToccoUI from 'tocco-ui'
+import {Button} from 'tocco-ui'
 
 import '../Login/styles.scss'
 
@@ -63,7 +63,7 @@ export class LoginForm extends Component {
           </div>
           <div>
             <div>
-              <ToccoUI.Button
+              <Button
                 label={this.msg('client.login.form.button')}
                 type="submit"
                 disabled={this.props.loginPending || this.props.username === '' || this.props.password === ''}
