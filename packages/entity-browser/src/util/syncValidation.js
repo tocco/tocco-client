@@ -48,19 +48,22 @@ const valueValidator = (values, validatorDefinitions, entityModel) => {
   return errors
 }
 
-const mandatoryValidator = (value, isMandatory) => {
+export const mandatoryValidator = (value, isMandatory) => {
+  if (typeof value === 'number' && value === 0) {
+    return
+  }
   if (!value && isMandatory) {
     return {mandatory: `This field is required`}
   }
 }
 
-const minLengthValidator = (value, minLength) => {
+export const minLengthValidator = (value, minLength) => {
   if (value && value.length < minLength) {
     return {minLength: `Min. length is ${minLength}`}
   }
 }
 
-const maxLengthValidator = (value, maxLength) => {
+export const maxLengthValidator = (value, maxLength) => {
   if (value && value.length > maxLength) {
     return {maxLength: `Max. length is ${maxLength}`}
   }

@@ -1,4 +1,4 @@
-import syncValidation from './syncValidation'
+import syncValidation, {mandatoryValidator} from './syncValidation'
 
 describe('entity-browser', () => {
   describe('util', () => {
@@ -42,6 +42,35 @@ describe('entity-browser', () => {
 
         const errors = syncValidation(entityModel)(values)
         expect(errors).to.eql({})
+      })
+    })
+    describe('mandatoryValidator', () => {
+      it('should not return an error for valid inputs', () => {
+        const validValues = [
+          'Test',
+          0
+        ]
+
+        validValues.forEach(validValue => {
+          let result = mandatoryValidator(validValue, true)
+          expect(result).to.be.undefined
+          result = mandatoryValidator(validValue, false)
+          expect(result).to.be.undefined
+        })
+      })
+      it('should return an error for invalid inputs', () => {
+        const invalidValues = [
+          undefined,
+          '',
+          null
+        ]
+
+        invalidValues.forEach(invalidValue => {
+          let result = mandatoryValidator(invalidValue, true)
+          expect(result).to.not.be.undefined
+          result = mandatoryValidator(invalidValue, false)
+          expect(result).to.be.undefined
+        })
       })
     })
   })
