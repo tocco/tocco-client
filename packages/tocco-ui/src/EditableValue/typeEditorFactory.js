@@ -7,10 +7,11 @@ import TextEdit from './typeEditors/TextEdit'
 import DateEdit from './typeEditors/DateEdit'
 import DateTimeEdit from './typeEditors/DateTimeEdit'
 import BoolEdit from './typeEditors/BoolEdit'
+import NumberEdit from './typeEditors/NumberEdit'
 
 export const map = {
   'string': StringEdit,
-  'number': StringEdit,
+  'number': NumberEdit,
   'date': DateEdit,
   'birthdate': DateEdit,
   'datetime': DateTimeEdit,
