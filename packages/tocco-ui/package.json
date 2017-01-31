@@ -4,10 +4,10 @@
   "description": "some ui elements",
   "main": "dist/index.js",
   "scripts": {
-    "clean": "rimraf dist",
+    "clean": "../../node_modules/rimraf/bin.js dist",
     "compile": "babel-node ../../bin/compile",
-    "deploy": "better-npm-run deploy",
-    "prepublish": "better-npm-run deploy:prod"
+    "deploy": "cd ../../ && ./node_modules/better-npm-run/index.js deploy --package=tocco-ui",
+    "prepublish": "cd ../../ && ./node_modules/better-npm-run/index.js deploy:prod --package=tocco-ui"
   },
   "betterScripts": {
     "deploy": {
@@ -29,13 +29,7 @@
     "react-dom": "^15.2.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.10.1",
-    "better-npm-run": "0.0.13",
     "flatpickr": "^2.3.4",
-    "react": "latest",
-    "react-dom": "latest",
-    "react-intl": "^2.1.5",
-    "react-select": "^1.0.0-rc.2",
-    "rimraf": "^2.5.3"
+    "react-select": "^1.0.0-rc.2"
   }
 }

@@ -4,6 +4,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import config from '../config'
 import _debug from 'debug'
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
+import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
 
 const debug = _debug('app:webpack:config')
 const paths = config.utils_paths
@@ -22,7 +23,8 @@ const webpackConfig = {
   resolve: {
     modules: [
       path.resolve(paths.client(), packageDir, 'src'),
-      'node_modules'
+      'node_modules',
+      path.resolve(paths.client(), 'node_modules')
     ],
     alias: {
       'ReactDOM': `${__dirname}/../node_modules/react-dom/index.js`,
@@ -115,6 +117,8 @@ if (__DEV__) {
         minimize: true,
         debug: false
       }),
+      new LodashModuleReplacementPlugin(),
+      new webpack.optimize.OccurrenceOrderPlugin(),
       new webpack.optimize.UglifyJsPlugin({
         compress: {
           warnings: false,
@@ -157,7 +161,16 @@ webpackConfig.module.rules = [
     loader: 'babel-loader',
     options: {
       cacheDirectory: true,
-      plugins: ['transform-runtime', 'transform-flow-strip-types'],
+      plugins: [
+        ['transform-imports', {
+          'tocco-ui': {
+            'transform': 'tocco-ui/src/${member}', // eslint-disable-line no-template-curly-in-string
+            'preventFullImport': true
+          }
+        }],
+        'transform-runtime',
+        'transform-flow-strip-types'
+      ],
       presets: [
         ['es2015', { 'modules': false }],
         'react',

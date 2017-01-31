@@ -5,3 +5,5 @@ export default function setupFetchMock(fetchMock) {
   utilFetchMocks.textResourceFetchMock(fetchMock, require('./messages.json'))
   fetchMock.spy()
 }
+
+module.exports = setupFetchMock

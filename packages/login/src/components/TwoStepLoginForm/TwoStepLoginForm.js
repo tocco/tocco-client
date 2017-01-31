@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
-import * as ToccoUI from 'tocco-ui'
+import {Button} from 'tocco-ui'
 
 import '../Login/styles.scss'
 
@@ -43,7 +43,7 @@ export class TwoStepLoginForm extends Component {
             />
           </div>
           <div>
-            <ToccoUI.Button
+            <Button
               label={this.msg('client.login.form.button')}
               name="submit"
               type="submit"

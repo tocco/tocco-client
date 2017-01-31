@@ -1,6 +1,6 @@
 import React from 'react'
 import {intlShape} from 'react-intl'
-import * as ToccoUI from 'tocco-ui'
+import {Button} from 'tocco-ui'
 import SearchField from './SearchField'
 
 const SearchForm = props => {
@@ -41,13 +41,13 @@ const SearchForm = props => {
       <div className="form-group row">
         <div className="col-sm-10">
           <div className="btn-toolbar">
-            <ToccoUI.Button
+            <Button
               type="submit"
               icon="glyphicon-search"
               label={msg('client.entity-browser.search')}
               primary
             />
-            <ToccoUI.Button
+            <Button
               type="button"
               icon="glyphicon-repeat"
               label={msg('client.entity-browser.reset')}
