@@ -7,7 +7,7 @@ const EXPECTED_INITIAL_STATE = {
   entities: [],
   limit: 50,
   currentPage: 1,
-  orderBy: {},
+  orderBy: null,
   columnDefinition: [],
   entityCount: 0,
   entityStore: {},
