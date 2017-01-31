@@ -111,7 +111,9 @@ DetailForm.propTypes = {
       )
     })
   }),
-  formSyncErrors: React.PropTypes.object,
+  formSyncErrors: React.PropTypes.objectOf(
+    React.PropTypes.objectOf(React.PropTypes.string)
+  ),
   valid: React.PropTypes.bool
 }
 

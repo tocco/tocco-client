@@ -37,7 +37,6 @@ class DetailView extends React.Component {
 export default DetailView
 
 DetailView.propTypes = {
-  syncErrors: React.PropTypes.object,
   submitForm: React.PropTypes.func.isRequired,
   closeEntityDetail: React.PropTypes.func.isRequired,
   formDefinition: React.PropTypes.shape({

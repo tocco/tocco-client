@@ -2,8 +2,8 @@ import _forOwn from 'lodash/forOwn'
 import _isEmpty from 'lodash/isEmpty'
 
 export default entityModel =>
-  values => {
-    return valueValidator(
+  values => (
+    valueValidator(
       values,
       [
         {validator: mandatoryValidator, selector: 'mandatory'},
@@ -12,7 +12,7 @@ export default entityModel =>
       ],
       entityModel
     )
-  }
+  )
 
 const valueValidator = (values, validatorDefinitions, entityModel) => {
   let errors = {}
