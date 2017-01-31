@@ -1,5 +1,4 @@
 import Button from './Button'
-import ToccoLogo from './ToccoLogo'
 import LoadMask from './LoadMask'
 import Table from './Table'
 import Pagination from './Pagination'
@@ -10,7 +9,6 @@ import LayoutBox from './LayoutBox'
 
 const exports = {
   Button,
-  ToccoLogo,
   LoadMask,
   Table,
   Pagination,
