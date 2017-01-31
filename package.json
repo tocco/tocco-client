@@ -97,7 +97,7 @@
     }
   },
   "author": "Tocco AG",
-  "license": "AGPLv3+",
+  "license": "AGPL-3.0",
   "peerDependencies": {
     "react": "^15.3.2",
     "react-dom": "^15.3.2"
