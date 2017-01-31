@@ -93,6 +93,13 @@
       }
     },
     {
+      "fieldName": "age",
+      "type": "number",
+      "validate": {
+        "mandatory": true
+      }
+    },
+    {
       "fieldName": "phone_company",
       "type": "phone",
       "validate": {

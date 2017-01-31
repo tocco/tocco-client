@@ -72,7 +72,16 @@
                     "children": [],
                     "label": "Geburtsdatum",
                     "useLabel": "YES"
-                  },             {
+                  },
+                  {
+                    "name": "age",
+                    "type": "ch.tocco.nice2.model.form.components.simple.NumberField",
+                    "displayType": "READONLY",
+                    "children": [],
+                    "label": "Alter",
+                    "useLabel": "YES"
+                  },
+                  {
                     "name": "callname",
                     "type": "ch.tocco.nice2.model.form.components.simple.TextField",
                     "displayType": "READONLY",
