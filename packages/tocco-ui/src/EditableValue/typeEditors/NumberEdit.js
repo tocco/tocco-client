@@ -1,17 +1,19 @@
 import React from 'react'
 
-const NumberEdit = props => {
-  const convertStrintToNumber = stringValue => (stringValue ? Number(stringValue) : null)
+const convertStringToNumber = stringValue => (
+  !stringValue || isNaN(stringValue) ? null : Number(stringValue)
+)
 
+const NumberEdit = props => {
   const handleChange = e => {
     if (props.onChange) {
-      props.onChange(convertStrintToNumber(e.target.value))
+      props.onChange(convertStringToNumber(e.target.value))
     }
   }
 
   const handleBlur = e => {
-    if (props.events.onBlur) {
-      props.events.onBlur(convertStrintToNumber(e.target.value))
+    if (props.events && props.events.onBlur) {
+      props.events.onBlur(convertStringToNumber(e.target.value))
     }
   }
 

@@ -43,7 +43,9 @@ DetailView.propTypes = {
     children: React.PropTypes.array
   }).isRequired,
   entityModel: React.PropTypes.object.isRequired,
-  formSyncErrors: React.PropTypes.object,
+  formSyncErrors: React.PropTypes.objectOf(
+    React.PropTypes.objectOf(React.PropTypes.string)
+  ),
   entity: React.PropTypes.object,
   loadRelationEntities: React.PropTypes.func,
   selectBoxStores: React.PropTypes.shape({

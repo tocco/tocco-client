@@ -64,10 +64,8 @@ export const DetailForm = props => {
     e.preventDefault()
     if (props.valid) {
       props.submitForm()
-    } else {
-      if (props.formSyncErrors) {
-        Object.keys(props.formSyncErrors).forEach(f => props.touch(f))
-      }
+    } else if (props.formSyncErrors) {
+      Object.keys(props.formSyncErrors).forEach(f => props.touch(f))
     }
   }
 
