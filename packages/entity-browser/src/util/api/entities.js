@@ -9,8 +9,11 @@ export function fetchEntity(entityName, id, fields) {
     .then(resp => resp.json())
 }
 
-export function updateEntity(entity) {
-  return rest.fetchRequest(`entities/${entity.model}/${entity.key}`, {}, 'PATCH', entity)
+export function updateEntity(entity, fields) {
+  const params = {
+    '_paths': fields.join(',')
+  }
+  return rest.fetchRequest(`entities/${entity.model}/${entity.key}`, params, 'PATCH', entity)
     .then(resp => resp.json())
 }
 

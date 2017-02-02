@@ -20,7 +20,7 @@ export const formValuesToEntity = (values, dirtyFields) => {
       } else if (type === 'entity') {
         result.paths[key] = {key: values[key]}
       } else if (type === 'entity-list') {
-        result.paths[key] = {keys: values[key]}
+        result.paths[key] = values[key].map(value => ({'key': value}))
       }
     }
   })
