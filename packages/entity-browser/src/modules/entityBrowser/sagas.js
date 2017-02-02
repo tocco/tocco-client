@@ -1,5 +1,4 @@
-import {takeLatest} from 'redux-saga'
-import {put, fork, select, call} from 'redux-saga/effects'
+import {put, fork, select, call, takeLatest} from 'redux-saga/effects'
 import * as actions from './actions'
 import * as listViewActions from '../listView/actions'
 import * as detailViewActions from '../detailView/actions'

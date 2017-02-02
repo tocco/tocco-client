@@ -1,5 +1,5 @@
 import React from 'react'
-import * as ToccoUi from 'tocco-ui'
+import {Button} from 'tocco-ui'
 import DetailForm from './DetailForm'
 import syncValidation from '../../util/syncValidation'
 import {asyncValidate} from '../../util/reduxForms'
@@ -16,7 +16,7 @@ class DetailView extends React.Component {
     const props = this.props
     return (
       <div className="detail-view">
-        <ToccoUi.Button icon="glyphicon-chevron-left" onClick={props.closeEntityDetail} label="Back"/>
+        <Button icon="glyphicon-chevron-left" onClick={props.closeEntityDetail} label="Back"/>
         <h3>DetailView</h3>
         <DetailForm
           validate={this.validate}

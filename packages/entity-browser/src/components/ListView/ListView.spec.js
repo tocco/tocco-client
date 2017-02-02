@@ -1,7 +1,7 @@
 import React from 'react'
 import {IntlStub} from 'tocco-test-util'
 import ListView from './ListView'
-import * as ToccoUI from 'tocco-ui'
+import {Pagination, Table} from 'tocco-ui'
 
 import {mount, shallow} from 'enzyme'
 
@@ -21,8 +21,8 @@ describe('entity-browser', () => {
         />)
 
         expect(wrapper.find(ListView)).to.have.length(1)
-        expect(wrapper.find(ToccoUI.Table)).to.have.length(1)
-        expect(wrapper.find(ToccoUI.Pagination)).to.have.length(1)
+        expect(wrapper.find(Table)).to.have.length(1)
+        expect(wrapper.find(Pagination)).to.have.length(1)
       })
 
       it('should call changePage', () => {
@@ -38,11 +38,11 @@ describe('entity-browser', () => {
           intl={IntlStub}
         />)
 
-        wrapper.find(ToccoUI.Pagination).simulate('pageChange')
+        wrapper.find(Pagination).simulate('pageChange')
         expect(changePage).to.have.calledOnce
       })
 
-      it('should pass properties to the ToccoUI.Table component', () => {
+      it('should pass properties to the Table component', () => {
         const entities = ['my', 'entities']
         const orderBy = {
           name: 'name',
@@ -65,11 +65,11 @@ describe('entity-browser', () => {
           intl={IntlStub}
         />)
 
-        expect(wrapper.find(ToccoUI.Table).props().records).to.eql(entities)
-        expect(wrapper.find(ToccoUI.Table).props().orderBy).to.eql(orderBy)
-        expect(wrapper.find(ToccoUI.Table).props().columnDefinitions).to.eql(columnDefinitions)
-        expect(wrapper.find(ToccoUI.Table).props().loading).to.eql(inProgress)
-        wrapper.find(ToccoUI.Table).simulate('orderByChange')
+        expect(wrapper.find(Table).props().records).to.eql(entities)
+        expect(wrapper.find(Table).props().orderBy).to.eql(orderBy)
+        expect(wrapper.find(Table).props().columnDefinitions).to.eql(columnDefinitions)
+        expect(wrapper.find(Table).props().loading).to.eql(inProgress)
+        wrapper.find(Table).simulate('orderByChange')
         expect(orderByChange).to.have.calledOnce
       })
 
@@ -88,7 +88,7 @@ describe('entity-browser', () => {
           intl={IntlStub}
         />)
 
-        expect(wrapper.find(ToccoUI.Pagination).props().currentPage).to.eql(currentPage)
+        expect(wrapper.find(Pagination).props().currentPage).to.eql(currentPage)
       })
 
       it('should handle limit', () => {
@@ -106,7 +106,7 @@ describe('entity-browser', () => {
           intl={IntlStub}
         />)
 
-        expect(wrapper.find(ToccoUI.Pagination).props().recordsPerPage).to.eql(limit)
+        expect(wrapper.find(Pagination).props().recordsPerPage).to.eql(limit)
       })
 
       it('should handle entityCount', () => {
@@ -124,7 +124,7 @@ describe('entity-browser', () => {
           intl={IntlStub}
         />)
 
-        expect(wrapper.find(ToccoUI.Pagination).props().totalRecords).to.eql(entityCount)
+        expect(wrapper.find(Pagination).props().totalRecords).to.eql(entityCount)
       })
 
       it('should call refresh', () => {

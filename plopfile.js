@@ -38,8 +38,7 @@ module.exports = function(plop) {
         name: 'features',
         message: 'What features would you like to use?',
         choices: [
-          {name: 'Tests', value: 'tests', checked: true},
-          {name: 'Tocco-Ui', value: 'toccoui'}
+          {name: 'Tests', value: 'tests', checked: true}
         ]
       }],
     actions: data => {

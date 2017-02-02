@@ -1,6 +1,6 @@
 import React from 'react'
 import _clone from 'lodash/clone'
-import * as ToccoUi from 'tocco-ui'
+import {EditableValue} from 'tocco-ui'
 
 const ErrorList = props => {
   if (!props.errors) {
@@ -41,7 +41,7 @@ const LabeledField = props => {
       <label className="control-label col-sm-5">{label}:{props.mandatory && '*'}</label>
       <div className="col-sm-7">
         <div className="form-control-static">
-          <ToccoUi.EditableValue
+          <EditableValue
             readOnly={submitting}
             value={input.value}
             onChange={input.onChange}

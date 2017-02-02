@@ -1,7 +1,7 @@
 import React from 'react'
 import LabeledField from './LabeledField'
 import {mount, shallow} from 'enzyme'
-import * as ToccoUi from 'tocco-ui'
+import {EditableValue} from 'tocco-ui'
 
 const EMPTY_FUNC = () => {
 }
@@ -23,7 +23,7 @@ describe('entity-browser', () => {
           />)
 
         expect(wrapper.find('.control-label')).to.have.text('First Name:')
-        expect(wrapper.find(ToccoUi.EditableValue)).to.have.length(1)
+        expect(wrapper.find(EditableValue)).to.have.length(1)
       })
 
       it('should show errors ', () => {

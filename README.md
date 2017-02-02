@@ -51,18 +51,12 @@ http://localhost:8080
 Just install yarn  https://yarnpkg.com/en/docs/install 
 and execute the following commands:
 ```
-npm install --global lerna@v2.0.0-beta.31
+npm install --global lerna@v2.0.0-beta.34
 npm run setup
 lerna bootstrap
 npm start --package={PACKAGE_NAME}
 ```
 Open http://localhost:3000 and start coding!
-
-#### Pro Tip
-When working on a package and parallel develop tocco-ui components, the import statement of tocco-ui can temporarily be changed to:
-``import * as ToccoUI from '../../../../tocco-ui/src/main'``
-
-This enables hot-reloading and thus a better development experience.
 
 #### Tests
 Tests are using following tools and libraries:

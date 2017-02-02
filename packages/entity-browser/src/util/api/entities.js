@@ -79,7 +79,7 @@ const defaultEntitiesTransformer = json => (json)
 export function fetchEntities(entityName, page, orderBy = {}, limit, fields = [],
                               searchInputs = {}, transformer = defaultEntitiesTransformer) {
   const params = {
-    '_sort': Object.keys(orderBy).length === 2 ? `${orderBy.name} ${orderBy.direction}` : undefined,
+    '_sort': Object.keys(orderBy || {}).length === 2 ? `${orderBy.name} ${orderBy.direction}` : undefined,
     '_paths': fields.join(','),
     ...searchInputs
   }
