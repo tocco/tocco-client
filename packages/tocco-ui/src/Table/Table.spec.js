@@ -15,7 +15,7 @@ describe('tocco-ui', function() {
       const recordsAmount = 100
       const records = []
       for (let i = 0; i < recordsAmount; i++) {
-        records.push({values: {a: {value: i.toString()}}})
+        records.push({values: {a: {value: i.toString(), type: 'string'}}})
       }
 
       const wrapper = shallow(
@@ -26,9 +26,9 @@ describe('tocco-ui', function() {
 
     it('should show a label if provided and default value if not', () => {
       const records = [
-        {values: {a: {value: 'a1'}}},
-        {values: {b: {value: 'b1'}}},
-        {values: {c: {value: 'c1'}}}
+        {values: {a: {value: 'a1', type: 'string'}}},
+        {values: {b: {value: 'b1', type: 'string'}}},
+        {values: {c: {value: 'c1', type: 'string'}}}
       ]
 
       const columnDefinitions = [
@@ -54,23 +54,23 @@ describe('tocco-ui', function() {
       const records = [
         {
           values: {
-            a: {value: 'a1'},
-            b: {value: 'b1'},
-            c: {value: 'c1'}
+            a: {value: 'a1', type: 'string'},
+            b: {value: 'b1', type: 'string'},
+            c: {value: 'c1', type: 'string'}
           }
         },
         {
           values: {
-            a: {value: 'a2'},
-            b: {value: 'b2'},
-            c: {value: 'c2'}
+            a: {value: 'a2', type: 'string'},
+            b: {value: 'b2', type: 'string'},
+            c: {value: 'c2', type: 'string'}
           }
         },
         {
           values: {
-            a: {value: 'a3'},
-            b: {value: 'b3'},
-            c: {value: 'c3'}
+            a: {value: 'a3', type: 'string'},
+            b: {value: 'b3', type: 'string'},
+            c: {value: 'c3', type: 'string'}
           }
         }
       ]
@@ -111,7 +111,7 @@ describe('tocco-ui', function() {
     })
 
     it('should join multiple cell values', () => {
-      const record = {values: {a: {value: 'a'}, b: {value: 'b'}}}
+      const record = {values: {a: {value: 'a', type:'string'}, b: {value: 'b', type:'string'}}}
 
       const wrapper = shallow(
         <Table records={[record]} columnDefinitions={[{value: ['a', 'b']}]}/>
@@ -121,7 +121,7 @@ describe('tocco-ui', function() {
     })
 
     it('should ignore unknown column', () => {
-      const record = {values: {a: {value: 'a'}}}
+      const record = {values: {a: {value: 'a', type:'string'}}}
 
       const wrapper = shallow(
         <Table records={[record]} columnDefinitions={[{value: 'unknown'}]}/>
@@ -138,7 +138,7 @@ describe('tocco-ui', function() {
     })
 
     it('should add a order-by-change click handler', () => {
-      const record = {values: {a: {value: 'a'}, b: {value: 'b'}}}
+      const record = {values: {a: {value: 'a', type: 'string'}, b: {value: 'b', type: 'string'}}}
 
       const onClick = sinon.spy()
       const wrapper = shallow(
@@ -166,7 +166,7 @@ describe('tocco-ui', function() {
     })
 
     it('should add a order-by-change click handler with default ordering', () => {
-      const record = {values: {a: {value: 'a'}, b: {value: 'b'}}}
+      const record = {values: {a: {value: 'a', type: 'string'}, b: {value: 'b', type: 'string'}}}
       const orderBy = {
         name: 'a',
         direction: 'desc'
@@ -189,7 +189,7 @@ describe('tocco-ui', function() {
     })
 
     it('should add a row click handler', () => {
-      const record = {id: 99, values: {a: {value: 'a'}}}
+      const record = {id: 99, values: {a: {value: 'a', type: 'string'}}}
 
       const onClick = sinon.spy()
       const wrapper = shallow(
@@ -203,7 +203,7 @@ describe('tocco-ui', function() {
     })
 
     it('should use the cell renderer', () => {
-      const record = {values: {a: {value: 'a'}, b: {value: 'b'}}}
+      const record = {values: {a: {value: 'a', type: 'string'}, b: {value: 'b', type: 'string'}}}
 
       const cellRenderer = sinon.spy()
       shallow(

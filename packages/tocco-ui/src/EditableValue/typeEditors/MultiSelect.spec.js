@@ -16,7 +16,7 @@ describe('tocco-ui', () => {
             ]
           }
 
-          const wrapper = shallow(<MultiSelect options={options} value="1" onChange={() => {}}/>)
+          const wrapper = shallow(<MultiSelect options={options} value={[1]} onChange={() => {}}/>)
           expect(wrapper.find(Select)).to.have.length(1)
           const select = wrapper.find(Select)
           expect(select.props().options).to.eql(options.store)
