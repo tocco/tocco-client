@@ -33,14 +33,23 @@ export const DetailForm = props => {
         let fieldProps = {}
         if (entityField.type === 'field') {
           fieldProps.type = entityField.value.type
-        } else if (selectTypes.includes(entityField.type) && props.selectBoxStores[field.name] !== undefined) {
+        } else if (selectTypes.includes(entityField.type)) {
           fieldProps.type = entityField.type === 'entity' ? 'single-select' : 'multi-select'
-          const store = props.selectBoxStores[field.name].data
+          const store = props.selectBoxStores[field.name] ? props.selectBoxStores[field.name].data : []
           fieldProps.options = {store}
         }
 
-        result.push(<div key={i} onFocus={() => props.loadRelationEntities(field.name)}>
-          <Field name={field.name} key={i} label={field.label} component={LabeledField} {...fieldProps}/></div>)
+        const handleFocus = (type, fieldName) => {
+          if (selectTypes.includes(type)) {
+            props.loadRelationEntities(fieldName)
+          }
+        }
+
+        result.push(
+          <div key={i} onFocus={() => (handleFocus(entityField.type, field.name))}>
+            <Field name={field.name} key={i} label={field.label} component={LabeledField} {...fieldProps}/>
+          </div>
+        )
       }
     }
 
