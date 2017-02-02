@@ -93,7 +93,7 @@ describe('entity-browser', () => {
         })
 
         describe('submitForm saga', () => {
-          it('should validate from and reload saved entity', () => {
+          it('should validate form and reload saved entity', () => {
             const formId = 'detailForm'
             const values = {firstname: 'peter'}
             const initialValues = {firstname: 'pet'}

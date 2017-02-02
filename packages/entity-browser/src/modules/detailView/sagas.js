@@ -1,4 +1,5 @@
 import {call, put, fork, select, takeLatest, takeEvery} from 'redux-saga/effects'
+import {logError} from 'tocco-util/src/errorLogging'
 import * as actions from './actions'
 import {
   startSubmit,
@@ -70,26 +71,25 @@ export function* loadEntity({payload}) {
 
 export function* submitForm() {
   const formId = 'detailForm'
-  const values = yield select(getFormValues(formId))
-  const initialValues = yield select(formInitialValueSelector(formId))
-  yield put(startSubmit(formId))
   try {
+    const values = yield select(getFormValues(formId))
+    const initialValues = yield select(formInitialValueSelector(formId))
+    yield put(startSubmit(formId))
     yield call(submitValidate, values)
     const dirtyFields = yield call(getDirtyFields, initialValues, values)
     const entity = yield call(formValuesToEntity, values, dirtyFields)
     const updatedEntity = yield call(updateEntity, entity)
-
     const updatedFormValues = yield call(entityToFormValues, updatedEntity)
     yield put(initializeForm(formId, updatedFormValues))
-    yield put(stopSubmit(formId))
   } catch (err) {
     if (err instanceof SubmissionError) {
       yield put(touch(formId, ...Object.keys(err.errors)))
       yield put(stopSubmit(formId, err.errors))
     } else {
-      console.error(err)
-      yield put(stopSubmit(formId, {_error: err.message}))
+      yield put(logError('Unable to save entity', err))
     }
+  } finally {
+    yield put(stopSubmit(formId))
   }
 }
 
