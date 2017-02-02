@@ -4,10 +4,6 @@
  * never add or delete variables, only set new values
 */
 
-.check-if-included {
-    content: 'tocco/font-awesome-variables.scss'
-}
-
 // Variables
 // --------------------------
 $fa-font-path:        "../../node_modules/font-awesome/fonts" !default;  // relative path from packages/tocco-ui/src/ to Font Awesome fonts

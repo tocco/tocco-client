@@ -13,7 +13,11 @@
 // All variables has to be set and overwritten by tocco variables before the rest of Font Awesome is loaded.
 // @import "font-awesome/scss/variables";
 @import "font-awesome/scss/mixins";
-@import "font-awesome/scss/path";
+
+// Do not load Font Awesome's default path file due to specific bugfix.
+//@import "font-awesome/scss/path";
+@import "font-awesome-path";
+
 @import "font-awesome/scss/core";
 @import "font-awesome/scss/larger";
 @import "font-awesome/scss/fixed-width";
