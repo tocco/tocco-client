@@ -9,13 +9,15 @@ const DetailView = props => {
     <div className="detail-view">
       <Button icon="glyphicon-chevron-left" onClick={props.closeEntityDetail} label="Back"/>
       <h3>DetailView</h3>
-      <DetailForm
+      {props.formInitialValues
+      && <DetailForm
         submitForm={props.submitForm}
         formDefinition={props.formDefinition}
         entity={props.entity}
         loadRelationEntities={props.loadRelationEntities}
         selectBoxStores={props.selectBoxStores}
       />
+      }
     </div>
   )
 }
@@ -30,6 +32,7 @@ DetailView.propTypes = {
   }).isRequired,
   entity: React.PropTypes.object,
   loadRelationEntities: React.PropTypes.func,
+  formInitialValues: React.PropTypes.object,
   selectBoxStores: React.PropTypes.shape({
     entityName: React.PropTypes.shape({
       loaded: React.PropTypes.bool,
