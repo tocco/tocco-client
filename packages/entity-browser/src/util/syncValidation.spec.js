@@ -6,7 +6,7 @@ describe('entity-browser', () => {
       it('should return an error on invalid input', () => {
         const entityModel = {
           firstname: {
-            validate: {
+            validation: {
               mandatory: true,
               minLength: 3
             }

@@ -9,14 +9,14 @@
     {
       "fieldName": "pk",
       "type": "serial",
-      "validate": {
+      "validation": {
         "mandatory": true
       }
     },
     {
       "fieldName": "firstname",
       "type": "string",
-      "validate": {
+      "validation": {
         "mandatory": true,
         "minLength": 3
       }
@@ -24,63 +24,64 @@
     {
       "fieldName": "lastname",
       "type": "string",
-      "validate": {
+      "validation": {
         "mandatory": true
       }
     },
     {
       "fieldName": "email",
       "type": "email",
-      "validate": {
-        "mandatory": true
+      "validation": {
+        "mandatory": true,
+        "email": true
       }
     },
     {
       "fieldName": "version",
       "type": "version",
-      "validate": {
+      "validation": {
         "mandatory": false
       }
     },
     {
       "fieldName": "create_timestamp",
       "type": "createts",
-      "validate": {
+      "validation": {
         "mandatory": false
       }
     },
     {
       "fieldName": "update_timestamp",
       "type": "updatets",
-      "validate": {
+      "validation": {
         "mandatory": false
       }
     },
     {
       "fieldName": "create_user",
       "type": "createuser",
-      "validate": {
+      "validation": {
         "mandatory": false
       }
     },
     {
       "fieldName": "update_user",
       "type": "updateuser",
-      "validate": {
+      "validation": {
         "mandatory": false
       }
     },
     {
       "fieldName": "user_nr",
       "type": "counter",
-      "validate": {
+      "validation": {
         "mandatory": false
       }
     },
     {
       "fieldName": "callname",
       "type": "string",
-      "validate": {
+      "validation": {
         "mandatory": true,
         "maxLength": 10
       }
@@ -88,35 +89,40 @@
     {
       "fieldName": "birthdate",
       "type": "birthdate",
-      "validate": {
+      "validation": {
         "mandatory": false
       }
     },
     {
       "fieldName": "age",
       "type": "number",
-      "validate": {
-        "mandatory": true
+      "validation": {
+        "mandatory": true,
+        "decimalDigits": {
+          "prePointDigits": -1,
+          "postPointDigits": 0
+        },
+        "numberRange": {
+          "fromIncluding": 0,
+          "toIncluding": 200
+        }
       }
     },
     {
       "fieldName": "phone_company",
-      "type": "phone",
-      "validate": {
-        "mandatory": false
-      }
+      "type": "phone"
     },
     {
       "fieldName": "website",
       "type": "url",
-      "validate": {
+      "validation": {
         "mandatory": false
       }
     },
     {
       "fieldName": "publish",
       "type": "boolean",
-      "validate": {
+      "validation": {
         "mandatory": false
       }
     }

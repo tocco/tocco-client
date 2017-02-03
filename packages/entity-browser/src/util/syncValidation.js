@@ -31,8 +31,8 @@ const valueValidator = (values, validatorDefinitions, entityModel) => {
 
   const getValidatorValue = (fieldName, selector) => {
     if (entityModel[fieldName]
-      && entityModel[fieldName].validate) {
-      return entityModel[fieldName].validate[selector]
+      && entityModel[fieldName].validation) {
+      return entityModel[fieldName].validation[selector]
     }
   }
 

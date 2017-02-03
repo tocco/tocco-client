@@ -1,4 +1,5 @@
 import React from 'react'
+import _get from 'lodash/get'
 import LabeledField from './LabeledField'
 import {Field, reduxForm} from 'redux-form'
 import {Button, LayoutBox} from 'tocco-ui'
@@ -38,11 +39,7 @@ export const DetailForm = props => {
           fieldProps.options = {store}
         }
 
-        const isMandatoryField = fieldName => (
-          props.entityModel[fieldName]
-          && props.entityModel[fieldName].validate
-          && props.entityModel[fieldName].validate.mandatory
-        )
+        const isMandatoryField = fieldName => _get(props, `entityModel[${fieldName}].validation.mandatory`, false)
 
         result.push(
           <div key={i} onFocus={() => props.loadRelationEntities(field.name)}>
