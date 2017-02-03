@@ -3,7 +3,7 @@ import Select from 'react-select'
 
 const SingleSelect = props => {
   const onChange = e => {
-    props.onChange(e.value)
+    props.onChange(e.value ? e.value : e)
   }
 
   return (
