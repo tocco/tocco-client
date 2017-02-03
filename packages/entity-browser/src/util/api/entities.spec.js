@@ -237,6 +237,53 @@ describe('entity-browser', () => {
             })
           })
         })
+
+        describe('getInitialSelectBoxStore', () => {
+          it('should return a store array for a field of type entity', () => {
+            const paths = {
+              singleSelect: {
+                type: 'entity',
+                value: {
+                  key: '1',
+                  display: 'Label'
+                }
+              }
+            }
+
+            const expectedResult = [{
+              key: 'singleSelect',
+              store: [
+                {value: '1', label: 'Label'}
+              ]
+            }]
+
+            const result = entities.getInitialSelectBoxStore(paths)
+            expect(result).to.eql(expectedResult)
+          })
+
+          it('should return a store array for a field of the type entity-list', () => {
+            const paths = {
+              singleSelect: {
+                type: 'entity-list',
+                value: [
+                  {key: '1', display: 'Label1'},
+                  {key: '2', display: 'Label2'}
+                ]
+              }
+            }
+
+            const expectedResult = [{
+              key: 'singleSelect',
+              store: [
+                {value: '1', label: 'Label1'},
+                {value: '2', label: 'Label2'}
+              ]
+            }]
+
+            const result = entities.getInitialSelectBoxStore(paths)
+            expect(result).to.eql(expectedResult)
+          })
+        })
       })
     })
   })
