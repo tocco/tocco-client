@@ -5,6 +5,10 @@ const getRandomDate = (startYear, endYear) => {
   return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
 }
 
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
 export const createUsers = amount => {
   const entities = []
   const userTemplate = require('./user_template.json')
@@ -41,6 +45,13 @@ export const createUsers = amount => {
           value: {
             value: getRandomDate(1980, 2010),
             type: 'birthdate'
+          }
+        },
+        age: {
+          type: 'field',
+          value: {
+            value: getRandomInt(10, 100),
+            type: 'number'
           }
         },
         salary: {

@@ -112,20 +112,20 @@
             "useLabel": "YES"
           },
           {
-            "name": "relUser_status",
+            "name": "relSingle_entity2",
             "type": "ch.tocco.nice2.model.form.components.table.Column",
             "displayType": "EDITABLE",
             "children": [
               {
-                "name": "relUser_status",
+                "name": "relSingle_entity2",
                 "type": "ch.tocco.nice2.model.form.components.simple.SingleSelectBox",
                 "displayType": "EDITABLE",
                 "children": [],
-                "label": "Status Person",
+                "label": "Dummy Entity (n:1)",
                 "useLabel": "YES"
               }
             ],
-            "label": "Status Person",
+            "label": "Dummy Entity (n:1)",
             "useLabel": "YES"
           },
           {
@@ -180,23 +180,6 @@
             "useLabel": "YES"
           },
           {
-            "name": "relGender",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "EDITABLE",
-            "children": [
-              {
-                "name": "relGender",
-                "type": "ch.tocco.nice2.model.form.components.simple.RemoteField",
-                "displayType": "EDITABLE",
-                "children": [],
-                "label": "Adresse",
-                "useLabel": "YES"
-              }
-            ],
-            "label": "Geschlecht",
-            "useLabel": "YES"
-          },
-          {
             "name": "fullname",
             "type": "ch.tocco.nice2.model.form.components.table.Column",
             "displayType": "EDITABLE",
@@ -222,20 +205,20 @@
             "useLabel": "YES"
           },
           {
-            "name": "fullname",
+            "name": "relMulti_entity2",
             "type": "ch.tocco.nice2.model.form.components.table.Column",
             "displayType": "EDITABLE",
             "children": [
               {
-                "name": "relUser_code1",
+                "name": "relMulti_entity2",
                 "type": "ch.tocco.nice2.model.form.components.simple.RemoteField",
                 "displayType": "EDITABLE",
                 "children": [],
-                "label": "Adresse",
+                "label": "Dummy Entity (n:n)",
                 "useLabel": "YES"
               }
             ],
-            "label": "Titles (n:n)",
+            "label": "Dummy Entity (n:n)",
             "useLabel": "YES"
           },
           {
@@ -270,40 +253,6 @@
               }
             ],
             "label": "Akad. Titel",
-            "useLabel": "YES"
-          },
-          {
-            "name": "relGender",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "HIDDEN",
-            "children": [
-              {
-                "name": "relGender",
-                "type": "ch.tocco.nice2.model.form.components.simple.SingleSelectBox",
-                "displayType": "HIDDEN",
-                "children": [],
-                "label": "Geschlecht",
-                "useLabel": "YES"
-              }
-            ],
-            "label": "Geschlecht",
-            "useLabel": "YES"
-          },
-          {
-            "name": "fullname",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "HIDDEN",
-            "children": [
-              {
-                "name": "relGender",
-                "type": "ch.tocco.nice2.model.form.components.simple.SingleSelectBox",
-                "displayType": "HIDDEN",
-                "children": [],
-                "label": "Geschlecht",
-                "useLabel": "YES"
-              }
-            ],
-            "label": "Fullname",
             "useLabel": "YES"
           },
           {

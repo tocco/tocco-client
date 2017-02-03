@@ -14,7 +14,8 @@ class Example extends React.Component {
         multiSelect: ['b', 'c'],
         date: '2015-12-18',
         datetime: '2017-01-25T15:15:00.000Z',
-        boolean: false
+        boolean: false,
+        number: 99
       }
     }
   }
@@ -64,6 +65,17 @@ class Example extends React.Component {
                   onChange={v => this.changeValue('text', v)}
                   readOnly={this.state.readOnly}
               />
+              </td>
+            </tr>
+            <tr>
+              <td>number</td>
+              <td>
+                <EditableValue
+                  type="number"
+                  value={this.state.values.number}
+                  onChange={v => this.changeValue('number', v)}
+                  readOnly={this.state.readOnly}
+                />
               </td>
             </tr>
             <tr>

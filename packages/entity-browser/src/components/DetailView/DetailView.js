@@ -1,23 +1,37 @@
 import React from 'react'
-import DetailForm from './DetailForm'
 import {Button} from 'tocco-ui'
+import DetailForm from './DetailForm'
+import syncValidation from '../../util/syncValidation'
+import {asyncValidate} from '../../util/reduxForms'
 
 import './styles.scss'
 
-const DetailView = props => {
-  return (
-    <div className="detail-view">
-      <Button icon="glyphicon-chevron-left" onClick={props.closeEntityDetail} label="Back"/>
-      <h3>DetailView</h3>
-      <DetailForm
-        submitForm={props.submitForm}
-        formDefinition={props.formDefinition}
-        entity={props.entity}
-        loadRelationEntities={props.loadRelationEntities}
-        selectBoxStores={props.selectBoxStores}
-      />
-    </div>
-  )
+class DetailView extends React.Component {
+  constructor(props) {
+    super(props)
+    this.validate = syncValidation(props.entityModel)
+  }
+
+  render() {
+    const props = this.props
+    return (
+      <div className="detail-view">
+        <Button icon="glyphicon-chevron-left" onClick={props.closeEntityDetail} label="Back"/>
+        <h3>DetailView</h3>
+        <DetailForm
+          validate={this.validate}
+          asyncValidate={asyncValidate}
+          submitForm={props.submitForm}
+          formDefinition={props.formDefinition}
+          entity={props.entity}
+          loadRelationEntities={props.loadRelationEntities}
+          selectBoxStores={props.selectBoxStores}
+          formSyncErrors={props.formSyncErrors}
+          entityModel={props.entityModel}
+        />
+      </div>
+    )
+  }
 }
 
 export default DetailView
@@ -28,6 +42,10 @@ DetailView.propTypes = {
   formDefinition: React.PropTypes.shape({
     children: React.PropTypes.array
   }).isRequired,
+  entityModel: React.PropTypes.object.isRequired,
+  formSyncErrors: React.PropTypes.objectOf(
+    React.PropTypes.objectOf(React.PropTypes.string)
+  ),
   entity: React.PropTypes.object,
   loadRelationEntities: React.PropTypes.func,
   selectBoxStores: React.PropTypes.shape({

@@ -31,7 +31,7 @@
             "useLabel": "YES"
           },
           {
-            "name": "relGender",
+            "name": "relSingle_entity2",
             "type": "ch.tocco.nice2.model.form.components.simple.SingleSelectBox",
             "displayType": "EDITABLE",
             "children": [],
@@ -39,7 +39,7 @@
             "useLabel": "YES"
           },
           {
-            "name": "relUser_code1",
+            "name": "relMulti_entity2",
             "type": "ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
             "displayType": "EDITABLE",
             "children": [],
