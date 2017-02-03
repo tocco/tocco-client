@@ -6,7 +6,7 @@ import {
   stopSubmit,
   initialize as initializeForm
 } from 'redux-form'
-import {fetchEntity, updateEntity, fetchEntities} from '../../util/api/entities'
+import {fetchEntity, updateEntity, fetchEntities, getInitialSelectBoxStore} from '../../util/api/entities'
 import {fetchForm, getFieldsOfDetailForm} from '../../util/api/forms'
 import {formValuesToEntity, entityToFormValues, submitValidate, getDirtyFields} from '../../util/reduxForms'
 
@@ -66,6 +66,22 @@ describe('entity-browser', () => {
               }
             }
 
+            const stores = [
+              {
+                key: 'field1',
+                store: [
+                  {value: 1, label: 'fieldLabel'}
+                ]
+              },
+              {
+                key: 'field2',
+                store: [
+                  {value: 1, label: 'fieldLabel1'},
+                  {value: 2, label: 'fieldLabel2'}
+                ]
+              }
+            ]
+
             const gen = sagas.loadEntity(actions.loadEntity(entityId))
             expect(gen.next().value).to.eql(select(sagas.detailViewSelector))
             expect(gen.next({entityName, formDefinition}).value).to.eql(call(getFieldsOfDetailForm, formDefinition))
@@ -75,11 +91,12 @@ describe('entity-browser', () => {
 
             expect(gen.next(entity).value).to.eql(put(actions.setEntity(entity)))
             expect(gen.next([]).value).to.eql(call(entityToFormValues, entity))
+            expect(gen.next({}).value).to.eql(call(getInitialSelectBoxStore, entity.paths))
 
             const storeSingleSelect = [
               {value: 1, label: 'fieldLabel'}
             ]
-            expect(gen.next({}).value).to.eql(put(actions.setStore('field1', storeSingleSelect)))
+            expect(gen.next(stores).value).to.eql(put(actions.setStore('field1', storeSingleSelect)))
 
             const storeMultiSelect = [
               {value: 1, label: 'fieldLabel1'},

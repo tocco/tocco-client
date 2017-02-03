@@ -47,7 +47,7 @@ export function* loadEntity({payload}) {
   const formValues = yield call(entityToFormValues, entity)
 
   // initialize store for fields of the types `entity` and `entity-list`
-  const stores = getInitialSelectBoxStore(entity.paths)
+  const stores = yield call(getInitialSelectBoxStore, entity.paths)
   for (const store of stores) {
     yield put(actions.setStore(store.key, store.store))
   }
