@@ -1,8 +1,8 @@
 import React from 'react'
+import _get from 'lodash/get'
 import LabeledField from './LabeledField'
 import {Field, reduxForm} from 'redux-form'
 import {Button, LayoutBox} from 'tocco-ui'
-import {asyncValidate} from '../../util/reduxForms'
 
 export const DetailForm = props => {
   if (!props.entity.paths) {
@@ -39,6 +39,8 @@ export const DetailForm = props => {
           fieldProps.options = {store}
         }
 
+        const isMandatoryField = fieldName => _get(props, `entityModel[${fieldName}].validation.mandatory`, false)
+
         const handleFocus = (type, fieldName) => {
           if (selectTypes.includes(type)) {
             props.loadRelationEntities(fieldName)
@@ -47,7 +49,14 @@ export const DetailForm = props => {
 
         result.push(
           <div key={i} onFocus={() => (handleFocus(entityField.type, field.name))}>
-            <Field name={field.name} key={i} label={field.label} component={LabeledField} {...fieldProps}/>
+            <Field
+              name={field.name}
+              key={i}
+              label={field.label}
+              component={LabeledField}
+              mandatory={isMandatoryField(field.name)}
+              {...fieldProps}
+            />
           </div>
         )
       }
@@ -57,8 +66,12 @@ export const DetailForm = props => {
   }
 
   const handleSubmit = e => {
-    props.submitForm()
     e.preventDefault()
+    if (props.valid) {
+      props.submitForm()
+    } else if (props.formSyncErrors) {
+      Object.keys(props.formSyncErrors).forEach(f => props.touch(f))
+    }
   }
 
   return (
@@ -72,14 +85,16 @@ export const DetailForm = props => {
         disabled={props.submitting}
         primary
       />
-      <div>submitFailed: {props.submitFailed && props.submitFailed.toString()}</div>
-      <div>submitSucceeded: {props.submitSucceeded && props.submitSucceeded.toString()}</div>
-      <div>anyTouched: {props.anyTouched && props.anyTouched.toString()}</div>
+      <div>valid: {props.valid ? 'true' : 'false'}</div>
+      <div>submitFailed: {props.submitFailed ? 'true' : 'false'}</div>
+      <div>submitSucceeded: {props.submitSucceeded ? 'true' : 'false'}</div>
+      <div>anyTouched: {props.anyTouched ? 'true' : 'false'}</div>
     </form>
   )
 }
 
 DetailForm.propTypes = {
+  entityModel: React.PropTypes.object.isRequired,
   submitForm: React.PropTypes.func.isRequired,
   formDefinition: React.PropTypes.object.isRequired,
   entity: React.PropTypes.object.isRequired,
@@ -98,12 +113,15 @@ DetailForm.propTypes = {
         })
       )
     })
-  })
+  }),
+  formSyncErrors: React.PropTypes.objectOf(
+    React.PropTypes.objectOf(React.PropTypes.string)
+  ),
+  valid: React.PropTypes.bool
 }
 
 export default reduxForm({
   form: 'detailForm',
-  destroyOnUnmount: false,
-  asyncValidate
+  destroyOnUnmount: false
 })(DetailForm)
 

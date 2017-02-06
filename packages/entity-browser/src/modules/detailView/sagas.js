@@ -15,6 +15,7 @@ import {fetchForm, getFieldsOfDetailForm} from '../../util/api/forms'
 import {formValuesToEntity, entityToFormValues, submitValidate, getDirtyFields} from '../../util/reduxForms'
 
 export const detailViewSelector = state => state.detailView
+export const formDefinitionSelector = state => state.detailView.formDefinition
 export const formInitialValueSelector = formId =>
   state => state.form[formId].initial
 export const entityBrowserSelector = state => state.entityBrowser
@@ -64,8 +65,9 @@ export function* submitForm() {
     yield call(submitValidate, values)
     const dirtyFields = yield call(getDirtyFields, initialValues, values)
     const entity = yield call(formValuesToEntity, values, dirtyFields)
-    const updatedEntity = yield call(updateEntity, entity)
-
+    const formDefinition = yield select(formDefinitionSelector)
+    const fields = yield call(getFieldsOfDetailForm, formDefinition)
+    const updatedEntity = yield call(updateEntity, entity, fields)
     const updatedFormValues = yield call(entityToFormValues, updatedEntity)
     yield put(initializeForm(formId, updatedFormValues))
     yield put(stopSubmit(formId))

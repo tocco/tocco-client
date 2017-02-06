@@ -223,9 +223,12 @@ describe('entity-browser', () => {
               const result = entities.defaultModelTransformer(fetchResult)
               const expectedResult = {
                 pk: {
+                  'fieldName': 'pk',
                   type: 'serial'
+
                 },
                 firstname: {
+                  'fieldName': 'firstname',
                   type: 'string'
                 },
                 some_relation: {

@@ -9,23 +9,26 @@ export function fetchEntity(entityName, id, fields) {
     .then(resp => resp.json())
 }
 
-export function updateEntity(entity) {
-  return rest.fetchRequest(`entities/${entity.model}/${entity.key}`, {}, 'PATCH', entity)
+export function updateEntity(entity, fields) {
+  const params = {
+    '_paths': fields.join(',')
+  }
+  return rest.fetchRequest(`entities/${entity.model}/${entity.key}`, params, 'PATCH', entity)
     .then(resp => resp.json())
 }
 
 export const defaultModelTransformer = json => {
   const model = {}
-  json.fields.forEach(f => {
-    model[f.fieldName] = {
-      type: f.type
+  json.fields.forEach(field => {
+    model[field.fieldName] = {
+      ...field
     }
   })
 
-  json.relations.forEach(r => {
-    model[r.relationName] = {
+  json.relations.forEach(relation => {
+    model[relation.relationName] = {
       type: 'relation',
-      targetEntity: r.targetEntity
+      targetEntity: relation.targetEntity
     }
   })
   return model
@@ -117,7 +120,6 @@ export const getInitialSelectBoxStore = paths => {
     const field = paths[key]
     if (field.type === 'entity') {
       if (field.value != null) {
-        console.log(field.value)
         store = [{value: field.value.key, label: field.value.display}]
       }
     } else if (field.type === 'entity-list') {
