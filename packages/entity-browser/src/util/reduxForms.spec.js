@@ -10,6 +10,7 @@ describe('entity-browser', () => {
           const values = {
             firstname: 'peter',
             gender: '2',
+            status: [2, 3],
             ___entity: {
               version: 2,
               model: 'User',
@@ -20,6 +21,9 @@ describe('entity-browser', () => {
                 },
                 gender: {
                   type: 'entity'
+                },
+                status: {
+                  type: 'entity-list'
                 }
               }
             }
@@ -33,7 +37,8 @@ describe('entity-browser', () => {
             key: 99,
             paths: {
               firstname: 'peter',
-              gender: {key: '2'}
+              gender: {key: '2'},
+              status: [{key: 2}, {key: 3}]
             }
           }
 

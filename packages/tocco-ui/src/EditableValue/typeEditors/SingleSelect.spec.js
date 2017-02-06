@@ -23,7 +23,7 @@ describe('tocco-ui', () => {
         })
 
         it('should call onChange ', () => {
-          const newValue = '1'
+          const newValue = {value: 1, label: 'label1'}
           const spy = sinon.spy()
           const options = {
             store: [
@@ -33,7 +33,7 @@ describe('tocco-ui', () => {
           }
           const wrapper = shallow(<SingleSelect onChange={spy} options={options}/>)
           wrapper.find(Select).simulate('change', newValue)
-          expect(spy).to.have.been.calledWith(newValue)
+          expect(spy).to.have.been.calledWith(1)
         })
       })
     })

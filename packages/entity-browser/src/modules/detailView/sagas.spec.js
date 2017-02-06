@@ -101,6 +101,9 @@ describe('entity-browser', () => {
             const entity = {}
             const updatedFormValues = {}
             const updatedEntity = {}
+            const formDefinition = {}
+            const fields = []
+
             const gen = sagas.submitForm()
 
             gen.next().value // not working : expect(gen.next().value).to.eql(select(getFormValues(formId)))
@@ -109,7 +112,9 @@ describe('entity-browser', () => {
             expect(gen.next().value).to.eql(call(submitValidate, values))
             expect(gen.next().value).to.eql(call(getDirtyFields, initialValues, values))
             expect(gen.next(dirtyFields).value).to.eql(call(formValuesToEntity, values, dirtyFields))
-            expect(gen.next(entity).value).to.eql(call(updateEntity, entity))
+            expect(gen.next(entity).value).to.eql(select(sagas.formDefinitionSelector))
+            expect(gen.next(formDefinition).value).to.eql(call(getFieldsOfDetailForm, formDefinition))
+            expect(gen.next(fields).value).to.eql(call(updateEntity, entity, fields))
             expect(gen.next(updatedEntity).value).to.eql(call(entityToFormValues, updatedEntity))
             expect(gen.next(updatedFormValues).value).to.eql(put(initializeForm(formId, updatedFormValues)))
             expect(gen.next().value).to.eql(put(stopSubmit(formId)))
