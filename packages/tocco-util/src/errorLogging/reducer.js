@@ -1,11 +1,12 @@
 import * as actions from './actions'
 
-const logError = (state, {payload: {type, title, error, dateTime}}) => ({
+const logError = (state, {payload: {type, title, description, error, dateTime}}) => ({
   ...state,
   messages: [
     {
       type,
       title,
+      description,
       error,
       dateTime
     },
