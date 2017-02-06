@@ -2,7 +2,8 @@ import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 import {
   hasSubmitSucceeded,
-  hasSubmitFailed
+  hasSubmitFailed,
+  getFormSyncErrors
 } from 'redux-form'
 
 import {closeEntityDetail} from '../modules/entityBrowser/actions'
@@ -20,7 +21,9 @@ const mapStateToProps = (state, props) => ({
   entity: state.detailView.entity,
   selectBoxStores: state.detailView.selectBoxStores,
   formSubmitSucceeded: hasSubmitSucceeded('detailForm')(state),
-  formSubmitFailed: hasSubmitFailed('detailForm')(state)
+  formSubmitFailed: hasSubmitFailed('detailForm')(state),
+  entityModel: state.entityBrowser.entityModel,
+  formSyncErrors: getFormSyncErrors('detailForm')(state)
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(DetailView))

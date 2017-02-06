@@ -84,6 +84,7 @@ describe('entity-browser', () => {
             formDefinition={formDefinition}
             entity={entity}
             stores={{}}
+            entityModel={{}}
           />)
 
         expect(wrapper.find('form')).to.have.length(1)
