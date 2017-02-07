@@ -9,11 +9,12 @@ describe('entity-browser', () => {
     describe('ListView', () => {
       it('should render', () => {
         const wrapper = shallow(<DetailView
-          formDefinition={{children: {}}}
+          formDefinition={{children: []}}
           closeEntityDetail={EMPTY_FUNC}
           entity={{}}
           saveEntity={EMPTY_FUNC}
           stores={{}}
+          submitForm={EMPTY_FUNC}
         />)
 
         expect(wrapper.find('.detail-view')).to.have.length(1)

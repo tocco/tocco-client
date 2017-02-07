@@ -18,7 +18,8 @@ class DetailView extends React.Component {
       <div className="detail-view">
         <Button icon="glyphicon-chevron-left" onClick={props.closeEntityDetail} label="Back"/>
         <h3>DetailView</h3>
-        <DetailForm
+        {props.formInitialValues
+        && <DetailForm
           validate={this.validate}
           asyncValidate={asyncValidate}
           submitForm={props.submitForm}
@@ -29,6 +30,7 @@ class DetailView extends React.Component {
           formSyncErrors={props.formSyncErrors}
           entityModel={props.entityModel}
         />
+        }
       </div>
     )
   }
@@ -48,6 +50,7 @@ DetailView.propTypes = {
   ),
   entity: React.PropTypes.object,
   loadRelationEntities: React.PropTypes.func,
+  formInitialValues: React.PropTypes.object,
   selectBoxStores: React.PropTypes.shape({
     entityName: React.PropTypes.shape({
       loaded: React.PropTypes.bool,
