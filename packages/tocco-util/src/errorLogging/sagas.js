@@ -1,5 +1,4 @@
-import {takeEvery} from 'redux-saga'
-import {fork} from 'redux-saga/effects'
+import {fork, takeEvery} from 'redux-saga/effects'
 import * as actions from './actions'
 import handlerRegistry from './handlerRegistry'
 export default function* sagas() {
