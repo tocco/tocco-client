@@ -15,9 +15,9 @@ export function updateEntity(entity, fields) {
   const params = {
     '_paths': fields.join(',')
   }
-  return request(`entities/${entity.model}/${entity.key}`, params, 'PATCH', entity, ['SAVE_FAILED'])
+  return request(`entities/${entity.model}/${entity.key}`, params, 'PATCH', entity, ['VALIDATION_FAILED'])
     .then(resp => {
-      if (resp.body.errorCode === 'SAVE_FAILED') {
+      if (resp.body.errorCode === 'VALIDATION_FAILED') {
         throw new SubmissionError(validationErrorToFormError(entity, resp.body.errors))
       }
       return resp.body

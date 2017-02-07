@@ -10,7 +10,8 @@ export const createValidateResponse = (url, opts) => {
   if (entity.paths.firstname === 'illegal') {
     fields.firstname = {
       notAllowed: 'ASYNC VALIDATE: Firstname should not be illegal!',
-      other: 'ASYNC VALIDATE: Another error'}
+      other: 'ASYNC VALIDATE: Another error'
+    }
   }
 
   if (entity.paths.firstname === 'illegal1') {
@@ -63,7 +64,7 @@ export const createEntityUpdateResponse = (url, opts) => {
   if (entity.paths.firstname.indexOf('illegal') >= 0) {
     const userField = `User[${entity.key}]`
     const result = {
-      errorCode: entity.paths.firstname === 'illegal2' ? 'SAVE_FAILED' : 'NOT_ACCEPTED',
+      errorCode: entity.paths.firstname === 'illegal2' ? 'VALIDATION_FAILED' : 'NOT_ACCEPTED',
       errors: {
         [userField]: {
           'firstname': {
