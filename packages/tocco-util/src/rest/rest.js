@@ -1,13 +1,10 @@
 export const getParameterString = params => {
-  const paramString = Object.keys(params || [])
+  const paramString = Object.keys(params || {})
     .filter(k => !!params[k])
     .sort()
     .map(k => {
       if (Array.isArray(params[k])) {
-        const arrayParams = []
-        params[k].forEach(ak => {
-          arrayParams.push(`${encodeURIComponent(k)}=${encodeURIComponent(ak)}`)
-        })
+        const arrayParams = params[k].map(ak => `${encodeURIComponent(k)}=${encodeURIComponent(ak)}`)
         return arrayParams.join('&')
       }
       return `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`
