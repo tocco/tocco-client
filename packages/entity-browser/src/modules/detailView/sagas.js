@@ -10,7 +10,7 @@ import {
   initialize as initializeForm
 } from 'redux-form'
 
-import {fetchEntity, updateEntity, fetchEntities} from '../../util/api/entities'
+import {fetchEntity, updateEntity, fetchEntities, getInitialSelectBoxStore} from '../../util/api/entities'
 import {fetchForm, getFieldsOfDetailForm} from '../../util/api/forms'
 
 import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../util/reduxForms'
@@ -50,22 +50,9 @@ export function* loadEntity({payload}) {
   const formValues = yield call(entityToFormValues, entity)
 
   // initialize store for fields of the types `entity` and `entity-list`
-  const keys = Object.keys(entity.paths)
-  for (let i = 0; i < keys.length; i++) {
-    let fieldStore = []
-    const key = keys[i]
-    const field = entity.paths[key]
-    if (field.type === 'entity') {
-      if (field.value != null) {
-        fieldStore = [{value: field.value.key, label: field.value.display}]
-      }
-    } else if (field.type === 'entity-list') {
-      if (field.value != null && field.value.length > 0) {
-        fieldStore = field.value.map(e => ({value: e.key, label: e.display}))
-      }
-    }
-
-    yield put(actions.setStore(key, fieldStore))
+  const stores = yield call(getInitialSelectBoxStore, entity.paths)
+  for (const store of stores) {
+    yield put(actions.setStore(store.key, store.store))
   }
 
   yield put(initializeForm('detailForm', formValues))

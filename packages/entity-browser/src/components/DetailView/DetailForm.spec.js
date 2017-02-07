@@ -80,7 +80,7 @@ describe('entity-browser', () => {
         const wrapper = shallow(
           <DetailForm
             submitting={false}
-            handleSubmit={EMPTY_FUNC}
+            submitForm={EMPTY_FUNC}
             formDefinition={formDefinition}
             entity={entity}
             stores={{}}

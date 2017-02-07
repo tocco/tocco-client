@@ -3,6 +3,7 @@ import {injectIntl} from 'react-intl'
 import {
   hasSubmitSucceeded,
   hasSubmitFailed,
+  getFormInitialValues,
   getFormSyncErrors
 } from 'redux-form'
 
@@ -25,7 +26,8 @@ const mapStateToProps = (state, props) => ({
   formSubmitSucceeded: hasSubmitSucceeded('detailForm')(state),
   formSubmitFailed: hasSubmitFailed('detailForm')(state),
   entityModel: state.entityBrowser.entityModel,
-  formSyncErrors: getFormSyncErrors('detailForm')(state)
+  formSyncErrors: getFormSyncErrors('detailForm')(state),
+  formInitialValues: getFormInitialValues('detailForm')(state)
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(DetailView))

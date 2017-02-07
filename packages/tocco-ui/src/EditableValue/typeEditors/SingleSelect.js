@@ -3,7 +3,7 @@ import Select from 'react-select'
 
 const SingleSelect = props => {
   const onChange = e => {
-    props.onChange(e.value)
+    props.onChange(e.value ? e.value : e)
   }
 
   return (
@@ -22,7 +22,10 @@ const SingleSelect = props => {
 
 SingleSelect.propTypes = {
   onChange: React.PropTypes.func,
-  value: React.PropTypes.string,
+  value: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.number
+  ]),
   options: React.PropTypes.shape({
     store: React.PropTypes.arrayOf(
       React.PropTypes.shape({
