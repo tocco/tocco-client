@@ -7,18 +7,23 @@ import {mount, shallow} from 'enzyme'
 
 const EMPTY_FUNC = () => {}
 
+const defaultProps = {
+  entityCount: 1,
+  limit: 10,
+  columnDefinitions: [],
+  searchFormDefinition: [],
+  changePage: EMPTY_FUNC,
+  setSearchTerm: EMPTY_FUNC,
+  entities: [],
+  intl: IntlStub,
+  orderBy: null
+}
+
 describe('entity-browser', () => {
   describe('components', () => {
     describe('ListView', () => {
       it('should render', () => {
-        const wrapper = mount(<ListView
-          changePage={EMPTY_FUNC}
-          setSearchTerm={EMPTY_FUNC}
-          entities={[]}
-          searchFormDefinition={[]}
-          orderBy={{}}
-          intl={IntlStub}
-        />)
+        const wrapper = mount(<ListView {...defaultProps}/>)
 
         expect(wrapper.find(ListView)).to.have.length(1)
         expect(wrapper.find(Table)).to.have.length(1)
@@ -29,13 +34,8 @@ describe('entity-browser', () => {
         const changePage = sinon.spy()
 
         const wrapper = shallow(<ListView
-          initializeTable={EMPTY_FUNC}
+          {...defaultProps}
           changePage={changePage}
-          setSearchTerm={EMPTY_FUNC}
-          entities={[]}
-          searchFormDefinition={[]}
-          orderBy={{}}
-          intl={IntlStub}
         />)
 
         wrapper.find(Pagination).simulate('pageChange')
@@ -43,26 +43,22 @@ describe('entity-browser', () => {
       })
 
       it('should pass properties to the Table component', () => {
-        const entities = ['my', 'entities']
+        const entities = [{id: 1, values:{}}, {id: 2, values:{}}]
         const orderBy = {
           name: 'name',
           direction: 'asc'
         }
-        const columnDefinitions = ['my', 'column', 'definition']
+        const columnDefinitions = [{value: 'my'}]
         const inProgress = true
         const orderByChange = sinon.spy()
 
         const wrapper = shallow(<ListView
-          initializeTable={EMPTY_FUNC}
-          changePage={EMPTY_FUNC}
-          setSearchTerm={EMPTY_FUNC}
+          {...defaultProps}
           entities={entities}
-          searchFormDefinition={[]}
           orderBy={orderBy}
           columnDefinitions={columnDefinitions}
           inProgress={inProgress}
           setOrderBy={orderByChange}
-          intl={IntlStub}
         />)
 
         expect(wrapper.find(Table).props().records).to.eql(entities)
@@ -77,15 +73,8 @@ describe('entity-browser', () => {
         const currentPage = 100
 
         const wrapper = shallow(<ListView
-          initializeTable={EMPTY_FUNC}
-          changePage={EMPTY_FUNC}
-          setOrderBy={EMPTY_FUNC}
-          setSearchTerm={EMPTY_FUNC}
-          entities={[]}
-          searchFormDefinition={[]}
-          orderBy={{}}
+          {...defaultProps}
           currentPage={currentPage}
-          intl={IntlStub}
         />)
 
         expect(wrapper.find(Pagination).props().currentPage).to.eql(currentPage)
@@ -95,15 +84,8 @@ describe('entity-browser', () => {
         const limit = 100
 
         const wrapper = shallow(<ListView
-          initializeTable={EMPTY_FUNC}
-          changePage={EMPTY_FUNC}
-          setOrderBy={EMPTY_FUNC}
-          setSearchTerm={EMPTY_FUNC}
-          entities={[]}
-          searchFormDefinition={[]}
-          orderBy={{}}
+          {...defaultProps}
           limit={limit}
-          intl={IntlStub}
         />)
 
         expect(wrapper.find(Pagination).props().recordsPerPage).to.eql(limit)
@@ -113,15 +95,8 @@ describe('entity-browser', () => {
         const entityCount = 1234
 
         const wrapper = shallow(<ListView
-          initializeTable={EMPTY_FUNC}
-          changePage={EMPTY_FUNC}
-          setOrderBy={EMPTY_FUNC}
-          setSearchTerm={EMPTY_FUNC}
-          entities={[]}
-          searchFormDefinition={[]}
-          orderBy={{}}
+          {...defaultProps}
           entityCount={entityCount}
-          intl={IntlStub}
         />)
 
         expect(wrapper.find(Pagination).props().totalRecords).to.eql(entityCount)
@@ -131,14 +106,8 @@ describe('entity-browser', () => {
         const spy = sinon.spy()
 
         const wrapper = shallow(<ListView
-          initializeTable={EMPTY_FUNC}
-          changePage={EMPTY_FUNC}
-          setSearchTerm={EMPTY_FUNC}
+          {...defaultProps}
           refresh={spy}
-          entities={[]}
-          searchFormDefinition={[]}
-          orderBy={{}}
-          intl={IntlStub}
         />)
 
         wrapper.find('.refresh-button').simulate('click')
