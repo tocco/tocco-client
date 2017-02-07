@@ -9,6 +9,7 @@ import {
 } from './fetchMockHelpers'
 
 export default function setupFetchMock(fetchMock) {
+  utilFetchMocks.logFetchMock(fetchMock)
   utilFetchMocks.sessionFetchMock(fetchMock)
   utilFetchMocks.textResourceFetchMock(fetchMock, require('./rest-responses/messages.json'))
 
