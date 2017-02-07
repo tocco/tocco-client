@@ -7,14 +7,21 @@ export const createValidateResponse = (url, opts) => {
   const fields = {}
   const entity = JSON.parse(opts.body)
 
-  if (entity.paths.firstname === 'tocco') {
-    fields.firstname = {notAllowed: 'Firstname should not be tocco!', some: 'Another error'}
+  if (entity.paths.firstname === 'illegal') {
+    fields.firstname = {
+      notAllowed: 'ASYNC VALIDATE: Firstname should not be illegal!',
+      other: 'ASYNC VALIDATE: Another error'
+    }
+  }
+
+  if (entity.paths.firstname === 'illegal1') {
+    return {throws: new Error('mock valiadtion error')}
   }
 
   return sleep(1000).then(() => ({fields}))
 }
 
-export const createEntitiesReponse = (url, opts) => {
+export const createEntitiesResponse = (url, opts) => {
   console.log('fetchMock: called fetch entities', url)
   const limit = parseInt(getParameterValue('_limit', url)) || 25
   const offset = parseInt(getParameterValue('_offset', url)) || 0
@@ -42,7 +49,7 @@ export const createEntitiesReponse = (url, opts) => {
   return wrapEntitiesResponse(allEntities.slice(offset, offset + limit))
 }
 
-export const createCountReponse = (url, opts) => ({'count': allEntities.length})
+export const createCountResponse = (url, opts) => ({'count': allEntities.length})
 
 export const createEntityResponse = (url, opts) => {
   console.log('fetchMock: called fetch entitiy', url, opts)
@@ -52,8 +59,29 @@ export const createEntityResponse = (url, opts) => {
 
 export const createEntityUpdateResponse = (url, opts) => {
   console.log('fetchMock: create/update entity', url, opts)
-
   const entity = JSON.parse(opts.body)
+
+  if (entity.paths.firstname.indexOf('illegal') >= 0) {
+    const userField = `User[${entity.key}]`
+    const result = {
+      errorCode: entity.paths.firstname === 'illegal2' ? 'VALIDATION_FAILED' : 'NOT_ACCEPTED',
+      errors: {
+        [userField]: {
+          'firstname': {
+            'illegal': ['SUBMIT ERROR: Firstname should not be "illegal2".']
+          }
+        },
+        'User_status[3]': {
+          'label_de': {
+            'mandatory': ['SUBMIT ERROR: Mandatory field.']
+          }
+        }
+      }
+    }
+    const body = new Blob([JSON.stringify(result, null, 2)], {type: 'application/json'})
+    return sleep(1000).then(() => (new Response(body, {'status': 400})))
+  }
+
   const oldEntity = allEntities[entity.key]
 
   const updatedEntity = {

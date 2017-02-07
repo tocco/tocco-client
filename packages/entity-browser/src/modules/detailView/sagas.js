@@ -13,7 +13,8 @@ import {
 import {fetchEntity, updateEntity, fetchEntities} from '../../util/api/entities'
 import {fetchForm, getFieldsOfDetailForm} from '../../util/api/forms'
 
-import {formValuesToEntity, entityToFormValues, submitValidate, getDirtyFields} from '../../util/reduxForms'
+import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../util/reduxForms'
+import {submitValidate} from '../../util/asyncValidation'
 
 export const detailViewSelector = state => state.detailView
 export const formDefinitionSelector = state => state.detailView.formDefinition
@@ -84,15 +85,15 @@ export function* submitForm() {
     const updatedEntity = yield call(updateEntity, entity, fields)
     const updatedFormValues = yield call(entityToFormValues, updatedEntity)
     yield put(initializeForm(formId, updatedFormValues))
-  } catch (err) {
-    if (err instanceof SubmissionError) {
-      yield put(touch(formId, ...Object.keys(err.errors)))
-      yield put(stopSubmit(formId, err.errors))
-    } else {
-      yield put(logError('Unable to save entity', err))
-    }
-  } finally {
     yield put(stopSubmit(formId))
+  } catch (error) {
+    if (error instanceof SubmissionError) {
+      yield put(touch(formId, ...Object.keys(error.errors)))
+      yield put(stopSubmit(formId, error.errors))
+    } else {
+      yield put(logError('error.unhandled', 'entity-browser.saveError', error))
+      yield put(stopSubmit(formId))
+    }
   }
 }
 

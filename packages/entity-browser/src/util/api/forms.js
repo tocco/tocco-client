@@ -1,4 +1,4 @@
-import * as rest from '../rest'
+import {request} from 'tocco-util/src/rest'
 
 export const getFieldsOfDetailForm = formDefinition => {
   return getFieldsOfChildren(formDefinition.children)
@@ -22,8 +22,8 @@ const getFieldsOfChildren = children => {
 const defaultFormTransformer = json => (json.form)
 
 export function fetchForm(formName, transformer = defaultFormTransformer) {
-  return rest.fetchRequest(`forms/${formName}`)
-    .then(resp => resp.json())
+  return request(`forms/${formName}`)
+    .then(resp => resp.body)
     .then(json => transformer(json))
 }
 

@@ -1,5 +1,8 @@
 [
-  "client.error.unhandled_error",
+  "client.error.unhandled",
+  "client.error.unhandledDescription",
+  "client.entity-browser.saveError",
+  "client.entity-browser.validationError",
   "client.entity-browser.search",
   "client.entity-browser.reset",
   "client.entity-browser.refresh"

@@ -9,11 +9,11 @@ export default function* sagas() {
 }
 
 export function* log({payload}) {
-  const {type, title, error} = payload
+  const {type, title, description, error} = payload
 
   for (const handler in handlerRegistry) {
     try {
-      yield handlerRegistry[handler](type, title, error)
+      yield handlerRegistry[handler](type, title, description, error)
     } catch (e) {
       console.log('Error in logger', e)
     }

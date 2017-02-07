@@ -9,11 +9,13 @@ import {
 import {closeEntityDetail} from '../modules/entityBrowser/actions'
 import {submitForm, loadRelationEntities} from '../modules/detailView/actions'
 import DetailView from '../components/DetailView'
+import {logError} from 'tocco-util/src/errorLogging'
 
 const mapActionCreators = {
   closeEntityDetail,
   submitForm,
-  loadRelationEntities
+  loadRelationEntities,
+  logError
 }
 
 const mapStateToProps = (state, props) => ({
