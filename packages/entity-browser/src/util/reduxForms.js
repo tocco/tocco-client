@@ -1,8 +1,22 @@
 const wholeEntityField = '___entity'
-import {fetchRequest} from './rest'
-import {SubmissionError} from 'redux-form'
+
 import _reduce from 'lodash/reduce'
 import _isEqual from 'lodash/isEqual'
+import _forOwn from 'lodash/forOwn'
+
+export const validationErrorToFormError = (entity, errors) => {
+  const rootEntityName = `${entity.model}[${entity.key}]`
+  let result = {}
+  _forOwn(errors, (value, key) => {
+    if (key === rootEntityName) {
+      result = {...result, ...errors[rootEntityName]}
+    } else {
+      result._errors = (result._errors || '') + JSON.stringify(value)
+    }
+  })
+
+  return result
+}
 
 export const formValuesToEntity = (values, dirtyFields) => {
   const entity = values[wholeEntityField]
@@ -55,31 +69,3 @@ export const getDirtyFields = (initialValues, values) => (
   )
 )
 
-const hasError = errors => (
-  errors && Object.keys(errors).length > 0
-)
-
-const validateRequest = values => {
-  const entity = formValuesToEntity(values)
-  return fetchRequest(`entities/${entity.model}/${entity.key}/validate`, {}, 'POST', entity)
-    .then(resp => resp.json())
-    .then(json => json.fields)
-}
-
-export const submitValidate = values => {
-  return validateRequest(values)
-    .then(errors => {
-      if (hasError(errors)) {
-        throw new SubmissionError(errors)
-      }
-    })
-}
-
-export const asyncValidate = values => {
-  return validateRequest(values)
-    .then(errors => {
-      if (hasError(errors)) {
-        throw errors
-      }
-    })
-}

@@ -8,7 +8,8 @@ import {
 } from 'redux-form'
 import {fetchEntity, updateEntity, fetchEntities} from '../../util/api/entities'
 import {fetchForm, getFieldsOfDetailForm} from '../../util/api/forms'
-import {formValuesToEntity, entityToFormValues, submitValidate, getDirtyFields} from '../../util/reduxForms'
+import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../util/reduxForms'
+import {submitValidate} from '../../util/asyncValidation'
 
 describe('entity-browser', () => {
   describe('modules', () => {
