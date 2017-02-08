@@ -1,6 +1,6 @@
 import {SubmissionError} from 'redux-form'
 import {request} from 'tocco-util/src/rest'
-import {formValuesToEntity} from './reduxForms'
+import {formValuesToEntity, validationErrorToFormError} from './reduxForms'
 
 export class AsyncValidationException {
   constructor(errors) {
@@ -16,9 +16,14 @@ const hasError = errors => (
 
 const validateRequest = values => {
   const entity = formValuesToEntity(values)
-  return request(`entities/${entity.model}/${entity.key}/validate`, {}, 'POST', entity)
+  return request(`entities/${entity.model}/${entity.key}`, {_validate: true}, 'PATCH', entity)
     .then(resp => resp.body)
-    .then(json => json.fields)
+    .then(body => {
+      if (body.valid) {
+        return {}
+      }
+      return validationErrorToFormError(entity, body.errors)
+    })
 }
 
 export const submitValidate = values => {

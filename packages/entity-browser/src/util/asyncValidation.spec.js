@@ -12,7 +12,7 @@ describe('entity-browser', () => {
         })
 
         it('should not throw an error if valid', done => {
-          fetchMock.post('*', {fields: {}})
+          fetchMock.patch('*', {valid: true, errors: {}})
           const values = {firstname: '', ___entity: {paths: {firstname: {value: {value: 'test'}}}}}
           asyncValidation.submitValidate(values).then(res => {
             done()
@@ -20,11 +20,28 @@ describe('entity-browser', () => {
         })
 
         it('should throw a SubmissionError', done => {
-          fetchMock.post('*', {fields: {firstname: 'Field required!'}})
-          const values = {firstname: '', ___entity: {paths: {firstname: {value: {value: 'test'}}}}}
+          fetchMock.patch('*', {
+            valid: false,
+            errors: [
+              {
+                key: 1,
+                model: 'User',
+                paths: {
+                  firstname: {
+                    mandatory: ['Field required!']
+                  }
+                }
+              }
+            ]
+          })
+
+          const values = {
+            firstname: '',
+            ___entity: {key: 1, model: 'User', paths: {firstname: {value: {value: ''}}}}
+          }
           asyncValidation.submitValidate(values).catch(err => {
-            expect(err).to.be.an.instanceof(SubmissionError)
-            expect(err.errors).to.eql({firstname: 'Field required!'})
+            expect(err).to.be.instanceof(SubmissionError)
+            expect(err.errors).to.eql({firstname: {mandatory: ['Field required!']}})
             done()
           })
         })
@@ -37,7 +54,7 @@ describe('entity-browser', () => {
         })
 
         it('should not throw an error if valid', done => {
-          fetchMock.post('*', {fields: {}})
+          fetchMock.patch('*', {valid: true, errors: {}})
           const values = {firstname: '', ___entity: {paths: {firstname: {value: {value: 'test'}}}}}
           asyncValidation.asyncValidate(values).then(() => {
             done()
@@ -45,8 +62,24 @@ describe('entity-browser', () => {
         })
 
         it('should throw an Error if not valid', done => {
-          fetchMock.post('*', {fields: {firstname: 'Field required!'}})
-          const values = {firstname: '', ___entity: {paths: {firstname: {value: {value: 'test'}}}}}
+          fetchMock.patch('*', {
+            valid: false,
+            errors: [
+              {
+                key: 1,
+                model: 'User',
+                paths: {
+                  firstname: {
+                    mandatory: ['Field required!']
+                  }
+                }
+              }
+            ]
+          })
+          const values = {
+            firstname: '',
+            ___entity: {key: 1, model: 'User', paths: {firstname: {value: {value: 'test'}}}}
+          }
           asyncValidation.asyncValidate(values).catch(error => {
             expect(error).to.be.instanceof(asyncValidation.AsyncValidationException)
             expect(error.errors).to.have.property('firstname')

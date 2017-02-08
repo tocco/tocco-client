@@ -1,20 +1,17 @@
-const wholeEntityField = '___entity'
-
 import _reduce from 'lodash/reduce'
 import _isEqual from 'lodash/isEqual'
-import _forOwn from 'lodash/forOwn'
+
+const wholeEntityField = '___entity'
 
 export const validationErrorToFormError = (entity, errors) => {
-  const rootEntityName = `${entity.model}[${entity.key}]`
   let result = {}
-  _forOwn(errors, (value, key) => {
-    if (key === rootEntityName) {
-      result = {...result, ...errors[rootEntityName]}
+  errors.forEach(error => {
+    if (error.model === entity.model && error.key === entity.key) {
+      result = {...result, ...error.paths}
     } else {
-      result._errors = (result._errors || '') + JSON.stringify(value)
+      result._errors = (result._errors || '') + JSON.stringify(error.paths)
     }
   })
-
   return result
 }
 

@@ -137,14 +137,22 @@ describe('entity-browser', () => {
           }
 
           const mandatory = {mandatory: 'mandatory'}
-          const validationErrors = {
-            'User[2]': {
-              firstname: mandatory
+          const validationErrors = [
+            {
+              model: 'User',
+              key: '2',
+              paths: {
+                firstname: mandatory
+              }
             },
-            'relStatus[11]': {
-              'field': mandatory
+            {
+              model: 'relStatus',
+              key: '99',
+              paths: {
+                'fieldZ': mandatory
+              }
             }
-          }
+          ]
           const formErrors = reduxForms.validationErrorToFormError(entity, validationErrors)
 
           expect(formErrors).to.have.property('firstname')

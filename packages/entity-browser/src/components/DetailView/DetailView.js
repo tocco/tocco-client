@@ -57,7 +57,7 @@ DetailView.propTypes = {
   }).isRequired,
   entityModel: React.PropTypes.object.isRequired,
   formSyncErrors: React.PropTypes.objectOf(
-    React.PropTypes.objectOf(React.PropTypes.string)
+    React.PropTypes.objectOf(React.PropTypes.arrayOf(React.PropTypes.string))
   ),
   entity: React.PropTypes.object,
   loadRelationEntities: React.PropTypes.func,

@@ -30,8 +30,8 @@ export default function setupFetchMock(fetchMock) {
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/User/[0-9]?.*'), createEntityResponse)
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/User?.*'), createEntitiesResponse)
 
-  fetchMock.post(new RegExp('^.*?/nice2/rest/entities/User/[0-9]/validate.*'), createValidateResponse)
   fetchMock.post(new RegExp('^.*?/nice2/rest/entities/User/[0-9]'), createEntityUpdateResponse)
+  fetchMock.patch(new RegExp('^.*?/nice2/rest/entities/User/[0-9]\\?_validate=true'), createValidateResponse)
   fetchMock.patch(new RegExp('^.*?/nice2/rest/entities/User/[0-9]'), createEntityUpdateResponse)
 
   fetchMock.spy()

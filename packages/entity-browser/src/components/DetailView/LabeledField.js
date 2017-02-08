@@ -7,7 +7,11 @@ const ErrorList = props => {
     return null
   }
 
-  const errorValues = Object.values(props.errors)
+  let errorValues = []
+  Object.keys(props.errors).map(key => {
+    errorValues = [...errorValues, ...props.errors[key]]
+  })
+
   return (
     <ul className="error-list">
       {errorValues.map((value, idx) => (
@@ -19,13 +23,12 @@ const ErrorList = props => {
 
 ErrorList.propTypes = {
   errors: React.PropTypes.objectOf(
-    React.PropTypes.string
+    React.PropTypes.arrayOf(React.PropTypes.string)
   ).isRequired
 }
 
 const LabeledField = props => {
   const {input, label, type, options, meta: {touched, error, submitting}} = props
-
   const extractEventsFromInput = () => {
     const events = _clone(input)
     delete events.name
@@ -66,7 +69,7 @@ LabeledField.propTypes = {
   type: React.PropTypes.string,
   meta: React.PropTypes.shape({
     touched: React.PropTypes.bool,
-    error: React.PropTypes.objectOf(React.PropTypes.string)
+    error: React.PropTypes.objectOf(React.PropTypes.arrayOf(React.PropTypes.string))
   }),
   options: React.PropTypes.shape({
     store: React.PropTypes.arrayOf(

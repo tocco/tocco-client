@@ -53,19 +53,19 @@ export const mandatoryValidator = (value, isMandatory) => {
     return
   }
   if (!value && isMandatory) {
-    return {mandatory: `This field is required`}
+    return {mandatory: ['This field is required']}
   }
 }
 
 export const minLengthValidator = (value, minLength) => {
   if (value && value.length < minLength) {
-    return {minLength: `Min. length is ${minLength}`}
+    return {minLength: [`Min. length is ${minLength}`]}
   }
 }
 
 export const maxLengthValidator = (value, maxLength) => {
   if (value && value.length > maxLength) {
-    return {maxLength: `Max. length is ${maxLength}`}
+    return {maxLength: [`Max. length is ${maxLength}`]}
   }
 }
 
