@@ -1,18 +1,19 @@
-import {fork, takeEvery} from 'redux-saga/effects'
+import {fork, takeEvery, call} from 'redux-saga/effects'
 import * as actions from './actions'
 import handlerRegistry from './handlerRegistry'
-export default function* sagas() {
+export default function* sagas(handlers) {
   yield [
-    fork(takeEvery, actions.LOG_ERROR, log)
+    fork(takeEvery, actions.LOG_ERROR, log, handlers)
   ]
 }
 
-export function* log({payload}) {
+export function* log(handlers, {payload}) {
   const {type, title, description, error} = payload
 
-  for (const handler in handlerRegistry) {
+  for (const handlerIdx in handlers) {
+    const handler = handlers[handlerIdx]
     try {
-      yield handlerRegistry[handler](type, title, description, error)
+      yield call(handlerRegistry[handler], type, title, description, error)
     } catch (e) {
       console.log('Error in logger', e)
     }

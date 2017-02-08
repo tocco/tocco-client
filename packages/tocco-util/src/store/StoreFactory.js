@@ -28,7 +28,7 @@ export default class StoreFactory {
     const rootSaga = createGenerator(sagas.map(s => fork(s)))
 
     sagaMiddleware.run(autoRestartSaga(rootSaga, logErrorAction))
-    sagaMiddleware.run(loggingSagas)
+    sagaMiddleware.run(loggingSagas, ['console', 'remote', 'toastr'])
 
     return store
   }

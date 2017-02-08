@@ -1,5 +1,6 @@
 import * as actions from './actions'
 
+const MAX_LOGGED_ERRORS_MESSAGE = 100
 const logError = (state, {payload: {type, title, description, error, dateTime}}) => ({
   ...state,
   messages: [
@@ -11,7 +12,7 @@ const logError = (state, {payload: {type, title, description, error, dateTime}})
       dateTime
     },
     ...state.messages
-  ]
+  ].slice(0, MAX_LOGGED_ERRORS_MESSAGE)
 })
 
 const ACTION_HANDLERS = {
