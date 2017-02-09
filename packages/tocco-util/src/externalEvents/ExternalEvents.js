@@ -1,10 +1,10 @@
 let events = {}
 
-function registerEvents(externalEvents) {
+export const registerEvents = externalEvents => {
   events = {...events, ...externalEvents}
 }
 
-function invokeExternalEvent(eventName, ...args) {
+export const invokeExternalEvent = (eventName, ...args) => {
   if (__DEV__) {
     console.log('would call external event', eventName)
     return
@@ -15,14 +15,6 @@ function invokeExternalEvent(eventName, ...args) {
   }
 }
 
-function getEvents() {
+export const getEvents = () => {
   return Object.keys(events)
 }
-
-const obj = {
-  invokeExternalEvent,
-  registerEvents,
-  getEvents
-}
-
-export default obj
