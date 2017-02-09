@@ -34,6 +34,7 @@ export const loginFactory = (id, input = {}, externalEvents, publicPath) => {
 
 export const passwordUpdateFactory = (id, input = {}, externalEvents, publicPath) => {
   const showTitle = typeof input.showTitle === 'boolean' ? input.showTitle : false
+  const forcedUpdate = typeof input.forcedUpdate === 'boolean' ? input.forcedUpdate : false
 
   const content = <PasswordUpdateDialog showTitle={showTitle}/>
 
@@ -43,7 +44,9 @@ export const passwordUpdateFactory = (id, input = {}, externalEvents, publicPath
   }
 
   const dispatches = [
-    passwordUpdate.setUsername(input.username)
+    passwordUpdate.setUsername(input.username),
+    passwordUpdate.setForcedUpdate(forcedUpdate)
+
   ]
 
   if (typeof input.showOldPasswordField === 'boolean') {
