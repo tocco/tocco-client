@@ -2,7 +2,7 @@ import {takeLatest} from 'redux-saga'
 import {put, select, call, fork} from 'redux-saga/effects'
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
-import {ExternalEvents} from 'tocco-util'
+import {externalEvents} from 'tocco-util'
 
 import {changePage, setPassword} from './login/actions'
 import {setMessage, setPending} from './loginForm/actions'
@@ -101,7 +101,7 @@ describe('login', () => {
       describe('handleSuccessfulLogin', () => {
         it('should call external event with timeout of reponse body', () => {
           const gen = sagas.handleSuccessfulLogin({timeout: 33})
-          expect(gen.next().value).to.eql(call(ExternalEvents.invokeExternalEvent, 'loginSuccess', {timeout: 33}))
+          expect(gen.next().value).to.eql(call(externalEvents.invokeExternalEvent, 'loginSuccess', {timeout: 33}))
           expect(gen.next().value).to.deep.equal(put(setPassword('')))
           expect(gen.next().done).to.deep.equal(true)
         })
@@ -109,7 +109,7 @@ describe('login', () => {
         it('should call external event with default timeout if none in body', () => {
           const gen = sagas.handleSuccessfulLogin({})
           expect(gen.next().value).to.eql(
-            call(ExternalEvents.invokeExternalEvent, 'loginSuccess', {timeout: sagas.DEFAULT_TIMEOUT})
+            call(externalEvents.invokeExternalEvent, 'loginSuccess', {timeout: sagas.DEFAULT_TIMEOUT})
           )
           expect(gen.next().value).to.deep.equal(put(setPassword('')))
           expect(gen.next().done).to.deep.equal(true)

@@ -1,6 +1,6 @@
 import {takeLatest} from 'redux-saga'
 import {fork, put, select, call} from 'redux-saga/effects'
-import {ExternalEvents} from 'tocco-util'
+import {externalEvents} from 'tocco-util'
 
 import * as actions from './actions'
 import {setMessage, setPending} from './loginForm/actions'
@@ -81,7 +81,7 @@ export function* handleFailedResponse() {
 
 export function* handleSuccessfulLogin(response) {
   const timeout = response.timeout || DEFAULT_TIMEOUT
-  yield call(ExternalEvents.invokeExternalEvent, 'loginSuccess', {timeout})
+  yield call(externalEvents.invokeExternalEvent, 'loginSuccess', {timeout})
   yield put(setPassword(''))
 }
 
