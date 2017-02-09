@@ -1,2 +1,2 @@
-import {createStore, hotReloadReducers} from './StoreFactory'
+import {createStore, hotReloadReducers} from './storeFactory'
 export default {createStore, hotReloadReducers}

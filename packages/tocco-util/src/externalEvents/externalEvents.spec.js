@@ -1,4 +1,4 @@
-import {registerEvents, getEvents, invokeExternalEvent} from './ExternalEvents'
+import {registerEvents, getEvents, invokeExternalEvent} from './externalEvents'
 
 describe('tocco-util', () => {
   describe('ExternalEvents', () => {

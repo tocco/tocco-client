@@ -1,5 +1,5 @@
 import * as actions from './actions'
-import {singleTransferReducer} from 'tocco-util/reducers'
+import {reducers} from 'tocco-util'
 
 const addEntityToStore = (state, {payload}) => ({
   ...state,
@@ -15,16 +15,16 @@ const clearEntityStore = state => ({
 })
 
 const ACTION_HANDLERS = {
-  [actions.SET_ENTITIES]: singleTransferReducer('entities'),
-  [actions.SET_ENTITY_NAME]: singleTransferReducer('entityName'),
-  [actions.SET_COLUMN_DEFINITION]: singleTransferReducer('columnDefinition'),
-  [actions.SET_LIMIT]: singleTransferReducer('limit'),
-  [actions.SET_CURRENT_PAGE]: singleTransferReducer('currentPage'),
-  [actions.SET_ORDER_BY]: singleTransferReducer('orderBy'),
-  [actions.SET_ENTITY_COUNT]: singleTransferReducer('entityCount'),
+  [actions.SET_ENTITIES]: reducers.singleTransferReducer('entities'),
+  [actions.SET_ENTITY_NAME]: reducers.singleTransferReducer('entityName'),
+  [actions.SET_COLUMN_DEFINITION]: reducers.singleTransferReducer('columnDefinition'),
+  [actions.SET_LIMIT]: reducers.singleTransferReducer('limit'),
+  [actions.SET_CURRENT_PAGE]: reducers.singleTransferReducer('currentPage'),
+  [actions.SET_ORDER_BY]: reducers.singleTransferReducer('orderBy'),
+  [actions.SET_ENTITY_COUNT]: reducers.singleTransferReducer('entityCount'),
   [actions.ADD_ENTITIES_TO_STORE]: addEntityToStore,
   [actions.CLEAR_ENTITY_STORE]: clearEntityStore,
-  [actions.SET_IN_PROGRESS]: singleTransferReducer('inProgress')
+  [actions.SET_IN_PROGRESS]: reducers.singleTransferReducer('inProgress')
 }
 
 const initialState = {

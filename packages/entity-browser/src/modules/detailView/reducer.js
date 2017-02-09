@@ -1,5 +1,5 @@
 import * as actions from './actions'
-import {singleTransferReducer} from 'tocco-util/reducers'
+import {reducers} from 'tocco-util'
 
 const setStore = (state, {payload}) => ({
   ...state,
@@ -24,10 +24,10 @@ const setStoreLoaded = (state, {payload}) => ({
 })
 
 const ACTION_HANDLERS = {
-  [actions.SET_FORM_DEFINITION]: singleTransferReducer('formDefinition'),
-  [actions.SET_ENTITY_NAME]: singleTransferReducer('entityName'),
-  [actions.SET_ENTITY]: singleTransferReducer('entity'),
-  [actions.LOAD_RELATION_ENTITIES]: singleTransferReducer('relationEntities'),
+  [actions.SET_FORM_DEFINITION]: reducers.singleTransferReducer('formDefinition'),
+  [actions.SET_ENTITY_NAME]: reducers.singleTransferReducer('entityName'),
+  [actions.SET_ENTITY]: reducers.singleTransferReducer('entity'),
+  [actions.LOAD_RELATION_ENTITIES]: reducers.singleTransferReducer('relationEntities'),
   [actions.SET_STORE]: setStore,
   [actions.SET_STORE_LOADED]: setStoreLoaded
 }

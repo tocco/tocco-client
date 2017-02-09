@@ -1,7 +1,7 @@
 import React from 'react'
 import {Provider} from 'react-redux'
 import ReduxToastr from 'react-redux-toastr'
-import {StoreFactory, ExternalEvents, Intl} from 'tocco-util'
+import {storeFactory, externalEvents, intl} from 'tocco-util'
 import {addLocaleData} from 'react-intl'
 import {IntlProvider} from 'react-intl-redux'
 import {LoadMask} from 'tocco-ui'
@@ -20,13 +20,13 @@ import reducers, {sagas} from './modules/reducers'
 
 import '!style-loader!css-loader!react-redux-toastr/lib/css/react-redux-toastr.css'
 
-export default (id, input = {}, externalEvents, publicPath) => {
+export default (id, input = {}, events, publicPath) => {
   const dispatches = validateInput(input)
 
-  return factory('entity-browser', input, externalEvents, publicPath, 'entity-browser', reducers, dispatches)
+  return factory('entity-browser', input, events, publicPath, 'entity-browser', reducers, dispatches)
 }
 
-const factory = (id, input = {}, externalEvents, publicPath, resourcePrefix, reducers, dispatches) => {
+const factory = (id, input = {}, events, publicPath, resourcePrefix, reducers, dispatches) => {
   try {
     if (publicPath) {
       /* eslint camelcase: 0 */
@@ -39,12 +39,12 @@ const factory = (id, input = {}, externalEvents, publicPath, resourcePrefix, red
       initialState.input = input
     }
 
-    if (externalEvents) ExternalEvents.registerEvents(externalEvents)
-    const store = StoreFactory.createStore(initialState, reducers, sagas)
+    if (events) externalEvents.registerEvents(events)
+    const store = storeFactory.createStore(initialState, reducers, sagas)
     if (module.hot) {
       module.hot.accept('./modules/reducers', () => {
         let reducers = require('./modules/reducers').default
-        StoreFactory.hotReloadReducers(store, reducers)
+        storeFactory.hotReloadReducers(store, reducers)
       })
     }
 
@@ -54,7 +54,7 @@ const factory = (id, input = {}, externalEvents, publicPath, resourcePrefix, red
 
     addLocaleData([...de, ...en, ...fr, ...it])
     const locale = input ? input.locale : null
-    const initIntlPromise = Intl.initIntl(store, resourcePrefix, locale)
+    const initIntlPromise = intl.initIntl(store, resourcePrefix, locale)
 
     const toastrOptions = {
       newestOnTop: false,
@@ -80,7 +80,7 @@ const factory = (id, input = {}, externalEvents, publicPath, resourcePrefix, red
     return {
       renderComponent: App,
       methods: {
-        setLocale: locale => Intl.setLocale(store, resourcePrefix, locale)
+        setLocale: locale => intl.setLocale(store, resourcePrefix, locale)
       }
     }
   } catch (e) {

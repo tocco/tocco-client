@@ -1,2 +1,2 @@
-import {initIntl, setLocale} from './Intl'
+import {initIntl, setLocale} from './intl'
 export default {initIntl, setLocale}
