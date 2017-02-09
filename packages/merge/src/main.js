@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
-import {StoreFactory, ExternalEvents, Intl} from 'tocco-util'
+import {storeFactory, externalEvents, intl} from 'tocco-util'
 import {addLocaleData} from 'react-intl'
 import {IntlProvider} from 'react-intl-redux'
 import {LoadMask} from 'tocco-ui'
@@ -15,7 +15,7 @@ import en from 'react-intl/locale-data/en'
 import fr from 'react-intl/locale-data/fr'
 import it from 'react-intl/locale-data/it'
 
-const init = (id, input, externalEvents, publicPath) => {
+const init = (id, input, events, publicPath) => {
   try {
     if (publicPath) {
       /* eslint camelcase: 0 */
@@ -31,21 +31,21 @@ const init = (id, input, externalEvents, publicPath) => {
       initialState.input = input
     }
 
-    if (externalEvents) ExternalEvents.registerEvents(externalEvents)
+    if (events) externalEvents.registerEvents(events)
 
-    const store = StoreFactory.createStore(initialState, reducers, sagas)
+    const store = storeFactory.createStore(initialState, reducers, sagas)
 
     if (module.hot) {
       module.hot.accept('./modules/reducers', () => {
         let reducers = require('./modules/reducers').default
-        StoreFactory.hotReloadReducers(store, reducers)
+        storeFactory.hotReloadReducers(store, reducers)
       })
     }
 
     dispatchInput(store)
 
     addLocaleData([...de, ...en, ...fr, ...it])
-    const initIntlPromise = Intl.initIntl(store, 'merge')
+    const initIntlPromise = intl.initIntl(store, 'merge')
 
     const App = () => (
       <Provider store={store}>

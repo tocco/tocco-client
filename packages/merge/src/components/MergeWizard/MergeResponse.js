@@ -1,5 +1,5 @@
 import React from 'react'
-import {ExternalEvents} from 'tocco-util'
+import {externalEvents} from 'tocco-util'
 import {FormattedMessage, intlShape} from 'react-intl'
 
 export const EntityResponseTable = props => {
@@ -59,7 +59,7 @@ class MergeResponse extends React.Component {
         }
         <button
           className="btn btn-primary close-button"
-          onClick={() => { ExternalEvents.invokeExternalEvent('close') }}
+          onClick={() => { externalEvents.invokeExternalEvent('close') }}
         >
           <FormattedMessage id="client.merge.close"/>
         </button>
