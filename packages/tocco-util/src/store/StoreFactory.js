@@ -1,7 +1,9 @@
 import {applyMiddleware, compose, createStore, combineReducers} from 'redux'
+import errorLogging, {sagas as loggingSagas, logError as logErrorAction} from '../errorLogging'
 import createSagaMiddleware from 'redux-saga'
 import {fork} from 'redux-saga/effects'
 import thunk from 'redux-thunk'
+import {autoRestartSaga, createGenerator} from './sagaHelpers'
 
 import input from './input/reducer'
 
@@ -18,18 +20,16 @@ export default class StoreFactory {
       }
     }
 
-    reducers = combineReducers({...reducers, input})
+    reducers = combineReducers({...reducers, input, errorLogging})
     const store = createStore(reducers, initialState, middleware)
 
     store.asyncReducers = {}
 
-    const createGenerator = sagas => {
-      return function* rootSaga() {
-        yield sagas
-      }
-    }
+    const rootSaga = createGenerator(sagas.map(s => fork(s)))
 
-    sagaMiddleware.run(createGenerator(sagas.map(s => fork(s))))
+    sagaMiddleware.run(autoRestartSaga(rootSaga, logErrorAction))
+    sagaMiddleware.run(loggingSagas, ['console', 'remote', 'toastr'])
+
     return store
   }
 

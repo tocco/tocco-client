@@ -1,6 +1,4 @@
 import * as reduxForms from './reduxForms'
-import fetchMock from 'fetch-mock'
-import {SubmissionError} from 'redux-form'
 
 describe('entity-browser', () => {
   describe('util', () => {
@@ -131,53 +129,35 @@ describe('entity-browser', () => {
           expect(diryFields).to.eql(['firstname', 'bool', 'array2'])
         })
       })
+      describe('validationErrorToFormError', () => {
+        it('should return root entity fields in object', () => {
+          const entity = {
+            model: 'User',
+            key: '2'
+          }
 
-      describe('submitValidate', () => {
-        beforeEach(() => {
-          fetchMock.reset()
-          fetchMock.restore()
-        })
+          const mandatory = {mandatory: 'mandatory'}
+          const validationErrors = [
+            {
+              model: 'User',
+              key: '2',
+              paths: {
+                firstname: mandatory
+              }
+            },
+            {
+              model: 'relStatus',
+              key: '99',
+              paths: {
+                'fieldZ': mandatory
+              }
+            }
+          ]
+          const formErrors = reduxForms.validationErrorToFormError(entity, validationErrors)
 
-        it('should not throw an error if valid', done => {
-          fetchMock.post('*', {fields: {}})
-          const values = {firstname: '', ___entity: {paths: {firstname: {value: {value: 'test'}}}}}
-          reduxForms.submitValidate(values).then(res => {
-            done()
-          })
-        })
-
-        it('should throw a SubmissionError', done => {
-          fetchMock.post('*', {fields: {firstname: 'Field required!'}})
-          const values = {firstname: '', ___entity: {paths: {firstname: {value: {value: 'test'}}}}}
-          reduxForms.submitValidate(values).catch(err => {
-            expect(err).to.be.an.instanceof(SubmissionError)
-            expect(err.errors).to.eql({firstname: 'Field required!'})
-            done()
-          })
-        })
-      })
-
-      describe('asyncValidate', () => {
-        beforeEach(() => {
-          fetchMock.reset()
-          fetchMock.restore()
-        })
-
-        it('should not throw an error if valid', done => {
-          fetchMock.post('*', {fields: {}})
-          const values = {firstname: '', ___entity: {paths: {firstname: {value: {value: 'test'}}}}}
-          reduxForms.asyncValidate(values).then(res => {
-            done()
-          })
-        })
-
-        it('should throw an Error if not valid', done => {
-          fetchMock.post('*', {fields: {firstname: 'Field required!'}})
-          const values = {firstname: '', ___entity: {paths: {firstname: {value: {value: 'test'}}}}}
-          reduxForms.asyncValidate(values).catch(err => {
-            expect(err.firstname).to.eql('Field required!')
-            done()
-          })
+          expect(formErrors).to.have.property('firstname')
+          expect(formErrors).to.have.property('_errors')
+          expect(formErrors.firstname).to.eql(mandatory)
         })
       })
     })

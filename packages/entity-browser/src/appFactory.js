@@ -1,5 +1,6 @@
 import React from 'react'
 import {Provider} from 'react-redux'
+import ReduxToastr from 'react-redux-toastr'
 import {StoreFactory, ExternalEvents, Intl} from 'tocco-util'
 import {addLocaleData} from 'react-intl'
 import {IntlProvider} from 'react-intl-redux'
@@ -16,6 +17,8 @@ import fr from 'react-intl/locale-data/fr'
 import it from 'react-intl/locale-data/it'
 
 import reducers, {sagas} from './modules/reducers'
+
+import '!style-loader!css-loader!react-redux-toastr/lib/css/react-redux-toastr.css'
 
 export default (id, input = {}, externalEvents, publicPath) => {
   const dispatches = validateInput(input)
@@ -53,11 +56,22 @@ const factory = (id, input = {}, externalEvents, publicPath, resourcePrefix, red
     const locale = input ? input.locale : null
     const initIntlPromise = Intl.initIntl(store, resourcePrefix, locale)
 
+    const toastrOptions = {
+      newestOnTop: false,
+      preventDuplicates: true,
+      position: 'top-right',
+      transitionIn: 'fadeIn',
+      transitionOut: 'fadeOut',
+      progressBar: true
+    }
     const App = () => (
       <Provider store={store}>
         <LoadMask promises={[initIntlPromise]}>
           <IntlProvider>
-            <EntityBrowserContainer/>
+            <div>
+              <ReduxToastr {...toastrOptions}/>
+              <EntityBrowserContainer/>
+            </div>
           </IntlProvider>
         </LoadMask>
       </Provider>

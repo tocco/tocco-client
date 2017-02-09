@@ -39,7 +39,7 @@ describe('entity-browser', () => {
 
             meta={{
               touched: true,
-              error: {length: 'Min length 10', st: 'error2'}
+              error: {length: ['Min length 10'], st: ['error2']}
             }}
           />)
 

@@ -1,4 +1,5 @@
 import {call, put, fork, select, takeLatest, takeEvery} from 'redux-saga/effects'
+import {logError} from 'tocco-util/src/errorLogging'
 import * as actions from './actions'
 import {
   startSubmit,
@@ -12,7 +13,8 @@ import {
 import {fetchEntity, updateEntity, fetchEntities, getInitialSelectBoxStore} from '../../util/api/entities'
 import {fetchForm, getFieldsOfDetailForm} from '../../util/api/forms'
 
-import {formValuesToEntity, entityToFormValues, submitValidate, getDirtyFields} from '../../util/reduxForms'
+import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../util/reduxForms'
+import {submitValidate} from '../../util/asyncValidation'
 
 export const detailViewSelector = state => state.detailView
 export const formDefinitionSelector = state => state.detailView.formDefinition
@@ -58,10 +60,10 @@ export function* loadEntity({payload}) {
 
 export function* submitForm() {
   const formId = 'detailForm'
-  const values = yield select(getFormValues(formId))
-  const initialValues = yield select(formInitialValueSelector(formId))
-  yield put(startSubmit(formId))
   try {
+    const values = yield select(getFormValues(formId))
+    const initialValues = yield select(formInitialValueSelector(formId))
+    yield put(startSubmit(formId))
     yield call(submitValidate, values)
     const dirtyFields = yield call(getDirtyFields, initialValues, values)
     const entity = yield call(formValuesToEntity, values, dirtyFields)
@@ -71,13 +73,13 @@ export function* submitForm() {
     const updatedFormValues = yield call(entityToFormValues, updatedEntity)
     yield put(initializeForm(formId, updatedFormValues))
     yield put(stopSubmit(formId))
-  } catch (err) {
-    if (err instanceof SubmissionError) {
-      yield put(touch(formId, ...Object.keys(err.errors)))
-      yield put(stopSubmit(formId, err.errors))
+  } catch (error) {
+    if (error instanceof SubmissionError) {
+      yield put(touch(formId, ...Object.keys(error.errors)))
+      yield put(stopSubmit(formId, error.errors))
     } else {
-      console.error(err)
-      yield put(stopSubmit(formId, {_error: err.message}))
+      yield put(logError('error.unhandled', 'entity-browser.saveError', error))
+      yield put(stopSubmit(formId))
     }
   }
 }

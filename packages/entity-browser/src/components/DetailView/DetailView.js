@@ -2,7 +2,7 @@ import React from 'react'
 import {Button} from 'tocco-ui'
 import DetailForm from './DetailForm'
 import syncValidation from '../../util/syncValidation'
-import {asyncValidate} from '../../util/reduxForms'
+import {asyncValidate, AsyncValidationException} from '../../util/asyncValidation'
 
 import './styles.scss'
 
@@ -10,6 +10,16 @@ class DetailView extends React.Component {
   constructor(props) {
     super(props)
     this.validate = syncValidation(props.entityModel)
+  }
+
+  handledAsyncValidate = values => {
+    return asyncValidate(values).catch(error => {
+      if (error instanceof AsyncValidationException) {
+        throw error.errors
+      } else {
+        this.props.logError('error.unhandled', 'entity-browser.validationError', error)
+      }
+    })
   }
 
   render() {
@@ -21,7 +31,7 @@ class DetailView extends React.Component {
         {props.formInitialValues
         && <DetailForm
           validate={this.validate}
-          asyncValidate={asyncValidate}
+          asyncValidate={this.handledAsyncValidate}
           submitForm={props.submitForm}
           formDefinition={props.formDefinition}
           entity={props.entity}
@@ -40,13 +50,14 @@ export default DetailView
 
 DetailView.propTypes = {
   submitForm: React.PropTypes.func.isRequired,
+  logError: React.PropTypes.func.isRequired,
   closeEntityDetail: React.PropTypes.func.isRequired,
   formDefinition: React.PropTypes.shape({
     children: React.PropTypes.array
   }).isRequired,
   entityModel: React.PropTypes.object.isRequired,
   formSyncErrors: React.PropTypes.objectOf(
-    React.PropTypes.objectOf(React.PropTypes.string)
+    React.PropTypes.objectOf(React.PropTypes.arrayOf(React.PropTypes.string))
   ),
   entity: React.PropTypes.object,
   loadRelationEntities: React.PropTypes.func,

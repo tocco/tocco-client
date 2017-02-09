@@ -1,20 +1,27 @@
-import * as rest from '../rest'
+import {request, getRequest} from 'tocco-util/src/rest'
+import {SubmissionError} from 'redux-form'
+import {validationErrorToFormError} from '../reduxForms'
 
 export function fetchEntity(entityName, id, fields) {
   const params = {
     '_paths': fields.join(',')
   }
 
-  return rest.fetchRequest(`entities/${entityName}/${id}`, params)
-    .then(resp => resp.json())
+  return request(`entities/${entityName}/${id}`, params)
+    .then(resp => resp.body)
 }
 
 export function updateEntity(entity, fields) {
   const params = {
     '_paths': fields.join(',')
   }
-  return rest.fetchRequest(`entities/${entity.model}/${entity.key}`, params, 'PATCH', entity)
-    .then(resp => resp.json())
+  return request(`entities/${entity.model}/${entity.key}`, params, 'PATCH', entity, ['VALIDATION_FAILED'])
+    .then(resp => {
+      if (resp.body.errorCode === 'VALIDATION_FAILED') {
+        throw new SubmissionError(validationErrorToFormError(entity, resp.body.errors))
+      }
+      return resp.body
+    })
 }
 
 export const defaultModelTransformer = json => {
@@ -35,8 +42,8 @@ export const defaultModelTransformer = json => {
 }
 
 export function fetchModel(entityName, transformer = defaultModelTransformer) {
-  return rest.fetchRequest(`entities/${entityName}/model`)
-    .then(resp => resp.json())
+  return request(`entities/${entityName}/model`)
+    .then(resp => resp.body)
     .then(json => transformer(json))
 }
 
@@ -44,8 +51,8 @@ export function fetchEntityCount(entityName, searchInputs) {
   const params = {
     ...searchInputs
   }
-  return rest.fetchRequest(`entities/${entityName}/count`, params)
-    .then(resp => resp.json())
+  return request(`entities/${entityName}/count`, params)
+    .then(resp => resp.body)
     .then(json => json.count)
 }
 
@@ -94,8 +101,8 @@ export function fetchEntities(entityName, page, orderBy = {}, limit, fields = []
     }
   }
 
-  return rest.fetchRequest(`entities/${entityName}`, params)
-    .then(resp => resp.json())
+  return getRequest(`entities/${entityName}`, params, [])
+    .then(resp => resp.body)
     .then(json => transformer(json))
 }
 

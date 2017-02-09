@@ -33,5 +33,8 @@ export class EntityBrowser extends React.Component {
 
 EntityBrowser.propTypes = {
   initialize: React.PropTypes.func.isRequired,
-  showDetailEntityId: React.PropTypes.number
+  showDetailEntityId: React.PropTypes.oneOfType([
+    React.PropTypes.number,
+    React.PropTypes.string
+  ])
 }

@@ -8,7 +8,8 @@ import {
 } from 'redux-form'
 import {fetchEntity, updateEntity, fetchEntities, getInitialSelectBoxStore} from '../../util/api/entities'
 import {fetchForm, getFieldsOfDetailForm} from '../../util/api/forms'
-import {formValuesToEntity, entityToFormValues, submitValidate, getDirtyFields} from '../../util/reduxForms'
+import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../util/reduxForms'
+import {submitValidate} from '../../util/asyncValidation'
 
 describe('entity-browser', () => {
   describe('modules', () => {
@@ -110,7 +111,7 @@ describe('entity-browser', () => {
         })
 
         describe('submitForm saga', () => {
-          it('should validate from and reload saved entity', () => {
+          it('should validate form and reload saved entity', () => {
             const formId = 'detailForm'
             const values = {firstname: 'peter'}
             const initialValues = {firstname: 'pet'}
