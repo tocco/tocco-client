@@ -24,7 +24,7 @@ const init = (id, input, events, publicPath) => {
 
     const initialState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {}
     if (__DEV__) {
-      input = require('./dev_input.json')
+      input = require('./dev/input.json')
     }
 
     if (input) {
