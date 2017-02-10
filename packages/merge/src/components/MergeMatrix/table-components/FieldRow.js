@@ -1,5 +1,5 @@
 import React from 'react'
-import FieldLabel from '../../FieldLabel'
+import {FormattedValue} from 'tocco-ui'
 import SingleSelection from './SingleSelection'
 
 const FieldRow = props => {
@@ -23,7 +23,7 @@ const FieldRow = props => {
                 checked={props.selections.fields[props.field.name] === entity.pk}
                 disabled={!isWritableRow}
               >
-                <FieldLabel field={entityField}/>
+                <FormattedValue type={entityField.type} value={entityField.value}/>
               </SingleSelection>
             </td>
           )

@@ -1,15 +1,18 @@
 import React from 'react'
-import FieldInput from '../FieldInput/FieldInput'
+import {EditableValue} from 'tocco-ui'
 
 const FieldOption = props => {
-  const field = {name: props.name, value: props.value, type: props.fieldType}
-
+  const onChange = value => {
+    props.onChange(props.name, value)
+  }
   return (
     <div>
-      <FieldInput
-        field={field}
-        onChange={props.onChange}
-        disabled={props.disabled}
+      <EditableValue
+        type={props.fieldType}
+        id={props.name}
+        value={props.value}
+        onChange={onChange}
+        readOnly={props.disabled}
       />
     </div>
   )
