@@ -5,31 +5,31 @@
  * TODO find a solution to load fonts (glyphicon and font awesome) for all evironment (in css as url import or in html as link tag)
  * CSS class .tocco-ui-theme is used to scope styles.
  * CSS class .tocco-ui-theme is used to increase specificity compared to standard vendors implementation. Hence Tocco's Bootstrap has a higher specificity than Bootstrap.
-*/
+ */
 
 .tocco-ui-theme {
-    // import variables
-    @import "variable/bootstrap-variable";
-    @import "variable/font-awesome-variable";
-    @import "variable/tocco-variable";
+  // import variables
+  @import "variable/bootstrap-variable";
+  @import "variable/font-awesome-variable";
+  @import "variable/tocco-variable";
 
-    // import vendor's styling frameworks
-    @import "vendor/bootstrap";
-    @import "vendor/font-awesome";
+  // import vendor's styling frameworks
+  @import "vendor/bootstrap";
+  @import "vendor/font-awesome";
 
-    // import vendor's styling frameworks extension
-    @import "vendor-extension/bootstrap/normalize";
-    @import "vendor-extension/bootstrap/icon-list";
+  // import vendor's styling frameworks extension
+  @import "vendor-extension/bootstrap/normalize";
+  @import "vendor-extension/bootstrap/icon-list";
 
-    // import tocco's declarations
-    @import "tocco/convenience-classes";  // TODO suppress all convenience-classes
+  // import tocco's declarations
+  @import "tocco/convenience-classes";  // TODO suppress all convenience-classes
 
-    // import declarations or react components by collocating scss dynamically
-    @import "variable/mutable-imports";
+  // import declarations or react components by collocating scss dynamically
+  @import "variable/mutable-imports";
 
-    // import declarations for webpack environments
-    @import "tocco/webpack-environment-development";  // TODO load this only while developing
+  // import declarations for webpack environments
+  @import "tocco/webpack-environment-development";  // TODO load this only while developing
 
-    // import customers's declarations
-    @import "customer/customer";
+  // import customers's declarations
+  @import "customer/customer";
 }

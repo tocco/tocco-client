@@ -4,7 +4,7 @@
 */
 
 // TODO may move to tocco-variables.scss
-$icon-list-intend-0: '\2022';  /* bullet point */
+$icon-list-intend-0: "\2022";  /* bullet point */
 $icon-valid: $fa-var-check;
 $icon-invalid: $fa-var-times;
 
@@ -21,7 +21,7 @@ $icon-list-indent: $icon-list-icon-size;
     position: relative;
 
     &:before {
-      font-family: 'FontAwesome';
+      font-family: FontAwesome;
       position: absolute;
       left: -$icon-list-indent;
       content: $icon-list-intend-0;
@@ -31,7 +31,7 @@ $icon-list-indent: $icon-list-icon-size;
 
 // use replacement icon for list items with a special class
 @mixin icon-list-character (
-  $selector: 'li',
+  $selector: "li",
   $character: $icon-default
 ) {
   .icon-list #{$selector}:before {
@@ -41,13 +41,13 @@ $icon-list-indent: $icon-list-icon-size;
 
 // TODO CLIENT replace classname "text-success" by "state-valid"
 @include icon-list-character (
-  $selector: 'li.text-success',
+  $selector: "li.text-success",
   $character: $icon-valid
 );
 
 // TODO CLIENT replace classname "text-danger" by "state-invalid"
 @include icon-list-character (
-  $selector: 'li.text-danger',
+  $selector: "li.text-danger",
   $character: $icon-invalid
 );
 

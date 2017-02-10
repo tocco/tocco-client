@@ -3,9 +3,11 @@
  * is needed because of scoping <body class="tocco-ui-theme"> therefore html and body tag is out of scope
  */
 
+/* stylelint-disable */
 & {
-    font-family: sans-serif;  // was set initially in bootstrap/variables.scss on html tag but is through scoping not in effect
-    -ms-text-size-adjust: 100%;  // was set initially in bootstrap/variables.scss on html tag but is through scoping not in effect
-    -webkit-text-size-adjust: 100%;  // was set initially in bootstrap/variables.scss on html tag but is through scoping not in effect
-    margin: 0;  // was set initially in bootstrap/variables.scss on body tag but is through scoping not in effect
+  font-family: sans-serif;  // was set initially in bootstrap/variables.scss on html tag but is through scoping not in effect
+  -ms-text-size-adjust: 100%;  // was set initially in bootstrap/variables.scss on html tag but is through scoping not in effect
+  -webkit-text-size-adjust: 100%;  // was set initially in bootstrap/variables.scss on html tag but is through scoping not in effect
+  margin: 0;  // was set initially in bootstrap/variables.scss on body tag but is through scoping not in effect
 }
+/* stylelint-enable */

@@ -1,6 +1,17 @@
 .tocco-table {
   table {
     width: 100%;
+
+    thead tr th {
+      cursor: pointer;
+      /* stylelint-disable */
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      /* stylelint-enable */
+      user-select: none;
+    }
   }
 
   table.loading {
@@ -13,19 +24,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(256, 256, 256, 0.5);
-    background-size: 50px 50px;
+    background-color: rgba(256, 256, 256, .5);
+    background-size: 3.57rem;
     content: "";
-  }
-
-  table {
-    thead tr th {
-      cursor: pointer;
-      -webkit-touch-callout:none;
-      -webkit-user-select:none;
-      -moz-user-select:none;
-      -ms-user-select:none;
-      user-select:none;
-    }
   }
 }
