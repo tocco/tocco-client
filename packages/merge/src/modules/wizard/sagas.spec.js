@@ -1,4 +1,4 @@
-import {ExternalEvents} from 'tocco-util'
+import {externalEvents} from 'tocco-util'
 import {call, put, select} from 'redux-saga/effects'
 import * as sagas from './sagas'
 import createMergeResult from './../../utils/MergeActionResult'
@@ -20,7 +20,7 @@ describe('merge', () => {
             expect(generator.next().value).to.deep.equal(select())
             expect(generator.next(state).value).to.eql(call(createMergeResult, state))
             expect(generator.next(result).value).to.eql(call(sagas.sendDwr, result))
-            expect(generator.next(mergeResult).value).to.eql(call(ExternalEvents.invokeExternalEvent, 'close'))
+            expect(generator.next(mergeResult).value).to.eql(call(externalEvents.invokeExternalEvent, 'close'))
             expect(generator.next().done).to.equal(true)
           })
 

@@ -1,4 +1,4 @@
-import {ExternalEvents} from 'tocco-util'
+import {externalEvents} from 'tocco-util'
 import {takeLatest} from 'redux-saga'
 import {call, fork, select, put} from 'redux-saga/effects'
 
@@ -95,7 +95,7 @@ export function* savePassword() {
   } else {
     const standalone = yield select(standaloneSelector)
     if (standalone) {
-      yield call(ExternalEvents.invokeExternalEvent, 'success', {
+      yield call(externalEvents.invokeExternalEvent, 'success', {
         newPassword: data.newPassword
       })
     } else {

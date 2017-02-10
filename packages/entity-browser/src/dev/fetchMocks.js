@@ -1,4 +1,4 @@
-import {utilFetchMocks} from 'tocco-util/dev'
+import {utilFetchMocks} from 'tocco-util'
 
 import {
   createValidateResponse,
@@ -9,9 +9,9 @@ import {
 } from './fetchMockHelpers'
 
 export default function setupFetchMock(fetchMock) {
-  utilFetchMocks.logFetchMock(fetchMock)
-  utilFetchMocks.sessionFetchMock(fetchMock)
-  utilFetchMocks.textResourceFetchMock(fetchMock, require('./rest-responses/messages.json'))
+  utilFetchMocks.log(fetchMock)
+  utilFetchMocks.session(fetchMock)
+  utilFetchMocks.textResource(fetchMock, require('./rest-responses/messages.json'))
 
   fetchMock.get(new RegExp('^.*?/nice2/rest/forms/User_search'), require('./rest-responses/form_user_search.json'))
   fetchMock.get(

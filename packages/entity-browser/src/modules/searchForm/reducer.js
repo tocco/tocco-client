@@ -1,5 +1,5 @@
 import * as actions from './actions'
-import {singleTransferReducer} from 'tocco-util/reducers'
+import {reducers} from 'tocco-util'
 
 const setSearchInput = (state, {payload}) => {
   if (payload.field) {
@@ -23,9 +23,9 @@ const reset = state => ({
 const ACTION_HANDLERS = {
   [actions.SET_SEARCH_INPUT]: setSearchInput,
   [actions.RESET]: reset,
-  [actions.SET_FORM_DEFINITION]: singleTransferReducer('formDefinition'),
-  [actions.SET_ENTITY_MODEL]: singleTransferReducer('entityModel'),
-  [actions.SET_RELATION_ENTITIES]: singleTransferReducer('relationEntities')
+  [actions.SET_FORM_DEFINITION]: reducers.singleTransferReducer('formDefinition'),
+  [actions.SET_ENTITY_MODEL]: reducers.singleTransferReducer('entityModel'),
+  [actions.SET_RELATION_ENTITIES]: reducers.singleTransferReducer('relationEntities')
 }
 
 const initialState = {

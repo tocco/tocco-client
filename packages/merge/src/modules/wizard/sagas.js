@@ -2,7 +2,7 @@ import {takeEvery} from 'redux-saga'
 import {call, fork, select, put} from 'redux-saga/effects'
 import sendDwrRequest from '../../utils/Dwr'
 import createMergeResult from '../../utils/MergeActionResult'
-import {ExternalEvents} from 'tocco-util'
+import {externalEvents} from 'tocco-util'
 import {SAVE_MERGE, setMergeResponse} from './actions'
 import {mergingWithoutProblems} from '../../utils/MergeResponse'
 
@@ -24,7 +24,7 @@ export function* save() {
     const mergeResponse = yield call(sendDwr, mergeActionResult)
 
     if (mergingWithoutProblems(mergeResponse)) {
-      yield call(ExternalEvents.invokeExternalEvent, 'close')
+      yield call(externalEvents.invokeExternalEvent, 'close')
     } else {
       yield put(setMergeResponse(mergeResponse))
     }

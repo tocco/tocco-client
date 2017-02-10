@@ -2,7 +2,7 @@ import {takeLatest} from 'redux-saga'
 import {put, select, call, fork} from 'redux-saga/effects'
 import rootSaga, * as sagas from './sagas'
 import * as actions from './actions'
-import {ExternalEvents} from 'tocco-util'
+import {externalEvents} from 'tocco-util'
 import {setPassword} from '../../login/actions'
 import {loginSaga} from '../../sagas'
 
@@ -186,7 +186,7 @@ describe('login', () => {
               const standalone = true
 
               expect(generator.next(standalone).value).to.deep.equal(
-                call(ExternalEvents.invokeExternalEvent, 'success', {newPassword: 'validnewpw'})
+                call(externalEvents.invokeExternalEvent, 'success', {newPassword: 'validnewpw'})
               )
               expect(generator.next().value).to.deep.equal(put(actions.savePasswordSuccess()))
 
