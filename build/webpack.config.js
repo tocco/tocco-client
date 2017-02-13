@@ -283,37 +283,39 @@ if (__PROD__ && false ) {  // eslint-disable-line
 }
 
 // File loaders
+if (__DEV__) {
 /* eslint-disable */
-webpackConfig.module.rules.push(
-  {
-    test: /\.woff(\?.*)?$/,
-    use: 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff'
-  },
-  {
-    test: /\.woff2(\?.*)?$/,
-    use: 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff2'
-  },
-  {
-    test: /\.otf(\?.*)?$/,
-    use: 'file-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=font/opentype'
-  },
-  {
-    test: /\.ttf(\?.*)?$/,
-    use: 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/octet-stream'
-  },
-  {
-    test: /\.eot(\?.*)?$/,
-    use: 'file-loader?prefix=fonts/&name=[path][name].[ext]'
-  },
-  {
-    test: /\.svg(\?.*)?$/,
-    use: 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml'
-  },
-  {
-    test: /\.(png|jpg)$/,
-    use: 'file-loader?limit=8192'
-  }
-)
+  webpackConfig.module.rules.push(
+    {
+      test: /\.woff(\?.*)?$/,
+      use: 'file-loader?name=fonts/[name].[ext]&mimetype=application/font-woff'
+    },
+    {
+      test: /\.woff2(\?.*)?$/,
+      use: 'file-loader?name=fonts/[name].[ext]&mimetype=application/font-woff2'
+    },
+    {
+      test: /\.otf(\?.*)?$/,
+      use: 'file-loader?name=fonts/[name].[ext]&mimetype=font/opentype'
+    },
+    {
+      test: /\.ttf(\?.*)?$/,
+      use: 'file-loader?name=fonts/[name].[ext]&mimetype=application/octet-stream'
+    },
+    {
+      test: /\.eot(\?.*)?$/,
+      use: 'file-loader?name=fonts/[name].[ext]'
+    },
+    {
+      test: /\.svg(\?.*)?$/,
+      use: 'file-loader?name=fonts/[name].[ext]&mimetype=image/svg+xml'
+    },
+    {
+     test: /\.(png|jpg)$/,
+      use: 'file-loader?limit=8192'
+    }
+  )
+}
 /* eslint-enable */
 
 export default webpackConfig
