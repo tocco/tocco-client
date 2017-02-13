@@ -261,20 +261,17 @@ if (__DEV__) {
   )
 }
 
-// find all css files and integrate into index.js
-webpackConfig.module.rules.push({
-  test: /\.css$/,
-  use: 'style-loader!css-loader'
-})
-
 // TODO remove "&& false" to separate css from js. Currently this would result in unstyled components.
-if (__PROD__ && false ) {  // eslint-disable-line
+if (__PROD__) {
   // find all scss files and separate it from index.js
   webpackConfig.module.rules.push({
     test: /\.scss$/,
     loader: ExtractTextPlugin.extract(`css-loader!sass-loader?includePaths[]=${paths.client()}/packages/tocco-theme/node_modules/`)  // eslint-disable-line
   })
-} else {
+}
+
+
+if (!__PROD__) {
   // find all css files and integrate into index.js
   webpackConfig.module.rules.push({
     test: /\.scss$/,
