@@ -33,6 +33,6 @@ export const createStore = (initialState = {}, reducers, sagas) => {
 }
 
 export const hotReloadReducers = (store, reducers) => {
-  reducers = combineReducers({...reducers, input})
-  store.replaceReducer(reducers)
+  const combinedReducers = combineReducers({...reducers, input, errorLogging})
+  store.replaceReducer(combinedReducers)
 }
