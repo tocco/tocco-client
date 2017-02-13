@@ -6,7 +6,8 @@ import {addLocaleData} from 'react-intl'
 import {IntlProvider} from 'react-intl-redux'
 import {LoadMask} from 'tocco-ui'
 
-import {setEntityName, setFormBase} from './modules/entityBrowser/actions'
+import {setEntityName, setFormBase, setShowSearchForm, setDisableSimpleSearch,
+        setSimpleSearchFields} from './modules/entityBrowser/actions'
 import {setLimit} from './modules/listView/actions'
 
 import EntityBrowserContainer from './containers/EntityBrowserContainer'
@@ -115,6 +116,21 @@ const inputsFields = [
   {
     key: 'limit',
     action: setLimit,
+    mandatory: false
+  },
+  {
+    key: 'showSearchForm',
+    action: setShowSearchForm,
+    mandatory: false
+  },
+  {
+    key: 'disableSimpleSearch',
+    action: setDisableSimpleSearch,
+    mandatory: false
+  },
+  {
+    key: 'simpleSearchFields',
+    action: setSimpleSearchFields,
     mandatory: false
   }
 ]

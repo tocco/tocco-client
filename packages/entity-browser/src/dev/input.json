@@ -1,5 +1,8 @@
 {
   "entityName": "User",
   "limit": 50,
-  "formBase": "UserSearch"
+  "formBase": "UserSearch",
+  "showSearchForm": true,
+  "disableSimpleSearch": false,
+  "simpleSearchFields": ""
 }
