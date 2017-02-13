@@ -1,4 +1,4 @@
-import {mount} from 'enzyme'
+import {shallow} from 'enzyme'
 import React from 'react'
 import {IntlStub} from 'tocco-test-util'
 import MergeMatrix from './MergeMatrix'
@@ -11,8 +11,9 @@ describe('merge', () => {
         const emptyFnc = () => {
         }
 
-        const wrapper = mount(
+        const wrapper = shallow(
           <MergeMatrix
+            intl={IntlStub}
             targetEntityPk="498"
             entities={testData.entities}
             model={testData.model}
@@ -21,7 +22,6 @@ describe('merge', () => {
             selectSourceField={emptyFnc}
             selectSourceRelation={emptyFnc}
             toggleRelationMany={emptyFnc}
-            intl={IntlStub}
           />
         )
 
