@@ -10,7 +10,7 @@ export function sendDwr(mergeActionResult) {
   if (__DEV__) {
     console.log('dev mode. would send dwr', mergeActionResult, JSON.stringify(mergeActionResult))
     return new Promise(resolve => {
-      return resolve(require('../../response.json'))
+      return resolve(require('../../dev/response.json'))
     })
   } else {
     return sendDwrRequest('nice2_entityoperation_MergeEntitiesService', 'merge', mergeActionResult)
