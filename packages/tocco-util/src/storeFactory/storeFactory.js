@@ -1,4 +1,5 @@
 import {applyMiddleware, compose, createStore as reduxCreateStore, combineReducers} from 'redux'
+import {intlReducer} from 'react-intl-redux'
 import errorLogging, {sagas as loggingSagas, logError as logErrorAction} from '../errorLogging'
 import createSagaMiddleware from 'redux-saga'
 import {fork} from 'redux-saga/effects'
@@ -19,7 +20,7 @@ export const createStore = (initialState = {}, reducers, sagas) => {
     }
   }
 
-  reducers = combineReducers({...reducers, input, errorLogging})
+  reducers = combineReducers({...reducers, input, errorLogging, intl: intlReducer})
   const store = reduxCreateStore(reducers, initialState, middleware)
 
   store.asyncReducers = {}
@@ -33,6 +34,6 @@ export const createStore = (initialState = {}, reducers, sagas) => {
 }
 
 export const hotReloadReducers = (store, reducers) => {
-  const combinedReducers = combineReducers({...reducers, input, errorLogging})
+  const combinedReducers = combineReducers({...reducers, input, errorLogging, intl: intlReducer})
   store.replaceReducer(combinedReducers)
 }
