@@ -81,40 +81,6 @@ webpackConfig.plugins = [
   new webpack.DefinePlugin(config.globals)
 ]
 
-if (__PROD__) {
-  // extract css from js and generate a separate file
-  webpackConfig.plugins.push(
-    new ExtractTextPlugin('index.css')
-  )
-
-  if (__PACKAGE__ !== 'tocco-theme') {
-    // copy components scss files for recompilation
-    // TODO ensure that all scss files reside inside a components directory
-    webpackConfig.plugins.push(
-      new CopyWebpackPlugin([
-        {
-          context: `${packageDir}/src/components/`,
-          from: '**/*.scss',
-          flatten: true,
-          to: 'scss'
-        }
-      ])
-    )
-  }
-
-  // copy all assets of tocco's theme to dist folder
-  if (__PACKAGE__ === 'tocco-theme') {
-    webpackConfig.plugins.push(
-      new CopyWebpackPlugin([
-        {
-          context: `${packageDir}/src/ToccoTheme`,
-          from: '**/*.scss'
-        }
-      ])
-    )
-  }
-}
-
 if (__DEV__) {
   webpackConfig.plugins.push(
     new HtmlWebpackPlugin({
@@ -127,24 +93,7 @@ if (__DEV__) {
       }
     })
   )
-}
 
-if (__STANDALONE__) {
-  webpackConfig.plugins.push(
-    new HtmlWebpackPlugin({
-      template: paths.client('server/standalone.html'),
-      hash: false,
-      filename: 'index.html',
-      inject: 'body',
-      minify: {
-        collapseWhitespace: true
-      }
-    })
-  )
-}
-
-// TODO combine all environment conditionals
-if (__DEV__) {
   debug('Enable plugin for case-sensitive path check')
   webpackConfig.plugins.push(new CaseSensitivePathsPlugin())
 
@@ -153,6 +102,35 @@ if (__DEV__) {
     new webpack.HotModuleReplacementPlugin()
   )
 } else if (__PROD__) {
+  // extract css from js
+  webpackConfig.plugins.push(
+    new ExtractTextPlugin('index.css')
+  )
+
+  // copy scss files
+  if (__PACKAGE__ === 'tocco-theme') {
+    webpackConfig.plugins.push(
+      new CopyWebpackPlugin([
+        {
+          context: `${packageDir}/src/ToccoTheme`,
+          from: '**/*.scss'
+        }
+      ])
+    )
+  } else {
+    webpackConfig.plugins.push(
+      new CopyWebpackPlugin([
+        {
+          context: `${packageDir}/src/components/`,
+          from: '**/*.scss',
+          flatten: true,
+          to: 'scss'
+        }
+      ])
+    )
+  }
+
+  // optimize asset loading
   webpackConfig.plugins.push(
       new webpack.LoaderOptionsPlugin({
         minimize: true,
@@ -178,6 +156,18 @@ if (__DEV__) {
         }
       })
     )
+} else if (__STANDALONE__) {
+  webpackConfig.plugins.push(
+    new HtmlWebpackPlugin({
+      template: paths.client('server/standalone.html'),
+      hash: false,
+      filename: 'index.html',
+      inject: 'body',
+      minify: {
+        collapseWhitespace: true
+      }
+    })
+  )
 }
 
 // see: https://github.com/karma-runner/karma-sauce-launcher/issues/95
@@ -192,6 +182,10 @@ if (!process || !process.env || !process.env.DISABLE_ISTANBUL_COVERAGE) {
     ]
   }])
 }
+
+// ------------------------------------
+// Modules
+// ------------------------------------
 
 webpackConfig.module.rules = [
   {
@@ -259,29 +253,15 @@ if (__DEV__) {
       }
     })
   )
-}
 
-// TODO remove "&& false" to separate css from js. Currently this would result in unstyled components.
-if (__PROD__) {
-  // find all scss files and separate it from index.js
-  webpackConfig.module.rules.push({
-    test: /\.scss$/,
-    loader: ExtractTextPlugin.extract(`css-loader!sass-loader?includePaths[]=${paths.client()}/packages/tocco-theme/node_modules/`)  // eslint-disable-line
-  })
-}
-
-
-if (!__PROD__) {
-  // find all css files and integrate into index.js
+  // write all styles into index.js
   webpackConfig.module.rules.push({
     test: /\.scss$/,
     use: ['style-loader', 'css-loader', `sass-loader?includePaths[]=${paths.client()}/packages/tocco-theme/node_modules/`]  // eslint-disable-line
   })
-}
 
-// File loaders
-if (__DEV__) {
-/* eslint-disable */
+  // File loaders
+  /* eslint-disable */
   webpackConfig.module.rules.push(
     {
       test: /\.woff(\?.*)?$/,
@@ -312,7 +292,13 @@ if (__DEV__) {
       use: 'file-loader?limit=8192'
     }
   )
+  /* eslint-enable */
+} else if (__PROD__) {
+  // write all styles into index.css
+  webpackConfig.module.rules.push({
+    test: /\.scss$/,
+    loader: ExtractTextPlugin.extract(`css-loader!sass-loader?includePaths[]=${paths.client()}/packages/tocco-theme/node_modules/`)  // eslint-disable-line
+  })
 }
-/* eslint-enable */
 
 export default webpackConfig
