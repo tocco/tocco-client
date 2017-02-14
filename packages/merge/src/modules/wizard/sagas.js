@@ -1,5 +1,4 @@
-import {takeEvery} from 'redux-saga'
-import {call, fork, select, put} from 'redux-saga/effects'
+import {takeEvery, call, fork, select, put} from 'redux-saga/effects'
 import sendDwrRequest from '../../utils/Dwr'
 import createMergeResult from '../../utils/MergeActionResult'
 import {externalEvents} from 'tocco-util'
