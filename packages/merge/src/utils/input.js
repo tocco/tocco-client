@@ -11,20 +11,20 @@ export const getDispatchActions = input => (
     changeTargetEntity(input.entities[0].pk),
     clearRelationMany(),
     retrieveEditOptions(input.sourceEntitiesEditOptions),
-    ...dispatchToManySelections(input)
+    ...getToManySelectDispatchActions(input)
   ]
 )
 
-const dispatchToManySelections = input => {
+const getToManySelectDispatchActions = ({model, entities}) => {
   const result = []
-  input.model.relations
+  model.relations
     .filter(relation => relation.toMany)
-    .map(relation => {
-      input.entities.map(entity => {
+    .forEach(relation => {
+      entities.forEach(entity => {
         const userRelation = entity.relations[relation.name]
-        userRelation.values.map(userRelationValue => {
+        userRelation.values.forEach(userRelationValue => {
           if (userRelationValue.checked) {
-            return toggleRelationMany(relation.name, userRelationValue.pk, entity.pk)
+            result.push(toggleRelationMany(relation.name, userRelationValue.pk, entity.pk))
           }
         })
       })
