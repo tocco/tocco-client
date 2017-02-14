@@ -39,8 +39,8 @@ const initApp = (id, input, events, publicPath) => {
       })
     }
 
-    appFactory.renderApp(app.renderComponent)
+    appFactory.renderApp(app.renderComponent())
   } else {
-    storeFactory.registerAppInRegistry(packageName, initApp)
+    appFactory.registerAppInRegistry(packageName, initApp)
   }
 })()
