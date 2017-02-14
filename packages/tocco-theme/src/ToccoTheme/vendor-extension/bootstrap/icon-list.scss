@@ -3,12 +3,9 @@
  * prefix list items by any character
 */
 
-// TODO may move to tocco-variables.scss
 $icon-list-intend-0: "\2022";  /* bullet point */
 $icon-valid: $fa-var-check;
 $icon-invalid: $fa-var-times;
-
-// TODO may NOT move to tocco-variables.scss
 $icon-list-icon-size: floor($font-size-base * 1.5);
 $icon-list-indent: $icon-list-icon-size;
 
@@ -44,15 +41,11 @@ $icon-list-indent: $icon-list-icon-size;
   }
 }
 
-// TODO CLIENT replace classname "text-success" by "state-valid"
 @include icon-list-character (
   $selector: "li.text-success",
   $character: $icon-valid
 );
-
-// TODO CLIENT replace classname "text-danger" by "state-invalid"
 @include icon-list-character (
   $selector: "li.text-danger",
   $character: $icon-invalid
 );
-
