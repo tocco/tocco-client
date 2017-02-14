@@ -1,4 +1,6 @@
-&.server-env-dev #root {
-    margin: 50px;
-    border: 1px dashed #ddd;
+@if $node-env == 'development' {
+    #root {
+        margin: 50px;
+        border: 1px dashed #ddd;
+    }
 }

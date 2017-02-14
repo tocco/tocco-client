@@ -251,7 +251,7 @@ if (__DEV__) {
   // write all styles into index.js
   webpackConfig.module.rules.push({
     test: /\.scss$/,
-    use: ['style-loader', 'css-loader', `sass-loader?includePaths[]=${paths.client()}/packages/tocco-theme/node_modules/`]  // eslint-disable-line
+    use: ['style-loader', 'css-loader', `sass-loader?data=$node-env:${config.env};&includePaths[]=${paths.client()}/packages/tocco-theme/node_modules/`]  // eslint-disable-line
   })
 
   // File loaders

@@ -28,7 +28,7 @@
   @import "variable/mutable-imports";
 
   // import declarations for webpack environments
-  @import "tocco/webpack-environment-development";  // TODO load this only while developing
+  @import "tocco/webpack-environment-development";
 
   // import customers's declarations
   @import "customer/customer";
