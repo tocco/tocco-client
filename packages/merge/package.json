@@ -7,8 +7,7 @@
     "clean": "../../node_modules/rimraf/bin.js dist",
     "compile": "babel-node ../../bin/compile",
     "deploy": "cd ../../ && ./node_modules/better-npm-run/index.js deploy --package=merge",
-    "prepublish": "cd ../../ && ./node_modules/better-npm-run/index.js deploy:prod --package=merge",
-    "lint": "eslint ."
+    "prepublish": "cd ../../ && ./node_modules/better-npm-run/index.js deploy:prod --package=merge"
   },
   "betterScripts": {
     "deploy": {

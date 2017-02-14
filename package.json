@@ -10,7 +10,7 @@
     "clean": "rimraf node_modules && cd server/static && rimraf node_modules && lerna clean",
     "compile": "better-npm-run compile",
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
-    "lint": "stylelint packages/*/src/*.scss && stylelint packages/*/src/*/*.scss && stylelint packages/*/src/*/*/*/*.scss && eslint . --cache",
+    "lint": "stylelint packages/**/*.scss && eslint . --cache",
     "lint:fix": "npm run lint -- --fix",
     "start": "better-npm-run start",
     "dev": "better-npm-run dev",

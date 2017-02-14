@@ -1,21 +1,22 @@
 .merge-matrix-selected-col {
- background-color: AliceBlue ;
+  background-color: #f0f8ff;
 }
 
-.merge-matrix-th-selected{
+.merge-matrix-th-selected {
   .targetIcon {
-    color: LightCoral;
+    color: #f08080;
   }
 }
 
-.merge-matrix-th{
+.merge-matrix-th {
   cursor: pointer;
-  .targetIcon{
-    color: lightgrey;
+
+  .targetIcon {
+    color: #d3d3d3;
   }
 }
 
 .merge-icon-spacer {
-  width: 20px;
-  float:left
+  width: 1.42rem;
+  float: left;
 }

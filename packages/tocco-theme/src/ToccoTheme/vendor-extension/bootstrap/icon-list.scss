@@ -3,7 +3,7 @@
  * prefix list items by any character
 */
 
-$icon-list-intend-0: "\2022";  /* bullet point */
+$icon-list-intend-0: '\2022';  /* bullet point */
 $icon-valid: $fa-var-check;
 $icon-invalid: $fa-var-times;
 $icon-list-icon-size: floor($font-size-base * 1.5);
@@ -33,7 +33,7 @@ $icon-list-indent: $icon-list-icon-size;
 
 // use replacement icon for list items with a special class
 @mixin icon-list-character (
-  $selector: "li",
+  $selector: 'li',
   $character: $icon-default
 ) {
   .icon-list #{$selector}:before {
@@ -42,10 +42,10 @@ $icon-list-indent: $icon-list-icon-size;
 }
 
 @include icon-list-character (
-  $selector: "li.text-success",
+  $selector: 'li.text-success',
   $character: $icon-valid
 );
 @include icon-list-character (
-  $selector: "li.text-danger",
+  $selector: 'li.text-danger',
   $character: $icon-invalid
 );

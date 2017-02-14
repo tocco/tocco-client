@@ -26,12 +26,12 @@
     "unit-whitelist": ["rem", "%", "ms","deg"],
 
     "string-no-newline": true,
-    "string-quotes": "double",
+    "string-quotes": "single",
 
     "value-keyword-case": "lower",
     "value-no-vendor-prefix": true,
-    "value-list-comma-space-after": "always",
-    "value-list-comma-space-before": "never",
+    "value-list-comma-newline-after": "always",
+    "value-list-comma-newline-before": "never-multi-line",
     "value-list-max-empty-lines": 0,
 
     "shorthand-property-no-redundant-values": true,
@@ -42,7 +42,6 @@
     "declaration-bang-space-after": "never",
     "declaration-bang-space-before": "always",
 
-    "declaration-colon-newline-after": "always-multi-line",
     "declaration-colon-space-after": "always",
     "declaration-colon-space-before": "never",
     "declaration-empty-line-before": "never",

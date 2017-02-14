@@ -1,47 +1,45 @@
 .tocco-login {
   .input-group {
-    max-width: 500px;
+    max-width: 35.71rem;
   }
 
   .negative {
-    color: darkred;
+    color: #8b0000;
   }
 
   .message-box {
-    min-height: 25px;
+    min-height: 1.78rem;
     font-weight: bold;
-    padding: 5px 0 0 5px;
+    padding: .35rem 0 0 .35rem;
   }
 
   button {
-    min-width: 100px;
+    min-width: 7.14rem;
   }
 
   button.update-pending {
     i.glyphicon {
-      animation: spin 2s infinite linear;
+      animation: spin 2000ms infinite linear;
     }
 
     i.glyphicon:before {
-      content: "\e031"
+      content: '\e031';
     }
   }
 
   .m-t-5 {
-    margin-top: 5px;
+    margin-top: .35rem;
   }
 
   .m-l-5 {
-    margin-left: 5px;
+    margin-left: .35rem;
   }
 
   .p-l-5 {
-    padding-left: 5px;
+    padding-left: .35rem;
   }
 
   .pointer {
     cursor: pointer;
   }
-
 }
-
