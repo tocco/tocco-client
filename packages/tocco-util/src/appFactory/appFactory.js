@@ -14,8 +14,10 @@ import {LoadMask} from 'tocco-ui'
 import storeFactory from '../storeFactory'
 import intl from '../intl'
 import externalEvents from '../externalEvents'
+import {logError} from '../errorLogging'
 
 export const createApp = (name, content, reducers, sagas, input, events, actions, publicPath) => {
+  let store
   try {
     setWebpacksPublicPath(publicPath)
     const initialState = getIntialState(input)
@@ -24,7 +26,7 @@ export const createApp = (name, content, reducers, sagas, input, events, actions
       externalEvents.registerEvents(events)
     }
 
-    const store = storeFactory.createStore(initialState, reducers, sagas)
+    store = storeFactory.createStore(initialState, reducers, sagas)
     const initIntlPromise = setupIntl(input, store, name)
 
     dispatchActions(actions, store)
@@ -37,8 +39,15 @@ export const createApp = (name, content, reducers, sagas, input, events, actions
         setLocale: locale => intl.setLocale(store, name, locale)
       }
     }
-  } catch (e) {
-    console.log('Error creating react application: ', e)
+  } catch (error) {
+    try {
+      if (store) {
+        store.dispatch(logError('Error', 'Error creating react application: ', error))
+      }
+    } catch (loggingError) {
+      console.log('Error creating react application: ', error)
+      console.log('Unable to log error: ', loggingError)
+    }
   }
 }
 
