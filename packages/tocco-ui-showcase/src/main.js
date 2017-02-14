@@ -12,7 +12,7 @@ let render = () => {
   ReactDOM.render(element, mountElement)
 }
 
-if (__DEV__) {
+if (__DEV__ || __STANDALONE__) {
   require('tocco-theme/src/ToccoTheme/theme.scss')
 
   if (module.hot) {
