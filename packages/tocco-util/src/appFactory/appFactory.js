@@ -33,7 +33,7 @@ export const createApp = (name, content, reducers, sagas, input, events, actions
     const component = getAppComponent(store, initIntlPromise, name, content)
 
     return {
-      renderComponent: component,
+      renderComponent: () => component,
       store,
       methods: {
         setLocale: locale => intl.setLocale(store, name, locale)
