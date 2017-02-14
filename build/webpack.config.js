@@ -1,7 +1,6 @@
 import path from 'path'
 import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import config from '../config'
 import _debug from 'debug'
@@ -102,11 +101,6 @@ if (__DEV__) {
     new webpack.HotModuleReplacementPlugin()
   )
 } else if (__PROD__) {
-  // extract css from js
-  webpackConfig.plugins.push(
-    new ExtractTextPlugin('index.css')
-  )
-
   // copy scss files
   if (__PACKAGE__ === 'tocco-theme') {
     webpackConfig.plugins.push(
@@ -293,12 +287,6 @@ if (__DEV__) {
     }
   )
   /* eslint-enable */
-} else if (__PROD__) {
-  // write all styles into index.css
-  webpackConfig.module.rules.push({
-    test: /\.scss$/,
-    loader: ExtractTextPlugin.extract(`css-loader!sass-loader?includePaths[]=${paths.client()}/packages/tocco-theme/node_modules/`)  // eslint-disable-line
-  })
 }
 
 export default webpackConfig
