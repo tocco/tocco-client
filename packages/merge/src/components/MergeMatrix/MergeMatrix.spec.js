@@ -1,6 +1,5 @@
-import {shallow} from 'enzyme'
 import React from 'react'
-import {IntlStub} from 'tocco-test-util'
+import {IntlStub, intlEnzyme} from 'tocco-test-util'
 import MergeMatrix from './MergeMatrix'
 import {HeaderRow, ToManyRelationRow, FieldRow, RelationRow} from './table-components'
 
@@ -11,7 +10,7 @@ describe('merge', () => {
         const emptyFnc = () => {
         }
 
-        const wrapper = shallow(
+        const wrapper = intlEnzyme.mountWithIntl(
           <MergeMatrix
             intl={IntlStub}
             targetEntityPk="498"
