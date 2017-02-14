@@ -174,7 +174,7 @@ webpackConfig.module.rules = [
             'preventFullImport': true
           },
           'tocco-test-util': {
-            'transform': 'tocco-util/src/${member}', // eslint-disable-line no-template-curly-in-string
+            'transform': 'tocco-test-util/src/${member}', // eslint-disable-line no-template-curly-in-string
             'preventFullImport': true
           }
         }],
