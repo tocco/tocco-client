@@ -6,12 +6,28 @@ const showEntityDetail = (state, {payload}) => ({
   showDetailEntityId: payload.entityId
 })
 
+const simpleSearchFieldsToArray = simpleSearchFields => {
+  return simpleSearchFields.split(',')
+    .filter(s => s !== '')
+    .map(s => s.split(' ')
+      .filter(s => s !== ' ')
+      .reduce((acc, val) => acc + val))
+}
+
+const simpleSearchFields = (state, {payload}) => {
+  const fieldArray = simpleSearchFieldsToArray(payload.simpleSearchFields)
+  return {
+    ...state,
+    simpleSearchFields: (fieldArray.length === 0) ? ['txtFulltext'] : fieldArray
+  }
+}
+
 const ACTION_HANDLERS = {
   [actions.SET_ENTITY_NAME]: reducers.singleTransferReducer('entityName'),
   [actions.SET_FORM_BASE]: reducers.singleTransferReducer('formBase'),
   [actions.SET_SHOW_SEARCH_FORM]: reducers.singleTransferReducer('showSearchForm'),
   [actions.SET_DISABLE_SIMPLE_SEARCH]: reducers.singleTransferReducer('disableSimpleSearch'),
-  [actions.SET_SIMPLE_SEARCH_FIELDS]: reducers.singleTransferReducer('simpleSearchFields'),
+  [actions.SET_SIMPLE_SEARCH_FIELDS]: simpleSearchFields,
   [actions.SHOW_ENTITY_DETAIL]: showEntityDetail,
   [actions.CLOSE_ENTITY_DETAIL]: showEntityDetail,
   [actions.SET_ENTITY_MODEL]: reducers.singleTransferReducer('entityModel')
@@ -22,7 +38,6 @@ const initialState = {
   formBase: '',
   showSearchForm: true,
   disableSimpleSearch: false,
-  simpleSearchFields: '',
   showDetailEntityId: undefined,
   entityModel: {}
 }
