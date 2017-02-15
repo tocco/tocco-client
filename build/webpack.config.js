@@ -117,7 +117,9 @@ if (__DEV__) {
         minimize: true,
         debug: false
       }),
-      new LodashModuleReplacementPlugin(),
+      new LodashModuleReplacementPlugin({
+        'shorthands': true
+      }),
       new webpack.optimize.OccurrenceOrderPlugin(),
       new webpack.optimize.UglifyJsPlugin({
         compress: {
@@ -170,6 +172,10 @@ webpackConfig.module.rules = [
           'tocco-util': {
             'transform': 'tocco-util/src/${member}', // eslint-disable-line no-template-curly-in-string
             'preventFullImport': true
+          },
+          'tocco-test-util': {
+            'transform': 'tocco-test-util/src/${member}', // eslint-disable-line no-template-curly-in-string
+            'preventFullImport': true
           }
         }],
         'transform-runtime',
@@ -183,6 +189,7 @@ webpackConfig.module.rules = [
       env: {
         production: {
           plugins: [
+            'lodash',
             'transform-react-remove-prop-types',
             'transform-react-constant-elements'
           ]
