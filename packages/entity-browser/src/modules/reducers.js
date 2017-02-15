@@ -1,4 +1,5 @@
 import {intlReducer} from 'react-intl-redux'
+import {Reducers as gridReducers} from 'react-redux-grid'
 import {reducer as form} from 'redux-form'
 import {reducer as toastr} from 'react-redux-toastr'
 
@@ -19,7 +20,8 @@ export default {
   entityBrowser,
   listView,
   detailView,
-  searchForm
+  searchForm,
+  ...gridReducers
 }
 
 export const sagas = [

@@ -39,8 +39,8 @@ export const columnDefinitionTransformer = json => {
   }
 
   return columns.map(c => ({
-    label: c.label,
-    value: c.children.filter(isDisplayableType).map(child => child.name)
+    name: c.label,
+    dataIndex: c.children.filter(isDisplayableType).map(child => child.name)[0]
   }))
 }
 

@@ -1,65 +1,21 @@
 import React from 'react'
 import {intlShape} from 'react-intl'
-import {Button, FormattedValue, Pagination, Table} from 'tocco-ui'
 import './styles.scss'
 
+import {Grid} from 'react-redux-grid'
+
 const ListView = props => {
-  const onOrderByChange = orderBy => {
-    props.setOrderBy(orderBy)
-  }
-
-  const onPageChange = page => {
-    props.changePage(page)
-  }
-
-  const cellRenderer = (values, entity) => {
-    const formattedValues = values.map((v, idx) => (
-      <FormattedValue key={idx} type={v.type} value={v.value}/>
-    ))
-
-    if (formattedValues.length > 0) {
-      return (
-        <span>
-          {formattedValues.reduce((prev, curr) => [prev, ', ', curr])}
-        </span>
-      )
-    }
-  }
-
-  const handleRowClick = entityId => {
-    props.onEntityClick(entityId)
-  }
-
-  const msg = id => {
-    return props.intl.formatMessage({
-      id
-    })
-  }
-
   return (
     <div className="list-view">
-      <Table
-        columnDefinitions={props.columnDefinitions}
-        records={props.entities}
-        className="table-striped"
-        onOrderByChange={onOrderByChange}
-        orderBy={props.orderBy}
-        loading={props.inProgress}
-        cellRenderer={cellRenderer}
-        onRowClick={handleRowClick}
+      { props.columnDefinitions.length > 0
+      && <Grid
+        columns={props.columnDefinitions}
+        data={props.entities}
+        plugins={{}}
+        stateKey="listView"
       />
-      <Pagination
-        totalRecords={props.entityCount}
-        recordsPerPage={props.limit}
-        onPageChange={onPageChange}
-        currentPage={props.currentPage}
-      />
-      <Button
-        onClick={props.refresh}
-        label={msg('client.entity-browser.refresh')}
-        icon="glyphicon-refresh"
-        className="refresh-button"
-      />
+      }
+
     </div>
   )
 }

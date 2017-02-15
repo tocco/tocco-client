@@ -67,20 +67,21 @@ export const entitiesListTransformer = json => {
     for (const path in paths) {
       const type = paths[path].type
       if (type === 'field') {
-        result.values[path] = paths[path].value
-      } else if (type === 'entity') {
-        result.values[path] = {
-          type: 'string',
-          value: paths[path].value ? paths[path].value.display : ''
-        }
-      } else if (type === 'entity-list') {
-        result.values[path] = {
-          type: 'string',
-          value: paths[path].value ? paths[path].value.map(v => v.display).join(', ') : ''
-        }
+        result.values[path] = paths[path].value.value
       }
+      // } else if (type === 'entity' & false) {
+      //   result.values[path] = {
+      //     type: 'string',
+      //     value: paths[path].value ? paths[path].value.display : ''
+      //   }
+      // } else if (type === 'entity-list') {
+      //   result.values[path] = {
+      //     type: 'string',
+      //     value: paths[path].value ? paths[path].value.map(v => v.display).join(', ') : ''
+      //   }
+      // }
     }
-    return result
+    return result.values
   })
 }
 
