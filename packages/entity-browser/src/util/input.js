@@ -1,9 +1,8 @@
 import {setLimit} from '../modules/listView/actions'
 import {setEntityName, setFormBase} from '../modules/entityBrowser/actions'
 
-export const validateAndGetDispatchActions = input => {
+export const validateAndGetDispatchActions = (input, logError = console.error || console.log) => {
   const dispatches = []
-  const logError = console.error || console.log
   inputsFields.forEach(f => {
     if (input.hasOwnProperty(f.key)) {
       dispatches.push(f.action(input[f.key]))
