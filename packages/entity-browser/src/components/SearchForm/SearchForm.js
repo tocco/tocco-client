@@ -19,10 +19,9 @@ const SearchForm = props => {
     })
   }
 
-  const showField = formDefinition => {
-    return props.disableSimpleSearch
-      || props.simpleSearchFields.includes(formDefinition.name) || props.showExtendedSearchForm
-  }
+  const showField = name => (
+    props.disableSimpleSearch || props.simpleSearchFields.includes(name) || props.showExtendedSearchForm
+  )
 
   const toggleExtendedSearchForm = () => {
     props.setShowExtendedSearchForm(!props.showExtendedSearchForm)
@@ -32,7 +31,7 @@ const SearchForm = props => {
     <form onSubmit={handleSubmit}>
       {
       props.searchFormDefinition.map((definition, idx) => (
-        showField(definition)
+        showField(definition.name)
         && <div key={idx} className="form-group row">
           <label htmlFor={definition.name} className="col-sm-2 col-form-label">{definition.label}</label>
           <div className="col-sm-10">
@@ -52,7 +51,7 @@ const SearchForm = props => {
         && <div className="pull-right">
           <Button
             type="button"
-            label={msg('client.entity-browser.extended-search')}
+            label={msg('client.entity-browser.extendedSearch')}
             onClick={toggleExtendedSearchForm}
           />
         </div>

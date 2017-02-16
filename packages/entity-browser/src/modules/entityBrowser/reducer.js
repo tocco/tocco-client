@@ -8,10 +8,8 @@ const showEntityDetail = (state, {payload}) => ({
 
 const simpleSearchFieldsToArray = simpleSearchFields => {
   return simpleSearchFields.split(',')
-    .filter(s => s !== '')
-    .map(s => s.split(' ')
-      .filter(s => s !== ' ')
-      .reduce((acc, val) => acc + val))
+    .filter(s => s)
+    .map(s => s.trim())
 }
 
 const simpleSearchFields = (state, {payload}) => {
