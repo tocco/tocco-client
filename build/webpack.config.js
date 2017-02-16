@@ -235,7 +235,7 @@ webpackConfig.module.rules = [
   }
 ]
 
-if (__DEV__ || __STANDALONE__) {
+if (!__PROD__) {
   // Run linting but only show errors as warning
   webpackConfig.module.rules.push(
     {
