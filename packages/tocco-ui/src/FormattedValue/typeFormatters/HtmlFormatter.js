@@ -1,22 +1,9 @@
 import React from 'react'
 
-const HtmlFormatter = props => {
-  const content = props.value
-  if (!content) {
-    return <div/>
-  }
-
-  const markup = {
-    __html: content
-  }
-
-  return (
-    <div dangerouslySetInnerHTML={markup}/>
-  )
-}
+const HtmlFormatter = props => <div dangerouslySetInnerHTML={{__html: props.value}}/>
 
 HtmlFormatter.propTypes = {
-  value: React.PropTypes.string
+  value: React.PropTypes.string.isRequired
 }
 
 export default HtmlFormatter

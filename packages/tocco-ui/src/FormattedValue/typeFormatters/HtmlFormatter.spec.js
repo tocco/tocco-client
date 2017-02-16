@@ -10,12 +10,6 @@ describe('tocco-ui', function() {
         expect(wrapper.html()).to.equal('<div><p>TEST TEST</p></div>')
         expect(wrapper.text()).to.equal('TEST TEST')
       })
-
-      it('should return empty div if no content given', function() {
-        const wrapper = mount(<HtmlFormatter value={null}/>)
-        expect(wrapper.html()).to.equal('<div></div>')
-        expect(wrapper.text()).to.equal('')
-      })
     })
   })
 })
