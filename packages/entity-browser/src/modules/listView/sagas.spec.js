@@ -87,15 +87,16 @@ describe('entity-browser', () => {
             expect(gen.next(listViewState).value).to.eql(select(sagas.entityBrowserSelector))
             expect(gen.next(entityExplorerState).value).to.eql(call(sagas.getSearchInputs))
             expect(gen.next(searchInputs).value).to.eql(call(
-              fetchEntities,
-              entityName,
-              page,
-              orderBy,
-              limit,
-              columnDefinition,
-              searchInputs,
-              entitiesListTransformer,
-              formName
+              fetchEntities, {
+                entityName,
+                page,
+                orderBy,
+                limit,
+                fields: columnDefinition,
+                searchInputs,
+                formName,
+                transformer: entitiesListTransformer
+              }
             ))
             expect(gen.next(entities).value).to.eql(put(actions.addEntitiesToStore(page, entities)))
             expect(gen.next().done).to.be.true

@@ -71,8 +71,16 @@ export function* fetchEntitiesAndAddToStore(page) {
     const searchInputs = yield call(getSearchInputs)
     const fields = extractFields(columnDefinition)
     const entities = yield call(
-      fetchEntities, entityName, page, orderBy, limit, fields, searchInputs, entitiesListTransformer, formName
-    )
+      fetchEntities, {
+        entityName,
+        page,
+        orderBy,
+        limit,
+        fields,
+        searchInputs,
+        formName,
+        transformer: entitiesListTransformer
+      })
     yield put(actions.addEntitiesToStore(page, entities))
   }
 }

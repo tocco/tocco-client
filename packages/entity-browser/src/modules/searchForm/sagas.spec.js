@@ -57,8 +57,8 @@ describe('entity-browser', () => {
             expect(gen.next().value).to.eql(put(actions.setFormDefinition(formDefinition)))
 
             expect(gen.next().value).to.eql([
-              call(fetchEntities, 'testEntity1'),
-              call(fetchEntities, 'testEntity2')
+              call(fetchEntities, {entityName: 'testEntity1'}),
+              call(fetchEntities, {entityName: 'testEntity2'})
             ])
 
             expect(gen.next({}).value).to.eql(call(combineEntitiesInObject, {}))

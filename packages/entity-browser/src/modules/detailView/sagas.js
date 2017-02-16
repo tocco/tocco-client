@@ -91,7 +91,7 @@ export function* loadRelationEntities({payload}) {
   const model = entityModel[entityName]
   if (model.type === 'relation' && (selectBoxStores[entityName] === undefined || !selectBoxStores[entityName].loaded)) {
     const modelName = model.targetEntity
-    const entities = yield call(fetchEntities, modelName)
+    const entities = yield call(fetchEntities, {entityName: modelName})
     const fieldStore = entities.data.map(e => ({label: e.display, value: e.key}))
     yield put(actions.setStore(entityName, fieldStore))
     yield put(actions.setStoreLoaded(entityName, true))
