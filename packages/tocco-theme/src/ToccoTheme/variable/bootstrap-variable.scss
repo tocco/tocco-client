@@ -86,7 +86,12 @@ $headings-color:          inherit !default;
 
 // [converter] If $bootstrap-sass-asset-helper if used, provide path relative to the assets load path.
 // [converter] This is because some asset helpers, such as Sprockets, do not work with file-relative paths.
-$icon-font-path: "../../node_modules/bootstrap-sass/assets/fonts/bootstrap/" !default;  // relative path from packages/tocco-ui/src/Theme/ to Bootstrap fonts
+@if ( $node-env == "production" ) {
+  $icon-font-path: "/cms/common/fonts/bootstrap-3.3.7/" !global;  // public folder nice2
+} @else {
+  $icon-font-path: "../../node_modules/bootstrap-sass/assets/fonts/bootstrap/" !global;  // relative path from packages/tocco-theme/src/ToccoTheme to Bootstrap fonts
+}
+
 
 //** File name for all font files.
 $icon-font-name:          "glyphicons-halflings-regular" !default;
