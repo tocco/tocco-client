@@ -7,7 +7,8 @@ const EXPECTED_INITIAL_STATE = {
   showSearchForm: true,
   disableSimpleSearch: false,
   showDetailEntityId: undefined,
-  entityModel: {}
+  entityModel: {},
+  simpleSearchFields: ''
 }
 
 describe('entity-browser', () => {
@@ -21,9 +22,9 @@ describe('entity-browser', () => {
         it('should handle SET_SIMPLE_SEARCH_FIELDS', () => {
           let state = EXPECTED_INITIAL_STATE
           state = reducer(state, actions.setSimpleSearchFields('relRel1, field1,field2, relRel2'))
-          const simpleSearchFields = ['relRel1', 'field1', 'field2', 'relRel2']
+          const expectedSimpleSearchFields = ['relRel1', 'field1', 'field2', 'relRel2']
 
-          expect(state.simpleSearchFields).to.deep.equal(simpleSearchFields)
+          expect(state.simpleSearchFields).to.deep.equal(expectedSimpleSearchFields)
         })
       })
     })

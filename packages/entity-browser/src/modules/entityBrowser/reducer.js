@@ -6,11 +6,11 @@ const showEntityDetail = (state, {payload}) => ({
   showDetailEntityId: payload.entityId
 })
 
-const simpleSearchFieldsToArray = simpleSearchFields => {
-  return simpleSearchFields.split(',')
+const simpleSearchFieldsToArray = simpleSearchFields => (
+  simpleSearchFields.split(',')
     .filter(s => s)
     .map(s => s.trim())
-}
+)
 
 const simpleSearchFields = (state, {payload}) => {
   const fieldArray = simpleSearchFieldsToArray(payload.simpleSearchFields)
@@ -37,7 +37,8 @@ const initialState = {
   showSearchForm: true,
   disableSimpleSearch: false,
   showDetailEntityId: undefined,
-  entityModel: {}
+  entityModel: {},
+  simpleSearchFields: ''
 }
 
 export default function reducer(state = initialState, action) {
