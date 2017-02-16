@@ -32,7 +32,7 @@ import LayoutBoxExampleRaw from '!raw-loader!../../tocco-ui/src/LayoutBox/exampl
 
 const categories = {
   CONTENT: 'Content',
-  FORMS: 'From Controls',
+  FORMS: 'Form Controls',
   LAYOUT: 'Layout'
 }
 
