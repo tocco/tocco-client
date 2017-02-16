@@ -66,7 +66,7 @@ export function* fetchEntitiesAndAddToStore(page) {
   if (!entityStore[page]) {
     const entityBrowser = yield select(entityBrowserSelector)
     const {formBase} = entityBrowser
-    const formName = formBase + '_list'
+    const formName = `${formBase}_list`
 
     const searchInputs = yield call(getSearchInputs)
     const fields = extractFields(columnDefinition)
