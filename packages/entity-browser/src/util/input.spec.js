@@ -8,13 +8,16 @@ describe('entity-browser', () => {
           const input = {
             entityName: 'User',
             limit: 50,
-            formBase: 'UserSearch'
+            formBase: 'UserSearch',
+            showSearchForm: true,
+            disableSimpleSearch: false,
+            simpleSearchFields: ['txtFulltext']
           }
 
           const logError = sinon.spy()
           const result = validateAndGetDispatchActions(input, logError)
 
-          expect(result).to.have.length(3)
+          expect(result).to.have.length(6)
           expect(logError).to.have.callCount(0)
         })
       })
