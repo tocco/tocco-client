@@ -30,7 +30,7 @@ export function* initialize({payload}) {
     'ch.tocco.nice2.model.form.components.simple.SingleSelectBox'].includes(searchField.type)).map(searchField => {
       const relationName = searchField.name
       const entityName = entityModel[relationName].targetEntity
-      return call(fetchEntities, {entityName})
+      return call(fetchEntities, entityName)
     })
 
   const relationEntitiesTransformed = yield call(combineEntitiesInObject, relationEntities)

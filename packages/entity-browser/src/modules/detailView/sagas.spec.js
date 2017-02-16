@@ -161,7 +161,7 @@ describe('entity-browser', () => {
             const gen = sagas.loadRelationEntities(actions.loadRelationEntities(relationEntityName))
             expect(gen.next().value).to.eql(select(sagas.detailViewSelector))
             expect(gen.next(detailView).value).to.eql(select(sagas.entityBrowserSelector))
-            expect(gen.next(entityBrowser).value).to.eql(call(fetchEntities, {entityName}))
+            expect(gen.next(entityBrowser).value).to.eql(call(fetchEntities, entityName))
             expect(gen.next({data: []}).value).to.eql(put(actions.setStore(relationEntityName, [])))
             expect(gen.next().value).to.eql(put(actions.setStoreLoaded(relationEntityName, true)))
             expect(gen.next().done).to.be.true

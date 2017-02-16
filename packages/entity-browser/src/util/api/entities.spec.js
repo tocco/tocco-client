@@ -15,8 +15,7 @@ describe('entity-browser', () => {
             fetchMock.get('*', {data: [{fields: {a: 'a'}}]})
 
             const fields = ['f1', 'f2']
-            return entities.fetchEntities({
-              entityName: 'User',
+            return entities.fetchEntities('User', {
               page: 2,
               orderBy: 'firstname',
               limit: 20,
