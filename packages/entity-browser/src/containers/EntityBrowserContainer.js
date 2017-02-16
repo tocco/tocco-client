@@ -9,7 +9,8 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state, props) => ({
-  showDetailEntityId: state.entityBrowser.showDetailEntityId
+  showDetailEntityId: state.entityBrowser.showDetailEntityId,
+  showSearchForm: state.entityBrowser.showSearchForm
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(EntityBrowser))

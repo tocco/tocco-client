@@ -5,7 +5,9 @@ const EXPECTED_INITIAL_STATE = {
   formDefinition: [],
   entityModel: {},
   relationEntities: {},
-  searchInputs: {}
+  searchInputs: {},
+  showExtendedSearchForm: false,
+  simpleSearchFields: ['txtFulltext']
 }
 
 describe('entity-browser', () => {

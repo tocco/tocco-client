@@ -1,42 +1,64 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import ReduxToastr from 'react-redux-toastr'
 
-import appFactory from './appFactory'
+import {appFactory, storeFactory} from 'tocco-util'
+import reducers, {sagas} from './modules/reducers'
+import EntityBrowserContainer from './containers/EntityBrowserContainer'
 
-if (__DEV__) {
-  const fetchMock = require('fetch-mock')
-  const setupFetchMocks = require('./dev/fetchMocks')
+import {validateAndGetDispatchActions} from './util/input'
+import '!style-loader!css-loader!react-redux-toastr/lib/css/react-redux-toastr.css'
 
-  setupFetchMocks(fetchMock)
+const packageName = 'entity-browser'
 
-  const mountElement = document.getElementById('root')
+const initApp = (id, input, events, publicPath) => {
+  const dispatchActions = validateAndGetDispatchActions(input)
 
-  let render = () => {
-    const input = require('./dev/input.json')
-    const component = appFactory('', input)
-
-    const element = React.createElement(component.renderComponent)
-    ReactDOM.render(element, mountElement)
+  const toastrOptions = {
+    newestOnTop: false,
+    preventDuplicates: true,
+    position: 'top-right',
+    transitionIn: 'fadeIn',
+    transitionOut: 'fadeOut',
+    progressBar: true
   }
 
-  if (__DEV__ && module.hot) {
-    const renderApp = render
-    const renderError = error => {
-      const RedBox = require('redbox-react')
+  const content = <div>
+    <ReduxToastr {...toastrOptions}/>
+    <EntityBrowserContainer/>
+  </div>
 
-      ReactDOM.render(<RedBox error={error}/>, mountElement)
-    }
-    render = () => {
-      try {
-        renderApp()
-      } catch (error) {
-        renderError(error)
-      }
-    }
-  }
-  render()
-} else {
-  if (window.reactRegistry) {
-    window.reactRegistry.register('entity-browser', appFactory) // TODO: replace string with var
-  }
+  return appFactory.createApp(
+    packageName,
+    content,
+    reducers,
+    sagas,
+    input,
+    events,
+    dispatchActions,
+    publicPath
+  )
 }
+
+(() => {
+  if (__DEV__) {
+    const fetchMock = require('fetch-mock')
+    const setupFetchMocks = require('./dev/fetchMocks')
+    setupFetchMocks(fetchMock)
+
+    const input = require('./dev/input.json')
+
+    const app = initApp('id', input)
+
+    if (module.hot) {
+      module.hot.accept('./modules/reducers', () => {
+        let reducers = require('./modules/reducers').default
+        storeFactory.hotReloadReducers(app.store, reducers)
+      })
+    }
+
+    appFactory.renderApp(app.renderComponent())
+  } else {
+    appFactory.registerAppInRegistry(packageName, initApp)
+  }
+})()
+
