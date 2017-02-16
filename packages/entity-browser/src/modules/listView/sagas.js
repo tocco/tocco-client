@@ -5,6 +5,7 @@ import {fetchForm, columnDefinitionTransformer} from '../../util/api/forms'
 import {fetchEntityCount, fetchEntities, entitiesListTransformer} from '../../util/api/entities'
 import _clone from 'lodash/clone'
 
+export const entityBrowserSelector = state => state.entityBrowser
 export const listViewSelector = state => state.listView
 export const searchFormSelector = state => state.searchForm
 
@@ -59,14 +60,18 @@ const extractFields = columnDefinition => {
 }
 
 export function* fetchEntitiesAndAddToStore(page) {
-  const entityBrowser = yield select(listViewSelector)
-  const {entityName, orderBy, limit, entityStore, columnDefinition} = entityBrowser
+  const listView = yield select(listViewSelector)
+  const {entityName, orderBy, limit, entityStore, columnDefinition} = listView
 
   if (!entityStore[page]) {
+    const entityBrowser = yield select(entityBrowserSelector)
+    const {formBase} = entityBrowser
+    const formName = formBase + '_list'
+
     const searchInputs = yield call(getSearchInputs)
     const fields = extractFields(columnDefinition)
     const entities = yield call(
-      fetchEntities, entityName, page, orderBy, limit, fields, searchInputs, entitiesListTransformer
+      fetchEntities, entityName, page, orderBy, limit, fields, searchInputs, entitiesListTransformer, formName
     )
     yield put(actions.addEntitiesToStore(page, entities))
   }

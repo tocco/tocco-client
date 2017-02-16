@@ -132,6 +132,41 @@ describe('entity-browser', () => {
             expect(transformedResult[1].values.firstname).to.eql({type: 'string', value: 'Klaus'})
             expect(transformedResult[1].values.titles).to.eql({type: 'string', value: 'Dr., Prof'})
           })
+
+          it('should handle path type display-expression', () => {
+            const fetchResult = {
+              data: [
+                {
+                  paths: {
+                    title: {
+                      name: 'title',
+                      type: 'display-expression',
+                      value: '<p>TEST 1</p>'
+                    }
+                  }
+                }, {
+                  paths: {
+                    title: {
+                      name: 'title',
+                      type: 'display-expression',
+                      value: '<p>TEST 2</p>'
+                    }
+                  }
+                }
+              ]
+            }
+
+            const transformedResult = entities.entitiesListTransformer(fetchResult)
+
+            expect(transformedResult).to.be.a('array')
+            expect(transformedResult).to.have.length(2)
+
+            expect(transformedResult[0].values).to.have.property('title')
+            expect(transformedResult[0].values.title).to.eql({type: 'html', value: '<p>TEST 1</p>'})
+
+            expect(transformedResult[1].values).to.have.property('title')
+            expect(transformedResult[1].values.title).to.eql({type: 'html', value: '<p>TEST 2</p>'})
+          })
         })
 
         describe('combineEntitiesInObject', () => {

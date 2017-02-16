@@ -75,16 +75,27 @@ describe('entity-browser', () => {
           })
 
           it('should add entities to store', () => {
-            const state = generateState({}, 1)
+            const listViewState = generateState({}, 1)
+            const entityExplorerState = {formBase: 'Base_form'}
+            const formName = entityExplorerState.formBase + '_list'
             const searchInputs = {}
             const entities = []
-            const {entityName, page, orderBy, limit, columnDefinition} = state
+            const {entityName, page, orderBy, limit, columnDefinition} = listViewState
 
             const gen = sagas.fetchEntitiesAndAddToStore(1)
             expect(gen.next().value).to.eql(select(sagas.listViewSelector))
-            expect(gen.next(state).value).to.eql(call(sagas.getSearchInputs))
+            expect(gen.next(listViewState).value).to.eql(select(sagas.entityBrowserSelector))
+            expect(gen.next(entityExplorerState).value).to.eql(call(sagas.getSearchInputs))
             expect(gen.next(searchInputs).value).to.eql(call(
-              fetchEntities, entityName, page, orderBy, limit, columnDefinition, searchInputs, entitiesListTransformer
+              fetchEntities,
+              entityName,
+              page,
+              orderBy,
+              limit,
+              columnDefinition,
+              searchInputs,
+              entitiesListTransformer,
+              formName
             ))
             expect(gen.next(entities).value).to.eql(put(actions.addEntitiesToStore(page, entities)))
             expect(gen.next().done).to.be.true
