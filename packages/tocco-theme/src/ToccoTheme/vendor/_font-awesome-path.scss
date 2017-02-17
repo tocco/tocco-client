@@ -1,6 +1,7 @@
 /* FONT PATH
  * --------------------------
- * SASS mixin @at-root is required to ensure correct declaration of @font-face. Topmost class in theme.scss for global scoping breaks otherwise.
+ * SASS mixin @at-root is required to ensure correct declaration of @font-face. Topmost class
+ * in theme.scss for global scoping breaks otherwise.
  */
 @at-root {
   @font-face {
