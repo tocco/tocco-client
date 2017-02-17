@@ -37,6 +37,26 @@ describe('entity-browser', () => {
 
           expect(state.searchInputs).to.deep.equal({firstname: 'Dan', age: 18})
         })
+
+        it('should handle SET_PRESELECTED_SEARCH_FIELDS', () => {
+          const stateOriginal = EXPECTED_INITIAL_STATE
+          const preselectedSearchFields = [
+            {
+              id: 'ID1',
+              value: 'VALUE1',
+              hidden: false
+            }, {
+              id: 'ID2',
+              value: 'VALUE2',
+              hidden: true
+            }
+          ]
+
+          const stateNew = reducer(stateOriginal, actions.setPreselectedSearchFields(preselectedSearchFields))
+
+          expect(stateNew.searchInputs).to.deep.equal({ID1: 'VALUE1', ID2: 'VALUE2'})
+          expect(stateNew.preselectedSearchFields).to.deep.equal(preselectedSearchFields)
+        })
       })
     })
   })
