@@ -4,5 +4,20 @@
   "formBase": "UserSearch",
   "showSearchForm": true,
   "disableSimpleSearch": false,
-  "simpleSearchFields": ""
+  "simpleSearchFields": "",
+  "preselectedSearchFields": [
+    {
+      "id": "txtFulltext",
+      "value": "few",
+      "hidden": false
+    }, {
+      "id": "relSingle_entity2",
+      "value": "2",
+      "hidden": true
+    }, {
+      "id": "relMulti_entity2",
+      "value": ["1", "3"],
+      "hidden": false
+    }
+  ]
 }

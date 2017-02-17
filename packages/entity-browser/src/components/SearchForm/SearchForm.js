@@ -13,18 +13,20 @@ const SearchForm = props => {
     props.setSearchInput()
   }
 
-  const msg = id => {
-    return props.intl.formatMessage({
-      id
-    })
-  }
+  const msg = id => (props.intl.formatMessage({id}))
 
   const showField = name => (
-    props.disableSimpleSearch || props.simpleSearchFields.includes(name) || props.showExtendedSearchForm
+    isHidden(name) || props.disableSimpleSearch || props.simpleSearchFields.includes(name)
+    || props.showExtendedSearchForm
   )
 
   const toggleExtendedSearchForm = () => {
     props.setShowExtendedSearchForm(!props.showExtendedSearchForm)
+  }
+
+  const isHidden = name => {
+    const field = props.preselectedSearchFields.find(f => f.id === name)
+    return field !== undefined && field.hidden
   }
 
   return (
@@ -32,7 +34,7 @@ const SearchForm = props => {
       {
       props.searchFormDefinition.map((definition, idx) => (
         showField(definition.name)
-        && <div key={idx} className="form-group row">
+        && <div key={idx} className={'form-group row' + (isHidden(definition.name) ? ' hidden' : '')}>
           <label htmlFor={definition.name} className="col-sm-2 col-form-label">{definition.label}</label>
           <div className="col-sm-10">
             <SearchField
@@ -110,7 +112,14 @@ SearchForm.propTypes = {
     React.PropTypes.string
   ),
   showExtendedSearchForm: React.PropTypes.bool,
-  setShowExtendedSearchForm: React.PropTypes.func
+  setShowExtendedSearchForm: React.PropTypes.func,
+  preselectedSearchFields: React.PropTypes.arrayOf(
+    React.PropTypes.shape({
+      id: React.PropTypes.string.isRequired,
+      value: React.PropTypes.any.isRequired,
+      hidden: React.PropTypes.bool.isRequired
+    })
+  )
 }
 
 export default SearchForm

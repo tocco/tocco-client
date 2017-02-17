@@ -1,6 +1,7 @@
 import {setLimit} from '../modules/listView/actions'
 import {setEntityName, setFormBase, setShowSearchForm,
         setDisableSimpleSearch, setSimpleSearchFields} from '../modules/entityBrowser/actions'
+import {setPreselectedSearchFields} from '../modules/searchForm/actions'
 
 export const validateAndGetDispatchActions = (input, logError = console.error || console.log) => {
   const dispatches = []
@@ -43,6 +44,11 @@ const inputsFields = [
   {
     key: 'simpleSearchFields',
     action: setSimpleSearchFields,
+    mandatory: false
+  },
+  {
+    key: 'preselectedSearchFields',
+    action: setPreselectedSearchFields,
     mandatory: false
   }
 ]

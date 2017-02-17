@@ -24,6 +24,7 @@ describe('entity-browser', () => {
           intl={IntlStub}
           simpleSearchFields={[]}
           disableSimpleSearch
+          preselectedSearchFields={[]}
         />)
 
         expect(wrapper.find(SearchField)).to.have.length(searchFormDefinition.length)
@@ -44,6 +45,7 @@ describe('entity-browser', () => {
           intl={IntlStub}
           disableSimpleSearch={false}
           simpleSearchFields={['txtFulltext']}
+          preselectedSearchFields={[]}
         />)
 
         expect(wrapper.find(SearchField)).to.have.length(1)
@@ -64,6 +66,7 @@ describe('entity-browser', () => {
           intl={IntlStub}
           disableSimpleSearch={false}
           simpleSearchFields={['txtFulltext', 'relUser_code1']}
+          preselectedSearchFields={[]}
         />)
 
         expect(wrapper.find(SearchField)).to.have.length(2)
