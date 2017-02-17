@@ -20,7 +20,7 @@ const SearchForm = props => {
     return field !== undefined && field.hidden
   }
 
-  const renderField = name => (
+  const shouldRenderField = name => (
     !isHidden(name) && (props.disableSimpleSearch || props.simpleSearchFields.includes(name)
     || props.showExtendedSearchForm)
   )
@@ -33,7 +33,7 @@ const SearchForm = props => {
     <form onSubmit={handleSubmit}>
       {
       props.searchFormDefinition.map((definition, idx) => (
-        renderField(definition.name)
+        shouldRenderField(definition.name)
         && <div key={idx} className="form-group row">
           <label htmlFor={definition.name} className="col-sm-2 col-form-label">{definition.label}</label>
           <div className="col-sm-10">
