@@ -17,12 +17,12 @@ const SearchForm = props => {
 
   const isHidden = name => {
     const field = props.preselectedSearchFields.find(f => f.id === name)
-    return field !== undefined && field.hidden
+    return field && field.hidden
   }
 
   const shouldRenderField = name => (
-    !isHidden(name) && (props.disableSimpleSearch || props.simpleSearchFields.includes(name)
-    || props.showExtendedSearchForm)
+    !isHidden(name) && (
+      props.disableSimpleSearch || props.showExtendedSearchForm) || props.simpleSearchFields.includes(name)
   )
 
   const toggleExtendedSearchForm = () => {

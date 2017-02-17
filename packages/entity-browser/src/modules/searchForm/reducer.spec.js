@@ -39,7 +39,6 @@ describe('entity-browser', () => {
         })
 
         it('should handle SET_PRESELECTED_SEARCH_FIELDS', () => {
-          const stateOriginal = EXPECTED_INITIAL_STATE
           const preselectedSearchFields = [
             {
               id: 'ID1',
@@ -52,7 +51,7 @@ describe('entity-browser', () => {
             }
           ]
 
-          const stateNew = reducer(stateOriginal, actions.setPreselectedSearchFields(preselectedSearchFields))
+          const stateNew = reducer(EXPECTED_INITIAL_STATE, actions.setPreselectedSearchFields(preselectedSearchFields))
 
           expect(stateNew.searchInputs).to.deep.equal({ID1: 'VALUE1', ID2: 'VALUE2'})
           expect(stateNew.preselectedSearchFields).to.deep.equal(preselectedSearchFields)
