@@ -8,7 +8,7 @@
   "preselectedSearchFields": [
     {
       "id": "txtFulltext",
-      "value": "few",
+      "value": "",
       "hidden": false
     }, {
       "id": "relSingle_entity2",

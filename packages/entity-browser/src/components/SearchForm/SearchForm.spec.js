@@ -98,8 +98,7 @@ describe('entity-browser', () => {
           preselectedSearchFields={preselectedSearchFields}
         />)
 
-        expect(wrapper.find(SearchField)).to.have.length(searchFormDefinition.length)
-        expect(wrapper.find('.hidden')).to.have.length(1)
+        expect(wrapper.find(SearchField)).to.have.length(searchFormDefinition.length - 1)
       })
     })
   })

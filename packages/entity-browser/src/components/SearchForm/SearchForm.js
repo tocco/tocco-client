@@ -1,5 +1,6 @@
 import React from 'react'
 import {intlShape} from 'react-intl'
+import classNames from 'classnames'
 import {Button} from 'tocco-ui'
 import SearchField from './SearchField'
 
@@ -15,9 +16,9 @@ const SearchForm = props => {
 
   const msg = id => (props.intl.formatMessage({id}))
 
-  const showField = name => (
-    isHidden(name) || props.disableSimpleSearch || props.simpleSearchFields.includes(name)
-    || props.showExtendedSearchForm
+  const renderField = name => (
+    !isHidden(name) && (props.disableSimpleSearch || props.simpleSearchFields.includes(name)
+    || props.showExtendedSearchForm)
   )
 
   const toggleExtendedSearchForm = () => {
@@ -33,8 +34,8 @@ const SearchForm = props => {
     <form onSubmit={handleSubmit}>
       {
       props.searchFormDefinition.map((definition, idx) => (
-        showField(definition.name)
-        && <div key={idx} className={'form-group row' + (isHidden(definition.name) ? ' hidden' : '')}>
+        renderField(definition.name)
+        && <div key={idx} className={classNames('form-group row', {'hidden': isHidden(definition.name)})}>
           <label htmlFor={definition.name} className="col-sm-2 col-form-label">{definition.label}</label>
           <div className="col-sm-10">
             <SearchField
