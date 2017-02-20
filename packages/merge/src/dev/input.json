@@ -26,6 +26,12 @@
           "value": "",
           "writable": true
         },
+        "published": {
+          "name": "published",
+          "type": "boolean",
+          "value": true,
+          "writable": true
+        },
         "phone_company": {
           "name": "phone_company",
           "type": "phone",
@@ -120,6 +126,12 @@
           "value": "1980-01-31T23:00:00.000Z",
           "writable": true
         },
+        "published": {
+          "name": "published",
+          "type": "boolean",
+          "value": false,
+          "writable": true
+        },
         "phone_company": {
           "name": "phone_company",
           "type": "phone",
@@ -205,6 +217,12 @@
         "birthdate": {
           "name": "birthdate",
           "type": "birthdate",
+          "value": null,
+          "writable": true
+        },
+        "published": {
+          "name": "published",
+          "type": "boolean",
           "value": null,
           "writable": true
         },
@@ -296,6 +314,10 @@
         "name": "birthdate"
       },
       {
+        "label": "Publiziert",
+        "name": "published"
+      },
+      {
         "label": "Telefon G",
         "name": "phone_company"
       },
@@ -341,6 +363,13 @@
         "archive": "Archiv",
         "check": "Prüfen"
       }
+    },
+    {
+      "defaultValue": "Test",
+      "label": "String test",
+      "name": "firstname",
+      "type": "set-field-source-entity-strategy",
+      "fieldType": "string"
     }
   ]
 }

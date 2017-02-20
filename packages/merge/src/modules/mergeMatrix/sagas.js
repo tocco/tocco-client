@@ -1,5 +1,4 @@
-import {takeEvery} from 'redux-saga'
-import {fork, select, put} from 'redux-saga/effects'
+import {takeEvery, fork, select, put} from 'redux-saga/effects'
 import {CHANGE_TARGET_ENTITY} from './actions'
 import {selectSourceField, selectSourceRelation} from './selections/actions'
 

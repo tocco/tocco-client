@@ -17,7 +17,7 @@ export class EntityBrowser extends React.Component {
     } else {
       content = (
         <div>
-          <SearchFormContainer/>
+          {this.props.showSearchForm && <SearchFormContainer/>}
           <ListViewContainer/>
         </div>
       )
@@ -33,6 +33,7 @@ export class EntityBrowser extends React.Component {
 
 EntityBrowser.propTypes = {
   initialize: React.PropTypes.func.isRequired,
+  showSearchForm: React.PropTypes.bool.isRequired,
   showDetailEntityId: React.PropTypes.oneOfType([
     React.PropTypes.number,
     React.PropTypes.string

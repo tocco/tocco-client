@@ -14,6 +14,8 @@ import BooleanFormatter from './typeFormatters/BooleanFormatter'
 import LoginFormatter from './typeFormatters/LoginFormatter'
 import LongitudeFormatter from './typeFormatters/LongitudeFormatter'
 import PercentFormatter from './typeFormatters/PercentFormatter'
+import DocumentFormatter from './typeFormatters/DocumentFormatter'
+import HtmlFormatter from './typeFormatters/HtmlFormatter'
 
 export default (type, value) => {
   if (map[type]) {
@@ -31,7 +33,7 @@ export const map = {
   'identifier': StringFormatter,
   'postcode': StringFormatter,
   'ipaddress': StringFormatter,
-  'html': StringFormatter,
+  'html': HtmlFormatter,
   'text': TextFormatter,
   'short': NumberFormatter,
   'integer': NumberFormatter,
@@ -55,5 +57,6 @@ export const map = {
   'boolean': BooleanFormatter,
   'latitude': LongitudeFormatter,
   'longitude': LongitudeFormatter,
-  'login': LoginFormatter
+  'login': LoginFormatter,
+  'document': DocumentFormatter
 }

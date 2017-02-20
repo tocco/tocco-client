@@ -1,5 +1,23 @@
 {
   "entityName": "User",
   "limit": 50,
-  "formBase": "UserSearch"
+  "formBase": "UserSearch",
+  "showSearchForm": true,
+  "disableSimpleSearch": false,
+  "simpleSearchFields": "",
+  "preselectedSearchFields": [
+    {
+      "id": "txtFulltext",
+      "value": "",
+      "hidden": false
+    }, {
+      "id": "relSingle_entity2",
+      "value": "2",
+      "hidden": true
+    }, {
+      "id": "relMulti_entity2",
+      "value": ["1", "3"],
+      "hidden": false
+    }
+  ]
 }

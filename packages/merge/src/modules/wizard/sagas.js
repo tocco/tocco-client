@@ -1,5 +1,4 @@
-import {takeEvery} from 'redux-saga'
-import {call, fork, select, put} from 'redux-saga/effects'
+import {takeEvery, call, fork, select, put} from 'redux-saga/effects'
 import sendDwrRequest from '../../utils/Dwr'
 import createMergeResult from '../../utils/MergeActionResult'
 import {externalEvents} from 'tocco-util'
@@ -10,7 +9,7 @@ export function sendDwr(mergeActionResult) {
   if (__DEV__) {
     console.log('dev mode. would send dwr', mergeActionResult, JSON.stringify(mergeActionResult))
     return new Promise(resolve => {
-      return resolve(require('../../dev_response.json'))
+      return resolve(require('../../dev/response.json'))
     })
   } else {
     return sendDwrRequest('nice2_entityoperation_MergeEntitiesService', 'merge', mergeActionResult)

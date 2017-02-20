@@ -4,8 +4,6 @@ function receiveEditOption(state, {payload}) {
   const newState = [].concat(payload.editOptions)
   newState.forEach(editOption => {
     editOption.value = editOption.defaultValue
-    delete editOption.defaultValue
-
     editOption.active = false
   })
   return newState

@@ -15,7 +15,13 @@ describe('entity-browser', () => {
             fetchMock.get('*', {data: [{fields: {a: 'a'}}]})
 
             const fields = ['f1', 'f2']
-            return entities.fetchEntities('User', 2, 'firstname', 20, fields, {_search: 'test'}).then(() => {
+            return entities.fetchEntities('User', {
+              page: 2,
+              orderBy: 'firstname',
+              limit: 20,
+              fields: fields,
+              searchInputs: {_search: 'test'}
+            }).then(() => {
               expect(fetchMock.calls().matched).to.have.length(1)
               const lastCall = fetchMock.lastCall()[0]
               expect(lastCall).to.eql('/nice2/rest/entities/User?_limit=20&_offset=20&_paths=f1%2Cf2&_search=test')
@@ -131,6 +137,41 @@ describe('entity-browser', () => {
             expect(transformedResult[1].values).to.have.property('relGender')
             expect(transformedResult[1].values.firstname).to.eql({type: 'string', value: 'Klaus'})
             expect(transformedResult[1].values.titles).to.eql({type: 'string', value: 'Dr., Prof'})
+          })
+
+          it('should handle path type display-expression', () => {
+            const fetchResult = {
+              data: [
+                {
+                  paths: {
+                    title: {
+                      name: 'title',
+                      type: 'display-expression',
+                      value: '<p>TEST 1</p>'
+                    }
+                  }
+                }, {
+                  paths: {
+                    title: {
+                      name: 'title',
+                      type: 'display-expression',
+                      value: '<p>TEST 2</p>'
+                    }
+                  }
+                }
+              ]
+            }
+
+            const transformedResult = entities.entitiesListTransformer(fetchResult)
+
+            expect(transformedResult).to.be.a('array')
+            expect(transformedResult).to.have.length(2)
+
+            expect(transformedResult[0].values).to.have.property('title')
+            expect(transformedResult[0].values.title).to.eql({type: 'html', value: '<p>TEST 1</p>'})
+
+            expect(transformedResult[1].values).to.have.property('title')
+            expect(transformedResult[1].values.title).to.eql({type: 'html', value: '<p>TEST 2</p>'})
           })
         })
 
