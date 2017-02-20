@@ -2,13 +2,15 @@ import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 import SearchForm from '../components/SearchForm'
 
-import {setSearchInput, reset, setShowExtendedSearchForm, setSimpleSearchFields} from '../modules/searchForm/actions'
+import {setSearchInput, reset, setShowExtendedSearchForm, setSimpleSearchFields,
+        setPreselectedSearchFields} from '../modules/searchForm/actions'
 
 const mapActionCreators = {
   setSearchInput,
   reset,
   setShowExtendedSearchForm,
-  setSimpleSearchFields
+  setSimpleSearchFields,
+  setPreselectedSearchFields
 }
 
 const mapStateToProps = (state, props) => ({
@@ -18,7 +20,8 @@ const mapStateToProps = (state, props) => ({
   searchInputs: state.searchForm.searchInputs,
   disableSimpleSearch: state.entityBrowser.disableSimpleSearch,
   simpleSearchFields: state.entityBrowser.simpleSearchFields,
-  showExtendedSearchForm: state.searchForm.showExtendedSearchForm
+  showExtendedSearchForm: state.searchForm.showExtendedSearchForm,
+  preselectedSearchFields: state.searchForm.preselectedSearchFields
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(SearchForm))

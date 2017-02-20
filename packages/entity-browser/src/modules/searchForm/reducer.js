@@ -15,6 +15,24 @@ const setSearchInput = (state, {payload}) => {
   return state
 }
 
+const setPreselectedSearchFields = (state, {payload}) => {
+  let newState = {
+    ...state,
+    preselectedSearchFields: payload.preselectedSearchFields
+  }
+
+  payload.preselectedSearchFields.forEach(f => {
+    newState = setSearchInput(newState, {
+      payload: {
+        field: f.id,
+        value: f.value
+      }
+    })
+  })
+
+  return newState
+}
+
 const reset = state => ({
   ...state,
   searchInputs: {}
@@ -27,7 +45,8 @@ const ACTION_HANDLERS = {
   [actions.SET_FORM_DEFINITION]: reducers.singleTransferReducer('formDefinition'),
   [actions.SET_ENTITY_MODEL]: reducers.singleTransferReducer('entityModel'),
   [actions.SET_RELATION_ENTITIES]: reducers.singleTransferReducer('relationEntities'),
-  [actions.SET_SHOW_EXTENDED_SEARCH_FORM]: reducers.singleTransferReducer('showExtendedSearchForm')
+  [actions.SET_SHOW_EXTENDED_SEARCH_FORM]: reducers.singleTransferReducer('showExtendedSearchForm'),
+  [actions.SET_PRESELECTED_SEARCH_FIELDS]: setPreselectedSearchFields
 }
 
 const initialState = {
@@ -36,7 +55,8 @@ const initialState = {
   relationEntities: {},
   searchInputs: {},
   showExtendedSearchForm: false,
-  simpleSearchFields: ['txtFulltext']
+  simpleSearchFields: ['txtFulltext'],
+  preselectedSearchFields: []
 }
 
 export default function reducer(state = initialState, action) {
