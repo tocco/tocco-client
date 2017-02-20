@@ -16,8 +16,12 @@ React-registry name: `entity-browser`
 | Name                   | Mandatory | Description
 |------------------------|:---------:|-------------
 | `entityName`           |x          | Entityname of records
-| `limit`                |           | Maximum records per page
+| `showSearchForm`       |x          | If false, the search form won't be displayed.
+| `disableSimpleSearch`  |           | If true, all search fields will always be displayed no matter what `simpleSearchFields` looks like.
 | `formBase`             |           | formBase_list and formBase_search will be the used forms.
+| `limit`                |           | Maximum records per page
+| `preselectedSearchFields`|         | Array of the search fields with preselected values.
+| `simpleSearchFields`   |           | Comma separated String of searchfields which should be displayed by default.
 
 
 ### Methods
