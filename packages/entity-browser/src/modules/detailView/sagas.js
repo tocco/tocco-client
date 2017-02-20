@@ -1,6 +1,4 @@
 import {call, put, fork, select, takeLatest, takeEvery} from 'redux-saga/effects'
-import {logError} from 'tocco-util/src/errorLogging'
-import * as actions from './actions'
 import {
   startSubmit,
   stopSubmit,
@@ -10,16 +8,17 @@ import {
   initialize as initializeForm
 } from 'redux-form'
 
+import * as actions from './actions'
+import {logError} from 'tocco-util/src/errorLogging'
+import {notify} from '../../util/notification'
 import {fetchEntity, updateEntity, fetchEntities, getInitialSelectBoxStore} from '../../util/api/entities'
 import {fetchForm, getFieldsOfDetailForm} from '../../util/api/forms'
-
-import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../util/reduxForms'
-import {submitValidate} from '../../util/asyncValidation'
+import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../util/detailView/reduxForms'
+import {submitValidate} from '../../util/detailView/asyncValidation'
 
 export const detailViewSelector = state => state.detailView
 export const formDefinitionSelector = state => state.detailView.formDefinition
-export const formInitialValueSelector = formId =>
-  state => state.form[formId].initial
+export const formInitialValueSelector = formId => state => state.form[formId].initial
 export const entityBrowserSelector = state => state.entityBrowser
 
 export default function* sagas() {
@@ -72,6 +71,7 @@ export function* submitForm() {
     const updatedEntity = yield call(updateEntity, entity, fields)
     const updatedFormValues = yield call(entityToFormValues, updatedEntity)
     yield put(initializeForm(formId, updatedFormValues))
+    yield call(notify, 'success', 'Gespeichert', 'Der Datensatz wurde gespeichert', 'floppy-saved', 2000)
     yield put(stopSubmit(formId))
   } catch (error) {
     if (error instanceof SubmissionError) {
@@ -81,6 +81,8 @@ export function* submitForm() {
       yield put(logError('error.unhandled', 'entity-browser.saveError', error))
       yield put(stopSubmit(formId))
     }
+
+    yield notify('warning', 'Nicht gespeichert', 'Der Datensatz wurde nicht gespeichert.', 'floppy-remove', 5000)
   }
 }
 
