@@ -22,7 +22,7 @@ const SearchForm = props => {
 
   const shouldRenderField = name => (
     !isHidden(name) && (
-      props.disableSimpleSearch || props.showExtendedSearchForm) || props.simpleSearchFields.includes(name)
+      props.disableSimpleSearch || props.showExtendedSearchForm || props.simpleSearchFields.includes(name))
   )
 
   const toggleExtendedSearchForm = () => {
