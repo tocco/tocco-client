@@ -41,7 +41,7 @@ describe('entity-browser', () => {
           }
           asyncValidation.submitValidate(values).catch(err => {
             expect(err).to.be.instanceof(SubmissionError)
-            expect(err.errors).to.eql({firstname: {mandatory: ['Field required!']}})
+            expect(err.errors).to.have.property('firstname')
             done()
           })
         })
