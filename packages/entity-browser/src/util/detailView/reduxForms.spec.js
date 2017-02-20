@@ -156,7 +156,7 @@ describe('entity-browser', () => {
           const formErrors = reduxForms.validationErrorToFormError(entity, validationErrors)
 
           expect(formErrors).to.have.property('firstname')
-          expect(formErrors).to.have.property('_errors')
+          expect(formErrors).to.have.property('_error')
           expect(formErrors.firstname).to.eql(mandatory)
         })
       })
