@@ -1,8 +1,9 @@
 import React from 'react'
 import {Button} from 'tocco-ui'
+
 import DetailForm from './DetailForm'
-import syncValidation from '../../util/syncValidation'
-import {asyncValidate, AsyncValidationException} from '../../util/asyncValidation'
+import syncValidation from '../../util/detailView/syncValidation'
+import {asyncValidate, AsyncValidationException} from '../../util/detailView/asyncValidation'
 
 import './styles.scss'
 
@@ -37,7 +38,7 @@ class DetailView extends React.Component {
           entity={props.entity}
           loadRelationEntities={props.loadRelationEntities}
           selectBoxStores={props.selectBoxStores}
-          formSyncErrors={props.formSyncErrors}
+          formErrors={props.formErrors}
           entityModel={props.entityModel}
         />
         }
@@ -56,8 +57,9 @@ DetailView.propTypes = {
     children: React.PropTypes.array
   }).isRequired,
   entityModel: React.PropTypes.object.isRequired,
-  formSyncErrors: React.PropTypes.objectOf(
-    React.PropTypes.objectOf(React.PropTypes.arrayOf(React.PropTypes.string))
+  formErrors: React.PropTypes.objectOf(
+    React.PropTypes.objectOf(React.PropTypes.arrayOf(
+      React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.object])))
   ),
   entity: React.PropTypes.object,
   loadRelationEntities: React.PropTypes.func,

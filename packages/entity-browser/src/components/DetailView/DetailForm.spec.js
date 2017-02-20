@@ -83,8 +83,11 @@ describe('entity-browser', () => {
             submitForm={EMPTY_FUNC}
             formDefinition={formDefinition}
             entity={entity}
-            stores={{}}
             entityModel={{}}
+            logError={EMPTY_FUNC}
+            loadRelationEntities={EMPTY_FUNC}
+            selectBoxStores={{}}
+            form="detailForm"
           />)
 
         expect(wrapper.find('form')).to.have.length(1)
