@@ -18,6 +18,7 @@
   // import vendor's styling frameworks extension
   @import 'vendor-extension/bootstrap/normalize';
   @import 'vendor-extension/bootstrap/icon-list';
+  @import 'vendor-extension/toastr/third-party-integration.scss';
 
   // import tocco's declarations
   @import 'tocco/convenience-classes';
