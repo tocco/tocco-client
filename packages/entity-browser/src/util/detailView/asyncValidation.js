@@ -1,6 +1,6 @@
 import {SubmissionError} from 'redux-form'
 import {request} from 'tocco-util/src/rest'
-import {formValuesToEntity, validationErrorToFormError} from './reduxForms'
+import {formValuesToEntity, validationErrorToFormError} from './reduxForm'
 
 export class AsyncValidationException {
   constructor(errors) {

@@ -1,96 +1,127 @@
 import React from 'react'
+import {reduxForm, Field} from 'redux-form'
 import _get from 'lodash/get'
-import LabeledField from './LabeledField'
-import {Field, reduxForm} from 'redux-form'
-import {Button, LayoutBox} from 'tocco-ui'
 
-export const DetailForm = props => {
-  if (!props.entity.paths) {
-    return <div/>
+import {Button, LayoutBox} from 'tocco-ui'
+import LabeledField from './LabeledField'
+import ErrorBox from './ErrorBox'
+import {getFieldId, selectTypes} from '../../util/detailView/helpers'
+import {getForm} from '../../util/detailView/formBuilder'
+import formErrorsUtil from '../../util/detailView/formErrors'
+
+export class DetailForm extends React.Component {
+  createLayoutComponent = (field, type, key, traverser) => {
+    if (type === 'HorizontalBox' || type === 'VerticalBox') {
+      const alignment = type === 'HorizontalBox' ? 'horizontal' : 'vertical'
+      const label = field.useLabel ? field.label : undefined
+      return (
+        <LayoutBox key={key} label={label} alignment={alignment}>
+          {traverser()}
+        </LayoutBox>
+      )
+    }
   }
 
-  const layoutType = 'ch.tocco.nice2.model.form.components.layout.'
+  createField = (field, key) => {
+    const entityField = this.props.entity.paths[field.name]
 
-  const formTraverser = children => {
-    const result = []
-    for (let i = 0; i < children.length; i++) {
-      const field = children[i]
+    let fieldProps = {}
 
-      if (field.type.indexOf(layoutType) === 0) {
-        const layoutComponent = field.type.substr(layoutType.length, field.type.length)
-        if (layoutComponent === 'HorizontalBox' || layoutComponent === 'VerticalBox') {
-          const alignment = layoutComponent === 'HorizontalBox' ? 'horizontal' : 'vertical'
-          const label = field.useLabel ? field.label : undefined
-          result.push(
-            <LayoutBox key={i} label={label} alignment={alignment}>
-              {formTraverser(field.children)}
-            </LayoutBox>
-          )
-        }
-      } else {
-        const entityField = props.entity.paths[field.name]
-        const selectTypes = ['entity', 'entity-list']
-        let fieldProps = {}
-        if (entityField.type === 'field') {
-          fieldProps.type = entityField.value.type
-        } else if (selectTypes.includes(entityField.type)) {
-          fieldProps.type = entityField.type === 'entity' ? 'single-select' : 'multi-select'
-          const store = props.selectBoxStores[field.name] ? props.selectBoxStores[field.name].data : []
-          fieldProps.options = {store}
-        }
+    if (selectTypes.includes(entityField.type)) {
+      fieldProps.type = entityField.type === 'entity' ? 'single-select' : 'multi-select'
+      const store = this.props.selectBoxStores[field.name] ? this.props.selectBoxStores[field.name].data : []
+      fieldProps.options = {store}
+    } else {
+      fieldProps.type = entityField.value.type
+    }
 
-        const isMandatoryField = fieldName => _get(props, `entityModel[${fieldName}].validation.mandatory`, false)
+    const isMandatoryField = fieldName => _get(this.props.entityModel, `${fieldName}.validation.mandatory`, false)
 
-        const handleFocus = (type, fieldName) => {
-          if (selectTypes.includes(type)) {
-            props.loadRelationEntities(fieldName)
-          }
-        }
-
-        result.push(
-          <div key={i} onFocus={() => (handleFocus(entityField.type, field.name))}>
-            <Field
-              name={field.name}
-              key={i}
-              label={field.label}
-              component={LabeledField}
-              mandatory={isMandatoryField(field.name)}
-              {...fieldProps}
-            />
-          </div>
-        )
+    const handleFocus = (type, fieldName) => {
+      if (selectTypes.includes(type)) {
+        this.props.loadRelationEntities(fieldName)
       }
     }
 
-    return result
+    return (
+      <div key={key} onFocus={() => (handleFocus(entityField.type, field.name))}>
+        <Field
+          id={getFieldId(this.props.form, field.name)}
+          name={field.name}
+          key={key}
+          label={field.label}
+          component={LabeledField}
+          mandatory={isMandatoryField(field.name)}
+          {...fieldProps}
+        />
+      </div>
+    )
   }
 
-  const handleSubmit = e => {
-    e.preventDefault()
-    if (props.valid) {
-      props.submitForm()
-    } else if (props.formSyncErrors) {
-      Object.keys(props.formSyncErrors).forEach(f => props.touch(f))
+  isEntityLoaded = () => (this.props.entity && this.props.entity.paths)
+
+  touchFieldsWithError = () => {
+    Object.keys(formErrorsUtil.getFieldErrors(this.props.formErrors)).forEach(f => this.props.touch(f))
+  }
+
+  focusErrorFields = () => {
+    const firstErrorField = formErrorsUtil.getFirstErrorField(this.props.formErrors)
+    if (firstErrorField) {
+      document.getElementById(getFieldId(this.props.form, firstErrorField)).focus()
     }
   }
 
-  return (
-    <form onSubmit={handleSubmit}>
-      {formTraverser(props.formDefinition.children)}
-      <Button
-        type="submit"
-        label="Save"
-        icon="glyphicon-floppy-save"
-        pending={props.submitting}
-        disabled={props.submitting}
-        primary
-      />
-      <div>valid: {props.valid ? 'true' : 'false'}</div>
-      <div>submitFailed: {props.submitFailed ? 'true' : 'false'}</div>
-      <div>submitSucceeded: {props.submitSucceeded ? 'true' : 'false'}</div>
-      <div>anyTouched: {props.anyTouched ? 'true' : 'false'}</div>
-    </form>
-  )
+  save = () => {
+    if (this.props.valid) {
+      this.props.submitForm()
+    } else if (this.props.formErrors) {
+      this.touchFieldsWithError()
+    }
+  }
+
+  handleSubmit = event => {
+    event.preventDefault()
+    this.save()
+  }
+
+  handleKeyPress = event => {
+    if (event.ctrlKey && event.key === 's') {
+      event.preventDefault()
+      this.save()
+    }
+
+    if (event.key === 'Enter') {
+      event.preventDefault()
+    }
+  }
+
+  showErrors = () => {
+    this.touchFieldsWithError()
+    this.focusErrorFields()
+  }
+
+  render() {
+    const props = this.props
+
+    if (!this.isEntityLoaded()) {
+      return <div/>
+    }
+
+    return (
+      <form onSubmit={this.handleSubmit} className="form-horizontal" onKeyDown={this.handleKeyPress}>
+        {getForm(props.formDefinition, this.createField, this.createLayoutComponent)}
+        {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
+        <Button
+          type="submit"
+          label="Save"
+          icon="glyphicon-floppy-save"
+          pending={props.submitting}
+          disabled={props.submitting || (props.anyTouched && !props.valid)}
+          primary
+        />
+      </form>
+    )
+  }
 }
 
 DetailForm.propTypes = {
@@ -98,11 +129,7 @@ DetailForm.propTypes = {
   submitForm: React.PropTypes.func.isRequired,
   formDefinition: React.PropTypes.object.isRequired,
   entity: React.PropTypes.object.isRequired,
-  submitting: React.PropTypes.bool,
-  submitFailed: React.PropTypes.bool,
-  submitSucceeded: React.PropTypes.bool,
-  anyTouched: React.PropTypes.bool,
-  loadRelationEntities: React.PropTypes.func,
+  loadRelationEntities: React.PropTypes.func.isRequired,
   selectBoxStores: React.PropTypes.shape({
     entityName: React.PropTypes.shape({
       loaded: React.PropTypes.bool,
@@ -113,13 +140,15 @@ DetailForm.propTypes = {
         })
       )
     })
-  }),
-  formSyncErrors: React.PropTypes.objectOf(
-    React.PropTypes.objectOf(
-      React.PropTypes.arrayOf(
-        React.PropTypes.string
-      )
-    )),
+  }).isRequired,
+  form: React.PropTypes.string.isRequired,
+  touch: React.PropTypes.func.isRequired,
+  submitting: React.PropTypes.bool,
+  anyTouched: React.PropTypes.bool,
+  formErrors: React.PropTypes.objectOf(
+    React.PropTypes.objectOf(React.PropTypes.arrayOf(
+      React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.object])))
+  ),
   valid: React.PropTypes.bool
 }
 
