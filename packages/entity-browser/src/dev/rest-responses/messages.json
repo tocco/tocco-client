@@ -6,5 +6,15 @@
   "client.entity-browser.search",
   "client.entity-browser.reset",
   "client.entity-browser.refresh",
-  "client.entity-browser.extendedSearch"
+  "client.entity-browser.extendedSearch",
+  "client.entity-browser.save",
+  "client.entity-browser.invalidRelationErrors",
+  "client.entity-browser.invalidFieldsError",
+  "client.entity-browser.syncValidationRequired",
+  "client.entity-browser.syncValidationMinLength",
+  "client.entity-browser.syncValidationMaxLength",
+  "client.entity-browser.saveAbortedTitle",
+  "client.entity-browser.saveAbortedMessage",
+  "client.entity-browser.saveSuccessfulTitle",
+  "client.entity-browser.saveSuccessfulMessage"
 ]
