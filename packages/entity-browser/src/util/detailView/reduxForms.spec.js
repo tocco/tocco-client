@@ -2,162 +2,164 @@ import * as reduxForms from './reduxForms'
 
 describe('entity-browser', () => {
   describe('util', () => {
-    describe('reduxForm', () => {
-      describe('formValuesToEntity', () => {
-        it('should return entity with updated values', () => {
-          const values = {
-            firstname: 'peter',
-            gender: '2',
-            status: [2, 3],
-            ___entity: {
+    describe('detailView', () => {
+      describe('reduxForm', () => {
+        describe('formValuesToEntity', () => {
+          it('should return entity with updated values', () => {
+            const values = {
+              firstname: 'peter',
+              gender: '2',
+              status: [2, 3],
+              ___entity: {
+                version: 2,
+                model: 'User',
+                key: 99,
+                paths: {
+                  firstname: {
+                    type: 'field'
+                  },
+                  gender: {
+                    type: 'entity'
+                  },
+                  status: {
+                    type: 'entity-list'
+                  }
+                }
+              }
+
+            }
+            const result = reduxForms.formValuesToEntity(values)
+
+            const expectedEntity = {
               version: 2,
               model: 'User',
               key: 99,
               paths: {
-                firstname: {
-                  type: 'field'
-                },
-                gender: {
-                  type: 'entity'
-                },
-                status: {
-                  type: 'entity-list'
-                }
+                firstname: 'peter',
+                gender: {key: '2'},
+                status: [{key: 2}, {key: 3}]
               }
             }
 
-          }
-          const result = reduxForms.formValuesToEntity(values)
+            expect(result).to.eql(expectedEntity)
+          })
 
-          const expectedEntity = {
-            version: 2,
-            model: 'User',
-            key: 99,
-            paths: {
+          it('should ignore pristine fields', () => {
+            const values = {
               firstname: 'peter',
-              gender: {key: '2'},
-              status: [{key: 2}, {key: 3}]
+              lastname: 'asdasd',
+              somefield: '',
+              ___entity: {
+                version: 2,
+                model: 'User',
+                key: 99,
+                paths: {
+                  firstname: {
+                    type: 'field'
+                  },
+                  lastname: {
+                    type: 'field'
+                  },
+                  somefield: {
+                    type: 'field'
+                  }
+                }
+              }
             }
-          }
+            const result = reduxForms.formValuesToEntity(values, ['firstname', 'somefield'])
 
-          expect(result).to.eql(expectedEntity)
+            expect(result.paths).to.include.keys('firstname')
+            expect(result.paths).to.not.include.keys('lastname')
+            expect(result.paths).to.include.keys('somefield')
+          })
         })
 
-        it('should ignore pristine fields', () => {
-          const values = {
-            firstname: 'peter',
-            lastname: 'asdasd',
-            somefield: '',
-            ___entity: {
-              version: 2,
-              model: 'User',
-              key: 99,
+        describe('entityToFormValues', () => {
+          it('should return value object with whole entity as value', () => {
+            const result = reduxForms.entityToFormValues({})
+            expect(result).to.eql({})
+          })
+
+          it('should return value object with whole entity as value', () => {
+            const entity = {
               paths: {
                 firstname: {
-                  type: 'field'
+                  value: {
+                    value: 'TestFirstName'
+                  }
                 },
                 lastname: {
-                  type: 'field'
-                },
-                somefield: {
-                  type: 'field'
+                  value: {
+                    value: 'TestLastName'
+                  }
                 }
               }
             }
-          }
-          const result = reduxForms.formValuesToEntity(values, ['firstname', 'somefield'])
 
-          expect(result.paths).to.include.keys('firstname')
-          expect(result.paths).to.not.include.keys('lastname')
-          expect(result.paths).to.include.keys('somefield')
-        })
-      })
+            const result = reduxForms.entityToFormValues(entity)
 
-      describe('entityToFormValues', () => {
-        it('should return value object with whole entity as value', () => {
-          const result = reduxForms.entityToFormValues({})
-          expect(result).to.eql({})
+            const expectedValues = {
+              firstname: 'TestFirstName',
+              lastname: 'TestLastName',
+              ___entity: entity
+            }
+
+            expect(result).to.eql(expectedValues)
+          })
         })
 
-        it('should return value object with whole entity as value', () => {
-          const entity = {
-            paths: {
-              firstname: {
-                value: {
-                  value: 'TestFirstName'
+        describe('getDirtyFields', () => {
+          it('should return an array of changed fields', () => {
+            const values = {
+              firstname: 'peter',
+              lastname: 'griffin',
+              bool: true,
+              array1: [1, 2, 3],
+              array2: [1, 2, 3]
+            }
+
+            const initialValues = {
+              firstname: 'martin',
+              lastname: 'griffin',
+              bool: false,
+              array1: [1, 2, 3],
+              array2: [1, 2, 4]
+            }
+            const diryFields = reduxForms.getDirtyFields(initialValues, values)
+
+            expect(diryFields).to.eql(['firstname', 'bool', 'array2'])
+          })
+        })
+        describe('validationErrorToFormError', () => {
+          it('should return root entity fields in object', () => {
+            const entity = {
+              model: 'User',
+              key: '2'
+            }
+
+            const mandatory = {mandatory: 'mandatory'}
+            const validationErrors = [
+              {
+                model: 'User',
+                key: '2',
+                paths: {
+                  firstname: mandatory
                 }
               },
-              lastname: {
-                value: {
-                  value: 'TestLastName'
+              {
+                model: 'relStatus',
+                key: '99',
+                paths: {
+                  'fieldZ': mandatory
                 }
               }
-            }
-          }
+            ]
+            const formErrors = reduxForms.validationErrorToFormError(entity, validationErrors)
 
-          const result = reduxForms.entityToFormValues(entity)
-
-          const expectedValues = {
-            firstname: 'TestFirstName',
-            lastname: 'TestLastName',
-            ___entity: entity
-          }
-
-          expect(result).to.eql(expectedValues)
-        })
-      })
-
-      describe('getDirtyFields', () => {
-        it('should return an array of changed fields', () => {
-          const values = {
-            firstname: 'peter',
-            lastname: 'griffin',
-            bool: true,
-            array1: [1, 2, 3],
-            array2: [1, 2, 3]
-          }
-
-          const initialValues = {
-            firstname: 'martin',
-            lastname: 'griffin',
-            bool: false,
-            array1: [1, 2, 3],
-            array2: [1, 2, 4]
-          }
-          const diryFields = reduxForms.getDirtyFields(initialValues, values)
-
-          expect(diryFields).to.eql(['firstname', 'bool', 'array2'])
-        })
-      })
-      describe('validationErrorToFormError', () => {
-        it('should return root entity fields in object', () => {
-          const entity = {
-            model: 'User',
-            key: '2'
-          }
-
-          const mandatory = {mandatory: 'mandatory'}
-          const validationErrors = [
-            {
-              model: 'User',
-              key: '2',
-              paths: {
-                firstname: mandatory
-              }
-            },
-            {
-              model: 'relStatus',
-              key: '99',
-              paths: {
-                'fieldZ': mandatory
-              }
-            }
-          ]
-          const formErrors = reduxForms.validationErrorToFormError(entity, validationErrors)
-
-          expect(formErrors).to.have.property('firstname')
-          expect(formErrors).to.have.property('_error')
-          expect(formErrors.firstname).to.eql(mandatory)
+            expect(formErrors).to.have.property('firstname')
+            expect(formErrors).to.have.property('_error')
+            expect(formErrors.firstname).to.eql(mandatory)
+          })
         })
       })
     })
