@@ -1,6 +1,7 @@
 import {call, put, fork, select, spawn, takeEvery, takeLatest} from 'redux-saga/effects'
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
+import {getSearchInputsForRequest} from '../../util/searchInputs'
 import {fetchForm, columnDefinitionTransformer} from '../../util/api/forms'
 import {fetchEntityCount, fetchEntities, entitiesListTransformer} from '../../util/api/entities'
 import _clone from 'lodash/clone'
@@ -46,16 +47,7 @@ export function* getSearchInputs() {
     delete searchInputs.txtFulltext
   }
 
-  const result = {}
-  Object.keys(searchInputs).forEach(f => {
-    if (searchForm.entityModel[f] && searchForm.entityModel[f].type === 'relation') {
-      result[f + '.pk'] = searchInputs[f]
-    } else {
-      result[f] = searchInputs[f]
-    }
-  })
-
-  return result
+  return getSearchInputsForRequest(searchInputs, searchForm)
 }
 
 const extractFields = columnDefinition => {
