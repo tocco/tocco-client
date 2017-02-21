@@ -47,7 +47,8 @@ export function* getSearchInputs() {
     delete searchInputs.txtFulltext
   }
 
-  return getSearchInputsForRequest(searchInputs, searchForm)
+  const result = yield call(getSearchInputsForRequest, searchInputs, searchForm)
+  return result
 }
 
 const extractFields = columnDefinition => {
