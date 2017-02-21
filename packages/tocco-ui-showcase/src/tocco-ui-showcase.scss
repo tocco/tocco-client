@@ -16,11 +16,11 @@ h1 {
 
 .title {
   color: #fff;
-  font-size: 38px;
-  padding-top: 10px;
-  padding-left: 10px;
+  font-size: 2.71rem;
+  padding-top: .71rem;
+  padding-left: .71rem;
   background-color: $tocco-red;
-  height: 80px;
+  height: 5.71rem;
 }
 
 .navi-affix.affix {
@@ -28,50 +28,57 @@ h1 {
 }
 
 .navigation {
-  margin-top: 20px;
+  margin-top: 1.42rem;
+
   a {
-    color: black;
+    color: #000;
     text-decoration: none;
-    padding-left: 10px;
-    padding-bottom: 2px;
+    padding-left: .71rem;
+    padding-bottom: .14rem;
   }
+
   ul {
     padding-left: 0;
   }
+
   li {
     list-style-type: none;
   }
+
   ul li {
     font-weight: 500;
-    padding-left: 5px;
+    padding-left: .35rem;
   }
+
   ul > li > ul > li {
     font-weight: normal;
   }
+
   > ul > li.current-nav > a {
-    border-left: 2px solid $tocco-red;
+    border-left: .14rem solid $tocco-red;
     color: $tocco-red;
   }
+
   ul > li.current-nav > ul > li.current-nav {
     a {
       color: $tocco-red;
     }
-    border-left: 2px solid $tocco-red;
+    border-left: .14rem solid $tocco-red;
   }
 }
 
 .show-case {
-  margin-left: 10px;
+  margin-left: .71rem;
 }
 
 .required-prop {
-  color: orange;
+  color: #ffa500;
 }
 
 .locale-switcher{
   .flag{
-    margin-left: 2px;
-    width: 20px;
+    margin-left: .14rem;
+    width: 1.42rem;
     opacity: .4;
     cursor: pointer;
 

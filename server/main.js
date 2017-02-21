@@ -5,6 +5,7 @@ const webpack = require('webpack')
 const webpackConfig = require('../build/webpack.config').default
 const config = require('../config').default
 const compress = require('compression')
+const updateMutableImportSCSS = require('../build/mutable-scss-imports').updateMutableImportSCSS
 
 const app = express()
 
@@ -18,6 +19,8 @@ const publicPath = webpackConfig.output.path
 
 if (config.env === 'development') {
   const compiler = webpack(webpackConfig)
+
+  updateMutableImportSCSS()
 
   debug('Enabling webpack dev and HMR middleware')
   app.use(require('webpack-dev-middleware')(compiler, {

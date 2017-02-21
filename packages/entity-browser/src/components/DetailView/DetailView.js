@@ -4,8 +4,6 @@ import DetailForm from './DetailForm'
 import syncValidation from '../../util/syncValidation'
 import {asyncValidate, AsyncValidationException} from '../../util/asyncValidation'
 
-import './styles.scss'
-
 class DetailView extends React.Component {
   constructor(props) {
     super(props)

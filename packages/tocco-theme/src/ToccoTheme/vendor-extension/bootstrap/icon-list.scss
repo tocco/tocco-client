@@ -1,0 +1,51 @@
+/*
+ * icon list
+ * prefix list items by any character
+*/
+
+$icon-list-intend-0: '\2022';  /* bullet point */
+$icon-valid: $fa-var-check;
+$icon-invalid: $fa-var-times;
+$icon-list-icon-size: floor($font-size-base * 1.5);
+$icon-list-indent: $icon-list-icon-size;
+
+// base style
+.icon-list {
+  list-style-type: none;
+  padding-left: $icon-list-indent;
+
+  ul,
+  ol {
+    list-style-type: none;
+  }
+
+  li {
+    position: relative;
+
+    &:before {
+      font-family: FontAwesome;
+      position: absolute;
+      left: -$icon-list-indent;
+      content: $icon-list-intend-0;
+    }
+  }
+}
+
+// use replacement icon for list items with a special class
+@mixin icon-list-character (
+  $selector: 'li',
+  $character: $icon-default
+) {
+  .icon-list #{$selector}:before {
+    content: $character;
+  }
+}
+
+@include icon-list-character (
+  $selector: 'li.text-success',
+  $character: $icon-valid
+);
+@include icon-list-character (
+  $selector: 'li.text-danger',
+  $character: $icon-invalid
+);

@@ -1,0 +1,13 @@
+node_modules/**
+coverage/**
+
+server/static/node_modules
+
+packages/*/dist/**
+packages/*/node_modules/**
+packages/*/coverage/**
+
+packages/tocco-theme/src/ToccoTheme/variable/bootstrap-variable.scss
+packages/tocco-theme/src/ToccoTheme/variable/font-awesome-variable.scss
+packages/tocco-theme/src/ToccoTheme/vendor/bootstrap.scss
+packages/tocco-theme/src/ToccoTheme/vendor/font-awesome.scss

@@ -6,7 +6,6 @@ import PasswordInput from './PasswordInput'
 import PasswordMatchDisplay from './PasswordMatchDisplay'
 import ValidationRules from '../ValidationRules'
 import FailureMessage from '../FailureMessage'
-import './PasswordUpdateDialog.scss'
 
 class PasswordUpdateDialog extends Component {
 

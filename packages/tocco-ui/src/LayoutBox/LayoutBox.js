@@ -1,5 +1,4 @@
 import React from 'react'
-import './LayoutBox.scss'
 
 /**
  * Box with optional label to do layouting stuff

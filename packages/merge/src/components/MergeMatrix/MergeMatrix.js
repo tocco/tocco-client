@@ -1,8 +1,6 @@
 import React from 'react'
 import {intlShape} from 'react-intl'
 
-import './MegerMatrix.scss'
-
 import {HeaderRow, ToManyRelationRow, FieldRow, RelationRow} from './table-components'
 
 const MergeMatrix = props => {

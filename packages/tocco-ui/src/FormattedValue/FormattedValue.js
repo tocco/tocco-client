@@ -1,7 +1,6 @@
 import React from 'react'
 
 import provider, {map as typeMap} from './typeFormatterProvider'
-import './styles.scss'
 
 /**
  *  FormattedValue component to format values with given type.

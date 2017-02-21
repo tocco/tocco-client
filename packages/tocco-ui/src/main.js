@@ -18,6 +18,10 @@ const exports = {
   LayoutBox
 }
 
+if (__DEV__) {
+  require('tocco-theme/src/ToccoTheme/theme.scss')
+}
+
 module.exports = exports
 //
 // let render = () => {

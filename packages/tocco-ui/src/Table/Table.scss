@@ -1,0 +1,31 @@
+.tocco-table {
+  table {
+    width: 100%;
+
+    thead tr th {
+      cursor: pointer;
+      /* stylelint-disable */
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      /* stylelint-enable */
+      user-select: none;
+    }
+  }
+
+  table.loading {
+    position: relative;
+  }
+
+  table.loading:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(256, 256, 256, .5);
+    background-size: 3.57rem;
+    content: '';
+  }
+}

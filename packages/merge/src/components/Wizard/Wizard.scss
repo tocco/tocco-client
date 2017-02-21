@@ -1,0 +1,26 @@
+.wizard {
+  height: 100%;
+
+  &-body {
+    padding: .71rem;
+    height: calc(100% - 3.57rem);
+    overflow-y: auto;
+  }
+
+  &-footer{
+    height: 3.57rem;
+  }
+
+  &-back-button{
+    width: 10.71rem;
+    margin-top: .57rem;
+    margin-left: .71rem;
+  }
+
+  &-next-button{
+    width: 10.71rem;
+    margin-top: .57rem;
+    float: right;
+    margin-right: .71rem;
+  }
+}
