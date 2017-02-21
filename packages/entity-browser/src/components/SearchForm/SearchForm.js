@@ -13,30 +13,50 @@ const SearchForm = props => {
     props.setSearchInput()
   }
 
-  const msg = id => {
-    return props.intl.formatMessage({
-      id
-    })
+  const msg = id => (props.intl.formatMessage({id}))
+
+  const isHidden = name => {
+    const field = props.preselectedSearchFields.find(f => f.id === name)
+    return field && field.hidden
+  }
+
+  const shouldRenderField = name => (
+    !isHidden(name) && (
+      props.disableSimpleSearch || props.showExtendedSearchForm || props.simpleSearchFields.includes(name))
+  )
+
+  const toggleExtendedSearchForm = () => {
+    props.setShowExtendedSearchForm(!props.showExtendedSearchForm)
   }
 
   return (
     <form onSubmit={handleSubmit}>
       {
-        props.searchFormDefinition.map((definition, idx) => (
-          <div key={idx} className="form-group row">
-            <label htmlFor={definition.name} className="col-sm-2 col-form-label">{definition.label}</label>
-            <div className="col-sm-10">
-              <SearchField
-                value={props.searchInputs ? props.searchInputs[definition.name] : undefined}
-                type={definition.type}
-                name={definition.name}
-                relationEntities={props.relationEntities}
-                entityModel={props.entityModel}
-                setSearchInput={props.setSearchInput}
-              />
-            </div>
+      props.searchFormDefinition.map((definition, idx) => (
+        shouldRenderField(definition.name)
+        && <div key={idx} className="form-group row">
+          <label htmlFor={definition.name} className="col-sm-2 col-form-label">{definition.label}</label>
+          <div className="col-sm-10">
+            <SearchField
+              value={props.searchInputs ? props.searchInputs[definition.name] : undefined}
+              type={definition.type}
+              name={definition.name}
+              relationEntities={props.relationEntities}
+              entityModel={props.entityModel}
+              setSearchInput={props.setSearchInput}
+            />
           </div>
+        </div>
         ))
+      }
+      {!props.disableSimpleSearch
+        && <div className="pull-right">
+          <Button
+            type="button"
+            label={msg('client.entity-browser.extendedSearch')}
+            onClick={toggleExtendedSearchForm}
+          />
+        </div>
       }
       <div className="form-group row">
         <div className="col-sm-10">
@@ -86,7 +106,20 @@ SearchForm.propTypes = {
       })
     )).isRequired,
   searchInputs: React.PropTypes.objectOf(React.PropTypes.any),
-  reset: React.PropTypes.func.isRequired
+  reset: React.PropTypes.func.isRequired,
+  disableSimpleSearch: React.PropTypes.bool,
+  simpleSearchFields: React.PropTypes.arrayOf(
+    React.PropTypes.string
+  ),
+  showExtendedSearchForm: React.PropTypes.bool,
+  setShowExtendedSearchForm: React.PropTypes.func,
+  preselectedSearchFields: React.PropTypes.arrayOf(
+    React.PropTypes.shape({
+      id: React.PropTypes.string.isRequired,
+      value: React.PropTypes.any.isRequired,
+      hidden: React.PropTypes.bool.isRequired
+    })
+  )
 }
 
 export default SearchForm

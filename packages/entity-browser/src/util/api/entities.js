@@ -78,6 +78,11 @@ export const entitiesListTransformer = json => {
           type: 'string',
           value: paths[path].value ? paths[path].value.map(v => v.display).join(', ') : ''
         }
+      } else if (type === 'display-expression') {
+        result.values[path] = {
+          type: 'html',
+          value: paths[path].value
+        }
       }
     }
     return result
@@ -86,11 +91,18 @@ export const entitiesListTransformer = json => {
 
 const defaultEntitiesTransformer = json => (json)
 
-export function fetchEntities(entityName, page, orderBy = {}, limit, fields = [],
-                              searchInputs = {}, transformer = defaultEntitiesTransformer) {
+export function fetchEntities(entityName, {
+  page = undefined,
+  orderBy = {},
+  limit = undefined,
+  fields = [],
+  searchInputs = {},
+  formName = undefined
+} = {}, transformer = defaultEntitiesTransformer) {
   const params = {
     '_sort': Object.keys(orderBy || {}).length === 2 ? `${orderBy.name} ${orderBy.direction}` : undefined,
     '_paths': fields.join(','),
+    '_form': formName,
     ...searchInputs
   }
 

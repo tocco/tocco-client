@@ -16,8 +16,8 @@ export default function* sagas() {
 
 export function* initialize() {
   const entityBrowser = yield select(entityBrowserSelector)
-  let {entityName, formBase} = entityBrowser
-
+  let {formBase} = entityBrowser
+  const {entityName, showSearchForm, disableSimpleSearch, simpleSearchFields} = entityBrowser
   const entityModel = yield call(fetchModel, entityName)
   yield put(actions.setEntityModel(entityModel))
 
@@ -26,8 +26,10 @@ export function* initialize() {
     yield put(actions.setFormBase(formBase))
   }
 
+  if (showSearchForm) {
+    yield put(searchFormActions.initialize(entityName, formBase, disableSimpleSearch, simpleSearchFields))
+  }
   yield put(listViewActions.initialize(entityName, formBase))
-  yield put(searchFormActions.initialize(entityName, formBase))
   yield put(detailViewActions.initialize(entityName, formBase))
 }
 
