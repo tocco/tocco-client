@@ -2,6 +2,7 @@ import {put, select, call, fork, spawn, takeLatest, takeEvery} from 'redux-saga/
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import rootSaga, * as sagas from './sagas'
+import {getSearchInputsForRequest} from '../../util/searchInputs'
 import {fetchForm, columnDefinitionTransformer} from '../../util/api/forms'
 import {fetchEntityCount, fetchEntities, entitiesListTransformer} from '../../util/api/entities'
 import _clone from 'lodash/clone'
@@ -185,10 +186,16 @@ describe('entity-browser', () => {
 
         describe('getSearchInputs saga', () => {
           it('should get searchInputs', () => {
+            const searchForm = {
+              searchInputs: {},
+              entityModel: {}
+            }
+
             const gen = sagas.getSearchInputs()
             expect(gen.next().value).to.eql(select(sagas.searchFormSelector))
-            expect(gen.next({searchInputs: {}}).value).to.eql(call(_clone, {}))
-            expect(gen.next({txtFulltext: 'foo'}).done).to.be.true
+            expect(gen.next(searchForm).value).to.eql(call(_clone, {}))
+            expect(gen.next({}).value).to.eql(call(getSearchInputsForRequest, {}, searchForm))
+            expect(gen.next().done).to.be.true
           })
         })
       })

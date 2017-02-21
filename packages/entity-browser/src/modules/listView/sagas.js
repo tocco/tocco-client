@@ -1,6 +1,7 @@
 import {call, put, fork, select, spawn, takeEvery, takeLatest} from 'redux-saga/effects'
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
+import {getSearchInputsForRequest} from '../../util/searchInputs'
 import {fetchForm, columnDefinitionTransformer} from '../../util/api/forms'
 import {fetchEntityCount, fetchEntities, entitiesListTransformer} from '../../util/api/entities'
 import _clone from 'lodash/clone'
@@ -46,7 +47,8 @@ export function* getSearchInputs() {
     delete searchInputs.txtFulltext
   }
 
-  return searchInputs
+  const result = yield call(getSearchInputsForRequest, searchInputs, searchForm)
+  return result
 }
 
 const extractFields = columnDefinition => {
