@@ -1,49 +1,95 @@
 import React from 'react'
-import {reduxForm} from 'redux-form'
+import {reduxForm, Field} from 'redux-form'
+import _get from 'lodash/get'
 
-import {Button} from 'tocco-ui'
+import {Button, LayoutBox} from 'tocco-ui'
+import LabeledField from './LabeledField'
 import ErrorBox from './ErrorBox'
-import {getFieldId} from '../../util/detailView/helpers'
+import {getFieldId, selectTypes} from '../../util/detailView/helpers'
 import {getForm} from '../../util/detailView/formBuilder'
 import formErrorsUtil from '../../util/detailView/formErrors'
 
-const isEntityLoaded = entity => (entity && entity.paths)
-
-export const DetailForm = props => {
-  const {entity, entityModel, selectBoxStores, form, loadRelationEntities, formErrors} = props
-
-  if (!isEntityLoaded(entity)) {
-    return <div/>
+export class DetailForm extends React.Component {
+  createLayoutComponent = (field, type, key, traverser) => {
+    if (type === 'HorizontalBox' || type === 'VerticalBox') {
+      const alignment = type === 'HorizontalBox' ? 'horizontal' : 'vertical'
+      const label = field.useLabel ? field.label : undefined
+      return (
+        <LayoutBox key={key} label={label} alignment={alignment}>
+          {traverser()}
+        </LayoutBox>
+      )
+    }
   }
 
-  const touchFieldsWithError = () => {
-    Object.keys(formErrorsUtil.getFieldErrors(formErrors)).forEach(f => props.touch(f))
+  createField = (field, key) => {
+    const entityField = this.props.entity.paths[field.name]
+
+    let fieldProps = {}
+
+    if (selectTypes.includes(entityField.type)) {
+      fieldProps.type = entityField.type === 'entity' ? 'single-select' : 'multi-select'
+      const store = this.props.selectBoxStores[field.name] ? this.props.selectBoxStores[field.name].data : []
+      fieldProps.options = {store}
+    } else {
+      fieldProps.type = entityField.value.type
+    }
+
+    const isMandatoryField = fieldName => _get(this.props.entityModel, `${fieldName}.validation.mandatory`, false)
+
+    const handleFocus = (type, fieldName) => {
+      if (selectTypes.includes(type)) {
+        this.props.loadRelationEntities(fieldName)
+      }
+    }
+
+    return (
+      <div key={key} onFocus={() => (handleFocus(entityField.type, field.name))}>
+        <Field
+          id={getFieldId(this.props.form, field.name)}
+          name={field.name}
+          key={key}
+          label={field.label}
+          component={LabeledField}
+          mandatory={isMandatoryField(field.name)}
+          {...fieldProps}
+        />
+      </div>
+    )
   }
 
-  const focusErrorFields = () => {
-    const firstErrorField = formErrorsUtil.getFirstErrorField(formErrors)
+  isEntityLoaded = () => (this.props.entity && this.props.entity.paths)
+
+  touchFieldsWithError = () => {
+    console.log('this.props.formErrors', this.props.formErrors)
+    console.log('this.props', this.props)
+    Object.keys(formErrorsUtil.getFieldErrors(this.props.formErrors)).forEach(f => this.props.touch(f))
+  }
+
+  focusErrorFields = () => {
+    const firstErrorField = formErrorsUtil.getFirstErrorField(this.props.formErrors)
     if (firstErrorField) {
-      document.getElementById(getFieldId(form, firstErrorField)).focus()
+      document.getElementById(getFieldId(this.props.form, firstErrorField)).focus()
     }
   }
 
-  const save = () => {
-    if (props.valid) {
-      props.submitForm()
-    } else if (formErrors) {
-      touchFieldsWithError()
+  save = () => {
+    if (this.props.valid) {
+      this.props.submitForm()
+    } else if (this.props.formErrors) {
+      this.touchFieldsWithError()
     }
   }
 
-  const handleSubmit = event => {
+  handleSubmit = event => {
     event.preventDefault()
-    save()
+    this.save()
   }
 
-  const handleKeyPress = event => {
+  handleKeyPress = event => {
     if (event.ctrlKey && event.key === 's') {
       event.preventDefault()
-      save()
+      this.save()
     }
 
     if (event.key === 'Enter') {
@@ -51,25 +97,33 @@ export const DetailForm = props => {
     }
   }
 
-  const showErrors = () => {
-    touchFieldsWithError()
-    focusErrorFields()
+  showErrors = () => {
+    this.touchFieldsWithError()
+    this.focusErrorFields()
   }
 
-  return (
-    <form onSubmit={handleSubmit} className="form-horizontal" onKeyDown={handleKeyPress}>
-      {getForm(props.formDefinition, {entity, entityModel, selectBoxStores, form, loadRelationEntities})}
-      {!props.valid && props.anyTouched && <ErrorBox formErrors={formErrors} showErrors={showErrors}/>}
-      <Button
-        type="submit"
-        label="Save"
-        icon="glyphicon-floppy-save"
-        pending={props.submitting}
-        disabled={props.submitting || (props.anyTouched && !props.valid)}
-        primary
-      />
-    </form>
-  )
+  render() {
+    const props = this.props
+
+    if (!this.isEntityLoaded()) {
+      return <div/>
+    }
+
+    return (
+      <form onSubmit={this.handleSubmit} className="form-horizontal" onKeyDown={this.handleKeyPress}>
+        {getForm(props.formDefinition, this.createField, this.createLayoutComponent)}
+        {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
+        <Button
+          type="submit"
+          label="Save"
+          icon="glyphicon-floppy-save"
+          pending={props.submitting}
+          disabled={props.submitting || (props.anyTouched && !props.valid)}
+          primary
+        />
+      </form>
+    )
+  }
 }
 
 DetailForm.propTypes = {
@@ -90,6 +144,7 @@ DetailForm.propTypes = {
     })
   }).isRequired,
   form: React.PropTypes.string.isRequired,
+  touch: React.PropTypes.func.isRequired,
   submitting: React.PropTypes.bool,
   anyTouched: React.PropTypes.bool,
   formErrors: React.PropTypes.objectOf(
