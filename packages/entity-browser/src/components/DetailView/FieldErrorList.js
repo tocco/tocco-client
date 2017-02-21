@@ -5,9 +5,9 @@ const FieldErrorList = props => {
     return null
   }
 
-  let errorValues = []
-  Object.keys(props.errors).map(key => {
-    errorValues = [...errorValues, ...props.errors[key]]
+  const errorValues = []
+  Object.keys(props.errors).forEach(key => {
+    errorValues.push(...props.errors[key])
   })
 
   return (
