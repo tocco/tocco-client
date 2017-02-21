@@ -1,6 +1,6 @@
 import {request, getRequest} from 'tocco-util/src/rest'
 import {SubmissionError} from 'redux-form'
-import {validationErrorToFormError} from '../detailView/reduxForms'
+import {validationErrorToFormError} from '../detailView/reduxForm'
 
 export function fetchEntity(entityName, id, fields) {
   const params = {

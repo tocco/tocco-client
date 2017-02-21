@@ -1,9 +1,9 @@
-import * as reduxForms from './reduxForms'
+import * as reduxForm from './reduxForm'
 
 describe('entity-browser', () => {
   describe('util', () => {
     describe('detailView', () => {
-      describe('reduxForm', () => {
+      describe('reduxForms', () => {
         describe('formValuesToEntity', () => {
           it('should return entity with updated values', () => {
             const values = {
@@ -28,7 +28,7 @@ describe('entity-browser', () => {
               }
 
             }
-            const result = reduxForms.formValuesToEntity(values)
+            const result = reduxForm.formValuesToEntity(values)
 
             const expectedEntity = {
               version: 2,
@@ -66,7 +66,7 @@ describe('entity-browser', () => {
                 }
               }
             }
-            const result = reduxForms.formValuesToEntity(values, ['firstname', 'somefield'])
+            const result = reduxForm.formValuesToEntity(values, ['firstname', 'somefield'])
 
             expect(result.paths).to.include.keys('firstname')
             expect(result.paths).to.not.include.keys('lastname')
@@ -76,7 +76,7 @@ describe('entity-browser', () => {
 
         describe('entityToFormValues', () => {
           it('should return value object with whole entity as value', () => {
-            const result = reduxForms.entityToFormValues({})
+            const result = reduxForm.entityToFormValues({})
             expect(result).to.eql({})
           })
 
@@ -96,7 +96,7 @@ describe('entity-browser', () => {
               }
             }
 
-            const result = reduxForms.entityToFormValues(entity)
+            const result = reduxForm.entityToFormValues(entity)
 
             const expectedValues = {
               firstname: 'TestFirstName',
@@ -125,11 +125,12 @@ describe('entity-browser', () => {
               array1: [1, 2, 3],
               array2: [1, 2, 4]
             }
-            const diryFields = reduxForms.getDirtyFields(initialValues, values)
+            const diryFields = reduxForm.getDirtyFields(initialValues, values)
 
             expect(diryFields).to.eql(['firstname', 'bool', 'array2'])
           })
         })
+
         describe('validationErrorToFormError', () => {
           it('should return root entity fields in object', () => {
             const entity = {
@@ -154,7 +155,7 @@ describe('entity-browser', () => {
                 }
               }
             ]
-            const formErrors = reduxForms.validationErrorToFormError(entity, validationErrors)
+            const formErrors = reduxForm.validationErrorToFormError(entity, validationErrors)
 
             expect(formErrors).to.have.property('firstname')
             expect(formErrors).to.have.property('_error')
