@@ -1,6 +1,6 @@
 import React from 'react'
 import {Button} from 'tocco-ui'
-
+import {intlShape} from 'react-intl'
 import DetailForm from './DetailForm'
 import syncValidation from '../../util/detailView/syncValidation'
 import {asyncValidate, AsyncValidationException} from '../../util/detailView/asyncValidation'
@@ -8,7 +8,7 @@ import {asyncValidate, AsyncValidationException} from '../../util/detailView/asy
 class DetailView extends React.Component {
   constructor(props) {
     super(props)
-    this.validate = syncValidation(props.entityModel)
+    this.validate = syncValidation(props.entityModel, props.intl)
   }
 
   handledAsyncValidate = values => {
@@ -26,7 +26,6 @@ class DetailView extends React.Component {
     return (
       <div className="detail-view">
         <Button icon="glyphicon-chevron-left" onClick={props.closeEntityDetail} label="Back"/>
-        <h3>DetailView</h3>
         {props.formInitialValues
         && <DetailForm
           validate={this.validate}
@@ -38,6 +37,7 @@ class DetailView extends React.Component {
           selectBoxStores={props.selectBoxStores}
           formErrors={props.formErrors}
           entityModel={props.entityModel}
+          intl={props.intl}
         />
         }
       </div>
@@ -48,6 +48,7 @@ class DetailView extends React.Component {
 export default DetailView
 
 DetailView.propTypes = {
+  intl: intlShape.isRequired,
   submitForm: React.PropTypes.func.isRequired,
   logError: React.PropTypes.func.isRequired,
   closeEntityDetail: React.PropTypes.func.isRequired,

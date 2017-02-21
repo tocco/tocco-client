@@ -137,7 +137,7 @@ describe('entity-browser', () => {
             expect(gen.next(updatedEntity).value).to.eql(call(entityToFormValues, updatedEntity))
             expect(gen.next(updatedFormValues).value).to.eql(put(initializeForm(formId, updatedFormValues)))
             expect(gen.next().value).to.eql(call(
-              notify, 'success', 'Gespeichert', 'Der Datensatz wurde gespeichert', 'floppy-saved', 2000)
+              notify, 'success', 'saveSuccessfulTitle', 'saveSuccessfulMessage', 'floppy-saved', 2000)
             )
             expect(gen.next().value).to.eql(put(stopSubmit(formId)))
             expect(gen.next().done).to.be.true

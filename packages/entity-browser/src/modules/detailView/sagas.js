@@ -71,7 +71,7 @@ export function* submitForm() {
     const updatedEntity = yield call(updateEntity, entity, fields)
     const updatedFormValues = yield call(entityToFormValues, updatedEntity)
     yield put(initializeForm(formId, updatedFormValues))
-    yield call(notify, 'success', 'Gespeichert', 'Der Datensatz wurde gespeichert', 'floppy-saved', 2000)
+    yield call(notify, 'success', 'saveSuccessfulTitle', 'saveSuccessfulMessage', 'floppy-saved', 2000)
     yield put(stopSubmit(formId))
   } catch (error) {
     if (error instanceof SubmissionError) {
@@ -82,7 +82,7 @@ export function* submitForm() {
       yield put(stopSubmit(formId))
     }
 
-    yield notify('warning', 'Nicht gespeichert', 'Der Datensatz wurde nicht gespeichert.', 'floppy-remove', 5000)
+    yield notify('warning', 'saveAbortedTitle', 'saveAbortedMessage', 'floppy-remove', 5000)
   }
 }
 

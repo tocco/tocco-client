@@ -1,4 +1,5 @@
 import syncValidation, {mandatoryValidator} from './syncValidation'
+import {IntlStub} from 'tocco-test-util'
 
 describe('entity-browser', () => {
   describe('util', () => {
@@ -13,7 +14,7 @@ describe('entity-browser', () => {
               }
             }
           }
-          const validate = syncValidation(entityModel)
+          const validate = syncValidation(entityModel, IntlStub)
 
           let errors = validate({firstname: ''})
 
@@ -41,7 +42,7 @@ describe('entity-browser', () => {
             firstname: 'TestFirstname'
           }
 
-          const errors = syncValidation(entityModel)(values)
+          const errors = syncValidation(entityModel, IntlStub)(values)
           expect(errors).to.eql({})
         })
       })
@@ -53,9 +54,9 @@ describe('entity-browser', () => {
           ]
 
           validValues.forEach(validValue => {
-            let result = mandatoryValidator(validValue, true)
+            let result = mandatoryValidator(validValue, true, IntlStub)
             expect(result).to.be.undefined
-            result = mandatoryValidator(validValue, false)
+            result = mandatoryValidator(validValue, false, IntlStub)
             expect(result).to.be.undefined
           })
         })
@@ -67,9 +68,9 @@ describe('entity-browser', () => {
           ]
 
           invalidValues.forEach(invalidValue => {
-            let result = mandatoryValidator(invalidValue, true)
+            let result = mandatoryValidator(invalidValue, true, IntlStub)
             expect(result).to.not.be.undefined
-            result = mandatoryValidator(invalidValue, false)
+            result = mandatoryValidator(invalidValue, false, IntlStub)
             expect(result).to.be.undefined
           })
         })

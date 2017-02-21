@@ -1,7 +1,7 @@
 import _forOwn from 'lodash/forOwn'
 import _isEmpty from 'lodash/isEmpty'
 
-export default entityModel =>
+export default (entityModel, intl) =>
   values => (
     valueValidator(
       values,
@@ -10,11 +10,12 @@ export default entityModel =>
         {validator: minLengthValidator, selector: 'minLength'},
         {validator: maxLengthValidator, selector: 'maxLength'}
       ],
-      entityModel
+      entityModel,
+      intl
     )
   )
 
-const valueValidator = (values, validatorDefinitions, entityModel) => {
+const valueValidator = (values, validatorDefinitions, entityModel, intl) => {
   let errors = {}
 
   const addErrors = (field, fieldErrors) => {
@@ -40,7 +41,7 @@ const valueValidator = (values, validatorDefinitions, entityModel) => {
     validatorDefinitions.forEach(validatorDefinition => {
       const validatorValue = getValidatorValue(key, validatorDefinition.selector)
       if (validatorValue) {
-        addErrors(key, validatorDefinition.validator(value, validatorValue))
+        addErrors(key, validatorDefinition.validator(value, validatorValue, intl))
       }
     })
   })
@@ -48,24 +49,29 @@ const valueValidator = (values, validatorDefinitions, entityModel) => {
   return errors
 }
 
-export const mandatoryValidator = (value, isMandatory) => {
+export const mandatoryValidator = (value, isMandatory, intl) => {
   if (typeof value === 'number' && value === 0) {
     return
   }
   if (!value && isMandatory) {
-    return {mandatory: ['This field is required']}
+    return {
+      mandatory: [intl.formatMessage({id: 'client.entity-browser.syncValidationRequired'})]
+    }
   }
 }
 
-export const minLengthValidator = (value, minLength) => {
+export const minLengthValidator = (value, minLength, intl) => {
   if (value && value.length < minLength) {
-    return {minLength: [`Min. length is ${minLength}`]}
+    return {
+      minLength: [intl.formatMessage({id: 'client.entity-browser.syncValidationMinLength', values: {minLength}})]
+    }
   }
 }
 
-export const maxLengthValidator = (value, maxLength) => {
+export const maxLengthValidator = (value, maxLength, intl) => {
   if (value && value.length > maxLength) {
-    return {maxLength: [`Max. length is ${maxLength}`]}
+    return {
+      maxLength: [intl.formatMessage({id: 'client.entity-browser.syncValidationMaxLength', values: {maxLength}})]
+    }
   }
 }
-

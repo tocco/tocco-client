@@ -2,6 +2,7 @@ import React from 'react'
 import {DetailForm} from './DetailForm'
 import {shallow} from 'enzyme'
 import {Field} from 'redux-form'
+import {IntlStub} from 'tocco-test-util'
 
 const EMPTY_FUNC = () => {
 }
@@ -88,6 +89,8 @@ describe('entity-browser', () => {
             loadRelationEntities={EMPTY_FUNC}
             selectBoxStores={{}}
             form="detailForm"
+            intl={IntlStub}
+            touch={EMPTY_FUNC}
           />)
 
         expect(wrapper.find('form')).to.have.length(1)

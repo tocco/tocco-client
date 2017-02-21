@@ -1,6 +1,7 @@
 import React from 'react'
 import {reduxForm, Field} from 'redux-form'
 import _get from 'lodash/get'
+import {intlShape} from 'react-intl'
 
 import {Button, LayoutBox} from 'tocco-ui'
 import LabeledField from './LabeledField'
@@ -100,6 +101,8 @@ export class DetailForm extends React.Component {
     this.focusErrorFields()
   }
 
+  msg = id => (this.props.intl.formatMessage({id}))
+
   render() {
     const props = this.props
 
@@ -113,7 +116,7 @@ export class DetailForm extends React.Component {
         {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
         <Button
           type="submit"
-          label="Save"
+          label={this.msg('client.entity-browser.save')}
           icon="glyphicon-floppy-save"
           pending={props.submitting}
           disabled={props.submitting || (props.anyTouched && !props.valid)}
@@ -125,6 +128,7 @@ export class DetailForm extends React.Component {
 }
 
 DetailForm.propTypes = {
+  intl: intlShape.isRequired,
   entityModel: React.PropTypes.object.isRequired,
   submitForm: React.PropTypes.func.isRequired,
   formDefinition: React.PropTypes.object.isRequired,
