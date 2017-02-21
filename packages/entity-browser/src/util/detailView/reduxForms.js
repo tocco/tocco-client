@@ -7,6 +7,7 @@ import {generalErrorField} from './formErrors'
 
 export const validationErrorToFormError = (entity, errors) => {
   let result = {[generalErrorField]: {pathErrors: []}}
+  if (!errors) return result
   errors.forEach(error => {
     if (error.model === entity.model && error.key === entity.key) {
       result = {...result, ...error.paths}
