@@ -2,8 +2,6 @@ import React from 'react'
 import sortBy from 'lodash/sortBy'
 import classNames from 'classnames'
 
-import './styles.scss'
-
 /**
  * Table to list records easily.
  */

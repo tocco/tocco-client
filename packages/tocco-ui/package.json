@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "flatpickr": "^2.3.4",
-    "react-select": "^1.0.0-rc.2"
+    "react-select": "^1.0.0-rc.2",
+    "tocco-theme": "0.1.0"
   }
 }

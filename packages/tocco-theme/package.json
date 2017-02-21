@@ -1,0 +1,35 @@
+{
+  "name": "tocco-theme",
+  "version": "0.1.0",
+  "description": "styling framework",
+  "main": "dist/index.js",
+  "scripts": {
+    "clean": "../../node_modules/rimraf/bin.js dist",
+    "compile": "babel-node ../../bin/compile",
+    "deploy": "cd ../../ && ./node_modules/better-npm-run/index.js deploy --package=tocco-theme",
+    "prepublish": "cd ../../ && ./node_modules/better-npm-run/index.js deploy:prod --package=tocco-theme"
+  },
+  "betterScripts": {
+    "deploy": {
+      "command": "npm run clean && npm run compile --package=tocco-ui",
+      "env": {
+        "DEBUG": "app:*"
+      }
+    },
+    "deploy:prod": {
+      "command": "npm run deploy",
+      "env": {
+        "NODE_ENV": "production",
+        "DEBUG": "app:*"
+      }
+    }
+  },
+  "peerDependencies": {
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1"
+  },
+  "devDependencies": {
+    "bootstrap-sass": "^3.3.7",
+    "font-awesome": "^4.7.0"
+  }
+}

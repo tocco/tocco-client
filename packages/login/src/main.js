@@ -4,9 +4,10 @@ import ReactDOM from 'react-dom'
 import {loginFactory, passwordUpdateFactory} from './appFactory'
 
 if (__DEV__) {
+  require('tocco-theme/src/ToccoTheme/theme.scss')
+
   const fetchMock = require('fetch-mock')
   const setupFetchMocks = require('./dev/fetchMocks')
-
   setupFetchMocks(fetchMock)
 
   const mountElement = document.getElementById('root')
