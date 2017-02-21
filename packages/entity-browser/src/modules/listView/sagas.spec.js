@@ -185,9 +185,14 @@ describe('entity-browser', () => {
 
         describe('getSearchInputs saga', () => {
           it('should get searchInputs', () => {
+            const searchForm = {
+              searchInputs: {},
+              entityModel: {}
+            }
+
             const gen = sagas.getSearchInputs()
             expect(gen.next().value).to.eql(select(sagas.searchFormSelector))
-            expect(gen.next({searchInputs: {}}).value).to.eql(call(_clone, {}))
+            expect(gen.next(searchForm).value).to.eql(call(_clone, {}))
             expect(gen.next({txtFulltext: 'foo'}).done).to.be.true
           })
         })
