@@ -9,8 +9,8 @@ const ErrorBox = props => {
       {formErrorsUtil.hasPathErrors(formErrors) && <div>
         <div>Folgende Relationen sind momentan ungültig:</div>
         <ul>
-          {formErrorsUtil.getPathErrorsCompact(formErrors).map(message => {
-            return <li>{message}</li>
+          {formErrorsUtil.getPathErrorsCompact(formErrors).map((message, idx) => {
+            return <li key={idx}>{message}</li>
           })}
         </ul>
       </div>
