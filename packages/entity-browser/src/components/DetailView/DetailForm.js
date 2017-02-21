@@ -161,7 +161,7 @@ DetailForm.propTypes = {
       React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.object])))
   ),
   valid: React.PropTypes.bool,
-  lastSave: React.PropTypes.date
+  lastSave: React.PropTypes.number
 }
 
 export default reduxForm({
