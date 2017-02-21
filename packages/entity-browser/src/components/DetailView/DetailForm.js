@@ -61,8 +61,6 @@ export class DetailForm extends React.Component {
   isEntityLoaded = () => (this.props.entity && this.props.entity.paths)
 
   touchFieldsWithError = () => {
-    console.log('this.props.formErrors', this.props.formErrors)
-    console.log('this.props', this.props)
     Object.keys(formErrorsUtil.getFieldErrors(this.props.formErrors)).forEach(f => this.props.touch(f))
   }
 
