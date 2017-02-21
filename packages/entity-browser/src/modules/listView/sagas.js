@@ -46,7 +46,16 @@ export function* getSearchInputs() {
     delete searchInputs.txtFulltext
   }
 
-  return searchInputs
+  let result = {}
+  Object.keys(searchInputs).forEach(f => {
+    if (searchForm.entityModel[f] && searchForm.entityModel[f].type === 'relation') {
+      result[f + '.pk'] = searchInputs[f]
+    } else {
+      result[f] = searchInputs[f]
+    }
+  })
+
+  return result
 }
 
 const extractFields = columnDefinition => {
