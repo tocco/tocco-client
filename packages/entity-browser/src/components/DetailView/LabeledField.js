@@ -1,34 +1,11 @@
 import React from 'react'
 import _clone from 'lodash/clone'
 import {EditableValue} from 'tocco-ui'
-
-const ErrorList = props => {
-  if (!props.errors) {
-    return null
-  }
-
-  let errorValues = []
-  Object.keys(props.errors).map(key => {
-    errorValues = [...errorValues, ...props.errors[key]]
-  })
-
-  return (
-    <ul className="error-list">
-      {errorValues.map((value, idx) => (
-        <li key={idx}>{value}</li>
-      ))}
-    </ul>
-  )
-}
-
-ErrorList.propTypes = {
-  errors: React.PropTypes.objectOf(
-    React.PropTypes.arrayOf(React.PropTypes.string)
-  ).isRequired
-}
+import classNames from 'classnames'
+import FieldErrorList from './FieldErrorList'
 
 const LabeledField = props => {
-  const {input, label, type, options, meta: {touched, error, submitting}} = props
+  const {input, label, type, options, meta: {dirty, touched, error, submitting}, mandatory, id} = props
   const extractEventsFromInput = () => {
     const events = _clone(input)
     delete events.name
@@ -39,21 +16,31 @@ const LabeledField = props => {
 
   const events = extractEventsFromInput()
 
+  const labelClass = classNames({
+    'dirty-label': dirty
+  })
+
+  const fromGroupClass = classNames('form-group', {
+    'has-error': error && touched
+  })
+
   return (
-    <div className="form-group">
-      <label className="control-label col-sm-5">{label}:{props.mandatory && '*'}</label>
-      <div className="col-sm-7">
-        <div className="form-control-static">
-          <EditableValue
-            readOnly={submitting}
-            value={input.value}
-            onChange={input.onChange}
-            type={type}
-            events={events}
-            options={options}
-          />
-          {touched && error && <ErrorList errors={error}/>}
-        </div>
+    <div className={fromGroupClass}>
+      <label className="col-sm-4 control-label">
+        <span className={labelClass}>{label}</span>
+        {mandatory && <span title="Mandatory field" className="mandatory"> *</span>}
+      </label>
+      <div className="col-sm-8">
+        <EditableValue
+          id={id}
+          readOnly={submitting}
+          value={input.value}
+          onChange={input.onChange}
+          type={type}
+          events={events}
+          options={options}
+        />
+        {touched && error && <FieldErrorList errors={error}/>}
       </div>
     </div>
   )
@@ -78,7 +65,8 @@ LabeledField.propTypes = {
         label: React.PropTypes.string
       }))
   }),
-  mandatory: React.PropTypes.bool
+  mandatory: React.PropTypes.bool,
+  id: React.PropTypes.string
 }
 
 export default LabeledField

@@ -3,13 +3,16 @@ import _isEqual from 'lodash/isEqual'
 
 const wholeEntityField = '___entity'
 
+import {generalErrorField} from './formErrors'
+
 export const validationErrorToFormError = (entity, errors) => {
-  let result = {}
+  let result = {[generalErrorField]: {pathErrors: []}}
+  if (!errors) return result
   errors.forEach(error => {
     if (error.model === entity.model && error.key === entity.key) {
       result = {...result, ...error.paths}
     } else {
-      result._errors = (result._errors || '') + JSON.stringify(error.paths)
+      result[generalErrorField].pathErrors.push(error)
     }
   })
   return result

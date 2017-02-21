@@ -1,10 +1,11 @@
 import {connect} from 'react-redux'
+import _get from 'lodash/get'
 import {injectIntl} from 'react-intl'
 import {
-  hasSubmitSucceeded,
-  hasSubmitFailed,
   getFormInitialValues,
-  getFormSyncErrors
+  getFormSyncErrors,
+  getFormAsyncErrors,
+  getFormSubmitErrors
 } from 'redux-form'
 
 import {closeEntityDetail} from '../modules/entityBrowser/actions'
@@ -19,14 +20,22 @@ const mapActionCreators = {
   logError
 }
 
+const getFormGeneralErros = formName =>
+  state => (
+    _get(state, `form.${formName}.error`, {})
+  )
+
 const mapStateToProps = (state, props) => ({
   formDefinition: state.detailView.formDefinition,
   entity: state.detailView.entity,
   selectBoxStores: state.detailView.selectBoxStores,
-  formSubmitSucceeded: hasSubmitSucceeded('detailForm')(state),
-  formSubmitFailed: hasSubmitFailed('detailForm')(state),
   entityModel: state.entityBrowser.entityModel,
-  formSyncErrors: getFormSyncErrors('detailForm')(state),
+  formErrors: {
+    ...getFormSyncErrors('detailForm')(state),
+    ...getFormAsyncErrors('detailForm')(state),
+    ...getFormSubmitErrors('detailForm')(state),
+    _error: getFormGeneralErros('detailForm')(state)
+  },
   formInitialValues: getFormInitialValues('detailForm')(state)
 })
 

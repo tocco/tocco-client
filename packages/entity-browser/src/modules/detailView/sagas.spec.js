@@ -8,8 +8,9 @@ import {
 } from 'redux-form'
 import {fetchEntity, updateEntity, fetchEntities, getInitialSelectBoxStore} from '../../util/api/entities'
 import {fetchForm, getFieldsOfDetailForm} from '../../util/api/forms'
-import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../util/reduxForms'
-import {submitValidate} from '../../util/asyncValidation'
+import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../util/detailView/reduxForm'
+import {submitValidate} from '../../util/detailView/asyncValidation'
+import {notify} from '../../util/notification'
 
 describe('entity-browser', () => {
   describe('modules', () => {
@@ -135,6 +136,9 @@ describe('entity-browser', () => {
             expect(gen.next(fields).value).to.eql(call(updateEntity, entity, fields))
             expect(gen.next(updatedEntity).value).to.eql(call(entityToFormValues, updatedEntity))
             expect(gen.next(updatedFormValues).value).to.eql(put(initializeForm(formId, updatedFormValues)))
+            expect(gen.next().value).to.eql(call(
+              notify, 'success', 'Gespeichert', 'Der Datensatz wurde gespeichert', 'floppy-saved', 2000)
+            )
             expect(gen.next().value).to.eql(put(stopSubmit(formId)))
             expect(gen.next().done).to.be.true
           })
