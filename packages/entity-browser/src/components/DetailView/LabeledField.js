@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import FieldErrorList from './FieldErrorList'
 
 const LabeledField = props => {
-  const {input, label, type, options, meta: {dirty, touched, error, submitting}, mandatory, id} = props
+  const {input, label, type, options, meta: {dirty, touched, error, submitting}, mandatory, id, readOnly} = props
   const extractEventsFromInput = () => {
     const events = _clone(input)
     delete events.name
@@ -33,7 +33,7 @@ const LabeledField = props => {
       <div className="col-sm-8">
         <EditableValue
           id={id}
-          readOnly={submitting}
+          readOnly={submitting || readOnly}
           value={input.value}
           onChange={input.onChange}
           type={type}
@@ -66,6 +66,7 @@ LabeledField.propTypes = {
       }))
   }),
   mandatory: React.PropTypes.bool,
+  readOnly:React.PropTypes.bool,
   id: React.PropTypes.string
 }
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import {reduxForm, Field} from 'redux-form'
 import _get from 'lodash/get'
-import {intlShape} from 'react-intl'
+import {intlShape, FormattedRelative, FormattedMessage} from 'react-intl'
 
 import {Button, LayoutBox} from 'tocco-ui'
 import LabeledField from './LabeledField'
@@ -36,7 +36,8 @@ export class DetailForm extends React.Component {
       fieldProps.type = entityField.value.type
     }
 
-    const isMandatoryField = fieldName => _get(this.props.entityModel, `${fieldName}.validation.mandatory`, false)
+    const isMandatoryField = _get(this.props.entityModel, `${field.name}.validation.mandatory`, false)
+    const isWritableField = _get(entityField, 'value.writable', true)
 
     const handleFocus = (type, fieldName) => {
       if (selectTypes.includes(type)) {
@@ -52,7 +53,8 @@ export class DetailForm extends React.Component {
           key={key}
           label={field.label}
           component={LabeledField}
-          mandatory={isMandatoryField(field.name)}
+          mandatory={isMandatoryField}
+          readOnly={!isWritableField}
           {...fieldProps}
         />
       </div>
@@ -122,6 +124,11 @@ export class DetailForm extends React.Component {
           disabled={props.submitting || (props.anyTouched && !props.valid)}
           primary
         />
+        {props.lastSave
+        && <div>
+          <FormattedMessage id="client.entity-browser.lastSave"/>: <FormattedRelative value={props.lastSave}/>
+        </div>
+        }
       </form>
     )
   }
@@ -153,7 +160,8 @@ DetailForm.propTypes = {
     React.PropTypes.objectOf(React.PropTypes.arrayOf(
       React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.object])))
   ),
-  valid: React.PropTypes.bool
+  valid: React.PropTypes.bool,
+  lastSave: React.PropTypes.date
 }
 
 export default reduxForm({
