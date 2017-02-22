@@ -88,7 +88,6 @@ export class DetailForm extends React.Component {
   }
 
   handleKeyPress = event => {
-    console.log('event.target', event.target.tagName)
     if (event.ctrlKey && event.key === 's') {
       event.preventDefault()
       this.save()
