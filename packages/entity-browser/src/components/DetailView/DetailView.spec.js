@@ -12,9 +12,10 @@ describe('entity-browser', () => {
           formDefinition={{children: []}}
           closeEntityDetail={EMPTY_FUNC}
           entity={{}}
+          entityModel={{}}
           saveEntity={EMPTY_FUNC}
-          stores={{}}
           submitForm={EMPTY_FUNC}
+          logError={EMPTY_FUNC}
         />)
 
         expect(wrapper.find('.detail-view')).to.have.length(1)

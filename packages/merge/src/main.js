@@ -24,6 +24,8 @@ const initApp = (id, input, events, publicPath) => {
 
 (() => {
   if (__DEV__) {
+    require('tocco-theme/src/ToccoTheme/theme.scss')
+
     const fetchMock = require('fetch-mock')
     const setupFetchMocks = require('./dev/fetchMocks')
     setupFetchMocks(fetchMock)
@@ -44,3 +46,4 @@ const initApp = (id, input, events, publicPath) => {
     appFactory.registerAppInRegistry(packageName, initApp)
   }
 })()
+

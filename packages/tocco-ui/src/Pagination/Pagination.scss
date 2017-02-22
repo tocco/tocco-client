@@ -1,0 +1,29 @@
+.tocco-pagination {
+  .total {
+    font-style: italic;
+    padding-right: .57rem;
+  }
+
+  button {
+    background-color: #fff;
+    border-color: #d3d3d3;
+    margin-left: .14rem;
+  }
+
+  #currentPage {
+    margin-left: .28rem;
+  }
+
+  input[ type = number ] {
+    /* stylelint-disable */
+    -moz-appearance: textfield;
+    /* stylelint-enable */
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    /* stylelint-disable */
+    -webkit-appearance: none;
+    /* stylelint-enable */
+  }
+}

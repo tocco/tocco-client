@@ -1,15 +1,14 @@
 import React from 'react'
 import {Button} from 'tocco-ui'
+import {intlShape} from 'react-intl'
 import DetailForm from './DetailForm'
-import syncValidation from '../../util/syncValidation'
-import {asyncValidate, AsyncValidationException} from '../../util/asyncValidation'
-
-import './styles.scss'
+import syncValidation from '../../util/detailView/syncValidation'
+import {asyncValidate, AsyncValidationException} from '../../util/detailView/asyncValidation'
 
 class DetailView extends React.Component {
   constructor(props) {
     super(props)
-    this.validate = syncValidation(props.entityModel)
+    this.validate = syncValidation(props.entityModel, props.intl)
   }
 
   handledAsyncValidate = values => {
@@ -27,7 +26,6 @@ class DetailView extends React.Component {
     return (
       <div className="detail-view">
         <Button icon="glyphicon-chevron-left" onClick={props.closeEntityDetail} label="Back"/>
-        <h3>DetailView</h3>
         {props.formInitialValues
         && <DetailForm
           validate={this.validate}
@@ -37,8 +35,9 @@ class DetailView extends React.Component {
           entity={props.entity}
           loadRelationEntities={props.loadRelationEntities}
           selectBoxStores={props.selectBoxStores}
-          formSyncErrors={props.formSyncErrors}
+          formErrors={props.formErrors}
           entityModel={props.entityModel}
+          intl={props.intl}
         />
         }
       </div>
@@ -49,6 +48,7 @@ class DetailView extends React.Component {
 export default DetailView
 
 DetailView.propTypes = {
+  intl: intlShape.isRequired,
   submitForm: React.PropTypes.func.isRequired,
   logError: React.PropTypes.func.isRequired,
   closeEntityDetail: React.PropTypes.func.isRequired,
@@ -56,8 +56,9 @@ DetailView.propTypes = {
     children: React.PropTypes.array
   }).isRequired,
   entityModel: React.PropTypes.object.isRequired,
-  formSyncErrors: React.PropTypes.objectOf(
-    React.PropTypes.objectOf(React.PropTypes.arrayOf(React.PropTypes.string))
+  formErrors: React.PropTypes.objectOf(
+    React.PropTypes.objectOf(React.PropTypes.arrayOf(
+      React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.object])))
   ),
   entity: React.PropTypes.object,
   loadRelationEntities: React.PropTypes.func,

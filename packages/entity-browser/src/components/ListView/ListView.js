@@ -1,7 +1,6 @@
 import React from 'react'
 import {intlShape} from 'react-intl'
 import {Button, FormattedValue, Pagination, Table} from 'tocco-ui'
-import './styles.scss'
 
 const ListView = props => {
   const onOrderByChange = orderBy => {

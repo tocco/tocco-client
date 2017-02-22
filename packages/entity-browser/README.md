@@ -42,7 +42,8 @@ none so far
 | Firstname 	| '' (empty) 	| Sync Validation: Mandatory                             	|
 | Callname  	| '' (empty) 	| Sync Validation: Mandatory                             	|
 | Firstname 	| length < 3 	| Sync Validation: Min length                            	|
-| Firstname 	| 'illegal'  	| Async Validation: Not Allowed (plus 2 random messages) 	|
+| Firstname 	| 'illegal'  	| Async Validation: Not Allowed (+2 random messages)      |
+| Firstname 	| 'illegal0'  | Async Validation: general random error                  |
 | Firstname 	| 'illegal1' 	| Async Validation call exception                        	|
-| Firstname 	| 'illegal2' 	| Submit Validation: Not allowed                         	|
+| Firstname 	| 'illegal2' 	| Submit Validation: Not allowed  (+ general error)      	|
 | Firstname 	| 'illegal3' 	| Submit call exception                                  	|

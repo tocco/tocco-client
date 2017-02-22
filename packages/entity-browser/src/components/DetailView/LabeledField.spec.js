@@ -22,7 +22,7 @@ describe('entity-browser', () => {
             meta={{touched: false}}
           />)
 
-        expect(wrapper.find('.control-label')).to.have.text('First Name:')
+        expect(wrapper.find('.control-label')).to.have.text('First Name')
         expect(wrapper.find(EditableValue)).to.have.length(1)
       })
 
