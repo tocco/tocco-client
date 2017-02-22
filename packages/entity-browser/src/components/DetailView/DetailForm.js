@@ -88,12 +88,13 @@ export class DetailForm extends React.Component {
   }
 
   handleKeyPress = event => {
+    console.log('event.target', event.target.tagName)
     if (event.ctrlKey && event.key === 's') {
       event.preventDefault()
       this.save()
     }
 
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && event.target.tagName !== 'TEXTAREA') {
       event.preventDefault()
     }
   }
@@ -113,7 +114,7 @@ export class DetailForm extends React.Component {
     }
 
     return (
-      <form onSubmit={this.handleSubmit} className="form-horizontal" onKeyDown={this.handleKeyPress}>
+      <form tabIndex="0" onSubmit={this.handleSubmit} className="form-horizontal" onKeyDown={this.handleKeyPress}>
         {getForm(props.formDefinition, this.createField, this.createLayoutComponent)}
         {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
         <Button
