@@ -13,6 +13,7 @@
   "client.login.passwordRequest.button",
   "client.login.passwordRequest.abortButton",
   "client.login.passwordRequest.title",
+  "client.login.passwordUpdate.oldPassword",
   "client.login.passwordUpdate.newPassword",
   "client.login.passwordUpdate.newPasswordRepeat",
   "client.login.passwordUpdate.introduction",
