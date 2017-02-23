@@ -26,14 +26,20 @@ describe('tocco-ui', function() {
       }
 
       it('should format value', function() {
-        const wrapper = mount(<IntlProvider locale="en"><TimeFormatter
-          value={timeValue}/></IntlProvider>)
+        const wrapper = mount(
+          <IntlProvider locale="en">
+            <TimeFormatter value={timeValue}/>
+          </IntlProvider>
+        )
         expect(wrapper.text().replace(leftToRightMark, '')).to.equal('11:15 PM')
       })
 
       it('should format value accorind to locale', function() {
-        const wrapper = mount(<IntlProvider locale="de"><TimeFormatter
-          value={timeValue}/></IntlProvider>)
+        const wrapper = mount(
+          <IntlProvider locale="de">
+            <TimeFormatter value={timeValue}/>
+          </IntlProvider>
+        )
         expect(wrapper.text().replace(leftToRightMark, '')).to.equal('23:15')
       })
     })

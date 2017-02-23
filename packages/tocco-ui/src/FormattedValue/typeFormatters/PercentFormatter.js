@@ -1,11 +1,9 @@
 import React from 'react'
 import DecimalFormatter from './DecimalFormatter'
 
-const PercentFormatter = props => {
-  return (
-    <span><DecimalFormatter value={props.value}/>%</span>
-  )
-}
+const PercentFormatter = props => (
+  <span><DecimalFormatter value={props.value}/>%</span>
+)
 
 PercentFormatter.propTypes = {
   value: React.PropTypes.number.isRequired

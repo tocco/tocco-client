@@ -8,7 +8,9 @@ import provider, {map as typeMap} from './typeFormatterProvider'
 const FormattedValue = props => {
   const isNotDefined = value => (value === undefined || value === null || value === '')
 
-  if (isNotDefined(props.value)) return <span/>
+  if (isNotDefined(props.value)) {
+    return <span/>
+  }
 
   return (
     <span>
