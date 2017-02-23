@@ -122,7 +122,6 @@ describe('entity-browser', () => {
             const updatedEntity = {}
             const formDefinition = {}
             const fields = []
-
             const gen = sagas.submitForm()
 
             gen.next().value // not working : expect(gen.next().value).to.eql(select(getFormValues(formId)))
@@ -139,7 +138,9 @@ describe('entity-browser', () => {
             expect(gen.next().value).to.eql(call(
               notify, 'success', 'saveSuccessfulTitle', 'saveSuccessfulMessage', 'floppy-saved', 2000)
             )
-            expect(gen.next().value).to.eql(put(actions.setLastSave()))
+            const lastSaveAction = gen.next().value
+            const lastSaveTime = lastSaveAction.PUT.action.payload.lastSave
+            expect(lastSaveAction).to.eql(put(actions.setLastSave(lastSaveTime)))
             expect(gen.next().value).to.eql(put(stopSubmit(formId)))
             expect(gen.next().done).to.be.true
           })
