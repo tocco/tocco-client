@@ -1,9 +1,10 @@
+import {consoleLogger} from 'tocco-util'
 import {createUsers} from './entityFactory'
 
 const allEntities = createUsers(1003)
 
 export const createValidateResponse = (url, opts) => {
-  console.log('fetchMock: called validate entity', url)
+  consoleLogger.log('fetchMock: called validate entity', url)
 
   const entity = JSON.parse(opts.body)
 
@@ -50,7 +51,7 @@ export const createValidateResponse = (url, opts) => {
 }
 
 export const createEntitiesResponse = (url, opts) => {
-  console.log('fetchMock: called fetch entities', url)
+  consoleLogger.log('fetchMock: called fetch entities', url)
   const limit = parseInt(getParameterValue('_limit', url)) || 25
   const offset = parseInt(getParameterValue('_offset', url)) || 0
   const orderBy = getParameterValue('_sort', url)
@@ -80,13 +81,13 @@ export const createEntitiesResponse = (url, opts) => {
 export const createCountResponse = (url, opts) => ({'count': allEntities.length})
 
 export const createEntityResponse = (url, opts) => {
-  console.log('fetchMock: called fetch entitiy', url, opts)
+  consoleLogger.log('fetchMock: called fetch entitiy', url, opts)
   const id = url.match(/^.*\/User\/(\d+)/)[1]
   return allEntities[id]
 }
 
 export const createEntityUpdateResponse = (url, opts) => {
-  console.log('fetchMock: create/update entity', url, opts)
+  consoleLogger.log('fetchMock: create/update entity', url, opts)
   const entity = JSON.parse(opts.body)
 
   if (entity.paths.firstname && (entity.paths.firstname === 'illegal2' || entity.paths.firstname === 'illegal3')) {

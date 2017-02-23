@@ -1,7 +1,7 @@
 import React from 'react'
 import {combineReducers} from 'redux'
 import {Provider} from 'react-redux'
-import {storeFactory, externalEvents, intl} from 'tocco-util'
+import {storeFactory, externalEvents, intl, consoleLogger} from 'tocco-util'
 import {addLocaleData} from 'react-intl'
 import {IntlProvider, intlReducer} from 'react-intl-redux'
 import {LoadMask} from 'tocco-ui'
@@ -39,7 +39,7 @@ export const passwordUpdateFactory = (id, input = {}, events, publicPath) => {
   const content = <PasswordUpdateDialog showTitle={showTitle}/>
 
   if (typeof input.username !== 'string' || input.username.length === 0) {
-    console.log('Mandatory input "username" is not set on password-update')
+    consoleLogger.logError('Mandatory input "username" is not set on password-update')
     return
   }
 
@@ -109,6 +109,7 @@ const factory = (content, resourcePrefix, reducers, id, input, events, dispatche
       }
     }
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.log('Error loading react application: ', e)
   }
 }
