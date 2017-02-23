@@ -36,7 +36,8 @@ const mapStateToProps = (state, props) => ({
     ...getFormSubmitErrors('detailForm')(state),
     _error: getFormGeneralErros('detailForm')(state)
   },
-  formInitialValues: getFormInitialValues('detailForm')(state)
+  formInitialValues: getFormInitialValues('detailForm')(state),
+  lastSave: state.detailView.lastSave
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(DetailView))
