@@ -18,7 +18,7 @@ export function* notify(type, title, message, glyphicon, timeOut) {
     )
   }
   if (glyphicon) {
-    options.icon = (<h1 className={`glyphicon glyphicon-${glyphicon}`}/>)
+    options.icon = (<div className={`glyphicon glyphicon-${glyphicon} icon`}/>)
   }
 
   if (timeOut) {

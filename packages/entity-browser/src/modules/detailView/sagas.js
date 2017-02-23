@@ -72,6 +72,7 @@ export function* submitForm() {
     const updatedFormValues = yield call(entityToFormValues, updatedEntity)
     yield put(initializeForm(formId, updatedFormValues))
     yield call(notify, 'success', 'saveSuccessfulTitle', 'saveSuccessfulMessage', 'floppy-saved', 2000)
+    yield put(actions.setLastSave())
     yield put(stopSubmit(formId))
   } catch (error) {
     if (error instanceof SubmissionError) {
