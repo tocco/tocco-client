@@ -72,9 +72,9 @@ export const setStoreLoaded = (entityName, loaded) => ({
   }
 })
 
-export const setLastSave = () => ({
+export const setLastSave = (lastSave = Date.now()) => ({
   type: SET_LAST_SAVE,
   payload: {
-    lastSave: Date.now()
+    lastSave
   }
 })
