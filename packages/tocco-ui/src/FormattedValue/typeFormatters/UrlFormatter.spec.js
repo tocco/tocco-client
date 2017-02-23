@@ -11,12 +11,6 @@ describe('tocco-ui', function() {
         expect(wrapper.find('a')).to.have.length(1)
         expect(wrapper.find('a')).to.have.attr('href', 'http://www.tocco.ch')
       })
-
-      it('should format value', function() {
-        const wrapper = mount(<UrlFormatter value=""/>)
-        expect(wrapper.find('span')).to.have.length(1)
-        expect(wrapper.find('a')).to.have.length(0)
-      })
     })
   })
 })

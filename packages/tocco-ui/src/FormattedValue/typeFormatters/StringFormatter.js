@@ -1,18 +1,11 @@
 import React from 'react'
 
-const StringFormatter = props => {
-  const content = props.value
-  if (typeof content === 'undefined' || content === null) {
-    return <span/>
-  }
-
-  return (
-    <span>{content}</span>
-  )
-}
+const StringFormatter = props => (
+  <span>{props.value.toString()}</span>
+)
 
 StringFormatter.propTypes = {
-  value: React.PropTypes.node
+  value: React.PropTypes.any
 }
 
 export default StringFormatter
