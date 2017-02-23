@@ -38,7 +38,8 @@ const config = {
   // Test Configuration
   // ----------------------------------
   test_excluded_packages: [
-    'tocco-test-util'
+    'tocco-test-util',
+    'tocco-theme'
   ],
   coverage_reporters: {
     dir: 'coverage',
@@ -56,15 +57,6 @@ const config = {
     ]
   }
 }
-
-/************************************************
--------------------------------------------------
-
-All Internal Configuration Below
-Edit at Your Own Risk
-
--------------------------------------------------
-************************************************/
 
 // ------------------------------------
 // Environment
