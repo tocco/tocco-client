@@ -22,7 +22,8 @@ export default (type, value) => {
     return React.createElement(map[type], {value})
   }
 
-  console.error('No FormattedValue mapper defined for type', type, value)
+  // eslint-disable-next-line no-console
+  console.log('No FormattedValue mapper defined for type', type, value)
   return <div/>
 }
 

@@ -53,6 +53,7 @@
     "react/jsx-no-bind": [2, { "allowArrowFunctions": true, "allowBind": true }],
 
     "flowtype-errors/show-errors": 2,
+    "no-console": 2,
 
     // "no-duplicate-imports" rule does not support importing types ("import type ...") and
     // regular values from the same module. Therefore, we have to use "import/no-duplicates",

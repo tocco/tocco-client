@@ -1,6 +1,6 @@
 import {takeLatest} from 'redux-saga'
 import {fork, put, select, call} from 'redux-saga/effects'
-import {externalEvents} from 'tocco-util'
+import {externalEvents, consoleLogger} from 'tocco-util'
 
 import * as actions from './actions'
 import {setMessage, setPending} from './loginForm/actions'
@@ -22,9 +22,7 @@ export function doRequest(url, options) {
         resp.json().then(json => resolve(json))
       })
       .catch(e => {
-        if (console && console.error) {
-          console.error('Failed to execute request', e)
-        }
+        consoleLogger.logError('Failed to execute request', e)
         resolve({success: false})
       })
   })

@@ -31,7 +31,8 @@ export default (type, value, onChange, options, id, events, readOnly = false) =>
     return React.createElement(map[type], {value, onChange, options, id, events, readOnly})
   }
 
-  console.info('No type-editor defined for type', type)
+  // eslint-disable-next-line no-console
+  console.log('No type-editor defined for type', type)
   return null
 }
 

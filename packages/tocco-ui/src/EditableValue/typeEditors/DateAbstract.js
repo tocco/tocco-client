@@ -44,7 +44,6 @@ class DateAbstract extends React.Component {
   }
 
   handleOnChange(selectedDates, dateStr) {
-    console.log('selectedDates', selectedDates, dateStr)
     this.props.onChange(dateStr)
   }
 

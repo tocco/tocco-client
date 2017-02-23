@@ -21,6 +21,7 @@ const allowedTypes = [
 ]
 
 const error = message => {
+  // eslint-disable-next-line no-console
   console.error(`INVALID COMMIT MSG: ${message}`)
 }
 

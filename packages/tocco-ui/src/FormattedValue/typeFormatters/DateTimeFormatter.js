@@ -4,6 +4,7 @@ import {FormattedDate, FormattedTime} from 'react-intl'
 const DateTimeFormatter = props => {
   const timestamp = Date.parse(props.value)
   if (isNaN(timestamp)) {
+    // eslint-disable-next-line no-console
     console.error('DateTimeFormatter: Invalid date', props.value)
     return <span/>
   }
