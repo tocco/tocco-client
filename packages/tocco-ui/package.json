@@ -5,9 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "clean": "../../node_modules/rimraf/bin.js dist",
-    "compile": "babel-node ../../bin/compile",
-    "deploy": "cd ../../ && ./node_modules/better-npm-run/index.js deploy --package=tocco-ui",
-    "prepublish": "cd ../../ && ./node_modules/better-npm-run/index.js deploy:prod --package=tocco-ui"
+    "compile": "babel-node ../../bin/compile"
   },
   "betterScripts": {
     "deploy": {
