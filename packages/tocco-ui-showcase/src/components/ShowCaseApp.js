@@ -26,7 +26,7 @@ export default class ShowCaseApp extends React.Component {
   }
 
   localeChange(locale) {
-    consoleLogger.logError('Change locale to: ', locale)
+    consoleLogger.log('Change locale to: ', locale)
     this.setState({locale})
   }
 
