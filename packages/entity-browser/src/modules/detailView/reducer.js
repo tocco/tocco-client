@@ -29,7 +29,8 @@ const ACTION_HANDLERS = {
   [actions.SET_ENTITY]: reducers.singleTransferReducer('entity'),
   [actions.LOAD_RELATION_ENTITIES]: reducers.singleTransferReducer('relationEntities'),
   [actions.SET_STORE]: setStore,
-  [actions.SET_STORE_LOADED]: setStoreLoaded
+  [actions.SET_STORE_LOADED]: setStoreLoaded,
+  [actions.SET_LAST_SAVE]: reducers.singleTransferReducer('lastSave')
 }
 
 const initialState = {

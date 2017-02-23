@@ -38,6 +38,7 @@ class DetailView extends React.Component {
           formErrors={props.formErrors}
           entityModel={props.entityModel}
           intl={props.intl}
+          lastSave={props.lastSave}
         />
         }
       </div>
@@ -73,6 +74,7 @@ DetailView.propTypes = {
         })
       )
     })
-  })
+  }),
+  lastSave: React.PropTypes.number
 }
 

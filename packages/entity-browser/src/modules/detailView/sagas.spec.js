@@ -139,6 +139,7 @@ describe('entity-browser', () => {
             expect(gen.next().value).to.eql(call(
               notify, 'success', 'saveSuccessfulTitle', 'saveSuccessfulMessage', 'floppy-saved', 2000)
             )
+            expect(gen.next().value).to.eql(put(actions.setLastSave()))
             expect(gen.next().value).to.eql(put(stopSubmit(formId)))
             expect(gen.next().done).to.be.true
           })

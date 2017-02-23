@@ -16,5 +16,6 @@
   "client.entity-browser.saveAbortedTitle",
   "client.entity-browser.saveAbortedMessage",
   "client.entity-browser.saveSuccessfulTitle",
-  "client.entity-browser.saveSuccessfulMessage"
+  "client.entity-browser.saveSuccessfulMessage",
+  "client.entity-browser.lastSave"
 ]
