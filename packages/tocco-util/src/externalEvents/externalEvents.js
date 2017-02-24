@@ -1,4 +1,4 @@
-import {log} from '../consoleLogger'
+import consoleLogger from '../consoleLogger'
 let events = {}
 
 export const registerEvents = externalEvents => {
@@ -7,7 +7,7 @@ export const registerEvents = externalEvents => {
 
 export const invokeExternalEvent = (eventName, ...args) => {
   if (__DEV__) {
-    log('would call external event', eventName)
+    consoleLogger.log('would call external event', eventName)
     return
   }
 
