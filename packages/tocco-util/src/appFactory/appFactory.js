@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
 import {addLocaleData} from 'react-intl'
 import {IntlProvider} from 'react-intl-redux'
-import {logError as consoleLogError} from '../consoleLogger'
+import consoleLogger from '../consoleLogger'
 
 import de from 'react-intl/locale-data/de'
 import en from 'react-intl/locale-data/en'
@@ -46,8 +46,8 @@ export const createApp = (name, content, reducers, sagas, input, events, actions
         store.dispatch(logError('Error', 'Error creating react application: ', error))
       }
     } catch (loggingError) {
-      consoleLogError('Error creating react application: ', error)
-      consoleLogError('Unable to log error: ', loggingError)
+      consoleLogger.logError('Error creating react application: ', error)
+      consoleLogger.logError('Unable to log error: ', loggingError)
     }
   }
 }
