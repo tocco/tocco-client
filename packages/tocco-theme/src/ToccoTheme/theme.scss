@@ -1,1 +1,34 @@
-@import 'theme-imports';
+/* tocco theme for react components
+ * CSS class .tocco-ui-theme is used to scope styles.
+ * CSS class .tocco-ui-theme is used to increase specificity compared to standard vendors
+ * implementation. Hence Tocco's Bootstrap has a higher specificity than Bootstrap.
+ */
+
+.tocco-ui-theme {
+  // import variables
+  @import 'variable/tocco-variable-before-vendor';
+  @import 'variable/bootstrap-variable';
+  @import 'variable/font-awesome-variable';
+  @import 'variable/tocco-variable-after-vendor';
+
+  // import vendor's styling frameworks
+  @import 'vendor/bootstrap';
+  @import 'vendor/font-awesome';
+
+  // import vendor's styling frameworks extension
+  @import 'vendor-extension/bootstrap/normalize';
+  @import 'vendor-extension/bootstrap/icon-list';
+  @import 'vendor-extension/toastr/third-party-integration.scss';
+
+  // import tocco's declarations
+  @import 'tocco/convenience-classes';
+
+  // import declarations or react components by collocating scss dynamically
+  @import 'variable/mutable-imports';
+
+  // import declarations for webpack environments
+  @import 'tocco/webpack-environment-development';
+
+  // import customers's declarations
+  @import 'customer/customer';
+}
