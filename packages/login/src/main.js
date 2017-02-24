@@ -15,7 +15,7 @@ const initLoginApp = (id, input, events, publicPath) => {
     passwordUpdate.setStandalone(false)
   ]
 
-  const showTitle = typeof input.showTitle === 'boolean' ? input.showTitle : false
+  const showTitle = !!input.showTitle
   const content = <LoginContainer showTitle={showTitle}/>
 
   return appFactory.createApp(
@@ -31,8 +31,8 @@ const initLoginApp = (id, input, events, publicPath) => {
 }
 
 const initPasswordUpdateApp = (id, input, events, publicPath) => {
-  const showTitle = typeof input.showTitle === 'boolean' ? input.showTitle : false
-  const forcedUpdate = typeof input.forcedUpdate === 'boolean' ? input.forcedUpdate : false
+  const showTitle = !!input.showTitle
+  const forcedUpdate = !!input.forcedUpdate
 
   const content = <PasswordUpdateDialog showTitle={showTitle}/>
 
@@ -77,7 +77,7 @@ const initPasswordUpdateApp = (id, input, events, publicPath) => {
 
     if (module.hot) {
       module.hot.accept('./modules/reducers', () => {
-        let reducers = require('./modules/reducers').default
+        const reducers = require('./modules/reducers').default
         storeFactory.hotReloadReducers(app.store, reducers)
       })
     }
