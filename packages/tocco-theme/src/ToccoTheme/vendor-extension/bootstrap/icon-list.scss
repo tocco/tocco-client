@@ -29,6 +29,17 @@ $icon-list-indent: $icon-list-icon-size;
       content: $icon-list-intend-0;
     }
   }
+
+  &.neutral {
+    li,
+    li[ class ^= text ] {
+      color: $text-color;
+
+      &:before {
+        content: '';
+      }
+    }
+  }
 }
 
 // use replacement icon for list items with a special class

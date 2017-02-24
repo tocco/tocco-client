@@ -1,7 +1,8 @@
 import React from 'react'
+import classNames from 'classnames'
 
 const PasswordInput = props => (
-  <div className={'form-group ' + props.name}>
+  <div className={classNames('form-group', props.name, props.formGroupStateClass)}>
     <label className="font-bold" htmlFor={props.name + 'Input'}>{props.label}</label>
     <input
       type="password"
@@ -23,7 +24,8 @@ PasswordInput.propTypes = {
   onChange: React.PropTypes.func.isRequired,
   readOnly: React.PropTypes.bool,
   onKeyDown: React.PropTypes.func,
-  autoFocus: React.PropTypes.bool
+  autoFocus: React.PropTypes.bool,
+  formGroupStateClass: React.PropTypes.string
 }
 
 export default PasswordInput
