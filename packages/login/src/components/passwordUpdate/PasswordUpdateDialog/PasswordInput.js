@@ -1,6 +1,18 @@
+// @flow
+
 import React from 'react'
 
-const PasswordInput = props => (
+type Props = {
+  name: string,
+  label: string,
+  value?: string,
+  onChange: (value: string) => void,
+  readOnly?: boolean,
+  onKeyDown?: (e: SyntheticKeyboardEvent) => void,
+  autoFocus?: boolean
+}
+
+const PasswordInput = (props: Props) => (
   <div className={'form-group ' + props.name}>
     <label className="font-bold" htmlFor={props.name + 'Input'}>{props.label}</label>
     <input
@@ -15,15 +27,5 @@ const PasswordInput = props => (
     />
   </div>
 )
-
-PasswordInput.propTypes = {
-  name: React.PropTypes.string.isRequired,
-  label: React.PropTypes.string.isRequired,
-  value: React.PropTypes.string,
-  onChange: React.PropTypes.func.isRequired,
-  readOnly: React.PropTypes.bool,
-  onKeyDown: React.PropTypes.func,
-  autoFocus: React.PropTypes.bool
-}
 
 export default PasswordInput
