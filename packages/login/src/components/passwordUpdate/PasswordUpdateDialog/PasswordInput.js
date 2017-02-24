@@ -3,7 +3,7 @@ import classNames from 'classnames'
 
 const PasswordInput = props => (
   <div className={classNames('form-group', props.name, props.formGroupStateClass)}>
-    <label className="font-bold" htmlFor={props.name + 'Input'}>{props.label}</label>
+    <label htmlFor={props.name + 'Input'}>{props.label}</label>
     <input
       type="password"
       className="form-control"

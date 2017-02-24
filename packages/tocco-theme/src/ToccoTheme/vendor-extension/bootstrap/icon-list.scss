@@ -13,6 +13,7 @@ $icon-list-indent: $icon-list-icon-size;
 .icon-list {
   list-style-type: none;
   padding-left: $icon-list-indent;
+  margin-bottom: $line-height-computed;
 
   ul,
   ol {
@@ -40,6 +41,10 @@ $icon-list-indent: $icon-list-icon-size;
       }
     }
   }
+}
+
+.form-group + .icon-list {
+  margin-top: -$line-height-computed-half;
 }
 
 // use replacement icon for list items with a special class
