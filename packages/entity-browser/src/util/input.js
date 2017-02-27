@@ -1,6 +1,6 @@
-import {setLimit} from '../routes/list/modules/listView/actions'
+import {setLimit} from '../routes/list/modules/actions'
 import {setEntityName, setFormBase, setShowSearchForm,
-        setDisableSimpleSearch, setSimpleSearchFields} from '../routes/entity-browser/modules/entityBrowser/actions'
+        setDisableSimpleSearch, setSimpleSearchFields} from '../routes/entity-browser/modules/actions'
 import {setPreselectedSearchFields} from '../routes/list/modules/searchForm/actions'
 import {consoleLogger} from 'tocco-util'
 

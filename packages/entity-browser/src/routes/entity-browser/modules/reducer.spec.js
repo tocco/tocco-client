@@ -6,7 +6,6 @@ const EXPECTED_INITIAL_STATE = {
   formBase: '',
   showSearchForm: true,
   disableSimpleSearch: false,
-  showDetailEntityId: undefined,
   entityModel: {},
   simpleSearchFields: ''
 }

@@ -1,11 +1,6 @@
 import * as actions from './actions'
 import {reducers} from 'tocco-util'
 
-const showEntityDetail = (state, {payload}) => ({
-  ...state,
-  showDetailEntityId: payload.entityId
-})
-
 const simpleSearchFieldsToArray = simpleSearchFields => (
   simpleSearchFields.split(',')
     .filter(s => s)
@@ -26,8 +21,6 @@ const ACTION_HANDLERS = {
   [actions.SET_SHOW_SEARCH_FORM]: reducers.singleTransferReducer('showSearchForm'),
   [actions.SET_DISABLE_SIMPLE_SEARCH]: reducers.singleTransferReducer('disableSimpleSearch'),
   [actions.SET_SIMPLE_SEARCH_FIELDS]: simpleSearchFields,
-  [actions.SHOW_ENTITY_DETAIL]: showEntityDetail,
-  [actions.CLOSE_ENTITY_DETAIL]: showEntityDetail,
   [actions.SET_ENTITY_MODEL]: reducers.singleTransferReducer('entityModel')
 }
 
@@ -36,7 +29,6 @@ const initialState = {
   formBase: '',
   showSearchForm: true,
   disableSimpleSearch: false,
-  showDetailEntityId: undefined,
   entityModel: {},
   simpleSearchFields: ''
 }

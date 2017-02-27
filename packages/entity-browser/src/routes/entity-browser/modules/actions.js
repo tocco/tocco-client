@@ -7,9 +7,6 @@ export const SET_SHOW_SEARCH_FORM = 'SET_SEARCH_FORM'
 export const SET_DISABLE_SIMPLE_SEARCH = 'SET_DISABLE_SIMPLE_SEARCH'
 export const SET_SIMPLE_SEARCH_FIELDS = 'SET_SIMPLE_SEARCH_FIELDS'
 
-export const SHOW_ENTITY_DETAIL = 'SHOW_ENTITY_DETAIL'
-export const CLOSE_ENTITY_DETAIL = 'CLOSE_ENTITY_DETAIL'
-
 export const SET_ENTITY_MODEL = 'entityBrowser/SET_ENTITY_MODEL'
 
 export const initialized = () => ({
@@ -52,20 +49,6 @@ export const setSimpleSearchFields = simpleSearchFields => ({
   type: SET_SIMPLE_SEARCH_FIELDS,
   payload: {
     simpleSearchFields
-  }
-})
-
-export const showEntityDetail = entityId => ({
-  type: SHOW_ENTITY_DETAIL,
-  payload: {
-    entityId
-  }
-})
-
-export const closeEntityDetail = () => ({
-  type: SHOW_ENTITY_DETAIL,
-  payload: {
-    entityId: undefined
   }
 })
 

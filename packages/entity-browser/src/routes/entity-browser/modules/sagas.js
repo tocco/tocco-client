@@ -1,9 +1,9 @@
 import {put, fork, select, call, takeLatest} from 'redux-saga/effects'
 import * as actions from './actions'
-import * as listViewActions from '../../../list/modules/listView/actions'
-import * as detailViewActions from '../../../detail/modules/detailView/actions'
-import * as searchFormActions from '../../../list/modules/searchForm/actions'
-import {fetchModel} from '../../../../util/api/entities'
+import * as listViewActions from '../../list/modules/actions'
+import * as detailViewActions from '../../detail/modules/actions'
+import * as searchFormActions from '../../list/modules/searchForm/actions'
+import {fetchModel} from '../../../util/api/entities'
 
 export const entityBrowserSelector = state => state.entityBrowser
 

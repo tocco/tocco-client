@@ -1,13 +1,13 @@
 import {call, put, fork, select, spawn, takeEvery, takeLatest} from 'redux-saga/effects'
 import * as actions from './actions'
-import * as searchFormActions from '../searchForm/actions'
-import {getSearchInputsForRequest} from '../../../../util/searchInputs'
-import {fetchForm, columnDefinitionTransformer} from '../../../../util/api/forms'
-import {fetchEntityCount, fetchEntities, entitiesListTransformer} from '../../../../util/api/entities'
+import * as searchFormActions from './searchForm/actions'
+import {getSearchInputsForRequest} from '../../../util/searchInputs'
+import {fetchForm, columnDefinitionTransformer} from '../../../util/api/forms'
+import {fetchEntityCount, fetchEntities, entitiesListTransformer} from '../../../util/api/entities'
 import _clone from 'lodash/clone'
 
 export const entityBrowserSelector = state => state.entityBrowser
-export const listViewSelector = state => state.listView
+export const listViewSelector = state => state.list
 export const searchFormSelector = state => state.searchForm
 
 export default function* sagas() {

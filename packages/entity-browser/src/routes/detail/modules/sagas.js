@@ -10,14 +10,14 @@ import {
 
 import * as actions from './actions'
 import {logError} from 'tocco-util/src/errorLogging'
-import {notify} from '../../../../util/notification'
-import {fetchEntity, updateEntity, fetchEntities, getInitialSelectBoxStore} from '../../../../util//api/entities'
-import {fetchForm, getFieldsOfDetailForm} from '../../../../util//api/forms'
-import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../../../util//detailView/reduxForm'
-import {submitValidate} from '../../../../util//detailView/asyncValidation'
+import {notify} from '../../../util/notification'
+import {fetchEntity, updateEntity, fetchEntities, getInitialSelectBoxStore} from '../../../util//api/entities'
+import {fetchForm, getFieldsOfDetailForm} from '../../../util//api/forms'
+import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../../util//detailView/reduxForm'
+import {submitValidate} from '../../../util//detailView/asyncValidation'
 
-export const detailViewSelector = state => state.detailView
-export const formDefinitionSelector = state => state.detailView.formDefinition
+export const detailViewSelector = state => state.detail
+export const formDefinitionSelector = state => state.detail.formDefinition
 export const formInitialValueSelector = formId => state => state.form[formId].initial
 export const entityBrowserSelector = state => state.entityBrowser
 

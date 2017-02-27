@@ -8,8 +8,8 @@ import {
   getFormSubmitErrors
 } from 'redux-form'
 
-import {closeEntityDetail} from '../../entity-browser/modules/entityBrowser/actions'
-import {loadEntity, submitForm, loadRelationEntities} from '../modules/detailView/actions'
+import {closeEntityDetail} from '../../entity-browser/modules/actions'
+import {loadEntity, submitForm, loadRelationEntities} from '../modules/actions'
 import DetailView from '../components/DetailView'
 import {logError} from 'tocco-util/src/errorLogging'
 
@@ -27,9 +27,9 @@ const getFormGeneralErros = formName =>
   )
 
 const mapStateToProps = (state, props) => ({
-  formDefinition: state.detailView.formDefinition,
-  entity: state.detailView.entity,
-  selectBoxStores: state.detailView.selectBoxStores,
+  formDefinition: state.detail.formDefinition,
+  entity: state.detail.entity,
+  selectBoxStores: state.detail.selectBoxStores,
   entityModel: state.entityBrowser.entityModel,
   formErrors: {
     ...getFormSyncErrors('detailForm')(state),
@@ -38,7 +38,7 @@ const mapStateToProps = (state, props) => ({
     _error: getFormGeneralErros('detailForm')(state)
   },
   formInitialValues: getFormInitialValues('detailForm')(state),
-  lastSave: state.detailView.lastSave
+  lastSave: state.detail.lastSave
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(DetailView))

@@ -1,10 +1,10 @@
 import {put, select, call, fork, takeLatest} from 'redux-saga/effects'
 import * as actions from './actions'
-import * as searchFormActions from '../../../list/modules/searchForm/actions'
-import * as listViewActions from '../../../list/modules/listView/actions'
+import * as searchFormActions from '../../list/modules/searchForm/actions'
+import * as listViewActions from '../../list/modules/actions'
 import * as detailViewActions from '../../../detail/modules/detailView/actions'
 import rootSaga, * as sagas from './sagas'
-import {fetchModel} from '../../../../util/api/entities'
+import {fetchModel} from '../../../util/api/entities'
 
 describe('entity-browser', () => {
   describe('modules', () => {
