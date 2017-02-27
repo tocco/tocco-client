@@ -1,7 +1,7 @@
-import {setLimit} from '../modules/listView/actions'
+import {setLimit} from '../routes/list/modules/listView/actions'
 import {setEntityName, setFormBase, setShowSearchForm,
-        setDisableSimpleSearch, setSimpleSearchFields} from '../modules/entityBrowser/actions'
-import {setPreselectedSearchFields} from '../modules/searchForm/actions'
+        setDisableSimpleSearch, setSimpleSearchFields} from '../routes/entity-browser/modules/entityBrowser/actions'
+import {setPreselectedSearchFields} from '../routes/list/modules/searchForm/actions'
 import {consoleLogger} from 'tocco-util'
 
 export const validateAndGetDispatchActions = (input, logError = consoleLogger.logError) => {

@@ -2,15 +2,15 @@ import {intlReducer} from 'react-intl-redux'
 import {reducer as form} from 'redux-form'
 import {reducer as toastr} from 'react-redux-toastr'
 
-import entityBrowser from './entityBrowser'
-import listView from './listView'
-import detailView from './detailView'
-import searchForm from './searchForm'
+import entityBrowser from '../routes/entity-browser/modules/entityBrowser'
+import listView from '../routes/list/modules/listView'
+import detailView from '../routes/detail/modules/detailView'
+import searchForm from '../routes/list/modules/searchForm'
 
-import entityBrowserSagas from './entityBrowser/sagas'
-import listViewSagas from './listView/sagas'
-import detailViewSagas from './detailView/sagas'
-import searchFormSagas from './searchForm/sagas'
+import entityBrowserSagas from '../routes/entity-browser/modules/entityBrowser/sagas'
+import listViewSagas from '../routes/list/modules/listView/sagas'
+import detailViewSagas from '../routes/detail/modules/detailView/sagas'
+import searchFormSagas from '../routes/list/modules/searchForm/sagas'
 
 export default {
   intl: intlReducer,

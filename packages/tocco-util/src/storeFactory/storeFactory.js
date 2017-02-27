@@ -20,7 +20,13 @@ export const createStore = (initialState = {}, reducers, sagas) => {
     }
   }
 
-  reducers = combineReducers({...reducers, input, errorLogging, intl: intlReducer})
+  reducers = combineReducers({
+    ...reducers,
+    input,
+    errorLogging,
+    intl: intlReducer
+  })
+
   const store = reduxCreateStore(reducers, initialState, middleware)
 
   store.asyncReducers = {}
