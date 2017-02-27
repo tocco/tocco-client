@@ -7,7 +7,8 @@ export const createRoutes = store => [{
   component: entityBrowser,
   routes: [
     {
-      path: '/list',
+      path: '/',
+      exact: true,
       component: list
     },
     {
