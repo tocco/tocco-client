@@ -11,6 +11,7 @@ const PasswordInput = props => (
       value={props.value}
       onChange={e => props.onChange(e.target.value)}
       readOnly={props.readOnly === true}
+      disabled={props.readOnly === true}
       onKeyDown={props.onKeyDown}
       autoFocus={props.autoFocus}
     />

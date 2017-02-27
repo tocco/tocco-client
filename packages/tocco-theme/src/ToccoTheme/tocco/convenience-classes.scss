@@ -11,3 +11,12 @@
 .space-rhythm-double {
   margin-bottom: $line-height-computed-double;
 }
+
+.space-rhythm-remove,
+%space-rhythm-remove {
+  margin-bottom: 0;
+}
+
+.last-element-in-block {
+  @extend %space-rhythm-remove;
+}

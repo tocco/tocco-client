@@ -37,7 +37,7 @@ $icon-list-indent: $icon-list-icon-size;
       color: $text-color;
 
       &:before {
-        content: '';
+        content: '\2022';  /* bullet point */
       }
     }
   }

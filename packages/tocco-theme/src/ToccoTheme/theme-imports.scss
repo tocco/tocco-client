@@ -24,6 +24,7 @@
 
   // import tocco's declarations
   @import 'tocco/convenience-classes';
+  @import 'tocco/legacy_2_13';
 
   // import declarations or react components by collocating scss dynamically
   @import 'variable/mutable-imports';
