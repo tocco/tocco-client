@@ -9,12 +9,16 @@ const DateFormatter = props => {
     return <span/>
   }
 
-  const date = new Date(timestamp)
+  let date
+  if (props.value instanceof Date) {
+    date = props.value
+  } else {
+    date = new Date(new Date(timestamp).getTime() + new Date().getTimezoneOffset() * 60000)
+  }
 
   return (
     <FormattedDate
       value={date}
-      timeZone="UTC"
       year="numeric"
       month="numeric"
       day="numeric"
