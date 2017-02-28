@@ -1,8 +1,10 @@
 import React from 'react'
 import {FormattedDate} from 'react-intl'
+import {convertDateToUTC} from '../util/DateUtils'
 
 const DateFormatter = props => {
   const timestamp = Date.parse(props.value)
+
   if (isNaN(timestamp)) {
     // eslint-disable-next-line no-console
     console.log('DateFormatter: Invalid date', props.value)
@@ -13,7 +15,7 @@ const DateFormatter = props => {
   if (props.value instanceof Date) {
     date = props.value
   } else {
-    date = new Date(new Date(timestamp).getTime() + new Date().getTimezoneOffset() * 60000)
+    date = convertDateToUTC(new Date(timestamp))
   }
 
   return (
