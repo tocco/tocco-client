@@ -8,8 +8,9 @@ import {autoRestartSaga, createGenerator} from './sagaHelpers'
 
 import input from './input/reducer'
 
+const sagaMiddleware = createSagaMiddleware()
+
 export const createStore = (initialState = {}, reducers, sagas) => {
-  const sagaMiddleware = createSagaMiddleware()
   let middleware = applyMiddleware(thunk, sagaMiddleware)
 
   if (__DEBUG__) {
@@ -20,10 +21,18 @@ export const createStore = (initialState = {}, reducers, sagas) => {
     }
   }
 
-  reducers = combineReducers({...reducers, input, errorLogging, intl: intlReducer})
+  const allReducers = {
+    ...reducers,
+    input,
+    errorLogging,
+    intl: intlReducer
+  }
+
+  reducers = combineReducers(allReducers)
+
   const store = reduxCreateStore(reducers, initialState, middleware)
 
-  store.asyncReducers = {}
+  store.allReducers = allReducers
 
   const rootSaga = createGenerator(sagas.map(s => fork(s)))
 
@@ -34,6 +43,15 @@ export const createStore = (initialState = {}, reducers, sagas) => {
 }
 
 export const hotReloadReducers = (store, reducers) => {
-  const combinedReducers = combineReducers({...reducers, input, errorLogging, intl: intlReducer})
+  const allReducers = {
+    ...store.allReducers,
+    ...reducers
+  }
+  const combinedReducers = combineReducers(allReducers)
   store.replaceReducer(combinedReducers)
+  store.allReducers = allReducers
+}
+
+export const injectSaga = saga => {
+  sagaMiddleware.run(autoRestartSaga(saga, logErrorAction))
 }

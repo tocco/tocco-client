@@ -3,8 +3,9 @@ import ReduxToastr from 'react-redux-toastr'
 
 import {appFactory, storeFactory} from 'tocco-util'
 import reducers, {sagas} from './modules/reducers'
-import EntityBrowserContainer from './containers/EntityBrowserContainer'
-
+import {Router} from 'react-router'
+import createHistory from 'history/createHashHistory'
+import RouteWithSubRoutes from './components/RouteWithSubRoutes'
 import {validateAndGetDispatchActions} from './util/input'
 import '!style-loader!css-loader!react-redux-toastr/lib/css/react-redux-toastr.css'
 
@@ -22,16 +23,29 @@ const initApp = (id, input, events, publicPath) => {
     progressBar: true
   }
 
-  const content = <div>
-    <ReduxToastr {...toastrOptions}/>
-    <EntityBrowserContainer/>
-  </div>
+  const history = createHistory()
+
+  const store = appFactory.createStore(reducers, sagas, input)
+
+  const routes = require('./routes/index').default(store)
+
+  const content = (
+    <div>
+      <ReduxToastr {...toastrOptions}/>
+      <Router history={history}>
+        <div>
+          {routes.map((route, i) => (
+            <RouteWithSubRoutes key={i} {...route}/>
+          ))}
+        </div>
+      </Router>
+    </div>
+  )
 
   return appFactory.createApp(
     packageName,
     content,
-    reducers,
-    sagas,
+    store,
     input,
     events,
     dispatchActions,
