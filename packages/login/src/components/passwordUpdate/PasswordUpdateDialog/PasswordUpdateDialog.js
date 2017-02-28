@@ -43,10 +43,12 @@ class PasswordUpdateDialog extends Component {
     const newPasswordRepeatReadOnly = !password.newPassword
       || password.passwordUpdatePending
       || password.newPasswordValidationErrors && Object.keys(password.newPasswordValidationErrors).length > 0
-    const newPasswordFormGroupStateClass = (!password.newPassword ? ''
-      : (newPasswordRepeatReadOnly ? 'has-error' : 'has-success'))
-    const newPasswordRepeatFormGroupStateClass = (!password.newPasswordRepeat ? ''
-      : (this.isSubmittable() ? 'has-success' : 'has-error'))
+    const newPasswordFormGroupStateClass = classNames(
+      {'has-error': password.newPassword && newPasswordRepeatReadOnly},
+      {'has-success': password.newPassword && !newPasswordRepeatReadOnly})
+    const newPasswordRepeatFormGroupStateClass = classNames(
+      {'has-success': password.newPasswordRepeat && this.isSubmittable()},
+      {'has-error': password.newPasswordRepeat && !this.isSubmittable()})
 
     return (
       <div className="tocco-login">
