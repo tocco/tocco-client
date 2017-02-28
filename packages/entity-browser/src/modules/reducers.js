@@ -1,4 +1,3 @@
-import {intlReducer} from 'react-intl-redux'
 import {reducer as form} from 'redux-form'
 import {reducer as toastr} from 'react-redux-toastr'
 
@@ -11,7 +10,6 @@ import detailViewSagas from '../routes/detail/modules/sagas'
 import searchFormSagas from '../routes/list/modules/searchForm/sagas'
 
 export default {
-  intl: intlReducer,
   toastr,
   form,
   entityBrowser,
