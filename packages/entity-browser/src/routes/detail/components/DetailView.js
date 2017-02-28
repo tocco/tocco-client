@@ -13,7 +13,7 @@ class DetailView extends React.Component {
   }
 
   handledAsyncValidate = values => {
-    return asyncValidate(values).catch(error => {
+    return asyncValidate(values, this.props.formInitialValues).catch(error => {
       if (error instanceof AsyncValidationException) {
         throw error.errors
       } else {
