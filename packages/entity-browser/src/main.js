@@ -25,7 +25,9 @@ const initApp = (id, input, events, publicPath) => {
 
   const history = createHistory()
 
-  const routes = require('./routes/index').default()
+  const store = appFactory.createStore(reducers, sagas, input)
+
+  const routes = require('./routes/index').default(store)
 
   const content = (
     <div>
@@ -43,8 +45,7 @@ const initApp = (id, input, events, publicPath) => {
   return appFactory.createApp(
     packageName,
     content,
-    reducers,
-    sagas,
+    store,
     input,
     events,
     dispatchActions,

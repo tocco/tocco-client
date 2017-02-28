@@ -9,7 +9,7 @@ export const createRoutes = store => [{
     {
       path: '/',
       exact: true,
-      component: list
+      render: list(store)
     },
     {
       path: '/detail/:entityId',
