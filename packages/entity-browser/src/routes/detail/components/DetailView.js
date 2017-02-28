@@ -6,11 +6,6 @@ import syncValidation from '../../../util/detailView/syncValidation'
 import {asyncValidate, AsyncValidationException} from '../../../util/detailView/asyncValidation'
 
 class DetailView extends React.Component {
-  constructor(props) {
-    super(props)
-    this.validate = syncValidation(props.entityModel, props.intl)
-  }
-
   componentWillMount() {
     const entityId = this.props.router.match.params.entityId
     this.props.loadDetailView(entityId)
@@ -26,14 +21,22 @@ class DetailView extends React.Component {
     })
   }
 
+  getSyncValidation = () => {
+    if (!this.validate) {
+      this.validate = syncValidation(this.props.entityModel, this.props.intl)
+    }
+    return this.validate
+  }
+
   render() {
     const props = this.props
+
     return (
       <div className="detail-view">
         <Button icon="glyphicon-chevron-left" onClick={props.router.goBack} label="Back"/>
         {props.formInitialValues
         && <DetailForm
-          validate={this.validate}
+          validate={this.getSyncValidation()}
           asyncValidate={this.handledAsyncValidate}
           submitForm={props.submitForm}
           formDefinition={props.formDefinition}

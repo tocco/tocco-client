@@ -8,7 +8,7 @@ import _clone from 'lodash/clone'
 import {initialize as initializeEntityBrowser} from '../../entity-browser/modules/actions'
 
 export const entityBrowserSelector = state => state.entityBrowser
-export const listViewSelector = state => state.list
+export const listSelector = state => state.list
 export const searchFormSelector = state => state.searchForm
 
 export default function* sagas() {
@@ -24,7 +24,7 @@ export default function* sagas() {
 
 export function* refresh() {
   yield put(actions.setInProgress(true))
-  const entityBrowser = yield select(listViewSelector)
+  const entityBrowser = yield select(listSelector)
   const {currentPage} = entityBrowser
   yield put(actions.clearEntityStore())
   yield call(requestEntities, currentPage)
@@ -63,8 +63,10 @@ const extractFields = columnDefinition => {
 }
 
 export function* fetchEntitiesAndAddToStore(page) {
-  const listView = yield select(listViewSelector)
-  const {entityName, orderBy, limit, entityStore, columnDefinition} = listView
+  const entityBrowser = yield select(entityBrowserSelector)
+  const {entityName} = entityBrowser
+  const listView = yield select(listSelector)
+  const {orderBy, limit, entityStore, columnDefinition} = listView
 
   if (!entityStore[page]) {
     const entityBrowser = yield select(entityBrowserSelector)
@@ -87,7 +89,7 @@ export function* fetchEntitiesAndAddToStore(page) {
 }
 
 export function* requestEntities(page) {
-  const entityBrowser = yield select(listViewSelector)
+  const entityBrowser = yield select(listSelector)
   let {entityStore} = entityBrowser
 
   if (!entityStore[page]) {
@@ -102,9 +104,16 @@ export function* requestEntities(page) {
 }
 
 export function* displayEntity(page) {
-  const entityBrowser = yield select(listViewSelector)
+  const entityBrowser = yield select(listSelector)
   const entities = entityBrowser.entityStore[page]
   yield put(actions.setEntities(entities))
+}
+
+export function* loadColumnDefinition(columnDefinition, formBase) {
+  if (columnDefinition.length === 0) {
+    columnDefinition = yield call(fetchForm, formBase + '_list', columnDefinitionTransformer)
+    yield put(actions.setColumnDefinition(columnDefinition))
+  }
 }
 
 export function* initialize() {
@@ -112,13 +121,13 @@ export function* initialize() {
   yield put(initializeEntityBrowser())
 
   const entityBrowser = yield select(entityBrowserSelector)
+  const {formBase} = entityBrowser
 
-  const {entityName, formBase} = entityBrowser
+  const listView = yield select(listSelector)
+  const {columnDefinition} = listView
 
-  yield put(actions.setEntityName(entityName))
+  yield call(loadColumnDefinition, columnDefinition, formBase)
 
-  const columnDefinition = yield call(fetchForm, formBase + '_list', columnDefinitionTransformer)
-  yield put(actions.setColumnDefinition(columnDefinition))
   yield call(resetDataSet)
 
   yield put(actions.setInProgress(false))
@@ -126,7 +135,7 @@ export function* initialize() {
 
 export function* resetDataSet() {
   yield put(actions.setInProgress(true))
-  const entityBrowser = yield select(listViewSelector)
+  const entityBrowser = yield select(entityBrowserSelector)
   const {entityName} = entityBrowser
   const searchInputs = yield call(getSearchInputs)
   const entityCount = yield call(fetchEntityCount, entityName, searchInputs)

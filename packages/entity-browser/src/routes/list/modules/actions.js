@@ -1,7 +1,6 @@
 export const INITIALIZE = 'listView/INITIALIZE'
 
 export const REQUEST_ENTITIES = 'listView/REQUEST_ENTITIES'
-export const SET_ENTITY_NAME = 'listView/SET_ENTITY_NAME'
 export const SET_ENTITIES = 'listView/SET_ENTITIES'
 export const SET_COLUMN_DEFINITION = 'listView/SET_COLUMN_DEFINITION'
 export const SET_ORDER_BY = 'listView/SET_ORDER_BY'
@@ -17,13 +16,6 @@ export const REFRESH = 'listView/REFRESH'
 
 export const initialize = () => ({
   type: INITIALIZE
-})
-
-export const setEntityName = entityName => ({
-  type: SET_ENTITY_NAME,
-  payload: {
-    entityName
-  }
 })
 
 export const requestEntities = (page, show) => ({

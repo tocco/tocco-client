@@ -25,7 +25,6 @@ const setStoreLoaded = (state, {payload}) => ({
 
 const ACTION_HANDLERS = {
   [actions.SET_FORM_DEFINITION]: reducers.singleTransferReducer('formDefinition'),
-  [actions.SET_ENTITY_NAME]: reducers.singleTransferReducer('entityName'),
   [actions.SET_ENTITY]: reducers.singleTransferReducer('entity'),
   [actions.LOAD_RELATION_ENTITIES]: reducers.singleTransferReducer('relationEntities'),
   [actions.SET_STORE]: setStore,
@@ -34,7 +33,6 @@ const ACTION_HANDLERS = {
 }
 
 const initialState = {
-  entityName: '',
   formDefinition: {},
   entity: {},
   selectBoxStores: {}

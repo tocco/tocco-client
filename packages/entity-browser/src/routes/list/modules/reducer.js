@@ -16,7 +16,6 @@ const clearEntityStore = state => ({
 
 const ACTION_HANDLERS = {
   [actions.SET_ENTITIES]: reducers.singleTransferReducer('entities'),
-  [actions.SET_ENTITY_NAME]: reducers.singleTransferReducer('entityName'),
   [actions.SET_COLUMN_DEFINITION]: reducers.singleTransferReducer('columnDefinition'),
   [actions.SET_LIMIT]: reducers.singleTransferReducer('limit'),
   [actions.SET_CURRENT_PAGE]: reducers.singleTransferReducer('currentPage'),
@@ -28,8 +27,6 @@ const ACTION_HANDLERS = {
 }
 
 const initialState = {
-  entityName: '',
-  formBase: '',
   entities: [],
   limit: 50,
   currentPage: 1,
