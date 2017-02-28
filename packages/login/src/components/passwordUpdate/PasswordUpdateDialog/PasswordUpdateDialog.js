@@ -43,12 +43,6 @@ class PasswordUpdateDialog extends Component {
     const newPasswordRepeatReadOnly = !password.newPassword
       || password.passwordUpdatePending
       || password.newPasswordValidationErrors && Object.keys(password.newPasswordValidationErrors).length > 0
-    const newPasswordFormGroupStateClass = classNames(
-      {'has-error': password.newPassword && newPasswordRepeatReadOnly},
-      {'has-success': password.newPassword && !newPasswordRepeatReadOnly})
-    const newPasswordRepeatFormGroupStateClass = classNames(
-      {'has-success': password.newPasswordRepeat && this.isSubmittable()},
-      {'has-error': password.newPasswordRepeat && !this.isSubmittable()})
 
     return (
       <div className="tocco-login">
@@ -79,7 +73,7 @@ class PasswordUpdateDialog extends Component {
             onChange={updateNewPassword}
             readOnly={newPasswordReadOnly}
             autoFocus={this.props.showOldPasswordField !== true}
-            formGroupStateClass={newPasswordFormGroupStateClass}
+            valid={!newPasswordRepeatReadOnly}
           />
           <ValidationRules
             rules={validationRules}
@@ -92,7 +86,7 @@ class PasswordUpdateDialog extends Component {
             value={password.newPasswordRepeat}
             onChange={updateNewPasswordRepeat}
             readOnly={newPasswordRepeatReadOnly}
-            formGroupStateClass={newPasswordRepeatFormGroupStateClass}
+            valid={this.isSubmittable()}
           />
           <PasswordMatchDisplay password={password.newPassword} passwordRepeat={password.newPasswordRepeat}/>
           <Button
