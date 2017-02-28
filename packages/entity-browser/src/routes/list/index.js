@@ -10,13 +10,13 @@ export default store => props => {
   const sagas = require('./modules/sagas').default
   const searchFormSagas = require('./modules/searchForm/sagas').default
 
-  storeFactory.hotReloadReducers(store, {
+  storeFactory.injectReducers(store, {
     list: reducer,
     searchForm: searchFormReducer
   })
 
-  storeFactory.injectSaga(sagas)
-  storeFactory.injectSaga(searchFormSagas)
+  storeFactory.injectSaga(store, sagas)
+  storeFactory.injectSaga(store, searchFormSagas)
 
   return <ListViewContainer router={props}/>
 }

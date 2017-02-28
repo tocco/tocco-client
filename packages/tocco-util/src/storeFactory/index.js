@@ -1,2 +1,2 @@
-import {createStore, hotReloadReducers, injectSaga} from './storeFactory'
-export default {createStore, hotReloadReducers, injectSaga}
+import {createStore, hotReloadReducers, injectReducers, injectSaga} from './storeFactory'
+export default {createStore, hotReloadReducers, injectReducers, injectSaga}
