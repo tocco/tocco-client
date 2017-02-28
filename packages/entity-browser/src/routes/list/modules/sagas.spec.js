@@ -2,9 +2,9 @@ import {put, select, call, fork, spawn, takeLatest, takeEvery} from 'redux-saga/
 import * as actions from './actions'
 import * as searchFormActions from './searchForm/actions'
 import rootSaga, * as sagas from './sagas'
-import {getSearchInputsForRequest} from '../../util/searchInputs'
-import {fetchForm, columnDefinitionTransformer} from '../../util/api/forms'
-import {fetchEntityCount, fetchEntities, entitiesListTransformer} from '../../util/api/entities'
+import {getSearchInputsForRequest} from '../../../util/searchInputs'
+import {fetchForm, columnDefinitionTransformer} from '../../../util/api/forms'
+import {fetchEntityCount, fetchEntities, entitiesListTransformer} from '../../../util/api/entities'
 import _clone from 'lodash/clone'
 
 const generateState = (entityStore = {}, page) => ({

@@ -6,11 +6,11 @@ import {
   stopSubmit,
   initialize as initializeForm
 } from 'redux-form'
-import {fetchEntity, updateEntity, fetchEntities, getInitialSelectBoxStore} from '../../../../util/api/entities'
-import {fetchForm, getFieldsOfDetailForm} from '../../../../util/api/forms'
-import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../../../util/detailView/reduxForm'
-import {submitValidate} from '../../../../util/detailView/asyncValidation'
-import {notify} from '../../../../util/notification'
+import {fetchEntity, updateEntity, fetchEntities, getInitialSelectBoxStore} from '../../../util/api/entities'
+import {fetchForm, getFieldsOfDetailForm} from '../../../util/api/forms'
+import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../../util/detailView/reduxForm'
+import {submitValidate} from '../../../util/detailView/asyncValidation'
+import {notify} from '../../../util/notification'
 
 describe('entity-browser', () => {
   describe('modules', () => {
