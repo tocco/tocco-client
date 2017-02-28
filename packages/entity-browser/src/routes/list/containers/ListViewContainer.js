@@ -1,9 +1,10 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 import ListView from '../components/ListView'
-import {changePage, setOrderBy, refresh} from '../modules/actions'
+import {initialize, changePage, setOrderBy, refresh} from '../modules/actions'
 
 const mapActionCreators = {
+  initialize,
   changePage,
   setOrderBy,
   refresh

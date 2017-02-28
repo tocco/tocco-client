@@ -8,14 +8,12 @@ import {
   getFormSubmitErrors
 } from 'redux-form'
 
-import {closeEntityDetail} from '../../entity-browser/modules/actions'
-import {loadEntity, submitForm, loadRelationEntities} from '../modules/actions'
+import {loadDetailView, submitForm, loadRelationEntities} from '../modules/actions'
 import DetailView from '../components/DetailView'
 import {logError} from 'tocco-util/src/errorLogging'
 
 const mapActionCreators = {
-  loadEntity,
-  closeEntityDetail,
+  loadDetailView,
   submitForm,
   loadRelationEntities,
   logError

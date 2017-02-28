@@ -5,6 +5,7 @@ import {getSearchInputsForRequest} from '../../../util/searchInputs'
 import {fetchForm, columnDefinitionTransformer} from '../../../util/api/forms'
 import {fetchEntityCount, fetchEntities, entitiesListTransformer} from '../../../util/api/entities'
 import _clone from 'lodash/clone'
+import {initialize as initializeEntityBrowser} from '../../entity-browser/modules/actions'
 
 export const entityBrowserSelector = state => state.entityBrowser
 export const listViewSelector = state => state.list
@@ -106,15 +107,20 @@ export function* displayEntity(page) {
   yield put(actions.setEntities(entities))
 }
 
-export function* initialize({payload}) {
-  const {entityName, formBase} = payload
+export function* initialize() {
   yield put(actions.setInProgress(true))
+  yield put(initializeEntityBrowser())
+
+  const entityBrowser = yield select(entityBrowserSelector)
+
+  const {entityName, formBase} = entityBrowser
+
   yield put(actions.setEntityName(entityName))
 
   const columnDefinition = yield call(fetchForm, formBase + '_list', columnDefinitionTransformer)
   yield put(actions.setColumnDefinition(columnDefinition))
-
   yield call(resetDataSet)
+
   yield put(actions.setInProgress(false))
 }
 

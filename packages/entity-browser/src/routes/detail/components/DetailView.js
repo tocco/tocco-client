@@ -8,8 +8,12 @@ import {asyncValidate, AsyncValidationException} from '../../../util/detailView/
 class DetailView extends React.Component {
   constructor(props) {
     super(props)
-    props.loadEntity(props.router.match.params.entityId)
     this.validate = syncValidation(props.entityModel, props.intl)
+  }
+
+  componentWillMount() {
+    const entityId = this.props.router.match.params.entityId
+    this.props.loadDetailView(entityId)
   }
 
   handledAsyncValidate = values => {
@@ -52,7 +56,7 @@ export default DetailView
 DetailView.propTypes = {
   intl: intlShape.isRequired,
   router: React.PropTypes.object.isRequired,
-  loadEntity: React.PropTypes.func.isRequired,
+  loadDetailView: React.PropTypes.func.isRequired,
   submitForm: React.PropTypes.func.isRequired,
   logError: React.PropTypes.func.isRequired,
   formDefinition: React.PropTypes.shape({

@@ -8,6 +8,8 @@ import {
   initialize as initializeForm
 } from 'redux-form'
 
+import {initialize as initializeEntityBrowser} from '../../entity-browser/modules/actions'
+
 import * as actions from './actions'
 import {logError} from 'tocco-util/src/errorLogging'
 import {notify} from '../../../util/notification'
@@ -23,25 +25,21 @@ export const entityBrowserSelector = state => state.entityBrowser
 
 export default function* sagas() {
   yield [
-    fork(takeLatest, actions.INITIALIZE, initialize),
-    fork(takeLatest, actions.LOAD_ENTITY, loadEntity),
+    fork(takeLatest, actions.LOAD_DETAIL_VIEW, loadDetailView),
     fork(takeEvery, actions.SUBMIT_FORM, submitForm),
     fork(takeEvery, actions.LOAD_RELATION_ENTITIES, loadRelationEntities)
   ]
 }
 
-export function* initialize({payload}) {
-  const {entityName, formBase} = payload
-  yield put(actions.setEntityName(entityName))
+export function* loadDetailView({payload}) {
+  const {entityId} = payload
+  yield put(initializeEntityBrowser())
+
+  const entityBrowser = yield select(entityBrowserSelector)
+  const {formBase, entityName} = entityBrowser
   const detailFormDefinition = yield call(fetchForm, formBase + '_detail')
   yield put(actions.setFormDefinition(detailFormDefinition))
-}
-
-export function* loadEntity({payload}) {
-  const {entityId} = payload
-  const listView = yield select(detailViewSelector)
-  const {entityName, formDefinition} = listView
-  const fields = yield call(getFieldsOfDetailForm, formDefinition)
+  const fields = yield call(getFieldsOfDetailForm, detailFormDefinition)
   const entity = yield call(fetchEntity, entityName, entityId, fields)
 
   yield put(actions.setEntity(entity))

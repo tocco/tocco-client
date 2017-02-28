@@ -2,16 +2,21 @@ import React from 'react'
 import {intlShape} from 'react-intl'
 import {Button, FormattedValue, Pagination, Table} from 'tocco-ui'
 import SearchFormContainer from '../../containers/SearchFormContainer'
-const ListView = props => {
-  const onOrderByChange = orderBy => {
-    props.setOrderBy(orderBy)
+
+class ListView extends React.Component {
+  componentWillMount() {
+    this.props.initialize()
   }
 
-  const onPageChange = page => {
-    props.changePage(page)
+  onOrderByChange = orderBy => {
+    this.props.setOrderBy(orderBy)
   }
 
-  const cellRenderer = (values, entity) => {
+  onPageChange = page => {
+    this.props.changePage(page)
+  }
+
+  cellRenderer = (values, entity) => {
     const formattedValues = values.map((v, idx) => (
       <FormattedValue key={idx} type={v.type} value={v.value}/>
     ))
@@ -25,49 +30,50 @@ const ListView = props => {
     }
   }
 
-  const handleRowClick = entityId => {
-    props.router.push(`/detail/${entityId}`)
+  handleRowClick = entityId => {
+    this.props.router.push(`/detail/${entityId}`)
   }
 
-  const msg = id => {
-    return props.intl.formatMessage({
-      id
-    })
-  }
+  msg = id => (this.props.intl.formatMessage({id}))
 
-  return (
-    <div>
-      {props.showSearchForm && <SearchFormContainer/>}
-      <div className="list-view">
-        <Table
-          columnDefinitions={props.columnDefinitions}
-          records={props.entities}
-          className="table-striped"
-          onOrderByChange={onOrderByChange}
-          orderBy={props.orderBy}
-          loading={props.inProgress}
-          cellRenderer={cellRenderer}
-          onRowClick={handleRowClick}
-        />
-        <Pagination
-          totalRecords={props.entityCount}
-          recordsPerPage={props.limit}
-          onPageChange={onPageChange}
-          currentPage={props.currentPage}
-        />
-        <Button
-          onClick={props.refresh}
-          label={msg('client.entity-browser.refresh')}
-          icon="glyphicon-refresh"
-          className="refresh-button"
-        />
+  render() {
+    const props = this.props
+    return (
+      <div>
+        {props.showSearchForm && <SearchFormContainer/>}
+        <div className="list-view">
+          <Table
+            columnDefinitions={props.columnDefinitions}
+            records={props.entities}
+            className="table-striped"
+            onOrderByChange={this.onOrderByChange}
+            orderBy={props.orderBy}
+            loading={props.inProgress}
+            cellRenderer={this.cellRenderer}
+            onRowClick={this.handleRowClick}
+          />
+          <Pagination
+            totalRecords={props.entityCount}
+            recordsPerPage={props.limit}
+            onPageChange={this.onPageChange}
+            currentPage={props.currentPage}
+          />
+          <Button
+            onClick={props.refresh}
+            label={this.msg('client.entity-browser.refresh')}
+            icon="glyphicon-refresh"
+            className="refresh-button"
+          />
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 ListView.propTypes = {
   intl: intlShape.isRequired,
+  initialize: React.PropTypes.func.isRequired,
+  router: React.PropTypes.object.isRequired,
   changePage: React.PropTypes.func.isRequired,
   entities: React.PropTypes.array.isRequired,
   showSearchForm: React.PropTypes.bool,

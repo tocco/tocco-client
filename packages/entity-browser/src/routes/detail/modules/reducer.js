@@ -35,7 +35,7 @@ const ACTION_HANDLERS = {
 
 const initialState = {
   entityName: '',
-  formDefinition: [],
+  formDefinition: {},
   entity: {},
   selectBoxStores: {}
 }

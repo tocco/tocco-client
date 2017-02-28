@@ -15,12 +15,8 @@ export const SET_IN_PROGRESS = 'listView/SET_IN_PROGRESS'
 export const CHANGE_PAGE = 'listView/CHANGE_PAGE'
 export const REFRESH = 'listView/REFRESH'
 
-export const initialize = (entityName, formBase) => ({
-  type: INITIALIZE,
-  payload: {
-    entityName,
-    formBase
-  }
+export const initialize = () => ({
+  type: INITIALIZE
 })
 
 export const setEntityName = entityName => ({

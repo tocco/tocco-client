@@ -3,8 +3,9 @@ import * as actions from './actions'
 import * as searchFormActions from './searchForm/actions'
 import rootSaga, * as sagas from './sagas'
 import {getSearchInputsForRequest} from '../../../util/searchInputs'
-import {fetchForm, columnDefinitionTransformer} from '../../../util/api/forms'
+// import {fetchForm, columnDefinitionTransformer} from '../../../util/api/forms'
 import {fetchEntityCount, fetchEntities, entitiesListTransformer} from '../../../util/api/entities'
+// import {initialize as initializeEntityBrowser} from '../../entity-browser/modules/actions'
 import _clone from 'lodash/clone'
 
 const generateState = (entityStore = {}, page) => ({
@@ -36,20 +37,23 @@ describe('entity-browser', () => {
           })
         })
 
-        describe('initializeEntityBrowser saga', () => {
-          it('should initialize the entity browser by form base', () => {
-            const formBase = 'Base_form'
-            const entityName = 'User'
-
-            const gen = sagas.initialize({payload: {entityName, formBase}})
-
-            expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
-            expect(gen.next().value).to.eql(put(actions.setEntityName(entityName)))
-            expect(gen.next().value).to.eql(call(fetchForm, formBase + '_list', columnDefinitionTransformer))
-            expect(gen.next({}).value).to.eql(put(actions.setColumnDefinition({})))
-            expect(gen.next().value).to.eql(call(sagas.resetDataSet))
-            expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
-            expect(gen.next().done).to.be.true
+        describe('initialize saga', () => {
+          it('should initialize the entity browser list', () => {
+            //
+            // const formBase = 'Base_form'
+            // const entityName = 'User'
+            //
+            // const gen = sagas.initialize()
+            // expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
+            // expect(gen.next().value).to.eql(call(initializeEntityBrowser))
+            // expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
+            //
+            // expect(gen.next({formBase, entityName}).value).to.eql(put(actions.setEntityName(entityName)))
+            // expect(gen.next().value).to.eql(call(fetchForm, formBase + '_list', columnDefinitionTransformer))
+            // expect(gen.next({}).value).to.eql(put(actions.setColumnDefinition({})))
+            // expect(gen.next().value).to.eql(call(sagas.resetDataSet))
+            // expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
+            // expect(gen.next().done).to.be.true
           })
         })
 

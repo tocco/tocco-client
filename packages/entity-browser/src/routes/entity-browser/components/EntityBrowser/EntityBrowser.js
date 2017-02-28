@@ -2,11 +2,6 @@ import React from 'react'
 import RouteWithSubRoutes from '../../../../components/RouteWithSubRoutes'
 
 export class EntityBrowser extends React.Component {
-  constructor(props) {
-    super(props)
-    props.initialize()
-  }
-
   render() {
     return (
       <div>
@@ -20,8 +15,7 @@ export class EntityBrowser extends React.Component {
 }
 
 EntityBrowser.propTypes = {
-  initialize: React.PropTypes.func.isRequired,
-  showSearchForm: React.PropTypes.bool.isRequired,
+  showSearchForm: React.PropTypes.bool,
   routes: React.PropTypes.array.isRequired,
   showDetailEntityId: React.PropTypes.oneOfType([
     React.PropTypes.number,
