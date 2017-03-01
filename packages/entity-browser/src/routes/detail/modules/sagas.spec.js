@@ -1,13 +1,14 @@
 import rootSaga, * as sagas from './sagas'
 import {call, put, fork, select, takeLatest, takeEvery} from 'redux-saga/effects'
 import * as actions from './actions'
+import {initialize as initializeEntityBrowser} from '../../entity-browser/modules/actions'
 import {
   startSubmit,
   stopSubmit,
   initialize as initializeForm
 } from 'redux-form'
-import {fetchEntity, updateEntity, fetchEntities, getInitialSelectBoxStore} from '../../../util/api/entities'
-import {fetchForm, getFieldsOfDetailForm} from '../../../util/api/forms'
+import {updateEntity, fetchEntities, getInitialSelectBoxStore, fetchEntity} from '../../../util/api/entities'
+import {getFieldsOfDetailForm, fetchForm} from '../../../util/api/forms'
 import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../../util/detailView/reduxForm'
 import {submitValidate} from '../../../util/detailView/asyncValidation'
 import {notify} from '../../../util/notification'
@@ -20,8 +21,7 @@ describe('entity-browser', () => {
           it('should fork child sagas', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal([
-              fork(takeLatest, actions.INITIALIZE, sagas.initialize),
-              fork(takeLatest, actions.LOAD_ENTITY, sagas.loadEntity),
+              fork(takeLatest, actions.LOAD_DETAIL_VIEW, sagas.loadDetailView),
               fork(takeEvery, actions.SUBMIT_FORM, sagas.submitForm),
               fork(takeEvery, actions.LOAD_RELATION_ENTITIES, sagas.loadRelationEntities)
             ])
@@ -29,21 +29,10 @@ describe('entity-browser', () => {
           })
         })
 
-        describe('initialize saga', () => {
-          it('should set entityname and load detail form definition', () => {
-            const formBase = 'Base_form'
-            const entityName = 'User'
-
-            const gen = sagas.initialize(actions.initialize(entityName, formBase))
-            expect(gen.next().value).to.eql(put(actions.setEntityName(entityName)))
-            expect(gen.next().value).to.eql(call(fetchForm, formBase + '_detail'))
-            expect(gen.next([]).value).to.eql(put(actions.setFormDefinition([])))
-          })
-        })
-
-        describe('loadEntity saga', () => {
+        describe('loadDetailView saga', () => {
           it('should fetch entity and set it in store', () => {
             const entityId = 99
+            const formBase = 'UserSearch'
             const entityName = 'User'
             const formDefinition = {}
 
@@ -84,17 +73,14 @@ describe('entity-browser', () => {
               }
             ]
 
-            const gen = sagas.loadEntity(actions.loadEntity(entityId))
-            expect(gen.next().value).to.eql(select(sagas.detailViewSelector))
-            expect(gen.next({entityName, formDefinition}).value).to.eql(call(getFieldsOfDetailForm, formDefinition))
-            expect(gen.next(['field1', 'field2']).value).to.eql(
-              call(fetchEntity, entityName, entityId, ['field1', 'field2'])
-            )
-
-            expect(gen.next(entity).value).to.eql(put(actions.setEntity(entity)))
-            expect(gen.next([]).value).to.eql(call(entityToFormValues, entity))
+            const gen = sagas.loadDetailView(actions.loadDetailView(entityId))
+            expect(gen.next().value).to.eql(put(initializeEntityBrowser()))
+            expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
+            expect(gen.next({entityName, formBase, formDefinition}).value)
+              .to.eql(call(sagas.loadDetailFormDefinition, formDefinition, formBase))
+            expect(gen.next(formDefinition).value).to.eql(call(sagas.loadEntity, entityName, entityId, formDefinition))
+            expect(gen.next(entity).value).to.eql(call(entityToFormValues, entity))
             expect(gen.next({}).value).to.eql(call(getInitialSelectBoxStore, entity.paths))
-
             const storeSingleSelect = [
               {value: 1, label: 'fieldLabel'}
             ]
@@ -222,6 +208,54 @@ describe('entity-browser', () => {
             expect(gen.next().value).to.eql(select(sagas.detailViewSelector))
             expect(gen.next(detailView).value).to.eql(select(sagas.entityBrowserSelector))
             gen.next(entityBrowser).value
+            expect(gen.next().done).to.be.true
+          })
+        })
+        describe('loadDetailFormDefinition saga', () => {
+          it('should load formDefinition if not loaded', () => {
+            const formDefinition = {}
+            const loadedFormDefinition = {}
+            const formBase = 'UserSearch'
+
+            const gen = sagas.loadDetailFormDefinition(formDefinition, formBase)
+
+            expect(gen.next().value).to.eql(call(fetchForm, formBase + '_detail'))
+            expect(gen.next(loadedFormDefinition).value).to.eql(put(actions.setFormDefinition(loadedFormDefinition)))
+            expect(gen.next().done).to.be.true
+          })
+
+          it('should not load formDefinition if already loaded', () => {
+            const formDefinition = {someContent: true}
+            const formBase = 'UserSearch'
+
+            const gen = sagas.loadDetailFormDefinition(formDefinition, formBase)
+            expect(gen.next().done).to.be.true
+          })
+        })
+
+        describe('loadEntity saga', () => {
+          it('should fetchEntity with fields of form and set it on store', () => {
+            const entityName = 'User'
+            const entityId = '99'
+            const formDefinition = {}
+
+            const fields = []
+            const entity = {}
+
+            const gen = sagas.loadEntity(entityName, entityId, formDefinition)
+
+            expect(gen.next().value).to.eql(call(getFieldsOfDetailForm, formDefinition))
+            expect(gen.next(fields).value).to.eql(call(fetchEntity, entityName, entityId, fields))
+            expect(gen.next(entity).value).to.eql(put(actions.setEntity(entity)))
+
+            expect(gen.next().done).to.be.true
+          })
+
+          it('should not load formDefinition if already loaded', () => {
+            const formDefinition = {someContent: true}
+            const formBase = 'UserSearch'
+
+            const gen = sagas.loadDetailFormDefinition(formDefinition, formBase)
             expect(gen.next().done).to.be.true
           })
         })

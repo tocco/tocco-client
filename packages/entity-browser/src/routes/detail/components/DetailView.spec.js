@@ -19,7 +19,7 @@ describe('entity-browser', () => {
 
         const wrapper = shallow(<DetailView
           router={routerProp}
-          loadEntity={EMPTY_FUNC}
+          loadDetailView={EMPTY_FUNC}
           formDefinition={{children: []}}
           closeEntityDetail={EMPTY_FUNC}
           entity={{}}

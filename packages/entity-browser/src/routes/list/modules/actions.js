@@ -1,7 +1,6 @@
 export const INITIALIZE = 'listView/INITIALIZE'
 
 export const REQUEST_ENTITIES = 'listView/REQUEST_ENTITIES'
-export const SET_ENTITY_NAME = 'listView/SET_ENTITY_NAME'
 export const SET_ENTITIES = 'listView/SET_ENTITIES'
 export const SET_COLUMN_DEFINITION = 'listView/SET_COLUMN_DEFINITION'
 export const SET_ORDER_BY = 'listView/SET_ORDER_BY'
@@ -15,19 +14,8 @@ export const SET_IN_PROGRESS = 'listView/SET_IN_PROGRESS'
 export const CHANGE_PAGE = 'listView/CHANGE_PAGE'
 export const REFRESH = 'listView/REFRESH'
 
-export const initialize = (entityName, formBase) => ({
-  type: INITIALIZE,
-  payload: {
-    entityName,
-    formBase
-  }
-})
-
-export const setEntityName = entityName => ({
-  type: SET_ENTITY_NAME,
-  payload: {
-    entityName
-  }
+export const initialize = () => ({
+  type: INITIALIZE
 })
 
 export const requestEntities = (page, show) => ({

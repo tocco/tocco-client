@@ -6,10 +6,9 @@ import syncValidation from '../../../util/detailView/syncValidation'
 import {asyncValidate, AsyncValidationException} from '../../../util/detailView/asyncValidation'
 
 class DetailView extends React.Component {
-  constructor(props) {
-    super(props)
-    props.loadEntity(props.router.match.params.entityId)
-    this.validate = syncValidation(props.entityModel, props.intl)
+  componentWillMount() {
+    const entityId = this.props.router.match.params.entityId
+    this.props.loadDetailView(entityId)
   }
 
   handledAsyncValidate = values => {
@@ -22,14 +21,22 @@ class DetailView extends React.Component {
     })
   }
 
+  getSyncValidation = () => {
+    if (!this.validate) {
+      this.validate = syncValidation(this.props.entityModel, this.props.intl)
+    }
+    return this.validate
+  }
+
   render() {
     const props = this.props
+
     return (
       <div className="detail-view">
         <Button icon="glyphicon-chevron-left" onClick={props.router.goBack} label="Back"/>
         {props.formInitialValues
         && <DetailForm
-          validate={this.validate}
+          validate={this.getSyncValidation()}
           asyncValidate={this.handledAsyncValidate}
           submitForm={props.submitForm}
           formDefinition={props.formDefinition}
@@ -52,7 +59,7 @@ export default DetailView
 DetailView.propTypes = {
   intl: intlShape.isRequired,
   router: React.PropTypes.object.isRequired,
-  loadEntity: React.PropTypes.func.isRequired,
+  loadDetailView: React.PropTypes.func.isRequired,
   submitForm: React.PropTypes.func.isRequired,
   logError: React.PropTypes.func.isRequired,
   formDefinition: React.PropTypes.shape({
