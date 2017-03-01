@@ -3,7 +3,7 @@ import * as actions from './actions'
 import * as searchFormActions from './searchForm/actions'
 import rootSaga, * as sagas from './sagas'
 import {getSearchInputsForRequest} from '../../../util/searchInputs'
-// import {fetchForm, columnDefinitionTransformer} from '../../../util/api/forms'
+import {fetchForm, columnDefinitionTransformer} from '../../../util/api/forms'
 import {fetchEntityCount, fetchEntities, entitiesListTransformer} from '../../../util/api/entities'
 import {initialize as initializeEntityBrowser} from '../../entity-browser/modules/actions'
 import _clone from 'lodash/clone'
@@ -198,6 +198,26 @@ describe('entity-browser', () => {
             expect(gen.next().value).to.eql(select(sagas.searchFormSelector))
             expect(gen.next(searchForm).value).to.eql(call(_clone, {}))
             expect(gen.next({}).value).to.eql(call(getSearchInputsForRequest, {}, searchForm))
+            expect(gen.next().done).to.be.true
+          })
+        })
+
+        describe('loadColumnDefinition saga', () => {
+          it('should load Columndefinition if not loaded', () => {
+            const columnDefinition = []
+            const formBase = 'UserSearch'
+            const loadedColumnDefintion = []
+            const gen = sagas.loadColumnDefinition(columnDefinition, formBase)
+            expect(gen.next().value).to.eql(call(fetchForm, `${formBase}_list`, columnDefinitionTransformer))
+            expect(gen.next(loadedColumnDefintion).value).to.eql(put(actions.setColumnDefinition(columnDefinition)))
+
+            expect(gen.next().done).to.be.true
+          })
+
+          it('should not load Columndefinition if already loaded', () => {
+            const columnDefinition = [{someContent: true}]
+            const formBase = 'UserSearch'
+            const gen = sagas.loadColumnDefinition(columnDefinition, formBase)
             expect(gen.next().done).to.be.true
           })
         })
