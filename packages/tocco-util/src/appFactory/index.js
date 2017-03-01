@@ -1,3 +1,3 @@
-import {renderApp, createApp, createStore, registerAppInRegistry} from './appFactory'
+import {renderApp, reloadApp, createApp, createStore, registerAppInRegistry} from './appFactory'
 
-export default {renderApp, createApp, createStore, registerAppInRegistry}
+export default {renderApp, reloadApp, createApp, createStore, registerAppInRegistry}
