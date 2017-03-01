@@ -4,7 +4,7 @@ import detail from './detail'
 
 export const createRoutes = store => [{
   path: '/',
-  component: entityBrowser,
+  render: entityBrowser(store),
   routes: [
     {
       path: '/',
