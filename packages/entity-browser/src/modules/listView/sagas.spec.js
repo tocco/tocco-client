@@ -153,13 +153,23 @@ describe('entity-browser', () => {
 
             const entityName = 'User'
             const searchInputs = {}
-            const state = {...generateState(), entityName: entityName}
+            const entityExplorerState = {formBase: 'Base_form', searchFilters: []}
+            const formName = entityExplorerState.formBase + '_list'
+            const fetchParams = {
+              searchInputs,
+              formName
+            }
+            const state = {...generateState(),
+              entityName: entityName,
+              formBase: 'Base_form',
+              searchFilters: []
+            }
             const entityCount = 100
 
             expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
-            expect(gen.next().value).to.eql(select(sagas.listViewSelector))
+            expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
             expect(gen.next(state).value).to.eql(call(sagas.getSearchInputs))
-            expect(gen.next(searchInputs).value).to.eql(call(fetchEntityCount, entityName, searchInputs))
+            expect(gen.next(searchInputs).value).to.eql(call(fetchEntityCount, entityName, fetchParams))
             expect(gen.next(entityCount).value).to.eql(put(actions.setEntityCount(entityCount)))
             expect(gen.next().value).to.eql(put(actions.clearEntityStore()))
             expect(gen.next().value).to.eql(call(sagas.changePage, {payload: {page: 1}}))

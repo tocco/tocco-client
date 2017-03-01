@@ -120,10 +120,15 @@ export function* initialize({payload}) {
 
 export function* resetDataSet() {
   yield put(actions.setInProgress(true))
-  const entityBrowser = yield select(listViewSelector)
-  const {entityName} = entityBrowser
+  const entityBrowser = yield select(entityBrowserSelector)
+  const {formBase, entityName} = entityBrowser
+  const formName = `${formBase}_list`
   const searchInputs = yield call(getSearchInputs)
-  const entityCount = yield call(fetchEntityCount, entityName, searchInputs)
+  const fetchParams = {
+    searchInputs,
+    formName
+  }
+  const entityCount = yield call(fetchEntityCount, entityName, fetchParams)
   yield put(actions.setEntityCount(entityCount))
   yield put(actions.clearEntityStore())
 
