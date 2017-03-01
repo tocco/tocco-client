@@ -16,5 +16,5 @@ export default store => props => {
 
   storeFactory.injectSaga(store, sagas)
 
-  return <DetailViewContainer router={props}/>
+  return <DetailViewContainer {...props}/>
 }

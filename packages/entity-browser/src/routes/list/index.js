@@ -18,5 +18,5 @@ export default store => props => {
   storeFactory.injectSaga(store, sagas)
   storeFactory.injectSaga(store, searchFormSagas)
 
-  return <ListViewContainer router={props}/>
+  return <ListViewContainer {...props}/>
 }

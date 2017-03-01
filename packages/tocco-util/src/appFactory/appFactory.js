@@ -78,6 +78,12 @@ export const renderApp = (app, mountElementName = 'root') => {
   render()
 }
 
+export const reloadApp = (app, mountElementName = 'root') => {
+  const mountElement = document.getElementById(mountElementName)
+  ReactDOM.unmountComponentAtNode(mountElement)
+  renderApp(app, mountElementName)
+}
+
 export const registerAppInRegistry = (appName, initFunction) => {
   if (window.reactRegistry) {
     window.reactRegistry.register(appName, initFunction)

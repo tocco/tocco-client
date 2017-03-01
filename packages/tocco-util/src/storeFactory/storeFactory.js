@@ -13,7 +13,7 @@ import input from './input/reducer'
 
 const sagaMiddleware = createSagaMiddleware()
 
-export const createStore = (initialState = {}, reducers, sagas) => {
+export const createStore = (initialState = {}, reducers = {}, sagas = []) => {
   let middleware = applyMiddleware(thunk, sagaMiddleware)
 
   if (__DEBUG__) {
