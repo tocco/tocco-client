@@ -7,7 +7,7 @@ describe('login', () => {
     describe('ValidationRules', () => {
       it('should render empty div if no rules', () => {
         const wrapper = shallow(<ValidationRules rules={[]}/>)
-        expect(wrapper.equals(<ul className="ValidationRules icon-list"/>)).to.equal(true)
+        expect(wrapper.equals(<ul className="icon-list"/>)).to.equal(true)
       })
 
       it('should render rules w/o status if no errors object given', () => {

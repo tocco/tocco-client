@@ -7,7 +7,7 @@ const PasswordMatchDisplay = props => {
     : '\u00a0'
 
   return (
-    <ul className="PasswordMatchDisplay icon-list">
+    <ul className="icon-list">
       {message}
     </ul>
   )

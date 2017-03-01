@@ -11,7 +11,7 @@ Rule.propTypes = {
 }
 
 const ValidationRules = props => (
-  <ul className={classNames('ValidationRules', 'icon-list', {'neutral': props.rulesNeutral})}>
+  <ul className={classNames('icon-list', {'neutral': props.rulesNeutral})}>
     {props.rules.map((rule, index) => {
       let className = null
       let message = rule.message
