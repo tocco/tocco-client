@@ -77,7 +77,7 @@ describe('entity-browser', () => {
 
           it('should add entities to store', () => {
             const listViewState = generateState({}, 1)
-            const entityExplorerState = {formBase: 'Base_form'}
+            const entityExplorerState = {formBase: 'Base_form', searchFilters: []}
             const formName = entityExplorerState.formBase + '_list'
             const searchInputs = {}
             const entities = []
@@ -88,7 +88,8 @@ describe('entity-browser', () => {
               limit,
               fields: columnDefinition,
               searchInputs,
-              formName
+              formName,
+              searchFilters: []
             }
 
             const gen = sagas.fetchEntitiesAndAddToStore(1)
@@ -157,7 +158,8 @@ describe('entity-browser', () => {
             const formName = entityExplorerState.formBase + '_list'
             const fetchParams = {
               searchInputs,
-              formName
+              formName,
+              searchFilters: []
             }
             const state = {...generateState(),
               entityName: entityName,
