@@ -20,6 +20,7 @@ const ACTION_HANDLERS = {
   [actions.SET_FORM_BASE]: reducers.singleTransferReducer('formBase'),
   [actions.SET_SHOW_SEARCH_FORM]: reducers.singleTransferReducer('showSearchForm'),
   [actions.SET_DISABLE_SIMPLE_SEARCH]: reducers.singleTransferReducer('disableSimpleSearch'),
+  [actions.SET_SEARCH_FILTERS]: reducers.singleTransferReducer('searchFilters'),
   [actions.SET_SIMPLE_SEARCH_FIELDS]: simpleSearchFields,
   [actions.SET_ENTITY_MODEL]: reducers.singleTransferReducer('entityModel')
 }
@@ -30,6 +31,7 @@ const initialState = {
   showSearchForm: true,
   disableSimpleSearch: false,
   entityModel: {},
+  searchFilters: [],
   simpleSearchFields: ''
 }
 

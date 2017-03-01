@@ -47,15 +47,6 @@ export function fetchModel(entityName, transformer = defaultModelTransformer) {
     .then(json => transformer(json))
 }
 
-export function fetchEntityCount(entityName, searchInputs) {
-  const params = {
-    ...searchInputs
-  }
-  return request(`entities/${entityName}/count`, params)
-    .then(resp => resp.body)
-    .then(json => json.count)
-}
-
 export const entitiesListTransformer = json => {
   return json.data.map(entity => {
     const result = {
@@ -91,18 +82,20 @@ export const entitiesListTransformer = json => {
 
 const defaultEntitiesTransformer = json => (json)
 
-export function fetchEntities(entityName, {
+function buildParams({
   page = undefined,
   orderBy = {},
   limit = undefined,
   fields = [],
+  searchFilters = [],
   searchInputs = {},
   formName = undefined
-} = {}, transformer = defaultEntitiesTransformer) {
+} = {}) {
   const params = {
     '_sort': Object.keys(orderBy || {}).length === 2 ? `${orderBy.name} ${orderBy.direction}` : undefined,
     '_paths': fields.join(','),
     '_form': formName,
+    '_filter': searchFilters.join(','),
     ...searchInputs
   }
 
@@ -112,10 +105,22 @@ export function fetchEntities(entityName, {
       params._offset = (page - 1) * limit
     }
   }
+  return params
+}
 
+export function fetchEntities(entityName, searchInputs,
+                              transformer = defaultEntitiesTransformer) {
+  const params = buildParams(searchInputs)
   return getRequest(`entities/${entityName}`, params, [])
     .then(resp => resp.body)
     .then(json => transformer(json))
+}
+
+export function fetchEntityCount(entityName, searchInputs) {
+  const params = buildParams(searchInputs)
+  return getRequest(`entities/${entityName}/count`, params, [])
+    .then(resp => resp.body)
+    .then(json => json.count)
 }
 
 export const combineEntitiesInObject = entitiesList => {

@@ -1,6 +1,6 @@
 import {setLimit} from '../routes/list/modules/actions'
 import {setEntityName, setFormBase, setShowSearchForm,
-        setDisableSimpleSearch, setSimpleSearchFields} from '../routes/entity-browser/modules/actions'
+        setDisableSimpleSearch, setSimpleSearchFields, setSearchFilters} from '../routes/entity-browser/modules/actions'
 import {setPreselectedSearchFields} from '../routes/list/modules/searchForm/actions'
 import {consoleLogger} from 'tocco-util'
 
@@ -45,6 +45,11 @@ const inputsFields = [
   {
     key: 'disableSimpleSearch',
     action: setDisableSimpleSearch,
+    mandatory: false
+  },
+  {
+    key: 'searchFilters',
+    action: setSearchFilters,
     mandatory: false
   },
   {

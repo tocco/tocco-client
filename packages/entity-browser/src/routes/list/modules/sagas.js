@@ -74,6 +74,7 @@ export function* fetchEntitiesAndAddToStore(page) {
 
   if (!entityStore[page]) {
     const {orderBy, limit, columnDefinition} = list
+    const {searchFilters} = entityBrowser
     const formName = `${formBase}_list`
 
     const searchInputs = yield call(getSearchInputs)
@@ -83,6 +84,7 @@ export function* fetchEntitiesAndAddToStore(page) {
       orderBy,
       limit,
       fields,
+      searchFilters,
       searchInputs,
       formName
     }
@@ -122,10 +124,15 @@ export function* loadColumnDefinition(columnDefinition, formBase) {
 export function* resetDataSet() {
   yield put(actions.setInProgress(true))
   const entityBrowser = yield select(entityBrowserSelector)
-  const {entityName} = entityBrowser
-
+  const {entityName, searchFilters, formBase} = entityBrowser
+  const formName = `${formBase}_list`
   const searchInputs = yield call(getSearchInputs)
-  const entityCount = yield call(fetchEntityCount, entityName, searchInputs)
+  const fetchParams = {
+    searchFilters,
+    searchInputs,
+    formName
+  }
+  const entityCount = yield call(fetchEntityCount, entityName, fetchParams)
   yield put(actions.setEntityCount(entityCount))
   yield put(actions.clearEntityStore())
 
