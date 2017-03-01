@@ -7,8 +7,8 @@ import {
   stopSubmit,
   initialize as initializeForm
 } from 'redux-form'
-import {updateEntity, fetchEntities, getInitialSelectBoxStore} from '../../../util/api/entities'
-import {getFieldsOfDetailForm} from '../../../util/api/forms'
+import {updateEntity, fetchEntities, getInitialSelectBoxStore, fetchEntity} from '../../../util/api/entities'
+import {getFieldsOfDetailForm, fetchForm} from '../../../util/api/forms'
 import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../../util/detailView/reduxForm'
 import {submitValidate} from '../../../util/detailView/asyncValidation'
 import {notify} from '../../../util/notification'
@@ -208,6 +208,54 @@ describe('entity-browser', () => {
             expect(gen.next().value).to.eql(select(sagas.detailViewSelector))
             expect(gen.next(detailView).value).to.eql(select(sagas.entityBrowserSelector))
             gen.next(entityBrowser).value
+            expect(gen.next().done).to.be.true
+          })
+        })
+        describe('loadDetailFormDefinition saga', () => {
+          it('should load formDefinition if not loaded', () => {
+            const formDefinition = {}
+            const loadedFormDefinition = {}
+            const formBase = 'UserSearch'
+
+            const gen = sagas.loadDetailFormDefinition(formDefinition, formBase)
+
+            expect(gen.next().value).to.eql(call(fetchForm, formBase + '_detail'))
+            expect(gen.next(loadedFormDefinition).value).to.eql(put(actions.setFormDefinition(loadedFormDefinition)))
+            expect(gen.next().done).to.be.true
+          })
+
+          it('should not load formDefinition if already loaded', () => {
+            const formDefinition = {someContent: true}
+            const formBase = 'UserSearch'
+
+            const gen = sagas.loadDetailFormDefinition(formDefinition, formBase)
+            expect(gen.next().done).to.be.true
+          })
+        })
+
+        describe('loadEntity saga', () => {
+          it('should fetchEntity with fields of form and set it on store', () => {
+            const entityName = 'User'
+            const entityId = '99'
+            const formDefinition = {}
+
+            const fields = []
+            const entity = {}
+
+            const gen = sagas.loadEntity(entityName, entityId, formDefinition)
+
+            expect(gen.next().value).to.eql(call(getFieldsOfDetailForm, formDefinition))
+            expect(gen.next(fields).value).to.eql(call(fetchEntity, entityName, entityId, fields))
+            expect(gen.next(entity).value).to.eql(put(actions.setEntity(entity)))
+
+            expect(gen.next().done).to.be.true
+          })
+
+          it('should not load formDefinition if already loaded', () => {
+            const formDefinition = {someContent: true}
+            const formBase = 'UserSearch'
+
+            const gen = sagas.loadDetailFormDefinition(formDefinition, formBase)
             expect(gen.next().done).to.be.true
           })
         })
