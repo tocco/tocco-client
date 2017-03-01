@@ -17,7 +17,7 @@ describe('entity-browser', () => {
           const logError = sinon.spy()
           const result = validateAndGetDispatchActions(input, logError)
 
-          expect(result).to.have.length(6)
+          expect(result).to.have.length(7)
           expect(logError).to.have.callCount(0)
         })
       })

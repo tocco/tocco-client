@@ -1,14 +1,14 @@
-/* eslint-disable */
 import rootSaga, * as sagas from './sagas'
 import {call, put, fork, select, takeLatest, takeEvery} from 'redux-saga/effects'
 import * as actions from './actions'
+import {initialize as initializeEntityBrowser} from '../../entity-browser/modules/actions'
 import {
   startSubmit,
   stopSubmit,
   initialize as initializeForm
 } from 'redux-form'
-import {fetchEntity, updateEntity, fetchEntities, getInitialSelectBoxStore} from '../../../util/api/entities'
-import {fetchForm, getFieldsOfDetailForm} from '../../../util/api/forms'
+import {updateEntity, fetchEntities, getInitialSelectBoxStore} from '../../../util/api/entities'
+import {getFieldsOfDetailForm} from '../../../util/api/forms'
 import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../../util/detailView/reduxForm'
 import {submitValidate} from '../../../util/detailView/asyncValidation'
 import {notify} from '../../../util/notification'
@@ -30,75 +30,71 @@ describe('entity-browser', () => {
         })
 
         describe('loadDetailView saga', () => {
-          // it('should fetch entity and set it in store', () => {
-          //   const entityId = 99
-          //   const formBase = 'UserSearch'
-          //   const entityName = 'User'
-          //   const formDefinition = {}
-          //
-          //   const entity = {
-          //     key: 1,
-          //     model: 'User',
-          //     paths: {
-          //       field1: {
-          //         type: 'entity',
-          //         value: {
-          //           key: 1,
-          //           display: 'fieldLabel'
-          //         }
-          //       },
-          //       field2: {
-          //         type: 'entity-list',
-          //         value: [
-          //           {key: 1, display: 'fieldLabel1'},
-          //           {key: 2, display: 'fieldLabel2'}
-          //         ]
-          //       }
-          //     }
-          //   }
-          //
-          //   const stores = [
-          //     {
-          //       key: 'field1',
-          //       store: [
-          //         {value: 1, label: 'fieldLabel'}
-          //       ]
-          //     },
-          //     {
-          //       key: 'field2',
-          //       store: [
-          //         {value: 1, label: 'fieldLabel1'},
-          //         {value: 2, label: 'fieldLabel2'}
-          //       ]
-          //     }
-          //   ]
-          //
-          //   const gen = sagas.loadDetailView(actions.loadDetailView(entityId))
-          //   expect(gen.next().value).to.eql(put(initializeEntityBrowser()))
-          //   expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
-          //   expect(gen.next({entityName, formDefinition}).value).to.eql(call(getFieldsOfDetailForm, formDefinition))
-          //   expect(gen.next(['field1', 'field2']).value).to.eql(
-          //     call(fetchEntity, entityName, entityId, ['field1', 'field2'])
-          //   )
-          //
-          //   expect(gen.next(entity).value).to.eql(put(actions.setEntity(entity)))
-          //   expect(gen.next([]).value).to.eql(call(entityToFormValues, entity))
-          //   expect(gen.next({}).value).to.eql(call(getInitialSelectBoxStore, entity.paths))
-          //
-          //   const storeSingleSelect = [
-          //     {value: 1, label: 'fieldLabel'}
-          //   ]
-          //   expect(gen.next(stores).value).to.eql(put(actions.setStore('field1', storeSingleSelect)))
-          //
-          //   const storeMultiSelect = [
-          //     {value: 1, label: 'fieldLabel1'},
-          //     {value: 2, label: 'fieldLabel2'}
-          //   ]
-          //   expect(gen.next([]).value).to.eql(put(actions.setStore('field2', storeMultiSelect)))
-          //
-          //   expect(gen.next({}).value).to.eql(put(initializeForm('detailForm', {})))
-          //   expect(gen.next().done).to.be.true
-          // })
+          it('should fetch entity and set it in store', () => {
+            const entityId = 99
+            const formBase = 'UserSearch'
+            const entityName = 'User'
+            const formDefinition = {}
+
+            const entity = {
+              key: 1,
+              model: 'User',
+              paths: {
+                field1: {
+                  type: 'entity',
+                  value: {
+                    key: 1,
+                    display: 'fieldLabel'
+                  }
+                },
+                field2: {
+                  type: 'entity-list',
+                  value: [
+                    {key: 1, display: 'fieldLabel1'},
+                    {key: 2, display: 'fieldLabel2'}
+                  ]
+                }
+              }
+            }
+
+            const stores = [
+              {
+                key: 'field1',
+                store: [
+                  {value: 1, label: 'fieldLabel'}
+                ]
+              },
+              {
+                key: 'field2',
+                store: [
+                  {value: 1, label: 'fieldLabel1'},
+                  {value: 2, label: 'fieldLabel2'}
+                ]
+              }
+            ]
+
+            const gen = sagas.loadDetailView(actions.loadDetailView(entityId))
+            expect(gen.next().value).to.eql(put(initializeEntityBrowser()))
+            expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
+            expect(gen.next({entityName, formBase, formDefinition}).value)
+              .to.eql(call(sagas.loadDetailFormDefinition, formDefinition, formBase))
+            expect(gen.next(formDefinition).value).to.eql(call(sagas.loadEntity, entityName, entityId, formDefinition))
+            expect(gen.next(entity).value).to.eql(call(entityToFormValues, entity))
+            expect(gen.next({}).value).to.eql(call(getInitialSelectBoxStore, entity.paths))
+            const storeSingleSelect = [
+              {value: 1, label: 'fieldLabel'}
+            ]
+            expect(gen.next(stores).value).to.eql(put(actions.setStore('field1', storeSingleSelect)))
+
+            const storeMultiSelect = [
+              {value: 1, label: 'fieldLabel1'},
+              {value: 2, label: 'fieldLabel2'}
+            ]
+            expect(gen.next([]).value).to.eql(put(actions.setStore('field2', storeMultiSelect)))
+
+            expect(gen.next({}).value).to.eql(put(initializeForm('detailForm', {})))
+            expect(gen.next().done).to.be.true
+          })
         })
 
         describe('submitForm saga', () => {

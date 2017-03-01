@@ -18,24 +18,15 @@ export function* loadEntityModel(entityName, entityModel) {
   }
 }
 
-export function* setFormBaseToEntityNameIfEmpty(entityName, formBase) {
-  if (formBase === '') {
-    formBase = entityName
-    yield put(actions.setFormBase(formBase))
-  }
-
-  return formBase
-}
-
 export function* initialize() {
   const entityBrowser = yield select(entityBrowserSelector)
   const {entityName, entityModel, formBase, showSearchForm, disableSimpleSearch, simpleSearchFields} = entityBrowser
 
   yield call(loadEntityModel, entityName, entityModel)
 
-  const formBaseSet = yield call(setFormBaseToEntityNameIfEmpty, entityName, formBase)
-
   if (showSearchForm) {
-    yield put(searchFormActions.initialize(entityName, formBaseSet, disableSimpleSearch, simpleSearchFields))
+    yield put(searchFormActions.initialize(entityName, formBase, disableSimpleSearch, simpleSearchFields))
   }
+
+  yield put(actions.initialized())
 }

@@ -2,7 +2,7 @@ import {call, put, fork, select, spawn, takeEvery, takeLatest} from 'redux-saga/
 import * as actions from './actions'
 import * as searchFormActions from './searchForm/actions'
 import {getSearchInputsForRequest} from '../../../util/searchInputs'
-import {fetchForm, columnDefinitionTransformer} from '../../../util/api/forms'
+import {fetchForm, columnDefinitionTransformer, getFieldsOfColumnDefinition} from '../../../util/api/forms'
 import {fetchEntityCount, fetchEntities, entitiesListTransformer} from '../../../util/api/entities'
 import _clone from 'lodash/clone'
 import {initialize as initializeEntityBrowser} from '../../entity-browser/modules/actions'
@@ -22,10 +22,24 @@ export default function* sagas() {
   ]
 }
 
+export function* initialize() {
+  yield put(actions.setInProgress(true))
+  yield put(initializeEntityBrowser())
+
+  const entityBrowser = yield select(entityBrowserSelector)
+  const {formBase} = entityBrowser
+  const listView = yield select(listSelector)
+  const {columnDefinition} = listView
+
+  yield call(loadColumnDefinition, columnDefinition, formBase)
+  yield call(resetDataSet)
+  yield put(actions.setInProgress(false))
+}
+
 export function* refresh() {
   yield put(actions.setInProgress(true))
-  const entityBrowser = yield select(listSelector)
-  const {currentPage} = entityBrowser
+  const list = yield select(listSelector)
+  const {currentPage} = list
   yield put(actions.clearEntityStore())
   yield call(requestEntities, currentPage)
   yield put(actions.setInProgress(false))
@@ -52,29 +66,18 @@ export function* getSearchInputs() {
   return result
 }
 
-const extractFields = columnDefinition => {
-  let fields = []
-
-  columnDefinition.forEach(column => {
-    fields = fields.concat(column.value)
-  })
-
-  return fields
-}
-
 export function* fetchEntitiesAndAddToStore(page) {
   const entityBrowser = yield select(entityBrowserSelector)
-  const {entityName} = entityBrowser
-  const listView = yield select(listSelector)
-  const {orderBy, limit, entityStore, columnDefinition} = listView
+  const {entityName, formBase} = entityBrowser
+  const list = yield select(listSelector)
+  const {entityStore} = list
 
   if (!entityStore[page]) {
-    const entityBrowser = yield select(entityBrowserSelector)
-    const {formBase} = entityBrowser
+    const {orderBy, limit, columnDefinition} = list
     const formName = `${formBase}_list`
 
     const searchInputs = yield call(getSearchInputs)
-    const fields = extractFields(columnDefinition)
+    const fields = getFieldsOfColumnDefinition(columnDefinition)
     const fetchParams = {
       page,
       orderBy,
@@ -104,39 +107,23 @@ export function* requestEntities(page) {
 }
 
 export function* displayEntity(page) {
-  const entityBrowser = yield select(listSelector)
-  const entities = entityBrowser.entityStore[page]
+  const list = yield select(listSelector)
+  const entities = list.entityStore[page]
   yield put(actions.setEntities(entities))
 }
 
 export function* loadColumnDefinition(columnDefinition, formBase) {
   if (columnDefinition.length === 0) {
-    columnDefinition = yield call(fetchForm, formBase + '_list', columnDefinitionTransformer)
+    columnDefinition = yield call(fetchForm, `${formBase}_list`, columnDefinitionTransformer)
     yield put(actions.setColumnDefinition(columnDefinition))
   }
-}
-
-export function* initialize() {
-  yield put(actions.setInProgress(true))
-  yield put(initializeEntityBrowser())
-
-  const entityBrowser = yield select(entityBrowserSelector)
-  const {formBase} = entityBrowser
-
-  const listView = yield select(listSelector)
-  const {columnDefinition} = listView
-
-  yield call(loadColumnDefinition, columnDefinition, formBase)
-
-  yield call(resetDataSet)
-
-  yield put(actions.setInProgress(false))
 }
 
 export function* resetDataSet() {
   yield put(actions.setInProgress(true))
   const entityBrowser = yield select(entityBrowserSelector)
   const {entityName} = entityBrowser
+
   const searchInputs = yield call(getSearchInputs)
   const entityCount = yield call(fetchEntityCount, entityName, searchInputs)
   yield put(actions.setEntityCount(entityCount))

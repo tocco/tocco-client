@@ -2,8 +2,6 @@ import reducer from './index'
 import * as actions from './actions'
 
 const EXPECTED_INITIAL_STATE = {
-  entityName: '',
-  formBase: '',
   entities: [],
   limit: 50,
   currentPage: 1,
@@ -70,18 +68,6 @@ describe('entity-browser', () => {
           }
 
           expect(reducer(stateBefore, actions.addEntitiesToStore(2, newEntities))).to.deep.equal(expectedStateAfter)
-        })
-
-        it('should handle SET_ENTITY_NAME', () => {
-          const stateBefore = {
-            entityName: 'EntityBefore'
-          }
-
-          const expectedStateAfter = {
-            entityName: 'EntityAfter'
-          }
-
-          expect(reducer(stateBefore, actions.setEntityName('EntityAfter'))).to.deep.equal(expectedStateAfter)
         })
 
         it('should handle SET_ENTITIES', () => {

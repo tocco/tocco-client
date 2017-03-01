@@ -6,7 +6,6 @@ export const SET_FORM_BASE = 'SET_FORM_BASE'
 export const SET_SHOW_SEARCH_FORM = 'SET_SEARCH_FORM'
 export const SET_DISABLE_SIMPLE_SEARCH = 'SET_DISABLE_SIMPLE_SEARCH'
 export const SET_SIMPLE_SEARCH_FIELDS = 'SET_SIMPLE_SEARCH_FIELDS'
-
 export const SET_ENTITY_MODEL = 'entityBrowser/SET_ENTITY_MODEL'
 
 export const initialized = () => ({

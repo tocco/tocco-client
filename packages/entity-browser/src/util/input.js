@@ -23,6 +23,11 @@ const inputsFields = [
     mandatory: true
   },
   {
+    key: 'entityName',
+    action: setFormBase,
+    mandatory: false
+  },
+  {
     key: 'formBase',
     action: setFormBase,
     mandatory: false

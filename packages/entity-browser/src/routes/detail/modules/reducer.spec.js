@@ -2,7 +2,6 @@ import reducer from './index'
 import * as actions from './actions'
 
 const EXPECTED_INITIAL_STATE = {
-  entityName: '',
   formDefinition: {},
   entity: {},
   selectBoxStores: {}
