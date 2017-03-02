@@ -13,6 +13,10 @@ const toastrOptions = {
 }
 
 export class EntityBrowser extends React.Component {
+  componentWillMount() {
+    this.props.initialize()
+  }
+
   render() {
     return (
       <div>
@@ -27,5 +31,6 @@ export class EntityBrowser extends React.Component {
 }
 
 EntityBrowser.propTypes = {
+  initialize: React.PropTypes.func.isRequired,
   routes: React.PropTypes.array.isRequired
 }

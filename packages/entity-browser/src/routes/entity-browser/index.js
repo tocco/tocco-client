@@ -2,7 +2,7 @@ import React from 'react'
 import {storeFactory} from 'tocco-util'
 
 export default store => props => {
-  const EntityBrowser = require('./components/EntityBrowser').default
+  const EntityBrowserContainer = require('./containers/EntityBrowserContainer').default
 
   const reducer = require('./modules').default
   const toastrReducer = require('react-redux-toastr').reducer
@@ -16,5 +16,5 @@ export default store => props => {
 
   storeFactory.injectSaga(store, sagas)
 
-  return <EntityBrowser {...props}/>
+  return <EntityBrowserContainer {...props}/>
 }

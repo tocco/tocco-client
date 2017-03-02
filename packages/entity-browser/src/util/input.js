@@ -1,7 +1,9 @@
-import {setLimit} from '../routes/list/modules/actions'
-import {setEntityName, setFormBase, setShowSearchForm,
-        setDisableSimpleSearch, setSimpleSearchFields, setSearchFilters} from '../routes/entity-browser/modules/actions'
-import {setPreselectedSearchFields} from '../routes/list/modules/searchForm/actions'
+import {setLimit, setShowSearchForm, setSearchFilters} from '../routes/list/modules/actions'
+import {setEntityName, setFormBase} from '../routes/entity-browser/modules/actions'
+import {
+  setPreselectedSearchFields, setSimpleSearchFields, setDisableSimpleSearch
+}
+  from '../routes/list/modules/searchForm/actions'
 import {consoleLogger} from 'tocco-util'
 
 export const validateAndGetDispatchActions = (input, logError = consoleLogger.logError) => {

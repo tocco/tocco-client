@@ -1,7 +1,6 @@
 import rootSaga, * as sagas from './sagas'
 import {call, put, fork, select, takeLatest, takeEvery} from 'redux-saga/effects'
 import * as actions from './actions'
-import {initialize as initializeEntityBrowser} from '../../entity-browser/modules/actions'
 import {
   startSubmit,
   stopSubmit,
@@ -74,7 +73,6 @@ describe('entity-browser', () => {
             ]
 
             const gen = sagas.loadDetailView(actions.loadDetailView(entityId))
-            expect(gen.next().value).to.eql(put(initializeEntityBrowser()))
             expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
             expect(gen.next({entityName, formBase, formDefinition}).value)
               .to.eql(call(sagas.loadDetailFormDefinition, formDefinition, formBase))
@@ -141,19 +139,17 @@ describe('entity-browser', () => {
               selectBoxStores: {}
             }
 
-            const entityBrowser = {
-              entityModel: {
-                relUser: {
-                  type: 'relation',
-                  targetEntity: 'User'
-                }
+            const entityModel = {
+              relUser: {
+                type: 'relation',
+                targetEntity: 'User'
               }
             }
 
             const gen = sagas.loadRelationEntities(actions.loadRelationEntities(relationEntityName))
             expect(gen.next().value).to.eql(select(sagas.detailViewSelector))
-            expect(gen.next(detailView).value).to.eql(select(sagas.entityBrowserSelector))
-            expect(gen.next(entityBrowser).value).to.eql(call(fetchEntities, entityName))
+            expect(gen.next(detailView).value).to.eql(call(sagas.getEntityModel))
+            expect(gen.next(entityModel).value).to.eql(call(fetchEntities, entityName))
             expect(gen.next({data: []}).value).to.eql(put(actions.setStore(relationEntityName, [])))
             expect(gen.next().value).to.eql(put(actions.setStoreLoaded(relationEntityName, true)))
             expect(gen.next().done).to.be.true
@@ -170,18 +166,16 @@ describe('entity-browser', () => {
               }
             }
 
-            const entityBrowser = {
-              entityModel: {
-                relUser: {
-                  type: 'relation'
-                }
+            const entityModel = {
+              relUser: {
+                type: 'relation'
               }
             }
 
             const gen = sagas.loadRelationEntities(actions.loadRelationEntities(relationEntityName))
             expect(gen.next().value).to.eql(select(sagas.detailViewSelector))
-            expect(gen.next(detailView).value).to.eql(select(sagas.entityBrowserSelector))
-            gen.next(entityBrowser).value
+            expect(gen.next(detailView).value).to.eql(call(sagas.getEntityModel))
+            gen.next(entityModel).value
             expect(gen.next().done).to.be.true
           })
 
@@ -196,18 +190,16 @@ describe('entity-browser', () => {
               }
             }
 
-            const entityBrowser = {
-              entityModel: {
-                relUser: {
-                  type: 'NOT_RELATION'
-                }
+            const entityModel = {
+              relUser: {
+                type: 'NOT_RELATION'
               }
             }
 
             const gen = sagas.loadRelationEntities(actions.loadRelationEntities(relationEntityName))
             expect(gen.next().value).to.eql(select(sagas.detailViewSelector))
-            expect(gen.next(detailView).value).to.eql(select(sagas.entityBrowserSelector))
-            gen.next(entityBrowser).value
+            expect(gen.next(detailView).value).to.eql(call(sagas.getEntityModel))
+            gen.next(entityModel).value
             expect(gen.next().done).to.be.true
           })
         })

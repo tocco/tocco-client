@@ -1,11 +1,11 @@
-import {call, put, fork, select, spawn, takeEvery, takeLatest} from 'redux-saga/effects'
+import {call, put, fork, select, spawn, takeEvery, takeLatest, take} from 'redux-saga/effects'
 import * as actions from './actions'
 import * as searchFormActions from './searchForm/actions'
 import {getSearchInputsForRequest} from '../../../util/searchInputs'
 import {fetchForm, columnDefinitionTransformer, getFieldsOfColumnDefinition} from '../../../util/api/forms'
 import {fetchEntityCount, fetchEntities, entitiesListTransformer} from '../../../util/api/entities'
 import _clone from 'lodash/clone'
-import {initialize as initializeEntityBrowser} from '../../entity-browser/modules/actions'
+import {INITIALIZED} from '../../entity-browser/modules/actions'
 
 export const entityBrowserSelector = state => state.entityBrowser
 export const listSelector = state => state.list
@@ -22,12 +22,21 @@ export default function* sagas() {
   ]
 }
 
+export function* getEntityModel() {
+  let entityBrowser = yield select(entityBrowserSelector)
+  if (!entityBrowser.initialized) {
+    yield take(INITIALIZED)
+  }
+
+  entityBrowser = yield select(entityBrowserSelector)
+
+  return entityBrowser.entityModel
+}
+
 export function* initialize() {
   yield put(actions.setInProgress(true))
-  yield put(initializeEntityBrowser())
-
-  const entityBrowser = yield select(entityBrowserSelector)
-  const {formBase} = entityBrowser
+  yield put(searchFormActions.initialize())
+  const {formBase} = yield select(entityBrowserSelector)
   const listView = yield select(listSelector)
   const {columnDefinition} = listView
 
@@ -54,15 +63,17 @@ export function* changePage({payload}) {
 }
 
 export function* getSearchInputs() {
-  const searchForm = yield select(searchFormSelector)
-  const searchInputs = yield call(_clone, searchForm.searchInputs)
+  let {searchInputs} = yield select(searchFormSelector)
+  searchInputs = yield call(_clone, searchInputs)
+
+  const entityModel = yield call(getEntityModel)
 
   if (searchInputs && searchInputs.txtFulltext) {
     searchInputs._search = searchInputs.txtFulltext
     delete searchInputs.txtFulltext
   }
 
-  const result = yield call(getSearchInputsForRequest, searchInputs, searchForm)
+  const result = yield call(getSearchInputsForRequest, searchInputs, entityModel)
   return result
 }
 

@@ -5,7 +5,6 @@ import rootSaga, * as sagas from './sagas'
 import {getSearchInputsForRequest} from '../../../util/searchInputs'
 import {fetchForm, columnDefinitionTransformer} from '../../../util/api/forms'
 import {fetchEntityCount, fetchEntities, entitiesListTransformer} from '../../../util/api/entities'
-import {initialize as initializeEntityBrowser} from '../../entity-browser/modules/actions'
 import _clone from 'lodash/clone'
 
 const generateState = (entityStore = {}, page) => ({
@@ -37,13 +36,13 @@ describe('entity-browser', () => {
         })
 
         describe('initialize saga', () => {
-          it('should initialize the entity browser list', () => {
+          it('should initialize the list', () => {
             const formBase = 'Base_form'
             const columnDefinition = []
 
             const gen = sagas.initialize()
             expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
-            expect(gen.next().value).to.eql(put(initializeEntityBrowser()))
+            expect(gen.next().value).to.eql(put(searchFormActions.initialize()))
             expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
             expect(gen.next({formBase}).value).to.eql(select(sagas.listSelector))
             expect(gen.next({columnDefinition}).value)
@@ -80,7 +79,7 @@ describe('entity-browser', () => {
 
           it('should add entities to store', () => {
             const listViewState = generateState({}, 1)
-            const entityBrowserState = {formBase: 'Base_form', entityName: 'User',  searchFilters: []}
+            const entityBrowserState = {formBase: 'Base_form', entityName: 'User', searchFilters: []}
             const formName = entityBrowserState.formBase + '_list'
             const searchInputs = {}
             const entities = []
@@ -156,6 +155,7 @@ describe('entity-browser', () => {
           it('should clear the entity store', () => {
             const gen = sagas.resetDataSet()
 
+            const formBase = 'User'
             const entityName = 'User'
             const searchInputs = {}
             const entityCount = 100
@@ -169,7 +169,7 @@ describe('entity-browser', () => {
 
             expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
             expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
-            expect(gen.next({entityName, searchFilters}).value).to.eql(call(sagas.getSearchInputs))
+            expect(gen.next({entityName, searchFilters, formBase}).value).to.eql(call(sagas.getSearchInputs))
             expect(gen.next(searchInputs).value).to.eql(call(fetchEntityCount, entityName, fetchParams))
             expect(gen.next(entityCount).value).to.eql(put(actions.setEntityCount(entityCount)))
             expect(gen.next().value).to.eql(put(actions.clearEntityStore()))
@@ -197,15 +197,14 @@ describe('entity-browser', () => {
 
         describe('getSearchInputs saga', () => {
           it('should get searchInputs', () => {
-            const searchForm = {
-              searchInputs: {},
-              entityModel: {}
-            }
+            const searchInputs = {}
+            const entityModel = {}
 
             const gen = sagas.getSearchInputs()
             expect(gen.next().value).to.eql(select(sagas.searchFormSelector))
-            expect(gen.next(searchForm).value).to.eql(call(_clone, {}))
-            expect(gen.next({}).value).to.eql(call(getSearchInputsForRequest, {}, searchForm))
+            expect(gen.next({searchInputs}).value).to.eql(call(_clone, {}))
+            expect(gen.next(searchInputs).value).to.eql(call(sagas.getEntityModel))
+            expect(gen.next(entityModel).value).to.eql(call(getSearchInputsForRequest, searchInputs, entityModel))
             expect(gen.next().done).to.be.true
           })
         })

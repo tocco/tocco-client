@@ -19,7 +19,7 @@ const mapStateToProps = (state, props) => {
     entityCount: state.list.entityCount,
     limit: state.list.limit,
     inProgress: state.list.inProgress,
-    showSearchForm: state.entityBrowser.showSearchForm
+    showSearchForm: state.list.showSearchForm
   }
 }
 

@@ -23,7 +23,9 @@ const ACTION_HANDLERS = {
   [actions.SET_ENTITY_COUNT]: reducers.singleTransferReducer('entityCount'),
   [actions.ADD_ENTITIES_TO_STORE]: addEntityToStore,
   [actions.CLEAR_ENTITY_STORE]: clearEntityStore,
-  [actions.SET_IN_PROGRESS]: reducers.singleTransferReducer('inProgress')
+  [actions.SET_IN_PROGRESS]: reducers.singleTransferReducer('inProgress'),
+  [actions.SET_SHOW_SEARCH_FORM]: reducers.singleTransferReducer('showSearchForm'),
+  [actions.SET_SEARCH_FILTERS]: reducers.singleTransferReducer('searchFilters')
 }
 
 const initialState = {
@@ -34,7 +36,9 @@ const initialState = {
   columnDefinition: [],
   entityCount: 0,
   entityStore: {},
-  inProgress: false
+  inProgress: false,
+  showSearchForm: true,
+  searchFilters: []
 }
 
 export default function reducer(state = initialState, action) {

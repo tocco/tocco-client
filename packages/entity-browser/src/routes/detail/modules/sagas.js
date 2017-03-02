@@ -1,4 +1,4 @@
-import {call, put, fork, select, takeLatest, takeEvery} from 'redux-saga/effects'
+import {call, put, fork, select, takeLatest, takeEvery, take} from 'redux-saga/effects'
 import _isEmpty from 'lodash/isEmpty'
 import {
   startSubmit,
@@ -9,14 +9,13 @@ import {
   initialize as initializeForm
 } from 'redux-form'
 
-import {initialize as initializeEntityBrowser} from '../../entity-browser/modules/actions'
-
 import * as actions from './actions'
 import {logError} from 'tocco-util/src/errorLogging'
 import {notify} from '../../../util/notification'
 import {fetchEntity, updateEntity, fetchEntities, getInitialSelectBoxStore} from '../../../util//api/entities'
 import {fetchForm, getFieldsOfDetailForm} from '../../../util//api/forms'
 import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../../util//detailView/reduxForm'
+import {INITIALIZED} from '../../entity-browser/modules/actions'
 import {submitValidate} from '../../../util//detailView/asyncValidation'
 export const detailViewSelector = state => state.detail
 export const formDefinitionSelector = state => state.detail.formDefinition
@@ -49,7 +48,6 @@ export function* loadEntity(entityName, entityId, formDefinition) {
 
 export function* loadDetailView({payload}) {
   const {entityId} = payload
-  yield put(initializeEntityBrowser())
 
   const entityBrowser = yield select(entityBrowserSelector)
   let {formDefinition} = entityBrowser
@@ -99,10 +97,21 @@ export function* submitForm() {
   }
 }
 
+export function* getEntityModel() {
+  let entityBrowser = yield select(entityBrowserSelector)
+  if (!entityBrowser.initialized) {
+    yield take(INITIALIZED)
+  }
+
+  entityBrowser = yield select(entityBrowserSelector)
+
+  return entityBrowser.entityModel
+}
+
 export function* loadRelationEntities({payload}) {
   const {entityName} = payload
   const {selectBoxStores} = yield select(detailViewSelector)
-  const {entityModel} = yield select(entityBrowserSelector)
+  const entityModel = yield call(getEntityModel)
   const model = entityModel[entityName]
   if (model.type === 'relation' && (selectBoxStores[entityName] === undefined || !selectBoxStores[entityName].loaded)) {
     const modelName = model.targetEntity

@@ -4,11 +4,8 @@ import * as actions from './actions'
 const EXPECTED_INITIAL_STATE = {
   entityName: '',
   formBase: '',
-  showSearchForm: true,
-  disableSimpleSearch: false,
   entityModel: {},
-  searchFilters: [],
-  simpleSearchFields: ''
+  initialized: false
 }
 
 describe('entity-browser', () => {
@@ -19,12 +16,10 @@ describe('entity-browser', () => {
           expect(reducer(undefined, {})).to.deep.equal(EXPECTED_INITIAL_STATE)
         })
 
-        it('should handle SET_SIMPLE_SEARCH_FIELDS', () => {
+        it('should handle INITIALIZED', () => {
           let state = EXPECTED_INITIAL_STATE
-          state = reducer(state, actions.setSimpleSearchFields('relRel1, field1,field2, relRel2'))
-          const expectedSimpleSearchFields = ['relRel1', 'field1', 'field2', 'relRel2']
-
-          expect(state.simpleSearchFields).to.deep.equal(expectedSimpleSearchFields)
+          state = reducer(state, actions.initialized())
+          expect(state.initialized).to.be.true
         })
       })
     })
