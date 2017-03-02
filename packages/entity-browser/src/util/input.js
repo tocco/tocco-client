@@ -1,5 +1,5 @@
 import {setLimit} from '../modules/listView/actions'
-import {setEntityName, setFormBase, setShowSearchForm,
+import {setEntityName, setFormBase, setSearchFilters, setShowSearchForm,
         setDisableSimpleSearch, setSimpleSearchFields} from '../modules/entityBrowser/actions'
 import {setPreselectedSearchFields} from '../modules/searchForm/actions'
 import {consoleLogger} from 'tocco-util'
@@ -40,6 +40,11 @@ const inputsFields = [
   {
     key: 'disableSimpleSearch',
     action: setDisableSimpleSearch,
+    mandatory: false
+  },
+  {
+    key: 'searchFilters',
+    action: setSearchFilters,
     mandatory: false
   },
   {

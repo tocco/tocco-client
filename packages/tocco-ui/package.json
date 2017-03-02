@@ -5,9 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "clean": "../../node_modules/rimraf/bin.js dist",
-    "compile": "babel-node ../../bin/compile",
-    "deploy": "cd ../../ && ./node_modules/better-npm-run/index.js deploy --package=tocco-ui",
-    "prepublish": "cd ../../ && ./node_modules/better-npm-run/index.js deploy:prod --package=tocco-ui"
+    "compile": "babel-node ../../bin/compile"
   },
   "betterScripts": {
     "deploy": {
@@ -29,7 +27,7 @@
     "react-dom": "^15.2.1"
   },
   "devDependencies": {
-    "flatpickr": "^2.3.4",
+    "flatpickr": "^2.4.2",
     "react-select": "^1.0.0-rc.2",
     "tocco-theme": "0.1.0"
   }
