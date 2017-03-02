@@ -20,9 +20,9 @@ export default store => props => {
 
         storeFactory.injectSaga(store, sagas)
 
-        resolve(EntityBrowser)
+        resolve(EntityBrowserContainer)
       })
     })
   )
-  return <EntityBrowserContainer {...props}/>
+  return <Component {...props}/>
 }
