@@ -80,7 +80,7 @@ describe('entity-browser', () => {
 
           it('should add entities to store', () => {
             const listViewState = generateState({}, 1)
-            const entityBrowserState = {formBase: 'Base_form', entityName: 'User',  searchFilters: []}
+            const entityBrowserState = {formBase: 'Base_form', entityName: 'User', searchFilters: []}
             const formName = entityBrowserState.formBase + '_list'
             const searchInputs = {}
             const entities = []
