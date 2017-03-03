@@ -46,12 +46,13 @@ const simpleSearchFieldsToArray = simpleSearchFields => (
 
 const setSimpleSearchFields = (state, {payload}) => {
   const fieldArray = simpleSearchFieldsToArray(payload.simpleSearchFields)
-  if (fieldArray.length >= 0) {
+  if (fieldArray.length > 0) {
     return {
       ...state,
       simpleSearchFields: fieldArray
     }
   }
+  return state
 }
 
 const ACTION_HANDLERS = {
@@ -61,7 +62,8 @@ const ACTION_HANDLERS = {
   [actions.SET_FORM_DEFINITION]: reducers.singleTransferReducer('formDefinition'),
   [actions.SET_RELATION_ENTITIES]: reducers.singleTransferReducer('relationEntities'),
   [actions.SET_SHOW_EXTENDED_SEARCH_FORM]: reducers.singleTransferReducer('showExtendedSearchForm'),
-  [actions.SET_PRESELECTED_SEARCH_FIELDS]: setPreselectedSearchFields
+  [actions.SET_PRESELECTED_SEARCH_FIELDS]: setPreselectedSearchFields,
+  [actions.SET_DISABLE_SIMPLE_SEARCH]: reducers.singleTransferReducer('disableSimpleSearch')
 }
 
 const initialState = {
@@ -70,7 +72,8 @@ const initialState = {
   searchInputs: {},
   showExtendedSearchForm: false,
   simpleSearchFields: ['txtFulltext'],
-  preselectedSearchFields: []
+  preselectedSearchFields: [],
+  disableSimpleSearch:false
 }
 
 export default function reducer(state = initialState, action) {

@@ -7,7 +7,8 @@ const EXPECTED_INITIAL_STATE = {
   searchInputs: {},
   showExtendedSearchForm: false,
   simpleSearchFields: ['txtFulltext'],
-  preselectedSearchFields: []
+  preselectedSearchFields: [],
+  disableSimpleSearch:false
 }
 
 describe('entity-browser', () => {
