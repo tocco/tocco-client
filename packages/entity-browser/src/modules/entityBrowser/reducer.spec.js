@@ -8,6 +8,7 @@ const EXPECTED_INITIAL_STATE = {
   disableSimpleSearch: false,
   showDetailEntityId: undefined,
   entityModel: {},
+  searchFilters: [],
   simpleSearchFields: ''
 }
 

@@ -25,6 +25,7 @@ const ACTION_HANDLERS = {
   [actions.SET_FORM_BASE]: reducers.singleTransferReducer('formBase'),
   [actions.SET_SHOW_SEARCH_FORM]: reducers.singleTransferReducer('showSearchForm'),
   [actions.SET_DISABLE_SIMPLE_SEARCH]: reducers.singleTransferReducer('disableSimpleSearch'),
+  [actions.SET_SEARCH_FILTERS]: reducers.singleTransferReducer('searchFilters'),
   [actions.SET_SIMPLE_SEARCH_FIELDS]: simpleSearchFields,
   [actions.SHOW_ENTITY_DETAIL]: showEntityDetail,
   [actions.CLOSE_ENTITY_DETAIL]: showEntityDetail,
@@ -38,6 +39,7 @@ const initialState = {
   disableSimpleSearch: false,
   showDetailEntityId: undefined,
   entityModel: {},
+  searchFilters: [],
   simpleSearchFields: ''
 }
 

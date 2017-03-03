@@ -1,7 +1,7 @@
 import {fork, takeEvery, call} from 'redux-saga/effects'
 import * as actions from './actions'
 import handlerRegistry from './handlerRegistry'
-import {logError} from '../consoleLogger'
+import consoleLogger from '../consoleLogger'
 export default function* sagas(handlers) {
   yield [
     fork(takeEvery, actions.LOG_ERROR, log, handlers)
@@ -16,7 +16,7 @@ export function* log(handlers, {payload}) {
     try {
       yield call(handlerRegistry[handler], type, title, description, error)
     } catch (e) {
-      logError('Error in logger', e)
+      consoleLogger.logError('Error in logger', e)
     }
   }
 }

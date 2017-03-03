@@ -5,6 +5,7 @@ export const SET_ENTITY_NAME = 'SET_ENTITY_NAME'
 export const SET_FORM_BASE = 'SET_FORM_BASE'
 export const SET_SHOW_SEARCH_FORM = 'SET_SEARCH_FORM'
 export const SET_DISABLE_SIMPLE_SEARCH = 'SET_DISABLE_SIMPLE_SEARCH'
+export const SET_SEARCH_FILTERS = 'SET_SEARCH_FILTERS'
 export const SET_SIMPLE_SEARCH_FIELDS = 'SET_SIMPLE_SEARCH_FIELDS'
 
 export const SHOW_ENTITY_DETAIL = 'SHOW_ENTITY_DETAIL'
@@ -52,6 +53,13 @@ export const setSimpleSearchFields = simpleSearchFields => ({
   type: SET_SIMPLE_SEARCH_FIELDS,
   payload: {
     simpleSearchFields
+  }
+})
+
+export const setSearchFilters = searchFilters => ({
+  type: SET_SEARCH_FILTERS,
+  payload: {
+    searchFilters
   }
 })
 
