@@ -3,13 +3,13 @@ import {FormattedMessage} from 'react-intl'
 
 const PasswordMatchDisplay = props => {
   const message = (props.passwordRepeat && props.password !== props.passwordRepeat)
-    ? <FormattedMessage id="client.login.passwordUpdate.noMatch"/>
+    ? <li className="text-danger"><FormattedMessage id="client.login.passwordUpdate.noMatch"/></li>
     : '\u00a0'
 
   return (
-    <div className="PasswordMatchDisplay text-danger">
+    <ul className="icon-list">
       {message}
-    </div>
+    </ul>
   )
 }
 

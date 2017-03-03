@@ -73,10 +73,12 @@ class PasswordUpdateDialog extends Component {
             onChange={updateNewPassword}
             readOnly={newPasswordReadOnly}
             autoFocus={this.props.showOldPasswordField !== true}
+            valid={!newPasswordRepeatReadOnly}
           />
           <ValidationRules
             rules={validationRules}
             errors={password.newPasswordValidationErrors}
+            rulesNeutral={!password.newPassword}
           />
           <PasswordInput
             label={this.msg('client.login.passwordUpdate.newPasswordRepeat')}
@@ -84,12 +86,13 @@ class PasswordUpdateDialog extends Component {
             value={password.newPasswordRepeat}
             onChange={updateNewPasswordRepeat}
             readOnly={newPasswordRepeatReadOnly}
+            valid={this.isSubmittable()}
           />
           <PasswordMatchDisplay password={password.newPassword} passwordRepeat={password.newPasswordRepeat}/>
           <Button
             label={this.msg('client.login.passwordUpdate.saveButton')}
             disabled={this.isSubmittable() === false}
-            className={classNames({'update-pending': password.passwordUpdatePending})}
+            className={classNames('last-element-in-block', {'update-pending': password.passwordUpdatePending})}
             icon="glyphicon-floppy-save"
             type="submit"
             primary

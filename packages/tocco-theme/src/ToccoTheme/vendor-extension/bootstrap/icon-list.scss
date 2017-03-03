@@ -13,6 +13,7 @@ $icon-list-indent: $icon-list-icon-size;
 .icon-list {
   list-style-type: none;
   padding-left: $icon-list-indent;
+  margin-bottom: $line-height-computed;
 
   ul,
   ol {
@@ -29,6 +30,21 @@ $icon-list-indent: $icon-list-icon-size;
       content: $icon-list-intend-0;
     }
   }
+
+  &.neutral {
+    li,
+    li[ class ^= text ] {
+      color: $text-color;
+
+      &:before {
+        content: '\2022';  /* bullet point */
+      }
+    }
+  }
+}
+
+.form-group + .icon-list {
+  margin-top: -$line-height-computed-half;
 }
 
 // use replacement icon for list items with a special class

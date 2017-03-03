@@ -1,0 +1,33 @@
+.form-group {
+  margin-bottom: $line-height-computed;
+
+  &.dense {
+    margin-bottom: $line-height-computed-half;
+  }
+}
+
+input,
+textarea {
+  max-width: $field-max-width;
+}
+
+button,
+.btn {
+  min-width: $button-min-width;
+  margin-bottom: $line-height-computed;
+
+  + button,
+  + .btn {
+    margin-left: $line-height-computed-half;
+  }
+
+  &.update-pending {
+    .glyphicon {
+      animation: spin 2000ms infinite linear;
+
+      &:before {
+        content: '\e031';
+      }
+    }
+  }
+}
