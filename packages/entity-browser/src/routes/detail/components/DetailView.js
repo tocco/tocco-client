@@ -1,6 +1,6 @@
 import React from 'react'
 import {intlShape, FormattedMessage} from 'react-intl'
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import DetailForm from './DetailForm'
 import syncValidation from '../../../util/detailView/syncValidation'
 import {asyncValidate, AsyncValidationException} from '../../../util/detailView/asyncValidation'
