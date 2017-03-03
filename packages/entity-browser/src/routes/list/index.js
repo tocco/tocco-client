@@ -1,8 +1,11 @@
 import React from 'react'
 import {storeFactory} from 'tocco-util'
+import {setLimit, setShowSearchForm, setSearchFilters} from './modules/actions'
+import {setPreselectedSearchFields, setSimpleSearchFields, setDisableSimpleSearch} from './modules/searchForm/actions'
 import asyncRoute from '../../util/asyncRoute'
+import {dispatchInput} from '../../util/input'
 
-export default store => props => {
+export default (store, input) => props => {
   const Component = asyncRoute(() =>
     new Promise(resolve => {
       require.ensure([], require => {
@@ -21,6 +24,13 @@ export default store => props => {
 
         storeFactory.injectSaga(store, sagas)
         storeFactory.injectSaga(store, searchFormSagas)
+
+        dispatchInput(store, input, 'limit', setLimit)
+        dispatchInput(store, input, 'showSearchForm', setShowSearchForm)
+        dispatchInput(store, input, 'searchFilters', setSearchFilters)
+        dispatchInput(store, input, 'disableSimpleSearch', setDisableSimpleSearch)
+        dispatchInput(store, input, 'simpleSearchFields', setSimpleSearchFields)
+        dispatchInput(store, input, 'preselectedSearchFields', setPreselectedSearchFields)
 
         resolve(ListViewContainer)
       })

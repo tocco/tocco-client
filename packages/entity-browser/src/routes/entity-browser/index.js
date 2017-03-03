@@ -1,8 +1,10 @@
 import React from 'react'
 import {storeFactory} from 'tocco-util'
+import {setEntityName, setFormBase} from './modules/actions'
 import asyncRoute from '../../util/asyncRoute'
+import {dispatchInput} from '../../util/input'
 
-export default store => props => {
+export default (store, input) => props => {
   const Component = asyncRoute(() =>
     new Promise(resolve => {
       require.ensure([], require => {
@@ -19,6 +21,10 @@ export default store => props => {
         })
 
         storeFactory.injectSaga(store, sagas)
+
+        dispatchInput(store, input, 'entityName', setEntityName, true)
+        dispatchInput(store, input, 'entityName', setFormBase)
+        dispatchInput(store, input, 'formBase', setFormBase)
 
         resolve(EntityBrowserContainer)
       })
