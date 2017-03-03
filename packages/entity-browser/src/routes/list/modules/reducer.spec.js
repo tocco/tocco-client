@@ -9,7 +9,9 @@ const EXPECTED_INITIAL_STATE = {
   columnDefinition: [],
   entityCount: 0,
   entityStore: {},
-  inProgress: false
+  inProgress: false,
+  searchFilters: [],
+  showSearchForm: true
 }
 
 describe('entity-browser', () => {

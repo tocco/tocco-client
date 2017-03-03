@@ -11,17 +11,15 @@ describe('entity-browser', () => {
             field: 'some input'
           }
 
-          const searchForm = {
-            entityModel: {
-              relMulti_entity: {
-                type: 'relation'
-              },
-              relSingle_entity: {
-                type: 'relation'
-              },
-              field: {
-                type: 'not_a_relation'
-              }
+          const entityModel = {
+            relMulti_entity: {
+              type: 'relation'
+            },
+            relSingle_entity: {
+              type: 'relation'
+            },
+            field: {
+              type: 'not_a_relation'
             }
           }
 
@@ -31,7 +29,7 @@ describe('entity-browser', () => {
             field: 'some input'
           }
 
-          const result = getSearchInputsForRequest(input, searchForm)
+          const result = getSearchInputsForRequest(input, entityModel)
 
           expect(result).to.deep.eql(expectedResult)
         })

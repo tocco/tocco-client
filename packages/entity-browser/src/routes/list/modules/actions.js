@@ -13,6 +13,9 @@ export const RESET_DATA_SET = 'listView/RESET_DATA_SET'
 export const SET_IN_PROGRESS = 'listView/SET_IN_PROGRESS'
 export const CHANGE_PAGE = 'listView/CHANGE_PAGE'
 export const REFRESH = 'listView/REFRESH'
+export const SET_SHOW_SEARCH_FORM = 'SET_SEARCH_FORM'
+export const SET_SEARCH_FILTERS = 'SET_SEARCH_FILTERS'
+export const SET_SIMPLE_SEARCH_FIELDS = 'SET_SIMPLE_SEARCH_FIELDS'
 
 export const initialize = () => ({
   type: INITIALIZE
@@ -102,3 +105,16 @@ export const refresh = () => ({
   type: REFRESH
 })
 
+export const setShowSearchForm = showSearchForm => ({
+  type: SET_SHOW_SEARCH_FORM,
+  payload: {
+    showSearchForm
+  }
+})
+
+export const setSearchFilters = searchFilters => ({
+  type: SET_SEARCH_FILTERS,
+  payload: {
+    searchFilters
+  }
+})

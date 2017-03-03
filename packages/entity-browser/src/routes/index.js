@@ -2,18 +2,18 @@ import list from './list'
 import entityBrowser from './entity-browser'
 import detail from './detail'
 
-export const createRoutes = store => [{
+export const createRoutes = (store, input) => [{
   path: '/',
-  render: entityBrowser(store),
+  render: entityBrowser(store, input),
   routes: [
     {
       path: '/',
       exact: true,
-      render: list(store)
+      render: list(store, input)
     },
     {
       path: '/detail/:entityId',
-      render: detail(store)
+      render: detail(store, input)
     }
   ]
 }]

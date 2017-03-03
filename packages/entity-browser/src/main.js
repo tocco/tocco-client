@@ -4,18 +4,15 @@ import {appFactory} from 'tocco-util'
 import {Router} from 'react-router'
 import createHistory from 'history/createHashHistory'
 import RouteWithSubRoutes from './components/RouteWithSubRoutes'
-import {validateAndGetDispatchActions} from './util/input'
 
 const packageName = 'entity-browser'
 
 const initApp = (id, input, events, publicPath) => {
-  const dispatchActions = validateAndGetDispatchActions(input)
-
   const history = createHistory()
 
   const store = appFactory.createStore(undefined, undefined, input)
 
-  const routes = require('./routes/index').default(store)
+  const routes = require('./routes/index').default(store, input)
 
   const content = (
     <Router history={history}>
@@ -33,7 +30,7 @@ const initApp = (id, input, events, publicPath) => {
     store,
     input,
     events,
-    dispatchActions,
+    [],
     publicPath
   )
 }

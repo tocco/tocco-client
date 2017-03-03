@@ -1,36 +1,64 @@
-import {validateAndGetDispatchActions} from './input'
+import {dispatchInput} from './input'
 
 describe('entity-browser', () => {
   describe('util', () => {
     describe('input', () => {
-      describe('validateAndGetDispatchActions', () => {
-        it('should accept a valid input', () => {
+      describe('dispatchInput', () => {
+        const actionCreator = entityName => ({
+          type: 'SET_ENTITY_NAME',
+          payload: {
+            entityName
+          }
+        })
+
+        it('should dispatch action with input value', () => {
           const input = {
-            entityName: 'User',
-            limit: 50,
-            formBase: 'UserSearch',
-            showSearchForm: true,
-            disableSimpleSearch: false,
-            simpleSearchFields: ['txtFulltext']
+            entityName: 'User'
           }
 
-          const logError = sinon.spy()
-          const result = validateAndGetDispatchActions(input, logError)
+          const store = {
+            dispatch: sinon.mock()
+          }
 
-          expect(result).to.have.length(7)
-          expect(logError).to.have.callCount(0)
+          store.dispatch.once().withExactArgs(actionCreator('User'))
+
+          dispatchInput(store, input, 'entityName', actionCreator)
+
+          store.dispatch.verify()
         })
-      })
 
-      it('should accept a valid input', () => {
-        const input = {
-        }
+        it('should not dispatch action if input value missing', () => {
+          const input = { // no `entityName` property
+          }
 
-        const logError = sinon.spy()
-        const result = validateAndGetDispatchActions(input, logError)
+          const store = {
+            dispatch: sinon.mock()
+          }
 
-        expect(result).to.have.length(0)
-        expect(logError).to.have.callCount(1)
+          store.dispatch.never()
+
+          dispatchInput(store, input, 'entityName', actionCreator)
+
+          store.dispatch.verify()
+        })
+
+        it('should log error if mandatory input value missing', () => {
+          const input = { // no `entityName` property
+          }
+
+          const store = {
+            dispatch: sinon.mock()
+          }
+
+          store.dispatch.never()
+
+          const logger = sinon.mock()
+          logger.once().withExactArgs("EntityBrowser: Mandatory field 'entityName' not set in input")
+
+          dispatchInput(store, input, 'entityName', actionCreator, true, logger)
+
+          store.dispatch.verify()
+        })
       })
     })
   })

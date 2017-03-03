@@ -1,8 +1,9 @@
 import {put, fork, select, call, takeLatest} from 'redux-saga/effects'
-import * as actions from './actions'
-import * as searchFormActions from '../../list/modules/searchForm/actions'
-import {fetchModel} from '../../../util/api/entities'
 import _isEmpty from 'lodash/isEmpty'
+
+import * as actions from './actions'
+import {fetchModel} from '../../../util/api/entities'
+
 export const entityBrowserSelector = state => state.entityBrowser
 
 export default function* sagas() {
@@ -19,14 +20,7 @@ export function* loadEntityModel(entityName, entityModel) {
 }
 
 export function* initialize() {
-  const entityBrowser = yield select(entityBrowserSelector)
-  const {entityName, entityModel, formBase, showSearchForm, disableSimpleSearch, simpleSearchFields} = entityBrowser
-
+  const {entityName, entityModel} = yield select(entityBrowserSelector)
   yield call(loadEntityModel, entityName, entityModel)
-
-  if (showSearchForm) {
-    yield put(searchFormActions.initialize(entityName, formBase, disableSimpleSearch, simpleSearchFields))
-  }
-
   yield put(actions.initialized())
 }

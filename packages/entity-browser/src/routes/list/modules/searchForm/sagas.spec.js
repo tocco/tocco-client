@@ -2,8 +2,6 @@ import {delay} from 'redux-saga'
 import {put, select, call, fork, takeLatest} from 'redux-saga/effects'
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
-import {fetchForm, searchFormTransformer} from '../../../../util/api/forms'
-import {fetchModel, combineEntitiesInObject, fetchEntities} from '../../../../util/api/entities'
 
 describe('entity-browser', () => {
   describe('modules', () => {
@@ -23,26 +21,9 @@ describe('entity-browser', () => {
 
         describe('initializeSearchForm saga', () => {
           it('should set model and from definition and retrieve relevant entities', () => {
-            const entityName = 'User'
             const formBase = 'UserSearch'
-
-            const gen = sagas.initialize({payload: {entityName, formBase}})
-
-            expect(gen.next().value).to.eql([
-              call(fetchForm, formBase + '_search', searchFormTransformer),
-              call(fetchModel, entityName)
-            ])
-
-            const formDefinition = [
-              {
-                name: 'test1',
-                type: 'ch.tocco.nice2.model.form.components.simple.MultiSelectBox'
-              },
-              {
-                name: 'test2',
-                type: 'ch.tocco.nice2.model.form.components.simple.MultiSelectBox'
-              }
-            ]
+            const relationEntities = {}
+            const formDefinition = []
 
             const entityModel = {
               test1: {
@@ -53,16 +34,14 @@ describe('entity-browser', () => {
               }
             }
 
-            expect(gen.next([formDefinition, entityModel]).value).to.eql(put(actions.setEntityModel(entityModel)))
-            expect(gen.next().value).to.eql(put(actions.setFormDefinition(formDefinition)))
+            const gen = sagas.initialize()
+            expect(gen.next().value).to.eql(select(sagas.searchFormSelector))
+            expect(gen.next({formDefinition, relationEntities}).value).to.eql(select(sagas.entityBrowserSelector))
+            expect(gen.next({formBase}).value).to.eql(call(sagas.getEntityModel))
 
-            expect(gen.next().value).to.eql([
-              call(fetchEntities, 'testEntity1'),
-              call(fetchEntities, 'testEntity2')
-            ])
-
-            expect(gen.next({}).value).to.eql(call(combineEntitiesInObject, {}))
-            expect(gen.next({}).value).to.eql(put(actions.setRelationEntities({})))
+            expect(gen.next(entityModel).value).to.eql(call(sagas.loadSearchForm, formDefinition, formBase))
+            expect(gen.next(formDefinition).value)
+              .to.eql(call(sagas.loadRelationEntities, relationEntities, formDefinition, entityModel))
             expect(gen.next().done).to.be.true
           })
         })
@@ -70,10 +49,11 @@ describe('entity-browser', () => {
         describe('setSearchTerm saga', () => {
           it('should notify with delay (debounce)', () => {
             const gen = sagas.setSearchTerm()
+            const searchValues = {}
 
             expect(gen.next().value).to.eql(call(delay, 400))
-            expect(gen.next().value).to.eql(select(sagas.searchValuesSelector))
-            expect(gen.next({}).value).to.eql(put(actions.searchTermChange({})))
+            expect(gen.next().value).to.eql(select(sagas.searchFormSelector))
+            expect(gen.next({searchValues}).value).to.eql(put(actions.searchTermChange({})))
           })
         })
       })

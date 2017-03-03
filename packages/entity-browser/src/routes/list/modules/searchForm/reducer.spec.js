@@ -3,12 +3,12 @@ import * as actions from './actions'
 
 const EXPECTED_INITIAL_STATE = {
   formDefinition: [],
-  entityModel: {},
   relationEntities: {},
   searchInputs: {},
   showExtendedSearchForm: false,
   simpleSearchFields: ['txtFulltext'],
-  preselectedSearchFields: []
+  preselectedSearchFields: [],
+  disableSimpleSearch:false
 }
 
 describe('entity-browser', () => {
