@@ -215,7 +215,8 @@ webpackConfig.module.rules = [
           }
         }],
         'transform-runtime',
-        'transform-flow-strip-types'
+        'transform-flow-strip-types',
+        'syntax-dynamic-import'
       ],
       presets: [
         ['es2015', { 'modules': false }],
