@@ -23,7 +23,7 @@ const inputDispatches = [
 
 export default {
   container: EntityBrowserContainer,
-  reducer: {
+  reducers: {
     entityBrowser,
     toastr
   },

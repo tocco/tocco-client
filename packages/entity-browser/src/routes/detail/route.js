@@ -5,7 +5,7 @@ import {reducer as form} from 'redux-form'
 
 export default {
   container: DetailViewContainer,
-  reducer: {
+  reducers: {
     detail,
     form
   },

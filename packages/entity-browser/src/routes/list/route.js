@@ -35,7 +35,7 @@ const inputDispatches = [
 
 export default {
   container: ListViewContainer,
-  reducer:  {
+  reducers:  {
     list,
     searchForm
   },

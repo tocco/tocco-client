@@ -6,20 +6,21 @@ import {dispatchInput} from './input'
 export const loadRoute = (store, input, importRouteDependencies, path) => props => {
   const Component = asyncRoute(() =>
     new Promise(resolve => {
-      importRouteDependencies().then(module => {
-        storeFactory.injectReducers(store, module.default.reducer)
+      importRouteDependencies().then(imported => {
+        const route = imported.default
+        storeFactory.injectReducers(store, route.reducers)
 
-        module.default.sagas.forEach(saga => {
+        route.sagas.forEach(saga => {
           storeFactory.injectSaga(store, saga)
         })
 
-        if (module.default.inputDispatches) {
-          module.default.inputDispatches.forEach(inputDispatch => {
+        if (route.inputDispatches) {
+          route.inputDispatches.forEach(inputDispatch => {
             dispatchInput(store, input, inputDispatch.field, inputDispatch.action, inputDispatch.mandatory)
           })
         }
 
-        resolve(module.default.container)
+        resolve(route.container)
       })
     })
   )
