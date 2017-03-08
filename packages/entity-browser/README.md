@@ -21,6 +21,7 @@ React-registry name: `entity-browser`
 | `formBase`             |           | formBase_list and formBase_search will be the used forms.
 | `limit`                |           | Maximum records per page
 | `preselectedSearchFields`|         | Array of the search fields with preselected values.
+| `searchFilters`        |           | Array of search-filter ids.
 | `simpleSearchFields`   |           | Comma separated String of searchfields which should be displayed by default.
 
 

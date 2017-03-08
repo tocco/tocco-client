@@ -5,6 +5,10 @@
   "showSearchForm": true,
   "disableSimpleSearch": false,
   "simpleSearchFields": "",
+  "searchFilters": [
+    "user_with_pk_1",
+    "has_contract"
+  ],
   "preselectedSearchFields": [
     {
       "id": "txtFulltext",
