@@ -71,9 +71,9 @@ const initPasswordUpdateApp = (id, input, events, publicPath) => {
     const setupFetchMocks = require('./dev/fetchMocks')
     setupFetchMocks(fetchMock)
 
-    // const app = initLoginApp('id', require('./dev/login_input.json'))
+    const app = initLoginApp('id', require('./dev/login_input.json'))
     // uncomment to develop passwordUpdate App
-    const app = initPasswordUpdateApp('id', require('./dev/password_update_input.json'))
+    // const app = initPasswordUpdateApp('id', require('./dev/password_update_input.json'))
 
     if (module.hot) {
       module.hot.accept('./modules/reducers', () => {
