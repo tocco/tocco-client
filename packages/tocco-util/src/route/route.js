@@ -8,11 +8,16 @@ export const loadRoute = (store, input, importRouteDependencies, path) => props 
     new Promise(resolve => {
       importRouteDependencies().then(imported => {
         const route = imported.default
-        storeFactory.injectReducers(store, route.reducers)
 
-        route.sagas.forEach(saga => {
-          storeFactory.injectSaga(store, saga)
-        })
+        if (route.reducers) {
+          storeFactory.injectReducers(store, route.reducers)
+        }
+
+        if (route.sagas) {
+          route.sagas.forEach(saga => {
+            storeFactory.injectSaga(store, saga)
+          })
+        }
 
         if (route.inputDispatches) {
           route.inputDispatches.forEach(inputDispatch => {
