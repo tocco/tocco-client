@@ -23,6 +23,7 @@
     "deploy:dev": "better-npm-run deploy:dev",
     "deploy:prod": "better-npm-run deploy:prod",
     "deploy:standalone": "better-npm-run deploy:standalone",
+    "deploy:nice2_11_legacy": "better-npm-run deploy:nice2_11_legacy",
     "publish": "better-npm-run publish",
     "codecov": "cat ./coverage/lcov/lcov.info | codecov",
     "setup": "yarn && cd server/static && yarn",
@@ -68,6 +69,13 @@
       "command": "npm run deploy",
       "env": {
         "NODE_ENV": "standalone",
+        "DEBUG": "app:*"
+      }
+    },
+    "deploy:nice2_11_legacy": {
+      "command": "npm run deploy",
+      "env": {
+        "NODE_ENV": "nice2_11_legacy",
         "DEBUG": "app:*"
       }
     },
