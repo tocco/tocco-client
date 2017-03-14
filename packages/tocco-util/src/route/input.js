@@ -1,4 +1,4 @@
-import {consoleLogger} from 'tocco-util'
+import consoleLogger from '../consoleLogger'
 
 export const dispatchInput = (store, input, key, actionCreator, mandatory = false, logger = consoleLogger.logError) => {
   if (input.hasOwnProperty(key)) {

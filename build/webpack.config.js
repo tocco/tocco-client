@@ -66,7 +66,8 @@ webpackConfig.entry = {
 // ------------------------------------
 
 webpackConfig.output = {
-  filename: 'index.js',
+  filename: '[name]-bundle.js',
+  chunkFilename: '[name]-chunk.js',
   path: outputDir,
   libraryTarget: 'umd',
   publicPath: ''
@@ -79,6 +80,14 @@ webpackConfig.output = {
 webpackConfig.plugins = [
   new webpack.DefinePlugin(config.globals)
 ]
+
+webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin({
+  async: true,
+  minChunks(module, count) {
+    return count >= 2
+  }
+})
+)
 
 if (__DEV__) {
   webpackConfig.plugins.push(
@@ -206,7 +215,8 @@ webpackConfig.module.rules = [
           }
         }],
         'transform-runtime',
-        'transform-flow-strip-types'
+        'transform-flow-strip-types',
+        'syntax-dynamic-import'
       ],
       presets: [
         ['es2015', { 'modules': false }],

@@ -8,7 +8,8 @@ describe('entity-browser', () => {
       const InnerComp = () => <div>test</div>
 
       it('should render nothing before loaded', () => {
-        const promise = new Promise(() => {}) // never resolved
+        const promise = new Promise(() => {
+        }) // never resolved
 
         const AsyncComp = asyncRoute(() => promise)
         const wrapper = mount(<AsyncComp/>)
@@ -26,6 +27,17 @@ describe('entity-browser', () => {
           expect(wrapper.find(InnerComp)).to.have.length(1)
           done()
         })
+      })
+
+      it('should set mounted var accordingly and not log an error', done => {
+        const promise = new Promise(resolve => setTimeout(resolve(InnerComp), 100))
+
+        const AsyncComp = asyncRoute(() => promise)
+        const wrapper = mount(<AsyncComp/>)
+        expect(wrapper.instance().mounted).to.be.true
+        wrapper.unmount()
+
+        promise.then(done())
       })
     })
   })
