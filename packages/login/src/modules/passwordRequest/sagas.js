@@ -1,5 +1,4 @@
-import {takeLatest} from 'redux-saga'
-import {fork, put, call, select} from 'redux-saga/effects'
+import {fork, put, call, select, takeLatest} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import {changePage, setUsername} from '../login/actions'
