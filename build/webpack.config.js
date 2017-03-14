@@ -66,7 +66,7 @@ webpackConfig.entry = {
 // ------------------------------------
 
 webpackConfig.output = {
-  filename: '[name]-bundle.js',
+  filename: 'index.js',
   chunkFilename: '[name]-chunk.js',
   path: outputDir,
   libraryTarget: 'umd',
