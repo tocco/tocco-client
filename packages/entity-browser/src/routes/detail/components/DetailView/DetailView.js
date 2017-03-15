@@ -72,7 +72,7 @@ DetailView.propTypes = {
       React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.object])))
   ),
   entity: React.PropTypes.object,
-  loadRelationEntity: React.PropTypes.func,
+  loadRelationEntity: React.PropTypes.func.isRequired,
   formInitialValues: React.PropTypes.object,
   relationEntities: React.PropTypes.shape({
     entityName: React.PropTypes.shape({
@@ -84,7 +84,7 @@ DetailView.propTypes = {
         })
       )
     })
-  }),
+  }).isRequired,
   lastSave: React.PropTypes.number
 }
 

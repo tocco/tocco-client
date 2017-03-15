@@ -1,3 +1,5 @@
+import {consoleLogger} from 'tocco-util'
+
 const fromDefinitionTypeMap = {
   'ch.tocco.nice2.model.form.components.simple.DateField': 'date',
   'ch.tocco.nice2.model.form.components.simple.TextField': 'string',
@@ -86,6 +88,10 @@ const getEvents = (field, modelField, util) => {
 
 export const getEditableValueProps = (formField, modelField, util) => {
   const type = fromDefinitionTypeMap[formField.type]
+  if (!type) {
+    consoleLogger.logError(`FormField: No type found for type ${formField.type}`)
+  }
+
   const options = getOptions(formField, modelField, util)
   const events = getEvents(formField, modelField, util)
 

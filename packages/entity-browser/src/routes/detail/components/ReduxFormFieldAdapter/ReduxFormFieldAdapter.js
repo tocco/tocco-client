@@ -2,6 +2,10 @@ import React from 'react'
 import _omit from 'lodash/omit'
 import FormField from '../../../../components/FormField'
 
+const extractEventsFromInput = input => (
+  _omit(input, ['name', 'value', 'onChange'])
+)
+
 const ReduxFormFieldAdapter = props => {
   const {
     input,
@@ -13,10 +17,6 @@ const ReduxFormFieldAdapter = props => {
     editableValueUtils
   } = props
 
-  const extractEventsFromInput = () => (
-    _omit(input, ['name', 'value', 'onChange'])
-  )
-
   return (
     <div>
       <FormField
@@ -27,7 +27,7 @@ const ReduxFormFieldAdapter = props => {
         value={input.value}
         onChange={input.onChange}
         error={error}
-        events={extractEventsFromInput()}
+        events={extractEventsFromInput(input)}
         touched={touched}
         dirty={dirty}
         readOnly={submitting}
