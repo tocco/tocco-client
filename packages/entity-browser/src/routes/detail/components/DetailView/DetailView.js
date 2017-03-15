@@ -1,9 +1,10 @@
 import React from 'react'
 import {intlShape, FormattedMessage} from 'react-intl'
 import {Link} from 'react-router-dom'
-import DetailForm from './DetailForm'
-import syncValidation from '../../../util/detailView/syncValidation'
-import {asyncValidate, AsyncValidationException} from '../../../util/detailView/asyncValidation'
+
+import DetailForm from '../DetailForm'
+import syncValidation from '../../../../util/detailView/syncValidation'
+import {asyncValidate, AsyncValidationException} from '../../../../util/detailView/asyncValidation'
 
 class DetailView extends React.Component {
   componentWillMount() {
@@ -22,10 +23,10 @@ class DetailView extends React.Component {
   }
 
   getSyncValidation = () => {
-    if (!this.validate) {
-      this.validate = syncValidation(this.props.entityModel, this.props.intl)
+    if (!this.validateSingleton) {
+      this.validateSingleton = syncValidation(this.props.entityModel, this.props.intl)
     }
-    return this.validate
+    return this.validateSingleton
   }
 
   render() {
@@ -41,8 +42,8 @@ class DetailView extends React.Component {
           submitForm={props.submitForm}
           formDefinition={props.formDefinition}
           entity={props.entity}
-          loadRelationEntities={props.loadRelationEntities}
-          selectBoxStores={props.selectBoxStores}
+          loadRelationEntity={props.loadRelationEntity}
+          relationEntities={props.relationEntities}
           formErrors={props.formErrors}
           entityModel={props.entityModel}
           intl={props.intl}
@@ -71,9 +72,9 @@ DetailView.propTypes = {
       React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.object])))
   ),
   entity: React.PropTypes.object,
-  loadRelationEntities: React.PropTypes.func,
+  loadRelationEntity: React.PropTypes.func,
   formInitialValues: React.PropTypes.object,
-  selectBoxStores: React.PropTypes.shape({
+  relationEntities: React.PropTypes.shape({
     entityName: React.PropTypes.shape({
       loaded: React.PropTypes.bool,
       data: React.PropTypes.arrayOf(

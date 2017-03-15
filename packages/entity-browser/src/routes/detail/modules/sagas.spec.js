@@ -6,7 +6,7 @@ import {
   stopSubmit,
   initialize as initializeForm
 } from 'redux-form'
-import {updateEntity, fetchEntities, getInitialSelectBoxStore, fetchEntity} from '../../../util/api/entities'
+import {updateEntity, fetchEntity} from '../../../util/api/entities'
 import {getFieldsOfDetailForm, fetchForm} from '../../../util/api/forms'
 import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../../util/detailView/reduxForm'
 import {submitValidate} from '../../../util/detailView/asyncValidation'
@@ -21,8 +21,7 @@ describe('entity-browser', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal([
               fork(takeLatest, actions.LOAD_DETAIL_VIEW, sagas.loadDetailView),
-              fork(takeEvery, actions.SUBMIT_FORM, sagas.submitForm),
-              fork(takeEvery, actions.LOAD_RELATION_ENTITIES, sagas.loadRelationEntities)
+              fork(takeEvery, actions.SUBMIT_FORM, sagas.submitForm)
             ])
             expect(generator.next().done).to.be.true
           })
@@ -56,40 +55,13 @@ describe('entity-browser', () => {
               }
             }
 
-            const stores = [
-              {
-                key: 'field1',
-                store: [
-                  {value: 1, label: 'fieldLabel'}
-                ]
-              },
-              {
-                key: 'field2',
-                store: [
-                  {value: 1, label: 'fieldLabel1'},
-                  {value: 2, label: 'fieldLabel2'}
-                ]
-              }
-            ]
-
             const gen = sagas.loadDetailView(actions.loadDetailView(entityId))
             expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
             expect(gen.next({entityName, formBase, formDefinition}).value)
               .to.eql(call(sagas.loadDetailFormDefinition, formDefinition, formBase))
             expect(gen.next(formDefinition).value).to.eql(call(sagas.loadEntity, entityName, entityId, formDefinition))
             expect(gen.next(entity).value).to.eql(call(entityToFormValues, entity))
-            expect(gen.next({}).value).to.eql(call(getInitialSelectBoxStore, entity.paths))
-            const storeSingleSelect = [
-              {value: 1, label: 'fieldLabel'}
-            ]
-            expect(gen.next(stores).value).to.eql(put(actions.setStore('field1', storeSingleSelect)))
-
-            const storeMultiSelect = [
-              {value: 1, label: 'fieldLabel1'},
-              {value: 2, label: 'fieldLabel2'}
-            ]
-            expect(gen.next([]).value).to.eql(put(actions.setStore('field2', storeMultiSelect)))
-
+            expect(gen.next({}).value).to.eql(call(sagas.initRelationEntities, entity))
             expect(gen.next({}).value).to.eql(put(initializeForm('detailForm', {})))
             expect(gen.next().done).to.be.true
           })
@@ -130,79 +102,6 @@ describe('entity-browser', () => {
           })
         })
 
-        describe('loadRelationEntities saga', () => {
-          it('should load passed entity and save to store', () => {
-            const relationEntityName = 'relUser'
-            const entityName = 'User'
-
-            const detailView = {
-              selectBoxStores: {}
-            }
-
-            const entityModel = {
-              relUser: {
-                type: 'relation',
-                targetEntity: 'User'
-              }
-            }
-
-            const gen = sagas.loadRelationEntities(actions.loadRelationEntities(relationEntityName))
-            expect(gen.next().value).to.eql(select(sagas.detailViewSelector))
-            expect(gen.next(detailView).value).to.eql(call(sagas.getEntityModel))
-            expect(gen.next(entityModel).value).to.eql(call(fetchEntities, entityName))
-            expect(gen.next({data: []}).value).to.eql(put(actions.setStore(relationEntityName, [])))
-            expect(gen.next().value).to.eql(put(actions.setStoreLoaded(relationEntityName, true)))
-            expect(gen.next().done).to.be.true
-          })
-
-          it('should not load the store because loaded is set', () => {
-            const relationEntityName = 'relUser'
-            const detailView = {
-              selectBoxStores: {
-                relUser: {
-                  data: [],
-                  loaded: true
-                }
-              }
-            }
-
-            const entityModel = {
-              relUser: {
-                type: 'relation'
-              }
-            }
-
-            const gen = sagas.loadRelationEntities(actions.loadRelationEntities(relationEntityName))
-            expect(gen.next().value).to.eql(select(sagas.detailViewSelector))
-            expect(gen.next(detailView).value).to.eql(call(sagas.getEntityModel))
-            gen.next(entityModel).value
-            expect(gen.next().done).to.be.true
-          })
-
-          it('should not load the store because type is not equal `relation`', () => {
-            const relationEntityName = 'relUser'
-            const detailView = {
-              selectBoxStores: {
-                relUser: {
-                  data: [],
-                  loaded: false
-                }
-              }
-            }
-
-            const entityModel = {
-              relUser: {
-                type: 'NOT_RELATION'
-              }
-            }
-
-            const gen = sagas.loadRelationEntities(actions.loadRelationEntities(relationEntityName))
-            expect(gen.next().value).to.eql(select(sagas.detailViewSelector))
-            expect(gen.next(detailView).value).to.eql(call(sagas.getEntityModel))
-            gen.next(entityModel).value
-            expect(gen.next().done).to.be.true
-          })
-        })
         describe('loadDetailFormDefinition saga', () => {
           it('should load formDefinition if not loaded', () => {
             const formDefinition = {}
