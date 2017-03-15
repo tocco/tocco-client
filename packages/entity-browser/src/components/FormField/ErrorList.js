@@ -1,13 +1,13 @@
 import React from 'react'
 
-const FieldErrorList = props => {
-  if (!props.errors) {
+const ErrorList = props => {
+  if (!props.error) {
     return null
   }
 
   const errorValues = []
-  Object.keys(props.errors).forEach(key => {
-    errorValues.push(...props.errors[key])
+  Object.keys(props.error).forEach(key => {
+    errorValues.push(...props.error[key])
   })
 
   return (
@@ -19,10 +19,10 @@ const FieldErrorList = props => {
   )
 }
 
-FieldErrorList.propTypes = {
-  errors: React.PropTypes.objectOf(
+ErrorList.propTypes = {
+  error: React.PropTypes.objectOf(
     React.PropTypes.arrayOf(React.PropTypes.string)
   ).isRequired
 }
 
-export default FieldErrorList
+export default ErrorList
