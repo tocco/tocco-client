@@ -29,6 +29,9 @@ const setRelationEntity = (state, {payload}) => {
 
 const setRelationEntityLoaded = (state, {payload}) => {
   const relationEntities = {...state.relationEntities}
+  if (!relationEntities[payload.entityName]) {
+    relationEntities[payload.entityName] = {}
+  }
   relationEntities[payload.entityName].loaded = true
   return {...state, relationEntities}
 }
