@@ -43,17 +43,17 @@ ReduxFormFieldAdapter.propTypes = {
     value: React.PropTypes.any,
     name: React.PropTypes.string,
     onChange: React.PropTypes.func
-  }),
+  }).isRequired,
   meta: React.PropTypes.shape({
     touched: React.PropTypes.bool,
     error: React.PropTypes.objectOf(React.PropTypes.arrayOf(React.PropTypes.string)),
     dirty: React.PropTypes.bool,
     submitting: React.PropTypes.bool
-  }),
-  formDefinitionField: React.PropTypes.object,
-  entityField: React.PropTypes.object,
-  modelField: React.PropTypes.object,
-  editableValueUtils: React.PropTypes.object
+  }).isRequired,
+  formDefinitionField: React.PropTypes.object.isRequired,
+  entityField: React.PropTypes.object.isRequired,
+  editableValueUtils: React.PropTypes.object.isRequired,
+  modelField: React.PropTypes.object
 }
 
 export default ReduxFormFieldAdapter

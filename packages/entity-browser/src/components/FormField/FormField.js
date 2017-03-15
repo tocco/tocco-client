@@ -66,14 +66,33 @@ const FormField = props => {
 }
 
 FormField.propTypes = {
-  formDefinitionField: React.PropTypes.object.isRequired,
-  entityField: React.PropTypes.object,
-  modelField: React.PropTypes.object,
+  formDefinitionField: React.PropTypes.shape({
+    name: React.PropTypes.string,
+    type: React.PropTypes.string,
+    displayType: React.PropTypes.string,
+    useLabel: React.PropTypes.string,
+    label: React.PropTypes.string
+  }).isRequired,
+  modelField: React.PropTypes.shape({
+    fieldName: React.PropTypes.string,
+    type: React.PropTypes.string
+  }),
+  entityField: React.PropTypes.shape({
+    type: React.PropTypes.oneOf(['field', 'entity', 'entity-list']),
+    value: React.PropTypes.oneOfType([
+      React.PropTypes.shape({
+        readable: React.PropTypes.bool,
+        writable: React.PropTypes.bool,
+        type: React.PropTypes.string,
+        value: React.PropTypes.any
+      }),
+      React.PropTypes.arrayOf(React.PropTypes.object)])
+  }),
   id: React.PropTypes.string,
   onChange: React.PropTypes.func,
   value: React.PropTypes.any,
-  events: React.PropTypes.object,
-  error: React.PropTypes.object,
+  events: React.PropTypes.objectOf(React.PropTypes.func),
+  error: React.PropTypes.objectOf(React.PropTypes.arrayOf(React.PropTypes.string)),
   touched: React.PropTypes.bool,
   dirty: React.PropTypes.bool,
   readOnly: React.PropTypes.bool,
