@@ -15,14 +15,20 @@ describe('tocco-ui', function() {
       })
 
       it('should format value', function() {
-        const wrapper = mount(<IntlProvider locale="en"><DecimalFormatter
-          value={1.3}/></IntlProvider>)
+        const wrapper = mount(
+          <IntlProvider locale="en">
+            <DecimalFormatter value={1.3}/>
+          </IntlProvider>
+        )
         expect(wrapper.text()).to.equal('1.30')
       })
 
       it('should format value accorind to locale', function() {
-        const wrapper = mount(<IntlProvider locale="de"><DecimalFormatter
-          value={1.3}/></IntlProvider>)
+        const wrapper = mount(
+          <IntlProvider locale="de">
+            <DecimalFormatter value={1.3}/>
+          </IntlProvider>
+        )
         expect(wrapper.text()).to.equal('1,30')
       })
     })

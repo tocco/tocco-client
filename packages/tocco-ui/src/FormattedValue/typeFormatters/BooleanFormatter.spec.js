@@ -18,13 +18,6 @@ describe('tocco-ui', function() {
         )
         expect(wrapper.html()).to.contains('glyphicon-remove')
       })
-
-      it('should not format undefined value', function() {
-        const wrapper = mount(
-          <BooleanFormatter/>
-        )
-        expect(wrapper.html()).to.equal('<span></span>')
-      })
     })
   })
 })

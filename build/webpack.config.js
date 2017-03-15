@@ -1,6 +1,7 @@
 import path from 'path'
 import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import CopyWebpackPlugin from 'copy-webpack-plugin'
 import config from '../config'
 import _debug from 'debug'
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
@@ -14,6 +15,7 @@ const packageDir = `packages/${__PACKAGE__}`
 const absolutePackagePath = paths.client(`${packageDir}/`)
 
 const outputDir = absolutePackagePath + '/dist'
+const testPlugins = []
 
 debug('Create configuration.')
 const webpackConfig = {
@@ -50,6 +52,7 @@ if (!__TEST__) {
 // ------------------------------------
 // Entry Points
 // ------------------------------------
+
 const APP_ENTRY_PATH = paths.client(`${packageDir}/src/main.js`)
 
 webpackConfig.entry = {
@@ -61,8 +64,10 @@ webpackConfig.entry = {
 // ------------------------------------
 // Bundle Output
 // ------------------------------------
+
 webpackConfig.output = {
   filename: 'index.js',
+  chunkFilename: '[name]-chunk.js',
   path: outputDir,
   libraryTarget: 'umd',
   publicPath: ''
@@ -71,9 +76,18 @@ webpackConfig.output = {
 // ------------------------------------
 // Plugins
 // ------------------------------------
+
 webpackConfig.plugins = [
   new webpack.DefinePlugin(config.globals)
 ]
+
+webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin({
+  async: true,
+  minChunks(module, count) {
+    return count >= 2
+  }
+})
+)
 
 if (__DEV__) {
   webpackConfig.plugins.push(
@@ -87,23 +101,7 @@ if (__DEV__) {
       }
     })
   )
-}
 
-if (__STANDALONE__) {
-  webpackConfig.plugins.push(
-    new HtmlWebpackPlugin({
-      template: paths.client('server/standalone.html'),
-      hash: false,
-      filename: 'index.html',
-      inject: 'body',
-      minify: {
-        collapseWhitespace: true
-      }
-    })
-  )
-}
-
-if (__DEV__) {
   debug('Enable plugin for case-sensitive path check')
   webpackConfig.plugins.push(new CaseSensitivePathsPlugin())
 
@@ -112,6 +110,30 @@ if (__DEV__) {
     new webpack.HotModuleReplacementPlugin()
   )
 } else if (__PROD__) {
+  // copy scss files
+  if (__PACKAGE__ === 'tocco-theme') {
+    webpackConfig.plugins.push(
+      new CopyWebpackPlugin([
+        {
+          context: `${packageDir}/src/ToccoTheme`,
+          from: '**/*.scss'
+        }
+      ])
+    )
+  } else {
+    webpackConfig.plugins.push(
+      new CopyWebpackPlugin([
+        {
+          context: `${packageDir}/src/components/`,
+          from: '**/*.scss',
+          flatten: true,
+          to: 'scss'
+        }
+      ])
+    )
+  }
+
+  // optimize asset loading
   webpackConfig.plugins.push(
       new webpack.LoaderOptionsPlugin({
         minimize: true,
@@ -139,9 +161,19 @@ if (__DEV__) {
         }
       })
     )
+} else if (__STANDALONE__) {
+  webpackConfig.plugins.push(
+    new HtmlWebpackPlugin({
+      template: paths.client('server/standalone.html'),
+      hash: false,
+      filename: 'index.html',
+      inject: 'body',
+      minify: {
+        collapseWhitespace: true
+      }
+    })
+  )
 }
-
-const testPlugins = []
 
 // see: https://github.com/karma-runner/karma-sauce-launcher/issues/95
 if (!process || !process.env || !process.env.DISABLE_ISTANBUL_COVERAGE) {
@@ -155,6 +187,10 @@ if (!process || !process.env || !process.env.DISABLE_ISTANBUL_COVERAGE) {
     ]
   }])
 }
+
+// ------------------------------------
+// Modules
+// ------------------------------------
 
 webpackConfig.module.rules = [
   {
@@ -179,7 +215,8 @@ webpackConfig.module.rules = [
           }
         }],
         'transform-runtime',
-        'transform-flow-strip-types'
+        'transform-flow-strip-types',
+        'syntax-dynamic-import'
       ],
       presets: [
         ['es2015', { 'modules': false }],
@@ -208,7 +245,7 @@ webpackConfig.module.rules = [
   }
 ]
 
-if (__DEV__) {
+if (!__PROD__) {
   // Run linting but only show errors as warning
   webpackConfig.module.rules.push(
     {
@@ -227,51 +264,46 @@ if (__DEV__) {
       }
     })
   )
-}
 
-webpackConfig.module.rules.push(
-  {
-    test: /\.css$/,
-    use: 'style-loader!css-loader'
-  },
-  {
+  // write all styles into index.js
+  webpackConfig.module.rules.push({
     test: /\.scss$/,
-    use: ['style-loader', 'css-loader', 'sass-loader']
-  }
-)
+    use: ['style-loader', 'css-loader', `sass-loader?data=$node-env:${config.env};&includePaths[]=${paths.client()}/packages/tocco-theme/node_modules/`]  // eslint-disable-line
+  })
 
-// File loaders
-/* eslint-disable */
-webpackConfig.module.rules.push(
-  {
-    test: /\.woff(\?.*)?$/,
-    use: 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff'
-  },
-  {
-    test: /\.woff2(\?.*)?$/,
-    use: 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff2'
-  },
-  {
-    test: /\.otf(\?.*)?$/,
-    use: 'file-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=font/opentype'
-  },
-  {
-    test: /\.ttf(\?.*)?$/,
-    use: 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/octet-stream'
-  },
-  {
-    test: /\.eot(\?.*)?$/,
-    use: 'file-loader?prefix=fonts/&name=[path][name].[ext]'
-  },
-  {
-    test: /\.svg(\?.*)?$/,
-    use: 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml'
-  },
-  {
-    test: /\.(png|jpg)$/,
-    use: 'file-loader?limit=8192'
-  }
-)
-/* eslint-enable */
+  // File loaders
+  /* eslint-disable */
+  webpackConfig.module.rules.push(
+    {
+      test: /\.woff(\?.*)?$/,
+      use: 'file-loader?name=fonts/[name].[ext]&mimetype=application/font-woff'
+    },
+    {
+      test: /\.woff2(\?.*)?$/,
+      use: 'file-loader?name=fonts/[name].[ext]&mimetype=application/font-woff2'
+    },
+    {
+      test: /\.otf(\?.*)?$/,
+      use: 'file-loader?name=fonts/[name].[ext]&mimetype=font/opentype'
+    },
+    {
+      test: /\.ttf(\?.*)?$/,
+      use: 'file-loader?name=fonts/[name].[ext]&mimetype=application/octet-stream'
+    },
+    {
+      test: /\.eot(\?.*)?$/,
+      use: 'file-loader?name=fonts/[name].[ext]'
+    },
+    {
+      test: /\.svg(\?.*)?$/,
+      use: 'file-loader?name=fonts/[name].[ext]&mimetype=image/svg+xml'
+    },
+    {
+     test: /\.(png|jpg)$/,
+      use: 'file-loader?limit=8192'
+    }
+  )
+  /* eslint-enable */
+}
 
 export default webpackConfig

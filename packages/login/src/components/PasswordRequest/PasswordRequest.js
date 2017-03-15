@@ -3,8 +3,6 @@ import {FormattedMessage, intlShape} from 'react-intl'
 import {Pages} from '../../types/Pages'
 import {Button} from 'tocco-ui'
 
-import '../Login/styles.scss'
-
 export class PasswordRequest extends React.Component {
 
   constructor(props) {
@@ -31,15 +29,17 @@ export class PasswordRequest extends React.Component {
         {this.props.showTitle && <h1><FormattedMessage id="client.login.passwordRequest.title"/></h1>}
         <p><FormattedMessage id="client.login.passwordRequest.introduction"/></p>
         <form onSubmit={this.handleSubmit.bind(this)}>
-          <div className="input-group">
-            <span className="input-group-addon"><i className="glyphicon glyphicon-user"/></span>
-            <input
-              type="text"
-              className="form-control"
-              name="user"
-              placeholder={this.msg('client.login.form.userPlaceholder')}
-              onChange={this.handleUsernameChange.bind(this)}
-            />
+          <div className="form-group dense">
+            <div className="input-group">
+              <span className="input-group-addon"><i className="glyphicon glyphicon-user"/></span>
+              <input
+                type="text"
+                className="form-control"
+                name="user"
+                placeholder={this.msg('client.login.form.userPlaceholder')}
+                onChange={this.handleUsernameChange.bind(this)}
+              />
+            </div>
           </div>
           <div>
             <div>
@@ -49,7 +49,6 @@ export class PasswordRequest extends React.Component {
                 disabled={!this.state.username || this.props.pending}
                 pending={this.props.pending}
                 icon="glyphicon-log-in"
-                className="m-t-5"
                 primary
               />
               <Button
@@ -58,7 +57,6 @@ export class PasswordRequest extends React.Component {
                 onClick={() => this.props.changePage(Pages.LOGIN_FORM)}
                 disabled={this.props.pending}
                 icon="glyphicon-remove"
-                className="m-l-5 m-t-5"
                 primary
               />
             </div>

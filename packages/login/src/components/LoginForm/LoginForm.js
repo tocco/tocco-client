@@ -3,8 +3,6 @@ import {FormattedMessage, intlShape} from 'react-intl'
 import {Pages} from '../../types/Pages'
 import {Button} from 'tocco-ui'
 
-import '../Login/styles.scss'
-
 export class LoginForm extends Component {
 
   handleSubmit(e) {
@@ -31,34 +29,38 @@ export class LoginForm extends Component {
           </div>
         }
         <form onSubmit={this.handleSubmit.bind(this)}>
-          <div className="input-group">
-            <span className="input-group-addon"><i className="glyphicon glyphicon-user"/></span>
-            <input
-              type="text"
-              className="form-control"
-              name="user"
-              onChange={this.handleUsernameChange.bind(this)}
-              placeholder={this.msg('client.login.form.userPlaceholder')}
-              value={this.props.username}
-              required
-              autoFocus
-            />
+          <div className="form-group dense">
+            <div className="input-group">
+              <span className="input-group-addon"><i className="glyphicon glyphicon-user"/></span>
+              <input
+                type="text"
+                className="form-control"
+                name="user"
+                onChange={this.handleUsernameChange.bind(this)}
+                placeholder={this.msg('client.login.form.userPlaceholder')}
+                value={this.props.username}
+                required
+                autoFocus
+              />
+            </div>
           </div>
-          <div className="input-group m-t-5">
-            <span className="input-group-addon"><i className="glyphicon glyphicon-lock"/></span>
-            <input
-              type="password"
-              className="form-control"
-              name="password"
-              onChange={this.handlePasswordChange.bind(this)}
-              placeholder={this.msg('client.login.form.passwordPlaceholder')}
-              required
-            />
+          <div className="form-group">
+            <div className="input-group">
+              <span className="input-group-addon"><i className="glyphicon glyphicon-lock"/></span>
+              <input
+                type="password"
+                className="form-control"
+                name="password"
+                onChange={this.handlePasswordChange.bind(this)}
+                placeholder={this.msg('client.login.form.passwordPlaceholder')}
+                required
+              />
+            </div>
           </div>
           <div className="message-box">
             {
             this.props.message && this.props.message.text
-            && <span className={this.props.message.negative ? 'negative' : ''}>{this.props.message.text}</span>
+            && <span className={this.props.message.negative ? 'text-danger' : ''}>{this.props.message.text}</span>
           }
           </div>
           <div>
@@ -73,7 +75,7 @@ export class LoginForm extends Component {
               />
               <div>
                 <a
-                  className="forgot-password pointer"
+                  className="forgot-password"
                   onClick={() => this.props.changePage(Pages.PASSWORD_REQUEST)}
                 >
                   <FormattedMessage id="client.login.form.forgotLink"/>

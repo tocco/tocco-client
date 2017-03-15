@@ -1,14 +1,13 @@
 {
   "name": "tocco-entity-browser",
-  "version": "0.1.7",
+  "version": "0.2.3",
   "description": "Lists entities and allows to sort and search them",
   "main": "dist/index.js",
   "scripts": {
     "clean": "../../node_modules/rimraf/bin.js dist",
     "compile": "babel-node ../../bin/compile",
     "deploy": "cd ../../ && ./node_modules/better-npm-run/index.js deploy --package=entity-browser",
-    "prepublish": "cd ../../ && ./node_modules/better-npm-run/index.js deploy:prod --package=entity-browser",
-    "lint": "eslint ."
+    "prepublish": "cd ../../ && ./node_modules/better-npm-run/index.js deploy:prod --package=entity-browser"
   },
   "betterScripts": {
     "deploy": {
@@ -28,6 +27,7 @@
   "dependencies": {},
   "devDependencies": {
     "tocco-test-util": "^0.1.0",
+    "tocco-theme": "0.1.0",
     "tocco-ui": "^0.1.0",
     "tocco-util": "^0.1.0"
   }

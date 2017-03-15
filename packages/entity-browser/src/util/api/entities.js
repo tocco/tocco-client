@@ -1,6 +1,6 @@
 import {request, getRequest} from 'tocco-util/src/rest'
 import {SubmissionError} from 'redux-form'
-import {validationErrorToFormError} from '../reduxForms'
+import {validationErrorToFormError} from '../detailView/reduxForm'
 
 export function fetchEntity(entityName, id, fields) {
   const params = {
@@ -47,15 +47,6 @@ export function fetchModel(entityName, transformer = defaultModelTransformer) {
     .then(json => transformer(json))
 }
 
-export function fetchEntityCount(entityName, searchInputs) {
-  const params = {
-    ...searchInputs
-  }
-  return request(`entities/${entityName}/count`, params)
-    .then(resp => resp.body)
-    .then(json => json.count)
-}
-
 export const entitiesListTransformer = json => {
   return json.data.map(entity => {
     const result = {
@@ -87,18 +78,20 @@ export const entitiesListTransformer = json => {
 
 const defaultEntitiesTransformer = json => (json)
 
-export function fetchEntities(entityName, {
+function buildParams({
   page = undefined,
   orderBy = {},
   limit = undefined,
   fields = [],
+  searchFilters = [],
   searchInputs = {},
   formName = undefined
-} = {}, transformer = defaultEntitiesTransformer) {
+} = {}) {
   const params = {
     '_sort': Object.keys(orderBy || {}).length === 2 ? `${orderBy.name} ${orderBy.direction}` : undefined,
     '_paths': fields.join(','),
     '_form': formName,
+    '_filter': searchFilters.join(','),
     ...searchInputs
   }
 
@@ -108,10 +101,22 @@ export function fetchEntities(entityName, {
       params._offset = (page - 1) * limit
     }
   }
+  return params
+}
 
+export function fetchEntities(entityName, searchInputs,
+                              transformer = defaultEntitiesTransformer) {
+  const params = buildParams(searchInputs)
   return getRequest(`entities/${entityName}`, params, [])
     .then(resp => resp.body)
     .then(json => transformer(json))
+}
+
+export function fetchEntityCount(entityName, searchInputs) {
+  const params = buildParams(searchInputs)
+  return getRequest(`entities/${entityName}/count`, params, [])
+    .then(resp => resp.body)
+    .then(json => json.count)
 }
 
 export const combineEntitiesInObject = entitiesList => {
@@ -130,20 +135,17 @@ export const getInitialSelectBoxStore = paths => {
   const keys = Object.keys(paths)
   const stores = []
   for (let i = 0; i < keys.length; i++) {
-    let store = []
     const key = keys[i]
     const field = paths[key]
     if (field.type === 'entity') {
       if (field.value != null) {
-        store = [{value: field.value.key, label: field.value.display}]
+        stores.push({key, store: [{value: field.value.key, label: field.value.display}]})
       }
     } else if (field.type === 'entity-list') {
       if (field.value != null && field.value.length > 0) {
-        store = field.value.map(e => ({value: e.key, label: e.display}))
+        stores.push({key, store: field.value.map(e => ({value: e.key, label: e.display}))})
       }
     }
-
-    stores.push({key, store})
   }
 
   return stores

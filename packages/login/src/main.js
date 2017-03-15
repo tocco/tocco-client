@@ -1,52 +1,90 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import {appFactory, storeFactory, consoleLogger} from 'tocco-util'
 
-import {loginFactory, passwordUpdateFactory} from './appFactory'
+import * as passwordUpdate from './modules/passwordUpdate/dialog/actions'
+import LoginContainer from './containers/LoginContainer'
+import PasswordUpdateDialog from './containers/PasswordUpdateDialogContainer'
+import loginReducers, {sagas} from './modules/reducers'
 
-if (__DEV__) {
-  const fetchMock = require('fetch-mock')
-  const setupFetchMocks = require('./dev/fetchMocks')
+const packageName = 'login'
 
-  setupFetchMocks(fetchMock)
+const initLoginApp = (id, input, events, publicPath) => {
+  const dispatchActions = [
+    passwordUpdate.setShowOldPasswordField(false),
+    passwordUpdate.setForcedUpdate(true),
+    passwordUpdate.setStandalone(false)
+  ]
 
-  const mountElement = document.getElementById('root')
+  const showTitle = !!input.showTitle
+  const content = <LoginContainer showTitle={showTitle}/>
 
-  let render = () => {
-    let input
-    let component
-
-    const passwordUpdate = false
-    if (passwordUpdate) {
-      input = require('./dev/password_update_input.json')
-      component = passwordUpdateFactory('', input)
-    } else {
-      input = require('./dev/login_input.json')
-      component = loginFactory('', input)
-    }
-
-    const element = React.createElement(component.renderComponent)
-    ReactDOM.render(element, mountElement)
-  }
-
-  if (__DEV__ && module.hot) {
-    const renderApp = render
-    const renderError = error => {
-      const RedBox = require('redbox-react')
-
-      ReactDOM.render(<RedBox error={error}/>, mountElement)
-    }
-    render = () => {
-      try {
-        renderApp()
-      } catch (error) {
-        renderError(error)
-      }
-    }
-  }
-  render()
-} else {
-  if (window.reactRegistry) {
-    window.reactRegistry.register('login', loginFactory) // TODO: replace string with var
-    window.reactRegistry.register('password-update', passwordUpdateFactory)
-  }
+  return appFactory.createApp(
+    packageName,
+    content,
+    loginReducers,
+    sagas,
+    input,
+    events,
+    dispatchActions,
+    publicPath
+  )
 }
+
+const initPasswordUpdateApp = (id, input, events, publicPath) => {
+  const showTitle = !!input.showTitle
+  const forcedUpdate = !!input.forcedUpdate
+
+  const content = <PasswordUpdateDialog showTitle={showTitle}/>
+
+  if (typeof input.username !== 'string' || input.username.length === 0) {
+    consoleLogger.logError('Mandatory input "username" is not set on password-update')
+    return
+  }
+
+  const dispatchActions = [
+    passwordUpdate.setUsername(input.username),
+    passwordUpdate.setForcedUpdate(forcedUpdate)
+
+  ]
+
+  if (typeof input.showOldPasswordField === 'boolean') {
+    dispatchActions.push(passwordUpdate.setShowOldPasswordField(input.showOldPasswordField))
+  }
+
+  return appFactory.createApp(
+    `${packageName}.passwordUpdate`,
+    content,
+    {passwordUpdate: loginReducers.passwordUpdate},
+    sagas,
+    input,
+    events,
+    dispatchActions,
+    publicPath
+  )
+}
+
+(() => {
+  if (__DEV__) {
+    require('tocco-theme/src/ToccoTheme/theme.scss')
+
+    const fetchMock = require('fetch-mock')
+    const setupFetchMocks = require('./dev/fetchMocks')
+    setupFetchMocks(fetchMock)
+
+    const app = initLoginApp('id', require('./dev/login_input.json'))
+    // uncomment to develop passwordUpdate App
+    // const app = initPasswordUpdateApp('id', require('./dev/password_update_input.json'))
+
+    if (module.hot) {
+      module.hot.accept('./modules/reducers', () => {
+        const reducers = require('./modules/reducers').default
+        storeFactory.hotReloadReducers(app.store, reducers)
+      })
+    }
+
+    appFactory.renderApp(app.renderComponent())
+  } else {
+    storeFactory.registerAppInRegistry(packageName, initLoginApp)
+    storeFactory.registerAppInRegistry('password-update', initPasswordUpdateApp)
+  }
+})()

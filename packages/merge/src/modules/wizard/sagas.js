@@ -1,12 +1,13 @@
 import {takeEvery, call, fork, select, put} from 'redux-saga/effects'
+import {consoleLogger, externalEvents} from 'tocco-util'
 import sendDwrRequest from '../../utils/Dwr'
 import createMergeResult from '../../utils/MergeActionResult'
-import {externalEvents} from 'tocco-util'
 import {SAVE_MERGE, setMergeResponse} from './actions'
 import {mergingWithoutProblems} from '../../utils/MergeResponse'
 
 export function sendDwr(mergeActionResult) {
   if (__DEV__) {
+    // eslint-disable-next-line no-console
     console.log('dev mode. would send dwr', mergeActionResult, JSON.stringify(mergeActionResult))
     return new Promise(resolve => {
       return resolve(require('../../dev/response.json'))
@@ -28,7 +29,7 @@ export function* save() {
       yield put(setMergeResponse(mergeResponse))
     }
   } catch (error) {
-    console.log('An error occurred during merge:', error)
+    consoleLogger.logError('An error occurred during merge:', error)
   }
 }
 

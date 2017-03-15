@@ -43,9 +43,14 @@ class DateAbstract extends React.Component {
     }
   }
 
-  handleOnChange(selectedDates, dateStr) {
-    console.log('selectedDates', selectedDates, dateStr)
-    this.props.onChange(dateStr)
+  handleOnChange(selectedDates) {
+    if (!selectedDates || selectedDates.length === 0) {
+      this.props.onChange(null)
+    } else if (selectedDates.length === 1) {
+      this.props.onChange(selectedDates[0].toISOString())
+    } else {
+      throw new Error('EditableValue DateTime: unexpected length of input')
+    }
   }
 
   refMapper(ref) {

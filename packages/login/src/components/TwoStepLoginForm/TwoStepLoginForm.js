@@ -2,8 +2,6 @@ import React, {Component} from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
 import {Button} from 'tocco-ui'
 
-import '../Login/styles.scss'
-
 export class TwoStepLoginForm extends Component {
 
   constructor(props) {
@@ -31,16 +29,18 @@ export class TwoStepLoginForm extends Component {
         <form onSubmit={this.handleSubmit.bind(this)}>
           <p><FormattedMessage id="client.login.twoStepLogin.introduction"/></p>
           <p><FormattedMessage id="client.login.twoStepLogin.requestedCode"/>{this.props.requestedCode}</p>
-          <div className="input-group">
-            <span className="input-group-addon"><i className="glyphicon glyphicon-lock"/></span>
-            <input
-              type="text"
-              className="form-control"
-              name="code"
-              autoComplete="off"
-              onChange={this.handleUserCodeChange.bind(this)}
-              placeholder={this.msg('client.login.twoStepLogin.codePlaceholder')}
-            />
+          <div className="form-group dense">
+            <div className="input-group">
+              <span className="input-group-addon"><i className="glyphicon glyphicon-lock"/></span>
+              <input
+                type="text"
+                className="form-control"
+                name="code"
+                autoComplete="off"
+                onChange={this.handleUserCodeChange.bind(this)}
+                placeholder={this.msg('client.login.twoStepLogin.codePlaceholder')}
+              />
+            </div>
           </div>
           <div>
             <Button
@@ -50,7 +50,6 @@ export class TwoStepLoginForm extends Component {
               disabled={!this.state.userCode || this.props.loginPending}
               pending={this.props.loginPending}
               icon="glyphicon-log-in"
-              className="m-t-5"
               primary
             />
           </div>

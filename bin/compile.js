@@ -6,6 +6,8 @@ import {packagesExists} from './packages'
 
 const debug = _debug('app:bin:compile')
 
+import {updateMutableImportSCSS} from '../build/mutable-scss-imports'
+
 const compile = () => {
   debug('Run compiler')
 
@@ -31,4 +33,5 @@ const compile = () => {
     })
 }
 
+updateMutableImportSCSS()
 compile()

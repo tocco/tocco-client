@@ -1,8 +1,6 @@
 import {call} from 'redux-saga/effects'
+import consoleLogger from '../../consoleLogger'
 
-export default function* consoleLogger(type, title, description, error) {
-  if (window.console) {
-    const logError = console.error || console.log
-    yield call(logError, `${title}: \n${description}\n`, error)
-  }
+export default function* consoleLog(type, title, description, error) {
+  yield call(consoleLogger.logError, `${title}: \n${description}\n`, error)
 }

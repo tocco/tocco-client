@@ -1,7 +1,8 @@
 import React from 'react'
+import classNames from 'classnames'
 
 export const Rule = props => (
-  <div className={props.className}>{props.message}</div>
+  <li className={props.className}>{props.message}</li>
 )
 
 Rule.propTypes = {
@@ -10,7 +11,7 @@ Rule.propTypes = {
 }
 
 const ValidationRules = props => (
-  <div className="ValidationRules">
+  <ul className={classNames('icon-list', {'neutral': props.rulesNeutral})}>
     {props.rules.map((rule, index) => {
       let className = null
       let message = rule.message
@@ -29,12 +30,13 @@ const ValidationRules = props => (
 
       return <Rule key={index} className={className} message={message}/>
     })}
-  </div>
+  </ul>
 )
 
 ValidationRules.propTypes = {
   errors: React.PropTypes.object,
-  rules: React.PropTypes.array.isRequired
+  rules: React.PropTypes.array.isRequired,
+  rulesNeutral: React.PropTypes.bool
 }
 
 export default ValidationRules

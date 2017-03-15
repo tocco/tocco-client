@@ -14,23 +14,19 @@ describe('tocco-ui', function() {
         addLocaleData([...en, ...de])
       })
 
-      it('should format a money', function() {
+      it('should format a money amount', function() {
         const wrapper = mount(
           <IntlProvider locale="en">
-            <MoneyFormatter
-              value={1245.50}
-            />
+            <MoneyFormatter value={1245.50}/>
           </IntlProvider>
         )
         expect(wrapper.text()).to.equal('1,245.50')
       })
 
-      it('should format a money', function() {
+      it('should format a money amount regarding locale', function() {
         const wrapper = mount(
           <IntlProvider locale="de-CH">
-            <MoneyFormatter
-              value={1245.50}
-            />
+            <MoneyFormatter value={1245.50}/>
           </IntlProvider>
         )
         expect(wrapper.text()).to.equal('1\'245.50')

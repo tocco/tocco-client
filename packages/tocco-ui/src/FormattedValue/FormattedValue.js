@@ -1,7 +1,6 @@
 import React from 'react'
 
 import provider, {map as typeMap} from './typeFormatterProvider'
-import './styles.scss'
 
 /**
  *  FormattedValue component to format values with given type.
@@ -9,7 +8,9 @@ import './styles.scss'
 const FormattedValue = props => {
   const isNotDefined = value => (value === undefined || value === null || value === '')
 
-  if (isNotDefined(props.value)) return <span/>
+  if (isNotDefined(props.value)) {
+    return <span/>
+  }
 
   return (
     <span>

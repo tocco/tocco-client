@@ -1,21 +1,17 @@
 import React from 'react'
 
-const TextFormatter = props => {
-  let content = props.value || ''
-
-  return (
-    <span>
-      {
-        content.split('\\n').map((b, idx) => (
-          <div key={idx}>{b}</div>
-        ))
-      }
-    </span>
-  )
-}
+const TextFormatter = props => (
+  <span>
+    {
+      props.value.split('\\n').map((b, idx) => (
+        <div key={idx}>{b}</div>
+      ))
+    }
+  </span>
+)
 
 TextFormatter.propTypes = {
-  value: React.PropTypes.node
+  value: React.PropTypes.string
 }
 
 export default TextFormatter
