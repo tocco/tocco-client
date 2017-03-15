@@ -21,7 +21,7 @@ debug('Create configuration.')
 const webpackConfig = {
   name: 'client',
   target: 'web',
-  devtool: __PROD__ ? 'source-map' : 'eval',
+  devtool: __PROD__ || __NICE2_11_LEGACY__ ? 'source-map' : 'eval',
   resolve: {
     modules: [
       path.resolve(paths.client(), packageDir, 'src'),
@@ -35,7 +35,7 @@ const webpackConfig = {
     extensions: ['.js', '.jsx', '.json']
   },
   performance: {
-    hints: __PROD__ ? 'warning' : false
+    hints: __PROD__ || __NICE2_11_LEGACY__ ? 'warning' : false
   },
   module: {}
 }
