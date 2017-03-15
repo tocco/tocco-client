@@ -162,6 +162,59 @@
       "singleRelations": [],
       "multiRelations": [],
       "paths": {}
+    },
+    {
+      "key": "4",
+      "model": "Dummy_entity",
+      "version": 1,
+      "display": "Entity Label 4",
+      "fields": {
+        "unique_id": {
+          "value": "entity_label4",
+          "type": "identifier",
+          "readable": true,
+          "writable": true
+        },
+        "label_de": {
+          "value": "Entity label 4 (DE)",
+          "type": "string",
+          "readable": true,
+          "writable": true
+        },
+        "label_fr": {
+          "value": "Entity label 4 (FR)",
+          "type": "string",
+          "readable": true,
+          "writable": true
+        },
+        "label_it": {
+          "value": "Entity label 4 (IT)",
+          "type": "string",
+          "readable": true,
+          "writable": true
+        },
+        "label_en": {
+          "value": "Entity label 4 (EN)",
+          "type": "string",
+          "readable": true,
+          "writable": true
+        },
+        "sorting": {
+          "value": 20,
+          "type": "sorting",
+          "readable": true,
+          "writable": true
+        },
+        "active": {
+          "value": true,
+          "type": "boolean",
+          "readable": true,
+          "writable": true
+        }
+      },
+      "singleRelations": [],
+      "multiRelations": [],
+      "paths": {}
     }
   ]
 }
