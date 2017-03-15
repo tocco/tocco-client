@@ -36,7 +36,8 @@ class ListView extends React.Component {
               )
             }
           }}
-          stateKey="listView"
+          stateKey="listViewGrid"
+          reducerKeys="grid"
         />
         }
 
