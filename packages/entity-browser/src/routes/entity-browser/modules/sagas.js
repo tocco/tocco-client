@@ -28,8 +28,8 @@ export function* initialize() {
 
 export function* loadRelationEntity({payload}) {
   const {entityName} = payload
-  const entityBrowser = yield select(entityBrowserSelector)
-  if (!entityBrowser.relationEntities[entityName] || !entityBrowser.relationEntities[entityName].loaded) {
+  const {relationEntities} = yield select(entityBrowserSelector)
+  if (!relationEntities[entityName] || !relationEntities[entityName].loaded) {
     const entities = yield call(fetchEntities, entityName)
     const entitiesTransformed = entities.data.map(e => ({label: e.display, value: e.key}))
     yield put(actions.setRelationEntity(entityName, entitiesTransformed, true))
