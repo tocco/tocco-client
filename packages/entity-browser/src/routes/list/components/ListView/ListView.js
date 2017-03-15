@@ -1,70 +1,25 @@
 import React from 'react'
 import {intlShape} from 'react-intl'
-import {Button, FormattedValue, Pagination, Table} from 'tocco-ui'
-import SearchFormContainer from '../../containers/SearchFormContainer'
+
+import {Grid} from 'react-redux-grid'
 
 class ListView extends React.Component {
   componentWillMount() {
     this.props.initialize()
   }
 
-  onOrderByChange = orderBy => {
-    this.props.setOrderBy(orderBy)
-  }
-
-  onPageChange = page => {
-    this.props.changePage(page)
-  }
-
-  cellRenderer = (values, entity) => {
-    const formattedValues = values.map((v, idx) => (
-      <FormattedValue key={idx} type={v.type} value={v.value}/>
-    ))
-
-    if (formattedValues.length > 0) {
-      return (
-        <span>
-          {formattedValues.reduce((prev, curr) => [prev, ', ', curr])}
-        </span>
-      )
-    }
-  }
-
-  handleRowClick = entityId => {
-    this.props.router.push(`/detail/${entityId}`)
-  }
-
-  msg = id => (this.props.intl.formatMessage({id}))
-
   render() {
-    const props = this.props
     return (
-      <div>
-        {props.showSearchForm && <SearchFormContainer/>}
-        <div className="list-view">
-          <Table
-            columnDefinitions={props.columnDefinitions}
-            records={props.entities}
-            className="table-striped"
-            onOrderByChange={this.onOrderByChange}
-            orderBy={props.orderBy}
-            loading={props.inProgress}
-            cellRenderer={this.cellRenderer}
-            onRowClick={this.handleRowClick}
-          />
-          <Pagination
-            totalRecords={props.entityCount}
-            recordsPerPage={props.limit}
-            onPageChange={this.onPageChange}
-            currentPage={props.currentPage}
-          />
-          <Button
-            onClick={props.refresh}
-            label={this.msg('client.entity-browser.refresh')}
-            icon="glyphicon-refresh"
-            className="refresh-button"
-          />
-        </div>
+      <div className="list-view">
+        {this.props.columnDefinitions.length > 0
+        && <Grid
+          columns={this.props.columnDefinitions}
+          data={this.props.entities}
+          plugins={{}}
+          stateKey="listView"
+        />
+        }
+
       </div>
     )
   }

@@ -1,3 +1,4 @@
+import {Reducers as gridReducers} from 'react-redux-grid'
 import ListViewContainer from './containers/ListViewContainer'
 
 import sagas from './modules/sagas'
@@ -37,7 +38,8 @@ export default {
   container: ListViewContainer,
   reducers:  {
     list,
-    searchForm
+    searchForm,
+    ...gridReducers
   },
   sagas: [sagas, searchFormSagas],
   inputDispatches: inputDispatches
