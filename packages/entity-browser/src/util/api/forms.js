@@ -58,3 +58,13 @@ export const searchFormTransformer = json => {
       useLabel: f.useLabel
     }))
 }
+
+export const getFieldsOfColumnDefinition = columnDefinition => {
+  let fields = []
+
+  columnDefinition.forEach(column => {
+    fields = fields.concat(column.value)
+  })
+
+  return fields
+}

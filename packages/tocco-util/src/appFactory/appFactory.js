@@ -17,17 +17,19 @@ import intl from '../intl'
 import externalEvents from '../externalEvents'
 import {logError} from '../errorLogging'
 
-export const createApp = (name, content, reducers, sagas, input, events, actions, publicPath) => {
-  let store
+export const createStore = (reducers, sagas, input) => {
+  const initialState = getIntialState(input)
+  return storeFactory.createStore(initialState, reducers, sagas)
+}
+
+export const createApp = (name, content, store, input, events, actions, publicPath) => {
   try {
     setWebpacksPublicPath(publicPath)
-    const initialState = getIntialState(input)
 
     if (events) {
       externalEvents.registerEvents(events)
     }
 
-    store = storeFactory.createStore(initialState, reducers, sagas)
     const initIntlPromise = setupIntl(input, store, name)
 
     dispatchActions(actions, store)
@@ -74,6 +76,12 @@ export const renderApp = (app, mountElementName = 'root') => {
     }
   }
   render()
+}
+
+export const reloadApp = (app, mountElementName = 'root') => {
+  const mountElement = document.getElementById(mountElementName)
+  ReactDOM.unmountComponentAtNode(mountElement)
+  renderApp(app, mountElementName)
 }
 
 export const registerAppInRegistry = (appName, initFunction) => {
