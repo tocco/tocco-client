@@ -2,20 +2,40 @@ import React from 'react'
 import {intlShape} from 'react-intl'
 
 import {Grid} from 'react-redux-grid'
+import {Pagination} from 'tocco-ui'
+import SearchFormContainer from '../../containers/SearchFormContainer'
 
 class ListView extends React.Component {
   componentWillMount() {
     this.props.initialize()
   }
 
+  onPageChange = page => {
+    this.props.changePage(page)
+  }
+
   render() {
     return (
       <div className="list-view">
+        {this.props.showSearchForm && <SearchFormContainer/>}
         {this.props.columnDefinitions.length > 0
         && <Grid
           columns={this.props.columnDefinitions}
           data={this.props.entities}
-          plugins={{}}
+          plugins={{
+            PAGER: {
+              enabled: true,
+              pagingType: 'locale',
+              pagerComponent: (
+                <Pagination
+                  totalRecords={this.props.entityCount}
+                  recordsPerPage={this.props.limit}
+                  onPageChange={this.onPageChange}
+                  currentPage={this.props.currentPage}
+                />
+              )
+            }
+          }}
           stateKey="listView"
         />
         }
