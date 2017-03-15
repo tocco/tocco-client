@@ -11,7 +11,8 @@ describe('entity-browser', () => {
           it('should fork child sagas', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal([
-              fork(takeLatest, actions.INITIALIZE, sagas.initialize)
+              fork(takeLatest, actions.INITIALIZE, sagas.initialize),
+              fork(takeLatest, actions.LOAD_RELATION_ENTITY, sagas.loadRelationEntity)
             ])
             expect(generator.next().done).to.be.true
           })

@@ -5,7 +5,8 @@ const EXPECTED_INITIAL_STATE = {
   entityName: '',
   formBase: '',
   entityModel: {},
-  initialized: false
+  initialized: false,
+  relationEntities: {}
 }
 
 describe('entity-browser', () => {
