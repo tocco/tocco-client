@@ -16,7 +16,7 @@ const inputDispatches = [
     action: setFormBase
   },
   {
-    field: 'entityName',
+    field: 'formBase',
     action: setFormBase
   }
 ]

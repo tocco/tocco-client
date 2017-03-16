@@ -12,7 +12,7 @@ const toastrOptions = {
   progressBar: true
 }
 
-export class EntityBrowser extends React.Component {
+class EntityBrowser extends React.Component {
   componentWillMount() {
     this.props.initialize()
   }
@@ -34,3 +34,5 @@ EntityBrowser.propTypes = {
   initialize: React.PropTypes.func.isRequired,
   routes: React.PropTypes.array.isRequired
 }
+
+export default EntityBrowser

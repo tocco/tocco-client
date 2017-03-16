@@ -1,7 +1,8 @@
 import React from 'react'
 import {intlShape} from 'react-intl'
+
 import {Button} from 'tocco-ui'
-import SearchField from './SearchField'
+import FormField from '../../../../components/FormField'
 
 const SearchForm = props => {
   const handleResetClick = () => {
@@ -22,7 +23,7 @@ const SearchForm = props => {
 
   const shouldRenderField = name => (
     !isHidden(name) && (
-      props.disableSimpleSearch || props.showExtendedSearchForm || props.simpleSearchFields.includes(name))
+    props.disableSimpleSearch || props.showExtendedSearchForm || props.simpleSearchFields.includes(name))
   )
 
   const toggleExtendedSearchForm = () => {
@@ -32,31 +33,32 @@ const SearchForm = props => {
   return (
     <form onSubmit={handleSubmit}>
       {
-      props.searchFormDefinition.map((definition, idx) => (
-        shouldRenderField(definition.name)
-        && <div key={idx} className="form-group row">
-          <label htmlFor={definition.name} className="col-sm-2 col-form-label">{definition.label}</label>
-          <div className="col-sm-10">
-            <SearchField
-              value={props.searchInputs ? props.searchInputs[definition.name] : undefined}
-              type={definition.type}
-              name={definition.name}
-              relationEntities={props.relationEntities}
-              entityModel={props.entityModel}
-              setSearchInput={props.setSearchInput}
-            />
-          </div>
-        </div>
-        ))
+        props.searchFormDefinition.map((formField, idx) => {
+          if (shouldRenderField(formField.name)) {
+            return (<FormField
+              key={idx}
+              formDefinitionField={formField}
+              modelField={props.entityModel[formField.name]}
+              value={props.searchInputs ? props.searchInputs[formField.name] : undefined}
+              editableValueUtils={{
+                relationEntities: props.relationEntities,
+                loadRelationEntity: props.loadRelationEntity
+              }}
+              onChange={value => props.setSearchInput(formField.name, value)}
+              />)
+          }
+        }
+        )
       }
+
       {!props.disableSimpleSearch
-        && <div className="pull-right">
-          <Button
-            type="button"
-            label={msg('client.entity-browser.extendedSearch')}
-            onClick={toggleExtendedSearchForm}
-          />
-        </div>
+      && <div className="pull-right">
+        <Button
+          type="button"
+          label={msg('client.entity-browser.extendedSearch')}
+          onClick={toggleExtendedSearchForm}
+        />
+      </div>
       }
       <div className="form-group row">
         <div className="col-sm-10">
@@ -98,13 +100,18 @@ SearchForm.propTypes = {
     })
   ).isRequired,
   setSearchInput: React.PropTypes.func.isRequired,
-  relationEntities: React.PropTypes.objectOf(
-    React.PropTypes.arrayOf(
-      React.PropTypes.shape({
-        displayName: React.PropTypes.string.isRequired,
-        value: React.PropTypes.string.isRequired
-      })
-    )).isRequired,
+  relationEntities: React.PropTypes.shape({
+    entityName: React.PropTypes.shape({
+      loaded: React.PropTypes.bool,
+      data: React.PropTypes.arrayOf(
+        React.PropTypes.shape({
+          value: React.PropTypes.string,
+          label: React.PropTypes.string
+        })
+      )
+    })
+  }).isRequired,
+  loadRelationEntity: React.PropTypes.func.isRequired,
   searchInputs: React.PropTypes.objectOf(React.PropTypes.any),
   reset: React.PropTypes.func.isRequired,
   disableSimpleSearch: React.PropTypes.bool,

@@ -285,29 +285,36 @@ describe('entity-browser', () => {
         describe('getInitialSelectBoxStore', () => {
           it('should return a store array for a field of type entity', () => {
             const paths = {
-              singleSelect: {
+              relSingleSelect: {
                 type: 'entity',
                 value: {
-                  key: '1',
+                  key: '2',
                   display: 'Label'
                 }
               }
             }
 
+            const model = {
+              relSingleSelect: {
+                type: 'relation',
+                targetEntity: 'singleEntity'
+              }
+            }
+
             const expectedResult = [{
-              key: 'singleSelect',
+              targetEntity: 'singleEntity',
               store: [
-                {value: '1', label: 'Label'}
+                {value: '2', label: 'Label'}
               ]
             }]
 
-            const result = entities.getInitialSelectBoxStore(paths)
+            const result = entities.getInitialSelectBoxStore(paths, model)
             expect(result).to.eql(expectedResult)
           })
 
           it('should return a store array for a field of the type entity-list', () => {
             const paths = {
-              singleSelect: {
+              relMultiSelect: {
                 type: 'entity-list',
                 value: [
                   {key: '1', display: 'Label1'},
@@ -316,15 +323,22 @@ describe('entity-browser', () => {
               }
             }
 
+            const model = {
+              relMultiSelect: {
+                type: 'relation',
+                targetEntity: 'multiEntity'
+              }
+            }
+
             const expectedResult = [{
-              key: 'singleSelect',
+              targetEntity: 'multiEntity',
               store: [
                 {value: '1', label: 'Label1'},
                 {value: '2', label: 'Label2'}
               ]
             }]
 
-            const result = entities.getInitialSelectBoxStore(paths)
+            const result = entities.getInitialSelectBoxStore(paths, model)
             expect(result).to.eql(expectedResult)
           })
         })

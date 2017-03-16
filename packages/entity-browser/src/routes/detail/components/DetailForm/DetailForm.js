@@ -1,14 +1,13 @@
 import React from 'react'
 import {reduxForm, Field} from 'redux-form'
-import _get from 'lodash/get'
 import {intlShape, FormattedRelative, FormattedMessage} from 'react-intl'
-
 import {Button, LayoutBox} from 'tocco-ui'
-import LabeledField from './LabeledField'
-import ErrorBox from './ErrorBox'
-import {getFieldId, selectTypes} from '../../../util/detailView/helpers'
-import {getForm} from '../../../util/detailView/formBuilder'
-import formErrorsUtil from '../../../util/detailView/formErrors'
+
+import ReduxFormFieldAdapter from '../ReduxFormFieldAdapter'
+import ErrorBox from '../ErrorBox'
+import {getFieldId} from '../../../../util/detailView/helpers'
+import {getForm} from '../../../../util/detailView/formBuilder'
+import formErrorsUtil from '../../../../util/detailView/formErrors'
 
 export class DetailForm extends React.Component {
   createLayoutComponent = (field, type, key, traverser) => {
@@ -23,41 +22,27 @@ export class DetailForm extends React.Component {
     }
   }
 
-  createField = (field, key) => {
-    const entityField = this.props.entity.paths[field.name]
+  createField = (formDefinitionField, key) => {
+    const fieldName = formDefinitionField.name
+    const entityField = this.props.entity.paths[fieldName]
+    const modelField = this.props.entityModel[fieldName]
 
-    let fieldProps = {}
-
-    if (selectTypes.includes(entityField.type)) {
-      fieldProps.type = entityField.type === 'entity' ? 'single-select' : 'multi-select'
-      const store = this.props.selectBoxStores[field.name] ? this.props.selectBoxStores[field.name].data : []
-      fieldProps.options = {store}
-    } else {
-      fieldProps.type = entityField.value.type
-    }
-
-    const isMandatoryField = _get(this.props.entityModel, `${field.name}.validation.mandatory`, false)
-    const isWritableField = _get(entityField, 'value.writable', true)
-
-    const handleFocus = (type, fieldName) => {
-      if (selectTypes.includes(type)) {
-        this.props.loadRelationEntities(fieldName)
-      }
+    const editableValueUtils = {
+      relationEntities: this.props.relationEntities,
+      loadRelationEntity: this.props.loadRelationEntity
     }
 
     return (
-      <div key={key} onFocus={() => (handleFocus(entityField.type, field.name))}>
-        <Field
-          id={getFieldId(this.props.form, field.name)}
-          name={field.name}
-          key={key}
-          label={field.label}
-          component={LabeledField}
-          mandatory={isMandatoryField}
-          readOnly={!isWritableField}
-          {...fieldProps}
-        />
-      </div>
+      <Field
+        key={key}
+        name={fieldName}
+        id={getFieldId(this.props.form, fieldName)}
+        component={ReduxFormFieldAdapter}
+        formDefinitionField={formDefinitionField}
+        entityField={entityField}
+        modelField={modelField}
+        editableValueUtils={editableValueUtils}
+      />
     )
   }
 
@@ -140,8 +125,8 @@ DetailForm.propTypes = {
   submitForm: React.PropTypes.func.isRequired,
   formDefinition: React.PropTypes.object.isRequired,
   entity: React.PropTypes.object.isRequired,
-  loadRelationEntities: React.PropTypes.func.isRequired,
-  selectBoxStores: React.PropTypes.shape({
+  loadRelationEntity: React.PropTypes.func.isRequired,
+  relationEntities: React.PropTypes.shape({
     entityName: React.PropTypes.shape({
       loaded: React.PropTypes.bool,
       data: React.PropTypes.arrayOf(

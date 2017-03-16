@@ -1,12 +1,9 @@
 import {delay} from 'redux-saga'
-import _isEmpty from 'lodash/isEmpty'
+import _uniq from 'lodash/uniq'
 import {call, put, fork, select, takeLatest, take} from 'redux-saga/effects'
-
+import {INITIALIZED, loadRelationEntity} from '../../../entity-browser/modules/actions'
 import * as actions from './actions'
 import {fetchForm, searchFormTransformer} from '../../../../util/api/forms'
-import {combineEntitiesInObject, fetchEntities} from '../../../../util/api/entities'
-import {INITIALIZED} from '../../../entity-browser/modules/actions'
-
 export const searchFormSelector = state => state.searchForm
 export const entityBrowserSelector = state => state.entityBrowser
 
@@ -27,20 +24,18 @@ export function* loadSearchForm(formDefinition, formBase) {
   return formDefinition
 }
 
-export function* loadRelationEntities(relationEntities, formDefinition, entityModel) {
-  if (_isEmpty(relationEntities)) {
-    const relationEntities = yield formDefinition.filter(searchField => [
-      'ch.tocco.nice2.model.form.components.simple.MultiSelectBox',
-      'ch.tocco.nice2.model.form.components.simple.SingleSelectBox'].includes(searchField.type)).map(searchField => {
-        const relationName = searchField.name
-        const entityName = entityModel[relationName].targetEntity
-        return call(fetchEntities, entityName)
-      })
+export function* loadPreselectedRelationEntities(formDefinition, entityModel, searchInputs) {
+  const relationFields = formDefinition.filter(searchField => [
+    'ch.tocco.nice2.model.form.components.simple.MultiSelectBox',
+    'ch.tocco.nice2.model.form.components.simple.SingleSelectBox'].includes(searchField.type)).map(field => field.name)
 
-    const relationEntitiesTransformed = yield call(combineEntitiesInObject, relationEntities)
+  const relationFieldsWithValue = relationFields.filter(relationField => {
+    const value = searchInputs[relationField]
+    return (value instanceof Array && value.length > 0) || (!(value instanceof Array) && value)
+  })
 
-    yield put(actions.setRelationEntities(relationEntitiesTransformed))
-  }
+  const targetEntities = _uniq(relationFieldsWithValue.map(relationField => (entityModel[relationField].targetEntity)))
+  yield targetEntities.map(targetEntity => put(loadRelationEntity(targetEntity)))
 }
 
 export function* getEntityModel() {
@@ -55,11 +50,11 @@ export function* getEntityModel() {
 }
 
 export function* initialize() {
-  let {formDefinition, relationEntities} = yield select(searchFormSelector)
+  let {formDefinition, searchInputs} = yield select(searchFormSelector)
   const {formBase} = yield select(entityBrowserSelector)
   const entityModel = yield call(getEntityModel)
   formDefinition = yield call(loadSearchForm, formDefinition, formBase)
-  yield call(loadRelationEntities, relationEntities, formDefinition, entityModel)
+  yield call(loadPreselectedRelationEntities, formDefinition, entityModel, searchInputs)
 }
 
 export function* setSearchTerm() {
