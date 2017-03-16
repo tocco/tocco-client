@@ -1,3 +1,3 @@
-import {EntityBrowser} from './EntityBrowser'
+import EntityBrowser from './EntityBrowser'
 
 export default EntityBrowser

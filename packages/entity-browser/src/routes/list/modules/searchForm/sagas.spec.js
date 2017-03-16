@@ -22,7 +22,7 @@ describe('entity-browser', () => {
         describe('initializeSearchForm saga', () => {
           it('should set model and from definition and retrieve relevant entities', () => {
             const formBase = 'UserSearch'
-            const relationEntities = {}
+            const searchInputs = {}
             const formDefinition = []
 
             const entityModel = {
@@ -36,12 +36,13 @@ describe('entity-browser', () => {
 
             const gen = sagas.initialize()
             expect(gen.next().value).to.eql(select(sagas.searchFormSelector))
-            expect(gen.next({formDefinition, relationEntities}).value).to.eql(select(sagas.entityBrowserSelector))
+            expect(gen.next({formDefinition, searchInputs}).value).to.eql(select(sagas.entityBrowserSelector))
+
             expect(gen.next({formBase}).value).to.eql(call(sagas.getEntityModel))
 
             expect(gen.next(entityModel).value).to.eql(call(sagas.loadSearchForm, formDefinition, formBase))
             expect(gen.next(formDefinition).value)
-              .to.eql(call(sagas.loadRelationEntities, relationEntities, formDefinition, entityModel))
+              .to.eql(call(sagas.loadPreselectedRelationEntities, formDefinition, entityModel, searchInputs))
             expect(gen.next().done).to.be.true
           })
         })

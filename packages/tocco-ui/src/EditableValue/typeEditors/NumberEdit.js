@@ -11,12 +11,6 @@ const NumberEdit = props => {
     }
   }
 
-  const handleBlur = e => {
-    if (props.events && props.events.onBlur) {
-      props.events.onBlur(convertStringToNumber(e.target.value))
-    }
-  }
-
   return (
     <input
       type="number"
@@ -25,9 +19,7 @@ const NumberEdit = props => {
       value={props.value}
       onChange={handleChange}
       id={props.id}
-      {...props.events}
       readOnly={props.readOnly}
-      onBlur={handleBlur}
     />
   )
 }
@@ -37,7 +29,6 @@ NumberEdit.propTypes = {
   value: React.PropTypes.number,
   name: React.PropTypes.string,
   id: React.PropTypes.string,
-  events: React.PropTypes.objectOf(React.PropTypes.func),
   readOnly: React.PropTypes.bool
 }
 
