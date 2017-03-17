@@ -20,13 +20,6 @@ export const setFormDefinition = formDefinition => ({
   }
 })
 
-export const setRelationEntities = relationEntities => ({
-  type: SET_RELATION_ENTITIES,
-  payload: {
-    relationEntities
-  }
-})
-
 export const setSearchInput = (field, value) => ({
   type: SET_SEARCH_INPUT,
   payload: {

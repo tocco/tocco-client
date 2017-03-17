@@ -28,7 +28,17 @@ export const map = {
 
 export default (type, value, onChange, options, id, events, readOnly = false) => {
   if (map[type]) {
-    return React.createElement(map[type], {value, onChange, options, id, events, readOnly})
+    const Component = map[type]
+    return (
+      <div {...events}>
+        <Component
+          value={value}
+          onChange={onChange}
+          options={options}
+          id={id}
+          readOnly={readOnly}/>
+      </div>
+    )
   }
 
   // eslint-disable-next-line no-console

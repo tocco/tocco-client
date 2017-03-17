@@ -1,6 +1,7 @@
 import React from 'react'
 import {FormattedMessage} from 'react-intl'
-import formErrorsUtil from '../../../util/detailView/formErrors'
+
+import formErrorsUtil from '../../../../util/detailView/formErrors'
 
 const ErrorBox = props => {
   const {formErrors} = props

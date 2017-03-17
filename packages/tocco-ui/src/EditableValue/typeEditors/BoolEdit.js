@@ -14,7 +14,6 @@ const BoolEdit = props => {
       name={props.name}
       onChange={handleChange}
       id={props.id}
-      {...props.events}
       disabled={props.readOnly}
     />
   )
@@ -25,7 +24,6 @@ BoolEdit.propTypes = {
   value: React.PropTypes.bool,
   name: React.PropTypes.string,
   id: React.PropTypes.string,
-  events: React.PropTypes.objectOf(React.PropTypes.func),
   readOnly: React.PropTypes.bool
 }
 

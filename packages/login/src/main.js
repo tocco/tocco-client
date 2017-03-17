@@ -18,11 +18,12 @@ const initLoginApp = (id, input, events, publicPath) => {
   const showTitle = !!input.showTitle
   const content = <LoginContainer showTitle={showTitle}/>
 
+  const store = appFactory.createStore(loginReducers, sagas, input)
+
   return appFactory.createApp(
     packageName,
     content,
-    loginReducers,
-    sagas,
+    store,
     input,
     events,
     dispatchActions,
@@ -51,11 +52,16 @@ const initPasswordUpdateApp = (id, input, events, publicPath) => {
     dispatchActions.push(passwordUpdate.setShowOldPasswordField(input.showOldPasswordField))
   }
 
+  const reducers = {
+    passwordUpdate: loginReducers.passwordUpdate
+  }
+
+  const store = appFactory.createStore(reducers, sagas, input)
+
   return appFactory.createApp(
     `${packageName}.passwordUpdate`,
     content,
-    {passwordUpdate: loginReducers.passwordUpdate},
-    sagas,
+    store,
     input,
     events,
     dispatchActions,

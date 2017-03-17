@@ -131,7 +131,7 @@ export const combineEntitiesInObject = entitiesList => {
   return result
 }
 
-export const getInitialSelectBoxStore = paths => {
+export const getInitialSelectBoxStore = (paths, model) => {
   const keys = Object.keys(paths)
   const stores = []
   for (let i = 0; i < keys.length; i++) {
@@ -139,11 +139,13 @@ export const getInitialSelectBoxStore = paths => {
     const field = paths[key]
     if (field.type === 'entity') {
       if (field.value != null) {
-        stores.push({key, store: [{value: field.value.key, label: field.value.display}]})
+        const targetEntity = model[key].targetEntity
+        stores.push({targetEntity, store: [{value: field.value.key, label: field.value.display}]})
       }
     } else if (field.type === 'entity-list') {
+      const targetEntity = model[key].targetEntity
       if (field.value != null && field.value.length > 0) {
-        stores.push({key, store: field.value.map(e => ({value: e.key, label: e.display}))})
+        stores.push({targetEntity, store: field.value.map(e => ({value: e.key, label: e.display}))})
       }
     }
   }

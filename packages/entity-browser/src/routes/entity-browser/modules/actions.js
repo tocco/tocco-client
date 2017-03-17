@@ -4,6 +4,9 @@ export const INITIALIZE = 'entityBrowser/INITIALIZE'
 export const SET_ENTITY_NAME = 'SET_ENTITY_NAME'
 export const SET_FORM_BASE = 'SET_FORM_BASE'
 export const SET_ENTITY_MODEL = 'entityBrowser/SET_ENTITY_MODEL'
+export const LOAD_RELATION_ENTITY = 'entityBrowser/LOAD_RELATION_ENTITY'
+export const SET_RELATION_ENTITY = 'entityBrowser/SET_RELATION_ENTITY'
+export const SET_RELATION_ENTITY_LOADED = 'entityBrowser/SET_RELATION_ENTITY_LOADED'
 
 export const initialized = () => ({
   type: INITIALIZED,
@@ -36,3 +39,27 @@ export const setEntityModel = entityModel => ({
     entityModel
   }
 })
+
+export const loadRelationEntity = entityName => ({
+  type: LOAD_RELATION_ENTITY,
+  payload: {
+    entityName
+  }
+})
+
+export const setRelationEntityLoaded = entityName => ({
+  type: SET_RELATION_ENTITY_LOADED,
+  payload: {
+    entityName
+  }
+})
+
+export const setRelationEntity = (entityName, entities, reset = false) => ({
+  type: SET_RELATION_ENTITY,
+  payload: {
+    entityName,
+    entities,
+    reset
+  }
+})
+

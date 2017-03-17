@@ -1,9 +1,9 @@
 import React from 'react'
 import {IntlStub} from 'tocco-test-util'
-import SearchField from './SearchField'
 import SearchForm from './'
 import {mount} from 'enzyme'
 import {Button} from 'tocco-ui'
+import FormField from '../../../../components/FormField'
 
 const EMPTY_FUNC = () => {}
 
@@ -27,7 +27,7 @@ describe('entity-browser', () => {
           preselectedSearchFields={[]}
         />)
 
-        expect(wrapper.find(SearchField)).to.have.length(searchFormDefinition.length)
+        expect(wrapper.find(FormField)).to.have.length(searchFormDefinition.length)
         expect(wrapper.find(Button)).to.have.length(2)
       })
 
@@ -48,7 +48,7 @@ describe('entity-browser', () => {
           preselectedSearchFields={[]}
         />)
 
-        expect(wrapper.find(SearchField)).to.have.length(1)
+        expect(wrapper.find(FormField)).to.have.length(1)
         expect(wrapper.find(Button)).to.have.length(3)
       })
 
@@ -69,7 +69,7 @@ describe('entity-browser', () => {
           preselectedSearchFields={[]}
         />)
 
-        expect(wrapper.find(SearchField)).to.have.length(2)
+        expect(wrapper.find(FormField)).to.have.length(2)
         expect(wrapper.find(Button)).to.have.length(3)
       })
 
@@ -98,7 +98,7 @@ describe('entity-browser', () => {
           preselectedSearchFields={preselectedSearchFields}
         />)
 
-        expect(wrapper.find(SearchField)).to.have.length(searchFormDefinition.length - 1)
+        expect(wrapper.find(FormField)).to.have.length(searchFormDefinition.length - 1)
       })
     })
   })

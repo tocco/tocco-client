@@ -13,7 +13,6 @@ const TextEdit = props => {
       name={props.name}
       onChange={handleChange}
       id={props.id}
-      {...props.events}
       value={props.value}
       disabled={props.readOnly}
     />
@@ -29,7 +28,6 @@ TextEdit.propTypes = {
   value: React.PropTypes.node,
   name: React.PropTypes.string,
   id: React.PropTypes.string,
-  events: React.PropTypes.objectOf(React.PropTypes.func),
   readOnly: React.PropTypes.bool
 }
 

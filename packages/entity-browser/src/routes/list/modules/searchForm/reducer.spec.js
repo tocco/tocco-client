@@ -3,7 +3,6 @@ import * as actions from './actions'
 
 const EXPECTED_INITIAL_STATE = {
   formDefinition: [],
-  relationEntities: {},
   searchInputs: {},
   showExtendedSearchForm: false,
   simpleSearchFields: ['txtFulltext'],
