@@ -124,6 +124,20 @@ describe('entity-browser', () => {
             })
           })
         })
+
+        describe('getFieldsOfColumnDefinition', () => {
+          it('should extract field names from column definition', () => {
+            const columnDefinition = [
+              {
+                dataIndex: 'firstname'
+              }, {
+                dataIndex: 'lastname'
+              }
+            ]
+            const fields = forms.getFieldsOfColumnDefinition(columnDefinition)
+            expect(fields).to.eql(['firstname', 'lastname'])
+          })
+        })
       })
     })
   })

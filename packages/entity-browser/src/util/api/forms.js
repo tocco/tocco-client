@@ -59,12 +59,4 @@ export const searchFormTransformer = json => {
     }))
 }
 
-export const getFieldsOfColumnDefinition = columnDefinition => {
-  let fields = []
-
-  columnDefinition.forEach(column => {
-    fields = fields.concat(column.value)
-  })
-
-  return fields
-}
+export const getFieldsOfColumnDefinition = columnDefinition => columnDefinition.map(column => column.dataIndex)
