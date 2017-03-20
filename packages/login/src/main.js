@@ -70,9 +70,11 @@ const initPasswordUpdateApp = (id, input, events, publicPath) => {
 }
 
 (() => {
-  if (__DEV__) {
+  if (__DEV__ || __NICE2_11_LEGACY__) {
     require('tocco-theme/src/ToccoTheme/theme.scss')
+  }
 
+  if (__DEV__) {
     const fetchMock = require('fetch-mock')
     const setupFetchMocks = require('./dev/fetchMocks')
     setupFetchMocks(fetchMock)
@@ -90,7 +92,8 @@ const initPasswordUpdateApp = (id, input, events, publicPath) => {
 
     appFactory.renderApp(app.renderComponent())
   } else {
-    storeFactory.registerAppInRegistry(packageName, initLoginApp)
-    storeFactory.registerAppInRegistry('password-update', initPasswordUpdateApp)
+    appFactory.registerAppInRegistry(packageName, initLoginApp)
+    appFactory.registerAppInRegistry('password-update', initPasswordUpdateApp)
   }
 })()
+

@@ -9,7 +9,7 @@ import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
 
 const debug = _debug('app:webpack:config')
 const paths = config.utils_paths
-const {__DEV__, __PROD__, __STANDALONE__, __TEST__, __PACKAGE__} = config.globals
+const {__DEV__, __PROD__, __STANDALONE__, __TEST__, __PACKAGE__, __NICE2_11_LEGACY__} = config.globals
 
 const packageDir = `packages/${__PACKAGE__}`
 const absolutePackagePath = paths.client(`${packageDir}/`)
@@ -21,7 +21,7 @@ debug('Create configuration.')
 const webpackConfig = {
   name: 'client',
   target: 'web',
-  devtool: __PROD__ ? 'source-map' : 'eval',
+  devtool: __PROD__ || __NICE2_11_LEGACY__ ? 'source-map' : 'eval',
   resolve: {
     modules: [
       path.resolve(paths.client(), packageDir, 'src'),
@@ -35,7 +35,7 @@ const webpackConfig = {
     extensions: ['.js', '.jsx', '.json']
   },
   performance: {
-    hints: __PROD__ ? 'warning' : false
+    hints: __PROD__ || __NICE2_11_LEGACY__ ? 'warning' : false
   },
   module: {}
 }
@@ -71,6 +71,10 @@ webpackConfig.output = {
   path: outputDir,
   libraryTarget: 'umd',
   publicPath: ''
+}
+
+if (__NICE2_11_LEGACY__) {
+  webpackConfig.output.filename = 'index_nice2_11_legacy.js'
 }
 
 // ------------------------------------
@@ -245,7 +249,97 @@ webpackConfig.module.rules = [
   }
 ]
 
-if (!__PROD__) {
+if (!__PROD__ && !__NICE2_11_LEGACY__) {
+  // Run linting but only show errors as warning
+  webpackConfig.module.rules.push(
+    {
+      test: /\.jsx?$/,
+      enforce: 'pre',
+      use: ['eslint-loader']
+    }
+  )
+
+  webpackConfig.plugins.push(
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        eslint: {
+          emitWarning: true
+        }
+      }
+    })
+  )
+
+  // write all styles into index.js
+  webpackConfig.module.rules.push({
+    test: /\.scss$/,
+    use: ['style-loader', 'css-loader', `sass-loader?data=$node-env:${config.env};&includePaths[]=${paths.client()}/packages/tocco-theme/node_modules/`]  // eslint-disable-line
+  })
+
+  // File loaders
+  /* eslint-disable */
+  webpackConfig.module.rules.push(
+    {
+      test: /\.woff(\?.*)?$/,
+      use: 'file-loader?name=fonts/[name].[ext]&mimetype=application/font-woff'
+    },
+    {
+      test: /\.woff2(\?.*)?$/,
+      use: 'file-loader?name=fonts/[name].[ext]&mimetype=application/font-woff2'
+    },
+    {
+      test: /\.otf(\?.*)?$/,
+      use: 'file-loader?name=fonts/[name].[ext]&mimetype=font/opentype'
+    },
+    {
+      test: /\.ttf(\?.*)?$/,
+      use: 'file-loader?name=fonts/[name].[ext]&mimetype=application/octet-stream'
+    },
+    {
+      test: /\.eot(\?.*)?$/,
+      use: 'file-loader?name=fonts/[name].[ext]'
+    },
+    {
+      test: /\.svg(\?.*)?$/,
+      use: 'file-loader?name=fonts/[name].[ext]&mimetype=image/svg+xml'
+    },
+    {
+     test: /\.(png|jpg)$/,
+      use: 'file-loader?limit=8192'
+    }
+  )
+  /* eslint-enable */
+}
+
+if (__NICE2_11_LEGACY__) {
+  // optimize asset loading
+  webpackConfig.plugins.push(
+    new webpack.LoaderOptionsPlugin({
+      minimize: true,
+      debug: false
+    }),
+    new LodashModuleReplacementPlugin({
+      'shorthands': true
+    }),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+        screw_ie8: true,
+        conditionals: true,
+        unused: true,
+        comparisons: true,
+        sequences: true,
+        dead_code: true,
+        evaluate: true,
+        if_return: true,
+        join_vars: true
+      },
+      output: {
+        comments: false
+      }
+    })
+  )
+
   // Run linting but only show errors as warning
   webpackConfig.module.rules.push(
     {

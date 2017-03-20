@@ -7,7 +7,7 @@
     "clean": "../../node_modules/rimraf/bin.js dist",
     "compile": "babel-node ../../bin/compile",
     "deploy": "cd ../../ && ./node_modules/better-npm-run/index.js deploy --package=login",
-    "prepublish": "cd ../../ && ./node_modules/better-npm-run/index.js deploy:prod --package=login"
+    "prepublish": "cd ../../ && ./node_modules/better-npm-run/index.js deploy:prod --package=login && ./node_modules/better-npm-run/index.js deploy:nice2_11_legacy --package=login"
   },
   "betterScripts": {
     "deploy": {

@@ -23,6 +23,7 @@
     "deploy:dev": "better-npm-run deploy:dev",
     "deploy:prod": "better-npm-run deploy:prod",
     "deploy:standalone": "better-npm-run deploy:standalone",
+    "deploy:nice2_11_legacy": "better-npm-run deploy:nice2_11_legacy",
     "publish": "better-npm-run publish",
     "codecov": "cat ./coverage/lcov/lcov.info | codecov",
     "setup": "yarn && cd server/static && yarn",
@@ -68,6 +69,13 @@
       "command": "npm run deploy",
       "env": {
         "NODE_ENV": "standalone",
+        "DEBUG": "app:*"
+      }
+    },
+    "deploy:nice2_11_legacy": {
+      "command": "npm run deploy",
+      "env": {
+        "NODE_ENV": "nice2_11_legacy",
         "DEBUG": "app:*"
       }
     },
@@ -174,7 +182,7 @@
     "lodash": "^4.17.2",
     "lodash-webpack-plugin": "^0.11.0",
     "mocha": "^3.2.0",
-    "node-sass": "^4.0.0",
+    "node-sass": "^4.5.0",
     "nodemon": "^1.11.0",
     "phantomjs-prebuilt": "^2.1.14",
     "plop": "^1.7.3",
@@ -193,7 +201,7 @@
     "redux-saga": "^0.14.3",
     "redux-thunk": "^2.1.0",
     "rimraf": "^2.5.4",
-    "sass-loader": "^4.0.2",
+    "sass-loader": "^6.0.3",
     "sinon": "^1.17.6",
     "sinon-chai": "^2.8.0",
     "style-loader": "^0.13.1",

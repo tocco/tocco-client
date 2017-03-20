@@ -20,6 +20,7 @@
     "__DEV__"      : false,
     "__TEST__"     : false,
     "__PROD__"     : false,
+    "__NICE2_11_LEGACY__" : false,
     "__DEBUG__"    : false,
     "__STANDALONE__": false,
     "__COVERAGE__" : false,
