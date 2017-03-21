@@ -38,9 +38,14 @@ export const columnDefinitionTransformer = json => {
       && !child.name.startsWith('custom:')
   }
 
+  const createDataIndex = fields => {
+    const len = fields.length
+    return (len === 0) ? '' : (len === 1) ? fields[0].name : fields.reduce((acc, val) => `${acc.name}-${val.name}`)
+  }
+
   return columns.map(c => ({
     name: c.label,
-    dataIndex: c.children.filter(isDisplayableType).map(child => child.name)[0]
+    dataIndex: createDataIndex(c.children.filter(isDisplayableType))
   }))
 }
 

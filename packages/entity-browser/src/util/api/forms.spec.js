@@ -103,12 +103,11 @@ describe('entity-browser', () => {
               }
             }
             const result = forms.columnDefinitionTransformer(fetchResult)
-
             const expectedColumnDefinition = [
-              {label: 'label1', value: ['name1']},
-              {label: 'label3', value: []},
-              {label: 'label4', value: []},
-              {label: 'label5', value: ['name5']}
+              {name: 'label1', dataIndex: 'name1'},
+              {name: 'label3', dataIndex: ''},
+              {name: 'label4', dataIndex: ''},
+              {name: 'label5', dataIndex: 'name5'}
             ]
             expect(result).to.eql(expectedColumnDefinition)
           })
