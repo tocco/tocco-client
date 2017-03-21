@@ -66,7 +66,7 @@ ListView.propTypes = {
         value: React.PropTypes.oneOfType([
           React.PropTypes.string,
           React.PropTypes.arrayOf(React.PropTypes.string)
-        ]).isRequired,
+        ]),
         label: React.PropTypes.string,
         order: React.PropTypes.int
       }
