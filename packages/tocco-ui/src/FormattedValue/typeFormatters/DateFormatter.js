@@ -1,27 +1,17 @@
 import React from 'react'
 import {FormattedDate} from 'react-intl'
-import {convertDateToUTC} from '../util/DateUtils'
-
-/* eslint no-console: 0 */
+import {parseLocalDate} from '../util/DateUtils'
 
 const DateFormatter = props => {
-  const timestamp = Date.parse(props.value)
+  const localDate = parseLocalDate(props.value)
 
-  if (isNaN(timestamp)) {
+  if (!localDate) {
     return <span/>
-  }
-
-  console.log('props.value', props.value)
-  let date
-  if (props.value instanceof Date) {
-    date = props.value
-  } else {
-    date = convertDateToUTC(new Date(timestamp))
   }
 
   return (
     <FormattedDate
-      value={date}
+      value={localDate}
       year="numeric"
       month="numeric"
       day="numeric"
@@ -30,7 +20,11 @@ const DateFormatter = props => {
 }
 
 DateFormatter.propTypes = {
-  value: React.PropTypes.string.isRequired
+  value: (props, propName, componentName) => {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(props[propName])) {
+      return new Error(`Invalid prop '${propName}' supplied to ${componentName}.`)
+    }
+  }
 }
 
 export default DateFormatter

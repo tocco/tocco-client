@@ -1,13 +1,33 @@
-import {convertDateToUTC} from './DateUtils'
+import {parseLocalDate} from './DateUtils'
 
 describe('tocco-ui', () => {
   describe('FormattedValue', () => {
-    describe('DateUtils', () => {
-      it('should convert a date to the UTC timezone', () => {
-        const date = new Date('Tue Feb 28 2017 10:00:00 GMT+0100 (CET)')
-        const dateUTC = convertDateToUTC(date)
-        const localTimezoneOffset = new Date().getTimezoneOffset() * 60000
-        expect(dateUTC).to.be.eql(new Date(date.getTime() + localTimezoneOffset))
+    describe('util', () => {
+      describe('DateUtils', () => {
+        describe('parseLocalDate', () => {
+          it('should parse a valid local date string', () => {
+            const localDate = parseLocalDate('2017-03-27')
+
+            expect(localDate.getFullYear()).to.be.eql(2017)
+            expect(localDate.getMonth()).to.be.eql(2)
+            expect(localDate.getDate()).to.be.eql(27)
+
+            expect(localDate.getHours()).to.be.eql(0)
+            expect(localDate.getMinutes()).to.be.eql(0)
+            expect(localDate.getSeconds()).to.be.eql(0)
+            expect(localDate.getMilliseconds()).to.be.eql(0)
+          })
+
+          it('should return null if invalid date given', () => {
+            const localDate = parseLocalDate('invalid')
+            expect(localDate).to.be.null
+          })
+
+          it('should return null if no date given', () => {
+            const localDate = parseLocalDate(null)
+            expect(localDate).to.be.null
+          })
+        })
       })
     })
   })
