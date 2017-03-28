@@ -1,9 +1,9 @@
 import React from 'react'
 import {FormattedDate} from 'react-intl'
-import {parseLocalDate} from '../util/DateUtils'
+import {matchesIsoDate, parseIsoDate} from '../util/DateUtils'
 
 const DateFormatter = props => {
-  const localDate = parseLocalDate(props.value)
+  const localDate = parseIsoDate(props.value)
 
   if (!localDate) {
     return <span/>
@@ -21,7 +21,7 @@ const DateFormatter = props => {
 
 DateFormatter.propTypes = {
   value: (props, propName, componentName) => {
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(props[propName])) {
+    if (!matchesIsoDate(props[propName])) {
       return new Error(`Invalid prop '${propName}' supplied to ${componentName}.`)
     }
   }
