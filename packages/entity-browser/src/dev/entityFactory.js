@@ -1,8 +1,14 @@
 const getRandomDate = (startYear, endYear) => {
   const start = new Date(startYear, 1, 1)
   const end = new Date(endYear, 1, 1)
+
   const date = new Date(+start + Math.random() * (end - start))
-  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+
+  const year = date.getFullYear()
+  const month = ('00' + (date.getMonth() + 1)).slice(-2)
+  const day = ('00' + date.getDate()).slice(-2)
+
+  return `${year}-${month}-${day}`
 }
 
 function getRandomInt(min, max) {
