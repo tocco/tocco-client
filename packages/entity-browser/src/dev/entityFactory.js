@@ -23,6 +23,7 @@ export const createUsers = amount => {
     entities.push({
       ...userTemplate,
       key: i,
+      display: `Dummy User ${i}`,
       paths: {
         ...userTemplate.paths,
         user_nr: {

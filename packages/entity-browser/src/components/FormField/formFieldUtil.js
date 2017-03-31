@@ -1,4 +1,5 @@
 import {consoleLogger} from 'tocco-util'
+import {fetchEntities, selectEntitiesTransformer} from '../../util/api/entities'
 
 const fromDefinitionTypeMap = {
   'ch.tocco.nice2.model.form.components.simple.DateField': 'date',
@@ -29,7 +30,7 @@ const fromDefinitionTypeMap = {
   'ch.tocco.nice2.model.form.components.simple.ConstantField': '',
   'ch.tocco.nice2.model.form.components.simple.MultiSelectBox': 'multi-select',
   'ch.tocco.nice2.model.form.components.simple.SingleSelectBox': 'single-select',
-  'ch.tocco.nice2.model.form.components.simple.RemoteField': '',
+  'ch.tocco.nice2.model.form.components.simple.RemoteField': 'remote',
   'ch.tocco.nice2.model.form.components.simple.MultiRemoteField': '',
   'ch.tocco.nice2.model.form.components.simple.ListPanel': '',
   'ch.tocco.nice2.model.form.components.simple.ReferencesListPanel': '',
@@ -66,6 +67,20 @@ const getOptions = (formField, modelField, util) => {
         const fieldStore = util.relationEntities[modelField.targetEntity]
         options.store = fieldStore ? fieldStore.data : []
       }
+      break
+    case 'ch.tocco.nice2.model.form.components.simple.RemoteField':
+      options.fetchOptions = searchTerm => (
+        fetchEntities(modelField.targetEntity, {
+          limit: 100,
+          searchInputs: {'_search': searchTerm}
+        }, selectEntitiesTransformer)
+      )
+
+      options.onValueClick = value => {
+        // eslint-disable-next-line no-console
+        console.log('click value', value)
+      }
+      break
   }
 
   return options

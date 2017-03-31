@@ -189,6 +189,19 @@
           "multiRelations": []
         }
       ]
+    },
+    "relUser": {
+      "path": "relUser",
+      "type": "entity",
+      "value": {
+        "key": "33",
+        "model": "User",
+        "version": 1,
+        "display": "Dummy User 33",
+        "fields": {},
+        "singleRelations": [],
+        "multiRelations": []
+      }
     }
   }
 }
