@@ -8,6 +8,7 @@ import DateEdit from './typeEditors/DateEdit'
 import DateTimeEdit from './typeEditors/DateTimeEdit'
 import BoolEdit from './typeEditors/BoolEdit'
 import NumberEdit from './typeEditors/NumberEdit'
+import RemoteSelect from './typeEditors/RemoteSelect'
 
 export const map = {
   'string': StringEdit,
@@ -23,7 +24,8 @@ export const map = {
   'counter': StringEdit,
   'text': TextEdit,
   'multi-select': MultiSelect,
-  'single-select': SingleSelect
+  'single-select': SingleSelect,
+  'remote': RemoteSelect
 }
 
 export default (type, value, onChange, options, id, events, readOnly = false) => {

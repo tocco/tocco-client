@@ -1,31 +1,39 @@
 import React from 'react'
 import Select from 'react-select'
+import _isEmpty from 'lodash/isEmpty'
 
 const SingleSelect = props => {
-  const onChange = e => {
-    props.onChange(e.value ? e.value : e)
+  const onChange = value => {
+    props.onChange(value)
   }
+
+  const options = _isEmpty(props.options.store) ? [props.value] : props.options.store
 
   return (
     <Select
       single
+      valueKey="key"
+      labelKey="display"
       clearable
       placeholder=""
       noResultsText="-"
       value={props.value}
       onChange={onChange}
-      options={props.options.store}
+      options={options}
       disabled={props.readOnly}
     />
   )
 }
 
 SingleSelect.propTypes = {
-  onChange: React.PropTypes.func,
-  value: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number
-  ]),
+  onChange: React.PropTypes.func.isRequired,
+  value: React.PropTypes.shape(
+    {
+      key: React.PropTypes.oneOfType([
+        React.PropTypes.string,
+        React.PropTypes.number
+      ])
+    }),
   options: React.PropTypes.shape({
     store: React.PropTypes.arrayOf(
       React.PropTypes.shape({
