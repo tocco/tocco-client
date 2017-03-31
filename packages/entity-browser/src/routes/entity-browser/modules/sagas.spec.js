@@ -1,7 +1,7 @@
 import {put, select, call, fork, takeLatest} from 'redux-saga/effects'
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
-import {fetchModel, fetchEntities} from '../../../util/api/entities'
+import {fetchModel, fetchEntities, selectEntitiesTransformer} from '../../../util/api/entities'
 
 describe('entity-browser', () => {
   describe('modules', () => {
@@ -59,11 +59,12 @@ describe('entity-browser', () => {
             it('should load relation entites ', () => {
               const entityName = 'User'
 
-              const entities = {data: [{display: 'User1', key: 1}]}
-              const transformedEntities = [{value: 1, label: 'User1'}]
+              const entities = [{display: 'User1', key: 1}]
+              const transformedEntities = [{key: 1, display: 'User1'}]
               const gen = sagas.loadRelationEntity(actions.loadRelationEntity(entityName))
               expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
-              expect(gen.next({relationEntities:{}}).value).to.eql(call(fetchEntities, entityName))
+              expect(gen.next({relationEntities:{}}).value)
+                .to.eql(call(fetchEntities, entityName, {}, selectEntitiesTransformer))
               expect(gen.next(entities).value)
                 .to.eql(put(actions.setRelationEntity(entityName, transformedEntities, true)))
               expect(gen.next().value).to.eql(put(actions.setRelationEntityLoaded(entityName)))

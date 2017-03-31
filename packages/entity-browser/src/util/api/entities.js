@@ -81,6 +81,7 @@ export const entitiesListTransformer = json => {
 }
 
 const defaultEntitiesTransformer = json => (json)
+export const selectEntitiesTransformer = json => (json.data.map(e => ({display: e.display, key: e.key})))
 
 function buildParams({
   page = undefined,

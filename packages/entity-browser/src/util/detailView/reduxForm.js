@@ -32,9 +32,9 @@ export const formValuesToEntity = (values, dirtyFields) => {
       if (type === 'field') {
         result.paths[key] = values[key]
       } else if (type === 'entity') {
-        result.paths[key] = {key: values[key]}
+        result.paths[key] = values[key] && values[key].key ? {key: values[key].key} : null
       } else if (type === 'entity-list') {
-        result.paths[key] = values[key] ? values[key].map(value => ({'key': value})) : []
+        result.paths[key] = values[key] ? values[key].map(value => ({'key': value.key})) : []
       }
     }
   })
@@ -45,15 +45,13 @@ export const entityToFormValues = entity => {
   if (!entity || !entity.paths) return {}
   const result = {}
   const paths = entity.paths
+
   Object.keys(entity.paths).forEach(key => {
-    if (paths[key].value != null) {
-      if (paths[key].type === 'entity') {
-        result[key] = paths[key].value.key
-      } else if (paths[key].type === 'entity-list') {
-        result[key] = paths[key].value.map(e => e.key)
-      } else {
-        result[key] = paths[key].value.value
-      }
+    const field = paths[key]
+    if (field.type === 'entity' || field.type === 'entity-list') {
+      result[key] = field.value
+    } else {
+      result[key] = field.value ? field.value.value : null
     }
   })
 

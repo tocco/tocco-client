@@ -8,8 +8,8 @@ describe('entity-browser', () => {
           it('should return entity with updated values', () => {
             const values = {
               firstname: 'peter',
-              gender: '2',
-              status: [2, 3],
+              gender: {key: '2', display: 'W'},
+              status: [{key: '2'}, {key: '3'}],
               ___entity: {
                 version: 2,
                 model: 'User',
@@ -37,7 +37,7 @@ describe('entity-browser', () => {
               paths: {
                 firstname: 'peter',
                 gender: {key: '2'},
-                status: [{key: 2}, {key: 3}]
+                status: [{key: '2'}, {key: '3'}]
               }
             }
 

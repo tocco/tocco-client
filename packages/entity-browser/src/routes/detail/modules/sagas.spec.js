@@ -61,7 +61,6 @@ describe('entity-browser', () => {
               .to.eql(call(sagas.loadDetailFormDefinition, formDefinition, formBase))
             expect(gen.next(formDefinition).value).to.eql(call(sagas.loadEntity, entityName, entityId, formDefinition))
             expect(gen.next(entity).value).to.eql(call(entityToFormValues, entity))
-            expect(gen.next({}).value).to.eql(call(sagas.initRelationEntities, entity))
             expect(gen.next({}).value).to.eql(put(initializeForm('detailForm', {})))
             expect(gen.next().done).to.be.true
           })
@@ -83,7 +82,7 @@ describe('entity-browser', () => {
             gen.next().value // not working : expect(gen.next().value).to.eql(select(getFormValues(formId)))
             gen.next(values).value // expect(gen.next().value).to.eql(select(formInitialValueSelector(formId)))
             expect(gen.next(initialValues).value).to.eql(put(startSubmit(formId)))
-            expect(gen.next().value).to.eql(call(submitValidate, values))
+            expect(gen.next().value).to.eql(call(submitValidate, values, initialValues))
             expect(gen.next().value).to.eql(call(getDirtyFields, initialValues, values))
             expect(gen.next(dirtyFields).value).to.eql(call(formValuesToEntity, values, dirtyFields))
             expect(gen.next(entity).value).to.eql(select(sagas.formDefinitionSelector))

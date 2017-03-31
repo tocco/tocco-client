@@ -1,4 +1,4 @@
-import {call, put, fork, select, takeLatest, takeEvery, take} from 'redux-saga/effects'
+import {call, put, fork, select, takeLatest, takeEvery} from 'redux-saga/effects'
 import _isEmpty from 'lodash/isEmpty'
 import {
   startSubmit,
@@ -12,10 +12,9 @@ import {
 import {logError} from 'tocco-util/src/errorLogging'
 import * as actions from './actions'
 import {notify} from '../../../util/notification'
-import {fetchEntity, updateEntity, getInitialSelectBoxStore} from '../../../util//api/entities'
+import {fetchEntity, updateEntity} from '../../../util//api/entities'
 import {fetchForm, getFieldsOfDetailForm} from '../../../util//api/forms'
 import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../../util//detailView/reduxForm'
-import {INITIALIZED, setRelationEntity} from '../../entity-browser/modules/actions'
 import {submitValidate} from '../../../util//detailView/asyncValidation'
 
 export const formDefinitionSelector = state => state.detail.formDefinition
@@ -45,17 +44,6 @@ export function* loadEntity(entityName, entityId, formDefinition) {
   return entity
 }
 
-export function* getEntityModel() {
-  let entityBrowser = yield select(entityBrowserSelector)
-  if (!entityBrowser.initialized) {
-    yield take(INITIALIZED)
-  }
-
-  entityBrowser = yield select(entityBrowserSelector)
-
-  return entityBrowser.entityModel
-}
-
 export function* loadDetailView({payload}) {
   const {entityId} = payload
 
@@ -67,19 +55,7 @@ export function* loadDetailView({payload}) {
   const entity = yield call(loadEntity, entityName, entityId, formDefinition)
 
   const formValues = yield call(entityToFormValues, entity)
-
-  yield call(initRelationEntities, entity)
-
   yield put(initializeForm('detailForm', formValues))
-}
-
-export function* initRelationEntities(entity) {
-  const entityModel = yield call(getEntityModel)
-  const stores = yield call(getInitialSelectBoxStore, entity.paths, entityModel)
-
-  for (const store of stores) {
-    yield put(setRelationEntity(store.targetEntity, store.store))
-  }
 }
 
 export function* submitForm() {
@@ -88,7 +64,7 @@ export function* submitForm() {
     const values = yield select(getFormValues(formId))
     const initialValues = yield select(formInitialValueSelector(formId))
     yield put(startSubmit(formId))
-    yield call(submitValidate, values)
+    yield call(submitValidate, values, initialValues)
     const dirtyFields = yield call(getDirtyFields, initialValues, values)
     const entity = yield call(formValuesToEntity, values, dirtyFields)
     const formDefinition = yield select(formDefinitionSelector)
