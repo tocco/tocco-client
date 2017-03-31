@@ -4,7 +4,6 @@ import {Pages} from '../../types/Pages'
 import {Button} from 'tocco-ui'
 
 export class LoginForm extends Component {
-
   handleSubmit(e) {
     e.preventDefault()
     this.props.login(this.props.username, this.props.password)

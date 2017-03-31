@@ -8,7 +8,6 @@ import ValidationRules from '../ValidationRules'
 import FailureMessage from '../FailureMessage'
 
 class PasswordUpdateDialog extends Component {
-
   componentWillMount() {
     this.props.fetchValidationRules()
   }
@@ -42,7 +41,7 @@ class PasswordUpdateDialog extends Component {
       || password.passwordUpdatePending
     const newPasswordRepeatReadOnly = !password.newPassword
       || password.passwordUpdatePending
-      || password.newPasswordValidationErrors && Object.keys(password.newPasswordValidationErrors).length > 0
+      || (password.newPasswordValidationErrors && Object.keys(password.newPasswordValidationErrors).length > 0)
 
     return (
       <div>

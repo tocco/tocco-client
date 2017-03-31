@@ -60,4 +60,3 @@ const initApp = (id, input, events, publicPath) => {
     appFactory.registerAppInRegistry(packageName, initApp)
   }
 })()
-

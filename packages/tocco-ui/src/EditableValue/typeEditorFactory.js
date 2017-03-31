@@ -47,4 +47,3 @@ export default (type, value, onChange, options, id, events, readOnly = false) =>
   console.log('No type-editor defined for type', type)
   return null
 }
-

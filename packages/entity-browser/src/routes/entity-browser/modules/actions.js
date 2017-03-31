@@ -62,4 +62,3 @@ export const setRelationEntity = (entityName, entities, reset = false) => ({
     reset
   }
 })
-

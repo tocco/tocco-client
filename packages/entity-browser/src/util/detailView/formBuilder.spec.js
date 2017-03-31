@@ -66,4 +66,3 @@ describe('entity-browser', () => {
     })
   })
 })
-

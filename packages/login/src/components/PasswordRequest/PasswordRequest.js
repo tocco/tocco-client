@@ -4,7 +4,6 @@ import {Pages} from '../../types/Pages'
 import {Button} from 'tocco-ui'
 
 export class PasswordRequest extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = {

@@ -7,7 +7,6 @@ import Button from '../Button'
  *  Pagination component
  */
 class Pagination extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = {

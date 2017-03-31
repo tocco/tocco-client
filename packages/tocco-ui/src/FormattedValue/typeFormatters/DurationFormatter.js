@@ -21,4 +21,3 @@ DurationFormatter.propTypes = {
 }
 
 export default DurationFormatter
-

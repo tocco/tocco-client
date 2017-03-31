@@ -10,4 +10,3 @@ export const getSearchInputsForRequest = (searchInputs, entityModel) => {
 
   return result
 }
-

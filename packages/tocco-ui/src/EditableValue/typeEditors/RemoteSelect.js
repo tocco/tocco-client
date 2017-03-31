@@ -29,6 +29,7 @@ class RemoteSelect extends React.Component {
           loadOptions={this.loadOptions}
           filterOption={() => (true)}
           autoload={false}
+          disabled={this.props.readOnly}
         />
       </div>
     )

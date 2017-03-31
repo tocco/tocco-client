@@ -32,4 +32,3 @@ export const loadRoute = (store, input, importRouteDependencies, path) => props 
 
   return <Component {...props}/>
 }
-

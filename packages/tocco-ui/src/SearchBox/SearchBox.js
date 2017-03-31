@@ -6,7 +6,6 @@ import _debounce from 'lodash/debounce'
  * SearchBox
  */
 class SearchBox extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = {

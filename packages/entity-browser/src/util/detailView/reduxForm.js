@@ -66,4 +66,3 @@ export const getDirtyFields = (initialValues, values) => (
     []
   )
 )
-

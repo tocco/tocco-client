@@ -29,7 +29,7 @@ const MultiSelection = props => {
               <span
                 onClick={() => { if (disabled !== 'disabled')clickFnc(value) }}
                 className={disabled}
-              >&nbsp;&nbsp;{value.label}</span>
+              >                &nbsp;&nbsp;{value.label}</span>
             </div>
           )
         })

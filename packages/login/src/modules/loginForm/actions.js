@@ -15,4 +15,3 @@ export const setPending = (pending = false) => ({
     pending
   }
 })
-

@@ -111,7 +111,7 @@ export class DetailForm extends React.Component {
         />
         {props.lastSave
         && <div>
-          <FormattedMessage id="client.entity-browser.lastSave"/>: <FormattedRelative value={props.lastSave}/>
+          <FormattedMessage id="client.entity-browser.lastSave"/>          : <FormattedRelative value={props.lastSave}/>
         </div>
         }
       </form>
@@ -153,4 +153,3 @@ export default reduxForm({
   form: 'detailForm',
   destroyOnUnmount: false
 })(DetailForm)
-

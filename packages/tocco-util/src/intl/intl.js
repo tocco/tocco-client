@@ -25,4 +25,3 @@ const loadTextResources = (locale, moduleName) => (
   fetch(`${__BACKEND_URL__}/nice2/textresource?locale=${locale}${moduleName ? `&module=${moduleName}` : ''}`)
     .then(response => response.json())
 )
-

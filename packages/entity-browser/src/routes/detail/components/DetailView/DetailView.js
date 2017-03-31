@@ -87,4 +87,3 @@ DetailView.propTypes = {
   }).isRequired,
   lastSave: React.PropTypes.number
 }
-

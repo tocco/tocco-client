@@ -33,4 +33,3 @@ FormattedValue.propTypes = {
 }
 
 export default FormattedValue
-

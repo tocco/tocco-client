@@ -7,4 +7,3 @@ export const isToManySelected = (toManySelections, relationName, toManyPk, entit
 
   return (entitySelection.indexOf(toManyPk) >= 0)
 }
-

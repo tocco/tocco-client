@@ -16,7 +16,7 @@ const MergeMatrix = props => {
             selectSourceField={props.selectSourceField}
             targetEntityPk={props.targetEntityPk}
             intl={props.intl}
-        />
+          />
         </thead>
         <tbody>
           {

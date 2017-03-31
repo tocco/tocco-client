@@ -9,4 +9,3 @@ LoginFormatter.propTypes = {
 }
 
 export default LoginFormatter
-

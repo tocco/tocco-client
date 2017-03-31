@@ -56,4 +56,3 @@ EditableValue.propTypes = {
 }
 
 export default EditableValue
-
