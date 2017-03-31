@@ -123,6 +123,9 @@ export const createEntityUpdateResponse = (url, opts) => {
   }
 
   Object.keys(entity.paths).forEach(field => {
+    if (updatedEntity.paths[field].value == null) {
+      updatedEntity.paths[field].value = {}
+    }
     updatedEntity.paths[field].value.value = entity.paths[field]
   })
 

@@ -14,7 +14,8 @@ const hasError = errors => (
   errors && Object.keys(errors).length > 0
 )
 
-const validateRequest = (values, dirtyFields) => {
+const validateRequest = (values, initialValues) => {
+  const dirtyFields = getDirtyFields(initialValues, values)
   const entity = formValuesToEntity(values, dirtyFields)
   return request(`entities/${entity.model}/${entity.key}`, {_validate: true}, 'PATCH', entity)
     .then(resp => resp.body)
@@ -26,8 +27,8 @@ const validateRequest = (values, dirtyFields) => {
     })
 }
 
-export const submitValidate = values => {
-  return validateRequest(values)
+export const submitValidate = (values, initialValues) => {
+  return validateRequest(values, initialValues)
     .then(errors => {
       if (hasError(errors)) {
         throw new SubmissionError(errors)
@@ -36,8 +37,7 @@ export const submitValidate = values => {
 }
 
 export const asyncValidate = (values, initialValues) => {
-  const dirtyFields = getDirtyFields(initialValues, values)
-  return validateRequest(values, dirtyFields)
+  return validateRequest(values, initialValues)
     .then(errors => {
       if (hasError(errors)) {
         throw new AsyncValidationException(errors)

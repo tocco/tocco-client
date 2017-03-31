@@ -193,6 +193,14 @@
                     "children": [],
                     "label": "Dummy entity (single) 2",
                     "useLabel": "YES"
+                  },
+                  {
+                    "name": "relUser",
+                    "type": "ch.tocco.nice2.model.form.components.simple.RemoteField",
+                    "displayType": "EDITABLE",
+                    "children": [ ],
+                    "label": "Remote User",
+                    "useLabel": "YES"
                   }
                 ],
                 "label": "Selects",

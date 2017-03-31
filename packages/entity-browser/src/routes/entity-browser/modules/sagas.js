@@ -2,7 +2,7 @@ import {put, fork, select, call, takeLatest} from 'redux-saga/effects'
 import _isEmpty from 'lodash/isEmpty'
 
 import * as actions from './actions'
-import {fetchModel, fetchEntities} from '../../../util/api/entities'
+import {fetchModel, fetchEntities, selectEntitiesTransformer} from '../../../util/api/entities'
 
 export const entityBrowserSelector = state => state.entityBrowser
 
@@ -30,9 +30,8 @@ export function* loadRelationEntity({payload}) {
   const {entityName} = payload
   const {relationEntities} = yield select(entityBrowserSelector)
   if (!relationEntities[entityName] || !relationEntities[entityName].loaded) {
-    const entities = yield call(fetchEntities, entityName)
-    const entitiesTransformed = entities.data.map(e => ({label: e.display, value: e.key}))
-    yield put(actions.setRelationEntity(entityName, entitiesTransformed, true))
+    const entities = yield call(fetchEntities, entityName, {}, selectEntitiesTransformer)
+    yield put(actions.setRelationEntity(entityName, entities, true))
     yield put(actions.setRelationEntityLoaded(entityName))
   }
 }
