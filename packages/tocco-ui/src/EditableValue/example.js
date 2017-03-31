@@ -40,6 +40,22 @@ class Example extends React.Component {
     })
   }
 
+  fetchRemoteOptions = searchTerm => {
+    const options = []
+
+    if (searchTerm) {
+      for (let i = 0; i < 5; i++) {
+        options.push({key: i, display: `${searchTerm} ${i}`})
+      }
+    }
+
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve(options)
+      }, 400)
+    })
+  }
+
   render() {
     return (
       <div>
@@ -122,6 +138,20 @@ class Example extends React.Component {
                   }}
                   readOnly={this.state.readOnly}
               />
+              </td>
+            </tr>
+            <tr>
+              <td>remote</td>
+              <td>
+                <EditableValue
+                  type="remote"
+                  onChange={v => this.changeValue('remote', v)}
+                  readOnly={this.state.readOnly}
+                  value={this.state.values.remote}
+                  options={{
+                    fetchOptions: this.fetchRemoteOptions
+                  }}
+                />
               </td>
             </tr>
             <tr>
