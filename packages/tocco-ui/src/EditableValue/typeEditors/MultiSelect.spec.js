@@ -11,8 +11,8 @@ describe('tocco-ui', () => {
         it('should render a Select component', () => {
           const options = {
             store: [
-              {value: 1, label: 'label1'},
-              {value: 2, label: 'label2'}
+              {key: 1, display: 'label1'},
+              {key: 2, display: 'label2'}
             ]
           }
 
@@ -23,17 +23,17 @@ describe('tocco-ui', () => {
         })
 
         it('should call onChange', () => {
-          const newValues = [{value: 1, label: 'label1'}]
+          const newValues = [{key: 1, display: 'label1'}]
           const spy = sinon.spy()
           const options = {
             store: [
-              {value: 1, label: 'label1'},
-              {value: 2, label: 'label2'}
+              {key: 1, display: 'label1'},
+              {key: 2, display: 'label2'}
             ]
           }
           const wrapper = shallow(<MultiSelect onChange={spy} options={options}/>)
           wrapper.find(Select).simulate('change', newValues)
-          expect(spy).to.have.been.calledWith([1])
+          expect(spy).to.have.been.calledWith(newValues)
         })
       })
     })

@@ -11,17 +11,18 @@ class Example extends React.Component {
       values: {
         string: 'Test String',
         text: 'Line\nLine2',
-        singleSelect: 2,
-        multiSelect: ['b', 'c'],
+        singleSelect: {key: 2, display: 'Two'},
+        multiSelect: [{key: 'a', display: 'One'}, {key: 'b', display: 'Two'}],
         date: '2015-12-18',
         datetime: '2017-01-25T15:15:00.000Z',
         boolean: false,
-        number: 99
+        number: 99,
+        remote: {label: 'Dummy User 999', key: 999}
       }
     }
   }
 
-  togglereadOnly() {
+  toggleReadOnly() {
     this.setState({
       ...this.state,
       readOnly: !this.state.readOnly
@@ -42,7 +43,7 @@ class Example extends React.Component {
   render() {
     return (
       <div>
-        <input type="checkbox" checked={this.state.readOnly} onClick={this.togglereadOnly.bind(this)}/> readOnly
+        <input type="checkbox" checked={this.state.readOnly} onClick={this.toggleReadOnly.bind(this)}/> readOnly
         {/* start example */}
         <table className="table table-striped">
           <tbody>
@@ -97,9 +98,9 @@ class Example extends React.Component {
                   type="single-select"
                   options={{
                     store: [
-                    {value: 1, label: 'One'},
-                    {value: 2, label: 'Two'},
-                    {value: 3, label: 'Three'}
+                    {key: 1, display: 'One'},
+                    {key: 2, display: 'Two'},
+                    {key: 3, display: 'Three'}
                     ]
                   }}
                   value={this.state.values.singleSelect}
@@ -116,8 +117,8 @@ class Example extends React.Component {
                   value={this.state.values.multiSelect}
                   onChange={v => this.changeValue('multiSelect', v)}
                   options={{
-                    store: [{value: 'a', label: 'One'}, {value: 'b', label: 'Two'},
-                    {value: 'c', label: 'Three'}, {value: 'd', label: 'Four'}]
+                    store: [{key: 'a', display: 'One'}, {key: 'b', display: 'Two'},
+                    {key: 'c', display: 'Three'}, {key: 'd', display: 'Four'}]
                   }}
                   readOnly={this.state.readOnly}
               />
