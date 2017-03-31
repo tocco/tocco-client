@@ -1,6 +1,6 @@
 import React from 'react'
 import Select from 'react-select'
-import _isEmtpty from 'lodash/isEmpty'
+import _isEmpty from 'lodash/isEmpty'
 
 import '!style-loader!css-loader!react-select/dist/react-select.css'
 
@@ -9,7 +9,7 @@ const MultiSelect = props => {
     props.onChange(value)
   }
 
-  const options = _isEmtpty(props.options.store) ? [] : props.options.store
+  const options = _isEmpty(props.options.store) ? [] : props.options.store
 
   return (
     <Select

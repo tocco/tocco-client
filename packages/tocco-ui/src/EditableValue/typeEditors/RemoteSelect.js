@@ -2,9 +2,9 @@ import React from 'react'
 import Select from 'react-select'
 
 class RemoteSelect extends React.Component {
-  loadOptions = searchTerm => {
-    return this.props.options.fetchOptions(searchTerm).then(res => ({options: res, complete: false}))
-  }
+  loadOptions = searchTerm => (
+    this.props.options.fetchOptions(searchTerm).then(res => ({options: res, complete: false}))
+  )
 
   onValueClick = v => {
     if (this.props.options.valueClick) {
@@ -20,7 +20,7 @@ class RemoteSelect extends React.Component {
           labelKey="display"
           loadingPlaceholder="Laden"
           placeholder=""
-          searchPromptText="Tippen um zu suchen"
+          searchPromptText="Tippen, um zu suchen"
           noResultsText="-"
           multi={false}
           value={this.props.value}
@@ -45,7 +45,6 @@ RemoteSelect.propTypes = {
       ])
     }),
   options: React.PropTypes.shape({
-
     fetchOptions: React.PropTypes.func,
     valueClick: React.PropTypes.func
   }),

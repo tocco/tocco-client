@@ -17,7 +17,7 @@ class Example extends React.Component {
         datetime: '2017-01-25T15:15:00.000Z',
         boolean: false,
         number: 99,
-        remote: {label: 'Dummy User 999', key: 999}
+        remote: {key: 999, display: 'Dummy User 999'}
       }
     }
   }
