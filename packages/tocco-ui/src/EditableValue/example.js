@@ -17,7 +17,11 @@ class Example extends React.Component {
         datetime: '2017-01-25T15:15:00.000Z',
         boolean: false,
         number: 99,
-        remote: {key: 999, display: 'Dummy User 999'}
+        remote: {key: 999, display: 'Dummy User 999'},
+        multiRemote: [
+          {key: 999, display: 'Dummy User 999'},
+          {key: 1234, display: 'Dummy User 1234'}
+        ]
       }
     }
   }
@@ -148,6 +152,20 @@ class Example extends React.Component {
                   onChange={v => this.changeValue('remote', v)}
                   readOnly={this.state.readOnly}
                   value={this.state.values.remote}
+                  options={{
+                    fetchOptions: this.fetchRemoteOptions
+                  }}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>multi-remote</td>
+              <td>
+                <EditableValue
+                  type="multi-remote"
+                  onChange={v => this.changeValue('multiRemote', v)}
+                  readOnly={this.state.readOnly}
+                  value={this.state.values.multiRemote}
                   options={{
                     fetchOptions: this.fetchRemoteOptions
                   }}
