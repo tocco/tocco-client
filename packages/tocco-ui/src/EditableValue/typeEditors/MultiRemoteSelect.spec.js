@@ -9,13 +9,23 @@ describe('tocco-ui', () => {
     describe('typeEditors', () => {
       describe('MultiRemoteSelect ', () => {
         it('should render a Async Select component', () => {
+          const options = {
+            clearAllText: 'CLEAR_ALL_TEXT',
+            searchPromptText: 'SEARCH_PROMPT_TEXT',
+            noResultsText: 'NO_RESULTS_TEXT'
+          }
+
           const wrapper = shallow(
             <MultiRemoteSelect
-              options={{}}
+              options={options}
               value={[{key: 2, display: 'Two'}]}
               onChange={() => {}}
             />)
+
           expect(wrapper.find(Select.Async)).to.have.length(1)
+          expect(wrapper.find(Select.Async).prop('clearAllText')).to.be.eql('CLEAR_ALL_TEXT')
+          expect(wrapper.find(Select.Async).prop('searchPromptText')).to.be.eql('SEARCH_PROMPT_TEXT')
+          expect(wrapper.find(Select.Async).prop('noResultsText')).to.be.eql('NO_RESULTS_TEXT')
         })
 
         it('should call onChange ', () => {

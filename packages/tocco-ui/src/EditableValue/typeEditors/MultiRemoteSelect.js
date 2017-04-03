@@ -20,8 +20,9 @@ class MultiRemoteSelect extends React.Component {
           labelKey="display"
           loadingPlaceholder="Laden"
           placeholder=""
-          searchPromptText="Tippen, um zu suchen"
-          noResultsText="-"
+          searchPromptText={this.props.options.searchPromptText}
+          clearAllText={this.props.options.clearAllText}
+          noResultsText={this.props.options.noResultsText}
           multi
           value={this.props.value}
           onChange={this.props.onChange}
@@ -47,7 +48,10 @@ MultiRemoteSelect.propTypes = {
   ),
   options: React.PropTypes.shape({
     fetchOptions: React.PropTypes.func,
-    valueClick: React.PropTypes.func
+    valueClick: React.PropTypes.func,
+    clearAllText: React.PropTypes.string,
+    searchPromptText: React.PropTypes.string,
+    noResultsText: React.PropTypes.string
   }),
   readOnly: React.PropTypes.bool
 }

@@ -153,7 +153,9 @@ class Example extends React.Component {
                   readOnly={this.state.readOnly}
                   value={this.state.values.remote}
                   options={{
-                    fetchOptions: this.fetchRemoteOptions
+                    fetchOptions: this.fetchRemoteOptions,
+                    searchPromptText: 'Type to search',
+                    clearValueText: 'Clear value'
                   }}
                 />
               </td>
@@ -167,7 +169,9 @@ class Example extends React.Component {
                   readOnly={this.state.readOnly}
                   value={this.state.values.multiRemote}
                   options={{
-                    fetchOptions: this.fetchRemoteOptions
+                    fetchOptions: this.fetchRemoteOptions,
+                    searchPromptText: 'Type to search',
+                    clearAllText: 'Clear all values'
                   }}
                 />
               </td>

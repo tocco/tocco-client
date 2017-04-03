@@ -9,8 +9,23 @@ describe('tocco-ui', () => {
     describe('typeEditors', () => {
       describe('RemoteSelect ', () => {
         it('should render a Async Select component', () => {
-          const wrapper = shallow(<RemoteSelect options={{}} value={{key: 2, display: 'Two'}} onChange={() => {}}/>)
+          const options = {
+            clearValueText: 'CLEAR_VALUE_TEXT',
+            searchPromptText: 'SEARCH_PROMPT_TEXT',
+            noResultsText: 'NO_RESULTS_TEXT'
+          }
+
+          const wrapper = shallow(
+            <RemoteSelect
+              options={options}
+              value={{key: 2, display: 'Two'}}
+              onChange={() => {}}
+            />)
+
           expect(wrapper.find(Select.Async)).to.have.length(1)
+          expect(wrapper.find(Select.Async).prop('clearValueText')).to.be.eql('CLEAR_VALUE_TEXT')
+          expect(wrapper.find(Select.Async).prop('searchPromptText')).to.be.eql('SEARCH_PROMPT_TEXT')
+          expect(wrapper.find(Select.Async).prop('noResultsText')).to.be.eql('NO_RESULTS_TEXT')
         })
 
         it('should call onChange ', () => {
