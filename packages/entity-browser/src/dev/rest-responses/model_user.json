@@ -157,6 +157,11 @@
       "relationName": "relUser",
       "targetEntity": "User",
       "multi": false
+    },
+    {
+      "relationName": "relChildren",
+      "targetEntity": "User",
+      "multi": true
     }
   ]
 }
