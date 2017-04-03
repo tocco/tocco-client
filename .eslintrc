@@ -66,6 +66,9 @@
     "import/no-duplicates": 2,
 
     "no-unused-expressions": 0,
-    "chai-friendly/no-unused-expressions": 2
+    "chai-friendly/no-unused-expressions": 2,
+
+    // temporary disabled until this issue is solved: https://github.com/yannickcr/eslint-plugin-react/issues/1135
+    "react/no-unused-prop-types": 0
   }
 }
