@@ -201,6 +201,14 @@
                     "children": [ ],
                     "label": "Remote User",
                     "useLabel": "YES"
+                  },
+                  {
+                    "name": "relChildren",
+                    "type": "ch.tocco.nice2.model.form.components.simple.MultiRemoteField",
+                    "displayType": "EDITABLE",
+                    "children": [ ],
+                    "label": "Children",
+                    "useLabel": "YES"
                   }
                 ],
                 "label": "Selects",

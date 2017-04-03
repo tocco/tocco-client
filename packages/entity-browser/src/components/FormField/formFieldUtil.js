@@ -31,7 +31,7 @@ const fromDefinitionTypeMap = {
   'ch.tocco.nice2.model.form.components.simple.MultiSelectBox': 'multi-select',
   'ch.tocco.nice2.model.form.components.simple.SingleSelectBox': 'single-select',
   'ch.tocco.nice2.model.form.components.simple.RemoteField': 'remote',
-  'ch.tocco.nice2.model.form.components.simple.MultiRemoteField': '',
+  'ch.tocco.nice2.model.form.components.simple.MultiRemoteField': 'multi-remote',
   'ch.tocco.nice2.model.form.components.simple.ListPanel': '',
   'ch.tocco.nice2.model.form.components.simple.ReferencesListPanel': '',
   'ch.tocco.nice2.model.form.components.simple.PasswordField': '',
@@ -69,6 +69,7 @@ const getOptions = (formField, modelField, util) => {
       }
       break
     case 'ch.tocco.nice2.model.form.components.simple.RemoteField':
+    case 'ch.tocco.nice2.model.form.components.simple.MultiRemoteField':
       options.fetchOptions = searchTerm => (
         fetchEntities(modelField.targetEntity, {
           limit: 100,
