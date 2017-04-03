@@ -81,6 +81,12 @@ const getOptions = (formField, modelField, util) => {
         // eslint-disable-next-line no-console
         console.log('click value', value)
       }
+
+      if (util.intl) {
+        options.searchPromptText = util.intl.formatMessage({id: 'client.component.remoteselect.searchPromptText'})
+        options.clearValueText = util.intl.formatMessage({id: 'client.component.remoteselect.clearValueText'})
+        options.clearAllText = util.intl.formatMessage({id: 'client.component.remoteselect.clearAllText'})
+      }
       break
   }
 
