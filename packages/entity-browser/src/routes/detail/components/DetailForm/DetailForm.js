@@ -29,7 +29,8 @@ export class DetailForm extends React.Component {
 
     const editableValueUtils = {
       relationEntities: this.props.relationEntities,
-      loadRelationEntity: this.props.loadRelationEntity
+      loadRelationEntity: this.props.loadRelationEntity,
+      intl: this.props.intl
     }
 
     return (

@@ -20,8 +20,9 @@ class RemoteSelect extends React.Component {
           labelKey="display"
           loadingPlaceholder="Laden"
           placeholder=""
-          searchPromptText="Tippen, um zu suchen"
-          noResultsText="-"
+          clearValueText={this.props.options.clearValueText}
+          searchPromptText={this.props.options.searchPromptText}
+          noResultsText={this.props.options.noResultsText}
           multi={false}
           value={this.props.value}
           onChange={this.props.onChange}
@@ -46,7 +47,10 @@ RemoteSelect.propTypes = {
     }),
   options: React.PropTypes.shape({
     fetchOptions: React.PropTypes.func,
-    valueClick: React.PropTypes.func
+    valueClick: React.PropTypes.func,
+    clearValueText: React.PropTypes.string,
+    searchPromptText: React.PropTypes.string,
+    noResultsText: React.PropTypes.string
   }),
   readOnly: React.PropTypes.bool
 }

@@ -18,5 +18,9 @@
   "client.entity-browser.saveSuccessfulTitle",
   "client.entity-browser.saveSuccessfulMessage",
   "client.entity-browser.lastSave",
-  "client.entity-browser.backToList"
+  "client.entity-browser.backToList",
+  "client.component.remoteselect.searchPromptText",
+  "client.component.remoteselect.clearValueText",
+  "client.component.remoteselect.clearAllText",
+  "client.component.remoteselect.noResultsText"
 ]
