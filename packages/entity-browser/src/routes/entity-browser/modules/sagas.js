@@ -9,7 +9,8 @@ export const entityBrowserSelector = state => state.entityBrowser
 export default function* sagas() {
   yield [
     fork(takeLatest, actions.INITIALIZE, initialize),
-    fork(takeLatest, actions.LOAD_RELATION_ENTITY, loadRelationEntity)
+    fork(takeLatest, actions.LOAD_RELATION_ENTITY, loadRelationEntity),
+    fork(takeLatest, actions.LOAD_REMOTE_ENTITY, loadRemoteEntity)
   ]
 }
 
@@ -34,4 +35,16 @@ export function* loadRelationEntity({payload}) {
     yield put(actions.setRelationEntity(entityName, entities, true))
     yield put(actions.setRelationEntityLoaded(entityName))
   }
+}
+
+export function* loadRemoteEntity({payload}) {
+  const {field, entityName, searchTerm} = payload
+  yield put(actions.setRemoteEntityLoading(field))
+
+  const searchInputs = {
+    limit: 100,
+    searchInputs: {'_search': searchTerm}
+  }
+  const entities = yield call(fetchEntities, entityName, searchInputs, selectEntitiesTransformer)
+  yield put(actions.setRemoteEntity(field, entities))
 }

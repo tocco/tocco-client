@@ -75,7 +75,7 @@ export const createEntitiesResponse = (url, opts) => {
     return wrapEntitiesResponse(allEntities.slice(0, 10))
   }
 
-  return wrapEntitiesResponse(allEntities.slice(offset, offset + limit))
+  return sleep(1000).then(() => (wrapEntitiesResponse(allEntities.slice(offset, offset + limit))))
 }
 
 export const createCountResponse = (url, opts) => ({'count': allEntities.length})

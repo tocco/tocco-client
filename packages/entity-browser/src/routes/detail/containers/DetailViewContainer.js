@@ -9,7 +9,7 @@ import {
 } from 'redux-form'
 
 import {loadDetailView, submitForm} from '../modules/actions'
-import {loadRelationEntity} from '../../entity-browser/modules/actions'
+import {loadRelationEntity, loadRemoteEntity} from '../../entity-browser/modules/actions'
 import DetailView from '../components/DetailView/DetailView'
 import {logError} from 'tocco-util/src/errorLogging'
 
@@ -17,6 +17,7 @@ const mapActionCreators = {
   loadDetailView,
   submitForm,
   loadRelationEntity,
+  loadRemoteEntity,
   logError
 }
 
@@ -29,6 +30,7 @@ const mapStateToProps = (state, props) => ({
   formDefinition: state.detail.formDefinition,
   entity: state.detail.entity,
   relationEntities: state.entityBrowser.relationEntities,
+  remoteEntities: state.entityBrowser.remoteEntities,
   entityModel: state.entityBrowser.entityModel,
   formErrors: {
     ...getFormSyncErrors('detailForm')(state),
