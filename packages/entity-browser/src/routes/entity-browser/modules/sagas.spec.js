@@ -12,7 +12,8 @@ describe('entity-browser', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal([
               fork(takeLatest, actions.INITIALIZE, sagas.initialize),
-              fork(takeLatest, actions.LOAD_RELATION_ENTITY, sagas.loadRelationEntity)
+              fork(takeLatest, actions.LOAD_RELATION_ENTITY, sagas.loadRelationEntity),
+              fork(takeLatest, actions.LOAD_REMOTE_ENTITY, sagas.loadRemoteEntity)
             ])
             expect(generator.next().done).to.be.true
           })
@@ -85,6 +86,28 @@ describe('entity-browser', () => {
               const gen = sagas.loadRelationEntity(actions.loadRelationEntity(entityName))
               expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
               expect(gen.next(state).done).to.be.true
+            })
+          })
+
+          describe('loadRemoteEntity saga', () => {
+            it('should load remote entities ', () => {
+              const field = 'relUser'
+              const entity = 'User'
+              const searchTerm = 'Dan'
+
+              const remoteEntities = [{key:1, label: 'One'}]
+              const searchInputs = {
+                limit: 100,
+                searchInputs: {'_search': searchTerm}
+              }
+
+              const gen = sagas.loadRemoteEntity(actions.loadRemoteEntity(field, entity, searchTerm))
+
+              expect(gen.next().value).to.eql(put(actions.setRemoteEntityLoading(field)))
+              expect(gen.next().value).to.eql(call(fetchEntities, entity, searchInputs, selectEntitiesTransformer))
+              expect(gen.next(remoteEntities).value).to.eql(put(actions.setRemoteEntity(field, remoteEntities)))
+
+              expect(gen.next().done).to.be.true
             })
           })
         })
