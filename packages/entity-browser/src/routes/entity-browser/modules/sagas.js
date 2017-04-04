@@ -41,10 +41,15 @@ export function* loadRemoteEntity({payload}) {
   const {field, entityName, searchTerm} = payload
   yield put(actions.setRemoteEntityLoading(field))
 
-  const searchInputs = {
+  const fetchParams = {
     limit: 100,
     searchInputs: {'_search': searchTerm}
   }
-  const entities = yield call(fetchEntities, entityName, searchInputs, selectEntitiesTransformer)
+
+  if (searchTerm) {
+    fetchParams.searchInputs = {'_search': searchTerm}
+  }
+
+  const entities = yield call(fetchEntities, entityName, fetchParams, selectEntitiesTransformer)
   yield put(actions.setRemoteEntity(field, entities))
 }

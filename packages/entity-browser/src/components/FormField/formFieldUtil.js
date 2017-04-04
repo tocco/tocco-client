@@ -100,6 +100,14 @@ const getEvents = (field, modelField, util) => {
           util.loadRelationEntity(modelField.targetEntity)
         }
       }
+      break
+    case 'ch.tocco.nice2.model.form.components.simple.RemoteField':
+    case 'ch.tocco.nice2.model.form.components.simple.MultiRemoteField':
+      if (util.loadRemoteEntity) {
+        events.onFocus = () => {
+          util.loadRemoteEntity(field.name, modelField.targetEntity, '')
+        }
+      }
   }
 
   return events
