@@ -22,17 +22,17 @@ describe('tocco-ui', () => {
               onChange={() => {}}
             />)
 
-          expect(wrapper.find(Select.Async)).to.have.length(1)
-          expect(wrapper.find(Select.Async).prop('clearAllText')).to.be.eql('CLEAR_ALL_TEXT')
-          expect(wrapper.find(Select.Async).prop('searchPromptText')).to.be.eql('SEARCH_PROMPT_TEXT')
-          expect(wrapper.find(Select.Async).prop('noResultsText')).to.be.eql('NO_RESULTS_TEXT')
+          expect(wrapper.find(Select)).to.have.length(1)
+          expect(wrapper.find(Select).prop('clearAllText')).to.be.eql('CLEAR_ALL_TEXT')
+          expect(wrapper.find(Select).prop('searchPromptText')).to.be.eql('SEARCH_PROMPT_TEXT')
+          expect(wrapper.find(Select).prop('noResultsText')).to.be.eql('NO_RESULTS_TEXT')
         })
 
         it('should call onChange ', () => {
           const newValue = {key: 1, display: 'label1'}
           const spy = sinon.spy()
           const wrapper = shallow(<MultiRemoteSelect onChange={spy} options={{}}/>)
-          wrapper.find(Select.Async).simulate('change', newValue)
+          wrapper.find(Select).simulate('change', newValue)
           expect(spy).to.have.been.calledWith(newValue)
         })
       })
