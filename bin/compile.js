@@ -3,10 +3,9 @@ import webpackCompiler from '../build/webpack-compiler'
 import webpackConfig from '../build/webpack.config'
 import config from '../config'
 import {packagesExists} from './packages'
+import {updateMutableImportSCSS} from '../build/mutable-scss-imports'
 
 const debug = _debug('app:bin:compile')
-
-import {updateMutableImportSCSS} from '../build/mutable-scss-imports'
 
 const compile = () => {
   debug('Run compiler')

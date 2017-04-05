@@ -1,9 +1,9 @@
 import _reduce from 'lodash/reduce'
 import _isEqual from 'lodash/isEqual'
 
-const wholeEntityField = '___entity'
-
 import {generalErrorField} from './formErrors'
+
+const wholeEntityField = '___entity'
 
 export const validationErrorToFormError = (entity, errors) => {
   let result = {[generalErrorField]: {pathErrors: []}}
