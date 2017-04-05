@@ -8,10 +8,17 @@ const getFieldsOfChildren = children => {
   const result = []
   for (let i = 0; i < children.length; i++) {
     if (children[i].children) {
-      result.push(...getFieldsOfChildren(children[i].children))
+      if (children[i].type !== 'ch.tocco.nice2.model.form.components.navigation.IteratorComponent') {
+        result.push(...getFieldsOfChildren(children[i].children))
+      }
     }
 
-    if (children[i].type.indexOf('ch.tocco.nice2.model.form.components.simple') === 0) {
+    const ignoredTypes = [
+      'ch.tocco.nice2.model.form.components.simple.DescriptionField'
+    ]
+
+    const fieldType = children[i].type
+    if (fieldType.indexOf('ch.tocco.nice2.model.form.components.simple') === 0 && !ignoredTypes.includes(fieldType)) {
       result.push(children[i].name)
     }
   }
