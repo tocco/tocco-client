@@ -1,5 +1,5 @@
 import {consoleLogger} from 'tocco-util'
-import {fetchEntities, selectEntitiesTransformer} from '../../util/api/entities'
+import _get from 'lodash/get'
 
 const fromDefinitionTypeMap = {
   'ch.tocco.nice2.model.form.components.simple.DateField': 'date',
@@ -70,12 +70,9 @@ const getOptions = (formField, modelField, util) => {
       break
     case 'ch.tocco.nice2.model.form.components.simple.RemoteField':
     case 'ch.tocco.nice2.model.form.components.simple.MultiRemoteField':
-      options.fetchOptions = searchTerm => (
-        fetchEntities(modelField.targetEntity, {
-          limit: 100,
-          searchInputs: {'_search': searchTerm}
-        }, selectEntitiesTransformer)
-      )
+      options.options = _get(util, 'remoteEntities.' + formField.name + '.entities', [])
+      options.isLoading = _get(util, 'remoteEntities.' + formField.name + '.loading', false)
+      options.fetchOptions = searchTerm => util.loadRemoteEntity(formField.name, modelField.targetEntity, searchTerm)
 
       options.onValueClick = value => {
         // eslint-disable-next-line no-console
@@ -101,6 +98,14 @@ const getEvents = (field, modelField, util) => {
       if (util.loadRelationEntity) {
         events.onFocus = () => {
           util.loadRelationEntity(modelField.targetEntity)
+        }
+      }
+      break
+    case 'ch.tocco.nice2.model.form.components.simple.RemoteField':
+    case 'ch.tocco.nice2.model.form.components.simple.MultiRemoteField':
+      if (util.loadRemoteEntity) {
+        events.onFocus = () => {
+          util.loadRemoteEntity(field.name, modelField.targetEntity, '')
         }
       }
   }

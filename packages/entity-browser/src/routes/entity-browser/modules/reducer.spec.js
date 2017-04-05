@@ -6,7 +6,8 @@ const EXPECTED_INITIAL_STATE = {
   formBase: '',
   entityModel: {},
   initialized: false,
-  relationEntities: {}
+  relationEntities: {},
+  remoteEntities: {}
 }
 
 describe('entity-browser', () => {
@@ -128,8 +129,7 @@ describe('entity-browser', () => {
 
           it('should handle emtpty entity', () => {
             const stateBefore = {
-              relationEntities: {
-              }
+              relationEntities: {}
             }
 
             const expectedStateAfter = {
@@ -140,6 +140,71 @@ describe('entity-browser', () => {
               }
             }
             expect(reducer(stateBefore, actions.setRelationEntityLoaded('User'))).to.deep.equal(expectedStateAfter)
+          })
+        })
+
+        describe('setRemoteEntity', () => {
+          it('should set entities with loaded flag', () => {
+            const stateBefore = {
+              remoteEntities: {
+                relUser: {
+                  entities: []
+                }
+              }
+            }
+
+            const fieldName = 'relUser2'
+            const remoteEntities = [
+              {key: 1, label: 'One'},
+              {key: 2, label: 'Two'}
+            ]
+
+            const expectedStateAfter = {
+              remoteEntities: {
+                relUser: {
+                  entities: []
+                },
+                [fieldName]: {
+                  entities: remoteEntities,
+                  loading: false
+                }
+              }
+            }
+
+            expect(reducer(stateBefore, actions.setRemoteEntity(fieldName, remoteEntities)))
+              .to.deep.equal(expectedStateAfter)
+          })
+
+          describe('setRemoteEntityLoading', () => {
+            it('should set loading flag', () => {
+              const stateBefore = {
+                remoteEntities: {
+                  relUser: {
+                    entities: []
+                  },
+                  relUser2: {
+                    entities: [],
+                    loading: false
+                  }
+                }
+              }
+
+              const fieldName = 'relUser2'
+
+              const expectedStateAfter = {
+                remoteEntities: {
+                  relUser: {
+                    entities: []
+                  },
+                  [fieldName]: {
+                    entities: [],
+                    loading: true
+                  }
+                }
+              }
+
+              expect(reducer(stateBefore, actions.setRemoteEntityLoading(fieldName))).to.deep.equal(expectedStateAfter)
+            })
           })
         })
       })

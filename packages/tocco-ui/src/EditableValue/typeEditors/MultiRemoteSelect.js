@@ -2,10 +2,6 @@ import React from 'react'
 import Select from 'react-select'
 
 class MultiRemoteSelect extends React.Component {
-  loadOptions = searchTerm => (
-    this.props.options.fetchOptions(searchTerm).then(res => ({options: res, complete: false}))
-  )
-
   onValueClick = v => {
     if (this.props.options.valueClick) {
       this.props.options.valueClick(v)
@@ -15,7 +11,7 @@ class MultiRemoteSelect extends React.Component {
   render() {
     return (
       <div>
-        <Select.Async
+        <Select
           valueKey="key"
           labelKey="display"
           loadingPlaceholder="Laden"
@@ -27,9 +23,13 @@ class MultiRemoteSelect extends React.Component {
           value={this.props.value}
           onChange={this.props.onChange}
           onValueClick={this.onValueClick}
-          loadOptions={this.loadOptions}
           filterOption={() => (true)}
           autoload={false}
+          onInputChange={searchTerm => {
+            this.props.options.fetchOptions(searchTerm)
+          }}
+          options={this.props.options.options}
+          isLoading={this.props.options.isLoading}
         />
       </div>
     )
@@ -47,7 +47,9 @@ MultiRemoteSelect.propTypes = {
     })
   ),
   options: React.PropTypes.shape({
+    options: React.PropTypes.array,
     fetchOptions: React.PropTypes.func,
+    isLoading: React.PropTypes.bool,
     valueClick: React.PropTypes.func,
     clearAllText: React.PropTypes.string,
     searchPromptText: React.PropTypes.string,

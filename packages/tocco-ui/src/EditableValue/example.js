@@ -22,7 +22,9 @@ class Example extends React.Component {
           {key: 999, display: 'Dummy User 999'},
           {key: 1234, display: 'Dummy User 1234'}
         ]
-      }
+      },
+      remoteOptions: [],
+      multiRemoteOptions: []
     }
   }
 
@@ -44,19 +46,29 @@ class Example extends React.Component {
     })
   }
 
-  fetchRemoteOptions = searchTerm => {
+  createOptions = (amount, input) => {
     const options = []
 
-    if (searchTerm) {
-      for (let i = 0; i < 5; i++) {
-        options.push({key: i, display: `${searchTerm} ${i}`})
+    if (input) {
+      for (let i = 0; i < amount; i++) {
+        options.push({key: i, display: `${input} ${i}`})
       }
     }
 
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(options)
-      }, 400)
+    return options
+  }
+
+  fetchRemoteOptions = searchTerm => {
+    this.setState({
+      ...this.state,
+      remoteOptions: this.createOptions(10, searchTerm)
+    })
+  }
+
+  fetchMultiRemoteOptions = searchTerm => {
+    this.setState({
+      ...this.state,
+      multiRemoteOptions: this.createOptions(5, searchTerm)
     })
   }
 
@@ -97,7 +109,7 @@ class Example extends React.Component {
                   value={this.state.values.number}
                   onChange={v => this.changeValue('number', v)}
                   readOnly={this.state.readOnly}
-                />
+              />
               </td>
             </tr>
             <tr>
@@ -155,9 +167,10 @@ class Example extends React.Component {
                   options={{
                     fetchOptions: this.fetchRemoteOptions,
                     searchPromptText: 'Type to search',
-                    clearValueText: 'Clear value'
+                    clearValueText: 'Clear value',
+                    options: this.state.remoteOptions
                   }}
-                />
+              />
               </td>
             </tr>
             <tr>
@@ -169,11 +182,12 @@ class Example extends React.Component {
                   readOnly={this.state.readOnly}
                   value={this.state.values.multiRemote}
                   options={{
-                    fetchOptions: this.fetchRemoteOptions,
+                    options: this.state.multiRemoteOptions,
+                    fetchOptions: this.fetchMultiRemoteOptions,
                     searchPromptText: 'Type to search',
                     clearAllText: 'Clear all values'
                   }}
-                />
+              />
               </td>
             </tr>
             <tr>
