@@ -10,7 +10,7 @@ describe('merge', () => {
         }
 
         const result = mergingWithoutProblems(response)
-        result.should.be.true
+        expect(result).to.be.true
       })
     })
 
@@ -21,7 +21,7 @@ describe('merge', () => {
       }
 
       let result = mergingWithoutProblems(response)
-      result.should.be.false
+      expect(result).to.be.false
 
       response = {
         'notCopiedRelations': [],
@@ -29,7 +29,7 @@ describe('merge', () => {
       }
 
       result = mergingWithoutProblems(response)
-      result.should.be.false
+      expect(result).to.be.false
     })
   })
 })

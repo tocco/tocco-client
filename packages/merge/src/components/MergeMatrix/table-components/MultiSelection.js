@@ -27,9 +27,13 @@ const MultiSelection = props => {
                 checked={isChecked(value.pk)}
               />
               <span
-                onClick={() => { if (disabled !== 'disabled')clickFnc(value) }}
+                style={{paddingLeft: '5px'}}
+                onClick={() => {
+                  if (disabled !== 'disabled') clickFnc(value)
+                }}
                 className={disabled}
-              >&nbsp;&nbsp;{value.label}</span>
+              >{value.label}
+              </span>
             </div>
           )
         })

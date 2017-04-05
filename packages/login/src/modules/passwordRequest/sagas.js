@@ -28,4 +28,3 @@ export default function* saga() {
     fork(takeLatest, actions.REQUEST_PASSWORD, requestPasswordSaga)
   ]
 }
-

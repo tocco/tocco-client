@@ -30,6 +30,7 @@ class RemoteSelect extends React.Component {
           }}
           options={this.props.options.options}
           isLoading={this.props.options.isLoading}
+          disabled={this.props.readOnly}
         />
       </div>
     )

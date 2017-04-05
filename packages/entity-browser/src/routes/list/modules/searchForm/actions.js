@@ -66,4 +66,3 @@ export const setDisableSimpleSearch = disableSimpleSearch => ({
     disableSimpleSearch
   }
 })
-

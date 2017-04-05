@@ -7,4 +7,3 @@ export { updateOldPassword, updateNewPassword, updateNewPasswordRepeat, savePass
 export { sagas }
 
 export default reducer
-

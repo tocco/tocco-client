@@ -87,4 +87,3 @@ export function* submitForm() {
     yield notify('warning', 'saveAbortedTitle', 'saveAbortedMessage', 'floppy-remove', 5000)
   }
 }
-

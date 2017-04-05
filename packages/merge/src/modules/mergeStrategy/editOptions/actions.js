@@ -24,4 +24,3 @@ export const activateEditOption = (name, activate) => ({
     activate
   }
 })
-

@@ -16,7 +16,7 @@ describe('merge', () => {
         }
 
         const result = isToManySelected(toManySelections, desiredRelationName, desiredToMany, desiredEntityPk)
-        result.should.be.true
+        expect(result).to.be.true
       })
 
       it('should return false if relation is not in input', () => {
@@ -32,7 +32,7 @@ describe('merge', () => {
         }
 
         const result = isToManySelected(toManySelections, desiredRelationName, desiredToMany, desiredEntityPk)
-        result.should.be.false
+        expect(result).to.be.false
       })
 
       it('should return false if key is not in selection array', () => {
@@ -48,7 +48,7 @@ describe('merge', () => {
         }
 
         const result = isToManySelected(toManySelections, desiredRelationName, desiredToMany, desiredEntityPk)
-        result.should.be.false
+        expect(result).to.be.false
       })
     })
   })

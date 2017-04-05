@@ -21,4 +21,3 @@ TimeFormatter.propTypes = {
 }
 
 export default TimeFormatter
-

@@ -9,7 +9,7 @@ const DateTimeEdit = props => {
   }
 
   return (
-    <DateAbstract {...props} options={options}/>
+    <DateAbstract value={props.value} onChange={props.onChange} options={options}/>
   )
 }
 

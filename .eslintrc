@@ -11,7 +11,8 @@
     "promise",
     "flowtype-errors",
     "flowtype",
-    "import"
+    "import",
+    "chai-friendly"
   ],
   "env"     : {
     "browser" : true
@@ -62,6 +63,14 @@
     //
     // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-duplicates.md
     "no-duplicate-imports": 0,
-    "import/no-duplicates": 2
+    "import/no-duplicates": 2,
+
+    "no-unused-expressions": 0,
+    "chai-friendly/no-unused-expressions": 2,
+
+    // temporary disabled until this issue is solved: https://github.com/yannickcr/eslint-plugin-react/issues/1135
+    "react/no-unused-prop-types": 0,
+
+    "import/no-webpack-loader-syntax": 0
   }
 }

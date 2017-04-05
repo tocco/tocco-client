@@ -151,7 +151,7 @@ describe('merge', () => {
         const result = getMergeStrategyResult(state)
 
         result.should.have.property('copyRemainingRelations')
-        result.copyRemainingRelations.should.be.true
+        expect(result.copyRemainingRelations).to.be.true
       })
 
       it('should set sourceEntityConfig delete flag', () => {
@@ -165,7 +165,7 @@ describe('merge', () => {
 
         result.should.have.property('sourceEntityConfig')
         result.sourceEntityConfig.should.have.property('deleteSourceEntities')
-        result.sourceEntityConfig.deleteSourceEntities.should.be.false
+        expect(result.sourceEntityConfig.deleteSourceEntities).to.be.false
 
         const state2 = {
           strategies: {
@@ -174,7 +174,7 @@ describe('merge', () => {
         }
 
         result = getMergeStrategyResult(state2)
-        result.sourceEntityConfig.deleteSourceEntities.should.be.true
+        expect(result.sourceEntityConfig.deleteSourceEntities).to.be.true
       })
 
       it('should set edit values', () => {

@@ -128,4 +128,3 @@ export const getEditableValueProps = (formField, modelField, util) => {
     events
   }
 }
-

@@ -3,7 +3,6 @@ import {FormattedMessage, intlShape} from 'react-intl'
 import {Button} from 'tocco-ui'
 
 export class TwoStepLoginForm extends Component {
-
   constructor(props) {
     super(props)
     this.state = {

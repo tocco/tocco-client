@@ -45,7 +45,7 @@ const SearchForm = props => {
                 loadRelationEntity: props.loadRelationEntity
               }}
               onChange={value => props.setSearchInput(formField.name, value)}
-              />)
+            />)
           }
         }
         )

@@ -96,4 +96,3 @@ const initPasswordUpdateApp = (id, input, events, publicPath) => {
     appFactory.registerAppInRegistry('password-update', initPasswordUpdateApp)
   }
 })()
-

@@ -6,7 +6,6 @@ import classNames from 'classnames'
  * Table to list records easily.
  */
 class Table extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = {orderBy: props.orderBy}

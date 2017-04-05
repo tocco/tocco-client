@@ -32,4 +32,3 @@ export default function webpackCompiler(webpackConfig, statsFormat = DEFAULT_STA
     })
   })
 }
-

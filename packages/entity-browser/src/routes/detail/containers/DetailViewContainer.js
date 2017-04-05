@@ -43,4 +43,3 @@ const mapStateToProps = (state, props) => ({
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(DetailView))
-

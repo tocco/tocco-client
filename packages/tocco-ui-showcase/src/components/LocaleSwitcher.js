@@ -16,6 +16,9 @@ const LocaleSwitcher = props => {
     {name: 'it', src:itImg}
   ]
 
+  const handleFlagClick = locale => {
+    props.onLocaleChange(locale)
+  }
   return (
 
     <div className="locale-switcher">
@@ -26,7 +29,7 @@ const LocaleSwitcher = props => {
             key={locale.name}
             className={`flag ${activeClass}`}
             src={locale.src}
-            onClick={() => props.onLocaleChange(locale.name)}
+            onClick={() => handleFlagClick(locale.name)}
           />
         })
       }
