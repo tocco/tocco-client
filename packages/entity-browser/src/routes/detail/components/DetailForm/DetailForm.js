@@ -114,7 +114,8 @@ export class DetailForm extends React.Component {
         />
         {props.lastSave
         && <div>
-          <FormattedMessage id="client.entity-browser.lastSave"/>          : <FormattedRelative value={props.lastSave}/>
+          <FormattedMessage id="client.entity-browser.lastSave"/>
+          <span style={{marginLeft:'3px'}}> <FormattedRelative value={props.lastSave}/></span>
         </div>
         }
       </form>
