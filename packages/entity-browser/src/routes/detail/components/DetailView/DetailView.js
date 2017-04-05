@@ -43,7 +43,9 @@ class DetailView extends React.Component {
           formDefinition={props.formDefinition}
           entity={props.entity}
           loadRelationEntity={props.loadRelationEntity}
+          loadRemoteEntity={props.loadRemoteEntity}
           relationEntities={props.relationEntities}
+          remoteEntities={props.remoteEntities}
           formErrors={props.formErrors}
           entityModel={props.entityModel}
           intl={props.intl}
@@ -73,6 +75,7 @@ DetailView.propTypes = {
   ),
   entity: React.PropTypes.object,
   loadRelationEntity: React.PropTypes.func.isRequired,
+  loadRemoteEntity: React.PropTypes.func.isRequired,
   formInitialValues: React.PropTypes.object,
   relationEntities: React.PropTypes.shape({
     entityName: React.PropTypes.shape({
@@ -81,6 +84,17 @@ DetailView.propTypes = {
         React.PropTypes.shape({
           value: React.PropTypes.string,
           label: React.PropTypes.string
+        })
+      )
+    })
+  }).isRequired,
+  remoteEntities: React.PropTypes.shape({
+    fieldName: React.PropTypes.shape({
+      loading: React.PropTypes.bool,
+      entities: React.PropTypes.arrayOf(
+        React.PropTypes.shape({
+          key: React.PropTypes.string,
+          display: React.PropTypes.string
         })
       )
     })

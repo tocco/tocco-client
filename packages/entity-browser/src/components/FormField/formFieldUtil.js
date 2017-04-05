@@ -1,5 +1,5 @@
 import {consoleLogger} from 'tocco-util'
-import {fetchEntities, selectEntitiesTransformer} from '../../util/api/entities'
+import _get from 'lodash/get'
 
 const fromDefinitionTypeMap = {
   'ch.tocco.nice2.model.form.components.simple.DateField': 'date',
@@ -31,7 +31,7 @@ const fromDefinitionTypeMap = {
   'ch.tocco.nice2.model.form.components.simple.MultiSelectBox': 'multi-select',
   'ch.tocco.nice2.model.form.components.simple.SingleSelectBox': 'single-select',
   'ch.tocco.nice2.model.form.components.simple.RemoteField': 'remote',
-  'ch.tocco.nice2.model.form.components.simple.MultiRemoteField': '',
+  'ch.tocco.nice2.model.form.components.simple.MultiRemoteField': 'multi-remote',
   'ch.tocco.nice2.model.form.components.simple.ListPanel': '',
   'ch.tocco.nice2.model.form.components.simple.ReferencesListPanel': '',
   'ch.tocco.nice2.model.form.components.simple.PasswordField': '',
@@ -69,16 +69,20 @@ const getOptions = (formField, modelField, util) => {
       }
       break
     case 'ch.tocco.nice2.model.form.components.simple.RemoteField':
-      options.fetchOptions = searchTerm => (
-        fetchEntities(modelField.targetEntity, {
-          limit: 100,
-          searchInputs: {'_search': searchTerm}
-        }, selectEntitiesTransformer)
-      )
+    case 'ch.tocco.nice2.model.form.components.simple.MultiRemoteField':
+      options.options = _get(util, 'remoteEntities.' + formField.name + '.entities', [])
+      options.isLoading = _get(util, 'remoteEntities.' + formField.name + '.loading', false)
+      options.fetchOptions = searchTerm => util.loadRemoteEntity(formField.name, modelField.targetEntity, searchTerm)
 
       options.onValueClick = value => {
         // eslint-disable-next-line no-console
         console.log('click value', value)
+      }
+
+      if (util.intl) {
+        options.searchPromptText = util.intl.formatMessage({id: 'client.component.remoteselect.searchPromptText'})
+        options.clearValueText = util.intl.formatMessage({id: 'client.component.remoteselect.clearValueText'})
+        options.clearAllText = util.intl.formatMessage({id: 'client.component.remoteselect.clearAllText'})
       }
       break
   }
@@ -94,6 +98,14 @@ const getEvents = (field, modelField, util) => {
       if (util.loadRelationEntity) {
         events.onFocus = () => {
           util.loadRelationEntity(modelField.targetEntity)
+        }
+      }
+      break
+    case 'ch.tocco.nice2.model.form.components.simple.RemoteField':
+    case 'ch.tocco.nice2.model.form.components.simple.MultiRemoteField':
+      if (util.loadRemoteEntity) {
+        events.onFocus = () => {
+          util.loadRemoteEntity(field.name, modelField.targetEntity, '')
         }
       }
   }

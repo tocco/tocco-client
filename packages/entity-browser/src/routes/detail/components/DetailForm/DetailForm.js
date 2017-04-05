@@ -29,7 +29,10 @@ export class DetailForm extends React.Component {
 
     const editableValueUtils = {
       relationEntities: this.props.relationEntities,
-      loadRelationEntity: this.props.loadRelationEntity
+      loadRelationEntity: this.props.loadRelationEntity,
+      loadRemoteEntity: this.props.loadRemoteEntity,
+      remoteEntities: this.props.remoteEntities,
+      intl: this.props.intl
     }
 
     return (
@@ -126,6 +129,7 @@ DetailForm.propTypes = {
   formDefinition: React.PropTypes.object.isRequired,
   entity: React.PropTypes.object.isRequired,
   loadRelationEntity: React.PropTypes.func.isRequired,
+  loadRemoteEntity: React.PropTypes.func.isRequired,
   relationEntities: React.PropTypes.shape({
     entityName: React.PropTypes.shape({
       loaded: React.PropTypes.bool,
@@ -133,6 +137,17 @@ DetailForm.propTypes = {
         React.PropTypes.shape({
           value: React.PropTypes.string,
           label: React.PropTypes.string
+        })
+      )
+    })
+  }).isRequired,
+  remoteEntities: React.PropTypes.shape({
+    fieldName: React.PropTypes.shape({
+      loading: React.PropTypes.bool,
+      entities: React.PropTypes.arrayOf(
+        React.PropTypes.shape({
+          key: React.PropTypes.string,
+          display: React.PropTypes.string
         })
       )
     })

@@ -1,7 +1,7 @@
 import React from 'react'
 import Select from 'react-select'
 
-class RemoteSelect extends React.Component {
+class MultiRemoteSelect extends React.Component {
   onValueClick = v => {
     if (this.props.options.valueClick) {
       this.props.options.valueClick(v)
@@ -16,10 +16,10 @@ class RemoteSelect extends React.Component {
           labelKey="display"
           loadingPlaceholder="Laden"
           placeholder=""
-          clearValueText={this.props.options.clearValueText}
           searchPromptText={this.props.options.searchPromptText}
+          clearAllText={this.props.options.clearAllText}
           noResultsText={this.props.options.noResultsText}
-          multi={false}
+          multi
           value={this.props.value}
           onChange={this.props.onChange}
           onValueClick={this.onValueClick}
@@ -30,32 +30,32 @@ class RemoteSelect extends React.Component {
           }}
           options={this.props.options.options}
           isLoading={this.props.options.isLoading}
-          disabled={this.props.readOnly}
         />
       </div>
     )
   }
 }
 
-RemoteSelect.propTypes = {
+MultiRemoteSelect.propTypes = {
   onChange: React.PropTypes.func,
-  value: React.PropTypes.shape(
-    {
+  value: React.PropTypes.arrayOf(
+    React.PropTypes.shape({
       key: React.PropTypes.oneOfType([
         React.PropTypes.string,
         React.PropTypes.number
       ])
-    }),
+    })
+  ),
   options: React.PropTypes.shape({
     options: React.PropTypes.array,
     fetchOptions: React.PropTypes.func,
     isLoading: React.PropTypes.bool,
     valueClick: React.PropTypes.func,
-    clearValueText: React.PropTypes.string,
+    clearAllText: React.PropTypes.string,
     searchPromptText: React.PropTypes.string,
     noResultsText: React.PropTypes.string
   }),
   readOnly: React.PropTypes.bool
 }
 
-export default RemoteSelect
+export default MultiRemoteSelect
