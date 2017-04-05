@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "flatpickr": "^2.4.8",
+    "react-autosize-textarea": "^0.4.0",
     "react-select": "^1.0.0-rc.3",
     "tocco-theme": "0.1.0"
   }
