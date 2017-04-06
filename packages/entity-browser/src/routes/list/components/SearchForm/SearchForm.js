@@ -31,12 +31,13 @@ const SearchForm = props => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="form-horizontal">
       {
         props.searchFormDefinition.map((formField, idx) => {
           if (shouldRenderField(formField.name)) {
             return (<FormField
               key={idx}
+              id={formField.name}
               formDefinitionField={formField}
               modelField={props.entityModel[formField.name]}
               value={props.searchInputs ? props.searchInputs[formField.name] : undefined}

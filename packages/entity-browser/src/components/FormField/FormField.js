@@ -47,7 +47,7 @@ const FormField = props => {
 
   return (
     <div className={fromGroupClass}>
-      <label className="col-sm-4 control-label">
+      <label className="col-sm-4 control-label" htmlFor={props.id}>
         <span className={labelClass}>{props.formDefinitionField.label}</span>
         {isMandatory && <span title="Mandatory field" className="mandatory"> *</span>}
       </label>
