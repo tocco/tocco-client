@@ -31,7 +31,7 @@ const SearchForm = props => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="form-horizontal">
       {
         props.searchFormDefinition.map((formField, idx) => {
           if (shouldRenderField(formField.name)) {
