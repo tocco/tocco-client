@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+autosize@^3.0.15:
+  version "3.0.20"
+  resolved "https://registry.yarnpkg.com/autosize/-/autosize-3.0.20.tgz#e343ea7c5603834738169420f0349dc953e62a9e"
+
 classnames@^2.2.4:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
@@ -10,11 +14,17 @@ flatpickr@^2.4.8:
   version "2.4.8"
   resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-2.4.8.tgz#152136c6657089ebb7c6af8cd969054c55bd3dd4"
 
+react-autosize-textarea@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/react-autosize-textarea/-/react-autosize-textarea-0.4.0.tgz#bce84c4130948af8f630de63aaceaae5c3547415"
+  dependencies:
+    autosize "^3.0.15"
+
 react-input-autosize@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-1.1.0.tgz#3fe1ac832387d8abab85f6051ceab1c9e5570853"
 
-react-select@^1.0.0-rc.2:
+react-select@^1.0.0-rc.3:
   version "1.0.0-rc.3"
   resolved "https://registry.yarnpkg.com/react-select/-/react-select-1.0.0-rc.3.tgz#94ade090522153067eff09282d0525249ea1d9e3"
   dependencies:

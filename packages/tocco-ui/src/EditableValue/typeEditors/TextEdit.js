@@ -1,4 +1,5 @@
 import React from 'react'
+import TextareaAutosize from 'react-autosize-textarea'
 
 const TextEdit = props => {
   const handleChange = e => {
@@ -8,7 +9,9 @@ const TextEdit = props => {
   }
 
   return (
-    <textarea
+    <TextareaAutosize
+      rows={2}
+      maxRows={20}
       className="form-control"
       name={props.name}
       onChange={handleChange}
