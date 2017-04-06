@@ -37,6 +37,7 @@ const SearchForm = props => {
           if (shouldRenderField(formField.name)) {
             return (<FormField
               key={idx}
+              id={formField.name}
               formDefinitionField={formField}
               modelField={props.entityModel[formField.name]}
               value={props.searchInputs ? props.searchInputs[formField.name] : undefined}
