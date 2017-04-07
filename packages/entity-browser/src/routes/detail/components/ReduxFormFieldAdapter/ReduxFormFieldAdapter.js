@@ -14,7 +14,7 @@ const ReduxFormFieldAdapter = props => {
     formDefinitionField,
     entityField,
     modelField,
-    editableValueUtils
+    formFieldUtils
   } = props
 
   return (
@@ -31,7 +31,7 @@ const ReduxFormFieldAdapter = props => {
         touched={touched}
         dirty={dirty}
         readOnly={submitting}
-        editableValueUtils={editableValueUtils}
+        utils={formFieldUtils}
       />
     </div>
   )
@@ -51,8 +51,8 @@ ReduxFormFieldAdapter.propTypes = {
     submitting: React.PropTypes.bool
   }).isRequired,
   formDefinitionField: React.PropTypes.object.isRequired,
-  entityField: React.PropTypes.object.isRequired,
-  editableValueUtils: React.PropTypes.object.isRequired,
+  entityField: React.PropTypes.object,
+  formFieldUtils: React.PropTypes.object.isRequired,
   modelField: React.PropTypes.object
 }
 
