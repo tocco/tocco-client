@@ -1,4 +1,5 @@
 import React from 'react'
+import {consoleLogger} from 'tocco-util'
 import editableValueFieldFactory from './fieldTypeFactories/editableValue'
 import subGridFactory from './fieldTypeFactories/subGrid'
 
@@ -62,7 +63,10 @@ const typeFactoryMap = {
 
 export default (formField, modelField, props, events, utils) => {
   const typeFactory = typeFactoryMap[formField.type]
-  if (!typeFactory) return <span/>
+  if (!typeFactory) {
+    consoleLogger.log(`FormType '${formField.type}' not present in typeFactoryMap`)
+    return <span/>
+  }
 
   return typeFactory(formField, modelField, props, events, utils)
 }

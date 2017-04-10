@@ -25,7 +25,6 @@ const getOptions = (type, formField, modelField, utils) => {
       break
     case 'remote':
     case 'multi-remote':
-
       options.options = _get(utils, 'remoteEntities.' + formField.name + '.entities', [])
       options.isLoading = _get(utils, 'remoteEntities.' + formField.name + '.loading', false)
 
