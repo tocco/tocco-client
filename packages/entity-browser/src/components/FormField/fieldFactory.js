@@ -1,0 +1,72 @@
+import React from 'react'
+import {consoleLogger} from 'tocco-util'
+import editableValueFieldFactory from './fieldTypeFactories/editableValue'
+import subGridFactory from './fieldTypeFactories/subGrid'
+
+const typeFactoryMap = {
+  'ch.tocco.nice2.model.form.components.simple.BirthDateField': editableValueFieldFactory('birthdate'),
+  'ch.tocco.nice2.model.form.components.simple.Checkbox': editableValueFieldFactory('boolean'),
+  'ch.tocco.nice2.model.form.components.simple.DateField': editableValueFieldFactory('date'),
+  'ch.tocco.nice2.model.form.components.simple.DatetimeField': editableValueFieldFactory('datetime'),
+  'ch.tocco.nice2.model.form.components.simple.EmailField': editableValueFieldFactory('email'),
+  'ch.tocco.nice2.model.form.components.simple.MultiRemoteField': editableValueFieldFactory('multi-remote'),
+  'ch.tocco.nice2.model.form.components.simple.MultiSelectBox': editableValueFieldFactory('multi-select'),
+  'ch.tocco.nice2.model.form.components.simple.NumberField': editableValueFieldFactory('number'),
+  'ch.tocco.nice2.model.form.components.simple.PhoneField': editableValueFieldFactory('phone'),
+  'ch.tocco.nice2.model.form.components.simple.TextArea': editableValueFieldFactory('text'),
+  'ch.tocco.nice2.model.form.components.simple.TextField': editableValueFieldFactory('string'),
+  'ch.tocco.nice2.model.form.components.simple.UrlField': editableValueFieldFactory('url'),
+  'ch.tocco.nice2.model.form.components.simple.RemoteField': editableValueFieldFactory('remote'),
+  'ch.tocco.nice2.model.form.components.simple.SingleSelectBox': editableValueFieldFactory('single-select'),
+  'ch.tocco.nice2.model.form.components.simple.Subgrid': subGridFactory(),
+  'ch.tocco.nice2.model.form.components.simple.DocumentField': null,
+  'ch.tocco.nice2.model.form.components.simple.DurationField': null,
+  'ch.tocco.nice2.model.form.components.simple.TimeField': null,
+  'ch.tocco.nice2.model.form.components.simple.PulldownDateField': null,
+  'ch.tocco.nice2.model.form.components.simple.UploadField': null,
+  'ch.tocco.nice2.model.form.components.simple.NamedUploadField': null,
+  'ch.tocco.nice2.model.form.components.simple.DmsDocumentField': null,
+  'ch.tocco.nice2.model.form.components.simple.DocumentFolderField': null,
+  'ch.tocco.nice2.model.form.components.simple.ImageField': null,
+  'ch.tocco.nice2.model.form.components.simple.ListTextArea': null,
+  'ch.tocco.nice2.model.form.components.simple.UuidField': null,
+  'ch.tocco.nice2.model.form.components.simple.PathField': null,
+  'ch.tocco.nice2.model.form.components.simple.StatusField': null,
+  'ch.tocco.nice2.model.form.components.simple.HtmlField': null,
+  'ch.tocco.nice2.model.form.components.simple.CodeField': null,
+  'ch.tocco.nice2.model.form.components.simple.LinkField': null,
+  'ch.tocco.nice2.model.form.components.simple.ConstantField': null,
+  'ch.tocco.nice2.model.form.components.simple.ListPanel': null,
+  'ch.tocco.nice2.model.form.components.simple.ReferencesListPanel': null,
+  'ch.tocco.nice2.model.form.components.simple.PasswordField': null,
+  'ch.tocco.nice2.model.form.components.simple.CreatePasswordField': null,
+  'ch.tocco.nice2.model.form.components.simple.RangeField': null,
+  'ch.tocco.nice2.model.form.components.simple.DisplayField': null,
+  'ch.tocco.nice2.model.form.components.simple.DisplayExpressionFielxpressionFieldFacade': null,
+  'ch.tocco.nice2.model.form.components.simple.MoneyAmountField': null,
+  'ch.tocco.nice2.model.form.components.simple.PercentField': null,
+  'ch.tocco.nice2.model.form.components.simple.DataAmountField': null,
+  'ch.tocco.nice2.model.form.components.simple.CustomDataField': null,
+  'ch.tocco.nice2.model.form.components.table.Table': null,
+  'ch.tocco.nice2.model.form.components.table.Column': null,
+  'ch.tocco.nice2.model.form.components.action.Action': null,
+  'ch.tocco.nice2.model.form.components.action.ActionSeparator': null,
+  'ch.tocco.nice2.model.form.components.Form': null,
+  'ch.tocco.nice2.model.form.components.Template': null,
+  'ch.tocco.nice2.model.form.components.layout.HorizontalBox': null,
+  'ch.tocco.nice2.model.form.components.layout.VerticalBox': null,
+  'ch.tocco.nice2.model.form.components.navigation.IteratorComponent': null,
+  'ch.tocco.nice2.model.form.components.simple.DescriptionField': null,
+  'ch.tocco.nice2.model.form.components.composite.LocationField': null,
+  'ch.tocco.nice2.model.form.components.simple.LoginField': null
+}
+
+export default (formField, modelField, props, events, utils) => {
+  const typeFactory = typeFactoryMap[formField.type]
+  if (!typeFactory) {
+    consoleLogger.log(`FormType '${formField.type}' not present in typeFactoryMap`)
+    return <span/>
+  }
+
+  return typeFactory(formField, modelField, props, events, utils)
+}

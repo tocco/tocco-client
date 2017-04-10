@@ -27,7 +27,7 @@ export class DetailForm extends React.Component {
     const entityField = this.props.entity.paths[fieldName]
     const modelField = this.props.entityModel[fieldName]
 
-    const editableValueUtils = {
+    const formFieldUtils = {
       relationEntities: this.props.relationEntities,
       loadRelationEntity: this.props.loadRelationEntity,
       loadRemoteEntity: this.props.loadRemoteEntity,
@@ -44,7 +44,7 @@ export class DetailForm extends React.Component {
         formDefinitionField={formDefinitionField}
         entityField={entityField}
         modelField={modelField}
-        editableValueUtils={editableValueUtils}
+        formFieldUtils={formFieldUtils}
       />
     )
   }

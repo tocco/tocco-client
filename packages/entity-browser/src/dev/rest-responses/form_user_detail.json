@@ -96,6 +96,14 @@
                     "children": [],
                     "label": "READONLY",
                     "useLabel": "YES"
+                  },
+                  {
+                    "name": "grid",
+                    "type": "ch.tocco.nice2.model.form.components.simple.Subgrid",
+                    "displayType": "READONLY",
+                    "children": [],
+                    "label": "",
+                    "useLabel": "HIDDEN"
                   }
                 ],
                 "label": "Form Stuff",
