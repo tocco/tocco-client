@@ -26,9 +26,17 @@ const FormField = props => {
     {'has-error': props.error && props.touched}
   )
 
-  const labelClass = classNames({
-    'hidden': props.formDefinitionField.useLabel !== 'YES',
-    'dirty-label': props.dirty === true
+  const labelClass = classNames(
+    'col-sm-4',
+    'control-label',
+    {
+      'sr-only': props.formDefinitionField.useLabel !== 'YES',
+      'dirty-label': props.dirty
+    })
+
+  const editableValueWrapperClass = classNames({
+    'col-sm-8': props.formDefinitionField.useLabel !== 'HIDE',
+    'col-sm-12': props.formDefinitionField.useLabel === 'HIDE'
   })
 
   const isReadOnly = (
@@ -47,11 +55,11 @@ const FormField = props => {
 
   return (
     <div className={fromGroupClass}>
-      <label className="col-sm-4 control-label">
-        <span className={labelClass}>{props.formDefinitionField.label}</span>
+      <label className={labelClass} htmlFor={props.id}>
+        {props.formDefinitionField.label}
         {isMandatory && <span title="Mandatory field" className="mandatory"> *</span>}
       </label>
-      <div className="col-sm-8">
+      <div className={editableValueWrapperClass}>
         <EditableValue
           id={props.id}
           {...editableValueProps}
