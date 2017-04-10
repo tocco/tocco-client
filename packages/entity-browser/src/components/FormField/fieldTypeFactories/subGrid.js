@@ -1,0 +1,7 @@
+import React from 'react'
+import SubGrid from '../../../routes/detail/components/SubGrid'
+
+export default type =>
+  (formField, modelField, props, events, utils) => {
+    return <SubGrid {...props}/>
+  }

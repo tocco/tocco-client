@@ -1,26 +1,23 @@
 import React from 'react'
-import EditableValueFieldFactory from './editableValueFieldFactory'
+import editableValueFieldFactory from './fieldTypeFactories/editableValue'
+import subGridFactory from './fieldTypeFactories/subGrid'
 
-import SubGrid from '../../routes/detail/components/SubGrid'
-
-const fromDefinitionTypeMap = {
-  'ch.tocco.nice2.model.form.components.simple.BirthDateField': EditableValueFieldFactory('birthdate'),
-  'ch.tocco.nice2.model.form.components.simple.Checkbox': EditableValueFieldFactory('boolean'),
-  'ch.tocco.nice2.model.form.components.simple.DateField': EditableValueFieldFactory('date'),
-  'ch.tocco.nice2.model.form.components.simple.DatetimeField': EditableValueFieldFactory('datetime'),
-  'ch.tocco.nice2.model.form.components.simple.EmailField': EditableValueFieldFactory('email'),
-  'ch.tocco.nice2.model.form.components.simple.MultiRemoteField': EditableValueFieldFactory('multi-remote'),
-  'ch.tocco.nice2.model.form.components.simple.MultiSelectBox': EditableValueFieldFactory('multi-select'),
-  'ch.tocco.nice2.model.form.components.simple.NumberField': EditableValueFieldFactory('number'),
-  'ch.tocco.nice2.model.form.components.simple.PhoneField': EditableValueFieldFactory('phone'),
-  'ch.tocco.nice2.model.form.components.simple.TextArea': EditableValueFieldFactory('text'),
-  'ch.tocco.nice2.model.form.components.simple.TextField': EditableValueFieldFactory('string'),
-  'ch.tocco.nice2.model.form.components.simple.UrlField': EditableValueFieldFactory('url'),
-  'ch.tocco.nice2.model.form.components.simple.RemoteField': EditableValueFieldFactory('remote'),
-  'ch.tocco.nice2.model.form.components.simple.SingleSelectBox': EditableValueFieldFactory('single-select'),
-  'ch.tocco.nice2.model.form.components.simple.Subgrid': (formField, modelField, props, events, utils) => (
-    <SubGrid {...props}/>
-  ),
+const typeFactoryMap = {
+  'ch.tocco.nice2.model.form.components.simple.BirthDateField': editableValueFieldFactory('birthdate'),
+  'ch.tocco.nice2.model.form.components.simple.Checkbox': editableValueFieldFactory('boolean'),
+  'ch.tocco.nice2.model.form.components.simple.DateField': editableValueFieldFactory('date'),
+  'ch.tocco.nice2.model.form.components.simple.DatetimeField': editableValueFieldFactory('datetime'),
+  'ch.tocco.nice2.model.form.components.simple.EmailField': editableValueFieldFactory('email'),
+  'ch.tocco.nice2.model.form.components.simple.MultiRemoteField': editableValueFieldFactory('multi-remote'),
+  'ch.tocco.nice2.model.form.components.simple.MultiSelectBox': editableValueFieldFactory('multi-select'),
+  'ch.tocco.nice2.model.form.components.simple.NumberField': editableValueFieldFactory('number'),
+  'ch.tocco.nice2.model.form.components.simple.PhoneField': editableValueFieldFactory('phone'),
+  'ch.tocco.nice2.model.form.components.simple.TextArea': editableValueFieldFactory('text'),
+  'ch.tocco.nice2.model.form.components.simple.TextField': editableValueFieldFactory('string'),
+  'ch.tocco.nice2.model.form.components.simple.UrlField': editableValueFieldFactory('url'),
+  'ch.tocco.nice2.model.form.components.simple.RemoteField': editableValueFieldFactory('remote'),
+  'ch.tocco.nice2.model.form.components.simple.SingleSelectBox': editableValueFieldFactory('single-select'),
+  'ch.tocco.nice2.model.form.components.simple.Subgrid': subGridFactory(),
   'ch.tocco.nice2.model.form.components.simple.DocumentField': null,
   'ch.tocco.nice2.model.form.components.simple.DurationField': null,
   'ch.tocco.nice2.model.form.components.simple.TimeField': null,
@@ -64,8 +61,8 @@ const fromDefinitionTypeMap = {
 }
 
 export default (formField, modelField, props, events, utils) => {
-  const componentFactory = fromDefinitionTypeMap[formField.type]
-  if (!componentFactory) return <span/>
+  const typeFactory = typeFactoryMap[formField.type]
+  if (!typeFactory) return <span/>
 
-  return componentFactory(formField, modelField, props, events, utils)
+  return typeFactory(formField, modelField, props, events, utils)
 }

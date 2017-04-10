@@ -2,7 +2,7 @@ import React from 'react'
 import classNames from 'classnames'
 import _get from 'lodash/get'
 import ErrorList from './ErrorList'
-import valueFieldFactory from './valueFieldFactory'
+import fieldFactory from './fieldFactory'
 
 const FormField = props => {
   if (props.formDefinitionField.displayType === 'HIDDEN') {
@@ -28,7 +28,8 @@ const FormField = props => {
   const mandatory = _get(props.modelField, `validation.mandatory`, false)
 
   const {id, value, onChange} = props
-  const valueField = valueFieldFactory(
+
+  const valueField = fieldFactory(
     props.formDefinitionField,
     props.modelField,
     {
