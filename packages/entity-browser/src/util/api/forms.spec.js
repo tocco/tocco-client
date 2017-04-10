@@ -11,7 +11,7 @@ describe('entity-browser', () => {
         })
 
         describe('getFieldsOfDetailForm', () => {
-          it('get array of fields', () => {
+          it('get array of fields and ignore not simple types and iterators', () => {
             const formDefinition = {
               name: 'fromX',
               children: [
@@ -30,6 +30,10 @@ describe('entity-browser', () => {
                         {
                           name: 'lastname',
                           type: 'ch.tocco.nice2.model.form.components.simple.TextArea'
+                        },
+                        {
+                          name: 'relAffiliation',
+                          type: 'ch.tocco.nice2.model.form.components.table.Table'
                         }
                       ]
                     }
@@ -38,6 +42,15 @@ describe('entity-browser', () => {
                 {
                   name: 'xyz',
                   type: 'ch.tocco.nice2.model.form.components.simple.SomeType'
+                },
+                {
+                  name: 'relTask_note',
+                  type: 'ch.tocco.nice2.model.form.components.navigation.IteratorComponent',
+                  children: [
+                    {
+                      name: 'iteratorField',
+                      type: 'ch.tocco.nice2.model.form.components.simple.TextArea'
+                    }]
                 }
               ]
             }
