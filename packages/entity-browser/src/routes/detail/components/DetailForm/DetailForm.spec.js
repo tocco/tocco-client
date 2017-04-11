@@ -1,11 +1,11 @@
 import React from 'react'
-import {Field} from 'redux-form'
+import {Field, reducer as formReducer, touch} from 'redux-form'
 import {Provider} from 'react-redux'
-import {createStore} from 'redux'
+import {createStore, combineReducers} from 'redux'
 import DetailForm from './DetailForm'
 
 import {mount} from 'enzyme'
-import {IntlStub} from 'tocco-test-util'
+import {IntlStub, context} from 'tocco-test-util'
 
 const EMPTY_FUNC = () => {
 }
@@ -103,6 +103,76 @@ describe('entity-browser', () => {
 
         expect(wrapper.find('form')).to.have.length(1)
         expect(wrapper.find(Field)).to.have.length(2)
+      })
+
+      it('should request user confirmation when touched form is left', () => {
+        const formDefinition = {
+          'name': 'UserSearch_detail',
+          'type': 'ch.tocco.nice2.model.form.components.Form',
+          'displayType': 'READONLY',
+          'children': [
+            {
+              'name': 'firstname',
+              'type': 'ch.tocco.nice2.model.form.components.simple.TextField',
+              'displayType': 'READONLY',
+              'children': [],
+              'label': 'Vorname',
+              'useLabel': 'YES'
+            }
+          ]
+        }
+
+        const entity = {
+          'key': 6,
+          'model': 'User',
+          'paths': {}
+        }
+
+        const store = createStore(combineReducers({form: formReducer}))
+
+        const testFn = touched => {
+          const block = sinon.mock()
+
+          if (touched) {
+            block.once().withExactArgs('client.entity-browser.confirmTouchedFormLeave')
+          }
+
+          const fakeContext = {router: {block}}
+          const contextTypes = {router: React.PropTypes.object}
+
+          const formComponent = context.wrapWithContext(fakeContext, contextTypes,
+            <DetailForm
+              submitting={false}
+              submitForm={EMPTY_FUNC}
+              formDefinition={formDefinition}
+              entity={entity}
+              entityModel={{}}
+              logError={EMPTY_FUNC}
+              loadRelationEntities={EMPTY_FUNC}
+              relationEntities={{}}
+              form="detailForm"
+              intl={IntlStub}
+            />
+          )
+
+          mount(
+            <Provider store={store}>
+              {formComponent}
+            </Provider>
+          )
+
+          if (touched) {
+            store.dispatch(touch('detailForm'), 'firstname')
+          }
+
+          block.verify()
+        }
+
+        // field touched -> confirmation requested
+        testFn(true)
+
+        // no field touched -> no confirmation requested
+        testFn(false)
       })
     })
   })

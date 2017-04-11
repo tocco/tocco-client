@@ -2,15 +2,36 @@ import React from 'react'
 
 import {appFactory} from 'tocco-util'
 import {Router} from 'react-router'
-import createHistory from 'history/createHashHistory'
+import createHashHistory from 'history/createHashHistory'
 import RouteWithSubRoutes from './components/RouteWithSubRoutes'
+import {createConfirmationAction} from './util/notification'
 
 const packageName = 'entity-browser'
 
-const initApp = (id, input, events, publicPath) => {
-  const history = createHistory()
+const textResourceSelector = (state, key) => state.intl.messages[key] || key
 
+const createHistory = store => createHashHistory({
+  getUserConfirmation: (message, callback) => {
+    const state = store.getState()
+
+    const okText = textResourceSelector(state, 'client.entity-browser.confirmationOk')
+    const cancelText = textResourceSelector(state, 'client.entity-browser.confirmationCancel')
+
+    const action = createConfirmationAction(
+      message,
+      okText,
+      cancelText,
+      () => callback(true), // eslint-disable-line standard/no-callback-literal
+      () => callback(false) // eslint-disable-line standard/no-callback-literal
+    )
+    store.dispatch(action)
+  }
+})
+
+const initApp = (id, input, events, publicPath) => {
   const store = appFactory.createStore(undefined, undefined, input)
+
+  const history = createHistory(store)
 
   const routes = require('./routes/index').default(store, input)
 
