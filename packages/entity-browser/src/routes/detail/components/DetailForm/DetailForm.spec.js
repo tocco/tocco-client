@@ -10,6 +10,28 @@ import {IntlStub, context} from 'tocco-test-util'
 const EMPTY_FUNC = () => {
 }
 
+const SIMPLE_FORM_DEFINITION = {
+  'name': 'UserSearch_detail',
+  'type': 'ch.tocco.nice2.model.form.components.Form',
+  'displayType': 'READONLY',
+  'children': [
+    {
+      'name': 'firstname',
+      'type': 'ch.tocco.nice2.model.form.components.simple.TextField',
+      'displayType': 'READONLY',
+      'children': [],
+      'label': 'Vorname',
+      'useLabel': 'YES'
+    }
+  ]
+}
+
+const SIMPLE_ENTITY = {
+  'key': 6,
+  'model': 'User',
+  'paths': {}
+}
+
 describe('entity-browser', () => {
   describe('components', () => {
     describe('DetailForm', () => {
@@ -106,73 +128,71 @@ describe('entity-browser', () => {
       })
 
       it('should request user confirmation when touched form is left', () => {
-        const formDefinition = {
-          'name': 'UserSearch_detail',
-          'type': 'ch.tocco.nice2.model.form.components.Form',
-          'displayType': 'READONLY',
-          'children': [
-            {
-              'name': 'firstname',
-              'type': 'ch.tocco.nice2.model.form.components.simple.TextField',
-              'displayType': 'READONLY',
-              'children': [],
-              'label': 'Vorname',
-              'useLabel': 'YES'
-            }
-          ]
-        }
-
-        const entity = {
-          'key': 6,
-          'model': 'User',
-          'paths': {}
-        }
-
         const store = createStore(combineReducers({form: formReducer}))
 
-        const testFn = touched => {
-          const block = sinon.mock()
+        const block = sinon.spy()
 
-          if (touched) {
-            block.once().withExactArgs('client.entity-browser.confirmTouchedFormLeave')
-          }
+        const fakeContext = {router: {block}}
+        const contextTypes = {router: React.PropTypes.object}
 
-          const fakeContext = {router: {block}}
-          const contextTypes = {router: React.PropTypes.object}
+        const formComponent = context.wrapWithContext(fakeContext, contextTypes,
+          <DetailForm
+            submitting={false}
+            submitForm={EMPTY_FUNC}
+            formDefinition={SIMPLE_FORM_DEFINITION}
+            entity={SIMPLE_ENTITY}
+            entityModel={{}}
+            logError={EMPTY_FUNC}
+            loadRelationEntities={EMPTY_FUNC}
+            relationEntities={{}}
+            form="detailForm"
+            intl={IntlStub}
+          />
+        )
 
-          const formComponent = context.wrapWithContext(fakeContext, contextTypes,
-            <DetailForm
-              submitting={false}
-              submitForm={EMPTY_FUNC}
-              formDefinition={formDefinition}
-              entity={entity}
-              entityModel={{}}
-              logError={EMPTY_FUNC}
-              loadRelationEntities={EMPTY_FUNC}
-              relationEntities={{}}
-              form="detailForm"
-              intl={IntlStub}
-            />
-          )
+        mount(
+          <Provider store={store}>
+            {formComponent}
+          </Provider>
+        )
 
-          mount(
-            <Provider store={store}>
-              {formComponent}
-            </Provider>
-          )
+        // touch a field to enable the prompt -> context.history.block must be called
+        store.dispatch(touch('detailForm'), 'firstname')
 
-          if (touched) {
-            store.dispatch(touch('detailForm'), 'firstname')
-          }
+        expect(block).to.be.calledWith('client.entity-browser.confirmTouchedFormLeave')
+      })
 
-          block.verify()
-        }
+      it('should not request user confirmation when untouched form is left', () => {
+        const store = createStore(combineReducers({form: formReducer}))
 
-        // field touched -> confirmation requested
-        testFn(true)
+        const block = sinon.spy()
 
-        // no field touched -> no confirmation requested
-        testFn(false)
+        const fakeContext = {router: {block}}
+        const contextTypes = {router: React.PropTypes.object}
+
+        const formComponent = context.wrapWithContext(fakeContext, contextTypes,
+          <DetailForm
+            submitting={false}
+            submitForm={EMPTY_FUNC}
+            formDefinition={SIMPLE_FORM_DEFINITION}
+            entity={SIMPLE_ENTITY}
+            entityModel={{}}
+            logError={EMPTY_FUNC}
+            loadRelationEntities={EMPTY_FUNC}
+            relationEntities={{}}
+            form="detailForm"
+            intl={IntlStub}
+          />
+        )
+
+        mount(
+          <Provider store={store}>
+            {formComponent}
+          </Provider>
+        )
+
+        // form is untouched -> context.history.block must not be called
+        expect(block).not.to.be.calledWith('client.entity-browser.confirmTouchedFormLeave')
       })
     })
   })
