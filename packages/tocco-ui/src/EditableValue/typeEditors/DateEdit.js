@@ -1,7 +1,7 @@
 import React from 'react'
 import DateAbstract from './DateAbstract'
 
-const DateTimeEdit = props => {
+const DateEdit = props => {
   const options = {
     altFormat: 'd.m.Y',
     dateFormat: 'Y-m-d',
@@ -13,10 +13,10 @@ const DateTimeEdit = props => {
   )
 }
 
-DateTimeEdit.propTypes = {
+DateEdit.propTypes = {
   onChange: React.PropTypes.func,
   value: React.PropTypes.string,
   options: React.PropTypes.object
 }
 
-export default DateTimeEdit
+export default DateEdit
