@@ -31,6 +31,7 @@ class DateAbstract extends React.Component {
     }
 
     this.flatpickr = new Flatpickr(this.wrapper, options)
+    this.flatpickr.calendarContainer.classList.add('tocco-ui-theme')
   }
 
   componentWillReceiveProps(props) {
