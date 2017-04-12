@@ -192,7 +192,7 @@ describe('entity-browser', () => {
         )
 
         // form is untouched -> context.history.block must not be called
-        expect(block).not.to.be.calledWith('client.entity-browser.confirmTouchedFormLeave')
+        expect(block).not.to.be.called
       })
     })
   })
