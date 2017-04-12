@@ -128,7 +128,7 @@ if (__DEV__) {
     webpackConfig.plugins.push(
       new CopyWebpackPlugin([
         {
-          context: `${packageDir}/src/components/`,
+          context: `${packageDir}/src/`,
           from: '**/*.scss',
           flatten: true,
           to: 'scss'

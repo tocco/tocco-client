@@ -85,6 +85,13 @@ During development with watch:
 npm run test:dev --package={PACKAGE_NAME}
 ```
 
+#### Generators
+The project provides some code generators. Generators are developed with [Plop](https://github.com/amwmedia/plop) and can be executed with:
+```
+npm run plop
+```
+
+At the moment there is a generator to create a react-component and a generator to add a redux-action.
 
 ## Publish bundle
 Once the package is ready to publish, run following npm scripts. This registers the bundle
