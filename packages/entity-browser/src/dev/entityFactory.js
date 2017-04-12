@@ -66,6 +66,21 @@ export const createUsers = amount => {
             writable: true
           }
         },
+        preview_picture: {
+          type: 'field',
+          value: {
+            value: {
+              mimeType: 'image/png',
+              fileExtension: 'png',
+              sizeInBytes: 3336,
+              fileName: 'Firstname,-Lastname-Vorschaubild.png',
+              binaryLink: 'http://localhost:8080/8ca597f/29/Firstname,-Lastname-Vorschaubild.png'
+            },
+            type: 'document',
+            readable: true,
+            writable: true
+          }
+        },
         salary: {
           type: 'field',
           value: {

@@ -8,6 +8,7 @@ import DateEdit from './typeEditors/DateEdit'
 import DateTimeEdit from './typeEditors/DateTimeEdit'
 import BoolEdit from './typeEditors/BoolEdit'
 import NumberEdit from './typeEditors/NumberEdit'
+import Document from './typeEditors/Document'
 import RemoteSelect from './typeEditors/RemoteSelect'
 import MultiRemoteSelect from './typeEditors/MultiRemoteSelect'
 
@@ -20,6 +21,7 @@ export const map = {
   'count': StringEdit,
   'phone': StringEdit,
   'url': StringEdit,
+  'document': Document,
   'boolean': BoolEdit,
   'email': StringEdit,
   'counter': StringEdit,
