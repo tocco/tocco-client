@@ -64,10 +64,20 @@ const setRemoteEntityLoading = (state, {payload}) => {
   }
 }
 
+const setFormBase = (state, {payload}) => {
+  const {formBase} = payload
+  if (!formBase) return {...state}
+
+  return {
+    ...state,
+    formBase
+  }
+}
+
 const ACTION_HANDLERS = {
   [actions.INITIALIZED]: reducers.singleTransferReducer('initialized'),
   [actions.SET_ENTITY_NAME]: reducers.singleTransferReducer('entityName'),
-  [actions.SET_FORM_BASE]: reducers.singleTransferReducer('formBase'),
+  [actions.SET_FORM_BASE]: setFormBase,
   [actions.SET_ENTITY_MODEL]: reducers.singleTransferReducer('entityModel'),
   [actions.SET_RELATION_ENTITY]: setRelationEntity,
   [actions.SET_RELATION_ENTITY_LOADED]: setRelationEntityLoaded,
