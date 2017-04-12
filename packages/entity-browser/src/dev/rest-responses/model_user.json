@@ -113,6 +113,11 @@
       "type": "phone"
     },
     {
+      "fieldName": "preview_picture",
+      "type": "document",
+      "validation": {}
+    },
+    {
       "fieldName": "website",
       "type": "url",
       "validation": {

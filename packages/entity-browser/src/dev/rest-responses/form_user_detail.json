@@ -90,6 +90,14 @@
                 "displayType": "EDITABLE",
                 "children": [
                   {
+                    "name": "preview_picture",
+                    "type": "ch.tocco.nice2.model.form.components.simple.DocumentField",
+                    "displayType": "EDITABLE",
+                    "children": [],
+                    "label": "Vorschaubild",
+                    "useLabel": "YES"
+                  },
+                  {
                     "name": "firstname",
                     "type": "ch.tocco.nice2.model.form.components.simple.TextField",
                     "displayType": "READONLY",
