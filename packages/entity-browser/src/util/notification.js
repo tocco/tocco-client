@@ -3,7 +3,7 @@ import {put} from 'redux-saga/effects'
 import {actions as toastrActions} from 'react-redux-toastr'
 import {FormattedMessage} from 'react-intl'
 
-export function* notify(type, title, message, glyphicon, timeOut) {
+export function createNotificationAction(type, title, message, glyphicon, timeOut) {
   const options = {
     showCloseButton: true,
     component: () => (
@@ -25,8 +25,30 @@ export function* notify(type, title, message, glyphicon, timeOut) {
     options.timeOut = timeOut
   }
 
-  yield put(toastrActions.add({
+  return toastrActions.add({
     type,
     options
-  }))
+  })
+}
+
+export function createConfirmationAction(message, okText, cancelText, onOk, onCancel) {
+  return toastrActions.showConfirm({
+    message,
+    options: {
+      okText,
+      cancelText,
+      onOk,
+      onCancel
+    }
+  })
+}
+
+export function* notify(type, title, message, glyphicon, timeOut) {
+  const action = createNotificationAction(type, title, message, glyphicon, timeOut)
+  yield put(action)
+}
+
+export function* confirm(message, okText, cancelText, onOk, onCancel) {
+  const action = createConfirmationAction(message, okText, cancelText, onOk, onCancel)
+  yield put(action)
 }
