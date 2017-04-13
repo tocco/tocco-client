@@ -18,7 +18,7 @@ describe('tocco-ui', () => {
           const input = wrapper.find('input')
 
           expect(input).to.have.length(1)
-          expect(input).to.have.attr('value', '')
+          expect(input.get(0).value).to.eql('')
         })
 
         it('should render an empty date field if empty array given', () => {
@@ -31,7 +31,7 @@ describe('tocco-ui', () => {
           const input = wrapper.find('input')
 
           expect(input).to.have.length(1)
-          expect(input).to.have.attr('value', '')
+          expect(input.get(0).value).to.eql('')
         })
 
         it('should render an empty date field if array with null given', () => {
@@ -44,7 +44,7 @@ describe('tocco-ui', () => {
           const input = wrapper.find('input')
 
           expect(input).to.have.length(1)
-          expect(input).to.have.attr('value', '')
+          expect(input.get(0).value).to.eql('')
         })
 
         it('should render a date field with a single value', () => {
@@ -57,7 +57,7 @@ describe('tocco-ui', () => {
           const input = wrapper.find('input')
 
           expect(input).to.have.length(1)
-          expect(input).to.have.attr('value', '2017-04-13')
+          expect(input.get(0).value).to.eql('2017-04-13')
         })
 
         it('should render a date field with multiple values', () => {
@@ -70,7 +70,7 @@ describe('tocco-ui', () => {
           const input = wrapper.find('input')
 
           expect(input).to.have.length(1)
-          expect(input).to.have.attr('value', '2017-04-13; 2017-04-14')
+          expect(input.get(0).value).to.eql('2017-04-13; 2017-04-14')
         })
       })
     })
