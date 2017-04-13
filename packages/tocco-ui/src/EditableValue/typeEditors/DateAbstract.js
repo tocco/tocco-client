@@ -22,7 +22,8 @@ class DateAbstract extends React.Component {
       altInput: true,
       onChange: this.handleOnChange.bind(this),
       clickOpens: false,
-      ...this.props.options
+      ...this.props.options,
+      defaultDate: this.props.value
     }
 
     const locale = this.localeMap[this.props.intl.locale]
@@ -45,13 +46,8 @@ class DateAbstract extends React.Component {
   }
 
   handleOnChange(selectedDates) {
-    if (!selectedDates || selectedDates.length === 0) {
-      this.props.onChange(null)
-    } else if (selectedDates.length === 1) {
-      this.props.onChange(selectedDates[0].toISOString())
-    } else {
-      throw new Error('EditableValue DateTime: unexpected length of input')
-    }
+    const asIsoString = selectedDates.map(date => date.toISOString())
+    this.props.onChange(asIsoString)
   }
 
   refMapper(ref) {
@@ -75,7 +71,6 @@ class DateAbstract extends React.Component {
       >
         <input
           placeholder="Pick date"
-          defaultValue={this.props.value}
           data-input
         />
         <span className="input-group-addon">
@@ -89,7 +84,7 @@ class DateAbstract extends React.Component {
 DateAbstract.propTypes = {
   intl: intlShape.isRequired,
   onChange: React.PropTypes.func,
-  value: React.PropTypes.string,
+  value: React.PropTypes.arrayOf(React.PropTypes.string),
   options: React.PropTypes.object,
   readOnly: React.PropTypes.bool
 }
