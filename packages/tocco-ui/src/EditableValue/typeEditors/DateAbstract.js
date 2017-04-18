@@ -22,8 +22,8 @@ class DateAbstract extends React.Component {
       altInput: true,
       onChange: this.handleOnChange.bind(this),
       clickOpens: false,
-      ...this.props.options,
-      defaultDate: this.props.value
+      defaultDate: this.props.value,
+      ...this.props.options
     }
 
     const locale = this.localeMap[this.props.intl.locale]
@@ -46,8 +46,8 @@ class DateAbstract extends React.Component {
   }
 
   handleOnChange(selectedDates) {
-    const asIsoString = selectedDates.map(date => date.toISOString())
-    this.props.onChange(asIsoString)
+    const isoStrings = selectedDates.map(date => date.toISOString())
+    this.props.onChange(isoStrings)
   }
 
   refMapper(ref) {

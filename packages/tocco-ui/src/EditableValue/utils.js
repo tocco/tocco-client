@@ -4,6 +4,6 @@ export const atMostOne = array => {
   } else if (array.length === 1) {
     return array[0]
   } else {
-    throw new Error('Expected at most one item in array: ' + array.join(', '))
+    throw new Error(`Expected at most one item in array: ${array.join(', ')}`)
   }
 }
