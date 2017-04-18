@@ -29,7 +29,10 @@ const fromDefinitionTypeMap = {
   'ch.tocco.nice2.model.form.components.simple.MultiRemoteField': 'multi-remote',
   'ch.tocco.nice2.model.form.components.simple.PasswordField': '',
   'ch.tocco.nice2.model.form.components.simple.CreatePasswordField': '',
-  'ch.tocco.nice2.model.form.components.simple.RangeField': '',
+  'ch.tocco.nice2.model.form.components.simple.RangeField': {
+    'date': 'date-range',
+    'birthdate': 'date-range'
+  },
   'ch.tocco.nice2.model.form.components.simple.DisplayField': '',
   'ch.tocco.nice2.model.form.components.simple.DisplayExpressionFieldFacade': '',
   'ch.tocco.nice2.model.form.components.simple.MoneyAmountField': 'number',
@@ -107,9 +110,16 @@ const getEvents = (field, modelField, util) => {
 }
 
 export const getEditableValueProps = (formField, modelField, util) => {
-  const type = fromDefinitionTypeMap[formField.type]
+  let type = fromDefinitionTypeMap[formField.type]
   if (!type) {
     consoleLogger.logError(`FormField: No type found for type ${formField.type}`)
+  } else if (typeof type === 'object') {
+    type = type[modelField.type]
+    if (!type) {
+      consoleLogger.logError(
+        `FormField: No type found for type ${formField.type} and field type ${modelField.type}`
+      )
+    }
   }
 
   const options = getOptions(formField, modelField, util)

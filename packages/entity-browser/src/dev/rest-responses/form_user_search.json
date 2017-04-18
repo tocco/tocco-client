@@ -47,6 +47,14 @@
             "useLabel": "YES"
           },
           {
+            "name": "birthdate",
+            "type": "ch.tocco.nice2.model.form.components.simple.RangeField",
+            "displayType": "EDITABLE",
+            "children": [],
+            "label": "Geburtsdatum",
+            "useLabel": "YES"
+          },
+          {
             "name": "user_nr",
             "type": "ch.tocco.nice2.model.form.components.simple.RangeField",
             "displayType": "HIDDEN",
