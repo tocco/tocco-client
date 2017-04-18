@@ -14,6 +14,7 @@ class Example extends React.Component {
         singleSelect: {key: 2, display: 'Two'},
         multiSelect: [{key: 'a', display: 'One'}, {key: 'b', display: 'Two'}],
         date: '2015-12-18',
+        date2: '2015-12-24',
         datetime: '2017-01-25T15:15:00.000Z',
         boolean: false,
         number: 99,
@@ -197,6 +198,25 @@ class Example extends React.Component {
                   type="date"
                   value={this.state.values.date}
                   onChange={v => this.changeValue('date', v)}
+                  readOnly={this.state.readOnly}
+              />
+              </td>
+            </tr>
+            <tr>
+              <td>date-range</td>
+              <td>
+                <EditableValue
+                  type="date-range"
+                  value={{
+                    from: this.state.values.date,
+                    to: this.state.values.date2
+                  }}
+                  onChange={v => {
+                    if (v) {
+                      this.changeValue('date', v.from)
+                      this.changeValue('date2', v.to)
+                    }
+                  }}
                   readOnly={this.state.readOnly}
               />
               </td>
