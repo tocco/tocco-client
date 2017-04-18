@@ -33,7 +33,7 @@ export default class ShowCaseApp extends React.Component {
   render() {
     return (
       <IntlProvider locale={this.state.locale}>
-        <div className="show-case-app">
+        <div className="show-case-app tocco-ui-theme">
           <div className="col title">
             <span>Tocco UI</span>
           </div>

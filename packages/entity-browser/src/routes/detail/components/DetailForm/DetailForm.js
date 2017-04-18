@@ -1,6 +1,7 @@
 import React from 'react'
 import {reduxForm, Field} from 'redux-form'
 import {intlShape, FormattedRelative, FormattedMessage} from 'react-intl'
+import {Prompt} from 'react-router-dom'
 import {Button, LayoutBox} from 'tocco-ui'
 
 import ReduxFormFieldAdapter from '../ReduxFormFieldAdapter'
@@ -102,6 +103,10 @@ export class DetailForm extends React.Component {
 
     return (
       <form tabIndex="0" onSubmit={this.handleSubmit} className="form-horizontal" onKeyDown={this.handleKeyPress}>
+        <Prompt
+          when={props.anyTouched}
+          message={this.msg('client.entity-browser.confirmTouchedFormLeave')}
+        />
         {getForm(props.formDefinition, this.createField, this.createLayoutComponent)}
         {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
         <Button
