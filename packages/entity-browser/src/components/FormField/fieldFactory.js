@@ -43,7 +43,6 @@ const typeFactoryMap = {
   'ch.tocco.nice2.model.form.components.simple.RangeField': null,
   'ch.tocco.nice2.model.form.components.simple.RemoteField': editableValueFieldFactory('remote'),
   'ch.tocco.nice2.model.form.components.simple.SingleSelectBox': editableValueFieldFactory('single-select'),
-  'ch.tocco.nice2.model.form.components.simple.Subgrid': subGridFactory(),
   'ch.tocco.nice2.model.form.components.simple.TextArea': editableValueFieldFactory('text'),
   'ch.tocco.nice2.model.form.components.simple.TextField': editableValueFieldFactory('string'),
   'ch.tocco.nice2.model.form.components.simple.TimeField': null,
@@ -51,7 +50,7 @@ const typeFactoryMap = {
   'ch.tocco.nice2.model.form.components.simple.UrlField': editableValueFieldFactory('url'),
   'ch.tocco.nice2.model.form.components.simple.UuidField': editableValueFieldFactory('string'),
   'ch.tocco.nice2.model.form.components.table.Column': null,
-  'ch.tocco.nice2.model.form.components.table.Table': null
+  'ch.tocco.nice2.model.form.components.table.Table': subGridFactory()
 }
 
 export default (formField, modelField, props, events, utils) => {
