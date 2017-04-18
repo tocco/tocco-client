@@ -1,22 +1,25 @@
 import React from 'react'
 import DateAbstract from './DateAbstract'
+import {atMostOne} from '../utils'
 
-const DateTimeEdit = props => {
+const DateEdit = props => {
   const options = {
     altFormat: 'd.m.Y',
     dateFormat: 'Y-m-d',
     ...props.options
   }
 
+  const handleChange = dates => props.onChange(atMostOne(dates))
+
   return (
-    <DateAbstract value={props.value} onChange={props.onChange} options={options}/>
+    <DateAbstract value={[props.value]} onChange={handleChange} options={options}/>
   )
 }
 
-DateTimeEdit.propTypes = {
-  onChange: React.PropTypes.func,
+DateEdit.propTypes = {
+  onChange: React.PropTypes.func.isRequired,
   value: React.PropTypes.string,
   options: React.PropTypes.object
 }
 
-export default DateTimeEdit
+export default DateEdit

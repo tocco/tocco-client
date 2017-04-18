@@ -66,6 +66,23 @@ export const createUsers = amount => {
             writable: true
           }
         },
+        preview_picture: {
+          type: 'field',
+          value: {
+            value: {
+              mimeType: 'image/png',
+              fileExtension: 'png',
+              sizeInBytes: 3336,
+              fileName: 'Firstname,-Lastname-Vorschaubild.png',
+              // eslint-disable-next-line max-len
+              thumbnailLink: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgAQMAAADYVuV7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAABlBMVEUCd72z5fwcX0uLAAAAHElEQVQ4y2NgwAns/8PBn1HOKGeUM8oZrBycAADOggXZNnQmgAAAAABJRU5ErkJggg==',
+              binaryLink: 'http://localhost:8080/8ca597f/29/Firstname,-Lastname-Vorschaubild.png'
+            },
+            type: 'document',
+            readable: true,
+            writable: true
+          }
+        },
         salary: {
           type: 'field',
           value: {

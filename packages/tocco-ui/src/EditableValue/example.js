@@ -212,6 +212,22 @@ class Example extends React.Component {
               />
               </td>
             </tr>
+            <tr>
+              <td>document</td>
+              <td>
+                <EditableValue
+                  type="document"
+                  value={{
+                    mimeType: 'image/png',
+                    fileExtension: 'png',
+                    sizeInBytes: 3336,
+                    fileName: 'Firstname,-Lastname-Vorschaubild.png',
+                    binaryLink: 'http://localhost:8080/8ca597f/29/Firstname,-Lastname-Vorschaubild.png'
+                  }}
+                  readOnly={this.state.readOnly}
+              />
+              </td>
+            </tr>
           </tbody>
         </table>
         {/* end example */}
