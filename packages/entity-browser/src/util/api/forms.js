@@ -1,3 +1,4 @@
+import _startsWith from 'lodash/startsWith'
 import {request} from 'tocco-util/src/rest'
 
 export const getFieldsOfDetailForm = formDefinition => {
@@ -18,7 +19,7 @@ const getFieldsOfChildren = children => {
     ]
 
     const fieldType = children[i].type
-    if (fieldType.indexOf('ch.tocco.nice2.model.form.components.simple') === 0 && !ignoredTypes.includes(fieldType)) {
+    if (_startsWith(fieldType, 'ch.tocco.nice2.model.form.components.simple') && !ignoredTypes.includes(fieldType)) {
       result.push(children[i].name)
     }
   }
