@@ -16,12 +16,22 @@ export const setLocale = (store, moduleName, locale) => (
     })))
 )
 
+const fetchOptions = {
+  method: 'GET',
+  headers: new Headers({
+    'Content-Type': 'application/json'
+  }),
+  credentials: 'include'
+}
+
 const getUserInfo = () => (
-  fetch(`${__BACKEND_URL__}/nice2/username`)
+  fetch(`${__BACKEND_URL__}/nice2/username`, fetchOptions)
     .then(response => response.json())
 )
 
-const loadTextResources = (locale, moduleName) => (
-  fetch(`${__BACKEND_URL__}/nice2/textresource?locale=${locale}${moduleName ? `&module=${moduleName}` : ''}`)
+const loadTextResources = (locale, moduleName) => {
+  const moduleParam = moduleName ? `&module=${moduleName}` : ''
+  const url = `${__BACKEND_URL__}/nice2/textresource?locale=${locale}${moduleParam}`
+  return fetch(url, fetchOptions)
     .then(response => response.json())
-)
+}
