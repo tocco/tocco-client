@@ -102,7 +102,12 @@ export class DetailForm extends React.Component {
     }
 
     return (
-      <form tabIndex="0" onSubmit={this.handleSubmit} className="form-horizontal" onKeyDown={this.handleKeyPress}>
+      <form
+        className="form-horizontal detail-form"
+        tabIndex="0"
+        onSubmit={this.handleSubmit}
+        onKeyDown={this.handleKeyPress}
+      >
         <Prompt
           when={props.anyTouched}
           message={this.msg('client.entity-browser.confirmTouchedFormLeave')}
