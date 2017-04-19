@@ -37,6 +37,13 @@ export const map = {
 export default (type, value, onChange, options, id, events, readOnly = false) => {
   if (map[type]) {
     const Component = map[type]
+
+    // blur workaround for known react-select issue: https://github.com/erikras/redux-form/issues/82
+    if (events && events.onBlur) {
+      const onBlur = events.onBlur
+      events.onBlur = () => onBlur(value)
+    }
+
     return (
       <div {...events}>
         <Component
@@ -44,7 +51,8 @@ export default (type, value, onChange, options, id, events, readOnly = false) =>
           onChange={onChange}
           options={options}
           id={id}
-          readOnly={readOnly}/>
+          readOnly={readOnly}
+        />
       </div>
     )
   }
