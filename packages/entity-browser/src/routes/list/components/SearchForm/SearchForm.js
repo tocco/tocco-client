@@ -41,7 +41,7 @@ const SearchForm = props => {
               formDefinitionField={formField}
               modelField={props.entityModel[formField.name]}
               value={props.searchInputs ? props.searchInputs[formField.name] : undefined}
-              editableValueUtils={{
+              utils={{
                 relationEntities: props.relationEntities,
                 loadRelationEntity: props.loadRelationEntity
               }}

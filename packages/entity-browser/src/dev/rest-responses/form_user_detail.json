@@ -104,6 +104,48 @@
                     "children": [],
                     "label": "READONLY",
                     "useLabel": "YES"
+                  },
+                  {
+                    "name": "relAffiliation",
+                    "type": "ch.tocco.nice2.model.form.components.table.Table",
+                    "displayType": "EDITABLE",
+                    "children": [
+                      {
+                        "name": "unique_id",
+                        "type": "ch.tocco.nice2.model.form.components.table.Column",
+                        "displayType": "EDITABLE",
+                        "children": [
+                          {
+                            "name": "unique_id",
+                            "type": "ch.tocco.nice2.model.form.components.simple.TextField",
+                            "displayType": "EDITABLE",
+                            "children": [],
+                            "label": "Kürzel",
+                            "useLabel": "YES"
+                          }
+                        ],
+                        "label": "Kürzel",
+                        "useLabel": "YES"
+                      },
+                      {
+                        "name": "label",
+                        "type": "ch.tocco.nice2.model.form.components.table.Column",
+                        "displayType": "EDITABLE",
+                        "children": [
+                          {
+                            "name": "label",
+                            "type": "ch.tocco.nice2.model.form.components.simple.TextField",
+                            "displayType": "EDITABLE",
+                            "children": [],
+                            "label": "Bezeichnung",
+                            "useLabel": "YES"
+                          }
+                        ],
+                        "label": "Bezeichnung DE",
+                        "useLabel": "YES"
+                      }
+                    ],
+                    "useLabel": "HIDDEN"
                   }
                 ],
                 "label": "Form Stuff",
