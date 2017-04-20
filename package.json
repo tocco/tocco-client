@@ -179,7 +179,7 @@
     "karma-sauce-launcher": "^1.1.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.3",
-    "lerna": "2.0.0-beta.38",
+    "lerna": "^2.0.0-rc.3",
     "lodash": "^4.17.4",
     "lodash-webpack-plugin": "^0.11.2",
     "mocha": "^3.2.0",
