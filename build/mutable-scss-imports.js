@@ -1,27 +1,19 @@
 import _debug from 'debug'
-import find from 'find'
-import fsExtra from 'fs-extra'
+import fs from 'fs'
+import glob from 'glob'
 
 export const updateMutableImportSCSS = function() {
   const debug = _debug('app:build:MutableImportSCSS')
-  const now = Date.now()
   const baseDir = `${__dirname}/..`
-  const searchRoot = `${baseDir}/packages`
-  // find all scss fils which are in a src folder but not belogs to ToccoTheme
-  const searchRegex = /\/src\/(?!ToccoTheme)[a-zA-Z0-9-\/]*.scss$/  // eslint-disable-line no-useless-escape
   const output = `${baseDir}/packages/tocco-theme/src/ToccoTheme/variable/mutable-imports.scss`
-  let countMatches = 0
-
-  // ensure empty file
-  fsExtra.ensureFileSync(output)
-  fsExtra.writeFile(output, `/* written by app:build:MutableimportSCSS at ${now} */\n`)
-
-  // find files and output it
-  find.file(searchRegex, searchRoot, function(files) {
-    for (let key in files) {
-      countMatches++
-      fsExtra.appendFile(output, `@import '${files[key]}';\n`, 'utf8')
-    }
-    debug(`${countMatches} scss files are imported by ${output}`)
+  const searchRegex = 'packages/*/src/**/*.scss'
+  const options = {
+    ignore: 'packages/tocco-theme/**'
+  }
+  glob(searchRegex, options, function(er, files) {
+    const header = `/* written by app:build:MutableimportSCSS at ${new Date()} */\n`
+    const content = header + files.map(f => `@import '${f}';\n`).join('')
+    fs.writeFileSync(output, content, 'utf8')
+    debug(`${files.length} scss files are imported by ${output}`)
   })
 }
