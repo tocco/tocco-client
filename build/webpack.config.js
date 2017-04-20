@@ -85,13 +85,15 @@ webpackConfig.plugins = [
   new webpack.DefinePlugin(config.globals)
 ]
 
-webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin({
-  async: true,
-  minChunks(module, count) {
-    return count >= 2
-  }
-})
-)
+if (__PROD__) {
+  webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin({
+    async: true,
+    minChunks(module, count) {
+      return count >= 2
+    }
+  })
+  )
+}
 
 if (__DEV__) {
   webpackConfig.plugins.push(
@@ -303,7 +305,7 @@ if (!__PROD__ && !__NICE2_11_LEGACY__) {
       use: 'file-loader?name=fonts/[name].[ext]&mimetype=image/svg+xml'
     },
     {
-     test: /\.(png|jpg)$/,
+      test: /\.(png|jpg)$/,
       use: 'file-loader?limit=8192'
     }
   )
@@ -393,7 +395,7 @@ if (__NICE2_11_LEGACY__) {
       use: 'file-loader?name=fonts/[name].[ext]&mimetype=image/svg+xml'
     },
     {
-     test: /\.(png|jpg)$/,
+      test: /\.(png|jpg)$/,
       use: 'file-loader?limit=8192'
     }
   )
