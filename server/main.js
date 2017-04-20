@@ -6,7 +6,7 @@ const webpackConfig = require('../build/webpack.config').default
 const config = require('../config').default
 const compress = require('compression')
 const updateMutableImportSCSS = require('../build/mutable-scss-imports').updateMutableImportSCSS
-
+const DashboardPlugin = require('webpack-dashboard/plugin')
 const app = express()
 
 // Apply gzip compression
@@ -19,6 +19,7 @@ const publicPath = webpackConfig.output.path
 
 if (config.env === 'development') {
   const compiler = webpack(webpackConfig)
+  compiler.apply(new DashboardPlugin())
 
   updateMutableImportSCSS()
 
