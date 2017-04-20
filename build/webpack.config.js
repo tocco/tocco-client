@@ -85,16 +85,6 @@ webpackConfig.plugins = [
   new webpack.DefinePlugin(config.globals)
 ]
 
-if (__PROD__) {
-  webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin({
-    async: true,
-    minChunks(module, count) {
-      return count >= 2
-    }
-  })
-  )
-}
-
 if (__DEV__) {
   webpackConfig.plugins.push(
     new HtmlWebpackPlugin({
@@ -107,16 +97,61 @@ if (__DEV__) {
       }
     })
   )
-
-  debug('Enable plugin for case-sensitive path check')
   webpackConfig.plugins.push(new CaseSensitivePathsPlugin())
-
-  debug('Enable plugins for live development (HMR, NoErrors).')
+  webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
   webpackConfig.plugins.push(
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        eslint: {
+          emitWarning: true
+        }
+      }
+    })
   )
 } else if (__PROD__) {
-  // copy scss files
+  webpackConfig.plugins.push(
+    new webpack.optimize.CommonsChunkPlugin({
+      async: true,
+      minChunks(module, count) {
+        return count >= 2
+      }
+    })
+  )
+
+  webpackConfig.plugins.push(
+    new webpack.LoaderOptionsPlugin({
+      minimize: true,
+      debug: false
+    }))
+
+  webpackConfig.plugins.push(
+    new LodashModuleReplacementPlugin({
+      shorthands: true
+    }))
+
+  webpackConfig.plugins.push(
+    new webpack.optimize.OccurrenceOrderPlugin())
+
+  webpackConfig.plugins.push(
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+        screw_ie8: true,
+        conditionals: true,
+        unused: true,
+        comparisons: true,
+        sequences: true,
+        dead_code: true,
+        evaluate: true,
+        if_return: true,
+        join_vars: true
+      },
+      output: {
+        comments: false
+      }
+    })
+  )
+
   if (__PACKAGE__ === 'tocco-theme') {
     webpackConfig.plugins.push(
       new CopyWebpackPlugin([
@@ -138,35 +173,6 @@ if (__DEV__) {
       ])
     )
   }
-
-  // optimize asset loading
-  webpackConfig.plugins.push(
-      new webpack.LoaderOptionsPlugin({
-        minimize: true,
-        debug: false
-      }),
-      new LodashModuleReplacementPlugin({
-        'shorthands': true
-      }),
-      new webpack.optimize.OccurrenceOrderPlugin(),
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          warnings: false,
-          screw_ie8: true,
-          conditionals: true,
-          unused: true,
-          comparisons: true,
-          sequences: true,
-          dead_code: true,
-          evaluate: true,
-          if_return: true,
-          join_vars: true
-        },
-        output: {
-          comments: false
-        }
-      })
-    )
 } else if (__STANDALONE__) {
   webpackConfig.plugins.push(
     new HtmlWebpackPlugin({
@@ -185,7 +191,7 @@ if (__DEV__) {
 if (!process || !process.env || !process.env.DISABLE_ISTANBUL_COVERAGE) {
   debug('Enable instanbul test plugin.')
   testPlugins.push(['istanbul', {
-    'exclude': [
+    exclude: [
       '**/dev/**',
       '**/*/*.spec.js',
       '**/tocco-ui/**/example.js',
@@ -225,7 +231,7 @@ webpackConfig.module.rules = [
         'syntax-dynamic-import'
       ],
       presets: [
-        ['es2015', { 'modules': false }],
+        ['es2015', {modules: false}],
         'react',
         'stage-0'
       ],
@@ -259,16 +265,6 @@ if (!__PROD__ && !__NICE2_11_LEGACY__) {
       enforce: 'pre',
       use: ['eslint-loader']
     }
-  )
-
-  webpackConfig.plugins.push(
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        eslint: {
-          emitWarning: true
-        }
-      }
-    })
   )
 
   // write all styles into index.js
@@ -349,16 +345,6 @@ if (__NICE2_11_LEGACY__) {
       enforce: 'pre',
       use: ['eslint-loader']
     }
-  )
-
-  webpackConfig.plugins.push(
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        eslint: {
-          emitWarning: true
-        }
-      }
-    })
   )
 
   // write all styles into index.js
