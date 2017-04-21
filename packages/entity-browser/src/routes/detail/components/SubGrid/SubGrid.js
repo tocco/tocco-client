@@ -1,4 +1,5 @@
 import React from 'react'
+import EntityListApp from 'entity-list'
 
 const SubGrid = props => {
   return (
@@ -6,6 +7,7 @@ const SubGrid = props => {
       <h1>Sub Grid</h1>
       <p>Relation: {props.relationName}</p>
       <p>Columns: {props.formDefinition.children.length}</p>
+      <EntityListApp id="rz"/>
     </div>
   )
 }

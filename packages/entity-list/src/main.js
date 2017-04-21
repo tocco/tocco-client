@@ -44,3 +44,22 @@ const initApp = (id, input, events, publicPath) => {
     appFactory.registerAppInRegistry(packageName, initApp)
   }
 })()
+
+class EntityListApp extends React.Component {
+  constructor(props) {
+    super(props)
+    this.app = initApp('id', {})
+  }
+
+  render() {
+    return (
+      <div>{this.app.renderComponent()}</div>
+    )
+  }
+}
+
+EntityListApp.propTypes = {
+  id: React.PropTypes.string
+}
+
+export default EntityListApp
