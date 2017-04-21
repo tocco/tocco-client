@@ -120,11 +120,12 @@ class Pagination extends React.Component {
         />
         {
           this.props.noInput
-          && <span id="currentPage">{this.state.currentPage}</span>
+          && <span className="tocco-pagination-current-page" id="currentPage">{this.state.currentPage}</span>
         }
         {
           !this.props.noInput
           && <input
+            className="tocco-pagination-current-page form-control"
             id="currentPage"
             type="number"
             min="1"
@@ -137,7 +138,7 @@ class Pagination extends React.Component {
 
           />
         }
-        <span> / </span><span id="total">{this.state.totalPages}</span>
+        <span className="tocco-pagination-total-pages" id="total">{this.state.totalPages}</span>
         <Button
           id="forwardButton"
           type="button"

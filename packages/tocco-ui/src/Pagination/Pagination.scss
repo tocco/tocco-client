@@ -1,29 +1,37 @@
 .tocco-pagination {
-  .total {
-    font-style: italic;
-    padding-right: .57rem;
+  display: inline-block;
+  margin-bottom: $line-height-computed;
+
+  .btn {
+    /* stylelint-disable */
+    margin-top: -1px;  // for correct alignment with input.tocco-pagination-current-page
+    /* stylelint-enable */
+    margin-bottom: 0;
   }
 
-  button {
-    background-color: #fff;
-    border-color: #d3d3d3;
-    margin-left: .14rem;
+  .btn:not( :first-child ),
+  .tocco-pagination-current-page,
+  .tocco-pagination-total-pages {
+    margin-left: $tocco-pagination-dividing-space;
   }
 
-  #currentPage {
-    margin-left: .28rem;
+  .tocco-pagination-current-page + .tocco-pagination-total-pages:before {
+    padding-right: $tocco-pagination-dividing-space;
+    content: $tocco-pagination-delimiter;
   }
 
   input[ type = number ] {
-    /* stylelint-disable */
-    -moz-appearance: textfield;
-    /* stylelint-enable */
-  }
+    box-sizing: content-box;
+    display: inline-block;
+    // same height for button and input, -2 for border but -3 is needed in webkit and blink
+    height: $input-height-base - ( $padding-base-vertical * 2 ) - 3;
+    box-shadow: none;
 
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    /* stylelint-disable */
-    -webkit-appearance: none;
-    /* stylelint-enable */
+    ::-webkit-inner-spin-button,
+    ::-webkit-outer-spin-button {
+      /* stylelint-disable */
+      -webkit-appearance: none;
+      /* stylelint-enable */
+    }
   }
 }
