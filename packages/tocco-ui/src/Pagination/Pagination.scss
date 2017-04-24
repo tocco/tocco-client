@@ -1,29 +1,30 @@
 .tocco-pagination {
-  .total {
-    font-style: italic;
-    padding-right: .57rem;
+  display: inline-block;
+  margin-bottom: $line-height-computed;
+
+  .btn {
+    margin-bottom: 0;
   }
 
-  button {
-    background-color: #fff;
-    border-color: #d3d3d3;
-    margin-left: .14rem;
+  .btn:not( :first-child ),
+  .tocco-pagination-current-page,
+  .tocco-pagination-total-pages {
+    margin-left: $tocco-pagination-dividing-space;
   }
 
-  #currentPage {
-    margin-left: .28rem;
+  .tocco-pagination-current-page + .tocco-pagination-total-pages:before {
+    padding-right: $tocco-pagination-dividing-space;
+    content: $tocco-pagination-delimiter;
   }
 
   input[ type = number ] {
-    /* stylelint-disable */
-    -moz-appearance: textfield;
-    /* stylelint-enable */
-  }
-
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    /* stylelint-disable */
-    -webkit-appearance: none;
-    /* stylelint-enable */
+    // Bootstrap class .form-control is required
+    vertical-align: bottom; // align input field with buttons
+    display: inline-block;  // instead of floating all elements
+    // browser determines height from line-height and font-size
+    // to respect rounding behaviour of buttons, some browser truncates floating numbers (floor)
+    height: auto;
+    width: auto;  // reset .form-control
+    box-shadow: none;  // reset .form-control
   }
 }
