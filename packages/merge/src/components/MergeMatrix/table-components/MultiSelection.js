@@ -18,6 +18,7 @@ const MultiSelection = props => {
     <div>
       {
         sortBy(props.values, v => v.pk).map((value, idx) => {
+          const id = `multiselection${idx}${props.entity.pk}`
           return (
             <div key={`multiselection${idx}`}>
               <input
@@ -25,15 +26,9 @@ const MultiSelection = props => {
                 disabled={disabled}
                 onChange={() => clickFnc(value)}
                 checked={isChecked(value.pk)}
+                id={id}
               />
-              <span
-                style={{paddingLeft: '5px'}}
-                onClick={() => {
-                  if (disabled !== 'disabled') clickFnc(value)
-                }}
-                className={disabled}
-              >{value.label}
-              </span>
+              <label htmlFor={id} className="selection-label">{value.label}</label>
             </div>
           )
         })
