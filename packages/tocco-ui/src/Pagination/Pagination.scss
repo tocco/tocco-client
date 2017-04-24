@@ -3,9 +3,6 @@
   margin-bottom: $line-height-computed;
 
   .btn {
-    /* stylelint-disable */
-    margin-top: -1px;  // for correct alignment with input.tocco-pagination-current-page
-    /* stylelint-enable */
     margin-bottom: 0;
   }
 
@@ -21,17 +18,13 @@
   }
 
   input[ type = number ] {
-    box-sizing: content-box;
-    display: inline-block;
-    // same height for button and input, -2 for border but -3 is needed in webkit and blink
-    height: $input-height-base - ( $padding-base-vertical * 2 ) - 3;
-    box-shadow: none;
-
-    ::-webkit-inner-spin-button,
-    ::-webkit-outer-spin-button {
-      /* stylelint-disable */
-      -webkit-appearance: none;
-      /* stylelint-enable */
-    }
+    // Bootstrap class .form-control is required
+    vertical-align: bottom; // align input field with buttons
+    display: inline-block;  // instead of floating all elements
+    // browser determines height from line-height and font-size
+    // to respect rounding behaviour of buttons, some browser truncates floating numbers (floor)
+    height: auto;
+    width: auto;  // reset .form-control
+    box-shadow: none;  // reset .form-control
   }
 }

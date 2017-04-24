@@ -99,7 +99,7 @@ class Pagination extends React.Component {
   }
 
   render() {
-    const approximateWidth = this.state.totalPages.toString().length * 8 + 10
+    const figuresCount = this.state.totalPages.toString().length
     return (
       <span className="tocco-pagination">
         <Button
@@ -131,7 +131,7 @@ class Pagination extends React.Component {
             min="1"
             max={this.state.totalPages}
             onChange={this.handleInputUpdate}
-            style={{width: `${approximateWidth}px`}}
+            size={figuresCount}
             value={this.state.currentPage}
             onKeyPress={this.handleKeyPress}
             onBlur={this.handleOnInputBlur}
