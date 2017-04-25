@@ -3,7 +3,7 @@ import _get from 'lodash/get'
 import {FormField} from 'tocco-ui'
 import consoleLogger from '../consoleLogger'
 
-export const formFieldFactory = (mapping, data) => {
+export const formFieldFactory = (mapping, data, resources = {}) => {
   const {
     formDefinitionField,
     modelField,
@@ -47,6 +47,7 @@ export const formFieldFactory = (mapping, data) => {
     id={id}
     label={formDefinitionField.label}
     mandatory={mandatory}
+    mandatoryTitle={resources.mandatoryTitle}
     error={error}
     touched={touched}
     dirty={dirty}

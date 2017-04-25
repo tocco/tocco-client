@@ -30,7 +30,7 @@ const FormField = props => {
     <div className={fromGroupClass}>
       <label className={labelClass} htmlFor={props.id}>
         {props.label}
-        {props.mandatory && <span title="Mandatory field" className="mandatory"> *</span>}
+        {props.mandatory && <span title={props.mandatoryTitle} className="mandatory"> *</span>}
       </label>
       <div className={editableValueWrapperClass}>
         {props.children}
@@ -41,13 +41,15 @@ const FormField = props => {
 }
 
 FormField.defaultProps = {
-  useLabel: true
+  useLabel: true,
+  mandatoryTitle: 'Mandatory field'
 }
 
 FormField.propTypes = {
   id: React.PropTypes.string,
   label: React.PropTypes.string,
   mandatory: React.PropTypes.bool,
+  mandatoryTitle: React.PropTypes.string,
   children: React.PropTypes.node,
   hidden: React.PropTypes.bool,
   touched: React.PropTypes.bool,

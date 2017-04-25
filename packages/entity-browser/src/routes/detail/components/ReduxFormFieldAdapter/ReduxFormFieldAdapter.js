@@ -1,5 +1,6 @@
 import React from 'react'
 import _omit from 'lodash/omit'
+import {injectIntl, intlShape} from 'react-intl'
 
 import {formField} from 'tocco-util'
 import formFieldMapping from '../../../../util/detailView/formFieldMapping'
@@ -19,7 +20,6 @@ const ReduxFormFieldAdapter = props => {
     formFieldUtils
   } = props
 
-  const readOnly = submitting
   const events = extractEventsFromInput(input)
 
   const fomFieldData = {
@@ -29,18 +29,22 @@ const ReduxFormFieldAdapter = props => {
     value: input.value,
     dirty,
     touched,
-    readOnly,
+    readOnly: submitting,
     events,
     error,
     onChange: input.onChange,
     entityField,
     utils: formFieldUtils
   }
+  const resources = {
+    mandatoryTitle: props.intl.formatMessage({id: 'client.entity-browser.mandatoryFieldTitle'})
+  }
 
-  return formField.formFieldFactory(formFieldMapping, fomFieldData)
+  return formField.formFieldFactory(formFieldMapping, fomFieldData, resources)
 }
 
 ReduxFormFieldAdapter.propTypes = {
+  int: intlShape.isRequired,
   id: React.PropTypes.string,
   input: React.PropTypes.shape({
     value: React.PropTypes.any,
@@ -59,4 +63,4 @@ ReduxFormFieldAdapter.propTypes = {
   modelField: React.PropTypes.object
 }
 
-export default ReduxFormFieldAdapter
+export default injectIntl(ReduxFormFieldAdapter)
