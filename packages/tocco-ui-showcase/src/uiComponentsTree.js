@@ -22,6 +22,10 @@ import SearchBoxRaw from '!raw-loader!../../tocco-ui/src/SearchBox/SearchBox'
 import SearchBoxExample from '../../tocco-ui/src/SearchBox/example'
 import SearchBoxExampleRaw from '!raw-loader!../../tocco-ui/src/SearchBox/example'
 
+import FormFieldRaw from '!raw-loader!../../tocco-ui/src/FormField/FormField'
+import FormFieldExample from '../../tocco-ui/src/FormField/example'
+import FormFieldExampleRaw from '!raw-loader!../../tocco-ui/src/FormField/example'
+
 import PaginationRaw from '!raw-loader!../../tocco-ui/src/Pagination/Pagination'
 import PaginationExample from '../../tocco-ui/src/Pagination/example'
 import PaginationExampleRaw from '!raw-loader!../../tocco-ui/src/Pagination/example'
@@ -98,6 +102,14 @@ export default [
         example: {
           component: SearchBoxExample,
           raw: SearchBoxExampleRaw
+        }
+      },
+      {
+        name: 'FormField',
+        raw: FormFieldRaw,
+        example: {
+          component: FormFieldExample,
+          raw: FormFieldExampleRaw
         }
       }]
   },

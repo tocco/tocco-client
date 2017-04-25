@@ -1,6 +1,9 @@
 import React from 'react'
 import _omit from 'lodash/omit'
-import FormField from '../../../../components/FormField'
+import {injectIntl, intlShape} from 'react-intl'
+
+import {formField} from 'tocco-util'
+import formFieldMapping from '../../../../util/detailView/formFieldMapping'
 
 const extractEventsFromInput = input => (
   _omit(input, ['name', 'value', 'onChange'])
@@ -17,27 +20,31 @@ const ReduxFormFieldAdapter = props => {
     formFieldUtils
   } = props
 
-  return (
-    <div>
-      <FormField
-        id={id}
-        formDefinitionField={formDefinitionField}
-        entityField={entityField}
-        modelField={modelField}
-        value={input.value}
-        onChange={input.onChange}
-        error={error}
-        events={extractEventsFromInput(input)}
-        touched={touched}
-        dirty={dirty}
-        readOnly={submitting}
-        utils={formFieldUtils}
-      />
-    </div>
-  )
+  const events = extractEventsFromInput(input)
+
+  const fomFieldData = {
+    formDefinitionField,
+    modelField,
+    id,
+    value: input.value,
+    dirty,
+    touched,
+    readOnly: submitting,
+    events,
+    error,
+    onChange: input.onChange,
+    entityField,
+    utils: formFieldUtils
+  }
+  const resources = {
+    mandatoryTitle: props.intl.formatMessage({id: 'client.entity-browser.mandatoryFieldTitle'})
+  }
+
+  return formField.formFieldFactory(formFieldMapping, fomFieldData, resources)
 }
 
 ReduxFormFieldAdapter.propTypes = {
+  int: intlShape.isRequired,
   id: React.PropTypes.string,
   input: React.PropTypes.shape({
     value: React.PropTypes.any,
@@ -56,4 +63,4 @@ ReduxFormFieldAdapter.propTypes = {
   modelField: React.PropTypes.object
 }
 
-export default ReduxFormFieldAdapter
+export default injectIntl(ReduxFormFieldAdapter)

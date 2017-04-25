@@ -22,6 +22,7 @@
   "client.entity-browser.confirmTouchedFormLeave",
   "client.entity-browser.confirmationOk",
   "client.entity-browser.confirmationCancel",
+  "client.entity-browser.mandatoryFieldTitle",
   "client.component.remoteselect.searchPromptText",
   "client.component.remoteselect.clearValueText",
   "client.component.remoteselect.clearAllText",
