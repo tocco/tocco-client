@@ -1,10 +1,10 @@
 import {put, select, call, fork, spawn, takeLatest, takeEvery} from 'redux-saga/effects'
 import * as actions from './actions'
-import * as searchFormActions from './searchForm/actions'
+import * as searchFormActions from '../searchForm/actions'
 import rootSaga, * as sagas from './sagas'
-import {getSearchInputsForRequest} from '../../../util/searchInputs'
-import {fetchForm, columnDefinitionTransformer} from '../../../util/api/forms'
-import {fetchEntityCount, fetchEntities, entitiesListTransformer} from '../../../util/api/entities'
+import {getSearchInputsForRequest} from '../../util/searchInputs'
+import {fetchForm, columnDefinitionTransformer} from '../../util/api/forms'
+import {fetchEntityCount, fetchEntities, entitiesListTransformer} from '../../util/api/entities'
 import _clone from 'lodash/clone'
 
 const generateState = (entityStore = {}, page) => ({
@@ -16,9 +16,9 @@ const generateState = (entityStore = {}, page) => ({
   page
 })
 
-describe('entity-browser', () => {
+describe('entity-list', () => {
   describe('modules', () => {
-    describe('listView', () => {
+    describe('list', () => {
       describe('sagas', () => {
         describe('rootSaga', () => {
           it('should fork child sagas', () => {
@@ -43,7 +43,7 @@ describe('entity-browser', () => {
             const gen = sagas.initialize()
             expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
             expect(gen.next().value).to.eql(put(searchFormActions.initialize()))
-            expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
+            expect(gen.next().value).to.eql(select(sagas.inputSelector))
             expect(gen.next({formBase}).value).to.eql(select(sagas.listSelector))
             expect(gen.next({columnDefinition}).value)
               .to.eql(call(sagas.loadColumnDefinition, columnDefinition, formBase))
@@ -72,15 +72,15 @@ describe('entity-browser', () => {
             const entityStore = {1: {}}
 
             const gen = sagas.fetchEntitiesAndAddToStore(1)
-            expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
+            expect(gen.next().value).to.eql(select(sagas.inputSelector))
             expect(gen.next({entityName, formBase}).value).to.eql(select(sagas.listSelector))
             expect(gen.next({entityStore}).done).to.be.true
           })
 
           it('should add entities to store', () => {
             const listViewState = generateState({}, 1)
-            const entityBrowserState = {formBase: 'Base_form', entityName: 'User', searchFilters: []}
-            const formName = entityBrowserState.formBase + '_list'
+            const input = {formBase: 'Base_form', entityName: 'User', searchFilters: []}
+            const formName = input.formBase + '_list'
             const searchInputs = {}
             const entities = []
 
@@ -96,11 +96,11 @@ describe('entity-browser', () => {
             }
 
             const gen = sagas.fetchEntitiesAndAddToStore(1)
-            expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
-            expect(gen.next(entityBrowserState).value).to.eql(select(sagas.listSelector))
+            expect(gen.next().value).to.eql(select(sagas.inputSelector))
+            expect(gen.next(input).value).to.eql(select(sagas.listSelector))
             expect(gen.next(listViewState).value).to.eql(call(sagas.getSearchInputs))
             expect(gen.next(searchInputs).value).to.eql(
-              call(fetchEntities, entityBrowserState.entityName, fetchParams, entitiesListTransformer)
+              call(fetchEntities, input.entityName, fetchParams, entitiesListTransformer)
             )
             expect(gen.next(entities).value).to.eql(put(actions.addEntitiesToStore(page, entities)))
             expect(gen.next().done).to.be.true
@@ -168,7 +168,7 @@ describe('entity-browser', () => {
             }
 
             expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
-            expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
+            expect(gen.next().value).to.eql(select(sagas.inputSelector))
             expect(gen.next({entityName, searchFilters, formBase}).value).to.eql(call(sagas.getSearchInputs))
             expect(gen.next(searchInputs).value).to.eql(call(fetchEntityCount, entityName, fetchParams))
             expect(gen.next(entityCount).value).to.eql(put(actions.setEntityCount(entityCount)))

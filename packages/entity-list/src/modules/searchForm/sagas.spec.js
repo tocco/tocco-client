@@ -3,7 +3,7 @@ import {put, select, call, fork, takeLatest} from 'redux-saga/effects'
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
 
-describe('entity-browser', () => {
+describe('entity-list', () => {
   describe('modules', () => {
     describe('searchForm', () => {
       describe('sagas', () => {
@@ -36,7 +36,7 @@ describe('entity-browser', () => {
 
             const gen = sagas.initialize()
             expect(gen.next().value).to.eql(select(sagas.searchFormSelector))
-            expect(gen.next({formDefinition, searchInputs}).value).to.eql(select(sagas.entityBrowserSelector))
+            expect(gen.next({formDefinition, searchInputs}).value).to.eql(select(sagas.inputSelector))
 
             expect(gen.next({formBase}).value).to.eql(call(sagas.getEntityModel))
 

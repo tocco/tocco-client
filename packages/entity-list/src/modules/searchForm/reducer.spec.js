@@ -10,7 +10,7 @@ const EXPECTED_INITIAL_STATE = {
   disableSimpleSearch:false
 }
 
-describe('entity-browser', () => {
+describe('entity-list', () => {
   describe('modules', () => {
     describe('searchForm', () => {
       describe('reducer', () => {

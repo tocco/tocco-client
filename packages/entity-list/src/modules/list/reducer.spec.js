@@ -2,6 +2,7 @@ import reducer from './index'
 import * as actions from './actions'
 
 const EXPECTED_INITIAL_STATE = {
+  entityModel: {},
   entities: [],
   limit: 50,
   currentPage: 1,
@@ -14,9 +15,9 @@ const EXPECTED_INITIAL_STATE = {
   showSearchForm: true
 }
 
-describe('entity-browser', () => {
+describe('entity-list', () => {
   describe('modules', () => {
-    describe('listView', () => {
+    describe('list', () => {
       describe('reducer', () => {
         it('should create a valid initial state', () => {
           expect(reducer(undefined, {})).to.deep.equal(EXPECTED_INITIAL_STATE)
