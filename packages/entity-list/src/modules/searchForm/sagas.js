@@ -3,6 +3,7 @@ import {delay} from 'redux-saga'
 import {call, put, fork, select, takeLatest} from 'redux-saga/effects'
 import * as actions from './actions'
 import {fetchForm, searchFormTransformer} from '../../util/api/forms'
+import {fetchEntities, selectEntitiesTransformer} from '../../util/api/entities'
 export const searchFormSelector = state => state.searchForm
 export const inputSelector = state => state.input
 
@@ -10,7 +11,8 @@ export default function* sagas() {
   yield [
     fork(takeLatest, actions.INITIALIZE, initialize),
     fork(takeLatest, actions.SET_SEARCH_INPUT, setSearchTerm),
-    fork(takeLatest, actions.RESET, setSearchTerm)
+    fork(takeLatest, actions.RESET, setSearchTerm),
+    fork(takeLatest, actions.LOAD_RELATION_ENTITY, loadRelationEntity)
   ]
 }
 
@@ -57,4 +59,14 @@ export function* setSearchTerm() {
   yield call(delay, 400)
   const {searchValues} = yield select(searchFormSelector)
   yield put(actions.searchTermChange(searchValues))
+}
+
+export function* loadRelationEntity({payload}) {
+  const {entityName} = payload
+  const {relationEntities} = yield select(searchFormSelector)
+  if (!relationEntities[entityName] || !relationEntities[entityName].loaded) {
+    const entities = yield call(fetchEntities, entityName, {}, selectEntitiesTransformer)
+    yield put(actions.setRelationEntity(entityName, entities, true))
+    yield put(actions.setRelationEntityLoaded(entityName))
+  }
 }

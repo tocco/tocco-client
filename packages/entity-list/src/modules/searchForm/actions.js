@@ -1,6 +1,8 @@
 export const INITIALIZE = 'searchForm/INITIALIZE'
 export const SET_FORM_DEFINITION = 'searchForm/SET_FORM_DEFINITION'
-export const SET_RELATION_ENTITIES = 'searchForm/SET_RELATION_ENTITIES'
+export const LOAD_RELATION_ENTITY = 'searchForm/LOAD_RELATION_ENTITY'
+export const SET_RELATION_ENTITY = 'searchForm/SET_RELATION_ENTITY'
+export const SET_RELATION_ENTITY_LOADED = 'searchForm/SET_RELATION_ENTITY_LOADED'
 export const SET_SEARCH_INPUT = 'searchForm/SET_SEARCH_INPUT'
 export const SEARCH_TERM_CHANGE = 'searchForm/SEARCH_TERM_CHANGE'
 export const RESET = 'searchForm/RESET'
@@ -17,6 +19,29 @@ export const setFormDefinition = formDefinition => ({
   type: SET_FORM_DEFINITION,
   payload: {
     formDefinition
+  }
+})
+
+export const loadRelationEntity = entityName => ({
+  type: LOAD_RELATION_ENTITY,
+  payload: {
+    entityName
+  }
+})
+
+export const setRelationEntityLoaded = entityName => ({
+  type: SET_RELATION_ENTITY_LOADED,
+  payload: {
+    entityName
+  }
+})
+
+export const setRelationEntity = (entityName, entities, reset = false) => ({
+  type: SET_RELATION_ENTITY,
+  payload: {
+    entityName,
+    entities,
+    reset
   }
 })
 
