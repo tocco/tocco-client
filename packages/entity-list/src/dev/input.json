@@ -1,3 +1,4 @@
 {
-
+  "entityName": "User",
+  "formBase": "UserSearch"
 }

@@ -1,0 +1,10 @@
+{
+  "relUser_code1": {
+    "type": "relation",
+    "targetEntity": "User_code1"
+  },
+  "relAddress_user": {
+    "type": "relation",
+    "targetEntity": "Address_user"
+  }
+}
