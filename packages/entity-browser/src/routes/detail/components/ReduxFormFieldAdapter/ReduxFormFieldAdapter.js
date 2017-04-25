@@ -1,6 +1,8 @@
 import React from 'react'
 import _omit from 'lodash/omit'
-import FormField from '../../../../components/FormField'
+
+import {formField} from 'tocco-util'
+import formFieldMapping from '../../../../util/detailView/formFieldMapping'
 
 const extractEventsFromInput = input => (
   _omit(input, ['name', 'value', 'onChange'])
@@ -17,24 +19,25 @@ const ReduxFormFieldAdapter = props => {
     formFieldUtils
   } = props
 
-  return (
-    <div>
-      <FormField
-        id={id}
-        formDefinitionField={formDefinitionField}
-        entityField={entityField}
-        modelField={modelField}
-        value={input.value}
-        onChange={input.onChange}
-        error={error}
-        events={extractEventsFromInput(input)}
-        touched={touched}
-        dirty={dirty}
-        readOnly={submitting}
-        utils={formFieldUtils}
-      />
-    </div>
-  )
+  const readOnly = submitting
+  const events = extractEventsFromInput(input)
+
+  const fomFieldData = {
+    formDefinitionField,
+    modelField,
+    id,
+    value: input.value,
+    dirty,
+    touched,
+    readOnly,
+    events,
+    error,
+    onChange: input.onChange,
+    entityField,
+    utils: formFieldUtils
+  }
+
+  return formField.formFieldFactory(formFieldMapping, fomFieldData)
 }
 
 ReduxFormFieldAdapter.propTypes = {
