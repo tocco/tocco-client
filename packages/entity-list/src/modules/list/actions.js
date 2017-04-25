@@ -3,6 +3,7 @@ export const INITIALIZE = 'listView/INITIALIZE'
 export const REQUEST_ENTITIES = 'listView/REQUEST_ENTITIES'
 export const SET_ENTITIES = 'listView/SET_ENTITIES'
 export const SET_COLUMN_DEFINITION = 'listView/SET_COLUMN_DEFINITION'
+export const SET_ENTITY_MODEL = 'listView/SET_ENTITY_MODEL'
 export const SET_ORDER_BY = 'listView/SET_ORDER_BY'
 export const SET_LIMIT = 'listView/SET_LIMIT'
 export const SET_CURRENT_PAGE = 'listView/SET_CURRENT_PAGE'
@@ -59,6 +60,13 @@ export const setColumnDefinition = columnDefinition => ({
   type: SET_COLUMN_DEFINITION,
   payload: {
     columnDefinition
+  }
+})
+
+export const setEntityModel = entityModel => ({
+  type: SET_ENTITY_MODEL,
+  payload: {
+    entityModel
   }
 })
 

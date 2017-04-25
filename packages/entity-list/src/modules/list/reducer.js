@@ -17,6 +17,7 @@ const clearEntityStore = state => ({
 const ACTION_HANDLERS = {
   [actions.SET_ENTITIES]: reducers.singleTransferReducer('entities'),
   [actions.SET_COLUMN_DEFINITION]: reducers.singleTransferReducer('columnDefinition'),
+  [actions.SET_ENTITY_MODEL]: reducers.singleTransferReducer('entityModel'),
   [actions.SET_LIMIT]: reducers.singleTransferReducer('limit'),
   [actions.SET_CURRENT_PAGE]: reducers.singleTransferReducer('currentPage'),
   [actions.SET_ORDER_BY]: reducers.singleTransferReducer('orderBy'),

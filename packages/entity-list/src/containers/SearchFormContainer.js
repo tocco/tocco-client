@@ -12,7 +12,7 @@ const mapActionCreators = {
 
 const mapStateToProps = (state, props) => ({
   searchFormDefinition: state.searchForm.formDefinition,
-  entityModel: state.input.entityModel,
+  entityModel: state.list.entityModel,
   relationEntities: state.input.relationEntities,
   searchInputs: state.searchForm.searchInputs,
   disableSimpleSearch: state.searchForm.disableSimpleSearch,

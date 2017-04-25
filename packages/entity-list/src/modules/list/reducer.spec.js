@@ -123,6 +123,22 @@ describe('entity-list', () => {
           expect(reducer(stateBefore, actions.setColumnDefinition(newDefinition))).to.deep.equal(expectedStateAfter)
         })
 
+        it('should handle SET_ENTITY_MODEL', () => {
+          const newModel = {
+            name: 'User'
+          }
+
+          const stateBefore = {
+            entityModel: {}
+          }
+
+          const expectedStateAfter = {
+            entityModel: newModel
+          }
+
+          expect(reducer(stateBefore, actions.setEntityModel(newModel))).to.deep.equal(expectedStateAfter)
+        })
+
         it('should handle SET_LIMIT', () => {
           const newLimit = 100
 

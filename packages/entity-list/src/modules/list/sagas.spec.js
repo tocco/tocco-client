@@ -4,7 +4,7 @@ import * as searchFormActions from '../searchForm/actions'
 import rootSaga, * as sagas from './sagas'
 import {getSearchInputsForRequest} from '../../util/searchInputs'
 import {fetchForm, columnDefinitionTransformer} from '../../util/api/forms'
-import {fetchEntityCount, fetchEntities, entitiesListTransformer} from '../../util/api/entities'
+import {fetchEntityCount, fetchEntities, entitiesListTransformer, fetchModel} from '../../util/api/entities'
 import _clone from 'lodash/clone'
 
 const generateState = (entityStore = {}, page) => ({
@@ -37,17 +37,24 @@ describe('entity-list', () => {
 
         describe('initialize saga', () => {
           it('should initialize the list', () => {
+            const entityName = 'Test_entity'
             const formBase = 'Base_form'
             const columnDefinition = []
+            const entityModel = {}
 
             const gen = sagas.initialize()
             expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
             expect(gen.next().value).to.eql(put(searchFormActions.initialize()))
             expect(gen.next().value).to.eql(select(sagas.inputSelector))
-            expect(gen.next({formBase}).value).to.eql(select(sagas.listSelector))
-            expect(gen.next({columnDefinition}).value)
-              .to.eql(call(sagas.loadColumnDefinition, columnDefinition, formBase))
-            expect(gen.next().value).to.eql(call(sagas.resetDataSet))
+            expect(gen.next({formBase, entityName}).value).to.eql(select(sagas.listSelector))
+
+            const nextValue = gen.next({columnDefinition, entityModel}).value
+            expect(nextValue).to.eql([
+              call(sagas.loadColumnDefinition, columnDefinition, formBase),
+              call(sagas.loadEntityModel, entityName, entityModel),
+              call(sagas.resetDataSet)
+            ])
+
             expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
             expect(gen.next().done).to.be.true
           })
@@ -203,8 +210,8 @@ describe('entity-list', () => {
             const gen = sagas.getSearchInputs()
             expect(gen.next().value).to.eql(select(sagas.searchFormSelector))
             expect(gen.next({searchInputs}).value).to.eql(call(_clone, {}))
-            expect(gen.next(searchInputs).value).to.eql(call(sagas.getEntityModel))
-            expect(gen.next(entityModel).value).to.eql(call(getSearchInputsForRequest, searchInputs, entityModel))
+            expect(gen.next(searchInputs).value).to.eql(select(sagas.listSelector))
+            expect(gen.next({entityModel}).value).to.eql(call(getSearchInputsForRequest, searchInputs, entityModel))
             expect(gen.next().done).to.be.true
           })
         })
@@ -225,6 +232,32 @@ describe('entity-list', () => {
             const columnDefinition = [{someContent: true}]
             const formBase = 'UserSearch'
             const gen = sagas.loadColumnDefinition(columnDefinition, formBase)
+            expect(gen.next().done).to.be.true
+          })
+        })
+
+        describe('loadEntityModel saga', () => {
+          it('should load the entity model if not loaded', () => {
+            const entityName = 'User'
+            const entityModel = {}
+            const loadedEntityModel = {
+              name: 'User'
+            }
+
+            const gen = sagas.loadEntityModel(entityName, entityModel)
+            expect(gen.next().value).to.eql(call(fetchModel, entityName))
+            expect(gen.next(loadedEntityModel).value).to.eql(put(actions.setEntityModel(loadedEntityModel)))
+
+            expect(gen.next().done).to.be.true
+          })
+
+          it('should not load the entity model if already loaded', () => {
+            const entityName = 'User'
+            const entityModel = {
+              name: 'User'
+            }
+
+            const gen = sagas.loadEntityModel(entityName, entityModel)
             expect(gen.next().done).to.be.true
           })
         })
