@@ -1,11 +1,11 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 import SearchForm from '../components/SearchForm'
-import {setSearchInput, reset, setShowExtendedSearchForm} from '../modules/searchForm/actions'
+import {setSearchInput, reset, setShowExtendedSearchForm, loadRelationEntity} from '../modules/searchForm/actions'
 
 const mapActionCreators = {
   setSearchInput,
-  loadRelationEntity: () => {},
+  loadRelationEntity,
   reset,
   setShowExtendedSearchForm
 }
@@ -13,7 +13,7 @@ const mapActionCreators = {
 const mapStateToProps = (state, props) => ({
   searchFormDefinition: state.searchForm.formDefinition,
   entityModel: state.list.entityModel,
-  relationEntities: state.input.relationEntities,
+  relationEntities: state.searchForm.relationEntities,
   searchInputs: state.searchForm.searchInputs,
   disableSimpleSearch: state.searchForm.disableSimpleSearch,
   simpleSearchFields: state.searchForm.simpleSearchFields,
