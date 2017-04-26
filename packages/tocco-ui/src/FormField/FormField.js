@@ -10,6 +10,7 @@ const FormField = props => {
   const fromGroupClass = classNames(
     'form-field',
     'form-group',
+    {'mandatory': props.mandatory},
     {'has-error': props.error && props.touched}
   )
 
@@ -21,6 +22,8 @@ const FormField = props => {
       'dirty-label': props.dirty
     })
 
+  const labelAlt = `${props.label} ${props.mandatory ? props.mandatoryTitle : ''}`
+
   const editableValueWrapperClass = classNames({
     'col-sm-8': props.useLabel,
     'col-sm-12': !props.useLabel
@@ -28,9 +31,8 @@ const FormField = props => {
 
   return (
     <div className={fromGroupClass}>
-      <label className={labelClass} htmlFor={props.id}>
+      <label className={labelClass} htmlFor={props.id} alt={labelAlt}>
         {props.label}
-        {props.mandatory && <span title={props.mandatoryTitle} className="mandatory"> *</span>}
       </label>
       <div className={editableValueWrapperClass}>
         {props.children}
@@ -42,7 +44,7 @@ const FormField = props => {
 
 FormField.defaultProps = {
   useLabel: true,
-  mandatoryTitle: 'Mandatory field'
+  mandatoryTitle: 'is a mandatory field'
 }
 
 FormField.propTypes = {

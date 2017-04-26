@@ -1,8 +1,16 @@
+$icon-mandatory: '*';
+
 .form-group {
   margin-bottom: $line-height-computed;
 
   &.dense {
     margin-bottom: $line-height-computed-half;
+  }
+
+  &.mandatory label:after {
+    content: $icon-mandatory;
+    color: $brand-primary;
+    padding-left: .3rem;
   }
 }
 
