@@ -2,6 +2,10 @@
   background-color: #f0f8ff;
 }
 
+.targetIcon {
+  margin-right: .3rem;
+}
+
 .merge-matrix-th-selected {
   .targetIcon {
     color: #f08080;
@@ -16,7 +20,7 @@
   }
 }
 
-.merge-icon-spacer {
-  width: 1.42rem;
-  float: left;
+label.selection-label {
+  font-weight: normal;
+  margin: 0 .3rem;
 }

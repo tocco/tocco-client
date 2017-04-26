@@ -1,6 +1,6 @@
 {
   "name": "tocco-merge",
-  "version": "0.2.1",
+  "version": "0.2.4",
   "description": "merge action",
   "main": "dist/index.js",
   "scripts": {

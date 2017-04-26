@@ -22,7 +22,7 @@ const HeaderRow = props => {
               {...attributes}
               className={cls}
             >
-              <span className="glyphicon glyphicon-screenshot merge-icon-spacer targetIcon"/>
+              <span className="glyphicon glyphicon-screenshot targetIcon"/>
               <span>{entity.label}</span>
             </th>
           )

@@ -2,7 +2,9 @@ import React from 'react'
 import {intlShape} from 'react-intl'
 
 import {Button} from 'tocco-ui'
-import FormField from '../../../../components/FormField'
+
+import {formField as formFieldUtil} from 'tocco-util'
+import formFieldMapping from '../../../../util/detailView/formFieldMapping'
 
 const SearchForm = props => {
   const handleResetClick = () => {
@@ -33,20 +35,27 @@ const SearchForm = props => {
   return (
     <form onSubmit={handleSubmit} className="form-horizontal">
       {
-        props.searchFormDefinition.map((formField, idx) => {
-          if (shouldRenderField(formField.name)) {
-            return (<FormField
-              key={idx}
-              id={formField.name}
-              formDefinitionField={formField}
-              modelField={props.entityModel[formField.name]}
-              value={props.searchInputs ? props.searchInputs[formField.name] : undefined}
-              utils={{
-                relationEntities: props.relationEntities,
-                loadRelationEntity: props.loadRelationEntity
-              }}
-              onChange={value => props.setSearchInput(formField.name, value)}
-            />)
+        props.searchFormDefinition.map(formDefinitionField => {
+          const fieldName = formDefinitionField.name
+          if (shouldRenderField(fieldName)) {
+            const modelField = props.entityModel[fieldName]
+            const value = props.searchInputs ? props.searchInputs[fieldName] : undefined
+            const utils = {
+              relationEntities: props.relationEntities,
+              loadRelationEntity: props.loadRelationEntity
+            }
+            const onChange = value => props.setSearchInput(fieldName, value)
+
+            const fomFieldData = {
+              formDefinitionField,
+              modelField,
+              id: fieldName,
+              value,
+              onChange,
+              utils
+            }
+
+            return formFieldUtil.formFieldFactory(formFieldMapping, fomFieldData)
           }
         }
         )
