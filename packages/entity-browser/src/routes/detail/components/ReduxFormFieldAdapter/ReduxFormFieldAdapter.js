@@ -44,7 +44,7 @@ const ReduxFormFieldAdapter = props => {
 }
 
 ReduxFormFieldAdapter.propTypes = {
-  int: intlShape.isRequired,
+  intl: intlShape.isRequired,
   id: React.PropTypes.string,
   input: React.PropTypes.shape({
     value: React.PropTypes.any,
