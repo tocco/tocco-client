@@ -10,16 +10,18 @@ const FormField = props => {
   const fromGroupClass = classNames(
     'form-field',
     'form-group',
-    {'mandatory': props.mandatory},
-    {'has-error': props.error && props.touched}
+    {
+      'mandatory': props.mandatory,
+      'dirty': props.dirty,
+      'has-error': props.error && props.touched
+    }
   )
 
   const labelClass = classNames(
     'col-sm-4',
     'control-label',
     {
-      'sr-only': !props.useLabel,
-      'dirty-label': props.dirty
+      'sr-only': !props.useLabel
     })
 
   const labelAlt = `${props.label} ${props.mandatory ? props.mandatoryTitle : ''}`
