@@ -1,5 +1,5 @@
 import React from 'react'
-import {shallow} from 'enzyme'
+import {shallow, mount} from 'enzyme'
 import Select from 'react-select'
 
 import SingleSelect from './SingleSelect'
@@ -34,6 +34,20 @@ describe('tocco-ui', () => {
           const wrapper = shallow(<SingleSelect onChange={spy} options={options}/>)
           wrapper.find(Select).simulate('change', newValue)
           expect(spy).to.have.been.calledWith(newValue)
+        })
+
+        it('should use value as options if no store provided', () => {
+          const value = {key: 1, display: 'label1'}
+          const options = {}
+
+          const wrapper = mount(<SingleSelect value={value} options={options}/>)
+          expect(wrapper.find(Select).first().props().options).to.eql([value])
+          wrapper.setProps({options:{store: []}})
+          expect(wrapper.find(Select).first().props().options).to.eql([value])
+
+          const store = [value, {key2: 'Label2'}]
+          wrapper.setProps({options:{store}})
+          expect(wrapper.find(Select).first().props().options).to.eql(store)
         })
       })
     })
