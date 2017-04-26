@@ -1,8 +1,9 @@
 {
   "entityName": "User",
   "formBase": "UserSearch",
+  "limit": 10,
   "showSearchForm": true,
-  "disableSimpleSearch": false,
+  "disableSimpleSearch": true,
   "simpleSearchFields": "",
   "searchFilters": [
     "user_with_pk_1",

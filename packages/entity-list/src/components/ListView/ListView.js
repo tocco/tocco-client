@@ -1,7 +1,6 @@
 import React from 'react'
 import {intlShape} from 'react-intl'
 import {Button, FormattedValue, Pagination, Table} from 'tocco-ui'
-import SearchFormContainer from '../../containers/SearchFormContainer'
 
 class ListView extends React.Component {
   componentWillMount() {
@@ -41,32 +40,29 @@ class ListView extends React.Component {
   render() {
     const props = this.props
     return (
-      <div>
-        {props.showSearchForm && <SearchFormContainer/>}
-        <div className="list-view">
-          <Table
-            columnDefinitions={props.columnDefinitions}
-            records={props.entities}
-            className="table-striped"
-            onOrderByChange={this.onOrderByChange}
-            orderBy={props.orderBy}
-            loading={props.inProgress}
-            cellRenderer={this.cellRenderer}
-            onRowClick={this.handleRowClick}
-          />
-          <Pagination
-            totalRecords={props.entityCount}
-            recordsPerPage={props.limit}
-            onPageChange={this.onPageChange}
-            currentPage={props.currentPage}
-          />
-          <Button
-            onClick={props.refresh}
-            label={this.msg('client.entity-browser.refresh')}
-            icon="glyphicon-refresh"
-            className="refresh-button"
-          />
-        </div>
+      <div className="list-view">
+        <Table
+          columnDefinitions={props.columnDefinitions}
+          records={props.entities}
+          className="table-striped"
+          onOrderByChange={this.onOrderByChange}
+          orderBy={props.orderBy}
+          loading={props.inProgress}
+          cellRenderer={this.cellRenderer}
+          onRowClick={this.handleRowClick}
+        />
+        <Pagination
+          totalRecords={props.entityCount}
+          recordsPerPage={props.limit}
+          onPageChange={this.onPageChange}
+          currentPage={props.currentPage}
+        />
+        <Button
+          onClick={props.refresh}
+          label={this.msg('client.entity-browser.refresh')}
+          icon="glyphicon-refresh"
+          className="refresh-button"
+        />
       </div>
     )
   }
@@ -77,7 +73,6 @@ ListView.propTypes = {
   initialize: React.PropTypes.func.isRequired,
   changePage: React.PropTypes.func.isRequired,
   entities: React.PropTypes.array.isRequired,
-  showSearchForm: React.PropTypes.bool,
   orderBy: React.PropTypes.shape({
     name: React.PropTypes.string,
     direction: React.PropTypes.string
