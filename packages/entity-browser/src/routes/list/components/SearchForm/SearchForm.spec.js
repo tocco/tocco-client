@@ -2,8 +2,7 @@ import React from 'react'
 import {IntlStub} from 'tocco-test-util'
 import SearchForm from './'
 import {mount} from 'enzyme'
-import {Button} from 'tocco-ui'
-import FormField from '../../../../components/FormField'
+import {Button, FormField} from 'tocco-ui'
 
 const EMPTY_FUNC = () => {}
 

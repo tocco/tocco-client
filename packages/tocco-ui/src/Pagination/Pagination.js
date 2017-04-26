@@ -99,7 +99,7 @@ class Pagination extends React.Component {
   }
 
   render() {
-    const approximateWidth = this.state.totalPages.toString().length * 8 + 10
+    const figuresCount = this.state.totalPages.toString().length
     return (
       <span className="tocco-pagination">
         <Button
@@ -120,24 +120,25 @@ class Pagination extends React.Component {
         />
         {
           this.props.noInput
-          && <span id="currentPage">{this.state.currentPage}</span>
+          && <span className="tocco-pagination-current-page" id="currentPage">{this.state.currentPage}</span>
         }
         {
           !this.props.noInput
           && <input
+            className="tocco-pagination-current-page form-control"
             id="currentPage"
             type="number"
             min="1"
             max={this.state.totalPages}
             onChange={this.handleInputUpdate}
-            style={{width: `${approximateWidth}px`}}
+            size={figuresCount}
             value={this.state.currentPage}
             onKeyPress={this.handleKeyPress}
             onBlur={this.handleOnInputBlur}
 
           />
         }
-        <span> / </span><span id="total">{this.state.totalPages}</span>
+        <span className="tocco-pagination-total-pages" id="total">{this.state.totalPages}</span>
         <Button
           id="forwardButton"
           type="button"

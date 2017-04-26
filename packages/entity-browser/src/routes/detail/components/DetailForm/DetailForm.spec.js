@@ -4,8 +4,7 @@ import {Provider} from 'react-redux'
 import {createStore, combineReducers} from 'redux'
 import DetailForm from './DetailForm'
 
-import {mount} from 'enzyme'
-import {IntlStub, context} from 'tocco-test-util'
+import {IntlStub, context, intlEnzyme} from 'tocco-test-util'
 
 const EMPTY_FUNC = () => {
 }
@@ -105,7 +104,7 @@ describe('entity-browser', () => {
 
         const store = createStore(() => {})
 
-        const wrapper = mount(
+        const wrapper = intlEnzyme.mountWithIntl(
           <Provider store={store}>
             <DetailForm
               submitting={false}
@@ -150,10 +149,9 @@ describe('entity-browser', () => {
           />
         )
 
-        mount(
-          <Provider store={store}>
-            {formComponent}
-          </Provider>
+        intlEnzyme.mountWithIntl(<Provider store={store}>
+          {formComponent}
+        </Provider>
         )
 
         // touch a field to enable the prompt -> context.history.block must be called
@@ -185,7 +183,7 @@ describe('entity-browser', () => {
           />
         )
 
-        mount(
+        intlEnzyme.mountWithIntl(
           <Provider store={store}>
             {formComponent}
           </Provider>
