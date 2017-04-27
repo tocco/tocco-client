@@ -2,16 +2,23 @@ import {applyMiddleware, compose, createStore as reduxCreateStore, combineReduce
 import {intlReducer} from 'react-intl-redux'
 import _difference from 'lodash/difference'
 import _pick from 'lodash/pick'
-import createSagaMiddleware from 'redux-saga'
+import createSagaMiddleware, {takeEvery} from 'redux-saga'
 import {fork} from 'redux-saga/effects'
 import thunk from 'redux-thunk'
 
 import errorLogging, {sagas as loggingSagas, logError as logErrorAction} from '../errorLogging'
 import {autoRestartSaga, createGenerator} from './sagaHelpers'
+import externalEvents from '../externalEvents'
 
 import input from './input/reducer'
 
 const sagaMiddleware = createSagaMiddleware()
+
+function* mainSaga() {
+  yield [
+    fork(takeEvery, 'FIRE_EXTERNAL_EVENT', externalEvents.fireExternalEventSaga)
+  ]
+}
 
 export const createStore = (initialState = {}, reducers = {}, sagas = []) => {
   let middleware = applyMiddleware(thunk, sagaMiddleware)
@@ -30,6 +37,8 @@ export const createStore = (initialState = {}, reducers = {}, sagas = []) => {
     errorLogging,
     intl: intlReducer
   }
+
+  sagas.push(mainSaga)
 
   reducers = combineReducers(allReducers)
 
