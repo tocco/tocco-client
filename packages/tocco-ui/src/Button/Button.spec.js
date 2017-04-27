@@ -96,7 +96,7 @@ describe('tocco-ui', function() {
       wrapper = shallow(
         <Button/>
       )
-      expect(wrapper.find('i').prop('className')).to.equal('glyphicon')
+      expect(wrapper.find('i')).to.have.length(0)
     })
 
     it('should set default type to button', () => {
