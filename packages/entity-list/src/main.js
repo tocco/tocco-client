@@ -6,6 +6,10 @@ import EntityListContainer from './containers/EntityListContainer'
 import {getDispatchActions} from './input'
 const packageName = 'entity-list'
 
+const EXTERNAL_EVENTS = [
+  'onRowClick'
+]
+
 const initApp = (id, input, events, publicPath) => {
   const content = <EntityListContainer/>
 
@@ -51,7 +55,15 @@ const initApp = (id, input, events, publicPath) => {
 class EntityListApp extends React.Component {
   constructor(props) {
     super(props)
-    this.app = initApp('id', props)
+
+    const events = EXTERNAL_EVENTS.reduce((events, event) => {
+      if (props[event]) {
+        events[event] = props[event]
+      }
+      return events
+    }, {})
+
+    this.app = initApp('id', props, events)
   }
 
   render() {
@@ -69,7 +81,11 @@ EntityListApp.propTypes = {
   showSearchForm: React.PropTypes.bool,
   preselectedSearchFields: React.PropTypes.object,
   disableSimpleSearch: React.PropTypes.bool,
-  simpleSearchFields: React.PropTypes.arrayOf(React.PropTypes.string)
+  simpleSearchFields: React.PropTypes.arrayOf(React.PropTypes.string),
+  ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
+    propTypes[event] = React.PropTypes.func
+    return propTypes
+  }, {})
 }
 
 export default EntityListApp
