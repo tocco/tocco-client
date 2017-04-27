@@ -7,10 +7,10 @@ import classNames from 'classnames'
 const Button = props => {
   const classes = classNames(
     'btn',
-    'btn-default',
     props.className,
     {
       'pending': props.pending,
+      'btn-default': !props.primary,
       'btn-primary': props.primary
     }
   )
