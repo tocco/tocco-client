@@ -52,18 +52,20 @@ class ListView extends React.Component {
             cellRenderer={this.cellRenderer}
             onRowClick={this.handleRowClick}
           />
-          <Pagination
-            totalRecords={props.entityCount}
-            recordsPerPage={props.limit}
-            onPageChange={this.onPageChange}
-            currentPage={props.currentPage}
-          />
-          <Button
-            onClick={props.refresh}
-            label={this.msg('client.entity-browser.refresh')}
-            icon="glyphicon-refresh"
-            className="refresh-button"
-          />
+          <div className="list-view-navigation">
+            <Pagination
+              totalRecords={props.entityCount}
+              recordsPerPage={props.limit}
+              onPageChange={this.onPageChange}
+              currentPage={props.currentPage}
+            />
+            <Button
+              onClick={props.refresh}
+              label={this.msg('client.entity-browser.refresh')}
+              icon="glyphicon-refresh"
+              className="refresh-button"
+            />
+          </div>
         </div>
       </div>
     )

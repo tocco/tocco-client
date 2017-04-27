@@ -5,3 +5,12 @@
     }
   }
 }
+
+.list-view-navigation {
+  @include clearfix();
+
+  .tocco-pagination {
+    float: left;
+    margin-right: $tocco-pagination-dividing-space;
+  }
+}
