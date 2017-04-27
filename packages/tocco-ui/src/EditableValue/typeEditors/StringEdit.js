@@ -17,7 +17,7 @@ const StringEdit = props => {
       value={value}
       onChange={handleChange}
       id={props.id}
-      readOnly={props.readOnly}
+      disabled={props.readOnly}
     />
   )
 }
