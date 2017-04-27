@@ -1,3 +1,5 @@
+import _forOwn from 'lodash/forOwn'
+
 const getRandomDate = (startYear, endYear) => {
   const start = new Date(startYear, 1, 1)
   const end = new Date(endYear, 1, 1)
@@ -13,6 +15,52 @@ const getRandomDate = (startYear, endYear) => {
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
+export const createDummyEntity = amount => {
+  const entities = []
+
+  for (let i = 0; i < amount; i++) {
+    const values = {
+      label: {
+        value: `Dummy Entity ${i}`,
+        type: 'string',
+        readable: true,
+        writable: true
+      },
+      sorting: {
+        value: i * 10,
+        type: 'sorting',
+        readable: true,
+        writable: true
+      },
+      active: {
+        value: (i % 2 === 0),
+        type: 'boolean',
+        readable: true,
+        writable: true
+      }
+    }
+
+    const paths = {}
+    _forOwn(values, (value, key) => {
+      paths[key] = {
+        type: 'field',
+        value
+      }
+    })
+
+    entities.push({
+      key: `${i}`,
+      model: 'Dummy_entity',
+      version: 1,
+      display: `Dummy Entity ${i}`,
+      fields: values,
+      paths
+    })
+  }
+
+  return entities
 }
 
 export const createUsers = amount => {

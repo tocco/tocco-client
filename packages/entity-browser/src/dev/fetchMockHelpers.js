@@ -1,7 +1,10 @@
 import {consoleLogger} from 'tocco-util'
-import {createUsers} from './entityFactory'
+import {createUsers, createDummyEntity} from './entityFactory'
 
-const allEntities = createUsers(1003)
+const entityStore = {
+  user: createUsers(1003),
+  dummy: createDummyEntity(20)
+}
 
 export const createValidateResponse = (url, opts) => {
   consoleLogger.log('fetchMock: called validate entity', url)
@@ -50,40 +53,44 @@ export const createValidateResponse = (url, opts) => {
   return sleep(1000).then(() => (resultBody))
 }
 
-export const createEntitiesResponse = (url, opts) => {
-  consoleLogger.log('fetchMock: called fetch entities', url)
-  const limit = parseInt(getParameterValue('_limit', url)) || 25
-  const offset = parseInt(getParameterValue('_offset', url)) || 0
-  const orderBy = getParameterValue('_sort', url)
-  const searchTerm = getParameterValue('_search', url)
+export const createEntitiesResponse = entityName => {
+  const entities = entityStore[entityName]
 
-  if (orderBy) {
-    const parts = orderBy.split(' ')
-    const fieldName = parts[0]
-    const direction = parts[1]
-    allEntities.sort((a, b) => {
-      const A = a.paths[fieldName].value.value || 0
-      const B = b.paths[fieldName].value.value || 0
-      return ((A < B) ? -1 : ((A > B) ? 1 : 0))
-    })
-    if (direction === 'desc') {
-      allEntities.reverse()
+  return (url, opts) => {
+    consoleLogger.log('fetchMock: called fetch entities', url)
+    const limit = parseInt(getParameterValue('_limit', url)) || 25
+    const offset = parseInt(getParameterValue('_offset', url)) || 0
+    const orderBy = getParameterValue('_sort', url)
+    const searchTerm = getParameterValue('_search', url)
+
+    if (orderBy) {
+      const parts = orderBy.split(' ')
+      const fieldName = parts[0]
+      const direction = parts[1]
+      entities.sort((a, b) => {
+        const A = a.paths[fieldName].value.value || 0
+        const B = b.paths[fieldName].value.value || 0
+        return ((A < B) ? -1 : ((A > B) ? 1 : 0))
+      })
+      if (direction === 'desc') {
+        entities.reverse()
+      }
     }
-  }
 
-  if (searchTerm === 'few') {
-    return wrapEntitiesResponse(allEntities.slice(0, 10))
-  }
+    if (searchTerm === 'few') {
+      return wrapEntitiesResponse(entities.slice(0, 10))
+    }
 
-  return sleep(1000).then(() => (wrapEntitiesResponse(allEntities.slice(offset, offset + limit))))
+    return sleep(1000).then(() => (wrapEntitiesResponse(entities.slice(offset, offset + limit))))
+  }
 }
 
-export const createCountResponse = (url, opts) => ({'count': allEntities.length})
+export const createCountResponse = entityName => (url, opts) => ({'count': entityStore[entityName].length})
 
 export const createEntityResponse = (url, opts) => {
   consoleLogger.log('fetchMock: called fetch entitiy', url, opts)
   const id = url.match(/^.*\/User\/(\d+)/)[1]
-  return allEntities[id]
+  return entityStore.user[id]
 }
 
 export const createEntityUpdateResponse = (url, opts) => {
@@ -115,7 +122,7 @@ export const createEntityUpdateResponse = (url, opts) => {
     return sleep(1000).then(() => (new Response(body, {'status': 400})))
   }
 
-  const oldEntity = allEntities[entity.key]
+  const oldEntity = entityStore.user[entity.key]
 
   const updatedEntity = {
     ...oldEntity,
@@ -129,7 +136,7 @@ export const createEntityUpdateResponse = (url, opts) => {
     updatedEntity.paths[field].value.value = entity.paths[field]
   })
 
-  allEntities[entity.key] = updatedEntity
+  entityStore.user[entity.key] = updatedEntity
   return sleep(1000).then(() => (updatedEntity))
 }
 

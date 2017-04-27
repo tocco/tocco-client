@@ -8,7 +8,9 @@ describe('entity-browser', () => {
   describe('components', () => {
     describe('SubGrid', () => {
       it('should render', () => {
-        const wrapper = shallow(<SubGrid formDefinition={{children: []}} relationName="relFoo"/>)
+        const wrapper = shallow(
+          <SubGrid formDefinition={{children: []}} modelField={{targetEntity:'User'}} relationName="relFoo"/>
+        )
         expect(wrapper.find('div')).to.have.length(1)
       })
     })
