@@ -19,7 +19,7 @@ const NumberEdit = props => {
       value={props.value}
       onChange={handleChange}
       id={props.id}
-      readOnly={props.readOnly}
+      disabled={props.readOnly}
     />
   )
 }
