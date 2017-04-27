@@ -274,7 +274,9 @@ describe('entity-browser', () => {
                 },
                 some_relation: {
                   type: 'relation',
-                  targetEntity: 'Address'
+                  'relationName': 'some_relation',
+                  'targetEntity': 'Address',
+                  'multi': true
                 }
               }
               expect(result).to.eql(expectedResult)

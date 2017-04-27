@@ -166,6 +166,7 @@
     {
       "relationName": "relDummySubGrid",
       "targetEntity": "Dummy_entity",
+      "reverseRelationName": "relUser",
       "multi": true
     }
   ]

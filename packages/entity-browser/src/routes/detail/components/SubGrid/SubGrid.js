@@ -9,7 +9,12 @@ const SubGrid = props => {
         entityName={props.modelField.targetEntity}
         formBase="User"
         showSearchForm={false}
-        preselectedSearchFields={[]}
+        preselectedSearchFields={[{
+          id: props.modelField.reverseRelationName,
+          value: props.entityKey,
+          hidden: true
+        }
+        ]}
         searchFilters={[]}
         simpleSearchFields=""
         formDefinition={props.formDefinition}
@@ -19,11 +24,17 @@ const SubGrid = props => {
 }
 
 SubGrid.propTypes = {
+  entityKey: React.PropTypes.string,
   formDefinition: React.PropTypes.shape({
     children: React.PropTypes.array
   }).isRequired,
   relationName: React.PropTypes.string.isRequired,
-  modelField: React.PropTypes.shape({targetEntity: React.PropTypes.string}).isRequired
+  modelField: React.PropTypes.shape(
+    {
+      targetEntity: React.PropTypes.string,
+      reverseRelationName: React.PropTypes.string
+    }
+  ).isRequired
 }
 
 export default SubGrid
