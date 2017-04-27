@@ -28,5 +28,26 @@
       ],
       "hidden": false
     }
-  ]
+  ],
+  "formDefinition": {
+    "children": [
+      {
+        "name": "firstname",
+        "type": "ch.tocco.nice2.model.form.components.table.Column",
+        "displayType": "EDITABLE",
+        "children": [
+          {
+            "name": "firstname",
+            "type": "ch.tocco.nice2.model.form.components.simple.TextField",
+            "displayType": "EDITABLE",
+            "children": [],
+            "label": "First Name",
+            "useLabel": "YES"
+          }
+        ],
+        "label": "First Name",
+        "useLabel": "YES"
+      }
+    ]
+  }
 }

@@ -51,7 +51,7 @@ const initApp = (id, input, events, publicPath) => {
 class EntityListApp extends React.Component {
   constructor(props) {
     super(props)
-    this.app = initApp('id', {})
+    this.app = initApp('id', props)
   }
 
   render() {
@@ -62,7 +62,14 @@ class EntityListApp extends React.Component {
 }
 
 EntityListApp.propTypes = {
-  id: React.PropTypes.string
+  entityName: React.PropTypes.string.isRequired,
+  formBase: React.PropTypes.string,
+  formDefinition: React.PropTypes.object,
+  limit: React.PropTypes.number,
+  showSearchForm: React.PropTypes.bool,
+  preselectedSearchFields: React.PropTypes.object,
+  disableSimpleSearch: React.PropTypes.bool,
+  simpleSearchFields: React.PropTypes.arrayOf(React.PropTypes.string)
 }
 
 export default EntityListApp
