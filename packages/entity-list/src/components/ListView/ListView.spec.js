@@ -1,7 +1,6 @@
 import React from 'react'
 import ListView from './ListView'
 import {Pagination, Table} from 'tocco-ui'
-import SearchFormContainer from '../../containers/SearchFormContainer'
 import {IntlStub} from 'tocco-test-util'
 import {shallow} from 'enzyme'
 
@@ -12,22 +11,19 @@ const defaultProps = {
   initialize: EMPTY_FUNC,
   limit: 10,
   columnDefinitions: [],
-  searchFormDefinition: [],
   changePage: EMPTY_FUNC,
   setSearchTerm: EMPTY_FUNC,
   entities: [],
   intl: IntlStub,
-  orderBy: null,
-  showSearchForm: true
+  orderBy: null
 }
 
-describe('entity-browser', () => {
+describe('entity-list', () => {
   describe('components', () => {
     describe('ListView', () => {
       it('should render', () => {
         const wrapper = shallow(<ListView {...defaultProps}/>)
 
-        expect(wrapper.find(SearchFormContainer)).to.have.length(1)
         expect(wrapper.find(Table)).to.have.length(1)
         expect(wrapper.find(Pagination)).to.have.length(1)
       })

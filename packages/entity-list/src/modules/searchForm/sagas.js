@@ -1,11 +1,14 @@
 import {delay} from 'redux-saga'
-// import _uniq from 'lodash/uniq'
-import {call, put, fork, select, takeLatest} from 'redux-saga/effects'
+import _uniq from 'lodash/uniq'
+import {call, put, fork, select, takeLatest, take} from 'redux-saga/effects'
 import * as actions from './actions'
 import {fetchForm, searchFormTransformer} from '../../util/api/forms'
 import {fetchEntities, selectEntitiesTransformer} from '../../util/api/entities'
+import {INITIALIZED} from '../entityList/actions'
+
 export const searchFormSelector = state => state.searchForm
 export const inputSelector = state => state.input
+export const entityListSelector = state => state.entityList
 
 export default function* sagas() {
   yield [
@@ -26,25 +29,31 @@ export function* loadSearchForm(formDefinition, formBase) {
 }
 
 export function* loadPreselectedRelationEntities(formDefinition, entityModel, searchInputs) {
-  // TODO
-  // const relationFields = formDefinition.filter(searchField => [
-  //   'ch.tocco.nice2.model.form.components.simple.MultiSelectBox',
-  //   'ch.tocco.nice2.model.form.components.simple.SingleSelectBox']
-  //      .includes(searchField.type)).map(field => field.name)
-  //
-  // const relationFieldsWithValue = relationFields.filter(relationField => {
-  //   const value = searchInputs[relationField]
-  //   return (value instanceof Array && value.length > 0) || (!(value instanceof Array) && value)
-  // })
-  // const targetEntities = _uniq(
-  //  relationFieldsWithValue.map(relationField => (entityModel[relationField].targetEntity))
-  // )
-  // yield targetEntities.map(targetEntity => put(loadRelationEntity(targetEntity)))
+  const relationFields = formDefinition.filter(searchField => [
+    'ch.tocco.nice2.model.form.components.simple.MultiSelectBox',
+    'ch.tocco.nice2.model.form.components.simple.SingleSelectBox']
+       .includes(searchField.type)).map(field => field.name)
+
+  const relationFieldsWithValue = relationFields.filter(relationField => {
+    const value = searchInputs[relationField]
+    return (value instanceof Array && value.length > 0) || (!(value instanceof Array) && value)
+  })
+  const targetEntities = _uniq(
+   relationFieldsWithValue.map(relationField => (entityModel[relationField].targetEntity))
+  )
+
+  yield targetEntities.map(targetEntity => put(actions.loadRelationEntity(targetEntity)))
 }
 
 export function* getEntityModel() {
-  const input = yield select(inputSelector)
-  return input.entityModel
+  let entityList = yield select(entityListSelector)
+  if (!entityList.initialized) {
+    yield take(INITIALIZED)
+  }
+
+  entityList = yield select(entityListSelector)
+
+  return entityList.entityModel
 }
 
 export function* initialize() {

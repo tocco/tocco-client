@@ -18,8 +18,7 @@ const mapStateToProps = (state, props) => {
     columnDefinitions: state.list.columnDefinition,
     entityCount: state.list.entityCount,
     limit: state.list.limit,
-    inProgress: state.list.inProgress,
-    showSearchForm: state.list.showSearchForm
+    inProgress: state.list.inProgress
   }
 }
 

@@ -2,14 +2,16 @@ import React from 'react'
 import {appFactory, storeFactory} from 'tocco-util'
 
 import reducers, {sagas} from './modules/reducers'
-import ListViewContainer from './containers/ListViewContainer'
-
+import EntityListContainer from './containers/EntityListContainer'
+import {getDispatchActions} from './input'
 const packageName = 'entity-list'
 
 const initApp = (id, input, events, publicPath) => {
-  const content = <ListViewContainer/>
+  const content = <EntityListContainer/>
 
   const store = appFactory.createStore(reducers, sagas, input)
+
+  const actions = getDispatchActions(input)
 
   return appFactory.createApp(
     packageName,
@@ -17,7 +19,7 @@ const initApp = (id, input, events, publicPath) => {
     store,
     input,
     events,
-    [],
+    actions,
     publicPath
   )
 }
