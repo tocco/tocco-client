@@ -154,11 +154,6 @@
       "multi": true
     },
     {
-      "relationName": "relUser_status",
-      "targetEntity": "User_status",
-      "multi": false
-    },
-    {
       "relationName": "relUser",
       "targetEntity": "User",
       "multi": false
@@ -166,6 +161,11 @@
     {
       "relationName": "relChildren",
       "targetEntity": "User",
+      "multi": true
+    },
+    {
+      "relationName": "relDummySubGrid",
+      "targetEntity": "Dummy_entity",
       "multi": true
     }
   ]

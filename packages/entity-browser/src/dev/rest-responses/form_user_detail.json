@@ -106,27 +106,10 @@
                     "useLabel": "YES"
                   },
                   {
-                    "name": "relAffiliation",
+                    "name": "relDummySubGrid",
                     "type": "ch.tocco.nice2.model.form.components.table.Table",
                     "displayType": "EDITABLE",
                     "children": [
-                      {
-                        "name": "unique_id",
-                        "type": "ch.tocco.nice2.model.form.components.table.Column",
-                        "displayType": "EDITABLE",
-                        "children": [
-                          {
-                            "name": "unique_id",
-                            "type": "ch.tocco.nice2.model.form.components.simple.TextField",
-                            "displayType": "EDITABLE",
-                            "children": [],
-                            "label": "Kürzel",
-                            "useLabel": "YES"
-                          }
-                        ],
-                        "label": "Kürzel",
-                        "useLabel": "YES"
-                      },
                       {
                         "name": "label",
                         "type": "ch.tocco.nice2.model.form.components.table.Column",
@@ -137,11 +120,27 @@
                             "type": "ch.tocco.nice2.model.form.components.simple.TextField",
                             "displayType": "EDITABLE",
                             "children": [],
-                            "label": "Bezeichnung",
+                            "label": "Label",
                             "useLabel": "YES"
                           }
                         ],
-                        "label": "Bezeichnung DE",
+                        "label": "Label",
+                        "useLabel": "YES"
+                      },                 {
+                        "name": "active",
+                        "type": "ch.tocco.nice2.model.form.components.table.Column",
+                        "displayType": "EDITABLE",
+                        "children": [
+                          {
+                            "name": "active",
+                            "type": "ch.tocco.nice2.model.form.components.simple.BooleanField",
+                            "displayType": "EDITABLE",
+                            "children": [],
+                            "label": "Active",
+                            "useLabel": "YES"
+                          }
+                        ],
+                        "label": "Active",
                         "useLabel": "YES"
                       }
                     ],
