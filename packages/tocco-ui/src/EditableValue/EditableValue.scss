@@ -1,3 +1,5 @@
+$textarea-max-height: 25rem;
+
 .tocco-editable-value {
   .date-edit{
     input[ readonly ]{
@@ -13,5 +15,10 @@
         background-color: #eee;
       }
     }
+  }
+
+  textarea {
+    resize: vertical;  // react-textarea-autosize consumes resize property
+    max-height: $textarea-max-height;  // react-textarea-autosize respects max-height property
   }
 }
