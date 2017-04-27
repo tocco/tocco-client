@@ -1,2 +1,17 @@
-import {registerEvents, getEvents, invokeExternalEvent} from './externalEvents'
-export default {registerEvents, getEvents, invokeExternalEvent}
+import {
+  registerEvents,
+  getEvents,
+  invokeExternalEvent,
+  FIRE_EXTERNAL_EVENT,
+  fireExternalEvent,
+  fireExternalEventSaga
+} from './externalEvents'
+
+export default {
+  registerEvents,
+  getEvents,
+  invokeExternalEvent,
+  FIRE_EXTERNAL_EVENT,
+  fireExternalEvent,
+  fireExternalEventSaga
+}
