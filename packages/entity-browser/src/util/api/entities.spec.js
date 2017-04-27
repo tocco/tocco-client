@@ -232,7 +232,8 @@ describe('entity-browser', () => {
         describe('fetchModel', () => {
           it('should call fetch', () => {
             fetchMock.get('*', {})
-            return entities.fetchModel('User', () => {}).then(() => {
+            return entities.fetchModel('User', () => {
+            }).then(() => {
               expect(fetchMock.calls().matched).to.have.length(1)
               const lastCallUrl = fetchMock.lastCall()[0]
               expect(lastCallUrl).to.eql('/nice2/rest/entities/User/model')
@@ -242,39 +243,41 @@ describe('entity-browser', () => {
           describe('defaultModelTransformer', () => {
             it('should return an object with field names as key', () => {
               const fetchResult = {
-                'name': 'User',
-                'fields': [
+                name: 'User',
+                fields: [
                   {
-                    'fieldName': 'pk',
-                    'type': 'serial'
+                    fieldName: 'pk',
+                    type: 'serial'
                   },
                   {
-                    'fieldName': 'firstname',
-                    'type': 'string'
+                    fieldName: 'firstname',
+                    type: 'string'
                   }
                 ],
-                'relations': [
+                relations: [
                   {
-                    'relationName': 'some_relation',
-                    'targetEntity': 'Address',
-                    'multi': true
+                    relationName: 'some_relation',
+                    targetEntity: 'Address',
+                    multi: true
                   }
                 ]
               }
               const result = entities.defaultModelTransformer(fetchResult)
               const expectedResult = {
                 pk: {
-                  'fieldName': 'pk',
+                  fieldName: 'pk',
                   type: 'serial'
 
                 },
                 firstname: {
-                  'fieldName': 'firstname',
+                  fieldName: 'firstname',
                   type: 'string'
                 },
                 some_relation: {
                   type: 'relation',
-                  targetEntity: 'Address'
+                  relationName: 'some_relation',
+                  targetEntity: 'Address',
+                  multi: true
                 }
               }
               expect(result).to.eql(expectedResult)

@@ -136,36 +136,43 @@
     {
       "relationName": "relSingle_entity1",
       "targetEntity": "Dummy_entity",
+      "reverseRelationName": "relUser",
       "multi": false
     },
     {
       "relationName": "relSingle_entity2",
       "targetEntity": "Dummy_entity",
+      "reverseRelationName": "relUser",
       "multi": false
     },
     {
       "relationName": "relMulti_entity1",
       "targetEntity": "Dummy_entity",
+      "reverseRelationName": "relUser",
       "multi": true
     },
     {
       "relationName": "relMulti_entity2",
       "targetEntity": "Dummy_entity",
+      "reverseRelationName": "relUser",
       "multi": true
     },
     {
       "relationName": "relUser",
       "targetEntity": "User",
+      "reverseRelationName": "relUser",
       "multi": false
     },
     {
       "relationName": "relChildren",
       "targetEntity": "User",
+      "reverseRelationName": "relUser",
       "multi": true
     },
     {
       "relationName": "relDummySubGrid",
       "targetEntity": "Dummy_entity",
+      "reverseRelationName": "relUser",
       "multi": true
     }
   ]

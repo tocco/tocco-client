@@ -1,9 +1,9 @@
 import React from 'react'
-import SubGrid from '../../../routes/detail/components/SubGrid/index'
+import SubGridContainer from '../../../routes/detail/containers/SubGridContainer'
 
 export default type =>
   (formField, modelField, props, events, utils) => (
-    <SubGrid
+    <SubGridContainer
       {...props}
       formDefinition={{children: formField.children}}
       relationName={formField.name}
