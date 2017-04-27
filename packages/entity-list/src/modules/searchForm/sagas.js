@@ -46,14 +46,14 @@ export function* loadPreselectedRelationEntities(formDefinition, entityModel, se
 }
 
 export function* getEntityModel() {
-  let entityBrowser = yield select(entityListSelector)
-  if (!entityBrowser.initialized) {
+  let entityList = yield select(entityListSelector)
+  if (!entityList.initialized) {
     yield take(INITIALIZED)
   }
 
-  entityBrowser = yield select(entityListSelector)
+  entityList = yield select(entityListSelector)
 
-  return entityBrowser.entityModel
+  return entityList.entityModel
 }
 
 export function* initialize() {

@@ -3,7 +3,7 @@ import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
 import {fetchModel} from '../../util/api/entities'
 
-describe('entity-browser', () => {
+describe('entity-list', () => {
   describe('modules', () => {
     describe('entityList', () => {
       describe('sagas', () => {

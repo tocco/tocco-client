@@ -4,12 +4,11 @@ import * as actions from './actions'
 const EXPECTED_INITIAL_STATE = {
   entityModel: {},
   initialized: false
-
 }
 
-describe('entity-browser', () => {
+describe('entity-list', () => {
   describe('modules', () => {
-    describe('entityBrowser', () => {
+    describe('entityList', () => {
       describe('reducer', () => {
         it('should create a valid initial state', () => {
           expect(reducer(undefined, {})).to.deep.equal(EXPECTED_INITIAL_STATE)
