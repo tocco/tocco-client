@@ -7,5 +7,6 @@ export default type =>
       {...props}
       formDefinition={{children: formField.children}}
       relationName={formField.name}
+      modelField={modelField}
     />
   )
