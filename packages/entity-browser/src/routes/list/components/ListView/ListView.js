@@ -45,7 +45,7 @@ class ListView extends React.Component {
           <Table
             columnDefinitions={props.columnDefinitions}
             records={props.entities}
-            className="table-striped"
+            className="table-striped table-hover"
             onOrderByChange={this.onOrderByChange}
             orderBy={props.orderBy}
             loading={props.inProgress}
