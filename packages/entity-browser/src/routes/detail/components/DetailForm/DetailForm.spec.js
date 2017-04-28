@@ -1,4 +1,5 @@
 import React from 'react'
+import {MemoryRouter} from 'react-router-dom'
 import {Field, reducer as formReducer, touch} from 'redux-form'
 import {Provider} from 'react-redux'
 import {createStore, combineReducers} from 'redux'
@@ -102,23 +103,26 @@ describe('entity-browser', () => {
           }
         }
 
-        const store = createStore(() => {})
+        const store = createStore(() => {
+        })
 
         const wrapper = intlEnzyme.mountWithIntl(
           <Provider store={store}>
-            <DetailForm
-              submitting={false}
-              submitForm={EMPTY_FUNC}
-              formDefinition={formDefinition}
-              entity={entity}
-              entityModel={{}}
-              logError={EMPTY_FUNC}
-              loadRelationEntities={EMPTY_FUNC}
-              relationEntities={{}}
-              form="detailForm"
-              intl={IntlStub}
-              touch={EMPTY_FUNC}
-            />
+            <MemoryRouter>
+              <DetailForm
+                submitting={false}
+                submitForm={EMPTY_FUNC}
+                formDefinition={formDefinition}
+                entity={entity}
+                entityModel={{}}
+                logError={EMPTY_FUNC}
+                loadRelationEntities={EMPTY_FUNC}
+                relationEntities={{}}
+                form="detailForm"
+                intl={IntlStub}
+                touch={EMPTY_FUNC}
+              />
+            </MemoryRouter>
           </Provider>
         )
 
@@ -130,11 +134,13 @@ describe('entity-browser', () => {
         const store = createStore(combineReducers({form: formReducer}))
 
         const block = sinon.spy()
+        const createHref = () => {}
 
-        const fakeContext = {router: {block}}
+        const fakeContext = {router: {block, createHref}}
         const contextTypes = {router: React.PropTypes.object}
 
         const formComponent = context.wrapWithContext(fakeContext, contextTypes,
+
           <DetailForm
             submitting={false}
             submitForm={EMPTY_FUNC}
@@ -164,8 +170,10 @@ describe('entity-browser', () => {
         const store = createStore(combineReducers({form: formReducer}))
 
         const block = sinon.spy()
+        const createHref = () => {
+        }
 
-        const fakeContext = {router: {block}}
+        const fakeContext = {router: {block, createHref}}
         const contextTypes = {router: React.PropTypes.object}
 
         const formComponent = context.wrapWithContext(fakeContext, contextTypes,
@@ -185,7 +193,9 @@ describe('entity-browser', () => {
 
         intlEnzyme.mountWithIntl(
           <Provider store={store}>
-            {formComponent}
+            <MemoryRouter>
+              {formComponent}
+            </MemoryRouter>
           </Provider>
         )
 

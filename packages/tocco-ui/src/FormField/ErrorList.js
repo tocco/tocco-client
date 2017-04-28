@@ -11,9 +11,9 @@ const ErrorList = props => {
   })
 
   return (
-    <ul className="error-list">
+    <ul className="icon-list">
       {errorValues.map((value, idx) => (
-        <li key={idx}>{value}</li>
+        <li className="text-danger" key={idx}>{value}</li>
       ))}
     </ul>
   )

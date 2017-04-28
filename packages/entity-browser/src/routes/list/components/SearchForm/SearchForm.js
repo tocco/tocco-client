@@ -61,31 +61,28 @@ const SearchForm = props => {
         )
       }
 
-      {!props.disableSimpleSearch
-      && <div className="pull-right">
-        <Button
-          type="button"
-          label={msg('client.entity-browser.extendedSearch')}
-          onClick={toggleExtendedSearchForm}
-        />
-      </div>
-      }
-      <div className="form-group row">
-        <div className="col-sm-10">
-          <div className="btn-toolbar">
-            <Button
-              type="submit"
-              icon="glyphicon-search"
-              label={msg('client.entity-browser.search')}
-              primary
-            />
-            <Button
-              type="button"
-              icon="glyphicon-repeat"
-              label={msg('client.entity-browser.reset')}
-              onClick={handleResetClick}
-            />
-          </div>
+      <div className="row">
+        <div className="col-sm-8 col-sm-push-4">
+          <Button
+            type="submit"
+            icon="glyphicon-search"
+            label={msg('client.entity-browser.search')}
+            primary
+          />
+          <Button
+            type="button"
+            icon="glyphicon-repeat"
+            label={msg('client.entity-browser.reset')}
+            onClick={handleResetClick}
+          />
+          {!props.disableSimpleSearch
+          && <Button
+            className="pull-right"
+            type="button"
+            label={msg('client.entity-browser.extendedSearch')}
+            onClick={toggleExtendedSearchForm}
+          />
+          }
         </div>
       </div>
     </form>

@@ -1,6 +1,5 @@
 import React from 'react'
-import {intlShape, FormattedMessage} from 'react-intl'
-import {Link} from 'react-router-dom'
+import {intlShape} from 'react-intl'
 
 import DetailForm from '../DetailForm'
 import syncValidation from '../../../../util/detailView/syncValidation'
@@ -34,7 +33,6 @@ class DetailView extends React.Component {
 
     return (
       <div className="detail-view">
-        <Link to="/"><FormattedMessage id={`client.entity-browser.backToList`}/></Link>
         {props.formInitialValues
         && <DetailForm
           validate={this.getSyncValidation()}

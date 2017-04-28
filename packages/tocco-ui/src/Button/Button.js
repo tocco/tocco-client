@@ -7,10 +7,10 @@ import classNames from 'classnames'
 const Button = props => {
   const classes = classNames(
     'btn',
-    'btn-default',
     props.className,
     {
       'pending': props.pending,
+      'btn-default': !props.primary,
       'btn-primary': props.primary
     }
   )
@@ -23,7 +23,8 @@ const Button = props => {
       disabled={props.disabled}
       type={props.type ? props.type : 'button'}
     >
-      <i className={classNames('glyphicon', props.icon)}/> {props.label || ''}
+      {props.icon
+      && <i className={classNames('glyphicon', props.icon)}/>} {props.label || ''}
     </button>)
 }
 
