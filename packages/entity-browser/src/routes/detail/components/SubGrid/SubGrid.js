@@ -5,28 +5,27 @@ const SubGrid = props => {
   return (
     <div>
       <EntityListApp
-        limit="5"
         entityName={props.modelField.targetEntity}
-        formBase="User"
+        limit="5"
         showSearchForm={false}
         preselectedSearchFields={[{
           id: props.modelField.reverseRelationName,
           value: props.entityKey,
           hidden: true
         }]}
-        searchFilters={[]}
-        simpleSearchFields=""
-        formDefinition={props.formDefinition}
+        tableDefinition={props.tableDefinition}
       />
     </div>
   )
 }
 
 SubGrid.propTypes = {
-  entityKey: React.PropTypes.string,
-  formDefinition: React.PropTypes.shape({
+  entityKey: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+  tableDefinition: React.PropTypes.shape({
+    type: React.PropTypes.oneOf(['ch.tocco.nice2.model.form.components.table.Table']),
     children: React.PropTypes.array
   }).isRequired,
+
   relationName: React.PropTypes.string.isRequired,
   modelField: React.PropTypes.shape({
     targetEntity: React.PropTypes.string,
