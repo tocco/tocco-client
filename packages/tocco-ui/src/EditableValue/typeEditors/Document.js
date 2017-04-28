@@ -2,9 +2,11 @@ import React from 'react'
 
 const Document = props => (
   <div className="form-control-static document">
-    <a href={props.value.binaryLink} download>
-      <img src={props.value.thumbnailLink}/>
-      {props.value.fileName}
+    <a href={props.value.binaryLink} alt={props.value.fileName} download>
+      <figure>
+        <img alt={props.value.fileName} className="thumbnail" src={props.value.thumbnailLink}/>
+        <figcaption className="description">{props.value.fileName}</figcaption>
+      </figure>
     </a>
   </div>
 )

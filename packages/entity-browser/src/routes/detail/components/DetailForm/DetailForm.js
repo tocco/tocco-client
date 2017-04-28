@@ -1,7 +1,7 @@
 import React from 'react'
 import {reduxForm, Field} from 'redux-form'
 import {intlShape, FormattedRelative, FormattedMessage} from 'react-intl'
-import {Prompt} from 'react-router-dom'
+import {Link, Prompt} from 'react-router-dom'
 import {Button, LayoutBox} from 'tocco-ui'
 
 import ReduxFormFieldAdapter from '../ReduxFormFieldAdapter'
@@ -113,21 +113,26 @@ export class DetailForm extends React.Component {
           message={this.msg('client.entity-browser.confirmTouchedFormLeave')}
         />
         {getForm(props.formDefinition, this.createField, this.createLayoutComponent)}
-        {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
-        <Button
-          type="submit"
-          label={this.msg('client.entity-browser.save')}
-          icon="glyphicon-floppy-save"
-          pending={props.submitting}
-          disabled={props.submitting || (props.anyTouched && !props.valid)}
-          primary
-        />
-        {props.lastSave
-        && <div>
-          <FormattedMessage id="client.entity-browser.lastSave"/>
-          <span style={{marginLeft:'3px'}}> <FormattedRelative value={props.lastSave}/></span>
-        </div>
-        }
+        <LayoutBox alignment="horizontal">
+          <LayoutBox alignment="vertical">
+            {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
+            <Link className="btn btn-primary" to="/"><FormattedMessage id={`client.entity-browser.backToList`}/></Link>
+            <Button
+              type="submit"
+              label={this.msg('client.entity-browser.save')}
+              icon="glyphicon-floppy-save"
+              pending={props.submitting}
+              disabled={props.submitting || (props.anyTouched && !props.valid)}
+              primary
+            />
+            {props.lastSave
+            && <div>
+              <FormattedMessage id="client.entity-browser.lastSave"/>
+              <span style={{marginLeft:'3px'}}> <FormattedRelative value={props.lastSave}/></span>
+            </div>
+            }
+          </LayoutBox>
+        </LayoutBox>
       </form>
     )
   }

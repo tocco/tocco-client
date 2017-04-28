@@ -47,6 +47,12 @@ $icon-list-indent: $icon-list-icon-size;
   margin-top: -$line-height-computed-half;
 }
 
+// form-group style
+.form-group .icon-list {
+  margin-top: $line-height-computed-half;
+  margin-bottom: 0;
+}
+
 // use replacement icon for list items with a special class
 @mixin icon-list-character (
   $selector: 'li',
