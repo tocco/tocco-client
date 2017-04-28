@@ -84,6 +84,7 @@ describe('entity-browser', () => {
               form: {
                 children: [{
                   name: 'table',
+                  type: 'ch.tocco.nice2.model.form.components.table.Table',
                   children: [
                     {
                       displayType: 'EDITABLE',

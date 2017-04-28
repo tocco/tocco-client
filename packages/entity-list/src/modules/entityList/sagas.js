@@ -5,7 +5,6 @@ import * as actions from './actions'
 import {fetchModel} from '../../util/api/entities'
 
 export const entityListSelector = state => state.entityList
-export const inputSelector = state => state.input
 
 export default function* sagas() {
   yield [
@@ -21,8 +20,7 @@ export function* loadEntityModel(entityName, entityModel) {
 }
 
 export function* initialize() {
-  const {entityModel} = yield select(entityListSelector)
-  const {entityName} = yield select(inputSelector)
+  const {entityModel, entityName} = yield select(entityListSelector)
 
   yield call(loadEntityModel, entityName, entityModel)
   yield put(actions.initialized())

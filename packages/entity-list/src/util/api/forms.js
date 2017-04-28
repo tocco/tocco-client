@@ -38,7 +38,8 @@ export function fetchForm(formName, transformer = defaultFormTransformer) {
 export const columnDefinitionTransformer = json => {
   const {form} = json
 
-  const columns = form.children.find(child => child.name === 'table')
+  const tableType = 'ch.tocco.nice2.model.form.components.table.Table'
+  const columns = form.children.find(child => child.type === tableType)
     .children.filter(column => column.displayType !== 'HIDDEN')
 
   const isDisplayableType = child => {

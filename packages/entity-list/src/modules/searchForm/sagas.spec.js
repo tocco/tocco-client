@@ -23,9 +23,9 @@ describe('entity-list', () => {
 
         describe('initializeSearchForm saga', () => {
           it('should set model and from definition and retrieve relevant entities', () => {
-            const formBase = 'UserSearch'
             const searchInputs = {}
             const formDefinition = []
+            const searchFormName = 'SearchForm'
 
             const entityModel = {
               test1: {
@@ -38,11 +38,8 @@ describe('entity-list', () => {
 
             const gen = sagas.initialize()
             expect(gen.next().value).to.eql(select(sagas.searchFormSelector))
-            expect(gen.next({formDefinition, searchInputs}).value).to.eql(select(sagas.inputSelector))
-
-            expect(gen.next({formBase}).value).to.eql(call(sagas.getEntityModel))
-
-            expect(gen.next(entityModel).value).to.eql(call(sagas.loadSearchForm, formDefinition, formBase))
+            expect(gen.next({formDefinition, searchInputs, searchFormName}).value).to.eql(call(sagas.getEntityModel))
+            expect(gen.next(entityModel).value).to.eql(call(sagas.loadSearchForm, formDefinition, searchFormName))
             expect(gen.next(formDefinition).value)
               .to.eql(call(sagas.loadPreselectedRelationEntities, formDefinition, entityModel, searchInputs))
             expect(gen.next().done).to.be.true

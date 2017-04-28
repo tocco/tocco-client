@@ -91,6 +91,7 @@ const setRelationEntityLoaded = (state, {payload}) => {
 }
 
 const ACTION_HANDLERS = {
+  [actions.SET_SEARCH_FORM_NAME]: reducers.singleTransferReducer('searchFormName'),
   [actions.SET_SEARCH_INPUT]: setSearchInput,
   [actions.RESET]: reset,
   [actions.SET_SIMPLE_SEARCH_FIELDS]: setSimpleSearchFields,
@@ -103,6 +104,7 @@ const ACTION_HANDLERS = {
 }
 
 const initialState = {
+  searchFormName: '',
   formDefinition: [],
   searchInputs: {},
   showExtendedSearchForm: false,

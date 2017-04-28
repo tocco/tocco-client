@@ -1,15 +1,15 @@
 {
   "entityName": "User",
-  "formBase": "UserSearch",
   "limit": 10,
   "showSearchForm": true,
-  "disableSimpleSearch": true,
+  "searchFormName": "",
+  "disableSimpleSearch": false,
   "simpleSearchFields": "",
   "searchFilters": [
     "user_with_pk_1",
     "has_contract"
   ],
-  "preselectedSearchFields": [
+  "preselectedSearchValues": [
     {
       "id": "txtFulltext",
       "value": "",
@@ -29,7 +29,9 @@
       "hidden": false
     }
   ],
-  "formDefinition": {
+  "tableDefinition": {
+    "name": "table",
+    "type": "ch.tocco.nice2.model.form.components.table.Table",
     "children": [
       {
         "name": "firstname",
@@ -46,6 +48,23 @@
           }
         ],
         "label": "First Name",
+        "useLabel": "YES"
+      },
+      {
+        "name": "lastname",
+        "type": "ch.tocco.nice2.model.form.components.table.Column",
+        "displayType": "EDITABLE",
+        "children": [
+          {
+            "name": "lastname",
+            "type": "ch.tocco.nice2.model.form.components.simple.TextField",
+            "displayType": "EDITABLE",
+            "children": [],
+            "label": "Last Name",
+            "useLabel": "YES"
+          }
+        ],
+        "label": "Last Name",
         "useLabel": "YES"
       }
     ]

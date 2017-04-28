@@ -1,9 +1,16 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 import SearchForm from '../components/SearchForm'
-import {setSearchInput, reset, setShowExtendedSearchForm, loadRelationEntity} from '../modules/searchForm/actions'
+import {
+  initialize,
+  setSearchInput,
+  reset,
+  setShowExtendedSearchForm,
+  loadRelationEntity
+} from '../modules/searchForm/actions'
 
 const mapActionCreators = {
+  initialize,
   setSearchInput,
   loadRelationEntity,
   reset,
