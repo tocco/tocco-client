@@ -75,11 +75,24 @@ class EntityListApp extends React.Component {
 
 EntityListApp.propTypes = {
   entityName: React.PropTypes.string.isRequired,
-  formBase: React.PropTypes.string,
-  formDefinition: React.PropTypes.object,
+  tableDefinition: React.PropTypes.shape({
+    type: 'ch.tocco.nice2.model.form.components.table.Table',
+    children: React.PropTypes.array
+  }),
   limit: React.PropTypes.number,
   showSearchForm: React.PropTypes.bool,
-  preselectedSearchFields: React.PropTypes.object,
+  searchFormName: React.PropTypes.string,
+  searchFilters: React.PropTypes.arrayOf(React.PropTypes.string),
+  preselectedSearchValues: React.PropTypes.arrayOf(
+    React.PropTypes.shape({
+      id: React.PropTypes.string,
+      value: React.PropTypes.oneOfType([
+        React.PropTypes.string,
+        React.PropTypes.arrayOf(React.PropTypes.string)
+      ]),
+      hidden: React.PropTypes.bool
+    })
+  ),
   disableSimpleSearch: React.PropTypes.bool,
   simpleSearchFields: React.PropTypes.arrayOf(React.PropTypes.string),
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => {

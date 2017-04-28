@@ -7,7 +7,6 @@ import {fetchEntities, selectEntitiesTransformer} from '../../util/api/entities'
 import {INITIALIZED} from '../entityList/actions'
 
 export const searchFormSelector = state => state.searchForm
-export const inputSelector = state => state.input
 export const entityListSelector = state => state.entityList
 
 export default function* sagas() {
@@ -19,9 +18,9 @@ export default function* sagas() {
   ]
 }
 
-export function* loadSearchForm(formDefinition, formBase) {
+export function* loadSearchForm(formDefinition, searchFormName) {
   if (formDefinition.length === 0) {
-    formDefinition = yield call(fetchForm, formBase + '_search', searchFormTransformer)
+    formDefinition = yield call(fetchForm, searchFormName, searchFormTransformer)
     yield put(actions.setFormDefinition(formDefinition))
   }
 
@@ -57,10 +56,10 @@ export function* getEntityModel() {
 }
 
 export function* initialize() {
-  let {formDefinition, searchInputs} = yield select(searchFormSelector)
-  const {formBase} = yield select(inputSelector)
+  let {formDefinition, searchInputs, searchFormName} = yield select(searchFormSelector)
+
   const entityModel = yield call(getEntityModel)
-  formDefinition = yield call(loadSearchForm, formDefinition, formBase)
+  formDefinition = yield call(loadSearchForm, formDefinition, searchFormName)
   yield call(loadPreselectedRelationEntities, formDefinition, entityModel, searchInputs)
 }
 

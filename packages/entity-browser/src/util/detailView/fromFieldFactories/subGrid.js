@@ -5,7 +5,7 @@ export default type =>
   (formField, modelField, props, events, utils) => (
     <SubGridContainer
       {...props}
-      formDefinition={{children: formField.children}}
+      tableDefinition={formField}
       relationName={formField.name}
       modelField={modelField}
     />

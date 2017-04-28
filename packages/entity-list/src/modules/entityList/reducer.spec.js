@@ -3,7 +3,9 @@ import * as actions from './actions'
 
 const EXPECTED_INITIAL_STATE = {
   entityModel: {},
-  initialized: false
+  entityName: '',
+  initialized: false,
+  showSearchForm: false
 }
 
 describe('entity-list', () => {

@@ -9,7 +9,8 @@ export const RESET = 'searchForm/RESET'
 export const SET_SHOW_EXTENDED_SEARCH_FORM = 'searchForm/SET_SHOW_EXTENDED_SEARCH_FORM'
 export const SET_SIMPLE_SEARCH_FIELDS = 'searchForm/SET_SIMPLE_SEARCH_FIELDS'
 export const SET_PRESELECTED_SEARCH_FIELDS = 'searchForm/SET_PRESELECTED_SEARCH_FIELDS'
-export const SET_DISABLE_SIMPLE_SEARCH = 'SET_DISABLE_SIMPLE_SEARCH'
+export const SET_DISABLE_SIMPLE_SEARCH = 'searchForm/SET_DISABLE_SIMPLE_SEARCH'
+export const SET_SEARCH_FORM_NAME = 'searchForm/SET_SEARCH_FORM_NAME'
 
 export const initialize = () => ({
   type: INITIALIZE
@@ -89,5 +90,11 @@ export const setDisableSimpleSearch = disableSimpleSearch => ({
   type: SET_DISABLE_SIMPLE_SEARCH,
   payload: {
     disableSimpleSearch
+  }
+})
+export const setSearchFormName = searchFormName => ({
+  type: SET_SEARCH_FORM_NAME,
+  payload: {
+    searchFormName
   }
 })

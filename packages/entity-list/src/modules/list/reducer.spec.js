@@ -4,7 +4,7 @@ import * as actions from './actions'
 const EXPECTED_INITIAL_STATE = {
   entityModel: {},
   entities: [],
-  limit: 50,
+  limit: 10,
   currentPage: 1,
   orderBy: null,
   columnDefinition: [],

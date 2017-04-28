@@ -5,94 +5,102 @@ import {Button} from 'tocco-ui'
 import {formField as formFieldUtil} from 'tocco-util'
 import formFieldMapping from '../../util/formFieldMapping'
 
-const SearchForm = props => {
-  const handleResetClick = () => {
-    props.reset()
+class SearchForm extends React.Component {
+  componentWillMount() {
+    this.props.initialize()
   }
 
-  const handleSubmit = e => {
+  handleResetClick = () => {
+    this.props.reset()
+  }
+
+  handleSubmit = e => {
     e.preventDefault()
-    props.setSearchInput()
+    this.props.setSearchInput()
   }
 
-  const msg = id => (props.intl.formatMessage({id}))
+  msg = id => (this.props.intl.formatMessage({id}))
 
-  const isHidden = name => {
-    const field = props.preselectedSearchFields.find(f => f.id === name)
+  isHidden = name => {
+    const field = this.props.preselectedSearchFields.find(f => f.id === name)
     return field && field.hidden
   }
 
-  const shouldRenderField = name => (
-    !isHidden(name) && (
-    props.disableSimpleSearch || props.showExtendedSearchForm || props.simpleSearchFields.includes(name))
+  shouldRenderField = name => (
+    !this.isHidden(name) && (
+    this.props.disableSimpleSearch || this.props.showExtendedSearchForm || this.props.simpleSearchFields.includes(name))
   )
 
-  const toggleExtendedSearchForm = () => {
-    props.setShowExtendedSearchForm(!props.showExtendedSearchForm)
+  toggleExtendedSearchForm = () => {
+    this.props.setShowExtendedSearchForm(!this.props.showExtendedSearchForm)
   }
 
-  return (
-    <form onSubmit={handleSubmit} className="form-horizontal">
-      {
-        props.searchFormDefinition.map(formDefinitionField => {
-          const fieldName = formDefinitionField.name
-          if (shouldRenderField(fieldName)) {
-            const modelField = props.entityModel[fieldName]
-            const value = props.searchInputs ? props.searchInputs[fieldName] : undefined
-            const utils = {
-              relationEntities: props.relationEntities,
-              loadRelationEntity: props.loadRelationEntity
-            }
-            const onChange = value => props.setSearchInput(fieldName, value)
+  render() {
+    const props = this.props
+    return (
+      <form onSubmit={this.handleSubmit} className="form-horizontal">
+        {
+          props.searchFormDefinition.map(formDefinitionField => {
+            const fieldName = formDefinitionField.name
+            if (this.shouldRenderField(fieldName)) {
+              const modelField = props.entityModel[fieldName]
+              const value = props.searchInputs ? props.searchInputs[fieldName] : undefined
+              const utils = {
+                relationEntities: props.relationEntities,
+                loadRelationEntity: props.loadRelationEntity
+              }
+              const onChange = value => props.setSearchInput(fieldName, value)
 
-            const fomFieldData = {
-              formDefinitionField,
-              modelField,
-              id: fieldName,
-              value,
-              onChange,
-              utils
-            }
+              const fomFieldData = {
+                formDefinitionField,
+                modelField,
+                id: fieldName,
+                value,
+                onChange,
+                utils
+              }
 
-            return formFieldUtil.formFieldFactory(formFieldMapping, fomFieldData)
+              return formFieldUtil.formFieldFactory(formFieldMapping, fomFieldData)
+            }
           }
+          )
         }
-        )
-      }
 
-      {!props.disableSimpleSearch
-      && <div className="pull-right">
-        <Button
-          type="button"
-          label={msg('client.entity-browser.extendedSearch')}
-          onClick={toggleExtendedSearchForm}
-        />
-      </div>
-      }
-      <div className="form-group row">
-        <div className="col-sm-10">
-          <div className="btn-toolbar">
-            <Button
-              type="submit"
-              icon="glyphicon-search"
-              label={msg('client.entity-browser.search')}
-              primary
-            />
-            <Button
-              type="button"
-              icon="glyphicon-repeat"
-              label={msg('client.entity-browser.reset')}
-              onClick={handleResetClick}
-            />
+        {!props.disableSimpleSearch
+        && <div className="pull-right">
+          <Button
+            type="button"
+            label={this.msg('client.entity-browser.extendedSearch')}
+            onClick={this.toggleExtendedSearchForm}
+          />
+        </div>
+        }
+        <div className="form-group row">
+          <div className="col-sm-10">
+            <div className="btn-toolbar">
+              <Button
+                type="submit"
+                icon="glyphicon-search"
+                label={this.msg('client.entity-browser.search')}
+                primary
+              />
+              <Button
+                type="button"
+                icon="glyphicon-repeat"
+                label={this.msg('client.entity-browser.reset')}
+                onClick={this.handleResetClick}
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </form>
-  )
+      </form>
+    )
+  }
 }
 
 SearchForm.propTypes = {
   intl: intlShape.isRequired,
+  initialize: React.PropTypes.func,
   entityModel: React.PropTypes.objectOf(
     React.PropTypes.shape({
       type: React.PropTypes.string.isRequired,

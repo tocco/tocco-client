@@ -8,6 +8,7 @@ import _clone from 'lodash/clone'
 import _isEmpty from 'lodash/isEmpty'
 
 export const inputSelector = state => state.input
+export const entityListSelector = state => state.entityList
 export const listSelector = state => state.list
 export const searchFormSelector = state => state.searchForm
 
@@ -24,8 +25,8 @@ export default function* sagas() {
 
 export function* initialize() {
   yield put(actions.setInProgress(true))
-  yield put(searchFormActions.initialize())
-  const {entityName, formBase} = yield select(inputSelector)
+  const {entityName} = yield select(entityListSelector)
+  const {formBase} = yield select(inputSelector)
   const listView = yield select(listSelector)
   const {columnDefinition, entityModel} = listView
 
