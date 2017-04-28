@@ -2,9 +2,7 @@ import React from 'react'
 import {IntlStub} from 'tocco-test-util'
 import SearchForm from './'
 import {mount} from 'enzyme'
-import {Button} from 'tocco-ui'
-// TODO
-// import FormField from '../../../../components/FormField'
+import {Button, FormField} from 'tocco-ui'
 
 const EMPTY_FUNC = () => {}
 
@@ -16,6 +14,7 @@ describe('entity-browser', () => {
         const searchFormDefinition = require('../../dev/test-data/searchFormDefinition.json')
 
         const wrapper = mount(<SearchForm
+          initialize={EMPTY_FUNC}
           entityModel={entityModel}
           searchFormDefinition={searchFormDefinition}
           setSearchInput={EMPTY_FUNC}
@@ -28,7 +27,7 @@ describe('entity-browser', () => {
           preselectedSearchFields={[]}
         />)
 
-        // expect(wrapper.find(FormField)).to.have.length(searchFormDefinition.length)
+        expect(wrapper.find(FormField)).to.have.length(searchFormDefinition.length)
         expect(wrapper.find(Button)).to.have.length(2)
       })
 
@@ -37,6 +36,7 @@ describe('entity-browser', () => {
         const searchFormDefinition = require('../../dev/test-data/searchFormDefinition.json')
 
         const wrapper = mount(<SearchForm
+          initialize={EMPTY_FUNC}
           entityModel={entityModel}
           searchFormDefinition={searchFormDefinition}
           setSearchInput={EMPTY_FUNC}
@@ -49,7 +49,7 @@ describe('entity-browser', () => {
           preselectedSearchFields={[]}
         />)
 
-        // expect(wrapper.find(FormField)).to.have.length(1)
+        expect(wrapper.find(FormField)).to.have.length(1)
         expect(wrapper.find(Button)).to.have.length(3)
       })
 
@@ -58,6 +58,7 @@ describe('entity-browser', () => {
         const searchFormDefinition = require('../../dev/test-data/searchFormDefinition.json')
 
         const wrapper = mount(<SearchForm
+          initialize={EMPTY_FUNC}
           entityModel={entityModel}
           searchFormDefinition={searchFormDefinition}
           setSearchInput={EMPTY_FUNC}
@@ -70,36 +71,37 @@ describe('entity-browser', () => {
           preselectedSearchFields={[]}
         />)
 
-        // expect(wrapper.find(FormField)).to.have.length(2)
+        expect(wrapper.find(FormField)).to.have.length(2)
         expect(wrapper.find(Button)).to.have.length(3)
       })
 
       it('should not show hidden value', () => {
-        // const entityModel = require('../../dev/test-data/userModel.json')
-        // const searchFormDefinition = require('../../dev/test-data/searchFormDefinition.json')
-        //
-        // const preselectedSearchFields = [
-        //   {
-        //     id: 'relUser_code1',
-        //     value: 'VALUE',
-        //     hidden: true
-        //   }
-        // ]
+        const entityModel = require('../../dev/test-data/userModel.json')
+        const searchFormDefinition = require('../../dev/test-data/searchFormDefinition.json')
 
-        // const wrapper = mount(<SearchForm
-        //   entityModel={entityModel}
-        //   searchFormDefinition={searchFormDefinition}
-        //   setSearchInput={EMPTY_FUNC}
-        //   relationEntities={{}}
-        //   searchInputs={{}}
-        //   reset={EMPTY_FUNC}
-        //   intl={IntlStub}
-        //   disableSimpleSearch
-        //   simpleSearchFields={[]}
-        //   preselectedSearchFields={preselectedSearchFields}
-        // />)
+        const preselectedSearchFields = [
+          {
+            id: 'relUser_code1',
+            value: 'VALUE',
+            hidden: true
+          }
+        ]
 
-        // expect(wrapper.find(FormField)).to.have.length(searchFormDefinition.length - 1)
+        const wrapper = mount(<SearchForm
+          initialize={EMPTY_FUNC}
+          entityModel={entityModel}
+          searchFormDefinition={searchFormDefinition}
+          setSearchInput={EMPTY_FUNC}
+          relationEntities={{}}
+          searchInputs={{}}
+          reset={EMPTY_FUNC}
+          intl={IntlStub}
+          disableSimpleSearch
+          simpleSearchFields={[]}
+          preselectedSearchFields={preselectedSearchFields}
+        />)
+
+        expect(wrapper.find(FormField)).to.have.length(searchFormDefinition.length - 1)
       })
     })
   })
