@@ -12,8 +12,6 @@ import externalEvents from '../externalEvents'
 
 import input from './input/reducer'
 
-const sagaMiddleware = createSagaMiddleware()
-
 function* mainSaga() {
   yield [
     fork(takeEvery, 'FIRE_EXTERNAL_EVENT', externalEvents.fireExternalEventSaga)
@@ -21,6 +19,7 @@ function* mainSaga() {
 }
 
 export const createStore = (initialState = {}, reducers = {}, sagas = []) => {
+  const sagaMiddleware = createSagaMiddleware()
   let middleware = applyMiddleware(thunk, sagaMiddleware)
 
   if (__DEBUG__) {
@@ -46,6 +45,7 @@ export const createStore = (initialState = {}, reducers = {}, sagas = []) => {
 
   store.allReducers = allReducers
   store.sagas = sagas
+  store.sagaMiddleware = sagaMiddleware
 
   const rootSaga = createGenerator(sagas.map(s => fork(s)))
 
@@ -79,6 +79,6 @@ export const injectReducers = (store, reducers) => {
 export const injectSaga = (store, saga) => {
   if (!store.sagas.includes(saga)) {
     store.sagas.push(saga)
-    sagaMiddleware.run(autoRestartSaga(saga, logErrorAction))
+    store.sagaMiddleware.run(autoRestartSaga(saga, logErrorAction))
   }
 }
