@@ -11,9 +11,10 @@ export const setFormDefinition = formDefinition => ({
   }
 })
 
-export const loadDetailView = entityId => ({
+export const loadDetailView = (modelPaths, entityId) => ({
   type: LOAD_DETAIL_VIEW,
   payload: {
+    modelPaths,
     entityId
   }
 })

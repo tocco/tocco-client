@@ -1,4 +1,5 @@
 import React from 'react'
+import {withRouter} from 'react-router'
 import EntityListApp from 'entity-list'
 
 const SubGrid = props => {
@@ -14,6 +15,10 @@ const SubGrid = props => {
           hidden: true
         }]}
         tableDefinition={props.tableDefinition}
+        onRowClick={e => {
+          const newUrl = `${props.match.url}/${props.relationName}/${e.id}`
+          props.push(newUrl)
+        }}
       />
     </div>
   )
@@ -30,7 +35,11 @@ SubGrid.propTypes = {
   modelField: React.PropTypes.shape({
     targetEntity: React.PropTypes.string,
     reverseRelationName: React.PropTypes.string
+  }).isRequired,
+  push: React.PropTypes.func.isRequired,
+  match: React.PropTypes.shape({
+    url: React.PropTypes.string.isRequired
   }).isRequired
 }
 
-export default SubGrid
+export default withRouter(SubGrid)

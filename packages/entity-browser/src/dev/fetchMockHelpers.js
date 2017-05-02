@@ -87,10 +87,14 @@ export const createEntitiesResponse = entityName => {
 
 export const createCountResponse = entityName => (url, opts) => ({'count': entityStore[entityName].length})
 
-export const createEntityResponse = (url, opts) => {
-  consoleLogger.log('fetchMock: called fetch entitiy', url, opts)
-  const id = url.match(/^.*\/User\/(\d+)/)[1]
-  return entityStore.user[id]
+export const createEntityResponse = entityName => {
+  const entities = entityStore[entityName]
+
+  return (url, opts) => {
+    consoleLogger.log('fetchMock: called fetch entity', url, opts)
+    const id = url.match(/^.*\/[A-Z][A-Za-z0-9_]*\/(\d+)/)[1]
+    return entities[id]
+  }
 }
 
 export const createEntityUpdateResponse = (url, opts) => {
