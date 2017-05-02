@@ -18,7 +18,7 @@
   "client.entity-browser.saveSuccessfulTitle",
   "client.entity-browser.saveSuccessfulMessage",
   "client.entity-browser.lastSave",
-  "client.entity-browser.backToList",
+  "client.entity-browser.back",
   "client.entity-browser.confirmTouchedFormLeave",
   "client.entity-browser.confirmationOk",
   "client.entity-browser.confirmationCancel",

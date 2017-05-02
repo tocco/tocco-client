@@ -28,7 +28,7 @@ const getFormGeneralErros = formName =>
   )
 
 const mapStateToProps = (state, props) => {
-  const {modelPaths, entityId} = parseUrl(props.router.match.url)
+  const {modelPaths, entityId, parentUrl} = parseUrl(props.router.match.url)
   return {
     formDefinition: state.detail.formDefinition,
     entity: state.detail.entity,
@@ -44,7 +44,8 @@ const mapStateToProps = (state, props) => {
       _error: getFormGeneralErros('detailForm')(state)
     },
     formInitialValues: getFormInitialValues('detailForm')(state),
-    lastSave: state.detail.lastSave
+    lastSave: state.detail.lastSave,
+    parentUrl
   }
 }
 

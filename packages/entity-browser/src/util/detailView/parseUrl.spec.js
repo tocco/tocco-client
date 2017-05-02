@@ -11,7 +11,8 @@ describe('entity-browser', () => {
 
           const expectedResult = {
             modelPaths: [],
-            entityId: '2'
+            entityId: '2',
+            parentUrl: '/'
           }
 
           expect(result).to.eql(expectedResult)
@@ -24,7 +25,8 @@ describe('entity-browser', () => {
 
           const expectedResult = {
             modelPaths: ['relDummySubGrid'],
-            entityId: '3'
+            entityId: '3',
+            parentUrl: '/detail/2'
           }
 
           expect(result).to.eql(expectedResult)
@@ -37,7 +39,8 @@ describe('entity-browser', () => {
 
           const expectedResult = {
             modelPaths: ['relFoo', 'relBar', 'relFooBar'],
-            entityId: '5'
+            entityId: '5',
+            parentUrl: '/detail/2/relFoo/3/relBar/4'
           }
 
           expect(result).to.eql(expectedResult)
