@@ -19,7 +19,7 @@ describe('tocco-ui', function() {
       }
 
       const wrapper = shallow(
-        <Table records={records} columnDefinitions={[{value: 'a'}]}/>
+        <Table records={records} columnDefinitions={[{values:[{name: 'a'}]}]}/>
       )
       expect(wrapper.find('tr')).to.have.length(recordsAmount + 1) // +1 for header row
     })
@@ -33,10 +33,10 @@ describe('tocco-ui', function() {
 
       const columnDefinitions = [
         {
-          value: 'a'
+          values: [{name: 'a'}]
         },
         {
-          value: 'c',
+          values: [{name: 'c'}],
           label: 'CLabel',
           order: 1
         }
@@ -77,12 +77,12 @@ describe('tocco-ui', function() {
 
       const columnDefinitions = [
         {
-          value: 'a',
+          values: [{name: 'a'}],
           label: 'ALabel',
           order: 30
         },
         {
-          value: 'c',
+          values: [{name: 'c'}],
           label: 'CLabel',
           order: 1
         }
@@ -114,7 +114,7 @@ describe('tocco-ui', function() {
       const record = {values: {a: {value: 'a', type:'string'}, b: {value: 'b', type:'string'}}}
 
       const wrapper = shallow(
-        <Table records={[record]} columnDefinitions={[{value: ['a', 'b']}]}/>
+        <Table records={[record]} columnDefinitions={[{values: [{name: 'a'}, {name:'b'}]}]}/>
       )
 
       expect(wrapper.contains('a, b')).to.be.true
@@ -124,7 +124,7 @@ describe('tocco-ui', function() {
       const record = {values: {a: {value: 'a', type:'string'}}}
 
       const wrapper = shallow(
-        <Table records={[record]} columnDefinitions={[{value: 'unknown'}]}/>
+        <Table records={[record]} columnDefinitions={[{values: ['unknown']}]}/>
       )
 
       expect(wrapper.find('td')).to.have.text('')
@@ -145,7 +145,7 @@ describe('tocco-ui', function() {
         <Table
           onOrderByChange={onClick}
           records={[record]}
-          columnDefinitions={[{value: 'a'}, {value: 'b'}]}
+          columnDefinitions={[{values: [{name: 'a'}]}, {values: [{name: 'b'}]}]}
         />
       )
 
@@ -178,7 +178,7 @@ describe('tocco-ui', function() {
           onOrderByChange={onClick}
           orderBy={orderBy}
           records={[record]}
-          columnDefinitions={[{value: 'a'}, {value: 'b'}]}
+          columnDefinitions={[{values: [{name: 'a'}]}, {values: [{name: 'b'}]}]}
         />
       )
 
@@ -193,7 +193,7 @@ describe('tocco-ui', function() {
 
       const onClick = sinon.spy()
       const wrapper = shallow(
-        <Table onRowClick={onClick} records={[record]} columnDefinitions={[{value: 'a'}]}/>
+        <Table onRowClick={onClick} records={[record]} columnDefinitions={[{values: [{name: 'a'}]}]}/>
       )
 
       wrapper.find('tr').last().simulate('click')
@@ -206,8 +206,9 @@ describe('tocco-ui', function() {
       const record = {values: {a: {value: 'a', type: 'string'}, b: {value: 'b', type: 'string'}}}
 
       const cellRenderer = sinon.spy()
+      const columnDefinitions = [{values: [{name: 'a'}]}, {values: [{name: 'b'}]}]
       shallow(
-        <Table cellRenderer={cellRenderer} records={[record]} columnDefinitions={[{value: 'a'}, {value: 'b'}]}/>
+        <Table cellRenderer={cellRenderer} records={[record]} columnDefinitions={columnDefinitions}/>
       )
 
       expect(cellRenderer).to.have.calledTwice
