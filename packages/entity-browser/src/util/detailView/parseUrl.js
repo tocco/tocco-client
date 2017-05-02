@@ -8,8 +8,9 @@ const parseUrl = url => {
   }
 
   const entityId = parts[parts.length - 1]
+  const parentUrl = '/' + parts.slice(0, -2).join('/')
 
-  return {modelPaths, entityId}
+  return {modelPaths, entityId, parentUrl}
 }
 
 export default parseUrl

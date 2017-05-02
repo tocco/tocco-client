@@ -1,7 +1,7 @@
 import React from 'react'
 import {reduxForm, Field} from 'redux-form'
 import {intlShape, FormattedRelative, FormattedMessage} from 'react-intl'
-import {Link, Prompt} from 'react-router-dom'
+import {Prompt} from 'react-router-dom'
 import {Button, LayoutBox} from 'tocco-ui'
 
 import ReduxFormFieldAdapter from '../ReduxFormFieldAdapter'
@@ -116,7 +116,6 @@ export class DetailForm extends React.Component {
         <LayoutBox alignment="horizontal">
           <LayoutBox alignment="vertical">
             {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
-            <Link className="btn btn-primary" to="/"><FormattedMessage id={`client.entity-browser.backToList`}/></Link>
             <Button
               type="submit"
               label={this.msg('client.entity-browser.save')}

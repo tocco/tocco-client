@@ -1,5 +1,6 @@
 import React from 'react'
 import {intlShape} from 'react-intl'
+import {Button} from 'tocco-ui'
 
 import DetailForm from '../DetailForm'
 import syncValidation from '../../../../util/detailView/syncValidation'
@@ -21,6 +22,10 @@ class DetailView extends React.Component {
     })
   }
 
+  handleGoBack = () => {
+    this.props.router.push(this.props.parentUrl)
+  }
+
   getSyncValidation = () => {
     if (!this.validateSingleton) {
       this.validateSingleton = syncValidation(this.props.entityModel, this.props.intl)
@@ -28,11 +33,18 @@ class DetailView extends React.Component {
     return this.validateSingleton
   }
 
+  msg = id => this.props.intl.formatMessage({id})
+
   render() {
     const props = this.props
 
     return (
       <div className="detail-view">
+        <Button
+          type="button"
+          label={this.msg('client.entity-browser.back')}
+          onClick={this.handleGoBack}
+        />
         {props.formInitialValues
         && <DetailForm
           validate={this.getSyncValidation()}
@@ -48,6 +60,7 @@ class DetailView extends React.Component {
           entityModel={props.entityModel}
           intl={props.intl}
           lastSave={props.lastSave}
+          goBack={this.handleGoBack}
         />
         }
       </div>
@@ -99,5 +112,10 @@ DetailView.propTypes = {
       )
     })
   }).isRequired,
-  lastSave: React.PropTypes.number
+  lastSave: React.PropTypes.number,
+  parentUrl: React.PropTypes.string
+}
+
+DetailView.defaultProps = {
+  parentUrl: '/'
 }

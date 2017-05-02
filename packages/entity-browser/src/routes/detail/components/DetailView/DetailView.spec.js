@@ -1,6 +1,7 @@
 import React from 'react'
 import DetailView from './DetailView'
 import {shallow} from 'enzyme'
+import {IntlStub} from 'tocco-test-util'
 
 const EMPTY_FUNC = () => {
 }
@@ -18,6 +19,7 @@ describe('entity-browser', () => {
         }
 
         const wrapper = shallow(<DetailView
+          intl={IntlStub}
           router={routerProp}
           loadDetailView={EMPTY_FUNC}
           formDefinition={{children: []}}
