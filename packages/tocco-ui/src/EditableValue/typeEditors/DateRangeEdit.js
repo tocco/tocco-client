@@ -25,7 +25,7 @@ const DateRangeEdit = props => {
   }
 
   return (
-    <DateAbstract value={value} onChange={handleChange} options={options}/>
+    <DateAbstract value={value} onChange={handleChange} readOnly={props.readOnly} options={options}/>
   )
 }
 
@@ -35,6 +35,7 @@ DateRangeEdit.propTypes = {
     from: React.PropTypes.string,
     to: React.PropTypes.string
   }),
+  readOnly: React.PropTypes.bool,
   options: React.PropTypes.object
 }
 
