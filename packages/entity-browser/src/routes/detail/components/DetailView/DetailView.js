@@ -7,8 +7,7 @@ import {asyncValidate, AsyncValidationException} from '../../../../util/detailVi
 
 class DetailView extends React.Component {
   componentWillMount() {
-    const modelPaths = this.props.modelPaths
-    const entityId = this.props.entityId
+    const {modelPaths, entityId} = this.props
     this.props.loadDetailView(modelPaths, entityId)
   }
 
