@@ -23,11 +23,15 @@ export default function setupFetchMock(fetchMock) {
   fetchMock.get(new RegExp('^.*?/nice2/rest/forms/User_detail'), require('./rest-responses/form_user_detail.json'))
   fetchMock.get(new RegExp('^.*?/nice2/rest/forms/User_list'), require('./rest-responses/form_user_list.json'))
   fetchMock.get(new RegExp('^.*?/nice2/rest/forms/UserSearch_list'), require('./rest-responses/form_user_list.json'))
+  fetchMock.get(
+    new RegExp('^.*?/nice2/rest/forms/UserSearch_Dummy_entity_detail'),
+    require('./rest-responses/form_dummy_entity_detail.json')
+  )
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/User_code1.*'), require('./rest-responses/user_code1.json'))
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/User/model.*'), require('./rest-responses/model_user.json'))
 
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/User/count?.*'), createCountResponse('user'))
-  fetchMock.get(new RegExp('^.*?/nice2/rest/entities/User/[0-9]?.*'), createEntityResponse)
+  fetchMock.get(new RegExp('^.*?/nice2/rest/entities/User/[0-9]?.*'), createEntityResponse('user'))
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/User?.*'), createEntitiesResponse('user'))
 
   fetchMock.post(new RegExp('^.*?/nice2/rest/entities/User/[0-9]'), createEntityUpdateResponse)
@@ -37,6 +41,7 @@ export default function setupFetchMock(fetchMock) {
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/Dummy_entity/model.*'),
     require('./rest-responses/model_user.json'))
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/Dummy_entity/count?.*'), createCountResponse('dummy'))
+  fetchMock.get(new RegExp('^.*?/nice2/rest/entities/Dummy_entity/[0-9]?.*'), createEntityResponse('dummy'))
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/Dummy_entity?.*'), createEntitiesResponse('dummy'))
 
   fetchMock.spy()

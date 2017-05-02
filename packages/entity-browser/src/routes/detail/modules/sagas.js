@@ -12,7 +12,7 @@ import {
 import {logError} from 'tocco-util/src/errorLogging'
 import * as actions from './actions'
 import {notify} from '../../../util/notification'
-import {fetchEntity, updateEntity} from '../../../util//api/entities'
+import {fetchEntity, updateEntity, fetchModel} from '../../../util//api/entities'
 import {fetchForm, getFieldsOfDetailForm} from '../../../util//api/forms'
 import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../../util//detailView/reduxForm'
 import {submitValidate} from '../../../util//detailView/asyncValidation'
@@ -44,15 +44,38 @@ export function* loadEntity(entityName, entityId, formDefinition) {
   return entity
 }
 
+export function* getTargetEntityName(entityName, modelPaths) {
+  if (modelPaths && modelPaths.length > 0) {
+    let model = yield call(fetchModel, entityName)
+
+    for (const path of modelPaths) {
+      const relation = model[path]
+      if (!relation) {
+        throw new Error(`No such path '${path}' found on entity model '${entityName}'`)
+      }
+      entityName = relation.targetEntity
+      model = yield call(fetchModel, entityName)
+    }
+  }
+
+  return entityName
+}
+
 export function* loadDetailView({payload}) {
-  const {entityId} = payload
+  const {modelPaths, entityId} = payload
 
   const entityBrowser = yield select(entityBrowserSelector)
-  let {formDefinition} = entityBrowser
-  const {formBase, entityName} = entityBrowser
+  let {formBase, formDefinition} = entityBrowser
+  const {entityName} = entityBrowser
+
+  const targetEntityName = yield call(getTargetEntityName, entityName, modelPaths)
+  if (entityName !== targetEntityName) {
+    formBase = `${formBase}_${targetEntityName}`
+    formDefinition = null
+  }
 
   formDefinition = yield call(loadDetailFormDefinition, formDefinition, formBase)
-  const entity = yield call(loadEntity, entityName, entityId, formDefinition)
+  const entity = yield call(loadEntity, targetEntityName, entityId, formDefinition)
 
   const formValues = yield call(entityToFormValues, entity)
   yield put(initializeForm('detailForm', formValues))
