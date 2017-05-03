@@ -12,13 +12,14 @@ const DateEdit = props => {
   const handleChange = dates => props.onChange(atMostOne(dates))
 
   return (
-    <DateAbstract value={[props.value]} onChange={handleChange} options={options}/>
+    <DateAbstract value={[props.value]} onChange={handleChange} options={options} readOnly={props.readOnly}/>
   )
 }
 
 DateEdit.propTypes = {
   onChange: React.PropTypes.func.isRequired,
   value: React.PropTypes.string,
+  readOnly: React.PropTypes.bool,
   options: React.PropTypes.object
 }
 
