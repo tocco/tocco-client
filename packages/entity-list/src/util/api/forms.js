@@ -1,25 +1,33 @@
 import _startsWith from 'lodash/startsWith'
 import {request} from 'tocco-util/src/rest'
 
+const NO_FIELD_TYPES = [
+  'ch.tocco.nice2.model.form.components.simple.DescriptionField',
+  'ch.tocco.nice2.model.form.components.simple.DisplayExpressionField'
+]
+
 export const getFieldsOfDetailForm = formDefinition => {
   return getFieldsOfChildren(formDefinition.children)
 }
 
 const getFieldsOfChildren = children => {
   const result = []
+
+  const subIterationTypes = [
+    'ch.tocco.nice2.model.form.components.navigation.IteratorComponent',
+    'ch.tocco.nice2.model.form.components.table.Table'
+  ]
+
   for (let i = 0; i < children.length; i++) {
     if (children[i].children) {
-      if (children[i].type !== 'ch.tocco.nice2.model.form.components.navigation.IteratorComponent') {
+      const childType = children[i].type
+      if (!subIterationTypes.includes(childType)) {
         result.push(...getFieldsOfChildren(children[i].children))
       }
     }
 
-    const ignoredTypes = [
-      'ch.tocco.nice2.model.form.components.simple.DescriptionField'
-    ]
-
     const fieldType = children[i].type
-    if (_startsWith(fieldType, 'ch.tocco.nice2.model.form.components.simple') && !ignoredTypes.includes(fieldType)) {
+    if (_startsWith(fieldType, 'ch.tocco.nice2.model.form.components.simple') && !NO_FIELD_TYPES.includes(fieldType)) {
       result.push(children[i].name)
     }
   }
@@ -49,7 +57,7 @@ export const columnDefinitionTransformer = json => {
 
   return columns.map(c => ({
     label: c.label,
-    value: c.children.filter(isDisplayableType).map(child => child.name)
+    values: c.children.filter(isDisplayableType).map(child => ({name: child.name, type: child.type}))
   }))
 }
 
@@ -71,9 +79,11 @@ export const searchFormTransformer = json => {
 export const getFieldsOfColumnDefinition = columnDefinition => {
   let fields = []
 
-  columnDefinition.forEach(column => {
-    fields = fields.concat(column.value)
-  })
+  columnDefinition
+    .filter(column => !column.values.some(field => NO_FIELD_TYPES.includes(field.type)))
+    .forEach(column => {
+      fields = fields.concat(column.values.map(field => field.name))
+    })
 
   return fields
 }

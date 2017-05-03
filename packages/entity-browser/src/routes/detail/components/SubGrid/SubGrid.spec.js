@@ -2,7 +2,7 @@ import React from 'react'
 import SubGrid from './SubGrid'
 import {mount} from 'enzyme'
 import {context} from 'tocco-test-util'
-import EntityListApp from 'entity-list'
+import EntityListApp from 'entity-list/src/main'
 
 describe('entity-browser', () => {
   describe('components', () => {

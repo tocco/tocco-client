@@ -79,11 +79,12 @@ describe('entity-browser', () => {
         })
 
         describe('columnDefinitionTransformer', () => {
-          it('should return an array of label and list of fields ', () => {
+          it('should return an array of label and list of fields', () => {
             const fetchResult = {
               form: {
                 children: [{
                   name: 'table',
+                  type: 'ch.tocco.nice2.model.form.components.table.Table',
                   children: [
                     {
                       displayType: 'EDITABLE',
@@ -118,10 +119,10 @@ describe('entity-browser', () => {
             const result = forms.columnDefinitionTransformer(fetchResult)
 
             const expectedColumnDefinition = [
-              {label: 'label1', value: ['name1']},
-              {label: 'label3', value: []},
-              {label: 'label4', value: []},
-              {label: 'label5', value: ['name5']}
+              {label: 'label1', values: [{name: 'name1', type: 'type'}]},
+              {label: 'label3', values: []},
+              {label: 'label4', values: []},
+              {label: 'label5', values: [{name: 'name5', type: 'type'}]}
             ]
             expect(result).to.eql(expectedColumnDefinition)
           })

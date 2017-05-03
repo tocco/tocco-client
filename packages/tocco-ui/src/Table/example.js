@@ -8,22 +8,22 @@ export default () => {
   const columnDefinitions = [
     {
       label: 'Firstname',
-      value: 'firstname',
+      values: [{name: 'firstname'}],
       order: 2
     },
     {
       label: 'Lastname',
-      value: 'lastname',
+      values: [{name: 'lastname'}],
       order: 1
     },
     {
       label: '#',
-      value: 'user_nr',
+      values: [{name: 'user_nr'}],
       order: 0
     },
     {
       label: 'Full name',
-      value: ['lastname', 'firstname']
+      values: [{name: 'lastname'}, {name: 'firstname'}]
     }
   ]
 
