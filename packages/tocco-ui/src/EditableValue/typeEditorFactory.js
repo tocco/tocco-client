@@ -10,6 +10,7 @@ import DateTimeEdit from './typeEditors/DateTimeEdit'
 import BoolEdit from './typeEditors/BoolEdit'
 import NumberEdit from './typeEditors/NumberEdit'
 import Document from './typeEditors/Document'
+import HtmlEdit from './typeEditors/HtmlEdit'
 import RemoteSelect from './typeEditors/RemoteSelect'
 import MultiRemoteSelect from './typeEditors/MultiRemoteSelect'
 
@@ -21,6 +22,7 @@ export const map = {
   'birthdate': DateEdit,
   'datetime': DateTimeEdit,
   'count': StringEdit,
+  'html': HtmlEdit,
   'phone': StringEdit,
   'url': StringEdit,
   'document': Document,
