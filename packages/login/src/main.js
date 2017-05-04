@@ -24,10 +24,12 @@ const initLoginApp = (id, input, events, publicPath) => {
     packageName,
     content,
     store,
-    input,
-    events,
-    dispatchActions,
-    publicPath
+    {
+      input,
+      events,
+      dispatchActions,
+      publicPath
+    }
   )
 }
 

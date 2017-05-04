@@ -21,10 +21,13 @@ const initApp = (id, input, events, publicPath) => {
     packageName,
     content,
     store,
-    input,
-    events,
-    actions,
-    publicPath
+    {
+      input,
+      events,
+      actions,
+      publicPath,
+      textResourceModules: ['componet']
+    }
   )
 }
 
