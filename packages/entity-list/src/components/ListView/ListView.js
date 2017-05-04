@@ -60,7 +60,7 @@ class ListView extends React.Component {
           />
           <Button
             onClick={props.refresh}
-            label={this.msg('client.entity-browser.refresh')}
+            label={this.msg('client.entity-list.refresh')}
             icon="glyphicon-refresh"
             className="refresh-button"
           />
