@@ -2,7 +2,6 @@ import React from 'react'
 import {appFactory, storeFactory} from 'tocco-util'
 import MergeWizardContainer from './containers/MergeWizardContainer'
 import {getDispatchActions} from './utils/input'
-//
 import reducers, {sagas} from './modules/reducers'
 
 const packageName = 'merge'
@@ -16,10 +15,12 @@ const initApp = (id, input, events, publicPath) => {
     packageName,
     <MergeWizardContainer/>,
     store,
-    input,
-    events,
-    dispatchActions,
-    publicPath
+    {
+      input,
+      events,
+      dispatchActions,
+      publicPath
+    }
   )
 }
 

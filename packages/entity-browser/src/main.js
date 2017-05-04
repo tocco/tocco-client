@@ -44,15 +44,16 @@ const initApp = (id, input, events, publicPath) => {
       </div>
     </Router>
   )
-
   return appFactory.createApp(
     packageName,
     content,
     store,
-    input,
-    events,
-    [],
-    publicPath
+    {
+      input,
+      events,
+      publicPath,
+      textResourceModules: ['component']
+    }
   )
 }
 
