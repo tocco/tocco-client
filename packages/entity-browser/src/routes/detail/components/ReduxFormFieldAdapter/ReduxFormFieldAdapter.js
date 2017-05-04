@@ -37,7 +37,7 @@ const ReduxFormFieldAdapter = props => {
     utils: formFieldUtils
   }
   const resources = {
-    mandatoryTitle: props.intl.formatMessage({id: 'client.entity-browser.mandatoryFieldTitle'})
+    mandatoryTitle: props.intl.formatMessage({id: 'client.entity-browser.detail.mandatoryFieldTitle'})
   }
 
   return formField.formFieldFactory(formFieldMapping, fomFieldData, resources)

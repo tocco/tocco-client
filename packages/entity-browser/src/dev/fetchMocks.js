@@ -11,7 +11,7 @@ import {
 export default function setupFetchMock(fetchMock) {
   utilFetchMocks.log(fetchMock)
   utilFetchMocks.session(fetchMock)
-  utilFetchMocks.textResource(fetchMock, require('./rest-responses/messages.json'))
+  utilFetchMocks.textResource(fetchMock, require('./textResources.json'))
 
   fetchMock.get(new RegExp('^.*?/nice2/rest/forms/User_search'), require('./rest-responses/form_user_search.json'))
   fetchMock.get(

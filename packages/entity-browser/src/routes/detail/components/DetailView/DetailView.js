@@ -17,7 +17,7 @@ class DetailView extends React.Component {
       if (error instanceof AsyncValidationException) {
         throw error.errors
       } else {
-        this.props.logError('error.unhandled', 'entity-browser.validationError', error)
+        this.props.logError('client.common.unexpectedError', 'client.entity-browser.detail.validationError', error)
       }
     })
   }

@@ -14,8 +14,8 @@ const createHistory = store => createHashHistory({
   getUserConfirmation: (message, callback) => {
     const state = store.getState()
 
-    const okText = textResourceSelector(state, 'client.entity-browser.confirmationOk')
-    const cancelText = textResourceSelector(state, 'client.entity-browser.confirmationCancel')
+    const okText = textResourceSelector(state, 'client.common.ok')
+    const cancelText = textResourceSelector(state, 'client.common.cancel')
 
     const action = createConfirmationAction(
       message,
@@ -52,7 +52,7 @@ const initApp = (id, input, events, publicPath) => {
       input,
       events,
       publicPath,
-      textResourceModules: ['component']
+      textResourceModules: ['component', 'common', 'entity-list']
     }
   )
 }
