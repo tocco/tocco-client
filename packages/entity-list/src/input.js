@@ -40,8 +40,8 @@ export const getDispatchActions = input => {
     actions.push(setDisableSimpleSearch(input.disableSimpleSearch))
   }
 
-  if (input.preselectedSearchValues) {
-    actions.push(setPreselectedSearchFields(input.preselectedSearchValues))
+  if (input.preselectedSearchFields) {
+    actions.push(setPreselectedSearchFields(input.preselectedSearchFields))
   }
 
   if (input.simpleSearchFields) {
