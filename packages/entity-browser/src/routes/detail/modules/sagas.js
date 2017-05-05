@@ -95,7 +95,13 @@ export function* submitForm() {
     const updatedEntity = yield call(updateEntity, entity, fields)
     const updatedFormValues = yield call(entityToFormValues, updatedEntity)
     yield put(initializeForm(formId, updatedFormValues))
-    yield call(notify, 'success', 'saveSuccessfulTitle', 'saveSuccessfulMessage', 'floppy-saved', 2000)
+    yield call(
+      notify,
+      'success',
+      'client.entity-browser.detail.saveSuccessfulTitle',
+      'client.entity-browser.detail.saveSuccessfulMessage',
+      'floppy-saved', 2000
+    )
     yield put(actions.setLastSave())
     yield put(stopSubmit(formId))
   } catch (error) {
@@ -103,10 +109,16 @@ export function* submitForm() {
       yield put(touch(formId, ...Object.keys(error.errors)))
       yield put(stopSubmit(formId, error.errors))
     } else {
-      yield put(logError('error.unhandled', 'entity-browser.saveError', error))
+      yield put(logError('client.common.unexpectedError', 'client.entity-browser.detail.saveError', error))
       yield put(stopSubmit(formId))
     }
 
-    yield notify('warning', 'saveAbortedTitle', 'saveAbortedMessage', 'floppy-remove', 5000)
+    yield notify(
+      'warning',
+      'client.entity-browser.detail.saveAbortedTitle',
+      'client.entity-browser.detail.saveAbortedMessage',
+      'floppy-remove',
+      5000
+    )
   }
 }

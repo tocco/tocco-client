@@ -10,10 +10,10 @@ export default function* toastr(type, title, description, error) {
       component: () => (
         <div>
           <div className="title">
-            <FormattedMessage id={`client.${title}`} defaultMessage={title}/>
+            <FormattedMessage id={title}/>
           </div>
           <div className="message">
-            <FormattedMessage id={`client.${description}`} defaultMessage={description}/>
+            <FormattedMessage id={description}/>
           </div>
         </div>
       ),

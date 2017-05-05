@@ -163,7 +163,7 @@ describe('entity-browser', () => {
         // touch a field to enable the prompt -> context.history.block must be called
         store.dispatch(touch('detailForm'), 'firstname')
 
-        expect(block).to.be.calledWith('client.entity-browser.confirmTouchedFormLeave')
+        expect(block).to.be.calledWith('client.entity-browser.detail.confirmTouchedFormLeave')
       })
 
       it('should not request user confirmation when untouched form is left', () => {

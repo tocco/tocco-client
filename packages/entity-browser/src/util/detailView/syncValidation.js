@@ -55,7 +55,7 @@ export const mandatoryValidator = (value, isMandatory, intl) => {
   }
   if (!value && isMandatory) {
     return {
-      mandatory: [intl.formatMessage({id: 'client.entity-browser.syncValidationRequired'})]
+      mandatory: [intl.formatMessage({id: 'client.entity-browser.detail.syncValidationRequired'})]
     }
   }
 }
@@ -63,7 +63,7 @@ export const mandatoryValidator = (value, isMandatory, intl) => {
 export const minLengthValidator = (value, minLength, intl) => {
   if (value && value.length < minLength) {
     return {
-      minLength: [intl.formatMessage({id: 'client.entity-browser.syncValidationMinLength', values: {minLength}})]
+      minLength: [intl.formatMessage({id: 'client.entity-browser.detail.syncValidationMinLength', values: {minLength}})]
     }
   }
 }
@@ -71,7 +71,7 @@ export const minLengthValidator = (value, minLength, intl) => {
 export const maxLengthValidator = (value, maxLength, intl) => {
   if (value && value.length > maxLength) {
     return {
-      maxLength: [intl.formatMessage({id: 'client.entity-browser.syncValidationMaxLength', values: {maxLength}})]
+      maxLength: [intl.formatMessage({id: 'client.entity-browser.detail.syncValidationMaxLength', values: {maxLength}})]
     }
   }
 }

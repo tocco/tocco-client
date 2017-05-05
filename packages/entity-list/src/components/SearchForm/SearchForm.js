@@ -70,7 +70,7 @@ class SearchForm extends React.Component {
         && <div className="pull-right">
           <Button
             type="button"
-            label={this.msg('client.entity-browser.extendedSearch')}
+            label={this.msg('client.entity-list.extendedSearch')}
             onClick={this.toggleExtendedSearchForm}
           />
         </div>
@@ -81,13 +81,13 @@ class SearchForm extends React.Component {
               <Button
                 type="submit"
                 icon="glyphicon-search"
-                label={this.msg('client.entity-browser.search')}
+                label={this.msg('client.entity-list.search')}
                 primary
               />
               <Button
                 type="button"
                 icon="glyphicon-repeat"
-                label={this.msg('client.entity-browser.reset')}
+                label={this.msg('client.entity-list.reset')}
                 onClick={this.handleResetClick}
               />
             </div>

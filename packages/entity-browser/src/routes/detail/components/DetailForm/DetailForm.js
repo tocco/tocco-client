@@ -110,7 +110,7 @@ export class DetailForm extends React.Component {
       >
         <Prompt
           when={props.anyTouched}
-          message={this.msg('client.entity-browser.confirmTouchedFormLeave')}
+          message={this.msg('client.entity-browser.detail.confirmTouchedFormLeave')}
         />
         {getForm(props.formDefinition, this.createField, this.createLayoutComponent)}
         <LayoutBox alignment="horizontal">
@@ -118,7 +118,7 @@ export class DetailForm extends React.Component {
             {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
             <Button
               type="submit"
-              label={this.msg('client.entity-browser.save')}
+              label={this.msg('client.entity-browser.detail.save')}
               icon="glyphicon-floppy-save"
               pending={props.submitting}
               disabled={props.submitting || (props.anyTouched && !props.valid)}
@@ -126,7 +126,7 @@ export class DetailForm extends React.Component {
             />
             {props.lastSave
             && <div>
-              <FormattedMessage id="client.entity-browser.lastSave"/>
+              <FormattedMessage id="client.entity-browser.detail.lastSave"/>
               <span style={{marginLeft:'3px'}}> <FormattedRelative value={props.lastSave}/></span>
             </div>
             }

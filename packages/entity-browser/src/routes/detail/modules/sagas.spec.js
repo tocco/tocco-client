@@ -178,7 +178,12 @@ describe('entity-browser', () => {
             expect(gen.next(updatedEntity).value).to.eql(call(entityToFormValues, updatedEntity))
             expect(gen.next(updatedFormValues).value).to.eql(put(initializeForm(formId, updatedFormValues)))
             expect(gen.next().value).to.eql(call(
-              notify, 'success', 'saveSuccessfulTitle', 'saveSuccessfulMessage', 'floppy-saved', 2000)
+              notify,
+              'success',
+              'client.entity-browser.detail.saveSuccessfulTitle',
+              'client.entity-browser.detail.saveSuccessfulMessage',
+              'floppy-saved',
+              2000)
             )
             const lastSaveAction = gen.next().value
             const lastSaveTime = lastSaveAction.PUT.action.payload.lastSave
