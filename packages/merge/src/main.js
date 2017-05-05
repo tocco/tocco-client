@@ -9,7 +9,7 @@ const packageName = 'merge'
 const initApp = (id, input, events, publicPath) => {
   const dispatchActions = getDispatchActions(input)
 
-  const store = appFactory.createStore(reducers, sagas, input)
+  const store = appFactory.createStore(reducers, sagas, input, packageName)
 
   return appFactory.createApp(
     packageName,
