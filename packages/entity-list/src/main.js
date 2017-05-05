@@ -79,7 +79,7 @@ class EntityListApp extends React.Component {
 EntityListApp.propTypes = {
   entityName: React.PropTypes.string.isRequired,
   tableDefinition: React.PropTypes.shape({
-    type: 'ch.tocco.nice2.model.form.components.table.Table',
+    type: React.PropTypes.string,
     children: React.PropTypes.array
   }),
   limit: React.PropTypes.number,

@@ -19,8 +19,7 @@ export const registerEvents = externalEvents => {
 
 export const invokeExternalEvent = (eventName, ...args) => {
   if (__DEV__) {
-    consoleLogger.log('would call external event', eventName)
-    return
+    consoleLogger.log('try call external event', eventName)
   }
 
   if (events[eventName]) {

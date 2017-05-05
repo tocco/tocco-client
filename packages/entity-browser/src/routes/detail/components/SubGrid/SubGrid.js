@@ -7,7 +7,7 @@ const SubGrid = props => {
     <div>
       <EntityListApp
         entityName={props.modelField.targetEntity}
-        limit="5"
+        limit={5}
         showSearchForm={false}
         preselectedSearchFields={[{
           id: props.modelField.reverseRelationName,
@@ -30,7 +30,6 @@ SubGrid.propTypes = {
     type: React.PropTypes.oneOf(['ch.tocco.nice2.model.form.components.table.Table']),
     children: React.PropTypes.array
   }).isRequired,
-
   relationName: React.PropTypes.string.isRequired,
   modelField: React.PropTypes.shape({
     targetEntity: React.PropTypes.string,
