@@ -1,6 +1,6 @@
 import React from 'react'
 import {intlShape} from 'react-intl'
-import {Button} from 'tocco-ui'
+import {Button, LayoutBox} from 'tocco-ui'
 
 import DetailForm from '../DetailForm'
 import syncValidation from '../../../../util/detailView/syncValidation'
@@ -40,11 +40,18 @@ class DetailView extends React.Component {
 
     return (
       <div className="detail-view">
-        <Button
-          type="button"
-          label={this.msg('client.entity-browser.back')}
-          onClick={this.handleGoBack}
-        />
+        {props.showBackButton
+        && <LayoutBox alignment="horizontal">
+          <div>
+            <Button
+              type="button"
+              label={this.msg('client.entity-browser.back')}
+              icon="fa fa-chevron-left"
+              onClick={this.handleGoBack}
+            />
+          </div>
+        </LayoutBox>
+        }
         {props.formInitialValues
         && <DetailForm
           validate={this.getSyncValidation()}
