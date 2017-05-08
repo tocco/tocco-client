@@ -3,7 +3,8 @@ import * as actions from './actions'
 
 const EXPECTED_INITIAL_STATE = {
   formDefinition: {},
-  entity: {}
+  entity: {},
+  entityModel: {}
 }
 
 describe('entity-browser', () => {

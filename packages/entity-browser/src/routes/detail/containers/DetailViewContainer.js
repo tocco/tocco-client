@@ -8,7 +8,7 @@ import {
   getFormSubmitErrors
 } from 'redux-form'
 
-import {loadDetailView, submitForm} from '../modules/actions'
+import {loadDetailView, unloadDetailView, submitForm} from '../modules/actions'
 import {loadRelationEntity, loadRemoteEntity} from '../../entity-browser/modules/actions'
 import DetailView from '../components/DetailView/DetailView'
 import {logError} from 'tocco-util/src/errorLogging'
@@ -16,6 +16,7 @@ import parseUrl from '../../../util/detailView/parseUrl'
 
 const mapActionCreators = {
   loadDetailView,
+  unloadDetailView,
   submitForm,
   loadRelationEntity,
   loadRemoteEntity,
@@ -34,7 +35,7 @@ const mapStateToProps = (state, props) => {
     entity: state.detail.entity,
     relationEntities: state.entityBrowser.relationEntities,
     remoteEntities: state.entityBrowser.remoteEntities,
-    entityModel: state.entityBrowser.entityModel,
+    entityModel: state.detail.entityModel,
     modelPaths: modelPaths,
     entityId: entityId,
     formErrors: {

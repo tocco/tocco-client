@@ -6,7 +6,8 @@ import {
   SubmissionError,
   getFormValues,
   touch,
-  initialize as initializeForm
+  initialize as initializeForm,
+  destroy as destroyForm
 } from 'redux-form'
 
 import {logError} from 'tocco-util/src/errorLogging'
@@ -21,9 +22,12 @@ export const formDefinitionSelector = state => state.detail.formDefinition
 export const formInitialValueSelector = formId => state => state.form[formId].initial
 export const entityBrowserSelector = state => state.entityBrowser
 
+const FORM_ID = 'detailForm'
+
 export default function* sagas() {
   yield [
     fork(takeLatest, actions.LOAD_DETAIL_VIEW, loadDetailView),
+    fork(takeLatest, actions.UNLOAD_DETAIL_VIEW, unloadDetailView),
     fork(takeEvery, actions.SUBMIT_FORM, submitForm)
   ]
 }
@@ -61,6 +65,11 @@ export function* getTargetEntityName(entityName, modelPaths) {
   return entityName
 }
 
+export function* unloadDetailView() {
+  yield put(actions.setEntity(null))
+  yield put(destroyForm(FORM_ID))
+}
+
 export function* loadDetailView({payload}) {
   const {modelPaths, entityId} = payload
 
@@ -74,19 +83,21 @@ export function* loadDetailView({payload}) {
     formDefinition = null
   }
 
+  const entityModel = yield call(fetchModel, targetEntityName)
+  yield put(actions.setEntityModel(entityModel))
+
   formDefinition = yield call(loadDetailFormDefinition, formDefinition, formBase)
   const entity = yield call(loadEntity, targetEntityName, entityId, formDefinition)
 
   const formValues = yield call(entityToFormValues, entity)
-  yield put(initializeForm('detailForm', formValues))
+  yield put(initializeForm(FORM_ID, formValues))
 }
 
 export function* submitForm() {
-  const formId = 'detailForm'
   try {
-    const values = yield select(getFormValues(formId))
-    const initialValues = yield select(formInitialValueSelector(formId))
-    yield put(startSubmit(formId))
+    const values = yield select(getFormValues(FORM_ID))
+    const initialValues = yield select(formInitialValueSelector(FORM_ID))
+    yield put(startSubmit(FORM_ID))
     yield call(submitValidate, values, initialValues)
     const dirtyFields = yield call(getDirtyFields, initialValues, values)
     const entity = yield call(formValuesToEntity, values, dirtyFields)
@@ -94,7 +105,7 @@ export function* submitForm() {
     const fields = yield call(getFieldsOfDetailForm, formDefinition)
     const updatedEntity = yield call(updateEntity, entity, fields)
     const updatedFormValues = yield call(entityToFormValues, updatedEntity)
-    yield put(initializeForm(formId, updatedFormValues))
+    yield put(initializeForm(FORM_ID, updatedFormValues))
     yield call(
       notify,
       'success',
@@ -103,14 +114,14 @@ export function* submitForm() {
       'floppy-saved', 2000
     )
     yield put(actions.setLastSave())
-    yield put(stopSubmit(formId))
+    yield put(stopSubmit(FORM_ID))
   } catch (error) {
     if (error instanceof SubmissionError) {
-      yield put(touch(formId, ...Object.keys(error.errors)))
-      yield put(stopSubmit(formId, error.errors))
+      yield put(touch(FORM_ID, ...Object.keys(error.errors)))
+      yield put(stopSubmit(FORM_ID, error.errors))
     } else {
       yield put(logError('client.common.unexpectedError', 'client.entity-browser.detail.saveError', error))
-      yield put(stopSubmit(formId))
+      yield put(stopSubmit(FORM_ID))
     }
 
     yield notify(
