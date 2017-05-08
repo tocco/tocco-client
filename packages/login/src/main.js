@@ -77,9 +77,11 @@ const initPasswordUpdateApp = (id, input, events, publicPath) => {
   }
 
   if (__DEV__) {
-    const fetchMock = require('fetch-mock')
-    const setupFetchMocks = require('./dev/fetchMocks')
-    setupFetchMocks(fetchMock)
+    if (!__NO_MOCK__) {
+      const fetchMock = require('fetch-mock')
+      const setupFetchMocks = require('./dev/fetchMocks')
+      setupFetchMocks(fetchMock)
+    }
 
     const app = initLoginApp('id', require('./dev/login_input.json'))
     // uncomment to develop passwordUpdate App

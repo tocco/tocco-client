@@ -36,9 +36,11 @@ const initApp = (id, input, events, publicPath) => {
     require('tocco-theme/src/ToccoTheme/theme.scss')
     const input = require('./dev/input.json')
 
-    const fetchMock = require('fetch-mock')
-    const setupFetchMocks = require('./dev/fetchMocks')
-    setupFetchMocks(fetchMock)
+    if (!__NO_MOCK__) {
+      const fetchMock = require('fetch-mock')
+      const setupFetchMocks = require('./dev/fetchMocks')
+      setupFetchMocks(fetchMock)
+    }
 
     const app = initApp('id', input)
 

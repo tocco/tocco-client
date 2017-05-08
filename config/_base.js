@@ -76,7 +76,8 @@ config.globals = {
   '__BASENAME__' : JSON.stringify(process.env.BASENAME || ''),
   '__BACKEND_URL__': JSON.stringify(''),
   '__PACKAGE__'   : process.env.npm_config_package,
-  '__PACKAGE_NAME__'   : JSON.stringify(process.env.npm_config_package)
+  '__PACKAGE_NAME__'   : JSON.stringify(process.env.npm_config_package),
+  '__NO_MOCK__': process.env.npm_config_noMock || false
 }
 
 // ------------------------------------
