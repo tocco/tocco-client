@@ -13,6 +13,7 @@ import {loadRelationEntity, loadRemoteEntity} from '../../entity-browser/modules
 import DetailView from '../components/DetailView/DetailView'
 import {logError} from 'tocco-util/src/errorLogging'
 import parseUrl from '../../../util/detailView/parseUrl'
+import showBackButton from '../../../util/detailView/showBackButton'
 
 const mapActionCreators = {
   loadDetailView,
@@ -46,7 +47,8 @@ const mapStateToProps = (state, props) => {
     },
     formInitialValues: getFormInitialValues('detailForm')(state),
     lastSave: state.detail.lastSave,
-    parentUrl
+    parentUrl,
+    showBackButton: showBackButton(state.input.initialKey, modelPaths)
   }
 }
 
