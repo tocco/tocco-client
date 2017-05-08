@@ -42,7 +42,9 @@ const navigateToDetailIfKeySet = (history, input) => {
 }
 
 const initApp = (id, input, events, publicPath) => {
-  const store = appFactory.createStore(undefined, undefined, input)
+
+  const store = appFactory.createStore(undefined, undefined, input, packageName)
+
   const history = createHistory(store)
   navigateToDetailIfKeySet(history, input)
 

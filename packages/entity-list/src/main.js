@@ -13,7 +13,7 @@ const EXTERNAL_EVENTS = [
 const initApp = (id, input, events, publicPath) => {
   const content = <EntityListContainer/>
 
-  const store = appFactory.createStore(reducers, sagas, input)
+  const store = appFactory.createStore(reducers, sagas, input, packageName)
 
   const actions = getDispatchActions(input)
 

@@ -12,6 +12,8 @@ import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../../u
 import {submitValidate} from '../../../util/detailView/asyncValidation'
 import {notify} from '../../../util/notification'
 
+const FORM_ID = 'detailForm'
+
 describe('entity-browser', () => {
   describe('modules', () => {
     describe('detailView', () => {
@@ -21,6 +23,7 @@ describe('entity-browser', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal([
               fork(takeLatest, actions.LOAD_DETAIL_VIEW, sagas.loadDetailView),
+              fork(takeLatest, actions.UNLOAD_DETAIL_VIEW, sagas.unloadDetailView),
               fork(takeEvery, actions.SUBMIT_FORM, sagas.submitForm)
             ])
             expect(generator.next().done).to.be.true
@@ -111,14 +114,20 @@ describe('entity-browser', () => {
               }
             }
 
+            const entityModel = {}
+
             const gen = sagas.loadDetailView(actions.loadDetailView(modelPaths, entityId))
             expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
             expect(gen.next({entityName, formBase, formDefinition}).value)
               .to.eql(call(sagas.getTargetEntityName, entityName, modelPaths))
-            expect(gen.next(entityName).value).to.eql(call(sagas.loadDetailFormDefinition, formDefinition, formBase))
+
+            expect(gen.next(entityName).value).to.eql(call(fetchModel, entityName))
+            expect(gen.next(entityModel).value).to.eql(put(actions.setEntityModel(entityModel)))
+
+            expect(gen.next().value).to.eql(call(sagas.loadDetailFormDefinition, formDefinition, formBase))
             expect(gen.next(formDefinition).value).to.eql(call(sagas.loadEntity, entityName, entityId, formDefinition))
             expect(gen.next(entity).value).to.eql(call(entityToFormValues, entity))
-            expect(gen.next({}).value).to.eql(put(initializeForm('detailForm', {})))
+            expect(gen.next({}).value).to.eql(put(initializeForm(FORM_ID, {})))
             expect(gen.next().done).to.be.true
           })
 
@@ -130,6 +139,7 @@ describe('entity-browser', () => {
             const entityName = 'User'
             const fooEntityName = 'Foo'
             const formDefinition = {}
+            const entityModel = {}
 
             const fooEntity = {
               key: '2',
@@ -141,21 +151,24 @@ describe('entity-browser', () => {
               .to.eql(select(sagas.entityBrowserSelector))
             expect(gen.next({entityName, formBase, formDefinition}).value)
               .to.eql(call(sagas.getTargetEntityName, entityName, modelPaths))
-            expect(gen.next(fooEntityName).value)
+            expect(gen.next(fooEntityName).value).to.eql(call(fetchModel, fooEntityName))
+            expect(gen.next(entityModel).value).to.eql(put(actions.setEntityModel(entityModel)))
+
+            expect(gen.next().value)
               .to.eql(call(sagas.loadDetailFormDefinition, null, fooFormBase))
             expect(gen.next(formDefinition).value)
               .to.eql(call(sagas.loadEntity, fooEntityName, entityId, formDefinition))
             expect(gen.next(fooEntity).value)
               .to.eql(call(entityToFormValues, fooEntity))
             expect(gen.next({}).value)
-              .to.eql(put(initializeForm('detailForm', {})))
+              .to.eql(put(initializeForm(FORM_ID, {})))
             expect(gen.next().done).to.be.true
           })
         })
 
         describe('submitForm saga', () => {
           it('should validate form and reload saved entity', () => {
-            const formId = 'detailForm'
+            const formId = FORM_ID
             const values = {firstname: 'peter'}
             const initialValues = {firstname: 'pet'}
             const dirtyFields = ['firstname']

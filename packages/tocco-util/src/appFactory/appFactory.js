@@ -18,9 +18,9 @@ import intl from '../intl'
 import externalEvents from '../externalEvents'
 import {logError} from '../errorLogging'
 
-export const createStore = (reducers, sagas, input) => {
+export const createStore = (reducers, sagas, input, name) => {
   const initialState = getIntialState(input)
-  return storeFactory.createStore(initialState, reducers, sagas)
+  return storeFactory.createStore(initialState, reducers, sagas, name)
 }
 
 export const createApp = (name,

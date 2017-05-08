@@ -12,6 +12,10 @@ class DetailView extends React.Component {
     this.props.loadDetailView(modelPaths, entityId)
   }
 
+  componentWillUnmount() {
+    this.props.unloadDetailView()
+  }
+
   handledAsyncValidate = values => {
     return asyncValidate(values, this.props.formInitialValues).catch(error => {
       if (error instanceof AsyncValidationException) {
@@ -81,6 +85,7 @@ DetailView.propTypes = {
   intl: intlShape.isRequired,
   router: React.PropTypes.object.isRequired,
   loadDetailView: React.PropTypes.func.isRequired,
+  unloadDetailView: React.PropTypes.func.isRequired,
   submitForm: React.PropTypes.func.isRequired,
   logError: React.PropTypes.func.isRequired,
   formDefinition: React.PropTypes.shape({
