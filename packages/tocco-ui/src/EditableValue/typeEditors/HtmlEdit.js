@@ -16,6 +16,7 @@ const HtmlEdit = props => {
       name={props.name}
       onChange={handleChange}
       id={props.id}
+      theme="snow"
       value={props.value}
       readOnly={props.readOnly}
       modules={{

@@ -6705,6 +6705,10 @@ reduce-function-call@^1.0.1:
   dependencies:
     balanced-match "^0.4.2"
 
+redux-devtools-extension@^2.13.1:
+  version "2.13.1"
+  resolved "https://registry.yarnpkg.com/redux-devtools-extension/-/redux-devtools-extension-2.13.1.tgz#fae5beb4dc0f5ac0acc1648f338d2fffb86418f1"
+
 redux-form@^6.6.1:
   version "6.6.1"
   resolved "https://registry.yarnpkg.com/redux-form/-/redux-form-6.6.1.tgz#368dc4fc41301bfb1cd471b059a2215573649c8c"

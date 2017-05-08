@@ -18,7 +18,7 @@ const initLoginApp = (id, input, events, publicPath) => {
   const showTitle = !!input.showTitle
   const content = <LoginContainer showTitle={showTitle}/>
 
-  const store = appFactory.createStore(loginReducers, sagas, input)
+  const store = appFactory.createStore(loginReducers, sagas, input, packageName)
 
   return appFactory.createApp(
     packageName,
@@ -58,7 +58,7 @@ const initPasswordUpdateApp = (id, input, events, publicPath) => {
     passwordUpdate: loginReducers.passwordUpdate
   }
 
-  const store = appFactory.createStore(reducers, sagas, input)
+  const store = appFactory.createStore(reducers, sagas, input, packageName)
 
   return appFactory.createApp(
     `${packageName}.passwordUpdate`,

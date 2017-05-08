@@ -28,18 +28,23 @@ export const formValuesToEntity = (values, dirtyFields) => {
 
   Object.keys(values).forEach(key => {
     if (!ignoreField(key)) {
+      const transformedKey = transformFieldNameBack(key)
       const type = entity.paths[key].type
       if (type === 'field') {
-        result.paths[key] = values[key]
+        result.paths[transformedKey] = values[key]
       } else if (type === 'entity') {
-        result.paths[key] = values[key] && values[key].key ? {key: values[key].key} : null
+        result.paths[transformedKey] = values[key] && values[key].key ? {key: values[key].key} : null
       } else if (type === 'entity-list') {
-        result.paths[key] = values[key] ? values[key].map(value => ({'key': value.key})) : []
+        result.paths[transformedKey] = values[key] ? values[key].map(value => ({'key': value.key})) : []
       }
     }
   })
   return result
 }
+
+// workaround: redux-forms can't get the value of a field if the field-name contains a dot.
+export const transformFieldName = fieldName => (fieldName.replace('.', '--'))
+export const transformFieldNameBack = fieldName => (fieldName.replace('--', '.'))
 
 export const entityToFormValues = entity => {
   if (!entity || !entity.paths) return {}
@@ -49,9 +54,9 @@ export const entityToFormValues = entity => {
   Object.keys(entity.paths).forEach(key => {
     const field = paths[key]
     if (field.type === 'entity' || field.type === 'entity-list') {
-      result[key] = field.value
+      result[transformFieldName(key)] = field.value
     } else {
-      result[key] = field.value ? field.value.value : null
+      result[transformFieldName(key)] = field.value ? field.value.value : null
     }
   })
 

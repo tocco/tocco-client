@@ -1,5 +1,6 @@
-import {applyMiddleware, compose, createStore as reduxCreateStore, combineReducers} from 'redux'
+import {applyMiddleware, createStore as reduxCreateStore, combineReducers} from 'redux'
 import {intlReducer} from 'react-intl-redux'
+import { composeWithDevTools } from 'redux-devtools-extension'
 import _difference from 'lodash/difference'
 import _pick from 'lodash/pick'
 import createSagaMiddleware, {takeEvery} from 'redux-saga'
@@ -18,16 +19,15 @@ function* mainSaga() {
   ]
 }
 
-export const createStore = (initialState = {}, reducers = {}, sagas = []) => {
+export const createStore = (initialState = {}, reducers = {}, sagas = [], name = '') => {
   const sagaMiddleware = createSagaMiddleware()
   let middleware = applyMiddleware(thunk, sagaMiddleware)
 
   if (__DEBUG__) {
-    const devToolsExtension = window.devToolsExtension
-
-    if (typeof devToolsExtension === 'function') {
-      middleware = compose(middleware, devToolsExtension())
-    }
+    const composeEnhancers = composeWithDevTools({
+      name
+    })
+    middleware = composeEnhancers(middleware)
   }
 
   const allReducers = {
