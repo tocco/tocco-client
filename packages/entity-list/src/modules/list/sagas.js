@@ -29,10 +29,10 @@ export function* initialize() {
   const {formBase} = yield select(inputSelector)
   const listView = yield select(listSelector)
   const {columnDefinition, entityModel} = listView
+  yield call(loadEntityModel, entityName, entityModel)
 
   yield [
     call(loadColumnDefinition, columnDefinition, formBase),
-    call(loadEntityModel, entityName, entityModel),
     call(resetDataSet)
   ]
 
@@ -137,6 +137,7 @@ export function* resetDataSet() {
   yield put(actions.setInProgress(true))
   const input = yield select(inputSelector)
   const {entityName, searchFilters, formBase} = input
+
   const formName = `${formBase}_list`
   const searchInputs = yield call(getSearchInputs)
   const fetchParams = {
@@ -144,6 +145,7 @@ export function* resetDataSet() {
     searchInputs,
     formName
   }
+
   const entityCount = yield call(fetchEntityCount, entityName, fetchParams)
   yield put(actions.setEntityCount(entityCount))
   yield put(actions.clearEntityStore())
