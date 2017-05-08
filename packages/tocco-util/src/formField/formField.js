@@ -4,57 +4,64 @@ import {FormField} from 'tocco-ui'
 import consoleLogger from '../consoleLogger'
 
 export const formFieldFactory = (mapping, data, resources = {}) => {
-  const {
-    formDefinitionField,
-    modelField,
-    entityField,
-    id,
-    value,
-    dirty,
-    touched,
-    onChange,
-    events,
-    error,
-    utils,
-    readOnly
-  } = data
-
-  const readOnlyFinally = (
-    formDefinitionField.displayType === 'READONLY'
-    || readOnly === true
-    || !_get(entityField, 'value.writable', true)
-  )
-
-  const mandatory = _get(modelField, `validation.mandatory`, false)
-
-  const valueField = valueFieldFactory(
-    mapping,
-    formDefinitionField,
-    modelField,
-    {
+  try {
+    const {
+      formDefinitionField,
+      modelField,
+      entityField,
       id,
       value,
+      dirty,
+      touched,
       onChange,
-      readOnly: readOnlyFinally,
-      mandatory
-    },
-    events,
-    utils
-  )
+      events,
+      error,
+      utils,
+      readOnly
+    } = data
 
-  return <FormField
-    key={id}
-    id={id}
-    label={formDefinitionField.label}
-    mandatory={mandatory}
-    mandatoryTitle={resources.mandatoryTitle}
-    error={error}
-    touched={touched}
-    dirty={dirty}
-    useLabel={formDefinitionField.useLabel === 'YES'}
-  >
-    {valueField}
-  </FormField>
+    const readOnlyFinally = (
+      formDefinitionField.displayType === 'READONLY'
+      || readOnly === true
+      || !_get(entityField, 'value.writable', true)
+    )
+
+    const mandatory = _get(modelField, `validation.mandatory`, false)
+
+    const valueField = valueFieldFactory(
+      mapping,
+      formDefinitionField,
+      modelField,
+      {
+        id,
+        value,
+        onChange,
+        readOnly: readOnlyFinally,
+        mandatory
+      },
+      events,
+      utils
+    )
+
+    return (
+      <FormField
+        key={id}
+        id={id}
+        label={formDefinitionField.label}
+        mandatory={mandatory}
+        mandatoryTitle={resources.mandatoryTitle}
+        error={error}
+        touched={touched}
+        dirty={dirty}
+        useLabel={formDefinitionField.useLabel === 'YES'}
+      >
+        {valueField}
+      </FormField>
+    )
+  } catch (exception) {
+    consoleLogger.logError('Error creating formField', exception)
+    return <span/>
+  }
 }
 
 const valueFieldFactory = (mapping, formField, modelField, props, events, utils) => {
