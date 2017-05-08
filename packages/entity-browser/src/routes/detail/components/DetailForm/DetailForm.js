@@ -9,6 +9,7 @@ import ErrorBox from '../ErrorBox'
 import {getFieldId} from '../../../../util/detailView/helpers'
 import {getForm} from '../../../../util/detailView/formBuilder'
 import formErrorsUtil from '../../../../util/detailView/formErrors'
+import {transformFieldName} from '../../../../util/detailView/reduxForm'
 
 export class DetailForm extends React.Component {
   createLayoutComponent = (field, type, key, traverser) => {
@@ -39,7 +40,7 @@ export class DetailForm extends React.Component {
     return (
       <Field
         key={key}
-        name={fieldName}
+        name={transformFieldName(fieldName)}
         id={getFieldId(this.props.form, fieldName)}
         component={ReduxFormFieldAdapter}
         formDefinitionField={formDefinitionField}
