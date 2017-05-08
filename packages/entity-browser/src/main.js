@@ -28,10 +28,24 @@ const createHistory = store => createHashHistory({
   }
 })
 
+const initHistory = (store, input) => {
+  const history = createHistory(store)
+  const initialDetailViewKey = input.initialKey
+  if (initialDetailViewKey && initialDetailViewKey !== '' && !isNaN(initialDetailViewKey)) {
+    const regex = /\/detail\/[0-9]*/
+    if (!history.location.pathname.match(regex)) {
+      const path = `/detail/${input.initialKey}`
+      history.push(path)
+    }
+  }
+
+  return history
+}
+
 const initApp = (id, input, events, publicPath) => {
   const store = appFactory.createStore(undefined, undefined, input)
 
-  const history = createHistory(store)
+  const history = initHistory(store, input)
 
   const routes = require('./routes/index').default(store, input)
 

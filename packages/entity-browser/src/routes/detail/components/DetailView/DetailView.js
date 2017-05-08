@@ -119,6 +119,7 @@ DetailView.propTypes = {
       )
     })
   }).isRequired,
+  showBackButton: React.PropTypes.bool.isRequired,
   lastSave: React.PropTypes.number,
   parentUrl: React.PropTypes.string
 }
