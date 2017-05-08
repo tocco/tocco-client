@@ -11,7 +11,7 @@ const SubGrid = props => {
         showSearchForm={false}
         preselectedSearchFields={[{
           id: props.modelField.reverseRelationName,
-          value: props.entityKey,
+          value: {key: props.entityKey},
           hidden: true
         }]}
         tableDefinition={props.tableDefinition}
