@@ -5,6 +5,8 @@ import classNames from 'classnames'
  * A loadmask that can hide elements as long as promises are not resolved
  */
 class LoadMask extends React.Component {
+  mounted = false
+
   constructor(props) {
     super(props)
     this.state = {
@@ -13,11 +15,18 @@ class LoadMask extends React.Component {
   }
 
   componentDidMount() {
+    this.mounted = true
     if (this.props.promises) {
       Promise.all(this.props.promises).then(() => {
-        this.setState({initialized: true})
+        if (this.mounted) {
+          this.setState({initialized: true})
+        }
       })
     }
+  }
+
+  componentWillUnmount() {
+    this.mounted = false
   }
 
   render() {
