@@ -4,12 +4,14 @@ import {reducers} from 'tocco-util'
 const ACTION_HANDLERS = {
   [actions.SET_FORM_DEFINITION]: reducers.singleTransferReducer('formDefinition'),
   [actions.SET_ENTITY]: reducers.singleTransferReducer('entity'),
-  [actions.SET_LAST_SAVE]: reducers.singleTransferReducer('lastSave')
+  [actions.SET_LAST_SAVE]: reducers.singleTransferReducer('lastSave'),
+  [actions.SET_ENTITY_MODEL]: reducers.singleTransferReducer('entityModel')
 }
 
 const initialState = {
   formDefinition: {},
-  entity: {}
+  entity: {},
+  entityModel: {}
 }
 
 export default function reducer(state = initialState, action) {
