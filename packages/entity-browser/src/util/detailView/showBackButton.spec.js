@@ -23,7 +23,13 @@ describe('entity-browser', () => {
           const modelPaths = []
           const result = showBackButton(initialKey, modelPaths)
           expect(result).to.be.false
-          expect(result).to.be.false
+        })
+
+        it('should return `true` if initialKey is `undefined`', () => {
+          const initialKey = undefined
+          const modelPaths = []
+          const result = showBackButton(initialKey, modelPaths)
+          expect(result).to.be.true
         })
       })
     })

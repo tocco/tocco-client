@@ -1,6 +1,6 @@
 const showBackButton = (initialKey, modelPaths) => {
   if (modelPaths.length === 0) {
-    return (initialKey === '' || isNaN(initialKey))
+    return (!initialKey || isNaN(initialKey))
   }
   return true
 }
