@@ -1,16 +1,19 @@
-export const getSearchInputsForRequest = (searchInputs, entityModel) => {
-  const result = {}
-  Object.keys(searchInputs).forEach(f => {
-    if (entityModel[f] && entityModel[f].type === 'relation') {
-      if (entityModel[f].multi) {
-        result[`${f}.pk`] = searchInputs[f].map(o => o.key)
-      } else {
-        result[`${f}.pk`] = searchInputs[f].key
-      }
+import _forOwn from 'lodash/forOwn'
+import _isObject from 'lodash/isObject'
+
+export const getSearchInputsForRequest = searchInputs => {
+  let result = {}
+
+  _forOwn(searchInputs, (value, name) => {
+    if (Array.isArray(value)) {
+      result[`${name}.pk`] = value.map(v => v.key)
+    } else if (_isObject(value)) {
+      result[`${name}.pk`] = value.key
     } else {
-      result[f] = searchInputs[f]
+      result[name] = value
     }
-  })
+  }
+  )
 
   return result
 }
