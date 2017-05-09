@@ -2,6 +2,7 @@ import path from 'path'
 import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
+import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import config from '../config'
 import _debug from 'debug'
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
@@ -161,6 +162,11 @@ if (__DEV__) {
         }
       ])
     )
+    webpackConfig.plugins.push(
+      new ExtractTextPlugin({
+        filename: 'tocco-theme.css'
+      })
+    )
   } else {
     webpackConfig.plugins.push(
       new CopyWebpackPlugin([
@@ -256,6 +262,16 @@ webpackConfig.module.rules = [
     }
   }
 ]
+
+if (__PROD__ && __PACKAGE__ === 'tocco-theme') {
+  // write tocco-theme.css
+  webpackConfig.module.rules.push({
+    test: /\.scss$/,
+    use: ExtractTextPlugin.extract({
+      use: ['css-loader', `sass-loader?data=$node-env:${config.env};&includePaths[]=${paths.client()}/packages/tocco-theme/node_modules/`]  // eslint-disable-line
+    })
+  })
+}
 
 if (!__PROD__ && !__NICE2_11_LEGACY__) {
   // Run linting but only show errors as warning
