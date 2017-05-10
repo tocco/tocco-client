@@ -16,6 +16,8 @@ import LongitudeFormatter from './typeFormatters/LongitudeFormatter'
 import PercentFormatter from './typeFormatters/PercentFormatter'
 import DocumentFormatter from './typeFormatters/DocumentFormatter'
 import HtmlFormatter from './typeFormatters/HtmlFormatter'
+import SingleSelectFormatter from './typeFormatters/SingleSelectFormatter'
+import MultiSelectFormatter from './typeFormatters/MultiSelectFormatter'
 
 export default (type, value) => {
   if (map[type]) {
@@ -40,6 +42,7 @@ export const map = {
   'integer': NumberFormatter,
   'sorting': NumberFormatter,
   'long': NumberFormatter,
+  'number': NumberFormatter,
   'version': NumberFormatter,
   'dataamount': NumberFormatter,
   'decimal': DecimalFormatter,
@@ -59,5 +62,9 @@ export const map = {
   'latitude': LongitudeFormatter,
   'longitude': LongitudeFormatter,
   'login': LoginFormatter,
-  'document': DocumentFormatter
+  'document': DocumentFormatter,
+  'single-select': SingleSelectFormatter,
+  'remote': SingleSelectFormatter,
+  'multi-select': MultiSelectFormatter,
+  'multi-remote': MultiSelectFormatter
 }
