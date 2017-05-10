@@ -2,11 +2,11 @@ import path from 'path'
 import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
-import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import config from '../config'
 import _debug from 'debug'
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
 import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
+import fs from 'fs'
 
 const debug = _debug('app:webpack:config')
 const paths = config.utils_paths
@@ -153,32 +153,16 @@ if (__DEV__) {
     })
   )
 
-  if (__PACKAGE__ === 'tocco-theme') {
-    webpackConfig.plugins.push(
-      new CopyWebpackPlugin([
-        {
-          context: `${packageDir}/src/ToccoTheme`,
-          from: '**/*.scss'
-        }
-      ])
-    )
-    webpackConfig.plugins.push(
-      new ExtractTextPlugin({
-        filename: 'tocco-theme.css'
-      })
-    )
-  } else {
-    webpackConfig.plugins.push(
-      new CopyWebpackPlugin([
-        {
-          context: `${packageDir}/src/`,
-          from: '**/*.scss',
-          flatten: true,
-          to: 'scss'
-        }
-      ])
-    )
-  }
+  webpackConfig.plugins.push(
+    new CopyWebpackPlugin([
+      {
+        context: `${packageDir}/src/`,
+        from: '**/*.scss',
+        flatten: true,
+        to: 'scss'
+      }
+    ])
+  )
 } else if (__STANDALONE__) {
   webpackConfig.plugins.push(
     new HtmlWebpackPlugin({
@@ -262,16 +246,6 @@ webpackConfig.module.rules = [
     }
   }
 ]
-
-if (__PROD__ && __PACKAGE__ === 'tocco-theme') {
-  // write tocco-theme.css
-  webpackConfig.module.rules.push({
-    test: /\.scss$/,
-    use: ExtractTextPlugin.extract({
-      use: ['css-loader', `sass-loader?data=$node-env:${config.env};&includePaths[]=${paths.client()}/packages/tocco-theme/node_modules/`]  // eslint-disable-line
-    })
-  })
-}
 
 if (!__PROD__ && !__NICE2_11_LEGACY__) {
   // Run linting but only show errors as warning
@@ -402,6 +376,16 @@ if (__NICE2_11_LEGACY__) {
     }
   )
   /* eslint-enable */
+}
+
+const packageWebpackFile = packageDir + '/build/webpack.js'
+if (fs.existsSync(packageWebpackFile)) {
+  const adjustConfig = require(`../${packageWebpackFile}`).adjustConfig
+
+  if (adjustConfig) {
+    debug('Adjust configuration with package specific config.')
+    adjustConfig(webpackConfig, config, paths)
+  }
 }
 
 export default webpackConfig
