@@ -242,9 +242,11 @@ class Example extends React.Component {
                     mimeType: 'image/png',
                     fileExtension: 'png',
                     sizeInBytes: 3336,
-                    fileName: 'Firstname,-Lastname-Vorschaubild.png',
-                    binaryLink: 'http://localhost:8080/8ca597f/29/Firstname,-Lastname-Vorschaubild.png'
-                  }}
+                    fileName: 'Blue-Square.png',
+                    binaryLink: 'http://link.to/my/image.png',
+                    thumbnailLink: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgAQMAAADYVuV7AAAACXBIWXMAAA7'
+                                    + 'EAAAOxAGVKw4bAAAABlBMVEUCd72z5fwcX0uLAAAAHElEQVQ4y2NgwAns/8PBn1HOKGeUM8oZrBycAAD'
+                                    + 'OggXZNnQmgAAAAABJRU5ErkJggg=='}}
                   readOnly={this.state.readOnly}
               />
               </td>
