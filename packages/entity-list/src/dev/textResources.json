@@ -1,0 +1,13 @@
+[
+  "client.common.ok",
+  "client.common.cancel",
+  "client.common.unexpectedError",
+  "client.entity-list.search",
+  "client.entity-list.reset",
+  "client.entity-list.refresh",
+  "client.entity-list.extendedSearch",
+  "client.component.remoteselect.noResultsText",
+  "client.component.remoteselect.clearAllText",
+  "client.component.remoteselect.clearValueText",
+  "client.component.remoteselect.searchPromptText"
+]

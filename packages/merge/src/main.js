@@ -2,7 +2,6 @@ import React from 'react'
 import {appFactory, storeFactory} from 'tocco-util'
 import MergeWizardContainer from './containers/MergeWizardContainer'
 import {getDispatchActions} from './utils/input'
-//
 import reducers, {sagas} from './modules/reducers'
 
 const packageName = 'merge'
@@ -10,16 +9,18 @@ const packageName = 'merge'
 const initApp = (id, input, events, publicPath) => {
   const dispatchActions = getDispatchActions(input)
 
-  const store = appFactory.createStore(reducers, sagas, input)
+  const store = appFactory.createStore(reducers, sagas, input, packageName)
 
   return appFactory.createApp(
     packageName,
     <MergeWizardContainer/>,
     store,
-    input,
-    events,
-    dispatchActions,
-    publicPath
+    {
+      input,
+      events,
+      dispatchActions,
+      publicPath
+    }
   )
 }
 
@@ -29,9 +30,11 @@ const initApp = (id, input, events, publicPath) => {
   }
 
   if (__DEV__) {
-    const fetchMock = require('fetch-mock')
-    const setupFetchMocks = require('./dev/fetchMocks')
-    setupFetchMocks(fetchMock)
+    if (!__NO_MOCK__) {
+      const fetchMock = require('fetch-mock')
+      const setupFetchMocks = require('./dev/fetchMocks')
+      setupFetchMocks(fetchMock)
+    }
 
     const input = require('./dev/input.json')
 

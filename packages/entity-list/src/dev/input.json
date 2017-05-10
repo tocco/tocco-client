@@ -1,0 +1,72 @@
+{
+  "entityName": "User",
+  "limit": 10,
+  "showSearchForm": true,
+  "searchFormName": "",
+  "disableSimpleSearch": false,
+  "simpleSearchFields": "",
+  "searchFilters": [
+    "user_with_pk_1",
+    "has_contract"
+  ],
+  "preselectedSearchValues": [
+    {
+      "id": "txtFulltext",
+      "value": "",
+      "hidden": false
+    },
+    {
+      "id": "relSingle_entity2",
+      "value": "2",
+      "hidden": true
+    },
+    {
+      "id": "relMulti_entity2",
+      "value": [
+        "1",
+        "3"
+      ],
+      "hidden": false
+    }
+  ],
+  "tableDefinition": {
+    "name": "table",
+    "type": "ch.tocco.nice2.model.form.components.table.Table",
+    "children": [
+      {
+        "name": "firstname",
+        "type": "ch.tocco.nice2.model.form.components.table.Column",
+        "displayType": "EDITABLE",
+        "children": [
+          {
+            "name": "firstname",
+            "type": "ch.tocco.nice2.model.form.components.simple.TextField",
+            "displayType": "EDITABLE",
+            "children": [],
+            "label": "First Name",
+            "useLabel": "YES"
+          }
+        ],
+        "label": "First Name",
+        "useLabel": "YES"
+      },
+      {
+        "name": "lastname",
+        "type": "ch.tocco.nice2.model.form.components.table.Column",
+        "displayType": "EDITABLE",
+        "children": [
+          {
+            "name": "lastname",
+            "type": "ch.tocco.nice2.model.form.components.simple.TextField",
+            "displayType": "EDITABLE",
+            "children": [],
+            "label": "Last Name",
+            "useLabel": "YES"
+          }
+        ],
+        "label": "Last Name",
+        "useLabel": "YES"
+      }
+    ]
+  }
+}

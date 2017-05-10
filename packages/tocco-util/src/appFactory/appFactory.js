@@ -4,6 +4,7 @@ import {Provider} from 'react-redux'
 import {addLocaleData} from 'react-intl'
 import {IntlProvider} from 'react-intl-redux'
 import consoleLogger from '../consoleLogger'
+import _union from 'lodash/union'
 
 import de from 'react-intl/locale-data/de'
 import en from 'react-intl/locale-data/en'
@@ -17,22 +18,35 @@ import intl from '../intl'
 import externalEvents from '../externalEvents'
 import {logError} from '../errorLogging'
 
-export const createStore = (reducers, sagas, input) => {
+export const createStore = (reducers, sagas, input, name) => {
   const initialState = getIntialState(input)
-  return storeFactory.createStore(initialState, reducers, sagas)
+  return storeFactory.createStore(initialState, reducers, sagas, name)
 }
 
-export const createApp = (name, content, store, input, events, actions, publicPath) => {
+export const createApp = (name,
+                          content,
+                          store,
+                          {
+                            input = {},
+                            events = undefined,
+                            actions = undefined,
+                            publicPath = undefined,
+                            textResourceModules = []
+                          }) => {
   try {
-    setWebpacksPublicPath(publicPath)
+    if (publicPath) {
+      setWebpacksPublicPath(publicPath)
+    }
 
     if (events) {
       externalEvents.registerEvents(events)
     }
 
-    const initIntlPromise = setupIntl(input, store, name)
+    if (actions) {
+      dispatchActions(actions, store)
+    }
 
-    dispatchActions(actions, store)
+    const initIntlPromise = setupIntl(input, store, name, textResourceModules)
     const component = getAppComponent(store, initIntlPromise, name, content)
 
     return {
@@ -91,11 +105,9 @@ export const registerAppInRegistry = (appName, initFunction) => {
 }
 
 const dispatchActions = (actions, store) => {
-  if (actions) {
-    actions.forEach(action => {
-      store.dispatch(action)
-    })
-  }
+  actions.forEach(action => {
+    store.dispatch(action)
+  })
 }
 
 const getIntialState = input => {
@@ -108,10 +120,8 @@ const getIntialState = input => {
 }
 
 const setWebpacksPublicPath = publicPath => {
-  if (publicPath) {
-    /* eslint camelcase: 0 */
-    __webpack_public_path__ = publicPath
-  }
+  /* eslint camelcase: 0 */
+  __webpack_public_path__ = publicPath
 }
 
 const getAppComponent = (store, initIntlPromise, name, content) => (
@@ -128,8 +138,9 @@ const getAppComponent = (store, initIntlPromise, name, content) => (
   </div>
 )
 
-const setupIntl = (input, store, name) => {
+const setupIntl = (input, store, module, textResourceModules) => {
+  const modules = _union(textResourceModules, [module])
   addLocaleData([...de, ...en, ...fr, ...it])
   const locale = input ? input.locale : null
-  return intl.initIntl(store, name, locale)
+  return intl.initIntl(store, modules, locale)
 }

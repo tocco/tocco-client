@@ -12,7 +12,7 @@ export const createRoutes = (store, input) => [{
       render: list(store, input)
     },
     {
-      path: '/detail/:entityId',
+      path: '/detail/:entityId*',
       render: detail(store, input)
     }
   ]

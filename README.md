@@ -45,11 +45,6 @@ A good starting point can be found in these docs:
 * https://davidwalsh.name/es6-generators
 
 ## Development
-
-### Prerequisites
-Run a Tocco Business Framework application with enabled REST API on:
-http://localhost:8080
-
 ### Getting started
 Just install yarn  https://yarnpkg.com/en/docs/install 
 and execute the following commands:
@@ -60,6 +55,10 @@ lerna bootstrap
 npm start --package={PACKAGE_NAME}
 ```
 Open http://localhost:3000 and start coding!
+
+Add ``--noMock`` parameter to disable mocked data.
+In this case you must run the Tocco Business Framework application with enabled REST API on:
+http://localhost:8080
 
 #### Tests
 Tests are using following tools and libraries:

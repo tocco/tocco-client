@@ -35,7 +35,7 @@ export const defaultModelTransformer = json => {
   json.relations.forEach(relation => {
     model[relation.relationName] = {
       type: 'relation',
-      targetEntity: relation.targetEntity
+      ...relation
     }
   })
   return model

@@ -18,7 +18,7 @@ describe('tocco-util', () => {
         const store = {
           dispatch: dispatchSpy
         }
-        setLocale(store, 'merge', 'de_CH').then(() => {
+        setLocale(store, ['merge'], 'de_CH').then(() => {
           expect(dispatchSpy).to.have.calledWith(
             {payload: {locale: 'de-CH', messages: {test: 'test'}}, type: '@@intl/UPDATE'}
           )
@@ -38,13 +38,14 @@ describe('tocco-util', () => {
         }
 
         fetchMock.get('/nice2/username', user)
-        fetchMock.get('/nice2/textresource?locale=en-GB&module=merge', messages)
+        fetchMock.get('/nice2/textresource?locale=en-GB&module=(merge|components)', messages)
 
         const dispatchSpy = sinon.spy()
         const store = {
           dispatch: dispatchSpy
         }
-        initIntl(store, 'merge').then(() => {
+        const modules = ['merge', 'components']
+        initIntl(store, modules).then(() => {
           expect(dispatchSpy).to.have.calledWith(
             {payload: {locale: 'en-GB', messages: {test: 'test'}}, type: '@@intl/UPDATE'}
           )

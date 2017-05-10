@@ -61,7 +61,7 @@ class ListView extends React.Component {
             />
             <Button
               onClick={props.refresh}
-              label={this.msg('client.entity-browser.refresh')}
+              label={this.msg('client.entity-list.refresh')}
               icon="glyphicon-refresh"
               className="refresh-button"
             />
@@ -87,16 +87,11 @@ ListView.propTypes = {
   currentPage: React.PropTypes.number,
   limit: React.PropTypes.number,
   columnDefinitions: React.PropTypes.arrayOf(
-    React.PropTypes.shape(
-      {
-        value: React.PropTypes.oneOfType([
-          React.PropTypes.string,
-          React.PropTypes.arrayOf(React.PropTypes.string)
-        ]).isRequired,
-        label: React.PropTypes.string,
-        order: React.PropTypes.int
-      }
-    )
+    React.PropTypes.shape({
+      values:  React.PropTypes.arrayOf(React.PropTypes.shape({name: React.PropTypes.string})),
+      label: React.PropTypes.string,
+      order: React.PropTypes.int
+    })
   ).isRequired,
   entityCount: React.PropTypes.number,
   setOrderBy: React.PropTypes.func,

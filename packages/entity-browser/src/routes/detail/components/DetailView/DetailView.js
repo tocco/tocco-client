@@ -1,5 +1,6 @@
 import React from 'react'
 import {intlShape} from 'react-intl'
+import {Button, LayoutBox} from 'tocco-ui'
 
 import DetailForm from '../DetailForm'
 import syncValidation from '../../../../util/detailView/syncValidation'
@@ -7,8 +8,12 @@ import {asyncValidate, AsyncValidationException} from '../../../../util/detailVi
 
 class DetailView extends React.Component {
   componentWillMount() {
-    const entityId = this.props.router.match.params.entityId
-    this.props.loadDetailView(entityId)
+    const {modelPaths, entityId} = this.props
+    this.props.loadDetailView(modelPaths, entityId)
+  }
+
+  componentWillUnmount() {
+    this.props.unloadDetailView()
   }
 
   handledAsyncValidate = values => {
@@ -16,9 +21,13 @@ class DetailView extends React.Component {
       if (error instanceof AsyncValidationException) {
         throw error.errors
       } else {
-        this.props.logError('error.unhandled', 'entity-browser.validationError', error)
+        this.props.logError('client.common.unexpectedError', 'client.entity-browser.detail.validationError', error)
       }
     })
+  }
+
+  handleGoBack = () => {
+    this.props.router.push(this.props.parentUrl)
   }
 
   getSyncValidation = () => {
@@ -28,11 +37,25 @@ class DetailView extends React.Component {
     return this.validateSingleton
   }
 
+  msg = id => this.props.intl.formatMessage({id})
+
   render() {
     const props = this.props
 
     return (
       <div className="detail-view">
+        {props.showBackButton
+        && <LayoutBox alignment="horizontal">
+          <div>
+            <Button
+              type="button"
+              label={this.msg('client.entity-browser.back')}
+              icon="fa fa-chevron-left"
+              onClick={this.handleGoBack}
+            />
+          </div>
+        </LayoutBox>
+        }
         {props.formInitialValues
         && <DetailForm
           validate={this.getSyncValidation()}
@@ -48,6 +71,7 @@ class DetailView extends React.Component {
           entityModel={props.entityModel}
           intl={props.intl}
           lastSave={props.lastSave}
+          goBack={this.handleGoBack}
         />
         }
       </div>
@@ -61,12 +85,15 @@ DetailView.propTypes = {
   intl: intlShape.isRequired,
   router: React.PropTypes.object.isRequired,
   loadDetailView: React.PropTypes.func.isRequired,
+  unloadDetailView: React.PropTypes.func.isRequired,
   submitForm: React.PropTypes.func.isRequired,
   logError: React.PropTypes.func.isRequired,
   formDefinition: React.PropTypes.shape({
     children: React.PropTypes.array
   }).isRequired,
   entityModel: React.PropTypes.object.isRequired,
+  modelPaths: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+  entityId: React.PropTypes.string.isRequired,
   formErrors: React.PropTypes.objectOf(
     React.PropTypes.objectOf(React.PropTypes.arrayOf(
       React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.object])))
@@ -97,5 +124,11 @@ DetailView.propTypes = {
       )
     })
   }).isRequired,
-  lastSave: React.PropTypes.number
+  showBackButton: React.PropTypes.bool,
+  lastSave: React.PropTypes.number,
+  parentUrl: React.PropTypes.string
+}
+
+DetailView.defaultProps = {
+  parentUrl: '/'
 }

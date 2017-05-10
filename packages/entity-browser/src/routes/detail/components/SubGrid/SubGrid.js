@@ -1,20 +1,44 @@
 import React from 'react'
+import {withRouter} from 'react-router'
+import EntityListApp from 'entity-list/src/main'
 
 const SubGrid = props => {
   return (
     <div>
-      <h1>Sub Grid</h1>
-      <p>Relation: {props.relationName}</p>
-      <p>Columns: {props.formDefinition.children.length}</p>
+      <EntityListApp
+        entityName={props.modelField.targetEntity}
+        limit={5}
+        showSearchForm={false}
+        preselectedSearchFields={[{
+          id: props.modelField.reverseRelationName,
+          value: {key: props.entityKey},
+          hidden: true
+        }]}
+        tableDefinition={props.tableDefinition}
+        onRowClick={e => {
+          const newUrl = `${props.match.url}/${props.relationName}/${e.id}`
+          props.push(newUrl)
+        }}
+      />
     </div>
   )
 }
 
 SubGrid.propTypes = {
-  formDefinition: React.PropTypes.shape({
+  entityKey: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
+  tableDefinition: React.PropTypes.shape({
+    type: React.PropTypes.oneOf(['ch.tocco.nice2.model.form.components.table.Table']),
     children: React.PropTypes.array
   }).isRequired,
-  relationName: React.PropTypes.string.isRequired
+  relationName: React.PropTypes.string.isRequired,
+  modelField: React.PropTypes.shape({
+    targetEntity: React.PropTypes.string,
+    reverseRelationName: React.PropTypes.string
+  }).isRequired,
+  push: React.PropTypes.func.isRequired,
+  match: React.PropTypes.shape({
+    url: React.PropTypes.string.isRequired
+  }).isRequired
 }
 
-export default SubGrid
+export default withRouter(SubGrid)

@@ -25,7 +25,7 @@ export default {
   'ch.tocco.nice2.model.form.components.simple.DocumentField': formField.editableValueFactory('document'),
   'ch.tocco.nice2.model.form.components.simple.DurationField': null,
   'ch.tocco.nice2.model.form.components.simple.EmailField': formField.editableValueFactory('email'),
-  'ch.tocco.nice2.model.form.components.simple.HtmlField': formField.editableValueFactory('text'),
+  'ch.tocco.nice2.model.form.components.simple.HtmlField': formField.editableValueFactory('html'),
   'ch.tocco.nice2.model.form.components.simple.ImageField': formField.editableValueFactory('document'),
   'ch.tocco.nice2.model.form.components.simple.LoginField': formField.editableValueFactory('string'),
   'ch.tocco.nice2.model.form.components.simple.MoneyAmountField': formField.editableValueFactory('number'),

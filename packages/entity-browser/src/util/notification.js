@@ -9,10 +9,10 @@ export function createNotificationAction(type, title, message, glyphicon, timeOu
     component: () => (
       <div>
         <div className="title">
-          <FormattedMessage id={`client.entity-browser.${title}`} defaultMessage={title}/>
+          <FormattedMessage id={title}/>
         </div>
         <div className="message">
-          <FormattedMessage id={`client.entity-browser.${message}`} defaultMessage={message}/>
+          <FormattedMessage id={message}/>
         </div>
       </div>
     )

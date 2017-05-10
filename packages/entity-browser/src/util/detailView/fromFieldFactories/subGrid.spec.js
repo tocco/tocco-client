@@ -1,5 +1,4 @@
 import subGridFactory from './subGrid'
-import {shallow} from 'enzyme'
 
 describe('entity-browser', () => {
   describe('components', () => {
@@ -8,9 +7,8 @@ describe('entity-browser', () => {
         describe('subGrid', () => {
           it('should return a component', () => {
             const factory = subGridFactory()
-            const editableValue = factory({children: [], name: 'relFoo'}, {}, {}, {}, {})
-            const wrapper = shallow(editableValue)
-            expect(wrapper).to.not.be.blank()
+            const grid = factory({children: [], name: 'relFoo'}, {}, {}, {}, {})
+            expect(grid).to.not.be.null
           })
         })
       })

@@ -66,20 +66,20 @@ const SearchForm = props => {
           <Button
             type="submit"
             icon="glyphicon-search"
-            label={msg('client.entity-browser.search')}
+            label={msg('client.entity-list.search')}
             primary
           />
           <Button
             type="button"
             icon="glyphicon-repeat"
-            label={msg('client.entity-browser.reset')}
+            label={msg('client.entity-list.reset')}
             onClick={handleResetClick}
           />
           {!props.disableSimpleSearch
           && <Button
             className="pull-right"
             type="button"
-            label={msg('client.entity-browser.extendedSearch')}
+            label={msg('client.entity-list.extendedSearch')}
             onClick={toggleExtendedSearchForm}
           />
           }

@@ -1,7 +1,7 @@
 import React from 'react'
 import {reduxForm, Field} from 'redux-form'
 import {intlShape, FormattedRelative, FormattedMessage} from 'react-intl'
-import {Link, Prompt} from 'react-router-dom'
+import {Prompt} from 'react-router-dom'
 import {Button, LayoutBox} from 'tocco-ui'
 
 import ReduxFormFieldAdapter from '../ReduxFormFieldAdapter'
@@ -9,8 +9,11 @@ import ErrorBox from '../ErrorBox'
 import {getFieldId} from '../../../../util/detailView/helpers'
 import {getForm} from '../../../../util/detailView/formBuilder'
 import formErrorsUtil from '../../../../util/detailView/formErrors'
+import {transformFieldName} from '../../../../util/detailView/reduxForm'
 
 export class DetailForm extends React.Component {
+  isReadOnlyForm = this.props.formDefinition.displayType === 'READONLY'
+
   createLayoutComponent = (field, type, key, traverser) => {
     if (type === 'HorizontalBox' || type === 'VerticalBox') {
       const alignment = type === 'HorizontalBox' ? 'horizontal' : 'vertical'
@@ -39,7 +42,8 @@ export class DetailForm extends React.Component {
     return (
       <Field
         key={key}
-        name={fieldName}
+        readOnlyForm={this.isReadOnlyForm}
+        name={transformFieldName(fieldName)}
         id={getFieldId(this.props.form, fieldName)}
         component={ReduxFormFieldAdapter}
         formDefinitionField={formDefinitionField}
@@ -110,24 +114,25 @@ export class DetailForm extends React.Component {
       >
         <Prompt
           when={props.anyTouched}
-          message={this.msg('client.entity-browser.confirmTouchedFormLeave')}
+          message={this.msg('client.entity-browser.detail.confirmTouchedFormLeave')}
         />
         {getForm(props.formDefinition, this.createField, this.createLayoutComponent)}
         <LayoutBox alignment="horizontal">
           <LayoutBox alignment="vertical">
             {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
-            <Link className="btn btn-primary" to="/"><FormattedMessage id={`client.entity-browser.backToList`}/></Link>
-            <Button
+            {!this.isReadOnlyForm
+            && <Button
               type="submit"
-              label={this.msg('client.entity-browser.save')}
+              label={this.msg('client.entity-browser.detail.save')}
               icon="glyphicon-floppy-save"
               pending={props.submitting}
               disabled={props.submitting || (props.anyTouched && !props.valid)}
               primary
             />
+            }
             {props.lastSave
             && <div>
-              <FormattedMessage id="client.entity-browser.lastSave"/>
+              <FormattedMessage id="client.entity-browser.detail.lastSave"/>
               <span style={{marginLeft:'3px'}}> <FormattedRelative value={props.lastSave}/></span>
             </div>
             }

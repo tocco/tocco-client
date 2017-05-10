@@ -1,5 +1,6 @@
 import React from 'react'
-import sortBy from 'lodash/sortBy'
+import _pick from 'lodash/pick'
+import _sortBy from 'lodash/sortBy'
 import classNames from 'classnames'
 
 /**
@@ -8,11 +9,31 @@ import classNames from 'classnames'
 class Table extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {orderBy: props.orderBy}
+
+    if (props.orderBy && props.orderBy.name) {
+      this.state = {
+        orderBy: {...props.orderBy, idx: this.getColumnIdxByFieldName(props.columnDefinitions, props.orderBy.name)}
+      }
+    } else {
+      this.state = {orderBy: {idx: -1}}
+    }
   }
 
+  getColumnIdxByFieldName = (columnDefinitions, name) => {
+    let result = -1
+    columnDefinitions = this.orderColumnDefinitions(columnDefinitions)
+    columnDefinitions.forEach((columnDefinition, idx) => {
+      columnDefinition.values.forEach(value => {
+        if (value.name === name) result = idx
+      })
+    })
+    return result
+  }
+
+  orderColumnDefinitions = columnDefinitions => (_sortBy(columnDefinitions, v => v.order))
+
   render() {
-    const columnDefinitions = sortBy(this.props.columnDefinitions, v => v.order)
+    const columnDefinitions = this.orderColumnDefinitions(this.props.columnDefinitions)
 
     const renderValue = (fields, record) => {
       if (this.props.cellRenderer) {
@@ -24,7 +45,7 @@ class Table extends React.Component {
       }
     }
 
-    const getLabel = c => (c.label || c.value)
+    const getLabel = columnDefinition => (columnDefinition.label || columnDefinition.values[0].name)
 
     const handleOnClick = record => {
       if (this.props.onRowClick) {
@@ -32,13 +53,15 @@ class Table extends React.Component {
       }
     }
 
-    const handleOrderByClick = columnName => {
+    const handleOrderByClick = (columnDefinition, idx) => {
+      const field = columnDefinition.values[0].name
       const newState = {
         orderBy: {
-          name: columnName
+          name: field,
+          idx
         }
       }
-      if (this.state.orderBy && this.state.orderBy.name === columnName && this.state.orderBy.direction === 'desc') {
+      if (this.state.orderBy && this.state.orderBy.idx === idx && this.state.orderBy.direction === 'desc') {
         newState.orderBy.direction = 'asc'
       } else {
         newState.orderBy.direction = 'desc'
@@ -46,7 +69,7 @@ class Table extends React.Component {
       this.setState(newState)
 
       if (this.props.onOrderByChange) {
-        this.props.onOrderByChange(newState.orderBy)
+        this.props.onOrderByChange(_pick(newState.orderBy, ['name', 'direction']))
       }
     }
 
@@ -58,8 +81,8 @@ class Table extends React.Component {
       }
     )
 
-    const orderSymbol = c => {
-      if (this.state.orderBy && this.state.orderBy.name === c.value) {
+    const orderSymbol = (columnDefinition, idx) => {
+      if (this.state.orderBy && this.state.orderBy.idx === idx) {
         if (this.state.orderBy.direction === 'asc') {
           return <span>&nbsp;▲</span>
         } else if (this.state.orderBy.direction === 'desc') {
@@ -74,14 +97,14 @@ class Table extends React.Component {
           <thead>
             <tr>
               {
-              columnDefinitions.map((c, idx) => {
+              columnDefinitions.map((columnDefinition, idx) => {
                 return (
                   <th
                     key={idx}
-                    onClick={() => handleOrderByClick(c.value)}
+                    onClick={() => handleOrderByClick(columnDefinition, idx)}
                   >
-                    {getLabel(c)}
-                    {orderSymbol(c)}
+                    {getLabel(columnDefinition)}
+                    {orderSymbol(columnDefinition, idx)}
                   </th>
                 )
               })
@@ -96,8 +119,7 @@ class Table extends React.Component {
                   {
                     columnDefinitions.map((c, cidx) => {
                       const id = `${ridx}-${cidx}`
-                      const valueNames = Array.isArray(c.value) ? c.value : [c.value]
-                      const fields = valueNames.map(value => record.values[value])
+                      const fields = c.values.map(value => record.values[value.name])
                         .filter(field => field !== undefined && field !== null)
                       return (
                         <td key={id}>
@@ -128,9 +150,11 @@ Table.propTypes = {
   columnDefinitions: React.PropTypes.arrayOf(
     React.PropTypes.shape(
       {
-        value: React.PropTypes.oneOfType([
-          React.PropTypes.string,
-          React.PropTypes.arrayOf(React.PropTypes.string)
+        values: React.PropTypes.oneOfType([
+          React.PropTypes.arrayOf(React.PropTypes.shape({
+            name: React.PropTypes.string,
+            type: React.PropTypes.string
+          }))
         ]).isRequired,
         label: React.PropTypes.string,
         order: React.PropTypes.int

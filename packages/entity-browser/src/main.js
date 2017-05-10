@@ -14,8 +14,8 @@ const createHistory = store => createHashHistory({
   getUserConfirmation: (message, callback) => {
     const state = store.getState()
 
-    const okText = textResourceSelector(state, 'client.entity-browser.confirmationOk')
-    const cancelText = textResourceSelector(state, 'client.entity-browser.confirmationCancel')
+    const okText = textResourceSelector(state, 'client.common.ok')
+    const cancelText = textResourceSelector(state, 'client.common.cancel')
 
     const action = createConfirmationAction(
       message,
@@ -28,10 +28,24 @@ const createHistory = store => createHashHistory({
   }
 })
 
+const navigateToDetailIfKeySet = (history, input) => {
+  const initialDetailViewKey = input.initialKey
+  if (initialDetailViewKey && !isNaN(initialDetailViewKey)) {
+    const regex = /\/detail\/[0-9]*/
+    if (!history.location.pathname.match(regex)) {
+      const path = `/detail/${input.initialKey}`
+      history.push(path)
+    }
+  }
+
+  return history
+}
+
 const initApp = (id, input, events, publicPath) => {
-  const store = appFactory.createStore(undefined, undefined, input)
+  const store = appFactory.createStore(undefined, undefined, input, packageName)
 
   const history = createHistory(store)
+  navigateToDetailIfKeySet(history, input)
 
   const routes = require('./routes/index').default(store, input)
 
@@ -44,25 +58,28 @@ const initApp = (id, input, events, publicPath) => {
       </div>
     </Router>
   )
-
   return appFactory.createApp(
     packageName,
     content,
     store,
-    input,
-    events,
-    [],
-    publicPath
+    {
+      input,
+      events,
+      publicPath,
+      textResourceModules: ['component', 'common', 'entity-list']
+    }
   )
 }
 
 (() => {
-  if (__DEV__) {
+  if (__DEV__ && __PACKAGE_NAME__ === 'entity-browser') {
     require('tocco-theme/src/ToccoTheme/theme.scss')
 
-    const fetchMock = require('fetch-mock')
-    const setupFetchMocks = require('./dev/fetchMocks')
-    setupFetchMocks(fetchMock)
+    if (!__NO_MOCK__) {
+      const fetchMock = require('fetch-mock')
+      const setupFetchMocks = require('./dev/fetchMocks')
+      setupFetchMocks(fetchMock)
+    }
 
     const input = require('./dev/input.json')
 

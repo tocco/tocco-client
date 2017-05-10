@@ -7,7 +7,15 @@ const SingleSelect = props => {
     props.onChange(value)
   }
 
-  const options = _isEmpty(props.options.store) ? [props.value] : props.options.store
+  const getOptions = () => {
+    if (!_isEmpty(props.options.store)) {
+      return props.options.store
+    }
+    if (props.value) {
+      return [props.value]
+    }
+    return []
+  }
 
   return (
     <Select
@@ -19,7 +27,7 @@ const SingleSelect = props => {
       noResultsText="-"
       value={props.value}
       onChange={onChange}
-      options={options}
+      options={getOptions()}
       disabled={props.readOnly}
     />
   )
@@ -27,13 +35,15 @@ const SingleSelect = props => {
 
 SingleSelect.propTypes = {
   onChange: React.PropTypes.func.isRequired,
-  value: React.PropTypes.shape(
-    {
+  value: React.PropTypes.oneOfType([
+    React.PropTypes.shape({
       key: React.PropTypes.oneOfType([
         React.PropTypes.string,
         React.PropTypes.number
       ])
     }),
+    React.PropTypes.string
+  ]),
   options: React.PropTypes.shape({
     store: React.PropTypes.arrayOf(
       React.PropTypes.shape({

@@ -18,7 +18,7 @@ const FormField = props => {
   )
 
   const labelClass = classNames(
-    'col-sm-4',
+    'col-sm-3',
     'control-label',
     {
       'sr-only': !props.useLabel
@@ -27,7 +27,7 @@ const FormField = props => {
   const labelAlt = `${props.label} ${props.mandatory ? props.mandatoryTitle : ''}`
 
   const editableValueWrapperClass = classNames({
-    'col-sm-8': props.useLabel,
+    'col-sm-9': props.useLabel,
     'col-sm-12': !props.useLabel
   })
 

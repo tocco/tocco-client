@@ -18,16 +18,18 @@ const initLoginApp = (id, input, events, publicPath) => {
   const showTitle = !!input.showTitle
   const content = <LoginContainer showTitle={showTitle}/>
 
-  const store = appFactory.createStore(loginReducers, sagas, input)
+  const store = appFactory.createStore(loginReducers, sagas, input, packageName)
 
   return appFactory.createApp(
     packageName,
     content,
     store,
-    input,
-    events,
-    dispatchActions,
-    publicPath
+    {
+      input,
+      events,
+      dispatchActions,
+      publicPath
+    }
   )
 }
 
@@ -56,7 +58,7 @@ const initPasswordUpdateApp = (id, input, events, publicPath) => {
     passwordUpdate: loginReducers.passwordUpdate
   }
 
-  const store = appFactory.createStore(reducers, sagas, input)
+  const store = appFactory.createStore(reducers, sagas, input, packageName)
 
   return appFactory.createApp(
     `${packageName}.passwordUpdate`,
@@ -75,9 +77,11 @@ const initPasswordUpdateApp = (id, input, events, publicPath) => {
   }
 
   if (__DEV__) {
-    const fetchMock = require('fetch-mock')
-    const setupFetchMocks = require('./dev/fetchMocks')
-    setupFetchMocks(fetchMock)
+    if (!__NO_MOCK__) {
+      const fetchMock = require('fetch-mock')
+      const setupFetchMocks = require('./dev/fetchMocks')
+      setupFetchMocks(fetchMock)
+    }
 
     const app = initLoginApp('id', require('./dev/login_input.json'))
     // uncomment to develop passwordUpdate App
