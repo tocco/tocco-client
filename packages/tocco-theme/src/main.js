@@ -1,1 +1,4 @@
-/* this is a dummy file which is only used to run webpack on tocco-theme package but has no purpose in production */
+if (__PROD__ && __PACKAGE__ === 'tocco-theme') {
+  // require theme.scss to generate tocco-theme.css and tocco-theme.css.map
+  require('ToccoTheme/theme.scss')
+}

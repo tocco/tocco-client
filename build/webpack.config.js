@@ -6,6 +6,7 @@ import config from '../config'
 import _debug from 'debug'
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
 import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
+import fs from 'fs'
 
 const debug = _debug('app:webpack:config')
 const paths = config.utils_paths
@@ -152,27 +153,16 @@ if (__DEV__) {
     })
   )
 
-  if (__PACKAGE__ === 'tocco-theme') {
-    webpackConfig.plugins.push(
-      new CopyWebpackPlugin([
-        {
-          context: `${packageDir}/src/ToccoTheme`,
-          from: '**/*.scss'
-        }
-      ])
-    )
-  } else {
-    webpackConfig.plugins.push(
-      new CopyWebpackPlugin([
-        {
-          context: `${packageDir}/src/`,
-          from: '**/*.scss',
-          flatten: true,
-          to: 'scss'
-        }
-      ])
-    )
-  }
+  webpackConfig.plugins.push(
+    new CopyWebpackPlugin([
+      {
+        context: `${packageDir}/src/`,
+        from: '**/*.scss',
+        flatten: true,
+        to: 'scss'
+      }
+    ])
+  )
 } else if (__STANDALONE__) {
   webpackConfig.plugins.push(
     new HtmlWebpackPlugin({
@@ -386,6 +376,16 @@ if (__NICE2_11_LEGACY__) {
     }
   )
   /* eslint-enable */
+}
+
+const packageWebpackFile = packageDir + '/build/webpack.js'
+if (fs.existsSync(packageWebpackFile)) {
+  const adjustConfig = require(`../${packageWebpackFile}`).adjustConfig
+
+  if (adjustConfig) {
+    debug('Adjust configuration with package specific config.')
+    adjustConfig(webpackConfig, config, paths)
+  }
 }
 
 export default webpackConfig
