@@ -83,6 +83,17 @@ const Example = () => {
               <FormattedValue type="percent" value={99.9}/>
             </td>
           </tr>
+          <tr>
+            <td>Document</td>
+            <td>
+              <FormattedValue type="document" value={{
+                fileName: 'Blue-Square.png',
+                binaryLink: 'http://linkt.to/my/image.png',
+                thumbnailLink: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgAQMAAADYVuV7AAAACXBIWXMAAA7EAAA'
+                               + 'OxAGVKw4bAAAABlBMVEUCd72z5fwcX0uLAAAAHElEQVQ4y2NgwAns/8PBn1HOKGeUM8oZrBycAADOggXZNnQm'
+                               + 'gAAAAABJRU5ErkJggg=='}}/>
+            </td>
+          </tr>
         </tbody>
       </table>
       {/* end example */}
