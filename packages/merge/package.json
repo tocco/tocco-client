@@ -28,7 +28,6 @@
   "devDependencies": {
     "moment": "2.17.1",
     "tocco-test-util": "^0.1.0",
-    "tocco-theme": "0.1.1",
     "tocco-ui": "^0.1.1",
     "tocco-util": "^0.1.0"
   }
