@@ -62,7 +62,7 @@ const SearchForm = props => {
       }
 
       <div className="row">
-        <div className="col-sm-8 col-sm-push-4">
+        <div className="col-sm-9 col-sm-push-3">
           <Button
             type="submit"
             icon="glyphicon-search"
