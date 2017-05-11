@@ -147,7 +147,6 @@
     "enzyme": "2.8.2",
     "eslint": "3.19.0",
     "eslint-config-standard": "10.2.1",
-    "eslint-config-standard-react": "5.0.0",
     "eslint-loader": "1.7.1",
     "eslint-plugin-babel": "4.1.1",
     "eslint-plugin-chai-friendly": "0.3.6",

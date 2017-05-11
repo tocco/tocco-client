@@ -20,8 +20,8 @@ describe('login', () => {
         }]
         const wrapper = shallow(<ValidationRules rules={rules}/>)
         expect(wrapper.containsAllMatchingElements([
-          <Rule message="Must have at least 8 characters"/>,
-          <Rule message="Must have at least 1 digit"/>
+          <Rule key="1" message="Must have at least 8 characters"/>,
+          <Rule key="1" message="Must have at least 1 digit"/>
         ])).to.equal(true)
       })
 
@@ -36,8 +36,8 @@ describe('login', () => {
         const errors = {}
         const wrapper = shallow(<ValidationRules rules={rules} errors={errors}/>)
         expect(wrapper.containsAllMatchingElements([
-          <Rule message="Must have at least 8 characters" className="text-success"/>,
-          <Rule message="Must have at least 1 digit" className="text-success"/>
+          <Rule message="Must have at least 8 characters" className="text-success" key="1"/>,
+          <Rule message="Must have at least 1 digit" className="text-success" key="2"/>
         ])).to.equal(true)
       })
 
@@ -54,8 +54,8 @@ describe('login', () => {
         }
         const wrapper = shallow(<ValidationRules rules={rules} errors={errors}/>)
         expect(wrapper.containsAllMatchingElements([
-          <Rule message="Must have at least 8 characters" className="text-danger"/>,
-          <Rule message="Must have at least 1 digit" className="text-success"/>
+          <Rule message="Must have at least 8 characters" className="text-danger" key="1"/>,
+          <Rule message="Must have at least 1 digit" className="text-success" key="2"/>
         ])).to.equal(true)
       })
 
@@ -72,8 +72,8 @@ describe('login', () => {
         }
         const wrapper = shallow(<ValidationRules rules={rules} errors={errors}/>)
         expect(wrapper.containsAllMatchingElements([
-          <Rule message="Two more characters required!" className="text-danger"/>,
-          <Rule message="Must have at least 1 digit" className="text-success"/>
+          <Rule message="Two more characters required!" className="text-danger" key="1"/>,
+          <Rule message="Must have at least 1 digit" className="text-success" key="2"/>
         ])).to.equal(true)
       })
     })
