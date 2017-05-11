@@ -1,8 +1,7 @@
 import React from 'react'
 import SubGrid from './SubGrid'
-import {mount} from 'enzyme'
+import {shallow} from 'enzyme'
 import {context} from 'tocco-test-util'
-import EntityListApp from 'entity-list/src/main'
 
 describe('entity-browser', () => {
   describe('components', () => {
@@ -20,9 +19,7 @@ describe('entity-browser', () => {
           <SubGrid tableDefinition={tableDefinition} modelField={{targetEntity:'User'}} relationName="relFoo"/>
         )
 
-        const wrapper = mount(subGridComponent)
-
-        expect(wrapper.find(EntityListApp)).to.have.length(1)
+        shallow(subGridComponent)
       })
     })
   })

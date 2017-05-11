@@ -27,7 +27,7 @@ class DetailView extends React.Component {
   }
 
   handleGoBack = () => {
-    this.props.router.push(this.props.parentUrl)
+    this.props.router.history.push(this.props.parentUrl)
   }
 
   getSyncValidation = () => {
