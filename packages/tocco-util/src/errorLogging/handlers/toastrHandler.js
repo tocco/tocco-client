@@ -6,6 +6,7 @@ import {FormattedMessage} from 'react-intl'
 export default function* toastr(type, title, description, error) {
   yield put(toastrActions.add({
     type: type,
+    position: 'top-right',
     options: {
       component: () => (
         <div>
