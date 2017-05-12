@@ -1,4 +1,4 @@
-import {put, fork, select, call, takeLatest} from 'redux-saga/effects'
+import {put, fork, select, call, takeLatest, all} from 'redux-saga/effects'
 import _isEmpty from 'lodash/isEmpty'
 
 import * as actions from './actions'
@@ -7,11 +7,11 @@ import {fetchModel, fetchEntities, selectEntitiesTransformer} from '../../../uti
 export const entityBrowserSelector = state => state.entityBrowser
 
 export default function* sagas() {
-  yield [
+  yield all([
     fork(takeLatest, actions.INITIALIZE, initialize),
     fork(takeLatest, actions.LOAD_RELATION_ENTITY, loadRelationEntity),
     fork(takeLatest, actions.LOAD_REMOTE_ENTITY, loadRemoteEntity)
-  ]
+  ])
 }
 
 export function* loadEntityModel(entityName, entityModel) {

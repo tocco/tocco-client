@@ -1,5 +1,5 @@
 import {takeLatest} from 'redux-saga'
-import {fork, put, select, call} from 'redux-saga/effects'
+import {fork, put, select, call, all} from 'redux-saga/effects'
 import {externalEvents, consoleLogger} from 'tocco-util'
 
 import * as actions from './actions'
@@ -114,8 +114,8 @@ export function* checkSessionSaga() {
 }
 
 export default function* mainSagas() {
-  yield [
+  yield all([
     fork(takeLatest, actions.LOGIN, loginSaga),
     fork(takeLatest, actions.CHECK_SESSION, checkSessionSaga)
-  ]
+  ])
 }

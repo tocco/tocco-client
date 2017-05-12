@@ -1,4 +1,4 @@
-import {call, put, select, fork, takeLatest} from 'redux-saga/effects'
+import {call, put, select, fork, takeLatest, all} from 'redux-saga/effects'
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
 import {changePage, setUsername} from '../login/actions'
@@ -12,9 +12,9 @@ describe('login', () => {
         describe('root saga', () => {
           it('should fork child sagas', () => {
             const generator = rootSaga()
-            expect(generator.next().value).to.deep.equal([
+            expect(generator.next().value).to.deep.equal(all([
               fork(takeLatest, actions.REQUEST_PASSWORD, sagas.requestPasswordSaga)
-            ])
+            ]))
             expect(generator.next().done).to.equal(true)
           })
         })

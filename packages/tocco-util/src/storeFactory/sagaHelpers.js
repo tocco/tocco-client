@@ -1,4 +1,4 @@
-import {call, put} from 'redux-saga/effects'
+import {call, put, all} from 'redux-saga/effects'
 
 export const autoRestartSaga = (generator, logError) => {
   return function* autoRestarting(...args) {
@@ -14,6 +14,6 @@ export const autoRestartSaga = (generator, logError) => {
 
 export const createGenerator = sagas => {
   return function* rootSaga() {
-    yield sagas
+    yield all(sagas)
   }
 }

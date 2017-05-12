@@ -1,5 +1,5 @@
 import rootSaga, * as sagas from './sagas'
-import {call, takeEvery, fork} from 'redux-saga/effects'
+import {call, takeEvery, fork, all} from 'redux-saga/effects'
 import * as actions from './actions'
 import handlerRegistry from './handlerRegistry'
 
@@ -10,9 +10,9 @@ describe('tocco-util', () => {
         const handlers = ['console', 'toastr']
         const generator = rootSaga(handlers)
 
-        expect(generator.next().value).to.deep.equal([
+        expect(generator.next().value).to.deep.equal(all([
           fork(takeEvery, actions.LOG_ERROR, sagas.log, handlers)
-        ])
+        ]))
 
         expect(generator.next().done).to.be.true
       })

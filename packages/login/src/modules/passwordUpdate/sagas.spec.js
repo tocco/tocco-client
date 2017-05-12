@@ -1,4 +1,4 @@
-import {fork, call, take} from 'redux-saga/effects'
+import {fork, call, take, all} from 'redux-saga/effects'
 import sagas, {initializeWatcher} from './sagas'
 import * as actions from './actions'
 import {externalEvents} from 'tocco-util'
@@ -10,7 +10,7 @@ describe('login', () => {
         describe('root saga', () => {
           it('should fork child sagas', () => {
             const generator = sagas()
-            expect(generator.next().value).to.deep.equal([fork(initializeWatcher)])
+            expect(generator.next().value).to.deep.equal(all([fork(initializeWatcher)]))
             expect(generator.next().done).to.equal(true)
           })
         })
