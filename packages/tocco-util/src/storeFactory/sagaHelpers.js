@@ -6,7 +6,7 @@ export const autoRestartSaga = (generator, logError) => {
       try {
         yield call(generator, ...args)
       } catch (error) {
-        yield put(logError('error.unhandled', 'error.unhandledDescription', error))
+        yield put(logError('client.common.unexpectedError', 'client.common.unexpectedError', error))
       }
     }
   }
