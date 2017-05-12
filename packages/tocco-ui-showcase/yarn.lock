@@ -228,6 +228,10 @@ source-map@~0.5.0:
   version "0.5.6"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.6.tgz#75ce38f52bf0733c5a7f0c118d81334a2bb5f412"
 
+tocco-theme@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/tocco-theme/-/tocco-theme-0.1.1.tgz#4612ea87652648fb965893f0698695462b1c1506"
+
 ua-parser-js@^0.7.9:
   version "0.7.12"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.12.tgz#04c81a99bdd5dc52263ea29d24c6bf8d4818a4bb"

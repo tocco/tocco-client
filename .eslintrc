@@ -2,8 +2,8 @@
   "parser"  : "babel-eslint",
   "extends" : [
     "standard",
-    "standard-react",
-    "plugin:flowtype/recommended"
+    "plugin:flowtype/recommended",
+    "plugin:react/recommended"
   ],
   "plugins": [
     "babel",
@@ -51,13 +51,16 @@
     "space-before-function-paren": [2, "never"],
     "operator-linebreak": [2, "before"],
     "generator-star-spacing": [2, {"before": false, "after": true}],
+    "no-console": 2,
 
-    "react/jsx-space-before-closing": [2, "never"],
-    "jsx-quotes": [2, "prefer-double"],
     "react/jsx-no-bind": [2, { "allowArrowFunctions": true, "allowBind": true }],
+    "react/display-name": 0,
+    "react/no-deprecated": 0, //TODO: Remove and fix errros
+    "react/no-unused-prop-types": 0, // temporary disabled until this issue is solved: https://github.com/yannickcr/eslint-plugin-react/issues/1135
+
+    "jsx-quotes": [2, "prefer-double"],
 
     "flowtype-errors/show-errors": 2,
-    "no-console": 2,
 
     // "no-duplicate-imports" rule does not support importing types ("import type ...") and
     // regular values from the same module. Therefore, we have to use "import/no-duplicates",
@@ -67,11 +70,10 @@
     "no-duplicate-imports": 0,
     "import/no-duplicates": 2,
 
+
+    // "no-unused-expressions" is included with "chai-friendly/no-unused-expressions"
     "no-unused-expressions": 0,
     "chai-friendly/no-unused-expressions": 2,
-
-    // temporary disabled until this issue is solved: https://github.com/yannickcr/eslint-plugin-react/issues/1135
-    "react/no-unused-prop-types": 0,
 
     "import/no-webpack-loader-syntax": 0
   }

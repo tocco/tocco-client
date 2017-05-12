@@ -17,7 +17,7 @@ const SubGrid = props => {
         tableDefinition={props.tableDefinition}
         onRowClick={e => {
           const newUrl = `${props.match.url}/${props.relationName}/${e.id}`
-          props.push(newUrl)
+          props.history.push(newUrl)
         }}
       />
     </div>
@@ -35,7 +35,9 @@ SubGrid.propTypes = {
     targetEntity: React.PropTypes.string,
     reverseRelationName: React.PropTypes.string
   }).isRequired,
-  push: React.PropTypes.func.isRequired,
+  history: React.PropTypes.shape({
+    push:  React.PropTypes.func
+  }).isRequired,
   match: React.PropTypes.shape({
     url: React.PropTypes.string.isRequired
   }).isRequired

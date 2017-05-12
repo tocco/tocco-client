@@ -31,7 +31,7 @@ class ListView extends React.Component {
   }
 
   handleRowClick = entityId => {
-    this.props.router.push(`/detail/${entityId}`)
+    this.props.router.history.push(`/detail/${entityId}`)
   }
 
   msg = id => (this.props.intl.formatMessage({id}))

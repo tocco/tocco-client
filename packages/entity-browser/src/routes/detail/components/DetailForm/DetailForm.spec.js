@@ -136,7 +136,7 @@ describe('entity-browser', () => {
         const block = sinon.spy()
         const createHref = () => {}
 
-        const fakeContext = {router: {block, createHref}}
+        const fakeContext = {router: {history: {block, createHref}}}
         const contextTypes = {router: React.PropTypes.object}
 
         const formComponent = context.wrapWithContext(fakeContext, contextTypes,
@@ -173,7 +173,7 @@ describe('entity-browser', () => {
         const createHref = () => {
         }
 
-        const fakeContext = {router: {block, createHref}}
+        const fakeContext = {router: {history: {block, createHref}}}
         const contextTypes = {router: React.PropTypes.object}
 
         const formComponent = context.wrapWithContext(fakeContext, contextTypes,
