@@ -52,7 +52,6 @@
     "operator-linebreak": [2, "before"],
     "generator-star-spacing": [2, {"before": false, "after": true}],
     "no-console": 2,
-    "no-unused-expressions": 0,
 
     "react/jsx-no-bind": [2, { "allowArrowFunctions": true, "allowBind": true }],
     "react/display-name": 0,
@@ -72,6 +71,8 @@
     "import/no-duplicates": 2,
 
 
+    // "no-unused-expressions" is included with "chai-friendly/no-unused-expressions"
+    "no-unused-expressions": 0,
     "chai-friendly/no-unused-expressions": 2,
 
     "import/no-webpack-loader-syntax": 0
