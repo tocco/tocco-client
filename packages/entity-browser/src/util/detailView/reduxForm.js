@@ -53,7 +53,7 @@ export const entityToFormValues = entity => {
 
   Object.keys(entity.paths).forEach(key => {
     const field = paths[key]
-    if (field.type === 'entity' || field.type === 'entity-list') {
+    if (field.type === 'entity' || field.type === 'entity-list' || field.type === 'display-expression') {
       result[transformFieldName(key)] = field.value
     } else {
       result[transformFieldName(key)] = field.value ? field.value.value : null

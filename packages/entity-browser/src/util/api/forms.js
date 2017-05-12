@@ -1,9 +1,10 @@
 import _startsWith from 'lodash/startsWith'
 import {request} from 'tocco-util/src/rest'
 
-const NO_FIELD_TYPES = [
-  'ch.tocco.nice2.model.form.components.simple.DescriptionField',
-  'ch.tocco.nice2.model.form.components.simple.DisplayExpressionField'
+export const getDetailFormName = formBase => (formBase + '_detail')
+
+const IGNORED_FIELD_TYPES = [
+  'ch.tocco.nice2.model.form.components.simple.DescriptionField'
 ]
 
 export const getFieldsOfDetailForm = formDefinition => {
@@ -27,7 +28,8 @@ const getFieldsOfChildren = children => {
     }
 
     const fieldType = children[i].type
-    if (_startsWith(fieldType, 'ch.tocco.nice2.model.form.components.simple') && !NO_FIELD_TYPES.includes(fieldType)) {
+    if (_startsWith(fieldType, 'ch.tocco.nice2.model.form.components.simple')
+      && !IGNORED_FIELD_TYPES.includes(fieldType)) {
       result.push(children[i].name)
     }
   }
@@ -80,7 +82,7 @@ export const getFieldsOfColumnDefinition = columnDefinition => {
   let fields = []
 
   columnDefinition
-    .filter(column => !column.values.some(field => NO_FIELD_TYPES.includes(field.type)))
+    .filter(column => !column.values.some(field => IGNORED_FIELD_TYPES.includes(field.type)))
     .forEach(column => {
       fields = fields.concat(column.values.map(field => field.name))
     })

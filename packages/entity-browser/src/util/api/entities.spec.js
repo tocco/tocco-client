@@ -34,10 +34,10 @@ describe('entity-browser', () => {
             fetchMock.get('*', {data: [{fields: {a: 'a'}}]})
 
             const fields = ['f1', 'f2']
-            return entities.fetchEntity('User', 99, fields).then(() => {
+            return entities.fetchEntity('User', 99, fields, 'User_detail').then(() => {
               expect(fetchMock.calls().matched).to.have.length(1)
               const lastCall = fetchMock.lastCall()[0]
-              expect(lastCall).to.eql('/nice2/rest/entities/User/99?_paths=f1%2Cf2')
+              expect(lastCall).to.eql('/nice2/rest/entities/User/99?_form=User_detail&_paths=f1%2Cf2')
             })
           })
         })

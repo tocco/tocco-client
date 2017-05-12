@@ -106,6 +106,14 @@
                     "useLabel": "YES"
                   },
                   {
+                    "name": "duration",
+                    "type": "ch.tocco.nice2.model.form.components.simple.DisplayExpressionField",
+                    "displayType": "EDITABLE",
+                    "children": [ ],
+                    "label": "Dauer",
+                    "useLabel": "YES"
+                  },
+                  {
                     "name": "relDummySubGrid",
                     "type": "ch.tocco.nice2.model.form.components.table.Table",
                     "displayType": "EDITABLE",

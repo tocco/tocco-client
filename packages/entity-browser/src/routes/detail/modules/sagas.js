@@ -14,7 +14,7 @@ import {logError} from 'tocco-util/src/errorLogging'
 import * as actions from './actions'
 import {notify} from '../../../util/notification'
 import {fetchEntity, updateEntity, fetchModel} from '../../../util//api/entities'
-import {fetchForm, getFieldsOfDetailForm} from '../../../util//api/forms'
+import {fetchForm, getFieldsOfDetailForm, getDetailFormName} from '../../../util//api/forms'
 import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../../util//detailView/reduxForm'
 import {submitValidate} from '../../../util//detailView/asyncValidation'
 
@@ -32,18 +32,18 @@ export default function* sagas() {
   ]
 }
 
-export function* loadDetailFormDefinition(formDefinition, formBase) {
+export function* loadDetailFormDefinition(formDefinition, formName) {
   if (_isEmpty(formDefinition)) {
-    formDefinition = yield call(fetchForm, formBase + '_detail')
+    formDefinition = yield call(fetchForm, formName)
     yield put(actions.setFormDefinition(formDefinition))
   }
 
   return formDefinition
 }
 
-export function* loadEntity(entityName, entityId, formDefinition) {
+export function* loadEntity(entityName, entityId, formDefinition, formName) {
   const fields = yield call(getFieldsOfDetailForm, formDefinition)
-  const entity = yield call(fetchEntity, entityName, entityId, fields)
+  const entity = yield call(fetchEntity, entityName, entityId, fields, formName)
   yield put(actions.setEntity(entity))
   return entity
 }
@@ -77,17 +77,20 @@ export function* loadDetailView({payload}) {
   let {formBase, formDefinition} = entityBrowser
   const {entityName} = entityBrowser
 
+  let formName = yield call(getDetailFormName, formBase)
+
   const targetEntityName = yield call(getTargetEntityName, entityName, modelPaths)
+
   if (entityName !== targetEntityName) {
-    formBase = `${formBase}_${targetEntityName}`
+    formName = yield call(getDetailFormName, `${formBase}_${targetEntityName}`)
     formDefinition = null
   }
 
   const entityModel = yield call(fetchModel, targetEntityName)
   yield put(actions.setEntityModel(entityModel))
 
-  formDefinition = yield call(loadDetailFormDefinition, formDefinition, formBase)
-  const entity = yield call(loadEntity, targetEntityName, entityId, formDefinition)
+  formDefinition = yield call(loadDetailFormDefinition, formDefinition, formName)
+  const entity = yield call(loadEntity, targetEntityName, entityId, formDefinition, formName)
 
   const formValues = yield call(entityToFormValues, entity)
   yield put(initializeForm(FORM_ID, formValues))

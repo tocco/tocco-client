@@ -21,6 +21,7 @@ export default {
   'ch.tocco.nice2.model.form.components.simple.DatetimeField': formField.editableValueFactory('datetime'),
   'ch.tocco.nice2.model.form.components.simple.DescriptionField': null,
   'ch.tocco.nice2.model.form.components.simple.DisplayExpressionFieldFacade': null,
+  'ch.tocco.nice2.model.form.components.simple.DisplayExpressionField': formField.formattedValueFactory('html'),
   'ch.tocco.nice2.model.form.components.simple.DisplayField': null,
   'ch.tocco.nice2.model.form.components.simple.DocumentField': formField.editableValueFactory('document'),
   'ch.tocco.nice2.model.form.components.simple.DurationField': null,

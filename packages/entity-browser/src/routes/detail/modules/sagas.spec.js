@@ -7,7 +7,7 @@ import {
   initialize as initializeForm
 } from 'redux-form'
 import {updateEntity, fetchEntity, fetchModel} from '../../../util/api/entities'
-import {getFieldsOfDetailForm, fetchForm} from '../../../util/api/forms'
+import {getFieldsOfDetailForm, fetchForm, getDetailFormName} from '../../../util/api/forms'
 import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../../util/detailView/reduxForm'
 import {submitValidate} from '../../../util/detailView/asyncValidation'
 import {notify} from '../../../util/notification'
@@ -90,6 +90,7 @@ describe('entity-browser', () => {
             const modelPaths = []
             const entityId = 99
             const formBase = 'UserSearch'
+            const formName = 'UserSearch_detail'
             const entityName = 'User'
             const formDefinition = {}
 
@@ -118,14 +119,16 @@ describe('entity-browser', () => {
 
             const gen = sagas.loadDetailView(actions.loadDetailView(modelPaths, entityId))
             expect(gen.next().value).to.eql(select(sagas.entityBrowserSelector))
-            expect(gen.next({entityName, formBase, formDefinition}).value)
+            expect(gen.next({entityName, formBase, formDefinition}).value).to.eql(call(getDetailFormName, formBase))
+            expect(gen.next(formName).value)
               .to.eql(call(sagas.getTargetEntityName, entityName, modelPaths))
 
             expect(gen.next(entityName).value).to.eql(call(fetchModel, entityName))
             expect(gen.next(entityModel).value).to.eql(put(actions.setEntityModel(entityModel)))
 
-            expect(gen.next().value).to.eql(call(sagas.loadDetailFormDefinition, formDefinition, formBase))
-            expect(gen.next(formDefinition).value).to.eql(call(sagas.loadEntity, entityName, entityId, formDefinition))
+            expect(gen.next().value).to.eql(call(sagas.loadDetailFormDefinition, formDefinition, formName))
+            expect(gen.next(formDefinition).value)
+              .to.eql(call(sagas.loadEntity, entityName, entityId, formDefinition, formName))
             expect(gen.next(entity).value).to.eql(call(entityToFormValues, entity))
             expect(gen.next({}).value).to.eql(put(initializeForm(FORM_ID, {})))
             expect(gen.next().done).to.be.true
@@ -135,11 +138,13 @@ describe('entity-browser', () => {
             const modelPaths = ['relFoo']
             const entityId = 2
             const formBase = 'UserSearch'
+            const formName = 'UserSearch_detail'
             const fooFormBase = 'UserSearch_Foo'
             const entityName = 'User'
             const fooEntityName = 'Foo'
             const formDefinition = {}
             const entityModel = {}
+            const fooFormName = `${fooFormBase}_detail`
 
             const fooEntity = {
               key: '2',
@@ -149,15 +154,20 @@ describe('entity-browser', () => {
             const gen = sagas.loadDetailView(actions.loadDetailView(modelPaths, entityId))
             expect(gen.next().value)
               .to.eql(select(sagas.entityBrowserSelector))
-            expect(gen.next({entityName, formBase, formDefinition}).value)
+            expect(gen.next({entityName, formBase, formDefinition}).value).to.eql(call(getDetailFormName, formBase))
+            expect(gen.next(formName).value)
               .to.eql(call(sagas.getTargetEntityName, entityName, modelPaths))
-            expect(gen.next(fooEntityName).value).to.eql(call(fetchModel, fooEntityName))
+
+            expect(gen.next(fooEntityName).value).to.eql(call(getDetailFormName, fooFormBase))
+
+            expect(gen.next(fooFormName).value).to.eql(call(fetchModel, fooEntityName))
+
             expect(gen.next(entityModel).value).to.eql(put(actions.setEntityModel(entityModel)))
 
             expect(gen.next().value)
-              .to.eql(call(sagas.loadDetailFormDefinition, null, fooFormBase))
+              .to.eql(call(sagas.loadDetailFormDefinition, null, fooFormName))
             expect(gen.next(formDefinition).value)
-              .to.eql(call(sagas.loadEntity, fooEntityName, entityId, formDefinition))
+              .to.eql(call(sagas.loadEntity, fooEntityName, entityId, formDefinition, fooFormName))
             expect(gen.next(fooEntity).value)
               .to.eql(call(entityToFormValues, fooEntity))
             expect(gen.next({}).value)
@@ -210,11 +220,11 @@ describe('entity-browser', () => {
           it('should load formDefinition if not loaded', () => {
             const formDefinition = {}
             const loadedFormDefinition = {}
-            const formBase = 'UserSearch'
+            const formName = 'UserSearch_detail'
 
-            const gen = sagas.loadDetailFormDefinition(formDefinition, formBase)
+            const gen = sagas.loadDetailFormDefinition(formDefinition, formName)
 
-            expect(gen.next().value).to.eql(call(fetchForm, formBase + '_detail'))
+            expect(gen.next().value).to.eql(call(fetchForm, formName))
             expect(gen.next(loadedFormDefinition).value).to.eql(put(actions.setFormDefinition(loadedFormDefinition)))
             expect(gen.next().done).to.be.true
           })
@@ -233,14 +243,15 @@ describe('entity-browser', () => {
             const entityName = 'User'
             const entityId = '99'
             const formDefinition = {}
+            const formName = 'User_detail'
 
             const fields = []
             const entity = {}
 
-            const gen = sagas.loadEntity(entityName, entityId, formDefinition)
+            const gen = sagas.loadEntity(entityName, entityId, formDefinition, formName)
 
             expect(gen.next().value).to.eql(call(getFieldsOfDetailForm, formDefinition))
-            expect(gen.next(fields).value).to.eql(call(fetchEntity, entityName, entityId, fields))
+            expect(gen.next(fields).value).to.eql(call(fetchEntity, entityName, entityId, fields, formName))
             expect(gen.next(entity).value).to.eql(put(actions.setEntity(entity)))
 
             expect(gen.next().done).to.be.true
