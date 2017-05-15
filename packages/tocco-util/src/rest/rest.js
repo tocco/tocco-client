@@ -35,12 +35,24 @@ export const getRequest = (resource, params, acceptedErrorCodes = []) => {
   return request(resource, params, 'GET', undefined, acceptedErrorCodes)
 }
 
+let nullBusinessUnit = false
+
+export const setNullBusinessUnit = value => {
+  nullBusinessUnit = value
+}
+
 export const request = (resource, params, method = 'GET', body, acceptedErrorCodes = []) => {
+  const headers = {
+    'Content-Type': 'application/json'
+  }
+
+  if (nullBusinessUnit) {
+    headers['X-Business-Unit'] = '__n-u-l-l__'
+  }
+
   const options = {
     method,
-    headers: new Headers({
-      'Content-Type': 'application/json'
-    }),
+    headers: new Headers(headers),
     credentials: 'include'
   }
 

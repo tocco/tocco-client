@@ -1,3 +1,3 @@
-import {request, getRequest} from './rest'
+import {request, getRequest, setNullBusinessUnit} from './rest'
 
-export {request, getRequest}
+export {request, getRequest, setNullBusinessUnit}
