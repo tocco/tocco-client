@@ -24,6 +24,7 @@ React-registry name: `entity-browser`
 | `searchFilters`        |           | Array of search-filter ids.
 | `simpleSearchFields`   |           | Comma separated String of searchfields which should be displayed by default.
 | `initialKey`           |           | If set, the entity browser will start on the detail page of the entity with the specified key instead of showing a list.
+| `nullBusinessUnit`     |           | If true, all REST-request have the null business unit header (X-Business-Unit: __n-u-l-l__)
 
 
 ### Methods
