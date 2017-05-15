@@ -1,4 +1,4 @@
-import {fork, put, call, select, takeLatest} from 'redux-saga/effects'
+import {fork, put, call, select, takeLatest, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import {changePage, setUsername} from '../login/actions'
@@ -24,7 +24,7 @@ export function* requestPasswordSaga({payload}) {
 }
 
 export default function* saga() {
-  yield [
+  yield all([
     fork(takeLatest, actions.REQUEST_PASSWORD, requestPasswordSaga)
-  ]
+  ])
 }

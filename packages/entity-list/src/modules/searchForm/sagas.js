@@ -1,6 +1,6 @@
 import {delay} from 'redux-saga'
 import _uniq from 'lodash/uniq'
-import {call, put, fork, select, takeLatest, take} from 'redux-saga/effects'
+import {call, put, fork, select, takeLatest, take, all} from 'redux-saga/effects'
 import * as actions from './actions'
 import {fetchForm, searchFormTransformer} from '../../util/api/forms'
 import {fetchEntities, selectEntitiesTransformer} from '../../util/api/entities'
@@ -10,12 +10,12 @@ export const searchFormSelector = state => state.searchForm
 export const entityListSelector = state => state.entityList
 
 export default function* sagas() {
-  yield [
+  yield all([
     fork(takeLatest, actions.INITIALIZE, initialize),
     fork(takeLatest, actions.SET_SEARCH_INPUT, setSearchTerm),
     fork(takeLatest, actions.RESET, setSearchTerm),
     fork(takeLatest, actions.LOAD_RELATION_ENTITY, loadRelationEntity)
-  ]
+  ])
 }
 
 export function* loadSearchForm(formDefinition, searchFormName) {
@@ -41,7 +41,7 @@ export function* loadPreselectedRelationEntities(formDefinition, entityModel, se
    relationFieldsWithValue.map(relationField => (entityModel[relationField].targetEntity))
   )
 
-  yield targetEntities.map(targetEntity => put(actions.loadRelationEntity(targetEntity)))
+  yield all(targetEntities.map(targetEntity => put(actions.loadRelationEntity(targetEntity))))
 }
 
 export function* getEntityModel() {

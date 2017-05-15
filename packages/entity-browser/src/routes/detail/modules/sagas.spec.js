@@ -1,5 +1,5 @@
 import rootSaga, * as sagas from './sagas'
-import {call, put, fork, select, takeLatest, takeEvery} from 'redux-saga/effects'
+import {call, put, fork, select, takeLatest, takeEvery, all} from 'redux-saga/effects'
 import * as actions from './actions'
 import {
   startSubmit,
@@ -21,11 +21,11 @@ describe('entity-browser', () => {
         describe('rootSaga', () => {
           it('should fork child sagas', () => {
             const generator = rootSaga()
-            expect(generator.next().value).to.deep.equal([
+            expect(generator.next().value).to.deep.equal(all([
               fork(takeLatest, actions.LOAD_DETAIL_VIEW, sagas.loadDetailView),
               fork(takeLatest, actions.UNLOAD_DETAIL_VIEW, sagas.unloadDetailView),
               fork(takeEvery, actions.SUBMIT_FORM, sagas.submitForm)
-            ])
+            ]))
             expect(generator.next().done).to.be.true
           })
         })

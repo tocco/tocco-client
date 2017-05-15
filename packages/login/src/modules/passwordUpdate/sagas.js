@@ -1,5 +1,5 @@
 import * as actions from './actions'
-import {call, fork, take} from 'redux-saga/effects'
+import {call, fork, take, all} from 'redux-saga/effects'
 import {externalEvents} from 'tocco-util'
 
 export function* initializeWatcher() {
@@ -8,7 +8,7 @@ export function* initializeWatcher() {
 }
 
 export default function* sagas() {
-  yield [
+  yield all([
     fork(initializeWatcher)
-  ]
+  ])
 }

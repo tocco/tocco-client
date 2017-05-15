@@ -1,4 +1,4 @@
-import {call, put, fork, select, spawn, takeEvery, takeLatest} from 'redux-saga/effects'
+import {call, put, fork, select, spawn, takeEvery, takeLatest, all} from 'redux-saga/effects'
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import {getSearchInputsForRequest} from '../../util/searchInputs'
@@ -13,14 +13,14 @@ export const listSelector = state => state.list
 export const searchFormSelector = state => state.searchForm
 
 export default function* sagas() {
-  yield [
+  yield all([
     fork(takeLatest, actions.INITIALIZE, initialize),
     fork(takeLatest, actions.CHANGE_PAGE, changePage),
     fork(takeLatest, searchFormActions.SEARCH_TERM_CHANGE, resetDataSet),
     fork(takeEvery, actions.SET_ORDER_BY, resetDataSet),
     fork(takeEvery, actions.RESET_DATA_SET, resetDataSet),
     fork(takeLatest, actions.REFRESH, refresh)
-  ]
+  ])
 }
 
 export function* initialize() {
@@ -31,10 +31,10 @@ export function* initialize() {
   const {columnDefinition, entityModel} = listView
   yield call(loadEntityModel, entityName, entityModel)
 
-  yield [
+  yield all([
     call(loadColumnDefinition, columnDefinition, formBase),
     call(resetDataSet)
-  ]
+  ])
 
   yield put(actions.setInProgress(false))
 }

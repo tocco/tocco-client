@@ -1,5 +1,5 @@
 import {delay} from 'redux-saga'
-import {put, select, call, fork, takeLatest} from 'redux-saga/effects'
+import {put, select, call, fork, takeLatest, all} from 'redux-saga/effects'
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
 import {fetchEntities, selectEntitiesTransformer} from '../../util/api/entities'
@@ -11,12 +11,12 @@ describe('entity-list', () => {
         describe('rootSaga', () => {
           it('should fork child sagas', () => {
             const generator = rootSaga()
-            expect(generator.next().value).to.deep.equal([
+            expect(generator.next().value).to.deep.equal(all([
               fork(takeLatest, actions.INITIALIZE, sagas.initialize),
               fork(takeLatest, actions.SET_SEARCH_INPUT, sagas.setSearchTerm),
               fork(takeLatest, actions.RESET, sagas.setSearchTerm),
               fork(takeLatest, actions.LOAD_RELATION_ENTITY, sagas.loadRelationEntity)
-            ])
+            ]))
             expect(generator.next().done).to.be.true
           })
         })

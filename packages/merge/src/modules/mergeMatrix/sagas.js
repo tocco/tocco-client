@@ -1,4 +1,4 @@
-import {takeEvery, fork, select, put} from 'redux-saga/effects'
+import {takeEvery, fork, select, put, all} from 'redux-saga/effects'
 import {CHANGE_TARGET_ENTITY} from './actions'
 import {selectSourceField, selectSourceRelation} from './selections/actions'
 
@@ -16,7 +16,7 @@ export function* selectTargetEntityFields({payload}) {
 }
 
 export default function* sagas() {
-  yield [
+  yield all([
     fork(takeEvery, CHANGE_TARGET_ENTITY, selectTargetEntityFields)
-  ]
+  ])
 }

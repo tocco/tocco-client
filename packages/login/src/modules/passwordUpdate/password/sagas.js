@@ -1,6 +1,6 @@
 import {externalEvents} from 'tocco-util'
 import {takeLatest} from 'redux-saga'
-import {call, fork, select, put} from 'redux-saga/effects'
+import {call, fork, select, put, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import localValidate from './validate'
@@ -131,9 +131,9 @@ export function* getLoginData() {
 }
 
 export default function* sagas() {
-  yield [
+  yield all([
     fork(takeLatest, actions.UPDATE_NEW_PASSWORD, updateNewPassword),
     fork(takeLatest, actions.VALIDATE, validate),
     fork(takeLatest, actions.SAVE_PASSWORD, savePassword)
-  ]
+  ])
 }

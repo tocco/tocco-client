@@ -1,8 +1,8 @@
 import moduleSagas from './sagas'
-import {fork} from 'redux-saga/effects'
+import {fork, all} from 'redux-saga/effects'
 
 export function* sagas() {
-  yield [
+  yield all([
     fork(moduleSagas)
-  ]
+  ])
 }

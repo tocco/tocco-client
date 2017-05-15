@@ -1,4 +1,4 @@
-import {call, put, fork, select, takeLatest, takeEvery} from 'redux-saga/effects'
+import {call, put, fork, select, takeLatest, takeEvery, all} from 'redux-saga/effects'
 import _isEmpty from 'lodash/isEmpty'
 import {
   startSubmit,
@@ -25,11 +25,11 @@ export const entityBrowserSelector = state => state.entityBrowser
 const FORM_ID = 'detailForm'
 
 export default function* sagas() {
-  yield [
+  yield all([
     fork(takeLatest, actions.LOAD_DETAIL_VIEW, loadDetailView),
     fork(takeLatest, actions.UNLOAD_DETAIL_VIEW, unloadDetailView),
     fork(takeEvery, actions.SUBMIT_FORM, submitForm)
-  ]
+  ])
 }
 
 export function* loadDetailFormDefinition(formDefinition, formName) {

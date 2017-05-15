@@ -1,6 +1,6 @@
 import * as actions from './actions'
 import {takeLatest} from 'redux-saga'
-import {call, fork, put, select} from 'redux-saga/effects'
+import {call, fork, put, select, all} from 'redux-saga/effects'
 
 export const usernameSelector = state => state.passwordUpdate.dialog.username
 
@@ -17,7 +17,7 @@ export function* fetchValidationRules() {
 }
 
 export default function* sagas() {
-  yield [
+  yield all([
     fork(takeLatest, actions.FETCH_VALIDATION_RULES, fetchValidationRules)
-  ]
+  ])
 }
