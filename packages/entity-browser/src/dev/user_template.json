@@ -207,6 +207,11 @@
       "path": "relChildren",
       "type": "entity-list",
       "value": []
+    },
+    "duration": {
+      "path": "duration",
+      "type": "display-expression",
+      "value": "<span class='label label-primary'>0:00:38</span>"
     }
   }
 }
