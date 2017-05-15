@@ -1,4 +1,4 @@
-import {put, call, fork, takeLatest} from 'redux-saga/effects'
+import {put, call, fork, takeLatest, all} from 'redux-saga/effects'
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
 import {fetchModel} from '../../util/api/entities'
@@ -10,9 +10,9 @@ describe('entity-list', () => {
         describe('rootSaga', () => {
           it('should fork child sagas', () => {
             const generator = rootSaga()
-            expect(generator.next().value).to.deep.equal([
+            expect(generator.next().value).to.deep.equal(all([
               fork(takeLatest, actions.INITIALIZE, sagas.initialize)
-            ])
+            ]))
             expect(generator.next().done).to.be.true
           })
         })

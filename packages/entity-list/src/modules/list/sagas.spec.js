@@ -1,4 +1,4 @@
-import {put, select, call, fork, spawn, takeLatest, takeEvery} from 'redux-saga/effects'
+import {put, select, call, fork, spawn, takeLatest, takeEvery, all} from 'redux-saga/effects'
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import rootSaga, * as sagas from './sagas'
@@ -23,14 +23,14 @@ describe('entity-list', () => {
         describe('rootSaga', () => {
           it('should fork child sagas', () => {
             const generator = rootSaga()
-            expect(generator.next().value).to.deep.equal([
+            expect(generator.next().value).to.deep.equal(all([
               fork(takeLatest, actions.INITIALIZE, sagas.initialize),
               fork(takeLatest, actions.CHANGE_PAGE, sagas.changePage),
               fork(takeLatest, searchFormActions.SEARCH_TERM_CHANGE, sagas.resetDataSet),
               fork(takeEvery, actions.SET_ORDER_BY, sagas.resetDataSet),
               fork(takeEvery, actions.RESET_DATA_SET, sagas.resetDataSet),
               fork(takeLatest, actions.REFRESH, sagas.refresh)
-            ])
+            ]))
             expect(generator.next().done).to.be.true
           })
         })
@@ -50,10 +50,10 @@ describe('entity-list', () => {
             expect(gen.next({columnDefinition, entityModel}).value)
               .to.eql(call(sagas.loadEntityModel, entityName, entityModel))
             const nextValue = gen.next().value
-            expect(nextValue).to.eql([
+            expect(nextValue).to.eql(all([
               call(sagas.loadColumnDefinition, columnDefinition, formBase),
               call(sagas.resetDataSet)
-            ])
+            ]))
 
             expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
             expect(gen.next().done).to.be.true
