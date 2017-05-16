@@ -80,13 +80,9 @@ class EntityListApp extends React.Component {
 
 EntityListApp.propTypes = {
   entityName: React.PropTypes.string.isRequired,
-  tableDefinition: React.PropTypes.shape({
-    type: React.PropTypes.string,
-    children: React.PropTypes.array
-  }),
+  formBase: React.PropTypes.string.isRequired,
   limit: React.PropTypes.number,
   showSearchForm: React.PropTypes.bool,
-  searchFormName: React.PropTypes.string,
   searchFilters: React.PropTypes.arrayOf(React.PropTypes.string),
   preselectedSearchValues: React.PropTypes.arrayOf(
     React.PropTypes.shape({

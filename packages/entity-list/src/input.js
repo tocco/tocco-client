@@ -5,17 +5,13 @@ import {
   setDisableSimpleSearch,
   setSimpleSearchFields
 } from './modules/searchForm/actions'
-import {setLimit, setSearchFilters, setColumnDefinition} from './modules/list/actions'
-import {columnDefinitionTransformer} from './util/api/forms'
+import {setLimit, setSearchFilters, setListFormName} from './modules/list/actions'
 
 export const getDispatchActions = input => {
   const actions = [
     setEntityName(input.entityName),
-    setColumnDefinition(columnDefinitionTransformer({
-      form: {
-        children: [input.tableDefinition]
-      }
-    }))
+    setListFormName(`${input.formBase}_list`),
+    setSearchFormName(`${input.formBase}_search`)
   ]
 
   if (input.limit) {
@@ -24,12 +20,6 @@ export const getDispatchActions = input => {
 
   if (input.searchFilters) {
     actions.push(setSearchFilters(input.searchFilters))
-  }
-
-  if (input.searchFormName) {
-    actions.push(setSearchFormName(input.searchFormName))
-  } else {
-    actions.push(setSearchFormName(`${input.entityName}_search`))
   }
 
   if (typeof input.showSearchForm === 'boolean') {

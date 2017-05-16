@@ -13,18 +13,36 @@ export default function setupFetchMock(fetchMock) {
   utilFetchMocks.session(fetchMock)
   utilFetchMocks.textResource(fetchMock, require('./textResources.json'))
 
-  fetchMock.get(new RegExp('^.*?/nice2/rest/forms/User_search'), require('./rest-responses/form_user_search.json'))
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/UserSearch_search'), require('./rest-responses/form_user_search.json')
+    new RegExp('^.*?/nice2/rest/forms/User_search$'),
+    require('./rest-responses/form_user_search.json')
   )
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/UserSearch_detail'), require('./rest-responses/form_user_detail.json')
+    new RegExp('^.*?/nice2/rest/forms/UserSearch_search$'),
+    require('./rest-responses/form_user_search.json')
   )
-  fetchMock.get(new RegExp('^.*?/nice2/rest/forms/User_detail'), require('./rest-responses/form_user_detail.json'))
-  fetchMock.get(new RegExp('^.*?/nice2/rest/forms/User_list'), require('./rest-responses/form_user_list.json'))
-  fetchMock.get(new RegExp('^.*?/nice2/rest/forms/UserSearch_list'), require('./rest-responses/form_user_list.json'))
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/UserSearch_Dummy_entity_detail'),
+    new RegExp('^.*?/nice2/rest/forms/UserSearch_detail$'),
+    require('./rest-responses/form_user_detail.json')
+  )
+  fetchMock.get(
+    new RegExp('^.*?/nice2/rest/forms/User_detail$'),
+    require('./rest-responses/form_user_detail.json')
+  )
+  fetchMock.get(
+    new RegExp('^.*?/nice2/rest/forms/User_list$'),
+    require('./rest-responses/form_user_list.json')
+  )
+  fetchMock.get(
+    new RegExp('^.*?/nice2/rest/forms/UserSearch_list$'),
+    require('./rest-responses/form_user_list.json')
+  )
+  fetchMock.get(
+    new RegExp('^.*?/nice2/rest/forms/UserSearch_detail_relDummySubGrid_list$'),
+    require('./rest-responses/form_user_detail_relDummySubGrid_list.json')
+  )
+  fetchMock.get(
+    new RegExp('^.*?/nice2/rest/forms/UserSearch_Dummy_entity_detail$'),
     require('./rest-responses/form_dummy_entity_detail.json')
   )
   fetchMock.get(new RegExp('^.*?/nice2/rest/entities/User_code1.*'), require('./rest-responses/user_code1.json'))

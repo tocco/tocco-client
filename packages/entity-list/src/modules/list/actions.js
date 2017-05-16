@@ -17,6 +17,7 @@ export const REFRESH = 'listView/REFRESH'
 export const SET_SHOW_SEARCH_FORM = 'SET_SEARCH_FORM'
 export const SET_SEARCH_FILTERS = 'SET_SEARCH_FILTERS'
 export const SET_SIMPLE_SEARCH_FIELDS = 'SET_SIMPLE_SEARCH_FIELDS'
+export const SET_LIST_FORM_NAME = 'listView/SET_LIST_FORM_NAME'
 
 export const initialize = () => ({
   type: INITIALIZE
@@ -124,5 +125,12 @@ export const setSearchFilters = searchFilters => ({
   type: SET_SEARCH_FILTERS,
   payload: {
     searchFilters
+  }
+})
+
+export const setListFormName = listFormName => ({
+  type: SET_LIST_FORM_NAME,
+  payload: {
+    listFormName
   }
 })
