@@ -1,4 +1,4 @@
-import {getParameterString, request} from './rest'
+import {getParameterString, request, setNullBusinessUnit} from './rest'
 import fetchMock from 'fetch-mock'
 
 describe('tocco-util', () => {
@@ -92,6 +92,30 @@ describe('tocco-util', () => {
         request(resource, {}, 'GET', {}, []).catch(() => {
           done()
         })
+      })
+
+      it('should set content type header', () => {
+        fetchMock.get('*', {})
+
+        request('', {}, 'GET', {}, [])
+
+        const headers = fetchMock.lastOptions().headers
+        expect(headers.get('randomxyxc')).to.be.null
+        expect(headers.get('content-type')).to.eql('application/json')
+      })
+
+      it('should set null business unit header', () => {
+        fetchMock.get('*', {})
+
+        request('', {}, 'GET', {}, [])
+        const headers = fetchMock.lastOptions().headers
+        expect(headers.get('x-business-unit')).to.be.null
+
+        setNullBusinessUnit(true)
+        request('', {}, 'GET', {}, [])
+
+        const headers2 = fetchMock.lastOptions().headers
+        expect(headers2.get('x-business-unit')).to.eql('__n-u-l-l__')
       })
 
       it('should use ordered params', () => {

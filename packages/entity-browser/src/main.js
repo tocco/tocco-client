@@ -5,6 +5,7 @@ import {Router} from 'react-router'
 import createHashHistory from 'history/createHashHistory'
 import RouteWithSubRoutes from './components/RouteWithSubRoutes'
 import {createConfirmationAction} from './util/notification'
+import {setNullBusinessUnit} from 'tocco-util/src/rest'
 
 const packageName = 'entity-browser'
 
@@ -42,6 +43,10 @@ const navigateToDetailIfKeySet = (history, input) => {
 }
 
 const initApp = (id, input, events, publicPath) => {
+  if (input.nullBusinessUnit) {
+    setNullBusinessUnit(input.nullBusinessUnit)
+  }
+
   const store = appFactory.createStore(undefined, undefined, input, packageName)
 
   const history = createHistory(store)

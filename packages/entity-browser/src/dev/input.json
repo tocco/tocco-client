@@ -27,5 +27,6 @@
       "hidden": false
     }
   ],
-  "initialKey": ""
+  "initialKey": "",
+  "nullBusinessUnit": true
 }
