@@ -99,21 +99,23 @@ describe('tocco-util', () => {
 
         request('', {}, 'GET', {}, [])
 
-        const headerObject = fetchMock.lastOptions().headers.map
-        expect(headerObject).to.have.property('content-type')
+        const headers = fetchMock.lastOptions().headers
+        expect(headers.get('randomxyxc')).to.be.null
+        expect(headers.get('content-type')).to.eql('application/json')
       })
 
       it('should set null business unit header', () => {
         fetchMock.get('*', {})
 
         request('', {}, 'GET', {}, [])
-        const headerObject = fetchMock.lastOptions().headers.map
-        expect(headerObject).to.not.property('x-business-unit')
+        const headers = fetchMock.lastOptions().headers
+        expect(headers.get('x-business-unit')).to.be.null
 
         setNullBusinessUnit(true)
         request('', {}, 'GET', {}, [])
-        const headerObject2 = fetchMock.lastOptions().headers.map
-        expect(headerObject2).to.have.property('x-business-unit')
+
+        const headers2 = fetchMock.lastOptions().headers
+        expect(headers2.get('x-business-unit')).to.eql('__n-u-l-l__')
       })
 
       it('should use ordered params', () => {
