@@ -7,6 +7,7 @@ const SubGrid = props => {
     <div>
       <EntityListApp
         entityName={props.modelField.targetEntity}
+        formBase={`${props.detailFormName}_${props.gridName}`}
         limit={5}
         showSearchForm={false}
         preselectedSearchFields={[{
@@ -14,7 +15,6 @@ const SubGrid = props => {
           value: {key: props.entityKey},
           hidden: true
         }]}
-        tableDefinition={props.tableDefinition}
         onRowClick={e => {
           const newUrl = `${props.match.url}/${props.relationName}/${e.id}`
           props.history.push(newUrl)
@@ -26,10 +26,8 @@ const SubGrid = props => {
 
 SubGrid.propTypes = {
   entityKey: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-  tableDefinition: React.PropTypes.shape({
-    type: React.PropTypes.oneOf(['ch.tocco.nice2.model.form.components.table.Table']),
-    children: React.PropTypes.array
-  }).isRequired,
+  detailFormName: React.PropTypes.string.isRequired,
+  gridName: React.PropTypes.string.isRequired,
   relationName: React.PropTypes.string.isRequired,
   modelField: React.PropTypes.shape({
     targetEntity: React.PropTypes.string,
