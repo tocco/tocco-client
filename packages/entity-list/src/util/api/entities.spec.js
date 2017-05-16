@@ -20,11 +20,13 @@ describe('entity-browser', () => {
               orderBy: 'firstname',
               limit: 20,
               fields: fields,
-              searchInputs: {_search: 'test'}
+              searchInputs: {_search: 'test'},
+              formName: 'User_list'
             }).then(() => {
               expect(fetchMock.calls().matched).to.have.length(1)
               const lastCall = fetchMock.lastCall()[0]
-              expect(lastCall).to.eql('/nice2/rest/entities/User?_limit=20&_offset=20&_paths=f1%2Cf2&_search=test')
+              expect(lastCall)
+                .to.eql('/nice2/rest/entities/User?_form=User_list&_limit=20&_offset=20&_paths=f1%2Cf2&_search=test')
             })
           })
         })

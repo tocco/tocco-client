@@ -1,8 +1,7 @@
 import {request} from 'tocco-util/src/rest'
 
 const IGNORED_FIELD_TYPES = [
-  'ch.tocco.nice2.model.form.components.simple.DescriptionField',
-  'ch.tocco.nice2.model.form.components.simple.DisplayExpressionField'
+  'ch.tocco.nice2.model.form.components.simple.DescriptionField'
 ]
 
 const defaultFormTransformer = json => (json.form)

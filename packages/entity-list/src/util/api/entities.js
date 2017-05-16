@@ -74,12 +74,14 @@ function buildParams({
   limit = undefined,
   fields = [],
   searchFilters = [],
-  searchInputs = {}
+  searchInputs = {},
+  formName = undefined
 } = {}) {
   const params = {
     '_sort': Object.keys(orderBy || {}).length === 2 ? `${orderBy.name} ${orderBy.direction}` : undefined,
     '_paths': fields.join(','),
     '_filter': searchFilters.join(','),
+    '_form': formName,
     ...searchInputs
   }
 
