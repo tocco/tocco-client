@@ -112,7 +112,16 @@
                     "children": [ ],
                     "label": "Dauer",
                     "useLabel": "YES"
-                  },
+                  }
+                ],
+                "label": "Form Stuff",
+                "useLabel": "YES"
+              },
+              {
+                "name": "dummy_subgrid",
+                "type": "ch.tocco.nice2.model.form.components.layout.VerticalBox",
+                "displayType": "EDITABLE",
+                "children": [
                   {
                     "name": "relDummySubGrid",
                     "type": "ch.tocco.nice2.model.form.components.table.Table",
@@ -122,7 +131,7 @@
                     "useLabel": "HIDE"
                   }
                 ],
-                "label": "Form Stuff",
+                "label": "Sub Grid",
                 "useLabel": "YES"
               }
             ]
