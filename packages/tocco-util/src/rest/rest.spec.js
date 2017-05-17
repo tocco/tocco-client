@@ -130,6 +130,34 @@ describe('tocco-util', () => {
         const lastCall = fetchMock.lastCall()[0]
         expect(lastCall).to.eql('/nice2/rest/Entities/Contact?_search=test&xyz=abc')
       })
+
+      it('should return with accepted status code', done => {
+        const statusCode = 400
+
+        const body = new Blob(['{}'], {type: 'application/json'})
+        const mockedResponse = new Response(body, {'status': statusCode})
+
+        fetchMock.get('*', mockedResponse)
+        const resource = 'Entities/Contact'
+        request(resource, undefined, undefined, undefined, undefined, [400]).then(response => {
+          expect(response.status).to.eql(statusCode)
+          expect(response.body).to.eql({})
+          done()
+        })
+      })
+
+      it('should trow exception on unaccepted status code', done => {
+        const statusCode = 400
+
+        const body = new Blob(['{}'], {type: 'application/json'})
+        const mockedResponse = new Response(body, {'status': statusCode})
+
+        fetchMock.get('*', mockedResponse)
+        const resource = 'Entities/Contact'
+        request(resource, undefined, undefined, undefined, undefined, []).catch(() => {
+          done()
+        })
+      })
     })
   })
 })
