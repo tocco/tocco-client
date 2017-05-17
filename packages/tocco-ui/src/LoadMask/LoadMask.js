@@ -9,8 +9,22 @@ class LoadMask extends React.Component {
 
   constructor(props) {
     super(props)
+
+    let initialized = false
+    if (props.required && this.requiredLoaded(props.required)) {
+      initialized = true
+    }
+
     this.state = {
-      initialized: false
+      initialized
+    }
+  }
+
+  requiredLoaded = required => (!required.some(r => (!r)))
+
+  setInitialized = () => {
+    if (this.mounted && !this.state.initialized) {
+      this.setState({initialized: true})
     }
   }
 
@@ -18,9 +32,7 @@ class LoadMask extends React.Component {
     this.mounted = true
     if (this.props.promises) {
       Promise.all(this.props.promises).then(() => {
-        if (this.mounted) {
-          this.setState({initialized: true})
-        }
+        this.setInitialized()
       })
     }
   }
@@ -29,14 +41,26 @@ class LoadMask extends React.Component {
     this.mounted = false
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!this.state.initialized) {
+      if (nextProps.required && this.requiredLoaded(nextProps.required)) {
+        this.setInitialized()
+      }
+    }
+  }
+
   render() {
     return (
       <div
+        id="load-mask"
         className={classNames('load-mask', this.props.className)}
       >
         {this.state.initialized
           ? this.props.children
-          : <span className={'spinner glyphicon glyphicon-refresh glyphicon-spin'}/>}
+          : <div className="loader">
+            <div className="loader-icon center-block"/>
+            {this.props.loadingText && <div className="loader-text text-center ">{this.props.loadingText}</div>}
+          </div>}
       </div>
     )
   }
@@ -48,7 +72,15 @@ LoadMask.propTypes = {
    */
   className: React.PropTypes.string,
   /**
-   * An array of promises.
+   * Optional text to be shown below spinner
+   */
+  loadingText: React.PropTypes.string,
+  /**
+   * As soon as all object are truthy, children will be displayed.
+   */
+  required: React.PropTypes.arrayOf(React.PropTypes.object),
+  /**
+   * An array of promises as alternative to required.
    */
   promises: React.PropTypes.array,
   /**
