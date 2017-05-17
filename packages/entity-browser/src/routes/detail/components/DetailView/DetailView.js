@@ -5,6 +5,7 @@ import {Button, LayoutBox} from 'tocco-ui'
 import DetailForm from '../DetailForm'
 import syncValidation from '../../../../util/detailView/syncValidation'
 import {asyncValidate, AsyncValidationException} from '../../../../util/detailView/asyncValidation'
+import LoadMask from 'tocco-ui/src/LoadMask/LoadMask'
 
 class DetailView extends React.Component {
   componentWillMount() {
@@ -56,24 +57,27 @@ class DetailView extends React.Component {
           </div>
         </LayoutBox>
         }
-        {props.formInitialValues
-        && <DetailForm
-          validate={this.getSyncValidation()}
-          asyncValidate={this.handledAsyncValidate}
-          submitForm={props.submitForm}
-          formDefinition={props.formDefinition}
-          entity={props.entity}
-          loadRelationEntity={props.loadRelationEntity}
-          loadRemoteEntity={props.loadRemoteEntity}
-          relationEntities={props.relationEntities}
-          remoteEntities={props.remoteEntities}
-          formErrors={props.formErrors}
-          entityModel={props.entityModel}
-          intl={props.intl}
-          lastSave={props.lastSave}
-          goBack={this.handleGoBack}
-        />
-        }
+        <LoadMask
+          required={[props.formInitialValues]}
+          loadingText={this.msg('client.entity-browser.detail.loadingText')}
+        >
+          <DetailForm
+            validate={this.getSyncValidation()}
+            asyncValidate={this.handledAsyncValidate}
+            submitForm={props.submitForm}
+            formDefinition={props.formDefinition}
+            entity={props.entity}
+            loadRelationEntity={props.loadRelationEntity}
+            loadRemoteEntity={props.loadRemoteEntity}
+            relationEntities={props.relationEntities}
+            remoteEntities={props.remoteEntities}
+            formErrors={props.formErrors}
+            entityModel={props.entityModel}
+            intl={props.intl}
+            lastSave={props.lastSave}
+            goBack={this.handleGoBack}
+          />
+        </LoadMask>
       </div>
     )
   }
