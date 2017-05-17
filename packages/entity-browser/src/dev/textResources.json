@@ -16,6 +16,7 @@
   "client.entity-browser.detail.invalidRelationErrors",
   "client.entity-browser.detail.mandatoryFieldTitle",
   "client.entity-browser.detail.saveError",
+  "client.entity-browser.detail.loadingText",
   "client.common.ok",
   "client.common.cancel",
   "client.common.unexpectedError",
