@@ -1,9 +1,35 @@
 import React from 'react'
 import LoadMask from './LoadMask'
-import {shallow} from 'enzyme'
+import {shallow, mount} from 'enzyme'
 
 describe('tocco-ui', function() {
   describe('LoadMask', function() {
+    it('shows spinner if an object is falsy', () => {
+      const wrapper = mount(
+        <LoadMask
+          required={[undefined, undefined]}
+        />
+      )
+
+      expect(wrapper.find('.loader')).to.have.length(1)
+      wrapper.setProps({required: [{}, undefined]})
+      expect(wrapper.find('.loader')).to.have.length(1)
+
+      wrapper.setProps({required: [{}, {}]})
+      expect(wrapper.find('.loader')).to.have.length(0)
+    })
+
+    it('shows children if loaded', () => {
+      const wrapper = mount(
+        <LoadMask
+          required={[{}]}
+        >
+          <div id="test123"></div>
+        </LoadMask>
+      )
+      expect(wrapper.find('#test123')).to.have.length(1)
+    })
+
     it('shows spinner while promise is not finished', done => {
       const promise = new Promise(resolve => resolve())
 
@@ -13,7 +39,7 @@ describe('tocco-ui', function() {
         />
       )
 
-      expect(wrapper.find('span')).to.have.length(1)
+      expect(wrapper.find('.loader')).to.have.length(1)
       done()
     })
 
@@ -39,7 +65,7 @@ describe('tocco-ui', function() {
         />
       )
 
-      expect(wrapper.find('div').hasClass('load-mask')).to.equal(true)
+      expect(wrapper.find('#load-mask').hasClass('load-mask')).to.equal(true)
 
       wrapper = shallow(
         <LoadMask
@@ -48,8 +74,8 @@ describe('tocco-ui', function() {
         />
       )
 
-      expect(wrapper.find('div').hasClass('load-mask')).to.equal(true)
-      expect(wrapper.find('div').hasClass('class')).to.equal(true)
+      expect(wrapper.find('#load-mask').hasClass('load-mask')).to.equal(true)
+      expect(wrapper.find('#load-mask').hasClass('class')).to.equal(true)
 
       wrapper = shallow(
         <LoadMask
@@ -58,10 +84,29 @@ describe('tocco-ui', function() {
         />
       )
 
-      expect(wrapper.find('div').hasClass('load-mask')).to.equal(true)
-      expect(wrapper.find('div').hasClass('class1')).to.equal(true)
-      expect(wrapper.find('div').hasClass('class2')).to.equal(true)
-      expect(wrapper.find('div').hasClass('class3')).to.equal(true)
+      expect(wrapper.find('#load-mask').hasClass('load-mask')).to.equal(true)
+      expect(wrapper.find('#load-mask').hasClass('class1')).to.equal(true)
+      expect(wrapper.find('#load-mask').hasClass('class2')).to.equal(true)
+      expect(wrapper.find('#load-mask').hasClass('class3')).to.equal(true)
+    })
+
+    it('shows loading-text if set', () => {
+      let wrapper = shallow(
+        <LoadMask
+          required={[undefined]}
+          loadingText="Test"
+        />
+      )
+
+      expect(wrapper.find('.loader-text')).to.have.length(1)
+
+      wrapper = shallow(
+        <LoadMask
+          required={[undefined]}
+        />
+      )
+
+      expect(wrapper.find('.loader-text')).to.have.length(0)
     })
   })
 })
