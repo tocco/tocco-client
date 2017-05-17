@@ -57,7 +57,6 @@ export const getFieldsOfColumnDefinition = columnDefinition => {
     .filter(column => !column.values.some(field => IGNORED_FIELD_TYPES.includes(field.type)))
     .forEach(column => {
       fields = fields.concat(column.values.map(field => field.name))
-      fields = fields.concat(column.values.map(field => field.name))
     })
 
   return fields
