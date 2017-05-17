@@ -7,8 +7,8 @@ const IGNORED_FIELD_TYPES = [
 const defaultFormTransformer = json => (json.form)
 
 export function fetchForm(formName, transformer = defaultFormTransformer) {
-  return request(`forms/${formName}`)
-    .then(resp => resp.body)
+  return request(`forms/${formName}`, undefined, undefined, undefined, undefined, [404])
+    .then(resp => resp.body || {})
     .then(json => transformer(json))
 }
 
@@ -32,6 +32,11 @@ export const columnDefinitionTransformer = json => {
 
 export const searchFormTransformer = json => {
   const {form} = json
+
+  if (!form) {
+    return []
+  }
+
   const fields = form.children[0].children
 
   return fields
@@ -51,6 +56,7 @@ export const getFieldsOfColumnDefinition = columnDefinition => {
   columnDefinition
     .filter(column => !column.values.some(field => IGNORED_FIELD_TYPES.includes(field.type)))
     .forEach(column => {
+      fields = fields.concat(column.values.map(field => field.name))
       fields = fields.concat(column.values.map(field => field.name))
     })
 

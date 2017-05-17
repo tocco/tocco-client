@@ -16,6 +16,7 @@ class SearchForm extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault()
+    e.stopPropagation()
     this.props.setSearchInput()
   }
 
@@ -37,6 +38,11 @@ class SearchForm extends React.Component {
 
   render() {
     const props = this.props
+
+    if (props.searchFormDefinition.length === 0) {
+      return null
+    }
+
     return (
       <form onSubmit={this.handleSubmit} className="form-horizontal">
         {
