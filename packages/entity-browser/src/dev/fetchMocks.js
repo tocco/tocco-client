@@ -42,6 +42,10 @@ export default function setupFetchMock(fetchMock) {
     require('./rest-responses/form_user_detail_relDummySubGrid_list.json')
   )
   fetchMock.get(
+    new RegExp('^.*?/nice2/rest/forms/UserSearch_detail_relDummySubGrid_search$'),
+    require('./rest-responses/form_user_detail_relDummySubGrid_search.json')
+  )
+  fetchMock.get(
     new RegExp('^.*?/nice2/rest/forms/UserSearch_Dummy_entity_detail$'),
     require('./rest-responses/form_dummy_entity_detail.json')
   )

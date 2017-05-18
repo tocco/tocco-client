@@ -1,7 +1,7 @@
 import React from 'react'
 import {IntlStub} from 'tocco-test-util'
 import SearchForm from './'
-import {mount} from 'enzyme'
+import {mount, shallow} from 'enzyme'
 import {Button, FormField} from 'tocco-ui'
 
 const EMPTY_FUNC = () => {}
@@ -9,6 +9,29 @@ const EMPTY_FUNC = () => {}
 describe('entity-browser', () => {
   describe('components', () => {
     describe('SearchForm', () => {
+      it('should render nothing if searchFormDefinition empty', () => {
+        const entityModel = require('../../dev/test-data/userModel.json')
+        const searchFormDefinition = []
+
+        const wrapper = shallow(
+          <SearchForm
+            initialize={EMPTY_FUNC}
+            entityModel={entityModel}
+            searchFormDefinition={searchFormDefinition}
+            setSearchInput={EMPTY_FUNC}
+            relationEntities={{}}
+            searchInputs={{}}
+            reset={EMPTY_FUNC}
+            intl={IntlStub}
+            simpleSearchFields={[]}
+            disableSimpleSearch
+            preselectedSearchFields={[]}
+          />
+        )
+
+        expect(wrapper.type()).to.be.null
+      })
+
       it('should render needed components', () => {
         const entityModel = require('../../dev/test-data/userModel.json')
         const searchFormDefinition = require('../../dev/test-data/searchFormDefinition.json')
