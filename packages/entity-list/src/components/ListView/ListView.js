@@ -1,6 +1,7 @@
 import React from 'react'
 import {intlShape} from 'react-intl'
 import {Button, FormattedValue, Pagination, Table} from 'tocco-ui'
+import LoadMask from 'tocco-ui/src/LoadMask/LoadMask'
 
 class ListView extends React.Component {
   componentWillMount() {
@@ -41,30 +42,35 @@ class ListView extends React.Component {
     const props = this.props
     return (
       <div className="list-view">
-        <Table
-          columnDefinitions={props.columnDefinitions}
-          records={props.entities}
-          className="table-striped table-hover"
-          onOrderByChange={this.onOrderByChange}
-          orderBy={props.orderBy}
-          loading={props.inProgress}
-          cellRenderer={this.cellRenderer}
-          onRowClick={this.handleRowClick}
-        />
-        <div className="list-view-navigation">
-          <Pagination
-            totalRecords={props.entityCount}
-            recordsPerPage={props.limit}
-            onPageChange={this.onPageChange}
-            currentPage={props.currentPage}
+        <LoadMask
+          required={[(props.columnDefinitions.length > 0)]}
+          loadingText={this.msg('client.entity-list.loadingText')}
+        >
+          <Table
+            columnDefinitions={props.columnDefinitions}
+            records={props.entities}
+            className="table-striped table-hover"
+            onOrderByChange={this.onOrderByChange}
+            orderBy={props.orderBy}
+            loading={props.inProgress}
+            cellRenderer={this.cellRenderer}
+            onRowClick={this.handleRowClick}
           />
-          <Button
-            onClick={props.refresh}
-            label={this.msg('client.entity-list.refresh')}
-            icon="glyphicon-refresh"
-            className="refresh-button"
-          />
-        </div>
+          <div className="list-view-navigation">
+            <Pagination
+              totalRecords={props.entityCount}
+              recordsPerPage={props.limit}
+              onPageChange={this.onPageChange}
+              currentPage={props.currentPage}
+            />
+            <Button
+              onClick={props.refresh}
+              label={this.msg('client.entity-list.refresh')}
+              icon="glyphicon-refresh"
+              className="refresh-button"
+            />
+          </div>
+        </LoadMask>
       </div>
     )
   }
@@ -84,7 +90,7 @@ ListView.propTypes = {
   limit: React.PropTypes.number,
   columnDefinitions: React.PropTypes.arrayOf(
     React.PropTypes.shape({
-      values:  React.PropTypes.arrayOf(React.PropTypes.shape({name: React.PropTypes.string})),
+      values: React.PropTypes.arrayOf(React.PropTypes.shape({name: React.PropTypes.string})),
       label: React.PropTypes.string,
       order: React.PropTypes.int
     })

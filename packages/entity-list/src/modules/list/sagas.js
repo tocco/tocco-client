@@ -29,13 +29,13 @@ export function* initialize() {
   const {formBase} = yield select(inputSelector)
   const listView = yield select(listSelector)
   const {columnDefinition, entityModel} = listView
-  yield call(loadEntityModel, entityName, entityModel)
 
   yield all([
-    call(loadColumnDefinition, columnDefinition, formBase),
-    call(resetDataSet)
+    call(loadEntityModel, entityName, entityModel),
+    call(loadColumnDefinition, columnDefinition, formBase)
   ])
 
+  yield call(resetDataSet)
   yield put(actions.setInProgress(false))
 }
 

@@ -7,12 +7,16 @@ describe('tocco-ui', function() {
     it('shows spinner if an object is falsy', () => {
       const wrapper = mount(
         <LoadMask
-          required={[undefined, undefined]}
+          required={[undefined, undefined, true]}
         />
       )
 
       expect(wrapper.find('.loader')).to.have.length(1)
       wrapper.setProps({required: [{}, undefined]})
+      expect(wrapper.find('.loader')).to.have.length(1)
+      wrapper.setProps({required: [false]})
+      expect(wrapper.find('.loader')).to.have.length(1)
+      wrapper.setProps({required: [null]})
       expect(wrapper.find('.loader')).to.have.length(1)
 
       wrapper.setProps({required: [{}, {}]})
