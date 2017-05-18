@@ -26,6 +26,11 @@ describe('entity-browser', () => {
             ]
             expect(result).to.eql(expectedResult)
           })
+
+          it('should return an empty array if form is missing', () => {
+            const result = forms.searchFormTransformer({})
+            expect(result).to.eql([])
+          })
         })
 
         describe('columnDefinitionTransformer', () => {
@@ -85,6 +90,19 @@ describe('entity-browser', () => {
               expect(fetchMock.calls().matched).to.have.length(1)
               const lastCallUrl = fetchMock.lastCall()[0]
               expect(lastCallUrl).to.eql('/nice2/rest/forms/User_search')
+            })
+          })
+
+          it('should ignore 404 errors', () => {
+            const body = new Blob(['{}'], {type: 'application/json'})
+            const mockedResponse = new Response(body, {'status': 404})
+
+            fetchMock.get('*', mockedResponse)
+
+            const transformer = json => json.form || 'no form'
+
+            return forms.fetchForm('User_search', transformer).then(res => {
+              expect(res).to.eql('no form')
             })
           })
         })
