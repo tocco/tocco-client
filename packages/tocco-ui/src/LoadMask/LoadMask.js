@@ -78,7 +78,7 @@ LoadMask.propTypes = {
   /**
    * As soon as all elements of the array are truthy, children will be displayed.
    */
-  required: React.PropTypes.array,
+  required: React.PropTypes.arrayOf(React.PropTypes.any),
   /**
    * An array of promises as alternative to required.
    */
