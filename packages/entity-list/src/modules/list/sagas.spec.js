@@ -47,14 +47,13 @@ describe('entity-list', () => {
             expect(gen.next().value).to.eql(select(sagas.entityListSelector))
             expect(gen.next({entityName}).value).to.eql(select(sagas.inputSelector))
             expect(gen.next({formBase}).value).to.eql(select(sagas.listSelector))
-            expect(gen.next({columnDefinition, entityModel}).value)
-              .to.eql(call(sagas.loadEntityModel, entityName, entityModel))
-            const nextValue = gen.next().value
+            const nextValue = gen.next({columnDefinition, entityModel}).value
             expect(nextValue).to.eql(all([
-              call(sagas.loadColumnDefinition, columnDefinition, formBase),
-              call(sagas.resetDataSet)
+              call(sagas.loadEntityModel, entityName, entityModel),
+              call(sagas.loadColumnDefinition, columnDefinition, formBase)
             ]))
 
+            expect(gen.next().value).to.eql(call(sagas.resetDataSet))
             expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
             expect(gen.next().done).to.be.true
           })
