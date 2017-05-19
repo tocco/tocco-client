@@ -20,21 +20,6 @@ describe('tocco-util', () => {
         expect(wrapper).to.have.type(FormattedValue)
         expect(wrapper).to.have.prop('value', value)
       })
-
-      it('should return a placeholder in case of undefined value', () => {
-        const factory = formattedValueFactory('string')
-
-        const value = undefined
-        const props = {
-          value
-        }
-
-        const editableValue = factory({}, {}, props, {}, {})
-
-        const wrapper = mount(editableValue)
-
-        expect(wrapper.text()).to.equal('-')
-      })
     })
   })
 })
