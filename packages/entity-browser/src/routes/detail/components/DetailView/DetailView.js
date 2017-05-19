@@ -72,6 +72,7 @@ class DetailView extends React.Component {
             loadRemoteEntity={props.loadRemoteEntity}
             relationEntities={props.relationEntities}
             remoteEntities={props.remoteEntities}
+            formValues={props.formValues}
             formErrors={props.formErrors}
             entityModel={props.entityModel}
             intl={props.intl}
@@ -99,6 +100,7 @@ DetailView.propTypes = {
   entityModel: React.PropTypes.object.isRequired,
   modelPaths: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
   entityId: React.PropTypes.string.isRequired,
+  formValues: React.PropTypes.object,
   formErrors: React.PropTypes.objectOf(
     React.PropTypes.objectOf(React.PropTypes.arrayOf(
       React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.object])))

@@ -133,6 +133,23 @@
                 ],
                 "label": "Sub Grid",
                 "useLabel": "YES"
+              },
+              {
+                "name": "notreadable",
+                "type": "ch.tocco.nice2.model.form.components.layout.VerticalBox",
+                "displayType": "EDITABLE",
+                "children": [
+                  {
+                    "name": "notreadable",
+                    "type": "ch.tocco.nice2.model.form.components.simple.TextField",
+                    "displayType": "READONLY",
+                    "children": [ ],
+                    "label": "!!SHOULD NOT BE SHOWN!!",
+                    "useLabel": "YES"
+                  }
+                ],
+                "label": "!!SHOULD NOT BE SHOWN!!",
+                "useLabel": "YES"
               }
             ]
           },

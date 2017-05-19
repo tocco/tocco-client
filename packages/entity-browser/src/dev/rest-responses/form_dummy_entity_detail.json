@@ -7,7 +7,7 @@
   "form": {
     "name": "Dummy_entity_detail",
     "type": "ch.tocco.nice2.model.form.components.Form",
-    "displayType": "EDITABLE",
+    "displayType": "READONLY",
     "children": [
       {
         "name": "box1",
@@ -46,6 +46,31 @@
                     "displayType": "EDITABLE",
                     "children": [ ],
                     "label": "Aktiv",
+                    "useLabel": "YES"
+                  },
+                  {
+                    "name": "empty",
+                    "type": "ch.tocco.nice2.model.form.components.simple.TextField",
+                    "displayType": "EDITABLE",
+                    "children": [ ],
+                    "label": "empty",
+                    "useLabel": "YES"
+                  }
+                ],
+                "label": "Stammdaten",
+                "useLabel": "YES"
+              },
+              {
+                "name": "empty",
+                "type": "ch.tocco.nice2.model.form.components.layout.VerticalBox",
+                "displayType": "EDITABLE",
+                "children": [
+                  {
+                    "name": "empty",
+                    "type": "ch.tocco.nice2.model.form.components.simple.TextField",
+                    "displayType": "EDITABLE",
+                    "children": [ ],
+                    "label": "!!SHOULD NOT BE SHOWN!!",
                     "useLabel": "YES"
                   }
                 ],
