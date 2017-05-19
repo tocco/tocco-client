@@ -72,31 +72,28 @@ class SearchForm extends React.Component {
           )
         }
 
-        {!props.disableSimpleSearch
-        && <div className="pull-right">
-          <Button
-            type="button"
-            label={this.msg('client.entity-list.extendedSearch')}
-            onClick={this.toggleExtendedSearchForm}
-          />
-        </div>
-        }
-        <div className="form-group row">
-          <div className="col-sm-10">
-            <div className="btn-toolbar">
-              <Button
-                type="submit"
-                icon="glyphicon-search"
-                label={this.msg('client.entity-list.search')}
-                primary
-              />
-              <Button
-                type="button"
-                icon="glyphicon-repeat"
-                label={this.msg('client.entity-list.reset')}
-                onClick={this.handleResetClick}
-              />
-            </div>
+        <div className="row">
+          <div className="col-sm-9 col-sm-push-3">
+            <Button
+              type="submit"
+              icon="glyphicon-search"
+              label={this.msg('client.entity-list.search')}
+              primary
+            />
+            <Button
+              type="button"
+              icon="glyphicon-repeat"
+              label={this.msg('client.entity-list.reset')}
+              onClick={this.handleResetClick}
+            />
+            {!props.disableSimpleSearch
+            && <Button
+              className="pull-right"
+              type="button"
+              label={this.msg('client.entity-list.extendedSearch')}
+              onClick={this.toggleExtendedSearchForm}
+            />
+            }
           </div>
         </div>
       </form>

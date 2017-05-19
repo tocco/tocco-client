@@ -1,26 +1,23 @@
 import {connect} from 'react-redux'
-import {injectIntl} from 'react-intl'
-import ListView from '../components/ListView'
-import {initialize, changePage, setOrderBy, refresh} from '../modules/actions'
+import EntityListApp from 'entity-list/src/main'
 
 const mapActionCreators = {
-  initialize,
-  changePage,
-  setOrderBy,
-  refresh
 }
 
 const mapStateToProps = (state, props) => {
   return {
-    currentPage: state.list.currentPage,
-    orderBy: state.list.orderBy,
-    entities: state.list.entities,
-    columnDefinitions: state.list.columnDefinition,
-    entityCount: state.list.entityCount,
-    limit: state.list.limit,
-    inProgress: state.list.inProgress,
-    showSearchForm: state.list.showSearchForm
+    entityName: state.entityBrowser.entityName,
+    formBase: state.entityBrowser.formBase,
+    showSearchForm: state.input.showSearchForm,
+    limit: state.input.limit,
+    searchFilters: state.input.searchFilters,
+    preselectedSearchFields: state.input.preselectedSearchFields,
+    disableSimpleSearch: state.input.disableSimpleSearch,
+    simpleSearchFields: state.input.simpleSearchFields,
+    onRowClick: e => {
+      props.router.history.push(`/detail/${e.id}`)
+    }
   }
 }
 
-export default connect(mapStateToProps, mapActionCreators)(injectIntl(ListView))
+export default connect(mapStateToProps, mapActionCreators)(EntityListApp)
