@@ -4,12 +4,12 @@
   "limit": 10,
   "showSearchForm": true,
   "disableSimpleSearch": false,
-  "simpleSearchFields": "",
+  "simpleSearchFields": "txtFulltext,birthdate",
   "searchFilters": [
     "user_with_pk_1",
     "has_contract"
   ],
-  "preselectedSearchValues": [
+  "preselectedSearchFields": [
     {
       "id": "txtFulltext",
       "value": "",
