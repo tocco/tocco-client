@@ -84,7 +84,7 @@ EntityListApp.propTypes = {
   limit: React.PropTypes.number,
   showSearchForm: React.PropTypes.bool,
   searchFilters: React.PropTypes.arrayOf(React.PropTypes.string),
-  preselectedSearchValues: React.PropTypes.arrayOf(
+  preselectedSearchFields: React.PropTypes.arrayOf(
     React.PropTypes.shape({
       id: React.PropTypes.string,
       value: React.PropTypes.oneOfType([
@@ -95,7 +95,7 @@ EntityListApp.propTypes = {
     })
   ),
   disableSimpleSearch: React.PropTypes.bool,
-  simpleSearchFields: React.PropTypes.arrayOf(React.PropTypes.string),
+  simpleSearchFields: React.PropTypes.string,
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
     propTypes[event] = React.PropTypes.func
     return propTypes
