@@ -23,6 +23,7 @@
   "client.entity-list.search",
   "client.entity-list.reset",
   "client.entity-list.refresh",
+  "client.entity-list.loadingText",
   "client.entity-list.extendedSearch",
   "client.component.remoteselect.noResultsText",
   "client.component.remoteselect.clearAllText",

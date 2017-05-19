@@ -6,7 +6,6 @@ import {FormattedMessage} from 'react-intl'
 export function createNotificationAction(type, title, message, glyphicon, timeOut) {
   const options = {
     showCloseButton: true,
-    position: 'top-right',
     component: () => (
       <div>
         <div className="title">
@@ -28,6 +27,7 @@ export function createNotificationAction(type, title, message, glyphicon, timeOu
 
   return toastrActions.add({
     type,
+    position: 'top-right',
     options
   })
 }

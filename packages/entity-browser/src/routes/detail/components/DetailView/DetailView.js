@@ -1,6 +1,7 @@
 import React from 'react'
 import {intlShape} from 'react-intl'
 import {Button, LayoutBox} from 'tocco-ui'
+import _isEmpty from 'lodash/isEmpty'
 
 import DetailForm from '../DetailForm'
 import syncValidation from '../../../../util/detailView/syncValidation'
@@ -32,7 +33,7 @@ class DetailView extends React.Component {
   }
 
   getSyncValidation = () => {
-    if (!this.validateSingleton) {
+    if (!this.validateSingleton && !_isEmpty(this.props.entityModel)) {
       this.validateSingleton = syncValidation(this.props.entityModel, this.props.intl)
     }
     return this.validateSingleton
