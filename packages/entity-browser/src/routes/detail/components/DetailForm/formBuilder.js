@@ -11,7 +11,7 @@ const layoutTypeNamespace = 'ch.tocco.nice2.model.form.components.layout.'
 const actionTypeNamespace = 'ch.tocco.nice2.model.form.components.action.'
 
 export default (entity, model, formName, formDefinition, formValues, formFieldUtils) => {
-  const isReadOnlyForm = () => formDefinition.displayType === 'READONLY'
+  const isReadOnlyForm = formDefinition.displayType === 'READONLY'
 
   const formTraverser = children => {
     const result = []
@@ -37,17 +37,17 @@ export default (entity, model, formName, formDefinition, formValues, formFieldUt
         return false
       } else {
         const value = formValues[fieldName]
-        return (value === null || value === '' || (Array.isArray(value) && value.length === 0))
+        return (value == null || value === '' || (Array.isArray(value) && value.length === 0))
       }
     }
 
-    const isReadable = entityField => (_get(entityField, 'value.readable', true))
+    const isReadable = _get(entityField, 'value.readable', true)
 
-    if (!isReadable(entityField)) {
+    if (!isReadable) {
       return false
     }
 
-    return !(isReadOnlyForm() && hasEmptyValue(fieldName, formValues))
+    return !(isReadOnlyForm && hasEmptyValue(fieldName, formValues))
   }
 
   const createField = (formDefinitionField, key) => {
@@ -55,11 +55,11 @@ export default (entity, model, formName, formDefinition, formValues, formFieldUt
     const entityField = entity.paths[fieldName]
     const modelField = model[fieldName]
 
-    if (shouldRenderField(fieldName, entityField, formValues, isReadOnlyForm())) {
+    if (shouldRenderField(fieldName, entityField, formValues, isReadOnlyForm)) {
       return (
         <Field
           key={key}
-          readOnlyForm={isReadOnlyForm()}
+          readOnlyForm={isReadOnlyForm}
           name={transformFieldName(fieldName)}
           id={getFieldId(formName, fieldName)}
           component={ReduxFormFieldAdapter}
@@ -81,7 +81,7 @@ export default (entity, model, formName, formDefinition, formValues, formFieldUt
 
       const children = traverser()
 
-      if (children === null || (Array.isArray(children) && children.every(e => e === null))) {
+      if (children == null || (Array.isArray(children) && children.every(e => e == null))) {
         return null
       }
 
