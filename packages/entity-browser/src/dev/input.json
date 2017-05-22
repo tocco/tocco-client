@@ -16,13 +16,13 @@
       "hidden": false
     }, {
       "id": "relSingle_entity2",
-      "value": {"key": "2"},
+      "value": "2",
       "hidden": true
     }, {
       "id": "relMulti_entity2",
       "value": [
-        {"key": "1"},
-        {"key": "3"}
+        "1",
+        "3"
       ],
       "hidden": false
     }
