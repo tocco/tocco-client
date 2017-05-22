@@ -3,6 +3,7 @@ import {utilFetchMocks} from 'tocco-util'
 export default function setupFetchMock(fetchMock) {
   utilFetchMocks.session(fetchMock)
   utilFetchMocks.textResource(fetchMock, require('./messages.json'))
+  utilFetchMocks.locales(fetchMock)
 
   fetchMock.post(new RegExp('^.*?/nice2/login$'), function(url, opts) {
     if (opts.body.includes('username=succ')) {
