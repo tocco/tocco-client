@@ -212,6 +212,15 @@
       "path": "duration",
       "type": "display-expression",
       "value": "<span class='label label-primary'>0:00:38</span>"
+    },
+    "notreadable": {
+      "type": "field",
+      "value": {
+        "value": "test",
+        "type": "string",
+        "readable": false,
+        "writable": false
+      }
     }
   }
 }

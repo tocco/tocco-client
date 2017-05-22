@@ -39,6 +39,12 @@ export const createDummyEntity = amount => {
         type: 'boolean',
         readable: true,
         writable: true
+      },
+      empty: {
+        value: '',
+        type: 'string',
+        readable: true,
+        writable: true
       }
     }
 

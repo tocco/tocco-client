@@ -13,7 +13,7 @@ const EMPTY_FUNC = () => {
 const SIMPLE_FORM_DEFINITION = {
   'name': 'UserSearch_detail',
   'type': 'ch.tocco.nice2.model.form.components.Form',
-  'displayType': 'READONLY',
+  'displayType': 'EDITABLE',
   'children': [
     {
       'name': 'firstname',
@@ -39,7 +39,7 @@ describe('entity-browser', () => {
         const formDefinition = {
           'name': 'UserSearch_detail',
           'type': 'ch.tocco.nice2.model.form.components.Form',
-          'displayType': 'READONLY',
+          'displayType': 'EDITABLE',
           'children': [
             {
               'name': 'box1',
