@@ -7,23 +7,21 @@ import _get from 'lodash/get'
 import _startsWith from 'lodash/startsWith'
 import {LayoutBox} from 'tocco-ui'
 
-const layoutType = 'ch.tocco.nice2.model.form.components.layout.'
-const actionType = 'ch.tocco.nice2.model.form.components.action.'
+const layoutTypeNamespace = 'ch.tocco.nice2.model.form.components.layout.'
+const actionTypeNamespace = 'ch.tocco.nice2.model.form.components.action.'
 
 export default (entity, model, formName, formDefinition, formValues, formFieldUtils) => {
   const isReadOnlyForm = () => formDefinition.displayType === 'READONLY'
 
   const formTraverser = children => {
     const result = []
-
     for (let i = 0; i < children.length; i++) {
       const child = children[i]
-
-      if (_startsWith(child.type, layoutType)) {
-        const type = child.type.substr(layoutType.length, child.type.length)
+      if (_startsWith(child.type, layoutTypeNamespace)) {
+        const type = child.type.substr(layoutTypeNamespace.length, child.type.length)
         const travers = () => formTraverser(child.children)
         result.push(createLayoutComponent(child, type, i, travers))
-      } else if (_startsWith(child.type, actionType)) {
+      } else if (_startsWith(child.type, actionTypeNamespace)) {
         // Actions are ignored at the moment
       } else {
         result.push(createField(child, i))
@@ -31,6 +29,25 @@ export default (entity, model, formName, formDefinition, formValues, formFieldUt
     }
 
     return result
+  }
+
+  const shouldRenderField = (fieldName, entityField) => {
+    const hasEmptyValue = (fieldName, formValues) => {
+      if (!formValues.hasOwnProperty(fieldName)) {
+        return false
+      } else {
+        const value = formValues[fieldName]
+        return (value === null || value === '' || (Array.isArray(value) && value.length === 0))
+      }
+    }
+
+    const isReadable = entityField => (_get(entityField, 'value.readable', true))
+
+    if (!isReadable(entityField)) {
+      return false
+    }
+
+    return !(isReadOnlyForm() && hasEmptyValue(fieldName, formValues))
   }
 
   const createField = (formDefinitionField, key) => {
@@ -55,29 +72,6 @@ export default (entity, model, formName, formDefinition, formValues, formFieldUt
     }
 
     return null
-  }
-
-  const shouldRenderField = (fieldName, entityField) => {
-    if (!isReadable(entityField)) {
-      return false
-    }
-
-    if (isReadOnlyForm() && hasEmptyValue(fieldName, formValues)) {
-      return false
-    }
-
-    return true
-  }
-
-  const isReadable = entityField => (_get(entityField, 'value.readable', true))
-
-  const hasEmptyValue = (fieldName, formValues) => {
-    if (!formValues.hasOwnProperty(fieldName)) {
-      return false
-    } else {
-      const value = formValues[fieldName]
-      return (value === null || value === '' || (Array.isArray(value) && value.length === 0))
-    }
   }
 
   const createLayoutComponent = (field, type, key, traverser) => {

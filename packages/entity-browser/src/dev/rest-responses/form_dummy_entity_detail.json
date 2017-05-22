@@ -53,7 +53,7 @@
                     "type": "ch.tocco.nice2.model.form.components.simple.TextField",
                     "displayType": "EDITABLE",
                     "children": [ ],
-                    "label": "empty",
+                    "label": "!!SHOULD NOT BE SHOWN!!",
                     "useLabel": "YES"
                   }
                 ],

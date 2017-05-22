@@ -219,7 +219,7 @@
         "value": "test",
         "type": "string",
         "readable": false,
-        "writable": true
+        "writable": false
       }
     }
   }
