@@ -1,58 +1,40 @@
 import React from 'react'
-import {reduxForm, Field} from 'redux-form'
+import {reduxForm} from 'redux-form'
 import {intlShape, FormattedRelative, FormattedMessage} from 'react-intl'
 import {Prompt} from 'react-router-dom'
 import {Button, LayoutBox} from 'tocco-ui'
-
-import ReduxFormFieldAdapter from '../ReduxFormFieldAdapter'
 import ErrorBox from '../ErrorBox'
-import {getFieldId} from '../../../../util/detailView/helpers'
-import {getForm} from '../../../../util/detailView/formBuilder'
 import formErrorsUtil from '../../../../util/detailView/formErrors'
-import {transformFieldName} from '../../../../util/detailView/reduxForm'
+import initFormBuilder from './formBuilder'
+import {getFieldId} from '../../../../util/detailView/helpers'
 
 export class DetailForm extends React.Component {
-  isReadOnlyForm = this.props.formDefinition.displayType === 'READONLY'
+  constructor(props) {
+    super(props)
 
-  createLayoutComponent = (field, type, key, traverser) => {
-    if (type === 'HorizontalBox' || type === 'VerticalBox') {
-      const alignment = type === 'HorizontalBox' ? 'horizontal' : 'vertical'
-      const label = field.useLabel ? field.label : undefined
-      return (
-        <LayoutBox key={key} label={label} alignment={alignment}>
-          {traverser()}
-        </LayoutBox>
-      )
-    }
+    this.formBuilder = this.createFormBuilder(props)
   }
 
-  createField = (formDefinitionField, key) => {
-    const fieldName = formDefinitionField.name
-    const entityField = this.props.entity.paths[fieldName]
-    const modelField = this.props.entityModel[fieldName]
-
+  createFormBuilder = props => {
     const formFieldUtils = {
-      relationEntities: this.props.relationEntities,
-      loadRelationEntity: this.props.loadRelationEntity,
-      loadRemoteEntity: this.props.loadRemoteEntity,
-      remoteEntities: this.props.remoteEntities,
+      relationEntities: props.relationEntities,
+      loadRelationEntity: props.loadRelationEntity,
+      loadRemoteEntity: props.loadRemoteEntity,
+      remoteEntities: props.remoteEntities,
       intl: this.props.intl
     }
 
-    return (
-      <Field
-        key={key}
-        readOnlyForm={this.isReadOnlyForm}
-        name={transformFieldName(fieldName)}
-        id={getFieldId(this.props.form, fieldName)}
-        component={ReduxFormFieldAdapter}
-        formDefinitionField={formDefinitionField}
-        entityField={entityField}
-        modelField={modelField}
-        formFieldUtils={formFieldUtils}
-      />
+    return initFormBuilder(
+      props.entity,
+      props.entityModel,
+      props.form,
+      props.formDefinition,
+      props.formValues,
+      formFieldUtils
     )
   }
+
+  isReadOnlyForm = () => this.props.formDefinition.displayType === 'READONLY'
 
   isEntityLoaded = () => (this.props.entity && this.props.entity.paths)
 
@@ -116,12 +98,12 @@ export class DetailForm extends React.Component {
           when={props.anyTouched}
           message={this.msg('client.entity-browser.detail.confirmTouchedFormLeave')}
         />
-        {getForm(props.formDefinition, this.createField, this.createLayoutComponent)}
-        <LayoutBox alignment="horizontal">
+        {this.formBuilder()}
+        {!this.isReadOnlyForm()
+        && <LayoutBox alignment="horizontal">
           <LayoutBox alignment="vertical">
             {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
-            {!this.isReadOnlyForm
-            && <Button
+            <Button
               type="submit"
               label={this.msg('client.entity-browser.detail.save')}
               icon="glyphicon-floppy-save"
@@ -129,15 +111,15 @@ export class DetailForm extends React.Component {
               disabled={props.submitting || (props.anyTouched && !props.valid)}
               primary
             />
-            }
             {props.lastSave
             && <div>
               <FormattedMessage id="client.entity-browser.detail.lastSave"/>
-              <span style={{marginLeft:'3px'}}> <FormattedRelative value={props.lastSave}/></span>
+              <span style={{marginLeft: '3px'}}> <FormattedRelative value={props.lastSave}/></span>
             </div>
             }
           </LayoutBox>
         </LayoutBox>
+        }
       </form>
     )
   }
@@ -150,6 +132,7 @@ DetailForm.propTypes = {
   formDefinition: React.PropTypes.object.isRequired,
   entity: React.PropTypes.object.isRequired,
   loadRelationEntity: React.PropTypes.func.isRequired,
+  formValues: React.PropTypes.object,
   loadRemoteEntity: React.PropTypes.func.isRequired,
   relationEntities: React.PropTypes.shape({
     entityName: React.PropTypes.shape({

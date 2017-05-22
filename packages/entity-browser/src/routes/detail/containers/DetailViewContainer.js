@@ -2,6 +2,7 @@ import {connect} from 'react-redux'
 import _get from 'lodash/get'
 import {injectIntl} from 'react-intl'
 import {
+  getFormValues,
   getFormInitialValues,
   getFormSyncErrors,
   getFormAsyncErrors,
@@ -39,6 +40,7 @@ const mapStateToProps = (state, props) => {
     entityModel: state.detail.entityModel,
     modelPaths: modelPaths,
     entityId: entityId,
+    formValues: getFormValues('detailForm')(state),
     formErrors: {
       ...getFormSyncErrors('detailForm')(state),
       ...getFormAsyncErrors('detailForm')(state),
