@@ -48,39 +48,6 @@ export function fetchModel(entityName, transformer = defaultModelTransformer) {
     .then(json => transformer(json))
 }
 
-export const entitiesListTransformer = json => {
-  return json.data.map(entity => {
-    const result = {
-      id: entity.key,
-      values: {}
-    }
-
-    const paths = entity.paths
-    for (const path in paths) {
-      const type = paths[path].type
-      if (type === 'field') {
-        result.values[path] = paths[path].value
-      } else if (type === 'entity') {
-        result.values[path] = {
-          type: 'string',
-          value: paths[path].value ? paths[path].value.display : ''
-        }
-      } else if (type === 'entity-list') {
-        result.values[path] = {
-          type: 'string',
-          value: paths[path].value ? paths[path].value.map(v => v.display).join(', ') : ''
-        }
-      } else if (type === 'display-expression') {
-        result.values[path] = {
-          type: 'html',
-          value: paths[path].value
-        }
-      }
-    }
-    return result
-  })
-}
-
 const defaultEntitiesTransformer = json => (json)
 export const selectEntitiesTransformer = json => (json.data.map(e => ({display: e.display, key: e.key})))
 
@@ -116,45 +83,4 @@ export function fetchEntities(entityName, searchInputs,
   return getRequest(`entities/${entityName}`, params, [])
     .then(resp => resp.body)
     .then(json => transformer(json))
-}
-
-export function fetchEntityCount(entityName, searchInputs) {
-  const params = buildParams(searchInputs)
-  return getRequest(`entities/${entityName}/count`, params, [])
-    .then(resp => resp.body)
-    .then(json => json.count)
-}
-
-export const combineEntitiesInObject = entitiesList => {
-  const result = {}
-  entitiesList.forEach(entities => {
-    result[entities.metaData.modelName] = entities.data.map(entity => ({
-      displayName: entity.display,
-      value: entity.key
-    }))
-  })
-
-  return result
-}
-
-export const getInitialSelectBoxStore = (paths, model) => {
-  const keys = Object.keys(paths)
-  const stores = []
-  for (let i = 0; i < keys.length; i++) {
-    const key = keys[i]
-    const field = paths[key]
-    if (field.type === 'entity') {
-      if (field.value != null) {
-        const targetEntity = model[key].targetEntity
-        stores.push({targetEntity, store: [{value: field.value.key, label: field.value.display}]})
-      }
-    } else if (field.type === 'entity-list') {
-      const targetEntity = model[key].targetEntity
-      if (field.value != null && field.value.length > 0) {
-        stores.push({targetEntity, store: field.value.map(e => ({value: e.key, label: e.display}))})
-      }
-    }
-  }
-
-  return stores
 }
