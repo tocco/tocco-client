@@ -1,14 +1,5 @@
 import {request, getRequest} from 'tocco-util/src/rest'
 
-export function fetchEntity(entityName, id, fields) {
-  const params = {
-    '_paths': fields.join(',')
-  }
-
-  return request(`entities/${entityName}/${id}`, params)
-    .then(resp => resp.body)
-}
-
 export const defaultModelTransformer = json => {
   const model = {}
   json.fields.forEach(field => {
@@ -107,38 +98,4 @@ export function fetchEntityCount(entityName, searchInputs) {
   return getRequest(`entities/${entityName}/count`, params, [])
     .then(resp => resp.body)
     .then(json => json.count)
-}
-
-export const combineEntitiesInObject = entitiesList => {
-  const result = {}
-  entitiesList.forEach(entities => {
-    result[entities.metaData.modelName] = entities.data.map(entity => ({
-      displayName: entity.display,
-      value: entity.key
-    }))
-  })
-
-  return result
-}
-
-export const getInitialSelectBoxStore = (paths, model) => {
-  const keys = Object.keys(paths)
-  const stores = []
-  for (let i = 0; i < keys.length; i++) {
-    const key = keys[i]
-    const field = paths[key]
-    if (field.type === 'entity') {
-      if (field.value != null) {
-        const targetEntity = model[key].targetEntity
-        stores.push({targetEntity, store: [{value: field.value.key, label: field.value.display}]})
-      }
-    } else if (field.type === 'entity-list') {
-      const targetEntity = model[key].targetEntity
-      if (field.value != null && field.value.length > 0) {
-        stores.push({targetEntity, store: field.value.map(e => ({value: e.key, label: e.display}))})
-      }
-    }
-  }
-
-  return stores
 }

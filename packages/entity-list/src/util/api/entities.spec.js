@@ -1,7 +1,7 @@
 import * as entities from './entities'
 import fetchMock from 'fetch-mock'
 
-describe('entity-browser', () => {
+describe('entity-list', () => {
   describe('util', () => {
     describe('api', () => {
       describe('entities', () => {
@@ -27,19 +27,6 @@ describe('entity-browser', () => {
               const lastCall = fetchMock.lastCall()[0]
               expect(lastCall)
                 .to.eql('/nice2/rest/entities/User?_form=User_list&_limit=20&_offset=20&_paths=f1%2Cf2&_search=test')
-            })
-          })
-        })
-
-        describe('fetchEntity', () => {
-          it('should call fetch', () => {
-            fetchMock.get('*', {data: [{fields: {a: 'a'}}]})
-
-            const fields = ['f1', 'f2']
-            return entities.fetchEntity('User', 99, fields).then(() => {
-              expect(fetchMock.calls().matched).to.have.length(1)
-              const lastCall = fetchMock.lastCall()[0]
-              expect(lastCall).to.eql('/nice2/rest/entities/User/99?_paths=f1%2Cf2')
             })
           })
         })
@@ -177,60 +164,6 @@ describe('entity-browser', () => {
           })
         })
 
-        describe('combineEntitiesInObject', () => {
-          it('should transform array of entities into object', () => {
-            const data = [
-              {
-                metaData: {
-                  modelName: 'User_code2'
-                },
-                data: [
-                  {
-                    display: 'CEO',
-                    key: '33'
-                  }
-                ]
-              },
-              {
-                metaData: {
-                  modelName: 'Gender'
-                },
-                data: [
-                  {
-                    display: 'M',
-                    key: '1'
-                  },
-                  {
-                    display: 'F',
-                    key: '2'
-                  }
-                ]
-              }
-            ]
-
-            const expectedResult = {
-              User_code2: [
-                {
-                  displayName: 'CEO',
-                  value: '33'
-                }
-              ],
-              Gender: [
-                {
-                  displayName: 'M',
-                  value: '1'
-                },
-                {
-                  displayName: 'F',
-                  value: '2'
-                }
-              ]
-            }
-            const transformedResult = entities.combineEntitiesInObject(data)
-            expect(transformedResult).to.eql(expectedResult)
-          })
-        })
-
         describe('fetchModel', () => {
           it('should call fetch', () => {
             fetchMock.get('*', {})
@@ -240,107 +173,46 @@ describe('entity-browser', () => {
               expect(lastCallUrl).to.eql('/nice2/rest/entities/User/model')
             })
           })
-
-          describe('defaultModelTransformer', () => {
-            it('should return an object with field names as key', () => {
-              const fetchResult = {
-                'name': 'User',
-                'fields': [
-                  {
-                    'fieldName': 'pk',
-                    'type': 'serial'
-                  },
-                  {
-                    'fieldName': 'firstname',
-                    'type': 'string'
-                  }
-                ],
-                'relations': [
-                  {
-                    'relationName': 'some_relation',
-                    'targetEntity': 'Address',
-                    'multi': true
-                  }
-                ]
-              }
-              const result = entities.defaultModelTransformer(fetchResult)
-              const expectedResult = {
-                pk: {
-                  'fieldName': 'pk',
-                  type: 'serial'
-
-                },
-                firstname: {
-                  'fieldName': 'firstname',
-                  type: 'string'
-                },
-                some_relation: {
-                  type: 'relation',
-                  targetEntity: 'Address'
-                }
-              }
-              expect(result).to.eql(expectedResult)
-            })
-          })
         })
 
-        describe('getInitialSelectBoxStore', () => {
-          it('should return a store array for a field of type entity', () => {
-            const paths = {
-              relSingleSelect: {
-                type: 'entity',
-                value: {
-                  key: '2',
-                  display: 'Label'
+        describe('defaultModelTransformer', () => {
+          it('should return an object with field names as key', () => {
+            const fetchResult = {
+              'name': 'User',
+              'fields': [
+                {
+                  'fieldName': 'pk',
+                  'type': 'serial'
+                },
+                {
+                  'fieldName': 'firstname',
+                  'type': 'string'
                 }
-              }
-            }
-
-            const model = {
-              relSingleSelect: {
-                type: 'relation',
-                targetEntity: 'singleEntity'
-              }
-            }
-
-            const expectedResult = [{
-              targetEntity: 'singleEntity',
-              store: [
-                {value: '2', label: 'Label'}
+              ],
+              'relations': [
+                {
+                  'relationName': 'some_relation',
+                  'targetEntity': 'Address',
+                  'multi': true
+                }
               ]
-            }]
-
-            const result = entities.getInitialSelectBoxStore(paths, model)
-            expect(result).to.eql(expectedResult)
-          })
-
-          it('should return a store array for a field of the type entity-list', () => {
-            const paths = {
-              relMultiSelect: {
-                type: 'entity-list',
-                value: [
-                  {key: '1', display: 'Label1'},
-                  {key: '2', display: 'Label2'}
-                ]
-              }
             }
+            const result = entities.defaultModelTransformer(fetchResult)
+            const expectedResult = {
+              pk: {
+                'fieldName': 'pk',
+                type: 'serial'
 
-            const model = {
-              relMultiSelect: {
+              },
+              firstname: {
+                'fieldName': 'firstname',
+                type: 'string'
+              },
+              some_relation: {
                 type: 'relation',
-                targetEntity: 'multiEntity'
+                targetEntity: 'Address'
               }
             }
-
-            const expectedResult = [{
-              targetEntity: 'multiEntity',
-              store: [
-                {value: '1', label: 'Label1'},
-                {value: '2', label: 'Label2'}
-              ]
-            }]
-
-            const result = entities.getInitialSelectBoxStore(paths, model)
             expect(result).to.eql(expectedResult)
           })
         })
