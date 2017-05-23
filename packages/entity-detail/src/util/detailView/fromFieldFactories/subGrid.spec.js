@@ -1,8 +1,8 @@
 import subGridFactory from './subGrid'
 
-describe('entity-browser', () => {
-  describe('components', () => {
-    describe('FormField', () => {
+describe('entity-detail', () => {
+  describe('util', () => {
+    describe('detailView', () => {
       describe('fieldTypeFactories', () => {
         describe('subGrid', () => {
           it('should return a component', () => {

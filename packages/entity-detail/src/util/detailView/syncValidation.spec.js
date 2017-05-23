@@ -1,7 +1,7 @@
 import syncValidation, {mandatoryValidator} from './syncValidation'
 import {IntlStub} from 'tocco-test-util'
 
-describe('entity-browser', () => {
+describe('entity-detail', () => {
   describe('util', () => {
     describe('detaiLView', () => {
       describe('syncValidation', () => {

@@ -4,7 +4,7 @@ import {shallow} from 'enzyme'
 
 const EMPTY_FUNC = () => {}
 
-describe('entity-browser', () => {
+describe('entity-detail', () => {
   describe('components', () => {
     describe('ErrorBox', () => {
       it('should render general errors', () => {

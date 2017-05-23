@@ -1,7 +1,7 @@
 import * as entities from './entities'
 import fetchMock from 'fetch-mock'
 
-describe('entity-browser', () => {
+describe('entity-detail', () => {
   describe('util', () => {
     describe('api', () => {
       describe('entities', () => {

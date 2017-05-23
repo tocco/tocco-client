@@ -1,6 +1,6 @@
 import * as notification from './notification'
 
-describe('entity-browser', () => {
+describe('entity-detail', () => {
   describe('util', () => {
     describe('notification', () => {
       describe('createNotificationAction', () => {

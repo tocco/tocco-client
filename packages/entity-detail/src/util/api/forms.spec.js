@@ -1,7 +1,7 @@
 import * as forms from './forms'
 import fetchMock from 'fetch-mock'
 
-describe('entity-browser', () => {
+describe('entity-detail', () => {
   describe('util', () => {
     describe('api', () => {
       describe('forms', () => {

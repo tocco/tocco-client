@@ -14,9 +14,9 @@ import {notify} from '../../util/notification'
 
 const FORM_ID = 'detailForm'
 
-describe('entity-browser', () => {
+describe('entity-detail', () => {
   describe('modules', () => {
-    describe('detailView', () => {
+    describe('entityDetail', () => {
       describe('sagas', () => {
         describe('rootSaga', () => {
           it('should fork child sagas', () => {

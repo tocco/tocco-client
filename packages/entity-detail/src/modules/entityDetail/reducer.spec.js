@@ -7,9 +7,9 @@ const EXPECTED_INITIAL_STATE = {
   entityModel: {}
 }
 
-describe('entity-browser', () => {
+describe('entity-detail', () => {
   describe('modules', () => {
-    describe('detailView', () => {
+    describe('entityDetail', () => {
       describe('reducer', () => {
         it('should create a valid initial state', () => {
           expect(reducer(undefined, {})).to.deep.equal(EXPECTED_INITIAL_STATE)

@@ -92,7 +92,7 @@ const testData = {
   }
 }
 
-describe('entity-browser', () => {
+describe('entity-detail', () => {
   describe('components', () => {
     describe('DetailForm', () => {
       it('should render LayoutBoxes and Fields', () => {

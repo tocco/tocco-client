@@ -1,6 +1,6 @@
 import showBackButton from './showBackButton'
 
-describe('entity-browser', () => {
+describe('entity-detail', () => {
   describe('util', () => {
     describe('detailView', () => {
       describe('showBackButton', () => {

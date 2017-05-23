@@ -10,7 +10,7 @@ import {IntlStub, intlEnzyme} from 'tocco-test-util'
 const EMPTY_FUNC = () => {
 }
 
-describe('entity-browser', () => {
+describe('entity-detail', () => {
   describe('components', () => {
     describe('DetailForm', () => {
       it('should display the right amount of Fields according to form definition', () => {

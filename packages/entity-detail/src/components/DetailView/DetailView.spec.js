@@ -7,7 +7,7 @@ import {Button} from 'tocco-ui'
 const EMPTY_FUNC = () => {
 }
 
-describe('entity-browser', () => {
+describe('entity-detail', () => {
   describe('components', () => {
     describe('DetailView', () => {
       it('should render', () => {

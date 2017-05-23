@@ -1,6 +1,6 @@
 import * as reduxForm from './reduxForm'
 
-describe('entity-browser', () => {
+describe('entity-detail', () => {
   describe('util', () => {
     describe('detailView', () => {
       describe('reduxForms', () => {

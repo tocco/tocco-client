@@ -2,7 +2,7 @@ import * as asyncValidation from './asyncValidation'
 import fetchMock from 'fetch-mock'
 import {SubmissionError} from 'redux-form'
 
-describe('entity-browser', () => {
+describe('entity-detail', () => {
   describe('util', () => {
     describe('detaiLView', () => {
       describe('asyncValidation', () => {
