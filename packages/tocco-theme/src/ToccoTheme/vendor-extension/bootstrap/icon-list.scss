@@ -4,16 +4,18 @@
 */
 
 $icon-list-intend-0: '\2022';  /* bullet point */
+$icon-neutral: $icon-list-intend-0;
 $icon-valid: $fa-var-check;
 $icon-invalid: $fa-var-times;
 $icon-list-icon-size: floor($font-size-base * 1.5);
 $icon-list-indent: $icon-list-icon-size;
+$icon-list-margin: 0 0 $line-height-computed floor($font-size-base / 7);
 
 // base style
 .icon-list {
   list-style-type: none;
   padding-left: $icon-list-indent;
-  margin-bottom: $line-height-computed;
+  margin: $icon-list-margin;
 
   ul,
   ol {
@@ -37,7 +39,7 @@ $icon-list-indent: $icon-list-icon-size;
       color: $text-color;
 
       &:before {
-        content: '\2022';  /* bullet point */
+        content: $icon-neutral;
       }
     }
   }
