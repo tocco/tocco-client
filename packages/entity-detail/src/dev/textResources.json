@@ -1,0 +1,16 @@
+[
+  "client.entity-browser.detail.loadingText",
+  "client.entity-browser.detail.mandatoryFieldTitle",
+  "client.entity-browser.detail.save",
+  "client.entity-browser.detail.syncValidationRequired",
+
+  "client.component.remoteselect.clearAllText",
+  "client.component.remoteselect.clearValueText",
+  "client.component.remoteselect.searchPromptText",
+
+  "client.entity-list.extendedSearch",
+  "client.entity-list.loadingText",
+  "client.entity-list.refresh",
+  "client.entity-list.reset",
+  "client.entity-list.search"
+]
