@@ -36,10 +36,12 @@ class DateAbstract extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    Flatpickr.localize(this.localeMap[props.intl.locale])
-    if (props.intl) {
-      this.flatpickr.set('locale', this.localeMap[props.intl.locale])
+    let locale = this.localeMap[props.intl.locale]
+    if (!locale) {
+      locale = Flatpickr.l10ns.en
     }
+    Flatpickr.localize(locale)
+    this.flatpickr.set('locale', locale)
     if (props.value) {
       this.flatpickr.setDate(props.value)
     }
