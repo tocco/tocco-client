@@ -1,0 +1,35 @@
+{
+  "name": "entity-detail",
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "clean": "../../node_modules/rimraf/bin.js dist",
+    "compile": "babel-node ../../bin/compile",
+    "deploy": "cd ../../ && ./node_modules/better-npm-run/index.js deploy --package=entity-detail",
+    "prepublish": "cd ../../ && ./node_modules/better-npm-run/index.js deploy:prod --package=entity-detail"
+  },
+  "betterScripts": {
+    "deploy": {
+      "command": "npm run clean && npm run compile --package=entity-detail",
+      "env": {
+        "DEBUG": "app:*"
+      }
+    },
+    "deploy:prod": {
+      "command": "npm run deploy",
+      "env": {
+        "NODE_ENV": "production",
+        "DEBUG": "app:*"
+      }
+    }
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "entity-list": "^0.1.0",
+    "tocco-test-util": "^0.1.0",
+    "tocco-theme": "^0.1.2",
+    "tocco-ui": "^0.1.1",
+    "tocco-util": "^0.1.0"
+  }
+}
