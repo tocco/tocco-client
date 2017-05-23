@@ -2,7 +2,7 @@ import React from 'react'
 import Flatpickr from 'flatpickr'
 import {injectIntl, intlShape} from 'react-intl'
 
-import '!style-loader!css-loader!flatpickr/dist/themes/material_red.css'
+import '!style-loader!css-loader!flatpickr/dist/themes/light.css'
 
 import {de as DE} from 'flatpickr/dist/l10n/de.js'
 import {fr as FR} from 'flatpickr/dist/l10n/fr.js'
