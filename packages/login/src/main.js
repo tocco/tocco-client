@@ -9,7 +9,7 @@ import loginReducers, {sagas} from './modules/reducers'
 const packageName = 'login'
 
 const initLoginApp = (id, input, events, publicPath) => {
-  const dispatchActions = [
+  const actions = [
     passwordUpdate.setShowOldPasswordField(false),
     passwordUpdate.setForcedUpdate(true),
     passwordUpdate.setStandalone(false)
@@ -27,7 +27,7 @@ const initLoginApp = (id, input, events, publicPath) => {
     {
       input,
       events,
-      dispatchActions,
+      actions,
       publicPath
     }
   )
