@@ -1,75 +1,100 @@
 import React from 'react'
 import {intlShape} from 'react-intl'
-import {Button, FormattedValue, Pagination, Table} from 'tocco-ui'
+import {FormattedValue} from 'tocco-ui'
 import LoadMask from 'tocco-ui/src/LoadMask/LoadMask'
+import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
+import '!style-loader!css-loader!react-bootstrap-table/dist/react-bootstrap-table.min.css'
 
 class ListView extends React.Component {
-  componentWillMount() {
+  componentWillMount = () => {
     this.props.initialize()
   }
 
-  onOrderByChange = orderBy => {
-    this.props.setOrderBy(orderBy)
+  msg = (id, values = {}) => (this.props.intl.formatMessage({id}, values))
+
+  onOrderByChange = (name, direction) => {
+    this.props.setOrderBy({name, direction})
   }
 
   onPageChange = page => {
     this.props.changePage(page)
   }
 
-  cellRenderer = (values, entity) => {
-    const formattedValues = values.map((v, idx) => (
-      <FormattedValue key={idx} type={v.type} value={v.value}/>
-    ))
-
-    if (formattedValues.length > 0) {
-      return (
-        <span>
-          {formattedValues.reduce((prev, curr) => [prev, ', ', curr])}
-        </span>
-      )
-    }
-  }
-
-  handleRowClick = entityId => {
+  handleRowClick = entity => {
     if (this.props.onRowClick) {
-      this.props.onRowClick(entityId)
+      this.props.onRowClick(entity.__key)
     }
   }
 
-  msg = id => (this.props.intl.formatMessage({id}))
+  renderShowsTotal = (start, to, total) => {
+    if (total === 0) return <span/>
+    return (
+      <span>
+        {this.msg('client.entity-list.total', {start, to, total})}
+      </span>
+    )
+  }
+
+  cellFormatter = cell => (<FormattedValue type={cell.type} value={cell.value}/>)
 
   render() {
     const props = this.props
+
+    const tableOption = {
+      onSortChange: this.onOrderByChange,
+      sizePerPage: this.props.limit,
+      onPageChange: this.onPageChange,
+      page: props.currentPage,
+      paginationShowsTotal: this.renderShowsTotal,
+      hideSizePerPage: true,
+      onRowClick: this.handleRowClick,
+      noDataText: props.inProgress
+        ? this.msg('client.entity-list.dataLoading')
+        : this.msg('client.entity-list.noData'),
+      nextPageTitle: this.msg('client.entity-list.nextPageTitle'),
+      prePageTitle: this.msg('client.entity-list.prePageTitle'),
+      firstPageTitle: this.msg('client.entity-list.firstPageTitle'),
+      lastPageTitle: this.msg('client.entity-list.lastPageTitle')
+    }
+
+    const selectRow = {
+      mode: 'none',
+      clickToSelect: true
+    }
+
+    const showPagination = props.entityCount - props.limit > 0
+
     return (
       <div className="list-view">
         <LoadMask
           required={[(props.columnDefinitions.length > 0)]}
           loadingText={this.msg('client.entity-list.loadingText')}
         >
-          <Table
-            columnDefinitions={props.columnDefinitions}
-            records={props.entities}
-            className="table-striped table-hover"
-            onOrderByChange={this.onOrderByChange}
-            orderBy={props.orderBy}
-            loading={props.inProgress}
-            cellRenderer={this.cellRenderer}
-            onRowClick={this.handleRowClick}
-          />
-          <div className="list-view-navigation">
-            <Pagination
-              totalRecords={props.entityCount}
-              recordsPerPage={props.limit}
-              onPageChange={this.onPageChange}
-              currentPage={props.currentPage}
-            />
-            <Button
-              onClick={props.refresh}
-              label={this.msg('client.entity-list.refresh')}
-              icon="glyphicon-refresh"
-              className="refresh-button"
-            />
-          </div>
+          <BootstrapTable
+            remote={true}
+            data={props.entities}
+            pagination={ showPagination }
+            fetchInfo={{dataTotalSize: props.entityCount}}
+            options={tableOption}
+            selectRow={selectRow}
+            trClassName="break-word"
+            striped
+            hover
+          >
+            <TableHeaderColumn dataField="__key" isKey={true} hidden>Key</TableHeaderColumn>
+            {
+              props.columnDefinitions.map((column, idx) => (
+                <TableHeaderColumn
+                  key={idx}
+                  dataFormat={this.cellFormatter}
+                  dataField={column.child.name}
+                  dataSort={true}
+                >
+                  {column.label}
+                </TableHeaderColumn>
+              ))
+            }
+          </BootstrapTable>
         </LoadMask>
       </div>
     )
