@@ -17,8 +17,8 @@ describe('tocco-util', () => {
 
         const wrapper = mount(editableValue)
 
-        expect(wrapper).to.have.type(FormattedValue)
-        expect(wrapper).to.have.prop('value', value)
+        expect(wrapper.find(FormattedValue)).to.have.length(1)
+        expect(wrapper.find(FormattedValue)).to.have.prop('value', value)
       })
     })
   })
