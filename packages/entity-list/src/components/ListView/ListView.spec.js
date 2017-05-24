@@ -46,7 +46,7 @@ describe('entity-list', () => {
           name: 'name',
           direction: 'asc'
         }
-        const columnDefinitions = [{value: 'my'}]
+        const columnDefinitions = [{values: [{name: 'my'}]}]
         const inProgress = true
         const orderByChange = sinon.spy()
 

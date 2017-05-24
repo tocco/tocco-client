@@ -26,7 +26,7 @@ describe('tocco-ui', function() {
         expect(wrapper.text()).to.not.equal('')
       })
 
-      it('should format value accorind to locale', function() {
+      it('should format value according to locale', function() {
         const wrapper = mount(<IntlProvider locale="de">
           <DateTimeFormatter
             value="1976-03-16T12:00:00.000Z"/>
@@ -34,12 +34,6 @@ describe('tocco-ui', function() {
         // See above
         // expect(wrapper.text()).to.equal('16.3.1976,13:00')
         expect(wrapper.text()).to.not.equal('')
-      })
-
-      it('should not format invalid date', function() {
-        const wrapper = mount(<IntlProvider locale="de"><DateTimeFormatter
-          value="abc123"/></IntlProvider>)
-        expect(wrapper.html()).to.equal('<span></span>')
       })
     })
   })

@@ -124,7 +124,7 @@ describe('tocco-ui', function() {
       const record = {values: {a: {value: 'a', type:'string'}}}
 
       const wrapper = shallow(
-        <Table records={[record]} columnDefinitions={[{values: ['unknown']}]}/>
+        <Table records={[record]} columnDefinitions={[{values: [{name: 'unknown'}]}]}/>
       )
 
       expect(wrapper.find('td')).to.have.text('')
