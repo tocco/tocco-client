@@ -5,9 +5,12 @@ export const SUBMIT_FORM = 'entityDetail/SUBMIT_FORM'
 export const SET_LAST_SAVE = 'entityDetail/SET_LAST_SAVE'
 export const SET_ENTITY_MODEL = 'entityDetail/SET_ENTITY_MODEL'
 export const UNLOAD_DETAIL_VIEW = 'entityDetail/UNLOAD_DETAIL_VIEW'
-export const LOAD_RELATION_ENTITY = 'entityBrowser/LOAD_RELATION_ENTITY'
-export const SET_RELATION_ENTITY = 'entityBrowser/SET_RELATION_ENTITY'
-export const SET_RELATION_ENTITY_LOADED = 'entityBrowser/SET_RELATION_ENTITY_LOADED'
+export const LOAD_RELATION_ENTITY = 'entityDetail/LOAD_RELATION_ENTITY'
+export const SET_RELATION_ENTITY = 'entityDetail/SET_RELATION_ENTITY'
+export const SET_RELATION_ENTITY_LOADED = 'entityDetail/SET_RELATION_ENTITY_LOADED'
+export const LOAD_REMOTE_ENTITY = 'entityDetail/LOAD_REMOTE_ENTITY'
+export const SET_REMOTE_ENTITY = 'entityDetail/SET_REMOTE_ENTITY'
+export const SET_REMOTE_ENTITY_LOADING = 'entityDetail/SET_REMOTE_ENTITY_LOADING'
 
 export const setFormDefinition = formDefinition => ({
   type: SET_FORM_DEFINITION,
@@ -73,5 +76,29 @@ export const setRelationEntity = (entityName, entities, reset = false) => ({
     entityName,
     entities,
     reset
+  }
+})
+
+export const loadRemoteEntity = (field, entityName, searchTerm) => ({
+  type: LOAD_REMOTE_ENTITY,
+  payload: {
+    field,
+    entityName,
+    searchTerm
+  }
+})
+
+export const setRemoteEntity = (field, entities) => ({
+  type: SET_REMOTE_ENTITY,
+  payload: {
+    field,
+    entities
+  }
+})
+
+export const setRemoteEntityLoading = field => ({
+  type: SET_REMOTE_ENTITY_LOADING,
+  payload: {
+    field
   }
 })

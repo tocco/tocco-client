@@ -39,13 +39,15 @@ class RemoteSelect extends React.Component {
 
 RemoteSelect.propTypes = {
   onChange: React.PropTypes.func,
-  value: React.PropTypes.shape(
-    {
+  value: React.PropTypes.oneOfType([
+    React.PropTypes.shape({
       key: React.PropTypes.oneOfType([
         React.PropTypes.string,
         React.PropTypes.number
       ])
     }),
+    React.PropTypes.string // empty string coming from Redux Form if value null
+  ]),
   options: React.PropTypes.shape({
     options: React.PropTypes.array,
     fetchOptions: React.PropTypes.func,

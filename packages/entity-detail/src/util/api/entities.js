@@ -55,14 +55,18 @@ function buildParams({
   page = undefined,
   orderBy = {},
   limit = undefined,
-  fields = [],
+  paths = [],
+  fields = undefined,
+  relations = undefined,
   searchFilters = [],
   searchInputs = {},
   formName = undefined
 } = {}) {
   const params = {
     '_sort': Object.keys(orderBy || {}).length === 2 ? `${orderBy.name} ${orderBy.direction}` : undefined,
-    '_paths': fields.join(','),
+    '_paths': paths.join(','),
+    '_fields': fields && fields.length === 0 ? '!' : fields ? fields.join(',') : null,
+    '_relations': relations && relations.length === 0 ? '!' : relations ? relations.join(',') : null,
     '_form': formName,
     '_filter': searchFilters.join(','),
     ...searchInputs
