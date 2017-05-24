@@ -24,7 +24,8 @@ const initApp = (id, input, events, publicPath) => {
       input,
       events,
       actions,
-      publicPath
+      publicPath,
+      textResourceModules: ['component', 'common', 'entity-browser'] // TODO: rename entity-browser text resources
     }
   )
 }

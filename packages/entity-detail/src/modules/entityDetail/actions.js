@@ -5,6 +5,9 @@ export const SUBMIT_FORM = 'entityDetail/SUBMIT_FORM'
 export const SET_LAST_SAVE = 'entityDetail/SET_LAST_SAVE'
 export const SET_ENTITY_MODEL = 'entityDetail/SET_ENTITY_MODEL'
 export const UNLOAD_DETAIL_VIEW = 'entityDetail/UNLOAD_DETAIL_VIEW'
+export const LOAD_RELATION_ENTITY = 'entityBrowser/LOAD_RELATION_ENTITY'
+export const SET_RELATION_ENTITY = 'entityBrowser/SET_RELATION_ENTITY'
+export const SET_RELATION_ENTITY_LOADED = 'entityBrowser/SET_RELATION_ENTITY_LOADED'
 
 export const setFormDefinition = formDefinition => ({
   type: SET_FORM_DEFINITION,
@@ -48,4 +51,27 @@ export const setEntityModel = entityModel => ({
 
 export const unloadDetailView = () => ({
   type: UNLOAD_DETAIL_VIEW
+})
+
+export const loadRelationEntity = entityName => ({
+  type: LOAD_RELATION_ENTITY,
+  payload: {
+    entityName
+  }
+})
+
+export const setRelationEntityLoaded = entityName => ({
+  type: SET_RELATION_ENTITY_LOADED,
+  payload: {
+    entityName
+  }
+})
+
+export const setRelationEntity = (entityName, entities, reset = false) => ({
+  type: SET_RELATION_ENTITY,
+  payload: {
+    entityName,
+    entities,
+    reset
+  }
 })

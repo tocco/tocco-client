@@ -13,7 +13,7 @@ import {
 import {logError} from 'tocco-util/src/errorLogging'
 import * as actions from './actions'
 import {notify} from '../../util/notification'
-import {fetchEntity, updateEntity, fetchModel} from '../../util/api/entities'
+import {fetchEntity, fetchEntities, updateEntity, fetchModel, selectEntitiesTransformer} from '../../util/api/entities'
 import {fetchForm, getFieldsOfDetailForm, getDetailFormName} from '../../util/api/forms'
 import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../util/detailView/reduxForm'
 import {submitValidate} from '../../util/detailView/asyncValidation'
@@ -21,6 +21,7 @@ import {submitValidate} from '../../util/detailView/asyncValidation'
 export const formDefinitionSelector = state => state.detail.formDefinition
 export const formInitialValueSelector = formId => state => state.form[formId].initial
 export const inputSelector = state => state.input
+export const entityDetailSelector = state => state.entityDetail
 
 const FORM_ID = 'detailForm'
 
@@ -28,7 +29,8 @@ export default function* sagas() {
   yield all([
     fork(takeLatest, actions.LOAD_DETAIL_VIEW, loadDetailView),
     fork(takeLatest, actions.UNLOAD_DETAIL_VIEW, unloadDetailView),
-    fork(takeEvery, actions.SUBMIT_FORM, submitForm)
+    fork(takeEvery, actions.SUBMIT_FORM, submitForm),
+    fork(takeEvery, actions.LOAD_RELATION_ENTITY, loadRelationEntity)
   ])
 }
 
@@ -73,9 +75,9 @@ export function* unloadDetailView() {
 export function* loadDetailView({payload}) {
   const {modelPaths, entityId} = payload
 
-  const entityBrowser = yield select(inputSelector)
-  let {formBase, formDefinition} = entityBrowser
-  const {entityName} = entityBrowser
+  const input = yield select(inputSelector)
+  let {formBase, formDefinition} = input
+  const {entityName} = input
 
   let formName = yield call(getDetailFormName, formBase)
 
@@ -134,5 +136,15 @@ export function* submitForm() {
       'floppy-remove',
       5000
     )
+  }
+}
+
+export function* loadRelationEntity({payload}) {
+  const {entityName} = payload
+  const {relationEntities} = yield select(entityDetailSelector)
+  if (!relationEntities[entityName] || !relationEntities[entityName].loaded) {
+    const entities = yield call(fetchEntities, entityName, {}, selectEntitiesTransformer)
+    yield put(actions.setRelationEntity(entityName, entities, true))
+    yield put(actions.setRelationEntityLoaded(entityName))
   }
 }

@@ -6,7 +6,7 @@ import {
   stopSubmit,
   initialize as initializeForm
 } from 'redux-form'
-import {updateEntity, fetchEntity, fetchModel} from '../../util/api/entities'
+import {updateEntity, fetchEntity, fetchModel, fetchEntities, selectEntitiesTransformer} from '../../util/api/entities'
 import {getFieldsOfDetailForm, fetchForm, getDetailFormName} from '../../util/api/forms'
 import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../util/detailView/reduxForm'
 import {submitValidate} from '../../util/detailView/asyncValidation'
@@ -24,7 +24,8 @@ describe('entity-detail', () => {
             expect(generator.next().value).to.deep.equal(all([
               fork(takeLatest, actions.LOAD_DETAIL_VIEW, sagas.loadDetailView),
               fork(takeLatest, actions.UNLOAD_DETAIL_VIEW, sagas.unloadDetailView),
-              fork(takeEvery, actions.SUBMIT_FORM, sagas.submitForm)
+              fork(takeEvery, actions.SUBMIT_FORM, sagas.submitForm),
+              fork(takeEvery, actions.LOAD_RELATION_ENTITY, sagas.loadRelationEntity)
             ]))
             expect(generator.next().done).to.be.true
           })
@@ -263,6 +264,39 @@ describe('entity-detail', () => {
 
             const gen = sagas.loadDetailFormDefinition(formDefinition, formBase)
             expect(gen.next().done).to.be.true
+          })
+        })
+
+        describe('loadRelationEntity saga', () => {
+          it('should load relation entities ', () => {
+            const entityName = 'User'
+
+            const entities = [{display: 'User1', key: 1}]
+            const transformedEntities = [{key: 1, display: 'User1'}]
+            const gen = sagas.loadRelationEntity(actions.loadRelationEntity(entityName))
+            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
+            expect(gen.next({relationEntities:{}}).value)
+              .to.eql(call(fetchEntities, entityName, {}, selectEntitiesTransformer))
+            expect(gen.next(entities).value)
+              .to.eql(put(actions.setRelationEntity(entityName, transformedEntities, true)))
+            expect(gen.next().value).to.eql(put(actions.setRelationEntityLoaded(entityName)))
+            expect(gen.next().done).to.be.true
+          })
+
+          it('should not load entities if already loaded', () => {
+            const entityName = 'User'
+
+            const state = {
+              relationEntities: {
+                User: {
+                  loaded: true
+                }
+              }
+            }
+
+            const gen = sagas.loadRelationEntity(actions.loadRelationEntity(entityName))
+            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
+            expect(gen.next(state).done).to.be.true
           })
         })
       })
