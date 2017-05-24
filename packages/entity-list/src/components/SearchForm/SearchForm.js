@@ -143,7 +143,12 @@ SearchForm.propTypes = {
   preselectedSearchFields: React.PropTypes.arrayOf(
     React.PropTypes.shape({
       id: React.PropTypes.string.isRequired,
-      value: React.PropTypes.any.isRequired,
+      value: React.PropTypes.oneOfType([
+        React.PropTypes.string,
+        React.PropTypes.number,
+        React.PropTypes.arrayOf(React.PropTypes.number),
+        React.PropTypes.arrayOf(React.PropTypes.string)
+      ]),
       hidden: React.PropTypes.bool.isRequired
     })
   )

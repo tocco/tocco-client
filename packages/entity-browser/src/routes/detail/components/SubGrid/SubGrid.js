@@ -12,7 +12,7 @@ const SubGrid = props => {
         showSearchForm={true}
         preselectedSearchFields={[{
           id: props.modelField.reverseRelationName,
-          value: {key: props.entityKey},
+          value: props.entityKey,
           hidden: true
         }]}
         onRowClick={e => {

@@ -12,7 +12,7 @@ describe('tocco-ui', function() {
     })
 
     it('should render a date value', function() {
-      const wrapper = shallow(<FormattedValue type="date" value="1976-03-16T12:00:00.000Z"/>)
+      const wrapper = shallow(<FormattedValue type="date" value="1976-03-16"/>)
       expect(wrapper.find(DateFormatter)).to.have.length(1)
     })
 
@@ -27,12 +27,12 @@ describe('tocco-ui', function() {
     })
 
     it('should return an empty span on input "null"', function() {
-      const wrapper = shallow(<FormattedValue type="something" value={null}/>)
+      const wrapper = shallow(<FormattedValue type="string" value={null}/>)
       expect(wrapper.html()).to.eql('<span></span>')
     })
 
     it('should not return an empty span on input false', function() {
-      const wrapper = shallow(<FormattedValue type="bool" value={false}/>)
+      const wrapper = shallow(<FormattedValue type="boolean" value={false}/>)
       expect(wrapper.html()).to.not.eql('<span></span>')
     })
   })
