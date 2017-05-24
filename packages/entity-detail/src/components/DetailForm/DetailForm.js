@@ -14,6 +14,10 @@ export class DetailForm extends React.Component {
     this.formBuilder = this.createFormBuilder(props)
   }
 
+  componentWillReceiveProps(props) {
+    this.formBuilder = this.createFormBuilder(props)
+  }
+
   createFormBuilder = props => {
     const formFieldUtils = {
       relationEntities: props.relationEntities,
