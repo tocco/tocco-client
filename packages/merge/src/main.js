@@ -7,7 +7,7 @@ import reducers, {sagas} from './modules/reducers'
 const packageName = 'merge'
 
 const initApp = (id, input, events, publicPath) => {
-  const dispatchActions = getDispatchActions(input)
+  const actions = getDispatchActions(input)
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
 
@@ -18,7 +18,7 @@ const initApp = (id, input, events, publicPath) => {
     {
       input,
       events,
-      dispatchActions,
+      actions,
       publicPath
     }
   )
