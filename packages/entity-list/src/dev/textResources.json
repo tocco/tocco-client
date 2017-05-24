@@ -6,9 +6,5 @@
   "client.entity-list.reset",
   "client.entity-list.refresh",
   "client.entity-list.loadingText",
-  "client.entity-list.extendedSearch",
-  "client.component.remoteselect.noResultsText",
-  "client.component.remoteselect.clearAllText",
-  "client.component.remoteselect.clearValueText",
-  "client.component.remoteselect.searchPromptText"
+  "client.entity-list.extendedSearch"
 ]

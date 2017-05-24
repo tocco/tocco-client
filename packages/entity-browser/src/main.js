@@ -82,8 +82,14 @@ const initApp = (id, input, events, publicPath) => {
 
     if (!__NO_MOCK__) {
       const fetchMock = require('fetch-mock')
+
       const setupFetchMocks = require('./dev/fetchMocks')
       setupFetchMocks(fetchMock)
+
+      const listFetchMocks = require('entity-list/src/dev/fetchMocks')
+      listFetchMocks(fetchMock)
+
+      fetchMock.spy()
     }
 
     const input = require('./dev/input.json')
