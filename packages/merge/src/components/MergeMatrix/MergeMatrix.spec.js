@@ -153,7 +153,7 @@ const testData = {
         birthdate: {
           name: 'birthdate',
           type: 'birthdate',
-          value: '1980-01-31T23:00:00.000Z',
+          value: '1980-01-31',
           writable: true
         },
         phone_company: {

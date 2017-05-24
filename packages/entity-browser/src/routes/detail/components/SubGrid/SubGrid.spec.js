@@ -20,7 +20,13 @@ describe('entity-browser', () => {
         const wrapper = mount(
           <Provider store={store}>
             <MemoryRouter>
-              <SubGrid tableDefinition={tableDefinition} modelField={{targetEntity: 'User'}} relationName="relFoo"/>
+              <SubGrid
+                tableDefinition={tableDefinition}
+                modelField={{targetEntity: 'User'}}
+                relationName="relFoo"
+                gridName="FooGrid"
+                detailFormName="FooForm"
+              />
             </MemoryRouter>
           </Provider>)
 

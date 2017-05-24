@@ -34,15 +34,6 @@ describe('tocco-ui', function() {
         )
         expect(wrapper.text().replace(leftToRightMark, '')).to.equal('16.11.1976')
       })
-
-      it('should not format invalid date', () => {
-        const wrapper = mount(
-          <IntlProvider locale="de">
-            <DateFormatter value="abc123"/>
-          </IntlProvider>
-        )
-        expect(wrapper.html()).to.equal('<span></span>')
-      })
     })
   })
 })

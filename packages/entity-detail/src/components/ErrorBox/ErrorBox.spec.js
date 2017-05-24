@@ -36,7 +36,7 @@ describe('entity-detail', () => {
       })
 
       it('should show field', () => {
-        const formErrors = {_error: {}, firstname:{mandatory:'mandatory!'}}
+        const formErrors = {_error: {}, firstname:{mandatory:['mandatory!']}}
         const wrapper = shallow(<ErrorBox
           formErrors={formErrors}
           showErrors={EMPTY_FUNC}

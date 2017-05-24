@@ -4,6 +4,8 @@ import Select from 'react-select'
 
 import SingleSelect from './SingleSelect'
 
+const EMPTY_FUNC = () => {}
+
 describe('tocco-ui', () => {
   describe('EditableValue', () => {
     describe('typeEditors', () => {
@@ -40,7 +42,7 @@ describe('tocco-ui', () => {
           const value = {key: 1, display: 'label1'}
           const options = {}
 
-          const wrapper = mount(<SingleSelect value={value} options={options}/>)
+          const wrapper = mount(<SingleSelect value={value} options={options} onChange={EMPTY_FUNC}/>)
           expect(wrapper.find(Select).first().props().options).to.eql([value])
           wrapper.setProps({options:{store: []}})
           expect(wrapper.find(Select).first().props().options).to.eql([value])

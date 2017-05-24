@@ -90,6 +90,8 @@ EntityListApp.propTypes = {
       id: React.PropTypes.string,
       value: React.PropTypes.oneOfType([
         React.PropTypes.string,
+        React.PropTypes.number,
+        React.PropTypes.arrayOf(React.PropTypes.number),
         React.PropTypes.arrayOf(React.PropTypes.string)
       ]),
       hidden: React.PropTypes.bool
