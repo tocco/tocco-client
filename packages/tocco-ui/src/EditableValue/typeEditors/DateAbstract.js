@@ -2,7 +2,7 @@ import React from 'react'
 import Flatpickr from 'flatpickr'
 import {injectIntl, intlShape} from 'react-intl'
 
-import '!style-loader!css-loader!flatpickr/dist/themes/material_red.css'
+import '!style-loader!css-loader!flatpickr/dist/themes/light.css'
 
 import {de as DE} from 'flatpickr/dist/l10n/de.js'
 import {fr as FR} from 'flatpickr/dist/l10n/fr.js'
@@ -36,10 +36,12 @@ class DateAbstract extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    Flatpickr.localize(this.localeMap[props.intl.locale])
-    if (props.intl) {
-      this.flatpickr.set('locale', this.localeMap[props.intl.locale])
+    let locale = this.localeMap[props.intl.locale]
+    if (!locale) {
+      locale = Flatpickr.l10ns.en
     }
+    Flatpickr.localize(locale)
+    this.flatpickr.set('locale', locale)
     if (props.value) {
       this.flatpickr.setDate(props.value)
     }
