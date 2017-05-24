@@ -19,7 +19,7 @@ export default function setupFetchMock(fetchMock) {
     require('./rest-responses/form_user_list.json')
   )
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/Dummy_entity(\\?.*)?'),
+    new RegExp('^.*?/nice2/rest/entities/Dummy_entity(\\?.*)?$'),
     require('./rest-responses/dummy_entity.json')
   )
   fetchMock.get(
@@ -31,11 +31,9 @@ export default function setupFetchMock(fetchMock) {
     createCountResponse
   )
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/User(\\?.*)?'),
+    new RegExp('^.*?/nice2/rest/entities/User(\\?.*)?$'),
     createEntitiesResponse
   )
-
-  fetchMock.spy()
 }
 
 module.exports = setupFetchMock

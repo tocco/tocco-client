@@ -1,0 +1,81 @@
+{
+  "_links": {
+    "self": {
+      "href": "http://localhost:8080/nice2/rest/entities/Dummy_entity/model"
+    }
+  },
+  "name": "Dummy_entity",
+  "fields": [
+    {
+      "fieldName": "pk",
+      "type": "serial",
+      "validation": {
+        "mandatory": true
+      }
+    },
+    {
+      "fieldName": "label",
+      "type": "string",
+      "validation": {
+        "mandatory": true
+      }
+    },
+    {
+      "fieldName": "active",
+      "type": "boolean",
+      "validation": {
+        "mandatory": false
+      }
+    },
+    {
+      "fieldName": "empty",
+      "type": "string",
+      "validation": {
+        "mandatory": false
+      }
+    },
+    {
+      "fieldName": "version",
+      "type": "version",
+      "validation": {
+        "mandatory": false
+      }
+    },
+    {
+      "fieldName": "create_timestamp",
+      "type": "createts",
+      "validation": {
+        "mandatory": false
+      }
+    },
+    {
+      "fieldName": "update_timestamp",
+      "type": "updatets",
+      "validation": {
+        "mandatory": false
+      }
+    },
+    {
+      "fieldName": "create_user",
+      "type": "createuser",
+      "validation": {
+        "mandatory": false
+      }
+    },
+    {
+      "fieldName": "update_user",
+      "type": "updateuser",
+      "validation": {
+        "mandatory": false
+      }
+    }
+  ],
+  "relations": [
+    {
+      "relationName": "relUser",
+      "targetEntity": "User",
+      "reverseRelationName": "relDummySubGrid",
+      "multi": false
+    }
+  ]
+}

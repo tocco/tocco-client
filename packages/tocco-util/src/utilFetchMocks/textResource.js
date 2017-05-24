@@ -1,9 +1,10 @@
+let textResources = {}
+
 export default (fetchMock, textResourceKeys = []) => {
-  const result = {}
   textResourceKeys.forEach(key => {
-    result[key] = transformKeyToReadableText(key)
+    textResources[key] = transformKeyToReadableText(key)
   })
-  fetchMock.get(new RegExp('^.*?/nice2/textresource'), result)
+  fetchMock.get(new RegExp('^.*?/nice2/textresource'), textResources)
 }
 
 const transformKeyToReadableText = key => {
