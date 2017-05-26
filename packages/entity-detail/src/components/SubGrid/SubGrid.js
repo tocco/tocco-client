@@ -14,7 +14,15 @@ const SubGrid = props => {
           value: props.entityKey,
           hidden: true
         }]}
-        onRowClick={e => {}} // TODO
+        onRowClick={e => {
+          if (props.onRowClick) {
+            props.onRowClick({
+              id: e.id,
+              gridName: props.gridName,
+              relationName: props.relationName
+            })
+          }
+        }}
       />
     </div>
   )
@@ -28,7 +36,8 @@ SubGrid.propTypes = {
   modelField: React.PropTypes.shape({
     targetEntity: React.PropTypes.string,
     reverseRelationName: React.PropTypes.string
-  }).isRequired
+  }).isRequired,
+  onRowClick: React.PropTypes.func
 }
 
 export default SubGrid
