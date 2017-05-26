@@ -18,7 +18,6 @@ import {fetchForm, getFieldsOfDetailForm, getDetailFormName} from '../../util/ap
 import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../util/detailView/reduxForm'
 import {submitValidate} from '../../util/detailView/asyncValidation'
 
-export const formDefinitionSelector = state => state.detail.formDefinition
 export const formInitialValueSelector = formId => state => state.form[formId].initial
 export const inputSelector = state => state.input
 export const entityDetailSelector = state => state.entityDetail
@@ -107,7 +106,7 @@ export function* submitForm() {
     yield call(submitValidate, values, initialValues)
     const dirtyFields = yield call(getDirtyFields, initialValues, values)
     const entity = yield call(formValuesToEntity, values, dirtyFields)
-    const formDefinition = yield select(formDefinitionSelector)
+    const {formDefinition} = yield select(entityDetailSelector)
     const fields = yield call(getFieldsOfDetailForm, formDefinition)
     const updatedEntity = yield call(updateEntity, entity, fields)
     const updatedFormValues = yield call(entityToFormValues, updatedEntity)
