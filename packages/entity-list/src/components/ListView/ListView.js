@@ -71,7 +71,7 @@ class ListView extends React.Component {
           loadingText={this.msg('client.entity-list.loadingText')}
         >
           <BootstrapTable
-            remote={true}
+            remote
             data={props.entities}
             pagination={ showPagination }
             fetchInfo={{dataTotalSize: props.entityCount}}
@@ -81,14 +81,14 @@ class ListView extends React.Component {
             striped
             hover
           >
-            <TableHeaderColumn dataField="__key" isKey={true} hidden>Key</TableHeaderColumn>
+            <TableHeaderColumn dataField="__key" isKey hidden>Key</TableHeaderColumn>
             {
               props.columnDefinitions.map((column, idx) => (
                 <TableHeaderColumn
                   key={idx}
                   dataFormat={this.cellFormatter}
+                  dataSort
                   dataField={column.child.name}
-                  dataSort={true}
                 >
                   {column.label}
                 </TableHeaderColumn>
