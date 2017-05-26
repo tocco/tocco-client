@@ -14,17 +14,35 @@ describe('entity-detail', () => {
           it('should call fetch', () => {
             fetchMock.get('*', {data: [{fields: {a: 'a'}}]})
 
-            const fields = ['f1', 'f2']
+            const paths = ['f1', 'f2']
             return entities.fetchEntities('User', {
               page: 2,
               orderBy: 'firstname',
               limit: 20,
-              fields: fields,
+              paths: paths,
               searchInputs: {_search: 'test'}
             }).then(() => {
               expect(fetchMock.calls().matched).to.have.length(1)
               const lastCall = fetchMock.lastCall()[0]
               expect(lastCall).to.eql('/nice2/rest/entities/User?_limit=20&_offset=20&_paths=f1%2Cf2&_search=test')
+            })
+          })
+
+          it('should set exclamation mark for fields and relations if explicitly empty', () => {
+            fetchMock.get('*', {data: [{fields: {a: 'a'}}]})
+
+            return entities.fetchEntities('User', {
+              page: 2,
+              orderBy: 'firstname',
+              limit: 20,
+              fields: [],
+              relations: [],
+              searchInputs: {_search: 'test'}
+            }).then(() => {
+              expect(fetchMock.calls().matched).to.have.length(1)
+              const lastCall = fetchMock.lastCall()[0]
+              expect(lastCall)
+                .to.eql('/nice2/rest/entities/User?_fields=!&_limit=20&_offset=20&_relations=!&_search=test')
             })
           })
         })
