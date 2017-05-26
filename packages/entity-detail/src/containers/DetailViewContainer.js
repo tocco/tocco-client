@@ -13,7 +13,8 @@ import {
   unloadDetailView,
   submitForm,
   loadRelationEntity,
-  loadRemoteEntity
+  loadRemoteEntity,
+  fireTouched
 } from '../modules/entityDetail/actions'
 import DetailView from '../components/DetailView/DetailView'
 import {logError} from 'tocco-util/src/errorLogging'
@@ -24,7 +25,8 @@ const mapActionCreators = {
   submitForm,
   loadRelationEntity,
   loadRemoteEntity,
-  logError
+  logError,
+  fireTouched
 }
 
 const getFormGeneralErros = formName =>
