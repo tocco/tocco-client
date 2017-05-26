@@ -34,7 +34,10 @@ describe('entity-list', () => {
         })
 
         describe('columnDefinitionTransformer', () => {
-          it('should return an array of label and list of fields', () => {
+          it('should return an array of columns with child (field)', () => {
+            const field1 = {name: 'name1', type: 'type', displayType: 'EDITABLE', label: 'label'}
+            const field2 = {name: 'name2', type: 'type', displayType: 'EDITABLE', label: 'label'}
+
             const fetchResult = {
               form: {
                 children: [{
@@ -43,29 +46,16 @@ describe('entity-list', () => {
                   children: [
                     {
                       displayType: 'EDITABLE',
+                      name: 'lb1',
                       label: 'label1',
-                      children: [{name: 'name1', type: 'type', displayType: 'EDITABLE', label: 'label'}]
+                      useLabel: true,
+                      children: [field1]
                     }, {
-                      displayType: 'HIDDEN',
+                      displayType: 'EDITABLE',
+                      name: 'lb2',
                       label: 'label2',
-                      children: [{name: 'name2', type: 'type', displayType: 'HIDDEN', label: 'label'}]
-                    }, {
-                      displayType: 'EDITABLE',
-                      label: 'label3',
-                      children: [{name: 'custom:name3', type: 'type', displayType: 'EDITABLE', label: 'label'}]
-                    }, {
-                      displayType: 'EDITABLE',
-                      label: 'label4',
-                      children: [{
-                        name: 'name4',
-                        type: 'ch.tocco.nice2.model.form.components.action.Action',
-                        displayType: 'EDITABLE',
-                        label: 'label'
-                      }]
-                    }, {
-                      displayType: 'EDITABLE',
-                      label: 'label5',
-                      children: [{name: 'name5', type: 'type', displayType: 'EDITABLE', label: 'label'}]
+                      useLabel: false,
+                      children: [field2]
                     }
                   ]
                 }]
@@ -74,11 +64,54 @@ describe('entity-list', () => {
             const result = forms.columnDefinitionTransformer(fetchResult)
 
             const expectedColumnDefinition = [
-              {label: 'label1', values: [{name: 'name1', type: 'type'}]},
-              {label: 'label3', values: []},
-              {label: 'label4', values: []},
-              {label: 'label5', values: [{name: 'name5', type: 'type'}]}
+              {label: 'label1', useLabel: true, name: 'lb1', child: field1},
+              {label: 'label2', useLabel: false, name: 'lb2', child: field2}
             ]
+
+            expect(result).to.eql(expectedColumnDefinition)
+          })
+
+          it('should ignore HIDDEN columns and hidden fields', () => {
+            const field1 = {name: 'name1', type: 'type', displayType: 'EDITABLE', label: 'label'}
+            const field2Hidden = {name: 'name2', type: 'type', displayType: 'HIDDEN', label: 'label'}
+
+            const fetchResult = {
+              form: {
+                children: [{
+                  name: 'table',
+                  type: 'ch.tocco.nice2.model.form.components.table.Table',
+                  children: [
+                    {
+                      displayType: 'EDITABLE',
+                      name: 'lb1',
+                      label: 'label1',
+                      useLabel: true,
+                      children: [field1]
+                    }, {
+                      displayType: 'EDITABLE',
+                      name: 'lb2',
+                      label: 'label2',
+                      useLabel: false,
+                      children: [field2Hidden]
+                    },
+                    {
+                      displayType: 'HIDDEN',
+                      name: 'lb3',
+                      label: 'label3',
+                      useLabel: false,
+                      children: [field1]
+                    }
+                  ]
+                }]
+              }
+            }
+            const result = forms.columnDefinitionTransformer(fetchResult)
+
+            const expectedColumnDefinition = [
+              {label: 'label1', useLabel: true, name: 'lb1', child: field1},
+              {label: 'label2', useLabel: false, name: 'lb2', child: undefined}
+            ]
+
             expect(result).to.eql(expectedColumnDefinition)
           })
         })

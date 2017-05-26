@@ -26,6 +26,7 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "react-bootstrap-table": "^4.0.0-beta.2",
     "tocco-test-util": "^0.1.0",
     "tocco-theme": "^0.1.2",
     "tocco-ui": "^0.1.1",
