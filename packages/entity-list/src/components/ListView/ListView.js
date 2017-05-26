@@ -77,7 +77,7 @@ class ListView extends React.Component {
             fetchInfo={{dataTotalSize: props.entityCount}}
             options={tableOption}
             selectRow={selectRow}
-            trClassName="break-word"
+            trClassName="break-word pointer"
             striped
             hover
           >
