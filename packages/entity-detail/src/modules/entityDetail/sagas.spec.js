@@ -6,6 +6,7 @@ import {
   stopSubmit,
   initialize as initializeForm
 } from 'redux-form'
+import {externalEvents} from 'tocco-util'
 import {updateEntity, fetchEntity, fetchModel, fetchEntities, selectEntitiesTransformer} from '../../util/api/entities'
 import {getFieldsOfDetailForm, fetchForm, getDetailFormName} from '../../util/api/forms'
 import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../util/detailView/reduxForm'
@@ -26,7 +27,8 @@ describe('entity-detail', () => {
               fork(takeLatest, actions.UNLOAD_DETAIL_VIEW, sagas.unloadDetailView),
               fork(takeEvery, actions.SUBMIT_FORM, sagas.submitForm),
               fork(takeEvery, actions.LOAD_RELATION_ENTITY, sagas.loadRelationEntity),
-              fork(takeEvery, actions.LOAD_REMOTE_ENTITY, sagas.loadRemoteEntity)
+              fork(takeEvery, actions.LOAD_REMOTE_ENTITY, sagas.loadRemoteEntity),
+              fork(takeEvery, actions.FIRE_TOUCHED, sagas.fireTouched)
             ]))
             expect(generator.next().done).to.be.true
           })
@@ -325,6 +327,26 @@ describe('entity-detail', () => {
             expect(gen.next(remoteEntities).value).to.eql(put(actions.setRemoteEntity(field, remoteEntities)))
 
             expect(gen.next().done).to.be.true
+          })
+        })
+
+        describe('fireTouched saga', () => {
+          it('should fire external event if state changed', () => {
+            const gen = sagas.fireTouched(actions.fireTouched(true))
+
+            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
+            expect(gen.next({touched: false}).value)
+              .to.eql(put(externalEvents.fireExternalEvent('onTouchedChange', {touched: true})))
+            expect(gen.next().value).to.eql(put(actions.setTouched(true)))
+
+            expect(gen.next().done).to.be.true
+          })
+
+          it('should not fire external event if state did not change', () => {
+            const gen = sagas.fireTouched(actions.fireTouched(true))
+
+            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
+            expect(gen.next({touched: true}).done).to.be.true
           })
         })
       })

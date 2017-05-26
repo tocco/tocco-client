@@ -6,7 +6,8 @@ const EXPECTED_INITIAL_STATE = {
   entity: {},
   entityModel: {},
   relationEntities: {},
-  remoteEntities: {}
+  remoteEntities: {},
+  touched: false
 }
 
 describe('entity-detail', () => {
@@ -211,6 +212,21 @@ describe('entity-detail', () => {
 
               expect(reducer(stateBefore, actions.setRemoteEntityLoading(fieldName))).to.deep.equal(expectedStateAfter)
             })
+          })
+        })
+
+        describe('SET_TOUCHED', () => {
+          it('should handle SET_TOUCHED', () => {
+            const stateBefore = {
+              otherProp: 'foo',
+              touched: false
+            }
+
+            const expectedStateAfter = {
+              otherProp: 'foo',
+              touched: true
+            }
+            expect(reducer(stateBefore, actions.setTouched(true))).to.deep.equal(expectedStateAfter)
           })
         })
       })
