@@ -15,15 +15,16 @@ export function fetchForm(formName, transformer = defaultFormTransformer) {
 export const columnDefinitionTransformer = json => {
   const {form} = json
 
-  const tableType = 'ch.tocco.nice2.model.form.components.table.Table'
-  const columns = form.children.find(child => child.type === tableType)
-    .children.filter(column => column.displayType !== 'HIDDEN')
-
   const isDisplayableChild = child => {
     return child.type !== 'ch.tocco.nice2.model.form.components.action.Action'
       && !child.name.startsWith('custom:')
       && child.displayType !== 'HIDDEN'
   }
+
+  const tableType = 'ch.tocco.nice2.model.form.components.table.Table'
+  const columns = form.children.find(child => child.type === tableType).children
+    .filter(column => column.displayType !== 'HIDDEN')
+    .filter(column => column.children.filter(isDisplayableChild).length > 0)
 
   return columns.map(c => (
     {

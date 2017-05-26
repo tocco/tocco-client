@@ -108,8 +108,7 @@ describe('entity-list', () => {
             const result = forms.columnDefinitionTransformer(fetchResult)
 
             const expectedColumnDefinition = [
-              {label: 'label1', useLabel: true, name: 'lb1', child: field1},
-              {label: 'label2', useLabel: false, name: 'lb2', child: undefined}
+              {label: 'label1', useLabel: true, name: 'lb1', child: field1}
             ]
 
             expect(result).to.eql(expectedColumnDefinition)
