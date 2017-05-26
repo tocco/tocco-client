@@ -78,7 +78,8 @@ describe('entity-list', () => {
                       }]
                     }
                   }
-                }, {
+                },
+                {
                   paths: {
                     firstname: {
                       type: 'field',
@@ -116,16 +117,39 @@ describe('entity-list', () => {
 
             expect(transformedResult).to.be.a('array')
             expect(transformedResult).to.have.length(2)
-            expect(transformedResult[0].values).to.have.property('firstname')
-            expect(transformedResult[0].values).to.have.property('relGender')
-            expect(transformedResult[0].values.firstname).to.eql({type: 'string', value: 'Jon'})
-            expect(transformedResult[0].values.relGender).to.eql({type: 'string', value: 'Male'})
-            expect(transformedResult[0].values.titles).to.eql({type: 'string', value: 'Dr., Bundesrat'})
 
-            expect(transformedResult[1].values).to.have.property('firstname')
-            expect(transformedResult[1].values).to.have.property('relGender')
-            expect(transformedResult[1].values.firstname).to.eql({type: 'string', value: 'Klaus'})
-            expect(transformedResult[1].values.titles).to.eql({type: 'string', value: 'Dr., Prof'})
+            expect(transformedResult[0]).to.have.property('firstname')
+            expect(transformedResult[0]).to.have.property('relGender')
+            expect(transformedResult[0].firstname).to.eql({type: 'string', value: 'Jon'})
+            expect(transformedResult[0].relGender).to.eql({type: 'string', value: 'Male'})
+            expect(transformedResult[0].titles).to.eql({type: 'string', value: 'Dr., Bundesrat'})
+
+            expect(transformedResult[1]).to.have.property('firstname')
+            expect(transformedResult[1]).to.have.property('relGender')
+            expect(transformedResult[1].firstname).to.eql({type: 'string', value: 'Klaus'})
+            expect(transformedResult[1].titles).to.eql({type: 'string', value: 'Dr., Prof'})
+          })
+
+          it('should add __key to entity', () => {
+            const fetchResult = {
+              data: [
+                {
+                  key: 1,
+                  paths: {}
+                }, {
+                  key: 22,
+                  paths: {}
+                }
+              ]
+            }
+
+            const transformedResult = entities.entitiesListTransformer(fetchResult)
+
+            expect(transformedResult[0]).to.have.property('__key')
+            expect(transformedResult[0].__key).to.eql(1)
+
+            expect(transformedResult[1]).to.have.property('__key')
+            expect(transformedResult[1].__key).to.eql(22)
           })
 
           it('should handle path type display-expression', () => {
@@ -156,18 +180,19 @@ describe('entity-list', () => {
             expect(transformedResult).to.be.a('array')
             expect(transformedResult).to.have.length(2)
 
-            expect(transformedResult[0].values).to.have.property('title')
-            expect(transformedResult[0].values.title).to.eql({type: 'html', value: '<p>TEST 1</p>'})
+            expect(transformedResult[0]).to.have.property('title')
+            expect(transformedResult[0].title).to.eql({type: 'html', value: '<p>TEST 1</p>'})
 
-            expect(transformedResult[1].values).to.have.property('title')
-            expect(transformedResult[1].values.title).to.eql({type: 'html', value: '<p>TEST 2</p>'})
+            expect(transformedResult[1]).to.have.property('title')
+            expect(transformedResult[1].title).to.eql({type: 'html', value: '<p>TEST 2</p>'})
           })
         })
 
         describe('fetchModel', () => {
           it('should call fetch', () => {
             fetchMock.get('*', {})
-            return entities.fetchModel('User', () => {}).then(() => {
+            return entities.fetchModel('User', () => {
+            }).then(() => {
               expect(fetchMock.calls().matched).to.have.length(1)
               const lastCallUrl = fetchMock.lastCall()[0]
               expect(lastCallUrl).to.eql('/nice2/rest/entities/User/model')
