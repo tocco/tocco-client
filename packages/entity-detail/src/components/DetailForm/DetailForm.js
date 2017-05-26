@@ -16,6 +16,7 @@ export class DetailForm extends React.Component {
 
   componentWillReceiveProps(props) {
     this.formBuilder = this.createFormBuilder(props)
+    this.props.fireTouched(props.anyTouched)
   }
 
   createFormBuilder = props => {
@@ -164,7 +165,8 @@ DetailForm.propTypes = {
       React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.object])))
   ),
   valid: React.PropTypes.bool,
-  lastSave: React.PropTypes.number
+  lastSave: React.PropTypes.number,
+  fireTouched: React.PropTypes.func.isRequired
 }
 
 export default reduxForm({

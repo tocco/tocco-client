@@ -74,6 +74,7 @@ class DetailView extends React.Component {
             intl={props.intl}
             lastSave={props.lastSave}
             goBack={this.handleGoBack}
+            fireTouched={props.fireTouched}
           />
         </LoadMask>
       </div>
@@ -127,7 +128,8 @@ DetailView.propTypes = {
   }).isRequired,
   showBackButton: React.PropTypes.bool,
   lastSave: React.PropTypes.number,
-  parentUrl: React.PropTypes.string
+  parentUrl: React.PropTypes.string,
+  fireTouched: React.PropTypes.func.isRequired
 }
 
 DetailView.defaultProps = {

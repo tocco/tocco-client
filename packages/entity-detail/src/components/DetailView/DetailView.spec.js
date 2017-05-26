@@ -38,6 +38,7 @@ describe('entity-detail', () => {
           submitForm={EMPTY_FUNC}
           logError={EMPTY_FUNC}
           showBackButton
+          fireTouched={EMPTY_FUNC}
         />)
 
         expect(wrapper.find('.detail-view')).to.have.length(1)
@@ -72,6 +73,7 @@ describe('entity-detail', () => {
           submitForm={EMPTY_FUNC}
           logError={EMPTY_FUNC}
           showBackButton={false}
+          fireTouched={EMPTY_FUNC}
         />)
 
         expect(wrapper.find(Button)).to.have.length(0)

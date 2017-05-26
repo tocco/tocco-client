@@ -11,6 +11,8 @@ export const SET_RELATION_ENTITY_LOADED = 'entityDetail/SET_RELATION_ENTITY_LOAD
 export const LOAD_REMOTE_ENTITY = 'entityDetail/LOAD_REMOTE_ENTITY'
 export const SET_REMOTE_ENTITY = 'entityDetail/SET_REMOTE_ENTITY'
 export const SET_REMOTE_ENTITY_LOADING = 'entityDetail/SET_REMOTE_ENTITY_LOADING'
+export const FIRE_TOUCHED = 'entityDetail/FIRE_TOUCHED'
+export const SET_TOUCHED = 'entityDetail/SET_TOUCHED'
 
 export const setFormDefinition = formDefinition => ({
   type: SET_FORM_DEFINITION,
@@ -100,5 +102,19 @@ export const setRemoteEntityLoading = field => ({
   type: SET_REMOTE_ENTITY_LOADING,
   payload: {
     field
+  }
+})
+
+export const fireTouched = touched => ({
+  type: FIRE_TOUCHED,
+  payload: {
+    touched
+  }
+})
+
+export const setTouched = touched => ({
+  type: SET_TOUCHED,
+  payload: {
+    touched
   }
 })

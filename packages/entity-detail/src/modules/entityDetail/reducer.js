@@ -72,7 +72,8 @@ const ACTION_HANDLERS = {
   [actions.SET_RELATION_ENTITY]: setRelationEntity,
   [actions.SET_RELATION_ENTITY_LOADED]: setRelationEntityLoaded,
   [actions.SET_REMOTE_ENTITY]: setRemoteEntity,
-  [actions.SET_REMOTE_ENTITY_LOADING]: setRemoteEntityLoading
+  [actions.SET_REMOTE_ENTITY_LOADING]: setRemoteEntityLoading,
+  [actions.SET_TOUCHED]: reducers.singleTransferReducer('touched')
 }
 
 const initialState = {
@@ -80,7 +81,8 @@ const initialState = {
   entity: {},
   entityModel: {},
   relationEntities: {},
-  remoteEntities: {}
+  remoteEntities: {},
+  touched: false
 }
 
 export default function reducer(state = initialState, action) {

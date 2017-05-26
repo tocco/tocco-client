@@ -11,6 +11,7 @@ import {
 } from 'redux-form'
 
 import {logError} from 'tocco-util/src/errorLogging'
+import {externalEvents} from 'tocco-util'
 import * as actions from './actions'
 import {notify} from '../../util/notification'
 import {fetchEntity, fetchEntities, updateEntity, fetchModel, selectEntitiesTransformer} from '../../util/api/entities'
@@ -30,7 +31,8 @@ export default function* sagas() {
     fork(takeLatest, actions.UNLOAD_DETAIL_VIEW, unloadDetailView),
     fork(takeEvery, actions.SUBMIT_FORM, submitForm),
     fork(takeEvery, actions.LOAD_RELATION_ENTITY, loadRelationEntity),
-    fork(takeEvery, actions.LOAD_REMOTE_ENTITY, loadRemoteEntity)
+    fork(takeEvery, actions.LOAD_REMOTE_ENTITY, loadRemoteEntity),
+    fork(takeEvery, actions.FIRE_TOUCHED, fireTouched)
   ])
 }
 
@@ -168,4 +170,16 @@ export function* loadRemoteEntity({payload}) {
 
   const entities = yield call(fetchEntities, entityName, fetchParams, selectEntitiesTransformer)
   yield put(actions.setRemoteEntity(field, entities))
+}
+
+export function* fireTouched({payload}) {
+  const {touched: actionTouched} = payload
+  const {touched: stateTouched} = yield select(entityDetailSelector)
+
+  if (actionTouched !== stateTouched) {
+    yield put(externalEvents.fireExternalEvent('onTouchedChange', {
+      touched: actionTouched
+    }))
+    yield put(actions.setTouched(actionTouched))
+  }
 }
