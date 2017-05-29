@@ -58,7 +58,10 @@ describe('tocco-util', () => {
 
         const loadUtilSpy = sinon.spy()
         const util = {
-          loadRemoteEntity: loadUtilSpy
+          loadRemoteEntity: loadUtilSpy,
+          intl: {
+            formatMessage: v => (v.id)
+          }
         }
 
         const editableValue = factory({}, {}, {}, events, util)

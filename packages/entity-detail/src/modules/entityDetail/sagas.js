@@ -156,11 +156,12 @@ export function* loadRelationEntity({payload}) {
 }
 
 export function* loadRemoteEntity({payload}) {
-  const {field, entityName, searchTerm} = payload
+  const {field, entityName, searchTerm, moreResultsAvailableText} = payload
   yield put(actions.setRemoteEntityLoading(field))
 
+  const limit = 100
   const fetchParams = {
-    limit: 100,
+    limit: limit + 1,
     fields: [],
     relations: [],
     searchInputs: {
@@ -169,6 +170,11 @@ export function* loadRemoteEntity({payload}) {
   }
 
   const entities = yield call(fetchEntities, entityName, fetchParams, selectEntitiesTransformer)
+  if (entities.length > limit && moreResultsAvailableText !== '') {
+    entities[limit] = {
+      display: moreResultsAvailableText,
+      disabled: true}
+  }
   yield put(actions.setRemoteEntity(field, entities))
 }
 

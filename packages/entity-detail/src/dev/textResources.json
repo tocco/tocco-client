@@ -12,5 +12,6 @@
   "client.entity-list.loadingText",
   "client.entity-list.refresh",
   "client.entity-list.reset",
-  "client.entity-list.search"
+  "client.entity-list.search",
+  "client.component.remoteselect.hasMoreResults"
 ]

@@ -20,5 +20,5 @@
   "client.component.remoteselect.noResultsText",
   "client.component.remoteselect.clearAllText",
   "client.component.remoteselect.clearValueText",
-  "client.component.remoteselect.searchPromptText"
+  "client.component.remoteselect.moreResultsAvailableText"
 ]
