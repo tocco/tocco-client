@@ -11,6 +11,7 @@ import {
 } from 'redux-form'
 
 import {logError} from 'tocco-util/src/errorLogging'
+import {externalEvents} from 'tocco-util'
 import * as actions from './actions'
 import {notify} from '../../util/notification'
 import {fetchEntity, fetchEntities, updateEntity, fetchModel, selectEntitiesTransformer} from '../../util/api/entities'
@@ -18,7 +19,6 @@ import {fetchForm, getFieldsOfDetailForm, getDetailFormName} from '../../util/ap
 import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../util/detailView/reduxForm'
 import {submitValidate} from '../../util/detailView/asyncValidation'
 
-export const formDefinitionSelector = state => state.detail.formDefinition
 export const formInitialValueSelector = formId => state => state.form[formId].initial
 export const inputSelector = state => state.input
 export const entityDetailSelector = state => state.entityDetail
@@ -30,7 +30,9 @@ export default function* sagas() {
     fork(takeLatest, actions.LOAD_DETAIL_VIEW, loadDetailView),
     fork(takeLatest, actions.UNLOAD_DETAIL_VIEW, unloadDetailView),
     fork(takeEvery, actions.SUBMIT_FORM, submitForm),
-    fork(takeEvery, actions.LOAD_RELATION_ENTITY, loadRelationEntity)
+    fork(takeEvery, actions.LOAD_RELATION_ENTITY, loadRelationEntity),
+    fork(takeEvery, actions.LOAD_REMOTE_ENTITY, loadRemoteEntity),
+    fork(takeEvery, actions.FIRE_TOUCHED, fireTouched)
   ])
 }
 
@@ -106,7 +108,7 @@ export function* submitForm() {
     yield call(submitValidate, values, initialValues)
     const dirtyFields = yield call(getDirtyFields, initialValues, values)
     const entity = yield call(formValuesToEntity, values, dirtyFields)
-    const formDefinition = yield select(formDefinitionSelector)
+    const {formDefinition} = yield select(entityDetailSelector)
     const fields = yield call(getFieldsOfDetailForm, formDefinition)
     const updatedEntity = yield call(updateEntity, entity, fields)
     const updatedFormValues = yield call(entityToFormValues, updatedEntity)
@@ -143,8 +145,41 @@ export function* loadRelationEntity({payload}) {
   const {entityName} = payload
   const {relationEntities} = yield select(entityDetailSelector)
   if (!relationEntities[entityName] || !relationEntities[entityName].loaded) {
-    const entities = yield call(fetchEntities, entityName, {}, selectEntitiesTransformer)
+    const fetchParams = {
+      fields: [],
+      relations: []
+    }
+    const entities = yield call(fetchEntities, entityName, fetchParams, selectEntitiesTransformer)
     yield put(actions.setRelationEntity(entityName, entities, true))
     yield put(actions.setRelationEntityLoaded(entityName))
+  }
+}
+
+export function* loadRemoteEntity({payload}) {
+  const {field, entityName, searchTerm} = payload
+  yield put(actions.setRemoteEntityLoading(field))
+
+  const fetchParams = {
+    limit: 100,
+    fields: [],
+    relations: [],
+    searchInputs: {
+      _search: searchTerm
+    }
+  }
+
+  const entities = yield call(fetchEntities, entityName, fetchParams, selectEntitiesTransformer)
+  yield put(actions.setRemoteEntity(field, entities))
+}
+
+export function* fireTouched({payload}) {
+  const {touched: actionTouched} = payload
+  const {touched: stateTouched} = yield select(entityDetailSelector)
+
+  if (actionTouched !== stateTouched) {
+    yield put(externalEvents.fireExternalEvent('onTouchedChange', {
+      touched: actionTouched
+    }))
+    yield put(actions.setTouched(actionTouched))
   }
 }

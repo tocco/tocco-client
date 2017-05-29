@@ -26,27 +26,26 @@ export function fetchModel(entityName, transformer = defaultModelTransformer) {
 export const entitiesListTransformer = json => {
   return json.data.map(entity => {
     const result = {
-      id: entity.key,
-      values: {}
+      __key: entity.key
     }
 
     const paths = entity.paths
     for (const path in paths) {
       const type = paths[path].type
       if (type === 'field') {
-        result.values[path] = paths[path].value
+        result[path] = paths[path].value
       } else if (type === 'entity') {
-        result.values[path] = {
+        result[path] = {
           type: 'string',
           value: paths[path].value ? paths[path].value.display : ''
         }
       } else if (type === 'entity-list') {
-        result.values[path] = {
+        result[path] = {
           type: 'string',
           value: paths[path].value ? paths[path].value.map(v => v.display).join(', ') : ''
         }
       } else if (type === 'display-expression') {
-        result.values[path] = {
+        result[path] = {
           type: 'html',
           value: paths[path].value
         }

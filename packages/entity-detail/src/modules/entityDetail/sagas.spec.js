@@ -6,6 +6,7 @@ import {
   stopSubmit,
   initialize as initializeForm
 } from 'redux-form'
+import {externalEvents} from 'tocco-util'
 import {updateEntity, fetchEntity, fetchModel, fetchEntities, selectEntitiesTransformer} from '../../util/api/entities'
 import {getFieldsOfDetailForm, fetchForm, getDetailFormName} from '../../util/api/forms'
 import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../util/detailView/reduxForm'
@@ -25,7 +26,9 @@ describe('entity-detail', () => {
               fork(takeLatest, actions.LOAD_DETAIL_VIEW, sagas.loadDetailView),
               fork(takeLatest, actions.UNLOAD_DETAIL_VIEW, sagas.unloadDetailView),
               fork(takeEvery, actions.SUBMIT_FORM, sagas.submitForm),
-              fork(takeEvery, actions.LOAD_RELATION_ENTITY, sagas.loadRelationEntity)
+              fork(takeEvery, actions.LOAD_RELATION_ENTITY, sagas.loadRelationEntity),
+              fork(takeEvery, actions.LOAD_REMOTE_ENTITY, sagas.loadRemoteEntity),
+              fork(takeEvery, actions.FIRE_TOUCHED, sagas.fireTouched)
             ]))
             expect(generator.next().done).to.be.true
           })
@@ -196,8 +199,8 @@ describe('entity-detail', () => {
             expect(gen.next().value).to.eql(call(submitValidate, values, initialValues))
             expect(gen.next().value).to.eql(call(getDirtyFields, initialValues, values))
             expect(gen.next(dirtyFields).value).to.eql(call(formValuesToEntity, values, dirtyFields))
-            expect(gen.next(entity).value).to.eql(select(sagas.formDefinitionSelector))
-            expect(gen.next(formDefinition).value).to.eql(call(getFieldsOfDetailForm, formDefinition))
+            expect(gen.next(entity).value).to.eql(select(sagas.entityDetailSelector))
+            expect(gen.next({formDefinition}).value).to.eql(call(getFieldsOfDetailForm, formDefinition))
             expect(gen.next(fields).value).to.eql(call(updateEntity, entity, fields))
             expect(gen.next(updatedEntity).value).to.eql(call(entityToFormValues, updatedEntity))
             expect(gen.next(updatedFormValues).value).to.eql(put(initializeForm(formId, updatedFormValues)))
@@ -273,10 +276,11 @@ describe('entity-detail', () => {
 
             const entities = [{display: 'User1', key: 1}]
             const transformedEntities = [{key: 1, display: 'User1'}]
+            const fetchParams = {fields: [], relations: []}
             const gen = sagas.loadRelationEntity(actions.loadRelationEntity(entityName))
             expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
             expect(gen.next({relationEntities:{}}).value)
-              .to.eql(call(fetchEntities, entityName, {}, selectEntitiesTransformer))
+              .to.eql(call(fetchEntities, entityName, fetchParams, selectEntitiesTransformer))
             expect(gen.next(entities).value)
               .to.eql(put(actions.setRelationEntity(entityName, transformedEntities, true)))
             expect(gen.next().value).to.eql(put(actions.setRelationEntityLoaded(entityName)))
@@ -297,6 +301,52 @@ describe('entity-detail', () => {
             const gen = sagas.loadRelationEntity(actions.loadRelationEntity(entityName))
             expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
             expect(gen.next(state).done).to.be.true
+          })
+        })
+
+        describe('loadRemoteEntity saga', () => {
+          it('should load remote entities ', () => {
+            const field = 'relUser'
+            const entity = 'User'
+            const searchTerm = 'Dan'
+
+            const remoteEntities = [{key:1, label: 'One'}]
+            const searchInputs = {
+              limit: 100,
+              fields: [],
+              relations: [],
+              searchInputs: {
+                _search: searchTerm
+              }
+            }
+
+            const gen = sagas.loadRemoteEntity(actions.loadRemoteEntity(field, entity, searchTerm))
+
+            expect(gen.next().value).to.eql(put(actions.setRemoteEntityLoading(field)))
+            expect(gen.next().value).to.eql(call(fetchEntities, entity, searchInputs, selectEntitiesTransformer))
+            expect(gen.next(remoteEntities).value).to.eql(put(actions.setRemoteEntity(field, remoteEntities)))
+
+            expect(gen.next().done).to.be.true
+          })
+        })
+
+        describe('fireTouched saga', () => {
+          it('should fire external event if state changed', () => {
+            const gen = sagas.fireTouched(actions.fireTouched(true))
+
+            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
+            expect(gen.next({touched: false}).value)
+              .to.eql(put(externalEvents.fireExternalEvent('onTouchedChange', {touched: true})))
+            expect(gen.next().value).to.eql(put(actions.setTouched(true)))
+
+            expect(gen.next().done).to.be.true
+          })
+
+          it('should not fire external event if state did not change', () => {
+            const gen = sagas.fireTouched(actions.fireTouched(true))
+
+            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
+            expect(gen.next({touched: true}).done).to.be.true
           })
         })
       })

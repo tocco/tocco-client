@@ -1,16 +1,16 @@
-.entity-browser {
-  .list-view {
-    .refresh-button {
-      margin-left: 1.42rem;
-    }
+.react-bs-table {
+  .table {
+    margin-bottom: 0;
   }
 }
 
-.list-view-navigation {
-  @include clearfix();
-
-  .tocco-pagination {
-    float: left;
-    margin-right: $tocco-pagination-dividing-space;
+.break-word {
+  > td {
+    white-space: normal;
+    word-wrap: break-word;
   }
+}
+
+.pointer {
+  cursor: pointer;
 }

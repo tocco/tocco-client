@@ -2,7 +2,9 @@ import {utilFetchMocks} from 'tocco-util'
 import {
   createEntityResponse,
   createCountResponse,
-  createEntitiesResponse
+  createEntitiesResponse,
+  createEntityUpdateResponse,
+  createValidateResponse
 } from './fetchMockHelpers'
 
 export default function setupFetchMock(fetchMock) {
@@ -32,8 +34,20 @@ export default function setupFetchMock(fetchMock) {
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/User/[0-9]?.*'),
+    new RegExp('^.*?/nice2/rest/entities/User/[0-9](\\?.*)?'),
     createEntityResponse('user')
+  )
+  fetchMock.post(
+    new RegExp('^.*?/nice2/rest/entities/User/[0-9](\\?.*)?'),
+    createEntityUpdateResponse
+  )
+  fetchMock.patch(
+    new RegExp('^.*?/nice2/rest/entities/User/[0-9]\\?_validate=true'),
+    createValidateResponse
+  )
+  fetchMock.patch(
+    new RegExp('^.*?/nice2/rest/entities/User/[0-9](\\?.*)?'),
+    createEntityUpdateResponse
   )
 
   fetchMock.get(

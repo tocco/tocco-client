@@ -15,19 +15,25 @@ export function fetchForm(formName, transformer = defaultFormTransformer) {
 export const columnDefinitionTransformer = json => {
   const {form} = json
 
-  const tableType = 'ch.tocco.nice2.model.form.components.table.Table'
-  const columns = form.children.find(child => child.type === tableType)
-    .children.filter(column => column.displayType !== 'HIDDEN')
-
-  const isDisplayableType = child => {
+  const isDisplayableChild = child => {
     return child.type !== 'ch.tocco.nice2.model.form.components.action.Action'
       && !child.name.startsWith('custom:')
+      && child.displayType !== 'HIDDEN'
   }
 
-  return columns.map(c => ({
-    label: c.label,
-    values: c.children.filter(isDisplayableType).map(child => ({name: child.name, type: child.type}))
-  }))
+  const tableType = 'ch.tocco.nice2.model.form.components.table.Table'
+  const columns = form.children.find(child => child.type === tableType).children
+    .filter(column => column.displayType !== 'HIDDEN')
+    .filter(column => column.children.filter(isDisplayableChild).length > 0)
+
+  return columns.map(c => (
+    {
+      name: c.name,
+      label: c.label,
+      useLabel: c.useLabel,
+      child: c.children.filter(isDisplayableChild)[0]
+    }
+  ))
 }
 
 export const searchFormTransformer = json => {
@@ -50,14 +56,8 @@ export const searchFormTransformer = json => {
     }))
 }
 
-export const getFieldsOfColumnDefinition = columnDefinition => {
-  let fields = []
-
+export const getFieldsOfColumnDefinition = columnDefinition => (
   columnDefinition
-    .filter(column => !column.values.some(field => IGNORED_FIELD_TYPES.includes(field.type)))
-    .forEach(column => {
-      fields = fields.concat(column.values.map(field => field.name))
-    })
-
-  return fields
-}
+    .filter(column => !IGNORED_FIELD_TYPES.includes(column.child))
+    .map(column => column.child.name)
+)

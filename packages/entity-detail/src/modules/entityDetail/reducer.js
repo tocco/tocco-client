@@ -36,20 +36,53 @@ const setRelationEntityLoaded = (state, {payload}) => {
   return {...state, relationEntities}
 }
 
+const setRemoteEntity = (state, {payload}) => {
+  const {field, entities} = payload
+  return {
+    ...state,
+    remoteEntities: {
+      ...state.remoteEntities,
+      [field]: {
+        loading: false,
+        entities
+      }
+    }
+  }
+}
+
+const setRemoteEntityLoading = (state, {payload}) => {
+  const {field} = payload
+  return {
+    ...state,
+    remoteEntities: {
+      ...state.remoteEntities,
+      [field]: {
+        loading: true,
+        entities: []
+      }
+    }
+  }
+}
+
 const ACTION_HANDLERS = {
   [actions.SET_FORM_DEFINITION]: reducers.singleTransferReducer('formDefinition'),
   [actions.SET_ENTITY]: reducers.singleTransferReducer('entity'),
   [actions.SET_LAST_SAVE]: reducers.singleTransferReducer('lastSave'),
   [actions.SET_ENTITY_MODEL]: reducers.singleTransferReducer('entityModel'),
   [actions.SET_RELATION_ENTITY]: setRelationEntity,
-  [actions.SET_RELATION_ENTITY_LOADED]: setRelationEntityLoaded
+  [actions.SET_RELATION_ENTITY_LOADED]: setRelationEntityLoaded,
+  [actions.SET_REMOTE_ENTITY]: setRemoteEntity,
+  [actions.SET_REMOTE_ENTITY_LOADING]: setRemoteEntityLoading,
+  [actions.SET_TOUCHED]: reducers.singleTransferReducer('touched')
 }
 
 const initialState = {
   formDefinition: {},
   entity: {},
   entityModel: {},
-  relationEntities: {}
+  relationEntities: {},
+  remoteEntities: {},
+  touched: false
 }
 
 export default function reducer(state = initialState, action) {

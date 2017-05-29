@@ -6,5 +6,12 @@
   "client.entity-list.reset",
   "client.entity-list.refresh",
   "client.entity-list.loadingText",
-  "client.entity-list.extendedSearch"
+  "client.entity-list.extendedSearch",
+  "client.entity-list.dataLoading",
+  "client.entity-list.noData",
+  "client.entity-list.total",
+  "client.entity-list.nextPageTitle",
+  "client.entity-list.prePageTitle",
+  "client.entity-list.firstPageTitle",
+  "client.entity-list.lastPageTitle"
 ]
