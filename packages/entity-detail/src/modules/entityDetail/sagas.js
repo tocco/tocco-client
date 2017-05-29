@@ -173,7 +173,6 @@ export function* loadRemoteEntity({payload}) {
   if (entities.length > limit && moreResultsAvailableText !== '') {
     entities[limit] = {
       display: moreResultsAvailableText,
-//      key: 'client.component.remoteSelect.hasMoreResults',
       disabled: true}
   }
   yield put(actions.setRemoteEntity(field, entities))
