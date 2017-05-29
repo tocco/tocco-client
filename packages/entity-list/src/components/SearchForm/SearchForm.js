@@ -76,19 +76,17 @@ class SearchForm extends React.Component {
           <div className="col-sm-9 col-sm-push-3">
             <Button
               type="submit"
-              icon="glyphicon-search"
               label={this.msg('client.entity-list.search')}
               primary
             />
             <Button
               type="button"
-              icon="glyphicon-repeat"
               label={this.msg('client.entity-list.reset')}
               onClick={this.handleResetClick}
             />
             {!props.disableSimpleSearch
             && <Button
-              className="pull-right"
+              className="pull-right btn-link"
               type="button"
               label={this.msg('client.entity-list.extendedSearch')}
               onClick={this.toggleExtendedSearchForm}
