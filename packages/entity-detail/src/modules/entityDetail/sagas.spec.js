@@ -312,7 +312,7 @@ describe('entity-detail', () => {
 
             const remoteEntities = [{key:1, label: 'One'}]
             const searchInputs = {
-              limit: 100,
+              limit: 101,
               fields: [],
               relations: [],
               searchInputs: {
@@ -325,6 +325,33 @@ describe('entity-detail', () => {
             expect(gen.next().value).to.eql(put(actions.setRemoteEntityLoading(field)))
             expect(gen.next().value).to.eql(call(fetchEntities, entity, searchInputs, selectEntitiesTransformer))
             expect(gen.next(remoteEntities).value).to.eql(put(actions.setRemoteEntity(field, remoteEntities)))
+
+            expect(gen.next().done).to.be.true
+          })
+
+          it('should add an extra entry if more entries than the limit are available', () => {
+            const field = 'relUser'
+            const entity = 'User'
+            const moreResultsAvailableText = 'More Results are available'
+
+            const searchInputs = {
+              limit: 101,
+              fields: [],
+              relations: [],
+              searchInputs: {
+                _search: ''
+              }
+            }
+
+            const fetchedRemoteEntities = Array(101)
+            const setRemoteEntities = Array(101)
+            setRemoteEntities[100] = {display: moreResultsAvailableText, disabled: true}
+
+            const gen = sagas.loadRemoteEntity(actions.loadRemoteEntity(field, entity, '', moreResultsAvailableText))
+
+            expect(gen.next().value).to.eql(put(actions.setRemoteEntityLoading(field)))
+            expect(gen.next().value).to.eql(call(fetchEntities, entity, searchInputs, selectEntitiesTransformer))
+            expect(gen.next(fetchedRemoteEntities).value).to.eql(put(actions.setRemoteEntity(field, setRemoteEntities)))
 
             expect(gen.next().done).to.be.true
           })

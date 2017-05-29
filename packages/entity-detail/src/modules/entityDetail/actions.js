@@ -81,12 +81,13 @@ export const setRelationEntity = (entityName, entities, reset = false) => ({
   }
 })
 
-export const loadRemoteEntity = (field, entityName, searchTerm) => ({
+export const loadRemoteEntity = (field, entityName, searchTerm, moreResultsAvailableText) => ({
   type: LOAD_REMOTE_ENTITY,
   payload: {
     field,
     entityName,
-    searchTerm
+    searchTerm,
+    moreResultsAvailableText
   }
 })
 

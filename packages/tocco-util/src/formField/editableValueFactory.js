@@ -55,8 +55,10 @@ const getEvents = (type, field, modelField, util) => {
     case 'remote':
     case 'multi-remote':
       if (util.loadRemoteEntity) {
+        const moreResultsAvailableText = util.intl.formatMessage({
+          id: 'client.component.remoteselect.moreResultsAvailableText'})
         events.onFocus = () => {
-          util.loadRemoteEntity(field.name, modelField.targetEntity, '')
+          util.loadRemoteEntity(field.name, modelField.targetEntity, '', moreResultsAvailableText)
         }
       }
   }
