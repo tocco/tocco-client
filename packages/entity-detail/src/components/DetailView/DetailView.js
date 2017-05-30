@@ -1,6 +1,5 @@
 import React from 'react'
 import {intlShape} from 'react-intl'
-import {Button, LayoutBox} from 'tocco-ui'
 import _isEmpty from 'lodash/isEmpty'
 
 import DetailForm from '../DetailForm'
@@ -37,18 +36,6 @@ class DetailView extends React.Component {
 
     return (
       <div className="detail-view">
-        {props.showBackButton
-        && <LayoutBox alignment="horizontal">
-          <div>
-            <Button
-              type="button"
-              label={this.msg('client.entity-browser.back')}
-              icon="fa fa-chevron-left"
-              onClick={this.handleGoBack}
-            />
-          </div>
-        </LayoutBox>
-        }
         <LoadMask
           required={[props.formInitialValues]}
           loadingText={this.msg('client.entity-browser.detail.loadingText')}
@@ -68,7 +55,6 @@ class DetailView extends React.Component {
             entityModel={props.entityModel}
             intl={props.intl}
             lastSave={props.lastSave}
-            goBack={this.handleGoBack}
             fireTouched={props.fireTouched}
           />
         </LoadMask>
@@ -121,12 +107,6 @@ DetailView.propTypes = {
       )
     })
   }).isRequired,
-  showBackButton: React.PropTypes.bool,
   lastSave: React.PropTypes.number,
-  parentUrl: React.PropTypes.string,
   fireTouched: React.PropTypes.func.isRequired
-}
-
-DetailView.defaultProps = {
-  parentUrl: '/'
 }
