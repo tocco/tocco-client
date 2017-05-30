@@ -1,8 +1,7 @@
-import EntityBrowserContainer from './containers/EntityBrowserContainer'
+import EntityBrowser from './components/EntityBrowser'
 
 import entityBrowser from './modules'
 import {reducer as toastr} from 'react-redux-toastr'
-import sagas from './modules/sagas'
 import {setEntityName, setFormBase} from './modules/actions'
 
 const inputDispatches = [
@@ -22,11 +21,10 @@ const inputDispatches = [
 ]
 
 export default {
-  container: EntityBrowserContainer,
+  container: EntityBrowser,
   reducers: {
     entityBrowser,
     toastr
   },
-  sagas: [sagas],
   inputDispatches: inputDispatches
 }
