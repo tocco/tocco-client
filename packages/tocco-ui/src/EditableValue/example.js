@@ -190,8 +190,8 @@ class Example extends React.Component {
                     fetchOptions: this.fetchMultiRemoteOptions,
                     searchPromptText: 'Type to search',
                     clearAllText: 'Clear all values',
-                    moreResultsAvailable: true,
-                    moreResultsAvailableText: 'More Options available'
+                    moreOptionsAvailable: true,
+                    moreOptionsAvailableText: 'More Options available'
                   }}
               />
               </td>

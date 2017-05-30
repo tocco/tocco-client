@@ -9,15 +9,12 @@ class MultiRemoteSelect extends React.Component {
   }
 
   getOptions = () => {
+    const options = this.props.options.options || []
     if (this.props.options.moreOptionsAvailable) {
       const option = {display: this.props.options.moreOptionsAvailableText, disabled: true}
-      if (this.props.options.options) {
-        this.props.options.options.push(option)
-      } else {
-        return [option]
-      }
+      options.push(option)
     }
-    return this.props.options.options
+    return options
   }
 
   render() {
