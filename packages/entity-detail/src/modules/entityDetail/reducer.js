@@ -37,14 +37,15 @@ const setRelationEntityLoaded = (state, {payload}) => {
 }
 
 const setRemoteEntity = (state, {payload}) => {
-  const {field, entities} = payload
+  const {field, entities, moreOptionsAvailable} = payload
   return {
     ...state,
     remoteEntities: {
       ...state.remoteEntities,
       [field]: {
         loading: false,
-        entities
+        entities,
+        moreOptionsAvailable
       }
     }
   }

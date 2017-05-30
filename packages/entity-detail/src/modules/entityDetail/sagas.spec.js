@@ -233,9 +233,10 @@ describe('entity-detail', () => {
             const entity = 'User'
             const searchTerm = 'Dan'
 
-            const remoteEntities = [{key: 1, label: 'One'}]
+            const fetchedRemoteEntities = [{key: 1, label: 'One'}]
+            const setRemoteEntities = [{key:1, label: 'One'}]
             const searchInputs = {
-              limit: 100,
+              limit: 101,
               fields: [],
               relations: [],
               searchInputs: {
@@ -247,8 +248,34 @@ describe('entity-detail', () => {
 
             expect(gen.next().value).to.eql(put(actions.setRemoteEntityLoading(field)))
             expect(gen.next().value).to.eql(call(fetchEntities, entity, searchInputs, selectEntitiesTransformer))
-            expect(gen.next(remoteEntities).value).to.eql(put(actions.setRemoteEntity(field, remoteEntities)))
+            expect(gen.next(fetchedRemoteEntities).value).to.eql(
+              put(actions.setRemoteEntity(field, setRemoteEntities, false)))
 
+            expect(gen.next().done).to.be.true
+          })
+
+          it('should set flag `moreOptionsAvailable` and splice array', () => {
+            const field = 'relUser'
+            const entity = 'User'
+
+            const searchInputs = {
+              limit: 101,
+              fields: [],
+              relations: [],
+              searchInputs: {
+                _search: ''
+              }
+            }
+
+            const fetchedRemoteEntities = Array(101)
+            const setRemoteEntities = Array(100)
+
+            const gen = sagas.loadRemoteEntity(actions.loadRemoteEntity(field, entity, ''))
+
+            expect(gen.next().value).to.eql(put(actions.setRemoteEntityLoading(field)))
+            expect(gen.next().value).to.eql(call(fetchEntities, entity, searchInputs, selectEntitiesTransformer))
+            expect(gen.next(fetchedRemoteEntities).value).to.eql(
+              put(actions.setRemoteEntity(field, setRemoteEntities, true)))
             expect(gen.next().done).to.be.true
           })
         })

@@ -26,6 +26,7 @@ const getOptions = (type, formField, modelField, utils) => {
     case 'remote':
     case 'multi-remote':
       options.options = _get(utils, 'remoteEntities.' + formField.name + '.entities', [])
+      options.moreOptionsAvailable = _get(utils, 'remoteEntities.' + formField.name + '.moreOptionsAvailable', false)
       options.isLoading = _get(utils, 'remoteEntities.' + formField.name + '.loading', false)
 
       options.fetchOptions = searchTerm => utils.loadRemoteEntity(formField.name, modelField.targetEntity, searchTerm)
@@ -34,6 +35,8 @@ const getOptions = (type, formField, modelField, utils) => {
         options.searchPromptText = utils.intl.formatMessage({id: 'client.component.remoteselect.searchPromptText'})
         options.clearValueText = utils.intl.formatMessage({id: 'client.component.remoteselect.clearValueText'})
         options.clearAllText = utils.intl.formatMessage({id: 'client.component.remoteselect.clearAllText'})
+        options.moreOptionsAvailableText = utils.intl.formatMessage(
+          {id: 'client.component.remoteselect.moreOptionsAvailableText'})
       }
   }
 
