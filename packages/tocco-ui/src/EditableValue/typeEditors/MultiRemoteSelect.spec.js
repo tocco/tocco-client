@@ -35,6 +35,29 @@ describe('tocco-ui', () => {
           wrapper.find(Select).simulate('change', newValue)
           expect(spy).to.have.been.calledWith(newValue)
         })
+
+        it('should add disabled option with specified text', () => {
+          const text = 'More Options Available'
+
+          const options = {
+            options:[],
+            moreOptionsAvailable: true,
+            moreOptionsAvailableText: text
+          }
+
+          const option = [{
+            display: text,
+            disabled: true
+          }]
+
+          const wrapper = shallow(
+            <MultiRemoteSelect
+              options={options}
+            />)
+
+          expect(wrapper.find(Select)).to.have.length(1)
+          expect(wrapper.find(Select).prop('options')).to.be.eql(option)
+        })
       })
     })
   })

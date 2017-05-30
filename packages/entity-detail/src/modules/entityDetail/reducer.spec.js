@@ -173,12 +173,45 @@ describe('entity-detail', () => {
                 },
                 [fieldName]: {
                   entities: remoteEntities,
-                  loading: false
+                  loading: false,
+                  moreOptionsAvailable: false
                 }
               }
             }
 
-            expect(reducer(stateBefore, actions.setRemoteEntity(fieldName, remoteEntities)))
+            expect(reducer(stateBefore, actions.setRemoteEntity(fieldName, remoteEntities, false)))
+              .to.deep.equal(expectedStateAfter)
+          })
+
+          it('should set entities with moreOptionsAvailable flag', () => {
+            const stateBefore = {
+              remoteEntities: {
+                relUser: {
+                  entities: []
+                }
+              }
+            }
+
+            const fieldName = 'relUser2'
+            const remoteEntities = [
+              {key: 1, label: 'One'},
+              {key: 2, label: 'Two'}
+            ]
+
+            const expectedStateAfter = {
+              remoteEntities: {
+                relUser: {
+                  entities: []
+                },
+                [fieldName]: {
+                  entities: remoteEntities,
+                  loading: false,
+                  moreOptionsAvailable: true
+                }
+              }
+            }
+
+            expect(reducer(stateBefore, actions.setRemoteEntity(fieldName, remoteEntities, true)))
               .to.deep.equal(expectedStateAfter)
           })
 
