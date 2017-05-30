@@ -170,7 +170,9 @@ class Example extends React.Component {
                     fetchOptions: this.fetchRemoteOptions,
                     searchPromptText: 'Type to search',
                     clearValueText: 'Clear value',
-                    options: this.state.remoteOptions
+                    options: this.state.remoteOptions,
+                    moreOptionsAvailable: true,
+                    moreOptionsAvailableText: 'More Options available'
                   }}
               />
               </td>
@@ -187,7 +189,9 @@ class Example extends React.Component {
                     options: this.state.multiRemoteOptions,
                     fetchOptions: this.fetchMultiRemoteOptions,
                     searchPromptText: 'Type to search',
-                    clearAllText: 'Clear all values'
+                    clearAllText: 'Clear all values',
+                    moreResultsAvailable: true,
+                    moreResultsAvailableText: 'More Options available'
                   }}
               />
               </td>
