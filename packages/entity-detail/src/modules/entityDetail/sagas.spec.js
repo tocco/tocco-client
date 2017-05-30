@@ -8,7 +8,7 @@ import {
 } from 'redux-form'
 import {externalEvents} from 'tocco-util'
 import {updateEntity, fetchEntity, fetchModel, fetchEntities, selectEntitiesTransformer} from '../../util/api/entities'
-import {getFieldsOfDetailForm, fetchForm, getDetailFormName} from '../../util/api/forms'
+import {getFieldsOfDetailForm} from '../../util/api/forms'
 import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../util/detailView/reduxForm'
 import {submitValidate} from '../../util/detailView/asyncValidation'
 import {notify} from '../../util/notification'
@@ -93,7 +93,6 @@ describe('entity-detail', () => {
           it('should fetch entity and set it in store', () => {
             const modelPaths = []
             const entityId = 99
-            const formBase = 'UserSearch'
             const formName = 'UserSearch_detail'
             const entityName = 'User'
             const formDefinition = {}
@@ -123,59 +122,13 @@ describe('entity-detail', () => {
 
             const gen = sagas.loadDetailView(actions.loadDetailView(modelPaths, entityId))
             expect(gen.next().value).to.eql(select(sagas.inputSelector))
-            expect(gen.next({entityName, formBase, formDefinition}).value).to.eql(call(getDetailFormName, formBase))
-            expect(gen.next(formName).value)
-              .to.eql(call(sagas.getTargetEntityName, entityName, modelPaths))
-
-            expect(gen.next(entityName).value).to.eql(call(fetchModel, entityName))
+            expect(gen.next({entityName, formName, entityId}).value).to.eql(call(fetchModel, entityName))
             expect(gen.next(entityModel).value).to.eql(put(actions.setEntityModel(entityModel)))
-
-            expect(gen.next().value).to.eql(call(sagas.loadDetailFormDefinition, formDefinition, formName))
+            expect(gen.next().value).to.eql(call(sagas.loadDetailFormDefinition, formName))
             expect(gen.next(formDefinition).value)
               .to.eql(call(sagas.loadEntity, entityName, entityId, formDefinition, formName))
             expect(gen.next(entity).value).to.eql(call(entityToFormValues, entity))
             expect(gen.next({}).value).to.eql(put(initializeForm(FORM_ID, {})))
-            expect(gen.next().done).to.be.true
-          })
-
-          it('should fetch a related entity and set it in store', () => {
-            const modelPaths = ['relFoo']
-            const entityId = 2
-            const formBase = 'UserSearch'
-            const formName = 'UserSearch_detail'
-            const fooFormBase = 'UserSearch_Foo'
-            const entityName = 'User'
-            const fooEntityName = 'Foo'
-            const formDefinition = {}
-            const entityModel = {}
-            const fooFormName = `${fooFormBase}_detail`
-
-            const fooEntity = {
-              key: '2',
-              model: 'Foo'
-            }
-
-            const gen = sagas.loadDetailView(actions.loadDetailView(modelPaths, entityId))
-            expect(gen.next().value)
-              .to.eql(select(sagas.inputSelector))
-            expect(gen.next({entityName, formBase, formDefinition}).value).to.eql(call(getDetailFormName, formBase))
-            expect(gen.next(formName).value)
-              .to.eql(call(sagas.getTargetEntityName, entityName, modelPaths))
-
-            expect(gen.next(fooEntityName).value).to.eql(call(getDetailFormName, fooFormBase))
-
-            expect(gen.next(fooFormName).value).to.eql(call(fetchModel, fooEntityName))
-
-            expect(gen.next(entityModel).value).to.eql(put(actions.setEntityModel(entityModel)))
-
-            expect(gen.next().value)
-              .to.eql(call(sagas.loadDetailFormDefinition, null, fooFormName))
-            expect(gen.next(formDefinition).value)
-              .to.eql(call(sagas.loadEntity, fooEntityName, entityId, formDefinition, fooFormName))
-            expect(gen.next(fooEntity).value)
-              .to.eql(call(entityToFormValues, fooEntity))
-            expect(gen.next({}).value)
-              .to.eql(put(initializeForm(FORM_ID, {})))
             expect(gen.next().done).to.be.true
           })
         })
@@ -220,28 +173,6 @@ describe('entity-detail', () => {
           })
         })
 
-        describe('loadDetailFormDefinition saga', () => {
-          it('should load formDefinition if not loaded', () => {
-            const formDefinition = {}
-            const loadedFormDefinition = {}
-            const formName = 'UserSearch_detail'
-
-            const gen = sagas.loadDetailFormDefinition(formDefinition, formName)
-
-            expect(gen.next().value).to.eql(call(fetchForm, formName))
-            expect(gen.next(loadedFormDefinition).value).to.eql(put(actions.setFormDefinition(loadedFormDefinition)))
-            expect(gen.next().done).to.be.true
-          })
-
-          it('should not load formDefinition if already loaded', () => {
-            const formDefinition = {someContent: true}
-            const formBase = 'UserSearch'
-
-            const gen = sagas.loadDetailFormDefinition(formDefinition, formBase)
-            expect(gen.next().done).to.be.true
-          })
-        })
-
         describe('loadEntity saga', () => {
           it('should fetchEntity with fields of form and set it on store', () => {
             const entityName = 'User'
@@ -260,14 +191,6 @@ describe('entity-detail', () => {
 
             expect(gen.next().done).to.be.true
           })
-
-          it('should not load formDefinition if already loaded', () => {
-            const formDefinition = {someContent: true}
-            const formBase = 'UserSearch'
-
-            const gen = sagas.loadDetailFormDefinition(formDefinition, formBase)
-            expect(gen.next().done).to.be.true
-          })
         })
 
         describe('loadRelationEntity saga', () => {
@@ -279,7 +202,7 @@ describe('entity-detail', () => {
             const fetchParams = {fields: [], relations: []}
             const gen = sagas.loadRelationEntity(actions.loadRelationEntity(entityName))
             expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
-            expect(gen.next({relationEntities:{}}).value)
+            expect(gen.next({relationEntities: {}}).value)
               .to.eql(call(fetchEntities, entityName, fetchParams, selectEntitiesTransformer))
             expect(gen.next(entities).value)
               .to.eql(put(actions.setRelationEntity(entityName, transformedEntities, true)))
@@ -310,7 +233,7 @@ describe('entity-detail', () => {
             const entity = 'User'
             const searchTerm = 'Dan'
 
-            const remoteEntities = [{key:1, label: 'One'}]
+            const remoteEntities = [{key: 1, label: 'One'}]
             const searchInputs = {
               limit: 100,
               fields: [],
