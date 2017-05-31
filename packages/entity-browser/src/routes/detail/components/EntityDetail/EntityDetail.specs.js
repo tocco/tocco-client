@@ -3,9 +3,9 @@ import EntityDetail from './'
 import EntityDetailApp from 'entity-detail/src/main'
 import {mount} from 'enzyme'
 import {IntlStub} from 'tocco-test-util'
+import {MemoryRouter} from 'react-router-dom'
 
-const EMPTY_FUNC = () => {
-}
+const EMPTY_FUNC = () => {}
 
 describe('entity-browser', () => {
   describe('components', () => {
@@ -17,16 +17,19 @@ describe('entity-browser', () => {
         }
 
         const routerMock = {
-          match: {url: '/detail'}
+          match: {url: '/detail', history: {}}
         }
 
         const wrapper = mount(
-          <EntityDetail
-            router={routerMock}
-            loadDetailParams={EMPTY_FUNC}
-            clearDetailParams={EMPTY_FUNC}
-            intl={IntlStub}
-            detailParams={detailParams}/>
+          <MemoryRouter>
+            <EntityDetail
+              router={routerMock}
+              loadDetailParams={EMPTY_FUNC}
+              clearDetailParams={EMPTY_FUNC}
+              setFormTouched={EMPTY_FUNC}
+              intl={IntlStub}
+              detailParams={detailParams}/>
+          </MemoryRouter>
         )
 
         expect(wrapper.find(EntityDetailApp)).to.have.length(1)
