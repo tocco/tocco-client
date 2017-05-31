@@ -17,6 +17,7 @@ import storeFactory from '../storeFactory'
 import intl from '../intl'
 import externalEvents from '../externalEvents'
 import {logError} from '../errorLogging'
+import {getRequest} from '../rest'
 
 export const createStore = (reducers, sagas, input, name) => {
   const initialState = getIntialState(input)
@@ -141,6 +142,9 @@ const getAppComponent = (store, initIntlPromise, name, content) => (
 const setupIntl = (input, store, module, textResourceModules) => {
   const modules = _union(textResourceModules, [module])
   addLocaleData([...de, ...en, ...fr, ...it])
-  const locale = input ? input.locale : null
-  return intl.initIntl(store, modules, locale)
+  const requestedLocale = input ? input.locale : null
+  const bestLocale = getRequest(`locales/best`, {'for': requestedLocale}, [])
+      .then(resp => resp.body)
+      .then(json => json.best)
+  return intl.initIntl(store, modules, bestLocale)
 }
