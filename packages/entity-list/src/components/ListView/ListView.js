@@ -54,7 +54,11 @@ class ListView extends React.Component {
       nextPageTitle: this.msg('client.entity-list.nextPageTitle'),
       prePageTitle: this.msg('client.entity-list.prePageTitle'),
       firstPageTitle: this.msg('client.entity-list.firstPageTitle'),
-      lastPageTitle: this.msg('client.entity-list.lastPageTitle')
+      lastPageTitle: this.msg('client.entity-list.lastPageTitle'),
+      prePage: '‹',
+      nextPage: '›',
+      firstPage: '«',
+      lastPage: '»'
     }
 
     const selectRow = {
@@ -80,6 +84,7 @@ class ListView extends React.Component {
             trClassName="break-word pointer"
             striped
             hover
+            bordered={false}
           >
             <TableHeaderColumn dataField="__key" isKey hidden>Key</TableHeaderColumn>
             {
