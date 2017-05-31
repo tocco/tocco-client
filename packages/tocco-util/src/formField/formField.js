@@ -48,7 +48,7 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
         key={id}
         id={id}
         label={formDefinitionField.label}
-        mandatory={mandatory}
+        mandatory={!readOnlyFinally && mandatory}
         mandatoryTitle={resources.mandatoryTitle}
         error={error}
         touched={touched}
