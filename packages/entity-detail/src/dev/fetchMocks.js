@@ -51,6 +51,11 @@ export default function setupFetchMock(fetchMock) {
   )
 
   fetchMock.get(
+    new RegExp('^.*?/nice2/rest/entities/User?.*'),
+    createEntitiesResponse('user')
+   )
+
+  fetchMock.get(
     new RegExp('^.*?/nice2/rest/entities/Dummy_entity/count?.*'),
     createCountResponse('dummy')
   )

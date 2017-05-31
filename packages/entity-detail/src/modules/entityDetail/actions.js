@@ -90,11 +90,12 @@ export const loadRemoteEntity = (field, entityName, searchTerm) => ({
   }
 })
 
-export const setRemoteEntity = (field, entities) => ({
+export const setRemoteEntity = (field, entities, moreOptionsAvailable) => ({
   type: SET_REMOTE_ENTITY,
   payload: {
     field,
-    entities
+    entities,
+    moreOptionsAvailable
   }
 })
 
