@@ -10,7 +10,6 @@ export default () => {
       <Button
         label="Save"
         primary
-        icon="glyphicon-floppy-save"
         type="submit"
       />
 
