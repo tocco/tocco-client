@@ -86,7 +86,6 @@ export class Wizard extends React.Component {
               className="wizard-next-button"
               label={this.props.save.label}
               onClick={this.props.save.fn}
-              icon="glyphicon-floppy-save"
               primary
             />
           }

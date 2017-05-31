@@ -106,7 +106,6 @@ export class DetailForm extends React.Component {
             <Button
               type="submit"
               label={this.msg('client.entity-browser.detail.save')}
-              icon="glyphicon-floppy-save"
               pending={props.submitting}
               disabled={props.submitting || (props.anyTouched && !props.valid)}
               primary
