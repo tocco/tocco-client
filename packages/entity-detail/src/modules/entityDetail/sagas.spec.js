@@ -234,7 +234,7 @@ describe('entity-detail', () => {
             const searchTerm = 'Dan'
 
             const fetchedRemoteEntities = [{key: 1, label: 'One'}]
-            const setRemoteEntities = [{key:1, label: 'One'}]
+            const setRemoteEntities = [{key: 1, label: 'One'}]
             const searchInputs = {
               limit: 101,
               fields: [],

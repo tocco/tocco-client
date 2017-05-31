@@ -40,7 +40,7 @@ describe('tocco-ui', () => {
           const text = 'More Options Available'
 
           const options = {
-            options:[],
+            options: [],
             moreOptionsAvailable: true,
             moreOptionsAvailableText: text
           }

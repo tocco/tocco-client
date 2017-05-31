@@ -44,11 +44,11 @@ describe('tocco-ui', () => {
 
           const wrapper = mount(<SingleSelect value={value} options={options} onChange={EMPTY_FUNC}/>)
           expect(wrapper.find(Select).first().props().options).to.eql([value])
-          wrapper.setProps({options:{store: []}})
+          wrapper.setProps({options: {store: []}})
           expect(wrapper.find(Select).first().props().options).to.eql([value])
 
           const store = [value, {key2: 'Label2'}]
-          wrapper.setProps({options:{store}})
+          wrapper.setProps({options: {store}})
           expect(wrapper.find(Select).first().props().options).to.eql(store)
         })
       })

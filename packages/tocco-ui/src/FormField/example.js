@@ -6,7 +6,7 @@ import FormField from './FormField'
 export default () => {
   const input = <input type="text" className="form-control" id="usr"/>
   return (
-    <div style={{height:'150px'}}>
+    <div style={{height: '150px'}}>
       {/* start example */}
       <FormField
         id="test"

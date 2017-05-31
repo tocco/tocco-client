@@ -39,7 +39,7 @@
     "beforeEach": false
   },
   "rules": {
-    "key-spacing" : 0,
+    "key-spacing": ["error", { "beforeColon": false, "afterColon": true, "mode": "strict" }],
     "semi" : [2, "never"],
     "max-len": [2, 120, 2],
     "arrow-parens": [
