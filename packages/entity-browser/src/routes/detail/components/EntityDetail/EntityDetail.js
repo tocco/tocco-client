@@ -6,11 +6,6 @@ import {intlShape} from 'react-intl'
 import EntityDetailApp from 'entity-detail/src/main'
 
 class EntityDetail extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {touched: false}
-  }
-
   componentWillMount() {
     this.props.loadDetailParams(this.props.router.match.url)
   }
@@ -24,7 +19,7 @@ class EntityDetail extends React.Component {
   }
 
   handleTouchedChange = ({touched}) => {
-    this.setState({touched})
+    this.props.setFormTouched(touched)
   }
 
   handleGoBack = () => {
@@ -45,9 +40,8 @@ class EntityDetail extends React.Component {
     return (
       <div>
         <div>
-
           <Prompt
-            when={this.state.touched}
+            when={this.props.formTouched}
             message={this.msg('client.entity-browser.detail.confirmTouchedFormLeave')}
           />
           {this.props.detailParams
@@ -77,8 +71,10 @@ EntityDetail.propTypes = {
   intl: intlShape.isRequired,
   loadDetailParams: React.PropTypes.func.isRequired,
   clearDetailParams: React.PropTypes.func.isRequired,
+  setFormTouched: React.PropTypes.func.isRequired,
   router: React.PropTypes.object.isRequired,
-  detailParams: React.PropTypes.object
+  detailParams: React.PropTypes.object,
+  formTouched: React.PropTypes.bool
 }
 
 export default EntityDetail

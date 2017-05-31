@@ -48,7 +48,7 @@ export function* loadEntityDetail({payload}) {
     entityName: targetEntityName,
     formName,
     parentUrl,
-    showBackButton:  showBackButton(initialKey, modelPaths)
+    showBackButton: showBackButton(initialKey, modelPaths)
   }
 
   yield put(actions.setDetailParams(detailParams))
