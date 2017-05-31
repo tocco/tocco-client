@@ -92,7 +92,6 @@ class PasswordUpdateDialog extends Component {
             label={this.msg('client.login.passwordUpdate.saveButton')}
             disabled={this.isSubmittable() === false}
             className={classNames('last-element-in-block', {'update-pending': password.passwordUpdatePending})}
-            icon="glyphicon-floppy-save"
             type="submit"
             primary
           />
