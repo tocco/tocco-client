@@ -15,7 +15,6 @@ const BoolEdit = props => {
       onChange={handleChange}
       id={props.id}
       disabled={props.readOnly}
-      className="form-control"
     />
   )
 }
