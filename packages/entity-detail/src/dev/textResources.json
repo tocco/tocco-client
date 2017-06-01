@@ -7,11 +7,11 @@
   "client.component.remoteselect.clearAllText",
   "client.component.remoteselect.clearValueText",
   "client.component.remoteselect.searchPromptText",
+  "client.component.remoteselect.moreOptionsAvailableText",
 
   "client.entity-list.extendedSearch",
   "client.entity-list.loadingText",
   "client.entity-list.refresh",
   "client.entity-list.reset",
-  "client.entity-list.search",
-  "client.component.remoteselect.moreOptionsAvailableText"
+  "client.entity-list.search"
 ]
