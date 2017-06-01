@@ -66,7 +66,7 @@ class ListView extends React.Component {
       clickToSelect: true
     }
 
-    const showPagination = props.entityCount - props.limit > 0
+    const showPagination = props.entityCount - props.limit > 0 && !props.inProgress
 
     return (
       <div className="list-view">
@@ -76,7 +76,7 @@ class ListView extends React.Component {
         >
           <BootstrapTable
             remote
-            data={props.entities}
+            data={props.inProgress ? [] : props.entities}
             pagination={ showPagination }
             fetchInfo={{dataTotalSize: props.entityCount}}
             options={tableOption}
