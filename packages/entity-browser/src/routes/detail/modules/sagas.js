@@ -2,10 +2,10 @@ import {call, put, fork, select, takeLatest, all} from 'redux-saga/effects'
 import * as actions from './actions'
 import {fetchModel} from '../../../util/api/entities'
 import parseUrl from '../../../util/parseUrl'
-import showBackButton from '../../../util/showBackButton'
+import doShowBackButton from '../../../util/showBackButton'
 
-const entityBrowserSelector = state => state.entityBrowser
-const inputSelector = state => state.input
+export const entityBrowserSelector = state => state.entityBrowser
+export const inputSelector = state => state.input
 
 export default function* sagas() {
   yield all([
@@ -19,37 +19,48 @@ export function* clearDetailParams() {
 }
 
 export function* loadEntityDetail({payload}) {
-  const {modelPaths, entityId, parentUrl} = parseUrl(payload.url)
+  const {modelPaths, entityId, parentUrl} = yield call(parseUrl, payload.url)
   const {entityName, formBase} = yield select(entityBrowserSelector)
 
   let targetEntityName = entityName
-  let formNameExtension = ''
+  let formName = `${formBase}_detail`
 
   if (modelPaths && modelPaths.length > 0) {
-    let model = yield call(fetchModel, targetEntityName)
-
-    for (const path of modelPaths) {
-      const relation = model[path]
-      if (!relation) {
-        throw new Error(`No such path '${path}' found on entity model '${targetEntityName}'`)
-      }
-      targetEntityName = relation.targetEntity
-      formNameExtension = `_${targetEntityName}`
-      model = yield call(fetchModel, targetEntityName)
-    }
+    targetEntityName = yield call(getTargetEntity, entityName, modelPaths)
+    formName = `${formBase}_${targetEntityName}_detail`
   }
 
-  const formName = `${formBase}${formNameExtension}_detail`
-
   const {initialKey} = yield select(inputSelector)
+  const showBackButton = yield call(doShowBackButton, initialKey, modelPaths)
 
   const detailParams = {
     entityId,
     entityName: targetEntityName,
     formName,
     parentUrl,
-    showBackButton: showBackButton(initialKey, modelPaths)
+    showBackButton
   }
 
   yield put(actions.setDetailParams(detailParams))
+}
+
+export function* getTargetEntity(entityName, modelPaths) {
+  let targetEntityName = entityName
+  let model = yield call(fetchModel, targetEntityName)
+
+  for (let i = 0; i < modelPaths.length; i++) {
+    const path = modelPaths[i]
+    const relation = model[path]
+
+    if (!relation) {
+      throw new Error(`No such path '${path}' found on entity model '${targetEntityName}'`)
+    }
+    targetEntityName = relation.targetEntity
+
+    if (i + 1 < modelPaths.length) {
+      model = yield call(fetchModel, targetEntityName)
+    }
+  }
+
+  return targetEntityName
 }

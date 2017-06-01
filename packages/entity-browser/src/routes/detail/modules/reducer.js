@@ -3,8 +3,7 @@ import {reducers} from 'tocco-util'
 
 const ACTION_HANDLERS = {
   [actions.SET_FORM_TOUCHED]: reducers.singleTransferReducer('formTouched'),
-  [actions.SET_DETAIL_PARAMS]: reducers.singleTransferReducer('detailParams'),
-  [actions.SET_FORM_TOUCHED]: reducers.singleTransferReducer('formTouched')
+  [actions.SET_DETAIL_PARAMS]: reducers.singleTransferReducer('detailParams')
 }
 
 const initialState = {
