@@ -21,7 +21,6 @@ describe('entity-browser', () => {
             formName: 'UserSearch',
             parentUrl: '../',
             showBackButton: false
-
           }
 
           const expectedStateAfter = {
