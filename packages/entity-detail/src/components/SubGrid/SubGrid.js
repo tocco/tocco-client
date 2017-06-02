@@ -1,5 +1,5 @@
 import React from 'react'
-import EntityListApp from 'entity-list/src/main'
+import EntityListApp from 'tocco-entity-list/src/main'
 
 const SubGrid = props => {
   return (

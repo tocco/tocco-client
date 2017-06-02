@@ -1,7 +1,7 @@
 import React from 'react'
 import SubGrid from './SubGrid'
 import {shallow} from 'enzyme'
-import EntityListApp from 'entity-list/src/main'
+import EntityListApp from 'tocco-entity-list/src/main'
 
 describe('entity-detail', () => {
   describe('components', () => {
