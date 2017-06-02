@@ -19,7 +19,7 @@ describe('tocco-ui', function() {
       }
 
       const wrapper = shallow(
-        <Table records={records} columnDefinitions={[{values:[{name: 'a'}]}]}/>
+        <Table records={records} columnDefinitions={[{values: [{name: 'a'}]}]}/>
       )
       expect(wrapper.find('tr')).to.have.length(recordsAmount + 1) // +1 for header row
     })
@@ -111,17 +111,17 @@ describe('tocco-ui', function() {
     })
 
     it('should join multiple cell values', () => {
-      const record = {values: {a: {value: 'a', type:'string'}, b: {value: 'b', type:'string'}}}
+      const record = {values: {a: {value: 'a', type: 'string'}, b: {value: 'b', type: 'string'}}}
 
       const wrapper = shallow(
-        <Table records={[record]} columnDefinitions={[{values: [{name: 'a'}, {name:'b'}]}]}/>
+        <Table records={[record]} columnDefinitions={[{values: [{name: 'a'}, {name: 'b'}]}]}/>
       )
 
       expect(wrapper.contains('a, b')).to.be.true
     })
 
     it('should ignore unknown column', () => {
-      const record = {values: {a: {value: 'a', type:'string'}}}
+      const record = {values: {a: {value: 'a', type: 'string'}}}
 
       const wrapper = shallow(
         <Table records={[record]} columnDefinitions={[{values: [{name: 'unknown'}]}]}/>

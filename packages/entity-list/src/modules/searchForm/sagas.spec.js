@@ -65,7 +65,7 @@ describe('entity-list', () => {
             const transformedEntities = [{key: 1, display: 'User1'}]
             const gen = sagas.loadRelationEntity(actions.loadRelationEntity(entityName))
             expect(gen.next().value).to.eql(select(sagas.searchFormSelector))
-            expect(gen.next({relationEntities:{}}).value)
+            expect(gen.next({relationEntities: {}}).value)
               .to.eql(call(fetchEntities, entityName, {}, selectEntitiesTransformer))
             expect(gen.next(entities).value)
               .to.eql(put(actions.setRelationEntity(entityName, transformedEntities, true)))
@@ -79,7 +79,7 @@ describe('entity-list', () => {
             const state = {
               relationEntities: {
                 User: {
-                  loaded:true
+                  loaded: true
                 }
               }
             }

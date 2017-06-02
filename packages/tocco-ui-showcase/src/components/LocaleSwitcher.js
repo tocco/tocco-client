@@ -9,11 +9,11 @@ import frImg from '../imgs/fr.png'
 
 const LocaleSwitcher = props => {
   const locales = [
-    {name: 'de-CH', src:chImg},
-    {name: 'de', src:deImg},
-    {name: 'en', src:enImg},
-    {name: 'fr', src:frImg},
-    {name: 'it', src:itImg}
+    {name: 'de-CH', src: chImg},
+    {name: 'de', src: deImg},
+    {name: 'en', src: enImg},
+    {name: 'fr', src: frImg},
+    {name: 'it', src: itImg}
   ]
 
   const handleFlagClick = locale => {
@@ -38,7 +38,7 @@ const LocaleSwitcher = props => {
 }
 
 LocaleSwitcher.propTypes = {
-  intl : React.PropTypes.any,
+  intl: React.PropTypes.any,
   onLocaleChange: React.PropTypes.func
 }
 

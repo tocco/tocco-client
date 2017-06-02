@@ -8,11 +8,6 @@ import {asyncValidate, AsyncValidationException} from '../../util/detailView/asy
 import LoadMask from 'tocco-ui/src/LoadMask/LoadMask'
 
 class DetailView extends React.Component {
-  componentWillMount() {
-    const {entityModel, entityId} = this.props
-    this.props.loadDetailView(entityModel.name, entityId)
-  }
-
   componentWillUnmount() {
     this.props.unloadDetailView()
   }

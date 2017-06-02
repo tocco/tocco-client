@@ -6,7 +6,7 @@
 |------------------------|:---------:|-------------
 | `entityName`           | x         | Entity name of the record
 | `entityId`             | x         | The ID of the entity 
-| `formBase`             |           | formBase_detail will be the used as form name.
+| `formName`             |           | Detail-form that should be loaded
 
 ### Events
 

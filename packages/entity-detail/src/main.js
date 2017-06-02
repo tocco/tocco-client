@@ -1,16 +1,32 @@
 import React from 'react'
 import {appFactory, storeFactory} from 'tocco-util'
-
+import ReduxToastr from 'react-redux-toastr'
 import reducers, {sagas} from './modules/reducers'
 import DetailViewContainer from './containers/DetailViewContainer'
 import {getDispatchActions} from './input'
+
 const packageName = 'entity-detail'
 
 const EXTERNAL_EVENTS = [
+  'onSubGridRowClick',
+  'onTouchedChange'
 ]
 
+const toastrOptions = {
+  newestOnTop: false,
+  preventDuplicates: true,
+  transitionIn: 'fadeIn',
+  transitionOut: 'fadeOut',
+  progressBar: true
+}
+
 const initApp = (id, input, events, publicPath) => {
-  const content = <DetailViewContainer/>
+  const content = (
+    <div>
+      <ReduxToastr {...toastrOptions} />
+      <DetailViewContainer/>
+    </div>
+  )
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
 
@@ -79,7 +95,7 @@ class EntityDetailApp extends React.Component {
 
 EntityDetailApp.propTypes = {
   entityName: React.PropTypes.string.isRequired,
-  formBase: React.PropTypes.string.isRequired,
+  formName: React.PropTypes.string.isRequired,
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
     propTypes[event] = React.PropTypes.func
     return propTypes

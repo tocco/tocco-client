@@ -1,30 +1,45 @@
 import reducer from './index'
 import * as actions from './actions'
 
-const EXPECTED_INITIAL_STATE = {
-  formDefinition: {},
-  entity: {},
-  entityModel: {}
+const INITIAL_STATE = {
+  detailParams: undefined,
+  formTouched: false
 }
 
 describe('entity-browser', () => {
-  describe('modules', () => {
-    describe('detailView', () => {
+  describe('routes', () => {
+    describe('detail', () => {
       describe('reducer', () => {
         it('should create a valid initial state', () => {
-          expect(reducer(undefined, {})).to.deep.equal(EXPECTED_INITIAL_STATE)
+          expect(reducer(undefined, {})).to.deep.equal(INITIAL_STATE)
         })
 
-        it('should handle an action', () => {
-          const stateBefore = {
-            entity: ''
+        it('should handle setDetailParams action', () => {
+          const detailParams = {
+            entityName: 'User',
+            entityId: '1',
+            formName: 'UserSearch',
+            parentUrl: '../',
+            showBackButton: false
           }
 
           const expectedStateAfter = {
-            entity: 'User'
+            ...INITIAL_STATE,
+            detailParams
           }
 
-          expect(reducer(stateBefore, actions.setEntity('User'))).to.deep.equal(expectedStateAfter)
+          expect(reducer(INITIAL_STATE, actions.setDetailParams(detailParams))).to.deep.equal(expectedStateAfter)
+        })
+
+        it('should handle formTouched action', () => {
+          const formTouched = true
+
+          const expectedStateAfter = {
+            ...INITIAL_STATE,
+            formTouched
+          }
+
+          expect(reducer(INITIAL_STATE, actions.setFormTouched(formTouched))).to.deep.equal(expectedStateAfter)
         })
       })
     })
