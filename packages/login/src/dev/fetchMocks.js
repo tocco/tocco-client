@@ -31,9 +31,12 @@ export default function setupFetchMock(fetchMock) {
         LOGIN_BLOCKED: true,
         success: false
       }
+    } else if (opts.body.includes('username=error')) {
+      const delay = new Promise(resolve => setTimeout(resolve, 500))
+      return delay.then(() => ({status: 500, body: 'Error 500'}))
     } else {
       const delay = new Promise(resolve => setTimeout(resolve, 500))
-      return delay.then({status: 401, body: { success: false }})
+      return delay.then(() => ({status: 401, body: { success: false }}))
     }
   })
   fetchMock.post(new RegExp('^.*?/nice2/rest/principals/.*/password-reset$'), {})

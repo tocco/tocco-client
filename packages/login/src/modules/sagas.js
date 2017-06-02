@@ -18,9 +18,7 @@ export const loginSelector = state => state.login
 export function doRequest(url, options) {
   return new Promise(resolve => {
     fetch(url, options)
-      .then(resp => {
-        resp.json().then(json => resolve(json))
-      })
+      .then(resp => resp.json().then(json => resolve(json)))
       .catch(e => {
         consoleLogger.logError('Failed to execute request', e)
         resolve({success: false})
