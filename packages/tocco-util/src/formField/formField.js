@@ -17,16 +17,16 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
       events,
       error,
       utils,
-      readOnly
+      submitting
     } = data
 
-    const readOnlyFinally = (
+    const readOnly = (
       formDefinitionField.displayType === 'READONLY'
-      || readOnly === true
+      || submitting
       || !_get(entityField, 'value.writable', true)
     )
 
-    const mandatory = _get(modelField, `validation.mandatory`, false)
+    const mandatory = _get(modelField, `validation.mandatory`, false) && !readOnly
 
     const valueField = valueFieldFactory(
       mapping,
@@ -36,7 +36,7 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
         id,
         value,
         onChange,
-        readOnly: readOnlyFinally,
+        readOnly,
         mandatory
       },
       events,
@@ -48,7 +48,7 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
         key={id}
         id={id}
         label={formDefinitionField.label}
-        mandatory={!readOnlyFinally && mandatory}
+        mandatory={mandatory}
         mandatoryTitle={resources.mandatoryTitle}
         error={error}
         touched={touched}

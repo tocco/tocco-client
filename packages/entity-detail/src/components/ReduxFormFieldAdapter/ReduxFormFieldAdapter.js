@@ -30,7 +30,7 @@ const ReduxFormFieldAdapter = props => {
     value: input.value,
     dirty,
     touched,
-    readOnly: submitting,
+    submitting,
     events,
     error,
     onChange: input.onChange,
