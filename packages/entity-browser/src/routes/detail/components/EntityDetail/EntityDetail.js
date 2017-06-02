@@ -3,7 +3,7 @@ import {Prompt} from 'react-router-dom'
 
 import {Button, LayoutBox} from 'tocco-ui'
 import {intlShape} from 'react-intl'
-import EntityDetailApp from 'entity-detail/src/main'
+import EntityDetailApp from 'tocco-entity-detail/src/main'
 
 class EntityDetail extends React.Component {
   componentWillMount() {

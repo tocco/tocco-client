@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import EntityListApp from 'entity-list/src/main'
+import EntityListApp from 'tocco-entity-list/src/main'
 
 const mapActionCreators = {
 }
