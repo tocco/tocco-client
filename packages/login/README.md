@@ -14,6 +14,7 @@ The following users can be entered to simulate different scenarios
 | `reset`          	| Password update enforced               	|
 | `before_blocked` 	| Last attempt before login gets blocked 	|
 | `blocked`        	| Login is blocked                       	|
+| `error`          	| Server error (status 500)              	|
 
 
 ##Embedding
