@@ -1,6 +1,6 @@
 {
   "name": "tocco-ui-showcase",
-  "version": "0.1.1",
+  "version": "0.1.4",
   "description": "some ui elements",
   "main": "dist/index.js",
   "scripts": {
@@ -34,7 +34,7 @@
     "react-docgen": "^2.12.1",
     "react-highlight": "^0.9.0",
     "react-scrollspy": "^2.5.0",
-    "tocco-theme": "0.1.3",
-    "tocco-util": "0.1.1"
+    "tocco-theme": "0.1.4",
+    "tocco-util": "0.1.4"
   }
 }

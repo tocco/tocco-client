@@ -1,6 +1,6 @@
 {
   "name": "tocco-test-util",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A package with utilities for writing tests",
   "main": "dist/index.js",
   "scripts": {
