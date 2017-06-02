@@ -8,6 +8,8 @@ cache:
   directories:
     - node_modules
     - packages/entity-browser/node_modules
+    - packages/entity-detail/node_modules
+    - packages/entity-list/node_modules
     - packages/login/node_modules
     - packages/merge/node_modules
     - packages/tocco-test-util/node_modules
@@ -29,8 +31,9 @@ script:
   - npm run lint
   - npm run flow
   - npm run test
-  - npm run test:saucelabs
-
+  - if [ ${TRAVIS_EVENT_TYPE} = "cron" ]; then
+      npm run test:saucelabs;
+    fi
 after_success:
   - npm run codecov
   - bash deployment/deploy_showcase.sh
