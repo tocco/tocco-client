@@ -35,8 +35,10 @@ script:
       npm run test:saucelabs;
     fi
 after_success:
-  - npm run codecov
-  - bash deployment/deploy_showcase.sh
+  - if [ ${TRAVIS_EVENT_TYPE} != "cron" ]; then
+        npm run codecov;
+        bash deployment/deploy_showcase.sh;
+    fi
 
 env:
   global:
