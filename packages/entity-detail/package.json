@@ -1,6 +1,6 @@
 {
   "name": "tocco-entity-detail",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -25,10 +25,10 @@
     }
   },
   "devDependencies": {
-    "tocco-entity-list": "0.1.5",
+    "tocco-entity-list": "0.1.6",
     "tocco-test-util": "0.1.2",
     "tocco-theme": "0.1.4",
-    "tocco-ui": "0.1.3",
-    "tocco-util": "0.1.4"
+    "tocco-ui": "0.1.4",
+    "tocco-util": "0.1.5"
   }
 }
