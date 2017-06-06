@@ -1,5 +1,4 @@
-import {takeLatest} from 'redux-saga'
-import {fork, put, select, call, all} from 'redux-saga/effects'
+import {takeLatest, fork, put, select, call, all} from 'redux-saga/effects'
 import {externalEvents, consoleLogger} from 'tocco-util'
 
 import * as actions from './actions'

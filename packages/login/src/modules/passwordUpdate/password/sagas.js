@@ -1,6 +1,5 @@
 import {externalEvents} from 'tocco-util'
-import {takeLatest} from 'redux-saga'
-import {call, fork, select, put, all} from 'redux-saga/effects'
+import {takeLatest, call, fork, select, put, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import localValidate from './validate'
