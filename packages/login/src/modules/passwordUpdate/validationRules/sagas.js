@@ -1,6 +1,5 @@
 import * as actions from './actions'
-import {takeLatest} from 'redux-saga'
-import {call, fork, put, select, all} from 'redux-saga/effects'
+import {takeLatest, call, fork, put, select, all} from 'redux-saga/effects'
 
 export const usernameSelector = state => state.passwordUpdate.dialog.username
 

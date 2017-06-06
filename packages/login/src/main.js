@@ -44,14 +44,14 @@ const initPasswordUpdateApp = (id, input, events, publicPath) => {
     return
   }
 
-  const dispatchActions = [
+  const actions = [
     passwordUpdate.setUsername(input.username),
     passwordUpdate.setForcedUpdate(forcedUpdate)
 
   ]
 
   if (typeof input.showOldPasswordField === 'boolean') {
-    dispatchActions.push(passwordUpdate.setShowOldPasswordField(input.showOldPasswordField))
+    actions.push(passwordUpdate.setShowOldPasswordField(input.showOldPasswordField))
   }
 
   const reducers = {
@@ -64,10 +64,12 @@ const initPasswordUpdateApp = (id, input, events, publicPath) => {
     `${packageName}.passwordUpdate`,
     content,
     store,
-    input,
-    events,
-    dispatchActions,
-    publicPath
+    {
+      input,
+      events,
+      actions,
+      publicPath
+    }
   )
 }
 
