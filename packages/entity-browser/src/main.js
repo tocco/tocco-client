@@ -86,7 +86,7 @@ const initApp = (id, input, events, publicPath) => {
       const setupFetchMocks = require('./dev/fetchMocks')
       setupFetchMocks(fetchMock)
 
-      const listFetchMocks = require('entity-list/src/dev/fetchMocks')
+      const listFetchMocks = require('tocco-entity-list/src/dev/fetchMocks')
       listFetchMocks(fetchMock)
 
       fetchMock.spy()
