@@ -38,6 +38,8 @@ export default {
   'ch.tocco.nice2.model.form.components.simple.PhoneField': formField.editableValueFactory('phone'),
   'ch.tocco.nice2.model.form.components.simple.PulldownDateField': formField.editableValueFactory('date'),
   'ch.tocco.nice2.model.form.components.simple.RangeField': {
+    'number': formField.editableValueFactory('number'),
+    'counter': formField.editableValueFactory('number'),
     'date': formField.editableValueFactory('date-range'),
     'birthdate': formField.editableValueFactory('date-range')
   },
