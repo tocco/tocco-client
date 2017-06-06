@@ -26,7 +26,7 @@ const initApp = (id, input, events, publicPath) => {
       events,
       actions,
       publicPath,
-      textResourceModules: ['componet', 'common']
+      textResourceModules: ['component', 'common']
     }
   )
 }
