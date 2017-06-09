@@ -1,34 +1,28 @@
 import React from 'react'
-import {appFactory, storeFactory} from 'tocco-util'
-import ReduxToastr from 'react-redux-toastr'
+import {appFactory, storeFactory, notifier, errorLogging, actionEmitter, externalEvents} from 'tocco-util'
 import reducers, {sagas} from './modules/reducers'
 import DetailViewContainer from './containers/DetailViewContainer'
 import {getDispatchActions} from './input'
-
 const packageName = 'entity-detail'
 
 const EXTERNAL_EVENTS = [
   'onSubGridRowClick',
-  'onTouchedChange'
+  'onTouchedChange',
+  'emitAction'
 ]
-
-const toastrOptions = {
-  newestOnTop: false,
-  preventDuplicates: true,
-  transitionIn: 'fadeIn',
-  transitionOut: 'fadeOut',
-  progressBar: true
-}
 
 const initApp = (id, input, events, publicPath) => {
   const content = (
     <div>
-      <ReduxToastr {...toastrOptions} />
       <DetailViewContainer/>
     </div>
   )
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
+  externalEvents.addToStore(store, events)
+  actionEmitter.addToStore(store, events.emitAction)
+  errorLogging.addToStore(store, false)
+  notifier.addToStore(store, false)
 
   const actions = getDispatchActions(input)
 
