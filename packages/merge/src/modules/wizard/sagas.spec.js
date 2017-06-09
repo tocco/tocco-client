@@ -20,7 +20,7 @@ describe('merge', () => {
             expect(generator.next().value).to.deep.equal(select())
             expect(generator.next(state).value).to.eql(call(createMergeResult, state))
             expect(generator.next(result).value).to.eql(call(sagas.sendDwr, result))
-            expect(generator.next(mergeResult).value).to.eql(call(externalEvents.invokeExternalEvent, 'close'))
+            expect(generator.next(mergeResult).value).to.eql(put(externalEvents.fireExternalEvent('close')))
             expect(generator.next().done).to.equal(true)
           })
 

@@ -26,6 +26,7 @@ class MergeStrategy extends React.Component {
           className="merge-wizard"
           mergeResponse={this.props.mergeResponse}
           intl={this.props.intl}
+          fireExternalEvent={this.props.fireExternalEvent}
         />
       )
     }
@@ -39,6 +40,7 @@ class MergeStrategy extends React.Component {
 
 MergeStrategy.propTypes = {
   saveMerge: React.PropTypes.func.isRequired,
+  fireExternalEvent: React.PropTypes.func.isRequired,
   intl: React.PropTypes.object.isRequired,
   mergeResponse: React.PropTypes.object
 }

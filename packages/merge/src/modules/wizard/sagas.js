@@ -24,7 +24,7 @@ export function* save() {
     const mergeResponse = yield call(sendDwr, mergeActionResult)
 
     if (mergingWithoutProblems(mergeResponse)) {
-      yield call(externalEvents.invokeExternalEvent, 'close')
+      yield put(externalEvents.fireExternalEvent('close'))
     } else {
       yield put(setMergeResponse(mergeResponse))
     }
