@@ -1,7 +1,6 @@
 import EntityBrowser from './components/EntityBrowser'
 
 import entityBrowser from './modules'
-import {reducer as toastr} from 'react-redux-toastr'
 import {setEntityName, setFormBase} from './modules/actions'
 
 const inputDispatches = [
@@ -23,8 +22,7 @@ const inputDispatches = [
 export default {
   container: EntityBrowser,
   reducers: {
-    entityBrowser,
-    toastr
+    entityBrowser
   },
   inputDispatches: inputDispatches
 }

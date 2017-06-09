@@ -1,10 +1,9 @@
 import React from 'react'
 
-import {appFactory} from 'tocco-util'
+import {appFactory, notifier, errorLogging, actionEmitter, externalEvents} from 'tocco-util'
 import {Router} from 'react-router'
 import createHashHistory from 'history/createHashHistory'
 import RouteWithSubRoutes from './components/RouteWithSubRoutes'
-import {createConfirmationAction} from './util/notification'
 import {setNullBusinessUnit} from 'tocco-util/src/rest'
 
 const packageName = 'entity-browser'
@@ -18,7 +17,7 @@ const createHistory = store => createHashHistory({
     const okText = textResourceSelector(state, 'client.common.ok')
     const cancelText = textResourceSelector(state, 'client.common.cancel')
 
-    const action = createConfirmationAction(
+    const action = notifier.confirm(
       message,
       okText,
       cancelText,
@@ -48,6 +47,10 @@ const initApp = (id, input, events, publicPath) => {
   }
 
   const store = appFactory.createStore(undefined, undefined, input, packageName)
+  externalEvents.addToStore(store, events)
+  actionEmitter.addToStore(store)
+  errorLogging.addToStore(store, true, ['console', 'remote', 'toastr'])
+  notifier.addToStore(store, true)
 
   const history = createHistory(store)
   navigateToDetailIfKeySet(history, input)
@@ -69,9 +72,8 @@ const initApp = (id, input, events, publicPath) => {
     store,
     {
       input,
-      events,
       publicPath,
-      textResourceModules: ['component', 'common', 'entity-list']
+      textResourceModules: ['component', 'common', 'entity-list', 'entity-detail']
     }
   )
 }
