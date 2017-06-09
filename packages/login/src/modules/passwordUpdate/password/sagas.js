@@ -94,9 +94,9 @@ export function* savePassword() {
   } else {
     const standalone = yield select(standaloneSelector)
     if (standalone) {
-      yield call(externalEvents.invokeExternalEvent, 'success', {
+      yield put(externalEvents.fireExternalEvent('success', {
         newPassword: data.newPassword
-      })
+      }))
     } else {
       const loginData = yield call(getLoginData)
       yield put(setPassword(loginData.payload.password))

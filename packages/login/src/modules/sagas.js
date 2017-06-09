@@ -76,7 +76,7 @@ export function* handleFailedResponse() {
 
 export function* handleSuccessfulLogin(response) {
   const timeout = response.timeout || DEFAULT_TIMEOUT
-  yield call(externalEvents.invokeExternalEvent, 'loginSuccess', {timeout})
+  yield put(externalEvents.fireExternalEvent('loginSuccess', {timeout}))
   yield put(setPassword(''))
 }
 

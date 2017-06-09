@@ -1,5 +1,5 @@
 import React from 'react'
-import {appFactory, storeFactory, consoleLogger} from 'tocco-util'
+import {appFactory, storeFactory, consoleLogger, externalEvents, errorLogging} from 'tocco-util'
 
 import * as passwordUpdate from './modules/passwordUpdate/dialog/actions'
 import LoginContainer from './containers/LoginContainer'
@@ -19,6 +19,8 @@ const initLoginApp = (id, input, events, publicPath) => {
   const content = <LoginContainer showTitle={showTitle}/>
 
   const store = appFactory.createStore(loginReducers, sagas, input, packageName)
+  externalEvents.addToStore(store, events)
+  errorLogging.addToStore(store, true, ['console', 'remote'])
 
   return appFactory.createApp(
     packageName,
@@ -26,7 +28,6 @@ const initLoginApp = (id, input, events, publicPath) => {
     store,
     {
       input,
-      events,
       actions,
       publicPath
     }
@@ -47,7 +48,6 @@ const initPasswordUpdateApp = (id, input, events, publicPath) => {
   const actions = [
     passwordUpdate.setUsername(input.username),
     passwordUpdate.setForcedUpdate(forcedUpdate)
-
   ]
 
   if (typeof input.showOldPasswordField === 'boolean') {
@@ -59,6 +59,8 @@ const initPasswordUpdateApp = (id, input, events, publicPath) => {
   }
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
+  externalEvents.addToStore(store, events)
+  errorLogging.addToStore(store, true, ['console', 'remote'])
 
   return appFactory.createApp(
     `${packageName}.passwordUpdate`,
@@ -66,7 +68,6 @@ const initPasswordUpdateApp = (id, input, events, publicPath) => {
     store,
     {
       input,
-      events,
       actions,
       publicPath
     }

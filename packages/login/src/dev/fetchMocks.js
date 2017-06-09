@@ -1,6 +1,7 @@
 import {utilFetchMocks} from 'tocco-util'
 
 export default function setupFetchMock(fetchMock) {
+  utilFetchMocks.log(fetchMock)
   utilFetchMocks.session(fetchMock)
   utilFetchMocks.textResource(fetchMock, require('./messages.json'))
 
