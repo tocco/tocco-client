@@ -1,4 +1,4 @@
-import reducer from './index'
+import reducer from './reducer'
 import * as actions from './actions'
 
 const INITIAL_STATE = {

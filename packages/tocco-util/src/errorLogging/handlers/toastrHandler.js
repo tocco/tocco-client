@@ -3,9 +3,9 @@ import {put} from 'redux-saga/effects'
 import {actions as toastrActions} from 'react-redux-toastr'
 import {FormattedMessage} from 'react-intl'
 
-export default function* toastr(type, title, description, error) {
+export default function* toastr(title, description, error) {
   yield put(toastrActions.add({
-    type: type,
+    type: 'error',
     position: 'top-right',
     options: {
       component: () => (
@@ -18,7 +18,8 @@ export default function* toastr(type, title, description, error) {
           </div>
         </div>
       ),
-      timeOut: type === 'error' ? 0 : 5000,
+      icon: (<div className={`fa fa-exclamation-circle icon`}/>),
+      timeOut: 0,
       showCloseButton: true
     }
   }))
