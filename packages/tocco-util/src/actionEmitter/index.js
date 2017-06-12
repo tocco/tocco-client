@@ -3,7 +3,7 @@ import {
   dispatchEmittedAction
 } from './actions'
 
-import {addToStore} from './emitAction'
+import {addToStore} from './actionEmitter'
 
 export default {
   emitAction,

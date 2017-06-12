@@ -1,4 +1,4 @@
-import {fork, takeEvery, all, put} from 'redux-saga/effects'
+import {fork, takeEvery, all, put, call} from 'redux-saga/effects'
 import * as actions from './actions'
 
 export default function* sagas(parentEmitAction) {
@@ -11,7 +11,7 @@ export default function* sagas(parentEmitAction) {
 export function* emitAction(parentEmitAction, {payload}) {
   const {action} = payload
   if (parentEmitAction) {
-    parentEmitAction(action)
+    yield call(parentEmitAction, action)
   }
 }
 
