@@ -5,8 +5,9 @@ This package contains helpers, utils and other useful stuff that might be used i
 With actionEmitter it is possible to dispatch actions in the store of a parent app.
 For example logging-actions or errors that can't be handled by a package itself.
 
-#### ExternalEvents
-Stores events/callbacks that can be called by key
+#### externalEvents
+Can be added to the store to call external events/callback from anywhere with an action.
+
 #### Int
 Retrieves text resources though tocco REST service regarding the principals locale
 #### StoreFactory

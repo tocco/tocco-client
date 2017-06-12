@@ -22,5 +22,20 @@ describe('tocco-util', () => {
         done()
       })
     })
+
+    describe('addToStore', () => {
+      it('should start sagas', () => {
+        const sagaRunSpy = sinon.spy()
+        const store = {
+          sagaMiddleware: {
+            run: sagaRunSpy
+          }
+        }
+
+        externalEvents.addToStore(store, () => {})
+
+        expect(sagaRunSpy).to.be.calledOnce
+      })
+    })
   })
 })
