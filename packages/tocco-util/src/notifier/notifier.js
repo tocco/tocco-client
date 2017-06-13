@@ -2,7 +2,7 @@ import React from 'react'
 
 import {actions as toastrActions, reducer as toastrReducer} from 'react-redux-toastr'
 import {FormattedMessage} from 'react-intl'
-import storeFactory from '../storeFactory'
+import appFactory from '../appFactory'
 import sagas from './sagas'
 
 export function getInfoAction(type, title, message, icon, timeOut) {
@@ -46,7 +46,7 @@ export function getConfirmationAction(message, okText, cancelText, onOk, onCance
 
 export const addToStore = (store, accept) => {
   if (accept) {
-    storeFactory.injectReducers(store, {toastr: toastrReducer})
+    appFactory.injectReducers(store, {toastr: toastrReducer})
   }
   store.sagaMiddleware.run(sagas, accept)
 }

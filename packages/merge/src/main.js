@@ -1,5 +1,5 @@
 import React from 'react'
-import {appFactory, storeFactory, externalEvents, errorLogging} from 'tocco-util'
+import {appFactory, externalEvents, errorLogging} from 'tocco-util'
 import MergeWizardContainer from './containers/MergeWizardContainer'
 import {getDispatchActions} from './utils/input'
 import reducers, {sagas} from './modules/reducers'
@@ -44,7 +44,7 @@ const initApp = (id, input, events = {}, publicPath) => {
     if (module.hot) {
       module.hot.accept('./modules/reducers', () => {
         let reducers = require('./modules/reducers').default
-        storeFactory.hotReloadReducers(app.store, reducers)
+        appFactory.hotReloadReducers(app.store, reducers)
       })
     }
 

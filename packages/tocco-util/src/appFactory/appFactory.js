@@ -13,14 +13,8 @@ import it from 'react-intl/locale-data/it'
 
 import {LoadMask} from 'tocco-ui'
 
-import storeFactory from '../storeFactory'
 import intl from '../intl'
 import errorLogging from '../errorLogging'
-
-export const createStore = (reducers, sagas, input, name) => {
-  const initialState = getIntialState(input)
-  return storeFactory.createStore(initialState, reducers, sagas, name)
-}
 
 export const createApp = (name,
                           content,
@@ -100,15 +94,6 @@ const dispatchActions = (actions, store) => {
   actions.forEach(action => {
     store.dispatch(action)
   })
-}
-
-const getIntialState = input => {
-  const initialState = window.__INITIAL_STATE__ || {}
-
-  if (input) {
-    initialState.input = input
-  }
-  return initialState
 }
 
 const setWebpacksPublicPath = publicPath => {

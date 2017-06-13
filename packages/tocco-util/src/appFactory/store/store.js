@@ -9,9 +9,19 @@ import thunk from 'redux-thunk'
 
 import {autoRestartSaga, createGenerator} from './sagaHelpers'
 
-import input from './input/reducer'
+import inputReducer from './input/reducer'
 
-export const createStore = (initialState = {}, reducers = {}, sagas = [], name = '') => {
+const getIntialState = input => {
+  const initialState = window.__INITIAL_STATE__ || {}
+
+  if (input) {
+    initialState.input = input
+  }
+  return initialState
+}
+
+export const createStore = (reducers = {}, sagas = [], input, name = '') => {
+  const initialState = getIntialState(input)
   const sagaMiddleware = createSagaMiddleware()
   let middleware = applyMiddleware(thunk, sagaMiddleware)
 
@@ -24,7 +34,7 @@ export const createStore = (initialState = {}, reducers = {}, sagas = [], name =
 
   const allReducers = {
     ...reducers,
-    input,
+    input: inputReducer,
     intl: intlReducer
   }
 

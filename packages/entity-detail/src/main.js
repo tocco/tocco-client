@@ -1,5 +1,5 @@
 import React from 'react'
-import {appFactory, storeFactory, notifier, errorLogging, actionEmitter, externalEvents} from 'tocco-util'
+import {appFactory, notifier, errorLogging, actionEmitter, externalEvents} from 'tocco-util'
 import reducers, {sagas} from './modules/reducers'
 import DetailViewContainer from './containers/DetailViewContainer'
 import {getDispatchActions} from './input'
@@ -56,7 +56,7 @@ const initApp = (id, input, events, publicPath) => {
     if (module.hot) {
       module.hot.accept('./modules/reducers', () => {
         const reducers = require('./modules/reducers').default
-        storeFactory.hotReloadReducers(app.store, reducers)
+        appFactory.hotReloadReducers(app.store, reducers)
       })
     }
 

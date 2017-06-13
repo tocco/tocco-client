@@ -1,5 +1,5 @@
 import React from 'react'
-import storeFactory from '../storeFactory'
+import appFactory from '../appFactory'
 import asyncRoute from './asyncRoute'
 import {dispatchInput} from './input'
 
@@ -10,12 +10,12 @@ export const loadRoute = (store, input, importRouteDependencies, path) => props 
         const route = imported.default
 
         if (route.reducers) {
-          storeFactory.injectReducers(store, route.reducers)
+          appFactory.injectReducers(store, route.reducers)
         }
 
         if (route.sagas) {
           route.sagas.forEach(saga => {
-            storeFactory.injectSaga(store, saga)
+            appFactory.injectSaga(store, saga)
           })
         }
 
