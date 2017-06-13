@@ -40,12 +40,14 @@ describe('tocco-util', () => {
         expect(store.allReducers).to.not.have.property('toastr')
       })
     })
+
     describe('getToastrNotifyAction', () => {
       it('should return an action', () => {
         const action = getInfoAction('info', 'title', 'message', 'star', 1000)
         expect(action).to.have.property('type')
       })
     })
+
     describe('getConfirmationAction', () => {
       it('should return an action', () => {
         const action = getConfirmationAction('Message?', 'ok', 'cancel', () => {}, () => {})

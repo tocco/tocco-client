@@ -3,7 +3,7 @@ import EntityListApp from 'tocco-entity-list/src/main'
 import {actionEmitter} from 'tocco-util'
 
 const mapActionCreators = {
-  emitAction: action => (actionEmitter.dispatchEmittedAction(action))
+  emitAction: action => actionEmitter.dispatchEmittedAction(action)
 }
 
 const mapStateToProps = (state, props) => {
