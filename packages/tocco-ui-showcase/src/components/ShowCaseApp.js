@@ -1,6 +1,5 @@
 import React from 'react'
 import {addLocaleData, IntlProvider} from 'react-intl'
-import {consoleLogger} from 'tocco-util'
 import Navigation from './Navigation'
 import LocaleSwitcher from './LocaleSwitcher'
 import ShowCaseList from './ShowCaseList'
@@ -26,7 +25,7 @@ export default class ShowCaseApp extends React.Component {
   }
 
   localeChange(locale) {
-    consoleLogger.log('Change locale to: ', locale)
+    console.log('Change locale to: ', locale) // eslint-disable-line no-console
     this.setState({locale})
   }
 
