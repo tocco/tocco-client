@@ -9,10 +9,8 @@ import {
   destroy as destroyForm
 } from 'redux-form'
 
-import {logError} from 'tocco-util/src/errorLogging'
-import {externalEvents} from 'tocco-util'
+import {externalEvents, notifier, errorLogging} from 'tocco-util'
 import * as actions from './actions'
-import {notify} from '../../util/notification'
 import {fetchEntity, fetchEntities, updateEntity, fetchModel, selectEntitiesTransformer} from '../../util/api/entities'
 import {fetchForm, getFieldsOfDetailForm} from '../../util/api/forms'
 import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../util/detailView/reduxForm'
@@ -96,13 +94,14 @@ export function* submitForm() {
     const updatedEntity = yield call(updateEntity, entity, fields)
     const updatedFormValues = yield call(entityToFormValues, updatedEntity)
     yield put(initializeForm(FORM_ID, updatedFormValues))
-    yield call(
-      notify,
+
+    yield put(notifier.info(
       'success',
       'client.entity-browser.detail.saveSuccessfulTitle',
       'client.entity-browser.detail.saveSuccessfulMessage',
-      'floppy-saved', 2000
-    )
+      'check',
+      2000
+    ))
     yield put(actions.setLastSave())
     yield put(stopSubmit(FORM_ID))
   } catch (error) {
@@ -110,17 +109,17 @@ export function* submitForm() {
       yield put(touch(FORM_ID, ...Object.keys(error.errors)))
       yield put(stopSubmit(FORM_ID, error.errors))
     } else {
-      yield put(logError('client.common.unexpectedError', 'client.entity-browser.detail.saveError', error))
+      yield put(errorLogging.logError('client.common.unexpectedError', 'client.entity-browser.detail.saveError', error))
       yield put(stopSubmit(FORM_ID))
     }
 
-    yield notify(
+    yield put(notifier.info(
       'warning',
       'client.entity-browser.detail.saveAbortedTitle',
       'client.entity-browser.detail.saveAbortedMessage',
-      'floppy-remove',
+      'ban',
       5000
-    )
+    ))
   }
 }
 

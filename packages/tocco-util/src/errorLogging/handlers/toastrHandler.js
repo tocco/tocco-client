@@ -1,25 +1,7 @@
-import React from 'react'
-import {put} from 'redux-saga/effects'
-import {actions as toastrActions} from 'react-redux-toastr'
-import {FormattedMessage} from 'react-intl'
+import {put, call} from 'redux-saga/effects'
+import notifier from '../../notifier'
 
-export default function* toastr(type, title, description, error) {
-  yield put(toastrActions.add({
-    type: type,
-    position: 'top-right',
-    options: {
-      component: () => (
-        <div>
-          <div className="title">
-            <FormattedMessage id={title}/>
-          </div>
-          <div className="message">
-            <FormattedMessage id={description}/>
-          </div>
-        </div>
-      ),
-      timeOut: type === 'error' ? 0 : 5000,
-      showCloseButton: true
-    }
-  }))
+export default function* toastr(title, description, error) {
+  const action = yield call(notifier.info, 'error', title, description, 'exclamation-circle', 0)
+  yield put(action)
 }

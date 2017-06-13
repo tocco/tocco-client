@@ -1,7 +1,4 @@
-import reducer from './reducer'
 import {logError} from './actions'
-import sagas from './sagas'
+import {addToStore} from './errorLogging'
 
-export {logError, sagas}
-
-export default reducer
+export default {logError, addToStore}

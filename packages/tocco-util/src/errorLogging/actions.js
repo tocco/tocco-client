@@ -4,7 +4,6 @@ export const logError = (title, description, error, dateTime = Date.now()) => ({
   type: LOG_ERROR,
   payload: {
     title,
-    type: 'error',
     description,
     error,
     dateTime

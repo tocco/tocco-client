@@ -185,7 +185,7 @@ describe('login', () => {
               const standalone = true
 
               expect(generator.next(standalone).value).to.deep.equal(
-                call(externalEvents.invokeExternalEvent, 'success', {newPassword: 'validnewpw'})
+                put(externalEvents.fireExternalEvent('success', {newPassword: 'validnewpw'}))
               )
               expect(generator.next().value).to.deep.equal(put(actions.savePasswordSuccess()))
 

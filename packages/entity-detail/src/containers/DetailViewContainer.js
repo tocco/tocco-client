@@ -17,7 +17,7 @@ import {
   fireTouched
 } from '../modules/entityDetail/actions'
 import DetailView from '../components/DetailView/DetailView'
-import {logError} from 'tocco-util/src/errorLogging'
+import {errorLogging} from 'tocco-util'
 
 const mapActionCreators = {
   loadDetailView,
@@ -25,7 +25,7 @@ const mapActionCreators = {
   submitForm,
   loadRelationEntity,
   loadRemoteEntity,
-  logError,
+  logError: errorLogging.logError,
   fireTouched
 }
 

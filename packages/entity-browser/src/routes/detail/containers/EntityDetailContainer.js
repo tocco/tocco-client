@@ -1,13 +1,15 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 import EntityDetail from '../components/EntityDetail'
+import {actionEmitter} from 'tocco-util'
 
 import {loadDetailParams, clearDetailParams, setFormTouched} from '../modules/actions'
 
 const mapActionCreators = {
   loadDetailParams,
   clearDetailParams,
-  setFormTouched
+  setFormTouched,
+  dispatchEmittedAction: actionEmitter.dispatchEmittedAction
 }
 
 const mapStateToProps = (state, props) => {

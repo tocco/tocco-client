@@ -1,11 +1,10 @@
 import * as actions from './actions'
 
 const MAX_LOGGED_ERRORS_MESSAGE = 100
-const logError = (state, {payload: {type, title, description, error, dateTime}}) => ({
+const logError = (state, {payload: {title, description, error, dateTime}}) => ({
   ...state,
   messages: [
     {
-      type,
       title,
       description,
       error,

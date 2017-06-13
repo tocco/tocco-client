@@ -8,6 +8,7 @@ import EntityDetailApp from 'tocco-entity-detail/src/main'
 class EntityDetail extends React.Component {
   componentWillMount() {
     this.props.loadDetailParams(this.props.router.match.url)
+    this.props.setFormTouched(false)
   }
 
   componentWillUnmount() {
@@ -32,6 +33,10 @@ class EntityDetail extends React.Component {
     formName={formName}
     onSubGridRowClick={this.handleSubGridRowClick}
     onTouchedChange={this.handleTouchedChange}
+    emitAction={action => {
+      this.props.dispatchEmittedAction(action)
+    }}
+
   />)
 
   msg = id => (this.props.intl.formatMessage({id}))
@@ -69,6 +74,7 @@ class EntityDetail extends React.Component {
 
 EntityDetail.propTypes = {
   intl: intlShape.isRequired,
+  dispatchEmittedAction: React.PropTypes.func.isRequired,
   loadDetailParams: React.PropTypes.func.isRequired,
   clearDetailParams: React.PropTypes.func.isRequired,
   setFormTouched: React.PropTypes.func.isRequired,

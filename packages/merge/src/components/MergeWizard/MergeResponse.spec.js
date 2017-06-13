@@ -4,6 +4,8 @@ import {shallow} from 'enzyme'
 import {FormattedMessage} from 'react-intl'
 import {IntlStub} from 'tocco-test-util'
 
+const EMPTY_FUNC = () => {}
+
 describe('merge', () => {
   describe('components', () => {
     describe('MergeResponse', () => {
@@ -17,6 +19,7 @@ describe('merge', () => {
 
         const wrapper = shallow(
           <MergeResponse
+            fireExternalEvent={EMPTY_FUNC}
             mergeResponse={mergeResponse}
             intl={IntlStub}
           />
@@ -35,6 +38,7 @@ describe('merge', () => {
 
         const wrapper = shallow(
           <MergeResponse
+            fireExternalEvent={EMPTY_FUNC}
             mergeResponse={mergeResponse}
             intl={IntlStub}
           />

@@ -25,6 +25,7 @@ describe('entity-browser', () => {
             <EntityDetail
               router={routerMock}
               loadDetailParams={EMPTY_FUNC}
+              dispatchEmittedAction={EMPTY_FUNC}
               clearDetailParams={EMPTY_FUNC}
               setFormTouched={EMPTY_FUNC}
               intl={IntlStub}

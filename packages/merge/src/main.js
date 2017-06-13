@@ -1,15 +1,17 @@
 import React from 'react'
-import {appFactory, storeFactory} from 'tocco-util'
+import {appFactory, storeFactory, externalEvents, errorLogging} from 'tocco-util'
 import MergeWizardContainer from './containers/MergeWizardContainer'
 import {getDispatchActions} from './utils/input'
 import reducers, {sagas} from './modules/reducers'
 
 const packageName = 'merge'
 
-const initApp = (id, input, events, publicPath) => {
+const initApp = (id, input, events = {}, publicPath) => {
   const actions = getDispatchActions(input)
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
+  externalEvents.addToStore(store, events)
+  errorLogging.addToStore(store, true, ['console', 'remote'])
 
   return appFactory.createApp(
     packageName,
@@ -17,7 +19,6 @@ const initApp = (id, input, events, publicPath) => {
     store,
     {
       input,
-      events,
       actions,
       publicPath
     }

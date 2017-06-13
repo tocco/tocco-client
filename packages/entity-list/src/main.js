@@ -1,5 +1,5 @@
 import React from 'react'
-import {appFactory, storeFactory} from 'tocco-util'
+import {appFactory, storeFactory, notifier, errorLogging, actionEmitter, externalEvents} from 'tocco-util'
 
 import reducers, {sagas} from './modules/reducers'
 import EntityListContainer from './containers/EntityListContainer'
@@ -7,13 +7,19 @@ import {getDispatchActions} from './input'
 const packageName = 'entity-list'
 
 const EXTERNAL_EVENTS = [
-  'onRowClick'
+  'onRowClick',
+  'emitAction'
 ]
 
 const initApp = (id, input, events, publicPath) => {
   const content = <EntityListContainer/>
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
+
+  externalEvents.addToStore(store, events)
+  actionEmitter.addToStore(store, events.emitAction)
+  errorLogging.addToStore(store, false)
+  notifier.addToStore(store, false)
 
   const actions = getDispatchActions(input)
 

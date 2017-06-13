@@ -15,8 +15,7 @@ import {LoadMask} from 'tocco-ui'
 
 import storeFactory from '../storeFactory'
 import intl from '../intl'
-import externalEvents from '../externalEvents'
-import {logError} from '../errorLogging'
+import errorLogging from '../errorLogging'
 
 export const createStore = (reducers, sagas, input, name) => {
   const initialState = getIntialState(input)
@@ -28,7 +27,6 @@ export const createApp = (name,
                           store,
                           {
                             input = {},
-                            events = undefined,
                             actions = undefined,
                             publicPath = undefined,
                             textResourceModules = []
@@ -36,10 +34,6 @@ export const createApp = (name,
   try {
     if (publicPath) {
       setWebpacksPublicPath(publicPath)
-    }
-
-    if (events) {
-      externalEvents.registerEvents(events)
     }
 
     if (actions) {
@@ -58,9 +52,7 @@ export const createApp = (name,
     }
   } catch (error) {
     try {
-      if (store) {
-        store.dispatch(logError('Error', 'Error creating react application: ', error))
-      }
+      store.dispatch(errorLogging.logError('Error', 'Error creating react application: ', error))
     } catch (loggingError) {
       consoleLogger.logError('Error creating react application: ', error)
       consoleLogger.logError('Unable to log error: ', loggingError)

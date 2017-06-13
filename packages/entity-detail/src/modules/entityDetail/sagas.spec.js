@@ -6,12 +6,11 @@ import {
   stopSubmit,
   initialize as initializeForm
 } from 'redux-form'
-import {externalEvents} from 'tocco-util'
+import {externalEvents, notifier} from 'tocco-util'
 import {updateEntity, fetchEntity, fetchModel, fetchEntities, selectEntitiesTransformer} from '../../util/api/entities'
 import {getFieldsOfDetailForm} from '../../util/api/forms'
 import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../util/detailView/reduxForm'
 import {submitValidate} from '../../util/detailView/asyncValidation'
-import {notify} from '../../util/notification'
 
 const FORM_ID = 'detailForm'
 
@@ -157,13 +156,12 @@ describe('entity-detail', () => {
             expect(gen.next(fields).value).to.eql(call(updateEntity, entity, fields))
             expect(gen.next(updatedEntity).value).to.eql(call(entityToFormValues, updatedEntity))
             expect(gen.next(updatedFormValues).value).to.eql(put(initializeForm(formId, updatedFormValues)))
-            expect(gen.next().value).to.eql(call(
-              notify,
+            expect(gen.next().value).to.eql(put(notifier.info(
               'success',
               'client.entity-browser.detail.saveSuccessfulTitle',
               'client.entity-browser.detail.saveSuccessfulMessage',
-              'floppy-saved',
-              2000)
+              'check',
+              2000))
             )
             const lastSaveAction = gen.next().value
             const lastSaveTime = lastSaveAction.PUT.action.payload.lastSave
