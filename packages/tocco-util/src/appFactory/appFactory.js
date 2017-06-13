@@ -17,9 +17,9 @@ import storeFactory from '../storeFactory'
 import intl from '../intl'
 import errorLogging from '../errorLogging'
 
-export const createStore = (reducers, sagas, input, name, handleErrors, emitAction) => {
+export const createStore = (reducers, sagas, input, name) => {
   const initialState = getIntialState(input)
-  return storeFactory.createStore(initialState, reducers, sagas, name, handleErrors, emitAction)
+  return storeFactory.createStore(initialState, reducers, sagas, name)
 }
 
 export const createApp = (name,
