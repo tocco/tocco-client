@@ -1,8 +1,8 @@
-export const NOTIFY = 'NOTIFY'
+export const INFO = 'INFO'
 export const CONFIRM = 'CONFIRM'
 
-export const notify = (type, title, message, icon, timeOut) => ({
-  type: NOTIFY,
+export const info = (type, title, message, icon, timeOut) => ({
+  type: INFO,
   payload: {
     type,
     title,

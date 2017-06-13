@@ -1,3 +1,3 @@
 import {addToStore} from './notifier'
-import {notify, confirm} from './actions'
-export default {addToStore, notify, confirm}
+import {info, confirm} from './actions'
+export default {addToStore, info, confirm}

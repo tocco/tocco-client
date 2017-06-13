@@ -10,5 +10,11 @@ Can be added to the store to call external events/callback from anywhere with an
 
 #### Int
 Retrieves text resources though tocco REST service regarding the principals locale
+
+### notifier
+Allows to dispatch actions to show a info box or confirm dialog. Just needs to be added to the store and then one of
+the exported actions can be dispatched anywhere. When added to store, it can be configured if those actions are
+handled or if they get emitted.
+
 #### StoreFactory
 Creates a store taking inputstate, reducers and sagas as input. Also provides a function to hot replace reducers

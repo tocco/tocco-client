@@ -1,11 +1,13 @@
 import React from 'react'
+
 import {actions as toastrActions, reducer as toastrReducer} from 'react-redux-toastr'
 import {FormattedMessage} from 'react-intl'
 import storeFactory from '../storeFactory'
 import sagas from './sagas'
 
-export function getToastrNotifyAction(type, title, message, icon, timeOut) {
+export function getInfoAction(type, title, message, icon, timeOut) {
   const options = {
+    timeOut: timeOut,
     showCloseButton: true,
     component: () => (
       <div>
@@ -23,10 +25,6 @@ export function getToastrNotifyAction(type, title, message, icon, timeOut) {
     options.icon = (<div className={`fa fa-${icon} icon`}/>)
   }
 
-  if (timeOut) {
-    options.timeOut = timeOut
-  }
-
   return toastrActions.add({
     type,
     position: 'top-right',
@@ -34,7 +32,7 @@ export function getToastrNotifyAction(type, title, message, icon, timeOut) {
   })
 }
 
-export function getToastrConfirmation(message, okText, cancelText, onOk, onCancel) {
+export function getConfirmationAction(message, okText, cancelText, onOk, onCancel) {
   return toastrActions.showConfirm({
     message,
     options: {

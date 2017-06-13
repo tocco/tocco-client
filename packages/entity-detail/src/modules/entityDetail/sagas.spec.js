@@ -156,7 +156,7 @@ describe('entity-detail', () => {
             expect(gen.next(fields).value).to.eql(call(updateEntity, entity, fields))
             expect(gen.next(updatedEntity).value).to.eql(call(entityToFormValues, updatedEntity))
             expect(gen.next(updatedFormValues).value).to.eql(put(initializeForm(formId, updatedFormValues)))
-            expect(gen.next().value).to.eql(put(notifier.notify(
+            expect(gen.next().value).to.eql(put(notifier.info(
               'success',
               'client.entity-browser.detail.saveSuccessfulTitle',
               'client.entity-browser.detail.saveSuccessfulMessage',

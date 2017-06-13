@@ -95,7 +95,7 @@ export function* submitForm() {
     const updatedFormValues = yield call(entityToFormValues, updatedEntity)
     yield put(initializeForm(FORM_ID, updatedFormValues))
 
-    yield put(notifier.notify(
+    yield put(notifier.info(
       'success',
       'client.entity-browser.detail.saveSuccessfulTitle',
       'client.entity-browser.detail.saveSuccessfulMessage',
@@ -113,7 +113,7 @@ export function* submitForm() {
       yield put(stopSubmit(FORM_ID))
     }
 
-    yield put(notifier.notify(
+    yield put(notifier.info(
       'warning',
       'client.entity-browser.detail.saveAbortedTitle',
       'client.entity-browser.detail.saveAbortedMessage',

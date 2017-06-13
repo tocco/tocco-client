@@ -1,5 +1,5 @@
-import {takeEvery, call, put, all} from 'redux-saga/effects'
-import {getToastrConfirmation, getToastrNotifyAction} from './notifier'
+import {takeEvery, fork, call, put, all} from 'redux-saga/effects'
+import {getInfoAction, getConfirmationAction} from './notifier'
 import * as actions from './actions'
 
 import actionEmitter from '../actionEmitter'
@@ -7,27 +7,26 @@ import actionEmitter from '../actionEmitter'
 export default function* sagas(accept) {
   if (accept) {
     yield all([
-      yield takeEvery(actions.NOTIFY, handleNotify),
-      yield takeEvery(actions.CONFIRM, handleConfirm)
-
+      fork(takeEvery, actions.INFO, handleNotify),
+      fork(takeEvery, actions.CONFIRM, handleConfirm)
     ])
   } else {
     yield all([
-      yield takeEvery(actions.NOTIFY, emit),
-      yield takeEvery(actions.CONFIRM, emit)
+      fork(takeEvery, actions.INFO, emit),
+      fork(takeEvery, actions.CONFIRM, emit)
     ])
   }
 }
 
 export function* handleNotify({payload}) {
   const {type, title, message, icon, timeOut} = payload
-  const action = yield call(getToastrNotifyAction, type, title, message, icon, timeOut)
+  const action = yield call(getInfoAction, type, title, message, icon, timeOut)
   yield put(action)
 }
 
 export function* handleConfirm({payload}) {
   const {message, okText, cancelText, onOk, onCancel} = payload
-  const action = yield call(getToastrConfirmation, message, okText, cancelText, onOk, onCancel)
+  const action = yield call(getConfirmationAction, message, okText, cancelText, onOk, onCancel)
   yield put(action)
 }
 
