@@ -32,7 +32,7 @@ describe('tocco-util', () => {
           }
         }
 
-        externalEvents.addToStore(store, () => {})
+        externalEvents.addToStore(store, {})
 
         expect(sagaRunSpy).to.be.calledOnce
       })
