@@ -94,10 +94,11 @@ At the moment there is a generator to create a react-component and a generator t
 
 ## Publish bundle
 Once the package is ready to publish, run following npm scripts. This registers the bundle
-in the npm registry.
+in the npm registry, increases versions and creates a git tag. 
+Scope flag is optional and allows you to publish a subset of packages.
 
 ```
-lerna publish
+lerna publish [--scope {PACKAGE_NAME}] --exact -m "chore: publish" 
 ```
 
 Only build:
