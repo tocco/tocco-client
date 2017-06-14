@@ -18,7 +18,7 @@ Can be added to the store to call external events/callback from anywhere with an
 Helper to create tocco-ui FormField component.
 
 #### intl
-Retrieves text resources though tocco REST service regarding the principals locale,
+Retrieves text resources through tocco REST service regarding the principals locale.
 
 #### notifier
 Allows to dispatch actions to show a info box or confirm dialog. Just needs to be added to the store and then one of
@@ -32,7 +32,7 @@ Helpers for reducers. As of now only containing singleTransferReducer to set a s
 TOCCO REST Api abstraction. Helps compose url, set headers, order params with proper error handling.
 
 #### route 
-Helper to load a route async,
+Helper to load a route async.
 
 #### utilFetchMock
 Generic fetchMocks e.g. log, session, text-resources.
