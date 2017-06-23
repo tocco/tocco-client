@@ -1,3 +1,5 @@
+import {call} from 'redux-saga/effects'
+import {requestSaga, getRequestSaga} from 'tocco-util/src/rest'
 import * as entities from './entities'
 import fetchMock from 'fetch-mock'
 
@@ -12,63 +14,123 @@ describe('entity-detail', () => {
 
         describe('fetchEntities', () => {
           it('should call fetch', () => {
-            fetchMock.get('*', {data: [{fields: {a: 'a'}}]})
-
-            const paths = ['f1', 'f2']
-            return entities.fetchEntities('User', {
+            const params = {
               page: 2,
               orderBy: 'firstname',
               limit: 20,
-              paths: paths,
+              paths: ['f1', 'f2'],
               searchInputs: {_search: 'test'}
-            }).then(() => {
-              expect(fetchMock.calls().matched).to.have.length(1)
-              const lastCall = fetchMock.lastCall()[0]
-              expect(lastCall).to.eql('/nice2/rest/entities/User?_limit=20&_offset=20&_paths=f1%2Cf2&_search=test')
-            })
+            }
+            const gen = entities.fetchEntities('User', params)
+
+            const expectedSagaParams = {
+              _fields: null,
+              _filter: '',
+              _form: undefined,
+              _limit: 20,
+              _offset: 20,
+              _paths: 'f1,f2',
+              _relations: null,
+              _search: 'test',
+              _sort: undefined
+            }
+            expect(gen.next().value).to.eql(call(getRequestSaga, 'entities/User', expectedSagaParams, []))
+
+            const resp = {
+              body: {}
+            }
+
+            const next = gen.next(resp)
+
+            expect(next.value).to.equal(resp.body) // expect same (not just equal)
+            expect(next.done).to.be.true
           })
 
           it('should set exclamation mark for fields and relations if explicitly empty', () => {
-            fetchMock.get('*', {data: [{fields: {a: 'a'}}]})
-
-            return entities.fetchEntities('User', {
+            const params = {
               page: 2,
               orderBy: 'firstname',
               limit: 20,
               fields: [],
               relations: [],
               searchInputs: {_search: 'test'}
-            }).then(() => {
-              expect(fetchMock.calls().matched).to.have.length(1)
-              const lastCall = fetchMock.lastCall()[0]
-              expect(lastCall)
-                .to.eql('/nice2/rest/entities/User?_fields=!&_limit=20&_offset=20&_relations=!&_search=test')
-            })
+            }
+            const gen = entities.fetchEntities('User', params)
+
+            const expectedSagaParams = {
+              _fields: '!',
+              _filter: '',
+              _form: undefined,
+              _limit: 20,
+              _offset: 20,
+              _paths: '',
+              _relations: '!',
+              _search: 'test',
+              _sort: undefined
+            }
+            expect(gen.next().value).to.eql(call(getRequestSaga, 'entities/User', expectedSagaParams, []))
+
+            const resp = {
+              body: {}
+            }
+
+            const next = gen.next(resp)
+
+            expect(next.value).to.equal(resp.body) // expect same (not just equal)
+            expect(next.done).to.be.true
           })
         })
 
         describe('fetchEntity', () => {
           it('should call fetch', () => {
-            fetchMock.get('*', {data: [{fields: {a: 'a'}}]})
+            const gen = entities.fetchEntity('User', 99, ['f1', 'f2'], 'User_detail')
 
-            const fields = ['f1', 'f2']
-            return entities.fetchEntity('User', 99, fields, 'User_detail').then(() => {
-              expect(fetchMock.calls().matched).to.have.length(1)
-              const lastCall = fetchMock.lastCall()[0]
-              expect(lastCall).to.eql('/nice2/rest/entities/User/99?_form=User_detail&_paths=f1%2Cf2')
-            })
+            expect(gen.next().value).to.eql(call(requestSaga, 'entities/User/99', {
+              _form: 'User_detail',
+              _paths: 'f1,f2'
+            }))
+
+            const resp = {
+              body: {}
+            }
+
+            const next = gen.next(resp)
+
+            expect(next.value).to.equal(resp.body) // expect same (not just equal)
+            expect(next.done).to.be.true
           })
         })
 
         describe('fetchModel', () => {
-          it('should call fetch', () => {
-            fetchMock.get('*', {})
-            return entities.fetchModel('User', () => {
-            }).then(() => {
-              expect(fetchMock.calls().matched).to.have.length(1)
-              const lastCallUrl = fetchMock.lastCall()[0]
-              expect(lastCallUrl).to.eql('/nice2/rest/entities/User/model')
+          it('should call request saga and transform response', () => {
+            const gen = entities.fetchModel('User')
+
+            expect(gen.next().value).to.eql(call(requestSaga, 'entities/User/model'))
+
+            const resp = {
+              body: {
+                name: 'User',
+                fields: [{
+                  fieldName: 'firstname'
+                }],
+                relations: [{
+                  relationName: 'relUser_status'
+                }]
+              }
+            }
+
+            const next = gen.next(resp)
+
+            expect(next.value).to.eql({
+              firstname: {
+                fieldName: 'firstname'
+              },
+              relUser_status: {
+                relationName: 'relUser_status',
+                type: 'relation'
+              }
             })
+            expect(next.done).to.be.true
           })
 
           describe('defaultModelTransformer', () => {

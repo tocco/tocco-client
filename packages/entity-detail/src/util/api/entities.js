@@ -1,28 +1,30 @@
-import {request, getRequest} from 'tocco-util/src/rest'
+import {call} from 'redux-saga/effects'
+import {requestSaga, getRequestSaga} from 'tocco-util/src/rest'
 import {SubmissionError} from 'redux-form'
 import {validationErrorToFormError} from '../detailView/reduxForm'
 
-export function fetchEntity(entityName, id, fields, formName) {
+export function* fetchEntity(entityName, id, fields, formName) {
   const params = {
     '_paths': fields.join(','),
     '_form': formName
   }
 
-  return request(`entities/${entityName}/${id}`, params)
-    .then(resp => resp.body)
+  const resp = yield call(requestSaga, `entities/${entityName}/${id}`, params)
+  return resp.body
 }
 
-export function updateEntity(entity, fields) {
+export function* updateEntity(entity, fields) {
   const params = {
     '_paths': fields.join(',')
   }
-  return request(`entities/${entity.model}/${entity.key}`, params, 'PATCH', entity, ['VALIDATION_FAILED'])
-    .then(resp => {
-      if (resp.body.errorCode === 'VALIDATION_FAILED') {
-        throw new SubmissionError(validationErrorToFormError(entity, resp.body.errors))
-      }
-      return resp.body
-    })
+  const resource = `entities/${entity.model}/${entity.key}`
+  const resp = yield call(requestSaga, resource, params, 'PATCH', entity, ['VALIDATION_FAILED'])
+
+  if (resp.body.errorCode === 'VALIDATION_FAILED') {
+    throw new SubmissionError(validationErrorToFormError(entity, resp.body.errors))
+  }
+
+  return resp.body
 }
 
 export const defaultModelTransformer = json => {
@@ -42,10 +44,9 @@ export const defaultModelTransformer = json => {
   return model
 }
 
-export function fetchModel(entityName, transformer = defaultModelTransformer) {
-  return request(`entities/${entityName}/model`)
-    .then(resp => resp.body)
-    .then(json => transformer(json))
+export function* fetchModel(entityName, transformer = defaultModelTransformer) {
+  const resp = yield call(requestSaga, `entities/${entityName}/model`)
+  return transformer(resp.body)
 }
 
 const defaultEntitiesTransformer = json => (json)
@@ -81,10 +82,8 @@ function buildParams({
   return params
 }
 
-export function fetchEntities(entityName, searchInputs,
-                              transformer = defaultEntitiesTransformer) {
+export function* fetchEntities(entityName, searchInputs, transformer = defaultEntitiesTransformer) {
   const params = buildParams(searchInputs)
-  return getRequest(`entities/${entityName}`, params, [])
-    .then(resp => resp.body)
-    .then(json => transformer(json))
+  const resp = yield call(getRequestSaga, `entities/${entityName}`, params, [])
+  return transformer(resp.body)
 }
