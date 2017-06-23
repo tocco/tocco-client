@@ -1,4 +1,13 @@
-import {getParameterString, request, setNullBusinessUnit} from './rest'
+import {call} from 'redux-saga/effects'
+import {
+  getParameterString,
+  request,
+  getRequestSaga,
+  requestSaga,
+  setNullBusinessUnit,
+  prepareRequest,
+  sendRequest
+} from './rest'
 import fetchMock from 'fetch-mock'
 
 describe('tocco-util', () => {
@@ -50,7 +59,7 @@ describe('tocco-util', () => {
       })
     })
 
-    describe('Request', () => {
+    describe('request', () => {
       beforeEach(() => {
         fetchMock.reset()
         fetchMock.restore()
@@ -70,7 +79,7 @@ describe('tocco-util', () => {
         const mockedResponse = new Response(body, {'status': statusCode})
 
         fetchMock.get('*', mockedResponse)
-        const resource = 'Entities/Contact'
+        const resource = 'entities/Contact'
         request(resource, {}, 'GET', {}, ['SAVE_FAILED']).then(response => {
           expect(response.status).to.eql(statusCode)
           expect(response.body).to.eql(bodyObj)
@@ -88,7 +97,7 @@ describe('tocco-util', () => {
         const mockedResponse = new Response(body, {'status': statusCode, statusText: 'Some error'})
 
         fetchMock.get('*', mockedResponse)
-        const resource = 'Entities/Contact'
+        const resource = 'entities/Contact'
         request(resource, {}, 'GET', {}, []).catch(() => {
           done()
         })
@@ -113,6 +122,7 @@ describe('tocco-util', () => {
 
         setNullBusinessUnit(true)
         request('', {}, 'GET', {}, [])
+        setNullBusinessUnit(false)
 
         const headers2 = fetchMock.lastOptions().headers
         expect(headers2.get('x-business-unit')).to.eql('__n-u-l-l__')
@@ -120,7 +130,7 @@ describe('tocco-util', () => {
 
       it('should use ordered params', () => {
         fetchMock.get('*', {})
-        const resource = 'Entities/Contact'
+        const resource = 'entities/Contact'
         const params = {
           _search: 'test',
           xyz: 'abc'
@@ -128,7 +138,7 @@ describe('tocco-util', () => {
         request(resource, params)
 
         const lastCall = fetchMock.lastCall()[0]
-        expect(lastCall).to.eql('/nice2/rest/Entities/Contact?_search=test&xyz=abc')
+        expect(lastCall).to.eql('/nice2/rest/entities/Contact?_search=test&xyz=abc')
       })
 
       it('should return with accepted status code', done => {
@@ -138,7 +148,7 @@ describe('tocco-util', () => {
         const mockedResponse = new Response(body, {'status': statusCode})
 
         fetchMock.get('*', mockedResponse)
-        const resource = 'Entities/Contact'
+        const resource = 'entities/Contact'
         request(resource, undefined, undefined, undefined, undefined, [400]).then(response => {
           expect(response.status).to.eql(statusCode)
           expect(response.body).to.eql({})
@@ -153,10 +163,111 @@ describe('tocco-util', () => {
         const mockedResponse = new Response(body, {'status': statusCode})
 
         fetchMock.get('*', mockedResponse)
-        const resource = 'Entities/Contact'
+        const resource = 'entities/Contact'
         request(resource, undefined, undefined, undefined, undefined, []).catch(() => {
           done()
         })
+      })
+    })
+
+    describe('getRequestSaga', () => {
+      it('should call request saga', () => {
+        const resource = 'entities/Contact'
+        const params = {
+          _search: 'test',
+          xyz: 'abc'
+        }
+        const acceptedErrorCodes = ['MY_ERROR_CODE']
+
+        const gen = getRequestSaga(resource, params, acceptedErrorCodes)
+
+        expect(gen.next().value).to.eql(call(requestSaga, resource, params, 'GET', undefined, acceptedErrorCodes))
+
+        const resp = {}
+
+        const next = gen.next(resp)
+
+        expect(next.value).to.equal(resp) // expect same (not just equal)
+        expect(next.done).to.be.true
+      })
+    })
+
+    describe('requestSaga', () => {
+      it('should call prepareRequest and sendRequest', () => {
+        const resource = 'entities/Contact'
+        const params = {
+          _search: 'test',
+          xyz: 'abc'
+        }
+        const method = 'POST'
+        const body = {
+          foo: 'bar'
+        }
+        const acceptedErrorCodes = ['MY_ERROR_CODE']
+        const acceptedStatusCodes = [400]
+
+        const gen = requestSaga(resource, params, method, body, acceptedErrorCodes, acceptedStatusCodes)
+
+        expect(gen.next().value).to.eql(call(prepareRequest, resource, params, method, body))
+
+        const requestData = prepareRequest(resource, params, method, body)
+
+        expect(gen.next(requestData).value)
+          .to.eql(call(sendRequest, requestData.url, requestData.options, acceptedErrorCodes, acceptedStatusCodes))
+
+        const resp = {}
+
+        const next = gen.next(resp)
+
+        expect(next.value).to.equal(resp) // expect same (not just equal)
+        expect(next.done).to.be.true
+      })
+    })
+
+    describe('prepareRequest', () => {
+      it('should append params to query', () => {
+        const resource = 'entities/Contact'
+        const params = {
+          _search: 'test',
+          xyz: 'abc'
+        }
+        const requestData = prepareRequest(resource, params)
+
+        expect(requestData.url).to.eql('/nice2/rest/entities/Contact?_search=test&xyz=abc')
+      })
+
+      it('should use GET as default method', () => {
+        const requestData = prepareRequest('entities/Contact')
+        expect(requestData.options.method).to.eql('GET')
+      })
+
+      it('should use specified method', () => {
+        const requestData = prepareRequest('entities/Contact', null, 'POST')
+        expect(requestData.options.method).to.eql('POST')
+      })
+
+      it('should include credentials', () => {
+        const requestData = prepareRequest('entities/Contact')
+        expect(requestData.options.credentials).to.eql('include')
+      })
+
+      it('should add serialized body to options', () => {
+        const resource = 'entities/Contact'
+        const body = {
+          foo: 'bar'
+        }
+        const requestData = prepareRequest(resource, null, 'POST', body)
+
+        expect(requestData.options.body).to.eql('{"foo":"bar"}')
+        expect(requestData.options.headers.get('Content-Type')).to.eql('application/json')
+      })
+
+      it('should add X-Business-Unit header if null business unit', () => {
+        setNullBusinessUnit(true)
+        const requestData = prepareRequest('entities/Contact')
+        setNullBusinessUnit(false)
+
+        expect(requestData.options.headers.get('X-Business-Unit')).to.eql('__n-u-l-l__')
       })
     })
   })

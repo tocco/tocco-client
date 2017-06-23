@@ -1,3 +1,5 @@
+import {call} from 'redux-saga/effects'
+
 export const getParameterString = params => {
   const paramString = Object.keys(params || {})
     .filter(k => !!params[k])
@@ -33,8 +35,15 @@ const extractBody = response => (
   })
 )
 
+/**
+ * @deprecated #getRequestSaga should be used, since it allows to put actions or to call other sagas
+ */
 export const getRequest = (resource, params, acceptedErrorCodes = []) => {
   return request(resource, params, 'GET', undefined, acceptedErrorCodes)
+}
+
+export function* getRequestSaga(resource, params, acceptedErrorCodes = []) {
+  return yield call(requestSaga, resource, params, 'GET', undefined, acceptedErrorCodes)
 }
 
 let nullBusinessUnit = false
@@ -43,7 +52,20 @@ export const setNullBusinessUnit = value => {
   nullBusinessUnit = value
 }
 
-export const request = (resource, params, method = 'GET', body, acceptedErrorCodes = [], acceptedStatusCodes = []) => {
+/**
+ * @deprecated #requestSaga should be used, since it allows to put actions or to call other sagas
+ */
+export const request = (resource, params, method, body, acceptedErrorCodes = [], acceptedStatusCodes = []) => {
+  const requestData = prepareRequest(resource, params, method, body)
+  return sendRequest(requestData.url, requestData.options, acceptedErrorCodes, acceptedStatusCodes)
+}
+
+export function* requestSaga(resource, params, method, body, acceptedErrorCodes = [], acceptedStatusCodes = []) {
+  const requestData = yield call(prepareRequest, resource, params, method, body)
+  return yield call(sendRequest, requestData.url, requestData.options, acceptedErrorCodes, acceptedStatusCodes)
+}
+
+export function prepareRequest(resource, params, method = 'GET', body) {
   const headers = {
     'Content-Type': 'application/json'
   }
@@ -65,6 +87,14 @@ export const request = (resource, params, method = 'GET', body, acceptedErrorCod
   const paramString = getParameterString(params)
 
   const url = `${__BACKEND_URL__}/nice2/rest/${resource}${paramString}`
+
+  return {
+    url,
+    options
+  }
+}
+
+export function sendRequest(url, options, acceptedErrorCodes, acceptedStatusCodes) {
   return fetch(url, options)
     .then(response => (extractBody(response)))
     .then(response => (handleError(response, acceptedErrorCodes, acceptedStatusCodes)))
