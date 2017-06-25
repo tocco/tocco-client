@@ -86,9 +86,44 @@ describe('entity-detail', () => {
             const gen = entities.fetchEntity('User', 99, ['f1', 'f2'], 'User_detail')
 
             expect(gen.next().value).to.eql(call(requestSaga, 'entities/User/99', {
-              _form: 'User_detail',
-              _paths: 'f1,f2'
+              queryParams: {
+                _form: 'User_detail',
+                _paths: 'f1,f2'
+              }
             }))
+
+            const resp = {
+              body: {}
+            }
+
+            const next = gen.next(resp)
+
+            expect(next.value).to.equal(resp.body) // expect same (not just equal)
+            expect(next.done).to.be.true
+          })
+        })
+
+        describe('updateEntity', () => {
+          it('should call request saga', () => {
+            const entity = {
+              model: 'User',
+              key: '1'
+            }
+
+            const gen = entities.updateEntity(entity, ['f1', 'f2'])
+
+            expect(gen.next().value).to.eql(call(
+              requestSaga,
+              'entities/User/1',
+              {
+                body: entity,
+                method: 'PATCH',
+                queryParams: {
+                  _paths: 'f1,f2'
+                },
+                acceptedErrorCodes: ['VALIDATION_FAILED']
+              }
+            ))
 
             const resp = {
               body: {}
@@ -132,49 +167,49 @@ describe('entity-detail', () => {
             })
             expect(next.done).to.be.true
           })
+        })
 
-          describe('defaultModelTransformer', () => {
-            it('should return an object with field names as key', () => {
-              const fetchResult = {
-                name: 'User',
-                fields: [
-                  {
-                    fieldName: 'pk',
-                    type: 'serial'
-                  },
-                  {
-                    fieldName: 'firstname',
-                    type: 'string'
-                  }
-                ],
-                relations: [
-                  {
-                    relationName: 'some_relation',
-                    targetEntity: 'Address',
-                    multi: true
-                  }
-                ]
-              }
-              const result = entities.defaultModelTransformer(fetchResult)
-              const expectedResult = {
-                pk: {
+        describe('defaultModelTransformer', () => {
+          it('should return an object with field names as key', () => {
+            const fetchResult = {
+              name: 'User',
+              fields: [
+                {
                   fieldName: 'pk',
                   type: 'serial'
-
                 },
-                firstname: {
+                {
                   fieldName: 'firstname',
                   type: 'string'
-                },
-                some_relation: {
-                  type: 'relation',
+                }
+              ],
+              relations: [
+                {
                   relationName: 'some_relation',
                   targetEntity: 'Address',
                   multi: true
                 }
+              ]
+            }
+            const result = entities.defaultModelTransformer(fetchResult)
+            const expectedResult = {
+              pk: {
+                fieldName: 'pk',
+                type: 'serial'
+
+              },
+              firstname: {
+                fieldName: 'firstname',
+                type: 'string'
+              },
+              some_relation: {
+                type: 'relation',
+                relationName: 'some_relation',
+                targetEntity: 'Address',
+                multi: true
               }
-              expect(result).to.eql(expectedResult)
-            })
+            }
+            expect(result).to.eql(expectedResult)
           })
         })
       })
