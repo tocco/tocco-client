@@ -82,6 +82,7 @@ export const request = (resource, queryParams, method, body, acceptedErrorCodes 
  * - body {Object}
  * - acceptedErrorCodes {Array}
  * - acceptedStatusCodes {Array}
+ * - backendUrl {String}
  */
 export function* requestSaga(resource, options = {}) {
   const requestData = yield call(prepareRequest, resource, options)
@@ -98,7 +99,8 @@ export function prepareRequest(resource, options = {}) {
   const {
     queryParams = {},
     method = 'GET',
-    body
+    body,
+    backendUrl = `${__BACKEND_URL__}`
   } = options
 
   const headers = {
@@ -121,7 +123,7 @@ export function prepareRequest(resource, options = {}) {
 
   const paramString = getParameterString(queryParams)
 
-  const url = `${__BACKEND_URL__}/nice2/rest/${resource}${paramString}`
+  const url = `${backendUrl}/nice2/rest/${resource}${paramString}`
 
   return {
     url,

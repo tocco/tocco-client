@@ -289,6 +289,16 @@ describe('tocco-util', () => {
 
         expect(requestData.options.headers.get('X-Business-Unit')).to.eql('__n-u-l-l__')
       })
+
+      it('should use backend URL from options if set', () => {
+        const resource = 'entities/Contact'
+        const options = {
+          backendUrl: 'https://my-backend.ch'
+        }
+        const requestData = prepareRequest(resource, options)
+
+        expect(requestData.url).to.eql('https://my-backend.ch/nice2/rest/entities/Contact')
+      })
     })
   })
 })
