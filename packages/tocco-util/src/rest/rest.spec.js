@@ -173,15 +173,20 @@ describe('tocco-util', () => {
     describe('getRequestSaga', () => {
       it('should call request saga', () => {
         const resource = 'entities/Contact'
-        const params = {
+        const queryParams = {
           _search: 'test',
           xyz: 'abc'
         }
         const acceptedErrorCodes = ['MY_ERROR_CODE']
 
-        const gen = getRequestSaga(resource, params, acceptedErrorCodes)
+        const gen = getRequestSaga(resource, queryParams, acceptedErrorCodes)
 
-        expect(gen.next().value).to.eql(call(requestSaga, resource, params, 'GET', undefined, acceptedErrorCodes))
+        const expectedOptions = {
+          method: 'GET',
+          queryParams,
+          acceptedErrorCodes
+        }
+        expect(gen.next().value).to.eql(call(requestSaga, resource, expectedOptions))
 
         const resp = {}
 
@@ -195,25 +200,32 @@ describe('tocco-util', () => {
     describe('requestSaga', () => {
       it('should call prepareRequest and sendRequest', () => {
         const resource = 'entities/Contact'
-        const params = {
-          _search: 'test',
-          xyz: 'abc'
+        const options = {
+          queryParams: {
+            _search: 'test',
+            xyz: 'abc'
+          },
+          method: 'POST',
+          body: {
+            foo: 'bar'
+          },
+          acceptedErrorCodes: ['MY_ERROR_CODE'],
+          acceptedStatusCodes: [400]
         }
-        const method = 'POST'
-        const body = {
-          foo: 'bar'
-        }
-        const acceptedErrorCodes = ['MY_ERROR_CODE']
-        const acceptedStatusCodes = [400]
 
-        const gen = requestSaga(resource, params, method, body, acceptedErrorCodes, acceptedStatusCodes)
+        const gen = requestSaga(resource, options)
 
-        expect(gen.next().value).to.eql(call(prepareRequest, resource, params, method, body))
+        expect(gen.next().value).to.eql(call(prepareRequest, resource, options))
 
-        const requestData = prepareRequest(resource, params, method, body)
+        const requestData = prepareRequest(resource, options)
 
-        expect(gen.next(requestData).value)
-          .to.eql(call(sendRequest, requestData.url, requestData.options, acceptedErrorCodes, acceptedStatusCodes))
+        expect(gen.next(requestData).value).to.eql(call(
+          sendRequest,
+          requestData.url,
+          requestData.options,
+          options.acceptedErrorCodes,
+          options.acceptedStatusCodes
+        ))
 
         const resp = {}
 
@@ -227,11 +239,13 @@ describe('tocco-util', () => {
     describe('prepareRequest', () => {
       it('should append params to query', () => {
         const resource = 'entities/Contact'
-        const params = {
-          _search: 'test',
-          xyz: 'abc'
+        const options = {
+          queryParams: {
+            _search: 'test',
+            xyz: 'abc'
+          }
         }
-        const requestData = prepareRequest(resource, params)
+        const requestData = prepareRequest(resource, options)
 
         expect(requestData.url).to.eql('/nice2/rest/entities/Contact?_search=test&xyz=abc')
       })
@@ -242,7 +256,10 @@ describe('tocco-util', () => {
       })
 
       it('should use specified method', () => {
-        const requestData = prepareRequest('entities/Contact', null, 'POST')
+        const options = {
+          method: 'POST'
+        }
+        const requestData = prepareRequest('entities/Contact', options)
         expect(requestData.options.method).to.eql('POST')
       })
 
@@ -253,10 +270,13 @@ describe('tocco-util', () => {
 
       it('should add serialized body to options', () => {
         const resource = 'entities/Contact'
-        const body = {
-          foo: 'bar'
+        const options = {
+          method: 'POST',
+          body: {
+            foo: 'bar'
+          }
         }
-        const requestData = prepareRequest(resource, null, 'POST', body)
+        const requestData = prepareRequest(resource, options)
 
         expect(requestData.options.body).to.eql('{"foo":"bar"}')
         expect(requestData.options.headers.get('Content-Type')).to.eql('application/json')
@@ -268,6 +288,16 @@ describe('tocco-util', () => {
         setNullBusinessUnit(false)
 
         expect(requestData.options.headers.get('X-Business-Unit')).to.eql('__n-u-l-l__')
+      })
+
+      it('should use backend URL from options if set', () => {
+        const resource = 'entities/Contact'
+        const options = {
+          backendUrl: 'https://my-backend.ch'
+        }
+        const requestData = prepareRequest(resource, options)
+
+        expect(requestData.url).to.eql('https://my-backend.ch/nice2/rest/entities/Contact')
       })
     })
   })

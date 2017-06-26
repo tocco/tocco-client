@@ -4,21 +4,28 @@ import {SubmissionError} from 'redux-form'
 import {validationErrorToFormError} from '../detailView/reduxForm'
 
 export function* fetchEntity(entityName, id, fields, formName) {
-  const params = {
-    '_paths': fields.join(','),
-    '_form': formName
+  const options = {
+    queryParams: {
+      '_paths': fields.join(','),
+      '_form': formName
+    }
   }
 
-  const resp = yield call(requestSaga, `entities/${entityName}/${id}`, params)
+  const resp = yield call(requestSaga, `entities/${entityName}/${id}`, options)
   return resp.body
 }
 
-export function* updateEntity(entity, fields) {
-  const params = {
-    '_paths': fields.join(',')
+export function* updateEntity(entity, fields = []) {
+  const options = {
+    method: 'PATCH',
+    queryParams: {
+      '_paths': fields.join(',')
+    },
+    body: entity,
+    acceptedErrorCodes: ['VALIDATION_FAILED']
   }
   const resource = `entities/${entity.model}/${entity.key}`
-  const resp = yield call(requestSaga, resource, params, 'PATCH', entity, ['VALIDATION_FAILED'])
+  const resp = yield call(requestSaga, resource, options)
 
   if (resp.body.errorCode === 'VALIDATION_FAILED') {
     throw new SubmissionError(validationErrorToFormError(entity, resp.body.errors))

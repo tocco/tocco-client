@@ -42,8 +42,13 @@ export const getRequest = (resource, params, acceptedErrorCodes = []) => {
   return request(resource, params, 'GET', undefined, acceptedErrorCodes)
 }
 
-export function* getRequestSaga(resource, params, acceptedErrorCodes = []) {
-  return yield call(requestSaga, resource, params, 'GET', undefined, acceptedErrorCodes)
+export function* getRequestSaga(resource, queryParams, acceptedErrorCodes = []) {
+  const options = {
+    method: 'GET',
+    queryParams,
+    acceptedErrorCodes
+  }
+  return yield call(requestSaga, resource, options)
 }
 
 let nullBusinessUnit = false
@@ -55,17 +60,49 @@ export const setNullBusinessUnit = value => {
 /**
  * @deprecated #requestSaga should be used, since it allows to put actions or to call other sagas
  */
-export const request = (resource, params, method, body, acceptedErrorCodes = [], acceptedStatusCodes = []) => {
-  const requestData = prepareRequest(resource, params, method, body)
-  return sendRequest(requestData.url, requestData.options, acceptedErrorCodes, acceptedStatusCodes)
+export const request = (resource, queryParams, method, body, acceptedErrorCodes = [], acceptedStatusCodes = []) => {
+  const options = {
+    queryParams,
+    method,
+    body,
+    acceptedErrorCodes,
+    acceptedStatusCodes
+  }
+  const requestData = prepareRequest(resource, options)
+  return sendRequest(requestData.url, requestData.options, options.acceptedErrorCodes, options.acceptedStatusCodes)
 }
 
-export function* requestSaga(resource, params, method, body, acceptedErrorCodes = [], acceptedStatusCodes = []) {
-  const requestData = yield call(prepareRequest, resource, params, method, body)
-  return yield call(sendRequest, requestData.url, requestData.options, acceptedErrorCodes, acceptedStatusCodes)
+/**
+ * Fetch a resource.
+ *
+ * @param resource {String} The URL to fetch.
+ * @param options {Object} An object which can contain the following options:
+ * - queryParams {Object}
+ * - method {String}
+ * - body {Object}
+ * - acceptedErrorCodes {Array}
+ * - acceptedStatusCodes {Array}
+ * - backendUrl {String}
+ */
+export function* requestSaga(resource, options = {}) {
+  const requestData = yield call(prepareRequest, resource, options)
+  return yield call(
+    sendRequest,
+    requestData.url,
+    requestData.options,
+    options.acceptedErrorCodes,
+    options.acceptedStatusCodes
+  )
 }
 
-export function prepareRequest(resource, params, method = 'GET', body) {
+export function prepareRequest(resource, options = {}) {
+  const {
+    queryParams = {},
+    method = 'GET',
+    body,
+    backendUrl = `${__BACKEND_URL__}`
+  } = options
+
   const headers = {
     'Content-Type': 'application/json'
   }
@@ -74,23 +111,23 @@ export function prepareRequest(resource, params, method = 'GET', body) {
     headers['X-Business-Unit'] = '__n-u-l-l__'
   }
 
-  const options = {
+  const fetchOptions = {
     method,
     headers: new Headers(headers),
     credentials: 'include'
   }
 
   if (body) {
-    options.body = JSON.stringify(body)
+    fetchOptions.body = JSON.stringify(body)
   }
 
-  const paramString = getParameterString(params)
+  const paramString = getParameterString(queryParams)
 
-  const url = `${__BACKEND_URL__}/nice2/rest/${resource}${paramString}`
+  const url = `${backendUrl}/nice2/rest/${resource}${paramString}`
 
   return {
     url,
-    options
+    options: fetchOptions
   }
 }
 
