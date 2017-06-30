@@ -10,7 +10,6 @@
   "client.entity-detail.saveAbortedMessage",
   "client.entity-detail.saveSuccessfulTitle",
   "client.entity-detail.saveSuccessfulMessage",
-  "client.entity-detail.saveSuccessfulTitle",
   "client.entity-detail.syncValidationRequired",
   "client.entity-detail.syncValidationMinLength",
   "client.entity-detail.syncValidationMaxLength",
