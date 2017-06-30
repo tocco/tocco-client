@@ -97,8 +97,8 @@ export function* submitForm() {
 
     yield put(notifier.info(
       'success',
-      'client.entity-browser.detail.saveSuccessfulTitle',
-      'client.entity-browser.detail.saveSuccessfulMessage',
+      'client.entity-detail.saveSuccessfulTitle',
+      'client.entity-detail.saveSuccessfulMessage',
       'check',
       2000
     ))
@@ -109,14 +109,14 @@ export function* submitForm() {
       yield put(touch(FORM_ID, ...Object.keys(error.errors)))
       yield put(stopSubmit(FORM_ID, error.errors))
     } else {
-      yield put(errorLogging.logError('client.common.unexpectedError', 'client.entity-browser.detail.saveError', error))
+      yield put(errorLogging.logError('client.common.unexpectedError', 'client.entity-detail.saveError', error))
       yield put(stopSubmit(FORM_ID))
     }
 
     yield put(notifier.info(
       'warning',
-      'client.entity-browser.detail.saveAbortedTitle',
-      'client.entity-browser.detail.saveAbortedMessage',
+      'client.entity-detail.saveAbortedTitle',
+      'client.entity-detail.saveAbortedMessage',
       'ban',
       5000
     ))

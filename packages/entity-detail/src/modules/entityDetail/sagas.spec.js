@@ -158,8 +158,8 @@ describe('entity-detail', () => {
             expect(gen.next(updatedFormValues).value).to.eql(put(initializeForm(formId, updatedFormValues)))
             expect(gen.next().value).to.eql(put(notifier.info(
               'success',
-              'client.entity-browser.detail.saveSuccessfulTitle',
-              'client.entity-browser.detail.saveSuccessfulMessage',
+              'client.entity-detail.saveSuccessfulTitle',
+              'client.entity-detail.saveSuccessfulMessage',
               'check',
               2000))
             )
