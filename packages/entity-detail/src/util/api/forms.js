@@ -1,7 +1,6 @@
+import {call} from 'redux-saga/effects'
 import _startsWith from 'lodash/startsWith'
-import {request} from 'tocco-util/src/rest'
-
-export const getDetailFormName = formBase => (formBase + '_detail')
+import {requestSaga} from 'tocco-util/src/rest'
 
 const IGNORED_FIELD_TYPES = [
   'ch.tocco.nice2.model.form.components.simple.DescriptionField'
@@ -39,8 +38,7 @@ const getFieldsOfChildren = children => {
 
 const defaultFormTransformer = json => (json.form)
 
-export function fetchForm(formName, transformer = defaultFormTransformer) {
-  return request(`forms/${formName}`)
-    .then(resp => resp.body)
-    .then(json => transformer(json))
+export function* fetchForm(formName, transformer = defaultFormTransformer) {
+  const response = yield call(requestSaga, `forms/${formName}`)
+  return transformer(response.body)
 }
