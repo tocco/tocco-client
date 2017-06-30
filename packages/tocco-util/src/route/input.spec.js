@@ -1,7 +1,7 @@
 import {dispatchInput} from './input'
 
-describe('entity-browser', () => {
-  describe('util', () => {
+describe('tocco-util', () => {
+  describe('route', () => {
     describe('input', () => {
       describe('dispatchInput', () => {
         const actionCreator = entityName => ({

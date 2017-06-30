@@ -2,8 +2,8 @@ import React from 'react'
 import {mount} from 'enzyme'
 import asyncRoute from './asyncRoute'
 
-describe('entity-browser', () => {
-  describe('util', () => {
+describe('tocco-util', () => {
+  describe('route', () => {
     describe('asyncRoute', () => {
       const InnerComp = () => <div>test</div>
 
