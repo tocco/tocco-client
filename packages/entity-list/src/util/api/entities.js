@@ -1,4 +1,5 @@
-import {request, getRequest} from 'tocco-util/src/rest'
+import {call} from 'redux-saga/effects'
+import {requestSaga, getRequestSaga} from 'tocco-util/src/rest'
 
 export const defaultModelTransformer = json => {
   const model = {}
@@ -17,10 +18,9 @@ export const defaultModelTransformer = json => {
   return model
 }
 
-export function fetchModel(entityName, transformer = defaultModelTransformer) {
-  return request(`entities/${entityName}/model`)
-    .then(resp => resp.body)
-    .then(json => transformer(json))
+export function* fetchModel(entityName, transformer = defaultModelTransformer) {
+  const resp = yield call(requestSaga, `entities/${entityName}/model`)
+  return transformer(resp.body)
 }
 
 export const entitiesListTransformer = json => {
@@ -84,17 +84,15 @@ function buildParams({
   return params
 }
 
-export function fetchEntities(entityName, searchInputs,
-                              transformer = defaultEntitiesTransformer) {
+export function* fetchEntities(entityName, searchInputs,
+                               transformer = defaultEntitiesTransformer) {
   const params = buildParams(searchInputs)
-  return getRequest(`entities/${entityName}`, params, [])
-    .then(resp => resp.body)
-    .then(json => transformer(json))
+  const response = yield call(getRequestSaga, `entities/${entityName}`, params, [])
+  return transformer(response.body)
 }
 
-export function fetchEntityCount(entityName, searchInputs) {
+export function* fetchEntityCount(entityName, searchInputs) {
   const params = buildParams(searchInputs)
-  return getRequest(`entities/${entityName}/count`, params, [])
-    .then(resp => resp.body)
-    .then(json => json.count)
+  const response = yield call(getRequestSaga, `entities/${entityName}/count`, params, [])
+  return response.body.count
 }

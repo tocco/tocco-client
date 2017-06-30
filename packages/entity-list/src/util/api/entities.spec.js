@@ -1,46 +1,74 @@
+import {call} from 'redux-saga/effects'
+import {requestSaga, getRequestSaga} from 'tocco-util/src/rest'
 import * as entities from './entities'
-import fetchMock from 'fetch-mock'
 
 describe('entity-list', () => {
   describe('util', () => {
     describe('api', () => {
       describe('entities', () => {
-        beforeEach(() => {
-          fetchMock.reset()
-          fetchMock.restore()
-        })
-
         describe('fetchEntities', () => {
-          it('should call fetch', () => {
-            fetchMock.get('*', {data: [{fields: {a: 'a'}}]})
-
-            const fields = ['f1', 'f2']
-            return entities.fetchEntities('User', {
+          it('should fetch the data', () => {
+            const gen = entities.fetchEntities('User', {
               page: 2,
               orderBy: 'firstname',
               limit: 20,
-              fields: fields,
+              fields: ['f1', 'f2'],
               searchInputs: {_search: 'test'},
               formName: 'User_list'
-            }).then(() => {
-              expect(fetchMock.calls().matched).to.have.length(1)
-              const lastCall = fetchMock.lastCall()[0]
-              expect(lastCall)
-                .to.eql('/nice2/rest/entities/User?_form=User_list&_limit=20&_offset=20&_paths=f1%2Cf2&_search=test')
             })
+
+            expect(gen.next().value).to.eql(call(getRequestSaga, 'entities/User', {
+              _filter: '',
+              _form: 'User_list',
+              _limit: 20,
+              _offset: 20,
+              _paths: 'f1,f2',
+              _search: 'test',
+              _sort: undefined
+            }, []))
+
+            const resp = {
+              body: {
+                data: [{fields: {a: 'a'}}]
+              }
+            }
+
+            const next = gen.next(resp)
+
+            expect(next.value).to.eql(resp.body)
+            expect(next.done).to.be.true
           })
         })
 
         describe('fetchEntityCount', () => {
           it('should call fetch and return correct amount', () => {
-            fetchMock.get('*', {count: 99})
-            return entities.fetchEntityCount('User').then(result => {
-              expect(result).to.be.eql(99)
-
-              expect(fetchMock.calls().matched).to.have.length(1)
-              const lastCallUrl = fetchMock.lastCall()[0]
-              expect(lastCallUrl).to.eql('/nice2/rest/entities/User/count')
+            const gen = entities.fetchEntityCount('User', {
+              page: 2,
+              orderBy: 'firstname',
+              limit: 20,
+              fields: ['f1', 'f2'],
+              searchInputs: {_search: 'test'},
+              formName: 'User_list'
             })
+
+            expect(gen.next().value).to.eql(call(getRequestSaga, 'entities/User/count', {
+              _filter: '',
+              _form: 'User_list',
+              _limit: 20,
+              _offset: 20,
+              _paths: 'f1,f2',
+              _search: 'test',
+              _sort: undefined
+            }, []))
+
+            const resp = {
+              body: {count: 99}
+            }
+
+            const next = gen.next(resp)
+
+            expect(next.value).to.eql(resp.body.count)
+            expect(next.done).to.be.true
           })
         })
 
@@ -189,14 +217,36 @@ describe('entity-list', () => {
         })
 
         describe('fetchModel', () => {
-          it('should call fetch', () => {
-            fetchMock.get('*', {})
-            return entities.fetchModel('User', () => {
-            }).then(() => {
-              expect(fetchMock.calls().matched).to.have.length(1)
-              const lastCallUrl = fetchMock.lastCall()[0]
-              expect(lastCallUrl).to.eql('/nice2/rest/entities/User/model')
+          it('should call request saga and transform response', () => {
+            const gen = entities.fetchModel('User')
+
+            expect(gen.next().value).to.eql(call(requestSaga, 'entities/User/model'))
+
+            const resp = {
+              body: {
+                name: 'User',
+                fields: [{
+                  fieldName: 'firstname'
+                }],
+                relations: [{
+                  relationName: 'relUser_status',
+                  targetEntity: 'User_status'
+                }]
+              }
+            }
+
+            const next = gen.next(resp)
+
+            expect(next.value).to.eql({
+              firstname: {
+                fieldName: 'firstname'
+              },
+              relUser_status: {
+                targetEntity: 'User_status',
+                type: 'relation'
+              }
             })
+            expect(next.done).to.be.true
           })
         })
 
