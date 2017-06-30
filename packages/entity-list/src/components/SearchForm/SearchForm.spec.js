@@ -6,7 +6,7 @@ import {Button, FormField} from 'tocco-ui'
 
 const EMPTY_FUNC = () => {}
 
-describe('entity-browser', () => {
+describe('entity-list', () => {
   describe('components', () => {
     describe('SearchForm', () => {
       it('should render nothing if searchFormDefinition empty', () => {
