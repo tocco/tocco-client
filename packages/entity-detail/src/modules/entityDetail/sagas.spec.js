@@ -4,9 +4,12 @@ import * as actions from './actions'
 import {
   startSubmit,
   stopSubmit,
-  initialize as initializeForm
+  initialize as initializeForm,
+  SubmissionError,
+  touch
 } from 'redux-form'
-import {externalEvents, notifier} from 'tocco-util'
+import {externalEvents, notifier, errorLogging} from 'tocco-util'
+import {ClientQuestionCancelledException} from 'tocco-util/src/rest'
 import {updateEntity, fetchEntity, fetchModel, fetchEntities, selectEntitiesTransformer} from '../../util/api/entities'
 import {getFieldsOfDetailForm} from '../../util/api/forms'
 import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../util/detailView/reduxForm'
@@ -167,6 +170,104 @@ describe('entity-detail', () => {
             const lastSaveTime = lastSaveAction.PUT.action.payload.lastSave
             expect(lastSaveAction).to.eql(put(actions.setLastSave(lastSaveTime)))
             expect(gen.next().value).to.eql(put(stopSubmit(formId)))
+            expect(gen.next().done).to.be.true
+          })
+
+          it('should put stopSubmit with errors on SubmissionError', () => {
+            const formId = FORM_ID
+            const values = {firstname: 'peter'}
+            const initialValues = {firstname: 'pet'}
+            const errors = {field1: 'invalid value'}
+
+            const gen = sagas.submitForm()
+
+            expect(gen.next().value) // not working : expect(gen.next().value).to.eql(select(getFormValues(formId)))
+            expect(gen.next(values).value) // expect(gen.next().value).to.eql(select(formInitialValueSelector(formId)))
+            expect(gen.next(initialValues).value).to.eql(put(startSubmit(formId)))
+            expect(gen.next().value).to.eql(call(submitValidate, values, initialValues))
+
+            expect(gen.throw(new SubmissionError(errors)).value).to.eql(put(touch(FORM_ID, 'field1')))
+            expect(gen.next().value).to.eql(put(stopSubmit(FORM_ID, errors)))
+            expect(gen.next().value).to.eql(put(notifier.info(
+              'warning',
+              'client.entity-browser.detail.saveAbortedTitle',
+              'client.entity-browser.detail.saveAbortedMessage',
+              'ban',
+              5000
+            )))
+
+            expect(gen.next().done).to.be.true
+          })
+
+          it('should put stopSubmit without logging an error on ClientQuestionCancelledException', () => {
+            const formId = FORM_ID
+            const values = {firstname: 'peter'}
+            const initialValues = {firstname: 'pet'}
+            const dirtyFields = ['firstname']
+            const entity = {}
+            const formDefinition = {}
+            const fields = []
+
+            const gen = sagas.submitForm()
+
+            expect(gen.next().value) // not working : expect(gen.next().value).to.eql(select(getFormValues(formId)))
+            expect(gen.next(values).value) // expect(gen.next().value).to.eql(select(formInitialValueSelector(formId)))
+            expect(gen.next(initialValues).value).to.eql(put(startSubmit(formId)))
+            expect(gen.next().value).to.eql(call(submitValidate, values, initialValues))
+            expect(gen.next().value).to.eql(call(getDirtyFields, initialValues, values))
+            expect(gen.next(dirtyFields).value).to.eql(call(formValuesToEntity, values, dirtyFields))
+            expect(gen.next(entity).value).to.eql(select(sagas.entityDetailSelector))
+            expect(gen.next({formDefinition}).value).to.eql(call(getFieldsOfDetailForm, formDefinition))
+            expect(gen.next(fields).value).to.eql(call(updateEntity, entity, fields))
+
+            expect(gen.throw(new ClientQuestionCancelledException()).value).to.eql(put(stopSubmit(FORM_ID)))
+            expect(gen.next().value).to.eql(put(notifier.info(
+              'warning',
+              'client.entity-browser.detail.saveAbortedTitle',
+              'client.entity-browser.detail.saveAbortedMessage',
+              'ban',
+              5000
+            )))
+
+            expect(gen.next().done).to.be.true
+          })
+
+          it('should put stopSubmit and log the error on general errors', () => {
+            const formId = FORM_ID
+            const values = {firstname: 'peter'}
+            const initialValues = {firstname: 'pet'}
+            const dirtyFields = ['firstname']
+            const entity = {}
+            const formDefinition = {}
+            const fields = []
+
+            const gen = sagas.submitForm()
+
+            expect(gen.next().value) // not working : expect(gen.next().value).to.eql(select(getFormValues(formId)))
+            expect(gen.next(values).value) // expect(gen.next().value).to.eql(select(formInitialValueSelector(formId)))
+            expect(gen.next(initialValues).value).to.eql(put(startSubmit(formId)))
+            expect(gen.next().value).to.eql(call(submitValidate, values, initialValues))
+            expect(gen.next().value).to.eql(call(getDirtyFields, initialValues, values))
+            expect(gen.next(dirtyFields).value).to.eql(call(formValuesToEntity, values, dirtyFields))
+            expect(gen.next(entity).value).to.eql(select(sagas.entityDetailSelector))
+            expect(gen.next({formDefinition}).value).to.eql(call(getFieldsOfDetailForm, formDefinition))
+            expect(gen.next(fields).value).to.eql(call(updateEntity, entity, fields))
+
+            const error = new Error('anything')
+            expect(gen.throw(error).value).to.eql(put(errorLogging.logError(
+              'client.common.unexpectedError',
+              'client.entity-browser.detail.saveError',
+              error
+            )))
+            expect(gen.next().value).to.eql(put(stopSubmit(FORM_ID)))
+            expect(gen.next().value).to.eql(put(notifier.info(
+              'warning',
+              'client.entity-browser.detail.saveAbortedTitle',
+              'client.entity-browser.detail.saveAbortedMessage',
+              'ban',
+              5000
+            )))
+
             expect(gen.next().done).to.be.true
           })
         })

@@ -1,3 +1,17 @@
-import {request, requestSaga, getRequest, getRequestSaga, setNullBusinessUnit} from './rest'
+import {
+  request,
+  requestSaga,
+  getRequest,
+  getRequestSaga,
+  setNullBusinessUnit
+} from './rest'
+import ClientQuestionCancelledException from './ClientQuestionCancelledException'
 
-export {request, requestSaga, getRequest, getRequestSaga, setNullBusinessUnit}
+export {
+  request,
+  requestSaga,
+  getRequest,
+  getRequestSaga,
+  setNullBusinessUnit,
+  ClientQuestionCancelledException
+}

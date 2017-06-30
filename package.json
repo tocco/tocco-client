@@ -145,6 +145,7 @@
     "css-loader": "0.28.1",
     "debug": "2.6.6",
     "enzyme": "2.8.2",
+    "es6-error": "4.0.2",
     "eslint": "3.19.0",
     "eslint-config-standard": "10.2.1",
     "eslint-loader": "1.7.1",
