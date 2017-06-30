@@ -1,6 +1,6 @@
 import {getSearchInputsForRequest} from './searchInputs'
 
-describe('entity-browser', () => {
+describe('entity-list', () => {
   describe('util', () => {
     describe('searchInputs', () => {
       describe('getSearchInputsForRequest', () => {

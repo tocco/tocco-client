@@ -1,4 +1,6 @@
 import {call} from 'redux-saga/effects'
+import {sendRequest} from './request'
+import {handleClientQuestion} from './clientQuestions'
 
 export const getParameterString = params => {
   const paramString = Object.keys(params || {})
@@ -17,23 +19,6 @@ export const getParameterString = params => {
   }
   return ''
 }
-
-const handleError = (response, acceptedErrorCodes, acceptedStatusCodes) => {
-  if (!response.ok
-    && !acceptedStatusCodes.includes(response.status)
-    && !acceptedErrorCodes.includes(response.body.errorCode)) {
-    throw new Error(response.statusText)
-  }
-
-  return response
-}
-
-const extractBody = response => (
-  response.json().then(body => {
-    const {ok, headers, status, statusText} = response
-    return {ok, headers, status, statusText, body: body || {}}
-  })
-)
 
 /**
  * @deprecated #getRequestSaga should be used, since it allows to put actions or to call other sagas
@@ -86,13 +71,15 @@ export const request = (resource, queryParams, method, body, acceptedErrorCodes 
  */
 export function* requestSaga(resource, options = {}) {
   const requestData = yield call(prepareRequest, resource, options)
-  return yield call(
+  let response = yield call(
     sendRequest,
     requestData.url,
     requestData.options,
     options.acceptedErrorCodes,
     options.acceptedStatusCodes
   )
+  response = yield call(handleClientQuestion, response, requestData, options)
+  return response
 }
 
 export function prepareRequest(resource, options = {}) {
@@ -129,14 +116,4 @@ export function prepareRequest(resource, options = {}) {
     url,
     options: fetchOptions
   }
-}
-
-export function sendRequest(url, options, acceptedErrorCodes, acceptedStatusCodes) {
-  return fetch(url, options)
-    .then(response => (extractBody(response)))
-    .then(response => (handleError(response, acceptedErrorCodes, acceptedStatusCodes)))
-    .catch(error => {
-      error.message = `REST request error: ${error.message} \n url: ${url}, options: ${JSON.stringify(options)}`
-      throw error
-    })
 }

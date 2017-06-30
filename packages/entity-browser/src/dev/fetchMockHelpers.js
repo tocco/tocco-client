@@ -99,7 +99,10 @@ export const createEntityResponse = entityName => {
 
 export const createEntityUpdateResponse = (url, opts) => {
   consoleLogger.log('fetchMock: create/update entity', url, opts)
-  const entity = JSON.parse(opts.body)
+  const body = JSON.parse(opts.body)
+
+  const clientAnswers = body.clientAnswers ? body.clientAnswers : null
+  const entity = body.payload ? body.payload : body
 
   if (entity.paths.firstname && (entity.paths.firstname === 'illegal2' || entity.paths.firstname === 'illegal3')) {
     const result = {
@@ -124,6 +127,37 @@ export const createEntityUpdateResponse = (url, opts) => {
     }
     const body = new Blob([JSON.stringify(result, null, 2)], {type: 'application/json'})
     return sleep(1000).then(() => (new Response(body, {'status': 400})))
+  }
+
+  if (entity.paths.firstname === 'confirm' && !(clientAnswers && clientAnswers['confirm'] === true)) {
+    const result = {
+      clientQuestion: {
+        id: 'confirm',
+        handler: 'ConfirmQuestionHandler',
+        header: 'Bitte bestätigen',
+        message: 'Bitte bestätigen.',
+        okText: 'OK',
+        cancelText: 'Abbrechen'
+      }
+    }
+    const body = new Blob([JSON.stringify(result, null, 2)], {type: 'application/json'})
+    return sleep(1000).then(() => (new Response(body)))
+  }
+
+  if (entity.paths.firstname === 'yesno' && !(clientAnswers && clientAnswers['yesno'] === true)) {
+    const result = {
+      clientQuestion: {
+        id: 'yesno',
+        handler: 'YesNoQuestionHandler',
+        header: 'Anmeldungen mitkopieren',
+        message: 'Möchten Sie die Anmeldungen mitkopieren?',
+        yesText: 'Ja',
+        noText: 'Nein',
+        cancelText: 'Abbrechen'
+      }
+    }
+    const body = new Blob([JSON.stringify(result, null, 2)], {type: 'application/json'})
+    return sleep(1000).then(() => (new Response(body)))
   }
 
   const oldEntity = entityStore.user[entity.key]

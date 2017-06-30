@@ -5,9 +5,10 @@ import {
   getRequestSaga,
   requestSaga,
   setNullBusinessUnit,
-  prepareRequest,
-  sendRequest
+  prepareRequest
 } from './rest'
+import {sendRequest} from './request'
+import {handleClientQuestion} from './clientQuestions'
 import fetchMock from 'fetch-mock'
 
 describe('tocco-util', () => {
@@ -198,7 +199,7 @@ describe('tocco-util', () => {
     })
 
     describe('requestSaga', () => {
-      it('should call prepareRequest and sendRequest', () => {
+      it('should call prepareRequest, handleClientQuestions and sendRequest', () => {
         const resource = 'entities/Contact'
         const options = {
           queryParams: {
@@ -228,6 +229,13 @@ describe('tocco-util', () => {
         ))
 
         const resp = {}
+
+        expect(gen.next(resp).value).to.eql(call(
+          handleClientQuestion,
+          resp,
+          requestData,
+          options
+        ))
 
         const next = gen.next(resp)
 
