@@ -190,8 +190,8 @@ describe('entity-detail', () => {
             expect(gen.next().value).to.eql(put(stopSubmit(FORM_ID, errors)))
             expect(gen.next().value).to.eql(put(notifier.info(
               'warning',
-              'client.entity-browser.detail.saveAbortedTitle',
-              'client.entity-browser.detail.saveAbortedMessage',
+              'client.entity-detail.saveAbortedTitle',
+              'client.entity-detail.saveAbortedMessage',
               'ban',
               5000
             )))
@@ -223,8 +223,8 @@ describe('entity-detail', () => {
             expect(gen.throw(new ClientQuestionCancelledException()).value).to.eql(put(stopSubmit(FORM_ID)))
             expect(gen.next().value).to.eql(put(notifier.info(
               'warning',
-              'client.entity-browser.detail.saveAbortedTitle',
-              'client.entity-browser.detail.saveAbortedMessage',
+              'client.entity-detail.saveAbortedTitle',
+              'client.entity-detail.saveAbortedMessage',
               'ban',
               5000
             )))
@@ -256,14 +256,14 @@ describe('entity-detail', () => {
             const error = new Error('anything')
             expect(gen.throw(error).value).to.eql(put(errorLogging.logError(
               'client.common.unexpectedError',
-              'client.entity-browser.detail.saveError',
+              'client.entity-detail.saveError',
               error
             )))
             expect(gen.next().value).to.eql(put(stopSubmit(FORM_ID)))
             expect(gen.next().value).to.eql(put(notifier.info(
               'warning',
-              'client.entity-browser.detail.saveAbortedTitle',
-              'client.entity-browser.detail.saveAbortedMessage',
+              'client.entity-detail.saveAbortedTitle',
+              'client.entity-detail.saveAbortedMessage',
               'ban',
               5000
             )))
