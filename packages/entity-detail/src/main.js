@@ -11,7 +11,7 @@ const EXTERNAL_EVENTS = [
   'emitAction'
 ]
 
-const initApp = (id, input, events, publicPath) => {
+const initApp = (id, input, events = {}, publicPath) => {
   const content = (
     <div>
       <DetailViewContainer/>
@@ -20,7 +20,7 @@ const initApp = (id, input, events, publicPath) => {
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   externalEvents.addToStore(store, events)
-  actionEmitter.addToStore(store, input.emitAction)
+  actionEmitter.addToStore(store, events.emitAction)
   errorLogging.addToStore(store, false)
   notifier.addToStore(store, false)
 
