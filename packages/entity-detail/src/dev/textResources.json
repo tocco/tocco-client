@@ -1,17 +1,23 @@
 [
-  "client.entity-browser.detail.loadingText",
-  "client.entity-browser.detail.mandatoryFieldTitle",
-  "client.entity-browser.detail.save",
-  "client.entity-browser.detail.syncValidationRequired",
+  "client.entity-detail.invalidFieldsError",
+  "client.entity-detail.invalidRelationErrors",
+  "client.entity-detail.lastSave",
+  "client.entity-detail.loadingText",
+  "client.entity-detail.mandatoryFieldTitle",
+  "client.entity-detail.save",
+  "client.entity-detail.saveError",
+  "client.entity-detail.saveAbortedTitle",
+  "client.entity-detail.saveAbortedMessage",
+  "client.entity-detail.saveSuccessfulTitle",
+  "client.entity-detail.saveSuccessfulMessage",
+  "client.entity-detail.syncValidationRequired",
+  "client.entity-detail.syncValidationMinLength",
+  "client.entity-detail.syncValidationMaxLength",
+  "client.entity-detail.validationError",
 
+  "client.component.remoteselect.noResultsText",
   "client.component.remoteselect.clearAllText",
   "client.component.remoteselect.clearValueText",
   "client.component.remoteselect.searchPromptText",
-  "client.component.remoteselect.moreOptionsAvailableText",
-
-  "client.entity-list.extendedSearch",
-  "client.entity-list.loadingText",
-  "client.entity-list.refresh",
-  "client.entity-list.reset",
-  "client.entity-list.search"
+  "client.component.remoteselect.moreOptionsAvailableText"
 ]

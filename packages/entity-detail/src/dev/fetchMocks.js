@@ -67,8 +67,6 @@ export default function setupFetchMock(fetchMock) {
     new RegExp('^.*?/nice2/rest/entities/Dummy_entity?.*'),
     createEntitiesResponse('dummy')
   )
-
-  fetchMock.spy()
 }
 
 module.exports = setupFetchMock

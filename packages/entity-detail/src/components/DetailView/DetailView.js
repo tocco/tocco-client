@@ -17,7 +17,7 @@ class DetailView extends React.Component {
       if (error instanceof AsyncValidationException) {
         throw error.errors
       } else {
-        this.props.logError('client.common.unexpectedError', 'client.entity-browser.detail.validationError', error)
+        this.props.logError('client.common.unexpectedError', 'client.entity-detail.validationError', error)
       }
     })
   }
@@ -38,7 +38,7 @@ class DetailView extends React.Component {
       <div className="detail-view">
         <LoadMask
           required={[props.formInitialValues]}
-          loadingText={this.msg('client.entity-browser.detail.loadingText')}
+          loadingText={this.msg('client.entity-detail.loadingText')}
         >
           <DetailForm
             validate={this.getSyncValidation()}

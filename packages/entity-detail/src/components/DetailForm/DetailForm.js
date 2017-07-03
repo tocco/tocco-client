@@ -105,14 +105,14 @@ export class DetailForm extends React.Component {
             {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
             <Button
               type="submit"
-              label={this.msg('client.entity-browser.detail.save')}
+              label={this.msg('client.entity-detail.save')}
               pending={props.submitting}
               disabled={props.submitting || (props.anyTouched && !props.valid)}
               primary
             />
             {props.lastSave
             && <div>
-              <FormattedMessage id="client.entity-browser.detail.lastSave"/>
+              <FormattedMessage id="client.entity-detail.lastSave"/>
               <span style={{marginLeft: '3px'}}> <FormattedRelative value={props.lastSave}/></span>
             </div>
             }
