@@ -1,5 +1,5 @@
 import {call} from 'redux-saga/effects'
-import {requestSaga, getRequestSaga} from 'tocco-util/src/rest'
+import {requestSaga} from 'tocco-util/src/rest'
 import * as entities from './entities'
 import fetchMock from 'fetch-mock'
 
@@ -23,26 +23,32 @@ describe('entity-detail', () => {
             }
             const gen = entities.fetchEntities('User', params)
 
-            const expectedSagaParams = {
-              _fields: null,
-              _filter: '',
-              _form: undefined,
-              _limit: 20,
-              _offset: 20,
-              _paths: 'f1,f2',
-              _relations: null,
-              _search: 'test',
-              _sort: undefined
-            }
-            expect(gen.next().value).to.eql(call(getRequestSaga, 'entities/User', expectedSagaParams, []))
+            expect(gen.next().value).to.eql(call(requestSaga, 'entities/User', {
+              queryParams: {
+                _fields: null,
+                _filter: '',
+                _form: undefined,
+                _limit: 20,
+                _offset: 20,
+                _paths: 'f1,f2',
+                _relations: null,
+                _search: 'test',
+                _sort: undefined
+              }
+            }))
 
             const resp = {
               body: {}
             }
 
-            const next = gen.next(resp)
+            expect(gen.next(resp).value).to.eql(call(entities.defaultEntitiesTransformer, resp.body))
 
-            expect(next.value).to.equal(resp.body) // expect same (not just equal)
+            const transformedResponse = {
+            }
+
+            const next = gen.next(transformedResponse)
+
+            expect(next.value).to.equal(transformedResponse) // expect same (not just equal)
             expect(next.done).to.be.true
           })
 
@@ -57,26 +63,32 @@ describe('entity-detail', () => {
             }
             const gen = entities.fetchEntities('User', params)
 
-            const expectedSagaParams = {
-              _fields: '!',
-              _filter: '',
-              _form: undefined,
-              _limit: 20,
-              _offset: 20,
-              _paths: '',
-              _relations: '!',
-              _search: 'test',
-              _sort: undefined
-            }
-            expect(gen.next().value).to.eql(call(getRequestSaga, 'entities/User', expectedSagaParams, []))
+            expect(gen.next().value).to.eql(call(requestSaga, 'entities/User', {
+              queryParams: {
+                _fields: '!',
+                _filter: '',
+                _form: undefined,
+                _limit: 20,
+                _offset: 20,
+                _paths: '',
+                _relations: '!',
+                _search: 'test',
+                _sort: undefined
+              }
+            }))
 
             const resp = {
               body: {}
             }
 
-            const next = gen.next(resp)
+            expect(gen.next(resp).value).to.eql(call(entities.defaultEntitiesTransformer, resp.body))
 
-            expect(next.value).to.equal(resp.body) // expect same (not just equal)
+            const transformedResponse = {
+            }
+
+            const next = gen.next(transformedResponse)
+
+            expect(next.value).to.equal(transformedResponse) // expect same (not just equal)
             expect(next.done).to.be.true
           })
         })
@@ -154,9 +166,9 @@ describe('entity-detail', () => {
               }
             }
 
-            const next = gen.next(resp)
+            expect(gen.next(resp).value).to.eql(call(entities.defaultModelTransformer, resp.body))
 
-            expect(next.value).to.eql({
+            const transformedResponse = {
               firstname: {
                 fieldName: 'firstname'
               },
@@ -164,7 +176,11 @@ describe('entity-detail', () => {
                 relationName: 'relUser_status',
                 type: 'relation'
               }
-            })
+            }
+
+            const next = gen.next(transformedResponse)
+
+            expect(next.value).to.eql(transformedResponse)
             expect(next.done).to.be.true
           })
         })

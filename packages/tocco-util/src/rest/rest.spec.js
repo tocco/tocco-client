@@ -2,7 +2,6 @@ import {call} from 'redux-saga/effects'
 import {
   getParameterString,
   request,
-  getRequestSaga,
   requestSaga,
   setNullBusinessUnit,
   prepareRequest
@@ -168,33 +167,6 @@ describe('tocco-util', () => {
         request(resource, undefined, undefined, undefined, undefined, []).catch(() => {
           done()
         })
-      })
-    })
-
-    describe('getRequestSaga', () => {
-      it('should call request saga', () => {
-        const resource = 'entities/Contact'
-        const queryParams = {
-          _search: 'test',
-          xyz: 'abc'
-        }
-        const acceptedErrorCodes = ['MY_ERROR_CODE']
-
-        const gen = getRequestSaga(resource, queryParams, acceptedErrorCodes)
-
-        const expectedOptions = {
-          method: 'GET',
-          queryParams,
-          acceptedErrorCodes
-        }
-        expect(gen.next().value).to.eql(call(requestSaga, resource, expectedOptions))
-
-        const resp = {}
-
-        const next = gen.next(resp)
-
-        expect(next.value).to.equal(resp) // expect same (not just equal)
-        expect(next.done).to.be.true
       })
     })
 

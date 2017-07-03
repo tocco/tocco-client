@@ -1,4 +1,5 @@
-import {request, getRequest} from 'tocco-util/src/rest'
+import {call} from 'redux-saga/effects'
+import {requestSaga} from 'tocco-util/src/rest'
 
 export const defaultModelTransformer = json => {
   const model = {}
@@ -17,10 +18,9 @@ export const defaultModelTransformer = json => {
   return model
 }
 
-export function fetchModel(entityName, transformer = defaultModelTransformer) {
-  return request(`entities/${entityName}/model`)
-    .then(resp => resp.body)
-    .then(json => transformer(json))
+export function* fetchModel(entityName, transformer = defaultModelTransformer) {
+  const resp = yield call(requestSaga, `entities/${entityName}/model`)
+  return transformer(resp.body)
 }
 
 export const entitiesListTransformer = json => {
@@ -55,7 +55,7 @@ export const entitiesListTransformer = json => {
   })
 }
 
-const defaultEntitiesTransformer = json => (json)
+export const defaultEntitiesTransformer = json => (json)
 export const selectEntitiesTransformer = json => (json.data.map(e => ({display: e.display, key: e.key})))
 
 function buildParams({
@@ -84,17 +84,19 @@ function buildParams({
   return params
 }
 
-export function fetchEntities(entityName, searchInputs,
-                              transformer = defaultEntitiesTransformer) {
-  const params = buildParams(searchInputs)
-  return getRequest(`entities/${entityName}`, params, [])
-    .then(resp => resp.body)
-    .then(json => transformer(json))
+export function* fetchEntities(entityName, searchInputs,
+                               transformer = defaultEntitiesTransformer) {
+  const queryParams = buildParams(searchInputs)
+  const response = yield call(requestSaga, `entities/${entityName}`, {
+    queryParams
+  })
+  return yield call(transformer, response.body)
 }
 
-export function fetchEntityCount(entityName, searchInputs) {
-  const params = buildParams(searchInputs)
-  return getRequest(`entities/${entityName}/count`, params, [])
-    .then(resp => resp.body)
-    .then(json => json.count)
+export function* fetchEntityCount(entityName, searchInputs) {
+  const queryParams = buildParams(searchInputs)
+  const response = yield call(requestSaga, `entities/${entityName}/count`, {
+    queryParams
+  })
+  return response.body.count
 }
