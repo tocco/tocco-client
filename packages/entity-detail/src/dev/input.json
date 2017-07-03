@@ -1,5 +1,5 @@
 {
   "entityName": "User",
   "entityId": "1",
-  "formBase": "User"
+  "formName": "User_detail"
 }

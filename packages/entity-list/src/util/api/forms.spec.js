@@ -127,7 +127,9 @@ describe('entity-list', () => {
               }
             }
 
-            const next = gen.next(resp)
+            expect(gen.next(resp).value).to.eql(call(forms.defaultFormTransformer, resp.body))
+
+            const next = gen.next(resp.body.form)
 
             expect(next.value).to.eql(resp.body.form)
             expect(next.done).to.be.true

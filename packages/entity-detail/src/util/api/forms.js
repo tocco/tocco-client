@@ -36,9 +36,9 @@ const getFieldsOfChildren = children => {
   return result
 }
 
-const defaultFormTransformer = json => (json.form)
+export const defaultFormTransformer = json => (json.form)
 
 export function* fetchForm(formName, transformer = defaultFormTransformer) {
   const response = yield call(requestSaga, `forms/${formName}`)
-  return transformer(response.body)
+  return yield call(transformer, response.body)
 }
