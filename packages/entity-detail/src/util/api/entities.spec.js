@@ -1,5 +1,5 @@
 import {call} from 'redux-saga/effects'
-import {requestSaga, getRequestSaga} from 'tocco-util/src/rest'
+import {requestSaga} from 'tocco-util/src/rest'
 import * as entities from './entities'
 import fetchMock from 'fetch-mock'
 
@@ -23,18 +23,19 @@ describe('entity-detail', () => {
             }
             const gen = entities.fetchEntities('User', params)
 
-            const expectedSagaParams = {
-              _fields: null,
-              _filter: '',
-              _form: undefined,
-              _limit: 20,
-              _offset: 20,
-              _paths: 'f1,f2',
-              _relations: null,
-              _search: 'test',
-              _sort: undefined
-            }
-            expect(gen.next().value).to.eql(call(getRequestSaga, 'entities/User', expectedSagaParams, []))
+            expect(gen.next().value).to.eql(call(requestSaga, 'entities/User', {
+              queryParams: {
+                _fields: null,
+                _filter: '',
+                _form: undefined,
+                _limit: 20,
+                _offset: 20,
+                _paths: 'f1,f2',
+                _relations: null,
+                _search: 'test',
+                _sort: undefined
+              }
+            }))
 
             const resp = {
               body: {}
@@ -57,18 +58,19 @@ describe('entity-detail', () => {
             }
             const gen = entities.fetchEntities('User', params)
 
-            const expectedSagaParams = {
-              _fields: '!',
-              _filter: '',
-              _form: undefined,
-              _limit: 20,
-              _offset: 20,
-              _paths: '',
-              _relations: '!',
-              _search: 'test',
-              _sort: undefined
-            }
-            expect(gen.next().value).to.eql(call(getRequestSaga, 'entities/User', expectedSagaParams, []))
+            expect(gen.next().value).to.eql(call(requestSaga, 'entities/User', {
+              queryParams: {
+                _fields: '!',
+                _filter: '',
+                _form: undefined,
+                _limit: 20,
+                _offset: 20,
+                _paths: '',
+                _relations: '!',
+                _search: 'test',
+                _sort: undefined
+              }
+            }))
 
             const resp = {
               body: {}

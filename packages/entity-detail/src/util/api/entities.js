@@ -1,5 +1,5 @@
 import {call} from 'redux-saga/effects'
-import {requestSaga, getRequestSaga} from 'tocco-util/src/rest'
+import {requestSaga} from 'tocco-util/src/rest'
 import {SubmissionError} from 'redux-form'
 import {validationErrorToFormError} from '../detailView/reduxForm'
 
@@ -90,7 +90,9 @@ function buildParams({
 }
 
 export function* fetchEntities(entityName, searchInputs, transformer = defaultEntitiesTransformer) {
-  const params = buildParams(searchInputs)
-  const resp = yield call(getRequestSaga, `entities/${entityName}`, params, [])
+  const queryParams = buildParams(searchInputs)
+  const resp = yield call(requestSaga, `entities/${entityName}`, {
+    queryParams
+  })
   return transformer(resp.body)
 }

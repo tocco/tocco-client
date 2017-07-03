@@ -1,5 +1,5 @@
 import {call} from 'redux-saga/effects'
-import {requestSaga, getRequestSaga} from 'tocco-util/src/rest'
+import {requestSaga} from 'tocco-util/src/rest'
 import * as entities from './entities'
 
 describe('entity-list', () => {
@@ -17,15 +17,17 @@ describe('entity-list', () => {
               formName: 'User_list'
             })
 
-            expect(gen.next().value).to.eql(call(getRequestSaga, 'entities/User', {
-              _filter: '',
-              _form: 'User_list',
-              _limit: 20,
-              _offset: 20,
-              _paths: 'f1,f2',
-              _search: 'test',
-              _sort: undefined
-            }, []))
+            expect(gen.next().value).to.eql(call(requestSaga, 'entities/User', {
+              queryParams: {
+                _filter: '',
+                _form: 'User_list',
+                _limit: 20,
+                _offset: 20,
+                _paths: 'f1,f2',
+                _search: 'test',
+                _sort: undefined
+              }
+            }))
 
             const resp = {
               body: {
@@ -51,15 +53,17 @@ describe('entity-list', () => {
               formName: 'User_list'
             })
 
-            expect(gen.next().value).to.eql(call(getRequestSaga, 'entities/User/count', {
-              _filter: '',
-              _form: 'User_list',
-              _limit: 20,
-              _offset: 20,
-              _paths: 'f1,f2',
-              _search: 'test',
-              _sort: undefined
-            }, []))
+            expect(gen.next().value).to.eql(call(requestSaga, 'entities/User/count', {
+              queryParams: {
+                _filter: '',
+                _form: 'User_list',
+                _limit: 20,
+                _offset: 20,
+                _paths: 'f1,f2',
+                _search: 'test',
+                _sort: undefined
+              }
+            }))
 
             const resp = {
               body: {count: 99}
