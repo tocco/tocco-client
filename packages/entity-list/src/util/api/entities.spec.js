@@ -35,7 +35,9 @@ describe('entity-list', () => {
               }
             }
 
-            const next = gen.next(resp)
+            expect(gen.next(resp).value).to.eql(call(entities.defaultEntitiesTransformer, resp.body))
+
+            const next = gen.next(resp.body)
 
             expect(next.value).to.eql(resp.body)
             expect(next.done).to.be.true

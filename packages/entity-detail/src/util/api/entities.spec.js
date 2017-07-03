@@ -41,9 +41,14 @@ describe('entity-detail', () => {
               body: {}
             }
 
-            const next = gen.next(resp)
+            expect(gen.next(resp).value).to.eql(call(entities.defaultEntitiesTransformer, resp.body))
 
-            expect(next.value).to.equal(resp.body) // expect same (not just equal)
+            const transformedResponse = {
+            }
+
+            const next = gen.next(transformedResponse)
+
+            expect(next.value).to.equal(transformedResponse) // expect same (not just equal)
             expect(next.done).to.be.true
           })
 
@@ -76,9 +81,14 @@ describe('entity-detail', () => {
               body: {}
             }
 
-            const next = gen.next(resp)
+            expect(gen.next(resp).value).to.eql(call(entities.defaultEntitiesTransformer, resp.body))
 
-            expect(next.value).to.equal(resp.body) // expect same (not just equal)
+            const transformedResponse = {
+            }
+
+            const next = gen.next(transformedResponse)
+
+            expect(next.value).to.equal(transformedResponse) // expect same (not just equal)
             expect(next.done).to.be.true
           })
         })
@@ -156,9 +166,9 @@ describe('entity-detail', () => {
               }
             }
 
-            const next = gen.next(resp)
+            expect(gen.next(resp).value).to.eql(call(entities.defaultModelTransformer, resp.body))
 
-            expect(next.value).to.eql({
+            const transformedResponse = {
               firstname: {
                 fieldName: 'firstname'
               },
@@ -166,7 +176,11 @@ describe('entity-detail', () => {
                 relationName: 'relUser_status',
                 type: 'relation'
               }
-            })
+            }
+
+            const next = gen.next(transformedResponse)
+
+            expect(next.value).to.eql(transformedResponse)
             expect(next.done).to.be.true
           })
         })

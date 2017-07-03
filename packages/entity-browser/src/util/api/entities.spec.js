@@ -25,9 +25,9 @@ describe('entity-browser', () => {
               }
             }
 
-            const next = gen.next(resp)
+            expect(gen.next(resp).value).to.eql(call(entities.defaultModelTransformer, resp.body))
 
-            expect(next.value).to.eql({
+            const transformedResponse = {
               firstname: {
                 fieldName: 'firstname'
               },
@@ -36,7 +36,11 @@ describe('entity-browser', () => {
                 targetEntity: 'User_status',
                 type: 'relation'
               }
-            })
+            }
+
+            const next = gen.next(transformedResponse)
+
+            expect(next.value).to.eql(transformedResponse)
             expect(next.done).to.be.true
           })
         })

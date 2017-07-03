@@ -5,13 +5,13 @@ const IGNORED_FIELD_TYPES = [
   'ch.tocco.nice2.model.form.components.simple.DescriptionField'
 ]
 
-const defaultFormTransformer = json => (json.form)
+export const defaultFormTransformer = json => (json.form)
 
 export function* fetchForm(formName, transformer = defaultFormTransformer) {
   const response = yield call(requestSaga, `forms/${formName}`, {
     acceptedStatusCodes: [404]
   })
-  return response.body ? transformer(response.body) : null
+  return response.body ? yield call(transformer, response.body) : null
 }
 
 export const columnDefinitionTransformer = json => {

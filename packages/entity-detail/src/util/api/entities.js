@@ -53,10 +53,10 @@ export const defaultModelTransformer = json => {
 
 export function* fetchModel(entityName, transformer = defaultModelTransformer) {
   const resp = yield call(requestSaga, `entities/${entityName}/model`)
-  return transformer(resp.body)
+  return yield call(transformer, resp.body)
 }
 
-const defaultEntitiesTransformer = json => (json)
+export const defaultEntitiesTransformer = json => (json)
 export const selectEntitiesTransformer = json => (json.data.map(e => ({display: e.display, key: e.key})))
 
 function buildParams({
@@ -94,5 +94,5 @@ export function* fetchEntities(entityName, searchInputs, transformer = defaultEn
   const resp = yield call(requestSaga, `entities/${entityName}`, {
     queryParams
   })
-  return transformer(resp.body)
+  return yield call(transformer, resp.body)
 }

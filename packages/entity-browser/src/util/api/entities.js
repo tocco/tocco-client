@@ -20,5 +20,5 @@ export const defaultModelTransformer = json => {
 
 export function* fetchModel(entityName, transformer = defaultModelTransformer) {
   const resp = yield call(requestSaga, `entities/${entityName}/model`)
-  return transformer(resp.body)
+  return yield call(transformer, resp.body)
 }

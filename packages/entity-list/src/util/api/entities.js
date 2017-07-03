@@ -55,7 +55,7 @@ export const entitiesListTransformer = json => {
   })
 }
 
-const defaultEntitiesTransformer = json => (json)
+export const defaultEntitiesTransformer = json => (json)
 export const selectEntitiesTransformer = json => (json.data.map(e => ({display: e.display, key: e.key})))
 
 function buildParams({
@@ -90,7 +90,7 @@ export function* fetchEntities(entityName, searchInputs,
   const response = yield call(requestSaga, `entities/${entityName}`, {
     queryParams
   })
-  return transformer(response.body)
+  return yield call(transformer, response.body)
 }
 
 export function* fetchEntityCount(entityName, searchInputs) {
