@@ -11,7 +11,7 @@ const EXTERNAL_EVENTS = [
   'emitAction'
 ]
 
-const initApp = (id, input, events, publicPath) => {
+const initApp = (id, input, events = {}, publicPath) => {
   const content = (
     <div>
       <DetailViewContainer/>
@@ -35,7 +35,7 @@ const initApp = (id, input, events, publicPath) => {
       events,
       actions,
       publicPath,
-      textResourceModules: ['component', 'common', 'entity-browser'] // TODO: rename entity-browser text resources
+      textResourceModules: ['component', 'common', 'entity-list', 'entity-detail']
     }
   )
 }
@@ -47,8 +47,14 @@ const initApp = (id, input, events, publicPath) => {
 
     if (!__NO_MOCK__) {
       const fetchMock = require('fetch-mock')
+
       const setupFetchMocks = require('./dev/fetchMocks')
       setupFetchMocks(fetchMock)
+
+      const listFetchMocks = require('tocco-entity-list/src/dev/fetchMocks')
+      listFetchMocks(fetchMock)
+
+      fetchMock.spy()
     }
 
     const app = initApp('id', input)

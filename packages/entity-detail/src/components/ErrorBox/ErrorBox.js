@@ -8,10 +8,10 @@ const ErrorBox = props => {
   return (
     <div className="alert alert-danger" role="alert">
       {formErrorsUtil.hasFieldErrors(formErrors) && <a onClick={props.showErrors}>
-        <FormattedMessage id="client.entity-browser.detail.invalidFieldsError"/>
+        <FormattedMessage id="client.entity-detail.invalidFieldsError"/>
       </a>}
       {formErrorsUtil.hasPathErrors(formErrors) && <div>
-        <div><FormattedMessage id="client.entity-browser.detail.invalidRelationErrors"/></div>
+        <div><FormattedMessage id="client.entity-detail.invalidRelationErrors"/></div>
         <ul>
           {formErrorsUtil.getPathErrorsCompact(formErrors).map((message, idx) => {
             return <li key={idx}>{message}</li>
