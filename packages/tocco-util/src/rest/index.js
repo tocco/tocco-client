@@ -1,17 +1,13 @@
 import {
-  request,
   requestSaga,
-  getRequest,
-  getRequestSaga,
-  setNullBusinessUnit
+  setNullBusinessUnit,
+  simpleRequest
 } from './rest'
 import ClientQuestionCancelledException from './ClientQuestionCancelledException'
 
 export {
-  request,
   requestSaga,
-  getRequest,
-  getRequestSaga,
   setNullBusinessUnit,
+  simpleRequest,
   ClientQuestionCancelledException
 }
