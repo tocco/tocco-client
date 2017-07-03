@@ -21,19 +21,10 @@ export const getParameterString = params => {
 }
 
 /**
- * @deprecated #getRequestSaga should be used, since it allows to put actions or to call other sagas
+ * @deprecated #requestSaga should be used, since it allows to put actions or to call other sagas
  */
 export const getRequest = (resource, params, acceptedErrorCodes = []) => {
   return request(resource, params, 'GET', undefined, acceptedErrorCodes)
-}
-
-export function* getRequestSaga(resource, queryParams, acceptedErrorCodes = []) {
-  const options = {
-    method: 'GET',
-    queryParams,
-    acceptedErrorCodes
-  }
-  return yield call(requestSaga, resource, options)
 }
 
 let nullBusinessUnit = false

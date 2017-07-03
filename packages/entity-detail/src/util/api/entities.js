@@ -1,5 +1,5 @@
 import {call} from 'redux-saga/effects'
-import {requestSaga, getRequestSaga} from 'tocco-util/src/rest'
+import {requestSaga} from 'tocco-util/src/rest'
 import {SubmissionError} from 'redux-form'
 import {validationErrorToFormError} from '../detailView/reduxForm'
 
@@ -53,10 +53,10 @@ export const defaultModelTransformer = json => {
 
 export function* fetchModel(entityName, transformer = defaultModelTransformer) {
   const resp = yield call(requestSaga, `entities/${entityName}/model`)
-  return transformer(resp.body)
+  return yield call(transformer, resp.body)
 }
 
-const defaultEntitiesTransformer = json => (json)
+export const defaultEntitiesTransformer = json => (json)
 export const selectEntitiesTransformer = json => (json.data.map(e => ({display: e.display, key: e.key})))
 
 function buildParams({
@@ -90,7 +90,9 @@ function buildParams({
 }
 
 export function* fetchEntities(entityName, searchInputs, transformer = defaultEntitiesTransformer) {
-  const params = buildParams(searchInputs)
-  const resp = yield call(getRequestSaga, `entities/${entityName}`, params, [])
-  return transformer(resp.body)
+  const queryParams = buildParams(searchInputs)
+  const resp = yield call(requestSaga, `entities/${entityName}`, {
+    queryParams
+  })
+  return yield call(transformer, resp.body)
 }
