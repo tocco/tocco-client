@@ -1,15 +1,11 @@
+import {call} from 'redux-saga/effects'
+import {requestSaga} from 'tocco-util/src/rest'
 import * as forms from './forms'
-import fetchMock from 'fetch-mock'
 
 describe('entity-list', () => {
   describe('util', () => {
     describe('api', () => {
       describe('forms', () => {
-        beforeEach(() => {
-          fetchMock.reset()
-          fetchMock.restore()
-        })
-
         describe('searchFormTransformer', () => {
           it('should return an array of fields', () => {
             const fetchResult = require('../../dev/test-data/user_search.json')
@@ -116,26 +112,42 @@ describe('entity-list', () => {
         })
 
         describe('fetchForm', () => {
-          it('should call fetch ', () => {
-            fetchMock.get('*', {})
-            return forms.fetchForm('User_search').then(res => {
-              expect(fetchMock.calls().matched).to.have.length(1)
-              const lastCallUrl = fetchMock.lastCall()[0]
-              expect(lastCallUrl).to.eql('/nice2/rest/forms/User_search')
-            })
+          it('should fetch the form', () => {
+            const gen = forms.fetchForm('User_search')
+
+            expect(gen.next().value).to.eql(call(requestSaga, 'forms/User_search', {
+              acceptedStatusCodes: [404]
+            }))
+
+            const resp = {
+              body: {
+                form: {
+                  name: 'User_search'
+                }
+              }
+            }
+
+            expect(gen.next(resp).value).to.eql(call(forms.defaultFormTransformer, resp.body))
+
+            const next = gen.next(resp.body.form)
+
+            expect(next.value).to.eql(resp.body.form)
+            expect(next.done).to.be.true
           })
 
           it('should ignore 404 errors', () => {
-            const body = new Blob(['{}'], {type: 'application/json'})
-            const mockedResponse = new Response(body, {'status': 404})
+            const gen = forms.fetchForm('User_search')
 
-            fetchMock.get('*', mockedResponse)
+            expect(gen.next().value).to.eql(call(requestSaga, 'forms/User_search', {
+              acceptedStatusCodes: [404]
+            }))
 
-            const transformer = json => json.form || 'no form'
+            const resp = {status: 404}
 
-            return forms.fetchForm('User_search', transformer).then(res => {
-              expect(res).to.eql('no form')
-            })
+            const next = gen.next(resp)
+
+            expect(next.value).to.eql(null)
+            expect(next.done).to.be.true
           })
         })
       })

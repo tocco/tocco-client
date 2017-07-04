@@ -11,7 +11,7 @@ const EXTERNAL_EVENTS = [
   'emitAction'
 ]
 
-const initApp = (id, input, events, publicPath) => {
+const initApp = (id, input, events = {}, publicPath) => {
   const content = <EntityListContainer/>
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
