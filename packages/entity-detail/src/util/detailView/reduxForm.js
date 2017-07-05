@@ -1,4 +1,4 @@
-import _reduce from 'lodash/reduce'
+import _forOwn from 'lodash/forOwn'
 import _isEqual from 'lodash/isEqual'
 
 import {generalErrorField} from './formErrors'
@@ -64,10 +64,14 @@ export const entityToFormValues = entity => {
   return result
 }
 
-export const getDirtyFields = (initialValues, values) => (
-  _reduce(
-    initialValues,
-    (result, value, key) => _isEqual(value, values[key]) ? result : result.concat(key),
-    []
-  )
-)
+export const getDirtyFields = (initialValues, values) => {
+  const dirtyFields = []
+
+  _forOwn(initialValues, (value, key) => {
+    if (!_isEqual(value, values[key])) {
+      dirtyFields.push(key)
+    }
+  })
+
+  return dirtyFields
+}
