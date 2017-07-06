@@ -27,7 +27,7 @@ export function* loadSearchForm(formDefinition, searchFormName) {
 }
 
 export function* setInitialSearchInputs(entityModel, preselectedSearchFields) {
-  for (let preselectedSearchField of preselectedSearchFields) {
+  for (const preselectedSearchField of preselectedSearchFields) {
     const fieldName = preselectedSearchField.id
     const value = preselectedSearchField.value
 
@@ -38,7 +38,7 @@ export function* setInitialSearchInputs(entityModel, preselectedSearchFields) {
       const entities = yield call(loadRelationEntity, actions.loadRelationEntity(targetEntity))
 
       if (Array.isArray(value)) {
-        transformedValue = value.map(v => (entities.find(e => e.key === v)))
+        transformedValue = value.map(v => entities.find(e => e.key === v))
       } else {
         transformedValue = entities.find(e => e.key === value)
       }
@@ -60,7 +60,7 @@ export function* getEntityModel() {
 }
 
 export function* initialize() {
-  let {formDefinition, preselectedSearchFields, searchFormName} = yield select(searchFormSelector)
+  const {formDefinition, preselectedSearchFields, searchFormName} = yield select(searchFormSelector)
   const entityModel = yield call(getEntityModel)
 
   yield all([
