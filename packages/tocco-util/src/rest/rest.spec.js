@@ -1,7 +1,7 @@
 import {call} from 'redux-saga/effects'
 import {
   getParameterString,
-  request,
+  simpleRequest,
   requestSaga,
   setNullBusinessUnit,
   prepareRequest
@@ -59,7 +59,7 @@ describe('tocco-util', () => {
       })
     })
 
-    describe('request', () => {
+    describe('simpleRequest', () => {
       beforeEach(() => {
         fetchMock.reset()
         fetchMock.restore()
@@ -80,7 +80,10 @@ describe('tocco-util', () => {
 
         fetchMock.get('*', mockedResponse)
         const resource = 'entities/Contact'
-        request(resource, {}, 'GET', {}, ['SAVE_FAILED']).then(response => {
+        const options = {
+          acceptedErrorCodes: ['SAVE_FAILED']
+        }
+        simpleRequest(resource, options).then(response => {
           expect(response.status).to.eql(statusCode)
           expect(response.body).to.eql(bodyObj)
           done()
@@ -98,7 +101,7 @@ describe('tocco-util', () => {
 
         fetchMock.get('*', mockedResponse)
         const resource = 'entities/Contact'
-        request(resource, {}, 'GET', {}, []).catch(() => {
+        simpleRequest(resource).catch(() => {
           done()
         })
       })
@@ -106,7 +109,7 @@ describe('tocco-util', () => {
       it('should set content type header', () => {
         fetchMock.get('*', {})
 
-        request('', {}, 'GET', {}, [])
+        simpleRequest('')
 
         const headers = fetchMock.lastOptions().headers
         expect(headers.get('randomxyxc')).to.be.null
@@ -116,12 +119,12 @@ describe('tocco-util', () => {
       it('should set null business unit header', () => {
         fetchMock.get('*', {})
 
-        request('', {}, 'GET', {}, [])
+        simpleRequest('')
         const headers = fetchMock.lastOptions().headers
         expect(headers.get('x-business-unit')).to.be.null
 
         setNullBusinessUnit(true)
-        request('', {}, 'GET', {}, [])
+        simpleRequest('')
         setNullBusinessUnit(false)
 
         const headers2 = fetchMock.lastOptions().headers
@@ -131,11 +134,13 @@ describe('tocco-util', () => {
       it('should use ordered params', () => {
         fetchMock.get('*', {})
         const resource = 'entities/Contact'
-        const params = {
-          _search: 'test',
-          xyz: 'abc'
+        const options = {
+          queryParams: {
+            _search: 'test',
+            xyz: 'abc'
+          }
         }
-        request(resource, params)
+        simpleRequest(resource, options)
 
         const lastCall = fetchMock.lastCall()[0]
         expect(lastCall).to.eql('/nice2/rest/entities/Contact?_search=test&xyz=abc')
@@ -149,7 +154,9 @@ describe('tocco-util', () => {
 
         fetchMock.get('*', mockedResponse)
         const resource = 'entities/Contact'
-        request(resource, undefined, undefined, undefined, undefined, [400]).then(response => {
+        simpleRequest(resource, {
+          acceptedStatusCodes: [400]
+        }).then(response => {
           expect(response.status).to.eql(statusCode)
           expect(response.body).to.eql({})
           done()
@@ -164,7 +171,7 @@ describe('tocco-util', () => {
 
         fetchMock.get('*', mockedResponse)
         const resource = 'entities/Contact'
-        request(resource, undefined, undefined, undefined, undefined, []).catch(() => {
+        simpleRequest(resource).catch(() => {
           done()
         })
       })
