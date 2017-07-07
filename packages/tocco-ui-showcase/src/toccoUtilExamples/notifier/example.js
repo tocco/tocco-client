@@ -5,8 +5,9 @@ import ReduxToastr from 'react-redux-toastr'
 import {appFactory, notifier} from 'tocco-util'
 // real-import:import {appFactory, notifier} from 'tocco-util'
 
-// eslint-disable-next-line max-len
-const longText = 'Lorem ipsum dolor sit amet, at sed inermis intellegam scriptorem, usu facete apeirian ad. Sit et meliore intellegam. Mel cu maluisset philosophia, pri et habeo oportere. Vis in purto verear luptatum, has ne graecis qualisque. Mei ei placerat incorrupte adversarium, eum rebum nonumy ut.'
+const longText = `Lorem ipsum dolor sit amet, at sed inermis intellegam scriptorem, usu facete apeirian ad. 
+Sit et meliore intellegam. Mel cu maluisset philosophia, pri et habeo oportere. Vis in purto verear luptatum, has 
+ne graecis qualisque. Mei ei placerat incorrupte adversarium, eum rebum nonumy ut.`
 
 /* start example */
 class Example extends React.Component {
