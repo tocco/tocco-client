@@ -18,7 +18,7 @@ describe('login', () => {
             setUsername={() => undefined}
             setPassword={() => undefined}
             loginPending={false}
-            />
+          />
         )
         expect(wrapper.find(Button)).to.have.length(1)
         expect(wrapper.find(FormattedMessage)).to.have.length(1)
@@ -34,7 +34,7 @@ describe('login', () => {
             setPassword={() => undefined}
             loginPending={false}
             showTitle
-            />
+          />
         )
         expect(wrapper.find(Button)).to.have.length(1)
         expect(wrapper.find(FormattedMessage)).to.have.length(3)
@@ -51,7 +51,7 @@ describe('login', () => {
             loginPending={false}
             username=""
             password=""
-            />
+          />
         )
         expect(wrapper.find(Button)).to.have.length(1)
         const button = wrapper.find(Button)
@@ -69,7 +69,7 @@ describe('login', () => {
             loginPending={false}
             username="username"
             password=""
-            />
+          />
         )
         expect(wrapper.find(Button)).to.have.length(1)
         const button = wrapper.find(Button)
@@ -87,7 +87,7 @@ describe('login', () => {
             loginPending={false}
             username=""
             password="password"
-            />
+          />
         )
         expect(wrapper.find(Button)).to.have.length(1)
         const button = wrapper.find(Button)
@@ -105,7 +105,7 @@ describe('login', () => {
             loginPending={false}
             username="username"
             password="password"
-            />
+          />
         )
         expect(wrapper.find(Button)).to.have.length(1)
         const button = wrapper.find(Button)
@@ -125,7 +125,7 @@ describe('login', () => {
             loginPending={false}
             username="username"
             password="password"
-            />
+          />
         )
         expect(wrapper.find('.forgot-password')).to.have.length(1)
         wrapper.find('.forgot-password').simulate('click')
@@ -147,7 +147,7 @@ describe('login', () => {
             loginPending={false}
             username="username"
             password="password"
-            />
+          />
         )
 
         wrapper.find('input[name="user"]').simulate('change', {
@@ -173,7 +173,7 @@ describe('login', () => {
             loginPending={false}
             username="username"
             password="password"
-            />
+          />
         )
 
         wrapper.find('input[name="password"]').simulate('change', {
@@ -200,7 +200,7 @@ describe('login', () => {
             loginPending={false}
             username="username"
             password="password"
-            />
+          />
         )
 
         wrapper.find('form').simulate('submit', {

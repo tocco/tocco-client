@@ -64,30 +64,30 @@ export class Wizard extends React.Component {
           {
             (this.state.index > 0)
             && <button
-              className="btn wizard-back-button"
-              onClick={this.backClick}
-            >
-              <FormattedMessage id="client.merge.back"/>
-            </button>
+            className="btn wizard-back-button"
+            onClick={this.backClick}
+          >
+            <FormattedMessage id="client.merge.back"/>
+          </button>
           }
           {
             (this.state.index < this.state.amountPages - 1)
             && <button
-              className="btn wizard-next-button"
-              onClick={this.nextClick}
-              disabled={!this.state.allowNext}
-            >
-              <FormattedMessage id="client.merge.next"/>
-            </button>
+            className="btn wizard-next-button"
+            onClick={this.nextClick}
+            disabled={!this.state.allowNext}
+          >
+            <FormattedMessage id="client.merge.next"/>
+          </button>
           }
           {
             (this.state.index === this.state.amountPages - 1)
             && <Button
-              className="wizard-next-button"
-              label={this.props.save.label}
-              onClick={this.props.save.fn}
-              primary
-            />
+            className="wizard-next-button"
+            label={this.props.save.label}
+            onClick={this.props.save.fn}
+            primary
+          />
           }
         </div>
       </div>

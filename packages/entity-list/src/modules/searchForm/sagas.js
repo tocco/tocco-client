@@ -31,14 +31,14 @@ export function* loadPreselectedRelationEntities(formDefinition, entityModel, se
   const relationFields = formDefinition.filter(searchField => [
     'ch.tocco.nice2.model.form.components.simple.MultiSelectBox',
     'ch.tocco.nice2.model.form.components.simple.SingleSelectBox']
-       .includes(searchField.type)).map(field => field.name)
+    .includes(searchField.type)).map(field => field.name)
 
   const relationFieldsWithValue = relationFields.filter(relationField => {
     const value = searchInputs[relationField]
     return (value instanceof Array && value.length > 0) || (!(value instanceof Array) && value)
   })
   const targetEntities = _uniq(
-   relationFieldsWithValue.map(relationField => (entityModel[relationField].targetEntity))
+    relationFieldsWithValue.map(relationField => (entityModel[relationField].targetEntity))
   )
 
   yield all(targetEntities.map(targetEntity => put(actions.loadRelationEntity(targetEntity))))

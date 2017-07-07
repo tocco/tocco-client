@@ -97,43 +97,43 @@ class Table extends React.Component {
           <thead>
             <tr>
               {
-              columnDefinitions.map((columnDefinition, idx) => {
-                return (
-                  <th
-                    key={idx}
-                    onClick={() => handleOrderByClick(columnDefinition, idx)}
-                  >
-                    {getLabel(columnDefinition)}
-                    {orderSymbol(columnDefinition, idx)}
-                  </th>
-                )
-              })
-            }
+                columnDefinitions.map((columnDefinition, idx) => {
+                  return (
+                    <th
+                      key={idx}
+                      onClick={() => handleOrderByClick(columnDefinition, idx)}
+                    >
+                      {getLabel(columnDefinition)}
+                      {orderSymbol(columnDefinition, idx)}
+                    </th>
+                  )
+                })
+              }
             </tr>
           </thead>
           <tbody>
             {
-            this.props.records.map((record, ridx) => {
-              return (
-                <tr key={ridx} onClick={() => handleOnClick(record)}>
-                  {
-                    columnDefinitions.map((c, cidx) => {
-                      const id = `${ridx}-${cidx}`
-                      const fields = c.values.map(value => record.values[value.name])
-                        .filter(field => field !== undefined && field !== null)
-                      return (
-                        <td key={id}>
-                          {
-                            renderValue(fields, record)
-                          }
-                        </td>
-                      )
-                    })
-                  }
-                </tr>
-              )
-            })
-          }
+              this.props.records.map((record, ridx) => {
+                return (
+                  <tr key={ridx} onClick={() => handleOnClick(record)}>
+                    {
+                      columnDefinitions.map((c, cidx) => {
+                        const id = `${ridx}-${cidx}`
+                        const fields = c.values.map(value => record.values[value.name])
+                          .filter(field => field !== undefined && field !== null)
+                        return (
+                          <td key={id}>
+                            {
+                              renderValue(fields, record)
+                            }
+                          </td>
+                        )
+                      })
+                    }
+                  </tr>
+                )
+              })
+            }
           </tbody>
         </table>
       </div>
