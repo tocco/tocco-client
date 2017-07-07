@@ -19,9 +19,9 @@ describe('tocco-util', () => {
           dispatch: dispatchSpy
         }
         setLocale(store, ['merge'], 'de_CH').then(() => {
-          expect(dispatchSpy).to.have.calledWith(
-            {payload: {locale: 'de-CH', messages: {test: 'test'}}, type: '@@intl/UPDATE'}
-          )
+          expect(dispatchSpy).to.have.calledWith(sinon.match({
+            type: '@@intl/UPDATE'
+          }))
           expect(fetchMock.called()).to.be.true
           done()
         })
@@ -46,9 +46,10 @@ describe('tocco-util', () => {
         }
         const modules = ['merge', 'components']
         initIntl(store, modules).then(() => {
-          expect(dispatchSpy).to.have.calledWith(
-            {payload: {locale: 'en-GB', messages: {test: 'test'}}, type: '@@intl/UPDATE'}
-          )
+          expect(dispatchSpy).to.be.calledWith(sinon.match({
+            type: '@@intl/UPDATE'
+          }))
+
           expect(fetchMock.called()).to.be.true
           done()
         })
