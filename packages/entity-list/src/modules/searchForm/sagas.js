@@ -56,7 +56,9 @@ export function* getEntityModel() {
 }
 
 export function* initialize() {
-  let {formDefinition, searchInputs, searchFormName} = yield select(searchFormSelector)
+  const searchForm = yield select(searchFormSelector)
+  const {searchInputs, searchFormName} = searchForm
+  let {formDefinition} = searchForm
 
   const entityModel = yield call(getEntityModel)
   formDefinition = yield call(loadSearchForm, formDefinition, searchFormName)

@@ -49,7 +49,7 @@ export const getRoutes = packageName => {
 }
 
 export const getModules = (packageName, route) => {
-  let baseModulePath = getPath(packageName, route) + '/modules'
+  const baseModulePath = getPath(packageName, route) + '/modules'
 
   const path = paths.client(baseModulePath)
   if (fs.existsSync(path)) {

@@ -35,7 +35,7 @@ const extractExampleCode = txt => {
 
   if (txt.indexOf(startString) <= -1 || txt.indexOf(endString) <= -1) return txt
 
-  let regexExpr = new RegExp(`${escapeRegExp(startString)}[\\r\\n]([\\s\\S]*?)[\r\n].*${escapeRegExp(endString)}`, '')
+  const regexExpr = new RegExp(`${escapeRegExp(startString)}[\\r\\n]([\\s\\S]*?)[\r\n].*${escapeRegExp(endString)}`, '')
   return txt.match(regexExpr).pop()
 }
 

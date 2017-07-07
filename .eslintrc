@@ -47,6 +47,7 @@
       "as-needed"
     ],
     "no-var": "error",
+    "prefer-const": "error",
     "no-trailing-spaces": ["error", { "skipBlankLines": true }],
     "space-before-function-paren": [2, "never"],
     "operator-linebreak": [2, "before"],
