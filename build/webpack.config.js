@@ -184,9 +184,9 @@ if (!process || !process.env || !process.env.DISABLE_ISTANBUL_COVERAGE) {
   testPlugins.push(['istanbul', {
     exclude: [
       '**/dev/**',
-      '**/*/*.spec.js',
-      '**/tocco-ui/**/example.js',
-      '**/tocco-ui/dist'
+      '**/dist/**',
+      '**/example.js',
+      '**/*/*.spec.js'
     ]
   }])
 }

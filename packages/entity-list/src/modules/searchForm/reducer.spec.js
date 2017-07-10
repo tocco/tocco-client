@@ -53,8 +53,6 @@ describe('entity-list', () => {
           ]
 
           const stateNew = reducer(EXPECTED_INITIAL_STATE, actions.setPreselectedSearchFields(preselectedSearchFields))
-
-          expect(stateNew.searchInputs).to.deep.equal({ID1: 'VALUE1', ID2: 'VALUE2'})
           expect(stateNew.preselectedSearchFields).to.deep.equal(preselectedSearchFields)
         })
 

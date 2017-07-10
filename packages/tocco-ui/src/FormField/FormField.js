@@ -8,8 +8,8 @@ const FormField = props => {
   }
 
   const fromGroupClass = classNames(
-    'form-field',
     'form-group',
+    props.className,
     {
       'mandatory': props.mandatory,
       'dirty': props.dirty,
@@ -59,7 +59,8 @@ FormField.propTypes = {
   touched: React.PropTypes.bool,
   dirty: React.PropTypes.bool,
   useLabel: React.PropTypes.bool,
-  error: React.PropTypes.objectOf(React.PropTypes.arrayOf(React.PropTypes.string))
+  error: React.PropTypes.objectOf(React.PropTypes.arrayOf(React.PropTypes.string)),
+  className: React.PropTypes.string
 }
 
 export default FormField

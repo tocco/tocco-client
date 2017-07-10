@@ -20,32 +20,10 @@ export const getParameterString = params => {
   return ''
 }
 
-/**
- * @deprecated #requestSaga should be used, since it allows to put actions or to call other sagas
- */
-export const getRequest = (resource, params, acceptedErrorCodes = []) => {
-  return request(resource, params, 'GET', undefined, acceptedErrorCodes)
-}
-
 let nullBusinessUnit = false
 
 export const setNullBusinessUnit = value => {
   nullBusinessUnit = value
-}
-
-/**
- * @deprecated #requestSaga should be used, since it allows to put actions or to call other sagas
- */
-export const request = (resource, queryParams, method, body, acceptedErrorCodes = [], acceptedStatusCodes = []) => {
-  const options = {
-    queryParams,
-    method,
-    body,
-    acceptedErrorCodes,
-    acceptedStatusCodes
-  }
-  const requestData = prepareRequest(resource, options)
-  return sendRequest(requestData.url, requestData.options, options.acceptedErrorCodes, options.acceptedStatusCodes)
 }
 
 /**
@@ -71,6 +49,29 @@ export function* requestSaga(resource, options = {}) {
   )
   response = yield call(handleClientQuestion, response, requestData, options)
   return response
+}
+
+/**
+ * Send a simple REST request.
+ *
+ * Caution: Only prefer this function over `requestSaga`, if you can't
+ * use the saga. Note that this simple request function does not support
+ * things like client questions.
+ *
+ * @param resource {String} The URL to fetch.
+ * @param options {Object} An object which can contain the following options:
+ * - queryParams {Object}
+ * - method {String}
+ * - body {Object}
+ * - acceptedErrorCodes {Array}
+ * - acceptedStatusCodes {Array}
+ * - backendUrl {String}
+ *
+ * @see requestSaga
+ */
+export const simpleRequest = (resource, options = {}) => {
+  const requestData = prepareRequest(resource, options)
+  return sendRequest(requestData.url, requestData.options, options.acceptedErrorCodes, options.acceptedStatusCodes)
 }
 
 export function prepareRequest(resource, options = {}) {

@@ -1,4 +1,4 @@
-const handleError = (response, acceptedErrorCodes, acceptedStatusCodes) => {
+const handleError = (response, acceptedErrorCodes = [], acceptedStatusCodes = []) => {
   if (!response.ok
     && !acceptedStatusCodes.includes(response.status)
     && !acceptedErrorCodes.includes(response.body.errorCode)) {

@@ -4,7 +4,20 @@ describe('tocco-ui-showcase', () => {
   describe('utils ', () => {
     describe('ExampleParser', () => {
       it('should extract examplecode line', () => {
-        const example = '<div>\n {/* start example */}\n CODE\n{/* end example */}\n</div>'
+        const example = `
+<div>
+{ /* start example */ }
+CODE
+{ /* end example */ }
+</div>
+`
+        const result = extractExampleCode(example)
+
+        result.should.eql('CODE')
+      })
+
+      it('should extract examplecode line without curly braces', () => {
+        const example = '<div>\n /* start example */\n CODE\n/* end example */\n</div>'
         const result = extractExampleCode(example)
 
         result.should.eql(' CODE')

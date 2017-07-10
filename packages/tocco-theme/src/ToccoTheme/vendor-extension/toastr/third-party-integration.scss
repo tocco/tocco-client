@@ -1,11 +1,13 @@
 /* prevent Bootstrap from leaking into Toastr (https://github.com/CodeSeven/toastr) */
-.redux-toastr .toastr .toastr-middle-container .title {
+.redux-toastr .toastr .title {
   padding: 0; // reset Bootstrap default
+  font-size: 1.1rem;
+  font-weight: bold;
   background: none; // reset Bootstrap default
   height: auto; // reset Bootstrap default
 }
 
-.redux-toastr .toastr .toastr-left-container .icon {
+.redux-toastr .toastr .icon {
   font-size: 3rem;
   margin-top: .5rem;
 }

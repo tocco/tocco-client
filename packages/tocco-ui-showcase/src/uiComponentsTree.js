@@ -34,10 +34,17 @@ import LayoutBoxRaw from '!raw-loader!../../tocco-ui/src/LayoutBox/LayoutBox'
 import LayoutBoxExample from '../../tocco-ui/src/LayoutBox/example'
 import LayoutBoxExampleRaw from '!raw-loader!../../tocco-ui/src/LayoutBox/example'
 
+import ErrorLoggingExample from './toccoUtilExamples/errorLogging/example'
+import ErrorLoggingExampleRaw from '!raw-loader!./toccoUtilExamples/errorLogging/example'
+
+import NotifierExample from './toccoUtilExamples/notifier/example'
+import NotifierExampleRaw from '!raw-loader!./toccoUtilExamples/notifier/example'
+
 const categories = {
   CONTENT: 'Content',
   FORMS: 'Form Controls',
-  LAYOUT: 'Layout'
+  LAYOUT: 'Layout',
+  UTIL: 'Tocco-Util'
 }
 
 export default [
@@ -122,6 +129,27 @@ export default [
         example: {
           component: LayoutBoxExample,
           raw: LayoutBoxExampleRaw
+        }
+      }
+    ]
+  },
+  {
+    category: categories.UTIL,
+    components: [
+      {
+        name: 'Error Logging',
+        description: 'Example to log Errors in an application',
+        example: {
+          component: ErrorLoggingExample,
+          raw: ErrorLoggingExampleRaw
+        }
+      },
+      {
+        name: 'Notifications',
+        description: 'To show various notifications to the user',
+        example: {
+          component: NotifierExample,
+          raw: NotifierExampleRaw
         }
       }
     ]

@@ -1,21 +1,13 @@
 import React from 'react'
 import ReduxToastr from 'react-redux-toastr'
 import RouteWithSubRoutes from '../../../../components/RouteWithSubRoutes'
-import '!style-loader!css-loader!react-redux-toastr/lib/css/react-redux-toastr.min.css'
-
-const toastrOptions = {
-  newestOnTop: false,
-  preventDuplicates: true,
-  transitionIn: 'fadeIn',
-  transitionOut: 'fadeOut',
-  progressBar: true
-}
+import {notifier} from 'tocco-util'
 
 class EntityBrowser extends React.Component {
   render() {
     return (
       <div>
-        <ReduxToastr {...toastrOptions} />
+        <ReduxToastr {...notifier.defaultToastrOptions} />
         {this.props.routes.map((route, i) => (
           <RouteWithSubRoutes key={i} {...route} />
         ))
