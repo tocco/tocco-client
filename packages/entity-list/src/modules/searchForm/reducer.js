@@ -1,37 +1,13 @@
 import * as actions from './actions'
 import {reducers} from 'tocco-util'
 
-const setSearchInput = (state, {payload}) => {
-  if (payload.field) {
-    return {
-      ...state,
-      searchInputs: {
-        ...state.searchInputs,
-        [payload.field]: payload.value
-      }
-    }
+const setSearchInput = (state, {payload}) => ({
+  ...state,
+  searchInputs: {
+    ...state.searchInputs,
+    [payload.field]: payload.value
   }
-
-  return state
-}
-
-const setPreselectedSearchFields = (state, {payload}) => {
-  let newState = {
-    ...state,
-    preselectedSearchFields: payload.preselectedSearchFields
-  }
-
-  payload.preselectedSearchFields.forEach(f => {
-    newState = setSearchInput(newState, {
-      payload: {
-        field: f.id,
-        value: f.value
-      }
-    })
-  })
-
-  return newState
-}
+})
 
 const reset = state => ({
   ...state,
@@ -97,7 +73,7 @@ const ACTION_HANDLERS = {
   [actions.SET_SIMPLE_SEARCH_FIELDS]: setSimpleSearchFields,
   [actions.SET_FORM_DEFINITION]: reducers.singleTransferReducer('formDefinition'),
   [actions.SET_SHOW_EXTENDED_SEARCH_FORM]: reducers.singleTransferReducer('showExtendedSearchForm'),
-  [actions.SET_PRESELECTED_SEARCH_FIELDS]: setPreselectedSearchFields,
+  [actions.SET_PRESELECTED_SEARCH_FIELDS]: reducers.singleTransferReducer('preselectedSearchFields'),
   [actions.SET_DISABLE_SIMPLE_SEARCH]: reducers.singleTransferReducer('disableSimpleSearch'),
   [actions.SET_RELATION_ENTITY]: setRelationEntity,
   [actions.SET_RELATION_ENTITY_LOADED]: setRelationEntityLoaded
