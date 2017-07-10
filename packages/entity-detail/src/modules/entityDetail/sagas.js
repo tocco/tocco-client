@@ -14,7 +14,7 @@ import {ClientQuestionCancelledException} from 'tocco-util/src/rest'
 import * as actions from './actions'
 import {fetchEntity, fetchEntities, updateEntity, fetchModel, selectEntitiesTransformer} from '../../util/api/entities'
 import {fetchForm, getFieldsOfDetailForm} from '../../util/api/forms'
-import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../util/detailView/reduxForm'
+import {formValuesToEntity, entityToFormValues, getDirtyFields} from 'tocco-util/src/form/reduxForm'
 import {submitValidate} from '../../util/detailView/asyncValidation'
 
 export const formInitialValueSelector = formId => state => state.form[formId].initial

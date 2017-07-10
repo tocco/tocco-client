@@ -2,10 +2,14 @@ import React from 'react'
 import {reduxForm} from 'redux-form'
 import {intlShape, FormattedRelative, FormattedMessage} from 'react-intl'
 import {Button, LayoutBox} from 'tocco-ui'
+
+import formErrorsUtil from 'tocco-util/src/form/formErrors'
+import initFormBuilder from 'tocco-util/src/form/formBuilder'
+import {getFieldId} from 'tocco-util/src/form/helpers'
+
 import ErrorBox from '../ErrorBox'
-import formErrorsUtil from '../../util/detailView/formErrors'
-import initFormBuilder from './formBuilder'
-import {getFieldId} from '../../util/detailView/helpers'
+import formFieldMapping from '../../util/detailView/formFieldMapping'
+import readOnlyFormFieldMapping from '../../util/detailView/readOnlyFormFieldMapping'
 
 export class DetailForm extends React.Component {
   constructor(props) {
@@ -34,7 +38,9 @@ export class DetailForm extends React.Component {
       props.form,
       props.formDefinition,
       props.formValues,
-      formFieldUtils
+      formFieldUtils,
+      formFieldMapping,
+      readOnlyFormFieldMapping
     )
   }
 

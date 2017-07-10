@@ -2,9 +2,7 @@ import React from 'react'
 import _omit from 'lodash/omit'
 import {injectIntl, intlShape} from 'react-intl'
 
-import {formField} from 'tocco-util'
-import formFieldMapping from '../../util/detailView/formFieldMapping'
-import readOnlyFormFieldMapping from '../../util/detailView/readOnlyFormFieldMapping'
+import formField from '../formField'
 
 const extractEventsFromInput = input => (
   _omit(input, ['name', 'value', 'onChange'])
@@ -41,7 +39,7 @@ const ReduxFormFieldAdapter = props => {
     mandatoryTitle: props.intl.formatMessage({id: 'client.entity-detail.mandatoryFieldTitle'})
   }
 
-  const mapping = props.readOnlyForm ? readOnlyFormFieldMapping : formFieldMapping
+  const mapping = props.readOnlyForm ? props.readOnlyFormFieldMapping : props.formFieldMapping
 
   return formField.formFieldFactory(mapping, fomFieldData, resources)
 }
@@ -64,7 +62,15 @@ ReduxFormFieldAdapter.propTypes = {
   entityField: React.PropTypes.object,
   formFieldUtils: React.PropTypes.object.isRequired,
   modelField: React.PropTypes.object,
-  readOnlyForm: React.PropTypes.bool
+  readOnlyForm: React.PropTypes.bool,
+  formFieldMapping: React.PropTypes.objectOf(React.PropTypes.oneOfType([
+    React.PropTypes.func,
+    React.PropTypes.objectOf(React.PropTypes.func)
+  ])).isRequired,
+  readOnlyFormFieldMapping: React.PropTypes.objectOf(React.PropTypes.oneOfType([
+    React.PropTypes.func,
+    React.PropTypes.objectOf(React.PropTypes.func)
+  ])).isRequired
 }
 
 export default injectIntl(ReduxFormFieldAdapter)

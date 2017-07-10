@@ -1,7 +1,7 @@
 import {call} from 'redux-saga/effects'
 import {requestSaga} from 'tocco-util/src/rest'
 import {SubmissionError} from 'redux-form'
-import {validationErrorToFormError} from '../detailView/reduxForm'
+import {validationErrorToFormError} from 'tocco-util/src/form/reduxForm'
 
 export function* fetchEntity(entityName, id, fields, formName) {
   const options = {

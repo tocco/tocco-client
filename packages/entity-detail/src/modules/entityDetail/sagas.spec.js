@@ -12,7 +12,7 @@ import {externalEvents, notifier, errorLogging} from 'tocco-util'
 import {ClientQuestionCancelledException} from 'tocco-util/src/rest'
 import {updateEntity, fetchEntity, fetchModel, fetchEntities, selectEntitiesTransformer} from '../../util/api/entities'
 import {getFieldsOfDetailForm} from '../../util/api/forms'
-import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../util/detailView/reduxForm'
+import {formValuesToEntity, entityToFormValues, getDirtyFields} from 'tocco-util/src/form/reduxForm'
 import {submitValidate} from '../../util/detailView/asyncValidation'
 
 const FORM_ID = 'detailForm'
