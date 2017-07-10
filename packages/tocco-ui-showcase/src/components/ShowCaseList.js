@@ -1,7 +1,7 @@
 import React from 'react'
 
-import ShowCase from './ShowCase'
-import {parse} from 'react-docgen'
+import ComponentShowCase from './ComponentShowCase'
+import CodeShowCase from './CodeShowCase'
 
 const ShowCaseList = props => {
   return (
@@ -12,13 +12,25 @@ const ShowCaseList = props => {
             <section key={componentGroup.category} id={componentGroup.category}>
               <h1>{componentGroup.category}</h1>
               {
-                componentGroup.components.map(comp => {
-                  const componentInfo = parse(comp.raw)
-                  return (
+                componentGroup.components.map(comp => (
                     <section key={comp.name} id={comp.name}>
-                      <ShowCase componentName={comp.name} componentInfo={componentInfo} example={comp.example}/>
-                    </section>)
-                })
+                      {
+                        (comp.raw)
+                          ? <ComponentShowCase
+                            componentName={comp.name}
+                            componentRaw={comp.raw}
+                            example={comp.example}
+                          />
+                          : <CodeShowCase
+                            componentName={comp.name}
+                            description={comp.description}
+                            example={comp.example}
+                          />
+                      }
+
+                    </section>
+                  )
+                )
               }
             </section>
           )

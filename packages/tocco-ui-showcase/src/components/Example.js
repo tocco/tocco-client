@@ -20,8 +20,8 @@ const Example = props => {
           {props.example.component()}
         </div>
         <div className="list-group-item">
-          <Highlight className="javascript">{imports}</Highlight>
-          <Highlight className="html">{exampleCode}</Highlight>
+          {imports && <Highlight className="javascript">{imports}</Highlight>}
+          <Highlight className={exampleCode.startsWith('<') ? 'html' : 'javascript'}>{exampleCode}</Highlight>
         </div>
       </div>
     </div>

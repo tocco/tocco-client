@@ -4,31 +4,35 @@ import FormField from './FormField'
 // real-import:import {FormField} from 'tocco-ui'
 
 export default () => {
-  const input = <input type="text" className="form-control" id="usr"/>
+  const getInput = id => <input type="text" className="form-control" id={id}/>
   return (
-    <div style={{height: '150px'}}>
-      {/* start example */}
-      <FormField
-        id="test"
-        label="Label"
-        mandatory
-        dirty={false}
-      >
-        {input}
-      </FormField>
-      <FormField
-        id="test"
-        label="Label 2"
-        mandatory={false}
-        dirty
-        touched
-        error={{
-          error1: ['error1-1'],
-          error2: ['error2-1', 'error2-2']
-        }}
-      >
-        {input}
-      </FormField>
+    <div className="form-group" style={{height: '150px'}}>
+      <form>
+          {/* start example */}
+          <FormField
+            id="test"
+            label="Label"
+            mandatory
+            dirty={false}
+            className="row"
+          >
+            {getInput('test')}
+          </FormField>
+          <FormField
+            id="test2"
+            label="Label 2"
+            mandatory={false}
+            dirty
+            touched
+            error={{
+              error1: ['error1-1'],
+              error2: ['error2-1', 'error2-2']
+            }}
+            className="row"
+          >
+            {getInput('test2')}
+          </FormField>
+      </form>
       {/* end example */}
     </div>
   )
