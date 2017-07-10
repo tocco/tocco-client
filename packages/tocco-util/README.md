@@ -20,6 +20,9 @@ Helper to create tocco-ui FormField component.
 #### intl
 Retrieves text resources through tocco REST service regarding the principals locale.
 
+#### mockData
+Contains a Factory to create mock data and helps to mock basic REST calls for those entities.
+
 #### notifier
 Allows to dispatch actions to show a info box or confirm dialog. Just needs to be added to the store and then one of
 the exported actions can be dispatched anywhere. When added to store, it can be configured if those actions are
