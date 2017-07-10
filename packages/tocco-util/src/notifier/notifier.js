@@ -4,6 +4,7 @@ import {actions as toastrActions, reducer as toastrReducer} from 'react-redux-to
 import {FormattedMessage} from 'react-intl'
 import appFactory from '../appFactory'
 import sagas from './sagas'
+import '!style-loader!css-loader!react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
 export function getInfoAction(type, title, message, icon, timeOut) {
   const options = {
@@ -27,7 +28,6 @@ export function getInfoAction(type, title, message, icon, timeOut) {
 
   return toastrActions.add({
     type,
-    position: 'top-right',
     options
   })
 }
@@ -42,6 +42,15 @@ export function getConfirmationAction(message, okText, cancelText, onOk, onCance
       onCancel
     }
   })
+}
+
+export const defaultToastrOptions = {
+  newestOnTop: false,
+  preventDuplicates: false,
+  transitionIn: 'fadeIn',
+  transitionOut: 'fadeOut',
+  progressBar: true,
+  position: 'top-right'
 }
 
 export const addToStore = (store, accept) => {

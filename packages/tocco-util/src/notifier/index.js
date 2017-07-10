@@ -1,3 +1,3 @@
-import {addToStore} from './notifier'
+import {addToStore, defaultToastrOptions} from './notifier'
 import {info, confirm} from './actions'
-export default {addToStore, info, confirm}
+export default {addToStore, defaultToastrOptions, info, confirm}
