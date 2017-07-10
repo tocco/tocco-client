@@ -8,32 +8,32 @@ export default () => {
   return (
     <div className="form-group" style={{height: '150px'}}>
       <form>
-          {/* start example */}
-          <FormField
-            id="test"
-            label="Label"
-            mandatory
-            dirty={false}
-            className="row"
-          >
-            {getInput('test')}
-          </FormField>
-          <FormField
-            id="test2"
-            label="Label 2"
-            mandatory={false}
-            dirty
-            touched
-            error={{
-              error1: ['error1-1'],
-              error2: ['error2-1', 'error2-2']
-            }}
-            className="row"
-          >
-            {getInput('test2')}
-          </FormField>
+        {/* start example */}
+        <FormField
+          id="test"
+          label="Label"
+          mandatory
+          dirty={false}
+          className="row"
+        >
+          {getInput('test')}
+        </FormField>
+        <FormField
+          id="test2"
+          label="Label 2"
+          mandatory={false}
+          dirty
+          touched
+          error={{
+            error1: ['error1-1'],
+            error2: ['error2-1', 'error2-2']
+          }}
+          className="row"
+        >
+          {getInput('test2')}
+        </FormField>
+        {/* end example */}
       </form>
-      {/* end example */}
     </div>
   )
 }
