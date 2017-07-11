@@ -26,7 +26,10 @@ const NumberEdit = props => {
 
 NumberEdit.propTypes = {
   onChange: React.PropTypes.func,
-  value: React.PropTypes.number,
+  value: React.PropTypes.oneOfType([
+    React.PropTypes.number,
+    React.PropTypes.string // empty string coming from Redux Form if value null
+  ]),
   name: React.PropTypes.string,
   id: React.PropTypes.string,
   readOnly: React.PropTypes.bool

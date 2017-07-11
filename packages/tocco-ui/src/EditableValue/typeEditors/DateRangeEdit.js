@@ -31,10 +31,13 @@ const DateRangeEdit = props => {
 
 DateRangeEdit.propTypes = {
   onChange: React.PropTypes.func,
-  value: React.PropTypes.shape({
-    from: React.PropTypes.string,
-    to: React.PropTypes.string
-  }),
+  value: React.PropTypes.oneOfType([
+    React.PropTypes.shape({
+      from: React.PropTypes.string,
+      to: React.PropTypes.string
+    }),
+    React.PropTypes.string // empty string coming from Redux Form if value null
+  ]),
   readOnly: React.PropTypes.bool,
   options: React.PropTypes.object
 }
