@@ -22,8 +22,8 @@ describe('entity-list', () => {
         })
 
         describe('initializeSearchForm saga', () => {
-          it('should set model and from definition and retrieve relevant entities', () => {
-            const searchInputs = {}
+          it('should set model and from definition and set initial searchInputs', () => {
+            const preselectedSearchFields = {}
             const formDefinition = []
             const searchFormName = 'SearchForm'
 
@@ -38,10 +38,15 @@ describe('entity-list', () => {
 
             const gen = sagas.initialize()
             expect(gen.next().value).to.eql(select(sagas.searchFormSelector))
-            expect(gen.next({formDefinition, searchInputs, searchFormName}).value).to.eql(call(sagas.getEntityModel))
-            expect(gen.next(entityModel).value).to.eql(call(sagas.loadSearchForm, formDefinition, searchFormName))
-            expect(gen.next(formDefinition).value)
-              .to.eql(call(sagas.loadPreselectedRelationEntities, formDefinition, entityModel, searchInputs))
+            expect(gen.next({formDefinition, preselectedSearchFields, searchFormName}).value).to.eql(
+              call(sagas.getEntityModel)
+            )
+
+            expect(gen.next(entityModel).value).to.eql(all([
+              call(sagas.loadSearchForm, formDefinition, searchFormName),
+              call(sagas.setInitialSearchInputs, entityModel, preselectedSearchFields)
+            ])
+            )
             expect(gen.next().done).to.be.true
           })
         })
@@ -57,8 +62,49 @@ describe('entity-list', () => {
           })
         })
 
+        describe('setInitialSearchInputs saga', () => {
+          it('should set simple search values', () => {
+            const entityModel = {}
+            const preselectedSearchFields = [
+              {
+                id: 'fullText',
+                value: 'test'
+              },
+              {
+                id: 'field2',
+                value: 'test2'
+              }
+            ]
+
+            const gen = sagas.setInitialSearchInputs(entityModel, preselectedSearchFields)
+
+            expect(gen.next().value).to.eql(put(actions.setSearchInput('fullText', 'test')))
+            expect(gen.next().value).to.eql(put(actions.setSearchInput('field2', 'test2')))
+            expect(gen.next().done).to.be.true
+          })
+
+          it('should set relation search values with display', () => {
+            const entityModel = {relRelation: {type: 'relation', targetEntity: 'entity1'}}
+            const entities = [{key: '2', display: 'test'}]
+            const preselectedSearchFields = [
+              {
+                id: 'relRelation',
+                value: '2'
+              }
+            ]
+
+            const gen = sagas.setInitialSearchInputs(entityModel, preselectedSearchFields)
+
+            expect(gen.next().value).to.eql(call(sagas.loadRelationEntity, actions.loadRelationEntity('entity1')))
+            expect(gen.next(entities).value).to.eql(
+              put(actions.setSearchInput('relRelation', {key: '2', display: 'test'}))
+            )
+            expect(gen.next().done).to.be.true
+          })
+        })
+
         describe('loadRelationEntity saga', () => {
-          it('should load relation entites ', () => {
+          it('should load relation entites and return them ', () => {
             const entityName = 'User'
 
             const entities = [{display: 'User1', key: 1}]
@@ -70,23 +116,28 @@ describe('entity-list', () => {
             expect(gen.next(entities).value)
               .to.eql(put(actions.setRelationEntity(entityName, transformedEntities, true)))
             expect(gen.next().value).to.eql(put(actions.setRelationEntityLoaded(entityName)))
-            expect(gen.next().done).to.be.true
+
+            const next = gen.next()
+            expect(next.value).to.eql(entities)
+            expect(next.done).to.be.true
           })
 
           it('should not load entities if already loaded', () => {
             const entityName = 'User'
 
-            const state = {
-              relationEntities: {
-                User: {
-                  loaded: true
-                }
+            const relationEntities = {
+              User: {
+                data: [{name: 'entity1'}, {name: 'entity2'}],
+                loaded: true
               }
             }
 
             const gen = sagas.loadRelationEntity(actions.loadRelationEntity(entityName))
             expect(gen.next().value).to.eql(select(sagas.searchFormSelector))
-            expect(gen.next(state).done).to.be.true
+
+            const next = gen.next({relationEntities})
+            expect(next.value).to.eql(relationEntities.User.data)
+            expect(next.done).to.be.true
           })
         })
       })
