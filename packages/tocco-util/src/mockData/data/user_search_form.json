@@ -1,11 +1,11 @@
 {
   "_links": {
     "self": {
-      "href": "https://master.tocco.ch/nice2/rest/forms/UserSearch_search"
+      "href": "https://master.tocco.ch/nice2/rest/forms/User_search"
     }
   },
   "form": {
-    "name": "UserSearch_search",
+    "name": "User_search",
     "type": "ch.tocco.nice2.model.form.components.Form",
     "displayType": "EDITABLE",
     "children": [
@@ -67,7 +67,7 @@
         "useLabel": "NO"
       }
     ],
-    "label": "##forms.UserSearch_search:de_CH:nice2.optional.usersearch",
+    "label": "##forms.User_search:de_CH:nice2.optional.user",
     "useLabel": "YES"
   }
 }

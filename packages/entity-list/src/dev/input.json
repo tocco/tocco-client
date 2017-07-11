@@ -1,7 +1,7 @@
 {
   "entityName": "User",
   "formBase": "User",
-  "limit": 10,
+  "limit": 100,
   "showSearchForm": true,
   "disableSimpleSearch": false,
   "simpleSearchFields": "txtFulltext,birthdate",
@@ -17,8 +17,8 @@
     },
     {
       "id": "relSingle_entity2",
-      "value": "2",
-      "hidden": true
+      "value": "3",
+      "hidden": false
     },
     {
       "id": "relMulti_entity2",

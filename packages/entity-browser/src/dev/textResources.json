@@ -1,25 +1,4 @@
 [
   "client.entity-browser.back",
-  "client.entity-browser.backTo",
-  "client.entity-browser.detail.save",
-  "client.entity-browser.detail.lastSave",
-  "client.entity-browser.detail.saveSuccessfulMessage",
-  "client.entity-browser.detail.saveSuccessfulTitle",
-  "client.entity-browser.detail.saveAbortedTitle",
-  "client.entity-browser.detail.saveAbortedMessage",
-  "client.entity-browser.detail.confirmTouchedFormLeave",
-  "client.entity-browser.detail.validationError",
-  "client.entity-browser.detail.syncValidationMaxLength",
-  "client.entity-browser.detail.syncValidationMinLength",
-  "client.entity-browser.detail.syncValidationRequired",
-  "client.entity-browser.detail.invalidFieldsError",
-  "client.entity-browser.detail.invalidRelationErrors",
-  "client.entity-browser.detail.mandatoryFieldTitle",
-  "client.entity-browser.detail.saveError",
-  "client.entity-browser.detail.loadingText",
-  "client.component.remoteselect.noResultsText",
-  "client.component.remoteselect.clearAllText",
-  "client.component.remoteselect.clearValueText",
-  "client.component.remoteselect.searchPromptText",
-  "client.component.remoteselect.moreOptionsAvailableText"
+  "client.entity-browser.backTo"
 ]

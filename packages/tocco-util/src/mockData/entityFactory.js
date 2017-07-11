@@ -13,11 +13,9 @@ const getRandomDate = (startYear, endYear) => {
   return `${year}-${month}-${day}`
 }
 
-function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min
-}
+const getRandomInt = (min, max) => (Math.floor(Math.random() * (max - min + 1)) + min)
 
-export const createDummyEntity = amount => {
+export const createDummyEntities = amount => {
   const entities = []
 
   for (let i = 0; i < amount; i++) {
@@ -60,7 +58,7 @@ export const createDummyEntity = amount => {
       key: `${i}`,
       model: 'Dummy_entity',
       version: 1,
-      display: `Dummy Entity ${i}`,
+      display: `User ${i}`,
       fields: values,
       paths
     })
@@ -71,7 +69,7 @@ export const createDummyEntity = amount => {
 
 export const createUsers = amount => {
   const entities = []
-  const userTemplate = require('./user_template.json')
+  const userTemplate = require('./data/user_template.json')
 
   for (let i = 0; i < amount; i++) {
     entities.push({

@@ -1,7 +1,7 @@
 {
   "entityName": "User",
-  "limit": 50,
-  "formBase": "UserSearch",
+  "limit": 25,
+  "formBase": "User",
   "showSearchForm": true,
   "disableSimpleSearch": false,
   "simpleSearchFields": "",
