@@ -37,3 +37,5 @@ Helper to load a route async.
 #### utilFetchMock
 Generic fetchMocks e.g. log, session, text-resources.
 
+#### form
+Utils for redux forms (`redux-form`).

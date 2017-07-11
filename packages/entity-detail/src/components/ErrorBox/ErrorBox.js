@@ -1,19 +1,19 @@
 import React from 'react'
 import {FormattedMessage} from 'react-intl'
 
-import formErrorsUtil from '../../util/detailView/formErrors'
+import {form} from 'tocco-util'
 
 const ErrorBox = props => {
   const {formErrors} = props
   return (
     <div className="alert alert-danger" role="alert">
-      {formErrorsUtil.hasFieldErrors(formErrors) && <a onClick={props.showErrors}>
+      {form.formErrorsUtil.hasFieldErrors(formErrors) && <a onClick={props.showErrors}>
         <FormattedMessage id="client.entity-detail.invalidFieldsError"/>
       </a>}
-      {formErrorsUtil.hasPathErrors(formErrors) && <div>
+      {form.formErrorsUtil.hasPathErrors(formErrors) && <div>
         <div><FormattedMessage id="client.entity-detail.invalidRelationErrors"/></div>
         <ul>
-          {formErrorsUtil.getPathErrorsCompact(formErrors).map((message, idx) => {
+          {form.formErrorsUtil.getPathErrorsCompact(formErrors).map((message, idx) => {
             return <li key={idx}>{message}</li>
           })}
         </ul>

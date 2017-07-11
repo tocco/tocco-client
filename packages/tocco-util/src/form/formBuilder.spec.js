@@ -92,9 +92,9 @@ const testData = {
   }
 }
 
-describe('entity-detail', () => {
-  describe('components', () => {
-    describe('DetailForm', () => {
+describe('tocco-util', () => {
+  describe('form', () => {
+    describe('formBuilder', () => {
       it('should render LayoutBoxes and Fields', () => {
         const {entity, model, formName, formDefinition, formValues, formFieldUtils} = testData
 
@@ -123,6 +123,18 @@ describe('entity-detail', () => {
         const wrapper = shallow(<form>{formBuilder()}</form>)
 
         expect(wrapper.find(Field)).to.have.length(1)
+      })
+
+      it('should not require an entity (should not check readable flag in this case)', () => {
+        const {model, formName, formDefinition, formValues, formFieldUtils} = testData
+
+        const entity = null
+
+        const formBuilder = createFromBuilder(entity, model, formName, formDefinition, formValues, formFieldUtils)
+
+        const wrapper = shallow(<form>{formBuilder()}</form>)
+
+        expect(wrapper.find(Field)).to.have.length(2)
       })
 
       it('should not render empty values in readonly form', () => {
