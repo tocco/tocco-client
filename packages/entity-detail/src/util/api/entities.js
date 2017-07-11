@@ -1,7 +1,7 @@
 import {call} from 'redux-saga/effects'
 import {requestSaga} from 'tocco-util/src/rest'
 import {SubmissionError} from 'redux-form'
-import {validationErrorToFormError} from '../detailView/reduxForm'
+import {form} from 'tocco-util'
 
 export function* fetchEntity(entityName, id, fields, formName) {
   const options = {
@@ -28,7 +28,7 @@ export function* updateEntity(entity, fields = []) {
   const resp = yield call(requestSaga, resource, options)
 
   if (resp.body.errorCode === 'VALIDATION_FAILED') {
-    throw new SubmissionError(validationErrorToFormError(entity, resp.body.errors))
+    throw new SubmissionError(form.validationErrorToFormError(entity, resp.body.errors))
   }
 
   return resp.body

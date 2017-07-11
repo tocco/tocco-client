@@ -1,8 +1,8 @@
 import React from 'react'
-import {transformFieldName} from '../../util/detailView/reduxForm'
+import {transformFieldName} from './reduxForm'
 import {Field} from 'redux-form'
-import {getFieldId} from '../../util/detailView/helpers'
-import ReduxFormFieldAdapter from '../ReduxFormFieldAdapter'
+import {getFieldId} from './helpers'
+import ReduxFormFieldAdapter from './ReduxFormFieldAdapter'
 import _get from 'lodash/get'
 import _startsWith from 'lodash/startsWith'
 import {LayoutBox} from 'tocco-ui'
@@ -10,7 +10,16 @@ import {LayoutBox} from 'tocco-ui'
 const layoutTypeNamespace = 'ch.tocco.nice2.model.form.components.layout.'
 const actionTypeNamespace = 'ch.tocco.nice2.model.form.components.action.'
 
-export default (entity, model, formName, formDefinition, formValues, formFieldUtils) => {
+export default (
+  entity,
+  model,
+  formName,
+  formDefinition,
+  formValues,
+  formFieldUtils,
+  formFieldMapping,
+  readOnlyFormFieldMapping
+) => {
   const isReadOnlyForm = formDefinition.displayType === 'READONLY'
 
   const formTraverser = children => {
@@ -41,10 +50,11 @@ export default (entity, model, formName, formDefinition, formValues, formFieldUt
       }
     }
 
-    const isReadable = _get(entityField, 'value.readable', true)
-
-    if (!isReadable) {
-      return false
+    if (entityField) {
+      const isReadable = _get(entityField, 'value.readable', true)
+      if (!isReadable) {
+        return false
+      }
     }
 
     return !(isReadOnlyForm && hasEmptyValue(fieldName, formValues))
@@ -52,7 +62,7 @@ export default (entity, model, formName, formDefinition, formValues, formFieldUt
 
   const createField = (formDefinitionField, key) => {
     const fieldName = formDefinitionField.name
-    const entityField = entity.paths[fieldName]
+    const entityField = entity ? entity.paths[fieldName] : null
     const modelField = model[fieldName]
 
     if (shouldRenderField(fieldName, entityField, formValues, isReadOnlyForm)) {
@@ -67,6 +77,8 @@ export default (entity, model, formName, formDefinition, formValues, formFieldUt
           entityField={entityField}
           modelField={modelField}
           formFieldUtils={formFieldUtils}
+          formFieldMapping={formFieldMapping}
+          readOnlyFormFieldMapping={readOnlyFormFieldMapping}
         />
       )
     }
