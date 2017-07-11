@@ -9,12 +9,11 @@ import {
   destroy as destroyForm
 } from 'redux-form'
 
-import {externalEvents, notifier, errorLogging} from 'tocco-util'
+import {externalEvents, notifier, errorLogging, form} from 'tocco-util'
 import {ClientQuestionCancelledException} from 'tocco-util/src/rest'
 import * as actions from './actions'
 import {fetchEntity, fetchEntities, updateEntity, fetchModel, selectEntitiesTransformer} from '../../util/api/entities'
 import {fetchForm, getFieldsOfDetailForm} from '../../util/api/forms'
-import {formValuesToEntity, entityToFormValues, getDirtyFields} from 'tocco-util/src/form/reduxForm'
 import {submitValidate} from '../../util/detailView/asyncValidation'
 
 export const formInitialValueSelector = formId => state => state.form[formId].initial
@@ -78,7 +77,7 @@ export function* loadDetailView() {
   const formDefinition = yield call(loadDetailFormDefinition, formName)
   const entity = yield call(loadEntity, entityName, entityId, formDefinition, formName)
 
-  const formValues = yield call(entityToFormValues, entity)
+  const formValues = yield call(form.entityToFormValues, entity)
   yield put(initializeForm(FORM_ID, formValues))
 }
 
@@ -88,12 +87,12 @@ export function* submitForm() {
     const initialValues = yield select(formInitialValueSelector(FORM_ID))
     yield put(startSubmit(FORM_ID))
     yield call(submitValidate, values, initialValues)
-    const dirtyFields = yield call(getDirtyFields, initialValues, values)
-    const entity = yield call(formValuesToEntity, values, dirtyFields)
+    const dirtyFields = yield call(form.getDirtyFields, initialValues, values)
+    const entity = yield call(form.formValuesToEntity, values, dirtyFields)
     const {formDefinition} = yield select(entityDetailSelector)
     const fields = yield call(getFieldsOfDetailForm, formDefinition)
     const updatedEntity = yield call(updateEntity, entity, fields)
-    const updatedFormValues = yield call(entityToFormValues, updatedEntity)
+    const updatedFormValues = yield call(form.entityToFormValues, updatedEntity)
     yield put(initializeForm(FORM_ID, updatedFormValues))
 
     yield put(notifier.info(

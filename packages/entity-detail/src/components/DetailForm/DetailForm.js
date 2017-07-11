@@ -2,10 +2,7 @@ import React from 'react'
 import {reduxForm} from 'redux-form'
 import {intlShape, FormattedRelative, FormattedMessage} from 'react-intl'
 import {Button, LayoutBox} from 'tocco-ui'
-
-import formErrorsUtil from 'tocco-util/src/form/formErrors'
-import initFormBuilder from 'tocco-util/src/form/formBuilder'
-import {getFieldId} from 'tocco-util/src/form/helpers'
+import {form} from 'tocco-util'
 
 import ErrorBox from '../ErrorBox'
 import formFieldMapping from '../../util/detailView/formFieldMapping'
@@ -32,7 +29,7 @@ export class DetailForm extends React.Component {
       intl: this.props.intl
     }
 
-    return initFormBuilder(
+    return form.initFormBuilder(
       props.entity,
       props.entityModel,
       props.form,
@@ -49,13 +46,13 @@ export class DetailForm extends React.Component {
   isEntityLoaded = () => (this.props.entity && this.props.entity.paths)
 
   touchFieldsWithError = () => {
-    Object.keys(formErrorsUtil.getFieldErrors(this.props.formErrors)).forEach(f => this.props.touch(f))
+    Object.keys(form.formErrorsUtil.getFieldErrors(this.props.formErrors)).forEach(f => this.props.touch(f))
   }
 
   focusErrorFields = () => {
-    const firstErrorField = formErrorsUtil.getFirstErrorField(this.props.formErrors)
+    const firstErrorField = form.formErrorsUtil.getFirstErrorField(this.props.formErrors)
     if (firstErrorField) {
-      document.getElementById(getFieldId(this.props.form, firstErrorField)).focus()
+      document.getElementById(form.getFieldId(this.props.form, firstErrorField)).focus()
     }
   }
 
