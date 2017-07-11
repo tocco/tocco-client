@@ -8,11 +8,10 @@ import {
   SubmissionError,
   touch
 } from 'redux-form'
-import {externalEvents, notifier, errorLogging} from 'tocco-util'
+import {externalEvents, notifier, errorLogging, form} from 'tocco-util'
 import {ClientQuestionCancelledException} from 'tocco-util/src/rest'
 import {updateEntity, fetchEntity, fetchModel, fetchEntities, selectEntitiesTransformer} from '../../util/api/entities'
 import {getFieldsOfDetailForm} from '../../util/api/forms'
-import {formValuesToEntity, entityToFormValues, getDirtyFields} from '../../util/detailView/reduxForm'
 import {submitValidate} from '../../util/detailView/asyncValidation'
 
 const FORM_ID = 'detailForm'
@@ -129,7 +128,7 @@ describe('entity-detail', () => {
             expect(gen.next().value).to.eql(call(sagas.loadDetailFormDefinition, formName))
             expect(gen.next(formDefinition).value)
               .to.eql(call(sagas.loadEntity, entityName, entityId, formDefinition, formName))
-            expect(gen.next(entity).value).to.eql(call(entityToFormValues, entity))
+            expect(gen.next(entity).value).to.eql(call(form.entityToFormValues, entity))
             expect(gen.next({}).value).to.eql(put(initializeForm(FORM_ID, {})))
             expect(gen.next().done).to.be.true
           })
@@ -152,12 +151,12 @@ describe('entity-detail', () => {
             expect(gen.next(values).value) // expect(gen.next().value).to.eql(select(formInitialValueSelector(formId)))
             expect(gen.next(initialValues).value).to.eql(put(startSubmit(formId)))
             expect(gen.next().value).to.eql(call(submitValidate, values, initialValues))
-            expect(gen.next().value).to.eql(call(getDirtyFields, initialValues, values))
-            expect(gen.next(dirtyFields).value).to.eql(call(formValuesToEntity, values, dirtyFields))
+            expect(gen.next().value).to.eql(call(form.getDirtyFields, initialValues, values))
+            expect(gen.next(dirtyFields).value).to.eql(call(form.formValuesToEntity, values, dirtyFields))
             expect(gen.next(entity).value).to.eql(select(sagas.entityDetailSelector))
             expect(gen.next({formDefinition}).value).to.eql(call(getFieldsOfDetailForm, formDefinition))
             expect(gen.next(fields).value).to.eql(call(updateEntity, entity, fields))
-            expect(gen.next(updatedEntity).value).to.eql(call(entityToFormValues, updatedEntity))
+            expect(gen.next(updatedEntity).value).to.eql(call(form.entityToFormValues, updatedEntity))
             expect(gen.next(updatedFormValues).value).to.eql(put(initializeForm(formId, updatedFormValues)))
             expect(gen.next().value).to.eql(put(notifier.info(
               'success',
@@ -214,8 +213,8 @@ describe('entity-detail', () => {
             expect(gen.next(values).value) // expect(gen.next().value).to.eql(select(formInitialValueSelector(formId)))
             expect(gen.next(initialValues).value).to.eql(put(startSubmit(formId)))
             expect(gen.next().value).to.eql(call(submitValidate, values, initialValues))
-            expect(gen.next().value).to.eql(call(getDirtyFields, initialValues, values))
-            expect(gen.next(dirtyFields).value).to.eql(call(formValuesToEntity, values, dirtyFields))
+            expect(gen.next().value).to.eql(call(form.getDirtyFields, initialValues, values))
+            expect(gen.next(dirtyFields).value).to.eql(call(form.formValuesToEntity, values, dirtyFields))
             expect(gen.next(entity).value).to.eql(select(sagas.entityDetailSelector))
             expect(gen.next({formDefinition}).value).to.eql(call(getFieldsOfDetailForm, formDefinition))
             expect(gen.next(fields).value).to.eql(call(updateEntity, entity, fields))
@@ -247,8 +246,8 @@ describe('entity-detail', () => {
             expect(gen.next(values).value) // expect(gen.next().value).to.eql(select(formInitialValueSelector(formId)))
             expect(gen.next(initialValues).value).to.eql(put(startSubmit(formId)))
             expect(gen.next().value).to.eql(call(submitValidate, values, initialValues))
-            expect(gen.next().value).to.eql(call(getDirtyFields, initialValues, values))
-            expect(gen.next(dirtyFields).value).to.eql(call(formValuesToEntity, values, dirtyFields))
+            expect(gen.next().value).to.eql(call(form.getDirtyFields, initialValues, values))
+            expect(gen.next(dirtyFields).value).to.eql(call(form.formValuesToEntity, values, dirtyFields))
             expect(gen.next(entity).value).to.eql(select(sagas.entityDetailSelector))
             expect(gen.next({formDefinition}).value).to.eql(call(getFieldsOfDetailForm, formDefinition))
             expect(gen.next(fields).value).to.eql(call(updateEntity, entity, fields))
