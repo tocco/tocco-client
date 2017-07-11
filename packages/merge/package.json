@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "tocco-test-util": "0.1.2",
-    "tocco-theme": "0.1.5",
+    "tocco-theme": "0.1.6",
     "tocco-ui": "0.1.5",
     "tocco-util": "0.1.6"
   }
