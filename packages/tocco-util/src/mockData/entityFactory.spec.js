@@ -14,8 +14,8 @@ describe('tocco-util', () => {
       describe('createDummyEntities', () => {
         it('should create right amount of user entities', () => {
           const amount = 99
-          const dummyEntities = createUsers(amount)
-          expect(dummyEntities.length).to.eql(amount)
+          const users = createUsers(amount)
+          expect(users.length).to.eql(amount)
         })
       })
     })
