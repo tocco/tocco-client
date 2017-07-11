@@ -37,6 +37,7 @@ const extractExampleCode = txt => {
 
   const pattern = `${escapeRegExp(startString)}\\s?\\}?[\\r\\n]([\\s\\S]*?)[\r\n].*\\{?\\s?${escapeRegExp(endString)}`
   const regexExpr = new RegExp(pattern, '')
+
   return txt.match(regexExpr).pop()
 }
 

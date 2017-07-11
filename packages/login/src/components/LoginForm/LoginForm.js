@@ -23,9 +23,9 @@ export class LoginForm extends Component {
         {
           this.props.showTitle
           && <div>
-            <h1><FormattedMessage id="client.login.form.title"/></h1>
-            <p><FormattedMessage id="client.login.form.introduction"/></p>
-          </div>
+          <h1><FormattedMessage id="client.login.form.title"/></h1>
+          <p><FormattedMessage id="client.login.form.introduction"/></p>
+        </div>
         }
         <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="form-group dense">
@@ -58,9 +58,9 @@ export class LoginForm extends Component {
           </div>
           <div className="message-box">
             {
-            this.props.message && this.props.message.text
+              this.props.message && this.props.message.text
             && <span className={this.props.message.negative ? 'text-danger' : ''}>{this.props.message.text}</span>
-          }
+            }
           </div>
           <div>
             <div>

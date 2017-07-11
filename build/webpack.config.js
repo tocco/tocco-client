@@ -112,6 +112,7 @@ if (__DEV__) {
 } else if (__PROD__) {
   webpackConfig.plugins.push(
     new webpack.optimize.CommonsChunkPlugin({
+      name: 'app',
       async: true,
       minChunks(module, count) {
         return count >= 2

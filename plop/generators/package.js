@@ -9,7 +9,7 @@ export default {
     }
   ],
   actions: data => {
-    let actions = []
+    const actions = []
 
     const baseTemplateFolder = './plop/templates/package'
     const targetFolder = 'packages/{{kebabCase package}}'

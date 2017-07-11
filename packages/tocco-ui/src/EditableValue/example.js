@@ -89,7 +89,7 @@ class Example extends React.Component {
                   value={this.state.values.string}
                   onChange={v => this.changeValue('string', v)}
                   readOnly={this.state.readOnly}
-              />
+                />
               </td>
             </tr>
             <tr>
@@ -100,7 +100,7 @@ class Example extends React.Component {
                   value={this.state.values.text}
                   onChange={v => this.changeValue('text', v)}
                   readOnly={this.state.readOnly}
-              />
+                />
               </td>
             </tr>
             <tr>
@@ -111,7 +111,7 @@ class Example extends React.Component {
                   value={this.state.values.number}
                   onChange={v => this.changeValue('number', v)}
                   readOnly={this.state.readOnly}
-              />
+                />
               </td>
             </tr>
             <tr>
@@ -132,15 +132,15 @@ class Example extends React.Component {
                   type="single-select"
                   options={{
                     store: [
-                    {key: 1, display: 'One'},
-                    {key: 2, display: 'Two'},
-                    {key: 3, display: 'Three'}
+                      {key: 1, display: 'One'},
+                      {key: 2, display: 'Two'},
+                      {key: 3, display: 'Three'}
                     ]
                   }}
                   value={this.state.values.singleSelect}
                   onChange={v => this.changeValue('singleSelect', v)}
                   readOnly={this.state.readOnly}
-              />
+                />
               </td>
             </tr>
             <tr>
@@ -152,10 +152,10 @@ class Example extends React.Component {
                   onChange={v => this.changeValue('multiSelect', v)}
                   options={{
                     store: [{key: 'a', display: 'One'}, {key: 'b', display: 'Two'},
-                    {key: 'c', display: 'Three'}, {key: 'd', display: 'Four'}]
+                      {key: 'c', display: 'Three'}, {key: 'd', display: 'Four'}]
                   }}
                   readOnly={this.state.readOnly}
-              />
+                />
               </td>
             </tr>
             <tr>
@@ -174,7 +174,7 @@ class Example extends React.Component {
                     moreOptionsAvailable: true,
                     moreOptionsAvailableText: 'More Options available'
                   }}
-              />
+                />
               </td>
             </tr>
             <tr>
@@ -193,7 +193,7 @@ class Example extends React.Component {
                     moreOptionsAvailable: true,
                     moreOptionsAvailableText: 'More Options available'
                   }}
-              />
+                />
               </td>
             </tr>
             <tr>
@@ -204,7 +204,7 @@ class Example extends React.Component {
                   value={this.state.values.date}
                   onChange={v => this.changeValue('date', v)}
                   readOnly={this.state.readOnly}
-              />
+                />
               </td>
             </tr>
             <tr>
@@ -223,7 +223,7 @@ class Example extends React.Component {
                     }
                   }}
                   readOnly={this.state.readOnly}
-              />
+                />
               </td>
             </tr>
             <tr>
@@ -234,7 +234,7 @@ class Example extends React.Component {
                   value={this.state.values.datetime}
                   onChange={v => this.changeValue('datetime', v)}
                   readOnly={this.state.readOnly}
-              />
+                />
               </td>
             </tr>
             <tr>
@@ -252,7 +252,7 @@ class Example extends React.Component {
                                     + 'EAAAOxAGVKw4bAAAABlBMVEUCd72z5fwcX0uLAAAAHElEQVQ4y2NgwAns/8PBn1HOKGeUM8oZrBycAAD'
                                     + 'OggXZNnQmgAAAAABJRU5ErkJggg=='}}
                   readOnly={this.state.readOnly}
-              />
+                />
               </td>
             </tr>
             <tr>
