@@ -1,6 +1,6 @@
 {
   "name": "tocco-entity-browser",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "description": "Lists entities and allows to sort and search them",
   "main": "dist/index.js",
   "scripts": {
@@ -25,11 +25,11 @@
     }
   },
   "devDependencies": {
-    "tocco-entity-detail": "0.1.6",
-    "tocco-entity-list": "0.1.6",
+    "tocco-entity-detail": "0.1.7",
+    "tocco-entity-list": "0.1.7",
     "tocco-test-util": "0.1.2",
-    "tocco-theme": "0.1.4",
-    "tocco-ui": "0.1.4",
-    "tocco-util": "0.1.5"
+    "tocco-theme": "0.1.5",
+    "tocco-ui": "0.1.5",
+    "tocco-util": "0.1.6"
   }
 }
