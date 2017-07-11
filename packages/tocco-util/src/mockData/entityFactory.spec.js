@@ -11,7 +11,7 @@ describe('tocco-util', () => {
         })
       })
 
-      describe('createDummyEntities', () => {
+      describe('createUsers', () => {
         it('should create right amount of user entities', () => {
           const amount = 99
           const users = createUsers(amount)
