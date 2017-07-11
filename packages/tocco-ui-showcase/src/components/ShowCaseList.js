@@ -13,23 +13,23 @@ const ShowCaseList = props => {
               <h1>{componentGroup.category}</h1>
               {
                 componentGroup.components.map(comp => (
-                    <section key={comp.name} id={comp.name}>
-                      {
-                        (comp.raw)
-                          ? <ComponentShowCase
-                            componentName={comp.name}
-                            componentRaw={comp.raw}
-                            example={comp.example}
-                          />
-                          : <CodeShowCase
-                            componentName={comp.name}
-                            description={comp.description}
-                            example={comp.example}
-                          />
-                      }
+                  <section key={comp.name} id={comp.name}>
+                    {
+                      (comp.raw)
+                        ? <ComponentShowCase
+                          componentName={comp.name}
+                          componentRaw={comp.raw}
+                          example={comp.example}
+                        />
+                        : <CodeShowCase
+                          componentName={comp.name}
+                          description={comp.description}
+                          example={comp.example}
+                        />
+                    }
 
-                    </section>
-                  )
+                  </section>
+                )
                 )
               }
             </section>

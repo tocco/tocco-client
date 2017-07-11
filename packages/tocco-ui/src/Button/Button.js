@@ -45,7 +45,7 @@ Button.propTypes = {
    * If true, the button will be disabled
    */
   disabled: React.PropTypes.bool,
- /**
+  /**
   * If true, a spinner will be shown on the button
   */
   pending: React.PropTypes.bool,

@@ -17,14 +17,14 @@ import intl from '../intl'
 import errorLogging from '../errorLogging'
 
 export const createApp = (name,
-                          content,
-                          store,
-                          {
-                            input = {},
-                            actions = undefined,
-                            publicPath = undefined,
-                            textResourceModules = []
-                          }) => {
+  content,
+  store,
+  {
+    input = {},
+    actions = undefined,
+    publicPath = undefined,
+    textResourceModules = []
+  }) => {
   try {
     if (publicPath) {
       setWebpacksPublicPath(publicPath)

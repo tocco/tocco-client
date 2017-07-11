@@ -12,7 +12,7 @@ export default () => {
         recordsPerPage={25}
         noInput={false}
         onPageChange={page => { console.log('Page Changed:', page) }}
-        />
+      />
       {/* end example */}
     </div>
   )

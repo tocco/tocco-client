@@ -84,8 +84,7 @@ function buildParams({
   return params
 }
 
-export function* fetchEntities(entityName, searchInputs,
-                               transformer = defaultEntitiesTransformer) {
+export function* fetchEntities(entityName, searchInputs, transformer = defaultEntitiesTransformer) {
   const queryParams = buildParams(searchInputs)
   const response = yield call(requestSaga, `entities/${entityName}`, {
     queryParams

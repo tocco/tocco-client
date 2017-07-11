@@ -28,8 +28,12 @@ class SearchForm extends React.Component {
   }
 
   shouldRenderField = name => (
-    !this.isHidden(name) && (
-    this.props.disableSimpleSearch || this.props.showExtendedSearchForm || this.props.simpleSearchFields.includes(name))
+    !this.isHidden(name)
+    && (
+      this.props.disableSimpleSearch
+      || this.props.showExtendedSearchForm
+      || this.props.simpleSearchFields.includes(name)
+    )
   )
 
   toggleExtendedSearchForm = () => {

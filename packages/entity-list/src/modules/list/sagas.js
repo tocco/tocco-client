@@ -100,7 +100,7 @@ export function* fetchEntitiesAndAddToStore(page) {
 
 export function* requestEntities(page) {
   const list = yield select(listSelector)
-  let {entityStore} = list
+  const {entityStore} = list
 
   if (!entityStore[page]) {
     yield call(fetchEntitiesAndAddToStore, page)
