@@ -1,4 +1,4 @@
-let textResources = {}
+const textResources = {}
 
 export default (fetchMock, textResourceKeys = []) => {
   textResourceKeys.forEach(key => {

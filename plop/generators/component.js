@@ -23,7 +23,7 @@ export default {
       ]
     }],
   actions: data => {
-    let actions = []
+    const actions = []
     const baseTemplateFolder = './plop/templates/component'
 
     let targetFolder = getPath(data.package, data.route)

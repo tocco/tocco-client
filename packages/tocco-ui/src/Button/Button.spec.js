@@ -44,7 +44,7 @@ describe('tocco-ui', function() {
     })
 
     it('should add primary class if primary prop is set', () => {
-      let wrapper = shallow(
+      const wrapper = shallow(
         <Button primary/>
       )
 
@@ -100,7 +100,7 @@ describe('tocco-ui', function() {
     })
 
     it('should set default type to button', () => {
-      let wrapper = shallow(
+      const wrapper = shallow(
         <Button/>
       )
       expect(wrapper.find('button').prop('type')).to.equal('button')

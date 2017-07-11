@@ -31,9 +31,9 @@ const config = {
   compiler_stats           : {
     chunks : false,
     chunkModules : false,
-    colors : true
+    colors : true,
+    maxModules: false
   },
-
   // ----------------------------------
   // Test Configuration
   // ----------------------------------

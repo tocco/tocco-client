@@ -20,48 +20,48 @@ const MergeMatrix = props => {
         </thead>
         <tbody>
           {
-          props.model.fields.map((field, idx) => {
-            return (
-              <FieldRow
-                key={`fieldrow${idx}`}
-                field={field}
-                selections={props.selections}
-                targetEntity={targetEntity}
-                entities={props.entities}
-                selectSourceField={props.selectSourceField}
-              />
-            )
-          })
-        }
+            props.model.fields.map((field, idx) => {
+              return (
+                <FieldRow
+                  key={`fieldrow${idx}`}
+                  field={field}
+                  selections={props.selections}
+                  targetEntity={targetEntity}
+                  entities={props.entities}
+                  selectSourceField={props.selectSourceField}
+                />
+              )
+            })
+          }
           {
-          props.model.relations.filter(r => !r.toMany).map((relation, idx) => {
-            return (
-              <RelationRow
-                key={`relationrow${idx}`}
-                relation={relation}
-                selections={props.selections}
-                targetEntity={targetEntity}
-                entities={props.entities}
-                selectSourceRelation={props.selectSourceRelation}
-                toggleRelationMany={props.toggleRelationMany}
-              />
-            )
-          })
-        }
+            props.model.relations.filter(r => !r.toMany).map((relation, idx) => {
+              return (
+                <RelationRow
+                  key={`relationrow${idx}`}
+                  relation={relation}
+                  selections={props.selections}
+                  targetEntity={targetEntity}
+                  entities={props.entities}
+                  selectSourceRelation={props.selectSourceRelation}
+                  toggleRelationMany={props.toggleRelationMany}
+                />
+              )
+            })
+          }
           {
-          props.model.relations.filter(r => r.toMany).map((relation, idx) => {
-            return (
-              <ToManyRelationRow
-                key={`relationrow${idx}`}
-                relation={relation}
-                selections={props.selections}
-                targetEntity={targetEntity}
-                entities={props.entities}
-                toggleRelationMany={props.toggleRelationMany}
-              />
-            )
-          })
-        }
+            props.model.relations.filter(r => r.toMany).map((relation, idx) => {
+              return (
+                <ToManyRelationRow
+                  key={`relationrow${idx}`}
+                  relation={relation}
+                  selections={props.selections}
+                  targetEntity={targetEntity}
+                  entities={props.entities}
+                  toggleRelationMany={props.toggleRelationMany}
+                />
+              )
+            })
+          }
         </tbody>
       </table>
     </div>
