@@ -1,71 +1,33 @@
-import {utilFetchMocks} from 'tocco-util'
+import {utilFetchMocks, mockData} from 'tocco-util'
 import {
-  createEntityResponse,
-  createCountResponse,
-  createEntitiesResponse,
   createEntityUpdateResponse,
   createValidateResponse
 } from './fetchMockHelpers'
 
-export default function setupFetchMock(fetchMock) {
+const defaultStore = {
+  User: mockData.createUsers(1001),
+  Dummy_entity: mockData.createDummyEntities(100)
+}
+
+export default function setupFetchMock(fetchMock, entityStore = defaultStore) {
   utilFetchMocks.session(fetchMock)
   utilFetchMocks.textResource(fetchMock, require('./textResources.json'))
 
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/User/model$'),
-    require('./rest-responses/model_user.json')
-  )
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/Dummy_entity/model$'),
-    require('./rest-responses/model_user.json')
+  mockData.setupFetchMock(fetchMock, entityStore)
+
+  fetchMock.patch(
+    new RegExp('^.*?/nice2/rest/entities/User/[0-9]+\\?_validate=true'),
+    createValidateResponse(entityStore)
   )
 
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/User_detail$'),
-    require('./rest-responses/form_user_detail.json')
-  )
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/User_detail_relDummySubGrid_list$'),
-    require('./rest-responses/form_user_detail_relDummySubGrid_list.json')
-  )
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/User_detail_relDummySubGrid_search$'),
-    require('./rest-responses/form_user_detail_relDummySubGrid_search.json')
-  )
-
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/User/[0-9](\\?.*)?'),
-    createEntityResponse('user')
-  )
   fetchMock.post(
-    new RegExp('^.*?/nice2/rest/entities/User/[0-9](\\?.*)?'),
-    createEntityUpdateResponse
-  )
-  fetchMock.patch(
-    new RegExp('^.*?/nice2/rest/entities/User/[0-9]\\?_validate=true'),
-    createValidateResponse
-  )
-  fetchMock.patch(
-    new RegExp('^.*?/nice2/rest/entities/User/[0-9](\\?.*)?'),
-    createEntityUpdateResponse
+    new RegExp('^.*?/nice2/rest/entities/User/[0-9]+(\\?.*)?'),
+    createEntityUpdateResponse(entityStore)
   )
 
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/User?.*'),
-    createEntitiesResponse('user')
-  )
-
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/Dummy_entity/count?.*'),
-    createCountResponse('dummy')
-  )
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/Dummy_entity/[0-9]?.*'),
-    createEntityResponse('dummy')
-  )
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/Dummy_entity?.*'),
-    createEntitiesResponse('dummy')
+  fetchMock.patch(
+    new RegExp('^.*?/nice2/rest/entities/User/[0-9]+(\\?.*)?'),
+    createEntityUpdateResponse(entityStore)
   )
 }
 

@@ -43,7 +43,7 @@
         "useLabel": "NO"
       }
     ],
-    "label": "##forms.User_detail_relDummySubGrid_search:de_CH:nice2.optional.usersearch",
+    "label": "##forms.User_detail_relDummySubGrid_search:de_CH:nice2.optional.user",
     "useLabel": "YES"
   }
 }
