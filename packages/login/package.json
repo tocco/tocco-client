@@ -1,6 +1,6 @@
 {
   "name": "tocco-login",
-  "version": "0.1.22",
+  "version": "0.1.23",
   "description": "Login dialog with password-update dialog that can run independently",
   "main": "dist/index.js",
   "scripts": {
@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "tocco-test-util": "0.1.2",
-    "tocco-theme": "0.1.6",
+    "tocco-theme": "0.1.7",
     "tocco-ui": "0.1.5",
     "tocco-util": "0.1.6"
   }
