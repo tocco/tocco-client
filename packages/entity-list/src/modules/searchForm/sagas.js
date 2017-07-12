@@ -1,4 +1,3 @@
-import {delay} from 'redux-saga'
 import {call, put, fork, select, takeLatest, take, all} from 'redux-saga/effects'
 import * as actions from './actions'
 import {fetchForm, searchFormTransformer} from '../../util/api/forms'
@@ -11,14 +10,13 @@ export const entityListSelector = state => state.entityList
 export default function* sagas() {
   yield all([
     fork(takeLatest, actions.INITIALIZE, initialize),
-    fork(takeLatest, actions.SET_SEARCH_INPUT, setSearchTerm),
-    fork(takeLatest, actions.RESET, setSearchTerm),
+    fork(takeLatest, actions.PREPARE_PRESELECTED_SEARCH_FIELDS, preparePreselectedSearchFields),
     fork(takeLatest, actions.LOAD_RELATION_ENTITY, loadRelationEntity)
   ])
 }
 
 export function* loadSearchForm(formDefinition, searchFormName) {
-  if (formDefinition.length === 0) {
+  if (!formDefinition.children) {
     formDefinition = yield call(fetchForm, searchFormName, searchFormTransformer)
     yield put(actions.setFormDefinition(formDefinition))
   }
@@ -26,7 +24,13 @@ export function* loadSearchForm(formDefinition, searchFormName) {
   return formDefinition
 }
 
-export function* setInitialSearchInputs(entityModel, preselectedSearchFields) {
+export function* preparePreselectedSearchFields({payload}) {
+  const {preselectedSearchFields} = payload
+
+  const entityModel = yield call(getEntityModel)
+
+  const transformedFields = []
+
   for (const preselectedSearchField of preselectedSearchFields) {
     const fieldName = preselectedSearchField.id
     const value = preselectedSearchField.value
@@ -44,8 +48,13 @@ export function* setInitialSearchInputs(entityModel, preselectedSearchFields) {
       }
     }
 
-    yield put(actions.setSearchInput(fieldName, transformedValue))
+    transformedFields.push({
+      ...preselectedSearchField,
+      value: transformedValue
+    })
   }
+
+  yield put(actions.setPreselectedSearchFields(transformedFields))
 }
 
 export function* getEntityModel() {
@@ -60,19 +69,8 @@ export function* getEntityModel() {
 }
 
 export function* initialize() {
-  const {formDefinition, preselectedSearchFields, searchFormName} = yield select(searchFormSelector)
-  const entityModel = yield call(getEntityModel)
-
-  yield all([
-    call(loadSearchForm, formDefinition, searchFormName),
-    call(setInitialSearchInputs, entityModel, preselectedSearchFields)
-  ])
-}
-
-export function* setSearchTerm() {
-  yield call(delay, 400)
-  const {searchValues} = yield select(searchFormSelector)
-  yield put(actions.searchTermChange(searchValues))
+  const {formDefinition, searchFormName} = yield select(searchFormSelector)
+  yield call(loadSearchForm, formDefinition, searchFormName)
 }
 
 export function* loadRelationEntity({payload}) {

@@ -1,11 +1,11 @@
 import {put, select, call, fork, spawn, takeLatest, takeEvery, all} from 'redux-saga/effects'
+import {reset} from 'redux-form'
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import rootSaga, * as sagas from './sagas'
 import {getSearchInputsForRequest} from '../../util/searchInputs'
 import {fetchForm, columnDefinitionTransformer} from '../../util/api/forms'
 import {fetchEntityCount, fetchEntities, entitiesListTransformer, fetchModel} from '../../util/api/entities'
-import _clone from 'lodash/clone'
 
 const generateState = (entityStore = {}, page) => ({
   formBase: '',
@@ -26,7 +26,8 @@ describe('entity-list', () => {
             expect(generator.next().value).to.deep.equal(all([
               fork(takeLatest, actions.INITIALIZE, sagas.initialize),
               fork(takeLatest, actions.CHANGE_PAGE, sagas.changePage),
-              fork(takeLatest, searchFormActions.SEARCH_TERM_CHANGE, sagas.resetDataSet),
+              fork(takeLatest, searchFormActions.EXECUTE_SEARCH, sagas.resetDataSet),
+              fork(takeLatest, searchFormActions.RESET_SEARCH, sagas.resetSearch),
               fork(takeEvery, actions.SET_ORDER_BY, sagas.resetDataSet),
               fork(takeEvery, actions.RESET_DATA_SET, sagas.resetDataSet),
               fork(takeLatest, actions.REFRESH, sagas.refresh)
@@ -201,16 +202,53 @@ describe('entity-list', () => {
           })
         })
 
+        describe('getPreselectedSearchValues', () => {
+          it('should transform the fields array to a map', () => {
+            const gen = sagas.getPreselectedSearchValues()
+            expect(gen.next().value).to.eql(select(sagas.preselectedSearchFieldsSelector))
+
+            const preselectedSearchFields = [{
+              id: 'txtFulltext',
+              value: 'my search',
+              hidden: false
+            }, {
+              id: 'relSingle_entity2',
+              value: '2',
+              hidden: true
+            }]
+
+            const next = gen.next(preselectedSearchFields)
+
+            expect(next.value).to.eql({
+              txtFulltext: 'my search',
+              relSingle_entity2: '2'
+            })
+            expect(next.done).to.be.true
+          })
+        })
+
         describe('getSearchInputs saga', () => {
           it('should get searchInputs', () => {
-            const searchInputs = {}
             const entityModel = {}
+            const preselectedSearchValues = {
+              txtFulltext: 'my search',
+              relSingle_entity2: '2'
+            }
+            const searchValues = {
+              txtFulltext: 'my own search',
+              some_field: 'some value'
+            }
+            const expectedValues = {
+              _search: 'my own search',
+              relSingle_entity2: '2',
+              some_field: 'some value'
+            }
 
             const gen = sagas.getSearchInputs()
-            expect(gen.next().value).to.eql(select(sagas.searchFormSelector))
-            expect(gen.next({searchInputs}).value).to.eql(call(_clone, {}))
-            expect(gen.next(searchInputs).value).to.eql(select(sagas.listSelector))
-            expect(gen.next({entityModel}).value).to.eql(call(getSearchInputsForRequest, searchInputs, entityModel))
+            expect(gen.next().value).to.eql(call(sagas.getPreselectedSearchValues))
+            expect(gen.next(preselectedSearchValues).value).to.eql(select(sagas.searchValuesSelector))
+            expect(gen.next(searchValues).value).to.eql(select(sagas.listSelector))
+            expect(gen.next({entityModel}).value).to.eql(call(getSearchInputsForRequest, expectedValues, entityModel))
             expect(gen.next().done).to.be.true
           })
         })
@@ -257,6 +295,15 @@ describe('entity-list', () => {
             }
 
             const gen = sagas.loadEntityModel(entityName, entityModel)
+            expect(gen.next().done).to.be.true
+          })
+        })
+
+        describe('resetSearch saga', () => {
+          it('should reset the form and trigger a search', () => {
+            const gen = sagas.resetSearch()
+            expect(gen.next().value).to.eql(put(reset('searchForm')))
+            expect(gen.next().value).to.eql(call(sagas.resetDataSet))
             expect(gen.next().done).to.be.true
           })
         })

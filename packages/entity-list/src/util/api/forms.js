@@ -38,25 +38,7 @@ export const columnDefinitionTransformer = json => {
   ))
 }
 
-export const searchFormTransformer = json => {
-  const {form} = json
-
-  if (!form) {
-    return []
-  }
-
-  const fields = form.children[0].children
-
-  return fields
-    .filter(f => f.displayType !== 'HIDDEN')
-    .map(f => ({
-      name: f.name,
-      type: f.type,
-      displayType: f.displayType,
-      label: f.label,
-      useLabel: f.useLabel
-    }))
-}
+export const searchFormTransformer = json => json.form
 
 export const getFieldsOfColumnDefinition = columnDefinition => (
   columnDefinition

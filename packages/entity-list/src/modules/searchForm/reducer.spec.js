@@ -3,8 +3,7 @@ import * as actions from './actions'
 
 const EXPECTED_INITIAL_STATE = {
   searchFormName: '',
-  formDefinition: [],
-  searchInputs: {},
+  formDefinition: {},
   showExtendedSearchForm: false,
   simpleSearchFields: ['txtFulltext'],
   preselectedSearchFields: [],
@@ -28,15 +27,6 @@ describe('entity-list', () => {
           expect(reducer(EXPECTED_INITIAL_STATE, actions.setFormDefinition(definition)).formDefinition).to.deep.equal(
             definition
           )
-        })
-
-        it('should handle SET_SEARCH_INPUT', () => {
-          let state = EXPECTED_INITIAL_STATE
-
-          state = reducer(state, actions.setSearchInput('firstname', 'Dan'))
-          state = reducer(state, actions.setSearchInput('age', 18))
-
-          expect(state.searchInputs).to.deep.equal({firstname: 'Dan', age: 18})
         })
 
         it('should handle SET_PRESELECTED_SEARCH_FIELDS', () => {

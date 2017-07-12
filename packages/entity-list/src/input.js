@@ -1,7 +1,7 @@
 import {setShowSearchForm, setEntityName} from './modules/entityList/actions'
 import {
   setSearchFormName,
-  setPreselectedSearchFields,
+  preparePreselectedSearchFields,
   setDisableSimpleSearch,
   setSimpleSearchFields
 } from './modules/searchForm/actions'
@@ -31,7 +31,7 @@ export const getDispatchActions = input => {
   }
 
   if (input.preselectedSearchFields) {
-    actions.push(setPreselectedSearchFields(input.preselectedSearchFields))
+    actions.push(preparePreselectedSearchFields(input.preselectedSearchFields))
   }
 
   if (input.simpleSearchFields) {

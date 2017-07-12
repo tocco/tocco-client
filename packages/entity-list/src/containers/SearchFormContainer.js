@@ -3,17 +3,17 @@ import {injectIntl} from 'react-intl'
 import SearchForm from '../components/SearchForm'
 import {
   initialize,
-  setSearchInput,
-  reset,
+  executeSearch,
+  resetSearch,
   setShowExtendedSearchForm,
   loadRelationEntity
 } from '../modules/searchForm/actions'
 
 const mapActionCreators = {
-  initialize,
-  setSearchInput,
+  initializeSearchForm: initialize,
+  executeSearch,
   loadRelationEntity,
-  reset,
+  resetSearch,
   setShowExtendedSearchForm
 }
 
