@@ -202,53 +202,14 @@ describe('entity-list', () => {
           })
         })
 
-        describe('getPreselectedSearchValues', () => {
-          it('should transform the fields array to a map', () => {
-            const gen = sagas.getPreselectedSearchValues()
-            expect(gen.next().value).to.eql(select(sagas.preselectedSearchFieldsSelector))
-
-            const preselectedSearchFields = [{
-              id: 'txtFulltext',
-              value: 'my search',
-              hidden: false
-            }, {
-              id: 'relSingle_entity2',
-              value: '2',
-              hidden: true
-            }]
-
-            const next = gen.next(preselectedSearchFields)
-
-            expect(next.value).to.eql({
-              txtFulltext: 'my search',
-              relSingle_entity2: '2'
-            })
-            expect(next.done).to.be.true
-          })
-        })
-
         describe('getSearchInputs saga', () => {
           it('should get searchInputs', () => {
             const entityModel = {}
-            const preselectedSearchValues = {
-              txtFulltext: 'my search',
-              relSingle_entity2: '2'
-            }
-            const searchValues = {
-              txtFulltext: 'my own search',
-              some_field: 'some value'
-            }
-            const expectedValues = {
-              _search: 'my own search',
-              relSingle_entity2: '2',
-              some_field: 'some value'
-            }
-
+            const searchValues = {}
             const gen = sagas.getSearchInputs()
-            expect(gen.next().value).to.eql(call(sagas.getPreselectedSearchValues))
-            expect(gen.next(preselectedSearchValues).value).to.eql(select(sagas.searchValuesSelector))
+            expect(gen.next().value).to.eql(select(sagas.searchValuesSelector))
             expect(gen.next(searchValues).value).to.eql(select(sagas.listSelector))
-            expect(gen.next({entityModel}).value).to.eql(call(getSearchInputsForRequest, expectedValues, entityModel))
+            expect(gen.next({entityModel}).value).to.eql(call(getSearchInputsForRequest, searchValues, entityModel))
             expect(gen.next().done).to.be.true
           })
         })

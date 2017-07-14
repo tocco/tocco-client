@@ -1,7 +1,9 @@
 import {put, select, call, fork, takeLatest, all} from 'redux-saga/effects'
+import {initialize as initializeForm} from 'redux-form'
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
 import {fetchEntities, selectEntitiesTransformer} from '../../util/api/entities'
+import {getInitialFromValues} from '../../util/searchForm'
 
 describe('entity-list', () => {
   describe('modules', () => {
@@ -29,6 +31,24 @@ describe('entity-list', () => {
 
             expect(gen.next({formDefinition, searchFormName}).value)
               .to.eql(call(sagas.loadSearchForm, formDefinition, searchFormName))
+            expect(gen.next().done).to.be.true
+          })
+        })
+
+        describe('preparePreselectedSearchFields saga', () => {
+          it('should set intital form value', () => {
+            const entityModel = {}
+            const preselectedSearchFields = [{id: 'fullText', value: 'test'}]
+            const gen = sagas.preparePreselectedSearchFields(
+              actions.preparePreselectedSearchFields(preselectedSearchFields)
+            )
+            expect(gen.next().value).to.eql(call(sagas.getEntityModel))
+            expect(gen.next(entityModel).value).to.eql(
+              call(getInitialFromValues, preselectedSearchFields, entityModel, sagas.loadRelationEntity)
+            )
+            const formValues = {fullText: 'test'}
+            expect(gen.next(formValues).value).to.eql(put(initializeForm('searchForm', formValues)))
+
             expect(gen.next().done).to.be.true
           })
         })

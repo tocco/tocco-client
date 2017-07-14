@@ -58,7 +58,6 @@ const ACTION_HANDLERS = {
   [actions.SET_SIMPLE_SEARCH_FIELDS]: setSimpleSearchFields,
   [actions.SET_FORM_DEFINITION]: reducers.singleTransferReducer('formDefinition'),
   [actions.SET_SHOW_EXTENDED_SEARCH_FORM]: reducers.singleTransferReducer('showExtendedSearchForm'),
-  [actions.SET_PRESELECTED_SEARCH_FIELDS]: reducers.singleTransferReducer('preselectedSearchFields'),
   [actions.SET_DISABLE_SIMPLE_SEARCH]: reducers.singleTransferReducer('disableSimpleSearch'),
   [actions.SET_RELATION_ENTITY]: setRelationEntity,
   [actions.SET_RELATION_ENTITY_LOADED]: setRelationEntityLoaded
@@ -69,7 +68,6 @@ const initialState = {
   formDefinition: {},
   showExtendedSearchForm: false,
   simpleSearchFields: ['txtFulltext'],
-  preselectedSearchFields: [],
   disableSimpleSearch: false,
   relationEntities: {}
 }

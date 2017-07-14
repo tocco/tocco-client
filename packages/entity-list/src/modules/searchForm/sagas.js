@@ -1,8 +1,10 @@
 import {call, put, fork, select, takeLatest, take, all} from 'redux-saga/effects'
 import * as actions from './actions'
 import {fetchForm, searchFormTransformer} from '../../util/api/forms'
+import {getInitialFromValues} from '../../util/searchForm'
 import {fetchEntities, selectEntitiesTransformer} from '../../util/api/entities'
 import {INITIALIZED} from '../entityList/actions'
+import {initialize as initializeForm} from 'redux-form'
 
 export const searchFormSelector = state => state.searchForm
 export const entityListSelector = state => state.entityList
@@ -26,35 +28,9 @@ export function* loadSearchForm(formDefinition, searchFormName) {
 
 export function* preparePreselectedSearchFields({payload}) {
   const {preselectedSearchFields} = payload
-
   const entityModel = yield call(getEntityModel)
-
-  const transformedFields = []
-
-  for (const preselectedSearchField of preselectedSearchFields) {
-    const fieldName = preselectedSearchField.id
-    const value = preselectedSearchField.value
-
-    let transformedValue = value
-
-    if (entityModel[fieldName] && entityModel[fieldName].type === 'relation') {
-      const targetEntity = entityModel[fieldName].targetEntity
-      const entities = yield call(loadRelationEntity, actions.loadRelationEntity(targetEntity))
-
-      if (Array.isArray(value)) {
-        transformedValue = value.map(v => entities.find(e => e.key === v))
-      } else {
-        transformedValue = entities.find(e => e.key === value)
-      }
-    }
-
-    transformedFields.push({
-      ...preselectedSearchField,
-      value: transformedValue
-    })
-  }
-
-  yield put(actions.setPreselectedSearchFields(transformedFields))
+  const formValues = yield call(getInitialFromValues, preselectedSearchFields, entityModel, loadRelationEntity)
+  yield put(initializeForm('searchForm', formValues))
 }
 
 export function* getEntityModel() {
