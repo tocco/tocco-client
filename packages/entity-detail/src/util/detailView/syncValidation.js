@@ -1,7 +1,9 @@
+import React from 'react'
+import {FormattedMessage} from 'react-intl'
 import _forOwn from 'lodash/forOwn'
 import _isEmpty from 'lodash/isEmpty'
 
-export default (entityModel, intl) =>
+export default entityModel =>
   values => (
     valueValidator(
       values,
@@ -10,12 +12,11 @@ export default (entityModel, intl) =>
         {validator: minLengthValidator, selector: 'minLength'},
         {validator: maxLengthValidator, selector: 'maxLength'}
       ],
-      entityModel,
-      intl
+      entityModel
     )
   )
 
-const valueValidator = (values, validatorDefinitions, entityModel, intl) => {
+const valueValidator = (values, validatorDefinitions, entityModel) => {
   let errors = {}
 
   const addErrors = (field, fieldErrors) => {
@@ -41,7 +42,7 @@ const valueValidator = (values, validatorDefinitions, entityModel, intl) => {
     validatorDefinitions.forEach(validatorDefinition => {
       const validatorValue = getValidatorValue(key, validatorDefinition.selector)
       if (validatorValue) {
-        addErrors(key, validatorDefinition.validator(value, validatorValue, intl))
+        addErrors(key, validatorDefinition.validator(value, validatorValue))
       }
     })
   })
@@ -49,29 +50,46 @@ const valueValidator = (values, validatorDefinitions, entityModel, intl) => {
   return errors
 }
 
-export const mandatoryValidator = (value, isMandatory, intl) => {
+export const mandatoryValidator = (value, isMandatory) => {
   if (typeof value === 'number' && value === 0) {
     return
   }
   if (!value && isMandatory) {
     return {
-      mandatory: [intl.formatMessage({id: 'client.entity-detail.syncValidationRequired'})]
+      mandatory: [
+        <FormattedMessage
+          key="syncValidationRequired"
+          id="client.entity-detail.syncValidationRequired"
+        />
+      ]
     }
   }
 }
 
-export const minLengthValidator = (value, minLength, intl) => {
+export const minLengthValidator = (value, minLength) => {
   if (value && value.length < minLength) {
     return {
-      minLength: [intl.formatMessage({id: 'client.entity-detail.syncValidationMinLength', values: {minLength}})]
+      minLength: [
+        <FormattedMessage
+          key="syncValidationMinLength"
+          id="client.entity-detail.syncValidationMinLength"
+          values={{minLength}}
+        />
+      ]
     }
   }
 }
 
-export const maxLengthValidator = (value, maxLength, intl) => {
+export const maxLengthValidator = (value, maxLength) => {
   if (value && value.length > maxLength) {
     return {
-      maxLength: [intl.formatMessage({id: 'client.entity-detail.syncValidationMaxLength', values: {maxLength}})]
+      maxLength: [
+        <FormattedMessage
+          key="syncValidationMaxLength"
+          id="client.entity-detail.syncValidationMaxLength"
+          values={{maxLength}}
+        />
+      ]
     }
   }
 }
