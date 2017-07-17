@@ -11,6 +11,7 @@ export const PREPARE_PRESELECTED_SEARCH_FIELDS = 'searchForm/PREPARE_PRESELECTED
 export const SET_PRESELECTED_SEARCH_FIELDS = 'searchForm/SET_PRESELECTED_SEARCH_FIELDS'
 export const SET_DISABLE_SIMPLE_SEARCH = 'searchForm/SET_DISABLE_SIMPLE_SEARCH'
 export const SET_SEARCH_FORM_NAME = 'searchForm/SET_SEARCH_FORM_NAME'
+export const SUBMIT_SEARCH_FORM = 'searchForm/SUBMIT_SEARCH_FORM'
 
 export const initialize = () => ({
   type: INITIALIZE
@@ -93,4 +94,7 @@ export const setSearchFormName = searchFormName => ({
   payload: {
     searchFormName
   }
+})
+export const submitSearchForm = () => ({
+  type: SUBMIT_SEARCH_FORM
 })
