@@ -59,7 +59,9 @@ FormField.propTypes = {
   touched: React.PropTypes.bool,
   dirty: React.PropTypes.bool,
   useLabel: React.PropTypes.bool,
-  error: React.PropTypes.objectOf(React.PropTypes.arrayOf(React.PropTypes.string)),
+  error: React.PropTypes.objectOf(React.PropTypes.arrayOf(
+    React.PropTypes.oneOfType([React.PropTypes.node, React.PropTypes.string]))
+  ),
   className: React.PropTypes.string
 }
 
