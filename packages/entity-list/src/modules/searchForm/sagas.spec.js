@@ -14,7 +14,7 @@ describe('entity-list', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal(all([
               fork(takeLatest, actions.INITIALIZE, sagas.initialize),
-              fork(takeLatest, actions.PREPARE_PRESELECTED_SEARCH_FIELDS, sagas.preparePreselectedSearchFields),
+              fork(takeLatest, actions.SET_PRESELECTED_SEARCH_FIELDS, sagas.setPreselectedSearchFields),
               fork(takeLatest, actions.LOAD_RELATION_ENTITY, sagas.loadRelationEntity)
             ]))
             expect(generator.next().done).to.be.true
@@ -35,12 +35,12 @@ describe('entity-list', () => {
           })
         })
 
-        describe('preparePreselectedSearchFields saga', () => {
+        describe('setPreselectedSearchFields saga', () => {
           it('should set intital form value', () => {
             const entityModel = {}
             const preselectedSearchFields = [{id: 'fullText', value: 'test'}]
-            const gen = sagas.preparePreselectedSearchFields(
-              actions.preparePreselectedSearchFields(preselectedSearchFields)
+            const gen = sagas.setPreselectedSearchFields(
+              actions.setPreselectedSearchFields(preselectedSearchFields)
             )
             expect(gen.next().value).to.eql(call(sagas.getEntityModel))
             expect(gen.next(entityModel).value).to.eql(

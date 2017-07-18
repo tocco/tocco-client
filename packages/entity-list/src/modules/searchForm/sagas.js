@@ -12,7 +12,7 @@ export const entityListSelector = state => state.entityList
 export default function* sagas() {
   yield all([
     fork(takeLatest, actions.INITIALIZE, initialize),
-    fork(takeLatest, actions.PREPARE_PRESELECTED_SEARCH_FIELDS, preparePreselectedSearchFields),
+    fork(takeLatest, actions.SET_PRESELECTED_SEARCH_FIELDS, setPreselectedSearchFields),
     fork(takeLatest, actions.LOAD_RELATION_ENTITY, loadRelationEntity)
   ])
 }
@@ -26,8 +26,9 @@ export function* loadSearchForm(formDefinition, searchFormName) {
   return formDefinition
 }
 
-export function* preparePreselectedSearchFields({payload}) {
+export function* setPreselectedSearchFields({payload}) {
   const {preselectedSearchFields} = payload
+
   const entityModel = yield call(getEntityModel)
   const formValues = yield call(getInitialFromValues, preselectedSearchFields, entityModel, loadRelationEntity)
   yield put(initializeForm('searchForm', formValues))
