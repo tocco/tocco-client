@@ -57,7 +57,9 @@ const getFieldDefinition = (fieldName, fieldDefinition) => {
   let result
   fieldDefinition.children.forEach(child => {
     const fieldDefinition = getFieldDefinition(fieldName, child)
-    if (fieldDefinition) result = fieldDefinition
+    if (fieldDefinition) {
+      result = fieldDefinition
+    }
   })
   return result
 }

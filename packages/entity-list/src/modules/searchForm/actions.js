@@ -89,12 +89,14 @@ export const setDisableSimpleSearch = disableSimpleSearch => ({
     disableSimpleSearch
   }
 })
+
 export const setSearchFormName = searchFormName => ({
   type: SET_SEARCH_FORM_NAME,
   payload: {
     searchFormName
   }
 })
+
 export const submitSearchForm = () => ({
   type: SUBMIT_SEARCH_FORM
 })
