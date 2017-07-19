@@ -1,12 +1,12 @@
 import {put, select, call, fork, takeLatest, all} from 'redux-saga/effects'
-import {initialize as initializeForm} from 'redux-form'
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
 import {fetchEntities, selectEntitiesTransformer} from '../../util/api/entities'
 import {
   startSubmit,
   actionTypes,
-  stopSubmit
+  stopSubmit,
+  initialize as initializeForm
 } from 'redux-form'
 import {validateSearchFields} from '../../util/searchFormValidation'
 import {getInitialFromValues} from '../../util/searchForm'
