@@ -50,7 +50,7 @@ class SearchForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault()
     e.stopPropagation()
-    this.props.executeSearch()
+    this.props.submitSearchForm()
   }
 
   msg = id => (this.props.intl.formatMessage({id}))
@@ -122,7 +122,7 @@ SearchForm.propTypes = {
   searchFormDefinition: React.PropTypes.shape({
     children: React.PropTypes.array
   }).isRequired,
-  executeSearch: React.PropTypes.func.isRequired,
+  submitSearchForm: React.PropTypes.func.isRequired,
   resetSearch: React.PropTypes.func.isRequired,
   relationEntities: React.PropTypes.shape({
     entityName: React.PropTypes.shape({

@@ -4,7 +4,15 @@ import {fetchForm, searchFormTransformer} from '../../util/api/forms'
 import {getInitialFromValues} from '../../util/searchForm'
 import {fetchEntities, selectEntitiesTransformer} from '../../util/api/entities'
 import {INITIALIZED} from '../entityList/actions'
-import {initialize as initializeForm} from 'redux-form'
+import {
+  startSubmit,
+  stopSubmit,
+  getFormValues,
+  actionTypes,
+  initialize as initializeForm
+} from 'redux-form'
+
+import {validateSearchFields} from '../../util/searchFormValidation'
 
 export const searchFormSelector = state => state.searchForm
 export const entityListSelector = state => state.entityList
@@ -13,8 +21,23 @@ export default function* sagas() {
   yield all([
     fork(takeLatest, actions.INITIALIZE, initialize),
     fork(takeLatest, actions.SET_PRESELECTED_SEARCH_FIELDS, setPreselectedSearchFields),
-    fork(takeLatest, actions.LOAD_RELATION_ENTITY, loadRelationEntity)
+    fork(takeLatest, actions.LOAD_RELATION_ENTITY, loadRelationEntity),
+    fork(takeLatest, actionTypes.CHANGE, submitSearchFrom),
+    fork(takeLatest, actions.SUBMIT_SEARCH_FORM, submitSearchFrom)
   ])
+}
+
+export function* submitSearchFrom() {
+  const FORM_ID = 'searchForm'
+  yield put(startSubmit(FORM_ID))
+  const values = yield select(getFormValues(FORM_ID))
+  const {formDefinition} = yield select(searchFormSelector)
+  const errors = yield call(validateSearchFields, values, formDefinition)
+  yield put(stopSubmit(FORM_ID, errors))
+
+  if (Object.keys(errors).length === 0) {
+    yield put(actions.executeSearch())
+  }
 }
 
 export function* loadSearchForm(formDefinition, searchFormName) {

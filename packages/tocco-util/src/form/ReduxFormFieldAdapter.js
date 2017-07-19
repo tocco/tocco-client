@@ -54,7 +54,9 @@ ReduxFormFieldAdapter.propTypes = {
   }).isRequired,
   meta: React.PropTypes.shape({
     touched: React.PropTypes.bool,
-    error: React.PropTypes.objectOf(React.PropTypes.arrayOf(React.PropTypes.string)),
+    error: React.PropTypes.objectOf(
+      React.PropTypes.arrayOf(React.PropTypes.oneOfType([React.PropTypes.node, React.PropTypes.string]))
+    ),
     dirty: React.PropTypes.bool,
     submitting: React.PropTypes.bool
   }).isRequired,

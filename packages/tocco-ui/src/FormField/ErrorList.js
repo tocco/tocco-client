@@ -21,7 +21,7 @@ const ErrorList = props => {
 
 ErrorList.propTypes = {
   error: React.PropTypes.objectOf(
-    React.PropTypes.arrayOf(React.PropTypes.string)
+    React.PropTypes.arrayOf(React.PropTypes.oneOfType([React.PropTypes.node, React.PropTypes.string]))
   ).isRequired
 }
 

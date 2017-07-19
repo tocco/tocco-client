@@ -24,7 +24,7 @@ class DetailView extends React.Component {
 
   getSyncValidation = () => {
     if (!this.validateSingleton && !_isEmpty(this.props.entityModel)) {
-      this.validateSingleton = syncValidation(this.props.entityModel, this.props.intl)
+      this.validateSingleton = syncValidation(this.props.entityModel)
     }
     return this.validateSingleton
   }
