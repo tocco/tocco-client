@@ -6,13 +6,11 @@ import {fetchForm, columnDefinitionTransformer, getFieldsOfColumnDefinition} fro
 import {fetchEntityCount, fetchEntities, entitiesListTransformer, fetchModel} from '../../util/api/entities'
 import _clone from 'lodash/clone'
 import _isEmpty from 'lodash/isEmpty'
-import _merge from 'lodash/merge'
 import {getFormValues, reset} from 'redux-form'
 
 export const inputSelector = state => state.input
 export const entityListSelector = state => state.entityList
 export const listSelector = state => state.list
-export const preselectedSearchFieldsSelector = state => state.searchForm.preselectedSearchFields
 export const searchValuesSelector = getFormValues('searchForm')
 
 export default function* sagas() {
@@ -60,29 +58,18 @@ export function* changePage({payload}) {
   yield put(actions.setInProgress(false))
 }
 
-export function* getPreselectedSearchValues() {
-  const preselectedSearchFields = yield select(preselectedSearchFieldsSelector)
-  return preselectedSearchFields.reduce((values, field) => {
-    values[field.id] = field.value
-    return values
-  }, {})
-}
-
 export function* getSearchInputs() {
-  const preselectedSearchValues = yield call(getPreselectedSearchValues)
-  const searchValues = yield select(searchValuesSelector)
+  const searchInputs = yield select(searchValuesSelector)
 
-  const clonedPreselected = _clone(preselectedSearchValues)
-  const searchInputs = _merge(clonedPreselected, searchValues)
-
+  const clonedSearchInputs = _clone(searchInputs)
   const {entityModel} = yield select(listSelector)
 
   if (searchInputs && searchInputs.txtFulltext) {
-    searchInputs._search = searchInputs.txtFulltext
-    delete searchInputs.txtFulltext
+    clonedSearchInputs._search = searchInputs.txtFulltext
+    delete clonedSearchInputs.txtFulltext
   }
 
-  const result = yield call(getSearchInputsForRequest, searchInputs, entityModel)
+  const result = yield call(getSearchInputsForRequest, clonedSearchInputs, entityModel)
   return result
 }
 

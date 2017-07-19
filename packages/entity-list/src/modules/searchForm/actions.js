@@ -7,7 +7,6 @@ export const EXECUTE_SEARCH = 'searchForm/EXECUTE_SEARCH'
 export const RESET_SEARCH = 'searchForm/RESET_SEARCH'
 export const SET_SHOW_EXTENDED_SEARCH_FORM = 'searchForm/SET_SHOW_EXTENDED_SEARCH_FORM'
 export const SET_SIMPLE_SEARCH_FIELDS = 'searchForm/SET_SIMPLE_SEARCH_FIELDS'
-export const PREPARE_PRESELECTED_SEARCH_FIELDS = 'searchForm/PREPARE_PRESELECTED_SEARCH_FIELDS'
 export const SET_PRESELECTED_SEARCH_FIELDS = 'searchForm/SET_PRESELECTED_SEARCH_FIELDS'
 export const SET_DISABLE_SIMPLE_SEARCH = 'searchForm/SET_DISABLE_SIMPLE_SEARCH'
 export const SET_SEARCH_FORM_NAME = 'searchForm/SET_SEARCH_FORM_NAME'
@@ -64,13 +63,6 @@ export const setShowExtendedSearchForm = showExtendedSearchForm => ({
 
 export const setPreselectedSearchFields = preselectedSearchFields => ({
   type: SET_PRESELECTED_SEARCH_FIELDS,
-  payload: {
-    preselectedSearchFields
-  }
-})
-
-export const preparePreselectedSearchFields = preselectedSearchFields => ({
-  type: PREPARE_PRESELECTED_SEARCH_FIELDS,
   payload: {
     preselectedSearchFields
   }

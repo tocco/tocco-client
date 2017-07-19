@@ -6,7 +6,6 @@ const EXPECTED_INITIAL_STATE = {
   formDefinition: {},
   showExtendedSearchForm: false,
   simpleSearchFields: ['txtFulltext'],
-  preselectedSearchFields: [],
   disableSimpleSearch: false,
   relationEntities: {}
 }
@@ -27,23 +26,6 @@ describe('entity-list', () => {
           expect(reducer(EXPECTED_INITIAL_STATE, actions.setFormDefinition(definition)).formDefinition).to.deep.equal(
             definition
           )
-        })
-
-        it('should handle SET_PRESELECTED_SEARCH_FIELDS', () => {
-          const preselectedSearchFields = [
-            {
-              id: 'ID1',
-              value: 'VALUE1',
-              hidden: false
-            }, {
-              id: 'ID2',
-              value: 'VALUE2',
-              hidden: true
-            }
-          ]
-
-          const stateNew = reducer(EXPECTED_INITIAL_STATE, actions.setPreselectedSearchFields(preselectedSearchFields))
-          expect(stateNew.preselectedSearchFields).to.deep.equal(preselectedSearchFields)
         })
 
         describe('setRelationEntity', () => {
