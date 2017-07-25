@@ -112,7 +112,7 @@ class SearchForm extends React.Component {
 
 SearchForm.propTypes = {
   intl: intlShape.isRequired,
-  initializeSearchForm: React.PropTypes.func,
+  initializeSearchForm: React.PropTypes.func.isRequired,
   entityModel: React.PropTypes.objectOf(
     React.PropTypes.shape({
       type: React.PropTypes.string.isRequired,
@@ -141,7 +141,7 @@ SearchForm.propTypes = {
     React.PropTypes.string
   ),
   showExtendedSearchForm: React.PropTypes.bool,
-  setShowExtendedSearchForm: React.PropTypes.func,
+  setShowExtendedSearchForm: React.PropTypes.func.isRequired,
   preselectedSearchFields: React.PropTypes.arrayOf(
     React.PropTypes.shape({
       id: React.PropTypes.string.isRequired,

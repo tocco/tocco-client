@@ -8,7 +8,8 @@ import {Button, FormField} from 'tocco-ui'
 
 import SearchForm from './'
 
-const EMPTY_FUNC = () => {}
+const EMPTY_FUNC = () => {
+}
 
 describe('entity-list', () => {
   describe('components', () => {
@@ -37,6 +38,7 @@ describe('entity-list', () => {
                 simpleSearchFields={[]}
                 disableSimpleSearch
                 preselectedSearchFields={[]}
+                setShowExtendedSearchForm={EMPTY_FUNC}
               />
             </MemoryRouter>
           </Provider>
@@ -69,6 +71,7 @@ describe('entity-list', () => {
                 simpleSearchFields={[]}
                 disableSimpleSearch
                 preselectedSearchFields={[]}
+                setShowExtendedSearchForm={EMPTY_FUNC}
               />
             </MemoryRouter>
           </Provider>
@@ -101,6 +104,7 @@ describe('entity-list', () => {
                 intl={IntlStub}
                 simpleSearchFields={['txtFulltext']}
                 preselectedSearchFields={[]}
+                setShowExtendedSearchForm={EMPTY_FUNC}
               />
             </MemoryRouter>
           </Provider>
@@ -133,6 +137,7 @@ describe('entity-list', () => {
                 intl={IntlStub}
                 simpleSearchFields={['txtFulltext', 'relUser_code1']}
                 preselectedSearchFields={[]}
+                setShowExtendedSearchForm={EMPTY_FUNC}
               />
             </MemoryRouter>
           </Provider>
@@ -173,6 +178,7 @@ describe('entity-list', () => {
                 disableSimpleSearch
                 simpleSearchFields={[]}
                 preselectedSearchFields={preselectedSearchFields}
+                setShowExtendedSearchForm={EMPTY_FUNC}
               />
             </MemoryRouter>
           </Provider>
