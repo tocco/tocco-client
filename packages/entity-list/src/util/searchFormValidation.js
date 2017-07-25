@@ -67,7 +67,7 @@ const getFieldDefinition = (fieldName, fieldDefinition) => {
 const typeValidators = {
   'ch.tocco.nice2.model.form.components.simple.TextField': value => {
     const minLength = 2
-    if (value.length < minLength) {
+    if (value.length > 0 && value.length < minLength) {
       return {
         minLength: [
           <FormattedMessage
