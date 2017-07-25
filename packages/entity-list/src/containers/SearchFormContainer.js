@@ -3,17 +3,17 @@ import {injectIntl} from 'react-intl'
 import SearchForm from '../components/SearchForm'
 import {
   initialize,
-  setSearchInput,
-  reset,
+  submitSearchForm,
+  resetSearch,
   setShowExtendedSearchForm,
   loadRelationEntity
 } from '../modules/searchForm/actions'
 
 const mapActionCreators = {
-  initialize,
-  setSearchInput,
+  initializeSearchForm: initialize,
+  submitSearchForm,
   loadRelationEntity,
-  reset,
+  resetSearch,
   setShowExtendedSearchForm
 }
 
@@ -25,7 +25,7 @@ const mapStateToProps = (state, props) => ({
   disableSimpleSearch: state.searchForm.disableSimpleSearch,
   simpleSearchFields: state.searchForm.simpleSearchFields,
   showExtendedSearchForm: state.searchForm.showExtendedSearchForm,
-  preselectedSearchFields: state.searchForm.preselectedSearchFields
+  preselectedSearchFields: state.input.preselectedSearchFields
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(SearchForm))

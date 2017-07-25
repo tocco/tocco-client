@@ -105,6 +105,20 @@ describe('tocco-util', () => {
         expect(wrapper.find(Field)).to.have.length(2)
       })
 
+      it('should not render field if beforeRenderField returns false', () => {
+        const {entity, model, formName, formDefinition, formValues, formFieldUtils} = testData
+
+        const beforeRenderField = name => name !== 'lastname'
+
+        const formBuilder = createFromBuilder(
+          entity, model, formName, formDefinition, formValues, formFieldUtils, {}, {}, beforeRenderField
+        )
+
+        const wrapper = shallow(<form>{formBuilder()}</form>)
+        expect(wrapper.find(LayoutBox)).to.have.length(3)
+        expect(wrapper.find(Field)).to.have.length(1)
+      })
+
       it('should not render none readable fields', () => {
         const {entity, model, formName, formDefinition, formValues, formFieldUtils} = testData
 

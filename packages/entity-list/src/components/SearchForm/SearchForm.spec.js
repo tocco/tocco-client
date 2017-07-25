@@ -1,58 +1,83 @@
 import React from 'react'
-import {IntlStub} from 'tocco-test-util'
-import SearchForm from './'
-import {mount, shallow} from 'enzyme'
+import {MemoryRouter} from 'react-router-dom'
+import {Provider} from 'react-redux'
+import {createStore} from 'redux'
+
+import {IntlStub, intlEnzyme} from 'tocco-test-util'
 import {Button, FormField} from 'tocco-ui'
 
-const EMPTY_FUNC = () => {}
+import SearchForm from './'
+
+const EMPTY_FUNC = () => {
+}
 
 describe('entity-list', () => {
   describe('components', () => {
     describe('SearchForm', () => {
       it('should render nothing if searchFormDefinition empty', () => {
         const entityModel = require('../../dev/test-data/userModel.json')
-        const searchFormDefinition = []
+        const searchFormDefinition = {}
 
-        const wrapper = shallow(
-          <SearchForm
-            initialize={EMPTY_FUNC}
-            entityModel={entityModel}
-            searchFormDefinition={searchFormDefinition}
-            setSearchInput={EMPTY_FUNC}
-            relationEntities={{}}
-            searchInputs={{}}
-            loadRelationEntity={EMPTY_FUNC}
-            reset={EMPTY_FUNC}
-            intl={IntlStub}
-            simpleSearchFields={[]}
-            disableSimpleSearch
-            preselectedSearchFields={[]}
-          />
+        const store = createStore(() => {
+        })
+
+        const wrapper = intlEnzyme.mountWithIntl(
+          <Provider store={store}>
+            <MemoryRouter>
+              <SearchForm
+                initializeSearchForm={EMPTY_FUNC}
+                entityModel={entityModel}
+                searchFormDefinition={searchFormDefinition}
+                setSearchInput={EMPTY_FUNC}
+                relationEntities={{}}
+                searchInputs={{}}
+                loadRelationEntity={EMPTY_FUNC}
+                submitSearchForm={EMPTY_FUNC}
+                resetSearch={EMPTY_FUNC}
+                intl={IntlStub}
+                simpleSearchFields={[]}
+                disableSimpleSearch
+                preselectedSearchFields={[]}
+                setShowExtendedSearchForm={EMPTY_FUNC}
+              />
+            </MemoryRouter>
+          </Provider>
         )
 
-        expect(wrapper.type()).to.be.null
+        expect(wrapper.find('form')).to.have.length(0)
       })
 
       it('should render needed components', () => {
         const entityModel = require('../../dev/test-data/userModel.json')
         const searchFormDefinition = require('../../dev/test-data/searchFormDefinition.json')
 
-        const wrapper = mount(<SearchForm
-          initialize={EMPTY_FUNC}
-          entityModel={entityModel}
-          searchFormDefinition={searchFormDefinition}
-          setSearchInput={EMPTY_FUNC}
-          relationEntities={{}}
-          searchInputs={{}}
-          loadRelationEntity={EMPTY_FUNC}
-          reset={EMPTY_FUNC}
-          intl={IntlStub}
-          simpleSearchFields={[]}
-          disableSimpleSearch
-          preselectedSearchFields={[]}
-        />)
+        const store = createStore(() => {
+        })
 
-        expect(wrapper.find(FormField)).to.have.length(searchFormDefinition.length)
+        const wrapper = intlEnzyme.mountWithIntl(
+          <Provider store={store}>
+            <MemoryRouter>
+              <SearchForm
+                initializeSearchForm={EMPTY_FUNC}
+                entityModel={entityModel}
+                searchFormDefinition={searchFormDefinition}
+                setSearchInput={EMPTY_FUNC}
+                relationEntities={{}}
+                searchInputs={{}}
+                loadRelationEntity={EMPTY_FUNC}
+                submitSearchForm={EMPTY_FUNC}
+                resetSearch={EMPTY_FUNC}
+                intl={IntlStub}
+                simpleSearchFields={[]}
+                disableSimpleSearch
+                preselectedSearchFields={[]}
+                setShowExtendedSearchForm={EMPTY_FUNC}
+              />
+            </MemoryRouter>
+          </Provider>
+        )
+
+        expect(wrapper.find(FormField)).to.have.length(searchFormDefinition.children.length)
         expect(wrapper.find(Button)).to.have.length(2)
       })
 
@@ -60,20 +85,30 @@ describe('entity-list', () => {
         const entityModel = require('../../dev/test-data/userModel.json')
         const searchFormDefinition = require('../../dev/test-data/searchFormDefinition.json')
 
-        const wrapper = mount(<SearchForm
-          initialize={EMPTY_FUNC}
-          entityModel={entityModel}
-          searchFormDefinition={searchFormDefinition}
-          setSearchInput={EMPTY_FUNC}
-          relationEntities={{}}
-          searchInputs={{}}
-          loadRelationEntity={EMPTY_FUNC}
-          reset={EMPTY_FUNC}
-          intl={IntlStub}
-          disableSimpleSearch={false}
-          simpleSearchFields={['txtFulltext']}
-          preselectedSearchFields={[]}
-        />)
+        const store = createStore(() => {
+        })
+
+        const wrapper = intlEnzyme.mountWithIntl(
+          <Provider store={store}>
+            <MemoryRouter>
+              <SearchForm
+                initializeSearchForm={EMPTY_FUNC}
+                entityModel={entityModel}
+                searchFormDefinition={searchFormDefinition}
+                setSearchInput={EMPTY_FUNC}
+                relationEntities={{}}
+                searchInputs={{}}
+                loadRelationEntity={EMPTY_FUNC}
+                submitSearchForm={EMPTY_FUNC}
+                resetSearch={EMPTY_FUNC}
+                intl={IntlStub}
+                simpleSearchFields={['txtFulltext']}
+                preselectedSearchFields={[]}
+                setShowExtendedSearchForm={EMPTY_FUNC}
+              />
+            </MemoryRouter>
+          </Provider>
+        )
 
         expect(wrapper.find(FormField)).to.have.length(1)
         expect(wrapper.find(Button)).to.have.length(3)
@@ -83,20 +118,30 @@ describe('entity-list', () => {
         const entityModel = require('../../dev/test-data/userModel.json')
         const searchFormDefinition = require('../../dev/test-data/searchFormDefinition.json')
 
-        const wrapper = mount(<SearchForm
-          initialize={EMPTY_FUNC}
-          entityModel={entityModel}
-          searchFormDefinition={searchFormDefinition}
-          setSearchInput={EMPTY_FUNC}
-          relationEntities={{}}
-          searchInputs={{}}
-          loadRelationEntity={EMPTY_FUNC}
-          reset={EMPTY_FUNC}
-          intl={IntlStub}
-          disableSimpleSearch={false}
-          simpleSearchFields={['txtFulltext', 'relUser_code1']}
-          preselectedSearchFields={[]}
-        />)
+        const store = createStore(() => {
+        })
+
+        const wrapper = intlEnzyme.mountWithIntl(
+          <Provider store={store}>
+            <MemoryRouter>
+              <SearchForm
+                initializeSearchForm={EMPTY_FUNC}
+                entityModel={entityModel}
+                searchFormDefinition={searchFormDefinition}
+                setSearchInput={EMPTY_FUNC}
+                relationEntities={{}}
+                searchInputs={{}}
+                loadRelationEntity={EMPTY_FUNC}
+                submitSearchForm={EMPTY_FUNC}
+                resetSearch={EMPTY_FUNC}
+                intl={IntlStub}
+                simpleSearchFields={['txtFulltext', 'relUser_code1']}
+                preselectedSearchFields={[]}
+                setShowExtendedSearchForm={EMPTY_FUNC}
+              />
+            </MemoryRouter>
+          </Provider>
+        )
 
         expect(wrapper.find(FormField)).to.have.length(2)
         expect(wrapper.find(Button)).to.have.length(3)
@@ -109,27 +154,37 @@ describe('entity-list', () => {
         const preselectedSearchFields = [
           {
             id: 'relUser_code1',
-            value: 'VALUE',
             hidden: true
           }
         ]
 
-        const wrapper = mount(<SearchForm
-          initialize={EMPTY_FUNC}
-          entityModel={entityModel}
-          searchFormDefinition={searchFormDefinition}
-          setSearchInput={EMPTY_FUNC}
-          relationEntities={{}}
-          searchInputs={{}}
-          loadRelationEntity={EMPTY_FUNC}
-          reset={EMPTY_FUNC}
-          intl={IntlStub}
-          disableSimpleSearch
-          simpleSearchFields={[]}
-          preselectedSearchFields={preselectedSearchFields}
-        />)
+        const store = createStore(() => {
+        })
 
-        expect(wrapper.find(FormField)).to.have.length(searchFormDefinition.length - 1)
+        const wrapper = intlEnzyme.mountWithIntl(
+          <Provider store={store}>
+            <MemoryRouter>
+              <SearchForm
+                initializeSearchForm={EMPTY_FUNC}
+                entityModel={entityModel}
+                searchFormDefinition={searchFormDefinition}
+                setSearchInput={EMPTY_FUNC}
+                relationEntities={{}}
+                searchInputs={{}}
+                loadRelationEntity={EMPTY_FUNC}
+                submitSearchForm={EMPTY_FUNC}
+                resetSearch={EMPTY_FUNC}
+                intl={IntlStub}
+                disableSimpleSearch
+                simpleSearchFields={[]}
+                preselectedSearchFields={preselectedSearchFields}
+                setShowExtendedSearchForm={EMPTY_FUNC}
+              />
+            </MemoryRouter>
+          </Provider>
+        )
+
+        expect(wrapper.find(FormField)).to.have.length(searchFormDefinition.children.length - 1)
       })
     })
   })

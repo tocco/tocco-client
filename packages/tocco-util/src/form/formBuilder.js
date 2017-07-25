@@ -18,7 +18,8 @@ export default (
   formValues,
   formFieldUtils,
   formFieldMapping,
-  readOnlyFormFieldMapping
+  readOnlyFormFieldMapping,
+  beforeRenderField
 ) => {
   const isReadOnlyForm = formDefinition.displayType === 'READONLY'
 
@@ -41,6 +42,10 @@ export default (
   }
 
   const shouldRenderField = (fieldName, entityField) => {
+    if (beforeRenderField && beforeRenderField(fieldName) === false) {
+      return false
+    }
+
     const hasEmptyValue = (fieldName, formValues) => {
       if (!formValues.hasOwnProperty(fieldName)) {
         return false

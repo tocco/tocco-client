@@ -1,23 +1,56 @@
 import React from 'react'
 import {intlShape} from 'react-intl'
+import {reduxForm} from 'redux-form'
 
 import {Button} from 'tocco-ui'
-import {formField as formFieldUtil} from 'tocco-util'
+import {form} from 'tocco-util'
+
 import formFieldMapping from '../../util/formFieldMapping'
 
 class SearchForm extends React.Component {
+  constructor(props) {
+    super(props)
+    this.formBuilder = this.createFormBuilder(props)
+  }
+
   componentWillMount() {
-    this.props.initialize()
+    this.props.initializeSearchForm()
+  }
+
+  componentWillReceiveProps(props) {
+    this.formBuilder = this.createFormBuilder(props)
+  }
+
+  createFormBuilder = props => {
+    const formFieldUtils = {
+      relationEntities: props.relationEntities,
+      loadRelationEntity: props.loadRelationEntity,
+      loadRemoteEntity: props.loadRemoteEntity,
+      remoteEntities: props.remoteEntities,
+      intl: this.props.intl
+    }
+
+    return form.initFormBuilder(
+      props.entity,
+      props.entityModel,
+      props.form,
+      props.searchFormDefinition,
+      props.formValues,
+      formFieldUtils,
+      formFieldMapping,
+      formFieldMapping,
+      this.shouldRenderField
+    )
   }
 
   handleResetClick = () => {
-    this.props.reset()
+    this.props.resetSearch()
   }
 
   handleSubmit = e => {
     e.preventDefault()
     e.stopPropagation()
-    this.props.setSearchInput()
+    this.props.submitSearchForm()
   }
 
   msg = id => (this.props.intl.formatMessage({id}))
@@ -43,39 +76,13 @@ class SearchForm extends React.Component {
   render() {
     const props = this.props
 
-    if (props.searchFormDefinition.length === 0) {
+    if (!props.searchFormDefinition.children || Object.keys(props.entityModel).length === 0) {
       return null
     }
 
     return (
       <form onSubmit={this.handleSubmit} className="form-horizontal">
-        {
-          props.searchFormDefinition.map(formDefinitionField => {
-            const fieldName = formDefinitionField.name
-            if (this.shouldRenderField(fieldName)) {
-              const modelField = props.entityModel[fieldName]
-              const value = props.searchInputs ? props.searchInputs[fieldName] : undefined
-              const utils = {
-                relationEntities: props.relationEntities,
-                loadRelationEntity: props.loadRelationEntity
-              }
-              const onChange = value => props.setSearchInput(fieldName, value)
-
-              const fomFieldData = {
-                formDefinitionField,
-                modelField,
-                id: fieldName,
-                value,
-                onChange,
-                utils
-              }
-
-              return formFieldUtil.formFieldFactory(formFieldMapping, fomFieldData)
-            }
-          }
-          )
-        }
-
+        {this.formBuilder()}
         <div className="row">
           <div className="col-sm-9 col-sm-push-3">
             <Button
@@ -105,23 +112,18 @@ class SearchForm extends React.Component {
 
 SearchForm.propTypes = {
   intl: intlShape.isRequired,
-  initialize: React.PropTypes.func,
+  initializeSearchForm: React.PropTypes.func.isRequired,
   entityModel: React.PropTypes.objectOf(
     React.PropTypes.shape({
       type: React.PropTypes.string.isRequired,
       targetEntity: React.PropTypes.string
     })
   ).isRequired,
-  searchFormDefinition: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      name: React.PropTypes.string.isRequired,
-      type: React.PropTypes.string.isRequired,
-      displayType: React.PropTypes.string.isRequired,
-      label: React.PropTypes.string.isRequired,
-      useLabel: React.PropTypes.string.isRequired
-    })
-  ).isRequired,
-  setSearchInput: React.PropTypes.func.isRequired,
+  searchFormDefinition: React.PropTypes.shape({
+    children: React.PropTypes.array
+  }).isRequired,
+  submitSearchForm: React.PropTypes.func.isRequired,
+  resetSearch: React.PropTypes.func.isRequired,
   relationEntities: React.PropTypes.shape({
     entityName: React.PropTypes.shape({
       loaded: React.PropTypes.bool,
@@ -134,26 +136,21 @@ SearchForm.propTypes = {
     })
   }).isRequired,
   loadRelationEntity: React.PropTypes.func.isRequired,
-  searchInputs: React.PropTypes.objectOf(React.PropTypes.any),
-  reset: React.PropTypes.func.isRequired,
   disableSimpleSearch: React.PropTypes.bool,
   simpleSearchFields: React.PropTypes.arrayOf(
     React.PropTypes.string
   ),
   showExtendedSearchForm: React.PropTypes.bool,
-  setShowExtendedSearchForm: React.PropTypes.func,
+  setShowExtendedSearchForm: React.PropTypes.func.isRequired,
   preselectedSearchFields: React.PropTypes.arrayOf(
     React.PropTypes.shape({
       id: React.PropTypes.string.isRequired,
-      value: React.PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.number,
-        React.PropTypes.arrayOf(React.PropTypes.number),
-        React.PropTypes.arrayOf(React.PropTypes.string)
-      ]),
-      hidden: React.PropTypes.bool.isRequired
+      hidden: React.PropTypes.bool
     })
-  )
+  ).isRequired
 }
 
-export default SearchForm
+export default reduxForm({
+  form: 'searchForm',
+  destroyOnUnmount: false
+})(SearchForm)

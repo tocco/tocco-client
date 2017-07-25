@@ -1,19 +1,6 @@
 import * as actions from './actions'
 import {reducers} from 'tocco-util'
 
-const setSearchInput = (state, {payload}) => ({
-  ...state,
-  searchInputs: {
-    ...state.searchInputs,
-    [payload.field]: payload.value
-  }
-})
-
-const reset = state => ({
-  ...state,
-  searchInputs: {}
-})
-
 const simpleSearchFieldsToArray = simpleSearchFields => (
   simpleSearchFields.split(',')
     .filter(s => s)
@@ -68,12 +55,9 @@ const setRelationEntityLoaded = (state, {payload}) => {
 
 const ACTION_HANDLERS = {
   [actions.SET_SEARCH_FORM_NAME]: reducers.singleTransferReducer('searchFormName'),
-  [actions.SET_SEARCH_INPUT]: setSearchInput,
-  [actions.RESET]: reset,
   [actions.SET_SIMPLE_SEARCH_FIELDS]: setSimpleSearchFields,
   [actions.SET_FORM_DEFINITION]: reducers.singleTransferReducer('formDefinition'),
   [actions.SET_SHOW_EXTENDED_SEARCH_FORM]: reducers.singleTransferReducer('showExtendedSearchForm'),
-  [actions.SET_PRESELECTED_SEARCH_FIELDS]: reducers.singleTransferReducer('preselectedSearchFields'),
   [actions.SET_DISABLE_SIMPLE_SEARCH]: reducers.singleTransferReducer('disableSimpleSearch'),
   [actions.SET_RELATION_ENTITY]: setRelationEntity,
   [actions.SET_RELATION_ENTITY_LOADED]: setRelationEntityLoaded
@@ -81,11 +65,9 @@ const ACTION_HANDLERS = {
 
 const initialState = {
   searchFormName: '',
-  formDefinition: [],
-  searchInputs: {},
+  formDefinition: {},
   showExtendedSearchForm: false,
   simpleSearchFields: ['txtFulltext'],
-  preselectedSearchFields: [],
   disableSimpleSearch: false,
   relationEntities: {}
 }

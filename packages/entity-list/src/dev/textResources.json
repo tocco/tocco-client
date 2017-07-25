@@ -13,5 +13,8 @@
   "client.entity-list.nextPageTitle",
   "client.entity-list.prePageTitle",
   "client.entity-list.firstPageTitle",
-  "client.entity-list.lastPageTitle"
+  "client.entity-list.lastPageTitle",
+  "client.entity-list.searchFormValidationMinLength",
+
+  "client.component.form.mandatoryFieldTitle"
 ]

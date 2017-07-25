@@ -7,25 +7,15 @@ describe('entity-list', () => {
     describe('api', () => {
       describe('forms', () => {
         describe('searchFormTransformer', () => {
-          it('should return an array of fields', () => {
+          it('should return the form property', () => {
             const fetchResult = require('../../dev/test-data/user_search.json')
-
             const result = forms.searchFormTransformer(fetchResult)
-            const expectedResult = [
-              {
-                name: 'txtFulltext',
-                type: 'ch.tocco.nice2.model.form.components.simple.TextField',
-                displayType: 'EDITABLE',
-                label: 'Person',
-                useLabel: 'YES'
-              }
-            ]
-            expect(result).to.eql(expectedResult)
+            expect(result).to.eql(fetchResult.form)
           })
 
-          it('should return an empty array if form is missing', () => {
+          it('should return undefined if form is missing', () => {
             const result = forms.searchFormTransformer({})
-            expect(result).to.eql([])
+            expect(result).to.eql(undefined)
           })
         })
 

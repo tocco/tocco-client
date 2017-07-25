@@ -25,7 +25,7 @@ export default () => {
           dirty
           touched
           error={{
-            error1: ['error1-1'],
+            error1: [<div key="1"><b>error1-1 line1</b><br/>error1-1 line2</div>],
             error2: ['error2-1', 'error2-2']
           }}
           className="row"

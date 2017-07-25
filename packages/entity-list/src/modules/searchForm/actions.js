@@ -3,14 +3,14 @@ export const SET_FORM_DEFINITION = 'searchForm/SET_FORM_DEFINITION'
 export const LOAD_RELATION_ENTITY = 'searchForm/LOAD_RELATION_ENTITY'
 export const SET_RELATION_ENTITY = 'searchForm/SET_RELATION_ENTITY'
 export const SET_RELATION_ENTITY_LOADED = 'searchForm/SET_RELATION_ENTITY_LOADED'
-export const SET_SEARCH_INPUT = 'searchForm/SET_SEARCH_INPUT'
-export const SEARCH_TERM_CHANGE = 'searchForm/SEARCH_TERM_CHANGE'
-export const RESET = 'searchForm/RESET'
+export const EXECUTE_SEARCH = 'searchForm/EXECUTE_SEARCH'
+export const RESET_SEARCH = 'searchForm/RESET_SEARCH'
 export const SET_SHOW_EXTENDED_SEARCH_FORM = 'searchForm/SET_SHOW_EXTENDED_SEARCH_FORM'
 export const SET_SIMPLE_SEARCH_FIELDS = 'searchForm/SET_SIMPLE_SEARCH_FIELDS'
 export const SET_PRESELECTED_SEARCH_FIELDS = 'searchForm/SET_PRESELECTED_SEARCH_FIELDS'
 export const SET_DISABLE_SIMPLE_SEARCH = 'searchForm/SET_DISABLE_SIMPLE_SEARCH'
 export const SET_SEARCH_FORM_NAME = 'searchForm/SET_SEARCH_FORM_NAME'
+export const SUBMIT_SEARCH_FORM = 'searchForm/SUBMIT_SEARCH_FORM'
 
 export const initialize = () => ({
   type: INITIALIZE
@@ -46,23 +46,12 @@ export const setRelationEntity = (entityName, entities, reset = false) => ({
   }
 })
 
-export const setSearchInput = (field, value) => ({
-  type: SET_SEARCH_INPUT,
-  payload: {
-    field,
-    value
-  }
+export const executeSearch = () => ({
+  type: EXECUTE_SEARCH
 })
 
-export const searchTermChange = searchInputs => ({
-  type: SEARCH_TERM_CHANGE,
-  payload: {
-    searchInputs
-  }
-})
-
-export const reset = () => ({
-  type: RESET
+export const resetSearch = () => ({
+  type: RESET_SEARCH
 })
 
 export const setShowExtendedSearchForm = showExtendedSearchForm => ({
@@ -92,9 +81,14 @@ export const setDisableSimpleSearch = disableSimpleSearch => ({
     disableSimpleSearch
   }
 })
+
 export const setSearchFormName = searchFormName => ({
   type: SET_SEARCH_FORM_NAME,
   payload: {
     searchFormName
   }
+})
+
+export const submitSearchForm = () => ({
+  type: SUBMIT_SEARCH_FORM
 })

@@ -256,7 +256,8 @@ describe('entity-detail', () => {
             expect(gen.throw(error).value).to.eql(put(errorLogging.logError(
               'client.common.unexpectedError',
               'client.entity-detail.saveError',
-              error
+              error,
+              Date.now()
             )))
             expect(gen.next().value).to.eql(put(stopSubmit(FORM_ID)))
             expect(gen.next().value).to.eql(put(notifier.info(
