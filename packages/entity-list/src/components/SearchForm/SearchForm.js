@@ -56,6 +56,9 @@ class SearchForm extends React.Component {
   msg = id => (this.props.intl.formatMessage({id}))
 
   isHidden = name => {
+    if (!this.props.preselectedSearchFields) {
+      return false
+    }
     const field = this.props.preselectedSearchFields.find(f => f.id === name)
     return field && field.hidden
   }
@@ -147,7 +150,7 @@ SearchForm.propTypes = {
       id: React.PropTypes.string.isRequired,
       hidden: React.PropTypes.bool
     })
-  ).isRequired
+  )
 }
 
 export default reduxForm({
