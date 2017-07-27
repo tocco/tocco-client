@@ -16,9 +16,9 @@ describe('entity-list', () => {
           expect(reducer(undefined, {})).to.deep.equal(EXPECTED_INITIAL_STATE)
         })
 
-        it('should handle INITIALIZED', () => {
+        it('should handle SET_INITIALIZED', () => {
           let state = EXPECTED_INITIAL_STATE
-          state = reducer(state, actions.initialized())
+          state = reducer(state, actions.setInitialized())
           expect(state.initialized).to.be.true
         })
       })

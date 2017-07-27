@@ -3,7 +3,7 @@ import * as actions from './actions'
 import {fetchForm, searchFormTransformer} from '../../util/api/forms'
 import {getInitialFromValues} from '../../util/searchForm'
 import {fetchEntities, selectEntitiesTransformer} from '../../util/api/entities'
-import {INITIALIZED} from '../entityList/actions'
+import {SET_INITIALIZED as LIST_SET_INITIALIZED} from '../entityList/actions'
 import {
   startSubmit,
   stopSubmit,
@@ -60,7 +60,7 @@ export function* setPreselectedSearchFields({payload}) {
 export function* getEntityModel() {
   let entityList = yield select(entityListSelector)
   if (!entityList.initialized) {
-    yield take(INITIALIZED)
+    yield take(LIST_SET_INITIALIZED)
   }
 
   entityList = yield select(entityListSelector)
@@ -69,8 +69,11 @@ export function* getEntityModel() {
 }
 
 export function* initialize() {
-  const {formDefinition, searchFormName} = yield select(searchFormSelector)
-  yield call(loadSearchForm, formDefinition, searchFormName)
+  const {formDefinition, searchFormName, initialized} = yield select(searchFormSelector)
+  if (!initialized) {
+    yield call(loadSearchForm, formDefinition, searchFormName)
+    yield put(actions.setInitialized())
+  }
 }
 
 export function* loadRelationEntity({payload}) {

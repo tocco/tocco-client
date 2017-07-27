@@ -1,14 +1,13 @@
-export const INITIALIZED = 'entityBrowser/INITIALIZED'
-export const INITIALIZE = 'entityBrowser/INITIALIZE'
+export const SET_INITIALIZED = 'entityList/SET_INITIALIZED'
+export const INITIALIZE = 'entityList/INITIALIZE'
 export const SET_SHOW_SEARCH_FORM = 'entityList/SET_SHOW_SEARCH_FORM'
 export const SET_ENTITY_NAME = 'entityList/SET_ENTITY_NAME'
+export const SET_ENTITY_MODEL = 'entityList/SET_ENTITY_MODEL'
 
-export const SET_ENTITY_MODEL = 'entityBrowser/SET_ENTITY_MODEL'
-
-export const initialized = () => ({
-  type: INITIALIZED,
+export const setInitialized = (initialized = true) => ({
+  type: SET_INITIALIZED,
   payload: {
-    initialized: true
+    initialized
   }
 })
 

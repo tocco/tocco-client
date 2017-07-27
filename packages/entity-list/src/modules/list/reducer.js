@@ -15,6 +15,7 @@ const clearEntityStore = state => ({
 })
 
 const ACTION_HANDLERS = {
+  [actions.SET_INITIALIZED]: reducers.singleTransferReducer('initialized'),
   [actions.SET_ENTITIES]: reducers.singleTransferReducer('entities'),
   [actions.SET_COLUMN_DEFINITION]: reducers.singleTransferReducer('columnDefinition'),
   [actions.SET_ENTITY_MODEL]: reducers.singleTransferReducer('entityModel'),
@@ -30,6 +31,7 @@ const ACTION_HANDLERS = {
 }
 
 const initialState = {
+  initialized: false,
   entityModel: {},
   entities: [],
   limit: 10,

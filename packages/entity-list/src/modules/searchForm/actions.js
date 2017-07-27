@@ -1,3 +1,4 @@
+export const SET_INITIALIZED = 'searchForm/SET_INITIALIZED'
 export const INITIALIZE = 'searchForm/INITIALIZE'
 export const SET_FORM_DEFINITION = 'searchForm/SET_FORM_DEFINITION'
 export const LOAD_RELATION_ENTITY = 'searchForm/LOAD_RELATION_ENTITY'
@@ -11,6 +12,13 @@ export const SET_PRESELECTED_SEARCH_FIELDS = 'searchForm/SET_PRESELECTED_SEARCH_
 export const SET_DISABLE_SIMPLE_SEARCH = 'searchForm/SET_DISABLE_SIMPLE_SEARCH'
 export const SET_SEARCH_FORM_NAME = 'searchForm/SET_SEARCH_FORM_NAME'
 export const SUBMIT_SEARCH_FORM = 'searchForm/SUBMIT_SEARCH_FORM'
+
+export const setInitialized = (initialized = true) => ({
+  type: SET_INITIALIZED,
+  payload: {
+    initialized
+  }
+})
 
 export const initialize = () => ({
   type: INITIALIZE

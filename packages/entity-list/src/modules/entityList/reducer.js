@@ -2,7 +2,7 @@ import * as actions from './actions'
 import {reducers} from 'tocco-util'
 
 const ACTION_HANDLERS = {
-  [actions.INITIALIZED]: reducers.singleTransferReducer('initialized'),
+  [actions.SET_INITIALIZED]: reducers.singleTransferReducer('initialized'),
   [actions.SET_ENTITY_NAME]: reducers.singleTransferReducer('entityName'),
   [actions.SET_ENTITY_MODEL]: reducers.singleTransferReducer('entityModel'),
   [actions.SET_SHOW_SEARCH_FORM]: reducers.singleTransferReducer('showSearchForm')
