@@ -39,6 +39,7 @@ describe('entity-list', () => {
 
             expect(gen.next({formDefinition, searchFormName}).value)
               .to.eql(call(sagas.loadSearchForm, formDefinition, searchFormName))
+            expect(gen.next().value).to.eql(put(actions.setInitialized()))
             expect(gen.next().done).to.be.true
           })
         })

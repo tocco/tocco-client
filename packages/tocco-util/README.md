@@ -14,6 +14,9 @@ Abstraction of the console.log and .error with eslint ignore and undefined check
 #### externalEvents
 Can be added to the store to call external events/callback from anywhere with an action.
 
+#### form
+Utils for redux forms (`redux-form`).
+
 #### formField
 Helper to create tocco-ui FormField component.
 
@@ -37,8 +40,8 @@ TOCCO REST Api abstraction. Helps compose url, set headers, order params with pr
 #### route 
 Helper to load a route async.
 
+#### storeStorage
+Simple singleton to get and set a store by id.
+
 #### utilFetchMock
 Generic fetchMocks e.g. log, session, text-resources.
-
-#### form
-Utils for redux forms (`redux-form`).

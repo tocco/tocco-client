@@ -2,11 +2,13 @@ import React from 'react'
 import EntityListApp from 'tocco-entity-list/src/main'
 
 const SubGrid = props => {
+  const formBase = `${props.detailFormName}_${props.gridName}`
   return (
     <div>
       <EntityListApp
+        id={`entity-detail-subgrid-${formBase}-${props.entityKey}`}
         entityName={props.modelField.targetEntity}
-        formBase={`${props.detailFormName}_${props.gridName}`}
+        formBase={formBase}
         limit={5}
         showSearchForm={true}
         preselectedSearchFields={[{

@@ -30,15 +30,18 @@ export function* initialize() {
   const {entityName} = yield select(entityListSelector)
   const {formBase} = yield select(inputSelector)
   const listView = yield select(listSelector)
-  const {columnDefinition, entityModel} = listView
+  const {columnDefinition, entityModel, initialized} = listView
 
-  yield all([
-    call(loadEntityModel, entityName, entityModel),
-    call(loadColumnDefinition, columnDefinition, formBase)
-  ])
+  if (!initialized) {
+    yield all([
+      call(loadEntityModel, entityName, entityModel),
+      call(loadColumnDefinition, columnDefinition, formBase)
+    ])
+    yield call(resetDataSet)
+  }
 
-  yield call(resetDataSet)
   yield put(actions.setInProgress(false))
+  yield put(actions.setInitialized())
 }
 
 export function* refresh() {

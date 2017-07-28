@@ -8,6 +8,7 @@ const mapActionCreators = {
 
 const mapStateToProps = (state, props) => {
   return {
+    id: 'entity-browser-list',
     entityName: state.entityBrowser.entityName,
     formBase: state.entityBrowser.formBase,
     showSearchForm: state.input.showSearchForm,

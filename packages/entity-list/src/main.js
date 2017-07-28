@@ -1,5 +1,5 @@
 import React from 'react'
-import {appFactory, notifier, errorLogging, actionEmitter, externalEvents} from 'tocco-util'
+import {appFactory, notifier, errorLogging, actionEmitter, externalEvents, storeStorage} from 'tocco-util'
 
 import reducers, {sagas} from './modules/reducers'
 import EntityListContainer from './containers/EntityListContainer'
@@ -14,14 +14,20 @@ const EXTERNAL_EVENTS = [
 const initApp = (id, input, events = {}, publicPath) => {
   const content = <EntityListContainer/>
 
-  const store = appFactory.createStore(reducers, sagas, input, packageName)
+  let actions
+  let store = storeStorage.get(id)
+  if (!store) {
+    store = appFactory.createStore(reducers, sagas, input, packageName)
 
-  externalEvents.addToStore(store, events)
-  actionEmitter.addToStore(store, events.emitAction)
-  errorLogging.addToStore(store, false)
-  notifier.addToStore(store, false)
+    externalEvents.addToStore(store, events)
+    actionEmitter.addToStore(store, events.emitAction)
+    errorLogging.addToStore(store, false)
+    notifier.addToStore(store, false)
 
-  const actions = getDispatchActions(input)
+    actions = getDispatchActions(input)
+
+    storeStorage.set(id, store)
+  }
 
   return appFactory.createApp(
     packageName,
@@ -75,7 +81,7 @@ class EntityListApp extends React.Component {
       return events
     }, {})
 
-    this.app = initApp('id', props, events)
+    this.app = initApp(props.id, props, events)
   }
 
   render() {
@@ -86,6 +92,7 @@ class EntityListApp extends React.Component {
 }
 
 EntityListApp.propTypes = {
+  id: React.PropTypes.string.isRequired,
   entityName: React.PropTypes.string.isRequired,
   formBase: React.PropTypes.string.isRequired,
   limit: React.PropTypes.number,

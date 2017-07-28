@@ -1,26 +1,33 @@
-export const INITIALIZE = 'listView/INITIALIZE'
-
-export const REQUEST_ENTITIES = 'listView/REQUEST_ENTITIES'
-export const SET_ENTITIES = 'listView/SET_ENTITIES'
-export const SET_COLUMN_DEFINITION = 'listView/SET_COLUMN_DEFINITION'
-export const SET_ENTITY_MODEL = 'listView/SET_ENTITY_MODEL'
-export const SET_ORDER_BY = 'listView/SET_ORDER_BY'
-export const SET_LIMIT = 'listView/SET_LIMIT'
-export const SET_CURRENT_PAGE = 'listView/SET_CURRENT_PAGE'
-export const SET_ENTITY_COUNT = 'listView/SET_ENTITY_COUNT'
-export const ADD_ENTITIES_TO_STORE = 'listView/ADD_ENTITIES_TO_STORE'
-export const CLEAR_ENTITY_STORE = 'listView/CLEAR_ENTITIES_CACHE'
-export const RESET_DATA_SET = 'listView/RESET_DATA_SET'
-export const SET_IN_PROGRESS = 'listView/SET_IN_PROGRESS'
-export const CHANGE_PAGE = 'listView/CHANGE_PAGE'
-export const REFRESH = 'listView/REFRESH'
-export const SET_SHOW_SEARCH_FORM = 'SET_SEARCH_FORM'
-export const SET_SEARCH_FILTERS = 'SET_SEARCH_FILTERS'
-export const SET_SIMPLE_SEARCH_FIELDS = 'SET_SIMPLE_SEARCH_FIELDS'
-export const SET_LIST_FORM_NAME = 'listView/SET_LIST_FORM_NAME'
+export const INITIALIZE = 'list/INITIALIZE'
+export const SET_INITIALIZED = 'list/SET_INITIALIZED'
+export const REQUEST_ENTITIES = 'list/REQUEST_ENTITIES'
+export const SET_ENTITIES = 'list/SET_ENTITIES'
+export const SET_COLUMN_DEFINITION = 'list/SET_COLUMN_DEFINITION'
+export const SET_ENTITY_MODEL = 'list/SET_ENTITY_MODEL'
+export const SET_ORDER_BY = 'list/SET_ORDER_BY'
+export const SET_LIMIT = 'list/SET_LIMIT'
+export const SET_CURRENT_PAGE = 'list/SET_CURRENT_PAGE'
+export const SET_ENTITY_COUNT = 'list/SET_ENTITY_COUNT'
+export const ADD_ENTITIES_TO_STORE = 'list/ADD_ENTITIES_TO_STORE'
+export const CLEAR_ENTITY_STORE = 'list/CLEAR_ENTITIES_CACHE'
+export const RESET_DATA_SET = 'list/RESET_DATA_SET'
+export const SET_IN_PROGRESS = 'list/SET_IN_PROGRESS'
+export const CHANGE_PAGE = 'list/CHANGE_PAGE'
+export const REFRESH = 'list/REFRESH'
+export const SET_SHOW_SEARCH_FORM = 'list/SET_SEARCH_FORM'
+export const SET_SEARCH_FILTERS = 'list/SET_SEARCH_FILTERS'
+export const SET_SIMPLE_SEARCH_FIELDS = 'list/SET_SIMPLE_SEARCH_FIELDS'
+export const SET_LIST_FORM_NAME = 'list/SET_LIST_FORM_NAME'
 
 export const initialize = () => ({
   type: INITIALIZE
+})
+
+export const setInitialized = (initialized = true) => ({
+  type: SET_INITIALIZED,
+  payload: {
+    initialized
+  }
 })
 
 export const requestEntities = (page, show) => ({

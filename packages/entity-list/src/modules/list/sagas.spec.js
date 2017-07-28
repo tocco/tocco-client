@@ -8,6 +8,7 @@ import {fetchForm, columnDefinitionTransformer} from '../../util/api/forms'
 import {fetchEntityCount, fetchEntities, entitiesListTransformer, fetchModel} from '../../util/api/entities'
 
 const generateState = (entityStore = {}, page) => ({
+  initialized: false,
   formBase: '',
   orderBy: '',
   limit: '',
@@ -56,6 +57,7 @@ describe('entity-list', () => {
 
             expect(gen.next().value).to.eql(call(sagas.resetDataSet))
             expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
+            expect(gen.next().value).to.eql(put(actions.setInitialized()))
             expect(gen.next().done).to.be.true
           })
         })

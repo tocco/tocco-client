@@ -20,8 +20,10 @@ export function* loadEntityModel(entityName, entityModel) {
 }
 
 export function* initialize() {
-  const {entityModel, entityName} = yield select(entityListSelector)
+  const {entityModel, entityName, initialized} = yield select(entityListSelector)
 
-  yield call(loadEntityModel, entityName, entityModel)
-  yield put(actions.initialized())
+  if (!initialized) {
+    yield call(loadEntityModel, entityName, entityModel)
+    yield put(actions.setInitialized())
+  }
 }
