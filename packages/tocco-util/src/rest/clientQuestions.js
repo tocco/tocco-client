@@ -58,11 +58,9 @@ export function* handleConfirmQuestion(question) {
   const confirm = () => answerChannel.put(answer(true))
   const cancel = () => answerChannel.put(answer(null))
 
-  const message = question.message
-  const okText = question.okText
-  const cancelText = question.cancelText
+  const {header, message, okText, cancelText} = question
 
-  yield put(notifier.confirm(message, okText, cancelText, confirm, cancel))
+  yield put(notifier.confirm(header, message, okText, cancelText, confirm, cancel))
 
   return yield take(answerChannel)
 }
@@ -70,16 +68,13 @@ export function* handleConfirmQuestion(question) {
 export function* handleYesNoQuestion(question) {
   const answerChannel = yield call(channel)
 
-  const confirm = () => answerChannel.put(answer(true))
-  const cancel = () => answerChannel.put(answer(null))
+  const onYes = () => answerChannel.put(answer(true))
+  const onNo = () => answerChannel.put(answer(false))
+  const onCancel = () => answerChannel.put(answer(null))
 
-  const message = question.message
-  const okText = question.yesText
-  const cancelText = question.cancelText
+  const {header, message, yesText, noText, cancelText} = question
 
-  // TODO: insert yes/no/cancel buttons, once https://github.com/diegoddox/react-redux-toastr/pull/143
-  // is merged an has been released.
-  yield put(notifier.confirm(message, okText, cancelText, confirm, cancel))
+  yield put(notifier.yesNoQuestion(header, message, yesText, noText, cancelText, onYes, onNo, onCancel))
 
   return yield take(answerChannel)
 }
