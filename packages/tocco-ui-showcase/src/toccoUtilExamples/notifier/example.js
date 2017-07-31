@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react'
 import {Provider} from 'react-redux'
 import ReduxToastr from 'react-redux-toastr'
@@ -34,6 +35,30 @@ class Example extends React.Component {
     this.store.dispatch(notifier.info('error', 'client.title', 'client.description', 'blind', 10000))
   }
 
+  confirmQuestion = () => {
+    this.store.dispatch(notifier.confirm(
+      'Title',
+      'Message Line 1<br/>Message Line 2',
+      'OK Text',
+      'Cancel Text',
+      () => console.log('ok pressed'),
+      () => console.log('cancel pressed')
+    ))
+  }
+
+  yesNoQuestion = () => {
+    this.store.dispatch(notifier.yesNoQuestion(
+      'Title',
+      'Message Line 1<br/>Message Line 2',
+      'Yes Text',
+      'No Text',
+      'Cancel Text',
+      () => console.log('yes pressed'),
+      () => console.log('no pressed'),
+      () => console.log('Cancel pressed')
+    ))
+  }
+
   render() {
     return (
       <Provider store={this.store}>
@@ -43,6 +68,8 @@ class Example extends React.Component {
           <button className="btn btn-success" onClick={this.success}>Success (no timeout)</button>
           <button className="btn btn-warning" onClick={this.warning}>Warning (long)</button>
           <button className="btn btn-danger" onClick={this.error}>Error</button>
+          <button className="btn" onClick={this.confirmQuestion}>Confirm</button>
+          <button className="btn" onClick={this.yesNoQuestion}>Yes-No Question</button>
         </div>
       </Provider>
     )
