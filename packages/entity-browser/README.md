@@ -1,11 +1,5 @@
 #Entity Browser
-App to list entities in a grid.
-
-Features:
-- Sorting
-- Fulltext search
-- Paging
-- Preload of next page
+List/detail view of any entity with configurable search-form.
 
 ##Embedding
 
@@ -27,26 +21,6 @@ React-registry name: `entity-browser`
 | `nullBusinessUnit`     |           | If true, all REST-request have the null business unit header (X-Business-Unit: __n-u-l-l__)
 
 
-### Methods
-
-none so far
-
-
 ### Events
 
 none so far
-
-
-##Development
-###Mock Validation Tests
-
-| Field     	| Value      	| Validation Error                                       	|
-|-----------	|------------	|--------------------------------------------------------	|
-| Firstname 	| '' (empty) 	| Sync Validation: Mandatory                             	|
-| Callname  	| '' (empty) 	| Sync Validation: Mandatory                             	|
-| Firstname 	| length < 3 	| Sync Validation: Min length                            	|
-| Firstname 	| 'illegal'  	| Async Validation: Not Allowed (+2 random messages)      |
-| Firstname 	| 'illegal0'  | Async Validation: general random error                  |
-| Firstname 	| 'illegal1' 	| Async Validation call exception                        	|
-| Firstname 	| 'illegal2' 	| Submit Validation: Not allowed  (+ general error)      	|
-| Firstname 	| 'illegal3' 	| Submit call exception                                  	|
