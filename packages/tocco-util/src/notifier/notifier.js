@@ -71,7 +71,8 @@ export function getYesNoAction(title, message, yesText, noText, cancelText, onYe
         {
           text: noText,
           handler: onNo
-        }, {
+        },
+        {
           cancel: true
         }
       ]

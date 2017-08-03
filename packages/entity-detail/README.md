@@ -1,6 +1,6 @@
 # Entity Detail
 
-##Embedding
+## Embedding
 
 React-registry name: `entity-detail`
 
@@ -20,8 +20,8 @@ React-registry name: `entity-detail`
 | `onTouchedChange`   | `touched` (boolean flag which indicates if the form is touched)                                                    | This event is fired when the touched state changes
 
 
-##Development
-###Mock Validation Tests
+## Development
+### Mock Validation Tests
 
 | Field     	| Value      	| Validation Error                                       	|
 |-----------	|------------	|--------------------------------------------------------	|
