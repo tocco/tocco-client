@@ -1,4 +1,5 @@
 # Entity List
+List view with configurable search form.
 
 ## Embedding
 

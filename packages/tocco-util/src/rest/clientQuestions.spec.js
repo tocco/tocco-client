@@ -200,6 +200,7 @@ describe('tocco-util', () => {
           const question = {
             id: 'testquestion',
             handler: 'YesNoQuestionHandler',
+            header: 'title',
             message: 'msg',
             yesText: 'yes',
             noText: 'no',
@@ -217,7 +218,9 @@ describe('tocco-util', () => {
           const actionPayload = confirmActionPut.PUT.action.payload
 
           expect(actionPayload.message).to.eql(question.message)
-          expect(actionPayload.okText).to.eql(question.yesText)
+          expect(actionPayload.title).to.eql(question.header)
+          expect(actionPayload.yesText).to.eql(question.yesText)
+          expect(actionPayload.noText).to.eql(question.noText)
           expect(actionPayload.cancelText).to.eql(question.cancelText)
 
           expect(gen.next().value).to.eql(take(mockedChannel))
