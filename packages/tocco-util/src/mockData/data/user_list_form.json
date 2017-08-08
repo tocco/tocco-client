@@ -24,7 +24,8 @@
               }
             ],
             "label": "Nr.",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           },
           {
             "name": "firstname",
@@ -41,7 +42,8 @@
               }
             ],
             "label": "Vorname",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           },
           {
             "name": "lastname",
@@ -58,7 +60,8 @@
               }
             ],
             "label": "Nachname",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           },
           {
             "name": "email",
@@ -75,7 +78,8 @@
               }
             ],
             "label": "E-Mail",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           },
           {
             "name": "birthdate",
@@ -92,7 +96,8 @@
               }
             ],
             "label": "Geburi",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           },
           {
             "name": "salary",
@@ -109,7 +114,8 @@
               }
             ],
             "label": "Lohn",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           },
           {
             "name": "relSingle_entity2",
@@ -126,7 +132,8 @@
               }
             ],
             "label": "Dummy Entity (n:1)",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": false
           },
           {
             "name": "phone_company",
@@ -143,7 +150,8 @@
               }
             ],
             "label": "Telefon G",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           },
           {
             "name": "publish",
@@ -160,7 +168,8 @@
               }
             ],
             "label": "Publiziert",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           },
           {
             "name": "website",
@@ -177,7 +186,8 @@
               }
             ],
             "label": "Webseite",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           },
           {
             "name": "fullname",
@@ -202,7 +212,8 @@
               }
             ],
             "label": "Fullname",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           },
           {
             "name": "relMulti_entity2",
@@ -219,7 +230,8 @@
               }
             ],
             "label": "Dummy Entity (n:n)",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           },
           {
             "name": "abbreviation",
@@ -236,7 +248,8 @@
               }
             ],
             "label": "Kurzbez.",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           },
           {
             "name": "relAcademic_title",
@@ -253,7 +266,8 @@
               }
             ],
             "label": "Akad. Titel",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           },
           {
             "name": "profession",
@@ -270,7 +284,8 @@
               }
             ],
             "label": "Beruf/Ausbildung",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           },
           {
             "name": "job",
@@ -287,7 +302,8 @@
               }
             ],
             "label": "Funktion",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           },
           {
             "name": "social_security_nr",
@@ -304,7 +320,8 @@
               }
             ],
             "label": "Sozialvers.-Nr.",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           },
           {
             "name": "birthdate",
@@ -321,7 +338,8 @@
               }
             ],
             "label": "Geburtsdatum",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           },
           {
             "name": "relCorrespondence_language",
@@ -338,7 +356,8 @@
               }
             ],
             "label": "Sprache",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           },
           {
             "name": "relUser_newsletter_category",
@@ -355,7 +374,8 @@
               }
             ],
             "label": "Newsletter",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           },
           {
             "name": "learner_nr",
@@ -372,7 +392,8 @@
               }
             ],
             "label": "Lehrlingsnummer",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           },
           {
             "name": "contract_nr",
@@ -389,7 +410,8 @@
               }
             ],
             "label": "Vertrags-Nr.",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           },
           {
             "name": "relJob_variant",
@@ -406,7 +428,8 @@
               }
             ],
             "label": "Beruf",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           },
           {
             "name": "relSubvention_canton",
@@ -423,7 +446,8 @@
               }
             ],
             "label": "Subventionskanton",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           },
           {
             "name": "relMeals",
@@ -440,7 +464,8 @@
               }
             ],
             "label": "Verpflegung",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           },
           {
             "name": "relSpecialcase",
@@ -457,7 +482,8 @@
               }
             ],
             "label": "Spezialfälle",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           },
           {
             "name": "apprenticeship_start_date",
@@ -474,7 +500,8 @@
               }
             ],
             "label": "Lehr-Beginn",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           },
           {
             "name": "apprenticeship_end_date",
@@ -491,7 +518,8 @@
               }
             ],
             "label": "Lehr-Ende",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           },
           {
             "name": "relLearner_status",
@@ -508,7 +536,8 @@
               }
             ],
             "label": "Status Lehre",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           },
           {
             "name": "relApprenticeship_current_year",
@@ -525,7 +554,8 @@
               }
             ],
             "label": "Aktuelles Lehrjahr",
-            "useLabel": "YES"
+            "useLabel": "YES",
+            "sortable": true
           }
         ],
         "label": "##forms.User_list.table:de_CH:nice2.optional.uek",
