@@ -35,13 +35,15 @@ describe('entity-list', () => {
                       name: 'lb1',
                       label: 'label1',
                       useLabel: true,
-                      children: [field1]
+                      children: [field1],
+                      sortable: true
                     }, {
                       displayType: 'EDITABLE',
                       name: 'lb2',
                       label: 'label2',
                       useLabel: false,
-                      children: [field2]
+                      children: [field2],
+                      sortable: false
                     }
                   ]
                 }]
@@ -50,8 +52,8 @@ describe('entity-list', () => {
             const result = forms.columnDefinitionTransformer(fetchResult)
 
             const expectedColumnDefinition = [
-              {label: 'label1', useLabel: true, name: 'lb1', child: field1},
-              {label: 'label2', useLabel: false, name: 'lb2', child: field2}
+              {label: 'label1', useLabel: true, name: 'lb1', child: field1, sortable: true},
+              {label: 'label2', useLabel: false, name: 'lb2', child: field2, sortable: false}
             ]
 
             expect(result).to.eql(expectedColumnDefinition)
@@ -72,20 +74,23 @@ describe('entity-list', () => {
                       name: 'lb1',
                       label: 'label1',
                       useLabel: true,
-                      children: [field1]
+                      children: [field1],
+                      sortable: true
                     }, {
                       displayType: 'EDITABLE',
                       name: 'lb2',
                       label: 'label2',
                       useLabel: false,
-                      children: [field2Hidden]
+                      children: [field2Hidden],
+                      sortable: true
                     },
                     {
                       displayType: 'HIDDEN',
                       name: 'lb3',
                       label: 'label3',
                       useLabel: false,
-                      children: [field1]
+                      children: [field1],
+                      sortable: true
                     }
                   ]
                 }]
@@ -94,7 +99,7 @@ describe('entity-list', () => {
             const result = forms.columnDefinitionTransformer(fetchResult)
 
             const expectedColumnDefinition = [
-              {label: 'label1', useLabel: true, name: 'lb1', child: field1}
+              {label: 'label1', useLabel: true, name: 'lb1', child: field1, sortable: true}
             ]
 
             expect(result).to.eql(expectedColumnDefinition)

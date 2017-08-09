@@ -92,7 +92,7 @@ class ListView extends React.Component {
                 <TableHeaderColumn
                   key={idx}
                   dataFormat={this.cellFormatter}
-                  dataSort
+                  dataSort={column.sortable}
                   dataField={column.child.name}
                 >
                   {column.label}
@@ -122,7 +122,8 @@ ListView.propTypes = {
     React.PropTypes.shape({
       values: React.PropTypes.arrayOf(React.PropTypes.shape({name: React.PropTypes.string})),
       label: React.PropTypes.string,
-      order: React.PropTypes.int
+      order: React.PropTypes.int,
+      sortable: React.PropTypes.bool
     })
   ).isRequired,
   entityCount: React.PropTypes.number,

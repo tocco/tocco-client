@@ -33,6 +33,7 @@ export const columnDefinitionTransformer = json => {
       name: c.name,
       label: c.label,
       useLabel: c.useLabel,
+      sortable: c.sortable,
       child: c.children.filter(isDisplayableChild)[0]
     }
   ))
