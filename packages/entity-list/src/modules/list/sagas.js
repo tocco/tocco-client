@@ -2,7 +2,7 @@ import {call, put, fork, select, spawn, takeEvery, takeLatest, all} from 'redux-
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import {getSearchInputsForRequest} from '../../util/searchInputs'
-import {fetchForm, columnDefinitionTransformer, getFieldsOfColumnDefinition} from '../../util/api/forms'
+import {fetchForm, tableDefinitionTransformer, getFieldsOfColumnDefinition} from '../../util/api/forms'
 import {fetchEntityCount, fetchEntities, entitiesListTransformer, fetchModel} from '../../util/api/entities'
 import _clone from 'lodash/clone'
 import _isEmpty from 'lodash/isEmpty'
@@ -35,7 +35,7 @@ export function* initialize() {
   if (!initialized) {
     yield all([
       call(loadEntityModel, entityName, entityModel),
-      call(loadColumnDefinition, columnDefinition, formBase)
+      call(loadTableDefinition, columnDefinition, formBase)
     ])
     yield call(resetDataSet)
   }
@@ -124,10 +124,12 @@ export function* displayEntity(page) {
   yield put(actions.setEntities(entities))
 }
 
-export function* loadColumnDefinition(columnDefinition, formBase) {
+export function* loadTableDefinition(columnDefinition, formBase) {
   if (columnDefinition.length === 0) {
-    columnDefinition = yield call(fetchForm, `${formBase}_list`, columnDefinitionTransformer)
-    yield put(actions.setColumnDefinition(columnDefinition))
+    const tableDefinition = yield call(fetchForm, `${formBase}_list`, tableDefinitionTransformer)
+    yield put(actions.setColumnDefinition(tableDefinition.columnDefinition))
+    const orderBy = tableDefinition.sorting
+    yield put(actions.setOrderBy({orderBy}))
   }
 }
 

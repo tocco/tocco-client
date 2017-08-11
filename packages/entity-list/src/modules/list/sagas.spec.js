@@ -4,7 +4,7 @@ import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import rootSaga, * as sagas from './sagas'
 import {getSearchInputsForRequest} from '../../util/searchInputs'
-import {fetchForm, columnDefinitionTransformer} from '../../util/api/forms'
+import {fetchForm, tableDefinitionTransformer} from '../../util/api/forms'
 import {fetchEntityCount, fetchEntities, entitiesListTransformer, fetchModel} from '../../util/api/entities'
 
 const generateState = (entityStore = {}, page) => ({
@@ -52,7 +52,7 @@ describe('entity-list', () => {
             const nextValue = gen.next({columnDefinition, entityModel}).value
             expect(nextValue).to.eql(all([
               call(sagas.loadEntityModel, entityName, entityModel),
-              call(sagas.loadColumnDefinition, columnDefinition, formBase)
+              call(sagas.loadTableDefinition, columnDefinition, formBase)
             ]))
 
             expect(gen.next().value).to.eql(call(sagas.resetDataSet))
@@ -216,14 +216,18 @@ describe('entity-list', () => {
           })
         })
 
-        describe('loadColumnDefinition saga', () => {
+        describe('loadTableDefinition saga', () => {
           it('should load Columndefinition if not loaded', () => {
             const columnDefinition = []
             const formBase = 'UserSearch'
-            const loadedColumnDefintion = []
-            const gen = sagas.loadColumnDefinition(columnDefinition, formBase)
-            expect(gen.next().value).to.eql(call(fetchForm, `${formBase}_list`, columnDefinitionTransformer))
-            expect(gen.next(loadedColumnDefintion).value).to.eql(put(actions.setColumnDefinition(columnDefinition)))
+            const loadedTableDefinition = {
+              columnDefinition: [],
+              sorting: ''
+            }
+            const gen = sagas.loadTableDefinition(columnDefinition, formBase)
+            expect(gen.next().value).to.eql(call(fetchForm, `${formBase}_list`, tableDefinitionTransformer))
+            expect(gen.next(loadedTableDefinition).value).to.eql(put(actions.setColumnDefinition(columnDefinition)))
+            expect(gen.next([]).value).to.eql(put(actions.setOrderBy({orderBy: ''})))
 
             expect(gen.next().done).to.be.true
           })
@@ -231,7 +235,7 @@ describe('entity-list', () => {
           it('should not load Columndefinition if already loaded', () => {
             const columnDefinition = [{someContent: true}]
             const formBase = 'UserSearch'
-            const gen = sagas.loadColumnDefinition(columnDefinition, formBase)
+            const gen = sagas.loadTableDefinition(columnDefinition, formBase)
             expect(gen.next().done).to.be.true
           })
         })
