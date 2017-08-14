@@ -19,8 +19,8 @@ describe('entity-list', () => {
           })
         })
 
-        describe('columnDefinitionTransformer', () => {
-          it('should return an array of columns with child (field)', () => {
+        describe('tableDefinitionTransformer', () => {
+          it('should returen an object with the column definition and the default sorting', () => {
             const field1 = {name: 'name1', type: 'type', displayType: 'EDITABLE', label: 'label'}
             const field2 = {name: 'name2', type: 'type', displayType: 'EDITABLE', label: 'label'}
 
@@ -29,6 +29,10 @@ describe('entity-list', () => {
                 children: [{
                   name: 'table',
                   type: 'ch.tocco.nice2.model.form.components.table.Table',
+                  sorting: [
+                    {orderItem: 'lb1', ascending: false},
+                    {orderItem: 'lb2', ascending: true}
+                  ],
                   children: [
                     {
                       displayType: 'EDITABLE',
@@ -49,14 +53,21 @@ describe('entity-list', () => {
                 }]
               }
             }
-            const result = forms.columnDefinitionTransformer(fetchResult)
+            const result = forms.tableDefinitionTransformer(fetchResult)
 
             const expectedColumnDefinition = [
               {label: 'label1', useLabel: true, name: 'lb1', child: field1, sortable: true},
               {label: 'label2', useLabel: false, name: 'lb2', child: field2, sortable: false}
             ]
 
-            expect(result).to.eql(expectedColumnDefinition)
+            const expectedSorting = 'lb1 desc,lb2 asc'
+
+            const expectedResult = {
+              columnDefinition: expectedColumnDefinition,
+              sorting: expectedSorting
+            }
+
+            expect(result).to.eql(expectedResult)
           })
 
           it('should ignore HIDDEN columns and hidden fields', () => {
@@ -96,13 +107,15 @@ describe('entity-list', () => {
                 }]
               }
             }
-            const result = forms.columnDefinitionTransformer(fetchResult)
+            const result = forms.tableDefinitionTransformer(fetchResult)
 
-            const expectedColumnDefinition = [
-              {label: 'label1', useLabel: true, name: 'lb1', child: field1, sortable: true}
-            ]
+            const expectedTableDefinition = {
+              columnDefinition: [
+                {label: 'label1', useLabel: true, name: 'lb1', child: field1, sortable: true}
+              ]
+            }
 
-            expect(result).to.eql(expectedColumnDefinition)
+            expect(result).to.eql(expectedTableDefinition)
           })
         })
 
