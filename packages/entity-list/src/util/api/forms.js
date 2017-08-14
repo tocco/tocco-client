@@ -42,10 +42,7 @@ export const tableDefinitionTransformer = json => {
   ))
 
   if (table.sorting) {
-    const sorting = table.sorting.reduce((acc, val, idx, arr) => {
-      return `${acc}${val.orderItem} ${(val.ascending) ? 'asc' : 'desc'}${(idx + 1 === arr.length) ? '' : ','}`
-    }, '')
-
+    const sorting = table.sorting.map(sort => `${sort.orderItem} ${sort.ascending ? 'asc' : 'desc'}`).join(',')
     return {columnDefinition, sorting}
   }
 
