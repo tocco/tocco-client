@@ -8,8 +8,10 @@
 // --------------------------
 $fa-font-size-base:   14px !default;
 $fa-line-height-base: 1 !default;
-@if ( $node-env == "production" or $node-env == "nice2_11_legacy" ) {
-  $fa-font-path: "/cms/common/fonts/font-awesome-4.7.0" !global;  // public folder nice2
+@if ( $node-env == "production" ) {
+  $fa-font-path: "/fonts" !global;  // public folder nice2 /web/core/module/resources/webapp/css/fonts/
+} @else if (  $node-env == "nice2_11_legacy" ) {
+    $fa-font-path: "/cms/common/fonts/font-awesome-4.7.0" !global;  // public folder nice2 /optional/cms/module/cms/web/fonts/font-awesome-4.7.0/
 } @else {
   $fa-font-path: "../../node_modules/font-awesome/fonts" !global;  // relative path from packages/tocco-theme/src/ToccoTheme to Font Awesome fonts
 }
