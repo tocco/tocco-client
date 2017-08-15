@@ -14,7 +14,7 @@ export function* fetchForm(formName, transformer = defaultFormTransformer) {
   return response.body ? yield call(transformer, response.body) : null
 }
 
-export const columnDefinitionTransformer = json => {
+export const tableDefinitionTransformer = json => {
   const {form} = json
 
   const isDisplayableChild = child => {
@@ -24,11 +24,14 @@ export const columnDefinitionTransformer = json => {
   }
 
   const tableType = 'ch.tocco.nice2.model.form.components.table.Table'
-  const columns = form.children.find(child => child.type === tableType).children
+
+  const table = form.children.find(child => child.type === tableType)
+
+  const columns = table.children
     .filter(column => column.displayType !== 'HIDDEN')
     .filter(column => column.children.filter(isDisplayableChild).length > 0)
 
-  return columns.map(c => (
+  const columnDefinition = columns.map(c => (
     {
       name: c.name,
       label: c.label,
@@ -37,6 +40,13 @@ export const columnDefinitionTransformer = json => {
       child: c.children.filter(isDisplayableChild)[0]
     }
   ))
+
+  if (table.sorting) {
+    const sorting = table.sorting.map(sort => `${sort.orderItem} ${sort.ascending ? 'asc' : 'desc'}`).join(',')
+    return {columnDefinition, sorting}
+  }
+
+  return {columnDefinition}
 }
 
 export const searchFormTransformer = json => json.form

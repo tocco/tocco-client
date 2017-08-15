@@ -8,6 +8,16 @@
         "name": "table",
         "type": "ch.tocco.nice2.model.form.components.table.Table",
         "displayType": "EDITABLE",
+        "sorting": [
+          {
+            "ascending": true,
+            "orderItem": "firstname"
+          },
+          {
+            "ascending": true,
+            "orderItem": "lastname"
+          }
+        ],
         "children": [
           {
             "name": "user_nr",
