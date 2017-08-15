@@ -9,13 +9,18 @@ import {
   stopSubmit,
   getFormValues,
   actionTypes,
-  initialize as initializeForm
+  initialize as initializeForm,
+  reset
 } from 'redux-form'
 
+import _clone from 'lodash/clone'
+
 import {validateSearchFields} from '../../util/searchFormValidation'
+import {getSearchInputsForRequest} from '../../util/searchInputs'
 
 export const searchFormSelector = state => state.searchForm
 export const entityListSelector = state => state.entityList
+export const searchValuesSelector = getFormValues('searchForm')
 
 export default function* sagas() {
   yield all([
@@ -23,7 +28,8 @@ export default function* sagas() {
     fork(takeLatest, actions.SET_PRESELECTED_SEARCH_FIELDS, setPreselectedSearchFields),
     fork(takeLatest, actions.LOAD_RELATION_ENTITY, loadRelationEntity),
     fork(takeLatest, actionTypes.CHANGE, submitSearchFrom),
-    fork(takeLatest, actions.SUBMIT_SEARCH_FORM, submitSearchFrom)
+    fork(takeLatest, actions.SUBMIT_SEARCH_FORM, submitSearchFrom),
+    fork(takeLatest, actions.RESET_SEARCH, resetSearch)
   ])
 }
 
@@ -55,6 +61,7 @@ export function* setPreselectedSearchFields({payload}) {
   const entityModel = yield call(getEntityModel)
   const formValues = yield call(getInitialFromValues, preselectedSearchFields, entityModel, loadRelationEntity)
   yield put(initializeForm('searchForm', formValues))
+  yield put(actions.setValuesInitialized(true))
 }
 
 export function* getEntityModel() {
@@ -86,4 +93,30 @@ export function* loadRelationEntity({payload}) {
     return entities
   }
   return relationEntities[entityName].data
+}
+
+export function* resetSearch() {
+  yield put(reset('searchForm'))
+  yield call(submitSearchFrom)
+}
+
+export function* getSearchInputs() {
+  const {valuesInitialized} = yield select(searchFormSelector)
+
+  if (!valuesInitialized) {
+    yield take(actions.SET_VALUES_INITIALIZED)
+  }
+
+  const searchInputs = yield select(searchValuesSelector)
+
+  const clonedSearchInputs = _clone(searchInputs)
+  const {entityModel} = yield select(entityListSelector)
+
+  if (searchInputs && searchInputs.txtFulltext) {
+    clonedSearchInputs._search = searchInputs.txtFulltext
+    delete clonedSearchInputs.txtFulltext
+  }
+
+  const result = yield call(getSearchInputsForRequest, clonedSearchInputs, entityModel)
+  return result
 }

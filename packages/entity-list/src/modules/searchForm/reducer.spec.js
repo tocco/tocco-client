@@ -8,7 +8,8 @@ const EXPECTED_INITIAL_STATE = {
   showExtendedSearchForm: false,
   simpleSearchFields: ['txtFulltext'],
   disableSimpleSearch: false,
-  relationEntities: {}
+  relationEntities: {},
+  valuesInitialized: false
 }
 
 describe('entity-list', () => {
