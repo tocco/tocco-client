@@ -83,7 +83,10 @@ if (__NICE2_11_LEGACY__) {
 // ------------------------------------
 
 webpackConfig.plugins = [
-  new webpack.DefinePlugin(config.globals)
+  new webpack.DefinePlugin(config.globals),
+  new LodashModuleReplacementPlugin({
+    shorthands: true
+  })
 ]
 
 if (__DEV__) {
@@ -124,11 +127,6 @@ if (__DEV__) {
     new webpack.LoaderOptionsPlugin({
       minimize: true,
       debug: false
-    }))
-
-  webpackConfig.plugins.push(
-    new LodashModuleReplacementPlugin({
-      shorthands: true
     }))
 
   webpackConfig.plugins.push(
@@ -305,9 +303,6 @@ if (__NICE2_11_LEGACY__) {
     new webpack.LoaderOptionsPlugin({
       minimize: true,
       debug: false
-    }),
-    new LodashModuleReplacementPlugin({
-      'shorthands': true
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({
