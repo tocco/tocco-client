@@ -29,7 +29,7 @@ describe('tocco-ui', function() {
             <MoneyFormatter value={1245.50}/>
           </IntlProvider>
         )
-        expect(wrapper.text()).to.equal('1\'245.50')
+        expect(wrapper.text()).to.match(/1['’]245.50/)
       })
     })
   })

@@ -30,7 +30,7 @@ class Table extends React.Component {
     return result
   }
 
-  orderColumnDefinitions = columnDefinitions => (_sortBy(columnDefinitions, v => v.order))
+  orderColumnDefinitions = columnDefinitions => _sortBy(columnDefinitions, ['order'])
 
   render() {
     const columnDefinitions = this.orderColumnDefinitions(this.props.columnDefinitions)
