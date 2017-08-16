@@ -1,9 +1,8 @@
 import {put, select, call, fork, spawn, takeLatest, takeEvery, all} from 'redux-saga/effects'
-import {reset} from 'redux-form'
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
+import {getSearchInputs} from '../searchForm/sagas'
 import rootSaga, * as sagas from './sagas'
-import {getSearchInputsForRequest} from '../../util/searchInputs'
 import {fetchForm, tableDefinitionTransformer} from '../../util/api/forms'
 import {fetchEntityCount, fetchEntities, entitiesListTransformer, fetchModel} from '../../util/api/entities'
 
@@ -28,7 +27,6 @@ describe('entity-list', () => {
               fork(takeLatest, actions.INITIALIZE, sagas.initialize),
               fork(takeLatest, actions.CHANGE_PAGE, sagas.changePage),
               fork(takeLatest, searchFormActions.EXECUTE_SEARCH, sagas.resetDataSet),
-              fork(takeLatest, searchFormActions.RESET_SEARCH, sagas.resetSearch),
               fork(takeEvery, actions.SET_ORDER_BY, sagas.resetDataSet),
               fork(takeEvery, actions.RESET_DATA_SET, sagas.resetDataSet),
               fork(takeLatest, actions.REFRESH, sagas.refresh)
@@ -107,7 +105,7 @@ describe('entity-list', () => {
             const gen = sagas.fetchEntitiesAndAddToStore(1)
             expect(gen.next().value).to.eql(select(sagas.inputSelector))
             expect(gen.next(input).value).to.eql(select(sagas.listSelector))
-            expect(gen.next(listViewState).value).to.eql(call(sagas.getSearchInputs))
+            expect(gen.next(listViewState).value).to.eql(call(getSearchInputs))
             expect(gen.next(searchInputs).value).to.eql(
               call(fetchEntities, input.entityName, fetchParams, entitiesListTransformer)
             )
@@ -178,7 +176,7 @@ describe('entity-list', () => {
 
             expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
             expect(gen.next().value).to.eql(select(sagas.inputSelector))
-            expect(gen.next({entityName, searchFilters, formBase}).value).to.eql(call(sagas.getSearchInputs))
+            expect(gen.next({entityName, searchFilters, formBase}).value).to.eql(call(getSearchInputs))
             expect(gen.next(searchInputs).value).to.eql(call(fetchEntityCount, entityName, fetchParams))
             expect(gen.next(entityCount).value).to.eql(put(actions.setEntityCount(entityCount)))
             expect(gen.next().value).to.eql(put(actions.clearEntityStore()))
@@ -200,18 +198,6 @@ describe('entity-list', () => {
             expect(gen.next(state).value).to.eql(put(actions.clearEntityStore(entities)))
             expect(gen.next(state).value).to.eql(call(sagas.requestEntities, page))
             expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
-            expect(gen.next().done).to.be.true
-          })
-        })
-
-        describe('getSearchInputs saga', () => {
-          it('should get searchInputs', () => {
-            const entityModel = {}
-            const searchValues = {}
-            const gen = sagas.getSearchInputs()
-            expect(gen.next().value).to.eql(select(sagas.searchValuesSelector))
-            expect(gen.next(searchValues).value).to.eql(select(sagas.listSelector))
-            expect(gen.next({entityModel}).value).to.eql(call(getSearchInputsForRequest, searchValues, entityModel))
             expect(gen.next().done).to.be.true
           })
         })
@@ -262,15 +248,6 @@ describe('entity-list', () => {
             }
 
             const gen = sagas.loadEntityModel(entityName, entityModel)
-            expect(gen.next().done).to.be.true
-          })
-        })
-
-        describe('resetSearch saga', () => {
-          it('should reset the form and trigger a search', () => {
-            const gen = sagas.resetSearch()
-            expect(gen.next().value).to.eql(put(reset('searchForm')))
-            expect(gen.next().value).to.eql(call(sagas.resetDataSet))
             expect(gen.next().done).to.be.true
           })
         })
