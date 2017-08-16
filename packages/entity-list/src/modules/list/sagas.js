@@ -1,24 +1,20 @@
+import _isEmpty from 'lodash/isEmpty'
 import {call, put, fork, select, spawn, takeEvery, takeLatest, all} from 'redux-saga/effects'
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
-import {getSearchInputsForRequest} from '../../util/searchInputs'
+import {getSearchInputs} from '../searchForm/sagas'
 import {fetchForm, tableDefinitionTransformer, getFieldsOfColumnDefinition} from '../../util/api/forms'
 import {fetchEntityCount, fetchEntities, entitiesListTransformer, fetchModel} from '../../util/api/entities'
-import _clone from 'lodash/clone'
-import _isEmpty from 'lodash/isEmpty'
-import {getFormValues, reset} from 'redux-form'
 
 export const inputSelector = state => state.input
 export const entityListSelector = state => state.entityList
 export const listSelector = state => state.list
-export const searchValuesSelector = getFormValues('searchForm')
 
 export default function* sagas() {
   yield all([
     fork(takeLatest, actions.INITIALIZE, initialize),
     fork(takeLatest, actions.CHANGE_PAGE, changePage),
     fork(takeLatest, searchFormActions.EXECUTE_SEARCH, resetDataSet),
-    fork(takeLatest, searchFormActions.RESET_SEARCH, resetSearch),
     fork(takeEvery, actions.SET_ORDER_BY, resetDataSet),
     fork(takeEvery, actions.RESET_DATA_SET, resetDataSet),
     fork(takeLatest, actions.REFRESH, refresh)
@@ -59,21 +55,6 @@ export function* changePage({payload}) {
   yield put(actions.setCurrentPage(page))
   yield call(requestEntities, page)
   yield put(actions.setInProgress(false))
-}
-
-export function* getSearchInputs() {
-  const searchInputs = yield select(searchValuesSelector)
-
-  const clonedSearchInputs = _clone(searchInputs)
-  const {entityModel} = yield select(listSelector)
-
-  if (searchInputs && searchInputs.txtFulltext) {
-    clonedSearchInputs._search = searchInputs.txtFulltext
-    delete clonedSearchInputs.txtFulltext
-  }
-
-  const result = yield call(getSearchInputsForRequest, clonedSearchInputs, entityModel)
-  return result
 }
 
 export function* fetchEntitiesAndAddToStore(page) {
@@ -159,9 +140,4 @@ export function* resetDataSet() {
 
   yield call(changePage, {payload: {page: 1}})
   yield put(actions.setInProgress(false))
-}
-
-export function* resetSearch() {
-  yield put(reset('searchForm'))
-  yield call(resetDataSet)
 }

@@ -35,7 +35,7 @@ describe('tocco-ui', function() {
       it('should format value accorind to locale CH', function() {
         const wrapper = mount(<IntlProvider locale="de-CH"><NumberFormatter
           value={1337}/></IntlProvider>)
-        expect(wrapper.text()).to.equal('1\'337')
+        expect(wrapper.text()).to.match(/1['’]337/)
       })
     })
   })

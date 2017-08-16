@@ -11,7 +11,8 @@ export const getDispatchActions = input => {
   const actions = [
     setEntityName(input.entityName),
     setListFormName(`${input.formBase}_list`),
-    setSearchFormName(`${input.formBase}_search`)
+    setSearchFormName(`${input.formBase}_search`),
+    setPreselectedSearchFields(input.preselectedSearchFields || [])
   ]
 
   if (input.limit) {
@@ -28,10 +29,6 @@ export const getDispatchActions = input => {
 
   if (typeof input.disableSimpleSearch === 'boolean') {
     actions.push(setDisableSimpleSearch(input.disableSimpleSearch))
-  }
-
-  if (input.preselectedSearchFields) {
-    actions.push(setPreselectedSearchFields(input.preselectedSearchFields))
   }
 
   if (input.simpleSearchFields) {

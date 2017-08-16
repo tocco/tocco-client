@@ -61,6 +61,14 @@
             "children": [],
             "label": "Person-Nr.",
             "useLabel": "YES"
+          },
+          {
+            "name": "relSingle_entity1.relUser",
+            "type": "ch.tocco.nice2.model.form.components.simple.TextField",
+            "displayType": "EDITABLE",
+            "children": [],
+            "label": "Dummy Mehrstufig",
+            "useLabel": "YES"
           }
         ],
         "label": null,

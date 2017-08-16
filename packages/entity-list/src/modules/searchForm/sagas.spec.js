@@ -1,4 +1,4 @@
-import {put, select, call, fork, takeLatest, all} from 'redux-saga/effects'
+import {put, select, call, fork, takeLatest, all, take} from 'redux-saga/effects'
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
 import {fetchEntities, selectEntitiesTransformer} from '../../util/api/entities'
@@ -6,10 +6,12 @@ import {
   startSubmit,
   actionTypes,
   stopSubmit,
-  initialize as initializeForm
+  initialize as initializeForm,
+  reset
 } from 'redux-form'
 import {validateSearchFields} from '../../util/searchFormValidation'
 import {getInitialFromValues} from '../../util/searchForm'
+import {getSearchInputsForRequest} from '../../util/searchInputs'
 
 describe('entity-list', () => {
   describe('modules', () => {
@@ -23,7 +25,8 @@ describe('entity-list', () => {
               fork(takeLatest, actions.SET_PRESELECTED_SEARCH_FIELDS, sagas.setPreselectedSearchFields),
               fork(takeLatest, actions.LOAD_RELATION_ENTITY, sagas.loadRelationEntity),
               fork(takeLatest, actionTypes.CHANGE, sagas.submitSearchFrom),
-              fork(takeLatest, actions.SUBMIT_SEARCH_FORM, sagas.submitSearchFrom)
+              fork(takeLatest, actions.SUBMIT_SEARCH_FORM, sagas.submitSearchFrom),
+              fork(takeLatest, actions.RESET_SEARCH, sagas.resetSearch)
             ]))
             expect(generator.next().done).to.be.true
           })
@@ -57,6 +60,7 @@ describe('entity-list', () => {
             )
             const formValues = {fullText: 'test'}
             expect(gen.next(formValues).value).to.eql(put(initializeForm('searchForm', formValues)))
+            expect(gen.next(formValues).value).to.eql(put(actions.setValuesInitialized(true)))
 
             expect(gen.next().done).to.be.true
           })
@@ -130,6 +134,31 @@ describe('entity-list', () => {
             const next = gen.next({relationEntities})
             expect(next.value).to.eql(relationEntities.User.data)
             expect(next.done).to.be.true
+          })
+        })
+
+        describe('getSearchInputs saga', () => {
+          it('should get searchInputs', () => {
+            const valuesInitialized = false
+            const entityModel = {}
+            const searchValues = {}
+
+            const gen = sagas.getSearchInputs()
+            expect(gen.next().value).to.eql(select(sagas.searchFormSelector))
+            expect(gen.next({valuesInitialized}).value).to.eql(take(actions.SET_VALUES_INITIALIZED))
+            expect(gen.next().value).to.eql(select(sagas.searchValuesSelector))
+            expect(gen.next(searchValues).value).to.eql(select(sagas.entityListSelector))
+            expect(gen.next({entityModel}).value).to.eql(call(getSearchInputsForRequest, searchValues, entityModel))
+            expect(gen.next().done).to.be.true
+          })
+        })
+
+        describe('resetSearch saga', () => {
+          it('should reset the form and trigger a search', () => {
+            const gen = sagas.resetSearch()
+            expect(gen.next().value).to.eql(put(reset('searchForm')))
+            expect(gen.next().value).to.eql(call(sagas.submitSearchFrom))
+            expect(gen.next().done).to.be.true
           })
         })
       })
