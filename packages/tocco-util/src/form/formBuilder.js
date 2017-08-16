@@ -41,8 +41,12 @@ export default (
     return result
   }
 
-  const shouldRenderField = (fieldName, entityField) => {
-    if (beforeRenderField && beforeRenderField(fieldName) === false) {
+  const shouldRenderField = (formDefinitionField, entityField) => {
+    if (formDefinitionField.displayType === 'HIDDEN') {
+      return false
+    }
+
+    if (beforeRenderField && beforeRenderField(formDefinitionField.name) === false) {
       return false
     }
 
@@ -62,7 +66,7 @@ export default (
       }
     }
 
-    return !(isReadOnlyForm && hasEmptyValue(fieldName, formValues))
+    return !(isReadOnlyForm && hasEmptyValue(formDefinitionField.name, formValues))
   }
 
   const createField = (formDefinitionField, key) => {
@@ -70,7 +74,7 @@ export default (
     const entityField = entity ? entity.paths[fieldName] : null
     const modelField = model[fieldName]
 
-    if (shouldRenderField(fieldName, entityField, formValues, isReadOnlyForm)) {
+    if (shouldRenderField(formDefinitionField, entityField, formValues, isReadOnlyForm)) {
       return (
         <Field
           key={key}
