@@ -14,9 +14,11 @@ export const validateSearchFields = (values, formDefinition) => {
       fieldDefinitionCache.add(fieldName, fieldDefinition)
     }
 
-    const fieldErrors = validateField(value, fieldDefinition)
-    if (fieldErrors) {
-      errors[fieldName] = fieldErrors
+    if (fieldDefinition) {
+      const fieldErrors = validateField(value, fieldDefinition)
+      if (fieldErrors) {
+        errors[fieldName] = fieldErrors
+      }
     }
   })
 
@@ -61,6 +63,7 @@ const getFieldDefinition = (fieldName, fieldDefinition) => {
       result = fieldDefinition
     }
   })
+
   return result
 }
 
