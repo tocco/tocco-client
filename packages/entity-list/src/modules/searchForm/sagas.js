@@ -1,4 +1,5 @@
 import {call, put, fork, select, takeLatest, take, all} from 'redux-saga/effects'
+import {form} from 'tocco-util'
 import * as actions from './actions'
 import {fetchForm, searchFormTransformer} from '../../util/api/forms'
 import {getInitialFromValues} from '../../util/searchForm'
@@ -13,7 +14,7 @@ import {
   reset
 } from 'redux-form'
 
-import _clone from 'lodash/clone'
+import _forOwn from 'lodash/forOwn'
 
 import {validateSearchFields} from '../../util/searchFormValidation'
 import {getSearchInputsForRequest} from '../../util/searchInputs'
@@ -108,15 +109,17 @@ export function* getSearchInputs() {
   }
 
   const searchInputs = yield select(searchValuesSelector)
-
-  const clonedSearchInputs = _clone(searchInputs)
   const {entityModel} = yield select(entityListSelector)
 
-  if (searchInputs && searchInputs.txtFulltext) {
-    clonedSearchInputs._search = searchInputs.txtFulltext
-    delete clonedSearchInputs.txtFulltext
-  }
+  const searchInputsRenamed = {}
 
-  const result = yield call(getSearchInputsForRequest, clonedSearchInputs, entityModel)
-  return result
+  _forOwn(searchInputs, (value, key) => {
+    if (key === 'txtFulltext') {
+      searchInputsRenamed._search = value
+    } else {
+      searchInputsRenamed[form.transformFieldNameBack(key)] = value
+    }
+  })
+
+  return yield call(getSearchInputsForRequest, searchInputsRenamed, entityModel)
 }
