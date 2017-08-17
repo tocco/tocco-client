@@ -11,7 +11,7 @@
   },
   "betterScripts": {
     "deploy": {
-      "command": "npm run clean && npm run compile --package=tocco-ui",
+      "command": "npm run clean && npm run compile --package=tocco-theme",
       "env": {
         "DEBUG": "app:*"
       }
