@@ -3,6 +3,7 @@ import {shallow} from 'enzyme'
 
 import DateEdit from './DateEdit'
 import DateAbstract from './DateAbstract'
+import {getExpectedDate} from '../specUtils'
 
 const EMPTY_FUNC = () => {
 }
@@ -21,9 +22,10 @@ describe('tocco-ui', () => {
           const dateAbstract = wrapper.find(DateAbstract)
           expect(dateAbstract).to.have.length(1)
 
-          dateAbstract.simulate('change', ['2017-04-13'])
+          dateAbstract.simulate('change', ['2017-04-12T22:00:00.000Z'])
 
-          expect(onChange).to.be.calledWith('2017-04-13')
+          const expectedDate = getExpectedDate('2017-04-12', '2017-04-13', -120)
+          expect(onChange).to.be.calledWith(expectedDate)
         })
 
         it('should throw an exception if multiple dates received from date picker', () => {
@@ -34,8 +36,8 @@ describe('tocco-ui', () => {
           const dateAbstract = wrapper.find(DateAbstract)
           expect(dateAbstract).to.have.length(1)
 
-          expect(() => dateAbstract.simulate('change', ['2017-04-13', '2017-04-14']))
-            .to.throw('Expected at most one item in array: 2017-04-13, 2017-04-14')
+          expect(() => dateAbstract.simulate('change', ['2017-04-12T22:00:00.000Z', '2017-04-13T22:00:00.000Z']))
+            .to.throw('Expected at most one item in array: 2017-04-12T22:00:00.000Z, 2017-04-13T22:00:00.000Z')
         })
       })
     })

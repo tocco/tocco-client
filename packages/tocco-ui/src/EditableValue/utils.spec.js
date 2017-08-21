@@ -1,4 +1,5 @@
-import {atMostOne} from './utils'
+import {atMostOne, toLocalDateString} from './utils'
+import {getExpectedDate} from './specUtils'
 
 describe('tocco-ui', () => {
   describe('EditableValue', () => {
@@ -18,6 +19,27 @@ describe('tocco-ui', () => {
 
         it('should throw an error if array with multiple items given', () => {
           expect(() => atMostOne(['item1', 'item2'])).to.throw('Expected at most one item in array: item1, item2')
+        })
+      })
+
+      describe('toLocalDateString', () => {
+        it('should return null if null given', () => {
+          expect(toLocalDateString(null)).to.be.null
+        })
+
+        it('should return null if undefined given', () => {
+          expect(toLocalDateString(undefined)).to.be.null
+        })
+
+        it('should return first date if 0 given', () => {
+          const expectedDate = getExpectedDate('1969-12-31', '1970-01-01', 0)
+          expect(toLocalDateString(0)).to.eql(expectedDate)
+        })
+
+        it('should return the local date if a UTC date time string is given', () => {
+          const localDateString = toLocalDateString('2017-08-20T22:00:00.000Z')
+          const expectedDate = getExpectedDate('2017-08-20', '2017-08-21', -120)
+          expect(localDateString).to.eql(expectedDate)
         })
       })
     })
