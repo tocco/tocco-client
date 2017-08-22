@@ -41,19 +41,38 @@ describe('entity-list', () => {
             const formBase = 'Base_form'
             const columnDefinition = []
             const entityModel = {}
+            const initialized = false
 
             const gen = sagas.initialize()
             expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
             expect(gen.next().value).to.eql(select(sagas.entityListSelector))
             expect(gen.next({entityName}).value).to.eql(select(sagas.inputSelector))
             expect(gen.next({formBase}).value).to.eql(select(sagas.listSelector))
-            const nextValue = gen.next({columnDefinition, entityModel}).value
+            const nextValue = gen.next({columnDefinition, entityModel, initialized}).value
             expect(nextValue).to.eql(all([
               call(sagas.loadEntityModel, entityName, entityModel),
               call(sagas.loadTableDefinition, columnDefinition, formBase)
             ]))
 
             expect(gen.next().value).to.eql(call(sagas.resetDataSet))
+            expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
+            expect(gen.next().value).to.eql(put(actions.setInitialized()))
+            expect(gen.next().done).to.be.true
+          })
+
+          it('should refresh the current page if already initialized', () => {
+            const entityName = 'Test_entity'
+            const formBase = 'Base_form'
+            const columnDefinition = []
+            const entityModel = {}
+            const initialized = true
+
+            const gen = sagas.initialize()
+            expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
+            expect(gen.next().value).to.eql(select(sagas.entityListSelector))
+            expect(gen.next({entityName}).value).to.eql(select(sagas.inputSelector))
+            expect(gen.next({formBase}).value).to.eql(select(sagas.listSelector))
+            expect(gen.next({columnDefinition, entityModel, initialized}).value).to.eql(call(sagas.refresh))
             expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
             expect(gen.next().value).to.eql(put(actions.setInitialized()))
             expect(gen.next().done).to.be.true

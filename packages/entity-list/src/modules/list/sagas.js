@@ -34,6 +34,8 @@ export function* initialize() {
       call(loadTableDefinition, columnDefinition, formBase)
     ])
     yield call(resetDataSet)
+  } else {
+    yield call(refresh)
   }
 
   yield put(actions.setInProgress(false))
