@@ -1,19 +1,24 @@
+import consoleLogger from '../consoleLogger'
 const handleError = (response, acceptedErrorCodes = [], acceptedStatusCodes = []) => {
   if (!response.ok
     && !acceptedStatusCodes.includes(response.status)
-    && !acceptedErrorCodes.includes(response.body.errorCode)) {
+    && !(response.body && acceptedErrorCodes.includes(response.body.errorCode))) {
     throw new Error(response.statusText)
   }
 
   return response
 }
 
-const extractBody = response => (
-  response.json().then(body => {
-    const {ok, headers, status, statusText} = response
-    return {ok, headers, status, statusText, body: body || {}}
+const extractBody = response => {
+  const {ok, headers, status, statusText} = response
+
+  return response.json().then(body => {
+    return {ok, headers, status, statusText, body}
+  }).catch(exception => {
+    consoleLogger.log('Unable to extract request body', exception, response)
+    return {ok, headers, status, statusText}
   })
-)
+}
 
 export function sendRequest(url, options, acceptedErrorCodes, acceptedStatusCodes) {
   return fetch(url, options)
