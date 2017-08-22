@@ -1,6 +1,6 @@
 import React from 'react'
 import DateAbstract from './DateAbstract'
-import {atMostOne} from '../utils'
+import {atMostOne, toLocalDateString} from '../utils'
 
 const DateEdit = props => {
   const options = {
@@ -9,7 +9,11 @@ const DateEdit = props => {
     ...props.options
   }
 
-  const handleChange = dates => props.onChange(atMostOne(dates))
+  const handleChange = dates => {
+    const dateTime = atMostOne(dates)
+    const date = dateTime ? toLocalDateString(dateTime) : null
+    props.onChange(date)
+  }
 
   return (
     <DateAbstract value={[props.value]} onChange={handleChange} options={options} readOnly={props.readOnly}/>
