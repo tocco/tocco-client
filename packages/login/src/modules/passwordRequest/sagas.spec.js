@@ -1,4 +1,5 @@
 import {call, put, select, fork, takeLatest, all} from 'redux-saga/effects'
+import {requestSaga} from 'tocco-util/src/rest'
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
 import {changePage, setUsername} from '../login/actions'
@@ -24,7 +25,9 @@ describe('login', () => {
             const generator = sagas.requestPasswordSaga({payload: {username: 'user1'}})
             const textResourceState = {'client.login.from.passwordRequested': 'msg'}
             expect(generator.next().value).to.eql(put(setPending(true)))
-            expect(generator.next().value).to.eql(call(sagas.doRequest, 'user1'))
+            expect(generator.next().value).to.eql(
+              call(requestSaga, 'principals/user1/password-reset', {method: 'POST'})
+            )
             expect(generator.next().value).to.deep.equal(put(setUsername('user1')))
             expect(generator.next().value).to.deep.equal(select(sagas.textResourceSelector))
             expect(generator.next(textResourceState).value).to.deep.equal(put(setMessage('msg')))

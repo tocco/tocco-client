@@ -5,8 +5,8 @@ const PasswordInput = props => {
   const className = classNames(
     props.name,
     'form-group',
-    {'has-success': props.value && props.valid},
-    {'has-error': props.value && !props.valid}
+    {'has-success': props.value && props.valid === true},
+    {'has-error': props.value && props.valid === false}
   )
 
   return (

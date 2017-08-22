@@ -16,7 +16,10 @@ describe('login', () => {
               expect(generator.next().value).to.deep.equal(all([
                 fork(takeLatest, actions.UPDATE_NEW_PASSWORD, sagas.updateNewPassword),
                 fork(takeLatest, actions.VALIDATE, sagas.validate),
-                fork(takeLatest, actions.SAVE_PASSWORD, sagas.savePassword)
+                fork(takeLatest, actions.SAVE_PASSWORD, sagas.savePassword),
+                fork(takeLatest, actions.UPDATE_NEW_PASSWORD, sagas.formChanged),
+                fork(takeLatest, actions.UPDATE_OLD_PASSWORD, sagas.formChanged),
+                fork(takeLatest, actions.UPDATE_NEW_PASSWORD_REPEAT, sagas.formChanged)
               ]))
               expect(generator.next().done).to.equal(true)
             })
@@ -332,6 +335,14 @@ describe('login', () => {
                 newPassword: 'password-newpassword'
               })
 
+              expect(generator.next().done).to.equal(true)
+            })
+          })
+
+          describe('formChanged', () => {
+            it('should reset error state on change', () => {
+              const generator = sagas.formChanged()
+              expect(generator.next().value).to.deep.equal(put(actions.resetPasswordUpdateFailed()))
               expect(generator.next().done).to.equal(true)
             })
           })
