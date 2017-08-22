@@ -64,6 +64,9 @@ class PasswordUpdateDialog extends Component {
             onChange={updateOldPassword}
             readOnly={oldPasswordReadOnly}
             autoFocus
+            valid={
+              password.passwordUpdateFailed && password.passwordUpdateErrorCode === 'INVALID_CREDENTIALS' ? false : null
+            }
           />}
           <PasswordInput
             label={this.msg('client.login.passwordUpdate.newPassword')}
@@ -88,6 +91,7 @@ class PasswordUpdateDialog extends Component {
             valid={this.isSubmittable()}
           />
           <PasswordMatchDisplay password={password.newPassword} passwordRepeat={password.newPasswordRepeat}/>
+          {password.passwordUpdateFailed === true && <FailureMessage errorCode={password.passwordUpdateErrorCode}/>}
           <Button
             label={this.msg('client.login.passwordUpdate.saveButton')}
             disabled={this.isSubmittable() === false}
@@ -95,7 +99,6 @@ class PasswordUpdateDialog extends Component {
             type="submit"
             primary
           />
-          {password.passwordUpdateFailed === true && <FailureMessage errorCode={password.passwordUpdateErrorCode}/>}
         </form>
       </div>
     )

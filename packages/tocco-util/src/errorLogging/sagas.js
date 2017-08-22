@@ -14,8 +14,7 @@ export default function* sagas(accept, handlers) {
 
 export function* handleError(handlers, {payload}) {
   const {title, description, error} = payload
-  for (const handlerIdx in handlers) {
-    const handler = handlers[handlerIdx]
+  for (const handler of handlers) {
     try {
       yield call(handlerRegistry[handler], title, description, error)
     } catch (e) {

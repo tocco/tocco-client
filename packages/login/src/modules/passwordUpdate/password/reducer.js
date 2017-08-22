@@ -59,6 +59,11 @@ const savePasswordFailure = (state, {payload}) => {
   }
 }
 
+const resetPasswordUpdateFailed = (state, {payload}) => ({
+  ...state,
+  passwordUpdateFailed: false
+})
+
 const ACTION_HANDLERS = {
   [actions.UPDATE_OLD_PASSWORD]: updateOldPassword,
   [actions.SET_NEW_PASSWORD]: setNewPassword,
@@ -66,7 +71,8 @@ const ACTION_HANDLERS = {
   [actions.UPDATE_NEW_PASSWORD_REPEAT]: updateNewPasswordRepeat,
   [actions.SAVE_PASSWORD]: savePassword,
   [actions.SAVE_PASSWORD_SUCCESS]: savePasswordSuccess,
-  [actions.SAVE_PASSWORD_FAILURE]: savePasswordFailure
+  [actions.SAVE_PASSWORD_FAILURE]: savePasswordFailure,
+  [actions.RESET_PASSWORD_UPDATED_FAILED]: resetPasswordUpdateFailed
 }
 
 export default function reducer(state = initialState, action) {
