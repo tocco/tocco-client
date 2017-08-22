@@ -23,13 +23,7 @@ export function* storePassword(username, data) {
 
   try {
     const resp = yield call(requestSaga, `principals/${username}/password-update`, options)
-    if (resp) {
-      if (resp.ok) {
-        return {error: null}
-      } else {
-        return {error: resp.body}
-      }
-    }
+    return resp.ok ? {error: null} : {error: resp.body}
   } catch (exception) {
     return {error: {errorCode: 'UNEXPECTED_ERROR', exception}}
   }

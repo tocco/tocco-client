@@ -50,7 +50,7 @@ React-registry name: `login`
 Password-update can be embedded independently and works without login dialog.
 
 ##Development
-To run password-update dialog separately, uncomment line  91 in main.js
+To run password-update dialog separately, uncomment line 91 in main.js
 
 ###Passwords
 The following passwords can be entered to simulate different scenarios
