@@ -1,5 +1,11 @@
 import {utilFetchMocks} from 'tocco-util'
 
+const delay = new Promise(resolve => setTimeout(resolve, 500))
+
+const response500 = () => {
+  return delay.then(() => ({status: 500, body: 'Error 500'}))
+}
+
 export default function setupFetchMock(fetchMock) {
   utilFetchMocks.log(fetchMock)
   utilFetchMocks.session(fetchMock)
@@ -33,20 +39,29 @@ export default function setupFetchMock(fetchMock) {
         success: false
       }
     } else if (opts.body.includes('username=error')) {
-      const delay = new Promise(resolve => setTimeout(resolve, 500))
-      return delay.then(() => ({status: 500, body: 'Error 500'}))
+      return response500()
     } else {
-      const delay = new Promise(resolve => setTimeout(resolve, 500))
-      return delay.then(() => ({status: 401, body: { success: false }}))
+      return delay.then(() => ({status: 401, body: {success: false}}))
     }
   })
   fetchMock.post(new RegExp('^.*?/nice2/rest/principals/.*/password-reset$'), {})
-  fetchMock.post(new RegExp('^.*?/nice2/rest/principals/.*/password-update$'), {})
+  fetchMock.post(new RegExp('^.*?/nice2/rest/principals/.*/password-update$'), (url, opts) => {
+    const oldPassword = JSON.parse(opts.body).oldPassword
+    if (oldPassword === 'wrong') {
+      return {status: 400, message: 'Invalid credentials', body: {errorCode: 'INVALID_CREDENTIALS'}}
+    }
+    if (oldPassword === 'error') {
+      return response500()
+    }
+  })
+
   fetchMock.get(new RegExp('^.*?/nice2/rest/principals/.*/password-rules$'), function() {
     return require('./validationRules.json')
   })
   fetchMock.post(new RegExp('^.*?/nice2/rest/principals/.*/password-validation$'), function(url, opts) {
-    if (JSON.parse(opts.body).newPassword.includes('tocco')) {
+    const newPassword = JSON.parse(opts.body).newPassword
+
+    if (newPassword.includes('tocco')) {
       return {
         valid: false,
         validationMessages: [{
@@ -54,8 +69,10 @@ export default function setupFetchMock(fetchMock) {
           message: 'Das neue Passwort darf das Wort "tocco" nicht enthalten'
         }]
       }
+    } else if (newPassword.includes('error')) {
+      return response500()
     } else {
-      return { valid: true }
+      return {valid: true}
     }
   })
   fetchMock.spy()

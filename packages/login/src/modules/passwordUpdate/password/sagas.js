@@ -1,4 +1,5 @@
 import {externalEvents} from 'tocco-util'
+import {requestSaga} from 'tocco-util/src/rest'
 import {takeLatest, call, fork, select, put, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
@@ -13,46 +14,41 @@ export const usernameSelector = state => state.passwordUpdate.dialog.username
 export const passwordSelector = state => state.passwordUpdate.password
 export const standaloneSelector = state => state.passwordUpdate.dialog.standalone
 
-function doRequest(data, username, action) {
+export function* storePassword(username, data) {
   const options = {
     method: 'POST',
-    body: JSON.stringify(data),
-    headers: new Headers({
-      'Content-Type': 'application/json'
-    }),
-    credentials: 'include'
+    acceptedStatusCodes: [400],
+    body: data
   }
-  return fetch(`${__BACKEND_URL__}/nice2/rest/principals/${username}/${action}`, options)
+
+  try {
+    const resp = yield call(requestSaga, `principals/${username}/password-update`, options)
+    if (resp) {
+      if (resp.ok) {
+        return {error: null}
+      } else {
+        return {error: resp.body}
+      }
+    }
+  } catch (exception) {
+    return {error: {errorCode: 'UNEXPECTED_ERROR', exception}}
+  }
 }
 
-export function storePassword(username, data) {
-  return doRequest(data, username, 'password-update')
-    .then(resp => {
-      if (resp.ok) {
-        return {
-          error: null
-        }
-      } else {
-        return resp.json().then(json => ({
-          error: json
-        }))
-      }
-    })
-}
+export function* remoteValidate(username, data) {
+  const options = {
+    method: 'POST',
+    body: data
+  }
 
-export function remoteValidate(username, data) {
-  return doRequest(data, username, 'password-validation')
-    .then(resp => {
-      if (resp.ok) {
-        return resp.json().then(json => json)
-      } else {
-        // validation request failed for some reason. we ignore that.
-        // (validation takes place on actual update request again)
-        return resp.json().then(() => ({
-          valid: true
-        }))
-      }
-    })
+  try {
+    const resp = yield call(requestSaga, `principals/${username}/password-validation`, options)
+    return resp.body
+  } catch (exception) {
+    // validation request failed for some reason. we ignore that.
+    // (validation takes place on actual update request again)
+    return {valid: true, exception}
+  }
 }
 
 export function* updateNewPassword(action) {
@@ -129,10 +125,17 @@ export function* getLoginData() {
   }
 }
 
+export function* formChanged() {
+  yield put(actions.resetPasswordUpdateFailed())
+}
+
 export default function* sagas() {
   yield all([
     fork(takeLatest, actions.UPDATE_NEW_PASSWORD, updateNewPassword),
     fork(takeLatest, actions.VALIDATE, validate),
-    fork(takeLatest, actions.SAVE_PASSWORD, savePassword)
+    fork(takeLatest, actions.SAVE_PASSWORD, savePassword),
+    fork(takeLatest, actions.UPDATE_NEW_PASSWORD, formChanged),
+    fork(takeLatest, actions.UPDATE_OLD_PASSWORD, formChanged),
+    fork(takeLatest, actions.UPDATE_NEW_PASSWORD_REPEAT, formChanged)
   ])
 }
