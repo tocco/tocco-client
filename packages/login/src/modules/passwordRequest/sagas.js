@@ -1,5 +1,5 @@
 import {fork, put, call, select, takeLatest, all} from 'redux-saga/effects'
-
+import {requestSaga} from 'tocco-util/src/rest'
 import * as actions from './actions'
 import {changePage, setUsername} from '../login/actions'
 import {setMessage, setPending} from '../loginForm/actions'
@@ -7,15 +7,9 @@ import {Pages} from '../../types/Pages'
 
 export const textResourceSelector = state => state.intl.messages
 
-export function doRequest(username) {
-  return fetch(`${__BACKEND_URL__}/nice2/rest/principals/${username}/password-reset`, {
-    method: 'POST'
-  })
-}
-
 export function* requestPasswordSaga({payload}) {
   yield put(setPending(true))
-  yield call(doRequest, payload.username)
+  yield call(requestSaga, `principals/${payload.username}/password-reset`, {method: 'POST'})
   yield put(setUsername(payload.username))
   const textResourcesState = yield select(textResourceSelector)
   yield put(setMessage(textResourcesState['client.login.from.passwordRequested']))
