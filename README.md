@@ -49,7 +49,7 @@ A good starting point can be found in these docs:
 Just install yarn  https://yarnpkg.com/en/docs/install 
 and execute the following commands:
 ```
-npm install --global lerna@v2.0.0-rc.5
+npm install --global lerna@v2.1.0
 npm run setup
 lerna bootstrap
 npm start --package={PACKAGE_NAME}
