@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import typeEditorFactory, {map as typeEditorFactoryMap} from './typeEditorFactory'
 
@@ -26,33 +27,33 @@ EditableValue.propTypes = {
   /**
    * Type of value. e.g. 'string'
    */
-  type: React.PropTypes.oneOf(
+  type: PropTypes.oneOf(
     Object.keys(typeEditorFactoryMap)
   ).isRequired,
   /**
    * Value to display
    */
-  value: React.PropTypes.any,
+  value: PropTypes.any,
   /**
    * Depending on the type an object of options can be passed
    */
-  options: React.PropTypes.object,
+  options: PropTypes.object,
   /**
    * Function that get emitted on a value change, passing the new value as first argument
    */
-  onChange: React.PropTypes.func,
+  onChange: PropTypes.func,
   /**
    * Id of element (for htmlFor)
    */
-  id: React.PropTypes.string,
+  id: PropTypes.string,
   /**
    * Object of functions that gets assigned to the component. E.g. {onBlur: ()=>{}}
    */
-  events: React.PropTypes.objectOf(React.PropTypes.func),
+  events: PropTypes.objectOf(PropTypes.func),
   /**
    * Determines if value is editable
    */
-  readOnly: React.PropTypes.bool
+  readOnly: PropTypes.bool
 }
 
 export default EditableValue

@@ -187,6 +187,7 @@
     "phantomjs-prebuilt": "2.1.14",
     "plop": "1.8.0",
     "postcss-loader": "2.0.6",
+    "prop-types": "^15.5.10",
     "react": "15.6.1",
     "react-addons-test-utils": "15.6.0",
     "react-dom": "15.6.1",

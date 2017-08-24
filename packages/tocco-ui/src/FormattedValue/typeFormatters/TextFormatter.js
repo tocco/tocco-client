@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 const TextFormatter = props => (
@@ -11,7 +12,7 @@ const TextFormatter = props => (
 )
 
 TextFormatter.propTypes = {
-  value: React.PropTypes.string
+  value: PropTypes.string
 }
 
 export default TextFormatter

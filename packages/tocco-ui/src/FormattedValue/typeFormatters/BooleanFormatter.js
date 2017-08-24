@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 const BooleanFormatter = props => {
@@ -9,7 +10,7 @@ const BooleanFormatter = props => {
 }
 
 BooleanFormatter.propTypes = {
-  value: React.PropTypes.bool
+  value: PropTypes.bool
 }
 
 export default BooleanFormatter

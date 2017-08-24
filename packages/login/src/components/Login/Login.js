@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {Pages} from '../../types/Pages'
 
@@ -32,7 +33,7 @@ export class Login extends React.Component {
 }
 
 Login.propTypes = {
-  checkSession: React.PropTypes.func.isRequired,
-  currentPage: React.PropTypes.string,
-  showTitle: React.PropTypes.bool
+  checkSession: PropTypes.func.isRequired,
+  currentPage: PropTypes.string,
+  showTitle: PropTypes.bool
 }

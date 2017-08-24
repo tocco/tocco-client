@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 const BoolEdit = props => {
@@ -20,11 +21,11 @@ const BoolEdit = props => {
 }
 
 BoolEdit.propTypes = {
-  onChange: React.PropTypes.func,
-  value: React.PropTypes.bool,
-  name: React.PropTypes.string,
-  id: React.PropTypes.string,
-  readOnly: React.PropTypes.bool
+  onChange: PropTypes.func,
+  value: PropTypes.bool,
+  name: PropTypes.string,
+  id: PropTypes.string,
+  readOnly: PropTypes.bool
 }
 
 export default BoolEdit

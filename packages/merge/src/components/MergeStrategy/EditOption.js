@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import classNames from 'classnames'
 
@@ -45,9 +46,9 @@ const EditOption = props => {
 }
 
 EditOption.propTypes = {
-  editOption: React.PropTypes.object.isRequired,
-  activateEditOption: React.PropTypes.func.isRequired,
-  onValueChange: React.PropTypes.func.isRequired
+  editOption: PropTypes.object.isRequired,
+  activateEditOption: PropTypes.func.isRequired,
+  onValueChange: PropTypes.func.isRequired
 }
 
 export default EditOption

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import DateAbstract from './DateAbstract'
 import {atMostOne} from '../utils'
@@ -19,10 +20,10 @@ const DateTimeEdit = props => {
 }
 
 DateTimeEdit.propTypes = {
-  onChange: React.PropTypes.func.isRequired,
-  value: React.PropTypes.string,
-  readOnly: React.PropTypes.bool,
-  options: React.PropTypes.object
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string,
+  readOnly: PropTypes.bool,
+  options: PropTypes.object
 }
 
 export default DateTimeEdit

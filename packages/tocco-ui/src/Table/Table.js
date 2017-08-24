@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import _pick from 'lodash/pick'
 import _sortBy from 'lodash/sortBy'
@@ -147,17 +148,17 @@ Table.propTypes = {
    * will be referenced (single string or array of strings) on each record as well as an optional order number.
    * Lower numbers are getting displayed first.
    */
-  columnDefinitions: React.PropTypes.arrayOf(
-    React.PropTypes.shape(
+  columnDefinitions: PropTypes.arrayOf(
+    PropTypes.shape(
       {
-        values: React.PropTypes.oneOfType([
-          React.PropTypes.arrayOf(React.PropTypes.shape({
-            name: React.PropTypes.string,
-            type: React.PropTypes.string
+        values: PropTypes.oneOfType([
+          PropTypes.arrayOf(PropTypes.shape({
+            name: PropTypes.string,
+            type: PropTypes.string
           }))
         ]).isRequired,
-        label: React.PropTypes.string,
-        order: React.PropTypes.int
+        label: PropTypes.string,
+        order: PropTypes.int
       }
     )
   ).isRequired,
@@ -165,13 +166,13 @@ Table.propTypes = {
    * Records that get listed in the table.
    * A record should consist of attributes that contain a value and a type attribute.
    */
-  records: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      id: React.PropTypes.any,
-      values: React.PropTypes.objectOf(
-        React.PropTypes.shape({
-          value: React.PropTypes.any,
-          type: React.PropTypes.string.isRequired
+  records: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.any,
+      values: PropTypes.objectOf(
+        PropTypes.shape({
+          value: PropTypes.any,
+          type: PropTypes.string.isRequired
         })).isRequired
     })
   ).isRequired,
@@ -179,32 +180,32 @@ Table.propTypes = {
    * A cell-renderer allows to render each cell content separately. Given the field values as first argument
    * and the whole record as second, the cell renderer function can return any kind of valid component.
    */
-  cellRenderer: React.PropTypes.func,
+  cellRenderer: PropTypes.func,
   /**
    * Callback of a row click. Gets clicked record as first argument.
    */
-  onRowClick: React.PropTypes.func,
+  onRowClick: PropTypes.func,
 
   /**
    * Initial ordering.
    */
-  orderBy: React.PropTypes.shape({
-    name: React.PropTypes.string.isRequired,
-    direction: React.PropTypes.string.isRequired
+  orderBy: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    direction: PropTypes.string.isRequired
   }),
   /**
    * Callback on header click. Order-object consisting of properties 'name' and 'direction'
    * is passed as argument ({name: 'firstname', direction: 'asc'}).
    */
-  onOrderByChange: React.PropTypes.func,
+  onOrderByChange: PropTypes.func,
   /**
    * Extend the table with any css classes separated by a space.
    */
-  className: React.PropTypes.string,
+  className: PropTypes.string,
   /**
    * If true, a transparent layer is shown on tbody
    */
-  loading: React.PropTypes.bool
+  loading: PropTypes.bool
 
 }
 

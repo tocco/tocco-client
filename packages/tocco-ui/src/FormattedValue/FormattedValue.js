@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 import provider, {map as typeMap} from './typeFormatterProvider'
@@ -23,13 +24,13 @@ FormattedValue.propTypes = {
   /**
    * Type of value. E.g. Phone
    */
-  type: React.PropTypes.oneOf(
+  type: PropTypes.oneOf(
     Object.keys(typeMap)
   ).isRequired,
   /**
    * Value that should be formatted
    */
-  value: React.PropTypes.any
+  value: PropTypes.any
 }
 
 export default FormattedValue

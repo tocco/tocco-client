@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 const SingleSelectFormatter = props => (
@@ -5,7 +6,7 @@ const SingleSelectFormatter = props => (
 )
 
 SingleSelectFormatter.propTypes = {
-  value: React.PropTypes.object
+  value: PropTypes.object
 }
 
 export default SingleSelectFormatter

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
 import {Pages} from '../../types/Pages'
@@ -96,16 +97,16 @@ export class LoginForm extends Component {
 
 LoginForm.propTypes = {
   intl: intlShape.isRequired,
-  login: React.PropTypes.func.isRequired,
-  changePage: React.PropTypes.func.isRequired,
-  setUsername: React.PropTypes.func.isRequired,
-  loginPending: React.PropTypes.bool.isRequired,
-  setPassword: React.PropTypes.func.isRequired,
-  message: React.PropTypes.shape({
-    text: React.PropTypes.string,
-    negative: React.PropTypes.bool
+  login: PropTypes.func.isRequired,
+  changePage: PropTypes.func.isRequired,
+  setUsername: PropTypes.func.isRequired,
+  loginPending: PropTypes.bool.isRequired,
+  setPassword: PropTypes.func.isRequired,
+  message: PropTypes.shape({
+    text: PropTypes.string,
+    negative: PropTypes.bool
   }),
-  showTitle: React.PropTypes.bool,
-  username: React.PropTypes.string,
-  password: React.PropTypes.string
+  showTitle: PropTypes.bool,
+  username: PropTypes.string,
+  password: PropTypes.string
 }

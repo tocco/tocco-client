@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedNumber} from 'react-intl'
 
@@ -12,7 +13,7 @@ const DecimalFormatter = props => {
 }
 
 DecimalFormatter.propTypes = {
-  value: React.PropTypes.number.isRequired
+  value: PropTypes.number.isRequired
 }
 
 export default DecimalFormatter

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 const MultiSelectFormatter = props => (
@@ -5,7 +6,7 @@ const MultiSelectFormatter = props => (
 )
 
 MultiSelectFormatter.propTypes = {
-  value: React.PropTypes.array
+  value: PropTypes.array
 }
 
 export default MultiSelectFormatter

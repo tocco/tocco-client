@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {Button} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
@@ -96,6 +97,6 @@ export class Wizard extends React.Component {
 }
 
 Wizard.propTypes = {
-  children: React.PropTypes.arrayOf(React.PropTypes.element),
-  save: React.PropTypes.object.isRequired
+  children: PropTypes.arrayOf(PropTypes.element),
+  save: PropTypes.object.isRequired
 }

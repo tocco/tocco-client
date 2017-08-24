@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 import MergeMatrixContainer from './../../containers/MergeMatrixContainer'
@@ -39,10 +40,10 @@ class MergeStrategy extends React.Component {
 }
 
 MergeStrategy.propTypes = {
-  saveMerge: React.PropTypes.func.isRequired,
-  fireExternalEvent: React.PropTypes.func.isRequired,
-  intl: React.PropTypes.object.isRequired,
-  mergeResponse: React.PropTypes.object
+  saveMerge: PropTypes.func.isRequired,
+  fireExternalEvent: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
+  mergeResponse: PropTypes.object
 }
 
 export default MergeStrategy

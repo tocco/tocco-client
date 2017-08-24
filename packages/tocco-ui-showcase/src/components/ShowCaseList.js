@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 import ComponentShowCase from './ComponentShowCase'
@@ -41,7 +42,7 @@ const ShowCaseList = props => {
 }
 
 ShowCaseList.propTypes = {
-  componentsTree: React.PropTypes.array.isRequired
+  componentsTree: PropTypes.array.isRequired
 }
 
 export default ShowCaseList

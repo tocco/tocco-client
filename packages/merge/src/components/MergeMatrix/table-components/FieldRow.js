@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedValue} from 'tocco-ui'
 import SingleSelection from './SingleSelection'
@@ -34,11 +35,11 @@ const FieldRow = props => {
 }
 
 FieldRow.propTypes = {
-  field: React.PropTypes.object.isRequired,
-  entities: React.PropTypes.array.isRequired,
-  targetEntity: React.PropTypes.object.isRequired,
-  selections: React.PropTypes.object.isRequired,
-  selectSourceField: React.PropTypes.func.isRequired
+  field: PropTypes.object.isRequired,
+  entities: PropTypes.array.isRequired,
+  targetEntity: PropTypes.object.isRequired,
+  selections: PropTypes.object.isRequired,
+  selectSourceField: PropTypes.func.isRequired
 }
 
 export default FieldRow

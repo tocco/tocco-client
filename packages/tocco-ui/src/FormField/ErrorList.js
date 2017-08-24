@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 const ErrorList = props => {
@@ -20,8 +21,8 @@ const ErrorList = props => {
 }
 
 ErrorList.propTypes = {
-  error: React.PropTypes.objectOf(
-    React.PropTypes.arrayOf(React.PropTypes.oneOfType([React.PropTypes.node, React.PropTypes.string]))
+  error: PropTypes.objectOf(
+    PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.node, PropTypes.string]))
   ).isRequired
 }
 

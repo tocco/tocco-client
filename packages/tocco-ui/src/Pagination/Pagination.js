@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import _debounce from 'lodash/debounce'
 
@@ -162,23 +163,23 @@ Pagination.propTypes = {
   /**
    * Total amount of records (is used to calculate numbers of pages)
    */
-  totalRecords: React.PropTypes.number.isRequired,
+  totalRecords: PropTypes.number.isRequired,
   /**
    * Amount of records that are shown on one page (is used to calculate numbers of pages)
    */
-  recordsPerPage: React.PropTypes.number.isRequired,
+  recordsPerPage: PropTypes.number.isRequired,
   /**
    * Get called everytime the current page changes. Given the current number as first argument.
    */
-  onPageChange: React.PropTypes.func,
+  onPageChange: PropTypes.func,
   /**
    * If set to false (default true) a label, instead of an input field to enter page, is displayed.
    */
-  currentPage: React.PropTypes.number,
+  currentPage: PropTypes.number,
   /**
    * If set to false (default true) a label, instead of an input field to enter page, is displayed.
    */
-  noInput: React.PropTypes.bool
+  noInput: PropTypes.bool
 }
 
 export default Pagination

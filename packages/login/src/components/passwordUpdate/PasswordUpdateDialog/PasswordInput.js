@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import classNames from 'classnames'
 
@@ -28,14 +29,14 @@ const PasswordInput = props => {
 }
 
 PasswordInput.propTypes = {
-  name: React.PropTypes.string.isRequired,
-  label: React.PropTypes.string.isRequired,
-  value: React.PropTypes.string,
-  onChange: React.PropTypes.func.isRequired,
-  readOnly: React.PropTypes.bool,
-  onKeyDown: React.PropTypes.func,
-  autoFocus: React.PropTypes.bool,
-  valid: React.PropTypes.bool
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  value: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  readOnly: PropTypes.bool,
+  onKeyDown: PropTypes.func,
+  autoFocus: PropTypes.bool,
+  valid: PropTypes.bool
 }
 
 export default PasswordInput

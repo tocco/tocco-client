@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {intlShape} from 'react-intl'
 
@@ -34,9 +35,9 @@ const HeaderRow = props => {
 
 HeaderRow.propTypes = {
   intl: intlShape.isRequired,
-  entities: React.PropTypes.array.isRequired,
-  changeTargetEntity: React.PropTypes.func.isRequired,
-  targetEntityPk: React.PropTypes.string.isRequired
+  entities: PropTypes.array.isRequired,
+  changeTargetEntity: PropTypes.func.isRequired,
+  targetEntityPk: PropTypes.string.isRequired
 }
 
 export default HeaderRow

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedNumber} from 'react-intl'
 
@@ -10,7 +11,7 @@ const NumberFormatter = props => (
 )
 
 NumberFormatter.propTypes = {
-  value: React.PropTypes.number
+  value: PropTypes.number
 }
 
 export default NumberFormatter

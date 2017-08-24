@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import ReduxToastr from 'react-redux-toastr'
 import RouteWithSubRoutes from '../../../../components/RouteWithSubRoutes'
@@ -18,7 +19,7 @@ class EntityBrowser extends React.Component {
 }
 
 EntityBrowser.propTypes = {
-  routes: React.PropTypes.array.isRequired
+  routes: PropTypes.array.isRequired
 }
 
 export default EntityBrowser

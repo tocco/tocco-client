@@ -18,7 +18,7 @@ SampleComponent.propTypes = {
   /**
    * some text
    */
-  sample: React.PropTypes.string.isRequired
+  sample: PropTypes.string.isRequired
 }
 
 export default SampleComponent

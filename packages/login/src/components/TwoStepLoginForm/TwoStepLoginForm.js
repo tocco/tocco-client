@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
 import {Button} from 'tocco-ui'
@@ -66,10 +67,10 @@ export class TwoStepLoginForm extends Component {
 
 TwoStepLoginForm.propTypes = {
   intl: intlShape.isRequired,
-  twoStepLogin: React.PropTypes.func.isRequired,
-  username: React.PropTypes.string.isRequired,
-  password: React.PropTypes.string.isRequired,
-  requestedCode: React.PropTypes.string.isRequired,
-  showTitle: React.PropTypes.bool,
-  loginPending: React.PropTypes.bool
+  twoStepLogin: PropTypes.func.isRequired,
+  username: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired,
+  requestedCode: PropTypes.string.isRequired,
+  showTitle: PropTypes.bool,
+  loginPending: PropTypes.bool
 }

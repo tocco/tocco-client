@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 const convertStringToNumber = stringValue => (
@@ -25,14 +26,14 @@ const NumberEdit = props => {
 }
 
 NumberEdit.propTypes = {
-  onChange: React.PropTypes.func,
-  value: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string // empty string coming from Redux Form if value null
+  onChange: PropTypes.func,
+  value: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string // empty string coming from Redux Form if value null
   ]),
-  name: React.PropTypes.string,
-  id: React.PropTypes.string,
-  readOnly: React.PropTypes.bool
+  name: PropTypes.string,
+  id: PropTypes.string,
+  readOnly: PropTypes.bool
 }
 
 export default NumberEdit

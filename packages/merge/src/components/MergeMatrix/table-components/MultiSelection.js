@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import * as SelectionUtil from '../../../utils/SelectionUtil'
 import sortBy from 'lodash/sortBy'
@@ -39,12 +40,12 @@ const MultiSelection = props => {
 }
 
 MultiSelection.propTypes = {
-  values: React.PropTypes.array.isRequired,
-  entity: React.PropTypes.object.isRequired,
-  relationName: React.PropTypes.string.isRequired,
-  onChange: React.PropTypes.func.isRequired,
-  selections: React.PropTypes.object.isRequired,
-  disabled: React.PropTypes.bool.isRequired
+  values: PropTypes.array.isRequired,
+  entity: PropTypes.object.isRequired,
+  relationName: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  selections: PropTypes.object.isRequired,
+  disabled: PropTypes.bool.isRequired
 }
 
 export default MultiSelection

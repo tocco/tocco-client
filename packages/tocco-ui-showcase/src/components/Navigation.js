@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {Scrollspy} from 'react-scrollspy'
 
@@ -53,7 +54,7 @@ const Navigation = props => {
 }
 
 Navigation.propTypes = {
-  componentsTree: React.PropTypes.array.isRequired
+  componentsTree: PropTypes.array.isRequired
 }
 
 export default Navigation

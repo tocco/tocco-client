@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedMessage} from 'react-intl'
 
@@ -14,8 +15,8 @@ const PasswordMatchDisplay = props => {
 }
 
 PasswordMatchDisplay.propTypes = {
-  password: React.PropTypes.string.isRequired,
-  passwordRepeat: React.PropTypes.string.isRequired
+  password: PropTypes.string.isRequired,
+  passwordRepeat: PropTypes.string.isRequired
 }
 
 export default PasswordMatchDisplay

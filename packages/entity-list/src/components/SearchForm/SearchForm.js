@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {intlShape} from 'react-intl'
 import {reduxForm} from 'redux-form'
@@ -115,40 +116,40 @@ class SearchForm extends React.Component {
 
 SearchForm.propTypes = {
   intl: intlShape.isRequired,
-  initializeSearchForm: React.PropTypes.func.isRequired,
-  entityModel: React.PropTypes.objectOf(
-    React.PropTypes.shape({
-      type: React.PropTypes.string.isRequired,
-      targetEntity: React.PropTypes.string
+  initializeSearchForm: PropTypes.func.isRequired,
+  entityModel: PropTypes.objectOf(
+    PropTypes.shape({
+      type: PropTypes.string.isRequired,
+      targetEntity: PropTypes.string
     })
   ).isRequired,
-  searchFormDefinition: React.PropTypes.shape({
-    children: React.PropTypes.array
+  searchFormDefinition: PropTypes.shape({
+    children: PropTypes.array
   }).isRequired,
-  submitSearchForm: React.PropTypes.func.isRequired,
-  resetSearch: React.PropTypes.func.isRequired,
-  relationEntities: React.PropTypes.shape({
-    entityName: React.PropTypes.shape({
-      loaded: React.PropTypes.bool,
-      data: React.PropTypes.arrayOf(
-        React.PropTypes.shape({
-          value: React.PropTypes.string,
-          label: React.PropTypes.string
+  submitSearchForm: PropTypes.func.isRequired,
+  resetSearch: PropTypes.func.isRequired,
+  relationEntities: PropTypes.shape({
+    entityName: PropTypes.shape({
+      loaded: PropTypes.bool,
+      data: PropTypes.arrayOf(
+        PropTypes.shape({
+          value: PropTypes.string,
+          label: PropTypes.string
         })
       )
     })
   }).isRequired,
-  loadRelationEntity: React.PropTypes.func.isRequired,
-  disableSimpleSearch: React.PropTypes.bool,
-  simpleSearchFields: React.PropTypes.arrayOf(
-    React.PropTypes.string
+  loadRelationEntity: PropTypes.func.isRequired,
+  disableSimpleSearch: PropTypes.bool,
+  simpleSearchFields: PropTypes.arrayOf(
+    PropTypes.string
   ),
-  showExtendedSearchForm: React.PropTypes.bool,
-  setShowExtendedSearchForm: React.PropTypes.func.isRequired,
-  preselectedSearchFields: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      id: React.PropTypes.string.isRequired,
-      hidden: React.PropTypes.bool
+  showExtendedSearchForm: PropTypes.bool,
+  setShowExtendedSearchForm: PropTypes.func.isRequired,
+  preselectedSearchFields: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      hidden: PropTypes.bool
     })
   )
 }
