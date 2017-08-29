@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import Select from 'react-select'
 
@@ -47,28 +48,28 @@ class RemoteSelect extends React.Component {
 }
 
 RemoteSelect.propTypes = {
-  onChange: React.PropTypes.func,
-  value: React.PropTypes.oneOfType([
-    React.PropTypes.shape({
-      key: React.PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.number
+  onChange: PropTypes.func,
+  value: PropTypes.oneOfType([
+    PropTypes.shape({
+      key: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
       ])
     }),
-    React.PropTypes.string // empty string coming from Redux Form if value null
+    PropTypes.string // empty string coming from Redux Form if value null
   ]),
-  options: React.PropTypes.shape({
-    options: React.PropTypes.array,
-    fetchOptions: React.PropTypes.func,
-    isLoading: React.PropTypes.bool,
-    valueClick: React.PropTypes.func,
-    clearValueText: React.PropTypes.string,
-    searchPromptText: React.PropTypes.string,
-    noResultsText: React.PropTypes.string,
-    moreOptionsAvailable: React.PropTypes.bool,
-    moreOptionsAvailableText: React.PropTypes.string
+  options: PropTypes.shape({
+    options: PropTypes.array,
+    fetchOptions: PropTypes.func,
+    isLoading: PropTypes.bool,
+    valueClick: PropTypes.func,
+    clearValueText: PropTypes.string,
+    searchPromptText: PropTypes.string,
+    noResultsText: PropTypes.string,
+    moreOptionsAvailable: PropTypes.bool,
+    moreOptionsAvailableText: PropTypes.string
   }),
-  readOnly: React.PropTypes.bool
+  readOnly: PropTypes.bool
 }
 
 export default RemoteSelect

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 const SingleSelectionCell = props => {
@@ -21,12 +22,12 @@ const SingleSelectionCell = props => {
 }
 
 SingleSelectionCell.propTypes = {
-  checked: React.PropTypes.bool.isRequired,
-  onChange: React.PropTypes.func.isRequired,
-  identifier: React.PropTypes.string.isRequired,
-  pk: React.PropTypes.string.isRequired,
-  disabled: React.PropTypes.bool.isRequired,
-  children: React.PropTypes.node
+  checked: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
+  identifier: PropTypes.string.isRequired,
+  pk: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  children: PropTypes.node
 }
 
 export default SingleSelectionCell

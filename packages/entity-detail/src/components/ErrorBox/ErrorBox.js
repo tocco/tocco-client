@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedMessage} from 'react-intl'
 
@@ -24,11 +25,11 @@ const ErrorBox = props => {
 }
 
 ErrorBox.propTypes = {
-  formErrors: React.PropTypes.objectOf(
-    React.PropTypes.objectOf(React.PropTypes.arrayOf(
-      React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.object])))
+  formErrors: PropTypes.objectOf(
+    PropTypes.objectOf(PropTypes.arrayOf(
+      PropTypes.oneOfType([PropTypes.string, PropTypes.object])))
   ).isRequired,
-  showErrors: React.PropTypes.func.isRequired
+  showErrors: PropTypes.func.isRequired
 }
 
 export default ErrorBox

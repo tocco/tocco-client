@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import Select from 'react-select'
 import _isEmpty from 'lodash/isEmpty'
@@ -28,19 +29,19 @@ const MultiSelect = props => {
 }
 
 MultiSelect.propTypes = {
-  onChange: React.PropTypes.func.isRequired,
-  value: React.PropTypes.oneOfType([
-    React.PropTypes.array,
-    React.PropTypes.string // empty string coming from Redux Form if value null
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.string // empty string coming from Redux Form if value null
   ]),
-  options: React.PropTypes.shape({
-    store: React.PropTypes.arrayOf(
-      React.PropTypes.shape({
-        value: React.PropTypes.any,
-        label: React.PropTypes.string
+  options: PropTypes.shape({
+    store: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.any,
+        label: PropTypes.string
       }))
   }),
-  readOnly: React.PropTypes.bool
+  readOnly: PropTypes.bool
 }
 
 export default MultiSelect

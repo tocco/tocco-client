@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import DateAbstract from './DateAbstract'
 
@@ -30,16 +31,16 @@ const DateRangeEdit = props => {
 }
 
 DateRangeEdit.propTypes = {
-  onChange: React.PropTypes.func,
-  value: React.PropTypes.oneOfType([
-    React.PropTypes.shape({
-      from: React.PropTypes.string,
-      to: React.PropTypes.string
+  onChange: PropTypes.func,
+  value: PropTypes.oneOfType([
+    PropTypes.shape({
+      from: PropTypes.string,
+      to: PropTypes.string
     }),
-    React.PropTypes.string // empty string coming from Redux Form if value null
+    PropTypes.string // empty string coming from Redux Form if value null
   ]),
-  readOnly: React.PropTypes.bool,
-  options: React.PropTypes.object
+  readOnly: PropTypes.bool,
+  options: PropTypes.object
 }
 
 export default DateRangeEdit

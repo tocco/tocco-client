@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import MultiSelection from './MultiSelection'
 
@@ -34,11 +35,11 @@ const ToManyRelationRow = props => {
 }
 
 ToManyRelationRow.propTypes = {
-  relation: React.PropTypes.object.isRequired,
-  entities: React.PropTypes.array.isRequired,
-  toggleRelationMany: React.PropTypes.func.isRequired,
-  targetEntity: React.PropTypes.object.isRequired,
-  selections: React.PropTypes.object.isRequired
+  relation: PropTypes.object.isRequired,
+  entities: PropTypes.array.isRequired,
+  toggleRelationMany: PropTypes.func.isRequired,
+  targetEntity: PropTypes.object.isRequired,
+  selections: PropTypes.object.isRequired
 }
 
 export default ToManyRelationRow

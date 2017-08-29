@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedNumber} from 'react-intl'
 
@@ -14,7 +15,7 @@ const LongitudeFormatter = props => {
 }
 
 LongitudeFormatter.propTypes = {
-  value: React.PropTypes.object
+  value: PropTypes.object
 }
 
 export default LongitudeFormatter

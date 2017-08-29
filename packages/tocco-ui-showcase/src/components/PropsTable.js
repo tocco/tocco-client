@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 const PropsTable = props => {
@@ -38,7 +39,7 @@ const PropsTable = props => {
 }
 
 PropsTable.propTypes = {
-  props: React.PropTypes.object.isRequired
+  props: PropTypes.object.isRequired
 }
 
 export default PropsTable

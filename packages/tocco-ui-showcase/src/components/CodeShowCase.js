@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import Example from './Example'
 
@@ -20,9 +21,9 @@ const CodeShowCase = props => {
 }
 
 CodeShowCase.propTypes = {
-  componentName: React.PropTypes.string.isRequired,
-  description: React.PropTypes.string.isRequired,
-  example: React.PropTypes.object.isRequired
+  componentName: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  example: PropTypes.object.isRequired
 }
 
 export default CodeShowCase

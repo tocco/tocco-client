@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {intlShape} from 'react-intl'
 import {FormattedValue} from 'tocco-ui'
@@ -108,29 +109,29 @@ class ListView extends React.Component {
 
 ListView.propTypes = {
   intl: intlShape.isRequired,
-  initialize: React.PropTypes.func.isRequired,
-  changePage: React.PropTypes.func.isRequired,
-  entities: React.PropTypes.array.isRequired,
-  orderBy: React.PropTypes.shape({
-    name: React.PropTypes.string,
-    direction: React.PropTypes.string
+  initialize: PropTypes.func.isRequired,
+  changePage: PropTypes.func.isRequired,
+  entities: PropTypes.array.isRequired,
+  orderBy: PropTypes.shape({
+    name: PropTypes.string,
+    direction: PropTypes.string
   }),
-  redirect: React.PropTypes.func,
-  currentPage: React.PropTypes.number,
-  limit: React.PropTypes.number,
-  columnDefinitions: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      values: React.PropTypes.arrayOf(React.PropTypes.shape({name: React.PropTypes.string})),
-      label: React.PropTypes.string,
-      order: React.PropTypes.int,
-      sortable: React.PropTypes.bool
+  redirect: PropTypes.func,
+  currentPage: PropTypes.number,
+  limit: PropTypes.number,
+  columnDefinitions: PropTypes.arrayOf(
+    PropTypes.shape({
+      values: PropTypes.arrayOf(PropTypes.shape({name: PropTypes.string})),
+      label: PropTypes.string,
+      order: PropTypes.int,
+      sortable: PropTypes.bool
     })
   ).isRequired,
-  entityCount: React.PropTypes.number,
-  setOrderBy: React.PropTypes.func,
-  refresh: React.PropTypes.func,
-  inProgress: React.PropTypes.bool,
-  onRowClick: React.PropTypes.func
+  entityCount: PropTypes.number,
+  setOrderBy: PropTypes.func,
+  refresh: PropTypes.func,
+  inProgress: PropTypes.bool,
+  onRowClick: PropTypes.func
 }
 
 export default ListView

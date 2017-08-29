@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {intlShape} from 'react-intl'
 
@@ -69,14 +70,14 @@ const MergeMatrix = props => {
 }
 
 MergeMatrix.propTypes = {
-  entities: React.PropTypes.array.isRequired,
-  model: React.PropTypes.object.isRequired,
-  targetEntityPk: React.PropTypes.string,
-  selections: React.PropTypes.object,
-  changeTargetEntity: React.PropTypes.func.isRequired,
-  selectSourceField: React.PropTypes.func.isRequired,
-  selectSourceRelation: React.PropTypes.func.isRequired,
-  toggleRelationMany: React.PropTypes.func.isRequired,
+  entities: PropTypes.array.isRequired,
+  model: PropTypes.object.isRequired,
+  targetEntityPk: PropTypes.string,
+  selections: PropTypes.object,
+  changeTargetEntity: PropTypes.func.isRequired,
+  selectSourceField: PropTypes.func.isRequired,
+  selectSourceRelation: PropTypes.func.isRequired,
+  toggleRelationMany: PropTypes.func.isRequired,
   intl: intlShape.isRequired
 }
 

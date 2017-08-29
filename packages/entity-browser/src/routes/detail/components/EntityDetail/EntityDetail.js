@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {Prompt} from 'react-router-dom'
 
@@ -74,13 +75,13 @@ class EntityDetail extends React.Component {
 
 EntityDetail.propTypes = {
   intl: intlShape.isRequired,
-  dispatchEmittedAction: React.PropTypes.func.isRequired,
-  loadDetailParams: React.PropTypes.func.isRequired,
-  clearDetailParams: React.PropTypes.func.isRequired,
-  setFormTouched: React.PropTypes.func.isRequired,
-  router: React.PropTypes.object.isRequired,
-  detailParams: React.PropTypes.object,
-  formTouched: React.PropTypes.bool
+  dispatchEmittedAction: PropTypes.func.isRequired,
+  loadDetailParams: PropTypes.func.isRequired,
+  clearDetailParams: PropTypes.func.isRequired,
+  setFormTouched: PropTypes.func.isRequired,
+  router: PropTypes.object.isRequired,
+  detailParams: PropTypes.object,
+  formTouched: PropTypes.bool
 }
 
 export default EntityDetail

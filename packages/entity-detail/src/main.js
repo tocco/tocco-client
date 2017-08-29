@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {appFactory, notifier, errorLogging, actionEmitter, externalEvents} from 'tocco-util'
 import reducers, {sagas} from './modules/reducers'
@@ -94,10 +95,10 @@ class EntityDetailApp extends React.Component {
 }
 
 EntityDetailApp.propTypes = {
-  entityName: React.PropTypes.string.isRequired,
-  formName: React.PropTypes.string.isRequired,
+  entityName: PropTypes.string.isRequired,
+  formName: PropTypes.string.isRequired,
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
-    propTypes[event] = React.PropTypes.func
+    propTypes[event] = PropTypes.func
     return propTypes
   }, {})
 }

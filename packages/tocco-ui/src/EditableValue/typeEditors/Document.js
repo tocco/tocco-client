@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 const Document = props => (
@@ -12,10 +13,10 @@ const Document = props => (
 )
 
 Document.propTypes = {
-  value: React.PropTypes.shape({
-    fileName: React.PropTypes.string.isRequired,
-    binaryLink: React.PropTypes.string.isRequired,
-    thumbnailLink: React.PropTypes.string.isRequired
+  value: PropTypes.shape({
+    fileName: PropTypes.string.isRequired,
+    binaryLink: PropTypes.string.isRequired,
+    thumbnailLink: PropTypes.string.isRequired
   }).isRequired
 }
 

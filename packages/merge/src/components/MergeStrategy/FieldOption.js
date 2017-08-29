@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {EditableValue} from 'tocco-ui'
 
@@ -19,11 +20,11 @@ const FieldOption = props => {
 }
 
 FieldOption.propTypes = {
-  name: React.PropTypes.string.isRequired,
-  fieldType: React.PropTypes.string.isRequired,
-  value: React.PropTypes.string.isRequired,
-  onChange: React.PropTypes.func.isRequired,
-  disabled: React.PropTypes.bool
+  name: PropTypes.string.isRequired,
+  fieldType: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  disabled: PropTypes.bool
 }
 
 export default FieldOption

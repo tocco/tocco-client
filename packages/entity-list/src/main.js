@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {appFactory, notifier, errorLogging, actionEmitter, externalEvents, storeStorage} from 'tocco-util'
 
@@ -92,28 +93,28 @@ class EntityListApp extends React.Component {
 }
 
 EntityListApp.propTypes = {
-  id: React.PropTypes.string.isRequired,
-  entityName: React.PropTypes.string.isRequired,
-  formBase: React.PropTypes.string.isRequired,
-  limit: React.PropTypes.number,
-  showSearchForm: React.PropTypes.bool,
-  searchFilters: React.PropTypes.arrayOf(React.PropTypes.string),
-  preselectedSearchFields: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      id: React.PropTypes.string,
-      value: React.PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.number,
-        React.PropTypes.arrayOf(React.PropTypes.number),
-        React.PropTypes.arrayOf(React.PropTypes.string)
+  id: PropTypes.string.isRequired,
+  entityName: PropTypes.string.isRequired,
+  formBase: PropTypes.string.isRequired,
+  limit: PropTypes.number,
+  showSearchForm: PropTypes.bool,
+  searchFilters: PropTypes.arrayOf(PropTypes.string),
+  preselectedSearchFields: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.arrayOf(PropTypes.number),
+        PropTypes.arrayOf(PropTypes.string)
       ]),
-      hidden: React.PropTypes.bool
+      hidden: PropTypes.bool
     })
   ),
-  disableSimpleSearch: React.PropTypes.bool,
-  simpleSearchFields: React.PropTypes.string,
+  disableSimpleSearch: PropTypes.bool,
+  simpleSearchFields: PropTypes.string,
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
-    propTypes[event] = React.PropTypes.func
+    propTypes[event] = PropTypes.func
     return propTypes
   }, {})
 }

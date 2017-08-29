@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {intlShape, FormattedMessage} from 'react-intl'
 import classNames from 'classnames'
@@ -84,11 +85,11 @@ class MergeStrategy extends React.Component {
 
 MergeStrategy.propTypes = {
   intl: intlShape.isRequired,
-  editOptions: React.PropTypes.array.isRequired,
-  changeEditOptionValue: React.PropTypes.func.isRequired,
-  activateEditOption: React.PropTypes.func.isRequired,
-  strategies: React.PropTypes.object.isRequired,
-  changeStrategy: React.PropTypes.func.isRequired
+  editOptions: PropTypes.array.isRequired,
+  changeEditOptionValue: PropTypes.func.isRequired,
+  activateEditOption: PropTypes.func.isRequired,
+  strategies: PropTypes.object.isRequired,
+  changeStrategy: PropTypes.func.isRequired
 }
 
 export default MergeStrategy

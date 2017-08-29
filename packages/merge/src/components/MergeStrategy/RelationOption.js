@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 const RelationOption = props => {
@@ -32,11 +33,11 @@ const RelationOption = props => {
 }
 
 RelationOption.propTypes = {
-  name: React.PropTypes.string.isRequired,
-  values: React.PropTypes.object.isRequired,
-  value: React.PropTypes.string.isRequired,
-  onChange: React.PropTypes.func.isRequired,
-  disabled: React.PropTypes.bool
+  name: PropTypes.string.isRequired,
+  values: PropTypes.object.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  disabled: PropTypes.bool
 }
 
 export default RelationOption

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import Flatpickr from 'flatpickr'
 import {injectIntl, intlShape} from 'react-intl'
@@ -85,10 +86,10 @@ class DateAbstract extends React.Component {
 
 DateAbstract.propTypes = {
   intl: intlShape.isRequired,
-  onChange: React.PropTypes.func,
-  value: React.PropTypes.arrayOf(React.PropTypes.string),
-  options: React.PropTypes.object,
-  readOnly: React.PropTypes.bool
+  onChange: PropTypes.func,
+  value: PropTypes.arrayOf(PropTypes.string),
+  options: PropTypes.object,
+  readOnly: PropTypes.bool
 }
 
 export default injectIntl(DateAbstract)

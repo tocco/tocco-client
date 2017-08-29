@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import classNames from 'classnames'
 import ErrorList from './ErrorList'
@@ -50,19 +51,19 @@ FormField.defaultProps = {
 }
 
 FormField.propTypes = {
-  id: React.PropTypes.string,
-  label: React.PropTypes.string,
-  mandatory: React.PropTypes.bool,
-  mandatoryTitle: React.PropTypes.string,
-  children: React.PropTypes.node,
-  hidden: React.PropTypes.bool,
-  touched: React.PropTypes.bool,
-  dirty: React.PropTypes.bool,
-  useLabel: React.PropTypes.bool,
-  error: React.PropTypes.objectOf(React.PropTypes.arrayOf(
-    React.PropTypes.oneOfType([React.PropTypes.node, React.PropTypes.string]))
+  id: PropTypes.string,
+  label: PropTypes.string,
+  mandatory: PropTypes.bool,
+  mandatoryTitle: PropTypes.string,
+  children: PropTypes.node,
+  hidden: PropTypes.bool,
+  touched: PropTypes.bool,
+  dirty: PropTypes.bool,
+  useLabel: PropTypes.bool,
+  error: PropTypes.objectOf(PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.node, PropTypes.string]))
   ),
-  className: React.PropTypes.string
+  className: PropTypes.string
 }
 
 export default FormField

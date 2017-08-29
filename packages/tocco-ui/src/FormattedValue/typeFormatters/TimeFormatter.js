@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedTime} from 'react-intl'
 
@@ -17,7 +18,7 @@ const TimeFormatter = props => {
 }
 
 TimeFormatter.propTypes = {
-  value: React.PropTypes.object.isRequired
+  value: PropTypes.object.isRequired
 }
 
 export default TimeFormatter

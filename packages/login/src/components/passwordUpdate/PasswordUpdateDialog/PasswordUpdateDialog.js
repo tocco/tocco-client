@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import classNames from 'classnames'
 import {FormattedMessage, intlShape} from 'react-intl'
@@ -125,25 +126,25 @@ class PasswordUpdateDialog extends Component {
 }
 
 PasswordUpdateDialog.propTypes = {
-  password: React.PropTypes.shape({
-    oldPassword: React.PropTypes.string.isRequired,
-    newPassword: React.PropTypes.string.isRequired,
-    newPasswordRepeat: React.PropTypes.string.isRequired,
-    newPasswordValidationErrors: React.PropTypes.object,
-    passwordUpdatePending: React.PropTypes.bool.isRequired,
-    passwordUpdateErrorCode: React.PropTypes.string
+  password: PropTypes.shape({
+    oldPassword: PropTypes.string.isRequired,
+    newPassword: PropTypes.string.isRequired,
+    newPasswordRepeat: PropTypes.string.isRequired,
+    newPasswordValidationErrors: PropTypes.object,
+    passwordUpdatePending: PropTypes.bool.isRequired,
+    passwordUpdateErrorCode: PropTypes.string
   }).isRequired,
-  validationRules: React.PropTypes.array,
-  showOldPasswordField: React.PropTypes.bool,
-  updateOldPassword: React.PropTypes.func.isRequired,
-  updateNewPassword: React.PropTypes.func.isRequired,
-  updateNewPasswordRepeat: React.PropTypes.func.isRequired,
-  fetchValidationRules: React.PropTypes.func.isRequired,
-  savePassword: React.PropTypes.func.isRequired,
-  initialized: React.PropTypes.func.isRequired,
+  validationRules: PropTypes.array,
+  showOldPasswordField: PropTypes.bool,
+  updateOldPassword: PropTypes.func.isRequired,
+  updateNewPassword: PropTypes.func.isRequired,
+  updateNewPasswordRepeat: PropTypes.func.isRequired,
+  fetchValidationRules: PropTypes.func.isRequired,
+  savePassword: PropTypes.func.isRequired,
+  initialized: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
-  showTitle: React.PropTypes.bool,
-  forcedUpdate: React.PropTypes.bool
+  showTitle: PropTypes.bool,
+  forcedUpdate: PropTypes.bool
 }
 
 export default PasswordUpdateDialog

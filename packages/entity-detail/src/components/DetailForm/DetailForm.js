@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {reduxForm} from 'redux-form'
 import {intlShape, FormattedRelative, FormattedMessage} from 'react-intl'
@@ -129,46 +130,46 @@ export class DetailForm extends React.Component {
 
 DetailForm.propTypes = {
   intl: intlShape.isRequired,
-  entityModel: React.PropTypes.object.isRequired,
-  submitForm: React.PropTypes.func.isRequired,
-  formDefinition: React.PropTypes.object.isRequired,
-  entity: React.PropTypes.object.isRequired,
-  loadRelationEntity: React.PropTypes.func.isRequired,
-  formValues: React.PropTypes.object,
-  loadRemoteEntity: React.PropTypes.func.isRequired,
-  relationEntities: React.PropTypes.shape({
-    entityName: React.PropTypes.shape({
-      loaded: React.PropTypes.bool,
-      data: React.PropTypes.arrayOf(
-        React.PropTypes.shape({
-          value: React.PropTypes.string,
-          label: React.PropTypes.string
+  entityModel: PropTypes.object.isRequired,
+  submitForm: PropTypes.func.isRequired,
+  formDefinition: PropTypes.object.isRequired,
+  entity: PropTypes.object.isRequired,
+  loadRelationEntity: PropTypes.func.isRequired,
+  formValues: PropTypes.object,
+  loadRemoteEntity: PropTypes.func.isRequired,
+  relationEntities: PropTypes.shape({
+    entityName: PropTypes.shape({
+      loaded: PropTypes.bool,
+      data: PropTypes.arrayOf(
+        PropTypes.shape({
+          value: PropTypes.string,
+          label: PropTypes.string
         })
       )
     })
   }).isRequired,
-  remoteEntities: React.PropTypes.shape({
-    fieldName: React.PropTypes.shape({
-      loading: React.PropTypes.bool,
-      entities: React.PropTypes.arrayOf(
-        React.PropTypes.shape({
-          key: React.PropTypes.string,
-          display: React.PropTypes.string
+  remoteEntities: PropTypes.shape({
+    fieldName: PropTypes.shape({
+      loading: PropTypes.bool,
+      entities: PropTypes.arrayOf(
+        PropTypes.shape({
+          key: PropTypes.string,
+          display: PropTypes.string
         })
       )
     })
   }).isRequired,
-  form: React.PropTypes.string.isRequired,
-  touch: React.PropTypes.func.isRequired,
-  submitting: React.PropTypes.bool,
-  anyTouched: React.PropTypes.bool,
-  formErrors: React.PropTypes.objectOf(
-    React.PropTypes.objectOf(React.PropTypes.arrayOf(
-      React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.object])))
+  form: PropTypes.string.isRequired,
+  touch: PropTypes.func.isRequired,
+  submitting: PropTypes.bool,
+  anyTouched: PropTypes.bool,
+  formErrors: PropTypes.objectOf(
+    PropTypes.objectOf(PropTypes.arrayOf(
+      PropTypes.oneOfType([PropTypes.string, PropTypes.object])))
   ),
-  valid: React.PropTypes.bool,
-  lastSave: React.PropTypes.number,
-  fireTouched: React.PropTypes.func.isRequired
+  valid: PropTypes.bool,
+  lastSave: PropTypes.number,
+  fireTouched: PropTypes.func.isRequired
 }
 
 export default reduxForm({

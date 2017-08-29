@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {addLocaleData, IntlProvider} from 'react-intl'
 import Navigation from './Navigation'
@@ -21,7 +22,7 @@ export default class ShowCaseApp extends React.Component {
   }
 
   static propTypes = {
-    componentsTree: React.PropTypes.array.isRequired
+    componentsTree: PropTypes.array.isRequired
   }
 
   localeChange(locale) {

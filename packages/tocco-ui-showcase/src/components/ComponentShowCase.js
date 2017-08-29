@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {parse} from 'react-docgen'
 import PropsTable from './PropsTable'
@@ -26,9 +27,9 @@ const ComponentShowCase = props => {
 }
 
 ComponentShowCase.propTypes = {
-  componentName: React.PropTypes.string.isRequired,
-  example: React.PropTypes.object.isRequired,
-  componentRaw: React.PropTypes.string.isRequired
+  componentName: PropTypes.string.isRequired,
+  example: PropTypes.object.isRequired,
+  componentRaw: PropTypes.string.isRequired
 }
 
 export default ComponentShowCase

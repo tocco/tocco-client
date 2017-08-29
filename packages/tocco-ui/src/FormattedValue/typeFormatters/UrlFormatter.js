@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 const UrlFormatter = props => (
@@ -5,7 +6,7 @@ const UrlFormatter = props => (
 )
 
 UrlFormatter.propTypes = {
-  value: React.PropTypes.string
+  value: PropTypes.string
 }
 
 export default UrlFormatter

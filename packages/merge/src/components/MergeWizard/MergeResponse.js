@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
 
@@ -33,8 +34,8 @@ export const EntityResponseTable = props => {
 }
 
 EntityResponseTable.propTypes = {
-  title: React.PropTypes.string.isRequired,
-  responseEntities: React.PropTypes.array.isRequired
+  title: PropTypes.string.isRequired,
+  responseEntities: PropTypes.array.isRequired
 }
 
 class MergeResponse extends React.Component {
@@ -68,8 +69,8 @@ class MergeResponse extends React.Component {
 }
 
 MergeResponse.propTypes = {
-  fireExternalEvent: React.PropTypes.func.isRequired,
-  mergeResponse: React.PropTypes.object.isRequired,
+  fireExternalEvent: PropTypes.func.isRequired,
+  mergeResponse: PropTypes.object.isRequired,
   intl: intlShape.isRequired
 }
 

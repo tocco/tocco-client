@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import Select from 'react-select'
 import _isEmpty from 'lodash/isEmpty'
@@ -34,24 +35,24 @@ const SingleSelect = props => {
 }
 
 SingleSelect.propTypes = {
-  onChange: React.PropTypes.func.isRequired,
-  value: React.PropTypes.oneOfType([
-    React.PropTypes.shape({
-      key: React.PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.number
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.shape({
+      key: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
       ])
     }),
-    React.PropTypes.string
+    PropTypes.string
   ]),
-  options: React.PropTypes.shape({
-    store: React.PropTypes.arrayOf(
-      React.PropTypes.shape({
-        value: React.PropTypes.any,
-        label: React.PropTypes.string
+  options: PropTypes.shape({
+    store: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.any,
+        label: PropTypes.string
       }))
   }),
-  readOnly: React.PropTypes.bool
+  readOnly: PropTypes.bool
 }
 
 export default SingleSelect

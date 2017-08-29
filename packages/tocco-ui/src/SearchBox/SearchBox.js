@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import Button from '../Button'
 import _debounce from 'lodash/debounce'
@@ -72,26 +73,26 @@ SearchBox.propTypes = {
   /**
    * Function that will be triggered. The input value will be passed as argument.
    */
-  onSearch: React.PropTypes.func.isRequired,
+  onSearch: PropTypes.func.isRequired,
   /**
    * Placeholder of the input field.
    */
-  placeholder: React.PropTypes.string,
+  placeholder: PropTypes.string,
   /**
    * If true, the `onSearch` function will be triggered on the fly.
    */
-  liveSearch: React.PropTypes.bool,
+  liveSearch: PropTypes.bool,
   /**
    * Amount of milli seconds before the next search will be invoked. The default is set to `200`.
    * Can be used to reduce the amount of search requests in the live search.
    * This property is only considered if the `liveSearch` property is set to true.
    */
-  debounce: React.PropTypes.number,
+  debounce: PropTypes.number,
   /**
    * Amount of minimum characters before the search starts. The default is set to `3`.
    * This property is only considered if the `liveSearch` property is set to true.
    */
-  minInputLength: React.PropTypes.number
+  minInputLength: PropTypes.number
 }
 
 export default SearchBox

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import EntityListApp from 'tocco-entity-list/src/main'
 
@@ -31,15 +32,15 @@ const SubGrid = props => {
 }
 
 SubGrid.propTypes = {
-  entityKey: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
-  detailFormName: React.PropTypes.string.isRequired,
-  gridName: React.PropTypes.string.isRequired,
-  relationName: React.PropTypes.string.isRequired,
-  modelField: React.PropTypes.shape({
-    targetEntity: React.PropTypes.string,
-    reverseRelationName: React.PropTypes.string
+  entityKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  detailFormName: PropTypes.string.isRequired,
+  gridName: PropTypes.string.isRequired,
+  relationName: PropTypes.string.isRequired,
+  modelField: PropTypes.shape({
+    targetEntity: PropTypes.string,
+    reverseRelationName: PropTypes.string
   }).isRequired,
-  onRowClick: React.PropTypes.func
+  onRowClick: PropTypes.func
 }
 
 export default SubGrid

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedDate} from 'react-intl'
 
@@ -17,7 +18,7 @@ const DurationFormatter = props => {
 }
 
 DurationFormatter.propTypes = {
-  value: React.PropTypes.number
+  value: PropTypes.number
 }
 
 export default DurationFormatter

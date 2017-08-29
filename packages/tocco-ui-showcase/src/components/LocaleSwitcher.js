@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {injectIntl} from 'react-intl'
 
@@ -38,8 +39,8 @@ const LocaleSwitcher = props => {
 }
 
 LocaleSwitcher.propTypes = {
-  intl: React.PropTypes.any,
-  onLocaleChange: React.PropTypes.func
+  intl: PropTypes.any,
+  onLocaleChange: PropTypes.func
 }
 
 export default injectIntl(LocaleSwitcher)

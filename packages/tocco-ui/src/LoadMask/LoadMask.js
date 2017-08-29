@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import classNames from 'classnames'
 
@@ -70,23 +71,23 @@ LoadMask.propTypes = {
   /**
    * Extend the the mask with any css classes separated by a space
    */
-  className: React.PropTypes.string,
+  className: PropTypes.string,
   /**
    * Optional text to be shown below spinner
    */
-  loadingText: React.PropTypes.string,
+  loadingText: PropTypes.string,
   /**
    * As soon as all elements of the array are truthy, children will be displayed.
    */
-  required: React.PropTypes.arrayOf(React.PropTypes.any),
+  required: PropTypes.arrayOf(PropTypes.any),
   /**
    * An array of promises as alternative to required.
    */
-  promises: React.PropTypes.array,
+  promises: PropTypes.array,
   /**
    * Will be shown once promises are resolved
    */
-  children: React.PropTypes.node
+  children: PropTypes.node
 }
 
 export default LoadMask

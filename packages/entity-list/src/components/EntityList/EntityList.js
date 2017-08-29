@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import SearchFormContainer from '../../containers/SearchFormContainer'
 import ListViewContainer from '../../containers/ListViewContainer'
@@ -18,8 +19,8 @@ class EntityList extends React.Component {
 }
 
 EntityList.propTypes = {
-  initialize: React.PropTypes.func.isRequired,
-  showSearchForm: React.PropTypes.bool
+  initialize: PropTypes.func.isRequired,
+  showSearchForm: PropTypes.bool
 }
 
 export default EntityList

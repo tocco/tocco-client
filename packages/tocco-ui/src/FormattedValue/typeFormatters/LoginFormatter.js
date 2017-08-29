@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 const LoginFormatter = props => (
@@ -5,7 +6,7 @@ const LoginFormatter = props => (
 )
 
 LoginFormatter.propTypes = {
-  value: React.PropTypes.object.isRequired
+  value: PropTypes.object.isRequired
 }
 
 export default LoginFormatter

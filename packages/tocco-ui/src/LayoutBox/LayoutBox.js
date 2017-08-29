@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 /**
@@ -23,15 +24,15 @@ LayoutBox.propTypes = {
   /**
    * Optional label/title of the box
    */
-  label: React.PropTypes.string,
+  label: PropTypes.string,
   /**
    * vertical or horizontal alignment of box
    */
-  alignment: React.PropTypes.oneOf(['vertical', 'horizontal']),
+  alignment: PropTypes.oneOf(['vertical', 'horizontal']),
   /**
    * Content of box
    */
-  children: React.PropTypes.node
+  children: PropTypes.node
 }
 
 export default LayoutBox

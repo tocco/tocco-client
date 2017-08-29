@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import classNames from 'classnames'
 
@@ -6,8 +7,8 @@ export const Rule = props => (
 )
 
 Rule.propTypes = {
-  className: React.PropTypes.string,
-  message: React.PropTypes.string.isRequired
+  className: PropTypes.string,
+  message: PropTypes.string.isRequired
 }
 
 const ValidationRules = props => (
@@ -34,9 +35,9 @@ const ValidationRules = props => (
 )
 
 ValidationRules.propTypes = {
-  errors: React.PropTypes.object,
-  rules: React.PropTypes.array.isRequired,
-  rulesNeutral: React.PropTypes.bool
+  errors: PropTypes.object,
+  rules: PropTypes.array.isRequired,
+  rulesNeutral: PropTypes.bool
 }
 
 export default ValidationRules

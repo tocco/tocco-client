@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
 import {Pages} from '../../types/Pages'
@@ -74,8 +75,8 @@ export class PasswordRequest extends React.Component {
 
 PasswordRequest.propTypes = {
   intl: intlShape.isRequired,
-  changePage: React.PropTypes.func.isRequired,
-  requestPassword: React.PropTypes.func.isRequired,
-  showTitle: React.PropTypes.bool,
-  pending: React.PropTypes.bool
+  changePage: PropTypes.func.isRequired,
+  requestPassword: PropTypes.func.isRequired,
+  showTitle: PropTypes.bool,
+  pending: PropTypes.bool
 }

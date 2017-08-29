@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 const StringFormatter = props => (
@@ -5,7 +6,7 @@ const StringFormatter = props => (
 )
 
 StringFormatter.propTypes = {
-  value: React.PropTypes.any
+  value: PropTypes.any
 }
 
 export default StringFormatter

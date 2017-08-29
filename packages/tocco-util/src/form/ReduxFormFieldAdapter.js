@@ -1,4 +1,4 @@
-import React from 'react'
+import PropTypes from 'prop-types'
 import _omit from 'lodash/omit'
 import {injectIntl, intlShape} from 'react-intl'
 
@@ -46,32 +46,32 @@ const ReduxFormFieldAdapter = props => {
 
 ReduxFormFieldAdapter.propTypes = {
   intl: intlShape.isRequired,
-  id: React.PropTypes.string,
-  input: React.PropTypes.shape({
-    value: React.PropTypes.any,
-    name: React.PropTypes.string,
-    onChange: React.PropTypes.func
+  id: PropTypes.string,
+  input: PropTypes.shape({
+    value: PropTypes.any,
+    name: PropTypes.string,
+    onChange: PropTypes.func
   }).isRequired,
-  meta: React.PropTypes.shape({
-    touched: React.PropTypes.bool,
-    error: React.PropTypes.objectOf(
-      React.PropTypes.arrayOf(React.PropTypes.oneOfType([React.PropTypes.node, React.PropTypes.string]))
+  meta: PropTypes.shape({
+    touched: PropTypes.bool,
+    error: PropTypes.objectOf(
+      PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.node, PropTypes.string]))
     ),
-    dirty: React.PropTypes.bool,
-    submitting: React.PropTypes.bool
+    dirty: PropTypes.bool,
+    submitting: PropTypes.bool
   }).isRequired,
-  formDefinitionField: React.PropTypes.object.isRequired,
-  entityField: React.PropTypes.object,
-  formFieldUtils: React.PropTypes.object.isRequired,
-  modelField: React.PropTypes.object,
-  readOnlyForm: React.PropTypes.bool,
-  formFieldMapping: React.PropTypes.objectOf(React.PropTypes.oneOfType([
-    React.PropTypes.func,
-    React.PropTypes.objectOf(React.PropTypes.func)
+  formDefinitionField: PropTypes.object.isRequired,
+  entityField: PropTypes.object,
+  formFieldUtils: PropTypes.object.isRequired,
+  modelField: PropTypes.object,
+  readOnlyForm: PropTypes.bool,
+  formFieldMapping: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.objectOf(PropTypes.func)
   ])).isRequired,
-  readOnlyFormFieldMapping: React.PropTypes.objectOf(React.PropTypes.oneOfType([
-    React.PropTypes.func,
-    React.PropTypes.objectOf(React.PropTypes.func)
+  readOnlyFormFieldMapping: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.objectOf(PropTypes.func)
   ])).isRequired
 }
 

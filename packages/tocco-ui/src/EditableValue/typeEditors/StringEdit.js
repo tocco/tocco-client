@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 const StringEdit = props => {
@@ -23,11 +24,11 @@ const StringEdit = props => {
 }
 
 StringEdit.propTypes = {
-  onChange: React.PropTypes.func,
-  value: React.PropTypes.node,
-  name: React.PropTypes.string,
-  id: React.PropTypes.string,
-  readOnly: React.PropTypes.bool
+  onChange: PropTypes.func,
+  value: PropTypes.node,
+  name: PropTypes.string,
+  id: PropTypes.string,
+  readOnly: PropTypes.bool
 }
 
 export default StringEdit

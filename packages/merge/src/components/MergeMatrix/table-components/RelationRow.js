@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import SingleSelection from './SingleSelection'
 
@@ -33,11 +34,11 @@ const RelationRow = props => {
 }
 
 RelationRow.propTypes = {
-  relation: React.PropTypes.object.isRequired,
-  entities: React.PropTypes.array.isRequired,
-  selectSourceRelation: React.PropTypes.func.isRequired,
-  targetEntity: React.PropTypes.object.isRequired,
-  selections: React.PropTypes.object.isRequired
+  relation: PropTypes.object.isRequired,
+  entities: PropTypes.array.isRequired,
+  selectSourceRelation: PropTypes.func.isRequired,
+  targetEntity: PropTypes.object.isRequired,
+  selections: PropTypes.object.isRequired
 }
 
 export default RelationRow

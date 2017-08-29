@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedDate, FormattedTime} from 'react-intl'
 
@@ -27,7 +28,7 @@ const DateTimeFormatter = props => {
 }
 
 DateTimeFormatter.propTypes = {
-  value: React.PropTypes.string.isRequired
+  value: PropTypes.string.isRequired
 }
 
 export default DateTimeFormatter
