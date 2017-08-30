@@ -23,7 +23,7 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
     const readOnly = (
       formDefinitionField.displayType === 'READONLY'
       || submitting
-      || !_get(entityField, 'value.writable', true)
+      || !_get(entityField, 'writable', true)
     )
 
     const mandatory = _get(modelField, `validation.mandatory`, false) && !readOnly
