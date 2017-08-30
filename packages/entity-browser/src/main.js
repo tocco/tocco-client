@@ -18,6 +18,7 @@ const createHistory = store => createHashHistory({
     const cancelText = textResourceSelector(state, 'client.common.cancel')
 
     const action = notifier.confirm(
+      '',
       message,
       okText,
       cancelText,
