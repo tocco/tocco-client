@@ -25,9 +25,9 @@
     }
   },
   "devDependencies": {
-    "tocco-entity-list": "0.1.8",
+    "tocco-entity-list": "0.1.9",
     "tocco-test-util": "0.1.2",
-    "tocco-theme": "0.1.7",
+    "tocco-theme": "0.1.8",
     "tocco-ui": "0.1.5",
     "tocco-util": "0.1.6"
   }
