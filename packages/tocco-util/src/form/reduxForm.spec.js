@@ -25,9 +25,17 @@ describe('tocco-util', () => {
                 }
               }
             }
-
           }
-          const result = reduxForm.formValuesToEntity(values)
+
+          const entityModel = {
+            firstname: { },
+            gender: {relationName: 'relGender', multi: false},
+            status: {relationName: 'relGender', multi: true}
+          }
+
+          const dirtyFields = ['firstname', 'gender', 'status']
+
+          const result = reduxForm.formValuesToEntity(values, dirtyFields, entityModel)
 
           const expectedEntity = {
             version: 2,
@@ -65,7 +73,16 @@ describe('tocco-util', () => {
               }
             }
           }
-          const result = reduxForm.formValuesToEntity(values, ['firstname', 'somefield'])
+
+          const entityModel = {
+            firstname: { },
+            lastname: { },
+            somefield: { }
+          }
+
+          const dirtyFields = ['firstname', 'somefield']
+
+          const result = reduxForm.formValuesToEntity(values, dirtyFields, entityModel)
 
           expect(result.paths).to.include.keys('firstname')
           expect(result.paths).to.not.include.keys('lastname')

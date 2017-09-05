@@ -18,7 +18,7 @@ export const validationErrorToFormError = (entity, errors) => {
   return result
 }
 
-export const formValuesToEntity = (values, dirtyFields) => {
+export const formValuesToEntity = (values, dirtyFields, entityModel) => {
   const entity = values[wholeEntityField]
   const {model, version, key} = entity
 
@@ -29,7 +29,7 @@ export const formValuesToEntity = (values, dirtyFields) => {
   Object.keys(values).forEach(key => {
     if (!ignoreField(key)) {
       const transformedKey = transformFieldNameBack(key)
-      const type = entity.paths[key].type
+      const type = getType(key, entityModel)
       if (type === 'field') {
         result.paths[transformedKey] = values[key]
       } else if (type === 'entity') {
@@ -40,6 +40,14 @@ export const formValuesToEntity = (values, dirtyFields) => {
     }
   })
   return result
+}
+
+const getType = (fieldName, entityModel) => {
+  const modelField = entityModel[fieldName]
+  if (modelField.relationName) {
+    return modelField.multi ? 'entity-list' : 'entity'
+  }
+  return 'field'
 }
 
 // workaround: redux-forms can't get the value of a field if the field-name contains a dot.
@@ -64,11 +72,20 @@ export const entityToFormValues = entity => {
   return result
 }
 
+export const emptyValues = modelName => {
+  const result = {}
+  const entity = {
+    model: modelName
+  }
+  result[wholeEntityField] = entity
+  return result
+}
+
 export const getDirtyFields = (initialValues, values) => {
   const dirtyFields = []
 
-  _forOwn(initialValues, (value, key) => {
-    if (!_isEqual(value, values[key])) {
+  _forOwn(values, (value, key) => {
+    if (!_isEqual(value, initialValues[key])) {
       dirtyFields.push(key)
     }
   })
