@@ -4,6 +4,7 @@ import rootSaga, * as sagas from './sagas'
 import parseUrl from '../../../util/parseUrl'
 import {fetchModel} from '../../../util/api/entities'
 import doShowBackButton from '../../../util/showBackButton'
+import detail from '../../../util/detail'
 
 describe('entity-browser', () => {
   describe('routes', () => {
@@ -38,13 +39,14 @@ describe('entity-browser', () => {
               const parentUrl = `${entityName}/1`
               const targetEntityName = 'Dummy_Entity'
               const initialKey = '1'
-
+              const mode = 'update'
               const url = `${parentUrl}/${modelPaths[0]}/${entityId}`
-              const gen = sagas.loadEntityDetail(actions.loadDetailParams(url))
+              const formExtension = '_detail'
               const showBackButton = true
               const expectedFormName = `${formBase}_${targetEntityName}_detail`
 
               const expectedDetailParams = {
+                mode,
                 entityName: targetEntityName,
                 entityId,
                 formName: expectedFormName,
@@ -52,11 +54,13 @@ describe('entity-browser', () => {
                 parentUrl
               }
 
+              const gen = sagas.loadEntityDetail(actions.loadDetailParams(url))
               expect(gen.next().value).to.eql(call(parseUrl, url))
               expect(gen.next({modelPaths, entityId, parentUrl}).value).to.eql(select(sagas.entityBrowserSelector))
-              expect(gen.next({entityName, formBase}).value).to.eql(call(sagas.getTargetEntity, entityName, modelPaths))
-              expect(gen.next(targetEntityName).value).to.eql(select(sagas.inputSelector))
-
+              expect(gen.next({entityName, formBase}).value).to.eql(call(detail.getMode, entityId))
+              expect(gen.next(mode).value).to.eql(call(sagas.getTargetEntity, entityName, modelPaths))
+              expect(gen.next(targetEntityName).value).to.eql(call(detail.getFormExtension, mode))
+              expect(gen.next(formExtension).value).to.eql(select(sagas.inputSelector))
               expect(gen.next({initialKey}).value).to.eql(call(doShowBackButton, initialKey, modelPaths))
               expect(gen.next(showBackButton).value).to.eql(put(actions.setDetailParams(expectedDetailParams)))
 

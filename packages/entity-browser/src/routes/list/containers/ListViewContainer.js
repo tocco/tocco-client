@@ -19,6 +19,9 @@ const mapStateToProps = (state, props) => {
     simpleSearchFields: state.input.simpleSearchFields,
     onRowClick: e => {
       props.router.history.push(`/detail/${e.id}`)
+    },
+    onNavigateToCreate: e => {
+      props.router.history.push(`/detail/`)
     }
   }
 }
