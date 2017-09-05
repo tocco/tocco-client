@@ -9,15 +9,19 @@
     {
       "fieldName": "pk",
       "type": "serial",
-      "validation": {
-        "mandatory": true
-      }
+      "validation": {}
     },
     {
       "fieldName": "label",
       "type": "string",
       "validation": {
         "mandatory": true
+      }
+    },
+    {
+      "fieldName": "sorting",
+      "type": "number",
+      "validation": {
       }
     },
     {

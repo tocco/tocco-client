@@ -9,9 +9,7 @@
     {
       "fieldName": "pk",
       "type": "serial",
-      "validation": {
-        "mandatory": true
-      }
+      "validation": {}
     },
     {
       "fieldName": "firstname",
@@ -120,6 +118,13 @@
     {
       "fieldName": "website",
       "type": "url",
+      "validation": {
+        "mandatory": false
+      }
+    },
+    {
+      "fieldName": "date_time",
+      "type": "datetime",
       "validation": {
         "mandatory": false
       }

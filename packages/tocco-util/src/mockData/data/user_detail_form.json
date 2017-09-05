@@ -111,7 +111,10 @@
                     "displayType": "EDITABLE",
                     "children": [ ],
                     "label": "Dauer",
-                    "useLabel": "YES"
+                    "useLabel": "YES",
+                    "scopes": [
+                      "update"
+                    ]
                   }
                 ],
                 "label": "Form Stuff",
@@ -121,6 +124,7 @@
                 "name": "dummy_subgrid",
                 "type": "ch.tocco.nice2.model.form.components.layout.VerticalBox",
                 "displayType": "EDITABLE",
+
                 "children": [
                   {
                     "name": "relDummySubGrid",
@@ -128,7 +132,10 @@
                     "displayType": "READONLY",
                     "children": [ ],
                     "label": null,
-                    "useLabel": "HIDE"
+                    "useLabel": "HIDE",
+                    "scopes": [
+                      "update"
+                    ]
                   }
                 ],
                 "label": "Sub Grid",
@@ -143,6 +150,9 @@
                     "name": "notreadable",
                     "type": "ch.tocco.nice2.model.form.components.simple.TextField",
                     "displayType": "READONLY",
+                    "scopes": [
+                      "update"
+                    ],
                     "children": [ ],
                     "label": "!!SHOULD NOT BE SHOWN!!",
                     "useLabel": "YES"
@@ -218,7 +228,10 @@
                     "displayType": "EDITABLE",
                     "children": [],
                     "label": "Dummy entity (multi) 1",
-                    "useLabel": "YES"
+                    "useLabel": "YES",
+                    "defaultValue": [
+                      {"display": "TEST", "key": 1}
+                    ]
                   },
                   {
                     "name": "relMulti_entity2",
