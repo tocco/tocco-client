@@ -9,6 +9,7 @@ const packageName = 'entity-list'
 
 const EXTERNAL_EVENTS = [
   'onRowClick',
+  'onNavigateToCreate',
   'emitAction'
 ]
 

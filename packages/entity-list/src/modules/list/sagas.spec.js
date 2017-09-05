@@ -29,7 +29,8 @@ describe('entity-list', () => {
               fork(takeLatest, searchFormActions.EXECUTE_SEARCH, sagas.resetDataSet),
               fork(takeEvery, actions.SET_ORDER_BY, sagas.resetDataSet),
               fork(takeEvery, actions.RESET_DATA_SET, sagas.resetDataSet),
-              fork(takeLatest, actions.REFRESH, sagas.refresh)
+              fork(takeLatest, actions.REFRESH, sagas.refresh),
+              fork(takeLatest, actions.ON_ROW_CLICK, sagas.onRowClick)
             ]))
             expect(generator.next().done).to.be.true
           })

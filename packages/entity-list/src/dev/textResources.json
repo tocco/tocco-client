@@ -15,6 +15,7 @@
   "client.entity-list.firstPageTitle",
   "client.entity-list.lastPageTitle",
   "client.entity-list.searchFormValidationMinLength",
+  "client.entity-list.create",
 
   "client.component.form.mandatoryFieldTitle"
 ]
