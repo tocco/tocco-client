@@ -38,11 +38,14 @@ const valueValidator = (values, validatorDefinitions, entityModel) => {
     }
   }
 
-  _forOwn(values, (value, key) => {
+  _forOwn(entityModel, value => {
+    const fieldName = value.fieldName
+    const fieldValue = values[fieldName]
+
     validatorDefinitions.forEach(validatorDefinition => {
-      const validatorValue = getValidatorValue(key, validatorDefinition.selector)
+      const validatorValue = getValidatorValue(fieldName, validatorDefinition.selector)
       if (validatorValue) {
-        addErrors(key, validatorDefinition.validator(value, validatorValue))
+        addErrors(fieldName, validatorDefinition.validator(fieldValue, validatorValue))
       }
     })
   })

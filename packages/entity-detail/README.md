@@ -11,14 +11,16 @@ React-registry name: `entity-detail`
 | `entityName`           | x         | Entity name of the record
 | `entityId`             | x         | The ID of the entity 
 | `formName`             |           | Detail-form that should be loaded
+| `mode`                 |           | Determines if the detail is in create (`create`) or update (`update`) mode
 
 ### Events
 
-| Name                | Payload                                                                                                            | Description
-|---------------------|--------------------------------------------------------------------------------------------------------------------|-------------
-| `onSubGridRowClick` | `id` (id of the clicked record), `gridName` (name of the sub grid), `relationName` (name of the sub grid relation) | This event is fired when a row of a sub grid is clicked
-| `onTouchedChange`   | `touched` (boolean flag which indicates if the form is touched)                                                    | This event is fired when the touched state changes
-
+| Name                        | Payload                                                                                                            | Description
+|-----------------------------|--------------------------------------------------------------------------------------------------------------------|-------------
+| `onSubGridRowClick`         | `id` (id of the clicked record), `gridName` (name of the sub grid), `relationName` (name of the sub grid relation) | Is fired when a row of a sub grid is clicked
+| `onSubGridNavigateToCreate` | `gridName` (name of the sub grid), `relationName` (name of the sub grid relation)                                  | Is fired when a "create" button on the grid gets clicked
+| `onEntityCreated`           | `id` (of the newly created record)                                                                                 | Is fired when a a record got created
+| `onTouchedChange`           | `touched` (boolean flag which indicates if the form is touched)                                                    | This event is fired when the touched state changes
 
 ## Development
 ### Mock Validation Tests

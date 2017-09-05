@@ -1,6 +1,7 @@
 import {SubmissionError} from 'redux-form'
 import {simpleRequest} from 'tocco-util/src/rest'
 import {form} from 'tocco-util'
+import modes from '../modes'
 
 export class AsyncValidationException {
   constructor(errors) {
@@ -14,15 +15,17 @@ const hasError = errors => (
   errors && Object.keys(errors).length > 0
 )
 
-const validateRequest = (values, initialValues) => {
+const validateRequest = (values, initialValues, entityModel, mode) => {
   const dirtyFields = form.getDirtyFields(initialValues, values)
-  const entity = form.formValuesToEntity(values, dirtyFields)
+
+  const entity = form.formValuesToEntity(values, dirtyFields, entityModel)
   const options = {
     queryParams: {_validate: true},
-    method: 'PATCH',
+    method: mode === modes.CREATE ? 'POST' : 'PATCH',
     body: entity
   }
-  return simpleRequest(`entities/${entity.model}/${entity.key}`, options)
+
+  return simpleRequest(`entities/${entity.model}${entity.key ? `/${entity.key}` : ''}`, options)
     .then(resp => resp.body)
     .then(body => {
       if (body.valid) {
@@ -32,8 +35,8 @@ const validateRequest = (values, initialValues) => {
     })
 }
 
-export const submitValidate = (values, initialValues) => {
-  return validateRequest(values, initialValues)
+export const submitValidate = (values, initialValues, entityModel, mode) => {
+  return validateRequest(values, initialValues, entityModel, mode)
     .then(errors => {
       if (hasError(errors)) {
         throw new SubmissionError(errors)
@@ -41,8 +44,8 @@ export const submitValidate = (values, initialValues) => {
     })
 }
 
-export const asyncValidate = (values, initialValues) => {
-  return validateRequest(values, initialValues)
+export const asyncValidate = (values, initialValues, entityModel, mode) => {
+  return validateRequest(values, initialValues, entityModel, mode)
     .then(errors => {
       if (hasError(errors)) {
         throw new AsyncValidationException(errors)

@@ -8,6 +8,7 @@ describe('entity-detail', () => {
         it('should return an error on invalid input', () => {
           const entityModel = {
             firstname: {
+              fieldName: 'firstname',
               validation: {
                 mandatory: true,
                 minLength: 3

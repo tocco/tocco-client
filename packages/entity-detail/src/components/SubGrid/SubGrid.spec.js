@@ -13,6 +13,7 @@ describe('entity-detail', () => {
             gridName="relFoo"
             modelField={{targetEntity: 'Foo'}}
             relationName="relFoo"
+            onNavigateToCreate={() => {}}
           />
         )
 

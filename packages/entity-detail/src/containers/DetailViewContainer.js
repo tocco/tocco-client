@@ -42,6 +42,7 @@ const mapStateToProps = (state, props) => {
     remoteEntities: state.entityDetail.remoteEntities,
     entityModel: state.entityDetail.entityModel,
     entityId: state.input.entityId,
+    mode: state.input.mode,
     formValues: getFormValues('detailForm')(state),
     formErrors: {
       ...getFormSyncErrors('detailForm')(state),

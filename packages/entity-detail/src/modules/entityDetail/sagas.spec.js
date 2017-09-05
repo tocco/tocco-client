@@ -145,16 +145,20 @@ describe('entity-detail', () => {
             const updatedEntity = {}
             const formDefinition = {}
             const fields = []
+            const mode = 'update'
+            const entityModel = {}
             const gen = sagas.submitForm()
 
             expect(gen.next().value) // not working : expect(gen.next().value).to.eql(select(getFormValues(formId)))
             expect(gen.next(values).value) // expect(gen.next().value).to.eql(select(formInitialValueSelector(formId)))
             expect(gen.next(initialValues).value).to.eql(put(startSubmit(formId)))
-            expect(gen.next().value).to.eql(call(submitValidate, values, initialValues))
+            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
+            expect(gen.next({formDefinition, entityModel}).value).to.eql(select(sagas.inputSelector))
+            expect(gen.next({mode}).value).to.eql(call(submitValidate, values, initialValues, entityModel, mode))
             expect(gen.next().value).to.eql(call(form.getDirtyFields, initialValues, values))
-            expect(gen.next(dirtyFields).value).to.eql(call(form.formValuesToEntity, values, dirtyFields))
-            expect(gen.next(entity).value).to.eql(select(sagas.entityDetailSelector))
-            expect(gen.next({formDefinition}).value).to.eql(call(getFieldsOfDetailForm, formDefinition))
+            expect(gen.next(dirtyFields).value).to.eql(call(form.formValuesToEntity, values, dirtyFields, entityModel))
+            expect(gen.next(entity).value).to.eql(call(getFieldsOfDetailForm, formDefinition))
+
             expect(gen.next(fields).value).to.eql(call(updateEntity, entity, fields))
             expect(gen.next(updatedEntity).value).to.eql(call(form.entityToFormValues, updatedEntity))
             expect(gen.next(updatedFormValues).value).to.eql(put(initializeForm(formId, updatedFormValues)))
@@ -177,13 +181,18 @@ describe('entity-detail', () => {
             const values = {firstname: 'peter'}
             const initialValues = {firstname: 'pet'}
             const errors = {field1: 'invalid value'}
+            const formDefinition = {}
+            const mode = 'create'
+            const entityModel = {}
 
             const gen = sagas.submitForm()
 
             expect(gen.next().value) // not working : expect(gen.next().value).to.eql(select(getFormValues(formId)))
             expect(gen.next(values).value) // expect(gen.next().value).to.eql(select(formInitialValueSelector(formId)))
             expect(gen.next(initialValues).value).to.eql(put(startSubmit(formId)))
-            expect(gen.next().value).to.eql(call(submitValidate, values, initialValues))
+            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
+            expect(gen.next({formDefinition, entityModel}).value).to.eql(select(sagas.inputSelector))
+            expect(gen.next({mode}).value).to.eql(call(submitValidate, values, initialValues, entityModel, mode))
 
             expect(gen.throw(new SubmissionError(errors)).value).to.eql(put(touch(FORM_ID, 'field1')))
             expect(gen.next().value).to.eql(put(stopSubmit(FORM_ID, errors)))
@@ -206,19 +215,22 @@ describe('entity-detail', () => {
             const entity = {}
             const formDefinition = {}
             const fields = []
+            const entityModel = {}
+            const mode = 'update'
 
             const gen = sagas.submitForm()
 
             expect(gen.next().value) // not working : expect(gen.next().value).to.eql(select(getFormValues(formId)))
             expect(gen.next(values).value) // expect(gen.next().value).to.eql(select(formInitialValueSelector(formId)))
             expect(gen.next(initialValues).value).to.eql(put(startSubmit(formId)))
-            expect(gen.next().value).to.eql(call(submitValidate, values, initialValues))
+            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
+            expect(gen.next({formDefinition, entityModel}).value).to.eql(select(sagas.inputSelector))
+            expect(gen.next({mode}).value).to.eql(call(submitValidate, values, initialValues, entityModel, mode))
             expect(gen.next().value).to.eql(call(form.getDirtyFields, initialValues, values))
-            expect(gen.next(dirtyFields).value).to.eql(call(form.formValuesToEntity, values, dirtyFields))
-            expect(gen.next(entity).value).to.eql(select(sagas.entityDetailSelector))
-            expect(gen.next({formDefinition}).value).to.eql(call(getFieldsOfDetailForm, formDefinition))
-            expect(gen.next(fields).value).to.eql(call(updateEntity, entity, fields))
+            expect(gen.next(dirtyFields).value).to.eql(call(form.formValuesToEntity, values, dirtyFields, entityModel))
+            expect(gen.next(entity).value).to.eql(call(getFieldsOfDetailForm, formDefinition))
 
+            expect(gen.next(fields).value).to.eql(call(updateEntity, entity, fields))
             expect(gen.throw(new ClientQuestionCancelledException()).value).to.eql(put(stopSubmit(FORM_ID)))
             expect(gen.next().value).to.eql(put(notifier.info(
               'warning',
@@ -239,17 +251,21 @@ describe('entity-detail', () => {
             const entity = {}
             const formDefinition = {}
             const fields = []
+            const mode = 'update'
+            const entityModel = {}
 
             const gen = sagas.submitForm()
 
             expect(gen.next().value) // not working : expect(gen.next().value).to.eql(select(getFormValues(formId)))
             expect(gen.next(values).value) // expect(gen.next().value).to.eql(select(formInitialValueSelector(formId)))
             expect(gen.next(initialValues).value).to.eql(put(startSubmit(formId)))
-            expect(gen.next().value).to.eql(call(submitValidate, values, initialValues))
+            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
+            expect(gen.next({formDefinition, entityModel}).value).to.eql(select(sagas.inputSelector))
+            expect(gen.next({mode}).value).to.eql(call(submitValidate, values, initialValues, entityModel, mode))
             expect(gen.next().value).to.eql(call(form.getDirtyFields, initialValues, values))
-            expect(gen.next(dirtyFields).value).to.eql(call(form.formValuesToEntity, values, dirtyFields))
-            expect(gen.next(entity).value).to.eql(select(sagas.entityDetailSelector))
-            expect(gen.next({formDefinition}).value).to.eql(call(getFieldsOfDetailForm, formDefinition))
+            expect(gen.next(dirtyFields).value).to.eql(call(form.formValuesToEntity, values, dirtyFields, entityModel))
+            expect(gen.next(entity).value).to.eql(call(getFieldsOfDetailForm, formDefinition))
+
             expect(gen.next(fields).value).to.eql(call(updateEntity, entity, fields))
 
             const error = new Error('anything')

@@ -26,6 +26,13 @@ const SubGrid = props => {
             })
           }
         }}
+        onNavigateToCreate={e => {
+          props.onNavigateToCreate({
+            gridName: props.gridName,
+            relationName: props.relationName
+          })
+        }
+        }
       />
     </div>
   )
@@ -40,7 +47,8 @@ SubGrid.propTypes = {
     targetEntity: PropTypes.string,
     reverseRelationName: PropTypes.string
   }).isRequired,
-  onRowClick: PropTypes.func
+  onRowClick: PropTypes.func,
+  onNavigateToCreate: PropTypes.func.isRequired
 }
 
 export default SubGrid

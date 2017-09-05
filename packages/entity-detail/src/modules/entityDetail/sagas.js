@@ -12,9 +12,17 @@ import {
 import {externalEvents, notifier, errorLogging, form} from 'tocco-util'
 import {ClientQuestionCancelledException} from 'tocco-util/src/rest'
 import * as actions from './actions'
-import {fetchEntity, fetchEntities, updateEntity, fetchModel, selectEntitiesTransformer} from '../../util/api/entities'
+import {
+  fetchEntity,
+  fetchEntities,
+  updateEntity,
+  fetchModel,
+  selectEntitiesTransformer,
+  createEntity
+} from '../../util/api/entities'
 import {fetchForm, getFieldsOfDetailForm} from '../../util/api/forms'
 import {submitValidate} from '../../util/detailView/asyncValidation'
+import modes from '../../util/modes'
 
 export const formInitialValueSelector = formId => state => state.form[formId].initial
 export const inputSelector = state => state.input
@@ -70,15 +78,21 @@ export function* unloadDetailView() {
 }
 
 export function* loadDetailView() {
-  const {entityName, entityId, formName} = yield select(inputSelector)
+  const {entityName, entityId, formName, mode} = yield select(inputSelector)
   const entityModel = yield call(fetchModel, entityName)
   yield put(actions.setEntityModel(entityModel))
 
   const formDefinition = yield call(loadDetailFormDefinition, formName)
-  const entity = yield call(loadEntity, entityName, entityId, formDefinition, formName)
 
-  const formValues = yield call(form.entityToFormValues, entity)
-  yield put(initializeForm(FORM_ID, formValues))
+  if (mode === modes.CREATE) {
+    yield put(actions.setEntity({paths: {}}))
+    const formValues = yield call(form.emptyValues, entityName)
+    yield put(initializeForm(FORM_ID, formValues))
+  } else {
+    const entity = yield call(loadEntity, entityName, entityId, formDefinition, formName)
+    const formValues = yield call(form.entityToFormValues, entity)
+    yield put(initializeForm(FORM_ID, formValues))
+  }
 }
 
 export function* submitForm() {
@@ -86,24 +100,40 @@ export function* submitForm() {
     const values = yield select(getFormValues(FORM_ID))
     const initialValues = yield select(formInitialValueSelector(FORM_ID))
     yield put(startSubmit(FORM_ID))
-    yield call(submitValidate, values, initialValues)
+    const {entityModel, formDefinition} = yield select(entityDetailSelector)
+    const {mode} = yield select(inputSelector)
+    yield call(submitValidate, values, initialValues, entityModel, mode)
     const dirtyFields = yield call(form.getDirtyFields, initialValues, values)
-    const entity = yield call(form.formValuesToEntity, values, dirtyFields)
-    const {formDefinition} = yield select(entityDetailSelector)
+    const entity = yield call(form.formValuesToEntity, values, dirtyFields, entityModel)
     const fields = yield call(getFieldsOfDetailForm, formDefinition)
-    const updatedEntity = yield call(updateEntity, entity, fields)
-    const updatedFormValues = yield call(form.entityToFormValues, updatedEntity)
-    yield put(initializeForm(FORM_ID, updatedFormValues))
 
-    yield put(notifier.info(
-      'success',
-      'client.entity-detail.saveSuccessfulTitle',
-      'client.entity-detail.saveSuccessfulMessage',
-      'check',
-      2000
-    ))
-    yield put(actions.setLastSave())
-    yield put(stopSubmit(FORM_ID))
+    if (mode === modes.UPDATE) {
+      const updatedEntity = yield call(updateEntity, entity, fields)
+      const updatedFormValues = yield call(form.entityToFormValues, updatedEntity)
+      yield put(initializeForm(FORM_ID, updatedFormValues))
+
+      yield put(notifier.info(
+        'success',
+        'client.entity-detail.saveSuccessfulTitle',
+        'client.entity-detail.saveSuccessfulMessage',
+        'check',
+        2000
+      ))
+      yield put(actions.setLastSave())
+      yield put(stopSubmit(FORM_ID))
+    } else if (mode === modes.CREATE) {
+      const createdEntityId = yield call(createEntity, entity, fields)
+      yield put(externalEvents.fireExternalEvent('onEntityCreated', {
+        id: createdEntityId
+      }))
+      yield put(notifier.info(
+        'success',
+        'client.entity-detail.createSuccessfulTitle',
+        'client.entity-detail.createSuccessfulMessage',
+        'check',
+        2000
+      ))
+    }
   } catch (error) {
     if (error instanceof SubmissionError) {
       yield put(touch(FORM_ID, ...Object.keys(error.errors)))

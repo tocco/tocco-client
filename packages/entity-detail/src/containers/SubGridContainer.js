@@ -12,6 +12,10 @@ const mapActionCreators = {
     id: e.id,
     gridName: e.gridName,
     relationName: e.relationName
+  }),
+  onNavigateToCreate: e => externalEvents.fireExternalEvent('onSubGridNavigateToCreate', {
+    gridName: e.gridName,
+    relationName: e.relationName
   })
 }
 

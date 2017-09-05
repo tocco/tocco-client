@@ -1,7 +1,8 @@
+import _cloneDeep from 'lodash/cloneDeep'
 import {consoleLogger} from 'tocco-util'
 import _get from 'lodash/get'
 
-export const createValidateResponse = (entityStore, delay = 1000) =>
+export const userValidateResponse = (entityStore, delay = 1000) =>
   (url, opts) => {
     return sleep(delay).then(() => {
       consoleLogger.log('fetchMock: called validate entity', url)
@@ -25,48 +26,115 @@ export const createValidateResponse = (entityStore, delay = 1000) =>
     })
   }
 
-export const createEntityUpdateResponse = (entityStore, delay = 1000) =>
+export const userCreateResponse = (entityStore, delay = 1000) =>
   (url, opts) => {
     return sleep(delay).then(() => {
-      consoleLogger.log('fetchMock: create/update entity', url, opts)
+      consoleLogger.log('fetchMock: create user entity', url, opts)
       const body = JSON.parse(opts.body)
 
       const entity = body.payload ? body.payload : body
 
-      const firstName = _get(entity, 'paths.firstname', '')
+      const error = createAndUpdateValidation(body, entity)
+      if (error) {
+        return error
+      }
 
-      if (!body.clientAnswers) {
-        if (firstName === 'confirm') {
-          return confirmClientQuestionResponse(entity)
+      const newEntity = getNewEntity(entity, entityStore)
+
+      entityStore['User'][newEntity.key] = newEntity
+      return {
+        status: 201,
+        headers: {Location: `http://localhost:8080/nice2/rest/entities/User/${newEntity.key}`}
+      }
+    })
+  }
+
+export const dummyEntityCreateResponse = (entityStore, delay = 2000) =>
+  (url, opts) => {
+    return sleep(delay).then(() => {
+      consoleLogger.log('fetchMock: create dummyEntity entity', url, opts)
+      const body = JSON.parse(opts.body)
+
+      const entity = body.payload ? body.payload : body
+
+      const error = createAndUpdateValidation(body, entity)
+      if (error) {
+        return error
+      }
+
+      const newEntity = getNewEntity(entity, entityStore)
+
+      entityStore['Dummy_entity'][newEntity.key] = newEntity
+      return {
+        status: 201,
+        headers: {Location: `http://localhost:8080/nice2/rest/entities/Dummy_entity/${newEntity.key}`}
+      }
+    })
+  }
+
+export const userUpdateResponse = (entityStore, delay = 1000) =>
+  (url, opts) => {
+    return sleep(delay).then(() => {
+      consoleLogger.log('fetchMock: update entity', url, opts)
+      const body = JSON.parse(opts.body)
+      const entity = body.payload ? body.payload : body
+      const error = createAndUpdateValidation(body, entity)
+      if (error) {
+        return error
+      }
+
+      const newEntity = getNewEntity(entity, entityStore)
+
+      entityStore['User'][newEntity.key] = newEntity
+      return sleep(1000).then(() => (newEntity))
+    })
+  }
+
+const createAndUpdateValidation = (body, entity) => {
+  const firstName = _get(entity, 'paths.firstname', '')
+
+  if (!body.clientAnswers) {
+    if (firstName === 'confirm') {
+      return confirmClientQuestionResponse(entity)
+    }
+    if (firstName === 'yesNo') {
+      return yesNoClientQuestionResponse(entity)
+    }
+  }
+
+  if (firstName === 'illegal2') {
+    return validationErrorResponse(entity)
+  }
+  if (firstName === 'illegal3') {
+    return notAcceptResponse(entity)
+  }
+
+  return null
+}
+
+export const dummyEntityValidateResponse = (entityStore, delay = 1000) =>
+  (url, opts) => {
+    return sleep(delay).then(() => {
+      consoleLogger.log('fetchMock: called validate entity', url)
+
+      const entity = JSON.parse(opts.body)
+      const sorting = _get(entity, 'paths.sorting', '')
+
+      if (sorting < 0) {
+        return {
+          valid: false,
+          errors: [{
+            model: entity.model,
+            paths: {
+              sorting: {
+                toLow: ['Sorting must be greater than 0']
+              }
+            }
+          }]
         }
-        if (firstName === 'yesNo') {
-          return yesNoClientQuestionResponse(entity)
-        }
       }
 
-      if (firstName === 'illegal2') {
-        return validationErrorResponse(entity)
-      }
-      if (firstName === 'illegal3') {
-        return notAcceptResponse(entity)
-      }
-
-      const oldEntity = entityStore['User'][entity.key]
-
-      const updatedEntity = {
-        ...oldEntity,
-        entity: entity.version + 1
-      }
-
-      Object.keys(entity.paths).forEach(field => {
-        if (updatedEntity.paths[field].value == null) {
-          updatedEntity.paths[field].value = {}
-        }
-        updatedEntity.paths[field].value.value = entity.paths[field]
-      })
-
-      entityStore['User'][entity.key] = updatedEntity
-      return sleep(1000).then(() => (updatedEntity))
+      return {valid: true}
     })
   }
 
@@ -158,5 +226,54 @@ const yesNoClientQuestionResponse = entity => ({
     cancelText: 'Cancel'
   }
 })
+
+const getNewEntity = (entity, entityStore) => {
+  let newEntity
+
+  if (entity.key === undefined) {
+    const template = getTemplate(entity.model, entityStore)
+    newEntity = template
+    newEntity.version = 1
+    newEntity.key = entityStore[entity.model].length
+  } else {
+    newEntity = entityStore[entity.model][entity.key]
+    newEntity.version += 1
+  }
+
+  Object.keys(newEntity.paths).forEach(path => {
+    if (entity.paths[path]) {
+      if (newEntity.paths[path].type === 'field') {
+        newEntity.paths[path].value.value = entity.paths[path]
+      } else {
+        newEntity.paths[path].value = entity.paths[path]
+      }
+    }
+  })
+
+  return newEntity
+}
+
+const getTemplate = (entityName, entityStore) => {
+  const template = _cloneDeep(entityStore[entityName][2])
+
+  Object.keys(template.paths).forEach(field => {
+    const templateField = template.paths[field]
+    if (templateField.type === 'entity-list') {
+      templateField.value = []
+    } else if (templateField.type === 'entity') {
+      templateField.value = {}
+    } else {
+      if (templateField) {
+        if (typeof templateField.value === 'object') {
+          templateField.value.value = ''
+        } else {
+          templateField.value = null
+        }
+      }
+    }
+  })
+
+  return template
+}
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
