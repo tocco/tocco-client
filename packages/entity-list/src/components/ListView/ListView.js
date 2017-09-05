@@ -36,7 +36,7 @@ class ListView extends React.Component {
     )
   }
 
-  cellFormatter = cell => (<FormattedValue type={cell.type} value={cell.value}/>)
+  cellFormatter = cell => (cell ? <FormattedValue type={cell.type} value={cell.value}/> : <span/>)
 
   render() {
     const props = this.props
