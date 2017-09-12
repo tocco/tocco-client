@@ -1,7 +1,7 @@
-import {call} from 'redux-saga/effects'
+import { call } from 'redux-saga/effects'
 import fetchMock from 'fetch-mock'
 import * as forms from './forms'
-import {requestSaga} from 'tocco-util/src/rest'
+import { requestSaga } from 'tocco-util/src/rest'
 
 describe('entity-detail', () => {
   describe('util', () => {
@@ -14,6 +14,20 @@ describe('entity-detail', () => {
 
         describe('getFieldsOfDetailForm', () => {
           it('get array of fields and ignore not simple types and iterators', () => {
+            const field1 = {
+              name: 'firstname',
+              type: 'ch.tocco.nice2.model.form.components.simple.TextArea'
+            }
+            const field2 = {
+              name: 'lastname',
+              type: 'ch.tocco.nice2.model.form.components.simple.TextArea'
+            }
+
+            const field3 = {
+              name: 'xyz',
+              type: 'ch.tocco.nice2.model.form.components.simple.SomeType'
+            }
+
             const formDefinition = {
               name: 'fromX',
               children: [
@@ -25,14 +39,8 @@ describe('entity-detail', () => {
                       type: 'ch.tocco.nice2.model.form.components.layout.HorizontalBox1',
                       name: 'box 2',
                       children: [
-                        {
-                          name: 'firstname',
-                          type: 'ch.tocco.nice2.model.form.components.simple.TextArea'
-                        },
-                        {
-                          name: 'lastname',
-                          type: 'ch.tocco.nice2.model.form.components.simple.TextArea'
-                        },
+                        field1,
+                        field2,
                         {
                           name: 'relAffiliation',
                           type: 'ch.tocco.nice2.model.form.components.table.Table'
@@ -41,24 +49,20 @@ describe('entity-detail', () => {
                     }
                   ]
                 },
-                {
-                  name: 'xyz',
-                  type: 'ch.tocco.nice2.model.form.components.simple.SomeType'
-                },
+                field3,
                 {
                   name: 'relTask_note',
                   type: 'ch.tocco.nice2.model.form.components.navigation.IteratorComponent',
-                  children: [
-                    {
-                      name: 'iteratorField',
-                      type: 'ch.tocco.nice2.model.form.components.simple.TextArea'
-                    }]
+                  children: [{
+                    name: 'iteratorField',
+                    type: 'ch.tocco.nice2.model.form.components.simple.TextArea'
+                  }]
                 }
               ]
             }
 
             const fields = forms.getFieldsOfDetailForm(formDefinition)
-            expect(fields).to.eql(['firstname', 'lastname', 'xyz'])
+            expect(fields).to.eql([field1, field2, field3])
           })
         })
 

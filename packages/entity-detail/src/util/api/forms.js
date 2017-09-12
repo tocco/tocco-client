@@ -29,7 +29,7 @@ const getFieldsOfChildren = children => {
     const fieldType = children[i].type
     if (_startsWith(fieldType, 'ch.tocco.nice2.model.form.components.simple')
       && !IGNORED_FIELD_TYPES.includes(fieldType)) {
-      result.push(children[i].name)
+      result.push(children[i])
     }
   }
 
