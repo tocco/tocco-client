@@ -49,8 +49,9 @@ export function* loadDetailFormDefinition(formName) {
 }
 
 export function* loadEntity(entityName, entityId, formDefinition, formName) {
-  const fields = yield call(getFieldsOfDetailForm, formDefinition)
-  const entity = yield call(fetchEntity, entityName, entityId, fields, formName)
+  const fieldDefinitions = yield call(getFieldsOfDetailForm, formDefinition)
+  const fieldNames = fieldDefinitions.map(f => f.name)
+  const entity = yield call(fetchEntity, entityName, entityId, fieldNames, formName)
   yield put(actions.setEntity(entity))
   return entity
 }
@@ -86,8 +87,14 @@ export function* loadDetailView() {
 
   if (mode === modes.CREATE) {
     yield put(actions.setEntity({paths: {}}))
+    const fieldDefinitions = yield call(getFieldsOfDetailForm, formDefinition)
+    const defaultValues = fieldDefinitions.filter(f => f.defaultValue).reduce((valueObj, field) => ({
+      ...valueObj,
+      [field.name]: field.defaultValue
+    }), {})
     const formValues = yield call(form.emptyValues, entityName)
-    yield put(initializeForm(FORM_ID, formValues))
+
+    yield put(initializeForm(FORM_ID, {...formValues, ...defaultValues}))
   } else {
     const entity = yield call(loadEntity, entityName, entityId, formDefinition, formName)
     const formValues = yield call(form.entityToFormValues, entity)
@@ -103,7 +110,7 @@ export function* submitForm() {
     const {entityModel, formDefinition} = yield select(entityDetailSelector)
     const {mode} = yield select(inputSelector)
     yield call(submitValidate, values, initialValues, entityModel, mode)
-    const dirtyFields = yield call(form.getDirtyFields, initialValues, values)
+    const dirtyFields = yield call(form.getDirtyFields, initialValues, values, mode === modes.CREATE)
     const entity = yield call(form.formValuesToEntity, values, dirtyFields, entityModel)
     const fields = yield call(getFieldsOfDetailForm, formDefinition)
 

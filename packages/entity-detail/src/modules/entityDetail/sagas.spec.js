@@ -155,7 +155,7 @@ describe('entity-detail', () => {
             expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
             expect(gen.next({formDefinition, entityModel}).value).to.eql(select(sagas.inputSelector))
             expect(gen.next({mode}).value).to.eql(call(submitValidate, values, initialValues, entityModel, mode))
-            expect(gen.next().value).to.eql(call(form.getDirtyFields, initialValues, values))
+            expect(gen.next().value).to.eql(call(form.getDirtyFields, initialValues, values, false))
             expect(gen.next(dirtyFields).value).to.eql(call(form.formValuesToEntity, values, dirtyFields, entityModel))
             expect(gen.next(entity).value).to.eql(call(getFieldsOfDetailForm, formDefinition))
 
@@ -226,7 +226,7 @@ describe('entity-detail', () => {
             expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
             expect(gen.next({formDefinition, entityModel}).value).to.eql(select(sagas.inputSelector))
             expect(gen.next({mode}).value).to.eql(call(submitValidate, values, initialValues, entityModel, mode))
-            expect(gen.next().value).to.eql(call(form.getDirtyFields, initialValues, values))
+            expect(gen.next().value).to.eql(call(form.getDirtyFields, initialValues, values, false))
             expect(gen.next(dirtyFields).value).to.eql(call(form.formValuesToEntity, values, dirtyFields, entityModel))
             expect(gen.next(entity).value).to.eql(call(getFieldsOfDetailForm, formDefinition))
 
@@ -262,7 +262,7 @@ describe('entity-detail', () => {
             expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
             expect(gen.next({formDefinition, entityModel}).value).to.eql(select(sagas.inputSelector))
             expect(gen.next({mode}).value).to.eql(call(submitValidate, values, initialValues, entityModel, mode))
-            expect(gen.next().value).to.eql(call(form.getDirtyFields, initialValues, values))
+            expect(gen.next().value).to.eql(call(form.getDirtyFields, initialValues, values, false))
             expect(gen.next(dirtyFields).value).to.eql(call(form.formValuesToEntity, values, dirtyFields, entityModel))
             expect(gen.next(entity).value).to.eql(call(getFieldsOfDetailForm, formDefinition))
 

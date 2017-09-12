@@ -81,11 +81,11 @@ export const emptyValues = modelName => {
   return result
 }
 
-export const getDirtyFields = (initialValues, values) => {
+export const getDirtyFields = (initialValues, values, isCreate) => {
   const dirtyFields = []
 
   _forOwn(values, (value, key) => {
-    if (!_isEqual(value, initialValues[key])) {
+    if (isCreate || !_isEqual(value, initialValues[key])) {
       dirtyFields.push(key)
     }
   })
