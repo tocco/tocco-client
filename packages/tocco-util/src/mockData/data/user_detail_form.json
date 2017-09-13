@@ -231,8 +231,8 @@
                     "label": "Dummy entity (multi) 1",
                     "useLabel": "YES",
                     "defaultValue": [
-                      {"display": "User 0", "key": 0},
-                      {"display": "User 2", "key": 2}
+                      {"display": "User 0", "key": "0"},
+                      {"display": "User 2", "key": "2"}
                     ]
                   },
                   {
