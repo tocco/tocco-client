@@ -4,27 +4,14 @@ describe('tocco-util', () => {
   describe('form', () => {
     describe('reduxForm', () => {
       describe('formValuesToEntity', () => {
+        const entityName = 'User'
+        const entityId = '99'
         it('should return entity with updated values', () => {
           const values = {
             firstname: 'peter',
             gender: {key: '2', display: 'W'},
             status: [{key: '2'}, {key: '3'}],
-            ___entity: {
-              version: 2,
-              model: 'User',
-              key: 99,
-              paths: {
-                firstname: {
-                  type: 'field'
-                },
-                gender: {
-                  type: 'entity'
-                },
-                status: {
-                  type: 'entity-list'
-                }
-              }
-            }
+            __version: 3
           }
 
           const entityModel = {
@@ -34,13 +21,12 @@ describe('tocco-util', () => {
           }
 
           const dirtyFields = ['firstname', 'gender', 'status']
-
-          const result = reduxForm.formValuesToEntity(values, dirtyFields, entityModel)
+          const result = reduxForm.formValuesToEntity(values, dirtyFields, entityName, entityId, entityModel)
 
           const expectedEntity = {
-            version: 2,
+            version: 3,
             model: 'User',
-            key: 99,
+            key: '99',
             paths: {
               firstname: 'peter',
               gender: {key: '2'},
@@ -56,22 +42,7 @@ describe('tocco-util', () => {
             firstname: 'peter',
             lastname: 'asdasd',
             somefield: '',
-            ___entity: {
-              version: 2,
-              model: 'User',
-              key: 99,
-              paths: {
-                firstname: {
-                  type: 'field'
-                },
-                lastname: {
-                  type: 'field'
-                },
-                somefield: {
-                  type: 'field'
-                }
-              }
-            }
+            __version: 2
           }
 
           const entityModel = {
@@ -82,7 +53,7 @@ describe('tocco-util', () => {
 
           const dirtyFields = ['firstname', 'somefield']
 
-          const result = reduxForm.formValuesToEntity(values, dirtyFields, entityModel)
+          const result = reduxForm.formValuesToEntity(values, dirtyFields, entityName, entityId, entityModel)
 
           expect(result.paths).to.include.keys('firstname')
           expect(result.paths).to.not.include.keys('lastname')
@@ -94,33 +65,6 @@ describe('tocco-util', () => {
         it('should return value object with whole entity as value', () => {
           const result = reduxForm.entityToFormValues({})
           expect(result).to.eql({})
-        })
-
-        it('should return value object with whole entity as value', () => {
-          const entity = {
-            paths: {
-              firstname: {
-                value: {
-                  value: 'TestFirstName'
-                }
-              },
-              lastname: {
-                value: {
-                  value: 'TestLastName'
-                }
-              }
-            }
-          }
-
-          const result = reduxForm.entityToFormValues(entity)
-
-          const expectedValues = {
-            firstname: 'TestFirstName',
-            lastname: 'TestLastName',
-            ___entity: entity
-          }
-
-          expect(result).to.eql(expectedValues)
         })
       })
 

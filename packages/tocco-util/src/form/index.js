@@ -7,8 +7,7 @@ import {
   getDirtyFields,
   validationErrorToFormError,
   transformFieldName,
-  transformFieldNameBack,
-  emptyValues
+  transformFieldNameBack
 } from './reduxForm'
 
 export default {
@@ -17,7 +16,6 @@ export default {
   getFieldId,
   formValuesToEntity,
   entityToFormValues,
-  emptyValues,
   getDirtyFields,
   validationErrorToFormError,
   transformFieldName,
