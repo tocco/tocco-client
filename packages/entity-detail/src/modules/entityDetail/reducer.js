@@ -66,6 +66,10 @@ const setRemoteEntityLoading = (state, {payload}) => {
 }
 
 const ACTION_HANDLERS = {
+  [actions.SET_ENTITY_NAME]: reducers.singleTransferReducer('entityName'),
+  [actions.SET_FORM_NAME]: reducers.singleTransferReducer('formName'),
+  [actions.SET_ENTITY_ID]: reducers.singleTransferReducer('entityId'),
+  [actions.SET_MODE]: reducers.singleTransferReducer('mode'),
   [actions.SET_FORM_DEFINITION]: reducers.singleTransferReducer('formDefinition'),
   [actions.SET_ENTITY]: reducers.singleTransferReducer('entity'),
   [actions.SET_LAST_SAVE]: reducers.singleTransferReducer('lastSave'),
@@ -78,6 +82,9 @@ const ACTION_HANDLERS = {
 }
 
 const initialState = {
+  entityName: '',
+  formName: '',
+  mode: 'update',
   formDefinition: {},
   entity: {},
   entityModel: {},

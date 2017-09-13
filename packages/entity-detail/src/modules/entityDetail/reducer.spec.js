@@ -5,6 +5,9 @@ const EXPECTED_INITIAL_STATE = {
   formDefinition: {},
   entity: {},
   entityModel: {},
+  entityName: '',
+  formName: '',
+  mode: 'update',
   relationEntities: {},
   remoteEntities: {},
   touched: false

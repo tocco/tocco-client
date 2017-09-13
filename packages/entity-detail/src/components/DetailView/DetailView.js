@@ -13,15 +13,21 @@ class DetailView extends React.Component {
     this.props.unloadDetailView()
   }
 
-  handledAsyncValidate = values => {
-    return asyncValidate(values, this.props.formInitialValues, this.props.entityModel, this.props.mode).catch(error => {
+  handledAsyncValidate = values =>
+    asyncValidate(
+      values,
+      this.props.formInitialValues,
+      this.props.entityName,
+      this.props.entityId,
+      this.props.entityModel,
+      this.props.mode
+    ).catch(error => {
       if (error instanceof AsyncValidationException) {
         throw error.errors
       } else {
         this.props.logError('client.common.unexpectedError', 'client.entity-detail.validationError', error)
       }
     })
-  }
 
   getSyncValidation = () => {
     if (!this.validateSingleton && !_isEmpty(this.props.entityModel)) {
@@ -78,6 +84,7 @@ DetailView.propTypes = {
     children: PropTypes.array
   }).isRequired,
   entityModel: PropTypes.object.isRequired,
+  entityName: PropTypes.string.isRequired,
   entityId: PropTypes.string,
   formValues: PropTypes.object,
   formErrors: PropTypes.objectOf(

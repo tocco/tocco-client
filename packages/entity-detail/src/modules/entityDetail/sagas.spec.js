@@ -1,18 +1,27 @@
 import rootSaga, * as sagas from './sagas'
 import {call, put, fork, select, takeLatest, takeEvery, all} from 'redux-saga/effects'
+import {
+  stopSubmit,
+  SubmissionError,
+  touch,
+  initialize as initializeForm,
+  startSubmit
+} from 'redux-form'
+
+import { externalEvents, form } from 'tocco-util'
+import {ClientQuestionCancelledException} from 'tocco-util/src/rest'
 import * as actions from './actions'
 import {
-  startSubmit,
-  stopSubmit,
-  initialize as initializeForm,
-  SubmissionError,
-  touch
-} from 'redux-form'
-import {externalEvents, notifier, errorLogging, form} from 'tocco-util'
-import {ClientQuestionCancelledException} from 'tocco-util/src/rest'
-import {updateEntity, fetchEntity, fetchModel, fetchEntities, selectEntitiesTransformer} from '../../util/api/entities'
-import {getFieldsOfDetailForm} from '../../util/api/forms'
+  fetchEntity,
+  fetchEntities,
+  updateEntity,
+  fetchModel,
+  selectEntitiesTransformer,
+  createEntity
+} from '../../util/api/entities'
+import { getFieldDefinitions, getFieldNames, fetchForm } from '../../util/api/forms'
 import {submitValidate} from '../../util/detailView/asyncValidation'
+import modes from '../../util/modes'
 
 const FORM_ID = 'detailForm'
 
@@ -97,6 +106,7 @@ describe('entity-detail', () => {
             const formName = 'UserSearch_detail'
             const entityName = 'User'
             const formDefinition = {}
+            const mode = 'update'
 
             const entity = {
               key: 1,
@@ -119,12 +129,12 @@ describe('entity-detail', () => {
               }
             }
 
-            const entityModel = {}
-
             const gen = sagas.loadDetailView(actions.loadDetailView(modelPaths, entityId))
-            expect(gen.next().value).to.eql(select(sagas.inputSelector))
-            expect(gen.next({entityName, formName, entityId}).value).to.eql(call(fetchModel, entityName))
-            expect(gen.next(entityModel).value).to.eql(put(actions.setEntityModel(entityModel)))
+            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
+            expect(gen.next({entityName, entityId, formName, mode}).value).to.eql(
+              call(sagas.loadEntityModel, entityName)
+            )
+
             expect(gen.next().value).to.eql(call(sagas.loadDetailFormDefinition, formName))
             expect(gen.next(formDefinition).value)
               .to.eql(call(sagas.loadEntity, entityName, entityId, formDefinition, formName))
@@ -135,176 +145,265 @@ describe('entity-detail', () => {
         })
 
         describe('submitForm saga', () => {
-          it('should validate form and reload saved entity', () => {
-            const formId = FORM_ID
-            const values = {firstname: 'peter'}
-            const initialValues = {firstname: 'pet'}
-            const dirtyFields = ['firstname']
-            const entity = {}
-            const updatedFormValues = {}
-            const updatedEntity = {}
-            const formDefinition = {}
-            const fields = []
-            const mode = 'update'
-            const entityModel = {}
+          const entity = {paths: {}}
+          const fields = ['firstname']
+
+          it('should call create submit', () => {
+            const mode = modes.CREATE
+
             const gen = sagas.submitForm()
-
-            expect(gen.next().value) // not working : expect(gen.next().value).to.eql(select(getFormValues(formId)))
-            expect(gen.next(values).value) // expect(gen.next().value).to.eql(select(formInitialValueSelector(formId)))
-            expect(gen.next(initialValues).value).to.eql(put(startSubmit(formId)))
             expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
-            expect(gen.next({formDefinition, entityModel}).value).to.eql(select(sagas.inputSelector))
-            expect(gen.next({mode}).value).to.eql(call(submitValidate, values, initialValues, entityModel, mode))
-            expect(gen.next().value).to.eql(call(form.getDirtyFields, initialValues, values, false))
-            expect(gen.next(dirtyFields).value).to.eql(call(form.formValuesToEntity, values, dirtyFields, entityModel))
-            expect(gen.next(entity).value).to.eql(call(getFieldsOfDetailForm, formDefinition))
+            expect(gen.next({mode}).value).to.eql(call(sagas.getEntityForSubmit))
+            expect(gen.next(entity).value).to.eql(call(sagas.getFields))
+            expect(gen.next(fields).value).to.eql(call(sagas.createFormSubmit, entity, fields))
+            expect(gen.next().done).to.be.true
+          })
 
-            expect(gen.next(fields).value).to.eql(call(updateEntity, entity, fields))
-            expect(gen.next(updatedEntity).value).to.eql(call(form.entityToFormValues, updatedEntity))
-            expect(gen.next(updatedFormValues).value).to.eql(put(initializeForm(formId, updatedFormValues)))
-            expect(gen.next().value).to.eql(put(notifier.info(
-              'success',
-              'client.entity-detail.saveSuccessfulTitle',
-              'client.entity-detail.saveSuccessfulMessage',
-              'check',
-              2000))
+          it('should call update submit', () => {
+            const mode = modes.UPDATE
+
+            const gen = sagas.submitForm()
+            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
+            expect(gen.next({mode}).value).to.eql(call(sagas.getEntityForSubmit))
+            expect(gen.next(entity).value).to.eql(call(sagas.getFields))
+            expect(gen.next(fields).value).to.eql(call(sagas.updateFormSubmit, entity, fields))
+            expect(gen.next().done).to.be.true
+          })
+
+          it('should handle thrown errors', () => {
+            const mode = modes.UPDATE
+
+            const error = new Error('error')
+            const gen = sagas.submitForm()
+            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
+            expect(gen.next({mode}).value).to.eql(call(sagas.getEntityForSubmit))
+            expect(gen.next(entity).value).to.eql(call(sagas.getFields))
+            expect(gen.next(fields).value).to.eql(call(sagas.updateFormSubmit, entity, fields))
+
+            expect(gen.throw(error).value).to.eql(call(sagas.handleSubmitError, error))
+            expect(gen.next().done).to.be.true
+          })
+        })
+
+        describe('handleSubmitError saga', () => {
+          it('should handle submission errors properly', () => {
+            const error = new SubmissionError({})
+
+            const gen = sagas.handleSubmitError(error)
+            expect(gen.next().value).to.eql(put(touch(FORM_ID, ...Object.keys(error.errors))))
+            expect(gen.next().value).to.eql(put(stopSubmit(FORM_ID, error.errors)))
+            expect(gen.next().value).to.eql(
+              call(sagas.showNotification, 'warning', 'saveAbortedTitle', 'saveAbortedMessage', 5000)
             )
-            const lastSaveAction = gen.next().value
-            const lastSaveTime = lastSaveAction.PUT.action.payload.lastSave
-            expect(lastSaveAction).to.eql(put(actions.setLastSave(lastSaveTime)))
-            expect(gen.next().value).to.eql(put(stopSubmit(formId)))
             expect(gen.next().done).to.be.true
           })
 
-          it('should put stopSubmit with errors on SubmissionError', () => {
-            const formId = FORM_ID
-            const values = {firstname: 'peter'}
-            const initialValues = {firstname: 'pet'}
-            const errors = {field1: 'invalid value'}
-            const formDefinition = {}
-            const mode = 'create'
-            const entityModel = {}
+          it('should log regular error and show notification', () => {
+            const error = new Error('error')
 
-            const gen = sagas.submitForm()
+            const gen = sagas.handleSubmitError(error)
 
-            expect(gen.next().value) // not working : expect(gen.next().value).to.eql(select(getFormValues(formId)))
-            expect(gen.next(values).value) // expect(gen.next().value).to.eql(select(formInitialValueSelector(formId)))
-            expect(gen.next(initialValues).value).to.eql(put(startSubmit(formId)))
-            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
-            expect(gen.next({formDefinition, entityModel}).value).to.eql(select(sagas.inputSelector))
-            expect(gen.next({mode}).value).to.eql(call(submitValidate, values, initialValues, entityModel, mode))
-
-            expect(gen.throw(new SubmissionError(errors)).value).to.eql(put(touch(FORM_ID, 'field1')))
-            expect(gen.next().value).to.eql(put(stopSubmit(FORM_ID, errors)))
-            expect(gen.next().value).to.eql(put(notifier.info(
-              'warning',
-              'client.entity-detail.saveAbortedTitle',
-              'client.entity-detail.saveAbortedMessage',
-              'ban',
-              5000
-            )))
-
-            expect(gen.next().done).to.be.true
-          })
-
-          it('should put stopSubmit without logging an error on ClientQuestionCancelledException', () => {
-            const formId = FORM_ID
-            const values = {firstname: 'peter'}
-            const initialValues = {firstname: 'pet'}
-            const dirtyFields = ['firstname']
-            const entity = {}
-            const formDefinition = {}
-            const fields = []
-            const entityModel = {}
-            const mode = 'update'
-
-            const gen = sagas.submitForm()
-
-            expect(gen.next().value) // not working : expect(gen.next().value).to.eql(select(getFormValues(formId)))
-            expect(gen.next(values).value) // expect(gen.next().value).to.eql(select(formInitialValueSelector(formId)))
-            expect(gen.next(initialValues).value).to.eql(put(startSubmit(formId)))
-            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
-            expect(gen.next({formDefinition, entityModel}).value).to.eql(select(sagas.inputSelector))
-            expect(gen.next({mode}).value).to.eql(call(submitValidate, values, initialValues, entityModel, mode))
-            expect(gen.next().value).to.eql(call(form.getDirtyFields, initialValues, values, false))
-            expect(gen.next(dirtyFields).value).to.eql(call(form.formValuesToEntity, values, dirtyFields, entityModel))
-            expect(gen.next(entity).value).to.eql(call(getFieldsOfDetailForm, formDefinition))
-
-            expect(gen.next(fields).value).to.eql(call(updateEntity, entity, fields))
-            expect(gen.throw(new ClientQuestionCancelledException()).value).to.eql(put(stopSubmit(FORM_ID)))
-            expect(gen.next().value).to.eql(put(notifier.info(
-              'warning',
-              'client.entity-detail.saveAbortedTitle',
-              'client.entity-detail.saveAbortedMessage',
-              'ban',
-              5000
-            )))
-
-            expect(gen.next().done).to.be.true
-          })
-
-          it('should put stopSubmit and log the error on general errors', () => {
-            const formId = FORM_ID
-            const values = {firstname: 'peter'}
-            const initialValues = {firstname: 'pet'}
-            const dirtyFields = ['firstname']
-            const entity = {}
-            const formDefinition = {}
-            const fields = []
-            const mode = 'update'
-            const entityModel = {}
-
-            const gen = sagas.submitForm()
-
-            expect(gen.next().value) // not working : expect(gen.next().value).to.eql(select(getFormValues(formId)))
-            expect(gen.next(values).value) // expect(gen.next().value).to.eql(select(formInitialValueSelector(formId)))
-            expect(gen.next(initialValues).value).to.eql(put(startSubmit(formId)))
-            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
-            expect(gen.next({formDefinition, entityModel}).value).to.eql(select(sagas.inputSelector))
-            expect(gen.next({mode}).value).to.eql(call(submitValidate, values, initialValues, entityModel, mode))
-            expect(gen.next().value).to.eql(call(form.getDirtyFields, initialValues, values, false))
-            expect(gen.next(dirtyFields).value).to.eql(call(form.formValuesToEntity, values, dirtyFields, entityModel))
-            expect(gen.next(entity).value).to.eql(call(getFieldsOfDetailForm, formDefinition))
-
-            expect(gen.next(fields).value).to.eql(call(updateEntity, entity, fields))
-
-            const error = new Error('anything')
-            expect(gen.throw(error).value).to.eql(put(errorLogging.logError(
-              'client.common.unexpectedError',
-              'client.entity-detail.saveError',
-              error,
-              Date.now()
-            )))
+            const payloadValue = gen.next().value.PUT.action.payload
+            // workaround to avoid test fail due to mismatch of Date.now
+            expect(payloadValue).to.include(
+              {title: 'client.common.unexpectedError', description: 'client.entity-detail.saveError', error}
+            )
             expect(gen.next().value).to.eql(put(stopSubmit(FORM_ID)))
-            expect(gen.next().value).to.eql(put(notifier.info(
-              'warning',
-              'client.entity-detail.saveAbortedTitle',
-              'client.entity-detail.saveAbortedMessage',
-              'ban',
-              5000
-            )))
+            expect(gen.next().value).to.eql(
+              call(sagas.showNotification, 'warning', 'saveAbortedTitle', 'saveAbortedMessage', 5000)
+            )
+            expect(gen.next().done).to.be.true
+          })
+
+          it('should should not log errors of type ClientQuestionCancelledException', () => {
+            const error = new ClientQuestionCancelledException()
+
+            const gen = sagas.handleSubmitError(error)
+            expect(gen.next().value).to.eql(put(stopSubmit(FORM_ID)))
+            expect(gen.next().value).to.eql(
+              call(sagas.showNotification, 'warning', 'saveAbortedTitle', 'saveAbortedMessage', 5000)
+            )
+            expect(gen.next().done).to.be.true
+          })
+        })
+
+        describe('updateFormSubmit saga', () => {
+          const entity = {paths: {}}
+          const fields = ['firstname']
+          const updatedEntity = {paths: {}}
+          const updatedFormValues = {firstname: 'karl'}
+
+          it('should call api and store response', () => {
+            const gen = sagas.updateFormSubmit(entity, fields)
+            expect(gen.next().value).to.eql(call(updateEntity, entity, fields))
+            expect(gen.next(updatedEntity).value).to.eql(call(form.entityToFormValues, updatedEntity))
+            expect(gen.next(updatedFormValues).value).to.eql(put(initializeForm(FORM_ID, updatedFormValues)))
+            expect(gen.next().value).to.eql(
+              call(sagas.showNotification, 'success', 'saveSuccessfulTitle', 'saveSuccessfulMessage')
+            )
+            expect(gen.next().value).to.eql(put(actions.setLastSave()))
+            expect(gen.next().value).to.eql(put(stopSubmit(FORM_ID)))
 
             expect(gen.next().done).to.be.true
           })
         })
 
-        describe('loadEntity saga', () => {
-          it('should fetchEntity with fields of form and set it on store', () => {
+        describe('createFormSubmit saga', () => {
+          const entity = {paths: {}}
+          const fields = ['firstname']
+          const createdEntityId = 99
+          const updatedFormValues = {firstname: 'karl'}
+
+          it('should call api and store response', () => {
+            const gen = sagas.createFormSubmit(entity, fields)
+            expect(gen.next().value).to.eql(call(createEntity, entity, fields))
+            expect(gen.next(createdEntityId).value).to.eql(
+              put(externalEvents.fireExternalEvent('onEntityCreated', {id: createdEntityId}))
+            )
+            expect(gen.next(updatedFormValues).value).to.eql(
+              call(sagas.showNotification, 'success', 'createSuccessfulTitle', 'createSuccessfulMessage')
+            )
+            expect(gen.next().done).to.be.true
+          })
+        })
+
+        describe('loadDetailFormDefinition saga', () => {
+          it('should load formDefinition, save to store and return ', () => {
+            const formName = 'User_detail'
+            const formDefinition = {}
+
+            const gen = sagas.loadDetailFormDefinition(formName)
+            expect(gen.next().value).to.eql(call(fetchForm, formName))
+            expect(gen.next(formDefinition).value).to.eql(put(actions.setFormDefinition(formDefinition)))
+            const next = gen.next(formDefinition)
+            expect(next.value).to.eql(formDefinition)
+            expect(next.done).to.be.true
+          })
+        })
+
+        describe('updateFormSubmit saga', () => {
+          const entity = {paths: {}}
+          const fields = ['firstname']
+          const updatedEntity = {paths: {}}
+          const updatedFormValues = {firstname: 'karl'}
+
+          it('should call api and store response', () => {
+            const gen = sagas.updateFormSubmit(entity, fields)
+            expect(gen.next().value).to.eql(call(updateEntity, entity, fields))
+            expect(gen.next(updatedEntity).value).to.eql(call(form.entityToFormValues, updatedEntity))
+            expect(gen.next(updatedFormValues).value).to.eql(put(initializeForm(FORM_ID, updatedFormValues)))
+            expect(gen.next().value).to.eql(
+              call(sagas.showNotification, 'success', 'saveSuccessfulTitle', 'saveSuccessfulMessage')
+            )
+            expect(gen.next().value).to.eql(put(actions.setLastSave()))
+            expect(gen.next().value).to.eql(put(stopSubmit(FORM_ID)))
+
+            expect(gen.next().done).to.be.true
+          })
+        })
+
+        describe('getEntityForSubmit saga', () => {
+          it('should return entity', () => {
+            const values = {fistname: 'test'}
+            const initialValues = {fistname: 'tst'}
+
             const entityName = 'User'
-            const entityId = '99'
+            const entityId = '3'
+            const entityModel = {}
+            const formDefinition = {}
+            const mode = 'update'
+            const dirtyFields = ['firstname']
+            const entity = {paths: {}}
+
+            const gen = sagas.getEntityForSubmit()
+            gen.next()
+            gen.next(values) // first two selects references are not comparable and therefore no tests possible
+
+            expect(gen.next(initialValues).value).to.eql(put(startSubmit(FORM_ID)))
+            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
+            expect(gen.next({entityName, entityId, entityModel, formDefinition, mode}).value).to.eql(
+              call(submitValidate, values, initialValues, entityName, entityId, entityModel, mode)
+            )
+
+            expect(gen.next().value).to.eql(call(form.getDirtyFields, initialValues, values, false))
+            expect(gen.next(dirtyFields).value).to.eql(
+              call(form.formValuesToEntity, values, dirtyFields, entityName, entityId, entityModel)
+            )
+
+            const next = gen.next(entity)
+            expect(next.value).to.eql(entity)
+            expect(next.done).to.be.true
+          })
+        })
+
+        describe('getFields saga', () => {
+          it('should return array of fields', () => {
+            const formDefinition = {}
+            const fieldDefinitions = {}
+
+            const gen = sagas.getFields()
+            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
+
+            expect(gen.next({formDefinition}).value).to.eql(call(getFieldDefinitions, formDefinition))
+            expect(gen.next(fieldDefinitions).value).to.eql(call(getFieldNames, fieldDefinitions))
+
+            const next = gen.next(fieldDefinitions)
+            expect(next.value).to.eql(fieldDefinitions)
+            expect(next.done).to.be.true
+          })
+
+          it('should not load entities if already loaded', () => {
+            const entityName = 'User'
+
+            const state = {
+              relationEntities: {
+                User: {
+                  loaded: true
+                }
+              }
+            }
+
+            const gen = sagas.loadRelationEntity(actions.loadRelationEntity(entityName))
+            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
+            expect(gen.next(state).done).to.be.true
+          })
+        })
+
+        describe('loadEntity saga', () => {
+          it('should', () => {
+            const entityName = 'User'
+            const entityId = '3'
             const formDefinition = {}
             const formName = 'User_detail'
 
+            const fieldDefinitions = []
             const fields = []
             const entity = {}
 
             const gen = sagas.loadEntity(entityName, entityId, formDefinition, formName)
-
-            expect(gen.next().value).to.eql(call(getFieldsOfDetailForm, formDefinition))
+            expect(gen.next().value).to.eql(call(getFieldDefinitions, formDefinition))
+            expect(gen.next(fieldDefinitions).value).to.eql(call(getFieldNames, fieldDefinitions))
             expect(gen.next(fields).value).to.eql(call(fetchEntity, entityName, entityId, fields, formName))
             expect(gen.next(entity).value).to.eql(put(actions.setEntity(entity)))
+            const next = gen.next()
+            expect(next.value).to.eql(entity)
+            expect(next.done).to.be.true
+          })
 
-            expect(gen.next().done).to.be.true
+          it('should not load entities if already loaded', () => {
+            const entityName = 'User'
+
+            const state = {
+              relationEntities: {
+                User: {
+                  loaded: true
+                }
+              }
+            }
+
+            const gen = sagas.loadRelationEntity(actions.loadRelationEntity(entityName))
+            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
+            expect(gen.next(state).done).to.be.true
           })
         })
 

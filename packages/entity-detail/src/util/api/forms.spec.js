@@ -12,7 +12,7 @@ describe('entity-detail', () => {
           fetchMock.restore()
         })
 
-        describe('getFieldsOfDetailForm', () => {
+        describe('getFieldDefinitions', () => {
           it('get array of fields and ignore not simple types and iterators', () => {
             const field1 = {
               name: 'firstname',
@@ -61,7 +61,7 @@ describe('entity-detail', () => {
               ]
             }
 
-            const fields = forms.getFieldsOfDetailForm(formDefinition)
+            const fields = forms.getFieldDefinitions(formDefinition)
             expect(fields).to.eql([field1, field2, field3])
           })
         })
