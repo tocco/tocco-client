@@ -41,7 +41,7 @@ export const createApp = (name,
       renderComponent: () => component,
       store,
       methods: {
-        setLocale: locale => intl.setLocale(store, name, locale)
+        setLocale: locale => intl.setLocale(store, textResourceModules, locale)
       }
     }
   } catch (error) {
