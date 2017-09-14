@@ -29,7 +29,8 @@ const initLoginApp = (id, input, events, publicPath) => {
     {
       input,
       actions,
-      publicPath
+      publicPath,
+      textResourceModules: ['login']
     }
   )
 }
@@ -69,7 +70,8 @@ const initPasswordUpdateApp = (id, input, events, publicPath) => {
     {
       input,
       actions,
-      publicPath
+      publicPath,
+      textResourceModules: ['login']
     }
   )
 }

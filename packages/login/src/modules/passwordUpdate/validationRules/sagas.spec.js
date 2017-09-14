@@ -19,13 +19,14 @@ describe('login', () => {
 
           describe('fetchValidationRules', () => {
             it('should load validation rules', () => {
+              const locale = 'de-CH'
+              const username = 'user1'
+
               const generator = sagas.fetchValidationRules()
 
               expect(generator.next().value).to.deep.equal(select(sagas.usernameSelector))
-
-              const username = 'user1'
-
-              expect(generator.next(username).value).to.deep.equal(call(sagas.loadValidationRules, username))
+              expect(generator.next(username).value).to.deep.equal(select(sagas.intlSelector))
+              expect(generator.next({locale}).value).to.deep.equal(call(sagas.loadValidationRules, username, locale))
 
               const rules = [{
                 name: 'PASSWORD_NOT_CHANGED',
