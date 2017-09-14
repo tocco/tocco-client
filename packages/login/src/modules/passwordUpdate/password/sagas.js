@@ -13,6 +13,7 @@ export const inputSelector = state => state.input
 export const usernameSelector = state => state.passwordUpdate.dialog.username
 export const passwordSelector = state => state.passwordUpdate.password
 export const standaloneSelector = state => state.passwordUpdate.dialog.standalone
+export const intlSelector = state => state.intl
 
 export function* storePassword(username, data) {
   const options = {
@@ -30,9 +31,12 @@ export function* storePassword(username, data) {
 }
 
 export function* remoteValidate(username, data) {
+  const {locale} = yield select(intlSelector)
+
   const options = {
     method: 'POST',
-    body: data
+    body: data,
+    queryParams: {locale}
   }
 
   try {

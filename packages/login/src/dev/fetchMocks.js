@@ -55,10 +55,10 @@ export default function setupFetchMock(fetchMock) {
     }
   })
 
-  fetchMock.get(new RegExp('^.*?/nice2/rest/principals/.*/password-rules$'), function() {
+  fetchMock.get(new RegExp('^.*?/nice2/rest/principals/.*/password-rules.*'), function() {
     return require('./validationRules.json')
   })
-  fetchMock.post(new RegExp('^.*?/nice2/rest/principals/.*/password-validation$'), function(url, opts) {
+  fetchMock.post(new RegExp('^.*?/nice2/rest/principals/.*/password-validation.*'), function(url, opts) {
     const newPassword = JSON.parse(opts.body).newPassword
 
     if (newPassword.includes('tocco')) {
