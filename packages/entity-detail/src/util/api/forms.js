@@ -6,7 +6,7 @@ const IGNORED_FIELD_TYPES = [
   'ch.tocco.nice2.model.form.components.simple.DescriptionField'
 ]
 
-export const getFieldsOfDetailForm = formDefinition => {
+export const getFieldDefinitions = formDefinition => {
   return getFieldsOfChildren(formDefinition.children)
 }
 
@@ -29,12 +29,22 @@ const getFieldsOfChildren = children => {
     const fieldType = children[i].type
     if (_startsWith(fieldType, 'ch.tocco.nice2.model.form.components.simple')
       && !IGNORED_FIELD_TYPES.includes(fieldType)) {
-      result.push(children[i].name)
+      result.push(children[i])
     }
   }
 
   return result
 }
+
+export const getDefaultValues = fieldDefinitions =>
+  fieldDefinitions
+    .filter(f => f.defaultValue)
+    .reduce((valueObj, field) => ({
+      ...valueObj,
+      [field.name]: field.defaultValue
+    }), {})
+
+export const getFieldNames = fieldDefinitions => fieldDefinitions.map(f => f.name)
 
 export const defaultFormTransformer = json => (json.form)
 

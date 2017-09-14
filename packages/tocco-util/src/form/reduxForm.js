@@ -3,7 +3,7 @@ import _isEqual from 'lodash/isEqual'
 
 import {generalErrorField} from './formErrors'
 
-const wholeEntityField = '___entity'
+const versionField = '__version'
 
 export const validationErrorToFormError = (entity, errors) => {
   let result = {[generalErrorField]: {pathErrors: []}}
@@ -15,31 +15,39 @@ export const validationErrorToFormError = (entity, errors) => {
       result[generalErrorField].pathErrors.push(error)
     }
   })
+
   return result
 }
 
-export const formValuesToEntity = (values, dirtyFields, entityModel) => {
-  const entity = values[wholeEntityField]
-  const {model, version, key} = entity
+export const formValuesToEntity = (values, dirtyFields, entityName, entityId, entityModel) => {
+  const entity = {
+    model: entityName,
+    paths: {}
+  }
 
-  const result = {model, version, key, paths: {}}
+  if (values[versionField]) {
+    entity.version = values[versionField]
+  }
+  if (entityId) {
+    entity.key = entityId
+  }
 
-  const ignoreField = fieldName => (fieldName === wholeEntityField || (dirtyFields && !dirtyFields.includes(fieldName)))
+  const ignoreField = fieldName => (fieldName === versionField || (dirtyFields && !dirtyFields.includes(fieldName)))
 
   Object.keys(values).forEach(key => {
     if (!ignoreField(key)) {
       const transformedKey = transformFieldNameBack(key)
       const type = getType(key, entityModel)
       if (type === 'field') {
-        result.paths[transformedKey] = values[key]
+        entity.paths[transformedKey] = values[key]
       } else if (type === 'entity') {
-        result.paths[transformedKey] = values[key] && values[key].key ? {key: values[key].key} : null
+        entity.paths[transformedKey] = values[key] && values[key].key ? {key: values[key].key} : null
       } else if (type === 'entity-list') {
-        result.paths[transformedKey] = values[key] ? values[key].map(value => ({'key': value.key})) : []
+        entity.paths[transformedKey] = values[key] ? values[key].map(value => ({'key': value.key})) : []
       }
     }
   })
-  return result
+  return entity
 }
 
 const getType = (fieldName, entityModel) => {
@@ -68,24 +76,15 @@ export const entityToFormValues = entity => {
     }
   })
 
-  result[wholeEntityField] = entity
+  result[versionField] = entity.version
   return result
 }
 
-export const emptyValues = modelName => {
-  const result = {}
-  const entity = {
-    model: modelName
-  }
-  result[wholeEntityField] = entity
-  return result
-}
-
-export const getDirtyFields = (initialValues, values) => {
+export const getDirtyFields = (initialValues, values, isCreate) => {
   const dirtyFields = []
 
   _forOwn(values, (value, key) => {
-    if (!_isEqual(value, initialValues[key])) {
+    if (isCreate || !_isEqual(value, initialValues[key])) {
       dirtyFields.push(key)
     }
   })

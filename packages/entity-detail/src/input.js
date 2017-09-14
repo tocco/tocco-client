@@ -1,11 +1,15 @@
 import {
-  loadDetailView
+  loadDetailView,
+  setEntityName,
+  setEntityId,
+  setFormName,
+  setMode
 } from './modules/entityDetail/actions'
 
-export const getDispatchActions = input => {
-  const actions = [
-    loadDetailView()
-  ]
-
-  return actions
-}
+export const getDispatchActions = input => ([
+  setEntityName(input.entityName),
+  setEntityId(input.entityId),
+  setMode(input.mode),
+  setFormName(input.formName),
+  loadDetailView()
+])

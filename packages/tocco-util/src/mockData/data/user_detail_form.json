@@ -38,7 +38,8 @@
                     "displayType": "EDITABLE",
                     "children": [],
                     "label": "Vorname",
-                    "useLabel": "YES"
+                    "useLabel": "YES",
+                    "defaultValue": "Homer"
                   },
                   {
                     "name": "lastname",
@@ -230,7 +231,8 @@
                     "label": "Dummy entity (multi) 1",
                     "useLabel": "YES",
                     "defaultValue": [
-                      {"display": "TEST", "key": 1}
+                      {"display": "User 0", "key": "0"},
+                      {"display": "User 2", "key": "2"}
                     ]
                   },
                   {

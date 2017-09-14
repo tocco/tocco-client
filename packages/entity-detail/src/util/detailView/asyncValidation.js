@@ -15,10 +15,10 @@ const hasError = errors => (
   errors && Object.keys(errors).length > 0
 )
 
-const validateRequest = (values, initialValues, entityModel, mode) => {
+const validateRequest = (values, initialValues, entityName, entityId, entityModel, mode) => {
   const dirtyFields = form.getDirtyFields(initialValues, values)
 
-  const entity = form.formValuesToEntity(values, dirtyFields, entityModel)
+  const entity = form.formValuesToEntity(values, dirtyFields, entityName, entityId, entityModel)
   const options = {
     queryParams: {_validate: true},
     method: mode === modes.CREATE ? 'POST' : 'PATCH',
@@ -35,8 +35,8 @@ const validateRequest = (values, initialValues, entityModel, mode) => {
     })
 }
 
-export const submitValidate = (values, initialValues, entityModel, mode) => {
-  return validateRequest(values, initialValues, entityModel, mode)
+export const submitValidate = (values, initialValues, entityName, entityId, entityModel, mode) => {
+  return validateRequest(values, initialValues, entityName, entityId, entityModel, mode)
     .then(errors => {
       if (hasError(errors)) {
         throw new SubmissionError(errors)
@@ -44,8 +44,8 @@ export const submitValidate = (values, initialValues, entityModel, mode) => {
     })
 }
 
-export const asyncValidate = (values, initialValues, entityModel, mode) => {
-  return validateRequest(values, initialValues, entityModel, mode)
+export const asyncValidate = (values, initialValues, entityName, entityId, entityModel, mode) => {
+  return validateRequest(values, initialValues, entityName, entityId, entityModel, mode)
     .then(errors => {
       if (hasError(errors)) {
         throw new AsyncValidationException(errors)
