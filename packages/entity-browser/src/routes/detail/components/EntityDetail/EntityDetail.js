@@ -51,7 +51,7 @@ class EntityDetail extends React.Component {
     emitAction={action => {
       this.props.dispatchEmittedAction(action)
     }}
-
+    showSubGridsCreateButton={this.props.showSubGridsCreateButton}
   />)
 
   msg = id => (this.props.intl.formatMessage({id}))
@@ -95,7 +95,8 @@ EntityDetail.propTypes = {
   setFormTouched: PropTypes.func.isRequired,
   router: PropTypes.object.isRequired,
   detailParams: PropTypes.object,
-  formTouched: PropTypes.bool
+  formTouched: PropTypes.bool,
+  showSubGridsCreateButton: PropTypes.bool
 }
 
 export default EntityDetail

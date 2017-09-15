@@ -17,6 +17,7 @@ const mapStateToProps = (state, props) => {
     preselectedSearchFields: state.input.preselectedSearchFields,
     disableSimpleSearch: state.input.disableSimpleSearch,
     simpleSearchFields: state.input.simpleSearchFields,
+    showCreateButton: state.input.showCreateButton,
     onRowClick: e => {
       props.router.history.push(`/detail/${e.id}`)
     },
