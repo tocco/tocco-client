@@ -3,7 +3,8 @@ import {
   setEntityName,
   setEntityId,
   setFormName,
-  setMode
+  setMode,
+  setShowSubGridsCreateButton
 } from './modules/entityDetail/actions'
 
 export const getDispatchActions = input => ([
@@ -11,5 +12,6 @@ export const getDispatchActions = input => ([
   setEntityId(input.entityId),
   setMode(input.mode),
   setFormName(input.formName),
+  setShowSubGridsCreateButton(input.showSubGridsCreateButton),
   loadDetailView()
 ])
