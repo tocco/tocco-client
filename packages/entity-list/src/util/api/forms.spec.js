@@ -20,12 +20,15 @@ describe('entity-list', () => {
         })
 
         describe('tableDefinitionTransformer', () => {
-          it('should returen an object with the column definition and the default sorting', () => {
+          it('should return an object with the column definition and the default sorting and check permissions', () => {
             const field1 = {name: 'name1', type: 'type', displayType: 'EDITABLE', label: 'label'}
             const field2 = {name: 'name2', type: 'type', displayType: 'EDITABLE', label: 'label'}
 
             const fetchResult = {
               form: {
+                permissions: {
+                  create: true
+                },
                 children: [{
                   name: 'table',
                   type: 'ch.tocco.nice2.model.form.components.table.Table',
@@ -64,7 +67,8 @@ describe('entity-list', () => {
 
             const expectedResult = {
               columnDefinition: expectedColumnDefinition,
-              sorting: expectedSorting
+              sorting: expectedSorting,
+              permissions: {create: true, delete: false, read: true, update: false}
             }
 
             expect(result).to.eql(expectedResult)
@@ -112,7 +116,9 @@ describe('entity-list', () => {
             const expectedTableDefinition = {
               columnDefinition: [
                 {label: 'label1', useLabel: true, name: 'lb1', child: field1, sortable: true}
-              ]
+              ],
+              sorting: null,
+              permissions: {create: false, delete: false, read: true, update: false}
             }
 
             expect(result).to.eql(expectedTableDefinition)

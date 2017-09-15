@@ -1,11 +1,10 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 import EntityList from '../components/EntityList'
-import {initialize, navigateToCreate} from '../modules/entityList/actions'
+import {initialize} from '../modules/entityList/actions'
 
 const mapActionCreators = {
-  initialize,
-  navigateToCreate
+  initialize
 }
 
 const mapStateToProps = (state, props) => ({

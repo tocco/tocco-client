@@ -19,6 +19,8 @@ export const SET_SEARCH_FILTERS = 'list/SET_SEARCH_FILTERS'
 export const SET_SIMPLE_SEARCH_FIELDS = 'list/SET_SIMPLE_SEARCH_FIELDS'
 export const SET_LIST_FORM_NAME = 'list/SET_LIST_FORM_NAME'
 export const ON_ROW_CLICK = 'list/ON_ROW_CLICK'
+export const NAVIGATE_TO_CREATE = 'entityList/NAVIGATE_TO_CREATE'
+export const SET_PERMISSIONS = 'list/SET_PERMISSIONS'
 
 export const initialize = () => ({
   type: INITIALIZE
@@ -146,5 +148,16 @@ export const onRowClick = id => ({
   type: ON_ROW_CLICK,
   payload: {
     id
+  }
+})
+
+export const navigateToCreate = () => ({
+  type: NAVIGATE_TO_CREATE
+})
+
+export const setPermissions = permissions => ({
+  type: SET_PERMISSIONS,
+  payload: {
+    permissions
   }
 })

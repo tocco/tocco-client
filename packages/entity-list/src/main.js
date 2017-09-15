@@ -99,6 +99,7 @@ EntityListApp.propTypes = {
   formBase: PropTypes.string.isRequired,
   limit: PropTypes.number,
   showSearchForm: PropTypes.bool,
+  showCreateButton: PropTypes.bool,
   searchFilters: PropTypes.arrayOf(PropTypes.string),
   preselectedSearchFields: PropTypes.arrayOf(
     PropTypes.shape({

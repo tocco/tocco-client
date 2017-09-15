@@ -5,7 +5,8 @@ const EXPECTED_INITIAL_STATE = {
   entityModel: {},
   entityName: '',
   initialized: false,
-  showSearchForm: false
+  showSearchForm: false,
+  showCreateButton: false
 }
 
 describe('entity-list', () => {

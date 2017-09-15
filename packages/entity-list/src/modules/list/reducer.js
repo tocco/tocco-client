@@ -27,7 +27,8 @@ const ACTION_HANDLERS = {
   [actions.CLEAR_ENTITY_STORE]: clearEntityStore,
   [actions.SET_IN_PROGRESS]: reducers.singleTransferReducer('inProgress'),
   [actions.SET_SHOW_SEARCH_FORM]: reducers.singleTransferReducer('showSearchForm'),
-  [actions.SET_SEARCH_FILTERS]: reducers.singleTransferReducer('searchFilters')
+  [actions.SET_SEARCH_FILTERS]: reducers.singleTransferReducer('searchFilters'),
+  [actions.SET_PERMISSIONS]: reducers.singleTransferReducer('permissions')
 }
 
 const initialState = {
@@ -42,7 +43,8 @@ const initialState = {
   entityStore: {},
   inProgress: false,
   showSearchForm: true,
-  searchFilters: []
+  searchFilters: [],
+  permissions: {}
 }
 
 export default function reducer(state = initialState, action) {
