@@ -76,7 +76,10 @@ export const entityToFormValues = entity => {
     }
   })
 
-  result[versionField] = entity.version
+  if (entity.version) {
+    result[versionField] = entity.version
+  }
+
   return result
 }
 
