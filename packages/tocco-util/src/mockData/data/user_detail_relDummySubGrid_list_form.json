@@ -8,6 +8,9 @@
     "name": "User_detail_relDummySubGrid_list",
     "type": "ch.tocco.nice2.model.form.components.Form",
     "displayType": "EDITABLE",
+    "permissions": {
+      "create": true
+    },
     "children": [
       {
         "name": "table",
