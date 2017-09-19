@@ -142,19 +142,27 @@
       "relationName": "relSingle_entity1",
       "targetEntity": "Dummy_entity",
       "reverseRelationName": "relUser",
-      "multi": false
+      "multi": false,
+      "validation": {
+        "mandatory": true
+      }
     },
     {
       "relationName": "relSingle_entity2",
       "targetEntity": "Dummy_entity",
       "reverseRelationName": "relUser",
-      "multi": false
+      "multi": false,
+      "validation": {
+      }
     },
     {
       "relationName": "relMulti_entity1",
       "targetEntity": "Dummy_entity",
       "reverseRelationName": "relUser",
-      "multi": true
+      "multi": true,
+      "validation": {
+        "mandatory": true
+      }
     },
     {
       "relationName": "relMulti_entity2",
