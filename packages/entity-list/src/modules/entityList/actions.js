@@ -3,7 +3,7 @@ export const INITIALIZE = 'entityList/INITIALIZE'
 export const SET_SHOW_SEARCH_FORM = 'entityList/SET_SHOW_SEARCH_FORM'
 export const SET_ENTITY_NAME = 'entityList/SET_ENTITY_NAME'
 export const SET_ENTITY_MODEL = 'entityList/SET_ENTITY_MODEL'
-export const NAVIGATE_TO_CREATE = 'entityList/NAVIGATE_TO_CREATE'
+export const SET_SHOW_CREATE_BUTTON = 'entityList/SET_SHOW_CREATE_BUTTON'
 
 export const setInitialized = (initialized = true) => ({
   type: SET_INITIALIZED,
@@ -36,6 +36,10 @@ export const setEntityName = entityName => ({
     entityName
   }
 })
-export const navigateToCreate = () => ({
-  type: NAVIGATE_TO_CREATE
+
+export const setShowCreateButton = showCreateButton => ({
+  type: SET_SHOW_CREATE_BUTTON,
+  payload: {
+    showCreateButton
+  }
 })

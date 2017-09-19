@@ -11,8 +11,7 @@ describe('entity-list', () => {
           it('should fork child sagas', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal(all([
-              fork(takeLatest, actions.INITIALIZE, sagas.initialize),
-              fork(takeLatest, actions.NAVIGATE_TO_CREATE, sagas.navigateToCreate)
+              fork(takeLatest, actions.INITIALIZE, sagas.initialize)
             ]))
             expect(generator.next().done).to.be.true
           })

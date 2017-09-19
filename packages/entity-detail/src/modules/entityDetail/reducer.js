@@ -78,7 +78,8 @@ const ACTION_HANDLERS = {
   [actions.SET_RELATION_ENTITY_LOADED]: setRelationEntityLoaded,
   [actions.SET_REMOTE_ENTITY]: setRemoteEntity,
   [actions.SET_REMOTE_ENTITY_LOADING]: setRemoteEntityLoading,
-  [actions.SET_TOUCHED]: reducers.singleTransferReducer('touched')
+  [actions.SET_TOUCHED]: reducers.singleTransferReducer('touched'),
+  [actions.SET_SHOW_SUB_GRIDS_CREATE_BUTTON]: reducers.singleTransferReducer('showSubGridCreateButton')
 }
 
 const initialState = {
@@ -90,7 +91,8 @@ const initialState = {
   entityModel: {},
   relationEntities: {},
   remoteEntities: {},
-  touched: false
+  touched: false,
+  showSubGridCreateButton: false
 }
 
 export default function reducer(state = initialState, action) {

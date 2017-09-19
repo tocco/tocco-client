@@ -33,6 +33,7 @@ const SubGrid = props => {
           })
         }
         }
+        showCreateButton={props.showSubGridsCreateButton}
       />
     </div>
   )
@@ -48,7 +49,8 @@ SubGrid.propTypes = {
     reverseRelationName: PropTypes.string
   }).isRequired,
   onRowClick: PropTypes.func,
-  onNavigateToCreate: PropTypes.func.isRequired
+  onNavigateToCreate: PropTypes.func.isRequired,
+  showSubGridsCreateButton: PropTypes.bool
 }
 
 export default SubGrid

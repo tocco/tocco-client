@@ -10,7 +10,8 @@ const EXPECTED_INITIAL_STATE = {
   mode: 'update',
   relationEntities: {},
   remoteEntities: {},
-  touched: false
+  touched: false,
+  showSubGridCreateButton: false
 }
 
 describe('entity-detail', () => {

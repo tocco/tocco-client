@@ -111,10 +111,12 @@ export function* displayEntity(page) {
 
 export function* loadTableDefinition(columnDefinition, formBase) {
   if (columnDefinition.length === 0) {
-    const tableDefinition = yield call(fetchForm, `${formBase}_list`, tableDefinitionTransformer)
-    yield put(actions.setColumnDefinition(tableDefinition.columnDefinition))
-    const orderBy = tableDefinition.sorting
-    yield put(actions.setOrderBy({orderBy}))
+    const {columnDefinition, sorting, createPermission} = yield call(
+      fetchForm, `${formBase}_list`, tableDefinitionTransformer
+    )
+    yield put(actions.setColumnDefinition(columnDefinition))
+    yield put(actions.setOrderBy({orderBy: sorting}))
+    yield put(actions.setCreatePermission(createPermission))
   }
 }
 
@@ -148,4 +150,8 @@ export function* resetDataSet() {
 
 export function* onRowClick({payload}) {
   yield put(externalEvents.fireExternalEvent('onRowClick', {id: payload.id}))
+}
+
+export function* navigateToCreate() {
+  yield put(externalEvents.fireExternalEvent('onNavigateToCreate'))
 }

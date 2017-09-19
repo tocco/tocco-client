@@ -1,4 +1,4 @@
-import {setShowSearchForm, setEntityName} from './modules/entityList/actions'
+import {setShowSearchForm, setEntityName, setShowCreateButton} from './modules/entityList/actions'
 import {
   setSearchFormName,
   setPreselectedSearchFields,
@@ -25,6 +25,10 @@ export const getDispatchActions = input => {
 
   if (typeof input.showSearchForm === 'boolean') {
     actions.push(setShowSearchForm(input.showSearchForm))
+  }
+
+  if (typeof input.showCreateButton === 'boolean') {
+    actions.push(setShowCreateButton(input.showCreateButton))
   }
 
   if (typeof input.disableSimpleSearch === 'boolean') {

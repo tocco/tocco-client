@@ -17,7 +17,7 @@ React-registry name: `entity-list`
 | `preselectedSearchFields` |           | List of predefined search-values                                                                                                                               | Array  |                         |
 | `disableSimpleSearch`     |           | If true the full search form is always visible                                                                                                                 | Bool   | false                   |
 | `simpleSearchFields`      |           | List of fields, that should be shown with activated simple search. If empty, fulltext search field will be displayed in simple search. Comma-separated string. | String | (fulltext-search-field) |
-
+| `showCreateButton`        |           | (Temporary) Flag to show/hide a create button
 
 ### Events
 
