@@ -249,7 +249,8 @@
                     "displayType": "EDITABLE",
                     "children": [],
                     "label": "Dummy entity (single) 1",
-                    "useLabel": "YES"
+                    "useLabel": "YES",
+                    "defaultValue": {"display": "User 0", "key": "0"}
                   },
                   {
                     "name": "relSingle_entity2",
