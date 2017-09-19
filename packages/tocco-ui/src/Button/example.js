@@ -8,17 +8,18 @@ export default () => {
     <div>
       {/* start example */}
       <Button
-        label="Save"
+        label="Primary"
         primary
+      />
+      <Button
+        icon="glyphicon-heart"
         type="submit"
       />
-
       <Button
         label="Pending"
         pending
         onClick={() => alert('do something')}
       />
-
       <Button
         label="Disabled"
         disabled

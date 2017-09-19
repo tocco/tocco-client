@@ -88,15 +88,10 @@ describe('tocco-ui', function() {
     })
 
     it('should show icon', () => {
-      let wrapper = shallow(
+      const wrapper = shallow(
         <Button icon="icon"/>
       )
       expect(wrapper.find('i').hasClass('icon')).to.equal(true)
-
-      wrapper = shallow(
-        <Button/>
-      )
-      expect(wrapper.find('i')).to.have.length(0)
     })
 
     it('should set default type to button', () => {

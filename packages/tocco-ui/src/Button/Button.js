@@ -24,8 +24,7 @@ const Button = props => {
       disabled={props.disabled}
       type={props.type ? props.type : 'button'}
     >
-      {props.icon
-      && <i className={classNames('glyphicon', props.icon)}/>} {props.label || ''}
+      <i className={classNames('glyphicon', props.icon)}/> {props.label || ''}
     </button>)
 }
 
