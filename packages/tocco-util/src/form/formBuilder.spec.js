@@ -67,6 +67,7 @@ const testData = {
                 'children': [
                   {
                     'name': 'firstname',
+                    'scopes': ['create'],
                     'type': 'ch.tocco.nice2.model.form.components.simple.TextField',
                     'displayType': 'READONLY',
                     'children': [],
@@ -157,6 +158,31 @@ describe('tocco-util', () => {
         const formValues = testData.lastname = ''
 
         const formBuilder = createFromBuilder(entity, model, formName, formDefinition, formValues, formFieldUtils)
+
+        const wrapper = shallow(<form>{formBuilder()}</form>)
+
+        expect(wrapper.find(Field)).to.have.length(1)
+      })
+
+      it('should render fields with matching scope', () => {
+        const {model, formName, formDefinition, formFieldUtils, formValues} = testData
+        const entity = null
+
+        const formBuilder = createFromBuilder(
+          entity, model, formName, formDefinition, formValues, formFieldUtils, undefined, undefined, undefined, 'create'
+        )
+
+        const wrapper = shallow(<form>{formBuilder()}</form>)
+
+        expect(wrapper.find(Field)).to.have.length(2)
+      })
+
+      it('should NOT render fields with unmatching scope', () => {
+        const {model, formName, formDefinition, formFieldUtils, formValues} = testData
+        const entity = null
+        const formBuilder = createFromBuilder(
+          entity, model, formName, formDefinition, formValues, formFieldUtils, undefined, undefined, undefined, 'update'
+        )
 
         const wrapper = shallow(<form>{formBuilder()}</form>)
 

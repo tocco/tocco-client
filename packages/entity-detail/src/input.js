@@ -9,7 +9,7 @@ import {
 
 export const getDispatchActions = input => ([
   setEntityName(input.entityName),
-  setEntityId(input.entityId),
+  setEntityId(input.entityId ? input.entityId : null),
   setMode(input.mode),
   setFormName(input.formName),
   setShowSubGridsCreateButton(input.showSubGridsCreateButton),

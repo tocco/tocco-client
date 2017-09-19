@@ -22,14 +22,12 @@ export const validationErrorToFormError = (entity, errors) => {
 export const formValuesToEntity = (values, dirtyFields, entityName, entityId, entityModel) => {
   const entity = {
     model: entityName,
-    paths: {}
+    paths: {},
+    key: entityId
   }
 
   if (values[versionField]) {
     entity.version = values[versionField]
-  }
-  if (entityId) {
-    entity.key = entityId
   }
 
   const ignoreField = fieldName => (fieldName === versionField || (dirtyFields && !dirtyFields.includes(fieldName)))
@@ -76,7 +74,10 @@ export const entityToFormValues = entity => {
     }
   })
 
-  result[versionField] = entity.version
+  if (entity.version) {
+    result[versionField] = entity.version
+  }
+
   return result
 }
 
