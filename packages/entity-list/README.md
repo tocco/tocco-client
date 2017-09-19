@@ -24,4 +24,4 @@ React-registry name: `entity-list`
 | Name                | Payload                       | Description
 |---------------------|-------------------------------|-------------
 | `onRowClick`        | `id` (The id of the record)   | This event is fired when a list row is clicked
-| `navigateToCreate`  | -                             | This event is fired when "new" button is clicked
+| `navigateToCreate`  | -                             | This event is fired when the "new" button is clicked
