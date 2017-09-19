@@ -7,6 +7,7 @@ import {form} from 'tocco-util'
 
 import ErrorBox from '../ErrorBox'
 import formFieldMapping from '../../util/detailView/formFieldMapping'
+import modes from '../../util/modes'
 import readOnlyFormFieldMapping from '../../util/detailView/readOnlyFormFieldMapping'
 
 export class DetailForm extends React.Component {
@@ -38,7 +39,9 @@ export class DetailForm extends React.Component {
       props.formValues,
       formFieldUtils,
       formFieldMapping,
-      readOnlyFormFieldMapping
+      readOnlyFormFieldMapping,
+      undefined,
+      props.mode
     )
   }
 
@@ -109,7 +112,7 @@ export class DetailForm extends React.Component {
             {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
             <Button
               type="submit"
-              label={this.msg('client.entity-detail.save')}
+              label={this.msg(`client.entity-detail.${props.mode === modes.CREATE ? 'create' : 'save'}`)}
               pending={props.submitting}
               disabled={props.submitting || (props.anyTouched && !props.valid)}
               primary
@@ -130,6 +133,7 @@ export class DetailForm extends React.Component {
 
 DetailForm.propTypes = {
   intl: intlShape.isRequired,
+  mode: PropTypes.oneOf(['update', 'create']),
   entityModel: PropTypes.object.isRequired,
   submitForm: PropTypes.func.isRequired,
   formDefinition: PropTypes.object.isRequired,

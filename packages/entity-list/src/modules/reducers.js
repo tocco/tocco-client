@@ -1,6 +1,7 @@
 import entityListReducer, {sagas as entityListSagas} from './entityList'
 import listReducer, {sagas as listSagas} from './list'
 import searchFormReducer, {sagas as searchFormSagas} from './searchForm'
+import {sagas as actionBarSagas} from './actionBar'
 import {reducer as form} from 'redux-form'
 
 export default {
@@ -13,5 +14,6 @@ export default {
 export const sagas = [
   entityListSagas,
   listSagas,
-  searchFormSagas
+  searchFormSagas,
+  actionBarSagas
 ]

@@ -1,15 +1,14 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 import ListView from '../components/ListView'
-import {initialize, changePage, setOrderBy, refresh} from '../modules/list/actions'
-import {externalEvents} from 'tocco-util'
+import {initialize, changePage, setOrderBy, refresh, onRowClick} from '../modules/list/actions'
 
 const mapActionCreators = {
   initialize,
   changePage,
   setOrderBy,
   refresh,
-  onRowClick: id => externalEvents.fireExternalEvent('onRowClick', { id })
+  onRowClick
 }
 
 const mapStateToProps = (state, props) => {

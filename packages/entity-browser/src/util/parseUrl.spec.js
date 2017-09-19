@@ -45,6 +45,34 @@ describe('entity-browser', () => {
 
           expect(result).to.eql(expectedResult)
         })
+
+        it('should return undefined id if create url', () => {
+          const url = '/detail/'
+
+          const result = parseUrl(url)
+
+          const expectedResult = {
+            modelPaths: [],
+            entityId: undefined,
+            parentUrl: '/'
+          }
+
+          expect(result).to.eql(expectedResult)
+        })
+
+        it('should return undefined id if create url with multiple relation steps', () => {
+          const url = '/detail/2/relFoo/3/relBar/4/relFooBar'
+
+          const result = parseUrl(url)
+
+          const expectedResult = {
+            modelPaths: ['relFoo', 'relBar', 'relFooBar'],
+            entityId: undefined,
+            parentUrl: '/detail/2/relFoo/3/relBar/4'
+          }
+
+          expect(result).to.eql(expectedResult)
+        })
       })
     })
   })

@@ -20,6 +20,17 @@ class EntityDetail extends React.Component {
     this.props.router.history.push(`${this.props.router.match.url}/${relationName}/${id}`)
   }
 
+  handleSubGridNavigateToCreate = ({gridName, relationName}) => {
+    this.props.router.history.push(`${this.props.router.match.url}/${relationName}/`)
+  }
+
+  handleEntityCreated = ({id}) => {
+    this.props.setFormTouched(false)
+    let url = this.props.router.match.url
+    url = (url.substr(-1) !== '/') ? url += '/' : url
+    this.props.router.history.push(`${url}${id}`)
+  }
+
   handleTouchedChange = ({touched}) => {
     this.props.setFormTouched(touched)
   }
@@ -28,16 +39,19 @@ class EntityDetail extends React.Component {
     this.props.router.history.push(this.props.detailParams.parentUrl)
   }
 
-  getApp = ({entityName, entityId, formName}) => (<EntityDetailApp
+  getApp = ({entityName, entityId, formName, mode}) => (<EntityDetailApp
     entityName={entityName}
     entityId={entityId}
     formName={formName}
+    mode={mode}
     onSubGridRowClick={this.handleSubGridRowClick}
+    onSubGridNavigateToCreate={this.handleSubGridNavigateToCreate}
+    onEntityCreated={this.handleEntityCreated}
     onTouchedChange={this.handleTouchedChange}
     emitAction={action => {
       this.props.dispatchEmittedAction(action)
     }}
-
+    showSubGridsCreateButton={this.props.showSubGridsCreateButton}
   />)
 
   msg = id => (this.props.intl.formatMessage({id}))
@@ -81,7 +95,8 @@ EntityDetail.propTypes = {
   setFormTouched: PropTypes.func.isRequired,
   router: PropTypes.object.isRequired,
   detailParams: PropTypes.object,
-  formTouched: PropTypes.bool
+  formTouched: PropTypes.bool,
+  showSubGridsCreateButton: PropTypes.bool
 }
 
 export default EntityDetail

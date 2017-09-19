@@ -13,6 +13,11 @@ export const SET_REMOTE_ENTITY = 'entityDetail/SET_REMOTE_ENTITY'
 export const SET_REMOTE_ENTITY_LOADING = 'entityDetail/SET_REMOTE_ENTITY_LOADING'
 export const FIRE_TOUCHED = 'entityDetail/FIRE_TOUCHED'
 export const SET_TOUCHED = 'entityDetail/SET_TOUCHED'
+export const SET_ENTITY_NAME = 'entityDetail/SET_ENTITY_NAME'
+export const SET_ENTITY_ID = 'entityDetail/SET_ENTITY_ID'
+export const SET_MODE = 'entityDetail/SET_MODE'
+export const SET_FORM_NAME = 'entityDetail/SET_FORM_NAME'
+export const SET_SHOW_SUB_GRIDS_CREATE_BUTTON = 'entityDetail/SET_SHOW_SUB_GRIDS_CREATE_BUTTON'
 
 export const setFormDefinition = formDefinition => ({
   type: SET_FORM_DEFINITION,
@@ -117,5 +122,38 @@ export const setTouched = touched => ({
   type: SET_TOUCHED,
   payload: {
     touched
+  }
+})
+
+export const setEntityName = entityName => ({
+  type: SET_ENTITY_NAME,
+  payload: {
+    entityName
+  }
+})
+
+export const setEntityId = entityId => ({
+  type: SET_ENTITY_ID,
+  payload: {
+    entityId
+  }
+})
+
+export const setMode = mode => ({
+  type: SET_MODE,
+  payload: {
+    mode
+  }
+})
+export const setFormName = formName => ({
+  type: SET_FORM_NAME,
+  payload: {
+    formName
+  }
+})
+export const setShowSubGridsCreateButton = showSubGridCreateButton => ({
+  type: SET_SHOW_SUB_GRIDS_CREATE_BUTTON,
+  payload: {
+    showSubGridCreateButton
   }
 })

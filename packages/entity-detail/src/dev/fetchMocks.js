@@ -1,7 +1,10 @@
 import {utilFetchMocks, mockData} from 'tocco-util'
 import {
-  createEntityUpdateResponse,
-  createValidateResponse
+  userUpdateResponse,
+  userCreateResponse,
+  userValidateResponse,
+  dummyEntityValidateResponse,
+  dummyEntityCreateResponse
 } from './fetchMockHelpers'
 
 const defaultStore = {
@@ -17,17 +20,32 @@ export default function setupFetchMock(fetchMock, entityStore = defaultStore) {
 
   fetchMock.patch(
     new RegExp('^.*?/nice2/rest/entities/User/[0-9]+\\?_validate=true'),
-    createValidateResponse(entityStore)
-  )
-
-  fetchMock.post(
-    new RegExp('^.*?/nice2/rest/entities/User/[0-9]+(\\?.*)?'),
-    createEntityUpdateResponse(entityStore)
+    userValidateResponse(entityStore)
   )
 
   fetchMock.patch(
     new RegExp('^.*?/nice2/rest/entities/User/[0-9]+(\\?.*)?'),
-    createEntityUpdateResponse(entityStore)
+    userUpdateResponse(entityStore)
+  )
+
+  fetchMock.post(
+    new RegExp('^.*?/nice2/rest/entities/User\\?_validate=true'),
+    userValidateResponse(entityStore)
+  )
+
+  fetchMock.post(
+    new RegExp('^.*?/nice2/rest/entities/User(\\?.*)?'),
+    userCreateResponse(entityStore)
+  )
+
+  fetchMock.post(
+    new RegExp('^.*?/nice2/rest/entities/Dummy_entity\\?_validate=true'),
+    dummyEntityValidateResponse(entityStore)
+  )
+
+  fetchMock.post(
+    new RegExp('^.*?/nice2/rest/entities/Dummy_entity(\\?.*)?'),
+    dummyEntityCreateResponse(entityStore)
   )
 }
 

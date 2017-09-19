@@ -31,18 +31,22 @@ const valueValidator = (values, validatorDefinitions, entityModel) => {
     }
   }
 
-  const getValidatorValue = (fieldName, selector) => {
-    if (entityModel[fieldName]
-      && entityModel[fieldName].validation) {
-      return entityModel[fieldName].validation[selector]
+  const getValidatorValue = (fieldModel, selector) => {
+    if (fieldModel.validation) {
+      return fieldModel.validation[selector]
     }
   }
 
-  _forOwn(values, (value, key) => {
+  const getValueSelector = fieldModel => fieldModel.type === 'relation' ? fieldModel.relationName : fieldModel.fieldName
+
+  _forOwn(entityModel, fieldModel => {
+    const valueSelector = getValueSelector(fieldModel)
+    const fieldValue = values[valueSelector]
+
     validatorDefinitions.forEach(validatorDefinition => {
-      const validatorValue = getValidatorValue(key, validatorDefinition.selector)
+      const validatorValue = getValidatorValue(fieldModel, validatorDefinition.selector)
       if (validatorValue) {
-        addErrors(key, validatorDefinition.validator(value, validatorValue))
+        addErrors(valueSelector, validatorDefinition.validator(fieldValue, validatorValue))
       }
     })
   })
@@ -51,10 +55,15 @@ const valueValidator = (values, validatorDefinitions, entityModel) => {
 }
 
 export const mandatoryValidator = (value, isMandatory) => {
-  if (typeof value === 'number' && value === 0) {
-    return
+  if (!isMandatory) {
+    return null
   }
-  if (!value && isMandatory) {
+
+  if (typeof value === 'number' && !isNaN(value)) {
+    return null
+  }
+
+  if (!value || _isEmpty(value)) {
     return {
       mandatory: [
         <FormattedMessage
@@ -64,6 +73,8 @@ export const mandatoryValidator = (value, isMandatory) => {
       ]
     }
   }
+
+  return null
 }
 
 export const minLengthValidator = (value, minLength) => {

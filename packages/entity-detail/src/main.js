@@ -8,6 +8,8 @@ const packageName = 'entity-detail'
 
 const EXTERNAL_EVENTS = [
   'onSubGridRowClick',
+  'onSubGridNavigateToCreate',
+  'onEntityCreated',
   'onTouchedChange',
   'emitAction'
 ]
@@ -97,6 +99,7 @@ class EntityDetailApp extends React.Component {
 EntityDetailApp.propTypes = {
   entityName: PropTypes.string.isRequired,
   formName: PropTypes.string.isRequired,
+  mode: PropTypes.oneOf(['update', 'create']),
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
     propTypes[event] = PropTypes.func
     return propTypes

@@ -3,6 +3,7 @@ import React from 'react'
 import {intlShape} from 'react-intl'
 import {FormattedValue} from 'tocco-ui'
 import LoadMask from 'tocco-ui/src/LoadMask/LoadMask'
+import ActionBarContainer from '../../containers/ActionBarContainer'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import '!style-loader!css-loader!react-bootstrap-table/dist/react-bootstrap-table.min.css'
 
@@ -36,7 +37,7 @@ class ListView extends React.Component {
     )
   }
 
-  cellFormatter = cell => (<FormattedValue type={cell.type} value={cell.value}/>)
+  cellFormatter = cell => (cell ? <FormattedValue type={cell.type} value={cell.value}/> : <span/>)
 
   render() {
     const props = this.props
@@ -75,6 +76,7 @@ class ListView extends React.Component {
           required={[(props.columnDefinitions.length > 0)]}
           loadingText={this.msg('client.entity-list.loadingText')}
         >
+          <ActionBarContainer/>
           <BootstrapTable
             remote
             data={props.inProgress ? [] : props.entities}

@@ -3,6 +3,7 @@ import * as actions from './actions'
 import {fetchModel} from '../../../util/api/entities'
 import parseUrl from '../../../util/parseUrl'
 import doShowBackButton from '../../../util/showBackButton'
+import detail from '../../../util/detail'
 
 export const entityBrowserSelector = state => state.entityBrowser
 export const inputSelector = state => state.input
@@ -22,18 +23,24 @@ export function* loadEntityDetail({payload}) {
   const {modelPaths, entityId, parentUrl} = yield call(parseUrl, payload.url)
   const {entityName, formBase} = yield select(entityBrowserSelector)
 
+  const mode = yield call(detail.getMode, entityId)
+
   let targetEntityName = entityName
-  let formName = `${formBase}_detail`
+  let formName = formBase
 
   if (modelPaths && modelPaths.length > 0) {
     targetEntityName = yield call(getTargetEntity, entityName, modelPaths)
-    formName = `${formBase}_${targetEntityName}_detail`
+    formName = `${formBase}_${targetEntityName}`
   }
+
+  const formExtension = yield call(detail.getFormExtension, mode)
+  formName += formExtension
 
   const {initialKey} = yield select(inputSelector)
   const showBackButton = yield call(doShowBackButton, initialKey, modelPaths)
 
   const detailParams = {
+    mode,
     entityId,
     entityName: targetEntityName,
     formName,

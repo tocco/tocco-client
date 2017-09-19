@@ -27,6 +27,7 @@ describe('entity-detail', () => {
           closeEntityDetail={EMPTY_FUNC}
           entity={{}}
           entityModel={{}}
+          entityName="User"
           entityId="21"
           modelPaths={[]}
           unloadDetailView={EMPTY_FUNC}

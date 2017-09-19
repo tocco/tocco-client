@@ -15,7 +15,8 @@ const mapActionCreators = {
 const mapStateToProps = (state, props) => {
   return {
     detailParams: state.detail.detailParams,
-    formTouched: state.detail.formTouched
+    formTouched: state.detail.formTouched,
+    showSubGridsCreateButton: state.input.showCreateButton
   }
 }
 

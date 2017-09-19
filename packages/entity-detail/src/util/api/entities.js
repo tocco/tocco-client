@@ -34,6 +34,33 @@ export function* updateEntity(entity, fields = []) {
   return resp.body
 }
 
+const SUCCESSFUL_SAVED_STATUS = 201
+
+export function* createEntity(entity, fields = []) {
+  const options = {
+    method: 'POST',
+    queryParams: {
+      '_paths': fields.join(',')
+    },
+    body: entity,
+    acceptedErrorCodes: ['VALIDATION_FAILED']
+  }
+  const resource = `entities/${entity.model}`
+  const resp = yield call(requestSaga, resource, options)
+
+  if (resp.status === SUCCESSFUL_SAVED_STATUS) {
+    const location = resp.headers.get('Location')
+    const id = location.split('/').pop()
+    return id
+  } else {
+    if (resp.body && resp.body.errorCode === 'VALIDATION_FAILED') {
+      throw new SubmissionError(form.validationErrorToFormError(entity, resp.body.errors))
+    }
+
+    throw new Error('unexpected error during save', resp)
+  }
+}
+
 export const defaultModelTransformer = json => {
   const model = {}
   json.fields.forEach(field => {

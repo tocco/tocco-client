@@ -1,5 +1,6 @@
 import _isEmpty from 'lodash/isEmpty'
 import {call, put, fork, select, spawn, takeEvery, takeLatest, all} from 'redux-saga/effects'
+import {externalEvents} from 'tocco-util'
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import {getSearchInputs} from '../searchForm/sagas'
@@ -17,7 +18,8 @@ export default function* sagas() {
     fork(takeLatest, searchFormActions.EXECUTE_SEARCH, resetDataSet),
     fork(takeEvery, actions.SET_ORDER_BY, resetDataSet),
     fork(takeEvery, actions.RESET_DATA_SET, resetDataSet),
-    fork(takeLatest, actions.REFRESH, refresh)
+    fork(takeLatest, actions.REFRESH, refresh),
+    fork(takeLatest, actions.ON_ROW_CLICK, onRowClick)
   ])
 }
 
@@ -109,10 +111,12 @@ export function* displayEntity(page) {
 
 export function* loadTableDefinition(columnDefinition, formBase) {
   if (columnDefinition.length === 0) {
-    const tableDefinition = yield call(fetchForm, `${formBase}_list`, tableDefinitionTransformer)
-    yield put(actions.setColumnDefinition(tableDefinition.columnDefinition))
-    const orderBy = tableDefinition.sorting
-    yield put(actions.setOrderBy({orderBy}))
+    const {columnDefinition, sorting, createPermission} = yield call(
+      fetchForm, `${formBase}_list`, tableDefinitionTransformer
+    )
+    yield put(actions.setColumnDefinition(columnDefinition))
+    yield put(actions.setOrderBy({orderBy: sorting}))
+    yield put(actions.setCreatePermission(createPermission))
   }
 }
 
@@ -142,4 +146,12 @@ export function* resetDataSet() {
 
   yield call(changePage, {payload: {page: 1}})
   yield put(actions.setInProgress(false))
+}
+
+export function* onRowClick({payload}) {
+  yield put(externalEvents.fireExternalEvent('onRowClick', {id: payload.id}))
+}
+
+export function* navigateToCreate() {
+  yield put(externalEvents.fireExternalEvent('onNavigateToCreate'))
 }

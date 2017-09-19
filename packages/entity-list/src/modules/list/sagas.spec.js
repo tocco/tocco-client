@@ -29,7 +29,8 @@ describe('entity-list', () => {
               fork(takeLatest, searchFormActions.EXECUTE_SEARCH, sagas.resetDataSet),
               fork(takeEvery, actions.SET_ORDER_BY, sagas.resetDataSet),
               fork(takeEvery, actions.RESET_DATA_SET, sagas.resetDataSet),
-              fork(takeLatest, actions.REFRESH, sagas.refresh)
+              fork(takeLatest, actions.REFRESH, sagas.refresh),
+              fork(takeLatest, actions.ON_ROW_CLICK, sagas.onRowClick)
             ]))
             expect(generator.next().done).to.be.true
           })
@@ -227,12 +228,14 @@ describe('entity-list', () => {
             const formBase = 'UserSearch'
             const loadedTableDefinition = {
               columnDefinition: [],
-              sorting: ''
+              sorting: '',
+              createPermission: true
             }
             const gen = sagas.loadTableDefinition(columnDefinition, formBase)
             expect(gen.next().value).to.eql(call(fetchForm, `${formBase}_list`, tableDefinitionTransformer))
             expect(gen.next(loadedTableDefinition).value).to.eql(put(actions.setColumnDefinition(columnDefinition)))
-            expect(gen.next([]).value).to.eql(put(actions.setOrderBy({orderBy: ''})))
+            expect(gen.next([]).value).to.eql(put(actions.setOrderBy({orderBy: loadedTableDefinition.sorting})))
+            expect(gen.next([]).value).to.eql(put(actions.setCreatePermission(loadedTableDefinition.createPermission)))
 
             expect(gen.next().done).to.be.true
           })

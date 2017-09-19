@@ -5,9 +5,13 @@ const EXPECTED_INITIAL_STATE = {
   formDefinition: {},
   entity: {},
   entityModel: {},
+  entityName: '',
+  formName: '',
+  mode: 'update',
   relationEntities: {},
   remoteEntities: {},
-  touched: false
+  touched: false,
+  showSubGridCreateButton: false
 }
 
 describe('entity-detail', () => {

@@ -40,7 +40,8 @@ class SearchForm extends React.Component {
       formFieldUtils,
       formFieldMapping,
       formFieldMapping,
-      this.shouldRenderField
+      this.shouldRenderField,
+      'search'
     )
   }
 
