@@ -17,7 +17,7 @@ describe('tocco-util', () => {
           const entityModel = {
             firstname: { },
             gender: {relationName: 'relGender', multi: false},
-            status: {relationName: 'relGender', multi: true}
+            status: {relationName: 'relStatus', multi: true}
           }
 
           const dirtyFields = ['firstname', 'gender', 'status']
@@ -179,7 +179,7 @@ describe('tocco-util', () => {
           expect(formErrors.firstname).to.eql(mandatory)
         })
 
-        it('should return a valid object if error is undefned', () => {
+        it('should return a valid object if error is undefined', () => {
           const entity = {
             model: 'User',
             key: '2'
@@ -187,7 +187,7 @@ describe('tocco-util', () => {
 
           const formErrors = reduxForm.validationErrorToFormError(entity, undefined)
 
-          expect(formErrors).to.have.property('_error:')
+          expect(formErrors).to.have.property('_error')
         })
       })
     })
