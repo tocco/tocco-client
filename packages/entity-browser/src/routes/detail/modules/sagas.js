@@ -26,7 +26,7 @@ export function* loadEntityDetail({payload}) {
   const mode = yield call(detail.getMode, entityId)
 
   let targetEntityName = entityName
-  let formName = `${formBase}`
+  let formName = formBase
 
   if (modelPaths && modelPaths.length > 0) {
     targetEntityName = yield call(getTargetEntity, entityName, modelPaths)
