@@ -230,7 +230,7 @@ const yesNoClientQuestionResponse = entity => ({
 const getNewEntity = (entity, entityStore) => {
   let newEntity
 
-  if (entity.key === undefined) {
+  if (entity.key === null) {
     const template = getTemplate(entity.model, entityStore)
     newEntity = template
     newEntity.version = 1
