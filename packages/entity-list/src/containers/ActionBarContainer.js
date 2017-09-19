@@ -8,7 +8,7 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state, props) => ({
-  permissions: state.list.permissions,
+  createPermission: state.list.createPermission,
   showCreateButton: state.entityList.showCreateButton
 })
 

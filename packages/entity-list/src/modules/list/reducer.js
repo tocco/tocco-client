@@ -28,7 +28,7 @@ const ACTION_HANDLERS = {
   [actions.SET_IN_PROGRESS]: reducers.singleTransferReducer('inProgress'),
   [actions.SET_SHOW_SEARCH_FORM]: reducers.singleTransferReducer('showSearchForm'),
   [actions.SET_SEARCH_FILTERS]: reducers.singleTransferReducer('searchFilters'),
-  [actions.SET_PERMISSIONS]: reducers.singleTransferReducer('permissions')
+  [actions.SET_CREATE_PERMISSION]: reducers.singleTransferReducer('createPermission')
 }
 
 const initialState = {
@@ -44,7 +44,7 @@ const initialState = {
   inProgress: false,
   showSearchForm: true,
   searchFilters: [],
-  permissions: {}
+  createPermission: false
 }
 
 export default function reducer(state = initialState, action) {

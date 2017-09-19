@@ -26,9 +26,7 @@ describe('entity-list', () => {
 
             const fetchResult = {
               form: {
-                permissions: {
-                  create: true
-                },
+                createPermission: true,
                 children: [{
                   name: 'table',
                   type: 'ch.tocco.nice2.model.form.components.table.Table',
@@ -68,7 +66,7 @@ describe('entity-list', () => {
             const expectedResult = {
               columnDefinition: expectedColumnDefinition,
               sorting: expectedSorting,
-              permissions: {create: true, delete: false, read: true, update: false}
+              createPermission: true
             }
 
             expect(result).to.eql(expectedResult)
@@ -118,7 +116,7 @@ describe('entity-list', () => {
                 {label: 'label1', useLabel: true, name: 'lb1', child: field1, sortable: true}
               ],
               sorting: null,
-              permissions: {create: false, delete: false, read: true, update: false}
+              createPermission: false
             }
 
             expect(result).to.eql(expectedTableDefinition)

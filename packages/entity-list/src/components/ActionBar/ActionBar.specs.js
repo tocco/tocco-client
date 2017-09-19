@@ -9,9 +9,8 @@ describe('entity-list', () => {
   describe('components', () => {
     describe('ActionBar', () => {
       it('should render', () => {
-        const permissions = {create: true}
         const wrapper = shallow(
-          <ActionBar showCreateButton={false} intl={IntlStub} navigateToCreate={EMPTY_FUNC} permissions={permissions}/>
+          <ActionBar showCreateButton={false} intl={IntlStub} navigateToCreate={EMPTY_FUNC} createPermission={true}/>
         )
         expect(wrapper.find('.action-bar')).to.have.length(1)
       })
@@ -20,7 +19,7 @@ describe('entity-list', () => {
         const wrapper = shallow(
           <ActionBar
             showCreateButton={true}
-            permissions={{create: true}}
+            createPermission={true}
             intl={IntlStub}
             navigateToCreate={EMPTY_FUNC}
           />
@@ -32,7 +31,7 @@ describe('entity-list', () => {
         const wrapper = shallow(
           <ActionBar
             showCreateButton={true}
-            permissions={{create: false}}
+            createPermission={false}
             intl={IntlStub}
             navigateToCreate={EMPTY_FUNC}
           />
@@ -44,7 +43,7 @@ describe('entity-list', () => {
         const wrapper = shallow(
           <ActionBar
             showCreateButton={false}
-            permissions={{create: true}}
+            createPermission={true}
             intl={IntlStub}
             navigateToCreate={EMPTY_FUNC}
           />

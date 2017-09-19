@@ -10,7 +10,7 @@ const ActionBar = props => {
 
   return (
     <div className="action-bar">
-      {props.showCreateButton && props.permissions.create
+      {props.showCreateButton && props.createPermission
       && <Button
         onClick={props.navigateToCreate}
         className="create-btn"
@@ -24,7 +24,7 @@ const ActionBar = props => {
 ActionBar.propTypes = {
   intl: intlShape.isRequired,
   navigateToCreate: PropTypes.func.isRequired,
-  permissions: PropTypes.objectOf(PropTypes.bool).isRequired,
+  createPermission: PropTypes.bool,
   showCreateButton: PropTypes.bool
 }
 

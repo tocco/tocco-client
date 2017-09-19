@@ -229,13 +229,13 @@ describe('entity-list', () => {
             const loadedTableDefinition = {
               columnDefinition: [],
               sorting: '',
-              permissions: {}
+              createPermission: true
             }
             const gen = sagas.loadTableDefinition(columnDefinition, formBase)
             expect(gen.next().value).to.eql(call(fetchForm, `${formBase}_list`, tableDefinitionTransformer))
             expect(gen.next(loadedTableDefinition).value).to.eql(put(actions.setColumnDefinition(columnDefinition)))
             expect(gen.next([]).value).to.eql(put(actions.setOrderBy({orderBy: loadedTableDefinition.sorting})))
-            expect(gen.next([]).value).to.eql(put(actions.setPermissions(loadedTableDefinition.permissions)))
+            expect(gen.next([]).value).to.eql(put(actions.setCreatePermission(loadedTableDefinition.createPermission)))
 
             expect(gen.next().done).to.be.true
           })

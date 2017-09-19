@@ -111,12 +111,12 @@ export function* displayEntity(page) {
 
 export function* loadTableDefinition(columnDefinition, formBase) {
   if (columnDefinition.length === 0) {
-    const {columnDefinition, sorting, permissions} = yield call(
+    const {columnDefinition, sorting, createPermission} = yield call(
       fetchForm, `${formBase}_list`, tableDefinitionTransformer
     )
     yield put(actions.setColumnDefinition(columnDefinition))
     yield put(actions.setOrderBy({orderBy: sorting}))
-    yield put(actions.setPermissions(permissions))
+    yield put(actions.setCreatePermission(createPermission))
   }
 }
 

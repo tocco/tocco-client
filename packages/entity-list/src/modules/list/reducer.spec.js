@@ -14,7 +14,7 @@ const EXPECTED_INITIAL_STATE = {
   inProgress: false,
   searchFilters: [],
   showSearchForm: true,
-  permissions: {}
+  createPermission: false
 }
 
 describe('entity-list', () => {
