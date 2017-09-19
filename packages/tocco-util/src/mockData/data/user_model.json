@@ -5,6 +5,7 @@
     }
   },
   "name": "User",
+  "createPermission": true,
   "fields": [
     {
       "fieldName": "pk",

@@ -231,6 +231,7 @@ describe('entity-list', () => {
             const resp = {
               body: {
                 name: 'User',
+                createPermission: true,
                 fields: [{
                   fieldName: 'firstname'
                 }],
@@ -244,12 +245,15 @@ describe('entity-list', () => {
             const next = gen.next(resp)
 
             expect(next.value).to.eql({
-              firstname: {
-                fieldName: 'firstname'
-              },
-              relUser_status: {
-                targetEntity: 'User_status',
-                type: 'relation'
+              createPermission: true,
+              model: {
+                firstname: {
+                  fieldName: 'firstname'
+                },
+                relUser_status: {
+                  targetEntity: 'User_status',
+                  type: 'relation'
+                }
               }
             })
             expect(next.done).to.be.true
@@ -257,42 +261,61 @@ describe('entity-list', () => {
         })
 
         describe('defaultModelTransformer', () => {
-          it('should return an object with field names as key', () => {
+          it('should return an object with field names as key as model attribute and createPermission', () => {
             const fetchResult = {
-              'name': 'User',
-              'fields': [
+              name: 'User',
+              createPermission: true,
+              fields: [
                 {
-                  'fieldName': 'pk',
-                  'type': 'serial'
+                  fieldName: 'pk',
+                  type: 'serial'
                 },
                 {
-                  'fieldName': 'firstname',
-                  'type': 'string'
+                  fieldName: 'firstname',
+                  type: 'string'
                 }
               ],
-              'relations': [
+              relations: [
                 {
-                  'relationName': 'some_relation',
-                  'targetEntity': 'Address',
-                  'multi': true
+                  relationName: 'some_relation',
+                  targetEntity: 'Address',
+                  multi: true
                 }
               ]
             }
             const result = entities.defaultModelTransformer(fetchResult)
             const expectedResult = {
-              pk: {
-                'fieldName': 'pk',
-                type: 'serial'
+              createPermission: true,
+              model: {
+                pk: {
+                  'fieldName': 'pk',
+                  type: 'serial'
 
-              },
-              firstname: {
-                'fieldName': 'firstname',
-                type: 'string'
-              },
-              some_relation: {
-                type: 'relation',
-                targetEntity: 'Address'
+                },
+                firstname: {
+                  'fieldName': 'firstname',
+                  type: 'string'
+                },
+                some_relation: {
+                  type: 'relation',
+                  targetEntity: 'Address'
+                }
               }
+            }
+            expect(result).to.eql(expectedResult)
+          })
+
+          it('should return fallback createPermission even if not defined in model', () => {
+            const fetchResult = {
+              name: 'User',
+              fields: [],
+              relations: []
+            }
+            const result = entities.defaultModelTransformer(fetchResult)
+
+            const expectedResult = {
+              createPermission: false,
+              model: {}
             }
             expect(result).to.eql(expectedResult)
           })

@@ -228,15 +228,12 @@ describe('entity-list', () => {
             const formBase = 'UserSearch'
             const loadedTableDefinition = {
               columnDefinition: [],
-              sorting: '',
-              createPermission: true
+              sorting: ''
             }
             const gen = sagas.loadTableDefinition(columnDefinition, formBase)
             expect(gen.next().value).to.eql(call(fetchForm, `${formBase}_list`, tableDefinitionTransformer))
             expect(gen.next(loadedTableDefinition).value).to.eql(put(actions.setColumnDefinition(columnDefinition)))
             expect(gen.next([]).value).to.eql(put(actions.setOrderBy({orderBy: loadedTableDefinition.sorting})))
-            expect(gen.next([]).value).to.eql(put(actions.setCreatePermission(loadedTableDefinition.createPermission)))
-
             expect(gen.next().done).to.be.true
           })
 
@@ -252,13 +249,16 @@ describe('entity-list', () => {
           it('should load the entity model if not loaded', () => {
             const entityName = 'User'
             const entityModel = {}
-            const loadedEntityModel = {
-              name: 'User'
+
+            const loadedModel = {
+              model: {name: 'User'},
+              createPermission: false
             }
 
             const gen = sagas.loadEntityModel(entityName, entityModel)
             expect(gen.next().value).to.eql(call(fetchModel, entityName))
-            expect(gen.next(loadedEntityModel).value).to.eql(put(actions.setEntityModel(loadedEntityModel)))
+            expect(gen.next(loadedModel).value).to.eql(put(actions.setEntityModel(loadedModel.model)))
+            expect(gen.next().value).to.eql(put(actions.setCreatePermission(loadedModel.createPermission)))
 
             expect(gen.next().done).to.be.true
           })
