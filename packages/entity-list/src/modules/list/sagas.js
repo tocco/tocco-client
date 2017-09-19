@@ -111,19 +111,19 @@ export function* displayEntity(page) {
 
 export function* loadTableDefinition(columnDefinition, formBase) {
   if (columnDefinition.length === 0) {
-    const {columnDefinition, sorting, createPermission} = yield call(
+    const {columnDefinition, sorting} = yield call(
       fetchForm, `${formBase}_list`, tableDefinitionTransformer
     )
     yield put(actions.setColumnDefinition(columnDefinition))
     yield put(actions.setOrderBy({orderBy: sorting}))
-    yield put(actions.setCreatePermission(createPermission))
   }
 }
 
 export function* loadEntityModel(entityName, entityModel) {
   if (_isEmpty(entityModel)) {
-    const loadedModel = yield call(fetchModel, entityName)
-    yield put(actions.setEntityModel(loadedModel))
+    const {model, createPermission} = yield call(fetchModel, entityName)
+    yield put(actions.setEntityModel(model))
+    yield put(actions.setCreatePermission(createPermission))
   }
 }
 

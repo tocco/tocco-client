@@ -14,14 +14,6 @@ export function* fetchForm(formName, transformer = defaultFormTransformer) {
   return response.body ? yield call(transformer, response.body) : null
 }
 
-const getCreatePermission = formDefinition => {
-  if (formDefinition.createPermission && typeof formDefinition.createPermission === 'boolean') {
-    return formDefinition.createPermission
-  }
-
-  return false
-}
-
 const getSorting = table => {
   if (table.sorting) {
     return table.sorting.map(sort => `${sort.orderItem} ${sort.ascending ? 'asc' : 'desc'}`).join(',')
@@ -58,9 +50,8 @@ export const tableDefinitionTransformer = json => {
   ))
 
   const sorting = getSorting(table)
-  const createPermission = getCreatePermission(form)
 
-  return {columnDefinition, sorting, createPermission}
+  return {columnDefinition, sorting}
 }
 
 export const searchFormTransformer = json => json.form

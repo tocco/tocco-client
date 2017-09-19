@@ -5,6 +5,7 @@
     }
   },
   "name": "Dummy_entity",
+  "createPermission": true,
   "fields": [
     {
       "fieldName": "pk",

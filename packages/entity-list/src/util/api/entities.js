@@ -1,6 +1,14 @@
 import {call} from 'redux-saga/effects'
 import {requestSaga} from 'tocco-util/src/rest'
 
+const getCreatePermission = json => {
+  if (json.createPermission && typeof json.createPermission === 'boolean') {
+    return json.createPermission
+  }
+
+  return false
+}
+
 export const defaultModelTransformer = json => {
   const model = {}
   json.fields.forEach(field => {
@@ -15,7 +23,9 @@ export const defaultModelTransformer = json => {
       targetEntity: relation.targetEntity
     }
   })
-  return model
+
+  const createPermission = getCreatePermission(json)
+  return {model, createPermission}
 }
 
 export function* fetchModel(entityName, transformer = defaultModelTransformer) {
