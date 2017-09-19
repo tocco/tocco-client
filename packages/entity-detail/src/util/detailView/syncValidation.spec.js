@@ -51,28 +51,32 @@ describe('entity-detail', () => {
         it('should not return an error for valid inputs', () => {
           const validValues = [
             'Test',
-            0
+            0,
+            99,
+            {key: 99}
           ]
 
           validValues.forEach(validValue => {
             let result = mandatoryValidator(validValue, true, IntlStub)
-            expect(result).to.be.undefined
+            expect(result).to.be.null
             result = mandatoryValidator(validValue, false, IntlStub)
-            expect(result).to.be.undefined
+            expect(result).to.be.null
           })
         })
         it('should return an error for invalid inputs', () => {
           const invalidValues = [
             undefined,
             '',
-            null
+            null,
+            [],
+            {}
           ]
 
           invalidValues.forEach(invalidValue => {
             let result = mandatoryValidator(invalidValue, true, IntlStub)
-            expect(result).to.not.be.undefined
+            expect(result).to.not.be.null
             result = mandatoryValidator(invalidValue, false, IntlStub)
-            expect(result).to.be.undefined
+            expect(result).to.be.null
           })
         })
       })
