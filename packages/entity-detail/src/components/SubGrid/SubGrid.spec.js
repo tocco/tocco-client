@@ -14,6 +14,7 @@ describe('entity-detail', () => {
             modelField={{targetEntity: 'Foo'}}
             relationName="relFoo"
             onNavigateToCreate={() => {}}
+            showSubGridsCreateButton={false}
           />
         )
 
