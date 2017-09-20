@@ -32,6 +32,6 @@
     "flatpickr": "^2.6.3",
     "react-autosize-textarea": "^0.4.3",
     "react-quill": "^1.0.0-rc.2",
-    "react-select": "^1.0.0-rc.4"
+    "react-select": "1.0.0-rc.10"
   }
 }
