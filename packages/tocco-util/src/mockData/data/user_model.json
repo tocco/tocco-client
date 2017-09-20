@@ -145,7 +145,7 @@
       "reverseRelationName": "relUser",
       "multi": false,
       "validation": {
-        "mandatory": true
+        "mandatory": false
       }
     },
     {
@@ -154,6 +154,7 @@
       "reverseRelationName": "relUser",
       "multi": false,
       "validation": {
+        "mandatory": true
       }
     },
     {
@@ -162,14 +163,16 @@
       "reverseRelationName": "relUser",
       "multi": true,
       "validation": {
-        "mandatory": true
       }
     },
     {
       "relationName": "relMulti_entity2",
       "targetEntity": "Dummy_entity",
       "reverseRelationName": "relUser",
-      "multi": true
+      "multi": true,
+      "validation": {
+        "mandatory": true
+      }
     },
     {
       "relationName": "relUser",
