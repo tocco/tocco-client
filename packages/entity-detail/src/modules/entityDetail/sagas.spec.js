@@ -281,27 +281,6 @@ describe('entity-detail', () => {
           })
         })
 
-        describe('updateFormSubmit saga', () => {
-          const entity = {paths: {}}
-          const fields = ['firstname']
-          const updatedEntity = {paths: {}}
-          const updatedFormValues = {firstname: 'karl'}
-
-          it('should call api and store response', () => {
-            const gen = sagas.updateFormSubmit(entity, fields)
-            expect(gen.next().value).to.eql(call(updateEntity, entity, fields))
-            expect(gen.next(updatedEntity).value).to.eql(call(form.entityToFormValues, updatedEntity))
-            expect(gen.next(updatedFormValues).value).to.eql(put(initializeForm(FORM_ID, updatedFormValues)))
-            expect(gen.next().value).to.eql(
-              call(sagas.showNotification, 'success', 'saveSuccessfulTitle', 'saveSuccessfulMessage')
-            )
-            expect(gen.next().value).to.eql(put(actions.setLastSave()))
-            expect(gen.next().value).to.eql(put(stopSubmit(FORM_ID)))
-
-            expect(gen.next().done).to.be.true
-          })
-        })
-
         describe('getEntityForSubmit saga', () => {
           it('should return entity', () => {
             const values = {fistname: 'test'}
