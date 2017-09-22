@@ -3,8 +3,6 @@ import React from 'react'
 import Select from 'react-select'
 import _isEmpty from 'lodash/isEmpty'
 
-import '!style-loader!css-loader!react-select/dist/react-select.css'
-
 const MultiSelect = props => {
   const handleChange = value => {
     props.onChange(value)
@@ -12,19 +10,25 @@ const MultiSelect = props => {
 
   const options = _isEmpty(props.options.store) ? [] : props.options.store
 
+  let selectComponent
+  const focusSelect = () => selectComponent.focus()
+
   return (
-    <Select
-      multi
-      valueKey="key"
-      labelKey="display"
-      clearable
-      placeholder=""
-      noResultsText="-"
-      value={props.value}
-      onChange={handleChange}
-      options={options}
-      disabled={props.readOnly}
-    />
+    <span tabIndex="-1" id={props.id} onFocus={focusSelect}>
+      <Select
+        multi
+        valueKey="key"
+        labelKey="display"
+        clearable
+        placeholder=""
+        noResultsText="-"
+        value={props.value}
+        onChange={handleChange}
+        options={options}
+        disabled={props.readOnly}
+        ref={select => { selectComponent = select }}
+      />
+    </span>
   )
 }
 
@@ -41,7 +45,8 @@ MultiSelect.propTypes = {
         label: PropTypes.string
       }))
   }),
-  readOnly: PropTypes.bool
+  readOnly: PropTypes.bool,
+  id: PropTypes.string
 }
 
 export default MultiSelect

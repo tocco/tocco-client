@@ -18,19 +18,25 @@ const SingleSelect = props => {
     return []
   }
 
+  let selectComponent
+  const focusSelect = () => selectComponent.focus()
+
   return (
-    <Select
-      single
-      valueKey="key"
-      labelKey="display"
-      clearable
-      placeholder=""
-      noResultsText="-"
-      value={props.value}
-      onChange={onChange}
-      options={getOptions()}
-      disabled={props.readOnly}
-    />
+    <span tabIndex="-1" id={props.id} onFocus={focusSelect}>
+      <Select
+        single
+        valueKey="key"
+        labelKey="display"
+        clearable
+        placeholder=""
+        noResultsText="-"
+        value={props.value}
+        onChange={onChange}
+        options={getOptions()}
+        disabled={props.readOnly}
+        ref={select => { selectComponent = select }}
+      />
+    </span>
   )
 }
 
@@ -52,7 +58,8 @@ SingleSelect.propTypes = {
         label: PropTypes.string
       }))
   }),
-  readOnly: PropTypes.bool
+  readOnly: PropTypes.bool,
+  id: PropTypes.string
 }
 
 export default SingleSelect

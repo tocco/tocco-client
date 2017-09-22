@@ -18,9 +18,11 @@ class MultiRemoteSelect extends React.Component {
     return options
   }
 
+  focusSelect = () => this.selectComponent.focus()
+
   render() {
     return (
-      <div>
+      <span tabIndex="-1" id={this.props.id} onFocus={this.focusSelect}>
         <Select
           valueKey="key"
           labelKey="display"
@@ -41,8 +43,9 @@ class MultiRemoteSelect extends React.Component {
           options={this.getOptions()}
           isLoading={this.props.options.isLoading}
           disabled={this.props.readOnly}
+          ref={select => { this.selectComponent = select }}
         />
-      </div>
+      </span>
     )
   }
 }
@@ -68,7 +71,8 @@ MultiRemoteSelect.propTypes = {
     moreOptionsAvailable: PropTypes.bool,
     moreOptionsAvailableText: PropTypes.string
   }),
-  readOnly: PropTypes.bool
+  readOnly: PropTypes.bool,
+  id: PropTypes.string
 }
 
 export default MultiRemoteSelect
