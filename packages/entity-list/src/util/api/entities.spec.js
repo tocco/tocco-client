@@ -10,7 +10,7 @@ describe('entity-list', () => {
           it('should fetch the data', () => {
             const gen = entities.fetchEntities('User', {
               page: 2,
-              orderBy: 'firstname',
+              sorting: [{field: 'firstname', order: 'asc'}, {field: 'lastname', order: 'desc'}],
               limit: 20,
               fields: ['f1', 'f2'],
               searchInputs: {_search: 'test'},
@@ -25,7 +25,7 @@ describe('entity-list', () => {
                 _offset: 20,
                 _paths: 'f1,f2',
                 _search: 'test',
-                _sort: undefined
+                _sort: 'firstname asc, lastname desc'
               }
             }))
 
@@ -48,7 +48,7 @@ describe('entity-list', () => {
           it('should call fetch and return correct amount', () => {
             const gen = entities.fetchEntityCount('User', {
               page: 2,
-              orderBy: 'firstname',
+              sort: '',
               limit: 20,
               fields: ['f1', 'f2'],
               searchInputs: {_search: 'test'},
@@ -63,7 +63,7 @@ describe('entity-list', () => {
                 _offset: 20,
                 _paths: 'f1,f2',
                 _search: 'test',
-                _sort: undefined
+                _sort: null
               }
             }))
 

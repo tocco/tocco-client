@@ -7,7 +7,7 @@ const EXPECTED_INITIAL_STATE = {
   entities: [],
   limit: 10,
   currentPage: 1,
-  orderBy: null,
+  sorting: null,
   columnDefinition: [],
   entityCount: 0,
   entityStore: {},
@@ -169,18 +169,17 @@ describe('entity-list', () => {
           expect(reducer(stateBefore, actions.setCurrentPage(newPage))).to.deep.equal(expectedStateAfter)
         })
 
-        it('should handle SET_ORDER_BY', () => {
-          const newOrderBy = 'desc'
-
+        it('should handle SET_SORTING', () => {
+          const newSorting = [{field: 'firstname', order: 'asc'}]
           const stateBefore = {
-            orderBy: 'asc'
+            sorting: null
           }
 
           const expectedStateAfter = {
-            orderBy: newOrderBy
+            sorting: [{field: 'firstname', order: 'asc'}]
           }
 
-          expect(reducer(stateBefore, actions.setOrderBy(newOrderBy))).to.deep.equal(expectedStateAfter)
+          expect(reducer(stateBefore, actions.setSorting(newSorting))).to.deep.equal(expectedStateAfter)
         })
 
         it('should handle SET_ENTITY_COUNT', () => {

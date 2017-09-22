@@ -16,7 +16,7 @@ export default function* sagas() {
     fork(takeLatest, actions.INITIALIZE, initialize),
     fork(takeLatest, actions.CHANGE_PAGE, changePage),
     fork(takeLatest, searchFormActions.EXECUTE_SEARCH, resetDataSet),
-    fork(takeEvery, actions.SET_ORDER_BY, resetDataSet),
+    fork(takeEvery, actions.SET_SORTING, resetDataSet),
     fork(takeEvery, actions.RESET_DATA_SET, resetDataSet),
     fork(takeLatest, actions.REFRESH, refresh),
     fork(takeLatest, actions.ON_ROW_CLICK, onRowClick)
@@ -68,21 +68,24 @@ export function* fetchEntitiesAndAddToStore(page) {
   const {entityStore} = list
 
   if (!entityStore[page]) {
-    const {orderBy, limit, columnDefinition} = list
+    const {sorting, limit, columnDefinition} = list
+
     const {searchFilters} = input
     const formName = `${formBase}_list`
 
     const searchInputs = yield call(getSearchInputs)
     const fields = getFieldsOfColumnDefinition(columnDefinition)
+
     const fetchParams = {
       page,
-      orderBy,
+      sorting,
       limit,
       fields,
       searchFilters,
       searchInputs,
       formName
     }
+
     const entities = yield call(fetchEntities, entityName, fetchParams, entitiesListTransformer)
     yield put(actions.addEntitiesToStore(page, entities))
   }
@@ -115,7 +118,7 @@ export function* loadTableDefinition(columnDefinition, formBase) {
       fetchForm, `${formBase}_list`, tableDefinitionTransformer
     )
     yield put(actions.setColumnDefinition(columnDefinition))
-    yield put(actions.setOrderBy({orderBy: sorting}))
+    yield put(actions.setSorting(sorting))
   }
 }
 

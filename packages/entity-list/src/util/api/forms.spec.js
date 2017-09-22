@@ -60,7 +60,7 @@ describe('entity-list', () => {
               {label: 'label2', useLabel: false, name: 'lb2', child: field2, sortable: false}
             ]
 
-            const expectedSorting = 'lb1 desc,lb2 asc'
+            const expectedSorting = fetchResult.form.children[0].sorting
 
             const expectedResult = {
               columnDefinition: expectedColumnDefinition,
@@ -113,7 +113,7 @@ describe('entity-list', () => {
               columnDefinition: [
                 {label: 'label1', useLabel: true, name: 'lb1', child: field1, sortable: true}
               ],
-              sorting: null
+              sorting: []
             }
 
             expect(result).to.eql(expectedTableDefinition)

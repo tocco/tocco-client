@@ -68,17 +68,25 @@ export const entitiesListTransformer = json => {
 export const defaultEntitiesTransformer = json => (json)
 export const selectEntitiesTransformer = json => (json.data.map(e => ({display: e.display, key: e.key})))
 
-function buildParams({
+const getSortString = sorting => {
+  if (Array.isArray(sorting) && sorting.length >= 1) {
+    return sorting.map(sort => `${sort.field} ${sort.order}`).join(', ')
+  }
+
+  return null
+}
+
+const buildParams = ({
   page = undefined,
-  orderBy = {},
+  sorting = [],
   limit = undefined,
   fields = [],
   searchFilters = [],
   searchInputs = {},
   formName = undefined
-} = {}) {
+} = {}) => {
   const params = {
-    '_sort': Object.keys(orderBy || {}).length === 2 ? `${orderBy.name} ${orderBy.direction}` : undefined,
+    '_sort': getSortString(sorting),
     '_paths': fields.join(','),
     '_filter': searchFilters.join(','),
     '_form': formName,
