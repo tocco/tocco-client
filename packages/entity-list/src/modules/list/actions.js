@@ -4,7 +4,7 @@ export const REQUEST_ENTITIES = 'list/REQUEST_ENTITIES'
 export const SET_ENTITIES = 'list/SET_ENTITIES'
 export const SET_COLUMN_DEFINITION = 'list/SET_COLUMN_DEFINITION'
 export const SET_ENTITY_MODEL = 'list/SET_ENTITY_MODEL'
-export const SET_ORDER_BY = 'list/SET_ORDER_BY'
+export const SET_SORTING = 'list/SET_SORTING'
 export const SET_LIMIT = 'list/SET_LIMIT'
 export const SET_CURRENT_PAGE = 'list/SET_CURRENT_PAGE'
 export const SET_ENTITY_COUNT = 'list/SET_ENTITY_COUNT'
@@ -81,10 +81,10 @@ export const setEntityModel = entityModel => ({
   }
 })
 
-export const setOrderBy = orderBy => ({
-  type: SET_ORDER_BY,
+export const setSorting = sorting => ({
+  type: SET_SORTING,
   payload: {
-    orderBy
+    sorting
   }
 })
 

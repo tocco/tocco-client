@@ -14,8 +14,8 @@ class ListView extends React.Component {
 
   msg = (id, values = {}) => (this.props.intl.formatMessage({id}, values))
 
-  onOrderByChange = (name, direction) => {
-    this.props.setOrderBy({name, direction})
+  onSortChange = (field, order) => {
+    this.props.setSorting([{field, order}])
   }
 
   onPageChange = page => {
@@ -39,11 +39,19 @@ class ListView extends React.Component {
 
   cellFormatter = cell => (cell ? <FormattedValue type={cell.type} value={cell.value}/> : <span/>)
 
+  getDefaultSortingProps = () => (
+    (Array.isArray(this.props.sorting) && this.props.sorting.length >= 1) ? {
+      sortName: this.props.sorting[0].field,
+      sortOrder: this.props.sorting[0].order
+    } : {}
+  )
+
   render() {
     const props = this.props
 
+    const defaultSorting = this.getDefaultSortingProps()
     const tableOption = {
-      onSortChange: this.onOrderByChange,
+      onSortChange: this.onSortChange,
       sizePerPage: this.props.limit,
       onPageChange: this.onPageChange,
       page: props.currentPage,
@@ -60,7 +68,8 @@ class ListView extends React.Component {
       prePage: '‹',
       nextPage: '›',
       firstPage: '«',
-      lastPage: '»'
+      lastPage: '»',
+      ...defaultSorting
     }
 
     const selectRow = {
@@ -73,7 +82,7 @@ class ListView extends React.Component {
     return (
       <div className="list-view">
         <LoadMask
-          required={[(props.columnDefinitions.length > 0)]}
+          required={[(props.columnDefinitions.length > 0 && props.sorting)]}
           loadingText={this.msg('client.entity-list.loadingText')}
         >
           <ActionBarContainer/>
@@ -114,10 +123,7 @@ ListView.propTypes = {
   initialize: PropTypes.func.isRequired,
   changePage: PropTypes.func.isRequired,
   entities: PropTypes.array.isRequired,
-  orderBy: PropTypes.shape({
-    name: PropTypes.string,
-    direction: PropTypes.string
-  }),
+  sorting: PropTypes.arrayOf(PropTypes.shape({field: PropTypes.string, order: PropTypes.string})),
   redirect: PropTypes.func,
   currentPage: PropTypes.number,
   limit: PropTypes.number,
@@ -130,7 +136,7 @@ ListView.propTypes = {
     })
   ).isRequired,
   entityCount: PropTypes.number,
-  setOrderBy: PropTypes.func,
+  setSorting: PropTypes.func,
   refresh: PropTypes.func,
   inProgress: PropTypes.bool,
   onRowClick: PropTypes.func
