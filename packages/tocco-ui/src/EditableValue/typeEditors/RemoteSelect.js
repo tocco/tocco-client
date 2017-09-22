@@ -18,9 +18,11 @@ class RemoteSelect extends React.Component {
     return options
   }
 
+  focusSelect = () => this.selectComponent.focus()
+
   render() {
     return (
-      <div>
+      <span tabIndex="-1" id={this.props.id} onFocus={this.focusSelect}>
         <Select
           valueKey="key"
           labelKey="display"
@@ -41,8 +43,9 @@ class RemoteSelect extends React.Component {
           options={this.getOptions()}
           isLoading={this.props.options.isLoading}
           disabled={this.props.readOnly}
+          ref={select => { this.selectComponent = select }}
         />
-      </div>
+      </span>
     )
   }
 }
@@ -56,7 +59,7 @@ RemoteSelect.propTypes = {
         PropTypes.number
       ])
     }),
-    PropTypes.string // empty string coming from Redux Form if value null
+    PropTypes.string // empty string coming from Redux Forerm if value null
   ]),
   options: PropTypes.shape({
     options: PropTypes.array,
@@ -69,7 +72,8 @@ RemoteSelect.propTypes = {
     moreOptionsAvailable: PropTypes.bool,
     moreOptionsAvailableText: PropTypes.string
   }),
-  readOnly: PropTypes.bool
+  readOnly: PropTypes.bool,
+  id: PropTypes.string
 }
 
 export default RemoteSelect

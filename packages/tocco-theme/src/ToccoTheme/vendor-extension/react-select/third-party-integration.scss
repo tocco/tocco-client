@@ -1,0 +1,10 @@
+$select-option-focused-bg: $brand-primary;
+$select-item-color: $gray-base;
+$select-item-bg: $gray-lighter;
+$select-input-border-focus: $gray-light;
+$select-option-focused-color: $gray-base;
+$select-option-focused-bg: $gray-lighter;
+$select-option-selected-color: $gray-base;
+$select-option-selected-bg: $gray-lighter;
+
+@import '~react-select/scss/default.scss';
