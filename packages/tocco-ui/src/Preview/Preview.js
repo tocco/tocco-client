@@ -1,38 +1,34 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import Figure from './Figure'
 
 /**
  * Can be used to show previews of any kind of file. Therefore an Url to the thumbnail and to the file must be provided.
  */
 const Preview = props => {
-  const onClick = () => {
-    if (typeof props.onClick === 'function') {
-      props.onClick(props.srcLink, props.thumbnailLink)
-    }
-  }
-
-  const figure = (
-    <figure>
-      <img alt={props.alt} className="thumbnail" src={props.thumbnailLink} onClick={onClick}/>
-      {props.caption && <figcaption className="description">{props.caption}</figcaption>}
-    </figure>
-  )
+  const figure = (<Figure
+    srcUrl={props.srcUrl}
+    thumbnailUrl={props.thumbnailUrl}
+    alt={props.alt}
+    caption={props.caption}
+    onClick={props.onClick}
+  />)
 
   return (
     <div className="tocco-preview">
-      {props.downloadOnClick ? <a href={props.srcLink} alt={props.alt} download>{figure}</a> : figure}
+      {props.downloadOnClick ? <a href={props.srcUrl} alt={props.alt} download>{figure}</a> : figure}
     </div>)
 }
 
 Preview.propTypes = {
   /**
-   * The url to the image
+   * The url to the document (can be any kind of file).
    */
-  srcLink: PropTypes.string.isRequired,
+  srcUrl: PropTypes.string.isRequired,
   /**
-   * The url to the thumbnail
+   * The url to the thumbnail (must be an image).
    */
-  thumbnailLink: PropTypes.string.isRequired,
+  thumbnailUrl: PropTypes.string.isRequired,
   /**
    * Alternative text if the image can't be displayed.
    */
@@ -46,7 +42,7 @@ Preview.propTypes = {
    */
   onClick: PropTypes.func,
   /**
-   * If true the image will be downloaded on a click event.
+   * If true the image will be wrapped in a link which downloads the document behind the source url (srcUrl).
    */
   downloadOnClick: PropTypes.bool
 }

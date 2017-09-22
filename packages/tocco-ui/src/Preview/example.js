@@ -8,16 +8,16 @@ export default () => {
     <div>
       {/* start example */}
       <Preview
-        srcLink="https://unsplash.it/150"
-        thumbnailLink="https://unsplash.it/150"
+        srcUrl="https://unsplash.it/150"
+        thumbnailUrl="https://unsplash.it/150"
         caption="A random image"
         alt="Alternative text"
         downloadOnClick
       />
       <Preview
-        srcLink="https://unsplash.it/150"
-        thumbnailLink="https://unsplash.it/150"
-        onClick={(srcLink, thumbnailLink) => alert(srcLink + '\n' + thumbnailLink)}
+        srcUrl="https://unsplash.it/150"
+        thumbnailUrl="https://unsplash.it/150"
+        onClick={(srcUrl, thumbnailUrl) => alert(srcUrl + '\n' + thumbnailUrl)}
       />
       {/* end example */}
     </div>
