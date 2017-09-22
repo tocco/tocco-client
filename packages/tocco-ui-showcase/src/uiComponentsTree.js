@@ -94,6 +94,14 @@ export default [
           component: LoadMaskExample,
           raw: LoadMaskExampleRaw
         }
+      },
+      {
+        name: 'Preview',
+        raw: PreviewRaw,
+        example: {
+          component: PreviewExample,
+          raw: PreviewExampleRaw
+        }
       }]
   },
   {
@@ -105,14 +113,6 @@ export default [
         example: {
           component: ButtonExample,
           raw: ButtonExampleRaw
-        }
-      },
-      {
-        name: 'Preview',
-        raw: PreviewRaw,
-        example: {
-          component: PreviewExample,
-          raw: PreviewExampleRaw
         }
       },
       {
