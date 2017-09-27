@@ -14,13 +14,7 @@ export function* fetchForm(formName, transformer = defaultFormTransformer) {
   return response.body ? yield call(transformer, response.body) : null
 }
 
-const getSorting = table => {
-  if (table.sorting) {
-    return table.sorting.map(sort => `${sort.orderItem} ${sort.ascending ? 'asc' : 'desc'}`).join(',')
-  }
-
-  return null
-}
+const getSorting = table => table.sorting ? table.sorting : []
 
 export const tableDefinitionTransformer = json => {
   const {form} = json

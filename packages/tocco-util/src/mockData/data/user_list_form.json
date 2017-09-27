@@ -10,12 +10,12 @@
         "displayType": "EDITABLE",
         "sorting": [
           {
-            "ascending": true,
-            "orderItem": "firstname"
+            "field": "user_nr",
+            "order": "asc"
           },
           {
-            "ascending": true,
-            "orderItem": "lastname"
+            "field": "firstname",
+            "order": "asc"
           }
         ],
         "children": [

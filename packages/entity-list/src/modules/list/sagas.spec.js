@@ -9,7 +9,7 @@ import {fetchEntityCount, fetchEntities, entitiesListTransformer, fetchModel} fr
 const generateState = (entityStore = {}, page) => ({
   initialized: false,
   formBase: '',
-  orderBy: '',
+  sorting: null,
   limit: '',
   entityStore,
   columnDefinition: [],
@@ -27,7 +27,7 @@ describe('entity-list', () => {
               fork(takeLatest, actions.INITIALIZE, sagas.initialize),
               fork(takeLatest, actions.CHANGE_PAGE, sagas.changePage),
               fork(takeLatest, searchFormActions.EXECUTE_SEARCH, sagas.resetDataSet),
-              fork(takeEvery, actions.SET_ORDER_BY, sagas.resetDataSet),
+              fork(takeEvery, actions.SET_SORTING, sagas.resetDataSet),
               fork(takeEvery, actions.RESET_DATA_SET, sagas.resetDataSet),
               fork(takeLatest, actions.REFRESH, sagas.refresh),
               fork(takeLatest, actions.ON_ROW_CLICK, sagas.onRowClick)
@@ -111,10 +111,10 @@ describe('entity-list', () => {
             const searchInputs = {}
             const entities = []
 
-            const {page, orderBy, limit, columnDefinition} = listViewState
+            const {page, sorting, limit, columnDefinition} = listViewState
             const fetchParams = {
               page,
-              orderBy,
+              sorting,
               limit,
               fields: columnDefinition,
               searchInputs,
@@ -228,12 +228,12 @@ describe('entity-list', () => {
             const formBase = 'UserSearch'
             const loadedTableDefinition = {
               columnDefinition: [],
-              sorting: ''
+              sorting: []
             }
             const gen = sagas.loadTableDefinition(columnDefinition, formBase)
             expect(gen.next().value).to.eql(call(fetchForm, `${formBase}_list`, tableDefinitionTransformer))
             expect(gen.next(loadedTableDefinition).value).to.eql(put(actions.setColumnDefinition(columnDefinition)))
-            expect(gen.next([]).value).to.eql(put(actions.setOrderBy({orderBy: loadedTableDefinition.sorting})))
+            expect(gen.next([]).value).to.eql(put(actions.setSorting(loadedTableDefinition.sorting)))
             expect(gen.next().done).to.be.true
           })
 
