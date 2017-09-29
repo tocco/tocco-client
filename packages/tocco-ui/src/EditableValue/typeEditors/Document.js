@@ -19,7 +19,9 @@ const Document = props => {
         readOnly={props.readOnly}
         textResources={{
           upload: props.options.uploadText,
-          uploading: props.options.uploadingText
+          uploading: props.options.uploadingText,
+          delete: props.options.deleteText,
+          download: props.options.downloadText
         }}
         value={props.value ? props.value : null}
       />
@@ -33,6 +35,8 @@ Document.propTypes = {
     upload: PropTypes.func.isRequired,
     uploadText: PropTypes.string,
     uploadingText: PropTypes.string,
+    deleteText: PropTypes.string,
+    downloadText: PropTypes.string,
     field: PropTypes.string
   }),
   onChange: PropTypes.func,
