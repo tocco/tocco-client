@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import classNames from 'classnames'
 import Figure from './Figure'
 
 /**
@@ -14,8 +15,13 @@ const Preview = props => {
     onClick={props.onClick}
   />)
 
+  const classes = classNames(
+    'tocco-preview',
+    props.className
+  )
+
   return (
-    <div className="tocco-preview">
+    <div className={classes}>
       {props.downloadOnClick ? <a href={props.srcUrl} alt={props.alt} download>{figure}</a> : figure}
     </div>)
 }
@@ -44,7 +50,12 @@ Preview.propTypes = {
   /**
    * If true the image will be wrapped in a link which downloads the document behind the source url (srcUrl).
    */
-  downloadOnClick: PropTypes.bool
+  downloadOnClick: PropTypes.bool,
+  /**
+   * CSS class that gets added to root element of preview
+   */
+  className: PropTypes.string
+
 }
 
 export default Preview
