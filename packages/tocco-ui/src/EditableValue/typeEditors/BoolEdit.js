@@ -22,7 +22,10 @@ const BoolEdit = props => {
 
 BoolEdit.propTypes = {
   onChange: PropTypes.func,
-  value: PropTypes.bool,
+  value: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.string // empty string coming from Redux Form if value null
+  ]),
   name: PropTypes.string,
   id: PropTypes.string,
   readOnly: PropTypes.bool

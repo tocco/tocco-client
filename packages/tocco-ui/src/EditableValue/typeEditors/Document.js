@@ -1,23 +1,45 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Document = props => (
-  <div className="form-control-static document">
-    <a href={props.value.binaryLink} alt={props.value.fileName} download>
-      <figure>
-        <img alt={props.value.fileName} className="thumbnail" src={props.value.thumbnailLink}/>
-        <figcaption className="description">{props.value.fileName}</figcaption>
-      </figure>
-    </a>
-  </div>
-)
+import Upload from '../../Upload'
+
+const Document = props => {
+  const onUpload = file => {
+    if (file === null) {
+      props.onChange(null)
+    } else {
+      props.options.upload(file, props.options.field)
+    }
+  }
+
+  return (
+    <div className="document">
+      <Upload
+        onUpload={onUpload}
+        readOnly={props.readOnly}
+        textResources={{
+          upload: props.options.uploadText,
+          uploading: props.options.uploadingText
+        }}
+        value={props.value ? props.value : null}
+      />
+    </div>
+  )
+}
 
 Document.propTypes = {
-  value: PropTypes.shape({
-    fileName: PropTypes.string.isRequired,
-    binaryLink: PropTypes.string.isRequired,
-    thumbnailLink: PropTypes.string.isRequired
-  }).isRequired
+  readOnly: PropTypes.bool,
+  options: PropTypes.shape({
+    upload: PropTypes.func.isRequired,
+    uploadText: PropTypes.string,
+    uploadingText: PropTypes.string,
+    field: PropTypes.string
+  }),
+  onChange: PropTypes.func,
+  value: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string // empty string coming from Redux Form if value null
+  ])
 }
 
 export default Document
