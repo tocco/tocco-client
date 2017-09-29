@@ -96,6 +96,7 @@ describe('entity-detail', () => {
                 logError={EMPTY_FUNC}
                 loadRelationEntity={EMPTY_FUNC}
                 loadRemoteEntity={EMPTY_FUNC}
+                uploadDocument={EMPTY_FUNC}
                 remoteEntities={{}}
                 loadRelationEntities={EMPTY_FUNC}
                 relationEntities={{}}

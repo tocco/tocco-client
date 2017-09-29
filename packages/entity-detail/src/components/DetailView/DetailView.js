@@ -64,6 +64,7 @@ class DetailView extends React.Component {
             intl={props.intl}
             lastSave={props.lastSave}
             fireTouched={props.fireTouched}
+            uploadDocument={props.uploadDocument}
           />
         </LoadMask>
       </div>
@@ -94,6 +95,7 @@ DetailView.propTypes = {
   entity: PropTypes.object,
   loadRelationEntity: PropTypes.func.isRequired,
   loadRemoteEntity: PropTypes.func.isRequired,
+  uploadDocument: PropTypes.func.isRequired,
   formInitialValues: PropTypes.object,
   relationEntities: PropTypes.shape({
     entityName: PropTypes.shape({
