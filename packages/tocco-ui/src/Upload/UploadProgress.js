@@ -8,7 +8,7 @@ const UploadProgress = props => (
     <Preview
       className="transparent"
       style={{maxWidth: '200px'}}
-      srcUrl={props.preview}
+      srcUrl={props.preview.file}
       thumbnailUrl={props.preview.file}
       downloadOnClick={false}
     />
@@ -23,7 +23,10 @@ const UploadProgress = props => (
 
 UploadProgress.propTypes = {
   text: PropTypes.string,
-  preview: PropTypes.string
+  preview: PropTypes.shape({
+    file: PropTypes.string,
+    size: PropTypes.number
+  })
 }
 
 export default UploadProgress
