@@ -6,7 +6,7 @@ import UploadProgress from './UploadProgress'
 import UploadInput from './UploadInput'
 
 /**
- * Component to upload files. If uploaded, the the gets displayed with Preview
+ * Component to upload files. If uploaded, the file will be displayed by the Preview component.
  */
 class Upload extends React.Component {
   constructor(props) {
