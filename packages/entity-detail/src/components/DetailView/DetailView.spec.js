@@ -32,6 +32,7 @@ describe('entity-detail', () => {
           modelPaths={[]}
           unloadDetailView={EMPTY_FUNC}
           loadRelationEntity={EMPTY_FUNC}
+          uploadDocument={EMPTY_FUNC}
           loadRemoteEntity={EMPTY_FUNC}
           relationEntities={{}}
           remoteEntities={{}}

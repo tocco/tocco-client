@@ -14,6 +14,7 @@ import {
   submitForm,
   loadRelationEntity,
   loadRemoteEntity,
+  uploadDocument,
   fireTouched
 } from '../modules/entityDetail/actions'
 import DetailView from '../components/DetailView/DetailView'
@@ -25,6 +26,7 @@ const mapActionCreators = {
   submitForm,
   loadRelationEntity,
   loadRemoteEntity,
+  uploadDocument,
   logError: errorLogging.logError,
   fireTouched
 }

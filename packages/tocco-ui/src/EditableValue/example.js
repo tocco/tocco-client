@@ -23,7 +23,17 @@ class Example extends React.Component {
         multiRemote: [
           {key: 999, display: 'Dummy User 999'},
           {key: 1234, display: 'Dummy User 1234'}
-        ]
+        ],
+        document: {
+          mimeType: 'image/png',
+          fileExtension: 'png',
+          sizeInBytes: 3336,
+          fileName: 'Blue-Square.png',
+          binaryLink: 'http://link.to/my/image.png',
+          thumbnailLink: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgAQMAAADYVuV7AAAACXBIWXMAAA7'
+          + 'EAAAOxAGVKw4bAAAABlBMVEUCd72z5fwcX0uLAAAAHElEQVQ4y2NgwAns/8PBn1HOKGeUM8oZrBycAAD'
+          + 'OggXZNnQmgAAAAABJRU5ErkJggg=='
+        }
       },
       remoteOptions: [],
       multiRemoteOptions: []
@@ -72,6 +82,17 @@ class Example extends React.Component {
       ...this.state,
       multiRemoteOptions: this.createOptions(5, searchTerm)
     })
+  }
+
+  handleMockFileUpload = file => {
+    console.log('upload', file)
+    setTimeout(() => {
+      this.changeValue('document', {
+        binaryLink: file.preview,
+        thumbnailLink: file.preview,
+        fileName: file.name
+      })
+    }, 3000)
   }
 
   render() {
@@ -242,16 +263,14 @@ class Example extends React.Component {
               <td>
                 <EditableValue
                   type="document"
-                  value={{
-                    mimeType: 'image/png',
-                    fileExtension: 'png',
-                    sizeInBytes: 3336,
-                    fileName: 'Blue-Square.png',
-                    binaryLink: 'http://link.to/my/image.png',
-                    thumbnailLink: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgAQMAAADYVuV7AAAACXBIWXMAAA7'
-                                    + 'EAAAOxAGVKw4bAAAABlBMVEUCd72z5fwcX0uLAAAAHElEQVQ4y2NgwAns/8PBn1HOKGeUM8oZrBycAAD'
-                                    + 'OggXZNnQmgAAAAABJRU5ErkJggg=='}}
+                  onChange={v => this.changeValue('document', v)}
+                  value={this.state.values.document}
                   readOnly={this.state.readOnly}
+                  options={{
+                    uploadText: 'drag & drop',
+                    uploadingText: 'uploading...',
+                    upload: this.handleMockFileUpload
+                  }}
                 />
               </td>
             </tr>

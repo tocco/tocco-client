@@ -38,6 +38,14 @@ const getOptions = (type, formField, modelField, utils) => {
         options.moreOptionsAvailableText = utils.intl.formatMessage(
           {id: 'client.component.remoteselect.moreOptionsAvailableText'})
       }
+      break
+    case 'document':
+      options.field = formField.name
+      options.upload = utils.uploadDocument
+      options.uploadText = utils.intl.formatMessage({id: 'client.component.upload.upload'})
+      options.uploadingText = utils.intl.formatMessage({id: 'client.component.upload.uploading'})
+      options.downloadText = utils.intl.formatMessage({id: 'client.component.upload.downloadTitle'})
+      options.deleteText = utils.intl.formatMessage({id: 'client.component.upload.deleteTitle'})
   }
 
   return options

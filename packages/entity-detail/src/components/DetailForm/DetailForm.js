@@ -28,6 +28,7 @@ export class DetailForm extends React.Component {
       loadRelationEntity: props.loadRelationEntity,
       loadRemoteEntity: props.loadRemoteEntity,
       remoteEntities: props.remoteEntities,
+      uploadDocument: props.uploadDocument,
       intl: this.props.intl
     }
 
@@ -141,6 +142,7 @@ DetailForm.propTypes = {
   loadRelationEntity: PropTypes.func.isRequired,
   formValues: PropTypes.object,
   loadRemoteEntity: PropTypes.func.isRequired,
+  uploadDocument: PropTypes.func.isRequired,
   relationEntities: PropTypes.shape({
     entityName: PropTypes.shape({
       loaded: PropTypes.bool,

@@ -5,7 +5,8 @@ import {
   SubmissionError,
   touch,
   initialize as initializeForm,
-  startSubmit
+  startSubmit,
+  change as changeFormValue
 } from 'redux-form'
 
 import { externalEvents, form } from 'tocco-util'
@@ -22,6 +23,7 @@ import {
 import { getFieldDefinitions, getFieldNames, fetchForm } from '../../util/api/forms'
 import {submitValidate} from '../../util/detailView/asyncValidation'
 import modes from '../../util/modes'
+import {uploadRequest, documentToFormValueTransformer} from '../../util/api/documents'
 
 const FORM_ID = 'detailForm'
 
@@ -38,6 +40,7 @@ describe('entity-detail', () => {
               fork(takeEvery, actions.SUBMIT_FORM, sagas.submitForm),
               fork(takeEvery, actions.LOAD_RELATION_ENTITY, sagas.loadRelationEntity),
               fork(takeEvery, actions.LOAD_REMOTE_ENTITY, sagas.loadRemoteEntity),
+              fork(takeEvery, actions.UPLOAD_DOCUMENT, sagas.uploadDocument),
               fork(takeEvery, actions.FIRE_TOUCHED, sagas.fireTouched)
             ]))
             expect(generator.next().done).to.be.true
@@ -490,6 +493,24 @@ describe('entity-detail', () => {
 
             expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
             expect(gen.next({touched: true}).done).to.be.true
+          })
+        })
+
+        describe('uploadDocument saga', () => {
+          it('should call upload and dispatch value', () => {
+            const file = {}
+            const field = 'preview_picture'
+            const uploadResponse = {
+              success: true
+            }
+            const documentFormValue = {preview_picture: '123-4324'}
+            const gen = sagas.uploadDocument(actions.uploadDocument(file, field))
+
+            expect(gen.next().value).to.eql(call(uploadRequest, file))
+            expect(gen.next(uploadResponse).value).to.eql(call(documentToFormValueTransformer, uploadResponse, file))
+            expect(gen.next(documentFormValue).value).to.eql(put(changeFormValue(FORM_ID, field, documentFormValue)))
+
+            expect(gen.next().done).to.be.true
           })
         })
       })

@@ -6,7 +6,8 @@ import {
   getFormValues,
   touch,
   initialize as initializeForm,
-  destroy as destroyForm
+  destroy as destroyForm,
+  change as changeFormValue
 } from 'redux-form'
 
 import {externalEvents, notifier, errorLogging, form} from 'tocco-util'
@@ -20,7 +21,8 @@ import {
   selectEntitiesTransformer,
   createEntity
 } from '../../util/api/entities'
-import { fetchForm, getFieldDefinitions, getDefaultValues, getFieldNames } from '../../util/api/forms'
+import {fetchForm, getFieldDefinitions, getDefaultValues, getFieldNames} from '../../util/api/forms'
+import {uploadRequest, documentToFormValueTransformer} from '../../util/api/documents'
 import {submitValidate} from '../../util/detailView/asyncValidation'
 import modes from '../../util/modes'
 
@@ -36,6 +38,7 @@ export default function* sagas() {
     fork(takeEvery, actions.SUBMIT_FORM, submitForm),
     fork(takeEvery, actions.LOAD_RELATION_ENTITY, loadRelationEntity),
     fork(takeEvery, actions.LOAD_REMOTE_ENTITY, loadRemoteEntity),
+    fork(takeEvery, actions.UPLOAD_DOCUMENT, uploadDocument),
     fork(takeEvery, actions.FIRE_TOUCHED, fireTouched)
   ])
 }
@@ -195,6 +198,29 @@ export function* loadRemoteEntity({payload}) {
   const entities = yield call(fetchEntities, entityName, fetchParams, selectEntitiesTransformer)
   const moreOptionsAvailable = entities.length > limit
   yield put(actions.setRemoteEntity(field, entities.splice(0, limit), moreOptionsAvailable))
+}
+
+export function* uploadDocument({payload}) {
+  const {file, field} = payload
+
+  try {
+    const uploadResponse = yield call(uploadRequest, file)
+
+    if (uploadResponse.success) {
+      const documentFormValue = yield call(documentToFormValueTransformer, uploadResponse, file)
+      yield put(changeFormValue(FORM_ID, field, documentFormValue))
+    } else {
+      throw new Error(`upload not successful: ${JSON.stringify(uploadResponse)}`)
+    }
+  } catch (error) {
+    // timestamp is needed as workaround, so that Upload component rerenders
+    yield put(changeFormValue(FORM_ID, field, {id: null, timestamp: Date.now()}))
+    yield put(errorLogging.logError(
+      'client.entity-detail.uploadFailedTitle',
+      'client.entity-detail.uploadFailedMessage',
+      error
+    ))
+  }
 }
 
 export function* fireTouched({payload}) {

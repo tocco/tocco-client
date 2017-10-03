@@ -22,6 +22,10 @@ import PreviewRaw from '!raw-loader!../../tocco-ui/src/Preview/Preview'
 import PreviewExample from '../../tocco-ui/src/Preview/example'
 import PreviewExampleRaw from '!raw-loader!../../tocco-ui/src/Preview/example'
 
+import UploadRaw from '!raw-loader!../../tocco-ui/src/Upload/Upload'
+import UploadExample from '../../tocco-ui/src/Upload/example'
+import UploadExampleRaw from '!raw-loader!../../tocco-ui/src/Upload/example'
+
 import SearchBoxRaw from '!raw-loader!../../tocco-ui/src/SearchBox/SearchBox'
 import SearchBoxExample from '../../tocco-ui/src/SearchBox/example'
 import SearchBoxExampleRaw from '!raw-loader!../../tocco-ui/src/SearchBox/example'
@@ -101,6 +105,14 @@ export default [
         example: {
           component: PreviewExample,
           raw: PreviewExampleRaw
+        }
+      },
+      {
+        name: 'Upload',
+        raw: UploadRaw,
+        example: {
+          component: UploadExample,
+          raw: UploadExampleRaw
         }
       }]
   },
