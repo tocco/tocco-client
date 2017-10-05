@@ -26,9 +26,9 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "tocco-test-util": "0.1.2",
-    "tocco-theme": "0.1.4",
-    "tocco-ui": "0.1.4",
-    "tocco-util": "0.1.5"
+    "tocco-test-util": ">0.1.0",
+    "tocco-theme": ">0.1.0",
+    "tocco-ui": ">0.1.0",
+    "tocco-util": ">0.1.0"
   }
 }

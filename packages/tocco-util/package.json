@@ -4,7 +4,7 @@
   "description": "tocco util",
   "main": "src/main.js",
   "devDependencies": {
-    "tocco-test-util": "0.1.2",
-    "tocco-ui": "0.1.5"
+    "tocco-test-util": ">0.1.0",
+    "tocco-ui": ">0.1.0"
   }
 }
