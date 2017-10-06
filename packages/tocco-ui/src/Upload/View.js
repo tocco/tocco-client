@@ -9,7 +9,7 @@ const View = props => (
         href={props.value.binaryLink}
         title={props.downloadTitle || 'download'}
         className="action btn btn-default"
-        download
+        download={props.value.fileName}
       >
         <i className="fa fa-download" aria-hidden="true"></i>
       </a>

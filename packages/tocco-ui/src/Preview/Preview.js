@@ -22,7 +22,7 @@ const Preview = props => {
 
   return (
     <div className={classes}>
-      {props.downloadOnClick ? <a href={props.srcUrl} alt={props.alt} download>{figure}</a> : figure}
+      {props.downloadOnClick ? <a href={props.srcUrl} alt={props.alt} download={props.caption}>{figure}</a> : figure}
     </div>)
 }
 
