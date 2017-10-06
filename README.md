@@ -52,7 +52,7 @@ and execute the following commands:
 npm install --global lerna@v2.1.0
 npm run setup
 lerna bootstrap
-npm start --package={PACKAGE_NAME}
+npm start -- --package={PACKAGE_NAME}
 ```
 Open http://localhost:3000 and start coding!
 
@@ -76,12 +76,12 @@ npm test
 
 Single Package:
 ```
-npm test --package={PACKAGE_NAME}
+npm test -- --package={PACKAGE_NAME}
 ```
 
 During development with watch:
 ```
-npm run test:dev --package={PACKAGE_NAME}
+npm run test:dev -- --package={PACKAGE_NAME}
 ```
 
 #### Generators
@@ -103,8 +103,8 @@ lerna publish [--scope {PACKAGE_NAME}] --exact -m "chore: publish"
 
 Only build:
 ```
-npm run deploy:dev --package={PACKAGE_NAME}
-npm run deploy:prod --package={PACKAGE_NAME}
+npm run compile:dev -- --package={PACKAGE_NAME}
+npm run compile:prod -- --package={PACKAGE_NAME}
 ```
 
 ## Linting

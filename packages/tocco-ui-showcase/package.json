@@ -5,28 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "clean": "../../node_modules/rimraf/bin.js dist",
-    "compile": "babel-node ../../bin/compile",
-    "deploy": "cd ../../ && ./node_modules/better-npm-run/index.js deploy --package=tocco-ui-showcase",
-    "prepublish": "cd ../../ && ./node_modules/better-npm-run/index.js deploy:standalone --package=tocco-ui-showcase"
-  },
-  "betterScripts": {
-    "deploy": {
-      "command": "npm run clean && npm run compile --package=tocco-ui-showcase",
-      "env": {
-        "DEBUG": "app:*"
-      }
-    },
-    "deploy:standalone": {
-      "command": "npm run deploy",
-      "env": {
-        "NODE_ENV": "standalone",
-        "DEBUG": "app:*"
-      }
-    }
-  },
-  "peerDependencies": {
-    "react": "^15.2.1",
-    "react-dom": "^15.2.1"
+    "compile:standalone": "cd ../../ && npm run compile:standalone -- --package=tocco-ui-showcase",
+    "prepublish": "npm run clean && npm run compile:standalone"
   },
   "devDependencies": {
     "highlight.js": "^9.9.0",

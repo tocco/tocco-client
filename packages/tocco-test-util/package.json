@@ -2,28 +2,7 @@
   "name": "tocco-test-util",
   "version": "0.1.2",
   "description": "A package with utilities for writing tests",
-  "main": "dist/index.js",
-  "scripts": {
-    "clean": "../../node_modules/rimraf/bin.js dist",
-    "compile": "babel-node ../../bin/compile",
-    "deploy": "cd ../../ && ./node_modules/better-npm-run/index.js deploy --package=tocco-test-util",
-    "prepublish": "cd ../../ && ./node_modules/better-npm-run/index.js deploy:prod --package=tocco-test-util"
-  },
-  "betterScripts": {
-    "deploy": {
-      "command": "npm run clean && npm run compile --package=tocco-test-util",
-      "env": {
-        "DEBUG": "app:*"
-      }
-    },
-    "deploy:prod": {
-      "command": "npm run deploy",
-      "env": {
-        "NODE_ENV": "production",
-        "DEBUG": "app:*"
-      }
-    }
-  },
+  "main": "src/main.js",
   "peerDependencies": {
     "react": "^15.2.1",
     "react-dom": "^15.2.1"
