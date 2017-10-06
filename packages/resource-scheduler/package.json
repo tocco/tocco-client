@@ -1,34 +1,19 @@
 {
-  "name": "resource-scheduler",
+  "name": "tocco-resource-scheduler",
   "version": "0.1.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
     "clean": "../../node_modules/rimraf/bin.js dist",
-    "compile": "babel-node ../../build/scripts/compile",
-    "deploy": "cd ../../ && ./node_modules/better-npm-run/index.js deploy --package=resource-scheduler",
-    "prepublish": "cd ../../ && ./node_modules/better-npm-run/index.js deploy:prod --package=resource-scheduler"
-  },
-  "betterScripts": {
-    "deploy": {
-      "command": "npm run clean && npm run compile --package=resource-scheduler",
-      "env": {
-        "DEBUG": "app:*"
-      }
-    },
-    "deploy:prod": {
-      "command": "npm run deploy",
-      "env": {
-        "NODE_ENV": "production",
-        "DEBUG": "app:*"
-      }
-    }
+    "compile:prod": "cd ../../ && npm run compile:prod -- --package=resource-scheduler",
+    "prepublish": "npm run clean && npm run compile:prod"
   },
   "dependencies": {},
   "devDependencies": {
     "tocco-test-util": ">0.1.0",
     "tocco-theme": ">0.1.0",
     "tocco-ui": ">0.1.0",
-    "tocco-util": ">0.1.0"
+    "tocco-util": ">0.1.0",
+    "tocco-scheduler": ">=0.1.0"
   }
 }

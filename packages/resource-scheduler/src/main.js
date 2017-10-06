@@ -2,33 +2,40 @@ import React from 'react'
 import {appFactory} from 'tocco-util'
 
 import reducers, {sagas} from './modules/reducers'
+import ResourceScheduler from './components/ResourceScheduler/ResourceScheduler'
 
 const packageName = 'resource-scheduler'
 
 const initApp = (id, input, events, publicPath) => {
-  const content = <div>Resource Scheduler</div>
+  const content = <ResourceScheduler/>
 
-  const store = appFactory.createStore(reducers, sagas, undefined)
+  const store = appFactory.createStore(reducers, sagas, input, packageName)
 
   return appFactory.createApp(
     packageName,
     content,
     store,
-    input,
-    events,
-    [],
-    publicPath
+    {
+      input,
+      events,
+      actions: [],
+      publicPath,
+      textResourceModules: ['component', 'common', packageName]
+    }
   )
 }
 
 (() => {
-  if (__DEV__) {
+  if (__DEV__ && __PACKAGE_NAME__ === 'resource-scheduler') {
     require('tocco-theme/src/ToccoTheme/theme.scss')
     const input = require('./dev/input.json')
 
-    const fetchMock = require('fetch-mock')
-    const setupFetchMocks = require('./dev/fetchMocks')
-    setupFetchMocks(fetchMock)
+    if (!__NO_MOCK__) {
+      const fetchMock = require('fetch-mock')
+      const setupFetchMocks = require('./dev/fetchMocks')
+      setupFetchMocks(fetchMock)
+      fetchMock.spy()
+    }
 
     const app = initApp('id', input)
 
