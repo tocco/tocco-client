@@ -3,12 +3,11 @@ import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import config from '../config'
-import _debug from 'debug'
+import logger from './lib/logger'
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
 import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
 import fs from 'fs'
 
-const debug = _debug('app:webpack:config')
 const paths = config.utils_paths
 const {__DEV__, __PROD__, __STANDALONE__, __TEST__, __PACKAGE__, __NICE2_11_LEGACY__} = config.globals
 
@@ -18,7 +17,7 @@ const absolutePackagePath = paths.client(`${packageDir}/`)
 const outputDir = absolutePackagePath + '/dist'
 const testPlugins = []
 
-debug('Create configuration.')
+logger.info('Create webpack configuration.')
 const webpackConfig = {
   name: 'client',
   target: 'web',
@@ -178,7 +177,7 @@ if (__DEV__) {
 
 // see: https://github.com/karma-runner/karma-sauce-launcher/issues/95
 if (!process || !process.env || !process.env.DISABLE_ISTANBUL_COVERAGE) {
-  debug('Enable instanbul test plugin.')
+  logger.info('Enable instanbul test plugin.')
   testPlugins.push(['istanbul', {
     exclude: [
       '**/dev/**',
@@ -379,7 +378,7 @@ if (fs.existsSync(packageWebpackFile)) {
   const adjustConfig = require(`../${packageWebpackFile}`).adjustConfig
 
   if (adjustConfig) {
-    debug('Adjust configuration with package specific config.')
+    logger.info('Adjust configuration with package specific config.')
     adjustConfig(webpackConfig, config, paths)
   }
 }

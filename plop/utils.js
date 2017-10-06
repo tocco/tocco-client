@@ -1,6 +1,6 @@
 import fs from 'fs'
 import config from '../config'
-import {getAllPackages} from '../bin/packages'
+import {getAllPackages} from '../build/lib/packages'
 
 const paths = config.utils_paths
 export const ROOT_DISPLAY = '- (Root)'

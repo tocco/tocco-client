@@ -5,24 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "clean": "../../node_modules/rimraf/bin.js dist",
-    "compile": "babel-node ../../bin/compile",
-    "deploy": "cd ../../ && ./node_modules/better-npm-run/index.js deploy --package=merge",
-    "prepublish": "cd ../../ && ./node_modules/better-npm-run/index.js deploy:prod --package=merge && ./node_modules/better-npm-run/index.js deploy:nice2_11_legacy --package=merge"
-  },
-  "betterScripts": {
-    "deploy": {
-      "command": "npm run clean && npm run compile --package=merge",
-      "env": {
-        "DEBUG": "app:*"
-      }
-    },
-    "deploy:prod": {
-      "command": "npm run deploy",
-      "env": {
-        "NODE_ENV": "production",
-        "DEBUG": "app:*"
-      }
-    }
+    "compile": "cd ../../ && npm run compile:prod -- --package=merge && npm run compile:nice2_11_legacy -- --package=merge",
+    "prepublish": "npm run clean && npm run compile"
   },
   "devDependencies": {
     "tocco-test-util": ">0.1.0",

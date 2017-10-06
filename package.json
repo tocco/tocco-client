@@ -8,101 +8,23 @@
   },
   "scripts": {
     "clean": "rimraf node_modules && cd server/static && rimraf node_modules && lerna clean",
-    "compile": "better-npm-run compile",
+    "compile": "babel-node build/scripts/compile",
+    "compile:prod": "NODE_ENV=production npm run compile --",
+    "compile:dev": "NODE_ENV=development npm run compile --",
+    "compile:standalone": "NODE_ENV=standalone npm run compile --",
+    "compile:nice2_11_legacy": "NODE_ENV=nice2_11_legacy npm run compile --",
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
     "lint": "stylelint \"packages/**/*.scss\" && eslint . --cache",
     "lint:fix": "npm run lint -- --fix",
-    "start": "better-npm-run start",
-    "dev": "better-npm-run dev",
-    "dev:nw": "npm run dev -- --nw",
-    "dev:no-debug": "npm run dev -- --no_debug",
-    "test": "better-npm-run test",
-    "test:saucelabs": "better-npm-run test:saucelabs",
+    "start": "babel-node build/scripts/dev-server",
+    "test": "NODE_ENV=test babel-node ./node_modules/karma/bin/karma start build/karma.conf",
+    "test:saucelabs": "NODE_ENV=test babel-node ./node_modules/karma/bin/karma start build/karma-saucelabs.conf",
     "test:dev": "npm run test -- --watch",
-    "deploy": "better-npm-run deploy",
-    "deploy:dev": "better-npm-run deploy:dev",
-    "deploy:prod": "better-npm-run deploy:prod",
-    "deploy:standalone": "better-npm-run deploy:standalone",
-    "deploy:nice2_11_legacy": "better-npm-run deploy:nice2_11_legacy",
-    "publish": "better-npm-run publish",
     "codecov": "cat ./coverage/lcov/lcov.info | codecov",
     "setup": "yarn && cd server/static && yarn",
     "plop": "babel-node ./node_modules/plop",
-    "commitmsg": "babel-node bin/githooks/msg-validation",
+    "commitmsg": "babel-node githooks/msg-validation",
     "precommit": "npm run lint"
-  },
-  "betterScripts": {
-    "compile": {
-      "command": "babel-node bin/compile",
-      "env": {
-        "DEBUG": "app:*"
-      }
-    },
-    "dev": {
-      "command": "nodemon --exec babel-node bin/dev-server",
-      "env": {
-        "NODE_ENV": "development",
-        "DEBUG": "app:*"
-      }
-    },
-    "deploy": {
-      "command": "npm run compile",
-      "env": {
-        "DEBUG": "app:*"
-      }
-    },
-    "deploy:dev": {
-      "command": "npm run deploy",
-      "env": {
-        "NODE_ENV": "development",
-        "DEBUG": "app:*"
-      }
-    },
-    "deploy:prod": {
-      "command": "npm run deploy",
-      "env": {
-        "NODE_ENV": "production",
-        "DEBUG": "app:*"
-      }
-    },
-    "deploy:standalone": {
-      "command": "npm run deploy",
-      "env": {
-        "NODE_ENV": "standalone",
-        "DEBUG": "app:*"
-      }
-    },
-    "deploy:nice2_11_legacy": {
-      "command": "npm run deploy",
-      "env": {
-        "NODE_ENV": "nice2_11_legacy",
-        "DEBUG": "app:*"
-      }
-    },
-    "publish": {
-      "command": "npm run deploy:prod && npm publish dist"
-    },
-    "start": {
-      "command": "webpack-dashboard babel-node bin/dev-server",
-      "env": {
-        "DEBUG": "app:*"
-      }
-    },
-    "test": {
-      "command": "babel-node ./node_modules/karma/bin/karma start build/karma.conf",
-      "env": {
-        "NODE_ENV": "test",
-        "DEBUG": "app:*"
-      }
-    },
-    "test:saucelabs": {
-      "command": "babel-node ./node_modules/karma/bin/karma start build/karma-saucelabs.conf",
-      "env": {
-        "NODE_ENV": "test",
-        "DISABLE_ISTANBUL_COVERAGE": true,
-        "DEBUG": "app:*"
-      }
-    }
   },
   "author": "Tocco AG",
   "license": "AGPL-3.0+",
@@ -132,16 +54,15 @@
     "babel-preset-stage-0": "6.24.1",
     "babel-register": "6.24.1",
     "babel-runtime": "6.23.0",
-    "better-npm-run": "0.0.15",
     "case-sensitive-paths-webpack-plugin": "2.1.1",
     "chai": "4.0.2",
     "chai-enzyme": "0.6.1",
+    "chalk": "2.1.0",
     "classnames": "~2.2.5",
     "codecov": "2.2.0",
     "compression": "1.6.2",
     "copy-webpack-plugin": "4.0.1",
     "css-loader": "0.28.4",
-    "debug": "2.6.8",
     "enzyme": "2.9.1",
     "es6-error": "4.0.2",
     "eslint": "4.1.1",
@@ -159,6 +80,7 @@
     "express": "4.15.3",
     "extract-text-webpack-plugin": "2.1.2",
     "fetch-mock": "5.12.1",
+    "figures": "2.0.0",
     "file-loader": "0.11.2",
     "flow-bin": "0.49.1",
     "glob": "7.1.2",

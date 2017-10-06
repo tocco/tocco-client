@@ -5,24 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "clean": "../../node_modules/rimraf/bin.js dist",
-    "compile": "babel-node ../../bin/compile",
-    "deploy": "cd ../../ && ./node_modules/better-npm-run/index.js deploy --package=tocco-ui",
-    "prepublish": "cd ../../ && ./node_modules/better-npm-run/index.js deploy:prod --package=tocco-ui"
-  },
-  "betterScripts": {
-    "deploy": {
-      "command": "npm run clean && npm run compile --package=tocco-ui",
-      "env": {
-        "DEBUG": "app:*"
-      }
-    },
-    "deploy:prod": {
-      "command": "npm run deploy",
-      "env": {
-        "NODE_ENV": "production",
-        "DEBUG": "app:*"
-      }
-    }
+    "compile:prod": "cd ../../ && npm run compile:prod -- --package=tocco-ui",
+    "prepublish": "npm run clean && npm run compile:prod"
   },
   "peerDependencies": {
     "react": "^15.2.1",
