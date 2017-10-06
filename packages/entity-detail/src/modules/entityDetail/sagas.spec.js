@@ -244,7 +244,10 @@ describe('entity-detail', () => {
             expect(gen.next().value).to.eql(
               call(sagas.showNotification, 'success', 'saveSuccessfulTitle', 'saveSuccessfulMessage')
             )
-            expect(gen.next().value).to.eql(put(actions.setLastSave()))
+            // because of setLastSave creates a new time stamp if no argument is passed, the test failed some times.
+            // That's why we only check if the SET_LAST_SAVE action was called instead of the whole PUT object.
+            const next = gen.next().value.PUT.action.type
+            expect(next).to.eql('entityDetail/SET_LAST_SAVE')
             expect(gen.next().value).to.eql(put(stopSubmit(FORM_ID)))
 
             expect(gen.next().done).to.be.true
