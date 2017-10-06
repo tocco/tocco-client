@@ -1,10 +1,10 @@
 import fs from 'fs'
-import _debug from 'debug'
+import chalk from 'chalk'
+import logger from '../build/lib/logger'
 import config from './_base'
 
-const debug = _debug('app:config')
-debug('Create configuration.')
-debug(`Apply environment overrides for NODE_ENV "${config.env}".`)
+logger.info('Create configuration.')
+logger.info(`Apply environment overrides for NODE_ENV ${chalk.bold(config.env)}.`)
 
 // Check if the file exists before attempting to require it, this
 // way we can provide better error reporting that overrides
@@ -23,7 +23,7 @@ let overrides
 if (hasOverridesFile) {
   overrides = require(`./${overridesFilename}`).default(config)
 } else {
-  debug(`No configuration overrides found for NODE_ENV "${config.env}"`)
+  logger.info(`No configuration overrides found for NODE_ENV "${config.env}"`)
 }
 
 export default Object.assign({}, config, overrides)

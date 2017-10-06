@@ -73,11 +73,10 @@ config.globals = {
   '__NICE2_11_LEGACY__': config.env === 'nice2_11_legacy',
   '__TEST__'     : config.env === 'test',
   '__DEBUG__'    : config.env === 'development' && !argv.no_debug,
-  '__BASENAME__' : JSON.stringify(process.env.BASENAME || ''),
   '__BACKEND_URL__': JSON.stringify(''),
-  '__PACKAGE__'   : process.env.npm_config_package,
-  '__PACKAGE_NAME__'   : JSON.stringify(process.env.npm_config_package),
-  '__NO_MOCK__': process.env.npm_config_noMock || false
+  '__PACKAGE__'   : argv.package,
+  '__PACKAGE_NAME__'   : JSON.stringify(argv.package),
+  '__NO_MOCK__': argv.noMock || false
 }
 
 // ------------------------------------

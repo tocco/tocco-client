@@ -9,7 +9,7 @@ global.sinon = sinon
 global.expect = chai.expect
 global.should = chai.should()
 
-const error = console.error // eslint-disable-line no-console
+const error = console.error // eslint-disable-line
 console.error = function(warning, ...args) { // eslint-disable-line no-console
   if (/(Invalid prop|Failed prop type)/.test(warning)) {
     throw new Error(warning)

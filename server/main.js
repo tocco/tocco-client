@@ -1,5 +1,4 @@
 const express = require('express')
-const debug = require('debug')('app:server')
 const path = require('path')
 const webpack = require('webpack')
 const webpackConfig = require('../build/webpack.config').default
@@ -8,6 +7,7 @@ const compress = require('compression')
 const updateMutableImportSCSS = require('../build/mutable-scss-imports').updateMutableImportSCSS
 const DashboardPlugin = require('webpack-dashboard/plugin')
 const app = express()
+const logger = require('../build/lib/logger').default
 
 // Apply gzip compression
 app.use(compress())
@@ -23,7 +23,7 @@ if (config.env === 'development') {
 
   updateMutableImportSCSS()
 
-  debug('Enabling webpack dev and HMR middleware')
+  logger.info('Enabling webpack dev and HMR middleware')
   app.use(require('webpack-dev-middleware')(compiler, {
     publicPath: '/',
     hot: true,
@@ -59,7 +59,7 @@ if (config.env === 'development') {
     })
   })
 } else {
-  debug(
+  logger.warn(
     'Server is being run outside of live development mode, meaning it will '
     + 'only serve the compiled application bundle in ~/dist. Generally you '
     + 'do not need an application server for this and can instead use a web '

@@ -25,7 +25,6 @@
     "__DEBUG__"    : false,
     "__STANDALONE__": false,
     "__COVERAGE__" : false,
-    "__BASENAME__" : false,
     "__BACKEND_URL__" : false,
     "__PACKAGE__": false,
     "__PACKAGE_NAME__": false,

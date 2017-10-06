@@ -1,11 +1,10 @@
 import {argv} from 'yargs'
 import config from '../config'
 import webpackConfig from './webpack.config'
-import _debug from 'debug'
-import {getAllPackages} from '../bin/packages'
+import logger from './lib/logger'
+import {getAllPackages} from './lib/packages'
 
-const debug = _debug('app:karma')
-debug('Create configuration.')
+logger.info('Create Karma configuration.')
 
 let packages
 if (config.globals.__PACKAGE__) {
@@ -17,7 +16,8 @@ if (config.globals.__PACKAGE__) {
     !config.test_excluded_packages.includes(pck)
   ))
 }
-debug(`Run tests for packages: ${packages.join(', ')}`)
+
+logger.info(`Run tests for packages: ${packages.join(', ')}`)
 
 const testBundles = []
 packages.forEach(pck => {

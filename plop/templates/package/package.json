@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "clean": "../../node_modules/rimraf/bin.js dist",
-    "compile": "babel-node ../../bin/compile",
+    "compile": "babel-node ../../build/scripts/compile",
     "deploy": "cd ../../ && ./node_modules/better-npm-run/index.js deploy --package={{kebabCase package}}",
     "prepublish": "cd ../../ && ./node_modules/better-npm-run/index.js deploy:prod --package={{kebabCase package}}"
   },
