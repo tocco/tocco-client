@@ -1,5 +1,5 @@
 import React from 'react'
-import {EntityBrowser} from './EntityBrowser'
+import {{{pascalCase componentName}}} from './{{pascalCase componentName}}'
 import {shallow} from 'enzyme'
 
 const EMPTY_FUNC = () => {}
