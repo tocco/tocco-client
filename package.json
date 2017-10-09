@@ -18,7 +18,7 @@
     "lint:fix": "npm run lint -- --fix",
     "start": "babel-node build/scripts/dev-server",
     "test": "NODE_ENV=test babel-node ./node_modules/karma/bin/karma start build/karma.conf",
-    "test:saucelabs": "NODE_ENV=test babel-node ./node_modules/karma/bin/karma start build/karma-saucelabs.conf",
+    "test:saucelabs": "NODE_ENV=test DISABLE_ISTANBUL_COVERAGE=true babel-node ./node_modules/karma/bin/karma start build/karma-saucelabs.conf",
     "test:dev": "npm run test -- --watch",
     "codecov": "cat ./coverage/lcov/lcov.info | codecov",
     "setup": "yarn && cd server/static && yarn",
