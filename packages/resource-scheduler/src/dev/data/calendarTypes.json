@@ -1,0 +1,14 @@
+{
+  "lecturer": {
+    "model": "User",
+    "formBase": "User",
+    "description": "Dozent",
+    "name": "lecturer"
+  },
+  "dummy": {
+    "model": "Dummy_entity",
+    "formBase": "User_detail_relDummySubGrid",
+    "description": "Dummies",
+    "name": "dummy"
+  }
+}
