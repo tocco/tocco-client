@@ -1,0 +1,73 @@
+{
+  "form": {
+    "name": "User_list",
+    "type": "ch.tocco.nice2.model.form.components.Form",
+    "displayType": "EDITABLE",
+    "children": [
+      {
+        "name": "table",
+        "type": "ch.tocco.nice2.model.form.components.table.Table",
+        "displayType": "EDITABLE",
+        "sorting": [
+          {
+            "field": "user_nr",
+            "order": "asc"
+          },
+          {
+            "field": "firstname",
+            "order": "asc"
+          }
+        ],
+        "children": [
+          {
+            "name": "user_nr",
+            "type": "ch.tocco.nice2.model.form.components.table.Column",
+            "displayType": "EDITABLE",
+            "children": [
+              {
+                "name": "user_nr",
+                "type": "ch.tocco.nice2.model.form.components.simple.NumberField",
+                "displayType": "EDITABLE",
+                "children": [],
+                "label": "Person-Nr.",
+                "useLabel": "YES"
+              }
+            ],
+            "label": "Nr.",
+            "useLabel": "YES",
+            "sortable": true
+          },
+          {
+            "name": "fullname",
+            "type": "ch.tocco.nice2.model.form.components.table.Column",
+            "displayType": "EDITABLE",
+            "children": [
+              {
+                "name": "firstname",
+                "type": "ch.tocco.nice2.model.form.components.simple.RemoteField",
+                "displayType": "EDITABLE",
+                "children": [],
+                "label": "Adresse",
+                "useLabel": "YES"
+              },
+              {
+                "name": "lastname",
+                "type": "ch.tocco.nice2.model.form.components.simple.RemoteField",
+                "displayType": "EDITABLE",
+                "children": [],
+                "label": "Adresse",
+                "useLabel": "YES"
+              }
+            ],
+            "label": "Fullname",
+            "useLabel": "YES",
+            "sortable": true
+          }
+        ],
+        "label": "##forms.User_list.table:de_CH:nice2.optional.uek",
+        "useLabel": "YES"
+      }
+    ],
+    "useLabel": "YES"
+  }
+}
