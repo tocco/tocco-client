@@ -32,6 +32,7 @@ const initApp = (id, input, events, publicPath) => {
 
     if (!__NO_MOCK__) {
       const fetchMock = require('fetch-mock')
+
       const setupFetchMocks = require('./dev/fetchMocks')
       setupFetchMocks(fetchMock)
     }

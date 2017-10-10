@@ -2,7 +2,8 @@ import reducer from './index'
 import * as actions from './actions'
 
 const EXPECTED_INITIAL_STATE = {
-  calendars: null
+  calendarTypes: [],
+  calendars: []
 }
 
 describe('resource-scheduler', () => {
@@ -14,7 +15,7 @@ describe('resource-scheduler', () => {
         })
 
         it('should handle an action', () => {
-          const calendarTypes = {someting: 'test'}
+          const calendarTypes = [{name: 'lecturer'}]
           const stateBefore = {
             calendarTypes: null
           }

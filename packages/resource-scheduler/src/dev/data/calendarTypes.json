@@ -1,14 +1,14 @@
-{
-  "lecturer": {
-    "model": "User",
-    "formBase": "User",
-    "description": "Dozent",
-    "name": "lecturer"
+[
+  {
+    "name": "lecturer",
+    "targetEntity": "User",
+    "formBase": "UserCalendar",
+    "description": "Dozent"
   },
-  "dummy": {
-    "model": "Dummy_entity",
-    "formBase": "User_detail_relDummySubGrid",
-    "description": "Dummies",
-    "name": "dummy"
+  {
+    "name": "dummy",
+    "targetEntity": "Dummy_entity",
+    "formBase": "DummyCalendar",
+    "description": "Dummies"
   }
-}
+]
