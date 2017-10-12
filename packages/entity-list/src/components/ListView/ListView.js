@@ -156,11 +156,11 @@ ListView.propTypes = {
   inProgress: PropTypes.bool,
   onRowClick: PropTypes.func,
   /**
-   * If true, the tows will be selectable.
+   * If true, the rows will be selectable.
    */
   selectable: PropTypes.bool,
   /**
-   * Callback which gets called on a row selection. All selected rows will be passed as argument.
+   * Callback function which gets called on a row selection. The selection will be passed as argument.
    */
   onSelectChange: PropTypes.func,
   /**
