@@ -17,23 +17,6 @@ const clearEntityStore = state => ({
 
 const comparator = (a, b) => a - b
 
-const selectChange = (state, {payload}) => {
-  let newSelection = state.selection
-  const selection = payload.selection
-  for (const key of selection.keys) {
-    if (selection.isSelected) {
-      newSelection.push(key)
-    } else {
-      newSelection = newSelection.filter(k => k !== key)
-    }
-  }
-
-  return {
-    ...state,
-    selection: _uniq(newSelection).sort(comparator)
-  }
-}
-
 const setSelection = (state, {payload}) => ({
   ...state,
   selection: _uniq(payload.selection).sort(comparator)
@@ -55,7 +38,6 @@ const ACTION_HANDLERS = {
   [actions.SET_SEARCH_FILTERS]: reducers.singleTransferReducer('searchFilters'),
   [actions.SET_CREATE_PERMISSION]: reducers.singleTransferReducer('createPermission'),
   [actions.SET_SELECTABLE]: reducers.singleTransferReducer('selectable'),
-  [actions.ON_SELECT_CHANGE]: selectChange,
   [actions.SET_SELECTION]: setSelection
 }
 

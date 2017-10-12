@@ -6,6 +6,7 @@ import * as searchFormActions from '../searchForm/actions'
 import {getSearchInputs} from '../searchForm/sagas'
 import {fetchForm, tableDefinitionTransformer, getFieldsOfColumnDefinition} from '../../util/api/forms'
 import {fetchEntityCount, fetchEntities, entitiesListTransformer, fetchModel} from '../../util/api/entities'
+import {combineSelection} from '../../util/selection'
 
 export const inputSelector = state => state.input
 export const entityListSelector = state => state.entityList
@@ -161,5 +162,9 @@ export function* navigateToCreate() {
 }
 
 export function* onSelectChange({payload}) {
-  yield put(externalEvents.fireExternalEvent('onSelectChange', payload))
+  const list = yield select(listSelector)
+  const {selection} = payload
+  const newSelection = yield call(combineSelection, list.selection, selection)
+  yield put(actions.setSelection(newSelection))
+  yield put(externalEvents.fireExternalEvent('onSelectChange', newSelection))
 }
