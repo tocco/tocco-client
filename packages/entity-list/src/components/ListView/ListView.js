@@ -61,6 +61,7 @@ class ListView extends React.Component {
       noDataText: props.inProgress
         ? this.msg('client.entity-list.dataLoading')
         : this.msg('client.entity-list.noData'),
+      paginationSize: 3,
       nextPageTitle: this.msg('client.entity-list.nextPageTitle'),
       prePageTitle: this.msg('client.entity-list.prePageTitle'),
       firstPageTitle: this.msg('client.entity-list.firstPageTitle'),

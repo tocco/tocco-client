@@ -1,5 +1,9 @@
-export default {
+import resourceSchedulerReducer, {sagas as resourceSchedulerSagas} from './resourceScheduler'
 
+export default {
+  resourceScheduler: resourceSchedulerReducer
 }
 
-export const sagas = []
+export const sagas = [
+  resourceSchedulerSagas
+]

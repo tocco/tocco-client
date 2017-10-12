@@ -2,12 +2,12 @@ import React from 'react'
 import {appFactory} from 'tocco-util'
 
 import reducers, {sagas} from './modules/reducers'
-import ResourceScheduler from './components/ResourceScheduler/ResourceScheduler'
+import ResourceSchedulerContainer from './containers/ResourceSchedulerContainer'
 
 const packageName = 'resource-scheduler'
 
 const initApp = (id, input, events, publicPath) => {
-  const content = <ResourceScheduler/>
+  const content = <ResourceSchedulerContainer/>
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
 
@@ -32,9 +32,9 @@ const initApp = (id, input, events, publicPath) => {
 
     if (!__NO_MOCK__) {
       const fetchMock = require('fetch-mock')
+
       const setupFetchMocks = require('./dev/fetchMocks')
       setupFetchMocks(fetchMock)
-      fetchMock.spy()
     }
 
     const app = initApp('id', input)
