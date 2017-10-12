@@ -1,5 +1,6 @@
 import * as actions from './actions'
 import {reducers} from 'tocco-util'
+import _uniq from 'lodash/uniq'
 
 const addEntityToStore = (state, {payload}) => ({
   ...state,
@@ -12,6 +13,30 @@ const addEntityToStore = (state, {payload}) => ({
 const clearEntityStore = state => ({
   ...state,
   entityStore: {}
+})
+
+const comparator = (a, b) => a - b
+
+const selectChange = (state, {payload}) => {
+  let newSelection = state.selection
+  const selection = payload.selection
+  for (const key of selection.keys) {
+    if (selection.isSelected) {
+      newSelection.push(key)
+    } else {
+      newSelection = newSelection.filter(k => k !== key)
+    }
+  }
+
+  return {
+    ...state,
+    selection: _uniq(newSelection).sort(comparator)
+  }
+}
+
+const setSelection = (state, {payload}) => ({
+  ...state,
+  selection: _uniq(payload.selection).sort(comparator)
 })
 
 const ACTION_HANDLERS = {
@@ -28,7 +53,10 @@ const ACTION_HANDLERS = {
   [actions.SET_IN_PROGRESS]: reducers.singleTransferReducer('inProgress'),
   [actions.SET_SHOW_SEARCH_FORM]: reducers.singleTransferReducer('showSearchForm'),
   [actions.SET_SEARCH_FILTERS]: reducers.singleTransferReducer('searchFilters'),
-  [actions.SET_CREATE_PERMISSION]: reducers.singleTransferReducer('createPermission')
+  [actions.SET_CREATE_PERMISSION]: reducers.singleTransferReducer('createPermission'),
+  [actions.SET_SELECTABLE]: reducers.singleTransferReducer('selectable'),
+  [actions.ON_SELECT_CHANGE]: selectChange,
+  [actions.SET_SELECTION]: setSelection
 }
 
 const initialState = {
@@ -44,7 +72,9 @@ const initialState = {
   inProgress: false,
   showSearchForm: true,
   searchFilters: [],
-  createPermission: false
+  createPermission: false,
+  selectable: false,
+  selection: []
 }
 
 export default function reducer(state = initialState, action) {

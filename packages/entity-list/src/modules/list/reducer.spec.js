@@ -14,7 +14,9 @@ const EXPECTED_INITIAL_STATE = {
   inProgress: false,
   searchFilters: [],
   showSearchForm: true,
-  createPermission: false
+  createPermission: false,
+  selectable: false,
+  selection: []
 }
 
 describe('entity-list', () => {
@@ -206,6 +208,117 @@ describe('entity-list', () => {
           }
 
           expect(reducer(stateBefore, actions.setInProgress(true))).to.deep.equal(expectedStateAfter)
+        })
+
+        it('should handle SET_SELECTABLE', () => {
+          const stateBefore = {
+            selectable: false
+          }
+
+          const expectedStateAfter = {
+            selectable: true
+          }
+
+          expect(reducer(stateBefore, actions.setSelectable(true))).to.deep.equal(expectedStateAfter)
+        })
+
+        it('should handle ON_SELECT_CHANGE for single row selection', () => {
+          const stateBefore = {
+            selection: []
+          }
+
+          const expectedStateAfter = {
+            selection: [1]
+          }
+
+          const selection = {
+            isSelected: true,
+            keys: [1]
+          }
+
+          expect(reducer(stateBefore, actions.onSelectChange(selection))).to.deep.equal(expectedStateAfter)
+        })
+
+        it('should handle ON_SELECT_CHANGE for single row deselection', () => {
+          const stateBefore = {
+            selection: [1, 2, 3]
+          }
+
+          const expectedStateAfter = {
+            selection: [1, 3]
+          }
+
+          const selection = {
+            isSelected: false,
+            keys: [2]
+          }
+
+          expect(reducer(stateBefore, actions.onSelectChange(selection))).to.deep.equal(expectedStateAfter)
+        })
+
+        it('should handle ON_SELECT_CHANGE for multiple row selection', () => {
+          const stateBefore = {
+            selection: []
+          }
+
+          const expectedStateAfter = {
+            selection: [1, 2, 3, 4]
+          }
+
+          const selection = {
+            isSelected: true,
+            keys: [1, 2, 3, 4]
+          }
+
+          expect(reducer(stateBefore, actions.onSelectChange(selection))).to.deep.equal(expectedStateAfter)
+        })
+
+        it('should handle ON_SELECT_CHANGE for multiple row deselection', () => {
+          const stateBefore = {
+            selection: [1, 2, 3]
+          }
+
+          const expectedStateAfter = {
+            selection: [1]
+          }
+
+          const selection = {
+            isSelected: false,
+            keys: [3, 2]
+          }
+
+          expect(reducer(stateBefore, actions.onSelectChange(selection))).to.deep.equal(expectedStateAfter)
+        })
+
+        it('should handle ON_SELECT_CHANGE for duplicate key entries', () => {
+          const stateBefore = {
+            selection: [2, 4]
+          }
+
+          const expectedStateAfter = {
+            selection: [1, 2, 3, 4]
+          }
+
+          const selection = {
+            isSelected: true,
+            keys: [1, 2, 3, 4]
+          }
+
+          expect(reducer(stateBefore, actions.onSelectChange(selection))).to.deep.equal(expectedStateAfter)
+        })
+
+        it('should handle SET_SELECTION', () => {
+          const stateBefore = {
+            selection: [1, 2, 3, 4]
+          }
+
+          const expectedStateAfter = {
+            selection: [1, 2, 8, 9]
+          }
+
+          const selection = [1, 2, 8, 9]
+
+          expect(reducer(stateBefore, actions.setSelection(selection))).to.deep.equal(expectedStateAfter)
         })
       })
     })

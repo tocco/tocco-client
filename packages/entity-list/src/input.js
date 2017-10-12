@@ -5,7 +5,7 @@ import {
   setDisableSimpleSearch,
   setSimpleSearchFields
 } from './modules/searchForm/actions'
-import {setLimit, setSearchFilters, setListFormName} from './modules/list/actions'
+import {setLimit, setSearchFilters, setListFormName, setSelectable} from './modules/list/actions'
 
 export const getDispatchActions = input => {
   const actions = [
@@ -37,6 +37,10 @@ export const getDispatchActions = input => {
 
   if (input.simpleSearchFields) {
     actions.push(setSimpleSearchFields(input.simpleSearchFields))
+  }
+
+  if (typeof input.selectable === 'boolean') {
+    actions.push(setSelectable(input.selectable))
   }
 
   return actions

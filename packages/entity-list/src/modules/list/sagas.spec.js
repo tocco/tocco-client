@@ -30,7 +30,8 @@ describe('entity-list', () => {
               fork(takeEvery, actions.SET_SORTING, sagas.resetDataSet),
               fork(takeEvery, actions.RESET_DATA_SET, sagas.resetDataSet),
               fork(takeLatest, actions.REFRESH, sagas.refresh),
-              fork(takeLatest, actions.ON_ROW_CLICK, sagas.onRowClick)
+              fork(takeLatest, actions.ON_ROW_CLICK, sagas.onRowClick),
+              fork(takeLatest, actions.ON_SELECT_CHANGE, sagas.onSelectChange)
             ]))
             expect(generator.next().done).to.be.true
           })

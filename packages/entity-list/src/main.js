@@ -10,7 +10,8 @@ const packageName = 'entity-list'
 const EXTERNAL_EVENTS = [
   'onRowClick',
   'onNavigateToCreate',
-  'emitAction'
+  'emitAction',
+  'onSelectChange'
 ]
 
 const initApp = (id, input, events = {}, publicPath) => {

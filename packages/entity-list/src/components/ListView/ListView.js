@@ -28,6 +28,19 @@ class ListView extends React.Component {
     }
   }
 
+  handleAllSelectionChange = (isSelected, rows) => {
+    const keys = rows.map(r => r.__key)
+    if (this.props.onSelectChange) {
+      this.props.onSelectChange({keys: keys, isSelected})
+    }
+  }
+
+  handleSelectionChange = (row, isSelected) => {
+    if (this.props.onSelectChange) {
+      this.props.onSelectChange({keys: [row.__key], isSelected})
+    }
+  }
+
   renderShowsTotal = (start, to, total) => {
     if (total === 0) return <span/>
     return (
@@ -73,8 +86,10 @@ class ListView extends React.Component {
     }
 
     const selectRow = {
-      mode: 'none',
-      clickToSelect: true
+      mode: props.selectable ? 'checkbox' : 'none',
+      onSelect: this.handleSelectionChange,
+      onSelectAll: this.handleAllSelectionChange,
+      selected: props.selection ? props.selection : []
     }
 
     const showPagination = props.entityCount - props.limit > 0 && !props.inProgress
@@ -92,11 +107,11 @@ class ListView extends React.Component {
             pagination={ showPagination }
             fetchInfo={{dataTotalSize: props.entityCount}}
             options={tableOption}
-            selectRow={selectRow}
             trClassName="break-word pointer"
             striped
             hover
             bordered={false}
+            selectRow={selectRow}
           >
             <TableHeaderColumn dataField="__key" isKey hidden>Key</TableHeaderColumn>
             {
@@ -139,7 +154,19 @@ ListView.propTypes = {
   setSorting: PropTypes.func,
   refresh: PropTypes.func,
   inProgress: PropTypes.bool,
-  onRowClick: PropTypes.func
+  onRowClick: PropTypes.func,
+  /**
+   * If true, the tows will be selectable.
+   */
+  selectable: PropTypes.bool,
+  /**
+   * Callback which gets called on a row selection. All selected rows will be passed as argument.
+   */
+  onSelectChange: PropTypes.func,
+  /**
+   * Array of keys. The whole selection can be preset with this property.
+   */
+  selection: PropTypes.arrayOf(PropTypes.number)
 }
 
 export default ListView
