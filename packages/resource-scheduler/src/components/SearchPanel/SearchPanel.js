@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import classNames from 'classnames'
 import EntityListApp from 'tocco-entity-list/src/main'
 import {PanelGroup, Panel} from 'react-bootstrap'
 
@@ -20,10 +21,14 @@ class SearchPanel extends React.PureComponent {
 
   getSearchLists = calendarTypes => {
     const accordionHeader = (content, name) => {
-      const className = `glyphicon glyphicon-chevron-${this.state.activeKey === name ? 'up' : 'down'}`
+      const iconClasses = classNames(
+        'accordion-header-icon ',
+        'glyphicon',
+        `glyphicon-chevron-${this.state.activeKey === name ? 'up' : 'down'}`
+      )
       return <div onClick={() => { this.handleAccordionSelect(name) }}>
         {content}
-        <i className={className} style={{float: 'right'}}></i>
+        <i className={iconClasses}></i>
       </div>
     }
 
