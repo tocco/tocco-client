@@ -30,7 +30,8 @@ const webpackConfig = {
     ],
     alias: {
       'ReactDOM': `${__dirname}/../node_modules/react-dom/index.js`,
-      'React': `${__dirname}/../node_modules/react/react.js`
+      'React': `${__dirname}/../node_modules/react/react.js`,
+      'moment': `${__dirname}/../node_modules/moment/moment.js`
     },
     extensions: ['.js', '.jsx', '.json']
   },
@@ -112,16 +113,6 @@ if (__DEV__) {
     })
   )
 } else if (__PROD__) {
-  webpackConfig.plugins.push(
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'app',
-      async: true,
-      minChunks(module, count) {
-        return count >= 2
-      }
-    })
-  )
-
   webpackConfig.plugins.push(
     new webpack.LoaderOptionsPlugin({
       minimize: true,
