@@ -116,17 +116,8 @@ EntityListApp.propTypes = {
   ),
   disableSimpleSearch: PropTypes.bool,
   simpleSearchFields: PropTypes.string,
-  /**
-   * If true, the rows will be selectable.
-   */
   selectable: PropTypes.bool,
-  /**
-   * Callback function which gets called on a row selection. The selection will be passed as argument.
-   */
   onSelectChange: PropTypes.func,
-  /**
-   * Array of keys. The whole selection can be preset with this property.
-   */
   selection: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
     propTypes[event] = PropTypes.func
