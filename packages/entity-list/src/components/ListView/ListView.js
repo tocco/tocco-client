@@ -167,7 +167,7 @@ ListView.propTypes = {
   /**
    * Array of keys. The whole selection can be preset with this property.
    */
-  selection: PropTypes.arrayOf(PropTypes.number)
+  selection: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
 }
 
 export default ListView
