@@ -14,7 +14,9 @@ const EXPECTED_INITIAL_STATE = {
   inProgress: false,
   searchFilters: [],
   showSearchForm: true,
-  createPermission: false
+  createPermission: false,
+  selectable: false,
+  selection: []
 }
 
 describe('entity-list', () => {
@@ -206,6 +208,32 @@ describe('entity-list', () => {
           }
 
           expect(reducer(stateBefore, actions.setInProgress(true))).to.deep.equal(expectedStateAfter)
+        })
+
+        it('should handle SET_SELECTABLE', () => {
+          const stateBefore = {
+            selectable: false
+          }
+
+          const expectedStateAfter = {
+            selectable: true
+          }
+
+          expect(reducer(stateBefore, actions.setSelectable(true))).to.deep.equal(expectedStateAfter)
+        })
+
+        it('should handle SET_SELECTION', () => {
+          const stateBefore = {
+            selection: [1, 2, 3, 4]
+          }
+
+          const expectedStateAfter = {
+            selection: [1, 2, 8, 9]
+          }
+
+          const selection = [1, 2, 8, 9]
+
+          expect(reducer(stateBefore, actions.setSelection(selection))).to.deep.equal(expectedStateAfter)
         })
       })
     })
