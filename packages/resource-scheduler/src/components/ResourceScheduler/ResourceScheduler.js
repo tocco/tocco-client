@@ -15,13 +15,15 @@ class ResourceScheduler extends React.Component {
     const props = this.props
     return (
       <SplitPane split="vertical" minSize={300} defaultSize={this.paneWidth}>
-        <div className="search-panel-wrapper">
+        <div className="spit-panel-wrapper">
           <SearchPanel
             calendarTypes={props.calendarTypes}
             addCalendarsOfType={props.addCalendarsOfType}
           />
         </div>
-        <SchedulerApp id="scheduler" calendar={props.calendars}/>
+        <div className="spit-panel-wrapper">
+          <SchedulerApp id="scheduler" calendar={props.calendars}/>
+        </div>
       </SplitPane>
     )
   }

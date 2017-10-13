@@ -57,7 +57,6 @@ class SearchPanel extends React.PureComponent {
   render = () => {
     return (
       <div>
-        <h1>Search Panel</h1>
         <PanelGroup accordion activeKey={this.state.activeKey} onSelect={this.handleAccordionSelect}>
           {this.getSearchLists(this.props.calendarTypes)}
         </PanelGroup>
