@@ -45,7 +45,7 @@ class Scheduler extends React.Component {
 }
 
 Scheduler.propTypes = {
-  calendars: PropTypes.array,
+  calendars: PropTypes.array.isRequired,
   onDateRangeChange: PropTypes.func,
   removeResource: PropTypes.func
 }

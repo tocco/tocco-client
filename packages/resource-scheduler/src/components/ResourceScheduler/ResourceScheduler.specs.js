@@ -14,6 +14,8 @@ describe('resource-scheduler', () => {
           <ResourceScheduler
             initialize={EMPTY_FUNC}
             addCalendarsOfType={EMPTY_FUNC}
+            updateRequestedCalendars={EMPTY_FUNC}
+            setDateRange={EMPTY_FUNC}
           />
         )
         expect(wrapper.find(SearchPanel)).to.have.length(1)

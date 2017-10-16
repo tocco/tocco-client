@@ -55,11 +55,13 @@ class FullCalendar extends React.Component {
   }
 
   handleDataChange = view => {
-    const startMoment = view.start
-    const endMoment = view.end
-    if (!startMoment.isSame(this.state.currentStartDate) || !endMoment.isSame(this.state.currentEndDate)) {
-      this.props.onDateRangeChange({startDate: startMoment._d, endDate: endMoment._d})
-      this.setState({currentStartDate: startMoment, currentEndDate: endMoment})
+    if (this.props.onDateRangeChange) {
+      const startMoment = view.start
+      const endMoment = view.end
+      if (!startMoment.isSame(this.state.currentStartDate) || !endMoment.isSame(this.state.currentEndDate)) {
+        this.props.onDateRangeChange({startDate: startMoment._d, endDate: endMoment._d})
+        this.setState({currentStartDate: startMoment, currentEndDate: endMoment})
+      }
     }
   }
 
@@ -98,7 +100,7 @@ FullCalendar.defaultProps = {
 }
 
 FullCalendar.propTypes = {
-  onDateRangeChange: PropTypes.func.isRequired,
+  onDateRangeChange: PropTypes.func,
   removeResource: PropTypes.func.isRequired,
   events: PropTypes.array,
   resources: PropTypes.array,

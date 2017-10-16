@@ -12,7 +12,7 @@ describe('scheduler', () => {
           <FullCalendar
             dateRangeChange={EMPTY_FUNC}
             removeResource={EMPTY_FUNC}
-
+            onDateRangeChange={EMPTY_FUNC}
           />)
         expect(wrapper.find('div')).to.have.length(1)
       })
