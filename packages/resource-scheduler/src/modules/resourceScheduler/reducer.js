@@ -1,19 +1,26 @@
 import * as actions from './actions'
 import {reducers} from 'tocco-util'
 
-const addCalendars = (state, {payload}) => ({
+const updateRequestedCalendars = (state, {payload}) => ({
   ...state,
-  calendars: [...state.calendars, ...payload.calendars]
+  requestedCalendars: {
+    ...state.requestedCalendars,
+    [payload.calendarType]: payload.ids
+  }
 })
 
 const ACTION_HANDLERS = {
   [actions.SET_CALENDAR_TYPES]: reducers.singleTransferReducer('calendarTypes'),
-  [actions.ADD_CALENDARS]: addCalendars
+  [actions.SET_CALENDARS]: reducers.singleTransferReducer('calendars'),
+  [actions.SET_DATE_RANGE]: reducers.singleTransferReducer('dateRange'),
+  [actions.UPDATE_REQUESTED_CALENDARS]: updateRequestedCalendars
 }
 
 const initialState = {
   calendarTypes: [],
-  calendars: []
+  requestedCalendars: {},
+  calendars: [],
+  dateRange: {}
 }
 
 export default function reducer(state = initialState, action) {

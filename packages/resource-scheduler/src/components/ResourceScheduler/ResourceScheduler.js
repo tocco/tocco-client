@@ -18,11 +18,15 @@ class ResourceScheduler extends React.Component {
         <div className="spit-panel-wrapper">
           <SearchPanel
             calendarTypes={props.calendarTypes}
-            addCalendarsOfType={props.addCalendarsOfType}
+            updateRequestedCalendars={props.updateRequestedCalendars}
           />
         </div>
         <div className="spit-panel-wrapper">
-          <SchedulerApp id="scheduler" calendar={props.calendars}/>
+          <SchedulerApp
+            id="scheduler"
+            calendars={props.calendars}
+            onDateRangeChange={ this.props.setDateRange}
+          />
         </div>
       </SplitPane>
     )
@@ -31,7 +35,8 @@ class ResourceScheduler extends React.Component {
 
 ResourceScheduler.propTypes = {
   initialize: PropTypes.func.isRequired,
-  addCalendarsOfType: PropTypes.func.isRequired,
+  updateRequestedCalendars: PropTypes.func.isRequired,
+  setDateRange: PropTypes.func.isRequired,
   calendars: PropTypes.array,
   calendarTypes: PropTypes.array
 }
