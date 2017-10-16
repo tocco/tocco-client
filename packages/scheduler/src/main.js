@@ -1,18 +1,25 @@
 import React from 'react'
-import {appFactory} from 'tocco-util'
+import {appFactory, externalEvents} from 'tocco-util'
 
 import reducers, {sagas} from './modules/reducers'
 import PropTypes from 'prop-types'
-import Scheduler from './components/Scheduler/Scheduler'
+import SchedulerContainer from './containers/SchedulerContainer'
+
+import {getDispatchActions} from './input'
 
 const packageName = 'scheduler'
 
-const EXTERNAL_EVENTS = []
+const EXTERNAL_EVENTS = [
+  'onDateRangeChange',
+  'onCalendarRemove'
+]
 
 const initApp = (id, input, events, publicPath) => {
-  const content = <Scheduler/>
+  const content = <SchedulerContainer/>
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
+
+  externalEvents.addToStore(store, events)
 
   return appFactory.createApp(
     packageName,
@@ -21,7 +28,7 @@ const initApp = (id, input, events, publicPath) => {
     {
       input,
       events,
-      actions: [],
+      actions: getDispatchActions(input),
       publicPath,
       textResourceModules: ['component', 'common', packageName]
     }
@@ -69,6 +76,12 @@ class SchedulerApp extends React.Component {
     this.app = initApp(props.id, props, events)
   }
 
+  componentWillReceiveProps = nextProps => {
+    getDispatchActions(nextProps).forEach(action => {
+      this.app.store.dispatch(action)
+    })
+  }
+
   render() {
     return (
       <div>{this.app.renderComponent()}</div>
@@ -77,7 +90,10 @@ class SchedulerApp extends React.Component {
 }
 
 SchedulerApp.propTypes = {
-  id: PropTypes.string
+  id: PropTypes.string,
+  calendars: PropTypes.array,
+  onDateRangeChange: PropTypes.func,
+  onCalendarRemove: PropTypes.func
 }
 
 export default SchedulerApp

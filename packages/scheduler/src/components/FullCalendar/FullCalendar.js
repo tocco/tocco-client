@@ -13,6 +13,14 @@ import '!style-loader!css-loader!fullcalendar/dist/fullcalendar.css'
 import '!style-loader!css-loader!fullcalendar-scheduler/dist/scheduler.css'
 
 class FullCalendar extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      currentStartDate: null,
+      currentEndDate: null
+    }
+  }
+
   fixOptions = {
     schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
     defaultView: 'timelineDay',
@@ -42,7 +50,16 @@ class FullCalendar extends React.Component {
       }
     ],
     viewRender: view => {
-      this.props.dateRangeChange(view.start._d, view.end._d)
+      this.handleDataChange(view)
+    }
+  }
+
+  handleDataChange = view => {
+    const startMoment = view.start
+    const endMoment = view.end
+    if (!startMoment.isSame(this.state.currentStartDate) || !endMoment.isSame(this.state.currentEndDate)) {
+      this.props.onDateRangeChange({startDate: startMoment._d, endDate: endMoment._d})
+      this.setState({currentStartDate: startMoment, currentEndDate: endMoment})
     }
   }
 
@@ -81,7 +98,7 @@ FullCalendar.defaultProps = {
 }
 
 FullCalendar.propTypes = {
-  dateRangeChange: PropTypes.func.isRequired,
+  onDateRangeChange: PropTypes.func.isRequired,
   removeResource: PropTypes.func.isRequired,
   events: PropTypes.array,
   resources: PropTypes.array,
