@@ -25,7 +25,7 @@ class ResourceScheduler extends React.Component {
           <SchedulerApp
             id="scheduler"
             calendars={props.calendars}
-            onDateRangeChange={ this.props.setDateRange}
+            onDateRangeChange={this.props.setDateRange}
           />
         </div>
       </SplitPane>
