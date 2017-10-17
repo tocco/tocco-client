@@ -87,6 +87,12 @@ class EntityListApp extends React.Component {
     this.app = initApp(props.id, props, events)
   }
 
+  componentWillReceiveProps = nextProps => {
+    getDispatchActions(nextProps).forEach(action => {
+      this.app.store.dispatch(action)
+    })
+  }
+
   render() {
     return (
       <div>{this.app.renderComponent()}</div>
