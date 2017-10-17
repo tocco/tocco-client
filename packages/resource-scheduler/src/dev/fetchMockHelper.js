@@ -49,6 +49,7 @@ export const getCalendarResponse = (requestedCalendars, dateRange) => {
         label: `${getModel(calendarType)} ${id}`,
         model: getModel(calendarType),
         id,
+        calendarType,
         events: eventFactory(amountOfDays, new Date(dateRange.startDate), new Date(dateRange.endDate))
       }
     )))

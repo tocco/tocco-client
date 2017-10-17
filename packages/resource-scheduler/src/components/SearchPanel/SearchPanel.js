@@ -46,6 +46,7 @@ class SearchPanel extends React.PureComponent {
           showSearchForm={true}
           showCreateButton={false}
           selectable={true}
+          selection={this.props.requestedCalendars ? this.props.requestedCalendars[calendarType.name] || [] : []}
           onSelectChange={this.handleSelect(calendarType.name)}
         />
       </Panel>
@@ -66,7 +67,8 @@ class SearchPanel extends React.PureComponent {
 
 SearchPanel.propTypes = {
   calendarTypes: PropTypes.array,
-  updateRequestedCalendars: PropTypes.func.isRequired
+  updateRequestedCalendars: PropTypes.func.isRequired,
+  requestedCalendars: PropTypes.object
 }
 
 export default SearchPanel

@@ -9,11 +9,30 @@ const updateRequestedCalendars = (state, {payload}) => ({
   }
 })
 
+const removeRequestedCalendar = (state, {payload}) => {
+  const {id, calendarType} = payload
+
+  const arr = state.requestedCalendars[calendarType]
+  const index = arr.indexOf(id)
+
+  return {
+    ...state,
+    requestedCalendars: {
+      ...state.requestedCalendars,
+      [calendarType]: [
+        ...arr.slice(0, index),
+        ...arr.slice(index + 1)
+      ]
+    }
+  }
+}
+
 const ACTION_HANDLERS = {
   [actions.SET_CALENDAR_TYPES]: reducers.singleTransferReducer('calendarTypes'),
   [actions.SET_CALENDARS]: reducers.singleTransferReducer('calendars'),
   [actions.SET_DATE_RANGE]: reducers.singleTransferReducer('dateRange'),
-  [actions.UPDATE_REQUESTED_CALENDARS]: updateRequestedCalendars
+  [actions.UPDATE_REQUESTED_CALENDARS]: updateRequestedCalendars,
+  [actions.REMOVE_REQUESTED_CALENDAR]: removeRequestedCalendar
 }
 
 const initialState = {

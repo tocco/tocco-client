@@ -5,6 +5,7 @@ export const SEARCH_SELECTION_CHANGED = 'resourceScheduler/SEARCH_SELECTION_CHAN
 export const UPDATE_REQUESTED_CALENDARS = 'resourceScheduler/UPDATE_REQUESTED_CALENDARS'
 export const SET_CALENDARS = 'resourceScheduler/SET_CALENDARS'
 export const SET_DATE_RANGE = 'resourceScheduler/SET_DATE_RANGE'
+export const REMOVE_REQUESTED_CALENDAR = 'resourceScheduler/REMOVE_REQUESTED_CALENDAR'
 
 export const initialize = () => ({
   type: INITIALIZE
@@ -16,6 +17,7 @@ export const setCalendarTypes = calendarTypes => ({
     calendarTypes
   }
 })
+
 export const loadCalendarTypes = () => ({
   type: LOAD_CALENDAR_TYPES
 })
@@ -27,6 +29,7 @@ export const searchSelectionChanged = (calendarType, ids) => ({
     ids
   }
 })
+
 export const updateRequestedCalendars = (calendarType, ids) => ({
   type: UPDATE_REQUESTED_CALENDARS,
   payload: {
@@ -34,15 +37,25 @@ export const updateRequestedCalendars = (calendarType, ids) => ({
     ids
   }
 })
+
 export const setCalendars = calendars => ({
   type: SET_CALENDARS,
   payload: {
     calendars
   }
 })
+
 export const setDateRange = dateRange => ({
   type: SET_DATE_RANGE,
   payload: {
     dateRange
+  }
+})
+
+export const removeRequestedCalendar = (calendarType, id) => ({
+  type: REMOVE_REQUESTED_CALENDAR,
+  payload: {
+    calendarType,
+    id
   }
 })
