@@ -28,6 +28,48 @@ describe('resource-scheduler', () => {
 
           expect(reducer(stateBefore, actions.setCalendarTypes(calendarTypes))).to.deep.equal(expectedStateAfter)
         })
+
+        describe('removeRequestedCalendar', () => {
+          it('should remove key from array', () => {
+            const stateBefore = {
+              requestedCalendars: {
+                lecturer: ['1', '3', '4', '5']
+              }
+
+            }
+
+            const expectedStateAfter = {
+              requestedCalendars: {
+                lecturer: ['1', '4', '5']
+              }
+
+            }
+
+            expect(reducer(stateBefore, actions.removeRequestedCalendar('lecturer', '3')))
+              .to.deep.equal(expectedStateAfter)
+          })
+        })
+
+        describe('updateRequestedCalendars', () => {
+          it('should update the whole entry', () => {
+            const stateBefore = {
+              requestedCalendars: {
+                xy: ['2'],
+                lecturer: ['1', '3']
+              }
+            }
+
+            const expectedStateAfter = {
+              requestedCalendars: {
+                xy: ['2'],
+                lecturer: ['2', '7']
+              }
+            }
+
+            expect(reducer(stateBefore, actions.updateRequestedCalendars('lecturer', ['2', '7'])))
+              .to.deep.equal(expectedStateAfter)
+          })
+        })
       })
     })
   })
