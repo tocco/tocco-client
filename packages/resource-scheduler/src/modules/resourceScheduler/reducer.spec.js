@@ -3,7 +3,9 @@ import * as actions from './actions'
 
 const EXPECTED_INITIAL_STATE = {
   calendarTypes: [],
-  calendars: []
+  requestedCalendars: {},
+  calendars: [],
+  dateRange: {}
 }
 
 describe('resource-scheduler', () => {

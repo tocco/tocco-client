@@ -1,5 +1,9 @@
-export default {
+import schedulerReducer, {sagas as schedulerSagas} from './scheduler'
 
+export default {
+  scheduler: schedulerReducer
 }
 
-export const sagas = []
+export const sagas = [
+  schedulerSagas
+]

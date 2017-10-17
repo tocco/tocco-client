@@ -1,4 +1,5 @@
-import {utilFetchMocks, mockData} from 'tocco-util'
+import {utilFetchMocks, mockData, consoleLogger} from 'tocco-util'
+import {getCalendarResponse} from './fetchMockHelper'
 
 const defaultStore = {
   User: mockData.createUsers(1001),
@@ -13,6 +14,15 @@ export default function setupFetchMock(fetchMock, entityStore = defaultStore) {
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/calendarTypes$'),
     require('./data/calendarTypes')
+  )
+
+  fetchMock.get(
+    new RegExp('^.*?/nice2/rest/calendars'),
+    (url, opts) => {
+      consoleLogger.log('fetchMock: called rest/calendars', url, opts)
+      const body = JSON.parse(opts.body)
+      return getCalendarResponse(body.payload, body.dateRange)
+    }
   )
 
   fetchMock.get(

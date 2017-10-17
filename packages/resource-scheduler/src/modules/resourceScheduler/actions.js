@@ -1,8 +1,10 @@
 export const SET_CALENDAR_TYPES = 'resourceScheduler/SET_CALENDAR_TYPES'
 export const LOAD_CALENDAR_TYPES = 'resourceScheduler/LOAD_CALENDAR_TYPES'
 export const INITIALIZE = 'resourceScheduler/INITIALIZE'
-export const ADD_CALENDARS_OF_TYPE = 'resourceScheduler/ADD_CALENDARS_OF_TYPE'
-export const ADD_CALENDARS = 'resourceScheduler/ADD_CALENDARS'
+export const SEARCH_SELECTION_CHANGED = 'resourceScheduler/SEARCH_SELECTION_CHANGED'
+export const UPDATE_REQUESTED_CALENDARS = 'resourceScheduler/UPDATE_REQUESTED_CALENDARS'
+export const SET_CALENDARS = 'resourceScheduler/SET_CALENDARS'
+export const SET_DATE_RANGE = 'resourceScheduler/SET_DATE_RANGE'
 
 export const initialize = () => ({
   type: INITIALIZE
@@ -18,16 +20,29 @@ export const loadCalendarTypes = () => ({
   type: LOAD_CALENDAR_TYPES
 })
 
-export const addCalendarsOfType = (calendarType, ids) => ({
-  type: ADD_CALENDARS_OF_TYPE,
+export const searchSelectionChanged = (calendarType, ids) => ({
+  type: SEARCH_SELECTION_CHANGED,
   payload: {
     calendarType,
     ids
   }
 })
-export const addCalendars = calendars => ({
-  type: ADD_CALENDARS,
+export const updateRequestedCalendars = (calendarType, ids) => ({
+  type: UPDATE_REQUESTED_CALENDARS,
+  payload: {
+    calendarType,
+    ids
+  }
+})
+export const setCalendars = calendars => ({
+  type: SET_CALENDARS,
   payload: {
     calendars
+  }
+})
+export const setDateRange = dateRange => ({
+  type: SET_DATE_RANGE,
+  payload: {
+    dateRange
   }
 })

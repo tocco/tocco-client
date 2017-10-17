@@ -2,13 +2,15 @@ import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 import {
   initialize,
-  addCalendarsOfType
+  updateRequestedCalendars,
+  setDateRange
 } from '../modules/resourceScheduler/actions'
 import ResourceScheduler from '../components/ResourceScheduler'
 
 const mapActionCreators = {
   initialize,
-  addCalendarsOfType
+  updateRequestedCalendars,
+  setDateRange
 }
 
 const mapStateToProps = (state, props) => {

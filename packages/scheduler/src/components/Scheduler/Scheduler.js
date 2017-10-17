@@ -4,39 +4,26 @@ import FullCalendar from '../FullCalendar'
 import {consoleLogger} from 'tocco-util'
 
 class Scheduler extends React.Component {
-  events = []
-  resources = []
+  getResourceId = (id, model) => id + model
+  getResources = calendars => {
+    return calendars.map(calendar => ({title: calendar.label, id: this.getResourceId(calendar.id, calendar.model)}))
+  }
 
-  eventsTmp = [
-    {
-      id: '1',
-      resourceId: 'c',
-      start: '2017-10-11T06:00:00',
-      end: '2017-10-11T011:00:00',
-      title: 'Termin 1'
-    },
-    {
-      id: '2',
-      resourceId: 'b',
-      start: '2017-10-11T08:00:00',
-      end: '2017-10-11T011:00:00',
-      title: 'Termin 2'
-    },
-    {
-      id: '3',
-      resourceId: 'c',
-      start: '2017-10-11T06:00:00',
-      end: '2017-10-11T14:00:00',
-      title: 'Termin 3'
-    }
-  ]
+  getEvents = calendars => {
+    const events = []
+    calendars.forEach(calendar => {
+      calendar.events.forEach(event => {
+        events.push({
+          resourceId: this.getResourceId(calendar.id, calendar.model),
+          title: event.label,
+          start: event.start,
+          end: event.end
+        })
+      })
+    })
 
-  resourcesTmp = [
-    {id: 'a', title: 'Dozent 1'},
-    {id: 'b', title: 'Dozent 2'},
-    {id: 'c', title: 'Raum A'},
-    {id: 'd', title: 'Raum B'}
-  ]
+    return events
+  }
 
   show = () => {
     this.events = this.eventsTmp
@@ -46,11 +33,10 @@ class Scheduler extends React.Component {
 
   render() {
     return <div>
-      <button onClick={this.show}>Show</button>
       <FullCalendar
-        events={this.events}
-        resources={this.resources}
-        dateRangeChange={(start, end) => consoleLogger.log('Fullcalendar dateRangeChange:', start, end)}
+        events={this.getEvents(this.props.calendars)}
+        resources={this.getResources(this.props.calendars)}
+        onDateRangeChange={this.props.onDateRangeChange}
         removeResource={resourceId => consoleLogger.log('FullCalendar removeResource:', resourceId)}
         locale="de"
       />
@@ -59,7 +45,8 @@ class Scheduler extends React.Component {
 }
 
 Scheduler.propTypes = {
-  dateRangeChange: PropTypes.func,
+  calendars: PropTypes.array.isRequired,
+  onDateRangeChange: PropTypes.func,
   removeResource: PropTypes.func
 }
 

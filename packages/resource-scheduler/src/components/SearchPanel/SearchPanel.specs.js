@@ -11,6 +11,7 @@ describe('resource-scheduler', () => {
         const wrapper = shallow(
           <SearchPanel
             addCalendarsOfType={EMPTY_FUNC}
+            updateRequestedCalendars={EMPTY_FUNC}
             calendarTypes={[]}
           />
         )

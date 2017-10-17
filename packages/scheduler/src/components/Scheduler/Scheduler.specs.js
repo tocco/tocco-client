@@ -7,7 +7,7 @@ describe('scheduler', () => {
   describe('components', () => {
     describe('Scheduler', () => {
       it('should render FullCalendar', () => {
-        const wrapper = shallow(<Scheduler/>)
+        const wrapper = shallow(<Scheduler calendars={[]} />)
         expect(wrapper.find(FullCalendar)).to.have.length(1)
       })
     })
