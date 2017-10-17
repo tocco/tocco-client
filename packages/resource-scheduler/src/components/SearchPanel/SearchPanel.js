@@ -54,21 +54,26 @@ class SearchPanel extends React.PureComponent {
     )
   }
 
-  render = () => {
-    return (
-      <div>
-        <PanelGroup accordion activeKey={this.state.activeKey} onSelect={this.handleAccordionSelect}>
-          {this.getSearchLists(this.props.calendarTypes)}
-        </PanelGroup>
-      </div>
-    )
-  }
+  render = () => (
+    <div>
+      <PanelGroup accordion activeKey={this.state.activeKey} onSelect={this.handleAccordionSelect}>
+        {this.getSearchLists(this.props.calendarTypes)}
+      </PanelGroup>
+    </div>
+  )
 }
 
 SearchPanel.propTypes = {
-  calendarTypes: PropTypes.array,
   updateRequestedCalendars: PropTypes.func.isRequired,
-  requestedCalendars: PropTypes.object
+  calendarTypes: PropTypes.arrayOf(
+    PropTypes.shape({
+      description: PropTypes.string.isRequired,
+      formBase: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      targetEntity: PropTypes.string.isRequired
+    }
+    )),
+  requestedCalendars: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string))
 }
 
 export default SearchPanel
