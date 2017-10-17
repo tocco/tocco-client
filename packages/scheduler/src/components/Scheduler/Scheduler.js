@@ -18,7 +18,22 @@ class Scheduler extends React.Component {
 }
 
 Scheduler.propTypes = {
-  calendars: PropTypes.array.isRequired,
+  calendars: PropTypes.arrayOf(
+    PropTypes.shape({
+      calendarType: PropTypes.string.isRequired,
+      events: PropTypes.arrayOf(
+        PropTypes.shape({
+          description: PropTypes.string,
+          start: PropTypes.string,
+          end: PropTypes.string,
+          allDay: PropTypes.bool
+        }
+        )
+      ),
+      id: PropTypes.string.isRequred,
+      label: PropTypes.string.isRequred,
+      model: PropTypes.string.isRequred
+    })).isRequired,
   onDateRangeChange: PropTypes.func,
   onCalendarRemove: PropTypes.func
 }

@@ -14,7 +14,7 @@ const EXTERNAL_EVENTS = [
   'onCalendarRemove'
 ]
 
-const initApp = (id, input, events, publicPath) => {
+const initApp = (input, events, publicPath) => {
   const content = <SchedulerContainer/>
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
@@ -47,7 +47,7 @@ const initApp = (id, input, events, publicPath) => {
       fetchMock.spy()
     }
 
-    const app = initApp('id', input)
+    const app = initApp(input)
 
     if (module.hot) {
       module.hot.accept('./modules/reducers', () => {
@@ -73,7 +73,7 @@ class SchedulerApp extends React.Component {
       return events
     }, {})
 
-    this.app = initApp(props.id, props, events)
+    this.app = initApp(props, events)
   }
 
   componentWillReceiveProps = nextProps => {
@@ -82,16 +82,26 @@ class SchedulerApp extends React.Component {
     })
   }
 
-  render() {
-    return (
-      <div>{this.app.renderComponent()}</div>
-    )
-  }
+  render = () => <div>{this.app.renderComponent()}</div>
 }
 
 SchedulerApp.propTypes = {
-  id: PropTypes.string,
-  calendars: PropTypes.array,
+  calendars: PropTypes.arrayOf(
+    PropTypes.shape({
+      calendarType: PropTypes.string.isRequired,
+      events: PropTypes.arrayOf(
+        PropTypes.shape({
+          description: PropTypes.string,
+          start: PropTypes.string,
+          end: PropTypes.string,
+          allDay: PropTypes.bool
+        }
+        )
+      ),
+      id: PropTypes.string.isRequred,
+      label: PropTypes.string.isRequred,
+      model: PropTypes.string.isRequred
+    })),
   onDateRangeChange: PropTypes.func,
   onCalendarRemove: PropTypes.func
 }

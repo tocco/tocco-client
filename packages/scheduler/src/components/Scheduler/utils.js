@@ -4,7 +4,7 @@ export const getResources = calendars => {
   return calendars.map(calendar => ({
     title: calendar.label,
     id: getResourceId(calendar.id, calendar.model),
-    key: calendar.id,
+    entityId: calendar.id,
     calendarType: calendar.calendarType
   }))
 }
