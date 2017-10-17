@@ -2,11 +2,14 @@ import {call, put, fork, takeLatest, all, select} from 'redux-saga/effects'
 import {requestSaga} from 'tocco-util/src/rest'
 import * as actions from './actions'
 
+export const resourceSchedulerSelector = state => state.resourceScheduler
+
 export default function* sagas() {
   yield all([
     fork(takeLatest, actions.INITIALIZE, initialize),
     fork(takeLatest, actions.UPDATE_REQUESTED_CALENDARS, retrieveCalendars),
-    fork(takeLatest, actions.SET_DATE_RANGE, retrieveCalendars)
+    fork(takeLatest, actions.SET_DATE_RANGE, retrieveCalendars),
+    fork(takeLatest, actions.REMOVE_REQUESTED_CALENDAR, retrieveCalendars)
   ])
 }
 
@@ -20,7 +23,7 @@ export function* loadCalendarTypes() {
 }
 
 export function* retrieveCalendars() {
-  const {requestedCalendars, dateRange} = yield select(state => state.resourceScheduler)
+  const {requestedCalendars, dateRange} = yield select(resourceSchedulerSelector)
 
   const calendarsResponse = yield call(requestSaga, 'calendars', {
     body: {

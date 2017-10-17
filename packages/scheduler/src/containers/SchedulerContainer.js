@@ -1,12 +1,14 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 import {
-  onDateRangeChange
+  onDateRangeChange,
+  onCalendarRemove
 } from '../modules/scheduler/actions'
 import Scheduler from '../components/Scheduler'
 
 const mapActionCreators = {
-  onDateRangeChange
+  onDateRangeChange,
+  onCalendarRemove
 }
 
 const mapStateToProps = (state, props) => {

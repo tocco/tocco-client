@@ -3,20 +3,23 @@ import {injectIntl} from 'react-intl'
 import {
   initialize,
   updateRequestedCalendars,
-  setDateRange
+  setDateRange,
+  removeRequestedCalendar
 } from '../modules/resourceScheduler/actions'
 import ResourceScheduler from '../components/ResourceScheduler'
 
 const mapActionCreators = {
   initialize,
   updateRequestedCalendars,
-  setDateRange
+  setDateRange,
+  removeRequestedCalendar
 }
 
 const mapStateToProps = (state, props) => {
   return {
     calendars: state.resourceScheduler.calendars,
-    calendarTypes: state.resourceScheduler.calendarTypes
+    calendarTypes: state.resourceScheduler.calendarTypes,
+    requestedCalendars: state.resourceScheduler.requestedCalendars
   }
 }
 

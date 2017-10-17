@@ -35,24 +35,24 @@ class FullCalendar extends React.Component {
     eventColor: '#3a6ee1',
     eventBorderColor: '#2256c6',
     eventTextColor: '#000',
-    resourceColumns: [
-      {
-        labelText: '',
-        field: 'title',
-        render: (resource, el) => {
-          const button = document.createElement('button')
-          button.innerHTML = '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>'
-          button.className = 'remove-resource-btn'
-          button.onclick = () => this.props.removeResource(resource.id)
-          el.append(button)
-        }
-
-      }
-    ],
     viewRender: view => {
       this.handleDataChange(view)
     }
   }
+
+  resourceColumsRemoveButton = [
+    {
+      labelText: '',
+      field: 'title',
+      render: (resource, el) => {
+        const button = document.createElement('button')
+        button.innerHTML = '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>'
+        button.className = 'remove-resource-btn'
+        button.onclick = () => this.props.onCalendarRemove(resource.key, resource.calendarType)
+        el.append(button)
+      }
+    }
+  ]
 
   handleDataChange = view => {
     if (this.props.onDateRangeChange) {
@@ -67,7 +67,13 @@ class FullCalendar extends React.Component {
 
   getFullCalendarOptions = props => {
     const {locale, resources} = props
-    return {...this.fixOptions, locale, resources}
+
+    const dynamicOptions = {}
+    if (this.props.onCalendarRemove) {
+      dynamicOptions.resourceColumns = this.resourceColumsRemoveButton
+    }
+
+    return {...this.fixOptions, ...dynamicOptions, locale, resources}
   }
 
   componentDidMount() {
@@ -101,7 +107,7 @@ FullCalendar.defaultProps = {
 
 FullCalendar.propTypes = {
   onDateRangeChange: PropTypes.func,
-  removeResource: PropTypes.func.isRequired,
+  onCalendarRemove: PropTypes.func,
   events: PropTypes.array,
   resources: PropTypes.array,
   locale: PropTypes.string
