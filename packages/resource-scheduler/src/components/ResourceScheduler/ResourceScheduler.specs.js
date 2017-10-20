@@ -2,7 +2,7 @@ import React from 'react'
 import ResourceScheduler from './ResourceScheduler'
 import {shallow} from 'enzyme'
 import SearchPanel from '../SearchPanel/SearchPanel'
-import SchedulerApp from 'tocco-scheduler/src/main'
+import SchedulerAppContainer from '../../containers/SchedulerAppContainer'
 
 const EMPTY_FUNC = () => {}
 
@@ -20,7 +20,7 @@ describe('resource-scheduler', () => {
           />
         )
         expect(wrapper.find(SearchPanel)).to.have.length(1)
-        expect(wrapper.find(SchedulerApp)).to.have.length(1)
+        expect(wrapper.find(SchedulerAppContainer)).to.have.length(1)
       })
     })
   })

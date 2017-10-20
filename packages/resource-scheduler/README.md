@@ -7,7 +7,9 @@ React-registry name: `resource-scheduler`
 
 ### Input parameters
 
-none so far
+| Name                   | Mandatory | Description
+|------------------------|:---------:|-------------
+| `locale`               |           | ISO Language Code
 
 ### Events
 
