@@ -9,7 +9,8 @@ React-registry name: `scheduler`
 
 | Name                   | Mandatory | Description
 |------------------------|:---------:|-------------
-| calendars              |           | List of calendars to show in scheduler view.
+| `locale`               |           | ISO Language Code
+| `calendars`            |           | List of calendars to show in scheduler view.
 
 ### Events
 

@@ -103,7 +103,8 @@ SchedulerApp.propTypes = {
       model: PropTypes.string.isRequred
     })),
   onDateRangeChange: PropTypes.func,
-  onCalendarRemove: PropTypes.func
+  onCalendarRemove: PropTypes.func,
+  locale: PropTypes.string
 }
 
 export default SchedulerApp

@@ -1,7 +1,7 @@
 import React from 'react'
 import SplitPane from 'react-split-pane'
 import SearchPanel from '../SearchPanel/SearchPanel'
-import SchedulerApp from 'tocco-scheduler/src/main'
+import SchedulerAppContainer from '../../containers/SchedulerAppContainer'
 import PropTypes from 'prop-types'
 
 class ResourceScheduler extends React.Component {
@@ -23,11 +23,7 @@ class ResourceScheduler extends React.Component {
           />
         </div>
         <div className="spit-panel-wrapper">
-          <SchedulerApp
-            calendars={props.calendars}
-            onDateRangeChange={this.props.setDateRange}
-            onCalendarRemove={({calendarType, id}) => this.props.removeRequestedCalendar(calendarType, id)}
-          />
+          <SchedulerAppContainer/>
         </div>
       </SplitPane>
     )

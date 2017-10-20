@@ -11,7 +11,7 @@ class Scheduler extends React.Component {
         resources={getResources(this.props.calendars)}
         onDateRangeChange={this.props.onDateRangeChange}
         onCalendarRemove={this.props.onCalendarRemove}
-        locale="de"
+        locale={this.props.locale}
       />
     </div>
   }
@@ -34,7 +34,8 @@ Scheduler.propTypes = {
       model: PropTypes.string.isRequred
     })).isRequired,
   onDateRangeChange: PropTypes.func,
-  onCalendarRemove: PropTypes.func
+  onCalendarRemove: PropTypes.func,
+  locale: PropTypes.string
 }
 
 export default Scheduler

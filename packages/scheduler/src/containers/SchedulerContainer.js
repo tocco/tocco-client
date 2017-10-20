@@ -13,7 +13,8 @@ const mapActionCreators = {
 
 const mapStateToProps = (state, props) => {
   return {
-    calendars: state.scheduler.calendars
+    calendars: state.scheduler.calendars,
+    locale: state.intl.locale
   }
 }
 
