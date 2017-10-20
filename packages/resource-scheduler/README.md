@@ -13,4 +13,6 @@ React-registry name: `resource-scheduler`
 
 ### Events
 
-none so far
+| Name                | Payload                                                     | Description
+|---------------------|-------------------------------------------------------------|-------------
+| `onEventClick`      | `id`: id of source entity, `model`: name of the entity      | Fired when an event in the calendar gets clicked

@@ -2,6 +2,8 @@ import _forOwn from 'lodash/forOwn'
 import _sample from 'lodash/sample'
 import Moment from 'moment'
 
+const getRandomNumber = limit => Math.floor(Math.random() * (limit + 1))
+
 const getRandomDate = (start, end, startHour, endHour) => {
   const date = new Date(+start + Math.random() * (end - start))
   const hour = startHour + Math.random() * (endHour - startHour) | 0
@@ -25,7 +27,7 @@ const getRandomEvent = (startRange, endRange) => {
     end: addRandomHoursToDate(start, 8),
     description: 'Description of event',
     isDateTime: 'yes',
-    source: {model: 'user', id: '1'}
+    source: {model: 'Calendar_event', id: `${getRandomNumber(1000)}`}
   }
 }
 
