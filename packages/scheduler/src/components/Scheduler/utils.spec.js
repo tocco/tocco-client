@@ -3,7 +3,7 @@ import {getEvents, getResources} from './utils'
 const mockCalendars = [
 
   {
-    label: 'Peter Grifin',
+    label: 'Peter Griffin',
     model: 'User',
     id: '89',
     calendarType: 'participant',

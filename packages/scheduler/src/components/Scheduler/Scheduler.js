@@ -27,8 +27,7 @@ Scheduler.propTypes = {
           start: PropTypes.string,
           end: PropTypes.string,
           allDay: PropTypes.bool
-        }
-        )
+        })
       ),
       id: PropTypes.string.isRequred,
       label: PropTypes.string.isRequred,

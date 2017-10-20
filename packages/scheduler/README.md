@@ -16,4 +16,4 @@ React-registry name: `scheduler`
 | Name                | Payload                                                     | Description
 |---------------------|-------------------------------------------------------------|-------------
 | `onDateRangeChange` | `dateRange` containing new startDate and endDate            | This event is fired when the visible date range changes. e.g. switch from day to week view.
-| `onCalendarRemove`  | `id`: id of source entity, `calendarType` type of calendar} | Gets fired when a user manually remved a calendar from the view by pressing "x" button
+| `onCalendarRemove`  | `id`: id of source entity, `calendarType`: type of calendar | Gets fired when a user manually removed a calendar from the view by pressing "x" button

@@ -35,14 +35,12 @@ describe('resource-scheduler', () => {
               requestedCalendars: {
                 lecturer: ['1', '3', '4', '5']
               }
-
             }
 
             const expectedStateAfter = {
               requestedCalendars: {
                 lecturer: ['1', '4', '5']
               }
-
             }
 
             expect(reducer(stateBefore, actions.removeRequestedCalendar('lecturer', '3')))
