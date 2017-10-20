@@ -5,14 +5,21 @@ import {externalEvents} from 'tocco-util'
 export default function* sagas() {
   yield all([
     fork(takeLatest, actions.ON_DATE_RANGE_CHANGE, onDateRangeChange),
-    fork(takeLatest, actions.ON_CALENDAT_REMOVE, onCalendarRemove)
+    fork(takeLatest, actions.ON_CALENDAR_REMOVE, onCalendarRemove),
+    fork(takeLatest, actions.ON_EVENT_CLICK, onEventClick)
   ])
 }
 
 export function* onDateRangeChange({payload}) {
-  yield put(externalEvents.fireExternalEvent('onDateRangeChange', payload.dateRange))
+  const {dateRange} = payload
+  yield put(externalEvents.fireExternalEvent('onDateRangeChange', {dateRange}))
 }
 
 export function* onCalendarRemove({payload}) {
   yield put(externalEvents.fireExternalEvent('onCalendarRemove', {id: payload.id, calendarType: payload.calendarType}))
+}
+
+export function* onEventClick({payload}) {
+  const {event} = payload
+  yield put(externalEvents.fireExternalEvent('onEventClick', event.entity))
 }

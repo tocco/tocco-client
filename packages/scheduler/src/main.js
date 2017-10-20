@@ -11,7 +11,8 @@ const packageName = 'scheduler'
 
 const EXTERNAL_EVENTS = [
   'onDateRangeChange',
-  'onCalendarRemove'
+  'onCalendarRemove',
+  'onEventClick'
 ]
 
 const initApp = (input, events, publicPath) => {
@@ -104,6 +105,7 @@ SchedulerApp.propTypes = {
     })),
   onDateRangeChange: PropTypes.func,
   onCalendarRemove: PropTypes.func,
+  onEventClick: PropTypes.func,
   locale: PropTypes.string
 }
 

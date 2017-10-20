@@ -13,7 +13,7 @@ describe('scheduler', () => {
             const saga = testSaga(mainSaga)
             saga.next().all([
               fork(takeLatest, actions.ON_DATE_RANGE_CHANGE, sagas.onDateRangeChange),
-              fork(takeLatest, actions.ON_CALENDAT_REMOVE, sagas.onCalendarRemove)
+              fork(takeLatest, actions.ON_CALENDAR_REMOVE, sagas.onCalendarRemove)
             ])
           })
         })

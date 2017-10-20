@@ -14,6 +14,7 @@ export const getEvents = calendars =>
     return [
       ...accumulator,
       ...calendar.events.map(event => ({
+        entity: event.source,
         resourceId: getResourceId(calendar.id, calendar.model),
         title: event.label,
         start: event.start,
