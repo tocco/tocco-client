@@ -19,13 +19,13 @@ describe('resource-scheduler', () => {
         })
 
         describe('mainSaga', () => {
-          it('should load call loadCalendarTypes', () => {
+          it('should fork sagas', () => {
             const saga = testSaga(mainSaga)
             saga.next().all([
               fork(takeLatest, actions.INITIALIZE, sagas.initialize),
               fork(takeLatest, actions.UPDATE_REQUESTED_CALENDARS, sagas.retrieveCalendars),
               fork(takeLatest, actions.SET_DATE_RANGE, sagas.retrieveCalendars),
-              fork(takeLatest, actions.REMOVE_REQUESTED_CALENDAR, sagas.retrieveCalendars)
+              fork(takeLatest, actions.ON_EVENT_CLICK, sagas.onEventClick)
             ])
           })
         })

@@ -9,11 +9,12 @@ describe('scheduler', () => {
     describe('scheduler', () => {
       describe('sagas', () => {
         describe('mainSaga', () => {
-          it('should load call loadCalendarTypes', () => {
+          it('should fork sagas', () => {
             const saga = testSaga(mainSaga)
             saga.next().all([
               fork(takeLatest, actions.ON_DATE_RANGE_CHANGE, sagas.onDateRangeChange),
-              fork(takeLatest, actions.ON_CALENDAR_REMOVE, sagas.onCalendarRemove)
+              fork(takeLatest, actions.ON_CALENDAR_REMOVE, sagas.onCalendarRemove),
+              fork(takeLatest, actions.ON_EVENT_CLICK, sagas.onEventClick)
             ])
           })
         })
@@ -23,7 +24,7 @@ describe('scheduler', () => {
             const dateRange = {start: Date.now(), end: Date.now}
 
             return expectSaga(sagas.onDateRangeChange, actions.onDateRangeChange(dateRange))
-              .put(externalEvents.fireExternalEvent('onDateRangeChange', dateRange))
+              .put(externalEvents.fireExternalEvent('onDateRangeChange', {dateRange}))
               .run()
           })
         })
