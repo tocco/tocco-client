@@ -48,7 +48,7 @@ class FullCalendar extends React.Component {
         const button = document.createElement('button')
         button.innerHTML = '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>'
         button.className = 'remove-resource-btn'
-        button.onclick = () => this.props.onCalendarRemove(resource.key, resource.calendarType)
+        button.onclick = () => this.props.onCalendarRemove(resource.entityId, resource.calendarType)
         el.append(button)
       }
     }
@@ -108,8 +108,23 @@ FullCalendar.defaultProps = {
 FullCalendar.propTypes = {
   onDateRangeChange: PropTypes.func,
   onCalendarRemove: PropTypes.func,
-  events: PropTypes.array,
-  resources: PropTypes.array,
+  events: PropTypes.arrayOf(
+    PropTypes.shape({
+      resourceId: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      start: PropTypes.string.isRequired,
+      end: PropTypes.string.isRequired,
+      allDay: PropTypes.bool
+    }
+    )),
+  resources: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      calendarType: PropTypes.string.isRequired,
+      entityId: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired
+    }
+    )),
   locale: PropTypes.string
 }
 
