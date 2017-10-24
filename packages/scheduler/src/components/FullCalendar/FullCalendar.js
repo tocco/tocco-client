@@ -37,7 +37,8 @@ class FullCalendar extends React.Component {
     eventTextColor: '#000',
     viewRender: view => {
       this.handleDataChange(view)
-    }
+    },
+    eventClick: event => this.props.onEventClick(event)
   }
 
   resourceColumsRemoveButton = [
@@ -108,6 +109,7 @@ FullCalendar.defaultProps = {
 FullCalendar.propTypes = {
   onDateRangeChange: PropTypes.func,
   onCalendarRemove: PropTypes.func,
+  onEventClick: PropTypes.func,
   events: PropTypes.arrayOf(
     PropTypes.shape({
       resourceId: PropTypes.string.isRequired,

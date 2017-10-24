@@ -2,14 +2,16 @@ import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 import {
   setDateRange,
-  removeRequestedCalendar
+  removeRequestedCalendar,
+  onEventClick
 } from '../modules/resourceScheduler/actions'
 
 import SchedulerApp from 'tocco-scheduler/src/main'
 
 const mapActionCreators = {
-  onDateRangeChange: setDateRange,
-  onCalendarRemove: ({calendarType, id}) => removeRequestedCalendar(calendarType, id)
+  onDateRangeChange: ({dateRange}) => setDateRange(dateRange),
+  onCalendarRemove: ({calendarType, id}) => removeRequestedCalendar(calendarType, id),
+  onEventClick: ({model, id}) => onEventClick(model, id)
 }
 
 const mapStateToProps = (state, props) => {

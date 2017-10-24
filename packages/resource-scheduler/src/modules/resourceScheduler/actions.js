@@ -6,6 +6,7 @@ export const UPDATE_REQUESTED_CALENDARS = 'resourceScheduler/UPDATE_REQUESTED_CA
 export const SET_CALENDARS = 'resourceScheduler/SET_CALENDARS'
 export const SET_DATE_RANGE = 'resourceScheduler/SET_DATE_RANGE'
 export const REMOVE_REQUESTED_CALENDAR = 'resourceScheduler/REMOVE_REQUESTED_CALENDAR'
+export const ON_EVENT_CLICK = 'resourceScheduler/ON_EVENT_CLICK'
 
 export const initialize = () => ({
   type: INITIALIZE
@@ -56,6 +57,14 @@ export const removeRequestedCalendar = (calendarType, id) => ({
   type: REMOVE_REQUESTED_CALENDAR,
   payload: {
     calendarType,
+    id
+  }
+})
+
+export const onEventClick = (model, id) => ({
+  type: ON_EVENT_CLICK,
+  payload: {
+    model,
     id
   }
 })

@@ -1,5 +1,5 @@
 import React from 'react'
-import {appFactory} from 'tocco-util'
+import {appFactory, externalEvents} from 'tocco-util'
 
 import reducers, {sagas} from './modules/reducers'
 import ResourceSchedulerContainer from './containers/ResourceSchedulerContainer'
@@ -10,6 +10,7 @@ const initApp = (input, events, publicPath) => {
   const content = <ResourceSchedulerContainer/>
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
+  externalEvents.addToStore(store, events)
 
   return appFactory.createApp(
     packageName,
