@@ -10,10 +10,12 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "bootstrap": "^3.3.7",
     "fullcalendar-scheduler": "^1.7.1",
     "tocco-test-util": ">0.1.0",
     "tocco-theme": ">0.1.0",
     "tocco-ui": ">0.1.0",
-    "tocco-util": ">0.1.0"
+    "tocco-util": ">0.1.0",
+    "twix": "^1.2.1"
   }
 }

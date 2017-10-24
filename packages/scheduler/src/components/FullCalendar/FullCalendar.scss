@@ -3,10 +3,37 @@
     margin: 0;
   }
 
+  .description-icon {
+    padding-right: 5px;
+  }
+
   .remove-resource-btn{
     margin: 0;
     border: none;
     outline: none;
     background: transparent;
+  }
+
+  .fc-event{
+    border: none;
+    border-radius: 2px;
+    font-weight: 600;
+    background-color: #1287de;
+    color: #fff;
+
+    .fc-bg{
+      opacity: 0;
+    }
+  }
+
+  .fc-timeline-event .fc-content{
+    text-overflow: ellipsis;
+  }
+}
+
+.tocco-scheduler {
+  .popover-title {
+    background-color: #1287de;
+    color: #fff;
   }
 }
