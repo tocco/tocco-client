@@ -10,6 +10,7 @@ export default function* sagas() {
     fork(takeLatest, actions.INITIALIZE, initialize),
     fork(takeLatest, actions.UPDATE_REQUESTED_CALENDARS, retrieveCalendars),
     fork(takeLatest, actions.SET_DATE_RANGE, retrieveCalendars),
+    fork(takeLatest, actions.REMOVE_REQUESTED_CALENDAR, retrieveCalendars),
     fork(takeLatest, actions.ON_EVENT_CLICK, onEventClick)
   ])
 }
