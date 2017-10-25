@@ -25,6 +25,7 @@ describe('resource-scheduler', () => {
               fork(takeLatest, actions.INITIALIZE, sagas.initialize),
               fork(takeLatest, actions.UPDATE_REQUESTED_CALENDARS, sagas.retrieveCalendars),
               fork(takeLatest, actions.SET_DATE_RANGE, sagas.retrieveCalendars),
+              fork(takeLatest, actions.REMOVE_REQUESTED_CALENDAR, sagas.retrieveCalendars),
               fork(takeLatest, actions.ON_EVENT_CLICK, sagas.onEventClick)
             ])
           })
