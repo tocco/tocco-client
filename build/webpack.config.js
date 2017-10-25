@@ -1,7 +1,9 @@
+import { argv } from 'yargs'
 import path from 'path'
 import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
+import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
 import config from '../config'
 import logger from './lib/logger'
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
@@ -186,6 +188,13 @@ if (!process || !process.env || !process.env.DISABLE_ISTANBUL_COVERAGE) {
       '**/*/*.spec.js'
     ]
   }])
+}
+
+if (argv.analyze) {
+  webpackConfig.plugins.push(new BundleAnalyzerPlugin({
+    analyzerMode: 'static',
+    openAnalyzer: true
+  }))
 }
 
 // ------------------------------------
