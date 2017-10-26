@@ -1,23 +1,34 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import Flatpickr from 'flatpickr'
 import {injectIntl, intlShape} from 'react-intl'
 
-import '!style-loader!css-loader!flatpickr/dist/themes/light.css'
-
-import {de as DE} from 'flatpickr/dist/l10n/de.js'
-import {fr as FR} from 'flatpickr/dist/l10n/fr.js'
-import {it as IT} from 'flatpickr/dist/l10n/it.js'
-
 class DateAbstract extends React.Component {
-  localeMap = {
-    'de-CH': DE,
-    'de': DE,
-    'fr': FR,
-    'it': IT
+  Flatpickr = null
+
+  constructor(props) {
+    super(props)
+
+    import(/* webpackChunkName: "flatpickr" */ '!style-loader!css-loader!flatpickr/dist/themes/light.css')
+
+    Promise.all([
+      import(/* webpackChunkName: "flatpickr" */ 'flatpickr'),
+      import(/* webpackChunkName: "flatpickr" */ 'flatpickr/dist/l10n/de.js'),
+      import(/* webpackChunkName: "flatpickr" */ 'flatpickr/dist/l10n/fr.js'),
+      import(/* webpackChunkName: "flatpickr" */ 'flatpickr/dist/l10n/it.js')
+    ]).then(response => {
+      this.Flatpickr = response[0]
+      this.localeMap = {
+        'de-CH': response[1].de,
+        'de': response[1].de,
+        'fr': response[2].fr,
+        'it': response[3].it
+      }
+
+      this.initializeFlatPickr()
+    })
   }
 
-  componentDidMount() {
+  initializeFlatPickr = flatpickr => {
     const options = {
       wrap: true,
       altInput: true,
@@ -32,16 +43,16 @@ class DateAbstract extends React.Component {
       options.locale = locale
     }
 
-    this.flatpickr = new Flatpickr(this.wrapper, options)
+    this.flatpickr = new this.Flatpickr(this.wrapper, options)
     this.flatpickr.calendarContainer.classList.add('tocco-ui-theme')
   }
 
   componentWillReceiveProps(props) {
     let locale = this.localeMap[props.intl.locale]
     if (!locale) {
-      locale = Flatpickr.l10ns.en
+      locale = this.Flatpickr.l10ns.en
     }
-    Flatpickr.localize(locale)
+    this.Flatpickr.localize(locale)
     this.flatpickr.set('locale', locale)
     if (props.value) {
       this.flatpickr.setDate(props.value)
