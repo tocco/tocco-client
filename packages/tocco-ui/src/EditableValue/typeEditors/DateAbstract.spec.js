@@ -47,7 +47,7 @@ describe('tocco-ui', () => {
           expect(input.get(0).value).to.eql('')
         })
 
-        it('should render a date field with a single value', () => {
+        it('should render a date field with a single value', done => {
           const wrapper = mount(
             <IntlProvider locale="en">
               <DateAbstract value={['2017-04-13']}/>
@@ -57,10 +57,15 @@ describe('tocco-ui', () => {
           const input = wrapper.find('input')
 
           expect(input).to.have.length(1)
-          expect(input.get(0).value).to.eql('2017-04-13')
+
+          // workaround to await async load of flatpickr component
+          setTimeout(() => {
+            expect(input.get(0).value).to.eql('2017-04-13')
+            done()
+          }, 100)
         })
 
-        it('should render a date field with multiple values', () => {
+        it('should render a date field with multiple values', done => {
           const wrapper = mount(
             <IntlProvider locale="en">
               <DateAbstract value={['2017-04-13', '2017-04-14']}/>
@@ -70,7 +75,11 @@ describe('tocco-ui', () => {
           const input = wrapper.find('input')
 
           expect(input).to.have.length(1)
-          expect(input.get(0).value).to.eql('2017-04-13; 2017-04-14')
+          // workaround to await async load of flatpickr component
+          setTimeout(() => {
+            expect(input.get(0).value).to.eql('2017-04-13; 2017-04-14')
+            done()
+          }, 100)
         })
       })
     })
