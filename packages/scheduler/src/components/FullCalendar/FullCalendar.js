@@ -1,8 +1,12 @@
 import React from 'react'
+import ReactDOMServer from 'react-dom/server'
 import PropTypes from 'prop-types'
 import _isEqual from 'lodash/isEqual'
 
 import $ from 'jquery'
+import 'jquery/src/jquery'
+import 'bootstrap/dist/js/bootstrap.min.js'
+import 'twix'
 import 'fullcalendar'
 import 'fullcalendar-scheduler'
 import 'fullcalendar/dist/locale/fr.js'
@@ -32,13 +36,30 @@ class FullCalendar extends React.Component {
     editable: false,
     height: 'auto',
     resourceAreaWidth: '15%',
-    eventColor: '#3a6ee1',
-    eventBorderColor: '#2256c6',
-    eventTextColor: '#000',
+    themeSystem: 'bootstrap3',
     viewRender: view => {
       this.handleDataChange(view)
     },
-    eventClick: event => this.props.onEventClick(event)
+    eventClick: event => this.props.onEventClick(event),
+    eventRender: (event, element) => {
+      const content = <div>
+        <p>{event.description}</p>
+        <p>
+          <i className="fa fa-clock-o description-icon" aria-hidden="true"></i>
+          {event.start.twix(event.end).format({monthFormat: 'MMMM', dayFormat: 'Do'})}
+        </p>
+      </div>
+
+      window.jQuery(element).popover({
+        title: event.title,
+        animation: true,
+        placement: 'auto top',
+        trigger: 'hover',
+        html: true,
+        container: '.fc-time-area',
+        content: ReactDOMServer.renderToString(content)
+      })
+    }
   }
 
   resourceColumsRemoveButton = [

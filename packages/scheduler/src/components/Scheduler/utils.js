@@ -18,7 +18,8 @@ export const getEvents = calendars =>
         resourceId: getResourceId(calendar.id, calendar.model),
         title: event.label,
         start: event.start,
-        end: event.end
+        end: event.end,
+        description: event.description
       }))
     ]
   }, [])
