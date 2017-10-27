@@ -87,7 +87,8 @@ if (__NICE2_11_LEGACY__) {
 webpackConfig.plugins = [
   new webpack.DefinePlugin(config.globals),
   new LodashModuleReplacementPlugin({
-    shorthands: true
+    shorthands: true,
+    paths: true
   }),
   // prevent all moment locales from being loaded when importing momentjs
   new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /de|en|fr|it/)
