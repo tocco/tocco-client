@@ -7,6 +7,11 @@ import {simpleRequest} from '../rest'
 describe('tocco-util', () => {
   describe('mockData', () => {
     describe('fetchMock', () => {
+      beforeEach(() => {
+        fetchMock.reset()
+        fetchMock.restore()
+      })
+
       describe('setupFetchMock', () => {
         it('setup basic mocks', () => {
           const getSpy = sinon.spy()
@@ -23,7 +28,7 @@ describe('tocco-util', () => {
         it('should setup a entities get with working limit, offset and sorting', done => {
           const users = createUsers(50)
           setupFetchMock(fetchMock, {User: users})
-          const resource = 'http://localhost:8080/nice2/rest/entities/User'
+          const resource = 'entities/User'
           const queryParams = {
             _limit: 5,
             _offset: 10,
