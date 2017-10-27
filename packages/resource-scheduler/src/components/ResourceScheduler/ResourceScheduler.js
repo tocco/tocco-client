@@ -53,7 +53,7 @@ ResourceScheduler.propTypes = {
     })),
   calendarTypes: PropTypes.arrayOf(
     PropTypes.shape({
-      description: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
       formBase: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       targetEntity: PropTypes.string.isRequired

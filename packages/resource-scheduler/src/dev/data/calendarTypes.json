@@ -1,14 +1,16 @@
-[
-  {
-    "name": "lecturer",
-    "targetEntity": "User",
-    "formBase": "UserCalendar",
-    "description": "Dozent"
-  },
-  {
-    "name": "dummy",
-    "targetEntity": "Dummy_entity",
-    "formBase": "DummyCalendar",
-    "description": "Dummies"
-  }
-]
+{
+  "data": [
+    {
+      "name": "lecturer",
+      "targetEntity": "User",
+      "formBase": "UserCalendar",
+      "label": "Dozent"
+    },
+    {
+      "name": "dummy",
+      "targetEntity": "Dummy_entity",
+      "formBase": "DummyCalendar",
+      "label": "Dummies"
+    }
+  ]
+}
