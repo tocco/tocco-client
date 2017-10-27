@@ -12,7 +12,7 @@ export default function setupFetchMock(fetchMock, entityStore = defaultStore) {
   utilFetchMocks.textResource(fetchMock, require('./textResources.json'))
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/calendarTypes$'),
+    new RegExp('^.*?/nice2/rest/calendar/types$'),
     require('./data/calendarTypes')
   )
 

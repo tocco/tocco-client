@@ -34,7 +34,7 @@ class SearchPanel extends React.PureComponent {
 
     return calendarTypes.map(calendarType => (
       <Panel collapsible
-        header={accordionHeader(calendarType.description, calendarType.name)}
+        header={accordionHeader(calendarType.label, calendarType.name)}
         eventKey={calendarType.name}
         key={calendarType.name}
       >
@@ -67,7 +67,7 @@ SearchPanel.propTypes = {
   updateRequestedCalendars: PropTypes.func.isRequired,
   calendarTypes: PropTypes.arrayOf(
     PropTypes.shape({
-      description: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
       formBase: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       targetEntity: PropTypes.string.isRequired

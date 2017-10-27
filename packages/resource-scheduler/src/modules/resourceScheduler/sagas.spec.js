@@ -45,7 +45,7 @@ describe('resource-scheduler', () => {
               {name: 'Lecturer', targetEntity: 'User'},
               {name: 'Participant', targetEntity: 'User'}
             ]
-            const calendarResponse = {body: calendarTypes}
+            const calendarResponse = {body: {data: calendarTypes}}
 
             return expectSaga(sagas.loadCalendarTypes)
               .provide([

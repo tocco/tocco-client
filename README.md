@@ -107,6 +107,8 @@ npm run compile:dev -- --package={PACKAGE_NAME}
 npm run compile:prod -- --package={PACKAGE_NAME}
 ```
 
+Optional a `--analyze` parameter can be added to open webpack-analyzer to investigate the bundle size. 
+
 ## Linting
 Eslint is used for linting. Linting will also be executed automatically on our CI.
 
