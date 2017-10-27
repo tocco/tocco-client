@@ -3,6 +3,7 @@ import React from 'react'
 import {shallow} from 'enzyme'
 import {LayoutBox} from 'tocco-ui'
 import {Field} from 'redux-form'
+import _cloneDeep from 'lodash/cloneDeep'
 
 const testData = {
   entity: {
@@ -108,7 +109,6 @@ describe('tocco-util', () => {
 
       it('should not render field if beforeRenderField returns false', () => {
         const {entity, model, formName, formDefinition, formValues, formFieldUtils} = testData
-
         const beforeRenderField = name => name !== 'lastname'
 
         const formBuilder = createFromBuilder(
@@ -121,8 +121,8 @@ describe('tocco-util', () => {
       })
 
       it('should not render none readable fields', () => {
-        const {entity, model, formName, formDefinition, formValues, formFieldUtils} = testData
-
+        const {model, formName, formDefinition, formValues, formFieldUtils} = testData
+        const entity = _cloneDeep(testData.entity)
         entity.paths['lastname'] = {
           type: 'field',
           value: {
@@ -153,7 +153,8 @@ describe('tocco-util', () => {
       })
 
       it('should not render empty values in readonly form', () => {
-        const {entity, model, formName, formDefinition, formFieldUtils} = testData
+        const {model, formName, formDefinition, formFieldUtils} = testData
+        const entity = _cloneDeep(testData.entity)
 
         const formValues = testData.lastname = ''
 
