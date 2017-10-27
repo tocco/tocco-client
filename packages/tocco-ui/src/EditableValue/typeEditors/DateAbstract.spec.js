@@ -62,7 +62,7 @@ describe('tocco-ui', () => {
           setTimeout(() => {
             expect(input.get(0).value).to.eql('2017-04-13')
             done()
-          }, 100)
+          }, 200)
         })
 
         it('should render a date field with multiple values', done => {
@@ -79,7 +79,7 @@ describe('tocco-ui', () => {
           setTimeout(() => {
             expect(input.get(0).value).to.eql('2017-04-13; 2017-04-14')
             done()
-          }, 100)
+          }, 200)
         })
       })
     })
