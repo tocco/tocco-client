@@ -6,7 +6,7 @@ import ResourceSchedulerContainer from './containers/ResourceSchedulerContainer'
 
 const packageName = 'resource-scheduler'
 
-const initApp = (input, events, publicPath) => {
+const initApp = (id, input, events, publicPath) => {
   const content = <ResourceSchedulerContainer/>
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
@@ -38,7 +38,7 @@ const initApp = (input, events, publicPath) => {
       setupFetchMocks(fetchMock)
     }
 
-    const app = initApp(input)
+    const app = initApp('dev', input)
 
     if (module.hot) {
       module.hot.accept('./modules/reducers', () => {

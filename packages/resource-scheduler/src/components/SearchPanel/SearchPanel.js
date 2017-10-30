@@ -39,6 +39,7 @@ class SearchPanel extends React.PureComponent {
         key={calendarType.name}
       >
         <EntityListApp
+          locale={this.props.locale}
           id={`search-panel-${calendarType.name}`}
           entityName={calendarType.targetEntity}
           formBase={calendarType.formBase}
@@ -73,7 +74,8 @@ SearchPanel.propTypes = {
       targetEntity: PropTypes.string.isRequired
     }
     )),
-  requestedCalendars: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string))
+  requestedCalendars: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
+  locale: PropTypes.string
 }
 
 export default SearchPanel
