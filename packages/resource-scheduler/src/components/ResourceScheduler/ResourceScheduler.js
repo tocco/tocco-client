@@ -17,6 +17,7 @@ class ResourceScheduler extends React.Component {
       <SplitPane split="vertical" minSize={300} defaultSize={this.paneWidth}>
         <div className="spit-panel-wrapper">
           <SearchPanel
+            locale={props.locale}
             calendarTypes={props.calendarTypes}
             updateRequestedCalendars={props.updateRequestedCalendars}
             requestedCalendars={this.props.requestedCalendars}
@@ -59,7 +60,8 @@ ResourceScheduler.propTypes = {
       targetEntity: PropTypes.string.isRequired
     }
     )),
-  requestedCalendars: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string))
+  requestedCalendars: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
+  locale: PropTypes.string
 }
 
 export default ResourceScheduler

@@ -19,7 +19,8 @@ const mapStateToProps = (state, props) => {
   return {
     calendars: state.resourceScheduler.calendars,
     calendarTypes: state.resourceScheduler.calendarTypes,
-    requestedCalendars: state.resourceScheduler.requestedCalendars
+    requestedCalendars: state.resourceScheduler.requestedCalendars,
+    locale: state.intl.locale
   }
 }
 
