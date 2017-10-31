@@ -35,7 +35,7 @@ class FullCalendar extends React.Component {
     },
     editable: false,
     height: 'auto',
-    resourceAreaWidth: '15%',
+    resourceAreaWidth: '20%',
     themeSystem: 'bootstrap3',
     viewRender: view => {
       this.handleDataChange(view)
@@ -56,7 +56,7 @@ class FullCalendar extends React.Component {
         placement: 'auto top',
         trigger: 'hover',
         html: true,
-        container: '.fc-time-area',
+        container: '.fc-view-container',
         content: ReactDOMServer.renderToString(content)
       })
     }
