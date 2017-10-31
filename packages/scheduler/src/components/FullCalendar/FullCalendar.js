@@ -53,7 +53,7 @@ class FullCalendar extends React.Component {
       window.jQuery(element).popover({
         title: event.title,
         animation: true,
-        placement: 'auto top',
+        placement: 'bottom',
         trigger: 'hover',
         html: true,
         container: '.fc-view-container',
