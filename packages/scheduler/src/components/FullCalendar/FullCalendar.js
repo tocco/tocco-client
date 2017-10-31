@@ -70,7 +70,7 @@ class FullCalendar extends React.Component {
         const button = document.createElement('button')
         button.innerHTML = '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>'
         button.className = 'remove-resource-btn'
-        button.onclick = () => this.props.onCalendarRemove(resource.entityId, resource.calendarType)
+        button.onclick = () => this.props.onCalendarRemove(resource.entityKey, resource.calendarType)
         el.append(button)
       }
     }
@@ -135,8 +135,8 @@ FullCalendar.propTypes = {
     PropTypes.shape({
       resourceId: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
-      start: PropTypes.string.isRequired,
-      end: PropTypes.string.isRequired,
+      start: PropTypes.number.isRequired,
+      end: PropTypes.number.isRequired,
       allDay: PropTypes.bool
     }
     )),
@@ -144,7 +144,7 @@ FullCalendar.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       calendarType: PropTypes.string.isRequired,
-      entityId: PropTypes.string.isRequired,
+      entityKey: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired
     }
     )),

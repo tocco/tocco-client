@@ -14,13 +14,13 @@ describe('scheduler', () => {
         {
           resourceId: '0Dummy_entity',
           title: 'Lecture IT 2',
-          start: '2016-10-17T07:25:53.550Z',
-          end: '2018-10-17T09:25:53.550Z'
+          start: new Date().getTime(),
+          end: new Date().getTime()
         }
       ]
 
       const mockResources = [
-        {title: 'Dummy_entity 0', id: '0Dummy_entity', entityId: '0', calendarType: 'dummy'}
+        {title: 'Dummy_entity 0', id: '0Dummy_entity', entityKey: '0', calendarType: 'dummy'}
       ]
 
       it('should show resources', () => {
