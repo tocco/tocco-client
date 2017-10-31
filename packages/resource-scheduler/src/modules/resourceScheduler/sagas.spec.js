@@ -7,6 +7,7 @@ import mainSaga, * as sagas from './sagas'
 import {requestSaga} from 'tocco-util/src/rest'
 import * as actions from './actions'
 import fetchMock from 'fetch-mock'
+import {transformRequestedCalendars} from '../../utils/rest'
 
 describe('resource-scheduler', () => {
   describe('modules', () => {
@@ -59,8 +60,8 @@ describe('resource-scheduler', () => {
           it('should retrieve calendars regading dateRange and request and dispatch them', () => {
             const mockedState = {
               dateRange: {
-                startDate: Date.now(),
-                endDate: Date.now()
+                startDate: new Date(),
+                endDate: new Date()
               },
               requestedCalendars: {
                 lecturer: ['3', '5']
@@ -72,10 +73,18 @@ describe('resource-scheduler', () => {
             return expectSaga(sagas.retrieveCalendars)
               .provide([
                 [select(sagas.resourceSchedulerSelector), mockedState],
-                [matchers.call.fn(requestSaga), {body: mockCalendars}]
+                [matchers.call.fn(transformRequestedCalendars), []],
+                [matchers.call.fn(requestSaga), {body: {data: mockCalendars}}]
               ])
-              .call(requestSaga, 'calendars',
-                {body: {payload: mockedState.requestedCalendars, dateRange: mockedState.dateRange}}
+              .call(requestSaga, 'calendar/events',
+                {
+                  method: 'POST',
+                  body: {
+                    calendars: [],
+                    start: mockedState.dateRange.startDate.getTime(),
+                    end: mockedState.dateRange.endDate.getTime()
+                  }
+                }
               )
               .put(actions.setCalendars(mockCalendars))
               .run()

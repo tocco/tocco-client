@@ -11,7 +11,7 @@ import SchedulerApp from 'tocco-scheduler/src/main'
 const mapActionCreators = {
   onDateRangeChange: ({dateRange}) => setDateRange(dateRange),
   onCalendarRemove: ({calendarType, id}) => removeRequestedCalendar(calendarType, id),
-  onEventClick: ({model, id}) => onEventClick(model, id)
+  onEventClick: ({model, key}) => onEventClick(model, key)
 }
 
 const mapStateToProps = (state, props) => {

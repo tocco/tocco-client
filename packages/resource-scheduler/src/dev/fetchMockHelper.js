@@ -1,4 +1,3 @@
-import _forOwn from 'lodash/forOwn'
 import _sample from 'lodash/sample'
 import Moment from 'moment'
 
@@ -23,11 +22,11 @@ const getRandomEvent = (startRange, endRange) => {
   const start = getRandomDate(startRange, endRange, 8, 14)
   return {
     label: getRandomEventTitle(),
-    start,
-    end: addRandomHoursToDate(start, 8),
+    start: start.getTime(),
+    end: addRandomHoursToDate(start, 8).getTime(),
     description: 'Description of event',
     isDateTime: 'yes',
-    source: {model: 'Calendar_event', id: `${getRandomNumber(1000)}`}
+    source: {model: 'Calendar_event', key: `${getRandomNumber(1000)}`}
   }
 }
 
@@ -41,20 +40,21 @@ const eventFactory = (amount, startRange, endRange) => {
 
 const getModel = calendarType => calendarType === 'dummy' ? 'Dummy_entity' : 'User'
 
-export const getCalendarResponse = (requestedCalendars, dateRange) => {
-  let calendars = []
+export const getCalendarResponse = (requestedCalendars, startDate, endDate) => {
+  const amountOfDays = Moment(endDate).diff(Moment(startDate), 'days')
 
-  const amountOfDays = Moment(dateRange.endDate).diff(Moment(dateRange.startDate), 'days')
-  _forOwn(requestedCalendars, (ids, calendarType) => {
-    calendars = calendars.concat(ids.map(id => (
-      {
-        label: `${getModel(calendarType)} ${id}`,
-        model: getModel(calendarType),
-        id,
-        calendarType,
-        events: eventFactory(amountOfDays, new Date(dateRange.startDate), new Date(dateRange.endDate))
-      }
-    )))
-  })
-  return calendars
+  return requestedCalendars.reduce(
+    (accumulator, currentValue) => {
+      const {keys, calendarTypeId} = currentValue
+
+      const calendars = keys.map(key => (
+        {
+          label: `${getModel(calendarTypeId)} ${key}`,
+          model: getModel(calendarTypeId),
+          key,
+          calendarType: calendarTypeId,
+          events: eventFactory(amountOfDays, new Date(startDate), new Date(endDate))
+        }))
+      return [...accumulator, ...calendars]
+    }, [])
 }

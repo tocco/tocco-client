@@ -16,12 +16,13 @@ export default function setupFetchMock(fetchMock, entityStore = defaultStore) {
     require('./data/calendarTypes')
   )
 
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/calendars'),
+  fetchMock.post(
+    new RegExp('^.*?/nice2/rest/calendar/events'),
     (url, opts) => {
-      consoleLogger.log('fetchMock: called rest/calendars', url, opts)
+      consoleLogger.log('fetchMock: called rest/calendar/events', url, opts)
       const body = JSON.parse(opts.body)
-      return getCalendarResponse(body.payload, body.dateRange)
+      const data = getCalendarResponse(body.calendars, body.start, body.end)
+      return {data}
     }
   )
 
