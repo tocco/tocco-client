@@ -25,6 +25,10 @@ class DateAbstract extends React.Component {
       }
 
       this.initializeFlatPickr()
+
+      if (props.initialized) {
+        props.initialized()
+      }
     })
   }
 
@@ -100,7 +104,8 @@ DateAbstract.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.arrayOf(PropTypes.string),
   options: PropTypes.object,
-  readOnly: PropTypes.bool
+  readOnly: PropTypes.bool,
+  initialized: PropTypes.func
 }
 
 export default injectIntl(DateAbstract)

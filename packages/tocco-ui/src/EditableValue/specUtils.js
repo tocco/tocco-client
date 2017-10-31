@@ -18,6 +18,14 @@
  * @returns the `westernDate` or `easternDate` depending on the current time zone.
  */
 export const getExpectedDate = (westernDate, easternDate, thresholdOffset) => {
+  const stdOffset = stdTimezoneOffset()
+
   const timeZoneOffset = new Date().getTimezoneOffset()
-  return timeZoneOffset <= thresholdOffset ? easternDate : westernDate
+  return timeZoneOffset + stdOffset <= thresholdOffset ? easternDate : westernDate
+}
+
+const stdTimezoneOffset = () => {
+  const jan = new Date((new Date()).getFullYear(), 0, 1)
+  const jul = new Date((new Date()).getFullYear(), 6, 1)
+  return Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset())
 }
