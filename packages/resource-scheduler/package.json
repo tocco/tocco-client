@@ -1,6 +1,6 @@
 {
   "name": "tocco-resource-scheduler",
-  "version": "0.1.0",
+  "version": "0.1.4",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -8,14 +8,13 @@
     "compile:prod": "cd ../../ && npm run compile:prod -- --package=resource-scheduler",
     "prepublish": "npm run clean && npm run compile:prod"
   },
-  "dependencies": {},
   "devDependencies": {
-    "tocco-test-util": ">0.1.0",
+    "react-split-pane": "0.1.62",
     "tocco-entity-list": ">0.1.0",
+    "tocco-scheduler": ">=0.1.0",
+    "tocco-test-util": ">0.1.0",
     "tocco-theme": ">0.1.0",
     "tocco-ui": ">0.1.0",
-    "tocco-util": ">0.1.0",
-    "tocco-scheduler": ">=0.1.0",
-    "react-split-pane" : "0.1.62"
+    "tocco-util": ">0.1.0"
   }
 }
