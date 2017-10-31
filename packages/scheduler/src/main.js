@@ -93,8 +93,8 @@ SchedulerApp.propTypes = {
       events: PropTypes.arrayOf(
         PropTypes.shape({
           description: PropTypes.string,
-          start: PropTypes.string,
-          end: PropTypes.string,
+          start: PropTypes.number,
+          end: PropTypes.number,
           allDay: PropTypes.bool
         }
         )

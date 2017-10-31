@@ -46,6 +46,21 @@ describe('resource-scheduler', () => {
             expect(reducer(stateBefore, actions.removeRequestedCalendar('lecturer', '3')))
               .to.deep.equal(expectedStateAfter)
           })
+
+          it('should remove property if keys are empty', () => {
+            const stateBefore = {
+              requestedCalendars: {
+                lecturer: ['3']
+              }
+            }
+
+            const expectedStateAfter = {
+              requestedCalendars: {}
+            }
+
+            expect(reducer(stateBefore, actions.removeRequestedCalendar('lecturer', '3')))
+              .to.deep.equal(expectedStateAfter)
+          })
         })
 
         describe('updateRequestedCalendars', () => {
@@ -65,6 +80,24 @@ describe('resource-scheduler', () => {
             }
 
             expect(reducer(stateBefore, actions.updateRequestedCalendars('lecturer', ['2', '7'])))
+              .to.deep.equal(expectedStateAfter)
+          })
+
+          it('should remove property if keys are empty', () => {
+            const stateBefore = {
+              requestedCalendars: {
+                xy: ['2'],
+                lecturer: ['1', '3']
+              }
+            }
+
+            const expectedStateAfter = {
+              requestedCalendars: {
+                xy: ['2']
+              }
+            }
+
+            expect(reducer(stateBefore, actions.updateRequestedCalendars('lecturer', [])))
               .to.deep.equal(expectedStateAfter)
           })
         })

@@ -88,7 +88,8 @@ webpackConfig.plugins = [
   new webpack.DefinePlugin(config.globals),
   new LodashModuleReplacementPlugin({
     shorthands: true,
-    paths: true
+    paths: true,
+    collections: true
   }),
   // prevent all moment locales from being loaded when importing momentjs
   new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /de|en|fr|it/)

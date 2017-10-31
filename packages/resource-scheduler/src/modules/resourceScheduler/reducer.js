@@ -1,11 +1,12 @@
 import * as actions from './actions'
 import {reducers} from 'tocco-util'
+import _omit from 'lodash/omit'
 
-const updateRequestedCalendars = (state, {payload}) => ({
+const updateRequestedCalendars = (state, {payload: {ids, calendarType}}) => ({
   ...state,
   requestedCalendars: {
-    ...state.requestedCalendars,
-    [payload.calendarType]: payload.ids
+    ...(_omit(state.requestedCalendars, [calendarType])),
+    ...(ids.length > 0 ? {[calendarType]: ids} : {})
   }
 })
 
@@ -15,14 +16,16 @@ const removeRequestedCalendar = (state, {payload}) => {
   const arr = state.requestedCalendars[calendarType]
   const index = arr.indexOf(id)
 
+  const newKeys = [
+    ...arr.slice(0, index),
+    ...arr.slice(index + 1)
+  ]
+
   return {
     ...state,
     requestedCalendars: {
-      ...state.requestedCalendars,
-      [calendarType]: [
-        ...arr.slice(0, index),
-        ...arr.slice(index + 1)
-      ]
+      ...(_omit(state.requestedCalendars, [calendarType])),
+      ...(newKeys.length > 0 ? {[calendarType]: newKeys} : {})
     }
   }
 }

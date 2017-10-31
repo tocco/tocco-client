@@ -61,10 +61,10 @@ export const removeRequestedCalendar = (calendarType, id) => ({
   }
 })
 
-export const onEventClick = (model, id) => ({
+export const onEventClick = (model, key) => ({
   type: ON_EVENT_CLICK,
   payload: {
     model,
-    id
+    key
   }
 })

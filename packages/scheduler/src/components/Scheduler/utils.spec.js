@@ -5,7 +5,7 @@ const mockCalendars = [
   {
     label: 'Peter Griffin',
     model: 'User',
-    id: '89',
+    key: '89',
     calendarType: 'participant',
     events: [
       {
@@ -25,7 +25,7 @@ const mockCalendars = [
   {
     label: 'Paul Panzer',
     model: 'User',
-    id: '812',
+    key: '812',
     calendarType: 'participant',
     events: [
       {
@@ -42,7 +42,7 @@ describe('scheduler', () => {
   describe('components', () => {
     describe('Scheduler', () => {
       describe('utils', () => {
-        it('shoud find a coresponding resource for each event', () => {
+        it('should find a corresponding resource for each event', () => {
           const events = getEvents(mockCalendars)
           const resources = getResources(mockCalendars)
 
@@ -73,7 +73,7 @@ describe('scheduler', () => {
             resources.map(resource => {
               expect(resource).to.have.property('id')
               expect(resource).to.have.property('title')
-              expect(resource).to.have.property('entityId')
+              expect(resource).to.have.property('entityKey')
               expect(resource).to.have.property('calendarType')
             })
           })
