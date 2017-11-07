@@ -40,6 +40,7 @@ class EntityDetail extends React.Component {
   }
 
   getApp = ({entityName, entityId, formName, mode}) => (<EntityDetailApp
+    id={`${this.props.appId}_detail_${formName}_${entityId}` }
     entityName={entityName}
     entityId={entityId}
     formName={formName}
@@ -96,7 +97,8 @@ EntityDetail.propTypes = {
   router: PropTypes.object.isRequired,
   detailParams: PropTypes.object,
   formTouched: PropTypes.bool,
-  showSubGridsCreateButton: PropTypes.bool
+  showSubGridsCreateButton: PropTypes.bool,
+  appId: PropTypes.string
 }
 
 export default EntityDetail
