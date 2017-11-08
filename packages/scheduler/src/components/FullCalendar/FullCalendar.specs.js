@@ -5,9 +5,9 @@ import {shallow, mount} from 'enzyme'
 describe('scheduler', () => {
   describe('components', () => {
     describe('Fullcalendar', () => {
-      it('should render', () => {
+      it('should render wrapping div with id and calendar div', () => {
         const wrapper = shallow(<FullCalendar/>)
-        expect(wrapper.find('div')).to.have.length(1)
+        expect(wrapper.find('div')).to.have.length(2)
       })
 
       const mockEvents = [
