@@ -7,7 +7,8 @@ const SubGrid = props => {
   return (
     <div>
       <EntityListApp
-        id={`entity-detail-subgrid-${formBase}-${props.entityKey}`}
+        id={`${props.appId}-subgrid-${formBase}`}
+        keepStore={true}
         entityName={props.modelField.targetEntity}
         formBase={formBase}
         limit={5}
@@ -50,7 +51,8 @@ SubGrid.propTypes = {
   }).isRequired,
   onRowClick: PropTypes.func,
   onNavigateToCreate: PropTypes.func.isRequired,
-  showSubGridsCreateButton: PropTypes.bool
+  showSubGridsCreateButton: PropTypes.bool,
+  appId: PropTypes.string
 }
 
 export default SubGrid
