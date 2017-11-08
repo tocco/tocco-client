@@ -60,7 +60,7 @@ export function* setPreselectedSearchFields({payload}) {
   const {preselectedSearchFields} = payload
 
   const entityModel = yield call(getEntityModel)
-  const formValues = yield call(getInitialFromValues, preselectedSearchFields, entityModel, loadRelationEntity)
+  const formValues = yield call(getInitialFromValues, preselectedSearchFields, entityModel.model, loadRelationEntity)
   yield put(initializeForm('searchForm', formValues))
   yield put(actions.setValuesInitialized(true))
 }
