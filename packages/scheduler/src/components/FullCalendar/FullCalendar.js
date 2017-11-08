@@ -35,7 +35,7 @@ class FullCalendar extends React.Component {
     },
     editable: false,
     height: 'auto',
-    resourceAreaWidth: '20%',
+    resourceAreaWidth: '15%',
     themeSystem: 'bootstrap3',
     viewRender: view => {
       this.handleDataChange(view)
@@ -68,10 +68,10 @@ class FullCalendar extends React.Component {
       field: 'title',
       render: (resource, el) => {
         const button = document.createElement('button')
-        button.innerHTML = '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>'
+        button.innerHTML = '<span class="fa fa-minus-circle" aria-hidden="true"></span>'
         button.className = 'remove-resource-btn'
         button.onclick = () => this.props.onCalendarRemove(resource.entityKey, resource.calendarType)
-        el.append(button)
+        el.prepend(button)
       }
     }
   ]
