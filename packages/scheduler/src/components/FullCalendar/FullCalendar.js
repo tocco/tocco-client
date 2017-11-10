@@ -21,7 +21,8 @@ class FullCalendar extends React.Component {
     super(props)
     this.state = {
       currentStartDate: null,
-      currentEndDate: null
+      currentEndDate: null,
+      wrapperId: new Date().getTime()
     }
   }
 
@@ -56,7 +57,7 @@ class FullCalendar extends React.Component {
         placement: 'bottom',
         trigger: 'hover',
         html: true,
-        container: '.fc-view-container',
+        container: `.${this.state.wrapperId}`,
         content: ReactDOMServer.renderToString(content)
       })
     }
@@ -82,7 +83,7 @@ class FullCalendar extends React.Component {
       const endMoment = view.end
       if (!startMoment.isSame(this.state.currentStartDate) || !endMoment.isSame(this.state.currentEndDate)) {
         this.props.onDateRangeChange({startDate: startMoment._d, endDate: endMoment._d})
-        this.setState({currentStartDate: startMoment, currentEndDate: endMoment})
+        this.setState({...this.state, currentStartDate: startMoment, currentEndDate: endMoment})
       }
     }
   }
@@ -117,7 +118,7 @@ class FullCalendar extends React.Component {
   }
 
   render() {
-    return <div ref={ref => { this.calendarContainer = ref }}></div>
+    return <div className={this.state.wrapperId}><div ref={ref => { this.calendarContainer = ref }}></div></div>
   }
 }
 

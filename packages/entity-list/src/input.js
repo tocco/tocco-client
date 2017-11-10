@@ -7,45 +7,76 @@ import {
 } from './modules/searchForm/actions'
 import {setLimit, setSearchFilters, setListFormName, setSelectable, setSelection} from './modules/list/actions'
 
-export const getDispatchActions = input => {
-  const actions = [
-    setEntityName(input.entityName),
-    setListFormName(`${input.formBase}_list`),
-    setSearchFormName(`${input.formBase}_search`),
-    setPreselectedSearchFields(input.preselectedSearchFields || [])
-  ]
+const isDefined = value => !(value === undefined || value === null)
 
-  if (input.limit) {
-    actions.push(setLimit(input.limit))
+export const getDispatchActions = (input, init) =>
+  actionSettings.reduce((acc, actionSetting) => {
+    if (isDefined(input[actionSetting.name])) {
+      acc.push(actionSetting.action(...actionSetting.argsFactory(input)))
+    } else if (init && actionSetting.defaultInitalValue) {
+      acc.push(actionSetting.action(actionSetting.defaultInitalValue))
+    }
+
+    return acc
+  }, [])
+
+const actionSettings = [
+  {
+    name: 'entityName',
+    action: setEntityName,
+    argsFactory: input => [input.entityName]
+  }, {
+    name: 'formBase',
+    action: setListFormName,
+    argsFactory: input => [`${input.formBase}_list`]
+  }, {
+    name: 'formBase',
+    action: setSearchFormName,
+    argsFactory: input => [`${input.formBase}_search`]
+  },
+  {
+    name: 'limit',
+    action: setLimit,
+    argsFactory: input => [input.limit]
+  },
+  {
+    name: 'preselectedSearchFields',
+    action: setPreselectedSearchFields,
+    defaultInitalValue: [],
+    argsFactory: input => [input.preselectedSearchFields]
+  },
+  {
+    name: 'searchFilters',
+    action: setSearchFilters,
+    argsFactory: input => [input.searchFilters]
+  },
+  {
+    name: 'showSearchForm',
+    action: setShowSearchForm,
+    argsFactory: input => [input.showSearchForm]
+  }, {
+    name: 'showCreateButton',
+    action: setShowCreateButton,
+    argsFactory: input => [input.showCreateButton]
+  },
+  {
+    name: 'disableSimpleSearch',
+    action: setDisableSimpleSearch,
+    argsFactory: input => [input.disableSimpleSearch]
+  },
+  {
+    name: 'simpleSearchFields',
+    action: setSimpleSearchFields,
+    argsFactory: input => [input.simpleSearchFields]
+  }, {
+    name: 'selectable',
+    action: setSelectable,
+    argsFactory: input => [input.selectable]
+  },
+  {
+    name: 'selection',
+    type: 'boolean',
+    action: setSelection,
+    argsFactory: input => [input.selection]
   }
-
-  if (input.searchFilters) {
-    actions.push(setSearchFilters(input.searchFilters))
-  }
-
-  if (typeof input.showSearchForm === 'boolean') {
-    actions.push(setShowSearchForm(input.showSearchForm))
-  }
-
-  if (typeof input.showCreateButton === 'boolean') {
-    actions.push(setShowCreateButton(input.showCreateButton))
-  }
-
-  if (typeof input.disableSimpleSearch === 'boolean') {
-    actions.push(setDisableSimpleSearch(input.disableSimpleSearch))
-  }
-
-  if (input.simpleSearchFields) {
-    actions.push(setSimpleSearchFields(input.simpleSearchFields))
-  }
-
-  if (typeof input.selectable === 'boolean') {
-    actions.push(setSelectable(input.selectable))
-  }
-
-  if (input.selection) {
-    actions.push(setSelection(input.selection))
-  }
-
-  return actions
-}
+]

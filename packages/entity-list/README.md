@@ -21,6 +21,7 @@ React-registry name: `entity-list`
 | `selectable`              |           | If true, the rows will be selectable.
 | `onSelectChange`          |           | Callback function which gets called on a row selection. The selection will be passed as argument.
 | `selection`               |           | Array of keys. The whole selection can be preset with this property.
+| `keepStore`               |           | If true the app preserves the store with given `id`. If the same list gets shown again, the store is recovered.
 
 ### Events
 

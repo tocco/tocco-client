@@ -56,7 +56,7 @@ describe('entity-list', () => {
             )
             expect(gen.next().value).to.eql(call(sagas.getEntityModel))
             expect(gen.next(entityModel).value).to.eql(
-              call(getInitialFromValues, preselectedSearchFields, entityModel, sagas.loadRelationEntity)
+              call(getInitialFromValues, preselectedSearchFields, entityModel.model, sagas.loadRelationEntity)
             )
             const formValues = {fullText: 'test'}
             expect(gen.next(formValues).value).to.eql(put(initializeForm('searchForm', formValues)))
