@@ -20,6 +20,8 @@ export function* onCalendarRemove({payload}) {
 }
 
 export function* onEventClick({payload}) {
-  const {event} = payload
-  yield put(externalEvents.fireExternalEvent('onEventClick', event.entity))
+  const {event: {entity}} = payload
+  if (entity) {
+    yield put(externalEvents.fireExternalEvent('onEventClick', entity))
+  }
 }

@@ -37,6 +37,7 @@ class FullCalendar extends React.Component {
     editable: false,
     height: 'auto',
     resourceAreaWidth: '15%',
+    timezone: 'local',
     themeSystem: 'bootstrap3',
     viewRender: view => {
       this.handleDataChange(view)
