@@ -14,7 +14,7 @@ class ResourceScheduler extends React.Component {
   render() {
     const props = this.props
     return (
-      <SplitPane split="vertical" minSize={300} defaultSize={this.paneWidth}>
+      <SplitPane split="vertical" minSize={325} defaultSize={this.paneWidth}>
         <div className="spit-panel-wrapper">
           <SearchPanel
             locale={props.locale}
