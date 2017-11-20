@@ -23,6 +23,21 @@
             "useLabel": "YES"
           },
           {
+            "name": "searchFilter",
+            "type": "ch.tocco.nice2.model.form.components.simple.SearchFilterField",
+            "displayType": "EDITABLE",
+            "scopes": [],
+            "children": [],
+            "label": "Suchfilter",
+            "useLabel": "YES",
+            "model": "User",
+            "filters": [
+              "filter1",
+              "filter2"
+            ],
+            "multiple": true
+          },
+          {
             "name": "relAddress_user.relAddress",
             "type": "ch.tocco.nice2.model.form.components.simple.TextField",
             "displayType": "EDITABLE",
