@@ -9,11 +9,13 @@
   @import 'variable/tocco-variable-before-vendor';
   @import 'variable/bootstrap-variable';
   @import 'variable/font-awesome-variable';
+  @import 'variable/react-select-variable';
   @import 'variable/tocco-variable-after-vendor';
 
   // import vendor's styling frameworks
   @import 'vendor/bootstrap';
   @import 'vendor/font-awesome';
+  @import 'vendor/react-select';
 
   // import vendor's styling frameworks extension
   @import 'vendor-extension/bootstrap/normalize';
@@ -21,7 +23,6 @@
   @import 'vendor-extension/bootstrap/icon-list';
   @import 'vendor-extension/bootstrap/typography';
   @import 'vendor-extension/toastr/third-party-integration.scss';
-  @import 'vendor-extension/react-select/third-party-integration.scss';
 
   // import tocco's declarations
   @import 'tocco/convenience-classes';
