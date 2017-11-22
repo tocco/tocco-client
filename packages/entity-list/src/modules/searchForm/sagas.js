@@ -148,8 +148,7 @@ export function* getSearchInputs() {
   _forOwn(searchInputs, (value, key) => {
     if (key === 'searchFilter' && value) {
       searchInputsRenamed._filter = getFilterArray(value)
-    }
-    if (key === 'txtFulltext') {
+    } else if (key === 'txtFulltext') {
       searchInputsRenamed._search = value
     } else {
       searchInputsRenamed[form.transformFieldNameBack(key)] = value

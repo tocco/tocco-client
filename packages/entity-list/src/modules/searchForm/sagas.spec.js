@@ -144,14 +144,23 @@ describe('entity-list', () => {
           it('should get searchInputs', () => {
             const valuesInitialized = false
             const entityModel = {}
-            const searchValues = {}
+            const searchValues = {
+              txtFulltext: 'txtFulltext',
+              searchFilter: [{key: 'filter'}]
+            }
+
+            const renamedSearchValues = {
+              _search: 'txtFulltext',
+              _filter: ['filter']
+            }
 
             const gen = sagas.getSearchInputs()
             expect(gen.next().value).to.eql(select(sagas.searchFormSelector))
             expect(gen.next({valuesInitialized}).value).to.eql(take(actions.SET_VALUES_INITIALIZED))
             expect(gen.next().value).to.eql(select(sagas.searchValuesSelector))
             expect(gen.next(searchValues).value).to.eql(select(sagas.entityListSelector))
-            expect(gen.next({entityModel}).value).to.eql(call(getSearchInputsForRequest, searchValues, entityModel))
+            expect(gen.next({entityModel}).value).to.eql(
+              call(getSearchInputsForRequest, renamedSearchValues, entityModel))
             expect(gen.next().done).to.be.true
           })
         })
@@ -196,7 +205,7 @@ describe('entity-list', () => {
 
             expectSaga(sagas.loadSearchFilters, args)
               .provide([
-                [select(sagas.searchFormSelector), {searchForm: {searchFilter: {}}}],
+                [select(sagas.searchFormSelector), {searchForm: {}}],
                 [matchers.call.fn(fetchEntities), json],
                 [matchers.call.fn(selectEntitiesPathsTransformer), entities]
               ])
@@ -221,6 +230,44 @@ describe('entity-list', () => {
               .provide([
                 [select(sagas.searchFormSelector), {searchFilter: existingSearchFilters}]
               ])
+              .run()
+          })
+
+          it('should add filters passed in arguments', () => {
+            const args = {
+              payload: {
+                model: 'User',
+                filters: ['filter1']
+              }
+            }
+
+            const json = {
+              data: [
+                {
+                  display: 'Filter 1',
+                  paths: {
+                    unique_id: {
+                      value: {
+                        value: 'filter1'
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+
+            const entities = {
+              display: 'Filter 1',
+              key: 'filter1'
+            }
+
+            expectSaga(sagas.loadSearchFilters, args)
+              .provide([
+                [select(sagas.searchFormSelector), {searchForm: {}}],
+                [matchers.call.fn(fetchEntities), json],
+                [matchers.call.fn(selectEntitiesPathsTransformer), entities]
+              ])
+              .put(actions.setSearchFilter(entities))
               .run()
           })
         })
