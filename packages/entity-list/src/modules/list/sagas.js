@@ -72,10 +72,12 @@ export function* fetchEntitiesAndAddToStore(page) {
   if (!entityStore[page]) {
     const {sorting, limit, columnDefinition} = list
 
-    const {searchFilters} = input
     const formName = `${formBase}_list`
 
     const searchInputs = yield call(getSearchInputs)
+    // combine search filters from input and search form
+    searchInputs._filter = [...input.searchFilters || [], ...searchInputs._filter || []]
+
     const fields = getFieldsOfColumnDefinition(columnDefinition)
 
     const fetchParams = {
@@ -83,7 +85,6 @@ export function* fetchEntitiesAndAddToStore(page) {
       sorting,
       limit,
       fields,
-      searchFilters,
       searchInputs,
       formName
     }

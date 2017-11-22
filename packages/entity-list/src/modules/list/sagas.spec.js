@@ -119,8 +119,7 @@ describe('entity-list', () => {
               limit,
               fields: columnDefinition,
               searchInputs,
-              formName,
-              searchFilters: []
+              formName
             }
 
             const gen = sagas.fetchEntitiesAndAddToStore(1)
