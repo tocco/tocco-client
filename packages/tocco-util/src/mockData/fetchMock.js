@@ -87,6 +87,11 @@ export const setupFetchMock = (fetchMock, entityStore) => {
     new RegExp('^.*?/nice2/rest/entities/Dummy_entity(\\?.*)?$'),
     createEntitiesResponse('Dummy_entity', entityStore)
   )
+
+  fetchMock.get(
+    new RegExp('^.*?/nice2/rest/entities/Search_filter(\\?.*)?$'),
+    require('./data/search_filters.json')
+  )
 }
 
 const createEntityResponse = (entityName, entityStore) => {

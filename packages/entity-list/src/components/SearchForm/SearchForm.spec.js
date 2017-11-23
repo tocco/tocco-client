@@ -39,6 +39,7 @@ describe('entity-list', () => {
                 disableSimpleSearch
                 preselectedSearchFields={[]}
                 setShowExtendedSearchForm={EMPTY_FUNC}
+                loadSearchFilters={EMPTY_FUNC}
               />
             </MemoryRouter>
           </Provider>
@@ -72,6 +73,7 @@ describe('entity-list', () => {
                 disableSimpleSearch
                 preselectedSearchFields={[]}
                 setShowExtendedSearchForm={EMPTY_FUNC}
+                loadSearchFilters={EMPTY_FUNC}
               />
             </MemoryRouter>
           </Provider>
@@ -105,6 +107,7 @@ describe('entity-list', () => {
                 simpleSearchFields={['txtFulltext']}
                 preselectedSearchFields={[]}
                 setShowExtendedSearchForm={EMPTY_FUNC}
+                loadSearchFilters={EMPTY_FUNC}
               />
             </MemoryRouter>
           </Provider>
@@ -138,6 +141,7 @@ describe('entity-list', () => {
                 simpleSearchFields={['txtFulltext', 'relUser_code1']}
                 preselectedSearchFields={[]}
                 setShowExtendedSearchForm={EMPTY_FUNC}
+                loadSearchFilters={EMPTY_FUNC}
               />
             </MemoryRouter>
           </Provider>
@@ -179,6 +183,7 @@ describe('entity-list', () => {
                 simpleSearchFields={[]}
                 preselectedSearchFields={preselectedSearchFields}
                 setShowExtendedSearchForm={EMPTY_FUNC}
+                loadSearchFilters={EMPTY_FUNC}
               />
             </MemoryRouter>
           </Provider>

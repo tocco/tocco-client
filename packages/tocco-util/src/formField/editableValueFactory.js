@@ -46,6 +46,13 @@ const getOptions = (type, formField, modelField, utils) => {
       options.uploadingText = utils.intl.formatMessage({id: 'client.component.upload.uploading'})
       options.downloadText = utils.intl.formatMessage({id: 'client.component.upload.downloadTitle'})
       options.deleteText = utils.intl.formatMessage({id: 'client.component.upload.deleteTitle'})
+      break
+    case 'search-filter':
+      options.field = formField.name
+      options.model = formField.model
+      options.multi = formField.multiple ? formField.multiple : false
+      options.store = utils.searchFilters
+      options.onChange = utils.onChange
   }
 
   return options
@@ -68,6 +75,13 @@ const getEvents = (type, field, modelField, util) => {
       if (util.loadRemoteEntity) {
         events.onFocus = () => {
           util.loadRemoteEntity(field.name, modelField.targetEntity, '')
+        }
+      }
+      break
+    case 'search-filter':
+      if (util.loadSearchFilters) {
+        events.onFocus = () => {
+          util.loadSearchFilters(field.model, field.filters)
         }
       }
   }

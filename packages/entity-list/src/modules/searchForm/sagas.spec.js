@@ -1,7 +1,9 @@
 import {put, select, call, fork, takeLatest, all, take} from 'redux-saga/effects'
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
-import {fetchEntities, selectEntitiesTransformer} from '../../util/api/entities'
+import {expectSaga} from 'redux-saga-test-plan'
+import * as matchers from 'redux-saga-test-plan/matchers'
+import {fetchEntities, selectEntitiesTransformer, selectEntitiesPathsTransformer} from '../../util/api/entities'
 import {
   startSubmit,
   actionTypes,
@@ -24,6 +26,7 @@ describe('entity-list', () => {
               fork(takeLatest, actions.INITIALIZE, sagas.initialize),
               fork(takeLatest, actions.SET_PRESELECTED_SEARCH_FIELDS, sagas.setPreselectedSearchFields),
               fork(takeLatest, actions.LOAD_RELATION_ENTITY, sagas.loadRelationEntity),
+              fork(takeLatest, actions.LOAD_SEARCH_FILTERS, sagas.loadSearchFilters),
               fork(takeLatest, actionTypes.CHANGE, sagas.submitSearchFrom),
               fork(takeLatest, actions.SUBMIT_SEARCH_FORM, sagas.submitSearchFrom),
               fork(takeLatest, actions.RESET_SEARCH, sagas.resetSearch)
@@ -141,14 +144,23 @@ describe('entity-list', () => {
           it('should get searchInputs', () => {
             const valuesInitialized = false
             const entityModel = {}
-            const searchValues = {}
+            const searchValues = {
+              txtFulltext: 'txtFulltext',
+              searchFilter: [{key: 'filter'}]
+            }
+
+            const renamedSearchValues = {
+              _search: 'txtFulltext',
+              _filter: ['filter']
+            }
 
             const gen = sagas.getSearchInputs()
             expect(gen.next().value).to.eql(select(sagas.searchFormSelector))
             expect(gen.next({valuesInitialized}).value).to.eql(take(actions.SET_VALUES_INITIALIZED))
             expect(gen.next().value).to.eql(select(sagas.searchValuesSelector))
             expect(gen.next(searchValues).value).to.eql(select(sagas.entityListSelector))
-            expect(gen.next({entityModel}).value).to.eql(call(getSearchInputsForRequest, searchValues, entityModel))
+            expect(gen.next({entityModel}).value).to.eql(
+              call(getSearchInputsForRequest, renamedSearchValues, entityModel))
             expect(gen.next().done).to.be.true
           })
         })
@@ -159,6 +171,104 @@ describe('entity-list', () => {
             expect(gen.next().value).to.eql(put(reset('searchForm')))
             expect(gen.next().value).to.eql(call(sagas.submitSearchFrom))
             expect(gen.next().done).to.be.true
+          })
+        })
+
+        describe('loadSearchFilters saga', () => {
+          it('should load search filters', () => {
+            const args = {
+              payload: {
+                model: 'User',
+                filters: []
+              }
+            }
+
+            const json = {
+              data: [
+                {
+                  display: 'Filter 1',
+                  paths: {
+                    unique_id: {
+                      value: {
+                        value: 'filter1'
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+
+            const entities = {
+              display: 'Filter 1',
+              key: 'filter1'
+            }
+
+            expectSaga(sagas.loadSearchFilters, args)
+              .provide([
+                [select(sagas.searchFormSelector), {searchForm: {}}],
+                [matchers.call.fn(fetchEntities), json],
+                [matchers.call.fn(selectEntitiesPathsTransformer), entities]
+              ])
+              .put(actions.setSearchFilter(entities))
+              .run()
+          })
+
+          it('should not load search filters if already loaded', () => {
+            const args = {
+              payload: {
+                model: 'User',
+                filters: []
+              }
+            }
+
+            const existingSearchFilters = [{
+              display: 'Filter 1',
+              key: 'filter1'
+            }]
+
+            expectSaga(sagas.loadSearchFilters, args)
+              .provide([
+                [select(sagas.searchFormSelector), {searchFilter: existingSearchFilters}]
+              ])
+              .run()
+          })
+
+          it('should add filters passed in arguments', () => {
+            const args = {
+              payload: {
+                model: 'User',
+                filters: ['filter1']
+              }
+            }
+
+            const json = {
+              data: [
+                {
+                  display: 'Filter 1',
+                  paths: {
+                    unique_id: {
+                      value: {
+                        value: 'filter1'
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+
+            const entities = {
+              display: 'Filter 1',
+              key: 'filter1'
+            }
+
+            expectSaga(sagas.loadSearchFilters, args)
+              .provide([
+                [select(sagas.searchFormSelector), {searchForm: {}}],
+                [matchers.call.fn(fetchEntities), json],
+                [matchers.call.fn(selectEntitiesPathsTransformer), entities]
+              ])
+              .put(actions.setSearchFilter(entities))
+              .run()
           })
         })
       })
