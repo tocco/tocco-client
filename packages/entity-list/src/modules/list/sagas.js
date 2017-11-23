@@ -1,4 +1,5 @@
 import _isEmpty from 'lodash/isEmpty'
+import _union from 'lodash/union'
 import {call, put, fork, select, spawn, takeEvery, takeLatest, all} from 'redux-saga/effects'
 import {externalEvents} from 'tocco-util'
 import * as actions from './actions'
@@ -75,10 +76,8 @@ export function* fetchEntitiesAndAddToStore(page) {
     const formName = `${formBase}_list`
 
     const searchInputs = yield call(getSearchInputs)
-    // combine search filters from input and search form
-    searchInputs._filter = [...input.searchFilters || [], ...searchInputs._filter || []]
-
-    const fields = getFieldsOfColumnDefinition(columnDefinition)
+    searchInputs._filter = yield call(_union, input.searchFilters, searchInputs._filter)
+    const fields = yield call(getFieldsOfColumnDefinition, columnDefinition)
 
     const fetchParams = {
       page,
