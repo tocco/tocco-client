@@ -16,6 +16,17 @@ const Button = props => {
     }
   )
 
+  const getIconClass = icon => {
+    if (!icon) return ''
+
+    return classNames({
+      'glyphicon': icon.startsWith('glyphicon-'),
+      'fa': icon.startsWith('fa-')
+    },
+    icon
+    )
+  }
+
   return (
     <button
       name={props.name}
@@ -23,8 +34,9 @@ const Button = props => {
       className={classes}
       disabled={props.disabled}
       type={props.type ? props.type : 'button'}
+      style={props.style}
     >
-      <i className={classNames('glyphicon', props.icon)}/> {props.label || ''}
+      <i className={getIconClass(props.icon)}/> {props.label || ''}
     </button>)
 }
 
@@ -32,7 +44,7 @@ Button.propTypes = {
   /**
    * Will be displayed on button, default is an empty string
    */
-  label: PropTypes.string,
+  label: PropTypes.node,
   /**
    * Function that will be triggered on click event
    */
@@ -61,6 +73,10 @@ Button.propTypes = {
    * Add an icon to the button. Possible icons are defined here: http://glyphicons.bootstrapcheatsheets.com/
    */
   icon: PropTypes.string,
+  /**
+   * Add an icon to the button. Possible icons are defined here: http://glyphicons.bootstrapcheatsheets.com/
+   */
+  style: PropTypes.object,
   /**
    * HTML Button type. Default is 'button'. Possible values: button|submit|reset
    */

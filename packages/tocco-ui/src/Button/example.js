@@ -8,11 +8,15 @@ export default () => {
     <div>
       {/* start example */}
       <Button
-        label="Primary"
+        label={<strong>Primary</strong>}
         primary
       />
       <Button
         icon="glyphicon-heart"
+        type="submit"
+      />
+      <Button
+        icon="fa-font-awesome"
         type="submit"
       />
       <Button
