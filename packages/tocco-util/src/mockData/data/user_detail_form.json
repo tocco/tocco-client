@@ -80,6 +80,21 @@
                     "children": [],
                     "label": "Adresse",
                     "useLabel": "YES"
+                  },
+                  {
+                    "type": "ch.tocco.nice2.model.form.components.action.SaveAction",
+                    "label": "Save Infos"
+                  },
+                  {
+                    "type": "ch.tocco.nice2.model.form.components.action.SimpleAction",
+                    "name": "detailSimpleAction",
+                    "readOnly": false,
+                    "scope": ["update"],
+                    "label": "Beispiel Aktion",
+                    "config": {
+                      "confirm": false,
+                      "endpoint": "/actions/example2"
+                    }
                   }
                 ],
                 "label": "Personenangaben",
@@ -287,7 +302,26 @@
         ],
         "label": null,
         "useLabel": "NO"
+      },
+      {
+        "type": "ch.tocco.nice2.model.form.components.action.ActionGroup",
+        "action": {
+          "type": "ch.tocco.nice2.model.form.components.action.SaveAction"
+        },
+        "children": [
+          {
+            "type": "ch.tocco.nice2.model.form.components.action.SimpleAction",
+            "label": "Save as Template",
+            "icon": "fa-plus",
+            "config": {
+              "confirm": false,
+              "endpoint": "save/asTemplate"
+            }
+          }
+
+        ]
       }
+
     ],
     "label": "##forms.User_detail:de_CH:nice2.optional.user",
     "useLabel": "YES"
