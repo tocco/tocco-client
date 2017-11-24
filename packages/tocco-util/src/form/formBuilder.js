@@ -6,9 +6,9 @@ import ReduxFormFieldAdapter from './ReduxFormFieldAdapter'
 import _get from 'lodash/get'
 import _startsWith from 'lodash/startsWith'
 import {LayoutBox} from 'tocco-ui'
+import actionFactory, {isAction} from '../actions/actionFactory'
 
 const layoutTypeNamespace = 'ch.tocco.nice2.model.form.components.layout.'
-const actionTypeNamespace = 'ch.tocco.nice2.model.form.components.action.'
 
 export default (
   entity,
@@ -32,8 +32,8 @@ export default (
         const type = child.type.substr(layoutTypeNamespace.length, child.type.length)
         const travers = () => formTraverser(child.children)
         result.push(createLayoutComponent(child, type, i, travers))
-      } else if (_startsWith(child.type, actionTypeNamespace)) {
-        // Actions are ignored at the moment
+      } else if (isAction(child.type)) {
+        result.push(actionFactory(child, i))
       } else {
         result.push(createField(child, i))
       }
