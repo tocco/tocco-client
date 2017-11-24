@@ -2,7 +2,7 @@ export const INITIALIZE = 'list/INITIALIZE'
 export const SET_INITIALIZED = 'list/SET_INITIALIZED'
 export const REQUEST_ENTITIES = 'list/REQUEST_ENTITIES'
 export const SET_ENTITIES = 'list/SET_ENTITIES'
-export const SET_COLUMN_DEFINITION = 'list/SET_COLUMN_DEFINITION'
+export const SET_FORM_DEFINITION = 'list/SET_FORM_DEFINITION'
 export const SET_ENTITY_MODEL = 'list/SET_ENTITY_MODEL'
 export const SET_SORTING = 'list/SET_SORTING'
 export const SET_LIMIT = 'list/SET_LIMIT'
@@ -67,10 +67,10 @@ export const setEntityCount = entityCount => ({
   }
 })
 
-export const setColumnDefinition = columnDefinition => ({
-  type: SET_COLUMN_DEFINITION,
+export const setFormDefinition = formDefinition => ({
+  type: SET_FORM_DEFINITION,
   payload: {
-    columnDefinition
+    formDefinition
   }
 })
 

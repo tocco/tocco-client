@@ -4,7 +4,7 @@ import {externalEvents} from 'tocco-util'
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import {getSearchInputs} from '../searchForm/sagas'
-import {fetchForm, tableDefinitionTransformer, getFieldsOfColumnDefinition} from '../../util/api/forms'
+import {fetchForm, getSorting, getFields} from '../../util/api/forms'
 import {fetchEntityCount, fetchEntities, entitiesListTransformer, fetchModel} from '../../util/api/entities'
 
 export const inputSelector = state => state.input
@@ -28,12 +28,12 @@ export function* initialize() {
   const {entityName} = yield select(entityListSelector)
   const {formBase} = yield select(inputSelector)
   const listView = yield select(listSelector)
-  const {columnDefinition, entityModel, initialized} = listView
+  const {formDefinition, entityModel, initialized} = listView
 
   if (!initialized) {
     yield all([
       call(loadEntityModel, entityName, entityModel),
-      call(loadTableDefinition, columnDefinition, formBase)
+      call(loadFormDefinition, formDefinition, formBase)
     ])
     yield call(resetDataSet)
   } else {
@@ -68,13 +68,13 @@ export function* fetchEntitiesAndAddToStore(page) {
   const {entityStore} = list
 
   if (!entityStore[page]) {
-    const {sorting, limit, columnDefinition} = list
+    const {sorting, limit, formDefinition} = list
 
     const {searchFilters} = input
     const formName = `${formBase}_list`
 
     const searchInputs = yield call(getSearchInputs)
-    const fields = getFieldsOfColumnDefinition(columnDefinition)
+    const fields = yield call(getFields, formDefinition)
 
     const fetchParams = {
       page,
@@ -112,12 +112,11 @@ export function* displayEntity(page) {
   yield put(actions.setEntities(entities))
 }
 
-export function* loadTableDefinition(columnDefinition, formBase) {
-  if (columnDefinition.length === 0) {
-    const {columnDefinition, sorting} = yield call(
-      fetchForm, `${formBase}_list`, tableDefinitionTransformer
-    )
-    yield put(actions.setColumnDefinition(columnDefinition))
+export function* loadFormDefinition(formDefinition, formBase) {
+  if (formDefinition === null) {
+    const formDefinition = yield call(fetchForm, `${formBase}_list`)
+    yield put(actions.setFormDefinition(formDefinition))
+    const sorting = yield call(getSorting, formDefinition)
     yield put(actions.setSorting(sorting))
   }
 }
