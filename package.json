@@ -32,7 +32,9 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
   },
-  "dependencies": {},
+  "dependencies": {
+    "react-bootstrap": "^0.31.5"
+  },
   "devDependencies": {
     "babel-cli": "6.26.0",
     "babel-core": "6.26.0",
