@@ -21,7 +21,7 @@ class LoadMask extends React.Component {
     }
   }
 
-  requiredLoaded = required => (!required.some(r => (!r)))
+  requiredLoaded = required => !required.some(r => (!r))
 
   setInitialized = () => {
     if (this.mounted && !this.state.initialized) {
