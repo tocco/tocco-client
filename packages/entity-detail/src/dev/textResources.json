@@ -29,5 +29,9 @@
   "client.component.upload.upload",
   "client.component.upload.uploading",
   "client.component.upload.downloadTitle",
-  "client.component.upload.deleteTitle"
+  "client.component.upload.deleteTitle",
+
+  "client.actions.create",
+  "client.actions.delete",
+  "client.actions.save"
 ]
