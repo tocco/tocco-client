@@ -15,7 +15,10 @@ const defaultProps = {
   setSearchTerm: EMPTY_FUNC,
   entities: [],
   intl: IntlStub,
-  orderBy: null
+  orderBy: null,
+  selectable: true,
+  onSelectChange: EMPTY_FUNC,
+  selection: []
 }
 
 describe('entity-list', () => {

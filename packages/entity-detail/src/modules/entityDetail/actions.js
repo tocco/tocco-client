@@ -19,6 +19,7 @@ export const SET_MODE = 'entityDetail/SET_MODE'
 export const SET_FORM_NAME = 'entityDetail/SET_FORM_NAME'
 export const SET_SHOW_SUB_GRIDS_CREATE_BUTTON = 'entityDetail/SET_SHOW_SUB_GRIDS_CREATE_BUTTON'
 export const UPLOAD_DOCUMENT = 'entityDetail/UPLOAD_DOCUMENT'
+export const SET_APP_ID = 'entityDetail/SET_APP_ID'
 
 export const setFormDefinition = formDefinition => ({
   type: SET_FORM_DEFINITION,
@@ -164,5 +165,11 @@ export const uploadDocument = (file, field) => ({
   payload: {
     file,
     field
+  }
+})
+export const setAppId = appId => ({
+  type: SET_APP_ID,
+  payload: {
+    appId
   }
 })

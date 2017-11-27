@@ -2,7 +2,8 @@ import reducer from './index'
 
 const EXPECTED_INITIAL_STATE = {
   entityName: '',
-  formBase: ''
+  formBase: '',
+  appId: ''
 }
 
 describe('entity-browser', () => {

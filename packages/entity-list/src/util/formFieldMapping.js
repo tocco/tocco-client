@@ -44,6 +44,7 @@ export default {
     'birthdate': formField.editableValueFactory('date-range')
   },
   'ch.tocco.nice2.model.form.components.simple.RemoteField': formField.editableValueFactory('remote'),
+  'ch.tocco.nice2.model.form.components.simple.SearchFilterField': formField.editableValueFactory('search-filter'),
   'ch.tocco.nice2.model.form.components.simple.SingleSelectBox': formField.editableValueFactory('single-select'),
   'ch.tocco.nice2.model.form.components.simple.TextArea': formField.editableValueFactory('text'),
   'ch.tocco.nice2.model.form.components.simple.TextField': formField.editableValueFactory('string'),

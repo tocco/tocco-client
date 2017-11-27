@@ -5,6 +5,7 @@ import {Router} from 'react-router'
 import createHashHistory from 'history/createHashHistory'
 import RouteWithSubRoutes from './components/RouteWithSubRoutes'
 import {setNullBusinessUnit} from 'tocco-util/src/rest'
+import {getDispatchActions} from './input'
 
 const packageName = 'entity-browser'
 
@@ -58,6 +59,7 @@ const initApp = (id, input, events, publicPath) => {
 
   const routes = require('./routes/index').default(store, input)
 
+  const actions = getDispatchActions(input)
   const content = (
     <Router history={history}>
       <div>
@@ -74,7 +76,8 @@ const initApp = (id, input, events, publicPath) => {
     {
       input,
       publicPath,
-      textResourceModules: ['component', 'common', 'entity-list', 'entity-detail']
+      textResourceModules: ['component', 'common', 'entity-list', 'entity-detail'],
+      actions
     }
   )
 }

@@ -6,13 +6,15 @@ import {
   submitSearchForm,
   resetSearch,
   setShowExtendedSearchForm,
-  loadRelationEntity
+  loadRelationEntity,
+  loadSearchFilters
 } from '../modules/searchForm/actions'
 
 const mapActionCreators = {
   initializeSearchForm: initialize,
   submitSearchForm,
   loadRelationEntity,
+  loadSearchFilters,
   resetSearch,
   setShowExtendedSearchForm
 }
@@ -25,7 +27,8 @@ const mapStateToProps = (state, props) => ({
   disableSimpleSearch: state.searchForm.disableSimpleSearch,
   simpleSearchFields: state.searchForm.simpleSearchFields,
   showExtendedSearchForm: state.searchForm.showExtendedSearchForm,
-  preselectedSearchFields: state.input.preselectedSearchFields
+  preselectedSearchFields: state.input.preselectedSearchFields,
+  searchFilters: state.searchForm.searchFilter
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(SearchForm))

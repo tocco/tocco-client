@@ -3,6 +3,7 @@ import SubGrid from '../components/SubGrid'
 import {externalEvents} from 'tocco-util'
 
 const mapStateToProps = (state, props) => ({
+  appId: state.entityDetail.appId,
   entityKey: state.entityDetail.entity.key,
   detailFormName: state.entityDetail.formDefinition.name,
   showSubGridsCreateButton: state.entityDetail.showSubGridCreateButton

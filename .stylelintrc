@@ -23,7 +23,7 @@
     "length-zero-no-unit": true,
     "time-min-milliseconds": 100,
     "unit-case": "lower",
-    "unit-whitelist": ["rem", "%", "ms","deg"],
+    "unit-whitelist": ["px", "rem", "%", "ms","deg"],
 
     "string-no-newline": true,
     "string-quotes": "single",

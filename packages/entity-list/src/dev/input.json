@@ -10,6 +10,7 @@
     "user_with_pk_1",
     "has_contract"
   ],
+  "selectable": true,
   "preselectedSearchFields": [
     {
       "id": "txtFulltext",

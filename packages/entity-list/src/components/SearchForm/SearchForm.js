@@ -28,6 +28,8 @@ class SearchForm extends React.Component {
       loadRelationEntity: props.loadRelationEntity,
       loadRemoteEntity: props.loadRemoteEntity,
       remoteEntities: props.remoteEntities,
+      loadSearchFilters: props.loadSearchFilters,
+      searchFilters: props.searchFilters,
       intl: this.props.intl
     }
 
@@ -101,12 +103,14 @@ class SearchForm extends React.Component {
               onClick={this.handleResetClick}
             />
             {!props.disableSimpleSearch
-            && <Button
-              className="pull-right btn-link"
-              type="button"
-              label={this.msg('client.entity-list.extendedSearch')}
-              onClick={this.toggleExtendedSearchForm}
-            />
+            && <span title={this.msg('client.entity-list.extendedSearch')}>
+              <Button
+                className="pull-right"
+                type="button"
+                onClick={this.toggleExtendedSearchForm}
+                icon={`glyphicon-chevron-${this.props.showExtendedSearchForm ? 'up' : 'down'}`}
+              />
+            </span>
             }
           </div>
         </div>
@@ -141,6 +145,13 @@ SearchForm.propTypes = {
     })
   }).isRequired,
   loadRelationEntity: PropTypes.func.isRequired,
+  loadSearchFilters: PropTypes.func.isRequired,
+  searchFilters: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.string,
+      display: PropTypes.string
+    })
+  ),
   disableSimpleSearch: PropTypes.bool,
   simpleSearchFields: PropTypes.arrayOf(
     PropTypes.string

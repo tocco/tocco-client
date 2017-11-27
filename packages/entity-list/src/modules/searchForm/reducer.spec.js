@@ -150,6 +150,40 @@ describe('entity-list', () => {
             expect(reducer(stateBefore, actions.setRelationEntityLoaded('User'))).to.deep.equal(expectedStateAfter)
           })
         })
+
+        describe('setSearchFilter', () => {
+          it('should set search filters', () => {
+            const searchFilter = [
+              {key: 'key1', display: 'display1'},
+              {key: 'key2', display: 'display2'}
+            ]
+
+            const stateBefore = {}
+
+            const expectedStateAfter = {
+              searchFilter
+            }
+
+            expect(reducer(stateBefore, actions.setSearchFilter(searchFilter))).to.deep.equal(expectedStateAfter)
+          })
+
+          it('should update search filters', () => {
+            const searchFilter = [
+              {key: 'key1', display: 'display1'},
+              {key: 'key2', display: 'display2'}
+            ]
+
+            const stateBefore = {
+              searchFilter: [{key: 'someOther', display: 'Some Other'}]
+            }
+
+            const expectedStateAfter = {
+              searchFilter
+            }
+
+            expect(reducer(stateBefore, actions.setSearchFilter(searchFilter))).to.deep.equal(expectedStateAfter)
+          })
+        })
       })
     })
   })

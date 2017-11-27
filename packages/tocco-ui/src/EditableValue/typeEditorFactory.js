@@ -13,6 +13,7 @@ import Document from './typeEditors/Document'
 import HtmlEdit from './typeEditors/HtmlEdit'
 import RemoteSelect from './typeEditors/RemoteSelect'
 import MultiRemoteSelect from './typeEditors/MultiRemoteSelect'
+import SearchFilterEdit from './typeEditors/SearchFilterEdit'
 
 export const map = {
   'string': StringEdit,
@@ -33,7 +34,8 @@ export const map = {
   'multi-select': MultiSelect,
   'single-select': SingleSelect,
   'remote': RemoteSelect,
-  'multi-remote': MultiRemoteSelect
+  'multi-remote': MultiRemoteSelect,
+  'search-filter': SearchFilterEdit
 }
 
 export default (type, value, onChange, options, id, events, readOnly = false) => {

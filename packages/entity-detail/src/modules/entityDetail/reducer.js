@@ -79,10 +79,12 @@ const ACTION_HANDLERS = {
   [actions.SET_REMOTE_ENTITY]: setRemoteEntity,
   [actions.SET_REMOTE_ENTITY_LOADING]: setRemoteEntityLoading,
   [actions.SET_TOUCHED]: reducers.singleTransferReducer('touched'),
-  [actions.SET_SHOW_SUB_GRIDS_CREATE_BUTTON]: reducers.singleTransferReducer('showSubGridCreateButton')
+  [actions.SET_SHOW_SUB_GRIDS_CREATE_BUTTON]: reducers.singleTransferReducer('showSubGridCreateButton'),
+  [actions.SET_APP_ID]: reducers.singleTransferReducer('appId')
 }
 
 const initialState = {
+  appId: '',
   entityName: '',
   formName: '',
   mode: 'update',

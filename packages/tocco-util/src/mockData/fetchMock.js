@@ -20,12 +20,22 @@ export const setupFetchMock = (fetchMock, entityStore) => {
 
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/forms/User_detail_relDummySubGrid_list$'),
-    require('./data/user_detail_relDummySubGrid_list_form.json')
+    require('./data/dummy_entity_list_form.json')
   )
 
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/forms/User_detail_relDummySubGrid_search$'),
-    require('./data/user_detail_relDummySubGrid_search_form.json')
+    require('./data/dummy_entity_search_form.json')
+  )
+
+  fetchMock.get(
+    new RegExp('^.*?/nice2/rest/forms/Dummy_entity_list$'),
+    require('./data/dummy_entity_list_form.json')
+  )
+
+  fetchMock.get(
+    new RegExp('^.*?/nice2/rest/forms/Dummy_entity_search$'),
+    require('./data/dummy_entity_search_form.json')
   )
 
   fetchMock.get(
@@ -76,6 +86,11 @@ export const setupFetchMock = (fetchMock, entityStore) => {
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/entities/Dummy_entity(\\?.*)?$'),
     createEntitiesResponse('Dummy_entity', entityStore)
+  )
+
+  fetchMock.get(
+    new RegExp('^.*?/nice2/rest/entities/Search_filter(\\?.*)?$'),
+    require('./data/search_filters.json')
   )
 }
 
