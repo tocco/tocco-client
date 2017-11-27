@@ -47,30 +47,34 @@ describe('tocco-ui', () => {
           expect(input.get(0).value).to.eql('')
         })
 
-        it('should render a date field with a single value', () => {
+        it('should render a date field with a single value', done => {
+          const initialized = () => {
+            const input = wrapper.find('input')
+            expect(input).to.have.length(1)
+            expect(input.get(0).value).to.eql('2017-04-13')
+            done()
+          }
+
           const wrapper = mount(
             <IntlProvider locale="en">
-              <DateAbstract value={['2017-04-13']}/>
+              <DateAbstract value={['2017-04-13']} initialized={initialized}/>
             </IntlProvider>
           )
-
-          const input = wrapper.find('input')
-
-          expect(input).to.have.length(1)
-          expect(input.get(0).value).to.eql('2017-04-13')
         })
 
-        it('should render a date field with multiple values', () => {
+        it('should render a date field with multiple values', done => {
+          const initialized = () => {
+            const input = wrapper.find('input')
+            expect(input).to.have.length(1)
+            expect(input.get(0).value).to.eql('2017-04-13; 2017-04-14')
+            done()
+          }
+
           const wrapper = mount(
             <IntlProvider locale="en">
-              <DateAbstract value={['2017-04-13', '2017-04-14']}/>
+              <DateAbstract value={['2017-04-13', '2017-04-14']} initialized={initialized}/>
             </IntlProvider>
           )
-
-          const input = wrapper.find('input')
-
-          expect(input).to.have.length(1)
-          expect(input.get(0).value).to.eql('2017-04-13; 2017-04-14')
         })
       })
     })

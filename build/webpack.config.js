@@ -1,7 +1,9 @@
+import { argv } from 'yargs'
 import path from 'path'
 import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
+import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
 import config from '../config'
 import logger from './lib/logger'
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
@@ -30,7 +32,8 @@ const webpackConfig = {
     ],
     alias: {
       'ReactDOM': `${__dirname}/../node_modules/react-dom/index.js`,
-      'React': `${__dirname}/../node_modules/react/react.js`
+      'React': `${__dirname}/../node_modules/react/react.js`,
+      'moment': `${__dirname}/../node_modules/moment/moment.js`
     },
     extensions: ['.js', '.jsx', '.json']
   },
@@ -84,8 +87,11 @@ if (__NICE2_11_LEGACY__) {
 webpackConfig.plugins = [
   new webpack.DefinePlugin(config.globals),
   new LodashModuleReplacementPlugin({
-    shorthands: true
-  })
+    shorthands: true,
+    paths: true
+  }),
+  // prevent all moment locales from being loaded when importing momentjs
+  new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /de|en|fr|it/)
 ]
 
 if (__DEV__) {
@@ -186,6 +192,13 @@ if (!process || !process.env || !process.env.DISABLE_ISTANBUL_COVERAGE) {
       '**/*/*.spec.js'
     ]
   }])
+}
+
+if (argv.analyze) {
+  webpackConfig.plugins.push(new BundleAnalyzerPlugin({
+    analyzerMode: 'static',
+    openAnalyzer: true
+  }))
 }
 
 // ------------------------------------
