@@ -1,0 +1,21 @@
+{
+  "name": "tocco-scheduler",
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "clean": "../../node_modules/rimraf/bin.js dist",
+    "compile:prod": "cd ../../ && npm run compile:prod -- --package=scheduler",
+    "prepublish": "npm run clean && npm run compile:prod"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "bootstrap": "^3.3.7",
+    "fullcalendar-scheduler": "^1.7.1",
+    "tocco-test-util": ">0.1.0",
+    "tocco-theme": ">0.1.0",
+    "tocco-ui": ">0.1.0",
+    "tocco-util": ">0.1.0",
+    "twix": "^1.2.1"
+  }
+}

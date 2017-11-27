@@ -8,13 +8,15 @@ describe('entity-list', () => {
           const input = {
             relMulti_entity: [{key: '1'}, {key: '2'}],
             relSingle_entity: {key: '1'},
-            field: 'some input'
+            field: 'some input',
+            _filter: 'Filter'
           }
 
           const expectedResult = {
             'relMulti_entity.pk': ['1', '2'],
             'relSingle_entity.pk': '1',
-            field: 'some input'
+            field: 'some input',
+            _filter: 'Filter'
           }
 
           const result = getSearchInputsForRequest(input)

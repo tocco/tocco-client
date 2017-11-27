@@ -59,7 +59,7 @@ describe('entity-list', () => {
                   type: 'ch.tocco.nice2.model.form.components.table.Column',
                   name: 'lb1',
                   label: 'label1',
-                  useLabel: true,
+                  useLabel: 'YES',
                   children: [field1],
                   sortable: true
                 }, {
@@ -67,7 +67,7 @@ describe('entity-list', () => {
                   type: 'ch.tocco.nice2.model.form.components.table.Column',
                   name: 'lb2',
                   label: 'label2',
-                  useLabel: false,
+                  useLabel: 'YES',
                   children: [field2],
                   sortable: false
                 }
@@ -78,8 +78,8 @@ describe('entity-list', () => {
             const result = forms.getColumnDefinition(formDefinition)
 
             const expectedColumnDefinition = [
-              {label: 'label1', useLabel: true, name: 'lb1', children: [field1], sortable: true},
-              {label: 'label2', useLabel: false, name: 'lb2', children: [field2], sortable: false}
+              {label: 'label1', name: 'lb1', children: [field1], sortable: true},
+              {label: 'label2', name: 'lb2', children: [field2], sortable: false}
             ]
 
             expect(result).to.eql(expectedColumnDefinition)
@@ -96,7 +96,7 @@ describe('entity-list', () => {
                   type: 'ch.tocco.nice2.model.form.components.table.Column',
                   name: 'lb1',
                   label: 'label1',
-                  useLabel: true,
+                  useLabel: 'YES',
                   children: [field1],
                   sortable: true
                 }, {
@@ -104,7 +104,7 @@ describe('entity-list', () => {
                   type: 'ch.tocco.nice2.model.form.components.table.Column',
                   name: 'lb2',
                   label: 'label2',
-                  useLabel: false,
+                  useLabel: 'NO',
                   children: [field2Hidden],
                   sortable: true
                 },
@@ -113,7 +113,7 @@ describe('entity-list', () => {
                   type: 'ch.tocco.nice2.model.form.components.table.Column',
                   name: 'lb3',
                   label: 'label3',
-                  useLabel: false,
+                  useLabel: 'YES',
                   children: [field1],
                   sortable: true
                 }
@@ -123,7 +123,7 @@ describe('entity-list', () => {
             const result = forms.getColumnDefinition(formDefinition)
 
             const expectedcolumnDefinition = [
-              {label: 'label1', useLabel: true, name: 'lb1', children: [field1], sortable: true}
+              {label: 'label1', name: 'lb1', children: [field1], sortable: true}
             ]
             expect(result).to.eql(expectedcolumnDefinition)
           })
@@ -180,7 +180,7 @@ describe('entity-list', () => {
                     displayType: 'EDITABLE',
                     name: 'lb1',
                     label: 'Fullname',
-                    useLabel: true,
+                    useLabel: 'YES',
                     children: [
                       {name: 'firstname', type: 'text', displayType: 'EDITABLE', label: 'Firstname'},
                       {name: 'lastname', type: 'text', displayType: 'EDITABLE', label: 'Lastname'}],
@@ -190,7 +190,7 @@ describe('entity-list', () => {
                     displayType: 'EDITABLE',
                     name: 'lb3',
                     label: 'Test',
-                    useLabel: false,
+                    useLabel: 'NO',
                     children: [
                       {name: 'firstname', type: 'text', displayType: 'EDITABLE', label: 'Firstname'},
                       {name: 'email', type: 'text', displayType: 'EDITABLE', label: 'Mail'}

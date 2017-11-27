@@ -12,6 +12,8 @@ cache:
     - packages/entity-list/node_modules
     - packages/login/node_modules
     - packages/merge/node_modules
+    - packages/resource-scheduler/node_modules
+    - packages/scheduler/node_modules
     - packages/tocco-test-util/node_modules
     - packages/tocco-theme/node_modules
     - packages/tocco-ui/node_modules

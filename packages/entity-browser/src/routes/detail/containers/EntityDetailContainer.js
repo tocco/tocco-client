@@ -14,6 +14,7 @@ const mapActionCreators = {
 
 const mapStateToProps = (state, props) => {
   return {
+    appId: state.entityBrowser.appId,
     detailParams: state.detail.detailParams,
     formTouched: state.detail.formTouched,
     showSubGridsCreateButton: state.input.showCreateButton

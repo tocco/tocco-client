@@ -1,4 +1,5 @@
 import _isEmpty from 'lodash/isEmpty'
+import _union from 'lodash/union'
 import {call, put, fork, select, spawn, takeEvery, takeLatest, all} from 'redux-saga/effects'
 import {externalEvents} from 'tocco-util'
 import * as actions from './actions'
@@ -6,6 +7,7 @@ import * as searchFormActions from '../searchForm/actions'
 import {getSearchInputs} from '../searchForm/sagas'
 import {fetchForm, getSorting, getFields} from '../../util/api/forms'
 import {fetchEntityCount, fetchEntities, entitiesListTransformer, fetchModel} from '../../util/api/entities'
+import {combineSelection} from '../../util/selection'
 
 export const inputSelector = state => state.input
 export const entityListSelector = state => state.entityList
@@ -19,7 +21,8 @@ export default function* sagas() {
     fork(takeEvery, actions.SET_SORTING, resetDataSet),
     fork(takeEvery, actions.RESET_DATA_SET, resetDataSet),
     fork(takeLatest, actions.REFRESH, refresh),
-    fork(takeLatest, actions.ON_ROW_CLICK, onRowClick)
+    fork(takeLatest, actions.ON_ROW_CLICK, onRowClick),
+    fork(takeLatest, actions.ON_SELECT_CHANGE, onSelectChange)
   ])
 }
 
@@ -70,10 +73,10 @@ export function* fetchEntitiesAndAddToStore(page) {
   if (!entityStore[page]) {
     const {sorting, limit, formDefinition} = list
 
-    const {searchFilters} = input
     const formName = `${formBase}_list`
 
     const searchInputs = yield call(getSearchInputs)
+    searchInputs._filter = yield call(_union, input.searchFilters, searchInputs._filter)
     const fields = yield call(getFields, formDefinition)
 
     const fetchParams = {
@@ -81,7 +84,6 @@ export function* fetchEntitiesAndAddToStore(page) {
       sorting,
       limit,
       fields,
-      searchFilters,
       searchInputs,
       formName
     }
@@ -156,4 +158,12 @@ export function* onRowClick({payload}) {
 
 export function* navigateToCreate() {
   yield put(externalEvents.fireExternalEvent('onNavigateToCreate'))
+}
+
+export function* onSelectChange({payload}) {
+  const list = yield select(listSelector)
+  const {selection} = payload
+  const newSelection = yield call(combineSelection, list.selection, selection)
+  yield put(actions.setSelection(newSelection))
+  yield put(externalEvents.fireExternalEvent('onSelectChange', newSelection))
 }

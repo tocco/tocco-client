@@ -41,6 +41,26 @@ const Table = props => {
     )
   }
 
+  const handleAllSelectionChange = (isSelected, rows) => {
+    const keys = rows.map(r => r.__key)
+    if (props.onSelectChange) {
+      props.onSelectChange({keys: keys, isSelected})
+    }
+  }
+
+  const handleSelectionChange = (row, isSelected) => {
+    if (props.onSelectChange) {
+      props.onSelectChange({keys: [row.__key], isSelected})
+    }
+  }
+
+  const selectRow = {
+    mode: props.selectable ? 'checkbox' : 'none',
+    onSelect: handleSelectionChange,
+    onSelectAll: handleAllSelectionChange,
+    selected: props.selection ? props.selection : []
+  }
+
   const tableOption = {
     onSortChange: onSortChange,
     sizePerPage: props.limit,
@@ -93,15 +113,12 @@ const Table = props => {
         pagination={showPagination}
         fetchInfo={{dataTotalSize: props.entityCount}}
         options={tableOption}
-        selectRow={{
-          mode: 'none',
-          clickToSelect: true
-        }}
         trClassName="break-word pointer"
         striped
         hover
         bordered={false}
-      >
+        selectRow={selectRow}
+      >O
         <TableHeaderColumn dataField="__key" isKey hidden>Key</TableHeaderColumn>
         {
           props.columnDefinitions.map((column, idx) => (
@@ -139,7 +156,10 @@ Table.propTypes = {
   limit: PropTypes.number,
   onRowClick: PropTypes.func,
   setSorting: PropTypes.func,
-  changePage: PropTypes.func.isRequired
+  changePage: PropTypes.func.isRequired,
+  selectable: PropTypes.bool,
+  onSelectChange: PropTypes.func,
+  selection: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
 }
 
 export default Table

@@ -1,3 +1,4 @@
+import _union from 'lodash/union'
 import {put, select, call, fork, spawn, takeLatest, takeEvery, all} from 'redux-saga/effects'
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
@@ -30,7 +31,8 @@ describe('entity-list', () => {
               fork(takeEvery, actions.SET_SORTING, sagas.resetDataSet),
               fork(takeEvery, actions.RESET_DATA_SET, sagas.resetDataSet),
               fork(takeLatest, actions.REFRESH, sagas.refresh),
-              fork(takeLatest, actions.ON_ROW_CLICK, sagas.onRowClick)
+              fork(takeLatest, actions.ON_ROW_CLICK, sagas.onRowClick),
+              fork(takeLatest, actions.ON_SELECT_CHANGE, sagas.onSelectChange)
             ]))
             expect(generator.next().done).to.be.true
           })
@@ -108,7 +110,7 @@ describe('entity-list', () => {
             const listViewState = generateState({}, 1)
             const input = {formBase: 'Base_form', entityName: 'User', searchFilters: []}
             const formName = input.formBase + '_list'
-            const searchInputs = {}
+            const searchInputs = {_filter: {}}
             const entities = []
             const fields = ['firstname', 'lastname']
 
@@ -119,15 +121,16 @@ describe('entity-list', () => {
               limit,
               fields,
               searchInputs,
-              formName,
-              searchFilters: []
+              formName
             }
 
             const gen = sagas.fetchEntitiesAndAddToStore(1)
             expect(gen.next().value).to.eql(select(sagas.inputSelector))
             expect(gen.next(input).value).to.eql(select(sagas.listSelector))
             expect(gen.next(listViewState).value).to.eql(call(getSearchInputs))
-            expect(gen.next(searchInputs).value).to.eql(call(getFields, formDefinition))
+
+            expect(gen.next(searchInputs).value).to.eql(call(_union, input.searchFilters, searchInputs._filter))
+            expect(gen.next([]).value).to.eql(call(getFields, formDefinition))
             expect(gen.next(fields).value).to.eql(
               call(fetchEntities, input.entityName, fetchParams, entitiesListTransformer)
             )

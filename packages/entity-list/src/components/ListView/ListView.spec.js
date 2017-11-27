@@ -23,7 +23,10 @@ const props = {
     ]
   },
   intl: IntlStub,
-  orderBy: null
+  orderBy: null,
+  selectable: true,
+  onSelectChange: EMPTY_FUNC,
+  selection: []
 }
 
 describe('entity-list', () => {

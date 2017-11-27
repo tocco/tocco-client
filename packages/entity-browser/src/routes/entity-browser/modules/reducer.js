@@ -13,12 +13,14 @@ const setFormBase = (state, {payload}) => {
 
 const ACTION_HANDLERS = {
   [actions.SET_ENTITY_NAME]: reducers.singleTransferReducer('entityName'),
-  [actions.SET_FORM_BASE]: setFormBase
+  [actions.SET_FORM_BASE]: setFormBase,
+  [actions.SET_APP_ID]: reducers.singleTransferReducer('appId')
 }
 
 const initialState = {
   entityName: '',
-  formBase: ''
+  formBase: '',
+  appId: ''
 }
 
 export default function reducer(state = initialState, action) {

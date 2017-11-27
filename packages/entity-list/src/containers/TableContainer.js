@@ -1,13 +1,24 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 import Table from '../components/Table'
-import {changePage, initialize, onRowClick, setSorting} from '../modules/list/actions'
+import {
+  changePage,
+  initialize,
+  onRowClick,
+  setSorting,
+  setSelectable,
+  onSelectChange,
+  setSelection
+} from '../modules/list/actions'
 
 const mapActionCreators = {
   initialize,
   changePage,
   setSorting,
-  onRowClick
+  onRowClick,
+  setSelectable,
+  onSelectChange,
+  setSelection
 }
 
 const mapStateToProps = (state, props) => ({
@@ -16,7 +27,9 @@ const mapStateToProps = (state, props) => ({
   entities: state.list.entities,
   entityCount: state.list.entityCount,
   limit: state.list.limit,
-  inProgress: state.list.inProgress
+  inProgress: state.list.inProgress,
+  selectable: state.list.selectable,
+  selection: state.list.selection
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(Table))

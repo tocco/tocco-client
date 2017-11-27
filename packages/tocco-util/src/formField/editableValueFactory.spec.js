@@ -73,6 +73,33 @@ describe('tocco-util', () => {
         expect(focusSpy).to.have.calledOnce
         expect(loadUtilSpy).to.have.calledOnce
       })
+
+      it('should load search filters', () => {
+        const factory = editableValueFactory('search-filter')
+
+        const focusSpy = sinon.spy()
+        const events = {
+          onFocus: focusSpy
+        }
+
+        const loadSearchFiltersSpy = sinon.spy()
+        const util = {
+          loadSearchFilters: loadSearchFiltersSpy,
+          intl: {
+            formatMessage: v => (v.id)
+          }
+        }
+
+        const props = {onChange: () => {}}
+        const editableValue = factory({}, {}, props, events, util)
+
+        const wrapper = mount(editableValue)
+
+        wrapper.find('input').first().simulate('focus')
+
+        expect(focusSpy).to.have.calledOnce
+        expect(loadSearchFiltersSpy).to.have.calledOnce
+      })
     })
   })
 })
