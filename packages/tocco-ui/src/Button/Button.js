@@ -30,6 +30,7 @@ const Button = props => {
   return (
     <button
       name={props.name}
+      title={props.title}
       onClick={props.onClick}
       className={classes}
       disabled={props.disabled}
@@ -80,7 +81,11 @@ Button.propTypes = {
   /**
    * HTML Button type. Default is 'button'. Possible values: button|submit|reset
    */
-  type: PropTypes.oneOf(['button', 'submit', 'reset'])
+  type: PropTypes.oneOf(['button', 'submit', 'reset']),
+  /**
+   * Popover title to be shown on mouse over.
+   */
+  title: PropTypes.string
 }
 
 export default Button

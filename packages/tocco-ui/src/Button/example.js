@@ -28,6 +28,7 @@ export default () => {
         label="Disabled"
         disabled
         onClick={() => alert('do something')}
+        title="This button is disabled"
       />
       {/* end example */}
     </div>
