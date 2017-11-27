@@ -39,8 +39,7 @@ export const getColumnDefinition = table => {
     .map(c => (
       {
         name: c.name,
-        label: c.label,
-        useLabel: c.useLabel,
+        ...(c.useLabel === 'YES' && {label: c.label}),
         sortable: c.sortable,
         children: c.children.filter(isDisplayableChild)
       }
