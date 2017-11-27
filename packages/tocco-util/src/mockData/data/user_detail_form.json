@@ -88,8 +88,8 @@
                   {
                     "type": "ch.tocco.nice2.model.form.components.action.SimpleAction",
                     "name": "detailSimpleAction",
-                    "readOnly": false,
-                    "scope": ["update"],
+                    "readOnly": true,
+                    "scopes": ["update"],
                     "label": "Beispiel Aktion",
                     "config": {
                       "confirm": false,

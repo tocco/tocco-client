@@ -282,6 +282,8 @@
             "children": [
               {
                 "type": "ch.tocco.nice2.model.form.components.action.CustomAction",
+                "useLabel": "NO",
+                "label": "Custom Delete",
                 "name": "exampleCustom2",
                 "readOnly": false,
                 "icon": "fa-trash",
@@ -292,7 +294,7 @@
                 }
               }
             ],
-            "label": "",
+            "label": "Actions",
             "useLabel": "NO",
             "sortable": false
           },

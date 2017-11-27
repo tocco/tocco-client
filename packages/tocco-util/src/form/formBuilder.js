@@ -33,7 +33,7 @@ export default (
         const travers = () => formTraverser(child.children)
         result.push(createLayoutComponent(child, type, i, travers))
       } else if (isAction(child.type)) {
-        result.push(actionFactory(child, i))
+        result.push(actionFactory(child, i, {mode}))
       } else {
         result.push(createField(child, i))
       }
