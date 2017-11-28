@@ -2,6 +2,10 @@
   .table {
     margin-bottom: 0;
   }
+
+  td[ tabindex ] {
+    outline: none;
+  }
 }
 
 .break-word {

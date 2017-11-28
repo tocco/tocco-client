@@ -1,4 +1,5 @@
 {
+  "id": "DEV",
   "entityName": "User",
   "limit": 25,
   "formBase": "User",

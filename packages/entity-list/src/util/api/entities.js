@@ -1,5 +1,6 @@
 import {call} from 'redux-saga/effects'
 import {requestSaga} from 'tocco-util/src/rest'
+import _get from 'lodash/get'
 
 const getCreatePermission = json => {
   if (json.createPermission && typeof json.createPermission === 'boolean') {
@@ -67,6 +68,8 @@ export const entitiesListTransformer = json => {
 
 export const defaultEntitiesTransformer = json => (json)
 export const selectEntitiesTransformer = json => (json.data.map(e => ({display: e.display, key: e.key})))
+export const selectEntitiesPathsTransformer = (json, pathToKey) =>
+  (json.data.map(e => ({display: e.display, key: _get(e, pathToKey, null)})))
 
 const getSortString = sorting => {
   if (Array.isArray(sorting) && sorting.length >= 1) {

@@ -53,6 +53,11 @@ const setRelationEntityLoaded = (state, {payload}) => {
   return {...state, relationEntities}
 }
 
+const setSearchFilter = (state, {payload}) => {
+  const searchFilter = payload.filter
+  return {...state, searchFilter}
+}
+
 const ACTION_HANDLERS = {
   [actions.SET_INITIALIZED]: reducers.singleTransferReducer('initialized'),
   [actions.SET_SEARCH_FORM_NAME]: reducers.singleTransferReducer('searchFormName'),
@@ -62,7 +67,8 @@ const ACTION_HANDLERS = {
   [actions.SET_DISABLE_SIMPLE_SEARCH]: reducers.singleTransferReducer('disableSimpleSearch'),
   [actions.SET_RELATION_ENTITY]: setRelationEntity,
   [actions.SET_RELATION_ENTITY_LOADED]: setRelationEntityLoaded,
-  [actions.SET_VALUES_INITIALIZED]: reducers.singleTransferReducer('valuesInitialized')
+  [actions.SET_VALUES_INITIALIZED]: reducers.singleTransferReducer('valuesInitialized'),
+  [actions.SET_SEARCH_FILTER]: setSearchFilter
 }
 
 const initialState = {

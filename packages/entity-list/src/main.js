@@ -5,19 +5,25 @@ import {appFactory, notifier, errorLogging, actionEmitter, externalEvents, store
 import reducers, {sagas} from './modules/reducers'
 import EntityListContainer from './containers/EntityListContainer'
 import {getDispatchActions} from './input'
+import _pickBy from 'lodash/pickBy'
+import _isEqual from 'lodash/isEqual'
 const packageName = 'entity-list'
 
 const EXTERNAL_EVENTS = [
   'onRowClick',
   'onNavigateToCreate',
-  'emitAction'
+  'emitAction',
+  'onSelectChange'
 ]
 
 const initApp = (id, input, events = {}, publicPath) => {
   const content = <EntityListContainer/>
 
   let actions
-  let store = storeStorage.get(id)
+  let store
+  if (input.keepStore) {
+    store = storeStorage.get(id)
+  }
   if (!store) {
     store = appFactory.createStore(reducers, sagas, input, packageName)
 
@@ -26,8 +32,7 @@ const initApp = (id, input, events = {}, publicPath) => {
     errorLogging.addToStore(store, false)
     notifier.addToStore(store, false)
 
-    actions = getDispatchActions(input)
-
+    actions = getDispatchActions(input, true)
     storeStorage.set(id, store)
   }
 
@@ -86,6 +91,14 @@ class EntityListApp extends React.Component {
     this.app = initApp(props.id, props, events)
   }
 
+  componentWillReceiveProps = nextProps => {
+    const changedProps = _pickBy(nextProps, (value, key) => !_isEqual(value, this.props[key]))
+
+    getDispatchActions(changedProps).forEach(action => {
+      this.app.store.dispatch(action)
+    })
+  }
+
   render() {
     return (
       <div>{this.app.renderComponent()}</div>
@@ -97,6 +110,7 @@ EntityListApp.propTypes = {
   id: PropTypes.string.isRequired,
   entityName: PropTypes.string.isRequired,
   formBase: PropTypes.string.isRequired,
+  keepStore: PropTypes.bool,
   limit: PropTypes.number,
   showSearchForm: PropTypes.bool,
   showCreateButton: PropTypes.bool,
@@ -115,6 +129,9 @@ EntityListApp.propTypes = {
   ),
   disableSimpleSearch: PropTypes.bool,
   simpleSearchFields: PropTypes.string,
+  selectable: PropTypes.bool,
+  onSelectChange: PropTypes.func,
+  selection: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
     propTypes[event] = PropTypes.func
     return propTypes

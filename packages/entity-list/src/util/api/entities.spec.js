@@ -222,6 +222,40 @@ describe('entity-list', () => {
           })
         })
 
+        describe('selectEntitiesPathsTransformer', () => {
+          it('should extract the key with the specified path', () => {
+            const json = {
+              data: [
+                {
+                  display: 'DISPLAY_1',
+                  path: {
+                    to: {
+                      key: 'KEY_1'
+                    }
+                  }
+                },
+                {
+                  display: 'DISPLAY_2',
+                  path: {
+                    to: {
+                      key: 'KEY_2'
+                    }
+                  }
+                }
+              ]
+            }
+
+            const transformedResult = entities.selectEntitiesPathsTransformer(json, 'path.to.key')
+
+            expect(transformedResult).to.be.a('array')
+            expect(transformedResult).to.have.length(2)
+            expect(transformedResult[0].key).to.be.eql('KEY_1')
+            expect(transformedResult[0].display).to.be.eql('DISPLAY_1')
+            expect(transformedResult[1].key).to.be.eql('KEY_2')
+            expect(transformedResult[1].display).to.be.eql('DISPLAY_2')
+          })
+        })
+
         describe('fetchModel', () => {
           it('should call request saga and transform response', () => {
             const gen = entities.fetchModel('User')

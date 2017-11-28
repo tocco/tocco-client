@@ -88,7 +88,8 @@ webpackConfig.plugins = [
   new webpack.DefinePlugin(config.globals),
   new LodashModuleReplacementPlugin({
     shorthands: true,
-    paths: true
+    paths: true,
+    collections: true
   }),
   // prevent all moment locales from being loaded when importing momentjs
   new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /de|en|fr|it/)
@@ -118,16 +119,6 @@ if (__DEV__) {
     })
   )
 } else if (__PROD__) {
-  webpackConfig.plugins.push(
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'app',
-      async: true,
-      minChunks(module, count) {
-        return count >= 2
-      }
-    })
-  )
-
   webpackConfig.plugins.push(
     new webpack.LoaderOptionsPlugin({
       minimize: true,

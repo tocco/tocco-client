@@ -21,6 +21,9 @@ export const SET_LIST_FORM_NAME = 'list/SET_LIST_FORM_NAME'
 export const ON_ROW_CLICK = 'list/ON_ROW_CLICK'
 export const NAVIGATE_TO_CREATE = 'entityList/NAVIGATE_TO_CREATE'
 export const SET_CREATE_PERMISSION = 'list/SET_CREATE_PERMISSION'
+export const SET_SELECTABLE = 'list/SET_SELECTABLE'
+export const ON_SELECT_CHANGE = 'list/ON_ROW_SELECT'
+export const SET_SELECTION = 'list/SET_SELECTION'
 
 export const initialize = () => ({
   type: INITIALIZE
@@ -159,5 +162,26 @@ export const setCreatePermission = createPermission => ({
   type: SET_CREATE_PERMISSION,
   payload: {
     createPermission
+  }
+})
+
+export const setSelectable = selectable => ({
+  type: SET_SELECTABLE,
+  payload: {
+    selectable
+  }
+})
+
+export const onSelectChange = selection => ({
+  type: ON_SELECT_CHANGE,
+  payload: {
+    selection
+  }
+})
+
+export const setSelection = selection => ({
+  type: SET_SELECTION,
+  payload: {
+    selection
   }
 })
