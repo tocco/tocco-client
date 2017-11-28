@@ -7,8 +7,10 @@ const ACTION_NAMESPACE = 'ch.tocco.nice2.model.form.components.action'
 const OLD_ACTION_TYPE = `${ACTION_NAMESPACE}.Action`
 const ACTION_GROUP_TYPE = `${ACTION_NAMESPACE}.ActionGroup`
 
+const modeFitsScopes = (mode, scopes) => !(mode && scopes && scopes.length > 0 && !scopes.includes(mode))
+
 export default (actionDefinition, idx, {mode} = {}) => {
-  if (mode && actionDefinition.scopes && !actionDefinition.scopes.includes(mode)) return null
+  if (!modeFitsScopes(mode, actionDefinition.scopes)) return null
   if (actionDefinition.type === OLD_ACTION_TYPE) return null
 
   const action = actionDefinition.type === ACTION_GROUP_TYPE
@@ -17,7 +19,7 @@ export default (actionDefinition, idx, {mode} = {}) => {
   return <span key={`${actionDefinition.name}-${idx}`} className="action">{action}</span>
 }
 
-export const isAction = type => type.startsWith(ACTION_NAMESPACE)
+export const isAction = type => !!type && type.startsWith(ACTION_NAMESPACE)
 const getTypeName = fullType => fullType.split('.').pop()
 
 const getActionAttributes = actionDefinition => {
