@@ -8,16 +8,19 @@ const packageName = '{{kebabCase package}}'
 const initApp = (id, input, events, publicPath) => {
   const content = <div>{{titleCase package}}</div>
 
-  const store = appFactory.createStore(reducers, sagas, undefined)
+  const store = appFactory.createStore(reducers, sagas, input, packageName)
 
   return appFactory.createApp(
     packageName,
     content,
     store,
-    input,
-    events,
-    [],
-    publicPath
+    {
+      input,
+      events,
+      actions: [],
+      publicPath,
+      textResourceModules: ['component', 'common', packageName]
+    }
   )
 }
 
@@ -26,11 +29,14 @@ const initApp = (id, input, events, publicPath) => {
     require('tocco-theme/src/ToccoTheme/theme.scss')
     const input = require('./dev/input.json')
 
-    const fetchMock = require('fetch-mock')
-    const setupFetchMocks = require('./dev/fetchMocks')
-    setupFetchMocks(fetchMock)
+    if (!__NO_MOCK__) {
+      const fetchMock = require('fetch-mock')
+      const setupFetchMocks = require('./dev/fetchMocks')
+      setupFetchMocks(fetchMock)
+      fetchMock.spy()
+    }
 
-    const app = initApp('id', input)
+    const app = initApp(packageName, input)
 
     if (module.hot) {
       module.hot.accept('./modules/reducers', () => {
