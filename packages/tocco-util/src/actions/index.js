@@ -1,6 +1,10 @@
-import actionFactory, {isAction} from './actionFactory'
+import {isAction, addToStore} from './actions'
+import Action from './containers/ActionContainer'
+import mock from './mock'
 
 export default {
-  actionFactory,
-  isAction
+  isAction,
+  Action,
+  addToStore,
+  mock
 }
