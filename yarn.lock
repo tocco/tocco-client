@@ -7134,9 +7134,9 @@ react-proxy@^1.1.7:
     lodash "^4.6.1"
     react-deep-force-update "^1.0.0"
 
-react-redux-toastr@^7.1.0:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/react-redux-toastr/-/react-redux-toastr-7.1.0.tgz#e9558ad069b896e41be0094c1c5e0ef3d948b9ec"
+react-redux-toastr@7.1.6:
+  version "7.1.6"
+  resolved "https://registry.yarnpkg.com/react-redux-toastr/-/react-redux-toastr-7.1.6.tgz#0d7745b016f8611061d19c9dba7bd6fca9cc3d7b"
   dependencies:
     classnames "^2.2.3"
     eventemitter3 "^2.0.3"

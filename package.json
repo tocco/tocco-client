@@ -119,7 +119,7 @@
     "react-intl": "2.3.0",
     "react-intl-redux": "0.6.0",
     "react-redux": "5.0.5",
-    "react-redux-toastr": "^7.1.0",
+    "react-redux-toastr": "7.1.6",
     "react-router-dom": "4.1.1",
     "react-test-renderer": "15.6.1",
     "redbox-react": "1.4.3",
