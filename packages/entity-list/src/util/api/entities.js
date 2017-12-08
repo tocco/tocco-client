@@ -37,7 +37,8 @@ export function* fetchModel(entityName, transformer = defaultModelTransformer) {
 export const entitiesListTransformer = json => {
   return json.data.map(entity => {
     const result = {
-      __key: entity.key
+      __key: entity.key,
+      __model: entity.model
     }
 
     const paths = entity.paths

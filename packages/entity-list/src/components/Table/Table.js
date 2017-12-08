@@ -92,7 +92,14 @@ const Table = props => {
         const columnType = child.type
 
         if (actions.isAction(columnType)) {
-          return actions.actionFactory(child, idx)
+          return (
+            <actions.Action
+              key={'tableAction' + idx}
+              definition={child}
+              ids={[entity.__key]}
+              entity={entity.__model}
+            />
+          )
         }
 
         const a = entity[name]
@@ -118,7 +125,7 @@ const Table = props => {
         hover
         bordered={false}
         selectRow={selectRow}
-      >O
+      >
         <TableHeaderColumn dataField="__key" isKey hidden>Key</TableHeaderColumn>
         {
           props.columnDefinitions.map((column, idx) => (

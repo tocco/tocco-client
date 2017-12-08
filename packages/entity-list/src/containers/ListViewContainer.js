@@ -10,7 +10,8 @@ const mapActionCreators = {
 const mapStateToProps = (state, props) => {
   return {
     formDefinition: state.list.formDefinition,
-    sorting: state.list.sorting
+    selection: state.list.selection,
+    entityName: state.entityList.entityName
   }
 }
 
