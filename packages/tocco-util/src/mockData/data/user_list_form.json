@@ -5,14 +5,26 @@
     "displayType": "EDITABLE",
     "children": [
       {
+        "type": "ch.tocco.nice2.model.form.components.action.NavigateToNew",
+        "useLabel": "YES",
+        "icon": "fa-plus",
+        "label": "New"
+      },
+      {
         "type": "ch.tocco.nice2.model.form.components.action.ActionGroup",
-        "label": "Group",
+        "label": "Actions",
         "children": [
           {
-            "type": "ch.tocco.nice2.model.form.components.action.DeleteAction"
+            "type": "ch.tocco.nice2.model.form.components.action.DeleteAction",
+            "useLabel": "YES",
+            "icon": "fa-trash-o",
+            "label": "Delete"
+
           },
           {
-            "type": "ch.tocco.nice2.model.form.components.action.DeleteAction",
+            "type": "ch.tocco.nice2.model.form.components.action.SimpleAction",
+            "useLabel": "YES",
+            "label": "ReadOnly Action",
             "readOnly": true
           },
           {
@@ -20,22 +32,42 @@
           },
           {
             "type": "ch.tocco.nice2.model.form.components.action.SimpleAction",
-            "name": "listSimpelAction",
             "readOnly": false,
-            "label": "Beispiel Aktion Simpel 2",
-            "icon": "fa-address-book",
+            "label": "Simple Action",
+            "icon": "fa-gear",
             "singleSelection": false,
-            "progressMsg": "Die Beispiel Aktion wird ausgeführt 2",
             "config": {
+              "progressMsg": "Die Beispiel Aktion wird ausgeführt..",
+              "confirm": true,
+              "endpoint": "actions/simpleAction"
+            }
+          },
+          {
+            "type": "ch.tocco.nice2.model.form.components.action.SimpleAction",
+            "readOnly": false,
+            "label": "Simple Action (client questions)",
+            "icon": "fa-question",
+            "singleSelection": false,
+            "config": {
+              "progressMsg": "Die Beispiel Aktion wird ausgeführt",
               "confirm": false,
-              "endpoint": "/actions/example2"
+              "endpoint": "actions/simpleActionWithClientQuestion"
+            }
+          },
+          {
+            "type": "ch.tocco.nice2.model.form.components.action.CustomAction",
+            "icon": "fa-compress",
+            "readOnly": false,
+            "label": "Merge (custom action)",
+            "useLabel": true,
+            "singleSelection": true,
+            "config": {
+              "appId": "tocco-merge"
             }
           }
         ]
       },
-      {
-        "type": "ch.tocco.nice2.model.form.components.action.CreateAction"
-      },
+
       {
         "name": "table",
         "type": "ch.tocco.nice2.model.form.components.table.Table",
@@ -276,21 +308,20 @@
             "sortable": true
           },
           {
-            "name": "relMulti_entity2",
+            "name": "actions",
             "type": "ch.tocco.nice2.model.form.components.table.Column",
             "displayType": "EDITABLE",
             "children": [
               {
-                "type": "ch.tocco.nice2.model.form.components.action.CustomAction",
+                "type": "ch.tocco.nice2.model.form.components.action.SimpleAction",
                 "useLabel": "NO",
-                "label": "Custom Delete",
-                "name": "exampleCustom2",
+                "name":"simpleAction",
+                "label": "Simple Without Label",
                 "readOnly": false,
-                "icon": "fa-trash",
-                "icon-color": "blue",
-                "singleSelection": false,
+                "icon": "fa-random",
                 "config": {
-                  "appId": "custom"
+                  "confirm": "false",
+                  "endpoint": "actions/simpleAction"
                 }
               }
             ],
@@ -627,17 +658,10 @@
         "useLabel": "YES"
       },
       {
-        "type": "ch.tocco.nice2.model.form.components.action.CustomAction",
-        "name": "listCustomAction",
-        "icon": "fa-compress",
-        "readOnly": false,
-        "label": "Merge",
-        "useLabel": true,
-        "singleSelection": true,
-        "progressMsg": "Die Beispiel Aktion wird ausgeführt",
-        "config": {
-        "appId": "tocco-merge"
-        }
+        "type": "ch.tocco.nice2.model.form.components.action.NavigateToNew",
+        "useLabel": "YES",
+        "icon": "fa-plus",
+        "label": "New"
       }
     ]
   }

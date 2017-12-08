@@ -82,18 +82,13 @@
                     "useLabel": "YES"
                   },
                   {
-                    "type": "ch.tocco.nice2.model.form.components.action.SaveAction",
-                    "label": "Save Infos"
-                  },
-                  {
                     "type": "ch.tocco.nice2.model.form.components.action.SimpleAction",
-                    "name": "detailSimpleAction",
-                    "readOnly": true,
+                    "icon": "fa-pencil",
                     "scopes": ["update"],
-                    "label": "Beispiel Aktion",
+                    "label": "Simple Action (Update only)",
                     "config": {
                       "confirm": false,
-                      "endpoint": "/actions/example2"
+                      "endpoint": "actions/simpleAction"
                     }
                   }
                 ],
@@ -306,16 +301,22 @@
       {
         "type": "ch.tocco.nice2.model.form.components.action.ActionGroup",
         "action": {
-          "type": "ch.tocco.nice2.model.form.components.action.SaveAction"
+          "type": "ch.tocco.nice2.model.form.components.action.SimpleAction",
+          "icon": "fa-wrench",
+          "label": "Simple Action",
+          "config": {
+            "confirm": false,
+            "endpoint": "actions/simpleAction"
+          }
         },
         "children": [
           {
             "type": "ch.tocco.nice2.model.form.components.action.SimpleAction",
-            "label": "Save as Template",
+            "label": "Simple Action 2 (client question)",
             "icon": "fa-plus",
             "config": {
               "confirm": false,
-              "endpoint": "save/asTemplate"
+              "endpoint": "actions/simpleActionWithClientQuestion"
             }
           }
 
