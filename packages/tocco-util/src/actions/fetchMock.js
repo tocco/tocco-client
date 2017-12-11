@@ -1,20 +1,20 @@
 import consoleLogger from '../consoleLogger'
 
-export default fetchMock => {
+export default (fetchMock, timeout = 3000) => {
   fetchMock.post(
     new RegExp('^.*?/nice2/rest/actions/simpleActionWithClientQuestion*?'),
-    simpleActionClientQuestionResponse()
+    simpleActionClientQuestionResponse(timeout)
   )
 
   fetchMock.post(
     new RegExp('^.*?/nice2/rest/actions/simpleAction*?'),
-    simpleActionResponse()
+    simpleActionResponse(timeout)
   )
 }
 
-export const simpleActionResponse = (delay = 3000) =>
+const simpleActionResponse = timeout =>
   (url, opts) => {
-    return sleep(delay).then(() => {
+    return sleep(timeout).then(() => {
       consoleLogger.log('fetchMock:call action', url, opts)
 
       return {
@@ -27,9 +27,9 @@ export const simpleActionResponse = (delay = 3000) =>
     })
   }
 
-export const simpleActionClientQuestionResponse = (delay = 3000) =>
+const simpleActionClientQuestionResponse = timeout =>
   (url, opts) => {
-    return sleep(delay).then(() => {
+    return sleep(timeout).then(() => {
       consoleLogger.log('fetchMock:call action', url, opts)
       const body = JSON.parse(opts.body)
       if (!body.clientAnswers) {

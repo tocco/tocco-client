@@ -1,10 +1,10 @@
 import {isAction, addToStore} from './actions'
 import Action from './containers/ActionContainer'
-import mock from './mock'
+import setupFetchMock from './fetchMock'
 
 export default {
   isAction,
   Action,
   addToStore,
-  mock
+  setupFetchMock
 }

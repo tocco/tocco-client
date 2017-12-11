@@ -10,10 +10,3 @@ export const actionInvoke = (definition, entity, ids) => ({
     ids
   }
 })
-
-export const actionInProgress = definition => ({
-  type: ACTION_IN_PROGRESS,
-  payload: {
-    definition
-  }
-})

@@ -3,7 +3,6 @@ const ACTION_HANDLERS = {
 }
 
 const initialState = {
-  actionsInProgress: []
 }
 
 export default function reducer(state = initialState, action) {

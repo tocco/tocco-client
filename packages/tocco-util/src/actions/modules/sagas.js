@@ -14,19 +14,16 @@ export default function* sagas(config) {
 export function* invokeAction(config, {payload}) {
   const {definition, entity, ids} = payload
 
-  if (payload.definition.type === 'ch.tocco.nice2.model.form.components.action.CreateAction') {
+  if (definition.type === 'ch.tocco.nice2.model.form.components.action.CreateAction') {
     // CUSTOM
-    yield put(config['test']())
-  } else if (payload.definition.type === 'ch.tocco.nice2.model.form.components.action.SimpleAction') {
+  } else if (definition.type === 'ch.tocco.nice2.model.form.components.action.SimpleAction') {
     const confirmation = yield call(handleConfirm, definition, ids)
     if (confirmation.answer) {
       const randomId = Math.random()
       const title = definition.config.progressMsg || 'process...'
 
       yield put(notifier.blockingInfo(randomId, title, null, 'circle-o-notch fa-spin fa-fw'))
-
       yield call(invokeSimpleAction, definition, entity, ids)
-
       yield put(notifier.removeBlockingInfo(randomId))
     }
   }
@@ -34,7 +31,7 @@ export function* invokeAction(config, {payload}) {
 
 export const answer = answer => ({answer})
 
-function* handleConfirm(definition, ids) {
+export function* handleConfirm(definition, ids) {
   if (definition.config.confirm) {
     const answerChannel = yield call(channel)
     const onYes = () => answerChannel.put(answer(true))
@@ -56,7 +53,7 @@ function* handleConfirm(definition, ids) {
   return answer(true)
 }
 
-function* invokeSimpleAction(definition, entity, ids) {
+export function* invokeSimpleAction(definition, entity, ids) {
   const {config} = definition
   try {
     const response = yield call(requestSaga, config.endpoint, {method: 'POST', body: {ids, entity}})
