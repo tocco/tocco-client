@@ -27,7 +27,8 @@ export const createStore = (reducers = {}, sagas = [], input, name = '') => {
 
   if (__DEBUG__) {
     const composeEnhancers = composeWithDevTools({
-      name
+      name,
+      shouldHotReload: false
     })
     middleware = composeEnhancers(middleware)
   }

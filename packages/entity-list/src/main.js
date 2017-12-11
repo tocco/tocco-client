@@ -36,7 +36,7 @@ const initApp = (id, input, events = {}, publicPath) => {
     storeStorage.set(id, store)
   }
 
-  return appFactory.createApp(
+  const app = appFactory.createApp(
     packageName,
     content,
     store,
@@ -48,6 +48,15 @@ const initApp = (id, input, events = {}, publicPath) => {
       textResourceModules: ['component', 'common']
     }
   )
+
+  if (module.hot) {
+    module.hot.accept('./modules/reducers', () => {
+      const reducers = require('./modules/reducers').default
+      appFactory.hotReloadReducers(app.store, reducers)
+    })
+  }
+
+  return app
 }
 
 (() => {
@@ -63,14 +72,6 @@ const initApp = (id, input, events = {}, publicPath) => {
     }
 
     const app = initApp('id', input)
-
-    if (module.hot) {
-      module.hot.accept('./modules/reducers', () => {
-        const reducers = require('./modules/reducers').default
-        appFactory.hotReloadReducers(app.store, reducers)
-      })
-    }
-
     appFactory.renderApp(app.renderComponent())
   } else {
     appFactory.registerAppInRegistry(packageName, initApp)
