@@ -7,7 +7,7 @@ import {
   actionEmitter,
   externalEvents,
   storeStorage,
-  actions as actionsUtil
+  actions
 } from 'tocco-util'
 
 import reducers, {sagas} from './modules/reducers'
@@ -27,7 +27,7 @@ const EXTERNAL_EVENTS = [
 const initApp = (id, input, events = {}, publicPath) => {
   const content = <EntityListContainer/>
 
-  let actions
+  let dispatchActions
   let store
   if (input.keepStore) {
     store = storeStorage.get(id)
@@ -39,9 +39,9 @@ const initApp = (id, input, events = {}, publicPath) => {
     actionEmitter.addToStore(store, events.emitAction)
     errorLogging.addToStore(store, false)
     notifier.addToStore(store, false)
-    actionsUtil.addToStore(store)
+    actions.addToStore(store)
 
-    actions = getDispatchActions(input, true)
+    dispatchActions = getDispatchActions(input, true)
     storeStorage.set(id, store)
   }
 
@@ -52,7 +52,7 @@ const initApp = (id, input, events = {}, publicPath) => {
     {
       input,
       events,
-      actions,
+      actions: dispatchActions,
       publicPath,
       textResourceModules: ['component', 'common']
     }
