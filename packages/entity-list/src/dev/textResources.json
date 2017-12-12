@@ -17,9 +17,5 @@
   "client.entity-list.searchFormValidationMinLength",
   "client.entity-list.create",
 
-  "client.component.form.mandatoryFieldTitle",
-
-  "client.actions.create",
-  "client.actions.delete",
-  "client.actions.save"
+  "client.component.form.mandatoryFieldTitle"
 ]
