@@ -69,7 +69,8 @@ const initApp = (id, input, events, publicPath) => {
       </div>
     </Router>
   )
-  return appFactory.createApp(
+
+  const app = appFactory.createApp(
     packageName,
     content,
     store,
@@ -80,6 +81,16 @@ const initApp = (id, input, events, publicPath) => {
       actions
     }
   )
+
+  if (module.hot) {
+    module.hot.accept('./routes/index', () =>
+      setImmediate(() => {
+        appFactory.reloadApp(app.renderComponent())
+      })
+    )
+  }
+
+  return app
 }
 
 (() => {
@@ -98,15 +109,6 @@ const initApp = (id, input, events, publicPath) => {
     const input = require('./dev/input.json')
 
     const app = initApp('id', input)
-
-    if (module.hot) {
-      module.hot.accept('./routes/index', () =>
-        setImmediate(() => {
-          appFactory.reloadApp(app.renderComponent())
-        })
-      )
-    }
-
     appFactory.renderApp(app.renderComponent())
   } else {
     appFactory.registerAppInRegistry(packageName, initApp)

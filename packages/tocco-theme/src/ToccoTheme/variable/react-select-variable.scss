@@ -15,7 +15,7 @@ $select-input-bg:                   #fff !default;
 $select-input-bg-disabled:          #f9f9f9 !default;
 $select-input-border-color:         #ccc !default;
 $select-input-border-radius:        4px !default;
-
+$select-input-bg-focus:             $select-input-bg !default;
 $select-input-border-focus:         $input-border-focus !default;  // changed by tocco, style of mixin form-control-focus in bootstrap-sass/assets/stylesheets/bootstrap/mixins/_forms.scss
 $color-rgba:                        rgba(red($input-border-focus), green($input-border-focus), blue($input-border-focus), .6);  // added by tocco, style of mixin form-control-focus in bootstrap-sass/assets/stylesheets/bootstrap/mixins/_forms.scss
 $select-input-box-shadow-focus:     inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px $color-rgba !default;  // changed by tocco, style of mixin form-control-focus in bootstrap-sass/assets/stylesheets/bootstrap/mixins/_forms.scss
