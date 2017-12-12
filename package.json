@@ -32,9 +32,7 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
   },
-  "dependencies": {
-    "react-bootstrap": "^0.31.5"
-  },
+  "dependencies": {},
   "devDependencies": {
     "babel-cli": "6.26.0",
     "babel-core": "6.26.0",
@@ -114,7 +112,7 @@
     "prop-types": "^15.5.10",
     "react": "15.6.1",
     "react-addons-test-utils": "15.6.0",
-    "react-bootstrap": "^0.31.3",
+    "react-bootstrap": "0.31.5",
     "react-dom": "15.6.1",
     "react-intl": "2.3.0",
     "react-intl-redux": "0.6.0",
