@@ -24,7 +24,13 @@ const Action = ({definition, onClick, ids, entity, mode}) => {
 }
 
 Action.propTypes = {
-  definition: PropTypes.object.isRequired,
+  definition: PropTypes.shape({
+    type: PropTypes.string,
+    useLabel: PropTypes.string,
+    icon: PropTypes.string,
+    label: PropTypes.string,
+    config: PropTypes.object
+  }).isRequired,
   ids: PropTypes.array,
   entity: PropTypes.string,
   onClick: PropTypes.func.isRequired,
