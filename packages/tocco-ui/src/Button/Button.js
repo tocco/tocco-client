@@ -16,16 +16,9 @@ const Button = props => {
     }
   )
 
-  const getIconClass = icon => {
-    if (!icon) return ''
-
-    return classNames({
-      'glyphicon': icon.startsWith('glyphicon-'),
-      'fa': icon.startsWith('fa-')
-    },
-    icon
-    )
-  }
+  const getIconClass = icon => (
+    icon ? classNames({'glyphicon': icon.startsWith('glyphicon-'), 'fa': icon.startsWith('fa-')}, icon) : ''
+  )
 
   return (
     <button
