@@ -8,7 +8,7 @@ const EXPECTED_INITIAL_STATE = {
   limit: 10,
   currentPage: 1,
   sorting: null,
-  columnDefinition: [],
+  formDefinition: null,
   entityCount: 0,
   entityStore: {},
   inProgress: false,
@@ -106,25 +106,18 @@ describe('entity-list', () => {
         })
 
         it('should handle SET_COLUMN_DEFINITION', () => {
-          const newDefinition = [
-            {
-              label: 'col1',
-              value: [{0: 'col1'}]
-            }, {
-              label: 'col2',
-              value: [{0: 'col2'}]
-            }
-          ]
-
+          const newFormDefinition = {
+            children: []
+          }
           const stateBefore = {
-            columnDefinition: []
+            formDefinition: []
           }
 
           const expectedStateAfter = {
-            columnDefinition: newDefinition
+            formDefinition: newFormDefinition
           }
 
-          expect(reducer(stateBefore, actions.setColumnDefinition(newDefinition))).to.deep.equal(expectedStateAfter)
+          expect(reducer(stateBefore, actions.setFormDefinition(newFormDefinition))).to.deep.equal(expectedStateAfter)
         })
 
         it('should handle SET_ENTITY_MODEL', () => {

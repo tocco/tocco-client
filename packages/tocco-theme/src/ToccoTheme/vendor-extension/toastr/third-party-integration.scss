@@ -16,3 +16,19 @@
   text-align: center;
   margin: .5rem;
 }
+
+.redux-toastr .rrt-confirm-holder {
+  z-index: 99999999;
+
+  .shadow {
+    background-color: rgba(50, 58, 68, .5);
+  }
+}
+
+.redux-toastr {
+  .top-center,
+  .top-left,
+  .top-right {
+    z-index: 99999998;
+  }
+}

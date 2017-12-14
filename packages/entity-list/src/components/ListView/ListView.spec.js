@@ -1,19 +1,28 @@
 import React from 'react'
 import ListView from './ListView'
-import {BootstrapTable} from 'react-bootstrap-table'
 import {IntlStub} from 'tocco-test-util'
 import {shallow} from 'enzyme'
+import TableContainer from '../../containers/TableContainer'
+import {actions} from 'tocco-util'
 
 const EMPTY_FUNC = () => {}
 
-const defaultProps = {
-  entityCount: 1,
+const props = {
   initialize: EMPTY_FUNC,
-  limit: 10,
-  columnDefinitions: [],
-  changePage: EMPTY_FUNC,
-  setSearchTerm: EMPTY_FUNC,
-  entities: [],
+  formDefinition: {
+    children: [
+      {
+        type: 'ch.tocco.nice2.model.form.components.table.Table',
+        children: []
+      },
+      {
+        type: 'ch.tocco.nice2.model.form.components.action.SimpleAction'
+      },
+      {
+        type: 'ch.tocco.nice2.model.form.components.action.SimpleAction'
+      }
+    ]
+  },
   intl: IntlStub,
   orderBy: null,
   selectable: true,
@@ -24,9 +33,10 @@ const defaultProps = {
 describe('entity-list', () => {
   describe('components', () => {
     describe('ListView', () => {
-      it('should render bootstrap table', () => {
-        const wrapper = shallow(<ListView {...defaultProps}/>)
-        expect(wrapper.find(BootstrapTable)).to.have.length(1)
+      it('should render ', () => {
+        const wrapper = shallow(<ListView {...props}/>)
+        expect(wrapper.find(TableContainer)).to.have.length(1)
+        expect(wrapper.find(actions.Action)).to.have.length(2)
       })
     })
   })

@@ -8,11 +8,15 @@ export default () => {
     <div>
       {/* start example */}
       <Button
-        label="Primary"
+        label={<strong>Primary</strong>}
         primary
       />
       <Button
         icon="glyphicon-heart"
+        type="submit"
+      />
+      <Button
+        icon="fa-font-awesome"
         type="submit"
       />
       <Button
@@ -24,6 +28,7 @@ export default () => {
         label="Disabled"
         disabled
         onClick={() => alert('do something')}
+        title="This button is disabled"
       />
       {/* end example */}
     </div>

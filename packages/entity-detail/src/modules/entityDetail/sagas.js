@@ -91,7 +91,7 @@ export function* loadDetailView() {
   const formDefinition = yield call(loadDetailFormDefinition, formName)
 
   if (mode === modes.CREATE) {
-    yield put(actions.setEntity({paths: {}}))
+    yield put(actions.setEntity({paths: {}, model: entityName}))
     const fieldDefinitions = yield call(getFieldDefinitions, formDefinition)
     const defaultValues = yield call(getDefaultValues, fieldDefinitions)
     yield put(initializeForm(FORM_ID, defaultValues))

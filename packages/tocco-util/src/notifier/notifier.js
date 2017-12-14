@@ -6,21 +6,51 @@ import appFactory from '../appFactory'
 import {FormattedValue} from 'tocco-ui'
 import sagas from './sagas'
 import '!style-loader!css-loader!react-redux-toastr/lib/css/react-redux-toastr.min.css'
+import PropTypes from 'prop-types'
+
+const TitleMessageNotification = ({title, message}) => {
+  const isKey = s => s && s.startsWith('client.')
+  return (
+    <div>
+      <div className="title">
+        {isKey(title) ? <FormattedMessage id={title}/> : <span>{title}</span>}
+      </div>
+      {message
+      && <div className="message">
+        {isKey(message) ? <FormattedMessage id={message}/> : <span>{message}</span>}
+      </div>}
+    </div>
+  )
+}
+
+TitleMessageNotification.propTypes = {
+  title: PropTypes.string,
+  message: PropTypes.string
+}
+
+const TitleMessageDialog = ({title, message}) => {
+  return (
+    <div className="dialog">
+      <div>
+        <h1>{title}</h1>
+      </div>
+      <div>
+        <FormattedValue type="html" value={message}/>
+      </div>
+    </div>
+  )
+}
+
+TitleMessageDialog.propTypes = {
+  title: PropTypes.string,
+  message: PropTypes.string
+}
 
 export function getInfoAction(type, title, message, icon, timeOut) {
   const options = {
     timeOut: timeOut,
     showCloseButton: true,
-    component: () => (
-      <div>
-        <div className="title">
-          <FormattedMessage id={title}/>
-        </div>
-        <div className="message">
-          <FormattedMessage id={message}/>
-        </div>
-      </div>
-    )
+    component: () => <TitleMessageNotification title={title} message={message}/>
   }
 
   if (icon) {
@@ -33,21 +63,10 @@ export function getInfoAction(type, title, message, icon, timeOut) {
   })
 }
 
-const titleMessage = (title, message) => () => (
-  <div className="dialog">
-    <div>
-      <h1>{title}</h1>
-    </div>
-    <div>
-      <FormattedValue type="html" value={message}/>
-    </div>
-  </div>
-)
-
 export function getConfirmationAction(title, message, okText, cancelText, onOk, onCancel) {
   return toastrActions.showConfirm({
     options: {
-      component: titleMessage(title, message),
+      component: () => (<TitleMessageDialog title={title} message={message}/>),
       okText,
       cancelText,
       onOk,
@@ -59,7 +78,7 @@ export function getConfirmationAction(title, message, okText, cancelText, onOk, 
 export function getYesNoAction(title, message, yesText, noText, cancelText, onYes, onNo, onCancel) {
   return toastrActions.showConfirm({
     options: {
-      component: titleMessage(title, message),
+      component: () => (<TitleMessageDialog title={title} message={message}/>),
       okText: yesText,
       cancelText,
       onOk: onYes,
@@ -80,13 +99,34 @@ export function getYesNoAction(title, message, yesText, noText, cancelText, onYe
   })
 }
 
+export function getBlockingInfo(id, title, message, icon) {
+  const options = {
+    timeOut: 0,
+    showCloseButton: false,
+    transitionIn: 'bounceInDown',
+    transitionOut: 'bounceOutUp',
+    attention: false,
+    component: () => <TitleMessageNotification title={title} message={message}/>
+  }
+
+  if (icon) {
+    options.icon = (<div className={`fa fa-${icon} icon`}/>)
+  }
+
+  return toastrActions.add({
+    id,
+    type: 'info',
+    position: 'top-center',
+    options
+  })
+}
+
 export const defaultToastrOptions = {
   newestOnTop: false,
   preventDuplicates: false,
-  transitionIn: 'fadeIn',
-  transitionOut: 'fadeOut',
+  position: 'top-right',
   progressBar: true,
-  position: 'top-right'
+  transitionOut: 'fadeOut'
 }
 
 export const addToStore = (store, accept) => {

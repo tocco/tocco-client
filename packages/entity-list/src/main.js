@@ -1,6 +1,14 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {appFactory, notifier, errorLogging, actionEmitter, externalEvents, storeStorage} from 'tocco-util'
+import {
+  appFactory,
+  notifier,
+  errorLogging,
+  actionEmitter,
+  externalEvents,
+  storeStorage,
+  actions
+} from 'tocco-util'
 
 import reducers, {sagas} from './modules/reducers'
 import EntityListContainer from './containers/EntityListContainer'
@@ -19,7 +27,7 @@ const EXTERNAL_EVENTS = [
 const initApp = (id, input, events = {}, publicPath) => {
   const content = <EntityListContainer/>
 
-  let actions
+  let dispatchActions
   let store
   if (input.keepStore) {
     store = storeStorage.get(id)
@@ -31,8 +39,9 @@ const initApp = (id, input, events = {}, publicPath) => {
     actionEmitter.addToStore(store, events.emitAction)
     errorLogging.addToStore(store, false)
     notifier.addToStore(store, false)
+    actions.addToStore(store)
 
-    actions = getDispatchActions(input, true)
+    dispatchActions = getDispatchActions(input, true)
     storeStorage.set(id, store)
   }
 
@@ -43,7 +52,7 @@ const initApp = (id, input, events = {}, publicPath) => {
     {
       input,
       events,
-      actions,
+      actions: dispatchActions,
       publicPath,
       textResourceModules: ['component', 'common']
     }

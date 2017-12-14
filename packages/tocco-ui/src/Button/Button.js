@@ -16,15 +16,21 @@ const Button = props => {
     }
   )
 
+  const getIconClass = icon => (
+    icon ? classNames({'glyphicon': icon.startsWith('glyphicon-'), 'fa': icon.startsWith('fa-')}, icon) : ''
+  )
+
   return (
     <button
       name={props.name}
+      title={props.title}
       onClick={props.onClick}
       className={classes}
       disabled={props.disabled}
       type={props.type ? props.type : 'button'}
+      style={props.style}
     >
-      <i className={classNames('glyphicon', props.icon)}/> {props.label || ''}
+      <i className={getIconClass(props.icon)}/> {props.label || ''}
     </button>)
 }
 
@@ -32,7 +38,7 @@ Button.propTypes = {
   /**
    * Will be displayed on button, default is an empty string
    */
-  label: PropTypes.string,
+  label: PropTypes.node,
   /**
    * Function that will be triggered on click event
    */
@@ -62,9 +68,18 @@ Button.propTypes = {
    */
   icon: PropTypes.string,
   /**
+   * React style object that gets added to the button
+   *
+   */
+  style: PropTypes.object,
+  /**
    * HTML Button type. Default is 'button'. Possible values: button|submit|reset
    */
-  type: PropTypes.oneOf(['button', 'submit', 'reset'])
+  type: PropTypes.oneOf(['button', 'submit', 'reset']),
+  /**
+   * Popover title to be shown on mouse over.
+   */
+  title: PropTypes.string
 }
 
 export default Button

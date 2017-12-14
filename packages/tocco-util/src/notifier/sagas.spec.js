@@ -9,7 +9,7 @@ describe('tocco-util', () => {
   describe('notifier', () => {
     describe('sagas', () => {
       describe('root saga', () => {
-        it('should handlen notify and confirm', () => {
+        it('should handle notify and confirm', () => {
           const accept = true
           const generator = rootSaga(accept)
 
@@ -17,7 +17,9 @@ describe('tocco-util', () => {
             all([
               fork(takeEvery, actions.INFO, sagas.handleNotify),
               fork(takeEvery, actions.CONFIRM, sagas.handleConfirm),
-              fork(takeEvery, actions.YES_NO_QUESTION, sagas.handleYesNoQuestion)
+              fork(takeEvery, actions.YES_NO_QUESTION, sagas.handleYesNoQuestion),
+              fork(takeEvery, actions.BLOCKING_INFO, sagas.handleBlockingInfo),
+              fork(takeEvery, actions.REMOVE_BLOCKING_INFO, sagas.removeBlockingInfo)
             ])
           )
 
@@ -32,7 +34,9 @@ describe('tocco-util', () => {
             all([
               fork(takeEvery, actions.INFO, sagas.emit),
               fork(takeEvery, actions.CONFIRM, sagas.emit),
-              fork(takeEvery, actions.YES_NO_QUESTION, sagas.emit)
+              fork(takeEvery, actions.YES_NO_QUESTION, sagas.emit),
+              fork(takeEvery, actions.BLOCKING_INFO, sagas.emit),
+              fork(takeEvery, actions.REMOVE_BLOCKING_INFO, sagas.emit)
             ])
           )
 
