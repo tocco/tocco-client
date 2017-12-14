@@ -75,7 +75,8 @@ Button.propTypes = {
    */
   icon: PropTypes.string,
   /**
-   * Add an icon to the button. Possible icons are defined here: http://glyphicons.bootstrapcheatsheets.com/
+   * React style object that gets added to the button
+   *
    */
   style: PropTypes.object,
   /**
