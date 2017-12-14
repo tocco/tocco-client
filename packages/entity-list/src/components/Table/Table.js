@@ -7,9 +7,7 @@ import {actions} from 'tocco-util'
 import '!style-loader!css-loader!react-bootstrap-table/dist/react-bootstrap-table.min.css'
 
 const Table = props => {
-  const msg = id => {
-    return props.intl.formatMessage({id})
-  }
+  const msg = (id, values = {}) => (props.intl.formatMessage({id}, values))
 
   const onSortChange = (field, order) => {
     props.setSorting([{field, order}])
