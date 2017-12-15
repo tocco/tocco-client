@@ -18,7 +18,7 @@ export default function* sagas() {
     fork(takeLatest, actions.INITIALIZE, initialize),
     fork(takeLatest, actions.CHANGE_PAGE, changePage),
     fork(takeLatest, searchFormActions.EXECUTE_SEARCH, resetDataSet),
-    fork(takeEvery, actions.SET_SORTING, resetDataSet),
+    fork(takeEvery, actions.SET_SORTING, setSorting),
     fork(takeEvery, actions.RESET_DATA_SET, resetDataSet),
     fork(takeLatest, actions.REFRESH, refresh),
     fork(takeLatest, actions.ON_ROW_CLICK, onRowClick),
@@ -62,6 +62,13 @@ export function* changePage({payload}) {
   yield put(actions.setCurrentPage(page))
   yield call(requestEntities, page)
   yield put(actions.setInProgress(false))
+}
+
+export function* setSorting() {
+  const {initialized} = yield select(listSelector)
+  if (initialized) {
+    yield call(resetDataSet)
+  }
 }
 
 export function* fetchEntitiesAndAddToStore(page) {
@@ -131,7 +138,7 @@ export function* loadEntityModel(entityName, entityModel) {
   }
 }
 
-export function* resetDataSet() {
+export function* resetDataSet(d) {
   yield put(actions.setInProgress(true))
   const input = yield select(inputSelector)
   const {entityName, searchFilters, formBase} = input

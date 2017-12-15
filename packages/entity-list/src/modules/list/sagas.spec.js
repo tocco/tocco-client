@@ -28,7 +28,7 @@ describe('entity-list', () => {
               fork(takeLatest, actions.INITIALIZE, sagas.initialize),
               fork(takeLatest, actions.CHANGE_PAGE, sagas.changePage),
               fork(takeLatest, searchFormActions.EXECUTE_SEARCH, sagas.resetDataSet),
-              fork(takeEvery, actions.SET_SORTING, sagas.resetDataSet),
+              fork(takeEvery, actions.SET_SORTING, sagas.setSorting),
               fork(takeEvery, actions.RESET_DATA_SET, sagas.resetDataSet),
               fork(takeLatest, actions.REFRESH, sagas.refresh),
               fork(takeLatest, actions.ON_ROW_CLICK, sagas.onRowClick),
@@ -91,6 +91,23 @@ describe('entity-list', () => {
             expect(gen.next().value).to.eql(call(sagas.requestEntities, page))
             expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
             expect(gen.next().done).to.be.true
+          })
+        })
+
+        describe('setSorting saga', () => {
+          it('should call reset data if list is initialized', () => {
+            const initialized = true
+            const gen = sagas.setSorting()
+            expect(gen.next().value).to.eql(select(sagas.listSelector))
+            expect(gen.next({initialized}).value).to.eql(call(sagas.resetDataSet))
+            expect(gen.next().done).to.be.true
+          })
+
+          it('should not call reset data if list isnt initialized', () => {
+            const initialized = false
+            const gen = sagas.setSorting()
+            expect(gen.next().value).to.eql(select(sagas.listSelector))
+            expect(gen.next({initialized}).done).to.be.true
           })
         })
 
