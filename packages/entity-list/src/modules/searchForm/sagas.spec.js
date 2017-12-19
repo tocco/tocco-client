@@ -111,7 +111,7 @@ describe('entity-list', () => {
             const gen = sagas.loadRelationEntity(actions.loadRelationEntity(entityName))
             expect(gen.next().value).to.eql(select(sagas.searchFormSelector))
             expect(gen.next({relationEntities: {}}).value)
-              .to.eql(call(fetchEntities, entityName, {}, selectEntitiesTransformer))
+              .to.eql(call(fetchEntities, entityName, {fields: ['pk'], limit: 100}, selectEntitiesTransformer))
             expect(gen.next(entities).value)
               .to.eql(put(actions.setRelationEntity(entityName, transformedEntities, true)))
             expect(gen.next().value).to.eql(put(actions.setRelationEntityLoaded(entityName)))
