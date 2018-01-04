@@ -10,15 +10,22 @@ const Button = props => {
     'btn',
     props.className,
     {
-      'pending': props.pending,
       'btn-default': !props.primary,
       'btn-primary': props.primary
     }
   )
 
-  const getIconClass = icon => (
-    icon ? classNames({'glyphicon': icon.startsWith('glyphicon-'), 'fa': icon.startsWith('fa-')}, icon) : ''
-  )
+  const getIconClass = (icon, pending) => {
+    if (pending) {
+      return 'fa fa-circle-o-notch fa-spin'
+    }
+    return icon ? classNames({
+      'glyphicon': icon.startsWith('glyphicon-'),
+      'fa': icon.startsWith('fa-')
+    },
+    icon)
+      : ''
+  }
 
   return (
     <button
@@ -30,7 +37,7 @@ const Button = props => {
       type={props.type ? props.type : 'button'}
       style={props.style}
     >
-      <i className={getIconClass(props.icon)}/> {props.label || ''}
+      <i className={getIconClass(props.icon, props.pending)}/> {props.label || ''}
     </button>)
 }
 
