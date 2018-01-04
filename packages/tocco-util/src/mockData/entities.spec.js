@@ -1,4 +1,4 @@
-import {setupFetchMock} from './fetchMock'
+import {setupEntities} from './entities'
 import _get from 'lodash/get'
 import {createUsers} from './entityFactory'
 import fetchMock from 'fetch-mock'
@@ -6,8 +6,8 @@ import {simpleRequest} from '../rest'
 
 describe('tocco-util', () => {
   describe('mockData', () => {
-    describe('fetchMock', () => {
-      describe('setupFetchMock', () => {
+    describe('entities', () => {
+      describe('setupEntities', () => {
         it('setup basic mocks', () => {
           const getSpy = sinon.spy()
           const fetchMockMock = {
@@ -16,13 +16,13 @@ describe('tocco-util', () => {
 
           const entityStore = {}
 
-          setupFetchMock(fetchMockMock, entityStore)
+          setupEntities(fetchMockMock, entityStore)
           expect(getSpy).to.be.called
         })
 
         it('should setup a entities get with working limit, offset and sorting', done => {
           const users = createUsers(50)
-          setupFetchMock(fetchMock, {User: users})
+          setupEntities(fetchMock, {User: users})
           const resource = 'http://localhost:8080/nice2/rest/entities/User'
           const queryParams = {
             _limit: 5,
@@ -43,7 +43,7 @@ describe('tocco-util', () => {
 
         it('should setup a entities get with working search (few keyword)', done => {
           const users = createUsers(50)
-          setupFetchMock(fetchMock, {User: users})
+          setupEntities(fetchMock, {User: users})
           const resource = 'http://localhost:8080/nice2/rest/entities/User'
           const queryParams = {
             _limit: 50,

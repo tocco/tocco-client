@@ -11,6 +11,18 @@
         "label": "New"
       },
       {
+        "type": "ch.tocco.nice2.model.form.components.action.SimpleAction",
+        "readOnly": false,
+        "label": "Simple Action (form client questions)",
+        "icon": "fa-question",
+        "singleSelection": false,
+        "config": {
+          "progressMsg": "Die Beispiel Aktion wird ausgeführt",
+          "confirm": false,
+          "endpoint": "actions/formClientQuestion"
+        }
+      },
+      {
         "type": "ch.tocco.nice2.model.form.components.action.ActionGroup",
         "label": "Actions",
         "children": [
@@ -33,7 +45,7 @@
           {
             "type": "ch.tocco.nice2.model.form.components.action.SimpleAction",
             "readOnly": false,
-            "label": "Simple Action",
+            "label": "Simple Action (confirm)",
             "icon": "fa-gear",
             "singleSelection": false,
             "config": {
@@ -51,7 +63,7 @@
             "config": {
               "progressMsg": "Die Beispiel Aktion wird ausgeführt",
               "confirm": false,
-              "endpoint": "actions/simpleActionWithClientQuestion"
+              "endpoint": "actions/yesNoClientQuestion"
             }
           },
           {

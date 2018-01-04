@@ -1,6 +1,7 @@
 import consoleLogger from '../consoleLogger'
+import {sleep} from './mockData'
 
-export const setupFetchMock = (fetchMock, entityStore) => {
+export const setupEntities = (fetchMock, entityStore, timeout) => {
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/forms/User_list$'),
     require('./data/user_list_form.json')
@@ -80,12 +81,12 @@ export const setupFetchMock = (fetchMock, entityStore) => {
 
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/entities/User(\\?.*)?$'),
-    createEntitiesResponse('User', entityStore)
+    createEntitiesResponse('User', entityStore, timeout)
   )
 
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/entities/Dummy_entity(\\?.*)?$'),
-    createEntitiesResponse('Dummy_entity', entityStore)
+    createEntitiesResponse('Dummy_entity', entityStore, timeout)
   )
 
   fetchMock.get(
@@ -104,7 +105,7 @@ const createEntityResponse = (entityName, entityStore) => {
   }
 }
 
-const createEntitiesResponse = (entityName, entityStore) => {
+const createEntitiesResponse = (entityName, entityStore, timeout) => {
   const entities = entityStore[entityName]
 
   return (url, opts) => {
@@ -135,11 +136,9 @@ const createEntitiesResponse = (entityName, entityStore) => {
       result = wrapEntitiesResponse(entityName, entities.slice(offset, offset + limit))
     }
 
-    return sleep(1000).then(() => result)
+    return sleep(timeout).then(() => result)
   }
 }
-
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 const getParameterValue = (name, url) => {
   name = name.replace(/[[\]]/g, '\\$&')
