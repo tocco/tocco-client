@@ -316,7 +316,7 @@
             "icon": "fa-plus",
             "config": {
               "confirm": false,
-              "endpoint": "actions/simpleActionWithClientQuestion"
+              "endpoint": "actions/yesNoClientQuestion"
             }
           }
 

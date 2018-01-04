@@ -1,4 +1,4 @@
-import {utilFetchMocks, mockData, actions} from 'tocco-util'
+import {utilFetchMocks, mockData} from 'tocco-util'
 
 const defaultStore = {
   User: mockData.createUsers(1001),
@@ -9,7 +9,6 @@ export default function setupFetchMock(fetchMock, entityStore = defaultStore) {
   utilFetchMocks.log(fetchMock)
   utilFetchMocks.session(fetchMock)
   utilFetchMocks.textResource(fetchMock, require('./textResources.json'))
-  actions.setupFetchMock(fetchMock)
 
   mockData.setupFetchMock(fetchMock, entityStore)
 }

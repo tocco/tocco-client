@@ -1,5 +1,5 @@
 import {createDummyEntities, createUsers} from './entityFactory'
-import {setupFetchMock} from './fetchMock'
+import {setupFetchMock} from './mockData'
 
 export default {
   createDummyEntities,
