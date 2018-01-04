@@ -18,6 +18,7 @@ export default () => {
       <Button
         icon="fa-font-awesome"
         type="submit"
+        label="fa"
       />
       <Button
         label="Pending"

@@ -72,19 +72,19 @@ describe('tocco-ui', function() {
       let wrapper = shallow(
         <Button/>
       )
-      expect(wrapper.find('button').hasClass('pending')).to.equal(false)
+      expect(wrapper.find('i').hasClass('fa-spin')).to.equal(false)
 
       wrapper = shallow(
         <Button
           pending={false}
         />
       )
-      expect(wrapper.find('button').hasClass('pending')).to.equal(false)
+      expect(wrapper.find('i').hasClass('fa-spin')).to.equal(false)
 
       wrapper = shallow(
         <Button pending/>
       )
-      expect(wrapper.find('button').hasClass('pending')).to.equal(true)
+      expect(wrapper.find('i').hasClass('fa-spin')).to.equal(true)
     })
 
     it('should show icon', () => {
