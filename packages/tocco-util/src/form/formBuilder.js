@@ -7,6 +7,7 @@ import _get from 'lodash/get'
 import _startsWith from 'lodash/startsWith'
 import {LayoutBox} from 'tocco-ui'
 import actions from '../actions'
+import {isAction} from '../actions/actions'
 
 const layoutTypeNamespace = 'ch.tocco.nice2.model.form.components.layout.'
 
@@ -32,7 +33,7 @@ export default (
         const type = child.type.substr(layoutTypeNamespace.length, child.type.length)
         const travers = () => formTraverser(child.children)
         result.push(createLayoutComponent(child, type, i, travers))
-      } else if (actions.isAction(child.type)) {
+      } else if (isAction(child.type)) {
         result.push(
           <actions.Action
             definition={child}
