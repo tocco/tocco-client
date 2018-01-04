@@ -4,9 +4,7 @@ import {intlShape} from 'react-intl'
 import {reduxForm} from 'redux-form'
 
 import {Button} from 'tocco-ui'
-import {form} from 'tocco-util'
-
-import formFieldMapping from '../../util/formFieldMapping'
+import {form, formField} from 'tocco-util'
 
 class SearchForm extends React.Component {
   constructor(props) {
@@ -40,8 +38,8 @@ class SearchForm extends React.Component {
       props.searchFormDefinition,
       props.formValues,
       formFieldUtils,
-      formFieldMapping,
-      formFieldMapping,
+      formField.defaultMapping,
+      formField.defaultMapping,
       this.shouldRenderField,
       'search'
     )
