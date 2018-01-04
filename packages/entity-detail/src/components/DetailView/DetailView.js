@@ -4,7 +4,7 @@ import {intlShape} from 'react-intl'
 import _isEmpty from 'lodash/isEmpty'
 
 import DetailForm from '../DetailForm'
-import syncValidation from '../../util/detailView/syncValidation'
+import {form} from 'tocco-util'
 import {asyncValidate, AsyncValidationException} from '../../util/detailView/asyncValidation'
 import LoadMask from 'tocco-ui/src/LoadMask/LoadMask'
 
@@ -31,7 +31,7 @@ class DetailView extends React.Component {
 
   getSyncValidation = () => {
     if (!this.validateSingleton && !_isEmpty(this.props.entityModel)) {
-      this.validateSingleton = syncValidation(this.props.entityModel)
+      this.validateSingleton = form.syncValidation(this.props.entityModel)
     }
     return this.validateSingleton
   }

@@ -1,6 +1,7 @@
 import formErrorsUtil from './formErrors'
 import initFormBuilder from './formBuilder'
 import {getFieldId} from './helpers'
+import syncValidation from './syncValidation'
 import {
   formValuesToEntity,
   entityToFormValues,
@@ -19,5 +20,6 @@ export default {
   getDirtyFields,
   validationErrorToFormError,
   transformFieldName,
-  transformFieldNameBack
+  transformFieldNameBack,
+  syncValidation
 }

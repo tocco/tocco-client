@@ -123,7 +123,7 @@
     "redbox-react": "1.4.3",
     "redux": "3.7.1",
     "redux-devtools-extension": "2.13.2",
-    "redux-form": "6.8.0",
+    "redux-form": "7.2.0",
     "redux-saga": "0.15.4",
     "redux-saga-test-plan": "^3.2.0",
     "redux-thunk": "2.2.0",
