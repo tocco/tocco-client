@@ -1,8 +1,9 @@
 import {connect} from 'react-redux'
 import Form from '../../src/components/Form'
 import {form} from 'tocco-util'
-import {initializeForm, loadRelationEntity, submit, cancel} from '../modules/simpleForm/actions'
+import {initializeForm, submit, cancel} from '../modules/simpleForm/actions'
 import {transformModel} from '../utils'
+import {loadRelationEntity} from '../utils/relationEntity/actions'
 
 const mapActionCreators = {
   initializeForm,
