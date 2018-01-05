@@ -1,6 +1,6 @@
 import * as relationEntitiesActions from './actions'
 import {call, put, select} from 'redux-saga/effects'
-import {fetchEntities} from '../../../../tocco-util/src/rest'
+import {fetchEntities} from 'tocco-util/src/rest'
 
 import * as sagas from './sagas'
 
