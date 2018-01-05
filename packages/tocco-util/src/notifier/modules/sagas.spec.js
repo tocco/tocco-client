@@ -1,7 +1,9 @@
 import {fork, takeEvery, all, call, put} from 'redux-saga/effects'
-import {getConfirmationAction, getInfoAction, getYesNoAction} from './notifier'
+import {getConfirmationAction, getInfoAction, getYesNoAction, getBlockingInfo} from '../notificationActionFactory'
 import rootSaga, * as sagas from './sagas'
 import * as actions from './actions'
+import {actions as toastrActionsr} from 'react-redux-toastr'
+import actionEmitter from '../../actionEmitter'
 
 const EMPTY_FUNC = () => {}
 
@@ -36,7 +38,9 @@ describe('tocco-util', () => {
               fork(takeEvery, actions.CONFIRM, sagas.emit),
               fork(takeEvery, actions.YES_NO_QUESTION, sagas.emit),
               fork(takeEvery, actions.BLOCKING_INFO, sagas.emit),
-              fork(takeEvery, actions.REMOVE_BLOCKING_INFO, sagas.emit)
+              fork(takeEvery, actions.REMOVE_BLOCKING_INFO, sagas.emit),
+              fork(takeEvery, actions.MODAL_COMPONENT, sagas.emit),
+              fork(takeEvery, actions.REMOVE_MODAL_COMPONENT, sagas.emit)
             ])
           )
 
@@ -112,6 +116,52 @@ describe('tocco-util', () => {
           )
           expect(generator.next(resultAction).value).to.deep.equal(put(resultAction))
 
+          expect(generator.next().done).to.be.true
+        })
+      })
+
+      describe('handleBlockingInfo', () => {
+        it('should handel handleBlockingInfo', () => {
+          const id = Date.now()
+          const title = 'ttl'
+          const message = 'msg'
+          const icon = 'heart'
+
+          const questionAction = actions.blockingInfo(id, title, message, icon)
+
+          const generator = sagas.handleBlockingInfo(questionAction)
+
+          const resultAction = {TYPE: 'something'}
+
+          expect(generator.next().value).to.deep.equal(
+            call(getBlockingInfo, id, title, message, icon)
+          )
+          expect(generator.next(resultAction).value).to.deep.equal(put(resultAction))
+
+          expect(generator.next().done).to.be.true
+        })
+      })
+
+      describe('removeBlockingInfo', () => {
+        it('should handel removeBlockingInfo', () => {
+          const id = Date.now()
+
+          const action = actions.removeBlockingInfo(id)
+
+          const generator = sagas.removeBlockingInfo(action)
+          expect(generator.next().value).to.eql(put(toastrActionsr.remove(id)))
+          expect(generator.next().done).to.be.true
+        })
+      })
+
+      describe('emit', () => {
+        it('should handel removeBlockingInfo', () => {
+          const id = Date.now()
+
+          const action = actions.removeBlockingInfo(id)
+
+          const generator = sagas.emit(action)
+          expect(generator.next().value).to.eql(put(actionEmitter.emitAction(action)))
           expect(generator.next().done).to.be.true
         })
       })

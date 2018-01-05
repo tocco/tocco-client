@@ -1,9 +1,14 @@
 import {takeEvery, fork, call, put, all} from 'redux-saga/effects'
-import {getInfoAction, getConfirmationAction, getYesNoAction, getBlockingInfo} from './notifier'
+import {
+  getInfoAction,
+  getConfirmationAction,
+  getYesNoAction,
+  getBlockingInfo
+} from '../notificationActionFactory'
 import * as actions from './actions'
 import {actions as toastrActionsr} from 'react-redux-toastr'
 
-import actionEmitter from '../actionEmitter'
+import actionEmitter from '../../actionEmitter'
 
 export default function* sagas(accept) {
   if (accept) {
@@ -20,7 +25,9 @@ export default function* sagas(accept) {
       fork(takeEvery, actions.CONFIRM, emit),
       fork(takeEvery, actions.YES_NO_QUESTION, emit),
       fork(takeEvery, actions.BLOCKING_INFO, emit),
-      fork(takeEvery, actions.REMOVE_BLOCKING_INFO, emit)
+      fork(takeEvery, actions.REMOVE_BLOCKING_INFO, emit),
+      fork(takeEvery, actions.MODAL_COMPONENT, emit),
+      fork(takeEvery, actions.REMOVE_MODAL_COMPONENT, emit)
     ])
   }
 }

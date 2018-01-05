@@ -1,8 +1,7 @@
 /* eslint-disable no-console */
 import React from 'react'
 import {Provider} from 'react-redux'
-import ReduxToastr from 'react-redux-toastr'
-
+import Button from '../../../../tocco-ui/src/Button'
 import {appFactory, notifier} from 'tocco-util'
 // real-import:import {appFactory, notifier} from 'tocco-util'
 
@@ -59,17 +58,56 @@ class Example extends React.Component {
     ))
   }
 
+  blockingInfo = () => {
+    const id = Date.now()
+    this.store.dispatch(notifier.blockingInfo(
+      id,
+      'Title',
+      'Please wait',
+      'diamond fa-spin fa-3x fa-fw'
+    ))
+
+    setTimeout(() => {
+      this.store.dispatch(notifier.removeBlockingInfo(id))
+    }, 2000)
+  }
+
+  modalComponent = () => {
+    const id = Date.now()
+    this.store.dispatch(notifier.modalComponent(
+      id,
+      'Title',
+      'Please wait',
+      props => (
+        <div style={{border: '1px dotted red'}}>
+          <p>My Custom-Component</p>
+          <Button onClick={props.close} label="close"/>
+        </div>
+      )
+    ))
+
+    setTimeout(() => {
+      this.store.dispatch(notifier.removeBlockingInfo(id))
+    }, 2000)
+  }
+
   render() {
     return (
       <Provider store={this.store}>
         <div>
-          <ReduxToastr {...notifier.defaultToastrOptions}/>
-          <button className="btn btn-info" onClick={this.info}>Info</button>
-          <button className="btn btn-success" onClick={this.success}>Success (no timeout)</button>
-          <button className="btn btn-warning" onClick={this.warning}>Warning (long)</button>
-          <button className="btn btn-danger" onClick={this.error}>Error</button>
-          <button className="btn" onClick={this.confirmQuestion}>Confirm</button>
-          <button className="btn" onClick={this.yesNoQuestion}>Yes-No Question</button>
+          <notifier.Notifier/>
+          <div>
+            <button className="btn btn-info" onClick={this.info}>Info</button>
+            <button className="btn btn-success" onClick={this.success}>Success (no timeout)</button>
+            <button className="btn btn-warning" onClick={this.warning}>Warning (long)</button>
+            <button className="btn btn-danger" onClick={this.error}>Error</button>
+            <button className="btn btn-info" onClick={this.blockingInfo}>Blocking Info</button>
+          </div>
+          <div>
+            <button className="btn btn-default" onClick={this.confirmQuestion}>Confirm</button>
+            <button className="btn btn-default" onClick={this.yesNoQuestion}>Yes-No Question</button>
+            <button className="btn btn-default" onClick={this.modalComponent}>Modal Component</button>
+          </div>
         </div>
       </Provider>
     )
