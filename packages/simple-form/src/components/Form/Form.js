@@ -5,6 +5,7 @@ import {form, formField} from 'tocco-util'
 import {Button} from 'tocco-ui'
 import {transformModel} from '../../utils'
 import {reduxForm} from 'redux-form'
+import {intlShape} from 'react-intl'
 
 class Form extends React.Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class Form extends React.Component {
       remoteEntities: props.remoteEntities,
       loadSearchFilters: props.loadSearchFilters,
       searchFilters: props.searchFilters,
-      intl: {}
+      intl: this.props.intl
     }
 
     return form.initFormBuilder(
@@ -77,6 +78,7 @@ class Form extends React.Component {
 }
 
 Form.propTypes = {
+  intl: intlShape.isRequired,
   initializeForm: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
