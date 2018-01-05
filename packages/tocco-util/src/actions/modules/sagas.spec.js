@@ -2,7 +2,7 @@ import {fork, takeEvery, all} from 'redux-saga/effects'
 import rootSaga, * as sagas from './sagas'
 import * as actions from './actions'
 import {expectSaga} from 'redux-saga-test-plan'
-import {BLOCKING_INFO, REMOVE_BLOCKING_INFO, CONFIRM} from '../../notifier/actions'
+import {BLOCKING_INFO, REMOVE_BLOCKING_INFO, CONFIRM} from '../../notifier/modules/actions'
 
 describe('tocco-util', () => {
   describe('actions', () => {

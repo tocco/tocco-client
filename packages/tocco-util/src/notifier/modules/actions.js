@@ -1,8 +1,10 @@
-export const INFO = 'INFO'
-export const CONFIRM = 'CONFIRM'
-export const YES_NO_QUESTION = 'YES_NO_QUESTION'
-export const BLOCKING_INFO = 'BLOCKING_INFO'
-export const REMOVE_BLOCKING_INFO = 'REMOVE_BLOCKING_INFO'
+export const INFO = 'notifier/INFO'
+export const CONFIRM = 'notifier/CONFIRM'
+export const YES_NO_QUESTION = 'notifier/YES_NO_QUESTION'
+export const BLOCKING_INFO = 'notifier/BLOCKING_INFO'
+export const REMOVE_BLOCKING_INFO = 'notifier/REMOVE_BLOCKING_INFO'
+export const MODAL_COMPONENT = 'notifier/MODAL_COMPONENT'
+export const REMOVE_MODAL_COMPONENT = 'notifier/REMOVE_MODAL_COMPONENT'
 
 export const info = (type, title, message, icon, timeOut) => ({
   type: INFO,
@@ -55,5 +57,22 @@ export const blockingInfo = (id, title, message, icon) => ({
     title,
     message,
     icon
+  }
+})
+
+export const modalComponent = (id, title, message, component) => ({
+  type: MODAL_COMPONENT,
+  payload: {
+    id,
+    title,
+    message,
+    component
+  }
+})
+
+export const removeModalComponent = id => ({
+  type: REMOVE_MODAL_COMPONENT,
+  payload: {
+    id
   }
 })

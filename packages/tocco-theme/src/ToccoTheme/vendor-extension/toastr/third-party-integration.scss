@@ -17,6 +17,15 @@
   margin: .5rem;
 }
 
+.redux-toastr h1 {
+  padding: 0;
+  font-size: 1.4rem;
+  font-weight: bold;
+  background: none;
+  height: auto;
+  margin-top: 5px;
+}
+
 .redux-toastr .rrt-confirm-holder {
   z-index: 99999999;
 

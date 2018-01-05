@@ -1,3 +1,23 @@
-import {addToStore, defaultToastrOptions} from './notifier'
-import {info, confirm, yesNoQuestion, blockingInfo, removeBlockingInfo} from './actions'
-export default {addToStore, defaultToastrOptions, info, confirm, yesNoQuestion, blockingInfo, removeBlockingInfo}
+import {addToStore} from './notifier'
+import Notifier from './components/Notifier'
+import {
+  info,
+  confirm,
+  yesNoQuestion,
+  blockingInfo,
+  removeBlockingInfo,
+  modalComponent,
+  removeModalComponent
+} from './modules/actions'
+
+export default {
+  Notifier,
+  addToStore,
+  info,
+  confirm,
+  yesNoQuestion,
+  blockingInfo,
+  removeBlockingInfo,
+  modalComponent,
+  removeModalComponent
+}
