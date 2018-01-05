@@ -83,8 +83,6 @@ class SimpleFormApp extends React.Component {
 }
 
 SimpleFormApp.propTypes = {
-  title: PropTypes.string,
-  description: PropTypes.string,
   submitText: PropTypes.string,
   cancelText: PropTypes.string,
   form: PropTypes.object.isRequired,
