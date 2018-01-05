@@ -4,6 +4,7 @@ import {form} from 'tocco-util'
 import {initializeForm, submit, cancel} from '../modules/simpleForm/actions'
 import {transformModel} from '../utils'
 import {loadRelationEntity} from '../utils/relationEntity/actions'
+import {injectIntl} from 'react-intl'
 
 const mapActionCreators = {
   initializeForm,
@@ -23,4 +24,4 @@ const mapStateToProps = (state, props) => ({
   relationEntities: state.simpleForm.relationEntities
 })
 
-export default connect(mapStateToProps, mapActionCreators)(Form)
+export default connect(mapStateToProps, mapActionCreators)(injectIntl(Form))
