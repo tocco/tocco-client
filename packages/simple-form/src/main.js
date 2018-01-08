@@ -2,7 +2,6 @@ import React from 'react'
 import {appFactory, externalEvents} from 'tocco-util'
 
 import reducers, {sagas} from './modules/reducers'
-import FormContainer from './containers/FormContainer'
 import PropTypes from 'prop-types'
 
 const packageName = 'simple-form'
@@ -13,7 +12,9 @@ const EXTERNAL_EVENTS = [
 ]
 
 const initApp = (id, input, events, publicPath) => {
-  const content = <div><FormContainer/></div>
+  // workaround, if container gets imported normally, karma fails
+  const Container = require('./containers/FormContainer').default
+  const content = <div><Container/></div>
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   externalEvents.addToStore(store, events)
