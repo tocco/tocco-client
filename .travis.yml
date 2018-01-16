@@ -14,6 +14,7 @@ cache:
     - packages/merge/node_modules
     - packages/resource-scheduler/node_modules
     - packages/scheduler/node_modules
+    - packages/simple-form/node_modules
     - packages/tocco-test-util/node_modules
     - packages/tocco-theme/node_modules
     - packages/tocco-ui/node_modules

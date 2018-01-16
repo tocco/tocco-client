@@ -1,12 +1,15 @@
+import React from 'react'
 import {channel} from 'redux-saga'
 import {call, put, take} from 'redux-saga/effects'
 import notifier from '../notifier'
 import {sendRequest} from './request'
 import ClientQuestionCancelledException from './ClientQuestionCancelledException'
+import SimpleFormApp from 'tocco-simple-form/src/main'
 
 const HANDLERS = {
   ConfirmQuestionHandler: handleConfirmQuestion,
-  YesNoQuestionHandler: handleYesNoQuestion
+  YesNoQuestionHandler: handleYesNoQuestion,
+  FormQuestionHandler: handleFormQuestion
 }
 
 export function* handleClientQuestion(response, requestData, options) {
@@ -77,4 +80,26 @@ export function* handleYesNoQuestion(question) {
   yield put(notifier.yesNoQuestion(header, message, yesText, noText, cancelText, onYes, onNo, onCancel))
 
   return yield take(answerChannel)
+}
+
+export function* handleFormQuestion(question) {
+  const answerChannel = yield call(channel)
+
+  const onSend = values => answerChannel.put(answer(values))
+  const onCancel = () => answerChannel.put(answer(null))
+
+  const {id, header, message, model, form, sendText, cancelText} = question
+
+  yield put(notifier.modalComponent(id, header, message, () => (
+    <SimpleFormApp
+      onSubmit={onSend}
+      onCancel={onCancel}
+      model={model}
+      form={form}
+      submitText={sendText}
+      cancelText={cancelText}
+    />)))
+  const returnedAnswer = yield take(answerChannel)
+  yield put(notifier.removeModalComponent(id))
+  return returnedAnswer
 }

@@ -1,13 +1,15 @@
-import {call, take} from 'redux-saga/effects'
+import {call, put, take} from 'redux-saga/effects'
 import {channel} from 'redux-saga'
 import {
   handleClientQuestion,
   getAnswer,
   handleConfirmQuestion,
   handleYesNoQuestion,
-  answer
+  answer,
+  handleFormQuestion
 } from './clientQuestions'
 import {sendRequest} from './request'
+import notifier from '../notifier'
 
 describe('tocco-util', () => {
   describe('rest', () => {
@@ -231,6 +233,43 @@ describe('tocco-util', () => {
 
           expect(next.value).to.equal(ans)
           expect(next.done).to.be.true
+        })
+      })
+
+      describe('handleFormQuestion', () => {
+        it('should get and object with form values', () => {
+          const form = {}
+          const model = {}
+          const question = {
+            id: 'formquestion',
+            handler: 'FormQuestionHandler',
+            header: 'title',
+            message: 'msg',
+            model,
+            form,
+            sendText: 'ok',
+            cancelText: 'cancel'
+          }
+
+          const gen = handleFormQuestion(question)
+
+          expect(gen.next().value).to.eql(call(channel))
+          const mockedChannel = channel()
+
+          const formActionPut = gen.next(mockedChannel).value
+
+          const actionPayload = formActionPut.PUT.action.payload
+
+          expect(actionPayload.title).to.eql(question.header)
+          expect(actionPayload.message).to.eql(question.message)
+          expect(actionPayload.component).to.be.an('function')
+          expect(gen.next().value).to.eql(take(mockedChannel))
+
+          const formValues = {firstname: 'test'}
+          const ans = answer(formValues)
+
+          expect(gen.next(ans).value).to.eql(put(notifier.removeModalComponent(question.id)))
+          expect(gen.next().done).to.be.true
         })
       })
     })

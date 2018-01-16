@@ -1,0 +1,97 @@
+{
+  "submitText": "Ok",
+  "cancelText": "Cancel",
+  "form": {
+    "name": "Acceptor_detail",
+    "type": "ch.tocco.nice2.model.form.components.Form",
+    "displayType": "EDITABLE",
+    "scopes": [],
+    "children": [
+      {
+        "name": "box1",
+        "type": "ch.tocco.nice2.model.form.components.layout.HorizontalBox",
+        "displayType": "EDITABLE",
+        "scopes": [],
+        "children": [
+          {
+            "name": "box1",
+            "type": "ch.tocco.nice2.model.form.components.layout.VerticalBox",
+            "displayType": "EDITABLE",
+            "scopes": [],
+            "children": [
+              {
+                "name": "textQuestion",
+                "type": "ch.tocco.nice2.model.form.components.simple.TextField",
+                "displayType": "EDITABLE",
+                "scopes": [],
+                "children": [],
+                "label": "Text",
+                "useLabel": "YES",
+                "dataType": "string",
+                "reverseRelationName": null,
+                "defaultValue": "Test"
+              },
+              {
+                "name": "numberQuestion",
+                "type": "ch.tocco.nice2.model.form.components.simple.NumberField",
+                "displayType": "EDITABLE",
+                "scopes": [],
+                "children": [],
+                "label": "Number",
+                "useLabel": "YES",
+                "dataType": "integer",
+                "reverseRelationName": null,
+                "defaultValue": 99
+              },
+              {
+                "name": "booleanQuestion",
+                "type": "ch.tocco.nice2.model.form.components.simple.Checkbox",
+                "displayType": "EDITABLE",
+                "scopes": [],
+                "children": [],
+                "label": "Bool",
+                "useLabel": "YES",
+                "dataType": "boolean",
+                "reverseRelationName": null,
+                "defaultValue": true
+              },
+              {
+                "name": "relMulti_entity",
+                "type": "ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
+                "displayType": "EDITABLE",
+                "children": [],
+                "label": "Dummy entity",
+                "useLabel": "YES"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "label": null,
+    "useLabel": "NO"
+  },
+  "model": {
+    "fields": [
+      {
+        "fieldName": "textQuestion",
+        "validation": {
+          "mandatory": true,
+          "minLength": 3
+        }
+      }
+    ],
+    "relations": [
+      {
+        "relationName": "relMulti_entity",
+        "targetEntity": "Dummy_entity",
+        "reverseRelationName": "relUser",
+        "multi": true,
+        "validation": {
+          "mandatory": true
+        }
+      }
+    ]
+  }
+}
+
