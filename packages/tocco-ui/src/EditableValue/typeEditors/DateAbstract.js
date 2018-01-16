@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {injectIntl, intlShape} from 'react-intl'
+import _isEqual from 'lodash/isEqual'
 
 class DateAbstract extends React.Component {
   Flatpickr = null
@@ -52,13 +53,16 @@ class DateAbstract extends React.Component {
   }
 
   componentWillReceiveProps(props) {
-    let locale = this.localeMap[props.intl.locale]
-    if (!locale) {
-      locale = this.Flatpickr.l10ns.en
+    if (this.localeMap) {
+      let locale = this.localeMap[props.intl.locale]
+      if (!locale) {
+        locale = this.Flatpickr.l10ns.en
+      }
+      this.Flatpickr.localize(locale)
+      this.flatpickr.set('locale', locale)
     }
-    this.Flatpickr.localize(locale)
-    this.flatpickr.set('locale', locale)
-    if (props.value) {
+
+    if (this.flatpickr && !_isEqual(this.props.value, props.value)) {
       this.flatpickr.setDate(props.value)
     }
   }
