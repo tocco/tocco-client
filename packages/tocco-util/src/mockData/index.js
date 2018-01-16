@@ -7,6 +7,8 @@ export default {
   setupFetchMock,
   data: {
     userLisForm: require('./data/user_list_form'),
+    userDetailForm: require('./data/user_detail_form'),
+
     userListSmallForm: require('./data/user_list_small_form.json'),
     userSearchForm: require('./data/user_search_form'),
     dummyEntitySearchForm: require('./data/dummy_entity_search_form'),

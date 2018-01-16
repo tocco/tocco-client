@@ -9,15 +9,14 @@ describe('tocco-util', () => {
   describe('formField', () => {
     describe('fieldFactory', () => {
       it('should return a FormField with correct edit Field', () => {
-        const mapping = {'ch.tocco.nice2.model.form.components.simple.TextField': editableValueFactory('string')}
+        const mapping = {'string': editableValueFactory('string')}
 
         const formDefinitionField = {
           name: 'firstname',
-          type: 'ch.tocco.nice2.model.form.components.simple.TextField',
-          displayType: 'EDITABLE',
+          dataType: 'string',
+          readonly: false,
           children: [],
-          label: 'Vorname',
-          useLabel: 'YES'
+          label: 'Vorname'
         }
         const formFieldData = {
           formDefinitionField
@@ -32,18 +31,16 @@ describe('tocco-util', () => {
 
       it('should return a FormField with correct edit Field', () => {
         const mapping = {
-          'ch.tocco.nice2.model.form.components.simple.RangeField': {
+          'range': {
             'date': editableValueFactory('date-range'),
             'birthdate': editableValueFactory('date-range')
           }}
 
         const formDefinitionField = {
           name: 'range',
-          type: 'ch.tocco.nice2.model.form.components.simple.RangeField',
-          displayType: 'EDITABLE',
+          dataType: 'range',
           children: [],
-          label: 'range',
-          useLabel: 'YES'
+          label: 'range'
         }
 
         const modelField = {

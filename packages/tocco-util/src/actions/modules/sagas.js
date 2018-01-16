@@ -4,6 +4,7 @@ import * as actions from './actions'
 import notifier from '../../notifier'
 import {ClientQuestionCancelledException, requestSaga} from '../../rest'
 import errorLogging from '../../errorLogging'
+import actionTypes from '../actionTypes'
 
 export default function* sagas(config) {
   yield all([
@@ -14,13 +15,13 @@ export default function* sagas(config) {
 export function* invokeAction(config, {payload}) {
   const {definition, entity, ids} = payload
 
-  if (definition.type === 'ch.tocco.nice2.model.form.components.action.CreateAction') {
+  if (definition.actionType === actionTypes.CUSTOM) {
     // CUSTOM
-  } else if (definition.type === 'ch.tocco.nice2.model.form.components.action.SimpleAction') {
+  } else if (definition.actionType === actionTypes.SIMPLE) {
     const confirmation = yield call(handleConfirm, definition, ids)
     if (confirmation.answer) {
       const randomId = Math.random()
-      const title = definition.config.progressMsg || 'process...'
+      const title = definition.progressMsg || 'process...'
 
       yield put(notifier.blockingInfo(randomId, title, null, 'circle-o-notch fa-spin fa-fw'))
       yield call(invokeSimpleAction, definition, entity, ids)
@@ -32,7 +33,7 @@ export function* invokeAction(config, {payload}) {
 export const answer = answer => ({answer})
 
 export function* handleConfirm(definition, ids) {
-  if (definition.config.confirm) {
+  if (definition.showConfirmMessage) {
     const answerChannel = yield call(channel)
     const onYes = () => answerChannel.put(answer(true))
     const onCancel = () => answerChannel.put(answer(null))
@@ -54,9 +55,8 @@ export function* handleConfirm(definition, ids) {
 }
 
 export function* invokeSimpleAction(definition, entity, ids) {
-  const {config} = definition
   try {
-    const response = yield call(requestSaga, config.endpoint, {method: 'POST', body: {ids, entity}})
+    const response = yield call(requestSaga, definition.endpoint, {method: 'POST', body: {ids, entity}})
 
     const successfully = response.body.successful === true
 
@@ -70,7 +70,7 @@ export function* invokeSimpleAction(definition, entity, ids) {
     if (!(error instanceof ClientQuestionCancelledException)) {
       yield put(errorLogging.logError(
         'client.common.unexpectedError',
-        'client.entity-detail.saveError',
+        'client.component.actions.errorText',
         error
       ))
     }

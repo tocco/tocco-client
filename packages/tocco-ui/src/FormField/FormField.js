@@ -22,14 +22,14 @@ const FormField = props => {
     'col-sm-3',
     'control-label',
     {
-      'sr-only': !props.useLabel
+      'sr-only': !props.label
     })
 
   const labelAlt = `${props.label} ${props.mandatory ? props.mandatoryTitle : ''}`
 
   const editableValueWrapperClass = classNames({
-    'col-sm-9': props.useLabel,
-    'col-sm-12': !props.useLabel
+    'col-sm-9': props.label,
+    'col-sm-12': !props.label
   })
 
   return (
@@ -46,7 +46,6 @@ const FormField = props => {
 }
 
 FormField.defaultProps = {
-  useLabel: true,
   mandatoryTitle: 'is a mandatory field'
 }
 
@@ -59,7 +58,6 @@ FormField.propTypes = {
   hidden: PropTypes.bool,
   touched: PropTypes.bool,
   dirty: PropTypes.bool,
-  useLabel: PropTypes.bool,
   error: PropTypes.objectOf(PropTypes.arrayOf(
     PropTypes.oneOfType([PropTypes.node, PropTypes.string]))
   ),

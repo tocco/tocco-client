@@ -11,6 +11,10 @@ import {
   transformFieldNameBack
 } from './reduxForm'
 
+import componentTypes from './componentTypes'
+import layoutTypes from './layoutTypes'
+import scopes from './scopes'
+
 export default {
   formErrorsUtil,
   initFormBuilder,
@@ -21,5 +25,8 @@ export default {
   validationErrorToFormError,
   transformFieldName,
   transformFieldNameBack,
-  syncValidation
+  syncValidation,
+  componentTypes,
+  layoutTypes,
+  scopes
 }

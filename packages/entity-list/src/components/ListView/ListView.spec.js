@@ -12,14 +12,17 @@ const props = {
   formDefinition: {
     children: [
       {
-        type: 'ch.tocco.nice2.model.form.components.table.Table',
+        componentType: 'layout',
+        layoutType: 'table',
         children: []
       },
       {
-        type: 'ch.tocco.nice2.model.form.components.action.SimpleAction'
+        componentType: 'action',
+        actionType: 'simple'
       },
       {
-        type: 'ch.tocco.nice2.model.form.components.action.SimpleAction'
+        componentType: 'action',
+        actionType: 'simple'
       }
     ]
   },

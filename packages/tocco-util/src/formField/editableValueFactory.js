@@ -25,11 +25,11 @@ const getOptions = (type, formField, modelField, utils) => {
       break
     case 'remote':
     case 'multi-remote':
-      options.options = _get(utils, 'remoteEntities.' + formField.name + '.entities', [])
-      options.moreOptionsAvailable = _get(utils, 'remoteEntities.' + formField.name + '.moreOptionsAvailable', false)
-      options.isLoading = _get(utils, 'remoteEntities.' + formField.name + '.loading', false)
+      options.options = _get(utils, 'remoteEntities.' + formField.id + '.entities', [])
+      options.moreOptionsAvailable = _get(utils, 'remoteEntities.' + formField.id + '.moreOptionsAvailable', false)
+      options.isLoading = _get(utils, 'remoteEntities.' + formField.id + '.loading', false)
 
-      options.fetchOptions = searchTerm => utils.loadRemoteEntity(formField.name, modelField.targetEntity, searchTerm)
+      options.fetchOptions = searchTerm => utils.loadRemoteEntity(formField.id, modelField.targetEntity, searchTerm)
 
       if (utils.intl) {
         options.searchPromptText = utils.intl.formatMessage({id: 'client.component.remoteselect.searchPromptText'})
@@ -40,7 +40,7 @@ const getOptions = (type, formField, modelField, utils) => {
       }
       break
     case 'document':
-      options.field = formField.name
+      options.field = formField.id
       options.upload = utils.uploadDocument
       options.uploadText = utils.intl.formatMessage({id: 'client.component.upload.upload'})
       options.uploadingText = utils.intl.formatMessage({id: 'client.component.upload.uploading'})
@@ -48,7 +48,7 @@ const getOptions = (type, formField, modelField, utils) => {
       options.deleteText = utils.intl.formatMessage({id: 'client.component.upload.deleteTitle'})
       break
     case 'search-filter':
-      options.field = formField.name
+      options.field = formField.id
       options.model = formField.model
       options.multi = formField.multiple ? formField.multiple : false
       options.store = utils.searchFilters
@@ -74,7 +74,7 @@ const getEvents = (type, field, modelField, util) => {
     case 'multi-remote':
       if (util.loadRemoteEntity) {
         events.onFocus = () => {
-          util.loadRemoteEntity(field.name, modelField.targetEntity, '')
+          util.loadRemoteEntity(field.id, modelField.targetEntity, '')
         }
       }
       break

@@ -15,7 +15,8 @@ describe('entity-list', () => {
             const formDefinition = {
 
               children: [{
-                type: 'ch.tocco.nice2.model.form.components.table.Table',
+                layoutType: 'table',
+                componentType: 'layout',
                 sorting
               }]
             }
@@ -26,7 +27,8 @@ describe('entity-list', () => {
           it('should return empty array in case of no sorting', () => {
             const formDefinition = {
               children: [{
-                type: 'ch.tocco.nice2.model.form.components.table.Table'
+                layoutType: 'table',
+                componentType: 'layout'
               }]
             }
             const result = forms.getSorting(formDefinition)
@@ -49,25 +51,20 @@ describe('entity-list', () => {
 
         describe('getColumnDefinition', () => {
           it('should return an array', () => {
-            const field1 = {name: 'name1', type: 'type', displayType: 'EDITABLE', label: 'label'}
-            const field2 = {name: 'name2', type: 'type', displayType: 'EDITABLE', label: 'label'}
+            const field1 = {id: 'name1', componentType: 'field', dataType: 'string', label: 'label'}
+            const field2 = {id: 'name2', componentType: 'field', dataType: 'string', label: 'label'}
 
             const formDefinition = {
               children: [
                 {
-                  displayType: 'EDITABLE',
-                  type: 'ch.tocco.nice2.model.form.components.table.Column',
-                  name: 'lb1',
+                  id: 'lb1',
                   label: 'label1',
                   useLabel: 'YES',
                   children: [field1],
                   sortable: true
                 }, {
-                  displayType: 'EDITABLE',
-                  type: 'ch.tocco.nice2.model.form.components.table.Column',
-                  name: 'lb2',
+                  id: 'lb2',
                   label: 'label2',
-                  useLabel: 'YES',
                   children: [field2],
                   sortable: false
                 }
@@ -78,42 +75,36 @@ describe('entity-list', () => {
             const result = forms.getColumnDefinition(formDefinition)
 
             const expectedColumnDefinition = [
-              {label: 'label1', name: 'lb1', children: [field1], sortable: true},
-              {label: 'label2', name: 'lb2', children: [field2], sortable: false}
+              {label: 'label1', id: 'lb1', children: [field1], sortable: true},
+              {label: 'label2', id: 'lb2', children: [field2], sortable: false}
             ]
 
             expect(result).to.eql(expectedColumnDefinition)
           })
 
           it('should ignore HIDDEN columns and hidden fields', () => {
-            const field1 = {name: 'name1', type: 'type', displayType: 'EDITABLE', label: 'label'}
-            const field2Hidden = {name: 'name2', type: 'type', displayType: 'HIDDEN', label: 'label'}
+            const field1 = {id: 'name1', componentType: 'field', label: 'label'}
+            const field2Hidden = {id: 'name2', componentType: 'field', hidden: true, label: 'label'}
 
             const formDefinition = {
               children: [
                 {
-                  displayType: 'EDITABLE',
-                  type: 'ch.tocco.nice2.model.form.components.table.Column',
-                  name: 'lb1',
+                  hidden: false,
+                  id: 'lb1',
                   label: 'label1',
-                  useLabel: 'YES',
                   children: [field1],
                   sortable: true
                 }, {
-                  displayType: 'EDITABLE',
-                  type: 'ch.tocco.nice2.model.form.components.table.Column',
-                  name: 'lb2',
+                  hidden: false,
+                  id: 'lb2',
                   label: 'label2',
-                  useLabel: 'NO',
                   children: [field2Hidden],
                   sortable: true
                 },
                 {
-                  displayType: 'HIDDEN',
-                  type: 'ch.tocco.nice2.model.form.components.table.Column',
-                  name: 'lb3',
+                  hidden: true,
+                  id: 'lb3',
                   label: 'label3',
-                  useLabel: 'YES',
                   children: [field1],
                   sortable: true
                 }
@@ -123,7 +114,7 @@ describe('entity-list', () => {
             const result = forms.getColumnDefinition(formDefinition)
 
             const expectedcolumnDefinition = [
-              {label: 'label1', name: 'lb1', children: [field1], sortable: true}
+              {label: 'label1', id: 'lb1', children: [field1], sortable: true}
             ]
             expect(result).to.eql(expectedcolumnDefinition)
           })
@@ -173,27 +164,30 @@ describe('entity-list', () => {
           it('should return array of all fields but none more than once', () => {
             const formDefintion = {
               children: [{
-                name: 'table',
-                type: 'ch.tocco.nice2.model.form.components.table.Table',
+                componentType: 'layout',
+                layoutType: 'table',
                 children: [
                   {
-                    displayType: 'EDITABLE',
-                    name: 'lb1',
+                    hidden: false,
+                    id: 'lb1',
                     label: 'Fullname',
                     useLabel: 'YES',
+                    componentType: 'layout',
+                    layoutType: 'vertical-box',
                     children: [
-                      {name: 'firstname', type: 'text', displayType: 'EDITABLE', label: 'Firstname'},
-                      {name: 'lastname', type: 'text', displayType: 'EDITABLE', label: 'Lastname'}],
+                      {id: 'firstname', dataType: 'text', componentType: 'field', hidden: false, label: 'Firstname'},
+                      {id: 'lastname', dataType: 'text', componentType: 'field', hidden: false, label: 'Lastname'}],
                     sortable: true
                   },
                   {
-                    displayType: 'EDITABLE',
+                    hidden: false,
                     name: 'lb3',
-                    label: 'Test',
-                    useLabel: 'NO',
+                    label: null,
+                    componentType: 'layout',
+                    layoutType: 'vertical-box',
                     children: [
-                      {name: 'firstname', type: 'text', displayType: 'EDITABLE', label: 'Firstname'},
-                      {name: 'email', type: 'text', displayType: 'EDITABLE', label: 'Mail'}
+                      {id: 'firstname', dataType: 'text', componentType: 'field', hidden: false, label: 'Firstname'},
+                      {id: 'email', dataType: 'text', componentType: 'field', hidden: false, label: 'Mail'}
 
                     ],
                     sortable: true
@@ -207,29 +201,34 @@ describe('entity-list', () => {
             expect(result).to.eql(['firstname', 'lastname', 'email'])
           })
 
-          it('should ignore actions and other ignored fields', () => {
+          it('should ignore actions and other fields', () => {
             const formDefinition = {
               children: [{
-                name: 'table',
-                type: 'ch.tocco.nice2.model.form.components.table.Table',
+                componentType: 'layout',
+                layoutType: 'table',
                 children: [
                   {
-                    displayType: 'EDITABLE',
-                    name: 'lb1',
-                    label: 'Fullname',
-                    useLabel: true,
+                    hidden: false,
+                    id: 'box2',
+                    label: null,
+                    componentType: 'layout',
+                    layoutType: 'vertical-box',
                     children: [
                       {
-                        name: 'description',
-                        type: 'ch.tocco.nice2.model.form.components.simple.DescriptionField'
+                        id: 'description',
+                        componentType: 'field'
                       },
                       {
-                        'type': 'ch.tocco.nice2.model.form.components.action.SimpleAction',
-                        'name': 'exampleSimpelAction'
+                        componentType: 'action',
+                        id: 'exampleSimpelAction'
                       },
                       {
-                        'type': 'ch.tocco.nice2.model.form.components.X',
-                        'name': 'firstname'
+                        componentType: 'display',
+                        id: 'firstname'
+                      },
+                      {
+                        id: 'description2',
+                        componentType: 'field'
                       }
                     ],
                     sortable: true
@@ -240,7 +239,7 @@ describe('entity-list', () => {
 
             const result = forms.getFields(formDefinition)
 
-            expect(result).to.eql(['firstname'])
+            expect(result).to.eql(['description', 'firstname', 'description2'])
           })
         })
       })

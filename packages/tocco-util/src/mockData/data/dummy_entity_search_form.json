@@ -5,45 +5,65 @@
     }
   },
   "form": {
-    "name": "User_detail_relDummySubGrid_search",
-    "type": "ch.tocco.nice2.model.form.components.Form",
-    "displayType": "EDITABLE",
+    "id":  "User_detail_relDummySubGrid_search",
+    "label": null,
     "children": [
       {
-        "name": "box1",
-        "type": "ch.tocco.nice2.model.form.components.layout.VerticalBox",
-        "displayType": "EDITABLE",
+        "id":  "box1",
+        "componentType": "layout",
+        "layoutType": "vertical-box",
+        "hidden": false,
         "children": [
           {
-            "name": "txtFulltext",
-            "type": "ch.tocco.nice2.model.form.components.simple.TextField",
-            "displayType": "EDITABLE",
-            "children": [],
+            "componentType": "field-set",
+            "id": "txtFulltext",
             "label": "Entity",
-            "useLabel": "YES"
+            "scopes": [],
+            "hidden": false,
+            "children": [
+              {
+                "id": "txtFulltext",
+                "componentType": "fulltext-search",
+                "dataType": "fulltext-search",
+                "label": null
+              }
+            ]
           },
           {
-            "name": "label",
-            "type": "ch.tocco.nice2.model.form.components.simple.TextField",
-            "displayType": "EDITABLE",
-            "children": [],
+            "componentType": "field-set",
+            "id": "label",
             "label": "Bezeichnung",
-            "useLabel": "YES"
+            "scopes": [],
+            "hidden": false,
+            "children": [
+              {
+                "id": "label",
+                "componentType": "field",
+                "dataType": "string",
+                "label": null
+              }
+            ]
           },
           {
-            "name": "active",
-            "type": "ch.tocco.nice2.model.form.components.simple.Checkbox",
-            "displayType": "EDITABLE",
-            "children": [ ],
+            "componentType": "field-set",
+            "id": "active",
             "label": "Aktiv",
-            "useLabel": "YES"
+            "scopes": [],
+            "hidden": false,
+            "children": [
+              {
+                "id": "active",
+                "componentType": "field",
+                "dataType": "boolean",
+                "label": null
+              }
+            ]
           }
         ],
         "label": null,
         "useLabel": "NO"
       }
     ],
-    "label": "##forms.User_detail_relDummySubGrid_search:de_CH:nice2.optional.user",
-    "useLabel": "YES"
+    "model": "Dummy_entity"
   }
 }

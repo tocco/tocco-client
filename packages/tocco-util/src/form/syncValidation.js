@@ -68,7 +68,7 @@ export const mandatoryValidator = (value, isMandatory) => {
       mandatory: [
         <FormattedMessage
           key="syncValidationRequired"
-          id="client.entity-detail.syncValidationRequired"
+          id="client.component.form.syncValidationRequired"
         />
       ]
     }
@@ -83,7 +83,7 @@ export const minLengthValidator = (value, minLength) => {
       minLength: [
         <FormattedMessage
           key="syncValidationMinLength"
-          id="client.entity-detail.syncValidationMinLength"
+          id="client.component.form.syncValidationMinLength"
           values={{minLength}}
         />
       ]
@@ -97,7 +97,7 @@ export const maxLengthValidator = (value, maxLength) => {
       maxLength: [
         <FormattedMessage
           key="syncValidationMaxLength"
-          id="client.entity-detail.syncValidationMaxLength"
+          id="client.component.form.syncValidationMaxLength"
           values={{maxLength}}
         />
       ]

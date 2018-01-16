@@ -2,13 +2,11 @@ import reducer from './modules/reducer'
 import appFactory from '../appFactory'
 import sagas from './modules/sagas'
 
-export const ACTION_NAMESPACE = 'ch.tocco.nice2.model.form.components.action'
-export const OLD_ACTION_TYPE = `${ACTION_NAMESPACE}.Action`
-export const ACTION_GROUP_TYPE = `${ACTION_NAMESPACE}.ActionGroup`
+export const COMPONENT_TYPE_ACTION = 'action'
+export const COMPONENT_TYPE_ACTION_GROUP = 'action-group'
 
-export const isAction = type => !!type && type.startsWith(ACTION_NAMESPACE)
-
-export const getTypeName = fullType => fullType.split('.').pop()
+export const isAction = componentType =>
+  !!componentType && (componentType === COMPONENT_TYPE_ACTION_GROUP || componentType === COMPONENT_TYPE_ACTION)
 
 export const addToStore = (store, config) => {
   appFactory.injectReducers(store, {actions: reducer})

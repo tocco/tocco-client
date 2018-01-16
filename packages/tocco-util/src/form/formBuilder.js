@@ -4,12 +4,12 @@ import {Field} from 'redux-form'
 import {getFieldId} from './helpers'
 import ReduxFormFieldAdapter from './ReduxFormFieldAdapter'
 import _get from 'lodash/get'
-import _startsWith from 'lodash/startsWith'
+import _pick from 'lodash/pick'
 import {LayoutBox} from 'tocco-ui'
 import actions from '../actions'
+import componentTypes from './componentTypes'
+import layoutTypes from './layoutTypes'
 import {isAction} from '../actions/actions'
-
-const layoutTypeNamespace = 'ch.tocco.nice2.model.form.components.layout.'
 
 export default (
   entity,
@@ -21,73 +21,91 @@ export default (
   formFieldMapping,
   readOnlyFormFieldMapping,
   beforeRenderField,
-  mode
+  mode,
+  componentMapping
 ) => {
-  const isReadOnlyForm = formDefinition.displayType === 'READONLY'
+  const isReadOnlyForm = formDefinition.readonly
 
   const formTraverser = children => {
     const result = []
     for (let i = 0; i < children.length; i++) {
       const child = children[i]
-      if (_startsWith(child.type, layoutTypeNamespace)) {
-        const type = child.type.substr(layoutTypeNamespace.length, child.type.length)
+      if (child.componentType === componentTypes.LAYOUT) {
         const travers = () => formTraverser(child.children)
-        result.push(createLayoutComponent(child, type, i, travers))
-      } else if (isAction(child.type)) {
-        result.push(
-          <actions.Action
-            definition={child}
-            entity={entity.model}
-            ids={[...(entity.key ? [entity.key] : [])]}
-            mode={mode}
-            key={'detailAction' + i}
-          />
-        )
-      } else {
-        result.push(createField(child, i))
+        result.push(createLayoutComponent(child, child.layoutType, i, travers))
+      } else if (isAction(child.componentType)) {
+        result.push(createAction(child, i))
+      } else if (child.componentType === componentTypes.FIELD_SET) {
+        result.push(createFieldSet(child, i))
+      } else if (componentMapping && componentMapping[child.componentType]) {
+        const component = componentMapping[child.componentType]
+        const fieldName = child.id
+        const modelField = model[fieldName]
+        return component(child, modelField, i)
       }
     }
 
     return result
   }
 
-  const shouldRenderField = (formDefinitionField, entityField) => {
-    if (mode && formDefinitionField.scopes && formDefinitionField.scopes.length > 0
-      && !formDefinitionField.scopes.includes(mode)) {
-      return false
-    }
-
-    if (formDefinitionField.displayType === 'HIDDEN') {
-      return false
-    }
-
-    if (beforeRenderField && beforeRenderField(formDefinitionField.name) === false) {
-      return false
-    }
-
-    const hasEmptyValue = (fieldName, formValues) => {
-      if (!formValues.hasOwnProperty(fieldName)) {
-        return false
-      } else {
-        const value = formValues[fieldName]
-        return (value == null || value === '' || (Array.isArray(value) && value.length === 0))
-      }
-    }
-
-    if (entityField) {
-      const isReadable = _get(entityField, 'value.readable', true)
-      if (!isReadable) {
-        return false
-      }
-    }
-
-    return !(isReadOnlyForm && hasEmptyValue(formDefinitionField.name, formValues))
+  const createAction = (child, key) => {
+    return <actions.Action
+      definition={child}
+      entity={entity.model}
+      ids={[...(entity.key ? [entity.key] : [])]}
+      mode={mode}
+      key={'detailAction' + key}
+    />
   }
 
-  const createField = (formDefinitionField, key) => {
-    const fieldName = formDefinitionField.name
+  const createFieldSet = (fieldSet, key) => {
+    const fieldDefinition = fieldSet.children.find(child => !isAction(child.componentType))
+
+    if (!fieldDefinition) {
+      return null
+    }
+
+    const formDefinitionField = {
+      ..._pick(fieldSet, ['label', 'hidden', 'readonly', 'scopes']),
+      ..._pick(fieldDefinition, ['componentType', 'dataType', 'id', 'defaultValue'])
+    }
+
+    const fieldName = formDefinitionField.id
     const entityField = entity ? entity.paths[fieldName] : null
     const modelField = model[fieldName]
+
+    const shouldRenderField = (formDefinitionField, entityField) => {
+      if (mode && formDefinitionField.scopes && formDefinitionField.scopes.length > 0
+        && !formDefinitionField.scopes.includes(mode)) {
+        return false
+      }
+
+      if (formDefinitionField.hidden) {
+        return false
+      }
+
+      if (beforeRenderField && beforeRenderField(formDefinitionField.id) === false) {
+        return false
+      }
+
+      const hasEmptyValue = (fieldName, formValues) => {
+        if (!formValues.hasOwnProperty(fieldName)) {
+          return false
+        } else {
+          const value = formValues[fieldName]
+          return (value == null || value === '' || (Array.isArray(value) && value.length === 0))
+        }
+      }
+
+      if (entityField) {
+        const isReadable = _get(entityField, 'value.readable', true)
+        if (!isReadable) {
+          return false
+        }
+      }
+
+      return !(isReadOnlyForm && hasEmptyValue(formDefinitionField.id, formValues))
+    }
 
     if (shouldRenderField(formDefinitionField, entityField, formValues, isReadOnlyForm)) {
       return (
@@ -111,10 +129,8 @@ export default (
   }
 
   const createLayoutComponent = (field, type, key, traverser) => {
-    if (type === 'HorizontalBox' || type === 'VerticalBox') {
-      const alignment = type === 'HorizontalBox' ? 'horizontal' : 'vertical'
-      const label = field.useLabel ? field.label : undefined
-
+    if (type === layoutTypes.HORIZONTAL_BOX || type === layoutTypes.VERTICAL_BOX) {
+      const alignment = type === layoutTypes.HORIZONTAL_BOX ? 'horizontal' : 'vertical'
       const children = traverser()
 
       if (children == null || (Array.isArray(children) && children.every(e => e == null))) {
@@ -122,7 +138,7 @@ export default (
       }
 
       return (
-        <LayoutBox key={key} label={label} alignment={alignment}>
+        <LayoutBox key={key} label={field.label} alignment={alignment}>
           {children}
         </LayoutBox>
       )
