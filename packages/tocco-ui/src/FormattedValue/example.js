@@ -36,7 +36,10 @@ const Example = () => {
           </tr>
           <tr>
             <td>Date</td>
-            <td><FormattedValue type="date" value="2016-12-06"/></td>
+            <td>
+              <FormattedValue type="date" value="1980-08-02"/><br/>
+              <FormattedValue type="date" value="1988-11-14"/>
+            </td>
           </tr>
           <tr>
             <td>Time</td>
