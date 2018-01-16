@@ -46,47 +46,62 @@ const testData = {
 
   formFieldUtils: {},
   formDefinition: {
-    'name': 'UserSearch_detail',
-    'type': 'ch.tocco.nice2.model.form.components.Form',
-    'displayType': 'READONLY',
+    'id': 'UserSearch_detail',
+    'readonly': true,
     'children': [
       {
-        'name': 'box1',
-        'type': 'ch.tocco.nice2.model.form.components.layout.VerticalBox',
-        'displayType': 'READONLY',
+        'id': 'box1',
+        'componentType': 'layout',
+        'layoutType': 'vertical-box',
+        'readonly': true,
         'children': [
           {
-            'name': 'box1',
-            'type': 'ch.tocco.nice2.model.form.components.layout.HorizontalBox',
+            'id': 'box1',
+            'componentType': 'layout',
+            'layoutType': 'horizontal-box',
             'displayType': 'READONLY',
             'children': [
               {
-                'name': 'user_information',
-                'type': 'ch.tocco.nice2.model.form.components.layout.VerticalBox',
-                'displayType': 'READONLY',
+                'id': 'user_information',
+                'componentType': 'layout',
+                'layoutType': 'vertical-box',
+                'readonly': true,
                 'children': [
                   {
-                    'name': 'firstname',
-                    'scopes': ['create'],
-                    'type': 'ch.tocco.nice2.model.form.components.simple.TextField',
-                    'displayType': 'READONLY',
-                    'children': [],
+                    'id': 'firstname',
+                    'componentType': 'field-set',
                     'label': 'Vorname',
-                    'useLabel': 'YES'
+                    'scopes': ['create'],
+                    'hidden': false,
+                    'readonly': true,
+                    'children': [
+                      {
+                        'id': 'firstname',
+                        'componentType': 'field',
+                        'dataType': 'string',
+                        'label': null
+                      }
+                    ]
                   },
                   {
-                    'name': 'lastname',
-                    'type': 'ch.tocco.nice2.model.form.components.simple.TextField',
-                    'displayType': 'READONLY',
-                    'children': [],
+                    'id': 'lastname',
+                    'componentType': 'field-set',
                     'label': 'Nachname',
-                    'useLabel': 'YES'
+                    'hidden': false,
+                    'readonly': true,
+                    'children': [
+                      {
+                        'id': 'lastname',
+                        'componentType': 'field',
+                        'dataType': 'string',
+                        'label': null
+                      }
+                    ]
                   }
                 ]
               }
             ],
-            'label': '##forms.UserSearch_detail:de_CH:nice2.optional.usersearch',
-            'useLabel': 'YES'
+            'label': null
           }
         ]
       }]

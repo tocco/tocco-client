@@ -38,7 +38,10 @@ class SearchForm extends React.Component {
       props.searchFormDefinition,
       props.formValues,
       formFieldUtils,
-      formField.defaultMapping,
+      {
+        ...formField.defaultMapping,
+        'fulltext-search': formField.editableValueFactory('string')
+      },
       formField.defaultMapping,
       this.shouldRenderField,
       'search'

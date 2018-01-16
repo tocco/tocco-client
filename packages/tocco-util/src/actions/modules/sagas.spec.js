@@ -28,7 +28,8 @@ describe('tocco-util', () => {
             const config = {}
             const payload = {
               definition: {
-                type: 'ch.tocco.nice2.model.form.components.action.SimpleAction',
+                actionType: 'simple',
+                componentType: 'action',
                 config: {}
               },
               entity: 'User',

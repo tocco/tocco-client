@@ -1,19 +1,16 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {MenuItem} from 'react-bootstrap'
-
-import {getTypeName} from '../actions'
+import actionTypes from '../actionTypes'
 
 const GroupElement = ({definition, onClick, onSelect}) => {
-  const typeName = getTypeName(definition.type)
-
-  if (typeName === 'GroupDivider') {
+  if (definition.actionType === actionTypes.DIVIDER) {
     return <MenuItem divider/>
   }
 
   return (
-    <MenuItem disabled={definition.readOnly === true} onClick={() => {
-      if (!definition.readOnly) {
+    <MenuItem disabled={definition.readonly === true} onClick={() => {
+      if (!definition.readonly) {
         setTimeout(() => onSelect(), 100)
         onClick(definition)
       }

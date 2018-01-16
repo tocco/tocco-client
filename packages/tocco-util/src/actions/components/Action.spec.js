@@ -9,19 +9,11 @@ describe('tocco-util', () => {
   describe('actions', () => {
     describe('components', () => {
       describe('Action', () => {
-        it('should return null for old actions', () => {
-          const definition = {
-            type: 'ch.tocco.nice2.model.form.components.action.Action'
-          }
-
-          const wrapper = shallow(<Action definition={definition} onClick={EMPTY_FUNC}/>)
-
-          expect(wrapper.type()).to.be.null
-        })
-
         it('should return null for if mode does not fit scopes', () => {
           const definition = {
-            type: 'ch.tocco.nice2.model.form.components.action.SimpleAction'
+            componentType: 'action',
+            actionType: 'simple',
+            id: 'test'
           }
           const props = {onClick: EMPTY_FUNC}
           expect(
@@ -37,11 +29,12 @@ describe('tocco-util', () => {
 
         it('should return groups', () => {
           const definition = {
-            type: 'ch.tocco.nice2.model.form.components.action.ActionGroup',
+            componentType: 'action-group',
             label: 'test',
             children: [
               {
-                type: 'ch.tocco.nice2.model.form.components.action.SimpleAction'
+                componentType: 'action',
+                actionType: 'SIMPLE'
               }
             ]
           }
@@ -52,13 +45,15 @@ describe('tocco-util', () => {
 
         it('should return groups with main action', () => {
           const definition = {
-            type: 'ch.tocco.nice2.model.form.components.action.ActionGroup',
+            componentType: 'action-group',
             action: {
-              type: 'ch.tocco.nice2.model.form.components.action.SimpleAction'
+              componentType: 'action',
+              actionType: 'simple'
             },
             children: [
               {
-                type: 'ch.tocco.nice2.model.form.components.action.SimpleAction'
+                componentType: 'action',
+                actionType: 'simple'
               }
             ]
           }

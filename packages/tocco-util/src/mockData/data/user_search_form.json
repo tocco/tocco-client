@@ -5,92 +5,153 @@
     }
   },
   "form": {
-    "name": "User_search",
+    "id": "User_search",
     "type": "ch.tocco.nice2.model.form.components.Form",
-    "displayType": "EDITABLE",
+    "readonly": false,
     "children": [
       {
-        "name": "box1",
-        "type": "ch.tocco.nice2.model.form.components.layout.VerticalBox",
-        "displayType": "EDITABLE",
+        "id": "box1",
+        "componentType": "layout",
+        "layoutType": "vertical-box",
+        "readonly": false,
         "children": [
           {
-            "name": "txtFulltext",
-            "type": "ch.tocco.nice2.model.form.components.simple.TextField",
-            "displayType": "EDITABLE",
-            "children": [],
+            "id": "txtFulltext",
             "label": "Person",
-            "useLabel": "YES"
-          },
-          {
-            "name": "searchFilter",
-            "type": "ch.tocco.nice2.model.form.components.simple.SearchFilterField",
-            "displayType": "EDITABLE",
-            "scopes": [],
-            "children": [],
-            "label": "Suchfilter",
-            "useLabel": "YES",
-            "model": "User",
-            "filters": [
-              "filter1",
-              "filter2"
+            "componentType": "field-set",
+            "children": [
+              {
+                "id": "txtFulltext",
+                "label": null,
+                "componentType": "fulltext-search",
+                "dataType": "fulltext-search"
+              }
             ],
-            "multiple": true
+            "readonly": false,
+            "hidden": false,
+            "scopes": [ ]
           },
           {
-            "name": "relAddress_user.relAddress",
-            "type": "ch.tocco.nice2.model.form.components.simple.TextField",
-            "displayType": "EDITABLE",
-            "children": [],
+            "id": "searchFilter",
+            "label": "Suchfilter",
+            "componentType": "field-set",
+            "children": [
+              {
+                "id": "searchFilter",
+                "label": null,
+                "componentType": "field",
+                "dataType": "search-filter",
+                "model": "User",
+                "filters": [
+                  "filter1",
+                  "filter2"
+                ],
+                "multiple": true
+              }
+            ]
+          },
+          {
+            "id": "relAddress_user.relAddress",
             "label": "Adresse",
-            "useLabel": "YES"
+            "componentType": "field-set",
+            "children": [
+              {
+                "id": "relAddress_user.relAddress",
+                "label": null,
+                "componentType": "field",
+                "dataType": "string"
+              }
+            ],
+            "readonly": false,
+            "hidden": false,
+            "scopes": [ ]
           },
           {
-            "name": "relSingle_entity2",
-            "type": "ch.tocco.nice2.model.form.components.simple.SingleSelectBox",
-            "displayType": "EDITABLE",
-            "children": [],
+            "id": "relSingle_entity2",
             "label": "Geschlecht",
-            "useLabel": "YES"
+            "componentType": "field-set",
+            "children": [
+              {
+                "id": "relSingle_entity2",
+                "dataType": "single-select-box",
+                "componentType": "field",
+                "label": null
+              }
+            ],
+            "readonly": false,
+            "hidden": false,
+            "scopes": [ ]
           },
           {
-            "name": "relMulti_entity2",
-            "type": "ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
-            "displayType": "EDITABLE",
-            "children": [],
+            "id": "relMulti_entity2",
             "label": "Personen-Code 1",
-            "useLabel": "YES"
+            "componentType": "field-set",
+            "children": [
+              {
+                "id": "relMulti_entity2",
+                "dataType": "multi-select-box",
+                "componentType": "field",
+                "label": null
+              }
+            ],
+            "readonly": false,
+            "hidden": false,
+            "scopes": [ ]
           },
           {
-            "name": "birthdate",
-            "type": "ch.tocco.nice2.model.form.components.simple.RangeField",
-            "displayType": "EDITABLE",
-            "children": [],
+            "id": "birthdate",
             "label": "Geburtsdatum",
-            "useLabel": "YES"
+            "componentType": "field-set",
+            "children": [
+              {
+                "id": "birthdate",
+                "dataType": "range",
+                "componentType": "field",
+                "label": null
+              }
+            ],
+            "readonly": false,
+            "hidden": false,
+            "scopes": [ ]
           },
+
           {
-            "name": "user_nr",
-            "type": "ch.tocco.nice2.model.form.components.simple.RangeField",
-            "displayType": "HIDDEN",
-            "children": [],
+            "id": "user_nr",
             "label": "Person-Nr.",
-            "useLabel": "YES"
+            "componentType": "field-set",
+            "children": [
+              {
+                "id": "user_nr",
+                "dataType": "range",
+                "componentType": "field",
+                "label": null
+              }
+            ],
+            "readonly": false,
+            "hidden": true,
+            "scopes": [ ]
           },
+
           {
-            "name": "relSingle_entity1.relUser",
-            "type": "ch.tocco.nice2.model.form.components.simple.TextField",
-            "displayType": "EDITABLE",
-            "children": [],
-            "label": "Dummy Mehrstufig",
-            "useLabel": "YES"
+            "id": "Dummy Mehrstufig",
+            "label": "Person-Nr.",
+            "componentType": "field-set",
+            "children": [
+              {
+                "id": "relSingle_entity1.relUser",
+                "dataType": "string",
+                "componentType": "field",
+                "label": null
+              }
+            ],
+            "readonly": false,
+            "hidden": true,
+            "scopes": [ ]
           }
         ],
-        "label": null,
-        "useLabel": "NO"
+        "label": null
       }
     ],
-    "label": "##forms.User_search:de_CH:nice2.optional.user",
-    "useLabel": "YES"
+    "label": null
   }
 }

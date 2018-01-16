@@ -13,56 +13,59 @@ describe('entity-detail', () => {
         })
 
         describe('getFieldDefinitions', () => {
-          it('get array of fields and ignore not simple types and iterators', () => {
+          it('get array of fields', () => {
             const field1 = {
-              name: 'firstname',
-              type: 'ch.tocco.nice2.model.form.components.simple.TextArea'
+              id: 'firstname',
+              componentType: 'field',
+              dataType: 'string'
             }
             const field2 = {
-              name: 'lastname',
-              type: 'ch.tocco.nice2.model.form.components.simple.TextArea'
+              id: 'lastname',
+              componentType: 'field',
+              dataType: 'string'
             }
 
             const field3 = {
-              name: 'xyz',
-              type: 'ch.tocco.nice2.model.form.components.simple.SomeType'
+              id: 'xyz',
+              componentType: 'field',
+              dataType: 'something'
+            }
+
+            const display = {
+              id: 'displayxy',
+              componentType: 'display'
             }
 
             const formDefinition = {
-              name: 'fromX',
+              id: 'fromX',
               children: [
                 {
-                  type: 'ch.tocco.nice2.model.form.components.layout.HorizontalBox',
-                  name: 'box 1',
+                  componentType: 'layout',
+                  layoutType: 'vertical-box',
+                  id: 'box 1',
                   children: [
                     {
-                      type: 'ch.tocco.nice2.model.form.components.layout.HorizontalBox1',
-                      name: 'box 2',
+                      componentType: 'layout',
+                      layoutType: 'horizontal-box',
+                      id: 'box 2',
                       children: [
                         field1,
                         field2,
+                        display,
                         {
                           name: 'relAffiliation',
-                          type: 'ch.tocco.nice2.model.form.components.table.Table'
+                          component: 'sub-table'
                         }
                       ]
                     }
                   ]
                 },
-                field3,
-                {
-                  name: 'relTask_note',
-                  type: 'ch.tocco.nice2.model.form.components.navigation.IteratorComponent',
-                  children: [{
-                    name: 'iteratorField',
-                    type: 'ch.tocco.nice2.model.form.components.simple.TextArea'
-                  }]
-                }
+                field3
               ]
             }
 
             const fields = forms.getFieldDefinitions(formDefinition)
-            expect(fields).to.eql([field1, field2, field3])
+            expect(fields).to.eql([field1, field2, display, field3])
           })
         })
 
