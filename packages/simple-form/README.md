@@ -9,10 +9,10 @@ React-registry name: `simple-form`
 
 | Name                   | Mandatory | Description
 |------------------------|:---------:|-------------
-| `submitText`           |           | Text on submit button
-| `cancelText`           |           | Text on cancel button
 | `form`                 | x         | Full form definition 
 | `model`                | x         | Model of the fields that are present in the form
+| `submitText`           |           | Text on submit button
+| `cancelText`           |           | Text on cancel button
 
 
 ### Events
