@@ -3,10 +3,10 @@ import React from 'react'
 import {reduxForm} from 'redux-form'
 import {intlShape, FormattedRelative, FormattedMessage} from 'react-intl'
 import {Button, LayoutBox} from 'tocco-ui'
-import {form} from 'tocco-util'
+import {form, formField} from 'tocco-util'
+import SubGrid from '../../util/detailView/fromFieldFactories/subGrid'
 
 import ErrorBox from '../ErrorBox'
-import formFieldMapping from '../../util/detailView/formFieldMapping'
 import modes from '../../util/modes'
 import readOnlyFormFieldMapping from '../../util/detailView/readOnlyFormFieldMapping'
 
@@ -17,9 +17,9 @@ export class DetailForm extends React.Component {
     this.formBuilder = this.createFormBuilder(props)
   }
 
-  componentWillReceiveProps(props) {
-    this.formBuilder = this.createFormBuilder(props)
-    this.props.fireTouched(props.anyTouched)
+  componentWillReceiveProps(nextProps) {
+    this.formBuilder = this.createFormBuilder(nextProps)
+    this.props.fireTouched(nextProps.anyTouched)
   }
 
   createFormBuilder = props => {
@@ -39,14 +39,15 @@ export class DetailForm extends React.Component {
       props.formDefinition,
       props.formValues,
       formFieldUtils,
-      formFieldMapping,
+      formField.defaultMapping,
       readOnlyFormFieldMapping,
       undefined,
-      props.mode
+      props.mode,
+      {[form.componentTypes.SUB_TABLE]: SubGrid()}
     )
   }
 
-  isReadOnlyForm = () => this.props.formDefinition.displayType === 'READONLY'
+  isReadOnlyForm = () => this.props.formDefinition.readonly
 
   isEntityLoaded = () => (this.props.entity && this.props.entity.paths)
 

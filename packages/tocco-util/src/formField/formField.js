@@ -21,7 +21,7 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
     } = data
 
     const readOnly = (
-      formDefinitionField.displayType === 'READONLY'
+      formDefinitionField.readonly
       || submitting
       || !_get(entityField, 'writable', true)
     )
@@ -53,7 +53,6 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
         error={error}
         touched={touched}
         dirty={dirty}
-        useLabel={formDefinitionField.useLabel === 'YES'}
       >
         {valueField}
       </FormField>
@@ -65,15 +64,18 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
 }
 
 const valueFieldFactory = (mapping, formField, modelField, props, events, utils) => {
-  let typeFactory = mapping[formField.type]
+  const type = formField.dataType ? 'dataType' : 'componentType'
+
+  let typeFactory = mapping[formField[type]]
+
   if (!typeFactory) {
-    consoleLogger.log(`FormType '${formField.type}' not present in typeFactoryMap`)
+    consoleLogger.log(`FormType '${formField.dataType}' not present in typeFactoryMap`)
     return <span/>
   } else if (typeof typeFactory === 'object') {
     typeFactory = typeFactory[modelField.type]
     if (!typeFactory) {
       consoleLogger.log(
-        `FormType '${formField.type}' not present in typeFactoryMap for model field type ${modelField.type}`
+        `FormType '${formField.dataType}' not present in typeFactoryMap for model field type ${modelField.type}`
       )
       return <span/>
     }

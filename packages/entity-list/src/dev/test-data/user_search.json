@@ -5,55 +5,70 @@
     }
   },
   "form":{
-    "name":"UserSearch_search",
-    "type":"ch.tocco.nice2.model.form.components.Form",
-    "displayType":"EDITABLE",
+    "id":"UserSearch_search",
     "children":[
       {
-        "name":"box1",
-        "type":"ch.tocco.nice2.model.form.components.layout.VerticalBox",
+        "id":"box1",
+        "componentType": "layout",
+        "layoutType": "horizontal-box",
         "displayType":"EDITABLE",
         "children":[
           {
-            "name":"txtFulltext",
-            "type":"ch.tocco.nice2.model.form.components.simple.TextField",
-            "displayType":"EDITABLE",
-            "children":[
-
-            ],
-            "label":"Person",
-            "useLabel":"YES"
+            "id": "txtFulltext",
+            "componentType": "field-set",
+            "label": "Person",
+            "scopes": [],
+            "hidden": false,
+            "children": [
+              {
+                "id": "txtFulltext",
+                "componentType": "fulltext-search",
+                "dataType": "fulltext-search",
+                "label": null
+              }
+            ]
           },
           {
-            "name":"relAddress_user.relAddress",
-            "type":"ch.tocco.nice2.model.form.components.simple.TextField",
-            "displayType":"HIDDEN",
-            "children":[
-
-            ],
-            "label":"Adresse",
-            "useLabel":"HIDDEN"
+            "id": "relAddress_user.relAddress",
+            "componentType": "field-set",
+            "label": "Adresse",
+            "scopes": [],
+            "hidden": false,
+            "children": [
+              {
+                "id": "relAddress_user.relAddress",
+                "componentType": "field",
+                "dataType": "string",
+                "label": null
+              }
+            ]
           },
           {
-            "name": "innerBox",
-            "type": "ch.tocco.nice2.model.form.components.layout.VerticalBox",
+            "id": "innerBox",
+            "componentType": "layout",
+            "layoutType": "horizontal-box",
             "children":[
               {
-                "name":"firstname",
-                "type":"ch.tocco.nice2.model.form.components.simple.TextField",
-                "displayType":"EDITABLE",
-                "children":[],
-                "label":"First Name",
-                "useLabel":"YES"
+                "id": "firstname",
+                "componentType": "field-set",
+                "label": "First Name",
+                "scopes": [],
+                "hidden": false,
+                "children": [
+                  {
+                    "id": "firstname",
+                    "componentType": "field",
+                    "dataType": "string",
+                    "label": null
+                  }
+                ]
               }
             ]
           }
         ],
-        "label":null,
-        "useLabel":"NO"
+        "label":null
       }
     ],
-    "label":"##forms.UserSearch_search:de_CH:nice2.optional.usersearch",
-    "useLabel":"YES"
+    "label":"##forms.UserSearch_search:de_CH:nice2.optional.usersearch"
   }
 }

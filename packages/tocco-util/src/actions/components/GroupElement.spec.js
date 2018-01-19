@@ -9,10 +9,10 @@ describe('tocco-util', () => {
   describe('actions', () => {
     describe('components', () => {
       describe('GroupElement', () => {
-        it('should call onClick if readOnly', () => {
+        it('should call onClick if not readonly', () => {
           const definition = {
-            type: 'ch.tocco.nice2.model.form.components.action.ActionGroup',
-            readOnly: false
+            componentType: 'action-group',
+            readonly: false
           }
           const clickSpy = sinon.spy()
           const selectSpy = sinon.spy()
@@ -24,10 +24,10 @@ describe('tocco-util', () => {
           expect(clickSpy).to.have.property('callCount', 1)
         })
 
-        it('should not call onClick if readOnly ', () => {
+        it('should not call onClick if readonly is false ', () => {
           const definition = {
-            type: 'ch.tocco.nice2.model.form.components.action.ActionGroup',
-            readOnly: true
+            componentType: 'action-group',
+            readonly: true
           }
           const clickSpy = sinon.spy()
           const selectSpy = sinon.spy()
@@ -38,9 +38,10 @@ describe('tocco-util', () => {
           expect(clickSpy).to.have.property('callCount', 0)
         })
 
-        it('should not call onClick if readOnly ', () => {
+        it('should display dividers', () => {
           const definition = {
-            type: 'ch.tocco.nice2.model.form.components.action.GroupDivider'
+            componentType: 'action-group',
+            actionType: 'divider'
           }
 
           const wrapper = shallow(<GroupElement definition={definition} onClick={EMPTY_FUNC}/>)

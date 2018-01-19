@@ -5,86 +5,135 @@
     }
   },
   "form": {
-    "name": "User_detail",
-    "type": "ch.tocco.nice2.model.form.components.Form",
-    "displayType": "EDITABLE",
+    "id": "User_detail",
+    "componentType": "form",
+    "hidden": false,
+    "readonly": false,
     "children": [
       {
-        "name": "box1",
-        "type": "ch.tocco.nice2.model.form.components.layout.VerticalBox",
-        "displayType": "EDITABLE",
+        "id": "box1",
+        "componentType": "layout",
+        "layoutType": "vertical-box",
+        "hidden": false,
         "children": [
           {
-            "name": "box1",
-            "type": "ch.tocco.nice2.model.form.components.layout.HorizontalBox",
-            "displayType": "EDITABLE",
+            "id": "box1",
+            "componentType": "layout",
+            "layoutType": "horizontal-box",
+            "hidden": false,
             "children": [
               {
-                "name": "user_information",
-                "type": "ch.tocco.nice2.model.form.components.layout.VerticalBox",
-                "displayType": "EDITABLE",
+                "id": "user_information",
+                "componentType": "layout",
+                "layoutType": "vertical-box",
+                "hidden": false,
                 "children": [
                   {
-                    "name": "user_nr",
-                    "type": "ch.tocco.nice2.model.form.components.simple.NumberField",
-                    "displayType": "EDITABLE",
-                    "children": [],
+                    "componentType": "field-set",
                     "label": "Person-Nr.",
-                    "useLabel": "YES"
+                    "scopes": [],
+                    "hidden": false,
+                    "children": [
+                      {
+                        "id": "user_nr",
+                        "componentType": "field",
+                        "dataType": "integer",
+                        "label": null
+                      }
+                    ]
                   },
                   {
-                    "name": "firstname",
-                    "type": "ch.tocco.nice2.model.form.components.simple.TextField",
-                    "displayType": "EDITABLE",
-                    "children": [],
+                    "componentType": "field-set",
+                    "hidden": false,
                     "label": "Vorname",
-                    "useLabel": "YES",
-                    "defaultValue": "Homer"
+                    "scopes": [],
+                    "children": [
+                      {
+                        "id": "firstname",
+                        "dataType": "string",
+                        "componentType": "field",
+                        "defaultValue": "Homer",
+                        "label": null
+                      }
+                    ]
                   },
                   {
-                    "name": "lastname",
-                    "type": "ch.tocco.nice2.model.form.components.simple.TextField",
-                    "displayType": "EDITABLE",
-                    "children": [],
+                    "componentType": "field-set",
+                    "hidden": false,
                     "label": "Nachname",
-                    "useLabel": "YES"
+                    "scopes": [],
+                    "children": [
+                      {
+                        "id": "lastname",
+                        "dataType": "string",
+                        "componentType": "field",
+                        "label": null
+                      }
+                    ]
                   },
                   {
-                    "name": "birthdate",
-                    "type": "ch.tocco.nice2.model.form.components.simple.BirthDateField",
-                    "displayType": "EDITABLE",
-                    "children": [],
+                    "componentType": "field-set",
+                    "hidden": false,
                     "label": "Geburtsdatum",
-                    "useLabel": "YES"
+                    "scopes": [],
+                    "children": [
+                      {
+                        "id": "birthdate",
+                        "dataType": "birthdate",
+                        "componentType": "field",
+                        "label": null
+                      }
+                    ]
                   },
                   {
-                    "name": "age",
-                    "type": "ch.tocco.nice2.model.form.components.simple.NumberField",
-                    "displayType": "EDITABLE",
-                    "children": [],
+                    "componentType": "field-set",
+                    "hidden": false,
                     "label": "Alter",
-                    "useLabel": "YES"
+                    "scopes": [],
+                    "children": [
+                      {
+                        "id": "age",
+                        "dataType": "integer",
+                        "componentType": "field",
+                        "label": null
+                      }
+                    ]
                   },
                   {
-                    "name": "callname",
-                    "type": "ch.tocco.nice2.model.form.components.simple.TextField",
-                    "displayType": "EDITABLE",
-                    "children": [],
+                    "componentType": "field-set",
+                    "hidden": false,
                     "label": "Required Callname",
-                    "useLabel": "YES"
+                    "scopes": [],
+                    "children": [
+                      {
+                        "id": "callname",
+                        "dataType": "string",
+                        "componentType": "field",
+                        "label": null
+                      }
+                    ]
                   },
                   {
-                    "name": "address",
-                    "type": "ch.tocco.nice2.model.form.components.simple.TextArea",
-                    "displayType": "EDITABLE",
-                    "children": [],
+                    "componentType": "field-set",
+                    "hidden": false,
                     "label": "Adresse",
-                    "useLabel": "YES"
+                    "scopes": [],
+                    "children": [
+                      {
+                        "id": "address",
+                        "dataType": "text",
+                        "componentType": "field",
+                        "label": null
+                      }
+                    ]
                   },
                   {
-                    "type": "ch.tocco.nice2.model.form.components.action.SimpleAction",
+                    "componentType": "action",
+                    "actionType": "simple",
                     "icon": "fa-pencil",
-                    "scopes": ["update"],
+                    "scopes": [
+                      "update"
+                    ],
                     "label": "Simple Action (Update only)",
                     "config": {
                       "confirm": false,
@@ -92,216 +141,299 @@
                     }
                   }
                 ],
-                "label": "Personenangaben",
-                "useLabel": "YES"
+                "label": "Personenangaben"
               },
               {
-                "name": "address_info",
-                "type": "ch.tocco.nice2.model.form.components.layout.VerticalBox",
-                "displayType": "EDITABLE",
+                "id": "address_info",
+                "componentType": "layout",
+                "layoutType": "vertical-box",
+                "hidden": false,
                 "children": [
                   {
-                    "name": "preview_picture",
-                    "type": "ch.tocco.nice2.model.form.components.simple.DocumentField",
-                    "displayType": "EDITABLE",
-                    "children": [],
+                    "componentType": "field-set",
+                    "hidden": false,
                     "label": "Vorschaubild",
-                    "useLabel": "YES"
+                    "scopes": [],
+                    "children": [
+                      {
+                        "id": "preview_picture",
+                        "dataType": "document",
+                        "componentType": "field",
+                        "label": null
+                      }
+                    ]
                   },
                   {
-                    "name": "firstname",
-                    "type": "ch.tocco.nice2.model.form.components.simple.TextField",
-                    "displayType": "READONLY",
-                    "children": [],
-                    "label": "READONLY",
-                    "useLabel": "YES"
+                    "componentType": "field-set",
+                    "hidden": false,
+                    "label": null,
+                    "scopes": [],
+                    "readonly": true,
+                    "children": [
+                      {
+                        "id": "firstname",
+                        "dataType": "string",
+                        "componentType": "field",
+                        "label": null
+                      }
+                    ]
                   },
                   {
-                    "name": "duration",
-                    "type": "ch.tocco.nice2.model.form.components.simple.DisplayExpressionField",
-                    "displayType": "EDITABLE",
-                    "children": [ ],
+                    "componentType": "field-set",
+                    "hidden": false,
                     "label": "Dauer",
-                    "useLabel": "YES",
-                    "scopes": [
-                      "update"
+                    "scopes": ["update"],
+                    "readonly": true,
+                    "children": [
+                      {
+                        "id": "duration",
+                        "componentType": "display",
+                        "label": null
+                      }
                     ]
                   }
                 ],
-                "label": "Form Stuff",
-                "useLabel": "YES"
+                "label": "Form Stuff"
               },
               {
-                "name": "dummy_subgrid",
-                "type": "ch.tocco.nice2.model.form.components.layout.VerticalBox",
-                "displayType": "EDITABLE",
-
+                "id": "dummy_subgrid",
+                "componentType": "layout",
+                "layoutType": "vertical-box",
+                "hidden": false,
                 "children": [
                   {
-                    "name": "relDummySubGrid",
-                    "type": "ch.tocco.nice2.model.form.components.table.Table",
-                    "displayType": "READONLY",
+                    "id": "relDummySubGrid",
+                    "componentType": "sub-table",
+                    "readonly": true,
                     "children": [ ],
                     "label": null,
-                    "useLabel": "HIDE",
                     "scopes": [
                       "update"
                     ]
                   }
                 ],
-                "label": "Sub Grid",
-                "useLabel": "YES"
+                "label": "Sub Grid"
               },
               {
-                "name": "notreadable",
-                "type": "ch.tocco.nice2.model.form.components.layout.VerticalBox",
-                "displayType": "EDITABLE",
+                "id": "notreadable",
+                "componentType": "layout",
+                "layoutType": "vertical-box",
+                "hidden": false,
                 "children": [
                   {
-                    "name": "notreadable",
-                    "type": "ch.tocco.nice2.model.form.components.simple.TextField",
-                    "displayType": "READONLY",
-                    "scopes": [
-                      "update"
-                    ],
-                    "children": [ ],
+                    "componentType": "field-set",
+                    "hidden": false,
                     "label": "!!SHOULD NOT BE SHOWN!!",
-                    "useLabel": "YES"
+                    "scopes": ["update"],
+                    "readonly": true,
+                    "children": [
+                      {
+                        "id": "notreadable",
+                        "componentType": "field",
+                        "dataType": "string",
+                        "label": null
+                      }
+                    ]
                   }
                 ],
-                "label": "!!SHOULD NOT BE SHOWN!!",
-                "useLabel": "YES"
+                "label": "!!SHOULD NOT BE SHOWN!!"
               }
             ]
           },
           {
-            "name": "box1",
-            "type": "ch.tocco.nice2.model.form.components.layout.HorizontalBox",
-            "displayType": "EDITABLE",
+            "id": "box1",
+            "componentType": "layout",
+            "layoutType": "horizontal-box",
+            "hidden": false,
             "children": [
               {
-                "name": "communication_information",
-                "type": "ch.tocco.nice2.model.form.components.layout.VerticalBox",
-                "displayType": "EDITABLE",
+                "id": "communication_information",
+                "componentType": "layout",
+                "layoutType": "vertical-box",
+                "hidden": false,
                 "children": [
                   {
-                    "name": "email",
-                    "type": "ch.tocco.nice2.model.form.components.simple.EmailField",
-                    "displayType": "EDITABLE",
-                    "children": [],
-                    "label": "E-Mail",
-                    "useLabel": "YES"
-                  },
-                  {
-                    "name": "phone_company",
-                    "type": "ch.tocco.nice2.model.form.components.simple.PhoneField",
-                    "displayType": "EDITABLE",
-                    "children": [],
-                    "label": "Telefon G",
-                    "useLabel": "YES"
-                  },
-                  {
-                    "name": "website",
-                    "type": "ch.tocco.nice2.model.form.components.simple.UrlField",
-                    "displayType": "EDITABLE",
-                    "children": [],
-                    "label": "Website",
-                    "useLabel": "YES"
-                  },
-                  {
-                    "name": "date_time",
-                    "type": "ch.tocco.nice2.model.form.components.simple.DatetimeField",
-                    "displayType": "EDITABLE",
-                    "children": [],
-                    "label": "Date Time",
-                    "useLabel": "YES"
-                  },
-                  {
-                    "name": "publish",
-                    "type": "ch.tocco.nice2.model.form.components.simple.Checkbox",
-                    "displayType": "EDITABLE",
-                    "children": [],
-                    "label": "Publiziert",
-                    "useLabel": "YES"
-                  }
-                ],
-                "label": "Communication",
-                "useLabel": "YES"
-              },
-              {
-                "name": "marketing_information",
-                "type": "ch.tocco.nice2.model.form.components.layout.VerticalBox",
-                "displayType": "EDITABLE",
-                "children": [
-                  {
-                    "name": "relMulti_entity1",
-                    "type": "ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
-                    "displayType": "EDITABLE",
-                    "children": [],
-                    "label": "Dummy entity (multi) 1",
-                    "useLabel": "YES",
-                    "defaultValue": [
-                      {"display": "User 0", "key": "0"},
-                      {"display": "User 2", "key": "2"}
+                    "componentType": "field-set",
+                    "label": "EMail",
+                    "scopes": [],
+                    "hidden": false,
+                    "children": [
+                      {
+                        "id": "email",
+                        "componentType": "field",
+                        "dataType": "email",
+                        "label": null
+                      }
                     ]
                   },
                   {
-                    "name": "relMulti_entity2",
-                    "type": "ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
-                    "displayType": "EDITABLE",
-                    "children": [],
-                    "label": "Dummy entity (multi) 2",
-                    "useLabel": "YES"
+                    "componentType": "field-set",
+                    "label": "Telefon G",
+                    "scopes": [],
+                    "hidden": false,
+                    "children": [
+                      {
+                        "id": "phone_company",
+                        "componentType": "field",
+                        "dataType": "phone",
+                        "label": null
+                      }
+                    ]
                   },
                   {
-                    "name": "relSingle_entity1",
-                    "type": "ch.tocco.nice2.model.form.components.simple.SingleSelectBox",
-                    "displayType": "EDITABLE",
-                    "children": [],
-                    "label": "Dummy entity (single) 1",
-                    "useLabel": "YES",
-                    "defaultValue": {"display": "User 0", "key": "0"}
+                    "componentType": "field-set",
+                    "label": "Website",
+                    "scopes": [],
+                    "hidden": false,
+                    "children": [
+                      {
+                        "id": "website",
+                        "componentType": "field",
+                        "dataType": "url",
+                        "label": null
+                      }
+                    ]
                   },
                   {
-                    "name": "relSingle_entity2",
-                    "type": "ch.tocco.nice2.model.form.components.simple.SingleSelectBox",
-                    "displayType": "EDITABLE",
-                    "children": [],
-                    "label": "Dummy entity (single) 2",
-                    "useLabel": "YES"
+                    "componentType": "field-set",
+                    "label": "Date Time",
+                    "scopes": [],
+                    "hidden": false,
+                    "children": [
+                      {
+                        "id": "date_time",
+                        "componentType": "field",
+                        "dataType": "datetime",
+                        "label": null
+                      }
+                    ]
                   },
                   {
-                    "name": "relUser",
-                    "type": "ch.tocco.nice2.model.form.components.simple.RemoteField",
-                    "displayType": "EDITABLE",
-                    "children": [ ],
-                    "label": "Remote User",
-                    "useLabel": "YES"
-                  },
-                  {
-                    "name": "relChildren",
-                    "type": "ch.tocco.nice2.model.form.components.simple.MultiRemoteField",
-                    "displayType": "EDITABLE",
-                    "children": [ ],
-                    "label": "Children",
-                    "useLabel": "YES"
+                    "componentType": "field-set",
+                    "label": "Publiziert",
+                    "scopes": [],
+                    "hidden": false,
+                    "children": [
+                      {
+                        "id": "publish",
+                        "componentType": "field",
+                        "dataType": "boolean",
+                        "label": null
+                      }
+                    ]
                   }
                 ],
-                "label": "Selects",
-                "useLabel": "YES"
+                "label": "Communication"
+              },
+              {
+                "id": "marketing_information",
+                "componentType": "layout",
+                "layoutType": "vertical-box",
+                "hidden": false,
+                "children": [
+                  {
+                    "componentType": "field-set",
+                    "label": "Dummy entity (multi) 1",
+                    "scopes": [],
+                    "hidden": false,
+                    "children": [
+                      {
+                        "id": "relMulti_entity1",
+                        "componentType": "field",
+                        "dataType": "multi-select-box",
+                        "label": null,
+                        "defaultValue": [
+                          {"display": "User 0", "key": "0"},
+                          {"display": "User 2", "key": "2"}
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "componentType": "field-set",
+                    "label": "Dummy entity (multi) 2",
+                    "scopes": [],
+                    "hidden": false,
+                    "children": [
+                      {
+                        "id": "relMulti_entity2",
+                        "componentType": "field",
+                        "dataType": "multi-select-box",
+                        "label": null
+                      }
+                    ]
+                  },
+                  {
+                    "componentType": "field-set",
+                    "label": "Dummy entity (single) 1",
+                    "scopes": [],
+                    "hidden": false,
+                    "children": [
+                      {
+                        "id": "relSingle_entity1",
+                        "componentType": "field",
+                        "dataType": "single-select-box",
+                        "label": null,
+                        "defaultValue": {"display": "User 0", "key": "0"}
+                      }
+                    ]
+                  },
+                  {
+                    "componentType": "field-set",
+                    "label": "Dummy entity (single) 2",
+                    "scopes": [],
+                    "hidden": false,
+                    "children": [
+                      {
+                        "id": "relSingle_entity2",
+                        "componentType": "field",
+                        "dataType": "single-select-box",
+                        "label": null
+                      }
+                    ]
+                  },
+                  {
+                    "componentType": "field-set",
+                    "label": "Remote User",
+                    "scopes": [],
+                    "hidden": false,
+                    "children": [
+                      {
+                        "id": "relUser",
+                        "componentType": "field",
+                        "dataType": "single-remote-field",
+                        "label": null
+                      }
+                    ]
+                  },
+                  {
+                    "componentType": "field-set",
+                    "label": "Children",
+                    "scopes": [],
+                    "hidden": false,
+                    "children": [
+                      {
+                        "id": "relChildren",
+                        "componentType": "field",
+                        "dataType": "multi-remote-field",
+                        "label": null
+                      }
+                    ]
+                  }
+                ],
+                "label": "Selects"
               }
             ],
-            "label": null,
-            "useLabel": "NO"
+            "label": null
           }
         ],
-        "label": null,
-        "useLabel": "NO"
+        "label": null
       },
       {
-        "type": "ch.tocco.nice2.model.form.components.action.ActionGroup",
+        "id": "a",
+        "componentType": "action-group",
         "action": {
-          "type": "ch.tocco.nice2.model.form.components.action.SimpleAction",
+          "actionType": "SIMPLE",
           "icon": "fa-wrench",
           "label": "Simple Action",
           "config": {
@@ -311,7 +443,9 @@
         },
         "children": [
           {
-            "type": "ch.tocco.nice2.model.form.components.action.SimpleAction",
+            "id": "a1",
+            "componentType": "action",
+            "actionType": "SIMPLE",
             "label": "Simple Action 2 (client question)",
             "icon": "fa-plus",
             "config": {
@@ -322,9 +456,7 @@
 
         ]
       }
-
     ],
-    "label": "##forms.User_detail:de_CH:nice2.optional.user",
-    "useLabel": "YES"
+    "label": "##forms.User_detail:de_CH:nice2.optional.user"
   }
 }

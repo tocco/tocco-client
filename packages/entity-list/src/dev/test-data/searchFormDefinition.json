@@ -1,28 +1,52 @@
 {
-  "name": "User_search",
-  "type": "ch.tocco.nice2.model.form.components.Form",
+  "id": "User_search",
+  "componentType" :"form",
   "displayType": "EDITABLE",
   "children": [
     {
-      "name": "txtFulltext",
-      "type": "ch.tocco.nice2.model.form.components.simple.TextField",
-      "displayType": "EDITABLE",
+      "id": "txtFulltext",
+      "componentType": "field-set",
       "label": "Person",
-      "useLabel": "YES"
+      "scopes": [],
+      "hidden": false,
+      "children": [
+        {
+          "id": "txtFulltext",
+          "componentType": "fulltext-search",
+          "dataType": "fulltext-search",
+          "label": null
+        }
+      ]
     },
     {
-      "name": "relAddress_user.relAddress",
-      "type": "ch.tocco.nice2.model.form.components.simple.TextField",
-      "displayType": "EDITABLE",
+      "id": "relAddress_user.relAddress",
+      "componentType": "field-set",
       "label": "Adresse",
-      "useLabel": "YES"
+      "scopes": [],
+      "hidden": false,
+      "children": [
+        {
+          "id": "relAddress_user.relAddress",
+          "componentType": "field",
+          "dataType": "string",
+          "label": null
+        }
+      ]
     },
     {
-      "name": "relUser_code1",
-      "type": "ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
-      "displayType": "EDITABLE",
-      "label": "Personen-Code 1",
-      "useLabel": "YES"
+      "id": "relUser_code1",
+      "componentType": "field-set",
+      "label":  "Personen-Code 1",
+      "scopes": [],
+      "hidden": false,
+      "children": [
+        {
+          "id": "relUser_code1",
+          "componentType": "field",
+          "dataType": "multi-select-box",
+          "label": null
+        }
+      ]
     }
   ]
 }

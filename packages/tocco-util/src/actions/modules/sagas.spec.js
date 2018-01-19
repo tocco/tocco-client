@@ -28,7 +28,8 @@ describe('tocco-util', () => {
             const config = {}
             const payload = {
               definition: {
-                type: 'ch.tocco.nice2.model.form.components.action.SimpleAction',
+                actionType: 'simple',
+                componentType: 'action',
                 config: {}
               },
               entity: 'User',
@@ -47,9 +48,7 @@ describe('tocco-util', () => {
           it('should call confirm if true', () => {
             const ids = ['2123']
             const definition = {
-              config: {
-                confirm: true
-              }
+              showConfirmMessage: true
             }
 
             return expectSaga(sagas.handleConfirm, definition, ids)

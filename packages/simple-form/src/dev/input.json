@@ -1,75 +1,96 @@
 {
   "submitText": "Ok",
   "cancelText": "Cancel",
-  "form": {
-    "name": "Acceptor_detail",
-    "type": "ch.tocco.nice2.model.form.components.Form",
-    "displayType": "EDITABLE",
+  "form":{
+    "id": "Acceptor_detail",
+    "componentType": "layout",
+    "layoutType": "table",
+    "hidden": false,
     "scopes": [],
     "children": [
       {
-        "name": "box1",
-        "type": "ch.tocco.nice2.model.form.components.layout.HorizontalBox",
-        "displayType": "EDITABLE",
+        "id": "box1",
+        "componentType": "layout",
+        "layoutType": "horizontal-box",
+        "hidden": false,
         "scopes": [],
         "children": [
           {
-            "name": "box1",
-            "type": "ch.tocco.nice2.model.form.components.layout.VerticalBox",
-            "displayType": "EDITABLE",
+            "id": "box1",
+            "componentType": "layout",
+            "layoutType": "vertical-box",
+            "hidden": false,
             "scopes": [],
             "children": [
               {
-                "name": "textQuestion",
-                "type": "ch.tocco.nice2.model.form.components.simple.TextField",
-                "displayType": "EDITABLE",
-                "scopes": [],
-                "children": [],
+                "componentType": "field-set",
+                "id": "textQuestion",
+                "hidden": false,
                 "label": "Text",
-                "useLabel": "YES",
-                "dataType": "string",
-                "reverseRelationName": null,
-                "defaultValue": "Test"
+                "scopes": [],
+                "children": [
+                  {
+                    "id": "textQuestion",
+                    "dataType": "string",
+                    "componentType": "field",
+                    "defaultValue": "Test",
+                    "label": null
+                  }
+                ]
               },
               {
-                "name": "numberQuestion",
-                "type": "ch.tocco.nice2.model.form.components.simple.NumberField",
-                "displayType": "EDITABLE",
-                "scopes": [],
-                "children": [],
+                "componentType": "field-set",
+                "id": "numberQuestion",
+                "hidden": false,
                 "label": "Number",
-                "useLabel": "YES",
-                "dataType": "integer",
-                "reverseRelationName": null,
-                "defaultValue": 99
-              },
-              {
-                "name": "booleanQuestion",
-                "type": "ch.tocco.nice2.model.form.components.simple.Checkbox",
-                "displayType": "EDITABLE",
                 "scopes": [],
-                "children": [],
-                "label": "Bool",
-                "useLabel": "YES",
-                "dataType": "boolean",
-                "reverseRelationName": null,
-                "defaultValue": true
+                "children": [
+                  {
+                    "id": "numberQuestion",
+                    "dataType": "integer",
+                    "componentType": "field",
+                    "defaultValue": 99,
+                    "label": null
+                  }
+                ]
               },
               {
-                "name": "relMulti_entity",
-                "type": "ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
-                "displayType": "EDITABLE",
-                "children": [],
+                "componentType": "field-set",
+                "id": "booleanQuestion",
+                "hidden": false,
+                "label": "Bool",
+                "scopes": [],
+                "children": [
+                  {
+                    "id": "booleanQuestion",
+                    "dataType": "boolean",
+                    "componentType": "field",
+                    "defaultValue": true,
+                    "label": null
+                  }
+                ]
+              },
+              {
+                "componentType": "field-set",
+                "id": "relMulti_entity",
+                "hidden": false,
                 "label": "Dummy entity",
-                "useLabel": "YES"
+                "scopes": [],
+                "children": [
+                  {
+                    "id": "relMulti_entity",
+                    "dataType": "multi-select-box",
+                    "componentType": "field",
+                    "label": null
+                  }
+                ]
               }
             ]
           }
         ]
       }
     ],
-    "label": null,
-    "useLabel": "NO"
+    "label": null
   },
   "model": {
     "fields": [

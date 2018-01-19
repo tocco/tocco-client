@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {intlShape} from 'react-intl'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import {FormattedValue} from 'tocco-ui'
-import {actions} from 'tocco-util'
+import {actions, form} from 'tocco-util'
 import '!style-loader!css-loader!react-bootstrap-table/dist/react-bootstrap-table.min.css'
 
 const Table = props => {
@@ -65,6 +65,7 @@ const Table = props => {
     onPageChange: onPageChange,
     page: props.currentPage,
     paginationShowsTotal: renderShowsTotal,
+    paginationSize: 3,
     hideSizePerPage: true,
     onRowClick: handleRowClick,
     noDataText: props.inProgress
@@ -86,10 +87,9 @@ const Table = props => {
   const cellFormatter = (column, idx) => (cell, entity) => {
     return <span key={idx}>{
       column.children.map(child => {
-        const {name} = child
-        const columnType = child.type
+        const {id} = child
 
-        if (actions.isAction(columnType)) {
+        if (actions.isAction(child.componentType)) {
           return (
             <actions.Action
               key={'tableAction' + idx}
@@ -98,12 +98,10 @@ const Table = props => {
               entity={entity.__model}
             />
           )
+        } else if (child.componentType === form.componentTypes.FIELD) {
+          const {type, value} = entity[id]
+          return <span key={id} style={{marginRight: '2px'}}> <FormattedValue type={type} value={value}/></span>
         }
-
-        const a = entity[name]
-
-        const {type, value} = a
-        return <span key={name} style={{marginRight: '2px'}}> <FormattedValue type={type} value={value}/></span>
       })
     }
     </span>

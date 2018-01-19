@@ -1,13 +1,7 @@
 import {call} from 'redux-saga/effects'
 import _uniq from 'lodash/uniq'
 import {requestSaga} from 'tocco-util/src/rest'
-import {actions} from 'tocco-util'
-
-const IGNORED_FIELD_TYPES = [
-  'ch.tocco.nice2.model.form.components.simple.DescriptionField'
-]
-
-const TABLE_TYPE = 'ch.tocco.nice2.model.form.components.table.Table'
+import {actions, form} from 'tocco-util'
 
 export const defaultFormTransformer = json => (json.form)
 
@@ -19,45 +13,38 @@ export function* fetchForm(formName, transformer = defaultFormTransformer) {
 }
 
 const getTable = formDefinition =>
-  formDefinition.children.find(child => child.type === TABLE_TYPE)
+  formDefinition.children.find(child => child.layoutType === form.layoutTypes.TABLE)
 
 export const getSorting = formDefinition => {
   const table = getTable(formDefinition)
   return table.sorting ? table.sorting : []
 }
 
-export const getColumnDefinition = table => {
-  const isDisplayableChild = child => {
-    return child.type !== 'ch.tocco.nice2.model.form.components.action.Action'
-      && !child.name.startsWith('custom:')
-      && child.displayType !== 'HIDDEN'
-  }
+const isDisplayableChild = child => !child.hidden
 
-  return table.children
-    .filter(column => column.displayType !== 'HIDDEN')
+export const getColumnDefinition = table =>
+  table.children
+    .filter(column => !column.hidden)
     .filter(column => column.children.filter(isDisplayableChild).length > 0)
     .map(c => (
       {
-        name: c.name,
-        ...(c.useLabel === 'YES' && {label: c.label}),
+        id: c.id,
+        label: c.label,
         sortable: c.sortable,
         children: c.children.filter(isDisplayableChild)
       }
     ))
-}
 
 export const searchFormTransformer = json => json.form
 
 export const getFields = formDefinition => {
   const columns = getColumnDefinition(getTable(formDefinition))
-
   const fields = columns.reduce((accumulator, current) => (
     [
       ...accumulator,
       ...current.children
-        .filter(child => !IGNORED_FIELD_TYPES.includes(child.type))
-        .filter(child => !actions.isAction(child.type))
-        .map(child => child.name)]
+        .filter(child => !actions.isAction(child.componentType))
+        .map(child => child.id)]
   ), [])
 
   return _uniq(fields)

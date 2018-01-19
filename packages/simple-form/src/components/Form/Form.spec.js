@@ -8,56 +8,70 @@ import {IntlStub, intlEnzyme} from 'tocco-test-util'
 const EMPTY_FUNC = () => {
 }
 
-describe('entity-detail', () => {
+describe('simple-form', () => {
   describe('components', () => {
-    describe('DetailForm', () => {
-      it('should display the right amount of Fields according to form definition', () => {
+    describe('Form', () => {
+      it('should display the right amount of fields according to form definition', () => {
         const formDefinition = {
-          'name': 'UserSearch_detail',
-          'type': 'ch.tocco.nice2.model.form.components.Form',
-          'displayType': 'EDITABLE',
+          'id': 'UserSearch_detail',
           'children': [
             {
-              'name': 'box1',
-              'type': 'ch.tocco.nice2.model.form.components.layout.VerticalBox',
-              'displayType': 'READONLY',
+              'id': 'box1',
+              'componentType': 'layout',
+              'layoutType': 'vertical-box',
+              'readonly': true,
               'children': [
                 {
-                  'name': 'box1',
-                  'type': 'ch.tocco.nice2.model.form.components.layout.HorizontalBox',
-                  'displayType': 'READONLY',
+                  'id': 'box1',
+                  'componentType': 'layout',
+                  'layoutType': 'horizontal-box',
+                  'readonly': true,
                   'children': [
                     {
-                      'name': 'user_information',
-                      'type': 'ch.tocco.nice2.model.form.components.layout.VerticalBox',
-                      'displayType': 'READONLY',
+                      'id': 'user_information',
+                      'componentType': 'layout',
+                      'layoutType': 'horizontal-box',
+                      'readonly': true,
                       'children': [
+
                         {
-                          'name': 'firstname',
-                          'type': 'ch.tocco.nice2.model.form.components.simple.TextField',
-                          'displayType': 'READONLY',
-                          'children': [],
+                          'id': 'firstname',
+                          'componentType': 'field-set',
                           'label': 'Vorname',
-                          'useLabel': 'YES'
+                          'hidden': false,
+                          'readonly': true,
+                          'children': [
+                            {
+                              'id': 'firstname',
+                              'componentType': 'field',
+                              'dataType': 'string',
+                              'label': null
+                            }
+                          ]
                         },
                         {
-                          'name': 'lastname',
-                          'type': 'ch.tocco.nice2.model.form.components.simple.TextField',
-                          'displayType': 'READONLY',
-                          'children': [],
+                          'id': 'lastname',
+                          'componentType': 'field-set',
                           'label': 'Nachname',
-                          'useLabel': 'YES'
+                          'hidden': false,
+                          'readonly': true,
+                          'children': [
+                            {
+                              'id': 'lastname',
+                              'componentType': 'field',
+                              'dataType': 'string',
+                              'label': null
+                            }
+                          ]
                         }
                       ]
                     }
                   ],
-                  'label': '##forms.UserSearch_detail:de_CH:nice2.optional.usersearch',
-                  'useLabel': 'YES'
+                  'label': null
                 }
               ]
             }]
         }
-
         const model = {
           fields: [],
           relations: []

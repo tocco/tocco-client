@@ -1,18 +1,18 @@
 {
   "form": {
-    "name": "User_list",
-    "type": "ch.tocco.nice2.model.form.components.Form",
-    "displayType": "EDITABLE",
+    "id": "User_list",
+    "label": null,
     "children": [
       {
-        "type": "ch.tocco.nice2.model.form.components.action.NavigateToNew",
-        "useLabel": "YES",
+        "componentType": "action",
+        "actionType": "new",
         "icon": "fa-plus",
         "label": "New"
       },
       {
-        "type": "ch.tocco.nice2.model.form.components.action.SimpleAction",
-        "readOnly": false,
+        "componentType": "action",
+        "actionType": "simple",
+        "readonly": false,
         "label": "Simple Action (form client questions)",
         "icon": "fa-question",
         "singleSelection": false,
@@ -23,31 +23,34 @@
         }
       },
       {
-        "type": "ch.tocco.nice2.model.form.components.action.ActionGroup",
+        "componentType": "action-group",
+        "actionType": "group",
         "label": "Actions",
         "children": [
           {
-            "type": "ch.tocco.nice2.model.form.components.action.DeleteAction",
-            "useLabel": "YES",
+            "componentType": "action",
+            "actionType": "delete",
             "icon": "fa-trash-o",
             "label": "Delete"
-
           },
           {
-            "type": "ch.tocco.nice2.model.form.components.action.SimpleAction",
-            "useLabel": "YES",
+            "componentType": "action",
+            "actionType": "simple",
             "label": "ReadOnly Action",
-            "readOnly": true
+            "readonly": true
           },
           {
-            "type": "ch.tocco.nice2.model.form.components.action.GroupDivider"
+            "componentType": "action",
+            "actionType": "divider"
           },
           {
-            "type": "ch.tocco.nice2.model.form.components.action.SimpleAction",
-            "readOnly": false,
+            "componentType": "action",
+            "actionType": "simple",
+            "readonly": false,
             "label": "Simple Action (confirm)",
             "icon": "fa-gear",
-            "singleSelection": false,
+            "Selections": 1,
+            "maxSelections": 1,
             "config": {
               "progressMsg": "Die Beispiel Aktion wird ausgeführt..",
               "confirm": true,
@@ -55,8 +58,9 @@
             }
           },
           {
-            "type": "ch.tocco.nice2.model.form.components.action.SimpleAction",
-            "readOnly": false,
+            "componentType": "action",
+            "actionType": "simple",
+            "readonly": false,
             "label": "Simple Action (client questions)",
             "icon": "fa-question",
             "singleSelection": false,
@@ -67,9 +71,10 @@
             }
           },
           {
-            "type": "ch.tocco.nice2.model.form.components.action.CustomAction",
+            "componentType": "action",
+            "actionType": "custom",
             "icon": "fa-compress",
-            "readOnly": false,
+            "readonly": false,
             "label": "Merge (custom action)",
             "useLabel": true,
             "singleSelection": true,
@@ -79,11 +84,12 @@
           }
         ]
       },
-
       {
-        "name": "table",
-        "type": "ch.tocco.nice2.model.form.components.table.Table",
-        "displayType": "EDITABLE",
+        "id": "table",
+        "componentType": "layout",
+        "layoutType": "table",
+        "id": "table1",
+        "label": null,
         "sorting": [
           {
             "field": "user_nr",
@@ -96,240 +102,229 @@
         ],
         "children": [
           {
-            "name": "user_nr",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "EDITABLE",
+            "id": "user_nr",
+            "label": "Nr.",
+            "readonly": false,
+            "hidden": false,
+            "sortable": true,
             "children": [
               {
-                "name": "user_nr",
-                "type": "ch.tocco.nice2.model.form.components.simple.NumberField",
-                "displayType": "EDITABLE",
-                "children": [],
-                "label": "Person-Nr.",
-                "useLabel": "YES"
+                "id": "user_nr",
+                "label": null,
+                "path": "user_nr",
+                "dataType": "counter",
+                "componentType": "field"
               }
-            ],
-            "label": "Nr.",
-            "useLabel": "YES",
-            "sortable": true
+            ]
           },
           {
-            "name": "firstname",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "EDITABLE",
+            "id": "firstname",
+            "label": "Firstname",
+            "readonly": false,
+            "hidden": false,
+            "sortable": true,
             "children": [
               {
-                "name": "firstname",
-                "type": "ch.tocco.nice2.model.form.components.simple.TextField",
-                "displayType": "EDITABLE",
-                "children": [],
-                "label": "Vorname",
-                "useLabel": "YES"
+                "id": "firstname",
+                "label": null,
+                "path": "firstname",
+                "dataType": "string",
+                "componentType": "field"
               }
             ],
             "label": "Vorname",
-            "useLabel": "YES",
             "sortable": true
           },
           {
-            "name": "lastname",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "EDITABLE",
+            "id": "lastname",
+            "componentType": "Column",
+            "readonly": false,
             "children": [
               {
-                "name": "lastname",
-                "type": "ch.tocco.nice2.model.form.components.simple.TextField",
-                "displayType": "EDITABLE",
+                "id": "lastname",
+                "componentType": "field",
+                "readonly": false,
                 "children": [],
-                "label": "Nachname",
-                "useLabel": "YES"
+                "dataType": "string",
+                "label": "Nachname"
               }
             ],
             "label": "Nachname",
-            "useLabel": "YES",
+
             "sortable": true
           },
           {
-            "name": "email",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "EDITABLE",
+            "id": "email",
+            "componentType": "Column",
+            "readonly": false,
             "children": [
               {
-                "name": "email",
-                "type": "ch.tocco.nice2.model.form.components.simple.EmailField",
-                "displayType": "EDITABLE",
+                "id": "email",
+                "componentType": "field",
+                "readonly": false,
                 "children": [],
                 "label": "E-Mail",
-                "useLabel": "YES"
+                "dataType": "email"
               }
             ],
             "label": "E-Mail",
-            "useLabel": "YES",
             "sortable": true
           },
           {
-            "name": "birthdate",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "EDITABLE",
+            "id": "birthdate",
+            "componentType": "Column",
+            "readonly": false,
             "children": [
               {
-                "name": "birthdate",
-                "type": "ch.tocco.nice2.model.form.components.simple.BirthdateField",
-                "displayType": "EDITABLE",
+                "id": "birthdate",
+                "componentType": "field",
+                "readonly": false,
                 "children": [],
                 "label": "Geburi",
-                "useLabel": "YES"
+                "dataType": "birthdate"
               }
             ],
             "label": "Geburi",
-            "useLabel": "YES",
+
             "sortable": true
           },
           {
-            "name": "salary",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "EDITABLE",
+            "id": "salary",
+            "componentType": "Column",
+            "readonly": false,
             "children": [
               {
-                "name": "salary",
-                "type": "ch.tocco.nice2.model.form.components.simple.MoneyAmountField",
-                "displayType": "EDITABLE",
+                "id": "salary",
+                "componentType": "field",
+                "readonly": false,
                 "children": [],
                 "label": "Lohn",
-                "useLabel": "YES"
+                "dataType": "moneyamount"
               }
             ],
             "label": "Lohn",
-            "useLabel": "YES",
             "sortable": true
           },
           {
-            "name": "relSingle_entity2",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "EDITABLE",
+            "id": "relSingle_entity2",
+            "componentType": "Column",
+            "readonly": false,
             "children": [
               {
-                "name": "relSingle_entity2",
-                "type": "ch.tocco.nice2.model.form.components.simple.SingleSelectBox",
-                "displayType": "EDITABLE",
+                "id": "relSingle_entity2",
+                "componentType": "field",
+                "readonly": false,
                 "children": [],
-                "label": "Dummy Entity (n:1)",
-                "useLabel": "YES"
+                "label": "Dummy Entity (n:1)"
               }
             ],
             "label": "Dummy Entity (n:1)",
-            "useLabel": "YES",
+
             "sortable": false
           },
           {
-            "name": "phone_company",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "EDITABLE",
+            "id": "phone_company",
+            "componentType": "Column",
+            "readonly": false,
             "children": [
               {
-                "name": "phone_company",
-                "type": "ch.tocco.nice2.model.form.components.simple.PhoneField",
-                "displayType": "EDITABLE",
+                "id": "phone_company",
+                "componentType": "field",
+                "readonly": false,
                 "children": [],
-                "label": "Telefon G",
-                "useLabel": "YES"
+                "label": "Telefon G"
               }
             ],
             "label": "Telefon G",
-            "useLabel": "YES",
+
             "sortable": true
           },
           {
-            "name": "publish",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "EDITABLE",
+            "id": "publish",
+            "componentType": "Column",
+            "readonly": false,
             "children": [
               {
-                "name": "publish",
-                "type": "ch.tocco.nice2.model.form.components.simple.BooleanField",
-                "displayType": "EDITABLE",
+                "id": "publish",
+                "componentType": "field",
+                "readonly": false,
                 "children": [],
-                "label": "Publiziert",
-                "useLabel": "YES"
+                "label": "Publiziert"
               }
             ],
             "label": "Publiziert",
-            "useLabel": "YES",
+
             "sortable": true
           },
           {
-            "name": "website",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "EDITABLE",
+            "id": "website",
+            "componentType": "Column",
+            "readonly": false,
             "children": [
               {
-                "name": "website",
-                "type": "ch.tocco.nice2.model.form.components.simple.WebsiteField",
-                "displayType": "EDITABLE",
+                "id": "website",
+                "componentType": "field",
+                "readonly": false,
                 "children": [],
-                "label": "Webseite",
-                "useLabel": "YES"
+                "label": "Webseite"
               }
             ],
             "label": "Webseite",
-            "useLabel": "YES",
+
             "sortable": true
           },
           {
-            "name": "fullname",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "EDITABLE",
+            "id": "fullname",
+            "componentType": "Column",
+            "readonly": false,
             "children": [
               {
-                "name": "firstname",
-                "type": "ch.tocco.nice2.model.form.components.simple.RemoteField",
-                "displayType": "EDITABLE",
+                "id": "firstname",
+                "componentType": "field",
+                "readonly": false,
                 "children": [],
-                "label": "Adresse",
-                "useLabel": "YES"
+                "label": "Adresse"
               },
               {
-                "name": "lastname",
-                "type": "ch.tocco.nice2.model.form.components.simple.RemoteField",
-                "displayType": "EDITABLE",
+                "id": "lastname",
+                "componentType": "field",
+                "readonly": false,
                 "children": [],
-                "label": "Adresse",
-                "useLabel": "YES"
+                "label": "Adresse"
               }
             ],
             "label": "Fullname",
-            "useLabel": "YES",
+
             "sortable": true
           },
           {
-            "name": "relMulti_entity2",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "EDITABLE",
+            "id": "relMulti_entity2",
+            "componentType": "Column",
+            "readonly": false,
             "children": [
               {
-                "name": "relMulti_entity2",
-                "type": "ch.tocco.nice2.model.form.components.simple.RemoteField",
-                "displayType": "EDITABLE",
+                "id": "relMulti_entity2",
+                "componentType": "field",
+                "readonly": false,
                 "children": [],
-                "label": "Dummy Entity (n:n)",
-                "useLabel": "YES"
+                "label": "Dummy Entity (n:n)"
               }
             ],
             "label": "Dummy Entity (n:n)",
-            "useLabel": "YES",
+
             "sortable": true
           },
           {
-            "name": "actions",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "EDITABLE",
+            "id": "actions",
+            "componentType": "Column",
+            "readonly": false,
             "children": [
               {
-                "type": "ch.tocco.nice2.model.form.components.action.SimpleAction",
-                "useLabel": "NO",
+                "actionType": "SIMPLE",
+                "componentType": "action",
                 "name":"simpleAction",
-                "label": "Simple Without Label",
-                "readOnly": false,
+                "label": null,
+                "readonly": false,
                 "icon": "fa-random",
                 "config": {
                   "confirm": "false",
@@ -337,341 +332,316 @@
                 }
               }
             ],
-            "label": "Actions",
-            "useLabel": "NO",
+            "useLabel": null,
             "sortable": false
           },
           {
-            "name": "abbreviation",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "HIDDEN",
+            "id": "abbreviation",
+            "componentType": "Column",
+            "hidden": true,
             "children": [
               {
-                "name": "abbreviation",
-                "type": "ch.tocco.nice2.model.form.components.simple.TextField",
-                "displayType": "HIDDEN",
+                "id": "abbreviation",
+                "componentType": "field",
+                "hidden": true,
                 "children": [],
-                "label": "Kurzbez.",
-                "useLabel": "YES"
+                "label": "Kurzbez."
               }
             ],
             "label": "Kurzbez.",
-            "useLabel": "YES",
+
             "sortable": true
           },
           {
-            "name": "relAcademic_title",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "HIDDEN",
+            "id": "relAcademic_title",
+            "componentType": "Column",
+            "hidden": true,
             "children": [
               {
-                "name": "relAcademic_title",
-                "type": "ch.tocco.nice2.model.form.components.simple.SingleSelectBox",
-                "displayType": "HIDDEN",
+                "id": "relAcademic_title",
+                "componentType": "field",
+                "hidden": true,
                 "children": [],
-                "label": "Akad. Titel",
-                "useLabel": "YES"
+                "label": "Akad. Titel"
               }
             ],
             "label": "Akad. Titel",
-            "useLabel": "YES",
+
             "sortable": true
           },
           {
-            "name": "profession",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "HIDDEN",
+            "id": "profession",
+            "componentType": "Column",
+            "hidden": true,
             "children": [
               {
-                "name": "profession",
-                "type": "ch.tocco.nice2.model.form.components.simple.TextField",
-                "displayType": "HIDDEN",
+                "id": "profession",
+                "componentType": "field",
+                "hidden": true,
                 "children": [],
-                "label": "Beruf/Ausbildung",
-                "useLabel": "YES"
+                "label": "Beruf/Ausbildung"
               }
             ],
             "label": "Beruf/Ausbildung",
-            "useLabel": "YES",
+
             "sortable": true
           },
           {
-            "name": "job",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "HIDDEN",
+            "id": "job",
+            "componentType": "Column",
+            "hidden": true,
             "children": [
               {
-                "name": "job",
-                "type": "ch.tocco.nice2.model.form.components.simple.TextField",
-                "displayType": "HIDDEN",
+                "id": "job",
+                "componentType": "field",
+                "hidden": true,
                 "children": [],
-                "label": "Funktion",
-                "useLabel": "YES"
+                "label": "Funktion"
               }
             ],
             "label": "Funktion",
-            "useLabel": "YES",
+
             "sortable": true
           },
           {
-            "name": "social_security_nr",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "HIDDEN",
+            "id": "social_security_nr",
+            "componentType": "Column",
+            "hidden": true,
             "children": [
               {
-                "name": "social_security_nr",
-                "type": "ch.tocco.nice2.model.form.components.simple.TextField",
-                "displayType": "HIDDEN",
+                "id": "social_security_nr",
+                "componentType": "field",
+                "hidden": true,
                 "children": [],
-                "label": "Sozialvers.-Nr.",
-                "useLabel": "YES"
+                "label": "Sozialvers.-Nr."
               }
             ],
             "label": "Sozialvers.-Nr.",
-            "useLabel": "YES",
+
             "sortable": true
           },
           {
-            "name": "birthdate",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "HIDDEN",
+            "id": "birthdate",
+            "componentType": "Column",
+            "hidden": true,
             "children": [
               {
-                "name": "birthdate",
-                "type": "ch.tocco.nice2.model.form.components.simple.BirthDateField",
-                "displayType": "HIDDEN",
+                "id": "birthdate",
+                "componentType": "field",
+                "hidden": true,
                 "children": [],
-                "label": "Geburtsdatum",
-                "useLabel": "YES"
+                "label": "Geburtsdatum"
               }
             ],
             "label": "Geburtsdatum",
-            "useLabel": "YES",
+
             "sortable": true
           },
           {
-            "name": "relCorrespondence_language",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "HIDDEN",
+            "id": "relCorrespondence_language",
+            "componentType": "Column",
+            "hidden": true,
             "children": [
               {
-                "name": "relCorrespondence_language",
-                "type": "ch.tocco.nice2.model.form.components.simple.SingleSelectBox",
-                "displayType": "HIDDEN",
+                "id": "relCorrespondence_language",
+                "componentType": "field",
+                "hidden": true,
                 "children": [],
-                "label": "Sprache",
-                "useLabel": "YES"
+                "label": "Sprache"
               }
             ],
             "label": "Sprache",
-            "useLabel": "YES",
+
             "sortable": true
           },
           {
-            "name": "relUser_newsletter_category",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "HIDDEN",
+            "id": "relUser_newsletter_category",
+            "componentType": "Column",
+            "hidden": true,
             "children": [
               {
-                "name": "relUser_newsletter_category",
-                "type": "ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
-                "displayType": "HIDDEN",
+                "id": "relUser_newsletter_category",
+                "componentType": "field",
+                "hidden": true,
                 "children": [],
-                "label": "Newsletter",
-                "useLabel": "YES"
+                "label": "Newsletter"
               }
             ],
             "label": "Newsletter",
-            "useLabel": "YES",
+
             "sortable": true
           },
           {
-            "name": "learner_nr",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "HIDDEN",
+            "id": "learner_nr",
+            "componentType": "Column",
+            "hidden": true,
             "children": [
               {
-                "name": "learner_nr",
-                "type": "ch.tocco.nice2.model.form.components.simple.TextField",
-                "displayType": "HIDDEN",
+                "id": "learner_nr",
+                "componentType": "field",
+                "hidden": true,
                 "children": [],
-                "label": "Lehrlingsnummer",
-                "useLabel": "YES"
+                "label": "Lehrlingsnummer"
               }
             ],
             "label": "Lehrlingsnummer",
-            "useLabel": "YES",
+
             "sortable": true
           },
           {
-            "name": "contract_nr",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "HIDDEN",
+            "id": "contract_nr",
+            "componentType": "Column",
+            "hidden": true,
             "children": [
               {
-                "name": "contract_nr",
-                "type": "ch.tocco.nice2.model.form.components.simple.TextField",
-                "displayType": "HIDDEN",
+                "id": "contract_nr",
+                "componentType": "field",
+                "hidden": true,
                 "children": [],
-                "label": "Lehrvertrag-Nummer",
-                "useLabel": "YES"
+                "label": "Lehrvertrag-Nummer"
               }
             ],
             "label": "Vertrags-Nr.",
-            "useLabel": "YES",
+
             "sortable": true
           },
           {
-            "name": "relJob_variant",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "HIDDEN",
+            "id": "relJob_variant",
+            "componentType": "Column",
+            "hidden": true,
             "children": [
               {
-                "name": "relJob_variant",
-                "type": "ch.tocco.nice2.model.form.components.simple.SingleSelectBox",
-                "displayType": "HIDDEN",
+                "id": "relJob_variant",
+                "componentType": "field",
+                "hidden": true,
                 "children": [],
-                "label": "Beruf",
-                "useLabel": "YES"
+                "label": "Beruf"
               }
             ],
             "label": "Beruf",
-            "useLabel": "YES",
+
             "sortable": true
           },
           {
-            "name": "relSubvention_canton",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "HIDDEN",
+            "id": "relSubvention_canton",
+            "componentType": "Column",
+            "hidden": true,
             "children": [
               {
-                "name": "relSubvention_canton",
-                "type": "ch.tocco.nice2.model.form.components.simple.SingleSelectBox",
-                "displayType": "HIDDEN",
+                "id": "relSubvention_canton",
+                "componentType": "field",
+                "hidden": true,
                 "children": [],
-                "label": "Subventionskanton",
-                "useLabel": "YES"
+                "label": "Subventionskanton"
               }
             ],
             "label": "Subventionskanton",
-            "useLabel": "YES",
+
             "sortable": true
           },
           {
-            "name": "relMeals",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "HIDDEN",
+            "id": "relMeals",
+            "componentType": "Column",
+            "hidden": true,
             "children": [
               {
-                "name": "relMeals",
-                "type": "ch.tocco.nice2.model.form.components.simple.SingleSelectBox",
-                "displayType": "HIDDEN",
+                "id": "relMeals",
+                "componentType": "field",
+                "hidden": true,
                 "children": [],
-                "label": "Verpflegung",
-                "useLabel": "YES"
+                "label": "Verpflegung"
               }
             ],
             "label": "Verpflegung",
-            "useLabel": "YES",
+
             "sortable": true
           },
           {
-            "name": "relSpecialcase",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "HIDDEN",
+            "id": "relSpecialcase",
+            "componentType": "Column",
+            "hidden": true,
             "children": [
               {
-                "name": "relSpecialcase",
-                "type": "ch.tocco.nice2.model.form.components.simple.MultiSelectBox",
-                "displayType": "HIDDEN",
+                "id": "relSpecialcase",
+                "componentType": "field",
+                "hidden": true,
                 "children": [],
-                "label": "Spezialfälle",
-                "useLabel": "YES"
+                "label": "Spezialfälle"
               }
             ],
             "label": "Spezialfälle",
-            "useLabel": "YES",
             "sortable": true
           },
           {
-            "name": "apprenticeship_start_date",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "HIDDEN",
+            "id": "apprenticeship_start_date",
+            "componentType": "Column",
+            "hidden": true,
             "children": [
               {
-                "name": "apprenticeship_start_date",
-                "type": "ch.tocco.nice2.model.form.components.simple.DateField",
-                "displayType": "HIDDEN",
+                "id": "apprenticeship_start_date",
+                "componentType": "field",
+                "hidden": true,
                 "children": [],
-                "label": "Lehr-Beginn",
-                "useLabel": "YES"
+                "label": "Lehr-Beginn"
               }
             ],
             "label": "Lehr-Beginn",
-            "useLabel": "YES",
             "sortable": true
           },
           {
-            "name": "apprenticeship_end_date",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "HIDDEN",
+            "id": "apprenticeship_end_date",
+            "componentType": "Column",
+            "hidden": true,
             "children": [
               {
-                "name": "apprenticeship_end_date",
-                "type": "ch.tocco.nice2.model.form.components.simple.DateField",
-                "displayType": "HIDDEN",
+                "id": "apprenticeship_end_date",
+                "componentType": "field",
+                "hidden": true,
                 "children": [],
-                "label": "Lehr-Ende",
-                "useLabel": "YES"
+                "label": "Lehr-Ende"
               }
             ],
             "label": "Lehr-Ende",
-            "useLabel": "YES",
             "sortable": true
           },
           {
-            "name": "relLearner_status",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "HIDDEN",
+            "id": "relLearner_status",
+            "componentType": "Column",
+            "hidden": true,
             "children": [
               {
-                "name": "relLearner_status",
-                "type": "ch.tocco.nice2.model.form.components.simple.SingleSelectBox",
-                "displayType": "HIDDEN",
+                "id": "relLearner_status",
+                "componentType": "field",
+                "hidden": true,
                 "children": [],
-                "label": "Status Lehre",
-                "useLabel": "YES"
+                "label": "Status Lehre"
               }
             ],
             "label": "Status Lehre",
-            "useLabel": "YES",
             "sortable": true
           },
           {
-            "name": "relApprenticeship_current_year",
-            "type": "ch.tocco.nice2.model.form.components.table.Column",
-            "displayType": "HIDDEN",
+            "id": "relApprenticeship_current_year",
+            "componentType": "Column",
+            "hidden": true,
             "children": [
               {
-                "name": "relApprenticeship_current_year",
-                "type": "ch.tocco.nice2.model.form.components.simple.SingleSelectBox",
-                "displayType": "HIDDEN",
+                "id": "relApprenticeship_current_year",
+                "componentType": "field",
+                "hidden": true,
                 "children": [],
-                "label": "Aktuelles Lehrjahr",
-                "useLabel": "YES"
+                "label": "Aktuelles Lehrjahr"
               }
             ],
             "label": "Aktuelles Lehrjahr",
-            "useLabel": "YES",
+
             "sortable": true
           }
-        ],
-        "label": "##forms.User_list.table:de_CH:nice2.optional.uek",
-        "useLabel": "YES"
+        ]
       },
       {
-        "type": "ch.tocco.nice2.model.form.components.action.NavigateToNew",
-        "useLabel": "YES",
+        "componentType": "action",
+        "actionType": "new",
         "icon": "fa-plus",
         "label": "New"
       }
