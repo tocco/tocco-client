@@ -6,10 +6,10 @@ const response500 = () => {
   return delay.then(() => ({status: 500, body: 'Error 500'}))
 }
 
-export default function setupFetchMock(fetchMock) {
+export default function setupFetchMock(packageName, fetchMock) {
   utilFetchMocks.log(fetchMock)
   utilFetchMocks.session(fetchMock)
-  utilFetchMocks.textResource(fetchMock, require('./messages.json'))
+  utilFetchMocks.textResource(packageName, fetchMock, require('./messages.json'))
 
   fetchMock.post(new RegExp('^.*?/nice2/login$'), function(url, opts) {
     if (opts.body.includes('username=succ')) {

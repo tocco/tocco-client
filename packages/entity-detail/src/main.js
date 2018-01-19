@@ -39,7 +39,7 @@ const initApp = (id, input, events = {}, publicPath) => {
       events,
       actions: dispatchActions,
       publicPath,
-      textResourceModules: ['component', 'common', 'entity-list', 'entity-detail']
+      textResourceModules: ['component', 'common', 'entity-list']
     }
   )
 
@@ -62,10 +62,10 @@ const initApp = (id, input, events = {}, publicPath) => {
       const fetchMock = require('fetch-mock')
 
       const setupFetchMocks = require('./dev/fetchMocks')
-      setupFetchMocks(fetchMock)
+      setupFetchMocks(packageName, fetchMock)
 
       const listFetchMocks = require('tocco-entity-list/src/dev/fetchMocks')
-      listFetchMocks(fetchMock)
+      listFetchMocks('entity-list', fetchMock)
 
       fetchMock.spy()
     }

@@ -85,7 +85,7 @@ const initPasswordUpdateApp = (id, input, events, publicPath) => {
     if (!__NO_MOCK__) {
       const fetchMock = require('fetch-mock')
       const setupFetchMocks = require('./dev/fetchMocks')
-      setupFetchMocks(fetchMock)
+      setupFetchMocks(packageName, fetchMock)
     }
 
     const app = initLoginApp('id', require('./dev/login_input.json'))

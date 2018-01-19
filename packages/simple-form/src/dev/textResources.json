@@ -1,6 +1,4 @@
 [
-  "client.component.form.mandatoryFieldTitle",
-  "client.component.form.syncValidationRequired",
-  "client.component.form.syncValidationMinLength",
-  "client.component.form.syncValidationMaxLength"
+  "client.simple-form.defaultOk",
+  "client.simple-form.defaultCancel"
 ]

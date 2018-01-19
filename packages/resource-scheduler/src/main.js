@@ -35,7 +35,7 @@ const initApp = (id, input, events, publicPath) => {
       const fetchMock = require('fetch-mock')
 
       const setupFetchMocks = require('./dev/fetchMocks')
-      setupFetchMocks(fetchMock)
+      setupFetchMocks(packageName, fetchMock)
     }
 
     const app = initApp('dev', input)

@@ -116,7 +116,7 @@ const getAppComponent = (store, initIntlPromise, name, content) => (
 )
 
 const setupIntl = (input, store, module, textResourceModules) => {
-  const modules = _union(textResourceModules, [module])
+  const modules = _union([module], textResourceModules)
   addLocaleData([...de, ...en, ...fr, ...it])
   const locale = input ? input.locale : null
   return intl.initIntl(store, modules, locale)
