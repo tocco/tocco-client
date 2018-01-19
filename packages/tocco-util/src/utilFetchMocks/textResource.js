@@ -1,10 +1,12 @@
-const textResources = {}
+import mockData from '../mockData'
 
-export default (fetchMock, textResourceKeys = []) => {
+export default (packageName, fetchMock, textResourceKeys = []) => {
+  textResourceKeys = [...textResourceKeys, ...mockData.data.textResources]
+  const textResources = {}
   textResourceKeys.forEach(key => {
     textResources[key] = transformKeyToReadableText(key)
   })
-  fetchMock.get(new RegExp('^.*?/nice2/textresource'), textResources)
+  fetchMock.get(new RegExp(`^.*?/nice2/textresource.*\\(${packageName}.*`), textResources)
 }
 
 const transformKeyToReadableText = key => {

@@ -1,7 +1,5 @@
 [
-  "client.common.ok",
-  "client.common.cancel",
-  "client.common.unexpectedError",
+
   "client.entity-list.search",
   "client.entity-list.reset",
   "client.entity-list.refresh",
@@ -15,7 +13,5 @@
   "client.entity-list.firstPageTitle",
   "client.entity-list.lastPageTitle",
   "client.entity-list.searchFormValidationMinLength",
-  "client.entity-list.create",
-
-  "client.component.form.mandatoryFieldTitle"
+  "client.entity-list.create"
 ]

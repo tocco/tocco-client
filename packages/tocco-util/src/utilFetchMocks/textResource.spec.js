@@ -3,6 +3,7 @@ import textResourceFetchMock from './textResource'
 describe('tocco-util', () => {
   describe('dev', () => {
     describe('utilFetchMock', () => {
+      const packageName = 'entity-detail'
       describe('textResourceFetchMock', () => {
         it('should contain a matcher for textresources', () => {
           let urlRegex
@@ -13,7 +14,7 @@ describe('tocco-util', () => {
             }
           }
 
-          textResourceFetchMock(fetchMockStub, [])
+          textResourceFetchMock(packageName, fetchMockStub, [])
 
           expect(urlRegex.toString()).to.contains('/textresource')
         })
@@ -27,14 +28,10 @@ describe('tocco-util', () => {
             }
           }
 
-          textResourceFetchMock(fetchMockStub, ['test.twoWords', 'test.threeWordsYes'])
+          textResourceFetchMock(packageName, fetchMockStub, ['test.twoWords', 'test.threeWordsYes'])
 
-          const expectedResult = {
-            'test.twoWords': 'Two Words',
-            'test.threeWordsYes': 'Three Words Yes'
-          }
-
-          expect(fetchResponse).to.deep.equal(expectedResult)
+          expect(fetchResponse).to.have.property('test.twoWords', 'Two Words')
+          expect(fetchResponse).to.have.property('test.threeWordsYes', 'Three Words Yes')
         })
       })
     })

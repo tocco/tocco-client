@@ -6,10 +6,10 @@ const defaultStore = {
   Dummy_entity: mockData.createDummyEntities(100)
 }
 
-export default function setupFetchMock(fetchMock, entityStore = defaultStore) {
+export default function setupFetchMock(packageName, fetchMock, entityStore = defaultStore) {
   utilFetchMocks.log(fetchMock)
   utilFetchMocks.session(fetchMock)
-  utilFetchMocks.textResource(fetchMock, require('./textResources.json'))
+  utilFetchMocks.textResource(packageName, fetchMock, require('./textResources.json'))
 
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/calendar/types$'),
