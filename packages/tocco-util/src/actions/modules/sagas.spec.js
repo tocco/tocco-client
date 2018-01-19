@@ -48,9 +48,7 @@ describe('tocco-util', () => {
           it('should call confirm if true', () => {
             const ids = ['2123']
             const definition = {
-              config: {
-                confirm: true
-              }
+              showConfirmMessage: true
             }
 
             return expectSaga(sagas.handleConfirm, definition, ids)
