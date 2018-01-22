@@ -13,14 +13,11 @@
         "componentType": "action",
         "actionType": "simple",
         "readonly": false,
-        "label": "Simple Action (form client questions)",
-        "icon": "fa-question",
-        "singleSelection": false,
-        "config": {
-          "progressMsg": "Die Beispiel Aktion wird ausgeführt",
-          "confirm": false,
-          "endpoint": "actions/formClientQuestion"
-        }
+        "label": "Simple Action (Form data)",
+        "icon": "fa-keyboard-o",
+        "showConfirmMessage": true,
+        "endpoint": "actions/simpleAction",
+        "formDataEntity": "MySessionOnly"
       },
       {
         "componentType": "action-group",
@@ -51,11 +48,9 @@
             "icon": "fa-gear",
             "Selections": 1,
             "maxSelections": 1,
-            "config": {
-              "progressMsg": "Die Beispiel Aktion wird ausgeführt..",
-              "confirm": true,
-              "endpoint": "actions/simpleAction"
-            }
+            "progressMsg": "Die Beispiel Aktion wird ausgeführt..",
+            "showConfirmMessage": true,
+            "endpoint": "actions/simpleAction"
           },
           {
             "componentType": "action",
@@ -64,11 +59,9 @@
             "label": "Simple Action (client questions)",
             "icon": "fa-question",
             "singleSelection": false,
-            "config": {
-              "progressMsg": "Die Beispiel Aktion wird ausgeführt",
-              "confirm": false,
-              "endpoint": "actions/yesNoClientQuestion"
-            }
+            "progressMsg": "Die Beispiel Aktion wird ausgeführt",
+            "showConfirmMessage": false,
+            "endpoint": "actions/yesNoClientQuestion"
           },
           {
             "componentType": "action",
@@ -78,9 +71,18 @@
             "label": "Merge (custom action)",
             "useLabel": true,
             "singleSelection": true,
-            "config": {
-              "appId": "tocco-merge"
-            }
+            "appId": "tocco-merge"
+          },
+          {
+            "componentType": "action",
+            "actionType": "simple",
+            "readonly": false,
+            "label": "Simple Action (form client questions)",
+            "icon": "fa-question",
+            "singleSelection": false,
+            "progressMsg": "Die Beispiel Aktion wird ausgeführt",
+            "showConfirmMessage": false,
+            "endpoint": "actions/formClientQuestion"
           }
         ]
       },
@@ -320,321 +322,32 @@
             "readonly": false,
             "children": [
               {
-                "actionType": "SIMPLE",
+                "actionType": "simple",
                 "componentType": "action",
                 "name":"simpleAction",
                 "label": null,
                 "readonly": false,
                 "icon": "fa-random",
-                "config": {
-                  "confirm": "false",
-                  "endpoint": "actions/simpleAction"
-                }
+                "showConfirmMessage": "false",
+                "endpoint": "actions/simpleAction"
               }
             ],
             "useLabel": null,
             "sortable": false
           },
           {
-            "id": "abbreviation",
+            "id": "hidden",
             "componentType": "Column",
             "hidden": true,
             "children": [
               {
-                "id": "abbreviation",
+                "id": "hidden",
                 "componentType": "field",
                 "hidden": true,
-                "children": [],
-                "label": "Kurzbez."
+                "children": []
               }
             ],
-            "label": "Kurzbez.",
-
-            "sortable": true
-          },
-          {
-            "id": "relAcademic_title",
-            "componentType": "Column",
-            "hidden": true,
-            "children": [
-              {
-                "id": "relAcademic_title",
-                "componentType": "field",
-                "hidden": true,
-                "children": [],
-                "label": "Akad. Titel"
-              }
-            ],
-            "label": "Akad. Titel",
-
-            "sortable": true
-          },
-          {
-            "id": "profession",
-            "componentType": "Column",
-            "hidden": true,
-            "children": [
-              {
-                "id": "profession",
-                "componentType": "field",
-                "hidden": true,
-                "children": [],
-                "label": "Beruf/Ausbildung"
-              }
-            ],
-            "label": "Beruf/Ausbildung",
-
-            "sortable": true
-          },
-          {
-            "id": "job",
-            "componentType": "Column",
-            "hidden": true,
-            "children": [
-              {
-                "id": "job",
-                "componentType": "field",
-                "hidden": true,
-                "children": [],
-                "label": "Funktion"
-              }
-            ],
-            "label": "Funktion",
-
-            "sortable": true
-          },
-          {
-            "id": "social_security_nr",
-            "componentType": "Column",
-            "hidden": true,
-            "children": [
-              {
-                "id": "social_security_nr",
-                "componentType": "field",
-                "hidden": true,
-                "children": [],
-                "label": "Sozialvers.-Nr."
-              }
-            ],
-            "label": "Sozialvers.-Nr.",
-
-            "sortable": true
-          },
-          {
-            "id": "birthdate",
-            "componentType": "Column",
-            "hidden": true,
-            "children": [
-              {
-                "id": "birthdate",
-                "componentType": "field",
-                "hidden": true,
-                "children": [],
-                "label": "Geburtsdatum"
-              }
-            ],
-            "label": "Geburtsdatum",
-
-            "sortable": true
-          },
-          {
-            "id": "relCorrespondence_language",
-            "componentType": "Column",
-            "hidden": true,
-            "children": [
-              {
-                "id": "relCorrespondence_language",
-                "componentType": "field",
-                "hidden": true,
-                "children": [],
-                "label": "Sprache"
-              }
-            ],
-            "label": "Sprache",
-
-            "sortable": true
-          },
-          {
-            "id": "relUser_newsletter_category",
-            "componentType": "Column",
-            "hidden": true,
-            "children": [
-              {
-                "id": "relUser_newsletter_category",
-                "componentType": "field",
-                "hidden": true,
-                "children": [],
-                "label": "Newsletter"
-              }
-            ],
-            "label": "Newsletter",
-
-            "sortable": true
-          },
-          {
-            "id": "learner_nr",
-            "componentType": "Column",
-            "hidden": true,
-            "children": [
-              {
-                "id": "learner_nr",
-                "componentType": "field",
-                "hidden": true,
-                "children": [],
-                "label": "Lehrlingsnummer"
-              }
-            ],
-            "label": "Lehrlingsnummer",
-
-            "sortable": true
-          },
-          {
-            "id": "contract_nr",
-            "componentType": "Column",
-            "hidden": true,
-            "children": [
-              {
-                "id": "contract_nr",
-                "componentType": "field",
-                "hidden": true,
-                "children": [],
-                "label": "Lehrvertrag-Nummer"
-              }
-            ],
-            "label": "Vertrags-Nr.",
-
-            "sortable": true
-          },
-          {
-            "id": "relJob_variant",
-            "componentType": "Column",
-            "hidden": true,
-            "children": [
-              {
-                "id": "relJob_variant",
-                "componentType": "field",
-                "hidden": true,
-                "children": [],
-                "label": "Beruf"
-              }
-            ],
-            "label": "Beruf",
-
-            "sortable": true
-          },
-          {
-            "id": "relSubvention_canton",
-            "componentType": "Column",
-            "hidden": true,
-            "children": [
-              {
-                "id": "relSubvention_canton",
-                "componentType": "field",
-                "hidden": true,
-                "children": [],
-                "label": "Subventionskanton"
-              }
-            ],
-            "label": "Subventionskanton",
-
-            "sortable": true
-          },
-          {
-            "id": "relMeals",
-            "componentType": "Column",
-            "hidden": true,
-            "children": [
-              {
-                "id": "relMeals",
-                "componentType": "field",
-                "hidden": true,
-                "children": [],
-                "label": "Verpflegung"
-              }
-            ],
-            "label": "Verpflegung",
-
-            "sortable": true
-          },
-          {
-            "id": "relSpecialcase",
-            "componentType": "Column",
-            "hidden": true,
-            "children": [
-              {
-                "id": "relSpecialcase",
-                "componentType": "field",
-                "hidden": true,
-                "children": [],
-                "label": "Spezialfälle"
-              }
-            ],
-            "label": "Spezialfälle",
-            "sortable": true
-          },
-          {
-            "id": "apprenticeship_start_date",
-            "componentType": "Column",
-            "hidden": true,
-            "children": [
-              {
-                "id": "apprenticeship_start_date",
-                "componentType": "field",
-                "hidden": true,
-                "children": [],
-                "label": "Lehr-Beginn"
-              }
-            ],
-            "label": "Lehr-Beginn",
-            "sortable": true
-          },
-          {
-            "id": "apprenticeship_end_date",
-            "componentType": "Column",
-            "hidden": true,
-            "children": [
-              {
-                "id": "apprenticeship_end_date",
-                "componentType": "field",
-                "hidden": true,
-                "children": [],
-                "label": "Lehr-Ende"
-              }
-            ],
-            "label": "Lehr-Ende",
-            "sortable": true
-          },
-          {
-            "id": "relLearner_status",
-            "componentType": "Column",
-            "hidden": true,
-            "children": [
-              {
-                "id": "relLearner_status",
-                "componentType": "field",
-                "hidden": true,
-                "children": [],
-                "label": "Status Lehre"
-              }
-            ],
-            "label": "Status Lehre",
-            "sortable": true
-          },
-          {
-            "id": "relApprenticeship_current_year",
-            "componentType": "Column",
-            "hidden": true,
-            "children": [
-              {
-                "id": "relApprenticeship_current_year",
-                "componentType": "field",
-                "hidden": true,
-                "children": [],
-                "label": "Aktuelles Lehrjahr"
-              }
-            ],
-            "label": "Aktuelles Lehrjahr",
-
+            "label": "!!SHOULD NOT BE SHOWN!!",
             "sortable": true
           }
         ]

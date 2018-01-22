@@ -135,10 +135,8 @@
                       "update"
                     ],
                     "label": "Simple Action (Update only)",
-                    "config": {
-                      "confirm": false,
-                      "endpoint": "actions/simpleAction"
-                    }
+                    "showConfirmMessage": false,
+                    "endpoint": "actions/simpleAction"
                   }
                 ],
                 "label": "Personenangaben"
@@ -433,25 +431,20 @@
         "id": "a",
         "componentType": "action-group",
         "action": {
-          "actionType": "SIMPLE",
+          "actionType": "simple",
           "icon": "fa-wrench",
           "label": "Simple Action",
-          "config": {
-            "confirm": false,
-            "endpoint": "actions/simpleAction"
-          }
+          "endpoint": "actions/simpleAction"
+
         },
         "children": [
           {
             "id": "a1",
             "componentType": "action",
-            "actionType": "SIMPLE",
+            "actionType": "simple",
             "label": "Simple Action 2 (client question)",
             "icon": "fa-plus",
-            "config": {
-              "confirm": false,
-              "endpoint": "actions/yesNoClientQuestion"
-            }
+            "endpoint": "actions/yesNoClientQuestion"
           }
 
         ]
