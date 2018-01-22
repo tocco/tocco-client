@@ -5,17 +5,16 @@ import {COMPONENT_TYPE_ACTION_GROUP, modeFitsScopes} from '../actions'
 import ActionGroup from './ActionGroup'
 import SingleAction from './SingleAction'
 
-const Action = ({definition, onClick, ids, entity, mode}) => {
+const Action = ({definition, onClick, ids, entity, mode, callback}) => {
   if (!modeFitsScopes(mode, definition.scopes)) return null
 
   const ActionType = definition.componentType === COMPONENT_TYPE_ACTION_GROUP ? ActionGroup : SingleAction
-
   return (
     <span className="action">
       <ActionType
         definition={definition}
         onClick={definition => {
-          onClick(_omit(definition, ['label']), entity, ids)
+          onClick(_omit(definition, ['label']), entity, ids, callback)
         }}
       />
     </span>
@@ -33,6 +32,7 @@ Action.propTypes = {
   ids: PropTypes.array,
   entity: PropTypes.string,
   onClick: PropTypes.func.isRequired,
+  callback: PropTypes.func,
   mode: PropTypes.string
 }
 

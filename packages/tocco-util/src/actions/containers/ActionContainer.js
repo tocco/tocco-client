@@ -7,10 +7,4 @@ const mapActionCreators = {
   onClick: actionInvoke
 }
 
-const mapStateToProps = (state, props) => {
-  return {
-    test: state.input
-  }
-}
-
-export default connect(mapStateToProps, mapActionCreators)(Action)
+export default connect(null, mapActionCreators)(Action)

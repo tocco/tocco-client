@@ -1,8 +1,12 @@
-import {fork, takeEvery, all} from 'redux-saga/effects'
-import rootSaga, * as sagas from './sagas'
+
+import {takeEvery, fork, all} from 'redux-saga/effects'
 import * as actions from './actions'
+import actionHandlers from './actionHandlers'
+import preAction from './preActions'
+
+import rootSaga, * as sagas from './sagas'
 import {expectSaga} from 'redux-saga-test-plan'
-import {BLOCKING_INFO, REMOVE_BLOCKING_INFO, CONFIRM} from '../../notifier/modules/actions'
+import * as matchers from 'redux-saga-test-plan/matchers'
 
 describe('tocco-util', () => {
   describe('actions', () => {
@@ -23,48 +27,35 @@ describe('tocco-util', () => {
           })
         })
 
-        describe('invokeAction', () => {
-          it('should call notifier and invoke simple action', () => {
-            const config = {}
-            const payload = {
-              definition: {
-                actionType: 'simple',
-                componentType: 'action',
-                config: {}
-              },
-              entity: 'User',
-              ids: ['2123']
-            }
+        const config = {}
+        const payload = {
+          definition: {
+            actionType: 'simple',
+            componentType: 'action',
+            config: {}
+          },
+          entity: 'User',
+          ids: ['2123']
+        }
 
+        describe('invokeAction', () => {
+          it('should call preAction and call actionHandler if not abort', () => {
             return expectSaga(sagas.invokeAction, config, {payload})
-              .put.like({action: {type: BLOCKING_INFO}})
-              .call.fn(sagas.invokeSimpleAction)
-              .put.like({action: {type: REMOVE_BLOCKING_INFO}})
+              .provide([
+                [matchers.call.fn(preAction.run), {abort: false}]
+              ])
+              .call.like({ fn: actionHandlers['simple'] })
               .run()
           })
         })
 
-        describe('handleConfirm', () => {
-          it('should call confirm if true', () => {
-            const ids = ['2123']
-            const definition = {
-              showConfirmMessage: true
-            }
-
-            return expectSaga(sagas.handleConfirm, definition, ids)
-              .put.like({action: {type: CONFIRM}})
-              .run()
-          })
-
-          it('should NOT call confirm if absent', () => {
-            const ids = ['2123']
-            const definition = {
-              config: {
-              }
-            }
-
-            return expectSaga(sagas.handleConfirm, definition, ids)
-              .not.put.like({action: {type: CONFIRM}})
+        describe('invokeAction', () => {
+          it('should call preAction and call actionHandler if abort returned', () => {
+            return expectSaga(sagas.invokeAction, config, {payload})
+              .provide([
+                [matchers.call.fn(preAction.run), {abort: true}]
+              ])
+              .not.call.like({ fn: actionHandlers['simple'] })
               .run()
           })
         })
