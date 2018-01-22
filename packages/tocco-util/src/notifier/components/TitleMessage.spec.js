@@ -1,8 +1,9 @@
 import React from 'react'
 import TitleMessage from './TitleMessage'
-import {shallow} from 'enzyme'
+import {mount} from 'enzyme'
 import {FormattedValue} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
+import {intlEnzyme} from 'tocco-test-util'
 
 describe('tocco-util', () => {
   describe('notifier', () => {
@@ -11,7 +12,7 @@ describe('tocco-util', () => {
         it('should render title and message ', () => {
           const title = 'Title'
           const message = 'message'
-          const wrapper = shallow(
+          const wrapper = mount(
             <TitleMessage
               title={title}
               message={message}
@@ -23,7 +24,7 @@ describe('tocco-util', () => {
 
         it('should not show message if not given', () => {
           const title = 'Title'
-          const wrapper = shallow(
+          const wrapper = mount(
             <TitleMessage
               title={title}
             />
@@ -35,7 +36,7 @@ describe('tocco-util', () => {
         it('should render as formated value if key is passed', () => {
           const title = 'client.message.Title'
           const message = 'client.example.message'
-          const wrapper = shallow(
+          const wrapper = intlEnzyme.mountWithIntl(
             <TitleMessage
               title={title}
               message={message}
@@ -43,6 +44,21 @@ describe('tocco-util', () => {
           )
 
           expect(wrapper.find(FormattedMessage)).to.have.length(2)
+        })
+
+        it('should render components', () => {
+          const MyComponent = () => <div/>
+          const title = <MyComponent/>
+          const message = <MyComponent/>
+
+          const wrapper = intlEnzyme.mountWithIntl(
+            <TitleMessage
+              title={title}
+              message={message}
+            />
+          )
+
+          expect(wrapper.find(MyComponent)).to.have.length(2)
         })
       })
     })
