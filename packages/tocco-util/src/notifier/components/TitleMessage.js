@@ -2,17 +2,28 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
 import {FormattedValue} from 'tocco-ui'
+import _isString from 'lodash/isString'
+
+const isKey = s => s && s.startsWith('client.')
+
+const Content = ({content}) =>
+  _isString(content)
+    ? (isKey(content) ? <FormattedMessage id={content}/> : <FormattedValue type="html" value={content}/>)
+    : content
+
+Content.propTypes = {
+  content: PropTypes.node
+}
 
 const TitleMessage = ({title, message, className, children}) => {
-  const isKey = s => s && s.startsWith('client.')
   return (
     <div className={className}>
       <h1>
-        {isKey(title) ? <FormattedMessage id={title}/> : <FormattedValue type="html" value={title}/>}
+        <Content content={title}/>
       </h1>
       {message
       && <div className="message">
-        {isKey(message) ? <FormattedMessage id={message}/> : <FormattedValue type="html" value={message}/>}
+        <Content content={message}/>
       </div>}
       {children}
     </div>
@@ -21,8 +32,8 @@ const TitleMessage = ({title, message, className, children}) => {
 
 TitleMessage.propTypes = {
   className: PropTypes.string,
-  title: PropTypes.string,
-  message: PropTypes.string,
+  title: PropTypes.node,
+  message: PropTypes.node,
   children: PropTypes.node
 }
 
