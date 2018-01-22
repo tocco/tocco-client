@@ -1,0 +1,128 @@
+{
+  "_links": {
+    "self": {
+      "href": "https://test.tocco.ch/nice2/rest/forms/Dummy_entity_detail"
+    }
+  },
+  "form": {
+    "id": "MySessionOnly_detail",
+    "componentType": "layout",
+    "layoutType": "table",
+    "hidden": false,
+    "scopes": [],
+    "children": [
+      {
+        "id": "box1",
+        "componentType": "layout",
+        "layoutType": "horizontal-box",
+        "hidden": false,
+        "scopes": [],
+        "children": [
+          {
+            "id": "box1",
+            "componentType": "layout",
+            "layoutType": "vertical-box",
+            "hidden": false,
+            "scopes": [],
+            "children": [
+              {
+                "componentType": "field-set",
+                "id": "myString",
+                "hidden": false,
+                "label": "Text",
+                "scopes": [],
+                "children": [
+                  {
+                    "id": "myString",
+                    "dataType": "string",
+                    "componentType": "field",
+                    "defaultValue": "Test",
+                    "label": null
+                  }
+                ]
+              },
+              {
+                "componentType": "field-set",
+                "id": "numberQuestion",
+                "hidden": false,
+                "label": "Number",
+                "scopes": [],
+                "children": [
+                  {
+                    "id": "numberQuestion",
+                    "dataType": "integer",
+                    "componentType": "field",
+                    "defaultValue": 99,
+                    "label": null
+                  }
+                ]
+              },
+              {
+                "componentType": "field-set",
+                "id": "booleanQuestion",
+                "hidden": false,
+                "label": "Bool",
+                "scopes": [],
+                "children": [
+                  {
+                    "id": "booleanQuestion",
+                    "dataType": "boolean",
+                    "componentType": "field",
+                    "defaultValue": true,
+                    "label": null
+                  }
+                ]
+              },
+              {
+                "componentType": "field-set",
+                "id": "relMulti_entity",
+                "hidden": false,
+                "label": "Dummy entity",
+                "scopes": [],
+                "children": [
+                  {
+                    "id": "relMulti_entity",
+                    "dataType": "multi-select-box",
+                    "componentType": "field",
+                    "label": null
+                  }
+                ]
+              },
+              {
+                "componentType": "field-set",
+                "id": "relRemote_entity",
+                "hidden": false,
+                "label": "Dummy entity (single remote)",
+                "scopes": [],
+                "children": [
+                  {
+                    "id": "relRemote_entity",
+                    "dataType": "single-remote-field",
+                    "componentType": "field",
+                    "label": null
+                  }
+                ]
+              },
+              {
+                "componentType": "field-set",
+                "hidden": false,
+                "label": "Datei",
+                "scopes": [],
+                "children": [
+                  {
+                    "id": "file",
+                    "dataType": "document",
+                    "componentType": "field",
+                    "label": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "label": null
+  }
+}
+

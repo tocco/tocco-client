@@ -27,7 +27,7 @@ const simpleAction = timeout =>
       return {
         status: 200,
         body: {
-          successful: true,
+          success: true,
           message: 'Action completed!'
         }
       }
@@ -44,11 +44,11 @@ const yesNoClientQuestion = timeout =>
       } else {
         if (!body.clientAnswers.myYesNoQuestion) {
           return {
-            successful: false,
+            success: false,
             message: 'Action failed, this is on you!'
           }
         } else {
-          return {successful: true}
+          return {success: true}
         }
       }
     })
@@ -63,7 +63,7 @@ const formClientQuestion = timeout =>
         return formClientQuestionResponse
       } else {
         return {
-          successful: true,
+          success: true,
           message: _map(body.clientAnswers.myFormQuestion, v => v).join(', ')
         }
       }
@@ -90,28 +90,7 @@ const formClientQuestionResponse = {
     message: 'Please fill out the form',
     sendText: 'ok',
     cancelText: 'cancel',
-    form: require('./data/simple_form'),
-    model: {
-      fields: [
-        {
-          fieldName: 'textQuestion',
-          validation: {
-            mandatory: true,
-            minLength: 3
-          }
-        }
-      ],
-      relations: [
-        {
-          relationName: 'relMulti_entity',
-          targetEntity: 'Dummy_entity',
-          reverseRelationName: 'relUser',
-          multi: true,
-          validation: {
-            mandatory: true
-          }
-        }
-      ]
-    }
+    form: require('./data/my_session_only_detail_form'),
+    model: require('./data/my_session_only_model')
   }
 }

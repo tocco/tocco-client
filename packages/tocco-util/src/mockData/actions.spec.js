@@ -23,7 +23,7 @@ describe('tocco-util', () => {
         const resource = 'http://localhost:8080/nice2/rest/actions/simpleAction'
 
         simpleRequest(resource, {method: 'post'}).then(res => {
-          expect(res.body.successful).to.be.true
+          expect(res.body.success).to.be.true
           done()
         })
       })
@@ -46,7 +46,7 @@ describe('tocco-util', () => {
           method: 'post',
           body: {clientAnswers: {myYesNoQuestion: true}}
         }).then(res => {
-          expect(res.body.successful).to.be.true
+          expect(res.body.success).to.be.true
           done()
         })
       })
@@ -58,7 +58,7 @@ describe('tocco-util', () => {
           method: 'post',
           body: {clientAnswers: {myYesNoQuestion: false}}
         }).then(res => {
-          expect(res.body.successful).to.be.false
+          expect(res.body.success).to.be.false
           done()
         })
       })

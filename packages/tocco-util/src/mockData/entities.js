@@ -60,6 +60,16 @@ export const setupEntities = (fetchMock, entityStore, timeout) => {
   )
 
   fetchMock.get(
+    new RegExp('^.*?/nice2/rest/entities/MySessionOnly/model$'),
+    require('./data/my_session_only_model.json')
+  )
+
+  fetchMock.get(
+    new RegExp('^.*?/nice2/rest/forms/MySessionOnly_detail$'),
+    require('./data/my_session_only_detail_form.json')
+  )
+
+  fetchMock.get(
     new RegExp('^.*?/nice2/rest/entities/Dummy_entity/count(\\?.*)?'),
     () => ({'count': entityStore['Dummy_entity'].length})
   )
