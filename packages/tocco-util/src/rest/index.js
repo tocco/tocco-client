@@ -3,7 +3,7 @@ import {
   setNullBusinessUnit,
   simpleRequest
 } from './rest'
-import {fetchEntities} from './entities'
+import {fetchEntities, fetchForm, fetchModel} from './helpers'
 import ClientQuestionCancelledException from './ClientQuestionCancelledException'
 
 export {
@@ -11,5 +11,7 @@ export {
   setNullBusinessUnit,
   simpleRequest,
   ClientQuestionCancelledException,
-  fetchEntities
+  fetchEntities,
+  fetchForm,
+  fetchModel
 }
