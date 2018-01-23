@@ -1,10 +1,11 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 import ListView from '../components/ListView'
-import {initialize} from '../modules/list/actions'
+import {initialize, refresh} from '../modules/list/actions'
 
 const mapActionCreators = {
-  initialize
+  initialize,
+  refresh
 }
 
 const mapStateToProps = (state, props) => {

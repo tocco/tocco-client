@@ -29,6 +29,7 @@ class ListView extends React.Component {
               return <TableContainer key={idx} columnDefinitions={getColumnDefinition(child)}/>
             } else if (actions.isAction(child.componentType)) {
               return <actions.Action
+                callback={result => props.refresh()}
                 key={`listAction${idx}`}
                 definition={child}
                 ids={props.selection}
@@ -49,7 +50,8 @@ ListView.propTypes = {
   formDefinition: PropTypes.shape({
     children: PropTypes.array
   }),
-  selection: PropTypes.arrayOf(PropTypes.string)
+  selection: PropTypes.arrayOf(PropTypes.string),
+  refresh: PropTypes.func.isRequired
 
 }
 
