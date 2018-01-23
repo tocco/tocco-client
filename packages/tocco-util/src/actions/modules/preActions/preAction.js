@@ -12,7 +12,7 @@ export default preAction =>
         const response = yield call(handler.run, params, definition, ids)
 
         abort = response.abort
-        params = {...(params || {}), ...response.params}
+        params = {...params, ...response.params}
       }
       i++
     }

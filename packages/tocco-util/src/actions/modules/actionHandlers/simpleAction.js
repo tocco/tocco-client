@@ -16,15 +16,13 @@ export default function* (definition, entity, ids, params) {
 export function* invokeRequest(definition, entity, ids, params) {
   try {
     const response = yield call(requestSaga, definition.endpoint, {method: 'POST', body: {ids, entity, ...params}})
-
     const success = response.body.success === true
 
-    yield put(notifier.info(
-      success ? 'success' : 'warning',
-      response.body.message || 'client.component.actions.successTitle',
-      null,
-      success ? 'check' : 'exclamation'
-    ))
+    const type = success ? 'success' : 'warning'
+    const title = response.body.message || 'client.component.actions.successTitle'
+    const icon = success ? 'check' : 'exclamation'
+
+    yield put(notifier.info(type, title, null, icon))
     return response.body
   } catch (error) {
     if (!(error instanceof ClientQuestionCancelledException)) {
