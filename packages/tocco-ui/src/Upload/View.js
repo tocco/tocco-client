@@ -40,7 +40,8 @@ View.propTypes = {
   value: PropTypes.shape({
     fileName: PropTypes.string.isRequired,
     binaryLink: PropTypes.string.isRequired,
-    thumbnailLink: PropTypes.string.isRequired
+    thumbnailLink: PropTypes.string,
+    mimeType: PropTypes.string
   }).isRequired,
   deleteTitle: PropTypes.string,
   downloadTitle: PropTypes.string

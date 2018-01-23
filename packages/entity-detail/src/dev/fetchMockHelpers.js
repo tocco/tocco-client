@@ -283,7 +283,7 @@ export const documentUploadResponse = (delay = 3000) =>
       return {
         success: true,
         id: 'a6d97beb-4d9a-40ae-9754-1b8aff38b720',
-        mimeType: 'image/jpeg',
+        contentType: 'image/jpeg',
         fileExtension: 'jpg',
         sizeInBytes: 35194,
         fileName: 'example_image.jpg'

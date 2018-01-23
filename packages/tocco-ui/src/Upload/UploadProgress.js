@@ -8,24 +8,27 @@ const UploadProgress = props => (
     <Preview
       className="transparent"
       style={{maxWidth: '200px'}}
-      srcUrl={props.preview.file}
-      thumbnailUrl={props.preview.file}
+      srcUrl={props.file.preview}
+      caption={props.file.name}
+      thumbnailUrl={props.file.type.startsWith('image') ? props.file.preview : null}
       downloadOnClick={false}
     />
     <div className="loadingOverlay">
-      <span className="label label-default">
+      <div className="label label-default">
         <i className="fa fa-spinner fa-spin"></i>
-        <span style={{paddingLeft: '4px'}}>{props.text || 'uploading'} ({bytesToSize(props.preview.size)})</span>
-      </span>
+        <span style={{paddingLeft: '4px'}}>{props.text || 'uploading'} ({bytesToSize(props.file.size)})</span>
+      </div>
     </div>
   </div>
 )
 
 UploadProgress.propTypes = {
   text: PropTypes.string,
-  preview: PropTypes.shape({
-    file: PropTypes.string,
-    size: PropTypes.number
+  file: PropTypes.shape({
+    preview: PropTypes.string,
+    size: PropTypes.number,
+    type: PropTypes.string,
+    name: PropTypes.string
   })
 }
 

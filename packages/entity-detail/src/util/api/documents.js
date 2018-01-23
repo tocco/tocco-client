@@ -32,11 +32,12 @@ export const uploadRequest = file => {
 }
 
 export const documentToFormValueTransformer = (uploadResponse, file) => {
-  const responseAttributes = _pick(uploadResponse, ['id', 'fileName', 'contentType'])
+  const responseAttributes = _pick(uploadResponse, ['id', 'fileName'])
+  const mimeType = uploadResponse.contentType
 
   return {
     ...responseAttributes,
     binaryLink: file.preview,
-    thumbnailLink: file.preview
+    thumbnailLink: mimeType.startsWith('image') ? file.preview : null
   }
 }

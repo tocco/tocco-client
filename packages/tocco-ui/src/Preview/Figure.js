@@ -9,8 +9,14 @@ const Figure = props => {
   }
 
   return (
-    <figure className="tocco-figure">
-      <img alt={props.alt} className="thumbnail" src={props.thumbnailUrl} onClick={onClick}/>
+    <figure className="tocco-figure" style={{marginBottom: '5px'}}>
+      <img
+        alt={props.alt}
+        className="thumbnail"
+        style={{marginBottom: '5px'}}
+        src={props.thumbnailUrl}
+        onClick={onClick}
+      />
       {props.caption && <figcaption className="description">{props.caption}</figcaption>}
     </figure>
   )
