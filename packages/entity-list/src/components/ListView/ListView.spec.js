@@ -30,7 +30,8 @@ const props = {
   orderBy: null,
   selectable: true,
   onSelectChange: EMPTY_FUNC,
-  selection: []
+  selection: [],
+  refresh: EMPTY_FUNC
 }
 
 describe('entity-list', () => {
