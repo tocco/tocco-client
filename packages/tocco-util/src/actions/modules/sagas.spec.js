@@ -47,15 +47,33 @@ describe('tocco-util', () => {
               .call.like({ fn: actionHandlers['simple'] })
               .run()
           })
-        })
 
-        describe('invokeAction', () => {
           it('should call preAction and call actionHandler if abort returned', () => {
             return expectSaga(sagas.invokeAction, config, {payload})
               .provide([
                 [matchers.call.fn(preAction.run), {abort: true}]
               ])
               .not.call.like({ fn: actionHandlers['simple'] })
+              .run()
+          })
+
+          it('should call callback', () => {
+            const callback = () => {}
+            return expectSaga(sagas.invokeAction, config, {payload: {...payload, callback}})
+              .provide([
+                [matchers.call.fn(preAction.run), {abort: false}]
+              ])
+              .call.like({fn: callback})
+              .run()
+          })
+
+          it('should ignore empty callback', () => {
+            const callback = null
+            return expectSaga(sagas.invokeAction, config, {payload: {...payload, callback}})
+              .provide([
+                [matchers.call.fn(preAction.run), {abort: false}]
+              ])
+              .not.call.like({fn: callback})
               .run()
           })
         })
