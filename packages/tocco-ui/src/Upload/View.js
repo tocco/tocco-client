@@ -13,15 +13,16 @@ const View = props => (
       >
         <i className="fa fa-download" aria-hidden="true"></i>
       </a>
+
       {!props.readOnly
-      && <button
-        type="button"
+      && <a
         title={props.deleteTitle || 'delete'}
         className="action btn btn-danger"
         onClick={() => props.onUpload(null)}
       >
         <i className="fa fa-trash-o" aria-hidden="true"></i>
-      </button>}
+      </a>
+      }
     </div>
     <Preview
       srcUrl={props.value.binaryLink}
