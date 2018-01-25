@@ -7,13 +7,19 @@ import Figure from './Figure'
  * Can be used to show previews of any kind of file. Therefore an Url to the thumbnail and to the file must be provided.
  */
 const Preview = props => {
-  const figure = (<Figure
-    srcUrl={props.srcUrl}
-    thumbnailUrl={props.thumbnailUrl}
-    alt={props.alt}
-    caption={props.caption}
-    onClick={props.onClick}
-  />)
+  const content = props.thumbnailUrl ? (
+    <Figure
+      srcUrl={props.srcUrl}
+      thumbnailUrl={props.thumbnailUrl}
+      alt={props.alt}
+      caption={props.caption}
+      onClick={props.onClick}
+    />
+  ) : (
+    <div className="no-thumbnail">
+      <i className="fa fa-file-text-o" aria-hidden="true"></i><span>{props.caption}</span>
+    </div>
+  )
 
   const classes = classNames(
     'tocco-preview',
@@ -22,7 +28,7 @@ const Preview = props => {
 
   return (
     <div className={classes}>
-      {props.downloadOnClick ? <a href={props.srcUrl} alt={props.alt} download={props.caption}>{figure}</a> : figure}
+      {props.downloadOnClick ? <a href={props.srcUrl} alt={props.alt} download={props.caption}>{content}</a> : content}
     </div>)
 }
 
@@ -34,7 +40,7 @@ Preview.propTypes = {
   /**
    * The url to the thumbnail (must be an image).
    */
-  thumbnailUrl: PropTypes.string.isRequired,
+  thumbnailUrl: PropTypes.string,
   /**
    * Alternative text if the image can't be displayed.
    */

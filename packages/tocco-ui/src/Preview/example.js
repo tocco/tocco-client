@@ -19,6 +19,10 @@ export default () => {
         thumbnailUrl="https://unsplash.it/150"
         onClick={(srcUrl, thumbnailUrl) => alert(srcUrl + '\n' + thumbnailUrl)}
       />
+      <Preview
+        srcUrl="https://someurl.ch/test.pdf"
+        caption="Test.pdf"
+      />
       {/* end example */}
     </div>
   )

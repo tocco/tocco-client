@@ -1,5 +1,6 @@
 import React from 'react'
 import Preview from './Preview'
+import Figure from './Figure'
 import {shallow} from 'enzyme'
 
 describe('tocco-ui', () => {
@@ -19,6 +20,28 @@ describe('tocco-ui', () => {
       )
 
       expect(wrapper.find('a')).to.have.length(1)
+    })
+
+    it('should show Figure if thumbnailUrl is given', () => {
+      const wrapper = shallow(
+        <Preview
+          srcUrl="link/to/source"
+          thumbnailUrl="link/to/thumbnail"
+        />
+      )
+
+      expect(wrapper.find(Figure)).to.have.length(1)
+    })
+
+    it('should show Figure if thumbnailUrl is given', () => {
+      const wrapper = shallow(
+        <Preview
+          srcUrl="link/to/source"
+          caption="Test.pdf"
+        />
+      )
+
+      expect(wrapper.find('.no-thumbnail')).to.have.length(1)
     })
 
     it('should add className', () => {

@@ -15,11 +15,11 @@ class Upload extends React.Component {
   }
 
   setUploadingState(file) {
-    this.setState({isUploading: true, preview: {file: file.preview, size: file.size}})
+    this.setState({isUploading: true, previewFile: file})
   }
 
   abortUploadingState() {
-    this.setState({isUploading: false, preview: null})
+    this.setState({isUploading: false, previewFile: null})
   }
 
   onDrop(file) {
@@ -38,7 +38,7 @@ class Upload extends React.Component {
       return <View {...props} deleteTitle={props.textResources.delete} downloadTitle={props.textResources.download} />
     } else {
       if (this.state.isUploading) {
-        return <UploadProgress preview={this.state.preview} text={props.textResources.uploading} {...props}/>
+        return <UploadProgress file={this.state.previewFile} text={props.textResources.uploading} {...props}/>
       } else {
         return <UploadInput {...props} text={props.textResources.upload} onDrop={this.onDrop.bind(this)}/>
       }
@@ -68,7 +68,7 @@ Upload.propTypes = {
   value: PropTypes.shape({
     fileName: PropTypes.string.isRequired,
     binaryLink: PropTypes.string.isRequired,
-    thumbnailLink: PropTypes.string.isRequired
+    thumbnailLink: PropTypes.string
   }),
   /**
    * Can user upload new files or just view existing

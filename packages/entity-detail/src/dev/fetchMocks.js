@@ -4,8 +4,7 @@ import {
   userCreateResponse,
   userValidateResponse,
   dummyEntityValidateResponse,
-  dummyEntityCreateResponse,
-  documentUploadResponse
+  dummyEntityCreateResponse
 } from './fetchMockHelpers'
 
 const defaultStore = {
@@ -46,11 +45,6 @@ export default function setupFetchMock(packageName, fetchMock, entityStore = def
   fetchMock.post(
     new RegExp('^.*?/nice2/rest/entities/Dummy_entity(\\?.*)?'),
     dummyEntityCreateResponse(entityStore)
-  )
-
-  fetchMock.post(
-    new RegExp('^.*?/nice2/upload.*'),
-    documentUploadResponse()
   )
 }
 
