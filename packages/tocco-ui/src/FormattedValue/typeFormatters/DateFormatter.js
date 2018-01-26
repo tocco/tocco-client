@@ -9,6 +9,7 @@ const DateFormatter = props => {
       year="numeric"
       month="numeric"
       day="numeric"
+      timeZone="UTC"
     />
   )
 }
