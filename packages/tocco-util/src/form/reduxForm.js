@@ -23,11 +23,8 @@ export const formValuesToEntity = (values, dirtyFields, entityName, entityId, en
   const entity = {
     model: entityName,
     paths: {},
-    key: entityId
-  }
-
-  if (values[versionField]) {
-    entity.version = values[versionField]
+    key: entityId,
+    version: values[versionField]
   }
 
   const ignoreField = fieldName => (fieldName === versionField || (dirtyFields && !dirtyFields.includes(fieldName)))
@@ -74,10 +71,7 @@ export const entityToFormValues = entity => {
     }
   })
 
-  if (entity.version) {
-    result[versionField] = entity.version
-  }
-
+  result[versionField] = entity.version
   return result
 }
 

@@ -66,6 +66,7 @@ describe('tocco-util', () => {
           const entity = {
             model: 'User',
             key: '99',
+            version: 0,
             paths: {
               lastname: {
                 type: 'field',
@@ -97,6 +98,7 @@ describe('tocco-util', () => {
           const formValues = reduxForm.entityToFormValues(entity)
 
           const expectedValues = {
+            __version: 0,
             lastname: 'keller',
             relMulti_entity2: entity.paths.relMulti_entity2.value
           }
