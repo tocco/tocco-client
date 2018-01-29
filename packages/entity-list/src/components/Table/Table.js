@@ -102,7 +102,8 @@ const Table = props => {
           const {type, value} = entity[id]
           return <span key={id} style={{marginRight: '2px'}}> <FormattedValue type={type} value={value}/></span>
         } else if (child.componentType === form.componentTypes.DISPLAY) {
-          return <span key={id}> <FormattedValue type="html" value={entity[id]}/></span>
+          const {value} = entity[id]
+          return <span key={id}> <FormattedValue type="html" value={value}/></span>
         }
       })
     }
