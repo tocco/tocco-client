@@ -8,7 +8,7 @@ export function* loadRelationEntity({payload}) {
   const {entityName} = payload
   const {relationEntities} = yield select(selector)
   if (!relationEntities[entityName] || !relationEntities[entityName].loaded) {
-    const entities = yield call(fetchEntities, entityName, {}, selectEntitiesTransformer)
+    const entities = yield call(fetchEntities, entityName, {limit: 30}, selectEntitiesTransformer)
     yield put(relationEntitiesActions.setRelationEntity(entityName, entities, true))
     yield put(relationEntitiesActions.setRelationEntityLoaded(entityName))
     return entities
