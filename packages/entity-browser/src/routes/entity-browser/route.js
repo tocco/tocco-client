@@ -1,21 +1,26 @@
 import EntityBrowser from './components/EntityBrowser'
 
 import entityBrowser from './modules'
-import {setEntityName, setFormBase} from './modules/actions'
+import {setEntityName, setFormBase, setAppId} from './modules/actions'
 
 const inputDispatches = [
   {
-    field: 'entityName',
-    action: setEntityName,
+    key: 'entityName',
+    actionCreator: setEntityName,
     mandatory: true
   },
   {
-    field: 'entityName',
-    action: setFormBase
+    key: 'entityName',
+    actionCreator: setFormBase
   },
   {
-    field: 'formBase',
-    action: setFormBase
+    key: 'formBase',
+    actionCreator: setFormBase
+  },
+  {
+    key: 'id',
+    defaultValue: new Date().valueOf(),
+    actionCreator: setAppId
   }
 ]
 

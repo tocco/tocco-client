@@ -3,32 +3,36 @@ import React from 'react'
 import {appFactory, notifier, errorLogging, actionEmitter, externalEvents} from 'tocco-util'
 import {Router} from 'react-router'
 import createHashHistory from 'history/createHashHistory'
+import createMemoryHistory from 'history/createMemoryHistory'
 import RouteWithSubRoutes from './components/RouteWithSubRoutes'
 import {setNullBusinessUnit} from 'tocco-util/src/rest'
-import {getDispatchActions} from './input'
 
 const packageName = 'entity-browser'
 
 const textResourceSelector = (state, key) => state.intl.messages[key] || key
 
-const createHistory = store => createHashHistory({
-  getUserConfirmation: (message, callback) => {
-    const state = store.getState()
+const createHistory = (store, memoryHistory) => {
+  const historyFactory = memoryHistory ? createMemoryHistory : createHashHistory
 
-    const okText = textResourceSelector(state, 'client.common.ok')
-    const cancelText = textResourceSelector(state, 'client.common.cancel')
+  return historyFactory({
+    getUserConfirmation: (message, callback) => {
+      const state = store.getState()
 
-    const action = notifier.confirm(
-      '',
-      message,
-      okText,
-      cancelText,
-      () => callback(true), // eslint-disable-line standard/no-callback-literal
-      () => callback(false) // eslint-disable-line standard/no-callback-literal
-    )
-    store.dispatch(action)
-  }
-})
+      const okText = textResourceSelector(state, 'client.common.ok')
+      const cancelText = textResourceSelector(state, 'client.common.cancel')
+
+      const action = notifier.confirm(
+        '',
+        message,
+        okText,
+        cancelText,
+        () => callback(true), // eslint-disable-line standard/no-callback-literal
+        () => callback(false) // eslint-disable-line standard/no-callback-literal
+      )
+      store.dispatch(action)
+    }
+  })
+}
 
 const navigateToDetailIfKeySet = (history, input) => {
   const initialDetailViewKey = input.initialKey
@@ -44,6 +48,7 @@ const navigateToDetailIfKeySet = (history, input) => {
 }
 
 const initApp = (id, input, events, publicPath) => {
+  input = {...input, id}
   if (input.nullBusinessUnit) {
     setNullBusinessUnit(input.nullBusinessUnit)
   }
@@ -54,12 +59,11 @@ const initApp = (id, input, events, publicPath) => {
   errorLogging.addToStore(store, true, ['console', 'remote', 'toastr'])
   notifier.addToStore(store, true)
 
-  const history = createHistory(store)
+  const history = createHistory(store, input.memoryHistory)
   navigateToDetailIfKeySet(history, input)
 
   const routes = require('./routes/index').default(store, input)
 
-  const actions = getDispatchActions(input)
   const content = (
     <Router history={history}>
       <div>
@@ -77,8 +81,7 @@ const initApp = (id, input, events, publicPath) => {
     {
       input,
       publicPath,
-      textResourceModules: ['component', 'common', 'entity-list', 'entity-detail'],
-      actions
+      textResourceModules: ['component', 'common', 'entity-list', 'entity-detail']
     }
   )
 

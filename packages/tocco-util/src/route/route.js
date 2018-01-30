@@ -21,7 +21,11 @@ export const loadRoute = (store, input, importRouteDependencies, path) => props 
 
         if (route.inputDispatches) {
           route.inputDispatches.forEach(inputDispatch => {
-            dispatchInput(store, input, inputDispatch.field, inputDispatch.action, inputDispatch.mandatory)
+            dispatchInput(
+              store,
+              input,
+              inputDispatch
+            )
           })
         }
 
