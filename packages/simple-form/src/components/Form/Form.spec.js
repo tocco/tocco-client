@@ -90,6 +90,7 @@ describe('simple-form', () => {
               formDefinition={formDefinition}
               model={model}
               intl={IntlStub}
+              uploadDocument={EMPTY_FUNC}
             />
           </Provider>
         )

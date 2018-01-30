@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 
 import {form, formField} from 'tocco-util'
 import {Button} from 'tocco-ui'
-import {transformModel} from '../../utils'
 import {reduxForm} from 'redux-form'
 import {intlShape} from 'react-intl'
 
@@ -21,6 +20,8 @@ class Form extends React.Component {
     this.formBuilder = this.createFormBuilder(props)
   }
 
+  msg = id => this.props.intl.formatMessage({id})
+
   createFormBuilder = props => {
     const formFieldUtils = {
       relationEntities: props.relationEntities,
@@ -29,12 +30,13 @@ class Form extends React.Component {
       remoteEntities: props.remoteEntities,
       loadSearchFilters: props.loadSearchFilters,
       searchFilters: props.searchFilters,
+      uploadDocument: props.uploadDocument,
       intl: this.props.intl
     }
 
     return form.initFormBuilder(
       undefined,
-      transformModel(props.model),
+      props.model,
       'simpleForm',
       props.formDefinition,
       props.formValues,
@@ -63,13 +65,13 @@ class Form extends React.Component {
       {this.formBuilder()}
       <Button
         type="submit"
-        label={this.props.submitText}
+        label={this.props.submitText || this.msg('client.simple-form.defaultOk')}
         primary
         pending={this.props.submitting}
         disabled={this.props.submitting}
       />
       <Button
-        label={this.props.cancelText}
+        label={this.props.cancelText || this.msg('client.simple-form.defaultCancel')}
         onClick={this.handleCancel}
         disabled={this.props.submitting}
       />
@@ -80,6 +82,7 @@ class Form extends React.Component {
 Form.propTypes = {
   intl: intlShape.isRequired,
   initializeForm: PropTypes.func.isRequired,
+  uploadDocument: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,

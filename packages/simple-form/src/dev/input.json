@@ -74,12 +74,42 @@
                 "componentType": "field-set",
                 "id": "relMulti_entity",
                 "hidden": false,
-                "label": "Dummy entity",
+                "label": "Dummy entity (multi select)",
                 "scopes": [],
                 "children": [
                   {
                     "id": "relMulti_entity",
                     "dataType": "multi-select-box",
+                    "componentType": "field",
+                    "label": null
+                  }
+                ]
+              },
+              {
+                "componentType": "field-set",
+                "id": "relRemote_entity",
+                "hidden": false,
+                "label": "Dummy entity (single remote)",
+                "scopes": [],
+                "children": [
+                  {
+                    "id": "relRemote_entity",
+                    "dataType": "single-remote-field",
+                    "componentType": "field",
+                    "label": null
+                  }
+                ]
+              },
+              {
+                "componentType": "field-set",
+                "id": "document",
+                "hidden": false,
+                "label": "Document",
+                "scopes": [],
+                "children": [
+                  {
+                    "id": "document",
+                    "dataType": "document",
                     "componentType": "field",
                     "label": null
                   }
@@ -93,26 +123,30 @@
     "label": null
   },
   "model": {
-    "fields": [
-      {
-        "fieldName": "textQuestion",
-        "validation": {
-          "mandatory": true,
-          "minLength": 3
-        }
+    "textQuestion": {
+      "fieldName": "textQuestion",
+      "validation": {
+        "mandatory": true,
+        "minLength": 3
       }
-    ],
-    "relations": [
-      {
-        "relationName": "relMulti_entity",
-        "targetEntity": "Dummy_entity",
-        "reverseRelationName": "relUser",
-        "multi": true,
-        "validation": {
-          "mandatory": true
-        }
+    },
+    "relMulti_entity": {
+      "type": "relation",
+      "relationName": "relMulti_entity",
+      "targetEntity": "Dummy_entity",
+      "reverseRelationName": "relUser",
+      "multi": true,
+      "validation": {
+        "mandatory": true
       }
-    ]
+    },
+    "relRemote_entity": {
+      "type": "relation",
+      "relationName": "relRemote_entity",
+      "targetEntity": "Dummy_entity",
+      "reverseRelationName": "relUser2",
+      "multi": false
+    }
   }
 }
 
