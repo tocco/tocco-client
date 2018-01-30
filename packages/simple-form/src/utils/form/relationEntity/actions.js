@@ -1,6 +1,6 @@
-export const LOAD_RELATION_ENTITY = 'relationEntity/LOAD_RELATION_ENTITY'
-export const SET_RELATION_ENTITY = 'relationEntity/SET_RELATION_ENTITY'
-export const SET_RELATION_ENTITY_LOADED = 'relationEntity/SET_RELATION_ENTITY_LOADED'
+export const LOAD_RELATION_ENTITY = 'form/LOAD_RELATION_ENTITY'
+export const SET_RELATION_ENTITY = 'form/SET_RELATION_ENTITY'
+export const SET_RELATION_ENTITY_LOADED = 'form/SET_RELATION_ENTITY_LOADED'
 
 export const loadRelationEntity = entityName => ({
   type: LOAD_RELATION_ENTITY,
