@@ -101,6 +101,9 @@ const Table = props => {
         } else if (child.componentType === form.componentTypes.FIELD) {
           const {type, value} = entity[id]
           return <span key={id} style={{marginRight: '2px'}}> <FormattedValue type={type} value={value}/></span>
+        } else if (child.componentType === form.componentTypes.DISPLAY) {
+          const {value} = entity[id]
+          return <span key={id}> <FormattedValue type="html" value={value}/></span>
         }
       })
     }
@@ -129,7 +132,7 @@ const Table = props => {
               key={idx}
               dataFormat={cellFormatter(column, idx)}
               dataSort={column.sortable}
-              dataField={column.children[0].name}
+              dataField={column.children[0].id}
             >
               {column.label}
             </TableHeaderColumn>

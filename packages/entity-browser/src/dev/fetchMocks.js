@@ -1,4 +1,5 @@
 import {utilFetchMocks, mockData} from 'tocco-util'
+import _union from 'lodash/union'
 
 export default function setupFetchMock(packageName, fetchMock) {
   const entityStore = {
@@ -15,7 +16,12 @@ export default function setupFetchMock(packageName, fetchMock) {
   const simpleFormFetchMocks = require('../../../simple-form/src/dev/fetchMocks')
   simpleFormFetchMocks('simple-form', fetchMock, entityStore)
 
-  utilFetchMocks.textResource(packageName, fetchMock, require('./textResources.json'))
+  utilFetchMocks.textResource(packageName, fetchMock, _union(
+    require('./textResources.json'),
+    require('tocco-entity-detail/src/dev/textResources.json'),
+    require('tocco-entity-list/src/dev/textResources.json'),
+    require('../../../simple-form/src/dev/textResources.json')
+  ))
 }
 
 module.exports = setupFetchMock

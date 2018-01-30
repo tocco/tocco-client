@@ -313,7 +313,24 @@
               }
             ],
             "label": "Dummy Entity (n:n)",
-
+            "sortable": true
+          },
+          {
+            "id": "duration",
+            "label": "Display Expression",
+            "componentType": "column",
+            "children": [
+              {
+                "id": "duration",
+                "label": null,
+                "componentType": "display",
+                "language": "freemarker",
+                "escapeHtml": false,
+                "compressible": false
+              }
+            ],
+            "readonly": false,
+            "hidden": false,
             "sortable": true
           },
           {
