@@ -22,7 +22,7 @@ describe('tocco-util', () => {
 
           store.dispatch.once().withExactArgs(actionCreator('User'))
 
-          dispatchInput(store, input, 'entityName', actionCreator)
+          dispatchInput(store, input, {key: 'entityName', actionCreator})
 
           store.dispatch.verify()
         })
@@ -37,7 +37,7 @@ describe('tocco-util', () => {
 
           store.dispatch.never()
 
-          dispatchInput(store, input, 'entityName', actionCreator)
+          dispatchInput(store, input, {key: 'entityName', actionCreator})
 
           store.dispatch.verify()
         })
@@ -55,7 +55,22 @@ describe('tocco-util', () => {
           const logger = sinon.mock()
           logger.once().withExactArgs("EntityBrowser: Mandatory field 'entityName' not set in input")
 
-          dispatchInput(store, input, 'entityName', actionCreator, true, logger)
+          dispatchInput(store, input, {key: 'entityName', actionCreator, mandatory: true}, logger)
+
+          store.dispatch.verify()
+        })
+
+        it('should dispatch defaultValues', () => {
+          const input = { // no `entityName` property
+          }
+
+          const store = {
+            dispatch: sinon.mock()
+          }
+
+          const defaultValue = 'test'
+          store.dispatch.once().withExactArgs(actionCreator(defaultValue))
+          dispatchInput(store, input, {key: 'entityName', actionCreator, mandatory: true, defaultValue})
 
           store.dispatch.verify()
         })
