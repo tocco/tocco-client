@@ -11,11 +11,11 @@ describe('tocco-util', () => {
       describe('initialForm', () => {
         describe('shouldRun', () => {
           it('should return true if attribute is set', () => {
-            expect(initialForm.shouldRun({formDataEntity: 'Test'}, [])).to.be.true
+            expect(initialForm.shouldRun({formDataEntityModel: 'Test'}, [])).to.be.true
           })
 
           it('should return false if attribute is not set or false', () => {
-            expect(initialForm.shouldRun({formDataEntity: null}, [])).to.be.false
+            expect(initialForm.shouldRun({formDataEntityModel: null}, [])).to.be.false
             expect(initialForm.shouldRun({}, [])).to.be.false
           })
         })
@@ -23,7 +23,7 @@ describe('tocco-util', () => {
         describe('run', () => {
           const params = {}
           const ids = ['2123']
-          const definition = {formDataEntity: 'SessionOnly'}
+          const definition = {formDataEntityModel: 'SessionOnly'}
 
           const channelMock = channel()
 
@@ -39,7 +39,10 @@ describe('tocco-util', () => {
               ])
               .put.like({action: {type: MODAL_COMPONENT}})
               .dispatch(channelMock.put({formValues: {firstname: 'test'}}))
-              .returns({abort: false, params: {form: {model: definition.formDataEntity, paths: {firstname: 'test'}}}})
+              .returns({
+                abort: false,
+                params: {form: {model: definition.formDataEntityModel, paths: {firstname: 'test'}}}
+              })
               .run()
           })
 

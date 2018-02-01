@@ -7,10 +7,10 @@ import SimpleFormApp from 'tocco-simple-form/src/main'
 
 export const formValues = formValues => ({formValues})
 
-const shouldRun = actionDefinition => !!actionDefinition.formDataEntity
+const shouldRun = actionDefinition => !!actionDefinition.formDataEntityModel
 
 export function* run(params, definition, ids) {
-  const entity = definition.formDataEntity
+  const entity = definition.formDataEntityModel
 
   const answerChannel = yield call(channel)
 

@@ -17,7 +17,7 @@
         "icon": "fa-keyboard-o",
         "showConfirmMessage": true,
         "endpoint": "actions/simpleAction",
-        "formDataEntity": "MySessionOnly"
+        "formDataEntityModel": "MySessionOnly"
       },
       {
         "componentType": "action-group",
