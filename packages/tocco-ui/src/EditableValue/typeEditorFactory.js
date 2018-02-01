@@ -35,7 +35,9 @@ export const map = {
   'single-select': SingleSelect,
   'remote': RemoteSelect,
   'multi-remote': MultiRemoteSelect,
-  'search-filter': SearchFilterEdit
+  'search-filter': SearchFilterEdit,
+  'createuser': StringEdit,
+  'createts': DateTimeEdit
 }
 
 export default (type, value, onChange, options, id, events, readOnly = false) => {

@@ -66,5 +66,7 @@ export const map = {
   'single-select': SingleSelectFormatter,
   'remote': SingleSelectFormatter,
   'multi-select': MultiSelectFormatter,
-  'multi-remote': MultiSelectFormatter
+  'multi-remote': MultiSelectFormatter,
+  'createuser': StringFormatter,
+  'createts': DateTimeFormatter
 }
