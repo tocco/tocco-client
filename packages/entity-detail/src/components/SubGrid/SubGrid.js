@@ -35,6 +35,7 @@ const SubGrid = props => {
         }
         }
         showCreateButton={props.showSubGridsCreateButton}
+        emitAction={action => { props.dispatchEmittedAction(action) }}
       />
     </div>
   )
@@ -51,6 +52,7 @@ SubGrid.propTypes = {
   }).isRequired,
   onRowClick: PropTypes.func,
   onNavigateToCreate: PropTypes.func.isRequired,
+  dispatchEmittedAction: PropTypes.func.isRequired,
   showSubGridsCreateButton: PropTypes.bool,
   appId: PropTypes.string
 }
