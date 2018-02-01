@@ -6,6 +6,7 @@ import {getSearchInputs} from '../searchForm/sagas'
 import rootSaga, * as sagas from './sagas'
 import {fetchForm, getSorting, getFields} from '../../util/api/forms'
 import {fetchEntityCount, fetchEntities, entitiesListTransformer, fetchModel} from '../../util/api/entities'
+import {actions as actionUtil} from 'tocco-util'
 
 const generateState = (entityStore = {}, page) => ({
   initialized: false,
@@ -32,7 +33,8 @@ describe('entity-list', () => {
               fork(takeEvery, actions.RESET_DATA_SET, sagas.resetDataSet),
               fork(takeLatest, actions.REFRESH, sagas.refresh),
               fork(takeLatest, actions.ON_ROW_CLICK, sagas.onRowClick),
-              fork(takeLatest, actions.ON_SELECT_CHANGE, sagas.onSelectChange)
+              fork(takeLatest, actions.ON_SELECT_CHANGE, sagas.onSelectChange),
+              fork(takeEvery, actionUtil.actions.ACTION_INVOKED, sagas.actionInvoked)
             ]))
             expect(generator.next().done).to.be.true
           })

@@ -96,6 +96,9 @@ const Table = props => {
               definition={child}
               ids={[entity.__key]}
               entity={entity.__model}
+              callback={result =>
+                props.refresh()
+              }
             />
           )
         } else if (child.componentType === form.componentTypes.FIELD) {
@@ -165,6 +168,7 @@ Table.propTypes = {
   changePage: PropTypes.func.isRequired,
   selectable: PropTypes.bool,
   onSelectChange: PropTypes.func,
+  refresh: PropTypes.func,
   selection: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
 }
 
