@@ -38,6 +38,16 @@
                 "hidden": false,
                 "children": [],
                 "label": "Active"
+              },
+              {
+                "id": "subaction",
+                "label": null,
+                "componentType": "action",
+                "actionType": "simple",
+                "icon": "fa-pencil",
+                "endpoint": "actions/simpleAction",
+                "appId": null,
+                "formDataEntityModel": "MySessionOnly"
               }
             ],
             "label": "Active"
