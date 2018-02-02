@@ -202,6 +202,7 @@
                   {
                     "id": "relDummySubGrid",
                     "componentType": "sub-table",
+                    "showSearchForm": true,
                     "readonly": true,
                     "children": [ ],
                     "label": null,
