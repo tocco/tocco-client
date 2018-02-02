@@ -1,7 +1,7 @@
 import _isEmpty from 'lodash/isEmpty'
 import _union from 'lodash/union'
 import {call, put, fork, select, spawn, takeEvery, takeLatest, all} from 'redux-saga/effects'
-import {externalEvents} from 'tocco-util'
+import {externalEvents, actions as actionUtil, actionEmitter} from 'tocco-util'
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import {getSearchInputs} from '../searchForm/sagas'
@@ -22,7 +22,8 @@ export default function* sagas() {
     fork(takeEvery, actions.RESET_DATA_SET, resetDataSet),
     fork(takeLatest, actions.REFRESH, refresh),
     fork(takeLatest, actions.ON_ROW_CLICK, onRowClick),
-    fork(takeLatest, actions.ON_SELECT_CHANGE, onSelectChange)
+    fork(takeLatest, actions.ON_SELECT_CHANGE, onSelectChange),
+    fork(takeEvery, actionUtil.actions.ACTION_INVOKED, actionInvoked)
   ])
 }
 
@@ -173,4 +174,9 @@ export function* onSelectChange({payload}) {
   const newSelection = yield call(combineSelection, list.selection, selection)
   yield put(actions.setSelection(newSelection))
   yield put(externalEvents.fireExternalEvent('onSelectChange', newSelection))
+}
+
+export function* actionInvoked(action) {
+  yield call(refresh)
+  yield put(actionEmitter.emitAction(action))
 }

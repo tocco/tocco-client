@@ -10,7 +10,7 @@ import {
   change as changeFormValue
 } from 'redux-form'
 
-import {externalEvents, notifier, errorLogging, form} from 'tocco-util'
+import {externalEvents, notifier, errorLogging, form, actions as actionUtil, actionEmitter} from 'tocco-util'
 import {ClientQuestionCancelledException} from 'tocco-util/src/rest'
 import * as actions from './actions'
 import {
@@ -39,7 +39,8 @@ export default function* sagas() {
     fork(takeEvery, actions.LOAD_RELATION_ENTITY, loadRelationEntity),
     fork(takeEvery, actions.LOAD_REMOTE_ENTITY, loadRemoteEntity),
     fork(takeEvery, actions.UPLOAD_DOCUMENT, uploadDocument),
-    fork(takeEvery, actions.FIRE_TOUCHED, fireTouched)
+    fork(takeEvery, actions.FIRE_TOUCHED, fireTouched),
+    fork(takeEvery, actionUtil.actions.ACTION_INVOKED, actionInvoked)
   ])
 }
 
@@ -85,7 +86,7 @@ export function* loadEntityModel(entityName) {
 }
 
 export function* loadDetailView() {
-  const {entityName, entityId, formName, mode} = yield select(entityDetailSelector)
+  const {entityName, formName, mode} = yield select(entityDetailSelector)
 
   yield call(loadEntityModel, entityName)
   const formDefinition = yield call(loadDetailFormDefinition, formName)
@@ -96,9 +97,7 @@ export function* loadDetailView() {
     const defaultValues = yield call(getDefaultValues, fieldDefinitions)
     yield put(initializeForm(FORM_ID, defaultValues))
   } else {
-    const entity = yield call(loadEntity, entityName, entityId, formDefinition, formName)
-    const formValues = yield call(form.entityToFormValues, entity)
-    yield put(initializeForm(FORM_ID, formValues))
+    yield call(loadData)
   }
 }
 
@@ -243,4 +242,16 @@ export function* showNotification(type, titleResourceName, messageResourceName, 
     'check',
     duration
   ))
+}
+
+export function* loadData() {
+  const {entityName, entityId, formName, formDefinition} = yield select(entityDetailSelector)
+  const entity = yield call(loadEntity, entityName, entityId, formDefinition, formName)
+  const formValues = yield call(form.entityToFormValues, entity)
+  yield put(initializeForm(FORM_ID, formValues, {keepDirty: true}))
+}
+
+export function* actionInvoked(action) {
+  yield call(loadData)
+  yield put(actionEmitter.emitAction(action))
 }

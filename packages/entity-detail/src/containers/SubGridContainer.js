@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 import SubGrid from '../components/SubGrid'
-import {externalEvents} from 'tocco-util'
+import {externalEvents, actionEmitter} from 'tocco-util'
 
 const mapStateToProps = (state, props) => ({
   appId: state.entityDetail.appId,
@@ -18,7 +18,8 @@ const mapActionCreators = {
   onNavigateToCreate: e => externalEvents.fireExternalEvent('onSubGridNavigateToCreate', {
     gridName: e.gridName,
     relationName: e.relationName
-  })
+  }),
+  dispatchEmittedAction: actionEmitter.dispatchEmittedAction
 }
 
 export default connect(mapStateToProps, mapActionCreators)(SubGrid)
