@@ -11,7 +11,7 @@ export function getInfoAction(type, title, message, icon, timeOut) {
   }
 
   if (icon) {
-    options.icon = (<div className={`fa fa-${icon} icon`}/>)
+    options.icon = (<div className={`fa fa-${icon} tocco-notifier__icon`}/>)
   }
 
   return toastrActions.add({
