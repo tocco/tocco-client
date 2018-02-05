@@ -215,8 +215,8 @@ export function* uploadDocument({payload}) {
     // timestamp is needed as workaround, so that Upload component rerenders
     yield put(changeFormValue(FORM_ID, field, {id: null, timestamp: Date.now()}))
     yield put(errorLogging.logError(
-      'client.entity-detail.uploadFailedTitle',
-      'client.entity-detail.uploadFailedMessage',
+      'client.component.form.uploadFailedTitle',
+      'client.component.form.uploadFailedMessage',
       error
     ))
   }

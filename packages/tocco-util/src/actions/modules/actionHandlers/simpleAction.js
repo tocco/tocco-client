@@ -19,7 +19,7 @@ export function* invokeRequest(definition, entity, ids, params) {
     const success = response.body.success === true
 
     const type = success ? 'success' : 'warning'
-    const title = response.body.message || 'client.component.actions.successTitle'
+    const title = response.body.message || 'client.component.actions.successDefault'
     const icon = success ? 'check' : 'exclamation'
 
     yield put(notifier.info(type, title, null, icon))
