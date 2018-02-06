@@ -63,6 +63,7 @@ export function getBlockingInfo(id, title, message, icon) {
     transitionIn: 'bounceInDown',
     transitionOut: 'bounceOutUp',
     attention: true,
+    onAttentionClick: () => {},
     component: () => <TitleMessage title={title} message={message}/>
   }
 

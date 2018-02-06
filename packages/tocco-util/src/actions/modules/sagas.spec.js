@@ -57,23 +57,23 @@ describe('tocco-util', () => {
               .run()
           })
 
-          it('should call callback', () => {
-            const callback = () => {}
-            return expectSaga(sagas.invokeAction, config, {payload: {...payload, callback}})
+          it('should call invoked action after successfull handled action call', () => {
+            return expectSaga(sagas.invokeAction, config, {payload})
               .provide([
-                [matchers.call.fn(preAction.run), {abort: false}]
+                [matchers.call.fn(preAction.run), {abort: false}],
+                [matchers.call.fn(actionHandlers[payload.definition.actionType]), {success: true}]
               ])
-              .call.like({fn: callback})
+              .put.like({action: {type: actions.ACTION_INVOKED}})
               .run()
           })
 
-          it('should ignore empty callback', () => {
-            const callback = null
-            return expectSaga(sagas.invokeAction, config, {payload: {...payload, callback}})
+          it('should call invoked action after successfull handled action call', () => {
+            return expectSaga(sagas.invokeAction, config, {payload})
               .provide([
-                [matchers.call.fn(preAction.run), {abort: false}]
+                [matchers.call.fn(preAction.run), {abort: false}],
+                [matchers.call.fn(actionHandlers[payload.definition.actionType]), {success: false}]
               ])
-              .not.call.like({fn: callback})
+              .not.put.like({action: {type: actions.ACTION_INVOKED}})
               .run()
           })
         })

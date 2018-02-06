@@ -15,6 +15,7 @@ describe('entity-detail', () => {
             relationName="relFoo"
             onNavigateToCreate={() => {}}
             showSubGridsCreateButton={false}
+            dispatchEmittedAction={() => {}}
           />
         )
 

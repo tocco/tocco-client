@@ -12,7 +12,7 @@ const SubGrid = props => {
         entityName={props.modelField.targetEntity}
         formBase={formBase}
         limit={5}
-        showSearchForm={true}
+        showSearchForm={props.showSearchForm}
         preselectedSearchFields={[{
           id: props.modelField.reverseRelationName,
           value: props.entityKey,
@@ -35,6 +35,7 @@ const SubGrid = props => {
         }
         }
         showCreateButton={props.showSubGridsCreateButton}
+        emitAction={action => { props.dispatchEmittedAction(action) }}
       />
     </div>
   )
@@ -51,8 +52,10 @@ SubGrid.propTypes = {
   }).isRequired,
   onRowClick: PropTypes.func,
   onNavigateToCreate: PropTypes.func.isRequired,
+  dispatchEmittedAction: PropTypes.func.isRequired,
   showSubGridsCreateButton: PropTypes.bool,
-  appId: PropTypes.string
+  appId: PropTypes.string,
+  showSearchForm: PropTypes.bool
 }
 
 export default SubGrid

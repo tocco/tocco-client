@@ -8,5 +8,6 @@ export default type =>
       gridName={formField.id}
       relationName={formField.id}
       modelField={modelField}
+      showSearchForm={formField.showSearchForm}
     />
   )

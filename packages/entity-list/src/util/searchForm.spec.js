@@ -57,6 +57,20 @@ describe('entity-list', () => {
           expect(next.done).to.be.true
         })
       })
+
+      describe('getDisplay', () => {
+        it('should return the not loaded display if no entites loaded', () => {
+          const entities = []
+          const result = searchForm.getDisplay(1, entities)
+          expect(result).to.eql(searchForm.NOT_LOADED_DISPLAY)
+        })
+
+        it('should return the display of correct entity', () => {
+          const entities = [{key: 1, display: 'test'}]
+          const result = searchForm.getDisplay(1, entities)
+          expect(result).to.eql('test')
+        })
+      })
     })
   })
 })

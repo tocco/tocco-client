@@ -8,7 +8,8 @@ import {
   setSorting,
   setSelectable,
   onSelectChange,
-  setSelection
+  setSelection,
+  refresh
 } from '../modules/list/actions'
 
 const mapActionCreators = {
@@ -18,7 +19,8 @@ const mapActionCreators = {
   onRowClick,
   setSelectable,
   onSelectChange,
-  setSelection
+  setSelection,
+  refresh
 }
 
 const mapStateToProps = (state, props) => ({

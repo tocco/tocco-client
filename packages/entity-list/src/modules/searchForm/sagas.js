@@ -90,7 +90,11 @@ export function* loadRelationEntity({payload}) {
   const {entityName} = payload
   const {relationEntities} = yield select(searchFormSelector)
   if (!relationEntities[entityName] || !relationEntities[entityName].loaded) {
-    const entities = yield call(fetchEntities, entityName, {}, selectEntitiesTransformer)
+    const searchInputs = {
+      fields: ['pk'],
+      limit: 100
+    }
+    const entities = yield call(fetchEntities, entityName, searchInputs, selectEntitiesTransformer)
     yield put(actions.setRelationEntity(entityName, entities, true))
     yield put(actions.setRelationEntityLoaded(entityName))
     return entities

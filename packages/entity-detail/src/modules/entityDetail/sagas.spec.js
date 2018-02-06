@@ -9,7 +9,7 @@ import {
   change as changeFormValue
 } from 'redux-form'
 
-import { externalEvents, form } from 'tocco-util'
+import {externalEvents, form, actions as actionUtil, actionEmitter} from 'tocco-util'
 import {ClientQuestionCancelledException} from 'tocco-util/src/rest'
 import * as actions from './actions'
 import {
@@ -24,6 +24,8 @@ import { getFieldDefinitions, getFieldNames, fetchForm } from '../../util/api/fo
 import {submitValidate} from '../../util/detailView/asyncValidation'
 import modes from '../../util/modes'
 import {uploadRequest, documentToFormValueTransformer} from '../../util/api/documents'
+import {expectSaga} from 'redux-saga-test-plan'
+import * as matchers from 'redux-saga-test-plan/matchers'
 
 const FORM_ID = 'detailForm'
 
@@ -41,7 +43,8 @@ describe('entity-detail', () => {
               fork(takeEvery, actions.LOAD_RELATION_ENTITY, sagas.loadRelationEntity),
               fork(takeEvery, actions.LOAD_REMOTE_ENTITY, sagas.loadRemoteEntity),
               fork(takeEvery, actions.UPLOAD_DOCUMENT, sagas.uploadDocument),
-              fork(takeEvery, actions.FIRE_TOUCHED, sagas.fireTouched)
+              fork(takeEvery, actions.FIRE_TOUCHED, sagas.fireTouched),
+              fork(takeEvery, actionUtil.actions.ACTION_INVOKED, sagas.actionInvoked)
             ]))
             expect(generator.next().done).to.be.true
           })
@@ -111,27 +114,6 @@ describe('entity-detail', () => {
             const formDefinition = {}
             const mode = 'update'
 
-            const entity = {
-              key: 1,
-              model: 'User',
-              paths: {
-                field1: {
-                  type: 'entity',
-                  value: {
-                    key: 1,
-                    display: 'fieldLabel'
-                  }
-                },
-                field2: {
-                  type: 'entity-list',
-                  value: [
-                    {key: 1, display: 'fieldLabel1'},
-                    {key: 2, display: 'fieldLabel2'}
-                  ]
-                }
-              }
-            }
-
             const gen = sagas.loadDetailView(actions.loadDetailView(modelPaths, entityId))
             expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
             expect(gen.next({entityName, entityId, formName, mode}).value).to.eql(
@@ -139,10 +121,7 @@ describe('entity-detail', () => {
             )
 
             expect(gen.next().value).to.eql(call(sagas.loadDetailFormDefinition, formName))
-            expect(gen.next(formDefinition).value)
-              .to.eql(call(sagas.loadEntity, entityName, entityId, formDefinition, formName))
-            expect(gen.next(entity).value).to.eql(call(form.entityToFormValues, entity))
-            expect(gen.next({}).value).to.eql(put(initializeForm(FORM_ID, {})))
+            expect(gen.next(formDefinition).value).to.eql(call(sagas.loadData))
             expect(gen.next().done).to.be.true
           })
         })
@@ -514,6 +493,33 @@ describe('entity-detail', () => {
             expect(gen.next(documentFormValue).value).to.eql(put(changeFormValue(FORM_ID, field, documentFormValue)))
 
             expect(gen.next().done).to.be.true
+          })
+        })
+
+        describe('loadData saga', () => {
+          it('should fetch the entity and call form initialize', () => {
+            return expectSaga(sagas.loadData)
+              .provide([
+                [select(sagas.entityDetailSelector), {}],
+                [matchers.call.fn(sagas.loadEntity), {paths: {}}]
+              ])
+              .call.like({fn: sagas.loadEntity})
+              .call.like({fn: form.entityToFormValues})
+              .put.like({action: {type: initializeForm().type}})
+              .run()
+          })
+        })
+
+        describe('actionInvoked saga', () => {
+          it('should refresh the data and emit the action', () => {
+            const action = {}
+            return expectSaga(sagas.actionInvoked, action)
+              .provide([
+                [matchers.call.fn(sagas.loadData), {}]
+              ])
+              .call.like({fn: sagas.loadData})
+              .put(actionEmitter.emitAction(action))
+              .run()
           })
         })
       })
