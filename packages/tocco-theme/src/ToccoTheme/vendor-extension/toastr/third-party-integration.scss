@@ -83,4 +83,10 @@
       }
     }
   }
+
+  // reset: react-redux-toastr (index.scss & confirm.scss)
+  .redux-toastr .toastr-attention,
+  .rrt-confirm-holder .shadow {
+    background-color: $backdrop-bg;
+  }
 }
