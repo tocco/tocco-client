@@ -13,7 +13,5 @@
   "client.entity-detail.saveSuccessfulMessage",
   "client.entity-detail.createSuccessfulTitle",
   "client.entity-detail.createSuccessfulMessage",
-  "client.entity-detail.validationError",
-  "client.entity-detail.uploadFailedTitle",
-  "client.entity-detail.uploadFailedMessage"
+  "client.entity-detail.validationError"
 ]

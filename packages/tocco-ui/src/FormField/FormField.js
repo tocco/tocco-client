@@ -25,7 +25,7 @@ const FormField = props => {
       'sr-only': !props.label
     })
 
-  const labelAlt = `${props.label} ${props.mandatory ? props.mandatoryTitle : ''}`
+  const labelAlt = `${props.label}${props.mandatory ? `, ${props.mandatoryTitle}` : ''}`
 
   const editableValueWrapperClass = classNames({
     'col-sm-9': props.label,
@@ -34,7 +34,7 @@ const FormField = props => {
 
   return (
     <div className={fromGroupClass}>
-      <label className={labelClass} htmlFor={props.id} alt={labelAlt}>
+      <label className={labelClass} htmlFor={props.id} alt={labelAlt} title={labelAlt}>
         {props.label}
       </label>
       <div className={editableValueWrapperClass}>
@@ -46,7 +46,7 @@ const FormField = props => {
 }
 
 FormField.defaultProps = {
-  mandatoryTitle: 'is a mandatory field'
+  mandatoryTitle: 'mandatory'
 }
 
 FormField.propTypes = {

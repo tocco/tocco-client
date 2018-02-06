@@ -3,7 +3,7 @@
   "client.component.actions.defaultConfirmMessage",
   "client.component.actions.defaultProgressMessage",
   "client.component.actions.errorText",
-  "client.component.actions.successTitle",
+  "client.component.actions.successDefault",
   "client.component.remoteselect.noResultsText",
   "client.component.remoteselect.clearAllText",
   "client.component.remoteselect.clearValueText",
