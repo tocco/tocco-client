@@ -18,11 +18,11 @@ Content.propTypes = {
 const TitleMessage = ({title, message, className, children}) => {
   return (
     <div className={className}>
-      <h1>
+      <header className="tocco-notifier__title">
         <Content content={title}/>
-      </h1>
+      </header>
       {message
-      && <div className="message">
+      && <div className="tocco-notifier__message">
         <Content content={message}/>
       </div>}
       {children}

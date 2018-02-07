@@ -4,18 +4,20 @@ import {FormattedValue} from 'tocco-ui'
 
 const ModalContent = props => {
   return (
-    <div className="notifier-background">
-      <div className="notifier-box">
-        <div>
-          <h1>{props.title}</h1>
-        </div>
-        <div>
+    <div className="rrt-confirm-holder tocco-notifier__wrapper">
+      <div className="rrt-confirm tocco-notifier__content--large">
+        {props.title
+        && <header className="tocco-notifier__title">
+          {props.title}
+        </header>}
+        {props.message
+        && <div className="tocco-notifier__message">
           <FormattedValue type="html" value={props.message}/>
-        </div>
-        <div className="notifier-content">
-          <props.component close={() => props.close(props.id)}/>
-        </div>
+        </div>}
+        <props.component close={() => props.close(props.id)}/>
       </div>
+
+      <div className="shadow tocco-notifier__shadow"/>
     </div>
   )
 }
