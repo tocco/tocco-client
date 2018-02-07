@@ -15,7 +15,7 @@ export default {
   'html': editableValueFactory('text'),
   'image': editableValueFactory('document'),
   'login': editableValueFactory('string'),
-  'money-amount': editableValueFactory('number'),
+  'moneyamount': editableValueFactory('number'),
   'multi-remote-field': editableValueFactory('multi-remote'),
   'multi-select-box': editableValueFactory('multi-select'),
   'named-upload': editableValueFactory('document'),
