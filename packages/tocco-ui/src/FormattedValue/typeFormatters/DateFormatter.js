@@ -7,8 +7,8 @@ const DateFormatter = props => {
     <FormattedDate
       value={props.value}
       year="numeric"
-      month="numeric"
-      day="numeric"
+      month="2-digit"
+      day="2-digit"
       timeZone="UTC"
     />
   )
