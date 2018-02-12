@@ -41,7 +41,7 @@ describe('tocco-util', () => {
               .dispatch(channelMock.put({formValues: {firstname: 'test'}}))
               .returns({
                 abort: false,
-                params: {form: {model: definition.formDataEntityModel, paths: {firstname: 'test'}}}
+                params: {formData: {model: definition.formDataEntityModel, paths: {firstname: 'test'}}}
               })
               .run()
           })

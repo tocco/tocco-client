@@ -35,7 +35,7 @@ export function* run(params, definition, ids) {
   yield put(notifier.removeModalComponent(id))
   return {
     abort: response.formValues === null,
-    ...(response.formValues ? {params: {form: {model: entity, paths: response.formValues}}} : {})
+    ...(response.formValues ? {params: {formData: {model: entity, paths: response.formValues}}} : {})
   }
 }
 
