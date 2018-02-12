@@ -13,17 +13,66 @@
         "componentType": "action",
         "actionType": "simple",
         "readonly": false,
-        "label": "Simple Action (Form data)",
-        "icon": "fa-keyboard-o",
-        "showConfirmMessage": true,
+        "label": "Simple Action",
+        "icon": "fa-cogs",
+        "Selections": 1,
+        "maxSelections": 1,
+        "progressMsg": "Die Beispiel Aktion wird ausgeführt..",
+        "showConfirmMessage": false,
         "endpoint": "actions/simpleAction",
-        "formDataEntityModel": "MySessionOnly"
+        "minSelection": 1,
+        "maxSelection": 5
       },
       {
         "componentType": "action-group",
         "actionType": "group",
         "label": "Actions",
         "children": [
+          {
+            "componentType": "action",
+            "actionType": "simple",
+            "readonly": false,
+            "label": "Confirm Simple Action",
+            "icon": "fa-gear",
+            "minSelection": 1,
+            "maxSelection": 1,
+            "progressMsg": "Die Beispiel Aktion wird ausgeführt..",
+            "showConfirmMessage": true,
+            "endpoint": "actions/simpleAction"
+          },
+          {
+            "componentType": "action",
+            "actionType": "simple",
+            "readonly": false,
+            "label": "Simple Action (client questions)",
+            "icon": "fa-question",
+            "progressMsg": "Die Beispiel Aktion wird ausgeführt",
+            "showConfirmMessage": false,
+            "endpoint": "actions/yesNoClientQuestion"
+          },
+          {
+            "componentType": "action",
+            "actionType": "simple",
+            "readonly": false,
+            "label": "Form data Simple Action",
+            "icon": "fa-keyboard-o",
+            "showConfirmMessage": false,
+            "endpoint": "actions/simpleAction",
+            "formDataEntityModel": "MySessionOnly"
+          },
+          {
+            "componentType": "action",
+            "actionType": "custom",
+            "icon": "fa-compress",
+            "readonly": false,
+            "label": "Merge (custom action)",
+            "useLabel": true,
+            "appId": "tocco-merge"
+          },
+          {
+            "componentType": "action",
+            "actionType": "divider"
+          },
           {
             "componentType": "action",
             "actionType": "delete",
@@ -35,54 +84,6 @@
             "actionType": "simple",
             "label": "ReadOnly Action",
             "readonly": true
-          },
-          {
-            "componentType": "action",
-            "actionType": "divider"
-          },
-          {
-            "componentType": "action",
-            "actionType": "simple",
-            "readonly": false,
-            "label": "Simple Action (confirm)",
-            "icon": "fa-gear",
-            "Selections": 1,
-            "maxSelections": 1,
-            "progressMsg": "Die Beispiel Aktion wird ausgeführt..",
-            "showConfirmMessage": true,
-            "endpoint": "actions/simpleAction"
-          },
-          {
-            "componentType": "action",
-            "actionType": "simple",
-            "readonly": false,
-            "label": "Simple Action (client questions)",
-            "icon": "fa-question",
-            "singleSelection": false,
-            "progressMsg": "Die Beispiel Aktion wird ausgeführt",
-            "showConfirmMessage": false,
-            "endpoint": "actions/yesNoClientQuestion"
-          },
-          {
-            "componentType": "action",
-            "actionType": "custom",
-            "icon": "fa-compress",
-            "readonly": false,
-            "label": "Merge (custom action)",
-            "useLabel": true,
-            "singleSelection": true,
-            "appId": "tocco-merge"
-          },
-          {
-            "componentType": "action",
-            "actionType": "simple",
-            "readonly": false,
-            "label": "Simple Action (form client questions)",
-            "icon": "fa-question",
-            "singleSelection": false,
-            "progressMsg": "Die Beispiel Aktion wird ausgeführt",
-            "showConfirmMessage": false,
-            "endpoint": "actions/formClientQuestion"
           }
         ]
       },

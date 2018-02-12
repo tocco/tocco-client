@@ -436,7 +436,6 @@
           "icon": "fa-wrench",
           "label": "Simple Action",
           "endpoint": "actions/simpleAction"
-
         },
         "children": [
           {
