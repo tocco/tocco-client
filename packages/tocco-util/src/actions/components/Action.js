@@ -16,6 +16,7 @@ const Action = ({definition, onClick, ids, entity, mode, callback}) => {
         onClick={definition => {
           onClick(_omit(definition, ['label']), entity, ids, callback)
         }}
+        selectedCount={ids ? ids.length : 0}
       />
     </span>
   )
