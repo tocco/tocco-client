@@ -53,7 +53,8 @@
             "label": "Active"
           }
         ],
-        "label": null
+        "label": null,
+        "selectable": false
       }
     ],
     "label": null

@@ -20,6 +20,11 @@ export const getSorting = formDefinition => {
   return table.sorting ? table.sorting : []
 }
 
+export const getSelectable = formDefinition => {
+  const table = getTable(formDefinition)
+  return table.selectable !== false
+}
+
 const isDisplayableChild = child => !child.hidden
 
 export const getColumnDefinition = table =>

@@ -15,7 +15,7 @@ class ListView extends React.Component {
 
   render() {
     const props = this.props
-
+    const selectedRecordsCurrentPage = this.props.currentPageIds.filter(id => this.props.selection.includes(id))
     return (
       <div className="list-view">
         <LoadMask
@@ -31,7 +31,7 @@ class ListView extends React.Component {
               return <actions.Action
                 key={`listAction${idx}`}
                 definition={child}
-                ids={props.selection}
+                ids={selectedRecordsCurrentPage}
                 entity={props.entityName}
               />
             }
@@ -49,7 +49,8 @@ ListView.propTypes = {
   formDefinition: PropTypes.shape({
     children: PropTypes.array
   }),
-  selection: PropTypes.arrayOf(PropTypes.string)
+  selection: PropTypes.arrayOf(PropTypes.string),
+  currentPageIds: PropTypes.arrayOf(PropTypes.string)
 }
 
 export default ListView

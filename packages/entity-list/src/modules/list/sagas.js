@@ -5,7 +5,7 @@ import {externalEvents, actions as actionUtil, actionEmitter} from 'tocco-util'
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import {getSearchInputs} from '../searchForm/sagas'
-import {fetchForm, getSorting, getFields} from '../../util/api/forms'
+import {fetchForm, getSorting, getSelectable, getFields} from '../../util/api/forms'
 import {fetchEntityCount, fetchEntities, entitiesListTransformer, fetchModel} from '../../util/api/entities'
 import {combineSelection} from '../../util/selection'
 
@@ -128,6 +128,8 @@ export function* loadFormDefinition(formDefinition, formBase) {
     yield put(actions.setFormDefinition(formDefinition))
     const sorting = yield call(getSorting, formDefinition)
     yield put(actions.setSorting(sorting))
+    const selectable = yield call(getSelectable, formDefinition)
+    yield put(actions.setSelectable(selectable))
   }
 }
 

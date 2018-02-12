@@ -56,7 +56,8 @@ const Table = props => {
     mode: props.selectable ? 'checkbox' : 'none',
     onSelect: handleSelectionChange,
     onSelectAll: handleAllSelectionChange,
-    selected: props.selection ? props.selection : []
+    selected: props.selection ? props.selection : [],
+    className: 'selected'
   }
 
   const tableOption = {

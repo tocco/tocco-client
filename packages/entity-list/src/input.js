@@ -5,7 +5,7 @@ import {
   setDisableSimpleSearch,
   setSimpleSearchFields
 } from './modules/searchForm/actions'
-import {setLimit, setSearchFilters, setListFormName, setSelectable, setSelection} from './modules/list/actions'
+import {setLimit, setSearchFilters, setListFormName, setSelection} from './modules/list/actions'
 
 const isDefined = value => !(value === undefined || value === null)
 
@@ -68,10 +68,6 @@ const actionSettings = [
     name: 'simpleSearchFields',
     action: setSimpleSearchFields,
     argsFactory: input => [input.simpleSearchFields]
-  }, {
-    name: 'selectable',
-    action: setSelectable,
-    argsFactory: input => [input.selectable]
   },
   {
     name: 'selection',
