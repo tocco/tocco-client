@@ -4,7 +4,7 @@ import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import {getSearchInputs} from '../searchForm/sagas'
 import rootSaga, * as sagas from './sagas'
-import {fetchForm, getSorting, getFields} from '../../util/api/forms'
+import {fetchForm, getSorting, getSelectable, getFields} from '../../util/api/forms'
 import {fetchEntityCount, fetchEntities, entitiesListTransformer, fetchModel} from '../../util/api/entities'
 import {actions as actionUtil} from 'tocco-util'
 
@@ -254,12 +254,15 @@ describe('entity-list', () => {
               children: []
             }
             const sorting = [{field: 'firstname', order: 'adsc'}]
+            const selectable = true
 
             const gen = sagas.loadFormDefinition(formDefinition, formBase)
             expect(gen.next().value).to.eql(call(fetchForm, `${formBase}_list`))
             expect(gen.next(loadedFormDefinition).value).to.eql(put(actions.setFormDefinition(loadedFormDefinition)))
             expect(gen.next().value).to.eql(call(getSorting, loadedFormDefinition))
             expect(gen.next(sorting).value).to.eql(put(actions.setSorting(sorting)))
+            expect(gen.next().value).to.eql(call(getSelectable, loadedFormDefinition))
+            expect(gen.next(selectable).value).to.eql(put(actions.setSelectable(selectable)))
             expect(gen.next().done).to.be.true
           })
 

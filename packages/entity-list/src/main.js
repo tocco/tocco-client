@@ -139,7 +139,6 @@ EntityListApp.propTypes = {
   ),
   disableSimpleSearch: PropTypes.bool,
   simpleSearchFields: PropTypes.string,
-  selectable: PropTypes.bool,
   onSelectChange: PropTypes.func,
   selection: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => {

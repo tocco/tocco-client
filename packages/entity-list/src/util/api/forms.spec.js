@@ -242,6 +242,31 @@ describe('entity-list', () => {
             expect(result).to.eql(['description', 'firstname', 'description2'])
           })
         })
+
+        describe('getSelectable', () => {
+          const getFormDefinition = selectable => ({
+            children: [{
+              layoutType: 'table',
+              componentType: 'layout',
+              ...(selectable !== null ? {selectable} : {})
+            }]
+          })
+
+          it('should return seletable boolean of the form definition', () => {
+            const result = forms.getSelectable(getFormDefinition(true))
+            expect(result).to.be.true
+          })
+
+          it('should return seletable boolean false of the form definition', () => {
+            const result = forms.getSelectable(getFormDefinition(false))
+            expect(result).to.be.false
+          })
+
+          it('should return true if selectable not in defintion', () => {
+            const result = forms.getSelectable(getFormDefinition(null))
+            expect(result).to.be.true
+          })
+        })
       })
     })
   })

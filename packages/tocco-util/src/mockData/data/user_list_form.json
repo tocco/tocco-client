@@ -102,6 +102,7 @@
             "order": "asc"
           }
         ],
+        "selectable": true,
         "children": [
           {
             "id": "user_nr",

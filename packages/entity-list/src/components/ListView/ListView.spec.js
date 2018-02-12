@@ -31,7 +31,8 @@ const props = {
   selectable: true,
   onSelectChange: EMPTY_FUNC,
   selection: [],
-  refresh: EMPTY_FUNC
+  refresh: EMPTY_FUNC,
+  currentPageIds: ['1', '4']
 }
 
 describe('entity-list', () => {
