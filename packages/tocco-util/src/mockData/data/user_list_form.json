@@ -58,7 +58,9 @@
             "icon": "fa-keyboard-o",
             "showConfirmMessage": false,
             "endpoint": "actions/simpleAction",
-            "formDataEntityModel": "MySessionOnly"
+            "formDataEntityModel": "MySessionOnly",
+            "formDataTitle": "Some Title",
+            "formDataMessage": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
           },
           {
             "componentType": "action",
