@@ -9,21 +9,19 @@ export const formValues = formValues => ({formValues})
 
 const shouldRun = actionDefinition => !!actionDefinition.formDataEntityModel
 
-export function* run(params, definition, ids) {
-  const entity = definition.formDataEntityModel
-
+export function* run(params, {formDataEntityModel, formDataTitle, formDataMessage}, ids) {
   const answerChannel = yield call(channel)
 
   const [model, form] = yield all([
-    call(fetchModel, entity),
-    call(fetchForm, `${entity}_detail`)
+    call(fetchModel, formDataEntityModel),
+    call(fetchForm, `${formDataEntityModel}_detail`)
   ])
 
   const id = new Date().valueOf()
   const onSend = values => answerChannel.put(formValues(values))
   const onCancel = () => answerChannel.put(formValues(null))
 
-  yield put(notifier.modalComponent(id, '', '', () => (
+  yield put(notifier.modalComponent(id, formDataTitle, formDataMessage, () => (
     <SimpleFormApp
       onSubmit={onSend}
       onCancel={onCancel}
@@ -35,7 +33,7 @@ export function* run(params, definition, ids) {
   yield put(notifier.removeModalComponent(id))
   return {
     abort: response.formValues === null,
-    ...(response.formValues ? {params: {formData: {model: entity, paths: response.formValues}}} : {})
+    ...(response.formValues ? {params: {formData: {model: formDataEntityModel, paths: response.formValues}}} : {})
   }
 }
 

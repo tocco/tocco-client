@@ -1,7 +1,6 @@
 import {takeEvery, call, put} from 'redux-saga/effects'
 import * as actions from './actions'
 import handlerRegistry from './handlerRegistry'
-import consoleLogger from '../consoleLogger'
 import actionEmitter from '../actionEmitter'
 
 export default function* sagas(accept, handlers) {
@@ -14,13 +13,8 @@ export default function* sagas(accept, handlers) {
 
 export function* handleError(handlers, {payload}) {
   const {title, description, error} = payload
-  for (const handler of handlers) {
-    try {
-      yield call(handlerRegistry[handler], title, description, error)
-    } catch (e) {
-      consoleLogger.logError('Error in logger', e)
-    }
-  }
+
+  yield handlers.map(handler => call(handlerRegistry[handler], title, description, error))
 }
 
 export function* emitError(action) {

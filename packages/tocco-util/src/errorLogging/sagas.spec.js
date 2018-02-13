@@ -37,8 +37,10 @@ describe('tocco-util', () => {
         const error = new Error('error')
         const gen = sagas.handleError(handlers, actions.logError(title, description, error))
 
-        expect(gen.next().value).to.eql(call(handlerRegistry['console'], title, description, error))
-        expect(gen.next().value).to.eql(call(handlerRegistry['toastr'], title, description, error))
+        expect(gen.next().value).to.eql([
+          call(handlerRegistry['console'], title, description, error),
+          call(handlerRegistry['toastr'], title, description, error)
+        ])
 
         expect(gen.next().done).to.be.true
       })
