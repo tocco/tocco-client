@@ -3,7 +3,8 @@
   font-size: 16px;  // reset: nice (body in scaffolding.less)
   .tocco-notifier__title,
   .tocco-notifier__message {
-    word-break: break-all;  // usability: better see a word break than not the complete message
+    word-break: break-word;  // usability: better see a word break than not the complete message
+    hyphens: auto;
   }
 
   .tocco-notifier__title {
