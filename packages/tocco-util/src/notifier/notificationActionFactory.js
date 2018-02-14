@@ -68,7 +68,7 @@ export function getBlockingInfo(id, title, message, icon) {
   }
 
   if (icon) {
-    options.icon = (<div className={`fa fa-${icon} icon`}/>)
+    options.icon = (<div className={`fa fa-${icon} tocco-notifier__icon`}/>)
   }
 
   return toastrActions.add({
