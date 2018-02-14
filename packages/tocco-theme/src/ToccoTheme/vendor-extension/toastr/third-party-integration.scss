@@ -91,4 +91,8 @@
   .rrt-confirm-holder .shadow {
     background-color: $backdrop-bg;
   }
+
+  .rrt-confirm-holder {
+    z-index: 100000000;  // reset: react-redux-toastr (confirm.scss)
+  }
 }
