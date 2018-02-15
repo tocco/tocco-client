@@ -35,6 +35,7 @@
   .bottom-center {
     max-height: 100%; // usability: ensure accessibility of all notification boxes
     overflow-y: auto; // todo: enhance usability - it is not obvious that content is scrollable
+    padding-bottom: 25px;  // reset: react-redux-toastr (index.scss)
   }
 
   .toastr {
