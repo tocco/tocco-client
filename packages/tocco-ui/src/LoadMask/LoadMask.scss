@@ -1,10 +1,11 @@
 .load-mask {
   .loader {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     opacity: .7;
-    top: 30%;
   }
 
   .loader-icon {
@@ -14,11 +15,20 @@
     width: 3.2rem;
     height: 3.2rem;
     animation: spin 2000ms linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -1.6rem;
+    margin-top: -1.6rem;
   }
 
   .loader-text {
-    margin-top: .6rem;
     text-align: center;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top: 1.6rem;
   }
 
   @keyframes spin {
@@ -31,4 +41,3 @@
     }
   }
 }
-
