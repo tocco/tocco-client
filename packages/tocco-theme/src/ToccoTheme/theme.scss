@@ -27,6 +27,7 @@
   // import tocco's declarations
   @import 'tocco/convenience-classes';
   @import 'tocco/legacy-nice2-extjs';
+  @import 'tocco/legacy-nice2-standard.scss';
 
   // import declarations or react components by collocating scss dynamically
   @import 'variable/mutable-imports';
