@@ -17,7 +17,7 @@ const DateTimeFormatter = props => {
       <FormattedDate
         value={date}
         year="numeric"
-        month="numeric"
+        month="2-digit"
         day="2-digit"
       />,&nbsp;
       <FormattedTime
