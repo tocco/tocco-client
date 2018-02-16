@@ -35,7 +35,6 @@
   .bottom-center {
     max-height: 100%; // usability: ensure accessibility of all notification boxes
     overflow-y: auto; // todo: enhance usability - it is not obvious that content is scrollable
-    padding-bottom: 25px;  // reset: react-redux-toastr (index.scss)
   }
 
   .toastr {
@@ -43,6 +42,11 @@
     opacity: 1;  // reset: react-redux-toastr (index.scss)
     &:hover:not( .rrt-message ) {
       box-shadow: 2px 2px 10px rgba(0, 0, 0, .4);  // reset: react-redux-toastr (index.scss)
+    }
+
+    &.animated.bounceInDown,
+    &.animated.bounceOutUp {
+      margin-bottom: 30px;
     }
 
     .rrt-holder {
