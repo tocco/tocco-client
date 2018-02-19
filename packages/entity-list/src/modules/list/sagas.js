@@ -17,10 +17,10 @@ export default function* sagas() {
   yield all([
     fork(takeLatest, actions.INITIALIZE, initialize),
     fork(takeLatest, actions.CHANGE_PAGE, changePage),
-    fork(takeLatest, searchFormActions.EXECUTE_SEARCH, resetDataSet),
+    fork(takeLatest, searchFormActions.EXECUTE_SEARCH, loadData, 1),
     fork(takeEvery, actions.SET_SORTING, setSorting),
-    fork(takeEvery, actions.RESET_DATA_SET, resetDataSet),
-    fork(takeLatest, actions.REFRESH, refresh),
+    fork(takeEvery, actions.RESET_DATA_SET, loadData, 1),
+    fork(takeLatest, actions.REFRESH, loadData),
     fork(takeLatest, actions.ON_ROW_CLICK, onRowClick),
     fork(takeLatest, actions.ON_SELECT_CHANGE, onSelectChange),
     fork(takeEvery, actionUtil.actions.ACTION_INVOKED, actionInvoked)
@@ -39,22 +39,44 @@ export function* initialize() {
       call(loadEntityModel, entityName, entityModel),
       call(loadFormDefinition, formDefinition, formBase)
     ])
-    yield call(resetDataSet)
+    yield call(loadData, 1)
   } else {
-    yield call(refresh)
+    yield call(loadData)
   }
 
   yield put(actions.setInProgress(false))
   yield put(actions.setInitialized())
 }
 
-export function* refresh() {
+export function* loadData(page) {
   yield put(actions.setInProgress(true))
-  const list = yield select(listSelector)
-  const {currentPage} = list
+  yield fork(countEntities)
   yield put(actions.clearEntityStore())
-  yield call(requestEntities, currentPage)
+
+  if (page) {
+    yield put(actions.setCurrentPage(page))
+  } else {
+    const {currentPage} = yield select(listSelector)
+    page = currentPage
+  }
+
+  yield call(requestEntities, page)
   yield put(actions.setInProgress(false))
+}
+
+export function* countEntities() {
+  const input = yield select(inputSelector)
+  const {entityName, searchFilters, formBase} = input
+  const formName = `${formBase}_list`
+  const searchInputs = yield call(getSearchInputs)
+  const fetchParams = {
+    searchFilters,
+    searchInputs,
+    formName
+  }
+
+  const entityCount = yield call(fetchEntityCount, entityName, fetchParams)
+  yield put(actions.setEntityCount(entityCount))
 }
 
 export function* changePage({payload}) {
@@ -68,7 +90,7 @@ export function* changePage({payload}) {
 export function* setSorting() {
   const {initialized} = yield select(listSelector)
   if (initialized) {
-    yield call(resetDataSet)
+    yield call(loadData, 1)
   }
 }
 
@@ -110,10 +132,7 @@ export function* requestEntities(page) {
   }
 
   yield call(displayEntity, page)
-
-  if ((list.limit * page) < list.entityCount) {
-    yield spawn(fetchEntitiesAndAddToStore, page + 1)
-  }
+  yield spawn(fetchEntitiesAndAddToStore, page + 1)
 }
 
 export function* displayEntity(page) {
@@ -141,27 +160,6 @@ export function* loadEntityModel(entityName, entityModel) {
   }
 }
 
-export function* resetDataSet(d) {
-  yield put(actions.setInProgress(true))
-  const input = yield select(inputSelector)
-  const {entityName, searchFilters, formBase} = input
-
-  const formName = `${formBase}_list`
-  const searchInputs = yield call(getSearchInputs)
-  const fetchParams = {
-    searchFilters,
-    searchInputs,
-    formName
-  }
-
-  const entityCount = yield call(fetchEntityCount, entityName, fetchParams)
-  yield put(actions.setEntityCount(entityCount))
-  yield put(actions.clearEntityStore())
-
-  yield call(changePage, {payload: {page: 1}})
-  yield put(actions.setInProgress(false))
-}
-
 export function* onRowClick({payload}) {
   yield put(externalEvents.fireExternalEvent('onRowClick', {id: payload.id}))
 }
@@ -179,6 +177,6 @@ export function* onSelectChange({payload}) {
 }
 
 export function* actionInvoked(action) {
-  yield call(refresh)
+  yield call(loadData)
   yield put(actionEmitter.emitAction(action))
 }

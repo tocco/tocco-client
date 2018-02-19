@@ -28,10 +28,10 @@ describe('entity-list', () => {
             expect(generator.next().value).to.deep.equal(all([
               fork(takeLatest, actions.INITIALIZE, sagas.initialize),
               fork(takeLatest, actions.CHANGE_PAGE, sagas.changePage),
-              fork(takeLatest, searchFormActions.EXECUTE_SEARCH, sagas.resetDataSet),
+              fork(takeLatest, searchFormActions.EXECUTE_SEARCH, sagas.loadData, 1),
               fork(takeEvery, actions.SET_SORTING, sagas.setSorting),
-              fork(takeEvery, actions.RESET_DATA_SET, sagas.resetDataSet),
-              fork(takeLatest, actions.REFRESH, sagas.refresh),
+              fork(takeEvery, actions.RESET_DATA_SET, sagas.loadData, 1),
+              fork(takeLatest, actions.REFRESH, sagas.loadData),
               fork(takeLatest, actions.ON_ROW_CLICK, sagas.onRowClick),
               fork(takeLatest, actions.ON_SELECT_CHANGE, sagas.onSelectChange),
               fork(takeEvery, actionUtil.actions.ACTION_INVOKED, sagas.actionInvoked)
@@ -59,7 +59,7 @@ describe('entity-list', () => {
               call(sagas.loadFormDefinition, formDefinition, formBase)
             ]))
 
-            expect(gen.next().value).to.eql(call(sagas.resetDataSet))
+            expect(gen.next().value).to.eql(call(sagas.loadData, 1))
             expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
             expect(gen.next().value).to.eql(put(actions.setInitialized()))
             expect(gen.next().done).to.be.true
@@ -77,7 +77,7 @@ describe('entity-list', () => {
             expect(gen.next().value).to.eql(select(sagas.entityListSelector))
             expect(gen.next({entityName}).value).to.eql(select(sagas.inputSelector))
             expect(gen.next({formBase}).value).to.eql(select(sagas.listSelector))
-            expect(gen.next({columnDefinition, entityModel, initialized}).value).to.eql(call(sagas.refresh))
+            expect(gen.next({columnDefinition, entityModel, initialized}).value).to.eql(call(sagas.loadData))
             expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
             expect(gen.next().value).to.eql(put(actions.setInitialized()))
             expect(gen.next().done).to.be.true
@@ -101,7 +101,7 @@ describe('entity-list', () => {
             const initialized = true
             const gen = sagas.setSorting()
             expect(gen.next().value).to.eql(select(sagas.listSelector))
-            expect(gen.next({initialized}).value).to.eql(call(sagas.resetDataSet))
+            expect(gen.next({initialized}).value).to.eql(call(sagas.loadData, 1))
             expect(gen.next().done).to.be.true
           })
 
@@ -173,21 +173,6 @@ describe('entity-list', () => {
             expect(gen.next().value).to.eql(spawn(sagas.fetchEntitiesAndAddToStore, page + 1))
             expect(gen.next().done).to.be.true
           })
-
-          it('should not cache if at end', () => {
-            const page = 1
-            const gen = sagas.requestEntities(page)
-
-            const state = generateState({}, page)
-            state.limit = 50
-            state.entityCount = 49
-
-            expect(gen.next().value).to.eql(select(sagas.listSelector))
-            expect(gen.next(state).value).to.eql(call(sagas.fetchEntitiesAndAddToStore, page))
-            expect(gen.next().value).to.eql(call(sagas.displayEntity, page))
-
-            expect(gen.next().done).to.be.true
-          })
         })
 
         describe('displayEntity saga', () => {
@@ -202,10 +187,39 @@ describe('entity-list', () => {
           })
         })
 
-        describe('resetDataSet saga', () => {
-          it('should clear the entity store', () => {
-            const gen = sagas.resetDataSet()
+        describe('loadData saga', () => {
+          it('should request entities for current page and recount forked', () => {
+            const currentPage = 33
+            const entities = [{}]
+            const state = {currentPage}
 
+            const gen = sagas.loadData()
+            expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
+            expect(gen.next().value).to.eql(fork(sagas.countEntities))
+            expect(gen.next(state).value).to.eql(put(actions.clearEntityStore(entities)))
+            expect(gen.next().value).to.eql(select(sagas.listSelector))
+            expect(gen.next(state).value).to.eql(call(sagas.requestEntities, currentPage))
+            expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
+            expect(gen.next().done).to.be.true
+          })
+
+          it('should load data of provided page', () => {
+            const requestedPage = 223
+            const entities = [{}]
+
+            const gen = sagas.loadData(requestedPage)
+            expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
+            expect(gen.next().value).to.eql(fork(sagas.countEntities))
+            expect(gen.next().value).to.eql(put(actions.clearEntityStore(entities)))
+            expect(gen.next().value).to.eql(put(actions.setCurrentPage(requestedPage)))
+            expect(gen.next().value).to.eql(call(sagas.requestEntities, requestedPage))
+            expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
+            expect(gen.next().done).to.be.true
+          })
+        })
+
+        describe('countEntities saga', () => {
+          it('should refresh current page', () => {
             const formBase = 'User'
             const entityName = 'User'
             const searchInputs = {}
@@ -218,30 +232,13 @@ describe('entity-list', () => {
               searchFilters: []
             }
 
-            expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
+            const gen = sagas.countEntities()
+
             expect(gen.next().value).to.eql(select(sagas.inputSelector))
             expect(gen.next({entityName, searchFilters, formBase}).value).to.eql(call(getSearchInputs))
             expect(gen.next(searchInputs).value).to.eql(call(fetchEntityCount, entityName, fetchParams))
             expect(gen.next(entityCount).value).to.eql(put(actions.setEntityCount(entityCount)))
-            expect(gen.next().value).to.eql(put(actions.clearEntityStore()))
-            expect(gen.next().value).to.eql(call(sagas.changePage, {payload: {page: 1}}))
-            expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
-            expect(gen.next().done).to.be.true
-          })
-        })
 
-        describe('refresh saga', () => {
-          it('should refresh current page', () => {
-            const page = 33
-            const gen = sagas.refresh()
-            const entities = [{}]
-            const state = {currentPage: page}
-
-            expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
-            expect(gen.next().value).to.eql(select(sagas.listSelector))
-            expect(gen.next(state).value).to.eql(put(actions.clearEntityStore(entities)))
-            expect(gen.next(state).value).to.eql(call(sagas.requestEntities, page))
-            expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
             expect(gen.next().done).to.be.true
           })
         })
