@@ -2,13 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 const TextFormatter = props => (
-  <span>
-    {
-      props.value.split('\\n').map((b, idx) => (
-        <div key={idx}>{b}</div>
-      ))
-    }
-  </span>
+  <span style={{whiteSpace: 'pre-wrap'}}>{props.value}</span>
 )
 
 TextFormatter.propTypes = {
