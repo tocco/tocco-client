@@ -76,7 +76,7 @@ export const setupEntities = (fetchMock, entityStore, timeout) => {
 
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/entities/User/count(\\?.*)?'),
-    () => ({'count': entityStore['User'].length})
+    () => sleep(timeout).then(() => ({'count': entityStore['User'].length}))
   )
 
   fetchMock.get(
