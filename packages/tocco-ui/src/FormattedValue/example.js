@@ -24,7 +24,7 @@ const Example = () => {
           </tr>
           <tr>
             <td>Text</td>
-            <td><FormattedValue type="text" value="Line 1\nLine 2"/></td>
+            <td><FormattedValue type="text" value={'Test\nLine2'}/></td>
           </tr>
           <tr>
             <td>Url</td>
