@@ -6,6 +6,8 @@ import {FormattedValue} from 'tocco-ui'
 import {actions, form} from 'tocco-util'
 import '!style-loader!css-loader!react-bootstrap-table/dist/react-bootstrap-table.min.css'
 
+const RIGHT_ALIGNED_TYPES = ['moneyamount', 'counter', 'integer', 'long']
+
 const Table = props => {
   const msg = (id, values = {}) => (props.intl.formatMessage({id}, values))
 
@@ -131,16 +133,18 @@ const Table = props => {
       >
         <TableHeaderColumn dataField="__key" isKey hidden>Key</TableHeaderColumn>
         {
-          props.columnDefinitions.map((column, idx) => (
-            <TableHeaderColumn
+          props.columnDefinitions.map((column, idx) => {
+            const field = column.children[0]
+            return <TableHeaderColumn
               key={idx}
               dataFormat={cellFormatter(column, idx)}
               dataSort={column.sortable}
-              dataField={column.children[0].id}
+              dataField={field.id}
+              {...RIGHT_ALIGNED_TYPES.includes(field.dataType) && {dataAlign: 'right'}}
             >
               {column.label}
             </TableHeaderColumn>
-          ))
+          })
         }
       </BootstrapTable>
       }

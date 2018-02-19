@@ -121,7 +121,7 @@ export const createUsers = amount => {
         salary: {
           type: 'field',
           value: {
-            value: 1000 + i * 2.1,
+            value: getRandomInt(0, 10000),
             type: 'moneyamount',
             writable: true
           }
