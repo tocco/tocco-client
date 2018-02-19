@@ -1,6 +1,6 @@
 {
   "name": "tocco-simple-form",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -10,8 +10,8 @@
   },
   "devDependencies": {
     "tocco-test-util": ">0.1.0",
-    "tocco-theme": "0.1.15",
-    "tocco-ui": "0.1.9",
-    "tocco-util": "0.1.7"
+    "tocco-theme": "0.1.16",
+    "tocco-ui": "0.1.10",
+    "tocco-util": "0.1.8"
   }
 }
