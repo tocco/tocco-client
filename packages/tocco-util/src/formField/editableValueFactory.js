@@ -35,6 +35,7 @@ const getOptions = (type, formField, modelField, utils) => {
         options.searchPromptText = utils.intl.formatMessage({id: 'client.component.remoteselect.searchPromptText'})
         options.clearValueText = utils.intl.formatMessage({id: 'client.component.remoteselect.clearValueText'})
         options.clearAllText = utils.intl.formatMessage({id: 'client.component.remoteselect.clearAllText'})
+        options.noResultsText = utils.intl.formatMessage({id: 'client.component.remoteselect.noResultsText'})
         options.moreOptionsAvailableText = utils.intl.formatMessage(
           {id: 'client.component.remoteselect.moreOptionsAvailableText'})
       }
