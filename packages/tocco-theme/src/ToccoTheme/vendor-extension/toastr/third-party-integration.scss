@@ -27,12 +27,7 @@
     font-size: 3em;
   }
 
-  .top-left,
-  .top-right,
-  .top-center,
-  .bottom-left,
-  .bottom-right,
-  .bottom-center {
+  .top-right {
     max-height: 100%; // usability: ensure accessibility of all notification boxes
     overflow-y: auto; // todo: enhance usability - it is not obvious that content is scrollable
   }
