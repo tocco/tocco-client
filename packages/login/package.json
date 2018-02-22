@@ -4,9 +4,8 @@
   "description": "Login dialog with password-update dialog that can run independently",
   "main": "dist/index.js",
   "scripts": {
-    "clean": "../../node_modules/rimraf/bin.js dist",
     "compile": "cd ../../ && npm run compile:prod -- --package=login && npm run compile:nice2_11_legacy -- --package=login",
-    "prepublish": "npm run clean && npm run compile"
+    "prepublish": "npm run compile"
   },
   "devDependencies": {
     "tocco-test-util": ">0.1.0",
