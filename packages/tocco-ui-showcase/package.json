@@ -4,9 +4,8 @@
   "description": "some ui elements",
   "main": "dist/index.js",
   "scripts": {
-    "clean": "../../node_modules/rimraf/bin.js dist",
     "compile:standalone": "cd ../../ && npm run compile:standalone -- --package=tocco-ui-showcase",
-    "prepublish": "npm run clean && npm run compile:standalone"
+    "prepublish": "npm run compile:standalone"
   },
   "devDependencies": {
     "highlight.js": "^9.9.0",

@@ -7,7 +7,7 @@
     "npm": "^3.0.0"
   },
   "scripts": {
-    "clean": "rimraf node_modules && cd server/static && rimraf node_modules && lerna clean",
+    "clean": "rimraf node_modules && cd server/static && rimraf node_modules && lerna clean --yes",
     "compile": "babel-node build/scripts/compile",
     "compile:prod": "NODE_ENV=production npm run compile --",
     "compile:dev": "NODE_ENV=development npm run compile --",
@@ -59,6 +59,7 @@
     "chai-enzyme": "0.6.1",
     "chalk": "2.1.0",
     "classnames": "~2.2.5",
+    "clean-webpack-plugin": "^0.1.18",
     "codecov": "2.2.0",
     "compression": "1.6.2",
     "copy-webpack-plugin": "4.2.0",

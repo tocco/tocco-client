@@ -4,6 +4,7 @@ import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
+import CleanWebpackPlugin from 'clean-webpack-plugin'
 import config from '../config'
 import logger from './lib/logger'
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
@@ -70,7 +71,7 @@ webpackConfig.entry = {
 
 webpackConfig.output = {
   filename: 'index.js',
-  chunkFilename: '[name]-chunk.js',
+  chunkFilename: '[name]-chunk-[chunkhash:6].js',
   path: outputDir,
   libraryTarget: 'umd',
   publicPath: ''
@@ -83,8 +84,8 @@ if (__NICE2_11_LEGACY__) {
 // ------------------------------------
 // Plugins
 // ------------------------------------
-
 webpackConfig.plugins = [
+  ...(!__NICE2_11_LEGACY__ ? [new CleanWebpackPlugin(['dist'], {root: absolutePackagePath})] : []),
   new webpack.DefinePlugin(config.globals),
   new LodashModuleReplacementPlugin({
     shorthands: true,

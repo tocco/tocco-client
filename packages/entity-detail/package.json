@@ -4,9 +4,8 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "clean": "../../node_modules/rimraf/bin.js dist",
     "compile:prod": "cd ../../ && npm run compile:prod -- --package=entity-detail",
-    "prepublish": "npm run clean && npm run compile:prod"
+    "prepublish": "npm run compile:prod"
   },
   "devDependencies": {
     "tocco-entity-list": "0.1.11",

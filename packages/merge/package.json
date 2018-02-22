@@ -4,11 +4,11 @@
   "description": "merge action",
   "main": "dist/index.js",
   "scripts": {
-    "clean": "../../node_modules/rimraf/bin.js dist",
     "compile": "cd ../../ && npm run compile:prod -- --package=merge && npm run compile:nice2_11_legacy -- --package=merge",
-    "prepublish": "npm run clean && npm run compile"
+    "prepublish": "npm run compile"
   },
   "devDependencies": {
+    "clean-webpack-plugin": "^0.1.18",
     "tocco-test-util": ">0.1.0",
     "tocco-theme": ">0.1.0",
     "tocco-ui": ">0.1.0",
