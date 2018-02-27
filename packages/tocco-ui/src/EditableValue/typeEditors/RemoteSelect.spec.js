@@ -1,6 +1,6 @@
 import React from 'react'
 import {shallow} from 'enzyme'
-import Select from 'react-select'
+import TetheredSelectWrap from './TetherSelectWrap'
 
 import RemoteSelect from './RemoteSelect'
 
@@ -22,17 +22,17 @@ describe('tocco-ui', () => {
               onChange={() => {}}
             />)
 
-          expect(wrapper.find(Select)).to.have.length(1)
-          expect(wrapper.find(Select).prop('clearValueText')).to.be.eql('CLEAR_VALUE_TEXT')
-          expect(wrapper.find(Select).prop('searchPromptText')).to.be.eql('SEARCH_PROMPT_TEXT')
-          expect(wrapper.find(Select).prop('noResultsText')).to.be.eql('NO_RESULTS_TEXT')
+          expect(wrapper.find(TetheredSelectWrap)).to.have.length(1)
+          expect(wrapper.find(TetheredSelectWrap).prop('clearValueText')).to.be.eql('CLEAR_VALUE_TEXT')
+          expect(wrapper.find(TetheredSelectWrap).prop('searchPromptText')).to.be.eql('SEARCH_PROMPT_TEXT')
+          expect(wrapper.find(TetheredSelectWrap).prop('noResultsText')).to.be.eql('NO_RESULTS_TEXT')
         })
 
         it('should call onChange ', () => {
           const newValue = {key: 1, display: 'label1'}
           const spy = sinon.spy()
           const wrapper = shallow(<RemoteSelect onChange={spy} options={{}}/>)
-          wrapper.find(Select).simulate('change', newValue)
+          wrapper.find(TetheredSelectWrap).simulate('change', newValue)
           expect(spy).to.have.been.calledWith(newValue)
         })
 
@@ -55,8 +55,8 @@ describe('tocco-ui', () => {
               options={options}
             />)
 
-          expect(wrapper.find(Select)).to.have.length(1)
-          expect(wrapper.find(Select).prop('options')).to.be.eql(option)
+          expect(wrapper.find(TetheredSelectWrap)).to.have.length(1)
+          expect(wrapper.find(TetheredSelectWrap).prop('options')).to.be.eql(option)
         })
       })
     })

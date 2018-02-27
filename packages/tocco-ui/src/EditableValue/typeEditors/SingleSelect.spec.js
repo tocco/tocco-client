@@ -1,6 +1,6 @@
 import React from 'react'
 import {shallow, mount} from 'enzyme'
-import Select from 'react-select'
+import TetheredSelectWrap from './TetherSelectWrap'
 
 import SingleSelect from './SingleSelect'
 
@@ -19,8 +19,8 @@ describe('tocco-ui', () => {
           }
 
           const wrapper = shallow(<SingleSelect options={options} value="1" onChange={() => {}}/>)
-          expect(wrapper.find(Select)).to.have.length(1)
-          const select = wrapper.find(Select)
+          expect(wrapper.find(TetheredSelectWrap)).to.have.length(1)
+          const select = wrapper.find(TetheredSelectWrap)
           expect(select.props().options).to.eql(options.store)
         })
 
@@ -34,7 +34,7 @@ describe('tocco-ui', () => {
             ]
           }
           const wrapper = shallow(<SingleSelect onChange={spy} options={options}/>)
-          wrapper.find(Select).simulate('change', newValue)
+          wrapper.find(TetheredSelectWrap).simulate('change', newValue)
           expect(spy).to.have.been.calledWith(newValue)
         })
 
@@ -43,13 +43,13 @@ describe('tocco-ui', () => {
           const options = {}
 
           const wrapper = mount(<SingleSelect value={value} options={options} onChange={EMPTY_FUNC}/>)
-          expect(wrapper.find(Select).first().props().options).to.eql([value])
+          expect(wrapper.find(TetheredSelectWrap).first().props().options).to.eql([value])
           wrapper.setProps({options: {store: []}})
-          expect(wrapper.find(Select).first().props().options).to.eql([value])
+          expect(wrapper.find(TetheredSelectWrap).first().props().options).to.eql([value])
 
           const store = [value, {key2: 'Label2'}]
           wrapper.setProps({options: {store}})
-          expect(wrapper.find(Select).first().props().options).to.eql(store)
+          expect(wrapper.find(TetheredSelectWrap).first().props().options).to.eql(store)
         })
       })
     })

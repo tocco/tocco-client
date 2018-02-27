@@ -1,6 +1,6 @@
 import React from 'react'
 import {shallow} from 'enzyme'
-import Select from 'react-select'
+import TetheredSelectWrap from './TetherSelectWrap'
 
 import MultiSelect from './MultiSelect'
 
@@ -17,8 +17,8 @@ describe('tocco-ui', () => {
           }
 
           const wrapper = shallow(<MultiSelect options={options} value={[1]} onChange={() => {}}/>)
-          expect(wrapper.find(Select)).to.have.length(1)
-          const select = wrapper.find(Select)
+          expect(wrapper.find(TetheredSelectWrap)).to.have.length(1)
+          const select = wrapper.find(TetheredSelectWrap)
           expect(select.props().options).to.eql(options.store)
         })
 
@@ -32,7 +32,7 @@ describe('tocco-ui', () => {
             ]
           }
           const wrapper = shallow(<MultiSelect onChange={spy} options={options}/>)
-          wrapper.find(Select).simulate('change', newValues)
+          wrapper.find(TetheredSelectWrap).simulate('change', newValues)
           expect(spy).to.have.been.calledWith(newValues)
         })
       })

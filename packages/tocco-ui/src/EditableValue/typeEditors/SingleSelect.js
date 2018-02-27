@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import Select from 'react-select'
+import TetheredSelectWrap from './TetherSelectWrap'
 import _isEmpty from 'lodash/isEmpty'
 
 const SingleSelect = props => {
@@ -23,7 +23,7 @@ const SingleSelect = props => {
 
   return (
     <span tabIndex="-1" id={props.id} onFocus={focusSelect}>
-      <Select
+      <TetheredSelectWrap
         single
         valueKey="key"
         labelKey="display"
