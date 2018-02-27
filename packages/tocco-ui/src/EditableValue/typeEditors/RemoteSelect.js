@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import Select from 'react-select'
+import TetheredSelectWrap from './TetherSelectWrap'
 
 class RemoteSelect extends React.Component {
   onValueClick = v => {
@@ -23,7 +23,7 @@ class RemoteSelect extends React.Component {
   render() {
     return (
       <span tabIndex="-1" id={this.props.id} onFocus={this.focusSelect}>
-        <Select
+        <TetheredSelectWrap
           valueKey="key"
           labelKey="display"
           loadingPlaceholder="Laden"

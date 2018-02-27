@@ -57,3 +57,14 @@ $textarea-max-height: 25rem;
     }
   }
 }
+
+.tether-select {
+  z-index: 9999999999;
+
+  &.tether-target-attached-top {
+    margin-top: -35px; // magic-number representing the height of the input-field
+    .Select-menu-outer {
+      border-radius: 4px 4px 0 0;
+    }
+  }
+}
