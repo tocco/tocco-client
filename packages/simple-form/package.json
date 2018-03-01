@@ -9,8 +9,8 @@
   },
   "devDependencies": {
     "tocco-test-util": ">0.1.0",
-    "tocco-theme": "0.1.17",
-    "tocco-ui": "0.1.11",
-    "tocco-util": "0.1.9"
+    "tocco-theme": ">0.1.0",
+    "tocco-ui": ">0.1.0",
+    "tocco-util": ">0.1.0"
   }
 }

@@ -8,7 +8,6 @@
     "prepublish": "npm run compile"
   },
   "devDependencies": {
-    "clean-webpack-plugin": "^0.1.18",
     "tocco-test-util": ">0.1.0",
     "tocco-theme": ">0.1.0",
     "tocco-ui": ">0.1.0",
