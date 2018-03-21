@@ -13,6 +13,7 @@
     "react-docgen": "^2.12.1",
     "react-highlight": "^0.12.0",
     "react-scrollspy": "^3.3.5",
+    "styled-components": "^3.2.3",
     "tocco-theme": ">0.1.0",
     "tocco-util": ">0.1.0",
     "tocco-test-util": ">0.1.0"

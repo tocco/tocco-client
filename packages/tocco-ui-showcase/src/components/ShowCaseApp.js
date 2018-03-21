@@ -5,11 +5,14 @@ import Navigation from './Navigation'
 import LocaleSwitcher from './LocaleSwitcher'
 import ShowCaseList from './ShowCaseList'
 import Affix from './Affix'
+import {ThemeProvider} from 'styled-components'
 
 import de from 'react-intl/locale-data/de'
 import en from 'react-intl/locale-data/en'
 import fr from 'react-intl/locale-data/fr'
 import it from 'react-intl/locale-data/it'
+
+import {ToccoTheme} from 'tocco-theme'
 
 export default class ShowCaseApp extends React.Component {
   constructor(props) {
@@ -32,22 +35,24 @@ export default class ShowCaseApp extends React.Component {
 
   render() {
     return (
-      <IntlProvider locale={this.state.locale}>
-        <div className="show-case-app tocco-ui-theme">
-          <div className="col title">
-            <span>Tocco UI</span>
+      <ThemeProvider theme={ToccoTheme}>
+        <IntlProvider locale={this.state.locale}>
+          <div className="show-case-app tocco-ui-theme">
+            <div className="col title">
+              <span>Tocco UI</span>
+            </div>
+            <div className="col-md-9">
+              <ShowCaseList componentsTree={this.props.componentsTree}/>
+            </div>
+            <div className="col-md-2 hidden-xs hidden-sm">
+              <Affix className="navi-affix" offset={80}>
+                <LocaleSwitcher onLocaleChange={this.localeChange.bind(this)}/>
+                <Navigation componentsTree={this.props.componentsTree}/>
+              </Affix>
+            </div>
           </div>
-          <div className="col-md-9">
-            <ShowCaseList componentsTree={this.props.componentsTree}/>
-          </div>
-          <div className="col-md-2 hidden-xs hidden-sm">
-            <Affix className="navi-affix" offset={80}>
-              <LocaleSwitcher onLocaleChange={this.localeChange.bind(this)}/>
-              <Navigation componentsTree={this.props.componentsTree}/>
-            </Affix>
-          </div>
-        </div>
-      </IntlProvider>
+        </IntlProvider>
+      </ThemeProvider>
     )
   }
 }
