@@ -5,6 +5,7 @@ import {addLocaleData} from 'react-intl'
 import {IntlProvider} from 'react-intl-redux'
 import consoleLogger from '../consoleLogger'
 import _union from 'lodash/union'
+import {ThemeProvider} from 'styled-components'
 
 import de from 'react-intl/locale-data/de'
 import en from 'react-intl/locale-data/en'
@@ -12,6 +13,8 @@ import fr from 'react-intl/locale-data/fr'
 import it from 'react-intl/locale-data/it'
 
 import {LoadMask} from 'tocco-ui'
+
+import {ToccoTheme} from 'tocco-theme'
 
 import intl from '../intl'
 import errorLogging from '../errorLogging'
@@ -23,7 +26,8 @@ export const createApp = (name,
     input = {},
     actions = undefined,
     publicPath = undefined,
-    textResourceModules = []
+    textResourceModules = [],
+    customTheme = {}
   }) => {
   try {
     if (publicPath) {
@@ -35,7 +39,7 @@ export const createApp = (name,
     }
 
     const initIntlPromise = setupIntl(input, store, name, textResourceModules)
-    const component = getAppComponent(store, initIntlPromise, name, content)
+    const component = getAppComponent(store, initIntlPromise, name, content, customTheme)
 
     return {
       renderComponent: () => component,
@@ -101,18 +105,22 @@ const setWebpacksPublicPath = publicPath => {
   __webpack_public_path__ = publicPath
 }
 
-const getAppComponent = (store, initIntlPromise, name, content) => (
-  <div className="tocco-ui-theme">
-    <Provider store={store}>
-      <LoadMask promises={[initIntlPromise]}>
-        <IntlProvider>
-          <div className={`tocco-${name}`}>
-            {content}
-          </div>
-        </IntlProvider>
-      </LoadMask>
-    </Provider>
-  </div>
+const getAppComponent = (store, initIntlPromise, name, content, customTheme) => (
+  <ThemeProvider theme={ToccoTheme}>
+    <ThemeProvider theme={customTheme}>
+      <div className="tocco-ui-theme">
+        <Provider store={store}>
+          <LoadMask promises={[initIntlPromise]}>
+            <IntlProvider>
+              <div className={`tocco-${name}`}>
+                {content}
+              </div>
+            </IntlProvider>
+          </LoadMask>
+        </Provider>
+      </div>
+    </ThemeProvider>
+  </ThemeProvider>
 )
 
 const setupIntl = (input, store, module, textResourceModules) => {

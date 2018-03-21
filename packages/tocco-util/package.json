@@ -4,6 +4,7 @@
   "description": "tocco util",
   "main": "src/main.js",
   "devDependencies": {
+    "styled-components": "^3.2.3",
     "tocco-simple-form": ">0.1.0",
     "tocco-test-util": ">0.1.0",
     "tocco-ui": ">0.1.0",
