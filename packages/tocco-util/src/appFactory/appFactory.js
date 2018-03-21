@@ -108,6 +108,7 @@ const setWebpacksPublicPath = publicPath => {
   __webpack_public_path__ = publicPath
 }
 
+
 const getAppComponent = (store, initIntlPromise, name, content, theme) => (
   <ThemeProvider theme={theme}>
     <div className="tocco-ui-theme">
