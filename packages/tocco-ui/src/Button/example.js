@@ -8,26 +8,44 @@ export default () => {
     <div>
       {/* start example */}
       <Button
-        label={<strong>Primary</strong>}
-        primary
+        label="Base color flat"
       />
       <Button
-        icon="glyphicon-heart"
-        type="submit"
+        ink="primary"
+        label="Primary color flat"
+      />
+      <Button
+        look="raised"
+        label="Base color raised"
+      />
+      <Button
+        look="raised"
+        ink="primary"
+        label="Primary color raised"
+      />
+      <Button
+        look="raised"
+        dense
+        icon="fa-hand-spock-o"
+        label="Dense"
       />
       <Button
         icon="fa-font-awesome"
+        label="Icon with text"
         type="submit"
-        label="fa"
+      />
+      <Button
+        title="Icon without text"
+        icon="glyphicon-heart"
       />
       <Button
         label="Pending"
-        pending
         onClick={() => alert('do something')}
+        pending
       />
       <Button
-        label="Disabled"
         disabled
+        label="Disabled"
         onClick={() => alert('do something')}
         title="This button is disabled"
       />
