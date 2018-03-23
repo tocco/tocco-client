@@ -124,6 +124,10 @@ const ButtonStyles = styled.button`
       outline: ${theme('outline')};
     }
 
+    .icon {
+      padding: 0;
+    }
+
     ${props => setButtonColor(props)}
     ${props => setButtonDensity(props)}
     ${props => setElevation(props)}
