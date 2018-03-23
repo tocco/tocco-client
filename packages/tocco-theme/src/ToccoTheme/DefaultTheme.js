@@ -20,23 +20,28 @@ const colors = {
       '#BDBDBD' // Grey 400
     ],
     line: [
-      '#616161', // Grey 700
       '#424242', // Grey 800
+      '#303030', // Grey 850
       '#212121' // Grey 900
     ],
-    paper: '#FAFAFA', // Grey 50
+    paper: '#FFFFFF',
     text: '#212121' // Grey 900
   },
   primary: {
     fill: [
-      '#FF9800', // Orange 500
-      '#FB8C00', // Orange 600
-      '#F57C00' // Orange 700
+      '#9E2124', // Tocco Red
+      '#841B1D', // Tocco Red (darken 10%)
+      '#6B1617' // Tocco Red (darken 20%)
     ],
     line: [
-      '#F57C00', // Orange 700
-      '#EF6C00', // Orange 800
-      '#E65100' // Orange 900
+      '#9E2124', // Tocco Red
+      '#841B1D', // Tocco Red (darken 10%)
+      '#6B1617' // Tocco Red (darken 20%)
+    ],
+    fillContrast: [
+      '#FAFAFA', // Grey 50
+      '#F5F5F5', // Grey 100
+      '#EEEEEE' // Grey 200
     ]
   }
 }
