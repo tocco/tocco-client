@@ -5,6 +5,7 @@ import {addLocaleData} from 'react-intl'
 import {IntlProvider} from 'react-intl-redux'
 import consoleLogger from '../consoleLogger'
 import _union from 'lodash/union'
+import _merge from 'lodash/merge'
 import {ThemeProvider} from 'styled-components'
 
 import de from 'react-intl/locale-data/de'
@@ -30,6 +31,8 @@ export const createApp = (name,
     customTheme = {}
   }) => {
   try {
+    const theme = _merge({}, ToccoTheme, customTheme)
+
     if (publicPath) {
       setWebpacksPublicPath(publicPath)
     }
@@ -39,7 +42,7 @@ export const createApp = (name,
     }
 
     const initIntlPromise = setupIntl(input, store, name, textResourceModules)
-    const component = getAppComponent(store, initIntlPromise, name, content, customTheme)
+    const component = getAppComponent(store, initIntlPromise, name, content, theme)
 
     return {
       renderComponent: () => component,
@@ -105,21 +108,19 @@ const setWebpacksPublicPath = publicPath => {
   __webpack_public_path__ = publicPath
 }
 
-const getAppComponent = (store, initIntlPromise, name, content, customTheme) => (
-  <ThemeProvider theme={ToccoTheme}>
-    <ThemeProvider theme={customTheme}>
-      <div className="tocco-ui-theme">
-        <Provider store={store}>
-          <LoadMask promises={[initIntlPromise]}>
-            <IntlProvider>
-              <div className={`tocco-${name}`}>
-                {content}
-              </div>
-            </IntlProvider>
-          </LoadMask>
-        </Provider>
-      </div>
-    </ThemeProvider>
+const getAppComponent = (store, initIntlPromise, name, content, theme) => (
+  <ThemeProvider theme={theme}>
+    <div className="tocco-ui-theme">
+      <Provider store={store}>
+        <LoadMask promises={[initIntlPromise]}>
+          <IntlProvider>
+            <div className={`tocco-${name}`}>
+              {content}
+            </div>
+          </IntlProvider>
+        </LoadMask>
+      </Provider>
+    </div>
   </ThemeProvider>
 )
 
