@@ -8,7 +8,7 @@ import loginReducers, {sagas} from './modules/reducers'
 
 const packageName = 'login'
 
-const initLoginApp = (id, input, events, publicPath) => {
+const initLoginApp = (id, input, events, publicPath, customTheme) => {
   const actions = [
     passwordUpdate.setShowOldPasswordField(false),
     passwordUpdate.setForcedUpdate(true),
@@ -30,12 +30,13 @@ const initLoginApp = (id, input, events, publicPath) => {
       input,
       actions,
       publicPath,
-      textResourceModules: ['login']
+      textResourceModules: ['login'],
+      customTheme
     }
   )
 }
 
-const initPasswordUpdateApp = (id, input, events, publicPath) => {
+const initPasswordUpdateApp = (id, input, events, publicPath, customTheme) => {
   const showTitle = !!input.showTitle
   const forcedUpdate = !!input.forcedUpdate
 
@@ -71,7 +72,8 @@ const initPasswordUpdateApp = (id, input, events, publicPath) => {
       input,
       actions,
       publicPath,
-      textResourceModules: ['login']
+      textResourceModules: ['login'],
+      customTheme
     }
   )
 }
