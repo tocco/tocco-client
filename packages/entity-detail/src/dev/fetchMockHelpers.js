@@ -170,23 +170,35 @@ const generalAsyncValidationErrorResponse = entity => ({
 const validationErrorResponse = entity => {
   const result = {
     errorCode: 'VALIDATION_FAILED',
-    errors: [{
-      model: entity.model,
-      key: entity.key,
-      paths: {
-        firstname: {
-          illegal: ['SUBMIT ERROR: Firstname should not be "illegal2".']
+    errors: [
+      {
+        model: entity.model,
+        key: entity.key,
+        paths: {
+          firstname: {
+            firstname: ['SUBMIT ERROR: Firstname should not be "illegal2".']
+          }
+        },
+        entityValidatorErrors: {
+          UsernameAsciiValidator: [
+            'Submit entity Validator error. Lorem ipsum dolor sit amet, consectetur adipiscing elit'
+          ]
+        }
+      }, {
+        model: 'Related_entity',
+        key: '3',
+        paths: {
+          username: {
+            username: ['Related entity path error']
+          }
+        },
+        entityValidatorErrors: {
+          SomeId: [
+            'Related entity Submit entity Validator error. Lorem ipsum dolor sit amet, consectetur adipiscing elit'
+          ]
         }
       }
-    }, {
-      model: 'User_status',
-      key: '3',
-      paths: {
-        label_de: {
-          mandatory: ['Pflichtfeld ist nicht ausgefüllt.']
-        }
-      }
-    }]
+    ]
   }
   const body = new Blob([JSON.stringify(result, null, 2)], {type: 'application/json'})
   return new Response(body, {'status': 400})

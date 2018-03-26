@@ -1,21 +1,24 @@
 import _forOwn from 'lodash/forOwn'
 import _isEqual from 'lodash/isEqual'
 
-import {generalErrorField} from './formErrors'
+import {generalErrorField, entityValidatorErrorsField, relatedEntityErrorsField} from './formErrors'
 
 const versionField = '__version'
 
 export const validationErrorToFormError = (entity, errors) => {
-  let result = {[generalErrorField]: {pathErrors: []}}
+  let result = {[generalErrorField]: {[relatedEntityErrorsField]: []}}
+
   if (!errors) return result
   errors.forEach(error => {
     if (error.model === entity.model && error.key === entity.key) {
       result = {...result, ...error.paths}
+      if (error.hasOwnProperty(entityValidatorErrorsField)) {
+        result[generalErrorField][entityValidatorErrorsField] = error[entityValidatorErrorsField]
+      }
     } else {
-      result[generalErrorField].pathErrors.push(error)
+      result[generalErrorField][relatedEntityErrorsField].push(error)
     }
   })
-
   return result
 }
 

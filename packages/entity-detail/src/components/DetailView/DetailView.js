@@ -88,10 +88,7 @@ DetailView.propTypes = {
   entityName: PropTypes.string.isRequired,
   entityId: PropTypes.string,
   formValues: PropTypes.object,
-  formErrors: PropTypes.objectOf(
-    PropTypes.objectOf(PropTypes.arrayOf(
-      PropTypes.oneOfType([PropTypes.string, PropTypes.object])))
-  ),
+  formErrors: PropTypes.object,
   entity: PropTypes.object,
   loadRelationEntity: PropTypes.func.isRequired,
   loadRemoteEntity: PropTypes.func.isRequired,

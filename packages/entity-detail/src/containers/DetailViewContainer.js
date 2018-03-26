@@ -31,7 +31,7 @@ const mapActionCreators = {
   fireTouched
 }
 
-const getFormGeneralErros = formName =>
+const getFormGeneralErrors = formName =>
   state => (
     _get(state, `form.${formName}.error`, {})
   )
@@ -51,7 +51,7 @@ const mapStateToProps = (state, props) => {
       ...getFormSyncErrors('detailForm')(state),
       ...getFormAsyncErrors('detailForm')(state),
       ...getFormSubmitErrors('detailForm')(state),
-      _error: getFormGeneralErros('detailForm')(state)
+      _error: getFormGeneralErrors('detailForm')(state)
     },
     formInitialValues: getFormInitialValues('detailForm')(state),
     lastSave: state.entityDetail.lastSave
