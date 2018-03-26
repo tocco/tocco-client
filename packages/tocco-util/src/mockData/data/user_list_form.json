@@ -86,6 +86,13 @@
             "actionType": "simple",
             "label": "ReadOnly Action",
             "readonly": true
+          },
+          {
+            "componentType": "action",
+            "actionType": "simple",
+            "label": "Validation Error Action",
+            "endpoint": "actions/validationError",
+            "icon": "fa-exclamation-triangle"
           }
         ]
       },

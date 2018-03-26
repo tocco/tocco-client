@@ -6,6 +6,7 @@
   "client.component.actions.successDefault",
   "client.component.actions.tooManySelected",
   "client.component.actions.notEnoughSelected",
+  "client.component.actions.validationError",
   "client.component.remoteselect.noResultsText",
   "client.component.remoteselect.clearAllText",
   "client.component.remoteselect.clearValueText",

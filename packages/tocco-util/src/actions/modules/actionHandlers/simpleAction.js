@@ -15,14 +15,25 @@ export default function* (definition, entity, ids, params) {
 
 export function* invokeRequest(definition, entity, ids, params) {
   try {
-    const response = yield call(requestSaga, definition.endpoint, {method: 'POST', body: {ids, entity, ...params}})
-    const success = response.body.success === true
+    const response = yield call(requestSaga, definition.endpoint, {
+      method: 'POST',
+      body: {ids, entity, ...params},
+      acceptedErrorCodes: ['VALIDATION_FAILED']
+    })
+    if (response.body && response.body.errorCode === 'VALIDATION_FAILED') {
+      yield put(
+        notifier.info('error', 'client.component.actions.validationError', validationErrorCompact(response.body.errors),
+          'exclamation')
+      )
+    } else {
+      const success = response.body.success === true
+      const type = success ? 'success' : 'warning'
+      const title = response.body.message || 'client.component.actions.successDefault'
+      const icon = success ? 'check' : 'exclamation'
 
-    const type = success ? 'success' : 'warning'
-    const title = response.body.message || 'client.component.actions.successDefault'
-    const icon = success ? 'check' : 'exclamation'
+      yield put(notifier.info(type, title, null, icon))
+    }
 
-    yield put(notifier.info(type, title, null, icon))
     return response.body
   } catch (error) {
     if (!(error instanceof ClientQuestionCancelledException)) {
@@ -34,3 +45,19 @@ export function* invokeRequest(definition, entity, ids, params) {
     }
   }
 }
+
+export const validationErrorCompact = errors => {
+  for (const error of errors) {
+    if (error.entityValidatorErrors) {
+      return getFirstElement(error.entityValidatorErrors)[0]
+    }
+
+    if (error.paths) {
+      return getFirstElement(getFirstElement(error.paths))[0]
+    }
+  }
+
+  return null
+}
+
+const getFirstElement = obj => Object.keys(obj).length >= 1 ? obj[Object.keys(obj)[0]] : undefined
