@@ -170,10 +170,7 @@ DetailForm.propTypes = {
   touch: PropTypes.func.isRequired,
   submitting: PropTypes.bool,
   anyTouched: PropTypes.bool,
-  formErrors: PropTypes.objectOf(
-    PropTypes.objectOf(PropTypes.arrayOf(
-      PropTypes.oneOfType([PropTypes.string, PropTypes.object])))
-  ),
+  formErrors: PropTypes.object,
   valid: PropTypes.bool,
   lastSave: PropTypes.number,
   fireTouched: PropTypes.func.isRequired
