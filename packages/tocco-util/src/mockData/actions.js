@@ -17,6 +17,11 @@ export const setupActions = (fetchMock, entityStore, timeout = 2000) => {
     new RegExp('^.*?/nice2/rest/actions/simpleAction*?'),
     simpleAction(timeout)
   )
+
+  fetchMock.post(
+    new RegExp('^.*?/nice2/rest/actions/validationError*?'),
+    validationError(timeout)
+  )
 }
 
 const simpleAction = timeout =>
@@ -29,6 +34,38 @@ const simpleAction = timeout =>
         body: {
           success: true,
           message: 'Action completed!'
+        }
+      }
+    })
+  }
+
+const validationError = timeout =>
+  (url, opts) => {
+    return sleep(timeout).then(() => {
+      consoleLogger.log('fetchMock:call validationError action', url, opts)
+      return {
+        status: 400,
+        body: {
+          message: 'Validation failed',
+          errorCode: 'VALIDATION_FAILED',
+          errors: [
+            {
+              model: 'Principal',
+              key: null,
+              paths: {
+                username: {
+                  username: [
+                    'Der Wert ist bereits vergeben und dadurch nicht eindeutig'
+                  ]
+                }
+              },
+              entityValidatorErrors: {
+                UsernameAsciiValidator: [
+                  'Nur Buchstaben, Zahlen und die meisten Sonderzeichen sind erlaubt.'
+                ]
+              }
+            }
+          ]
         }
       }
     })
