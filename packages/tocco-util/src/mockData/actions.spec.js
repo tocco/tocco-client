@@ -20,7 +20,7 @@ describe('tocco-util', () => {
       it('should setup simpleAction', done => {
         setupActions(fetchMock, null, 1)
 
-        const resource = 'http://localhost:8080/nice2/rest/actions/simpleAction'
+        const resource = 'actions/simpleAction'
 
         simpleRequest(resource, {method: 'post'}).then(res => {
           expect(res.body.success).to.be.true
@@ -28,7 +28,7 @@ describe('tocco-util', () => {
         })
       })
 
-      const clientQuestionEndpoint = 'http://localhost:8080/nice2/rest/actions/yesNoClientQuestion'
+      const clientQuestionEndpoint = 'actions/yesNoClientQuestion'
 
       it('should setup simpleActionWithClientQuestion and return a clientquestion', done => {
         setupActions(fetchMock, null, 1)
@@ -63,7 +63,7 @@ describe('tocco-util', () => {
         })
       })
 
-      const formQuestionEndpoint = 'http://localhost:8080/nice2/rest/actions/formClientQuestion'
+      const formQuestionEndpoint = 'actions/formClientQuestion'
 
       it('should return a form client question', done => {
         setupActions(fetchMock, null, 1)
@@ -73,6 +73,19 @@ describe('tocco-util', () => {
           body: {}
         }).then(res => {
           expect(res.body.clientQuestion.form).not.to.be.undefined
+          done()
+        })
+      })
+
+      const validationErrorUrl = 'actions/validationError'
+
+      it('should setup a action endpoint that throws a validation error', done => {
+        setupActions(fetchMock, null, 1)
+        simpleRequest(validationErrorUrl, {
+          method: 'post',
+          body: {},
+          acceptedErrorCodes: 'VALIDATION_FAILED'
+        }).then(res => {
           done()
         })
       })
