@@ -39,7 +39,7 @@ describe('tocco-util', () => {
           expect(formErrors.hasFieldErrors(testData)).to.be.true
         })
         it('should return false if it hasnt', () => {
-          expect(formErrors.hasFieldErrors({_errors: {}})).to.be.true
+          expect(formErrors.hasFieldErrors({_error: {}})).to.be.false
         })
       })
 
@@ -49,16 +49,6 @@ describe('tocco-util', () => {
             .to.eql({firstname: testData.firstname})
         })
         it('should return emtpty object in case of no field errors', () => {
-          expect(formErrors.getFieldErrors({_error: {}})).to.eql({})
-        })
-      })
-
-      describe('getFieldErrors', () => {
-        it('should return only field errors', () => {
-          expect(formErrors.getFieldErrors(testData))
-            .to.eql({firstname: testData.firstname})
-        })
-        it('should return empty object in case of no field errors', () => {
           expect(formErrors.getFieldErrors({_error: {}})).to.eql({})
         })
       })
