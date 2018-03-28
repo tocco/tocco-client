@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
+import {Button} from 'tocco-ui'
 
 export const EntityResponseTable = props => {
   if (!props.responseEntities || props.responseEntities.length === 0) return <div/>
@@ -57,21 +58,27 @@ class MergeResponse extends React.Component {
           <FormattedMessage id="client.merge.missingReadPermissions"/>
         </div>
         }
-        <button
-          className="btn btn-primary close-button"
+        <Button
+          ink="primary"
+          label={this.msg('client.merge.close')}
+          look="raised"
           onClick={() => { this.props.fireExternalEvent('close') }}
-        >
-          <FormattedMessage id="client.merge.close"/>
-        </button>
+        />
       </div>
     )
+  }
+
+  msg(id) {
+    return this.props.intl.formatMessage({
+      id
+    })
   }
 }
 
 MergeResponse.propTypes = {
   fireExternalEvent: PropTypes.func.isRequired,
-  mergeResponse: PropTypes.object.isRequired,
-  intl: intlShape.isRequired
+  intl: intlShape.isRequired,
+  mergeResponse: PropTypes.object.isRequired
 }
 
 export default MergeResponse

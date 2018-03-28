@@ -26,7 +26,7 @@ describe('merge', () => {
         )
 
         expect(wrapper.find(EntityResponseTable)).to.have.length(2)
-        expect(wrapper.find(FormattedMessage)).to.have.length(3)
+        expect(wrapper.find(FormattedMessage)).to.have.length(2)
       })
 
       it('should render info-box', () => {
@@ -44,7 +44,7 @@ describe('merge', () => {
           />
         )
 
-        expect(wrapper.find(FormattedMessage)).to.have.length(4)
+        expect(wrapper.find(FormattedMessage)).to.have.length(3)
       })
 
       it('should render a table', () => {

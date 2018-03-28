@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {Button} from 'tocco-ui'
-import {FormattedMessage} from 'react-intl'
+import {intlShape} from 'react-intl'
 
 export class Wizard extends React.Component {
   constructor(props) {
@@ -63,40 +63,48 @@ export class Wizard extends React.Component {
         </div>
         <div className="wizard-footer">
           {
+            (this.state.index === this.state.amountPages - 1)
+            && <Button
+              ink="primary"
+              label={this.props.save.label}
+              look="raised"
+              onClick={this.props.save.fn}
+            />
+          }
+          {
             (this.state.index > 0)
-            && <button
-              className="btn wizard-back-button"
+            && <Button
+              className="wizard-back-button"
+              label={this.msg('client.merge.back')}
+              look="raised"
               onClick={this.backClick}
-            >
-              <FormattedMessage id="client.merge.back"/>
-            </button>
+            />
           }
           {
             (this.state.index < this.state.amountPages - 1)
-            && <button
-              className="btn wizard-next-button"
-              onClick={this.nextClick}
-              disabled={!this.state.allowNext}
-            >
-              <FormattedMessage id="client.merge.next"/>
-            </button>
-          }
-          {
-            (this.state.index === this.state.amountPages - 1)
             && <Button
               className="wizard-next-button"
-              label={this.props.save.label}
-              onClick={this.props.save.fn}
-              primary
+              disabled={!this.state.allowNext}
+              ink="primary"
+              label={this.msg('client.merge.next')}
+              look="raised"
+              onClick={this.nextClick}
             />
           }
         </div>
       </div>
     )
   }
+
+  msg(id) {
+    return this.props.intl.formatMessage({
+      id
+    })
+  }
 }
 
 Wizard.propTypes = {
   children: PropTypes.arrayOf(PropTypes.element),
+  intl: intlShape.isRequired,
   save: PropTypes.object.isRequired
 }
