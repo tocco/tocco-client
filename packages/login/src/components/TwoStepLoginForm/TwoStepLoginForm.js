@@ -44,13 +44,12 @@ export class TwoStepLoginForm extends Component {
           </div>
           <div>
             <Button
+              disabled={!this.state.userCode || this.props.loginPending}
+              ink="primary"
               label={this.msg('client.login.form.button')}
               name="submit"
-              type="submit"
-              disabled={!this.state.userCode || this.props.loginPending}
               pending={this.props.loginPending}
-              icon="glyphicon-log-in"
-              primary
+              type="submit"
             />
           </div>
         </form>

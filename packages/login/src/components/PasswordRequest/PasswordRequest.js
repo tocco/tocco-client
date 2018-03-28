@@ -44,20 +44,17 @@ export class PasswordRequest extends React.Component {
           <div>
             <div>
               <Button
-                label={this.msg('client.login.passwordRequest.button')}
-                type="submit"
                 disabled={!this.state.username || this.props.pending}
+                ink="primary"
+                label={this.msg('client.login.passwordRequest.button')}
                 pending={this.props.pending}
-                icon="glyphicon-log-in"
-                primary
+                type="submit"
               />
               <Button
-                name="abort"
-                label={this.msg('client.login.passwordRequest.abortButton')}
-                onClick={() => this.props.changePage(Pages.LOGIN_FORM)}
                 disabled={this.props.pending}
-                icon="glyphicon-remove"
-                primary
+                label={this.msg('client.login.passwordRequest.abortButton')}
+                name="abort"
+                onClick={() => this.props.changePage(Pages.LOGIN_FORM)}
               />
             </div>
           </div>

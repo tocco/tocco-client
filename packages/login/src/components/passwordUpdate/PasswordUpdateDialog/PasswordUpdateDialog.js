@@ -94,11 +94,11 @@ class PasswordUpdateDialog extends Component {
           <PasswordMatchDisplay password={password.newPassword} passwordRepeat={password.newPasswordRepeat}/>
           {password.passwordUpdateFailed === true && <FailureMessage errorCode={password.passwordUpdateErrorCode}/>}
           <Button
-            label={this.msg('client.login.passwordUpdate.saveButton')}
-            disabled={this.isSubmittable() === false}
             className={classNames('last-element-in-block', {'update-pending': password.passwordUpdatePending})}
+            disabled={this.isSubmittable() === false}
+            ink="primary"
+            label={this.msg('client.login.passwordUpdate.saveButton')}
             type="submit"
-            primary
           />
         </form>
       </div>
