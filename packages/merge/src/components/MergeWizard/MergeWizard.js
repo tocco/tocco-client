@@ -15,7 +15,10 @@ class MergeStrategy extends React.Component {
     if (!this.props.mergeResponse.merged) {
       content = (
         <div>
-          <Wizard save={{fn: this.props.saveMerge, label: saveButtonLabel}}>
+          <Wizard
+            save={{fn: this.props.saveMerge, label: saveButtonLabel}}
+            intl={this.props.intl}
+          >
             <MergeStrategyContainer/>
             <MergeMatrixContainer/>
           </Wizard>
