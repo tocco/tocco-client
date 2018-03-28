@@ -5,8 +5,8 @@ import Button from '../../../../tocco-ui/src/Button'
 import {appFactory, notifier} from 'tocco-util'
 // real-import:import {appFactory, notifier} from 'tocco-util'
 
-const longText = `Lorem ipsum dolor sit amet, at sed inermis intellegam scriptorem, usu facete apeirian ad. 
-Sit et meliore intellegam. Mel cu maluisset philosophia, pri et habeo oportere. Vis in purto verear luptatum, has 
+const longText = `Lorem ipsum dolor sit amet, at sed inermis intellegam scriptorem, usu facete apeirian ad.
+Sit et meliore intellegam. Mel cu maluisset philosophia, pri et habeo oportere. Vis in purto verear luptatum, has
 ne graecis qualisque. Mei ei placerat incorrupte adversarium, eum rebum nonumy ut.`
 
 /* start example */
@@ -81,7 +81,15 @@ class Example extends React.Component {
       props => (
         <div style={{border: '1px dotted red'}}>
           <p>My Custom-Component</p>
-          <Button onClick={props.close} label="close"/>
+          <Button
+            ink="primary"
+            label="primary action"
+            onClick={props.close}
+          />
+          <Button
+            label="secondary action"
+            onClick={props.close}
+          />
         </div>
       )
     ))
@@ -97,16 +105,40 @@ class Example extends React.Component {
         <div>
           <notifier.Notifier/>
           <div>
-            <button className="btn btn-info" onClick={this.info}>Info</button>
-            <button className="btn btn-success" onClick={this.success}>Success (no timeout)</button>
-            <button className="btn btn-warning" onClick={this.warning}>Warning (long)</button>
-            <button className="btn btn-danger" onClick={this.error}>Error</button>
-            <button className="btn btn-info" onClick={this.blockingInfo}>Blocking Info</button>
+            <Button
+              label="Info"
+              look="raised"
+              onClick={this.info}/>
+            <Button
+              label="Success (no timeout)"
+              look="raised"
+              onClick={this.success}/>
+            <Button
+              label="Warning (long)"
+              look="raised"
+              onClick={this.warning}/>
+            <Button
+              label="Error"
+              look="raised"
+              onClick={this.error}/>
+            <Button
+              label="Blocking Info"
+              look="raised"
+              onClick={this.blockingInfo}/>
           </div>
           <div>
-            <button className="btn btn-default" onClick={this.confirmQuestion}>Confirm</button>
-            <button className="btn btn-default" onClick={this.yesNoQuestion}>Yes-No Question</button>
-            <button className="btn btn-default" onClick={this.modalComponent}>Modal Component</button>
+            <Button
+              label="Confirm"
+              look="raised"
+              onClick={this.confirmQuestion}/>
+            <Button
+              label="Yes-No Question"
+              look="raised"
+              onClick={this.yesNoQuestion}/>
+            <Button
+              label="Modal Component"
+              look="raised"
+              onClick={this.modalComponent}/>
           </div>
         </div>
       </Provider>
