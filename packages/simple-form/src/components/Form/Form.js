@@ -64,16 +64,16 @@ class Form extends React.Component {
     <form onSubmit={this.props.handleSubmit(this.handleSubmit)} className="form form-horizontal">
       {this.formBuilder()}
       <Button
-        type="submit"
-        label={this.props.submitText || this.msg('client.simple-form.defaultOk')}
-        primary
-        pending={this.props.submitting}
         disabled={this.props.submitting}
+        ink="primary"
+        label={this.props.submitText || this.msg('client.simple-form.defaultOk')}
+        pending={this.props.submitting}
+        type="submit"
       />
       <Button
+        disabled={this.props.submitting}
         label={this.props.cancelText || this.msg('client.simple-form.defaultCancel')}
         onClick={this.handleCancel}
-        disabled={this.props.submitting}
       />
     </form>
   )
