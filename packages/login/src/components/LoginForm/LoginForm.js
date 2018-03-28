@@ -66,21 +66,17 @@ export class LoginForm extends Component {
           <div>
             <div>
               <Button
-                label={this.msg('client.login.form.button')}
-                type="submit"
                 disabled={this.props.loginPending || this.props.username === '' || this.props.password === ''}
+                ink="primary"
+                label={this.msg('client.login.form.button')}
                 pending={this.props.loginPending}
-                icon="glyphicon-log-in"
-                primary
+                type="submit"
               />
-              <div>
-                <a
-                  className="forgot-password"
-                  onClick={() => this.props.changePage(Pages.PASSWORD_REQUEST)}
-                >
-                  <FormattedMessage id="client.login.form.forgotLink"/>
-                </a>
-              </div>
+              <Button
+                className="forgot-password"
+                label={this.msg('client.login.form.forgotLink')}
+                onClick={() => this.props.changePage(Pages.PASSWORD_REQUEST)}
+              />
             </div>
           </div>
         </form>

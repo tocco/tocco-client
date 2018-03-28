@@ -20,11 +20,10 @@ describe('login', () => {
             loginPending={false}
           />
         )
-        expect(wrapper.find(Button)).to.have.length(1)
-        expect(wrapper.find(FormattedMessage)).to.have.length(1)
+        expect(wrapper.find(Button)).to.have.length(2)
       })
 
-      it('should render three <FormattedMessage> components if title is shown', () => {
+      it('should render two <FormattedMessage> components if title is shown', () => {
         const wrapper = shallow(
           <LoginForm
             intl={IntlStub}
@@ -36,8 +35,8 @@ describe('login', () => {
             showTitle
           />
         )
-        expect(wrapper.find(Button)).to.have.length(1)
-        expect(wrapper.find(FormattedMessage)).to.have.length(3)
+        expect(wrapper.find(Button)).to.have.length(2)
+        expect(wrapper.find(FormattedMessage)).to.have.length(2)
       })
 
       it('should disable button if username and password are not set', () => {
@@ -53,8 +52,8 @@ describe('login', () => {
             password=""
           />
         )
-        expect(wrapper.find(Button)).to.have.length(1)
-        const button = wrapper.find(Button)
+        expect(wrapper.find(Button)).to.have.length(2)
+        const button = wrapper.find(Button).first()
         expect(button.prop('disabled')).to.equal(true)
       })
 
@@ -71,8 +70,8 @@ describe('login', () => {
             password=""
           />
         )
-        expect(wrapper.find(Button)).to.have.length(1)
-        const button = wrapper.find(Button)
+        expect(wrapper.find(Button)).to.have.length(2)
+        const button = wrapper.find(Button).first()
         expect(button.prop('disabled')).to.equal(true)
       })
 
@@ -89,8 +88,8 @@ describe('login', () => {
             password="password"
           />
         )
-        expect(wrapper.find(Button)).to.have.length(1)
-        const button = wrapper.find(Button)
+        expect(wrapper.find(Button)).to.have.length(2)
+        const button = wrapper.find(Button).first()
         expect(button.prop('disabled')).to.equal(true)
       })
 
@@ -107,8 +106,8 @@ describe('login', () => {
             password="password"
           />
         )
-        expect(wrapper.find(Button)).to.have.length(1)
-        const button = wrapper.find(Button)
+        expect(wrapper.find(Button)).to.have.length(2)
+        const button = wrapper.find(Button).first()
         expect(button.prop('disabled')).to.equal(false)
       })
 
