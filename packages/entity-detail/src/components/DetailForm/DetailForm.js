@@ -113,11 +113,12 @@ export class DetailForm extends React.Component {
           <LayoutBox alignment="vertical">
             {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
             <Button
-              type="submit"
-              label={this.msg(`client.entity-detail.${props.mode === modes.CREATE ? 'create' : 'save'}`)}
-              pending={props.submitting}
               disabled={props.submitting || (props.anyTouched && !props.valid)}
-              primary
+              ink="primary"
+              label={this.msg(`client.entity-detail.${props.mode === modes.CREATE ? 'create' : 'save'}`)}
+              look="raised"
+              pending={props.submitting}
+              type="submit"
             />
             {props.lastSave
             && <div>
