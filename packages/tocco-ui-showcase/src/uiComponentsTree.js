@@ -18,6 +18,10 @@ import ButtonRaw from '!raw-loader!../../tocco-ui/src/Button/Button'
 import ButtonExample from '../../tocco-ui/src/Button/example'
 import ButtonExampleRaw from '!raw-loader!../../tocco-ui/src/Button/example'
 
+import IconRaw from '!raw-loader!../../tocco-ui/src/Icon/Icon'
+import IconExample from '../../tocco-ui/src/Icon/example'
+import IconExampleRaw from '!raw-loader!../../tocco-ui/src/Icon/example'
+
 import PreviewRaw from '!raw-loader!../../tocco-ui/src/Preview/Preview'
 import PreviewExample from '../../tocco-ui/src/Preview/example'
 import PreviewExampleRaw from '!raw-loader!../../tocco-ui/src/Preview/example'
@@ -113,6 +117,14 @@ export default [
         example: {
           component: UploadExample,
           raw: UploadExampleRaw
+        }
+      },
+      {
+        name: 'Icon',
+        raw: IconRaw,
+        example: {
+          component: IconExample,
+          raw: IconExampleRaw
         }
       }]
   },
