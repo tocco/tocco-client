@@ -3,6 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {theme} from 'styled-system'
 import Icon from '../Icon'
+import {getElevation} from '../utilStyles'
 
 const setButtonDensity = props => {
   if (props.dense) {
@@ -85,13 +86,7 @@ const setButtonColor = props => {
   `
 }
 
-const setElevation = props => {
-  if (props.look === 'raised') {
-    return `box-shadow: ${theme('shadows.levels.1')(props)} ${theme('shadows.color')(props)};`
-  }
-}
-
-const ButtonStyles = styled.button`
+export const ButtonStyles = styled.button`
   && {
     background-image: none;
     border-radius: ${theme('radii.2')};
@@ -117,7 +112,7 @@ const ButtonStyles = styled.button`
 
     ${props => setButtonColor(props)}
     ${props => setButtonDensity(props)}
-    ${props => setElevation(props)}
+    ${props => getElevation(props, props.look === 'raised' ? 1 : 0)}
   }
 `
 

@@ -1,3 +1,3 @@
-import Button from './Button'
+import Button, {ButtonStyles} from './Button'
 
-export default Button
+export {Button as default, ButtonStyles}
