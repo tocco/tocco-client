@@ -58,27 +58,28 @@ describe('tocco-ui', function() {
     it('should show pending spinner', () => {
       let wrapper = shallow(
         <Button/>
-      )
-      expect(wrapper.find('i').hasClass('fa-spin')).to.equal(false)
+      ).dive()
+      expect(wrapper.find('Icon')).to.have.length(0)
 
       wrapper = shallow(
         <Button
           pending={false}
         />
-      )
-      expect(wrapper.find('i').hasClass('fa-spin')).to.equal(false)
+      ).dive()
+      expect(wrapper.find('Icon')).to.have.length(0)
 
       wrapper = shallow(
         <Button pending/>
-      )
-      expect(wrapper.find('i').hasClass('fa-spin')).to.equal(true)
+      ).dive()
+      expect(wrapper.find('Icon').prop('animation')).to.equal('spin')
+      expect(wrapper.find('Icon').prop('icon')).to.equal('fa-circle-o-notch')
     })
 
     it('should show icon', () => {
       const wrapper = shallow(
         <Button icon="icon"/>
-      )
-      expect(wrapper.find('i').hasClass('icon')).to.equal(true)
+      ).dive()
+      expect(wrapper.find('Icon')).to.have.length(1)
     })
 
     it('should set default type to button', () => {

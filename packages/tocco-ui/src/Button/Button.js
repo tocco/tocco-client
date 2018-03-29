@@ -1,28 +1,19 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import classNames from 'classnames'
-
 import styled from 'styled-components'
 import {theme} from 'styled-system'
+import Icon from '../Icon'
 
 const setButtonDensity = props => {
   if (props.dense) {
     return `
       line-height: ${theme('lineHeights.0')(props)};
       padding: ${theme('space.2')(props)} ${theme('space.2')(props)};
-
-      .icon:not(.icon-only) {
-        margin-right: ${theme('space.1')(props)}
-      }
     `
   } else {
     return `
       line-height: ${theme('lineHeights.1')(props)};
       padding: ${theme('space.3')(props)} ${theme('space.4')(props)};
-
-      .icon:not(.icon-only) {
-        margin-right: ${theme('space.3')(props)}
-      }
     `
   }
 }
@@ -124,10 +115,6 @@ const ButtonStyles = styled.button`
       outline: ${theme('outline')};
     }
 
-    .icon {
-      padding: 0;
-    }
-
     ${props => setButtonColor(props)}
     ${props => setButtonDensity(props)}
     ${props => setElevation(props)}
@@ -135,24 +122,6 @@ const ButtonStyles = styled.button`
 `
 
 const Button = props => {
-  const getIcon = (icon, pending, label) => {
-    let iconClass
-    if (pending) {
-      iconClass = 'icon fa fa-circle-o-notch fa-spin'
-    } else if (icon) {
-      iconClass = classNames({
-        'glyphicon': icon.startsWith('glyphicon-'),
-        'fa': icon.startsWith('fa-')
-      }, 'icon', icon)
-    }
-    if (!label) {
-      iconClass = classNames(iconClass, 'icon-only')
-    }
-    if (iconClass) {
-      return (<i className={iconClass}/>)
-    }
-  }
-
   return (
     <ButtonStyles
       name={props.name}
@@ -160,13 +129,14 @@ const Button = props => {
       onClick={props.onClick}
       className={props.className}
       disabled={props.disabled}
-      type={props.type ? props.type : 'button'}
+      type={props.type}
       style={props.style}
       look={props.look}
       ink={props.ink}
       dense={props.dense}
     >
-      {getIcon(props.icon, props.pending, props.label)}
+      {props.icon && <Icon dense={props.dense} icon={props.icon} position="before"/>}
+      {props.pending && <Icon animation="spin" dense={props.dense} icon="fa-circle-o-notch" position="before"/>}
       {props.label}
     </ButtonStyles>
   )
