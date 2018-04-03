@@ -1,9 +1,9 @@
 {
   "devDependencies": {
-    "babel-polyfill": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
     "intl": "^1.2.5",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "whatwg-fetch": "^2.0.3"
+    "react": "^16.3.0",
+    "react-dom": "^16.3.0",
+    "whatwg-fetch": "^2.0.4"
   }
 }
