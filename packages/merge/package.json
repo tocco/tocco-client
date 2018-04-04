@@ -4,7 +4,7 @@
   "description": "merge action",
   "main": "dist/index.js",
   "scripts": {
-    "compile": "cd ../../ && npm run compile:prod -- --package=merge && npm run compile:nice2_11_legacy -- --package=merge",
+    "compile": "cd ../../ && npm run compile:prod -- --package=merge",
     "prepublish": "npm run compile"
   },
   "devDependencies": {

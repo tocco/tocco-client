@@ -4,7 +4,7 @@
   "description": "Login dialog with password-update dialog that can run independently",
   "main": "dist/index.js",
   "scripts": {
-    "compile": "cd ../../ && npm run compile:prod -- --package=login && npm run compile:nice2_11_legacy -- --package=login",
+    "compile": "cd ../../ && npm run compile:prod -- --package=login",
     "prepublish": "npm run compile"
   },
   "devDependencies": {

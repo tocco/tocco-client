@@ -26,7 +26,7 @@ const initApp = (id, input, events = {}, publicPath) => {
 }
 
 (() => {
-  if (__DEV__ || __NICE2_11_LEGACY__) {
+  if (__DEV__) {
     require('tocco-theme/src/ToccoTheme/theme.scss')
   }
 
