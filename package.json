@@ -12,7 +12,6 @@
     "compile:prod": "NODE_ENV=production npm run compile --",
     "compile:dev": "NODE_ENV=development npm run compile --",
     "compile:standalone": "NODE_ENV=standalone npm run compile --",
-    "compile:nice2_11_legacy": "NODE_ENV=nice2_11_legacy npm run compile --",
     "flow": "flow; test $? -eq 0 -o $? -eq 2",
     "lint": "stylelint \"packages/**/*.scss\" && eslint . --cache",
     "lint:fix": "npm run lint -- --fix",

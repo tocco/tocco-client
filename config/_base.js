@@ -70,7 +70,6 @@ config.globals = {
   '__DEV__'      : config.env === 'development',
   '__PROD__'     : config.env === 'production',
   '__STANDALONE__': config.env === 'standalone',
-  '__NICE2_11_LEGACY__': config.env === 'nice2_11_legacy',
   '__TEST__'     : config.env === 'test',
   '__DEBUG__'    : config.env === 'development' && !argv.no_debug,
   '__BACKEND_URL__': JSON.stringify(''),
