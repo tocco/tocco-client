@@ -51,6 +51,7 @@ const karmaConfig = {
   browserDisconnectTimeout: 10000,
   browserNoActivityTimeout: 60000,
   webpack: {
+    mode: 'development',
     performance: {
       hints: false
     },
@@ -81,8 +82,7 @@ const karmaConfig = {
       'react/addons': true,
       'react/lib/ExecutionEnvironment': true,
       'react/lib/ReactContext': 'window'
-    },
-    sassLoader: webpackConfig.sassLoader
+    }
   },
   webpackMiddleware: {
     noInfo: true

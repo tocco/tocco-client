@@ -126,18 +126,18 @@ class Pagination extends React.Component {
         {
           !this.props.noInput
           && <input
-          className="tocco-pagination-current-page form-control"
-          id="currentPage"
-          type="number"
-          min="1"
-          max={this.state.totalPages}
-          onChange={this.handleInputUpdate}
-          size={figuresCount}
-          value={this.state.currentPage}
-          onKeyPress={this.handleKeyPress}
-          onBlur={this.handleOnInputBlur}
+            className="tocco-pagination-current-page form-control"
+            id="currentPage"
+            type="number"
+            min="1"
+            max={this.state.totalPages}
+            onChange={this.handleInputUpdate}
+            size={figuresCount}
+            value={this.state.currentPage}
+            onKeyPress={this.handleKeyPress}
+            onBlur={this.handleOnInputBlur}
 
-        />
+          />
         }
         <span className="tocco-pagination-total-pages" id="total">{this.state.totalPages}</span>
         <Button

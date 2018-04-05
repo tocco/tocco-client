@@ -17,7 +17,7 @@ class DateAbstract extends React.Component {
       import(/* webpackChunkName: "flatpickr" */ 'flatpickr/dist/l10n/fr.js'),
       import(/* webpackChunkName: "flatpickr" */ 'flatpickr/dist/l10n/it.js')
     ]).then(response => {
-      this.Flatpickr = response[0]
+      this.Flatpickr = response[0].default
       this.localeMap = {
         'de-CH': response[1].de,
         'de': response[1].de,

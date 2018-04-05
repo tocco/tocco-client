@@ -63,6 +63,7 @@ $textarea-max-height: 25rem;
 
   &.tether-target-attached-top {
     margin-top: -35px; // magic-number representing the height of the input-field
+
     .Select-menu-outer {
       border-radius: 4px 4px 0 0;
     }

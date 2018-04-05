@@ -10,12 +10,12 @@ const ModalContent = props => {
         && <div style={{marginBottom: '10px'}}>
           {props.title
         && <header className="tocco-notifier__title">
-            {props.title}
-          </header>}
+          {props.title}
+        </header>}
           {props.message
         && <div className="tocco-notifier__message">
-            <FormattedValue type="html" value={props.message}/>
-          </div>}
+          <FormattedValue type="html" value={props.message}/>
+        </div>}
         </div>
         }
         <props.component close={() => props.close(props.id)}/>
