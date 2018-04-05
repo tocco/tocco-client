@@ -6,12 +6,9 @@ import {bytesToSize} from './helpers'
 const UploadProgress = props => (
   <div>
     <Preview
-      className="transparent"
-      style={{maxWidth: '200px'}}
-      srcUrl={props.file.preview}
       caption={props.file.name}
+      srcUrl={props.file.preview}
       thumbnailUrl={props.file.type.startsWith('image') ? props.file.preview : null}
-      downloadOnClick={false}
     />
     <div className="loadingOverlay">
       <div className="label label-default">

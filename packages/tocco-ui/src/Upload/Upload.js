@@ -47,9 +47,7 @@ class Upload extends React.Component {
 
   render() {
     const props = this.props
-    return <div className="tocco-upload">
-      {this.getContent(props)}
-    </div>
+    return this.getContent(props)
   }
 }
 

@@ -1,27 +1,52 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import styled from 'styled-components'
+import {theme} from 'styled-system'
+
+import Button from '../Button'
+import ButtonLink from '../ButtonLink'
 import Preview from '../Preview'
 
+const ViewStyled = styled.div`
+    display: inline-block;
+    position: relative;
+
+    > div {
+      position: absolute;
+      top: ${theme('space.4')};
+      right: ${theme('space.4')};
+      left: ${theme('space.4')};
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      align-content: space-between;
+      opacity: 0;
+      transition: opacity 300ms;
+    }
+
+    &:hover > div {
+      opacity: 1;
+    }
+`
+
 const View = props => (
-  <div>
-    <div className="actions">
-      <a
+  <ViewStyled>
+    <div>
+      <ButtonLink
+        icon="fa-download"
+        iconPosition="solely"
+        download={props.value.fileName}
         href={props.value.binaryLink}
         title={props.downloadTitle || 'download'}
-        className="action btn btn-default"
-        download={props.value.fileName}
-      >
-        <i className="fa fa-download" aria-hidden="true"></i>
-      </a>
-
+      />
       {!props.readOnly
-      && <a
-        title={props.deleteTitle || 'delete'}
-        className="action btn btn-danger"
+      && <Button
+        icon="fa-trash-o"
+        iconPosition="solely"
         onClick={() => props.onUpload(null)}
-      >
-        <i className="fa fa-trash-o" aria-hidden="true"></i>
-      </a>
+        title={props.deleteTitle || 'delete'}
+      />
       }
     </div>
     <Preview
@@ -29,10 +54,8 @@ const View = props => (
       thumbnailUrl={props.value.thumbnailLink}
       caption={props.value.fileName}
       alt={props.value.fileName}
-      downloadOnClick
     />
-
-  </div>
+  </ViewStyled>
 )
 
 View.propTypes = {
