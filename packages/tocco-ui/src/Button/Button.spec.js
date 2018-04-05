@@ -96,12 +96,12 @@ describe('tocco-ui', function() {
       expect(wrapper.find('button').prop('type')).to.equal('submit')
     })
 
-    it('should have four defaultProps', () => {
+    it('should have five defaultProps', () => {
       const wrapper = shallow(
         <Button/>
       )
       const props = wrapper.instance().props
-      expect(Object.keys(props).length).to.equal(4)
+      expect(Object.keys(props).length).to.equal(5)
       const {ink, label, look, type} = props
       expect(ink).to.equal('base')
       expect(label).to.equal('')
