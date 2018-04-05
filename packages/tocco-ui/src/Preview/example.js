@@ -8,20 +8,26 @@ export default () => {
     <div>
       {/* start example */}
       <Preview
-        srcUrl="https://unsplash.it/150"
-        thumbnailUrl="https://unsplash.it/150"
-        caption="A random image"
         alt="Alternative text"
-        downloadOnClick
+        srcUrl="https://picsum.photos/500/500?image=1069"
+        thumbnailUrl="https://picsum.photos/150/150?image=1069"
       />
       <Preview
-        srcUrl="https://unsplash.it/150"
-        thumbnailUrl="https://unsplash.it/150"
+        alt="Alternative text"
+        caption="Linked image with a hundreds of strawberries."
+        downloadOnClick={true}
+        srcUrl="https://picsum.photos/500/500?image=1080"
+        thumbnailUrl="https://picsum.photos/100/100?image=1080"
+      />
+      <Preview
+        caption="image listen on click event"
         onClick={(srcUrl, thumbnailUrl) => alert(srcUrl + '\n' + thumbnailUrl)}
+        srcUrl="https://picsum.photos/500/500?image=1054"
+        thumbnailUrl="https://picsum.photos/300/150?image=1054"
       />
       <Preview
-        srcUrl="https://someurl.ch/test.pdf"
         caption="Test.pdf"
+        srcUrl="https://someurl.ch/test.pdf"
       />
       {/* end example */}
     </div>
