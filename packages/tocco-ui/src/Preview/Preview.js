@@ -1,46 +1,80 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import classNames from 'classnames'
-import Figure from './Figure'
+import styled from 'styled-components'
+import Icon from '../Icon'
 
 /**
  * Can be used to show previews of any kind of file. Therefore an Url to the thumbnail and to the file must be provided.
  */
+
+const PreviewStyles = styled.figure`
+  && {
+    vertical-align: top;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+
+    > * {
+      flex: 1 1 auto;
+    }
+
+    img {
+      max-width: 100%;
+
+      ${props => {
+    if (props.interactive) {
+      return `
+            &:hover,
+            &:focus {
+              opacity: .7;
+            }
+      `
+    }
+  }}
+    }
+
+    figcaption {
+      text-align: center;
+    }
+  }
+`
+
 const Preview = props => {
-  const content = props.thumbnailUrl ? (
-    <Figure
-      srcUrl={props.srcUrl}
-      thumbnailUrl={props.thumbnailUrl}
+  const onClick = () => {
+    if (typeof props.onClick === 'function') {
+      props.onClick(props.srcUrl, props.thumbnailUrl)
+    }
+  }
+
+  const image = props.thumbnailUrl ? (
+    <img
       alt={props.alt}
-      caption={props.caption}
-      onClick={props.onClick}
+      src={props.thumbnailUrl}
+      onClick={onClick}
     />
   ) : (
-    <div className="no-thumbnail">
-      <i className="fa fa-file-text-o" aria-hidden="true"></i><span>{props.caption}</span>
-    </div>
+    <Icon
+      icon="fa-file-text-o"
+    />
   )
 
-  const classes = classNames(
-    'tocco-preview',
-    props.className
+  const imageWrapper = props.downloadOnClick && props.srcUrl && !props.onClick ? (
+    <a href={props.srcUrl} alt={props.alt} download={props.caption}>{image}</a>
+  ) : (
+    image
   )
+
+  const interactive = ((props.downloadOnClick && props.srcUrl) || props.onClick)
 
   return (
-    <div className={classes}>
-      {props.downloadOnClick ? <a href={props.srcUrl} alt={props.alt} download={props.caption}>{content}</a> : content}
-    </div>)
+    <PreviewStyles interactive={interactive}>
+      {imageWrapper}
+      {props.caption && <figcaption>{props.caption}</figcaption>}
+    </PreviewStyles>
+  )
 }
 
 Preview.propTypes = {
-  /**
-   * The url to the document (can be any kind of file).
-   */
-  srcUrl: PropTypes.string.isRequired,
-  /**
-   * The url to the thumbnail (must be an image).
-   */
-  thumbnailUrl: PropTypes.string,
   /**
    * Alternative text if the image can't be displayed.
    */
@@ -50,18 +84,22 @@ Preview.propTypes = {
    */
   caption: PropTypes.string,
   /**
-   * Function that will be triggered when clicked on the image. Receives the srcLink and thumbnailLink as arguments.
-   */
-  onClick: PropTypes.func,
-  /**
-   * If true the image will be wrapped in a link which downloads the document behind the source url (srcUrl).
+   * If true the image will be linked (srcUrl).
    */
   downloadOnClick: PropTypes.bool,
   /**
-   * CSS class that gets added to root element of preview
+   * Trigger function by click on image. Receives the srcLink and
+   * thumbnailLink as arguments. onClick overrules downloadOnClick.
    */
-  className: PropTypes.string
-
+  onClick: PropTypes.func,
+  /**
+   * The url to the document (can be any kind of file).
+   */
+  srcUrl: PropTypes.string.isRequired,
+  /**
+   * The url to the thumbnail (must be an image).
+   */
+  thumbnailUrl: PropTypes.string
 }
 
 export default Preview
