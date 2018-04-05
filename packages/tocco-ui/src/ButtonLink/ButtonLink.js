@@ -23,16 +23,17 @@ const ButtonLink = props => {
       look={props.look}
       title={props.title}
     >
-      {props.icon && <Icon dense={props.dense} icon={props.icon} position="before"/>}
+      {props.icon && <Icon dense={props.dense} icon={props.icon} position={props.iconPosition}/>}
       {props.label}
     </ButtonLinkStyles>
   )
 }
 
 ButtonLink.defaultProps = {
-  look: 'flat',
   href: '#',
-  ink: 'base'
+  iconPosition: 'before',
+  ink: 'base',
+  look: 'flat'
 }
 
 ButtonLink.propTypes = {
@@ -57,6 +58,10 @@ ButtonLink.propTypes = {
    * https://getbootstrap.com/docs/3.3/components/#glyphicons or https://fontawesome.com/v4.7.0/icons/
    */
   icon: PropTypes.string,
+  /**
+   * Add spacing according position. Default value is 'before'. Possible values: before|solely
+   */
+  iconPosition: PropTypes.oneOf(['before', 'solely']),
   /**
    * Define color palette. Default value is 'base'. Possible values: base|primary
    */

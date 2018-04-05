@@ -56,7 +56,7 @@ const Icon = props => {
 
 Icon.defaultProps = {
   animation: 'none',
-  position: 'none'
+  position: 'solely'
 }
 
 Icon.propTypes = {
@@ -76,7 +76,7 @@ Icon.propTypes = {
   /**
    * Add spacing according position. Default value is 'none'. Possible values: after|before|between|none
    */
-  position: PropTypes.oneOf(['after', 'before', 'between', 'none'])
+  position: PropTypes.oneOf(['after', 'before', 'between', 'solely'])
 }
 
 export default Icon
