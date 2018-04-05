@@ -96,6 +96,7 @@ export const ButtonStyles = styled.button`
     text-transform: uppercase;
     vertical-align: middle;
     white-space: nowrap;
+    margin-bottom: 0;
 
     &:enabled {
       cursor: pointer;
@@ -119,28 +120,36 @@ export const ButtonStyles = styled.button`
 const Button = props => {
   return (
     <ButtonStyles
-      name={props.name}
-      title={props.title}
-      onClick={props.onClick}
       className={props.className}
-      disabled={props.disabled}
-      type={props.type}
-      style={props.style}
-      look={props.look}
-      ink={props.ink}
       dense={props.dense}
+      disabled={props.disabled}
+      ink={props.ink}
+      look={props.look}
+      name={props.name}
+      onClick={props.onClick}
+      style={props.style}
+      title={props.title}
+      type={props.type}
     >
-      {props.icon && <Icon dense={props.dense} icon={props.icon} position="before"/>}
-      {props.pending && <Icon animation="spin" dense={props.dense} icon="fa-circle-o-notch" position="before"/>}
+      {props.icon && <Icon
+        dense={props.dense}
+        icon={props.icon}
+        position={props.iconPosition}/>}
+      {props.pending && <Icon
+        animation="spin"
+        dense={props.dense}
+        icon="fa-circle-o-notch"
+        position={props.iconPosition}/>}
       {props.label}
     </ButtonStyles>
   )
 }
 
 Button.defaultProps = {
-  look: 'flat',
+  iconPosition: 'before',
   ink: 'base',
   label: '',
+  look: 'flat',
   type: 'button'
 }
 
@@ -178,6 +187,10 @@ Button.propTypes = {
    * https://getbootstrap.com/docs/3.3/components/#glyphicons or https://fontawesome.com/v4.7.0/icons/
    */
   icon: PropTypes.string,
+  /**
+   * Add spacing according position. Default value is 'before'. Possible values: before|solely
+   */
+  iconPosition: PropTypes.oneOf(['before', 'solely']),
   /**
    * React style object that gets added to the button
    */
