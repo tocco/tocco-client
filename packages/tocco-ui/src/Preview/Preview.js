@@ -3,6 +3,7 @@ import React from 'react'
 
 import Icon from '../Icon'
 import StyledPreview from './StyledPreview'
+
 /**
  * Use <Preview> to display a preview of any kind of file. Provide URLs to thumbnail and file.
  */
