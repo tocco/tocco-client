@@ -25,17 +25,17 @@ class ListView extends React.Component {
 
           {
             this.props.formDefinition && this.props.formDefinition.children.map((child, idx) => {
-            if (child.componentType === form.componentTypes.LAYOUT && child.layoutType === form.layoutTypes.TABLE) {
-              return <TableContainer key={idx} columnDefinitions={getColumnDefinition(child)}/>
-            } else if (actions.isAction(child.componentType)) {
-              return <actions.Action
-                key={`listAction${idx}`}
-                definition={child}
-                ids={selectedRecordsCurrentPage}
-                entity={props.entityName}
-              />
-            }
-          })
+              if (child.componentType === form.componentTypes.LAYOUT && child.layoutType === form.layoutTypes.TABLE) {
+                return <TableContainer key={idx} columnDefinitions={getColumnDefinition(child)}/>
+              } else if (actions.isAction(child.componentType)) {
+                return <actions.Action
+                  key={`listAction${idx}`}
+                  definition={child}
+                  ids={selectedRecordsCurrentPage}
+                  entity={props.entityName}
+                />
+              }
+            })
           }
         </LoadMask>
       </div>

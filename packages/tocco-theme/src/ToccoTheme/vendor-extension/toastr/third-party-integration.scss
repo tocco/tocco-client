@@ -1,6 +1,7 @@
 .redux-toastr,
 .tocco-notifier {
   font-size: 16px;  // reset: nice (body in scaffolding.less)
+
   .tocco-notifier__title,
   .tocco-notifier__message {
     word-break: break-word;  // usability: better see a word break than not the complete message
@@ -35,6 +36,7 @@
   .toastr {
     min-height: none;  // reset: react-redux-toastr (index.scss)
     opacity: 1;  // reset: react-redux-toastr (index.scss)
+
     &:hover:not( .rrt-message ) {
       box-shadow: 2px 2px 10px rgba(0, 0, 0, .4);  // reset: react-redux-toastr (index.scss)
     }
@@ -60,6 +62,7 @@
     top: 10%;  // reset: react-redux-toastr (confirm.scss)
     max-height: 80%;  // usability: prevent modal from being larger than viewport
     overflow-y: auto; // todo: enhance usability - it is not obvious that content is scrollable
+
     .dialog {
       padding: $line-height-computed-half;
     }

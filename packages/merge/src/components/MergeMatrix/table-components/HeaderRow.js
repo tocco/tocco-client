@@ -18,7 +18,7 @@ const HeaderRow = props => {
 
           return (
             <th
-              onClick={function() { if (!isTargetEntity(entity.pk)) props.changeTargetEntity(entity.pk) }}
+              onClick={() => { if (!isTargetEntity(entity.pk)) props.changeTargetEntity(entity.pk) }}
               key={'th' + idx}
               {...attributes}
               className={cls}

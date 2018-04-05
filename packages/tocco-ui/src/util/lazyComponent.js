@@ -12,9 +12,9 @@ export default getComponent => (
     componentWillMount() {
       if (this.state.Component === null) {
         getComponent().then(Component => {
-          LazyLoadedComponent.Component = Component
+          LazyLoadedComponent.Component = Component.default
           if (this.mounted) {
-            this.setState({Component})
+            this.setState({Component: Component.default})
           }
         })
       }

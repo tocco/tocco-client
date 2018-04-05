@@ -22,6 +22,7 @@ const testPlugins = []
 
 logger.info('Create webpack configuration.')
 const webpackConfig = {
+  mode: __PROD__ ? 'production' : 'development',
   name: 'client',
   target: 'web',
   devtool: __PROD__ ? 'source-map' : 'eval',
@@ -59,11 +60,10 @@ if (!__TEST__) {
 
 const APP_ENTRY_PATH = paths.client(`${packageDir}/src/main.js`)
 
-webpackConfig.entry = {
-  app: __DEV__
-    ? [APP_ENTRY_PATH, `webpack-hot-middleware/client?path=/__webpack_hmr`]
-    : [APP_ENTRY_PATH]
-}
+webpackConfig.entry = [
+  ...(__DEV__ ? ['webpack-hot-middleware/client'] : []),
+  APP_ENTRY_PATH
+]
 
 // ------------------------------------
 // Bundle Output
@@ -124,26 +124,6 @@ if (__DEV__) {
 
   webpackConfig.plugins.push(
     new webpack.optimize.OccurrenceOrderPlugin())
-
-  webpackConfig.plugins.push(
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-        screw_ie8: true,
-        conditionals: true,
-        unused: true,
-        comparisons: true,
-        sequences: true,
-        dead_code: true,
-        evaluate: true,
-        if_return: true,
-        join_vars: true
-      },
-      output: {
-        comments: false
-      }
-    })
-  )
 
   webpackConfig.plugins.push(
     new CopyWebpackPlugin([

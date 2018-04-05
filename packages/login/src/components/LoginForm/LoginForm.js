@@ -24,9 +24,9 @@ export class LoginForm extends Component {
         {
           this.props.showTitle
           && <div>
-          <h1><FormattedMessage id="client.login.form.title"/></h1>
-          <p><FormattedMessage id="client.login.form.introduction"/></p>
-        </div>
+            <h1><FormattedMessage id="client.login.form.title"/></h1>
+            <p><FormattedMessage id="client.login.form.introduction"/></p>
+          </div>
         }
         <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="form-group dense">

@@ -52,11 +52,11 @@ class MergeStrategy extends React.Component {
                   {this.props.intl.formatMessage({id: 'client.merge.strategyDelete'})}
                 </option>
                 {
-                (this.props.editOptions.length > 0
+                  (this.props.editOptions.length > 0
                     && <option value={SourceEntityAction.EDIT}>
-                    {this.props.intl.formatMessage({id: 'client.merge.strategyEdit'})}
-                  </option>
-                )
+                      {this.props.intl.formatMessage({id: 'client.merge.strategyEdit'})}
+                    </option>
+                  )
                 }
 
               </select>
