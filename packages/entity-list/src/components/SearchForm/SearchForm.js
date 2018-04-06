@@ -103,7 +103,6 @@ class SearchForm extends React.Component {
               label={this.msg('client.entity-list.reset')}
               look="raised"
               onClick={this.handleResetClick}
-              type="button"
             />
             {!props.disableSimpleSearch
             && <span title={this.msg('client.entity-list.extendedSearch')}>
@@ -111,7 +110,6 @@ class SearchForm extends React.Component {
                 className="pull-right"
                 icon={`glyphicon-chevron-${this.props.showExtendedSearchForm ? 'up' : 'down'}`}
                 onClick={this.toggleExtendedSearchForm}
-                type="button"
               />
             </span>
             }

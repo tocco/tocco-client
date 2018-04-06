@@ -105,16 +105,12 @@ class Pagination extends React.Component {
       <span className="tocco-pagination">
         <Button
           id="toFirstButton"
-          type="button"
-          className="btn"
           onClick={this.handleToFirstClick}
           disabled={this.isOnFirstPage()}
           icon="glyphicon-fast-backward"
         />
         <Button
           id="backButton"
-          type="button"
-          className="btn"
           onClick={this.handleOneBackClick}
           disabled={this.isOnFirstPage()}
           icon="glyphicon-triangle-left"
@@ -142,14 +138,12 @@ class Pagination extends React.Component {
         <span className="tocco-pagination-total-pages" id="total">{this.state.totalPages}</span>
         <Button
           id="forwardButton"
-          type="button"
           onClick={this.handleOneForwardClick}
           disabled={this.isOnLastPage()}
           icon="glyphicon-triangle-right"
         />
         <Button
           id="toLastButton"
-          type="button"
           onClick={this.handleToLastClick}
           disabled={this.isOnLastPage()}
           icon="glyphicon-fast-forward"
