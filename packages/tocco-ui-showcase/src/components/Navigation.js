@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {Scrollspy} from 'react-scrollspy'
+import Scrollspy from 'react-scrollspy'
 
 const Navigation = props => {
   const getComponentSections = categoryName => {
