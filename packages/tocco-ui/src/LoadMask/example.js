@@ -7,15 +7,24 @@ class Example extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      loaded: undefined
+      loaded: false
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return true
   }
 
   render() {
     return (
       <div style={{height: '100px'}}>
         {/* start example */}
-        <button onClick={() => this.setState({loaded: {}})}>Load</button>
+        <button onClick={() => {
+          console.log('this.state.loaded', this.state.loaded)
+          this.setState({loaded: !this.state.loaded})
+        }}
+        style={{position: 'absolute', zIndex: 1, right: 10}}>Load
+        </button>
         <LoadMask
           required={[this.state.loaded]}
           loadingText="Loading..."
