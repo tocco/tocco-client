@@ -96,7 +96,7 @@ export const ButtonStyles = styled.button`
     text-transform: uppercase;
     vertical-align: middle;
     white-space: nowrap;
-    margin-bottom: 0;
+    margin: 0;
 
     &:enabled {
       cursor: pointer;
@@ -127,7 +127,6 @@ const Button = props => {
       look={props.look}
       name={props.name}
       onClick={props.onClick}
-      style={props.style}
       title={props.title}
       type={props.type}
     >
@@ -155,33 +154,17 @@ Button.defaultProps = {
 
 Button.propTypes = {
   /**
-   * Visible text. Default is an empty string.
-   */
-  label: PropTypes.node,
-  /**
-   * Function that will be triggered on click event.
-   */
-  onClick: PropTypes.func,
-  /**
-   * Set button's name attribute.
-   */
-  name: PropTypes.string,
-  /**
-   * If true, the button can not be triggered.
-   */
-  disabled: PropTypes.bool,
-  /**
-  * If true, a spinner is integrated in the button.
-  */
-  pending: PropTypes.bool,
-  /**
    * Extend the button with any css classes separated by a space.
    */
   className: PropTypes.string,
   /**
-   * If true, button will be shown as primary button. Deprecated: Use ink and look.
+   * If true, compress button to occupy less space.
    */
-  primary: PropTypes.bool,
+  dense: PropTypes.bool,
+  /**
+   * If true, the button can not be triggered.
+   */
+  disabled: PropTypes.bool,
   /**
    * Integrate an icon into the button. Set the specific class only from
    * https://getbootstrap.com/docs/3.3/components/#glyphicons or https://fontawesome.com/v4.7.0/icons/
@@ -192,29 +175,37 @@ Button.propTypes = {
    */
   iconPosition: PropTypes.oneOf(['before', 'solely']),
   /**
-   * React style object that gets added to the button
+   * Define color palette. Default value is 'base'. Possible values: base|primary
    */
-  style: PropTypes.object,
+  ink: PropTypes.oneOf(['base', 'primary']),
   /**
-   * HTML Button type. Default is 'button'. Possible values: button|submit|reset
+   * Visible text. Default is an empty string.
    */
-  type: PropTypes.oneOf(['button', 'submit', 'reset']),
-  /**
-   * Popover title to be shown on mouse over.
-   */
-  title: PropTypes.string,
+  label: PropTypes.node,
   /**
    * Button style according Google Material Design. Default value is 'flat'. Possible values: flat|raised
    */
   look: PropTypes.oneOf(['flat', 'raised']),
   /**
-   * Define color palette. Default value is 'base'. Possible values: base|primary
+   * Set button's name attribute.
    */
-  ink: PropTypes.oneOf(['base', 'primary']),
+  name: PropTypes.string,
   /**
-   * If true, compress button to occupy less space.
+   * Function that will be triggered on click event.
    */
-  dense: PropTypes.bool
+  onClick: PropTypes.func,
+  /**
+  * If true, a spinner is integrated in the button.
+  */
+  pending: PropTypes.bool,
+  /**
+   * Popover title to be shown on mouse over.
+   */
+  title: PropTypes.string,
+  /**
+   * HTML Button type. Default is 'button'. Possible values: button|submit|reset
+   */
+  type: PropTypes.oneOf(['button', 'submit', 'reset'])
 }
 
 export default Button
