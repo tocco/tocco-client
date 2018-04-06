@@ -7,13 +7,10 @@ import {fetchEntities, selectEntitiesTransformer, selectEntitiesPathsTransformer
 
 import {SET_INITIALIZED as LIST_SET_INITIALIZED} from '../entityList/actions'
 import {
-  startSubmit,
-  stopSubmit,
-  getFormValues,
-  actionTypes,
-  initialize as initializeForm,
-  reset
+  actions as formActions,
+  getFormValues
 } from 'redux-form'
+import * as formActionTypes from 'redux-form/es/actionTypes'
 
 import _forOwn from 'lodash/forOwn'
 
@@ -30,7 +27,7 @@ export default function* sagas() {
     fork(takeLatest, actions.SET_PRESELECTED_SEARCH_FIELDS, setPreselectedSearchFields),
     fork(takeLatest, actions.LOAD_RELATION_ENTITY, loadRelationEntity),
     fork(takeLatest, actions.LOAD_SEARCH_FILTERS, loadSearchFilters),
-    fork(takeLatest, actionTypes.CHANGE, submitSearchFrom),
+    fork(takeLatest, formActionTypes.CHANGE, submitSearchFrom),
     fork(takeLatest, actions.SUBMIT_SEARCH_FORM, submitSearchFrom),
     fork(takeLatest, actions.RESET_SEARCH, resetSearch)
   ])
@@ -38,11 +35,11 @@ export default function* sagas() {
 
 export function* submitSearchFrom() {
   const FORM_ID = 'searchForm'
-  yield put(startSubmit(FORM_ID))
+  yield put(formActions.startSubmit(FORM_ID))
   const values = yield select(getFormValues(FORM_ID))
   const {formDefinition} = yield select(searchFormSelector)
   const errors = yield call(validateSearchFields, values, formDefinition)
-  yield put(stopSubmit(FORM_ID, errors))
+  yield put(formActions.stopSubmit(FORM_ID, errors))
 
   if (Object.keys(errors).length === 0) {
     yield put(actions.executeSearch())
@@ -63,7 +60,7 @@ export function* setPreselectedSearchFields({payload}) {
 
   const entityModel = yield call(getEntityModel)
   const formValues = yield call(getInitialFromValues, preselectedSearchFields, entityModel.model, loadRelationEntity)
-  yield put(initializeForm('searchForm', formValues))
+  yield put(formActions.initialize('searchForm', formValues))
   yield put(actions.setValuesInitialized(true))
 }
 
@@ -126,7 +123,7 @@ export function* loadSearchFilters({payload}) {
 }
 
 export function* resetSearch() {
-  yield put(reset('searchForm'))
+  yield put(formActions.reset('searchForm'))
   yield call(submitSearchFrom)
 }
 

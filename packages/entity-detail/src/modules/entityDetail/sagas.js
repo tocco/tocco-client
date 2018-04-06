@@ -1,13 +1,8 @@
 import {call, put, fork, select, takeLatest, takeEvery, all} from 'redux-saga/effects'
 import {
-  startSubmit,
-  stopSubmit,
+  actions as formActions,
   SubmissionError,
-  getFormValues,
-  touch,
-  initialize as initializeForm,
-  destroy as destroyForm,
-  change as changeFormValue
+  getFormValues
 } from 'redux-form'
 
 import {externalEvents, notifier, errorLogging, form, actions as actionUtil, actionEmitter} from 'tocco-util'
@@ -77,7 +72,7 @@ export function* getTargetEntityName(entityName, modelPaths) {
 
 export function* unloadDetailView() {
   yield put(actions.setEntity(null))
-  yield put(destroyForm(FORM_ID))
+  yield put(formActions.destroy(FORM_ID))
 }
 
 export function* loadEntityModel(entityName) {
@@ -95,7 +90,7 @@ export function* loadDetailView() {
     yield put(actions.setEntity({paths: {}, model: entityName}))
     const fieldDefinitions = yield call(getFieldDefinitions, formDefinition)
     const defaultValues = yield call(getDefaultValues, fieldDefinitions)
-    yield put(initializeForm(FORM_ID, defaultValues))
+    yield put(formActions.initialize(FORM_ID, defaultValues))
   } else {
     yield call(loadData)
   }
@@ -104,11 +99,11 @@ export function* loadDetailView() {
 export function* updateFormSubmit(entity, fields) {
   const updatedEntity = yield call(updateEntity, entity, fields)
   const updatedFormValues = yield call(form.entityToFormValues, updatedEntity)
-  yield put(initializeForm(FORM_ID, updatedFormValues))
+  yield put(formActions.initialize(FORM_ID, updatedFormValues))
 
   yield call(showNotification, 'success', 'saveSuccessfulTitle', 'saveSuccessfulMessage')
   yield put(actions.setLastSave())
-  yield put(stopSubmit(FORM_ID))
+  yield put(formActions.stopSubmit(FORM_ID))
 }
 
 export function* createFormSubmit(entity, fields) {
@@ -119,8 +114,8 @@ export function* createFormSubmit(entity, fields) {
 
 export function* handleSubmitError(error) {
   if (error instanceof SubmissionError) {
-    yield put(touch(FORM_ID, ...Object.keys(error.errors)))
-    yield put(stopSubmit(FORM_ID, error.errors))
+    yield put(formActions.touch(FORM_ID, ...Object.keys(error.errors)))
+    yield put(formActions.stopSubmit(FORM_ID, error.errors))
   } else {
     if (!(error instanceof ClientQuestionCancelledException)) {
       yield put(errorLogging.logError(
@@ -129,7 +124,7 @@ export function* handleSubmitError(error) {
         error
       ))
     }
-    yield put(stopSubmit(FORM_ID))
+    yield put(formActions.stopSubmit(FORM_ID))
   }
 
   yield call(showNotification, 'warning', 'saveAbortedTitle', 'saveAbortedMessage', 5000)
@@ -138,7 +133,7 @@ export function* handleSubmitError(error) {
 export function* getEntityForSubmit() {
   const values = yield select(getFormValues(FORM_ID))
   const initialValues = yield select(formInitialValueSelector(FORM_ID))
-  yield put(startSubmit(FORM_ID))
+  yield put(formActions.startSubmit(FORM_ID))
   const {entityName, entityId, entityModel, mode} = yield select(entityDetailSelector)
   yield call(submitValidate, values, initialValues, entityName, entityId, entityModel, mode)
   const dirtyFields = yield call(form.getDirtyFields, initialValues, values, mode === modes.CREATE)
@@ -207,13 +202,13 @@ export function* uploadDocument({payload}) {
 
     if (uploadResponse.success) {
       const documentFormValue = yield call(documentToFormValueTransformer, uploadResponse, file)
-      yield put(changeFormValue(FORM_ID, field, documentFormValue))
+      yield put(formActions.change(FORM_ID, field, documentFormValue))
     } else {
       throw new Error(`upload not successful: ${JSON.stringify(uploadResponse)}`)
     }
   } catch (error) {
     // timestamp is needed as workaround, so that Upload component rerenders
-    yield put(changeFormValue(FORM_ID, field, {id: null, timestamp: Date.now()}))
+    yield put(formActions.change(FORM_ID, field, {id: null, timestamp: Date.now()}))
     yield put(errorLogging.logError(
       'client.component.form.uploadFailedTitle',
       'client.component.form.uploadFailedMessage',
@@ -248,7 +243,7 @@ export function* loadData() {
   const {entityName, entityId, formName, formDefinition} = yield select(entityDetailSelector)
   const entity = yield call(loadEntity, entityName, entityId, formDefinition, formName)
   const formValues = yield call(form.entityToFormValues, entity)
-  yield put(initializeForm(FORM_ID, formValues, {keepDirty: true}))
+  yield put(formActions.initialize(FORM_ID, formValues, {keepDirty: true}))
 }
 
 export function* actionInvoked(action) {

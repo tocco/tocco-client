@@ -1,7 +1,7 @@
 import {shallow} from 'enzyme'
 import React from 'react'
 import GroupElement from './GroupElement'
-import {MenuItem} from 'react-bootstrap'
+import MenuItem from 'react-bootstrap/lib/MenuItem'
 
 const EMPTY_FUNC = () => {}
 

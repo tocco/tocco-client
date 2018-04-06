@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {MenuItem} from 'react-bootstrap'
+import MenuItem from 'react-bootstrap/lib/MenuItem'
 import actionTypes from '../actionTypes'
 import {isValidSelection, selectionText} from './selectionHelper'
 import {intlShape} from 'react-intl'

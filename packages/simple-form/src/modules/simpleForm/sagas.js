@@ -1,6 +1,6 @@
 import * as actions from './actions'
 import {all, call, fork, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
-import {getFormValues, initialize as initializeForm} from 'redux-form'
+import {getFormValues, actions as formActions} from 'redux-form'
 import {getDefaultValues, getFieldDefinitions} from '../../../../entity-detail/src/util/api/forms'
 import {externalEvents} from 'tocco-util'
 import * as relationEntitiesActions from '../../utils/form/relationEntity/actions'
@@ -29,7 +29,7 @@ export function* initialize() {
   const {form} = yield select(inputSelector)
   const fieldDefinitions = yield call(getFieldDefinitions, form)
   const defaultValues = yield call(getDefaultValues, fieldDefinitions)
-  yield put(initializeForm(FORM_ID, defaultValues))
+  yield put(formActions.initialize(FORM_ID, defaultValues))
 }
 
 export function* submit() {
