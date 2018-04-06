@@ -1,12 +1,8 @@
 import rootSaga, * as sagas from './sagas'
 import {call, put, fork, select, takeLatest, takeEvery, all} from 'redux-saga/effects'
 import {
-  stopSubmit,
-  SubmissionError,
-  touch,
-  initialize as initializeForm,
-  startSubmit,
-  change as changeFormValue
+  actions as formActions,
+  SubmissionError
 } from 'redux-form'
 
 import {externalEvents, form, actions as actionUtil, actionEmitter} from 'tocco-util'
@@ -172,8 +168,8 @@ describe('entity-detail', () => {
             const error = new SubmissionError({})
 
             const gen = sagas.handleSubmitError(error)
-            expect(gen.next().value).to.eql(put(touch(FORM_ID, ...Object.keys(error.errors))))
-            expect(gen.next().value).to.eql(put(stopSubmit(FORM_ID, error.errors)))
+            expect(gen.next().value).to.eql(put(formActions.touch(FORM_ID, ...Object.keys(error.errors))))
+            expect(gen.next().value).to.eql(put(formActions.stopSubmit(FORM_ID, error.errors)))
             expect(gen.next().value).to.eql(
               call(sagas.showNotification, 'warning', 'saveAbortedTitle', 'saveAbortedMessage', 5000)
             )
@@ -190,7 +186,7 @@ describe('entity-detail', () => {
             expect(payloadValue).to.include(
               {title: 'client.common.unexpectedError', description: 'client.entity-detail.saveError', error}
             )
-            expect(gen.next().value).to.eql(put(stopSubmit(FORM_ID)))
+            expect(gen.next().value).to.eql(put(formActions.stopSubmit(FORM_ID)))
             expect(gen.next().value).to.eql(
               call(sagas.showNotification, 'warning', 'saveAbortedTitle', 'saveAbortedMessage', 5000)
             )
@@ -201,7 +197,7 @@ describe('entity-detail', () => {
             const error = new ClientQuestionCancelledException()
 
             const gen = sagas.handleSubmitError(error)
-            expect(gen.next().value).to.eql(put(stopSubmit(FORM_ID)))
+            expect(gen.next().value).to.eql(put(formActions.stopSubmit(FORM_ID)))
             expect(gen.next().value).to.eql(
               call(sagas.showNotification, 'warning', 'saveAbortedTitle', 'saveAbortedMessage', 5000)
             )
@@ -219,7 +215,7 @@ describe('entity-detail', () => {
             const gen = sagas.updateFormSubmit(entity, fields)
             expect(gen.next().value).to.eql(call(updateEntity, entity, fields))
             expect(gen.next(updatedEntity).value).to.eql(call(form.entityToFormValues, updatedEntity))
-            expect(gen.next(updatedFormValues).value).to.eql(put(initializeForm(FORM_ID, updatedFormValues)))
+            expect(gen.next(updatedFormValues).value).to.eql(put(formActions.initialize(FORM_ID, updatedFormValues)))
             expect(gen.next().value).to.eql(
               call(sagas.showNotification, 'success', 'saveSuccessfulTitle', 'saveSuccessfulMessage')
             )
@@ -227,7 +223,7 @@ describe('entity-detail', () => {
             // That's why we only check if the SET_LAST_SAVE action was called instead of the whole PUT object.
             const next = gen.next().value.PUT.action.type
             expect(next).to.eql('entityDetail/SET_LAST_SAVE')
-            expect(gen.next().value).to.eql(put(stopSubmit(FORM_ID)))
+            expect(gen.next().value).to.eql(put(formActions.stopSubmit(FORM_ID)))
 
             expect(gen.next().done).to.be.true
           })
@@ -283,7 +279,7 @@ describe('entity-detail', () => {
             gen.next()
             gen.next(values) // first two selects references are not comparable and therefore no tests possible
 
-            expect(gen.next(initialValues).value).to.eql(put(startSubmit(FORM_ID)))
+            expect(gen.next(initialValues).value).to.eql(put(formActions.startSubmit(FORM_ID)))
             expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
             expect(gen.next({entityName, entityId, entityModel, formDefinition, mode}).value).to.eql(
               call(submitValidate, values, initialValues, entityName, entityId, entityModel, mode)
@@ -490,7 +486,7 @@ describe('entity-detail', () => {
 
             expect(gen.next().value).to.eql(call(uploadRequest, file))
             expect(gen.next(uploadResponse).value).to.eql(call(documentToFormValueTransformer, uploadResponse, file))
-            expect(gen.next(documentFormValue).value).to.eql(put(changeFormValue(FORM_ID, field, documentFormValue)))
+            expect(gen.next(documentFormValue).value).to.eql(put(formActions.change(FORM_ID, field, documentFormValue)))
 
             expect(gen.next().done).to.be.true
           })
@@ -505,7 +501,7 @@ describe('entity-detail', () => {
               ])
               .call.like({fn: sagas.loadEntity})
               .call.like({fn: form.entityToFormValues})
-              .put.like({action: {type: initializeForm().type}})
+              .put.like({action: {type: formActions.initialize().type}})
               .run()
           })
         })
