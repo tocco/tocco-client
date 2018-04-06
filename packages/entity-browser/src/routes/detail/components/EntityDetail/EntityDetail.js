@@ -75,7 +75,6 @@ class EntityDetail extends React.Component {
                   label={this.msg('client.entity-browser.back')}
                   look="raised"
                   onClick={this.handleGoBack}
-                  type="button"
                 />
               </div>
             </LayoutBox>
