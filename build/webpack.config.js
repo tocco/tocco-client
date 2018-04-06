@@ -193,6 +193,10 @@ webpackConfig.module.rules = [
           'tocco-test-util': {
             'transform': 'tocco-test-util/src/${member}', // eslint-disable-line no-template-curly-in-string
             'preventFullImport': true
+          },
+          'redux-form': {
+            'transform': 'redux-form/es/${member}', // eslint-disable-line no-template-curly-in-string
+            'preventFullImport': true
           }
         }],
         'transform-runtime',

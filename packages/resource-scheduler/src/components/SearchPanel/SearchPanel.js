@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import EntityListApp from 'tocco-entity-list/src/main'
-import {PanelGroup, Panel} from 'react-bootstrap'
+import Panel from 'react-bootstrap/lib/Panel'
+import PanelGroup from 'react-bootstrap/lib/PanelGroup'
 
 class SearchPanel extends React.PureComponent {
   constructor() {
