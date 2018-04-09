@@ -101,9 +101,9 @@ describe('tocco-ui', function() {
         <Button/>
       )
       const props = wrapper.instance().props
-      expect(Object.keys(props).length).to.equal(5)
-      const {ink, label, look, type} = props
-      expect(ink).to.equal('base')
+      expect(Object.keys(props).length).to.equal(4)
+      const {iconPosition, label, look, type} = props
+      expect(iconPosition).to.equal('before')
       expect(label).to.equal('')
       expect(look).to.equal('flat')
       expect(type).to.equal('button')

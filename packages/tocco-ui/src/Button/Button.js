@@ -3,6 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {theme} from 'styled-system'
 import Icon from '../Icon'
+import {ButtonGroupStyles} from '../ButtonGroup'
 import {getElevation} from '../utilStyles'
 
 const setButtonDensity = props => {
@@ -86,10 +87,36 @@ const setButtonColor = props => {
   `
 }
 
+const meltButtons = props => {
+  let declaration = ''
+  if (!props.melt && props.look === 'raised') {
+    declaration = `
+      &:not(:last-child) {
+        margin-right: ${theme('space.3')(props)};
+      }
+    `
+  } else if (props.melt) {
+    declaration = `
+      border-radius: 0;
+
+      &:first-child {
+        border-top-left-radius: ${theme('radii.3')(props)};
+        border-bottom-left-radius: ${theme('radii.3')(props)};
+      }
+
+      &:last-child {
+        border-top-right-radius: ${theme('radii.3')(props)};
+        border-bottom-right-radius: ${theme('radii.3')(props)};
+      }
+    `
+  }
+  return declaration
+}
+
 export const ButtonStyles = styled.button`
   && {
     background-image: none;
-    border-radius: ${theme('radii.2')};
+    border-radius: ${theme('radii.3')};
     border: none;
     display: inline-block;
     text-align: center;
@@ -113,7 +140,11 @@ export const ButtonStyles = styled.button`
 
     ${props => setButtonColor(props)}
     ${props => setButtonDensity(props)}
-    ${props => getElevation(props, props.look === 'raised' ? 1 : 0)}
+    ${props => getElevation(props, props.look === 'raised' && props.melt !== true ? 1 : 0)}
+
+    ${ButtonGroupStyles} & {
+      ${props => meltButtons(props)}
+    }
   }
 `
 
@@ -123,8 +154,9 @@ const Button = props => {
       className={props.className}
       dense={props.dense}
       disabled={props.disabled}
-      ink={props.ink}
+      ink={props.ink || props.buttonGroupInk || 'base'}
       look={props.look}
+      melt={props.buttonGroupMelt}
       name={props.name}
       onClick={props.onClick}
       title={props.title}
@@ -146,13 +178,20 @@ const Button = props => {
 
 Button.defaultProps = {
   iconPosition: 'before',
-  ink: 'base',
   label: '',
   look: 'flat',
   type: 'button'
 }
 
 Button.propTypes = {
+  /**
+   * May passed from ButtonGroup to use as ink default.
+   */
+  buttonGroupInk: PropTypes.oneOf(['base', 'primary']),
+  /**
+   * May passed from ButtonGroup to visually merge buttons.
+   */
+  buttonGroupMelt: PropTypes.bool,
   /**
    * Extend the button with any css classes separated by a space.
    */
