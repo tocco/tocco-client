@@ -81,6 +81,7 @@ export function* handleSuccessfulLogin(response) {
 }
 
 export function* loginSaga({payload}) {
+  yield put(setPending(true))
   const response = yield call(doLoginRequest, payload)
   if (response.success) {
     yield call(handleSuccessfulLogin, response)
@@ -97,9 +98,8 @@ export function* loginSaga({payload}) {
     } else {
       yield call(handleFailedResponse)
     }
+    yield put(setPending(false))
   }
-
-  yield put(setPending(false))
 }
 
 export function* checkSessionSaga() {

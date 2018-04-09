@@ -1,5 +1,4 @@
 import {SET_MESSAGE, SET_PENDING} from './actions'
-import {LOGIN} from '../actions'
 
 const setMessage = (state, {payload}) => {
   const {text, negative} = payload
@@ -17,15 +16,9 @@ const setPending = (state, {payload}) => ({
   loginPending: payload.pending
 })
 
-const login = state => ({
-  ...state,
-  loginPending: true
-})
-
 const ACTION_HANDLERS = {
   [SET_MESSAGE]: setMessage,
-  [SET_PENDING]: setPending,
-  [LOGIN]: login
+  [SET_PENDING]: setPending
 }
 
 const initialState = {
