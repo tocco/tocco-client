@@ -18,6 +18,10 @@ import ButtonRaw from '!raw-loader!../../tocco-ui/src/Button/Button'
 import ButtonExample from '../../tocco-ui/src/Button/example'
 import ButtonExampleRaw from '!raw-loader!../../tocco-ui/src/Button/example'
 
+import ButtonGroupRaw from '!raw-loader!../../tocco-ui/src/ButtonGroup/ButtonGroup'
+import ButtonGroupExample from '../../tocco-ui/src/ButtonGroup/example'
+import ButtonGroupExampleRaw from '!raw-loader!../../tocco-ui/src/ButtonGroup/example'
+
 import IconRaw from '!raw-loader!../../tocco-ui/src/Icon/Icon'
 import IconExample from '../../tocco-ui/src/Icon/example'
 import IconExampleRaw from '!raw-loader!../../tocco-ui/src/Icon/example'
@@ -161,6 +165,14 @@ export default [
         example: {
           component: ButtonExample,
           raw: ButtonExampleRaw
+        }
+      },
+      {
+        name: 'ButtonGroup',
+        raw: ButtonGroupRaw,
+        example: {
+          component: ButtonGroupExample,
+          raw: ButtonGroupExampleRaw
         }
       },
       {
