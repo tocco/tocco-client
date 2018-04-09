@@ -27,15 +27,16 @@ describe('login', () => {
       describe('loginSaga', () => {
         it('should handle successful login', () => {
           const gen = sagas.loginSaga({payload: {}})
+          expect(gen.next().value).to.eql(put(setPending(true)))
           expect(gen.next().value).to.eql(call(sagas.doLoginRequest, {}))
           const response = {success: true}
           expect(gen.next(response).value).to.eql(call(sagas.handleSuccessfulLogin, response))
-          expect(gen.next().value).to.eql(put(setPending(false)))
           expect(gen.next().done).to.deep.equal(true)
         })
 
         it('should handle unsuccessful login', () => {
           const gen = sagas.loginSaga({payload: {}})
+          expect(gen.next().value).to.eql(put(setPending(true)))
           expect(gen.next().value).to.eql(call(sagas.doLoginRequest, {}))
           const response = {success: false}
           expect(gen.next(response).value).to.eql(put(changePage(Pages.LOGIN_FORM)))
@@ -46,6 +47,7 @@ describe('login', () => {
 
         it('should handle two step response', () => {
           const gen = sagas.loginSaga({payload: {}})
+          expect(gen.next().value).to.eql(put(setPending(true)))
           expect(gen.next().value).to.eql(call(sagas.doLoginRequest, {}))
           const response = {
             success: false,
@@ -59,6 +61,7 @@ describe('login', () => {
 
         it('should handle password reset response', () => {
           const gen = sagas.loginSaga({payload: {}})
+          expect(gen.next().value).to.eql(put(setPending(true)))
           expect(gen.next().value).to.eql(call(sagas.doLoginRequest, {}))
           const response = {
             success: false,
@@ -72,6 +75,7 @@ describe('login', () => {
 
         it('should handle one till block response', () => {
           const gen = sagas.loginSaga({payload: {}})
+          expect(gen.next().value).to.eql(put(setPending(true)))
           expect(gen.next().value).to.eql(call(sagas.doLoginRequest, {}))
           const response = {
             success: false,
@@ -85,6 +89,7 @@ describe('login', () => {
 
         it('should handle login blocked response', () => {
           const gen = sagas.loginSaga({payload: {}})
+          expect(gen.next().value).to.eql(put(setPending(true)))
           expect(gen.next().value).to.eql(call(sagas.doLoginRequest, {}))
           const response = {
             success: false,
