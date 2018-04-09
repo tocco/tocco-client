@@ -13,27 +13,25 @@ describe('tocco-ui', () => {
 
         const AsyncComp = lazyComponent(() => promise)
         const wrapper = mount(<AsyncComp/>)
-
+        wrapper.update()
         expect(wrapper.find(InnerComp)).to.have.length(0)
       })
 
-      /*
-        TODO: Fix to work with enzyme 3
       it('should render component when loaded', done => {
-        const promise = Promise.resolve(InnerComp)
+        const promise = Promise.resolve({default: InnerComp})
 
         const AsyncComp = lazyComponent(() => promise)
         const wrapper = mount(<AsyncComp/>)
 
         promise.then(() => {
+          wrapper.update()
           expect(wrapper.find(InnerComp)).to.have.length(1)
           done()
         })
       })
-      */
 
       it('should set mounted var accordingly and not log an error', done => {
-        const promise = new Promise(resolve => setTimeout(resolve(InnerComp), 100))
+        const promise = new Promise(resolve => setTimeout(resolve({default: InnerComp}), 100))
 
         const AsyncComp = lazyComponent(() => promise)
         const wrapper = mount(<AsyncComp/>)

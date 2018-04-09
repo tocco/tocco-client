@@ -26,8 +26,6 @@ describe('tocco-util', () => {
         expect(wrapper).to.have.prop('events', events)
       })
 
-      /*
-        TODO: Fix to work with enzyme 3
       it('should return an advanced editableValue', () => {
         const factory = editableValueFactory('remote')
 
@@ -42,14 +40,13 @@ describe('tocco-util', () => {
         const wrapper = mount(editableValue)
 
         expect(wrapper).to.have.type(EditableValue)
-        expect(wrapper).to.have.prop('options')
+        expect(wrapper.props.options).to.not.be.null
 
         const options = wrapper.prop('options')
 
         expect(options.isLoading).to.be.false
         expect(options.searchPromptText).to.eql('client.component.remoteselect.searchPromptText')
       })
-      */
 
       it('should merge events', () => {
         const factory = editableValueFactory('remote')

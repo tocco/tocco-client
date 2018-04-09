@@ -99,7 +99,7 @@
     "karma-phantomjs-launcher": "^1.0.4",
     "karma-sauce-launcher": "^1.2.0",
     "karma-sourcemap-loader": "^0.3.7",
-    "karma-webpack": "^3.0.0",
+    "karma-webpack": "^4.0.0-beta.0",
     "lerna": "^2.9.1",
     "lodash": "4.17.4",
     "lodash-webpack-plugin": "^0.11.4",

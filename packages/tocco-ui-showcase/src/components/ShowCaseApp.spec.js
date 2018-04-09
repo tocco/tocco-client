@@ -25,8 +25,6 @@ SampleComponent.propTypes = {
 export default SampleComponent
 `
 
-/*
-        TODO: Fix to work with enzyme 3
 describe('tocco-ui-showcase', function() {
   describe('components', function() {
     describe('ShowCaseApp', function() {
@@ -62,4 +60,3 @@ describe('tocco-ui-showcase', function() {
     })
   })
 })
-*/
