@@ -1,4 +1,3 @@
-
 import React from 'react'
 
 import Button from '../Button'
@@ -36,7 +35,4 @@ ItemFlyout.defaultProps = {
   isToggleable: true
 }
 
-export {
-  ItemFlyout as default,
-  StyledItemFlyout
-}
+export default ItemFlyout
