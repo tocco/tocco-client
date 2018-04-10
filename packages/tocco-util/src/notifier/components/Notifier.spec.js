@@ -1,9 +1,7 @@
-/* eslint-disable no-unused-vars */
 import React from 'react'
 import Notifier from './Notifier'
-import {mount, shallow} from 'enzyme'
+import {shallow} from 'enzyme'
 import ReduxToastr from 'react-redux-toastr'
-import {defaultToastrOptions} from '../notifier'
 import ModalDisplayContainer from '../modules/modalComponents/ModalDisplayContainer'
 
 describe('tocco-util', () => {

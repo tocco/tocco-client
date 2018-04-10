@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react'
 import {mount} from 'enzyme'
 import ShowCaseApp from './ShowCaseApp'
