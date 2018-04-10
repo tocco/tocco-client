@@ -2,8 +2,10 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 import {theme} from 'styled-system'
+
 import Icon from '../Icon'
 import {ButtonGroupStyles} from '../ButtonGroup'
+import {MenuBarStyles, MenuStackStyles} from '../Menu'
 import {getElevation} from '../utilStyles'
 
 const setButtonDensity = props => {
@@ -92,7 +94,7 @@ const meltButtons = props => {
   if (!props.melt && props.look === 'raised') {
     declaration = `
       &:not(:last-child) {
-        margin-right: ${theme('space.3')(props)};
+        margin-right: ${theme('space.4')(props)};
       }
     `
   } else if (props.melt) {
@@ -145,6 +147,18 @@ export const ButtonStyles = styled.button`
     ${ButtonGroupStyles} & {
       ${props => meltButtons(props)}
     }
+
+    ${MenuBarStyles} &,
+    ${MenuStackStyles} & {
+      border-radius: 0;
+      box-shadow: none;
+      text-align: left;
+      text-transform: none;
+    }
+
+    ${MenuStackStyles} & {
+      width: 100%;
+    }
   }
 `
 
@@ -159,6 +173,9 @@ const Button = props => {
       melt={props.buttonGroupMelt}
       name={props.name}
       onClick={props.onClick}
+      onMouseEnter={props.onMouseEnter}
+      onMouseLeave={props.onMouseLeave}
+      onMouseDown={props.onMouseDown}
       title={props.title}
       type={props.type}
     >
@@ -233,6 +250,18 @@ Button.propTypes = {
    * Function that will be triggered on click event.
    */
   onClick: PropTypes.func,
+  /**
+   * Function that will be triggered on mouse enter event.
+   */
+  onMouseEnter: PropTypes.func,
+  /**
+   * Function that will be triggered on mouse leave event.
+   */
+  onMouseLeave: PropTypes.func,
+  /**
+   * Function that will be triggered on mouse down event.
+   */
+  onMouseDown: PropTypes.func,
   /**
   * If true, a spinner is integrated in the button.
   */

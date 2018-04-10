@@ -3,7 +3,7 @@ import React from 'react'
 import Icon from '../Icon'
 import {ButtonStyles} from '../Button'
 
-const ButtonLinkStyles = ButtonStyles.withComponent('a').extend`
+export const ButtonLinkStyles = ButtonStyles.withComponent('a').extend`
   && {
     :hover,
     :focus {
