@@ -49,6 +49,10 @@ const Icon = props => {
     <IconStyles
       className={getClassName(props.icon, props.animation)}
       dense={props.dense}
+      onClick={props.onClickFunction}
+      onMouseEnter={props.onMouseEnterFunction}
+      onMouseLeave={props.onMouseLeaveFunction}
+      onMouseDown={props.onMouseDownFunction}
       position={props.position}
     />
   )
@@ -76,7 +80,13 @@ Icon.propTypes = {
   /**
    * Add spacing according position. Default value is 'none'. Possible values: after|before|between|none
    */
-  position: PropTypes.oneOf(['after', 'before', 'between', 'solely'])
+  position: PropTypes.oneOf(['after', 'before', 'between', 'solely']),
+
+  // TODO desribe props
+  onClickFunction: PropTypes.func,
+  onMouseEnterFunction: PropTypes.func,
+  onMouseLeaveFunction: PropTypes.func,
+  onMouseDownFunction: PropTypes.func
 }
 
 export default Icon

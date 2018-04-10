@@ -7,7 +7,7 @@ import {getElevation} from '../utilStyles'
 export const ButtonGroupStyles = styled.div`
   && {
     display: flex;
-    flex-wrap: no-wrap;
+    flex-flow: row nowrap;
     width: fit-content;
 
     border-radius: ${props => props.melt === true ? theme('radii.3') : 0};
