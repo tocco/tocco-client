@@ -1,3 +1,4 @@
 import IntlStub from './IntlStub'
+import testSetup from './testSetup'
 
-export {IntlStub}
+export {IntlStub, testSetup}
