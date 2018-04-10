@@ -75,7 +75,4 @@ Item.propTypes = {
   look: PropTypes.oneOf([stylingLook.FLAT, stylingLook.RAISED])
 }
 
-export {
-  Item as default,
-  StyledItem
-}
+export default Item
