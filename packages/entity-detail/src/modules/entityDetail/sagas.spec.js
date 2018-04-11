@@ -16,7 +16,7 @@ import {
   selectEntitiesTransformer,
   createEntity
 } from '../../util/api/entities'
-import { getFieldDefinitions, getFieldNames, fetchForm } from '../../util/api/forms'
+import {getFieldDefinitions, getFieldNames, fetchForm} from '../../util/api/forms'
 import {submitValidate} from '../../util/detailView/asyncValidation'
 import modes from '../../util/modes'
 import {uploadRequest, documentToFormValueTransformer} from '../../util/api/documents'

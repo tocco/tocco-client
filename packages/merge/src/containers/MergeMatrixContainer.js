@@ -1,4 +1,4 @@
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 import {changeTargetEntity} from '../modules/mergeMatrix/actions'
 import {selectSourceField, selectSourceRelation} from '../modules/mergeMatrix/selections'

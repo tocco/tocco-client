@@ -1,4 +1,4 @@
-import { bytesToSize } from './helpers'
+import {bytesToSize} from './helpers'
 
 describe('tocco-ui', () => {
   describe('Upload', () => {

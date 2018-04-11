@@ -19,7 +19,7 @@ describe('tocco-ui', function() {
     it('should recalculate on prop change', () => {
       const wrapper = shallow(<Pagination totalRecords={99} recordsPerPage={5}/>)
 
-      wrapper.setProps({ recordsPerPage: 10 })
+      wrapper.setProps({recordsPerPage: 10})
 
       expect(wrapper.find('#total').text()).to.eql('10')
     })
