@@ -1,7 +1,7 @@
-import { call } from 'redux-saga/effects'
+import {call} from 'redux-saga/effects'
 import fetchMock from 'fetch-mock'
 import * as forms from './forms'
-import { requestSaga } from 'tocco-util/src/rest'
+import {requestSaga} from 'tocco-util/src/rest'
 
 describe('entity-detail', () => {
   describe('util', () => {

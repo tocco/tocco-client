@@ -24,7 +24,7 @@ describe('tocco-ui', () => {
       const wrapper = shallow(<FormField error={error}/>)
       expect(wrapper.find(ErrorList)).to.have.length(0)
 
-      wrapper.setProps({ touched: true })
+      wrapper.setProps({touched: true})
 
       expect(wrapper.find(ErrorList)).to.have.length(1)
     })

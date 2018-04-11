@@ -1,5 +1,5 @@
-import { retrieveEditOptions } from './actions'
+import {retrieveEditOptions} from './actions'
 import reducer from './reducer'
 
-export { retrieveEditOptions }
+export {retrieveEditOptions}
 export default reducer

@@ -1,4 +1,4 @@
-import { argv } from 'yargs'
+import {argv} from 'yargs'
 import path from 'path'
 import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'

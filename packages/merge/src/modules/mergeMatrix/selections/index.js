@@ -1,5 +1,5 @@
-import { selectSourceField, selectSourceRelation, toggleRelationMany } from './actions'
+import {selectSourceField, selectSourceRelation, toggleRelationMany} from './actions'
 import reducer from './reducer'
 
-export { selectSourceField, selectSourceRelation, toggleRelationMany }
+export {selectSourceField, selectSourceRelation, toggleRelationMany}
 export default reducer

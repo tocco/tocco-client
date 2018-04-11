@@ -1,4 +1,4 @@
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 import MergeStrategy from '../components/MergeStrategy'
 import {changeEditOptionValue, activateEditOption} from '../modules/mergeStrategy/editOptions/actions'

@@ -1,6 +1,6 @@
 import * as asyncValidation from './asyncValidation'
 import fetchMock from 'fetch-mock'
-import { SubmissionError } from 'redux-form'
+import {SubmissionError} from 'redux-form'
 
 const mockData = {
   initialValues: {firstname: ''},

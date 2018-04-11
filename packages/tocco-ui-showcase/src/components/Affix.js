@@ -49,7 +49,7 @@ class Affix extends React.Component {
 
   render() {
     const affix = this.state.affix ? 'affix' : ''
-    const { className, ...props } = this.props
+    const {className, ...props} = this.props
 
     return (
       <div {...props} className={`${className || ''} ${affix}`}>

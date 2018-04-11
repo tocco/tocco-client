@@ -1,6 +1,6 @@
 import React from 'react'
 import Upload from './Upload'
-import { mount } from 'enzyme'
+import {mount} from 'enzyme'
 
 const EMPTY_FUNC = () => {}
 
