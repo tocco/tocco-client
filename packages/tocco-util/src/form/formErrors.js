@@ -1,4 +1,3 @@
-import _omit from 'lodash/omit'
 import _forOwn from 'lodash/forOwn'
 import _reduce from 'lodash/reduce'
 
@@ -6,30 +5,32 @@ export const generalErrorField = '_error'
 export const entityValidatorErrorsField = 'entityValidatorErrors'
 export const relatedEntityErrorsField = 'relatedEntityErrors'
 
-const getFieldErrors = formErrors => (
-  _omit(formErrors, generalErrorField)
-)
+const getFieldErrors = formErrors => {
+  const fieldErrors = {...formErrors}
+  delete fieldErrors[generalErrorField]
+  return fieldErrors
+}
 
 const hasFieldErrors = formErrors => (
   Object.keys(getFieldErrors(formErrors)).length >= 1
 )
 
 const hasValidatorErrors = formErrors => {
-  const errors = getGeneralErros(formErrors)
+  const errors = getGeneralErrors(formErrors)
   return !!(errors && errors[entityValidatorErrorsField] && Object.keys(errors[entityValidatorErrorsField]).length >= 1)
 }
 
 const getValidatorErrors = formErrors => {
-  const errors = getGeneralErros(formErrors)
+  const errors = getGeneralErrors(formErrors)
   return _reduce(errors[entityValidatorErrorsField], (result, value) => [...result, ...value], [])
 }
 
 const hasRelatedEntityErrors = formErrors => {
-  const errors = getGeneralErros(formErrors)
+  const errors = getGeneralErrors(formErrors)
   return !!(errors && errors[relatedEntityErrorsField] && errors[relatedEntityErrorsField].length >= 1)
 }
 
-const getGeneralErros = formErrors => (
+const getGeneralErrors = formErrors => (
   formErrors[generalErrorField]
 )
 
@@ -38,7 +39,7 @@ const getFirstErrorField = formErrors => (
 )
 
 const getRelatedEntityErrorsCompact = formErrors => {
-  const relatedEntityErrors = getGeneralErros(formErrors).relatedEntityErrors
+  const relatedEntityErrors = getGeneralErrors(formErrors).relatedEntityErrors
 
   return _reduce(relatedEntityErrors, (result, relatedEntityError) => {
     const {key, model, paths, entityValidatorErrors} = relatedEntityError
