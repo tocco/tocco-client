@@ -14,6 +14,7 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
       dirty,
       touched,
       onChange,
+      onBlur,
       events,
       error,
       utils,
@@ -36,6 +37,7 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
         id,
         value,
         onChange,
+        onBlur,
         readOnly,
         mandatory
       },

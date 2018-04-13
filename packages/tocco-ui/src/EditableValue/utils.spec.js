@@ -1,4 +1,5 @@
-import {atMostOne, toLocalDateString} from './utils'
+import moment from 'moment'
+import {atMostOne, toLocalDateString, momentJStoToFlatpickrFormat} from './utils'
 import {getExpectedDate} from './specUtils'
 
 describe('tocco-ui', () => {
@@ -40,6 +41,20 @@ describe('tocco-ui', () => {
           const localDateString = toLocalDateString('2017-08-20T22:00:00.000Z')
           const expectedDate = getExpectedDate('2017-08-20', '2017-08-21', -120)
           expect(localDateString).to.eql(expectedDate)
+        })
+      })
+
+      describe('momentJStoToFlatpickrFormat', () => {
+        it('should return expected flatpickr date string', () => {
+          expect(momentJStoToFlatpickrFormat('DD.MM.YYYY')).to.be.eql('d.m.Y')
+        })
+
+        it('should return expected flatpickr time string', () => {
+          expect(momentJStoToFlatpickrFormat('HH:mm')).to.be.eql('H:i')
+        })
+
+        it('should return expected flatpickr string', () => {
+          expect(momentJStoToFlatpickrFormat(moment().locale('en')._locale.longDateFormat('L'))).to.be.eql('m/d/Y')
         })
       })
     })

@@ -1,24 +1,6 @@
 $textarea-max-height: 25rem;
 
 .tocco-editable-value {
-  //date
-  .date-edit {
-    input[ readonly ] {
-      background-color: #fff;
-    }
-
-    input {
-      z-index: 0;
-    }
-
-    &.disabled {
-      input {
-        background-color: #eee;
-        cursor: not-allowed;
-      }
-    }
-  }
-
   //textarea
   textarea {
     resize: vertical; // react-textarea-autosize consumes resize property
@@ -54,6 +36,51 @@ $textarea-max-height: 25rem;
     .Select-control {
       background-color: #eee;
       cursor: not-allowed;
+    }
+  }
+
+  //date
+  .date-edit {
+    input[ readonly ] {
+      background-color: #fff;
+    }
+
+    .input-group-addon {
+      cursor: pointer;
+    }
+
+    input {
+      z-index: 0;
+    }
+
+    &.disabled {
+      input {
+        background-color: #eee;
+        cursor: not-allowed;
+      }
+    }
+
+    .right-addon{
+      position: relative;
+    }
+
+    .right-addon input {
+      padding-right: 30px;
+    }
+
+    .reset {
+      position: absolute;
+      padding-right: 10px;
+      padding-top: 5px;
+      right: 0;
+      color: #999;
+      font-size: 18px;
+      font-style: normal;
+      cursor: pointer;
+    }
+
+    .reset:hover {
+      color: $brand-danger;
     }
   }
 }

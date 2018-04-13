@@ -1,12 +1,16 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import DateAbstract from './DateAbstract'
+import {momentJStoToFlatpickrFormat} from '../utils'
+import moment from 'moment'
+import {injectIntl, intlShape} from 'react-intl'
 
 const DateRangeEdit = props => {
-  const options = {
+  const flatpickrOptions = {
     mode: 'range',
-    altFormat: 'd.m.Y',
+    altFormat: momentJStoToFlatpickrFormat(moment().locale(props.intl.locale)._locale.longDateFormat('L')),
     dateFormat: 'Y-m-d',
+    allowInput: false,
     ...props.options
   }
 
@@ -15,22 +19,27 @@ const DateRangeEdit = props => {
     : null
 
   const handleChange = dates => {
-    const value = dates && dates.length === 2
-      ? {
+    if (dates && dates.length === 2) {
+      props.onChange({
         from: dates[0],
         to: dates[1]
-      }
-      : null
-
-    props.onChange(value)
+      })
+    }
   }
 
   return (
-    <DateAbstract value={value} onChange={handleChange} readOnly={props.readOnly} options={options}/>
+    <DateAbstract
+      value={value}
+      onChange={handleChange}
+      readOnly={props.readOnly}
+      options={{...props.options, flatpickrOptions}}
+      events={props.events}
+    />
   )
 }
 
 DateRangeEdit.propTypes = {
+  intl: intlShape.isRequired,
   onChange: PropTypes.func,
   value: PropTypes.oneOfType([
     PropTypes.shape({
@@ -40,7 +49,13 @@ DateRangeEdit.propTypes = {
     PropTypes.string // empty string coming from Redux Form if value null
   ]),
   readOnly: PropTypes.bool,
-  options: PropTypes.object
+  options: PropTypes.shape({
+    placeholderText: PropTypes.string,
+    flatpickrOptions: PropTypes.object
+  }),
+  events: PropTypes.shape({
+    onFocus: PropTypes.func
+  })
 }
 
-export default DateRangeEdit
+export default injectIntl(DateRangeEdit)
