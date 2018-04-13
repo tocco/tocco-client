@@ -96,9 +96,9 @@ fbjs@^0.8.9:
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.9"
 
-flatpickr@^2.6.3:
-  version "2.6.3"
-  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-2.6.3.tgz#457357532deb135f3da64b425bf4435737961564"
+flatpickr@^4.4.4:
+  version "4.4.4"
+  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.4.4.tgz#fdeb083ca3d580eecb822a4080f67b06f0294fc7"
 
 iconv-lite@~0.4.13:
   version "0.4.17"

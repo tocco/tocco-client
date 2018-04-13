@@ -15,7 +15,8 @@ class Example extends React.Component {
         singleSelect: {key: 2, display: 'Two'},
         multiSelect: [{key: 'a', display: 'One'}, {key: 'b', display: 'Two'}],
         date: '2015-12-18',
-        date2: '2015-12-24',
+        dateRangeFrom: '2015-12-21',
+        dateRangeTo: '2015-12-24',
         datetime: '2017-01-25T15:15:00.000Z',
         boolean: false,
         number: 99,
@@ -225,6 +226,7 @@ class Example extends React.Component {
                   value={this.state.values.date}
                   onChange={v => this.changeValue('date', v)}
                   readOnly={this.state.readOnly}
+                  options={{placeholderText: 'Pick a date', flatpickrOptions: {weekNumbers: true}}}
                 />
               </td>
             </tr>
@@ -234,15 +236,14 @@ class Example extends React.Component {
                 <EditableValue
                   type="date-range"
                   value={{
-                    from: this.state.values.date,
-                    to: this.state.values.date2
+                    from: this.state.values.dateRangeFrom,
+                    to: this.state.values.dateRangeTo
                   }}
                   onChange={v => {
-                    if (v) {
-                      this.changeValue('date', v.from)
-                      this.changeValue('date2', v.to)
-                    }
-                  }}
+                    this.changeValue('dateRangeFrom', v ? v.from : null)
+                    this.changeValue('dateRangeTo', v ? v.to : null)
+                  }
+                  }
                   readOnly={this.state.readOnly}
                 />
               </td>
@@ -255,6 +256,7 @@ class Example extends React.Component {
                   value={this.state.values.datetime}
                   onChange={v => this.changeValue('datetime', v)}
                   readOnly={this.state.readOnly}
+                  options={{placeholderText: 'Pick a date time'}}
                 />
               </td>
             </tr>

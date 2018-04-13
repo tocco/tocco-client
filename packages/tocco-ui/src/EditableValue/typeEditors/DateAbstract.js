@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types'
 import React from 'react'
+import PropTypes from 'prop-types'
 import {injectIntl, intlShape} from 'react-intl'
-import _isEqual from 'lodash/isEqual'
+import classNames from 'classnames'
 
 class DateAbstract extends React.Component {
   Flatpickr = null
@@ -19,52 +19,58 @@ class DateAbstract extends React.Component {
     ]).then(response => {
       this.Flatpickr = response[0].default
       this.localeMap = {
-        'de-CH': response[1].de,
-        'de': response[1].de,
-        'fr': response[2].fr,
-        'it': response[3].it
+        'de-CH': response[1].German,
+        'de': response[1].German,
+        'fr': response[2].French,
+        'it': response[3].Italian
       }
 
       this.initializeFlatPickr()
-
-      if (props.initialized) {
-        props.initialized()
-      }
     })
   }
 
   initializeFlatPickr = flatpickr => {
-    const options = {
-      wrap: true,
-      altInput: true,
-      onChange: this.handleOnChange.bind(this),
-      clickOpens: false,
-      defaultDate: this.props.value,
-      ...this.props.options
-    }
-
     const locale = this.localeMap[this.props.intl.locale]
-    if (locale) {
-      options.locale = locale
+
+    this.options = {
+      wrap: true,
+      onChange: this.handleOnChange.bind(this),
+      altInput: true,
+      clickOpens: !this.props.readOnly,
+      defaultDate: this.props.value,
+      ...(locale ? {locale} : {}),
+      ...(this.props.options ? this.props.options.flatpickrOptions : {})
     }
 
-    this.flatpickr = new this.Flatpickr(this.wrapper, options)
+    this.flatpickr = new this.Flatpickr(this.wrapper, this.options)
     this.flatpickr.calendarContainer.classList.add('tocco-ui-theme')
+
+    if (this.props.initialized) {
+      this.props.initialized()
+    }
+  }
+
+  getLocale = localeCode => {
+    if (this.localeMap) {
+      let locale = this.localeMap[localeCode]
+
+      // Fallback english
+      if (!locale && this.Flatpickr) {
+        locale = this.Flatpickr.l10ns.en
+      }
+      return locale
+    }
+    return null
   }
 
   componentWillReceiveProps(props) {
-    if (this.localeMap) {
-      let locale = this.localeMap[props.intl.locale]
-      if (!locale) {
-        locale = this.Flatpickr.l10ns.en
-      }
-      this.Flatpickr.localize(locale)
-      this.flatpickr.set('locale', locale)
-    }
+    const locale = this.getLocale(props.intl.locale)
+    this.Flatpickr.localize(locale)
+    this.flatpickr.set('locale', locale)
 
-    if (this.flatpickr && !_isEqual(this.props.value, props.value)) {
-      this.flatpickr.setDate(props.value)
-    }
+    this.flatpickr.set('altFormat', props.options.flatpickrOptions.altFormat)
+    this.flatpickr.setDate(props.value, false)
+    this.flatpickr.redraw()
   }
 
   handleOnChange(selectedDates) {
@@ -76,28 +82,55 @@ class DateAbstract extends React.Component {
     this.wrapper = ref
   }
 
-  toggle() {
-    if (!this.props.readOnly) {
-      this.flatpickr.toggle()
+  hasValue() {
+    return this.props.value && this.props.value.length > 0 && this.props.value.every(v => v)
+  }
+
+  handleOnBlur() {
+    if (this.props.onBlur) {
+      const altValue = this.flatpickr.altInput.value
+      this.props.onBlur(altValue, this.flatpickr.selectedDates, r => this.flatpickr.setDate(r, true))
+    }
+  }
+
+  handleToggleClick() {
+    if (this.props.events && this.props.events) {
+      this.props.events.onFocus()
     }
   }
 
   render() {
-    const spanClass = this.props.readOnly ? 'disabled' : ''
+    const spanClass = classNames('input-group', 'date-edit', {'hidden': this.props.readOnly})
+    const resetClass = classNames('reset', {'hidden': !this.hasValue()})
+
     return (
-      <span
-        className={'input-group date-edit ' + spanClass}
-        onClick={this.toggle.bind(this)}
-        ref={this.refMapper.bind(this)}
-        data-wrap
-      >
-        <input
-          placeholder="Pick date"
-          data-input
-        />
-        <span className="input-group-addon">
-          <span className="glyphicon glyphicon-calendar"/>
+      <span>
+        <span
+          className={spanClass}
+          ref={this.refMapper.bind(this)}
+          data-wrap
+          onBlur={this.handleOnBlur.bind(this)}
+        >
+          <span className="right-addon">
+            <input
+              placeholder={this.props.options.placeholderText}
+              data-input
+            />
+            <span className={resetClass} data-clear>×</span>
+          </span>
+          <span
+            data-toggle
+            className="input-group-addon"
+            onClick={this.handleToggleClick.bind(this)}
+          >
+            <i className="fa fa-calendar" aria-hidden="true"></i>
+          </span>
         </span>
+        {this.props.readOnly && <input
+          className="form-control"
+          disabled
+          value={this.flatpickr ? this.flatpickr.altInput.value : ''}
+        />}
       </span>
     )
   }
@@ -105,11 +138,19 @@ class DateAbstract extends React.Component {
 
 DateAbstract.propTypes = {
   intl: intlShape.isRequired,
+  onBlur: PropTypes.func,
   onChange: PropTypes.func,
   value: PropTypes.arrayOf(PropTypes.string),
-  options: PropTypes.object,
+  options: PropTypes.shape({
+    placeholderText: PropTypes.string,
+    flatpickrOptions: PropTypes.object
+  }),
   readOnly: PropTypes.bool,
-  initialized: PropTypes.func
+  initialized: PropTypes.func,
+  events: PropTypes.shape({
+    onFocus: PropTypes.func
+  })
+
 }
 
 export default injectIntl(DateAbstract)
