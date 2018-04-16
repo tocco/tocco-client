@@ -1,19 +1,14 @@
+import React from 'react'
 import PropTypes from 'prop-types'
-import typeEditorFactory from './../typeEditorFactory'
+import MultiSelect from './MultiSelect'
+import SingleSelect from './SingleSelect'
 
 const SearchFilterEdit = props => {
-  const type = props.options.multi ? 'multi-select' : 'single-select'
-  return (
-    typeEditorFactory(
-      type,
-      props.value,
-      props.onChange,
-      props.options,
-      props.id,
-      props.events,
-      props.readOnly
-    )
-  )
+  if (props.options.multi) {
+    return <MultiSelect {...props}/>
+  } else {
+    return <SingleSelect {...props}/>
+  }
 }
 
 SearchFilterEdit.propTypes = {
@@ -29,6 +24,7 @@ SearchFilterEdit.propTypes = {
     PropTypes.string // empty string coming from Redux Form if value null
   ]),
   options: PropTypes.shape({
+    multi: PropTypes.bool,
     store: PropTypes.arrayOf(
       PropTypes.shape({
         value: PropTypes.any,
