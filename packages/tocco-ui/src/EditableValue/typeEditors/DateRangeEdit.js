@@ -40,7 +40,7 @@ const DateRangeEdit = props => {
 
 DateRangeEdit.propTypes = {
   intl: intlShape.isRequired,
-  onChange: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
   value: PropTypes.oneOfType([
     PropTypes.shape({
       from: PropTypes.string,

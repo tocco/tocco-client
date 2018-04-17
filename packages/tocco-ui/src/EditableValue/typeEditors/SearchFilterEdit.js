@@ -30,7 +30,7 @@ SearchFilterEdit.propTypes = {
         value: PropTypes.any,
         label: PropTypes.string
       }))
-  }),
+  }).isRequired,
   readOnly: PropTypes.bool,
   id: PropTypes.string
 }
