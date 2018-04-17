@@ -1,13 +1,12 @@
 {
   "name": "tocco-scheduler",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
     "compile:prod": "cd ../../ && npm run compile:prod -- --package=scheduler",
     "prepublish": "npm run compile:prod"
   },
-  "dependencies": {},
   "devDependencies": {
     "bootstrap": "^3.3.7",
     "fullcalendar-scheduler": "^1.7.1",
