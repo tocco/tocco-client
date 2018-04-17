@@ -66,8 +66,9 @@ export default (
     }
 
     const formDefinitionField = {
-      ..._pick(fieldSet, ['label', 'hidden', 'readonly', 'scopes']),
-      ..._pick(fieldDefinition, ['componentType', 'dataType', 'id', 'defaultValue'])
+      ...fieldDefinition,
+      ..._pick(fieldSet, ['label', 'hidden', 'readonly', 'scopes'])
+
     }
 
     const fieldName = formDefinitionField.id
