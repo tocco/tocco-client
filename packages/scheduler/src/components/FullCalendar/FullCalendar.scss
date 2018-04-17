@@ -3,10 +3,6 @@
     margin: 0;
   }
 
-  .description-icon {
-    padding-right: 5px;
-  }
-
   .remove-resource-btn{
     margin: 0;
     border: none;
@@ -25,6 +21,11 @@
     .fc-bg{
       opacity: 0;
     }
+  }
+
+  .fc-event.conflict {
+    border: 3px solid #8b0000;
+    border-radius: 3px;
   }
 
   .fc-timeline-event .fc-content{
