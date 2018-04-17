@@ -13,6 +13,7 @@ const getRandomDate = (start, end, startHour, endHour) => {
 const addRandomHoursToDate = (date, maxHours) =>
   new Moment(date).add(Math.floor((Math.random() * maxHours) + 1), 'h').toDate()
 
+const conflicts = ['none', 'accepted', 'existing']
 const eventsNamePart1 = ['Lecture', 'Class', 'Exercise']
 const eventsNamePart2 = ['english', 'IT', 'business administration']
 const eventsNamePart3 = ['1', '2', 'master']
@@ -26,7 +27,8 @@ const getRandomEvent = (startRange, endRange) => {
     end: addRandomHoursToDate(start, 8).getTime(),
     description: 'Description of event',
     isDateTime: 'yes',
-    source: {model: 'Calendar_event', key: `${getRandomNumber(1000)}`}
+    source: {model: 'Calendar_event', key: `${getRandomNumber(1000)}`},
+    conflict: _sample(conflicts)
   }
 }
 
