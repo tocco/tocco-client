@@ -13,7 +13,7 @@ const DateTimeEdit = props => {
     enableTime: true,
     time_24hr: true,
     allowInput: false,
-    altFormat: altDateFormat + ' ' + altTimeFormat,
+    altFormat: `${altDateFormat} ${altTimeFormat}`,
     dateFormat: 'Y-m-d\\TH:i:S.000\\Z',
     ...(props.options ? props.options.flatpickrOptions : {})
   }

@@ -94,7 +94,7 @@ class DateAbstract extends React.Component {
   }
 
   handleToggleClick() {
-    if (this.props.events && this.props.events) {
+    if (this.props.events && this.props.events.onFocus) {
       this.props.events.onFocus()
     }
   }
@@ -113,7 +113,7 @@ class DateAbstract extends React.Component {
         >
           <span className="right-addon">
             <input
-              placeholder={this.props.options.placeholderText}
+              {...(this.props.options ? {placeholder: this.props.options.placeholderText} : {})}
               data-input
             />
             <span className={resetClass} data-clear>×</span>
@@ -150,7 +150,6 @@ DateAbstract.propTypes = {
   events: PropTypes.shape({
     onFocus: PropTypes.func
   })
-
 }
 
 export default injectIntl(DateAbstract)
