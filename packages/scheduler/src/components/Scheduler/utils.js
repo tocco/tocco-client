@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 const getResourceId = (id, model) => id + model
 
 export const getResources = calendars => {
@@ -10,8 +11,8 @@ export const getResources = calendars => {
 }
 
 export const getEvents = calendars =>
-  calendars.reduce((accumulator, calendar) => {
-    return [
+  calendars.reduce((accumulator, calendar) => (
+    [
       ...accumulator,
       ...calendar.events.map(event => ({
         entity: event.source,
@@ -19,7 +20,9 @@ export const getEvents = calendars =>
         title: event.label,
         start: event.start,
         end: event.end,
-        description: event.description
+        description: event.description,
+        className: classNames({conflict: event.conflict === 'existing'}),
+        conflict: event.conflict
       }))
     ]
-  }, [])
+  ), [])

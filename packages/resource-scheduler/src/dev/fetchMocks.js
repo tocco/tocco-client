@@ -49,7 +49,10 @@ export default function setupFetchMock(packageName, fetchMock, entityStore = def
   mockData.setupFetchMock(fetchMock, entityStore)
 
   const listFetchMocks = require('tocco-entity-list/src/dev/fetchMocks')
-  listFetchMocks(fetchMock)
+  listFetchMocks('entity-list', fetchMock)
+
+  const simpleFormFetchMocks = require('tocco-scheduler/src/dev/fetchMocks')
+  simpleFormFetchMocks('scheduler', fetchMock, entityStore)
 
   fetchMock.spy()
 }

@@ -15,6 +15,8 @@ import 'fullcalendar/dist/locale/de.js'
 
 import '!style-loader!css-loader!fullcalendar/dist/fullcalendar.css'
 import '!style-loader!css-loader!fullcalendar-scheduler/dist/scheduler.css'
+import {injectIntl, intlShape} from 'react-intl'
+import Conflict from '../Conflict'
 
 class FullCalendar extends React.Component {
   constructor(props) {
@@ -47,8 +49,11 @@ class FullCalendar extends React.Component {
       const content = <div>
         <p>{event.description}</p>
         <p>
-          <i className="fa fa-clock-o description-icon" aria-hidden="true"></i>
+          <i className="fa fa-clock-o" style={{paddingRight: '10px'}} aria-hidden="true"></i>
           {event.start.twix(event.end).format({monthFormat: 'MMMM', dayFormat: 'Do'})}
+        </p>
+        <p>
+          <Conflict conflictStatus={event.conflict} intl={this.props.intl}/>
         </p>
       </div>
 
@@ -118,9 +123,8 @@ class FullCalendar extends React.Component {
     }
   }
 
-  render() {
-    return <div className={this.state.wrapperId}><div ref={ref => { this.calendarContainer = ref }}></div></div>
-  }
+  render = () =>
+    <div className={this.state.wrapperId}><div ref={ref => { this.calendarContainer = ref }}></div></div>
 }
 
 FullCalendar.defaultProps = {
@@ -130,6 +134,7 @@ FullCalendar.defaultProps = {
 }
 
 FullCalendar.propTypes = {
+  intl: intlShape.isRequired,
   onDateRangeChange: PropTypes.func,
   onCalendarRemove: PropTypes.func,
   onEventClick: PropTypes.func,
@@ -153,4 +158,4 @@ FullCalendar.propTypes = {
   locale: PropTypes.string
 }
 
-export default FullCalendar
+export default injectIntl(FullCalendar)
