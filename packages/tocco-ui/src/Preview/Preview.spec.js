@@ -21,7 +21,6 @@ describe('tocco-ui', () => {
       const figcaption = wrapper.find('figcaption')
 
       expect(figure).to.have.length(1)
-      expect(figure).to.have.attr('class')
       expect(a).to.have.length(1)
       expect(a).to.have.attr('href', '/link-to-source')
       expect(a).to.have.attr('alt', 'alternative text')

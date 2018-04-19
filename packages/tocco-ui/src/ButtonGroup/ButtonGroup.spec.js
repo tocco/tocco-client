@@ -9,10 +9,8 @@ describe('tocco-ui', function() {
       const wrapper = shallow(
         <ButtonGroup/>
       )
-      const props = wrapper.instance().props
-      expect(Object.keys(props).length).to.equal(3)
-      const {ink, look, melt} = props
-      expect(ink).to.equal('base')
+      const {children, look, melt} = wrapper.props()
+      expect(children).to.equal(undefined)
       expect(look).to.equal('flat')
       expect(melt).to.equal(false)
     })

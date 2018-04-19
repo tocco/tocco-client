@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import Icon from '../Icon'
-import {ButtonStyles} from '../Button'
+// import {ButtonStyles} from '../Button'
+import styled from 'styled-components'
 
+const ButtonStyles = styled.button``
 export const ButtonLinkStyles = ButtonStyles.withComponent('a').extend`
   && {
     :hover,
