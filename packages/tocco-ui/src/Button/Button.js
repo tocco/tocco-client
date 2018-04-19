@@ -115,13 +115,23 @@ const meltButtons = props => {
   return declaration
 }
 
+const setIconPosition = props => {
+  if (props.iconPosition === 'after') {
+    return `
+      justify-content: space-between;
+      > span {
+        order: -1;
+      }
+    `
+  }
+}
+
 export const ButtonStyles = styled.button`
   && {
     background-image: none;
     border-radius: ${theme('radii.3')};
     border: none;
     display: inline-flex;
-    justify-content: space-between;
     align-items: center;
     text-align: center;
     text-transform: uppercase;
@@ -162,9 +172,7 @@ export const ButtonStyles = styled.button`
       width: 100%;
     }
 
-    > span {
-      order: ${props => props.iconPosition === 'after' ? -1 : 0};
-    }
+    ${props => setIconPosition(props)}
   }
 `
 
