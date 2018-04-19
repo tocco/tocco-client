@@ -28,16 +28,6 @@ describe('tocco-ui', function() {
       expect(wrapper.find('button').prop('name')).to.equal('test_name')
     })
 
-    it('should add classNames', () => {
-      const wrapper = shallow(
-        <Button className="class1 class2 class3"/>
-      ).dive()
-
-      expect(wrapper.find('button')).to.have.className('class1')
-      expect(wrapper.find('button')).to.have.className('class2')
-      expect(wrapper.find('button')).to.have.className('class3')
-    })
-
     it('should be disabled and hidden', () => {
       let wrapper = shallow(
         <Button/>
