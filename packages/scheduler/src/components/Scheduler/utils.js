@@ -1,4 +1,6 @@
 import classNames from 'classnames'
+import {color} from 'tocco-util'
+
 const getResourceId = (id, model) => id + model
 
 export const getResources = calendars => {
@@ -8,6 +10,12 @@ export const getResources = calendars => {
     entityKey: calendar.key,
     calendarType: calendar.calendarType
   }))
+}
+
+const BLACK_RGB = {r: 0, g: 0, b: 0}
+const getTextColor = hexColor => {
+  const rgbColor = color.hexToRgb(hexColor, BLACK_RGB)
+  return color.getContrastColor(rgbColor, 'bright', 'dark')
 }
 
 export const getEvents = calendars =>
@@ -21,8 +29,9 @@ export const getEvents = calendars =>
         start: event.start,
         end: event.end,
         description: event.description,
-        className: classNames({conflict: event.conflict === 'existing'}),
-        conflict: event.conflict
+        conflict: event.conflict,
+        backgroundColor: event.color,
+        className: classNames({conflict: event.conflict === 'existing'}, getTextColor(event.color))
       }))
     ]
   ), [])

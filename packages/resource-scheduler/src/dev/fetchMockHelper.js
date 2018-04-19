@@ -17,6 +17,7 @@ const conflicts = ['none', 'accepted', 'existing']
 const eventsNamePart1 = ['Lecture', 'Class', 'Exercise']
 const eventsNamePart2 = ['english', 'IT', 'business administration']
 const eventsNamePart3 = ['1', '2', 'master']
+const getRandomColor = () => `#${(Math.random() * 0xFFFFFF << 0).toString(16)}`
 const getRandomEventTitle = () => `${_sample(eventsNamePart1)} ${_sample(eventsNamePart2)} ${_sample(eventsNamePart3)}`
 
 const getRandomEvent = (startRange, endRange) => {
@@ -28,7 +29,8 @@ const getRandomEvent = (startRange, endRange) => {
     description: 'Description of event',
     isDateTime: 'yes',
     source: {model: 'Calendar_event', key: `${getRandomNumber(1000)}`},
-    conflict: _sample(conflicts)
+    conflict: _sample(conflicts),
+    color: getRandomColor()
   }
 }
 
