@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import MenuItem from 'react-bootstrap/lib/MenuItem'
 import actionTypes from '../actionTypes'
+import {Button} from 'tocco-ui'
+import {Item} from 'tocco-ui/src/Menu'
+
 import {isValidSelection, selectionText} from './selectionHelper'
 import {intlShape} from 'react-intl'
 
 const GroupElement = ({definition, onClick, onSelect, selectedCount}, context) => {
   if (definition.actionType === actionTypes.DIVIDER) {
-    return <MenuItem divider/>
+    return <hr/>
   }
 
   const validSelection = isValidSelection(selectedCount, definition)
@@ -16,16 +18,20 @@ const GroupElement = ({definition, onClick, onSelect, selectedCount}, context) =
   const disabled = definition.readonly === true || !validSelection
 
   return (
-    <MenuItem disabled={disabled} onClick={() => {
-      if (!disabled) {
-        setTimeout(() => onSelect(), 100)
-        onClick(definition)
-      }
-    }}>
-      <span title={title}>
-        {definition.icon && <i className={'fa ' + definition.icon}/>} {definition.label}
-      </span>
-    </MenuItem>
+    <Item>
+      <Button
+        disabled={disabled}
+        icon={definition.icon}
+        label={definition.label}
+        onClick={() => {
+          if (!disabled) {
+            setTimeout(() => onSelect(), 100)
+            onClick(definition)
+          }
+        }}
+        title={title}
+      />
+    </Item>
   )
 }
 

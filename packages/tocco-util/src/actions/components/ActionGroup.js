@@ -1,23 +1,28 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import DropdownButton from 'react-bootstrap/lib/DropdownButton'
-import Dropdown from 'react-bootstrap/lib/Dropdown'
-import {default as ButtonBS} from 'react-bootstrap/lib/Button'
+
 import GroupElement from './GroupElement'
-import {isValidSelection, selectionText} from './selectionHelper'
+import {Button} from 'tocco-ui'
 import {intlShape} from 'react-intl'
+import {isValidSelection, selectionText} from './selectionHelper'
+import {Item, ItemFlyout, MenuButton, MenuStack} from 'tocco-ui/src/Menu'
 
 const MainAction = ({definition, selectedCount, onClick}, context) => {
   const validSelection = isValidSelection(selectedCount, definition)
   const title = selectionText(selectedCount, definition, context.intl)
-
   const disabled = definition.readonly === true || !validSelection
 
-  return <ButtonBS onClick={() => { onClick(definition) }} disabled={disabled}>
-    <span title={title}>
-      {definition.icon && <i className={'fa ' + definition.icon}/>} {definition.label}
-    </span>
-  </ButtonBS>
+  return (
+    <Item>
+      <Button
+        disabled={disabled}
+        icon={definition.icon}
+        label={definition.label}
+        onClick={() => { onClick(definition) }}
+        title={title}
+      />
+    </Item>
+  )
 }
 
 MainAction.contextTypes = {
@@ -35,27 +40,34 @@ const ActionGroup = ({definition, onClick, selectedCount}, context) => {
 
   if (hasMainAction) {
     return (
-      <Dropdown id={'action-' + definition.name} disabled={definition.readonly}>
+      <MenuButton>
         <MainAction definition={definition.action} selectedCount={selectedCount} onClick={onClick}/>
-        <Dropdown.Toggle/>
-        <Dropdown.Menu>
-          {definition.children.map((actionDefinition, idx) =>
-            <GroupElement key={idx} definition={actionDefinition} onClick={onClick} selectedCount={selectedCount}/>
-          )}
-        </Dropdown.Menu>
-      </Dropdown>
+        <ItemFlyout
+          isToggable={definition.readonly !== true}
+          label={definition.label}
+        >
+          <MenuStack>
+            {definition.children.map((actionDefinition, idx) =>
+              <GroupElement key={idx} definition={actionDefinition} onClick={onClick} selectedCount={selectedCount}/>
+            )}
+          </MenuStack>
+        </ItemFlyout>
+      </MenuButton>
     )
   } else {
     return (
-      <DropdownButton
-        id={'action-' + definition.name}
-        title={definition.label}
-        disabled={definition.readonly === true}
-      >
-        {definition.children.map((actionDefinition, idx) =>
-          <GroupElement key={idx} definition={actionDefinition} onClick={onClick} selectedCount={selectedCount}/>
-        )}
-      </DropdownButton>
+      <MenuButton>
+        <ItemFlyout
+          isToggable={definition.readonly !== true}
+          label={definition.label}
+        >
+          <MenuStack>
+            {definition.children.map((actionDefinition, idx) =>
+              <GroupElement key={idx} definition={actionDefinition} onClick={onClick} selectedCount={selectedCount}/>
+            )}
+          </MenuStack>
+        </ItemFlyout>
+      </MenuButton>
     )
   }
 }
