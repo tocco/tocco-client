@@ -120,7 +120,9 @@ export const ButtonStyles = styled.button`
     background-image: none;
     border-radius: ${theme('radii.3')};
     border: none;
-    display: inline-block;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
     text-align: center;
     text-transform: uppercase;
     vertical-align: middle;
@@ -159,15 +161,19 @@ export const ButtonStyles = styled.button`
     ${MenuStackStyles} & {
       width: 100%;
     }
+
+    > span {
+      order: ${props => props.iconPosition === 'after' ? -1 : 0};
+    }
   }
 `
 
 const Button = props => {
   return (
     <ButtonStyles
-      className={props.className}
       dense={props.dense}
       disabled={props.disabled}
+      iconPosition={props.iconPosition}
       ink={props.ink || props.buttonGroupInk || 'base'}
       look={props.look}
       melt={props.buttonGroupMelt}
@@ -188,7 +194,7 @@ const Button = props => {
         dense={props.dense}
         icon="fa-circle-o-notch"
         position={props.iconPosition}/>}
-      {props.label}
+      <span>{props.label}</span>
     </ButtonStyles>
   )
 }
@@ -210,10 +216,6 @@ Button.propTypes = {
    */
   buttonGroupMelt: PropTypes.bool,
   /**
-   * Extend the button with any css classes separated by a space.
-   */
-  className: PropTypes.string,
-  /**
    * If true, compress button to occupy less space.
    */
   dense: PropTypes.bool,
@@ -229,7 +231,7 @@ Button.propTypes = {
   /**
    * Add spacing according position. Default value is 'before'. Possible values: before|solely
    */
-  iconPosition: PropTypes.oneOf(['before', 'solely']),
+  iconPosition: PropTypes.oneOf(['after', 'before', 'solely']),
   /**
    * Define color palette. Default value is 'base'. Possible values: base|primary
    */

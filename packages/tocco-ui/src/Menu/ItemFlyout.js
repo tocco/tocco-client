@@ -31,6 +31,7 @@ class ItemFlyout extends Item {
       >
         <Button
           icon={this.state.isOpen ? 'fa-caret-up' : 'fa-caret-down'}
+          iconPosition="after"
           label={this.props.label}
           look={this.props.look}
           onMouseDown={this.toogleOpenState}
