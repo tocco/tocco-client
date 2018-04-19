@@ -1,7 +1,8 @@
 import {shallow} from 'enzyme'
 import React from 'react'
+
+import {Button} from 'tocco-ui'
 import GroupElement from './GroupElement'
-import MenuItem from 'react-bootstrap/lib/MenuItem'
 
 const EMPTY_FUNC = () => {}
 
@@ -16,11 +17,8 @@ describe('tocco-util', () => {
           }
           const clickSpy = sinon.spy()
           const selectSpy = sinon.spy()
-
           const wrapper = shallow(<GroupElement definition={definition} onSelect={selectSpy} onClick={clickSpy}/>)
-
-          wrapper.find(MenuItem).simulate('click')
-
+          wrapper.find(Button).simulate('click')
           expect(clickSpy).to.have.property('callCount', 1)
         })
 
@@ -31,10 +29,8 @@ describe('tocco-util', () => {
           }
           const clickSpy = sinon.spy()
           const selectSpy = sinon.spy()
-
           const wrapper = shallow(<GroupElement definition={definition} onSelect={selectSpy} onClick={clickSpy}/>)
-
-          wrapper.find(MenuItem).simulate('click')
+          wrapper.find(Button).simulate('click')
           expect(clickSpy).to.have.property('callCount', 0)
         })
 
@@ -43,9 +39,8 @@ describe('tocco-util', () => {
             componentType: 'action-group',
             actionType: 'divider'
           }
-
           const wrapper = shallow(<GroupElement definition={definition} onClick={EMPTY_FUNC}/>)
-          expect(wrapper.find(MenuItem).props().divider).to.be.true
+          expect(wrapper.find('hr')).to.have.length(1)
         })
       })
     })
