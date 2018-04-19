@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import Icon from '../Icon'
-// import {ButtonStyles} from '../Button'
-import styled from 'styled-components'
 
-const ButtonStyles = styled.button``
+import Icon from '../Icon'
+import {ButtonStyles} from '../Button'
+
 export const ButtonLinkStyles = ButtonStyles.withComponent('a').extend`
   && {
     :hover,
@@ -23,6 +22,7 @@ const ButtonLink = props => {
       href={props.href}
       ink={props.ink}
       look={props.look}
+      melt={props.buttonGroupMelt}
       title={props.title}
     >
       {props.icon && <Icon dense={props.dense} icon={props.icon} position={props.iconPosition}/>}
@@ -43,6 +43,10 @@ ButtonLink.propTypes = {
    * Define text for screenreaders and crawlers.
    */
   alt: PropTypes.string,
+  /**
+   * May passed from ButtonGroup to merge buttons visually.
+   */
+  buttonGroupMelt: PropTypes.bool,
   /**
    * If true, compress button to occupy less space.
    */
