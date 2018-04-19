@@ -12,6 +12,7 @@ const ItemFlyoutStyles = ItemStyles.extend`
     top: calc(100% + ${props => theme('space.2')});
     left: 0;
     z-index: 1;
+    background-color: ${props => theme('colors.base.paper')};
 
     ${props => getElevation(props, 1)}
 
@@ -43,7 +44,7 @@ class ItemFlyout extends Item {
 }
 
 Item.defaultProps = {
-  isOpen: true,
+  isOpen: false,
   isToggable: true
 }
 

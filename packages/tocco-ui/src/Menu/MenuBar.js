@@ -5,7 +5,7 @@ import Menu, {MenuStyles} from './Menu'
 
 const MenuBarStyles = MenuStyles.extend`
   && {
-    display: flex;
+    display: inline-flex;
     flex-flow: row nowrap;
 
     > hr {
