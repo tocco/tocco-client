@@ -212,7 +212,7 @@ Button.propTypes = {
    */
   buttonGroupInk: PropTypes.oneOf(['base', 'primary']),
   /**
-   * May passed from ButtonGroup to visually merge buttons.
+   * May passed from ButtonGroup to merge buttons visually.
    */
   buttonGroupMelt: PropTypes.bool,
   /**
