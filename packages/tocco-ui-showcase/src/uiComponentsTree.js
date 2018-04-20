@@ -38,6 +38,10 @@ import ButtonLinkRaw from '!raw-loader!../../tocco-ui/src/ButtonLink/ButtonLink'
 import ButtonLinkExample from '../../tocco-ui/src/ButtonLink/example'
 import ButtonLinkExampleRaw from '!raw-loader!../../tocco-ui/src/ButtonLink/example'
 
+import PanelRaw from '!raw-loader!../../tocco-ui/src/Panel/Panel'
+import PanelExample from '../../tocco-ui/src/Panel/example'
+import PanelExampleRaw from '!raw-loader!../../tocco-ui/src/Panel/example'
+
 import PreviewRaw from '!raw-loader!../../tocco-ui/src/Preview/Preview'
 import PreviewExample from '../../tocco-ui/src/Preview/example'
 import PreviewExampleRaw from '!raw-loader!../../tocco-ui/src/Preview/example'
@@ -165,6 +169,14 @@ export default [
         example: {
           component: MenuExample,
           raw: MenuExampleRaw
+        }
+      },
+      {
+        name: 'Panel',
+        raw: PanelRaw,
+        example: {
+          component: PanelExample,
+          raw: PanelExampleRaw
         }
       }]
   },
