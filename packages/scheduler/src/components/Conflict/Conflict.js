@@ -24,7 +24,7 @@ const Conflict = ({conflictStatus, intl}) => {
 
 Conflict.propTypes = {
   intl: intlShape.isRequired,
-  conflictStatus: PropTypes.string
+  conflictStatus: PropTypes.oneOf(Object.values(conflicts))
 }
 
 export default Conflict
