@@ -6,12 +6,12 @@ import {IntlStub} from 'tocco-test-util'
 describe('scheduler', () => {
   describe('components', () => {
     describe('Conflict', () => {
-      it('should render return null if conflictstatus is undefined', () => {
+      it('should return null if conflictstatus is undefined', () => {
         const wrapper = shallow(<Conflict intl={IntlStub} />)
         expect(wrapper.type()).to.be.null
       })
 
-      it('should render return null if conflictstatus is undefined nones', () => {
+      it('should return null if conflictstatus is none', () => {
         const wrapper = shallow(<Conflict intl={IntlStub} conflictStatus="none"/>)
         expect(wrapper.type()).to.be.null
       })
