@@ -24,6 +24,10 @@ describe('tocco-util', () => {
       it('should return fallback if no valid hex is given', () => {
         expect(hexToRgb('noValidHex', color2Rgb)).to.eql(color2Rgb)
       })
+
+      it('should return fallback if undefined hex color is given', () => {
+        expect(hexToRgb(undefined, color2Rgb)).to.eql(color2Rgb)
+      })
     })
   })
 })

@@ -12,13 +12,15 @@ const mockCalendars = [
         label: 'English 1',
         start: '2017-10-17T07:52:29.592Z',
         end: '2017-10-17T08:52:29.592Z',
-        description: 'Description of event'
+        description: 'Description of event',
+        color: '#fff'
       },
       {
         label: 'English 2',
         start: '2017-10-17T10:52:29.592Z',
         end: '2017-10-17T11:52:29.592Z',
-        description: 'Description of event'
+        description: 'Description of event',
+        color: '#fe34c3'
       }
     ]
   },
