@@ -12,9 +12,9 @@ export const getResources = calendars => {
   }))
 }
 
-const BLACK_RGB = {r: 0, g: 0, b: 0}
+const WHITE_RGB = {r: 255, g: 255, b: 255}
 const getTextColor = hexColor => {
-  const rgbColor = color.hexToRgb(hexColor, BLACK_RGB)
+  const rgbColor = color.hexToRgb(hexColor, WHITE_RGB)
   return color.getContrastColor(rgbColor, 'bright', 'dark')
 }
 
@@ -30,7 +30,7 @@ export const getEvents = calendars =>
         end: event.end,
         description: event.description,
         conflict: event.conflict,
-        backgroundColor: event.color,
+        ...(event.color ? {backgroundColor: event.color} : {}),
         className: classNames({conflict: event.conflict === 'existing'}, getTextColor(event.color))
       }))
     ]
