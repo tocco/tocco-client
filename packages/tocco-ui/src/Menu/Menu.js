@@ -18,13 +18,19 @@ const MenuStyles = styled.ul`
  */
 
 class Menu extends React.Component {
-  childs // eslint-disable-next-line
-  = React.Children.map(this.props.children, child => {
-    return React.cloneElement(child, {look: this.props.look})
-  })
+  getChildren = () => {
+    // eslint-disable-next-line
+    return React.Children.map(this.props.children, child => {
+      return React.cloneElement(child, {look: this.props.look})
+    })
+  }
 
   render() {
-    return <MenuStyles>{this.childs}</MenuStyles>
+    return (
+      <MenuStyles>
+        {this.getChildren()}
+      </MenuStyles>
+    )
   }
 }
 

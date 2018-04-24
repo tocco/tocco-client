@@ -37,7 +37,7 @@ class ItemFlyout extends Item {
           look={this.props.look}
           onMouseDown={this.toogleOpenState}
         />
-        {this.childs}
+        {this.getChildren()}
       </ItemFlyoutStyles>
     )
   }
