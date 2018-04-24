@@ -7,7 +7,7 @@ import {theme} from 'styled-system'
 import Icon from '../Icon'
 import {stylingPosition} from '../utilStyles'
 
-const UploadInputStyles = styled.div`
+const StyledUploadInput = styled.div`
   border: dashed 1px ${theme('colors.base.fill.2')};
   border-radius: ${theme('radii.2')};
   padding: ${theme('space.3')} ${theme('space.4')};
@@ -24,7 +24,7 @@ const UploadInput = props => {
     props.onDrop(files[0])
   }
 
-  return <UploadInputStyles>
+  return <StyledUploadInput>
     <Dropzone
       className="dropzone"
       disabled={props.readOnly}
@@ -37,7 +37,7 @@ const UploadInput = props => {
       />
       {props.text || 'drag and drop or click'}
     </Dropzone>
-  </UploadInputStyles>
+  </StyledUploadInput>
 }
 
 UploadInput.propTypes = {

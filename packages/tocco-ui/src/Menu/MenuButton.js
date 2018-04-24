@@ -1,10 +1,10 @@
 import React from 'react'
 import {theme} from 'styled-system'
 
-import Menu, {MenuStyles} from './Menu'
+import Menu, {StyledMenu} from './Menu'
 import {stylingLook} from '../utilStyles'
 
-const MenuButtonStyles = MenuStyles.extend`
+const StyledMenuButton = StyledMenu.extend`
   && {
     display: inline-flex;
     flex-flow: row nowrap;
@@ -26,16 +26,16 @@ const MenuButtonStyles = MenuStyles.extend`
 class MenuButton extends Menu {
   render() {
     return (
-      <MenuButtonStyles
+      <StyledMenuButton
         look={this.props.look}
       >
         {this.getChildren()}
-      </MenuButtonStyles>
+      </StyledMenuButton>
     )
   }
 }
 
 export {
   MenuButton as default,
-  MenuButtonStyles
+  StyledMenuButton
 }

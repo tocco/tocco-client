@@ -1,3 +1,3 @@
-import ButtonGroup, {ButtonGroupStyles} from './ButtonGroup'
+import ButtonGroup, {StyledButtonGroup} from './ButtonGroup'
 
-export {ButtonGroup as default, ButtonGroupStyles}
+export {ButtonGroup as default, StyledButtonGroup}

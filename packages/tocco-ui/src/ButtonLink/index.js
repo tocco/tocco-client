@@ -1,3 +1,3 @@
-import ButtonLink, {ButtonLinkStyles} from './ButtonLink'
+import ButtonLink, {StyledButtonLink} from './ButtonLink'
 
-export {ButtonLink as default, ButtonLinkStyles}
+export {ButtonLink as default, StyledButtonLink}

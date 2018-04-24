@@ -1,23 +1,23 @@
 import Item from './Item'
-import ItemAccordion, {ItemAccordionStyles} from './ItemAccordion'
-import ItemFlyout, {ItemFlyoutStyles} from './ItemFlyout'
-import Menu, {MenuStyles} from './Menu'
-import MenuBar, {MenuBarStyles} from './MenuBar'
-import MenuButton, {MenuButtonStyles} from './MenuButton'
-import MenuStack, {MenuStackStyles} from './MenuStack'
+import ItemAccordion, {StyledMenuItemAccordion} from './ItemAccordion'
+import ItemFlyout, {StyledItemFlyout} from './ItemFlyout'
+import Menu, {StyledMenu} from './Menu'
+import MenuBar, {StyledMenuBar} from './MenuBar'
+import MenuButton, {StyledMenuButton} from './MenuButton'
+import MenuStack, {StyledMenuStack} from './MenuStack'
 
 export {
   Item,
   ItemAccordion,
-  ItemAccordionStyles,
+  StyledMenuItemAccordion,
   ItemFlyout,
-  ItemFlyoutStyles,
+  StyledItemFlyout,
   Menu as default,
-  MenuStyles,
+  StyledMenu,
   MenuBar,
-  MenuBarStyles,
+  StyledMenuBar,
   MenuButton,
-  MenuButtonStyles,
+  StyledMenuButton,
   MenuStack,
-  MenuStackStyles
+  StyledMenuStack
 }

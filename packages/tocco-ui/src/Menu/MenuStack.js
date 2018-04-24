@@ -1,10 +1,10 @@
 import React from 'react'
 import {theme} from 'styled-system'
 
-import Menu, {MenuStyles} from './Menu'
-import {ItemFlyoutStyles} from './ItemFlyout'
+import Menu, {StyledMenu} from './Menu'
+import {StyledItemFlyout} from './ItemFlyout'
 
-const MenuStackStyles = MenuStyles.extend`
+const StyledMenuStack = StyledMenu.extend`
   && {
     > hr {
       display: list-item;
@@ -12,7 +12,7 @@ const MenuStackStyles = MenuStyles.extend`
       margin: ${props => theme('space.3')} 0;
     }
 
-    > :not(${ItemFlyoutStyles}) > ul {
+    > :not(${StyledItemFlyout}) > ul {
       margin-left: 20px;
     }
   }
@@ -21,14 +21,14 @@ const MenuStackStyles = MenuStyles.extend`
 class MenuStack extends Menu {
   render() {
     return (
-      <MenuStackStyles>
+      <StyledMenuStack>
         {this.getChildren()}
-      </MenuStackStyles>
+      </StyledMenuStack>
     )
   }
 }
 
 export {
   MenuStack as default,
-  MenuStackStyles
+  StyledMenuStack
 }

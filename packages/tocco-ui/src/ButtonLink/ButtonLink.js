@@ -2,10 +2,10 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import Icon from '../Icon'
-import {ButtonStyles} from '../Button'
+import {StyledButton} from '../Button'
 import {stylingInk, stylingLook, stylingPosition} from '../utilStyles'
 
-export const ButtonLinkStyles = ButtonStyles.withComponent('a').extend`
+export const StyledButtonLink = StyledButton.withComponent('a').extend`
   && {
     :hover,
     :focus {
@@ -16,7 +16,7 @@ export const ButtonLinkStyles = ButtonStyles.withComponent('a').extend`
 
 const ButtonLink = props => {
   return (
-    <ButtonLinkStyles
+    <StyledButtonLink
       alt={props.alt}
       dense={props.dense}
       download={props.download}
@@ -28,7 +28,7 @@ const ButtonLink = props => {
     >
       {props.icon && <Icon dense={props.dense} icon={props.icon} position={props.iconPosition}/>}
       {props.label}
-    </ButtonLinkStyles>
+    </StyledButtonLink>
   )
 }
 
