@@ -25,10 +25,12 @@ class Item extends React.Component {
     }))
   }
 
-  // eslint-disable-next-line
-  childs = React.Children.map(this.props.children, child => {
-    return React.cloneElement(child, {look: this.props.look})
-  })
+  getChildren = () => {
+    // eslint-disable-next-line
+    return React.Children.map(this.props.children, child => {
+      return React.cloneElement(child, {look: this.props.look})
+    })
+  }
 
   render() {
     return (
@@ -36,7 +38,7 @@ class Item extends React.Component {
         isOpen={this.state.isOpen}
         isToggable={this.props.isToggable}
       >
-        {this.childs}
+        {this.getChildren()}
       </ItemStyles>
     )
   }

@@ -29,7 +29,7 @@ class MenuButton extends Menu {
       <MenuButtonStyles
         look={this.props.look}
       >
-        {this.childs}
+        {this.getChildren()}
       </MenuButtonStyles>
     )
   }
