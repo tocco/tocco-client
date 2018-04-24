@@ -1,14 +1,14 @@
 import React from 'react'
 import {transformFieldName} from './reduxForm'
 import {Field} from 'redux-form'
-import {getFieldId} from './helpers'
+import {getFieldId} from './formDefinition'
 import ReduxFormFieldAdapter from './ReduxFormFieldAdapter'
 import _get from 'lodash/get'
 import _pick from 'lodash/pick'
 import {LayoutBox} from 'tocco-ui'
 import actions from '../actions'
-import componentTypes from './componentTypes'
-import layoutTypes from './layoutTypes'
+import componentTypes from './enums/componentTypes'
+import layoutTypes from './enums/layoutTypes'
 import {isAction} from '../actions/actions'
 
 export default (

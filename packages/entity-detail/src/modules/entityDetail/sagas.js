@@ -16,7 +16,7 @@ import {
   selectEntitiesTransformer,
   createEntity
 } from '../../util/api/entities'
-import {fetchForm, getFieldDefinitions, getDefaultValues, getFieldNames} from '../../util/api/forms'
+
 import {uploadRequest, documentToFormValueTransformer} from '../../util/api/documents'
 import {submitValidate} from '../../util/detailView/asyncValidation'
 import modes from '../../util/modes'
@@ -40,14 +40,14 @@ export default function* sagas() {
 }
 
 export function* loadDetailFormDefinition(formName) {
-  const formDefinition = yield call(fetchForm, formName)
+  const formDefinition = yield call(form.fetchForm, formName)
   yield put(actions.setFormDefinition(formDefinition))
   return formDefinition
 }
 
 export function* loadEntity(entityName, entityId, formDefinition, formName) {
-  const fieldDefinitions = yield call(getFieldDefinitions, formDefinition)
-  const fields = yield call(getFieldNames, fieldDefinitions)
+  const fieldDefinitions = yield call(form.getFieldDefinitions, formDefinition)
+  const fields = yield call(form.getFieldNames, fieldDefinitions)
   const entity = yield call(fetchEntity, entityName, entityId, fields, formName)
   yield put(actions.setEntity(entity))
   return entity
@@ -88,8 +88,8 @@ export function* loadDetailView() {
 
   if (mode === modes.CREATE) {
     yield put(actions.setEntity({paths: {}, model: entityName}))
-    const fieldDefinitions = yield call(getFieldDefinitions, formDefinition)
-    const defaultValues = yield call(getDefaultValues, fieldDefinitions)
+    const fieldDefinitions = yield call(form.getFieldDefinitions, formDefinition)
+    const defaultValues = yield call(form.getDefaultValues, fieldDefinitions)
     yield put(formActions.initialize(FORM_ID, defaultValues))
   } else {
     yield call(loadData)
@@ -142,8 +142,8 @@ export function* getEntityForSubmit() {
 
 export function* getFields() {
   const {formDefinition} = yield select(entityDetailSelector)
-  const fieldDefinitions = yield call(getFieldDefinitions, formDefinition)
-  return yield call(getFieldNames, fieldDefinitions)
+  const fieldDefinitions = yield call(form.getFieldDefinitions, formDefinition)
+  return yield call(form.getFieldNames, fieldDefinitions)
 }
 
 export function* submitForm() {

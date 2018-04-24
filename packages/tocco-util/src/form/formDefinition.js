@@ -1,6 +1,10 @@
+import componentTypes from './enums/componentTypes'
 import {call} from 'redux-saga/effects'
-import {requestSaga} from 'tocco-util/src/rest'
-import {form} from 'tocco-util'
+import {requestSaga} from '../rest'
+
+export const getFieldId = (formName, fieldName) => (
+  `input-${formName}-${fieldName}`
+)
 
 export const getFieldDefinitions = formDefinition => {
   return getFieldsOfChildren(formDefinition.children)
@@ -15,7 +19,7 @@ const getFieldsOfChildren = children => {
     }
 
     const componentType = children[i].componentType
-    if (componentType === form.componentTypes.FIELD || componentType === form.componentTypes.DISPLAY) {
+    if (componentType === componentTypes.FIELD || componentType === componentTypes.DISPLAY) {
       result.push(children[i])
     }
   }
