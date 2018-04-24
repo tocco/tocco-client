@@ -5,7 +5,7 @@ import {theme} from 'styled-system'
 
 import {getElevation, stylingInk, stylingLook} from '../utilStyles'
 
-export const ButtonGroupStyles = styled.div`
+export const StyledButtonGroup = styled.div`
   && {
     display: flex;
     flex-flow: row nowrap;
@@ -21,12 +21,12 @@ export const ButtonGroupStyles = styled.div`
  */
 const ButtonGroup = props => {
   return (
-    <ButtonGroupStyles look={props.look} melt={props.melt}>
+    <StyledButtonGroup look={props.look} melt={props.melt}>
       { // eslint-disable-next-line
         React.Children.map(props.children, child => {
           return React.cloneElement(child, {look: props.look, buttonGroupInk: props.ink, buttonGroupMelt: props.melt})
         })}
-    </ButtonGroupStyles>
+    </StyledButtonGroup>
   )
 }
 

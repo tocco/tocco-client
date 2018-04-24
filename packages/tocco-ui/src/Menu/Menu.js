@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import {stylingLook} from '../utilStyles'
 
-const MenuStyles = styled.ul`
+const StyledMenu = styled.ul`
   && {
     margin: 0;
     padding: 0;
@@ -27,9 +27,9 @@ class Menu extends React.Component {
 
   render() {
     return (
-      <MenuStyles>
+      <StyledMenu>
         {this.getChildren()}
-      </MenuStyles>
+      </StyledMenu>
     )
   }
 }
@@ -47,5 +47,5 @@ Menu.propTypes = {
 
 export {
   Menu as default,
-  MenuStyles
+  StyledMenu
 }

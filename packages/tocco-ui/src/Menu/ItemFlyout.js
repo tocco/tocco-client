@@ -3,10 +3,10 @@ import React from 'react'
 import {theme} from 'styled-system'
 
 import Button from '../Button'
-import Item, {ItemStyles} from './Item'
+import Item, {StyledItem} from './Item'
 import {getElevation, stylingPosition} from '../utilStyles'
 
-const ItemFlyoutStyles = ItemStyles.extend`
+const StyledItemFlyout = StyledItem.extend`
   > ul {
     position: absolute;
     top: calc(100% + ${props => theme('space.2')});
@@ -26,9 +26,9 @@ const ItemFlyoutStyles = ItemStyles.extend`
 class ItemFlyout extends Item {
   render() {
     return (
-      <ItemFlyoutStyles
+      <StyledItemFlyout
         isOpen={this.state.isOpen}
-        isToggable={this.props.isToggable}
+        isToggleable={this.props.isToggleable}
       >
         <Button
           icon={this.state.isOpen ? 'fa-caret-up' : 'fa-caret-down'}
@@ -38,17 +38,17 @@ class ItemFlyout extends Item {
           onMouseDown={this.toogleOpenState}
         />
         {this.getChildren()}
-      </ItemFlyoutStyles>
+      </StyledItemFlyout>
     )
   }
 }
 
 Item.defaultProps = {
   isOpen: false,
-  isToggable: true
+  isToggleable: true
 }
 
 export {
   ItemFlyout as default,
-  ItemFlyoutStyles
+  StyledItemFlyout
 }

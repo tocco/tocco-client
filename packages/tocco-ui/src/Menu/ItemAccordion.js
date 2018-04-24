@@ -1,15 +1,15 @@
 import React from 'react'
 
 import Button from '../Button'
-import Item, {ItemStyles as ItemAccordionStyles} from './Item'
+import Item, {StyledItem as StyledMenuItemAccordion} from './Item'
 import {stylingPosition} from '../utilStyles'
 
 class ItemAccordion extends Item {
   render() {
     return (
-      <ItemAccordionStyles
+      <StyledMenuItemAccordion
         isOpen={this.state.isOpen}
-        isToggable={this.props.isToggable}
+        isToggleable={this.props.isToggleable}
       >
         <Button
           icon={this.state.isOpen ? 'fa-caret-up' : 'fa-caret-down'}
@@ -19,17 +19,17 @@ class ItemAccordion extends Item {
           onMouseDown={this.toogleOpenState}
         />
         {this.getChildren()}
-      </ItemAccordionStyles>
+      </StyledMenuItemAccordion>
     )
   }
 }
 
 Item.defaultProps = {
   isOpen: true,
-  isToggable: true
+  isToggleable: true
 }
 
 export {
   ItemAccordion as default,
-  ItemAccordionStyles
+  StyledMenuItemAccordion
 }
