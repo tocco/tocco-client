@@ -4,6 +4,7 @@ import classNames from 'classnames'
 
 import styled from 'styled-components'
 import {theme} from 'styled-system'
+import {stylingAnimation, stylingPosition} from '../utilStyles'
 
 const getClassName = (icon, animation) => {
   let cls = classNames({
@@ -11,7 +12,7 @@ const getClassName = (icon, animation) => {
     'fa': icon.startsWith('fa-')
   }, icon, 'icon')
 
-  if (animation === 'spin') {
+  if (animation === stylingAnimation.SPIN) {
     cls = classNames(cls, 'fa-spin')
   }
 
@@ -24,11 +25,11 @@ const getSpacing = props => {
 
   const space = (props.dense) ? theme('space.1')(props) : theme('space.3')(props)
 
-  if (props.position === 'after' || props.position === 'between') {
+  if (props.position === stylingPosition.AFTER || props.position === stylingPosition.BETWEEN) {
     left = space
   }
 
-  if (props.position === 'before' || props.position === 'between') {
+  if (props.position === stylingPosition.BEFORE || props.position === stylingPosition.BETWEEN) {
     right = space
   }
 
@@ -59,15 +60,15 @@ const Icon = props => {
 }
 
 Icon.defaultProps = {
-  animation: 'none',
-  position: 'solely'
+  animation: stylingAnimation.NONE,
+  position: stylingPosition.SOLELY
 }
 
 Icon.propTypes = {
   /**
   * Animate the Icon. Default value is 'none'. Possible values: none|spin
   */
-  animation: PropTypes.oneOf(['none', 'spin']),
+  animation: PropTypes.oneOf([stylingAnimation.NONE, stylingAnimation.SPIN]),
   /**
    * Integrate an icon into the button. Set the specific class only from
    * https://getbootstrap.com/docs/3.3/components/#glyphicons or https://fontawesome.com/v4.7.0/icons/
@@ -80,7 +81,11 @@ Icon.propTypes = {
   /**
    * Add spacing according position. Default value is 'none'. Possible values: after|before|between|none
    */
-  position: PropTypes.oneOf(['after', 'before', 'between', 'solely']),
+  position: PropTypes.oneOf([
+    stylingPosition.AFTER,
+    stylingPosition.BEFORE,
+    stylingPosition.BETWEEN,
+    stylingPosition.SOLELY]),
 
   // TODO desribe props
   onClickFunction: PropTypes.func,

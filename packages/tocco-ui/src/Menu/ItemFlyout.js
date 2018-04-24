@@ -4,7 +4,7 @@ import {theme} from 'styled-system'
 
 import Button from '../Button'
 import Item, {ItemStyles} from './Item'
-import {getElevation} from '../utilStyles'
+import {getElevation, stylingPosition} from '../utilStyles'
 
 const ItemFlyoutStyles = ItemStyles.extend`
   > ul {
@@ -32,7 +32,7 @@ class ItemFlyout extends Item {
       >
         <Button
           icon={this.state.isOpen ? 'fa-caret-up' : 'fa-caret-down'}
-          iconPosition="after"
+          iconPosition={stylingPosition.AFTER}
           label={this.props.label}
           look={this.props.look}
           onMouseDown={this.toogleOpenState}
