@@ -3,6 +3,7 @@ import React from 'react'
 
 import Icon from '../Icon'
 import {ButtonStyles} from '../Button'
+import {stylingInk, stylingLook, stylingPosition} from '../utilStyles'
 
 export const ButtonLinkStyles = ButtonStyles.withComponent('a').extend`
   && {
@@ -33,9 +34,9 @@ const ButtonLink = props => {
 
 ButtonLink.defaultProps = {
   href: '#',
-  iconPosition: 'before',
-  ink: 'base',
-  look: 'flat'
+  iconPosition: stylingPosition.BEFORE,
+  ink: stylingInk.BASE,
+  look: stylingLook.FLAT
 }
 
 ButtonLink.propTypes = {
@@ -67,11 +68,11 @@ ButtonLink.propTypes = {
   /**
    * Add spacing according position. Default value is 'before'. Possible values: before|solely
    */
-  iconPosition: PropTypes.oneOf(['before', 'solely']),
+  iconPosition: PropTypes.oneOf([stylingPosition.BEFORE, stylingPosition.SOLELY]),
   /**
    * Define color palette. Default value is 'base'. Possible values: base|primary
    */
-  ink: PropTypes.oneOf(['base', 'primary']),
+  ink: PropTypes.oneOf([stylingInk.BASE, stylingInk.PRIMARY]),
   /**
    * Visible text. Default is an empty string.
    */
@@ -79,7 +80,7 @@ ButtonLink.propTypes = {
   /**
    * Button Link style. Default value is 'plain'. Possible values: plain|flat|raised
    */
-  look: PropTypes.oneOf(['flat', 'raised']),
+  look: PropTypes.oneOf([stylingLook.PLAIN, stylingLook.FLAT, stylingLook.RAISED]),
   /**
    * Popover title to be shown on mouse over.
    */

@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import {theme} from 'styled-system'
 
 import Icon from '../Icon'
+import {stylingPosition} from '../utilStyles'
 
 const UploadInputStyles = styled.div`
   border: dashed 1px ${theme('colors.base.fill.2')};
@@ -32,7 +33,7 @@ const UploadInput = props => {
     >
       <Icon
         icon="fa-upload"
-        position="before"
+        position={stylingPosition.BEFORE}
       />
       {props.text || 'drag and drop or click'}
     </Dropzone>

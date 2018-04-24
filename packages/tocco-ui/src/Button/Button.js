@@ -6,7 +6,7 @@ import {theme} from 'styled-system'
 import Icon from '../Icon'
 import {ButtonGroupStyles} from '../ButtonGroup'
 import {MenuBarStyles, MenuStackStyles} from '../Menu'
-import {getElevation} from '../utilStyles'
+import {getElevation, stylingAnimation, stylingLook, stylingInk, stylingPosition} from '../utilStyles'
 
 const setButtonDensity = props => {
   if (props.dense) {
@@ -30,28 +30,28 @@ const setButtonColor = props => {
     activeColor,
     activeBackground
 
-  if (props.look === 'flat' && props.ink === 'base') {
+  if (props.look === stylingLook.FLAT && props.ink === stylingInk.BASE) {
     defaultColor = theme('colors.base.text')(props)
     defaultBackground = theme('colors.base.paper')(props)
     focusColor = theme('colors.base.line.1')(props)
     focusBackground = theme('colors.base.fill.0')(props)
     activeColor = theme('colors.base.line.2')(props)
     activeBackground = theme('colors.base.fill.1')(props)
-  } else if (props.look === 'flat' && props.ink === 'primary') {
+  } else if (props.look === stylingLook.FLAT && props.ink === stylingInk.PRIMARY) {
     defaultColor = theme('colors.primary.line.0')(props)
     defaultBackground = theme('colors.base.paper')(props)
     focusColor = theme('colors.primary.line.1')(props)
     focusBackground = theme('colors.base.fill.0')(props)
     activeColor = theme('colors.primary.line.2')(props)
     activeBackground = theme('colors.base.fill.1')(props)
-  } else if (props.look === 'raised' && props.ink === 'base') {
+  } else if (props.look === stylingLook.RAISED && props.ink === stylingInk.BASE) {
     defaultColor = theme('colors.base.line.0')(props)
     defaultBackground = theme('colors.base.fill.0')(props)
     focusColor = theme('colors.base.line.1')(props)
     focusBackground = theme('colors.base.fill.1')(props)
     activeColor = theme('colors.base.line.2')(props)
     activeBackground = theme('colors.base.fill.2')(props)
-  } else if (props.look === 'raised' && props.ink === 'primary') {
+  } else if (props.look === stylingLook.RAISED && props.ink === stylingInk.PRIMARY) {
     defaultColor = theme('colors.primary.fillContrast.0', false)(props)
     if (!defaultColor) {
       defaultColor = theme('colors.base.line.0')(props)
@@ -91,7 +91,7 @@ const setButtonColor = props => {
 
 const meltButtons = props => {
   let declaration = ''
-  if (!props.melt && props.look === 'raised') {
+  if (!props.melt && props.look === stylingLook.RAISED) {
     declaration = `
       &:not(:last-child) {
         margin-right: ${theme('space.4')(props)};
@@ -116,7 +116,7 @@ const meltButtons = props => {
 }
 
 const setIconPosition = props => {
-  if (props.iconPosition === 'after') {
+  if (props.iconPosition === stylingPosition.AFTER) {
     return `
       justify-content: space-between;
       > span {
@@ -154,7 +154,7 @@ export const ButtonStyles = styled.button`
 
     ${props => setButtonColor(props)}
     ${props => setButtonDensity(props)}
-    ${props => getElevation(props, props.look === 'raised' && props.melt !== true ? 1 : 0)}
+    ${props => getElevation(props, props.look === stylingLook.RAISED && props.melt !== true ? 1 : 0)}
 
     ${ButtonGroupStyles} & {
       ${props => meltButtons(props)}
@@ -182,7 +182,7 @@ const Button = props => {
       dense={props.dense}
       disabled={props.disabled}
       iconPosition={props.iconPosition}
-      ink={props.ink || props.buttonGroupInk || 'base'}
+      ink={props.ink || props.buttonGroupInk || stylingInk.BASE}
       look={props.look}
       melt={props.buttonGroupMelt}
       name={props.name}
@@ -198,7 +198,7 @@ const Button = props => {
         icon={props.icon}
         position={props.iconPosition}/>}
       {props.pending && <Icon
-        animation="spin"
+        animation={stylingAnimation.SPIN}
         dense={props.dense}
         icon="fa-circle-o-notch"
         position={props.iconPosition}/>}
@@ -208,9 +208,9 @@ const Button = props => {
 }
 
 Button.defaultProps = {
-  iconPosition: 'before',
+  iconPosition: stylingPosition.BEFORE,
   label: '',
-  look: 'flat',
+  look: stylingLook.FLAT,
   type: 'button'
 }
 
@@ -218,7 +218,7 @@ Button.propTypes = {
   /**
    * May passed from ButtonGroup to use as ink default.
    */
-  buttonGroupInk: PropTypes.oneOf(['base', 'primary']),
+  buttonGroupInk: PropTypes.oneOf([stylingInk.BASE, stylingInk.PRIMARY]),
   /**
    * May passed from ButtonGroup to merge buttons visually.
    */
@@ -239,11 +239,11 @@ Button.propTypes = {
   /**
    * Add spacing according position. Default value is 'before'. Possible values: before|solely
    */
-  iconPosition: PropTypes.oneOf(['after', 'before', 'solely']),
+  iconPosition: PropTypes.oneOf([stylingPosition.AFTER, stylingPosition.BEFORE, stylingPosition.SOLELY]),
   /**
    * Define color palette. Default value is 'base'. Possible values: base|primary
    */
-  ink: PropTypes.oneOf(['base', 'primary']),
+  ink: PropTypes.oneOf([stylingInk.BASE, stylingInk.PRIMARY]),
   /**
    * Visible text. Default is an empty string.
    */
@@ -251,7 +251,7 @@ Button.propTypes = {
   /**
    * Button style according Google Material Design. Default value is 'flat'. Possible values: flat|raised
    */
-  look: PropTypes.oneOf(['flat', 'raised']),
+  look: PropTypes.oneOf([stylingLook.FLAT, stylingLook.RAISED]),
   /**
    * Set button's name attribute.
    */
