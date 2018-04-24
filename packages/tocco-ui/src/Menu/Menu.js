@@ -2,6 +2,8 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
+import {stylingLook} from '../utilStyles'
+
 const MenuStyles = styled.ul`
   && {
     margin: 0;
@@ -27,14 +29,14 @@ class Menu extends React.Component {
 }
 
 Menu.defaultProps = {
-  look: 'flat'
+  look: stylingLook.FLAT
 }
 
 Menu.propTypes = {
   /**
    * Style according Google Material Design. Default value is 'flat'. Possible values: flat|raised
    */
-  look: PropTypes.oneOf(['flat', 'raised'])
+  look: PropTypes.oneOf([stylingLook.FLAT, stylingLook.RAISED])
 }
 
 export {

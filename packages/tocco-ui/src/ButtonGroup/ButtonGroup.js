@@ -2,7 +2,8 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 import {theme} from 'styled-system'
-import {getElevation} from '../utilStyles'
+
+import {getElevation, stylingInk, stylingLook} from '../utilStyles'
 
 export const ButtonGroupStyles = styled.div`
   && {
@@ -11,7 +12,7 @@ export const ButtonGroupStyles = styled.div`
     width: fit-content;
 
     border-radius: ${props => props.melt === true ? theme('radii.3') : 0};
-    ${props => getElevation(props, props.look === 'raised' && props.melt === true ? 1 : 0)}
+    ${props => getElevation(props, props.look === stylingLook.RAISED && props.melt === true ? 1 : 0)}
   }
 `
 
@@ -30,8 +31,8 @@ const ButtonGroup = props => {
 }
 
 ButtonGroup.defaultProps = {
-  ink: 'base',
-  look: 'flat',
+  ink: stylingInk.BASE,
+  look: stylingLook.FLAT,
   melt: false
 }
 
@@ -40,11 +41,11 @@ ButtonGroup.propTypes = {
    * Set color palette for all Buttons globally. Ink can be overwritten on Buttons individually.
    * Default value is 'base'. Possible values: base|primary
    */
-  ink: PropTypes.oneOf(['base', 'primary']),
+  ink: PropTypes.oneOf([stylingInk.BASE, stylingInk.PRIMARY]),
   /**
    * Set style for all Buttons globally. Default value is 'flat'. Possible values: flat|raised
    */
-  look: PropTypes.oneOf(['flat', 'raised']),
+  look: PropTypes.oneOf([stylingLook.FLAT, stylingLook.RAISED]),
   /**
    * If true Buttons melt visually into one. Default value is 'false'.
    */

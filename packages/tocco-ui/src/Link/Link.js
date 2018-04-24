@@ -3,6 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {theme} from 'styled-system'
 import Icon from '../Icon'
+import {stylingPosition} from '../utilStyles'
 
 const LinkStyles = styled.a`
   && {
@@ -29,7 +30,7 @@ const Link = props => {
       target={props.target}
       title={props.title}
     >
-      {props.icon && <Icon icon={props.icon} position="before"/>}
+      {props.icon && <Icon icon={props.icon} position={stylingPosition.BEFORE}/>}
       {props.label}
     </LinkStyles>
   )

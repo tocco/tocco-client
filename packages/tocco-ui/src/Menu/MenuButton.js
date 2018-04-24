@@ -2,6 +2,7 @@ import React from 'react'
 import {theme} from 'styled-system'
 
 import Menu, {MenuStyles} from './Menu'
+import {stylingLook} from '../utilStyles'
 
 const MenuButtonStyles = MenuStyles.extend`
   && {
@@ -17,7 +18,7 @@ const MenuButtonStyles = MenuStyles.extend`
     > li:not(:last-child),
     > hr:not(:last-child) {
       margin: 0;
-      margin-right: ${props => props.look === 'raised' ? theme('space.4') : ''};
+      margin-right: ${props => props.look === stylingLook.RAISED ? theme('space.4') : ''};
     }
   }
 `

@@ -2,6 +2,8 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import styled from 'styled-components'
 
+import {stylingLook} from '../utilStyles'
+
 const ItemStyles = styled.li`
   position: relative;
 
@@ -23,8 +25,8 @@ class Item extends React.Component {
     }))
   }
 
-  childs // eslint-disable-next-line
-  = React.Children.map(this.props.children, child => {
+  // eslint-disable-next-line
+  childs = React.Children.map(this.props.children, child => {
     return React.cloneElement(child, {look: this.props.look})
   })
 
@@ -57,7 +59,7 @@ Item.propTypes = {
   /**
    * Style according Google Material Design. Value is always overridden by parent element.
    */
-  look: PropTypes.oneOf(['flat', 'raised'])
+  look: PropTypes.oneOf([stylingLook.FLAT, stylingLook.RAISED])
 }
 
 export {
