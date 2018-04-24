@@ -20,7 +20,11 @@ const MenuStackStyles = MenuStyles.extend`
 
 class MenuStack extends Menu {
   render() {
-    return <MenuStackStyles>{this.childs}</MenuStackStyles>
+    return (
+      <MenuStackStyles>
+        {this.getChildren()}
+      </MenuStackStyles>
+    )
   }
 }
 

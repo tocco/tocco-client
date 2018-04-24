@@ -29,7 +29,7 @@ class MenuBar extends Menu {
       <MenuBarStyles
         look={this.props.look}
       >
-        {this.childs}
+        {this.getChildren()}
       </MenuBarStyles>
     )
   }
