@@ -16,7 +16,6 @@ import {
   selectEntitiesTransformer,
   createEntity
 } from '../../util/api/entities'
-import {getFieldDefinitions, getFieldNames, fetchForm} from '../../util/api/forms'
 import {submitValidate} from '../../util/detailView/asyncValidation'
 import modes from '../../util/modes'
 import {uploadRequest, documentToFormValueTransformer} from '../../util/api/documents'
@@ -254,7 +253,7 @@ describe('entity-detail', () => {
             const formDefinition = {}
 
             const gen = sagas.loadDetailFormDefinition(formName)
-            expect(gen.next().value).to.eql(call(fetchForm, formName))
+            expect(gen.next().value).to.eql(call(form.fetchForm, formName))
             expect(gen.next(formDefinition).value).to.eql(put(actions.setFormDefinition(formDefinition)))
             const next = gen.next(formDefinition)
             expect(next.value).to.eql(formDefinition)
@@ -304,8 +303,8 @@ describe('entity-detail', () => {
             const gen = sagas.getFields()
             expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
 
-            expect(gen.next({formDefinition}).value).to.eql(call(getFieldDefinitions, formDefinition))
-            expect(gen.next(fieldDefinitions).value).to.eql(call(getFieldNames, fieldDefinitions))
+            expect(gen.next({formDefinition}).value).to.eql(call(form.getFieldDefinitions, formDefinition))
+            expect(gen.next(fieldDefinitions).value).to.eql(call(form.getFieldNames, fieldDefinitions))
 
             const next = gen.next(fieldDefinitions)
             expect(next.value).to.eql(fieldDefinitions)
@@ -341,8 +340,8 @@ describe('entity-detail', () => {
             const entity = {}
 
             const gen = sagas.loadEntity(entityName, entityId, formDefinition, formName)
-            expect(gen.next().value).to.eql(call(getFieldDefinitions, formDefinition))
-            expect(gen.next(fieldDefinitions).value).to.eql(call(getFieldNames, fieldDefinitions))
+            expect(gen.next().value).to.eql(call(form.getFieldDefinitions, formDefinition))
+            expect(gen.next(fieldDefinitions).value).to.eql(call(form.getFieldNames, fieldDefinitions))
             expect(gen.next(fields).value).to.eql(call(fetchEntity, entityName, entityId, fields, formName))
             expect(gen.next(entity).value).to.eql(put(actions.setEntity(entity)))
             const next = gen.next()

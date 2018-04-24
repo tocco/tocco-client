@@ -1,6 +1,6 @@
 import formErrorsUtil from './formErrors'
 import initFormBuilder from './formBuilder'
-import {getFieldId} from './helpers'
+import {getFieldId, getFieldDefinitions, getDefaultValues, getFieldNames, fetchForm} from './formDefinition'
 import syncValidation from './syncValidation'
 import {
   formValuesToEntity,
@@ -11,14 +11,18 @@ import {
   transformFieldNameBack
 } from './reduxForm'
 
-import componentTypes from './componentTypes'
-import layoutTypes from './layoutTypes'
-import scopes from './scopes'
+import componentTypes from './enums/componentTypes'
+import layoutTypes from './enums/layoutTypes'
+import scopes from './enums/scopes'
 
 export default {
   formErrorsUtil,
   initFormBuilder,
   getFieldId,
+  getFieldDefinitions,
+  getDefaultValues,
+  getFieldNames,
+  fetchForm,
   formValuesToEntity,
   entityToFormValues,
   getDirtyFields,
