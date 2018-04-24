@@ -43,7 +43,7 @@ const ActionGroup = ({definition, onClick, selectedCount}, context) => {
       <MenuButton>
         <MainAction definition={definition.action} selectedCount={selectedCount} onClick={onClick}/>
         <ItemFlyout
-          isToggable={definition.readonly !== true}
+          isToggleable={definition.readonly !== true}
           label={definition.label}
         >
           <MenuStack>
@@ -58,7 +58,7 @@ const ActionGroup = ({definition, onClick, selectedCount}, context) => {
     return (
       <MenuButton>
         <ItemFlyout
-          isToggable={definition.readonly !== true}
+          isToggleable={definition.readonly !== true}
           label={definition.label}
         >
           <MenuStack>

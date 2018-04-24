@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import {stylingLook} from '../utilStyles'
 
-const ItemStyles = styled.li`
+const StyledItem = styled.li`
   position: relative;
 
   > ul {
@@ -19,7 +19,7 @@ class Item extends React.Component {
 
   toogleOpenState = () => {
     // eslint-disable-next-line
-    this.props.isToggable
+    this.props.isToggleable
     && this.setState(prevState => ({
       isOpen: !prevState.isOpen
     }))
@@ -34,19 +34,19 @@ class Item extends React.Component {
 
   render() {
     return (
-      <ItemStyles
+      <StyledItem
         isOpen={this.state.isOpen}
-        isToggable={this.props.isToggable}
+        isToggleable={this.props.isToggleable}
       >
         {this.getChildren()}
-      </ItemStyles>
+      </StyledItem>
     )
   }
 }
 
 Item.defaultProps = {
   isOpen: true,
-  isToggable: false
+  isToggleable: false
 }
 
 Item.propTypes = {
@@ -57,7 +57,7 @@ Item.propTypes = {
   /**
    * Boolean to control if a user can change the open state. Default value is 'false'.
    */
-  isToggable: PropTypes.bool,
+  isToggleable: PropTypes.bool,
   /**
    * Style according Google Material Design. Value is always overridden by parent element.
    */
@@ -66,5 +66,5 @@ Item.propTypes = {
 
 export {
   Item as default,
-  ItemStyles
+  StyledItem
 }

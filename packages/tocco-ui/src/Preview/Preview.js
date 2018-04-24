@@ -7,7 +7,7 @@ import Icon from '../Icon'
  * Can be used to show previews of any kind of file. Therefore an Url to the thumbnail and to the file must be provided.
  */
 
-const PreviewStyles = styled.figure`
+const StyledPreview = styled.figure`
   && {
     vertical-align: top;
     display: inline-flex;
@@ -67,10 +67,10 @@ const Preview = props => {
   const interactive = ((props.downloadOnClick && props.srcUrl) || props.onClick)
 
   return (
-    <PreviewStyles interactive={interactive}>
+    <StyledPreview interactive={interactive}>
       {imageWrapper}
       {props.caption && <figcaption>{props.caption}</figcaption>}
-    </PreviewStyles>
+    </StyledPreview>
   )
 }
 

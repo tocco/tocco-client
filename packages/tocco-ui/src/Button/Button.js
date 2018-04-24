@@ -4,8 +4,8 @@ import styled from 'styled-components'
 import {theme} from 'styled-system'
 
 import Icon from '../Icon'
-import {ButtonGroupStyles} from '../ButtonGroup'
-import {MenuBarStyles, MenuStackStyles} from '../Menu'
+import {StyledButtonGroup} from '../ButtonGroup'
+import {StyledMenuBar, StyledMenuStack} from '../Menu'
 import {getElevation, stylingAnimation, stylingLook, stylingInk, stylingPosition} from '../utilStyles'
 
 const setButtonDensity = props => {
@@ -126,7 +126,7 @@ const setIconPosition = props => {
   }
 }
 
-export const ButtonStyles = styled.button`
+export const StyledButton = styled.button`
   && {
     background-image: none;
     border-radius: ${theme('radii.3')};
@@ -156,19 +156,19 @@ export const ButtonStyles = styled.button`
     ${props => setButtonDensity(props)}
     ${props => getElevation(props, props.look === stylingLook.RAISED && props.melt !== true ? 1 : 0)}
 
-    ${ButtonGroupStyles} & {
+    ${StyledButtonGroup} & {
       ${props => meltButtons(props)}
     }
 
-    ${MenuBarStyles} &,
-    ${MenuStackStyles} & {
+    ${StyledMenuBar} &,
+    ${StyledMenuStack} & {
       border-radius: 0;
       box-shadow: none;
       text-align: left;
       text-transform: none;
     }
 
-    ${MenuStackStyles} & {
+    ${StyledMenuStack} & {
       width: 100%;
     }
 
@@ -178,7 +178,7 @@ export const ButtonStyles = styled.button`
 
 const Button = props => {
   return (
-    <ButtonStyles
+    <StyledButton
       dense={props.dense}
       disabled={props.disabled}
       iconPosition={props.iconPosition}
@@ -203,7 +203,7 @@ const Button = props => {
         icon="fa-circle-o-notch"
         position={props.iconPosition}/>}
       <span>{props.label}</span>
-    </ButtonStyles>
+    </StyledButton>
   )
 }
 

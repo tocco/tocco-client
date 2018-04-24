@@ -5,7 +5,7 @@ import {theme} from 'styled-system'
 import Icon from '../Icon'
 import {stylingPosition} from '../utilStyles'
 
-const LinkStyles = styled.a`
+const StyledLink = styled.a`
   && {
     color: ${theme('colors.primary.line.0')}
     text-decoration: none;
@@ -23,7 +23,7 @@ const LinkStyles = styled.a`
 
 const Link = props => {
   return (
-    <LinkStyles
+    <StyledLink
       alt={props.alt}
       download={props.download}
       href={props.href}
@@ -32,7 +32,7 @@ const Link = props => {
     >
       {props.icon && <Icon icon={props.icon} position={stylingPosition.BEFORE}/>}
       {props.label}
-    </LinkStyles>
+    </StyledLink>
   )
 }
 

@@ -38,7 +38,7 @@ const getSpacing = props => {
   `
 }
 
-const IconStyles = styled.i`
+const StyledIcon = styled.i`
   && {
     padding: 0;
     ${props => getSpacing(props)}
@@ -47,7 +47,7 @@ const IconStyles = styled.i`
 
 const Icon = props => {
   return (
-    <IconStyles
+    <StyledIcon
       className={getClassName(props.icon, props.animation)}
       dense={props.dense}
       onClick={props.onClickFunction}
