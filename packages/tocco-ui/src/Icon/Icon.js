@@ -11,15 +11,19 @@ import {
 } from '../utilStyles'
 
 const getClassName = (icon, animation) => {
-  let cls = classNames({
-    'glyphicon': icon.startsWith('glyphicon-'),
-    'fa': icon.startsWith('fa-')
-  }, icon, 'icon')
+  let cls
+  if (icon) {
+    cls = classNames({
+      'glyphicon': icon.startsWith('glyphicon-'),
+      'fa': icon.startsWith('fa-')
+    }, icon, 'icon')
 
-  if (animation === stylingAnimation.SPIN) {
-    cls = classNames(cls, 'fa-spin')
+    if (animation === stylingAnimation.SPIN) {
+      cls = classNames(cls, 'fa-spin')
+    }
+  } else {
+    cls = 'fa'
   }
-
   return cls
 }
 
@@ -37,7 +41,9 @@ const Icon = props => {
       onMouseLeave={props.onMouseLeaveFunction}
       onMouseDown={props.onMouseDownFunction}
       position={props.position}
-    />
+    >
+      {props.unicode}
+    </StyledIcon>
   )
 }
 
@@ -56,7 +62,7 @@ Icon.propTypes = {
    * specific classname (e.g. "bars")
    * https://getbootstrap.com/docs/3.3/components/#glyphicons or https://fontawesome.com/v4.7.0/icons/
    */
-  icon: PropTypes.string.isRequired,
+  icon: PropTypes.string,
   /**
    * If true, button occupies less space. It should only used for crowded areas like tables and only if necessary.
    */
@@ -68,7 +74,11 @@ Icon.propTypes = {
   onClickFunction: PropTypes.func,
   onMouseEnterFunction: PropTypes.func,
   onMouseLeaveFunction: PropTypes.func,
-  onMouseDownFunction: PropTypes.func
+  onMouseDownFunction: PropTypes.func,
+  unicode: PropTypes.string
 }
 
-export default Icon
+export {
+  Icon as default,
+  StyledIcon
+}
