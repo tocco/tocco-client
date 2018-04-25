@@ -11,16 +11,15 @@ import {
 } from '../utilStyles'
 
 const getClassName = (icon, animation) => {
-  let cls = classNames({
-    'glyphicon': icon.startsWith('glyphicon-'),
-    'fa': icon.startsWith('fa-')
-  }, icon, 'icon')
-
-  if (animation === stylingAnimation.SPIN) {
-    cls = classNames(cls, 'fa-spin')
+  if (icon) {
+    return classNames({
+      'glyphicon': icon.startsWith('glyphicon-'),
+      'fa': icon.startsWith('fa-'),
+      'fa-spin': animation === stylingAnimation.SPIN
+    }, icon, 'icon')
+  } else {
+    return 'fa'
   }
-
-  return cls
 }
 
 /**
@@ -37,7 +36,9 @@ const Icon = props => {
       onMouseLeave={props.onMouseLeaveFunction}
       onMouseDown={props.onMouseDownFunction}
       position={props.position}
-    />
+    >
+      {props.unicode}
+    </StyledIcon>
   )
 }
 
@@ -56,7 +57,7 @@ Icon.propTypes = {
    * specific classname (e.g. "bars")
    * https://getbootstrap.com/docs/3.3/components/#glyphicons or https://fontawesome.com/v4.7.0/icons/
    */
-  icon: PropTypes.string.isRequired,
+  icon: PropTypes.string,
   /**
    * If true, button occupies less space. It should only used for crowded areas like tables and only if necessary.
    */
@@ -68,7 +69,15 @@ Icon.propTypes = {
   onClickFunction: PropTypes.func,
   onMouseEnterFunction: PropTypes.func,
   onMouseLeaveFunction: PropTypes.func,
-  onMouseDownFunction: PropTypes.func
+  onMouseDownFunction: PropTypes.func,
+  /*
+   * Display one or more unicode characters. Use unicode escape string (e.g. \u2022).
+   * Font Awesome styling is used. If prop icon and unicode is used together, icon prepend unicode characters.
+   */
+  unicode: PropTypes.string
 }
 
-export default Icon
+export {
+  Icon as default,
+  StyledIcon
+}

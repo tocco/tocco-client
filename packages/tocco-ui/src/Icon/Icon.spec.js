@@ -32,7 +32,7 @@ describe('tocco-ui', function() {
         onMouseDown,
         position
       } = props
-      expect(Object.keys(props)).to.have.lengthOf(7)
+      expect(Object.keys(props)).to.have.lengthOf(8)
       expect(className).to.equal('fa fa-bar icon')
       expect(dense).to.be.true
       expect(onClick).to.be.a('function')
@@ -54,7 +54,13 @@ describe('tocco-ui', function() {
 
     it('should animate Font Awesome', () => {
       const wrapper = shallow(<Icon animation="spin" icon="fa-bar"/>)
-      expect(wrapper.props().className).to.equal('fa fa-bar icon fa-spin')
+      expect(wrapper.props().className).to.equal('fa fa-spin fa-bar icon')
+    })
+
+    it('should render unicode and set classname', () => {
+      const wrapper = shallow(<Icon unicode={'\u2022'}/>)
+      expect(wrapper.dive().text()).to.equal('•')
+      expect(wrapper.props().className).to.equal('fa')
     })
   })
 })
