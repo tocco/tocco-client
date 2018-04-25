@@ -5,6 +5,14 @@ const animation = {
   SPIN: 'spin'
 }
 
+const condition = {
+  BASE: 'base',
+  DANGER: 'danger',
+  PRIMARY: 'primary',
+  SUCCESS: 'success',
+  WARNING: 'warning'
+}
+
 const ink = {
   BASE: 'base',
   PRIMARY: 'primary'
@@ -24,6 +32,7 @@ const position = {
 }
 
 const animationPropTypes = PropTypes.oneOf(Object.values(animation))
+const conditionPropTypes = PropTypes.oneOf(Object.values(condition))
 const inkPropTypes = PropTypes.oneOf(Object.values(ink))
 const lookPropTypes = PropTypes.oneOf(Object.values(look))
 const positionPropTypes = PropTypes.oneOf(Object.values(position))
@@ -31,6 +40,8 @@ const positionPropTypes = PropTypes.oneOf(Object.values(position))
 export {
   animation,
   animationPropTypes,
+  condition,
+  conditionPropTypes,
   ink,
   inkPropTypes,
   look,
