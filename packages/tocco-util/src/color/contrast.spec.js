@@ -1,8 +1,8 @@
 import {getContrastColor} from './contrast'
 
-const white = {r: 255, g: 255, b: 255}
-const khaki = {r: 240, g: 230, b: 140}
-const black = {r: 0, g: 0, b: 0}
+const white = '#fff'
+const khaki = '#C3B091'
+const black = '#000000'
 
 const bright = 'bright'
 const dark = 'dark'

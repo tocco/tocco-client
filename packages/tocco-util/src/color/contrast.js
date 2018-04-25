@@ -1,3 +1,5 @@
+import {hexToRgb} from './hexToRgb'
+
 const LUMIANCE_LIMIT = 0.179
 
 const calculateLight = colorItem => {
@@ -16,10 +18,17 @@ const calculateLumiance = color =>
 /***
  * Returns a dark or bright value depending on the given color.
  * This could be used to choose a pleasant font color to a background color.
- * @param rgbColor Object whit this shape: {r: 0, g: 0, b: 0}
+ * @param hexColor Hex Color code
  * @param brightValue Bright value can be overridden. Default is the color white as hex.
  * @param darkValue Dark value can be overridden. Default is the color black as hex.
  * @returns {string}
  */
-export const getContrastColor = (rgbColor, brightValue = '#FFFFFF', darkValue = '#000000') =>
-  calculateLumiance(rgbColor) > LUMIANCE_LIMIT ? darkValue : brightValue
+export const getContrastColor = (hexColor, brightValue = '#FFFFFF', darkValue = '#000000') => {
+  const rgbColor = hexToRgb(hexColor)
+
+  if (rgbColor) {
+    return calculateLumiance(rgbColor) > LUMIANCE_LIMIT ? darkValue : brightValue
+  }
+
+  return brightValue
+}
