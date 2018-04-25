@@ -46,6 +46,10 @@ import PanelRaw from '!raw-loader!../../tocco-ui/src/Panel/Panel'
 import PanelExample from '../../tocco-ui/src/Panel/example'
 import PanelExampleRaw from '!raw-loader!../../tocco-ui/src/Panel/example'
 
+import SignalListRaw from '!raw-loader!../../tocco-ui/src/SignalList/SignalList'
+import SignalListExample from '../../tocco-ui/src/SignalList/example'
+import SignalListExampleRaw from '!raw-loader!../../tocco-ui/src/SignalList/example'
+
 import PreviewRaw from '!raw-loader!../../tocco-ui/src/Preview/Preview'
 import PreviewExample from '../../tocco-ui/src/Preview/example'
 import PreviewExampleRaw from '!raw-loader!../../tocco-ui/src/Preview/example'
@@ -157,6 +161,14 @@ export default [
         example: {
           component: TypographyExample,
           raw: TypographyExampleRaw
+        }
+      },
+      {
+        name: 'SignalList',
+        raw: SignalListRaw,
+        example: {
+          component: SignalListExample,
+          raw: SignalListExampleRaw
         }
       },
       {
