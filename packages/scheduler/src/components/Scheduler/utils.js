@@ -12,11 +12,8 @@ export const getResources = calendars => {
   }))
 }
 
-const WHITE_RGB = {r: 255, g: 255, b: 255}
-const getTextColor = hexColor => {
-  const rgbColor = color.hexToRgb(hexColor, WHITE_RGB)
-  return color.getContrastColor(rgbColor, 'bright', 'dark')
-}
+const getOptimalTextColorClass = backgroundHexColor =>
+  color.getContrastColor(backgroundHexColor, 'bright', 'dark')
 
 export const getEvents = calendars =>
   calendars.reduce((accumulator, calendar) => (
@@ -31,7 +28,7 @@ export const getEvents = calendars =>
         description: event.description,
         conflict: event.conflict,
         ...(event.color ? {backgroundColor: event.color} : {}),
-        className: classNames({conflict: event.conflict === 'existing'}, getTextColor(event.color))
+        className: classNames({conflict: event.conflict === 'existing'}, getOptimalTextColorClass(event.color))
       }))
     ]
   ), [])
