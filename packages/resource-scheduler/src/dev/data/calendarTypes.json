@@ -4,7 +4,8 @@
       "name": "lecturer",
       "targetEntity": "User",
       "formBase": "UserCalendar",
-      "label": "Dozent"
+      "label": "Dozent",
+      "color": "#f44242"
     },
     {
       "name": "dummy",

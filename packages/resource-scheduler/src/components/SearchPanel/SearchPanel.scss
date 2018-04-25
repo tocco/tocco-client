@@ -1,3 +1,9 @@
-.accordion-header-icon {
-  float: right;
+.accordion-panel {
+  .collapse-icon {
+    float: right;
+  }
+
+  .color-icon {
+    padding-right: 6px;
+  }
 }

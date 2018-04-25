@@ -21,21 +21,32 @@ class SearchPanel extends React.PureComponent {
   }
 
   getSearchLists = calendarTypes => {
-    const accordionHeader = (content, name) => {
+    const accordionHeader = (content, name, color) => {
       const iconClasses = classNames(
-        'accordion-header-icon ',
-        'glyphicon',
-        `glyphicon-chevron-${this.state.activeKey === name ? 'up' : 'down'}`
+        'collapse-icon',
+        'fa',
+        `fa-chevron-${this.state.activeKey === name ? 'up' : 'down'}`
       )
+
+      const colorIconClass = classNames(
+        'color-icon',
+        'fa',
+        `fa-square${color ? '' : '-o'}`
+      )
+
       return <div onClick={() => { this.handleAccordionSelect(name) }}>
+        <i className={colorIconClass} aria-hidden="true" style={{color}}></i>
         {content}
-        <i className={iconClasses}></i>
+
+        <i className={iconClasses}/>
       </div>
     }
 
     return calendarTypes.map(calendarType => (
-      <Panel collapsible
-        header={accordionHeader(calendarType.label, calendarType.name)}
+      <Panel
+        collapsible
+        className="accordion-panel"
+        header={accordionHeader(calendarType.label, calendarType.name, calendarType.color)}
         eventKey={calendarType.name}
         key={calendarType.name}
       >
@@ -72,7 +83,8 @@ SearchPanel.propTypes = {
       label: PropTypes.string.isRequired,
       formBase: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      targetEntity: PropTypes.string.isRequired
+      targetEntity: PropTypes.string.isRequired,
+      color: PropTypes.string
     }
     )),
   requestedCalendars: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),

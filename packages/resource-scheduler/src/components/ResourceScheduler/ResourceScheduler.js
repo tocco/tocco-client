@@ -57,7 +57,8 @@ ResourceScheduler.propTypes = {
       label: PropTypes.string.isRequired,
       formBase: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      targetEntity: PropTypes.string.isRequired
+      targetEntity: PropTypes.string.isRequired,
+      color: PropTypes.string
     }
     )),
   requestedCalendars: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
