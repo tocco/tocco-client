@@ -32,7 +32,7 @@ describe('tocco-ui', function() {
         onMouseDown,
         position
       } = props
-      expect(Object.keys(props)).to.have.lengthOf(7)
+      expect(Object.keys(props)).to.have.lengthOf(8) // children is eighth prop
       expect(className).to.equal('fa fa-bar icon')
       expect(dense).to.be.true
       expect(onClick).to.be.a('function')
