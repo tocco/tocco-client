@@ -58,14 +58,14 @@ const testFormDefinition = {
 
 describe('tocco-util', () => {
   describe('form', () => {
-    describe('helper', () => {
+    describe('formDefinition', () => {
       beforeEach(() => {
         fetchMock.reset()
         fetchMock.restore()
       })
 
       describe('getFieldDefinitions', () => {
-        it('return an array of fields', () => {
+        it('should return an array of fields', () => {
           const fields = formDefinition.getFieldDefinitions(testFormDefinition)
           expect(fields).to.eql([testField1, testField2, testDisplay, testField3])
         })
@@ -120,6 +120,7 @@ describe('tocco-util', () => {
           expect(next.done).to.be.true
         })
       })
+
       describe('defaultFormTransformer', () => {
         it('should return form without table overhead', () => {
           const form = {
