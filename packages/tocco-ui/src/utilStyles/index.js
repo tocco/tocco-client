@@ -18,6 +18,8 @@ import objectToCss from './objectToCss'
 import {
   animation as stylingAnimation,
   animationPropTypes,
+  condition as stylingCondition,
+  conditionPropTypes,
   ink as stylingInk,
   inkPropTypes,
   look as stylingLook,
@@ -28,6 +30,7 @@ import {
 
 export {
   animationPropTypes,
+  conditionPropTypes,
   declareDensity,
   declareElevation,
   declareFlatBaseColors,
@@ -45,6 +48,7 @@ export {
   objectToCss,
   positionPropTypes,
   stylingAnimation,
+  stylingCondition,
   stylingInk,
   stylingLook,
   stylingPosition
