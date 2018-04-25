@@ -22,7 +22,6 @@ class ListView extends React.Component {
           required={[props.formDefinition]}
           loadingText={this.msg('client.entity-list.loadingText')}
         >
-
           {
             this.props.formDefinition && this.props.formDefinition.children.map((child, idx) => {
               if (child.componentType === form.componentTypes.LAYOUT && child.layoutType === form.layoutTypes.TABLE) {

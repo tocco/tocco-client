@@ -85,7 +85,8 @@ const karmaConfig = {
     }
   },
   webpackMiddleware: {
-    noInfo: true
+    noInfo: true,
+    stats: 'errors-only'
   },
   coverageReporter: config.coverage_reporters
 }
