@@ -35,7 +35,7 @@ class SearchPanel extends React.PureComponent {
       )
 
       return <div onClick={() => { this.handleAccordionSelect(name) }}>
-        <i className={colorIconClass} aria-hidden="true" style={{color}}></i>
+        <i className={colorIconClass} aria-hidden="true" style={{...(color ? {color} : {})}}></i>
         {content}
 
         <i className={iconClasses}/>
