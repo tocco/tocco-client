@@ -46,7 +46,7 @@ describe('resource-scheduler', () => {
 
         expect(wrapper.find('.color-icon')).to.have.length(2)
         expect(wrapper.find('.color-icon')).to.have.style('color', color)
-        expect(wrapper.find('.color-icon').last()).to.not.have.style('color')
+        expect(wrapper.find('.color-icon').last()).to.not.have.property('style')
       })
     })
   })
