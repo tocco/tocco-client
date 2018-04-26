@@ -1,4 +1,5 @@
 import _isEmpty from 'lodash/isEmpty'
+import _join from 'lodash/join'
 import _union from 'lodash/union'
 import {call, put, fork, select, spawn, takeEvery, takeLatest, all} from 'redux-saga/effects'
 import {externalEvents, actions as actionUtil, actionEmitter} from 'tocco-util'
@@ -94,9 +95,13 @@ export function* setSorting() {
   }
 }
 
+export function* getSearchFilter(inputSearchFilters, searchInputsFilters) {
+  const filters = yield call(_union, inputSearchFilters, searchInputsFilters)
+  return yield call(_join, filters, ',')
+}
+
 export function* fetchEntitiesAndAddToStore(page) {
-  const input = yield select(inputSelector)
-  const {entityName, formBase} = input
+  const {entityName, formBase, searchFilters: inputSearchFilters} = yield select(inputSelector)
   const list = yield select(listSelector)
   const {entityStore} = list
 
@@ -106,7 +111,7 @@ export function* fetchEntitiesAndAddToStore(page) {
     const formName = `${formBase}_list`
 
     const searchInputs = yield call(getSearchInputs)
-    searchInputs._filter = yield call(_union, input.searchFilters, searchInputs._filter)
+    searchInputs._filter = yield call(getSearchFilter, inputSearchFilters, searchInputs._filter)
     const fields = yield call(getFields, formDefinition)
 
     const fetchParams = {

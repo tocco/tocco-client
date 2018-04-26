@@ -1,4 +1,5 @@
 import {put, select, call, fork, takeLatest, all, take} from 'redux-saga/effects'
+import {form} from 'tocco-util'
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
 import {expectSaga} from 'redux-saga-test-plan'
@@ -9,7 +10,7 @@ import {
 } from 'redux-form'
 import * as formActionTypes from 'redux-form/es/actionTypes'
 import {validateSearchFields} from '../../util/searchFormValidation'
-import {getInitialFromValues} from '../../util/searchForm'
+import {getPreselectedValues} from '../../util/searchForm'
 import {getSearchInputsForRequest} from '../../util/searchInputs'
 
 describe('entity-list', () => {
@@ -21,7 +22,6 @@ describe('entity-list', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal(all([
               fork(takeLatest, actions.INITIALIZE, sagas.initialize),
-              fork(takeLatest, actions.SET_PRESELECTED_SEARCH_FIELDS, sagas.setPreselectedSearchFields),
               fork(takeLatest, actions.LOAD_RELATION_ENTITY, sagas.loadRelationEntity),
               fork(takeLatest, actions.LOAD_SEARCH_FILTERS, sagas.loadSearchFilters),
               fork(takeLatest, formActionTypes.CHANGE, sagas.submitSearchFrom),
@@ -33,35 +33,44 @@ describe('entity-list', () => {
         })
 
         describe('initializeSearchForm saga', () => {
-          it('should set form definition', () => {
+          it('should load form, initialvalues and set initialized status', () => {
             const formDefinition = []
             const searchFormName = 'SearchForm'
+            const initialized = false
 
             const gen = sagas.initialize()
+
             expect(gen.next().value).to.eql(select(sagas.searchFormSelector))
 
-            expect(gen.next({formDefinition, searchFormName}).value)
-              .to.eql(call(sagas.loadSearchForm, formDefinition, searchFormName))
+            expect(gen.next({searchFormName, initialized}).value).to.eql(call(sagas.loadSearchForm, searchFormName))
+            expect(gen.next(formDefinition).value).to.eql(call(sagas.setInitialFormValues, formDefinition))
             expect(gen.next().value).to.eql(put(actions.setInitialized()))
             expect(gen.next().done).to.be.true
           })
         })
 
-        describe('setPreselectedSearchFields saga', () => {
-          it('should set intital form value', () => {
-            const entityModel = {}
-            const preselectedSearchFields = [{id: 'fullText', value: 'test'}]
-            const gen = sagas.setPreselectedSearchFields(
-              actions.setPreselectedSearchFields(preselectedSearchFields)
-            )
-            expect(gen.next().value).to.eql(call(sagas.getEntityModel))
-            expect(gen.next(entityModel).value).to.eql(
-              call(getInitialFromValues, preselectedSearchFields, entityModel.model, sagas.loadRelationEntity)
-            )
-            const formValues = {fullText: 'test'}
-            expect(gen.next(formValues).value).to.eql(put(formActions.initialize('searchForm', formValues)))
-            expect(gen.next(formValues).value).to.eql(put(actions.setValuesInitialized(true)))
+        describe('setInitialFormValues saga', () => {
+          it('should set intital form values (preselected and form definition)', () => {
+            const entityModel = {model: {fields: [{'fieldName': 'firstname', 'type': 'string'}]}}
+            const preselectedSearchFields = [{id: 'firstname', value: 'test'}]
+            const preselectedValues = {firstname: 'test'}
+            const formDefinition = {children: []}
+            const fieldDefinitions = [{'fieldName': 'firstname', 'type': 'string'}]
+            const formDefaultValues = {firstname: 'Homer'}
 
+            const gen = sagas.setInitialFormValues(formDefinition)
+
+            expect(gen.next().value).to.eql(select(sagas.inputSelector))
+            expect(gen.next({preselectedSearchFields}).value).to.eql(call(sagas.getEntityModel))
+            expect(gen.next(entityModel).value).to.eql(
+              call(getPreselectedValues, preselectedSearchFields, entityModel.model, sagas.loadRelationEntity)
+            )
+            expect(gen.next(preselectedValues).value).to.eql(call(form.getFieldDefinitions, formDefinition))
+            expect(gen.next(fieldDefinitions).value).to.eql(call(form.getDefaultValues, fieldDefinitions))
+            expect(gen.next(formDefaultValues).value).to.eql(
+              put(formActions.initialize('searchForm', {...formDefaultValues, ...preselectedValues}))
+            )
+            expect(gen.next().value).to.eql(put(actions.setValuesInitialized(true)))
             expect(gen.next().done).to.be.true
           })
         })
@@ -143,7 +152,7 @@ describe('entity-list', () => {
             const entityModel = {}
             const searchValues = {
               txtFulltext: 'txtFulltext',
-              searchFilter: [{key: 'filter'}]
+              searchFilter: [{uniqueId: 'filter'}]
             }
 
             const renamedSearchValues = {

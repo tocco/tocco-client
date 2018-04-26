@@ -1,7 +1,6 @@
 import {setShowSearchForm, setEntityName, setShowCreateButton} from './modules/entityList/actions'
 import {
   setSearchFormName,
-  setPreselectedSearchFields,
   setDisableSimpleSearch,
   setSimpleSearchFields
 } from './modules/searchForm/actions'
@@ -38,12 +37,6 @@ const actionSettings = [
     name: 'limit',
     action: setLimit,
     argsFactory: input => [input.limit]
-  },
-  {
-    name: 'preselectedSearchFields',
-    action: setPreselectedSearchFields,
-    defaultInitalValue: [],
-    argsFactory: input => [input.preselectedSearchFields]
   },
   {
     name: 'searchFilters',

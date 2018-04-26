@@ -82,7 +82,7 @@ const getEvents = (type, field, modelField, util) => {
     case 'search-filter':
       if (util.loadSearchFilters) {
         events.onFocus = () => {
-          util.loadSearchFilters(field.model, field.filters)
+          util.loadSearchFilters(field.model, field.group)
         }
       }
   }

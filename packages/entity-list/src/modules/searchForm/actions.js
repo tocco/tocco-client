@@ -41,11 +41,11 @@ export const loadRelationEntity = entityName => ({
   }
 })
 
-export const loadSearchFilters = (model, filters) => ({
+export const loadSearchFilters = (model, group) => ({
   type: LOAD_SEARCH_FILTERS,
   payload: {
     model,
-    filters
+    group
   }
 })
 
@@ -84,13 +84,6 @@ export const setShowExtendedSearchForm = showExtendedSearchForm => ({
   type: SET_SHOW_EXTENDED_SEARCH_FORM,
   payload: {
     showExtendedSearchForm
-  }
-})
-
-export const setPreselectedSearchFields = preselectedSearchFields => ({
-  type: SET_PRESELECTED_SEARCH_FIELDS,
-  payload: {
-    preselectedSearchFields
   }
 })
 
