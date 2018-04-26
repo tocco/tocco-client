@@ -69,8 +69,8 @@ export const entitiesListTransformer = json => {
 
 export const defaultEntitiesTransformer = json => (json)
 export const selectEntitiesTransformer = json => (json.data.map(e => ({display: e.display, key: e.key})))
-export const selectEntitiesPathsTransformer = (json, pathToKey) =>
-  (json.data.map(e => ({display: e.display, key: _get(e, pathToKey, null)})))
+export const searchFilterTransformer = json =>
+  (json.data.map(e => ({display: e.display, key: e.key, uniqueId: _get(e, 'paths.unique_id.value.value', null)})))
 
 const getSortString = sorting => {
   if (Array.isArray(sorting) && sorting.length >= 1) {

@@ -2,7 +2,7 @@ import {call} from 'redux-saga/effects'
 import _get from 'lodash/get'
 import {loadRelationEntity as loadRelationEntityAction} from '../modules/searchForm/actions'
 
-export function* getInitialFromValues(preselectedSearchFields, entityModel, loadRelationEntity) {
+export function* getPreselectedValues(preselectedSearchFields, entityModel, loadRelationEntity) {
   const formValues = {}
   for (const preselectedSearchField of preselectedSearchFields) {
     const fieldName = preselectedSearchField.id

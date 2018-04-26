@@ -227,32 +227,42 @@ describe('entity-list', () => {
             const json = {
               data: [
                 {
-                  display: 'DISPLAY_1',
-                  path: {
-                    to: {
-                      key: 'KEY_1'
+                  display: 'Search Filter 1',
+                  key: 123,
+                  paths: {
+                    unique_id: {
+                      path: 'unique_id',
+                      type: 'field',
+                      value: {
+                        value: 'filter1',
+                        type: 'identifier'
+                      }
                     }
                   }
                 },
                 {
-                  display: 'DISPLAY_2',
-                  path: {
-                    to: {
-                      key: 'KEY_2'
+                  display: 'Search Filter 2',
+                  key: 124,
+                  paths: {
+                    unique_id: {
+                      path: 'unique_id',
+                      type: 'field',
+                      value: {
+                        value: 'filter2',
+                        type: 'identifier'
+                      }
                     }
                   }
                 }
               ]
             }
 
-            const transformedResult = entities.selectEntitiesPathsTransformer(json, 'path.to.key')
-
-            expect(transformedResult).to.be.a('array')
-            expect(transformedResult).to.have.length(2)
-            expect(transformedResult[0].key).to.be.eql('KEY_1')
-            expect(transformedResult[0].display).to.be.eql('DISPLAY_1')
-            expect(transformedResult[1].key).to.be.eql('KEY_2')
-            expect(transformedResult[1].display).to.be.eql('DISPLAY_2')
+            const expectedResult = [
+              {key: 123, display: 'Search Filter 1', uniqueId: 'filter1'},
+              {key: 124, display: 'Search Filter 2', uniqueId: 'filter2'}
+            ]
+            const transformedResult = entities.searchFilterTransformer(json)
+            expect(transformedResult).to.eql(expectedResult)
           })
         })
 
