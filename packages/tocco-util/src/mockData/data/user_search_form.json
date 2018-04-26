@@ -42,11 +42,12 @@
                 "componentType": "field",
                 "dataType": "search-filter",
                 "model": "User",
-                "filters": [
-                  "filter1",
-                  "filter2"
-                ],
-                "multiple": true
+                "multiple": true,
+                "group": "A",
+                "defaultValue": [
+                  {"display": "Filter A 1", "key": "0", "uniqueId": "filterA1"},
+                  {"display": "Filter A 2", "key": "1", "uniqueId": "filterA2"}
+                ]
               }
             ]
           },

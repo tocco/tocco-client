@@ -101,7 +101,7 @@ export const setupEntities = (fetchMock, entityStore, timeout) => {
 
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/entities/Search_filter(\\?.*)?$'),
-    require('./data/search_filters.json')
+    createSearchFilterResponse(timeout)
   )
 }
 
@@ -149,6 +149,22 @@ const createEntitiesResponse = (entityName, entityStore, timeout) => {
     return sleep(timeout).then(() => result)
   }
 }
+
+const createSearchFilterResponse = () =>
+  url => {
+    consoleLogger.log('fetchMock: called fetch search filter', url)
+    const requestedGroup = getParameterValue('relSearch_filter_group.unique_id', url)
+    if (requestedGroup) {
+      const filters = require('./data/search_filters.json')
+      return {
+        data: filters.data.filter(f =>
+          f.paths.relSearch_filter_group && f.paths.relSearch_filter_group.value[0].display.includes(requestedGroup)
+        )
+      }
+    } else {
+      return require('./data/search_filters.json')
+    }
+  }
 
 const getParameterValue = (name, url) => {
   name = name.replace(/[[\]]/g, '\\$&')
