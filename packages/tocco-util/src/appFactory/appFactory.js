@@ -14,7 +14,6 @@ import fr from 'react-intl/locale-data/fr'
 import it from 'react-intl/locale-data/it'
 
 import {LoadMask} from 'tocco-ui'
-
 import {ToccoTheme} from 'tocco-theme'
 
 import intl from '../intl'
