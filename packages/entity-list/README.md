@@ -16,7 +16,7 @@ React-registry name: `entity-list`
 | `showSearchForm`          |           | Whether the search form should be shown or not                                                                                                                 | Bool   | false                   |
 | `preselectedSearchFields` |           | List of predefined search-values                                                                                                                               | Array  |                         |
 | `disableSimpleSearch`     |           | If true the full search form is always visible                                                                                                                 | Bool   | false                   |
-| `simpleSearchFields`      |           | List of fields, that should be shown with activated simple search. If empty, fulltext search field will be displayed in simple search. Comma-separated string. | String | (fulltext-search-field) |
+| `simpleSearchFields`      |           | List of fields, that should be shown with activated simple search. If empty, fulltext search field will be displayed in simple search. Comma-separated string. | String | txtFulltext             |
 | `showCreateButton`        |           | (Temporary) Flag to show/hide a create button
 | `onSelectChange`          |           | Callback function which gets called on a row selection. The selection will be passed as argument.
 | `selection`               |           | Array of keys. The whole selection can be preset with this property.
