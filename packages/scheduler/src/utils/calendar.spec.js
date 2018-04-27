@@ -1,4 +1,4 @@
-import {getEvents, getResources} from './utils'
+import {getEvents, getResources} from './calendar'
 
 const mockCalendars = [
 

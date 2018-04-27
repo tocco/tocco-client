@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {intlShape} from 'react-intl'
-import {conflicts} from './utils'
+import conflicts from '../../utils/conflicts'
 
 const Conflict = ({conflictStatus, intl}) => {
   if (!(conflictStatus === conflicts.ACCEPTED || conflictStatus === conflicts.EXISTING)) {
