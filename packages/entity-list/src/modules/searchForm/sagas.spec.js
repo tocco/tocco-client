@@ -4,7 +4,11 @@ import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {fetchEntities, selectEntitiesTransformer, selectEntitiesPathsTransformer} from '../../util/api/entities'
+import {
+  fetchEntities,
+  selectEntitiesTransformer,
+  searchFilterTransformer
+} from '../../util/api/entities'
 import {
   actions as formActions
 } from 'redux-form'
@@ -12,6 +16,8 @@ import * as formActionTypes from 'redux-form/es/actionTypes'
 import {validateSearchFields} from '../../util/searchFormValidation'
 import {getPreselectedValues} from '../../util/searchForm'
 import {getSearchInputsForRequest} from '../../util/searchInputs'
+import {fetchForm} from '../../util/api/forms'
+import {setInitialized} from '../entityList/actions'
 
 describe('entity-list', () => {
   describe('modules', () => {
@@ -180,6 +186,33 @@ describe('entity-list', () => {
           })
         })
 
+        describe('loadSearchForm saga', () => {
+          it('should load the form definition and dispatch setFormDefintion', () => {
+            const formDefinition = {children: []}
+
+            return expectSaga(sagas.loadSearchForm)
+              .provide([
+                [matchers.call.fn(fetchForm), formDefinition]
+              ])
+              .put(actions.setFormDefinition(formDefinition))
+              .returns(formDefinition)
+              .run()
+          })
+        })
+
+        describe('getEntityModel saga', () => {
+          it('should return the entity model as soon as initialized', () => {
+            const entityModel = {fields: []}
+            return expectSaga(sagas.getEntityModel)
+              .provide([
+                [select(sagas.entityListSelector), {initialized: false, entityModel}]
+              ])
+              .dispatch(setInitialized())
+              .returns(entityModel)
+              .run()
+          })
+        })
+
         describe('loadSearchFilters saga', () => {
           it('should load search filters', () => {
             const args = {
@@ -209,11 +242,11 @@ describe('entity-list', () => {
               key: 'filter1'
             }
 
-            expectSaga(sagas.loadSearchFilters, args)
+            return expectSaga(sagas.loadSearchFilters, args)
               .provide([
                 [select(sagas.searchFormSelector), {searchForm: {}}],
                 [matchers.call.fn(fetchEntities), json],
-                [matchers.call.fn(selectEntitiesPathsTransformer), entities]
+                [matchers.call.fn(searchFilterTransformer), entities]
               ])
               .put(actions.setSearchFilter(entities))
               .run()
@@ -232,7 +265,7 @@ describe('entity-list', () => {
               key: 'filter1'
             }]
 
-            expectSaga(sagas.loadSearchFilters, args)
+            return expectSaga(sagas.loadSearchFilters, args)
               .provide([
                 [select(sagas.searchFormSelector), {searchFilter: existingSearchFilters}]
               ])
@@ -267,11 +300,11 @@ describe('entity-list', () => {
               key: 'filter1'
             }
 
-            expectSaga(sagas.loadSearchFilters, args)
+            return expectSaga(sagas.loadSearchFilters, args)
               .provide([
                 [select(sagas.searchFormSelector), {searchForm: {}}],
                 [matchers.call.fn(fetchEntities), json],
-                [matchers.call.fn(selectEntitiesPathsTransformer), entities]
+                [matchers.call.fn(searchFilterTransformer), entities]
               ])
               .put(actions.setSearchFilter(entities))
               .run()
