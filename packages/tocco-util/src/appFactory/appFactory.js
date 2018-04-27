@@ -15,6 +15,7 @@ import it from 'react-intl/locale-data/it'
 
 import {LoadMask} from 'tocco-ui'
 import {ToccoTheme} from 'tocco-theme'
+import InjectFontRoboto from '../../../tocco-ui/src/Typography/Font'
 
 import intl from '../intl'
 import errorLogging from '../errorLogging'
@@ -110,6 +111,7 @@ const setWebpacksPublicPath = publicPath => {
 const getAppComponent = (store, initIntlPromise, name, content, theme) => (
   <ThemeProvider theme={theme}>
     <div className="tocco-ui-theme">
+      <InjectFontRoboto theme={theme}/>
       <Provider store={store}>
         <LoadMask promises={[initIntlPromise]}>
           <IntlProvider>

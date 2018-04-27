@@ -13,6 +13,7 @@ import fr from 'react-intl/locale-data/fr'
 import it from 'react-intl/locale-data/it'
 
 import {ToccoTheme} from 'tocco-theme'
+import InjectFontRoboto from '../../../tocco-ui/src/Typography/Font'
 
 export default class ShowCaseApp extends React.Component {
   constructor(props) {
@@ -38,6 +39,7 @@ export default class ShowCaseApp extends React.Component {
       <ThemeProvider theme={ToccoTheme}>
         <IntlProvider locale={this.state.locale}>
           <div className="show-case-app tocco-ui-theme">
+            <InjectFontRoboto theme={ToccoTheme}/>
             <div className="col title">
               <span>Tocco UI</span>
             </div>
