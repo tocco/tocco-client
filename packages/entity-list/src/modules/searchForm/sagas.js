@@ -47,9 +47,9 @@ export function* initialize() {
 export function* setInitialFormValues(formDefinition) {
   const {preselectedSearchFields} = yield select(inputSelector)
   const entityModel = yield call(getEntityModel)
-  const preselectedValues = yield call(
-    getPreselectedValues, preselectedSearchFields, entityModel.model, loadRelationEntity
-  )
+  const preselectedValues = preselectedSearchFields
+    ? yield call(getPreselectedValues, preselectedSearchFields, entityModel.model, loadRelationEntity)
+    : {}
 
   const fieldDefinitions = yield call(form.getFieldDefinitions, formDefinition)
   const fromDefaultValues = yield call(form.getDefaultValues, fieldDefinitions)
