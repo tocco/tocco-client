@@ -39,7 +39,7 @@
               {
                 "id": "searchFilter",
                 "label": null,
-                "componentType": "field",
+                "componentType": "search-filter",
                 "dataType": "search-filter",
                 "model": "User",
                 "multiple": true,

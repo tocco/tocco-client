@@ -19,7 +19,14 @@ const getFieldsOfChildren = children => {
     }
 
     const componentType = children[i].componentType
-    if (componentType === componentTypes.FIELD || componentType === componentTypes.DISPLAY) {
+    const validTypes = [
+      componentTypes.FIELD,
+      componentTypes.DISPLAY,
+      componentTypes.SEARCH_FILTER,
+      componentTypes.FULLTEXT_SEARCH
+    ]
+
+    if (validTypes.includes(componentType)) {
       result.push(children[i])
     }
   }
