@@ -14,7 +14,6 @@ let render = () => {
 
 if (__DEV__ || __STANDALONE__) {
   require('tocco-theme/src/ToccoTheme/theme.scss')
-
   if (module.hot) {
     const renderApp = render
     const renderError = error => {

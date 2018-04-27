@@ -30,6 +30,10 @@ import IconRaw from '!raw-loader!../../tocco-ui/src/Icon/Icon'
 import IconExample from '../../tocco-ui/src/Icon/example'
 import IconExampleRaw from '!raw-loader!../../tocco-ui/src/Icon/example'
 
+import TypographyRaw from '!raw-loader!../../tocco-ui/src/Typography/Typography'
+import TypographyExample from '../../tocco-ui/src/Typography/example'
+import TypographyExampleRaw from '!raw-loader!../../tocco-ui/src/Typography/example'
+
 import LinkRaw from '!raw-loader!../../tocco-ui/src/Link/Link'
 import LinkExample from '../../tocco-ui/src/Link/example'
 import LinkExampleRaw from '!raw-loader!../../tocco-ui/src/Link/example'
@@ -149,6 +153,14 @@ export default [
         example: {
           component: IconExample,
           raw: IconExampleRaw
+        }
+      },
+      {
+        name: 'Typography',
+        raw: TypographyRaw,
+        example: {
+          component: TypographyExample,
+          raw: TypographyExampleRaw
         }
       },
       {

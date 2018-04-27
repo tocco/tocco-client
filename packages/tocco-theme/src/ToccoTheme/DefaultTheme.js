@@ -46,16 +46,23 @@ const colors = {
   },
   signal: {
     danger: '#D32F2F', // Red 700
+    info: '#FBC02D', // Yellow 700
+    infoBg: '#FFF9C4', // Yellow 100
     success: '#388E3C', // Green 700
     warning: '#FFA000' // Amber 700
   }
+}
+
+const fontFamily = {
+  sansSerif: '"Roboto", sans-serif',
+  monospace: '"Roboto Mono", monospace'
 }
 
 /* FONT SIZES
  * scale is augmented fourth (1.414)
  */
 const fontSizes = [
-  '.5rem', '.707rem', '1rem', '1.414rem', '1.999rem', '2.827rem', '3.998rem'
+  '.5rem', '.707rem', '1rem', '1.414rem', '1.999rem', '2.827rem', '3.998rem', '5.653172rem'
 ]
 
 const fontWeights = {
@@ -117,6 +124,7 @@ const space = [
 const defaultTheme = {
   colors,
   fontSizes,
+  fontFamily,
   fontWeights,
   lineHeights,
   outline,
