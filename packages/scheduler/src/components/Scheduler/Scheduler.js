@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import FullCalendar from '../FullCalendar'
-import {getEvents, getResources} from './utils'
+import {getEvents, getResources} from '../../utils/calendar'
 
 class Scheduler extends React.Component {
   render() {

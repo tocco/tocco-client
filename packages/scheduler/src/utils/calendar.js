@@ -1,5 +1,6 @@
 import classNames from 'classnames'
 import {color} from 'tocco-util'
+import conflicts from './conflicts'
 
 const getResourceId = (id, model) => id + model
 
@@ -28,7 +29,10 @@ export const getEvents = calendars =>
         description: event.description,
         conflict: event.conflict,
         ...(event.color ? {backgroundColor: event.color} : {}),
-        className: classNames({conflict: event.conflict === 'existing'}, getOptimalTextColorClass(event.color))
+        className: classNames(
+          {conflict: event.conflict === conflicts.EXISTING},
+          getOptimalTextColorClass(event.color)
+        )
       }))
     ]
   ), [])
