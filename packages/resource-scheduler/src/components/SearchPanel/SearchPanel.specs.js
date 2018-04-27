@@ -18,7 +18,7 @@ describe('resource-scheduler', () => {
         expect(wrapper.find('div')).to.have.length(1)
       })
 
-      it('should show show colored icon if color is defined', () => {
+      it('should show colored icon if color is defined', () => {
         const color = '#f44242'
         const calendarTypes = [
           {
