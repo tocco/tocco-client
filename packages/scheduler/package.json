@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "bootstrap": "^3.3.7",
-    "fullcalendar-scheduler": "^1.7.1",
+    "fullcalendar-scheduler": "^1.9.4",
     "tocco-test-util": ">0.1.0",
     "tocco-theme": ">0.1.0",
     "tocco-ui": ">0.1.0",

@@ -6,28 +6,44 @@ bootstrap@^3.3.7:
   version "3.3.7"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-3.3.7.tgz#5a389394549f23330875a3b150656574f8a9eb71"
 
-fullcalendar-scheduler@^1.7.1:
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/fullcalendar-scheduler/-/fullcalendar-scheduler-1.7.1.tgz#03501f430cc5d9d2ed46210e3cf70b49ff3ce951"
+fullcalendar-scheduler@^1.9.4:
+  version "1.9.4"
+  resolved "https://registry.yarnpkg.com/fullcalendar-scheduler/-/fullcalendar-scheduler-1.9.4.tgz#15acc98aa0f2b80330b1e93cc768343404827b92"
   dependencies:
-    fullcalendar "~3.5.1"
+    fullcalendar "~3.9.0"
     jquery "2 - 3"
-    moment "^2.9.0"
+    moment "^2.20.1"
 
-fullcalendar@~3.5.1:
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/fullcalendar/-/fullcalendar-3.5.1.tgz#c70d642ca18d2854fbb97a9b4f5eecef6aa3e884"
+fullcalendar@~3.9.0:
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/fullcalendar/-/fullcalendar-3.9.0.tgz#b608a9989f3416f0b1d526c6bdfeeaf2ac79eda5"
   dependencies:
     jquery "2 - 3"
-    moment "^2.9.0"
+    moment "^2.20.1"
 
 "jquery@2 - 3":
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.2.1.tgz#5c4d9de652af6cd0a770154a631bba12b015c787"
 
-moment@^2.9.0:
-  version "2.19.0"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.0.tgz#44f675ef6b944942762581b1c179fb679e599d67"
+moment@^2.20.1:
+  version "2.22.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.1.tgz#529a2e9bf973f259c9643d237fda84de3a26e8ad"
+
+tocco-test-util@>0.1.0:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/tocco-test-util/-/tocco-test-util-0.1.2.tgz#6388309f1598d612cbc29e27564fb10706ade6f6"
+
+tocco-theme@>0.1.0:
+  version "0.1.21"
+  resolved "https://registry.yarnpkg.com/tocco-theme/-/tocco-theme-0.1.21.tgz#73c7e53280826dfc053d0d807dff1ec622b4f2e5"
+
+tocco-ui@>0.1.0:
+  version "0.1.12"
+  resolved "https://registry.yarnpkg.com/tocco-ui/-/tocco-ui-0.1.12.tgz#fd6a7c5441d92ea37cdfa1beeda342cf707dc112"
+
+tocco-util@>0.1.0:
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/tocco-util/-/tocco-util-0.1.9.tgz#163ea04c62c80bec7130f06fab657fd06097c3a6"
 
 twix@^1.2.1:
   version "1.2.1"
