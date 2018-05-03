@@ -1,6 +1,6 @@
 import {hexToRgb} from './hexToRgb'
 
-const LUMIANCE_LIMIT = 0.179
+const LUMIANCE_LIMIT = 0.25
 
 const calculateLight = colorItem => {
   let c = colorItem / 255.0
