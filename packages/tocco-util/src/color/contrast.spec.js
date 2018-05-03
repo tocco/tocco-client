@@ -19,6 +19,11 @@ describe('tocco-util', () => {
         expect(getContrastColor(khaki, bright, dark)).to.eql(dark)
       })
 
+      it('should return bright for the color red', () => {
+        const red = '#ff0000'
+        expect(getContrastColor(red, bright, dark)).to.eql(bright)
+      })
+
       it('should return default values for bright and dark', () => {
         expect(getContrastColor(black)).to.eql('#FFFFFF')
         expect(getContrastColor(white)).to.eql('#000000')
