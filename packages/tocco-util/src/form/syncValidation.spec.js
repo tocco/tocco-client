@@ -1,84 +1,46 @@
-import syncValidation, {mandatoryValidator} from './syncValidation'
+import syncValidation from './syncValidation'
 import {IntlStub} from 'tocco-test-util'
 
-describe('entity-detail', () => {
-  describe('util', () => {
-    describe('detaiLView', () => {
-      describe('syncValidation', () => {
-        it('should return an error on invalid input', () => {
-          const entityModel = {
-            firstname: {
-              fieldName: 'firstname',
-              validation: {
-                mandatory: true,
-                minLength: 3
-              }
+describe('tocco-util', () => {
+  describe('form', () => {
+    describe('syncValidation', () => {
+      it('should combine model and type validation errors', () => {
+        const entityModel = {
+          website: {
+            fieldName: 'website',
+            type: 'url',
+            validation: {
+              mandatory: true,
+              minLength: 3
             }
           }
-          const validate = syncValidation(entityModel, IntlStub)
+        }
+        const validate = syncValidation(entityModel, IntlStub)
 
-          let errors = validate({firstname: ''})
+        const errors = validate({website: 'aa'})
 
-          expect(errors).to.have.property('firstname')
-          expect(errors.firstname).to.have.property('mandatory')
-
-          errors = validate({firstname: 'xy'})
-
-          expect(errors).to.have.property('firstname')
-          expect(errors.firstname).to.not.have.property('mandatory')
-          expect(errors.firstname).to.have.property('minLength')
-        })
-
-        it('should return an error on valid input', () => {
-          const entityModel = {
-            firstname: {
-              validate: {
-                mandatory: true,
-                minLength: 3
-              }
-            }
-          }
-
-          const values = {
-            firstname: 'TestFirstname'
-          }
-
-          const errors = syncValidation(entityModel, IntlStub)(values)
-          expect(errors).to.eql({})
-        })
+        expect(errors).to.have.property('website')
+        expect(errors.website).to.have.property('minLength')
+        expect(errors.website).to.have.property('format')
       })
-      describe('mandatoryValidator', () => {
-        it('should not return an error for valid inputs', () => {
-          const validValues = [
-            'Test',
-            0,
-            99,
-            {key: 99}
-          ]
 
-          validValues.forEach(validValue => {
-            let result = mandatoryValidator(validValue, true, IntlStub)
-            expect(result).to.be.null
-            result = mandatoryValidator(validValue, false, IntlStub)
-            expect(result).to.be.null
-          })
-        })
-        it('should return an error for invalid inputs', () => {
-          const invalidValues = [
-            undefined,
-            '',
-            null,
-            [],
-            {}
-          ]
+      it('should return no error on valid input', () => {
+        const entityModel = {
+          website: {
+            type: 'url',
+            validate: {
+              mandatory: true,
+              minLength: 3
+            }
+          }
+        }
 
-          invalidValues.forEach(invalidValue => {
-            let result = mandatoryValidator(invalidValue, true, IntlStub)
-            expect(result).to.not.be.null
-            result = mandatoryValidator(invalidValue, false, IntlStub)
-            expect(result).to.be.null
-          })
-        })
+        const values = {
+          website: 'http://www.tocco.ch'
+        }
+
+        const errors = syncValidation(entityModel, IntlStub)(values)
+        expect(errors).to.eql({})
       })
     })
   })
