@@ -1,36 +1,56 @@
-import React from 'react'
-import {FormattedMessage} from 'react-intl'
 import _forOwn from 'lodash/forOwn'
-import _isEmpty from 'lodash/isEmpty'
+import _get from 'lodash/get'
+import validators from './validators'
 
 export default entityModel =>
   values => (
-    valueValidator(
+    validate(
       values,
-      [
-        {validator: mandatoryValidator, selector: 'mandatory'},
-        {validator: minLengthValidator, selector: 'minLength'},
-        {validator: maxLengthValidator, selector: 'maxLength'}
-      ],
       entityModel
     )
   )
 
-const valueValidator = (values, validatorDefinitions, entityModel) => {
+const addErrors = (errors, field, fieldErrors) => (
+  {
+    ...errors,
+    [field]:
+      {
+        ...(errors[field] || {}),
+        ...(fieldErrors || {})
+      }
+  }
+)
+
+const validate = (values, entityModel) => {
   let errors = {}
 
-  const addErrors = (field, fieldErrors) => {
-    if (fieldErrors && !_isEmpty(fieldErrors)) {
-      errors = {
-        ...errors,
-        [field]: {
-          ...errors[field],
-          ...fieldErrors
+  errors = validateModel(values, entityModel, errors)
+  errors = validateTypes(values, entityModel, errors)
+
+  return errors
+}
+
+const validateTypes = (values, entityModel, errors) => {
+  _forOwn(values, (value, key) => {
+    if (value) {
+      const type = _get(entityModel, key + '.type')
+
+      if (type) {
+        const typeValidator = validators.typeValidators[type]
+        if (typeValidator) {
+          const validatorError = typeValidator(value)
+          if (validatorError) {
+            errors = addErrors(errors, key, validatorError)
+          }
         }
       }
     }
-  }
+  })
 
+  return errors
+}
+
+const validateModel = (values, entityModel, errors) => {
   const getValidatorValue = (fieldModel, selector) => {
     if (fieldModel.validation) {
       return fieldModel.validation[selector]
@@ -43,64 +63,16 @@ const valueValidator = (values, validatorDefinitions, entityModel) => {
     const valueSelector = getValueSelector(fieldModel)
     const fieldValue = values[valueSelector]
 
-    validatorDefinitions.forEach(validatorDefinition => {
-      const validatorValue = getValidatorValue(fieldModel, validatorDefinition.selector)
+    _forOwn(validators.modelValidators, (validator, name) => {
+      const validatorValue = getValidatorValue(fieldModel, name)
       if (validatorValue) {
-        addErrors(valueSelector, validatorDefinition.validator(fieldValue, validatorValue))
+        const validatorErrors = validator(fieldValue, validatorValue)
+        if (validatorErrors) {
+          errors = addErrors(errors, valueSelector, validatorErrors)
+        }
       }
     })
   })
 
   return errors
-}
-
-export const mandatoryValidator = (value, isMandatory) => {
-  if (!isMandatory) {
-    return null
-  }
-
-  if (typeof value === 'number' && !isNaN(value)) {
-    return null
-  }
-
-  if (!value || _isEmpty(value)) {
-    return {
-      mandatory: [
-        <FormattedMessage
-          key="syncValidationRequired"
-          id="client.component.form.syncValidationRequired"
-        />
-      ]
-    }
-  }
-
-  return null
-}
-
-export const minLengthValidator = (value, minLength) => {
-  if (value && value.length < minLength) {
-    return {
-      minLength: [
-        <FormattedMessage
-          key="syncValidationMinLength"
-          id="client.component.form.syncValidationMinLength"
-          values={{minLength}}
-        />
-      ]
-    }
-  }
-}
-
-export const maxLengthValidator = (value, maxLength) => {
-  if (value && value.length > maxLength) {
-    return {
-      maxLength: [
-        <FormattedMessage
-          key="syncValidationMaxLength"
-          id="client.component.form.syncValidationMaxLength"
-          values={{maxLength}}
-        />
-      ]
-    }
-  }
 }
