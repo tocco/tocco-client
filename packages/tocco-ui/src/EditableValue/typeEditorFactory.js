@@ -14,6 +14,7 @@ import HtmlEdit from './typeEditors/HtmlEdit'
 import RemoteSelect from './typeEditors/RemoteSelect'
 import MultiRemoteSelect from './typeEditors/MultiRemoteSelect'
 import SearchFilterEdit from './typeEditors/SearchFilterEdit'
+import UrlEdit from './typeEditors/UrlEdit'
 
 export const map = {
   'string': StringEdit,
@@ -25,7 +26,7 @@ export const map = {
   'count': StringEdit,
   'html': HtmlEdit,
   'phone': StringEdit,
-  'url': StringEdit,
+  'url': UrlEdit,
   'document': Document,
   'boolean': BoolEdit,
   'email': StringEdit,
