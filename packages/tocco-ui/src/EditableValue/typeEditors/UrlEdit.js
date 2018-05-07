@@ -19,6 +19,7 @@ const StringEdit = props => {
       props.onChange(url)
     }
   }
+
   return (
     <div className={value ? 'input-group' : ''}>
       <input
