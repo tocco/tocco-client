@@ -2,9 +2,9 @@ import {urlValidator} from './type'
 
 describe('tocco-util', () => {
   describe('form', () => {
-    describe('syncValidation', () => {
+    describe('validators', () => {
       describe('type', () => {
-        describe('mandatoryValidator', () => {
+        describe('url', () => {
           it('should not return an error for valid inputs', () => {
             const validValues = [
               'http://www.tocco.ch',
@@ -17,6 +17,7 @@ describe('tocco-util', () => {
               expect(result).to.be.null
             })
           })
+
           it('should return an error for invalid values', () => {
             const invalidValues = [
               'a',

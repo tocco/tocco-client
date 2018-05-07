@@ -2,7 +2,7 @@ import {mandatoryValidator, maxLengthValidator, minLengthValidator} from './mode
 
 describe('tocco-util', () => {
   describe('form', () => {
-    describe('syncValidation', () => {
+    describe('validators', () => {
       describe('model', () => {
         describe('mandatoryValidator', () => {
           it('should not return an error for valid inputs', () => {
@@ -20,6 +20,7 @@ describe('tocco-util', () => {
               expect(result).to.be.null
             })
           })
+
           it('should return an error for invalid values', () => {
             const invalidValues = [
               undefined,
@@ -52,6 +53,7 @@ describe('tocco-util', () => {
               expect(result).to.be.null
             })
           })
+
           it('should return an error for to short values', () => {
             const MIN_LENGTH = 4
 
@@ -82,6 +84,7 @@ describe('tocco-util', () => {
               expect(result).to.be.null
             })
           })
+
           it('should return an error for to short values', () => {
             const MAX_LENGTH = 3
 
