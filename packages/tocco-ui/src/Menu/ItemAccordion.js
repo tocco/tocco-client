@@ -16,7 +16,7 @@ class ItemAccordion extends Item {
           iconPosition={stylingPosition.AFTER}
           label={this.props.label}
           look={this.props.look}
-          onMouseDown={this.toogleOpenState}
+          onMouseDown={this.toggleOpenState}
         />
         {this.getChildren()}
       </StyledMenuItemAccordion>
