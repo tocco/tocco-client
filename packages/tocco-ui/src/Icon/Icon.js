@@ -86,8 +86,6 @@ Icon.propTypes = {
     stylingPosition.BEFORE,
     stylingPosition.BETWEEN,
     stylingPosition.SOLELY]),
-
-  // TODO desribe props
   onClickFunction: PropTypes.func,
   onMouseEnterFunction: PropTypes.func,
   onMouseLeaveFunction: PropTypes.func,

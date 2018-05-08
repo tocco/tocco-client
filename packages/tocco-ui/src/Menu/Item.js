@@ -17,7 +17,7 @@ class Item extends React.Component {
     isOpen: this.props.isOpen
   }
 
-  toogleOpenState = () => {
+  toggleOpenState = () => {
     // eslint-disable-next-line
     this.props.isToggleable
     && this.setState(prevState => ({
