@@ -1,7 +1,7 @@
 /* eslint no-console: 0 */
 import React from 'react'
 import SearchBox from './'
-// real-import:import {SearchBox} from 'tocco-ui'
+// real-import:import SearchBox from 'tocco-ui'
 
 export default () => {
   return (

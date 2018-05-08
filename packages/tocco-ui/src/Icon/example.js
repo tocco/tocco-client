@@ -1,7 +1,7 @@
 /* eslint no-console: 0 */
 import React from 'react'
 import Icon from './'
-// real-import:import {Button} from 'tocco-ui'
+// real-import:import Icon from 'tocco-ui'
 
 export default () => {
   return (
