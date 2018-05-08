@@ -27,11 +27,7 @@ class PanelBody extends React.Component {
     return (
       <StyledPanelBody
         isOpen={isOpen}>
-        { // eslint-disable-next-line
-          React.Children.map(children, child => {
-            return React.cloneElement(child)
-          })
-        }
+        {React.Children.map(children, child => React.cloneElement(child))}
       </StyledPanelBody>
     )
   }

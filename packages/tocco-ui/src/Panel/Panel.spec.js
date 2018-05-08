@@ -18,9 +18,9 @@ describe('tocco-ui', function() {
     it('open state should be toggleable', () => {
       const wrapper = shallow(<Panel/>)
       expect(wrapper.state('isOpen')).to.equal(false)
-      wrapper.instance().toogleOpenState()
+      wrapper.instance().toggleOpenState()
       expect(wrapper.state('isOpen')).to.equal(true)
-      wrapper.instance().toogleOpenState()
+      wrapper.instance().toggleOpenState()
       expect(wrapper.state('isOpen')).to.equal(false)
     })
 
@@ -34,10 +34,10 @@ describe('tocco-ui', function() {
 
     it('should pass props to child', () => {
       const wrapper = shallow(<Panel><span>text-1</span></Panel>)
-      const {isOpen, isToggleable, toogleOpenState} = wrapper.find('span').props()
+      const {isOpen, isToggleable, toggleOpenState} = wrapper.find('span').props()
       expect(isOpen).to.equal(false)
       expect(isToggleable).to.equal(true)
-      expect(typeof toogleOpenState).to.equal('function')
+      expect(typeof toggleOpenState).to.equal('function')
     })
   })
 })
