@@ -2,7 +2,7 @@
 import React from 'react'
 import Table from './'
 
-// real-import:import {Table} from 'tocco-ui'
+// real-import:import Table from 'tocco-ui'
 
 export default () => {
   const columnDefinitions = [
