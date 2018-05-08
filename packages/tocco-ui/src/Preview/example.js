@@ -1,7 +1,7 @@
 /* eslint-disable no-alert */
 import React from 'react'
 import Preview from './'
-// real-import:import {Preview} from 'tocco-ui'
+// real-import:import Preview from 'tocco-ui'
 
 export default () => {
   return (

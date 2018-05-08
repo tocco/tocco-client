@@ -1,7 +1,7 @@
 /* eslint no-console: 0 */
 import React from 'react'
 import Panel, {PanelFooter, PanelHeader, PanelBody} from './'
-// real-import:import {Panel} from 'tocco-ui'
+// real-import:import Panel, {PanelFooter, PanelHeader, PanelBody} from 'tocco-ui'
 
 export default () => {
   return (

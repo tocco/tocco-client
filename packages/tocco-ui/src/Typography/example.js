@@ -2,7 +2,8 @@
 import React from 'react'
 import {B, Code, Dd, Del, Dl, Dt, Em, H1, H2, H3, H4, H5, H6, I, Ins, Kbd, Li,
   Mark, Ol, P, Pre, Q, S, Span, Strong, Sub, Sup, U, Ul, Var} from './'
-// real-import:import {Typography} from 'tocco-ui'
+// eslint-disable-next-line
+// real-import:import {B, Code, Dd, Del, Dl, Dt, Em, H1, H2, H3, H4, H5, H6, I, Ins, Kbd, Li, Mark, Ol, P, Pre, Q, S, Span, Strong, Sub, Sup, U, Ul, Var} from 'tocco-ui'
 
 export default () => {
   return (
