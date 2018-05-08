@@ -30,21 +30,19 @@ class PanelHeaderFooter extends React.Component {
       isToggleable,
       showToggler,
       // eslint-disable-next-line
-      toogleOpenState
+      toggleOpenState
     } = this.props
 
     return (
       <StyledPanelHeaderFooter>
         <div>
-          { React.Children.map(children, child => {
-            return React.cloneElement(child)
-          })}
+          {React.Children.map(children, child => React.cloneElement(child))}
         </div>
-        { isToggleable
+        {isToggleable
           && showToggler
           && <Button
             icon={isOpen ? 'fa-minus' : 'fa-plus'}
-            onClick={() => toogleOpenState()}
+            onClick={toggleOpenState}
             title={isOpen ? 'Weitere Informationen verbergen' : 'Weitere Informationen anzeigen'}
             iconPosition="solely"
           />

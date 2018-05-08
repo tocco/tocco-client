@@ -10,7 +10,7 @@ class Panel extends React.Component {
     isOpen: this.props.isOpen
   }
 
-  toogleOpenState = () => {
+  toggleOpenState = () => {
     // eslint-disable-next-line
     this.props.isToggleable
     && this.setState(prevState => ({
@@ -30,7 +30,7 @@ class Panel extends React.Component {
             return React.cloneElement(child, {
               isOpen: this.state.isOpen,
               isToggleable: isToggleable,
-              toogleOpenState: this.toogleOpenState
+              toggleOpenState: this.toggleOpenState
             })
           })
         }
