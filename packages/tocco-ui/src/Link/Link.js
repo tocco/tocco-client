@@ -53,7 +53,7 @@ Link.propTypes = {
   /**
    * Set an Url (absolute/relative) or a contact with prefix (mailto, tel). Default is '#'
    */
-  href: PropTypes.string,
+  href: PropTypes.string.isRequired,
   /**
    * Add an icon to the link. Set the specific class only from
    * https://getbootstrap.com/docs/3.3/components/#glyphicons or https://fontawesome.com/v4.7.0/icons/

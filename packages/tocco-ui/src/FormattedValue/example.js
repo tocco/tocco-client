@@ -1,7 +1,7 @@
 /* eslint no-console: 0 */
 import React from 'react'
 import FormattedValue from './'
-// real-import:import {FormattedValue} from 'tocco-ui'
+// real-import:import FormattedValue from 'tocco-ui'
 
 const Example = () => {
   const timeValue = {

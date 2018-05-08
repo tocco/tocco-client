@@ -3,7 +3,7 @@ import React from 'react'
 import Button from '../Button'
 import ButtonLink from '../ButtonLink'
 import ButtonGroup from './'
-// real-import:import {ButtonGroup} from 'tocco-ui'
+// real-import:import ButtonGroup from 'tocco-ui'
 
 export default () => {
   return (

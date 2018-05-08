@@ -1,7 +1,7 @@
 /* eslint no-console: 0 */
 import React from 'react'
 import Link from './'
-// real-import:import {Link} from 'tocco-ui'
+// real-import:import Link from 'tocco-ui'
 
 export default () => {
   return (

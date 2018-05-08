@@ -2,7 +2,7 @@
 import React from 'react'
 import Upload from './'
 
-// real-import:import {Upload} from 'tocco-ui'
+// real-import:import Upload from 'tocco-ui'
 
 class Example extends React.Component {
   constructor(props) {

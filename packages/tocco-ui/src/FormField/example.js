@@ -1,7 +1,7 @@
 /* eslint no-console: 0 */
 import React from 'react'
 import FormField from './FormField'
-// real-import:import {FormField} from 'tocco-ui'
+// real-import:import FormField from 'tocco-ui'
 
 export default () => {
   const getInput = id => <input type="text" className="form-control" id={id}/>

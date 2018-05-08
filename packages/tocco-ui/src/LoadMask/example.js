@@ -1,7 +1,7 @@
 /* eslint no-console: 0 */
 import React from 'react'
 import LoadMask from './'
-// real-import:import {LoadMask} from 'tocco-ui'
+// real-import:import LoadMask from 'tocco-ui'
 
 class Example extends React.Component {
   constructor(props) {

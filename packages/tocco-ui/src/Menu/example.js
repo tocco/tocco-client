@@ -12,6 +12,8 @@ import MenuBar from './MenuBar'
 import MenuButton from './MenuButton'
 import MenuStack from './MenuStack'
 
+// real-import:import {Item, ItemAccordion, ItemFlyout, MenuBar, MenuButton, MenuStack} from 'tocco-ui'
+
 export default () => {
   return (
     <div>
