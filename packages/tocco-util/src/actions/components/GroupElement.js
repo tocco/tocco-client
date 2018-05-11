@@ -18,7 +18,7 @@ const GroupElement = ({definition, onClick, onSelect, selectedCount}, context) =
   const disabled = definition.readonly === true || !validSelection
 
   return (
-    <Item>
+    <Item look="raised">
       <Button
         disabled={disabled}
         icon={definition.icon}
