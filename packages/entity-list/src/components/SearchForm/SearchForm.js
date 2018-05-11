@@ -88,10 +88,11 @@ class SearchForm extends React.Component {
       return null
     }
 
+    // SCR_TEMP remove style attributes
     return (
       <form onSubmit={this.handleSubmit} className="form-horizontal">
         {this.formBuilder()}
-        <div className="row">
+        <div className="row" style={{marginBottom: '1em'}}>
           <div className="col-sm-9 col-sm-push-3">
             <Button
               ink="primary"
@@ -99,16 +100,17 @@ class SearchForm extends React.Component {
               look="raised"
               type="submit"
             />
+            <span style={{display: 'inline-block', width: '.5em'}}/>
             <Button
               label={this.msg('client.entity-list.reset')}
               look="raised"
               onClick={this.handleResetClick}
             />
             {!props.disableSimpleSearch
-            && <span title={this.msg('client.entity-list.extendedSearch')}>
+            && <span style={{float: 'right'}} title={this.msg('client.entity-list.extendedSearch')}>
               <Button
-                className="pull-right"
                 icon={`glyphicon-chevron-${this.props.showExtendedSearchForm ? 'up' : 'down'}`}
+                iconPosition="solely"
                 onClick={this.toggleExtendedSearchForm}
               />
             </span>

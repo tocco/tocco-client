@@ -9,8 +9,9 @@ const Action = ({definition, onClick, ids, entity, mode, callback}) => {
   if (!modeFitsScopes(mode, definition.scopes)) return null
 
   const ActionType = definition.componentType === COMPONENT_TYPE_ACTION_GROUP ? ActionGroup : SingleAction
+  // SCR_TEMP remove style
   return (
-    <span className="action">
+    <span className="action" style={{marginBottom: '.5em', display: 'inline-block'}}>
       <ActionType
         definition={definition}
         onClick={definition => {
