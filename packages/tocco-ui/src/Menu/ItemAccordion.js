@@ -8,6 +8,7 @@ class ItemAccordion extends Item {
   render() {
     return (
       <StyledMenuItemAccordion
+        innerRef={node => { this.node = node }}
         isOpen={this.state.isOpen}
         isToggleable={this.props.isToggleable}
       >

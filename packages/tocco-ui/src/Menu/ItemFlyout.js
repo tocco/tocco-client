@@ -23,10 +23,12 @@ const StyledItemFlyout = StyledItem.extend`
     }
   }
 `
+
 class ItemFlyout extends Item {
   render() {
     return (
       <StyledItemFlyout
+        innerRef={node => { this.node = node }}
         isOpen={this.state.isOpen}
         isToggleable={this.props.isToggleable}
       >

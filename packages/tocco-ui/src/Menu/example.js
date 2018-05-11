@@ -82,7 +82,7 @@ export default () => {
 
       <h3>Accordion Menu</h3>
       <MenuStack>
-        <ItemAccordion label="Toggle Menu">
+        <ItemAccordion isOpen={true} label="Toggle Menu">
           <MenuStack>
             <Item><Button label="A"/></Item>
             <Item><Button label="B"/></Item>
@@ -99,7 +99,7 @@ export default () => {
 
       <h3>Flyout Menu</h3>
       <MenuStack>
-        <ItemFlyout isOpen={false} label="Toggle Menu">
+        <ItemFlyout isOpen={true} label="Toggle Menu">
           <MenuStack>
             <Item><Button label="A"/></Item>
             <ItemFlyout isOpen={false} label="Toggle Menu B">
@@ -109,7 +109,7 @@ export default () => {
                 <Item><Button label="B-2"/></Item>
               </MenuStack>
             </ItemFlyout>
-            <ItemFlyout isOpen={false} label="Toggle Menu C">
+            <ItemFlyout isOpen={true} label="Toggle Menu C">
               <MenuStack>
                 <Item><Button label="C-1"/></Item>
                 <Item><Button label="C-2"/></Item>
@@ -122,6 +122,7 @@ export default () => {
 
       <h3>Menu Bar Flyout</h3>
       <MenuButton look="raised">
+        <Item><Button label="Single Action"/></Item>
         <ItemFlyout isOpen={false} label="Toggle action set 1">
           <MenuStack>
             <Item><Button label="Action 1-1"/></Item>
@@ -129,18 +130,10 @@ export default () => {
             <Item><Button label="Action 1-3"/></Item>
           </MenuStack>
         </ItemFlyout>
-        <ItemFlyout isOpen={false} label="Toggle action set 2">
+        <ItemFlyout isOpen={true} label="Toggle action set 2">
           <MenuStack>
             <Item><Button label="Action 2-1"/></Item>
             <Item><Button label="Action 2-2"/></Item>
-          </MenuStack>
-        </ItemFlyout>
-        <ItemFlyout isOpen={false} label="Toggle action set 3">
-          <MenuStack>
-            <Item><Button label="Action 3-1"/></Item>
-            <Item><Button label="Action 3-2"/></Item>
-            <Item><Button label="Action 3-3"/></Item>
-            <Item><Button label="Action 3-4"/></Item>
           </MenuStack>
         </ItemFlyout>
       </MenuButton>
