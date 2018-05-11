@@ -11,6 +11,7 @@ const SingleAction = ({definition, onClick, selectedCount}, context) => {
 
   return (
     <Button
+      look="raised"
       onClick={e => {
         onClick(definition)
         e.stopPropagation()

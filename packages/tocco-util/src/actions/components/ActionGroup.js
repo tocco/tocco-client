@@ -13,7 +13,9 @@ const MainAction = ({definition, selectedCount, onClick}, context) => {
   const disabled = definition.readonly === true || !validSelection
 
   return (
-    <Item>
+    <Item
+      look="raised"
+    >
       <Button
         disabled={disabled}
         icon={definition.icon}
@@ -40,8 +42,14 @@ const ActionGroup = ({definition, onClick, selectedCount}, context) => {
 
   if (hasMainAction) {
     return (
-      <MenuButton>
-        <MainAction definition={definition.action} selectedCount={selectedCount} onClick={onClick}/>
+      <MenuButton
+        look="raised"
+      >
+        <MainAction
+          definition={definition.action}
+          onClick={onClick}
+          selectedCount={selectedCount}
+        />
         <ItemFlyout
           isToggleable={definition.readonly !== true}
           label={definition.label}
@@ -56,7 +64,9 @@ const ActionGroup = ({definition, onClick, selectedCount}, context) => {
     )
   } else {
     return (
-      <MenuButton>
+      <MenuButton
+        look="raised"
+      >
         <ItemFlyout
           isToggleable={definition.readonly !== true}
           label={definition.label}
