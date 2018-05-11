@@ -14,7 +14,10 @@ const StyledItemFlyout = StyledItem.extend`
     z-index: 1;
     background-color: ${props => theme('colors.base.paper')};
 
-    ${props => getElevation(props, 1)}
+    /*
+      SCR_TEMP reactivate
+      ${props => getElevation(props, 1)}
+    */
 
     ul {
       top: 0;

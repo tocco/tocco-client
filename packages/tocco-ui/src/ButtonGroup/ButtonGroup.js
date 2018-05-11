@@ -12,7 +12,10 @@ export const StyledButtonGroup = styled.div`
     width: fit-content;
 
     border-radius: ${props => props.melt === true ? theme('radii.3') : 0};
-    ${props => getElevation(props, props.look === stylingLook.RAISED && props.melt === true ? 1 : 0)}
+    /*
+      SCR_TEMP reactivate
+      ${props => getElevation(props, props.look === stylingLook.RAISED && props.melt === true ? 1 : 0)}
+    */
   }
 `
 
