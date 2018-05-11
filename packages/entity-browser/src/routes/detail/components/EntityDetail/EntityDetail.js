@@ -57,6 +57,7 @@ class EntityDetail extends React.Component {
 
   msg = id => (this.props.intl.formatMessage({id}))
 
+  // SCR_TEMP remove style attributes
   render = () => {
     return (
       <div>
@@ -69,7 +70,7 @@ class EntityDetail extends React.Component {
           && <div>
             {this.props.detailParams.showBackButton
             && <LayoutBox alignment="horizontal">
-              <div>
+              <div style={{marginBottom: '.5em'}}>
                 <Button
                   icon="fa fa-chevron-left"
                   label={this.msg('client.entity-browser.back')}

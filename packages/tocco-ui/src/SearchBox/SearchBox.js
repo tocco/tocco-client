@@ -1,11 +1,32 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import Button from '../Button'
+import Button, {StyledButton} from '../Button'
 import _debounce from 'lodash/debounce'
+import styled from 'styled-components'
 
-/**
- * SearchBox
- */
+// SCR_TEMP remove StyledInputGroupBtn after Bootstrap forms were refactored
+const StyledInputGroupBtn = styled.span`
+  && {
+    /* copy of Bootstrap styles */
+    display: table-cell;
+    position: relative;
+    vertical-align: middle;
+    white-space: nowrap;
+    white-space: nowrap;
+    width: 1%;
+
+    /* bend Button styles to look properly */
+    ${StyledButton} {
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
+      border: 1px solid #ccc;
+      display: inline-block;
+      height: 34px;  // magic number
+      margin-left: -1px;
+    }
+  }
+`
+
 class SearchBox extends React.Component {
   constructor(props) {
     super(props)
@@ -52,12 +73,13 @@ class SearchBox extends React.Component {
             value={this.state.inputValue}
             onChange={this.onChange}
           />
-          <span className="input-group-btn">
+          <StyledInputGroupBtn>
             <Button
-              type="submit"
               icon="glyphicon-search"
+              iconPosition="solely"
+              type="submit"
             />
-          </span>
+          </StyledInputGroupBtn>
         </div>
       </form>
     )
