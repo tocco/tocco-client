@@ -13,16 +13,10 @@ const StyledItem = styled.li`
 `
 
 class Item extends React.Component {
-  state = {
-    isOpen: this.props.isOpen
-  }
-
-  toggleOpenState = () => {
-    // eslint-disable-next-line
-    this.props.isToggleable
-    && this.setState(prevState => ({
-      isOpen: !prevState.isOpen
-    }))
+  constructor(props) {
+    super(props)
+    this.state = {isOpen: props.isOpen}
+    if (props.isOpen) { document.addEventListener('mousedown', this.handleClickOutside, false) }
   }
 
   getChildren = () => {
@@ -32,9 +26,31 @@ class Item extends React.Component {
     })
   }
 
+  handleClickOutside = event => {
+    if (!this.node.contains(event.target)) {
+      this.toggleOpenState()
+    }
+  }
+
+  toggleOpenState = () => {
+    // eslint-disable-next-line
+    if (this.props.isToggleable) {
+      if (this.state.isOpen) {
+        document.removeEventListener('mousedown', this.handleClickOutside, false)
+      } else {
+        document.addEventListener('mousedown', this.handleClickOutside, false)
+      }
+
+      this.setState(prevState => ({
+        isOpen: !prevState.isOpen
+      }))
+    }
+  }
+
   render() {
     return (
       <StyledItem
+        innerRef={node => { this.node = node }}
         isOpen={this.state.isOpen}
         isToggleable={this.props.isToggleable}
       >
