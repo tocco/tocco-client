@@ -154,7 +154,10 @@ export const StyledButton = styled.button`
 
     ${props => setButtonColor(props)}
     ${props => setButtonDensity(props)}
-    ${props => getElevation(props, props.look === stylingLook.RAISED && props.melt !== true ? 1 : 0)}
+    /*
+      SCR_TEMP reactivate
+      ${props => getElevation(props, props.look === stylingLook.RAISED && props.melt !== true ? 1 : 0)}
+    */
 
     ${StyledButtonGroup} & {
       ${props => meltButtons(props)}
