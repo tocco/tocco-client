@@ -28,11 +28,10 @@ before_install:
 
 install:
   - yarn
-  - lerna bootstrap
+  - travis_wait lerna bootstrap --concurrency=1 --mutex network
 
 script:
   - npm run lint
-  - npm run flow
   - npm run test
   - if [ ${TRAVIS_EVENT_TYPE} = "cron" ]; then
       npm run test:saucelabs;
