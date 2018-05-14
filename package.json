@@ -132,6 +132,8 @@
     "sinon": "^5.0.10",
     "sinon-chai": "^3.0.0",
     "style-loader": "^0.21.0",
+    "styled-components": "^3.2.6",
+    "styled-system": "^2.2.5",
     "stylelint": "^9.2.0",
     "stylelint-scss": "^3.0.0",
     "url-loader": "^1.0.1",
