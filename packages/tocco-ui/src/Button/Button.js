@@ -4,8 +4,6 @@ import styled from 'styled-components'
 import {theme} from 'styled-system'
 
 import Icon from '../Icon'
-import {StyledButtonGroup} from '../ButtonGroup'
-import {StyledMenuBar, StyledMenuStack} from '../Menu'
 import {getElevation, stylingAnimation, stylingLook, stylingInk, stylingPosition} from '../utilStyles'
 
 const setButtonDensity = props => {
@@ -89,32 +87,6 @@ const setButtonColor = props => {
   `
 }
 
-const meltButtons = props => {
-  let declaration = ''
-  if (!props.melt && props.look === stylingLook.RAISED) {
-    declaration = `
-      &:not(:last-child) {
-        margin-right: ${theme('space.4')(props)};
-      }
-    `
-  } else if (props.melt) {
-    declaration = `
-      border-radius: 0;
-
-      &:first-child {
-        border-top-left-radius: ${theme('radii.3')(props)};
-        border-bottom-left-radius: ${theme('radii.3')(props)};
-      }
-
-      &:last-child {
-        border-top-right-radius: ${theme('radii.3')(props)};
-        border-bottom-right-radius: ${theme('radii.3')(props)};
-      }
-    `
-  }
-  return declaration
-}
-
 const setIconPosition = props => {
   if (props.iconPosition === stylingPosition.AFTER) {
     return `
@@ -158,22 +130,6 @@ export const StyledButton = styled.button`
       SCR_TEMP reactivate
       ${props => getElevation(props, props.look === stylingLook.RAISED && props.melt !== true ? 1 : 0)}
     */
-
-    ${StyledButtonGroup} & {
-      ${props => meltButtons(props)}
-    }
-
-    ${StyledMenuBar} &,
-    ${StyledMenuStack} & {
-      border-radius: 0;
-      box-shadow: none;
-      text-align: left;
-      text-transform: none;
-    }
-
-    ${StyledMenuStack} & {
-      width: 100%;
-    }
 
     ${props => setIconPosition(props)}
   }
