@@ -29,22 +29,6 @@ moment@^2.20.1:
   version "2.22.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.1.tgz#529a2e9bf973f259c9643d237fda84de3a26e8ad"
 
-tocco-test-util@>0.1.0:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/tocco-test-util/-/tocco-test-util-0.1.2.tgz#6388309f1598d612cbc29e27564fb10706ade6f6"
-
-tocco-theme@>0.1.0:
-  version "0.1.21"
-  resolved "https://registry.yarnpkg.com/tocco-theme/-/tocco-theme-0.1.21.tgz#73c7e53280826dfc053d0d807dff1ec622b4f2e5"
-
-tocco-ui@>0.1.0:
-  version "0.1.12"
-  resolved "https://registry.yarnpkg.com/tocco-ui/-/tocco-ui-0.1.12.tgz#fd6a7c5441d92ea37cdfa1beeda342cf707dc112"
-
-tocco-util@>0.1.0:
-  version "0.1.9"
-  resolved "https://registry.yarnpkg.com/tocco-util/-/tocco-util-0.1.9.tgz#163ea04c62c80bec7130f06fab657fd06097c3a6"
-
 twix@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/twix/-/twix-1.2.1.tgz#daadc747ea14b35b16a77eeca46ba8d2815236f8"
