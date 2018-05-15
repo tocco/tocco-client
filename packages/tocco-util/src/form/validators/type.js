@@ -6,8 +6,8 @@ export const urlValidator = value => {
   if (!isUrl(value)) {
     return {
       format: [<FormattedMessage
-        key="invlidurl"
-        id="invlidurl"
+        key="invalidUrl"
+        id="client.component.form.invalidUrl"
       />
       ]
     }

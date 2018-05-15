@@ -18,6 +18,7 @@
   "client.component.form.mandatoryFieldTitle",
   "client.component.form.uploadFailedTitle",
   "client.component.form.uploadFailedMessage",
+  "client.component.form.invalidUrl",
   "client.component.upload.upload",
   "client.component.upload.uploading",
   "client.component.upload.downloadTitle",
