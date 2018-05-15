@@ -24,47 +24,47 @@ describe('tocco-ui', function() {
       expect(wrapper.find('#total').text()).to.eql('10')
     })
 
-    // it('should call callback on page change', done => {
-    //   const onPageChange = sinon.spy()
+    it('should call callback on page change', done => {
+      const onPageChange = sinon.spy()
 
-    //   const wrapper = shallow(<Pagination totalRecords={99} recordsPerPage={5} onPageChange={onPageChange}/>)
-    //   wrapper.find('#forwardButton').simulate('click')
+      const wrapper = shallow(<Pagination totalRecords={99} recordsPerPage={5} onPageChange={onPageChange}/>)
+      wrapper.find('#forwardButton').simulate('click')
 
-    //   // Necessary since callback is called with debounce. Unfortunately is delays total test runtime.
-    //   setTimeout(() => {
-    //     expect(onPageChange).to.be.calledWith(2)
-    //     done()
-    //   }, 200)
-    // })
+      // Necessary since callback is called with debounce. Unfortunately is delays total test runtime.
+      setTimeout(() => {
+        expect(onPageChange).to.be.calledWith(2)
+        done()
+      }, 200)
+    })
 
-    // it('should disable forward and back button depending on current page', () => {
-    //   const wrapper = shallow(<Pagination totalRecords={30} recordsPerPage={10}/>)
+    it('should disable forward and back button depending on current page', () => {
+      const wrapper = shallow(<Pagination totalRecords={30} recordsPerPage={10}/>)
 
-    //   expect(wrapper.find('#forwardButton')).to.not.be.disabled()
-    //   expect(wrapper.find('#toLastButton')).to.not.be.disabled()
-    //   expect(wrapper.find('#toFirstButton')).to.be.disabled()
-    //   expect(wrapper.find('#backButton')).to.be.disabled()
+      expect(wrapper.find('#forwardButton')).to.not.be.disabled()
+      expect(wrapper.find('#toLastButton')).to.not.be.disabled()
+      expect(wrapper.find('#toFirstButton')).to.be.disabled()
+      expect(wrapper.find('#backButton')).to.be.disabled()
 
-    //   wrapper.find('#toLastButton').simulate('click')
+      wrapper.find('#toLastButton').simulate('click')
 
-    //   expect(wrapper.find('#forwardButton')).to.be.disabled()
-    //   expect(wrapper.find('#toLastButton')).to.be.disabled()
-    //   expect(wrapper.find('#toFirstButton')).to.not.be.disabled()
-    //   expect(wrapper.find('#backButton')).to.not.be.disabled()
+      expect(wrapper.find('#forwardButton')).to.be.disabled()
+      expect(wrapper.find('#toLastButton')).to.be.disabled()
+      expect(wrapper.find('#toFirstButton')).to.not.be.disabled()
+      expect(wrapper.find('#backButton')).to.not.be.disabled()
 
-    //   wrapper.find('#backButton').simulate('click')
+      wrapper.find('#backButton').simulate('click')
 
-    //   expect(wrapper.find('#forwardButton')).to.not.be.disabled()
-    //   expect(wrapper.find('#toLastButton')).to.not.be.disabled()
-    //   expect(wrapper.find('#toFirstButton')).to.not.be.disabled()
-    //   expect(wrapper.find('#backButton')).to.not.be.disabled()
+      expect(wrapper.find('#forwardButton')).to.not.be.disabled()
+      expect(wrapper.find('#toLastButton')).to.not.be.disabled()
+      expect(wrapper.find('#toFirstButton')).to.not.be.disabled()
+      expect(wrapper.find('#backButton')).to.not.be.disabled()
 
-    //   wrapper.find('#toFirstButton').simulate('click')
+      wrapper.find('#toFirstButton').simulate('click')
 
-    //   expect(wrapper.find('#forwardButton')).to.not.be.disabled()
-    //   expect(wrapper.find('#toLastButton')).to.not.be.disabled()
-    //   expect(wrapper.find('#toFirstButton')).to.be.disabled()
-    //   expect(wrapper.find('#backButton')).to.be.disabled()
-    // })
+      expect(wrapper.find('#forwardButton')).to.not.be.disabled()
+      expect(wrapper.find('#toLastButton')).to.not.be.disabled()
+      expect(wrapper.find('#toFirstButton')).to.be.disabled()
+      expect(wrapper.find('#backButton')).to.be.disabled()
+    })
   })
 })
