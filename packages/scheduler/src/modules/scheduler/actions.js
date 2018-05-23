@@ -2,6 +2,7 @@ export const SET_CALENDARS = 'scheduler/SET_CALENDARS'
 export const ON_DATE_RANGE_CHANGE = 'scheduler/ON_DATE_RANGE_CHANGE'
 export const ON_CALENDAR_REMOVE = 'scheduler/ON_CALENDAR_REMOVE'
 export const ON_EVENT_CLICK = 'scheduler/ON_EVENT_CLICK'
+export const ON_REFRESH = 'scheduler/ON_REFRESH'
 
 export const setCalendars = calendars => ({
   type: SET_CALENDARS,
@@ -30,4 +31,8 @@ export const onEventClick = event => ({
   payload: {
     event
   }
+})
+
+export const onRefresh = () => ({
+  type: ON_REFRESH
 })

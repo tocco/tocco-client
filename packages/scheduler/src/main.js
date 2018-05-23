@@ -12,7 +12,8 @@ const packageName = 'scheduler'
 const EXTERNAL_EVENTS = [
   'onDateRangeChange',
   'onCalendarRemove',
-  'onEventClick'
+  'onEventClick',
+  'onRefresh'
 ]
 
 const initApp = (input, events, publicPath) => {

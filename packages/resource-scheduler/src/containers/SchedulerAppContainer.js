@@ -3,7 +3,8 @@ import {injectIntl} from 'react-intl'
 import {
   setDateRange,
   removeRequestedCalendar,
-  onEventClick
+  onEventClick,
+  onRefresh
 } from '../modules/resourceScheduler/actions'
 
 import SchedulerApp from 'tocco-scheduler/src/main'
@@ -11,7 +12,8 @@ import SchedulerApp from 'tocco-scheduler/src/main'
 const mapActionCreators = {
   onDateRangeChange: ({dateRange}) => setDateRange(dateRange),
   onCalendarRemove: ({calendarType, id}) => removeRequestedCalendar(calendarType, id),
-  onEventClick: ({model, key}) => onEventClick(model, key)
+  onEventClick: ({model, key}) => onEventClick(model, key),
+  onRefresh
 }
 
 const mapStateToProps = (state, props) => {
