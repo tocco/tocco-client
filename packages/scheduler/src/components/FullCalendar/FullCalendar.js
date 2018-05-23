@@ -39,10 +39,18 @@ class FullCalendar extends React.Component {
   }
 
   fixOptions = {
+    customButtons: {
+      refresh: {
+        bootstrapGlyphicon: 'glyphicon-refresh',
+        click: () => {
+          this.props.onRefresh()
+        }
+      }
+    },
     schedulerLicenseKey: this.getLicense(),
     defaultView: 'timelineDay',
     header: {
-      left: 'today prev,next',
+      left: 'today prev,next refresh',
       center: 'title',
       right: 'timelineDay,timelineWeek,timelineMonth'
     },
@@ -147,6 +155,7 @@ FullCalendar.propTypes = {
   intl: intlShape.isRequired,
   onDateRangeChange: PropTypes.func,
   onCalendarRemove: PropTypes.func,
+  onRefresh: PropTypes.func,
   onEventClick: PropTypes.func,
   events: PropTypes.arrayOf(
     PropTypes.shape({

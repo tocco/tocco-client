@@ -7,6 +7,7 @@ export const SET_CALENDARS = 'resourceScheduler/SET_CALENDARS'
 export const SET_DATE_RANGE = 'resourceScheduler/SET_DATE_RANGE'
 export const REMOVE_REQUESTED_CALENDAR = 'resourceScheduler/REMOVE_REQUESTED_CALENDAR'
 export const ON_EVENT_CLICK = 'resourceScheduler/ON_EVENT_CLICK'
+export const ON_REFRESH = 'resourceScheduler/ON_REFRESH'
 
 export const initialize = () => ({
   type: INITIALIZE
@@ -67,4 +68,8 @@ export const onEventClick = (model, key) => ({
     model,
     key
   }
+})
+
+export const onRefresh = () => ({
+  type: ON_REFRESH
 })

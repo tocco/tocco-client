@@ -3,14 +3,16 @@ import {injectIntl} from 'react-intl'
 import {
   onDateRangeChange,
   onCalendarRemove,
-  onEventClick
+  onEventClick,
+  onRefresh
 } from '../modules/scheduler/actions'
 import Scheduler from '../components/Scheduler'
 
 const mapActionCreators = {
   onDateRangeChange,
   onCalendarRemove,
-  onEventClick
+  onEventClick,
+  onRefresh
 }
 
 const mapStateToProps = (state, props) => {

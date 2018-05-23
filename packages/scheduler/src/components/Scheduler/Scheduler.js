@@ -12,6 +12,7 @@ class Scheduler extends React.Component {
         onDateRangeChange={this.props.onDateRangeChange}
         onCalendarRemove={this.props.onCalendarRemove}
         onEventClick={this.props.onEventClick}
+        onRefresh={this.props.onRefresh}
         locale={this.props.locale}
       />
     </div>
@@ -37,6 +38,7 @@ Scheduler.propTypes = {
   onDateRangeChange: PropTypes.func,
   onCalendarRemove: PropTypes.func,
   onEventClick: PropTypes.func,
+  onRefresh: PropTypes.func,
   locale: PropTypes.string
 }
 
