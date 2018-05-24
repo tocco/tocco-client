@@ -4,9 +4,10 @@ import styled from 'styled-components'
 import {theme} from 'styled-system'
 
 import Icon from '../Icon'
-import {declareOverlay, getElevation, stylingAnimation, stylingLook, stylingInk, stylingPosition} from '../utilStyles'
+import {declareOverlay, declareElevation, stylingAnimation, stylingLook,
+  stylingInk, stylingPosition} from '../utilStyles'
 
-const setButtonDensity = props => {
+const declareButtonDensity = props => {
   if (props.dense) {
     return `
       line-height: ${theme('lineHeights.0')(props)};
@@ -20,7 +21,7 @@ const setButtonDensity = props => {
   }
 }
 
-const setButtonColor = props => {
+const declareButtonColor = props => {
   let defaultColor,
     defaultBackground,
     focusColor,
@@ -66,7 +67,7 @@ const setButtonColor = props => {
     }
     activeBackground = theme('colors.primary.fill.2')(props)
   } else {
-    throw new Error('invalid props combination in setButtonColor: ', props)
+    throw new Error('invalid props combination in declareButtonColor: ', props)
   }
 
   return `
@@ -87,7 +88,7 @@ const setButtonColor = props => {
   `
 }
 
-const setIconPosition = props => {
+const declareIconPosition = props => {
   if (props.iconPosition === stylingPosition.AFTER) {
     return `
       justify-content: space-between;
@@ -125,14 +126,14 @@ export const StyledButton = styled.button`
       outline: ${theme('outline')};
     }
 
-    ${props => setButtonColor(props)}
-    ${props => setButtonDensity(props)}
+    ${props => declareButtonColor(props)}
+    ${props => declareButtonDensity(props)}
     /*
       SCR_TEMP reactivate
-      ${props => getElevation(props, props.look === stylingLook.RAISED && props.melt !== true ? 1 : 0)}
+      ${props => declareElevation(props, props.look === stylingLook.RAISED && props.melt !== true ? 1 : 0)}
     */
 
-    ${props => setIconPosition(props)}
+    ${props => declareIconPosition(props)}
   }
 `
 
