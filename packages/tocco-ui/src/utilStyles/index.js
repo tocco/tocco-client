@@ -1,5 +1,5 @@
 import declareOverlay from './declareOverlay'
-import getElevation from './getElevation'
+import declareElevation from './declareElevation'
 import {
   animation as stylingAnimation,
   ink as stylingInk,
@@ -8,7 +8,7 @@ import {
 
 export {
   declareOverlay,
-  getElevation,
+  declareElevation,
   stylingAnimation,
   stylingInk,
   stylingLook,

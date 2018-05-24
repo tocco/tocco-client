@@ -3,7 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {theme} from 'styled-system'
 
-import {getElevation, stylingInk, stylingLook} from '../utilStyles'
+import {declareElevation, stylingInk, stylingLook} from '../utilStyles'
 
 export const StyledButtonGroup = styled.div`
   && {
@@ -14,7 +14,7 @@ export const StyledButtonGroup = styled.div`
     border-radius: ${props => props.melt === true ? theme('radii.3') : 0};
     /*
       SCR_TEMP reactivate
-      ${props => getElevation(props, props.look === stylingLook.RAISED && props.melt === true ? 1 : 0)}
+      ${props => declareElevation(props, props.look === stylingLook.RAISED && props.melt === true ? 1 : 0)}
     */
   }
 `

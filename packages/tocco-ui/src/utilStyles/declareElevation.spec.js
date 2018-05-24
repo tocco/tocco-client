@@ -1,4 +1,4 @@
-import {getElevation} from '../utilStyles'
+import {declareElevation} from '../utilStyles'
 
 const props = {
   theme: {
@@ -14,13 +14,13 @@ const props = {
 
 describe('tocco-ui', () => {
   describe('utilStyles', () => {
-    describe('getElevation', () => {
+    describe('declareElevation', () => {
       it('should be elevation 0', () => {
-        expect(getElevation(props, 0)).to.equal('box-shadow: none rgba(33, 33, 33, .6);')
+        expect(declareElevation(props, 0)).to.equal('box-shadow: none rgba(33, 33, 33, .6);')
       })
 
       it('should be elevation 1', () => {
-        expect(getElevation(props, 1)).to.equal('box-shadow: 0 1px 1px 1px rgba(33, 33, 33, .6);')
+        expect(declareElevation(props, 1)).to.equal('box-shadow: 0 1px 1px 1px rgba(33, 33, 33, .6);')
       })
     })
   })
