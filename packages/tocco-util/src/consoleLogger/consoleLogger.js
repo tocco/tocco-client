@@ -12,3 +12,10 @@ export const logError = (...args) => {
     log(...args)
   }
 }
+
+export const logWarning = (...args) => {
+  if (window.console) {
+    const log = console.warn || console.log
+    log(...args)
+  }
+}

@@ -1,2 +1,2 @@
-import {log, logError} from './consoleLogger'
-export default {log, logError}
+import {log, logError, logWarning} from './consoleLogger'
+export default {log, logError, logWarning}

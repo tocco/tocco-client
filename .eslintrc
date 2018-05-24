@@ -34,7 +34,8 @@
     "describe": false,
     "sinon": false,
     "before": false,
-    "beforeEach": false
+    "beforeEach": false,
+    "afterEach": false
   },
   "rules": {
     "key-spacing": ["error", { "beforeColon": false, "afterColon": true, "mode": "strict" }],
