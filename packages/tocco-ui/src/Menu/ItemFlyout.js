@@ -12,7 +12,6 @@ const StyledItemFlyout = StyledItem.extend`
     top: calc(100% + ${props => theme('space.2')});
     left: 0;
     z-index: 1;
-    background-color: ${props => theme('colors.base.paper')};
 
     /*
       SCR_TEMP reactivate
