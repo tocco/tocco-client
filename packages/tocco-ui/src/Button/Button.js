@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import {theme} from 'styled-system'
 
 import Icon from '../Icon'
-import {getElevation, stylingAnimation, stylingLook, stylingInk, stylingPosition} from '../utilStyles'
+import {declareOverlay, getElevation, stylingAnimation, stylingLook, stylingInk, stylingPosition} from '../utilStyles'
 
 const setButtonDensity = props => {
   if (props.dense) {
@@ -100,23 +100,24 @@ const setIconPosition = props => {
 
 export const StyledButton = styled.button`
   && {
+    align-items: center;
     background-image: none;
     border-radius: ${theme('radii.3')};
     border: none;
     display: inline-flex;
-    align-items: center;
+    margin: 0;
+    position: relative;
     text-align: center;
     text-transform: uppercase;
     vertical-align: middle;
     white-space: nowrap;
-    margin: 0;
 
     &:enabled {
       cursor: pointer;
     }
 
     &:disabled {
-      opacity: ${theme('opacities.disabled')};
+      ${props => declareOverlay(theme('overlays.disabled.color')(props), theme('overlays.disabled.opacity')(props))}
     }
 
     &:active,

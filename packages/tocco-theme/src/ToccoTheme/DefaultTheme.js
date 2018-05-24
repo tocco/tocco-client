@@ -68,11 +68,14 @@ const lineHeights = [
   1.4
 ]
 
-const opacities = {
-  disabled: 0.4
-}
-
 const outline = 'none'
+
+const overlays = {
+  disabled: {
+    color: colors.base.paper,
+    opacity: 0.7
+  }
+}
 
 const radii = [
   0, '2px', '4px', '8px', '16px'
@@ -111,8 +114,8 @@ const defaultTheme = {
   fontSizes,
   fontWeights,
   lineHeights,
-  opacities,
   outline,
+  overlays,
   radii,
   shadows,
   space
