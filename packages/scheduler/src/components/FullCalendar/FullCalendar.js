@@ -17,6 +17,7 @@ import '!style-loader!css-loader!fullcalendar/dist/fullcalendar.css'
 import '!style-loader!css-loader!fullcalendar-scheduler/dist/scheduler.css'
 import {injectIntl, intlShape} from 'react-intl'
 import Conflict from '../Conflict'
+import {consoleLogger} from 'tocco-util'
 
 class FullCalendar extends React.Component {
   constructor(props) {
@@ -28,8 +29,17 @@ class FullCalendar extends React.Component {
     }
   }
 
+  getLicense = () => {
+    try {
+      return require('./license').key
+    } catch (e) {
+      consoleLogger.logWarning('This Version runs with the NonCommercial FullCalendar license.')
+      return 'CC-Attribution-NonCommercial-NoDerivatives' // noncommercial license
+    }
+  }
+
   fixOptions = {
-    schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+    schedulerLicenseKey: this.getLicense(),
     defaultView: 'timelineDay',
     header: {
       left: 'today prev,next',
