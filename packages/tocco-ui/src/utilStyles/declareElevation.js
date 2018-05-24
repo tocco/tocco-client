@@ -1,7 +1,7 @@
 import {theme} from 'styled-system'
 
-const getElevation = (props, elevation) => {
+const declareElevation = (props, elevation) => {
   return `box-shadow: ${theme(`shadows.levels.${elevation}`)(props)} ${theme('shadows.color')(props)};`
 }
 
-export default getElevation
+export default declareElevation

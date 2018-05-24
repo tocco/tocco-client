@@ -4,7 +4,7 @@ import {theme} from 'styled-system'
 
 import Button from '../Button'
 import Item, {StyledItem} from './Item'
-import {getElevation, stylingPosition} from '../utilStyles'
+import {declareElevation, stylingPosition} from '../utilStyles'
 
 const StyledItemFlyout = StyledItem.extend`
   > ul {
@@ -15,7 +15,7 @@ const StyledItemFlyout = StyledItem.extend`
 
     /*
       SCR_TEMP reactivate
-      ${props => getElevation(props, 1)}
+      ${props => declareElevation(props, 1)}
     */
 
     ul {
