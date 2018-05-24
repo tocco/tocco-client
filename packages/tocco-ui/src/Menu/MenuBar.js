@@ -9,6 +9,14 @@ const StyledMenuBar = StyledMenu.extend`
     display: inline-flex;
     flex-flow: row nowrap;
 
+    > li > button,
+    > li > a {
+      border-radius: 0;
+      box-shadow: none;
+      text-align: left;
+      text-transform: none;
+    }
+
     > hr {
       height: auto;
       border: none;
