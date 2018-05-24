@@ -6,10 +6,19 @@ import {StyledItemFlyout} from './ItemFlyout'
 
 const StyledMenuStack = StyledMenu.extend`
   && {
+    > li > button,
+    > li > a {
+      border-radius: 0;
+      box-shadow: none;
+      text-align: left;
+      text-transform: none;
+      width: 100%;
+    }
+
     > hr {
       display: list-item;
       border-top: 1px solid ${props => theme('colors.base.text')};
-      margin: ${props => theme('space.3')} 0;
+      margin: 0;
     }
 
     > :not(${StyledItemFlyout}) > ul {
