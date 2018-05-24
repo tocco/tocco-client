@@ -1,3 +1,4 @@
+import declareOverlay from './declareOverlay'
 import getElevation from './getElevation'
 import {
   animation as stylingAnimation,
@@ -6,6 +7,7 @@ import {
   position as stylingPosition} from './stylingConstants'
 
 export {
+  declareOverlay,
   getElevation,
   stylingAnimation,
   stylingInk,
