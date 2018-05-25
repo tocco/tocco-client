@@ -4,74 +4,31 @@ import styled from 'styled-components'
 import {theme} from 'styled-system'
 
 import Icon from '../Icon'
-import {declareDensity, declareElevation, declareOverlay, stylingAnimation, stylingLook,
-  stylingInk, stylingPosition} from '../utilStyles'
+import {
+  declareDensity,
+  declareElevation,
+  declareFlatBaseColors,
+  declareFlatPrimaryColors,
+  declareInteractionColors,
+  declareOverlay,
+  declareRaisedBaseColors,
+  declareRaisedPrimaryColors,
+  stylingAnimation,
+  stylingInk,
+  stylingLook,
+  stylingPosition
+} from '../utilStyles'
 
 const declareButtonColor = props => {
-  let defaultColor,
-    defaultBackground,
-    focusColor,
-    focusBackground,
-    activeColor,
-    activeBackground
-
   if (props.look === stylingLook.FLAT && props.ink === stylingInk.BASE) {
-    defaultColor = theme('colors.base.text')(props)
-    defaultBackground = theme('colors.base.paper')(props)
-    focusColor = theme('colors.base.line.1')(props)
-    focusBackground = theme('colors.base.fill.0')(props)
-    activeColor = theme('colors.base.line.2')(props)
-    activeBackground = theme('colors.base.fill.1')(props)
+    return declareInteractionColors(declareFlatBaseColors(props))
   } else if (props.look === stylingLook.FLAT && props.ink === stylingInk.PRIMARY) {
-    defaultColor = theme('colors.primary.line.0')(props)
-    defaultBackground = theme('colors.base.paper')(props)
-    focusColor = theme('colors.primary.line.1')(props)
-    focusBackground = theme('colors.base.fill.0')(props)
-    activeColor = theme('colors.primary.line.2')(props)
-    activeBackground = theme('colors.base.fill.1')(props)
+    return declareInteractionColors(declareFlatPrimaryColors(props))
   } else if (props.look === stylingLook.RAISED && props.ink === stylingInk.BASE) {
-    defaultColor = theme('colors.base.line.0')(props)
-    defaultBackground = theme('colors.base.fill.0')(props)
-    focusColor = theme('colors.base.line.1')(props)
-    focusBackground = theme('colors.base.fill.1')(props)
-    activeColor = theme('colors.base.line.2')(props)
-    activeBackground = theme('colors.base.fill.2')(props)
+    return declareInteractionColors(declareRaisedBaseColors(props))
   } else if (props.look === stylingLook.RAISED && props.ink === stylingInk.PRIMARY) {
-    defaultColor = theme('colors.primary.fillContrast.0', false)(props)
-    if (!defaultColor) {
-      defaultColor = theme('colors.base.line.0')(props)
-    }
-    defaultBackground = theme('colors.primary.fill.0')(props)
-    focusColor = theme('colors.primary.fillContrast.1', false)(props)
-    if (!focusColor) {
-      focusColor = theme('colors.base.line.1')(props)
-    }
-    focusBackground = theme('colors.primary.fill.1')(props)
-    activeColor = theme('colors.primary.fillContrast.2', false)(props)
-    if (!activeColor) {
-      activeColor = theme('colors.base.line.2')(props)
-    }
-    activeBackground = theme('colors.primary.fill.2')(props)
-  } else {
-    throw new Error('invalid props combination in declareButtonColor: ', props)
+    return declareInteractionColors(declareRaisedPrimaryColors(props))
   }
-
-  return `
-    background-color: ${defaultBackground};
-    color: ${defaultColor};
-
-    &:enabled {
-        &:hover,
-        &:focus {
-            background-color: ${focusBackground};
-            color: ${focusColor};
-        }
-        &:active {
-            background-color: ${activeBackground};
-            color: ${activeColor};
-        }
-    }
-  `
 }
 
 const declareIconPosition = props => {
