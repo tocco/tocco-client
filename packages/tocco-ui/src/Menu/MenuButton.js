@@ -7,7 +7,8 @@ import {stylingLook} from '../utilStyles'
 const StyledMenuButton = StyledMenu.extend`
   && {
     display: inline-flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
+    margin-bottom: -${props => props.look === stylingLook.RAISED ? theme('space.4') : 0};
 
     > hr {
       border: none;
@@ -17,10 +18,13 @@ const StyledMenuButton = StyledMenu.extend`
       margin: 0;
     }
 
-    > li:not(:last-child),
-    > hr:not(:last-child) {
-      margin: 0;
-      margin-right: ${props => props.look === stylingLook.RAISED ? theme('space.4') : ''};
+    > li,
+    > hr {
+      margin-bottom: ${props => props.look === stylingLook.RAISED ? theme('space.4') : 0};
+
+      :not(:last-child) {
+        margin-right: ${props => props.look === stylingLook.RAISED ? theme('space.4') : ''};
+      }
     }
   }
 `
