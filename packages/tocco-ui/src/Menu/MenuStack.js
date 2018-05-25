@@ -16,8 +16,9 @@ const StyledMenuStack = StyledMenu.extend`
     }
 
     > hr {
-      display: list-item;
+      border: none;
       border-top: 1px solid ${props => theme('colors.base.text')};
+      display: list-item;
       margin: 0;
     }
 

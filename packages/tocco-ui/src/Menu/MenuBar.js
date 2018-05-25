@@ -18,9 +18,11 @@ const StyledMenuBar = StyledMenu.extend`
     }
 
     > hr {
-      height: auto;
       border: none;
       border-left: 1px solid ${props => theme('colors.base.text')};
+      display: list-item;
+      height: auto;
+      margin: 0;
     }
 
     > li:not(:last-child),
