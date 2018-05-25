@@ -8,8 +8,14 @@ import {declareElevation, stylingInk, stylingLook} from '../utilStyles'
 export const StyledButtonGroup = styled.div`
   && {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     width: fit-content;
+    margin-bottom: -${props => props.melt ? 0 : theme('space.4')};
+
+    a,
+    button {
+      margin-bottom: ${props => props.melt ? 0 : theme('space.4')};
+    }
 
     border-radius: ${props => props.melt === true ? theme('radii.3') : 0};
     /*
