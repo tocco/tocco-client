@@ -4,22 +4,8 @@ import styled from 'styled-components'
 import {theme} from 'styled-system'
 
 import Icon from '../Icon'
-import {declareOverlay, declareElevation, stylingAnimation, stylingLook,
+import {declareDensity, declareElevation, declareOverlay, stylingAnimation, stylingLook,
   stylingInk, stylingPosition} from '../utilStyles'
-
-const declareButtonDensity = props => {
-  if (props.dense) {
-    return `
-      line-height: ${theme('lineHeights.0')(props)};
-      padding: ${theme('space.2')(props)} ${theme('space.2')(props)};
-    `
-  } else {
-    return `
-      line-height: ${theme('lineHeights.1')(props)};
-      padding: ${theme('space.3')(props)} ${theme('space.4')(props)};
-    `
-  }
-}
 
 const declareButtonColor = props => {
   let defaultColor,
@@ -127,7 +113,7 @@ export const StyledButton = styled.button`
     }
 
     ${props => declareButtonColor(props)}
-    ${props => declareButtonDensity(props)}
+    ${props => declareDensity(props)}
     /*
       SCR_TEMP reactivate
       ${props => declareElevation(props, props.look === stylingLook.RAISED && props.melt !== true ? 1 : 0)}
