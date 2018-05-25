@@ -16,6 +16,7 @@ describe('tocco-ui', function() {
       expect(buttonGroupInk).to.equal('base')
     })
   })
+
   describe('ButtonGroup', function() {
     it('should pass three props to child', () => {
       const wrapper = shallow(

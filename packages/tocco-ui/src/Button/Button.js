@@ -3,6 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {theme} from 'styled-system'
 
+import {StyledButtonGroup} from '../ButtonGroup'
 import Icon from '../Icon'
 import {
   declareDensity,
@@ -18,6 +19,32 @@ import {
   stylingLook,
   stylingPosition
 } from '../utilStyles'
+
+const meltButtons = props => {
+  let declaration = ''
+  if (!props.melt && props.look === stylingLook.RAISED) {
+    declaration = `
+      &:not(:last-child) {
+        margin-right: ${theme('space.4')(props)};
+      }
+    `
+  } else if (props.melt) {
+    declaration = `
+      border-radius: 0;
+
+      &:first-child {
+        border-top-left-radius: ${theme('radii.3')(props)};
+        border-bottom-left-radius: ${theme('radii.3')(props)};
+      }
+
+      &:last-child {
+        border-top-right-radius: ${theme('radii.3')(props)};
+        border-bottom-right-radius: ${theme('radii.3')(props)};
+      }
+    `
+  }
+  return declaration
+}
 
 const declareButtonColor = props => {
   if (props.look === stylingLook.FLAT && props.ink === stylingInk.BASE) {
@@ -77,6 +104,10 @@ export const StyledButton = styled.button`
     */
 
     ${props => declareIconPosition(props)}
+
+    ${StyledButtonGroup} & {
+      ${props => meltButtons(props)}
+    }
   }
 `
 
