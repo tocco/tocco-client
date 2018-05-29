@@ -20,9 +20,11 @@ export default function setupFetchMock(packageName, fetchMock, entityStore = def
     new RegExp('^.*?/nice2/rest/calendar/events'),
     (url, opts) => {
       consoleLogger.log('fetchMock: called rest/calendar/events', url, opts)
-      const body = JSON.parse(opts.body)
-      const data = getCalendarResponse(body.calendars, body.start, body.end)
-      return {data}
+      return sleep(500).then(() => {
+        const body = JSON.parse(opts.body)
+        const data = getCalendarResponse(body.calendars, body.start, body.end)
+        return {data}
+      })
     }
   )
 
@@ -56,5 +58,7 @@ export default function setupFetchMock(packageName, fetchMock, entityStore = def
 
   fetchMock.spy()
 }
+
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 module.exports = setupFetchMock

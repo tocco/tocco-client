@@ -18,7 +18,8 @@ const mapActionCreators = {
 const mapStateToProps = (state, props) => {
   return {
     calendars: state.scheduler.calendars,
-    locale: state.intl.locale
+    locale: state.intl.locale,
+    isLoading: state.scheduler.isLoading
   }
 }
 

@@ -15,7 +15,8 @@ describe('scheduler', () => {
               fork(takeLatest, actions.ON_DATE_RANGE_CHANGE, sagas.onDateRangeChange),
               fork(takeLatest, actions.ON_CALENDAR_REMOVE, sagas.onCalendarRemove),
               fork(takeLatest, actions.ON_EVENT_CLICK, sagas.onEventClick),
-              fork(takeLatest, actions.ON_REFRESH, sagas.onRefresh)
+              fork(takeLatest, actions.ON_REFRESH, sagas.onRefresh),
+              fork(takeLatest, actions.SET_CALENDARS, sagas.setCalendars)
             ])
           })
         })
@@ -38,6 +39,14 @@ describe('scheduler', () => {
 
           return expectSaga(sagas.onCalendarRemove, actions.onCalendarRemove(entityId, calendarType))
             .put(externalEvents.fireExternalEvent('onCalendarRemove', {id: entityId, calendarType}))
+            .run()
+        })
+      })
+
+      describe('setCalendars', () => {
+        it('should set isLoading to false', () => {
+          return expectSaga(sagas.setCalendars)
+            .put(actions.setIsLoading(false))
             .run()
         })
       })

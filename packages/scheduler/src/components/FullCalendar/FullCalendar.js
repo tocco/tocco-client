@@ -38,14 +38,18 @@ class FullCalendar extends React.Component {
     }
   }
 
+  getRefreshButton = isLoading => ({
+    bootstrapGlyphicon: 'glyphicon-refresh' + (isLoading ? ' fa-spin' : ''),
+    click: () => {
+      if (!isLoading) {
+        this.props.onRefresh()
+      }
+    }
+  })
+
   fixOptions = {
     customButtons: {
-      refresh: {
-        bootstrapGlyphicon: 'glyphicon-refresh',
-        click: () => {
-          this.props.onRefresh()
-        }
-      }
+      refresh: this.getRefreshButton(false)
     },
     schedulerLicenseKey: this.getLicense(),
     defaultView: 'timelineDay',
@@ -139,6 +143,10 @@ class FullCalendar extends React.Component {
     if (!_isEqual(newProps.resources, this.props.resources)) {
       this.calendar.fullCalendar('refetchResources')
     }
+
+    this.calendar.fullCalendar('option', 'customButtons', {
+      refresh: this.getRefreshButton(newProps.isLoading)
+    })
   }
 
   render = () =>
@@ -174,7 +182,8 @@ FullCalendar.propTypes = {
       title: PropTypes.string.isRequired
     }
     )),
-  locale: PropTypes.string
+  locale: PropTypes.string,
+  isLoading: PropTypes.bool
 }
 
 export default injectIntl(FullCalendar)
