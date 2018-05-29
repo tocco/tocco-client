@@ -2,17 +2,12 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import Icon from '../Icon'
-import {StyledButton} from '../Button'
-import {stylingInk, stylingLook, stylingPosition} from '../utilStyles'
-
-export const StyledButtonLink = StyledButton.withComponent('a').extend`
-  && {
-    :hover,
-    :focus {
-      text-decoration: none;
-    }
-  }
-`
+import StyledButtonLink from './StyledButtonLink'
+import {
+  stylingInk,
+  stylingLook,
+  stylingPosition
+} from '../utilStyles'
 
 const ButtonLink = props => {
   return (

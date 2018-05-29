@@ -1,3 +1,7 @@
 import Preview from './Preview'
+import StyledPreview from './StyledPreview'
 
-export default Preview
+export {
+  Preview as default,
+  StyledPreview
+}

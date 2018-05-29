@@ -6,15 +6,16 @@ const declareInteractionColors = colors => {
     color: ${colors.defaultColor};
 
     &:enabled {
-      &:active {
-        background-color: ${colors.activeBackground};
-        color: ${colors.activeColor};
-      }
-
       &:focus,
       &:hover {
         background-color: ${colors.focusBackground};
         color: ${colors.focusColor};
+      }
+
+      /* :active must be declared after :hover and :focus to visualize state change */
+      &:active {
+        background-color: ${colors.activeBackground};
+        color: ${colors.activeColor};
       }
     }
   `

@@ -1,25 +1,9 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
-import {theme} from 'styled-system'
+
 import Icon from '../Icon'
+import StyledLink from './StyledLink'
 import {stylingPosition} from '../utilStyles'
-
-const StyledLink = styled.a`
-  && {
-    color: ${theme('colors.primary.line.0')}
-    text-decoration: none;
-
-    &:hover,
-    &:focus {
-      color: ${theme('colors.primary.line.1')}
-    }
-
-    &:active {
-      color: ${theme('colors.primary.line.2')}
-    }
-  }
-`
 
 const Link = props => {
   return (

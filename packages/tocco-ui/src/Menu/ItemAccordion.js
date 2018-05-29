@@ -1,13 +1,14 @@
 import React from 'react'
 
 import Button from '../Button'
-import Item, {StyledItem as StyledMenuItemAccordion} from './Item'
+import Item from './Item'
+import StyledItemAccordion from './StyledItemAccordion'
 import {stylingPosition} from '../utilStyles'
 
 class ItemAccordion extends Item {
   render() {
     return (
-      <StyledMenuItemAccordion
+      <StyledItemAccordion
         innerRef={node => { this.node = node }}
         isOpen={this.state.isOpen}
         isToggleable={this.props.isToggleable}
@@ -20,7 +21,7 @@ class ItemAccordion extends Item {
           onMouseDown={this.toggleOpenState}
         />
         {this.getChildren()}
-      </StyledMenuItemAccordion>
+      </StyledItemAccordion>
     )
   }
 }
@@ -30,7 +31,4 @@ ItemAccordion.defaultProps = {
   isToggleable: true
 }
 
-export {
-  ItemAccordion as default,
-  StyledMenuItemAccordion
-}
+export default ItemAccordion

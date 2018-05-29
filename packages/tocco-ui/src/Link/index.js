@@ -1,3 +1,7 @@
 import Link from './Link'
+import StyledLink from './StyledLink'
 
-export default Link
+export {
+  Link as default,
+  StyledLink
+}
