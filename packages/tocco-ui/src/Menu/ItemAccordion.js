@@ -25,7 +25,7 @@ class ItemAccordion extends Item {
   }
 }
 
-Item.defaultProps = {
+ItemAccordion.defaultProps = {
   isOpen: true,
   isToggleable: true
 }
