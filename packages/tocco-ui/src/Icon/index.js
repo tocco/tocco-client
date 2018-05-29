@@ -1,3 +1,7 @@
 import Icon from './Icon'
+import StyledIcon from './StyledIcon'
 
-export default Icon
+export {
+  Icon as default,
+  StyledIcon
+}

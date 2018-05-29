@@ -1,16 +1,8 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
 
+import StyledItem from './StyledItem'
 import {stylingLook} from '../utilStyles'
-
-const StyledItem = styled.li`
-  position: relative;
-
-  > ul {
-    display: ${props => props.isOpen ? 'block' : 'none'}
-  }
-`
 
 class Item extends React.Component {
   constructor(props) {

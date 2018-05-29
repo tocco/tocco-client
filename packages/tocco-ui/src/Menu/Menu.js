@@ -1,22 +1,12 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
 
+import StyledMenu from './StyledMenu'
 import {stylingLook} from '../utilStyles'
-
-const StyledMenu = styled.ul`
-  && {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    /* width: fit-content; best option for dense mode but not supported for IE */
-  }
-`
 
 /**
  * Structure <Button> and <ButtonLink> hierarchically as a Menu.
  */
-
 class Menu extends React.Component {
   getChildren = () => {
     // eslint-disable-next-line
@@ -45,7 +35,4 @@ Menu.propTypes = {
   look: PropTypes.oneOf([stylingLook.FLAT, stylingLook.RAISED])
 }
 
-export {
-  Menu as default,
-  StyledMenu
-}
+export default Menu

@@ -1,37 +1,13 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
-import {theme} from 'styled-system'
 
 import Button from '../Button'
 import ButtonLink from '../ButtonLink'
 import Preview from '../Preview'
-
-const ViewStyled = styled.div`
-    display: inline-block;
-    position: relative;
-
-    > div {
-      position: absolute;
-      top: ${theme('space.4')};
-      right: ${theme('space.4')};
-      left: ${theme('space.4')};
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: flex-start;
-      align-content: space-between;
-      opacity: 0;
-      transition: opacity 300ms;
-    }
-
-    &:hover > div {
-      opacity: 1;
-    }
-`
+import StyledView from './StyledView'
 
 const View = props => (
-  <ViewStyled>
+  <StyledView>
     <div>
       <ButtonLink
         icon="fa-download"
@@ -55,7 +31,7 @@ const View = props => (
       caption={props.value.fileName}
       alt={props.value.fileName}
     />
-  </ViewStyled>
+  </StyledView>
 )
 
 View.propTypes = {

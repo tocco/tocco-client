@@ -1,4 +1,3 @@
-
 import React from 'react'
 import ButtonGroup from './ButtonGroup'
 import {shallow} from 'enzyme'
