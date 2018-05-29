@@ -131,12 +131,12 @@ const Button = props => {
       {props.icon && <Icon
         dense={props.dense}
         icon={props.icon}
-        position={props.iconPosition}/>}
+        position={props.label.length > 0 ? props.iconPosition : stylingPosition.solely}/>}
       {props.pending && <Icon
         animation={stylingAnimation.SPIN}
         dense={props.dense}
         icon="fa-circle-o-notch"
-        position={props.iconPosition}/>}
+        position={props.label.length > 0 ? props.iconPosition : stylingPosition.solely}/>}
       <span>{props.label}</span>
     </StyledButton>
   )
