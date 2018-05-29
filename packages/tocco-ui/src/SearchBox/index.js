@@ -1,3 +1,7 @@
 import SearchBox from './SearchBox'
+import StyledInputGroupBtn from './StyledSearchBox'
 
-export default SearchBox
+export {
+  SearchBox as default,
+  StyledInputGroupBtn
+}

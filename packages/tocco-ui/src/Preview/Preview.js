@@ -1,44 +1,11 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
-import Icon from '../Icon'
 
+import Icon from '../Icon'
+import StyledPreview from './StyledPreview'
 /**
  * Can be used to show previews of any kind of file. Therefore an Url to the thumbnail and to the file must be provided.
  */
-
-const StyledPreview = styled.figure`
-  && {
-    vertical-align: top;
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-
-    > * {
-      flex: 1 1 auto;
-    }
-
-    img {
-      max-width: 100%;
-
-      ${props => {
-    if (props.interactive) {
-      return `
-            &:hover,
-            &:focus {
-              opacity: .7;
-            }
-      `
-    }
-  }}
-    }
-
-    figcaption {
-      text-align: center;
-    }
-  }
-`
-
 const Preview = props => {
   const onClick = () => {
     if (typeof props.onClick === 'function') {

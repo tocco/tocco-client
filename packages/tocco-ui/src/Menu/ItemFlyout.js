@@ -1,30 +1,10 @@
 
 import React from 'react'
-import {theme} from 'styled-system'
 
 import Button from '../Button'
-import Item, {StyledItem} from './Item'
-import {declareElevation, stylingPosition} from '../utilStyles'
-
-const StyledItemFlyout = StyledItem.extend`
-  > ul {
-    position: absolute;
-    top: calc(100% + ${props => theme('space.2')});
-    left: 0;
-    z-index: 1;
-
-    /*
-      SCR_TEMP reactivate
-      ${props => declareElevation(props, 1)}
-    */
-
-    ul {
-      top: 0;
-      left: calc(100% + ${props => theme('space.2')});
-      right: auto;
-    }
-  }
-`
+import Item from './Item'
+import StyledItemFlyout from './StyledItemFlyout'
+import {stylingPosition} from '../utilStyles'
 
 class ItemFlyout extends Item {
   render() {
