@@ -108,33 +108,34 @@ class Example extends React.Component {
             <Button
               label="Info"
               look="raised"
-              onClick={this.info}/>
+              onClick={this.info}/>&nbsp;
             <Button
               label="Success (no timeout)"
               look="raised"
-              onClick={this.success}/>
+              onClick={this.success}/>&nbsp;
             <Button
               label="Warning (long)"
               look="raised"
-              onClick={this.warning}/>
+              onClick={this.warning}/>&nbsp;
             <Button
               label="Error"
               look="raised"
-              onClick={this.error}/>
+              onClick={this.error}/>&nbsp;
             <Button
               label="Blocking Info"
               look="raised"
               onClick={this.blockingInfo}/>
           </div>
+          <br/>
           <div>
             <Button
               label="Confirm"
               look="raised"
-              onClick={this.confirmQuestion}/>
+              onClick={this.confirmQuestion}/>&nbsp;
             <Button
               label="Yes-No Question"
               look="raised"
-              onClick={this.yesNoQuestion}/>
+              onClick={this.yesNoQuestion}/>&nbsp;
             <Button
               label="Modal Component"
               look="raised"
