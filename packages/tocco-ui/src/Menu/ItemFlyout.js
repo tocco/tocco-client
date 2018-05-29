@@ -47,7 +47,7 @@ class ItemFlyout extends Item {
   }
 }
 
-Item.defaultProps = {
+ItemFlyout.defaultProps = {
   isOpen: false,
   isToggleable: true
 }

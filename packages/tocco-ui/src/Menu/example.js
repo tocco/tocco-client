@@ -67,7 +67,7 @@ export default () => {
         <Item>
           <Button label="B"/>
           <MenuStack>
-            <Item>
+            <Item isOpen={false}>
               <Button label="B-1"/>
               <MenuStack>
                 <Item><Button label="B-1-a"/></Item>
@@ -82,7 +82,7 @@ export default () => {
 
       <h3>Accordion Menu</h3>
       <MenuStack>
-        <ItemAccordion isOpen={true} label="Toggle Menu">
+        <ItemAccordion label="Toggle Menu">
           <MenuStack>
             <Item><Button label="A"/></Item>
             <Item><Button label="B"/></Item>
@@ -102,7 +102,7 @@ export default () => {
         <ItemFlyout isOpen={true} label="Toggle Menu">
           <MenuStack>
             <Item><Button label="A"/></Item>
-            <ItemFlyout isOpen={false} label="Toggle Menu B">
+            <ItemFlyout label="Toggle Menu B">
               <MenuStack>
                 <Item><Button label="B-1"/></Item>
                 <Item><Button label="B-2"/></Item>
@@ -123,7 +123,7 @@ export default () => {
       <h3>Menu Bar Flyout</h3>
       <MenuButton look="raised">
         <Item><Button label="Single Action"/></Item>
-        <ItemFlyout isOpen={false} label="Toggle action set 1">
+        <ItemFlyout label="Toggle action set 1">
           <MenuStack>
             <Item><Button label="Action 1-1"/></Item>
             <Item><Button label="Action 1-2"/></Item>
