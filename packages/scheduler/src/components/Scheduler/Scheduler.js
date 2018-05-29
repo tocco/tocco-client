@@ -14,6 +14,7 @@ class Scheduler extends React.Component {
         onEventClick={this.props.onEventClick}
         onRefresh={this.props.onRefresh}
         locale={this.props.locale}
+        isLoading={this.props.isLoading}
       />
     </div>
   }
@@ -39,7 +40,8 @@ Scheduler.propTypes = {
   onCalendarRemove: PropTypes.func,
   onEventClick: PropTypes.func,
   onRefresh: PropTypes.func,
-  locale: PropTypes.string
+  locale: PropTypes.string,
+  isLoading: PropTypes.bool
 }
 
 export default Scheduler

@@ -2,7 +2,8 @@ import reducer from './index'
 import * as actions from './actions'
 
 const EXPECTED_INITIAL_STATE = {
-  calendars: []
+  calendars: [],
+  isLoading: true
 }
 
 describe('resource-scheduler', () => {
@@ -17,7 +18,8 @@ describe('resource-scheduler', () => {
           const calendars = [{name: 'cal1'}, {name: 'cal2'}]
 
           const expectedStateAfter = {
-            calendars
+            calendars,
+            isLoading: true
           }
 
           expect(reducer(EXPECTED_INITIAL_STATE, actions.setCalendars(calendars))).to.deep.equal(expectedStateAfter)
