@@ -6,6 +6,10 @@ import Item from './Item'
 import StyledItemFlyout from './StyledItemFlyout'
 import {stylingPosition} from '../utilStyles'
 
+/**
+ * Wrap <MenuStack> in <ItemFlyout> if it should be toggleable. Submenu fly out on
+ * click and cover subsequent content.
+ */
 class ItemFlyout extends Item {
   render() {
     return (

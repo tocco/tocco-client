@@ -21,6 +21,10 @@ const getClassName = (icon, animation) => {
   return cls
 }
 
+/**
+ * Utilize <Icon> to create additional meaning or to omit text labels. Every chosen
+ * icon must be concise and convey the same meaning in all contexts.
+ */
 const Icon = props => {
   return (
     <StyledIcon
@@ -42,20 +46,21 @@ Icon.defaultProps = {
 
 Icon.propTypes = {
   /**
-  * Animate the Icon. Default value is 'none'. Possible values: none|spin
+  * Animate Icon. Default value is 'none'.
   */
   animation: PropTypes.oneOf([stylingAnimation.NONE, stylingAnimation.SPIN]),
   /**
-   * Integrate an icon into the button. Set the specific class only from
+   * Display an icon. Utilize Glyphicon of Bootstrap 3.7 or Font Awesome 4.7 by setting
+   * specific classname (e.g. "bars")
    * https://getbootstrap.com/docs/3.3/components/#glyphicons or https://fontawesome.com/v4.7.0/icons/
    */
   icon: PropTypes.string.isRequired,
   /**
-   * If true, smaller spacings are used.
+   * If true, button occupies less space. It should only used for crowded areas like tables and only if necessary.
    */
   dense: PropTypes.bool,
   /**
-   * Add spacing according position. Default value is 'none'. Possible values: after|before|between|none
+   * If icon is positioned next to text or not specifiy it to control flow. Default value is 'before'.
    */
   position: PropTypes.oneOf([
     stylingPosition.AFTER,

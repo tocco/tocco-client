@@ -8,13 +8,13 @@ export default () => {
     <div>
       {/* start example */}
       <Preview
-        alt="Alternative text"
+        alt="orange jellyfish floating in the deep blue sea"
         srcUrl="https://picsum.photos/500/500?image=1069"
         thumbnailUrl="https://picsum.photos/150/150?image=1069"
       />
       <Preview
-        alt="Alternative text"
-        caption="Linked image with a hundreds of strawberries."
+        alt="hundreds of juicy strawberries tempting to degustate"
+        caption="hundred juicy strawberries"
         downloadOnClick={true}
         srcUrl="https://picsum.photos/500/500?image=1080"
         thumbnailUrl="https://picsum.photos/100/100?image=1080"

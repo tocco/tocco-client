@@ -4,7 +4,7 @@ import React from 'react'
 import Icon from '../Icon'
 import StyledPreview from './StyledPreview'
 /**
- * Can be used to show previews of any kind of file. Therefore an Url to the thumbnail and to the file must be provided.
+ * Use <Preview> to display a preview of any kind of file. Provide URLs to thumbnail and file.
  */
 const Preview = props => {
   const onClick = () => {
@@ -43,11 +43,12 @@ const Preview = props => {
 
 Preview.propTypes = {
   /**
-   * Alternative text if the image can't be displayed.
+   * Describe content of file in detail for screen readers, web crawlers and as
+   * alternative display if thumbnail can not be loaded.
    */
   alt: PropTypes.string,
   /**
-   * Caption that will be displayed below the image.
+   * Describe content of file shortly. Caption is displayed always alongside thumbnail.
    */
   caption: PropTypes.string,
   /**

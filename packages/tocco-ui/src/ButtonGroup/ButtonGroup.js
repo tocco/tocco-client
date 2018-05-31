@@ -8,7 +8,7 @@ import {
 } from '../utilStyles'
 
 /**
- * ButtonGroup wraps Buttons and controls flow and space.
+ * Wrap <Button> and <ButtonLink> into <ButtonGroup> to control flow and style.
  */
 const ButtonGroup = props => {
   return (
@@ -29,18 +29,18 @@ ButtonGroup.defaultProps = {
 
 ButtonGroup.propTypes = {
   /**
-   * Set color palette for all Buttons globally. Ink can be overwritten on Buttons individually.
-   * Default value is 'base'. Possible values: base|primary
+   * Specify color palette for buttons globally. Ink can be overwritten on <Button> individually.
+   * Default value is 'base'.
    */
   ink: PropTypes.oneOf([stylingInk.BASE, stylingInk.PRIMARY]),
   /**
-   * Set style for all Buttons globally. Default value is 'flat'. Possible values: flat|raised
+   * Specify look for buttons globally. Default value is 'flat'.
    */
   look: PropTypes.oneOf([stylingLook.FLAT, stylingLook.RAISED]),
   /**
-   * If true Buttons melt visually into one. Default value is 'false'.
+   * If true buttons morphs into a split button. Default value is 'false'.
    */
-  melt: PropTypes.bool
+  melt: PropTypes.bool.isRequired
 }
 
 export default ButtonGroup
