@@ -43,15 +43,20 @@ const meltButtons = props => {
 }
 
 const declareButtonColor = props => {
-  if (props.look === stylingLook.FLAT && props.ink === stylingInk.BASE) {
-    return declareInteractionColors(declareFlatBaseColors(props))
-  } else if (props.look === stylingLook.FLAT && props.ink === stylingInk.PRIMARY) {
-    return declareInteractionColors(declareFlatPrimaryColors(props))
-  } else if (props.look === stylingLook.RAISED && props.ink === stylingInk.BASE) {
-    return declareInteractionColors(declareRaisedBaseColors(props))
-  } else if (props.look === stylingLook.RAISED && props.ink === stylingInk.PRIMARY) {
-    return declareInteractionColors(declareRaisedPrimaryColors(props))
+  let declareColor
+  const {ink, look} = props
+  const {FLAT, RAISED} = stylingLook
+  const {BASE, PRIMARY} = stylingInk
+  if (look === FLAT && ink === BASE) {
+    declareColor = declareFlatBaseColors
+  } else if (look === FLAT && ink === PRIMARY) {
+    declareColor = declareFlatPrimaryColors
+  } else if (look === RAISED && ink === BASE) {
+    declareColor = declareRaisedBaseColors
+  } else if (look === RAISED && ink === PRIMARY) {
+    declareColor = declareRaisedPrimaryColors
   }
+  return declareInteractionColors(declareColor(props))
 }
 
 const declareIconPosition = props => {
