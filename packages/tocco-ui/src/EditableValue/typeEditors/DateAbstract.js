@@ -65,12 +65,15 @@ class DateAbstract extends React.Component {
 
   componentWillReceiveProps(props) {
     const locale = this.getLocale(props.intl.locale)
-    this.Flatpickr.localize(locale)
-    this.flatpickr.set('locale', locale)
 
-    this.flatpickr.set('altFormat', props.options.flatpickrOptions.altFormat)
-    this.flatpickr.setDate(props.value, false)
-    this.flatpickr.redraw()
+    if (this.Flatpickr && this.flatpickr) {
+      this.Flatpickr.localize(locale)
+      this.flatpickr.set('locale', locale)
+
+      this.flatpickr.set('altFormat', props.options.flatpickrOptions.altFormat)
+      this.flatpickr.setDate(props.value, false)
+      this.flatpickr.redraw()
+    }
   }
 
   handleOnChange(selectedDates) {
