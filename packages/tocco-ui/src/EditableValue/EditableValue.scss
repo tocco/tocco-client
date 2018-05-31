@@ -7,6 +7,11 @@ $textarea-max-height: 25rem;
     max-height: $textarea-max-height; // react-textarea-autosize respects max-height property
   }
 
+  //url
+  [ type = url ] + .input-group-addon > a {
+    color: inherit;  // reset bootstrap default
+  }
+
   //html edit
   .quill {
     .ql-toolbar {
