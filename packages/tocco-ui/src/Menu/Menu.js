@@ -5,7 +5,8 @@ import StyledMenu from './StyledMenu'
 import {stylingLook} from '../utilStyles'
 
 /**
- * Structure <Button> and <ButtonLink> hierarchically as a Menu.
+ * Use <Menu> to structure <Button> and <ButtonLink> hierarchically as a menu.
+ * <Menu> is an unstyled base class and would normally not be used directly.
  */
 class Menu extends React.Component {
   getChildren = () => {
@@ -30,7 +31,7 @@ Menu.defaultProps = {
 
 Menu.propTypes = {
   /**
-   * Style according Google Material Design. Default value is 'flat'. Possible values: flat|raised
+   * Look of all menu items. Default value is 'flat'.
    */
   look: PropTypes.oneOf([stylingLook.FLAT, stylingLook.RAISED])
 }
