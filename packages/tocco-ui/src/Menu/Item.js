@@ -4,6 +4,9 @@ import React from 'react'
 import StyledItem from './StyledItem'
 import {stylingLook} from '../utilStyles'
 
+/**
+ * Wrap all <Button> and <ButtonLink> in <Item>.
+ */
 class Item extends React.Component {
   constructor(props) {
     super(props)
@@ -67,7 +70,7 @@ Item.propTypes = {
    */
   isToggleable: PropTypes.bool,
   /**
-   * Style according Google Material Design. Value is always overridden by parent element.
+   * Look of menu item. Default value is 'flat'. Value is always overridden by parent element.
    */
   look: PropTypes.oneOf([stylingLook.FLAT, stylingLook.RAISED])
 }

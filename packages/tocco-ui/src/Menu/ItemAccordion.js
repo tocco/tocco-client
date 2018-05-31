@@ -5,6 +5,10 @@ import Item from './Item'
 import StyledItemAccordion from './StyledItemAccordion'
 import {stylingPosition} from '../utilStyles'
 
+/**
+ * Wrap <MenuStack> in <ItemAccordion> if it should be toggleable. Submenu expand and
+ * collapse alternating on click and push subsequent content down.
+ */
 class ItemAccordion extends Item {
   render() {
     return (

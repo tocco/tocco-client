@@ -9,6 +9,10 @@ import {
   stylingPosition
 } from '../utilStyles'
 
+/**
+ * Use <ButtonLink> for internal and external links if it feels like an action
+ * or links compete with actions. Choose look and ink according Material Design.
+ */
 const ButtonLink = props => {
   return (
     <StyledButtonLink
@@ -36,48 +40,49 @@ ButtonLink.defaultProps = {
 
 ButtonLink.propTypes = {
   /**
-   * Define text for screenreaders and crawlers.
+   * Describe link target in detail for screen readers and web crawlers.
    */
   alt: PropTypes.string,
   /**
-   * May passed from ButtonGroup to merge buttons visually.
+   * May be passed from <ButtonGroup> to morph links into a split button. Do not set manually.
    */
   buttonGroupMelt: PropTypes.bool,
   /**
-   * If true, compress button to occupy less space.
+   * If true, links occupies less space. It should only used for crowded areas like tables and only if necessary.
    */
   dense: PropTypes.bool,
   /**
-   * Indicate download by attribute. Add string to suggest filename.
+   * Specify "download" to force direct download or an arbitrary string to suggest a filename.
    */
   download: PropTypes.string,
   /**
-   * Set an Url (absolute/relative) or a contact with prefix (mailto, tel). Default is '#'
+   * Specify any valid URL or a contact including prefix like "mailto:". Default is '#'
    */
   href: PropTypes.string,
   /**
-   * Add an icon to the link. Set the specific class only from
+   * Display an icon alongside link label. It is possible to omit label text if a icon is chosen. Utilize
+   * Glyphicon of Bootstrap 3.7 or Font Awesome 4.7 by setting specific classname (e.g. "bars")
    * https://getbootstrap.com/docs/3.3/components/#glyphicons or https://fontawesome.com/v4.7.0/icons/
    */
   icon: PropTypes.string,
   /**
-   * Add spacing according position. Default value is 'before'. Possible values: before|solely
+   * Position icon before or after label. Use 'solely' if label text is omitted. Default value is 'before'.
    */
   iconPosition: PropTypes.oneOf([stylingPosition.BEFORE, stylingPosition.SOLELY]),
   /**
-   * Define color palette. Default value is 'base'. Possible values: base|primary
+   * Specify color palette. Default value is 'base'.
    */
   ink: PropTypes.oneOf([stylingInk.BASE, stylingInk.PRIMARY]),
   /**
-   * Visible text. Default is an empty string.
+   * Describe link target concise. Default is ''.
    */
   label: PropTypes.node,
   /**
-   * Button Link style. Default value is 'plain'. Possible values: plain|flat|raised
+   * Look of link according Material Design (button section). Default value is 'flat'.
    */
   look: PropTypes.oneOf([stylingLook.PLAIN, stylingLook.FLAT, stylingLook.RAISED]),
   /**
-   * Popover title to be shown on mouse over.
+   * Describe link target in detail to instruct users. It is shown as popover on mouse over.
    */
   title: PropTypes.string
 }

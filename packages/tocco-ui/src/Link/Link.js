@@ -5,6 +5,9 @@ import Icon from '../Icon'
 import StyledLink from './StyledLink'
 import {stylingPosition} from '../utilStyles'
 
+/**
+ * Use <Link> for internal and external links in running text.
+ */
 const Link = props => {
   return (
     <StyledLink
@@ -27,7 +30,7 @@ Link.defaultProps = {
 
 Link.propTypes = {
   /**
-   * Define text for screenreaders and crawlers.
+   * Describe link target in detail for screen readers and web crawlers.
    */
   alt: PropTypes.string,
   /**
@@ -35,16 +38,17 @@ Link.propTypes = {
    */
   download: PropTypes.string,
   /**
-   * Set an Url (absolute/relative) or a contact with prefix (mailto, tel). Default is '#'
+   * Specify any valid URL or a contact including prefix like "mailto:". Default is '#'
    */
   href: PropTypes.string.isRequired,
   /**
-   * Add an icon to the link. Set the specific class only from
+   * Display an icon alongside link label. It is possible to omit label text if a icon is chosen. Utilize
+   * Glyphicon of Bootstrap 3.7 or Font Awesome 4.7 by setting specific classname (e.g. "bars")
    * https://getbootstrap.com/docs/3.3/components/#glyphicons or https://fontawesome.com/v4.7.0/icons/
    */
   icon: PropTypes.string,
   /**
-   * Visible text. Default is an empty string.
+   * Describe link target concise. Default is ''.
    */
   label: PropTypes.node,
   /*
@@ -52,7 +56,7 @@ Link.propTypes = {
    */
   target: PropTypes.oneOf(['_self', '_blank']),
   /**
-   * Popover title to be shown on mouse over.
+   * Describe link target in detail to instruct users. It is shown as popover on mouse over.
    */
   title: PropTypes.string
 }
