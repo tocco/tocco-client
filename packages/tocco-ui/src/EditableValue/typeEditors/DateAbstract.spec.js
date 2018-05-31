@@ -7,7 +7,7 @@ describe('tocco-ui', () => {
     describe('typeEditors', () => {
       describe('DateAbstract', () => {
         it('should call initialized', function(done) {
-          this.timeout(4000)
+          this.timeout(10000)
 
           const initSpy = () => { done() }
 
