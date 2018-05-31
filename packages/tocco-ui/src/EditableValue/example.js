@@ -1,7 +1,7 @@
 /* eslint no-console: 0 */
 import React from 'react'
 import EditableValue from './'
-// real-import:import EditableValue from 'tocco-ui'
+// real-import:import {EditableValue} from 'tocco-ui'
 
 class Example extends React.Component {
   constructor(props) {
