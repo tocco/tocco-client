@@ -35,7 +35,6 @@ export default () => {
         position="between"
       />
       Font Awesome Between Dense
-
       {/* end example */}
     </div>
   )
