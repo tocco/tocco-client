@@ -88,7 +88,6 @@ class SearchForm extends React.Component {
       return null
     }
 
-    // SCR_TEMP remove style attributes
     return (
       <form onSubmit={this.handleSubmit} className="form-horizontal">
         {this.formBuilder()}

@@ -57,7 +57,6 @@ class EntityDetail extends React.Component {
 
   msg = id => (this.props.intl.formatMessage({id}))
 
-  // SCR_TEMP remove style attributes
   render = () => {
     return (
       <div>
