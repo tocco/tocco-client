@@ -1,11 +1,6 @@
 import styled from 'styled-components'
 import {theme} from 'styled-system'
 
-import {
-  declareElevation,
-  stylingLook
-} from '../utilStyles'
-
 const StyledButtonGroup = styled.div`
   && {
     display: flex;
@@ -19,10 +14,6 @@ const StyledButtonGroup = styled.div`
     }
 
     border-radius: ${props => props.melt === true ? theme('radii.3') : 0};
-    /*
-      SCR_TEMP reactivate
-      ${props => declareElevation(props, props.look === stylingLook.RAISED && props.melt === true ? 1 : 0)}
-    */
   }
 `
 

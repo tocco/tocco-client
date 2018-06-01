@@ -2,7 +2,6 @@ import styled from 'styled-components'
 
 import {StyledButton} from '../Button'
 
-// SCR_TEMP remove StyledInputGroupBtn after Bootstrap forms were refactored
 const StyledInputGroupBtn = styled.span`
   && {
     /* copy of Bootstrap styles */

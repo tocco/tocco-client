@@ -4,7 +4,6 @@ import {theme} from 'styled-system'
 import {StyledButtonGroup} from '../ButtonGroup'
 import {
   declareDensity,
-  declareElevation,
   declareFlatBaseColors,
   declareFlatPrimaryColors,
   declareInteractionColors,
@@ -99,11 +98,6 @@ const StyledButton = styled.button`
 
     ${props => declareButtonColor(props)}
     ${props => declareDensity(props)}
-    /*
-      SCR_TEMP reactivate
-      ${props => declareElevation(props, props.look === stylingLook.RAISED && props.melt !== true ? 1 : 0)}
-    */
-
     ${props => declareIconPosition(props)}
 
     ${StyledButtonGroup} & {
