@@ -10,17 +10,21 @@ export default () => {
     <div>
       {/* start example */}
       <ButtonLink
+        href="#ButtonLink"
         label="Base color flat"
       />
       <ButtonLink
+        href="#ButtonLink"
         ink="primary"
         label="Primary color flat"
       />
       <ButtonLink
+        href="#ButtonLink"
         label="Base color raised"
         look="raised"
       />
       <ButtonLink
+        href="#ButtonLink"
         ink="primary"
         label="Primary color raised"
         look="raised"
@@ -34,6 +38,7 @@ export default () => {
       />
       <ButtonLink
         alt="alt text"
+        href="#ButtonLink"
         label="Link with alternative text and title"
         title="title text"
       />
