@@ -9,9 +9,12 @@ export default () => {
   return (
     <div>
       {/* start example */}
-      <Link label="Standard link"/><br/>
+      <Link
+        href="#Link"
+        label="Standard link"/><br/>
       <Link
         alt="alt text"
+        href="#Link"
         label="Link with alternative text and title"
         title="title text"
       /><br/>
@@ -26,6 +29,7 @@ export default () => {
         label="Phone Link"
       /><br/>
       <Link
+        href="#Link"
         label="New browser tab link"
         target="_blank"
       /><br/>
