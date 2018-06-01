@@ -22,16 +22,16 @@ export default () => {
       <MenuStack look="flat">
         <Item><Button label="<Button>"/></Item>
         <Item><Button ink="primary" label="<Button primary>"/></Item>
-        <Item><ButtonLink label="<ButtonLink>"/></Item>
-        <Item><ButtonLink ink="primary" label="<ButtonLink primary>"/></Item>
+        <Item><ButtonLink href="#Menu" label="<ButtonLink>"/></Item>
+        <Item><ButtonLink href="#Menu" ink="primary" label="<ButtonLink primary>"/></Item>
       </MenuStack>
 
       <h3>Menu Items Raised</h3>
       <MenuStack look="raised">
         <Item><Button label="<Button raised>"/></Item>
         <Item><Button ink="primary" label="<Button raised primary>"/></Item>
-        <Item><ButtonLink label="<ButtonLink raised>"/></Item>
-        <Item><ButtonLink ink="primary" label="<ButtonLink raised primary>"/></Item>
+        <Item><ButtonLink href="#Menu" label="<ButtonLink raised>"/></Item>
+        <Item><ButtonLink href="#Menu" ink="primary" label="<ButtonLink raised primary>"/></Item>
       </MenuStack>
 
       <h3>Menu Items Miscellaneous</h3>
@@ -48,8 +48,8 @@ export default () => {
         <Item><Button label="<Button>"/></Item>
         <Item><Button ink="primary" label="<Button primary>"/></Item>
         <hr/>
-        <Item><ButtonLink label="<ButtonLink>"/></Item>
-        <Item><ButtonLink ink="primary" label="<ButtonLink primary>"/></Item>
+        <Item><ButtonLink href="#Menu" label="<ButtonLink>"/></Item>
+        <Item><ButtonLink href="#Menu" ink="primary" label="<ButtonLink primary>"/></Item>
       </MenuBar>
 
       <h3>Menu Button Raised</h3>
@@ -57,8 +57,8 @@ export default () => {
         <Item><Button label="<Button>"/></Item>
         <Item><Button ink="primary" label="<Button primary>"/></Item>
         <hr/>
-        <Item><ButtonLink label="<ButtonLink>"/></Item>
-        <Item><ButtonLink ink="primary" label="<ButtonLink primary>"/></Item>
+        <Item><ButtonLink href="#Menu" label="<ButtonLink>"/></Item>
+        <Item><ButtonLink href="#Menu" ink="primary" label="<ButtonLink primary>"/></Item>
       </MenuButton>
 
       <h3>Menu Stack</h3>

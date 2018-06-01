@@ -11,43 +11,43 @@ export default () => {
       {/* start example */}
       <ButtonGroup>
         <Button label="A" ink="primary"/>
-        <ButtonLink label="B"/>
+        <ButtonLink href="#ButtonGroup" label="B"/>
       </ButtonGroup>
       <ButtonGroup ink="primary">
         <Button label="C"/>
-        <ButtonLink label="D"/>
+        <ButtonLink href="#ButtonGroup" label="D"/>
         <Button label="E" ink="base"/>
       </ButtonGroup>
       <ButtonGroup look="raised">
         <Button label="F" ink="primary"/>
         <Button label="G"/>
         <Button label="H"/>
-        <ButtonLink label="I"/>
+        <ButtonLink href="#ButtonGroup" label="I"/>
       </ButtonGroup>
       <ButtonGroup look="raised" ink="primary">
         <Button label="Lorem ipsum dolor"/>
-        <ButtonLink label="Sit amet consectetur adipisicing"/>
+        <ButtonLink href="#ButtonGroup" label="Sit amet consectetur adipisicing"/>
         <Button label="Quisquam modi nam" ink="base"/>
       </ButtonGroup>
 
       <ButtonGroup melt>
         <Button label="A" ink="primary"/>
-        <ButtonLink label="B"/>
+        <ButtonLink href="#ButtonGroup" label="B"/>
       </ButtonGroup>
       <ButtonGroup melt ink="primary">
         <Button label="C"/>
-        <ButtonLink label="D"/>
+        <ButtonLink href="#ButtonGroup" label="D"/>
         <Button label="E" ink="base"/>
       </ButtonGroup>
       <ButtonGroup melt look="raised">
         <Button label="F" ink="primary"/>
         <Button label="G"/>
         <Button label="H"/>
-        <ButtonLink label="I"/>
+        <ButtonLink href="#ButtonGroup" label="I"/>
       </ButtonGroup>
       <ButtonGroup melt look="raised" ink="primary">
         <Button label="Lorem ipsum dolor"/>
-        <ButtonLink label="Sit amet consectetur adipisicing"/>
+        <ButtonLink href="#ButtonGroup" label="Sit amet consectetur adipisicing"/>
         <Button label="Quisquam modi nam" ink="base"/>
       </ButtonGroup>
       {/* end example */}
