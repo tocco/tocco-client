@@ -27,7 +27,8 @@
               }
             ],
             "label": "Label"
-          },                 {
+          },
+          {
             "id": "active",
             "componentType": "Column",
             "hidden": false,
@@ -51,6 +52,24 @@
               }
             ],
             "label": "Active"
+          },
+          {
+            "id": "document",
+            "label": "Document",
+            "componentType": "column",
+            "children": [
+              {
+                "id": "doc",
+                "label": null,
+                "componentType": "field",
+                "path": "doc",
+                "dataType": "document",
+                "defaultValue": null
+              }
+            ],
+            "readonly": false,
+            "hidden": false,
+            "sortable": true
           }
         ],
         "label": null,
