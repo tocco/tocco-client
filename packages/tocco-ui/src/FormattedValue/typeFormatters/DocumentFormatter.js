@@ -1,14 +1,13 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-
+import Upload from '../../Upload'
 const DocumentFormatter = props => (
   <div className="form-control-static document">
-    <a href={props.value.binaryLink} alt={props.value.fileName} download>
-      <figure>
-        <img alt={props.value.fileName} className="thumbnail" src={props.value.thumbnailLink}/>
-        <figcaption className="description">{props.value.fileName}</figcaption>
-      </figure>
-    </a>
+    <Upload
+      readOnly={true}
+      value={props.value ? props.value : null}
+      onUpload={() => {}}
+    />
   </div>
 )
 

@@ -15,7 +15,7 @@ const FormattedValue = props => {
 
   return (
     <span>
-      {provider(props.type, props.value)}
+      {provider(props.type, props.value, props.options)}
     </span>)
 }
 
@@ -30,7 +30,11 @@ FormattedValue.propTypes = {
   /**
    * Value that should be formatted
    */
-  value: PropTypes.any
+  value: PropTypes.any,
+  /**
+   * Type specific additional informations
+   */
+  options: PropTypes.object
 }
 
 export default FormattedValue

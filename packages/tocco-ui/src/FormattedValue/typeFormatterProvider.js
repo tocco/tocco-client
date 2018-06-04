@@ -18,10 +18,11 @@ import DocumentFormatter from './typeFormatters/DocumentFormatter'
 import HtmlFormatter from './typeFormatters/HtmlFormatter'
 import SingleSelectFormatter from './typeFormatters/SingleSelectFormatter'
 import MultiSelectFormatter from './typeFormatters/MultiSelectFormatter'
+import DocumentCompactFormatter from './typeFormatters/DocumentCompactFormatter'
 
-export default (type, value) => {
+export default (type, value, options) => {
   if (map[type]) {
-    return React.createElement(map[type], {value})
+    return React.createElement(map[type], {value, options})
   }
 
   // eslint-disable-next-line no-console
@@ -68,5 +69,7 @@ export const map = {
   'multi-select': MultiSelectFormatter,
   'multi-remote': MultiSelectFormatter,
   'createuser': StringFormatter,
-  'createts': DateTimeFormatter
+  'createts': DateTimeFormatter,
+  'document-compact': DocumentCompactFormatter,
+  'binary': DocumentFormatter
 }
