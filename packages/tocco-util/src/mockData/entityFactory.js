@@ -43,6 +43,21 @@ export const createDummyEntities = amount => {
         type: 'string',
         readable: true,
         writable: true
+      },
+      doc: {
+        value: {
+          mimeType: 'image/png',
+          fileExtension: 'png',
+          sizeInBytes: 3336,
+          fileName: 'Firstname,-Lastname-Vorschaubild.png',
+          thumbnailLink: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgAQMAAADYVuV7AAAACXBIWXMAAA7EAAAOxAGV'
+          + 'Kw4bAAAABlBMVEUCd72z5fwcX0uLAAAAHElEQVQ4y2NgwAns/8PBn1HOKGeUM8oZrBycAADOggXZNnQmgAAAAABJRU5ErkJggg==',
+          binaryLink: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgAQMAAADYVuV7AAAACXBIWXMAAA7EAAAOxAGVKw4'
+          + 'bAAAABlBMVEUCd72z5fwcX0uLAAAAHElEQVQ4y2NgwAns/8PBn1HOKGeUM8oZrBycAADOggXZNnQmgAAAAABJRU5ErkJggg=='
+        },
+        type: 'document',
+        readable: true,
+        writable: true
       }
     }
 
