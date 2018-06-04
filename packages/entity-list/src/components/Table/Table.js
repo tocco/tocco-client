@@ -2,13 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {intlShape} from 'react-intl'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
-import {FormattedValue} from 'tocco-ui'
-import {actions, form} from 'tocco-util'
+import cellRenderer from '../../util/cellRenderer'
 import '!style-loader!css-loader!react-bootstrap-table/dist/react-bootstrap-table.min.css'
 
 const RIGHT_ALIGNED_TYPES = ['moneyamount', 'counter', 'integer', 'long']
 
-const Table = props => {
+const Table = (props, context) => {
   const msg = (id, values = {}) => (props.intl.formatMessage({id}, values))
 
   const onSortChange = (field, order) => {
@@ -87,34 +86,11 @@ const Table = props => {
 
   const showPagination = props.entityCount - props.limit > 0 && !props.inProgress
 
-  const cellFormatter = (column, idx) => (cell, entity) => {
-    return <span key={idx}>{
-      column.children.map(child => {
-        const {id} = child
-
-        if (actions.isAction(child.componentType)) {
-          return (
-            <actions.Action
-              key={'tableAction' + idx}
-              definition={child}
-              ids={[entity.__key]}
-              entity={entity.__model}
-              callback={result =>
-                props.refresh()
-              }
-            />
-          )
-        } else if (child.componentType === form.componentTypes.FIELD) {
-          const {type, value} = entity[id]
-          return <span key={id} style={{marginRight: '2px'}}> <FormattedValue type={type} value={value}/></span>
-        } else if (child.componentType === form.componentTypes.DISPLAY) {
-          const {value} = entity[id]
-          return <span key={id}> <FormattedValue type="html" value={value}/></span>
-        }
-      })
-    }
+  const cellFormatter = (column, idx) => (cell, entity) => (
+    <span key={idx}>
+      {column.children.map(child => cellRenderer(child, entity, {refresh: props.refresh}, context.intl))}
     </span>
-  }
+  )
 
   return (
     <div className="entity-table">
@@ -150,6 +126,10 @@ const Table = props => {
       }
     </div>
   )
+}
+
+Table.contextTypes = {
+  intl: intlShape
 }
 
 Table.propTypes = {
