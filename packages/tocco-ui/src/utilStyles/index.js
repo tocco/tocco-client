@@ -8,6 +8,7 @@ import {
 } from './declareInteractionColors'
 import declareOverlay from './declareOverlay'
 import declareElevation from './declareElevation'
+import declareFont from './declareFont'
 import objectToCss from './objectToCss'
 import {
   animation as stylingAnimation,
@@ -29,6 +30,7 @@ export {
   declareElevation,
   declareFlatBaseColors,
   declareFlatPrimaryColors,
+  declareFont,
   declareInteractionColors,
   declareOverlay,
   declareRaisedBaseColors,

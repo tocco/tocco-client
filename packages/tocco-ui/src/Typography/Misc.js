@@ -3,7 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 import {theme} from 'styled-system'
 
-import {declareFont} from './'
+import {declareFont} from '../utilStyles'
 
 const StyledB = styled.b`
   && {

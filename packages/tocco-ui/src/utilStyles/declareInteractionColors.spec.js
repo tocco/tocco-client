@@ -55,7 +55,7 @@ const colorSet = {
 
 describe('tocco-ui', () => {
   describe('utilStyles', () => {
-    describe('declareElevation', () => {
+    describe('declareInteractionColors', () => {
       it('should be color set for flat base', () => {
         const colors = declareFlatBaseColors(props)
         expect(Object.keys(colors)).to.have.lengthOf(6)
