@@ -1,24 +1,13 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
 
-import Button, {StyledButton} from '../Button'
+import StyledPanelHeaderFooter from './StyledPanelHeaderFooter'
+import Button from '../Button'
 
-const StyledPanelHeaderFooter = styled.div`
-  && {
-    display: flex;
-
-    > div {
-      flex: 1 1 auto;
-    }
-
-    ${StyledButton} {
-      margin-left: auto;
-      align-self: flex-start;
-    }
-  }
-`
-
+/**
+ * <PanelHeader/> and <PanelFooter/> contain by default a button to toggle the visibility state of <PanelBody>.
+ * Header and footer can contain any content. If both are displayed is up to the implementer.
+ */
 class PanelHeaderFooter extends React.Component {
   render() {
     const {
@@ -57,10 +46,10 @@ PanelHeaderFooter.defaultProps = {
 }
 
 PanelHeaderFooter.propTypes = {
+  /**
+   * Show or hide button if needed. Default value is 'true'.
+   */
   showToggler: PropTypes.bool
 }
 
-export {
-  PanelHeaderFooter as default,
-  StyledPanelHeaderFooter
-}
+export default PanelHeaderFooter

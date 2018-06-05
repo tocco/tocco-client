@@ -2,8 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 /**
- * Panels are used if parts or related content can be alternating displayed or concealed by interaction.
- * Header and footer contain a button to toggle the visibility state of the body.
+ * <Panel/> is used to conceal and display related content alternating by interaction.
  */
 class Panel extends React.Component {
   state = {
@@ -46,7 +45,7 @@ Panel.defaultProps = {
 
 Panel.propTypes = {
   /**
-   * Boolean to control if a body is initially opened. Default value is 'false'.
+   * Boolean to control if <PanelBody/> is initially opened. Default value is 'false'.
    */
   isOpen: PropTypes.bool,
   /**
