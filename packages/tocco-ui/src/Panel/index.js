@@ -1,12 +1,14 @@
 import Panel from './Panel'
-import PanelBody, {StyledPanelBody} from './PanelBody'
-import PanelHeaderFooter, {StyledPanelHeaderFooter} from './PanelHeaderFooter'
+import PanelBody from './PanelBody'
+import StyledPanelBody from './StyledPanelBody'
+import PanelHeaderFooter from './PanelHeaderFooter'
+import StyledPanelHeaderFooter from './StyledPanelHeaderFooter'
 
 export {
   Panel as default,
   PanelBody,
-  StyledPanelBody,
   PanelHeaderFooter as PanelFooter,
   PanelHeaderFooter as PanelHeader,
+  StyledPanelBody,
   StyledPanelHeaderFooter
 }
