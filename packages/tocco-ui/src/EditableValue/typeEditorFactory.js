@@ -1,4 +1,5 @@
 import React from 'react'
+import _isEmpty from 'lodash/isEmpty'
 
 import SingleSelect from './typeEditors/SingleSelect'
 import MultiSelect from './typeEditors/MultiSelect'
@@ -15,6 +16,7 @@ import RemoteSelect from './typeEditors/RemoteSelect'
 import MultiRemoteSelect from './typeEditors/MultiRemoteSelect'
 import SearchFilterEdit from './typeEditors/SearchFilterEdit'
 import UrlEdit from './typeEditors/UrlEdit'
+import PhoneEdit from './typeEditors/PhoneEdit'
 
 export const map = {
   'string': StringEdit,
@@ -25,7 +27,7 @@ export const map = {
   'datetime': DateTimeEdit,
   'count': StringEdit,
   'html': HtmlEdit,
-  'phone': StringEdit,
+  'phone': PhoneEdit,
   'url': UrlEdit,
   'document': Document,
   'boolean': BoolEdit,
@@ -63,7 +65,7 @@ export default (type, value, onChange, options, id, events, readOnly = false) =>
             blurValue = v
             onChange(v)
           }}
-          options={options}
+          {...(_isEmpty(options) ? {} : {options})}
           id={id}
           readOnly={readOnly}
           events={events}
