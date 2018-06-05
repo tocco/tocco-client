@@ -1,17 +1,6 @@
 import React from 'react'
-import styled from 'styled-components'
-import {theme} from 'styled-system'
 
-const StyledSignalList = styled.ul`
-  display: block;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-
-  > li > ul {
-    margin-left: ${theme('space.5')};
-  }
-`
+import StyledSignalList from './StyledSignalList'
 
 /**
  * Signalize conditions by icon and color in a list.
@@ -27,7 +16,4 @@ const SignalList = props => {
   )
 }
 
-export {
-  SignalList as default,
-  StyledSignalList
-}
+export default SignalList
