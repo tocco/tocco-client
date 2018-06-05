@@ -109,7 +109,13 @@
     },
     {
       "fieldName": "phone_company",
-      "type": "phone"
+      "type": "phone",
+      "defaultCountry": "CH"
+    },
+    {
+      "fieldName": "phone_custom",
+      "type": "phone",
+      "customPhoneRegex": "^\\d{3}$"
     },
     {
       "fieldName": "preview_picture",

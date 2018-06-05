@@ -68,7 +68,16 @@
     "phone_company": {
       "type": "field",
       "value": {
-        "value": "41716884523",
+        "value": "+41784755448",
+        "type": "phone",
+        "readable": true,
+        "writable": true
+      }
+    },
+    "phone_custom": {
+      "type": "field",
+      "value": {
+        "value": "",
         "type": "phone",
         "readable": true,
         "writable": true
