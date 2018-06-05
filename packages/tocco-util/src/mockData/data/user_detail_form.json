@@ -267,12 +267,26 @@
                   },
                   {
                     "componentType": "field-set",
-                    "label": "Telefon G",
+                    "label": "Phone (CH)",
                     "scopes": [],
                     "hidden": false,
                     "children": [
                       {
                         "id": "phone_company",
+                        "componentType": "field",
+                        "dataType": "phone",
+                        "label": null
+                      }
+                    ]
+                  },
+                  {
+                    "componentType": "field-set",
+                    "label": "Phone (Custom Validation)",
+                    "scopes": [],
+                    "hidden": false,
+                    "children": [
+                      {
+                        "id": "phone_custom",
                         "componentType": "field",
                         "dataType": "phone",
                         "label": null
