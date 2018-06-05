@@ -4,6 +4,7 @@
   "description": "tocco util",
   "main": "src/main.js",
   "devDependencies": {
+    "libphonenumber-js": "^1.2.15",
     "tocco-simple-form": ">0.1.0",
     "tocco-test-util": ">0.1.0",
     "tocco-ui": ">0.1.0",

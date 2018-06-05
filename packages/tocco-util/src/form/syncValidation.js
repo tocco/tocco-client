@@ -38,7 +38,8 @@ const validateTypes = (values, entityModel, errors) => {
       if (type) {
         const typeValidator = validators.typeValidators[type]
         if (typeValidator) {
-          const validatorError = typeValidator(value)
+          const fieldModel = entityModel[key]
+          const validatorError = typeValidator(value, fieldModel)
           if (validatorError) {
             errors = addErrors(errors, key, validatorError)
           }

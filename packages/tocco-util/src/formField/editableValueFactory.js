@@ -54,6 +54,10 @@ const getOptions = (type, formField, modelField, utils) => {
       options.multi = formField.multiple ? formField.multiple : false
       options.store = utils.searchFilters
       options.onChange = utils.onChange
+      break
+    case 'phone':
+      options.customPhoneRegex = modelField.customPhoneRegex
+      options.defaultCountry = modelField.defaultCountry
   }
 
   return options
