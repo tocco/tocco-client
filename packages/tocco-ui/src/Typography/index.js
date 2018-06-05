@@ -5,14 +5,13 @@ import {Dd, Dt, Dl, Li, Ol, Ul,
 import {B, Code, Del, Em, I, Ins, Kbd, Mark, P, Pre, Q, S, Strong, Sub, Sup, U, Var,
   StyledB, StyledCode, StyledDel, StyledEm, StyledI, StyledIns, StyledKbd, StyledMark,
   StyledP, StyledPre, StyledQ, StyledS, StyledStrong, StyledSub, StyledSup, StyledU, StyledVar} from './Misc'
-import Span, {declareFont, StyledSpan} from './Typography'
+import Span, {StyledSpan} from './Typography'
 import InjectFontRoboto from './Font'
 
 export {
   B,
   Code,
   Dd,
-  declareFont,
   Del,
   Dl,
   Dt,

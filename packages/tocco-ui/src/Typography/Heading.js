@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {theme} from 'styled-system'
 
-import {declareFont} from './'
+import {declareFont} from '../utilStyles'
 
 const declareHeaderFont = props => {
   let fontSize = theme('fontSizes.2')(props)
