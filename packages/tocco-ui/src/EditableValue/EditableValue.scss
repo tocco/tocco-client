@@ -12,6 +12,11 @@ $textarea-max-height: 25rem;
     color: inherit;  // reset bootstrap default
   }
 
+  //url
+  [ type = tel ] + .input-group-addon > a {
+    color: inherit;  // reset bootstrap default
+  }
+
   //html edit
   .quill {
     .ql-toolbar {

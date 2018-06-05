@@ -12,6 +12,7 @@ class Example extends React.Component {
         string: 'Test String',
         text: 'Line\nLine2',
         url: 'http://www.tocco.ch',
+        phone: '+41444005050',
         html: '<h1>Header</h1><p>Body</p>',
         singleSelect: {key: 2, display: 'Two'},
         multiSelect: [{key: 'a', display: 'One'}, {key: 'b', display: 'Two'}],
@@ -134,6 +135,18 @@ class Example extends React.Component {
                   value={this.state.values.url}
                   onChange={v => this.changeValue('url', v)}
                   readOnly={this.state.readOnly}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>phone</td>
+              <td>
+                <EditableValue
+                  type="phone"
+                  value={this.state.values.phone}
+                  onChange={v => this.changeValue('phone', v)}
+                  readOnly={this.state.readOnly}
+                  option={{defaultCountry: 'CH'}}
                 />
               </td>
             </tr>
