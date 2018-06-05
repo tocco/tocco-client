@@ -1,14 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
 
-import {declareFont} from '../utilStyles'
-
-const StyledSpan = styled.span`
-  && {
-    ${props => declareFont(props)}
-  }
-`
+import {StyledSpan} from './StyledTypography'
 
 /**
  * Utilize only React components (e.g. <Span>) instead of pure html tags (e.g. <span>)
@@ -27,7 +20,5 @@ Span.propTypes = {
 }
 
 export {
-  Span as default,
-  StyledSpan,
-  declareFont
+  Span as default
 }
