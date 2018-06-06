@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import {StyledSpan} from './StyledTypography'
+import {getTextOfChildren} from '../utilStyles'
 
 /**
  * Utilize only React components (e.g. <Span>) instead of pure html tags (e.g. <span>)
@@ -11,11 +12,22 @@ import {StyledSpan} from './StyledTypography'
  */
 const Span = props => {
   return (
-    <StyledSpan>{props.children}</StyledSpan>
+    <StyledSpan
+      breakWords={props.breakWords}
+      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+    >{props.children}</StyledSpan>
   )
 }
 
+Span.defaultProps = {
+  breakWords: true
+}
+
 Span.propTypes = {
+  /**
+   * If true words break with hyphens. If false text is forced into a single truncated line.
+   */
+  breakWords: PropTypes.bool,
   children: PropTypes.node.isRequired
 }
 

@@ -1,11 +1,16 @@
 import styled from 'styled-components'
 import {theme} from 'styled-system'
 
-import {declareFont} from '../utilStyles'
+import {
+  declareFont,
+  declareNoneWrappingText,
+  declareWrappingText
+} from '../utilStyles'
 
 const StyledDd = styled.dd`
   && {
     ${props => declareFont(props)}
+    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     margin: 0;
   }
 `
@@ -19,6 +24,7 @@ const StyledDl = styled.dl`
 const StyledDt = styled.dt`
   && {
     ${props => declareFont(props, {fontWeight: 700})}
+    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     margin: 0;
   }
 `
@@ -26,6 +32,7 @@ const StyledDt = styled.dt`
 const StyledLi = styled.li`
   && {
     ${props => declareFont(props)}
+    ${declareWrappingText()}
   }
 `
 
