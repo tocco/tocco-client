@@ -4,7 +4,7 @@ import React from 'react'
 const DocumentFormatter = props => (
   <span className="form-control-static document-compact">
     <a
-      download="Test.pdf"
+      download={props.value.fileName}
       href={props.value.binaryLink}
       title={props.options.downloadTitle || 'Download'}
       onClick={e => e.stopPropagation()}
