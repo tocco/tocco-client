@@ -28,7 +28,8 @@ const PhoneEdit = ({value, options, onChange, id, readOnly}) => {
       const offset = spacesCurrent - spacesPrevious
 
       window.requestAnimationFrame(function() {
-        this.setSelectionRange(caret + offset, caret + offset)
+        const start = caret + offset
+        this.setSelectionRange(start, start)
       }.bind(inputElement))
     }
   }
@@ -46,8 +47,7 @@ const PhoneEdit = ({value, options, onChange, id, readOnly}) => {
     repositionCaret(number, currentCaretPosition)
   }
 
-  const customRegex = options && options.customPhoneRegex
-  const displayValue = customRegex ? value : new AsYouType(defaultCountry).input(value) || (value || '')
+  const displayValue = new AsYouType(defaultCountry).input(value) || value
 
   return (
     <div className={value ? 'input-group' : ''}>

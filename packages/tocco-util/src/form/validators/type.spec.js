@@ -74,7 +74,8 @@ describe('tocco-util', () => {
               {number: '1', valid: false},
               {number: '123', valid: true},
               {number: '1234', valid: false},
-              {number: '12 ', valid: false}
+              {number: '12 ', valid: false},
+              {number: '+41444005555', valid: true}
             ]
 
             testData.forEach(data => {
