@@ -10,6 +10,11 @@ import {
   StyledH6
 } from './StyledHeading'
 
+/**
+ * Use <H1>, <H2>, <H3>, <H4>, <H5> and <H6> according there semantic hierarchy. Since only one <H1> should exist on
+ * a single webpage and React components are usually embeded, use <H2> or lower. Utilize prop styledLike to tweek
+ * size and space.
+ */
 const H1 = props => {
   return (
     <StyledH1 styledLike={props.styledLike}>
@@ -89,6 +94,9 @@ H1.propTypes
 = H5.propTypes
 = H6.propTypes = {
             children: PropTypes.node.isRequired,
+            /**
+             * Control size and space independently from semantic meaning.
+             */
             styledLike: PropTypes.oneOf(['H1', 'H2', 'H3', 'H4', 'H5', 'H6'])
           }
 
