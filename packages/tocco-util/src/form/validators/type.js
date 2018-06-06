@@ -17,25 +17,22 @@ export const urlValidator = value => {
   return null
 }
 
-const DEFAULT_DEFAUL_COUNTRY = 'CH'
+const DEFAULT_DEFAULT_COUNTRY = 'CH'
 export const phoneValidator = (value, fieldModel = {}) => {
-  const isValidPhoneNumber = isValidNumber(value, (fieldModel.defaultCountry) || DEFAULT_DEFAUL_COUNTRY)
+  const isValidCustomRegex = fieldModel.customPhoneRegex && value.match(fieldModel.customPhoneRegex)
+  const isValidPhoneNumber = isValidNumber(value, (fieldModel.defaultCountry) || DEFAULT_DEFAULT_COUNTRY)
 
-  const invalidPhoneError = {
+  if (isValidCustomRegex || isValidPhoneNumber) {
+    return null
+  }
+
+  return {
     format: [<FormattedMessage
       key="invalidUrl"
       id="client.component.form.invalidPhoneNumber"
     />
     ]
   }
-
-  if (fieldModel.customPhoneRegex) {
-    return value.match(fieldModel.customPhoneRegex) ? null : invalidPhoneError
-  } else if (!isValidPhoneNumber) {
-    return invalidPhoneError
-  }
-
-  return null
 }
 
 export default {
