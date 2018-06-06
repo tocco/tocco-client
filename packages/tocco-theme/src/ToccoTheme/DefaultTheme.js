@@ -59,7 +59,8 @@ const fontFamily = {
 }
 
 /* FONT SIZES
- * scale is augmented fourth (1.414)
+ * Unit 'rem' is required for correct presentation, independently from zoom and nesting.
+ * It is recommended to use a rhythmic scale to ensure a harmonic typography (e.g. augmented fourth = 1.414).
  */
 const fontSizes = [
   '.5rem', '.707rem', '1rem', '1.414rem', '1.999rem', '2.827rem', '3.998rem', '5.653172rem'
@@ -103,8 +104,9 @@ const shadows = {
 }
 
 /* SPACE
- * space is used for margin and padding scales
- * it's recommended to use powers of two to ensure alignment
+ * Space controls vertical and horizontal white space rhythm.
+ * Unit 'rem' is required for correct presentation, independently from zoom and nesting.
+ * It is recommended to use powers of two to ensure alignment.
  * space[0] = 0px
  * space[1] = 1px
  * space[2] = 2px
