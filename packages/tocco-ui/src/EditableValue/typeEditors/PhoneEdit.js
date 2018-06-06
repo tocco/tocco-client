@@ -18,7 +18,7 @@ const PhoneEdit = ({value, options, onChange, id, readOnly}) => {
   const defaultCountry = (options && options.defaultCountry) || DEFAULT_DEFAULT_COUNTRY
 
   const repositionCaret = (number, caret) => {
-    if (number.length !== caret) {
+    if (caret && number.length !== caret) {
       const previousValueFormatted = new AsYouType(defaultCountry).input(value)
       const currentValueFormatted = new AsYouType(defaultCountry).input(number)
 
