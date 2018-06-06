@@ -46,6 +46,14 @@ const Example = () => {
             <td><FormattedValue type="time" value={timeValue}/></td>
           </tr>
           <tr>
+            <td>Phone</td>
+            <td><FormattedValue type="phone" value="+41443886000"/></td>
+          </tr>
+          <tr>
+            <td>Phone</td>
+            <td><FormattedValue type="phone" value="+414438860011111110"/></td>
+          </tr>
+          <tr>
             <td>Duration</td>
             <td><FormattedValue type="duration" value={3020000}/></td>
           </tr>

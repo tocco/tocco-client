@@ -19,6 +19,7 @@ import HtmlFormatter from './typeFormatters/HtmlFormatter'
 import SingleSelectFormatter from './typeFormatters/SingleSelectFormatter'
 import MultiSelectFormatter from './typeFormatters/MultiSelectFormatter'
 import DocumentCompactFormatter from './typeFormatters/DocumentCompactFormatter'
+import PhoneFormatter from './typeFormatters/PhoneFormatter'
 
 export default (type, value, options) => {
   if (map[type]) {
@@ -49,7 +50,7 @@ export const map = {
   'decimal': DecimalFormatter,
   'percent': PercentFormatter,
   'double': DecimalFormatter,
-  'phone': StringFormatter,
+  'phone': PhoneFormatter,
   'counter': StringFormatter,
   'url': UrlFormatter,
   'date': DateFormatter,
