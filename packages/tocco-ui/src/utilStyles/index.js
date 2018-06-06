@@ -9,6 +9,11 @@ import {
 import declareOverlay from './declareOverlay'
 import declareElevation from './declareElevation'
 import declareFont from './declareFont'
+import {
+  declareNoneWrappingText,
+  declareWrappingText
+} from './declareWrapping'
+import getTextOfChildren from './getTextOfChildren'
 import objectToCss from './objectToCss'
 import {
   animation as stylingAnimation,
@@ -32,9 +37,12 @@ export {
   declareFlatPrimaryColors,
   declareFont,
   declareInteractionColors,
+  declareNoneWrappingText,
   declareOverlay,
   declareRaisedBaseColors,
   declareRaisedPrimaryColors,
+  declareWrappingText,
+  getTextOfChildren,
   inkPropTypes,
   lookPropTypes,
   objectToCss,

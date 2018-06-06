@@ -9,81 +9,113 @@ import {
   StyledH5,
   StyledH6
 } from './StyledHeading'
+import {getTextOfChildren} from '../utilStyles'
 
 /**
  * Use <H1>, <H2>, <H3>, <H4>, <H5> and <H6> according there semantic hierarchy. Since only one <H1> should exist on
  * a single webpage and React components are usually embeded, use <H2> or lower. Utilize prop styledLike to tweek
  * size and space.
  */
+
 const H1 = props => {
   return (
-    <StyledH1 styledLike={props.styledLike}>
+    <StyledH1
+      breakWords={props.breakWords}
+      styledLike={props.styledLike}
+      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+    >
       {props.children}
     </StyledH1>
   )
 }
 
 H1.defaultProps = {
+  breakWords: true,
   styledLike: 'H1'
 }
 
 const H2 = props => {
   return (
-    <StyledH2 styledLike={props.styledLike}>
+    <StyledH2
+      breakWords={props.breakWords}
+      styledLike={props.styledLike}
+      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+    >
       {props.children}
     </StyledH2>
   )
 }
 
 H2.defaultProps = {
+  breakWords: true,
   styledLike: 'H2'
 }
 
 const H3 = props => {
   return (
-    <StyledH3 styledLike={props.styledLike}>
+    <StyledH3
+      breakWords={props.breakWords}
+      styledLike={props.styledLike}
+      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+    >
       {props.children}
     </StyledH3>
   )
 }
 
 H3.defaultProps = {
+  breakWords: true,
   styledLike: 'H3'
 }
 
 const H4 = props => {
   return (
-    <StyledH4 styledLike={props.styledLike}>
+    <StyledH4
+      breakWords={props.breakWords}
+      styledLike={props.styledLike}
+      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+    >
       {props.children}
     </StyledH4>
   )
 }
 
 H4.defaultProps = {
+  breakWords: true,
   styledLike: 'H4'
 }
 
 const H5 = props => {
   return (
-    <StyledH5 styledLike={props.styledLike}>
+    <StyledH5
+      breakWords={props.breakWords}
+      styledLike={props.styledLike}
+      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+    >
       {props.children}
     </StyledH5>
   )
 }
 
 H5.defaultProps = {
+  breakWords: true,
   styledLike: 'H5'
 }
 
 const H6 = props => {
   return (
-    <StyledH6 styledLike={props.styledLike}>
+    <StyledH6
+      breakWords={props.breakWords}
+      styledLike={props.styledLike}
+      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+    >
       {props.children}
     </StyledH6>
   )
 }
 
 H6.defaultProps = {
+  breakWords: true,
   styledLike: 'H6'
 }
 
@@ -93,6 +125,10 @@ H1.propTypes
 = H4.propTypes
 = H5.propTypes
 = H6.propTypes = {
+            /**
+             * If true words break with hyphens. If false text is forced into a single truncated line.
+             */
+            breakWords: PropTypes.bool,
             children: PropTypes.node.isRequired,
             /**
              * Control size and space independently from semantic meaning.

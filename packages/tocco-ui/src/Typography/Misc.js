@@ -20,108 +20,180 @@ import {
   StyledU,
   StyledVar
 } from './StyledMisc'
+import {getTextOfChildren} from '../utilStyles'
 
 const B = props => {
   return (
-    <StyledB>{props.children}</StyledB>
+    <StyledB
+      breakWords={props.breakWords}
+      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+    >{props.children}</StyledB>
   )
 }
 
 const Code = props => {
   return (
-    <StyledCode>{props.children}</StyledCode>
+    <StyledCode
+      breakWords={props.breakWords}
+      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+    >{props.children}</StyledCode>
   )
 }
 
 const Del = props => {
   return (
-    <StyledDel>{props.children}</StyledDel>
+    <StyledDel
+      breakWords={props.breakWords}
+      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+    >{props.children}</StyledDel>
   )
 }
 
 const Em = props => {
   return (
-    <StyledEm>{props.children}</StyledEm>
+    <StyledEm
+      breakWords={props.breakWords}
+      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+    >{props.children}</StyledEm>
   )
 }
 
 const I = props => {
   return (
-    <StyledI>{props.children}</StyledI>
+    <StyledI
+      breakWords={props.breakWords}
+      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+    >{props.children}</StyledI>
   )
 }
 
 const Ins = props => {
   return (
-    <StyledIns>{props.children}</StyledIns>
+    <StyledIns
+      breakWords={props.breakWords}
+      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+    >{props.children}</StyledIns>
   )
 }
 
 const Kbd = props => {
   return (
-    <StyledKbd>{props.children}</StyledKbd>
+    <StyledKbd
+      breakWords={props.breakWords}
+      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+    >{props.children}</StyledKbd>
   )
 }
 
 const Mark = props => {
   return (
-    <StyledMark>{props.children}</StyledMark>
+    <StyledMark
+      breakWords={props.breakWords}
+      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+    >{props.children}</StyledMark>
   )
 }
 
 const P = props => {
   return (
-    <StyledP>{props.children}</StyledP>
+    <StyledP
+      breakWords={props.breakWords}
+      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+    >{props.children}</StyledP>
   )
 }
 
 const Pre = props => {
   return (
-    <StyledPre>{props.children}</StyledPre>
+    <StyledPre
+      breakWords={props.breakWords}
+      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+    >{props.children}</StyledPre>
   )
 }
 
 const S = props => {
   return (
-    <StyledS>{props.children}</StyledS>
-  )
-}
-
-const Strong = props => {
-  return (
-    <StyledStrong>{props.children}</StyledStrong>
+    <StyledS
+      breakWords={props.breakWords}
+      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+    >{props.children}</StyledS>
   )
 }
 
 const Sub = props => {
   return (
-    <StyledSub>{props.children}</StyledSub>
+    <StyledSub
+      breakWords={props.breakWords}
+      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+    >{props.children}</StyledSub>
   )
 }
 
 const Sup = props => {
   return (
-    <StyledSup>{props.children}</StyledSup>
+    <StyledSup
+      breakWords={props.breakWords}
+      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+    >{props.children}</StyledSup>
+  )
+}
+
+const Strong = props => {
+  return (
+    <StyledStrong
+      breakWords={props.breakWords}
+      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+    >{props.children}</StyledStrong>
   )
 }
 
 const U = props => {
   return (
-    <StyledU>{props.children}</StyledU>
+    <StyledU
+      breakWords={props.breakWords}
+      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+    >{props.children}</StyledU>
   )
 }
 
 const Var = props => {
   return (
-    <StyledVar>{props.children}</StyledVar>
+    <StyledVar
+      breakWords={props.breakWords}
+      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+    >{props.children}</StyledVar>
   )
 }
 
 const Q = props => {
   return (
-    <StyledQ>{props.children}</StyledQ>
+    <StyledQ
+      breakWords={props.breakWords}
+      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+    >{props.children}</StyledQ>
   )
 }
+
+B.defaultProps
+= Code.defaultProps
+= Del.defaultProps
+= Em.defaultProps
+= I.defaultProps
+= Ins.defaultProps
+= Kbd.defaultProps
+= Mark.defaultProps
+= P.defaultProps
+= Pre.defaultProps
+= Q.defaultProps
+= S.defaultProps
+= Strong.defaultProps
+= Sub.defaultProps
+= Sup.defaultProps
+= U.defaultProps
+= Var.defaultProps = {
+                                  breakWords: true
+                                }
 
 B.propTypes
 = Code.propTypes
@@ -140,6 +212,11 @@ B.propTypes
 = Sup.propTypes
 = U.propTypes
 = Var.propTypes = {
+                                  /**
+                                   * If true words break with hyphens.
+                                   * If false text is forced into a single truncated line.
+                                   */
+                                  breakWords: PropTypes.bool,
                                   children: PropTypes.node.isRequired
                                 }
 

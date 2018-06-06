@@ -9,22 +9,29 @@ import {
   StyledOl,
   StyledUl
 } from './StyledList'
+import {getTextOfChildren} from '../utilStyles'
 
 const Dd = props => {
   return (
-    <StyledDd>{props.children}</StyledDd>
-  )
-}
-
-const Dt = props => {
-  return (
-    <StyledDt>{props.children}</StyledDt>
+    <StyledDd
+      breakWords={props.breakWords}
+      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+    >{props.children}</StyledDd>
   )
 }
 
 const Dl = props => {
   return (
     <StyledDl>{props.children}</StyledDl>
+  )
+}
+
+const Dt = props => {
+  return (
+    <StyledDt
+      breakWords={props.breakWords}
+      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+    >{props.children}</StyledDt>
   )
 }
 
@@ -46,14 +53,26 @@ const Ul = props => {
   )
 }
 
+Dd.defaultProps
+= Dt.defaultProps = {
+    breakWords: true
+  }
+
 Dd.propTypes
-= Dl.propTypes
-= Dt.propTypes
+= Dt.propTypes = {
+    /**
+             * If true words break with hyphens. If false text is forced into a single truncated line.
+             */
+    breakWords: PropTypes.bool,
+    children: PropTypes.node.isRequired
+  }
+
+Dl.propTypes
 = Li.propTypes
 = Ol.propTypes
 = Ul.propTypes = {
-            children: PropTypes.node.isRequired
-          }
+        children: PropTypes.node.isRequired
+      }
 
 export {
   Dd,
