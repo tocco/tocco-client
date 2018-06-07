@@ -1,30 +1,24 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import Preview from '../../Preview'
 
-const DocumentFormatter = props => (
-  <span className="form-control-static document-compact">
-    <a
-      download={props.value.fileName}
-      href={props.value.binaryLink}
-      title={props.options.downloadTitle || 'Download'}
-      onClick={e => e.stopPropagation()}
-      className="action btn btn-default"
-      target="_blank"
-    >
-      <i className="fa fa-download" aria-hidden="true"></i>
-    </a>
-  </span>
+const DocumentCompactFormatter = props => (
+  <Preview
+    alt={props.value.alt || props.value.fileName}
+    caption={props.value.caption || props.value.fileName}
+    downloadOnClick={true}
+    fileName={props.value.fileName}
+    srcUrl={props.value.binaryLink}
+  />
 )
 
-DocumentFormatter.propTypes = {
+DocumentCompactFormatter.propTypes = {
   value: PropTypes.shape({
-    fileName: PropTypes.string.isRequired,
+    alt: PropTypes.string,
     binaryLink: PropTypes.string.isRequired,
-    thumbnailLink: PropTypes.string.isRequired
-  }).isRequired,
-  options: PropTypes.shape({
-    downloadTitle: PropTypes.string
-  })
+    caption: PropTypes.string,
+    fileName: PropTypes.string.isRequired
+  }).isRequired
 }
 
-export default DocumentFormatter
+export default DocumentCompactFormatter

@@ -10,14 +10,14 @@ describe('tocco-ui', function() {
           const wrapper = mount(
             <BooleanFormatter value/>
           )
-          expect(wrapper.html()).to.contains('glyphicon-ok')
+          expect(wrapper.html()).to.contains('fa-check')
         })
 
         it('should format falsy value', function() {
           const wrapper = mount(
             <BooleanFormatter value={false}/>
           )
-          expect(wrapper.html()).to.contains('glyphicon-remove')
+          expect(wrapper.html()).to.contains('fa-times')
         })
       })
     })

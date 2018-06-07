@@ -42,6 +42,7 @@ describe('tocco-ui', () => {
             </IntlProvider>
           )
           expect(wrapper.text().replace(leftToRightMark, '')).to.equal('23:15')
+          expect(wrapper.find('time').prop('dateTime')).to.equal('23:15')
         })
       })
     })
