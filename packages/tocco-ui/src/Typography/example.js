@@ -1,7 +1,7 @@
 /* esLint no-console: 0 */
 import React from 'react'
-import {B, Code, Dd, Del, Dl, Dt, Em, H1, H2, H3, H4, H5, H6, I, Ins, Kbd, Li,
-  Mark, Ol, P, Pre, Q, S, Span, Strong, Sub, Sup, U, Ul, Var} from './'
+import {B, Code, Dd, Del, Dl, Dt, Em, Figcaption, H1, H2, H3, H4, H5, H6, I, Ins, Kbd,
+  Li, Mark, Ol, P, Pre, Q, S, Span, Strong, Sub, Sup, Time, U, Ul, Var} from './'
 // eslint-disable-next-line
 // real-import:import {B, Code, Dd, Del, Dl, Dt, Em, H1, H2, H3, H4, H5, H6, I, Ins, Kbd, Li, Mark, Ol, P, Pre, Q, S, Span, Strong, Sub, Sup, U, Ul, Var} from 'tocco-ui'
 
@@ -33,6 +33,8 @@ export default () => {
       &lt;Code&gt;<Code>Laborum est molLit</Code>&lt;/Code&gt;<br/>
       &lt;Kbd&gt;<Kbd>CMD & A</Kbd>&lt;/Kbd&gt;<br/>
       &lt;Mark&gt;<Mark>Laborum est molLit</Mark>&lt;/Mark&gt;<br/>
+      <Figcaption>&lt;Figcaption&gt;Laborum est molLit&lt;/Figcaption&gt;</Figcaption><br/>
+      <Time datetime="15:13:00">15:13:00</Time>
       <Pre>&lt;Pre&gt;Laborum est molLit&lt;Pre&gt;</Pre><br/>
       <Ul>
         <Li>dolore eu fugiat</Li>

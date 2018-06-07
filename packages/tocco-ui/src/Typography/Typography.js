@@ -14,7 +14,7 @@ const Span = props => {
   return (
     <StyledSpan
       breakWords={props.breakWords}
-      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+      title={props.breakWords ? undefined : getTextOfChildren(props.children)}
     >{props.children}</StyledSpan>
   )
 }
