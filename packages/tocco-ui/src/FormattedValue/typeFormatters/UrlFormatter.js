@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
+import Link from '../../Link'
+
 const UrlFormatter = props => (
-  <span><a href={props.value}>{props.value}</a></span>
+  <Link href={props.value} label={props.value}/>
 )
 
 UrlFormatter.propTypes = {

@@ -1,25 +1,25 @@
 import React from 'react'
 
-import StringFormatter from './typeFormatters/StringFormatter'
-import TextFormatter from './typeFormatters/TextFormatter'
-import NumberFormatter from './typeFormatters/NumberFormatter'
-import DecimalFormatter from './typeFormatters/DecimalFormatter'
-import UrlFormatter from './typeFormatters/UrlFormatter'
+import BooleanFormatter from './typeFormatters/BooleanFormatter'
 import DateFormatter from './typeFormatters/DateFormatter'
 import DateTimeFormatter from './typeFormatters/DateTimeFormatter'
-import TimeFormatter from './typeFormatters/TimeFormatter'
+import DecimalFormatter from './typeFormatters/DecimalFormatter'
+import DocumentCompactFormatter from './typeFormatters/DocumentCompactFormatter'
+import DocumentFormatter from './typeFormatters/DocumentFormatter'
 import DurationFormatter from './typeFormatters/DurationFormatter'
-import MoneyFormatter from './typeFormatters/MoneyFormatter'
-import BooleanFormatter from './typeFormatters/BooleanFormatter'
+import HtmlFormatter from './typeFormatters/HtmlFormatter'
 import LoginFormatter from './typeFormatters/LoginFormatter'
 import LongitudeFormatter from './typeFormatters/LongitudeFormatter'
-import PercentFormatter from './typeFormatters/PercentFormatter'
-import DocumentFormatter from './typeFormatters/DocumentFormatter'
-import HtmlFormatter from './typeFormatters/HtmlFormatter'
-import SingleSelectFormatter from './typeFormatters/SingleSelectFormatter'
+import MoneyFormatter from './typeFormatters/MoneyFormatter'
+import NumberFormatter from './typeFormatters/NumberFormatter'
 import MultiSelectFormatter from './typeFormatters/MultiSelectFormatter'
-import DocumentCompactFormatter from './typeFormatters/DocumentCompactFormatter'
+import PercentFormatter from './typeFormatters/PercentFormatter'
 import PhoneFormatter from './typeFormatters/PhoneFormatter'
+import SingleSelectFormatter from './typeFormatters/SingleSelectFormatter'
+import StringFormatter from './typeFormatters/StringFormatter'
+import TextFormatter from './typeFormatters/TextFormatter'
+import TimeFormatter from './typeFormatters/TimeFormatter'
+import UrlFormatter from './typeFormatters/UrlFormatter'
 
 export default (type, value, options) => {
   if (map[type]) {
@@ -32,45 +32,45 @@ export default (type, value, options) => {
 }
 
 export const map = {
-  'string': StringFormatter,
-  'char': StringFormatter,
-  'uuid': StringFormatter,
-  'identifier': StringFormatter,
-  'postcode': StringFormatter,
-  'ipaddress': StringFormatter,
-  'html': HtmlFormatter,
-  'text': TextFormatter,
-  'short': NumberFormatter,
-  'integer': NumberFormatter,
-  'sorting': NumberFormatter,
-  'long': NumberFormatter,
-  'number': NumberFormatter,
-  'version': NumberFormatter,
-  'dataamount': NumberFormatter,
-  'decimal': DecimalFormatter,
-  'percent': PercentFormatter,
-  'double': DecimalFormatter,
-  'phone': PhoneFormatter,
-  'counter': StringFormatter,
-  'url': UrlFormatter,
-  'date': DateFormatter,
+  'binary': DocumentFormatter,
   'birthdate': DateFormatter,
+  'boolean': BooleanFormatter,
+  'char': StringFormatter,
+  'counter': StringFormatter,
+  'createts': DateTimeFormatter,
+  'createuser': StringFormatter,
+  'dataamount': NumberFormatter,
+  'date': DateFormatter,
   'datetime': DateTimeFormatter,
-  'time': TimeFormatter,
+  'decimal': DecimalFormatter,
+  'document': DocumentFormatter,
+  'document-compact': DocumentCompactFormatter,
+  'double': DecimalFormatter,
   'duration': DurationFormatter,
   'email': StringFormatter,
-  'moneyamount': MoneyFormatter,
-  'boolean': BooleanFormatter,
+  'html': HtmlFormatter,
+  'identifier': StringFormatter,
+  'integer': NumberFormatter,
+  'ipaddress': StringFormatter,
   'latitude': LongitudeFormatter,
-  'longitude': LongitudeFormatter,
   'login': LoginFormatter,
-  'document': DocumentFormatter,
-  'single-select': SingleSelectFormatter,
-  'remote': SingleSelectFormatter,
-  'multi-select': MultiSelectFormatter,
+  'long': NumberFormatter,
+  'longitude': LongitudeFormatter,
+  'moneyamount': MoneyFormatter,
   'multi-remote': MultiSelectFormatter,
-  'createuser': StringFormatter,
-  'createts': DateTimeFormatter,
-  'document-compact': DocumentCompactFormatter,
-  'binary': DocumentFormatter
+  'multi-select': MultiSelectFormatter,
+  'number': NumberFormatter,
+  'percent': PercentFormatter,
+  'phone': PhoneFormatter,
+  'postcode': StringFormatter,
+  'remote': SingleSelectFormatter,
+  'short': NumberFormatter,
+  'single-select': SingleSelectFormatter,
+  'sorting': NumberFormatter,
+  'string': StringFormatter,
+  'text': TextFormatter,
+  'time': TimeFormatter,
+  'url': UrlFormatter,
+  'uuid': StringFormatter,
+  'version': NumberFormatter
 }
