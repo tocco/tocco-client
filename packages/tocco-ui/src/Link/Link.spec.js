@@ -5,17 +5,19 @@ import {shallow} from 'enzyme'
 
 describe('tocco-ui', function() {
   describe('Link', function() {
-    it('should have 2 defaultProps', () => {
+    it('should have 3 defaultProps', () => {
       const wrapper = shallow(<Link/>)
-      const {href, target} = wrapper.props()
+      const {breakWords, href, target} = wrapper.props()
+      expect(breakWords).to.be.true
       expect(href).to.equal('#')
       expect(target).to.equal('_self')
     })
 
-    it('should pass 5 props to StyledLink', () => {
+    it('should pass 6 props to StyledLink', () => {
       const wrapper = shallow(
         <Link
           alt="alt text"
+          breakWords={false}
           download="name.ext"
           href="/url"
           target="_blank"
@@ -25,13 +27,15 @@ describe('tocco-ui', function() {
       const props = wrapper.props()
       const {
         alt,
+        breakWords,
         download,
         href,
         target,
         title
       } = props
-      expect(Object.keys(props)).to.have.lengthOf(6)
+      expect(Object.keys(props)).to.have.lengthOf(7)
       expect(alt).to.equal('alt text')
+      expect(breakWords).to.be.false
       expect(download).to.equal('name.ext')
       expect(href).to.equal('/url')
       expect(target).to.equal('_blank')

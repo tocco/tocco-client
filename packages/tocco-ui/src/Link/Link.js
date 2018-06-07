@@ -16,6 +16,7 @@ const Link = props => {
       href={props.href}
       target={props.target}
       title={props.title}
+      breakWords={props.breakWords}
     >
       {props.icon && <Icon icon={props.icon} position={stylingPosition.BEFORE}/>}
       {props.label}
@@ -24,6 +25,7 @@ const Link = props => {
 }
 
 Link.defaultProps = {
+  breakWords: true,
   href: '#',
   target: '_self'
 }
@@ -33,6 +35,10 @@ Link.propTypes = {
    * Describe link target in detail for screen readers and web crawlers.
    */
   alt: PropTypes.string,
+  /**
+   * If true label break with hyphens. If false label is forced into a single truncated line.
+   */
+  breakWords: PropTypes.bool,
   /**
    * Indicate download by attribute. Add string to suggest filename.
    */

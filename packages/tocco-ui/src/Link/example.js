@@ -38,7 +38,14 @@ export default () => {
         download="tocco-101x101.png"
         href={UrlOrBase64}
         label="Download Link"
-      />
+      /><br/>
+      <Link
+        href="#Link"
+        label="http://supercalifragilisticexpialidocious.test/supercalifragilisticexpialidocious"/><br/>
+      <Link
+        breakWords={false}
+        href="#Link"
+        label="http://supercalifragilisticexpialidocious.test/supercalifragilisticexpialidocious"/>
       {/* end example */}
     </div>
   )
