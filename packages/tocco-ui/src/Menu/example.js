@@ -10,6 +10,7 @@ import ItemAccordion from './ItemAccordion'
 import ItemFlyout from './ItemFlyout'
 import MenuBar from './MenuBar'
 import MenuButton from './MenuButton'
+import MenuButtonGroup from './MenuButtonGroup'
 import MenuStack from './MenuStack'
 
 // real-import:import {Item, ItemAccordion, ItemFlyout, MenuBar, MenuButton, MenuStack} from 'tocco-ui'
@@ -121,7 +122,7 @@ export default () => {
       </MenuStack>
 
       <h3>Menu Bar Flyout</h3>
-      <MenuButton look="raised">
+      <MenuBar look="raised">
         <Item><Button label="Single Action"/></Item>
         <ItemFlyout label="Toggle action set 1">
           <MenuStack>
@@ -136,8 +137,55 @@ export default () => {
             <Item><Button label="Action 2-2"/></Item>
           </MenuStack>
         </ItemFlyout>
-      </MenuButton>
+      </MenuBar>
 
+      <h3>Menu Button Grouped</h3>
+      <MenuButton look="raised">
+        <Item>
+          <MenuButtonGroup>
+            <ItemFlyout>
+              <MenuStack>
+                <Item><Button label="Action 1-1"/></Item>
+                <Item><ButtonLink href="#Menu" label="Action 1-2"/></Item>
+              </MenuStack>
+            </ItemFlyout>
+            <Item><ButtonLink href="#Menu" label="Action 1"/></Item>
+          </MenuButtonGroup>
+        </Item>
+
+        <Item>
+          <MenuButtonGroup>
+            <Item><Button label="Action 2"/></Item>
+            <ItemFlyout>
+              <MenuStack>
+                <Item><ButtonLink href="#Menu" label="Action 2-1"/></Item>
+                <Item><Button label="Action 2-2"/></Item>
+              </MenuStack>
+            </ItemFlyout>
+          </MenuButtonGroup>
+        </Item>
+
+        <Item><Button label="Single Action"/></Item>
+
+        <Item>
+          <MenuButtonGroup>
+            <ItemFlyout>
+              <MenuStack>
+                <Item><ButtonLink href="#Menu" label="Action 4a-1"/></Item>
+                <Item><Button label="Action 4a-2"/></Item>
+              </MenuStack>
+            </ItemFlyout>
+            <Item><Button label="Action 4c"/></Item>
+            <Item><ButtonLink href="#Menu" label="Action 4d"/></Item>
+            <ItemFlyout>
+              <MenuStack>
+                <Item><Button label="Action 4b-1"/></Item>
+                <Item><ButtonLink href="#Menu" label="Action 4b-2"/></Item>
+              </MenuStack>
+            </ItemFlyout>
+          </MenuButtonGroup>
+        </Item>
+      </MenuButton>
       {/* end example */}
     </div>
   )
