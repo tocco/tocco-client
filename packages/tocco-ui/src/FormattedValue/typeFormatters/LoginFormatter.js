@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
+import {Span} from '../../Typography'
+
 const LoginFormatter = props => (
-  <span>{props.value.username}</span>
+  <Span>{props.value.username}</Span>
 )
 
 LoginFormatter.propTypes = {

@@ -1,27 +1,46 @@
 import React from 'react'
-import {shallow} from 'enzyme'
-import Upload from '../../Upload'
-
+import {mount} from 'enzyme'
 import DocumentFormatter from './DocumentFormatter'
 
 describe('tocco-ui', () => {
   describe('FormattedValue', () => {
     describe('typeFormatters', () => {
       describe('DocumentFormatter ', () => {
-        it('should render Upload component as readonly', () => {
-          const binaryLink = 'http://test.ch/link/to/image.png'
-          const fileName = 'FileName.png'
-          const thumbnailLink = 'http://test.com/link/to/thumbnail.png'
+        it('should pass five props', () => {
+          const wrapper = mount(<DocumentFormatter value={{
+            alt: 'alt text',
+            binaryLink: 'binary url',
+            caption: 'caption text',
+            fileName: 'file name',
+            thumbnailLink: 'thumbnail url'
+          }}/>)
 
-          const wrapper = shallow(<DocumentFormatter value={{
+          const {
+            alt,
+            binaryLink,
+            caption,
             fileName,
-            thumbnailLink,
-            binaryLink
-          }}
-          options={{downloadTitle: 'test'}}/>)
+            thumbnailLink
+          } = wrapper.props().value
 
-          expect(wrapper.find(Upload)).to.have.length(1)
-          expect(wrapper.find(Upload)).to.have.prop('readOnly', true)
+          expect(alt).to.equal('alt text')
+          expect(binaryLink).to.equal('binary url')
+          expect(caption).to.equal('caption text')
+          expect(fileName).to.equal('file name')
+          expect(thumbnailLink).to.equal('thumbnail url')
+        })
+
+        it('should render link and image', () => {
+          const wrapper = mount(<DocumentFormatter value={{
+            alt: 'alt text',
+            binaryLink: 'binary url',
+            caption: 'caption text',
+            fileName: 'file name',
+            thumbnailLink: 'thumbnail url'
+          }}/>)
+
+          expect(wrapper.find('a')).to.have.length(1)
+          expect(wrapper.find('img')).to.have.length(1)
         })
       })
     })
