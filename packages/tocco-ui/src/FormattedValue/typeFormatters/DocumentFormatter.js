@@ -1,20 +1,24 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import Upload from '../../Upload'
+import Preview from '../../Preview'
+
 const DocumentFormatter = props => (
-  <div className="form-control-static document">
-    <Upload
-      readOnly={true}
-      value={props.value ? props.value : null}
-      onUpload={() => {}}
-    />
-  </div>
+  <Preview
+    alt={props.value.alt || props.value.fileName}
+    caption={props.value.caption || props.value.fileName}
+    downloadOnClick={true}
+    fileName={props.value.fileName}
+    srcUrl={props.value.binaryLink}
+    thumbnailUrl={props.value.thumbnailLink}
+  />
 )
 
 DocumentFormatter.propTypes = {
   value: PropTypes.shape({
-    fileName: PropTypes.string.isRequired,
+    alt: PropTypes.string,
     binaryLink: PropTypes.string.isRequired,
+    caption: PropTypes.string,
+    fileName: PropTypes.string.isRequired,
     thumbnailLink: PropTypes.string.isRequired
   }).isRequired
 }

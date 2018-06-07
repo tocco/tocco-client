@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import Icon from '../../Icon'
 
 const BooleanFormatter = props => {
-  const icon = props.value ? 'glyphicon-ok' : 'glyphicon-remove'
-
   return (
-    <span className={`glyphicon ${icon}`} aria-hidden="true"/>
+    <Icon icon={props.value ? 'fa-check' : 'fa-times'}/>
   )
 }
 

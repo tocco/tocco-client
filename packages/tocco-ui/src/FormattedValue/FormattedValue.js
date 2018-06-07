@@ -13,10 +13,7 @@ const FormattedValue = props => {
     return <span/>
   }
 
-  return (
-    <span>
-      {provider(props.type, props.value, props.options)}
-    </span>)
+  return provider(props.type, props.value, props.options)
 }
 
 FormattedValue.propTypes = {
