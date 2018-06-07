@@ -2,6 +2,8 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import Icon from '../Icon'
+import Link from '../Link'
+import {Figcaption} from '../Typography'
 import StyledPreview from './StyledPreview'
 
 /**
@@ -27,7 +29,12 @@ const Preview = props => {
   )
 
   const imageWrapper = props.downloadOnClick && props.srcUrl && !props.onClick ? (
-    <a href={props.srcUrl} alt={props.alt} download={props.caption}>{image}</a>
+    <Link
+      alt={props.fileName || props.alt}
+      download={props.fileName || props.caption}
+      href={props.srcUrl}
+      label={image}
+    />
   ) : (
     image
   )
@@ -37,7 +44,7 @@ const Preview = props => {
   return (
     <StyledPreview interactive={interactive}>
       {imageWrapper}
-      {props.caption && <figcaption>{props.caption}</figcaption>}
+      {props.caption && <Figcaption>{props.caption}</Figcaption>}
     </StyledPreview>
   )
 }
@@ -47,7 +54,7 @@ Preview.propTypes = {
    * Describe content of file in detail for screen readers, web crawlers and as
    * alternative display if thumbnail can not be loaded.
    */
-  alt: PropTypes.string,
+  alt: PropTypes.string.isRequired,
   /**
    * Describe content of file shortly. Caption is displayed always alongside thumbnail.
    */
@@ -56,6 +63,10 @@ Preview.propTypes = {
    * If true the image will be linked (srcUrl).
    */
   downloadOnClick: PropTypes.bool,
+  /**
+   * Suggest a filename for download.
+   */
+  fileName: PropTypes.string,
   /**
    * Trigger function by click on image. Receives the srcLink and
    * thumbnailLink as arguments. onClick overrules downloadOnClick.
