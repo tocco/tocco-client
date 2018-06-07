@@ -31,6 +31,7 @@ import {
   Code,
   Del,
   Em,
+  Figcaption,
   I,
   Ins,
   Kbd,
@@ -42,6 +43,7 @@ import {
   Strong,
   Sub,
   Sup,
+  Time,
   U,
   Var} from './Misc'
 import {
@@ -49,6 +51,7 @@ import {
   StyledCode,
   StyledDel,
   StyledEm,
+  StyledFigcaption,
   StyledI,
   StyledIns,
   StyledKbd,
@@ -60,6 +63,7 @@ import {
   StyledStrong,
   StyledSub,
   StyledSup,
+  StyledTime,
   StyledU,
   StyledVar} from './StyledMisc'
 import Span, {StyledSpan} from './Typography'
@@ -73,6 +77,7 @@ export {
   Dl,
   Dt,
   Em,
+  Figcaption,
   H1,
   H2,
   H3,
@@ -99,6 +104,7 @@ export {
   StyledDl,
   StyledDt,
   StyledEm,
+  StyledFigcaption,
   StyledH1,
   StyledH2,
   StyledH3,
@@ -119,11 +125,13 @@ export {
   StyledStrong,
   StyledSub,
   StyledSup,
+  StyledTime,
   StyledU,
   StyledUl,
   StyledVar,
   Sub,
   Sup,
+  Time,
   U,
   Ul,
   Var

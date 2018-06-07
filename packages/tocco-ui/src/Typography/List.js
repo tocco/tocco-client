@@ -15,7 +15,7 @@ const Dd = props => {
   return (
     <StyledDd
       breakWords={props.breakWords}
-      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+      title={props.breakWords ? undefined : getTextOfChildren(props.children)}
     >{props.children}</StyledDd>
   )
 }
@@ -30,7 +30,7 @@ const Dt = props => {
   return (
     <StyledDt
       breakWords={props.breakWords}
-      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+      title={props.breakWords ? undefined : getTextOfChildren(props.children)}
     >{props.children}</StyledDt>
   )
 }

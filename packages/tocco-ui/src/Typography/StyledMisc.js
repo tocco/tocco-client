@@ -46,6 +46,17 @@ const StyledEm = styled.em`
   }
 `
 
+const StyledFigcaption = styled.figcaption`
+  && {
+    ${props => declareFont(props, {
+    fontSize: theme('fontSizes.1')(props)
+  })}
+    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+    margin-top: ${props => theme('space.4')(props)};
+    margin-bottom: ${props => theme('space.4')(props)};
+  }
+`
+
 const StyledI = styled.i`
   && {
     ${props => declareFont(props, {
@@ -156,6 +167,13 @@ const StyledStrong = styled.strong`
   }
 `
 
+const StyledTime = styled.time`
+  && {
+    ${props => declareFont(props)}
+    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+  }
+`
+
 const StyledU = styled.u`
   && {
     ${props => declareFont(props)}
@@ -198,6 +216,7 @@ export {
   StyledCode,
   StyledDel,
   StyledEm,
+  StyledFigcaption,
   StyledI,
   StyledIns,
   StyledKbd,
@@ -209,6 +228,7 @@ export {
   StyledStrong,
   StyledSub,
   StyledSup,
+  StyledTime,
   StyledU,
   StyledVar
 }

@@ -22,7 +22,7 @@ const H1 = props => {
     <StyledH1
       breakWords={props.breakWords}
       styledLike={props.styledLike}
-      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+      title={props.breakWords ? undefined : getTextOfChildren(props.children)}
     >
       {props.children}
     </StyledH1>
@@ -39,7 +39,7 @@ const H2 = props => {
     <StyledH2
       breakWords={props.breakWords}
       styledLike={props.styledLike}
-      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+      title={props.breakWords ? undefined : getTextOfChildren(props.children)}
     >
       {props.children}
     </StyledH2>
@@ -56,7 +56,7 @@ const H3 = props => {
     <StyledH3
       breakWords={props.breakWords}
       styledLike={props.styledLike}
-      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+      title={props.breakWords ? undefined : getTextOfChildren(props.children)}
     >
       {props.children}
     </StyledH3>
@@ -73,7 +73,7 @@ const H4 = props => {
     <StyledH4
       breakWords={props.breakWords}
       styledLike={props.styledLike}
-      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+      title={props.breakWords ? undefined : getTextOfChildren(props.children)}
     >
       {props.children}
     </StyledH4>
@@ -90,7 +90,7 @@ const H5 = props => {
     <StyledH5
       breakWords={props.breakWords}
       styledLike={props.styledLike}
-      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+      title={props.breakWords ? undefined : getTextOfChildren(props.children)}
     >
       {props.children}
     </StyledH5>
@@ -107,7 +107,7 @@ const H6 = props => {
     <StyledH6
       breakWords={props.breakWords}
       styledLike={props.styledLike}
-      title={props.breakWords ? 'false' : getTextOfChildren(props.children)}
+      title={props.breakWords ? undefined : getTextOfChildren(props.children)}
     >
       {props.children}
     </StyledH6>
