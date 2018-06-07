@@ -12,39 +12,39 @@ const amountOfSpacesBeforeCaret = (str, caretPosition) => {
   return spaces ? spaces.length : 0
 }
 
+const repositionCaret = (value, previousValue, caretPosition, inputElement, defaultCountry) => {
+  if (caretPosition && value.length !== caretPosition) {
+    const previousValueFormatted = new AsYouType(defaultCountry).input(previousValue)
+    const currentValueFormatted = new AsYouType(defaultCountry).input(value)
+
+    const spacesPrevious = amountOfSpacesBeforeCaret(previousValueFormatted, caretPosition)
+    const spacesCurrent = amountOfSpacesBeforeCaret(currentValueFormatted, caretPosition)
+
+    const offset = spacesCurrent - spacesPrevious
+
+    window.requestAnimationFrame(function() {
+      const start = caretPosition + offset
+      this.setSelectionRange(start, start)
+    }.bind(inputElement))
+  }
+}
+
 const PhoneEdit = ({value, options, onChange, id, readOnly}) => {
   let inputElement
 
   const defaultCountry = (options && options.defaultCountry) || DEFAULT_DEFAULT_COUNTRY
 
-  const repositionCaret = (number, caret) => {
-    if (caret && number.length !== caret) {
-      const previousValueFormatted = new AsYouType(defaultCountry).input(value)
-      const currentValueFormatted = new AsYouType(defaultCountry).input(number)
-
-      const spacesPrevious = amountOfSpacesBeforeCaret(previousValueFormatted, caret)
-      const spacesCurrent = amountOfSpacesBeforeCaret(currentValueFormatted, caret)
-
-      const offset = spacesCurrent - spacesPrevious
-
-      window.requestAnimationFrame(function() {
-        const start = caret + offset
-        this.setSelectionRange(start, start)
-      }.bind(inputElement))
-    }
-  }
-
   const handleChange = e => {
-    const number = e.target.value
-    const parsedNumber = parseNumber(number, defaultCountry)
+    const newValue = e.target.value
+    const parsedNumber = parseNumber(newValue, defaultCountry)
 
     if (onChange) {
-      const numberDB = _isEmpty(parsedNumber) ? removeSpaces(number) : formatNumber(parsedNumber, 'E.164')
-      onChange(numberDB)
+      const valueNormalized = _isEmpty(parsedNumber) ? removeSpaces(newValue) : formatNumber(parsedNumber, 'E.164')
+      onChange(valueNormalized)
     }
 
     const currentCaretPosition = e.target.selectionStart
-    repositionCaret(number, currentCaretPosition)
+    repositionCaret(newValue, value, currentCaretPosition, inputElement, defaultCountry)
   }
 
   const displayValue = new AsYouType(defaultCountry).input(value) || value
