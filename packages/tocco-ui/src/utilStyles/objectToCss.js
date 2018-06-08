@@ -11,25 +11,27 @@ import {theme} from 'styled-system'
  */
 
 const objectToCss = (declarations, props) => {
-  let css = ''
-  for (const [property, value] of Object.entries(declarations)) {
+  const css = []
+  const getDefaultValue = themePath => theme(themePath, 0)(props)
+  for (const [key, value] of Object.entries(declarations)) {
+    let cssValue
     if (Array.isArray(value)) {
-      let values = ''
       const themePath = value.shift()
       if (value.length === 0) {
-        css += `${property}: ${theme(themePath, 0)(props)};\n`
+        cssValue = getDefaultValue(themePath)
       } else {
-        value.forEach(themeIndex => {
+        const values = value.map(themeIndex => {
           const themeIdentifier = `${themePath}.${themeIndex}`
-          values += ` ${theme(themeIdentifier, 0)(props)}`
+          return `${theme(themeIdentifier, 0)(props)}`
         })
-        css += `${property}:${values};\n`
+        cssValue = values.join(' ')
       }
     } else {
-      css += `${property}: ${value};\n`
+      cssValue = value
     }
+    css.push(`${key}: ${cssValue};`)
   }
-  return css
+  return css.join('\n')
 }
 
 export default objectToCss

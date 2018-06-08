@@ -12,12 +12,12 @@ describe('tocco-ui', () => {
     describe('declareDensity', () => {
       it('should be elevation 0', () => {
         props.dense = false
-        expect(declareDensity(props)).to.equal('line-height: 1.4;\npadding: .25rem .5rem;\n')
+        expect(declareDensity(props)).to.equal('line-height: 1.4;\npadding: .25rem .5rem;')
       })
 
       it('should be elevation 1', () => {
         props.dense = true
-        expect(declareDensity(props)).to.equal('line-height: 1;\npadding: .125rem;\n')
+        expect(declareDensity(props)).to.equal('line-height: 1;\npadding: .125rem;')
       })
     })
   })

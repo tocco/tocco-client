@@ -25,7 +25,7 @@ describe('tocco-ui', () => {
         const declarations = {
           'background-color': '#AAA'
         }
-        expect(objectToCss(declarations)).to.equal('background-color: #AAA;\n')
+        expect(objectToCss(declarations)).to.equal('background-color: #AAA;')
       })
 
       it('should be two css declarations without declared theme prop', () => {
@@ -33,35 +33,35 @@ describe('tocco-ui', () => {
           'background-color': '#AAA',
           'opacity': 0.5
         }
-        expect(objectToCss(declarations)).to.equal('background-color: #AAA;\nopacity: 0.5;\n')
+        expect(objectToCss(declarations)).to.equal('background-color: #AAA;\nopacity: 0.5;')
       })
 
       it('should be one css declaration with one value from theme', () => {
         const declarations = {
           'line-height': ['lineHeights', 1]
         }
-        expect(objectToCss(declarations, props)).to.equal('line-height: 2;\n')
+        expect(objectToCss(declarations, props)).to.equal('line-height: 2;')
       })
 
       it('should be one css declaration with two values from theme', () => {
         const declarations = {
           'padding': ['space', 0, 2]
         }
-        expect(objectToCss(declarations, props)).to.equal('padding: 0 2rem;\n')
+        expect(objectToCss(declarations, props)).to.equal('padding: 0 2rem;')
       })
 
       it('should be one css declaration with one deep nested array value from theme', () => {
         const declarations = {
           'background-color': ['colors.base.fill', 1]
         }
-        expect(objectToCss(declarations, props)).to.equal('background-color: #EEE;\n')
+        expect(objectToCss(declarations, props)).to.equal('background-color: #EEE;')
       })
 
       it('should be one css declaration with one deep nested string value from theme', () => {
         const declarations = {
           'color': ['colors.base.text']
         }
-        expect(objectToCss(declarations, props)).to.equal('color: #BBB;\n')
+        expect(objectToCss(declarations, props)).to.equal('color: #BBB;')
       })
     })
   })
