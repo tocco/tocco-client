@@ -5,7 +5,7 @@ import GroupElement from './GroupElement'
 import {Button} from 'tocco-ui'
 import {intlShape} from 'react-intl'
 import {isValidSelection, selectionText} from './selectionHelper'
-import {Item, ItemFlyout, MenuButton, MenuStack} from 'tocco-ui/src/Menu'
+import {Item, ItemFlyout, MenuButton, MenuButtonGroup, MenuStack} from 'tocco-ui/src/Menu'
 
 const MainAction = ({definition, selectedCount, onClick}, context) => {
   const validSelection = isValidSelection(selectedCount, definition)
@@ -13,9 +13,7 @@ const MainAction = ({definition, selectedCount, onClick}, context) => {
   const disabled = definition.readonly === true || !validSelection
 
   return (
-    <Item
-      look="raised"
-    >
+    <Item look="raised">
       <Button
         disabled={disabled}
         icon={definition.icon}
@@ -45,21 +43,31 @@ const ActionGroup = ({definition, onClick, selectedCount}, context) => {
       <MenuButton
         look="raised"
       >
-        <MainAction
-          definition={definition.action}
-          onClick={onClick}
-          selectedCount={selectedCount}
-        />
-        <ItemFlyout
-          isToggleable={definition.readonly !== true}
-          label={definition.label}
-        >
-          <MenuStack>
-            {definition.children.map((actionDefinition, idx) =>
-              <GroupElement key={idx} definition={actionDefinition} onClick={onClick} selectedCount={selectedCount}/>
-            )}
-          </MenuStack>
-        </ItemFlyout>
+        <Item>
+          <MenuButtonGroup>
+
+            <MainAction
+              definition={definition.action}
+              onClick={onClick}
+              selectedCount={selectedCount}
+            />
+            <ItemFlyout
+              isToggleable={definition.readonly !== true}
+              label={definition.label}
+            >
+              <MenuStack>
+                {definition.children.map((actionDefinition, idx) =>
+                  <GroupElement
+                    definition={actionDefinition}
+                    key={idx}
+                    onClick={onClick}
+                    selectedCount={selectedCount}
+                  />
+                )}
+              </MenuStack>
+            </ItemFlyout>
+          </MenuButtonGroup>
+        </Item>
       </MenuButton>
     )
   } else {
