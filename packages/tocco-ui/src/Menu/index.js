@@ -4,6 +4,7 @@ import ItemFlyout from './ItemFlyout'
 import Menu from './Menu'
 import MenuBar from './MenuBar'
 import MenuButton from './MenuButton'
+import MenuButtonGroup from './MenuButtonGroup'
 import MenuStack from './MenuStack'
 import StyledItem from './StyledItem'
 import StyledItemAccordion from './StyledItemAccordion'
@@ -20,6 +21,7 @@ export {
   Menu as default,
   MenuBar,
   MenuButton,
+  MenuButtonGroup,
   MenuStack,
   StyledItem,
   StyledItemAccordion,
