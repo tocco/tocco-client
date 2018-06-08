@@ -15,6 +15,7 @@
     "react-scrollspy": "^3.3.5",
     "tocco-test-util": ">0.1.0",
     "tocco-theme": ">0.1.0",
+    "tocco-ui": ">0.1.0",
     "tocco-util": ">0.1.0"
   }
 }
