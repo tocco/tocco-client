@@ -1,14 +1,14 @@
-import styled from 'styled-components'
 import {theme} from 'styled-system'
+import {StyledUl} from '../Typography'
 
-const StyledSignalList = styled.ul`
-  display: block;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+const StyledSignalList = StyledUl.extend`
+  && {
+    list-style-type: none;
+    margin: 0 0 ${props => theme('space.5')} 0;
 
-  > li > ul {
-    margin-left: ${theme('space.5')};
+    & & {
+      margin: 0 0 0 1.25rem;
+    }
   }
 `
 
