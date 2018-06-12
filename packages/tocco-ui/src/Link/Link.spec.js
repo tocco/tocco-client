@@ -1,7 +1,7 @@
 
 import React from 'react'
 import Link from './Link'
-import {shallow} from 'enzyme'
+import {mount, shallow} from 'enzyme'
 
 describe('tocco-ui', function() {
   describe('Link', function() {
@@ -40,6 +40,16 @@ describe('tocco-ui', function() {
       expect(href).to.equal('/url')
       expect(target).to.equal('_blank')
       expect(title).to.equal('title text')
+    })
+
+    it('should show label as title attribute', () => {
+      const wrapper = mount(<Link breakWords={false} label="label text"/>)
+      expect(wrapper.find('a').prop('title')).to.be.equal('label text')
+    })
+
+    it('should not show label as title attribute', () => {
+      const wrapper = mount(<Link breakWords={true} label="label text"/>)
+      expect(wrapper.find('a').prop('title')).to.be.undefined
     })
 
     it('should display icon', () => {
