@@ -11,7 +11,6 @@ class Item extends React.Component {
   constructor(props) {
     super(props)
     this.state = {isOpen: props.isOpen}
-    if (props.isOpen) { document.addEventListener('mousedown', this.handleClickOutside, false) }
   }
 
   getChildren = () => {
@@ -39,6 +38,18 @@ class Item extends React.Component {
       this.setState(prevState => ({
         isOpen: !prevState.isOpen
       }))
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.isToggleable && this.state.isOpen) {
+      document.addEventListener('mousedown', this.handleClickOutside, false)
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.props.isToggleable && this.state.isOpen) {
+      document.removeEventListener('mousedown', this.handleClickOutside, false)
     }
   }
 
