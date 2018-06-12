@@ -4,6 +4,8 @@ import React from 'react'
 import Icon from '../Icon'
 import StyledButtonLink from './StyledButtonLink'
 import {
+  inkPropTypes,
+  lookPropTypes,
   stylingInk,
   stylingLook,
   stylingPosition
@@ -72,7 +74,7 @@ ButtonLink.propTypes = {
   /**
    * Specify color palette. Default value is 'base'.
    */
-  ink: PropTypes.oneOf([stylingInk.BASE, stylingInk.PRIMARY]),
+  ink: inkPropTypes,
   /**
    * Describe link target concise. Default is ''.
    */
@@ -80,7 +82,7 @@ ButtonLink.propTypes = {
   /**
    * Look of link according Material Design (button section). Default value is 'flat'.
    */
-  look: PropTypes.oneOf([stylingLook.PLAIN, stylingLook.FLAT, stylingLook.RAISED]),
+  look: lookPropTypes,
   /**
    * Describe link target in detail to instruct users. It is shown as popover on mouse over.
    */

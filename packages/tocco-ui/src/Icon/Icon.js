@@ -4,6 +4,8 @@ import classNames from 'classnames'
 
 import StyledIcon from './StyledIcon'
 import {
+  animationPropTypes,
+  positionPropTypes,
   stylingAnimation,
   stylingPosition
 } from '../utilStyles'
@@ -48,7 +50,7 @@ Icon.propTypes = {
   /**
   * Animate Icon. Default value is 'none'.
   */
-  animation: PropTypes.oneOf([stylingAnimation.NONE, stylingAnimation.SPIN]),
+  animation: animationPropTypes,
   /**
    * Display an icon. Utilize Glyphicon of Bootstrap 3.7 or Font Awesome 4.7 by setting
    * specific classname (e.g. "bars")
@@ -62,11 +64,7 @@ Icon.propTypes = {
   /**
    * If icon is positioned next to text or not specifiy it to control flow. Default value is 'before'.
    */
-  position: PropTypes.oneOf([
-    stylingPosition.AFTER,
-    stylingPosition.BEFORE,
-    stylingPosition.BETWEEN,
-    stylingPosition.SOLELY]),
+  position: positionPropTypes,
   onClickFunction: PropTypes.func,
   onMouseEnterFunction: PropTypes.func,
   onMouseLeaveFunction: PropTypes.func,

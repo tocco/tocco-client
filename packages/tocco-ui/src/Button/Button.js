@@ -4,6 +4,7 @@ import React from 'react'
 import Icon from '../Icon'
 import StyledButton from './StyledButton'
 import {
+  inkPropTypes,
   stylingAnimation,
   stylingInk,
   stylingLook,
@@ -54,7 +55,7 @@ Button.propTypes = {
   /**
    * May be passed from <ButtonGroup> to use as default for ink. Do not set manually.
    */
-  buttonGroupInk: PropTypes.oneOf([stylingInk.BASE, stylingInk.PRIMARY]),
+  buttonGroupInk: inkPropTypes,
   /**
    * May be passed from <ButtonGroup> to morph buttons into a split button. Do not set manually.
    */
@@ -81,7 +82,7 @@ Button.propTypes = {
   /**
    * Specify color palette. Default value is 'base'.
    */
-  ink: PropTypes.oneOf([stylingInk.BASE, stylingInk.PRIMARY]),
+  ink: inkPropTypes,
   /**
    * Describe button action concise. Default is ''.
    */

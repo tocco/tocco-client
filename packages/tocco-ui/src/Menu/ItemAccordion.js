@@ -4,7 +4,11 @@ import React from 'react'
 import Button from '../Button'
 import Item from './Item'
 import StyledItemAccordion from './StyledItemAccordion'
-import {stylingInk, stylingLook, stylingPosition} from '../utilStyles'
+import {
+  inkPropTypes,
+  stylingLook,
+  stylingPosition
+} from '../utilStyles'
 
 /**
  * Wrap <MenuStack> in <ItemAccordion> if it should be toggleable. Submenu expand and
@@ -48,7 +52,7 @@ ItemAccordion.propTypes = {
   /**
    * Specify color palette. Default value is 'base'.
    */
-  'ink': PropTypes.oneOf([stylingInk.BASE, stylingInk.PRIMARY]),
+  'ink': inkPropTypes,
   /**
    * Boolean to control if a submenu is initially opened. Default value is 'true'.
    */
