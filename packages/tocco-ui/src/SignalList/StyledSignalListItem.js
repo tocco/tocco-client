@@ -1,15 +1,17 @@
-import styled from 'styled-components'
 import {theme} from 'styled-system'
 
 import {StyledIcon} from '../Icon'
+import {StyledLi} from '../Typography'
 import {stylingCondition} from '../utilStyles'
 
-const StyledSignalListItem = styled.li`
+const StyledSignalListItem = StyledLi.extend`
+  && {
   color: ${props => getColor(props)}
 
-  ${StyledIcon} {
-    width: ${theme('space.5')}
-    text-align: center;
+    ${StyledIcon} {
+      width: ${theme('space.5')}
+      text-align: center;
+    }
   }
 `
 
