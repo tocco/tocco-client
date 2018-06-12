@@ -15,7 +15,7 @@ const Link = props => {
       download={props.download}
       href={props.href}
       target={props.target}
-      title={props.title}
+      title={props.title || (props.breakWords ? undefined : props.label)}
       breakWords={props.breakWords}
     >
       {props.icon && <Icon icon={props.icon} position={stylingPosition.BEFORE}/>}
@@ -54,7 +54,7 @@ Link.propTypes = {
    */
   icon: PropTypes.string,
   /**
-   * Describe link target concise. Default is ''.
+   * Describe link target concise.
    */
   label: PropTypes.node,
   /*
