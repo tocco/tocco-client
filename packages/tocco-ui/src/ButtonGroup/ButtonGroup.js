@@ -3,6 +3,7 @@ import React from 'react'
 
 import StyledButtonGroup from './StyledButtonGroup'
 import {
+  inkPropTypes,
   stylingInk,
   stylingLook
 } from '../utilStyles'
@@ -32,7 +33,7 @@ ButtonGroup.propTypes = {
    * Specify color palette for buttons globally. Ink can be overwritten on <Button> individually.
    * Default value is 'base'.
    */
-  ink: PropTypes.oneOf([stylingInk.BASE, stylingInk.PRIMARY]),
+  ink: inkPropTypes,
   /**
    * Specify look for buttons globally. Default value is 'flat'.
    */

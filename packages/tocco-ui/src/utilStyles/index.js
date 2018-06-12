@@ -11,11 +11,17 @@ import declareElevation from './declareElevation'
 import objectToCss from './objectToCss'
 import {
   animation as stylingAnimation,
+  animationPropTypes,
   ink as stylingInk,
+  inkPropTypes,
   look as stylingLook,
-  position as stylingPosition} from './stylingConstants'
+  lookPropTypes,
+  position as stylingPosition,
+  positionPropTypes
+} from './stylingConstants'
 
 export {
+  animationPropTypes,
   declareDensity,
   declareElevation,
   declareFlatBaseColors,
@@ -24,7 +30,10 @@ export {
   declareOverlay,
   declareRaisedBaseColors,
   declareRaisedPrimaryColors,
+  inkPropTypes,
+  lookPropTypes,
   objectToCss,
+  positionPropTypes,
   stylingAnimation,
   stylingInk,
   stylingLook,
