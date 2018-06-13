@@ -26,6 +26,7 @@ export default () => {
           <span>Header</span>
         </PanelHeader>
         <PanelBody>
+          <span>Body</span><br/>
           <span>Body</span>
         </PanelBody>
       </Panel>
@@ -34,7 +35,9 @@ export default () => {
 
       <Panel isOpen={true}>
         <PanelBody>
-          <span>Body</span>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus odit dolorum laboriosam, sunt vel
+          ad facilis blanditiis dignissimos suscipit possimus ipsam quis. Illum pariatur, sit voluptatibus, obcaecati
+          temporibus iusto vero.</p>
         </PanelBody>
         <PanelFooter/>
       </Panel>
