@@ -7,6 +7,27 @@ import StyledPanelBody from './StyledPanelBody'
  * Only <PanelBody/> is affected by the visibility state.
  */
 class PanelBody extends React.Component {
+  state = {
+    heightIfOpen: undefined
+  }
+
+  getHeight = () => {
+    this.node.setAttribute('style', 'height: auto; animation: none;')
+    this.setState({
+      heightIfOpen: `${this.node.offsetHeight}px`
+    })
+    this.node.removeAttribute('style')
+  }
+
+  componentDidMount() {
+    this.getHeight()
+    window.addEventListener('resize', this.getHeight)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.getHeight)
+  }
+
   render() {
     const {
       // eslint-disable-next-line
@@ -16,7 +37,10 @@ class PanelBody extends React.Component {
 
     return (
       <StyledPanelBody
-        isOpen={isOpen}>
+        isOpen={isOpen}
+        innerRef={node => { this.node = node }}
+        heightIfOpen={this.state.heightIfOpen}
+      >
         {React.Children.map(children, child => React.cloneElement(child))}
       </StyledPanelBody>
     )

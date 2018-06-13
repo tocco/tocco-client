@@ -1,13 +1,13 @@
 
 import React from 'react'
 import PanelBody from './PanelBody'
-import {shallow} from 'enzyme'
+import {mount} from 'enzyme'
 // import 'styled-components-test-utils/lib/chai';
 
 describe('tocco-ui', function() {
   describe('PanelBody', function() {
     it('should render parent and children', () => {
-      const wrapper = shallow(<PanelBody><span>text-1</span><span>text-2</span></PanelBody>).dive()
+      const wrapper = mount(<PanelBody><span>text-1</span><span>text-2</span></PanelBody>)
       expect(wrapper.find('div')).to.have.length(1)
       expect(wrapper.find('span')).to.have.length(2)
       expect(wrapper.find('span').first().text()).to.equal('text-1')
