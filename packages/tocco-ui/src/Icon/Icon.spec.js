@@ -53,5 +53,11 @@ describe('tocco-ui', function() {
       expect(wrapper.dive().text()).to.equal('•')
       expect(wrapper.props().className).to.equal('fa')
     })
+
+    it('should render unicode and set classname', () => {
+      const wrapper = shallow(<Icon unicode={'\u2022'}/>)
+      expect(wrapper.dive().text()).to.equal('•')
+      expect(wrapper.props().className).to.equal('fa')
+    })
   })
 })
