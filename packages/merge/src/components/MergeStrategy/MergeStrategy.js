@@ -15,7 +15,7 @@ class MergeStrategy extends React.Component {
       <div>
         <form>
           <div>
-            <h4><FormattedMessage id="client.merge.copyRelationsTitle"/></h4>
+            <h5><FormattedMessage id="client.merge.copyRelationsTitle"/></h5>
             <div className="answer">
               <div onClick={() => this.props.changeStrategy('copyRelations', true)}>
                 <input
@@ -38,7 +38,7 @@ class MergeStrategy extends React.Component {
             </div>
           </div>
           <div>
-            <h4><FormattedMessage id="client.merge.strategyTitle"/></h4>
+            <h5><FormattedMessage id="client.merge.strategyTitle"/></h5>
             <div className="answer">
               <select
                 className="form-control"
