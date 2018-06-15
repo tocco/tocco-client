@@ -17,6 +17,10 @@ describe('tocco-ui', () => {
 
         const leftToRightMark = /\u200E/g // required for browser Edge
 
+        const timeOutputIso = '23:15'
+        const timeOutputEn = '11:15 PM'
+        const timeOutputDe = '23:15'
+
         const timeValue = {
           value: {
             hourOfDay: 23,
@@ -32,7 +36,9 @@ describe('tocco-ui', () => {
               <TimeFormatter value={timeValue}/>
             </IntlProvider>
           )
-          expect(wrapper.text().replace(leftToRightMark, '')).to.equal('11:15 PM')
+          expect(wrapper.text().replace(leftToRightMark, '')).to.equal(timeOutputEn)
+          expect(wrapper.find('time').prop('title')).to.equal(timeOutputEn)
+          expect(wrapper.find('time').prop('dateTime')).to.equal(timeOutputIso)
         })
 
         it('should format value accorind to locale', () => {
@@ -41,7 +47,9 @@ describe('tocco-ui', () => {
               <TimeFormatter value={timeValue}/>
             </IntlProvider>
           )
-          expect(wrapper.text().replace(leftToRightMark, '')).to.equal('23:15')
+          expect(wrapper.text().replace(leftToRightMark, '')).to.equal(timeOutputDe)
+          expect(wrapper.find('time').prop('title')).to.equal(timeOutputDe)
+          expect(wrapper.find('time').prop('dateTime')).to.equal(timeOutputIso)
         })
       })
     })

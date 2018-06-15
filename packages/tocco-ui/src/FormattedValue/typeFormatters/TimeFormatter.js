@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {FormattedTime} from 'react-intl'
+import {FormattedTime, injectIntl, intlShape} from 'react-intl'
+
+import {Time} from '../../Typography'
 
 const TimeFormatter = props => {
   const hours = parseInt(props.value.value.hourOfDay) || 0
@@ -10,15 +12,24 @@ const TimeFormatter = props => {
 
   const date = new Date(2000, 1, 1, hours, minutes, seconds, milliSeconds)
 
+  const twoDigits = n => { return String('00' + n).slice(-2) }
+  const timeIso = `${twoDigits(date.getHours())}:${twoDigits(date.getMinutes())}`
+
   return (
-    <FormattedTime
-      value={date}
-    />
+    <Time
+      dateTime={timeIso}
+      title={props.intl.formatTime(date)}
+    >
+      <FormattedTime
+        value={date}
+      />
+    </Time>
   )
 }
 
 TimeFormatter.propTypes = {
+  intl: intlShape.isRequired,
   value: PropTypes.object.isRequired
 }
 
-export default TimeFormatter
+export default injectIntl(TimeFormatter)

@@ -1,11 +1,11 @@
 import React from 'react'
 import Preview from './Preview'
-import {shallow} from 'enzyme'
+import {mount, shallow} from 'enzyme'
 
 describe('tocco-ui', () => {
   describe('Preview', () => {
     it('render all elements and attributes', () => {
-      const wrapper = shallow(
+      const wrapper = mount(
         <Preview
           alt="alternative text"
           caption="caption text"
@@ -13,7 +13,7 @@ describe('tocco-ui', () => {
           srcUrl="/link-to-source"
           thumbnailUrl="/link-to-thumbnail"
         />
-      ).dive()
+      )
 
       const figure = wrapper.find('figure')
       const a = wrapper.find('a')
@@ -35,6 +35,7 @@ describe('tocco-ui', () => {
     it('display image or icon depending on thumbnailUrl', () => {
       let wrapper = shallow(
         <Preview
+          alt="alt text"
           srcUrl="/link-to-source"
           thumbnailUrl="/link-to-thumbnail"
         />
@@ -45,6 +46,7 @@ describe('tocco-ui', () => {
 
       wrapper = shallow(
         <Preview
+          alt="alt text"
           srcUrl="/link-to-source"
           thumbnailUrl=""
         />
@@ -60,12 +62,13 @@ describe('tocco-ui', () => {
     })
 
     it('add figcaption only if caption in provided', () => {
-      let wrapper = shallow(
+      let wrapper = mount(
         <Preview
+          alt="alt text"
           caption="caption text"
           srcUrl="/link-to-source"
         />
-      ).dive()
+      )
 
       let figcaption = wrapper.find('figcaption')
 
@@ -74,6 +77,7 @@ describe('tocco-ui', () => {
 
       wrapper = shallow(
         <Preview
+          alt="alt text"
           caption=""
           srcUrl="/link-to-source"
         />
@@ -85,21 +89,23 @@ describe('tocco-ui', () => {
     })
 
     it('link image if demanded and allowed', () => {
-      let wrapper = shallow(
+      let wrapper = mount(
         <Preview
+          alt="alt text"
           downloadOnClick={false}
           srcUrl="/link-to-source"
         />
-      ).dive()
+      )
 
       expect(wrapper.find('a')).to.have.length(0)
 
-      wrapper = shallow(
+      wrapper = mount(
         <Preview
+          alt="alt text"
           downloadOnClick={true}
           srcUrl="/link-to-source"
         />
-      ).dive()
+      )
 
       const a = wrapper.find('a')
 
@@ -108,6 +114,7 @@ describe('tocco-ui', () => {
 
       wrapper = shallow(
         <Preview
+          alt="alt text"
           downloadOnClick={true}
           onClick={(srcUrl, thumbnailUrl) => alert(srcUrl + '\n' + thumbnailUrl)}
           srcUrl="/link-to-source"
@@ -124,6 +131,7 @@ describe('tocco-ui', () => {
 
       const wrapper = shallow(
         <Preview
+          alt="alt text"
           downloadOnClick={true}
           onClick={onClickFunction}
           srcUrl={srcUrl}

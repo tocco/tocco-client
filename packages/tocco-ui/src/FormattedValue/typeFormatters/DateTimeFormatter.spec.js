@@ -25,6 +25,8 @@ describe('tocco-ui', function() {
           // expect(wrapper.text()).to.equal('3/16/1976,1:00 PM')
 
           expect(wrapper.text()).to.not.equal('')
+          expect(wrapper.find('time').prop('title')).to.not.equal('')
+          expect(wrapper.find('time').prop('dateTime')).to.not.equal('')
         })
 
         it('should format value according to locale', function() {
@@ -35,6 +37,8 @@ describe('tocco-ui', function() {
           // See above
           // expect(wrapper.text()).to.equal('16.3.1976,13:00')
           expect(wrapper.text()).to.not.equal('')
+          expect(wrapper.find('time').prop('title')).to.not.equal('')
+          expect(wrapper.find('time').prop('dateTime')).to.not.equal('')
         })
       })
     })

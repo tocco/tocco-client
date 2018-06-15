@@ -47,6 +47,7 @@ export class TwoStepLoginForm extends Component {
               disabled={!this.state.userCode || this.props.loginPending}
               ink="primary"
               label={this.msg('client.login.form.button')}
+              look="raised"
               name="submit"
               pending={this.props.loginPending}
               type="submit"

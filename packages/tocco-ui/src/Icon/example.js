@@ -34,7 +34,11 @@ export default () => {
         icon="fa-check-square-o"
         position="between"
       />
-      Font Awesome Between Dense
+      Font Awesome Between Dense,
+      Bullet as unicode character
+      <Icon
+        unicode={'\u2022'}
+      />
       {/* end example */}
     </div>
   )

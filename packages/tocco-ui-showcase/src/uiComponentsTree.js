@@ -30,6 +30,10 @@ import IconRaw from '!raw-loader!../../tocco-ui/src/Icon/Icon'
 import IconExample from '../../tocco-ui/src/Icon/example'
 import IconExampleRaw from '!raw-loader!../../tocco-ui/src/Icon/example'
 
+import TypographyRaw from '!raw-loader!../../tocco-ui/src/Typography/Typography'
+import TypographyExample from '../../tocco-ui/src/Typography/example'
+import TypographyExampleRaw from '!raw-loader!../../tocco-ui/src/Typography/example'
+
 import LinkRaw from '!raw-loader!../../tocco-ui/src/Link/Link'
 import LinkExample from '../../tocco-ui/src/Link/example'
 import LinkExampleRaw from '!raw-loader!../../tocco-ui/src/Link/example'
@@ -37,6 +41,14 @@ import LinkExampleRaw from '!raw-loader!../../tocco-ui/src/Link/example'
 import ButtonLinkRaw from '!raw-loader!../../tocco-ui/src/ButtonLink/ButtonLink'
 import ButtonLinkExample from '../../tocco-ui/src/ButtonLink/example'
 import ButtonLinkExampleRaw from '!raw-loader!../../tocco-ui/src/ButtonLink/example'
+
+import PanelRaw from '!raw-loader!../../tocco-ui/src/Panel/Panel'
+import PanelExample from '../../tocco-ui/src/Panel/example'
+import PanelExampleRaw from '!raw-loader!../../tocco-ui/src/Panel/example'
+
+import SignalListRaw from '!raw-loader!../../tocco-ui/src/SignalList/SignalList'
+import SignalListExample from '../../tocco-ui/src/SignalList/example'
+import SignalListExampleRaw from '!raw-loader!../../tocco-ui/src/SignalList/example'
 
 import PreviewRaw from '!raw-loader!../../tocco-ui/src/Preview/Preview'
 import PreviewExample from '../../tocco-ui/src/Preview/example'
@@ -144,6 +156,22 @@ export default [
         }
       },
       {
+        name: 'Typography',
+        raw: TypographyRaw,
+        example: {
+          component: TypographyExample,
+          raw: TypographyExampleRaw
+        }
+      },
+      {
+        name: 'SignalList',
+        raw: SignalListRaw,
+        example: {
+          component: SignalListExample,
+          raw: SignalListExampleRaw
+        }
+      },
+      {
         name: 'Link',
         raw: LinkRaw,
         example: {
@@ -165,6 +193,14 @@ export default [
         example: {
           component: MenuExample,
           raw: MenuExampleRaw
+        }
+      },
+      {
+        name: 'Panel',
+        raw: PanelRaw,
+        example: {
+          component: PanelExample,
+          raw: PanelExampleRaw
         }
       }]
   },

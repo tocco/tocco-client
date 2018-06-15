@@ -2,15 +2,19 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedNumber} from 'react-intl'
 
+import {Span} from '../../Typography'
+
 const LongitudeFormatter = props => {
   const number = props.value.value
 
   return (
-    <FormattedNumber
-      value={number}
-      style="decimal"
-      maximumFractionDigits={15}
-    />
+    <Span>
+      <FormattedNumber
+        value={number}
+        style="decimal"
+        maximumFractionDigits={15}
+      />
+    </Span>
   )
 }
 
