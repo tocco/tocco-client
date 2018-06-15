@@ -163,7 +163,7 @@ const Time = props => {
   return (
     <StyledTime
       breakWords={props.breakWords}
-      title={props.breakWords ? undefined : getTextOfChildren(props.children)}
+      title={props.title}
       dateTime={props.dateTime}
     >{props.children}</StyledTime>
   )
