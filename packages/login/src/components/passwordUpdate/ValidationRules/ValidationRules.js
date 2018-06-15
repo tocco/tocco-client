@@ -1,37 +1,35 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import classNames from 'classnames'
-
-export const Rule = props => (
-  <li className={props.className}>{props.message}</li>
-)
-
-Rule.propTypes = {
-  className: PropTypes.string,
-  message: PropTypes.string.isRequired
-}
+import SignalList, {SignalListItem} from 'tocco-ui/src/SignalList'
 
 const ValidationRules = props => (
-  <ul className={classNames('icon-list', {'neutral': props.rulesNeutral})}>
+  <SignalList>
     {props.rules.map((rule, index) => {
-      let className = null
+      let condition = null
+
       let message = rule.message
 
       if (props.errors) {
         const error = props.errors[rule.name]
         if (error === true) {
-          className = 'text-danger'
+          condition = 'danger'
         } else if (typeof error === 'string') {
-          className = 'text-danger'
+          condition = 'danger'
           message = error
         } else {
-          className = 'text-success'
+          condition = 'success'
         }
       }
 
-      return <Rule key={index} className={className} message={message}/>
+      return (
+        <SignalListItem
+          condition={condition}
+          key={index}
+          label={message}
+        />
+      )
     })}
-  </ul>
+  </SignalList>
 )
 
 ValidationRules.propTypes = {

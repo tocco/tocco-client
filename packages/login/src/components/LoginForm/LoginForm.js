@@ -2,7 +2,9 @@ import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
 import {Pages} from '../../types/Pages'
-import {Button} from 'tocco-ui'
+import {Button, ButtonGroup} from 'tocco-ui'
+import {H5, P} from 'tocco-ui/src/Typography'
+import SignalList, {SignalListItem} from 'tocco-ui/src/SignalList'
 
 export class LoginForm extends Component {
   handleSubmit(e) {
@@ -24,8 +26,8 @@ export class LoginForm extends Component {
         {
           this.props.showTitle
           && <div>
-            <h1><FormattedMessage id="client.login.form.title"/></h1>
-            <p><FormattedMessage id="client.login.form.introduction"/></p>
+            <H5><FormattedMessage id="client.login.form.title"/></H5>
+            <P><FormattedMessage id="client.login.form.introduction"/></P>
           </div>
         }
         <form onSubmit={this.handleSubmit.bind(this)}>
@@ -57,26 +59,33 @@ export class LoginForm extends Component {
               />
             </div>
           </div>
-          <div className="message-box">
-            {
-              this.props.message && this.props.message.text
-            && <span className={this.props.message.negative ? 'text-danger' : ''}>{this.props.message.text}</span>
-            }
-          </div>
+
+          {
+            this.props.message && this.props.message.text
+            && <SignalList>
+              <SignalListItem
+                condition={this.props.message.negative ? 'danger' : 'base'}
+                label={this.props.message.text}
+              />
+            </SignalList>
+          }
+
           <div>
             <div>
-              <Button
-                disabled={this.props.loginPending || this.props.username === '' || this.props.password === ''}
-                ink="primary"
-                label={this.msg('client.login.form.button')}
-                pending={this.props.loginPending}
-                type="submit"
-              />
-              <Button
-                className="forgot-password"
-                label={this.msg('client.login.form.forgotLink')}
-                onClick={() => this.props.changePage(Pages.PASSWORD_REQUEST)}
-              />
+              <ButtonGroup look="raised">
+                <Button
+                  disabled={this.props.loginPending || this.props.username === '' || this.props.password === ''}
+                  ink="primary"
+                  label={this.msg('client.login.form.button')}
+                  pending={this.props.loginPending}
+                  type="submit"
+                />
+                <Button
+                  className="forgot-password"
+                  label={this.msg('client.login.form.forgotLink')}
+                  onClick={() => this.props.changePage(Pages.PASSWORD_REQUEST)}
+                />
+              </ButtonGroup>
             </div>
           </div>
         </form>
