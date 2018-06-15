@@ -1,13 +1,15 @@
 import React from 'react'
-import ValidationRules, {Rule} from './ValidationRules'
-import {shallow} from 'enzyme'
+import ValidationRules from './ValidationRules'
+import {SignalListItem} from 'tocco-ui/src/SignalList'
+import {mount, shallow} from 'enzyme'
 
 describe('login', () => {
   describe('components', () => {
     describe('ValidationRules', () => {
-      it('should render empty div if no rules', () => {
-        const wrapper = shallow(<ValidationRules rules={[]}/>)
-        expect(wrapper.equals(<ul className="icon-list"/>)).to.equal(true)
+      it('should render empty ul if no rules', () => {
+        const wrapper = mount(<ValidationRules rules={[]}/>)
+        expect(wrapper.find('ul')).to.have.length(1)
+        expect(wrapper.find('li')).to.have.length(0)
       })
 
       it('should render rules w/o status if no errors object given', () => {
@@ -20,8 +22,8 @@ describe('login', () => {
         }]
         const wrapper = shallow(<ValidationRules rules={rules}/>)
         expect(wrapper.containsAllMatchingElements([
-          <Rule key="1" message="Must have at least 8 characters"/>,
-          <Rule key="1" message="Must have at least 1 digit"/>
+          <SignalListItem condition={null} label="Must have at least 8 characters" key="1"/>,
+          <SignalListItem condition={null} label="Must have at least 1 digit" key="2"/>
         ])).to.equal(true)
       })
 
@@ -36,8 +38,8 @@ describe('login', () => {
         const errors = {}
         const wrapper = shallow(<ValidationRules rules={rules} errors={errors}/>)
         expect(wrapper.containsAllMatchingElements([
-          <Rule message="Must have at least 8 characters" className="text-success" key="1"/>,
-          <Rule message="Must have at least 1 digit" className="text-success" key="2"/>
+          <SignalListItem condition="success" label="Must have at least 8 characters" key="1"/>,
+          <SignalListItem condition="success" label="Must have at least 1 digit" key="2"/>
         ])).to.equal(true)
       })
 
@@ -54,8 +56,8 @@ describe('login', () => {
         }
         const wrapper = shallow(<ValidationRules rules={rules} errors={errors}/>)
         expect(wrapper.containsAllMatchingElements([
-          <Rule message="Must have at least 8 characters" className="text-danger" key="1"/>,
-          <Rule message="Must have at least 1 digit" className="text-success" key="2"/>
+          <SignalListItem condition="danger" label="Must have at least 8 characters" key="1"/>,
+          <SignalListItem condition="success" label="Must have at least 1 digit" key="2"/>
         ])).to.equal(true)
       })
 
@@ -72,8 +74,8 @@ describe('login', () => {
         }
         const wrapper = shallow(<ValidationRules rules={rules} errors={errors}/>)
         expect(wrapper.containsAllMatchingElements([
-          <Rule message="Two more characters required!" className="text-danger" key="1"/>,
-          <Rule message="Must have at least 1 digit" className="text-success" key="2"/>
+          <SignalListItem condition="danger" label="Two more characters required!" key="1"/>,
+          <SignalListItem condition="success" label="Must have at least 1 digit" key="2"/>
         ])).to.equal(true)
       })
     })

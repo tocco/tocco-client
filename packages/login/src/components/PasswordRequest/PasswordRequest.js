@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
 import {Pages} from '../../types/Pages'
-import {Button} from 'tocco-ui'
+import {Button, ButtonGroup} from 'tocco-ui'
 
 export class PasswordRequest extends React.Component {
   constructor(props) {
@@ -42,7 +42,7 @@ export class PasswordRequest extends React.Component {
             </div>
           </div>
           <div>
-            <div>
+            <ButtonGroup look="raised">
               <Button
                 disabled={!this.state.username || this.props.pending}
                 ink="primary"
@@ -56,7 +56,7 @@ export class PasswordRequest extends React.Component {
                 name="abort"
                 onClick={() => this.props.changePage(Pages.LOGIN_FORM)}
               />
-            </div>
+            </ButtonGroup>
           </div>
         </form>
       </div>

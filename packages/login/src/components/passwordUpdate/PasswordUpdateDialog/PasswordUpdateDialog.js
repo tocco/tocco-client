@@ -4,9 +4,9 @@ import classNames from 'classnames'
 import {FormattedMessage, intlShape} from 'react-intl'
 import {Button, LoadMask} from 'tocco-ui'
 import PasswordInput from './PasswordInput'
-import PasswordMatchDisplay from './PasswordMatchDisplay'
 import ValidationRules from '../ValidationRules'
 import FailureMessage from '../FailureMessage'
+import SignalList, {SignalListItem} from 'tocco-ui/src/SignalList'
 
 class PasswordUpdateDialog extends Component {
   componentWillMount() {
@@ -91,13 +91,22 @@ class PasswordUpdateDialog extends Component {
             readOnly={newPasswordRepeatReadOnly}
             valid={this.isSubmittable()}
           />
-          <PasswordMatchDisplay password={password.newPassword} passwordRepeat={password.newPasswordRepeat}/>
+
+          {
+            password.newPasswordRepeat
+            && password.newPassword !== password.newPasswordRepeat
+            && <SignalList>
+              <SignalListItem condition="danger" label="bla"/>
+            </SignalList>
+          }
+
           {password.passwordUpdateFailed === true && <FailureMessage errorCode={password.passwordUpdateErrorCode}/>}
           <Button
             className={classNames('last-element-in-block', {'update-pending': password.passwordUpdatePending})}
             disabled={this.isSubmittable() === false}
             ink="primary"
             label={this.msg('client.login.passwordUpdate.saveButton')}
+            look="raised"
             type="submit"
           />
         </form>
