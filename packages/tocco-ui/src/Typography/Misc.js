@@ -124,7 +124,7 @@ const Strong = props =>
 const Time = props =>
   <StyledTime
     breakWords={props.breakWords}
-    title={props.breakWords ? undefined : getTextOfChildren(props.children)}
+    title={props.title}
     dateTime={props.dateTime}
   >{props.children}</StyledTime>
 
@@ -206,7 +206,8 @@ Time.propTypes = {
 */
   breakWords: PropTypes.bool,
   children: PropTypes.node.isRequired,
-  dateTime: PropTypes.string.isRequired
+  dateTime: PropTypes.string.isRequired,
+  title: PropTypes.string
 }
 
 export {

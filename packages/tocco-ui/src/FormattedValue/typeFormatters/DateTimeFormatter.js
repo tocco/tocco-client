@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {FormattedDate, FormattedTime} from 'react-intl'
+import {FormattedDate, FormattedTime, injectIntl, intlShape} from 'react-intl'
 
 import {Span, Time} from '../../Typography'
 
@@ -13,9 +13,11 @@ const DateTimeFormatter = props => {
   }
 
   const date = new Date(timestamp)
-
   return (
-    <Time dateTime={date.toISOString()}>
+    <Time
+      dateTime={date.toISOString()}
+      title={`${props.intl.formatDate(date)}, ${props.intl.formatTime(date)}`}
+    >
       <FormattedDate
         value={date}
         year="numeric"
@@ -30,7 +32,8 @@ const DateTimeFormatter = props => {
 }
 
 DateTimeFormatter.propTypes = {
+  intl: intlShape.isRequired,
   value: PropTypes.string.isRequired
 }
 
-export default DateTimeFormatter
+export default injectIntl(DateTimeFormatter)

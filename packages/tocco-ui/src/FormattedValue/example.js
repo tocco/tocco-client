@@ -55,10 +55,6 @@ const Example = () => {
             </td>
           </tr>
           <tr>
-            <td>Duration</td>
-            <td><FormattedValue type="duration" value={3020000}/></td>
-          </tr>
-          <tr>
             <td>Dataamount<br/>Integer<br/>Long<br/>Number<br/>Short<br/>Sorting<br/>Version</td>
             <td>
               <FormattedValue type="dataamount" value={1}/><br/>
