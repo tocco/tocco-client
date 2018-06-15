@@ -509,7 +509,10 @@ describe('tocco-ui', function() {
 
         it('should render title', () => {
           const wrapper = mount(
-            <Time dateTime="23:59:59">23:59:59</Time>
+            <Time
+              dateTime="23:59:59"
+              title="23:59:59"
+            >23:59:59</Time>
           )
           expect(wrapper.find('time').text()).to.equal('23:59:59')
           expect(wrapper.find('time').prop('title')).to.equal('23:59:59')

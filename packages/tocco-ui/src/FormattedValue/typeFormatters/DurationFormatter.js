@@ -10,7 +10,10 @@ const DurationFormatter = props => {
   const twoDigits = n => { return String('00' + n).slice(-2) }
   const durationIso = `${twoDigits(date.getHours())}:${twoDigits(date.getMinutes())}:${twoDigits(date.getSeconds())}`
   return (
-    <Time dateTime={durationIso}>
+    <Time
+      dateTime={durationIso}
+      title={durationIso}
+    >
       <FormattedDate
         value={date}
         hour="2-digit"

@@ -16,24 +16,31 @@ describe('tocco-ui', function() {
         })
 
         const leftToRightMark = /\u200E/g // required for browser Edge
+        const dateInput = '1976-11-16'
+        const dateOutputIso = '1976-11-16'
+        const dateOutputEn = '11/16/1976'
+        const dateOutputDe = '16.11.1976'
 
         it('should format value', () => {
           const wrapper = mount(
             <IntlProvider locale="en">
-              <DateFormatter value="1976-11-16"/>
+              <DateFormatter value={dateInput}/>
             </IntlProvider>
           )
-
-          expect(wrapper.text().replace(leftToRightMark, '')).to.equal('11/16/1976')
+          expect(wrapper.text().replace(leftToRightMark, '')).to.equal(dateOutputEn)
+          expect(wrapper.find('time').prop('title')).to.equal(dateOutputEn)
+          expect(wrapper.find('time').prop('dateTime')).to.equal(dateOutputIso)
         })
 
         it('should format value according to locale', () => {
           const wrapper = mount(
             <IntlProvider locale="de">
-              <DateFormatter value="1976-11-16"/>
+              <DateFormatter value={dateInput}/>
             </IntlProvider>
           )
-          expect(wrapper.text().replace(leftToRightMark, '')).to.equal('16.11.1976')
+          expect(wrapper.text().replace(leftToRightMark, '')).to.equal(dateOutputDe)
+          expect(wrapper.find('time').prop('title')).to.equal(dateOutputDe)
+          expect(wrapper.find('time').prop('dateTime')).to.equal(dateOutputIso)
         })
       })
     })
