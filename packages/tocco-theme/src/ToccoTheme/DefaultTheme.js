@@ -54,16 +54,15 @@ const colors = {
 }
 
 const fontFamily = {
-  sansSerif: '"Roboto", sans-serif',
-  monospace: '"Roboto Mono", monospace'
+  sansSerif: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+  monospace: 'Menlo, Monaco, Consolas, "Courier New", monospace'
 }
-
 /* FONT SIZES
  * Unit 'rem' is required for correct presentation, independently from zoom and nesting.
- * It is recommended to use a rhythmic scale to ensure a harmonic typography (e.g. augmented fourth = 1.414).
+ * It is recommended to use a rhythmic scale to ensure a harmonic typography.
  */
 const fontSizes = [
-  '.5rem', '.707rem', '1rem', '1.414rem', '1.999rem', '2.827rem', '3.998rem', '5.653172rem'
+  '.7rem', '1rem', '1.4rem', '1.4rem', '2rem', '2.8rem', '3.9rem', '5.6rem'
 ]
 
 const fontWeights = {
