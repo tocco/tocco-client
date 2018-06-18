@@ -32,7 +32,7 @@ class PanelHeaderFooter extends React.Component {
           && <Button
             icon={isOpen ? 'fa-minus' : 'fa-plus'}
             onClick={toggleOpenState}
-            title={isOpen ? 'Weitere Informationen verbergen' : 'Weitere Informationen anzeigen'}
+            title={isOpen ? this.props.options.collapseButtonText : this.props.options.unfoldButtonText}
             iconPosition="solely"
           />
         }
@@ -42,14 +42,22 @@ class PanelHeaderFooter extends React.Component {
 }
 
 PanelHeaderFooter.defaultProps = {
-  showToggler: true
+  showToggler: true,
+  options: {
+    collapseButtonText: 'Hide information',
+    unfoldButtonText: 'Show more information'
+  }
 }
 
 PanelHeaderFooter.propTypes = {
   /**
    * Show or hide button if needed. Default value is 'true'.
    */
-  showToggler: PropTypes.bool
+  showToggler: PropTypes.bool,
+  options: PropTypes.shape({
+    collapseButtonText: PropTypes.string,
+    unfoldButtonText: PropTypes.string
+  })
 }
 
 export default PanelHeaderFooter
