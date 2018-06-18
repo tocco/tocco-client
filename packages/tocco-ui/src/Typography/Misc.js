@@ -180,16 +180,25 @@ B.propTypes
 = Strong.propTypes
 = Sub.propTypes
 = Sup.propTypes
-= Time.propTypes
 = U.propTypes
 = Var.propTypes = {
-                                      /**
+                                    /**
                                    * If true words break with hyphens.
                                    * If false text is forced into a single truncated line.
                                    */
-                                      breakWords: PropTypes.bool,
-                                      children: PropTypes.node.isRequired
-                                    }
+                                    breakWords: PropTypes.bool,
+                                    children: PropTypes.node.isRequired
+                                  }
+
+Time.propTypes = {
+/**
+* If true words break with hyphens.
+* If false text is forced into a single truncated line.
+*/
+  breakWords: PropTypes.bool,
+  children: PropTypes.node.isRequired,
+  dateTime: PropTypes.string.isRequired
+}
 
 export {
   B,
