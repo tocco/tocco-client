@@ -10,11 +10,11 @@ class Panel extends React.Component {
   }
 
   toggleOpenState = () => {
-    // eslint-disable-next-line
-    this.props.isToggleable
-    && this.setState(prevState => ({
-      isOpen: !prevState.isOpen
-    }))
+    if (this.props.isToggleable) {
+      this.setState(prevState => ({
+        isOpen: !prevState.isOpen
+      }))
+    }
   }
 
   render() {
@@ -24,14 +24,14 @@ class Panel extends React.Component {
 
     return (
       <div>
-        { // eslint-disable-next-line
-          React.Children.map(this.props.children, child => {
-            return React.cloneElement(child, {
+        {
+          React.Children.map(this.props.children, child =>
+            React.cloneElement(child, {
               isOpen: this.state.isOpen,
               isToggleable: isToggleable,
               toggleOpenState: this.toggleOpenState
             })
-          })
+          )
         }
       </div>
     )
@@ -44,6 +44,7 @@ Panel.defaultProps = {
 }
 
 Panel.propTypes = {
+  children: PropTypes.node,
   /**
    * Boolean to control if <PanelBody/> is initially opened. Default value is 'false'.
    */
