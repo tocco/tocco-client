@@ -17,102 +17,84 @@ import {getTextOfChildren} from '../utilStyles'
  * size and space.
  */
 
-const H1 = props => {
-  return (
-    <StyledH1
-      breakWords={props.breakWords}
-      styledLike={props.styledLike}
-      title={props.breakWords ? undefined : getTextOfChildren(props.children)}
-    >
-      {props.children}
-    </StyledH1>
-  )
-}
+const H1 = props =>
+  <StyledH1
+    breakWords={props.breakWords}
+    styledLike={props.styledLike}
+    title={props.breakWords ? undefined : getTextOfChildren(props.children)}
+  >
+    {props.children}
+  </StyledH1>
 
 H1.defaultProps = {
   breakWords: true,
   styledLike: 'H1'
 }
 
-const H2 = props => {
-  return (
-    <StyledH2
-      breakWords={props.breakWords}
-      styledLike={props.styledLike}
-      title={props.breakWords ? undefined : getTextOfChildren(props.children)}
-    >
-      {props.children}
-    </StyledH2>
-  )
-}
+const H2 = props =>
+  <StyledH2
+    breakWords={props.breakWords}
+    styledLike={props.styledLike}
+    title={props.breakWords ? undefined : getTextOfChildren(props.children)}
+  >
+    {props.children}
+  </StyledH2>
 
 H2.defaultProps = {
   breakWords: true,
   styledLike: 'H2'
 }
 
-const H3 = props => {
-  return (
-    <StyledH3
-      breakWords={props.breakWords}
-      styledLike={props.styledLike}
-      title={props.breakWords ? undefined : getTextOfChildren(props.children)}
-    >
-      {props.children}
-    </StyledH3>
-  )
-}
+const H3 = props =>
+  <StyledH3
+    breakWords={props.breakWords}
+    styledLike={props.styledLike}
+    title={props.breakWords ? undefined : getTextOfChildren(props.children)}
+  >
+    {props.children}
+  </StyledH3>
 
 H3.defaultProps = {
   breakWords: true,
   styledLike: 'H3'
 }
 
-const H4 = props => {
-  return (
-    <StyledH4
-      breakWords={props.breakWords}
-      styledLike={props.styledLike}
-      title={props.breakWords ? undefined : getTextOfChildren(props.children)}
-    >
-      {props.children}
-    </StyledH4>
-  )
-}
+const H4 = props =>
+  <StyledH4
+    breakWords={props.breakWords}
+    styledLike={props.styledLike}
+    title={props.breakWords ? undefined : getTextOfChildren(props.children)}
+  >
+    {props.children}
+  </StyledH4>
 
 H4.defaultProps = {
   breakWords: true,
   styledLike: 'H4'
 }
 
-const H5 = props => {
-  return (
-    <StyledH5
-      breakWords={props.breakWords}
-      styledLike={props.styledLike}
-      title={props.breakWords ? undefined : getTextOfChildren(props.children)}
-    >
-      {props.children}
-    </StyledH5>
-  )
-}
+const H5 = props =>
+  <StyledH5
+    breakWords={props.breakWords}
+    styledLike={props.styledLike}
+    title={props.breakWords ? undefined : getTextOfChildren(props.children)}
+  >
+    {props.children}
+  </StyledH5>
 
 H5.defaultProps = {
   breakWords: true,
   styledLike: 'H5'
 }
 
-const H6 = props => {
-  return (
-    <StyledH6
-      breakWords={props.breakWords}
-      styledLike={props.styledLike}
-      title={props.breakWords ? undefined : getTextOfChildren(props.children)}
-    >
-      {props.children}
-    </StyledH6>
-  )
-}
+const H6 = props =>
+  <StyledH6
+    breakWords={props.breakWords}
+    styledLike={props.styledLike}
+    title={props.breakWords ? undefined : getTextOfChildren(props.children)}
+  >
+    {props.children}
+  </StyledH6>
 
 H6.defaultProps = {
   breakWords: true,

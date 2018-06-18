@@ -11,47 +11,25 @@ import {
 } from './StyledList'
 import {getTextOfChildren} from '../utilStyles'
 
-const Dd = props => {
-  return (
-    <StyledDd
-      breakWords={props.breakWords}
-      title={props.breakWords ? undefined : getTextOfChildren(props.children)}
-    >{props.children}</StyledDd>
-  )
-}
+const Dd = props =>
+  <StyledDd
+    breakWords={props.breakWords}
+    title={props.breakWords ? undefined : getTextOfChildren(props.children)}
+  >{props.children}</StyledDd>
 
-const Dl = props => {
-  return (
-    <StyledDl>{props.children}</StyledDl>
-  )
-}
+const Dl = props => <StyledDl>{props.children}</StyledDl>
 
-const Dt = props => {
-  return (
-    <StyledDt
-      breakWords={props.breakWords}
-      title={props.breakWords ? undefined : getTextOfChildren(props.children)}
-    >{props.children}</StyledDt>
-  )
-}
+const Dt = props =>
+  <StyledDt
+    breakWords={props.breakWords}
+    title={props.breakWords ? undefined : getTextOfChildren(props.children)}
+  >{props.children}</StyledDt>
 
-const Li = props => {
-  return (
-    <StyledLi>{props.children}</StyledLi>
-  )
-}
+const Li = props => <StyledLi>{props.children}</StyledLi>
 
-const Ol = props => {
-  return (
-    <StyledOl>{props.children}</StyledOl>
-  )
-}
+const Ol = props => <StyledOl>{props.children}</StyledOl>
 
-const Ul = props => {
-  return (
-    <StyledUl>{props.children}</StyledUl>
-  )
-}
+const Ul = props => <StyledUl>{props.children}</StyledUl>
 
 Dd.defaultProps
 = Dt.defaultProps = {
