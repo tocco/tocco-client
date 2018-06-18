@@ -33,8 +33,8 @@ const declareHeaderFont = props => {
   return declareFont(props, {fontWeight: 700, fontSize: fontSize})
 }
 
-const declareSpace = props => {
-  return `
+const declareSpace = props =>
+  `
     margin-top: ${theme('space.6')(props)};
     margin-bottom: ${theme('space.5')(props)};
 
@@ -55,7 +55,6 @@ const declareSpace = props => {
       margin-bottom: 0;
     }
   `
-}
 
 const StyledH1 = styled.h1`
   && {

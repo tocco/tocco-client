@@ -15,7 +15,7 @@ import it from 'react-intl/locale-data/it'
 
 import {LoadMask} from 'tocco-ui'
 import {ToccoTheme} from 'tocco-theme'
-import InjectFontRoboto from '../../../tocco-ui/src/Typography/Font'
+import InjectFontRoboto from 'tocco-ui/src/Typography'
 
 import intl from '../intl'
 import errorLogging from '../errorLogging'

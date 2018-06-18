@@ -10,14 +10,11 @@ import {getTextOfChildren} from '../utilStyles'
  * automatically. When other fonts are defined it is required to load font files
  * manually and to define corresponding @font-face.
  */
-const Span = props => {
-  return (
-    <StyledSpan
-      breakWords={props.breakWords}
-      title={props.breakWords ? undefined : getTextOfChildren(props.children)}
-    >{props.children}</StyledSpan>
-  )
-}
+const Span = props =>
+  <StyledSpan
+    breakWords={props.breakWords}
+    title={props.breakWords ? undefined : getTextOfChildren(props.children)}
+  >{props.children}</StyledSpan>
 
 Span.defaultProps = {
   breakWords: true

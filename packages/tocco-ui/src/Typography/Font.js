@@ -7,14 +7,14 @@ const InjectFontRoboto = props => {
   const fontFamilyMonospace = themeGet('fontFamily.monospace', 'false')(props)
 
   if (fontFamilySansSerif.includes('Roboto')) {
-    // eslint-disable-next-line
+    // eslint-disable-next-line chai-friendly/no-unused-expressions
     injectGlobal`
       @import url('https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i');
     `
   }
 
   if (fontFamilyMonospace.includes('Roboto Mono')) {
-    // eslint-disable-next-line
+    // eslint-disable-next-line chai-friendly/no-unused-expressions
     injectGlobal`
       @import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,700');
     `
