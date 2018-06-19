@@ -14,7 +14,8 @@
           "id": "txtFulltext",
           "componentType": "fulltext-search",
           "dataType": "fulltext-search",
-          "label": null
+          "label": null,
+          "path": null
         }
       ]
     },
@@ -29,7 +30,8 @@
           "id": "relAddress_user.relAddress",
           "componentType": "field",
           "dataType": "string",
-          "label": null
+          "label": null,
+          "path": "relAddress_user.relAddress"
         }
       ]
     },
@@ -44,7 +46,8 @@
           "id": "relUser_code1",
           "componentType": "field",
           "dataType": "multi-select-box",
-          "label": null
+          "label": null,
+          "path": "relUser_code1"
         }
       ]
     }
