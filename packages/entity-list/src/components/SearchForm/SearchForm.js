@@ -12,10 +12,6 @@ class SearchForm extends React.Component {
     this.formBuilder = this.createFormBuilder(props)
   }
 
-  componentWillMount() {
-    this.props.initializeSearchForm()
-  }
-
   componentWillReceiveProps(props) {
     this.formBuilder = this.createFormBuilder(props)
   }
@@ -123,7 +119,6 @@ class SearchForm extends React.Component {
 
 SearchForm.propTypes = {
   intl: intlShape.isRequired,
-  initializeSearchForm: PropTypes.func.isRequired,
   entityModel: PropTypes.objectOf(
     PropTypes.shape({
       type: PropTypes.string.isRequired,

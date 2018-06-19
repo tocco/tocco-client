@@ -6,6 +6,7 @@ import ListViewContainer from '../../containers/ListViewContainer'
 class EntityList extends React.Component {
   componentWillMount() {
     this.props.initialize()
+    this.props.initializeSearchForm(this.props.showSearchForm)
   }
 
   render() {
@@ -20,6 +21,7 @@ class EntityList extends React.Component {
 
 EntityList.propTypes = {
   initialize: PropTypes.func.isRequired,
+  initializeSearchForm: PropTypes.func.isRequired,
   showSearchForm: PropTypes.bool
 }
 

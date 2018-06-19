@@ -39,8 +39,11 @@ describe('entity-list', () => {
           const record2 = {key: '2', display: 'display2'}
 
           const callRelatedEntity = sinon.spy()
+          const searchFormVisible = true
 
-          const generator = searchForm.getPreselectedValues(preSelectedSearchFields, entityModel, callRelatedEntity)
+          const generator = searchForm.getPreselectedValues(
+            preSelectedSearchFields, entityModel, callRelatedEntity, searchFormVisible
+          )
           expect(generator.next().value).to.deep.equal(call(callRelatedEntity, loadRelationEntityAction(targetEntity)))
           expect(generator.next([record1, record2]).value).to.deep.equal(
             call(callRelatedEntity, loadRelationEntityAction(targetEntity))

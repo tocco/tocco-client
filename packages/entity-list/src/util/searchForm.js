@@ -2,7 +2,7 @@ import {call} from 'redux-saga/effects'
 import _get from 'lodash/get'
 import {loadRelationEntity as loadRelationEntityAction} from '../modules/searchForm/actions'
 
-export function* getPreselectedValues(preselectedSearchFields, entityModel, loadRelationEntity) {
+export function* getPreselectedValues(preselectedSearchFields, entityModel, loadRelationEntity, searchFormVisible) {
   const formValues = {}
   for (const preselectedSearchField of preselectedSearchFields) {
     const fieldName = preselectedSearchField.id
@@ -11,7 +11,7 @@ export function* getPreselectedValues(preselectedSearchFields, entityModel, load
     let transformedValue
     if (entityModel[fieldName] && entityModel[fieldName].type === 'relation') {
       let entities = []
-      if (!preselectedSearchField.hidden) {
+      if (!preselectedSearchField.hidden && searchFormVisible) {
         const targetEntity = entityModel[fieldName].targetEntity
         entities = yield call(loadRelationEntity, loadRelationEntityAction(targetEntity))
       }
