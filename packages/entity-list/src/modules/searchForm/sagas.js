@@ -49,22 +49,26 @@ export function* setInitialFormValues(searchFormVisible, formDefinition) {
   const {preselectedSearchFields} = yield select(inputSelector)
   const {model} = yield call(getEntityModel)
 
-  let values = preselectedSearchFields
+  let formValues = preselectedSearchFields
     ? yield call(getPreselectedValues, preselectedSearchFields, model, loadRelationEntity, searchFormVisible)
     : {}
 
   if (searchFormVisible) {
     const fieldDefinitions = yield call(form.getFieldDefinitions, formDefinition)
     const fromDefaultValues = yield call(form.getDefaultValues, fieldDefinitions)
-    values = {...fromDefaultValues, ...values}
+    formValues = {...fromDefaultValues, ...formValues}
   }
 
-  const valuesRenamed = _reduce(values, (acc, val, key) => {
-    return {...acc, [form.transformFieldName(key)]: val}
-  }, {})
+  const transformedFromValues = yield call(transformFieldNames, formValues)
 
-  yield put(formActions.initialize(FORM_ID, valuesRenamed))
+  yield put(formActions.initialize(FORM_ID, transformedFromValues))
   yield put(actions.setValuesInitialized(true))
+}
+
+export function* transformFieldNames(formValues) {
+  return _reduce(formValues, (acc, val, key) => (
+    {...acc, [form.transformFieldName(key)]: val}
+  ), {})
 }
 
 export function* submitSearchFrom() {
