@@ -23,8 +23,11 @@ export const setInitialized = (initialized = true) => ({
   }
 })
 
-export const initialize = () => ({
-  type: INITIALIZE
+export const initialize = searchFormVisible => ({
+  type: INITIALIZE,
+  payload: {
+    searchFormVisible
+  }
 })
 
 export const setFormDefinition = formDefinition => ({

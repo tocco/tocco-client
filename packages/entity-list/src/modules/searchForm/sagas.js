@@ -1,5 +1,6 @@
 import {call, put, fork, select, takeLatest, take, all} from 'redux-saga/effects'
 import {form} from 'tocco-util'
+import _reduce from 'lodash/reduce'
 import * as actions from './actions'
 import {fetchForm, searchFormTransformer} from '../../util/api/forms'
 import {getPreselectedValues} from '../../util/searchForm'
@@ -35,26 +36,34 @@ export default function* sagas() {
   ])
 }
 
-export function* initialize() {
+export function* initialize({payload: {searchFormVisible}}) {
   const {searchFormName, initialized} = yield select(searchFormSelector)
   if (!initialized) {
-    const formDefinition = yield call(loadSearchForm, searchFormName)
-    yield call(setInitialFormValues, formDefinition)
+    const formDefinition = searchFormVisible ? yield call(loadSearchForm, searchFormName) : null
+    yield call(setInitialFormValues, searchFormVisible, formDefinition)
     yield put(actions.setInitialized())
   }
 }
 
-export function* setInitialFormValues(formDefinition) {
+export function* setInitialFormValues(searchFormVisible, formDefinition) {
   const {preselectedSearchFields} = yield select(inputSelector)
-  const entityModel = yield call(getEntityModel)
-  const preselectedValues = preselectedSearchFields
-    ? yield call(getPreselectedValues, preselectedSearchFields, entityModel.model, loadRelationEntity)
+  const {model} = yield call(getEntityModel)
+
+  let values = preselectedSearchFields
+    ? yield call(getPreselectedValues, preselectedSearchFields, model, loadRelationEntity, searchFormVisible)
     : {}
 
-  const fieldDefinitions = yield call(form.getFieldDefinitions, formDefinition)
-  const fromDefaultValues = yield call(form.getDefaultValues, fieldDefinitions)
+  if (searchFormVisible) {
+    const fieldDefinitions = yield call(form.getFieldDefinitions, formDefinition)
+    const fromDefaultValues = yield call(form.getDefaultValues, fieldDefinitions)
+    values = {...fromDefaultValues, ...values}
+  }
 
-  yield put(formActions.initialize(FORM_ID, {...fromDefaultValues, ...preselectedValues}))
+  const valuesRenamed = _reduce(values, (acc, val, key) => {
+    return {...acc, [form.transformFieldName(key)]: val}
+  }, {})
+
+  yield put(formActions.initialize(FORM_ID, valuesRenamed))
   yield put(actions.setValuesInitialized(true))
 }
 
