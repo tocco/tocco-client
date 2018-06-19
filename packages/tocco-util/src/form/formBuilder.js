@@ -73,7 +73,10 @@ export default (
 
     const fieldName = formDefinitionField.id
     const entityField = entity ? entity.paths[fieldName] : null
-    const modelField = model[fieldName]
+    const modelSelector = formDefinitionField.path
+      ? formDefinitionField.path.split('.')[0]
+      : model[formDefinitionField.id]
+    const modelField = model[modelSelector]
 
     const shouldRenderField = (formDefinitionField, entityField) => {
       if (mode && formDefinitionField.scopes && formDefinitionField.scopes.length > 0
