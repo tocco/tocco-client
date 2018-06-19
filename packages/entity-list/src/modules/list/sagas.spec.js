@@ -8,10 +8,10 @@ import {fetchForm, getSorting, getSelectable, getFields} from '../../util/api/fo
 import {
   fetchEntityCount,
   fetchEntities,
-  entitiesListTransformer,
   fetchModel
 } from '../../util/api/entities'
 import {actions as actionUtil} from 'tocco-util'
+import * as matchers from 'redux-saga-test-plan/matchers'
 
 const generateState = (entityStore = {}, page) => ({
   initialized: false,
@@ -133,35 +133,21 @@ describe('entity-list', () => {
           it('should add entities to store', () => {
             const listViewState = generateState({}, 1)
             const input = {formBase: 'Base_form', entityName: 'User', searchFilters: []}
-            const formName = input.formBase + '_list'
-            const searchInputs = {_filter: []}
             const entities = []
             const fields = ['firstname', 'lastname']
-            const searchFilters = 'filter1,filter2'
 
-            const {page, sorting, limit, formDefinition} = listViewState
-            const fetchParams = {
-              page,
-              sorting,
-              limit,
-              fields,
-              searchInputs,
-              formName
-            }
+            const page = 1
 
-            const gen = sagas.fetchEntitiesAndAddToStore(1)
-            expect(gen.next().value).to.eql(select(sagas.inputSelector))
-            expect(gen.next(input).value).to.eql(select(sagas.listSelector))
-            expect(gen.next(listViewState).value).to.eql(call(getSearchInputs))
-            expect(gen.next(searchInputs).value).to.eql(
-              call(sagas.getSearchFilter, input.searchFilters, searchInputs._filter)
-            )
-            expect(gen.next(searchFilters).value).to.eql(call(getFields, formDefinition))
-            expect(gen.next(fields).value).to.eql(
-              call(fetchEntities, input.entityName, fetchParams, entitiesListTransformer)
-            )
-            expect(gen.next(entities).value).to.eql(put(actions.addEntitiesToStore(page, entities)))
-            expect(gen.next().done).to.be.true
+            return expectSaga(sagas.fetchEntitiesAndAddToStore, page)
+              .provide([
+                [select(sagas.inputSelector), input],
+                [select(sagas.listSelector), listViewState],
+                [matchers.call.fn(getFields), fields],
+                [matchers.call.fn(fetchEntities), entities],
+                [matchers.call.fn(sagas.getBasicFetchParams), {}]
+              ])
+              .put(actions.addEntitiesToStore(page, entities))
+              .run()
           })
         })
 
@@ -171,7 +157,7 @@ describe('entity-list', () => {
             const searchFilter = ['filter1', 'filter3']
             const expectedReturnValue = 'filter1,filter2,filter3'
 
-            expectSaga(sagas.getSearchFilter, inputFilers, searchFilter)
+            return expectSaga(sagas.getSearchFilter, inputFilers, searchFilter)
               .returns(expectedReturnValue)
               .run()
           })
@@ -244,21 +230,16 @@ describe('entity-list', () => {
             const searchInputs = {}
             const entityCount = 100
             const searchFilters = []
-            const formName = 'User_list'
-            const fetchParams = {
-              searchInputs,
-              formName,
-              searchFilters: []
-            }
 
-            const gen = sagas.countEntities()
-
-            expect(gen.next().value).to.eql(select(sagas.inputSelector))
-            expect(gen.next({entityName, searchFilters, formBase}).value).to.eql(call(getSearchInputs))
-            expect(gen.next(searchInputs).value).to.eql(call(fetchEntityCount, entityName, fetchParams))
-            expect(gen.next(entityCount).value).to.eql(put(actions.setEntityCount(entityCount)))
-
-            expect(gen.next().done).to.be.true
+            const input = {entityName, searchFilters, formBase}
+            return expectSaga(sagas.countEntities)
+              .provide([
+                [select(sagas.inputSelector), input],
+                [matchers.call.fn(getSearchInputs), searchInputs],
+                [matchers.call.fn(fetchEntityCount), entityCount]
+              ])
+              .put(actions.setEntityCount(entityCount))
+              .run()
           })
         })
 
