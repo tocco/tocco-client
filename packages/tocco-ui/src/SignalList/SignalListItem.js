@@ -18,7 +18,7 @@ const getIcon = props => {
     case stylingCondition.WARNING:
       return {icon: 'fa-exclamation-triangle'}
     case stylingCondition.PRIMARY:
-    case stylingCondition.Base:
+    case stylingCondition.BASE:
       return {unicode: '\u2022'} // unicode bullet point
   }
 }
@@ -26,22 +26,15 @@ const getIcon = props => {
 /**
  * Signalize single condition by icon and color. It must be wrapped by <SignalList/>
  */
-const SignalListItem = props => {
-  return (
-    <StyledSignalListItem condition={props.condition}>
-      <Icon {...getIcon(props)} position={stylingPosition.BEFORE}/>
-      {props.label}
-      { // eslint-disable-next-line
-        React.Children.map(props.children, child => {
-          return React.cloneElement(child)
-        })}
-    </StyledSignalListItem>
-  )
-}
+const SignalListItem = props =>
+  <StyledSignalListItem condition={props.condition}>
+    <Icon {...getIcon(props)} position={stylingPosition.BEFORE}/>
+    {props.label}
+    {React.Children.map(props.children, child => React.cloneElement(child))}
+  </StyledSignalListItem>
 
 SignalListItem.defaultProps = {
-  label: '',
-  condition: stylingCondition.Base
+  condition: stylingCondition.BASE
 }
 
 SignalListItem.propTypes = {
@@ -49,6 +42,7 @@ SignalListItem.propTypes = {
    * Visible text. Default is an empty string.
    */
   label: PropTypes.string.isRequired,
+  children: PropTypes.node,
   /**
    * Color and icon is set according condition. Default value is 'base'.
    * Possible values: base|danger|primary|success|warning
