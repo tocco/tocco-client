@@ -11,8 +11,9 @@ export default () => {
         icon="glyphicon-ok"
       />,
       Font Awesome Spin<Icon
-        icon="fa-check-square-o"
         animation="spin"
+        icon="fa-spinner"
+        position="after"
       />,
       Font Awesome After<Icon
         icon="fa-check-square-o"
