@@ -6,7 +6,7 @@ import {stylingCondition} from '../utilStyles'
 
 const StyledSignalListItem = StyledLi.extend`
   && {
-  color: ${props => getColor(props)}
+  color: ${props => getColor(props)};
   position: relative;
 
     ${StyledIcon} {
