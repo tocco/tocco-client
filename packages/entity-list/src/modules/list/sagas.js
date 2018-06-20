@@ -65,17 +65,23 @@ export function* loadData(page) {
   yield put(actions.setInProgress(false))
 }
 
-export function* countEntities() {
-  const input = yield select(inputSelector)
-  const {entityName, searchFilters, formBase} = input
+export function* getBasicFetchParams() {
+  const {formBase, searchFilters: inputSearchFilters} = yield select(inputSelector)
   const formName = `${formBase}_list`
+
   const searchInputs = yield call(getSearchInputs)
-  const fetchParams = {
-    searchFilters,
+  searchInputs._filter = yield call(getSearchFilter, inputSearchFilters, searchInputs._filter)
+
+  return {
     searchInputs,
     formName
   }
+}
 
+export function* countEntities() {
+  const input = yield select(inputSelector)
+  const {entityName} = input
+  const fetchParams = yield call(getBasicFetchParams)
   const entityCount = yield call(fetchEntityCount, entityName, fetchParams)
   yield put(actions.setEntityCount(entityCount))
 }
@@ -101,26 +107,17 @@ export function* getSearchFilter(inputSearchFilters, searchInputsFilters) {
 }
 
 export function* fetchEntitiesAndAddToStore(page) {
-  const {entityName, formBase, searchFilters: inputSearchFilters} = yield select(inputSelector)
-  const list = yield select(listSelector)
-  const {entityStore} = list
-
+  const {entityName} = yield select(inputSelector)
+  const {entityStore, sorting, limit, formDefinition} = yield select(listSelector)
   if (!entityStore[page]) {
-    const {sorting, limit, formDefinition} = list
-
-    const formName = `${formBase}_list`
-
-    const searchInputs = yield call(getSearchInputs)
-    searchInputs._filter = yield call(getSearchFilter, inputSearchFilters, searchInputs._filter)
     const fields = yield call(getFields, formDefinition)
-
+    const basicFetchParams = yield call(getBasicFetchParams)
     const fetchParams = {
+      ...basicFetchParams,
       page,
       sorting,
       limit,
-      fields,
-      searchInputs,
-      formName
+      fields
     }
 
     const entities = yield call(fetchEntities, entityName, fetchParams, entitiesListTransformer)
