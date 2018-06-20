@@ -20,6 +20,10 @@ const getIcon = props => {
     case stylingCondition.PRIMARY:
     case stylingCondition.BASE:
       return {unicode: '\u2022'} // unicode bullet point
+    default:
+      // eslint-disable-next-line no-console
+      console.warn('Be explicit by adding a case. You may want display a different character or an icon.')
+      return {unicode: '\u2022'} // unicode bullet point
   }
 }
 

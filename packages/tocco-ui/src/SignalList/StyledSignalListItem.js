@@ -6,8 +6,8 @@ import {stylingCondition} from '../utilStyles'
 
 const StyledSignalListItem = StyledLi.extend`
   && {
-  color: ${props => getColor(props)};
-  position: relative;
+    color: ${props => getColor(props)};
+    position: relative;
 
     ${StyledIcon} {
       position: absolute;
@@ -28,6 +28,10 @@ const getColor = props => {
     case stylingCondition.PRIMARY:
       return theme('colors.primary.line.1')(props)
     case stylingCondition.Base:
+      return 'inherit'
+    default:
+      // eslint-disable-next-line no-console
+      console.warn('Be explicit by adding a case. You may want colorize the content.')
       return 'inherit'
   }
 }
