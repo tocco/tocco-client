@@ -17,7 +17,7 @@ class Example extends React.Component {
 
   render() {
     return (
-      <div style={{height: '100px'}}>
+      <div>
         {/* start example */}
         <button
           onClick={() => this.setState({loaded: !this.state.loaded})}

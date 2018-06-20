@@ -88,7 +88,7 @@ describe('tocco-ui', function() {
         </ThemeProvider>
       )
       expect(wrapper.find('Icon').prop('animation')).to.equal('spin')
-      expect(wrapper.find('Icon').prop('icon')).to.equal('fa-circle-o-notch')
+      expect(wrapper.find('Icon').prop('icon')).to.equal('fa-spinner')
     })
 
     it('should show icon', () => {
