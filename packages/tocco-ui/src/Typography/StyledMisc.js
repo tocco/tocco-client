@@ -23,9 +23,9 @@ const StyledCode = styled.code`
     fontSize: theme('fontSizes.1')(props)
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
-    background-color: ${props => theme('colors.base.fill.0')};
-    border-radius: ${props => theme('radii.1')};
-    padding: ${props => theme('space.1')} ${props => theme('space.3')};
+    background-color: ${theme('colors.base.fill.0')};
+    border-radius: ${theme('radii.1')};
+    padding: ${theme('space.1')} ${theme('space.3')};
   }
 `
 
@@ -52,11 +52,13 @@ const StyledFigcaption = styled.figcaption`
     fontSize: theme('fontSizes.1')(props)
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
-    margin-top: ${props => theme('space.4')(props)};
-    margin-bottom: ${props => theme('space.4')(props)};
+    margin: ${theme('space.4')} 0;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 `
-
 const StyledI = styled.i`
   && {
     ${props => declareFont(props, {
@@ -81,10 +83,10 @@ const StyledKbd = styled.kbd`
     fontSize: theme('fontSizes.1')(props)
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
-    background-color: ${props => theme('colors.base.line.0')};
-    border-radius: ${props => theme('radii.1')};
-    color: ${props => theme('colors.base.paper')};
-    padding: ${props => theme('space.1')} ${props => theme('space.3')};
+    background-color: ${theme('colors.base.line.0')};
+    border-radius: ${theme('radii.1')};
+    color: ${theme('colors.base.paper')};
+    padding: ${theme('space.1')} ${theme('space.3')};
   }
 `
 
@@ -94,9 +96,9 @@ const StyledMark = styled.mark`
     fontFamily: '"Roboto Mono", monospace'
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
-    background-color: ${props => theme('colors.signal.infoBg')};
-    border-radius: ${props => theme('radii.1')};
-    padding: ${props => theme('space.1')} ${props => theme('space.3')};
+    background-color: ${theme('colors.signal.infoBg')};
+    border-radius: ${theme('radii.1')};
+    padding: ${theme('space.1')} ${theme('space.3')};
   }
 `
 
@@ -104,7 +106,11 @@ const StyledP = styled.p`
   && {
     ${props => declareFont(props)}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
-    margin-bottom: theme('space.5')(props)
+    margin-bottom: ${theme('space.5')}
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 `
 
@@ -115,12 +121,16 @@ const StyledPre = styled.pre`
     fontSize: theme('fontSizes.1')(props)
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
-    background-color: ${props => theme('colors.base.fill.0')};
-    border-radius: ${props => theme('radii.1')};
-    border: 1px solid ${props => theme('colors.base.fill.1')};
+    background-color: ${theme('colors.base.fill.0')};
+    border-radius: ${theme('radii.1')};
+    border: 1px solid ${theme('colors.base.fill.1')};
     display: block;
-    margin: 0 0 ${props => theme('space.5')};
-    padding: ${props => theme('space.4')};
+    margin: 0 0 ${theme('space.5')};
+    padding: ${theme('space.4')};
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 `
 
@@ -129,6 +139,15 @@ const StyledS = styled.s`
     ${props => declareFont(props)}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     text-decoration: line-through;
+  }
+`
+
+const StyledSmall = styled.small`
+  && {
+    ${props => declareFont(props, {
+    fontSize: theme('fontSizes.1')(props)
+  })}
+    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
   }
 `
 
@@ -225,6 +244,7 @@ export {
   StyledPre,
   StyledQ,
   StyledS,
+  StyledSmall,
   StyledStrong,
   StyledSub,
   StyledSup,

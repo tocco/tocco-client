@@ -15,6 +15,7 @@ import {
   Pre,
   Q,
   S,
+  Small,
   Strong,
   Sub,
   Sup,
@@ -374,6 +375,33 @@ describe('tocco-ui', function() {
           )
           expect(wrapper.find('s').text()).to.equal('Lorem ipsum')
           expect(wrapper.find('s').prop('title')).to.equal('Lorem ipsum')
+        })
+      })
+
+      describe('Small', function() {
+        it('should have one defaultProps', () => {
+          const wrapper = shallow(
+            <Small>Lorem Ipsum</Small>
+          )
+          const {breakWords, title} = wrapper.props()
+          expect(breakWords).to.be.true
+          expect(title).to.be.undefined
+        })
+
+        it('should not render title', () => {
+          const wrapper = mount(
+            <Small>Lorem ipsum</Small>
+          )
+          expect(wrapper.find('small').text()).to.equal('Lorem ipsum')
+          expect(wrapper.find('small').prop('title')).to.be.undefined
+        })
+
+        it('should render title', () => {
+          const wrapper = mount(
+            <Small breakWords={false}>Lorem ipsum</Small>
+          )
+          expect(wrapper.find('small').text()).to.equal('Lorem ipsum')
+          expect(wrapper.find('small').prop('title')).to.equal('Lorem ipsum')
         })
       })
 
