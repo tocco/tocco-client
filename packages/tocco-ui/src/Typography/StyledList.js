@@ -18,6 +18,10 @@ const StyledDd = styled.dd`
 const StyledDl = styled.dl`
   && {
     margin: 0 0 ${props => theme('space.5')};
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 `
 
@@ -40,10 +44,11 @@ const StyledList = styled.ol`
   && {
     display: block;
     list-style-position: outside;
-    margin: 0 0 ${props => theme('space.5')} 1.6rem;
+    margin: 0 0 ${theme('space.5')} 1.6rem;
     padding: 0;
 
-    & & {
+    & &,
+    &:last-child {
       margin-bottom: 0;
     }
   }

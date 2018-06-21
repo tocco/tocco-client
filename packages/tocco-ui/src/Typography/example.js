@@ -33,9 +33,9 @@ export default () => {
       &lt;Code&gt;<Code>Laborum est molLit</Code>&lt;/Code&gt;<br/>
       &lt;Kbd&gt;<Kbd>CMD & A</Kbd>&lt;/Kbd&gt;<br/>
       &lt;Mark&gt;<Mark>Laborum est molLit</Mark>&lt;/Mark&gt;<br/>
-      <Figcaption>&lt;Figcaption&gt;Laborum est molLit&lt;/Figcaption&gt;</Figcaption><br/>
-      <Time datetime="15:13:00">15:13:00</Time>
-      <Pre>&lt;Pre&gt;Laborum est molLit&lt;Pre&gt;</Pre><br/>
+      <Figcaption>&lt;Figcaption&gt;Laborum est molLit&lt;/Figcaption&gt;</Figcaption>
+      <Time dateTime="15:13:00">15:13:00</Time>
+      <Pre>&lt;Pre&gt;Laborum est molLit&lt;Pre&gt;</Pre>
       <Ul>
         <Li>dolore eu fugiat</Li>
         <Li>in reprehenderit aute

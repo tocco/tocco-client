@@ -15,6 +15,7 @@ import {
   StyledPre,
   StyledQ,
   StyledS,
+  StyledSmall,
   StyledStrong,
   StyledSub,
   StyledSup,
@@ -96,6 +97,12 @@ const S = props =>
     title={props.breakWords ? undefined : getTextOfChildren(props.children)}
   >{props.children}</StyledS>
 
+const Small = props =>
+  <StyledSmall
+    breakWords={props.breakWords}
+    title={props.breakWords ? undefined : getTextOfChildren(props.children)}
+  >{props.children}</StyledSmall>
+
 const Sub = props =>
   <StyledSub
     breakWords={props.breakWords}
@@ -152,13 +159,14 @@ B.defaultProps
 = Pre.defaultProps
 = Q.defaultProps
 = S.defaultProps
+= Small.defaultProps
 = Strong.defaultProps
 = Sub.defaultProps
 = Sup.defaultProps
 = U.defaultProps
 = Var.defaultProps = {
-                                    breakWords: true
-                                  }
+                                      breakWords: true
+                                    }
 
 Time.defaultProps = {
   breakWords: false
@@ -177,6 +185,7 @@ B.propTypes
 = Pre.propTypes
 = Q.propTypes
 = S.propTypes
+= Small.propTypes
 = Strong.propTypes
 = Sub.propTypes
 = Sup.propTypes
@@ -186,9 +195,9 @@ B.propTypes
                                    * If true words break with hyphens.
                                    * If false text is forced into a single truncated line.
                                    */
-                                    breakWords: PropTypes.bool,
-                                    children: PropTypes.node.isRequired
-                                  }
+                                      breakWords: PropTypes.bool,
+                                      children: PropTypes.node.isRequired
+                                    }
 
 Time.propTypes = {
 /**
@@ -214,6 +223,7 @@ export {
   Pre,
   Q,
   S,
+  Small,
   Strong,
   Sub,
   Sup,
