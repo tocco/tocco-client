@@ -46,10 +46,13 @@ const colors = {
   },
   signal: {
     danger: '#D32F2F', // Red 700
+    dangerBg: '#EF9A9A', // Red 200
     info: '#FBC02D', // Yellow 700
-    infoBg: '#FFF9C4', // Yellow 100
+    infoBg: '#FFF59D', // Yellow 200
     success: '#388E3C', // Green 700
-    warning: '#FFA000' // Amber 700
+    successBg: '#A5D6A7', // Green 200
+    warning: '#FFA000', // Amber 700
+    warningBg: '#FFE082' // Amber 200
   }
 }
 

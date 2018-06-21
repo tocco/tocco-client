@@ -52,6 +52,7 @@ export {
   inkPropTypes,
   look,
   lookPropTypes,
+  oneOfPropTypeAndCompletelyMapped,
   position,
   positionPropTypes
 }

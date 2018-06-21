@@ -24,6 +24,7 @@ import {
   inkPropTypes,
   look as stylingLook,
   lookPropTypes,
+  oneOfPropTypeAndCompletelyMapped,
   position as stylingPosition,
   positionPropTypes
 } from './stylingConstants'
@@ -47,6 +48,7 @@ export {
   inkPropTypes,
   lookPropTypes,
   objectToCss,
+  oneOfPropTypeAndCompletelyMapped,
   positionPropTypes,
   stylingAnimation,
   stylingCondition,
