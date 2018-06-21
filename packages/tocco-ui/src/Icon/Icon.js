@@ -29,6 +29,7 @@ const getClassName = (icon, animation) => {
 const Icon = props => {
   return (
     <StyledIcon
+      animation={props.animation}
       className={getClassName(props.icon, props.animation)}
       dense={props.dense}
       onClick={props.onClickFunction}

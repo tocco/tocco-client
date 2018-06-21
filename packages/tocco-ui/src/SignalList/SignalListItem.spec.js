@@ -30,6 +30,14 @@ describe('tocco-ui', function() {
     it('should show correct icon per condition', () => {
       let wrapper = shallow(
         <SignalListItem
+          label="Lorem ipsum"
+        />
+      )
+      expect(wrapper.find(Icon).prop('icon')).to.be.undefined
+      expect(wrapper.find(Icon).prop('unicode')).to.equal('•')
+
+      wrapper = shallow(
+        <SignalListItem
           condition="base"
           label="Lorem ipsum"
         />
