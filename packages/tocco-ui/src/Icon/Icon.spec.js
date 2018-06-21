@@ -10,9 +10,10 @@ describe('tocco-ui', function() {
       expect(Icon.defaultProps.animation).to.equal('none')
     })
 
-    it('should pass 7 props to StyledIcon', () => {
+    it('should pass 8 props to StyledIcon', () => {
       const wrapper = shallow(
         <Icon
+          animation="none"
           dense={true}
           icon="fa-bar"
           onClickFunction={() => alert('on click')}
@@ -24,6 +25,7 @@ describe('tocco-ui', function() {
       )
       const props = wrapper.props()
       const {
+        animation,
         className,
         dense,
         onClick,
@@ -32,7 +34,8 @@ describe('tocco-ui', function() {
         onMouseDown,
         position
       } = props
-      expect(Object.keys(props)).to.have.lengthOf(8)
+      expect(Object.keys(props)).to.have.lengthOf(9)
+      expect(animation).to.equal('none')
       expect(className).to.equal('fa fa-bar icon')
       expect(dense).to.be.true
       expect(onClick).to.be.a('function')

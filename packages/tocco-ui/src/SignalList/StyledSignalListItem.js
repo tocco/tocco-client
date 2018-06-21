@@ -27,7 +27,7 @@ const getColor = props => {
       return theme('colors.signal.warning')(props)
     case stylingCondition.PRIMARY:
       return theme('colors.primary.line.1')(props)
-    case stylingCondition.Base:
+    case stylingCondition.BASE:
       return 'inherit'
     default:
       // eslint-disable-next-line no-console
