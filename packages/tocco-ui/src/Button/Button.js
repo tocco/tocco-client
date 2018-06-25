@@ -38,7 +38,7 @@ const Button = props => {
       {props.pending && <Icon
         animation={stylingAnimation.SPIN}
         dense={props.dense}
-        icon="fa-circle-o-notch"
+        icon="fa-spinner"
         position={props.label ? props.iconPosition : stylingPosition.solely}/>}
       {props.label && <span>{props.label}</span>}
     </StyledButton>

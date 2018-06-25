@@ -1,3 +1,7 @@
 import LoadMask from './LoadMask'
+import StyledLoadMask from './StyledLoadMask'
 
-export default LoadMask
+export {
+  LoadMask as default,
+  StyledLoadMask
+}

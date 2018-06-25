@@ -34,7 +34,7 @@ class PasswordUpdateDialog extends Component {
       = this.props
 
     if (!validationRules) {
-      return <LoadMask className="password-update-dialog"/>
+      return <LoadMask/>
     }
 
     const oldPasswordReadOnly = password.passwordUpdatePending

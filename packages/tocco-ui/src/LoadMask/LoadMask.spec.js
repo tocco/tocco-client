@@ -2,6 +2,9 @@ import React from 'react'
 import LoadMask from './LoadMask'
 import {shallow, mount} from 'enzyme'
 
+import Icon from '../Icon'
+import {Span} from '../Typography'
+
 describe('tocco-ui', function() {
   describe('LoadMask', function() {
     it('shows spinner if an object is falsy', () => {
@@ -11,16 +14,16 @@ describe('tocco-ui', function() {
         />
       )
 
-      expect(wrapper.find('.loader')).to.have.length(1)
+      expect(wrapper.find(Icon)).to.have.length(1)
       wrapper.setProps({required: [{}, undefined]})
-      expect(wrapper.find('.loader')).to.have.length(1)
+      expect(wrapper.find(Icon)).to.have.length(1)
       wrapper.setProps({required: [false]})
-      expect(wrapper.find('.loader')).to.have.length(1)
+      expect(wrapper.find(Icon)).to.have.length(1)
       wrapper.setProps({required: [null]})
-      expect(wrapper.find('.loader')).to.have.length(1)
+      expect(wrapper.find(Icon)).to.have.length(1)
 
       wrapper.setProps({required: [{}, {}]})
-      expect(wrapper.find('.loader')).to.have.length(0)
+      expect(wrapper.find(Icon)).to.have.length(0)
     })
 
     it('shows children if loaded', () => {
@@ -43,7 +46,7 @@ describe('tocco-ui', function() {
         />
       )
 
-      expect(wrapper.find('.loader')).to.have.length(1)
+      expect(wrapper.find(Icon)).to.have.length(1)
       done()
     })
 
@@ -60,57 +63,21 @@ describe('tocco-ui', function() {
       expect(wrapper.find('span')).to.have.length(0)
     })
 
-    it('add classes', () => {
-      const promise = Promise.resolve({})
-
-      let wrapper = shallow(
-        <LoadMask
-          promises={[promise]}
-        />
-      )
-
-      expect(wrapper.find('#load-mask').hasClass('load-mask')).to.equal(true)
-
-      wrapper = shallow(
-        <LoadMask
-          promises={[promise]}
-          className="class"
-        />
-      )
-
-      expect(wrapper.find('#load-mask').hasClass('load-mask')).to.equal(true)
-      expect(wrapper.find('#load-mask').hasClass('class')).to.equal(true)
-
-      wrapper = shallow(
-        <LoadMask
-          promises={[promise]}
-          className="class1 class2 class3"
-        />
-      )
-
-      expect(wrapper.find('#load-mask').hasClass('load-mask')).to.equal(true)
-      expect(wrapper.find('#load-mask').hasClass('class1')).to.equal(true)
-      expect(wrapper.find('#load-mask').hasClass('class2')).to.equal(true)
-      expect(wrapper.find('#load-mask').hasClass('class3')).to.equal(true)
-    })
-
     it('shows loading-text if set', () => {
       let wrapper = shallow(
         <LoadMask
           required={[undefined]}
-          loadingText="Test"
+          loadingText="Lorem ipsum"
         />
       )
-
-      expect(wrapper.find('.loader-text')).to.have.length(1)
+      expect(wrapper.find(Span).dive().dive().text()).to.be.equal('Lorem ipsum')
 
       wrapper = shallow(
         <LoadMask
           required={[undefined]}
         />
       )
-
-      expect(wrapper.find('.loader-text')).to.have.length(0)
+      expect(wrapper.find(Span)).to.have.length(0)
     })
   })
 })
