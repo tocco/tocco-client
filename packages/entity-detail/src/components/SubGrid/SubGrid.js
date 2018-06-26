@@ -11,7 +11,7 @@ const SubGrid = props => {
         keepStore={true}
         entityName={props.modelField.targetEntity}
         formBase={formBase}
-        limit={5}
+        limit={props.limit}
         showSearchForm={props.showSearchForm}
         preselectedSearchFields={[{
           id: props.modelField.reverseRelationName,
@@ -41,6 +41,10 @@ const SubGrid = props => {
   )
 }
 
+SubGrid.defaultProps = {
+  limit: 5
+}
+
 SubGrid.propTypes = {
   entityKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   detailFormName: PropTypes.string.isRequired,
@@ -55,7 +59,8 @@ SubGrid.propTypes = {
   dispatchEmittedAction: PropTypes.func.isRequired,
   showSubGridsCreateButton: PropTypes.bool,
   appId: PropTypes.string,
-  showSearchForm: PropTypes.bool
+  showSearchForm: PropTypes.bool,
+  limit: PropTypes.number
 }
 
 export default SubGrid
