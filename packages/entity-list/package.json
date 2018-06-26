@@ -1,6 +1,6 @@
 {
   "name": "tocco-entity-list",
-  "version": "0.1.12",
+  "version": "0.1.13-0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -10,8 +10,8 @@
   "devDependencies": {
     "react-bootstrap-table": "4.2.0",
     "tocco-test-util": ">0.1.0",
-    "tocco-theme": ">0.1.0",
-    "tocco-ui": ">0.1.0",
-    "tocco-util": ">0.1.0"
+    "tocco-theme": "^0.2.1-0",
+    "tocco-ui": "^0.1.13-0",
+    "tocco-util": "^0.1.10-0"
   }
 }

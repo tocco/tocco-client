@@ -1,6 +1,6 @@
 {
   "name": "tocco-entity-detail",
-  "version": "0.1.12",
+  "version": "0.1.13-0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -8,10 +8,10 @@
     "prepublish": "npm run compile:prod"
   },
   "devDependencies": {
-    "tocco-entity-list": "0.1.12",
+    "tocco-entity-list": "^0.1.13-0",
     "tocco-test-util": ">0.1.0",
-    "tocco-theme": ">0.1.0",
-    "tocco-ui": ">0.1.0",
-    "tocco-util": ">0.1.0"
+    "tocco-theme": "^0.2.1-0",
+    "tocco-ui": "^0.1.13-0",
+    "tocco-util": "^0.1.10-0"
   }
 }
