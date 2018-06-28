@@ -67,7 +67,7 @@ describe('tocco-ui', function() {
           showToggler={true}
         />
       )
-      expect(wrapper.find(Button).prop('icon')).to.be.equal('fa-plus')
+      expect(wrapper.find(Button).prop('icon')).to.be.equal('chevron-down')
       expect(wrapper.find(Button).prop('title')).to.be.equal('Show more information')
 
       wrapper = shallow(
@@ -77,7 +77,7 @@ describe('tocco-ui', function() {
           showToggler={true}
         />
       )
-      expect(wrapper.find(Button).prop('icon')).to.be.equal('fa-minus')
+      expect(wrapper.find(Button).prop('icon')).to.be.equal('chevron-up')
       expect(wrapper.find(Button).prop('title')).to.be.equal('Hide information')
     })
   })
