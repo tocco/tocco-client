@@ -5,7 +5,10 @@ import {getFieldId} from './formDefinition'
 import ReduxFormFieldAdapter from './ReduxFormFieldAdapter'
 import _get from 'lodash/get'
 import _pick from 'lodash/pick'
-import {LayoutBox} from 'tocco-ui'
+import LayoutContainer, {LayoutBox} from 'tocco-ui/src/LayoutBox'
+import Panel, {PanelBody, PanelHeader} from 'tocco-ui/src/Panel'
+import {H4} from 'tocco-ui/src/Typography'
+
 import actions from '../actions'
 import componentTypes from './enums/componentTypes'
 import layoutTypes from './enums/layoutTypes'
@@ -134,18 +137,31 @@ export default (
 
   const createLayoutComponent = (field, type, key, traverser) => {
     if (type === layoutTypes.HORIZONTAL_BOX || type === layoutTypes.VERTICAL_BOX) {
-      const alignment = type === layoutTypes.HORIZONTAL_BOX ? 'horizontal' : 'vertical'
-      const children = traverser()
+      let output = traverser()
 
-      if (children == null || (Array.isArray(children) && children.every(e => e == null))) {
+      if (Array.isArray(output)) {
+        output = output.filter(el => el)
+      }
+
+      if (!output || (Array.isArray(output) && output.every(e => e == null))) {
         return null
       }
 
-      return (
-        <LayoutBox key={key} label={field.label} alignment={alignment}>
-          {children}
-        </LayoutBox>
-      )
+      if (field.label) {
+        output
+        = <Panel isFramed={true} isOpen={true}>
+            <PanelHeader><H4>{field.label}</H4></PanelHeader>
+            <PanelBody>{output}</PanelBody>
+          </Panel>
+      }
+
+      if (type === layoutTypes.HORIZONTAL_BOX) {
+        output = <LayoutContainer key={key}>{output}</LayoutContainer>
+      } else {
+        output = <LayoutBox key={key}>{output}</LayoutBox>
+      }
+
+      return output
     }
   }
 

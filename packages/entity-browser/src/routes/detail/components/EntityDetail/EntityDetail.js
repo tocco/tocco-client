@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {Prompt} from 'react-router-dom'
 
-import {Button, LayoutBox} from 'tocco-ui'
+import {Button} from 'tocco-ui'
 import {intlShape} from 'react-intl'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
 
@@ -68,16 +68,14 @@ class EntityDetail extends React.Component {
           {this.props.detailParams
           && <div>
             {this.props.detailParams.showBackButton
-            && <LayoutBox alignment="horizontal">
-              <div style={{marginBottom: '.5em'}}>
-                <Button
-                  icon="fa fa-chevron-left"
-                  label={this.msg('client.entity-browser.back')}
-                  look="raised"
-                  onClick={this.handleGoBack}
-                />
-              </div>
-            </LayoutBox>
+            && <div style={{marginLeft: '10px'}}>
+              <Button
+                icon="fa fa-chevron-left"
+                label={this.msg('client.entity-browser.back')}
+                look="raised"
+                onClick={this.handleGoBack}
+              />
+            </div>
             }
             {this.getApp(this.props.detailParams)}
           </div>

@@ -117,7 +117,7 @@ describe('tocco-util', () => {
         const formBuilder = createFromBuilder(entity, model, formName, formDefinition, formValues, formFieldUtils)
 
         const wrapper = shallow(<form>{formBuilder()}</form>)
-        expect(wrapper.find(LayoutBox)).to.have.length(3)
+        expect(wrapper.find(LayoutBox)).to.have.length(1)
         expect(wrapper.find(Field)).to.have.length(2)
       })
 
@@ -131,7 +131,7 @@ describe('tocco-util', () => {
         )
 
         const wrapper = shallow(<form>{formBuilder()}</form>)
-        expect(wrapper.find(LayoutBox)).to.have.length(3)
+        expect(wrapper.find(LayoutBox)).to.have.length(1)
         expect(wrapper.find(Field)).to.have.length(1)
       })
 
