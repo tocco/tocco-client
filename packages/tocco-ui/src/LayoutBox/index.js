@@ -1,3 +1,11 @@
 import LayoutBox from './LayoutBox'
+import LayoutContainer from './LayoutContainer'
+import StyledLayoutBox from './StyledLayoutBox'
+import StyledLayoutContainer from './StyledLayoutContainer'
 
-export default LayoutBox
+export {
+  LayoutBox,
+  LayoutContainer as default,
+  StyledLayoutBox,
+  StyledLayoutContainer
+}
