@@ -2,21 +2,61 @@
 import React from 'react'
 
 import Panel, {PanelBody, PanelFooter, PanelHeader} from './'
-// real-import:import Panel, {PanelBody, PanelFooter, PanelHeader} from 'tocco-ui'
+import Typography from '../Typography'
+// real-import:import {Panel, PanelBody, PanelFooter, PanelHeader} from 'tocco-ui'
 
 export default () => {
   return (
     <div>
       {/* start example */}
-      <Panel>
+      <Panel isFramed={false}>
         <PanelHeader>
-          <span>Header</span>
+          <Typography.H4>Header</Typography.H4>
         </PanelHeader>
         <PanelBody>
-          <span>Body</span>
+          <Typography.Span>Body</Typography.Span>
         </PanelBody>
         <PanelFooter showToggler={false}>
-          <span>Footer</span>
+          <Typography.H5>Footer</Typography.H5>
+        </PanelFooter>
+      </Panel>
+
+      <hr/>
+
+      <Panel isFramed={false} isOpen={true} isToggleable={false}>
+        <PanelHeader>
+          <Typography.Span>Header</Typography.Span>
+        </PanelHeader>
+        <PanelBody>
+          <Typography.Span>Body</Typography.Span><br/>
+          <Typography.Span>Body</Typography.Span>
+        </PanelBody>
+      </Panel>
+
+      <hr/>
+
+      <Panel isFramed={false} isOpen={true}>
+        <PanelBody>
+          <Typography.P>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Accusamus odit dolorum laboriosam, sunt vel ad facilis blanditiis dignissimos
+          suscipit possimus ipsam quis. Illum pariatur, sit voluptatibus, obcaecati
+          temporibus iusto vero.</Typography.P>
+        </PanelBody>
+        <PanelFooter/>
+      </Panel>
+
+      <hr/>
+      <hr/>
+
+      <Panel>
+        <PanelHeader>
+          <Typography.H4>Header</Typography.H4>
+        </PanelHeader>
+        <PanelBody>
+          <Typography.Span>Body</Typography.Span>
+        </PanelBody>
+        <PanelFooter showToggler={false}>
+          <Typography.H5>Footer</Typography.H5>
         </PanelFooter>
       </Panel>
 
@@ -24,11 +64,11 @@ export default () => {
 
       <Panel isOpen={true} isToggleable={false}>
         <PanelHeader>
-          <span>Header</span>
+          <Typography.Span>Header</Typography.Span>
         </PanelHeader>
         <PanelBody>
-          <span>Body</span><br/>
-          <span>Body</span>
+          <Typography.Span>Body</Typography.Span><br/>
+          <Typography.Span>Body</Typography.Span>
         </PanelBody>
       </Panel>
 
@@ -36,9 +76,10 @@ export default () => {
 
       <Panel isOpen={true}>
         <PanelBody>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus odit dolorum laboriosam, sunt vel
-          ad facilis blanditiis dignissimos suscipit possimus ipsam quis. Illum pariatur, sit voluptatibus, obcaecati
-          temporibus iusto vero.</p>
+          <Typography.P>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Accusamus odit dolorum laboriosam, sunt vel ad facilis blanditiis dignissimos
+          suscipit possimus ipsam quis. Illum pariatur, sit voluptatibus, obcaecati
+          temporibus iusto vero.</Typography.P>
         </PanelBody>
         <PanelFooter/>
       </Panel>
