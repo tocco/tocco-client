@@ -1,4 +1,5 @@
 import Panel from './Panel'
+import StyledPanel from './StyledPanel'
 import PanelBody from './PanelBody'
 import StyledPanelBody from './StyledPanelBody'
 import PanelHeaderFooter from './PanelHeaderFooter'
@@ -9,6 +10,7 @@ export {
   PanelBody,
   PanelHeaderFooter as PanelFooter,
   PanelHeaderFooter as PanelHeader,
+  StyledPanel,
   StyledPanelBody,
   StyledPanelHeaderFooter
 }

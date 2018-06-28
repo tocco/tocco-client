@@ -1,21 +1,60 @@
 /* eslint no-console: 0 */
 import React from 'react'
 import Panel, {PanelBody, PanelFooter, PanelHeader} from './'
-// real-import:import Panel, {PanelBody, PanelFooter, PanelHeader} from 'tocco-ui'
+import {H4, H5, P, Span} from '../Typography'
+// real-import:import {Panel, PanelBody, PanelFooter, PanelHeader} from 'tocco-ui'
 
 export default () => {
   return (
     <div>
       {/* start example */}
-      <Panel>
+      <Panel isFramed={false}>
         <PanelHeader>
-          <span>Header</span>
+          <H4>Header</H4>
         </PanelHeader>
         <PanelBody>
-          <span>Body</span>
+          <Span>Body</Span>
         </PanelBody>
         <PanelFooter showToggler={false}>
-          <span>Footer</span>
+          <H5>Footer</H5>
+        </PanelFooter>
+      </Panel>
+
+      <hr/>
+
+      <Panel isFramed={false} isOpen={true} isToggleable={false}>
+        <PanelHeader>
+          <Span>Header</Span>
+        </PanelHeader>
+        <PanelBody>
+          <Span>Body</Span><br/>
+          <Span>Body</Span>
+        </PanelBody>
+      </Panel>
+
+      <hr/>
+
+      <Panel isFramed={false} isOpen={true}>
+        <PanelBody>
+          <P>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus odit dolorum laboriosam, sunt vel
+          ad facilis blanditiis dignissimos suscipit possimus ipsam quis. Illum pariatur, sit voluptatibus, obcaecati
+          temporibus iusto vero.</P>
+        </PanelBody>
+        <PanelFooter/>
+      </Panel>
+
+      <hr/>
+      <hr/>
+
+      <Panel>
+        <PanelHeader>
+          <H4>Header</H4>
+        </PanelHeader>
+        <PanelBody>
+          <Span>Body</Span>
+        </PanelBody>
+        <PanelFooter showToggler={false}>
+          <H5>Footer</H5>
         </PanelFooter>
       </Panel>
 
@@ -23,11 +62,11 @@ export default () => {
 
       <Panel isOpen={true} isToggleable={false}>
         <PanelHeader>
-          <span>Header</span>
+          <Span>Header</Span>
         </PanelHeader>
         <PanelBody>
-          <span>Body</span><br/>
-          <span>Body</span>
+          <Span>Body</Span><br/>
+          <Span>Body</Span>
         </PanelBody>
       </Panel>
 
@@ -35,9 +74,9 @@ export default () => {
 
       <Panel isOpen={true}>
         <PanelBody>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus odit dolorum laboriosam, sunt vel
+          <P>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus odit dolorum laboriosam, sunt vel
           ad facilis blanditiis dignissimos suscipit possimus ipsam quis. Illum pariatur, sit voluptatibus, obcaecati
-          temporibus iusto vero.</p>
+          temporibus iusto vero.</P>
         </PanelBody>
         <PanelFooter/>
       </Panel>

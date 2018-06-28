@@ -1,6 +1,7 @@
 
 import React from 'react'
 import Panel from './Panel'
+import StyledPanel from './StyledPanel'
 import {shallow} from 'enzyme'
 
 describe('tocco-ui', function() {
@@ -26,7 +27,7 @@ describe('tocco-ui', function() {
 
     it('should render parent and children', () => {
       const wrapper = shallow(<Panel><span>text-1</span><span>text-2</span></Panel>)
-      expect(wrapper.find('div')).to.have.length(1)
+      expect(wrapper.find(StyledPanel)).to.have.length(1)
       expect(wrapper.find('span')).to.have.length(2)
       expect(wrapper.find('span').first().text()).to.equal('text-1')
       expect(wrapper.find('span').last().text()).to.equal('text-2')
@@ -38,6 +39,34 @@ describe('tocco-ui', function() {
       expect(isOpen).to.equal(false)
       expect(isToggleable).to.equal(true)
       expect(typeof toggleOpenState).to.equal('function')
+    })
+
+    it('should have three defaultProps', () => {
+      const wrapper = shallow(
+        <Panel>
+          <span>child</span>
+        </Panel>
+      )
+      const {isFramed, isOpen, isToggleable} = wrapper.find('span').props()
+      expect(isFramed).to.be.true
+      expect(isOpen).to.be.false
+      expect(isToggleable).to.be.true
+    })
+
+    it('should pass three props to child', () => {
+      const wrapper = shallow(
+        <Panel
+          isFramed={false}
+          isOpen={true}
+          isToggleable={false}
+        >
+          <span>child</span>
+        </Panel>
+      )
+      const {isFramed, isOpen, isToggleable} = wrapper.find('span').props()
+      expect(isFramed).to.be.false
+      expect(isOpen).to.be.true
+      expect(isToggleable).to.be.false
     })
   })
 })
