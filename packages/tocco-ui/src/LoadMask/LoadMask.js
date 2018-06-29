@@ -70,7 +70,7 @@ class LoadMask extends React.Component {
     }
 
     return (
-      <StyledLoadMask>
+      <StyledLoadMask isInitialized={this.state.initialized}>
         {this.state.initialized ? this.props.children : [...loadingIconAndText]}
       </StyledLoadMask>
     )
