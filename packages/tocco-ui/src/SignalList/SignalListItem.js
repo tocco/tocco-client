@@ -9,22 +9,17 @@ import {
   stylingCondition
 } from '../utilStyles'
 
+const ICONS = {
+  [stylingCondition.BASE]: {unicode: '\u2022'},
+  [stylingCondition.DANGER]: {icon: 'fa-times'},
+  [stylingCondition.PRIMARY]: {unicode: '\u2022'},
+  [stylingCondition.SUCCESS]: {icon: 'fa-check'},
+  [stylingCondition.WARNING]: {icon: 'fa-exclamation-triangle'}
+}
+
 const getIcon = props => {
-  switch (props.condition) {
-    case stylingCondition.DANGER:
-      return {icon: 'fa-times'}
-    case stylingCondition.SUCCESS:
-      return {icon: 'fa-check'}
-    case stylingCondition.WARNING:
-      return {icon: 'fa-exclamation-triangle'}
-    case stylingCondition.PRIMARY:
-    case stylingCondition.BASE:
-      return {unicode: '\u2022'} // unicode bullet point
-    default:
-      // eslint-disable-next-line no-console
-      console.warn('Be explicit by adding a case. You may want display a different character or an icon.')
-      return {unicode: '\u2022'} // unicode bullet point
-  }
+  const icon = ICONS[props.condition]
+  return icon || {unicode: '\u2022'}
 }
 
 /**
@@ -51,7 +46,7 @@ SignalListItem.propTypes = {
    * Color and icon is set according condition. Default value is 'base'.
    * Possible values: base|danger|primary|success|warning
    */
-  condition: conditionPropTypes
+  condition: conditionPropTypes(ICONS)
 }
 
 export default SignalListItem

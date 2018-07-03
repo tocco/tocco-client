@@ -27,7 +27,7 @@ import {
   position as stylingPosition,
   positionPropTypes
 } from './stylingConstants'
-
+import assertObjectValuesMatchOtherObjectKeys from './assertObjectValuesMatchOtherObjectKeys'
 export {
   animationPropTypes,
   conditionPropTypes,
@@ -42,6 +42,7 @@ export {
   declareRaisedBaseColors,
   declareRaisedPrimaryColors,
   declareWrappingText,
+  assertObjectValuesMatchOtherObjectKeys,
   getTextOfChildren,
   inkPropTypes,
   lookPropTypes,
