@@ -2,7 +2,23 @@ import {theme} from 'styled-system'
 
 import {StyledIcon} from '../Icon'
 import {StyledLi} from '../Typography'
-import {stylingCondition} from '../utilStyles'
+import {
+  conditionPropTypes,
+  stylingCondition
+} from '../utilStyles'
+
+const COLORS = {
+  [stylingCondition.BASE]: 'inherit',
+  [stylingCondition.DANGER]: theme('colors.signal.danger'),
+  [stylingCondition.PRIMARY]: theme('colors.primary.line.1'),
+  [stylingCondition.SUCCESS]: theme('colors.signal.success'),
+  [stylingCondition.WARNING]: theme('colors.signal.warning')
+}
+
+const getColor = props => {
+  const color = COLORS[props.condition]
+  return color || 'inherit'
+}
 
 const StyledSignalListItem = StyledLi.extend`
   && {
@@ -17,23 +33,8 @@ const StyledSignalListItem = StyledLi.extend`
   }
 `
 
-const getColor = props => {
-  switch (props.condition) {
-    case stylingCondition.DANGER:
-      return theme('colors.signal.danger')(props)
-    case stylingCondition.SUCCESS:
-      return theme('colors.signal.success')(props)
-    case stylingCondition.WARNING:
-      return theme('colors.signal.warning')(props)
-    case stylingCondition.PRIMARY:
-      return theme('colors.primary.line.1')(props)
-    case stylingCondition.BASE:
-      return 'inherit'
-    default:
-      // eslint-disable-next-line no-console
-      console.warn('Be explicit by adding a case. You may want colorize the content.')
-      return 'inherit'
-  }
+StyledSignalListItem.propTypes = {
+  condition: conditionPropTypes(COLORS)
 }
 
 export default StyledSignalListItem
