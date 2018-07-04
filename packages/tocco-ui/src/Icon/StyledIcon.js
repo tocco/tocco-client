@@ -1,19 +1,14 @@
 import styled from 'styled-components'
 import {theme} from 'styled-system'
 
-import {
-  stylingAnimation,
-  stylingPosition
-} from '../utilStyles'
+import {stylingPosition} from '../utilStyles'
 
 const getSpacing = props => {
   let left = 0
   let right = 0
 
   const space = (props.dense) ? theme('space.1')(props) : theme('space.3')(props)
-  const lineHeight = (props.dense || props.animation !== stylingAnimation.NONE)
-    ? theme('lineHeights.0')(props)
-    : theme('lineHeights.1')(props)
+  const lineHeight = (props.dense) ? theme('lineHeights.0')(props) : theme('lineHeights.1')(props)
 
   if (props.position === stylingPosition.AFTER || props.position === stylingPosition.BETWEEN) {
     left = space
