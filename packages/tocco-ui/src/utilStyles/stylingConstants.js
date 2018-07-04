@@ -1,8 +1,17 @@
 import PropTypes from 'prop-types'
+import assertObjectValuesMatchOtherObjectKeys from './assertObjectValuesMatchOtherObjectKeys'
 
 const animation = {
   NONE: 'none',
   SPIN: 'spin'
+}
+
+const condition = {
+  BASE: 'base',
+  DANGER: 'danger',
+  PRIMARY: 'primary',
+  SUCCESS: 'success',
+  WARNING: 'warning'
 }
 
 const ink = {
@@ -23,7 +32,13 @@ const position = {
   SOLELY: 'solely'
 }
 
+const oneOfPropTypeAndCompletelyMapped = (completeMap, potentialIncompleteMap) => {
+  return assertObjectValuesMatchOtherObjectKeys(completeMap, potentialIncompleteMap)
+    && PropTypes.oneOf(Object.values(completeMap))
+}
+
 const animationPropTypes = PropTypes.oneOf(Object.values(animation))
+const conditionPropTypes = potentialIncompleteMap => oneOfPropTypeAndCompletelyMapped(condition, potentialIncompleteMap)
 const inkPropTypes = PropTypes.oneOf(Object.values(ink))
 const lookPropTypes = PropTypes.oneOf(Object.values(look))
 const positionPropTypes = PropTypes.oneOf(Object.values(position))
@@ -31,6 +46,8 @@ const positionPropTypes = PropTypes.oneOf(Object.values(position))
 export {
   animation,
   animationPropTypes,
+  condition,
+  conditionPropTypes,
   ink,
   inkPropTypes,
   look,

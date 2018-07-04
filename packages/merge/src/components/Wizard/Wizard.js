@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {Button} from 'tocco-ui'
+import {Button, ButtonGroup} from 'tocco-ui'
 import {intlShape} from 'react-intl'
 
 export class Wizard extends React.Component {
@@ -56,42 +56,46 @@ export class Wizard extends React.Component {
       }
     )
 
+    const buttons = []
+
+    if (this.state.index === this.state.amountPages - 1) {
+      buttons.push(
+        <Button
+          ink="primary"
+          label={this.props.save.label}
+          onClick={this.props.save.fn}
+        />
+      )
+    }
+
+    if (this.state.index > 0) {
+      buttons.push(
+        <Button
+          label={this.msg('client.merge.back')}
+          onClick={this.backClick}
+        />
+      )
+    }
+
+    if (this.state.index < this.state.amountPages - 1) {
+      buttons.push(
+        <Button
+          disabled={!this.state.allowNext}
+          ink="primary"
+          label={this.msg('client.merge.next')}
+          onClick={this.nextClick}
+        />
+      )
+    }
+
     return (
       <div className="wizard">
         <div className="wizard-body">
           {t}
         </div>
-        <div className="wizard-footer">
-          {
-            (this.state.index === this.state.amountPages - 1)
-            && <Button
-              ink="primary"
-              label={this.props.save.label}
-              look="raised"
-              onClick={this.props.save.fn}
-            />
-          }
-          {
-            (this.state.index > 0)
-            && <Button
-              className="wizard-back-button"
-              label={this.msg('client.merge.back')}
-              look="raised"
-              onClick={this.backClick}
-            />
-          }
-          {
-            (this.state.index < this.state.amountPages - 1)
-            && <Button
-              className="wizard-next-button"
-              disabled={!this.state.allowNext}
-              ink="primary"
-              label={this.msg('client.merge.next')}
-              look="raised"
-              onClick={this.nextClick}
-            />
-          }
-        </div>
+        <ButtonGroup look="raised">
+          {[...buttons]}
+        </ButtonGroup>
       </div>
     )
   }

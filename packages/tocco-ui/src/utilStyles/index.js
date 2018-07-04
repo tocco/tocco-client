@@ -18,6 +18,8 @@ import objectToCss from './objectToCss'
 import {
   animation as stylingAnimation,
   animationPropTypes,
+  condition as stylingCondition,
+  conditionPropTypes,
   ink as stylingInk,
   inkPropTypes,
   look as stylingLook,
@@ -25,9 +27,10 @@ import {
   position as stylingPosition,
   positionPropTypes
 } from './stylingConstants'
-
+import assertObjectValuesMatchOtherObjectKeys from './assertObjectValuesMatchOtherObjectKeys'
 export {
   animationPropTypes,
+  conditionPropTypes,
   declareDensity,
   declareElevation,
   declareFlatBaseColors,
@@ -39,12 +42,14 @@ export {
   declareRaisedBaseColors,
   declareRaisedPrimaryColors,
   declareWrappingText,
+  assertObjectValuesMatchOtherObjectKeys,
   getTextOfChildren,
   inkPropTypes,
   lookPropTypes,
   objectToCss,
   positionPropTypes,
   stylingAnimation,
+  stylingCondition,
   stylingInk,
   stylingLook,
   stylingPosition

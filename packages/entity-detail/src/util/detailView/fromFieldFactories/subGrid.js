@@ -9,5 +9,6 @@ export default type =>
       relationName={formField.id}
       modelField={modelField}
       showSearchForm={formField.showSearchForm}
+      limit={formField.limit || undefined}
     />
   )

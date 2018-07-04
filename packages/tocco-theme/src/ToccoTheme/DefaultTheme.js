@@ -43,6 +43,13 @@ const colors = {
       '#F5F5F5', // Grey 100
       '#EEEEEE' // Grey 200
     ]
+  },
+  signal: {
+    danger: '#D32F2F', // Red 700
+    info: '#FBC02D', // Yellow 700
+    infoBg: '#FFF9C4', // Yellow 100
+    success: '#388E3C', // Green 700
+    warning: '#FFA000' // Amber 700
   }
 }
 
