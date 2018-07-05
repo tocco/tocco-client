@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import Preview from '../../Preview'
+import ButtonLink from '../../ButtonLink'
 
 const DocumentCompactFormatter = props => (
-  <Preview
+  <ButtonLink
     alt={props.value.alt || props.value.fileName}
-    caption={props.value.caption || props.value.fileName}
-    downloadOnClick={true}
-    fileName={props.value.fileName}
-    srcUrl={props.value.binaryLink}
+    download={props.value.fileName}
+    icon="fa-download"
+    look="raised"
+    href={props.value.binaryLink}
   />
 )
 
@@ -16,7 +16,6 @@ DocumentCompactFormatter.propTypes = {
   value: PropTypes.shape({
     alt: PropTypes.string,
     binaryLink: PropTypes.string.isRequired,
-    caption: PropTypes.string,
     fileName: PropTypes.string.isRequired
   }).isRequired
 }
