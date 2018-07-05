@@ -43,11 +43,11 @@ export default class ShowCaseApp extends React.Component {
             <div className="col title">
               <span>Tocco UI</span>
             </div>
-            <div className="col-md-9">
+            <div className="col-md-10">
               <ShowCaseList componentsTree={this.props.componentsTree}/>
             </div>
             <div className="col-md-2 hidden-xs hidden-sm">
-              <Affix className="navi-affix" offset={80}>
+              <Affix className="navi-affix" offset={50}>
                 <LocaleSwitcher onLocaleChange={this.localeChange.bind(this)}/>
                 <Navigation componentsTree={this.props.componentsTree}/>
               </Affix>
