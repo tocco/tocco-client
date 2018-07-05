@@ -1,19 +1,3 @@
-import FormattedValueRaw from '!raw-loader!../../tocco-ui/src/FormattedValue/FormattedValue'
-import FormattedValueExample from '../../tocco-ui/src/FormattedValue/example'
-import FormattedValueExampleRaw from '!raw-loader!../../tocco-ui/src/FormattedValue/example'
-
-import EditableValueRaw from '!raw-loader!../../tocco-ui/src/EditableValue/EditableValue'
-import EditableValueExample from '../../tocco-ui/src/EditableValue/example'
-import EditableValueExampleRaw from '!raw-loader!../../tocco-ui/src/EditableValue/example'
-
-import TableRaw from '!raw-loader!../../tocco-ui/src/Table/Table'
-import TableExample from '../../tocco-ui/src/Table/example'
-import TableExampleRaw from '!raw-loader!../../tocco-ui/src/Table/example'
-
-import LoadMaskRaw from '!raw-loader!../../tocco-ui/src/LoadMask/LoadMask'
-import LoadMaskExample from '../../tocco-ui/src/LoadMask/example'
-import LoadMaskExampleRaw from '!raw-loader!../../tocco-ui/src/LoadMask/example'
-
 import ButtonRaw from '!raw-loader!../../tocco-ui/src/Button/Button'
 import ButtonExample from '../../tocco-ui/src/Button/example'
 import ButtonExampleRaw from '!raw-loader!../../tocco-ui/src/Button/example'
@@ -22,29 +6,63 @@ import ButtonGroupRaw from '!raw-loader!../../tocco-ui/src/ButtonGroup/ButtonGro
 import ButtonGroupExample from '../../tocco-ui/src/ButtonGroup/example'
 import ButtonGroupExampleRaw from '!raw-loader!../../tocco-ui/src/ButtonGroup/example'
 
-import MenuRaw from '!raw-loader!../../tocco-ui/src/Menu/Menu'
-import MenuExample from '../../tocco-ui/src/Menu/example'
-import MenuExampleRaw from '!raw-loader!../../tocco-ui/src/Menu/example'
+import ButtonLinkRaw from '!raw-loader!../../tocco-ui/src/ButtonLink/ButtonLink'
+import ButtonLinkExample from '../../tocco-ui/src/ButtonLink/example'
+import ButtonLinkExampleRaw from '!raw-loader!../../tocco-ui/src/ButtonLink/example'
+
+import EditableValueRaw from '!raw-loader!../../tocco-ui/src/EditableValue/EditableValue'
+import EditableValueExample from '../../tocco-ui/src/EditableValue/example'
+import EditableValueExampleRaw from '!raw-loader!../../tocco-ui/src/EditableValue/example'
+
+import ErrorLoggingExample from './toccoUtilExamples/errorLogging/example'
+import ErrorLoggingExampleRaw from '!raw-loader!./toccoUtilExamples/errorLogging/example'
+
+import FormattedValueRaw from '!raw-loader!../../tocco-ui/src/FormattedValue/FormattedValue'
+import FormattedValueExample from '../../tocco-ui/src/FormattedValue/example'
+import FormattedValueExampleRaw from '!raw-loader!../../tocco-ui/src/FormattedValue/example'
+
+import FormFieldRaw from '!raw-loader!../../tocco-ui/src/FormField/FormField'
+import FormFieldExample from '../../tocco-ui/src/FormField/example'
+import FormFieldExampleRaw from '!raw-loader!../../tocco-ui/src/FormField/example'
 
 import IconRaw from '!raw-loader!../../tocco-ui/src/Icon/Icon'
 import IconExample from '../../tocco-ui/src/Icon/example'
 import IconExampleRaw from '!raw-loader!../../tocco-ui/src/Icon/example'
 
-import TypographyRaw from '!raw-loader!../../tocco-ui/src/Typography/Typography'
-import TypographyExample from '../../tocco-ui/src/Typography/example'
-import TypographyExampleRaw from '!raw-loader!../../tocco-ui/src/Typography/example'
+import LayoutBoxRaw from '!raw-loader!../../tocco-ui/src/LayoutBox/LayoutBox'
+import LayoutBoxExample from '../../tocco-ui/src/LayoutBox/example'
+import LayoutBoxExampleRaw from '!raw-loader!../../tocco-ui/src/LayoutBox/example'
 
 import LinkRaw from '!raw-loader!../../tocco-ui/src/Link/Link'
 import LinkExample from '../../tocco-ui/src/Link/example'
 import LinkExampleRaw from '!raw-loader!../../tocco-ui/src/Link/example'
 
-import ButtonLinkRaw from '!raw-loader!../../tocco-ui/src/ButtonLink/ButtonLink'
-import ButtonLinkExample from '../../tocco-ui/src/ButtonLink/example'
-import ButtonLinkExampleRaw from '!raw-loader!../../tocco-ui/src/ButtonLink/example'
+import LoadMaskRaw from '!raw-loader!../../tocco-ui/src/LoadMask/LoadMask'
+import LoadMaskExample from '../../tocco-ui/src/LoadMask/example'
+import LoadMaskExampleRaw from '!raw-loader!../../tocco-ui/src/LoadMask/example'
+
+import MenuRaw from '!raw-loader!../../tocco-ui/src/Menu/Menu'
+import MenuExample from '../../tocco-ui/src/Menu/example'
+import MenuExampleRaw from '!raw-loader!../../tocco-ui/src/Menu/example'
+
+import NotifierExample from './toccoUtilExamples/notifier/example'
+import NotifierExampleRaw from '!raw-loader!./toccoUtilExamples/notifier/example'
+
+import PaginationRaw from '!raw-loader!../../tocco-ui/src/Pagination/Pagination'
+import PaginationExample from '../../tocco-ui/src/Pagination/example'
+import PaginationExampleRaw from '!raw-loader!../../tocco-ui/src/Pagination/example'
 
 import PanelRaw from '!raw-loader!../../tocco-ui/src/Panel/Panel'
 import PanelExample from '../../tocco-ui/src/Panel/example'
 import PanelExampleRaw from '!raw-loader!../../tocco-ui/src/Panel/example'
+
+import PreviewRaw from '!raw-loader!../../tocco-ui/src/Preview/Preview'
+import PreviewExample from '../../tocco-ui/src/Preview/example'
+import PreviewExampleRaw from '!raw-loader!../../tocco-ui/src/Preview/example'
+
+import SearchBoxRaw from '!raw-loader!../../tocco-ui/src/SearchBox/SearchBox'
+import SearchBoxExample from '../../tocco-ui/src/SearchBox/example'
+import SearchBoxExampleRaw from '!raw-loader!../../tocco-ui/src/SearchBox/example'
 
 import SignalBoxRaw from '!raw-loader!../../tocco-ui/src/SignalBox/SignalBox'
 import SignalBoxExample from '../../tocco-ui/src/SignalBox/example'
@@ -54,236 +72,193 @@ import SignalListRaw from '!raw-loader!../../tocco-ui/src/SignalList/SignalList'
 import SignalListExample from '../../tocco-ui/src/SignalList/example'
 import SignalListExampleRaw from '!raw-loader!../../tocco-ui/src/SignalList/example'
 
-import PreviewRaw from '!raw-loader!../../tocco-ui/src/Preview/Preview'
-import PreviewExample from '../../tocco-ui/src/Preview/example'
-import PreviewExampleRaw from '!raw-loader!../../tocco-ui/src/Preview/example'
+import TableRaw from '!raw-loader!../../tocco-ui/src/Table/Table'
+import TableExample from '../../tocco-ui/src/Table/example'
+import TableExampleRaw from '!raw-loader!../../tocco-ui/src/Table/example'
+
+import TypographyRaw from '!raw-loader!../../tocco-ui/src/Typography/Typography'
+import TypographyExample from '../../tocco-ui/src/Typography/example'
+import TypographyExampleRaw from '!raw-loader!../../tocco-ui/src/Typography/example'
 
 import UploadRaw from '!raw-loader!../../tocco-ui/src/Upload/Upload'
 import UploadExample from '../../tocco-ui/src/Upload/example'
 import UploadExampleRaw from '!raw-loader!../../tocco-ui/src/Upload/example'
 
-import SearchBoxRaw from '!raw-loader!../../tocco-ui/src/SearchBox/SearchBox'
-import SearchBoxExample from '../../tocco-ui/src/SearchBox/example'
-import SearchBoxExampleRaw from '!raw-loader!../../tocco-ui/src/SearchBox/example'
-
-import FormFieldRaw from '!raw-loader!../../tocco-ui/src/FormField/FormField'
-import FormFieldExample from '../../tocco-ui/src/FormField/example'
-import FormFieldExampleRaw from '!raw-loader!../../tocco-ui/src/FormField/example'
-
-import PaginationRaw from '!raw-loader!../../tocco-ui/src/Pagination/Pagination'
-import PaginationExample from '../../tocco-ui/src/Pagination/example'
-import PaginationExampleRaw from '!raw-loader!../../tocco-ui/src/Pagination/example'
-
-import LayoutBoxRaw from '!raw-loader!../../tocco-ui/src/LayoutBox/LayoutBox'
-import LayoutBoxExample from '../../tocco-ui/src/LayoutBox/example'
-import LayoutBoxExampleRaw from '!raw-loader!../../tocco-ui/src/LayoutBox/example'
-
-import ErrorLoggingExample from './toccoUtilExamples/errorLogging/example'
-import ErrorLoggingExampleRaw from '!raw-loader!./toccoUtilExamples/errorLogging/example'
-
-import NotifierExample from './toccoUtilExamples/notifier/example'
-import NotifierExampleRaw from '!raw-loader!./toccoUtilExamples/notifier/example'
-
 const categories = {
-  CONTENT: 'Content',
-  FORMS: 'Form Controls',
+  DISPLAY_DATA: 'Display Data',
+  EDIT_DATA: 'Edit Data',
   LAYOUT: 'Layout',
-  UTIL: 'Tocco-Util'
+  MESSAGE: 'Message',
+  NAVIGATION: 'Navigation'
 }
 
-export default [
-  {
-    category: categories.CONTENT,
-    components: [
-      {
-        name: 'FormattedValue',
-        raw: FormattedValueRaw,
-        example: {
-          component: FormattedValueExample,
-          raw: FormattedValueExampleRaw
-        }
-      },
-      {
-        name: 'EditableValue',
-        raw: EditableValueRaw,
-        example: {
-          component: EditableValueExample,
-          raw: EditableValueExampleRaw
-        }
-      },
-      {
-        name: 'Table',
-        raw: TableRaw,
-        example: {
-          component: TableExample,
-          raw: TableExampleRaw
-        }
-      },
-      {
-        name: 'Pagination',
-        raw: PaginationRaw,
-        example: {
-          component: PaginationExample,
-          raw: PaginationExampleRaw
-        }
-      },
-      {
-        name: 'LoadMask',
-        raw: LoadMaskRaw,
-        example: {
-          component: LoadMaskExample,
-          raw: LoadMaskExampleRaw
-        }
-      },
-      {
-        name: 'Preview',
-        raw: PreviewRaw,
-        example: {
-          component: PreviewExample,
-          raw: PreviewExampleRaw
-        }
-      },
-      {
-        name: 'Upload',
-        raw: UploadRaw,
-        example: {
-          component: UploadExample,
-          raw: UploadExampleRaw
-        }
-      },
-      {
-        name: 'Icon',
-        raw: IconRaw,
-        example: {
-          component: IconExample,
-          raw: IconExampleRaw
-        }
-      },
-      {
-        name: 'Typography',
-        raw: TypographyRaw,
-        example: {
-          component: TypographyExample,
-          raw: TypographyExampleRaw
-        }
-      },
-      {
-        name: 'SignalList',
-        raw: SignalListRaw,
-        example: {
-          component: SignalListExample,
-          raw: SignalListExampleRaw
-        }
-      },
-      {
-        name: 'SignalBox',
-        raw: SignalBoxRaw,
-        example: {
-          component: SignalBoxExample,
-          raw: SignalBoxExampleRaw
-        }
-      },
-      {
-        name: 'Link',
-        raw: LinkRaw,
-        example: {
-          component: LinkExample,
-          raw: LinkExampleRaw
-        }
-      },
-      {
-        name: 'ButtonLink',
-        raw: ButtonLinkRaw,
-        example: {
-          component: ButtonLinkExample,
-          raw: ButtonLinkExampleRaw
-        }
-      },
-      {
-        name: 'Menu',
-        raw: MenuRaw,
-        example: {
-          component: MenuExample,
-          raw: MenuExampleRaw
-        }
-      },
-      {
-        name: 'Panel',
-        raw: PanelRaw,
-        example: {
-          component: PanelExample,
-          raw: PanelExampleRaw
-        }
-      }]
-  },
-  {
-    category: categories.FORMS,
-    components: [
-      {
-        name: 'Button',
-        raw: ButtonRaw,
-        example: {
-          component: ButtonExample,
-          raw: ButtonExampleRaw
-        }
-      },
-      {
-        name: 'ButtonGroup',
-        raw: ButtonGroupRaw,
-        example: {
-          component: ButtonGroupExample,
-          raw: ButtonGroupExampleRaw
-        }
-      },
-      {
-        name: 'SearchBox',
-        raw: SearchBoxRaw,
-        example: {
-          component: SearchBoxExample,
-          raw: SearchBoxExampleRaw
-        }
-      },
-      {
-        name: 'FormField',
-        raw: FormFieldRaw,
-        example: {
-          component: FormFieldExample,
-          raw: FormFieldExampleRaw
-        }
-      }]
-  },
-  {
-    category: categories.LAYOUT,
-    components: [
-      {
-        name: 'Box Layouts',
-        raw: LayoutBoxRaw,
-        example: {
-          component: LayoutBoxExample,
-          raw: LayoutBoxExampleRaw
-        }
-      }
-    ]
-  },
-  {
-    category: categories.UTIL,
-    components: [
-      {
-        name: 'Error Logging',
-        description: 'Example to log Errors in an application',
-        example: {
-          component: ErrorLoggingExample,
-          raw: ErrorLoggingExampleRaw
-        }
-      },
-      {
-        name: 'Notifications',
-        description: 'To show various notifications to the user',
-        example: {
-          component: NotifierExample,
-          raw: NotifierExampleRaw
-        }
-      }
-    ]
-  }
-]
+export default [{
+  category: categories.DISPLAY_DATA,
+  components: [{
+    name: 'FormattedValue',
+    raw: FormattedValueRaw,
+    example: {
+      component: FormattedValueExample,
+      raw: FormattedValueExampleRaw
+    }
+  }, {
+    name: 'Preview',
+    raw: PreviewRaw,
+    example: {
+      component: PreviewExample,
+      raw: PreviewExampleRaw
+    }
+  }, {
+    name: 'Typography',
+    raw: TypographyRaw,
+    example: {
+      component: TypographyExample,
+      raw: TypographyExampleRaw
+    }
+  }, {
+    name: 'Icon',
+    raw: IconRaw,
+    example: {
+      component: IconExample,
+      raw: IconExampleRaw
+    }
+  }, {
+    name: 'Table',
+    raw: TableRaw,
+    example: {
+      component: TableExample,
+      raw: TableExampleRaw
+    }
+  }]
+}, {
+  category: categories.EDIT_DATA,
+  components: [{
+    name: 'EditableValue',
+    raw: EditableValueRaw,
+    example: {
+      component: EditableValueExample,
+      raw: EditableValueExampleRaw
+    }
+  }, {
+    name: 'FormField',
+    raw: FormFieldRaw,
+    example: {
+      component: FormFieldExample,
+      raw: FormFieldExampleRaw
+    }
+  }, {
+    name: 'Upload',
+    raw: UploadRaw,
+    example: {
+      component: UploadExample,
+      raw: UploadExampleRaw
+    }
+  }]
+}, {
+  category: categories.NAVIGATION,
+  components: [{
+    name: 'Link',
+    raw: LinkRaw,
+    example: {
+      component: LinkExample,
+      raw: LinkExampleRaw
+    }
+  }, {
+    name: 'Button',
+    raw: ButtonRaw,
+    example: {
+      component: ButtonExample,
+      raw: ButtonExampleRaw
+    }
+  }, {
+    name: 'ButtonLink',
+    raw: ButtonLinkRaw,
+    example: {
+      component: ButtonLinkExample,
+      raw: ButtonLinkExampleRaw
+    }
+  }, {
+    name: 'ButtonGroup',
+    raw: ButtonGroupRaw,
+    example: {
+      component: ButtonGroupExample,
+      raw: ButtonGroupExampleRaw
+    }
+  }, {
+    name: 'Menu',
+    raw: MenuRaw,
+    example: {
+      component: MenuExample,
+      raw: MenuExampleRaw
+    }
+  }, {
+    name: 'SearchBox',
+    raw: SearchBoxRaw,
+    example: {
+      component: SearchBoxExample,
+      raw: SearchBoxExampleRaw
+    }
+  }, {
+    name: 'Pagination',
+    raw: PaginationRaw,
+    example: {
+      component: PaginationExample,
+      raw: PaginationExampleRaw
+    }
+  }]
+}, {
+  category: categories.LAYOUT,
+  components: [{
+    name: 'Panel',
+    raw: PanelRaw,
+    example: {
+      component: PanelExample,
+      raw: PanelExampleRaw
+    }
+  }, {
+    name: 'Box Layouts',
+    raw: LayoutBoxRaw,
+    example: {
+      component: LayoutBoxExample,
+      raw: LayoutBoxExampleRaw
+    }
+  }, {
+    name: 'LoadMask',
+    raw: LoadMaskRaw,
+    example: {
+      component: LoadMaskExample,
+      raw: LoadMaskExampleRaw
+    }
+  }]
+}, {
+  category: categories.MESSAGE,
+  components: [{
+    name: 'SignalList',
+    raw: SignalListRaw,
+    example: {
+      component: SignalListExample,
+      raw: SignalListExampleRaw
+    }
+  }, {
+    name: 'SignalBox',
+    raw: SignalBoxRaw,
+    example: {
+      component: SignalBoxExample,
+      raw: SignalBoxExampleRaw
+    }
+  }, {
+    name: 'Notifications',
+    description: 'To show various notifications to the user',
+    example: {
+      component: NotifierExample,
+      raw: NotifierExampleRaw
+    }
+  }, {
+    name: 'Error Logging',
+    description: 'Example to log Errors in an application',
+    example: {
+      component: ErrorLoggingExample,
+      raw: ErrorLoggingExampleRaw
+    }
+  }]
+}]
