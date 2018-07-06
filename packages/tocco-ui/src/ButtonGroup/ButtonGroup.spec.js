@@ -8,10 +8,9 @@ describe('tocco-ui', function() {
       const wrapper = shallow(
         <ButtonGroup><span>child</span></ButtonGroup>
       )
-      const {look, melt} = wrapper.props()
+      const {buttonGroupInk, buttonGroupMelt, look} = wrapper.find('span').props()
       expect(look).to.equal('flat')
-      expect(melt).to.equal(false)
-      const {buttonGroupInk} = wrapper.find('span').props()
+      expect(buttonGroupMelt).to.equal(false)
       expect(buttonGroupInk).to.equal('base')
     })
   })
