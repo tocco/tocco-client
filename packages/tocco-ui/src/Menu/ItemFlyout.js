@@ -31,7 +31,7 @@ class ItemFlyout extends Item {
           iconPosition={stylingPosition.APPEND}
           label={this.props.label}
           look={this.props.look}
-          onMouseDown={this.toggleOpenState}
+          onClick={this.toggleOpenState}
         />
         {this.getChildren()}
       </StyledItemFlyout>
