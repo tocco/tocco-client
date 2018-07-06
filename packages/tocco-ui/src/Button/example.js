@@ -31,14 +31,14 @@ export default () => {
       />
       <Button
         icon="fa-font-awesome"
-        iconPosition="after"
+        iconPosition="append"
         label="Icon with text"
         type="submit"
       />
       <Button
         title="Icon without text"
         icon="glyphicon-heart"
-        iconPosition="solely"
+        iconPosition="sole"
       />
       <Button
         label="Pending"

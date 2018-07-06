@@ -6,7 +6,7 @@ describe('tocco-ui', function() {
   describe('Icon', function() {
     it('should have 2 defaultProps', () => {
       const wrapper = shallow(<Icon icon="fa-bar"/>)
-      expect(wrapper.props().position).to.equal('solely')
+      expect(wrapper.props().position).to.equal('sole')
       expect(Icon.defaultProps.animation).to.equal('none')
     })
 

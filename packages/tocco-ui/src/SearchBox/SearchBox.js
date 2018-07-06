@@ -55,7 +55,7 @@ class SearchBox extends React.Component {
           <StyledInputGroupBtn>
             <Button
               icon="glyphicon-search"
-              iconPosition="solely"
+              iconPosition="sole"
               type="submit"
             />
           </StyledInputGroupBtn>

@@ -13,15 +13,15 @@ export default () => {
       Font Awesome Spin<Icon
         animation="spin"
         icon="fa-spinner"
-        position="after"
+        position="append"
       />,
       Font Awesome After<Icon
         icon="fa-check-square-o"
-        position="after"
+        position="append"
       />,
       <Icon
         icon="fa-check-square-o"
-        position="before"
+        position="prepend"
       />Font Awesome Before,
       Font Awesome Between
       <Icon

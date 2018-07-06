@@ -35,7 +35,7 @@ const ButtonLink = props => {
 
 ButtonLink.defaultProps = {
   href: '#',
-  iconPosition: stylingPosition.BEFORE,
+  iconPosition: stylingPosition.PREPEND,
   ink: stylingInk.BASE,
   look: stylingLook.FLAT
 }
@@ -68,9 +68,9 @@ ButtonLink.propTypes = {
    */
   icon: PropTypes.string,
   /**
-   * Position icon before or after label. Use 'solely' if label text is omitted. Default value is 'before'.
+   * Prepend icon or append icon to label. Use 'sole' if label text is omitted. Default value is 'prepend'.
    */
-  iconPosition: PropTypes.oneOf([stylingPosition.BEFORE, stylingPosition.SOLELY]),
+  iconPosition: PropTypes.oneOf([stylingPosition.PREPEND, stylingPosition.SOLE]),
   /**
    * Specify color palette. Default value is 'base'.
    */

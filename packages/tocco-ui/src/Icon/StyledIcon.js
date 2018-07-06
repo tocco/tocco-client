@@ -10,11 +10,11 @@ const getSpacing = props => {
   const space = (props.dense) ? theme('space.1')(props) : theme('space.3')(props)
   const lineHeight = (props.dense) ? theme('lineHeights.0')(props) : theme('lineHeights.1')(props)
 
-  if (props.position === stylingPosition.AFTER || props.position === stylingPosition.BETWEEN) {
+  if (props.position === stylingPosition.APPEND || props.position === stylingPosition.BETWEEN) {
     left = space
   }
 
-  if (props.position === stylingPosition.BEFORE || props.position === stylingPosition.BETWEEN) {
+  if (props.position === stylingPosition.PREPEND || props.position === stylingPosition.BETWEEN) {
     right = space
   }
 
