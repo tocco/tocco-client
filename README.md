@@ -49,8 +49,7 @@ Just install yarn  https://yarnpkg.com/en/docs/install
 and execute the following commands:
 ```
 npm install --global lerna@v2.9.1
-npm run setup
-lerna bootstrap
+yarn setup
 yarn start --package={PACKAGE_NAME}
 ```
 Open http://localhost:3000 and start coding!
