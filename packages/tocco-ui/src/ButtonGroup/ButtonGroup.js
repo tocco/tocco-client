@@ -13,7 +13,7 @@ import {
  */
 const ButtonGroup = props => {
   return (
-    <StyledButtonGroup look={props.look} melt={props.melt}>
+    <StyledButtonGroup melt={props.melt}>
       { // eslint-disable-next-line
         React.Children.map(props.children, child => {
           return React.cloneElement(child, {look: props.look, buttonGroupInk: props.ink, buttonGroupMelt: props.melt})
