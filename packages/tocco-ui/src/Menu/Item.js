@@ -58,7 +58,6 @@ class Item extends React.Component {
       <StyledItem
         innerRef={node => { this.node = node }}
         isOpen={this.state.isOpen}
-        isToggleable={this.props.isToggleable}
       >
         {this.getChildren()}
       </StyledItem>
