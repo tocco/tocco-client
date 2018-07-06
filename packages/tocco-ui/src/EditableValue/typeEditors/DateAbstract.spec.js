@@ -7,8 +7,6 @@ describe('tocco-ui', () => {
     describe('typeEditors', () => {
       describe('DateAbstract', () => {
         it('should call initialized', function(done) {
-          this.timeout(10000)
-
           const initSpy = () => { done() }
 
           intlEnzyme.mountWithIntl(

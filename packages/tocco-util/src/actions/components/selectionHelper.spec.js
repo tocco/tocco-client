@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {isValidSelection, selectionText} from './selectionHelper'
 import {IntlStub} from 'tocco-test-util'
 
@@ -36,9 +37,18 @@ describe('tocco-util', () => {
             expect(selectionText(1, {minSelection: null, maxSelection: null}, IntlStub)).to.be.null
           })
 
-          it('should return none empty text if selection is incorrect', () => {
-            expect(selectionText(1, {minSelection: 2, maxSelection: null}, IntlStub)).to.not.be.empty
-            expect(selectionText(2, {minSelection: null, maxSelection: 1}, IntlStub)).to.not.be.empty
+          it('should return none empty text if selection is incorrect', function(done) {
+            console.log('<<<<1')
+            try {
+              expect(selectionText(1, {minSelection: 2, maxSelection: null}, IntlStub)).to.not.be.empty
+              console.log('<<<<2')
+              expect(selectionText(2, {minSelection: null, maxSelection: 1}, IntlStub)).to.not.be.empty
+              console.log('<<<<3')
+              done()
+            } catch (e) {
+              console.log('<<<<ERROR', e)
+              done(e)
+            }
           })
         })
       })
