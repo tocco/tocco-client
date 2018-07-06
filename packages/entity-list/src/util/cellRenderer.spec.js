@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react'
 import {IntlStub} from 'tocco-test-util'
 import cellRenderer from './cellRenderer'
@@ -27,17 +28,26 @@ describe('entity-list', () => {
       })
 
       it('should return an html formattedValue for DisplayExpressions', () => {
-        const field = {
-          componentType: 'display',
-          id: 'myDisplayExpression'
+        try {
+          console.log('---1')
+          const field = {
+            componentType: 'display',
+            id: 'myDisplayExpression'
+          }
+          console.log('---2')
+          const entity = {
+            myDisplayExpression: '<h1>test</h1>'
+          }
+          console.log('---3')
+          const wrapper = shallow(cellRenderer(field, entity, {}, IntlStub))
+          console.log('---4')
+          expect(wrapper.find(FormattedValue)).to.have.length(1)
+          console.log('---5')
+          expect(wrapper.find(FormattedValue)).to.have.prop('type', 'html')
+          console.log('---6')
+        } catch (e) {
+          console.log('---ERROR', e)
         }
-        const entity = {
-          myDisplayExpression: '<h1>test</h1>'
-        }
-
-        const wrapper = shallow(cellRenderer(field, entity, {}, IntlStub))
-        expect(wrapper.find(FormattedValue)).to.have.length(1)
-        expect(wrapper.find(FormattedValue)).to.have.prop('type', 'html')
       })
 
       it('should return an action for componentType action', () => {
