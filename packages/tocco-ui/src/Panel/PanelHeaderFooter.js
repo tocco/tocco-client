@@ -11,14 +11,10 @@ import Button from '../Button'
 class PanelHeaderFooter extends React.Component {
   render() {
     const {
-      // eslint-disable-next-line
       children,
-      // eslint-disable-next-line
       isOpen,
-      // eslint-disable-next-line
       isToggleable,
       showToggler,
-      // eslint-disable-next-line
       toggleOpenState
     } = this.props
 
@@ -50,10 +46,26 @@ PanelHeaderFooter.defaultProps = {
 }
 
 PanelHeaderFooter.propTypes = {
+  children: PropTypes.node,
+  /**
+   * Boolean to control if <PanelBody/> is initially opened. Is always passed from parent.
+   */
+  isOpen: PropTypes.bool,
+  /**
+   * Boolean to control if body can be opened or closed. Is always passed from parent.
+   */
+  isToggleable: PropTypes.bool,
   /**
    * Show or hide button if needed. Default value is 'true'.
    */
   showToggler: PropTypes.bool,
+  /**
+   * Function executed on button click to control accordion. Is always passed from parent.
+   */
+  toggleOpenState: PropTypes.func,
+  /**
+   * Define popup text for buttons.
+   */
   options: PropTypes.shape({
     collapseButtonText: PropTypes.string,
     unfoldButtonText: PropTypes.string

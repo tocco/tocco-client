@@ -30,7 +30,6 @@ class PanelBody extends React.Component {
 
   render() {
     const {
-      // eslint-disable-next-line
       children,
       isOpen
     } = this.props
@@ -48,6 +47,7 @@ class PanelBody extends React.Component {
 }
 
 PanelBody.propTypes = {
+  children: PropTypes.node,
   /**
    * Boolean to control if <PanelBody/> is initially opened. Value is always overridden by parent element.
    */
