@@ -10,16 +10,12 @@ describe('tocco-ui', function() {
       expect(Icon.defaultProps.animation).to.equal('none')
     })
 
-    it('should pass 8 props to StyledIcon', () => {
+    it('should pass 4 props to StyledIcon', () => {
       const wrapper = shallow(
         <Icon
           animation="none"
           dense={true}
           icon="fa-bar"
-          onClickFunction={() => alert('on click')}
-          onMouseEnterFunction={() => alert('on mouse enter')}
-          onMouseLeaveFunction={() => alert('on mouse leave')}
-          onMouseDownFunction={() => alert('on mouse down')}
           position="between"
         />
       )
@@ -28,20 +24,12 @@ describe('tocco-ui', function() {
         animation,
         className,
         dense,
-        onClick,
-        onMouseEnter,
-        onMouseLeave,
-        onMouseDown,
         position
       } = props
-      expect(Object.keys(props)).to.have.lengthOf(9)
+      expect(Object.keys(props)).to.have.lengthOf(5)
       expect(animation).to.equal('none')
       expect(className).to.equal('fa fa-bar icon')
       expect(dense).to.be.true
-      expect(onClick).to.be.a('function')
-      expect(onMouseEnter).to.be.a('function')
-      expect(onMouseLeave).to.be.a('function')
-      expect(onMouseDown).to.be.a('function')
       expect(position).to.equal('between')
     })
 

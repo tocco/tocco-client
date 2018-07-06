@@ -32,10 +32,6 @@ const Icon = props => {
       animation={props.animation}
       className={getClassName(props.icon, props.animation)}
       dense={props.dense}
-      onClick={props.onClickFunction}
-      onMouseEnter={props.onMouseEnterFunction}
-      onMouseLeave={props.onMouseLeaveFunction}
-      onMouseDown={props.onMouseDownFunction}
       position={props.position}
     >
       {props.unicode}
@@ -67,10 +63,6 @@ Icon.propTypes = {
    * Specify if icon is positioned next to text or not to control spacing. Default value is 'prepend'.
    */
   position: positionPropTypes,
-  onClickFunction: PropTypes.func,
-  onMouseEnterFunction: PropTypes.func,
-  onMouseLeaveFunction: PropTypes.func,
-  onMouseDownFunction: PropTypes.func,
   /*
    * Display one or more unicode characters. Use unicode escape string (e.g. \u2022).
    * Font Awesome styling is used. If prop icon and unicode is used together, icon prepend unicode characters.
