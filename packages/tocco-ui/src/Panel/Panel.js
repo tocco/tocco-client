@@ -18,17 +18,13 @@ class Panel extends React.Component {
   }
 
   render() {
-    const {
-      isToggleable
-    } = this.props
-
     return (
       <div>
         {
           React.Children.map(this.props.children, child =>
             React.cloneElement(child, {
               isOpen: this.state.isOpen,
-              isToggleable: isToggleable,
+              isToggleable: this.props.isToggleable,
               toggleOpenState: this.toggleOpenState
             })
           )
