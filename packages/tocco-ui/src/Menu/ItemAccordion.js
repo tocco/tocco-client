@@ -27,7 +27,6 @@ class ItemAccordion extends Item {
       <StyledItemAccordion
         innerRef={node => { this.node = node }}
         isOpen={this.state.isOpen}
-        isToggleable={this.props.isToggleable}
       >
         <Button
           ink={this.props.ink}
