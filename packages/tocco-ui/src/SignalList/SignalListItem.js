@@ -27,7 +27,7 @@ const getIcon = props => {
  */
 const SignalListItem = props =>
   <StyledSignalListItem condition={props.condition}>
-    <Icon {...getIcon(props)} position={stylingPosition.BEFORE}/>
+    <Icon {...getIcon(props)} position={stylingPosition.SOLE}/>
     {props.label}
     {React.Children.map(props.children, child => React.cloneElement(child))}
   </StyledSignalListItem>

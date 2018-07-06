@@ -59,7 +59,7 @@ const declareButtonColor = props => {
 }
 
 const declareIconPosition = props => {
-  if (props.iconPosition === stylingPosition.AFTER) {
+  if (props.iconPosition === stylingPosition.APPEND) {
     return `
       justify-content: space-between;
       > span {

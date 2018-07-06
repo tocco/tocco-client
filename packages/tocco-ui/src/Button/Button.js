@@ -34,19 +34,19 @@ const Button = props => {
       {props.icon && <Icon
         dense={props.dense}
         icon={props.icon}
-        position={props.label ? props.iconPosition : stylingPosition.solely}/>}
+        position={props.label ? props.iconPosition : stylingPosition.sole}/>}
       {props.pending && <Icon
         animation={stylingAnimation.SPIN}
         dense={props.dense}
         icon="fa-spinner"
-        position={props.label ? props.iconPosition : stylingPosition.solely}/>}
+        position={props.label ? props.iconPosition : stylingPosition.sole}/>}
       {props.label && <span>{props.label}</span>}
     </StyledButton>
   )
 }
 
 Button.defaultProps = {
-  iconPosition: stylingPosition.BEFORE,
+  iconPosition: stylingPosition.PREPEND,
   look: stylingLook.FLAT,
   type: 'button'
 }
@@ -75,10 +75,10 @@ Button.propTypes = {
    */
   icon: PropTypes.string,
   /**
-   * Position icon before or after label. Use 'solely' if label text is omitted. Default value is 'before'.
-   * Possible values: after|before|solely
+   * Prepend icon or append icon to label. Use 'sole' if label text is omitted. Default value is 'prepend'.
+   * Possible values: append|prepend|sole
    */
-  iconPosition: PropTypes.oneOf([stylingPosition.AFTER, stylingPosition.BEFORE, stylingPosition.SOLELY]),
+  iconPosition: PropTypes.oneOf([stylingPosition.APPEND, stylingPosition.PREPEND, stylingPosition.SOLE]),
   /**
    * Specify color palette. Default value is 'base'.
    */

@@ -127,7 +127,7 @@ describe('tocco-ui', function() {
       )
       const {iconPosition, look, type} = wrapper.props()
       const {ink} = wrapper.dive().props()
-      expect(iconPosition).to.equal('before')
+      expect(iconPosition).to.equal('prepend')
       expect(ink).to.equal('base')
       expect(look).to.equal('flat')
       expect(type).to.equal('button')

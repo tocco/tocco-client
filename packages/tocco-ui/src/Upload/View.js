@@ -11,7 +11,7 @@ const View = props => (
     <div>
       <ButtonLink
         icon="fa-download"
-        iconPosition="solely"
+        iconPosition="sole"
         download={props.value.fileName}
         href={props.value.binaryLink}
         title={props.downloadTitle || 'download'}
@@ -19,7 +19,7 @@ const View = props => (
       {!props.readOnly
       && <Button
         icon="fa-trash-o"
-        iconPosition="solely"
+        iconPosition="sole"
         onClick={() => props.onUpload(null)}
         title={props.deleteTitle || 'delete'}
       />

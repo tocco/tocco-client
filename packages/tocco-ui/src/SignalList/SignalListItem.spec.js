@@ -13,7 +13,7 @@ describe('tocco-ui', function() {
       const {condition} = wrapper.props()
       expect(condition).to.equal('base')
       const {position, animation} = wrapper.find(Icon).props()
-      expect(position).to.equal('before')
+      expect(position).to.equal('sole')
       expect(animation).to.equal('none')
     })
 

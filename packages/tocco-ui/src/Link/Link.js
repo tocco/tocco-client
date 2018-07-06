@@ -18,7 +18,7 @@ const Link = props => {
       title={props.title || (props.breakWords ? undefined : props.label)}
       breakWords={props.breakWords}
     >
-      {props.icon && <Icon icon={props.icon} position={stylingPosition.BEFORE}/>}
+      {props.icon && <Icon icon={props.icon} position={stylingPosition.PREPEND}/>}
       {props.label}
     </StyledLink>
   )

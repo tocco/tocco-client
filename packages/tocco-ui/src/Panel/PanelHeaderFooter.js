@@ -33,7 +33,7 @@ class PanelHeaderFooter extends React.Component {
             icon={isOpen ? 'fa-minus' : 'fa-plus'}
             onClick={toggleOpenState}
             title={isOpen ? this.props.options.collapseButtonText : this.props.options.unfoldButtonText}
-            iconPosition="solely"
+            iconPosition="sole"
           />
         }
       </StyledPanelHeaderFooter>

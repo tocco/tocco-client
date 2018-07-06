@@ -20,7 +20,7 @@ const UploadInput = props => {
     >
       <Icon
         icon="fa-upload"
-        position={stylingPosition.BEFORE}
+        position={stylingPosition.PREPEND}
       />
       {props.text || 'drag and drop or click'}
     </Dropzone>

@@ -58,7 +58,7 @@ describe('tocco-ui', () => {
       expect(Icon).to.have.length(1)
       expect(Icon.prop('animation')).to.equal('none')
       expect(Icon.prop('icon')).to.equal('fa-file-text-o')
-      expect(Icon.prop('position')).to.equal('solely')
+      expect(Icon.prop('position')).to.equal('sole')
     })
 
     it('add figcaption only if caption in provided', () => {

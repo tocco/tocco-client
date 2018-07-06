@@ -45,7 +45,7 @@ const Icon = props => {
 
 Icon.defaultProps = {
   animation: stylingAnimation.NONE,
-  position: stylingPosition.SOLELY
+  position: stylingPosition.SOLE
 }
 
 Icon.propTypes = {
@@ -64,7 +64,7 @@ Icon.propTypes = {
    */
   dense: PropTypes.bool,
   /**
-   * If icon is positioned next to text or not specifiy it to control flow. Default value is 'before'.
+   * Specify if icon is positioned next to text or not to control spacing. Default value is 'prepend'.
    */
   position: positionPropTypes,
   onClickFunction: PropTypes.func,

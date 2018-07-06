@@ -26,10 +26,10 @@ const look = {
 }
 
 const position = {
-  AFTER: 'after',
-  BEFORE: 'before',
+  APPEND: 'append',
   BETWEEN: 'between',
-  SOLELY: 'solely'
+  PREPEND: 'prepend',
+  SOLE: 'sole'
 }
 
 const oneOfPropTypeAndCompletelyMapped = (completeMap, potentialIncompleteMap) => {

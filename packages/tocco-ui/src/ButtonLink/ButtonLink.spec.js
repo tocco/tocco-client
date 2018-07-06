@@ -21,7 +21,7 @@ describe('tocco-ui', function() {
       expect(href).to.equal('#')
       expect(ink).to.equal('base')
       expect(look).to.equal('flat')
-      expect(ButtonLink.defaultProps.iconPosition).to.equal('before')
+      expect(ButtonLink.defaultProps.iconPosition).to.equal('prepend')
     })
 
     it('should pass 8 props to StyledButtonLink', () => {
@@ -57,7 +57,7 @@ describe('tocco-ui', function() {
       expect(look).to.equal('raised')
       expect(melt).to.be.true
       expect(title).to.equal('title text')
-      expect(ButtonLink.defaultProps.iconPosition).to.equal('before')
+      expect(ButtonLink.defaultProps.iconPosition).to.equal('prepend')
     })
 
     it('should display icon', () => {
