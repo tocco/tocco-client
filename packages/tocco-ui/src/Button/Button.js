@@ -23,7 +23,6 @@ const Button = props => {
       ink={props.ink || props.buttonGroupInk || stylingInk.BASE}
       look={props.look}
       melt={props.buttonGroupMelt}
-      name={props.name}
       onClick={props.onClick}
       onMouseDown={props.onMouseDown}
       onMouseEnter={props.onMouseEnter}
@@ -91,10 +90,6 @@ Button.propTypes = {
    * Look of button. Default value is 'flat'.
    */
   look: PropTypes.oneOf([stylingLook.FLAT, stylingLook.RAISED]),
-  /**
-   * Set button's name for internal references.
-   */
-  name: PropTypes.string,
   /**
    * Function that will be triggered on click event.
    */
