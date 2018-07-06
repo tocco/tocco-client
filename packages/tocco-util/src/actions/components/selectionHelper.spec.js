@@ -37,7 +37,7 @@ describe('tocco-util', () => {
             expect(selectionText(1, {minSelection: null, maxSelection: null}, IntlStub)).to.be.null
           })
 
-          it('should return none empty text if selection is incorrect', done => {
+          it('should return none empty text if selection is incorrect', function(done) {
             console.log('<<<<1')
             try {
               expect(selectionText(1, {minSelection: 2, maxSelection: null}, IntlStub)).to.not.be.empty
