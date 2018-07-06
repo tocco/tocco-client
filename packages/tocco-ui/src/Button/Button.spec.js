@@ -35,15 +35,6 @@ describe('tocco-ui', function() {
       expect(wrapper.find('button').text()).to.equal('test')
     })
 
-    it('should add name property', () => {
-      const wrapper = mount(
-        <ThemeProvider theme={theme}>
-          <Button name="test_name"/>
-        </ThemeProvider>
-      )
-      expect(wrapper.find('button').prop('name')).to.equal('test_name')
-    })
-
     it('should be disabled and hidden', () => {
       let wrapper = mount(
         <ThemeProvider theme={theme}>
