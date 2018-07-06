@@ -75,7 +75,7 @@ export default (
     const entityField = entity ? entity.paths[fieldName] : null
     const modelSelector = formDefinitionField.path
       ? formDefinitionField.path.split('.')[0]
-      : model[formDefinitionField.id]
+      : formDefinitionField.id
     const modelField = model[modelSelector]
 
     const shouldRenderField = (formDefinitionField, entityField) => {
