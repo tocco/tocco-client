@@ -15,7 +15,7 @@
     "test:saucelabs": "NODE_ENV=test DISABLE_ISTANBUL_COVERAGE=true babel-node ./node_modules/karma/bin/karma start build/karma-saucelabs.conf",
     "test:dev": "npm run test -- --watch",
     "codecov": "cat ./coverage/lcov/lcov.info | codecov",
-    "setup": "yarn && cd server/static && yarn",
+    "setup": "yarn && cd server/static && yarn && cd .. && lerna bootstrap --ignore-scripts",
     "plop": "babel-node ./node_modules/plop",
     "commitmsg": "babel-node githooks/msg-validation",
     "precommit": "npm run lint"
