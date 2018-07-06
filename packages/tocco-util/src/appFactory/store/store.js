@@ -60,6 +60,8 @@ export const hotReloadReducers = (store, reducers) => {
   }
   const combinedReducers = combineReducers(allReducers)
   store.replaceReducer(combinedReducers)
+  // workaround to support redux 4.0 and dev-tools: https://github.com/reduxjs/redux/issues/2943
+  store.dispatch({type: 'replaceReducer'})
   store.allReducers = allReducers
 }
 
