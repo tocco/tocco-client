@@ -24,9 +24,6 @@ const Button = props => {
       look={props.look}
       melt={props.buttonGroupMelt}
       onClick={props.onClick}
-      onMouseDown={props.onMouseDown}
-      onMouseEnter={props.onMouseEnter}
-      onMouseLeave={props.onMouseLeave}
       title={props.title}
       type={props.type}
     >
@@ -94,18 +91,6 @@ Button.propTypes = {
    * Function that will be triggered on click event.
    */
   onClick: PropTypes.func,
-  /**
-   * Function that will be triggered on mouse enter event.
-   */
-  onMouseEnter: PropTypes.func,
-  /**
-   * Function that will be triggered on mouse leave event.
-   */
-  onMouseLeave: PropTypes.func,
-  /**
-   * Function that will be triggered on mouse down event.
-   */
-  onMouseDown: PropTypes.func,
   /**
   * If true, an animated spinner icon is prepended.
   */
