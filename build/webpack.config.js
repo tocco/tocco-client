@@ -163,7 +163,7 @@ if (!process || !process.env || !process.env.DISABLE_ISTANBUL_COVERAGE) {
   }])
 }
 
-if (argv.analyze) {
+if (argv['bundle-analyzer']) {
   webpackConfig.plugins.push(new BundleAnalyzerPlugin({
     analyzerMode: 'static',
     openAnalyzer: true

@@ -106,7 +106,7 @@ yarn compile:dev --package={PACKAGE_NAME}
 yarn compile:prod --package={PACKAGE_NAME}
 ```
 
-Optional a `--analyze` parameter can be added to open webpack-analyzer to investigate the bundle size. 
+Optional the `--bundle-analyzer` parameter can be added to open BundleAnalyzerPlugin to investigate the bundle sizes. 
 
 ## Linting
 Eslint is used for linting. Linting will also be executed automatically on our CI.
