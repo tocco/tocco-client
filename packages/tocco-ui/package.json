@@ -12,7 +12,7 @@
     "react-dom": "^15.2.1"
   },
   "devDependencies": {
-    "flatpickr": "^4.4.4",
+    "flatpickr": "^4.5.1",
     "libphonenumber-js": "^1.2.15",
     "react-autosize-textarea": "^0.4.3",
     "react-dropzone": "^4.1.3",
