@@ -7,6 +7,8 @@ const UploadProgress = props => (
   <div>
     <Preview
       caption={props.file.name}
+      maxDimensionX="96px"
+      maxDimensionY="96px"
       srcUrl={props.file.preview}
       thumbnailUrl={props.file.type.startsWith('image') ? props.file.preview : null}
     />

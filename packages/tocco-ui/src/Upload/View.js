@@ -26,10 +26,12 @@ const View = props => (
       }
     </div>
     <Preview
+      alt={props.value.fileName}
+      caption={props.value.fileName}
+      maxDimensionX="96px"
+      maxDimensionY="96px"
       srcUrl={props.value.binaryLink}
       thumbnailUrl={props.value.thumbnailLink}
-      caption={props.value.fileName}
-      alt={props.value.fileName}
     />
   </StyledView>
 )

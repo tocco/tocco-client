@@ -23,7 +23,8 @@ const StyledPreview = styled.figure`
     }
 
     img {
-      max-width: 100%;
+      max-width: ${props => props.maxDimensionX || '100%'};
+      max-height: ${props => props.maxDimensionY || '100%'};
       ${props => declareInteraction(props)}
     }
 
