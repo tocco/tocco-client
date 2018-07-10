@@ -205,7 +205,6 @@ webpackConfig.module.rules = [
           }
         }],
         'transform-runtime',
-        'transform-flow-strip-types',
         'syntax-dynamic-import'
       ],
       presets: [
@@ -222,7 +221,6 @@ webpackConfig.module.rules = [
           ]
         },
         development: {
-          plugins: ['flow-react-proptypes'],
           presets: [
             'react-hmre'
           ]

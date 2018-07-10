@@ -2,15 +2,12 @@
   "parser"  : "babel-eslint",
   "extends" : [
     "standard",
-    "plugin:flowtype/recommended",
     "plugin:react/recommended"
   ],
   "plugins": [
     "babel",
     "react",
     "promise",
-    "flowtype-errors",
-    "flowtype",
     "import",
     "chai-friendly"
   ],
@@ -60,8 +57,6 @@
     "react/no-unused-prop-types": 0, // temporary disabled until this issue is solved: https://github.com/yannickcr/eslint-plugin-react/issues/1135
 
     "jsx-quotes": [2, "prefer-double"],
-
-    "flowtype-errors/show-errors": 2,
 
     // "no-duplicate-imports" rule does not support importing types ("import type ...") and
     // regular values from the same module. Therefore, we have to use "import/no-duplicates",

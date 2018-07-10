@@ -10,7 +10,6 @@ This project is based on following technologies, tools and libraries:
 * [React](https://facebook.github.io/react/)
 * [Redux](https://github.com/reactjs/redux)
 * [redux-saga](https://github.com/yelouafi/redux-saga)
-* [flowtype](https://flowtype.org/)
 * [npm](https://www.npmjs.com/)
 * [webpack](https://webpack.github.io/)
 * [Lerna](https://lernajs.io/)

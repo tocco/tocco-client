@@ -10,6 +10,7 @@ const DocumentFormatter = props => (
       onClick={e => e.stopPropagation()}
       className="action btn btn-default"
       target="_blank"
+      rel="noopener noreferrer"
     >
       <i className="fa fa-download" aria-hidden="true"></i>
     </a>
