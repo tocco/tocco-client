@@ -42,7 +42,11 @@ const Preview = props => {
   const interactive = ((props.downloadOnClick && props.srcUrl) || props.onClick)
 
   return (
-    <StyledPreview interactive={interactive}>
+    <StyledPreview
+      interactive={interactive}
+      maxDimensionX={props.maxDimensionX}
+      maxDimensionY={props.maxDimensionY}
+    >
       {imageWrapper}
       {props.caption && <Figcaption>{props.caption}</Figcaption>}
     </StyledPreview>
@@ -72,6 +76,20 @@ Preview.propTypes = {
    * thumbnailLink as arguments. onClick overrules downloadOnClick.
    */
   onClick: PropTypes.func,
+  maxDimensionX: function(props, propName, componentName) {
+    if (props[propName] !== undefined && !/^[1-9][0-9]*(px|em|rem|fr|%|vh|vw|vmin|vmax)$/.test(props[propName])) {
+      return new Error(
+        `Invalid prop ${propName} supplied to ${componentName} (${props.maxDimension}).`
+      )
+    }
+  },
+  maxDimensionY: function(props, propName, componentName) {
+    if (props[propName] !== undefined && !/^[1-9][0-9]*(px|em|rem|fr|%|vh|vw|vmin|vmax)$/.test(props[propName])) {
+      return new Error(
+        `Invalid prop ${propName} supplied to ${componentName} (${props.maxDimension}).`
+      )
+    }
+  },
   /**
    * The url to the document (can be any kind of file).
    */

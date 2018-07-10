@@ -11,6 +11,8 @@ export default () => {
         alt="orange jellyfish floating in the deep blue sea"
         srcUrl="https://picsum.photos/500/500?image=1069"
         thumbnailUrl="https://picsum.photos/150/150?image=1069"
+        maxDimensionY="130px"
+        maxDimensionX="120px"
       />
       <Preview
         alt="hundreds of juicy strawberries tempting to degustate"
