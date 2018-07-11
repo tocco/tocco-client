@@ -29,6 +29,7 @@ import {
   positionPropTypes
 } from './stylingConstants'
 import assertObjectValuesMatchOtherObjectKeys from './assertObjectValuesMatchOtherObjectKeys'
+import {validateCssDimension} from './propTypesValidator'
 export {
   animationPropTypes,
   conditionPropTypes,
@@ -54,5 +55,6 @@ export {
   stylingCondition,
   stylingInk,
   stylingLook,
-  stylingPosition
+  stylingPosition,
+  validateCssDimension
 }
