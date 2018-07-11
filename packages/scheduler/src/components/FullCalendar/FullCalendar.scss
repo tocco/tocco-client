@@ -40,3 +40,14 @@
     text-overflow: ellipsis;
   }
 }
+
+.tocco-resource-scheduler {
+  .popover {
+    min-width: 500px;
+    max-width: 600px;
+
+    .popover-content {
+      width: 100%;
+    }
+  }
+}

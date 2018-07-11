@@ -68,16 +68,19 @@ class FullCalendar extends React.Component {
     },
     eventClick: event => this.props.onEventClick(event),
     eventRender: (event, element) => {
-      const content = <div>
-        <p>{event.description}</p>
+      const reservation = event.start.twix(event.end).format({monthFormat: 'MMMM', dayFormat: 'Do'})
+
+      const tooltipDescriptionContent = <p dangerouslySetInnerHTML={{__html: `
+        <p>${event.description}</p>
         <p>
-          <i className="fa fa-clock-o" style={{paddingRight: '10px'}} aria-hidden="true"></i>
-          {event.start.twix(event.end).format({monthFormat: 'MMMM', dayFormat: 'Do'})}
-        </p>
-        <p>
-          <Conflict conflictStatus={event.conflict} intl={this.props.intl}/>
-        </p>
-      </div>
+          <i class="fa fa-clock-o" style="padding-right:10px" aria-hidden="true"></i>${reservation}
+        </p>`
+      }} />
+
+      const tooltipConflictContent = <p><Conflict conflictStatus={event.conflict} intl={this.props.intl}/></p>
+
+      const content = [tooltipDescriptionContent, tooltipConflictContent]
+        .map(element => ReactDOMServer.renderToString(element)).join('')
 
       window.jQuery(element).popover({
         title: event.title,
@@ -86,7 +89,10 @@ class FullCalendar extends React.Component {
         trigger: 'hover',
         html: true,
         container: `.${this.state.wrapperId}`,
-        content: ReactDOMServer.renderToString(content)
+        content: `
+          <div>
+            ${content}
+          </div>`
       })
     }
   }
