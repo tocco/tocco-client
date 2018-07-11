@@ -5,6 +5,7 @@ import Icon from '../Icon'
 import Link from '../Link'
 import {Figcaption} from '../Typography'
 import StyledPreview from './StyledPreview'
+import {validateCssDimension} from '../utilStyles'
 
 /**
  * Use <Preview> to display a preview of any kind of file. Provide URLs to thumbnail and file.
@@ -76,20 +77,14 @@ Preview.propTypes = {
    * thumbnailLink as arguments. onClick overrules downloadOnClick.
    */
   onClick: PropTypes.func,
-  maxDimensionX: function(props, propName, componentName) {
-    if (props[propName] !== undefined && !/^[1-9][0-9]*(px|em|rem|fr|%|vh|vw|vmin|vmax)$/.test(props[propName])) {
-      return new Error(
-        `Invalid prop ${propName} supplied to ${componentName} (${props.maxDimension}).`
-      )
-    }
-  },
-  maxDimensionY: function(props, propName, componentName) {
-    if (props[propName] !== undefined && !/^[1-9][0-9]*(px|em|rem|fr|%|vh|vw|vmin|vmax)$/.test(props[propName])) {
-      return new Error(
-        `Invalid prop ${propName} supplied to ${componentName} (${props.maxDimension}).`
-      )
-    }
-  },
+  /**
+   * Declare maximal width of displayed image as css property.
+   */
+  maxDimensionX: validateCssDimension,
+  /**
+   * Declare maximal height of displayed image as css property.
+   */
+  maxDimensionY: validateCssDimension,
   /**
    * The url to the document (can be any kind of file).
    */
