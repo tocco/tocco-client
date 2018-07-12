@@ -30,7 +30,7 @@ class RemoteSelect extends React.Component {
           placeholder=""
           clearValueText={this.props.options.clearValueText}
           searchPromptText={this.props.options.searchPromptText}
-          noResultsText={this.props.options.noResultsText}
+          noResultsText={ this.props.options.isLoading ? '' : this.props.options.noResultsText}
           multi={false}
           value={this.props.value}
           onChange={this.props.onChange}
@@ -38,7 +38,9 @@ class RemoteSelect extends React.Component {
           filterOption={() => (true)}
           autoload={false}
           onInputChange={searchTerm => {
-            this.props.options.fetchOptions(searchTerm)
+            if (searchTerm) {
+              this.props.options.fetchOptions(searchTerm)
+            }
           }}
           options={this.getOptions()}
           isLoading={this.props.options.isLoading}
