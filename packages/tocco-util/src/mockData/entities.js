@@ -1,4 +1,5 @@
 import consoleLogger from '../consoleLogger'
+import _get from 'lodash/get'
 import {sleep} from './mockData'
 
 export const setupEntities = (fetchMock, entityStore, timeout) => {
@@ -130,8 +131,9 @@ const createEntitiesResponse = (entityName, entityStore, timeout) => {
       const fieldName = parts[0]
       const direction = parts[1]
       entities.sort((a, b) => {
-        const A = a.paths[fieldName].value.value || 0
-        const B = b.paths[fieldName].value.value || 0
+        const path = 'paths.' + [fieldName] + '.value.value'
+        const A = _get(a, path, 0)
+        const B = _get(b, path, 0)
         return ((A < B) ? -1 : ((A > B) ? 1 : 0))
       })
       if (direction === 'desc') {
@@ -142,6 +144,8 @@ const createEntitiesResponse = (entityName, entityStore, timeout) => {
     let result
     if (searchTerm === 'few') {
       result = wrapEntitiesResponse(entityName, entities.slice(0, 5))
+    } else if (searchTerm === 'none') {
+      result = wrapEntitiesResponse(entityName, [])
     } else {
       result = wrapEntitiesResponse(entityName, entities.slice(offset, offset + limit))
     }
