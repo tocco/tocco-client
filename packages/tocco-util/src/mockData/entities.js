@@ -125,6 +125,7 @@ const createEntitiesResponse = (entityName, entityStore, timeout) => {
     const offset = parseInt(getParameterValue('_offset', url)) || 0
     const orderBy = getParameterValue('_sort', url)
     const searchTerm = getParameterValue('_search', url)
+    const query = getParameterValue('_where', url)
 
     if (orderBy) {
       const parts = orderBy.split(' ')
@@ -142,8 +143,8 @@ const createEntitiesResponse = (entityName, entityStore, timeout) => {
     }
 
     let result
-    if (searchTerm === 'few') {
-      result = wrapEntitiesResponse(entityName, entities.slice(0, 5))
+    if (searchTerm === 'few' || query) {
+      result = wrapEntitiesResponse(entityName, entities.slice(0, 3))
     } else if (searchTerm === 'none') {
       result = wrapEntitiesResponse(entityName, [])
     } else {
