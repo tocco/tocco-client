@@ -5,12 +5,6 @@ export const SUBMIT_FORM = 'entityDetail/SUBMIT_FORM'
 export const SET_LAST_SAVE = 'entityDetail/SET_LAST_SAVE'
 export const SET_ENTITY_MODEL = 'entityDetail/SET_ENTITY_MODEL'
 export const UNLOAD_DETAIL_VIEW = 'entityDetail/UNLOAD_DETAIL_VIEW'
-export const LOAD_RELATION_ENTITY = 'entityDetail/LOAD_RELATION_ENTITY'
-export const SET_RELATION_ENTITY = 'entityDetail/SET_RELATION_ENTITY'
-export const SET_RELATION_ENTITY_LOADED = 'entityDetail/SET_RELATION_ENTITY_LOADED'
-export const LOAD_REMOTE_ENTITY = 'entityDetail/LOAD_REMOTE_ENTITY'
-export const SET_REMOTE_ENTITY = 'entityDetail/SET_REMOTE_ENTITY'
-export const SET_REMOTE_ENTITY_LOADING = 'entityDetail/SET_REMOTE_ENTITY_LOADING'
 export const FIRE_TOUCHED = 'entityDetail/FIRE_TOUCHED'
 export const SET_TOUCHED = 'entityDetail/SET_TOUCHED'
 export const SET_ENTITY_NAME = 'entityDetail/SET_ENTITY_NAME'
@@ -63,54 +57,6 @@ export const setEntityModel = entityModel => ({
 
 export const unloadDetailView = () => ({
   type: UNLOAD_DETAIL_VIEW
-})
-
-export const loadRelationEntity = entityName => ({
-  type: LOAD_RELATION_ENTITY,
-  payload: {
-    entityName
-  }
-})
-
-export const setRelationEntityLoaded = entityName => ({
-  type: SET_RELATION_ENTITY_LOADED,
-  payload: {
-    entityName
-  }
-})
-
-export const setRelationEntity = (entityName, entities, reset = false) => ({
-  type: SET_RELATION_ENTITY,
-  payload: {
-    entityName,
-    entities,
-    reset
-  }
-})
-
-export const loadRemoteEntity = (field, entityName, searchTerm) => ({
-  type: LOAD_REMOTE_ENTITY,
-  payload: {
-    field,
-    entityName,
-    searchTerm
-  }
-})
-
-export const setRemoteEntity = (field, entities, moreOptionsAvailable) => ({
-  type: SET_REMOTE_ENTITY,
-  payload: {
-    field,
-    entities,
-    moreOptionsAvailable
-  }
-})
-
-export const setRemoteEntityLoading = field => ({
-  type: SET_REMOTE_ENTITY_LOADING,
-  payload: {
-    field
-  }
 })
 
 export const fireTouched = touched => ({

@@ -12,20 +12,17 @@ import {
   loadDetailView,
   unloadDetailView,
   submitForm,
-  loadRelationEntity,
-  loadRemoteEntity,
   uploadDocument,
   fireTouched
 } from '../modules/entityDetail/actions'
 import DetailView from '../components/DetailView/DetailView'
-import {errorLogging} from 'tocco-util'
+import {errorLogging, formData} from 'tocco-util'
 
 const mapActionCreators = {
   loadDetailView,
   unloadDetailView,
   submitForm,
-  loadRelationEntity,
-  loadRemoteEntity,
+  loadRelationEntities: formData.loadRelationEntities,
   uploadDocument,
   logError: errorLogging.logError,
   fireTouched
@@ -40,8 +37,7 @@ const mapStateToProps = (state, props) => {
   return {
     formDefinition: state.entityDetail.formDefinition,
     entity: state.entityDetail.entity,
-    relationEntities: state.entityDetail.relationEntities,
-    remoteEntities: state.entityDetail.remoteEntities,
+    relationEntities: formData.relationEntitiesSelector(state),
     entityModel: state.entityDetail.entityModel,
     entityName: state.entityDetail.entityName,
     entityId: state.entityDetail.entityId,
