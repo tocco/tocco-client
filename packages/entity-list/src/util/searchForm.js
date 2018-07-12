@@ -1,6 +1,7 @@
 import {call} from 'redux-saga/effects'
 import _get from 'lodash/get'
-import {loadRelationEntity as loadRelationEntityAction} from '../modules/searchForm/actions'
+import _join from 'lodash/join'
+import {fetchEntities} from 'tocco-util/src/rest'
 
 export function* getPreselectedValues(preselectedSearchFields, entityModel, loadRelationEntity, searchFormVisible) {
   const formValues = {}
@@ -13,14 +14,10 @@ export function* getPreselectedValues(preselectedSearchFields, entityModel, load
       let entities = []
       if (!preselectedSearchField.hidden && searchFormVisible) {
         const targetEntity = entityModel[fieldName].targetEntity
-        entities = yield call(loadRelationEntity, loadRelationEntityAction(targetEntity))
+        const query = `IN(pk,${_join(value, ',')})`
+        entities = yield call(fetchEntities, targetEntity, {query, fields: ['pk']})
       }
-
-      if (Array.isArray(value)) {
-        transformedValue = value.map(key => ({key, display: getDisplay(key, entities)}))
-      } else {
-        transformedValue = {key: value, display: getDisplay(value, entities)}
-      }
+      transformedValue = entities
     } else {
       transformedValue = value
     }
@@ -31,5 +28,5 @@ export function* getPreselectedValues(preselectedSearchFields, entityModel, load
   return formValues
 }
 
-export const NOT_LOADED_DISPLAY = '..'
-export const getDisplay = (key, entities) => _get(entities.find(e => e.key === key), 'display', NOT_LOADED_DISPLAY)
+export const NOT_FOUND_DISPLAY = '??'
+export const getDisplay = (key, entities) => _get(entities.find(e => e.key === key), 'display', NOT_FOUND_DISPLAY)
