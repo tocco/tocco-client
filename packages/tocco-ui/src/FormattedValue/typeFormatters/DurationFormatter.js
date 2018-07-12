@@ -1,18 +1,19 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedDate} from 'react-intl'
+import moment from 'moment'
 
 import {Time} from '../../Typography'
 
 const DurationFormatter = props => {
   const milliSeconds = parseInt(props.value)
   const date = new Date(2000, 1, 1, 0, 0, 0, milliSeconds)
-  const twoDigits = n => { return String('00' + n).slice(-2) }
-  const durationIso = `${twoDigits(date.getHours())}:${twoDigits(date.getMinutes())}:${twoDigits(date.getSeconds())}`
+  const durationIsoMs = moment(date).format(moment.HTML5_FMT.TIME_MS)
+  const durationIsoS = moment(date).format(moment.HTML5_FMT.TIME_SECONDS)
   return (
     <Time
-      dateTime={durationIso}
-      title={durationIso}
+      dateTime={durationIsoMs}
+      title={durationIsoS}
     >
       <FormattedDate
         value={date}

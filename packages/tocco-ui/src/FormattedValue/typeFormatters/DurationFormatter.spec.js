@@ -20,13 +20,15 @@ describe('tocco-ui', () => {
 
       it('should format value', () => {
         const durationMilliseconds = 83000
-        const durationFormated = '00:01:23'
+
+        const durationFormatedS = '00:01:23'
+        const durationFormatedMs = '00:01:23.000'
 
         const wrapper = mount(<IntlProvider locale="en"><DurationFormatter
           value={durationMilliseconds}/></IntlProvider>)
-        expect(wrapper.find('time').prop('title')).to.equal(durationFormated)
-        expect(wrapper.find('time').prop('dateTime')).to.equal(durationFormated)
-        expect(wrapper.find('span').text().replace(leftToRightMark, '')).to.equal(durationFormated)
+        expect(wrapper.find('time').prop('title')).to.equal(durationFormatedS)
+        expect(wrapper.find('time').prop('dateTime')).to.equal(durationFormatedMs)
+        expect(wrapper.find('span').text().replace(leftToRightMark, '')).to.equal(durationFormatedS)
       })
     })
   })

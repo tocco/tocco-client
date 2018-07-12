@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedTime, injectIntl, intlShape} from 'react-intl'
+import moment from 'moment'
 
 import {Time} from '../../Typography'
 
@@ -9,11 +10,8 @@ const TimeFormatter = props => {
   const minutes = parseInt(props.value.value.minuteOfHour) || 0
   const seconds = parseInt(props.value.value.secondOfMinute) || 0
   const milliSeconds = parseInt(props.value.value.millisOfSecond) || 0
-
   const date = new Date(2000, 1, 1, hours, minutes, seconds, milliSeconds)
-
-  const twoDigits = n => { return String('00' + n).slice(-2) }
-  const timeIso = `${twoDigits(date.getHours())}:${twoDigits(date.getMinutes())}`
+  const timeIso = moment(date).format(moment.HTML5_FMT.TIME_MS)
 
   return (
     <Time
