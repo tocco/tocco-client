@@ -18,6 +18,9 @@ Can be added to the store to call external events/callback from anywhere with an
 Utils for redux forms (`redux-form`).
 
 #### formField
+Helps loading form data such as relation entities from remote and select fields.
+
+#### formField
 Helper to create tocco-ui FormField component.
 
 #### intl

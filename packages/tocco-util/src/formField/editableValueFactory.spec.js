@@ -58,7 +58,7 @@ describe('tocco-util', () => {
 
         const loadUtilSpy = sinon.spy()
         const util = {
-          loadRemoteEntity: loadUtilSpy,
+          loadRelationEntities: loadUtilSpy,
           intl: {
             formatMessage: v => (v.id)
           }
