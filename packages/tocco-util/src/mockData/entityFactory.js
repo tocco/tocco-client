@@ -148,6 +148,14 @@ export const createUsers = amount => {
             type: 'boolean',
             writable: true
           }
+        },
+        update_timestamp: {
+          type: 'field',
+          value: {
+            value: getRandomDate(new Date().getFullYear() - 1, new Date().getFullYear()),
+            type: 'updatets',
+            writable: false
+          }
         }
       }
     })

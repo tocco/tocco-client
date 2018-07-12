@@ -132,7 +132,21 @@
             "hidden": true,
             "scopes": [ ]
           },
-
+          {
+            "componentType": "field-set",
+            "id": "relChildren",
+            "hidden": false,
+            "label": "Children (multi remote)",
+            "scopes": [],
+            "children": [
+              {
+                "id": "relChildren",
+                "dataType": "multi-remote-field",
+                "componentType": "field",
+                "label": null
+              }
+            ]
+          },
           {
             "id": "Dummy Mehrstufig",
             "label": "Person-Nr.",
