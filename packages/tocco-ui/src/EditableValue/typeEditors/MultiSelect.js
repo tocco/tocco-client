@@ -21,12 +21,13 @@ const MultiSelect = props => {
         labelKey="display"
         clearable
         placeholder=""
-        noResultsText="-"
+        noResultsText={props.options.isLoading ? '' : props.options.noResultsText}
         value={props.value}
         onChange={handleChange}
         options={options}
         disabled={props.readOnly}
         ref={select => { selectComponent = select }}
+        isLoading={props.options.isLoading}
       />
     </span>
   )
@@ -43,7 +44,9 @@ MultiSelect.propTypes = {
       PropTypes.shape({
         value: PropTypes.any,
         label: PropTypes.string
-      }))
+      })),
+    isLoading: PropTypes.bool,
+    noResultsText: PropTypes.string
   }),
   readOnly: PropTypes.bool,
   id: PropTypes.string
