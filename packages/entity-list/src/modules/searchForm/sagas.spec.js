@@ -6,7 +6,6 @@ import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {
   fetchEntities,
-  selectEntitiesTransformer,
   searchFilterTransformer
 } from '../../util/api/entities'
 import {
@@ -27,7 +26,6 @@ describe('entity-list', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal(all([
               fork(takeLatest, actions.INITIALIZE, sagas.initialize),
-              fork(takeLatest, actions.LOAD_RELATION_ENTITY, sagas.loadRelationEntity),
               fork(takeLatest, actions.LOAD_SEARCH_FILTERS, sagas.loadSearchFilters),
               fork(takeLatest, formActionTypes.CHANGE, sagas.submitSearchFrom),
               fork(takeLatest, actions.SUBMIT_SEARCH_FORM, sagas.submitSearchFrom),
@@ -109,44 +107,6 @@ describe('entity-list', () => {
             const errors = {firstname: {minLength: ['to short!']}}
             expect(gen.next(errors).value).to.eql(put(formActions.stopSubmit(FORM_ID, errors)))
             expect(gen.next().done).to.be.true
-          })
-        })
-
-        describe('loadRelationEntity saga', () => {
-          it('should load relation entites and return them ', () => {
-            const entityName = 'User'
-
-            const entities = [{display: 'User1', key: 1}]
-            const transformedEntities = [{key: 1, display: 'User1'}]
-            const gen = sagas.loadRelationEntity(actions.loadRelationEntity(entityName))
-            expect(gen.next().value).to.eql(select(sagas.searchFormSelector))
-            expect(gen.next({relationEntities: {}}).value)
-              .to.eql(call(fetchEntities, entityName, {fields: ['pk'], limit: 100}, selectEntitiesTransformer))
-            expect(gen.next(entities).value)
-              .to.eql(put(actions.setRelationEntity(entityName, transformedEntities, true)))
-            expect(gen.next().value).to.eql(put(actions.setRelationEntityLoaded(entityName)))
-
-            const next = gen.next()
-            expect(next.value).to.eql(entities)
-            expect(next.done).to.be.true
-          })
-
-          it('should not load entities if already loaded', () => {
-            const entityName = 'User'
-
-            const relationEntities = {
-              User: {
-                data: [{name: 'entity1'}, {name: 'entity2'}],
-                loaded: true
-              }
-            }
-
-            const gen = sagas.loadRelationEntity(actions.loadRelationEntity(entityName))
-            expect(gen.next().value).to.eql(select(sagas.searchFormSelector))
-
-            const next = gen.next({relationEntities})
-            expect(next.value).to.eql(relationEntities.User.data)
-            expect(next.done).to.be.true
           })
         })
 

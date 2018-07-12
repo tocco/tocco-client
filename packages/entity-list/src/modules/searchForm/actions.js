@@ -1,11 +1,8 @@
 export const SET_INITIALIZED = 'searchForm/SET_INITIALIZED'
 export const INITIALIZE = 'searchForm/INITIALIZE'
 export const SET_FORM_DEFINITION = 'searchForm/SET_FORM_DEFINITION'
-export const LOAD_RELATION_ENTITY = 'searchForm/LOAD_RELATION_ENTITY'
 export const LOAD_SEARCH_FILTERS = 'searchForm/LOAD_SEARCH_FILTERS'
-export const SET_RELATION_ENTITY = 'searchForm/SET_RELATION_ENTITY'
 export const SET_SEARCH_FILTER = 'searchForm/SET_SEARCH_FILTER'
-export const SET_RELATION_ENTITY_LOADED = 'searchForm/SET_RELATION_ENTITY_LOADED'
 export const EXECUTE_SEARCH = 'searchForm/EXECUTE_SEARCH'
 export const RESET_SEARCH = 'searchForm/RESET_SEARCH'
 export const SET_SHOW_EXTENDED_SEARCH_FORM = 'searchForm/SET_SHOW_EXTENDED_SEARCH_FORM'
@@ -37,34 +34,11 @@ export const setFormDefinition = formDefinition => ({
   }
 })
 
-export const loadRelationEntity = entityName => ({
-  type: LOAD_RELATION_ENTITY,
-  payload: {
-    entityName
-  }
-})
-
 export const loadSearchFilters = (model, group) => ({
   type: LOAD_SEARCH_FILTERS,
   payload: {
     model,
     group
-  }
-})
-
-export const setRelationEntityLoaded = entityName => ({
-  type: SET_RELATION_ENTITY_LOADED,
-  payload: {
-    entityName
-  }
-})
-
-export const setRelationEntity = (entityName, entities, reset = false) => ({
-  type: SET_RELATION_ENTITY,
-  payload: {
-    entityName,
-    entities,
-    reset
   }
 })
 

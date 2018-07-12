@@ -4,7 +4,7 @@ import _reduce from 'lodash/reduce'
 import * as actions from './actions'
 import {fetchForm, searchFormTransformer} from '../../util/api/forms'
 import {getPreselectedValues} from '../../util/searchForm'
-import {fetchEntities, selectEntitiesTransformer, searchFilterTransformer} from '../../util/api/entities'
+import {fetchEntities, searchFilterTransformer} from '../../util/api/entities'
 
 import {SET_INITIALIZED as LIST_SET_INITIALIZED} from '../entityList/actions'
 import {
@@ -28,7 +28,6 @@ const FORM_ID = 'searchForm'
 export default function* sagas() {
   yield all([
     fork(takeLatest, actions.INITIALIZE, initialize),
-    fork(takeLatest, actions.LOAD_RELATION_ENTITY, loadRelationEntity),
     fork(takeLatest, actions.LOAD_SEARCH_FILTERS, loadSearchFilters),
     fork(takeLatest, formActionTypes.CHANGE, submitSearchFrom),
     fork(takeLatest, actions.SUBMIT_SEARCH_FORM, submitSearchFrom),
@@ -50,7 +49,7 @@ export function* setInitialFormValues(searchFormVisible, formDefinition) {
   const {model} = yield call(getEntityModel)
 
   let formValues = preselectedSearchFields
-    ? yield call(getPreselectedValues, preselectedSearchFields, model, loadRelationEntity, searchFormVisible)
+    ? yield call(getPreselectedValues, preselectedSearchFields, model, null, searchFormVisible)
     : {}
 
   if (searchFormVisible) {
@@ -98,22 +97,6 @@ export function* getEntityModel() {
   entityList = yield select(entityListSelector)
 
   return entityList.entityModel
-}
-
-export function* loadRelationEntity({payload}) {
-  const {entityName} = payload
-  const {relationEntities} = yield select(searchFormSelector)
-  if (!relationEntities[entityName] || !relationEntities[entityName].loaded) {
-    const searchInputs = {
-      fields: ['pk'],
-      limit: 100
-    }
-    const entities = yield call(fetchEntities, entityName, searchInputs, selectEntitiesTransformer)
-    yield put(actions.setRelationEntity(entityName, entities, true))
-    yield put(actions.setRelationEntityLoaded(entityName))
-    return entities
-  }
-  return relationEntities[entityName].data
 }
 
 export function* loadSearchFilters({payload}) {

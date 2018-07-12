@@ -1,6 +1,6 @@
-import {call} from 'redux-saga/effects'
-import {loadRelationEntity as loadRelationEntityAction} from '../modules/searchForm/actions'
 import * as searchForm from './searchForm'
+import {fetchEntities} from '../../../tocco-util/src/rest'
+import {call} from 'redux-saga/es/effects'
 
 describe('entity-list', () => {
   describe('util', () => {
@@ -44,11 +44,12 @@ describe('entity-list', () => {
           const generator = searchForm.getPreselectedValues(
             preSelectedSearchFields, entityModel, callRelatedEntity, searchFormVisible
           )
-          expect(generator.next().value).to.deep.equal(call(callRelatedEntity, loadRelationEntityAction(targetEntity)))
-          expect(generator.next([record1, record2]).value).to.deep.equal(
-            call(callRelatedEntity, loadRelationEntityAction(targetEntity))
+          expect(generator.next().value).to.deep.equal(
+            call(fetchEntities, targetEntity, {query: 'IN(pk,2)', fields: ['pk']})
           )
-
+          expect(generator.next(record2).value).to.deep.equal(
+            call(fetchEntities, targetEntity, {query: 'IN(pk,1,2)', fields: ['pk']})
+          )
           const expectedResult = {
             txtFulltext: '',
             relSingle_entity: record2,
@@ -65,7 +66,7 @@ describe('entity-list', () => {
         it('should return the not loaded display if no entites loaded', () => {
           const entities = []
           const result = searchForm.getDisplay(1, entities)
-          expect(result).to.eql(searchForm.NOT_LOADED_DISPLAY)
+          expect(result).to.eql(searchForm.NOT_FOUND_DISPLAY)
         })
 
         it('should return the display of correct entity', () => {

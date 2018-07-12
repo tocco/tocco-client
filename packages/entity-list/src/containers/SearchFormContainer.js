@@ -5,22 +5,23 @@ import {
   submitSearchForm,
   resetSearch,
   setShowExtendedSearchForm,
-  loadRelationEntity,
   loadSearchFilters
 } from '../modules/searchForm/actions'
 
+import {formData} from 'tocco-util'
+
 const mapActionCreators = {
   submitSearchForm,
-  loadRelationEntity,
   loadSearchFilters,
   resetSearch,
-  setShowExtendedSearchForm
+  setShowExtendedSearchForm,
+  loadRelationEntities: formData.loadRelationEntities
 }
 
 const mapStateToProps = (state, props) => ({
   searchFormDefinition: state.searchForm.formDefinition,
   entityModel: state.list.entityModel,
-  relationEntities: state.searchForm.relationEntities,
+  relationEntities: formData.relationEntitiesSelector(state),
   searchInputs: state.searchForm.searchInputs,
   disableSimpleSearch: state.searchForm.disableSimpleSearch,
   simpleSearchFields: state.searchForm.simpleSearchFields,
