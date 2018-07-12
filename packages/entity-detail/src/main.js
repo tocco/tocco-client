@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {appFactory, notifier, errorLogging, actionEmitter, externalEvents, actions} from 'tocco-util'
+import {appFactory, notifier, errorLogging, actionEmitter, externalEvents, actions, formData} from 'tocco-util'
 import reducers, {sagas} from './modules/reducers'
 import DetailViewContainer from './containers/DetailViewContainer'
 import {getDispatchActions} from './input'
@@ -27,6 +27,7 @@ const initApp = (id, input, events = {}, publicPath) => {
   errorLogging.addToStore(store, false)
   notifier.addToStore(store, false)
   actions.addToStore(store)
+  formData.addToStore(store)
 
   const dispatchActions = getDispatchActions(input)
 
