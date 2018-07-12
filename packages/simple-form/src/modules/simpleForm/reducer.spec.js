@@ -1,8 +1,6 @@
 import reducer from './reducer'
 
-const INITIAL_STATE = {
-  relationEntities: {}
-}
+const INITIAL_STATE = {}
 
 describe('simple-form', () => {
   describe('modules', () => {

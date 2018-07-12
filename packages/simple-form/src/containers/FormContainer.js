@@ -1,9 +1,7 @@
 import {connect} from 'react-redux'
 import Form from '../../src/components/Form'
-import {form} from 'tocco-util'
+import {form, formData} from 'tocco-util'
 import {initializeForm, submit, cancel} from '../modules/simpleForm/actions'
-import {loadRelationEntity} from '../utils/form/relationEntity/actions'
-import {loadRemoteEntity} from '../utils/form/remoteEntity/actions'
 import {uploadDocument} from '../utils/form/document/actions'
 import {injectIntl} from 'react-intl'
 
@@ -11,8 +9,7 @@ const mapActionCreators = {
   initializeForm,
   onSubmit: submit,
   onCancel: cancel,
-  loadRelationEntity,
-  loadRemoteEntity,
+  loadRelationEntities: formData.loadRelationEntities,
   uploadDocument
 }
 
@@ -24,8 +21,7 @@ const mapStateToProps = (state, props) => ({
   model: state.input.model,
   formDefinition: state.input.form,
   validate: form.syncValidation(state.input.model),
-  relationEntities: state.simpleForm.relationEntities,
-  remoteEntities: state.simpleForm.remoteEntities
+  relationEntities: formData.relationEntitiesSelector(state)
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(Form))

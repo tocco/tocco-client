@@ -1,5 +1,5 @@
 import React from 'react'
-import {appFactory, externalEvents} from 'tocco-util'
+import {appFactory, externalEvents, formData} from 'tocco-util'
 
 import reducers, {sagas} from './modules/reducers'
 import PropTypes from 'prop-types'
@@ -18,6 +18,7 @@ const initApp = (id, input, events, publicPath) => {
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   externalEvents.addToStore(store, events)
+  formData.addToStore(store)
 
   const app = appFactory.createApp(
     packageName,
