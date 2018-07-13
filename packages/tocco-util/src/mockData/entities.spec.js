@@ -41,7 +41,7 @@ describe('tocco-util', () => {
           })
         })
 
-        it('should setup a entities get with working search (few keyword)', done => {
+        it('should setup a entities and return only a few a searchstring', done => {
           const users = createUsers(50)
           setupEntities(fetchMock, {User: users})
           const resource = 'http://localhost:8080/nice2/rest/entities/User'
@@ -52,7 +52,23 @@ describe('tocco-util', () => {
 
           simpleRequest(resource, {queryParams}).then(res => {
             const records = res.body.data
-            expect(records.length).to.eql(5)
+            expect(records.length).to.be.lessThan(50)
+            done()
+          })
+        })
+
+        it('should setup a entities and return only a few with a query', done => {
+          const users = createUsers(50)
+          setupEntities(fetchMock, {User: users})
+          const resource = 'http://localhost:8080/nice2/rest/entities/User'
+          const queryParams = {
+            _limit: 50,
+            _search: 'few'
+          }
+
+          simpleRequest(resource, {queryParams}).then(res => {
+            const records = res.body.data
+            expect(records.length).to.be.lessThan(50)
             done()
           })
         })
