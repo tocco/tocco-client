@@ -28,8 +28,8 @@ describe('tocco-ui', function() {
             </IntlProvider>
           )
           expect(wrapper.text().replace(leftToRightMark, '')).to.equal(dateOutputEn)
-          expect(wrapper.find('time').prop('title')).to.equal(dateOutputEn)
-          expect(wrapper.find('time').prop('dateTime')).to.equal(dateOutputIso)
+          expect(wrapper.find('time').prop('title').replace(leftToRightMark, '')).to.equal(dateOutputEn)
+          expect(wrapper.find('time').prop('dateTime').replace(leftToRightMark, '')).to.equal(dateOutputIso)
         })
 
         it('should format value according to locale', () => {
@@ -39,8 +39,8 @@ describe('tocco-ui', function() {
             </IntlProvider>
           )
           expect(wrapper.text().replace(leftToRightMark, '')).to.equal(dateOutputDe)
-          expect(wrapper.find('time').prop('title')).to.equal(dateOutputDe)
-          expect(wrapper.find('time').prop('dateTime')).to.equal(dateOutputIso)
+          expect(wrapper.find('time').prop('title').replace(leftToRightMark, '')).to.equal(dateOutputDe)
+          expect(wrapper.find('time').prop('dateTime').replace(leftToRightMark, '')).to.equal(dateOutputIso)
         })
       })
     })
