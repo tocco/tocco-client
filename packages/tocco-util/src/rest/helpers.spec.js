@@ -27,7 +27,8 @@ describe('toccoutil', () => {
               _paths: 'f1,f2',
               _relations: null,
               _search: 'test',
-              _sort: undefined
+              _sort: undefined,
+              _where: undefined
             }
 
             expect(params).to.eql(expectedParams)
@@ -54,7 +55,8 @@ describe('toccoutil', () => {
               _paths: '',
               _relations: '!',
               _search: 'test',
-              _sort: undefined
+              _sort: undefined,
+              _where: undefined
             }
 
             expect(params).to.eql(expectedParams)
