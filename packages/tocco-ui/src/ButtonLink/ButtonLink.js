@@ -16,6 +16,12 @@ import {
  * or links compete with actions. Choose look and ink according Material Design.
  */
 const ButtonLink = props => {
+  const onClickHandler = e => {
+    if (props.stopPropagation) {
+      e.stopPropagation()
+    }
+  }
+
   return (
     <StyledButtonLink
       alt={props.alt}
@@ -25,6 +31,7 @@ const ButtonLink = props => {
       ink={props.ink}
       look={props.look}
       melt={props.buttonGroupMelt}
+      onClick={onClickHandler}
       title={props.title}
     >
       {props.icon && <Icon dense={props.dense} icon={props.icon} position={props.iconPosition}/>}
@@ -83,6 +90,10 @@ ButtonLink.propTypes = {
    * Look of link according Material Design (button section). Default value is 'flat'.
    */
   look: lookPropTypes,
+  /**
+   * If true, the click event will not be propagated.
+   */
+  stopPropagation: PropTypes.bool,
   /**
    * Describe link target in detail to instruct users. It is shown as popover on mouse over.
    */
