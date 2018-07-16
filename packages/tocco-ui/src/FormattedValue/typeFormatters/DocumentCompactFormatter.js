@@ -9,6 +9,7 @@ const DocumentCompactFormatter = props => (
     icon="fa-download"
     look="raised"
     href={props.value.binaryLink}
+    stopPropagation={true}
   />
 )
 

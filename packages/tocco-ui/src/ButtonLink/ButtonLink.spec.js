@@ -48,7 +48,7 @@ describe('tocco-ui', function() {
         melt,
         title
       } = props
-      expect(Object.keys(props)).to.have.lengthOf(9)
+
       expect(alt).to.equal('alt text')
       expect(dense).to.be.true
       expect(download).to.equal('name.ext')
@@ -77,6 +77,30 @@ describe('tocco-ui', function() {
         </ThemeProvider>
       )
       expect(wrapper.text()).to.equal('label text')
+    })
+
+    it('should propagate click event', () => {
+      const wrapperClickSpy = sinon.spy()
+      const wrapper = mount(
+        <div onClick={wrapperClickSpy}>
+          <ButtonLink/>
+        </div>
+      )
+
+      wrapper.find('a').simulate('click')
+      expect(wrapperClickSpy).to.have.property('callCount', 1)
+    })
+
+    it('should stop propagation with stopPropagation true', () => {
+      const wrapperClickSpy = sinon.spy()
+      const wrapper = mount(
+        <div onClick={wrapperClickSpy}>
+          <ButtonLink stopPropagation={true}/>
+        </div>
+      )
+
+      wrapper.find('a').simulate('click')
+      expect(wrapperClickSpy).to.have.property('callCount', 0)
     })
   })
 })
