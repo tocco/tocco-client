@@ -18,16 +18,18 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
       events,
       error,
       utils,
-      submitting
+      submitting,
+      readOnlyForm
     } = data
 
     const readOnly = (
-      formDefinitionField.readonly
+      readOnlyForm
+      || formDefinitionField.readonly
       || submitting
       || !_get(entityField, 'writable', true)
     )
 
-    const mandatory = _get(modelField, `validation.mandatory`, false) && !readOnly
+    const mandatory = !readOnly && _get(modelField, `validation.mandatory`, false)
 
     const valueField = valueFieldFactory(
       mapping,
