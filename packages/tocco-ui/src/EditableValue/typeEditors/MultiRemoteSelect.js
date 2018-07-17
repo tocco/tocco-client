@@ -30,7 +30,7 @@ class MultiRemoteSelect extends React.Component {
           placeholder=""
           searchPromptText={this.props.options.searchPromptText}
           clearAllText={this.props.options.clearAllText}
-          noResultsText={ this.props.options.isLoading ? '' : this.props.options.noResultsText}
+          noResultsText={this.props.options.isLoading ? '' : this.props.options.noResultsText}
           multi
           value={this.props.value}
           onChange={this.props.onChange}
