@@ -3,6 +3,12 @@ import {EditableValue} from 'tocco-ui'
 import _get from 'lodash/get'
 import _mergeWith from 'lodash/mergeWith'
 
+const settings = {
+  REMOTE_SEARCH_RESULT_LIMIT: 50,
+  REMOTE_SUGGESTION_LIMIT: 10,
+  REMOTE_SUGGESTION_ORDER_FIELD: 'update_timestamp'
+}
+
 export default type =>
   (formField, modelField, props, events, utils) => {
     const options = getOptions(type, formField, modelField, utils)
@@ -31,7 +37,7 @@ const getOptions = (type, formField, modelField, utils) => {
       options.isLoading = _get(utils, ['relationEntities', formField.id, 'isLoading'], false)
       options.fetchOptions = searchTerm => utils.loadRelationEntities(formField.id, modelField.targetEntity, {
         searchTerm,
-        limit: 50,
+        limit: settings.REMOTE_SEARCH_RESULT_LIMIT,
         forceReload: true
       })
 
@@ -84,8 +90,8 @@ const getEvents = (type, field, modelField, util) => {
       events.onFocus = () => {
         util.loadRelationEntities(field.id, modelField.targetEntity, {
           forceReload: true,
-          limit: 5,
-          orderBy: {name: 'update_timestamp', direction: 'desc'}
+          limit: settings.REMOTE_SUGGESTION_LIMIT,
+          orderBy: {name: settings.REMOTE_SUGGESTION_ORDER_FIELD, direction: 'desc'}
         })
       }
       break
