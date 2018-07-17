@@ -3,6 +3,47 @@ import React from 'react'
 import EditableValue from './'
 // real-import:import {EditableValue} from 'tocco-ui'
 
+const quillMarkup = `
+  <h1>Heading 1</h1>
+  <h2>Heading 2</h2>
+  <h3>Heading 3</h3>
+  <p>Sunt in culpa qui officia deserunt ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+  aliquip ex ea commodo. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+  <h3>Heading 3</h3>
+  <h4>Heading 4</h4>
+  <h5>Heading 5</h5>
+  <h6>Heading 6</h6>
+  <p>Paragraph ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+  dolore magna aliqua. Irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+  Excepteur sint occaecat cupidatat non proident</p>
+  <p><a href="https://tocco.ch" target="_blank">www.tocco.ch</a></p>
+  <p><strong>strong Laborum est molLit</strong></p>
+  <p><em>em Laborum est molLit</em></p>
+  <p><u>u Laborum est molLit</u></p>
+  <ul>
+    <li>dolore eu fugiat</li>
+    <li class="ql-indent-1">in reprehenderit aute
+    <li class="ql-indent-1">dolore eu fugiat</li>
+    <li class="ql-indent-2">in reprehenderit aute</li>
+    <li>Consectetur adipisicing elit, sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua. Irure
+        dolor in reprehenderit in voluptate velit esse cillum dolore eu
+        fugiat nulla pariatur.</li>
+    <li>consectetur adipisicing</li>
+  </ul>
+  <ol>
+    <li>dolore eu fugiat</li>
+    <li class="ql-indent-1">in reprehenderit aute
+    <li class="ql-indent-2">dolore eu fugiat</li>
+    <li class="ql-indent-1">in reprehenderit aute</li>
+    <li>Consectetur adipisicing elit, sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua. Irure
+        dolor in reprehenderit in voluptate velit esse cillum dolore eu
+        fugiat nulla pariatur.</li>
+    <li>consectetur adipisicing</li>
+  </ol>
+`
+
 class Example extends React.Component {
   constructor(props) {
     super(props)
@@ -13,7 +54,7 @@ class Example extends React.Component {
         text: 'Line\nLine2',
         url: 'http://www.tocco.ch',
         phone: '+41444005050',
-        html: '<h1>Header</h1><p>Body</p>',
+        html: quillMarkup,
         singleSelect: {key: 2, display: 'Two'},
         multiSelect: [{key: 'a', display: 'One'}, {key: 'b', display: 'Two'}],
         date: '2015-12-18',

@@ -2,6 +2,21 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import lazyComponent from '../../util/lazyComponent'
 
+import {declareTypograhpy} from '../../Typography'
+import styled from 'styled-components'
+
+const StyledHtmlEdit = styled.div`
+&& {
+  button {
+    margin-bottom: 0;
+  }
+
+  .ql-editor {
+    ${props => declareTypograhpy(props, 'quill')}
+  }
+}
+`
+
 class HtmlEdit extends React.Component {
   lazyQuill = null
 
@@ -22,15 +37,17 @@ class HtmlEdit extends React.Component {
 
   render() {
     return (
-      <this.lazyQuill
-        name={this.props.name}
-        onChange={this.handleChange}
-        id={this.props.id}
-        theme="snow"
-        value={this.props.value}
-        readOnly={this.props.readOnly}
-        modules={{toolbar: !this.props.readOnly}}
-      />
+      <StyledHtmlEdit>
+        <this.lazyQuill
+          name={this.props.name}
+          onChange={this.handleChange}
+          id={this.props.id}
+          theme="snow"
+          value={this.props.value}
+          readOnly={this.props.readOnly}
+          modules={{toolbar: !this.props.readOnly}}
+        />
+      </StyledHtmlEdit>
     )
   }
 }
