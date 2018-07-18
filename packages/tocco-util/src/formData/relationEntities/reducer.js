@@ -30,7 +30,6 @@ export const setRelationEntitiesLoading = (state, {payload: {fieldName}}) => (
 const ACTION_HANDLERS = {
   [actions.SET_RELATION_ENTITIES]: setRelationEntities,
   [actions.SET_RELATION_ENTITIES_LOADING]: setRelationEntitiesLoading
-
 }
 
 const initialState = {
