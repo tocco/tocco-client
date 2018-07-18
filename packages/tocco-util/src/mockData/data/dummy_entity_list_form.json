@@ -13,6 +13,7 @@
         "componentType": "layout",
         "layoutType": "table",
         "hidden": false,
+        "endpoint": "entities/User/{parentKey}/entitydocs",
         "children": [
           {
             "id": "label",
