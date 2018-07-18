@@ -6,7 +6,8 @@ import _mergeWith from 'lodash/mergeWith'
 const settings = {
   REMOTE_SEARCH_RESULT_LIMIT: 50,
   REMOTE_SUGGESTION_LIMIT: 10,
-  REMOTE_SUGGESTION_ORDER_FIELD: 'update_timestamp'
+  REMOTE_SUGGESTION_ORDER_FIELD: 'update_timestamp',
+  SELECT_LIMIT: 10000
 }
 
 export default type =>
@@ -81,7 +82,10 @@ const getEvents = (type, field, modelField, util) => {
     case 'multi-select':
       if (util.loadRelationEntities) {
         events.onFocus = () => {
-          util.loadRelationEntities(field.id, modelField.targetEntity, {forceReload: false})
+          util.loadRelationEntities(field.id, modelField.targetEntity, {
+            forceReload: false,
+            limit: settings.SELECT_LIMIT
+          })
         }
       }
       break
