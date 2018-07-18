@@ -2,6 +2,8 @@ import consoleLogger from '../consoleLogger'
 import _get from 'lodash/get'
 import {sleep} from './mockData'
 
+const evenFilter = (value, idx) => idx % 2 === 0
+
 export const setupEntities = (fetchMock, entityStore, timeout) => {
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/forms/User_list$'),
@@ -81,6 +83,16 @@ export const setupEntities = (fetchMock, entityStore, timeout) => {
   )
 
   fetchMock.get(
+    new RegExp('^.*?/nice2/rest/entities/User/[0-9]+/entitydocs/count(\\?.*)?'),
+    () => sleep(timeout).then(() => ({'count': -1}))
+  )
+
+  fetchMock.get(
+    new RegExp('^.*?/nice2/rest/entities/User/[0-9]+/entitydocs(\\?.*)?'),
+    createEntitiesResponse('Dummy_entity', entityStore, timeout, evenFilter)
+  )
+
+  fetchMock.get(
     new RegExp('^.*?/nice2/rest/entities/User/[0-9]+(\\?.*)?'),
     createEntityResponse('User', entityStore)
   )
@@ -116,7 +128,7 @@ const createEntityResponse = (entityName, entityStore) => {
   }
 }
 
-const createEntitiesResponse = (entityName, entityStore, timeout) => {
+const createEntitiesResponse = (entityName, entityStore, timeout, filter) => {
   const entities = entityStore[entityName]
 
   return (url, opts) => {
@@ -142,13 +154,15 @@ const createEntitiesResponse = (entityName, entityStore, timeout) => {
       }
     }
 
+    const filteredEntities = filter ? entities.filter(filter) : entities
+
     let result
     if (searchTerm === 'few' || query) {
-      result = wrapEntitiesResponse(entityName, entities.slice(0, 3))
+      result = wrapEntitiesResponse(entityName, filteredEntities.slice(0, 3))
     } else if (searchTerm === 'none') {
       result = wrapEntitiesResponse(entityName, [])
     } else {
-      result = wrapEntitiesResponse(entityName, entities.slice(offset, offset + limit))
+      result = wrapEntitiesResponse(entityName, filteredEntities.slice(offset, offset + limit))
     }
 
     return sleep(timeout).then(() => result)
