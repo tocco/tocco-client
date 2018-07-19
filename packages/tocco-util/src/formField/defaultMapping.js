@@ -2,6 +2,7 @@ import editableValueFactory from './editableValueFactory'
 import formattedValueFactory from './formattedValueFactory'
 
 export default {
+  'binary': editableValueFactory('document'),
   'birthdate': editableValueFactory('birthdate'),
   'boolean': editableValueFactory('boolean'),
   'counter': editableValueFactory('string'),

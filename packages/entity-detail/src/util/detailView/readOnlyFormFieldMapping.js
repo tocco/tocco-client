@@ -2,6 +2,7 @@ import {formField} from 'tocco-util'
 import SubGrid from './fromFieldFactories/subGrid'
 
 export default {
+  'binary': formField.formattedValueFactory('document'),
   'birthdate': formField.formattedValueFactory('birthdate'),
   'boolean': formField.formattedValueFactory('boolean'),
   'code': formField.formattedValueFactory('text'),
