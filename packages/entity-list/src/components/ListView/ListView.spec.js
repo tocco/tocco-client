@@ -12,7 +12,7 @@ const props = {
   formDefinition: {
     children: [
       {
-        componentType: 'layout',
+        componentType: 'table',
         layoutType: 'table',
         children: []
       },

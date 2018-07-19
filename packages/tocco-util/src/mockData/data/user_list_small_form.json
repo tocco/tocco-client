@@ -4,7 +4,7 @@
     "children": [
       {
         "id": "table",
-        "componentType": "layout",
+       "componentType": "table",
         "layoutType": "table",
         "hidden": false,
         "sorting": [
