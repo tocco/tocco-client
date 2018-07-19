@@ -1,10 +1,20 @@
-import {setShowSearchForm, setEntityName, setShowCreateButton} from './modules/entityList/actions'
+import {
+  setShowSearchForm,
+  setEntityName,
+  setShowCreateButton,
+  setParent
+} from './modules/entityList/actions'
 import {
   setSearchFormName,
   setDisableSimpleSearch,
   setSimpleSearchFields
 } from './modules/searchForm/actions'
-import {setLimit, setSearchFilters, setListFormName, setSelection} from './modules/list/actions'
+import {
+  setLimit,
+  setSearchFilters,
+  setListFormName,
+  setSelection
+} from './modules/list/actions'
 
 const isDefined = value => !(value === undefined || value === null)
 
@@ -67,5 +77,10 @@ const actionSettings = [
     type: 'boolean',
     action: setSelection,
     argsFactory: input => [input.selection]
+  },
+  {
+    name: 'parent',
+    action: setParent,
+    argsFactory: input => [input.parent]
   }
 ]

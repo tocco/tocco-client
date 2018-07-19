@@ -6,7 +6,8 @@ const ACTION_HANDLERS = {
   [actions.SET_ENTITY_NAME]: reducers.singleTransferReducer('entityName'),
   [actions.SET_ENTITY_MODEL]: reducers.singleTransferReducer('entityModel'),
   [actions.SET_SHOW_SEARCH_FORM]: reducers.singleTransferReducer('showSearchForm'),
-  [actions.SET_SHOW_CREATE_BUTTON]: reducers.singleTransferReducer('showCreateButton')
+  [actions.SET_SHOW_CREATE_BUTTON]: reducers.singleTransferReducer('showCreateButton'),
+  [actions.SET_PARENT]: reducers.singleTransferReducer('parent')
 }
 
 const initialState = {
@@ -14,7 +15,8 @@ const initialState = {
   entityName: '',
   entityModel: {},
   showSearchForm: false,
-  showCreateButton: false
+  showCreateButton: false,
+  parent: null
 }
 
 export default function reducer(state = initialState, action) {

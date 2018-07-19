@@ -45,12 +45,16 @@ export function* initialize({payload: {searchFormVisible}}) {
 }
 
 export function* setInitialFormValues(searchFormVisible, formDefinition) {
-  const {preselectedSearchFields} = yield select(inputSelector)
+  const {preselectedSearchFields, parent} = yield select(inputSelector)
   const {model} = yield call(getEntityModel)
 
   let formValues = preselectedSearchFields
     ? yield call(getPreselectedValues, preselectedSearchFields, model, null, searchFormVisible)
     : {}
+
+  if (parent && !formValues.hasOwnProperty(parent.reverseRelationName)) {
+    formValues[parent.reverseRelationName] = parent.key
+  }
 
   if (searchFormVisible) {
     const fieldDefinitions = yield call(form.getFieldDefinitions, formDefinition)

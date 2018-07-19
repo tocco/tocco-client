@@ -25,6 +25,11 @@ export const getSelectable = formDefinition => {
   return table.selectable !== false
 }
 
+export const getEndpoint = formDefinition => {
+  const table = getTable(formDefinition)
+  return table.endpoint || null
+}
+
 const isDisplayableChild = child => !child.hidden
 
 export const getColumnDefinition = table =>
