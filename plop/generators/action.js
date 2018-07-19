@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import {prompts, getPath} from '../utils'
 
 export default {
@@ -14,12 +15,19 @@ export default {
     },
     {
       type: 'input',
-      name: 'param',
+      name: 'params',
       message: 'Parameter Name'
     }
   ],
   actions: data => {
     const actionFile = getPath(data.package, data.route, data.module) + '/actions.js'
+
+    data.hasParams = data.params
+    data.paramsLengthNotOne = !data.hasParams || data.params.split(',').length > 1
+    const paramsArray = data.params.split(',').map(p => p.trim())
+    data.paramsFormatted = paramsArray.join(', ')
+    const indent = '    '
+    data.paramsNewLine = paramsArray.join(`,\n${indent}`)
 
     return [{
       type: 'modify',
