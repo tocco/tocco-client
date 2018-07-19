@@ -24,6 +24,7 @@ export const SET_CREATE_PERMISSION = 'list/SET_CREATE_PERMISSION'
 export const SET_SELECTABLE = 'list/SET_SELECTABLE'
 export const ON_SELECT_CHANGE = 'list/ON_ROW_SELECT'
 export const SET_SELECTION = 'list/SET_SELECTION'
+export const SET_ENDPOINT = 'list/SET_ENDPOINT'
 
 export const initialize = () => ({
   type: INITIALIZE
@@ -183,5 +184,12 @@ export const setSelection = selection => ({
   type: SET_SELECTION,
   payload: {
     selection
+  }
+})
+
+export const setEndpoint = endpoint => ({
+  type: SET_ENDPOINT,
+  payload: {
+    endpoint
   }
 })

@@ -4,7 +4,7 @@ import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import {getSearchInputs} from '../searchForm/sagas'
 import rootSaga, * as sagas from './sagas'
-import {fetchForm, getSorting, getSelectable, getFields} from '../../util/api/forms'
+import {fetchForm, getSorting, getSelectable, getFields, getEndpoint} from '../../util/api/forms'
 import {
   fetchEntityCount,
   fetchEntities,
@@ -230,11 +230,13 @@ describe('entity-list', () => {
             const searchInputs = {}
             const entityCount = 100
             const searchFilters = []
+            const endpoint = null
 
             const input = {entityName, searchFilters, formBase}
             return expectSaga(sagas.countEntities)
               .provide([
-                [select(sagas.inputSelector), input],
+                [select(sagas.inputSelector), {endpoint}],
+                [select(sagas.listSelector), input],
                 [matchers.call.fn(getSearchInputs), searchInputs],
                 [matchers.call.fn(fetchEntityCount), entityCount]
               ])
@@ -252,6 +254,7 @@ describe('entity-list', () => {
             }
             const sorting = [{field: 'firstname', order: 'adsc'}]
             const selectable = true
+            const endpoint = null
 
             const gen = sagas.loadFormDefinition(formDefinition, formBase)
             expect(gen.next().value).to.eql(call(fetchForm, `${formBase}_list`))
@@ -260,6 +263,8 @@ describe('entity-list', () => {
             expect(gen.next(sorting).value).to.eql(put(actions.setSorting(sorting)))
             expect(gen.next().value).to.eql(call(getSelectable, loadedFormDefinition))
             expect(gen.next(selectable).value).to.eql(put(actions.setSelectable(selectable)))
+            expect(gen.next().value).to.eql(call(getEndpoint, loadedFormDefinition))
+            expect(gen.next(endpoint).value).to.eql(put(actions.setEndpoint(endpoint)))
             expect(gen.next().done).to.be.true
           })
 

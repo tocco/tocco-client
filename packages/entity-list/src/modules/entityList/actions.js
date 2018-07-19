@@ -4,6 +4,7 @@ export const SET_SHOW_SEARCH_FORM = 'entityList/SET_SHOW_SEARCH_FORM'
 export const SET_ENTITY_NAME = 'entityList/SET_ENTITY_NAME'
 export const SET_ENTITY_MODEL = 'entityList/SET_ENTITY_MODEL'
 export const SET_SHOW_CREATE_BUTTON = 'entityList/SET_SHOW_CREATE_BUTTON'
+export const SET_PARENT = 'entityList/SET_PARENT'
 
 export const setInitialized = (initialized = true) => ({
   type: SET_INITIALIZED,
@@ -41,5 +42,12 @@ export const setShowCreateButton = showCreateButton => ({
   type: SET_SHOW_CREATE_BUTTON,
   payload: {
     showCreateButton
+  }
+})
+
+export const setParent = parent => ({
+  type: SET_PARENT,
+  payload: {
+    parent
   }
 })

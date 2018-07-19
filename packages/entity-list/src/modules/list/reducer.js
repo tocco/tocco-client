@@ -38,6 +38,7 @@ const ACTION_HANDLERS = {
   [actions.SET_SEARCH_FILTERS]: reducers.singleTransferReducer('searchFilters'),
   [actions.SET_CREATE_PERMISSION]: reducers.singleTransferReducer('createPermission'),
   [actions.SET_SELECTABLE]: reducers.singleTransferReducer('selectable'),
+  [actions.SET_ENDPOINT]: reducers.singleTransferReducer('endpoint'),
   [actions.SET_SELECTION]: setSelection
 }
 

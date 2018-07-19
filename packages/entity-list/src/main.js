@@ -146,7 +146,11 @@ EntityListApp.propTypes = {
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
     propTypes[event] = PropTypes.func
     return propTypes
-  }, {})
+  }, {}),
+  parent: PropTypes.shape({
+    id: PropTypes.string,
+    value: PropTypes.string
+  })
 }
 
 export default EntityListApp
