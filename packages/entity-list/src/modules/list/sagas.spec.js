@@ -304,6 +304,33 @@ describe('entity-list', () => {
             expect(gen.next().done).to.be.true
           })
         })
+
+        describe('prepareEndpointUrl', () => {
+          it('should replace parentKey if parent exists', () => {
+            const input = {parent: {key: 123}}
+            const endpoint = 'nice2/rest/entities/User/{parentKey}/test'
+            const expectedResult = 'nice2/rest/entities/User/123/test'
+
+            return expectSaga(sagas.prepareEndpointUrl, endpoint)
+              .provide([
+                [select(sagas.inputSelector), input]
+              ])
+              .returns(expectedResult)
+              .run()
+          })
+
+          it('should return endpoint as it is if parent is undefined', () => {
+            const input = {parent: null}
+            const endpoint = 'nice2/rest/entities/User/{parentKey}/test'
+
+            return expectSaga(sagas.prepareEndpointUrl, endpoint)
+              .provide([
+                [select(sagas.inputSelector), input]
+              ])
+              .returns(endpoint)
+              .run()
+          })
+        })
       })
     })
   })
