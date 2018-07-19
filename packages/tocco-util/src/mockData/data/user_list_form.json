@@ -122,7 +122,7 @@
       },
       {
         "id": "table",
-        "componentType": "layout",
+       "componentType": "table",
         "layoutType": "table",
         "id": "table1",
         "label": null,

@@ -10,7 +10,7 @@
     "children": [
       {
         "id": "table",
-        "componentType": "layout",
+       "componentType": "table",
         "layoutType": "table",
         "hidden": false,
         "endpoint": "entities/User/{parentKey}/entitydocs",

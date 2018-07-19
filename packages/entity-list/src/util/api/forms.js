@@ -13,7 +13,7 @@ export function* fetchForm(formName, transformer = defaultFormTransformer) {
 }
 
 const getTable = formDefinition =>
-  formDefinition.children.find(child => child.layoutType === form.layoutTypes.TABLE)
+  formDefinition.children.find(child => child.componentType === form.componentTypes.TABLE)
 
 export const getSorting = formDefinition => {
   const table = getTable(formDefinition)
