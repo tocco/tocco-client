@@ -267,6 +267,32 @@ describe('entity-list', () => {
             expect(result).to.be.true
           })
         })
+
+        describe('getEndpoint', () => {
+          const getFormDefinition = endpoint => ({
+            children: [{
+              layoutType: 'table',
+              componentType: 'table',
+              ...(endpoint !== null ? {endpoint} : {})
+            }]
+          })
+
+          it('should return endpoint', () => {
+            const endpoint = 'nice2/rest/xc'
+            const result = forms.getEndpoint(getFormDefinition(endpoint))
+            expect(result).to.eql(endpoint)
+          })
+
+          it('should return null if endpoint is not defined', () => {
+            const result = forms.getEndpoint(getFormDefinition(null))
+            expect(result).to.be.null
+          })
+
+          it('should return null if endpoint is empty', () => {
+            const result = forms.getEndpoint(getFormDefinition(''))
+            expect(result).to.be.null
+          })
+        })
       })
     })
   })
