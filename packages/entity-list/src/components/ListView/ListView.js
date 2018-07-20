@@ -32,6 +32,7 @@ class ListView extends React.Component {
                   definition={child}
                   ids={selectedRecordsCurrentPage}
                   entity={props.entityName}
+                  parent={props.parent}
                 />
               }
             })
@@ -49,7 +50,12 @@ ListView.propTypes = {
     children: PropTypes.array
   }),
   selection: PropTypes.arrayOf(PropTypes.string),
-  currentPageIds: PropTypes.arrayOf(PropTypes.string)
+  currentPageIds: PropTypes.arrayOf(PropTypes.string),
+  parent: PropTypes.shape({
+    key: PropTypes.string,
+    entityName: PropTypes.string,
+    reverseRelationName: PropTypes.string
+  })
 }
 
 export default ListView
