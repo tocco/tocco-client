@@ -21,8 +21,9 @@ describe('entity-list', () => {
             type: 'string'
           }
         }
+        const parent = {}
 
-        const wrapper = shallow(cellRenderer(field, entity, {}, IntlStub))
+        const wrapper = shallow(cellRenderer(field, entity, parent, {}, IntlStub))
         expect(wrapper.find(FormattedValue)).to.have.length(1)
       })
 
@@ -34,8 +35,9 @@ describe('entity-list', () => {
         const entity = {
           myDisplayExpression: '<h1>test</h1>'
         }
+        const parent = {}
 
-        const wrapper = shallow(cellRenderer(field, entity, {}, IntlStub))
+        const wrapper = shallow(cellRenderer(field, entity, parent, {}, IntlStub))
         expect(wrapper.find(FormattedValue)).to.have.length(1)
         expect(wrapper.find(FormattedValue)).to.have.prop('type', 'html')
       })
@@ -46,8 +48,9 @@ describe('entity-list', () => {
           id: 'myAction'
         }
         const entity = {__model: 'User', __key: '123'}
+        const parent = {}
         const store = createStore(() => {})
-        const wrapper = shallow(<Provider store={store}>{cellRenderer(field, entity, {}, IntlStub)}</Provider>)
+        const wrapper = shallow(<Provider store={store}>{cellRenderer(field, entity, parent, {}, IntlStub)}</Provider>)
         expect(wrapper.find(actions.Action)).to.have.length(1)
       })
     })
