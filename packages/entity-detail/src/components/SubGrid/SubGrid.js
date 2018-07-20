@@ -33,7 +33,8 @@ const SubGrid = props => {
         emitAction={action => { props.dispatchEmittedAction(action) }}
         parent={{
           key: props.entityKey,
-          reverseRelationName: props.modelField.reverseRelationName
+          reverseRelationName: props.modelField.reverseRelationName,
+          model: props.entityName
         }}
       />
     </div>
@@ -46,6 +47,7 @@ SubGrid.defaultProps = {
 
 SubGrid.propTypes = {
   entityKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  entityName: PropTypes.string,
   detailFormName: PropTypes.string.isRequired,
   gridName: PropTypes.string.isRequired,
   relationName: PropTypes.string.isRequired,
