@@ -5,6 +5,7 @@ import {externalEvents, actionEmitter} from 'tocco-util'
 const mapStateToProps = (state, props) => ({
   appId: state.entityDetail.appId,
   entityKey: state.entityDetail.entity.key,
+  entityName: state.entityDetail.entity.model,
   detailFormName: state.entityDetail.formDefinition.id,
   showSubGridsCreateButton: state.entityDetail.showSubGridCreateButton
 })
