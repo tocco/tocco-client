@@ -9,6 +9,18 @@
     "hidden": false,
     "children": [
       {
+        "componentType": "action",
+        "actionType": "simple",
+        "readonly": false,
+        "label": "Simple Action",
+        "icon": "fa-cogs",
+        "Selections": 1,
+        "maxSelections": 1,
+        "progressMsg": "Die Beispiel Aktion wird ausgeführt..",
+        "showConfirmMessage": false,
+        "endpoint": "actions/simpleAction"
+      },
+      {
         "id": "table",
        "componentType": "table",
         "layoutType": "table",
