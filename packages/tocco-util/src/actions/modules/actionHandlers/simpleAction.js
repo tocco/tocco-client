@@ -4,20 +4,20 @@ import errorLogging from '../../../errorLogging'
 import {ClientQuestionCancelledException, requestSaga} from '../../../rest'
 import notifier from '../../../notifier'
 
-export default function* (definition, entity, ids, params) {
+export default function* (definition, entity, ids, parent, params) {
   const randomId = Math.random()
   const title = definition.progressMsg || 'client.component.actions.defaultProgressMessage'
   yield put(notifier.blockingInfo(randomId, title, null, 'circle-o-notch fa-spin fa-fw'))
-  const response = yield call(invokeRequest, definition, entity, ids, params)
+  const response = yield call(invokeRequest, definition, entity, ids, parent, params)
   yield put(notifier.removeBlockingInfo(randomId))
   return response
 }
 
-export function* invokeRequest(definition, entity, ids, params) {
+export function* invokeRequest(definition, entity, ids, parent, params) {
   try {
     const response = yield call(requestSaga, definition.endpoint, {
       method: 'POST',
-      body: {ids, entity, ...params},
+      body: {ids, entity, parent, ...params},
       acceptedErrorCodes: ['VALIDATION_FAILED']
     })
     if (response.body && response.body.errorCode === 'VALIDATION_FAILED') {

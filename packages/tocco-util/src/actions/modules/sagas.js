@@ -10,12 +10,12 @@ export default function* sagas(config) {
 }
 
 export function* invokeAction(config, {payload}) {
-  const {definition, entity, ids} = payload
+  const {definition, entity, ids, parent} = payload
   const {abort, params} = yield call(preAction.run, definition, ids)
 
   if (!abort) {
     const actionHandler = actionHandlers[definition.actionType]
-    const response = yield call(actionHandler, definition, entity, ids, params)
+    const response = yield call(actionHandler, definition, entity, ids, parent, params)
 
     if (response && response.success) {
       yield put(actions.actionInvoked(definition, entity, ids, response))
