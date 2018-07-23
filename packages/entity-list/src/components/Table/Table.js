@@ -156,8 +156,8 @@ Table.propTypes = {
   refresh: PropTypes.func,
   selection: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
   parent: PropTypes.shape({
-    key: PropTypes.string,
-    entityName: PropTypes.string,
+    key: PropTypes.string.isRequired,
+    entityName: PropTypes.string.isRequired,
     reverseRelationName: PropTypes.string
   })
 }

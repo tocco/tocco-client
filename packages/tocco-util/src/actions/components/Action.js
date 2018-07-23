@@ -36,7 +36,11 @@ Action.propTypes = {
   onClick: PropTypes.func.isRequired,
   callback: PropTypes.func,
   mode: PropTypes.string,
-  parent: PropTypes.object
+  parent: PropTypes.shape({
+    key: PropTypes.string.isRequired,
+    entityName: PropTypes.string.isRequired,
+    reverseRelationName: PropTypes.string
+  })
 }
 
 export default Action

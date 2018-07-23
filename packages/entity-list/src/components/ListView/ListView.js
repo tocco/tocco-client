@@ -52,8 +52,8 @@ ListView.propTypes = {
   selection: PropTypes.arrayOf(PropTypes.string),
   currentPageIds: PropTypes.arrayOf(PropTypes.string),
   parent: PropTypes.shape({
-    key: PropTypes.string,
-    entityName: PropTypes.string,
+    key: PropTypes.string.isRequired,
+    entityName: PropTypes.string.isRequired,
     reverseRelationName: PropTypes.string
   })
 }
