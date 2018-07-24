@@ -173,6 +173,12 @@ export function* loadEntityModel(entityName, entityModel) {
 }
 
 export function* onRowClick({payload}) {
+  const {selectOnRowClick} = yield select(inputSelector)
+  if (selectOnRowClick === true) {
+    const list = yield select(listSelector)
+    const selected = list.selection.includes(payload.id)
+    yield put(actions.onSelectChange({keys: [payload.id], isSelected: !selected}))
+  }
   yield put(externalEvents.fireExternalEvent('onRowClick', {id: payload.id}))
 }
 
