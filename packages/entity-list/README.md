@@ -29,4 +29,4 @@ React-registry name: `entity-list`
 |---------------------|-------------------------------|-------------
 | `onRowClick`        | `id` (The id of the record)   | This event is fired when a list row is clicked
 | `navigateToCreate`  | -                             | This event is fired when the "new" button is clicked
-| `onSelectChange`    | `keys` (the ids of the records which got selected or deselected), `isSelected` (`true` if the records got selected, `false if they got deselected) | This event is fired when the selection changes
+| `onSelectChange`    | An array containing the ids of the new selection | This event is fired when the selection changes
