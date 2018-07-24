@@ -10,7 +10,7 @@ import {
   fetchEntities,
   fetchModel
 } from '../../util/api/entities'
-import {actions as actionUtil} from 'tocco-util'
+import {actions as actionUtil, externalEvents} from 'tocco-util'
 import * as matchers from 'redux-saga-test-plan/matchers'
 
 const generateState = (entityStore = {}, page) => ({
@@ -301,6 +301,38 @@ describe('entity-list', () => {
             }
 
             const gen = sagas.loadEntityModel(entityName, entityModel)
+            expect(gen.next().done).to.be.true
+          })
+        })
+
+        describe('onRowClick saga', () => {
+          it('should not change selection if selectOnRowClick not true', () => {
+            const gen = sagas.onRowClick(actions.onRowClick('1'))
+            expect(gen.next().value).to.eql(select(sagas.inputSelector))
+            expect(gen.next({selectOnRowClick: false}).value)
+              .to.eql(put(externalEvents.fireExternalEvent('onRowClick', {id: '1'})))
+            expect(gen.next().done).to.be.true
+          })
+
+          it('should select a deselected row on click', () => {
+            const gen = sagas.onRowClick(actions.onRowClick('1'))
+            expect(gen.next().value).to.eql(select(sagas.inputSelector))
+            expect(gen.next({selectOnRowClick: true}).value).to.eql(select(sagas.listSelector))
+            expect(gen.next({selection: ['2']}).value)
+              .to.eql(put(actions.onSelectChange({keys: ['1'], isSelected: true})))
+            expect(gen.next().value)
+              .to.eql(put(externalEvents.fireExternalEvent('onRowClick', {id: '1'})))
+            expect(gen.next().done).to.be.true
+          })
+
+          it('should deselect a selected row on click', () => {
+            const gen = sagas.onRowClick(actions.onRowClick('1'))
+            expect(gen.next().value).to.eql(select(sagas.inputSelector))
+            expect(gen.next({selectOnRowClick: true}).value).to.eql(select(sagas.listSelector))
+            expect(gen.next({selection: ['1']}).value)
+              .to.eql(put(actions.onSelectChange({keys: ['1'], isSelected: false})))
+            expect(gen.next().value)
+              .to.eql(put(externalEvents.fireExternalEvent('onRowClick', {id: '1'})))
             expect(gen.next().done).to.be.true
           })
         })

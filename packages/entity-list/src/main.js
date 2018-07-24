@@ -147,6 +147,7 @@ EntityListApp.propTypes = {
     propTypes[event] = PropTypes.func
     return propTypes
   }, {}),
+  selectOnRowClick: PropTypes.bool,
   parent: PropTypes.shape({
     id: PropTypes.string,
     value: PropTypes.string
