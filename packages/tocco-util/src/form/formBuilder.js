@@ -108,7 +108,7 @@ export default (
         }
       }
 
-      return !(isReadOnlyForm && hasEmptyValue(formDefinitionField.id, formValues))
+      return !(isReadOnlyForm && hasEmptyValue(transformFieldName(formDefinitionField.id), formValues))
     }
 
     if (shouldRenderField(formDefinitionField, entityField, formValues, isReadOnlyForm)) {
