@@ -15,6 +15,7 @@ import {requestSaga} from './rest'
  * - searchFilters {Array} List of filter names to be applied
  * - searchInputs {Object} Object that can contain search field values and fulltext _search attribute
  * - formName {String} Name of the form, needed to resolve display expressions and such
+ * - query {String} TQL query
  * @param transformer {function} Function to directly manipulate the result. By default returns data attribute
  */
 export function* fetchEntities(entityName, options, transformer = defaultEntityTransformer) {
@@ -74,7 +75,8 @@ export function buildParams({
   relations = undefined,
   searchFilters = [],
   searchInputs = {},
-  formName = undefined
+  formName = undefined,
+  query = undefined
 } = {}) {
   const params = {
     '_sort': Object.keys(orderBy || {}).length === 2 ? `${orderBy.name} ${orderBy.direction}` : undefined,
@@ -83,6 +85,7 @@ export function buildParams({
     '_relations': relations && relations.length === 0 ? '!' : relations ? relations.join(',') : null,
     '_form': formName,
     '_filter': searchFilters.join(','),
+    '_where': query,
     ...searchInputs
   }
 

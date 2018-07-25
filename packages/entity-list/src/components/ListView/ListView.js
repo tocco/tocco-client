@@ -24,7 +24,7 @@ class ListView extends React.Component {
         >
           {
             this.props.formDefinition && this.props.formDefinition.children.map((child, idx) => {
-              if (child.componentType === form.componentTypes.LAYOUT && child.layoutType === form.layoutTypes.TABLE) {
+              if (child.componentType === form.componentTypes.TABLE) {
                 return <TableContainer key={idx} columnDefinitions={getColumnDefinition(child)}/>
               } else if (actions.isAction(child.componentType)) {
                 return <actions.Action
@@ -32,6 +32,7 @@ class ListView extends React.Component {
                   definition={child}
                   ids={selectedRecordsCurrentPage}
                   entity={props.entityName}
+                  parent={props.parent}
                 />
               }
             })
@@ -49,7 +50,12 @@ ListView.propTypes = {
     children: PropTypes.array
   }),
   selection: PropTypes.arrayOf(PropTypes.string),
-  currentPageIds: PropTypes.arrayOf(PropTypes.string)
+  currentPageIds: PropTypes.arrayOf(PropTypes.string),
+  parent: PropTypes.shape({
+    key: PropTypes.string.isRequired,
+    entityName: PropTypes.string.isRequired,
+    reverseRelationName: PropTypes.string
+  })
 }
 
 export default ListView

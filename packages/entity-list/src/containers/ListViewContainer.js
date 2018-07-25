@@ -12,7 +12,8 @@ const mapStateToProps = (state, props) => {
     formDefinition: state.list.formDefinition,
     selection: state.list.selection,
     currentPageIds: state.list.entities.map(e => e.__key),
-    entityName: state.entityList.entityName
+    entityName: state.entityList.entityName,
+    parent: state.entityList.parent
   }
 }
 

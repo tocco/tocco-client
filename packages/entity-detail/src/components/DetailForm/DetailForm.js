@@ -25,9 +25,7 @@ export class DetailForm extends React.Component {
   createFormBuilder = props => {
     const formFieldUtils = {
       relationEntities: props.relationEntities,
-      loadRelationEntity: props.loadRelationEntity,
-      loadRemoteEntity: props.loadRemoteEntity,
-      remoteEntities: props.remoteEntities,
+      loadRelationEntities: props.loadRelationEntities,
       uploadDocument: props.uploadDocument,
       intl: this.props.intl
     }
@@ -141,10 +139,9 @@ DetailForm.propTypes = {
   submitForm: PropTypes.func.isRequired,
   formDefinition: PropTypes.object.isRequired,
   entity: PropTypes.object.isRequired,
-  loadRelationEntity: PropTypes.func.isRequired,
   formValues: PropTypes.object,
-  loadRemoteEntity: PropTypes.func.isRequired,
   uploadDocument: PropTypes.func.isRequired,
+  loadRelationEntities: PropTypes.func.isRequired,
   relationEntities: PropTypes.shape({
     entityName: PropTypes.shape({
       loaded: PropTypes.bool,
@@ -152,17 +149,6 @@ DetailForm.propTypes = {
         PropTypes.shape({
           value: PropTypes.string,
           label: PropTypes.string
-        })
-      )
-    })
-  }).isRequired,
-  remoteEntities: PropTypes.shape({
-    fieldName: PropTypes.shape({
-      loading: PropTypes.bool,
-      entities: PropTypes.arrayOf(
-        PropTypes.shape({
-          key: PropTypes.string,
-          display: PropTypes.string
         })
       )
     })

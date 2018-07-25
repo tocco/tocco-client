@@ -6,7 +6,7 @@ import {externalEvents, actions as actionUtil, actionEmitter} from 'tocco-util'
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import {getSearchInputs} from '../searchForm/sagas'
-import {fetchForm, getSorting, getSelectable, getFields} from '../../util/api/forms'
+import {fetchForm, getSorting, getSelectable, getEndpoint, getFields} from '../../util/api/forms'
 import {fetchEntityCount, fetchEntities, entitiesListTransformer, fetchModel} from '../../util/api/entities'
 import {combineSelection} from '../../util/selection'
 
@@ -78,11 +78,18 @@ export function* getBasicFetchParams() {
   }
 }
 
+export function* prepareEndpointUrl(endpoint) {
+  const {parent} = yield select(inputSelector)
+  return parent ? endpoint.replace('{parentKey}', parent.key) : endpoint
+}
+
 export function* countEntities() {
-  const input = yield select(inputSelector)
-  const {entityName} = input
+  const {entityName} = yield select(inputSelector)
+  const {endpoint} = yield select(listSelector)
   const fetchParams = yield call(getBasicFetchParams)
-  const entityCount = yield call(fetchEntityCount, entityName, fetchParams)
+  const resource = endpoint ? yield call(prepareEndpointUrl, endpoint) : endpoint
+
+  const entityCount = yield call(fetchEntityCount, entityName, fetchParams, resource)
   yield put(actions.setEntityCount(entityCount))
 }
 
@@ -108,7 +115,7 @@ export function* getSearchFilter(inputSearchFilters, searchInputsFilters) {
 
 export function* fetchEntitiesAndAddToStore(page) {
   const {entityName} = yield select(inputSelector)
-  const {entityStore, sorting, limit, formDefinition} = yield select(listSelector)
+  const {entityStore, sorting, limit, formDefinition, endpoint} = yield select(listSelector)
   if (!entityStore[page]) {
     const fields = yield call(getFields, formDefinition)
     const basicFetchParams = yield call(getBasicFetchParams)
@@ -120,7 +127,8 @@ export function* fetchEntitiesAndAddToStore(page) {
       fields
     }
 
-    const entities = yield call(fetchEntities, entityName, fetchParams, entitiesListTransformer)
+    const resource = endpoint ? yield call(prepareEndpointUrl, endpoint) : endpoint
+    const entities = yield call(fetchEntities, entityName, fetchParams, entitiesListTransformer, resource)
     yield put(actions.addEntitiesToStore(page, entities))
   }
 }
@@ -151,6 +159,8 @@ export function* loadFormDefinition(formDefinition, formBase) {
     yield put(actions.setSorting(sorting))
     const selectable = yield call(getSelectable, formDefinition)
     yield put(actions.setSelectable(selectable))
+    const endpoint = yield call(getEndpoint, formDefinition)
+    yield put(actions.setEndpoint(endpoint))
   }
 }
 

@@ -16,7 +16,8 @@ const ReduxFormFieldAdapter = props => {
     formDefinitionField,
     entityField,
     modelField,
-    formFieldUtils
+    formFieldUtils,
+    readOnlyForm
   } = props
 
   const events = extractEventsFromInput(input)
@@ -33,13 +34,14 @@ const ReduxFormFieldAdapter = props => {
     error,
     onChange: input.onChange,
     entityField,
-    utils: formFieldUtils
+    utils: formFieldUtils,
+    readOnlyForm
   }
   const resources = {
     mandatoryTitle: props.intl.formatMessage({id: 'client.component.form.mandatoryFieldTitle'})
   }
 
-  const mapping = props.readOnlyForm ? props.readOnlyFormFieldMapping : props.formFieldMapping
+  const mapping = readOnlyForm ? props.readOnlyFormFieldMapping : props.formFieldMapping
 
   return formField.formFieldFactory(mapping, fomFieldData, resources)
 }

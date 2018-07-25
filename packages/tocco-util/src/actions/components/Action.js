@@ -5,7 +5,7 @@ import {COMPONENT_TYPE_ACTION_GROUP, modeFitsScopes} from '../actions'
 import ActionGroup from './ActionGroup'
 import SingleAction from './SingleAction'
 
-const Action = ({definition, onClick, ids, entity, mode, callback}) => {
+const Action = ({definition, onClick, ids, parent, entity, mode, callback}) => {
   if (!modeFitsScopes(mode, definition.scopes)) return null
 
   const ActionType = definition.componentType === COMPONENT_TYPE_ACTION_GROUP ? ActionGroup : SingleAction
@@ -15,7 +15,7 @@ const Action = ({definition, onClick, ids, entity, mode, callback}) => {
       <ActionType
         definition={definition}
         onClick={definition => {
-          onClick(_omit(definition, ['label']), entity, ids, callback)
+          onClick(_omit(definition, ['label']), entity, ids, parent, callback)
         }}
         selectedCount={ids ? ids.length : 0}
       />
@@ -35,7 +35,12 @@ Action.propTypes = {
   entity: PropTypes.string,
   onClick: PropTypes.func.isRequired,
   callback: PropTypes.func,
-  mode: PropTypes.string
+  mode: PropTypes.string,
+  parent: PropTypes.shape({
+    key: PropTypes.string.isRequired,
+    entityName: PropTypes.string.isRequired,
+    reverseRelationName: PropTypes.string
+  })
 }
 
 export default Action

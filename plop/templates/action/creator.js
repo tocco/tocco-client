@@ -1,6 +1,10 @@
-export const {{camelCase action}} = {{param}} => ({
-  type: {{constantCase action}},
+
+export const {{camelCase action}} = {{#if paramsLengthNotOne}}({{paramsFormatted}}){{else}}{{paramsFormatted}}{{/if}} => ({
+  type: {{constantCase action}}{{#if hasParams}},
   payload: {
-    {{param}}
+    {{paramsNewLine}}
   }
+  {{else}}
+
+  {{/if}}
 })

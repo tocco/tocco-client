@@ -13,7 +13,7 @@ export function* fetchForm(formName, transformer = defaultFormTransformer) {
 }
 
 const getTable = formDefinition =>
-  formDefinition.children.find(child => child.layoutType === form.layoutTypes.TABLE)
+  formDefinition.children.find(child => child.componentType === form.componentTypes.TABLE)
 
 export const getSorting = formDefinition => {
   const table = getTable(formDefinition)
@@ -23,6 +23,11 @@ export const getSorting = formDefinition => {
 export const getSelectable = formDefinition => {
   const table = getTable(formDefinition)
   return table.selectable !== false
+}
+
+export const getEndpoint = formDefinition => {
+  const table = getTable(formDefinition)
+  return table.endpoint || null
 }
 
 const isDisplayableChild = child => !child.hidden

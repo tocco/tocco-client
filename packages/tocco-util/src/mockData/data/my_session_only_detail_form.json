@@ -6,7 +6,7 @@
   },
   "form": {
     "id": "MySessionOnly_detail",
-    "componentType": "layout",
+   "componentType": "table",
     "layoutType": "table",
     "hidden": false,
     "scopes": [],

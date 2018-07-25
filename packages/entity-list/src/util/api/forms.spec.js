@@ -16,7 +16,7 @@ describe('entity-list', () => {
 
               children: [{
                 layoutType: 'table',
-                componentType: 'layout',
+                componentType: 'table',
                 sorting
               }]
             }
@@ -28,7 +28,7 @@ describe('entity-list', () => {
             const formDefinition = {
               children: [{
                 layoutType: 'table',
-                componentType: 'layout'
+                componentType: 'table'
               }]
             }
             const result = forms.getSorting(formDefinition)
@@ -164,7 +164,7 @@ describe('entity-list', () => {
           it('should return array of all fields but none more than once', () => {
             const formDefintion = {
               children: [{
-                componentType: 'layout',
+                componentType: 'table',
                 layoutType: 'table',
                 children: [
                   {
@@ -204,7 +204,7 @@ describe('entity-list', () => {
           it('should ignore actions and other fields', () => {
             const formDefinition = {
               children: [{
-                componentType: 'layout',
+                componentType: 'table',
                 layoutType: 'table',
                 children: [
                   {
@@ -247,7 +247,7 @@ describe('entity-list', () => {
           const getFormDefinition = selectable => ({
             children: [{
               layoutType: 'table',
-              componentType: 'layout',
+              componentType: 'table',
               ...(selectable !== null ? {selectable} : {})
             }]
           })
@@ -265,6 +265,32 @@ describe('entity-list', () => {
           it('should return true if selectable not in defintion', () => {
             const result = forms.getSelectable(getFormDefinition(null))
             expect(result).to.be.true
+          })
+        })
+
+        describe('getEndpoint', () => {
+          const getFormDefinition = endpoint => ({
+            children: [{
+              layoutType: 'table',
+              componentType: 'table',
+              ...(endpoint !== null ? {endpoint} : {})
+            }]
+          })
+
+          it('should return endpoint', () => {
+            const endpoint = 'nice2/rest/xc'
+            const result = forms.getEndpoint(getFormDefinition(endpoint))
+            expect(result).to.eql(endpoint)
+          })
+
+          it('should return null if endpoint is not defined', () => {
+            const result = forms.getEndpoint(getFormDefinition(null))
+            expect(result).to.be.null
+          })
+
+          it('should return null if endpoint is empty', () => {
+            const result = forms.getEndpoint(getFormDefinition(''))
+            expect(result).to.be.null
           })
         })
       })

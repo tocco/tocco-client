@@ -2,12 +2,13 @@ export const ACTION_INVOKE = 'actions/ACTION_INVOKE'
 export const ACTION_IN_PROGRESS = 'actions/ACTION_IN_PROGRESS'
 export const ACTION_INVOKED = 'actions/ACTION_INVOKED'
 
-export const actionInvoke = (definition, entity, ids) => ({
+export const actionInvoke = (definition, entity, ids, parent) => ({
   type: ACTION_INVOKE,
   payload: {
     definition,
     entity,
-    ids
+    ids,
+    parent
   }
 })
 

@@ -3,6 +3,13 @@ import {EditableValue} from 'tocco-ui'
 import _get from 'lodash/get'
 import _mergeWith from 'lodash/mergeWith'
 
+const settings = {
+  REMOTE_SEARCH_RESULT_LIMIT: 50,
+  REMOTE_SUGGESTION_LIMIT: 10,
+  REMOTE_SUGGESTION_ORDER_FIELD: 'update_timestamp',
+  SELECT_LIMIT: 10000
+}
+
 export default type =>
   (formField, modelField, props, events, utils) => {
     const options = getOptions(type, formField, modelField, utils)
@@ -18,18 +25,22 @@ const getOptions = (type, formField, modelField, utils) => {
   switch (type) {
     case 'single-select':
     case 'multi-select':
-      if (utils.relationEntities) {
-        const fieldStore = utils.relationEntities[modelField.targetEntity]
-        options.store = fieldStore ? fieldStore.data : []
+      options.store = _get(utils, ['relationEntities', formField.id, 'data'], [])
+      options.isLoading = _get(utils, ['relationEntities', formField.id, 'isLoading'], false)
+      if (utils.intl) {
+        options.noResultsText = utils.intl.formatMessage({id: 'client.component.remoteselect.noResultsText'})
       }
       break
     case 'remote':
     case 'multi-remote':
-      options.options = _get(utils, 'remoteEntities.' + formField.id + '.entities', [])
-      options.moreOptionsAvailable = _get(utils, 'remoteEntities.' + formField.id + '.moreOptionsAvailable', false)
-      options.isLoading = _get(utils, 'remoteEntities.' + formField.id + '.loading', false)
-
-      options.fetchOptions = searchTerm => utils.loadRemoteEntity(formField.id, modelField.targetEntity, searchTerm)
+      options.options = _get(utils, ['relationEntities', formField.id, 'data'], [])
+      options.moreOptionsAvailable = _get(utils, ['relationEntities', formField.id, 'moreOptionsAvailable'], false)
+      options.isLoading = _get(utils, ['relationEntities', formField.id, 'isLoading'], false)
+      options.fetchOptions = searchTerm => utils.loadRelationEntities(formField.id, modelField.targetEntity, {
+        searchTerm,
+        limit: settings.REMOTE_SEARCH_RESULT_LIMIT,
+        forceReload: true
+      })
 
       if (utils.intl) {
         options.searchPromptText = utils.intl.formatMessage({id: 'client.component.remoteselect.searchPromptText'})
@@ -69,18 +80,23 @@ const getEvents = (type, field, modelField, util) => {
   switch (type) {
     case 'single-select':
     case 'multi-select':
-      if (util.loadRelationEntity) {
+      if (util.loadRelationEntities) {
         events.onFocus = () => {
-          util.loadRelationEntity(modelField.targetEntity)
+          util.loadRelationEntities(field.id, modelField.targetEntity, {
+            forceReload: false,
+            limit: settings.SELECT_LIMIT
+          })
         }
       }
       break
     case 'remote':
     case 'multi-remote':
-      if (util.loadRemoteEntity) {
-        events.onFocus = () => {
-          util.loadRemoteEntity(field.id, modelField.targetEntity, '')
-        }
+      events.onFocus = () => {
+        util.loadRelationEntities(field.id, modelField.targetEntity, {
+          forceReload: true,
+          limit: settings.REMOTE_SUGGESTION_LIMIT,
+          orderBy: {name: settings.REMOTE_SUGGESTION_ORDER_FIELD, direction: 'desc'}
+        })
       }
       break
     case 'search-filter':

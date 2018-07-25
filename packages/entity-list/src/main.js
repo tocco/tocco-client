@@ -7,7 +7,8 @@ import {
   actionEmitter,
   externalEvents,
   storeStorage,
-  actions
+  actions,
+  formData
 } from 'tocco-util'
 
 import reducers, {sagas} from './modules/reducers'
@@ -40,6 +41,7 @@ const initApp = (id, input, events = {}, publicPath) => {
     errorLogging.addToStore(store, false)
     notifier.addToStore(store, false)
     actions.addToStore(store)
+    formData.addToStore(store)
 
     dispatchActions = getDispatchActions(input, true)
     storeStorage.set(id, store)
@@ -144,7 +146,11 @@ EntityListApp.propTypes = {
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
     propTypes[event] = PropTypes.func
     return propTypes
-  }, {})
+  }, {}),
+  parent: PropTypes.shape({
+    id: PropTypes.string,
+    value: PropTypes.string
+  })
 }
 
 export default EntityListApp

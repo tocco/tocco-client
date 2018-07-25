@@ -30,7 +30,7 @@ class MultiRemoteSelect extends React.Component {
           placeholder=""
           searchPromptText={this.props.options.searchPromptText}
           clearAllText={this.props.options.clearAllText}
-          noResultsText={this.props.options.noResultsText}
+          noResultsText={this.props.options.isLoading ? '' : this.props.options.noResultsText}
           multi
           value={this.props.value}
           onChange={this.props.onChange}
@@ -38,7 +38,9 @@ class MultiRemoteSelect extends React.Component {
           filterOption={() => (true)}
           autoload={false}
           onInputChange={searchTerm => {
-            this.props.options.fetchOptions(searchTerm)
+            if (searchTerm) {
+              this.props.options.fetchOptions(searchTerm)
+            }
           }}
           options={this.getOptions()}
           isLoading={this.props.options.isLoading}
@@ -52,14 +54,17 @@ class MultiRemoteSelect extends React.Component {
 
 MultiRemoteSelect.propTypes = {
   onChange: PropTypes.func,
-  value: PropTypes.arrayOf(
-    PropTypes.shape({
-      key: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-      ])
-    })
-  ),
+  value: PropTypes.oneOfType([
+    PropTypes.arrayOf(
+      PropTypes.shape({
+        key: PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.number
+        ])
+      })
+    ),
+    PropTypes.string // empty string coming from Redux Form if value null
+  ]),
   options: PropTypes.shape({
     options: PropTypes.array,
     fetchOptions: PropTypes.func,

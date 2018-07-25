@@ -29,12 +29,13 @@ const SingleSelect = props => {
         labelKey="display"
         clearable
         placeholder=""
-        noResultsText="-"
+        noResultsText={props.options.isLoading ? '' : props.options.noResultsText}
         value={props.value}
         onChange={onChange}
         options={getOptions()}
         disabled={props.readOnly}
         ref={select => { selectComponent = select }}
+        isLoading={props.options.isLoading}
       />
     </span>
   )
@@ -56,7 +57,9 @@ SingleSelect.propTypes = {
       PropTypes.shape({
         value: PropTypes.any,
         label: PropTypes.string
-      }))
+      })),
+    noResultsText: PropTypes.string,
+    isLoading: PropTypes.bool
   }),
   readOnly: PropTypes.bool,
   id: PropTypes.string

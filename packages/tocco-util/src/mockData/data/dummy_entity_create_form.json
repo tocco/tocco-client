@@ -6,7 +6,7 @@
   },
   "form": {
     "id": "Dummy_entity_detail",
-    "componentType": "layout",
+   "componentType": "table",
     "layoutType": "table",
     "children": [
       {

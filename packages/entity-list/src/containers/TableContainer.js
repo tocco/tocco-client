@@ -31,7 +31,8 @@ const mapStateToProps = (state, props) => ({
   limit: state.list.limit,
   inProgress: state.list.inProgress,
   selectable: state.list.selectable,
-  selection: state.list.selection
+  selection: state.list.selection,
+  parent: state.entityList.parent
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(Table))

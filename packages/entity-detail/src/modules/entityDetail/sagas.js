@@ -10,10 +10,8 @@ import {ClientQuestionCancelledException} from 'tocco-util/src/rest'
 import * as actions from './actions'
 import {
   fetchEntity,
-  fetchEntities,
   updateEntity,
   fetchModel,
-  selectEntitiesTransformer,
   createEntity
 } from '../../util/api/entities'
 
@@ -31,8 +29,6 @@ export default function* sagas() {
     fork(takeLatest, actions.LOAD_DETAIL_VIEW, loadDetailView),
     fork(takeLatest, actions.UNLOAD_DETAIL_VIEW, unloadDetailView),
     fork(takeEvery, actions.SUBMIT_FORM, submitForm),
-    fork(takeEvery, actions.LOAD_RELATION_ENTITY, loadRelationEntity),
-    fork(takeEvery, actions.LOAD_REMOTE_ENTITY, loadRemoteEntity),
     fork(takeEvery, actions.UPLOAD_DOCUMENT, uploadDocument),
     fork(takeEvery, actions.FIRE_TOUCHED, fireTouched),
     fork(takeEvery, actionUtil.actions.ACTION_INVOKED, actionInvoked)
@@ -159,39 +155,6 @@ export function* submitForm() {
   } catch (error) {
     yield call(handleSubmitError, error)
   }
-}
-
-export function* loadRelationEntity({payload}) {
-  const {entityName} = payload
-  const {relationEntities} = yield select(entityDetailSelector)
-  if (!relationEntities[entityName] || !relationEntities[entityName].loaded) {
-    const fetchParams = {
-      fields: [],
-      relations: []
-    }
-    const entities = yield call(fetchEntities, entityName, fetchParams, selectEntitiesTransformer)
-    yield put(actions.setRelationEntity(entityName, entities, true))
-    yield put(actions.setRelationEntityLoaded(entityName))
-  }
-}
-
-export function* loadRemoteEntity({payload}) {
-  const {field, entityName, searchTerm} = payload
-  yield put(actions.setRemoteEntityLoading(field))
-  const limit = 100
-
-  const fetchParams = {
-    limit: limit + 1,
-    fields: [],
-    relations: [],
-    searchInputs: {
-      _search: searchTerm
-    }
-  }
-
-  const entities = yield call(fetchEntities, entityName, fetchParams, selectEntitiesTransformer)
-  const moreOptionsAvailable = entities.length > limit
-  yield put(actions.setRemoteEntity(field, entities.splice(0, limit), moreOptionsAvailable))
 }
 
 export function* uploadDocument({payload}) {

@@ -9,11 +9,8 @@ import {externalEvents, form, actions as actionUtil, actionEmitter} from 'tocco-
 import {ClientQuestionCancelledException} from 'tocco-util/src/rest'
 import * as actions from './actions'
 import {
-  fetchEntity,
-  fetchEntities,
   updateEntity,
   fetchModel,
-  selectEntitiesTransformer,
   createEntity
 } from '../../util/api/entities'
 import {submitValidate} from '../../util/detailView/asyncValidation'
@@ -35,8 +32,6 @@ describe('entity-detail', () => {
               fork(takeLatest, actions.LOAD_DETAIL_VIEW, sagas.loadDetailView),
               fork(takeLatest, actions.UNLOAD_DETAIL_VIEW, sagas.unloadDetailView),
               fork(takeEvery, actions.SUBMIT_FORM, sagas.submitForm),
-              fork(takeEvery, actions.LOAD_RELATION_ENTITY, sagas.loadRelationEntity),
-              fork(takeEvery, actions.LOAD_REMOTE_ENTITY, sagas.loadRemoteEntity),
               fork(takeEvery, actions.UPLOAD_DOCUMENT, sagas.uploadDocument),
               fork(takeEvery, actions.FIRE_TOUCHED, sagas.fireTouched),
               fork(takeEvery, actionUtil.actions.ACTION_INVOKED, sagas.actionInvoked)
@@ -309,147 +304,6 @@ describe('entity-detail', () => {
             const next = gen.next(fieldDefinitions)
             expect(next.value).to.eql(fieldDefinitions)
             expect(next.done).to.be.true
-          })
-
-          it('should not load entities if already loaded', () => {
-            const entityName = 'User'
-
-            const state = {
-              relationEntities: {
-                User: {
-                  loaded: true
-                }
-              }
-            }
-
-            const gen = sagas.loadRelationEntity(actions.loadRelationEntity(entityName))
-            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
-            expect(gen.next(state).done).to.be.true
-          })
-        })
-
-        describe('loadEntity saga', () => {
-          it('should', () => {
-            const entityName = 'User'
-            const entityId = '3'
-            const formDefinition = {}
-            const formName = 'User_detail'
-
-            const fieldDefinitions = []
-            const fields = []
-            const entity = {}
-
-            const gen = sagas.loadEntity(entityName, entityId, formDefinition, formName)
-            expect(gen.next().value).to.eql(call(form.getFieldDefinitions, formDefinition))
-            expect(gen.next(fieldDefinitions).value).to.eql(call(form.getFieldNames, fieldDefinitions))
-            expect(gen.next(fields).value).to.eql(call(fetchEntity, entityName, entityId, fields, formName))
-            expect(gen.next(entity).value).to.eql(put(actions.setEntity(entity)))
-            const next = gen.next()
-            expect(next.value).to.eql(entity)
-            expect(next.done).to.be.true
-          })
-
-          it('should not load entities if already loaded', () => {
-            const entityName = 'User'
-
-            const state = {
-              relationEntities: {
-                User: {
-                  loaded: true
-                }
-              }
-            }
-
-            const gen = sagas.loadRelationEntity(actions.loadRelationEntity(entityName))
-            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
-            expect(gen.next(state).done).to.be.true
-          })
-        })
-
-        describe('loadRelationEntity saga', () => {
-          it('should load relation entities ', () => {
-            const entityName = 'User'
-
-            const entities = [{display: 'User1', key: 1}]
-            const transformedEntities = [{key: 1, display: 'User1'}]
-            const fetchParams = {fields: [], relations: []}
-            const gen = sagas.loadRelationEntity(actions.loadRelationEntity(entityName))
-            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
-            expect(gen.next({relationEntities: {}}).value)
-              .to.eql(call(fetchEntities, entityName, fetchParams, selectEntitiesTransformer))
-            expect(gen.next(entities).value)
-              .to.eql(put(actions.setRelationEntity(entityName, transformedEntities, true)))
-            expect(gen.next().value).to.eql(put(actions.setRelationEntityLoaded(entityName)))
-            expect(gen.next().done).to.be.true
-          })
-
-          it('should not load entities if already loaded', () => {
-            const entityName = 'User'
-
-            const state = {
-              relationEntities: {
-                User: {
-                  loaded: true
-                }
-              }
-            }
-
-            const gen = sagas.loadRelationEntity(actions.loadRelationEntity(entityName))
-            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
-            expect(gen.next(state).done).to.be.true
-          })
-        })
-
-        describe('loadRemoteEntity saga', () => {
-          it('should load remote entities ', () => {
-            const field = 'relUser'
-            const entity = 'User'
-            const searchTerm = 'Dan'
-
-            const fetchedRemoteEntities = [{key: 1, label: 'One'}]
-            const setRemoteEntities = [{key: 1, label: 'One'}]
-            const searchInputs = {
-              limit: 101,
-              fields: [],
-              relations: [],
-              searchInputs: {
-                _search: searchTerm
-              }
-            }
-
-            const gen = sagas.loadRemoteEntity(actions.loadRemoteEntity(field, entity, searchTerm))
-
-            expect(gen.next().value).to.eql(put(actions.setRemoteEntityLoading(field)))
-            expect(gen.next().value).to.eql(call(fetchEntities, entity, searchInputs, selectEntitiesTransformer))
-            expect(gen.next(fetchedRemoteEntities).value).to.eql(
-              put(actions.setRemoteEntity(field, setRemoteEntities, false)))
-
-            expect(gen.next().done).to.be.true
-          })
-
-          it('should set flag `moreOptionsAvailable` and splice array', () => {
-            const field = 'relUser'
-            const entity = 'User'
-
-            const searchInputs = {
-              limit: 101,
-              fields: [],
-              relations: [],
-              searchInputs: {
-                _search: ''
-              }
-            }
-
-            const fetchedRemoteEntities = Array(101)
-            const setRemoteEntities = Array(100)
-
-            const gen = sagas.loadRemoteEntity(actions.loadRemoteEntity(field, entity, ''))
-
-            expect(gen.next().value).to.eql(put(actions.setRemoteEntityLoading(field)))
-            expect(gen.next().value).to.eql(call(fetchEntities, entity, searchInputs, selectEntitiesTransformer))
-            expect(gen.next(fetchedRemoteEntities).value).to.eql(
-              put(actions.setRemoteEntity(field, setRemoteEntities, true)))
-            expect(gen.next().done).to.be.true
           })
         })
 

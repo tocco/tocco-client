@@ -106,18 +106,20 @@ const buildParams = ({
   return params
 }
 
-export function* fetchEntities(entityName, searchInputs, transformer = defaultEntitiesTransformer) {
+export function* fetchEntities(entityName, searchInputs, transformer = defaultEntitiesTransformer, resource) {
   const queryParams = buildParams(searchInputs)
-  const response = yield call(requestSaga, `entities/${entityName}`, {
+  resource = resource || `entities/${entityName}`
+
+  const response = yield call(requestSaga, resource, {
     queryParams
   })
   return yield call(transformer, response.body)
 }
 
-export function* fetchEntityCount(entityName, searchInputs) {
+export function* fetchEntityCount(entityName, searchInputs, resource) {
   const queryParams = buildParams(searchInputs)
-  const response = yield call(requestSaga, `entities/${entityName}/count`, {
-    queryParams
-  })
+  const countSuffix = '/count'
+  resource = (resource || `entities/${entityName}`) + countSuffix
+  const response = yield call(requestSaga, resource, {queryParams})
   return response.body.count
 }

@@ -88,7 +88,7 @@ const Table = (props, context) => {
 
   const cellFormatter = (column, idx) => (cell, entity) => (
     <span key={idx}>
-      {column.children.map(child => cellRenderer(child, entity, {refresh: props.refresh}, context.intl))}
+      {column.children.map(child => cellRenderer(child, entity, props.parent, {refresh: props.refresh}, context.intl))}
     </span>
   )
 
@@ -154,7 +154,12 @@ Table.propTypes = {
   selectable: PropTypes.bool,
   onSelectChange: PropTypes.func,
   refresh: PropTypes.func,
-  selection: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))
+  selection: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+  parent: PropTypes.shape({
+    key: PropTypes.string.isRequired,
+    entityName: PropTypes.string.isRequired,
+    reverseRelationName: PropTypes.string
+  })
 }
 
 export default Table

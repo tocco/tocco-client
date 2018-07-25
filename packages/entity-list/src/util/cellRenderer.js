@@ -3,11 +3,11 @@ import {actions, form} from 'tocco-util'
 import {FormattedValue} from 'tocco-ui'
 import formattedValueFactory from './formattedValueFactory'
 
-export default (field, entity, cb, intl) => {
+export default (field, entity, parent, cb, intl) => {
   const {componentType} = field
 
   if (actions.isAction(componentType)) {
-    return getAction(field, entity)
+    return getAction(field, entity, parent, cb)
   } else if (componentType === form.componentTypes.FIELD) {
     return formattedValueFactory(field, entity, intl)
   } else if (componentType === form.componentTypes.DISPLAY) {
@@ -20,7 +20,7 @@ const getDisplayExpression = (field, entity) =>
     <FormattedValue type="html" value={entity[field.id].value}/>
   </span>
 
-const getAction = (field, entity, cb) =>
+const getAction = (field, entity, parent, cb) =>
   <actions.Action
     key={'tableAction' + field.id}
     definition={field}
@@ -29,4 +29,5 @@ const getAction = (field, entity, cb) =>
     callback={result =>
       cb.refresh()
     }
+    parent={parent}
   />
