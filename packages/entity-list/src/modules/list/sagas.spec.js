@@ -319,7 +319,7 @@ describe('entity-list', () => {
             expect(gen.next().value).to.eql(select(sagas.inputSelector))
             expect(gen.next({selectOnRowClick: true}).value).to.eql(select(sagas.listSelector))
             expect(gen.next({selection: ['2']}).value)
-              .to.eql(put(actions.onSelectChange({keys: ['1'], isSelected: true})))
+              .to.eql(put(actions.onSelectChange(['1'], true)))
             expect(gen.next().value)
               .to.eql(put(externalEvents.fireExternalEvent('onRowClick', {id: '1'})))
             expect(gen.next().done).to.be.true
@@ -330,10 +330,40 @@ describe('entity-list', () => {
             expect(gen.next().value).to.eql(select(sagas.inputSelector))
             expect(gen.next({selectOnRowClick: true}).value).to.eql(select(sagas.listSelector))
             expect(gen.next({selection: ['1']}).value)
-              .to.eql(put(actions.onSelectChange({keys: ['1'], isSelected: false})))
+              .to.eql(put(actions.onSelectChange(['1'], false)))
             expect(gen.next().value)
               .to.eql(put(externalEvents.fireExternalEvent('onRowClick', {id: '1'})))
             expect(gen.next().done).to.be.true
+          })
+        })
+
+        describe('onSelectChange', () => {
+          it('should calculate new selection an put action and external event', () => {
+            const expectedSelection = ['1', '2', '3']
+
+            return expectSaga(sagas.onSelectChange, actions.onSelectChange(['2', '3'], true))
+              .provide([
+                [select(sagas.inputSelector), {}],
+                [select(sagas.listSelector), {selection: ['1', '2']}]
+              ])
+
+              .put(actions.setSelection(expectedSelection))
+              .put(externalEvents.fireExternalEvent('onSelectChange', expectedSelection))
+              .run()
+          })
+
+          it('should put action of key in case of single', () => {
+            const expectedSelection = ['33']
+
+            return expectSaga(sagas.onSelectChange, actions.onSelectChange(['33'], true))
+              .provide([
+                [select(sagas.inputSelector), {selectionStyle: 'single'}],
+                [select(sagas.listSelector), {selection: ['2']}]
+              ])
+
+              .put(actions.setSelection(expectedSelection))
+              .put(externalEvents.fireExternalEvent('onSelectChange', expectedSelection))
+              .run()
           })
         })
 

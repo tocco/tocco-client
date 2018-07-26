@@ -9,6 +9,7 @@ import {getSearchInputs} from '../searchForm/sagas'
 import {fetchForm, getSorting, getSelectable, getEndpoint, getFields} from '../../util/api/forms'
 import {fetchEntityCount, fetchEntities, entitiesListTransformer, fetchModel} from '../../util/api/entities'
 import {combineSelection} from '../../util/selection'
+import selectionStyles from '../../util/selectionStyles'
 
 export const inputSelector = state => state.input
 export const entityListSelector = state => state.entityList
@@ -177,7 +178,7 @@ export function* onRowClick({payload}) {
   if (selectOnRowClick === true) {
     const list = yield select(listSelector)
     const selected = list.selection.includes(payload.id)
-    yield put(actions.onSelectChange({keys: [payload.id], isSelected: !selected}))
+    yield put(actions.onSelectChange([payload.id], !selected))
   }
   yield put(externalEvents.fireExternalEvent('onRowClick', {id: payload.id}))
 }
@@ -186,10 +187,13 @@ export function* navigateToCreate() {
   yield put(externalEvents.fireExternalEvent('onNavigateToCreate'))
 }
 
-export function* onSelectChange({payload}) {
-  const list = yield select(listSelector)
-  const {selection} = payload
-  const newSelection = yield call(combineSelection, list.selection, selection)
+export function* onSelectChange({payload: {keys, isSelected}}) {
+  const {selection: currentSelection} = yield select(listSelector)
+  const {selectionStyle} = yield select(inputSelector)
+
+  const newSelection = selectionStyle && selectionStyle === selectionStyles.SINGLE
+    ? keys : yield call(combineSelection, currentSelection, keys, isSelected)
+
   yield put(actions.setSelection(newSelection))
   yield put(externalEvents.fireExternalEvent('onSelectChange', newSelection))
 }
