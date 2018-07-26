@@ -10,7 +10,7 @@ import {
   fetchEntities,
   fetchModel
 } from '../../util/api/entities'
-import {actions as actionUtil} from 'tocco-util'
+import {actions as actionUtil, externalEvents} from 'tocco-util'
 import * as matchers from 'redux-saga-test-plan/matchers'
 
 const generateState = (entityStore = {}, page) => ({
@@ -302,6 +302,68 @@ describe('entity-list', () => {
 
             const gen = sagas.loadEntityModel(entityName, entityModel)
             expect(gen.next().done).to.be.true
+          })
+        })
+
+        describe('onRowClick saga', () => {
+          it('should not change selection if selectOnRowClick not true', () => {
+            const gen = sagas.onRowClick(actions.onRowClick('1'))
+            expect(gen.next().value).to.eql(select(sagas.inputSelector))
+            expect(gen.next({selectOnRowClick: false}).value)
+              .to.eql(put(externalEvents.fireExternalEvent('onRowClick', {id: '1'})))
+            expect(gen.next().done).to.be.true
+          })
+
+          it('should select a deselected row on click', () => {
+            const gen = sagas.onRowClick(actions.onRowClick('1'))
+            expect(gen.next().value).to.eql(select(sagas.inputSelector))
+            expect(gen.next({selectOnRowClick: true}).value).to.eql(select(sagas.listSelector))
+            expect(gen.next({selection: ['2']}).value)
+              .to.eql(put(actions.onSelectChange(['1'], true)))
+            expect(gen.next().value)
+              .to.eql(put(externalEvents.fireExternalEvent('onRowClick', {id: '1'})))
+            expect(gen.next().done).to.be.true
+          })
+
+          it('should deselect a selected row on click', () => {
+            const gen = sagas.onRowClick(actions.onRowClick('1'))
+            expect(gen.next().value).to.eql(select(sagas.inputSelector))
+            expect(gen.next({selectOnRowClick: true}).value).to.eql(select(sagas.listSelector))
+            expect(gen.next({selection: ['1']}).value)
+              .to.eql(put(actions.onSelectChange(['1'], false)))
+            expect(gen.next().value)
+              .to.eql(put(externalEvents.fireExternalEvent('onRowClick', {id: '1'})))
+            expect(gen.next().done).to.be.true
+          })
+        })
+
+        describe('onSelectChange', () => {
+          it('should calculate new selection an put action and external event', () => {
+            const expectedSelection = ['1', '2', '3']
+
+            return expectSaga(sagas.onSelectChange, actions.onSelectChange(['2', '3'], true))
+              .provide([
+                [select(sagas.inputSelector), {}],
+                [select(sagas.listSelector), {selection: ['1', '2']}]
+              ])
+
+              .put(actions.setSelection(expectedSelection))
+              .put(externalEvents.fireExternalEvent('onSelectChange', expectedSelection))
+              .run()
+          })
+
+          it('should put action of key in case of single', () => {
+            const expectedSelection = ['33']
+
+            return expectSaga(sagas.onSelectChange, actions.onSelectChange(['33'], true))
+              .provide([
+                [select(sagas.inputSelector), {selectionStyle: 'single'}],
+                [select(sagas.listSelector), {selection: ['2']}]
+              ])
+
+              .put(actions.setSelection(expectedSelection))
+              .put(externalEvents.fireExternalEvent('onSelectChange', expectedSelection))
+              .run()
           })
         })
 

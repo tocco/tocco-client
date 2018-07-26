@@ -11,6 +11,7 @@
     "has_contract"
   ],
   "selectable": true,
+  "selectOnRowClick": false,
   "preselectedSearchFields": [
     {
       "id": "txtFulltext",

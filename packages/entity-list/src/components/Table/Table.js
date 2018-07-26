@@ -4,6 +4,7 @@ import {intlShape} from 'react-intl'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import cellRenderer from '../../util/cellRenderer'
 import '!style-loader!css-loader!react-bootstrap-table/dist/react-bootstrap-table.min.css'
+import {default as selectionStyles, selectionStylePropTypes} from '../../util/selectionStyles'
 
 const RIGHT_ALIGNED_TYPES = ['moneyamount', 'counter', 'integer', 'long']
 
@@ -43,18 +44,32 @@ const Table = (props, context) => {
   const handleAllSelectionChange = (isSelected, rows) => {
     const keys = rows.map(r => r.__key)
     if (props.onSelectChange) {
-      props.onSelectChange({keys: keys, isSelected})
+      props.onSelectChange(keys, isSelected)
     }
   }
 
   const handleSelectionChange = (row, isSelected) => {
     if (props.onSelectChange) {
-      props.onSelectChange({keys: [row.__key], isSelected})
+      props.onSelectChange([row.__key], isSelected)
     }
   }
 
+  const getSelectionMode = () => {
+    const wrapValue = mode => ({mode})
+
+    if (props.selectionStyle) {
+      return props.selectionStyle === selectionStyles.MULTI
+        ? wrapValue('checkbox')
+        : props.selectionStyle === selectionStyles.SINGLE
+          ? wrapValue('radio')
+          : {}
+    }
+
+    return props.selectable === true ? wrapValue('checkbox') : {}
+  }
+
   const selectRow = {
-    mode: props.selectable ? 'checkbox' : 'none',
+    ...(getSelectionMode()),
     onSelect: handleSelectionChange,
     onSelectAll: handleAllSelectionChange,
     selected: props.selection ? props.selection : [],
@@ -151,6 +166,7 @@ Table.propTypes = {
   onRowClick: PropTypes.func,
   setSorting: PropTypes.func,
   changePage: PropTypes.func.isRequired,
+  selectionStyle: selectionStylePropTypes,
   selectable: PropTypes.bool,
   onSelectChange: PropTypes.func,
   refresh: PropTypes.func,

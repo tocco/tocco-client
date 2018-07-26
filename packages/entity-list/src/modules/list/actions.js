@@ -173,10 +173,11 @@ export const setSelectable = selectable => ({
   }
 })
 
-export const onSelectChange = selection => ({
+export const onSelectChange = (keys, isSelected) => ({
   type: ON_SELECT_CHANGE,
   payload: {
-    selection
+    keys,
+    isSelected
   }
 })
 
