@@ -9,10 +9,10 @@ const ascendingNumberComparator = (a, b) => a - b
  * Takes the existing selection and the new selection which can be either of the type selected or deselected and
  * combines them to a new selection which will be returned.
  */
-export const combineSelection = (existingSelection, selection) => {
-  let newSelection = existingSelection.slice()
-  for (const key of selection.keys) {
-    if (selection.isSelected) {
+export const combineSelection = (currentSelection, keys, isSelected) => {
+  let newSelection = currentSelection.slice()
+  for (const key of keys) {
+    if (isSelected) {
       newSelection.push(key)
     } else {
       newSelection = newSelection.filter(k => k !== key)
