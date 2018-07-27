@@ -36,14 +36,13 @@ describe('tocco-ui', function() {
 
     it('should show pending spinner', () => {
       let wrapper = mount(<Button/>)
-      expect(wrapper.find('Icon')).to.have.length(0)
+      expect(wrapper.find('IconTocco')).to.have.length(0)
 
       wrapper = mount(<Button pending={false}/>)
-      expect(wrapper.find('Icon')).to.have.length(0)
+      expect(wrapper.find('IconTocco')).to.have.length(0)
 
       wrapper = mount(<Button pending/>)
-      expect(wrapper.find('Icon').prop('animation')).to.equal('spin')
-      expect(wrapper.find('Icon').prop('icon')).to.equal('fa-spinner')
+      expect(wrapper.find('IconTocco')).to.have.length(1)
     })
 
     it('should show icon', () => {

@@ -55,7 +55,7 @@ const declareButtonColor = props => {
   } else if (look === RAISED && ink === PRIMARY) {
     declareColor = declareRaisedPrimaryColors
   }
-  return declareInteractionColors(declareColor(props))
+  return declareInteractionColors(declareColor(props), 'html')
 }
 
 const declareIconPosition = props => {
