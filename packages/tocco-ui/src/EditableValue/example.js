@@ -92,7 +92,6 @@ class Example extends React.Component {
   }
 
   changeValue(name, value) {
-    console.log('changeValue', name, value)
     this.setState({
       ...this.state,
       values: {
