@@ -6,9 +6,9 @@ const selectionStyles = {
   NONE: 'none'
 }
 
-const selectionStylePropTypes = PropTypes.oneOf(Object.keys(selectionStyles).map(key => selectionStyles[key]))
+const selectionStylePropType = PropTypes.oneOf(Object.keys(selectionStyles).map(key => selectionStyles[key]))
 
 export {
   selectionStyles as default,
-  selectionStylePropTypes
+  selectionStylePropType
 }

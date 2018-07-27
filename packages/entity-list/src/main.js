@@ -16,7 +16,7 @@ import EntityListContainer from './containers/EntityListContainer'
 import {getDispatchActions} from './input'
 import _pickBy from 'lodash/pickBy'
 import _isEqual from 'lodash/isEqual'
-import {selectionStylePropTypes} from './util/selectionStyles'
+import {selectionStylePropType} from './util/selectionStyles'
 const packageName = 'entity-list'
 
 const EXTERNAL_EVENTS = [
@@ -143,7 +143,7 @@ EntityListApp.propTypes = {
   disableSimpleSearch: PropTypes.bool,
   simpleSearchFields: PropTypes.string,
   onSelectChange: PropTypes.func,
-  selectionStyle: selectionStylePropTypes,
+  selectionStyle: selectionStylePropType,
   selection: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
     propTypes[event] = PropTypes.func
