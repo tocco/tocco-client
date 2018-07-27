@@ -191,7 +191,7 @@ export function* onSelectChange({payload: {keys, isSelected}}) {
   const {selection: currentSelection} = yield select(listSelector)
   const {selectionStyle} = yield select(inputSelector)
 
-  const newSelection = selectionStyle && selectionStyle === selectionStyles.SINGLE
+  const newSelection = selectionStyle === selectionStyles.SINGLE
     ? keys : yield call(combineSelection, currentSelection, keys, isSelected)
 
   yield put(actions.setSelection(newSelection))

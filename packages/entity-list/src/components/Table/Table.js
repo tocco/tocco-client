@@ -4,7 +4,7 @@ import {intlShape} from 'react-intl'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import cellRenderer from '../../util/cellRenderer'
 import '!style-loader!css-loader!react-bootstrap-table/dist/react-bootstrap-table.min.css'
-import {default as selectionStyles, selectionStylePropTypes} from '../../util/selectionStyles'
+import {default as selectionStyles, selectionStylePropType} from '../../util/selectionStyles'
 
 const RIGHT_ALIGNED_TYPES = ['moneyamount', 'counter', 'integer', 'long']
 
@@ -166,7 +166,7 @@ Table.propTypes = {
   onRowClick: PropTypes.func,
   setSorting: PropTypes.func,
   changePage: PropTypes.func.isRequired,
-  selectionStyle: selectionStylePropTypes,
+  selectionStyle: selectionStylePropType,
   selectable: PropTypes.bool,
   onSelectChange: PropTypes.func,
   refresh: PropTypes.func,
