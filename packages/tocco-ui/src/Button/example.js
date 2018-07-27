@@ -41,15 +41,34 @@ export default () => {
         iconPosition="sole"
       />
       <Button
+        disabled
+        label="Disabled"
+        onClick={() => alert('do something')}
+        title="This button is disabled"
+      />
+      <Button
         label="Pending"
         onClick={() => alert('do something')}
         pending
       />
       <Button
-        disabled
-        label="Disabled"
+        ink="primary"
+        label="Pending"
         onClick={() => alert('do something')}
-        title="This button is disabled"
+        pending
+      />
+      <Button
+        label="Pending"
+        look="raised"
+        onClick={() => alert('do something')}
+        pending
+      />
+      <Button
+        ink="primary"
+        label="Pending"
+        look="raised"
+        onClick={() => alert('do something')}
+        pending
       />
       {/* end example */}
     </div>

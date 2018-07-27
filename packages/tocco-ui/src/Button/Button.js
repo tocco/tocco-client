@@ -2,10 +2,10 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import Icon from '../Icon'
+import IconTocco from '../IconTocco'
 import StyledButton from './StyledButton'
 import {
   inkPropTypes,
-  stylingAnimation,
   stylingInk,
   stylingLook,
   stylingPosition
@@ -31,11 +31,11 @@ const Button = props => {
         dense={props.dense}
         icon={props.icon}
         position={props.label ? props.iconPosition : stylingPosition.sole}/>}
-      {props.pending && <Icon
-        animation={stylingAnimation.SPIN}
-        dense={props.dense}
-        icon="fa-spinner"
-        position={props.label ? props.iconPosition : stylingPosition.sole}/>}
+      {props.pending && <IconTocco
+        ink={props.ink || props.buttonGroupInk || stylingInk.BASE}
+        look={props.look}
+        position="prepend"
+        size="1em"/>}
       {props.label ? <span>{props.label}</span> : props.children}
     </StyledButton>
   )

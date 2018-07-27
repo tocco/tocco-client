@@ -1,7 +1,6 @@
 import styled, {css} from 'styled-components'
 import {theme} from 'styled-system'
 
-import {StyledIcon} from '../Icon'
 import {StyledSpan} from '../Typography/StyledTypography'
 
 const StyledLoadMask = styled.div`
@@ -11,17 +10,13 @@ const StyledLoadMask = styled.div`
       flex-flow: column nowrap;
       height: 100%;
       justify-content: center;
+      align-items: center;
       padding: ${theme('space.4')}
       width: 100%;
 
       > ${StyledSpan} {
-        text-align: center;
-      }
-
-      > ${StyledIcon} {
-        font-size: ${theme('fontSizes.5')};
-        margin-bottom: ${theme('space.4')}
-        text-align: center;
+        margin-top: ${theme('space.4')}
+        z-index: 1;
       }
     }
   `}

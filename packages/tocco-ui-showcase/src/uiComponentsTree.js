@@ -29,6 +29,10 @@ import IconRaw from '!raw-loader!../../tocco-ui/src/Icon/Icon'
 import IconExample from '../../tocco-ui/src/Icon/example'
 import IconExampleRaw from '!raw-loader!../../tocco-ui/src/Icon/example'
 
+import IconToccoRaw from '!raw-loader!../../tocco-ui/src/IconTocco/IconTocco'
+import IconToccoExample from '../../tocco-ui/src/IconTocco/example'
+import IconToccoExampleRaw from '!raw-loader!../../tocco-ui/src/IconTocco/example'
+
 import LayoutBoxRaw from '!raw-loader!../../tocco-ui/src/LayoutBox/LayoutBox'
 import LayoutBoxExample from '../../tocco-ui/src/LayoutBox/example'
 import LayoutBoxExampleRaw from '!raw-loader!../../tocco-ui/src/LayoutBox/example'
@@ -89,7 +93,8 @@ const categories = {
   EDIT_DATA: 'Edit Data',
   LAYOUT: 'Layout',
   MESSAGE: 'Message',
-  NAVIGATION: 'Navigation'
+  NAVIGATION: 'Navigation',
+  TOCCO: 'Tocco Specific'
 }
 
 export default [{
@@ -259,6 +264,16 @@ export default [{
     example: {
       component: ErrorLoggingExample,
       raw: ErrorLoggingExampleRaw
+    }
+  }]
+}, {
+  category: categories.TOCCO,
+  components: [{
+    name: 'Tocco Logo',
+    raw: IconToccoRaw,
+    example: {
+      component: IconToccoExample,
+      raw: IconToccoExampleRaw
     }
   }]
 }]

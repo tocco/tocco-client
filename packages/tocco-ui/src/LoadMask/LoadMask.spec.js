@@ -2,7 +2,7 @@ import React from 'react'
 import LoadMask from './LoadMask'
 import {shallow, mount} from 'enzyme'
 
-import Icon from '../Icon'
+import IconTocco from '../IconTocco'
 import {Span} from '../Typography'
 
 describe('tocco-ui', function() {
@@ -14,16 +14,16 @@ describe('tocco-ui', function() {
         />
       )
 
-      expect(wrapper.find(Icon)).to.have.length(1)
+      expect(wrapper.find(IconTocco)).to.have.length(1)
       wrapper.setProps({required: [{}, undefined]})
-      expect(wrapper.find(Icon)).to.have.length(1)
+      expect(wrapper.find(IconTocco)).to.have.length(1)
       wrapper.setProps({required: [false]})
-      expect(wrapper.find(Icon)).to.have.length(1)
+      expect(wrapper.find(IconTocco)).to.have.length(1)
       wrapper.setProps({required: [null]})
-      expect(wrapper.find(Icon)).to.have.length(1)
+      expect(wrapper.find(IconTocco)).to.have.length(1)
 
       wrapper.setProps({required: [{}, {}]})
-      expect(wrapper.find(Icon)).to.have.length(0)
+      expect(wrapper.find(IconTocco)).to.have.length(0)
     })
 
     it('shows children if loaded', () => {
@@ -46,7 +46,7 @@ describe('tocco-ui', function() {
         />
       )
 
-      expect(wrapper.find(Icon)).to.have.length(1)
+      expect(wrapper.find(IconTocco)).to.have.length(1)
       done()
     })
 
