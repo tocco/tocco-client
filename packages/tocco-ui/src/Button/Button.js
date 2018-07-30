@@ -36,7 +36,7 @@ const Button = props => {
         dense={props.dense}
         icon="fa-spinner"
         position={props.label ? props.iconPosition : stylingPosition.sole}/>}
-      {props.label && <span>{props.label}</span>}
+      {props.label ? <span>{props.label}</span> : props.children}
     </StyledButton>
   )
 }
@@ -56,6 +56,10 @@ Button.propTypes = {
    * May be passed from <ButtonGroup> to morph buttons into a split button. Do not set manually.
    */
   buttonGroupMelt: PropTypes.bool,
+  /**
+   * As an alternative to the label you can pass a child element to display the buttons content.
+   */
+  children: PropTypes.node,
   /**
    * If true, button occupies less space. It should only used for crowded areas like tables and only if necessary.
    */

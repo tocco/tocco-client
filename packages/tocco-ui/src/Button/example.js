@@ -51,6 +51,9 @@ export default () => {
         onClick={() => alert('do something')}
         title="This button is disabled"
       />
+      <Button title="My Title">
+        <u><i>Child Element</i></u>
+      </Button>
       {/* end example */}
     </div>
   )
