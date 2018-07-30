@@ -5,20 +5,27 @@ import ModalContent from './ModalContent'
 const ModalDisplay = props => {
   return (
     <div>
-      {props.modal
-      && <ModalContent
-        id={props.modal.id}
-        title={props.modal.title}
-        message={props.modal.message}
-        component={props.modal.component}
-        close={props.close}
-      />}
+      {props.modals.map((modal, idx) =>
+        <ModalContent
+          key={idx}
+          id={modal.id}
+          title={modal.title}
+          message={modal.message}
+          component={modal.component}
+          close={props.close}
+        />
+      )}
     </div>
   )
 }
 
 ModalDisplay.propTypes = {
-  modal: propTypes.object,
+  modals: propTypes.arrayOf(propTypes.shape({
+    id: propTypes.oneOfType([propTypes.string, propTypes.number]),
+    title: propTypes.string,
+    message: propTypes.string,
+    component: propTypes.func
+  })),
   close: propTypes.func
 }
 
