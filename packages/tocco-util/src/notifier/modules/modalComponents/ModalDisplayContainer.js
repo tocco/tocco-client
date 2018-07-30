@@ -7,7 +7,7 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state, props) => ({
-  modal: state.notifier.modalComponents.modals[0]
+  modals: state.notifier.modalComponents.modals
 })
 
 export default connect(mapStateToProps, mapActionCreators)(ModalDisplay)
