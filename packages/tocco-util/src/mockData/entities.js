@@ -157,7 +157,9 @@ const createEntitiesResponse = (entityName, entityStore, timeout, filter) => {
     const filteredEntities = filter ? entities.filter(filter) : entities
 
     let result
-    if (searchTerm === 'few' || query) {
+    if (query) {
+      result = wrapEntitiesResponse(entityName, handleQueryResult(query, filteredEntities))
+    } else if (searchTerm === 'few') {
       result = wrapEntitiesResponse(entityName, filteredEntities.slice(0, 3))
     } else if (searchTerm === 'none') {
       result = wrapEntitiesResponse(entityName, [])
@@ -167,6 +169,16 @@ const createEntitiesResponse = (entityName, entityStore, timeout, filter) => {
 
     return sleep(timeout).then(() => result)
   }
+}
+
+const handleQueryResult = (query, entities) => {
+  const matchIN = query.match(/IN\(pk,(.*)\)/)
+  if (matchIN) {
+    const ids = matchIN[1].split(',')
+    entities = entities.filter(e => ids.includes(e.key))
+  }
+
+  return entities
 }
 
 const createSearchFilterResponse = () =>

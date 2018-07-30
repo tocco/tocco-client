@@ -26,7 +26,7 @@
     },
     {
       "relationName": "relRemote_entity",
-      "targetEntity": "Dummy_entity",
+      "targetEntity": "User",
       "reverseRelationName": "relUser2",
       "multi": false,
       "validation": {
