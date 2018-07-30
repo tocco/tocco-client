@@ -453,7 +453,8 @@
                         "id": "relChildren",
                         "componentType": "field",
                         "dataType": "multi-remote-field",
-                        "label": null
+                        "label": null,
+                        "formBase": "User_small"
                       }
                     ]
                   }

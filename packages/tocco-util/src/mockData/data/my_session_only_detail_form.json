@@ -92,14 +92,15 @@
                 "componentType": "field-set",
                 "id": "relRemote_entity",
                 "hidden": false,
-                "label": "Dummy entity (single remote)",
+                "label": "User (single remote)",
                 "scopes": [],
                 "children": [
                   {
                     "id": "relRemote_entity",
                     "dataType": "single-remote-field",
                     "componentType": "field",
-                    "label": null
+                    "label": null,
+                    "formBase": "User_small"
                   }
                 ]
               },
