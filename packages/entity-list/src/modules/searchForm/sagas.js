@@ -31,7 +31,8 @@ export default function* sagas() {
     fork(takeLatest, actions.LOAD_SEARCH_FILTERS, loadSearchFilters),
     fork(takeLatest, formActionTypes.CHANGE, submitSearchFrom),
     fork(takeLatest, actions.SUBMIT_SEARCH_FORM, submitSearchFrom),
-    fork(takeLatest, actions.RESET_SEARCH, resetSearch)
+    fork(takeLatest, actions.RESET_SEARCH, resetSearch),
+    fork(takeLatest, actions.ADVANCED_SEARCH_UPDATE, advancedSearchUpdate)
   ])
 }
 
@@ -157,4 +158,8 @@ export function* getSearchInputs() {
     }
   })
   return yield call(getSearchInputsForRequest, searchInputsRenamed, entityModel)
+}
+
+export function* advancedSearchUpdate({payload: {field, ids}}) {
+  yield put(formActions.change(FORM_ID, field, ids))
 }

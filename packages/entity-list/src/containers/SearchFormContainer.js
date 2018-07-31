@@ -5,8 +5,11 @@ import {
   submitSearchForm,
   resetSearch,
   setShowExtendedSearchForm,
-  loadSearchFilters
+  loadSearchFilters,
+  advancedSearchUpdate
 } from '../modules/searchForm/actions'
+
+import ListApp from './../main'
 
 import {formData} from 'tocco-util'
 
@@ -15,7 +18,8 @@ const mapActionCreators = {
   loadSearchFilters,
   resetSearch,
   setShowExtendedSearchForm,
-  loadRelationEntities: formData.loadRelationEntities
+  loadRelationEntities: formData.loadRelationEntities,
+  openAdvancedSearch: (...args) => formData.openAdvancedSearch(ListApp, advancedSearchUpdate, ...args)
 }
 
 const mapStateToProps = (state, props) => ({
