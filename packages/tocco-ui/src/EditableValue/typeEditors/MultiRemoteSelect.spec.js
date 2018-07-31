@@ -1,7 +1,7 @@
 import React from 'react'
 import {shallow} from 'enzyme'
 import TetheredSelectWrap from './TetherSelectWrap'
-
+import Button from '../../Button/Button'
 import MultiRemoteSelect from './MultiRemoteSelect'
 
 describe('tocco-ui', () => {
@@ -57,6 +57,20 @@ describe('tocco-ui', () => {
 
           expect(wrapper.find(TetheredSelectWrap)).to.have.length(1)
           expect(wrapper.find(TetheredSelectWrap).prop('options')).to.be.eql(option)
+        })
+
+        it('should show advancedSearch Button if callback is defined', () => {
+          const advancedSearchSpy = sinon.spy()
+          const wrapper = shallow(
+            <MultiRemoteSelect
+              options={{openAdvancedSearch: advancedSearchSpy}}
+              value={[]}
+              onChange={() => {}}
+            />)
+
+          expect(wrapper.find(Button)).to.have.length(1)
+          wrapper.find(Button).simulate('click')
+          expect(advancedSearchSpy).to.be.called
         })
       })
     })

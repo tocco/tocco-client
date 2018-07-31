@@ -3,6 +3,7 @@ import {shallow} from 'enzyme'
 import TetheredSelectWrap from './TetherSelectWrap'
 
 import RemoteSelect from './RemoteSelect'
+import Button from '../../Button/Button'
 
 describe('tocco-ui', () => {
   describe('EditableValue', () => {
@@ -57,6 +58,20 @@ describe('tocco-ui', () => {
 
           expect(wrapper.find(TetheredSelectWrap)).to.have.length(1)
           expect(wrapper.find(TetheredSelectWrap).prop('options')).to.be.eql(option)
+        })
+
+        it('should show advancedSearch Button if callback is defined', () => {
+          const advancedSearchSpy = sinon.spy()
+          const wrapper = shallow(
+            <RemoteSelect
+              options={{openAdvancedSearch: advancedSearchSpy}}
+              value={null}
+              onChange={() => {}}
+            />)
+
+          expect(wrapper.find(Button)).to.have.length(1)
+          wrapper.find(Button).simulate('click')
+          expect(advancedSearchSpy).to.be.called
         })
       })
     })
