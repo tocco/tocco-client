@@ -3,7 +3,7 @@ import {call, put, take, all} from 'redux-saga/effects'
 import {channel} from 'redux-saga'
 import notifier from '../../../notifier'
 import {fetchForm, fetchModel} from '../../../rest'
-import SimpleFormApp from 'tocco-simple-form/src/main'
+import SimpleFormContainer from './../../containers/SimpleFormContainer'
 
 export const formValues = formValues => ({formValues})
 
@@ -22,7 +22,7 @@ export function* run(params, {formDataEntityModel, formDataTitle, formDataMessag
   const onCancel = () => answerChannel.put(formValues(null))
 
   yield put(notifier.modalComponent(id, formDataTitle, formDataMessage, () => (
-    <SimpleFormApp
+    <SimpleFormContainer
       onSubmit={onSend}
       onCancel={onCancel}
       form={form}
