@@ -24,7 +24,8 @@ class SearchForm extends React.Component {
       remoteEntities: props.remoteEntities,
       loadSearchFilters: props.loadSearchFilters,
       searchFilters: props.searchFilters,
-      intl: this.props.intl
+      intl: this.props.intl,
+      openAdvancedSearch: props.openAdvancedSearch
     }
 
     return form.initFormBuilder(

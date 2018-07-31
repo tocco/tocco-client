@@ -12,6 +12,7 @@ export const SET_DISABLE_SIMPLE_SEARCH = 'searchForm/SET_DISABLE_SIMPLE_SEARCH'
 export const SET_SEARCH_FORM_NAME = 'searchForm/SET_SEARCH_FORM_NAME'
 export const SUBMIT_SEARCH_FORM = 'searchForm/SUBMIT_SEARCH_FORM'
 export const SET_VALUES_INITIALIZED = 'searchForm/SET_VALUES_INITIALIZED'
+export const ADVANCED_SEARCH_UPDATE = 'searchForm/ADVANCED_SEARCH_UPDATE'
 
 export const setInitialized = (initialized = true) => ({
   type: SET_INITIALIZED,
@@ -93,5 +94,13 @@ export const setValuesInitialized = valuesInitialized => ({
   type: SET_VALUES_INITIALIZED,
   payload: {
     valuesInitialized
+  }
+})
+
+export const advancedSearchUpdate = (field, ids) => ({
+  type: ADVANCED_SEARCH_UPDATE,
+  payload: {
+    field,
+    ids
   }
 })
