@@ -14,6 +14,7 @@ export const SET_FORM_NAME = 'entityDetail/SET_FORM_NAME'
 export const SET_SHOW_SUB_GRIDS_CREATE_BUTTON = 'entityDetail/SET_SHOW_SUB_GRIDS_CREATE_BUTTON'
 export const UPLOAD_DOCUMENT = 'entityDetail/UPLOAD_DOCUMENT'
 export const SET_APP_ID = 'entityDetail/SET_APP_ID'
+export const ADVANCED_SEARCH_UPDATE = 'entityDetail/ADVANCED_SEARCH_UPDATE'
 
 export const setFormDefinition = formDefinition => ({
   type: SET_FORM_DEFINITION,
@@ -117,5 +118,13 @@ export const setAppId = appId => ({
   type: SET_APP_ID,
   payload: {
     appId
+  }
+})
+
+export const advancedSearchUpdate = (field, ids) => ({
+  type: ADVANCED_SEARCH_UPDATE,
+  payload: {
+    field,
+    ids
   }
 })
