@@ -13,10 +13,12 @@ import {
   unloadDetailView,
   submitForm,
   uploadDocument,
-  fireTouched
+  fireTouched,
+  advancedSearchUpdate
 } from '../modules/entityDetail/actions'
 import DetailView from '../components/DetailView/DetailView'
 import {errorLogging, formData} from 'tocco-util'
+import EntityListApp from 'tocco-entity-list/src/main'
 
 const mapActionCreators = {
   loadDetailView,
@@ -25,7 +27,8 @@ const mapActionCreators = {
   loadRelationEntities: formData.loadRelationEntities,
   uploadDocument,
   logError: errorLogging.logError,
-  fireTouched
+  fireTouched,
+  openAdvancedSearch: (...args) => formData.openAdvancedSearch(EntityListApp, advancedSearchUpdate, ...args)
 }
 
 const getFormGeneralErrors = formName =>

@@ -27,7 +27,8 @@ export class DetailForm extends React.Component {
       relationEntities: props.relationEntities,
       loadRelationEntities: props.loadRelationEntities,
       uploadDocument: props.uploadDocument,
-      intl: this.props.intl
+      intl: this.props.intl,
+      openAdvancedSearch: props.openAdvancedSearch
     }
 
     return form.initFormBuilder(

@@ -8,7 +8,7 @@
     "prepublish": "npm run compile:prod"
   },
   "devDependencies": {
-    "tocco-entity-list": "0.1.12",
+    "tocco-entity-list": ">0.1.0",
     "tocco-test-util": ">0.1.0",
     "tocco-theme": ">0.1.0",
     "tocco-ui": ">0.1.0",

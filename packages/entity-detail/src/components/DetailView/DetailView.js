@@ -63,6 +63,7 @@ class DetailView extends React.Component {
             lastSave={props.lastSave}
             fireTouched={props.fireTouched}
             uploadDocument={props.uploadDocument}
+            openAdvancedSearch={props.openAdvancedSearch}
           />
         </LoadMask>
       </div>
