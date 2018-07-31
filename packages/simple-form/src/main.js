@@ -1,5 +1,5 @@
 import React from 'react'
-import {appFactory, externalEvents, formData} from 'tocco-util'
+import {appFactory, externalEvents, formData, notifier, actionEmitter} from 'tocco-util'
 
 import reducers, {sagas} from './modules/reducers'
 import PropTypes from 'prop-types'
@@ -8,7 +8,8 @@ const packageName = 'simple-form'
 
 const EXTERNAL_EVENTS = [
   'onSubmit',
-  'onCancel'
+  'onCancel',
+  'emitAction'
 ]
 
 const initApp = (id, input, events, publicPath) => {
@@ -17,8 +18,10 @@ const initApp = (id, input, events, publicPath) => {
   const content = <div><Container/></div>
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
+  actionEmitter.addToStore(store, events.emitAction)
   externalEvents.addToStore(store, events)
   formData.addToStore(store)
+  notifier.addToStore(store, false)
 
   const app = appFactory.createApp(
     packageName,
