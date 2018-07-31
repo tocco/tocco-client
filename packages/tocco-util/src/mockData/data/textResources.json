@@ -28,5 +28,6 @@
   "client.common.cancel",
   "client.common.yes",
   "client.common.no",
-  "client.common.unexpectedError"
+  "client.common.unexpectedError",
+  "client.common.advancedSearch"
 ]

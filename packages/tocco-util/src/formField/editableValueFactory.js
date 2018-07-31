@@ -42,6 +42,8 @@ const getOptions = (type, formField, modelField, utils) => {
         forceReload: true
       })
 
+      options.openAdvancedSearch = value => utils.openAdvancedSearch(formField, modelField, value)
+
       if (utils.intl) {
         options.searchPromptText = utils.intl.formatMessage({id: 'client.component.remoteselect.searchPromptText'})
         options.clearValueText = utils.intl.formatMessage({id: 'client.component.remoteselect.clearValueText'})
