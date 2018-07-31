@@ -31,7 +31,8 @@ class Form extends React.Component {
       loadSearchFilters: props.loadSearchFilters,
       searchFilters: props.searchFilters,
       uploadDocument: props.uploadDocument,
-      intl: this.props.intl
+      intl: this.props.intl,
+      openAdvancedSearch: props.openAdvancedSearch
     }
 
     return form.initFormBuilder(
@@ -90,7 +91,8 @@ Form.propTypes = {
   model: PropTypes.object.isRequired,
   submitting: PropTypes.bool.isRequired,
   cancelText: PropTypes.string,
-  submitText: PropTypes.string
+  submitText: PropTypes.string,
+  openAdvancedSearch: PropTypes.func.isRequired
 }
 
-export default reduxForm({form: 'simpleForm'})(Form)
+export default reduxForm({form: 'simpleForm', destroyOnUnmount: false})(Form)

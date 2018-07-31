@@ -14,7 +14,8 @@ export default function* sagas() {
     fork(takeEvery, actions.INITIALIZE_QUESTION_FORM, initialize),
     fork(takeEvery, actions.SUBMIT, submit),
     fork(takeEvery, actions.CANCEL, cancel),
-    fork(takeLatest, documentActions.UPLOAD_DOCUMENT, documentSagas.uploadDocument)
+    fork(takeLatest, documentActions.UPLOAD_DOCUMENT, documentSagas.uploadDocument),
+    fork(takeLatest, actions.ADVANCED_SEARCH_UPDATE, advancedSearchUpdate)
   ])
 }
 
@@ -33,4 +34,8 @@ export function* submit() {
 export function* cancel() {
   const values = yield select(getFormValues(FORM_ID))
   yield put(externalEvents.fireExternalEvent('onCancel', {...values}))
+}
+
+export function* advancedSearchUpdate({payload: {field, ids}}) {
+  yield put(formActions.change(FORM_ID, field, ids))
 }
