@@ -42,13 +42,14 @@ class MultiRemoteSelect extends React.Component {
             autoload={false}
             onInputChange={searchTerm => {
               if (searchTerm) {
-                this.props.options.fetchOptions(searchTerm)
+                this.props.options.searchOptions(searchTerm)
               }
             }}
             options={this.getOptions()}
             isLoading={this.props.options.isLoading}
             disabled={this.props.readOnly}
             ref={select => { this.selectComponent = select }}
+            onOpen={() => this.props.options.fetchOptions()}
           />
         </span>
         {this.props.options.openAdvancedSearch
@@ -81,6 +82,7 @@ MultiRemoteSelect.propTypes = {
   options: PropTypes.shape({
     options: PropTypes.array,
     fetchOptions: PropTypes.func,
+    searchOptions: PropTypes.func,
     openAdvancedSearch: PropTypes.func,
     isLoading: PropTypes.bool,
     valueClick: PropTypes.func,

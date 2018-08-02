@@ -49,7 +49,7 @@ describe('tocco-util', () => {
       })
 
       it('should merge events', () => {
-        const factory = editableValueFactory('remote')
+        const factory = editableValueFactory('single-select')
 
         const focusSpy = sinon.spy()
         const events = {

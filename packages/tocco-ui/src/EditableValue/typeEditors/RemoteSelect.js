@@ -42,9 +42,10 @@ class RemoteSelect extends React.Component {
             autoload={false}
             onInputChange={searchTerm => {
               if (searchTerm) {
-                this.props.options.fetchOptions(searchTerm)
+                this.props.options.searchOptions(searchTerm)
               }
             }}
+            onOpen={() => this.props.options.fetchOptions()}
             options={this.getOptions()}
             isLoading={this.props.options.isLoading}
             disabled={this.props.readOnly}
@@ -79,6 +80,7 @@ RemoteSelect.propTypes = {
   options: PropTypes.shape({
     options: PropTypes.array,
     fetchOptions: PropTypes.func,
+    searchOptions: PropTypes.func,
     isLoading: PropTypes.bool,
     valueClick: PropTypes.func,
     clearValueText: PropTypes.string,
