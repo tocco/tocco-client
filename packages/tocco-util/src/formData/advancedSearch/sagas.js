@@ -35,7 +35,7 @@ export function* openAdvancedSearch({payload}) {
     fieldId,
     multi)
 
-  yield put(notifier.modalComponent(modalId, `${label}: ${advancedSearchTitle}`, null, advancedSearchComponent))
+  yield put(notifier.modalComponent(modalId, `${label}: ${advancedSearchTitle}`, null, advancedSearchComponent, true))
   yield spawn(closeAdvancedSearch, answerChannel, modalId, fieldId, entity, onSelect, multi)
 }
 
