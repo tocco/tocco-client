@@ -281,7 +281,8 @@ describe('entity-list', () => {
                 }],
                 relations: [{
                   relationName: 'relUser_status',
-                  targetEntity: 'User_status'
+                  targetEntity: 'User_status',
+                  multi: true
                 }]
               }
             }
@@ -296,7 +297,8 @@ describe('entity-list', () => {
                 },
                 relUser_status: {
                   targetEntity: 'User_status',
-                  type: 'relation'
+                  type: 'relation',
+                  multi: true
                 }
               }
             })
@@ -342,7 +344,8 @@ describe('entity-list', () => {
                 },
                 some_relation: {
                   type: 'relation',
-                  targetEntity: 'Address'
+                  targetEntity: 'Address',
+                  multi: true
                 }
               }
             }
