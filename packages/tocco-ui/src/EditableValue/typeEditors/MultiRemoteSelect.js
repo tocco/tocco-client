@@ -30,7 +30,6 @@ class MultiRemoteSelect extends React.Component {
           <TetheredSelectWrap
             valueKey="key"
             labelKey="display"
-            loadingPlaceholder="Laden"
             placeholder=""
             searchPromptText={this.props.options.searchPromptText}
             clearAllText={this.props.options.clearAllText}
