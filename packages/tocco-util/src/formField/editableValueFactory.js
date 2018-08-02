@@ -34,7 +34,7 @@ const getOptions = (type, formField, modelField, utils) => {
     case 'remote':
     case 'multi-remote':
       options.options = _get(utils, ['relationEntities', formField.id, 'data'], [])
-      options.moreOptionsAvailable = _get(utils, ['relationEntities', formField.id, 'moreOptionsAvailable'], false)
+      options.moreOptionsAvailable = _get(utils, ['relationEntities', formField.id, 'moreEntitiesAvailable'], false)
       options.isLoading = _get(utils, ['relationEntities', formField.id, 'isLoading'], false)
       options.fetchOptions = searchTerm => utils.loadRelationEntities(formField.id, modelField.targetEntity, {
         searchTerm,
