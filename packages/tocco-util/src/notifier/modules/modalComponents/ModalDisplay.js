@@ -13,6 +13,7 @@ const ModalDisplay = props => {
           message={modal.message}
           component={modal.component}
           close={props.close}
+          closable={modal.closable}
         />
       )}
     </div>
@@ -26,7 +27,8 @@ ModalDisplay.propTypes = {
     message: propTypes.string,
     component: propTypes.func
   })),
-  close: propTypes.func
+  close: propTypes.func,
+  closable: propTypes.bool
 }
 
 export default ModalDisplay

@@ -60,13 +60,14 @@ export const blockingInfo = (id, title, message, icon) => ({
   }
 })
 
-export const modalComponent = (id, title, message, component) => ({
+export const modalComponent = (id, title, message, component, closable = false) => ({
   type: MODAL_COMPONENT,
   payload: {
     id,
     title,
     message,
-    component
+    component,
+    closable
   }
 })
 

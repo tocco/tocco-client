@@ -22,6 +22,12 @@
   .tocco-notifier__content--large {
     width: 700px;
     margin-left: -350px;
+
+    .close-btn {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+    }
   }
 
   .tocco-notifier__icon {

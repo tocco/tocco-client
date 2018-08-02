@@ -1,11 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {FormattedValue} from 'tocco-ui'
+import {FormattedValue, Button} from 'tocco-ui'
 
 const ModalContent = props => {
   return (
     <div className="rrt-confirm-holder tocco-notifier__wrapper">
       <div className="rrt-confirm tocco-notifier__content--large">
+        {props.closable
+        && <div className="close-btn">
+          <Button onClick={() => props.close(props.id)} look="raised" dense icon="fa-times"/>
+        </div>}
         {(props.title || props.message)
         && <div style={{marginBottom: '10px'}}>
           {props.title
@@ -20,7 +24,10 @@ const ModalContent = props => {
         }
         <props.component close={() => props.close(props.id)}/>
       </div>
-      <div className="shadow tocco-notifier__shadow"/>
+      <div
+        className="shadow tocco-notifier__shadow"
+        onClick={() => { if (props.closable === true) { props.close(props.id) } }}
+      />
     </div>
   )
 }
@@ -30,7 +37,8 @@ ModalContent.propTypes = {
   component: PropTypes.oneOfType([ PropTypes.node, PropTypes.func ]).isRequired,
   close: PropTypes.func.isRequired,
   title: PropTypes.string,
-  message: PropTypes.string
+  message: PropTypes.string,
+  closable: PropTypes.bool
 }
 
 export default ModalContent
