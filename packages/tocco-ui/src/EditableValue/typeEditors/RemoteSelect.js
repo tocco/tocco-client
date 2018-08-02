@@ -30,7 +30,6 @@ class RemoteSelect extends React.Component {
           <TetheredSelectWrap
             valueKey="key"
             labelKey="display"
-            loadingPlaceholder="Laden"
             placeholder=""
             clearValueText={this.props.options.clearValueText}
             searchPromptText={this.props.options.searchPromptText}
