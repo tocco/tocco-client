@@ -36,7 +36,14 @@ const getOptions = (type, formField, modelField, utils) => {
       options.options = _get(utils, ['relationEntities', formField.id, 'data'], [])
       options.moreOptionsAvailable = _get(utils, ['relationEntities', formField.id, 'moreEntitiesAvailable'], false)
       options.isLoading = _get(utils, ['relationEntities', formField.id, 'isLoading'], false)
-      options.fetchOptions = searchTerm => utils.loadRelationEntities(formField.id, modelField.targetEntity, {
+
+      options.fetchOptions = () => utils.loadRelationEntities(formField.id, modelField.targetEntity, {
+        forceReload: true,
+        limit: settings.REMOTE_SUGGESTION_LIMIT,
+        orderBy: {name: settings.REMOTE_SUGGESTION_ORDER_FIELD, direction: 'desc'}
+      })
+
+      options.searchOptions = searchTerm => utils.loadRelationEntities(formField.id, modelField.targetEntity, {
         searchTerm,
         limit: settings.REMOTE_SEARCH_RESULT_LIMIT,
         forceReload: true
@@ -89,16 +96,6 @@ const getEvents = (type, field, modelField, util) => {
             limit: settings.SELECT_LIMIT
           })
         }
-      }
-      break
-    case 'remote':
-    case 'multi-remote':
-      events.onFocus = () => {
-        util.loadRelationEntities(field.id, modelField.targetEntity, {
-          forceReload: true,
-          limit: settings.REMOTE_SUGGESTION_LIMIT,
-          orderBy: {name: settings.REMOTE_SUGGESTION_ORDER_FIELD, direction: 'desc'}
-        })
       }
       break
     case 'search-filter':
