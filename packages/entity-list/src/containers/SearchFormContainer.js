@@ -8,10 +8,10 @@ import {
   loadSearchFilters,
   advancedSearchUpdate
 } from '../modules/searchForm/actions'
-
-import ListApp from './../main'
-
 import {formData} from 'tocco-util'
+
+// Workaround because Karma will fail if main.js gets imported
+const ListApp = __TEST__ ? () => {} : require('./../main').default
 
 const mapActionCreators = {
   submitSearchForm,
