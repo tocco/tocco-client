@@ -33,7 +33,7 @@ export const setupForms = fetchMock => {
 
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/forms/User_small_search$'),
-    require('./data/dummy_entity_search_form.json')
+    404
   )
 
   fetchMock.get(
