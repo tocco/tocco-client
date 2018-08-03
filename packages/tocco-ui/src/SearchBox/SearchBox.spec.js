@@ -133,5 +133,12 @@ describe('tocco-ui', function() {
 
       expect(wrapper.state().inputValue).to.equal(SEARCH_STRING)
     })
+
+    it('should accept an input value', () => {
+      const inputValue = 'TEST'
+      const wrapper = shallow(<SearchBox onSearch={() => {}} value={inputValue}/>)
+
+      expect(wrapper.state().inputValue).to.equal(inputValue)
+    })
   })
 })

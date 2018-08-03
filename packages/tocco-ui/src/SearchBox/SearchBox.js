@@ -10,7 +10,7 @@ class SearchBox extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      inputValue: ''
+      inputValue: props.value || ''
     }
 
     this.liveSearch = _debounce(this.onSearch, props.debounce)
@@ -71,6 +71,10 @@ SearchBox.defaultProps = {
 }
 
 SearchBox.propTypes = {
+  /**
+   * Optional default value
+   */
+  value: PropTypes.string,
   /**
    * Function that will be triggered. The input value will be passed as argument.
    */
