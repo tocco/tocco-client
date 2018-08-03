@@ -165,5 +165,5 @@ export function* getSearchInputs() {
 }
 
 export function* advancedSearchUpdate({payload: {field, ids}}) {
-  yield put(formActions.change(FORM_ID, field, ids))
+  yield put(formActions.change(FORM_ID, form.transformFieldName(field), ids))
 }

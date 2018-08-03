@@ -37,5 +37,5 @@ export function* cancel() {
 }
 
 export function* advancedSearchUpdate({payload: {field, ids}}) {
-  yield put(formActions.change(FORM_ID, field, ids))
+  yield put(formActions.change(FORM_ID, formUtil.transformFieldName(field), ids))
 }

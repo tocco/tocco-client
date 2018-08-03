@@ -181,8 +181,8 @@ export function* uploadDocument({payload}) {
   }
 }
 
-export function* advancedSearchUpdate({payload}) {
-  yield put(formActions.change(FORM_ID, payload.field, payload.ids))
+export function* advancedSearchUpdate({payload: {field, ids}}) {
+  yield put(formActions.change(FORM_ID, field, ids))
 }
 
 export function* fireTouched({payload}) {
