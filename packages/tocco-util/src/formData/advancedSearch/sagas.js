@@ -44,10 +44,6 @@ export function* closeAdvancedSearch(answerChannel, modalId, fieldId, entity, on
   while (modalOpen) {
     const {payload, type} = yield take(answerChannel)
     if (type === advancedSearchActions.ADVANCED_SEARCH_UPDATE) {
-      if (!multi) {
-        yield put(notifier.removeModalComponent(modalId))
-        modalOpen = false
-      }
       if (payload.ids && payload.ids.length > 0) {
         const query = `IN(pk,${_join(payload.ids, ',')})`
         const entities = yield call(fetchEntities, entity, {query, fields: ''})
@@ -55,6 +51,10 @@ export function* closeAdvancedSearch(answerChannel, modalId, fieldId, entity, on
         yield put(onSelect(fieldId, value))
       } else {
         yield put(onSelect(fieldId, []))
+      }
+      if (!multi) {
+        yield put(notifier.removeModalComponent(modalId))
+        modalOpen = false
       }
     } else if (type === advancedSearchActions.ADVANCED_SEARCH_CLOSE) {
       yield put(notifier.removeModalComponent(modalId))
