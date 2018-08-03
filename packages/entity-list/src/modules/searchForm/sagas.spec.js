@@ -56,6 +56,7 @@ describe('entity-list', () => {
 
         describe('setInitialFormValues saga', () => {
           it('should set initital form values (preselected and form definition)', () => {
+            const searchFormVisible = true
             const FORM_ID = 'searchForm'
             const entityModel = {model: {fields: [{'fieldName': 'firstname', 'type': 'string'}]}}
             const preselectedSearchFields = [{id: 'first.name', value: 'test'}]
@@ -66,7 +67,7 @@ describe('entity-list', () => {
             ]
             const values = {'first--name': 'test', 'defaultTest': 'default'}
 
-            return expectSaga(sagas.setInitialFormValues, formDefinition)
+            return expectSaga(sagas.setInitialFormValues, searchFormVisible, formDefinition)
               .provide([
                 [select(sagas.inputSelector), {preselectedSearchFields}],
                 [matchers.call.fn(sagas.getEntityModel), entityModel],
@@ -155,6 +156,18 @@ describe('entity-list', () => {
               ])
               .put(actions.setFormDefinition(formDefinition))
               .returns(formDefinition)
+              .run()
+          })
+
+          it('should set fulltext searchform if form does not exists', () => {
+            const formDefinition = null
+
+            return expectSaga(sagas.loadSearchForm)
+              .provide([
+                [matchers.call.fn(fetchForm), formDefinition]
+              ])
+              .not.put(actions.setFormDefinition(formDefinition))
+              .put(actions.setShowFullTextSearchForm(true))
               .run()
           })
         })

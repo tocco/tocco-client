@@ -31,7 +31,8 @@ const ACTION_HANDLERS = {
   [actions.SET_SHOW_EXTENDED_SEARCH_FORM]: reducers.singleTransferReducer('showExtendedSearchForm'),
   [actions.SET_DISABLE_SIMPLE_SEARCH]: reducers.singleTransferReducer('disableSimpleSearch'),
   [actions.SET_VALUES_INITIALIZED]: reducers.singleTransferReducer('valuesInitialized'),
-  [actions.SET_SEARCH_FILTER]: setSearchFilter
+  [actions.SET_SEARCH_FILTER]: setSearchFilter,
+  [actions.SET_SHOW_FULL_TEXT_SEARCH_FORM]: reducers.singleTransferReducer('showFullTextSearchForm')
 }
 
 const initialState = {
@@ -41,7 +42,8 @@ const initialState = {
   showExtendedSearchForm: false,
   simpleSearchFields: ['txtFulltext'],
   disableSimpleSearch: false,
-  valuesInitialized: false
+  valuesInitialized: false,
+  showFullTextSearchForm: false
 }
 
 export default function reducer(state = initialState, action) {

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import SearchFormContainer from '../../containers/SearchFormContainer'
+import FullTextSearchForm from '../../containers/FullTextSearchFormContainer'
 import ListViewContainer from '../../containers/ListViewContainer'
 
 class EntityList extends React.Component {
@@ -12,7 +13,10 @@ class EntityList extends React.Component {
   render() {
     return (
       <div className="entity-list">
-        {this.props.showSearchForm && <SearchFormContainer/>}
+        {
+          this.props.showSearchForm
+          && (this.props.showFullTextSearchForm ? <FullTextSearchForm/> : <SearchFormContainer/>)
+        }
         <ListViewContainer/>
       </div>
     )
@@ -22,7 +26,8 @@ class EntityList extends React.Component {
 EntityList.propTypes = {
   initialize: PropTypes.func.isRequired,
   initializeSearchForm: PropTypes.func.isRequired,
-  showSearchForm: PropTypes.bool
+  showSearchForm: PropTypes.bool,
+  showFullTextSearchForm: PropTypes.bool
 }
 
 export default EntityList

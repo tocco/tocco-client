@@ -13,6 +13,7 @@ export const SET_SEARCH_FORM_NAME = 'searchForm/SET_SEARCH_FORM_NAME'
 export const SUBMIT_SEARCH_FORM = 'searchForm/SUBMIT_SEARCH_FORM'
 export const SET_VALUES_INITIALIZED = 'searchForm/SET_VALUES_INITIALIZED'
 export const ADVANCED_SEARCH_UPDATE = 'searchForm/ADVANCED_SEARCH_UPDATE'
+export const SET_SHOW_FULL_TEXT_SEARCH_FORM = 'searchForm/SET_SHOW_FULL_TEXT_SEARCH_FORM'
 
 export const setInitialized = (initialized = true) => ({
   type: SET_INITIALIZED,
@@ -102,5 +103,12 @@ export const advancedSearchUpdate = (field, ids) => ({
   payload: {
     field,
     ids
+  }
+})
+
+export const setShowFullTextSearchForm = showFullTextSearchForm => ({
+  type: SET_SHOW_FULL_TEXT_SEARCH_FORM,
+  payload: {
+    showFullTextSearchForm
   }
 })

@@ -9,7 +9,8 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state, props) => ({
-  showSearchForm: state.input.showSearchForm
+  showSearchForm: state.input.showSearchForm,
+  showFullTextSearchForm: state.searchForm.showFullTextSearchForm
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(EntityList))

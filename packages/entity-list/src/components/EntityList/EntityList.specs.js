@@ -2,6 +2,7 @@ import React from 'react'
 import EntityList from './EntityList'
 import ListViewContainer from '../../containers/ListViewContainer'
 import SearchFormContainer from '../../containers/SearchFormContainer'
+import FullTextSearchFormContainer from '../../containers/FullTextSearchFormContainer'
 import {shallow} from 'enzyme'
 
 const EMPTY_FUNC = () => {}
@@ -43,6 +44,19 @@ describe('entity-list', () => {
         expect(wrapper.find(SearchFormContainer)).to.have.length(0)
         wrapper.setProps({showSearchForm: true})
         expect(wrapper.find(SearchFormContainer)).to.have.length(1)
+      })
+
+      it('should show full text searchForm depending on prop', () => {
+        const wrapper = shallow(
+          <EntityList
+            initialize={EMPTY_FUNC}
+            initializeSearchForm={EMPTY_FUNC}
+            navigateToCreate={EMPTY_FUNC}
+            showSearchForm={true}
+            showFullTextSearchForm={true}
+          />
+        )
+        expect(wrapper.find(FullTextSearchFormContainer)).to.have.length(1)
       })
     })
   })
