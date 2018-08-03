@@ -89,7 +89,7 @@ export function* submitSearchFrom() {
 
 export function* loadSearchForm(searchFormName) {
   const formDefinition = yield call(fetchForm, searchFormName, searchFormTransformer)
-  if (formDefinition !== null) {
+  if (formDefinition) {
     yield put(actions.setFormDefinition(formDefinition))
   } else {
     yield put(actions.setShowFullTextSearchForm(true))
