@@ -57,7 +57,7 @@ export function* setInitialFormValues(searchFormVisible, formDefinition) {
     formValues[parent.reverseRelationName] = parent.key
   }
 
-  if (searchFormVisible) {
+  if (searchFormVisible && formDefinition) {
     const fieldDefinitions = yield call(form.getFieldDefinitions, formDefinition)
     const fromDefaultValues = yield call(form.getDefaultValues, fieldDefinitions)
     formValues = {...fromDefaultValues, ...formValues}
@@ -89,7 +89,11 @@ export function* submitSearchFrom() {
 
 export function* loadSearchForm(searchFormName) {
   const formDefinition = yield call(fetchForm, searchFormName, searchFormTransformer)
-  yield put(actions.setFormDefinition(formDefinition))
+  if (formDefinition !== null) {
+    yield put(actions.setFormDefinition(formDefinition))
+  } else {
+    yield put(actions.setShowFullTextSearchForm(true))
+  }
   return formDefinition
 }
 

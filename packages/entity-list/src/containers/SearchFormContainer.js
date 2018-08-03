@@ -19,7 +19,8 @@ const mapActionCreators = {
   resetSearch,
   setShowExtendedSearchForm,
   loadRelationEntities: formData.loadRelationEntities,
-  openAdvancedSearch: (...args) => formData.openAdvancedSearch(ListApp, advancedSearchUpdate, ...args)
+  openAdvancedSearch: (...args) =>
+    formData.openAdvancedSearch(require('./../main').default, advancedSearchUpdate, ...args)
 }
 
 const mapStateToProps = (state, props) => ({
