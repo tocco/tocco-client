@@ -57,8 +57,8 @@ const getType = (fieldName, entityModel) => {
 }
 
 // workaround: redux-forms can't get the value of a field if the field-name contains a dot.
-export const transformFieldName = fieldName => (fieldName.replace('.', '--'))
-export const transformFieldNameBack = fieldName => (fieldName.replace('--', '.'))
+export const transformFieldName = fieldName => (fieldName.replace(/\./g, '--'))
+export const transformFieldNameBack = fieldName => (fieldName.replace(/--/g, '.'))
 
 export const entityToFormValues = entity => {
   if (!entity || !entity.paths) return {}
