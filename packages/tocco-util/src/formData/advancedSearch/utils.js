@@ -1,5 +1,5 @@
 import React from 'react'
-import AdvancedSearch from './AdvancedSearch'
+import AdvancedSearchContainer from './AdvancedSearchContainer'
 
 export const getSelection = (value, multi) => value ? multi ? value.map(v => v.key) : [value.key] : []
 
@@ -12,7 +12,7 @@ export const getValue = (entities, multi) =>
 export const getAdvancedSearchComponent
   = (listApp, entity, formBase, selection, onSelectionChange, onOkClick, fieldId, multi) =>
     () =>
-      <AdvancedSearch
+      <AdvancedSearchContainer
         ListApp={listApp}
         entityName={entity}
         formBase={formBase}

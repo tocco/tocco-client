@@ -9,7 +9,9 @@ describe('tocco-util', () => {
       describe('AdvancedSearch', () => {
         it('should render ListApp', () => {
           const ListApp = () => <div>ListApp</div>
-          const wrapper = shallow(<AdvancedSearch ListApp={ListApp} entityName="User" formBase="User"/>)
+          const wrapper = shallow(
+            <AdvancedSearch ListApp={ListApp} entityName="User" formBase="User" emitAction={() => {}}/>
+          )
           expect(wrapper.find(ListApp)).to.have.length(1)
         })
       })

@@ -15,7 +15,7 @@ const AdvancedSearch = props =>
       onSelectChange={selection => { props.onSelectionChange(selection) }}
       selection={props.selection}
       showCreateButton={false}
-      emitAction={action => { }}
+      emitAction={props.emitAction}
       selectionStyle={props.multi ? 'multi' : 'single'}
       selectOnRowClick={true}
     />
@@ -26,6 +26,7 @@ AdvancedSearch.propTypes = {
   ListApp: PropTypes.func.isRequired,
   entityName: PropTypes.string.isRequired,
   formBase: PropTypes.string.isRequired,
+  emitAction: PropTypes.func.isRequired,
   selection: PropTypes.array,
   field: PropTypes.string,
   onSelectionChange: PropTypes.func,
