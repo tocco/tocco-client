@@ -56,6 +56,7 @@ class MultiRemoteSelect extends React.Component {
         && <span style={{width: this.advancedSearchButtonWidth, float: 'right', padding: '5px'}}>
           <Button
             type="button"
+            disabled={this.props.readOnly}
             icon="fa-search"
             onClick={() => this.props.options.openAdvancedSearch(this.props.value)}
           />
