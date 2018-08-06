@@ -19,7 +19,11 @@ const AdvancedSearch = props =>
       selectionStyle={props.multi ? 'multi' : 'single'}
       selectOnRowClick={true}
     />
-    <Button look="raised" onClick={props.onOkClick}><FormattedMessage id="client.common.ok"/></Button>
+    <div style={{margin: '5px'}}>
+      <Button look="raised" onClick={props.onOkClick}>
+        <FormattedMessage id="client.common.ok"/>
+      </Button>
+    </div>
   </div>
 
 AdvancedSearch.propTypes = {
