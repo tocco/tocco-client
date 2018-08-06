@@ -38,7 +38,7 @@ Action.propTypes = {
   mode: PropTypes.string,
   parent: PropTypes.shape({
     key: PropTypes.string.isRequired,
-    entityName: PropTypes.string.isRequired,
+    model: PropTypes.string.isRequired,
     reverseRelationName: PropTypes.string
   })
 }
