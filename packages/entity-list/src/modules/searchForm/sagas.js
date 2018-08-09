@@ -54,7 +54,7 @@ export function* setInitialFormValues(searchFormVisible, formDefinition) {
     : {}
 
   if (parent && !formValues.hasOwnProperty(parent.reverseRelationName)) {
-    formValues[parent.reverseRelationName] = parent.key
+    formValues[parent.reverseRelationName] = {key: parent.key}
   }
 
   if (searchFormVisible && formDefinition) {
