@@ -22,6 +22,7 @@ import {
   conditionPropTypes,
   ink as stylingInk,
   inkPropTypes,
+  format as stylingFormat,
   look as stylingLook,
   lookPropTypes,
   oneOfPropTypeAndCompletelyMapped,
@@ -55,6 +56,7 @@ export {
   stylingCondition,
   stylingInk,
   stylingLook,
+  stylingFormat,
   stylingPosition,
   validateCssDimension
 }

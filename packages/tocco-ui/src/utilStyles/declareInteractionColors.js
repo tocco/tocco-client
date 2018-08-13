@@ -1,21 +1,26 @@
 import {theme} from 'styled-system'
 
-const declareInteractionColors = (colors, format = 'html') => {
+import {stylingFormat} from '../utilStyles'
+
+const declareInteractionColors = (colors, format = stylingFormat.HTML) => {
+  const fillProperty = format === stylingFormat.HTML ? 'background-color' : 'fill'
+  const strokeProperty = format === stylingFormat.HTML ? 'color' : 'stroke'
+
   return `
-    ${format === 'html' ? 'background-color' : 'fill'}: ${colors.defaultBackground};
-    ${format === 'html' ? 'color' : 'stroke'}: ${colors.defaultColor};
+    ${fillProperty}: ${colors.defaultBackground};
+    ${strokeProperty}: ${colors.defaultColor};
 
     &:enabled {
       &:focus,
       &:hover {
-        ${format === 'html' ? 'background-color' : 'fill'}: ${colors.focusBackground};
-        ${format === 'html' ? 'color' : 'stroke'}: ${colors.focusColor};
+        ${fillProperty}: ${colors.focusBackground};
+        ${strokeProperty}: ${colors.focusColor};
       }
 
       /* :active must be declared after :hover and :focus to visualize state change */
       &:active {
-        ${format === 'html' ? 'background-color' : 'fill'}: ${colors.activeBackground};
-        ${format === 'html' ? 'color' : 'stroke'}: ${colors.activeColor};
+        ${fillProperty}: ${colors.activeBackground};
+        ${strokeProperty}: ${colors.activeColor};
       }
     }
   `
