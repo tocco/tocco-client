@@ -1,17 +1,7 @@
 import {shallow, mount} from 'enzyme'
 import React from 'react'
-import {ThemeProvider} from 'styled-components'
 
 import ButtonLink from './ButtonLink'
-
-const theme = {
-  overlays: {
-    disabled: {
-      color: '#f00',
-      opacity: 0.8
-    }
-  }
-}
 
 describe('tocco-ui', function() {
   describe('ButtonLink', function() {
@@ -71,11 +61,7 @@ describe('tocco-ui', function() {
     })
 
     it('should display label', () => {
-      const wrapper = mount(
-        <ThemeProvider theme={theme}>
-          <ButtonLink label="label text"/>
-        </ThemeProvider>
-      )
+      const wrapper = mount(<ButtonLink label="label text"/>)
       expect(wrapper.text()).to.equal('label text')
     })
 
