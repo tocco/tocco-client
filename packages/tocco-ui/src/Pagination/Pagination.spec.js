@@ -1,17 +1,7 @@
 import {mount, shallow} from 'enzyme'
 import React from 'react'
-import {ThemeProvider} from 'styled-components'
 
 import Pagination from './Pagination'
-
-const theme = {
-  overlays: {
-    disabled: {
-      color: '#f00',
-      opacity: 0.8
-    }
-  }
-}
 
 describe('tocco-ui', function() {
   describe('Pagination', function() {
@@ -49,11 +39,7 @@ describe('tocco-ui', function() {
     })
 
     it('should disable forward and back button depending on current page', () => {
-      const wrapper = mount(
-        <ThemeProvider theme={theme}>
-          <Pagination totalRecords={30} recordsPerPage={10}/>
-        </ThemeProvider>
-      )
+      const wrapper = mount(<Pagination totalRecords={30} recordsPerPage={10}/>)
 
       expect(wrapper.find('#forwardButton')).to.not.be.disabled()
       expect(wrapper.find('#toLastButton')).to.not.be.disabled()

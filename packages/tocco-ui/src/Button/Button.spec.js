@@ -1,6 +1,5 @@
 import {mount, shallow} from 'enzyme'
 import React from 'react'
-import {ThemeProvider} from 'styled-components'
 
 import Button from './Button'
 
@@ -64,13 +63,8 @@ describe('tocco-ui', function() {
 
     it('should have four defaultProps', () => {
       /* wrapper.props() and wrapper.instance().props does not list label and iconPosition */
-      const wrapper = shallow(
-        <ThemeProvider theme={{}}>
-          <Button/>
-        </ThemeProvider>
-      )
-      const {iconPosition, look, type} = wrapper.props()
-      const {ink} = wrapper.dive().props()
+      const wrapper = shallow(<Button/>)
+      const {iconPosition, ink, look, type} = wrapper.props()
       expect(iconPosition).to.equal('prepend')
       expect(ink).to.equal('base')
       expect(look).to.equal('flat')
