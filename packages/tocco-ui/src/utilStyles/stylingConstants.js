@@ -32,6 +32,11 @@ const position = {
   SOLE: 'sole'
 }
 
+const format = {
+  HTML: 'html',
+  SVG: 'svg'
+}
+
 const oneOfPropTypeAndCompletelyMapped = (completeMap, potentialIncompleteMap) => {
   return assertObjectValuesMatchOtherObjectKeys(completeMap, potentialIncompleteMap)
     && PropTypes.oneOf(Object.values(completeMap))
@@ -52,6 +57,7 @@ export {
   inkPropTypes,
   look,
   lookPropTypes,
+  format,
   oneOfPropTypeAndCompletelyMapped,
   position,
   positionPropTypes
