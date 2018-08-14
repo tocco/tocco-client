@@ -14,22 +14,19 @@ import {
   stylingPosition
 } from '../utilStyles'
 
-const IconTocco = props => {
-  return (
-    <StyledIconToccoWrapper
-      ink={props.ink || stylingInk.BASE}
-      look={props.look}
-      position={props.position}
-      size={props.size}
-    >
-      <StyledIconToccoSvg size={props.size}>
-        <ellipse className="tocco-icon-top-left" cx="25" cy="25" rx="16.8" ry="16.8" />
-        <ellipse className="tocco-icon-top-right" cx="75" cy="25" rx="16.8" ry="16.8" />
-        <ellipse className="tocco-icon-bottom-left" cx="25" cy="75" rx="16.8" ry="16.8" />
-      </StyledIconToccoSvg>
-    </StyledIconToccoWrapper>
-  )
-}
+const IconTocco = props =>
+  <StyledIconToccoWrapper
+    ink={props.ink || stylingInk.BASE}
+    look={props.look}
+    position={props.position}
+    size={props.size}
+  >
+    <StyledIconToccoSvg size={props.size}>
+      <ellipse className="tocco-icon-top-left" cx="25" cy="25" rx="16.8" ry="16.8" />
+      <ellipse className="tocco-icon-top-right" cx="75" cy="25" rx="16.8" ry="16.8" />
+      <ellipse className="tocco-icon-bottom-left" cx="25" cy="75" rx="16.8" ry="16.8" />
+    </StyledIconToccoSvg>
+  </StyledIconToccoWrapper>
 
 IconTocco.defaultProps = {
   ink: stylingInk.PRIMARY,
