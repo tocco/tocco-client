@@ -57,7 +57,9 @@ Button.propTypes = {
    */
   buttonGroupMelt: PropTypes.bool,
   /**
-   * As an alternative to the label you can pass a child element to display the buttons content.
+   * Instead of using label prop it is possible to pass a child
+   * (e.g. <Button><FormattedMessage id="client.message"/></Button>). This is not useful for
+   * styled tags since buttons design is controlled by props ink and look and immutable.
    */
   children: PropTypes.node,
   /**
