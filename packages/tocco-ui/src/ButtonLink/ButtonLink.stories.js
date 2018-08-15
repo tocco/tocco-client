@@ -1,6 +1,6 @@
 import React from 'react'
 import {storiesOf} from '@storybook/react'
-import {withKnobs, boolean, select, text} from '@storybook/addon-knobs'
+import {withKnobs, boolean, number, select, text} from '@storybook/addon-knobs'
 import _pick from 'lodash/pick'
 
 import ButtonLink from './'
@@ -21,7 +21,10 @@ storiesOf('ButtonLink', module)
       ink={select('ink', stylingInk)}
       label={text('label', 'Button Link')}
       look={select('look', {'-': null, ..._pick(stylingLook, ['BALL', 'FLAT', 'RAISED'])}) || undefined}
+      rel={text('rel', undefined)}
       stopPropagation={boolean('stopPropagation', false)}
+      tabIndex={number('tabIndex', undefined)}
+      target={select('target', ['_self', '_blank'])}
       title={text('title', 'This is the button link.')}
     />
   )

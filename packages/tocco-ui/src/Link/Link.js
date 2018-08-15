@@ -17,6 +17,8 @@ const Link = props => {
       href={props.href}
       neutral={props.neutral}
       onClick={props.onClick}
+      rel={props.rel}
+      tabIndex={props.tabIndex}
       target={props.target}
       title={props.title || (props.breakWords ? undefined : props.label)}
     >
@@ -68,7 +70,15 @@ Link.propTypes = {
    */
   onClick: PropTypes.func,
   /**
-   * Define browsing context. Default value is '_self'. Possible values: _self|_blank
+   * Define HTML rel attribute.
+   */
+  rel: PropTypes.string,
+  /**
+   * Define HTML tabindex attribute.
+   */
+  tabIndex: PropTypes.number,
+  /*
+   * Define HTML target attribute. Default value is '_self'. Possible values: _self|_blank
    */
   target: PropTypes.oneOf(['_self', '_blank']),
   /**

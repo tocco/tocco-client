@@ -15,7 +15,7 @@ describe('tocco-ui', () => {
       expect(target).to.equal('_self')
     })
 
-    test('should pass 9 props to StyledLink', () => {
+    test('should pass 10 props to StyledLink', () => {
       const onLinkClick = sinon.spy()
       const wrapper = shallow(
         <Link
@@ -25,6 +25,8 @@ describe('tocco-ui', () => {
           href="/url"
           neutral={true}
           onClick={onLinkClick}
+          rel="rel"
+          tabIndex={1}
           target="_blank"
           title="title text"
         />
@@ -39,10 +41,12 @@ describe('tocco-ui', () => {
         href,
         neutral,
         onClick,
+        rel,
+        tabIndex,
         target,
         title
       } = props
-      expect(Object.keys(props)).to.have.lengthOf(9)
+      expect(Object.keys(props)).to.have.lengthOf(11)
       expect(alt).to.equal('alt text')
       expect(breakWords).to.be.false
       expect(children).to.have.length(2)
@@ -50,6 +54,8 @@ describe('tocco-ui', () => {
       expect(href).to.equal('/url')
       expect(neutral).to.be.true
       expect(onClick).to.have.property('callCount', 1)
+      expect(rel).to.equal('rel')
+      expect(tabIndex).to.equal(1)
       expect(target).to.equal('_blank')
       expect(title).to.equal('title text')
     })

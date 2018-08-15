@@ -32,6 +32,7 @@ const ButtonLink = props => {
       look={props.look}
       melt={props.buttonGroupMelt}
       onClick={onClickHandler}
+      rel={props.rel}
       tabIndex={props.tabIndex}
       target={props.target}
       title={props.title}
@@ -98,18 +99,21 @@ ButtonLink.propTypes = {
     stylingLook.RAISED
   ]),
   /**
+   * Define HTML rel attribute.
+   */
+  rel: PropTypes.string,
+  /**
    * If true, the click event will not be propagated.
    */
   stopPropagation: PropTypes.bool,
   /**
-   * Tabindex indicates if the button can be focused and if/where it participates
-   * in sequential keyboard navigation.
+   * Define HTML tabindex attribute.
    */
   tabIndex: PropTypes.number,
   /**
-   * Define browsing context. Default value is '_self'. Possible values: _self|_blank
+   * Define HTML target attribute. Default value is '_self'. Possible values: _self|_blank
    */
-  target: PropTypes.oneOf(['_self', '_blank']),
+  target: PropTypes.oneOf(['_blank', '_self']),
   /**
    * Describe link target in detail to instruct users. It is shown as popover on mouse over.
    */
