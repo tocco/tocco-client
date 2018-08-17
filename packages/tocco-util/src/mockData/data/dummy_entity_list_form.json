@@ -13,7 +13,7 @@
         "actionType": "simple",
         "readonly": false,
         "label": "Simple Action",
-        "icon": "fa-cogs",
+        "icon": "cogs",
         "Selections": 1,
         "maxSelections": 1,
         "progressMsg": "Die Beispiel Aktion wird ausgeführt..",
@@ -58,7 +58,7 @@
                 "label": null,
                 "componentType": "action",
                 "actionType": "simple",
-                "icon": "fa-pencil",
+                "icon": "edit",
                 "endpoint": "actions/simpleAction",
                 "appId": null,
                 "formDataEntityModel": "MySessionOnly"
