@@ -1,7 +1,7 @@
 import Icon from './Icon'
-import StyledIcon from './StyledIcon'
+import getSpacing from './StyledIcon'
 
 export {
   Icon as default,
-  StyledIcon
+  getSpacing
 }
