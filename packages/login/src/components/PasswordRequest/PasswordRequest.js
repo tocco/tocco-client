@@ -1,7 +1,11 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
-import {Button, ButtonGroup} from 'tocco-ui'
+import {
+  Button,
+  ButtonGroup,
+  Icon
+} from 'tocco-ui'
 
 import {Pages} from '../../types/Pages'
 
@@ -32,7 +36,7 @@ export class PasswordRequest extends React.Component {
         <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="form-group dense">
             <div className="input-group">
-              <span className="input-group-addon"><i className="glyphicon glyphicon-user"/></span>
+              <span className="input-group-addon"><Icon icon="user"/></span>
               <input
                 type="text"
                 className="form-control"
