@@ -29,7 +29,7 @@ class ItemAccordion extends Item {
       >
         <Button
           ink={this.props.ink}
-          icon={this.state.isOpen ? 'fa-caret-up' : 'fa-caret-down'}
+          icon={this.state.isOpen ? 'caret-up' : 'caret-down'}
           iconPosition={stylingPosition.APPEND}
           label={this.props.label}
           look={this.props.look}

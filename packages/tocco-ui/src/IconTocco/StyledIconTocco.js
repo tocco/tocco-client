@@ -65,7 +65,7 @@ const stepClockwiseBottomLeft = keyframes`
   87.5%    {transform: translate(50px, 0);}
 `
 
-const StyledIconToccoWrapper = styled.div`
+const StyledIconToccoWrapper = styled.i`
   &&& {
     animation: ${rotateClockwise} 3s linear infinite;
     display: block;

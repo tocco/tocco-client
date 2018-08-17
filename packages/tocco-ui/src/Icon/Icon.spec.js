@@ -17,7 +17,7 @@ describe('tocco-ui', function() {
           <Icon />
         </ThemeProvider>
       )
-      expect(wrapper.prop('theme')).to.be.object
+      expect(wrapper.prop('theme')).to.deep.equal({key: 'value'})
     })
   })
 })

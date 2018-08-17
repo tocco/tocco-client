@@ -26,7 +26,7 @@ class PanelHeaderFooter extends React.Component {
         {isToggleable
           && showToggler
           && <Button
-            icon={isOpen ? 'fa-minus' : 'fa-plus'}
+            icon={isOpen ? 'chevron-up' : 'chevron-down'}
             onClick={toggleOpenState}
             title={isOpen ? this.props.options.collapseButtonText : this.props.options.unfoldButtonText}
             iconPosition="sole"

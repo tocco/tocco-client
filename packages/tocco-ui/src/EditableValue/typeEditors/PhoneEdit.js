@@ -3,6 +3,8 @@ import React from 'react'
 import _isEmpty from 'lodash/isEmpty'
 import {AsYouType, formatNumber, parseNumber} from 'libphonenumber-js'
 
+import Icon from '../../Icon'
+
 const DEFAULT_DEFAULT_COUNTRY = 'CH'
 
 const removeSpaces = str => str.replace(/\s/g, '')
@@ -63,7 +65,7 @@ const PhoneEdit = ({value, options, onChange, id, readOnly}) => {
       />
       {value && <span className="input-group-addon">
         <a tabIndex="-1" href={`tel:${value}`}>
-          <span className="fa fa-phone"/>
+          <Icon icon="phone"/>
         </a>
       </span>}
     </div>

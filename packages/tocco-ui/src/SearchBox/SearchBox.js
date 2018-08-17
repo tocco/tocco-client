@@ -53,7 +53,7 @@ class SearchBox extends React.Component {
           />
           <StyledInputGroupBtn>
             <Button
-              icon="glyphicon-search"
+              icon="search"
               iconPosition="sole"
               type="submit"
             />

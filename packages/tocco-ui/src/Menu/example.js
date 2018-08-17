@@ -35,7 +35,6 @@ export default () => {
         <Menu.Item><strong>strong</strong></Menu.Item>
         <Menu.Item><Icon icon="fa-check-square-o"/></Menu.Item>
       </Menu.Stack>
-
       <h3>Menu Bar Flat</h3>
       <Menu.Bar>
         <Menu.Item><Button label="<Button>"/></Menu.Item>

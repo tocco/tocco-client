@@ -33,7 +33,7 @@ export default () => {
       <ButtonLink
         alt="Tocco 101x101px"
         download="tocco-101x101.png"
-        icon="fa-file-image-o"
+        icon="download"
         href={UrlOrBase64}
         label="Download"
       />
