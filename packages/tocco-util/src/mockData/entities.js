@@ -73,6 +73,16 @@ export const setupEntities = (fetchMock, entityStore, timeout) => {
   )
 
   fetchMock.get(
+    new RegExp('^.*?/nice2/rest/entity/User/[0-9]+/display/tooltip(\\?.*)?'),
+    createToolTipResponse('User', entityStore)
+  )
+
+  fetchMock.get(
+    new RegExp('^.*?/nice2/rest/entity/Dummy_entity/[0-9]+/display/tooltip(\\?.*)?'),
+    createToolTipResponse('Dummy_entity', entityStore)
+  )
+
+  fetchMock.get(
     new RegExp('^.*?/nice2/rest/entities/Dummy_entity/count(\\?.*)?'),
     () => ({'count': entityStore['Dummy_entity'].length})
   )
@@ -116,6 +126,27 @@ export const setupEntities = (fetchMock, entityStore, timeout) => {
     new RegExp('^.*?/nice2/rest/entities/Search_filter(\\?.*)?$'),
     createSearchFilterResponse(timeout)
   )
+}
+
+const createToolTipResponse = (entityName, entityStore) => {
+  const entities = entityStore[entityName]
+  return (url, opts) => {
+    consoleLogger.log('fetchMock: called fetch tooltip', url, opts)
+    const id = url.match(/^.*\/[A-Z][A-Za-z0-9_]*\/(\d+)/)[1]
+    const entity = entities[id]
+    return {
+      display: `<b>${entity.display}</b>
+                  <table style="border: none; text-align: left; width: 100%;" border="0">
+                      <tbody>
+                      <tr>
+                          <td align="left" valign="top">Some field</td>
+                          <td align="left" valign="top">Some value</td>
+                      </tr>
+                      </tbody>
+                  </table>
+                  <img src="https://picsum.photos/64/64" width="64" height="64"/>`
+    }
+  }
 }
 
 const createEntityResponse = (entityName, entityStore) => {
