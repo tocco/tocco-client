@@ -25,7 +25,7 @@ const Preview = props => {
     />
   ) : (
     <Icon
-      icon="fa-file-text-o"
+      icon="file-alt"
     />
   )
 

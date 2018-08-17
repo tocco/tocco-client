@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import {injectIntl, intlShape} from 'react-intl'
 import classNames from 'classnames'
 
+import Icon from '../../Icon'
+
 class DateAbstract extends React.Component {
   Flatpickr = null
 
@@ -126,7 +128,7 @@ class DateAbstract extends React.Component {
             className="input-group-addon"
             onClick={this.handleToggleClick.bind(this)}
           >
-            <i className="fa fa-calendar" aria-hidden="true"></i>
+            <Icon icon="calendar"/>
           </span>
         </span>
         {this.props.readOnly && <input

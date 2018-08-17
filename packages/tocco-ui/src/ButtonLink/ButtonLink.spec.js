@@ -1,6 +1,7 @@
 import {shallow, mount} from 'enzyme'
 import React from 'react'
 
+import Icon from '../Icon'
 import ButtonLink from './ButtonLink'
 
 describe('tocco-ui', function() {
@@ -52,7 +53,7 @@ describe('tocco-ui', function() {
 
     it('should display icon', () => {
       const wrapper = shallow(<ButtonLink icon="bar"/>)
-      expect(wrapper.find('Icon')).to.have.length(1)
+      expect(wrapper.find(Icon).prop('icon')).to.equal('bar')
     })
 
     it('should not display icon', () => {
