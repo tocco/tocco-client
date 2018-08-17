@@ -1,6 +1,8 @@
 import React from 'react'
-import Preview from './Preview'
 import {mount, shallow} from 'enzyme'
+
+import Icon from '../Icon'
+import Preview from './Preview'
 
 describe('tocco-ui', () => {
   describe('Preview', () => {
@@ -39,10 +41,9 @@ describe('tocco-ui', () => {
           srcUrl="/link-to-source"
           thumbnailUrl="/link-to-thumbnail"
         />
-      ).dive()
-
+      )
       expect(wrapper.find('img')).to.have.length(1)
-      expect(wrapper.find('Icon')).to.have.length(0)
+      expect(wrapper.find(Icon)).to.have.length(0)
 
       wrapper = shallow(
         <Preview
@@ -50,15 +51,10 @@ describe('tocco-ui', () => {
           srcUrl="/link-to-source"
           thumbnailUrl=""
         />
-      ).dive()
-
-      const Icon = wrapper.find('Icon')
-
+      )
       expect(wrapper.find('img')).to.have.length(0)
-      expect(Icon).to.have.length(1)
-      expect(Icon.prop('animation')).to.equal('none')
-      expect(Icon.prop('icon')).to.equal('fa-file-text-o')
-      expect(Icon.prop('position')).to.equal('sole')
+      expect(wrapper.find(Icon)).to.have.length(1)
+      expect(wrapper.find(Icon).prop('icon')).to.equal('file-alt')
     })
 
     it('add figcaption only if caption in provided', () => {

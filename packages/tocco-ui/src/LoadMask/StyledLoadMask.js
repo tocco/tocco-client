@@ -1,7 +1,6 @@
 import styled, {css} from 'styled-components'
 import {theme} from 'styled-system'
 
-import {StyledIcon} from '../Icon'
 import {StyledSpan} from '../Typography/StyledTypography'
 
 const StyledLoadMask = styled.div`
@@ -18,10 +17,9 @@ const StyledLoadMask = styled.div`
         text-align: center;
       }
 
-      > ${StyledIcon} {
+      > svg {
         font-size: ${theme('fontSizes.5')};
-        margin-bottom: ${theme('space.4')}
-        text-align: center;
+        margin: 0 auto ${theme('space.4')} auto !important;
       }
     }
   `}
