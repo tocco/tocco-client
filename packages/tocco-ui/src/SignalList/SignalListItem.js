@@ -10,16 +10,20 @@ import {
 } from '../utilStyles'
 
 const ICONS = {
-  [stylingCondition.BASE]: {unicode: '\u2022'},
-  [stylingCondition.DANGER]: {icon: 'fa-times'},
-  [stylingCondition.PRIMARY]: {unicode: '\u2022'},
-  [stylingCondition.SUCCESS]: {icon: 'fa-check'},
-  [stylingCondition.WARNING]: {icon: 'fa-exclamation-triangle'}
+  [stylingCondition.BASE]: false,
+  [stylingCondition.PRIMARY]: false,
+  [stylingCondition.DANGER]: 'times',
+  [stylingCondition.SUCCESS]: 'check',
+  [stylingCondition.WARNING]: 'exclamation-triangle'
 }
 
 const getIcon = props => {
   const icon = ICONS[props.condition]
-  return icon || {unicode: '\u2022'}
+  if (icon) {
+    return <Icon icon={icon} position={stylingPosition.SOLE}/>
+  } else {
+    return <i>{'\u2022'}</i>
+  }
 }
 
 /**
@@ -27,7 +31,7 @@ const getIcon = props => {
  */
 const SignalListItem = props =>
   <StyledSignalListItem condition={props.condition}>
-    <Icon {...getIcon(props)} position={stylingPosition.SOLE}/>
+    {getIcon(props)}
     {props.label}
     {React.Children.map(props.children, child => React.cloneElement(child))}
   </StyledSignalListItem>
