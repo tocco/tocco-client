@@ -19,19 +19,19 @@ class Example extends React.Component {
   }
 
   info = () => {
-    this.store.dispatch(notifier.info('info', 'client.title', 'client.description', 'bomb', 2000))
+    this.store.dispatch(notifier.info('info', 'client.title', 'client.description', 'info', 2000))
   }
 
   success = () => {
-    this.store.dispatch(notifier.info('success', 'client.title', 'client.description', 'beer', 0))
+    this.store.dispatch(notifier.info('success', 'client.title', 'client.description', 'thumbs-up', 0))
   }
 
   warning = () => {
-    this.store.dispatch(notifier.info('warning', 'client.title', longText, 'glass'))
+    this.store.dispatch(notifier.info('warning', 'client.title', longText, 'exclamation-triangle'))
   }
 
   error = () => {
-    this.store.dispatch(notifier.info('error', 'client.title', 'client.description', 'blind', 10000))
+    this.store.dispatch(notifier.info('error', 'client.title', 'client.description', 'exclamation-triangle', 10000))
   }
 
   confirmQuestion = () => {
@@ -64,7 +64,7 @@ class Example extends React.Component {
       id,
       'Title',
       'Please wait',
-      'diamond fa-spin fa-3x fa-fw'
+      'hand-paper'
     ))
 
     setTimeout(() => {
