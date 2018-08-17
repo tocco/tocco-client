@@ -27,6 +27,7 @@ const StyledMenuButtonGroup = StyledMenu.extend`
       > a,
       > button {
         border-radius: 0;
+        height: 100%;
       }
 
       &:first-child {

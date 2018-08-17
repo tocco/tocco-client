@@ -15,30 +15,30 @@ export default () => {
         label="Primary color flat"
       />
       <Button
-        look="raised"
         label="Base color raised"
+        look="raised"
       />
       <Button
-        look="raised"
         ink="primary"
         label="Primary color raised"
-      />
-      <Button
         look="raised"
-        dense
-        icon="fa-hand-spock-o"
-        label="Dense"
       />
       <Button
-        icon="fa-font-awesome"
+        dense
+        icon="hand-peace"
+        label="Dense"
+        look="raised"
+      />
+      <Button
+        icon="handshake"
         iconPosition="append"
         label="Icon with text"
         type="submit"
       />
       <Button
-        title="Icon without text"
-        icon="glyphicon-heart"
+        icon="hand-spock"
         iconPosition="sole"
+        title="Icon without text"
       />
       <Button
         disabled

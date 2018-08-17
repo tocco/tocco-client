@@ -1,7 +1,5 @@
 import styled, {keyframes} from 'styled-components'
 
-import {StyledIcon} from '../Icon'
-
 import {
   declareFlatBaseColors,
   declareFlatPrimaryColors,
@@ -67,7 +65,7 @@ const stepClockwiseBottomLeft = keyframes`
   87.5%    {transform: translate(50px, 0);}
 `
 
-const StyledIconToccoWrapper = StyledIcon.extend`
+const StyledIconToccoWrapper = styled.i`
   &&& {
     animation: ${rotateClockwise} 3s linear infinite;
     display: block;

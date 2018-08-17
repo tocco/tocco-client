@@ -107,13 +107,13 @@ class Pagination extends React.Component {
           id="toFirstButton"
           onClick={this.handleToFirstClick}
           disabled={this.isOnFirstPage()}
-          icon="glyphicon-fast-backward"
+          icon="fast-backward"
         />
         <Button
           id="backButton"
           onClick={this.handleOneBackClick}
           disabled={this.isOnFirstPage()}
-          icon="glyphicon-triangle-left"
+          icon="step-backward"
         />
         {
           this.props.noInput
@@ -140,13 +140,13 @@ class Pagination extends React.Component {
           id="forwardButton"
           onClick={this.handleOneForwardClick}
           disabled={this.isOnLastPage()}
-          icon="glyphicon-triangle-right"
+          icon="step-forward"
         />
         <Button
           id="toLastButton"
           onClick={this.handleToLastClick}
           disabled={this.isOnLastPage()}
-          icon="glyphicon-fast-forward"
+          icon="fast-forward"
         />
       </span>
     )

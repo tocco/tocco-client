@@ -41,7 +41,7 @@ export default () => {
         <Item><em>em</em></Item>
         <hr/>
         <Item><strong>strong</strong></Item>
-        <Item><Icon icon="fa-check-square-o"/></Item>
+        <Item><Icon icon="hand-peace"/></Item>
       </MenuStack>
 
       <h3>Menu Bar Flat</h3>

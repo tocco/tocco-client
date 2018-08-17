@@ -3,6 +3,9 @@ import React from 'react'
 import Preview from '../Preview'
 import {bytesToSize} from './helpers'
 
+import Icon from '../Icon'
+import {stylingPosition} from '../utilStyles'
+
 const UploadProgress = props => (
   <div>
     <Preview
@@ -14,7 +17,11 @@ const UploadProgress = props => (
     />
     <div className="loadingOverlay">
       <div className="label label-default">
-        <i className="fa fa-spinner fa-spin"></i>
+        <Icon
+          icon="spinner"
+          pulse
+          position={stylingPosition.PREPEND}
+        />
         <span style={{paddingLeft: '4px'}}>{props.text || 'uploading'} ({bytesToSize(props.file.size)})</span>
       </div>
     </div>
