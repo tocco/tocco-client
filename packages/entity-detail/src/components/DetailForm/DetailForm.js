@@ -85,7 +85,8 @@ export class DetailForm extends React.Component {
     }
   }
 
-  showErrors = () => {
+  showErrors = event => {
+    event.preventDefault()
     this.touchFieldsWithError()
     this.focusErrorFields()
   }
