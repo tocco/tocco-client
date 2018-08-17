@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {intlShape} from 'react-intl'
-
 import {Icon} from 'tocco-ui'
 import {stylingPosition} from 'tocco-ui/src/utilStyles'
 
