@@ -154,7 +154,7 @@
                   {
                     "componentType": "action",
                     "actionType": "simple",
-                    "icon": "fa-pencil",
+                    "icon": "edit",
                     "scopes": [
                       "update"
                     ],
@@ -472,7 +472,7 @@
         "componentType": "action-group",
         "action": {
           "actionType": "simple",
-          "icon": "fa-wrench",
+          "icon": "wrench",
           "label": "Simple Action",
           "endpoint": "actions/simpleAction"
         },
@@ -482,7 +482,7 @@
             "componentType": "action",
             "actionType": "simple",
             "label": "Simple Action 2 (client question)",
-            "icon": "fa-plus",
+            "icon": "plus",
             "endpoint": "actions/yesNoClientQuestion"
           }
 
