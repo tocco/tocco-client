@@ -72,6 +72,10 @@ import SignalBoxRaw from '!raw-loader!../../tocco-ui/src/SignalBox/SignalBox'
 import SignalBoxExample from '../../tocco-ui/src/SignalBox/example'
 import SignalBoxExampleRaw from '!raw-loader!../../tocco-ui/src/SignalBox/example'
 
+import PopoverRaw from '!raw-loader!../../tocco-ui/src/Popover/Popover'
+import PopoverExample from '../../tocco-ui/src/Popover/example'
+import PopoverExampleRaw from '!raw-loader!../../tocco-ui/src/Popover/example'
+
 import SignalListRaw from '!raw-loader!../../tocco-ui/src/SignalList/SignalList'
 import SignalListExample from '../../tocco-ui/src/SignalList/example'
 import SignalListExampleRaw from '!raw-loader!../../tocco-ui/src/SignalList/example'
@@ -238,6 +242,14 @@ export default [{
 }, {
   category: categories.MESSAGE,
   components: [{
+    name: 'Popover',
+    raw: PopoverRaw,
+    example: {
+      component: PopoverExample,
+      raw: PopoverExampleRaw
+    }
+  },
+  {
     name: 'SignalList',
     raw: SignalListRaw,
     example: {
