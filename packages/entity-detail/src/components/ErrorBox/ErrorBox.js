@@ -1,50 +1,67 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedMessage} from 'react-intl'
+import {Link, SignalBox} from 'tocco-ui'
+import SignalList, {SignalListItem} from 'tocco-ui/src/SignalList'
+import {stylingCondition} from 'tocco-ui/src/utilStyles'
 import {form} from 'tocco-util'
 
-const ErrorBox = ({formErrors, showErrors}) => (
-  <div>
-    <div className="alert alert-danger" role="alert">
-      <ul className="fa-ul">
+const ErrorBox = ({formErrors, showErrors}) => {
+  let output = null
+  const elements = []
 
-        {form.formErrorsUtil.hasFieldErrors(formErrors)
-          && <li className="fieldError">
-            <a onClick={showErrors}>
-              <i className="fa-li fa fa-exclamation-triangle"></i>
-              <FormattedMessage id="client.entity-detail.invalidFieldsError"/>
-              <i style={{marginLeft: '2px'}} className="fa fa-hand-o-up"></i>
-            </a>
-          </li>
-        }
+  if (form.formErrorsUtil.hasFieldErrors(formErrors)) {
+    elements.push(
+      <SignalListItem
+        condition={stylingCondition.DANGER}
+        key="hasFieldErrors"
+      >
+        <Link
+          label={<FormattedMessage id="client.entity-detail.invalidFieldsError"/>}
+          neutral
+          onClick={showErrors}
+        />
+      </SignalListItem>
+    )
+  }
 
-        {form.formErrorsUtil.hasValidatorErrors(formErrors)
-          && <li>
-            <i className="fa-li fa fa-exclamation-triangle"></i>
-            <FormattedMessage id="client.entity-detail.validatorErrors"/>
-            <ul>
-              {form.formErrorsUtil.getValidatorErrors(formErrors).map((message, idx) => {
-                return <li className="validationError" key={idx}>{message}</li>
-              })}
-            </ul>
-          </li>
-        }
+  if (form.formErrorsUtil.hasValidatorErrors(formErrors)) {
+    elements.push(
+      <SignalListItem condition={stylingCondition.DANGER} key="hasValidatorErrors">
+        <FormattedMessage id="client.entity-detail.validatorErrors"/>
+        <SignalList>
+          {form.formErrorsUtil.getValidatorErrors(formErrors).map((message, idx) =>
+            <SignalListItem condition={stylingCondition.DANGER} key={idx} label={message} />
+          )}
+        </SignalList>
+      </SignalListItem>
+    )
+  }
 
-        {form.formErrorsUtil.hasRelatedEntityErrors(formErrors)
-          && <li>
-            <i className="fa-li fa fa-exclamation-triangle"></i>
-            <FormattedMessage id="client.entity-detail.invalidRelationErrors"/>
-            <ul>
-              {form.formErrorsUtil.getRelatedEntityErrorsCompact(formErrors).map((message, idx) => {
-                return <li className="relationEntityError" key={idx}>{message}</li>
-              })}
-            </ul>
-          </li>
-        }
-      </ul>
-    </div>
-  </div>
-)
+  if (form.formErrorsUtil.hasRelatedEntityErrors(formErrors)) {
+    elements.push(
+      <SignalListItem condition={stylingCondition.DANGER} key="hasRelatedEntityErrors">
+        <FormattedMessage id="client.entity-detail.invalidRelationErrors"/>
+        <SignalList>
+          {form.formErrorsUtil.getRelatedEntityErrorsCompact(formErrors).map((message, idx) =>
+            <SignalListItem condition={stylingCondition.DANGER} key={idx} label={message} />
+          )}
+        </SignalList>
+      </SignalListItem>
+    )
+  }
+
+  if (elements.length > 0) {
+    output = (
+      <SignalBox condition={stylingCondition.DANGER}>
+        <SignalList>
+          {elements.map(el => el)}
+        </SignalList>
+      </SignalBox>
+    )
+  }
+  return output
+}
 
 ErrorBox.propTypes = {
   formErrors: PropTypes.object,
