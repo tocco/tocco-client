@@ -105,7 +105,7 @@ class SearchForm extends React.Component {
             {!props.disableSimpleSearch
             && <span style={{float: 'right'}} title={this.msg('client.entity-list.extendedSearch')}>
               <Button
-                icon={`glyphicon-chevron-${this.props.showExtendedSearchForm ? 'up' : 'down'}`}
+                icon={`chevron-${this.props.showExtendedSearchForm ? 'up' : 'down'}`}
                 iconPosition="sole"
                 onClick={this.toggleExtendedSearchForm}
               />
