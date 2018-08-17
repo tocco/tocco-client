@@ -7,7 +7,7 @@ import {put, call} from 'redux-saga/effects'
 export default function* (definition, entity, ids, parent, params) {
   const randomId = Math.random()
   const title = definition.progressMsg || 'client.component.actions.defaultProgressMessage'
-  yield put(notifier.blockingInfo(randomId, title, null, 'circle-o-notch fa-spin fa-fw'))
+  yield put(notifier.blockingInfo(randomId, title, null, 'hand-paper'))
   const response = yield call(invokeRequest, definition, entity, ids, parent, params)
   yield put(notifier.removeBlockingInfo(randomId))
   return response

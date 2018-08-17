@@ -6,7 +6,7 @@
       {
         "componentType": "action",
         "actionType": "new",
-        "icon": "fa-plus",
+        "icon": "plus",
         "label": "New"
       },
       {
@@ -14,7 +14,7 @@
         "actionType": "simple",
         "readonly": false,
         "label": "Simple Action",
-        "icon": "fa-cogs",
+        "icon": "cogs",
         "Selections": 1,
         "maxSelections": 1,
         "progressMsg": "Die Beispiel Aktion wird ausgeführt..",
@@ -33,7 +33,7 @@
             "actionType": "simple",
             "readonly": false,
             "label": "Confirm Simple Action",
-            "icon": "fa-gear",
+            "icon": "hand-paper",
             "minSelection": 1,
             "maxSelection": 1,
             "progressMsg": "Die Beispiel Aktion wird ausgeführt..",
@@ -45,7 +45,7 @@
             "actionType": "simple",
             "readonly": false,
             "label": "Simple Action (client questions)",
-            "icon": "fa-question",
+            "icon": "hand-scissors",
             "progressMsg": "Die Beispiel Aktion wird ausgeführt",
             "showConfirmMessage": false,
             "endpoint": "actions/yesNoClientQuestion"
@@ -55,7 +55,7 @@
             "actionType": "simple",
             "readonly": false,
             "label": "Form data Simple Action",
-            "icon": "fa-keyboard-o",
+            "icon": "hand-rock",
             "showConfirmMessage": false,
             "endpoint": "actions/simpleAction",
             "formDataEntityModel": "MySessionOnly",
@@ -65,7 +65,7 @@
           {
             "componentType": "action",
             "actionType": "custom",
-            "icon": "fa-compress",
+            "icon": "handshake",
             "readonly": false,
             "label": "Merge (custom action)",
             "useLabel": true,
@@ -78,7 +78,7 @@
           {
             "componentType": "action",
             "actionType": "delete",
-            "icon": "fa-trash-o",
+            "icon": "trash",
             "label": "Delete"
           },
           {
@@ -92,7 +92,7 @@
             "actionType": "simple",
             "label": "Validation Error Action",
             "endpoint": "actions/validationError",
-            "icon": "fa-exclamation-triangle"
+            "icon": "exclamation-triangle"
           }
         ]
       },
@@ -379,7 +379,7 @@
                 "name":"simpleAction",
                 "label": null,
                 "readonly": false,
-                "icon": "fa-random",
+                "icon": "random",
                 "showConfirmMessage": "false",
                 "endpoint": "actions/simpleAction"
               }
@@ -407,7 +407,7 @@
       {
         "componentType": "action",
         "actionType": "new",
-        "icon": "fa-plus",
+        "icon": "plus",
         "label": "New"
       }
     ]
