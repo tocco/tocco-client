@@ -1,7 +1,9 @@
 
 import React from 'react'
-import Link from './Link'
 import {mount, shallow} from 'enzyme'
+
+import Icon from '../Icon'
+import Link from './Link'
 
 describe('tocco-ui', function() {
   describe('Link', function() {
@@ -13,31 +15,41 @@ describe('tocco-ui', function() {
       expect(target).to.equal('_self')
     })
 
-    it('should pass 6 props to StyledLink', () => {
+    it('should pass 9 props to StyledLink', () => {
+      const onLinkClick = sinon.spy()
       const wrapper = shallow(
         <Link
           alt="alt text"
           breakWords={false}
           download="name.ext"
           href="/url"
+          neutral={true}
+          onClick={onLinkClick}
           target="_blank"
           title="title text"
         />
       )
+      wrapper.simulate('click')
       const props = wrapper.props()
       const {
         alt,
         breakWords,
+        children,
         download,
         href,
+        neutral,
+        onClick,
         target,
         title
       } = props
-      expect(Object.keys(props)).to.have.lengthOf(7)
+      expect(Object.keys(props)).to.have.lengthOf(9)
       expect(alt).to.equal('alt text')
       expect(breakWords).to.be.false
+      expect(children).to.have.length(2)
       expect(download).to.equal('name.ext')
       expect(href).to.equal('/url')
+      expect(neutral).to.be.true
+      expect(onClick).to.have.property('callCount', 1)
       expect(target).to.equal('_blank')
       expect(title).to.equal('title text')
     })
@@ -54,7 +66,7 @@ describe('tocco-ui', function() {
 
     it('should display icon', () => {
       const wrapper = shallow(<Link icon="bar"/>)
-      expect(wrapper.find('Icon')).to.have.length(1)
+      expect(wrapper.find(Icon)).to.have.length(1)
     })
 
     it('should not display icon', () => {
