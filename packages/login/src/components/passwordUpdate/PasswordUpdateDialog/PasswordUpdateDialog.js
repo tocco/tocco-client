@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
-import classNames from 'classnames'
 import {FormattedMessage, intlShape} from 'react-intl'
 import {Button, LoadMask, SignalList} from 'tocco-ui'
 
@@ -102,7 +101,7 @@ class PasswordUpdateDialog extends Component {
 
           {password.passwordUpdateFailed === true && <FailureMessage errorCode={password.passwordUpdateErrorCode}/>}
           <Button
-            className={classNames('last-element-in-block', {'update-pending': password.passwordUpdatePending})}
+            pending={password.passwordUpdatePending}
             disabled={this.isSubmittable() === false}
             ink="primary"
             label={this.msg('client.login.passwordUpdate.saveButton')}
