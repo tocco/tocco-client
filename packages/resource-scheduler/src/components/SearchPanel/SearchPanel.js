@@ -1,9 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import classNames from 'classnames'
+
 import EntityListApp from 'tocco-entity-list/src/main'
 import Panel from 'react-bootstrap/lib/Panel'
 import PanelGroup from 'react-bootstrap/lib/PanelGroup'
+import {Icon} from 'tocco-ui'
+import {stylingPosition} from 'tocco-ui/src/utilStyles'
 
 class SearchPanel extends React.PureComponent {
   constructor() {
@@ -22,23 +24,18 @@ class SearchPanel extends React.PureComponent {
 
   getSearchLists = calendarTypes => {
     const accordionHeader = (content, name, color) => {
-      const iconClasses = classNames(
-        'collapse-icon',
-        'fa',
-        `fa-chevron-${this.state.activeKey === name ? 'up' : 'down'}`
-      )
-
-      const colorIconClass = classNames(
-        'color-icon',
-        'fa',
-        `fa-square${color ? '' : '-o'}`
-      )
-
       return <div onClick={() => { this.handleAccordionSelect(name) }}>
-        <i className={colorIconClass} aria-hidden="true" style={{...(color ? {color} : {})}}></i>
+        <Icon
+          icon={color ? 'square' : ['far', 'square']}
+          aria-hidden="true"
+          style={{...(color ? {color} : {})}}
+          position={stylingPosition.PREPEND}
+        />
         {content}
-
-        <i className={iconClasses}/>
+        <Icon
+          icon={`chevron-${this.state.activeKey === name ? 'up' : 'down'}`}
+          style={{float: 'right'}}
+        />
       </div>
     }
 
