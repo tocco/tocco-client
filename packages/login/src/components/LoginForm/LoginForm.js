@@ -2,7 +2,8 @@ import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
 import {Pages} from '../../types/Pages'
-import {Button, ButtonGroup} from 'tocco-ui'
+
+import {Button, ButtonGroup, Icon} from 'tocco-ui'
 import {H5, P} from 'tocco-ui/src/Typography'
 import SignalList, {SignalListItem} from 'tocco-ui/src/SignalList'
 
@@ -33,7 +34,7 @@ export class LoginForm extends Component {
         <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="form-group dense">
             <div className="input-group">
-              <span className="input-group-addon"><i className="glyphicon glyphicon-user"/></span>
+              <span className="input-group-addon"><Icon icon="user"/></span>
               <input
                 type="text"
                 className="form-control"
@@ -48,7 +49,7 @@ export class LoginForm extends Component {
           </div>
           <div className="form-group">
             <div className="input-group">
-              <span className="input-group-addon"><i className="glyphicon glyphicon-lock"/></span>
+              <span className="input-group-addon"><Icon icon="unlock"/></span>
               <input
                 type="password"
                 className="form-control"
