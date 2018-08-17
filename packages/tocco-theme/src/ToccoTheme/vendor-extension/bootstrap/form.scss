@@ -31,16 +31,6 @@ button,
   + .btn {
     margin-left: $line-height-computed-half;
   }
-
-  &.update-pending {
-    .glyphicon {
-      animation: spin 2000ms infinite linear;
-
-      &:before {
-        content: '\e031';
-      }
-    }
-  }
 }
 
 .action {
