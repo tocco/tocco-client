@@ -1,6 +1,5 @@
 import {theme} from 'styled-system'
 
-import {StyledIcon} from '../Icon'
 import {StyledLi} from '../Typography'
 import {
   conditionPropTypes,
@@ -25,10 +24,15 @@ const StyledSignalListItem = StyledLi.extend`
     color: ${props => getColor(props)};
     position: relative;
 
-    ${StyledIcon} {
+    > i,
+    > svg {
       position: absolute;
       left: -1.6rem;
       text-align: left;
+    }
+
+    > svg {
+      top: .2em;
     }
   }
 `
