@@ -14,7 +14,7 @@ describe('tocco-util', () => {
           it('should fork sagas', () => {
             const saga = testSaga(sagas.default)
             saga.next().all([
-              fork(takeEvery, tooltipActions.loadTooltip, sagas.loadToolTip)
+              fork(takeEvery, tooltipActions.LOAD_TOOLTIP, sagas.loadToolTip)
             ])
           })
         })
@@ -31,7 +31,7 @@ describe('tocco-util', () => {
             )
               .provide([
                 [select(sagas.tooltipSelector, entity, id), null],
-                [matchers.call.fn(requestSaga), {display: tooltip}]
+                [matchers.call.fn(requestSaga), {body: {display: tooltip}}]
               ])
               .put(tooltipActions.setToolTip(entity, id, tooltip))
               .run()

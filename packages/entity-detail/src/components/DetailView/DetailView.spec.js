@@ -34,6 +34,7 @@ describe('entity-detail', () => {
           loadRelationEntities={EMPTY_FUNC}
           uploadDocument={EMPTY_FUNC}
           loadRemoteEntity={EMPTY_FUNC}
+          loadTooltip={EMPTY_FUNC}
           relationEntities={{}}
           remoteEntities={{}}
           saveEntity={EMPTY_FUNC}

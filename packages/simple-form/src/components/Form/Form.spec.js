@@ -92,6 +92,7 @@ describe('simple-form', () => {
               intl={IntlStub}
               uploadDocument={EMPTY_FUNC}
               openAdvancedSearch={EMPTY_FUNC}
+              loadTooltip={EMPTY_FUNC}
             />
           </Provider>
         )
