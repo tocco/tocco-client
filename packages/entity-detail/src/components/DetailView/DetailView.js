@@ -56,6 +56,8 @@ class DetailView extends React.Component {
             entity={props.entity}
             loadRelationEntities={props.loadRelationEntities}
             relationEntities={props.relationEntities}
+            loadTooltip={props.loadTooltip}
+            tooltips={props.tooltips}
             formValues={props.formValues}
             formErrors={props.formErrors}
             entityModel={props.entityModel}
@@ -90,6 +92,8 @@ DetailView.propTypes = {
   formErrors: PropTypes.object,
   entity: PropTypes.object,
   loadRelationEntities: PropTypes.func.isRequired,
+  tooltips: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)),
+  loadTooltip: PropTypes.func.isRequired,
   uploadDocument: PropTypes.func.isRequired,
   formInitialValues: PropTypes.object,
   relationEntities: PropTypes.shape({

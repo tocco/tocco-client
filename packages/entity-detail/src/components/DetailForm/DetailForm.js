@@ -26,6 +26,8 @@ export class DetailForm extends React.Component {
     const formFieldUtils = {
       relationEntities: props.relationEntities,
       loadRelationEntities: props.loadRelationEntities,
+      loadTooltip: props.loadTooltip,
+      tooltips: props.tooltips,
       uploadDocument: props.uploadDocument,
       intl: this.props.intl,
       openAdvancedSearch: props.openAdvancedSearch
