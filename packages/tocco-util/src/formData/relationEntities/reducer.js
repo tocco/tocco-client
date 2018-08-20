@@ -3,8 +3,8 @@ import * as actions from './actions'
 export const setRelationEntities = (state, {payload: {fieldName, entities, moreEntitiesAvailable}}) => (
   {
     ...state,
-    relationEntities: {
-      ...state.relationEntities,
+    data: {
+      ...state.data,
       [fieldName]: {
         data: entities,
         isLoading: false,
@@ -17,8 +17,8 @@ export const setRelationEntities = (state, {payload: {fieldName, entities, moreE
 export const setRelationEntitiesLoading = (state, {payload: {fieldName}}) => (
   {
     ...state,
-    relationEntities: {
-      ...state.relationEntities,
+    data: {
+      ...state.data,
       [fieldName]: {
         isLoading: true,
         data: []
@@ -33,7 +33,7 @@ const ACTION_HANDLERS = {
 }
 
 const initialState = {
-  relationEntities: {}
+  data: {}
 }
 
 export default function reducer(state = initialState, action) {
