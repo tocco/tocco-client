@@ -1,12 +1,18 @@
 import appFactory from '../appFactory'
-import reducer from './relationEntities/reducer'
+import relationEntities from './relationEntities/reducer'
+import tooltips from './tooltips/reducer'
 import relationEntitiesSagas from './relationEntities/sagas'
+import tooltipsSaga from './tooltips/sagas'
 import advancedSearchSagas from './advancedSearch/sagas'
+import {combineReducers} from 'redux'
 
-export const relationEntitiesSelector = store => store.formData.relationEntities
+export const relationEntitiesSelector = store => store.formData.relationEntities.data
+export const tooltipSelector = store => store.formData.tooltips.data
 
 export const addToStore = (store, config) => {
-  appFactory.injectReducers(store, {formData: reducer})
+  appFactory.injectReducers(store, {formData: combineReducers({relationEntities, tooltips})})
+
   store.sagaMiddleware.run(relationEntitiesSagas, config)
+  store.sagaMiddleware.run(tooltipsSaga, config)
   store.sagaMiddleware.run(advancedSearchSagas, config)
 }
