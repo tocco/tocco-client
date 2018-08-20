@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import TetheredSelectWrap from './TetherSelectWrap'
 import Button from '../../Button/Button'
+import ValueRenderer from './select/ValueRenderer'
 
 class RemoteSelect extends React.Component {
   onValueClick = v => {
@@ -37,7 +38,6 @@ class RemoteSelect extends React.Component {
             multi={false}
             value={this.props.value}
             onChange={this.props.onChange}
-            onValueClick={this.onValueClick}
             filterOption={() => (true)}
             autoload={false}
             onInputChange={searchTerm => {
@@ -50,6 +50,14 @@ class RemoteSelect extends React.Component {
             isLoading={this.props.options.isLoading}
             disabled={this.props.readOnly}
             ref={select => { this.selectComponent = select }}
+            valueRenderer={option =>
+              <ValueRenderer
+                option={option}
+                loadTooltip={this.props.options.loadTooltip}
+                tooltips={this.props.options.tooltips}
+                onValueClick={this.onValueClick}
+              />
+            }
           />
         </span>
         {this.props.options.openAdvancedSearch
@@ -89,7 +97,9 @@ RemoteSelect.propTypes = {
     noResultsText: PropTypes.string,
     moreOptionsAvailable: PropTypes.bool,
     moreOptionsAvailableText: PropTypes.string,
-    openAdvancedSearch: PropTypes.func
+    openAdvancedSearch: PropTypes.func,
+    tooltips: PropTypes.objectOf(PropTypes.string),
+    loadTooltip: PropTypes.func
   }),
   readOnly: PropTypes.bool,
   id: PropTypes.string

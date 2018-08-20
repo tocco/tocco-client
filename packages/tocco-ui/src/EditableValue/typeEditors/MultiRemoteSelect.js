@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import TetheredSelectWrap from './TetherSelectWrap'
 import Button from '../../Button/Button'
+import ValueRenderer from './select/ValueRenderer'
 
 class MultiRemoteSelect extends React.Component {
   onValueClick = v => {
@@ -50,6 +51,14 @@ class MultiRemoteSelect extends React.Component {
             disabled={this.props.readOnly}
             ref={select => { this.selectComponent = select }}
             onOpen={() => this.props.options.fetchOptions()}
+            valueRenderer={option =>
+              <ValueRenderer
+                option={option}
+                loadTooltip={this.props.options.loadTooltip}
+                tooltips={this.props.options.tooltips}
+                onValueClick={this.onValueClick}
+              />
+            }
           />
         </span>
         {this.props.options.openAdvancedSearch
@@ -91,7 +100,9 @@ MultiRemoteSelect.propTypes = {
     searchPromptText: PropTypes.string,
     noResultsText: PropTypes.string,
     moreOptionsAvailable: PropTypes.bool,
-    moreOptionsAvailableText: PropTypes.string
+    moreOptionsAvailableText: PropTypes.string,
+    tooltips: PropTypes.objectOf(PropTypes.string),
+    loadTooltip: PropTypes.func
   }),
   readOnly: PropTypes.bool,
   id: PropTypes.string
