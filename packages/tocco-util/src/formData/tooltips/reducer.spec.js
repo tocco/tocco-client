@@ -7,16 +7,14 @@ describe('tocco-util', () => {
       describe('reducer', () => {
         describe('setToolTip', () => {
           it('should add new tooltip', () => {
-            const initialState = {
-              tooltips: {}
-            }
+            const initialState = {data: {}}
 
             const tooltip = '<h1>Tooltip</h1>'
 
             const newState = setToolTip(initialState, actions.setToolTip('User', 1, tooltip))
 
             const expectedStateAfter = {
-              tooltips: {
+              data: {
                 User: {
                   1: tooltip
                 }
@@ -28,7 +26,7 @@ describe('tocco-util', () => {
 
           it('should overwrite tooltip with new value and keep the others', () => {
             const initialState = {
-              tooltips: {
+              data: {
                 User: {
                   1: 'u1',
                   2: 'u2'
@@ -44,7 +42,7 @@ describe('tocco-util', () => {
             const newState = setToolTip(initialState, actions.setToolTip('User', 2, tooltip))
 
             const expectedStateAfter = {
-              tooltips: {
+              data: {
                 User: {
                   1: 'u1',
                   2: tooltip

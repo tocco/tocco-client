@@ -8,7 +8,7 @@ describe('tocco-util', () => {
         describe('setRelationEntities', () => {
           it('should add new entities', () => {
             const initialState = {
-              relationEntities: {}
+              data: {}
             }
 
             const entities = [
@@ -19,7 +19,7 @@ describe('tocco-util', () => {
             const newState = setRelationEntities(initialState, actions.setRelationEntities('relUser', entities))
 
             const expectedStateAfter = {
-              relationEntities: {
+              data: {
                 relUser: {
                   data: entities,
                   isLoading: false,
@@ -33,7 +33,7 @@ describe('tocco-util', () => {
 
           it('should overwrite existing entities', () => {
             const initialState = {
-              relationEntities: {
+              data: {
                 relUser2: {
                   data: [
                     {value: 1, label: 'User1'},
@@ -51,7 +51,7 @@ describe('tocco-util', () => {
             const newState = setRelationEntities(initialState, actions.setRelationEntities('relUser2', entities))
 
             const expectedStateAfter = {
-              relationEntities: {
+              data: {
                 relUser2: {
                   data: entities,
                   isLoading: false,
@@ -66,15 +66,16 @@ describe('tocco-util', () => {
         describe('setRelationEntitiesLoading', () => {
           it('should set loading boolean', () => {
             const initialState = {
-              relationEntities: {
+              data: {
                 relUser2: {
                   data: []
                 }
+
               }
             }
             const newState = setRelationEntitiesLoading(initialState, actions.setRelationEntityLoading('relUser2'))
 
-            expect(newState.relationEntities.relUser2.isLoading).to.be.true
+            expect(newState.data.relUser2.isLoading).to.be.true
           })
         })
       })
