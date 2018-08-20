@@ -11,6 +11,7 @@ const mapActionCreators = {
   onSubmit: submit,
   onCancel: cancel,
   loadRelationEntities: formData.loadRelationEntities,
+  loadTooltip: formData.loadTooltip,
   openAdvancedSearch: (...args) => formData.openAdvancedSearch(EntityListApp, advancedSearchUpdate, ...args),
   uploadDocument
 }
@@ -23,7 +24,8 @@ const mapStateToProps = (state, props) => ({
   model: state.input.model,
   formDefinition: state.input.form,
   validate: form.syncValidation(state.input.model),
-  relationEntities: formData.relationEntitiesSelector(state)
+  relationEntities: formData.relationEntitiesSelector(state),
+  tooltips: formData.tooltipSelector(state)
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(Form))

@@ -22,6 +22,8 @@ class SearchForm extends React.Component {
       loadRelationEntities: props.loadRelationEntities,
       loadRemoteEntity: props.loadRemoteEntity,
       remoteEntities: props.remoteEntities,
+      loadTooltip: props.loadTooltip,
+      tooltips: props.tooltips,
       loadSearchFilters: props.loadSearchFilters,
       searchFilters: props.searchFilters,
       intl: this.props.intl,
@@ -143,6 +145,8 @@ SearchForm.propTypes = {
     })
   }).isRequired,
   loadRelationEntities: PropTypes.func.isRequired,
+  tooltips: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)),
+  loadTooltip: PropTypes.func.isRequired,
   loadSearchFilters: PropTypes.func.isRequired,
   searchFilters: PropTypes.arrayOf(
     PropTypes.shape({
