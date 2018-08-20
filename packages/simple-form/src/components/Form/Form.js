@@ -32,7 +32,9 @@ class Form extends React.Component {
       searchFilters: props.searchFilters,
       uploadDocument: props.uploadDocument,
       intl: this.props.intl,
-      openAdvancedSearch: props.openAdvancedSearch
+      openAdvancedSearch: props.openAdvancedSearch,
+      loadTooltip: props.loadTooltip,
+      tooltips: props.tooltips
     }
 
     return form.initFormBuilder(
@@ -92,7 +94,9 @@ Form.propTypes = {
   submitting: PropTypes.bool.isRequired,
   cancelText: PropTypes.string,
   submitText: PropTypes.string,
-  openAdvancedSearch: PropTypes.func.isRequired
+  openAdvancedSearch: PropTypes.func.isRequired,
+  tooltips: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)),
+  loadTooltip: PropTypes.func.isRequired
 }
 
 export default reduxForm({form: 'simpleForm', destroyOnUnmount: false})(Form)
