@@ -27,6 +27,9 @@ const getOptions = (type, formField, modelField, utils) => {
     case 'multi-select':
       options.store = _get(utils, ['relationEntities', formField.id, 'data'], [])
       options.isLoading = _get(utils, ['relationEntities', formField.id, 'isLoading'], false)
+      options.tooltips = _get(utils.tooltips, modelField.targetEntity, null)
+      options.loadTooltip = id => utils.loadTooltip(modelField.targetEntity, id)
+
       if (utils.intl) {
         options.noResultsText = utils.intl.formatMessage({id: 'client.component.remoteselect.noResultsText'})
       }
@@ -50,6 +53,8 @@ const getOptions = (type, formField, modelField, utils) => {
       })
 
       options.openAdvancedSearch = value => utils.openAdvancedSearch(formField, modelField, value)
+      options.tooltips = _get(utils.tooltips, modelField.targetEntity, null)
+      options.loadTooltip = id => utils.loadTooltip(modelField.targetEntity, id)
 
       if (utils.intl) {
         options.searchPromptText = utils.intl.formatMessage({id: 'client.component.remoteselect.searchPromptText'})
