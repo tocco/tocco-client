@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import TetheredSelectWrap from './TetherSelectWrap'
 import _isEmpty from 'lodash/isEmpty'
+import ValueRenderer from './select/ValueRenderer'
 
 const SingleSelect = props => {
   const onChange = value => {
@@ -36,6 +37,9 @@ const SingleSelect = props => {
         disabled={props.readOnly}
         ref={select => { selectComponent = select }}
         isLoading={props.options.isLoading}
+        valueRenderer={option =>
+          <ValueRenderer option={option} loadTooltip={props.options.loadTooltip} tooltips={props.options.tooltips}/>
+        }
       />
     </span>
   )
@@ -59,7 +63,9 @@ SingleSelect.propTypes = {
         label: PropTypes.string
       })),
     noResultsText: PropTypes.string,
-    isLoading: PropTypes.bool
+    isLoading: PropTypes.bool,
+    tooltips: PropTypes.objectOf(PropTypes.string),
+    loadTooltip: PropTypes.func
   }),
   readOnly: PropTypes.bool,
   id: PropTypes.string
