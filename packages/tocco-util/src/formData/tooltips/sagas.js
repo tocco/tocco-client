@@ -11,7 +11,8 @@ export default function* sagas() {
   ])
 }
 
-export const tooltipSelector = (state, entityName, id) => _get(state, `${entityName}.${id}`, null)
+export const tooltipSelector = (state, entityName, id) =>
+  _get(state, `formData.tooltips.data.${entityName}.${id}`, null)
 
 export function* loadToolTip({payload: {entity, id}}) {
   const tooltip = yield select(tooltipSelector, entity, id)
