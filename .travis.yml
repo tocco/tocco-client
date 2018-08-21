@@ -7,6 +7,7 @@ cache:
   yarn: true
   directories:
     - node_modules
+    - server/static/node_modules
     - packages/entity-browser/node_modules
     - packages/entity-detail/node_modules
     - packages/entity-list/node_modules
@@ -22,13 +23,9 @@ cache:
     - packages/tocco-util/node_modules
     - .eslintcache
 
-before_install:
-  - curl -o- -L https://yarnpkg.com/install.sh | bash
-  - export PATH=$HOME/.yarn/bin:$PATH
-
 install:
-  - yarn
-  - travis_wait lerna bootstrap --concurrency=1 --mutex network
+  - yarn setup
+  - lerna run --parallel prepublish
 
 script:
   - npm run lint
