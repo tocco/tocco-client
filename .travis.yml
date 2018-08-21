@@ -37,6 +37,7 @@ script:
   - if [ ${TRAVIS_EVENT_TYPE} = "cron" ]; then
       npm run test:saucelabs;
     fi
+
 after_success:
   - if [ ${TRAVIS_EVENT_TYPE} != "cron" ]; then
         npm run codecov;
