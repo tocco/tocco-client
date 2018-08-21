@@ -5,7 +5,7 @@ import {shallow} from 'enzyme'
 
 describe('tocco-ui', function() {
   describe('SearchBox', function() {
-    const DEFAULT_DEBOUNCE = 200
+    const DEFAULT_TIMEOUT = SearchBox.defaultProps.debounce + 100
     const SEARCH_STRING = 'My Search String'
 
     it('should render', () => {
@@ -80,7 +80,7 @@ describe('tocco-ui', function() {
       setTimeout(() => {
         expect(searchFunc).to.have.been.calledWith(SEARCH_STRING)
         done()
-      }, DEFAULT_DEBOUNCE)
+      }, DEFAULT_TIMEOUT)
     })
 
     it('should not call search function on keyDown events with live search but to short input', done => {
@@ -96,7 +96,7 @@ describe('tocco-ui', function() {
       setTimeout(() => {
         expect(searchFunc).to.not.have.been.called
         done()
-      }, DEFAULT_DEBOUNCE)
+      }, DEFAULT_TIMEOUT)
     })
 
     it('should await debounce time on livesearch', done => {

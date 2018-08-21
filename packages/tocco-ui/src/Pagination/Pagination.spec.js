@@ -35,7 +35,7 @@ describe('tocco-ui', function() {
       setTimeout(() => {
         expect(onPageChange).to.be.calledWith(2)
         done()
-      }, 200)
+      }, 300)
     })
 
     it('should disable forward and back button depending on current page', () => {
