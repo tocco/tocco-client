@@ -43,6 +43,11 @@ const karmaConfig = {
   mochaReporter: {
     showDiff: true
   },
+  client: {
+    mocha: {
+      timeout: 20000
+    }
+  },
   preprocessors: {
     './build/test-setup.js': ['webpack'],
     ...bundlePreprocessors
