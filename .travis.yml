@@ -1,7 +1,11 @@
-sudo: false
+sudo: true
 language: node_js
 node_js:
   - "9"
+
+dist: trusty
+addons:
+  chrome: stable
 
 cache:
   yarn: true

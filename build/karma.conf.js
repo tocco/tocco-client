@@ -47,9 +47,8 @@ const karmaConfig = {
     './build/test-setup.js': ['webpack'],
     ...bundlePreprocessors
   },
-  browsers: ['PhantomJS'],
-  browserDisconnectTimeout: 10000,
-  browserNoActivityTimeout: 60000,
+  browsers: ['ChromeHeadless'],
+  concurrency: Infinity,
   webpack: {
     mode: 'development',
     performance: {
