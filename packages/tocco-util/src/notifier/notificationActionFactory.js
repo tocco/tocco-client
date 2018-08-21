@@ -1,6 +1,8 @@
 import React from 'react'
 import {actions as toastrActions} from 'react-redux-toastr'
 
+import {Icon} from 'tocco-ui'
+
 import TitleMessage from './components/TitleMessage'
 
 export function getInfoAction(type, title, message, icon, timeOut) {
@@ -11,7 +13,7 @@ export function getInfoAction(type, title, message, icon, timeOut) {
   }
 
   if (icon) {
-    options.icon = (<div className={`fa fa-${icon} tocco-notifier__icon`}/>)
+    options.icon = <Icon icon={icon} size="2x" />
   }
 
   return toastrActions.add({
@@ -68,7 +70,7 @@ export function getBlockingInfo(id, title, message, icon) {
   }
 
   if (icon) {
-    options.icon = (<div className={`fa fa-${icon} tocco-notifier__icon`}/>)
+    options.icon = <Icon icon={icon} size="2x" />
   }
 
   return toastrActions.add({

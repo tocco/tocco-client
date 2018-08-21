@@ -56,9 +56,9 @@ class LoadMask extends React.Component {
   render() {
     const loadingIconAndText = [
       <Icon
-        animation="spin"
+        pulse
         dense={true}
-        icon="fa-spinner"
+        icon="spinner"
         key="loader-icon"
       />
     ]

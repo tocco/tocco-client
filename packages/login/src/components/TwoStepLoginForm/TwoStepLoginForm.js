@@ -1,7 +1,10 @@
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
-import {Button} from 'tocco-ui'
+import {
+  Button,
+  Icon
+} from 'tocco-ui'
 
 export class TwoStepLoginForm extends Component {
   constructor(props) {
@@ -31,7 +34,7 @@ export class TwoStepLoginForm extends Component {
           <p><FormattedMessage id="client.login.twoStepLogin.requestedCode"/>{this.props.requestedCode}</p>
           <div className="form-group dense">
             <div className="input-group">
-              <span className="input-group-addon"><i className="glyphicon glyphicon-lock"/></span>
+              <span className="input-group-addon"><Icon icon="unlock"/></span>
               <input
                 type="text"
                 className="form-control"

@@ -12,11 +12,13 @@ const Link = props => {
   return (
     <StyledLink
       alt={props.alt}
+      breakWords={props.breakWords}
       download={props.download}
       href={props.href}
+      neutral={props.neutral}
+      onClick={props.onClick}
       target={props.target}
       title={props.title || (props.breakWords ? undefined : props.label)}
-      breakWords={props.breakWords}
     >
       {props.icon && <Icon icon={props.icon} position={stylingPosition.PREPEND}/>}
       {props.label}
@@ -48,16 +50,24 @@ Link.propTypes = {
    */
   href: PropTypes.string.isRequired,
   /**
-   * Display an icon alongside link label. It is possible to omit label text if a icon is chosen. Utilize
-   * Glyphicon of Bootstrap 3.7 or Font Awesome 4.7 by setting specific classname (e.g. "bars")
-   * https://getbootstrap.com/docs/3.3/components/#glyphicons or https://fontawesome.com/v4.7.0/icons/
+   * Display an icon alongside link label. It is possible to omit label text if a icon is chosen. Utilize free
+   * Font Awesome 5.1 icons by setting specific classname (e.g. "check").
+   * https://fontawesome.com/icons?d=gallery&s=regular,solid&m=free
    */
   icon: PropTypes.string,
   /**
    * Describe link target concise.
    */
   label: PropTypes.node,
-  /*
+  /**
+   * Links are colorized to stand out from text. Set neutral to prevent that (e.g. if background is colorized).
+   */
+  neutral: PropTypes.bool,
+  /**
+   * Function that will be triggered on click event.
+   */
+  onClick: PropTypes.func,
+  /**
    * Define browsing context. Default value is '_self'. Possible values: _self|_blank
    */
   target: PropTypes.oneOf(['_self', '_blank']),

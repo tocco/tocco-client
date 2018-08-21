@@ -1,60 +1,52 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import classNames from 'classnames'
+import {withTheme} from 'styled-components'
+import _omit from 'lodash/omit'
 
-import StyledIcon from './StyledIcon'
+import getSpacing from './StyledIcon'
 import {
-  animationPropTypes,
   positionPropTypes,
-  stylingAnimation,
   stylingPosition
 } from '../utilStyles'
 
-const getClassName = (icon, animation) => {
-  if (icon) {
-    return classNames({
-      'glyphicon': icon.startsWith('glyphicon-'),
-      'fa': icon.startsWith('fa-'),
-      'fa-spin': animation === stylingAnimation.SPIN
-    }, icon, 'icon')
-  } else {
-    return 'fa'
+/**
+ * Utilize <Icon> to create additional meaning or to omit text labels. Every chosen
+ * icon must be concise and convey the same meaning in all contexts. See
+ * https://www.npmjs.com/package/@fortawesome/react-fontawesome for detailed feature
+ * description. All free solid and regular icons are available.
+ */
+class Icon extends React.Component {
+  FontAwesomeIcon = null
+
+  constructor(props) {
+    super(props)
+    Promise.all([
+      import(/* webpackChunkName: "fontawesomeicon" */ '@fortawesome/fontawesome-svg-core'),
+      import(/* webpackChunkName: "fontawesomeicon" */ '@fortawesome/react-fontawesome'),
+      import(/* webpackChunkName: "fontawesomeicon" */ '@fortawesome/free-solid-svg-icons'),
+      import(/* webpackChunkName: "fontawesomeicon" */ '@fortawesome/free-regular-svg-icons')
+    ]).then(response => {
+      this.FontAwesomeIcon = response[1].FontAwesomeIcon
+      response[0].library.add(response[2].fas, response[3].far)
+      this.forceUpdate()
+    })
+  }
+
+  render() {
+    const filteredProps = _omit(this.props, ['dense', 'position'])
+    if (this.FontAwesomeIcon !== null) {
+      return <this.FontAwesomeIcon {...filteredProps} style={getSpacing(this.props)}/>
+    } else {
+      return <i/>
+    }
   }
 }
 
-/**
- * Utilize <Icon> to create additional meaning or to omit text labels. Every chosen
- * icon must be concise and convey the same meaning in all contexts.
- */
-const Icon = props => {
-  return (
-    <StyledIcon
-      animation={props.animation}
-      className={getClassName(props.icon, props.animation)}
-      dense={props.dense}
-      position={props.position}
-    >
-      {props.unicode}
-    </StyledIcon>
-  )
-}
-
 Icon.defaultProps = {
-  animation: stylingAnimation.NONE,
   position: stylingPosition.SOLE
 }
 
 Icon.propTypes = {
-  /**
-  * Animate Icon. Default value is 'none'.
-  */
-  animation: animationPropTypes,
-  /**
-   * Display an icon. Utilize Glyphicon of Bootstrap 3.7 or Font Awesome 4.7 by setting
-   * specific classname (e.g. "bars")
-   * https://getbootstrap.com/docs/3.3/components/#glyphicons or https://fontawesome.com/v4.7.0/icons/
-   */
-  icon: PropTypes.string,
   /**
    * If true, button occupies less space. It should only used for crowded areas like tables and only if necessary.
    */
@@ -62,15 +54,7 @@ Icon.propTypes = {
   /**
    * Specify if icon is positioned next to text or not to control spacing. Default value is 'prepend'.
    */
-  position: positionPropTypes,
-  /*
-   * Display one or more unicode characters. Use unicode escape string (e.g. \u2022).
-   * Font Awesome styling is used. If prop icon and unicode is used together, icon prepend unicode characters.
-   */
-  unicode: PropTypes.string
+  position: positionPropTypes
 }
 
-export {
-  Icon as default,
-  StyledIcon
-}
+export default withTheme(Icon)

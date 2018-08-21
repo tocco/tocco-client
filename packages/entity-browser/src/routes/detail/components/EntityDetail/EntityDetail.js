@@ -71,7 +71,7 @@ class EntityDetail extends React.Component {
             && <LayoutBox alignment="horizontal">
               <div style={{marginBottom: '.5em'}}>
                 <Button
-                  icon="fa fa-chevron-left"
+                  icon="chevron-left"
                   label={this.msg('client.entity-browser.back')}
                   look="raised"
                   onClick={this.handleGoBack}

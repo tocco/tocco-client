@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
+import Icon from '../../Icon'
+
 const StringEdit = props => {
   const value = props.value || ''
 
@@ -33,7 +35,7 @@ const StringEdit = props => {
       />
       {value && <span className="input-group-addon">
         <a tabIndex="-1" href={value} target="_blank" rel="noopener noreferrer">
-          <span className="fa fa-external-link"/>
+          <Icon icon="external-link-alt"/>
         </a>
       </span>}
     </div>

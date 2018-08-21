@@ -12,16 +12,18 @@ const StyledLink = styled.a`
   ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
 
   && {
-    color: ${theme('colors.primary.line.0')}
-    text-decoration: none;
+    color: ${props => props.neutral ? theme('colors.base.text') : theme('colors.primary.line.0')};
+    text-decoration: ${props => props.neutral ? 'underline' : 'none'};
 
     &:hover,
     &:focus {
-      color: ${theme('colors.primary.line.1')}
+      color: ${props => props.neutral ? theme('colors.base.text') : theme('colors.primary.line.1')};
+      text-decoration: ${props => props.neutral ? 'none' : 'underline'};
     }
 
     &:active {
-      color: ${theme('colors.primary.line.2')}
+      color: ${props => props.neutral ? theme('colors.base.text') : theme('colors.primary.line.2')};
+      text-decoration: ${props => props.neutral ? 'none' : 'underline'};
     }
   }
 `

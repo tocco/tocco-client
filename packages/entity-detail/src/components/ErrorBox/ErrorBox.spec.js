@@ -1,7 +1,10 @@
 import React from 'react'
-import ErrorBox from './ErrorBox'
 import {mount} from 'enzyme'
 import {IntlProvider} from 'react-intl'
+
+import ErrorBox from './ErrorBox'
+import {Link, SignalBox} from 'tocco-ui'
+import {SignalListItem} from 'tocco-ui/src/SignalList'
 
 const EMPTY_FUNC = () => {}
 
@@ -29,6 +32,7 @@ describe('entity-detail', () => {
                 }
               }
             }]}}
+
         const wrapper = mount(
           <IntlProvider locale="en">
             <ErrorBox
@@ -37,9 +41,17 @@ describe('entity-detail', () => {
             />
           </IntlProvider>
         )
+        const signalListItem = wrapper.find(SignalListItem)
 
-        expect(wrapper.find('.alert')).to.have.length(1)
-        expect(wrapper.find('.relationEntityError')).to.have.length(2)
+        expect(wrapper.find('span').text()).to.equal('client.entity-detail.invalidRelationErrors')
+        expect(wrapper.find(SignalBox).prop('condition')).to.be.equal('danger')
+        expect(signalListItem.get(0).props.condition).to.be.equal('danger')
+        expect(signalListItem.get(1).props.condition).to.be.equal('danger')
+        expect(signalListItem.get(1).props.label).to.be
+          .equal('Pflichtfeld ist nicht ausgefüllt. (label_de, User_status, 3)')
+        expect(signalListItem.get(2).props.condition).to.be.equal('danger')
+        expect(signalListItem.get(2).props.label).to.be
+          .equal('Pflichtfeld ist nicht ausgefüllt. (label_de, User_status2, 4)')
       })
 
       it('should show field', () => {
@@ -52,10 +64,12 @@ describe('entity-detail', () => {
             />
           </IntlProvider>
         )
+        const link = wrapper.find(Link)
 
-        expect(wrapper.find('.alert')).to.have.length(1)
-        expect(wrapper.find('a')).to.have.length(1)
-        expect(wrapper.find('.fieldError')).to.have.length(1)
+        expect(wrapper.find('span').text()).to.equal('client.entity-detail.invalidFieldsError')
+        expect(link).to.have.length(1)
+        expect(link.prop('label')).to.be.object
+        expect(link.prop('neutral')).to.be.true
       })
 
       it('should show field', () => {
@@ -76,9 +90,12 @@ describe('entity-detail', () => {
             />
           </IntlProvider>
         )
+        const signalListItem = wrapper.find(SignalListItem)
 
-        expect(wrapper.find('.alert')).to.have.length(1)
-        expect(wrapper.find('.validationError')).to.have.length(3)
+        expect(wrapper.find('span').text()).to.equal('client.entity-detail.validatorErrors')
+        expect(signalListItem.get(1).props.label).to.be.equal('1')
+        expect(signalListItem.get(2).props.label).to.be.equal('2')
+        expect(signalListItem.get(3).props.label).to.be.equal('3')
       })
     })
   })

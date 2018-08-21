@@ -5,7 +5,6 @@ import Icon from '../Icon'
 import StyledButton from './StyledButton'
 import {
   inkPropTypes,
-  stylingAnimation,
   stylingInk,
   stylingLook,
   stylingPosition
@@ -32,9 +31,9 @@ const Button = props => {
         icon={props.icon}
         position={props.label ? props.iconPosition : stylingPosition.sole}/>}
       {props.pending && <Icon
-        animation={stylingAnimation.SPIN}
+        pulse
         dense={props.dense}
-        icon="fa-spinner"
+        icon="spinner"
         position={props.label ? props.iconPosition : stylingPosition.sole}/>}
       {props.label ? <span>{props.label}</span> : props.children}
     </StyledButton>
@@ -69,9 +68,9 @@ Button.propTypes = {
    */
   disabled: PropTypes.bool,
   /**
-   * Display an icon alongside button label. It is possible to omit label text if a icon is chosen. Utilize
-   * Glyphicon of Bootstrap 3.7 or Font Awesome 4.7 by setting specific classname (e.g. "bars")
-   * https://getbootstrap.com/docs/3.3/components/#glyphicons or https://fontawesome.com/v4.7.0/icons/
+   * Display an icon alongside button label. It is possible to omit label text if a icon is chosen. Utilize free
+   * Font Awesome 5.1 icons by setting specific classname (e.g. "check").
+   * https://fontawesome.com/icons?d=gallery&s=regular,solid&m=free
    */
   icon: PropTypes.string,
   /**
