@@ -8,9 +8,7 @@ export default () => {
     <div>
       {/* start example */}
       <Popover content={<img src="https://picsum.photos/200/200" width="200" height="200"/>} placement="top">
-        <Popover content={<div>Bottom.</div>} placement="bottom">
-          <Button label="Hover me"/>
-        </Popover>
+        <Button label="Hover me"/>
       </Popover>
       {/* end example */}
     </div>
