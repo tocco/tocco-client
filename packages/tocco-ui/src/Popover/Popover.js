@@ -6,11 +6,8 @@ import StyledPopoverBox from './StyledPopoverBox'
 import StyledArrow from './StyledArrow'
 
 const placements = {
-  AUTO: 'auto',
   TOP: 'top',
-  RIGHT: 'right',
-  BOTTOM: ' bottom',
-  LEFT: 'left'
+  BOTTOM: ' bottom'
 }
 
 class Popover extends React.Component {
