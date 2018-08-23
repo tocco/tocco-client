@@ -2,12 +2,15 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import {Manager, Popper, Reference} from 'react-popper'
-import StyledPopoverBox from './StyledPopoverBox'
-import StyledArrow from './StyledArrow'
+import {
+  StyledArrow,
+  StyledBox,
+  StyledBoxWrapper
+} from './StyledPopover'
 
 const placements = {
   TOP: 'top',
-  BOTTOM: ' bottom'
+  BOTTOM: 'bottom'
 }
 
 class Popover extends React.Component {
@@ -31,29 +34,56 @@ class Popover extends React.Component {
   }
 
   render() {
+    const {
+      children,
+      content,
+      isPlainHtml,
+      rimless,
+      placement,
+      spacer
+    } = this.props
+
     return <Manager>
       <Reference>
         {({ref}) => (
-          <span ref={ref} onMouseOver={this.handleMouseEnter} onMouseOut={this.handleMouseLeave}>
-            {this.props.children}
+          <span
+            onMouseOut={this.handleMouseLeave}
+            onMouseOver={this.handleMouseEnter}
+            ref={ref}
+            style={{display: 'inline-block'}}
+          >
+            {children}
           </span>
         )}
       </Reference>
-      {this.state.showToolTip && this.props.content
+      {this.state.showToolTip && content
       && ReactDOM.createPortal(
-        <Popper placement={this.props.placement}>
+        <Popper
+          modifiers={{
+            preventOverflow: {
+              padding: spacer
+            }
+          }}
+          placement={placement}
+        >
           {({ref, style, placement, arrowProps}) => (
-            <StyledPopoverBox
+            <StyledBoxWrapper
               innerRef={ref}
               style={style}
+              spacer={spacer}
             >
-              {this.props.content}
+              <StyledBox
+                isPlainHtml={isPlainHtml}
+                rimless={rimless}
+              >
+                {content}
+              </StyledBox>
               <StyledArrow
                 innerRef={arrowProps.ref}
                 data-placement={placement}
                 style={arrowProps.style}
               />
-            </StyledPopoverBox>
+            </StyledBoxWrapper>
           )}
         </Popper>
         , document.querySelector('body'))}
@@ -62,22 +92,38 @@ class Popover extends React.Component {
 }
 
 Popover.defaultProps = {
-  placement: placements.TOP
+  isPlainHtml: true,
+  rimless: false,
+  placement: placements.TOP,
+  spacer: 10
 }
 
 Popover.propTypes = {
   /**
-   * Content of the popover
+   * Content in the popover.
    */
   content: PropTypes.node,
   /**
-   * Content of the popover
+   * Reference to the popover.
    */
   children: PropTypes.node,
   /**
+   * Remove space between content and border if useful (e.g. content is an image only). Default is {false}.
+   */
+  rimless: PropTypes.bool,
+  /**
+   * Add typographic styles for nested content. If content is already completely
+   * styled disable this option (e.g. styled-components). Default is {true}.
+   */
+  isPlainHtml: PropTypes.bool,
+  /**
+   * Minimal distance between popper and viewport edge in pixels. Default is '10'.
+   */
+  spacer: PropTypes.number,
+  /**
    * Content of the popover
    */
-  placement: PropTypes.string
+  placement: PropTypes.oneOf(Object.values(placements))
 }
 
 export default Popover
