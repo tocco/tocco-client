@@ -61,6 +61,7 @@ class Example extends React.Component {
         dateRangeFrom: '2015-12-21',
         dateRangeTo: '2015-12-24',
         datetime: '2017-01-25T15:15:00.000Z',
+        duration: 3660000,
         boolean: false,
         number: 99,
         remote: {key: 999, display: 'Dummy User 999'},
@@ -322,6 +323,17 @@ class Example extends React.Component {
                   onChange={v => this.changeValue('datetime', v)}
                   readOnly={this.state.readOnly}
                   options={{placeholderText: 'Pick a date time'}}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>duration</td>
+              <td>
+                <EditableValue
+                  type="duration"
+                  value={this.state.values.duration}
+                  onChange={v => this.changeValue('duration', v)}
+                  readOnly={this.state.readOnly}
                 />
               </td>
             </tr>

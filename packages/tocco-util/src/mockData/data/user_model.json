@@ -137,6 +137,13 @@
       }
     },
     {
+      "fieldName": "duration",
+      "type": "duration",
+      "validation": {
+        "mandatory": false
+      }
+    },
+    {
       "fieldName": "publish",
       "type": "boolean",
       "validation": {
