@@ -208,7 +208,7 @@
                     "readonly": true,
                     "children": [
                       {
-                        "id": "duration",
+                        "id": "durationDisplay",
                         "componentType": "display",
                         "label": null
                       }
@@ -347,7 +347,21 @@
                   },
                   {
                     "componentType": "field-set",
-                    "label": "Publiziert",
+                    "label": "Duration",
+                    "scopes": [],
+                    "hidden": false,
+                    "children": [
+                      {
+                        "id": "duration",
+                        "componentType": "field",
+                        "dataType": "duration",
+                        "label": null
+                      }
+                    ]
+                  },
+                  {
+                    "componentType": "field-set",
+                    "label": "Published",
                     "scopes": [],
                     "hidden": false,
                     "children": [

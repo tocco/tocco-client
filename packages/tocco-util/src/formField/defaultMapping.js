@@ -10,6 +10,7 @@ export default {
   'data-amount': editableValueFactory('number'),
   'date': editableValueFactory('date'),
   'datetime': editableValueFactory('datetime'),
+  'duration': editableValueFactory('duration'),
   'display': formattedValueFactory('html'),
   'document': editableValueFactory('document'),
   'email': editableValueFactory('email'),

@@ -24,6 +24,8 @@
   "client.component.upload.uploading",
   "client.component.upload.downloadTitle",
   "client.component.upload.deleteTitle",
+  "client.component.duration.hoursLabel",
+  "client.component.duration.minutesLabel",
   "client.common.ok",
   "client.common.cancel",
   "client.common.yes",
