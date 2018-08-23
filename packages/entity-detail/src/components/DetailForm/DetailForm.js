@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {reduxForm} from 'redux-form'
 import {intlShape, FormattedRelative, FormattedMessage} from 'react-intl'
-import {Button, LayoutBox} from 'tocco-ui'
+import Button from 'tocco-ui/src/Button'
 import {form, formField} from 'tocco-util'
 import SubGrid from '../../util/detailView/fromFieldFactories/subGrid'
 
@@ -108,25 +108,23 @@ export class DetailForm extends React.Component {
       >
         {this.formBuilder()}
         {!this.isReadOnlyForm()
-        && <LayoutBox alignment="horizontal">
-          <LayoutBox alignment="vertical">
-            {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
-            <Button
-              disabled={props.submitting || (props.anyTouched && !props.valid)}
-              ink="primary"
-              label={this.msg(`client.entity-detail.${props.mode === modes.CREATE ? 'create' : 'save'}`)}
-              look="raised"
-              pending={props.submitting}
-              type="submit"
-            />
-            {props.lastSave
-            && <div>
-              <FormattedMessage id="client.entity-detail.lastSave"/>
-              <span style={{marginLeft: '3px'}}> <FormattedRelative value={props.lastSave}/></span>
-            </div>
-            }
-          </LayoutBox>
-        </LayoutBox>
+        && <div>
+          {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
+          <Button
+            disabled={props.submitting || (props.anyTouched && !props.valid)}
+            ink="primary"
+            label={this.msg(`client.entity-detail.${props.mode === modes.CREATE ? 'create' : 'save'}`)}
+            look="raised"
+            pending={props.submitting}
+            type="submit"
+          />
+          {props.lastSave
+          && <div>
+            <FormattedMessage id="client.entity-detail.lastSave"/>
+            <span style={{marginLeft: '3px'}}> <FormattedRelative value={props.lastSave}/></span>
+          </div>
+          }
+        </div>
         }
       </form>
     )

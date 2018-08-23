@@ -31,16 +31,18 @@ class PanelBody extends React.Component {
   render() {
     const {
       children,
+      isFramed,
       isOpen
     } = this.props
 
     return (
       <StyledPanelBody
+        isFramed={isFramed}
         isOpen={isOpen}
         innerRef={node => { this.node = node }}
         heightIfOpen={this.state.heightIfOpen}
       >
-        {React.Children.map(children, child => React.cloneElement(child))}
+        <div>{React.Children.map(children, child => React.cloneElement(child))}</div>
       </StyledPanelBody>
     )
   }
@@ -48,6 +50,11 @@ class PanelBody extends React.Component {
 
 PanelBody.propTypes = {
   children: PropTypes.node,
+  /**
+   * Boolean to control if <PanelHeader/>, <PanelBody/> and <PanelFooter/> is initially opened.
+   * Value is always overridden by parent element.
+   */
+  isFramed: PropTypes.bool,
   /**
    * Boolean to control if <PanelBody/> is initially opened. Value is always overridden by parent element.
    */
