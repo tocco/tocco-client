@@ -17,6 +17,7 @@ import MultiRemoteSelect from './typeEditors/MultiRemoteSelect'
 import SearchFilterEdit from './typeEditors/SearchFilterEdit'
 import UrlEdit from './typeEditors/UrlEdit'
 import PhoneEdit from './typeEditors/PhoneEdit'
+import DurationEdit from './typeEditors/DurationEdit'
 
 export const map = {
   'string': StringEdit,
@@ -40,7 +41,8 @@ export const map = {
   'multi-remote': MultiRemoteSelect,
   'search-filter': SearchFilterEdit,
   'createuser': StringEdit,
-  'createts': DateTimeEdit
+  'createts': DateTimeEdit,
+  'duration': DurationEdit
 }
 
 export default (type, value, onChange, options, id, events, readOnly = false) => {

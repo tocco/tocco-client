@@ -3,7 +3,7 @@ import {EditableValue} from 'tocco-ui'
 import {mount} from 'enzyme'
 
 describe('tocco-util', () => {
-  describe('fomField', () => {
+  describe('formField', () => {
     describe('editableValueFactory', () => {
       it('should return simple editableValue', () => {
         const factory = editableValueFactory('string')
@@ -99,6 +99,24 @@ describe('tocco-util', () => {
 
         expect(focusSpy).to.have.calledOnce
         expect(loadSearchFiltersSpy).to.have.calledOnce
+      })
+      it('should should format message to hours and minutes label', () => {
+        const factory = editableValueFactory('duration')
+        const util = {
+          intl: {
+            formatMessage: v => (v.id)
+          }
+        }
+
+        const editableValue = factory({}, {}, {}, {}, util)
+
+        const wrapper = mount(editableValue)
+
+        const options = wrapper.prop('options')
+
+        expect(wrapper).to.have.type(EditableValue)
+        expect(options.hoursLabel).to.eql('client.component.duration.hoursLabel')
+        expect(options.minutesLabel).to.eql('client.component.duration.minutesLabel')
       })
     })
   })
