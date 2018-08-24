@@ -1,3 +1,4 @@
+import assertObjectValuesMatchOtherObjectKeys from './assertObjectValuesMatchOtherObjectKeys'
 import declareDensity from './declareDensity'
 import {
   declareFocus,
@@ -16,6 +17,7 @@ import {
   declareNoneWrappingText,
   declareWrappingText
 } from './declareWrapping'
+import filterObjectByKeysStartingWith from './filterObjectByKeysStartingWith'
 import getTextOfChildren from './getTextOfChildren'
 import {
   declareScale,
@@ -41,7 +43,6 @@ import {
   position as stylingPosition,
   positionPropTypes
 } from './stylingConstants'
-import assertObjectValuesMatchOtherObjectKeys from './assertObjectValuesMatchOtherObjectKeys'
 import {validateCssDimension} from './propTypesValidator'
 export {
   animationPropTypes,
@@ -63,6 +64,7 @@ export {
   generateRaisedBaseColors,
   generateRaisedPrimaryColors,
   getHigherContrast,
+  filterObjectByKeysStartingWith,
   getTextOfChildren,
   inkPropTypes,
   layoutPropTypes,
