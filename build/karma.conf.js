@@ -92,7 +92,11 @@ const karmaConfig = {
     noInfo: true,
     stats: 'errors-only'
   },
-  coverageReporter: config.coverage_reporters
+  coverageReporter: config.coverage_reporters,
+  captureTimeout: 3 * 60 * 1000,
+  browserDisconnectTolerance: 2,
+  browserDisconnectTimeout: 3 * 60 * 1000,
+  browserNoActivityTimeout: 3 * 60 * 1000
 }
 
 // cannot use `export default` because of Karma.
