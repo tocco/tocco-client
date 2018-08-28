@@ -1,20 +1,27 @@
 import React from 'react'
+import _get from 'lodash/get'
 
-export default getComponent => (
+export default (loadComponent, selector, defaultComponent = null, onLoaded) => (
   class LazyLoadedComponent extends React.Component {
-    static Component = null
     mounted = false
 
     state = {
-      Component: LazyLoadedComponent.Component
+      Component: null
+    }
+
+    select(Component) {
+      return selector ? _get(Component, selector) : Component
     }
 
     componentWillMount() {
       if (this.state.Component === null) {
-        getComponent().then(Component => {
-          LazyLoadedComponent.Component = Component.default
+        loadComponent().then(Component => {
           if (this.mounted) {
-            this.setState({Component: Component.default})
+            this.setState({Component: this.select(Component)})
+          }
+
+          if (onLoaded) {
+            onLoaded()
           }
         })
       }
@@ -30,12 +37,11 @@ export default getComponent => (
 
     render() {
       const {Component} = this.state
-
       if (Component !== null) {
         return <Component {...this.props}/>
       }
 
-      return null
+      return defaultComponent
     }
   }
 )
