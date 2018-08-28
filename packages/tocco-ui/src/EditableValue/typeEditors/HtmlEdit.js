@@ -26,7 +26,7 @@ class HtmlEdit extends React.Component {
     import(/* webpackChunkName: "quill" */ '!style-loader!css-loader!react-quill/dist/quill.snow.css')
     import(/* webpackChunkName: "quill" */ '!style-loader!css-loader!react-quill/dist/quill.core.css')
 
-    this.lazyQuill = lazyComponent(() => import(/* webpackChunkName: "quill" */ 'react-quill'))
+    this.lazyQuill = lazyComponent(() => import(/* webpackChunkName: "quill" */ 'react-quill'), 'default')
   }
 
   handleChange = value => {
