@@ -8,6 +8,7 @@ import {
   positionPropTypes,
   stylingPosition
 } from '../utilStyles'
+import lazyComponent from '../util/lazyComponent'
 
 /**
  * Utilize <Icon> to create additional meaning or to omit text labels. Every chosen
@@ -16,29 +17,31 @@ import {
  * description. All free solid and regular icons are available.
  */
 class Icon extends React.Component {
-  FontAwesomeIcon = null
+  lazyFontAwesomeIcon = null
 
   constructor(props) {
     super(props)
-    Promise.all([
-      import(/* webpackChunkName: "fontawesomeicon" */ '@fortawesome/fontawesome-svg-core'),
+
+    const loadComponent = Promise.all([
       import(/* webpackChunkName: "fontawesomeicon" */ '@fortawesome/react-fontawesome'),
+      import(/* webpackChunkName: "fontawesomeicon" */ '@fortawesome/fontawesome-svg-core'),
       import(/* webpackChunkName: "fontawesomeicon" */ '@fortawesome/free-solid-svg-icons'),
       import(/* webpackChunkName: "fontawesomeicon" */ '@fortawesome/free-regular-svg-icons')
     ]).then(response => {
-      this.FontAwesomeIcon = response[1].FontAwesomeIcon
-      response[0].library.add(response[2].fas, response[3].far)
-      this.forceUpdate()
+      response[1].library.add(response[2].fas, response[3].far)
+      return response
+    })
+
+    this.lazyFontAwesomeIcon = lazyComponent(() => loadComponent, '[0].FontAwesomeIcon', <i/>, () => {
+      if (this.props.onLoaded) {
+        this.props.onLoaded()
+      }
     })
   }
 
   render() {
-    const filteredProps = _omit(this.props, ['dense', 'position'])
-    if (this.FontAwesomeIcon !== null) {
-      return <this.FontAwesomeIcon {...filteredProps} style={getSpacing(this.props)}/>
-    } else {
-      return <i/>
-    }
+    const filteredProps = _omit(this.props, ['dense', 'position', 'onLoaded'])
+    return <this.lazyFontAwesomeIcon {...filteredProps} style={getSpacing(this.props)}/>
   }
 }
 
@@ -54,7 +57,11 @@ Icon.propTypes = {
   /**
    * Specify if icon is positioned next to text or not to control spacing. Default value is 'prepend'.
    */
-  position: positionPropTypes
+  position: positionPropTypes,
+  /**
+   * Callback that gets invoked when component is fully loaded.
+   */
+  onLoaded: PropTypes.func
 }
 
 export default withTheme(Icon)
