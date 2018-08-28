@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-
 import {Icon} from 'tocco-ui'
 
 const PropsTable = props => {

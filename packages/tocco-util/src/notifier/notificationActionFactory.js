@@ -1,6 +1,5 @@
 import React from 'react'
 import {actions as toastrActions} from 'react-redux-toastr'
-
 import {Icon} from 'tocco-ui'
 
 import TitleMessage from './components/TitleMessage'
