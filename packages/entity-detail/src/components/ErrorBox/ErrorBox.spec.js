@@ -68,7 +68,7 @@ describe('entity-detail', () => {
 
         expect(wrapper.find('span').text()).to.equal('client.entity-detail.invalidFieldsError')
         expect(link).to.have.length(1)
-        expect(link.prop('label')).to.be.object
+        expect(link.prop('label')).to.be.an('object')
         expect(link.prop('neutral')).to.be.true
       })
 
