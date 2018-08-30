@@ -68,7 +68,7 @@ import {
   StyledTime,
   StyledU,
   StyledVar} from './StyledMisc'
-import Span from './Typography'
+import Typography, {Span} from './Typography'
 import {
   declareTypograhpy,
   StyledSpan
@@ -141,6 +141,7 @@ export {
   Sub,
   Sup,
   Time,
+  Typography as default,
   U,
   Ul,
   Var
