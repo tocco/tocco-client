@@ -35,10 +35,7 @@ const MultiSelect = props => {
 
 MultiSelect.propTypes = {
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.string // empty string coming from Redux Form if value null
-  ]),
+  value: PropTypes.array,
   options: PropTypes.shape({
     store: PropTypes.arrayOf(
       PropTypes.shape({

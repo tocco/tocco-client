@@ -69,17 +69,14 @@ class MultiRemoteSelect extends React.Component {
 
 MultiRemoteSelect.propTypes = {
   onChange: PropTypes.func,
-  value: PropTypes.oneOfType([
-    PropTypes.arrayOf(
-      PropTypes.shape({
-        key: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number
-        ])
-      })
-    ),
-    PropTypes.string // empty string coming from Redux Form if value null
-  ]),
+  value: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+      ])
+    })
+  ),
   options: PropTypes.shape({
     options: PropTypes.array,
     fetchOptions: PropTypes.func,
