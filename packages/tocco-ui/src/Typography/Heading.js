@@ -111,7 +111,7 @@ H1.propTypes
              * If true words break with hyphens. If false text is forced into a single truncated line.
              */
             breakWords: PropTypes.bool,
-            children: PropTypes.node.isRequired,
+            children: PropTypes.node,
             /**
              * Control size and space independently from semantic meaning.
              */
