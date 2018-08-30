@@ -205,7 +205,7 @@ B.propTypes
                                        * If false text is forced into a single truncated line.
                                        */
                                         breakWords: PropTypes.bool,
-                                        children: PropTypes.node.isRequired
+                                        children: PropTypes.node
                                       }
 
 Time.propTypes = {
@@ -214,7 +214,7 @@ Time.propTypes = {
 * If false text is forced into a single truncated line.
 */
   breakWords: PropTypes.bool,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   dateTime: PropTypes.string.isRequired,
   title: PropTypes.string
 }
