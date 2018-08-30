@@ -4,7 +4,7 @@ import React from 'react'
 import StyledLayoutBox from './StyledLayoutBox'
 
 /**
- * Wrap as many <LayoutBox/> into a <LayoutContainer> to Layout them.
+ * Wrap as many <Layout.Box/> into a <Layout.Container> to layout them.
  */
 const LayoutBox = props => {
   return (

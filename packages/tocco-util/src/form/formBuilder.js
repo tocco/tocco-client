@@ -2,9 +2,7 @@ import React from 'react'
 import {Field} from 'redux-form'
 import _get from 'lodash/get'
 import _pick from 'lodash/pick'
-import LayoutContainer, {LayoutBox} from 'tocco-ui/src/LayoutBox'
-import Panel, {PanelBody, PanelHeader} from 'tocco-ui/src/Panel'
-import {Typography} from 'tocco-ui'
+import {Layout, Panel, Typography} from 'tocco-ui'
 
 import ReduxFormFieldAdapter from './ReduxFormFieldAdapter'
 import {getFieldId} from './formDefinition'
@@ -150,16 +148,16 @@ export default (
 
       if (field.label) {
         output
-        = <Panel isFramed={true} isOpen={true}>
-            <PanelHeader><Typography.H4>{field.label}</Typography.H4></PanelHeader>
-            <PanelBody>{output}</PanelBody>
-          </Panel>
+        = <Panel.Wrapper isFramed={true} isOpen={true}>
+            <Panel.Header><Typography.H4>{field.label}</Typography.H4></Panel.Header>
+            <Panel.Body>{output}</Panel.Body>
+          </Panel.Wrapper>
       }
 
       if (type === layoutTypes.HORIZONTAL_BOX) {
-        output = <LayoutContainer key={key}>{output}</LayoutContainer>
+        output = <Layout.Container key={key}>{output}</Layout.Container>
       } else {
-        output = <LayoutBox key={key}>{output}</LayoutBox>
+        output = <Layout.Box key={key}>{output}</Layout.Box>
       }
 
       return output

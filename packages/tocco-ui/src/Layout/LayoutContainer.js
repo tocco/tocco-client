@@ -3,16 +3,8 @@ import React from 'react'
 
 import StyledLayoutContainer from './StyledLayoutContainer'
 
-/*
-  TODO
-  o remove props.alignment
-  o remove props.label
-  ✓ add props.maxCellsPerRow
-  ✓ make maxCellsPerRow responsive on parents width
- */
-
 /**
- * Use <LayoutContainer/> to apply grid and gutter on <LayoutBox>.
+ * Use <Layout.Container/> to apply grid and gutter on <Layout.Box>.
  * Define how many cells are displayed per row and breakpoint.
  */
 class LayoutContainer extends React.Component {
