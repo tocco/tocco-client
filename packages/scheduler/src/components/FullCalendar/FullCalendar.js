@@ -13,8 +13,9 @@ import 'fullcalendar/dist/locale/it.js'
 import 'fullcalendar/dist/locale/de.js'
 import '!style-loader!css-loader!fullcalendar/dist/fullcalendar.css'
 import '!style-loader!css-loader!fullcalendar-scheduler/dist/scheduler.css'
-import {injectIntl, intlShape} from 'react-intl'
+import {FormattedMessage, injectIntl, intlShape} from 'react-intl'
 import {consoleLogger} from 'tocco-util'
+import {Typography, Button} from 'tocco-ui'
 
 import Conflict from '../Conflict'
 
@@ -25,6 +26,7 @@ class FullCalendar extends React.Component {
       currentStartDate: null,
       currentEndDate: null,
       wrapperId: new Date().getTime()
+
     }
   }
 
@@ -37,34 +39,14 @@ class FullCalendar extends React.Component {
     }
   }
 
-  getRefreshButton = isLoading => ({
-    bootstrapGlyphicon: 'glyphicon-refresh' + (isLoading ? ' fa-spin' : ''),
-    click: () => {
-      if (!isLoading) {
-        this.props.onRefresh()
-      }
-    }
-  })
-
   fixOptions = {
-    customButtons: {
-      refresh: this.getRefreshButton(false)
-    },
     schedulerLicenseKey: this.getLicense(),
     defaultView: 'timelineDay',
-    header: {
-      left: 'today prev,next refresh',
-      center: 'title',
-      right: 'timelineDay,timelineWeek,timelineMonth'
-    },
+    header: false,
     editable: false,
     height: 'auto',
     resourceAreaWidth: '15%',
     timezone: 'local',
-    themeSystem: 'bootstrap3',
-    viewRender: view => {
-      this.handleDataChange(view)
-    },
     eventClick: event => this.props.onEventClick(event),
     eventRender: (event, element) => {
       const time = event.start.twix(event.end).format({monthFormat: 'MMMM', dayFormat: 'Do'})
@@ -102,7 +84,9 @@ class FullCalendar extends React.Component {
     }
   ]
 
-  handleDataChange = view => {
+  handleRangeChange = () => {
+    const view = this.calendarElement.fullCalendar('getView')
+
     if (this.props.onDateRangeChange) {
       const startMoment = view.start
       const endMoment = view.end
@@ -125,29 +109,85 @@ class FullCalendar extends React.Component {
   }
 
   componentDidMount() {
-    this.calendar = $(this.calendarContainer)
-    this.calendar.fullCalendar(this.getFullCalendarOptions(this.props))
+    this.calendarElement = $(this.calendarElementRef)
+    this.calendarElement.fullCalendar(this.getFullCalendarOptions(this.props))
+    this.calendar = this.calendarElement.fullCalendar('getCalendar')
+    this.handleRangeChange()
+    this.forceUpdate()
   }
 
   componentWillReceiveProps(newProps) {
-    this.calendar.fullCalendar('option', this.getFullCalendarOptions(newProps))
+    this.calendarElement.fullCalendar('option', this.getFullCalendarOptions(newProps))
 
     if (!_isEqual(newProps.events, this.props.events)) {
-      this.calendar.fullCalendar('removeEventSources')
-      this.calendar.fullCalendar('addEventSource', newProps.events)
+      this.calendarElement.fullCalendar('removeEventSources')
+      this.calendarElement.fullCalendar('addEventSource', newProps.events)
     }
 
     if (!_isEqual(newProps.resources, this.props.resources)) {
-      this.calendar.fullCalendar('refetchResources')
+      this.calendarElement.fullCalendar('refetchResources')
     }
-
-    this.calendar.fullCalendar('option', 'customButtons', {
-      refresh: this.getRefreshButton(newProps.isLoading)
-    })
   }
 
-  render = () =>
-    <div className={this.state.wrapperId}><div ref={ref => { this.calendarContainer = ref }}></div></div>
+  changeView = (view = 'timelineDay') => {
+    this.calendarElement.fullCalendar('changeView', view)
+    this.handleRangeChange()
+  }
+
+  getButtonLookProps = viewType => {
+    const currentViewType = this.calendarElement ? this.calendarElement.fullCalendar('getView').type : ''
+
+    if (currentViewType === viewType) {
+      return {look: 'raised'}
+    }
+
+    return {}
+  }
+
+  msg = (id, values = {}) => (this.props.intl.formatMessage({id}, values))
+
+  render = () => {
+    // TODO: Remove ternary operator as soon as Child is no more a required prop
+    const title = this.calendarElement
+      ? <Typography.B>{this.calendarElement.fullCalendar('getView').title}</Typography.B> : null
+    return (
+      <div>
+        <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'space-between'}}>
+          <div>
+            <Button onClick={() => {
+              this.calendar.today()
+              this.handleRangeChange()
+            }}><FormattedMessage id="client.scheduler.today"/></Button>
+
+            <Button onClick={() => {
+              this.calendar.prev()
+              this.handleRangeChange()
+            }} icon="fa-chevron-left" title={this.msg('client.scheduler.previous')}/>
+            <Button onClick={() => {
+              this.calendar.next()
+              this.handleRangeChange()
+            }} icon="fa-chevron-right" title={this.msg('client.scheduler.next')}/>
+            {title}
+            <Button icon={`fa-refresh ${this.props.isLoading ? 'fa-spin' : ''}`}
+              title={this.msg('client.scheduler.reload')}
+              onClick={() => { if (!this.props.isLoading) { this.props.onRefresh() } }}/>
+          </div>
+          <div>
+            <Button {...(this.getButtonLookProps('timelineMonth'))}
+              onClick={() => this.changeView('timelineMonth')}><FormattedMessage
+                id="client.scheduler.month"/></Button>
+            <Button {...(this.getButtonLookProps('timelineWeek'))}
+              onClick={() => this.changeView('timelineWeek')}><FormattedMessage
+                id="client.scheduler.week"/></Button>
+            <Button {...(this.getButtonLookProps('timelineDay'))}
+              onClick={() => this.changeView('timelineDay')}><FormattedMessage
+                id="client.scheduler.day"/></Button>
+          </div>
+        </div>
+        <div ref={ref => { this.calendarElementRef = ref }}></div>
+      </div>
+    )
+  }
 }
 
 FullCalendar.defaultProps = {

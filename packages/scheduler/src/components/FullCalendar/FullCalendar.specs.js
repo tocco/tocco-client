@@ -8,7 +8,7 @@ describe('scheduler', () => {
     describe('Fullcalendar', () => {
       it('should render wrapping div with id and calendar div', () => {
         const wrapper = intlEnzyme.mountWithIntl(<FullCalendar/>)
-        expect(wrapper.find('div')).to.have.length(2)
+        expect(wrapper.find('div')).to.have.length(5)
       })
 
       const mockEvents = [
@@ -37,14 +37,16 @@ describe('scheduler', () => {
         // its not possible to check for updated events
       })
 
-      it('should set locale on fullcalendar', () => {
-        const wrapper = intlEnzyme.mountWithIntl(<FullCalendar locale="de"/>)
-        expect(wrapper.html()).to.have.string('Heute')
-        wrapper.setProps({locale: 'en'})
-        expect(wrapper.html()).to.have.string('today')
-      })
+      const getMonth = locale => new Date().toLocaleString(locale, {month: 'long'})
 
       it('should set locale on fullcalendar', () => {
+        const wrapper = intlEnzyme.mountWithIntl(<FullCalendar locale="de"/>)
+        expect(wrapper.html()).to.have.string(getMonth('de'))
+        wrapper.setProps({locale: 'fr'})
+        expect(wrapper.html()).to.have.string(getMonth('fr'))
+      })
+
+      it('should render resources', () => {
         const wrapper = intlEnzyme.mountWithIntl(<FullCalendar onCalendarRemove={() => {}} resources={mockResources} />)
         expect(wrapper.html()).to.have.string('remove-resource-btn')
       })
