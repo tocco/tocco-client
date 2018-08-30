@@ -27,6 +27,7 @@ React-registry name: `login`
 |------------------------|:---------:|-------------
 | `showTitle`            |           | Display a title above the dialog.
 | `locale`               |           | ISO Language Code
+| `passwordReset`        |           | Username
 
 
 ### Methods
