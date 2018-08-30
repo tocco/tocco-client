@@ -14,7 +14,7 @@ describe('tocco-ui', () => {
             multi: false
           }
 
-          const wrapper = shallow(<SearchFilterEdit options={options} value="1" onChange={() => {}}/>)
+          const wrapper = shallow(<SearchFilterEdit options={options} value={{key: '1'}} onChange={() => {}}/>)
           expect(wrapper.find(SingleSelect)).to.have.length(1)
         })
 
@@ -23,7 +23,7 @@ describe('tocco-ui', () => {
             multi: true
           }
 
-          const wrapper = shallow(<SearchFilterEdit options={options} value="1" onChange={() => {}}/>)
+          const wrapper = shallow(<SearchFilterEdit options={options} value={[{key: '1'}]} onChange={() => {}}/>)
           expect(wrapper.find(MultiSelect)).to.have.length(1)
         })
       })

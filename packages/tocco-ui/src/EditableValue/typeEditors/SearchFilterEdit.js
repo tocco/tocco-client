@@ -20,8 +20,7 @@ SearchFilterEdit.propTypes = {
         PropTypes.number
       ])
     }),
-    PropTypes.array,
-    PropTypes.string // empty string coming from Redux Form if value null
+    PropTypes.array
   ]),
   options: PropTypes.shape({
     multi: PropTypes.bool,
