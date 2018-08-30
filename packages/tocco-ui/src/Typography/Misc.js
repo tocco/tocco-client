@@ -16,6 +16,7 @@ import {
   StyledQ,
   StyledS,
   StyledSmall,
+  StyledSpan,
   StyledStrong,
   StyledSub,
   StyledSup,
@@ -103,6 +104,12 @@ const Small = props =>
     title={props.breakWords ? undefined : getTextOfChildren(props.children)}
   >{props.children}</StyledSmall>
 
+const Span = props =>
+  <StyledSpan
+    breakWords={props.breakWords}
+    title={props.breakWords ? undefined : getTextOfChildren(props.children)}
+  >{props.children}</StyledSpan>
+
 const Sub = props =>
   <StyledSub
     breakWords={props.breakWords}
@@ -160,13 +167,14 @@ B.defaultProps
 = Q.defaultProps
 = S.defaultProps
 = Small.defaultProps
+= Span.defaultProps
 = Strong.defaultProps
 = Sub.defaultProps
 = Sup.defaultProps
 = U.defaultProps
 = Var.defaultProps = {
-                                      breakWords: true
-                                    }
+                                        breakWords: true
+                                      }
 
 Time.defaultProps = {
   breakWords: false
@@ -186,18 +194,19 @@ B.propTypes
 = Q.propTypes
 = S.propTypes
 = Small.propTypes
+= Span.propTypes
 = Strong.propTypes
 = Sub.propTypes
 = Sup.propTypes
 = U.propTypes
 = Var.propTypes = {
-                                    /**
-                                   * If true words break with hyphens.
-                                   * If false text is forced into a single truncated line.
-                                   */
-                                      breakWords: PropTypes.bool,
-                                      children: PropTypes.node.isRequired
-                                    }
+                                      /**
+                                       * If true words break with hyphens.
+                                       * If false text is forced into a single truncated line.
+                                       */
+                                        breakWords: PropTypes.bool,
+                                        children: PropTypes.node.isRequired
+                                      }
 
 Time.propTypes = {
 /**
@@ -225,6 +234,7 @@ export {
   Q,
   S,
   Small,
+  Span,
   Strong,
   Sub,
   Sup,

@@ -1,10 +1,6 @@
-import PropTypes from 'prop-types'
 import React from 'react'
 
-import {getTextOfChildren} from '../utilStyles'
-
 import InjectFontRoboto from './Font'
-import {StyledSpan} from './StyledTypography'
 
 import {
   H1,
@@ -37,6 +33,7 @@ import {
   Q,
   S,
   Small,
+  Span,
   Strong,
   Sub,
   Sup,
@@ -44,24 +41,6 @@ import {
   U,
   Var
 } from './Misc'
-
-const Span = props =>
-  <StyledSpan
-    breakWords={props.breakWords}
-    title={props.breakWords ? undefined : getTextOfChildren(props.children)}
-  >{props.children}</StyledSpan>
-
-Span.defaultProps = {
-  breakWords: true
-}
-
-Span.propTypes = {
-  /**
-   * If true words break with hyphens. If false text is forced into a single truncated line.
-   */
-  breakWords: PropTypes.bool,
-  children: PropTypes.node.isRequired
-}
 
 /**
  * Utilize only React components (e.g. <Span>) instead of pure html tags (e.g. <span>)
@@ -110,7 +89,4 @@ class Typography extends React.Component {
   }
 }
 
-export {
-  Span,
-  Typography as default
-}
+export default Typography

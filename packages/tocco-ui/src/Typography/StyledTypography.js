@@ -1,19 +1,7 @@
 import _range from 'lodash/range'
-import styled from 'styled-components'
 import {theme} from 'styled-system'
 
-import {
-  declareFont,
-  declareNoneWrappingText,
-  declareWrappingText
-} from '../utilStyles'
-
-const StyledSpan = styled.span`
-  && {
-    ${props => declareFont(props)}
-    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
-  }
-`
+import {declareFont} from '../utilStyles'
 
 const declareTypograhpy = (props, mode) => {
   let css = `
@@ -153,7 +141,4 @@ const declareTypograhpy = (props, mode) => {
   return css
 }
 
-export {
-  declareTypograhpy,
-  StyledSpan
-}
+export default declareTypograhpy

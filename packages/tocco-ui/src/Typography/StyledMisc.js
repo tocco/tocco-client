@@ -151,6 +151,13 @@ const StyledSmall = styled.small`
   }
 `
 
+const StyledSpan = styled.span`
+  && {
+    ${props => declareFont(props)}
+    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+  }
+`
+
 const StyledSub = styled.sub`
   && {
     ${props => declareFont(props, {
@@ -245,6 +252,7 @@ export {
   StyledQ,
   StyledS,
   StyledSmall,
+  StyledSpan,
   StyledStrong,
   StyledSub,
   StyledSup,
