@@ -1,8 +1,11 @@
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
-import {Button, ButtonGroup} from 'tocco-ui'
-import {H5, P} from 'tocco-ui/src/Typography'
+import {
+  Button,
+  ButtonGroup,
+  Typography
+} from 'tocco-ui'
 import SignalList, {SignalListItem} from 'tocco-ui/src/SignalList'
 
 import {Pages} from '../../types/Pages'
@@ -27,8 +30,8 @@ export class LoginForm extends Component {
         {
           this.props.showTitle
           && <div>
-            <H5><FormattedMessage id="client.login.form.title"/></H5>
-            <P><FormattedMessage id="client.login.form.introduction"/></P>
+            <Typography.H5><FormattedMessage id="client.login.form.title"/></Typography.H5>
+            <Typography.P><FormattedMessage id="client.login.form.introduction"/></Typography.P>
           </div>
         }
         <form onSubmit={this.handleSubmit.bind(this)}>

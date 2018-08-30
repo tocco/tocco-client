@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import Span from '../../Typography/Typography'
+import Typography from '../../Typography'
 import StyledDurationEdit from './StyledDurationEdit'
 
 class DurationEdit extends React.Component {
@@ -95,7 +95,7 @@ class DurationEdit extends React.Component {
           pattern="\d+"
           min={0}
         />
-        <Span>{this.props.options.hoursLabel}</Span>
+        <Typography.Span>{this.props.options.hoursLabel}</Typography.Span>
         <input
           type="number"
           step={1}
@@ -107,7 +107,7 @@ class DurationEdit extends React.Component {
           disabled={this.props.readOnly}
           pattern="\d+"
         />
-        <Span>{this.props.options.minutesLabel}</Span>
+        <Typography.Span>{this.props.options.minutesLabel}</Typography.Span>
       </StyledDurationEdit>
     )
   }
