@@ -64,8 +64,9 @@ const StyledPanelHeaderFooter = styled.div`
 
     ${props => declareDivider(props)}
     transition:
-      margin 1000ms ease-in-out,
-      border ${props => props.isOpen ? '1000ms linear' : '1ms linear 999ms'};
+      margin 300ms ease-in-out,
+      border ${props => props.isOpen ? '300ms ease-in-out' : '1ms ease-in-out 299ms'};
+    will-change: margin, border;
   }
 `
 export default StyledPanelHeaderFooter
