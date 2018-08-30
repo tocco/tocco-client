@@ -5,7 +5,7 @@ import StyledPanelHeaderFooter from './StyledPanelHeaderFooter'
 import Button from '../Button'
 
 /**
- * <PanelHeader/> and <PanelFooter/> contain by default a button to toggle the visibility state of <PanelBody>.
+ * <Panel.Header/> and <Panel.Footer/> contain by default a button to toggle the visibility state of <Panel.Body>.
  * Header and footer can contain any content. If both are displayed is up to the implementer.
  */
 class PanelHeaderFooter extends React.Component {
@@ -52,12 +52,12 @@ PanelHeaderFooter.defaultProps = {
 PanelHeaderFooter.propTypes = {
   children: PropTypes.node,
   /**
-   * Boolean to control if <PanelHeader/>, <PanelBody/> and <PanelFooter/> is initially opened.
+   * Boolean to control if <Panel.Header/>, <Panel.Body/> and <Panel.Footer/> is initially opened.
    * Value is always overridden by parent element.
    */
   isFramed: PropTypes.bool,
   /**
-   * Boolean to control if <PanelBody/> is initially opened. Value is always overridden by parent element.
+   * Boolean to control if <Panel.Body/> is initially opened. Value is always overridden by parent element.
    */
   isOpen: PropTypes.bool,
   /**

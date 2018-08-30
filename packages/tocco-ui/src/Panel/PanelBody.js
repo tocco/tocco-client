@@ -4,28 +4,47 @@ import React from 'react'
 import StyledPanelBody from './StyledPanelBody'
 
 /**
- * Only <PanelBody/> is affected by the visibility state.
+ * Only <Panel.Body/> is affected by the visibility state.
  */
 class PanelBody extends React.Component {
+  observer = null
   state = {
     heightIfOpen: undefined
   }
 
-  getHeight = () => {
-    this.node.setAttribute('style', 'height: auto; animation: none;')
+  setHeight = () => {
+    this.outerElement.setAttribute('style', 'height: auto; animation: none;')
     this.setState({
-      heightIfOpen: `${this.node.offsetHeight}px`
+      heightIfOpen: `${this.outerElement.offsetHeight}px`
     })
-    this.node.removeAttribute('style')
+    this.outerElement.removeAttribute('style')
+  }
+
+  connectObserver() {
+    this.observer = new MutationObserver(() => { this.setHeight() })
+    this.observer.observe(this.innerEl, {
+      attributes: true,
+      childList: true,
+      subtree: true,
+      characterData: true
+    })
+  }
+
+  disconnectObserver() {
+    if (this.observer) {
+      this.observer.disconnect()
+    }
   }
 
   componentDidMount() {
-    this.getHeight()
-    window.addEventListener('resize', this.getHeight)
+    this.setHeight()
+    window.addEventListener('resize', this.setHeight)
+    this.connectObserver()
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.getHeight)
+    window.removeEventListener('resize', this.setHeight)
+    this.disconnectObserver()
   }
 
   render() {
@@ -39,10 +58,12 @@ class PanelBody extends React.Component {
       <StyledPanelBody
         isFramed={isFramed}
         isOpen={isOpen}
-        innerRef={node => { this.node = node }}
+        innerRef={outerElement => { this.outerElement = outerElement }}
         heightIfOpen={this.state.heightIfOpen}
       >
-        <div>{React.Children.map(children, child => React.cloneElement(child))}</div>
+        <div ref={innerEl => { this.innerEl = innerEl }}>
+          {React.Children.map(children, child => React.cloneElement(child))}
+        </div>
       </StyledPanelBody>
     )
   }
@@ -51,12 +72,12 @@ class PanelBody extends React.Component {
 PanelBody.propTypes = {
   children: PropTypes.node,
   /**
-   * Boolean to control if <PanelHeader/>, <PanelBody/> and <PanelFooter/> is initially opened.
+   * Boolean to control if <Panel.Header/>, <Panel.Body/> and <Panel.Footer/> is initially opened.
    * Value is always overridden by parent element.
    */
   isFramed: PropTypes.bool,
   /**
-   * Boolean to control if <PanelBody/> is initially opened. Value is always overridden by parent element.
+   * Boolean to control if <Panel.Body/> is initially opened. Value is always overridden by parent element.
    */
   isOpen: PropTypes.bool
 }

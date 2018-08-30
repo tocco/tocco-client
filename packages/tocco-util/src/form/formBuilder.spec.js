@@ -1,6 +1,6 @@
 import React from 'react'
 import {shallow} from 'enzyme'
-import {LayoutBox} from 'tocco-ui'
+import {Layout} from 'tocco-ui'
 import {Field} from 'redux-form'
 
 import createFromBuilder from './formBuilder'
@@ -112,13 +112,12 @@ const testData = {
 describe('tocco-util', () => {
   describe('form', () => {
     describe('formBuilder', () => {
-      it('should render LayoutBoxes and Fields', () => {
+      it('should render layout boxes and Fields', () => {
         const {entity, model, formName, formDefinition, formValues, formFieldUtils} = testData
 
         const formBuilder = createFromBuilder(entity, model, formName, formDefinition, formValues, formFieldUtils)
-
         const wrapper = shallow(<form>{formBuilder()}</form>)
-        expect(wrapper.find(LayoutBox)).to.have.length(1)
+        expect(wrapper.find(Layout.Box)).to.have.length(2)
         expect(wrapper.find(Field)).to.have.length(2)
       })
 
@@ -132,7 +131,7 @@ describe('tocco-util', () => {
         )
 
         const wrapper = shallow(<form>{formBuilder()}</form>)
-        expect(wrapper.find(LayoutBox)).to.have.length(1)
+        expect(wrapper.find(Layout.Box)).to.have.length(2)
         expect(wrapper.find(Field)).to.have.length(1)
       })
 
