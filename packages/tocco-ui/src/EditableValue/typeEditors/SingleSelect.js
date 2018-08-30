@@ -53,8 +53,7 @@ SingleSelect.propTypes = {
         PropTypes.string,
         PropTypes.number
       ])
-    }),
-    PropTypes.string
+    })
   ]),
   options: PropTypes.shape({
     store: PropTypes.arrayOf(
