@@ -9,7 +9,7 @@ export class PasswordRequest extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      username: ''
+      username: this.props.username || ''
     }
   }
 
@@ -39,6 +39,7 @@ export class PasswordRequest extends React.Component {
                 name="user"
                 placeholder={this.msg('client.login.form.userPlaceholder')}
                 onChange={this.handleUsernameChange.bind(this)}
+                value={this.state.username}
               />
             </div>
           </div>
@@ -76,5 +77,6 @@ PasswordRequest.propTypes = {
   changePage: PropTypes.func.isRequired,
   requestPassword: PropTypes.func.isRequired,
   showTitle: PropTypes.bool,
-  pending: PropTypes.bool
+  pending: PropTypes.bool,
+  username: PropTypes.string
 }
