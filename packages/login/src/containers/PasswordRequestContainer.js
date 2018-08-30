@@ -12,6 +12,7 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = state => ({
+  username: state.login.username,
   pending: state.loginForm.loginPending
 })
 

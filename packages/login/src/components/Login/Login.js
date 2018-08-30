@@ -20,7 +20,9 @@ export class Login extends React.Component {
             case Pages.PASSWORD_UPDATE:
               return <PasswordUpdateContainer showTitle={this.props.showTitle} forcedUpdate/>
             case Pages.PASSWORD_REQUEST:
-              return <PasswordRequestContainer showTitle={this.props.showTitle}/>
+              return <PasswordRequestContainer
+                showTitle={this.props.showTitle} username={this.props.passwordChange}
+              />
             case Pages.TWOSTEPLOGIN:
               return <TwoStepLoginContainer showTitle={this.props.showTitle}/>
             default:
@@ -35,5 +37,6 @@ export class Login extends React.Component {
 Login.propTypes = {
   checkSession: PropTypes.func.isRequired,
   currentPage: PropTypes.string,
-  showTitle: PropTypes.bool
+  showTitle: PropTypes.bool,
+  passwordChange: PropTypes.string
 }
