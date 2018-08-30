@@ -9,8 +9,9 @@ const StyledPanelBody = styled.div`
     padding: 0 ${props => props.isFramed ? '15px' : 0};
 
     transition:
-      height 1000ms ease-in-out,
-      padding 1000ms ease-in-out;
+      height 300ms ease-in-out,
+      padding 300ms ease-in-out;
+    will-change: height, padding;
 
     > div {
       margin: ${props => props.isFramed ? theme('space.4') : 0} 0;
