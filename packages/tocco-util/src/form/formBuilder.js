@@ -125,6 +125,7 @@ export default (
           formFieldUtils={formFieldUtils}
           formFieldMapping={formFieldMapping}
           readOnlyFormFieldMapping={readOnlyFormFieldMapping}
+          format={null}
         />
       )
     }
