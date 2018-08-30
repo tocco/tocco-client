@@ -41,6 +41,7 @@ import {
   Q,
   S,
   Small,
+  Span,
   Strong,
   Sub,
   Sup,
@@ -62,17 +63,15 @@ import {
   StyledQ,
   StyledS,
   StyledSmall,
+  StyledSpan,
   StyledStrong,
   StyledSub,
   StyledSup,
   StyledTime,
   StyledU,
   StyledVar} from './StyledMisc'
-import Typography, {Span} from './Typography'
-import {
-  declareTypograhpy,
-  StyledSpan
-} from './StyledTypography'
+import Typography from './Typography'
+import declareTypograhpy from './StyledTypography'
 import InjectFontRoboto from './Font'
 
 export {

@@ -1,7 +1,7 @@
 import styled, {css} from 'styled-components'
 import {theme} from 'styled-system'
 
-import {StyledSpan} from '../Typography/StyledTypography'
+import {StyledSpan} from '../Typography/StyledMisc'
 
 const StyledLoadMask = styled.div`
   ${props => !props.isInitialized && css`
