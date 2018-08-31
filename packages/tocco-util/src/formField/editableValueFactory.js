@@ -78,6 +78,12 @@ const getOptions = (type, formField, modelField, utils) => {
     case 'phone':
       options.customPhoneRegex = modelField.customPhoneRegex
       options.defaultCountry = modelField.defaultCountry
+      break
+    case 'duration':
+      if (utils.intl) {
+        options.hoursLabel = utils.intl.formatMessage({id: 'client.component.duration.hoursLabel'})
+        options.minutesLabel = utils.intl.formatMessage({id: 'client.component.duration.minutesLabel'})
+      }
   }
 
   return options

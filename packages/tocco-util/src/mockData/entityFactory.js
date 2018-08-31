@@ -156,6 +156,14 @@ export const createUsers = amount => {
             type: 'updatets',
             writable: false
           }
+        },
+        duration: {
+          type: 'field',
+          value: {
+            value: getRandomInt(0, 1000 * 60 * 60 * 24),
+            type: 'duration',
+            writable: false
+          }
         }
       }
     })

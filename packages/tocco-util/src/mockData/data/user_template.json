@@ -223,8 +223,8 @@
       "type": "entity-list",
       "value": []
     },
-    "duration": {
-      "path": "duration",
+    "durationDisplay": {
+      "path": "durationDisplay",
       "type": "display-expression",
       "value": "<span class='label label-primary'>0:00:38</span>"
     },
