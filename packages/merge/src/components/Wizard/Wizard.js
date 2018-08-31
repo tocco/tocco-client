@@ -90,7 +90,7 @@ export class Wizard extends React.Component {
 
     return (
       <div className="wizard">
-        <div className="wizard-body">
+        <div style={{marginBottom: '8px'}} className="wizard-body">
           {t}
         </div>
         <ButtonGroup look="raised">
