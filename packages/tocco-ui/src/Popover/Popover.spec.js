@@ -2,8 +2,8 @@ import React from 'react'
 import Popover from './Popover'
 import {mount} from 'enzyme'
 
-describe('tocco-ui', function() {
-  describe('Popover', function() {
+describe('tocco-ui', () => {
+  describe('Popover', () => {
     it('should show popover content on mouseover and hide on mouseout', () => {
       const wrapper = mount(
         <Popover content={<span className="content">Popover</span>}><span className="child">Test</span></Popover>
