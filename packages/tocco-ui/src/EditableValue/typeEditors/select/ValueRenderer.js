@@ -26,7 +26,7 @@ ValueRenderer.propTypes = {
     key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     display: PropTypes.string
   }).isRequired,
-  tooltips: PropTypes.object,
+  tooltips: PropTypes.objectOf(PropTypes.string),
   loadTooltip: PropTypes.func,
   onValueClick: PropTypes.func
 }
