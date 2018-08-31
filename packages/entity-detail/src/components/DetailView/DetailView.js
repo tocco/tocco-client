@@ -3,7 +3,7 @@ import React from 'react'
 import {intlShape} from 'react-intl'
 import _isEmpty from 'lodash/isEmpty'
 import {form} from 'tocco-util'
-import LoadMask from 'tocco-ui/src/LoadMask/LoadMask'
+import {LoadMask} from 'tocco-ui'
 
 import DetailForm from '../DetailForm'
 import {asyncValidate, AsyncValidationException} from '../../util/detailView/asyncValidation'
