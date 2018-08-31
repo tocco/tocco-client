@@ -15,8 +15,8 @@ import '!style-loader!css-loader!fullcalendar/dist/fullcalendar.css'
 import '!style-loader!css-loader!fullcalendar-scheduler/dist/scheduler.css'
 import {FormattedMessage, injectIntl, intlShape} from 'react-intl'
 import {consoleLogger} from 'tocco-util'
-import {Typography, Button} from 'tocco-ui'
-
+import {Button, Menu, Typography} from 'tocco-ui'
+import StyledFullCalendar from './StyledFullCalendar'
 import Conflict from '../Conflict'
 
 class FullCalendar extends React.Component {
@@ -134,11 +134,11 @@ class FullCalendar extends React.Component {
     this.handleRangeChange()
   }
 
-  getButtonLookProps = viewType => {
+  getButtonInkProps = viewType => {
     const currentViewType = this.calendarElement ? this.calendarElement.fullCalendar('getView').type : ''
 
     if (currentViewType === viewType) {
-      return {look: 'raised'}
+      return {ink: 'primary'}
     }
 
     return {}
@@ -149,41 +149,89 @@ class FullCalendar extends React.Component {
   render = () => {
     // TODO: Remove ternary operator as soon as Child is no more a required prop
     const title = this.calendarElement
-      ? <Typography.B>{this.calendarElement.fullCalendar('getView').title}</Typography.B> : null
+      ? <Typography.H3>{this.calendarElement.fullCalendar('getView').title}</Typography.H3> : null
     return (
       <div>
-        <div style={{display: 'flex', flexDirection: 'row', flexWrap: 'nowrap', justifyContent: 'space-between'}}>
-          <div>
-            <Button onClick={() => {
-              this.calendar.today()
-              this.handleRangeChange()
-            }}><FormattedMessage id="client.scheduler.today"/></Button>
-
-            <Button onClick={() => {
-              this.calendar.prev()
-              this.handleRangeChange()
-            }} icon="fa-chevron-left" title={this.msg('client.scheduler.previous')}/>
-            <Button onClick={() => {
-              this.calendar.next()
-              this.handleRangeChange()
-            }} icon="fa-chevron-right" title={this.msg('client.scheduler.next')}/>
-            {title}
-            <Button icon={`fa-refresh ${this.props.isLoading ? 'fa-spin' : ''}`}
-              title={this.msg('client.scheduler.reload')}
-              onClick={() => { if (!this.props.isLoading) { this.props.onRefresh() } }}/>
-          </div>
-          <div>
-            <Button {...(this.getButtonLookProps('timelineMonth'))}
-              onClick={() => this.changeView('timelineMonth')}><FormattedMessage
-                id="client.scheduler.month"/></Button>
-            <Button {...(this.getButtonLookProps('timelineWeek'))}
-              onClick={() => this.changeView('timelineWeek')}><FormattedMessage
-                id="client.scheduler.week"/></Button>
-            <Button {...(this.getButtonLookProps('timelineDay'))}
-              onClick={() => this.changeView('timelineDay')}><FormattedMessage
-                id="client.scheduler.day"/></Button>
-          </div>
-        </div>
+        <StyledFullCalendar>
+          <Menu.Button look="raised">
+            <Menu.Item>
+              <Menu.ButtonGroup
+                look="raised"
+                melt
+              >
+                <Menu.Item>
+                  <Button
+                    onClick={() => {
+                      this.calendar.prev()
+                      this.handleRangeChange()
+                    }}
+                    icon="fa-chevron-left"
+                    title={this.msg('client.scheduler.previous')}
+                  />
+                </Menu.Item>
+                <Menu.Item>
+                  <Button
+                    look="raised"
+                    onClick={() => {
+                      this.calendar.today()
+                      this.handleRangeChange()
+                    }}
+                  ><FormattedMessage id="client.scheduler.today"/></Button>
+                </Menu.Item>
+                <Menu.Item>
+                  <Button
+                    onClick={() => {
+                      this.calendar.next()
+                      this.handleRangeChange()
+                    }}
+                    icon="fa-chevron-right"
+                    title={this.msg('client.scheduler.next')}
+                  />
+                </Menu.Item>
+              </Menu.ButtonGroup>
+            </Menu.Item>
+            <Menu.Item>
+              <Button
+                icon={`fa-refresh ${this.props.isLoading ? 'fa-spin' : ''}`}
+                look="raised"
+                title={this.msg('client.scheduler.reload')}
+                onClick={() => { if (!this.props.isLoading) { this.props.onRefresh() } }}
+              />
+            </Menu.Item>
+            <Menu.Item>{title}</Menu.Item>
+            <Menu.Item>
+              <Menu.ButtonGroup
+                look="raised"
+                melt
+              >
+                <Menu.Item>
+                  <Button
+                    {...(this.getButtonInkProps('timelineDay'))}
+                    onClick={() => this.changeView('timelineDay')}
+                  >
+                    <FormattedMessage id="client.scheduler.day"/>
+                  </Button>
+                </Menu.Item>
+                <Menu.Item>
+                  <Button
+                    {...(this.getButtonInkProps('timelineWeek'))}
+                    onClick={() => this.changeView('timelineWeek')}
+                  >
+                    <FormattedMessage id="client.scheduler.week"/>
+                  </Button>
+                </Menu.Item>
+                <Menu.Item>
+                  <Button
+                    {...(this.getButtonInkProps('timelineMonth'))}
+                    onClick={() => this.changeView('timelineMonth')}
+                  >
+                    <FormattedMessage id="client.scheduler.month"/>
+                  </Button>
+                </Menu.Item>
+              </Menu.ButtonGroup>
+            </Menu.Item>
+          </Menu.Button>
+        </StyledFullCalendar>
         <div ref={ref => { this.calendarElementRef = ref }}></div>
       </div>
     )
