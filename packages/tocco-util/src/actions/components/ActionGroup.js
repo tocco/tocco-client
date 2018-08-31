@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {Button} from 'tocco-ui'
 import {intlShape} from 'react-intl'
-import {Item, ItemFlyout, MenuButton, MenuButtonGroup, MenuStack} from 'tocco-ui/src/Menu'
+import {Button, Menu} from 'tocco-ui'
 
-import {isValidSelection, selectionText} from './selectionHelper'
 import GroupElement from './GroupElement'
+import {isValidSelection, selectionText} from './selectionHelper'
 
 const MainAction = ({definition, selectedCount, onClick}, context) => {
   const validSelection = isValidSelection(selectedCount, definition)
@@ -13,7 +12,7 @@ const MainAction = ({definition, selectedCount, onClick}, context) => {
   const disabled = definition.readonly === true || !validSelection
 
   return (
-    <Item look="raised">
+    <Menu.Item look="raised">
       <Button
         disabled={disabled}
         icon={definition.icon}
@@ -21,7 +20,7 @@ const MainAction = ({definition, selectedCount, onClick}, context) => {
         onClick={() => { onClick(definition) }}
         title={title}
       />
-    </Item>
+    </Menu.Item>
   )
 }
 
@@ -40,22 +39,22 @@ const ActionGroup = ({definition, onClick, selectedCount}, context) => {
 
   if (hasMainAction) {
     return (
-      <MenuButton
+      <Menu.Button
         look="raised"
       >
-        <Item>
-          <MenuButtonGroup>
+        <Menu.Item>
+          <Menu.ButtonGroup>
 
             <MainAction
               definition={definition.action}
               onClick={onClick}
               selectedCount={selectedCount}
             />
-            <ItemFlyout
+            <Menu.ItemFlyout
               isToggleable={definition.readonly !== true}
               label={definition.label}
             >
-              <MenuStack>
+              <Menu.Stack>
                 {definition.children.map((actionDefinition, idx) =>
                   <GroupElement
                     definition={actionDefinition}
@@ -64,28 +63,28 @@ const ActionGroup = ({definition, onClick, selectedCount}, context) => {
                     selectedCount={selectedCount}
                   />
                 )}
-              </MenuStack>
-            </ItemFlyout>
-          </MenuButtonGroup>
-        </Item>
-      </MenuButton>
+              </Menu.Stack>
+            </Menu.ItemFlyout>
+          </Menu.ButtonGroup>
+        </Menu.Item>
+      </Menu.Button>
     )
   } else {
     return (
-      <MenuButton
+      <Menu.Button
         look="raised"
       >
-        <ItemFlyout
+        <Menu.ItemFlyout
           isToggleable={definition.readonly !== true}
           label={definition.label}
         >
-          <MenuStack>
+          <Menu.Stack>
             {definition.children.map((actionDefinition, idx) =>
               <GroupElement key={idx} definition={actionDefinition} onClick={onClick} selectedCount={selectedCount}/>
             )}
-          </MenuStack>
-        </ItemFlyout>
-      </MenuButton>
+          </Menu.Stack>
+        </Menu.ItemFlyout>
+      </Menu.Button>
     )
   }
 }
