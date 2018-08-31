@@ -4,8 +4,8 @@ import MenuBase from './MenuBase'
 import StyledMenuBar from './StyledMenuBar'
 
 /**
- * Use <MenuBar> to structure <Button> and <ButtonLink> hierarchically as a horizontally molten menu.
- * Utilize it only on top hierarchy. For all subsequent levels must <MenuStack> be used.
+ * Use <Menu.Bar> to structure <Button> and <ButtonLink> hierarchically as a horizontally molten menu.
+ * Utilize it only on top hierarchy. For all subsequent levels must <Menu.Stack> be used.
  */
 class MenuBar extends MenuBase {
   render() {

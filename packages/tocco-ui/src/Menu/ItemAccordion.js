@@ -11,7 +11,7 @@ import {
 } from '../utilStyles'
 
 /**
- * Wrap <MenuStack> in <ItemAccordion> if it should be toggleable. Submenu expand and
+ * Wrap <Menu.Stack> in <Menu.ItemAccordion> if it should be toggleable. Submenu expand and
  * collapse alternating on click and push subsequent content down.
  */
 class ItemAccordion extends Item {

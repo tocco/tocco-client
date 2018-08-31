@@ -4,187 +4,180 @@ import React from 'react'
 import Button from '../Button'
 import ButtonLink from '../ButtonLink'
 import Icon from '../Icon'
-import Item from './Item'
-import ItemAccordion from './ItemAccordion'
-import ItemFlyout from './ItemFlyout'
-import MenuBar from './MenuBar'
-import MenuButton from './MenuButton'
-import MenuButtonGroup from './MenuButtonGroup'
-import MenuStack from './MenuStack'
-
-// real-import:import {Item, ItemAccordion, ItemFlyout, MenuBar, MenuButton, MenuStack} from 'tocco-ui'
+import Menu from './Menu'
+// real-import:import {Menu} from 'tocco-ui'
 
 export default () => {
   return (
     <div>
       {/* start example */}
       <h3>Menu Items Flat</h3>
-      <MenuStack look="flat">
-        <Item><Button label="<Button>"/></Item>
-        <Item><Button ink="primary" label="<Button primary>"/></Item>
-        <Item><ButtonLink href="#Menu" label="<ButtonLink>"/></Item>
-        <Item><ButtonLink href="#Menu" ink="primary" label="<ButtonLink primary>"/></Item>
-      </MenuStack>
+      <Menu.Stack look="flat">
+        <Menu.Item><Button label="<Button>"/></Menu.Item>
+        <Menu.Item><Button ink="primary" label="<Button primary>"/></Menu.Item>
+        <Menu.Item><ButtonLink href="#Menu" label="<ButtonLink>"/></Menu.Item>
+        <Menu.Item><ButtonLink href="#Menu" ink="primary" label="<ButtonLink primary>"/></Menu.Item>
+      </Menu.Stack>
 
       <h3>Menu Items Raised</h3>
-      <MenuStack look="raised">
-        <Item><Button label="<Button raised>"/></Item>
-        <Item><Button ink="primary" label="<Button raised primary>"/></Item>
-        <Item><ButtonLink href="#Menu" label="<ButtonLink raised>"/></Item>
-        <Item><ButtonLink href="#Menu" ink="primary" label="<ButtonLink raised primary>"/></Item>
-      </MenuStack>
+      <Menu.Stack look="raised">
+        <Menu.Item><Button label="<Button raised>"/></Menu.Item>
+        <Menu.Item><Button ink="primary" label="<Button raised primary>"/></Menu.Item>
+        <Menu.Item><ButtonLink href="#Menu" label="<ButtonLink raised>"/></Menu.Item>
+        <Menu.Item><ButtonLink href="#Menu" ink="primary" label="<ButtonLink raised primary>"/></Menu.Item>
+      </Menu.Stack>
 
       <h3>Menu Items Miscellaneous</h3>
-      <MenuStack look="flat">
-        <Item><span>span</span></Item>
-        <Item><em>em</em></Item>
+      <Menu.Stack look="flat">
+        <Menu.Item><span>span</span></Menu.Item>
+        <Menu.Item><em>em</em></Menu.Item>
         <hr/>
-        <Item><strong>strong</strong></Item>
-        <Item><Icon icon="fa-check-square-o"/></Item>
-      </MenuStack>
+        <Menu.Item><strong>strong</strong></Menu.Item>
+        <Menu.Item><Icon icon="fa-check-square-o"/></Menu.Item>
+      </Menu.Stack>
 
       <h3>Menu Bar Flat</h3>
-      <MenuBar>
-        <Item><Button label="<Button>"/></Item>
-        <Item><Button ink="primary" label="<Button primary>"/></Item>
+      <Menu.Bar>
+        <Menu.Item><Button label="<Button>"/></Menu.Item>
+        <Menu.Item><Button ink="primary" label="<Button primary>"/></Menu.Item>
         <hr/>
-        <Item><ButtonLink href="#Menu" label="<ButtonLink>"/></Item>
-        <Item><ButtonLink href="#Menu" ink="primary" label="<ButtonLink primary>"/></Item>
-      </MenuBar>
+        <Menu.Item><ButtonLink href="#Menu" label="<ButtonLink>"/></Menu.Item>
+        <Menu.Item><ButtonLink href="#Menu" ink="primary" label="<ButtonLink primary>"/></Menu.Item>
+      </Menu.Bar>
 
       <h3>Menu Button Raised</h3>
-      <MenuButton look="raised">
-        <Item><Button label="<Button>"/></Item>
-        <Item><Button ink="primary" label="<Button primary>"/></Item>
+      <Menu.Button look="raised">
+        <Menu.Item><Button label="<Button>"/></Menu.Item>
+        <Menu.Item><Button ink="primary" label="<Button primary>"/></Menu.Item>
         <hr/>
-        <Item><ButtonLink href="#Menu" label="<ButtonLink>"/></Item>
-        <Item><ButtonLink href="#Menu" ink="primary" label="<ButtonLink primary>"/></Item>
-      </MenuButton>
+        <Menu.Item><ButtonLink href="#Menu" label="<ButtonLink>"/></Menu.Item>
+        <Menu.Item><ButtonLink href="#Menu" ink="primary" label="<ButtonLink primary>"/></Menu.Item>
+      </Menu.Button>
 
       <h3>Menu Stack</h3>
-      <MenuStack>
-        <Item><Button label="A"/></Item>
-        <Item>
+      <Menu.Stack>
+        <Menu.Item><Button label="A"/></Menu.Item>
+        <Menu.Item>
           <Button label="B"/>
-          <MenuStack>
-            <Item isOpen={false}>
+          <Menu.Stack>
+            <Menu.Item isOpen={false}>
               <Button label="B-1"/>
-              <MenuStack>
-                <Item><Button label="B-1-a"/></Item>
-                <Item><Button label="B-1-b"/></Item>
-              </MenuStack>
-            </Item>
-            <Item><Button label="B-2"/></Item>
-          </MenuStack>
-        </Item>
-        <Item><Button label="C"/></Item>
-      </MenuStack>
+              <Menu.Stack>
+                <Menu.Item><Button label="B-1-a"/></Menu.Item>
+                <Menu.Item><Button label="B-1-b"/></Menu.Item>
+              </Menu.Stack>
+            </Menu.Item>
+            <Menu.Item><Button label="B-2"/></Menu.Item>
+          </Menu.Stack>
+        </Menu.Item>
+        <Menu.Item><Button label="C"/></Menu.Item>
+      </Menu.Stack>
 
       <h3>Accordion Menu</h3>
-      <MenuStack>
-        <ItemAccordion label="Toggle Menu">
-          <MenuStack>
-            <Item><Button label="A"/></Item>
-            <Item><Button label="B"/></Item>
-            <ItemAccordion isOpen={false} label="Toggle C">
-              <MenuStack>
-                <Item><Button label="C-1"/></Item>
-                <Item><Button label="C-2"/></Item>
-              </MenuStack>
-            </ItemAccordion>
-            <Item><Button label="E"/></Item>
-          </MenuStack>
-        </ItemAccordion>
-      </MenuStack>
+      <Menu.Stack>
+        <Menu.ItemAccordion label="Toggle Menu">
+          <Menu.Stack>
+            <Menu.Item><Button label="A"/></Menu.Item>
+            <Menu.Item><Button label="B"/></Menu.Item>
+            <Menu.ItemAccordion isOpen={false} label="Toggle C">
+              <Menu.Stack>
+                <Menu.Item><Button label="C-1"/></Menu.Item>
+                <Menu.Item><Button label="C-2"/></Menu.Item>
+              </Menu.Stack>
+            </Menu.ItemAccordion>
+            <Menu.Item><Button label="E"/></Menu.Item>
+          </Menu.Stack>
+        </Menu.ItemAccordion>
+      </Menu.Stack>
 
       <h3>Flyout Menu</h3>
-      <MenuStack>
-        <ItemFlyout isOpen={true} label="Toggle Menu">
-          <MenuStack>
-            <Item><Button label="A"/></Item>
-            <ItemFlyout label="Toggle Menu B">
-              <MenuStack>
-                <Item><Button label="B-1"/></Item>
-                <Item><Button label="B-2"/></Item>
-                <Item><Button label="B-2"/></Item>
-              </MenuStack>
-            </ItemFlyout>
-            <ItemFlyout isOpen={true} label="Toggle Menu C">
-              <MenuStack>
-                <Item><Button label="C-1"/></Item>
-                <Item><Button label="C-2"/></Item>
-              </MenuStack>
-            </ItemFlyout>
-            <Item><Button label="E"/></Item>
-          </MenuStack>
-        </ItemFlyout>
-      </MenuStack>
+      <Menu.Stack>
+        <Menu.ItemFlyout isOpen={true} label="Toggle Menu">
+          <Menu.Stack>
+            <Menu.Item><Button label="A"/></Menu.Item>
+            <Menu.ItemFlyout label="Toggle Menu B">
+              <Menu.Stack>
+                <Menu.Item><Button label="B-1"/></Menu.Item>
+                <Menu.Item><Button label="B-2"/></Menu.Item>
+                <Menu.Item><Button label="B-2"/></Menu.Item>
+              </Menu.Stack>
+            </Menu.ItemFlyout>
+            <Menu.ItemFlyout isOpen={true} label="Toggle Menu C">
+              <Menu.Stack>
+                <Menu.Item><Button label="C-1"/></Menu.Item>
+                <Menu.Item><Button label="C-2"/></Menu.Item>
+              </Menu.Stack>
+            </Menu.ItemFlyout>
+            <Menu.Item><Button label="E"/></Menu.Item>
+          </Menu.Stack>
+        </Menu.ItemFlyout>
+      </Menu.Stack>
 
       <h3>Menu Bar Flyout</h3>
-      <MenuBar look="raised">
-        <Item><Button label="Single Action"/></Item>
-        <ItemFlyout label="Toggle action set 1">
-          <MenuStack>
-            <Item><Button label="Action 1-1"/></Item>
-            <Item><Button label="Action 1-2"/></Item>
-            <Item><Button label="Action 1-3"/></Item>
-          </MenuStack>
-        </ItemFlyout>
-        <ItemFlyout isOpen={true} label="Toggle action set 2">
-          <MenuStack>
-            <Item><Button label="Action 2-1"/></Item>
-            <Item><Button label="Action 2-2"/></Item>
-          </MenuStack>
-        </ItemFlyout>
-      </MenuBar>
+      <Menu.Bar look="raised">
+        <Menu.Item><Button label="Single Action"/></Menu.Item>
+        <Menu.ItemFlyout label="Toggle action set 1">
+          <Menu.Stack>
+            <Menu.Item><Button label="Action 1-1"/></Menu.Item>
+            <Menu.Item><Button label="Action 1-2"/></Menu.Item>
+            <Menu.Item><Button label="Action 1-3"/></Menu.Item>
+          </Menu.Stack>
+        </Menu.ItemFlyout>
+        <Menu.ItemFlyout isOpen={true} label="Toggle action set 2">
+          <Menu.Stack>
+            <Menu.Item><Button label="Action 2-1"/></Menu.Item>
+            <Menu.Item><Button label="Action 2-2"/></Menu.Item>
+          </Menu.Stack>
+        </Menu.ItemFlyout>
+      </Menu.Bar>
 
       <h3>Menu Button Grouped</h3>
-      <MenuButton look="raised">
-        <Item>
-          <MenuButtonGroup>
-            <ItemFlyout>
-              <MenuStack>
-                <Item><Button label="Action 1-1"/></Item>
-                <Item><ButtonLink href="#Menu" label="Action 1-2"/></Item>
-              </MenuStack>
-            </ItemFlyout>
-            <Item><ButtonLink href="#Menu" label="Action 1"/></Item>
-          </MenuButtonGroup>
-        </Item>
+      <Menu.Button look="raised">
+        <Menu.Item>
+          <Menu.ButtonGroup>
+            <Menu.ItemFlyout>
+              <Menu.Stack>
+                <Menu.Item><Button label="Action 1-1"/></Menu.Item>
+                <Menu.Item><ButtonLink href="#Menu" label="Action 1-2"/></Menu.Item>
+              </Menu.Stack>
+            </Menu.ItemFlyout>
+            <Menu.Item><ButtonLink href="#Menu" label="Action 1"/></Menu.Item>
+          </Menu.ButtonGroup>
+        </Menu.Item>
 
-        <Item>
-          <MenuButtonGroup>
-            <Item><Button label="Action 2"/></Item>
-            <ItemFlyout>
-              <MenuStack>
-                <Item><ButtonLink href="#Menu" label="Action 2-1"/></Item>
-                <Item><Button label="Action 2-2"/></Item>
-              </MenuStack>
-            </ItemFlyout>
-          </MenuButtonGroup>
-        </Item>
+        <Menu.Item>
+          <Menu.ButtonGroup>
+            <Menu.Item><Button label="Action 2"/></Menu.Item>
+            <Menu.ItemFlyout>
+              <Menu.Stack>
+                <Menu.Item><ButtonLink href="#Menu" label="Action 2-1"/></Menu.Item>
+                <Menu.Item><Button label="Action 2-2"/></Menu.Item>
+              </Menu.Stack>
+            </Menu.ItemFlyout>
+          </Menu.ButtonGroup>
+        </Menu.Item>
 
-        <Item><Button label="Single Action"/></Item>
+        <Menu.Item><Button label="Single Action"/></Menu.Item>
 
-        <Item>
-          <MenuButtonGroup>
-            <ItemFlyout>
-              <MenuStack>
-                <Item><ButtonLink href="#Menu" label="Action 4a-1"/></Item>
-                <Item><Button label="Action 4a-2"/></Item>
-              </MenuStack>
-            </ItemFlyout>
-            <Item><Button label="Action 4c"/></Item>
-            <Item><ButtonLink href="#Menu" label="Action 4d"/></Item>
-            <ItemFlyout>
-              <MenuStack>
-                <Item><Button label="Action 4b-1"/></Item>
-                <Item><ButtonLink href="#Menu" label="Action 4b-2"/></Item>
-              </MenuStack>
-            </ItemFlyout>
-          </MenuButtonGroup>
-        </Item>
-      </MenuButton>
+        <Menu.Item>
+          <Menu.ButtonGroup>
+            <Menu.ItemFlyout>
+              <Menu.Stack>
+                <Menu.Item><ButtonLink href="#Menu" label="Action 4a-1"/></Menu.Item>
+                <Menu.Item><Button label="Action 4a-2"/></Menu.Item>
+              </Menu.Stack>
+            </Menu.ItemFlyout>
+            <Menu.Item><Button label="Action 4c"/></Menu.Item>
+            <Menu.Item><ButtonLink href="#Menu" label="Action 4d"/></Menu.Item>
+            <Menu.ItemFlyout>
+              <Menu.Stack>
+                <Menu.Item><Button label="Action 4b-1"/></Menu.Item>
+                <Menu.Item><ButtonLink href="#Menu" label="Action 4b-2"/></Menu.Item>
+              </Menu.Stack>
+            </Menu.ItemFlyout>
+          </Menu.ButtonGroup>
+        </Menu.Item>
+      </Menu.Button>
       {/* end example */}
     </div>
   )

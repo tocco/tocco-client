@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {Button} from 'tocco-ui'
-import {Item} from 'tocco-ui/src/Menu'
 import {intlShape} from 'react-intl'
+import {Button, Menu} from 'tocco-ui'
 
-import {isValidSelection, selectionText} from './selectionHelper'
 import actionTypes from '../actionTypes'
+import {isValidSelection, selectionText} from './selectionHelper'
 
 const GroupElement = ({definition, onClick, onSelect, selectedCount}, context) => {
   if (definition.actionType === actionTypes.DIVIDER) {
@@ -18,7 +17,7 @@ const GroupElement = ({definition, onClick, onSelect, selectedCount}, context) =
   const disabled = definition.readonly === true || !validSelection
 
   return (
-    <Item look="raised">
+    <Menu.Item look="raised">
       <Button
         disabled={disabled}
         icon={definition.icon}
@@ -31,7 +30,7 @@ const GroupElement = ({definition, onClick, onSelect, selectedCount}, context) =
         }}
         title={title}
       />
-    </Item>
+    </Menu.Item>
   )
 }
 
