@@ -3,7 +3,7 @@ import {shallow, mount} from 'enzyme'
 
 import LoadMask from './LoadMask'
 import IconTocco from '../IconTocco'
-import {Span} from '../Typography'
+import Typography from '../Typography'
 
 describe('tocco-ui', function() {
   describe('LoadMask', function() {
@@ -70,14 +70,14 @@ describe('tocco-ui', function() {
           loadingText="Lorem ipsum"
         />
       )
-      expect(wrapper.find(Span).dive().dive().text()).to.be.equal('Lorem ipsum')
+      expect(wrapper.find(Typography.Span).dive().dive().text()).to.be.equal('Lorem ipsum')
 
       wrapper = shallow(
         <LoadMask
           required={[undefined]}
         />
       )
-      expect(wrapper.find(Span)).to.have.length(0)
+      expect(wrapper.find(Typography.Span)).to.have.length(0)
     })
   })
 })

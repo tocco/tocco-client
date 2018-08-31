@@ -2,19 +2,19 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedDate, FormattedTime, injectIntl, intlShape} from 'react-intl'
 
-import {Span, Time} from '../../Typography'
+import Typography from '../../Typography'
 
 const DateTimeFormatter = props => {
   const timestamp = Date.parse(props.value)
   if (isNaN(timestamp)) {
     // eslint-disable-next-line no-console
     console.error('DateTimeFormatter: Invalid date', props.value)
-    return <Span/>
+    return <Typography.Span/>
   }
 
   const date = new Date(timestamp)
   return (
-    <Time
+    <Typography.Time
       dateTime={date.toISOString()}
       title={`${props.intl.formatDate(date)}, ${props.intl.formatTime(date)}`}
     >
@@ -27,7 +27,7 @@ const DateTimeFormatter = props => {
       <FormattedTime
         value={date}
       />
-    </Time>
+    </Typography.Time>
   )
 }
 

@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import {Span} from '../../Typography'
+import Typography from '../../Typography'
 
 const SingleSelectFormatter = props => (
-  <Span>{props.value.display}</Span>
+  <Typography.Span>{props.value.display}</Typography.Span>
 )
 
 SingleSelectFormatter.propTypes = {

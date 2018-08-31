@@ -2,7 +2,7 @@ import {shallow} from 'enzyme'
 import React from 'react'
 
 import SignalBox from './SignalBox'
-import {H5, Small} from '../Typography'
+import Typography from '../Typography'
 
 describe('tocco-ui', function() {
   describe('SignalBox', function() {
@@ -31,8 +31,8 @@ describe('tocco-ui', function() {
         </SignalBox>
       )
       expect(wrapper.children()).to.have.length(3)
-      expect(wrapper.find(H5).dive().dive().text()).to.be.equal('title text')
-      expect(wrapper.find(Small).dive().dive().text()).to.be.equal('meta text')
+      expect(wrapper.find(Typography.H5).dive().dive().text()).to.be.equal('title text')
+      expect(wrapper.find(Typography.Small).dive().dive().text()).to.be.equal('meta text')
       expect(wrapper.find('span').text()).to.be.equal('child text')
     })
   })

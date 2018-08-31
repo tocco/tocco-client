@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import {P} from '../../Typography'
+import Typography from '../../Typography'
 
 const TextFormatter = props => {
-  return props.value.split('\n').map((line, index) => <P key={index}>{line}</P>)
+  return props.value.split('\n').map((line, index) =>
+    <Typography.P key={index}>{line}</Typography.P>)
 }
 
 TextFormatter.propTypes = {

@@ -1,53 +1,19 @@
 import {
-  H1,
-  H2,
-  H3,
-  H4,
-  H5,
-  H6} from './Heading'
-import {
   StyledH1,
   StyledH2,
   StyledH3,
   StyledH4,
   StyledH5,
-  StyledH6} from './StyledHeading'
-import {
-  Dd,
-  Dt,
-  Dl,
-  Li,
-  Ol,
-  Ul} from './List'
+  StyledH6
+} from './StyledHeading'
 import {
   StyledDd,
   StyledDt,
   StyledDl,
   StyledLi,
   StyledOl,
-  StyledUl} from './StyledList'
-import {
-  B,
-  Code,
-  Del,
-  Em,
-  Figcaption,
-  I,
-  Ins,
-  Kbd,
-  Mark,
-  P,
-  Pre,
-  Q,
-  S,
-  Small,
-  Span,
-  Strong,
-  Sub,
-  Sup,
-  Time,
-  U,
-  Var} from './Misc'
+  StyledUl
+} from './StyledList'
 import {
   StyledB,
   StyledCode,
@@ -69,41 +35,13 @@ import {
   StyledSup,
   StyledTime,
   StyledU,
-  StyledVar} from './StyledMisc'
+  StyledVar
+} from './StyledMisc'
 import Typography from './Typography'
 import declareTypograhpy from './StyledTypography'
-import InjectFontRoboto from './Font'
 
 export {
-  B,
-  Code,
-  Dd,
   declareTypograhpy,
-  Del,
-  Dl,
-  Dt,
-  Em,
-  Figcaption,
-  H1,
-  H2,
-  H3,
-  H4,
-  H5,
-  H6,
-  I,
-  Ins,
-  InjectFontRoboto,
-  Kbd,
-  Li,
-  Mark,
-  Ol,
-  P,
-  Pre,
-  Q,
-  S,
-  Small,
-  Span,
-  Strong,
   StyledB,
   StyledCode,
   StyledDd,
@@ -137,11 +75,5 @@ export {
   StyledU,
   StyledUl,
   StyledVar,
-  Sub,
-  Sup,
-  Time,
-  Typography as default,
-  U,
-  Ul,
-  Var
+  Typography as default
 }

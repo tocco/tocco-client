@@ -3,7 +3,7 @@ import React from 'react'
 import {FormattedDate} from 'react-intl'
 import moment from 'moment'
 
-import {Time} from '../../Typography'
+import Typography from '../../Typography'
 
 const DurationFormatter = props => {
   const milliSeconds = parseInt(props.value)
@@ -11,7 +11,7 @@ const DurationFormatter = props => {
   const durationIsoMs = moment(date).format(moment.HTML5_FMT.TIME_MS)
   const durationIsoS = moment(date).format(moment.HTML5_FMT.TIME_SECONDS)
   return (
-    <Time
+    <Typography.Time
       dateTime={durationIsoMs}
       title={durationIsoS}
     >
@@ -22,7 +22,7 @@ const DurationFormatter = props => {
         second="2-digit"
         hour12={false}
       />
-    </Time>
+    </Typography.Time>
   )
 }
 
