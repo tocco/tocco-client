@@ -7,7 +7,7 @@ const StyledMenuButton = StyledMenu.extend`
   && {
     display: inline-flex;
     flex-flow: row wrap;
-    margin-bottom: -${props => props.look === stylingLook.RAISED ? theme('space.4') : 0};
+    margin-bottom: ${props => props.look === stylingLook.RAISED ? `-${theme('space.4')(props)}` : 0};
 
     > hr {
       border: none;

@@ -6,7 +6,7 @@ const StyledButtonGroup = styled.div`
     display: flex;
     flex-flow: row wrap;
     width: fit-content;
-    margin-bottom: -${props => props.melt ? 0 : theme('space.4')};
+    margin-bottom: ${props => props.melt ? 0 : `-${theme('space.4')(props)}`};
 
     a,
     button {
