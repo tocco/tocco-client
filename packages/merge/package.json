@@ -3,6 +3,9 @@
   "version": "0.2.12",
   "description": "merge action",
   "main": "dist/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "compile": "cd ../../ && npm run compile:prod -- --package=merge",
     "prepublish": "npm run compile"
