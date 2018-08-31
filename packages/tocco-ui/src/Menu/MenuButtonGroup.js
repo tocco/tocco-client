@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Menu from './Menu'
+import MenuBase from './MenuBase'
 import StyledMenuButtonGroup from './StyledMenuButtonGroup'
 
 /**
@@ -8,7 +8,7 @@ import StyledMenuButtonGroup from './StyledMenuButtonGroup'
  * Utilize it only as grandchild of <MenuButton> and wrap each <MenuButtonGroup> in an <Item>.
  */
 
-class MenuButtonGroup extends Menu {
+class MenuButtonGroup extends MenuBase {
   render() {
     return (
       <StyledMenuButtonGroup
