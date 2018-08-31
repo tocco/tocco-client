@@ -3,7 +3,7 @@ import React from 'react'
 
 import Icon from '../Icon'
 import Link from '../Link'
-import {Figcaption} from '../Typography'
+import Typography from '../Typography'
 import StyledPreview from './StyledPreview'
 import {validateCssDimension} from '../utilStyles'
 
@@ -49,7 +49,7 @@ const Preview = props => {
       maxDimensionY={props.maxDimensionY}
     >
       {imageWrapper}
-      {props.caption && <Figcaption>{props.caption}</Figcaption>}
+      {props.caption && <Typography.Figcaption>{props.caption}</Typography.Figcaption>}
     </StyledPreview>
   )
 }

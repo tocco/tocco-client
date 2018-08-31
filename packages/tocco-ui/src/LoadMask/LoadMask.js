@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import IconTocco from '../IconTocco'
-import {Span} from '../Typography'
+import Typography from '../Typography'
 import StyledLoadMask from './StyledLoadMask'
 
 /**
@@ -60,7 +60,7 @@ class LoadMask extends React.Component {
 
     if (this.props.loadingText) {
       loadingIconAndText.push(
-        <Span key="loadingText">{this.props.loadingText}</Span>
+        <Typography.Span key="loadingText">{this.props.loadingText}</Typography.Span>
       )
     }
 

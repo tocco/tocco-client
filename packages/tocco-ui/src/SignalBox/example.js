@@ -3,7 +3,7 @@ import React from 'react'
 
 import SignalBox from './'
 import SignalList, {SignalListItem} from '../SignalList'
-import {B, I, P} from '../Typography'
+import Typography from '../Typography'
 // real-import:import {SignalBox} from 'tocco-ui'
 
 export default () => {
@@ -28,15 +28,21 @@ export default () => {
       </SignalBox>
 
       <SignalBox condition="warning">
-        <P>Lorem ipsum <B>bold</B> sit <I>italic</I> amet</P>
+        <Typography.P>
+          Lorem ipsum <Typography.B>bold</Typography.B> sit <Typography.I>italic</Typography.I> amet
+        </Typography.P>
       </SignalBox>
 
       <SignalBox condition="success">
-        <P>Lorem ipsum <B>bold</B> sit <I>italic</I> amet</P>
+        <Typography.P>
+          Lorem ipsum <Typography.B>bold</Typography.B> sit <Typography.I>italic</Typography.I> amet
+        </Typography.P>
       </SignalBox>
 
       <SignalBox>
-        <P>Lorem ipsum <B>bold</B> sit <I>italic</I> amet</P>
+        <Typography.P>
+          Lorem ipsum <Typography.B>bold</Typography.B> sit <Typography.I>italic</Typography.I> amet
+        </Typography.P>
       </SignalBox>
       {/* end example */}
     </div>

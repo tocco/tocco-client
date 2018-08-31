@@ -2,16 +2,16 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedNumber} from 'react-intl'
 
-import {Span} from '../../Typography'
+import Typography from '../../Typography'
 
 const NumberFormatter = props => (
-  <Span>
+  <Typography.Span>
     <FormattedNumber
       value={props.value}
       style="decimal"
       maximumFractionDigits={0}
     />
-  </Span>
+  </Typography.Span>
 )
 
 NumberFormatter.propTypes = {

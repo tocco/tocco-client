@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import {Span} from '../../Typography'
+import Typography from '../../Typography'
 
 const MultiSelectFormatter = props => (
-  <Span>{props.value.map(v => v.display).join(', ')}</Span>
+  <Typography.Span>{props.value.map(v => v.display).join(', ')}</Typography.Span>
 )
 
 MultiSelectFormatter.propTypes = {
