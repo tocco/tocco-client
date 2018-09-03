@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+
 import TetheredSelectWrap from './TetherSelectWrap'
 import Button from '../../Button/Button'
 import ValueRenderer from './select/ValueRenderer'

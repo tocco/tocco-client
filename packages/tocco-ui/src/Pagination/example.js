@@ -1,5 +1,6 @@
 /* eslint no-console: 0 */
 import React from 'react'
+
 import Pagination from './'
 // real-import:import {Pagination} from 'tocco-ui'
 

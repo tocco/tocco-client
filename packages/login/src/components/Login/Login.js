@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {Pages} from '../../types/Pages'
 
+import {Pages} from '../../types/Pages'
 import LoginFormContainer from '../../containers/LoginFormContainer'
 import PasswordUpdateContainer from '../../containers/PasswordUpdateDialogContainer'
 import PasswordRequestContainer from '../../containers/PasswordRequestContainer'

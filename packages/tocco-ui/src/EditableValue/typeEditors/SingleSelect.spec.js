@@ -1,7 +1,7 @@
 import React from 'react'
 import {shallow, mount} from 'enzyme'
-import TetheredSelectWrap from './TetherSelectWrap'
 
+import TetheredSelectWrap from './TetherSelectWrap'
 import SingleSelect from './SingleSelect'
 
 const EMPTY_FUNC = () => {}

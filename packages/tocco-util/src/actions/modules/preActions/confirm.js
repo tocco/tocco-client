@@ -1,8 +1,10 @@
 import React from 'react'
-import {call, put, take} from 'redux-saga/effects'
 import {channel} from 'redux-saga'
-import notifier from '../../../notifier'
 import {FormattedMessage} from 'react-intl'
+
+import notifier from '../../../notifier'
+
+import {call, put, take} from 'redux-saga/effects'
 
 export const answer = answer => ({answer})
 

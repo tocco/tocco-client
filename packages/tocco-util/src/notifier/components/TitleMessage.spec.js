@@ -1,9 +1,10 @@
 import React from 'react'
-import TitleMessage from './TitleMessage'
 import {mount} from 'enzyme'
 import {FormattedValue} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
 import {intlEnzyme} from 'tocco-test-util'
+
+import TitleMessage from './TitleMessage'
 
 describe('tocco-util', () => {
   describe('notifier', () => {

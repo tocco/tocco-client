@@ -1,5 +1,6 @@
 import _forOwn from 'lodash/forOwn'
 import _get from 'lodash/get'
+
 import validators from './validators'
 
 export default entityModel =>

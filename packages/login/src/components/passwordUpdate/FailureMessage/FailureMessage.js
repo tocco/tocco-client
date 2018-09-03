@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedMessage} from 'react-intl'
+
 import {messages, DEFAULT as DEFAULT_MESSAGE} from './messages'
 
 function getMessage(errorCode) {

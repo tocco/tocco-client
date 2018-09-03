@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {Button} from 'tocco-ui'
 import {intlShape} from 'react-intl'
+
 import {selectionText, isValidSelection} from './selectionHelper'
 
 const SingleAction = ({definition, onClick, selectedCount}, context) => {

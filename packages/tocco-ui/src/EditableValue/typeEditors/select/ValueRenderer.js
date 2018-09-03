@@ -1,7 +1,8 @@
 import _get from 'lodash/get'
-import Popover from '../../../Popover'
 import React from 'react'
 import PropTypes from 'prop-types'
+
+import Popover from '../../../Popover'
 
 const ValueRenderer = ({tooltips, option, loadTooltip, onValueClick}) => {
   const tooltip = _get(tooltips, option.key, null)

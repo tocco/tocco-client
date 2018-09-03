@@ -1,5 +1,6 @@
-import {initIntl, setLocale} from './intl'
 import fetchMock from 'fetch-mock'
+
+import {initIntl, setLocale} from './intl'
 
 describe('tocco-util', () => {
   describe('intl', () => {

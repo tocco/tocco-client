@@ -1,6 +1,7 @@
 import React from 'react'
-import LoginFormatter from './LoginFormatter'
 import {mount} from 'enzyme'
+
+import LoginFormatter from './LoginFormatter'
 
 describe('tocco-ui', function() {
   describe('FormattedValue', function() {

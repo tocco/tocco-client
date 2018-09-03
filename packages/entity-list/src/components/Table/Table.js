@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {intlShape} from 'react-intl'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
+
 import cellRenderer from '../../util/cellRenderer'
 import '!style-loader!css-loader!react-bootstrap-table/dist/react-bootstrap-table.min.css'
 import {default as selectionStyles, selectionStylePropType} from '../../util/selectionStyles'

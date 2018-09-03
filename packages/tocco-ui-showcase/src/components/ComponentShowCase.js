@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {parse} from 'react-docgen'
+
 import PropsTable from './PropsTable'
 import Example from './Example'
 

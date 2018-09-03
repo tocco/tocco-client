@@ -1,5 +1,6 @@
-import * as actions from './actions'
 import {reducers} from 'tocco-util'
+
+import * as actions from './actions'
 
 const setFormBase = (state, {payload}) => {
   const {formBase} = payload

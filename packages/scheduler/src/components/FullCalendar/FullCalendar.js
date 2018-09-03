@@ -2,7 +2,6 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import PropTypes from 'prop-types'
 import _isEqual from 'lodash/isEqual'
-
 import $ from 'jquery'
 import 'jquery/src/jquery'
 import 'bootstrap/dist/js/bootstrap.min.js'
@@ -16,8 +15,9 @@ import 'fullcalendar/dist/locale/de.js'
 import '!style-loader!css-loader!fullcalendar/dist/fullcalendar.css'
 import '!style-loader!css-loader!fullcalendar-scheduler/dist/scheduler.css'
 import {injectIntl, intlShape} from 'react-intl'
-import Conflict from '../Conflict'
 import {consoleLogger} from 'tocco-util'
+
+import Conflict from '../Conflict'
 
 class FullCalendar extends React.Component {
   constructor(props) {

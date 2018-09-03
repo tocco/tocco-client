@@ -2,11 +2,11 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {intlShape} from 'react-intl'
 import _isEmpty from 'lodash/isEmpty'
+import {form} from 'tocco-util'
+import LoadMask from 'tocco-ui/src/LoadMask/LoadMask'
 
 import DetailForm from '../DetailForm'
-import {form} from 'tocco-util'
 import {asyncValidate, AsyncValidationException} from '../../util/detailView/asyncValidation'
-import LoadMask from 'tocco-ui/src/LoadMask/LoadMask'
 
 class DetailView extends React.Component {
   componentWillUnmount() {

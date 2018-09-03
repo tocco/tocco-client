@@ -1,5 +1,6 @@
-import preAction from './preAction'
 import {expectSaga} from 'redux-saga-test-plan'
+
+import preAction from './preAction'
 
 describe('tocco-util', () => {
   describe('actions', () => {

@@ -1,5 +1,6 @@
-import {call, put, all} from 'redux-saga/effects'
 import errorLogging from '../../errorLogging'
+
+import {call, put, all} from 'redux-saga/effects'
 
 export const autoRestartSaga = generator => {
   return function* autoRestarting(...args) {

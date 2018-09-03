@@ -1,7 +1,8 @@
 import React from 'react'
-import TimeFormatter from './TimeFormatter'
 import {mount} from 'enzyme'
 import {addLocaleData, IntlProvider} from 'react-intl'
+
+import TimeFormatter from './TimeFormatter'
 
 describe('tocco-ui', () => {
   describe('FormattedValue', () => {

@@ -5,7 +5,6 @@ import {
   StyledIconToccoWrapper,
   StyledIconToccoSvg
 } from './StyledIconTocco'
-
 import {
   inkPropTypes,
   positionPropTypes,

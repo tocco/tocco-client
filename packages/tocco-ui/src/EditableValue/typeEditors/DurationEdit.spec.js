@@ -1,5 +1,6 @@
 import React from 'react'
 import {mount} from 'enzyme'
+
 import DurationEdit from './DurationEdit'
 
 const EMPTY_FUNC = () => {}

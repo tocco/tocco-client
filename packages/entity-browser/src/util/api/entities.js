@@ -1,5 +1,6 @@
-import {call} from 'redux-saga/effects'
 import {requestSaga} from 'tocco-util/src/rest'
+
+import {call} from 'redux-saga/effects'
 
 export const defaultModelTransformer = json => {
   const model = {}

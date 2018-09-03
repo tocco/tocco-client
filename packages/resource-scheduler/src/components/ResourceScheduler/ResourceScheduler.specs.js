@@ -1,6 +1,7 @@
 import React from 'react'
-import ResourceScheduler from './ResourceScheduler'
 import {shallow} from 'enzyme'
+
+import ResourceScheduler from './ResourceScheduler'
 import SearchPanel from '../SearchPanel/SearchPanel'
 import SchedulerAppContainer from '../../containers/SchedulerAppContainer'
 

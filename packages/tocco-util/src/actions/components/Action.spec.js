@@ -1,5 +1,6 @@
 import {shallow, mount} from 'enzyme'
 import React from 'react'
+
 import Action from './Action'
 import ActionGroup from './ActionGroup'
 

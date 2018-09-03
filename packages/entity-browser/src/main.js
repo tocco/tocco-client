@@ -1,11 +1,11 @@
 import React from 'react'
-
 import {appFactory, notifier, errorLogging, actionEmitter, externalEvents} from 'tocco-util'
 import {Router} from 'react-router'
 import createHashHistory from 'history/createHashHistory'
 import createMemoryHistory from 'history/createMemoryHistory'
-import RouteWithSubRoutes from './components/RouteWithSubRoutes'
 import {setNullBusinessUnit} from 'tocco-util/src/rest'
+
+import RouteWithSubRoutes from './components/RouteWithSubRoutes'
 
 const packageName = 'entity-browser'
 

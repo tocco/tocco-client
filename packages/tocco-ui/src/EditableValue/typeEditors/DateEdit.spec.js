@@ -1,7 +1,8 @@
 import React from 'react'
+import {intlEnzyme} from 'tocco-test-util'
+
 import DateEdit from './DateEdit'
 import DateAbstract from './DateAbstract'
-import {intlEnzyme} from 'tocco-test-util'
 
 const EMPTY_FUNC = () => {}
 

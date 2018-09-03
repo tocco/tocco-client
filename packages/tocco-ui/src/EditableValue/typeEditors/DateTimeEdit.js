@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import DateAbstract from './DateAbstract'
-import {atMostOne, momentJStoToFlatpickrFormat} from '../utils'
 import {injectIntl, intlShape} from 'react-intl'
 import moment from 'moment'
+
+import DateAbstract from './DateAbstract'
+import {atMostOne, momentJStoToFlatpickrFormat} from '../utils'
 
 const DateTimeEdit = props => {
   const altDateFormat = momentJStoToFlatpickrFormat(moment().locale(props.intl.locale)._locale.longDateFormat('L'))

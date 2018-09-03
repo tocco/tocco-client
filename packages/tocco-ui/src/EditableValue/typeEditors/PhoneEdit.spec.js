@@ -1,5 +1,6 @@
 import React from 'react'
 import {shallow} from 'enzyme'
+
 import PhoneEdit from './PhoneEdit'
 
 describe('tocco-ui', () => {

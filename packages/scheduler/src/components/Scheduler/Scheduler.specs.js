@@ -1,7 +1,8 @@
 import React from 'react'
+import {shallow} from 'enzyme'
+
 import Scheduler from './Scheduler'
 import FullCalendar from '../FullCalendar'
-import {shallow} from 'enzyme'
 
 describe('scheduler', () => {
   describe('components', () => {

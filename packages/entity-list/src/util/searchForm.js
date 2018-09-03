@@ -1,7 +1,8 @@
-import {call} from 'redux-saga/effects'
 import _get from 'lodash/get'
 import _join from 'lodash/join'
 import {fetchEntities} from 'tocco-util/src/rest'
+
+import {call} from 'redux-saga/effects'
 
 export function* getPreselectedValues(preselectedSearchFields, entityModel, loadRelationEntity, searchFormVisible) {
   const formValues = {}

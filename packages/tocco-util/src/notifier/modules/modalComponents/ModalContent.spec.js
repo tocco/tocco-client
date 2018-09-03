@@ -1,6 +1,7 @@
 import React from 'react'
-import ModalContent from './ModalContent'
 import {mount} from 'enzyme'
+
+import ModalContent from './ModalContent'
 
 describe('tocco-util', () => {
   describe('notifier', () => {

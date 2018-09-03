@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
-import {Pages} from '../../types/Pages'
 import {Button, ButtonGroup} from 'tocco-ui'
 import {H5, P} from 'tocco-ui/src/Typography'
 import SignalList, {SignalListItem} from 'tocco-ui/src/SignalList'
+
+import {Pages} from '../../types/Pages'
 
 export class LoginForm extends Component {
   handleSubmit(e) {

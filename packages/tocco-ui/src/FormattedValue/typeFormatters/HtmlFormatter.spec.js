@@ -1,6 +1,7 @@
 import React from 'react'
-import HtmlFormatter from './HtmlFormatter'
 import {mount} from 'enzyme'
+
+import HtmlFormatter from './HtmlFormatter'
 
 describe('tocco-ui', function() {
   describe('FormattedValue', function() {

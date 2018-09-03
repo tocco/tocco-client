@@ -1,9 +1,10 @@
 import React from 'react'
-import ListView from './ListView'
 import {IntlStub} from 'tocco-test-util'
 import {shallow} from 'enzyme'
-import TableContainer from '../../containers/TableContainer'
 import {actions} from 'tocco-util'
+
+import TableContainer from '../../containers/TableContainer'
+import ListView from './ListView'
 
 const EMPTY_FUNC = () => {}
 

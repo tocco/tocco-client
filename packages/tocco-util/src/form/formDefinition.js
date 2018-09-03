@@ -1,6 +1,7 @@
 import componentTypes from './enums/componentTypes'
-import {call} from 'redux-saga/effects'
 import {requestSaga} from '../rest'
+
+import {call} from 'redux-saga/effects'
 
 export const getFieldId = (formName, fieldName) => (
   `input-${formName}-${fieldName}`

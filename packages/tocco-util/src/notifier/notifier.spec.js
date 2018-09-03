@@ -1,5 +1,6 @@
-import {addToStore} from './notifier'
 import {createStore} from 'redux'
+
+import {addToStore} from './notifier'
 
 describe('tocco-util', () => {
   describe('notifier', () => {

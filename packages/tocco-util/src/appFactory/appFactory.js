@@ -3,20 +3,18 @@ import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
 import {addLocaleData} from 'react-intl'
 import {IntlProvider} from 'react-intl-redux'
-import consoleLogger from '../consoleLogger'
 import _union from 'lodash/union'
 import _merge from 'lodash/merge'
 import {ThemeProvider} from 'styled-components'
-
 import de from 'react-intl/locale-data/de'
 import en from 'react-intl/locale-data/en'
 import fr from 'react-intl/locale-data/fr'
 import it from 'react-intl/locale-data/it'
-
 import {LoadMask} from 'tocco-ui'
 import {ToccoTheme} from 'tocco-theme'
 import {InjectFontRoboto} from 'tocco-ui/src/Typography'
 
+import consoleLogger from '../consoleLogger'
 import intl from '../intl'
 import errorLogging from '../errorLogging'
 

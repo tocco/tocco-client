@@ -1,8 +1,9 @@
 import React from 'react'
 import SplitPane from 'react-split-pane'
+import PropTypes from 'prop-types'
+
 import SearchPanel from '../SearchPanel/SearchPanel'
 import SchedulerAppContainer from '../../containers/SchedulerAppContainer'
-import PropTypes from 'prop-types'
 
 class ResourceScheduler extends React.Component {
   componentWillMount() {

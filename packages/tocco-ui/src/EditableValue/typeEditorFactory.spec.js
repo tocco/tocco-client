@@ -1,4 +1,5 @@
 import {mount} from 'enzyme'
+
 import typeEditorFactory from './typeEditorFactory'
 import StringEdit from './typeEditors/StringEdit'
 

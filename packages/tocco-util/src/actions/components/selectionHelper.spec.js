@@ -1,5 +1,6 @@
-import {isValidSelection, selectionText} from './selectionHelper'
 import {IntlStub} from 'tocco-test-util'
+
+import {isValidSelection, selectionText} from './selectionHelper'
 
 describe('tocco-util', () => {
   describe('actions', () => {

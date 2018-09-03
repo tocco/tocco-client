@@ -1,10 +1,11 @@
+import {combineReducers} from 'redux'
+
 import appFactory from '../appFactory'
 import relationEntities from './relationEntities/reducer'
 import tooltips from './tooltips/reducer'
 import relationEntitiesSagas from './relationEntities/sagas'
 import tooltipsSaga from './tooltips/sagas'
 import advancedSearchSagas from './advancedSearch/sagas'
-import {combineReducers} from 'redux'
 
 export const relationEntitiesSelector = store => store.formData.relationEntities.data
 export const tooltipSelector = store => store.formData.tooltips.data

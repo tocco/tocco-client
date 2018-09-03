@@ -1,6 +1,8 @@
-import * as actions from './actions'
-import {takeLatest, call, fork, put, select, all} from 'redux-saga/effects'
 import {requestSaga} from 'tocco-util/src/rest'
+
+import * as actions from './actions'
+
+import {takeLatest, call, fork, put, select, all} from 'redux-saga/effects'
 
 export const usernameSelector = state => state.passwordUpdate.dialog.username
 export const intlSelector = state => state.intl

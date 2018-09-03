@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux'
 import {reducer as toastrReducer} from 'react-redux-toastr'
+
 import appFactory from '../appFactory'
 import sagas from './modules/sagas'
 import modalComponents from './modules/modalComponents/reducer'

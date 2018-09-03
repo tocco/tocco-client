@@ -1,6 +1,7 @@
 import React from 'react'
-import FormattedValue from './FormattedValue'
 import {shallow} from 'enzyme'
+
+import FormattedValue from './FormattedValue'
 import DateFormatter from './typeFormatters/DateFormatter'
 import StringFormatter from './typeFormatters/StringFormatter'
 

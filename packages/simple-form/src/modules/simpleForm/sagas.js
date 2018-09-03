@@ -1,9 +1,11 @@
-import * as actions from './actions'
-import {all, call, fork, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
 import {getFormValues, actions as formActions} from 'redux-form'
 import {externalEvents, form as formUtil} from 'tocco-util'
+
+import * as actions from './actions'
 import * as documentActions from '../../utils/form/document/actions'
 import * as documentSagas from '../../utils/form/document/sagas'
+
+import {all, call, fork, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
 
 const FORM_ID = 'simpleForm'
 export const inputSelector = state => state.input

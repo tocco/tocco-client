@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {Prompt} from 'react-router-dom'
-
 import {Button, LayoutBox} from 'tocco-ui'
 import {intlShape} from 'react-intl'
 import EntityDetailApp from 'tocco-entity-detail/src/main'

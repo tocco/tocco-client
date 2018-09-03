@@ -1,10 +1,11 @@
 import {connect} from 'react-redux'
-import Form from '../../src/components/Form'
 import {form, formData} from 'tocco-util'
-import {initializeForm, submit, cancel, advancedSearchUpdate} from '../modules/simpleForm/actions'
-import {uploadDocument} from '../utils/form/document/actions'
 import {injectIntl} from 'react-intl'
 import EntityListApp from 'tocco-entity-list/src/main'
+
+import Form from '../../src/components/Form'
+import {initializeForm, submit, cancel, advancedSearchUpdate} from '../modules/simpleForm/actions'
+import {uploadDocument} from '../utils/form/document/actions'
 
 const mapActionCreators = {
   initializeForm,

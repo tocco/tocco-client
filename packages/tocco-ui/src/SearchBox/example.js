@@ -1,5 +1,6 @@
 /* eslint no-console: 0 */
 import React from 'react'
+
 import SearchBox from './'
 // real-import:import {SearchBox} from 'tocco-ui'
 

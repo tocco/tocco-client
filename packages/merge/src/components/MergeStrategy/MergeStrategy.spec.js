@@ -2,6 +2,7 @@ import {mount} from 'enzyme'
 import {IntlStub} from 'tocco-test-util'
 import React from 'react'
 import {IntlProvider} from 'react-intl'
+
 import MergeStrategy from './MergeStrategy'
 
 describe('merge', () => {

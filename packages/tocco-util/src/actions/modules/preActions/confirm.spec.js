@@ -1,6 +1,6 @@
 import {channel} from 'redux-saga'
-
 import {expectSaga} from 'redux-saga-test-plan'
+
 import confirm from './confirm'
 import {CONFIRM} from '../../../notifier/modules/actions'
 

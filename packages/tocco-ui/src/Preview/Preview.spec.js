@@ -1,6 +1,7 @@
 import React from 'react'
-import Preview from './Preview'
 import {mount, shallow} from 'enzyme'
+
+import Preview from './Preview'
 
 describe('tocco-ui', () => {
   describe('Preview', () => {

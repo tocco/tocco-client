@@ -1,8 +1,9 @@
 import React from 'react'
-import {TwoStepLoginForm} from './TwoStepLoginForm'
 import {shallow} from 'enzyme'
 import {Button} from 'tocco-ui'
 import {IntlStub} from 'tocco-test-util'
+
+import {TwoStepLoginForm} from './TwoStepLoginForm'
 
 describe('login', () => {
   describe('components', () => {

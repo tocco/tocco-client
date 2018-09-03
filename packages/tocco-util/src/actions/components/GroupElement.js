@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import actionTypes from '../actionTypes'
 import {Button} from 'tocco-ui'
 import {Item} from 'tocco-ui/src/Menu'
+import {intlShape} from 'react-intl'
 
 import {isValidSelection, selectionText} from './selectionHelper'
-import {intlShape} from 'react-intl'
+import actionTypes from '../actionTypes'
 
 const GroupElement = ({definition, onClick, onSelect, selectedCount}, context) => {
   if (definition.actionType === actionTypes.DIVIDER) {

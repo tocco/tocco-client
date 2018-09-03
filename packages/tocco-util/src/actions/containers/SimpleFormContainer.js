@@ -1,7 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import actionEmitter from '../../actionEmitter'
 import SimpleFormApp from 'tocco-simple-form/src/main'
+
+import actionEmitter from '../../actionEmitter'
 
 const mapActionCreators = {
   emitAction: action => actionEmitter.dispatchEmittedAction(action)

@@ -1,8 +1,9 @@
 import React from 'react'
-import DetailView from './DetailView'
-import DetailForm from '../DetailForm'
 import {shallow} from 'enzyme'
 import {IntlStub} from 'tocco-test-util'
+
+import DetailView from './DetailView'
+import DetailForm from '../DetailForm'
 
 const EMPTY_FUNC = () => {
 }

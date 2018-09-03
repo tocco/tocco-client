@@ -1,6 +1,7 @@
 import React from 'react'
-import MultiSelectFormatter from './MultiSelectFormatter'
 import {mount} from 'enzyme'
+
+import MultiSelectFormatter from './MultiSelectFormatter'
 
 describe('tocco-ui', () => {
   describe('FormattedValue', () => {

@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
-import {Pages} from '../../types/Pages'
 import {Button, ButtonGroup} from 'tocco-ui'
+
+import {Pages} from '../../types/Pages'
 
 export class PasswordRequest extends React.Component {
   constructor(props) {

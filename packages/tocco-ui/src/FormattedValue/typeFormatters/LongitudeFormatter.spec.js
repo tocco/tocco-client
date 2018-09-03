@@ -1,7 +1,8 @@
 import React from 'react'
-import LongitudeFormatter from './LongitudeFormatter'
 import {mount} from 'enzyme'
 import {addLocaleData, IntlProvider} from 'react-intl'
+
+import LongitudeFormatter from './LongitudeFormatter'
 
 describe('tocco-ui', () => {
   describe('FormattedValue', () => {

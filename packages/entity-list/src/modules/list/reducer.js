@@ -1,6 +1,7 @@
-import * as actions from './actions'
 import {reducers} from 'tocco-util'
 import _uniq from 'lodash/uniq'
+
+import * as actions from './actions'
 
 const addEntityToStore = (state, {payload}) => ({
   ...state,

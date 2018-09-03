@@ -1,14 +1,14 @@
 import React from 'react'
-import {takeEvery, fork, all, select} from 'redux-saga/effects'
-import * as advancedSearchActions from './actions'
-
-import rootSaga, * as sagas from './sagas'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import notifier from '../../notifier'
 
+import * as advancedSearchActions from './actions'
+import rootSaga, * as sagas from './sagas'
+import notifier from '../../notifier'
 import {fetchEntities} from '../../rest'
 import {ADVANCED_SEARCH_UPDATE} from '../../../../entity-detail/src/modules/entityDetail/actions'
+
+import {takeEvery, fork, all, select} from 'redux-saga/effects'
 
 describe('tocco-util', () => {
   describe('formData', () => {

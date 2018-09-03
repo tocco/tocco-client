@@ -1,15 +1,17 @@
-import {argv} from 'yargs'
 import path from 'path'
+import fs from 'fs'
+
+import {argv} from 'yargs'
 import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
 import CleanWebpackPlugin from 'clean-webpack-plugin'
-import config from '../config'
-import logger from './lib/logger'
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
 import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
-import fs from 'fs'
+
+import config from '../config'
+import logger from './lib/logger'
 
 const paths = config.utils_paths
 const {__DEV__, __PROD__, __STANDALONE__, __TEST__, __PACKAGE__} = config.globals

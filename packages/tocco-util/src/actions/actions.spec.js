@@ -1,5 +1,6 @@
-import {isAction, addToStore} from './actions'
 import {createStore} from 'redux'
+
+import {isAction, addToStore} from './actions'
 
 describe('tocco-util', () => {
   describe('actions', () => {

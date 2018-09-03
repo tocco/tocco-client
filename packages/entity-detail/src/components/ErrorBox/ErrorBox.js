@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedMessage} from 'react-intl'
-
 import {form} from 'tocco-util'
 
 const ErrorBox = ({formErrors, showErrors}) => (

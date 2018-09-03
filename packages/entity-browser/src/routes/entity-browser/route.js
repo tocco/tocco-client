@@ -1,5 +1,4 @@
 import EntityBrowser from './components/EntityBrowser'
-
 import entityBrowser from './modules'
 import {setEntityName, setFormBase, setAppId} from './modules/actions'
 

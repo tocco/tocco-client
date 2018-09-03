@@ -1,7 +1,8 @@
 import React from 'react'
-import {RouteWithSubRoutes} from './RouteWithSubRoutes'
 import {shallow} from 'enzyme'
 import {Route} from 'react-router'
+
+import {RouteWithSubRoutes} from './RouteWithSubRoutes'
 
 describe('entity-browser', () => {
   describe('components', () => {

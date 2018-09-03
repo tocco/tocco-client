@@ -1,8 +1,10 @@
 import {externalEvents} from 'tocco-util'
-import {call, put, select} from 'redux-saga/effects'
+
 import * as sagas from './sagas'
 import createMergeResult from './../../utils/MergeActionResult'
 import {setMergeResponse} from './actions'
+
+import {call, put, select} from 'redux-saga/effects'
 
 describe('merge', () => {
   describe('modules', () => {

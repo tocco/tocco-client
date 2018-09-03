@@ -1,6 +1,7 @@
-import editableValueFactory from './editableValueFactory'
 import {EditableValue} from 'tocco-ui'
 import {mount} from 'enzyme'
+
+import editableValueFactory from './editableValueFactory'
 
 describe('tocco-util', () => {
   describe('formField', () => {

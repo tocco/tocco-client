@@ -1,4 +1,5 @@
-import {call} from 'redux-saga/effects'
+import fetchMock from 'fetch-mock'
+
 import {
   getParameterString,
   simpleRequest,
@@ -8,7 +9,8 @@ import {
 } from './rest'
 import {sendRequest} from './request'
 import {handleClientQuestion} from './clientQuestions'
-import fetchMock from 'fetch-mock'
+
+import {call} from 'redux-saga/effects'
 
 describe('tocco-util', () => {
   describe('rest', () => {

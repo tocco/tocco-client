@@ -1,10 +1,12 @@
+import {expectSaga, testSaga} from 'redux-saga-test-plan'
+import * as matchers from 'redux-saga-test-plan/matchers'
+
 import * as relationEntitiesActions from './actions'
+import {fetchEntities} from '../../rest'
+import * as sagas from './sagas'
+
 import {select, fork, takeEvery} from 'redux-saga/effects'
 import {asEffect} from 'redux-saga/utils'
-import {fetchEntities} from '../../rest'
-import {expectSaga, testSaga} from 'redux-saga-test-plan'
-import * as sagas from './sagas'
-import * as matchers from 'redux-saga-test-plan/matchers'
 
 describe('tocco-util', () => {
   describe('formData', () => {

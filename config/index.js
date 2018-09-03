@@ -1,5 +1,7 @@
 import fs from 'fs'
+
 import chalk from 'chalk'
+
 import logger from '../build/lib/logger'
 import config from './_base'
 

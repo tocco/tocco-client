@@ -1,10 +1,11 @@
-import {fork, select, takeEvery} from 'redux-saga/effects'
+import {expectSaga, testSaga} from 'redux-saga-test-plan'
+import * as matchers from 'redux-saga-test-plan/matchers'
+
 import * as tooltipActions from './actions'
 import {requestSaga} from '../../rest'
-
-import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import * as sagas from './sagas'
-import * as matchers from 'redux-saga-test-plan/matchers'
+
+import {fork, select, takeEvery} from 'redux-saga/effects'
 
 describe('tocco-util', () => {
   describe('formData', () => {

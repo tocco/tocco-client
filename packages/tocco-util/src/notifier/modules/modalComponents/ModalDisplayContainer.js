@@ -1,4 +1,5 @@
 import {connect} from 'react-redux'
+
 import ModalDisplay from './ModalDisplay'
 import * as actions from '../actions'
 

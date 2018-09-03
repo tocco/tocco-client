@@ -1,7 +1,7 @@
 import {shallow} from 'enzyme'
 import React from 'react'
-
 import {Button} from 'tocco-ui'
+
 import GroupElement from './GroupElement'
 
 const EMPTY_FUNC = () => {}

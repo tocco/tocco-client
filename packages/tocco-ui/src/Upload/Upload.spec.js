@@ -1,6 +1,7 @@
 import React from 'react'
-import Upload from './Upload'
 import {shallow} from 'enzyme'
+
+import Upload from './Upload'
 
 const EMPTY_FUNC = () => {}
 

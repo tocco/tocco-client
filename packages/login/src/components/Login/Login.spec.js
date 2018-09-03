@@ -1,10 +1,11 @@
 import React from 'react'
+import {shallow} from 'enzyme'
+
 import {Login} from './Login'
 import LoginFormContainer from '../../containers/LoginFormContainer'
 import PasswordUpdateDialogContainer from '../../containers/PasswordUpdateDialogContainer'
 import PasswordRequestContainer from '../../containers/PasswordRequestContainer'
 import TwoStepLoginContainer from '../../containers/TwoStepLoginContainer'
-import {shallow} from 'enzyme'
 import {Pages} from '../../types/Pages'
 
 describe('login', () => {

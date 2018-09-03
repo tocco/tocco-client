@@ -1,7 +1,7 @@
 import React from 'react'
 import {shallow} from 'enzyme'
-import TetheredSelectWrap from './TetherSelectWrap'
 
+import TetheredSelectWrap from './TetherSelectWrap'
 import MultiSelect from './MultiSelect'
 
 describe('tocco-ui', () => {

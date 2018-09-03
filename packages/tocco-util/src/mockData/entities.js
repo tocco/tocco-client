@@ -1,5 +1,6 @@
-import consoleLogger from '../consoleLogger'
 import _get from 'lodash/get'
+
+import consoleLogger from '../consoleLogger'
 import {sleep} from './mockData'
 
 const evenFilter = (value, idx) => idx % 2 === 0

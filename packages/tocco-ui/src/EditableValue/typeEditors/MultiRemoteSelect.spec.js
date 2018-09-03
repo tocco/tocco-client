@@ -1,5 +1,6 @@
 import React from 'react'
 import {shallow} from 'enzyme'
+
 import TetheredSelectWrap from './TetherSelectWrap'
 import Button from '../../Button/Button'
 import MultiRemoteSelect from './MultiRemoteSelect'

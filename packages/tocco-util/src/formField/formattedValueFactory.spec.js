@@ -1,6 +1,7 @@
-import formattedValueFactory from './formattedValueFactory'
 import {FormattedValue} from 'tocco-ui'
 import {mount} from 'enzyme'
+
+import formattedValueFactory from './formattedValueFactory'
 
 describe('tocco-util', () => {
   describe('fomField', () => {

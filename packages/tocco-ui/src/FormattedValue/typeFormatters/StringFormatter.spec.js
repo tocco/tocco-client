@@ -1,6 +1,7 @@
 import React from 'react'
-import StringFormatter from './StringFormatter'
 import {mount} from 'enzyme'
+
+import StringFormatter from './StringFormatter'
 
 describe('tocco-ui', () => {
   describe('FormattedValue', () => {

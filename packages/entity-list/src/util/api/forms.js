@@ -1,7 +1,8 @@
-import {call} from 'redux-saga/effects'
 import _uniq from 'lodash/uniq'
 import {requestSaga} from 'tocco-util/src/rest'
 import {actions, form} from 'tocco-util'
+
+import {call} from 'redux-saga/effects'
 
 export const defaultFormTransformer = json => (json.form)
 

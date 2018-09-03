@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import DecimalFormatter from './DecimalFormatter'
 
+import DecimalFormatter from './DecimalFormatter'
 import {Span} from '../../Typography'
 
 const PercentFormatter = props => (

@@ -1,22 +1,21 @@
-import {call, put, fork, select, takeLatest, take, all} from 'redux-saga/effects'
 import {form} from 'tocco-util'
 import _reduce from 'lodash/reduce'
-import * as actions from './actions'
-import {fetchForm, searchFormTransformer} from '../../util/api/forms'
-import {getPreselectedValues} from '../../util/searchForm'
-import {fetchEntities, searchFilterTransformer} from '../../util/api/entities'
-
-import {SET_INITIALIZED as LIST_SET_INITIALIZED} from '../entityList/actions'
 import {
   actions as formActions,
   getFormValues
 } from 'redux-form'
 import * as formActionTypes from 'redux-form/es/actionTypes'
-
 import _forOwn from 'lodash/forOwn'
 
+import * as actions from './actions'
+import {fetchForm, searchFormTransformer} from '../../util/api/forms'
+import {getPreselectedValues} from '../../util/searchForm'
+import {fetchEntities, searchFilterTransformer} from '../../util/api/entities'
+import {SET_INITIALIZED as LIST_SET_INITIALIZED} from '../entityList/actions'
 import {validateSearchFields} from '../../util/searchFormValidation'
 import {getSearchInputsForRequest} from '../../util/searchInputs'
+
+import {call, put, fork, select, takeLatest, take, all} from 'redux-saga/effects'
 
 export const inputSelector = state => state.input
 export const searchFormSelector = state => state.searchForm

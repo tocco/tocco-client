@@ -1,5 +1,6 @@
-import * as actions from './actions'
 import {reducers} from 'tocco-util'
+
+import * as actions from './actions'
 
 const ACTION_HANDLERS = {
   [actions.SET_FORM_TOUCHED]: reducers.singleTransferReducer('formTouched'),

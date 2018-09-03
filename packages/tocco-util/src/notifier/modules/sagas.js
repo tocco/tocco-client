@@ -1,4 +1,5 @@
-import {takeEvery, fork, call, put, all} from 'redux-saga/effects'
+import {actions as toastrActionsr} from 'react-redux-toastr'
+
 import {
   getInfoAction,
   getConfirmationAction,
@@ -6,9 +7,9 @@ import {
   getBlockingInfo
 } from '../notificationActionFactory'
 import * as actions from './actions'
-import {actions as toastrActionsr} from 'react-redux-toastr'
-
 import actionEmitter from '../../actionEmitter'
+
+import {takeEvery, fork, call, put, all} from 'redux-saga/effects'
 
 export default function* sagas(accept) {
   if (accept) {

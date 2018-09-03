@@ -1,7 +1,9 @@
-import {call} from 'redux-saga/effects'
 import fetchMock from 'fetch-mock'
+
 import * as formDefinition from './formDefinition'
 import {requestSaga} from '../rest'
+
+import {call} from 'redux-saga/effects'
 
 const testField1 = {
   id: 'firstname',

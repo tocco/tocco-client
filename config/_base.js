@@ -1,5 +1,6 @@
 /* eslint key-spacing:0 spaced-comment:0 */
 import path from 'path'
+
 import {argv} from 'yargs'
 
 const config = {

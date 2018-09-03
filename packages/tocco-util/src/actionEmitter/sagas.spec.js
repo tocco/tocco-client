@@ -1,6 +1,7 @@
-import {fork, takeEvery, all, call, put} from 'redux-saga/effects'
 import rootSaga, * as sagas from './sagas'
 import * as actions from './actions'
+
+import {fork, takeEvery, all, call, put} from 'redux-saga/effects'
 
 describe('tocco-util', () => {
   describe('actionEmitter', () => {

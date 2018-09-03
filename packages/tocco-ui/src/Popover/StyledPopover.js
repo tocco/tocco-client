@@ -1,7 +1,7 @@
 import styled from 'styled-components'
+import {theme} from 'styled-system'
 
 import {declareTypograhpy} from '../Typography'
-import {theme} from 'styled-system'
 
 const BORDER_WIDTH = 1
 const ARROW_WIDTH = 16
