@@ -47,7 +47,7 @@ const PhoneEdit = ({value, options, onChange, id, readOnly}) => {
     repositionCaret(newValue, value, currentCaretPosition, inputElement, defaultCountry)
   }
 
-  const displayValue = new AsYouType(defaultCountry).input(value) || value
+  const displayValue = new AsYouType(defaultCountry).input(value) || (value === null ? '' : value)
 
   return (
     <div className={value ? 'input-group' : ''}>
