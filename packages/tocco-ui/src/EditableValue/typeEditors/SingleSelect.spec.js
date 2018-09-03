@@ -18,7 +18,7 @@ describe('tocco-ui', () => {
             ]
           }
 
-          const wrapper = shallow(<SingleSelect options={options} value="1" onChange={() => {}}/>)
+          const wrapper = shallow(<SingleSelect options={options} value={{key: '1'}} onChange={() => {}}/>)
           expect(wrapper.find(TetheredSelectWrap)).to.have.length(1)
           const select = wrapper.find(TetheredSelectWrap)
           expect(select.props().options).to.eql(options.store)

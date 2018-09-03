@@ -8,6 +8,7 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state, props) => ({
+  passwordChange: state.input.passwordChange,
   currentPage: state.login.currentPage,
   showTitle: props.showTitle
 })
