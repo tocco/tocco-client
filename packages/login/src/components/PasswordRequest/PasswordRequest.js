@@ -38,6 +38,7 @@ export class PasswordRequest extends React.Component {
                 name="user"
                 placeholder={this.msg('client.login.form.userPlaceholder')}
                 onChange={this.handleUsernameChange.bind(this)}
+                defaultValue={this.props.username}
               />
             </div>
           </div>
@@ -75,5 +76,6 @@ PasswordRequest.propTypes = {
   changePage: PropTypes.func.isRequired,
   requestPassword: PropTypes.func.isRequired,
   showTitle: PropTypes.bool,
-  pending: PropTypes.bool
+  pending: PropTypes.bool,
+  username: PropTypes.string
 }

@@ -145,6 +145,18 @@ describe('login', () => {
         expect(changePage).to.have.property('callCount', 1)
         expect(changePage.firstCall.args).to.eql([Pages.LOGIN_FORM])
       })
+
+      it('should display default username', () => {
+        const wrapper = shallow(
+          <PasswordRequest
+            intl={IntlStub}
+            changePage={() => undefined}
+            requestPassword={() => undefined}
+            username="tocco"
+          />
+        )
+        expect(wrapper.find('input').props().defaultValue).to.eql('tocco')
+      })
     })
   })
 })
