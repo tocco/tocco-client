@@ -1,7 +1,7 @@
+import fetchMock from 'fetch-mock'
+
 import {setupActions} from './actions'
 import {simpleRequest} from '../rest'
-
-import fetchMock from 'fetch-mock'
 
 describe('tocco-util', () => {
   describe('mockData', () => {

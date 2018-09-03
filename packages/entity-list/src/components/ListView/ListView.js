@@ -2,9 +2,10 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {intlShape} from 'react-intl'
 import LoadMask from 'tocco-ui/src/LoadMask/LoadMask'
+import {actions, form} from 'tocco-util'
+
 import {getColumnDefinition} from '../../util/api/forms'
 import TableContainer from '../../containers/TableContainer'
-import {actions, form} from 'tocco-util'
 
 class ListView extends React.Component {
   componentWillMount = () => {

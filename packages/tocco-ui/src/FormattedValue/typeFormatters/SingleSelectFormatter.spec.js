@@ -1,6 +1,7 @@
 import React from 'react'
-import SingleSelectFormatter from './SingleSelectFormatter'
 import {mount} from 'enzyme'
+
+import SingleSelectFormatter from './SingleSelectFormatter'
 
 describe('tocco-ui', () => {
   describe('FormattedValue', () => {

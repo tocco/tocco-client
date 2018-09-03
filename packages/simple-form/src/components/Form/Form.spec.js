@@ -2,8 +2,9 @@ import React from 'react'
 import {Field} from 'redux-form'
 import {Provider} from 'react-redux'
 import {createStore} from 'redux'
-import Form from './Form'
 import {IntlStub, intlEnzyme} from 'tocco-test-util'
+
+import Form from './Form'
 
 const EMPTY_FUNC = () => {
 }

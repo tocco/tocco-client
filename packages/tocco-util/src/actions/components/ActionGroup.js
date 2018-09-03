@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-
-import GroupElement from './GroupElement'
 import {Button} from 'tocco-ui'
 import {intlShape} from 'react-intl'
-import {isValidSelection, selectionText} from './selectionHelper'
 import {Item, ItemFlyout, MenuButton, MenuButtonGroup, MenuStack} from 'tocco-ui/src/Menu'
+
+import {isValidSelection, selectionText} from './selectionHelper'
+import GroupElement from './GroupElement'
 
 const MainAction = ({definition, selectedCount, onClick}, context) => {
   const validSelection = isValidSelection(selectedCount, definition)

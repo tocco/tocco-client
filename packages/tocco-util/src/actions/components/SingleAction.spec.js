@@ -1,7 +1,8 @@
 import React from 'react'
-import SingleAction from './SingleAction'
 import {Button} from 'tocco-ui'
 import {intlEnzyme} from 'tocco-test-util'
+
+import SingleAction from './SingleAction'
 
 describe('tocco-util', () => {
   describe('actions', () => {

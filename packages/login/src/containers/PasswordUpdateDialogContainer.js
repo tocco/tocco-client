@@ -1,5 +1,6 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+
 import PasswordUpdateDialog from '../components/passwordUpdate/PasswordUpdateDialog'
 import {initialized} from '../modules/passwordUpdate/actions'
 import {

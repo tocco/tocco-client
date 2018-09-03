@@ -10,12 +10,12 @@ import {
   actions,
   formData
 } from 'tocco-util'
+import _pickBy from 'lodash/pickBy'
+import _isEqual from 'lodash/isEqual'
 
 import reducers, {sagas} from './modules/reducers'
 import EntityListContainer from './containers/EntityListContainer'
 import {getDispatchActions} from './input'
-import _pickBy from 'lodash/pickBy'
-import _isEqual from 'lodash/isEqual'
 import {selectionStylePropType} from './util/selectionStyles'
 const packageName = 'entity-list'
 

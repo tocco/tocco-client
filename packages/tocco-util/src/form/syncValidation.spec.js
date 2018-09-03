@@ -1,5 +1,6 @@
-import syncValidation from './syncValidation'
 import {IntlStub} from 'tocco-test-util'
+
+import syncValidation from './syncValidation'
 
 describe('tocco-util', () => {
   describe('form', () => {

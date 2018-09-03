@@ -1,7 +1,8 @@
 
 import React from 'react'
-import Link from './Link'
 import {mount, shallow} from 'enzyme'
+
+import Link from './Link'
 
 describe('tocco-ui', function() {
   describe('Link', function() {

@@ -1,7 +1,7 @@
 import React from 'react'
 import {FormattedDate, injectIntl, intlShape} from 'react-intl'
-import {matchesIsoDate} from '../util/DateUtils'
 
+import {matchesIsoDate} from '../util/DateUtils'
 import {Time} from '../../Typography'
 
 const DateFormatter = props => {

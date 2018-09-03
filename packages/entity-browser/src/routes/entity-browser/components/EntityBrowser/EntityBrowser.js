@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {notifier} from 'tocco-util'
+
 import RouteWithSubRoutes from '../../../../components/RouteWithSubRoutes'
 
 class EntityBrowser extends React.Component {

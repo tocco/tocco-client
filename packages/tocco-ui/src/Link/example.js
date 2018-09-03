@@ -1,5 +1,6 @@
 /* eslint no-console: 0 */
 import React from 'react'
+
 import Link from './'
 // real-import:import {Link} from 'tocco-ui'
 

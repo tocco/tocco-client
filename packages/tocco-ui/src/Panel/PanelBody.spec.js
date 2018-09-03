@@ -1,7 +1,8 @@
 
 import React from 'react'
-import PanelBody from './PanelBody'
 import {mount} from 'enzyme'
+
+import PanelBody from './PanelBody'
 // import 'styled-components-test-utils/lib/chai';
 
 describe('tocco-ui', function() {

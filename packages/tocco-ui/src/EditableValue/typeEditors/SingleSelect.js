@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import TetheredSelectWrap from './TetherSelectWrap'
 import _isEmpty from 'lodash/isEmpty'
+
+import TetheredSelectWrap from './TetherSelectWrap'
 import ValueRenderer from './select/ValueRenderer'
 
 const SingleSelect = props => {

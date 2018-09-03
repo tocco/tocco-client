@@ -1,5 +1,7 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {formData} from 'tocco-util'
+
 import SearchForm from '../components/SearchForm'
 import {
   submitSearchForm,
@@ -8,7 +10,6 @@ import {
   loadSearchFilters,
   advancedSearchUpdate
 } from '../modules/searchForm/actions'
-import {formData} from 'tocco-util'
 
 const mapActionCreators = {
   submitSearchForm,

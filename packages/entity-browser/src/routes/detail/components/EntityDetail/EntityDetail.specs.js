@@ -1,9 +1,10 @@
 import React from 'react'
-import EntityDetail from './'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {mount} from 'enzyme'
 import {IntlStub} from 'tocco-test-util'
 import {MemoryRouter} from 'react-router-dom'
+
+import EntityDetail from './'
 
 const EMPTY_FUNC = () => {}
 

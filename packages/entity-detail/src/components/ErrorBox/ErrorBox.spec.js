@@ -1,7 +1,8 @@
 import React from 'react'
-import ErrorBox from './ErrorBox'
 import {mount} from 'enzyme'
 import {IntlProvider} from 'react-intl'
+
+import ErrorBox from './ErrorBox'
 
 const EMPTY_FUNC = () => {}
 

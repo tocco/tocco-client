@@ -1,6 +1,7 @@
 import React from 'react'
-import SearchPanel from './SearchPanel'
 import {shallow, render} from 'enzyme'
+
+import SearchPanel from './SearchPanel'
 
 const EMPTY_FUNC = () => {}
 

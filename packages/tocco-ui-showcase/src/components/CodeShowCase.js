@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+
 import Example from './Example'
 
 const CodeShowCase = props => {

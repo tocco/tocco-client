@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedValue} from 'tocco-ui'
+
 import SingleSelection from './SingleSelection'
 
 const FieldRow = props => {

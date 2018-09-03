@@ -1,7 +1,8 @@
-import {all, call, fork, put, select, takeEvery} from 'redux-saga/effects'
 
 import * as relationEntitiesActions from './actions'
 import {fetchEntities} from '../../rest'
+
+import {all, call, fork, put, select, takeEvery} from 'redux-saga/effects'
 
 export default function* sagas() {
   yield all([

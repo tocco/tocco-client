@@ -1,7 +1,8 @@
 import {IntlStub} from 'tocco-test-util'
-import formattedValueFactory from './formattedValueFactory'
 import {FormattedValue} from 'tocco-ui'
 import {shallow} from 'enzyme'
+
+import formattedValueFactory from './formattedValueFactory'
 
 describe('entity-list', () => {
   describe('util', () => {

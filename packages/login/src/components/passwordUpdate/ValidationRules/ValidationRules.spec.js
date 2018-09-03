@@ -1,7 +1,8 @@
 import React from 'react'
-import ValidationRules from './ValidationRules'
 import {SignalListItem} from 'tocco-ui/src/SignalList'
 import {mount, shallow} from 'enzyme'
+
+import ValidationRules from './ValidationRules'
 
 describe('login', () => {
   describe('components', () => {

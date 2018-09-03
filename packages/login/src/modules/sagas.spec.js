@@ -1,14 +1,15 @@
-import {takeLatest, put, select, call, fork, all} from 'redux-saga/effects'
-import * as actions from './actions'
-import rootSaga, * as sagas from './sagas'
 import {externalEvents} from 'tocco-util'
 
+import * as actions from './actions'
+import rootSaga, * as sagas from './sagas'
 import {changePage, setPassword} from './login/actions'
 import {setMessage, setPending} from './loginForm/actions'
 import {setRequestedCode} from './twoStepLogin/actions'
 import {updateOldPassword} from './passwordUpdate/password/actions'
 import {setUsername} from './passwordUpdate/dialog/actions'
 import {Pages} from '../types/Pages'
+
+import {takeLatest, put, select, call, fork, all} from 'redux-saga/effects'
 
 describe('login', () => {
   describe('modules', () => {

@@ -1,5 +1,5 @@
-import {call, take} from 'redux-saga/effects'
 import {channel} from 'redux-saga'
+
 import {
   handleClientQuestion,
   getAnswer,
@@ -8,6 +8,8 @@ import {
   answer
 } from './clientQuestions'
 import {sendRequest} from './request'
+
+import {call, take} from 'redux-saga/effects'
 
 describe('tocco-util', () => {
   describe('rest', () => {

@@ -1,5 +1,6 @@
 /* eslint no-console: 0 */
 import React from 'react'
+
 import FormattedValue from './'
 // real-import:import {FormattedValue} from 'tocco-ui'
 

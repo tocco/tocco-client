@@ -1,10 +1,11 @@
 import React from 'react'
-import {LoginForm} from './LoginForm'
 import {shallow} from 'enzyme'
 import {FormattedMessage} from 'react-intl'
 import {Button} from 'tocco-ui'
-import {Pages} from '../../types/Pages'
 import {IntlStub} from 'tocco-test-util'
+
+import {Pages} from '../../types/Pages'
+import {LoginForm} from './LoginForm'
 
 describe('login', () => {
   describe('components', () => {

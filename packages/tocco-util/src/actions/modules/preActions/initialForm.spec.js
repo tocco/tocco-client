@@ -1,9 +1,10 @@
 import {channel} from 'redux-saga'
 import {expectSaga} from 'redux-saga-test-plan'
+import * as matchers from 'redux-saga-test-plan/matchers'
+
 import initialForm from './initialForm'
 import {MODAL_COMPONENT} from '../../../notifier/modules/actions'
 import {fetchForm, fetchModel} from '../../../rest'
-import * as matchers from 'redux-saga-test-plan/matchers'
 
 describe('tocco-util', () => {
   describe('actions', () => {

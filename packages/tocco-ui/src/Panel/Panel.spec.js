@@ -1,7 +1,8 @@
 
 import React from 'react'
-import Panel from './Panel'
 import {shallow} from 'enzyme'
+
+import Panel from './Panel'
 
 describe('tocco-ui', function() {
   describe('Panel', function() {

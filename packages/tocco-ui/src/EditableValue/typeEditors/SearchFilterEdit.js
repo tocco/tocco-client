@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+
 import MultiSelect from './MultiSelect'
 import SingleSelect from './SingleSelect'
 

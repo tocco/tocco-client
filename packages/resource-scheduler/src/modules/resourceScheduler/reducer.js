@@ -1,6 +1,7 @@
-import * as actions from './actions'
 import {reducers} from 'tocco-util'
 import _omit from 'lodash/omit'
+
+import * as actions from './actions'
 
 const updateRequestedCalendars = (state, {payload: {ids, calendarType}}) => ({
   ...state,

@@ -1,6 +1,7 @@
 import React from 'react'
-import Popover from './Popover'
 import {mount} from 'enzyme'
+
+import Popover from './Popover'
 
 describe('tocco-ui', () => {
   describe('Popover', () => {

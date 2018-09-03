@@ -1,21 +1,23 @@
-import {put, select, call, fork, takeLatest, all, take} from 'redux-saga/effects'
 import {form} from 'tocco-util'
-import * as actions from './actions'
-import rootSaga, * as sagas from './sagas'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {
-  fetchEntities,
-  searchFilterTransformer
-} from '../../util/api/entities'
 import {
   actions as formActions
 } from 'redux-form'
 import * as formActionTypes from 'redux-form/es/actionTypes'
+
+import {
+  fetchEntities,
+  searchFilterTransformer
+} from '../../util/api/entities'
+import rootSaga, * as sagas from './sagas'
+import * as actions from './actions'
 import {validateSearchFields} from '../../util/searchFormValidation'
 import {getSearchInputsForRequest} from '../../util/searchInputs'
 import {fetchForm} from '../../util/api/forms'
 import {setInitialized} from '../entityList/actions'
+
+import {put, select, call, fork, takeLatest, all, take} from 'redux-saga/effects'
 
 describe('entity-list', () => {
   describe('modules', () => {

@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {intlShape, FormattedMessage} from 'react-intl'
 import classNames from 'classnames'
+
 import EditOption from './EditOption'
 import {SourceEntityAction} from '../../types/SourceEntityAction'
 

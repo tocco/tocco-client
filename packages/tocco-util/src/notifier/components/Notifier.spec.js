@@ -1,7 +1,8 @@
 import React from 'react'
-import Notifier from './Notifier'
 import {shallow} from 'enzyme'
 import ReduxToastr from 'react-redux-toastr'
+
+import Notifier from './Notifier'
 import ModalDisplayContainer from '../modules/modalComponents/ModalDisplayContainer'
 
 describe('tocco-util', () => {

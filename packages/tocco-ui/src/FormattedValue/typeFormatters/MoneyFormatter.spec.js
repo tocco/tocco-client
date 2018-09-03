@@ -1,7 +1,8 @@
 import React from 'react'
-import MoneyFormatter from './MoneyFormatter'
 import {mount} from 'enzyme'
 import {addLocaleData, IntlProvider} from 'react-intl'
+
+import MoneyFormatter from './MoneyFormatter'
 
 describe('tocco-ui', () => {
   describe('FormattedValue', () => {

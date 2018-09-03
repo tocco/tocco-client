@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReduxToastr from 'react-redux-toastr'
+
 import {defaultToastrOptions} from '../notifier'
 import ModalDisplayContainer from '../modules/modalComponents/ModalDisplayContainer'
 

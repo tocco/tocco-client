@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+
 import assertObjectValuesMatchOtherObjectKeys from './assertObjectValuesMatchOtherObjectKeys'
 
 const animation = {

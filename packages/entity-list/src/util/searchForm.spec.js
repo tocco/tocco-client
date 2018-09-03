@@ -1,6 +1,7 @@
+import {call} from 'redux-saga/es/effects'
+
 import * as searchForm from './searchForm'
 import {fetchEntities} from '../../../tocco-util/src/rest'
-import {call} from 'redux-saga/es/effects'
 
 describe('entity-list', () => {
   describe('util', () => {

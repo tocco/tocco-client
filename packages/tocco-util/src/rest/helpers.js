@@ -1,5 +1,6 @@
-import {call} from 'redux-saga/effects'
 import {requestSaga} from './rest'
+
+import {call} from 'redux-saga/effects'
 
 /**
  * Helper to fetch entities.

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+
 import {P} from '../../Typography'
 
 const TextFormatter = props => {

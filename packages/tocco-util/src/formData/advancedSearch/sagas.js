@@ -1,11 +1,13 @@
-import {all, call, fork, put, takeEvery, take, spawn, select} from 'redux-saga/effects'
 import {channel} from 'redux-saga'
 import _join from 'lodash/join'
 import uuid from 'uuid/v4'
+
 import notifier from './../../notifier'
 import {fetchEntities} from '../../rest'
 import * as advancedSearchActions from './actions'
 import {getSelection, getValue, getAdvancedSearchComponent} from './utils'
+
+import {all, call, fork, put, takeEvery, take, spawn, select} from 'redux-saga/effects'
 
 export const textResourceSelector = (state, key) => state.intl.messages[key] || key
 

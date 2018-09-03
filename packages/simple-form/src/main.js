@@ -1,8 +1,8 @@
 import React from 'react'
 import {appFactory, externalEvents, formData, notifier, actionEmitter} from 'tocco-util'
+import PropTypes from 'prop-types'
 
 import reducers, {sagas} from './modules/reducers'
-import PropTypes from 'prop-types'
 
 const packageName = 'simple-form'
 

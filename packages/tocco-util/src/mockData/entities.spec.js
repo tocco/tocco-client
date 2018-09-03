@@ -1,7 +1,8 @@
-import {setupEntities} from './entities'
 import _get from 'lodash/get'
-import {createUsers} from './entityFactory'
 import fetchMock from 'fetch-mock'
+
+import {setupEntities} from './entities'
+import {createUsers} from './entityFactory'
 import {simpleRequest} from '../rest'
 
 describe('tocco-util', () => {

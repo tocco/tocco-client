@@ -1,9 +1,10 @@
 import React from 'react'
-import {PasswordRequest} from './PasswordRequest'
 import {shallow} from 'enzyme'
-import {Pages} from '../../types/Pages'
 import {Button} from 'tocco-ui'
 import {IntlStub} from 'tocco-test-util'
+
+import {Pages} from '../../types/Pages'
+import {PasswordRequest} from './PasswordRequest'
 
 describe('login', () => {
   describe('components', () => {

@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import lazyComponent from '../../util/lazyComponent'
-
-import {declareTypograhpy} from '../../Typography'
 import styled from 'styled-components'
+
+import lazyComponent from '../../util/lazyComponent'
+import {declareTypograhpy} from '../../Typography'
 
 const StyledHtmlEdit = styled.div`
 && {

@@ -1,5 +1,6 @@
 /* eslint no-console: 0 */
 import React from 'react'
+
 import SignalList, {SignalListItem} from './'
 // real-import:import {SignalList, SignalListItem} from 'tocco-ui'
 

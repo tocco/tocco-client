@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import DateAbstract from './DateAbstract'
-import {atMostOne, toLocalDateString, momentJStoToFlatpickrFormat} from '../utils'
 import moment from 'moment'
 import {injectIntl, intlShape} from 'react-intl'
+
+import DateAbstract from './DateAbstract'
+import {atMostOne, toLocalDateString, momentJStoToFlatpickrFormat} from '../utils'
 
 class DateEdit extends React.Component {
   DATE_FORMAT = 'YYYY-MM-DD'

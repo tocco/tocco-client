@@ -1,6 +1,5 @@
 // https://gist.github.com/julianocomg/296469e414db1202fc86
 import PropTypes from 'prop-types'
-
 import React from 'react'
 
 class Affix extends React.Component {

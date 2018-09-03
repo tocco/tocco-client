@@ -1,7 +1,6 @@
 import styled, {keyframes} from 'styled-components'
 
 import {StyledIcon} from '../Icon'
-
 import {
   declareFlatBaseColors,
   declareFlatPrimaryColors,

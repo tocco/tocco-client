@@ -1,6 +1,7 @@
 import React from 'react'
-import ButtonGroup from './ButtonGroup'
 import {shallow} from 'enzyme'
+
+import ButtonGroup from './ButtonGroup'
 
 describe('tocco-ui', function() {
   describe('ButtonGroup', function() {

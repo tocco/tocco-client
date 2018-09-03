@@ -1,7 +1,7 @@
 import React from 'react'
-import SearchBox from './SearchBox'
-
 import {shallow} from 'enzyme'
+
+import SearchBox from './SearchBox'
 
 describe('tocco-ui', function() {
   describe('SearchBox', function() {

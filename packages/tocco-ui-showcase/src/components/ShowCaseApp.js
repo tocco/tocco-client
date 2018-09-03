@@ -1,18 +1,17 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {addLocaleData, IntlProvider} from 'react-intl'
-import Navigation from './Navigation'
-import LocaleSwitcher from './LocaleSwitcher'
-import ShowCaseList from './ShowCaseList'
-import Affix from './Affix'
 import {ThemeProvider} from 'styled-components'
-
 import de from 'react-intl/locale-data/de'
 import en from 'react-intl/locale-data/en'
 import fr from 'react-intl/locale-data/fr'
 import it from 'react-intl/locale-data/it'
-
 import {ToccoTheme} from 'tocco-theme'
+
+import Affix from './Affix'
+import ShowCaseList from './ShowCaseList'
+import LocaleSwitcher from './LocaleSwitcher'
+import Navigation from './Navigation'
 import InjectFontRoboto from '../../../tocco-ui/src/Typography/Font'
 
 export default class ShowCaseApp extends React.Component {

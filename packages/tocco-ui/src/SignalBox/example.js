@@ -1,5 +1,6 @@
 /* eslint no-console: 0 */
 import React from 'react'
+
 import SignalBox from './'
 import SignalList, {SignalListItem} from '../SignalList'
 import {B, I, P} from '../Typography'

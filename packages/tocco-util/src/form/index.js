@@ -10,7 +10,6 @@ import {
   transformFieldName,
   transformFieldNameBack
 } from './reduxForm'
-
 import componentTypes from './enums/componentTypes'
 import layoutTypes from './enums/layoutTypes'
 import scopes from './enums/scopes'

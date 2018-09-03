@@ -1,4 +1,3 @@
-import {takeLatest, fork, put, select, call, all} from 'redux-saga/effects'
 import {externalEvents, consoleLogger} from 'tocco-util'
 
 import * as actions from './actions'
@@ -8,6 +7,8 @@ import {updateOldPassword} from './passwordUpdate/password/actions'
 import {setUsername} from './passwordUpdate/dialog/actions'
 import {changePage, setPassword} from './login/actions'
 import {Pages} from '../types/Pages'
+
+import {takeLatest, fork, put, select, call, all} from 'redux-saga/effects'
 
 export const DEFAULT_TIMEOUT = 30
 

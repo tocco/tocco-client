@@ -1,7 +1,8 @@
 import React from 'react'
-import DateFormatter from './DateFormatter'
 import {mount} from 'enzyme'
 import {addLocaleData, IntlProvider} from 'react-intl'
+
+import DateFormatter from './DateFormatter'
 
 describe('tocco-ui', function() {
   describe('FormattedValue', function() {

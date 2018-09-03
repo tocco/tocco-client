@@ -1,5 +1,6 @@
-import typeFormatterProvider from './typeFormatterProvider'
 import {shallow, mount} from 'enzyme'
+
+import typeFormatterProvider from './typeFormatterProvider'
 import StringFormatter from './typeFormatters/StringFormatter'
 
 describe('tocco-ui', () => {

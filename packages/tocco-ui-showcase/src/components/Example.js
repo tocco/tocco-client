@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import Highlight from 'react-highlight'
+
 import '!style-loader!css-loader!highlight.js/styles/github.css'
 import {extractExampleCode, extractRealImports, removeIndent} from './../util/ExampleParser'
 

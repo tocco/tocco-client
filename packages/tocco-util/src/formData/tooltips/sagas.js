@@ -1,9 +1,9 @@
-import {all, call, fork, put, select, takeEvery} from 'redux-saga/effects'
+import _get from 'lodash/get'
 
 import * as tooltipActions from './actions'
 import {requestSaga} from '../../rest'
 
-import _get from 'lodash/get'
+import {all, call, fork, put, select, takeEvery} from 'redux-saga/effects'
 
 export default function* sagas() {
   yield all([

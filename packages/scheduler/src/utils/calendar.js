@@ -1,5 +1,6 @@
 import classNames from 'classnames'
 import {color} from 'tocco-util'
+
 import conflicts from './conflicts'
 
 const getResourceId = (id, model) => id + model

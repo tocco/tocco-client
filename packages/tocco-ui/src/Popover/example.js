@@ -1,6 +1,6 @@
 import React from 'react'
-import Popover from './'
 
+import Popover from './'
 import Button from '../Button'
 import Icon from '../Icon'
 import {H4, Span, P} from '../Typography'

@@ -1,8 +1,8 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
-import EntityDetail from '../components/EntityDetail'
 import {actionEmitter} from 'tocco-util'
 
+import EntityDetail from '../components/EntityDetail'
 import {loadDetailParams, clearDetailParams, setFormTouched} from '../modules/actions'
 
 const mapActionCreators = {

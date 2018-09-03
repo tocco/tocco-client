@@ -1,5 +1,6 @@
 /* eslint no-console: 0 */
 import React from 'react'
+
 import LoadMask from './'
 // real-import:import {LoadMask} from 'tocco-ui'
 

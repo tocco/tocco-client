@@ -1,7 +1,6 @@
 import {
   addToStore
 } from './externalEvents'
-
 import {
   fireExternalEvent
 } from './actions'

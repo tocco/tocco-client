@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {intlShape} from 'react-intl'
 import {reduxForm, Field} from 'redux-form'
-
 import {form} from 'tocco-util'
 import {SearchBox} from 'tocco-ui'
 

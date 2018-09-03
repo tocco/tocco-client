@@ -1,6 +1,8 @@
-import {call} from 'redux-saga/effects'
 import {requestSaga} from 'tocco-util/src/rest'
+
 import * as entities from './entities'
+
+import {call} from 'redux-saga/effects'
 
 describe('entity-browser', () => {
   describe('util', () => {

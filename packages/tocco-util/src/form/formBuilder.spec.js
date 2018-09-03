@@ -1,8 +1,9 @@
-import createFromBuilder from './formBuilder'
 import React from 'react'
 import {shallow} from 'enzyme'
 import {LayoutBox} from 'tocco-ui'
 import {Field} from 'redux-form'
+
+import createFromBuilder from './formBuilder'
 
 const testData = {
   entity: {

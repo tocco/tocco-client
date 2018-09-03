@@ -1,7 +1,8 @@
 import rootSaga, * as sagas from './sagas'
-import {call, takeEvery} from 'redux-saga/effects'
 import * as actions from './actions'
 import handlerRegistry from './handlerRegistry'
+
+import {call, takeEvery} from 'redux-saga/effects'
 
 describe('tocco-util', () => {
   describe('errorLogging', () => {

@@ -3,7 +3,6 @@ import React from 'react'
 
 import MergeMatrixContainer from './../../containers/MergeMatrixContainer'
 import MergeStrategyContainer from './../../containers/MergeStrategyContainer'
-
 import {Wizard} from './../Wizard'
 import MergeResponse from './MergeResponse'
 

@@ -1,5 +1,6 @@
 import webpack from 'webpack'
 import _debug from 'debug'
+
 import config from '../config'
 
 const debug = _debug('app:build:webpack-compiler')

@@ -1,8 +1,9 @@
 import React from 'react'
-import MergeResponse, {EntityResponseTable} from './MergeResponse'
 import {shallow} from 'enzyme'
 import {FormattedMessage} from 'react-intl'
 import {IntlStub} from 'tocco-test-util'
+
+import MergeResponse, {EntityResponseTable} from './MergeResponse'
 
 const EMPTY_FUNC = () => {}
 

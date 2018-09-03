@@ -1,7 +1,7 @@
 import React from 'react'
-import LoadMask from './LoadMask'
 import {shallow, mount} from 'enzyme'
 
+import LoadMask from './LoadMask'
 import IconTocco from '../IconTocco'
 import {Span} from '../Typography'
 

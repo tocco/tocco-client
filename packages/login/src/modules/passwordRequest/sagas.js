@@ -1,9 +1,11 @@
-import {fork, put, call, select, takeLatest, all} from 'redux-saga/effects'
 import {requestSaga} from 'tocco-util/src/rest'
+
 import * as actions from './actions'
 import {changePage, setUsername} from '../login/actions'
 import {setMessage, setPending} from '../loginForm/actions'
 import {Pages} from '../../types/Pages'
+
+import {fork, put, call, select, takeLatest, all} from 'redux-saga/effects'
 
 export const textResourceSelector = state => state.intl.messages
 

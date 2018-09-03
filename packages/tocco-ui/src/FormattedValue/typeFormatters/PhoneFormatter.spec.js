@@ -1,6 +1,7 @@
 import React from 'react'
-import PhoneFormatter from './PhoneFormatter'
 import {shallow} from 'enzyme'
+
+import PhoneFormatter from './PhoneFormatter'
 
 describe('tocco-ui', () => {
   describe('FormattedValue', () => {

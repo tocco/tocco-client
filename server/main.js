@@ -1,9 +1,13 @@
-const express = require('express')
 const path = require('path')
+
+const express = require('express')
 const webpack = require('webpack')
+
 const webpackConfig = require('../build/webpack.config').default
 const config = require('../config').default
+
 const compress = require('compression')
+
 const updateMutableImportSCSS = require('../build/mutable-scss-imports').updateMutableImportSCSS
 const app = express()
 const logger = require('../build/lib/logger').default

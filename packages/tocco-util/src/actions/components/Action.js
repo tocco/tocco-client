@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import _omit from 'lodash/omit'
+
 import {COMPONENT_TYPE_ACTION_GROUP, modeFitsScopes} from '../actions'
 import ActionGroup from './ActionGroup'
 import SingleAction from './SingleAction'

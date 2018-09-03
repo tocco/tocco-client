@@ -2,7 +2,6 @@ import {theme} from 'styled-system'
 import styled from 'styled-components'
 
 import {StyledSignalListItem} from '../SignalList'
-
 import {
   oneOfPropTypeAndCompletelyMapped,
   stylingCondition

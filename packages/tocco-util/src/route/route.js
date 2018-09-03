@@ -1,4 +1,5 @@
 import React from 'react'
+
 import appFactory from '../appFactory'
 import asyncRoute from './asyncRoute'
 import {dispatchInput} from './input'

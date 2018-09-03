@@ -1,5 +1,6 @@
 import React from 'react'
 import {mount} from 'enzyme'
+
 import lazyComponent from './lazyComponent'
 
 describe('tocco-ui', () => {

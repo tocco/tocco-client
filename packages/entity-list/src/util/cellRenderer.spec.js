@@ -1,11 +1,12 @@
 import React from 'react'
 import {IntlStub} from 'tocco-test-util'
-import cellRenderer from './cellRenderer'
 import {shallow} from 'enzyme'
 import {FormattedValue} from 'tocco-ui'
 import {actions} from 'tocco-util'
 import {Provider} from 'react-redux'
 import {createStore} from 'redux'
+
+import cellRenderer from './cellRenderer'
 
 describe('entity-list', () => {
   describe('util', () => {

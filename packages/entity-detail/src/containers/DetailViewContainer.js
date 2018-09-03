@@ -8,6 +8,9 @@ import {
   getFormAsyncErrors,
   getFormSubmitErrors
 } from 'redux-form'
+import {errorLogging, formData} from 'tocco-util'
+import EntityListApp from 'tocco-entity-list/src/main'
+
 import {
   loadDetailView,
   unloadDetailView,
@@ -17,8 +20,6 @@ import {
   advancedSearchUpdate
 } from '../modules/entityDetail/actions'
 import DetailView from '../components/DetailView/DetailView'
-import {errorLogging, formData} from 'tocco-util'
-import EntityListApp from 'tocco-entity-list/src/main'
 
 const mapActionCreators = {
   loadDetailView,

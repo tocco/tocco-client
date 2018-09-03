@@ -1,10 +1,9 @@
 import React from 'react'
 import {appFactory, externalEvents} from 'tocco-util'
+import PropTypes from 'prop-types'
 
 import reducers, {sagas} from './modules/reducers'
-import PropTypes from 'prop-types'
 import SchedulerContainer from './containers/SchedulerContainer'
-
 import {getDispatchActions} from './input'
 
 const packageName = 'scheduler'

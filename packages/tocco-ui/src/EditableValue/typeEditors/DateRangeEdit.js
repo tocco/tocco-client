@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import DateAbstract from './DateAbstract'
-import {momentJStoToFlatpickrFormat} from '../utils'
 import moment from 'moment'
 import {injectIntl, intlShape} from 'react-intl'
+
+import DateAbstract from './DateAbstract'
+import {momentJStoToFlatpickrFormat} from '../utils'
 
 const DateRangeEdit = props => {
   const flatpickrOptions = {

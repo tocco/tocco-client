@@ -1,8 +1,9 @@
 import React from 'react'
-import PasswordUpdateDialog from './PasswordUpdateDialog'
 import {Button, LoadMask} from 'tocco-ui'
 import {mount, shallow} from 'enzyme'
 import {IntlStub} from 'tocco-test-util'
+
+import PasswordUpdateDialog from './PasswordUpdateDialog'
 
 describe('login', () => {
   describe('components', () => {

@@ -2,6 +2,7 @@ import React from 'react'
 import {BootstrapTable} from 'react-bootstrap-table'
 import {IntlStub} from 'tocco-test-util/src/main'
 import {shallow} from 'enzyme'
+
 import Table from './Table'
 
 const EMPTY_FUNC = () => {}

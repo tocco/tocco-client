@@ -1,5 +1,6 @@
 import React from 'react'
 import {mount} from 'enzyme'
+
 import ShowCaseApp from './ShowCaseApp'
 
 const cpn = () => ''

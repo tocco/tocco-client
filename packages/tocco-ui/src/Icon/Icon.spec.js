@@ -1,6 +1,7 @@
 import React from 'react'
-import Icon from './Icon'
 import {shallow} from 'enzyme'
+
+import Icon from './Icon'
 
 describe('tocco-ui', function() {
   describe('Icon', function() {

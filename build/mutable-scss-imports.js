@@ -1,5 +1,7 @@
 import fs from 'fs'
+
 import glob from 'glob'
+
 import logger from './lib/logger'
 
 export const updateMutableImportSCSS = function() {

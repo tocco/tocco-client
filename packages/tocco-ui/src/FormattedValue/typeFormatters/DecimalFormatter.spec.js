@@ -1,7 +1,8 @@
 import React from 'react'
-import DecimalFormatter from './DecimalFormatter'
 import {mount} from 'enzyme'
 import {addLocaleData, IntlProvider} from 'react-intl'
+
+import DecimalFormatter from './DecimalFormatter'
 
 describe('tocco-ui', () => {
   describe('FormattedValue', () => {

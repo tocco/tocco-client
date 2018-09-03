@@ -3,10 +3,11 @@ import React, {Component} from 'react'
 import classNames from 'classnames'
 import {FormattedMessage, intlShape} from 'react-intl'
 import {Button, LoadMask} from 'tocco-ui'
+import SignalList, {SignalListItem} from 'tocco-ui/src/SignalList'
+
 import PasswordInput from './PasswordInput'
 import ValidationRules from '../ValidationRules'
 import FailureMessage from '../FailureMessage'
-import SignalList, {SignalListItem} from 'tocco-ui/src/SignalList'
 
 class PasswordUpdateDialog extends Component {
   componentWillMount() {

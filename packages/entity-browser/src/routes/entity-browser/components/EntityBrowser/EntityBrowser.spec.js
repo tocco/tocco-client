@@ -1,5 +1,6 @@
 import React from 'react'
 import {shallow} from 'enzyme'
+
 import RouteWithSubRoutes from '../../../../components/RouteWithSubRoutes'
 import EntityBrowser from './EntityBrowser'
 

@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-
 import _debounce from 'lodash/debounce'
 
 import Button from '../Button'

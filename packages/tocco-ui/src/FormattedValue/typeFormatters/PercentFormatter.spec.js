@@ -1,7 +1,8 @@
 import React from 'react'
-import PercentFormatter from './PercentFormatter'
 import {mount} from 'enzyme'
 import {addLocaleData, IntlProvider} from 'react-intl'
+
+import PercentFormatter from './PercentFormatter'
 
 describe('tocco-ui', () => {
   describe('FormattedValue', () => {

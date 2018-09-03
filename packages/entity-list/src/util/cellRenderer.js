@@ -1,6 +1,7 @@
 import React from 'react'
 import {actions, form} from 'tocco-util'
 import {FormattedValue} from 'tocco-ui'
+
 import formattedValueFactory from './formattedValueFactory'
 
 export default (field, entity, parent, cb, intl) => {

@@ -3,9 +3,9 @@ import {MemoryRouter} from 'react-router-dom'
 import {Field} from 'redux-form'
 import {Provider} from 'react-redux'
 import {createStore} from 'redux'
-import DetailForm from './DetailForm'
-
 import {IntlStub, intlEnzyme} from 'tocco-test-util'
+
+import DetailForm from './DetailForm'
 
 const EMPTY_FUNC = () => {
 }

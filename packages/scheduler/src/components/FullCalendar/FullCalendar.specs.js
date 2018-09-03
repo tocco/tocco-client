@@ -1,6 +1,7 @@
 import React from 'react'
-import FullCalendar from './FullCalendar'
 import {intlEnzyme} from 'tocco-test-util'
+
+import FullCalendar from './FullCalendar'
 
 describe('scheduler', () => {
   describe('components', () => {

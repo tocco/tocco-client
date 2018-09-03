@@ -1,7 +1,8 @@
 import React from 'react'
-import Conflict from './Conflict'
 import {shallow} from 'enzyme'
 import {IntlStub} from 'tocco-test-util'
+
+import Conflict from './Conflict'
 
 describe('scheduler', () => {
   describe('components', () => {

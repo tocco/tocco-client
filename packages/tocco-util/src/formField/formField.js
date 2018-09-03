@@ -1,6 +1,7 @@
 import React from 'react'
 import _get from 'lodash/get'
 import {FormField} from 'tocco-ui'
+
 import consoleLogger from '../consoleLogger'
 
 export const formFieldFactory = (mapping, data, resources = {}) => {
