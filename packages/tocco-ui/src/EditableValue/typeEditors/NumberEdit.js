@@ -6,6 +6,7 @@ const convertStringToNumber = stringValue => (
 )
 
 const NumberEdit = props => {
+  const value = props.value === null ? '' : props.value
   const handleChange = e => {
     if (props.onChange) {
       props.onChange(convertStringToNumber(e.target.value))
@@ -17,7 +18,7 @@ const NumberEdit = props => {
       type="number"
       className="form-control"
       name={props.name}
-      value={props.value}
+      value={value}
       onChange={handleChange}
       id={props.id}
       disabled={props.readOnly}
