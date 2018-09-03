@@ -9,7 +9,9 @@
     "react",
     "promise",
     "import",
-    "chai-friendly"
+    "chai-friendly",
+    "import",
+    "monorepo"
   ],
   "env"     : {
     "browser" : true
@@ -53,24 +55,21 @@
 
     "react/jsx-no-bind": [2, { "allowArrowFunctions": true, "allowBind": true }],
     "react/display-name": 0,
-    "react/no-deprecated": 0, //TODO: Remove and fix errros
+    "react/no-deprecated": 0, // TODO: Remove and fix errros
     "react/no-unused-prop-types": 0, // temporary disabled until this issue is solved: https://github.com/yannickcr/eslint-plugin-react/issues/1135
 
     "jsx-quotes": [2, "prefer-double"],
-
-    // "no-duplicate-imports" rule does not support importing types ("import type ...") and
-    // regular values from the same module. Therefore, we have to use "import/no-duplicates",
-    // until "no-duplicate-imports" is fixed.
-    //
-    // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-duplicates.md
-    "no-duplicate-imports": 0,
-    "import/no-duplicates": 2,
-
 
     // "no-unused-expressions" is included with "chai-friendly/no-unused-expressions"
     "no-unused-expressions": 0,
     "chai-friendly/no-unused-expressions": 2,
 
-    "import/no-webpack-loader-syntax": 0
+    "import/default": 2,
+    "import/no-duplicates": 2,
+    "import/order": ["error", {"groups": ["builtin", "external", ["sibling", "parent", "index"]], "newlines-between": "always"}],
+    "import/first": 2,
+    "import/no-webpack-loader-syntax": 0,
+    "monorepo/no-internal-import": 0, // TODO: set to 2 and fix errros
+    "monorepo/no-relative-import": 2
   }
 }
