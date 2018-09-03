@@ -7,12 +7,12 @@ import en from 'react-intl/locale-data/en'
 import fr from 'react-intl/locale-data/fr'
 import it from 'react-intl/locale-data/it'
 import {ToccoTheme} from 'tocco-theme'
+import InjectFontRoboto from 'tocco-ui/src/Typography/Font'
 
 import Affix from './Affix'
 import ShowCaseList from './ShowCaseList'
 import LocaleSwitcher from './LocaleSwitcher'
 import Navigation from './Navigation'
-import InjectFontRoboto from '../../../tocco-ui/src/Typography/Font'
 
 export default class ShowCaseApp extends React.Component {
   constructor(props) {

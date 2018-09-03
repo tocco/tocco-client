@@ -124,6 +124,11 @@ const StyledIconToccoSvg = styled.svg.attrs({
     }
   }
 `
+// TODO: Cleanup export
+export default {
+  StyledIconToccoWrapper,
+  StyledIconToccoSvg
+}
 
 export {
   StyledIconToccoWrapper,

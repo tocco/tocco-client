@@ -11,7 +11,6 @@ import 'fullcalendar-scheduler'
 import 'fullcalendar/dist/locale/fr.js'
 import 'fullcalendar/dist/locale/it.js'
 import 'fullcalendar/dist/locale/de.js'
-
 import '!style-loader!css-loader!fullcalendar/dist/fullcalendar.css'
 import '!style-loader!css-loader!fullcalendar-scheduler/dist/scheduler.css'
 import {injectIntl, intlShape} from 'react-intl'

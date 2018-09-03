@@ -6,7 +6,6 @@ import * as advancedSearchActions from './actions'
 import rootSaga, * as sagas from './sagas'
 import notifier from '../../notifier'
 import {fetchEntities} from '../../rest'
-import {ADVANCED_SEARCH_UPDATE} from '../../../../entity-detail/src/modules/entityDetail/actions'
 
 import {takeEvery, fork, all, select} from 'redux-saga/effects'
 
@@ -77,7 +76,7 @@ describe('tocco-util', () => {
 
           it('should put feedback action if action got dispatched to channel', () => {
             const onSelect = (field, ids) => ({
-              type: ADVANCED_SEARCH_UPDATE,
+              type: advancedSearchActions.ADVANCED_SEARCH_UPDATE,
               payload: {
                 field,
                 ids

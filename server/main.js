@@ -2,18 +2,15 @@ const path = require('path')
 
 const express = require('express')
 const webpack = require('webpack')
+const compress = require('compression')
 
 const webpackConfig = require('../build/webpack.config').default
 const config = require('../config').default
-
-const compress = require('compression')
-
 const updateMutableImportSCSS = require('../build/mutable-scss-imports').updateMutableImportSCSS
-const app = express()
 const logger = require('../build/lib/logger').default
 
-// Apply gzip compression
-app.use(compress())
+const app = express()
+app.use(compress()) // Apply gzip compression
 
 // ------------------------------------
 // Apply Webpack HMR Middleware
