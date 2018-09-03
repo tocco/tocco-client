@@ -96,5 +96,4 @@ const karmaConfig = {
   coverageReporter: config.coverage_reporters
 }
 
-// cannot use `export default` because of Karma.
-module.exports = cfg => cfg.set(karmaConfig)
+export default cfg => cfg.set(karmaConfig)

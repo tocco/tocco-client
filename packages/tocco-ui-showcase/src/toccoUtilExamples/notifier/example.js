@@ -2,8 +2,7 @@
 import React from 'react'
 import {Provider} from 'react-redux'
 import {appFactory, notifier} from 'tocco-util'
-
-import Button from '../../../../tocco-ui/src/Button'
+import {Button} from 'tocco-ui'
 // real-import:import {appFactory, notifier} from 'tocco-util'
 
 const longText = `Lorem ipsum dolor sit amet, at sed inermis intellegam scriptorem, usu facete apeirian ad.

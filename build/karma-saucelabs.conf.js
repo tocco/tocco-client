@@ -1,6 +1,6 @@
 import baseCfg from './karma.conf'
 
-module.exports = cfg => {
+export default cfg => {
   baseCfg(cfg)
 
   const customLaunchers = {
