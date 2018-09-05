@@ -30,7 +30,7 @@ const Navigation = props => {
           props.componentsTree.map(componentGroup => {
             return (
               <li key={componentGroup.category}>
-                <a href={'#' + componentGroup.category}>{componentGroup.category}</a>
+                <a href={'#category-' + componentGroup.category}>{componentGroup.category}</a>
                 <Scrollspy items={getComponentSections(componentGroup.category)} currentClassName="current-nav">
                   {
                     componentGroup.components.map(comp => {

@@ -1,16 +1,15 @@
 import styled from 'styled-components'
 import {theme} from 'styled-system'
 
-const declareBreakpoints = props => {
-  if (props.containerWidth <= 500) {
-    return `${100 / props.maxCellsPerRow.sm}%`
-  } else if (props.containerWidth <= 1000) {
-    return `${100 / props.maxCellsPerRow.md}%`
-  } else if (props.containerWidth <= 1500) {
-    return `${100 / props.maxCellsPerRow.lg}%`
-  } else {
-    return `${100 / props.maxCellsPerRow.xl}%`
-  }
+const setColumnWidth = (containerWidth, maxCellsPerRow) => {
+  const columns = containerWidth <= 500
+    ? maxCellsPerRow.sm
+    : containerWidth <= 1000
+      ? maxCellsPerRow.md
+      : containerWidth <= 1500
+        ? maxCellsPerRow.lg
+        : maxCellsPerRow.xl
+  return `${100 / columns}%`
 }
 
 const declareStylesIfNestedCorrectly = props => {
@@ -18,7 +17,7 @@ const declareStylesIfNestedCorrectly = props => {
     return `
       flex-grow: 1;
       flex-shrink: 0;
-      flex-basis: ${declareBreakpoints(props)};
+      flex-basis: ${setColumnWidth(props.containerWidth, props.maxCellsPerRow)};
       padding: 0 ${theme('space.4')(props)} ${theme('space.5')} ${theme('space.4')(props)};
       padding: 0 15px 20px 15px;
     `

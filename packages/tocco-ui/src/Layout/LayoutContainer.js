@@ -12,19 +12,19 @@ class LayoutContainer extends React.Component {
     containerWidth: undefined
   }
 
-  // get device independent pixel
-  getWidth = () => {
+  setDeviceIndependentPixelWidth = () => {
     this.setState({
       containerWidth: Math.floor(this.node.offsetWidth / window.devicePixelRatio)
     })
   }
+
   componentDidMount() {
-    this.getWidth()
-    window.addEventListener('resize', this.getWidth)
+    this.setDeviceIndependentPixelWidth()
+    window.addEventListener('resize', this.setDeviceIndependentPixelWidth)
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.getWidth)
+    window.removeEventListener('resize', this.setDeviceIndependentPixelWidth)
   }
 
   render() {
