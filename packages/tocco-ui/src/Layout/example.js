@@ -6,11 +6,7 @@ import Typography from '../Typography'
 import Layout from './'
 // real-import:import {Layout} from 'tocco-ui'
 
-const ExampleCell = () => {
-  return (
-    <div style={{backgroundColor: '#ddd'}}>Cell</div>
-  )
-}
+const ExampleCell = () => <div style={{backgroundColor: '#ddd'}}>Cell</div>
 
 const ExamplePanel1 = () => {
   return (

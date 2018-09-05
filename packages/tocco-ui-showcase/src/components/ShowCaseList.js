@@ -10,7 +10,7 @@ const ShowCaseList = props => {
       {
         props.componentsTree.map(componentGroup => {
           return (
-            <section key={componentGroup.category} id={componentGroup.category}>
+            <section key={componentGroup.category} id={'category-' + componentGroup.category}>
               <h1>{componentGroup.category}</h1>
               {
                 componentGroup.components.map(comp => (
