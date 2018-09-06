@@ -5,7 +5,7 @@ import _isEmpty from 'lodash/isEmpty'
 import {form} from 'tocco-util'
 import LoadMask from 'tocco-ui/src/LoadMask/LoadMask'
 
-import DetailForm from '../DetailForm'
+import DetailForm from '../../containers/DetailFormContainer'
 import {asyncValidate, AsyncValidationException} from '../../util/detailView/asyncValidation'
 
 class DetailView extends React.Component {
@@ -51,21 +51,6 @@ class DetailView extends React.Component {
             mode={this.props.mode}
             validate={this.getSyncValidation()}
             asyncValidate={this.handledAsyncValidate}
-            submitForm={props.submitForm}
-            formDefinition={props.formDefinition}
-            entity={props.entity}
-            loadRelationEntities={props.loadRelationEntities}
-            relationEntities={props.relationEntities}
-            loadTooltip={props.loadTooltip}
-            tooltips={props.tooltips}
-            formValues={props.formValues}
-            formErrors={props.formErrors}
-            entityModel={props.entityModel}
-            intl={props.intl}
-            lastSave={props.lastSave}
-            fireTouched={props.fireTouched}
-            uploadDocument={props.uploadDocument}
-            openAdvancedSearch={props.openAdvancedSearch}
           />
         </LoadMask>
       </div>
@@ -80,33 +65,9 @@ DetailView.propTypes = {
   mode: PropTypes.oneOf(['update', 'create']),
   loadDetailView: PropTypes.func.isRequired,
   unloadDetailView: PropTypes.func.isRequired,
-  submitForm: PropTypes.func.isRequired,
   logError: PropTypes.func.isRequired,
-  formDefinition: PropTypes.shape({
-    children: PropTypes.array
-  }).isRequired,
   entityModel: PropTypes.object.isRequired,
   entityName: PropTypes.string.isRequired,
   entityId: PropTypes.string,
-  formValues: PropTypes.object,
-  formErrors: PropTypes.object,
-  entity: PropTypes.object,
-  loadRelationEntities: PropTypes.func.isRequired,
-  tooltips: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)),
-  loadTooltip: PropTypes.func.isRequired,
-  uploadDocument: PropTypes.func.isRequired,
-  formInitialValues: PropTypes.object,
-  relationEntities: PropTypes.shape({
-    entityName: PropTypes.shape({
-      loaded: PropTypes.bool,
-      data: PropTypes.arrayOf(
-        PropTypes.shape({
-          value: PropTypes.string,
-          label: PropTypes.string
-        })
-      )
-    })
-  }).isRequired,
-  lastSave: PropTypes.number,
-  fireTouched: PropTypes.func.isRequired
+  formInitialValues: PropTypes.object
 }
