@@ -2,7 +2,7 @@
 import React from 'react'
 import {Provider} from 'react-redux'
 import {appFactory, notifier} from 'tocco-util'
-import {Button} from 'tocco-ui'
+import {Button, Typography} from 'tocco-ui'
 // real-import:import {appFactory, notifier} from 'tocco-util'
 
 const longText = `Lorem ipsum dolor sit amet, at sed inermis intellegam scriptorem, usu facete apeirian ad.
@@ -19,11 +19,12 @@ class Example extends React.Component {
   }
 
   info = () => {
-    this.store.dispatch(notifier.info('info', 'client.title', 'client.description', 'info', 2000))
+    this.store.dispatch(notifier.info(
+      'info', <Typography.H4>Typography component</Typography.H4>, 'string contains <b>html</b>', 'info', 2000))
   }
 
   success = () => {
-    this.store.dispatch(notifier.info('success', 'client.title', 'client.description', 'thumbs-up', 0))
+    this.store.dispatch(notifier.info('success', 'client.title', 'Lorem Ipsum', 'thumbs-up', 0))
   }
 
   warning = () => {
