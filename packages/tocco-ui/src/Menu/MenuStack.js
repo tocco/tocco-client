@@ -1,13 +1,13 @@
 import React from 'react'
 
-import MenuBase from './MenuBase'
+import Menu from './Menu'
 import StyledMenuStack from './StyledMenuStack'
 
 /**
- * Use <Menu.Stack> to structure <Button> and <ButtonLink> hierarchically as a vertical menu.
- * <Menu.Stack> can be utilized on levels of hierarchy.
+ * Use <MenuStack> to structure <Button> and <ButtonLink> hierarchically as a vertical menu.
+ * <MenuStack> can be utilized on levels of hierarchy.
  */
-class MenuStack extends MenuBase {
+class MenuStack extends Menu {
   render() {
     return (
       <StyledMenuStack>

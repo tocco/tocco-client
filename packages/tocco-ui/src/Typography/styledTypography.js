@@ -3,7 +3,7 @@ import {theme} from 'styled-system'
 
 import {declareFont} from '../utilStyles'
 
-const declareTypograhpy = (props, mode) => {
+export const declareTypograhpy = (props, mode) => {
   let css = `
     ${declareFont(props)}
     a {
@@ -140,5 +140,3 @@ const declareTypograhpy = (props, mode) => {
 
   return css
 }
-
-export default declareTypograhpy
