@@ -1,8 +1,7 @@
 /* esLint no-console: 0 */
 import React from 'react'
 
-import Typography from './Typography'
-// eslint-disable-next-line
+import Typography from './'
 // real-import:import {Typography} from 'tocco-ui'
 
 export default () => {

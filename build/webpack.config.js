@@ -185,10 +185,6 @@ webpackConfig.module.rules = [
       cacheDirectory: true,
       plugins: [
         ['transform-imports', {
-          'tocco-ui': {
-            'transform': 'tocco-ui/src/${member}', // eslint-disable-line no-template-curly-in-string
-            'preventFullImport': true
-          },
           'tocco-util': {
             'transform': 'tocco-util/src/${member}', // eslint-disable-line no-template-curly-in-string
             'preventFullImport': true

@@ -1,3 +1,43 @@
+import InjectFontRoboto from './Font'
+import {
+  H1,
+  H2,
+  H3,
+  H4,
+  H5,
+  H6
+} from './Heading'
+import {
+  Dd,
+  Dt,
+  Dl,
+  Li,
+  Ol,
+  Ul
+} from './List'
+import {
+  B,
+  Code,
+  Del,
+  Em,
+  Figcaption,
+  I,
+  Ins,
+  Kbd,
+  Mark,
+  P,
+  Pre,
+  Q,
+  S,
+  Small,
+  Span,
+  Strong,
+  Sub,
+  Sup,
+  Time,
+  U,
+  Var
+} from './Misc'
 import {
   StyledH1,
   StyledH2,
@@ -37,11 +77,9 @@ import {
   StyledU,
   StyledVar
 } from './StyledMisc'
-import Typography from './Typography'
-import declareTypograhpy from './StyledTypography'
+export {declareTypograhpy} from './styledTypography'
 
 export {
-  declareTypograhpy,
   StyledB,
   StyledCode,
   StyledDd,
@@ -74,6 +112,42 @@ export {
   StyledTime,
   StyledU,
   StyledUl,
-  StyledVar,
-  Typography as default
+  StyledVar
+}
+
+export default {
+  H1,
+  H2,
+  H3,
+  H4,
+  H5,
+  H6,
+  Dd,
+  Dt,
+  Dl,
+  Li,
+  Ol,
+  Ul,
+  B,
+  Code,
+  Del,
+  Em,
+  Figcaption,
+  I,
+  Ins,
+  Kbd,
+  Mark,
+  P,
+  Pre,
+  Q,
+  S,
+  Small,
+  Span,
+  Strong,
+  Sub,
+  Sup,
+  Time,
+  U,
+  Var,
+  InjectFontRoboto
 }

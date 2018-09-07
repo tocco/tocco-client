@@ -3,7 +3,7 @@ import React from 'react'
 import Popover from './'
 import Button from '../Button'
 import Icon from '../Icon'
-import {H4, Span, P} from '../Typography'
+import Typography from '../Typography'
 import Link from '../Link'
 // real-import:import {Popover} from 'tocco-ui'
 
@@ -17,10 +17,10 @@ const plainHtml = <div>
 </div>
 
 const typographicComponents = <div>
-  <H4>dolor sit amet</H4>
-  <P>Lorem <Link label="ipsum dolor sit" /> amet, consectetur adipisicing elit.
+  <Typography.H4>dolor sit amet</Typography.H4>
+  <Typography.P>Lorem <Link label="ipsum dolor sit" /> amet, consectetur adipisicing elit.
   Nesciunt rem repellat tenetur alias dicta at natus tempora saepe debitis voluptatem
-  non totam distinctio soluta reiciendis est, quis iusto quibusdam vero?</P>
+  non totam distinctio soluta reiciendis est, quis iusto quibusdam vero?</Typography.P>
 </div>
 
 export default () => {
@@ -31,7 +31,7 @@ export default () => {
         content={image}
         rimless={true}
         placement="top"
-      ><Span>Hover &lt;Span&gt;</Span></Popover>
+      ><Typography.Span>Hover &lt;Span&gt;</Typography.Span></Popover>
       <Popover
         content={plainHtml}
         placement="bottom"

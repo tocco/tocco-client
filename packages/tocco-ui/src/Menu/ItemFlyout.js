@@ -7,15 +7,14 @@ import StyledItemFlyout from './StyledItemFlyout'
 import {stylingInk, stylingLook, stylingPosition} from '../utilStyles'
 
 /**
- * Wrap <Menu.Stack> in <Menu.ItemFlyout> if it should be toggleable. Submenu fly out on
+ * Wrap <MenuStack> in <MenuItemFlyout> if it should be toggleable. Submenu fly out on
  * click and cover subsequent content.
  */
 class ItemFlyout extends Item {
   getChildren = () => {
-    // eslint-disable-next-line
-    return React.Children.map(this.props.children, child => {
-      return React.cloneElement(child, {look: this.props.look, ink: this.props.ink})
-    })
+    return React.Children.map(this.props.children, child =>
+      React.cloneElement(child, {look: this.props.look, ink: this.props.ink})
+    )
   }
 
   render() {
