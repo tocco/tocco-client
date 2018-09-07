@@ -1,5 +1,6 @@
 import React from 'react'
 import {actions as toastrActions} from 'react-redux-toastr'
+import _isString from 'lodash/isString'
 import {Icon} from 'tocco-ui'
 
 import TitleMessage from './components/TitleMessage'
@@ -11,9 +12,7 @@ export function getInfoAction(type, title, message, icon, timeOut) {
     component: () => <TitleMessage title={title} message={message}/>
   }
 
-  if (icon) {
-    options.icon = <Icon icon={icon} size="2x" />
-  }
+  options.icon = _isString(icon) ? <Icon icon={`${icon}`} size="3x" /> : icon
 
   return toastrActions.add({
     type,
@@ -68,9 +67,7 @@ export function getBlockingInfo(id, title, message, icon) {
     component: () => <TitleMessage title={title} message={message}/>
   }
 
-  if (icon) {
-    options.icon = <Icon icon={icon} size="2x" />
-  }
+  options.icon = _isString(icon) ? <Icon icon={`${icon}`}  size="3x" /> : icon
 
   return toastrActions.add({
     id,
