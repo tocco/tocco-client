@@ -67,7 +67,7 @@ export function getBlockingInfo(id, title, message, icon) {
     component: () => <TitleMessage title={title} message={message}/>
   }
 
-  options.icon = _isString(icon) ? <Icon icon={`${icon}`}  size="3x" /> : icon
+  options.icon = _isString(icon) ? <Icon icon={`${icon}`} size="3x" /> : icon
 
   return toastrActions.add({
     id,
