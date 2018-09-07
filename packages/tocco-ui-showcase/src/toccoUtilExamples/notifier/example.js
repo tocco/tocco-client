@@ -92,7 +92,8 @@ class Example extends React.Component {
             onClick={props.close}
           />
         </div>
-      )
+      ),
+      true
     ))
 
     setTimeout(() => {

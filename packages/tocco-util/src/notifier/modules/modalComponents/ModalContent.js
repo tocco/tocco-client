@@ -1,33 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {FormattedValue, Button} from 'tocco-ui'
+import {Button} from 'tocco-ui'
+
+import {Content} from '../../components/TitleMessage'
+import {StyledModelContent} from './StyledModelContent'
 
 const ModalContent = props => {
   return (
-    <div className="rrt-confirm-holder tocco-notifier__wrapper">
-      <div className="rrt-confirm tocco-notifier__content--large">
-        {props.closable
-        && <div className="close-btn">
-          <Button onClick={() => props.close(props.id)} look="raised" dense icon="fa-times"/>
-        </div>}
-        {(props.title || props.message)
-        && <div style={{marginBottom: '10px'}}>
-          {props.title
-        && <header className="tocco-notifier__title">
-          {props.title}
-        </header>}
-          {props.message
-        && <div className="tocco-notifier__message">
-          <FormattedValue type="html" value={props.message}/>
-        </div>}
-        </div>
-        }
+    <div className="rrt-confirm-holder">
+      <StyledModelContent>
+        {props.title && <Content content={props.title} isTitle={true} />}
+        {props.message && <Content content={props.message} />}
+        {props.closable && <Button onClick={() => props.close(props.id)} look="raised" dense icon="times"/> }
         <props.component close={() => props.close(props.id)}/>
-      </div>
-      <div
-        className="shadow tocco-notifier__shadow"
-        onClick={() => { if (props.closable === true) { props.close(props.id) } }}
-      />
+      </StyledModelContent>
+      <div className="shadow" onClick={() => { if (props.closable === true) { props.close(props.id) } }}/>
     </div>
   )
 }
