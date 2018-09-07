@@ -2,34 +2,6 @@
 .tocco-notifier {
   font-size: 16px;  // reset: nice (body in scaffolding.less)
 
-  .tocco-notifier__title,
-  .tocco-notifier__message {
-    word-break: break-word;  // usability: better see a word break than not the complete message
-    hyphens: auto;
-  }
-
-  .tocco-notifier__title {
-    font-size: 1.2em;
-    font-weight: 700;
-    line-height: 1.3;
-    margin-bottom: .3em;
-  }
-
-  [ class *= tocco-notifier__content ] {
-    padding: $line-height-computed-half;
-  }
-
-  .tocco-notifier__content--large {
-    width: 700px;
-    margin-left: -350px;
-
-    .close-btn {
-      position: absolute;
-      top: 5px;
-      right: 5px;
-    }
-  }
-
   .top-right {
     max-height: 100%; // usability: ensure accessibility of all notification boxes
     overflow-y: auto; // todo: enhance usability - it is not obvious that content is scrollable
