@@ -66,7 +66,7 @@ class RemoteSelect extends React.Component {
           <Button
             disabled={this.props.readOnly}
             type="button"
-            icon="fa-search"
+            icon="search"
             onClick={() => this.props.options.openAdvancedSearch(this.props.value)}
           />
         </span>

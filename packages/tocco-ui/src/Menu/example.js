@@ -33,7 +33,7 @@ export default () => {
         <Menu.Item><em>em</em></Menu.Item>
         <hr/>
         <Menu.Item><strong>strong</strong></Menu.Item>
-        <Menu.Item><Icon icon="fa-check-square-o"/></Menu.Item>
+        <Menu.Item><Icon icon={['far', 'check-square']}/></Menu.Item>
       </Menu.Stack>
       <h3>Menu Bar Flat</h3>
       <Menu.Bar>
