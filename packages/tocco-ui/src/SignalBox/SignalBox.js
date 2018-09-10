@@ -21,7 +21,7 @@ SignalBox.defaultProps = {
 
 SignalBox.propTypes = {
   /**
-   * Prefer <SignalList/> and <SignalListItem/> to list items over any other typographic component.
+   * Prefer <SignalList.List/> and <SignalList.Item/> to list items over any other typographic component.
    */
   children: PropTypes.node,
   /**

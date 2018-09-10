@@ -4,9 +4,9 @@ import {FormattedMessage, intlShape} from 'react-intl'
 import {
   Button,
   ButtonGroup,
+  SignalList,
   Typography
 } from 'tocco-ui'
-import SignalList, {SignalListItem} from 'tocco-ui/src/SignalList'
 
 import {Pages} from '../../types/Pages'
 
@@ -66,12 +66,12 @@ export class LoginForm extends Component {
 
           {
             this.props.message && this.props.message.text
-            && <SignalList>
-              <SignalListItem
+            && <SignalList.List>
+              <SignalList.Item
                 condition={this.props.message.negative ? 'danger' : 'base'}
                 label={this.props.message.text}
               />
-            </SignalList>
+            </SignalList.List>
           }
 
           <div>

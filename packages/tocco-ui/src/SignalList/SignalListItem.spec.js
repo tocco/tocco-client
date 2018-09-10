@@ -2,13 +2,13 @@ import {shallow} from 'enzyme'
 import React from 'react'
 
 import Icon from '../Icon'
-import SignalListItem from './SignalListItem'
+import SignalList from './'
 
 describe('tocco-ui', function() {
   describe('SignalListItem', function() {
     it('should have three defaultProps', () => {
       const wrapper = shallow(
-        <SignalListItem label="Lorem ipsum"/>
+        <SignalList.Item label="Lorem ipsum"/>
       )
       const {condition} = wrapper.props()
       expect(condition).to.equal('base')
@@ -19,9 +19,9 @@ describe('tocco-ui', function() {
 
     it('should render label, icon and children', () => {
       const wrapper = shallow(
-        <SignalListItem label="Lorem ipsum">
+        <SignalList.Item label="Lorem ipsum">
           <span/><span/>
-        </SignalListItem>
+        </SignalList.Item>
       )
       expect(wrapper.dive().text()).to.be.equal('<Icon />Lorem ipsum')
       expect(wrapper.find('span')).to.have.length(2)
@@ -29,7 +29,7 @@ describe('tocco-ui', function() {
 
     it('should show correct icon per condition', () => {
       let wrapper = shallow(
-        <SignalListItem
+        <SignalList.Item
           label="Lorem ipsum"
         />
       )
@@ -37,7 +37,7 @@ describe('tocco-ui', function() {
       expect(wrapper.find(Icon).prop('unicode')).to.equal('•')
 
       wrapper = shallow(
-        <SignalListItem
+        <SignalList.Item
           condition="base"
           label="Lorem ipsum"
         />
@@ -46,7 +46,7 @@ describe('tocco-ui', function() {
       expect(wrapper.find(Icon).prop('unicode')).to.equal('•')
 
       wrapper = shallow(
-        <SignalListItem
+        <SignalList.Item
           condition="primary"
           label="Lorem ipsum"
         />
@@ -55,7 +55,7 @@ describe('tocco-ui', function() {
       expect(wrapper.find(Icon).prop('unicode')).to.equal('•')
 
       wrapper = shallow(
-        <SignalListItem
+        <SignalList.Item
           condition="danger"
           label="Lorem ipsum"
         />
@@ -63,7 +63,7 @@ describe('tocco-ui', function() {
       expect(wrapper.find(Icon).prop('icon')).to.equal('fa-times')
       expect(wrapper.find(Icon).prop('unicode')).to.be.undefined
       wrapper = shallow(
-        <SignalListItem
+        <SignalList.Item
           condition="success"
           label="Lorem ipsum"
         />
@@ -72,7 +72,7 @@ describe('tocco-ui', function() {
       expect(wrapper.find(Icon).prop('unicode')).to.be.undefined
 
       wrapper = shallow(
-        <SignalListItem
+        <SignalList.Item
           condition="warning"
           label="Lorem ipsum"
         />

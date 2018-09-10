@@ -40,7 +40,10 @@ SignalListItem.propTypes = {
   /**
    * Visible text. Default is an empty string.
    */
-  label: PropTypes.string.isRequired,
+  label: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.node
+  ]).isRequired,
   children: PropTypes.node,
   /**
    * Color and icon is set according condition. Default value is 'base'.
