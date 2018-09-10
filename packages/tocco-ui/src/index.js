@@ -10,20 +10,14 @@ export {default as LayoutBox} from './LayoutBox'
 export {default as Link, StyledLink} from './Link'
 export {default as LoadMask, StyledLoadMask} from './LoadMask'
 export {
-  MenuItemFlyout,
-  MenuItemAccordion,
-  MenuButtonGroup,
-  MenuButton,
-  MenuItem,
-  MenuStack,
-  StyledMenuStack,
-  StyledMenuButton,
-  StyledMenuBar,
-  StyledMenu,
-  StyledItemFlyout,
-  StyledItemAccordion,
+  default as Menu,
   StyledItem,
-  MenuBar
+  StyledItemAccordion,
+  StyledItemFlyout,
+  StyledMenu,
+  StyledMenuBar,
+  StyledMenuButton,
+  StyledMenuStack
 } from './Menu'
 export {default as Pagination} from './Pagination'
 export {default as Panel, PanelBody, PanelFooter, PanelHeader, StyledPanelBody, StyledPanelHeaderFooter} from './Panel'
