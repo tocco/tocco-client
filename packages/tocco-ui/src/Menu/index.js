@@ -5,22 +5,15 @@ import StyledMenu from './StyledMenu'
 import StyledMenuBar from './StyledMenuBar'
 import StyledMenuButton from './StyledMenuButton'
 import StyledMenuStack from './StyledMenuStack'
-import MenuItem from './Item'
-import MenuItemAccordion from './ItemAccordion'
-import MenuItemFlyout from './ItemFlyout'
-import MenuBar from './MenuBar'
-import MenuButton from './MenuButton'
-import MenuButtonGroup from './MenuButtonGroup'
-import MenuStack from './MenuStack'
+import Item from './Item'
+import ItemAccordion from './ItemAccordion'
+import ItemFlyout from './ItemFlyout'
+import Bar from './MenuBar'
+import Button from './MenuButton'
+import ButtonGroup from './MenuButtonGroup'
+import Stack from './MenuStack'
 
 export {
-  MenuItem,
-  MenuItemAccordion,
-  MenuItemFlyout,
-  MenuBar,
-  MenuButton,
-  MenuButtonGroup,
-  MenuStack,
   StyledItem,
   StyledItemAccordion,
   StyledItemFlyout,
@@ -28,4 +21,14 @@ export {
   StyledMenuBar,
   StyledMenuButton,
   StyledMenuStack
+}
+
+export default {
+  Bar,
+  Button,
+  ButtonGroup,
+  Item,
+  ItemAccordion,
+  ItemFlyout,
+  Stack
 }

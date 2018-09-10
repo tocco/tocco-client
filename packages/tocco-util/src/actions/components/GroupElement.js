@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {intlShape} from 'react-intl'
-import {Button, MenuItem} from 'tocco-ui'
+import {Button, Menu} from 'tocco-ui'
 
 import actionTypes from '../actionTypes'
 import {isValidSelection, selectionText} from './selectionHelper'
@@ -17,7 +17,7 @@ const GroupElement = ({definition, onClick, onSelect, selectedCount}, context) =
   const disabled = definition.readonly === true || !validSelection
 
   return (
-    <MenuItem look="raised">
+    <Menu.Item look="raised">
       <Button
         disabled={disabled}
         icon={definition.icon}
@@ -30,7 +30,7 @@ const GroupElement = ({definition, onClick, onSelect, selectedCount}, context) =
         }}
         title={title}
       />
-    </MenuItem>
+    </Menu.Item>
   )
 }
 
