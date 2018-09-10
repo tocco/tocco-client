@@ -2,7 +2,7 @@
 import React from 'react'
 
 import SignalBox from './'
-import SignalList, {SignalListItem} from '../SignalList'
+import SignalList from '../SignalList'
 import Typography from '../Typography'
 // real-import:import {SignalBox} from 'tocco-ui'
 
@@ -15,16 +15,16 @@ export default () => {
         title="Summarize information"
         meta="06.12.2016 - 14:40, Message Type XY, Message Source, Message ID 000123"
       >
-        <SignalList>
-          <SignalListItem
+        <SignalList.List>
+          <SignalList.Item
             condition="danger"
             label="Lorem ipsum dolor sit amet"
           />
-          <SignalListItem
+          <SignalList.Item
             condition="danger"
             label="consectetur adipisicing elit, sed do eiusmod"
           />
-        </SignalList>
+        </SignalList.List>
       </SignalBox>
 
       <SignalBox condition="warning">

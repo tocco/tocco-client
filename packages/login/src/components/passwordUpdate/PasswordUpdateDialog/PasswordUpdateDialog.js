@@ -2,8 +2,7 @@ import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import classNames from 'classnames'
 import {FormattedMessage, intlShape} from 'react-intl'
-import {Button, LoadMask} from 'tocco-ui'
-import SignalList, {SignalListItem} from 'tocco-ui/src/SignalList'
+import {Button, LoadMask, SignalList} from 'tocco-ui'
 
 import PasswordInput from './PasswordInput'
 import ValidationRules from '../ValidationRules'
@@ -96,9 +95,9 @@ class PasswordUpdateDialog extends Component {
           {
             password.newPasswordRepeat
             && password.newPassword !== password.newPasswordRepeat
-            && <SignalList>
-              <SignalListItem condition="danger" label="bla"/>
-            </SignalList>
+            && <SignalList.List>
+              <SignalList.Item condition="danger" label={<FormattedMessage id="client.login.passwordUpdate.noMatch"/>}/>
+            </SignalList.List>
           }
 
           {password.passwordUpdateFailed === true && <FailureMessage errorCode={password.passwordUpdateErrorCode}/>}

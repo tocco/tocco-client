@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import SignalList, {SignalListItem} from 'tocco-ui/src/SignalList'
+import {SignalList} from 'tocco-ui'
 
 const ValidationRules = props => (
-  <SignalList>
+  <SignalList.List>
     {props.rules.map((rule, index) => {
       let condition = null
 
@@ -22,14 +22,14 @@ const ValidationRules = props => (
       }
 
       return (
-        <SignalListItem
+        <SignalList.Item
           condition={condition}
           key={index}
           label={message}
         />
       )
     })}
-  </SignalList>
+  </SignalList.List>
 )
 
 ValidationRules.propTypes = {
