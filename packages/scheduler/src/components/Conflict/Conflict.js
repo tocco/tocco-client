@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {intlShape} from 'react-intl'
+import {Icon} from 'tocco-ui'
 
 import conflicts from '../../utils/conflicts'
 
@@ -11,14 +12,13 @@ const Conflict = ({conflictStatus, intl}) => {
 
   const accepted = conflictStatus === conflicts.ACCEPTED
 
-  const icon = accepted ? 'fa-check' : 'fa-times'
   const textResource = `client.scheduler.conflict${accepted ? 'Accepted' : 'Existing'}`
   const style = {
     ...(accepted ? {} : {color: '#8b0000'})
   }
 
   return <span style={style}>
-    <i className={`fa ${icon}`} style={{paddingRight: '10px'}} aria-hidden="true"></i>
+    <Icon icon={accepted ? 'check' : 'times'} position="prepend" />
     {intl.formatMessage({id: textResource})}
   </span>
 }

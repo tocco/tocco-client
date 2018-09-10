@@ -40,7 +40,7 @@ export default () => {
         content={typographicComponents}
         isPlainHtml={false}
         placement="bottom"
-      ><Icon icon="fa-info-circle" /></Popover>
+      ><Icon icon="info-circle" /></Popover>
       {/* end example */}
     </div>
   )
