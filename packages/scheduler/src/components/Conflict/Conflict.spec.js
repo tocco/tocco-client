@@ -1,7 +1,6 @@
 import React from 'react'
 import {shallow} from 'enzyme'
 import {IntlStub} from 'tocco-test-util'
-import {Icon} from 'tocco-ui'
 
 import Conflict from './Conflict'
 
@@ -20,12 +19,12 @@ describe('scheduler', () => {
 
       it('should render a check icon if conflict is accepted', () => {
         const wrapper = shallow(<Conflict intl={IntlStub} conflictStatus="accepted"/>)
-        expect(wrapper.find(Icon).prop('icon')).to.be.equal('check')
+        expect(wrapper.html()).to.be.contains('✓')
       })
 
       it('should render a times icon if conflict is existing', () => {
         const wrapper = shallow(<Conflict intl={IntlStub} conflictStatus="existing"/>)
-        expect(wrapper.find(Icon).prop('icon')).to.be.equal('times')
+        expect(wrapper.html()).to.be.contains('✕')
       })
     })
   })
