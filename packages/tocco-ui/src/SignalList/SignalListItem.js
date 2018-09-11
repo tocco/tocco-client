@@ -47,7 +47,7 @@ SignalListItem.propTypes = {
   label: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.node
-  ]).isRequired,
+  ]),
   children: PropTypes.node,
   /**
    * Color and icon is set according condition. Default value is 'base'.
