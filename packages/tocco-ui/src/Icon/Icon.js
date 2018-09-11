@@ -41,7 +41,10 @@ class Icon extends React.Component {
 
   render() {
     const filteredProps = _omit(this.props, ['dense', 'position', 'onLoaded'])
-    return <this.lazyFontAwesomeIcon {...filteredProps} style={getSpacing(this.props)}/>
+    return <this.lazyFontAwesomeIcon
+      {...filteredProps}
+      style={{...this.props.style, ...(getSpacing(this.props))}}
+    />
   }
 }
 
@@ -61,7 +64,11 @@ Icon.propTypes = {
   /**
    * Callback that gets invoked when component is fully loaded.
    */
-  onLoaded: PropTypes.func
+  onLoaded: PropTypes.func,
+  /**
+   * CSS Styles object.
+   */
+  style: PropTypes.objectOf(PropTypes.string)
 }
 
 export default withTheme(Icon)
