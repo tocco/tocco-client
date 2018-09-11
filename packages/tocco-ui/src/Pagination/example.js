@@ -14,6 +14,13 @@ export default () => {
         noInput={false}
         onPageChange={page => { console.log('Page Changed:', page) }}
       />
+      <br />
+      <Pagination
+        totalRecords={999}
+        recordsPerPage={25}
+        noInput={true}
+        onPageChange={page => { console.log('Page Changed:', page) }}
+      />
       {/* end example */}
     </div>
   )

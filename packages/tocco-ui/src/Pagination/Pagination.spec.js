@@ -1,35 +1,33 @@
 import {mount, shallow} from 'enzyme'
 import React from 'react'
 
+import Button from '../Button'
+import {Span} from '../Typography'
 import Pagination from './Pagination'
 
 describe('tocco-ui', function() {
   describe('Pagination', function() {
     it('should render', () => {
-      const wrapper = shallow(<Pagination totalRecords={99} recordsPerPage={5}/>)
-
-      expect(wrapper.find('.tocco-pagination')).to.have.length(1)
+      const wrapper = mount(<Pagination totalRecords={99} recordsPerPage={5}/>)
+      expect(wrapper.find(Button)).to.have.length(4)
+      expect(wrapper.find(Span)).to.have.length(1)
     })
 
     it('should show correct last page', () => {
-      const wrapper = shallow(<Pagination totalRecords={99} recordsPerPage={5}/>)
-
-      expect(wrapper.find('#total').text()).to.eql('20')
+      const wrapper = mount(<Pagination totalRecords={99} recordsPerPage={5}/>)
+      expect(wrapper.find(Span).text()).to.equal(' / 20')
     })
 
     it('should recalculate on prop change', () => {
-      const wrapper = shallow(<Pagination totalRecords={99} recordsPerPage={5}/>)
-
+      const wrapper = mount(<Pagination totalRecords={99} recordsPerPage={5}/>)
       wrapper.setProps({recordsPerPage: 10})
-
-      expect(wrapper.find('#total').text()).to.eql('10')
+      expect(wrapper.find(Span).text()).to.equal(' / 10')
     })
 
     it('should call callback on page change', done => {
       const onPageChange = sinon.spy()
-
       const wrapper = shallow(<Pagination totalRecords={99} recordsPerPage={5} onPageChange={onPageChange}/>)
-      wrapper.find('#forwardButton').simulate('click')
+      wrapper.find(Button).at(2).simulate('click')
 
       // Necessary since callback is called with debounce. Unfortunately is delays total test runtime.
       setTimeout(() => {
@@ -40,32 +38,28 @@ describe('tocco-ui', function() {
 
     it('should disable forward and back button depending on current page', () => {
       const wrapper = mount(<Pagination totalRecords={30} recordsPerPage={10}/>)
+      expect(wrapper.find(Button).at(0)).to.be.disabled()
+      expect(wrapper.find(Button).at(1)).to.be.disabled()
+      expect(wrapper.find(Button).at(2)).to.not.be.disabled()
+      expect(wrapper.find(Button).at(3)).to.not.be.disabled()
 
-      expect(wrapper.find('#forwardButton')).to.not.be.disabled()
-      expect(wrapper.find('#toLastButton')).to.not.be.disabled()
-      expect(wrapper.find('#toFirstButton')).to.be.disabled()
-      expect(wrapper.find('#backButton')).to.be.disabled()
+      wrapper.find(Button).at(3).simulate('click')
+      expect(wrapper.find(Button).at(0)).to.not.be.disabled()
+      expect(wrapper.find(Button).at(1)).to.not.be.disabled()
+      expect(wrapper.find(Button).at(2)).to.be.disabled()
+      expect(wrapper.find(Button).at(3)).to.be.disabled()
 
-      wrapper.find('#toLastButton').simulate('click')
+      wrapper.find(Button).at(1).simulate('click')
+      expect(wrapper.find(Button).at(0)).to.not.be.disabled()
+      expect(wrapper.find(Button).at(1)).to.not.be.disabled()
+      expect(wrapper.find(Button).at(2)).to.not.be.disabled()
+      expect(wrapper.find(Button).at(3)).to.not.be.disabled()
 
-      expect(wrapper.find('#forwardButton')).to.be.disabled()
-      expect(wrapper.find('#toLastButton')).to.be.disabled()
-      expect(wrapper.find('#toFirstButton')).to.not.be.disabled()
-      expect(wrapper.find('#backButton')).to.not.be.disabled()
-
-      wrapper.find('#backButton').simulate('click')
-
-      expect(wrapper.find('#forwardButton')).to.not.be.disabled()
-      expect(wrapper.find('#toLastButton')).to.not.be.disabled()
-      expect(wrapper.find('#toFirstButton')).to.not.be.disabled()
-      expect(wrapper.find('#backButton')).to.not.be.disabled()
-
-      wrapper.find('#toFirstButton').simulate('click')
-
-      expect(wrapper.find('#forwardButton')).to.not.be.disabled()
-      expect(wrapper.find('#toLastButton')).to.not.be.disabled()
-      expect(wrapper.find('#toFirstButton')).to.be.disabled()
-      expect(wrapper.find('#backButton')).to.be.disabled()
+      wrapper.find(Button).at(0).simulate('click')
+      expect(wrapper.find(Button).at(0)).to.be.disabled()
+      expect(wrapper.find(Button).at(1)).to.be.disabled()
+      expect(wrapper.find(Button).at(2)).to.not.be.disabled()
+      expect(wrapper.find(Button).at(3)).to.not.be.disabled()
     })
   })
 })

@@ -3,6 +3,8 @@ import React from 'react'
 import _debounce from 'lodash/debounce'
 
 import Button from '../Button'
+import {Span} from '../Typography'
+import {StyledPagination} from './StyledPagination'
 
 /**
  *  Pagination component
@@ -102,53 +104,44 @@ class Pagination extends React.Component {
   render() {
     const figuresCount = this.state.totalPages.toString().length
     return (
-      <span className="tocco-pagination">
+
+      <StyledPagination>
         <Button
-          id="toFirstButton"
-          onClick={this.handleToFirstClick}
           disabled={this.isOnFirstPage()}
           icon="glyphicon-fast-backward"
+          onClick={this.handleToFirstClick}
         />
         <Button
-          id="backButton"
-          onClick={this.handleOneBackClick}
           disabled={this.isOnFirstPage()}
           icon="glyphicon-triangle-left"
+          onClick={this.handleOneBackClick}
         />
-        {
-          this.props.noInput
-          && <span className="tocco-pagination-current-page" id="currentPage">{this.state.currentPage}</span>
-        }
         {
           !this.props.noInput
           && <input
-            className="tocco-pagination-current-page form-control"
-            id="currentPage"
-            type="number"
-            min="1"
+            className="form-control"
             max={this.state.totalPages}
-            onChange={this.handleInputUpdate}
-            size={figuresCount}
-            value={this.state.currentPage}
-            onKeyPress={this.handleKeyPress}
+            min="1"
             onBlur={this.handleOnInputBlur}
-
+            onChange={this.handleInputUpdate}
+            onKeyPress={this.handleKeyPress}
+            size={figuresCount}
+            type="number"
+            value={this.state.currentPage}
           />
         }
-        <span className="tocco-pagination-total-pages" id="total">{this.state.totalPages}</span>
+        <Span>{this.props.noInput ? this.state.currentPage : ''}{` / ${this.state.totalPages}`}</Span>
         <Button
-          id="forwardButton"
-          onClick={this.handleOneForwardClick}
           disabled={this.isOnLastPage()}
           icon="glyphicon-triangle-right"
+          onClick={this.handleOneForwardClick}
         />
         <Button
-          id="toLastButton"
-          onClick={this.handleToLastClick}
           disabled={this.isOnLastPage()}
           icon="glyphicon-fast-forward"
+          onClick={this.handleToLastClick}
         />
-      </span>
+      </StyledPagination>
     )
   }
 }
