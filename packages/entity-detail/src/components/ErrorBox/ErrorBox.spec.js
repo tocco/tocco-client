@@ -1,8 +1,7 @@
 import React from 'react'
 import {mount} from 'enzyme'
 import {IntlProvider} from 'react-intl'
-import {Link, SignalBox} from 'tocco-ui'
-import {SignalListItem} from 'tocco-ui/src/SignalList'
+import {Link, SignalBox, SignalList} from 'tocco-ui'
 
 import ErrorBox from './ErrorBox'
 
@@ -41,7 +40,7 @@ describe('entity-detail', () => {
             />
           </IntlProvider>
         )
-        const signalListItem = wrapper.find(SignalListItem)
+        const signalListItem = wrapper.find(SignalList.Item)
 
         expect(wrapper.find('span').text()).to.equal('client.entity-detail.invalidRelationErrors')
         expect(wrapper.find(SignalBox).prop('condition')).to.be.equal('danger')
@@ -90,7 +89,7 @@ describe('entity-detail', () => {
             />
           </IntlProvider>
         )
-        const signalListItem = wrapper.find(SignalListItem)
+        const signalListItem = wrapper.find(SignalList.Item)
 
         expect(wrapper.find('span').text()).to.equal('client.entity-detail.validatorErrors')
         expect(signalListItem.get(1).props.label).to.be.equal('1')

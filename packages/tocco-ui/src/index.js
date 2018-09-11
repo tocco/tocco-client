@@ -64,3 +64,4 @@ export {
   StyledVar
 } from './Typography'
 export {default as Upload, StyledUploadInput, StyledView} from './Upload'
+export {stylingCondition} from './utilStyles'
