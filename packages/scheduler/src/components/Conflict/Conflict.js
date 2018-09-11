@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {intlShape} from 'react-intl'
-import {Icon} from 'tocco-ui'
 
 import conflicts from '../../utils/conflicts'
 
@@ -18,7 +17,7 @@ const Conflict = ({conflictStatus, intl}) => {
   }
 
   return <span style={style}>
-    <Icon icon={accepted ? 'check' : 'times'} position="prepend" />
+    {accepted ? <span>&#10003; </span> : <span>&#10005; </span>}
     {intl.formatMessage({id: textResource})}
   </span>
 }
