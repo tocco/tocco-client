@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Button} from 'tocco-ui'
 
 import {Content} from '../../components/TitleMessage'
 import {StyledModelContent} from './StyledModelContent'
@@ -31,7 +30,7 @@ class ModalContent extends React.Component {
         <StyledModelContent isClosing={this.state.isClosing}>
           {title && <Content content={title} isTitle={true} />}
           {message && <Content content={message} />}
-          {closable && <Button onClick={this.handleCloseClick} look="raised" dense icon="times"/> }
+          {closable && <button onClick={this.handleCloseClick} type="button" className="close-toastr">✕</button>}
           <this.props.component close={this.handleCloseClick}/>
         </StyledModelContent>
         <div className="shadow" onClick={() => { if (closable === true) { this.handleCloseClick() } }}/>
