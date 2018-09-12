@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import {StyledButton} from 'tocco-ui'
 
 const StyledModelContent = styled.div.attrs({
-  className: 'rrt-confirm'
+  className: props => `rrt-confirm animated ${props.isClosing ? ' fadeOut' : 'bounceIn'}`
 })`
    &&& {
     width: 700px;
