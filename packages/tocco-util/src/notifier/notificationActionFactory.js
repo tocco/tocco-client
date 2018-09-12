@@ -60,8 +60,6 @@ export function getBlockingInfo(id, title, message, icon) {
   const options = {
     timeOut: 0,
     showCloseButton: false,
-    transitionIn: 'bounceInDown',
-    transitionOut: 'bounceOutUp',
     attention: true,
     onAttentionClick: () => {},
     component: () => <TitleMessage title={title} message={message}/>
