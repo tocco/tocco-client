@@ -20,15 +20,10 @@ const StyledNotifier = styled.div`
     .toastr {
       min-height: 88px;  // reset: react-redux-toastr (index.scss)
       opacity: 1;  // reset: react-redux-toastr (index.scss)
-      border-radius: ${theme('radii.2')}  // reset: react-redux-toastr (index.scss)
+      border-radius: ${theme('radii.2')};  // reset: react-redux-toastr (index.scss)
 
       &:hover:not( .rrt-message ) {
         box-shadow: 2px 2px 10px rgba(0, 0, 0, .4);  // reset: react-redux-toastr (index.scss)
-      }
-
-      &.animated.bounceInDown,
-      &.animated.bounceOutUp {
-        margin-bottom: 30px;
       }
 
       .rrt-holder {
