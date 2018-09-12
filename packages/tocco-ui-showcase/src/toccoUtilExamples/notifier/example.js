@@ -2,7 +2,7 @@
 import React from 'react'
 import {Provider} from 'react-redux'
 import {appFactory, notifier} from 'tocco-util'
-import {Button, Typography} from 'tocco-ui'
+import {Button, ButtonGroup, Typography} from 'tocco-ui'
 // real-import:import {appFactory, notifier} from 'tocco-util'
 
 const longText = `Lorem ipsum dolor sit amet, at sed inermis intellegam scriptorem, usu facete apeirian ad.
@@ -78,20 +78,22 @@ class Example extends React.Component {
     this.store.dispatch(notifier.modalComponent(
       id,
       'Title',
-      'Please wait',
+      'Message',
       props => (
-        <div style={{border: '1px dotted red'}}>
-          <p>My Custom-Component</p>
-          <Button
-            ink="primary"
-            label="primary action"
-            onClick={props.close}
-          />
-          <Button
-            label="secondary action"
-            onClick={props.close}
-          />
-        </div>
+        <React.Fragment>
+          <Typography.P>Custom component starts here</Typography.P>
+          <ButtonGroup look="raised">
+            <Button
+              ink="primary"
+              label="primary action"
+              onClick={props.close}
+            />
+            <Button
+              label="secondary action"
+              onClick={props.close}
+            />
+          </ButtonGroup>
+        </React.Fragment>
       ),
       true
     ))
