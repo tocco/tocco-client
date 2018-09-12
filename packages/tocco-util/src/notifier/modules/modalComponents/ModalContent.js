@@ -5,18 +5,39 @@ import {Button} from 'tocco-ui'
 import {Content} from '../../components/TitleMessage'
 import {StyledModelContent} from './StyledModelContent'
 
-const ModalContent = props => {
-  return (
-    <div className="rrt-confirm-holder">
-      <StyledModelContent>
-        {props.title && <Content content={props.title} isTitle={true} />}
-        {props.message && <Content content={props.message} />}
-        {props.closable && <Button onClick={() => props.close(props.id)} look="raised" dense icon="times"/> }
-        <props.component close={() => props.close(props.id)}/>
-      </StyledModelContent>
-      <div className="shadow" onClick={() => { if (props.closable === true) { props.close(props.id) } }}/>
-    </div>
-  )
+class ModalContent extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {isClosing: false}
+    this.handleCloseClick = this.handleCloseClick.bind(this)
+  }
+
+  handleCloseClick() {
+    this.setState({isClosing: true})
+    setTimeout(() => {
+      this.props.close(this.props.id)
+    }, 300) // Toastr fade out takes 300ms
+  }
+
+  render() {
+    const {
+      closable,
+      message,
+      title
+    } = this.props
+
+    return (
+      <div className="rrt-confirm-holder">
+        <StyledModelContent isClosing={this.state.isClosing}>
+          {title && <Content content={title} isTitle={true} />}
+          {message && <Content content={message} />}
+          {closable && <Button onClick={this.handleCloseClick} look="raised" dense icon="times"/> }
+          <this.props.component close={this.handleCloseClick}/>
+        </StyledModelContent>
+        <div className="shadow" onClick={() => { if (closable === true) { this.handleCloseClick() } }}/>
+      </div>
+    )
+  }
 }
 
 ModalContent.propTypes = {
