@@ -53,10 +53,6 @@ import MenuExampleRaw from '!raw-loader!../../tocco-ui/src/Menu/example'
 import NotifierExample from './toccoUtilExamples/notifier/example'
 import NotifierExampleRaw from '!raw-loader!./toccoUtilExamples/notifier/example'
 
-import PaginationRaw from '!raw-loader!../../tocco-ui/src/Pagination/Pagination'
-import PaginationExample from '../../tocco-ui/src/Pagination/example'
-import PaginationExampleRaw from '!raw-loader!../../tocco-ui/src/Pagination/example'
-
 import PanelRaw from '!raw-loader!../../tocco-ui/src/Panel/Panel'
 import PanelExample from '../../tocco-ui/src/Panel/example'
 import PanelExampleRaw from '!raw-loader!../../tocco-ui/src/Panel/example'
@@ -207,13 +203,6 @@ export default [{
     example: {
       component: SearchBoxExample,
       raw: SearchBoxExampleRaw
-    }
-  }, {
-    name: 'Pagination',
-    raw: PaginationRaw,
-    example: {
-      component: PaginationExample,
-      raw: PaginationExampleRaw
     }
   }]
 }, {
