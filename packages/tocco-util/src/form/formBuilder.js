@@ -4,6 +4,7 @@ import _get from 'lodash/get'
 import _pick from 'lodash/pick'
 import {Layout, Panel, Typography} from 'tocco-ui'
 
+import consoleLogger from '../consoleLogger'
 import ReduxFormFieldAdapter from './ReduxFormFieldAdapter'
 import {getFieldId} from './formDefinition'
 import {transformFieldName} from './reduxForm'
@@ -135,33 +136,33 @@ export default (
   }
 
   const createLayoutComponent = (field, type, key, traverser) => {
-    if (type === layoutTypes.HORIZONTAL_BOX || type === layoutTypes.VERTICAL_BOX) {
-      let output = traverser()
+    let output = traverser()
 
-      if (Array.isArray(output)) {
-        output = output.filter(el => el)
-      }
-
-      if (!output || (Array.isArray(output) && output.every(e => e == null))) {
-        return null
-      }
-
-      if (field.label) {
-        output
-        = <Panel.Wrapper isFramed={true} isOpen={true}>
-            <Panel.Header><Typography.H4>{field.label}</Typography.H4></Panel.Header>
-            <Panel.Body>{output}</Panel.Body>
-          </Panel.Wrapper>
-      }
-
-      if (type === layoutTypes.HORIZONTAL_BOX) {
-        output = <Layout.Container key={key}>{output}</Layout.Container>
-      } else {
-        output = <Layout.Box key={key}>{output}</Layout.Box>
-      }
-
-      return output
+    if (Array.isArray(output)) {
+      output = output.filter(el => el)
     }
+
+    if (!output || (Array.isArray(output) && output.every(e => e == null))) {
+      return null
+    }
+
+    if (field.label) {
+      output
+      = <Panel.Wrapper isFramed={true} isOpen={true}>
+          <Panel.Header><Typography.H4>{field.label}</Typography.H4></Panel.Header>
+          <Panel.Body>{output}</Panel.Body>
+        </Panel.Wrapper>
+    }
+
+    if (type === layoutTypes.HORIZONTAL_BOX) {
+      output = <Layout.Container key={key}>{output}</Layout.Container>
+    } else if (type === layoutTypes.VERTICAL_BOX) {
+      output = <Layout.Box key={key}>{output}</Layout.Box>
+    } else {
+      consoleLogger.logWarning(`Layout type "${type}" for box "${field.id}" is unknown.`)
+      output = <div key={key}>{output}</div>
+    }
+    return output
   }
 
   return () => {
