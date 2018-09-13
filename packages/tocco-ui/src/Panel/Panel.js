@@ -54,12 +54,12 @@ Panel.defaultProps = {
 Panel.propTypes = {
   children: PropTypes.node,
   /**
-   * Boolean to control if <Panel.Header/>, <Panel.Body/> and <Panel.Footer/> is initially opened.
-   * Default value is 'false'.
+   * Boolean to control if <Panel.Header/>, <Panel.Body/> and <Panel.Footer/> is bordered.
+   * Default value is 'true'.
    */
   isFramed: PropTypes.bool,
   /**
-   * Boolean to control if <Panel.Body/> is initially opened. Default value is 'true'.
+   * Boolean to control if <Panel.Body/> is initially opened. Default value is 'false'.
    */
   isOpen: PropTypes.bool,
   /**
