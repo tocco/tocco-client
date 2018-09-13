@@ -12,7 +12,7 @@ export function getInfoAction(type, title, message, icon, timeOut) {
     component: () => <TitleMessage title={title} message={message}/>
   }
 
-  options.icon = _isString(icon) ? <Icon icon={`${icon}`} size="3x" /> : icon
+  options.icon = _isString(icon) ? <Icon icon={`${icon}`} size="3x" /> : <Icon icon="exclamation-triangle" size="3x" />
 
   return toastrActions.add({
     type,
@@ -65,7 +65,7 @@ export function getBlockingInfo(id, title, message, icon) {
     component: () => <TitleMessage title={title} message={message}/>
   }
 
-  options.icon = _isString(icon) ? <Icon icon={`${icon}`} size="3x" /> : icon
+  options.icon = _isString(icon) ? <Icon icon={`${icon}`} size="3x" /> : <Icon icon="exclamation-triangle" size="3x" />
 
   return toastrActions.add({
     id,
