@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import {theme} from 'styled-system'
 
 const setColumnWidth = (containerWidth, maxCellsPerRow) => {
   const columns = containerWidth <= 500
@@ -13,21 +12,16 @@ const setColumnWidth = (containerWidth, maxCellsPerRow) => {
 }
 
 const declareStylesIfNestedCorrectly = props => {
-  if (props.isNestedCorrectly) {
-    return `
-      flex-grow: 1;
-      flex-shrink: 0;
-      flex-basis: ${setColumnWidth(props.containerWidth, props.maxCellsPerRow)};
-      padding: 0 ${theme('space.4')(props)} ${theme('space.5')} ${theme('space.4')(props)};
-      padding: 0 15px 20px 15px;
-    `
-  } else {
-    return `
-      &:not(:last-child) {
-        padding: 0 0 20px 0;
-      }
-    `
-  }
+  return props.isNestedCorrectly ? `
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: ${setColumnWidth(props.containerWidth, props.maxCellsPerRow)};
+    padding: 0 15px 20px 15px;
+  ` : `
+    &:not(:last-child) {
+      padding: 0 0 20px 0;
+    }
+  `
 }
 
 const StyledLayoutBox = styled.div`
