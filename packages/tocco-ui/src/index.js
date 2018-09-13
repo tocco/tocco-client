@@ -25,7 +25,6 @@ export {default as Preview, StyledPreview} from './Preview'
 export {default as SearchBox, StyledInputGroupBtn} from './SearchBox'
 export {default as SignalBox, StyledSignalBox} from './SignalBox'
 export {default as SignalList, StyledSignalList, StyledSignalListItem} from './SignalList'
-export {default as Table} from './Table'
 export {
   default as Typography,
   StyledSpan,
