@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {reduxForm} from 'redux-form'
 import {intlShape, FormattedRelative, FormattedMessage} from 'react-intl'
-import Button from 'tocco-ui/src/Button'
+import {Button} from 'tocco-ui'
 import {form, formField} from 'tocco-util'
 
 import SubGrid from '../../util/detailView/fromFieldFactories/subGrid'
