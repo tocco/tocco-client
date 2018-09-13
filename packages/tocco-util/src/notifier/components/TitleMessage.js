@@ -7,32 +7,40 @@ import _isString from 'lodash/isString'
 const containsHtml = s => s && /<\/?[a-zA-Z0-9]*\/?>/.test(s)
 const isKey = s => s && s.startsWith('client.')
 
-/**
- * Format content correctly
- * @param  {string|object} content can be a React component, a translation key or string may containing html
- * @param  {boolean} isTitle wraps non html strings into H4 or P
- * @return {object} React component
- */
-const Content = ({content, isTitle}) => {
+const Content = props => {
+  const {content} = props
+  let output = content
+
   if (_isString(content)) {
     if (containsHtml(content)) {
-      content = <FormattedValue type="html" value={content}/>
+      output = <FormattedValue type="html" value={content}/>
     } else {
-      content = isKey(content) ? <FormattedMessage id={content}/> : content
-      content = isTitle ? <Typography.H4>{content}</Typography.H4> : <Typography.P>{content}</Typography.P>
+      output = isKey(content) ? <FormattedMessage id={content}/> : content
+      output = <props.tag>{output}</props.tag>
     }
   }
-  return content
+  return output
+}
+
+Content.defaultProps = {
+  tag: Typography.P
 }
 
 Content.propTypes = {
-  content: PropTypes.node
+  /**
+   * Provide a component, a string or a translation key. HTNML in strings is allowed and styled properly.
+   */
+  content: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
+  /**
+   * Translations and strings which not contain HTML are wrapped in passed in tag. Default is 'Typography.P'
+   */
+  tag: PropTypes.func
 }
 
 const TitleMessage = ({title, message, children}) => {
   return (
     <React.Fragment>
-      {title && <Content content={title} isTitle={true} />}
+      {title && <Content content={title} tag={Typography.H4} />}
       {message && <Content content={message} />}
       {children}
     </React.Fragment>
@@ -40,8 +48,15 @@ const TitleMessage = ({title, message, children}) => {
 }
 
 TitleMessage.propTypes = {
-  className: PropTypes.string,
+  /**
+   * Provide a component, a string or a translation key optionally.
+   * Strings and translation keys are rendered as <h4>.
+   */
   title: PropTypes.node,
+  /**
+   * Provide a component, a string or a translation key optionally.
+   * Strings and translation keys are rendered as <p>.
+   */
   message: PropTypes.node,
   children: PropTypes.node
 }
