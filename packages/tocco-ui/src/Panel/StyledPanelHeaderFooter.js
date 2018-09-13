@@ -50,7 +50,6 @@ const declareDivider = props => {
 const StyledPanelHeaderFooter = styled.div`
   && {
     display: flex;
-    padding: ${props => props.isFramed ? theme('space.4') : 0};
     padding: ${props => props.isFramed ? '15px' : 0};
 
     > div {
@@ -63,10 +62,8 @@ const StyledPanelHeaderFooter = styled.div`
     }
 
     ${props => declareDivider(props)}
-    transition:
-      margin 300ms ease-in-out,
-      border ${props => props.isOpen ? '300ms ease-in-out' : '1ms ease-in-out 299ms'};
-    will-change: margin, border;
+    transition: border ${props => props.isOpen ? '300ms ease-in-out' : '1ms ease-in-out 299ms'};
+    will-change: border;
   }
 `
 export default StyledPanelHeaderFooter
