@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import StyledLayoutContainer from './StyledLayoutContainer'
+import {layoutPropTypes, stylingLayout} from '../utilStyles'
 
 /**
  * Use <Layout.Container/> to apply grid and gutter on <Layout.Box>.
@@ -31,14 +32,14 @@ class LayoutContainer extends React.Component {
     return (
       <StyledLayoutContainer
         innerRef={node => { this.node = node }}
-        isNestedCorrectly={this.props.parent !== 'LayoutContainer'}
+        isNestedCorrectly={this.props.parent !== stylingLayout.CONTAINER}
       >
         {
           React.Children.map(this.props.children, child =>
             React.cloneElement(child, {
               containerWidth: this.state.containerWidth,
               maxCellsPerRow: this.props.maxCellsPerRow,
-              parent: 'LayoutContainer'
+              parent: stylingLayout.CONTAINER
             })
           )
         }
@@ -53,7 +54,8 @@ LayoutContainer.defaultProps = {
     md: 2,
     lg: 3,
     xl: 4
-  }
+  },
+  parent: stylingLayout.NONE
 }
 
 LayoutContainer.propTypes = {
@@ -71,7 +73,7 @@ LayoutContainer.propTypes = {
     xl: PropTypes.number
   }),
   /* Internal mechanism to determine if nesting is correct. Do never set manually. */
-  parent: PropTypes.string
+  parent: layoutPropTypes
 }
 
 export default LayoutContainer
