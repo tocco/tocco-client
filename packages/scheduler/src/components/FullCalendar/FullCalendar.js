@@ -16,6 +16,7 @@ import '!style-loader!css-loader!fullcalendar-scheduler/dist/scheduler.css'
 import {FormattedMessage, injectIntl, intlShape} from 'react-intl'
 import {consoleLogger} from 'tocco-util'
 import {Button, Menu, Typography} from 'tocco-ui'
+
 import StyledFullCalendar from './StyledFullCalendar'
 import Conflict from '../Conflict'
 
@@ -165,7 +166,7 @@ class FullCalendar extends React.Component {
                       this.calendar.prev()
                       this.handleRangeChange()
                     }}
-                    icon="fa-chevron-left"
+                    icon="chevron-left"
                     title={this.msg('client.scheduler.previous')}
                   />
                 </Menu.Item>
@@ -184,7 +185,7 @@ class FullCalendar extends React.Component {
                       this.calendar.next()
                       this.handleRangeChange()
                     }}
-                    icon="fa-chevron-right"
+                    icon="chevron-right"
                     title={this.msg('client.scheduler.next')}
                   />
                 </Menu.Item>
@@ -192,10 +193,11 @@ class FullCalendar extends React.Component {
             </Menu.Item>
             <Menu.Item>
               <Button
-                icon={`fa-refresh ${this.props.isLoading ? 'fa-spin' : ''}`}
+                icon={this.props.isLoading ? '' : 'sync'}
                 look="raised"
-                title={this.msg('client.scheduler.reload')}
                 onClick={() => { if (!this.props.isLoading) { this.props.onRefresh() } }}
+                pending={this.props.isLoading}
+                title={this.msg('client.scheduler.reload')}
               />
             </Menu.Item>
             <Menu.Item>{title}</Menu.Item>

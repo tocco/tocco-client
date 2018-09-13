@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import {theme} from 'styled-system'
-
-import {StyledMenuButton, StyledItem} from 'tocco-ui/src/Menu'
+import {StyledMenuButton, StyledItem} from 'tocco-ui'
 
 const StyledFullCalendar = styled.div`
   && {
