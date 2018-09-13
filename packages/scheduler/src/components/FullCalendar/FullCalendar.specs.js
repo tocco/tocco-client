@@ -1,5 +1,6 @@
 import React from 'react'
 import {intlEnzyme} from 'tocco-test-util'
+import {Button, Menu, Typography} from 'tocco-ui'
 
 import FullCalendar from './FullCalendar'
 
@@ -8,7 +9,11 @@ describe('scheduler', () => {
     describe('Fullcalendar', () => {
       it('should render wrapping div with id and calendar div', () => {
         const wrapper = intlEnzyme.mountWithIntl(<FullCalendar/>)
-        expect(wrapper.find('div')).to.have.length(5)
+        const menu = wrapper.find(Menu.Button)
+        expect(menu).to.have.length(1)
+        expect(menu.find(Button)).to.have.length(7)
+        expect(menu.find(Typography.H3)).to.have.length(1)
+        expect(wrapper.find('div')).to.have.length(3)
       })
 
       const mockEvents = [
