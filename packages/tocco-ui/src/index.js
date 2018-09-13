@@ -19,7 +19,6 @@ export {
   StyledMenuButton,
   StyledMenuStack
 } from './Menu'
-export {default as Pagination} from './Pagination'
 export {default as Panel, PanelBody, PanelFooter, PanelHeader, StyledPanelBody, StyledPanelHeaderFooter} from './Panel'
 export {default as Popover} from './Popover'
 export {default as Preview, StyledPreview} from './Preview'
