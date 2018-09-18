@@ -24,7 +24,7 @@ export function* loadRelationEntity({payload: {fieldName, entityName, options = 
   }
 }
 
-export const fieldDataSelector = (state, fieldName) => state.formData.relationEntities[fieldName]
+export const fieldDataSelector = (state, fieldName) => state.formData.relationEntities.data[fieldName]
 
 const dataLoaded = fieldData => !!(fieldData && fieldData.data && fieldData.data.length > 0)
 
