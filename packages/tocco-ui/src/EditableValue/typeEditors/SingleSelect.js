@@ -48,14 +48,12 @@ const SingleSelect = props => {
 
 SingleSelect.propTypes = {
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.oneOfType([
-    PropTypes.shape({
-      key: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-      ])
-    })
-  ]),
+  value: PropTypes.shape({
+    key: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ])
+  }),
   options: PropTypes.shape({
     store: PropTypes.arrayOf(
       PropTypes.shape({
