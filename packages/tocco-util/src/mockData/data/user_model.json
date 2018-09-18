@@ -144,6 +144,13 @@
       }
     },
     {
+      "fieldName": "decimal",
+      "type": "decimal",
+      "validation": {
+        "mandatory": false
+      }
+    },
+    {
       "fieldName": "publish",
       "type": "boolean",
       "validation": {

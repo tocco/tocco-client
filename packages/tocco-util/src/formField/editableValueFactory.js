@@ -89,6 +89,9 @@ const getOptions = (type, formField, modelField, utils) => {
         options.hoursLabel = utils.intl.formatMessage({id: 'client.component.duration.hoursLabel'})
         options.minutesLabel = utils.intl.formatMessage({id: 'client.component.duration.minutesLabel'})
       }
+      break
+    case 'decimal':
+      options.intl = utils.intl
   }
 
   return options
