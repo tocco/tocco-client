@@ -1,4 +1,5 @@
-import {getFormValues, actions as formActions} from 'redux-form'
+import {getFormValues, actions as formActions, isValid} from 'redux-form'
+import {CHANGE, UPDATE_SYNC_ERRORS, INITIALIZE} from 'redux-form/es/actionTypes'
 import {externalEvents, form as formUtil} from 'tocco-util'
 
 import * as actions from './actions'
@@ -17,7 +18,10 @@ export default function* sagas() {
     fork(takeEvery, actions.SUBMIT, submit),
     fork(takeEvery, actions.CANCEL, cancel),
     fork(takeLatest, documentActions.UPLOAD_DOCUMENT, documentSagas.uploadDocument),
-    fork(takeLatest, actions.ADVANCED_SEARCH_UPDATE, advancedSearchUpdate)
+    fork(takeLatest, actions.ADVANCED_SEARCH_UPDATE, advancedSearchUpdate),
+    fork(takeLatest, CHANGE, change),
+    fork(takeLatest, UPDATE_SYNC_ERRORS, change),
+    fork(takeLatest, INITIALIZE, change)
   ])
 }
 
@@ -30,12 +34,18 @@ export function* initialize() {
 
 export function* submit() {
   const values = yield select(getFormValues(FORM_ID))
-  yield put(externalEvents.fireExternalEvent('onSubmit', {...values}))
+  yield put(externalEvents.fireExternalEvent('onSubmit', {values}))
 }
 
 export function* cancel() {
   const values = yield select(getFormValues(FORM_ID))
-  yield put(externalEvents.fireExternalEvent('onCancel', {...values}))
+  yield put(externalEvents.fireExternalEvent('onCancel', {values}))
+}
+
+export function* change() {
+  const values = yield select(getFormValues(FORM_ID))
+  const valid = yield select(isValid(FORM_ID))
+  yield put(externalEvents.fireExternalEvent('onChange', {values, valid}))
 }
 
 export function* advancedSearchUpdate({payload: {field, ids}}) {
