@@ -142,7 +142,7 @@ class FullCalendar extends React.Component {
   msg = (id, values = {}) => (this.props.intl.formatMessage({id}, values))
 
   render = () =>
-    <div>
+    <div className={this.state.wrapperId}>
       <StyledFullCalendar>
         <Menu.Button look="raised">
           <Menu.Item>
