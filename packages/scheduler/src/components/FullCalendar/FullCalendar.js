@@ -76,7 +76,7 @@ class FullCalendar extends React.Component {
       field: 'title',
       render: (resource, el) => {
         const button = document.createElement('button')
-        button.innerHTML = '<span class="fa fa-minus-circle" aria-hidden="true"></span>'
+        button.innerHTML = '&#8722;'
         button.className = 'remove-resource-btn'
         button.onclick = () => this.props.onCalendarRemove(resource.entityKey, resource.calendarType)
         el.prepend(button)
