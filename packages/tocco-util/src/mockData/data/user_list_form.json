@@ -97,17 +97,34 @@
         ]
       },
       {
+        "id": "sample_report",
+        "label": "Sample Report",
+        "componentType": "report",
+        "children": [],
+        "actionType": "report",
+        "icon": "file-pdf",
+        "minSelection": null,
+        "maxSelection": null,
+        "showConfirmMessage": false,
+        "confirmationMessageText": null,
+        "runInBackgroundTask": false,
+        "formDataEntityModel": null,
+        "formDataTitle": null,
+        "formDataMessage": null,
+        "reportId": "sample_report"
+      },
+      {
         "componentType": "action-group",
         "actionType": "group",
         "label": "Reports",
         "children": [
           {
-            "id": "birthday_list",
-            "label": null,
+            "id": "sample_report2",
+            "label": "Sample Report 2",
             "componentType": "report",
             "children": [],
             "actionType": "report",
-            "icon": null,
+            "icon": "file-pdf",
             "minSelection": null,
             "maxSelection": null,
             "showConfirmMessage": false,
@@ -116,7 +133,7 @@
             "formDataEntityModel": null,
             "formDataTitle": null,
             "formDataMessage": null,
-            "reportId": "birthday_list"
+            "reportId": "sample_report2"
           }
         ]
       },
