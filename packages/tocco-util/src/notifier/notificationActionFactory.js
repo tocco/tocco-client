@@ -5,6 +5,8 @@ import {Icon} from 'tocco-ui'
 
 import TitleMessage from './components/TitleMessage'
 
+const NotificationIcon = icon => <Icon icon={ _isString(icon) ? icon : 'exclamation-triangle'} size="3x" />
+
 export function getInfoAction(type, title, message, icon, timeOut) {
   const options = {
     timeOut: timeOut,
@@ -12,7 +14,7 @@ export function getInfoAction(type, title, message, icon, timeOut) {
     component: () => <TitleMessage title={title} message={message}/>
   }
 
-  options.icon = _isString(icon) ? <Icon icon={`${icon}`} size="3x" /> : <Icon icon="exclamation-triangle" size="3x" />
+  options.icon = <NotificationIcon icon={icon} />
 
   return toastrActions.add({
     type,
@@ -65,7 +67,7 @@ export function getBlockingInfo(id, title, message, icon) {
     component: () => <TitleMessage title={title} message={message}/>
   }
 
-  options.icon = _isString(icon) ? <Icon icon={`${icon}`} size="3x" /> : <Icon icon="exclamation-triangle" size="3x" />
+  options.icon = <NotificationIcon icon={icon} />
 
   return toastrActions.add({
     id,
