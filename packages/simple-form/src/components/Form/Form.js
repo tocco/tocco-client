@@ -74,7 +74,7 @@ class Form extends React.Component {
           pending={this.props.submitting}
           type="submit"
         />
-        < Button
+        <Button
           disabled={this.props.submitting}
           label={this.props.cancelText || this.msg('client.simple-form.defaultCancel')}
           onClick={this.handleCancel}
