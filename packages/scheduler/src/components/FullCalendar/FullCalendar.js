@@ -13,12 +13,11 @@ import 'fullcalendar/dist/locale/it.js'
 import 'fullcalendar/dist/locale/de.js'
 import '!style-loader!css-loader!fullcalendar/dist/fullcalendar.css'
 import '!style-loader!css-loader!fullcalendar-scheduler/dist/scheduler.css'
-import {FormattedMessage, injectIntl, intlShape} from 'react-intl'
+import {injectIntl, intlShape} from 'react-intl'
 import {consoleLogger} from 'tocco-util'
-import {Button, Menu, Typography} from 'tocco-ui'
 
-import StyledFullCalendar from './StyledFullCalendar'
 import Conflict from '../Conflict'
+import NavigationFullCalendar from '../NavigationFullCalendar'
 
 class FullCalendar extends React.Component {
   constructor(props) {
@@ -84,7 +83,7 @@ class FullCalendar extends React.Component {
     }
   ]
 
-  handleRangeChange = () => {
+  changeRange = () => {
     const view = this.calendarElement.fullCalendar('getView')
 
     if (this.props.onDateRangeChange) {
@@ -111,8 +110,7 @@ class FullCalendar extends React.Component {
   componentDidMount() {
     this.calendarElement = $(this.calendarElementRef)
     this.calendarElement.fullCalendar(this.getFullCalendarOptions(this.props))
-    this.calendar = this.calendarElement.fullCalendar('getCalendar')
-    this.handleRangeChange()
+    this.changeRange()
     this.forceUpdate()
   }
 
@@ -131,101 +129,26 @@ class FullCalendar extends React.Component {
 
   changeView = (view = 'timelineDay') => {
     this.calendarElement.fullCalendar('changeView', view)
-    this.handleRangeChange()
+    this.changeRange()
   }
-
-  getButtonInkProps = viewType =>
-    (this.calendarElement && this.calendarElement.fullCalendar('getView').type === viewType)
-      ? {ink: 'primary'}
-      : {}
-
-  msg = (id, values = {}) => (this.props.intl.formatMessage({id}, values))
 
   render = () =>
     <div className={this.state.wrapperId}>
-      <StyledFullCalendar>
-        <Menu.Button look="raised">
-          <Menu.Item>
-            <Menu.ButtonGroup
-              look="raised"
-              melt
-            >
-              <Menu.Item>
-                <Button
-                  onClick={() => {
-                    this.calendar.prev()
-                    this.handleRangeChange()
-                  }}
-                  icon="chevron-left"
-                  title={this.msg('client.scheduler.previous')}
-                />
-              </Menu.Item>
-              <Menu.Item>
-                <Button
-                  look="raised"
-                  onClick={() => {
-                    this.calendar.today()
-                    this.handleRangeChange()
-                  }}
-                ><FormattedMessage id="client.scheduler.today"/></Button>
-              </Menu.Item>
-              <Menu.Item>
-                <Button
-                  onClick={() => {
-                    this.calendar.next()
-                    this.handleRangeChange()
-                  }}
-                  icon="chevron-right"
-                  title={this.msg('client.scheduler.next')}
-                />
-              </Menu.Item>
-            </Menu.ButtonGroup>
-          </Menu.Item>
-          <Menu.Item>
-            <Button
-              icon={this.props.isLoading ? '' : 'sync'}
-              look="raised"
-              onClick={() => { if (!this.props.isLoading) { this.props.onRefresh() } }}
-              pending={this.props.isLoading}
-              title={this.msg('client.scheduler.reload')}
-            />
-          </Menu.Item>
-          <Menu.Item>
-            <Typography.H3>{this.calendarElement && this.calendarElement.fullCalendar('getView').title}</Typography.H3>
-          </Menu.Item>
-          <Menu.Item>
-            <Menu.ButtonGroup
-              look="raised"
-              melt
-            >
-              <Menu.Item>
-                <Button
-                  {...(this.getButtonInkProps('timelineDay'))}
-                  onClick={() => this.changeView('timelineDay')}
-                >
-                  <FormattedMessage id="client.scheduler.day"/>
-                </Button>
-              </Menu.Item>
-              <Menu.Item>
-                <Button
-                  {...(this.getButtonInkProps('timelineWeek'))}
-                  onClick={() => this.changeView('timelineWeek')}
-                >
-                  <FormattedMessage id="client.scheduler.week"/>
-                </Button>
-              </Menu.Item>
-              <Menu.Item>
-                <Button
-                  {...(this.getButtonInkProps('timelineMonth'))}
-                  onClick={() => this.changeView('timelineMonth')}
-                >
-                  <FormattedMessage id="client.scheduler.month"/>
-                </Button>
-              </Menu.Item>
-            </Menu.ButtonGroup>
-          </Menu.Item>
-        </Menu.Button>
-      </StyledFullCalendar>
+      { this.calendarElement
+        && <NavigationFullCalendar
+          changeRange={this.changeRange}
+          changeView={this.changeView}
+          chooseNext={() => this.calendarElement.fullCalendar('next')}
+          choosePrev={() => this.calendarElement.fullCalendar('prev')}
+          chooseToday={() => this.calendarElement.fullCalendar('today')}
+          intl={this.props.intl}
+          isLoading={this.props.isLoading}
+          locale={this.props.locale}
+          refresh={this.props.onRefresh}
+          title={this.calendarElement.fullCalendar('getView').title}
+          type={this.calendarElement.fullCalendar('getView').type}
+        />
+      }
       <div ref={ref => { this.calendarElementRef = ref }}></div>
     </div>
 }
