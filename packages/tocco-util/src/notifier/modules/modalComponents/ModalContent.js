@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Typography} from 'tocco-ui'
 
-import {Content} from '../../components/TitleMessage'
+import TitleMessage from '../../components/TitleMessage'
 import {StyledModelContent} from './StyledModelContent'
 
 class ModalContent extends React.Component {
@@ -29,10 +28,10 @@ class ModalContent extends React.Component {
     return (
       <div className="rrt-confirm-holder">
         <StyledModelContent isClosing={this.state.isClosing}>
-          {title && <Content content={title} tag={Typography.H4} />}
-          {message && <Content content={message} />}
-          {closable && <button onClick={this.handleCloseClick} type="button" className="close-toastr">✕</button>}
-          <this.props.component close={this.handleCloseClick}/>
+          <TitleMessage title={title} message={message}>
+            {closable && <button onClick={this.handleCloseClick} type="button" className="close-toastr">✕</button>}
+            <this.props.component close={this.handleCloseClick}/>
+          </TitleMessage>
         </StyledModelContent>
         <div className="shadow" onClick={() => { if (closable === true) { this.handleCloseClick() } }}/>
       </div>
