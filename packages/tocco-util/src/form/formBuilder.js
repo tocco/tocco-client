@@ -136,33 +136,31 @@ export default (
   }
 
   const createLayoutComponent = (field, type, key, traverser) => {
-    let output = traverser()
+    let elements = traverser()
 
-    if (Array.isArray(output)) {
-      output = output.filter(el => el)
+    if (Array.isArray(elements)) {
+      elements = elements.filter(el => el)
     }
 
-    if (!output || (Array.isArray(output) && output.every(e => e == null))) {
+    if (!elements || (Array.isArray(elements) && elements.every(e => e == null))) {
       return null
     }
 
-    if (field.label) {
-      output
-      = <Panel.Wrapper isFramed={true} isOpen={true}>
-          <Panel.Header><Typography.H4>{field.label}</Typography.H4></Panel.Header>
-          <Panel.Body>{output}</Panel.Body>
-        </Panel.Wrapper>
-    }
+    const content = field.label
+      ? <Panel.Wrapper isFramed={true} isOpen={true}>
+        <Panel.Header><Typography.H4>{field.label}</Typography.H4></Panel.Header>
+        <Panel.Body>{elements}</Panel.Body>
+      </Panel.Wrapper>
+      : elements
 
     if (type === layoutTypes.HORIZONTAL_BOX) {
-      output = <Layout.Container key={key}>{output}</Layout.Container>
+      return <Layout.Container key={key}>{content}</Layout.Container>
     } else if (type === layoutTypes.VERTICAL_BOX) {
-      output = <Layout.Box key={key}>{output}</Layout.Box>
+      return <Layout.Box key={key}>{content}</Layout.Box>
     } else {
       consoleLogger.logWarning(`Layout type "${type}" for box "${field.id}" is unknown.`)
-      output = <div key={key}>{output}</div>
+      return <div key={key}>{content}</div>
     }
-    return output
   }
 
   return () => {
