@@ -16,12 +16,12 @@
         "label": "Reports",
         "children": [
           {
-            "id": "birthday_list",
-            "label": null,
+            "id": "sample_report",
+            "label": "Sample Report",
             "componentType": "report",
             "children": [],
             "actionType": "report",
-            "icon": null,
+            "icon": "file-pdf",
             "minSelection": null,
             "maxSelection": null,
             "showConfirmMessage": false,
@@ -30,7 +30,7 @@
             "formDataEntityModel": null,
             "formDataTitle": null,
             "formDataMessage": null,
-            "reportId": "birthday_list"
+            "reportId": "sample_report"
           }
         ]
       },
