@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import {theme} from 'styled-system'
 import {StyledMenuButton, StyledItem} from 'tocco-ui'
 
-const StyledFullCalendar = styled.div`
+const StyledNavigationFullCalendar = styled.div`
   && {
     margin-bottom: ${props => theme('space.3')};
 
@@ -21,4 +21,4 @@ const StyledFullCalendar = styled.div`
   }
 `
 
-export default StyledFullCalendar
+export default StyledNavigationFullCalendar
