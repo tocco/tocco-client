@@ -33,9 +33,9 @@ class Panel extends React.Component {
         {
           React.Children.map(this.props.children, child =>
             React.cloneElement(child, {
-              isFramed: isFramed,
+              isFramed,
               isOpen: this.state.isOpen,
-              isToggleable: isToggleable,
+              isToggleable,
               toggleOpenState: this.toggleOpenState
             })
           )
