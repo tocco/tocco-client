@@ -55,7 +55,7 @@ class LoadMask extends React.Component {
 
   render() {
     const loadingIconAndText = [
-      <IconTocco key="IconTocco" size="200px" />
+      <IconTocco key="IconTocco" size="70px" />
     ]
 
     if (this.props.loadingText) {

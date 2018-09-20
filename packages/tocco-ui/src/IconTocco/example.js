@@ -8,9 +8,8 @@ export default () => {
   return (
     <div>
       {/* start example */}
-      <IconTocco size="2em"/>
-      <IconTocco size="100px"/>
-      <IconTocco/>
+      <IconTocco size="1em"/>
+      <IconTocco size="70px"/>
       {/* end example */}
     </div>
   )
