@@ -7,10 +7,7 @@ import StyledPanelBody from './StyledPanelBody'
  * Only <Panel.Body/> is affected by the visibility state.
  */
 class PanelBody extends React.Component {
-  observer = null
-  state = {
-    heightIfOpen: undefined
-  }
+  state = {}
 
   setHeight = () => {
     this.outerElement.setAttribute('style', 'height: auto; animation: none;')
