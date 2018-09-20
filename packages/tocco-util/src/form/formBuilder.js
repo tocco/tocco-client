@@ -1,3 +1,4 @@
+
 import React from 'react'
 import {Field} from 'redux-form'
 import _get from 'lodash/get'
@@ -142,7 +143,7 @@ export default (
       elements = elements.filter(el => el)
     }
 
-    if (!elements || (Array.isArray(elements) && elements.every(e => e == null))) {
+    if (!elements || (Array.isArray(elements) && elements.length === 0)) {
       return null
     }
 
@@ -153,10 +154,15 @@ export default (
       </Panel.Wrapper>
       : elements
 
-    if (type === layoutTypes.HORIZONTAL_BOX) {
-      return <Layout.Container key={key}>{content}</Layout.Container>
-    } else if (type === layoutTypes.VERTICAL_BOX) {
-      return <Layout.Box key={key}>{content}</Layout.Box>
+    const layoutMap = {
+      [layoutTypes.HORIZONTAL_BOX]: Layout.Container,
+      [layoutTypes.VERTICAL_BOX]: Layout.Box
+    }
+
+    const LayoutComponent = layoutMap[type]
+
+    if (LayoutComponent) {
+      return <LayoutComponent key={key}>{content}</LayoutComponent>
     } else {
       consoleLogger.logWarning(`Layout type "${type}" for box "${field.id}" is unknown.`)
       return <div key={key}>{content}</div>
