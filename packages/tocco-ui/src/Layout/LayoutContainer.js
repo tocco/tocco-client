@@ -9,9 +9,7 @@ import {layoutPropTypes, stylingLayout} from '../utilStyles'
  * Define how many cells are displayed per row and breakpoint.
  */
 class LayoutContainer extends React.Component {
-  state = {
-    containerWidth: undefined
-  }
+  state = {}
 
   setDeviceIndependentPixelWidth = () => {
     this.setState({
