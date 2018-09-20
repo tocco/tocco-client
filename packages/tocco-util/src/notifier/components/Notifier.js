@@ -4,13 +4,16 @@ import ReduxToastr from 'react-redux-toastr'
 
 import {defaultToastrOptions} from '../notifier'
 import ModalDisplayContainer from '../modules/modalComponents/ModalDisplayContainer'
+import {StyledNotifier} from './StyledNotifier'
 
 const Notifier = props => {
   return (
-    <div className="tocco-notifier">
-      <ReduxToastr {...props.toastrOptions} />
-      <ModalDisplayContainer/>
-    </div>
+    <StyledNotifier>
+      <div className="tocco-notifier">
+        <ReduxToastr {...props.toastrOptions} />
+        <ModalDisplayContainer/>
+      </div>
+    </StyledNotifier>
   )
 }
 

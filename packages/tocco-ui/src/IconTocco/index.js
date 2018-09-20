@@ -1,7 +1,8 @@
 import IconTocco from './IconTocco'
-import StyledIconTocco from './StyledIconTocco'
+import {StyledIconToccoSvg, StyledIconToccoWrapper} from './StyledIconTocco'
 
 export {
   IconTocco as default,
-  StyledIconTocco
+  StyledIconToccoSvg,
+  StyledIconToccoWrapper
 }

@@ -1,35 +1,42 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {FormattedValue, Button} from 'tocco-ui'
 
-const ModalContent = props => {
-  return (
-    <div className="rrt-confirm-holder tocco-notifier__wrapper">
-      <div className="rrt-confirm tocco-notifier__content--large">
-        {props.closable
-        && <div className="close-btn">
-          <Button onClick={() => props.close(props.id)} look="raised" dense icon="fa-times"/>
-        </div>}
-        {(props.title || props.message)
-        && <div style={{marginBottom: '10px'}}>
-          {props.title
-        && <header className="tocco-notifier__title">
-          {props.title}
-        </header>}
-          {props.message
-        && <div className="tocco-notifier__message">
-          <FormattedValue type="html" value={props.message}/>
-        </div>}
-        </div>
-        }
-        <props.component close={() => props.close(props.id)}/>
+import TitleMessage from '../../components/TitleMessage'
+import {StyledModelContent} from './StyledModelContent'
+
+class ModalContent extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {isClosing: false}
+    this.handleCloseClick = this.handleCloseClick.bind(this)
+  }
+
+  handleCloseClick() {
+    this.setState({isClosing: true})
+    setTimeout(() => {
+      this.props.close(this.props.id)
+    }, 300) // Toastr fade out takes 300ms
+  }
+
+  render() {
+    const {
+      closable,
+      message,
+      title
+    } = this.props
+
+    return (
+      <div className="rrt-confirm-holder">
+        <StyledModelContent isClosing={this.state.isClosing}>
+          <TitleMessage title={title} message={message}>
+            {closable && <button onClick={this.handleCloseClick} type="button" className="close-toastr">✕</button>}
+            <this.props.component close={this.handleCloseClick}/>
+          </TitleMessage>
+        </StyledModelContent>
+        <div className="shadow" onClick={() => { if (closable === true) { this.handleCloseClick() } }}/>
       </div>
-      <div
-        className="shadow tocco-notifier__shadow"
-        onClick={() => { if (props.closable === true) { props.close(props.id) } }}
-      />
-    </div>
-  )
+    )
+  }
 }
 
 ModalContent.propTypes = {

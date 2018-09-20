@@ -1,6 +1,6 @@
 import React from 'react'
 
-// Dummy Entity for showcase workaround
+// This is a dummy component only for showcase.
 class Typography extends React.Component {
   render() {
     return <React.Fragment />

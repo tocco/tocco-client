@@ -1,14 +1,22 @@
-import Panel from './Panel'
-import PanelBody from './PanelBody'
+import Wrapper from './Panel'
+import Body from './PanelBody'
+import HeaderFooter from './PanelHeaderFooter'
+import StyledPanel from './StyledPanel'
 import StyledPanelBody from './StyledPanelBody'
-import PanelHeaderFooter from './PanelHeaderFooter'
 import StyledPanelHeaderFooter from './StyledPanelHeaderFooter'
 
+const Footer = HeaderFooter
+const Header = HeaderFooter
+
 export {
-  Panel as default,
-  PanelBody,
-  PanelHeaderFooter as PanelFooter,
-  PanelHeaderFooter as PanelHeader,
+  StyledPanel,
   StyledPanelBody,
   StyledPanelHeaderFooter
+}
+
+export default {
+  Body,
+  Footer,
+  Header,
+  Wrapper
 }

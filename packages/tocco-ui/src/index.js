@@ -5,8 +5,8 @@ export {default as EditableValue} from './EditableValue'
 export {default as FormField} from './FormField'
 export {default as FormattedValue} from './FormattedValue'
 export {default as Icon, StyledIcon} from './Icon'
-export {default as IconTocco, StyledIconTocco} from './IconTocco'
-export {default as LayoutBox} from './LayoutBox'
+export {default as IconTocco, StyledIconToccoSvg, StyledIconToccoWrapper} from './IconTocco'
+export {default as Layout, StyledLayoutBox, StyledLayoutContainer} from './Layout'
 export {default as Link, StyledLink} from './Link'
 export {default as LoadMask, StyledLoadMask} from './LoadMask'
 export {
@@ -19,7 +19,7 @@ export {
   StyledMenuButton,
   StyledMenuStack
 } from './Menu'
-export {default as Panel, PanelBody, PanelFooter, PanelHeader, StyledPanelBody, StyledPanelHeaderFooter} from './Panel'
+export {default as Panel, StyledPanel, StyledPanelBody, StyledPanelHeaderFooter} from './Panel'
 export {default as Popover} from './Popover'
 export {default as Preview, StyledPreview} from './Preview'
 export {default as SearchBox, StyledInputGroupBtn} from './SearchBox'

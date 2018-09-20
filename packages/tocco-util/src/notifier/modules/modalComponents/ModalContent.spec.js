@@ -21,10 +21,11 @@ describe('tocco-util', () => {
                 close={close}
               />
             )
-
             expect(wrapper.find(component)).to.have.length(1)
             wrapper.find('button').simulate('click')
-            expect(closeSpy).to.have.been.calledWith(id)
+            setTimeout(() => {
+              expect(closeSpy).to.have.property('callCount', 1)
+            }, 300)
           })
         })
       })

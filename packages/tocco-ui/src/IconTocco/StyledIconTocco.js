@@ -34,35 +34,35 @@ const rotateClockwise = keyframes`
 
 const stepClockwiseTopLeft = keyframes`
   0%, 100% {transform: translate(0, 0);}
-  12.5%    {transform: translate(0, 0);}
+  22%      {transform: translate(0, 0);}
   25%      {transform: translate(50px, 0);}
-  37.5%    {transform: translate(50px, 0);}
+  47%      {transform: translate(50px, 0);}
   50%      {transform: translate(50px, 50px);}
-  62.5%    {transform: translate(50px, 50px);}
+  72%      {transform: translate(50px, 50px);}
   75%      {transform: translate(0, 50px);}
-  87.5%    {transform: translate(0, 50px);}
+  97%      {transform: translate(0, 50px);}
 `
 
 const stepClockwiseTopRight = keyframes`
   0%, 100% {transform: translate(0, 0);}
-  12.5%    {transform: translate(0, 0);}
+  22%      {transform: translate(0, 0);}
   25%      {transform: translate(0, 50px);}
-  37.5%    {transform: translate(0, 50px);}
+  47%      {transform: translate(0, 50px);}
   50%      {transform: translate(-50px, 50px);}
-  62.5%    {transform: translate(-50px, 50px);}
+  72%      {transform: translate(-50px, 50px);}
   75%      {transform: translate(-50px, 0);}
-  87.5%    {transform: translate(-50px, 0);}
+  97%      {transform: translate(-50px, 0);}
 `
 
 const stepClockwiseBottomLeft = keyframes`
   0%, 100% {transform: translate(0, 0);}
-  12.5%    {transform: translate(0, 0);}
+  22%      {transform: translate(0, 0);}
   25%      {transform: translate(0, -50px);}
-  37.5%    {transform: translate(0, -50px);}
+  47%      {transform: translate(0, -50px);}
   50%      {transform: translate(50px, -50px);}
-  62.5%    {transform: translate(50px, -50px);}
+  72%      {transform: translate(50px, -50px);}
   75%      {transform: translate(50px, 0);}
-  87.5%    {transform: translate(50px, 0);}
+  97%      {transform: translate(50px, 0);}
 `
 
 const StyledIconToccoWrapper = styled.i`
@@ -91,6 +91,7 @@ const StyledIconToccoWrapper = styled.i`
   }
 `
 
+const animationDuration = 9
 const StyledIconToccoSvg = styled.svg.attrs({
   preserveAspectRatio: 'xMidYMid meet',
   viewBox: '0 0 100 100'
@@ -103,7 +104,7 @@ const StyledIconToccoSvg = styled.svg.attrs({
     .tocco-icon-top-left,
     .tocco-icon-top-right,
     .tocco-icon-bottom-left {
-      animation-duration: 3s;
+      animation-duration: ${animationDuration}s;
       animation-iteration-count: infinite;
       fill: transparent;
       stroke-width: 14.4;
@@ -111,7 +112,7 @@ const StyledIconToccoSvg = styled.svg.attrs({
     }
 
     .tocco-icon-top-left {
-      animation-delay: 0.25s;  // twelfth of animation-duration
+      animation-delay: ${animationDuration / 12}s;
     }
 
     .tocco-icon-top-right {
@@ -119,15 +120,10 @@ const StyledIconToccoSvg = styled.svg.attrs({
     }
 
     .tocco-icon-bottom-left {
-      animation-delay: 0.5s;  // sixth of animation-duration
+      animation-delay: ${animationDuration / 6}s;
     }
   }
 `
-// TODO: Cleanup export
-export default {
-  StyledIconToccoWrapper,
-  StyledIconToccoSvg
-}
 
 export {
   StyledIconToccoWrapper,
