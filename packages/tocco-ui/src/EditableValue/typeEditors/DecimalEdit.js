@@ -1,16 +1,18 @@
 import PropTypes from 'prop-types'
+import {intlShape} from 'react-intl'
 import React from 'react'
 import NumberFormat from 'react-number-format'
 
-import {parseLocalePlaceholder} from '../utils'
+import {parseLocalePlaceholder, limitValue} from '../utils'
 
 const convertStringToNumber = stringValue => (
-  !stringValue || isNaN(stringValue) ? null : Number(stringValue)
+  !stringValue || isNaN(stringValue) ? null : parseFloat(stringValue)
 )
 
 const DecimalEdit = props => {
   const {thousandSeparator, decimalSeparator} = parseLocalePlaceholder(props.options.intl.locale)
   const value = props.value === null ? '' : props.value
+
   const handleChange = values => {
     if (props.onChange) {
       props.onChange(convertStringToNumber(values.value))
@@ -26,9 +28,10 @@ const DecimalEdit = props => {
       value={value}
       isNumericString={true}
       onValueChange={handleChange}
-      decimalScale={2}
+      decimalScale={props.options.postPointDigits}
       thousandSeparator={thousandSeparator}
       decimalSeparator={decimalSeparator}
+      isAllowed={limitValue(props.options.maxValue)}
     />
   )
 }
@@ -40,9 +43,9 @@ DecimalEdit.propTypes = {
   id: PropTypes.string,
   readOnly: PropTypes.bool,
   options: PropTypes.shape({
-    intl: PropTypes.shape({
-      locale: PropTypes.string
-    })
+    intl: intlShape.isRequired,
+    postPointDigits: PropTypes.number,
+    maxValue: PropTypes.number
   })
 }
 

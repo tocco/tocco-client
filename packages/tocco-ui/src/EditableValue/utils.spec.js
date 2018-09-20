@@ -1,6 +1,6 @@
 import moment from 'moment'
 
-import {atMostOne, toLocalDateString, momentJStoToFlatpickrFormat} from './utils'
+import {atMostOne, toLocalDateString, momentJStoToFlatpickrFormat, limitValue} from './utils'
 import {getExpectedDate} from './specUtils'
 
 describe('tocco-ui', () => {
@@ -56,6 +56,24 @@ describe('tocco-ui', () => {
 
         it('should return expected flatpickr string', () => {
           expect(momentJStoToFlatpickrFormat(moment().locale('en')._locale.longDateFormat('L'))).to.be.eql('m/d/Y')
+        })
+      })
+      describe('limitValue', () => {
+        it('should return false on too large input', () => {
+          const maxValue = 1234567891234.56
+          const valuesObject = {
+            formattedValue: '12345678912344.56',
+            floatValue: 12345678912344.56
+          }
+          expect(limitValue(maxValue)(valuesObject)).to.be.eql(false)
+        })
+        it('should return true on small enough input', () => {
+          const maxValue = 12345678912344.56
+          const valuesObject = {
+            formattedValue: '1234567891234.56',
+            floatValue: 1234567891234.56
+          }
+          expect(limitValue(maxValue)(valuesObject)).to.be.eql(true)
         })
       })
     })

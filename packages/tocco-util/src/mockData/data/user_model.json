@@ -146,6 +146,8 @@
     {
       "fieldName": "decimal",
       "type": "decimal",
+      "maxValue": 999999999999.99,
+      "postPointDigits": 2,
       "validation": {
         "mandatory": false
       }

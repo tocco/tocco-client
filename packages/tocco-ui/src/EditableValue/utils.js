@@ -57,10 +57,17 @@ export const momentJStoToFlatpickrFormat = format => {
 /*
  * Returns format separators provided by intl API.
  */
-
 export const parseLocalePlaceholder = countryCode => {
   const thousandSeparator = (1111).toLocaleString(countryCode).replace(/1/g, '')
   const decimalSeparator = (1.1).toLocaleString(countryCode).replace(/1/g, '')
 
   return {thousandSeparator, decimalSeparator}
+}
+
+/*
+ * Limits formatted value of react-number-format
+ */
+export const limitValue = maxValueObject => values => {
+  const {formattedValue, floatValue} = values
+  return formattedValue === '' || floatValue <= maxValueObject
 }

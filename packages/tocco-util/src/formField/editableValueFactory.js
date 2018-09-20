@@ -91,7 +91,11 @@ const getOptions = (type, formField, modelField, utils) => {
       }
       break
     case 'decimal':
-      options.intl = utils.intl
+      if (utils.intl) {
+        options.intl = utils.intl
+      }
+      options.postPointDigits = modelField.postPointDigits
+      options.maxValue = modelField.maxValue
   }
 
   return options

@@ -1,5 +1,6 @@
 /* eslint no-console: 0 */
 import React from 'react'
+import {intlShape} from 'react-intl'
 
 import EditableValue from './'
 // real-import:import {EditableValue} from 'tocco-ui'
@@ -63,6 +64,7 @@ class Example extends React.Component {
         dateRangeTo: '2015-12-24',
         datetime: '2017-01-25T15:15:00.000Z',
         decimal: 123456.78,
+        locale: 'en',
         duration: 3660000,
         boolean: false,
         number: 99,
@@ -210,6 +212,9 @@ class Example extends React.Component {
                 <EditableValue
                   type="decimal"
                   value={this.state.values.decimal}
+                  options={{
+                    intl: this.context.intl
+                  }}
                   onChange={v => this.changeValue('decimal', v)}
                   readOnly={this.state.readOnly}
                 />
@@ -383,6 +388,10 @@ class Example extends React.Component {
       </div>
     )
   }
+}
+
+Example.contextTypes = {
+  intl: intlShape
 }
 
 export default () => <Example/>
