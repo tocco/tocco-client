@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {FormattedMessage, intlShape} from 'react-intl'
+import {FormattedMessage, injectIntl, intlShape} from 'react-intl'
 import {Button, Menu, Typography} from 'tocco-ui'
 
 import StyledNavigationFullCalendar from './StyledNavigationFullCalendar'
@@ -118,10 +118,10 @@ NavigationFullCalendar.propTypes = {
   chooseToday: PropTypes.func,
   intl: intlShape.isRequired,
   isLoading: PropTypes.bool,
-  locale: PropTypes.string,
   refresh: PropTypes.func,
   title: PropTypes.string,
   type: PropTypes.string
 }
 
-export default NavigationFullCalendar
+export {getButtonInkProps}
+export default injectIntl(NavigationFullCalendar)
