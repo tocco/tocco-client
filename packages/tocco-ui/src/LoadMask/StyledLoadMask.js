@@ -1,7 +1,12 @@
-import styled, {css} from 'styled-components'
+import styled, {css, keyframes} from 'styled-components'
 import {theme} from 'styled-system'
 
 import {StyledSpan} from '../Typography/StyledMisc'
+
+const fadeIn = keyframes`
+  from {opacity: 0;}
+  to {opacity: 1;}
+`
 
 const StyledLoadMask = styled.div`
   ${props => !props.isInitialized && css`
@@ -13,6 +18,7 @@ const StyledLoadMask = styled.div`
       align-items: center;
       padding: ${theme('space.4')}
       width: 100%;
+      animation: ${fadeIn} 400ms ease-in-out both;
 
       > ${StyledSpan} {
         margin-top: ${theme('space.4')}
