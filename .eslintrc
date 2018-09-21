@@ -28,12 +28,14 @@
     "__PACKAGE_NAME__": false,
     "__webpack_public_path__": true,
     "__NO_MOCK__": false,
+    "test": false,
     "it": false,
     "expect": false,
     "describe": false,
     "sinon": false,
-    "before": false,
+    "beforeAll": false,
     "beforeEach": false,
+    "afterAll": false,
     "afterEach": false
   },
   "rules": {
