@@ -18,6 +18,7 @@ import {consoleLogger} from 'tocco-util'
 
 import Conflict from '../Conflict'
 import NavigationFullCalendar from '../NavigationFullCalendar'
+import StyledFullCalendar from './StyledFullCalendar'
 
 class FullCalendar extends React.Component {
   constructor(props) {
@@ -133,22 +134,24 @@ class FullCalendar extends React.Component {
   }
 
   render = () =>
-    <div className={this.state.wrapperId}>
-      { this.calendarElement
-        && <NavigationFullCalendar
-          changeRange={this.changeRange}
-          changeView={this.changeView}
-          chooseNext={() => this.calendarElement.fullCalendar('next')}
-          choosePrev={() => this.calendarElement.fullCalendar('prev')}
-          chooseToday={() => this.calendarElement.fullCalendar('today')}
-          isLoading={this.props.isLoading}
-          refresh={this.props.onRefresh}
-          title={this.calendarElement.fullCalendar('getView').title}
-          type={this.calendarElement.fullCalendar('getView').type}
-        />
-      }
-      <div ref={ref => { this.calendarElementRef = ref }}></div>
-    </div>
+    <StyledFullCalendar>
+      <div className={this.state.wrapperId}>
+        { this.calendarElement
+          && <NavigationFullCalendar
+            changeRange={this.changeRange}
+            changeView={this.changeView}
+            chooseNext={() => this.calendarElement.fullCalendar('next')}
+            choosePrev={() => this.calendarElement.fullCalendar('prev')}
+            chooseToday={() => this.calendarElement.fullCalendar('today')}
+            isLoading={this.props.isLoading}
+            refresh={this.props.onRefresh}
+            title={this.calendarElement.fullCalendar('getView').title}
+            type={this.calendarElement.fullCalendar('getView').type}
+          />
+        }
+        <div ref={ref => { this.calendarElementRef = ref }}></div>
+      </div>
+    </StyledFullCalendar>
 }
 
 FullCalendar.defaultProps = {
