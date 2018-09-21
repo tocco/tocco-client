@@ -30,7 +30,7 @@ install:
 
 script:
   - npm run lint
-  - npm run test
+  - jest --maxWorkers=4 --silent --verbose false
 
 after_success:
   - if [ ${TRAVIS_EVENT_TYPE} != "cron" ]; then
