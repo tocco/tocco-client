@@ -11,14 +11,14 @@ describe('tocco-ui', () => {
       describe('DurationEdit ', () => {
         const implyTargetObject = value => ({target: {value, validity: {valid: true}, select: EMPTY_FUNC}})
 
-        it('should render two inputs', () => {
+        test('should render two inputs', () => {
           const wrapper = mount(
             <DurationEdit value={3720000} onChange={EMPTY_FUNC}/>
           )
           expect(wrapper.find('input')).to.have.length(2)
         })
 
-        it('should display value in hours and minutes', () => {
+        test('should display value in hours and minutes', () => {
           const wrapper = mount(
             <DurationEdit value={3720000} onChange={EMPTY_FUNC}/>
           )
@@ -26,7 +26,7 @@ describe('tocco-ui', () => {
           expect(wrapper.find('input').at(1)).to.have.value('2')
         })
 
-        it('should call onChange with milliseconds', () => {
+        test('should call onChange with milliseconds', () => {
           const onInputSpy = sinon.spy()
           const wrapper = mount(
             <DurationEdit value={60000} onChange={onInputSpy}/>
@@ -36,7 +36,7 @@ describe('tocco-ui', () => {
           expect(onInputSpy).to.be.calledWith(3660000)
         })
 
-        it('should call onChange with zero on invalid input', () => {
+        test('should call onChange with zero on invalid input', () => {
           const onInputSpy = sinon.spy()
           const wrapper = mount(
             <DurationEdit value={0} onChange={onInputSpy}/>

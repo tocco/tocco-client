@@ -10,7 +10,7 @@ describe('tocco-util', () => {
   describe('actions', () => {
     describe('components', () => {
       describe('GroupElement', () => {
-        it('should call onClick if not readonly', () => {
+        test('should call onClick if not readonly', () => {
           const definition = {
             componentType: 'action-group',
             readonly: false
@@ -22,7 +22,7 @@ describe('tocco-util', () => {
           expect(clickSpy).to.have.property('callCount', 1)
         })
 
-        it('should not call onClick if readonly is false ', () => {
+        test('should not call onClick if readonly is false ', () => {
           const definition = {
             componentType: 'action-group',
             readonly: true
@@ -34,7 +34,7 @@ describe('tocco-util', () => {
           expect(clickSpy).to.have.property('callCount', 0)
         })
 
-        it('should display dividers', () => {
+        test('should display dividers', () => {
           const definition = {
             componentType: 'action-group',
             actionType: 'divider'

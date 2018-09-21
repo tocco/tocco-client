@@ -24,7 +24,7 @@ describe('entity-list', () => {
     describe('searchForm', () => {
       describe('sagas', () => {
         describe('rootSaga', () => {
-          it('should fork child sagas', () => {
+          test('should fork child sagas', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal(all([
               fork(takeLatest, actions.INITIALIZE, sagas.initialize),
@@ -39,7 +39,7 @@ describe('entity-list', () => {
         })
 
         describe('initializeSearchForm saga', () => {
-          it('should load form, initialvalues and set initialized status', () => {
+          test('should load form, initialvalues and set initialized status', () => {
             const formDefinition = []
             const searchFormName = 'SearchForm'
             const initialized = false
@@ -57,32 +57,35 @@ describe('entity-list', () => {
         })
 
         describe('setInitialFormValues saga', () => {
-          it('should set initital form values (preselected and form definition)', () => {
-            const searchFormVisible = true
-            const FORM_ID = 'searchForm'
-            const entityModel = {model: {fields: [{'fieldName': 'firstname', 'type': 'string'}]}}
-            const preselectedSearchFields = [{id: 'first.name', value: 'test'}]
-            const formDefinition = {children: []}
-            const fieldDefinitions = [
-              {'id': 'first.name', 'type': 'string'},
-              {'id': 'defaultTest', type: 'string', defaultValue: 'default'}
-            ]
-            const values = {'first--name': 'test', 'defaultTest': 'default'}
+          test(
+            'should set initital form values (preselected and form definition)',
+            () => {
+              const searchFormVisible = true
+              const FORM_ID = 'searchForm'
+              const entityModel = {model: {fields: [{'fieldName': 'firstname', 'type': 'string'}]}}
+              const preselectedSearchFields = [{id: 'first.name', value: 'test'}]
+              const formDefinition = {children: []}
+              const fieldDefinitions = [
+                {'id': 'first.name', 'type': 'string'},
+                {'id': 'defaultTest', type: 'string', defaultValue: 'default'}
+              ]
+              const values = {'first--name': 'test', 'defaultTest': 'default'}
 
-            return expectSaga(sagas.setInitialFormValues, searchFormVisible, formDefinition)
-              .provide([
-                [select(sagas.inputSelector), {preselectedSearchFields}],
-                [matchers.call.fn(sagas.getEntityModel), entityModel],
-                [matchers.call.fn(form.getFieldDefinitions), fieldDefinitions]
-              ])
-              .put(formActions.initialize(FORM_ID, values))
-              .put(actions.setValuesInitialized(true))
-              .run()
-          })
+              return expectSaga(sagas.setInitialFormValues, searchFormVisible, formDefinition)
+                .provide([
+                  [select(sagas.inputSelector), {preselectedSearchFields}],
+                  [matchers.call.fn(sagas.getEntityModel), entityModel],
+                  [matchers.call.fn(form.getFieldDefinitions), fieldDefinitions]
+                ])
+                .put(formActions.initialize(FORM_ID, values))
+                .put(actions.setValuesInitialized(true))
+                .run()
+            }
+          )
         })
 
         describe('submitSearchFrom saga', () => {
-          it('should call executeSearch if no validation error occures', () => {
+          test('should call executeSearch if no validation error occures', () => {
             const FORM_ID = 'searchForm'
 
             const values = {firstname: 'a'}
@@ -98,7 +101,7 @@ describe('entity-list', () => {
             expect(gen.next().done).to.be.true
           })
 
-          it('should not call executeSearch if validation error occures', () => {
+          test('should not call executeSearch if validation error occures', () => {
             const FORM_ID = 'searchForm'
 
             const values = {firstname: 'a'}
@@ -115,7 +118,7 @@ describe('entity-list', () => {
         })
 
         describe('getSearchInputs saga', () => {
-          it('should get searchInputs', () => {
+          test('should get searchInputs', () => {
             const valuesInitialized = false
             const entityModel = {}
             const searchValues = {
@@ -140,7 +143,7 @@ describe('entity-list', () => {
         })
 
         describe('resetSearch saga', () => {
-          it('should reset the form and trigger a search', () => {
+          test('should reset the form and trigger a search', () => {
             const gen = sagas.resetSearch()
             expect(gen.next().value).to.eql(put(formActions.reset('searchForm')))
             expect(gen.next().value).to.eql(call(sagas.submitSearchFrom))
@@ -149,7 +152,7 @@ describe('entity-list', () => {
         })
 
         describe('loadSearchForm saga', () => {
-          it('should load the form definition and dispatch setFormDefintion', () => {
+          test('should load the form definition and dispatch setFormDefintion', () => {
             const formDefinition = {children: []}
 
             return expectSaga(sagas.loadSearchForm)
@@ -161,7 +164,7 @@ describe('entity-list', () => {
               .run()
           })
 
-          it('should set fulltext searchform if form does not exists', () => {
+          test('should set fulltext searchform if form does not exists', () => {
             const formDefinition = null
 
             return expectSaga(sagas.loadSearchForm)
@@ -175,7 +178,7 @@ describe('entity-list', () => {
         })
 
         describe('getEntityModel saga', () => {
-          it('should return the entity model as soon as initialized', () => {
+          test('should return the entity model as soon as initialized', () => {
             const entityModel = {fields: []}
             return expectSaga(sagas.getEntityModel)
               .provide([
@@ -188,7 +191,7 @@ describe('entity-list', () => {
         })
 
         describe('loadSearchFilters saga', () => {
-          it('should load search filters', () => {
+          test('should load search filters', () => {
             const args = {
               payload: {
                 model: 'User',
@@ -226,7 +229,7 @@ describe('entity-list', () => {
               .run()
           })
 
-          it('should not load search filters if already loaded', () => {
+          test('should not load search filters if already loaded', () => {
             const args = {
               payload: {
                 model: 'User',
@@ -246,7 +249,7 @@ describe('entity-list', () => {
               .run()
           })
 
-          it('should add filters passed in arguments', () => {
+          test('should add filters passed in arguments', () => {
             const args = {
               payload: {
                 model: 'User',

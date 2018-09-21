@@ -4,14 +4,14 @@ import {ThemeProvider} from 'styled-components'
 
 import Icon from './Icon'
 
-describe('tocco-ui', function() {
-  describe('Icon', function() {
-    it('should have 1 defaultProps', () => {
+describe('tocco-ui', () => {
+  describe('Icon', () => {
+    test('should have 1 defaultProps', () => {
       const wrapper = shallow(<Icon />)
       expect(wrapper.props().position).to.equal('sole')
     })
 
-    it('should receive theme', () => {
+    test('should receive theme', () => {
       const wrapper = mount(
         <ThemeProvider theme={{key: 'value'}}>
           <Icon />
@@ -20,7 +20,7 @@ describe('tocco-ui', function() {
       expect(wrapper.prop('theme')).to.deep.equal({key: 'value'})
     })
 
-    it('should render an icon', done => {
+    test('should render an icon', done => {
       let wrapper = null
       const loaded = () => {
         wrapper.update()

@@ -13,7 +13,7 @@ const EMPTY_FUNC = () => {
 describe('entity-list', () => {
   describe('components', () => {
     describe('SearchForm', () => {
-      it('should render nothing if searchFormDefinition empty', () => {
+      test('should render nothing if searchFormDefinition empty', () => {
         const entityModel = require('../../dev/test-data/userModel.json')
         const searchFormDefinition = {}
 
@@ -48,7 +48,7 @@ describe('entity-list', () => {
         expect(wrapper.find('form')).to.have.length(0)
       })
 
-      it('should render needed components', () => {
+      test('should render needed components', () => {
         const entityModel = require('../../dev/test-data/userModel.json')
         const searchFormDefinition = require('../../dev/test-data/searchFormDefinition.json')
 
@@ -84,7 +84,7 @@ describe('entity-list', () => {
         expect(wrapper.find(Button)).to.have.length(2)
       })
 
-      it('should render only the fulltext field', () => {
+      test('should render only the fulltext field', () => {
         const entityModel = require('../../dev/test-data/userModel.json')
         const searchFormDefinition = require('../../dev/test-data/searchFormDefinition.json')
 
@@ -119,7 +119,7 @@ describe('entity-list', () => {
         expect(wrapper.find(Button)).to.have.length(3)
       })
 
-      it('should render two fields', () => {
+      test('should render two fields', () => {
         const entityModel = require('../../dev/test-data/userModel.json')
         const searchFormDefinition = require('../../dev/test-data/searchFormDefinition.json')
 
@@ -154,7 +154,7 @@ describe('entity-list', () => {
         expect(wrapper.find(Button)).to.have.length(3)
       })
 
-      it('should not show hidden value', () => {
+      test('should not show hidden value', () => {
         const entityModel = require('../../dev/test-data/userModel.json')
         const searchFormDefinition = require('../../dev/test-data/searchFormDefinition.json')
 

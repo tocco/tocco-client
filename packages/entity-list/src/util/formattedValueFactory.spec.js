@@ -7,7 +7,7 @@ import formattedValueFactory from './formattedValueFactory'
 describe('entity-list', () => {
   describe('util', () => {
     describe('formattedValueFactory', () => {
-      it('should return FormattedValue', () => {
+      test('should return FormattedValue', () => {
         const field = {
           id: 'firstname'
         }
@@ -23,7 +23,7 @@ describe('entity-list', () => {
         expect(wrapper.find(FormattedValue).props()).to.not.have.property('options')
       })
 
-      it('should return FormattedValue and add type specific props', () => {
+      test('should return FormattedValue and add type specific props', () => {
         const field = {
           id: 'doc'
         }

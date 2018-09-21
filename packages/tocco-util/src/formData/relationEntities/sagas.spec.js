@@ -14,7 +14,7 @@ describe('tocco-util', () => {
       describe('setRelationEntities', () => {
         describe('sagas', () => {
           describe('main saga', () => {
-            it('should fork sagas', () => {
+            test('should fork sagas', () => {
               const saga = testSaga(sagas.default)
               saga.next().all([
                 fork(takeEvery, relationEntitiesActions.LOAD_RELATION_ENTITIES, sagas.loadRelationEntity)
@@ -23,7 +23,7 @@ describe('tocco-util', () => {
           })
 
           describe('loadRelationEntity saga', () => {
-            it('should load relation entities, dispatch loading and entities', () => {
+            test('should load relation entities, dispatch loading and entities', () => {
               const fieldData = undefined
               const fieldName = 'relUser'
               const entities = [{display: 'User1', key: 1}]
@@ -40,7 +40,7 @@ describe('tocco-util', () => {
                 .run()
             })
 
-            it('should not load entities if allready loaded', () => {
+            test('should not load entities if allready loaded', () => {
               const fieldData = {data: [{key: '1', display: 'one'}]}
               const fieldName = 'relUser'
 
@@ -55,7 +55,7 @@ describe('tocco-util', () => {
                 .run()
             })
 
-            it('should reload with forceReload option ', () => {
+            test('should reload with forceReload option ', () => {
               const fieldData = {data: [{key: '1', display: 'one'}]}
               const fieldName = 'relUser'
               const entities = [{display: 'User1', key: 1}]
@@ -73,7 +73,7 @@ describe('tocco-util', () => {
                 .run()
             })
 
-            it('should set moreEntities available', () => {
+            test('should set moreEntities available', () => {
               const fieldData = undefined
               const fieldName = 'relUser'
               const entities = [{display: 'User1', key: 1}, {display: 'User2', key: 2}]
@@ -92,7 +92,7 @@ describe('tocco-util', () => {
                 .run()
             })
 
-            it('should reload use option object to build query params', () => {
+            test('should reload use option object to build query params', () => {
               const fieldData = {}
               const fieldName = 'relUser'
               const entities = [{display: 'User1', key: 1}]

@@ -7,7 +7,7 @@ import {call, takeEvery} from 'redux-saga/effects'
 describe('tocco-util', () => {
   describe('errorLogging', () => {
     describe('sagas', () => {
-      it('should handle error if accept true', () => {
+      test('should handle error if accept true', () => {
         const handlers = ['console', 'toastr']
         const accept = true
         const generator = rootSaga(accept, handlers)
@@ -19,7 +19,7 @@ describe('tocco-util', () => {
         expect(generator.next().done).to.be.true
       })
 
-      it('should emit error if accept false', () => {
+      test('should emit error if accept false', () => {
         const handlers = ['console', 'toastr']
         const accept = false
         const generator = rootSaga(accept, handlers)
@@ -31,7 +31,7 @@ describe('tocco-util', () => {
         expect(generator.next().done).to.be.true
       })
 
-      it('should call configured handerls', () => {
+      test('should call configured handerls', () => {
         const handlers = ['console', 'toastr']
         const title = 'title'
         const description = 'description'

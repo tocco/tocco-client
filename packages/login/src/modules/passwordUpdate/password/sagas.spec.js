@@ -13,7 +13,7 @@ describe('login', () => {
       describe('password', () => {
         describe('sagas', () => {
           describe('root saga', () => {
-            it('should fork child sagas', () => {
+            test('should fork child sagas', () => {
               const generator = rootSaga()
               expect(generator.next().value).to.deep.equal(all([
                 fork(takeLatest, actions.UPDATE_NEW_PASSWORD, sagas.updateNewPassword),
@@ -28,7 +28,7 @@ describe('login', () => {
           })
 
           describe('updateNewPassword', () => {
-            it('should set new password and trigger validation', () => {
+            test('should set new password and trigger validation', () => {
               const generator = sagas.updateNewPassword({
                 payload: {
                   newPassword: 'newpw'
@@ -41,7 +41,7 @@ describe('login', () => {
           })
 
           describe('validate', () => {
-            it('should validate password locally', () => {
+            test('should validate password locally', () => {
               const generator = sagas.validate()
 
               expect(generator.next().value).to.deep.equal(select(sagas.validationRulesSelector))
@@ -71,101 +71,107 @@ describe('login', () => {
               expect(generator.next().done).to.equal(true)
             })
 
-            it('should validate password remotely if local validation succeeds (success case)', () => {
-              const generator = sagas.validate()
+            test(
+              'should validate password remotely if local validation succeeds (success case)',
+              () => {
+                const generator = sagas.validate()
 
-              expect(generator.next().value).to.deep.equal(select(sagas.validationRulesSelector))
+                expect(generator.next().value).to.deep.equal(select(sagas.validationRulesSelector))
 
-              const rules = [{
-                name: 'LENGTH',
-                params: {
-                  max: 2147483647,
-                  min: 8
-                },
-                message: 'Das neue Passwort muss mindestens 8 Zeichen lang sein.'
-              }]
-
-              expect(generator.next(rules).value).to.deep.equal(select(sagas.passwordSelector))
-
-              const passwordState = {
-                oldPassword: 'oldpw',
-                newPassword: 'validnewpw'
-              }
-
-              expect(generator.next(passwordState).value).to.deep.equal(select(sagas.usernameSelector))
-
-              const username = 'user1'
-
-              expect(generator.next(username).value).to.deep.equal(call(sagas.getData))
-
-              const data = {
-                oldPassword: 'oldpw',
-                newPassword: 'validnewpw'
-              }
-
-              expect(generator.next(data).value).to.deep.equal(call(sagas.remoteValidate, username, data))
-
-              const result = {
-                valid: true
-              }
-
-              expect(generator.next(result).value).to.deep.equal(put(actions.setNewPasswordValidationErrors({})))
-
-              expect(generator.next().done).to.equal(true)
-            })
-
-            it('should validate password remotely if local validation succeeds (failure case)', () => {
-              const generator = sagas.validate()
-
-              expect(generator.next().value).to.deep.equal(select(sagas.validationRulesSelector))
-
-              const rules = [{
-                name: 'LENGTH',
-                params: {
-                  max: 2147483647,
-                  min: 8
-                },
-                message: 'Das neue Passwort muss mindestens 8 Zeichen lang sein.'
-              }]
-
-              expect(generator.next(rules).value).to.deep.equal(select(sagas.passwordSelector))
-
-              const passwordState = {
-                oldPassword: 'oldpw',
-                newPassword: 'validnewpw'
-              }
-
-              expect(generator.next(passwordState).value).to.deep.equal(select(sagas.usernameSelector))
-
-              const username = 'user1'
-
-              expect(generator.next(username).value).to.deep.equal(call(sagas.getData))
-
-              const data = {
-                oldPassword: 'oldpw',
-                newPassword: 'validnewpw'
-              }
-
-              expect(generator.next(data).value).to.deep.equal(call(sagas.remoteValidate, username, data))
-
-              const result = {
-                valid: false,
-                validationMessages: [{
-                  ruleName: 'DICTIONARY',
-                  message: 'Das neue Passwort darf das Wort "valid" nicht enthalten'
+                const rules = [{
+                  name: 'LENGTH',
+                  params: {
+                    max: 2147483647,
+                    min: 8
+                  },
+                  message: 'Das neue Passwort muss mindestens 8 Zeichen lang sein.'
                 }]
+
+                expect(generator.next(rules).value).to.deep.equal(select(sagas.passwordSelector))
+
+                const passwordState = {
+                  oldPassword: 'oldpw',
+                  newPassword: 'validnewpw'
+                }
+
+                expect(generator.next(passwordState).value).to.deep.equal(select(sagas.usernameSelector))
+
+                const username = 'user1'
+
+                expect(generator.next(username).value).to.deep.equal(call(sagas.getData))
+
+                const data = {
+                  oldPassword: 'oldpw',
+                  newPassword: 'validnewpw'
+                }
+
+                expect(generator.next(data).value).to.deep.equal(call(sagas.remoteValidate, username, data))
+
+                const result = {
+                  valid: true
+                }
+
+                expect(generator.next(result).value).to.deep.equal(put(actions.setNewPasswordValidationErrors({})))
+
+                expect(generator.next().done).to.equal(true)
               }
+            )
 
-              expect(generator.next(result).value).to.deep.equal(put(actions.setNewPasswordValidationErrors({
-                DICTIONARY: 'Das neue Passwort darf das Wort "valid" nicht enthalten'
-              })))
+            test(
+              'should validate password remotely if local validation succeeds (failure case)',
+              () => {
+                const generator = sagas.validate()
 
-              expect(generator.next().done).to.equal(true)
-            })
+                expect(generator.next().value).to.deep.equal(select(sagas.validationRulesSelector))
+
+                const rules = [{
+                  name: 'LENGTH',
+                  params: {
+                    max: 2147483647,
+                    min: 8
+                  },
+                  message: 'Das neue Passwort muss mindestens 8 Zeichen lang sein.'
+                }]
+
+                expect(generator.next(rules).value).to.deep.equal(select(sagas.passwordSelector))
+
+                const passwordState = {
+                  oldPassword: 'oldpw',
+                  newPassword: 'validnewpw'
+                }
+
+                expect(generator.next(passwordState).value).to.deep.equal(select(sagas.usernameSelector))
+
+                const username = 'user1'
+
+                expect(generator.next(username).value).to.deep.equal(call(sagas.getData))
+
+                const data = {
+                  oldPassword: 'oldpw',
+                  newPassword: 'validnewpw'
+                }
+
+                expect(generator.next(data).value).to.deep.equal(call(sagas.remoteValidate, username, data))
+
+                const result = {
+                  valid: false,
+                  validationMessages: [{
+                    ruleName: 'DICTIONARY',
+                    message: 'Das neue Passwort darf das Wort "valid" nicht enthalten'
+                  }]
+                }
+
+                expect(generator.next(result).value).to.deep.equal(put(actions.setNewPasswordValidationErrors({
+                  DICTIONARY: 'Das neue Passwort darf das Wort "valid" nicht enthalten'
+                })))
+
+                expect(generator.next().done).to.equal(true)
+              }
+            )
           })
 
           describe('savePassword', () => {
-            it('should call external event on standalone mode', () => {
+            test('should call external event on standalone mode', () => {
               const generator = sagas.savePassword()
 
               expect(generator.next().value).to.deep.equal(select(sagas.usernameSelector))
@@ -197,7 +203,7 @@ describe('login', () => {
               expect(generator.next(result).done).to.equal(true)
             })
 
-            it('should call login saga if not standalone', () => {
+            test('should call login saga if not standalone', () => {
               const generator = sagas.savePassword()
 
               expect(generator.next().value).to.deep.equal(select(sagas.usernameSelector))
@@ -231,7 +237,7 @@ describe('login', () => {
               expect(generator.next(result).done).to.be.true
             })
 
-            it('should set validation errors if validation failed', () => {
+            test('should set validation errors if validation failed', () => {
               const generator = sagas.savePassword()
 
               expect(generator.next().value).to.deep.equal(select(sagas.usernameSelector))
@@ -265,7 +271,7 @@ describe('login', () => {
               expect(generator.next(result).done).to.equal(true)
             })
 
-            it('should set error code if saving failed', () => {
+            test('should set error code if saving failed', () => {
               const generator = sagas.savePassword()
 
               expect(generator.next().value).to.deep.equal(select(sagas.usernameSelector))
@@ -294,7 +300,7 @@ describe('login', () => {
           })
 
           describe('getData', () => {
-            it('should return from input if available', () => {
+            test('should return from input if available', () => {
               const generator = sagas.getData()
 
               expect(generator.next().value).to.deep.equal(select(sagas.inputSelector))
@@ -318,7 +324,7 @@ describe('login', () => {
               expect(generator.next().done).to.equal(true)
             })
 
-            it('should return from password state if input not available', () => {
+            test('should return from password state if input not available', () => {
               const generator = sagas.getData()
 
               expect(generator.next().value).to.deep.equal(select(sagas.inputSelector))
@@ -342,7 +348,7 @@ describe('login', () => {
           })
 
           describe('formChanged', () => {
-            it('should reset error state on change', () => {
+            test('should reset error state on change', () => {
               const generator = sagas.formChanged()
               expect(generator.next().value).to.deep.equal(put(actions.resetPasswordUpdateFailed()))
               expect(generator.next().done).to.equal(true)

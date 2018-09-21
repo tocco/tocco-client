@@ -6,10 +6,10 @@ import PanelHeaderFooter from './PanelHeaderFooter'
 import Button from '../Button'
 import StyledPanelHeaderFooter from './StyledPanelHeaderFooter'
 
-describe('tocco-ui', function() {
-  describe('Panel', function() {
-    describe('PanelHeaderFooter', function() {
-      it('should render parent and children', () => {
+describe('tocco-ui', () => {
+  describe('Panel', () => {
+    describe('PanelHeaderFooter', () => {
+      test('should render parent and children', () => {
         const wrapper = shallow(
           <PanelHeaderFooter
             isToggleable={true}
@@ -26,7 +26,7 @@ describe('tocco-ui', function() {
         expect(wrapper.find('span').last().text()).to.equal('child-2')
       })
 
-      it('should hide or display button according precondition', () => {
+      test('should hide or display button according precondition', () => {
         let wrapper = shallow(
           <PanelHeaderFooter
             isToggleable={true}
@@ -60,7 +60,7 @@ describe('tocco-ui', function() {
         expect(wrapper.find(Button)).to.have.length(0)
       })
 
-      it('should display button correctly', () => {
+      test('should display button correctly', () => {
         let wrapper = shallow(
           <PanelHeaderFooter
             isOpen={false}

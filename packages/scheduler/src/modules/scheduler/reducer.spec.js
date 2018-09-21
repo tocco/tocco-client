@@ -10,11 +10,11 @@ describe('resource-scheduler', () => {
   describe('modules', () => {
     describe('resourceScheduler', () => {
       describe('reducer', () => {
-        it('should create a valid initial state', () => {
+        test('should create a valid initial state', () => {
           expect(reducer(undefined, {})).to.deep.equal(EXPECTED_INITIAL_STATE)
         })
 
-        it('should handle an action', () => {
+        test('should handle an action', () => {
           const calendars = [{name: 'cal1'}, {name: 'cal2'}]
 
           const expectedStateAfter = {

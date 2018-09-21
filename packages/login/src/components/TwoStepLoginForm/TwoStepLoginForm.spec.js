@@ -8,7 +8,7 @@ import {TwoStepLoginForm} from './TwoStepLoginForm'
 describe('login', () => {
   describe('components', () => {
     describe('TwoStepLoginForm', () => {
-      it('should render components', () => {
+      test('should render components', () => {
         const wrapper = shallow(
           <TwoStepLoginForm
             intl={IntlStub}
@@ -24,7 +24,7 @@ describe('login', () => {
         expect(wrapper.find(Button)).to.have.length(1)
       })
 
-      it('should have an initial code state', () => {
+      test('should have an initial code state', () => {
         const wrapper = shallow(
           <TwoStepLoginForm
             intl={IntlStub}
@@ -38,7 +38,7 @@ describe('login', () => {
         expect(wrapper.state().userCode).to.equal('')
       })
 
-      it('should update code state on code change', () => {
+      test('should update code state on code change', () => {
         const wrapper = shallow(
           <TwoStepLoginForm
             intl={IntlStub}
@@ -62,7 +62,7 @@ describe('login', () => {
         expect(wrapper.state().userCode).to.equal('1234')
       })
 
-      it('should disable submit button if code is not set', () => {
+      test('should disable submit button if code is not set', () => {
         const wrapper = shallow(
           <TwoStepLoginForm
             intl={IntlStub}
@@ -79,7 +79,7 @@ describe('login', () => {
         expect(button.prop('disabled')).to.equal(true)
       })
 
-      it('should enable submit button if code is set', () => {
+      test('should enable submit button if code is set', () => {
         const wrapper = shallow(
           <TwoStepLoginForm
             intl={IntlStub}
@@ -100,7 +100,7 @@ describe('login', () => {
         expect(button).to.not.have.property('disabled')
       })
 
-      it('should hide title by default', () => {
+      test('should hide title by default', () => {
         const wrapper = shallow(
           <TwoStepLoginForm
             intl={IntlStub}
@@ -115,7 +115,7 @@ describe('login', () => {
         expect(wrapper.find('h1')).to.have.length(0)
       })
 
-      it('should display title if showTitle prop is true', () => {
+      test('should display title if showTitle prop is true', () => {
         const wrapper = shallow(
           <TwoStepLoginForm
             intl={IntlStub}
@@ -131,7 +131,7 @@ describe('login', () => {
         expect(wrapper.find('h1')).to.have.length(1)
       })
 
-      it('should prevent default and call twoStepLogin on submit', () => {
+      test('should prevent default and call twoStepLogin on submit', () => {
         const preventDefault = sinon.spy()
         const twoStepLogin = sinon.spy()
 

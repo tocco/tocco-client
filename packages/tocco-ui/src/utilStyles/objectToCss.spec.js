@@ -21,14 +21,14 @@ const props = {
 describe('tocco-ui', () => {
   describe('utilStyles', () => {
     describe('objectToCss', () => {
-      it('should be one css declaration without declared theme prop', () => {
+      test('should be one css declaration without declared theme prop', () => {
         const declarations = {
           'background-color': '#AAA'
         }
         expect(objectToCss(declarations)).to.equal('background-color: #AAA;')
       })
 
-      it('should be two css declarations without declared theme prop', () => {
+      test('should be two css declarations without declared theme prop', () => {
         const declarations = {
           'background-color': '#AAA',
           'opacity': 0.5
@@ -36,33 +36,39 @@ describe('tocco-ui', () => {
         expect(objectToCss(declarations)).to.equal('background-color: #AAA;\nopacity: 0.5;')
       })
 
-      it('should be one css declaration with one value from theme', () => {
+      test('should be one css declaration with one value from theme', () => {
         const declarations = {
           'line-height': ['lineHeights', 1]
         }
         expect(objectToCss(declarations, props)).to.equal('line-height: 2;')
       })
 
-      it('should be one css declaration with two values from theme', () => {
+      test('should be one css declaration with two values from theme', () => {
         const declarations = {
           'padding': ['space', 0, 2]
         }
         expect(objectToCss(declarations, props)).to.equal('padding: 0 2rem;')
       })
 
-      it('should be one css declaration with one deep nested array value from theme', () => {
-        const declarations = {
-          'background-color': ['colors.base.fill', 1]
+      test(
+        'should be one css declaration with one deep nested array value from theme',
+        () => {
+          const declarations = {
+            'background-color': ['colors.base.fill', 1]
+          }
+          expect(objectToCss(declarations, props)).to.equal('background-color: #EEE;')
         }
-        expect(objectToCss(declarations, props)).to.equal('background-color: #EEE;')
-      })
+      )
 
-      it('should be one css declaration with one deep nested string value from theme', () => {
-        const declarations = {
-          'color': ['colors.base.text']
+      test(
+        'should be one css declaration with one deep nested string value from theme',
+        () => {
+          const declarations = {
+            'color': ['colors.base.text']
+          }
+          expect(objectToCss(declarations, props)).to.equal('color: #BBB;')
         }
-        expect(objectToCss(declarations, props)).to.equal('color: #BBB;')
-      })
+      )
     })
   })
 })

@@ -4,9 +4,9 @@ import {mount} from 'enzyme'
 import LayoutContainer from './LayoutContainer'
 import StyledLayoutContainer from './StyledLayoutContainer'
 
-describe('tocco-ui', function() {
-  describe('LayoutContainer', function() {
-    it('should render parent and children', () => {
+describe('tocco-ui', () => {
+  describe('LayoutContainer', () => {
+    test('should render parent and children', () => {
       const wrapper = mount(<LayoutContainer><span>child1</span><span>child2</span></LayoutContainer>)
       expect(wrapper.find(StyledLayoutContainer)).to.have.length(1)
       expect(wrapper.find('span')).to.have.length(2)
@@ -14,11 +14,11 @@ describe('tocco-ui', function() {
       expect(wrapper.find('span').last().text()).to.equal('child2')
     })
 
-    it('should have one defaultProps', () => {
+    test('should have one defaultProps', () => {
       expect(LayoutContainer.defaultProps.maxCellsPerRow).to.deep.equal({sm: 1, md: 2, lg: 3, xl: 4})
     })
 
-    it('should pass props to child', () => {
+    test('should pass props to child', () => {
       const wrapper = mount(
         <LayoutContainer
           maxCellsPerRow={{sm: 5, md: 6, lg: 7, xl: 8}}

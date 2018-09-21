@@ -15,7 +15,7 @@ describe('login', () => {
   describe('modules', () => {
     describe('sagas', () => {
       describe('root saga', () => {
-        it('should fork child sagas', () => {
+        test('should fork child sagas', () => {
           const generator = rootSaga()
           expect(generator.next().value).to.deep.equal(all([
             fork(takeLatest, actions.LOGIN, sagas.loginSaga),
@@ -26,7 +26,7 @@ describe('login', () => {
       })
 
       describe('loginSaga', () => {
-        it('should handle successful login', () => {
+        test('should handle successful login', () => {
           const gen = sagas.loginSaga({payload: {}})
           expect(gen.next().value).to.eql(put(setPending(true)))
           expect(gen.next().value).to.eql(call(sagas.doLoginRequest, {}))
@@ -35,7 +35,7 @@ describe('login', () => {
           expect(gen.next().done).to.deep.equal(true)
         })
 
-        it('should handle unsuccessful login', () => {
+        test('should handle unsuccessful login', () => {
           const gen = sagas.loginSaga({payload: {}})
           expect(gen.next().value).to.eql(put(setPending(true)))
           expect(gen.next().value).to.eql(call(sagas.doLoginRequest, {}))
@@ -46,7 +46,7 @@ describe('login', () => {
           expect(gen.next().done).to.deep.equal(true)
         })
 
-        it('should handle two step response', () => {
+        test('should handle two step response', () => {
           const gen = sagas.loginSaga({payload: {}})
           expect(gen.next().value).to.eql(put(setPending(true)))
           expect(gen.next().value).to.eql(call(sagas.doLoginRequest, {}))
@@ -60,7 +60,7 @@ describe('login', () => {
           expect(gen.next().done).to.eql(true)
         })
 
-        it('should handle password reset response', () => {
+        test('should handle password reset response', () => {
           const gen = sagas.loginSaga({payload: {}})
           expect(gen.next().value).to.eql(put(setPending(true)))
           expect(gen.next().value).to.eql(call(sagas.doLoginRequest, {}))
@@ -74,7 +74,7 @@ describe('login', () => {
           expect(gen.next().done).to.eql(true)
         })
 
-        it('should handle one till block response', () => {
+        test('should handle one till block response', () => {
           const gen = sagas.loginSaga({payload: {}})
           expect(gen.next().value).to.eql(put(setPending(true)))
           expect(gen.next().value).to.eql(call(sagas.doLoginRequest, {}))
@@ -88,7 +88,7 @@ describe('login', () => {
           expect(gen.next().done).to.eql(true)
         })
 
-        it('should handle login blocked response', () => {
+        test('should handle login blocked response', () => {
           const gen = sagas.loginSaga({payload: {}})
           expect(gen.next().value).to.eql(put(setPending(true)))
           expect(gen.next().value).to.eql(call(sagas.doLoginRequest, {}))
@@ -104,14 +104,14 @@ describe('login', () => {
       })
 
       describe('handleSuccessfulLogin', () => {
-        it('should call external event with timeout of reponse body', () => {
+        test('should call external event with timeout of reponse body', () => {
           const gen = sagas.handleSuccessfulLogin({timeout: 33})
           expect(gen.next().value).to.eql(put(externalEvents.fireExternalEvent('loginSuccess', {timeout: 33})))
           expect(gen.next().value).to.deep.equal(put(setPassword('')))
           expect(gen.next().done).to.deep.equal(true)
         })
 
-        it('should call external event with default timeout if none in body', () => {
+        test('should call external event with default timeout if none in body', () => {
           const gen = sagas.handleSuccessfulLogin({})
           expect(gen.next().value).to.eql(
             put(externalEvents.fireExternalEvent('loginSuccess', {timeout: sagas.DEFAULT_TIMEOUT}))
@@ -122,7 +122,7 @@ describe('login', () => {
       })
 
       describe('handleTwoStepLoginResponse', () => {
-        it('should dispatch actions `setRequestedCode` and `changePage`', () => {
+        test('should dispatch actions `setRequestedCode` and `changePage`', () => {
           const gen = sagas.handleTwoStepLoginResponse({
             REQUESTEDCODE: 'code'
           })
@@ -131,7 +131,7 @@ describe('login', () => {
           expect(gen.next().done).to.deep.equal(true)
         })
 
-        it('should dispatch action changePage', () => {
+        test('should dispatch action changePage', () => {
           const gen = sagas.handlePasswordUpdateResponse()
           expect(gen.next().value).to.deep.equal(select(sagas.loginSelector))
 
@@ -148,7 +148,7 @@ describe('login', () => {
       })
 
       describe('handleOneTilLBlockResponse', () => {
-        it('should dispatch action setMessage', () => {
+        test('should dispatch action setMessage', () => {
           const gen = sagas.handleOneTilLBlockResponse({})
           expect(gen.next().value).to.deep.equal(select(sagas.textResourceSelector, 'client.login.form.lastTry'))
           expect(gen.next('msg').value).to.deep.equal(put(setMessage('msg', true)))
@@ -157,7 +157,7 @@ describe('login', () => {
       })
 
       describe('handleBlockResponse', () => {
-        it('should dispatch action setMessage', () => {
+        test('should dispatch action setMessage', () => {
           const gen = sagas.handleBlockResponse({})
           expect(gen.next().value).to.deep.equal(select(sagas.textResourceSelector, 'client.login.form.blocked'))
           expect(gen.next('msg').value).to.deep.equal(put(setMessage('msg', true)))
@@ -166,7 +166,7 @@ describe('login', () => {
       })
 
       describe('handleFailedResponse', () => {
-        it('should dispatch action setMessage', () => {
+        test('should dispatch action setMessage', () => {
           const gen = sagas.handleFailedResponse({})
           expect(gen.next().value).to.deep.equal(select(sagas.textResourceSelector, 'client.login.form.failed'))
           expect(gen.next('msg').value).to.deep.equal(put(setMessage('msg', true)))
@@ -175,7 +175,7 @@ describe('login', () => {
       })
 
       describe('checkSessionSaga', () => {
-        it('should call handleSuccessfulLogin on success', () => {
+        test('should call handleSuccessfulLogin on success', () => {
           const gen = sagas.checkSessionSaga()
           expect(gen.next().value).to.deep.equal(call(sagas.doSessionRequest))
           const response = {success: true}
@@ -183,7 +183,7 @@ describe('login', () => {
           expect(gen.next().done).to.deep.equal(true)
         })
 
-        it('should do nothing if not success', () => {
+        test('should do nothing if not success', () => {
           const gen = sagas.checkSessionSaga()
           expect(gen.next().value).to.deep.equal(call(sagas.doSessionRequest))
           const response = {success: false}

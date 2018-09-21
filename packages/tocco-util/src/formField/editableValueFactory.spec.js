@@ -6,7 +6,7 @@ import editableValueFactory from './editableValueFactory'
 describe('tocco-util', () => {
   describe('formField', () => {
     describe('editableValueFactory', () => {
-      it('should return simple editableValue', () => {
+      test('should return simple editableValue', () => {
         const factory = editableValueFactory('string')
 
         const props = {
@@ -27,7 +27,7 @@ describe('tocco-util', () => {
         expect(wrapper).to.have.prop('events', events)
       })
 
-      it('should return an advanced editableValue', () => {
+      test('should return an advanced editableValue', () => {
         const factory = editableValueFactory('remote')
 
         const util = {
@@ -49,7 +49,7 @@ describe('tocco-util', () => {
         expect(options.searchPromptText).to.eql('client.component.remoteselect.searchPromptText')
       })
 
-      it('should merge events', () => {
+      test('should merge events', () => {
         const factory = editableValueFactory('single-select')
 
         const focusSpy = sinon.spy()
@@ -75,7 +75,7 @@ describe('tocco-util', () => {
         expect(loadUtilSpy).to.have.calledOnce
       })
 
-      it('should load search filters', () => {
+      test('should load search filters', () => {
         const factory = editableValueFactory('search-filter')
 
         const focusSpy = sinon.spy()
@@ -101,7 +101,7 @@ describe('tocco-util', () => {
         expect(focusSpy).to.have.calledOnce
         expect(loadSearchFiltersSpy).to.have.calledOnce
       })
-      it('should should format message to hours and minutes label', () => {
+      test('should should format message to hours and minutes label', () => {
         const factory = editableValueFactory('duration')
         const util = {
           intl: {

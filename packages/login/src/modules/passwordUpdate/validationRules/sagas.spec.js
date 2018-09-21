@@ -9,7 +9,7 @@ describe('login', () => {
       describe('validationRules', () => {
         describe('sagas', () => {
           describe('root saga', () => {
-            it('should fork child sagas', () => {
+            test('should fork child sagas', () => {
               const generator = rootSaga()
               expect(generator.next().value).to.deep.equal(all([
                 fork(takeLatest, actions.FETCH_VALIDATION_RULES, sagas.fetchValidationRules)
@@ -19,7 +19,7 @@ describe('login', () => {
           })
 
           describe('fetchValidationRules', () => {
-            it('should load validation rules', () => {
+            test('should load validation rules', () => {
               const locale = 'de-CH'
               const username = 'user1'
 

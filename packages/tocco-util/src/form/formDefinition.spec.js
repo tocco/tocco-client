@@ -67,19 +67,19 @@ describe('tocco-util', () => {
       })
 
       describe('getFieldDefinitions', () => {
-        it('should return an array of fields', () => {
+        test('should return an array of fields', () => {
           const fields = formDefinition.getFieldDefinitions(testFormDefinition)
           expect(fields).to.eql([testField1, testField2, testDisplay, testField3])
         })
 
-        it('should return an empty array in case of no fields', () => {
+        test('should return an empty array in case of no fields', () => {
           const fields = formDefinition.getFieldDefinitions({id: 'fromX', children: []})
           expect(fields).to.eql([])
         })
       })
 
       describe('getFieldNames', () => {
-        it('should return a list of all field names', () => {
+        test('should return a list of all field names', () => {
           const fields = formDefinition.getFieldDefinitions(testFormDefinition)
           const fieldNames = formDefinition.getFieldNames(fields)
           expect(fieldNames).to.eql([testField1.id, testField2.id, testDisplay.id, testField3.id])
@@ -87,7 +87,7 @@ describe('tocco-util', () => {
       })
 
       describe('getDefaultValues', () => {
-        it('should return all default values', () => {
+        test('should return all default values', () => {
           const fields = formDefinition.getFieldDefinitions(testFormDefinition)
           const fieldNames = formDefinition.getDefaultValues(fields)
           expect(fieldNames).to.eql({
@@ -98,7 +98,7 @@ describe('tocco-util', () => {
       })
 
       describe('fetchForm', () => {
-        it('should call request saga and transform response', () => {
+        test('should call request saga and transform response', () => {
           const gen = formDefinition.fetchForm('User_search')
 
           expect(gen.next().value).to.eql(call(requestSaga, 'forms/User_search'))
@@ -124,7 +124,7 @@ describe('tocco-util', () => {
       })
 
       describe('defaultFormTransformer', () => {
-        it('should return form without table overhead', () => {
+        test('should return form without table overhead', () => {
           const form = {
             id: 'fromX',
             children: [
@@ -137,7 +137,7 @@ describe('tocco-util', () => {
       })
 
       describe('getFieldId', () => {
-        it('should return a string containing formName and fieldName', () => {
+        test('should return a string containing formName and fieldName', () => {
           const formName = 'User_detail'
           const fieldName = 'firstname'
           const result = formDefinition.getFieldId(formName, fieldName)

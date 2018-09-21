@@ -6,7 +6,7 @@ import formattedValueFactory from './formattedValueFactory'
 describe('tocco-util', () => {
   describe('fomField', () => {
     describe('formattedValueFactory', () => {
-      it('should return simple formattedValue', () => {
+      test('should return simple formattedValue', () => {
         const factory = formattedValueFactory('string')
 
         const value = 'test'

@@ -6,7 +6,7 @@ import Preview from './Preview'
 
 describe('tocco-ui', () => {
   describe('Preview', () => {
-    it('render all elements and attributes', () => {
+    test('render all elements and attributes', () => {
       const wrapper = mount(
         <Preview
           alt="alternative text"
@@ -34,7 +34,7 @@ describe('tocco-ui', () => {
       expect(figcaption).to.have.text('caption text')
     })
 
-    it('display image or icon depending on thumbnailUrl', () => {
+    test('display image or icon depending on thumbnailUrl', () => {
       let wrapper = shallow(
         <Preview
           alt="alt text"
@@ -57,7 +57,7 @@ describe('tocco-ui', () => {
       expect(wrapper.find(Icon).prop('icon')).to.deep.equal(['far', 'file-alt'])
     })
 
-    it('add figcaption only if caption in provided', () => {
+    test('add figcaption only if caption in provided', () => {
       let wrapper = mount(
         <Preview
           alt="alt text"
@@ -84,7 +84,7 @@ describe('tocco-ui', () => {
       expect(figcaption).to.have.length(0)
     })
 
-    it('link image if demanded and allowed', () => {
+    test('link image if demanded and allowed', () => {
       let wrapper = mount(
         <Preview
           alt="alt text"
@@ -120,7 +120,7 @@ describe('tocco-ui', () => {
       expect(wrapper.find('a')).to.have.length(0)
     })
 
-    it('trigger callback on click', () => {
+    test('trigger callback on click', () => {
       const srcUrl = '/link-to-source'
       const thumbnailUrl = '/link-to-thumbnail'
       const onClickFunction = sinon.spy()

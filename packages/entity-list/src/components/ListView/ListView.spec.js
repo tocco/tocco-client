@@ -39,7 +39,7 @@ const props = {
 describe('entity-list', () => {
   describe('components', () => {
     describe('ListView', () => {
-      it('should render ', () => {
+      test('should render ', () => {
         const wrapper = shallow(<ListView {...props}/>)
         expect(wrapper.find(TableContainer)).to.have.length(1)
         expect(wrapper.find(actions.Action)).to.have.length(2)
