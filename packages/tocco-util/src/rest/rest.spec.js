@@ -85,11 +85,8 @@ describe('tocco-util', () => {
         const options = {
           acceptedErrorCodes: ['SAVE_FAILED']
         }
-        simpleRequest(resource, options).then(response => {
-          expect(response.status).to.eql(statusCode)
-          expect(response.body).to.eql(bodyObj)
-          done()
-        })
+
+        return simpleRequest(resource, options).should.be.rejectedWith(mockedResponse)
       })
 
       it('should trow exception on unaccepted errorCode', done => {

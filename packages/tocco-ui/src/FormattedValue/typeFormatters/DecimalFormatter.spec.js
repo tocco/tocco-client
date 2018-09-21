@@ -8,7 +8,8 @@ describe('tocco-ui', () => {
   describe('FormattedValue', () => {
     describe('typeFormatters', () => {
       describe('DecimalFormatter ', () => {
-        before(() => {
+        beforeAll(() => {
+          require('intl')
           require('intl/locale-data/jsonp/en.js')
           require('intl/locale-data/jsonp/de.js')
           const en = require('react-intl/locale-data/en')

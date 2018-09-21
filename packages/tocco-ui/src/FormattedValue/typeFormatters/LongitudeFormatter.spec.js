@@ -1,6 +1,6 @@
 import React from 'react'
 import {mount} from 'enzyme'
-import {addLocaleData, IntlProvider} from 'react-intl'
+import {IntlProvider} from 'react-intl'
 
 import LongitudeFormatter from './LongitudeFormatter'
 
