@@ -9,7 +9,6 @@ describe('tocco-ui', () => {
     describe('typeFormatters', () => {
       describe('DecimalFormatter ', () => {
         beforeAll(() => {
-          require('intl')
           require('intl/locale-data/jsonp/en.js')
           require('intl/locale-data/jsonp/de.js')
           const en = require('react-intl/locale-data/en')

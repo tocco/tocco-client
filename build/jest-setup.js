@@ -8,6 +8,7 @@ import chai from 'chai'
 import chaiEnzyme from 'chai-enzyme'
 import chaiAsPromised from 'chai-as-promised'
 import sinonChai from 'sinon-chai'
+import Intl from 'intl'
 
 Enzyme.configure({adapter: new EnzymeAdapter()})
 
@@ -19,6 +20,7 @@ global.should = chai.should()
 global.Response = fetch.Response
 global.Headers = fetch.Headers
 global.Request = fetch.Request
+global.Intl = Intl
 
 chai.use(chaiEnzyme())
 chai.use(sinonChai)
