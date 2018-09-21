@@ -11,7 +11,7 @@ describe('scheduler', () => {
     describe('scheduler', () => {
       describe('sagas', () => {
         describe('mainSaga', () => {
-          it('should fork sagas', () => {
+          test('should fork sagas', () => {
             const saga = testSaga(mainSaga)
             saga.next().all([
               fork(takeLatest, actions.ON_DATE_RANGE_CHANGE, sagas.onDateRangeChange),
@@ -24,7 +24,7 @@ describe('scheduler', () => {
         })
 
         describe('onDateRangeChange', () => {
-          it('should call externalEvent onDateRangeChange', () => {
+          test('should call externalEvent onDateRangeChange', () => {
             const dateRange = {start: Date.now(), end: Date.now}
 
             return expectSaga(sagas.onDateRangeChange, actions.onDateRangeChange(dateRange))
@@ -35,7 +35,7 @@ describe('scheduler', () => {
       })
 
       describe('onCalendarRemove', () => {
-        it('should call externalEvent onCalendarRemove', () => {
+        test('should call externalEvent onCalendarRemove', () => {
           const entityId = '99'
           const calendarType = 'lecturer'
 
@@ -46,7 +46,7 @@ describe('scheduler', () => {
       })
 
       describe('setCalendars', () => {
-        it('should set isLoading to false', () => {
+        test('should set isLoading to false', () => {
           return expectSaga(sagas.setCalendars)
             .put(actions.setIsLoading(false))
             .run()

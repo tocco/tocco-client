@@ -8,7 +8,7 @@ describe('merge', () => {
     describe('MergeMatrix', () => {
       describe('sagas', () => {
         describe('selectTargetEntityFields', () => {
-          it('should dispatch the selection of new target entity', () => {
+          test('should dispatch the selection of new target entity', () => {
             const generator = sagas.selectTargetEntityFields({payload: {pk: '1'}})
 
             const state = {

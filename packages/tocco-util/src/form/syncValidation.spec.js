@@ -5,7 +5,7 @@ import syncValidation from './syncValidation'
 describe('tocco-util', () => {
   describe('form', () => {
     describe('syncValidation', () => {
-      it('should combine model and type validation errors', () => {
+      test('should combine model and type validation errors', () => {
         const entityModel = {
           website: {
             fieldName: 'website',
@@ -25,7 +25,7 @@ describe('tocco-util', () => {
         expect(errors.website).to.have.property('format')
       })
 
-      it('should return no error on valid input', () => {
+      test('should return no error on valid input', () => {
         const entityModel = {
           website: {
             type: 'url',

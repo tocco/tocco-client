@@ -7,7 +7,7 @@ describe('tocco-ui', () => {
   describe('FormattedValue', () => {
     describe('typeFormatters', () => {
       describe('TextFormatter ', () => {
-        it('should format value', () => {
+        test('should format value', () => {
           const wrapper = mount(<TextFormatter value={'Lorem\nipsum'}/>)
           expect(wrapper.find('p')).to.have.length(2)
         })

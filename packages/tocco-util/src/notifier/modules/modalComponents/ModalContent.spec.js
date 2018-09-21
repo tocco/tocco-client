@@ -8,7 +8,7 @@ describe('tocco-util', () => {
     describe('modules', () => {
       describe('modalComponents', () => {
         describe('ModalContent', () => {
-          it('should render component with close property', () => {
+          test('should render component with close property', () => {
             const closeSpy = sinon.spy()
             const id = Date.now()
             // eslint-disable-next-line react/prop-types

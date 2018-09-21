@@ -8,7 +8,7 @@ import {formFieldFactory} from './formField'
 describe('tocco-util', () => {
   describe('formField', () => {
     describe('fieldFactory', () => {
-      it('should return a FormField with correct edit Field', () => {
+      test('should return a FormField with correct edit Field', () => {
         const mapping = {'string': editableValueFactory('string')}
 
         const formDefinitionField = {
@@ -29,7 +29,7 @@ describe('tocco-util', () => {
         expect(wrapper.find(EditableValue)).to.have.length(1)
       })
 
-      it('should return a FormField with correct edit Field', () => {
+      test('should return a FormField with correct edit Field', () => {
         const mapping = {
           'range': {
             'date': editableValueFactory('date-range'),

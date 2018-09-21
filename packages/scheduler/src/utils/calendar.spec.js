@@ -44,7 +44,7 @@ describe('scheduler', () => {
   describe('components', () => {
     describe('Scheduler', () => {
       describe('utils', () => {
-        it('should find a corresponding resource for each event', () => {
+        test('should find a corresponding resource for each event', () => {
           const events = getEvents(mockCalendars)
           const resources = getResources(mockCalendars)
 
@@ -54,7 +54,7 @@ describe('scheduler', () => {
         })
 
         describe('getEvents', () => {
-          it('should return events from all calendars with needed properties', () => {
+          test('should return events from all calendars with needed properties', () => {
             const events = getEvents(mockCalendars)
             expect(events).to.have.length(3)
 
@@ -68,7 +68,7 @@ describe('scheduler', () => {
         })
 
         describe('getResources', () => {
-          it('should return resources with needed properties', () => {
+          test('should return resources with needed properties', () => {
             const resources = getResources(mockCalendars)
             expect(resources).to.have.length(2)
 

@@ -13,7 +13,7 @@ describe('tocco-util', () => {
     })
 
     describe('log', () => {
-      it('should call console.log', () => {
+      test('should call console.log', () => {
         const logSpy = sinon.spy()
         console.log = logSpy
 
@@ -26,7 +26,7 @@ describe('tocco-util', () => {
     })
 
     describe('logError', () => {
-      it('should call console.error', () => {
+      test('should call console.error', () => {
         const errorSpy = sinon.spy()
         console.error = errorSpy
 
@@ -37,7 +37,7 @@ describe('tocco-util', () => {
         expect(errorSpy).to.be.calledWith(msg1, msg2)
       })
 
-      it('should use console.log as fallback', () => {
+      test('should use console.log as fallback', () => {
         const logSpy = sinon.spy()
         console.error = undefined
         console.log = logSpy
@@ -50,7 +50,7 @@ describe('tocco-util', () => {
     })
 
     describe('logWarning', () => {
-      it('should call console.warn', () => {
+      test('should call console.warn', () => {
         const warnSpy = sinon.spy()
         console.warn = warnSpy
 
@@ -61,7 +61,7 @@ describe('tocco-util', () => {
         expect(warnSpy).to.be.calledWith(msg1, msg2)
       })
 
-      it('should use console.log as fallback', () => {
+      test('should use console.log as fallback', () => {
         const logSpy = sinon.spy()
         console.warn = undefined
         console.log = logSpy

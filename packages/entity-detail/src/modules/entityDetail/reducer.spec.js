@@ -17,11 +17,11 @@ describe('entity-detail', () => {
   describe('modules', () => {
     describe('entityDetail', () => {
       describe('reducer', () => {
-        it('should create a valid initial state', () => {
+        test('should create a valid initial state', () => {
           expect(reducer(undefined, {})).to.deep.equal(EXPECTED_INITIAL_STATE)
         })
 
-        it('should handle an action', () => {
+        test('should handle an action', () => {
           const stateBefore = {
             entity: ''
           }
@@ -34,7 +34,7 @@ describe('entity-detail', () => {
         })
 
         describe('SET_TOUCHED', () => {
-          it('should handle SET_TOUCHED', () => {
+          test('should handle SET_TOUCHED', () => {
             const stateBefore = {
               otherProp: 'foo',
               touched: false

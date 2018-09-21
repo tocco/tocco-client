@@ -8,7 +8,7 @@ describe('toccoutil', () => {
     describe('helpers', () => {
       describe('fetchEntites', () => {
         describe('buildParams', () => {
-          it('should call fetch return object of valid params', () => {
+          test('should call fetch return object of valid params', () => {
             const options = {
               page: 2,
               orderBy: 'firstname',
@@ -35,37 +35,40 @@ describe('toccoutil', () => {
             expect(params).to.eql(expectedParams)
           })
 
-          it('should set exclamation mark for fields and relations if explicitly empty', () => {
-            const options = {
-              page: 2,
-              orderBy: 'firstname',
-              limit: 20,
-              fields: [],
-              relations: [],
-              searchInputs: {_search: 'test'}
+          test(
+            'should set exclamation mark for fields and relations if explicitly empty',
+            () => {
+              const options = {
+                page: 2,
+                orderBy: 'firstname',
+                limit: 20,
+                fields: [],
+                relations: [],
+                searchInputs: {_search: 'test'}
+              }
+
+              const params = helpers.buildParams(options)
+
+              const expectedParams = {
+                _fields: '!',
+                _filter: '',
+                _form: undefined,
+                _limit: 20,
+                _offset: 20,
+                _paths: '',
+                _relations: '!',
+                _search: 'test',
+                _sort: undefined,
+                _where: undefined
+              }
+
+              expect(params).to.eql(expectedParams)
             }
-
-            const params = helpers.buildParams(options)
-
-            const expectedParams = {
-              _fields: '!',
-              _filter: '',
-              _form: undefined,
-              _limit: 20,
-              _offset: 20,
-              _paths: '',
-              _relations: '!',
-              _search: 'test',
-              _sort: undefined,
-              _where: undefined
-            }
-
-            expect(params).to.eql(expectedParams)
-          })
+          )
         })
 
         describe('fetchEntities', () => {
-          it('should call fetch', () => {
+          test('should call fetch', () => {
             const params = {
               page: 2,
               orderBy: 'firstname',
@@ -111,7 +114,7 @@ describe('toccoutil', () => {
         const resp = {body: {form: {}}}
         const transformedResponse = {}
 
-        it('should call fetch and use default transformer', () => {
+        test('should call fetch and use default transformer', () => {
           const gen = helpers.fetchForm(formName)
           expect(gen.next().value).to.eql(call(requestSaga, `forms/${formName}`))
 
@@ -122,7 +125,7 @@ describe('toccoutil', () => {
           expect(next.done).to.be.true
         })
 
-        it('should call fetch and use provided transformer', () => {
+        test('should call fetch and use provided transformer', () => {
           const myTransformer = () => {}
           const gen = helpers.fetchForm(formName, myTransformer)
           expect(gen.next().value).to.eql(call(requestSaga, `forms/${formName}`))
@@ -134,7 +137,7 @@ describe('toccoutil', () => {
           expect(next.done).to.be.true
         })
 
-        it('should call fetch and use provided transformer', () => {
+        test('should call fetch and use provided transformer', () => {
           const myTransformer = () => {}
           const gen = helpers.fetchForm(formName, myTransformer)
           expect(gen.next().value).to.eql(call(requestSaga, `forms/${formName}`))
@@ -147,7 +150,7 @@ describe('toccoutil', () => {
         })
 
         describe('defaulFormTransformer', () => {
-          it('should return form propery', () => {
+          test('should return form propery', () => {
             const inputForm = {form: {children: []}}
             const expectedForm = {children: []}
             expect(helpers.defaultFormTransformer(inputForm)).to.eql(expectedForm)
@@ -160,7 +163,7 @@ describe('toccoutil', () => {
         const resp = {body: {}}
         const transformedResponse = {}
 
-        it('should call fetch and use default transformer', () => {
+        test('should call fetch and use default transformer', () => {
           const gen = helpers.fetchModel(entity)
           expect(gen.next().value).to.eql(call(requestSaga, `entities/${entity}/model`))
 
@@ -171,7 +174,7 @@ describe('toccoutil', () => {
           expect(next.done).to.be.true
         })
 
-        it('should call fetch and use provided transformer', () => {
+        test('should call fetch and use provided transformer', () => {
           const myTransformer = () => {}
           const gen = helpers.fetchModel(entity, myTransformer)
           expect(gen.next().value).to.eql(call(requestSaga, `entities/${entity}/model`))
@@ -184,7 +187,7 @@ describe('toccoutil', () => {
         })
 
         describe('defaultModelTransformer', () => {
-          it('should return flatten object ', () => {
+          test('should return flatten object ', () => {
             const inputModel = {
               fields: [
                 {

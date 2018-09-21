@@ -5,21 +5,21 @@ describe('tocco-ui', () => {
     describe('util', () => {
       describe('DateUtils', () => {
         describe('matchesIsoDate', () => {
-          it('should return true if date string is valid', () => {
+          test('should return true if date string is valid', () => {
             expect(matchesIsoDate('2017-03-27')).to.be.true
           })
 
-          it('should return false if date string is invalid', () => {
+          test('should return false if date string is invalid', () => {
             expect(matchesIsoDate('invalid')).to.be.false
           })
 
-          it('should return false if no date string given', () => {
+          test('should return false if no date string given', () => {
             expect(matchesIsoDate(null)).to.be.false
           })
         })
 
         describe('parseIsoDate', () => {
-          it('should parse a valid date string', () => {
+          test('should parse a valid date string', () => {
             const date = parseIsoDate('2017-03-27')
 
             expect(date.getFullYear()).to.be.eql(2017)
@@ -32,12 +32,12 @@ describe('tocco-ui', () => {
             expect(date.getMilliseconds()).to.be.eql(0)
           })
 
-          it('should return null if invalid date given', () => {
+          test('should return null if invalid date given', () => {
             const date = parseIsoDate('invalid')
             expect(date).to.be.null
           })
 
-          it('should return null if no date given', () => {
+          test('should return null if no date given', () => {
             const date = parseIsoDate(null)
             expect(date).to.be.null
           })

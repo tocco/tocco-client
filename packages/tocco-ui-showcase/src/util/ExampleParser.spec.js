@@ -3,7 +3,7 @@ import {extractExampleCode, extractRealImports, removeIndent} from './ExamplePar
 describe('tocco-ui-showcase', () => {
   describe('utils ', () => {
     describe('ExampleParser', () => {
-      it('should extract examplecode line', () => {
+      test('should extract examplecode line', () => {
         const example = `
 <div>
 { /* start example */ }
@@ -16,28 +16,28 @@ CODE
         result.should.eql('CODE')
       })
 
-      it('should extract examplecode line without curly braces', () => {
+      test('should extract examplecode line without curly braces', () => {
         const example = '<div>\n /* start example */\n CODE\n/* end example */\n</div>'
         const result = extractExampleCode(example)
 
         result.should.eql(' CODE')
       })
 
-      it('should return whole example text if no start string present', () => {
+      test('should return whole example text if no start string present', () => {
         const example = `CODE`
         const result = extractExampleCode(example)
 
         result.should.eql('CODE')
       })
 
-      it('should return whole example text if no start string present', () => {
+      test('should return whole example text if no start string present', () => {
         const example = `CODE`
         const result = extractExampleCode(example)
 
         result.should.eql('CODE')
       })
 
-      it('should extract real import', () => {
+      test('should extract real import', () => {
         const example = `
         //real-import:import x from 'y'
         <div>
@@ -51,7 +51,7 @@ CODE
         result.should.eql('import x from \'y\'\nimport z from \'y\'')
       })
 
-      it('should extract real import', () => {
+      test('should extract real import', () => {
         const example = '    4Spaces\n     5Spaces'
         const result = removeIndent(example)
 

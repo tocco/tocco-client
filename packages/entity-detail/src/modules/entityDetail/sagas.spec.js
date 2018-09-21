@@ -27,7 +27,7 @@ describe('entity-detail', () => {
     describe('entityDetail', () => {
       describe('sagas', () => {
         describe('rootSaga', () => {
-          it('should fork child sagas', () => {
+          test('should fork child sagas', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal(all([
               fork(takeLatest, actions.LOAD_DETAIL_VIEW, sagas.loadDetailView),
@@ -43,7 +43,7 @@ describe('entity-detail', () => {
         })
 
         describe('getTargetEntityName saga', () => {
-          it('should return the base entity name if paths empty', () => {
+          test('should return the base entity name if paths empty', () => {
             const entityName = 'User'
             const modelPaths = []
 
@@ -54,7 +54,7 @@ describe('entity-detail', () => {
             expect(next.done).to.be.true
           })
 
-          it('should return the entity name resolved via paths', () => {
+          test('should return the entity name resolved via paths', () => {
             const baseEntityName = 'User'
             const fooEntityName = 'Foo'
             const barEntityName = 'Bar'
@@ -79,7 +79,7 @@ describe('entity-detail', () => {
             expect(next.done).to.be.true
           })
 
-          it('should throw an exception if path could not be found', () => {
+          test('should throw an exception if path could not be found', () => {
             const baseEntityName = 'User'
             const knownEntityName = 'Known_entity'
 
@@ -98,7 +98,7 @@ describe('entity-detail', () => {
         })
 
         describe('loadDetailView saga', () => {
-          it('should fetch entity and set it in store', () => {
+          test('should fetch entity and set it in store', () => {
             const modelPaths = []
             const entityId = 99
             const formName = 'UserSearch_detail'
@@ -122,7 +122,7 @@ describe('entity-detail', () => {
           const entity = {paths: {}}
           const fields = ['firstname']
 
-          it('should call create submit', () => {
+          test('should call create submit', () => {
             const mode = modes.CREATE
 
             const gen = sagas.submitForm()
@@ -133,7 +133,7 @@ describe('entity-detail', () => {
             expect(gen.next().done).to.be.true
           })
 
-          it('should call update submit', () => {
+          test('should call update submit', () => {
             const mode = modes.UPDATE
 
             const gen = sagas.submitForm()
@@ -144,7 +144,7 @@ describe('entity-detail', () => {
             expect(gen.next().done).to.be.true
           })
 
-          it('should handle thrown errors', () => {
+          test('should handle thrown errors', () => {
             const mode = modes.UPDATE
 
             const error = new Error('error')
@@ -160,7 +160,7 @@ describe('entity-detail', () => {
         })
 
         describe('handleSubmitError saga', () => {
-          it('should handle submission errors properly', () => {
+          test('should handle submission errors properly', () => {
             const error = new SubmissionError({})
 
             const gen = sagas.handleSubmitError(error)
@@ -172,7 +172,7 @@ describe('entity-detail', () => {
             expect(gen.next().done).to.be.true
           })
 
-          it('should log regular error and show notification', () => {
+          test('should log regular error and show notification', () => {
             const error = new Error('error')
 
             const gen = sagas.handleSubmitError(error)
@@ -189,16 +189,19 @@ describe('entity-detail', () => {
             expect(gen.next().done).to.be.true
           })
 
-          it('should should not log errors of type ClientQuestionCancelledException', () => {
-            const error = new ClientQuestionCancelledException()
+          test(
+            'should should not log errors of type ClientQuestionCancelledException',
+            () => {
+              const error = new ClientQuestionCancelledException()
 
-            const gen = sagas.handleSubmitError(error)
-            expect(gen.next().value).to.eql(put(formActions.stopSubmit(FORM_ID)))
-            expect(gen.next().value).to.eql(
-              call(sagas.showNotification, 'warning', 'saveAbortedTitle', 'saveAbortedMessage', 5000)
-            )
-            expect(gen.next().done).to.be.true
-          })
+              const gen = sagas.handleSubmitError(error)
+              expect(gen.next().value).to.eql(put(formActions.stopSubmit(FORM_ID)))
+              expect(gen.next().value).to.eql(
+                call(sagas.showNotification, 'warning', 'saveAbortedTitle', 'saveAbortedMessage', 5000)
+              )
+              expect(gen.next().done).to.be.true
+            }
+          )
         })
 
         describe('updateFormSubmit saga', () => {
@@ -207,7 +210,7 @@ describe('entity-detail', () => {
           const updatedEntity = {paths: {}}
           const updatedFormValues = {firstname: 'karl'}
 
-          it('should call api and store response', () => {
+          test('should call api and store response', () => {
             const gen = sagas.updateFormSubmit(entity, fields)
             expect(gen.next().value).to.eql(call(updateEntity, entity, fields))
             expect(gen.next(updatedEntity).value).to.eql(call(form.entityToFormValues, updatedEntity))
@@ -231,7 +234,7 @@ describe('entity-detail', () => {
           const createdEntityId = 99
           const updatedFormValues = {firstname: 'karl'}
 
-          it('should call api and store response', () => {
+          test('should call api and store response', () => {
             const gen = sagas.createFormSubmit(entity, fields)
             expect(gen.next().value).to.eql(call(createEntity, entity, fields))
             expect(gen.next(createdEntityId).value).to.eql(
@@ -245,7 +248,7 @@ describe('entity-detail', () => {
         })
 
         describe('loadDetailFormDefinition saga', () => {
-          it('should load formDefinition, save to store and return ', () => {
+          test('should load formDefinition, save to store and return ', () => {
             const formName = 'User_detail'
             const formDefinition = {}
 
@@ -259,7 +262,7 @@ describe('entity-detail', () => {
         })
 
         describe('getEntityForSubmit saga', () => {
-          it('should return entity', () => {
+          test('should return entity', () => {
             const values = {fistname: 'test'}
             const initialValues = {fistname: 'tst'}
 
@@ -293,7 +296,7 @@ describe('entity-detail', () => {
         })
 
         describe('getFields saga', () => {
-          it('should return array of fields', () => {
+          test('should return array of fields', () => {
             const formDefinition = {}
             const fieldDefinitions = {}
 
@@ -310,7 +313,7 @@ describe('entity-detail', () => {
         })
 
         describe('fireTouched saga', () => {
-          it('should fire external event if state changed', () => {
+          test('should fire external event if state changed', () => {
             const gen = sagas.fireTouched(actions.fireTouched(true))
 
             expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
@@ -321,7 +324,7 @@ describe('entity-detail', () => {
             expect(gen.next().done).to.be.true
           })
 
-          it('should not fire external event if state did not change', () => {
+          test('should not fire external event if state did not change', () => {
             const gen = sagas.fireTouched(actions.fireTouched(true))
 
             expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
@@ -330,7 +333,7 @@ describe('entity-detail', () => {
         })
 
         describe('uploadDocument saga', () => {
-          it('should call upload and dispatch value', () => {
+          test('should call upload and dispatch value', () => {
             const file = {}
             const field = 'preview_picture'
             const uploadResponse = {
@@ -348,7 +351,7 @@ describe('entity-detail', () => {
         })
 
         describe('loadData saga', () => {
-          it('should fetch the entity and call form initialize', () => {
+          test('should fetch the entity and call form initialize', () => {
             return expectSaga(sagas.loadData)
               .provide([
                 [select(sagas.entityDetailSelector), {}],
@@ -362,7 +365,7 @@ describe('entity-detail', () => {
         })
 
         describe('actionInvoked saga', () => {
-          it('should refresh the data and emit the action', () => {
+          test('should refresh the data and emit the action', () => {
             const action = {}
             return expectSaga(sagas.actionInvoked, action)
               .provide([

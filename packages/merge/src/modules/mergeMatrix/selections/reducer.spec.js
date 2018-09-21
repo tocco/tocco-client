@@ -6,11 +6,11 @@ describe('merge', () => {
     describe('MergeMatrix', () => {
       describe('selections', () => {
         describe('reducer', () => {
-          it('should create a valid initial state', () => {
+          test('should create a valid initial state', () => {
             expect(reducer(undefined, {})).to.deep.equal({fields: {}, relations: {}, toManyRelations: {}})
           })
 
-          it('handels changeSourceRelation', () => {
+          test('handels changeSourceRelation', () => {
             const stateBefore = {
               fields: {}
             }
@@ -24,7 +24,7 @@ describe('merge', () => {
             expect(reducer(stateBefore, selectSourceField('firstname', '1'))).to.deep.equal(expectedStateAfter)
           })
 
-          it('handels changeSourceRelation', () => {
+          test('handels changeSourceRelation', () => {
             const stateBefore = {
               relations: {}
             }
@@ -38,7 +38,7 @@ describe('merge', () => {
             expect(reducer(stateBefore, selectSourceRelation('ref_a', '1'))).to.deep.equal(expectedStateAfter)
           })
 
-          it('handels toggleRelationMany', () => {
+          test('handels toggleRelationMany', () => {
             const stateBefore = {toManyRelations: {}}
 
             const expectedStateAfterAdd = {

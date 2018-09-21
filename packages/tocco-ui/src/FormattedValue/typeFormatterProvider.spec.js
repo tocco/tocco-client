@@ -6,7 +6,7 @@ import StringFormatter from './typeFormatters/StringFormatter'
 describe('tocco-ui', () => {
   describe('FormattedValue', () => {
     describe('typeFormatterProvider', () => {
-      it('should render a string input and set props', () => {
+      test('should render a string input and set props', () => {
         const wrapper = mount(
           typeFormatterProvider('string', 'test')
         )
@@ -15,7 +15,7 @@ describe('tocco-ui', () => {
         expect(wrapper.props().value).to.equal('test')
       })
 
-      it('should return empty div in case of unknown type', () => {
+      test('should return empty div in case of unknown type', () => {
         const wrapper = shallow(
           typeFormatterProvider('unknown', 'test')
         )

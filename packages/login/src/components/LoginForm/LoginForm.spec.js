@@ -10,7 +10,7 @@ import {LoginForm} from './LoginForm'
 describe('login', () => {
   describe('components', () => {
     describe('LoginForm', () => {
-      it('should render some components', () => {
+      test('should render some components', () => {
         const wrapper = shallow(
           <LoginForm
             intl={IntlStub}
@@ -24,23 +24,26 @@ describe('login', () => {
         expect(wrapper.find(Button)).to.have.length(2)
       })
 
-      it('should render two <FormattedMessage> components if title is shown', () => {
-        const wrapper = shallow(
-          <LoginForm
-            intl={IntlStub}
-            login={() => undefined}
-            changePage={() => undefined}
-            setUsername={() => undefined}
-            setPassword={() => undefined}
-            loginPending={false}
-            showTitle
-          />
-        )
-        expect(wrapper.find(Button)).to.have.length(2)
-        expect(wrapper.find(FormattedMessage)).to.have.length(2)
-      })
+      test(
+        'should render two <FormattedMessage> components if title is shown',
+        () => {
+          const wrapper = shallow(
+            <LoginForm
+              intl={IntlStub}
+              login={() => undefined}
+              changePage={() => undefined}
+              setUsername={() => undefined}
+              setPassword={() => undefined}
+              loginPending={false}
+              showTitle
+            />
+          )
+          expect(wrapper.find(Button)).to.have.length(2)
+          expect(wrapper.find(FormattedMessage)).to.have.length(2)
+        }
+      )
 
-      it('should disable button if username and password are not set', () => {
+      test('should disable button if username and password are not set', () => {
         const wrapper = shallow(
           <LoginForm
             intl={IntlStub}
@@ -58,7 +61,7 @@ describe('login', () => {
         expect(button.prop('disabled')).to.equal(true)
       })
 
-      it('should disable button if only username is set', () => {
+      test('should disable button if only username is set', () => {
         const wrapper = shallow(
           <LoginForm
             intl={IntlStub}
@@ -76,7 +79,7 @@ describe('login', () => {
         expect(button.prop('disabled')).to.equal(true)
       })
 
-      it('should disable button if only password is set', () => {
+      test('should disable button if only password is set', () => {
         const wrapper = shallow(
           <LoginForm
             intl={IntlStub}
@@ -94,7 +97,7 @@ describe('login', () => {
         expect(button.prop('disabled')).to.equal(true)
       })
 
-      it('should enable button if username and password are set', () => {
+      test('should enable button if username and password are set', () => {
         const wrapper = shallow(
           <LoginForm
             intl={IntlStub}
@@ -112,7 +115,7 @@ describe('login', () => {
         expect(button.prop('disabled')).to.equal(false)
       })
 
-      it('should change page if password is requested', () => {
+      test('should change page if password is requested', () => {
         const changePage = sinon.spy()
 
         const wrapper = shallow(
@@ -134,7 +137,7 @@ describe('login', () => {
         expect(changePage.firstCall.args).to.eql([Pages.PASSWORD_REQUEST])
       })
 
-      it('should call setUsername on username change', () => {
+      test('should call setUsername on username change', () => {
         const setUsername = sinon.spy()
 
         const wrapper = shallow(
@@ -160,7 +163,7 @@ describe('login', () => {
         expect(setUsername.firstCall.args).to.eql(['newusername'])
       })
 
-      it('should call setPassword on password change', () => {
+      test('should call setPassword on password change', () => {
         const setPassword = sinon.spy()
 
         const wrapper = shallow(
@@ -186,7 +189,7 @@ describe('login', () => {
         expect(setPassword.firstCall.args).to.eql(['newpassword'])
       })
 
-      it('should prevent default and call login on submit', () => {
+      test('should prevent default and call login on submit', () => {
         const preventDefault = sinon.spy()
         const login = sinon.spy()
 

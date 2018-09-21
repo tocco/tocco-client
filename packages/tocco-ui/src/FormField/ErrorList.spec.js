@@ -6,7 +6,7 @@ import ErrorList from './ErrorList'
 describe('tocco-ui', () => {
   describe('FormField', () => {
     describe('ErrorList', () => {
-      it('should render errors', () => {
+      test('should render errors', () => {
         const error = {
           error1: ['error1-1'],
           error2: ['error2-1', 'error2-2']

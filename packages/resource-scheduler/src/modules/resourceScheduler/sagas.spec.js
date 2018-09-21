@@ -20,7 +20,7 @@ describe('resource-scheduler', () => {
         })
 
         describe('mainSaga', () => {
-          it('should fork sagas', () => {
+          test('should fork sagas', () => {
             const saga = testSaga(mainSaga)
             saga.next().all([
               fork(takeLatest, actions.INITIALIZE, sagas.initialize),
@@ -34,7 +34,7 @@ describe('resource-scheduler', () => {
         })
 
         describe('initialize', () => {
-          it('should load call loadCalendarTypes', () => {
+          test('should load call loadCalendarTypes', () => {
             return expectSaga(sagas.initialize)
               .call(sagas.loadCalendarTypes)
               .run()
@@ -42,7 +42,7 @@ describe('resource-scheduler', () => {
         })
 
         describe('loadCalendarTypes', () => {
-          it('should fetch calendar types and dispatch them', () => {
+          test('should fetch calendar types and dispatch them', () => {
             const calendarTypes = [
               {name: 'Lecturer', targetEntity: 'User'},
               {name: 'Participant', targetEntity: 'User'}
@@ -58,38 +58,41 @@ describe('resource-scheduler', () => {
           })
         })
         describe('retrieveCalendars', () => {
-          it('should retrieve calendars regading dateRange and request and dispatch them', () => {
-            const mockedState = {
-              dateRange: {
-                startDate: new Date(),
-                endDate: new Date()
-              },
-              requestedCalendars: {
-                lecturer: ['3', '5']
-              }
-            }
-
-            const mockCalendars = [{id: '1'}]
-
-            return expectSaga(sagas.retrieveCalendars)
-              .provide([
-                [select(sagas.resourceSchedulerSelector), mockedState],
-                [matchers.call.fn(transformRequestedCalendars), []],
-                [matchers.call.fn(requestSaga), {body: {data: mockCalendars}}]
-              ])
-              .call(requestSaga, 'calendar/events',
-                {
-                  method: 'POST',
-                  body: {
-                    calendars: [],
-                    start: mockedState.dateRange.startDate.getTime(),
-                    end: mockedState.dateRange.endDate.getTime()
-                  }
+          test(
+            'should retrieve calendars regading dateRange and request and dispatch them',
+            () => {
+              const mockedState = {
+                dateRange: {
+                  startDate: new Date(),
+                  endDate: new Date()
+                },
+                requestedCalendars: {
+                  lecturer: ['3', '5']
                 }
-              )
-              .put(actions.setCalendars(mockCalendars))
-              .run()
-          })
+              }
+
+              const mockCalendars = [{id: '1'}]
+
+              return expectSaga(sagas.retrieveCalendars)
+                .provide([
+                  [select(sagas.resourceSchedulerSelector), mockedState],
+                  [matchers.call.fn(transformRequestedCalendars), []],
+                  [matchers.call.fn(requestSaga), {body: {data: mockCalendars}}]
+                ])
+                .call(requestSaga, 'calendar/events',
+                  {
+                    method: 'POST',
+                    body: {
+                      calendars: [],
+                      start: mockedState.dateRange.startDate.getTime(),
+                      end: mockedState.dateRange.endDate.getTime()
+                    }
+                  }
+                )
+                .put(actions.setCalendars(mockCalendars))
+                .run()
+            }
+          )
         })
       })
     })

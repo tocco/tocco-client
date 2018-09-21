@@ -3,9 +3,9 @@ import {shallow} from 'enzyme'
 
 import ButtonGroup from './ButtonGroup'
 
-describe('tocco-ui', function() {
-  describe('ButtonGroup', function() {
-    it('should have three defaultProps', () => {
+describe('tocco-ui', () => {
+  describe('ButtonGroup', () => {
+    test('should have three defaultProps', () => {
       const wrapper = shallow(
         <ButtonGroup><span>child</span></ButtonGroup>
       )
@@ -16,8 +16,8 @@ describe('tocco-ui', function() {
     })
   })
 
-  describe('ButtonGroup', function() {
-    it('should pass three props to child', () => {
+  describe('ButtonGroup', () => {
+    test('should pass three props to child', () => {
       const wrapper = shallow(
         <ButtonGroup
           ink="primary"

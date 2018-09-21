@@ -4,7 +4,7 @@ describe('resource-scheduler', () => {
   describe('utils', () => {
     describe('rest', () => {
       describe('transformRequestedCalendars', () => {
-        it('should transform object to array', () => {
+        test('should transform object to array', () => {
           const requestedCalendars = {
             lecturer: ['1', '3', '99'],
             room: ['44']

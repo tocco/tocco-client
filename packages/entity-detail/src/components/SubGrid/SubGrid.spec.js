@@ -18,19 +18,19 @@ describe('entity-detail', () => {
         entityName: 'User'
       }
 
-      it('should render', () => {
+      test('should render', () => {
         const wrapper = shallow(<SubGrid {...testProps} />)
         expect(wrapper.find(EntityListApp)).to.have.length(1)
       })
 
-      it('should render with default limit 5', () => {
+      test('should render with default limit 5', () => {
         const wrapper = shallow(<SubGrid {...testProps} />)
 
         const listApp = wrapper.find(EntityListApp)
         expect(listApp.props().limit).to.equal(5)
       })
 
-      it('should render with custom limit', () => {
+      test('should render with custom limit', () => {
         const wrapper = shallow(<SubGrid {...testProps} limit={10} />)
 
         const listApp = wrapper.find(EntityListApp)

@@ -7,7 +7,7 @@ describe('tocco-util', () => {
   describe('actionEmitter', () => {
     describe('sagas', () => {
       describe('root saga', () => {
-        it('should handle emit and dispatch actions', () => {
+        test('should handle emit and dispatch actions', () => {
           const parentEmitAction = () => {}
 
           const generator = rootSaga(parentEmitAction)
@@ -24,7 +24,7 @@ describe('tocco-util', () => {
       })
 
       describe('emitAction', () => {
-        it('should call parentEmitAction with action', () => {
+        test('should call parentEmitAction with action', () => {
           const parentEmitAction = () => {}
           const action = {TYPE: 'ANY_ACTION'}
           const emitAction = actions.emitAction(action)
@@ -34,7 +34,7 @@ describe('tocco-util', () => {
           expect(generator.next().done).to.be.true
         })
 
-        it('should do nothing if parentEmitAction is undefined', () => {
+        test('should do nothing if parentEmitAction is undefined', () => {
           const parentEmitAction = undefined
           const action = {TYPE: 'ANY_ACTION'}
           const emitAction = actions.emitAction(action)
@@ -45,7 +45,7 @@ describe('tocco-util', () => {
       })
 
       describe('dispatchAction', () => {
-        it('should dispatch the action', () => {
+        test('should dispatch the action', () => {
           const action = {TYPE: 'ANY_ACTION'}
           const dispatchAction = actions.dispatchEmittedAction(action)
 

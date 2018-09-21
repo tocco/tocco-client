@@ -6,7 +6,7 @@ import {simpleRequest} from '../rest'
 describe('tocco-util', () => {
   describe('mockData', () => {
     describe('actions', () => {
-      it('should setup basic action mocks', () => {
+      test('should setup basic action mocks', () => {
         const postSpy = sinon.spy()
 
         const fetchMockMock = {
@@ -17,7 +17,7 @@ describe('tocco-util', () => {
         expect(postSpy).to.be.called
       })
 
-      it('should setup simpleAction', done => {
+      test('should setup simpleAction', done => {
         setupActions(fetchMock, null, 1)
 
         const resource = 'actions/simpleAction'
@@ -30,42 +30,51 @@ describe('tocco-util', () => {
 
       const clientQuestionEndpoint = 'actions/yesNoClientQuestion'
 
-      it('should setup simpleActionWithClientQuestion and return a clientquestion', done => {
-        setupActions(fetchMock, null, 1)
+      test(
+        'should setup simpleActionWithClientQuestion and return a clientquestion',
+        done => {
+          setupActions(fetchMock, null, 1)
 
-        simpleRequest(clientQuestionEndpoint, {method: 'post', body: {}}).then(res => {
-          expect(res.body.clientQuestion).not.to.be.undefined
-          done()
-        })
-      })
+          simpleRequest(clientQuestionEndpoint, {method: 'post', body: {}}).then(res => {
+            expect(res.body.clientQuestion).not.to.be.undefined
+            done()
+          })
+        }
+      )
 
-      it('should setup simpleActionWithClientQuestion return true to delivered client question (true)', done => {
-        setupActions(fetchMock, null, 1)
+      test(
+        'should setup simpleActionWithClientQuestion return true to delivered client question (true)',
+        done => {
+          setupActions(fetchMock, null, 1)
 
-        simpleRequest(clientQuestionEndpoint, {
-          method: 'post',
-          body: {clientAnswers: {myYesNoQuestion: true}}
-        }).then(res => {
-          expect(res.body.success).to.be.true
-          done()
-        })
-      })
+          simpleRequest(clientQuestionEndpoint, {
+            method: 'post',
+            body: {clientAnswers: {myYesNoQuestion: true}}
+          }).then(res => {
+            expect(res.body.success).to.be.true
+            done()
+          })
+        }
+      )
 
-      it('should setup simpleActionWithClientQuestion return false to delivered client question (false)', done => {
-        setupActions(fetchMock, null, 1)
+      test(
+        'should setup simpleActionWithClientQuestion return false to delivered client question (false)',
+        done => {
+          setupActions(fetchMock, null, 1)
 
-        simpleRequest(clientQuestionEndpoint, {
-          method: 'post',
-          body: {clientAnswers: {myYesNoQuestion: false}}
-        }).then(res => {
-          expect(res.body.success).to.be.false
-          done()
-        })
-      })
+          simpleRequest(clientQuestionEndpoint, {
+            method: 'post',
+            body: {clientAnswers: {myYesNoQuestion: false}}
+          }).then(res => {
+            expect(res.body.success).to.be.false
+            done()
+          })
+        }
+      )
 
       const formQuestionEndpoint = 'actions/formClientQuestion'
 
-      it('should return a form client question', done => {
+      test('should return a form client question', done => {
         setupActions(fetchMock, null, 1)
 
         simpleRequest(formQuestionEndpoint, {
@@ -79,7 +88,7 @@ describe('tocco-util', () => {
 
       const validationErrorUrl = 'actions/validationError'
 
-      it('should setup a action endpoint that throws a validation error', done => {
+      test('should setup a action endpoint that throws a validation error', done => {
         setupActions(fetchMock, null, 1)
         simpleRequest(validationErrorUrl, {
           method: 'post',

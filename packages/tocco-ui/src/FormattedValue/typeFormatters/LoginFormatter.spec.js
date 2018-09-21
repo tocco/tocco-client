@@ -3,11 +3,11 @@ import {mount} from 'enzyme'
 
 import LoginFormatter from './LoginFormatter'
 
-describe('tocco-ui', function() {
-  describe('FormattedValue', function() {
+describe('tocco-ui', () => {
+  describe('FormattedValue', () => {
     describe('typeFormatters', () => {
-      describe('LoginFormatter ', function() {
-        it('should format value', function() {
+      describe('LoginFormatter ', () => {
+        test('should format value', () => {
           const value = {username: 'dake'}
           const wrapper = mount(<LoginFormatter
             value={value}/>)

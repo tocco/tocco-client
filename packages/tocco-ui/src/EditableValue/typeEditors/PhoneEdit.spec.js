@@ -7,12 +7,12 @@ describe('tocco-ui', () => {
   describe('EditableValue', () => {
     describe('typeEditors', () => {
       describe('PhoneEdit ', () => {
-        it('should display the formatted phone number in input', () => {
+        test('should display the formatted phone number in input', () => {
           const wrapper = shallow(<PhoneEdit value="+41794733123" onChange={() => {}}/>)
           expect(wrapper.find('input').props()['value']).to.eql('+41 79 473 31 23')
         })
 
-        it('should call on change with phone number in e.164 format', () => {
+        test('should call on change with phone number in e.164 format', () => {
           const onChangeSpy = sinon.spy()
           const wrapper = shallow(<PhoneEdit value="+41794733123" onChange={onChangeSpy}/>)
 

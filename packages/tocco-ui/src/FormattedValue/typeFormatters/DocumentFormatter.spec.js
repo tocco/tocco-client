@@ -7,7 +7,7 @@ describe('tocco-ui', () => {
   describe('FormattedValue', () => {
     describe('typeFormatters', () => {
       describe('DocumentFormatter ', () => {
-        it('should pass five props', () => {
+        test('should pass five props', () => {
           const wrapper = mount(<DocumentFormatter value={{
             alt: 'alt text',
             binaryLink: 'binary url',
@@ -31,7 +31,7 @@ describe('tocco-ui', () => {
           expect(thumbnailLink).to.equal('thumbnail url')
         })
 
-        it('should render link and image', () => {
+        test('should render link and image', () => {
           const wrapper = mount(<DocumentFormatter value={{
             alt: 'alt text',
             binaryLink: 'binary url',

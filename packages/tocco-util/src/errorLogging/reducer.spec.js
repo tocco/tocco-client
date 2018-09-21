@@ -8,11 +8,11 @@ const INITIAL_STATE = {
 describe('tocco-util', () => {
   describe('errorLogging', () => {
     describe('reducer', () => {
-      it('should create a valid initial state', () => {
+      test('should create a valid initial state', () => {
         expect(reducer(undefined, {})).to.deep.equal(INITIAL_STATE)
       })
 
-      it('should add messages to list', () => {
+      test('should add messages to list', () => {
         const title = 'title'
         const description = 'description'
         const error = new Error('error')
@@ -25,7 +25,7 @@ describe('tocco-util', () => {
         expect(stateAfter.messages).to.have.length(2)
       })
 
-      it('should only store the latest messages', () => {
+      test('should only store the latest messages', () => {
         const MAX_LOGGED_ERRORS_MESSAGE = 100
         const title = 'title'
         const description = 'description'

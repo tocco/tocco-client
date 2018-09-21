@@ -3,7 +3,7 @@ import {mergingWithoutProblems} from './MergeResponse'
 describe('merge', () => {
   describe('utils ', () => {
     describe('MergeResponse', () => {
-      it('should be successfully if both arrays empty', () => {
+      test('should be successfully if both arrays empty', () => {
         const response = {
           'notCopiedRelations': [],
           'notDeletedEntities': []
@@ -14,7 +14,7 @@ describe('merge', () => {
       })
     })
 
-    it('should not be successfully if either array is not empty', () => {
+    test('should not be successfully if either array is not empty', () => {
       let response = {
         'notCopiedRelations': [{}],
         'notDeletedEntities': []

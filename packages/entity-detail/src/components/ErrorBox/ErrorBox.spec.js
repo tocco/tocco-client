@@ -10,7 +10,7 @@ const EMPTY_FUNC = () => {}
 describe('entity-detail', () => {
   describe('components', () => {
     describe('ErrorBox', () => {
-      it('should render relation errors', () => {
+      test('should render relation errors', () => {
         const formErrors = {
           _error: {
             relatedEntityErrors: [{
@@ -53,7 +53,7 @@ describe('entity-detail', () => {
           .equal('Pflichtfeld ist nicht ausgefüllt. (label_de, User_status2, 4)')
       })
 
-      it('should show field', () => {
+      test('should show field', () => {
         const formErrors = {_error: {}, firstname: {mandatory: ['mandatory!']}}
         const wrapper = mount(
           <IntlProvider locale="en">
@@ -71,7 +71,7 @@ describe('entity-detail', () => {
         expect(link.prop('neutral')).to.be.true
       })
 
-      it('should show field', () => {
+      test('should show field', () => {
         const formErrors = {
           _error: {
             entityValidatorErrors: {

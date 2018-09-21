@@ -13,7 +13,7 @@ describe('tocco-util', () => {
   describe('notifier', () => {
     describe('sagas', () => {
       describe('root saga', () => {
-        it('should handle notify and confirm', () => {
+        test('should handle notify and confirm', () => {
           const accept = true
           const generator = rootSaga(accept)
 
@@ -30,7 +30,7 @@ describe('tocco-util', () => {
           expect(generator.next().done).to.be.true
         })
 
-        it('should emit notify and confirm', () => {
+        test('should emit notify and confirm', () => {
           const accept = false
           const generator = rootSaga(accept)
 
@@ -51,7 +51,7 @@ describe('tocco-util', () => {
       })
 
       describe('handleNotify', () => {
-        it('should handel notify', () => {
+        test('should handel notify', () => {
           const type = 'error'
           const title = 'title'
           const message = 'message'
@@ -71,7 +71,7 @@ describe('tocco-util', () => {
       })
 
       describe('handleConfirm', () => {
-        it('should handel confirm', () => {
+        test('should handel confirm', () => {
           const title = 'ttl'
           const message = 'msg'
           const okText = 'ok'
@@ -95,7 +95,7 @@ describe('tocco-util', () => {
       })
 
       describe('handleYesNoQuestion', () => {
-        it('should handel yesNoQuestion', () => {
+        test('should handel yesNoQuestion', () => {
           const title = 'ttl'
           const message = 'msg'
           const yesText = 'ok'
@@ -123,7 +123,7 @@ describe('tocco-util', () => {
       })
 
       describe('handleBlockingInfo', () => {
-        it('should handel handleBlockingInfo', () => {
+        test('should handel handleBlockingInfo', () => {
           const id = Date.now()
           const title = 'ttl'
           const message = 'msg'
@@ -145,7 +145,7 @@ describe('tocco-util', () => {
       })
 
       describe('removeBlockingInfo', () => {
-        it('should handel removeBlockingInfo', () => {
+        test('should handel removeBlockingInfo', () => {
           const id = Date.now()
 
           const action = actions.removeBlockingInfo(id)
@@ -157,7 +157,7 @@ describe('tocco-util', () => {
       })
 
       describe('emit', () => {
-        it('should handel removeBlockingInfo', () => {
+        test('should handel removeBlockingInfo', () => {
           const id = Date.now()
 
           const action = actions.removeBlockingInfo(id)

@@ -22,7 +22,7 @@ const defaultProps = {
 describe('entity-list', () => {
   describe('components', () => {
     describe('Table', () => {
-      it('should render bootstrap table', () => {
+      test('should render bootstrap table', () => {
         const wrapper = shallow(<Table {...defaultProps}/>)
         expect(wrapper.find(BootstrapTable)).to.have.length(1)
       })
