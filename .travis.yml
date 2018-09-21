@@ -44,6 +44,7 @@ after_success:
         bash deployment/deploy_showcase.sh;
     fi
 
+
 env:
   global:
   - ENCRYPTION_LABEL: "49dedc788d53"
