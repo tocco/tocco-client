@@ -1,4 +1,27 @@
-// only used for babel-node npm scripts. Webpack babel-loader config gets overriden in ./build/webpack.config.js
 {
-  "presets": ["es2015", "stage-0"]
+  "presets": ["env", "react", "stage-0"],
+  "env": {
+    "test": {
+      "presets": ["es2015", ["env"],  "react", "stage-0"],
+      "plugins": [
+        "dynamic-import-node"
+      ]
+    }
+  },
+  "plugins": [
+    ["transform-imports", {
+      "tocco-util": {
+        "transform": "tocco-util/src/${member}", // eslint-disable-line no-template-curly-in-string
+        "preventFullImport": true
+      },
+      "tocco-test-util": {
+        "transform": "tocco-test-util/src/${member}", // eslint-disable-line no-template-curly-in-string
+        "preventFullImport": true
+      },
+      "redux-form": {
+        "transform": "redux-form/es/${member}", // eslint-disable-line no-template-curly-in-string
+        "preventFullImport": true
+      }
+    }]
+  ]
 }
