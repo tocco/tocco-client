@@ -8,7 +8,7 @@ describe('tocco-ui', () => {
   describe('FormattedValue', () => {
     describe('typeFormatters', () => {
       describe('TimeFormatter ', () => {
-        before(() => {
+        beforeAll(() => {
           require('intl/locale-data/jsonp/en.js')
           require('intl/locale-data/jsonp/de.js')
           const en = require('react-intl/locale-data/en')
@@ -31,7 +31,7 @@ describe('tocco-ui', () => {
           }
         }
 
-        it('should format value', () => {
+        test('should format value', () => {
           const wrapper = mount(
             <IntlProvider locale="en">
               <TimeFormatter value={timeValue}/>
@@ -42,7 +42,7 @@ describe('tocco-ui', () => {
           expect(wrapper.find('time').prop('dateTime').replace(leftToRightMark, '')).to.equal(timeOutputIso)
         })
 
-        it('should format value according to locale', () => {
+        test('should format value according to locale', () => {
           const wrapper = mount(
             <IntlProvider locale="de">
               <TimeFormatter value={timeValue}/>

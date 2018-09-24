@@ -22,7 +22,7 @@ describe('entity-detail', () => {
             fetchMock.restore()
           })
 
-          it('should not throw an error if valid', done => {
+          test('should not throw an error if valid', done => {
             fetchMock.patch('*', {valid: true, errors: {}})
             const values = {firstname: ''}
             asyncValidation.submitValidate(
@@ -33,7 +33,7 @@ describe('entity-detail', () => {
             })
           })
 
-          it('should throw a SubmissionError', done => {
+          test('should throw a SubmissionError', done => {
             fetchMock.patch('*', {
               valid: false,
               errors: [
@@ -66,7 +66,7 @@ describe('entity-detail', () => {
             fetchMock.restore()
           })
 
-          it('should not throw an error if valid', done => {
+          test('should not throw an error if valid', done => {
             fetchMock.patch('*', {valid: true, errors: {}})
             const values = {firstname: ''}
             asyncValidation.asyncValidate(
@@ -78,7 +78,7 @@ describe('entity-detail', () => {
               })
           })
 
-          it('should throw an Error if not valid', done => {
+          test('should throw an Error if not valid', done => {
             fetchMock.patch('*', {
               valid: false,
               errors: [

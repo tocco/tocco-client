@@ -1,8 +1,11 @@
 import React from 'react'
 import {actions as toastrActions} from 'react-redux-toastr'
+import _isString from 'lodash/isString'
 import {Icon} from 'tocco-ui'
 
 import TitleMessage from './components/TitleMessage'
+
+const NotificationIcon = icon => <Icon icon={ _isString(icon) ? icon : 'exclamation-triangle'} size="3x" />
 
 export function getInfoAction(type, title, message, icon, timeOut) {
   const options = {
@@ -11,9 +14,7 @@ export function getInfoAction(type, title, message, icon, timeOut) {
     component: () => <TitleMessage title={title} message={message}/>
   }
 
-  if (icon) {
-    options.icon = <Icon icon={icon} size="2x" />
-  }
+  options.icon = <NotificationIcon icon={icon} />
 
   return toastrActions.add({
     type,
@@ -61,16 +62,12 @@ export function getBlockingInfo(id, title, message, icon) {
   const options = {
     timeOut: 0,
     showCloseButton: false,
-    transitionIn: 'bounceInDown',
-    transitionOut: 'bounceOutUp',
     attention: true,
     onAttentionClick: () => {},
     component: () => <TitleMessage title={title} message={message}/>
   }
 
-  if (icon) {
-    options.icon = <Icon icon={icon} size="2x" />
-  }
+  options.icon = <NotificationIcon icon={icon} />
 
   return toastrActions.add({
     id,

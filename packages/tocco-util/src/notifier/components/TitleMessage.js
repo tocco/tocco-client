@@ -1,40 +1,65 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
-import {FormattedValue} from 'tocco-ui'
+import {FormattedValue, Typography} from 'tocco-ui'
 import _isString from 'lodash/isString'
 
+const containsHtml = s => s && /<\/?[a-zA-Z0-9]*\/?>/.test(s)
 const isKey = s => s && s.startsWith('client.')
 
-const Content = ({content}) =>
-  _isString(content)
-    ? (isKey(content) ? <FormattedMessage id={content}/> : <FormattedValue type="html" value={content}/>)
+const Content = props => {
+  const {content} = props
+  return _isString(content)
+    ? containsHtml(content)
+      ? <FormattedValue type="html" value={content}/>
+      : <props.tag>{
+        isKey(content)
+          ? <FormattedMessage id={content}/>
+          : content
+      }</props.tag>
     : content
-
-Content.propTypes = {
-  content: PropTypes.node
 }
 
-const TitleMessage = ({title, message, className, children}) => {
+Content.defaultProps = {
+  tag: Typography.P
+}
+
+Content.propTypes = {
+  /**
+   * Provide a component, a string or a translation key. HTNML in strings is allowed and styled properly.
+   */
+  content: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
+  /**
+   * Translations and strings which not contain HTML are wrapped in passed in tag. Default is 'Typography.P'
+   */
+  tag: PropTypes.func
+}
+
+const TitleMessage = ({title, message, children}) => {
   return (
-    <div className={className}>
-      <header className="tocco-notifier__title">
-        <Content content={title}/>
-      </header>
-      {message
-      && <div className="tocco-notifier__message">
-        <Content content={message}/>
-      </div>}
+    <React.Fragment>
+      {title && <Content content={title} tag={Typography.H4} />}
+      {message && <Content content={message} />}
       {children}
-    </div>
+    </React.Fragment>
   )
 }
 
 TitleMessage.propTypes = {
-  className: PropTypes.string,
+  /**
+   * Provide a component, a string or a translation key optionally.
+   * Strings and translation keys are rendered as <h4>.
+   */
   title: PropTypes.node,
+  /**
+   * Provide a component, a string or a translation key optionally.
+   * Strings and translation keys are rendered as <p>.
+   */
   message: PropTypes.node,
   children: PropTypes.node
 }
 
-export default TitleMessage
+export {
+  TitleMessage as default,
+  Content
+}

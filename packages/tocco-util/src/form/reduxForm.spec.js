@@ -6,7 +6,7 @@ describe('tocco-util', () => {
       describe('formValuesToEntity', () => {
         const entityName = 'User'
         const entityId = '99'
-        it('should return entity with updated values', () => {
+        test('should return entity with updated values', () => {
           const values = {
             firstname: 'peter',
             gender: {key: '2', display: 'W'},
@@ -37,7 +37,7 @@ describe('tocco-util', () => {
           expect(result).to.eql(expectedEntity)
         })
 
-        it('should ignore pristine fields', () => {
+        test('should ignore pristine fields', () => {
           const values = {
             firstname: 'peter',
             lastname: 'asdasd',
@@ -62,7 +62,7 @@ describe('tocco-util', () => {
       })
 
       describe('entityToFormValues', () => {
-        it('should return paths values in an object ', () => {
+        test('should return paths values in an object ', () => {
           const entity = {
             model: 'User',
             key: '99',
@@ -107,7 +107,7 @@ describe('tocco-util', () => {
         })
 
         describe('entityToFormValues', () => {
-          it('should set version as value', () => {
+          test('should set version as value', () => {
             const entity = {
               model: 'User',
               key: '99',
@@ -120,7 +120,7 @@ describe('tocco-util', () => {
         })
 
         describe('entityToFormValues', () => {
-          it('should return an empty object if entity is undefined', () => {
+          test('should return an empty object if entity is undefined', () => {
             const formValues = reduxForm.entityToFormValues(undefined)
             expect(formValues).to.be.empty
           })
@@ -128,7 +128,7 @@ describe('tocco-util', () => {
       })
 
       describe('getDirtyFields', () => {
-        it('should return an array of changed fields', () => {
+        test('should return an array of changed fields', () => {
           const values = {
             firstname: 'peter',
             lastname: 'griffin',
@@ -151,7 +151,7 @@ describe('tocco-util', () => {
       })
 
       describe('validationErrorToFormError', () => {
-        it('should return root entity fields in object', () => {
+        test('should return root entity fields in object', () => {
           const entity = {
             model: 'User',
             key: '2'
@@ -181,7 +181,7 @@ describe('tocco-util', () => {
           expect(formErrors.firstname).to.eql(mandatory)
         })
 
-        it('should return a valid object if error is undefined', () => {
+        test('should return a valid object if error is undefined', () => {
           const entity = {
             model: 'User',
             key: '2'

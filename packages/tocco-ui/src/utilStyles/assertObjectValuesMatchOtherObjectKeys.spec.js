@@ -57,35 +57,35 @@ describe('tocco-ui', () => {
         arm: 'a'
       }
 
-      it('should be correct independent of alphabetically order', () => {
+      test('should be correct independent of alphabetically order', () => {
         expect(assertObjectValuesMatchOtherObjectKeys(base, correct)).to.be.true
       })
 
-      it('should be incorrect caused by incomplete reuse', () => {
+      test('should be incorrect caused by incomplete reuse', () => {
         expect(assertObjectValuesMatchOtherObjectKeys(base, tooShort1)).to.be.false
       })
 
-      it('should be incorrect caused by incomplete reuse', () => {
+      test('should be incorrect caused by incomplete reuse', () => {
         expect(assertObjectValuesMatchOtherObjectKeys(base, tooShort2)).to.be.false
       })
 
-      it('should be incorrect caused by to many keys in map', () => {
+      test('should be incorrect caused by to many keys in map', () => {
         expect(assertObjectValuesMatchOtherObjectKeys(base, tooLong1)).to.be.false
       })
 
-      it('should be incorrect caused by to many keys in map', () => {
+      test('should be incorrect caused by to many keys in map', () => {
         expect(assertObjectValuesMatchOtherObjectKeys(base, tooLong2)).to.be.false
       })
 
-      it('should be incorrect caused by misspelled key', () => {
+      test('should be incorrect caused by misspelled key', () => {
         expect(assertObjectValuesMatchOtherObjectKeys(base, misspelled)).to.be.false
       })
 
-      it('should be incorrect caused by misspelled key', () => {
+      test('should be incorrect caused by misspelled key', () => {
         expect(assertObjectValuesMatchOtherObjectKeys(base, misspelled2)).to.be.false
       })
 
-      it('should be incorrect caused by misspelled key', () => {
+      test('should be incorrect caused by misspelled key', () => {
         expect(assertObjectValuesMatchOtherObjectKeys(base, misspelled3)).to.be.false
       })
     })

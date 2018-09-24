@@ -35,57 +35,57 @@ describe('tocco-util', () => {
   describe('form', () => {
     describe('formError', () => {
       describe('hasFieldErrors', () => {
-        it('should return true if it has', () => {
+        test('should return true if it has', () => {
           expect(formErrors.hasFieldErrors({...testData})).to.be.true
         })
-        it('should return false if it hasnt', () => {
+        test('should return false if it hasnt', () => {
           expect(formErrors.hasFieldErrors({_error: {}})).to.be.false
         })
       })
 
       describe('getFieldErrors', () => {
-        it('should return only field errors', () => {
+        test('should return only field errors', () => {
           expect(formErrors.getFieldErrors({...testData}))
             .to.eql({firstname: testData.firstname})
         })
-        it('should return an empty object in case of no field errors', () => {
+        test('should return an empty object in case of no field errors', () => {
           expect(formErrors.getFieldErrors({_error: {}})).to.eql({})
         })
       })
 
       describe('hasValidatorErrors', () => {
-        it('should return true if has validationErrors', () => {
+        test('should return true if has validationErrors', () => {
           expect(formErrors.hasValidatorErrors({...testData}))
             .to.be.true
         })
 
-        it('should return an empty object in case of no validator errors', () => {
+        test('should return an empty object in case of no validator errors', () => {
           expect(formErrors.hasValidatorErrors({})).to.be.false
           expect(formErrors.hasValidatorErrors({_error: {}})).to.be.false
         })
       })
 
       describe('getValidatorErrors', () => {
-        it('should validator errors in one array', () => {
+        test('should validator errors in one array', () => {
           expect(formErrors.getValidatorErrors({...testData}))
             .to.eql(['1', '2', '3'])
         })
       })
 
       describe('hasRelatedEntityErrors', () => {
-        it('should return true if has relation errors', () => {
+        test('should return true if has relation errors', () => {
           expect(formErrors.hasRelatedEntityErrors({...testData}))
             .to.be.true
         })
 
-        it('should return false in case of no relation errors', () => {
+        test('should return false in case of no relation errors', () => {
           expect(formErrors.hasRelatedEntityErrors({_error: {}}))
             .to.be.false
         })
       })
 
       describe('getRelatedEntityErrorsCompact', () => {
-        it('should return an array with all messages', () => {
+        test('should return an array with all messages', () => {
           expect(formErrors.getRelatedEntityErrorsCompact({...testData}))
             .to.eql(
               [
@@ -99,7 +99,7 @@ describe('tocco-util', () => {
       })
 
       describe('getFirstErrorField', () => {
-        it('should return true if has relation errors', () => {
+        test('should return true if has relation errors', () => {
           expect(formErrors.getFirstErrorField({...testData}))
             .to.eql('firstname')
         })

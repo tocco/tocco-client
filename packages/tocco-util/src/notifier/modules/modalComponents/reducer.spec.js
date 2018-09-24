@@ -12,11 +12,11 @@ describe('tocco-util', () => {
     describe('modules', () => {
       describe('modalComponents', () => {
         describe('reducer', () => {
-          it('should create a valid initial state', () => {
+          test('should create a valid initial state', () => {
             expect(reducer(undefined, {})).to.deep.equal(INITIAL_STATE)
           })
 
-          it('should add modals', () => {
+          test('should add modals', () => {
             const id = Date.now()
             const title = 'title'
             const message = 'message'
@@ -31,7 +31,7 @@ describe('tocco-util', () => {
             expect(stateAfter.modals).to.have.length(2)
           })
 
-          it('should remove modals', () => {
+          test('should remove modals', () => {
             const title = 'title'
             const message = 'message'
             const component = () => <div>TEST</div>

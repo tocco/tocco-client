@@ -25,38 +25,41 @@ SampleComponent.propTypes = {
 export default SampleComponent
 `
 
-describe('tocco-ui-showcase', function() {
-  describe('components', function() {
-    describe('ShowCaseApp', function() {
-      it('should render showcases from component tree and create sections for category and component', () => {
-        const componentsTree = [
-          {
-            category: 'FORMS',
-            components: [
-              {
-                name: 'ToccoLogo',
-                raw: cpnRaw,
-                example: {
-                  component: cpn,
-                  raw: cpnRaw
-                }
-              },
-              {
-                name: 'ToccoLogo2',
-                raw: cpnRaw,
-                example: {
-                  component: cpn,
-                  raw: cpnRaw
-                }
-              }]
-          }
-        ]
+describe('tocco-ui-showcase', () => {
+  describe('components', () => {
+    describe('ShowCaseApp', () => {
+      test(
+        'should render showcases from component tree and create sections for category and component',
+        () => {
+          const componentsTree = [
+            {
+              category: 'FORMS',
+              components: [
+                {
+                  name: 'ToccoLogo',
+                  raw: cpnRaw,
+                  example: {
+                    component: cpn,
+                    raw: cpnRaw
+                  }
+                },
+                {
+                  name: 'ToccoLogo2',
+                  raw: cpnRaw,
+                  example: {
+                    component: cpn,
+                    raw: cpnRaw
+                  }
+                }]
+            }
+          ]
 
-        const wrapper = mount(<ShowCaseApp componentsTree={componentsTree}/>)
+          const wrapper = mount(<ShowCaseApp componentsTree={componentsTree}/>)
 
-        expect(wrapper.find('ComponentShowCase')).to.have.length(2)
-        expect(wrapper.find('section')).to.have.length(3)
-      })
+          expect(wrapper.find('ComponentShowCase')).to.have.length(2)
+          expect(wrapper.find('section')).to.have.length(3)
+        }
+      )
     })
   })
 })

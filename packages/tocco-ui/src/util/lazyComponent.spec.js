@@ -8,7 +8,7 @@ describe('tocco-ui', () => {
     describe('lazyLoadComponent', () => {
       const InnerComp = () => <div>test</div>
 
-      it('should render nothing before loaded', () => {
+      test('should render nothing before loaded', () => {
         const promise = new Promise(() => {}) // never resolved
 
         const AsyncComp = lazyComponent(() => promise)
@@ -17,7 +17,7 @@ describe('tocco-ui', () => {
         expect(wrapper.find(InnerComp)).to.have.length(0)
       })
 
-      it('should render component when loaded', done => {
+      test('should render component when loaded', done => {
         const promise = Promise.resolve(InnerComp)
 
         const AsyncComp = lazyComponent(() => promise)
@@ -30,7 +30,7 @@ describe('tocco-ui', () => {
         })
       })
 
-      it('should respect selector param', done => {
+      test('should respect selector param', done => {
         const selector = 'xyz'
         const promise = Promise.resolve({[selector]: InnerComp})
         const AsyncComp = lazyComponent(() => promise, selector)
@@ -43,7 +43,7 @@ describe('tocco-ui', () => {
         })
       })
 
-      it('should respect default component param', () => {
+      test('should respect default component param', () => {
         const Default = () => <div>loading...</div>
         const promise = new Promise(() => {})
 
@@ -54,7 +54,7 @@ describe('tocco-ui', () => {
         expect(wrapper.html()).to.contains('loading...')
       })
 
-      it('should call onLoaded', done => {
+      test('should call onLoaded', done => {
         const onLoadedSpy = sinon.spy()
         const promise = Promise.resolve(InnerComp)
         const AsyncComp = lazyComponent(() => promise, null, null, onLoadedSpy)
@@ -67,7 +67,7 @@ describe('tocco-ui', () => {
         })
       })
 
-      it('should set mounted var accordingly and not log an error', done => {
+      test('should set mounted var accordingly and not log an error', done => {
         const promise = new Promise(resolve => setTimeout(resolve({default: InnerComp}), 100))
 
         const AsyncComp = lazyComponent(() => promise)

@@ -10,7 +10,7 @@ describe('tocco-ui', () => {
   describe('EditableValue', () => {
     describe('typeEditors', () => {
       describe('DateEdit ', () => {
-        it('should render an instance of DateAbstract', () => {
+        test('should render an instance of DateAbstract', () => {
           const wrapper = intlEnzyme.mountWithIntl(
             <DateEdit onChange={EMPTY_FUNC}/>
           )

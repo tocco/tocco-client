@@ -10,11 +10,11 @@ describe('entity-browser', () => {
   describe('routes', () => {
     describe('detail', () => {
       describe('reducer', () => {
-        it('should create a valid initial state', () => {
+        test('should create a valid initial state', () => {
           expect(reducer(undefined, {})).to.deep.equal(INITIAL_STATE)
         })
 
-        it('should handle setDetailParams action', () => {
+        test('should handle setDetailParams action', () => {
           const detailParams = {
             entityName: 'User',
             entityId: '1',
@@ -31,7 +31,7 @@ describe('entity-browser', () => {
           expect(reducer(INITIAL_STATE, actions.setDetailParams(detailParams))).to.deep.equal(expectedStateAfter)
         })
 
-        it('should handle formTouched action', () => {
+        test('should handle formTouched action', () => {
           const formTouched = true
 
           const expectedStateAfter = {

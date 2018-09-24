@@ -34,9 +34,9 @@ import IconToccoRaw from '!raw-loader!../../tocco-ui/src/IconTocco/IconTocco'
 import IconToccoExample from '../../tocco-ui/src/IconTocco/example'
 import IconToccoExampleRaw from '!raw-loader!../../tocco-ui/src/IconTocco/example'
 
-import LayoutBoxRaw from '!raw-loader!../../tocco-ui/src/LayoutBox/LayoutBox'
-import LayoutBoxExample from '../../tocco-ui/src/LayoutBox/example'
-import LayoutBoxExampleRaw from '!raw-loader!../../tocco-ui/src/LayoutBox/example'
+import LayoutRaw from '!raw-loader!../../tocco-ui/src/Layout/Layout'
+import LayoutExample from '../../tocco-ui/src/Layout/example'
+import LayoutExampleRaw from '!raw-loader!../../tocco-ui/src/Layout/example'
 
 import LinkRaw from '!raw-loader!../../tocco-ui/src/Link/Link'
 import LinkExample from '../../tocco-ui/src/Link/example'
@@ -204,11 +204,11 @@ export default [{
       raw: PanelExampleRaw
     }
   }, {
-    name: 'Box Layouts',
-    raw: LayoutBoxRaw,
+    name: 'Layout',
+    raw: LayoutRaw,
     example: {
-      component: LayoutBoxExample,
-      raw: LayoutBoxExampleRaw
+      component: LayoutExample,
+      raw: LayoutExampleRaw
     }
   }, {
     name: 'LoadMask',

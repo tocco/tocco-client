@@ -6,7 +6,7 @@ describe('tocco-util', () => {
     describe('relationEntities', () => {
       describe('reducer', () => {
         describe('setRelationEntities', () => {
-          it('should add new entities', () => {
+          test('should add new entities', () => {
             const initialState = {
               data: {}
             }
@@ -31,7 +31,7 @@ describe('tocco-util', () => {
             expect(newState).to.eql(expectedStateAfter)
           })
 
-          it('should overwrite existing entities', () => {
+          test('should overwrite existing entities', () => {
             const initialState = {
               data: {
                 relUser2: {
@@ -64,7 +64,7 @@ describe('tocco-util', () => {
         })
 
         describe('setRelationEntitiesLoading', () => {
-          it('should set loading boolean', () => {
+          test('should set loading boolean', () => {
             const initialState = {
               data: {
                 relUser2: {

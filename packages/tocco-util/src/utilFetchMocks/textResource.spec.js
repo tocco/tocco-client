@@ -5,7 +5,7 @@ describe('tocco-util', () => {
     describe('utilFetchMock', () => {
       const packageName = 'entity-detail'
       describe('textResourceFetchMock', () => {
-        it('should contain a matcher for textresources', () => {
+        test('should contain a matcher for textresources', () => {
           let urlRegex
 
           const fetchMockStub = {
@@ -19,7 +19,7 @@ describe('tocco-util', () => {
           expect(urlRegex.toString()).to.contains('/textresource')
         })
 
-        it('should return an object with readable text resources', () => {
+        test('should return an object with readable text resources', () => {
           let fetchResponse
 
           const fetchMockStub = {

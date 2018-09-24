@@ -11,7 +11,7 @@ const EMPTY_FUNC = () => {
 describe('entity-detail', () => {
   describe('components', () => {
     describe('DetailView', () => {
-      it('should render', () => {
+      test('should render', () => {
         const routerProp = {
           match: {
             params: {

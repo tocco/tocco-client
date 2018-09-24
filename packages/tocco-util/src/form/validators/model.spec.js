@@ -5,7 +5,7 @@ describe('tocco-util', () => {
     describe('validators', () => {
       describe('model', () => {
         describe('mandatoryValidator', () => {
-          it('should not return an error for valid inputs', () => {
+          test('should not return an error for valid inputs', () => {
             const validValues = [
               'Test',
               0,
@@ -21,7 +21,7 @@ describe('tocco-util', () => {
             })
           })
 
-          it('should return an error for invalid values', () => {
+          test('should return an error for invalid values', () => {
             const invalidValues = [
               undefined,
               '',
@@ -40,7 +40,7 @@ describe('tocco-util', () => {
         })
 
         describe('minLength', () => {
-          it('should not return an error for correct values', () => {
+          test('should not return an error for correct values', () => {
             const MIN_LENGTH = 4
             const validValues = [
               '1234',
@@ -54,7 +54,7 @@ describe('tocco-util', () => {
             })
           })
 
-          it('should return an error for to short values', () => {
+          test('should return an error for to short values', () => {
             const MIN_LENGTH = 4
 
             const invalidValues = [
@@ -71,7 +71,7 @@ describe('tocco-util', () => {
         })
 
         describe('maxLength', () => {
-          it('should not return an error for correct values', () => {
+          test('should not return an error for correct values', () => {
             const MAX_LENGTH = 3
             const validValues = [
               '123',
@@ -85,7 +85,7 @@ describe('tocco-util', () => {
             })
           })
 
-          it('should return an error for to short values', () => {
+          test('should return an error for to short values', () => {
             const MAX_LENGTH = 3
 
             const invalidValues = [

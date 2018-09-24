@@ -5,13 +5,14 @@ import StyledPanelHeaderFooter from './StyledPanelHeaderFooter'
 import Button from '../Button'
 
 /**
- * <PanelHeader/> and <PanelFooter/> contain by default a button to toggle the visibility state of <PanelBody>.
+ * <Panel.Header/> and <Panel.Footer/> contain by default a button to toggle the visibility state of <Panel.Body>.
  * Header and footer can contain any content. If both are displayed is up to the implementer.
  */
 class PanelHeaderFooter extends React.Component {
   render() {
     const {
       children,
+      isFramed,
       isOpen,
       isToggleable,
       showToggler,
@@ -19,7 +20,10 @@ class PanelHeaderFooter extends React.Component {
     } = this.props
 
     return (
-      <StyledPanelHeaderFooter>
+      <StyledPanelHeaderFooter
+        isFramed={isFramed}
+        isOpen={isOpen}
+      >
         <div>
           {React.Children.map(children, child => React.cloneElement(child))}
         </div>
@@ -48,11 +52,16 @@ PanelHeaderFooter.defaultProps = {
 PanelHeaderFooter.propTypes = {
   children: PropTypes.node,
   /**
-   * Boolean to control if <PanelBody/> is initially opened. Is always passed from parent.
+   * Boolean to control if <Panel.Header/>, <Panel.Body/> and <Panel.Footer/> is initially opened.
+   * Value is always overridden by parent element.
+   */
+  isFramed: PropTypes.bool,
+  /**
+   * Boolean to control if <Panel.Body/> is initially opened. Value is always overridden by parent element.
    */
   isOpen: PropTypes.bool,
   /**
-   * Boolean to control if body can be opened or closed. Is always passed from parent.
+   * Boolean to control if body can be opened or closed. Value is always overridden by parent element.
    */
   isToggleable: PropTypes.bool,
   /**
@@ -63,9 +72,7 @@ PanelHeaderFooter.propTypes = {
    * Function executed on button click to control accordion. Is always passed from parent.
    */
   toggleOpenState: PropTypes.func,
-  /**
-   * Define popup text for buttons.
-   */
+  /* Define display text for buttons as option object (keys: collapseButtonText, unfoldButtonText). */
   options: PropTypes.shape({
     collapseButtonText: PropTypes.string,
     unfoldButtonText: PropTypes.string

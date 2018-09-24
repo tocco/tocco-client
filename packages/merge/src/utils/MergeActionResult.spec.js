@@ -3,7 +3,7 @@ import {getMergeMatrixResult, getMergeStrategyResult} from './MergeActionResult'
 describe('merge', () => {
   describe('utils ', () => {
     describe('MergeActionResult', () => {
-      it('should map modelName', () => {
+      test('should map modelName', () => {
         const state = {
           model: {modelName: 'User'},
           entities: [],
@@ -16,7 +16,7 @@ describe('merge', () => {
         result.modelName.should.equal('User')
       })
 
-      it('should set sourceEntities without including target', () => {
+      test('should set sourceEntities without including target', () => {
         const state = {
           model: {modelName: 'User'},
           targetEntityPk: '2',
@@ -30,7 +30,7 @@ describe('merge', () => {
         result.sourceEntities.should.eql(['1', '3'])
       })
 
-      it('should map fields and exclude target entity selections', () => {
+      test('should map fields and exclude target entity selections', () => {
         const state = {
           model: {modelName: 'User'},
           entities: [{pk: '1'}, {pk: '2'}],
@@ -53,7 +53,7 @@ describe('merge', () => {
         )
       })
 
-      it('should map relations and exclude target entity selections', () => {
+      test('should map relations and exclude target entity selections', () => {
         const state = {
           model: {modelName: 'User'},
           entities: [
@@ -79,28 +79,31 @@ describe('merge', () => {
         )
       })
 
-      it('relations: should return empty array if to one relation is selected with no value', () => {
-        const state = {
-          model: {modelName: 'User'},
-          entities: [
-            {pk: '113'},
-            {pk: '114', relations: {rel_a: {values: []}}}],
-          targetEntityPk: '113',
-          selections: {
-            relations: {
-              rel_a: '114'
+      test(
+        'relations: should return empty array if to one relation is selected with no value',
+        () => {
+          const state = {
+            model: {modelName: 'User'},
+            entities: [
+              {pk: '113'},
+              {pk: '114', relations: {rel_a: {values: []}}}],
+            targetEntityPk: '113',
+            selections: {
+              relations: {
+                rel_a: '114'
+              }
             }
           }
+
+          const result = getMergeMatrixResult(state)
+          result.data.relations.should.have.length(1)
+          result.data.relations[0].should.eql(
+            {name: 'rel_a', keys: []}
+          )
         }
+      )
 
-        const result = getMergeMatrixResult(state)
-        result.data.relations.should.have.length(1)
-        result.data.relations[0].should.eql(
-          {name: 'rel_a', keys: []}
-        )
-      })
-
-      it('should map to many relations', () => {
+      test('should map to many relations', () => {
         const state = {
           model: {modelName: 'User'},
           entities: [
@@ -141,7 +144,7 @@ describe('merge', () => {
         )
       })
 
-      it('should set copyRemainingRelations', () => {
+      test('should set copyRemainingRelations', () => {
         const state = {
           strategies: {
             copyRelations: true
@@ -154,7 +157,7 @@ describe('merge', () => {
         expect(result.copyRemainingRelations).to.be.true
       })
 
-      it('should set sourceEntityConfig delete flag', () => {
+      test('should set sourceEntityConfig delete flag', () => {
         const state = {
           strategies: {
             sourceEntityAction: 'something'
@@ -177,7 +180,7 @@ describe('merge', () => {
         expect(result.sourceEntityConfig.deleteSourceEntities).to.be.true
       })
 
-      it('should set edit values', () => {
+      test('should set edit values', () => {
         const state = {
 
           strategies: {
@@ -207,7 +210,7 @@ describe('merge', () => {
         result.sourceEntityConfig.updateValues.length.should.eql(1)
       })
 
-      it('should  set emtpy edit values if other action', () => {
+      test('should  set emtpy edit values if other action', () => {
         const state = {
 
           strategies: {

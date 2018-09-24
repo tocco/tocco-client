@@ -5,7 +5,7 @@ import Popover from './Popover'
 
 describe('tocco-ui', () => {
   describe('Popover', () => {
-    it('should show popover content on mouseover and hide on mouseout', () => {
+    test('should show popover content on mouseover and hide on mouseout', () => {
       const wrapper = mount(
         <Popover content={<span className="content">Popover</span>}><span className="child">Test</span></Popover>
       )

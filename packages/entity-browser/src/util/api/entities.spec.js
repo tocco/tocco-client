@@ -9,7 +9,7 @@ describe('entity-browser', () => {
     describe('api', () => {
       describe('entities', () => {
         describe('fetchModel', () => {
-          it('should call request saga and transform response', () => {
+          test('should call request saga and transform response', () => {
             const gen = entities.fetchModel('User')
 
             expect(gen.next().value).to.eql(call(requestSaga, 'entities/User/model'))
@@ -48,7 +48,7 @@ describe('entity-browser', () => {
         })
 
         describe('defaultModelTransformer', () => {
-          it('should return an object with field names as key', () => {
+          test('should return an object with field names as key', () => {
             const fetchResult = {
               name: 'User',
               fields: [

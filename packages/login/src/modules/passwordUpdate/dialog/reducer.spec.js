@@ -13,11 +13,11 @@ describe('login', () => {
     describe('passwordUpdate', () => {
       describe('dialog', () => {
         describe('reducer', () => {
-          it('creates initial state', () => {
+          test('creates initial state', () => {
             expect(reducer(undefined, {})).to.deep.equal(EXPECTED_INITIAL_STATE)
           })
 
-          it('handles SET_SHOW_OLD_PASSWORD', () => {
+          test('handles SET_SHOW_OLD_PASSWORD', () => {
             const stateBefore = {
               showOldPasswordField: false
             }

@@ -4,11 +4,11 @@ import {addLocaleData, IntlProvider} from 'react-intl'
 
 import DateTimeFormatter from './DateTimeFormatter'
 
-describe('tocco-ui', function() {
-  describe('FormattedValue', function() {
+describe('tocco-ui', () => {
+  describe('FormattedValue', () => {
     describe('typeFormatters', () => {
-      describe('DateTimeFormatter ', function() {
-        before(function() {
+      describe('DateTimeFormatter ', () => {
+        beforeAll(function() {
           require('intl/locale-data/jsonp/en.js')
           require('intl/locale-data/jsonp/de.js')
           const en = require('react-intl/locale-data/en')
@@ -16,7 +16,7 @@ describe('tocco-ui', function() {
           addLocaleData([...en, ...de])
         })
 
-        it('should format value', function() {
+        test('should format value', () => {
           const wrapper = mount(<IntlProvider locale="en">
             <DateTimeFormatter
               value="1976-03-16T12:00:00.000Z"/>
@@ -30,7 +30,7 @@ describe('tocco-ui', function() {
           expect(wrapper.find('time').prop('dateTime')).to.not.equal('')
         })
 
-        it('should format value according to locale', function() {
+        test('should format value according to locale', () => {
           const wrapper = mount(<IntlProvider locale="de">
             <DateTimeFormatter
               value="1976-03-16T12:00:00.000Z"/>

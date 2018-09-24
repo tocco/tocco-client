@@ -8,7 +8,7 @@ describe('tocco-util', () => {
     describe('modules', () => {
       describe('modalComponents', () => {
         describe('ModalContent', () => {
-          it('should render component with close property', () => {
+          test('should render component with close property', () => {
             const closeSpy = sinon.spy()
             const id = Date.now()
             // eslint-disable-next-line react/prop-types
@@ -21,10 +21,11 @@ describe('tocco-util', () => {
                 close={close}
               />
             )
-
             expect(wrapper.find(component)).to.have.length(1)
             wrapper.find('button').simulate('click')
-            expect(closeSpy).to.have.been.calledWith(id)
+            setTimeout(() => {
+              expect(closeSpy).to.have.property('callCount', 1)
+            }, 300)
           })
         })
       })

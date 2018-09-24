@@ -5,7 +5,7 @@ describe('tocco-util', () => {
     describe('validators', () => {
       describe('type', () => {
         describe('url', () => {
-          it('should not return an error for valid inputs', () => {
+          test('should not return an error for valid inputs', () => {
             const validValues = [
               'http://www.tocco.ch',
               'https://google.com',
@@ -18,7 +18,7 @@ describe('tocco-util', () => {
             })
           })
 
-          it('should return an error for invalid values', () => {
+          test('should return an error for invalid values', () => {
             const invalidValues = [
               'a',
               'httb://test.com',
@@ -35,7 +35,7 @@ describe('tocco-util', () => {
         })
 
         describe('phone', () => {
-          it('should not return an error for valid inputs', () => {
+          test('should not return an error for valid inputs', () => {
             const validValues = [
               '+41444005555',
               '+41 44 400 55 55',
@@ -48,7 +48,7 @@ describe('tocco-util', () => {
             })
           })
 
-          it('should return an error for invalid inputs', () => {
+          test('should return an error for invalid inputs', () => {
             const invalidValues = [
               ' ',
               '1',
@@ -63,11 +63,11 @@ describe('tocco-util', () => {
             })
           })
 
-          it('should country', () => {
+          test('should country', () => {
             expect(phoneValidator('(541) 754-3010', {defaultCountry: 'US'})).to.be.null
           })
 
-          it('should validate agains regex if given', () => {
+          test('should validate agains regex if given', () => {
             const customPhoneRegex = '^\\d{3}$'
 
             const testData = [

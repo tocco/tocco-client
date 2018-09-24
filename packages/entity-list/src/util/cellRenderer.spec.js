@@ -11,7 +11,7 @@ import cellRenderer from './cellRenderer'
 describe('entity-list', () => {
   describe('util', () => {
     describe('cellRenderer', () => {
-      it('should return a formattedValue for componentType field', () => {
+      test('should return a formattedValue for componentType field', () => {
         const field = {
           componentType: 'field',
           id: 'firstname'
@@ -28,7 +28,7 @@ describe('entity-list', () => {
         expect(wrapper.find(FormattedValue)).to.have.length(1)
       })
 
-      it('should return an html formattedValue for DisplayExpressions', () => {
+      test('should return an html formattedValue for DisplayExpressions', () => {
         const field = {
           componentType: 'display',
           id: 'myDisplayExpression'
@@ -43,7 +43,7 @@ describe('entity-list', () => {
         expect(wrapper.find(FormattedValue)).to.have.prop('type', 'html')
       })
 
-      it('should return an action for componentType action', () => {
+      test('should return an action for componentType action', () => {
         const field = {
           componentType: 'action',
           id: 'myAction'

@@ -72,14 +72,14 @@ describe('tocco-ui', () => {
         '1vw;'
       ]
 
-      it('should be valid dimension', () => {
+      test('should be valid dimension', () => {
         valid.map(value => {
           props['dimension'] = value
           expect(validateCssDimension(props, 'dimension')).to.be.null
         })
       })
 
-      it('should be invalid dimension', () => {
+      test('should be invalid dimension', () => {
         invalid.map(value => {
           props['dimension'] = value
           expect(validateCssDimension(props, 'dimension')).to.be.an('error')

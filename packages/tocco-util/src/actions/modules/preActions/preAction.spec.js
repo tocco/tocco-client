@@ -14,19 +14,19 @@ describe('tocco-util', () => {
         const actionDefinition = {}
         const ids = []
 
-        it('should return abort = false if a preAction returns false', () => {
+        test('should return abort = false if a preAction returns false', () => {
           return expectSaga(preAction([mockPreAction(true, {})]), actionDefinition, ids)
             .returns({abort: true, params: {}})
             .run()
         })
 
-        it('should return abort if a preAction returns abort', () => {
+        test('should return abort if a preAction returns abort', () => {
           return expectSaga(preAction([mockPreAction(false, {})]), actionDefinition, ids)
             .returns({abort: false, params: {}})
             .run()
         })
 
-        it('should not call further preAction if one return abort', async() => {
+        test('should not call further preAction if one return abort', async() => {
           const spyPreAction = {
             shouldRun: () => true,
             run: sinon.spy()

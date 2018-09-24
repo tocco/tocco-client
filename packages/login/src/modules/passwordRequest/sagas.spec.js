@@ -13,7 +13,7 @@ describe('login', () => {
     describe('passwordRequest', () => {
       describe('sagas', () => {
         describe('root saga', () => {
-          it('should fork child sagas', () => {
+          test('should fork child sagas', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal(all([
               fork(takeLatest, actions.REQUEST_PASSWORD, sagas.requestPasswordSaga)
@@ -23,7 +23,7 @@ describe('login', () => {
         })
 
         describe('requestPasswordSaga', () => {
-          it('should request password', () => {
+          test('should request password', () => {
             const generator = sagas.requestPasswordSaga({payload: {username: 'user1'}})
             const textResourceState = {'client.login.from.passwordRequested': 'msg'}
             expect(generator.next().value).to.eql(put(setPending(true)))

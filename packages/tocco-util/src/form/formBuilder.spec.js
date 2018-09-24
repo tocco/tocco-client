@@ -1,6 +1,6 @@
 import React from 'react'
 import {shallow} from 'enzyme'
-import {LayoutBox} from 'tocco-ui'
+import {Layout} from 'tocco-ui'
 import {Field} from 'redux-form'
 
 import createFromBuilder from './formBuilder'
@@ -112,17 +112,16 @@ const testData = {
 describe('tocco-util', () => {
   describe('form', () => {
     describe('formBuilder', () => {
-      it('should render LayoutBoxes and Fields', () => {
+      test('should render layout boxes and Fields', () => {
         const {entity, model, formName, formDefinition, formValues, formFieldUtils} = testData
 
         const formBuilder = createFromBuilder(entity, model, formName, formDefinition, formValues, formFieldUtils)
-
         const wrapper = shallow(<form>{formBuilder()}</form>)
-        expect(wrapper.find(LayoutBox)).to.have.length(3)
+        expect(wrapper.find(Layout.Box)).to.have.length(2)
         expect(wrapper.find(Field)).to.have.length(2)
       })
 
-      it('should not render field if beforeRenderField returns false', () => {
+      test('should not render field if beforeRenderField returns false', () => {
         const {entity, model, formName, formDefinition, formValues, formFieldUtils} = testData
 
         const beforeRenderField = name => name !== 'lastname'
@@ -132,11 +131,11 @@ describe('tocco-util', () => {
         )
 
         const wrapper = shallow(<form>{formBuilder()}</form>)
-        expect(wrapper.find(LayoutBox)).to.have.length(3)
+        expect(wrapper.find(Layout.Box)).to.have.length(2)
         expect(wrapper.find(Field)).to.have.length(1)
       })
 
-      it('should not render none readable fields', () => {
+      test('should not render none readable fields', () => {
         const {entity, model, formName, formDefinition, formValues, formFieldUtils} = testData
 
         entity.paths['lastname'] = {
@@ -156,19 +155,22 @@ describe('tocco-util', () => {
         expect(wrapper.find(Field)).to.have.length(1)
       })
 
-      it('should not require an entity (should not check readable flag in this case)', () => {
-        const {model, formName, formDefinition, formValues, formFieldUtils} = testData
+      test(
+        'should not require an entity (should not check readable flag in this case)',
+        () => {
+          const {model, formName, formDefinition, formValues, formFieldUtils} = testData
 
-        const entity = null
+          const entity = null
 
-        const formBuilder = createFromBuilder(entity, model, formName, formDefinition, formValues, formFieldUtils)
+          const formBuilder = createFromBuilder(entity, model, formName, formDefinition, formValues, formFieldUtils)
 
-        const wrapper = shallow(<form>{formBuilder()}</form>)
+          const wrapper = shallow(<form>{formBuilder()}</form>)
 
-        expect(wrapper.find(Field)).to.have.length(2)
-      })
+          expect(wrapper.find(Field)).to.have.length(2)
+        }
+      )
 
-      it('should not render empty values in readonly form', () => {
+      test('should not render empty values in readonly form', () => {
         const {entity, model, formName, formDefinition, formFieldUtils} = testData
 
         const formValues = testData.lastname = ''
@@ -180,7 +182,7 @@ describe('tocco-util', () => {
         expect(wrapper.find(Field)).to.have.length(1)
       })
 
-      it('should render fields with matching scope', () => {
+      test('should render fields with matching scope', () => {
         const {model, formName, formDefinition, formFieldUtils, formValues} = testData
         const entity = null
 
@@ -193,7 +195,7 @@ describe('tocco-util', () => {
         expect(wrapper.find(Field)).to.have.length(2)
       })
 
-      it('should NOT render fields with unmatching scope', () => {
+      test('should NOT render fields with unmatching scope', () => {
         const {model, formName, formDefinition, formFieldUtils, formValues} = testData
         const entity = null
         const formBuilder = createFromBuilder(

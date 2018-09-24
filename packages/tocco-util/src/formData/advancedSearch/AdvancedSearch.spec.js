@@ -7,7 +7,7 @@ describe('tocco-util', () => {
   describe('formData', () => {
     describe('advancedSearch', () => {
       describe('AdvancedSearch', () => {
-        it('should render ListApp', () => {
+        test('should render ListApp', () => {
           const ListApp = () => <div>ListApp</div>
           const wrapper = shallow(
             <AdvancedSearch ListApp={ListApp} entityName="User" formBase="User" emitAction={() => {}}/>

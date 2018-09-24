@@ -4,11 +4,11 @@ import {addLocaleData, IntlProvider} from 'react-intl'
 
 import DateFormatter from './DateFormatter'
 
-describe('tocco-ui', function() {
-  describe('FormattedValue', function() {
+describe('tocco-ui', () => {
+  describe('FormattedValue', () => {
     describe('typeFormatters', () => {
-      describe('DateFormatter ', function() {
-        before(function() {
+      describe('DateFormatter ', () => {
+        beforeAll(function() {
           require('intl/locale-data/jsonp/en.js')
           require('intl/locale-data/jsonp/de.js')
           const en = require('react-intl/locale-data/en')
@@ -22,7 +22,7 @@ describe('tocco-ui', function() {
         const dateOutputEn = '11/16/1976'
         const dateOutputDe = '16.11.1976'
 
-        it('should format value', () => {
+        test('should format value', () => {
           const wrapper = mount(
             <IntlProvider locale="en">
               <DateFormatter value={dateInput}/>
@@ -33,7 +33,7 @@ describe('tocco-ui', function() {
           expect(wrapper.find('time').prop('dateTime').replace(leftToRightMark, '')).to.equal(dateOutputIso)
         })
 
-        it('should format value according to locale', () => {
+        test('should format value according to locale', () => {
           const wrapper = mount(
             <IntlProvider locale="de">
               <DateFormatter value={dateInput}/>

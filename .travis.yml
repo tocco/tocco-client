@@ -2,11 +2,7 @@ sudo: true
 language: node_js
 node_js:
   - "9"
-
 dist: trusty
-addons:
-  chrome: stable
-
 cache:
   yarn: true
   directories:
@@ -26,6 +22,7 @@ cache:
     - packages/tocco-ui-showcase/node_modules
     - packages/tocco-util/node_modules
     - .eslintcache
+    - .jestcache
 
 install:
   - yarn setup
@@ -33,10 +30,7 @@ install:
 
 script:
   - npm run lint
-  - npm run test
-  - if [ ${TRAVIS_EVENT_TYPE} = "cron" ]; then
-      npm run test:saucelabs;
-    fi
+  - jest --maxWorkers=4 --silent --verbose false
 
 after_success:
   - if [ ${TRAVIS_EVENT_TYPE} != "cron" ]; then

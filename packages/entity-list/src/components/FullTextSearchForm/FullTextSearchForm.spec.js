@@ -12,7 +12,7 @@ const EMPTY_FUNC = () => {}
 describe('entity-list', () => {
   describe('components', () => {
     describe('FullTextSearchForm', () => {
-      it('should render SearchBox component', () => {
+      test('should render SearchBox component', () => {
         const store = createStore(() => {})
 
         const wrapper = intlEnzyme.mountWithIntl(

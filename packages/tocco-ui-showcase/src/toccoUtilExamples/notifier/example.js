@@ -2,7 +2,7 @@
 import React from 'react'
 import {Provider} from 'react-redux'
 import {appFactory, notifier} from 'tocco-util'
-import {Button} from 'tocco-ui'
+import {Button, ButtonGroup, Typography} from 'tocco-ui'
 // real-import:import {appFactory, notifier} from 'tocco-util'
 
 const longText = `Lorem ipsum dolor sit amet, at sed inermis intellegam scriptorem, usu facete apeirian ad.
@@ -19,11 +19,12 @@ class Example extends React.Component {
   }
 
   info = () => {
-    this.store.dispatch(notifier.info('info', 'client.title', 'client.description', 'info', 2000))
+    this.store.dispatch(notifier.info(
+      'info', <Typography.H4>Typography component</Typography.H4>, 'string contains <b>html</b>', 'info', 2000))
   }
 
   success = () => {
-    this.store.dispatch(notifier.info('success', 'client.title', 'client.description', 'thumbs-up', 0))
+    this.store.dispatch(notifier.info('success', 'client.title', 'Lorem Ipsum', 'thumbs-up', 0))
   }
 
   warning = () => {
@@ -77,21 +78,24 @@ class Example extends React.Component {
     this.store.dispatch(notifier.modalComponent(
       id,
       'Title',
-      'Please wait',
+      'Message',
       props => (
-        <div style={{border: '1px dotted red'}}>
-          <p>My Custom-Component</p>
-          <Button
-            ink="primary"
-            label="primary action"
-            onClick={props.close}
-          />
-          <Button
-            label="secondary action"
-            onClick={props.close}
-          />
-        </div>
-      )
+        <React.Fragment>
+          <Typography.P>Custom component starts here</Typography.P>
+          <ButtonGroup look="raised">
+            <Button
+              ink="primary"
+              label="primary action"
+              onClick={props.close}
+            />
+            <Button
+              label="secondary action"
+              onClick={props.close}
+            />
+          </ButtonGroup>
+        </React.Fragment>
+      ),
+      true
     ))
 
     setTimeout(() => {

@@ -351,6 +351,10 @@ react-tether@^0.6.1:
     prop-types "^15.5.8"
     tether "^1.4.3"
 
+tocco-test-util@>0.1.0:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/tocco-test-util/-/tocco-test-util-0.1.2.tgz#6388309f1598d612cbc29e27564fb10706ade6f6"
+
 regenerator-runtime@^0.11.0:
   version "0.11.1"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
@@ -370,10 +374,6 @@ setimmediate@^1.0.5:
 tether@^1.4.3:
   version "1.4.3"
   resolved "https://registry.yarnpkg.com/tether/-/tether-1.4.3.tgz#fd547024c47b6e5c9b87e1880f997991a9a6ad54"
-
-tocco-test-util@>0.1.0:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/tocco-test-util/-/tocco-test-util-0.1.2.tgz#6388309f1598d612cbc29e27564fb10706ade6f6"
 
 typed-styles@^0.0.5:
   version "0.0.5"

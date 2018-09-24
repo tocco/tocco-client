@@ -16,11 +16,11 @@ describe('entity-list', () => {
   describe('modules', () => {
     describe('searchForm', () => {
       describe('reducer', () => {
-        it('should create a valid initial state', () => {
+        test('should create a valid initial state', () => {
           expect(reducer(undefined, {})).to.deep.equal(EXPECTED_INITIAL_STATE)
         })
 
-        it('should handle SET_FORM_DEFINITION', () => {
+        test('should handle SET_FORM_DEFINITION', () => {
           const definition = [
             {name: 'name1', type: 'type1', label: 'label1', displayType: 'displayType1', useLabel: true}
           ]
@@ -31,7 +31,7 @@ describe('entity-list', () => {
         })
 
         describe('setSearchFilter', () => {
-          it('should set search filters', () => {
+          test('should set search filters', () => {
             const searchFilter = [
               {key: 'key1', display: 'display1'},
               {key: 'key2', display: 'display2'}
@@ -46,7 +46,7 @@ describe('entity-list', () => {
             expect(reducer(stateBefore, actions.setSearchFilter(searchFilter))).to.deep.equal(expectedStateAfter)
           })
 
-          it('should update search filters', () => {
+          test('should update search filters', () => {
             const searchFilter = [
               {key: 'key1', display: 'display1'},
               {key: 'key2', display: 'display2'}
