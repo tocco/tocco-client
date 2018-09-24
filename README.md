@@ -68,18 +68,22 @@ Tests are using following tools and libraries:
 
 All packages:
 ```
-npm test
+yarn test
 ```
 
-Single Package:
+List of packages or single packages:
 ```
-yarn test --package={PACKAGE_NAME}
+yarn test --projects packages/{PACKAGE_NAME} packages/{PACKAGE_NAME}
 ```
 
 During development with watch:
 ```
-yarn test:dev --package={PACKAGE_NAME}
+yarn test [...] --watch
 ```
+
+Note: If working with IntelliJ sinle tests or test-suites can be run in the IDE directly. Just set the 
+jest.config.js file in the Jest run configuration. 
+
 
 #### Generators
 The project provides some code generators. Generators are developed with [Plop](https://github.com/amwmedia/plop) and can be executed with:
