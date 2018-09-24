@@ -4,13 +4,13 @@ const GROUP_GENERAL = 'generalSettings'
 const GROUP_RECIPIENT = 'recipientSettings'
 
 export const getGroupedValues = (settingsDefinition, values) => {
-  const groupValues = name => {
-    return {
-      [name]: (settingsDefinition[name] || []).reduce((result, field) => {
-        return {...result, [field.id]: values[field.id]}
-      }, {})
+  const groupValues = name => (
+    {
+      [name]: (settingsDefinition[name] || []).reduce((result, field) => (
+        {...result, [field.id]: values[field.id]}
+      ), {})
     }
-  }
+  )
 
   return {
     ...groupValues(GROUP_GENERAL),
@@ -20,12 +20,12 @@ export const getGroupedValues = (settingsDefinition, values) => {
 
 export const getFormDataDefaults = settingsDefinition => {
   const extractDefaultValues = name =>
-    (settingsDefinition[name] || []).reduce((result, field) => {
-      return {
+    (settingsDefinition[name] || []).reduce((result, field) => (
+      {
         ...result,
         ...(field.options ? {[field.id]: field.options} : {})
       }
-    }, {})
+    ), {})
 
   return {
     relationEntities: {
@@ -57,8 +57,8 @@ export const getFormDefinition = (settingsDefinition, intl) => {
   const msg = id => intl.formatMessage({id})
 
   const extractFields = name =>
-    (settingsDefinition[name] || []).map(field => {
-      return {
+    (settingsDefinition[name] || []).map(field => (
+      {
         'children': [
           {
             'componentType': 'field',
@@ -76,7 +76,7 @@ export const getFormDefinition = (settingsDefinition, intl) => {
         'readonly': field.disabled,
         'scopes': []
       }
-    })
+    ))
 
   return {
     'componentType': 'form',
