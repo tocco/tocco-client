@@ -60,8 +60,7 @@ http://localhost:8080
 
 #### Tests
 Tests are using following tools and libraries:
-* [Karma](https://karma-runner.github.io/)
-* [Mocha](https://mochajs.org/)
+* [Jest](https://jestjs.io/)
 * [Sinon](http://sinonjs.org/)
 * [Chai](http://chaijs.com/)
 * [Enzyme](https://github.com/airbnb/enzyme)
