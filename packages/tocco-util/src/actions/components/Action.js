@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import _omit from 'lodash/omit'
 
-import componentTypes from './../componentTypes'
+import componentTypes from '../actionComponentTypes'
 import {modeFitsScopes} from '../actions'
 import ActionGroup from './ActionGroup'
 import SingleAction from './SingleAction'

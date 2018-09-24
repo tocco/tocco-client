@@ -1,7 +1,7 @@
 import reducer from './modules/reducer'
 import appFactory from '../appFactory'
 import sagas from './modules/sagas'
-import componentTypes from './componentTypes'
+import componentTypes from './actionComponentTypes'
 
 export const isAction = componentType => !!componentType && Object.values(componentTypes).indexOf(componentType) >= 0
 
