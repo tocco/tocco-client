@@ -31,5 +31,8 @@
   "client.common.yes",
   "client.common.no",
   "client.common.unexpectedError",
-  "client.common.advancedSearch"
+  "client.common.advancedSearch",
+  "client.common.report.download",
+  "client.common.report.generalSettings",
+  "client.common.report.recipientSettings"
 ]

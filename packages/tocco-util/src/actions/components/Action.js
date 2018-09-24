@@ -2,14 +2,15 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import _omit from 'lodash/omit'
 
-import {COMPONENT_TYPE_ACTION_GROUP, modeFitsScopes} from '../actions'
+import componentTypes from '../actionComponentTypes'
+import {modeFitsScopes} from '../actions'
 import ActionGroup from './ActionGroup'
 import SingleAction from './SingleAction'
 
 const Action = ({definition, onClick, ids, parent, entity, mode, callback}) => {
   if (!modeFitsScopes(mode, definition.scopes)) return null
 
-  const ActionType = definition.componentType === COMPONENT_TYPE_ACTION_GROUP ? ActionGroup : SingleAction
+  const ActionType = definition.componentType === componentTypes.ACTION_GROUP ? ActionGroup : SingleAction
 
   return (
     <span className="action" style={{marginBottom: '.5em', display: 'inline-block'}}>
