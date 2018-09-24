@@ -16,7 +16,10 @@ import {
 class ReportSettings extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      valid: false,
+      customSettingsValid: false
+    }
   }
 
   handleSettingsChange = (values, valid) => {
@@ -42,7 +45,7 @@ class ReportSettings extends React.Component {
     const DownloadButton = () =>
       <Button
         onClick={this.handleDownloadClick}
-        disabled={this.state.customSettingsValid === false || this.state.valid === false}
+        disabled={!this.state.customSettingsValid || !this.state.valid}
         icon="download"
         ink="primary"
       >
@@ -81,7 +84,7 @@ ReportSettings.contextTypes = {
 
 ReportSettings.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  settingsDefinition: reportSettingsDefinitionPropType
+  settingsDefinition: reportSettingsDefinitionPropType.isRequired
 }
 
 export default ReportSettings
