@@ -160,8 +160,8 @@ export const createUsers = amount => {
         duration: {
           type: 'field',
           value: {
-            value: getRandomInt(0, 1000 * 60 * 60 * 24),
-            type: 'duration',
+            value: String(getRandomInt(0, 1000 * 60 * 60 * 24)),
+            type: 'string',
             writable: false
           }
         }
