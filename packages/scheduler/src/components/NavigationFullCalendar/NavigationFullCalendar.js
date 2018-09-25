@@ -111,14 +111,14 @@ const NavigationFullCalendar = props => {
 }
 
 NavigationFullCalendar.propTypes = {
-  changeRange: PropTypes.func,
-  changeView: PropTypes.func,
-  chooseNext: PropTypes.func,
-  choosePrev: PropTypes.func,
-  chooseToday: PropTypes.func,
+  changeRange: PropTypes.func.isRequired,
+  changeView: PropTypes.func.isRequired,
+  chooseNext: PropTypes.func.isRequired,
+  choosePrev: PropTypes.func.isRequired,
+  chooseToday: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
   isLoading: PropTypes.bool,
-  refresh: PropTypes.func,
+  refresh: PropTypes.func.isRequired,
   title: PropTypes.string,
   type: PropTypes.string
 }
