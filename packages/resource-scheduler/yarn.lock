@@ -46,7 +46,7 @@ iconv-lite@~0.4.13:
   version "0.4.19"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.19.tgz#f7468f60135f5e5dad3399c0a81be9a1603a082b"
 
-inline-style-prefixer@^3.0.2:
+inline-style-prefixer@^3.0.6:
   version "3.0.8"
   resolved "https://registry.yarnpkg.com/inline-style-prefixer/-/inline-style-prefixer-3.0.8.tgz#8551b8e5b4d573244e66a34b04f7d32076a2b534"
   dependencies:
@@ -91,7 +91,14 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.4, prop-types@^15.5.8:
+prop-types@^15.5.10:
+  version "15.6.2"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
+  dependencies:
+    loose-envify "^1.3.1"
+    object-assign "^4.1.1"
+
+prop-types@^15.5.4:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
   dependencies:
@@ -99,12 +106,17 @@ prop-types@^15.5.4, prop-types@^15.5.8:
     loose-envify "^1.3.1"
     object-assign "^4.1.1"
 
-react-split-pane@0.1.62:
-  version "0.1.62"
-  resolved "https://registry.yarnpkg.com/react-split-pane/-/react-split-pane-0.1.62.tgz#0e6f30246f608ed043a2eac71e0dc5fad9bf93ae"
+react-lifecycles-compat@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
+
+react-split-pane@^0.1.84:
+  version "0.1.84"
+  resolved "https://registry.yarnpkg.com/react-split-pane/-/react-split-pane-0.1.84.tgz#b9c1499cbc40b09cf29953ee6f5ff1039d31906e"
   dependencies:
-    inline-style-prefixer "^3.0.2"
-    prop-types "^15.5.8"
+    inline-style-prefixer "^3.0.6"
+    prop-types "^15.5.10"
+    react-lifecycles-compat "^3.0.4"
     react-style-proptype "^3.0.0"
 
 react-style-proptype@^3.0.0:
@@ -116,6 +128,30 @@ react-style-proptype@^3.0.0:
 setimmediate@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/setimmediate/-/setimmediate-1.0.5.tgz#290cbb232e306942d7d7ea9b83732ab7856f8285"
+
+tocco-entity-list@>0.1.0:
+  version "0.1.14"
+  resolved "https://registry.yarnpkg.com/tocco-entity-list/-/tocco-entity-list-0.1.14.tgz#ec58ac5fdb958a418a19d6a8771ffa6771b23ee6"
+
+tocco-scheduler@>=0.1.0:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/tocco-scheduler/-/tocco-scheduler-0.1.4.tgz#20687a1e06a5ef09c55bf9828097fe1b15cb8024"
+
+tocco-test-util@>0.1.0:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/tocco-test-util/-/tocco-test-util-0.1.2.tgz#6388309f1598d612cbc29e27564fb10706ade6f6"
+
+tocco-theme@>0.1.0:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/tocco-theme/-/tocco-theme-0.2.2.tgz#120b90426847c26a9183881b3df1a8319f44c0c8"
+
+tocco-ui@>0.1.0:
+  version "0.1.14"
+  resolved "https://registry.yarnpkg.com/tocco-ui/-/tocco-ui-0.1.14.tgz#5e8ceceee76cf1acb2ae2b79fe5f5c63b035ca3b"
+
+tocco-util@>0.1.0:
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/tocco-util/-/tocco-util-0.1.11.tgz#c159134e9bb8359384aab0996286de233b19d0a8"
 
 ua-parser-js@^0.7.9:
   version "0.7.14"
