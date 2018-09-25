@@ -12,6 +12,7 @@ import {
   getGroupedValues,
   reportSettingsDefinitionPropType
 } from '../utils/report'
+import StyledReportSettings from './StyledReportSettings'
 
 class ReportSettings extends React.Component {
   constructor(props) {
@@ -44,17 +45,16 @@ class ReportSettings extends React.Component {
 
     const DownloadButton = () =>
       <Button
-        onClick={this.handleDownloadClick}
         disabled={!this.state.customSettingsValid || !this.state.valid}
         icon="download"
-        ink="primary"
+        look="raised"
+        onClick={this.handleDownloadClick}
       >
         <FormattedMessage id="client.common.report.download"/>
       </Button>
 
     return (
-      <span>
-        <DownloadButton/>
+      <StyledReportSettings>
         <SimpleFormContainer
           form={getFormDefinition(settingsDefinition, this.context.intl)}
           model={getModel(settingsDefinition)}
@@ -63,17 +63,15 @@ class ReportSettings extends React.Component {
           formData={getFormDataDefaults(settingsDefinition)}
         />
         {settingsDefinition.customSettings
-        && <div style={{marginTop: '15px'}}>
-          <SimpleFormContainer
+          && <SimpleFormContainer
             form={settingsDefinition.customSettings.form.form}
             model={defaultModelTransformer(settingsDefinition.customSettings.entity)}
             noButtons
             onChange={({values, valid}) => { this.handleCustomSettingsChange(values, valid) }}
           />
-        </div>
         }
         <DownloadButton/>
-      </span>
+      </StyledReportSettings>
     )
   }
 }
