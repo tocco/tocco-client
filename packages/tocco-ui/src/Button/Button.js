@@ -30,7 +30,7 @@ const Button = props => {
       {props.icon && <Icon
         dense={props.dense}
         icon={props.icon}
-        position={props.label ? props.iconPosition : stylingPosition.sole}/>}
+        position={props.label || props.children ? props.iconPosition : stylingPosition.sole}/>}
       {props.pending && <IconTocco
         ink={props.ink || props.buttonGroupInk || stylingInk.BASE}
         look={props.look}
