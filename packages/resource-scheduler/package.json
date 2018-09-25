@@ -1,6 +1,6 @@
 {
   "name": "tocco-resource-scheduler",
-  "version": "0.1.12-hotfix217.1",
+  "version": "0.1.12-hotfix217.2",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -10,7 +10,7 @@
   "devDependencies": {
     "react-split-pane": "^0.1.84",
     "tocco-entity-list": ">0.1.0",
-    "tocco-scheduler": ">=0.1.0",
+    "tocco-scheduler": "^0.1.2-hotfix217.1",
     "tocco-test-util": ">0.1.0",
     "tocco-theme": ">0.1.0",
     "tocco-ui": ">0.1.0",
