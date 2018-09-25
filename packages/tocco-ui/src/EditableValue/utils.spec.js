@@ -1,6 +1,6 @@
 import moment from 'moment'
 
-import {atMostOne, toLocalDateString, momentJStoToFlatpickrFormat} from './utils'
+import {atMostOne, toLocalDateString, momentJStoToFlatpickrFormat, convertStringToNumber} from './utils'
 import {getExpectedDate} from './specUtils'
 
 describe('tocco-ui', () => {
@@ -56,6 +56,19 @@ describe('tocco-ui', () => {
 
         test('should return expected flatpickr string', () => {
           expect(momentJStoToFlatpickrFormat(moment().locale('en')._locale.longDateFormat('L'))).to.be.eql('m/d/Y')
+        })
+      })
+
+      describe('convertStringToNumber', () => {
+        test('should return float number', () => {
+          const result = 123456.78
+          expect(convertStringToNumber('123456.78')).to.be.eql(result)
+        })
+        test('should return null on invalid numberString', () => {
+          expect(convertStringToNumber('12s3s5g6.78')).to.be.eql(null)
+        })
+        test('should return null on object as input', () => {
+          expect(convertStringToNumber({})).to.be.eql(null)
         })
       })
     })
