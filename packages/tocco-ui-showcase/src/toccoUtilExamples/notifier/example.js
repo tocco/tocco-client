@@ -38,24 +38,29 @@ class Example extends React.Component {
   confirmQuestion = () => {
     this.store.dispatch(notifier.confirm(
       'Title',
-      'Message Line 1<br/>Message Line 2',
-      'OK Text',
-      'Cancel Text',
-      () => console.log('ok pressed'),
-      () => console.log('cancel pressed')
+      'Message Line',
+      'OK text',
+      'Cancel text',
+      () => console.log('Ok was pressed'),
+      () => console.log('Cancel was pressed')
     ))
   }
 
   yesNoQuestion = () => {
     this.store.dispatch(notifier.yesNoQuestion(
-      'Title',
-      'Message Line 1<br/>Message Line 2',
-      'Yes Text',
-      'No Text',
-      'Cancel Text',
-      () => console.log('yes pressed'),
-      () => console.log('no pressed'),
-      () => console.log('Cancel pressed')
+      <Typography.H5>Title</Typography.H5>,
+      <React.Fragment>
+        <Typography.P>Message
+          <Typography.B> Line 1</Typography.B>
+        </Typography.P>
+        <Typography.P>Message Line 2</Typography.P>
+      </React.Fragment>,
+      'Yes text',
+      'No text',
+      'Cancel text',
+      () => console.log('Yes was pressed'),
+      () => console.log('No was pressed'),
+      () => console.log('Cancel was pressed')
     ))
   }
 
@@ -85,12 +90,12 @@ class Example extends React.Component {
           <ButtonGroup look="raised">
             <Button
               ink="primary"
-              label="primary action"
-              onClick={props.close}
+              label="Primary action"
+              onClick={() => console.log('Primary action was pressed')}
             />
             <Button
-              label="secondary action"
-              onClick={props.close}
+              label="Secondary action"
+              onClick={() => console.log('Secondary action was pressed')}
             />
           </ButtonGroup>
         </React.Fragment>

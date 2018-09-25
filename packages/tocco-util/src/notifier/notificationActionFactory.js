@@ -3,6 +3,9 @@ import {actions as toastrActions} from 'react-redux-toastr'
 import _isString from 'lodash/isString'
 import {Icon} from 'tocco-ui'
 
+import {modalComponent} from './modules/actions'
+import OkCancelButtons from './modules/modalComponentsTemplates/OkCancelButtons'
+import YesNoCancelButtons from './modules/modalComponentsTemplates/YesNoCancelButtons'
 import TitleMessage from './components/TitleMessage'
 
 const NotificationIcon = icon => <Icon icon={ _isString(icon) ? icon : 'exclamation-triangle'} size="3x" />
@@ -23,39 +26,27 @@ export function getInfoAction(type, title, message, icon, timeOut) {
 }
 
 export function getConfirmationAction(title, message, okText, cancelText, onOk, onCancel) {
-  return toastrActions.showConfirm({
-    options: {
-      component: () => <TitleMessage className="dialog" title={title} message={message}/>,
-      okText,
-      cancelText,
-      onOk,
-      onCancel
-    }
-  })
+  const getConfirmationActionProps = {okText, cancelText, onOk, onCancel}
+  const id = Date.now()
+  return modalComponent(
+    id,
+    title,
+    message,
+    props => <OkCancelButtons {...getConfirmationActionProps} close={props.close}/>,
+    false
+  )
 }
 
 export function getYesNoAction(title, message, yesText, noText, cancelText, onYes, onNo, onCancel) {
-  return toastrActions.showConfirm({
-    options: {
-      component: () => <TitleMessage className="dialog" title={title} message={message}/>,
-      okText: yesText,
-      cancelText,
-      onOk: onYes,
-      onCancel,
-      buttons: [
-        {
-          ok: true
-        },
-        {
-          text: noText,
-          handler: onNo
-        },
-        {
-          cancel: true
-        }
-      ]
-    }
-  })
+  const getYesNoActionProps = {yesText, noText, cancelText, onYes, onNo, onCancel}
+  const id = Date.now()
+  return modalComponent(
+    id,
+    title,
+    message,
+    props => <YesNoCancelButtons {...getYesNoActionProps} close={props.close}/>,
+    false
+  )
 }
 
 export function getBlockingInfo(id, title, message, icon) {
