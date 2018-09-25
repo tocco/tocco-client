@@ -1,6 +1,6 @@
 import moment from 'moment'
 
-import {atMostOne, toLocalDateString, momentJStoToFlatpickrFormat, limitValue} from './utils'
+import {atMostOne, toLocalDateString, momentJStoToFlatpickrFormat, convertStringToNumber} from './utils'
 import {getExpectedDate} from './specUtils'
 
 describe('tocco-ui', () => {
@@ -58,22 +58,17 @@ describe('tocco-ui', () => {
           expect(momentJStoToFlatpickrFormat(moment().locale('en')._locale.longDateFormat('L'))).to.be.eql('m/d/Y')
         })
       })
-      describe('limitValue', () => {
-        it('should return false on too large input', () => {
-          const maxValue = 1234567891234.56
-          const valuesObject = {
-            formattedValue: '12345678912344.56',
-            floatValue: 12345678912344.56
-          }
-          expect(limitValue(maxValue)(valuesObject)).to.be.eql(false)
+
+      describe('convertStringToNumber', () => {
+        test('should return float number', () => {
+          const result = 123456.78
+          expect(convertStringToNumber('123456.78')).to.be.eql(result)
         })
-        it('should return true on small enough input', () => {
-          const maxValue = 12345678912344.56
-          const valuesObject = {
-            formattedValue: '1234567891234.56',
-            floatValue: 1234567891234.56
-          }
-          expect(limitValue(maxValue)(valuesObject)).to.be.eql(true)
+        test('should return null on invalid numberString', () => {
+          expect(convertStringToNumber('12s3s5g6.78')).to.be.eql(null)
+        })
+        test('should return null on object as input', () => {
+          expect(convertStringToNumber({})).to.be.eql(null)
         })
       })
     })

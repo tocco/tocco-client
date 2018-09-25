@@ -65,9 +65,8 @@ export const parseLocalePlaceholder = countryCode => {
 }
 
 /*
- * Limits formatted value of react-number-format
+ * String to number converter
  */
-export const limitValue = maxValueObject => values => {
-  const {formattedValue, floatValue} = values
-  return formattedValue === '' || floatValue <= maxValueObject
-}
+export const convertStringToNumber = stringValue => (
+  !stringValue || isNaN(stringValue) ? null : parseFloat(stringValue)
+)
