@@ -22,6 +22,10 @@ export default cfg => {
     reporters: ['saucelabs', 'mocha'],
     concurrency: 5,
     customLaunchers: customLaunchers,
-    browsers: Object.keys(customLaunchers)
+    browsers: Object.keys(customLaunchers),
+    browserDisconnectTimeout: 10000,
+    browserDisconnectTolerance: 1,
+    browserNoActivityTimeout: 4 * 60 * 1000,
+    captureTimeout: 4 * 60 * 1000
   })
 }
