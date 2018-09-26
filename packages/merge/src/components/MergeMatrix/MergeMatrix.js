@@ -3,12 +3,13 @@ import React from 'react'
 import {intlShape} from 'react-intl'
 
 import {HeaderRow, ToManyRelationRow, FieldRow, RelationRow} from './table-components'
+import StyledMergeMatrix from './StyledMergeMatrix'
 
 const MergeMatrix = props => {
   const targetEntity = props.entities.find(e => e.pk === props.targetEntityPk)
 
   return (
-    <div>
+    <StyledMergeMatrix>
       <table className="table table-striped table-hover">
         <thead>
           <HeaderRow
@@ -65,7 +66,7 @@ const MergeMatrix = props => {
           }
         </tbody>
       </table>
-    </div>
+    </StyledMergeMatrix>
   )
 }
 
