@@ -48,7 +48,7 @@ class Example extends React.Component {
 
   yesNoQuestion = () => {
     this.store.dispatch(notifier.yesNoQuestion(
-      <Typography.H5>Title</Typography.H5>,
+      <Typography.H4>Main title <Typography.Small>additional byline</Typography.Small></Typography.H4>,
       <React.Fragment>
         <Typography.P>Message
           <Typography.B> Line 1</Typography.B>
