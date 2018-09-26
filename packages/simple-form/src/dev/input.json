@@ -1,6 +1,16 @@
 {
+  "noButtons": false,
   "submitText": "Ok",
   "cancelText": "Cancel",
+  "formData": {
+    "relationEntities": {
+      "relMulti_entity": [
+        {"key": 1, "display": "Option 1"},
+        {"key": 2, "display": "Option 2"},
+        {"key": 3, "display": "Option 3"}
+      ]
+    }
+  },
   "form":{
     "id": "Acceptor_detail",
    "componentType": "table",

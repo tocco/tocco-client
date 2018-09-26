@@ -8,7 +8,7 @@ describe('tocco-ui', () => {
   describe('FormattedValue', () => {
     describe('typeFormatters', () => {
       describe('DurationFormatter ', () => {
-        before(() => {
+        beforeAll(() => {
           require('intl/locale-data/jsonp/en.js')
           require('intl/locale-data/jsonp/de.js')
           const en = require('react-intl/locale-data/en')
@@ -19,7 +19,7 @@ describe('tocco-ui', () => {
 
       const leftToRightMark = /\u200E/g // required for browser Edge
 
-      it('should format value', () => {
+      test('should format value', () => {
         const durationMilliseconds = 83000
 
         const durationFormatedS = '00:01:23'

@@ -14,7 +14,7 @@ describe('tocco-util', () => {
     describe('advancedSearch', () => {
       describe('sagas', () => {
         describe('root saga', () => {
-          it('should handle openAdvancedSearch', () => {
+          test('should handle openAdvancedSearch', () => {
             const config = {}
             const generator = rootSaga(config)
 
@@ -29,7 +29,7 @@ describe('tocco-util', () => {
         })
 
         describe('openAdvancedSearch', () => {
-          it('should prompt a modal and spawn close saga', () => {
+          test('should prompt a modal and spawn close saga', () => {
             const ListApp = () => <div>ListApp</div>
             const formField = {id: 'relRemote'}
             const modelField = {targetEntity: 'User', multi: true}
@@ -55,7 +55,7 @@ describe('tocco-util', () => {
             close() {}
           }
 
-          it('should close of modal if action got dispatched in channel', () => {
+          test('should close of modal if action got dispatched in channel', () => {
             const modalId = '123'
             const fieldId = 'relRemote'
             const entity = 'user'
@@ -74,7 +74,7 @@ describe('tocco-util', () => {
               .run()
           })
 
-          it('should put feedback action if action got dispatched to channel', () => {
+          test('should put feedback action if action got dispatched to channel', () => {
             const onSelect = (field, ids) => ({
               type: advancedSearchActions.ADVANCED_SEARCH_UPDATE,
               payload: {

@@ -3,9 +3,9 @@ import React from 'react'
 
 import SignalList from './'
 
-describe('tocco-ui', function() {
-  describe('SignalList', function() {
-    it('should render children', () => {
+describe('tocco-ui', () => {
+  describe('SignalList', () => {
+    test('should render children', () => {
       const wrapper = shallow(
         <SignalList.List>
           <span/><span/>

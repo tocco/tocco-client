@@ -8,7 +8,7 @@ describe('tocco-ui', () => {
   describe('EditableValue', () => {
     describe('typeEditors', () => {
       describe('MultiSelect ', () => {
-        it('should render a Select component', () => {
+        test('should render a Select component', () => {
           const options = {
             store: [
               {key: 1, display: 'label1'},
@@ -22,7 +22,7 @@ describe('tocco-ui', () => {
           expect(select.props().options).to.eql(options.store)
         })
 
-        it('should call onChange', () => {
+        test('should call onChange', () => {
           const newValues = [{key: 1, display: 'label1'}]
           const spy = sinon.spy()
           const options = {

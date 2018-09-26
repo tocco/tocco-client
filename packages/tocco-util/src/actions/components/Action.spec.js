@@ -10,7 +10,7 @@ describe('tocco-util', () => {
   describe('actions', () => {
     describe('components', () => {
       describe('Action', () => {
-        it('should return null for if mode does not fit scopes', () => {
+        test('should return null for if mode does not fit scopes', () => {
           const definition = {
             componentType: 'action',
             actionType: 'simple',
@@ -28,7 +28,7 @@ describe('tocco-util', () => {
           expect(shallow(<Action {...props} definition={{...definition}} mode="update"/>).type()).not.to.be.null
         })
 
-        it('should return groups', () => {
+        test('should return groups', () => {
           const definition = {
             componentType: 'action-group',
             label: 'test',
@@ -44,7 +44,7 @@ describe('tocco-util', () => {
           expect(wrapper.find(ActionGroup)).to.have.length(1)
         })
 
-        it('should return groups with main action', () => {
+        test('should return groups with main action', () => {
           const definition = {
             componentType: 'action-group',
             action: {

@@ -15,9 +15,20 @@ const condition = {
   WARNING: 'warning'
 }
 
+const format = {
+  HTML: 'html',
+  SVG: 'svg'
+}
+
 const ink = {
   BASE: 'base',
   PRIMARY: 'primary'
+}
+
+const layout = {
+  BOX: 'layoutBox',
+  CONTAINER: 'layoutContainer',
+  NONE: 'none'
 }
 
 const look = {
@@ -33,11 +44,6 @@ const position = {
   SOLE: 'sole'
 }
 
-const format = {
-  HTML: 'html',
-  SVG: 'svg'
-}
-
 const oneOfPropTypeAndCompletelyMapped = (completeMap, potentialIncompleteMap) => {
   return assertObjectValuesMatchOtherObjectKeys(completeMap, potentialIncompleteMap)
     && PropTypes.oneOf(Object.values(completeMap))
@@ -48,6 +54,7 @@ const conditionPropTypes = potentialIncompleteMap => oneOfPropTypeAndCompletelyM
 const inkPropTypes = PropTypes.oneOf(Object.values(ink))
 const lookPropTypes = PropTypes.oneOf(Object.values(look))
 const positionPropTypes = PropTypes.oneOf(Object.values(position))
+const layoutPropTypes = PropTypes.oneOf(Object.values(layout))
 
 export {
   animation,
@@ -56,6 +63,8 @@ export {
   conditionPropTypes,
   ink,
   inkPropTypes,
+  layout,
+  layoutPropTypes,
   look,
   lookPropTypes,
   format,

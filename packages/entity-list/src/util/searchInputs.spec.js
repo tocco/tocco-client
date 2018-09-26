@@ -4,7 +4,7 @@ describe('entity-list', () => {
   describe('util', () => {
     describe('searchInputs', () => {
       describe('getSearchInputsForRequest', () => {
-        it('should add pk to relation types', () => {
+        test('should add pk to relation types', () => {
           const input = {
             relMulti_entity: [{key: '1'}, {key: '2'}],
             relSingle_entity: {key: '1'},

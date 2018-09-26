@@ -56,7 +56,7 @@ const colorSet = {
 describe('tocco-ui', () => {
   describe('utilStyles', () => {
     describe('declareInteractionColors', () => {
-      it('should be color set for flat base', () => {
+      test('should be color set for flat base', () => {
         const colors = declareFlatBaseColors(props)
         expect(Object.keys(colors)).to.have.lengthOf(6)
         expect(colors.defaultColor).to.equal('base_text')
@@ -67,7 +67,7 @@ describe('tocco-ui', () => {
         expect(colors.activeBackground).to.equal('base_fill_1')
       })
 
-      it('should be color set for flat primary', () => {
+      test('should be color set for flat primary', () => {
         const colors = declareFlatPrimaryColors(props)
         expect(Object.keys(colors)).to.have.lengthOf(6)
         expect(colors.defaultColor).to.equal('primary_line_0')
@@ -78,7 +78,7 @@ describe('tocco-ui', () => {
         expect(colors.activeBackground).to.equal('base_fill_1')
       })
 
-      it('should be color set for raised base', () => {
+      test('should be color set for raised base', () => {
         const colors = declareRaisedBaseColors(props)
         expect(Object.keys(colors)).to.have.lengthOf(6)
         expect(colors.defaultColor).to.equal('base_line_0')
@@ -89,7 +89,7 @@ describe('tocco-ui', () => {
         expect(colors.activeBackground).to.equal('base_fill_2')
       })
 
-      it('should be color set for raised primary', () => {
+      test('should be color set for raised primary', () => {
         const colors = declareRaisedPrimaryColors(props)
         expect(Object.keys(colors)).to.have.lengthOf(6)
         expect(colors.defaultColor).to.equal('primary_fillContrast_0')
@@ -100,12 +100,15 @@ describe('tocco-ui', () => {
         expect(colors.activeBackground).to.equal('primary_fill_2')
       })
 
-      it('should declare color and background for default state, :focus, :hover and :active', () => {
-        const css = declareInteractionColors(colorSet)
-        expect(css).to.match(/background-color: defaultBackground;[\n\s]*color: defaultColor;/)
-        expect(css).to.match(/&:focus,[\n\s]*&:hover {[\n\s]*background-color: focusBackground;[\n\s]*color: focusColor;[\n\s]*}/)  // eslint-disable-line
-        expect(css).to.match(/&:active {[\n\s]*background-color: activeBackground;[\n\s]*color: activeColor;[\n\s]*}/)
-      })
+      test(
+        'should declare color and background for default state, :focus, :hover and :active',
+        () => {
+          const css = declareInteractionColors(colorSet)
+          expect(css).to.match(/background-color: defaultBackground;[\n\s]*color: defaultColor;/)
+          expect(css).to.match(/&:focus,[\n\s]*&:hover {[\n\s]*background-color: focusBackground;[\n\s]*color: focusColor;[\n\s]*}/)  // eslint-disable-line
+          expect(css).to.match(/&:active {[\n\s]*background-color: activeBackground;[\n\s]*color: activeColor;[\n\s]*}/)
+        }
+      )
     })
   })
 })

@@ -18,6 +18,7 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state, props) => ({
+  noButtons: state.input.noButtons,
   title: state.input.title,
   description: state.input.description,
   submitText: state.input.submitText,

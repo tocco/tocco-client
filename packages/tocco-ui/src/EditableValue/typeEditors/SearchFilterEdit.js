@@ -11,17 +11,18 @@ const SearchFilterEdit = props => {
     return <SingleSelect {...props}/>
   }
 }
+const valueObjectType = PropTypes.shape({
+  key: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]).isRequired
+})
 
 SearchFilterEdit.propTypes = {
   onChange: PropTypes.func.isRequired,
   value: PropTypes.oneOfType([
-    PropTypes.shape({
-      key: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-      ])
-    }),
-    PropTypes.array
+    valueObjectType,
+    PropTypes.arrayOf(valueObjectType)
   ]),
   options: PropTypes.shape({
     multi: PropTypes.bool,

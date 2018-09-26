@@ -11,7 +11,7 @@ describe('merge', () => {
     describe('wizard', () => {
       describe('sagas', () => {
         describe('save', () => {
-          it('should extract mergeResult from state and send dwr request', () => {
+          test('should extract mergeResult from state and send dwr request', () => {
             const generator = sagas.save()
 
             const state = {}
@@ -26,7 +26,7 @@ describe('merge', () => {
             expect(generator.next().done).to.equal(true)
           })
 
-          it('should handle respsonse with problems', () => {
+          test('should handle respsonse with problems', () => {
             const generator = sagas.save()
 
             const mergeResponse = {notCopiedRelations: [{}]}

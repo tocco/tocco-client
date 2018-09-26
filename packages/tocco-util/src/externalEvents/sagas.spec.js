@@ -8,7 +8,7 @@ describe('tocco-util', () => {
   describe('externalEvents', () => {
     describe('sagas', () => {
       describe('root saga', () => {
-        it('should handle fire action', () => {
+        test('should handle fire action', () => {
           const events = {
             a: () => {}
           }
@@ -26,7 +26,7 @@ describe('tocco-util', () => {
       })
 
       describe('fireExternalEvent', () => {
-        it('should call parentEmitAction with action', () => {
+        test('should call parentEmitAction with action', () => {
           const events = {
             a: () => {}
           }

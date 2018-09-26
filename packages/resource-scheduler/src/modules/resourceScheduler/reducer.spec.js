@@ -12,11 +12,11 @@ describe('resource-scheduler', () => {
   describe('modules', () => {
     describe('resourceScheduler', () => {
       describe('reducer', () => {
-        it('should create a valid initial state', () => {
+        test('should create a valid initial state', () => {
           expect(reducer(undefined, {})).to.deep.equal(EXPECTED_INITIAL_STATE)
         })
 
-        it('should handle an action', () => {
+        test('should handle an action', () => {
           const calendarTypes = [{name: 'lecturer'}]
           const stateBefore = {
             calendarTypes: null
@@ -30,7 +30,7 @@ describe('resource-scheduler', () => {
         })
 
         describe('removeRequestedCalendar', () => {
-          it('should remove key from array', () => {
+          test('should remove key from array', () => {
             const stateBefore = {
               requestedCalendars: {
                 lecturer: ['1', '3', '4', '5']
@@ -47,7 +47,7 @@ describe('resource-scheduler', () => {
               .to.deep.equal(expectedStateAfter)
           })
 
-          it('should remove property if keys are empty', () => {
+          test('should remove property if keys are empty', () => {
             const stateBefore = {
               requestedCalendars: {
                 lecturer: ['3']
@@ -64,7 +64,7 @@ describe('resource-scheduler', () => {
         })
 
         describe('updateRequestedCalendars', () => {
-          it('should update the whole entry', () => {
+          test('should update the whole entry', () => {
             const stateBefore = {
               requestedCalendars: {
                 xy: ['2'],
@@ -83,7 +83,7 @@ describe('resource-scheduler', () => {
               .to.deep.equal(expectedStateAfter)
           })
 
-          it('should remove property if keys are empty', () => {
+          test('should remove property if keys are empty', () => {
             const stateBefore = {
               requestedCalendars: {
                 xy: ['2'],

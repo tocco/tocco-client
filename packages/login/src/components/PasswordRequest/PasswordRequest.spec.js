@@ -9,7 +9,7 @@ import {PasswordRequest} from './PasswordRequest'
 describe('login', () => {
   describe('components', () => {
     describe('PasswordRequest', () => {
-      it('should render components', () => {
+      test('should render components', () => {
         const wrapper = shallow(
           <PasswordRequest
             intl={IntlStub}
@@ -22,7 +22,7 @@ describe('login', () => {
         expect(wrapper.find(Button)).to.have.length(2)
       })
 
-      it('should have an initial password state', () => {
+      test('should have an initial password state', () => {
         const wrapper = shallow(
           <PasswordRequest
             intl={IntlStub}
@@ -33,7 +33,7 @@ describe('login', () => {
         expect(wrapper.state().username).to.equal('')
       })
 
-      it('should update username state on username change', () => {
+      test('should update username state on username change', () => {
         const wrapper = shallow(
           <PasswordRequest
             intl={IntlStub}
@@ -52,7 +52,7 @@ describe('login', () => {
         expect(wrapper.state().username).to.equal('user1')
       })
 
-      it('should disable submit button if username is not set', () => {
+      test('should disable submit button if username is not set', () => {
         const wrapper = shallow(
           <PasswordRequest
             intl={IntlStub}
@@ -66,7 +66,7 @@ describe('login', () => {
         expect(button.prop('disabled')).to.equal(true)
       })
 
-      it('should enable submit button if username is set', () => {
+      test('should enable submit button if username is set', () => {
         const wrapper = shallow(
           <PasswordRequest
             intl={IntlStub}
@@ -85,7 +85,7 @@ describe('login', () => {
         expect(button).to.not.have.property('disabled')
       })
 
-      it('should hide title by default', () => {
+      test('should hide title by default', () => {
         const wrapper = shallow(
           <PasswordRequest
             intl={IntlStub}
@@ -97,7 +97,7 @@ describe('login', () => {
         expect(wrapper.find('h1')).to.have.length(0)
       })
 
-      it('should display title if showTitle prop is true', () => {
+      test('should display title if showTitle prop is true', () => {
         const wrapper = shallow(
           <PasswordRequest
             intl={IntlStub}
@@ -110,7 +110,7 @@ describe('login', () => {
         expect(wrapper.find('h1')).to.have.length(1)
       })
 
-      it('should prevent default and call requestPassword on submit', () => {
+      test('should prevent default and call requestPassword on submit', () => {
         const preventDefault = sinon.spy()
         const requestPassword = sinon.spy()
 
@@ -130,7 +130,7 @@ describe('login', () => {
         expect(requestPassword).to.have.property('callCount', 1)
       })
 
-      it('should call changePage on abort', () => {
+      test('should call changePage on abort', () => {
         const changePage = sinon.spy()
 
         const wrapper = shallow(
@@ -147,7 +147,7 @@ describe('login', () => {
         expect(changePage.firstCall.args).to.eql([Pages.LOGIN_FORM])
       })
 
-      it('should display provided username', () => {
+      test('should display provided username', () => {
         const wrapper = shallow(
           <PasswordRequest
             intl={IntlStub}

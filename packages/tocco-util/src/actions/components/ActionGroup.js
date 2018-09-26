@@ -80,7 +80,12 @@ const ActionGroup = ({definition, onClick, selectedCount}, context) => {
         >
           <Menu.Stack>
             {definition.children.map((actionDefinition, idx) =>
-              <GroupElement key={idx} definition={actionDefinition} onClick={onClick} selectedCount={selectedCount}/>
+              <GroupElement
+                definition={actionDefinition}
+                key={idx}
+                onClick={onClick}
+                selectedCount={selectedCount}
+              />
             )}
           </Menu.Stack>
         </Menu.ItemFlyout>

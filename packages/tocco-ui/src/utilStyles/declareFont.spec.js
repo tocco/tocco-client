@@ -30,7 +30,7 @@ const options = Object.assign({
 describe('tocco-ui', () => {
   describe('utilStyles', () => {
     describe('declareFont', () => {
-      it('should declare font according theme', () => {
+      test('should declare font according theme', () => {
         const css = declareFont(props)
         expect(css).to.match(/font-family: Arial, sans-serif;/)
         expect(css).to.match(/font-size: 1rem;/)
@@ -39,7 +39,7 @@ describe('tocco-ui', () => {
         expect(css).to.match(/line-height: 1.4;/)
       })
 
-      it('should declare font according options', () => {
+      test('should declare font according options', () => {
         const css = declareFont(props, options)
         expect(css).to.match(/font-family: Times serif;/)
         expect(css).to.match(/font-size: 10px;/)

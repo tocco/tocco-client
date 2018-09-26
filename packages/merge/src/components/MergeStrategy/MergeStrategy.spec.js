@@ -8,7 +8,7 @@ import MergeStrategy from './MergeStrategy'
 describe('merge', () => {
   describe('components', () => {
     describe('MergeStrategy', () => {
-      it('should load strategy with input fields', () => {
+      test('should load strategy with input fields', () => {
         const editOptions = [
           {
             defaultValue: 'archive',

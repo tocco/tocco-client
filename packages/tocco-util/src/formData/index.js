@@ -1,4 +1,4 @@
-import {addToStore, relationEntitiesSelector, tooltipSelector} from './formData'
+import {addToStore, relationEntitiesSelector, tooltipSelector, formDataPropType} from './formData'
 import {loadRelationEntities} from './relationEntities/actions'
 import {loadTooltip} from './tooltips/actions'
 import {openAdvancedSearch} from './advancedSearch/actions'
@@ -9,5 +9,6 @@ export default {
   loadTooltip,
   relationEntitiesSelector,
   tooltipSelector,
-  openAdvancedSearch
+  openAdvancedSearch,
+  formDataPropType
 }

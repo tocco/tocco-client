@@ -152,19 +152,6 @@ if (__DEV__) {
   )
 }
 
-// see: https://github.com/karma-runner/karma-sauce-launcher/issues/95
-if (!process || !process.env || !process.env.DISABLE_ISTANBUL_COVERAGE) {
-  logger.info('Enable instanbul test plugin.')
-  testPlugins.push(['istanbul', {
-    exclude: [
-      '**/dev/**',
-      '**/dist/**',
-      '**/example.js',
-      '**/*/*.spec.js'
-    ]
-  }])
-}
-
 if (argv['bundle-analyzer']) {
   webpackConfig.plugins.push(new BundleAnalyzerPlugin({
     analyzerMode: 'static',

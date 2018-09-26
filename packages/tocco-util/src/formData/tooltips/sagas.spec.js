@@ -12,7 +12,7 @@ describe('tocco-util', () => {
     describe('tooltips', () => {
       describe('sagas', () => {
         describe('main saga', () => {
-          it('should fork sagas', () => {
+          test('should fork sagas', () => {
             const saga = testSaga(sagas.default)
             saga.next().all([
               fork(takeEvery, tooltipActions.LOAD_TOOLTIP, sagas.loadToolTip)
@@ -21,7 +21,7 @@ describe('tocco-util', () => {
         })
 
         describe('loadToolTip saga', () => {
-          it('should load tooltip if not yet loaded', () => {
+          test('should load tooltip if not yet loaded', () => {
             const entity = 'User'
             const id = 1
 
@@ -38,7 +38,7 @@ describe('tocco-util', () => {
               .run()
           })
 
-          it('should not load tooltip if already loaded', () => {
+          test('should not load tooltip if already loaded', () => {
             const entity = 'User'
             const id = 1
 

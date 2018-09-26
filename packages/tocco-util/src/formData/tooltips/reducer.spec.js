@@ -6,7 +6,7 @@ describe('tocco-util', () => {
     describe('tooltips', () => {
       describe('reducer', () => {
         describe('setToolTip', () => {
-          it('should add new tooltip', () => {
+          test('should add new tooltip', () => {
             const initialState = {data: {}}
 
             const tooltip = '<h1>Tooltip</h1>'
@@ -24,7 +24,7 @@ describe('tocco-util', () => {
             expect(newState).to.eql(expectedStateAfter)
           })
 
-          it('should overwrite tooltip with new value and keep the others', () => {
+          test('should overwrite tooltip with new value and keep the others', () => {
             const initialState = {
               data: {
                 User: {

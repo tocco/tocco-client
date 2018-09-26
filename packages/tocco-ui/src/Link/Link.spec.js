@@ -5,9 +5,9 @@ import {mount, shallow} from 'enzyme'
 import Icon from '../Icon'
 import Link from './Link'
 
-describe('tocco-ui', function() {
-  describe('Link', function() {
-    it('should have 3 defaultProps', () => {
+describe('tocco-ui', () => {
+  describe('Link', () => {
+    test('should have 3 defaultProps', () => {
       const wrapper = shallow(<Link/>)
       const {breakWords, href, target} = wrapper.props()
       expect(breakWords).to.be.true
@@ -15,7 +15,7 @@ describe('tocco-ui', function() {
       expect(target).to.equal('_self')
     })
 
-    it('should pass 9 props to StyledLink', () => {
+    test('should pass 9 props to StyledLink', () => {
       const onLinkClick = sinon.spy()
       const wrapper = shallow(
         <Link
@@ -54,27 +54,27 @@ describe('tocco-ui', function() {
       expect(title).to.equal('title text')
     })
 
-    it('should show label as title attribute', () => {
+    test('should show label as title attribute', () => {
       const wrapper = mount(<Link breakWords={false} label="label text"/>)
       expect(wrapper.find('a').prop('title')).to.be.equal('label text')
     })
 
-    it('should not show label as title attribute', () => {
+    test('should not show label as title attribute', () => {
       const wrapper = mount(<Link breakWords={true} label="label text"/>)
       expect(wrapper.find('a').prop('title')).to.be.undefined
     })
 
-    it('should display icon', () => {
+    test('should display icon', () => {
       const wrapper = shallow(<Link icon="bar"/>)
       expect(wrapper.find(Icon)).to.have.length(1)
     })
 
-    it('should not display icon', () => {
+    test('should not display icon', () => {
       const wrapper = shallow(<Link/>)
       expect(wrapper.find('Icon')).to.have.length(0)
     })
 
-    it('should display label', () => {
+    test('should display label', () => {
       const wrapper = shallow(<Link label="label text"/>).dive()
       expect(wrapper.text()).to.equal('label text')
     })

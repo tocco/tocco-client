@@ -4,18 +4,18 @@ import {shallow} from 'enzyme'
 import Icon from '../../Icon'
 import BooleanFormatter from './BooleanFormatter'
 
-describe('tocco-ui', function() {
-  describe('FormattedValue', function() {
+describe('tocco-ui', () => {
+  describe('FormattedValue', () => {
     describe('typeFormatters', () => {
-      describe('BooleanFormatter ', function() {
-        it('should format true value', function() {
+      describe('BooleanFormatter ', () => {
+        test('should format true value', () => {
           const wrapper = shallow(
             <BooleanFormatter value/>
           )
           expect(wrapper.find(Icon).prop('icon')).to.equal('check')
         })
 
-        it('should format falsy value', function() {
+        test('should format falsy value', () => {
           const wrapper = shallow(
             <BooleanFormatter value={false}/>
           )

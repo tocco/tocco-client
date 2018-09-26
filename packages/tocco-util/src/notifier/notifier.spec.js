@@ -6,7 +6,7 @@ describe('tocco-util', () => {
   describe('notifier', () => {
     describe('notifier', () => {
       describe('addToStore', () => {
-        it('should start sagas and reducer if accept', () => {
+        test('should start sagas and reducer if accept', () => {
           const sagaRunSpy = sinon.spy()
           const store = createStore(() => {
           })
@@ -24,7 +24,7 @@ describe('tocco-util', () => {
         })
       })
 
-      it('should start sagas and reducer if accept', () => {
+      test('should start sagas and reducer if accept', () => {
         const sagaRunSpy = sinon.spy()
         const store = createStore(() => {
         })

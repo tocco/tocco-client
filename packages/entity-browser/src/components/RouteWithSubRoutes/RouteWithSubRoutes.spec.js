@@ -7,7 +7,7 @@ import {RouteWithSubRoutes} from './RouteWithSubRoutes'
 describe('entity-browser', () => {
   describe('components', () => {
     describe('RouteWithSubRoutes', () => {
-      it('should render a component', () => {
+      test('should render a component', () => {
         const route = {
           path: '/',
           component: () => <div>test</div>
@@ -26,7 +26,7 @@ describe('entity-browser', () => {
         expect(innerWrapper.find('div').first().text()).to.eql('test')
       })
 
-      it('should render a render', () => {
+      test('should render a render', () => {
         const route = {
           path: '/',
           render: props => <div>test2</div>

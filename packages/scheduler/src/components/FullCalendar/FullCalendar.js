@@ -17,6 +17,7 @@ import {injectIntl, intlShape} from 'react-intl'
 import {consoleLogger} from 'tocco-util'
 
 import Conflict from '../Conflict'
+import NavigationFullCalendar from '../NavigationFullCalendar'
 
 class FullCalendar extends React.Component {
   constructor(props) {
@@ -37,34 +38,14 @@ class FullCalendar extends React.Component {
     }
   }
 
-  getRefreshButton = isLoading => ({
-    bootstrapGlyphicon: 'glyphicon-refresh' + (isLoading ? ' fa-spin' : ''),
-    click: () => {
-      if (!isLoading) {
-        this.props.onRefresh()
-      }
-    }
-  })
-
   fixOptions = {
-    customButtons: {
-      refresh: this.getRefreshButton(false)
-    },
     schedulerLicenseKey: this.getLicense(),
     defaultView: 'timelineDay',
-    header: {
-      left: 'today prev,next refresh',
-      center: 'title',
-      right: 'timelineDay,timelineWeek,timelineMonth'
-    },
+    header: false,
     editable: false,
     height: 'auto',
     resourceAreaWidth: '15%',
     timezone: 'local',
-    themeSystem: 'bootstrap3',
-    viewRender: view => {
-      this.handleDataChange(view)
-    },
     eventClick: event => this.props.onEventClick(event),
     eventRender: (event, element) => {
       const time = event.start.twix(event.end).format({monthFormat: 'MMMM', dayFormat: 'Do'})
@@ -94,7 +75,7 @@ class FullCalendar extends React.Component {
       field: 'title',
       render: (resource, el) => {
         const button = document.createElement('button')
-        button.innerHTML = '<span class="fa fa-minus-circle" aria-hidden="true"></span>'
+        button.innerHTML = '&#8722;'
         button.className = 'remove-resource-btn'
         button.onclick = () => this.props.onCalendarRemove(resource.entityKey, resource.calendarType)
         el.prepend(button)
@@ -102,7 +83,9 @@ class FullCalendar extends React.Component {
     }
   ]
 
-  handleDataChange = view => {
+  changeRange = () => {
+    const view = this.calendarElement.fullCalendar('getView')
+
     if (this.props.onDateRangeChange) {
       const startMoment = view.start
       const endMoment = view.end
@@ -125,29 +108,47 @@ class FullCalendar extends React.Component {
   }
 
   componentDidMount() {
-    this.calendar = $(this.calendarContainer)
-    this.calendar.fullCalendar(this.getFullCalendarOptions(this.props))
+    this.calendarElement = $(this.calendarElementRef)
+    this.calendarElement.fullCalendar(this.getFullCalendarOptions(this.props))
+    this.changeRange()
+    this.forceUpdate()
   }
 
   componentWillReceiveProps(newProps) {
-    this.calendar.fullCalendar('option', this.getFullCalendarOptions(newProps))
+    this.calendarElement.fullCalendar('option', this.getFullCalendarOptions(newProps))
 
     if (!_isEqual(newProps.events, this.props.events)) {
-      this.calendar.fullCalendar('removeEventSources')
-      this.calendar.fullCalendar('addEventSource', newProps.events)
+      this.calendarElement.fullCalendar('removeEventSources')
+      this.calendarElement.fullCalendar('addEventSource', newProps.events)
     }
 
     if (!_isEqual(newProps.resources, this.props.resources)) {
-      this.calendar.fullCalendar('refetchResources')
+      this.calendarElement.fullCalendar('refetchResources')
     }
+  }
 
-    this.calendar.fullCalendar('option', 'customButtons', {
-      refresh: this.getRefreshButton(newProps.isLoading)
-    })
+  changeView = (view = 'timelineDay') => {
+    this.calendarElement.fullCalendar('changeView', view)
+    this.changeRange()
   }
 
   render = () =>
-    <div className={this.state.wrapperId}><div ref={ref => { this.calendarContainer = ref }}></div></div>
+    <div className={this.state.wrapperId}>
+      { this.calendarElement
+        && <NavigationFullCalendar
+          changeRange={this.changeRange}
+          changeView={this.changeView}
+          chooseNext={() => this.calendarElement.fullCalendar('next')}
+          choosePrev={() => this.calendarElement.fullCalendar('prev')}
+          chooseToday={() => this.calendarElement.fullCalendar('today')}
+          isLoading={this.props.isLoading}
+          refresh={this.props.onRefresh}
+          title={this.calendarElement.fullCalendar('getView').title}
+          type={this.calendarElement.fullCalendar('getView').type}
+        />
+      }
+      <div ref={ref => { this.calendarElementRef = ref }}></div>
+    </div>
 }
 
 FullCalendar.defaultProps = {

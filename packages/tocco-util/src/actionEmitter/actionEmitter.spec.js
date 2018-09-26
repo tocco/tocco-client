@@ -4,7 +4,7 @@ describe('tocco-util', () => {
   describe('actionEmitter', () => {
     describe('actionEmitter', () => {
       describe('addToStore', () => {
-        it('should start sagas', () => {
+        test('should start sagas', () => {
           const sagaRunSpy = sinon.spy()
           const store = {
             sagaMiddleware: {

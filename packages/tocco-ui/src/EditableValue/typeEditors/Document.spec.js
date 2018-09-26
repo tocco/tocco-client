@@ -24,7 +24,7 @@ describe('tocco-ui', () => {
   describe('EditableValue', () => {
     describe('typeEditors', () => {
       describe('Document ', () => {
-        it('should render', () => {
+        test('should render', () => {
           const wrapper = mount(<Document value={mockValue} options={mockOptions}/>)
           expect(wrapper.find('Upload')).to.have.length(1)
         })

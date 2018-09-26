@@ -14,7 +14,7 @@ describe('tocco-util', () => {
     describe('modules', () => {
       describe('sagas', () => {
         describe('root saga', () => {
-          it('should handle invokeAction', () => {
+          test('should handle invokeAction', () => {
             const config = {}
             const generator = rootSaga(config)
 
@@ -40,7 +40,7 @@ describe('tocco-util', () => {
         }
 
         describe('invokeAction', () => {
-          it('should call preAction and call actionHandler if not abort', () => {
+          test('should call preAction and call actionHandler if not abort', () => {
             return expectSaga(sagas.invokeAction, config, {payload})
               .provide([
                 [matchers.call.fn(preAction.run), {abort: false}]
@@ -49,7 +49,7 @@ describe('tocco-util', () => {
               .run()
           })
 
-          it('should call preAction and call actionHandler if abort returned', () => {
+          test('should call preAction and call actionHandler if abort returned', () => {
             return expectSaga(sagas.invokeAction, config, {payload})
               .provide([
                 [matchers.call.fn(preAction.run), {abort: true}]
@@ -58,25 +58,31 @@ describe('tocco-util', () => {
               .run()
           })
 
-          it('should call invoked action after successfull handled action call', () => {
-            return expectSaga(sagas.invokeAction, config, {payload})
-              .provide([
-                [matchers.call.fn(preAction.run), {abort: false}],
-                [matchers.call.fn(actionHandlers[payload.definition.actionType]), {success: true}]
-              ])
-              .put.like({action: {type: actions.ACTION_INVOKED}})
-              .run()
-          })
+          test(
+            'should call invoked action after successfull handled action call',
+            () => {
+              return expectSaga(sagas.invokeAction, config, {payload})
+                .provide([
+                  [matchers.call.fn(preAction.run), {abort: false}],
+                  [matchers.call.fn(actionHandlers[payload.definition.actionType]), {success: true}]
+                ])
+                .put.like({action: {type: actions.ACTION_INVOKED}})
+                .run()
+            }
+          )
 
-          it('should call invoked action after successfull handled action call', () => {
-            return expectSaga(sagas.invokeAction, config, {payload})
-              .provide([
-                [matchers.call.fn(preAction.run), {abort: false}],
-                [matchers.call.fn(actionHandlers[payload.definition.actionType]), {success: false}]
-              ])
-              .not.put.like({action: {type: actions.ACTION_INVOKED}})
-              .run()
-          })
+          test(
+            'should call invoked action after successfull handled action call',
+            () => {
+              return expectSaga(sagas.invokeAction, config, {payload})
+                .provide([
+                  [matchers.call.fn(preAction.run), {abort: false}],
+                  [matchers.call.fn(actionHandlers[payload.definition.actionType]), {success: false}]
+                ])
+                .not.put.like({action: {type: actions.ACTION_INVOKED}})
+                .run()
+            }
+          )
         })
       })
     })

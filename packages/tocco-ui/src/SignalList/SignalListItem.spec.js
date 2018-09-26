@@ -4,9 +4,9 @@ import React from 'react'
 import Icon from '../Icon'
 import SignalList from './'
 
-describe('tocco-ui', function() {
-  describe('SignalListItem', function() {
-    it('should have 1 defaultProps', () => {
+describe('tocco-ui', () => {
+  describe('SignalListItem', () => {
+    test('should have 1 defaultProps', () => {
       const wrapper = shallow(
         <SignalList.Item label="Lorem ipsum"/>
       )
@@ -14,7 +14,7 @@ describe('tocco-ui', function() {
       expect(condition).to.equal('base')
     })
 
-    it('should render label, icon and children', () => {
+    test('should render label, icon and children', () => {
       const wrapper = shallow(
         <SignalList.Item label="Lorem ipsum">
           <span/><span/>
@@ -25,7 +25,7 @@ describe('tocco-ui', function() {
       expect(wrapper.find('span')).to.have.length(2)
     })
 
-    it('should show correct icon per condition', () => {
+    test('should show correct icon per condition', () => {
       let wrapper = shallow(
         <SignalList.Item
           label="Lorem ipsum"

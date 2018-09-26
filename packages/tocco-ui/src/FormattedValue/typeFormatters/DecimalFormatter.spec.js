@@ -8,7 +8,7 @@ describe('tocco-ui', () => {
   describe('FormattedValue', () => {
     describe('typeFormatters', () => {
       describe('DecimalFormatter ', () => {
-        before(() => {
+        beforeAll(() => {
           require('intl/locale-data/jsonp/en.js')
           require('intl/locale-data/jsonp/de.js')
           const en = require('react-intl/locale-data/en')
@@ -16,7 +16,7 @@ describe('tocco-ui', () => {
           addLocaleData([...en, ...de])
         })
 
-        it('should format value', () => {
+        test('should format value', () => {
           const wrapper = mount(
             <IntlProvider locale="en">
               <DecimalFormatter value={1.3}/>
@@ -25,7 +25,7 @@ describe('tocco-ui', () => {
           expect(wrapper.text()).to.equal('1.30')
         })
 
-        it('should format value accorind to locale', () => {
+        test('should format value accorind to locale', () => {
           const wrapper = mount(
             <IntlProvider locale="de">
               <DecimalFormatter value={1.3}/>

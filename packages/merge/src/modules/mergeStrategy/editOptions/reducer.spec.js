@@ -6,7 +6,7 @@ describe('merge', () => {
     describe('mergeStrategy', () => {
       describe('editOptions', () => {
         describe('reducer', () => {
-          it('handels change EditOption Value', () => {
+          test('handels change EditOption Value', () => {
             const stateBefore = [
               {
                 name: 'field1',
@@ -24,7 +24,7 @@ describe('merge', () => {
             expect(reducer(stateBefore, changeEditOptionValue('field1', 'new_val'))).to.deep.equal(expectedStateAfter)
           })
 
-          it('handels activate EditOption', () => {
+          test('handels activate EditOption', () => {
             const stateBefore = [
               {
                 name: 'field1',

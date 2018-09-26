@@ -9,7 +9,7 @@ describe('tocco-ui', () => {
   describe('EditableValue', () => {
     describe('typeEditors', () => {
       describe('SearchFilterEdit ', () => {
-        it('should render a Single-Select component', () => {
+        test('should render a Single-Select component', () => {
           const options = {
             multi: false
           }
@@ -18,7 +18,7 @@ describe('tocco-ui', () => {
           expect(wrapper.find(SingleSelect)).to.have.length(1)
         })
 
-        it('should render a Multi-Select Component', () => {
+        test('should render a Multi-Select Component', () => {
           const options = {
             multi: true
           }

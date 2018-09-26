@@ -15,7 +15,7 @@ describe('tocco-util', () => {
   describe('rest', () => {
     describe('clientQuestions', () => {
       describe('handleClientQuestion', () => {
-        it('should return GET and HEAD responses directly', () => {
+        test('should return GET and HEAD responses directly', () => {
           const testFn = method => {
             const response = {
               body: {
@@ -42,7 +42,7 @@ describe('tocco-util', () => {
           testFn('HEAD')
         })
 
-        it('should return response if no client question', () => {
+        test('should return response if no client question', () => {
           const response = {
             body: {
               foo: 'bar'
@@ -64,7 +64,7 @@ describe('tocco-util', () => {
           expect(next.done).to.be.true
         })
 
-        it('should get answer from user', () => {
+        test('should get answer from user', () => {
           const questionResponse = {
             body: {
               clientQuestion: {
@@ -125,7 +125,7 @@ describe('tocco-util', () => {
       })
 
       describe('getAnswer', () => {
-        it('should call ConfirmQuestionHandler', () => {
+        test('should call ConfirmQuestionHandler', () => {
           const question = {
             id: 'testquestion',
             handler: 'ConfirmQuestionHandler'
@@ -143,7 +143,7 @@ describe('tocco-util', () => {
           expect(next.done).to.be.true
         })
 
-        it('should call YesNoQuestionHandler', () => {
+        test('should call YesNoQuestionHandler', () => {
           const question = {
             id: 'testquestion',
             handler: 'YesNoQuestionHandler'
@@ -163,7 +163,7 @@ describe('tocco-util', () => {
       })
 
       describe('handleConfirmQuestion', () => {
-        it('should get answer from user with confirmation dialog', () => {
+        test('should get answer from user with confirmation dialog', () => {
           const question = {
             id: 'testquestion',
             handler: 'ConfirmQuestionHandler',
@@ -198,7 +198,7 @@ describe('tocco-util', () => {
       })
 
       describe('handleYesNoQuestion', () => {
-        it('should get answer from user with yes/no dialog', () => {
+        test('should get answer from user with yes/no dialog', () => {
           const question = {
             id: 'testquestion',
             handler: 'YesNoQuestionHandler',

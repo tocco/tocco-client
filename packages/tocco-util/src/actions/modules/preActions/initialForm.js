@@ -20,7 +20,7 @@ export function* run(params, {formDataEntityModel, formDataTitle, formDataMessag
   ])
 
   const id = new Date().valueOf()
-  const onSend = values => answerChannel.put(formValues(values))
+  const onSend = ({values}) => answerChannel.put(formValues(values))
   const onCancel = () => answerChannel.put(formValues(null))
 
   yield put(notifier.modalComponent(id, formDataTitle, formDataMessage, () => (

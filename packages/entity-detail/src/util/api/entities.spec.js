@@ -15,7 +15,7 @@ describe('entity-detail', () => {
         })
 
         describe('fetchEntities', () => {
-          it('should call fetch', () => {
+          test('should call fetch', () => {
             const params = {
               page: 2,
               orderBy: 'firstname',
@@ -54,49 +54,52 @@ describe('entity-detail', () => {
             expect(next.done).to.be.true
           })
 
-          it('should set exclamation mark for fields and relations if explicitly empty', () => {
-            const params = {
-              page: 2,
-              orderBy: 'firstname',
-              limit: 20,
-              fields: [],
-              relations: [],
-              searchInputs: {_search: 'test'}
-            }
-            const gen = entities.fetchEntities('User', params)
-
-            expect(gen.next().value).to.eql(call(requestSaga, 'entities/User', {
-              queryParams: {
-                _fields: '!',
-                _filter: '',
-                _form: undefined,
-                _limit: 20,
-                _offset: 20,
-                _paths: '',
-                _relations: '!',
-                _search: 'test',
-                _sort: undefined
+          test(
+            'should set exclamation mark for fields and relations if explicitly empty',
+            () => {
+              const params = {
+                page: 2,
+                orderBy: 'firstname',
+                limit: 20,
+                fields: [],
+                relations: [],
+                searchInputs: {_search: 'test'}
               }
-            }))
+              const gen = entities.fetchEntities('User', params)
 
-            const resp = {
-              body: {}
+              expect(gen.next().value).to.eql(call(requestSaga, 'entities/User', {
+                queryParams: {
+                  _fields: '!',
+                  _filter: '',
+                  _form: undefined,
+                  _limit: 20,
+                  _offset: 20,
+                  _paths: '',
+                  _relations: '!',
+                  _search: 'test',
+                  _sort: undefined
+                }
+              }))
+
+              const resp = {
+                body: {}
+              }
+
+              expect(gen.next(resp).value).to.eql(call(entities.defaultEntitiesTransformer, resp.body))
+
+              const transformedResponse = {
+              }
+
+              const next = gen.next(transformedResponse)
+
+              expect(next.value).to.equal(transformedResponse) // expect same (not just equal)
+              expect(next.done).to.be.true
             }
-
-            expect(gen.next(resp).value).to.eql(call(entities.defaultEntitiesTransformer, resp.body))
-
-            const transformedResponse = {
-            }
-
-            const next = gen.next(transformedResponse)
-
-            expect(next.value).to.equal(transformedResponse) // expect same (not just equal)
-            expect(next.done).to.be.true
-          })
+          )
         })
 
         describe('fetchEntity', () => {
-          it('should call fetch', () => {
+          test('should call fetch', () => {
             const gen = entities.fetchEntity('User', 99, ['f1', 'f2'], 'User_detail')
 
             expect(gen.next().value).to.eql(call(requestSaga, 'entities/User/99', {
@@ -118,7 +121,7 @@ describe('entity-detail', () => {
         })
 
         describe('updateEntity', () => {
-          it('should call request saga', () => {
+          test('should call request saga', () => {
             const entity = {
               model: 'User',
               key: '1'
@@ -151,7 +154,7 @@ describe('entity-detail', () => {
         })
 
         describe('fetchModel', () => {
-          it('should call request saga and transform response', () => {
+          test('should call request saga and transform response', () => {
             const gen = entities.fetchModel('User')
 
             expect(gen.next().value).to.eql(call(requestSaga, 'entities/User/model'))
@@ -188,7 +191,7 @@ describe('entity-detail', () => {
         })
 
         describe('defaultModelTransformer', () => {
-          it('should return an object with field names as key', () => {
+          test('should return an object with field names as key', () => {
             const fetchResult = {
               name: 'User',
               fields: [

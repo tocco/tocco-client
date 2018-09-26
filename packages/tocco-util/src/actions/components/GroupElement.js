@@ -6,7 +6,7 @@ import {Button, Menu} from 'tocco-ui'
 import actionTypes from '../actionTypes'
 import {isValidSelection, selectionText} from './selectionHelper'
 
-const GroupElement = ({definition, onClick, onSelect, selectedCount}, context) => {
+const GroupElement = ({definition, onClick, selectedCount}, context) => {
   if (definition.actionType === actionTypes.DIVIDER) {
     return <hr/>
   }
@@ -22,12 +22,7 @@ const GroupElement = ({definition, onClick, onSelect, selectedCount}, context) =
         disabled={disabled}
         icon={definition.icon}
         label={definition.label}
-        onClick={() => {
-          if (!disabled) {
-            setTimeout(() => onSelect(), 100)
-            onClick(definition)
-          }
-        }}
+        onClick={() => !disabled && onClick(definition)}
         title={title}
       />
     </Menu.Item>
