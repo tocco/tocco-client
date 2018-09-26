@@ -361,6 +361,20 @@
                   },
                   {
                     "componentType": "field-set",
+                    "label": "Decimal",
+                    "scopes": [],
+                    "hidden": false,
+                    "children": [
+                      {
+                        "id": "decimal",
+                        "componentType": "field",
+                        "dataType": "decimal",
+                        "label": null
+                      }
+                    ]
+                  },
+                  {
+                    "componentType": "field-set",
                     "label": "Published",
                     "scopes": [],
                     "hidden": false,
