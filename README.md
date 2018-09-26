@@ -25,7 +25,7 @@ Packages are located in folder ``packages/``. Every package maintains its own de
 and can be re-used in other packages.
 
 ### Package naming
-* ``tocco-...`` naming is used in ``package.json``; in folder structure ``tocco-`` prefix can be omitted
+* ``tocco-...`` naming is used in ``package.json``; in folder structure ``tocco-`` prefix can be omitted.
 
 Please ensure that every package is prefixed with ``tocco-``
 
@@ -81,7 +81,7 @@ During development with watch:
 yarn test [...] --watch
 ```
 
-Note: If working with IntelliJ sinle tests or test-suites can be run in the IDE directly. Just set the 
+Note: If working with IntelliJ single tests or test-suites can be run in the IDE directly. Just set the 
 jest.config.js file in the Jest run configuration. 
 
 
@@ -154,9 +154,9 @@ First line must not be longer than 70 characters, second line is always blank an
 - chore (updating grunt tasks etc; no production code change)
 
 **Example `<scope>` values:**
-- If the changes affect a single package the scope is set to package name (e.g. login)
+- If the changes affect a single package the scope is set to package name (e.g. login).
 - If the change is a global or difficult to assign to a single package the parentheses are omitted.
-- If changes affect the monorepo itself, the scope is set to 'tocco-client'
+- If changes affect the monorepo itself, the scope is set to 'tocco-client'.
 
 #### Message body
 - uses the imperative, present tense: “change” not “changed” nor “changes”
