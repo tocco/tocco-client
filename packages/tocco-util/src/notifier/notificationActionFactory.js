@@ -1,24 +1,31 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {actions as toastrActions} from 'react-redux-toastr'
-import _isString from 'lodash/isString'
 import uuid from 'uuid/v4'
-import {Icon} from 'tocco-ui'
+import {Icon, IconTocco} from 'tocco-ui'
 
 import {modalComponent} from './modules/actions'
 import ModalButtons from './modules/modalComponents/ModalButtons'
 import TitleMessage from './components/TitleMessage'
 
-const NotificationIcon = icon => <Icon icon={ _isString(icon) ? icon : 'exclamation-triangle'} size="3x" />
-
 export function getInfoAction(type, title, message, icon, timeOut) {
-  const options = {
-    timeOut: timeOut,
-    showCloseButton: true,
-    component: () => <TitleMessage title={title} message={message}/>
+  const typeIconMap = {
+    error: 'times',
+    info: 'info',
+    success: 'check',
+    warning: 'exclamation'
   }
 
-  options.icon = <NotificationIcon icon={icon} />
+  type = Object.keys(typeIconMap).includes(type) ? type : 'info'
+
+  const options = {
+    attention: false,
+    component: () => <TitleMessage title={title} message={message}/>,
+    icon: <Icon icon={icon || typeIconMap[type]} size="3x" />,
+    preventDuplicates: true,
+    showCloseButton: type === 'warning' || type === 'error' || !(timeOut > 0),
+    timeOut: type === 'warning' || type === 'error' ? 0 : timeOut
+  }
 
   return toastrActions.add({
     type,
@@ -90,14 +97,14 @@ export function getYesNoAction(title, message, yesText, noText, cancelText, onYe
 
 export function getBlockingInfo(id, title, message, icon) {
   const options = {
-    timeOut: 0,
-    showCloseButton: false,
     attention: true,
+    component: () => <TitleMessage title={title} message={message}/>,
+    icon: icon ? <Icon icon={icon} size="3x" /> : <IconTocco size="3em" />,
     onAttentionClick: () => {},
-    component: () => <TitleMessage title={title} message={message}/>
+    preventDuplicates: true,
+    showCloseButton: false,
+    timeOut: 0
   }
-
-  options.icon = <NotificationIcon icon={icon} />
 
   return toastrActions.add({
     id,
