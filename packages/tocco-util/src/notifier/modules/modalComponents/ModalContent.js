@@ -33,7 +33,7 @@ class ModalContent extends React.Component {
             <this.props.component close={this.handleCloseClick}/>
           </TitleMessage>
         </StyledModalContent>
-        <div className="shadow" onClick={() => { if (closable === true) { this.handleCloseClick() } }}/>
+        <div className="shadow"/>
       </div>
     )
   }
