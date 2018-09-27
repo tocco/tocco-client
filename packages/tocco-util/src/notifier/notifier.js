@@ -8,10 +8,12 @@ import modalComponents from './modules/modalComponents/reducer'
 import '!style-loader!css-loader!react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
 export const defaultToastrOptions = {
-  newestOnTop: false,
-  preventDuplicates: false,
+  closeOnToastrClick: false,
+  newestOnTop: true,
   position: 'top-right',
   progressBar: true,
+  timeOut: 0,
+  transitionIn: 'bounceIn',
   transitionOut: 'fadeOut'
 }
 

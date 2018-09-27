@@ -5,34 +5,46 @@ import {appFactory, notifier} from 'tocco-util'
 import {Button, ButtonGroup, Typography} from 'tocco-ui'
 // real-import:import {appFactory, notifier} from 'tocco-util'
 
+/* start example */
 const longText = `Lorem ipsum dolor sit amet, at sed inermis intellegam scriptorem, usu facete apeirian ad.
 Sit et meliore intellegam. Mel cu maluisset philosophia, pri et habeo oportere. Vis in purto verear luptatum, has
 ne graecis qualisque. Mei ei placerat incorrupte adversarium, eum rebum nonumy ut.`
 
-/* start example */
+const TitleComponent = <Typography.H4>Main title <Typography.Small>additional byline</Typography.Small></Typography.H4>
+
+const MessageComponent = <React.Fragment>
+  <Typography.P>Message
+    <Typography.B> Line 1</Typography.B>
+  </Typography.P>
+  <Typography.P>Message Line 2</Typography.P>
+</React.Fragment>
+
 class Example extends React.Component {
   constructor(props) {
     super(props)
-
     this.store = appFactory.createStore({}, undefined, {}, 'notifier')
     notifier.addToStore(this.store, true)
   }
 
-  info = () => {
+  info1 = () => {
     this.store.dispatch(notifier.info(
-      'info', <Typography.H4>Typography component</Typography.H4>, 'string contains <b>html</b>', 'info', 2000))
+      'info', 'client.title', 'client.message', ['far', 'thumbs-up'], 2000))
+  }
+
+  info2 = () => {
+    this.store.dispatch(notifier.info('info', TitleComponent, 'string contains <b>html</b>'))
   }
 
   success = () => {
-    this.store.dispatch(notifier.info('success', 'client.title', 'Lorem Ipsum', 'thumbs-up', 0))
+    this.store.dispatch(notifier.info('success', 'client.title', 'client.message', null, 2000))
   }
 
   warning = () => {
-    this.store.dispatch(notifier.info('warning', 'client.title', longText, 'exclamation-triangle'))
+    this.store.dispatch(notifier.info('warning', 'client.title', longText))
   }
 
   error = () => {
-    this.store.dispatch(notifier.info('error', 'client.title', 'client.description', 'exclamation-triangle', 10000))
+    this.store.dispatch(notifier.info('error', 'client.title', 'client.description'))
   }
 
   confirmQuestion = () => {
@@ -48,13 +60,8 @@ class Example extends React.Component {
 
   yesNoQuestion = () => {
     this.store.dispatch(notifier.yesNoQuestion(
-      <Typography.H4>Main title <Typography.Small>additional byline</Typography.Small></Typography.H4>,
-      <React.Fragment>
-        <Typography.P>Message
-          <Typography.B> Line 1</Typography.B>
-        </Typography.P>
-        <Typography.P>Message Line 2</Typography.P>
-      </React.Fragment>,
+      TitleComponent,
+      MessageComponent,
       'Yes text',
       'No text',
       'Cancel text',
@@ -69,13 +76,12 @@ class Example extends React.Component {
     this.store.dispatch(notifier.blockingInfo(
       id,
       'Title',
-      'Please wait',
-      'hand-paper'
+      'Please wait'
     ))
 
     setTimeout(() => {
       this.store.dispatch(notifier.removeBlockingInfo(id))
-    }, 2000)
+    }, 5000)
   }
 
   modalComponent = () => {
@@ -115,15 +121,19 @@ class Example extends React.Component {
           <notifier.Notifier/>
           <div>
             <Button
-              label="Info"
+              label="Info 1"
               look="raised"
-              onClick={this.info}/>&nbsp;
+              onClick={this.info1}/>&nbsp;
             <Button
-              label="Success (no timeout)"
+              label="Info 2"
+              look="raised"
+              onClick={this.info2}/>&nbsp;
+            <Button
+              label="Success"
               look="raised"
               onClick={this.success}/>&nbsp;
             <Button
-              label="Warning (long)"
+              label="Warning"
               look="raised"
               onClick={this.warning}/>&nbsp;
             <Button

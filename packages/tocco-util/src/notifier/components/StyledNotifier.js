@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import {theme} from 'styled-system'
+import {StyledIconToccoWrapper} from 'tocco-ui'
 
 const StyledNotifier = styled.div`
 && {
@@ -18,7 +19,7 @@ const StyledNotifier = styled.div`
     }
 
     .toastr {
-      min-height: 88px;  // reset: react-redux-toastr (index.scss)
+      min-height: 80px;  // reset: react-redux-toastr (index.scss)
       opacity: 1;  // reset: react-redux-toastr (index.scss)
       border-radius: ${theme('radii.2')};  // reset: react-redux-toastr (index.scss)
 
@@ -27,7 +28,7 @@ const StyledNotifier = styled.div`
       }
 
       .rrt-holder {
-        top: 20px;  // reset: react-redux-toastr (index.scss)
+        top: 16px;  // reset: react-redux-toastr (index.scss)
         margin-top: 0;  // reset: react-redux-toastr (index.scss)
         height: auto;  // reset: react-redux-toastr (index.scss)
         line-height: 1;  // reset: react-redux-toastr (index.scss)
@@ -35,7 +36,11 @@ const StyledNotifier = styled.div`
 
       .close-toastr {
         height: auto;
-        opacity: .9;  // reset: react-redux-toastr (index.scss)
+        opacity: .7;  // reset: react-redux-toastr (index.scss)
+
+        &:hover {
+          opacity: 1;
+        }
       }
     }
 
@@ -76,7 +81,7 @@ const StyledNotifier = styled.div`
     }
 
     .rrt-confirm-holder {
-      z-index: 100000000;  // reset: react-redux-toastr (confirm.scss)
+      z-index: 99999998;  // reset: react-redux-toastr (confirm.scss)
     }
   }
 
@@ -133,6 +138,10 @@ const StyledNotifier = styled.div`
       .rrt-holder {
         opacity: .9;
       }
+    }
+
+    ${StyledIconToccoWrapper} {
+      margin: 0 auto;
     }
   }
 }
