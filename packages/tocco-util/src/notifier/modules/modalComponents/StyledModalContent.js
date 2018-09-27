@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import {theme} from 'styled-system'
 
-const StyledModelContent = styled.div.attrs({
+const StyledModalContent = styled.div.attrs({
   className: props => `rrt-confirm animated ${props.isClosing ? ' fadeOut' : 'bounceIn'}`
 })`
    &&& {
@@ -48,5 +48,5 @@ const StyledModelContent = styled.div.attrs({
 `
 
 export {
-  StyledModelContent
+  StyledModalContent
 }
