@@ -24,8 +24,8 @@ const ModalDisplay = props => {
 ModalDisplay.propTypes = {
   modals: propTypes.arrayOf(propTypes.shape({
     id: propTypes.oneOfType([propTypes.string, propTypes.number]),
-    title: propTypes.string,
-    message: propTypes.string,
+    title: propTypes.oneOfType([propTypes.string, propTypes.node]),
+    message: propTypes.oneOfType([propTypes.string, propTypes.node]),
     component: propTypes.func
   })),
   close: propTypes.func,
