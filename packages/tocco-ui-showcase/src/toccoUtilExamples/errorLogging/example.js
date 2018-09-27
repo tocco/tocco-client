@@ -1,6 +1,5 @@
 import React from 'react'
 import {Provider} from 'react-redux'
-import ReduxToastr from 'react-redux-toastr'
 import {Button} from 'tocco-ui'
 import {appFactory, errorLogging, notifier} from 'tocco-util'
 // real-import:import {appFactory, errorLogging, notifier} from 'tocco-util'
@@ -22,7 +21,7 @@ class Example extends React.Component {
     return (
       <Provider store={this.store}>
         <div>
-          <ReduxToastr {...notifier.defaultToastrOptions} position="top-center" />
+          <notifier.Notifier/>
           <Button
             label="Log Error"
             look="raised"
