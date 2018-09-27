@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 import {theme} from 'styled-system'
 
+const modalWidth = 700
+const gutterWidth = 30
+
 const StyledModalContent = styled.div.attrs({
   className: props => `rrt-confirm animated ${props.isClosing ? ' fadeOut' : 'bounceIn'}`
 })`
@@ -8,24 +11,31 @@ const StyledModalContent = styled.div.attrs({
     background-color: ${theme('colors.base.paper')};    // reset: react-redux-toastr (confirm.scss)
     border-radius: ${theme('radii.2')};                 // reset: react-redux-toastr (confirm.scss)
     box-shadow: 2px 2px 10px rgba(0, 0, 0, .4);         // reset: react-redux-toastr (confirm.scss)
-    margin-left: -350px;                                // reset: react-redux-toastr (confirm.scss)
+    left: 0;                                            // reset: react-redux-toastr (confirm.scss)
+    margin-left: ${Math.ceil(gutterWidth / 2)}px;       // reset: react-redux-toastr (confirm.scss)
     padding: ${theme('space.5')};                       // reset: react-redux-toastr (confirm.scss)
-    width: 700px;                                       // reset: react-redux-toastr (confirm.scss)
+    width: calc(100% - ${gutterWidth}px);
+
+    @media (min-width: ${modalWidth + gutterWidth}px) {
+      left: 50%;                                        // reset: react-redux-toastr (confirm.scss)
+      margin-left: ${Math.ceil(modalWidth / -2)}px;     // reset: react-redux-toastr (confirm.scss)
+      width: ${modalWidth}px;                           // reset: react-redux-toastr (confirm.scss)
+    }
 
     // copy: react-redux-toastr (index.scss)
     .close-toastr {
-      width: 10%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      right: 0;
       background-color: transparent;
-      font-size: 22px;
       border: none;
-      outline: none;
-      opacity: 0.5;
       cursor: pointer;
       font-family: "Helvetica Neue", Helvetica, Arial sans-serif;
+      font-size: 22px;
+      height: auto;  // reset
+      opacity: .8;  // reset
+      outline: none;
+      position: absolute;
+      right: 5px;  // reset
+      top: 5px;  // reset
+      width: auto;  // reset
 
       &:hover {
         opacity: 1;
@@ -34,15 +44,6 @@ const StyledModalContent = styled.div.attrs({
       &:focus {
         outline: none;
       }
-    }
-
-    // reset copy: react-redux-toastr (index.scss)
-    .close-toastr {
-      height: auto;
-      opacity: .9;  // reset: react-redux-toastr (index.scss)
-      right: 5px;
-      top: 5px;
-      width: auto;
     }
   }
 `
