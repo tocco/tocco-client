@@ -11,6 +11,7 @@ export default {
   'date': editableValueFactory('date'),
   'datetime': editableValueFactory('datetime'),
   'duration': editableValueFactory('duration'),
+  'decimal': editableValueFactory('decimal'),
   'display': formattedValueFactory('html'),
   'document': editableValueFactory('document'),
   'email': editableValueFactory('email'),

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 import SearchPanel from '../SearchPanel/SearchPanel'
 import SchedulerAppContainer from '../../containers/SchedulerAppContainer'
+import StyledResourceScheduler from './StyledResourceScheduler'
 
 class ResourceScheduler extends React.Component {
   componentWillMount() {
@@ -15,19 +16,21 @@ class ResourceScheduler extends React.Component {
   render() {
     const props = this.props
     return (
-      <SplitPane split="vertical" minSize={325} defaultSize={this.paneWidth}>
-        <div className="spit-panel-wrapper">
-          <SearchPanel
-            locale={props.locale}
-            calendarTypes={props.calendarTypes}
-            updateRequestedCalendars={props.updateRequestedCalendars}
-            requestedCalendars={this.props.requestedCalendars}
-          />
-        </div>
-        <div className="spit-panel-wrapper">
-          <SchedulerAppContainer/>
-        </div>
-      </SplitPane>
+      <StyledResourceScheduler>
+        <SplitPane split="vertical" minSize={325} defaultSize={this.paneWidth}>
+          <div className="spit-panel-wrapper">
+            <SearchPanel
+              locale={props.locale}
+              calendarTypes={props.calendarTypes}
+              updateRequestedCalendars={props.updateRequestedCalendars}
+              requestedCalendars={this.props.requestedCalendars}
+            />
+          </div>
+          <div className="spit-panel-wrapper">
+            <SchedulerAppContainer/>
+          </div>
+        </SplitPane>
+      </StyledResourceScheduler>
     )
   }
 }
