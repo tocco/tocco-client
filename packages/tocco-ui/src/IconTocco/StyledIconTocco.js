@@ -34,35 +34,35 @@ const rotateClockwise = keyframes`
 
 const stepClockwiseTopLeft = keyframes`
   0%, 100% {transform: translate(0, 0);}
-  22%      {transform: translate(0, 0);}
+  3%      {transform: translate(50px, 0);}
   25%      {transform: translate(50px, 0);}
-  47%      {transform: translate(50px, 0);}
+  28%      {transform: translate(50px, 50px);}
   50%      {transform: translate(50px, 50px);}
-  72%      {transform: translate(50px, 50px);}
+  53%      {transform: translate(0, 50px);}
   75%      {transform: translate(0, 50px);}
-  97%      {transform: translate(0, 50px);}
+  78%      {transform: translate(0, 0);}
 `
 
 const stepClockwiseTopRight = keyframes`
   0%, 100% {transform: translate(0, 0);}
-  22%      {transform: translate(0, 0);}
+  3%      {transform: translate(0, 50px);}
   25%      {transform: translate(0, 50px);}
-  47%      {transform: translate(0, 50px);}
+  28%      {transform: translate(-50px, 50px);}
   50%      {transform: translate(-50px, 50px);}
-  72%      {transform: translate(-50px, 50px);}
+  53%      {transform: translate(-50px, 0);}
   75%      {transform: translate(-50px, 0);}
-  97%      {transform: translate(-50px, 0);}
+  78%      {transform: translate(0, 0);}
 `
 
 const stepClockwiseBottomLeft = keyframes`
   0%, 100% {transform: translate(0, 0);}
-  22%      {transform: translate(0, 0);}
+  3%      {transform: translate(0, -50px);}
   25%      {transform: translate(0, -50px);}
-  47%      {transform: translate(0, -50px);}
+  28%      {transform: translate(50px, -50px);}
   50%      {transform: translate(50px, -50px);}
-  72%      {transform: translate(50px, -50px);}
+  53%      {transform: translate(50px, 0);}
   75%      {transform: translate(50px, 0);}
-  97%      {transform: translate(50px, 0);}
+  78%      {transform: translate(0, 0);}
 `
 
 const StyledIconToccoWrapper = styled.i`
