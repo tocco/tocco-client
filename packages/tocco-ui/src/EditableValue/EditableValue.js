@@ -2,13 +2,14 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import typeEditorFactory, {map as typeEditorFactoryMap} from './typeEditorFactory'
+import StyledEditableValue from './StyledEditableValue'
 
 /**
  *  To edit values of given type.
  */
 const EditableValue = props => {
   return (
-    <span className="tocco-editable-value">
+    <StyledEditableValue>
       {
         typeEditorFactory(
           props.type,
@@ -20,7 +21,7 @@ const EditableValue = props => {
           props.readOnly
         )
       }
-    </span>
+    </StyledEditableValue>
   )
 }
 
