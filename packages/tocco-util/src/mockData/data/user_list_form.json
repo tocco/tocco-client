@@ -351,12 +351,12 @@
             "sortable": true
           },
           {
-            "id": "duration",
+            "id": "durationDisplay",
             "label": "Display Expression",
             "componentType": "column",
             "children": [
               {
-                "id": "duration",
+                "id": "durationDisplay",
                 "label": null,
                 "componentType": "display",
                 "language": "freemarker",
