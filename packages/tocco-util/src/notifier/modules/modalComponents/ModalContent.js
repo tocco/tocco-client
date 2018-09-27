@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import TitleMessage from '../../components/TitleMessage'
-import {StyledModelContent} from './StyledModelContent'
+import {StyledModalContent} from './StyledModalContent'
 
 class ModalContent extends React.Component {
   constructor(props) {
@@ -27,12 +27,12 @@ class ModalContent extends React.Component {
 
     return (
       <div className="rrt-confirm-holder">
-        <StyledModelContent isClosing={this.state.isClosing}>
+        <StyledModalContent isClosing={this.state.isClosing}>
           <TitleMessage title={title} message={message}>
             {closable && <button onClick={this.handleCloseClick} type="button" className="close-toastr">✕</button>}
             <this.props.component close={this.handleCloseClick}/>
           </TitleMessage>
-        </StyledModelContent>
+        </StyledModalContent>
         <div className="shadow" onClick={() => { if (closable === true) { this.handleCloseClick() } }}/>
       </div>
     )
