@@ -1,4 +1,4 @@
-import componentTypes from './componentTypes'
+import componentTypes from './actionComponentTypes'
 
 export const isAction = componentType => !!componentType && Object.values(componentTypes).indexOf(componentType) >= 0
 
