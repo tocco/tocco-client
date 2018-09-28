@@ -89,14 +89,14 @@ export class Wizard extends React.Component {
     }
 
     return (
-      <div className="wizard">
-        <div style={{marginBottom: '8px'}} className="wizard-body">
+      <React.Fragment>
+        <div style={{marginBottom: '8px'}}>
           {t}
         </div>
         <ButtonGroup look="raised">
           {[...buttons]}
         </ButtonGroup>
-      </div>
+      </React.Fragment>
     )
   }
 

@@ -43,8 +43,8 @@ ModalContent.propTypes = {
   id: PropTypes.any.isRequired,
   component: PropTypes.oneOfType([ PropTypes.node, PropTypes.func ]).isRequired,
   close: PropTypes.func.isRequired,
-  title: PropTypes.string,
-  message: PropTypes.string,
+  title: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
+  message: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   closable: PropTypes.bool
 }
 

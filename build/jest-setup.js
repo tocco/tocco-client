@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-
 import Enzyme from 'enzyme'
 import EnzymeAdapter from 'enzyme-adapter-react-16'
 import sinon from 'sinon'
@@ -8,7 +7,8 @@ import chai from 'chai'
 import chaiEnzyme from 'chai-enzyme'
 import chaiAsPromised from 'chai-as-promised'
 import sinonChai from 'sinon-chai'
-import Intl from 'intl'
+
+import setupIntlPolyfill from './intl_polyfill'
 
 Enzyme.configure({adapter: new EnzymeAdapter()})
 
@@ -20,7 +20,8 @@ global.should = chai.should()
 global.Response = fetch.Response
 global.Headers = fetch.Headers
 global.Request = fetch.Request
-global.Intl = Intl
+
+setupIntlPolyfill()
 
 chai.use(chaiEnzyme())
 chai.use(sinonChai)

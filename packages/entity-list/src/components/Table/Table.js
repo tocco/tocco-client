@@ -6,6 +6,7 @@ import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import cellRenderer from '../../util/cellRenderer'
 import '!style-loader!css-loader!react-bootstrap-table/dist/react-bootstrap-table.min.css'
 import {default as selectionStyles, selectionStylePropType} from '../../util/selectionStyles'
+import StyledTable from './StyledTable'
 
 const RIGHT_ALIGNED_TYPES = ['moneyamount', 'counter', 'integer', 'long']
 
@@ -109,7 +110,7 @@ const Table = (props, context) => {
   )
 
   return (
-    <div className="entity-table">
+    <StyledTable>
       {props.sorting
       && <BootstrapTable
         remote
@@ -140,7 +141,7 @@ const Table = (props, context) => {
         }
       </BootstrapTable>
       }
-    </div>
+    </StyledTable>
   )
 }
 

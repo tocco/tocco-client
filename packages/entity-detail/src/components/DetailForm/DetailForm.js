@@ -9,6 +9,7 @@ import SubGrid from '../../util/detailView/fromFieldFactories/subGrid'
 import ErrorBox from '../ErrorBox'
 import modes from '../../util/modes'
 import readOnlyFormFieldMapping from '../../util/detailView/readOnlyFormFieldMapping'
+import StyledDetailForm from './StyledDetailForm'
 
 export class DetailForm extends React.Component {
   constructor(props) {
@@ -103,33 +104,35 @@ export class DetailForm extends React.Component {
     }
 
     return (
-      <form
-        className="form-horizontal detail-form"
-        tabIndex="0"
-        onSubmit={this.handleSubmit}
-        onKeyDown={this.handleKeyPress}
-      >
-        {this.formBuilder()}
-        {!this.isReadOnlyForm()
-        && <div>
-          {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
-          <Button
-            disabled={props.submitting || (props.anyTouched && !props.valid)}
-            ink="primary"
-            label={this.msg(`client.entity-detail.${props.mode === modes.CREATE ? 'create' : 'save'}`)}
-            look="raised"
-            pending={props.submitting}
-            type="submit"
-          />
-          {props.lastSave
+      <StyledDetailForm>
+        <form
+          className="form-horizontal detail-form"
+          tabIndex="0"
+          onSubmit={this.handleSubmit}
+          onKeyDown={this.handleKeyPress}
+        >
+          {this.formBuilder()}
+          {!this.isReadOnlyForm()
           && <div>
-            <FormattedMessage id="client.entity-detail.lastSave"/>
-            <span style={{marginLeft: '3px'}}> <FormattedRelative value={props.lastSave}/></span>
+            {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
+            <Button
+              disabled={props.submitting || (props.anyTouched && !props.valid)}
+              ink="primary"
+              label={this.msg(`client.entity-detail.${props.mode === modes.CREATE ? 'create' : 'save'}`)}
+              look="raised"
+              pending={props.submitting}
+              type="submit"
+            />
+            {props.lastSave
+            && <div>
+              <FormattedMessage id="client.entity-detail.lastSave"/>
+              <span style={{marginLeft: '3px'}}> <FormattedRelative value={props.lastSave}/></span>
+            </div>
+            }
           </div>
           }
-        </div>
-        }
-      </form>
+        </form>
+      </StyledDetailForm>
     )
   }
 }
