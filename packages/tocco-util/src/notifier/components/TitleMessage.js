@@ -10,14 +10,14 @@ const isKey = s => s && s.startsWith('client.')
 const Content = props => {
   const {content} = props
   return _isString(content)
-    ? containsHtml(content)
+    ? <props.tag>{containsHtml(content)
       ? <FormattedValue type="html" value={content}/>
-      : <props.tag>{
-        isKey(content)
-          ? <FormattedMessage id={content}/>
-          : content
-      }</props.tag>
-    : content
+      : isKey(content)
+        ? <FormattedMessage id={content}/>
+        : content}</props.tag>
+    : content.type && content.type.displayName === 'FormattedMessage'
+      ? <props.tag>{content}</props.tag>
+      : content
 }
 
 Content.defaultProps = {
