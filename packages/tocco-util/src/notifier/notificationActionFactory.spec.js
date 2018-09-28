@@ -27,6 +27,8 @@ describe('tocco-util', () => {
         ]
         actions.map(test => {
           const action = test()
+          expect(action.payload.options.removeOnHover).to.be.false
+          expect(action.payload.options).to.have.property('removeOnHoverTimeOut', 0)
           expect(action.payload.options.showCloseButton).to.be.true
           expect(action.payload.options).to.have.property('timeOut', 0)
         })
@@ -37,6 +39,8 @@ describe('tocco-util', () => {
         ]
         actions2.map(test => {
           const action = test()
+          expect(action.payload.options.removeOnHover).to.be.false
+          expect(action.payload.options.removeOnHoverTimeOut).to.be.undefined
           expect(action.payload.options.showCloseButton).to.be.true
           expect(action.payload.options.timeOut).to.be.undefined
         })
@@ -47,6 +51,8 @@ describe('tocco-util', () => {
         ]
         actions3.map(test => {
           const action = test()
+          expect(action.payload.options.removeOnHover).to.be.false
+          expect(action.payload.options.removeOnHoverTimeOut).to.be.null
           expect(action.payload.options.showCloseButton).to.be.true
           expect(action.payload.options.timeOut).to.be.null
         })
@@ -59,6 +65,8 @@ describe('tocco-util', () => {
         ]
         actions.map(test => {
           const action = test()
+          expect(action.payload.options.removeOnHover).to.be.true
+          expect(action.payload.options.removeOnHoverTimeOut).to.equal(1)
           expect(action.payload.options.showCloseButton).to.be.false
           expect(action.payload.options.timeOut).to.equal(1)
         })

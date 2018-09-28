@@ -23,6 +23,8 @@ export function getInfoAction(type, title, message, icon, timeOut) {
     component: () => <TitleMessage title={title} message={message}/>,
     icon: <Icon icon={icon || typeIconMap[type]} size="3x" />,
     preventDuplicates: true,
+    removeOnHover: type !== 'warning' && type !== 'error' && timeOut > 0,
+    removeOnHoverTimeOut: type === 'warning' || type === 'error' ? 0 : timeOut,
     showCloseButton: type === 'warning' || type === 'error' || !(timeOut > 0),
     timeOut: type === 'warning' || type === 'error' ? 0 : timeOut,
     transitionIn: 'bounceIn'
