@@ -24,7 +24,8 @@ export function getInfoAction(type, title, message, icon, timeOut) {
     icon: <Icon icon={icon || typeIconMap[type]} size="3x" />,
     preventDuplicates: true,
     showCloseButton: type === 'warning' || type === 'error' || !(timeOut > 0),
-    timeOut: type === 'warning' || type === 'error' ? 0 : timeOut
+    timeOut: type === 'warning' || type === 'error' ? 0 : timeOut,
+    transitionIn: 'bounceIn'
   }
 
   return toastrActions.add({
@@ -103,7 +104,8 @@ export function getBlockingInfo(id, title, message, icon) {
     onAttentionClick: () => {},
     preventDuplicates: true,
     showCloseButton: false,
-    timeOut: 0
+    timeOut: 0,
+    transitionIn: 'fadeIn'
   }
 
   return toastrActions.add({

@@ -5,7 +5,7 @@ const modalWidth = 700
 const gutterWidth = 30
 
 const StyledModalContent = styled.div.attrs({
-  className: props => `rrt-confirm animated ${props.isClosing ? ' fadeOut' : 'bounceIn'}`
+  className: props => `rrt-confirm animated ${props.isClosing ? 'fadeOut' : 'fadeIn'}`
 })`
    &&& {
     background-color: ${theme('colors.base.paper')};    // reset: react-redux-toastr (confirm.scss)
