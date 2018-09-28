@@ -145,7 +145,7 @@ const StyledS = styled.s`
 const StyledSmall = styled.small`
   && {
     ${props => declareFont(props, {
-    fontSize: theme('fontSizes.1')(props)
+    fontSize: '.7em'
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
   }

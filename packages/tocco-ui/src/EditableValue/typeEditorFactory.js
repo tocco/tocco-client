@@ -18,6 +18,7 @@ import SearchFilterEdit from './typeEditors/SearchFilterEdit'
 import UrlEdit from './typeEditors/UrlEdit'
 import PhoneEdit from './typeEditors/PhoneEdit'
 import DurationEdit from './typeEditors/DurationEdit'
+import DecimalEdit from './typeEditors/DecimalEdit'
 
 export const map = {
   'string': StringEdit,
@@ -42,7 +43,8 @@ export const map = {
   'search-filter': SearchFilterEdit,
   'createuser': StringEdit,
   'createts': DateTimeEdit,
-  'duration': DurationEdit
+  'duration': DurationEdit,
+  'decimal': DecimalEdit
 }
 
 export default (type, value, onChange, options, id, events, readOnly = false) => {

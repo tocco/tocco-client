@@ -13,6 +13,7 @@ import Affix from './Affix'
 import ShowCaseList from './ShowCaseList'
 import LocaleSwitcher from './LocaleSwitcher'
 import Navigation from './Navigation'
+import StyledShowCaseApp from './StyledShowCaseApp'
 
 export default class ShowCaseApp extends React.Component {
   constructor(props) {
@@ -37,21 +38,23 @@ export default class ShowCaseApp extends React.Component {
     return (
       <ThemeProvider theme={ToccoTheme || {}}>
         <IntlProvider locale={this.state.locale}>
-          <div className="show-case-app tocco-ui-theme">
-            <Typography.InjectFontRoboto theme={ToccoTheme}/>
-            <div className="col title">
-              <span>Tocco UI</span>
+          <StyledShowCaseApp>
+            <div className="show-case-app tocco-ui-theme">
+              <Typography.InjectFontRoboto theme={ToccoTheme}/>
+              <div className="col title">
+                <span>Tocco UI</span>
+              </div>
+              <div className="col-md-10">
+                <ShowCaseList componentsTree={this.props.componentsTree}/>
+              </div>
+              <div className="col-md-2 hidden-xs hidden-sm">
+                <Affix className="navi-affix" offset={50}>
+                  <LocaleSwitcher onLocaleChange={this.localeChange.bind(this)}/>
+                  <Navigation componentsTree={this.props.componentsTree}/>
+                </Affix>
+              </div>
             </div>
-            <div className="col-md-10">
-              <ShowCaseList componentsTree={this.props.componentsTree}/>
-            </div>
-            <div className="col-md-2 hidden-xs hidden-sm">
-              <Affix className="navi-affix" offset={50}>
-                <LocaleSwitcher onLocaleChange={this.localeChange.bind(this)}/>
-                <Navigation componentsTree={this.props.componentsTree}/>
-              </Affix>
-            </div>
-          </div>
+          </StyledShowCaseApp>
         </IntlProvider>
       </ThemeProvider>
     )
