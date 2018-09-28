@@ -103,7 +103,10 @@ export function prepareRequest(resource, options = {}) {
 
   const paramString = getParameterString(queryParams)
 
-  const url = `${backendUrl}/nice2/rest/${resource}${paramString}`
+  const baseUrl = resource.startsWith('http')
+    ? resource : `${backendUrl}/nice2/rest/${resource}`
+
+  const url = `${baseUrl}${paramString}`
 
   return {
     url,

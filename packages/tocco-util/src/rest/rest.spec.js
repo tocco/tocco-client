@@ -288,6 +288,18 @@ describe('tocco-util', () => {
 
         expect(requestData.url).to.eql('https://my-backend.ch/nice2/rest/entities/Contact')
       })
+
+      test('should use absolute url if ressource is one', () => {
+        const absoluteResource = 'http://www.tocco.ch/nice2/rest/entities'
+        const requestData = prepareRequest(absoluteResource)
+
+        expect(requestData.url).to.eql('http://www.tocco.ch/nice2/rest/entities')
+
+        const absoluteResource2 = 'https://www.tocco.ch/nice2/rest/entities'
+        const requestData2 = prepareRequest(absoluteResource2)
+
+        expect(requestData2.url).to.eql('https://www.tocco.ch/nice2/rest/entities')
+      })
     })
   })
 })
