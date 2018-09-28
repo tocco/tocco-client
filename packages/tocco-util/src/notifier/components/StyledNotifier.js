@@ -1,6 +1,15 @@
-import styled from 'styled-components'
+import styled, {keyframes} from 'styled-components'
 import {theme} from 'styled-system'
 import {StyledIconToccoWrapper} from 'tocco-ui'
+
+const wobbleHorizontal = keyframes`
+  16.65% { transform: translateX(8px); }
+  33.3%  { transform: translateX(-6px); }
+  49.95% { transform: translateX(4px); }
+  66.6%  { transform: translateX(-2px); }
+  83.25% { transform: translateX(1px); }
+  100%   { transform: translateX(0); }
+`
 
 const StyledNotifier = styled.div`
 && {
@@ -16,6 +25,12 @@ const StyledNotifier = styled.div`
     .top-right {
       max-height: 100%; // usability: ensure accessibility of all notification boxes
       overflow-y: auto; // todo: enhance usability - it is not obvious that content is scrollable
+
+      .animated.bounceIn {
+        animation-name: ${wobbleHorizontal};
+        animation-timing-function: ease-in-out;
+        will-change: transform;
+      }
     }
 
     .toastr {
