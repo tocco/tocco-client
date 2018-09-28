@@ -47,7 +47,6 @@ class ReportSettings extends React.Component {
       <Button
         disabled={!this.state.customSettingsValid || !this.state.valid}
         icon="download"
-        look="raised"
         onClick={this.handleDownloadClick}
       >
         <FormattedMessage id="client.common.report.download"/>
