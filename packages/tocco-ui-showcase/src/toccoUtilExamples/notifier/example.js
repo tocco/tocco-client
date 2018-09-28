@@ -32,7 +32,7 @@ class Example extends React.Component {
   }
 
   info2 = () => {
-    this.store.dispatch(notifier.info('info', TitleComponent, 'string contains <b>html</b>'))
+    this.store.dispatch(notifier.info('info', TitleComponent, 'message line contains <b>html</b>'))
   }
 
   success = () => {
@@ -50,7 +50,7 @@ class Example extends React.Component {
   confirmQuestion = () => {
     this.store.dispatch(notifier.confirm(
       'Title',
-      'Message Line',
+      'message line contains <b>html</b>',
       'OK text',
       'Cancel text',
       () => console.log('Ok was pressed'),
