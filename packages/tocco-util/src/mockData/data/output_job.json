@@ -1,0 +1,29 @@
+{
+  "key": "{id}",
+  "model": "Output_job",
+  "version": 0,
+  "display": "Phonelist / {date}",
+  "fields": null,
+  "singleRelations": [ ],
+  "multiRelations": [ ],
+  "paths": {
+    "document": {
+      "path": "document",
+      "type": "field",
+      "writable": false,
+      "value": {
+        "value": {
+          "mimeType": "application/pdf",
+          "fileExtension": "pdf",
+          "sizeInBytes": 26000,
+          "fileName": "Phonelist-{date}.pdf",
+          "binaryLink": "/80e125a/277210/Phonelist-{date}.pdf",
+          "thumbnailLink": "https://www.tocco.ch/3ae0989/96/96/442289/Phonelist-{date}.pdf.png?1"
+        },
+        "type": "document",
+        "readable": true,
+        "writable": false
+      }
+    }
+  }
+}

@@ -37,8 +37,7 @@
           "fieldName": "sorting",
           "type": "string",
           "validation": {
-            "mandatory": true,
-            "minLength": 3
+            "mandatory": false
           }
         },
         {
