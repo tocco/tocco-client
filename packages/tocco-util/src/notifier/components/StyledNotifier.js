@@ -11,6 +11,11 @@ const wobbleHorizontal = keyframes`
   100%   { transform: translateX(0); }
 `
 
+const fadeIn = keyframes`
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+`
+
 const StyledNotifier = styled.div`
 && {
   .redux-toastr,
@@ -93,6 +98,13 @@ const StyledNotifier = styled.div`
     .redux-toastr .toastr-attention,
     .rrt-confirm-holder .shadow {
       background-color: ${props => theme('shadows.color')};
+    }
+
+    // blockingInfo
+    .redux-toastr .toastr-attention {
+      animation-name: ${fadeIn};
+      animation-duration: .7s;
+      will-change: transform;
     }
 
     .rrt-confirm-holder {

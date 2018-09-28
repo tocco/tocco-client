@@ -13,7 +13,7 @@ export const defaultToastrOptions = {
   position: 'top-right',
   progressBar: true,
   timeOut: 0,
-  transitionIn: 'bounceIn',
+  transitionIn: 'fadeIn',
   transitionOut: 'fadeOut'
 }
 

@@ -25,15 +25,17 @@ class ModalContent extends React.Component {
       title
     } = this.props
 
+    const {isClosing} = this.state
+
     return (
       <div className="rrt-confirm-holder">
-        <StyledModalContent isClosing={this.state.isClosing}>
+        <StyledModalContent isClosing={isClosing}>
           <TitleMessage title={title} message={message}>
             {closable && <button onClick={this.handleCloseClick} type="button" className="close-toastr">✕</button>}
             <this.props.component close={this.handleCloseClick}/>
           </TitleMessage>
         </StyledModalContent>
-        <div className="shadow"/>
+        <div className={`shadow animated ${isClosing ? 'fadeOut' : 'fadeIn'}`} />
       </div>
     )
   }
