@@ -17,6 +17,7 @@ global.sinon = sinon
 global.expect = chai.expect
 global.should = chai.should()
 
+global.fetch = fetch
 global.Response = fetch.Response
 global.Headers = fetch.Headers
 global.Request = fetch.Request
