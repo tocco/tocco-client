@@ -43,7 +43,10 @@ export function getConfirmationAction(title, message, okText, cancelText, onOk, 
     const buttons = [{
       label: okText,
       primary: true,
-      callback: onOk
+      callback: () => {
+        onOk()
+        close()
+      }
     }, {
       label: cancelText,
       callback: () => {
@@ -72,10 +75,16 @@ export function getYesNoAction(title, message, yesText, noText, cancelText, onYe
     const buttons = [{
       label: yesText,
       primary: true,
-      callback: onYes
+      callback: () => {
+        onYes()
+        close()
+      }
     }, {
       label: noText,
-      callback: onNo
+      callback: () => {
+        onNo()
+        close()
+      }
     }, {
       label: cancelText,
       callback: () => {
