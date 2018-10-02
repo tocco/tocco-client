@@ -15,18 +15,22 @@ const typeIconMap = {
   warning: 'exclamation'
 }
 
-export function getInfoAction(type, title, message, icon, timeOut) {
-  type = Object.keys(typeIconMap).includes(type) ? type : 'info'
+const isWarningOrError = type => type === 'warning' || type === 'error'
+const doesNotTimeOut = timeOut => !(timeOut > 0)
+const isNotWarningNorErrorAndDoesTimeOut = (type, timeOut) => type !== 'warning' && type !== 'error' && timeOut > 0
+
+export function getInfoAction(uncheckedType, title, message, icon, timeOut) {
+  const type = Object.keys(typeIconMap).includes(uncheckedType) ? uncheckedType : 'info'
 
   const options = {
     attention: false,
     component: () => <TitleMessage title={title} message={message}/>,
     icon: <Icon icon={icon || typeIconMap[type] || 'info'} size="3x" />,
     preventDuplicates: true,
-    removeOnHover: type !== 'warning' && type !== 'error' && timeOut > 0,
-    removeOnHoverTimeOut: type === 'warning' || type === 'error' ? 0 : timeOut,
-    showCloseButton: type === 'warning' || type === 'error' || !(timeOut > 0),
-    timeOut: type === 'warning' || type === 'error' ? 0 : timeOut,
+    removeOnHover: isNotWarningNorErrorAndDoesTimeOut(type, timeOut),
+    removeOnHoverTimeOut: isWarningOrError(type) ? 0 : timeOut,
+    showCloseButton: isWarningOrError(type) || doesNotTimeOut(timeOut),
+    timeOut: isWarningOrError(type) ? 0 : timeOut,
     transitionIn: 'bounceIn'
   }
 

@@ -10,11 +10,11 @@ const isKey = s => s && s.startsWith('client.')
 const Content = props => {
   const {content} = props
   return _isString(content)
-    ? <props.tag>{containsHtml(content)
+    ? containsHtml(content)
       ? <FormattedValue type="html" value={content}/>
       : isKey(content)
-        ? <FormattedMessage id={content}/>
-        : content}</props.tag>
+        ? <props.tag><FormattedMessage id={content}/></props.tag>
+        : <props.tag>{content}</props.tag>
     : content.type && content.type.displayName === 'FormattedMessage'
       ? <props.tag>{content}</props.tag>
       : content
