@@ -10,9 +10,9 @@ const longText = `Lorem ipsum dolor sit amet, at sed inermis intellegam scriptor
 Sit et meliore intellegam. Mel cu maluisset philosophia, pri et habeo oportere. Vis in purto verear luptatum, has
 ne graecis qualisque. Mei ei placerat incorrupte adversarium, eum rebum nonumy ut.`
 
-const TitleComponent = <Typography.H4>Main title <Typography.Small>additional byline</Typography.Small></Typography.H4>
+const title = <Typography.H4>Main title <Typography.Small>additional byline</Typography.Small></Typography.H4>
 
-const MessageComponent = <React.Fragment>
+const message = <React.Fragment>
   <Typography.P>Message
     <Typography.B> Line 1</Typography.B>
   </Typography.P>
@@ -32,7 +32,7 @@ class Example extends React.Component {
   }
 
   info2 = () => {
-    this.store.dispatch(notifier.info('info', TitleComponent, 'message line contains <b>html</b>'))
+    this.store.dispatch(notifier.info('info', title, 'message line contains <b>html</b>'))
   }
 
   success = () => {
@@ -60,8 +60,8 @@ class Example extends React.Component {
 
   yesNoQuestion = () => {
     this.store.dispatch(notifier.yesNoQuestion(
-      TitleComponent,
-      MessageComponent,
+      title,
+      message,
       'Yes text',
       'No text',
       'Cancel text',
