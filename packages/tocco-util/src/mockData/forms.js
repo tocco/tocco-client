@@ -4,9 +4,20 @@ export const setupForms = fetchMock => {
     require('./data/user_list_form.json')
   )
   fetchMock.get(
+    new RegExp('^.*?/nice2/rest/forms/User_withconstriction_list'),
+    require('./data/user_list_form.json')
+  )
+
+  fetchMock.get(
     new RegExp('^.*?/nice2/rest/forms/User_search$'),
     require('./data/user_search_form.json')
   )
+
+  fetchMock.get(
+    new RegExp('^.*?/nice2/rest/forms/User_withconstriction_search'),
+    404
+  )
+
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/forms/User_detail$'),
     require('./data/user_detail_form.json')
