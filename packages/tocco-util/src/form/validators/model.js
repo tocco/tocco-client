@@ -56,8 +56,48 @@ export const maxLengthValidator = (value, maxLength) => {
   return null
 }
 
+export const maxNumberValidator = (value, maxValue) => {
+  if (value && value > maxValue) {
+    return {
+      maxNumber: [
+        <FormattedMessage
+          key="syncValidationMaxNumber"
+          id="client.component.form.syncValidationMaxNumber"
+          values={{maxValue}}
+        />
+      ]
+    }
+  }
+
+  return null
+}
+
+export const postPointValidator = (value, limit) => {
+  if (value !== null && value !== undefined) {
+    const stringValue = value.toString()
+    if (stringValue.includes('.')) {
+      const decimalNumber = parseFloat(value.toString().split('.')[1])
+      if (decimalNumber && (decimalNumber.toString().length > limit)) {
+        return {
+          postPoint: [
+            <FormattedMessage
+              key="syncValidationPostPoint"
+              id="client.component.form.syncValidationPostPoint"
+              values={{limit}}
+            />
+          ]
+        }
+      }
+    }
+  }
+
+  return null
+}
+
 export default {
   mandatory: mandatoryValidator,
   minLength: minLengthValidator,
-  maxLength: maxLengthValidator
+  maxLength: maxLengthValidator,
+  maxNumber: maxNumberValidator,
+  postPoint: postPointValidator
 }

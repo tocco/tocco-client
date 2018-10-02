@@ -1,4 +1,10 @@
-import {mandatoryValidator, maxLengthValidator, minLengthValidator} from './model'
+import {
+  mandatoryValidator,
+  maxLengthValidator,
+  minLengthValidator,
+  maxNumberValidator,
+  postPointValidator
+} from './model'
 
 describe('tocco-util', () => {
   describe('form', () => {
@@ -97,6 +103,49 @@ describe('tocco-util', () => {
               const result = maxLengthValidator(invalidValue, MAX_LENGTH)
               expect(result).to.not.be.null
             })
+          })
+        })
+        describe('maxNumberValidator', () => {
+          test('should not return an error for submaximal values', () => {
+            const MAX_VALUE = 999999999999.99
+            const validValue = 123456.21
+
+            const result = maxNumberValidator(validValue, MAX_VALUE)
+            expect(result).to.be.null
+          })
+
+          test('should return an error for too large values', () => {
+            const MAX_VALUE = 999999999999.99
+            const invalidValue = 9999999999991
+
+            const result = maxNumberValidator(invalidValue, MAX_VALUE)
+            expect(result).to.not.be.null
+          })
+        })
+
+        describe('postPointValidator', () => {
+          test('should not return an error for submaximal decimal values', () => {
+            const MAX_DIGITS = 2
+            const validValue = 6.2
+
+            const result = postPointValidator(validValue, MAX_DIGITS)
+            expect(result).to.be.null
+          })
+
+          test('should return an error for too large decimal values', () => {
+            const MAX_DIGITS = 2
+            const invalidValue = 6.1234
+
+            const result = postPointValidator(invalidValue, MAX_DIGITS)
+            expect(result).to.not.be.null
+          })
+
+          test('should return null for integer', () => {
+            const MAX_DIGITS = 2
+            const validValue = 333
+
+            const result = postPointValidator(validValue, MAX_DIGITS)
+            expect(result).to.be.null
           })
         })
       })
