@@ -1,7 +1,6 @@
 import styled, {injectGlobal} from 'styled-components'
 import {theme} from 'styled-system'
 
-// eslint-disable-next-line chai-friendly/no-unused-expressions
 injectGlobal`
   .tocco-ui-theme.tether-select {
     z-index: 100000001;
