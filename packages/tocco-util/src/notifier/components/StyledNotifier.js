@@ -38,6 +38,10 @@ const StyledNotifier = styled.div`
       }
     }
 
+    .top-right {
+      z-index: 100000001;  // reset: react-redux-toastr (index.scss) - Stacking: Toaster > Modal > Blocker
+    }
+
     .toastr {
       min-height: 80px;  // reset: react-redux-toastr (index.scss)
       opacity: 1;  // reset: react-redux-toastr (index.scss)
@@ -108,7 +112,7 @@ const StyledNotifier = styled.div`
     }
 
     .rrt-confirm-holder {
-      z-index: 99999998;  // reset: react-redux-toastr (confirm.scss)
+      z-index: 100000000;  // reset: react-redux-toastr (index.scss) - Stacking: Toaster > Modal > Blocker
     }
   }
 
