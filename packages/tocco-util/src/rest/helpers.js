@@ -6,7 +6,7 @@ import {call} from 'redux-saga/effects'
  * Helper to fetch entities.
  *
  * @param entityName {String} Name of the entity
- * @param searchInputs {Object} An object which can contain the following options:
+ * @param options {Object} An object which can contain the following options:
  * - page {Number} Current page, needed to calculate offset. Default is undefined which means no offset.
  * - limit {Object} Maximum amount of entities to be retrieved
  * - orderBy {Array} Array of objects containing a field and order String. e.g. [{field: 'firstname', order: 'asc'}]

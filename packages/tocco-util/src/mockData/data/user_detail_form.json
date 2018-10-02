@@ -467,7 +467,8 @@
                         "id": "relUser",
                         "componentType": "field",
                         "dataType": "single-remote-field",
-                        "label": null
+                        "label": null,
+                        "formBase": "User_withconstriction"
                       }
                     ]
                   },

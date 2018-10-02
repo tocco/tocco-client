@@ -28,11 +28,12 @@ export const fieldDataSelector = (state, fieldName) => state.formData.relationEn
 
 const dataLoaded = fieldData => !!(fieldData && fieldData.data && fieldData.data.length > 0)
 
-const getFetchParams = options => (
+export const getFetchParams = options => (
   {
     ...(options.limit ? {limit: options.limit + 1} : {}),
     ...(options.searchTerm ? {searchInputs: {_search: options.searchTerm}} : {}),
     ...(options.orderBy ? {orderBy: options.orderBy} : {}),
+    ...(options.formBase ? {formName: `${options.formBase}_list`} : {}),
     fields: [],
     relations: []
   }

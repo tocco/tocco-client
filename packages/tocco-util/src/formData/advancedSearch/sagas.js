@@ -20,8 +20,8 @@ export default function* sagas() {
 export function* openAdvancedSearch({payload}) {
   const {listApp, onSelect, formField, modelField, value} = payload
   const {multi, targetEntity: entity} = modelField
-  const {id: fieldId, formBase = entity, label} = formField
-
+  const {id: fieldId, label, formBase: fieldFormBase} = formField
+  const formBase = fieldFormBase || entity
   const answerChannel = yield call(channel)
   const modalId = yield call(uuid)
   const advancedSearchTitle = yield select(textResourceSelector, 'client.common.advancedSearch')
