@@ -8,20 +8,20 @@ import {modalComponent} from './modules/actions'
 import ModalButtons from './modules/modalComponents/ModalButtons'
 import TitleMessage from './components/TitleMessage'
 
-export function getInfoAction(type, title, message, icon, timeOut) {
-  const typeIconMap = {
-    error: 'times',
-    info: 'info',
-    success: 'check',
-    warning: 'exclamation'
-  }
+const typeIconMap = {
+  error: 'times',
+  info: 'info',
+  success: 'check',
+  warning: 'exclamation'
+}
 
+export function getInfoAction(type, title, message, icon, timeOut) {
   type = Object.keys(typeIconMap).includes(type) ? type : 'info'
 
   const options = {
     attention: false,
     component: () => <TitleMessage title={title} message={message}/>,
-    icon: <Icon icon={icon || typeIconMap[type]} size="3x" />,
+    icon: <Icon icon={icon || typeIconMap[type] || 'info'} size="3x" />,
     preventDuplicates: true,
     removeOnHover: type !== 'warning' && type !== 'error' && timeOut > 0,
     removeOnHoverTimeOut: type === 'warning' || type === 'error' ? 0 : timeOut,
@@ -98,11 +98,11 @@ export function getYesNoAction(title, message, yesText, noText, cancelText, onYe
   )
 }
 
-export function getBlockingInfo(id, title, message, icon) {
+export function getBlockingInfo(id, title, message, iconName) {
   const options = {
     attention: true,
     component: () => <TitleMessage title={title} message={message}/>,
-    icon: icon ? <Icon icon={icon} size="3x" /> : <IconTocco size="3em" />,
+    icon: iconName ? <Icon icon={iconName} size="3x" spin /> : <IconTocco size="3em" />,
     onAttentionClick: () => {},
     preventDuplicates: true,
     showCloseButton: false,
