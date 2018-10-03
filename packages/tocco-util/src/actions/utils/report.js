@@ -70,8 +70,8 @@ export const getFormDefinition = (settingsDefinition, intl) => {
         'children': [
           {
             'componentType': 'field',
-            'dataType': field.type,
-            ...(field.defaultValue !== null ? {'defaultValue': field.defaultValue} : {}),
+            'dataType': field.dataType,
+            'defaultValue': field.defaultValue,
             'id': field.id,
             'label': field.label || field.description,
             'path': field.id
