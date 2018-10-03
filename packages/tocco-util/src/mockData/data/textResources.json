@@ -33,6 +33,11 @@
   "client.common.unexpectedError",
   "client.common.advancedSearch",
   "client.common.report.download",
+  "client.common.report.recipientSettings",
   "client.common.report.generalSettings",
-  "client.common.report.recipientSettings"
+  "client.common.report.failedGenerationTitle",
+  "client.common.report.failedGenerationMessage",
+  "client.common.report.successful",
+  "client.common.report.failed",
+  "client.common.report.inProgress"
 ]
