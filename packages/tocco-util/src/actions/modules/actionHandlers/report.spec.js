@@ -108,7 +108,7 @@ describe('tocco-util', () => {
               const generationResponse = {
                 headers: {get: () => pollUrl}
               }
-              const reportStatusResponse = {body: {reportStatus: 'completed'}}
+              const reportStatusResponse = {body: {status: 'completed'}}
 
               return expectSaga(handleReportGenerations, modalId, generationResponse)
                 .provide([
@@ -196,7 +196,7 @@ describe('tocco-util', () => {
 
           describe('checkReportStatusLoop', () => {
             test('should return response if status is not in_progress', () => {
-              const response = {body: {reportStatus: 'done'}}
+              const response = {body: {status: 'done'}}
               return expectSaga(checkReportStatusLoop, 'http://url')
                 .provide([
                   [matchers.call.fn(requestSaga), response]
@@ -206,7 +206,7 @@ describe('tocco-util', () => {
             })
 
             test('should check the status multiple times if still in progress', async() => {
-              const response = {body: {reportStatus: 'in_progress'}}
+              const response = {body: {status: 'in_progress'}}
               let counter = 0
 
               await expectSaga(checkReportStatusLoop, 'http://url')
