@@ -206,7 +206,7 @@
       "label": "Dateiid",
       "id": "fileid",
       "options": null,
-      "type": "string"
+      "dataType": "string"
     },
     {
       "defaultValue": null,
@@ -228,7 +228,7 @@
           "key": "archived_and_published"
         }
       ],
-      "type": "single-select-box"
+      "dataType": "single-select-box"
     },
     {
       "defaultValue": {"key": "de", "display": "Deutsch"},
@@ -254,7 +254,7 @@
           "key": "it"
         }
       ],
-      "type": "single-select-box"
+      "dataType": "single-select-box"
     },
     {
       "defaultValue": {"key": "tocco_standard", "display": "Tocco Standard"},
@@ -280,7 +280,7 @@
           "key": "correspondence_migration"
         }
       ],
-      "type": "single-select-box"
+      "dataType": "single-select-box"
     },
     {
       "defaultValue": false,
@@ -289,7 +289,7 @@
       "label": "Briefpapier",
       "id": "stationery",
       "options": null,
-      "type": "boolean"
+      "dataType": "boolean"
     },
     {
       "defaultValue": false,
@@ -298,12 +298,12 @@
       "label": null,
       "id": "afterReportFunction",
       "options": null,
-      "type": "boolean"
+      "dataType": "boolean"
     }
   ],
   "recipientSettings": [
     {
-      "type": "multi-select-box",
+      "dataType": "multi-select-box",
       "defaultValue": [],
       "label": "test",
       "id": "recipients",
@@ -315,7 +315,7 @@
       ]
     },
     {
-      "type": "multi-remote-field",
+      "dataType": "multi-remote-field",
       "defaultValue": [],
       "label": "Remote",
       "id": "recipients2",

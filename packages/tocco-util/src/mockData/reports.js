@@ -1,13 +1,13 @@
 export const setupReports = (fetchMock, entityStore, timeout = 2000) => {
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/reports/.*/settings*?'),
+    new RegExp('^.*?/nice2/rest/report/.*/settings*?'),
     require('./data/report_settings.json')
   )
 
   fetchMock.post(
-    new RegExp('^.*?/nice2/rest/reports/.*/generations*?'),
+    new RegExp('^.*?/nice2/rest/report/.*/generations*?'),
     url => {
-      const reportId = url.match(/^.*\/reports\/([a-zA-Z0-9_]+)/)[1]
+      const reportId = url.match(/^.*\/report\/([a-zA-Z0-9_]+)/)[1]
       if (reportId === 'invalid_settings_report') {
         return {
           status: 400,
@@ -22,7 +22,7 @@ export const setupReports = (fetchMock, entityStore, timeout = 2000) => {
         return {
           status: 202,
           headers: {
-            Location: `${__BACKEND_URL__}/nice2/rest/reports/${reportId}/generations/${generationId}`},
+            Location: `${__BACKEND_URL__}/nice2/rest/report/${reportId}/generations/${generationId}`},
           body: {}
         }
       }
@@ -30,9 +30,9 @@ export const setupReports = (fetchMock, entityStore, timeout = 2000) => {
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/reports/.*/generations/*?'),
+    new RegExp('^.*?/nice2/rest/report/.*/generations/*?'),
     url => {
-      const reportId = url.match(/^.*\/reports\/([a-zA-Z0-9_]+)/)[1]
+      const reportId = url.match(/^.*\/report\/([a-zA-Z0-9_]+)/)[1]
       const generationId = url.match(/^.*\/generations\/([a-zA-Z0-9_]+)/)[1]
       if (progressSimulator[generationId] === undefined) {
         startReportGeneration(generationId, reportId, timeout)
@@ -64,21 +64,27 @@ const startReportGeneration = (generationId, reportId, timeout) => {
 }
 
 const inProgressAnswer = {
-  reportStatus: 'in_progress',
-  owner: 'myuser'
+  body: {
+    status: 'in_progress',
+    owner: 'myuser'
+  }
 }
 
 const completedAnswer = {
-  _links: {
-    result: {
-      href: `${__BACKEND_URL__}/nice2/rest/entities/Output_job/33`
-    }
-  },
-  reportStatus: 'completed',
-  owner: 'myuser'
+  body: {
+    _links: {
+      result: {
+        href: `${__BACKEND_URL__}/nice2/rest/entities/Output_job/33`
+      }
+    },
+    status: 'completed',
+    owner: 'myuser'
+  }
 }
 
 const failedAnswer = {
-  reportStatus: 'failed',
-  owner: 'myuser'
+  body: {
+    status: 'failed',
+    owner: 'myuser'
+  }
 }
