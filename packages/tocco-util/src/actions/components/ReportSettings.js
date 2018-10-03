@@ -10,16 +10,20 @@ import {
   getModel,
   getFormDefinition,
   getGroupedValues,
-  reportSettingsDefinitionPropType
+  reportSettingsDefinitionPropType,
+  transformValues
 } from '../utils/report'
 import StyledReportSettings from './StyledReportSettings'
 
 class ReportSettings extends React.Component {
   constructor(props) {
     super(props)
+
+    this.customSettingsDefined
+      = props.settingsDefinition.customSettings && props.settingsDefinition.customSettings.entity
     this.state = {
       valid: false,
-      customSettingsValid: false
+      customSettingsValid: !this.customSettingsDefined
     }
   }
 
@@ -33,7 +37,7 @@ class ReportSettings extends React.Component {
 
   handleDownloadClick = () => {
     const groupedValues = {
-      ...getGroupedValues(this.props.settingsDefinition, this.state.values),
+      ...getGroupedValues(this.props.settingsDefinition, transformValues(this.state.values)),
       customSettingValues: this.state.customSettingValues
     }
 
@@ -61,13 +65,13 @@ class ReportSettings extends React.Component {
           onChange={({values, valid}) => { this.handleSettingsChange(values, valid) }}
           formData={getFormDataDefaults(settingsDefinition)}
         />
-        {settingsDefinition.customSettings
-          && <SimpleFormContainer
-            form={settingsDefinition.customSettings.form.form}
-            model={defaultModelTransformer(settingsDefinition.customSettings.entity)}
-            noButtons
-            onChange={({values, valid}) => { this.handleCustomSettingsChange(values, valid) }}
-          />
+        {this.customSettingsDefined
+        && <SimpleFormContainer
+          form={settingsDefinition.customSettings.form.form}
+          model={defaultModelTransformer(settingsDefinition.customSettings.entity)}
+          noButtons
+          onChange={({values, valid}) => { this.handleCustomSettingsChange(values, valid) }}
+        />
         }
         <DownloadButton/>
       </StyledReportSettings>

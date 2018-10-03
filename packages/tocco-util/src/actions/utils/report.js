@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import _reduce from 'lodash/reduce'
 
 const GROUP_GENERAL = 'generalSettings'
 const GROUP_RECIPIENT = 'recipientSettings'
@@ -17,6 +18,13 @@ export const getGroupedValues = (settingsDefinition, values) => {
     ...groupValues(GROUP_RECIPIENT)
   }
 }
+
+export const transformValues = values => (
+  _reduce(values, (result, value, key) => {
+    const newValue = value.key ? value.key : value
+    return {...result, [key]: newValue}
+  }, {})
+)
 
 export const getFormDataDefaults = settingsDefinition => {
   const extractDefaultValues = name =>
@@ -104,8 +112,8 @@ export const getFormDefinition = (settingsDefinition, intl) => {
 
 export const reportSettingsDefinitionPropType = PropTypes.shape({
   customSettings: PropTypes.shape({
-    form: PropTypes.object.isRequired,
-    entity: PropTypes.object.isRequired
+    form: PropTypes.object,
+    entity: PropTypes.object
   }),
   generalSettings: PropTypes.array,
   recipient: PropTypes.array,
