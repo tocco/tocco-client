@@ -10,6 +10,7 @@ const StyledBoxWrapper = styled('div')`
   && {
     max-width: calc(100vw - ${props => props.spacer}px - ${props => props.spacer}px);
     margin:  ${ARROW_WIDTH / 2}px 0;
+    z-index: 100000010;
   }
 `
 
