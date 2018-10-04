@@ -12,11 +12,13 @@ import {
   INFO
 } from '../../../notifier/modules/actions'
 import reportSaga, {
-  awaitSettingsSubmit, checkReportStatusLoop,
+  awaitSettingsSubmit,
   displayReportSettings,
   handleFailedGenerationsRequest, handleFailedReport,
-  handleReportGenerations, handleSuccessfulReport, downloadUrl
+  handleReportGenerations, handleSuccessfulReport
 } from './report'
+import download from '../../../download'
+import sagaHelpers from '../../../sagaHelpers'
 
 describe('tocco-util', () => {
   describe('actions', () => {
@@ -112,7 +114,7 @@ describe('tocco-util', () => {
 
               return expectSaga(handleReportGenerations, modalId, generationResponse)
                 .provide([
-                  [matchers.call(checkReportStatusLoop, pollUrl), reportStatusResponse],
+                  [matchers.call(sagaHelpers.checkStatusLoop, pollUrl, 'in_progress'), reportStatusResponse],
                   [matchers.call.fn(handleSuccessfulReport), undefined]
                 ])
                 .put.like({action: {type: REMOVE_MODAL_COMPONENT}})
@@ -132,7 +134,7 @@ describe('tocco-util', () => {
 
               return expectSaga(handleReportGenerations, modalId, generationResponse)
                 .provide([
-                  [matchers.call(checkReportStatusLoop, pollUrl), reportStatusResponse],
+                  [matchers.call(sagaHelpers.checkStatusLoop, pollUrl, 'in_progress'), reportStatusResponse],
                   [matchers.call.fn(handleFailedReport), undefined]
                 ])
                 .put.like({action: {type: BLOCKING_INFO}})
@@ -167,7 +169,7 @@ describe('tocco-util', () => {
                 .provide([
                   [matchers.call.fn(requestSaga), outputJob]
                 ])
-                .call(downloadUrl, binaryLink, fileName)
+                .call(download.downloadUrl, binaryLink, fileName)
                 .run()
             })
           })
@@ -191,36 +193,6 @@ describe('tocco-util', () => {
               return expectSaga(handleFailedGenerationsRequest, modalId, generationsResponse)
                 .put.like({action: {type: INFO}})
                 .run()
-            })
-          })
-
-          describe('checkReportStatusLoop', () => {
-            test('should return response if status is not in_progress', () => {
-              const response = {body: {status: 'done'}}
-              return expectSaga(checkReportStatusLoop, 'http://url')
-                .provide([
-                  [matchers.call.fn(requestSaga), response]
-                ])
-                .returns(response)
-                .run()
-            })
-
-            test('should check the status multiple times if still in progress', async() => {
-              const response = {body: {status: 'in_progress'}}
-              let counter = 0
-
-              await expectSaga(checkReportStatusLoop, 'http://url')
-                .provide({
-                  call(effect) {
-                    if (effect.fn === requestSaga) {
-                      ++counter
-                      return response
-                    }
-                  }
-                })
-                .silentRun(2000)
-
-              expect(counter).to.eql(3)
             })
           })
         })
