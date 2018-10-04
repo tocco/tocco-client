@@ -11,7 +11,7 @@ const BoolEdit = props => {
   return (
     <input
       type="checkbox"
-      checked={props.value}
+      checked={props.value || false}
       name={props.name}
       onChange={handleChange}
       id={props.id}

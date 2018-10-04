@@ -15,11 +15,13 @@ export const tooltipSelector = (state, entityName, id) =>
   _get(state, `formData.tooltips.data.${entityName}.${id}`, null)
 
 export function* loadToolTip({payload: {entity, id}}) {
-  const tooltip = yield select(tooltipSelector, entity, id)
+  if (entity) {
+    const tooltip = yield select(tooltipSelector, entity, id)
 
-  if (tooltip == null) {
-    const response = yield call(requestSaga, `entity/${entity}/${id}/display/tooltip`, {})
-    const {display} = response.body
-    yield put(tooltipActions.setToolTip(entity, id, display))
+    if (tooltip == null) {
+      const response = yield call(requestSaga, `entity/${entity}/${id}/display/tooltip`, {})
+      const {display} = response.body
+      yield put(tooltipActions.setToolTip(entity, id, display))
+    }
   }
 }

@@ -123,6 +123,20 @@ describe('tocco-util', () => {
                 })
             })
           })
+          describe('fetch params helper', () => {
+            test('should return form fetch list params', () => {
+              const options = {
+                formBase: 'User_with_constrictions'
+              }
+              const result = sagas.getFetchParams(options)
+              const expectedFetchParams = {
+                formName: `${options.formBase}_list`,
+                fields: [],
+                relations: []
+              }
+              expect(result).to.eql(expectedFetchParams)
+            })
+          })
         })
       })
     })
