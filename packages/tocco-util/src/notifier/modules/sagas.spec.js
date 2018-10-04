@@ -127,16 +127,15 @@ describe('tocco-util', () => {
           const id = Date.now()
           const title = 'ttl'
           const message = 'msg'
-          const icon = 'heart'
 
-          const questionAction = actions.blockingInfo(id, title, message, icon)
+          const questionAction = actions.blockingInfo(id, title, message)
 
           const generator = sagas.handleBlockingInfo(questionAction)
 
           const resultAction = {TYPE: 'something'}
 
           expect(generator.next().value).to.deep.equal(
-            call(getBlockingInfo, id, title, message, icon)
+            call(getBlockingInfo, id, title, message)
           )
           expect(generator.next(resultAction).value).to.deep.equal(put(resultAction))
 

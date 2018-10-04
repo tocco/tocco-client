@@ -50,13 +50,12 @@ export const removeBlockingInfo = id => ({
   }
 })
 
-export const blockingInfo = (id, title, message, icon) => ({
+export const blockingInfo = (id, title, message) => ({
   type: BLOCKING_INFO,
   payload: {
     id,
     title,
-    message,
-    icon
+    message
   }
 })
 

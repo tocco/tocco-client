@@ -111,11 +111,11 @@ export function getYesNoAction(title, message, yesText, noText, cancelText, onYe
   )
 }
 
-export function getBlockingInfo(id, title, message, iconName) {
+export function getBlockingInfo(id, title, message) {
   const options = {
     attention: true,
     component: () => <TitleMessage title={title} message={message}/>,
-    icon: iconName ? <Icon icon={iconName} size="3x" spin /> : <IconTocco size="3em" />,
+    icon: <IconTocco size="3em" />,
     onAttentionClick: () => {},
     preventDuplicates: true,
     showCloseButton: false,

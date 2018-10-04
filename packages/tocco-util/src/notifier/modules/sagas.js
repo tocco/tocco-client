@@ -52,9 +52,9 @@ export function* handleYesNoQuestion({payload}) {
 }
 
 export function* handleBlockingInfo({payload}) {
-  const {id, title, message, icon} = payload
+  const {id, title, message} = payload
 
-  const action = yield call(getBlockingInfo, id, title, message, icon)
+  const action = yield call(getBlockingInfo, id, title, message)
   yield put(action)
 }
 

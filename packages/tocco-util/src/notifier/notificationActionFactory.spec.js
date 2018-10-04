@@ -117,7 +117,7 @@ describe('tocco-util', () => {
       })
 
       test('should return an action', () => {
-        const action = getBlockingInfo('id', 'title', 'message', 'heart')
+        const action = getBlockingInfo('id', 'title', 'message')
         expect(action).to.have.property('type')
       })
     })
@@ -131,11 +131,6 @@ describe('tocco-util', () => {
       test('should display default icon', () => {
         const action = getBlockingInfo('id', 'title', 'message')
         expect(action.payload.options.icon.type).to.equal(IconTocco)
-      })
-
-      test('should replace default icon', () => {
-        const action = getBlockingInfo('id', 'title', 'message', 'thumbs-up')
-        expect(action.payload.options.icon.props.icon).to.equal('thumbs-up')
       })
     })
   })
