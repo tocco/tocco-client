@@ -26,7 +26,7 @@ cache:
 
 install:
   - yarn setup
-  - lerna run --parallel prepublish
+  - travis_wait lerna bootstrap --concurrency=1 --mutex network
 
 script:
   - npm run lint
