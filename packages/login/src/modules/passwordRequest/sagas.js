@@ -19,9 +19,8 @@ export function* requestPasswordSaga({payload}) {
   yield put(setPending(false))
 }
 
-export function* requestUsernameSaga({payload}) {
-  if (payload.username) {
-    yield put(actions.setUsername(payload.username))
+export function* passwordRequestSaga({payload}) {
+  if (payload.passwordRequest === true) {
     yield put(changePage(Pages.PASSWORD_REQUEST))
   }
 }
@@ -29,6 +28,6 @@ export function* requestUsernameSaga({payload}) {
 export default function* saga() {
   yield all([
     fork(takeLatest, actions.REQUEST_PASSWORD, requestPasswordSaga),
-    fork(takeLatest, actions.REQUEST_USERNAME, requestUsernameSaga)
+    fork(takeLatest, actions.PASSWORD_REQUEST, passwordRequestSaga)
   ])
 }

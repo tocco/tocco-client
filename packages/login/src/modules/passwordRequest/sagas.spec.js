@@ -19,7 +19,7 @@ describe('login', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal(all([
               fork(takeLatest, actions.REQUEST_PASSWORD, sagas.requestPasswordSaga),
-              fork(takeLatest, actions.REQUEST_USERNAME, sagas.requestUsernameSaga)
+              fork(takeLatest, actions.PASSWORD_REQUEST, sagas.passwordRequestSaga)
             ]))
             expect(generator.next().done).to.equal(true)
           })
@@ -42,18 +42,17 @@ describe('login', () => {
           })
         })
 
-        describe('setRequestUsernameSaga', () => {
-          test('should request username', () => {
-            const input = {payload: {username: 'user1'}}
-            const gen = sagas.requestUsernameSaga(input)
-            expect(gen.next().value).to.eql(put(actions.setUsername(input.payload.username)))
+        describe('passwordRequestSaga', () => {
+          test('should provide username in password request dialog', () => {
+            const input = {payload: {passwordRequest: true}}
+            const gen = sagas.passwordRequestSaga(input)
 
             expect(gen.next(input).value).to.eql(put(changePage(Pages.PASSWORD_REQUEST)))
             expect(gen.next().done).to.eql(true)
           })
           test('should do nothing if no usernameRequest is defined', () => {
-            const input = {payload: {username: ''}}
-            const gen = sagas.requestUsernameSaga(input)
+            const input = {payload: {passwordRequest: false}}
+            const gen = sagas.passwordRequestSaga(input)
             expect(gen.next().done).to.eql(true)
           })
         })

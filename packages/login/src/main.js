@@ -3,6 +3,7 @@ import {appFactory, consoleLogger, externalEvents, errorLogging} from 'tocco-uti
 
 import * as passwordUpdate from './modules/passwordUpdate/dialog/actions'
 import * as passwordRequest from './modules/passwordRequest/actions'
+import * as login from './modules/login/actions'
 import LoginContainer from './containers/LoginContainer'
 import PasswordUpdateDialog from './containers/PasswordUpdateDialogContainer'
 import loginReducers, {sagas} from './modules/reducers'
@@ -10,12 +11,12 @@ import loginReducers, {sagas} from './modules/reducers'
 const packageName = 'login'
 
 const initLoginApp = (id, input, events, publicPath, customTheme) => {
-  const {requestUsername} = input
   const actions = [
     passwordUpdate.setShowOldPasswordField(false),
     passwordUpdate.setForcedUpdate(true),
     passwordUpdate.setStandalone(false),
-    passwordRequest.setRequestUsername(requestUsername)
+    passwordRequest.setPasswordRequest(input.passwordRequest),
+    login.setUsername(input.username)
   ]
 
   const showTitle = !!input.showTitle

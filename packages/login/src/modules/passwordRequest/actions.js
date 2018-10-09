@@ -1,5 +1,5 @@
 export const REQUEST_PASSWORD = 'Login/REQUEST_PASSWORD'
-export const REQUEST_USERNAME = 'Login/REQUEST_USERNAME'
+export const PASSWORD_REQUEST = 'Login/PASSWORD_REQUEST'
 export const SET_USERNAME = 'Login/SET_USERNAME'
 
 export const requestPassword = username => ({
@@ -9,10 +9,10 @@ export const requestPassword = username => ({
   }
 })
 
-export const setRequestUsername = username => ({
-  type: REQUEST_USERNAME,
+export const setPasswordRequest = passwordRequest => ({
+  type: PASSWORD_REQUEST,
   payload: {
-    username
+    passwordRequest
   }
 })
 

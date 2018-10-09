@@ -27,7 +27,8 @@ React-registry name: `login`
 |------------------------|:---------:|-------------
 | `showTitle`            |           | Display a title above the dialog.
 | `locale`               |           | ISO Language Code
-| `requestUsername`      |           | Option to open login app in reset mode with pre-filled username. 
+| `passwordRequest`      |           | Boolean to open login app in reset mode. 
+| `username`             |           | Open login app with pre-filled username. 
 
 ### Methods
 
