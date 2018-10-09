@@ -8,6 +8,8 @@ import {Pages} from '../../types/Pages'
 
 import {call, put, select, fork, takeLatest, all} from 'redux-saga/effects'
 
+export const inputSelector = state => state.input
+
 describe('login', () => {
   describe('modules', () => {
     describe('passwordRequest', () => {
@@ -16,7 +18,8 @@ describe('login', () => {
           test('should fork child sagas', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal(all([
-              fork(takeLatest, actions.REQUEST_PASSWORD, sagas.requestPasswordSaga)
+              fork(takeLatest, actions.REQUEST_PASSWORD, sagas.requestPasswordSaga),
+              fork(takeLatest, actions.REQUEST_USERNAME, sagas.requestUsernameSaga)
             ]))
             expect(generator.next().done).to.equal(true)
           })
@@ -36,6 +39,22 @@ describe('login', () => {
             expect(generator.next().value).to.deep.equal(put(changePage(Pages.LOGIN_FORM)))
             expect(generator.next().value).to.deep.equal(put(setPending(false)))
             expect(generator.next().done).to.equal(true)
+          })
+        })
+
+        describe('setRequestUsernameSaga', () => {
+          test('should request username', () => {
+            const input = {payload: {username: 'user1'}}
+            const gen = sagas.requestUsernameSaga(input)
+            expect(gen.next().value).to.eql(put(actions.setUsername(input.payload.username)))
+
+            expect(gen.next(input).value).to.eql(put(changePage(Pages.PASSWORD_REQUEST)))
+            expect(gen.next().done).to.eql(true)
+          })
+          test('should do nothing if no usernameRequest is defined', () => {
+            const input = {payload: {username: ''}}
+            const gen = sagas.requestUsernameSaga(input)
+            expect(gen.next().done).to.eql(true)
           })
         })
       })
