@@ -13,8 +13,8 @@ describe('tocco-ui', () => {
             .then(() => expect(wrapper.text()).to.equal('+41 44 388 60 00'))
         })
 
-        test('should show original string if its not a valid phonenumber', () => {
-          const invalidPhoneNumber = '+123 456'
+        test('should show original string if its not a valid phone number', () => {
+          const invalidPhoneNumber = '+41 4438860011111110'
           const wrapper = shallow(<PhoneFormatter value={invalidPhoneNumber}/>)
           return wrapper.instance().importLibPhoneNumber()
             .then(() => expect(wrapper.text()).to.equal(invalidPhoneNumber))

@@ -14,11 +14,19 @@ class PhoneFormatter extends React.Component {
     this.setState({libPhoneImport})
   }
 
+  getFormattedInput = () => {
+    const {libPhoneImport} = this.state
+    const {value} = this.props
+    if (libPhoneImport) {
+      const parsed = libPhoneImport.parseNumber(value)
+      return _isEmpty(parsed) ? value : libPhoneImport.formatNumber(parsed, 'International')
+    } else {
+      return value
+    }
+  }
+
   render() {
-    const libPhoneImport = this.state.libPhoneImport
-    const parsed = libPhoneImport ? libPhoneImport.parseNumber(this.props.value) : this.props.value
-    const formattedNumber = libPhoneImport ? libPhoneImport.formatNumber(parsed, 'International') : parsed
-    return (<span>{_isEmpty(parsed) ? parsed : formattedNumber}</span>)
+    return <span>{this.getFormattedInput()}</span>
   }
 }
 
