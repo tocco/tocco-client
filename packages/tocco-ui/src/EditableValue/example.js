@@ -114,28 +114,20 @@ class Example extends React.Component {
   }
 
   createOptions = (amount, input) => {
-    const options = []
+    const display = input || 'Entity'
 
-    if (input) {
-      for (let i = 0; i < amount; i++) {
-        options.push({key: i, display: `${input} ${i}`})
-      }
+    const options = []
+    for (let i = 0; i < amount; i++) {
+      options.push({key: i, display: `${display} ${i}`})
     }
 
     return options
   }
 
-  fetchRemoteOptions = searchTerm => {
+  fetchOptions = field => searchTerm => {
     this.setState({
       ...this.state,
-      remoteOptions: this.createOptions(10, searchTerm)
-    })
-  }
-
-  fetchMultiRemoteOptions = searchTerm => {
-    this.setState({
-      ...this.state,
-      multiRemoteOptions: this.createOptions(5, searchTerm)
+      [`${field}Options`]: this.createOptions(searchTerm ? 3 : 10, searchTerm)
     })
   }
 
@@ -283,7 +275,7 @@ class Example extends React.Component {
                 <EditableValue
                   type="single-select"
                   options={{
-                    store: [
+                    options: [
                       {key: 1, display: 'One'},
                       {key: 2, display: 'Two'},
                       {key: 3, display: 'Three'}
@@ -303,7 +295,7 @@ class Example extends React.Component {
                   value={this.state.values.multiSelect}
                   onChange={v => this.changeValue('multiSelect', v)}
                   options={{
-                    store: [{key: 'a', display: 'One'}, {key: 'b', display: 'Two'},
+                    options: [{key: 'a', display: 'One'}, {key: 'b', display: 'Two'},
                       {key: 'c', display: 'Three'}, {key: 'd', display: 'Four'}]
                   }}
                   readOnly={this.state.readOnly}
@@ -319,9 +311,8 @@ class Example extends React.Component {
                   readOnly={this.state.readOnly}
                   value={this.state.values.remote}
                   options={{
-                    fetchOptions: this.fetchRemoteOptions,
-                    searchPromptText: 'Type to search',
-                    clearValueText: 'Clear value',
+                    fetchOptions: this.fetchOptions('remote'),
+                    searchOptions: this.fetchOptions('remote'),
                     options: this.state.remoteOptions,
                     moreOptionsAvailable: true,
                     moreOptionsAvailableText: 'More Options available'
@@ -339,9 +330,8 @@ class Example extends React.Component {
                   value={this.state.values.multiRemote}
                   options={{
                     options: this.state.multiRemoteOptions,
-                    fetchOptions: this.fetchMultiRemoteOptions,
-                    searchPromptText: 'Type to search',
-                    clearAllText: 'Clear all values',
+                    fetchOptions: this.fetchOptions('multiRemote'),
+                    searchOptions: this.fetchOptions('multiRemote'),
                     moreOptionsAvailable: true,
                     moreOptionsAvailableText: 'More Options available'
                   }}

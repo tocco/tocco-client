@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import typeEditorFactory, {map as typeEditorFactoryMap} from './typeEditorFactory'
-import StyledEditableValue, {StyledGlobalEditableValue} from './StyledEditableValue'
+import StyledEditableValue from './StyledEditableValue'
 
 /**
  *  To edit values of given type.
@@ -23,7 +23,6 @@ const EditableValue = props => {
           )
         }
       </StyledEditableValue>
-      <StyledGlobalEditableValue />
     </React.Fragment>
   )
 }
