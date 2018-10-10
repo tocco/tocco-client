@@ -93,6 +93,10 @@ import UploadRaw from '!raw-loader!../../tocco-ui/src/Upload/Upload'
 import UploadExample from '../../tocco-ui/src/Upload/example'
 import UploadExampleRaw from '!raw-loader!../../tocco-ui/src/Upload/example'
 
+import SelectRaw from '!raw-loader!../../tocco-ui/src/Select/Select'
+import SelectExample from '../../tocco-ui/src/Select/example'
+import SelectExampleRaw from '!raw-loader!../../tocco-ui/src/Select/example'
+
 const categories = {
   DISPLAY_DATA: 'Display Data',
   EDIT_DATA: 'Edit Data',
@@ -155,6 +159,13 @@ export default [{
     example: {
       component: FormFieldExample,
       raw: FormFieldExampleRaw
+    }
+  }, {
+    name: 'Select',
+    raw: SelectRaw,
+    example: {
+      component: SelectExample,
+      raw: SelectExampleRaw
     }
   }, {
     name: 'Upload',
