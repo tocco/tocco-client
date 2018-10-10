@@ -1,7 +1,6 @@
 import React from 'react'
 import {EditableValue} from 'tocco-ui'
 import _get from 'lodash/get'
-import _mergeWith from 'lodash/mergeWith'
 
 const settings = {
   REMOTE_SEARCH_RESULT_LIMIT: 50,
@@ -13,10 +12,8 @@ const settings = {
 export default type =>
   (formField, modelField, props, events, utils) => {
     const options = getOptions(type, formField, modelField, utils)
-    const editableValueEvents = getEvents(type, formField, modelField, utils)
-    const mergedEvents = mergeEvents(events, editableValueEvents)
 
-    return <EditableValue type={type} events={mergedEvents} {...props} options={options}/>
+    return <EditableValue type={type} events={events} {...props} options={options}/>
   }
 
 const getOptions = (type, formField, modelField, utils) => {
@@ -25,7 +22,7 @@ const getOptions = (type, formField, modelField, utils) => {
   switch (type) {
     case 'single-select':
     case 'multi-select':
-      options.store = _get(utils, ['relationEntities', formField.id, 'data'], [])
+      options.options = _get(utils, ['relationEntities', formField.id, 'data'], [])
       options.isLoading = _get(utils, ['relationEntities', formField.id, 'isLoading'], false)
       options.tooltips = _get(utils.tooltips, modelField.targetEntity, null)
       options.loadTooltip = id => utils.loadTooltip(modelField.targetEntity, id)
@@ -33,6 +30,12 @@ const getOptions = (type, formField, modelField, utils) => {
       if (utils.intl) {
         options.noResultsText = utils.intl.formatMessage({id: 'client.component.remoteselect.noResultsText'})
       }
+
+      options.fetchOptions = () => utils.loadRelationEntities(formField.id, modelField.targetEntity, {
+        forceReload: false,
+        limit: settings.SELECT_LIMIT
+      })
+
       break
     case 'remote':
     case 'multi-remote':
@@ -46,8 +49,8 @@ const getOptions = (type, formField, modelField, utils) => {
         sorting: [{field: settings.REMOTE_SUGGESTION_ORDER_FIELD, order: 'desc'}],
         formBase: formField.formBase
       })
-      options.searchOptions = search => utils.loadRelationEntities(formField.id, modelField.targetEntity, {
-        search,
+      options.searchOptions = searchTerm => utils.loadRelationEntities(formField.id, modelField.targetEntity, {
+        searchTerm,
         limit: settings.REMOTE_SEARCH_RESULT_LIMIT,
         forceReload: true,
         formBase: formField.formBase
@@ -58,12 +61,18 @@ const getOptions = (type, formField, modelField, utils) => {
       options.loadTooltip = id => utils.loadTooltip(modelField.targetEntity, id)
 
       if (utils.intl) {
-        options.searchPromptText = utils.intl.formatMessage({id: 'client.component.remoteselect.searchPromptText'})
-        options.clearValueText = utils.intl.formatMessage({id: 'client.component.remoteselect.clearValueText'})
-        options.clearAllText = utils.intl.formatMessage({id: 'client.component.remoteselect.clearAllText'})
         options.noResultsText = utils.intl.formatMessage({id: 'client.component.remoteselect.noResultsText'})
         options.moreOptionsAvailableText = utils.intl.formatMessage(
           {id: 'client.component.remoteselect.moreOptionsAvailableText'})
+      }
+      break
+    case 'search-filter':
+      options.isMulti = formField.multiple
+      options.options = utils.searchFilters
+      options.fetchOptions = () => utils.loadSearchFilters(formField.model, formField.group)
+
+      if (utils.intl) {
+        options.noResultsText = utils.intl.formatMessage({id: 'client.component.searchfilter.noResultsText'})
       }
       break
     case 'document':
@@ -73,13 +82,6 @@ const getOptions = (type, formField, modelField, utils) => {
       options.uploadingText = utils.intl.formatMessage({id: 'client.component.upload.uploading'})
       options.downloadText = utils.intl.formatMessage({id: 'client.component.upload.downloadTitle'})
       options.deleteText = utils.intl.formatMessage({id: 'client.component.upload.deleteTitle'})
-      break
-    case 'search-filter':
-      options.field = formField.id
-      options.model = formField.model
-      options.multi = formField.multiple ? formField.multiple : false
-      options.store = utils.searchFilters
-      options.onChange = utils.onChange
       break
     case 'phone':
       options.customPhoneRegex = modelField.customPhoneRegex
@@ -113,37 +115,3 @@ const getOptions = (type, formField, modelField, utils) => {
 
   return options
 }
-
-const getEvents = (type, field, modelField, util) => {
-  const events = {}
-
-  switch (type) {
-    case 'single-select':
-    case 'multi-select':
-      if (util.loadRelationEntities) {
-        events.onFocus = () => {
-          util.loadRelationEntities(field.id, modelField.targetEntity, {
-            forceReload: false,
-            limit: settings.SELECT_LIMIT
-          })
-        }
-      }
-      break
-    case 'search-filter':
-      if (util.loadSearchFilters) {
-        events.onFocus = () => {
-          util.loadSearchFilters(field.model, field.group)
-        }
-      }
-  }
-
-  return events
-}
-
-const mergeEvents = (eventObject1, eventObject2) => (
-  _mergeWith(eventObject1, eventObject2, (event1, event2) =>
-    () => {
-      if (event1) event1()
-      if (event2) event2()
-    }
-  ))
