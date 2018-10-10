@@ -46,61 +46,9 @@ describe('app-extensions', () => {
         const options = wrapper.prop('options')
 
         expect(options.isLoading).to.be.false
-        expect(options.searchPromptText).to.eql('client.component.remoteselect.searchPromptText')
+        expect(options.noResultsText).to.eql('client.component.remoteselect.noResultsText')
       })
 
-      test('should merge events', () => {
-        const factory = editableValueFactory('single-select')
-
-        const focusSpy = sinon.spy()
-        const events = {
-          onFocus: focusSpy
-        }
-
-        const loadUtilSpy = sinon.spy()
-        const util = {
-          loadRelationEntities: loadUtilSpy,
-          intl: {
-            formatMessage: v => (v.id)
-          }
-        }
-
-        const editableValue = factory({}, {}, {}, events, util)
-
-        const wrapper = mount(editableValue)
-
-        wrapper.find('input').first().simulate('focus')
-
-        expect(focusSpy).to.have.calledOnce
-        expect(loadUtilSpy).to.have.calledOnce
-      })
-
-      test('should load search filters', () => {
-        const factory = editableValueFactory('search-filter')
-
-        const focusSpy = sinon.spy()
-        const events = {
-          onFocus: focusSpy
-        }
-
-        const loadSearchFiltersSpy = sinon.spy()
-        const util = {
-          loadSearchFilters: loadSearchFiltersSpy,
-          intl: {
-            formatMessage: v => (v.id)
-          }
-        }
-
-        const props = {onChange: () => {}}
-        const editableValue = factory({}, {}, props, events, util)
-
-        const wrapper = mount(editableValue)
-
-        wrapper.find('input').first().simulate('focus')
-
-        expect(focusSpy).to.have.calledOnce
-        expect(loadSearchFiltersSpy).to.have.calledOnce
-      })
       test('should should format message to hours and minutes label', () => {
         const factory = editableValueFactory('duration')
         const util = {
