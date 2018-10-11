@@ -2,7 +2,7 @@ import React from 'react'
 import {channel} from 'redux-saga'
 import uuid from 'uuid/v4'
 
-import {requestSaga} from '../../../rest'
+import {requestSaga, fetchEntity} from '../../../rest'
 import notifier from '../../../notifier'
 import ReportSettings from '../../components/ReportSettings'
 import download from '../../../download'
@@ -73,9 +73,9 @@ export function* handleReportGenerations(settingsModalId, generationsResponse) {
 }
 
 export function* handleSuccessfulReport(completed) {
-  const result = completed.body._links.result
-  const outputJob = yield call(requestSaga, result.href, {queryParams: {_paths: 'document'}})
-  const {fileName, binaryLink} = outputJob.body.paths.document.value.value
+  const outputJobId = completed.body.outputJobId
+  const outputJob = yield call(fetchEntity, 'Output_job', outputJobId, {paths: ['document']})
+  const {fileName, binaryLink} = outputJob.paths.document.value.value
   yield call(download.downloadUrl, binaryLink, fileName)
   yield put(notifier.info('success', 'client.common.report.successful', null))
 }

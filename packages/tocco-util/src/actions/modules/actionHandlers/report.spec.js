@@ -3,7 +3,7 @@ import * as matchers from 'redux-saga-test-plan/matchers'
 import {channel} from 'redux-saga'
 import uuid from 'uuid/v4'
 
-import {requestSaga} from '../../../rest'
+import {requestSaga, fetchEntity} from '../../../rest'
 import {
   MODAL_COMPONENT,
   REMOVE_MODAL_COMPONENT,
@@ -146,19 +146,17 @@ describe('tocco-util', () => {
 
           describe('handleSuccessfulReport', () => {
             test('should retrieve output job and call downloadUrl', () => {
-              const completedResponse = {body: {_links: {result: 'http://someurltogetresult.ch/'}}}
+              const completedResponse = {body: {outputJobId: '33'}}
               const binaryLink = 'http://linktofile/report.pdf'
               const fileName = 'report.pdf'
 
               const outputJob = {
-                body: {
-                  paths: {
-                    document: {
+                paths: {
+                  document: {
+                    value: {
                       value: {
-                        value: {
-                          fileName,
-                          binaryLink
-                        }
+                        fileName,
+                        binaryLink
                       }
                     }
                   }
@@ -167,7 +165,7 @@ describe('tocco-util', () => {
 
               return expectSaga(handleSuccessfulReport, completedResponse)
                 .provide([
-                  [matchers.call.fn(requestSaga), outputJob]
+                  [matchers.call.fn(fetchEntity), outputJob]
                 ])
                 .call(download.downloadUrl, binaryLink, fileName)
                 .run()
