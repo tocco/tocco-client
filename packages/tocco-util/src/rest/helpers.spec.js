@@ -1,5 +1,9 @@
-import * as helpers from './helpers'
+
+import {expectSaga} from 'redux-saga-test-plan'
+import * as matchers from 'redux-saga-test-plan/matchers'
+
 import {requestSaga} from './rest'
+import * as helpers from './helpers'
 
 import {call} from 'redux-saga/effects'
 
@@ -65,6 +69,23 @@ describe('toccoutil', () => {
               expect(params).to.eql(expectedParams)
             }
           )
+        })
+
+        describe('fetchEntity', () => {
+          test('should call fetch', async() => {
+            const params = {
+              paths: ['firstname', 'lastname'],
+              forms: 'User_detail'
+            }
+            const reponseEntity = {paths: {fistname: 'Jack'}}
+
+            await expectSaga(helpers.fetchEntity, 'User', '1', {...params})
+              .provide([
+                [matchers.call.fn(requestSaga), {body: reponseEntity}]
+              ])
+              .returns(reponseEntity)
+              .run()
+          })
         })
 
         describe('fetchEntities', () => {
