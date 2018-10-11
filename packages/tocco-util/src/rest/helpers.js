@@ -3,6 +3,24 @@ import {requestSaga} from './rest'
 import {call} from 'redux-saga/effects'
 
 /**
+ * Helper to fetch a single entity
+ *
+ * @param entityName {String} Name of the entity
+ * @param key {String} key of the entity
+ * @param options {Object} An object which can contain the following options:
+ * - paths {Array} Paths that should be returned
+ * - fields {Array} Fields that should be returned
+ * - relations {String} Relations that should be returned
+ * - formName {String} Name of the form, needed to resolve display expressions and such
+ * @param transformer {function} Function to directly manipulate the result. By default returns data attribute
+ */
+export function* fetchEntity(entityName, key, options, transformer = json => json) {
+  const queryParams = yield call(buildParams, options)
+  const resp = yield call(requestSaga, `entities/${entityName}/${key}`, {queryParams})
+  return yield call(transformer, resp.body)
+}
+
+/**
  * Helper to fetch entities.
  *
  * @param entityName {String} Name of the entity
