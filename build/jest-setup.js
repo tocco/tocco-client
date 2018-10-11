@@ -26,6 +26,7 @@ setupIntlPolyfill()
 chai.use(chaiEnzyme())
 chai.use(sinonChai)
 chai.use(chaiAsPromised)
+chai.config.truncateThreshold = 0
 
 const error = console.error
 console.error = function(warning, ...args) {
