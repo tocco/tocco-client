@@ -47,7 +47,7 @@ export const setupReports = (fetchMock, entityStore, timeout = 2000) => {
     url => {
       const id = url.match(/^.*\/Output_job\/([a-zA-Z0-9]+)/)[1]
       const outputJob = require('./data/output_job')
-      return JSON.parse(JSON.stringify(outputJob).replace(/{id}/g, id).replace(/{date}/g, new Date().toJSON()))
+      return {body: JSON.parse(JSON.stringify(outputJob).replace(/{id}/g, id).replace(/{date}/g, new Date().toJSON()))}
     }
   )
 }
@@ -74,11 +74,12 @@ const completedAnswer = {
   body: {
     _links: {
       result: {
-        href: `${__BACKEND_URL__}/nice2/rest/entities/Output_job/33`
+        href: `${__BACKEND_URL__}/nice2/rest/entities/ /33`
       }
     },
     status: 'completed',
-    owner: 'myuser'
+    owner: 'myuser',
+    outputJobId: 33
   }
 }
 
