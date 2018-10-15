@@ -1,20 +1,5 @@
-import styled, {injectGlobal} from 'styled-components'
+import styled from 'styled-components'
 import {theme} from 'styled-system'
-
-injectGlobal`
-  .tocco-ui-theme.tether-select {
-    z-index: 100000001;
-
-    &.tether-target-attached-top {
-      margin-left: 1px;
-      margin-top: -35px; // magic-number representing the height of the input-field
-
-      .Select-menu-outer {
-        border-radius: 4px 4px 0 0;
-      }
-    }
-  }
-`
 
 const StyledEditableValue = styled.span`
   && {
@@ -55,14 +40,6 @@ const StyledEditableValue = styled.span`
         .ql-editor {
           cursor: not-allowed;
         }
-      }
-    }
-
-    //selects
-    .Select.is-disabled {
-      .Select-control {
-        background-color: #eee;
-        cursor: not-allowed;
       }
     }
 

@@ -1,16 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import MultiSelect from './MultiSelect'
-import SingleSelect from './SingleSelect'
+import Select from '../../Select'
 
-const SearchFilterEdit = props => {
-  if (props.options.multi) {
-    return <MultiSelect {...props}/>
-  } else {
-    return <SingleSelect {...props}/>
-  }
-}
+const SearchFilterEdit = props => (
+  <Select
+    readOnly={props.readOnly}
+    onChange={props.onChange}
+    value={props.value}
+    {...props.options}
+  />
+)
+
 const valueObjectType = PropTypes.shape({
   key: PropTypes.oneOfType([
     PropTypes.string,
@@ -25,8 +26,9 @@ SearchFilterEdit.propTypes = {
     PropTypes.arrayOf(valueObjectType)
   ]),
   options: PropTypes.shape({
-    multi: PropTypes.bool,
-    store: PropTypes.arrayOf(
+    isMulti: PropTypes.bool,
+    fetchOptions: PropTypes.func,
+    options: PropTypes.arrayOf(
       PropTypes.shape({
         value: PropTypes.any,
         label: PropTypes.string

@@ -40,7 +40,7 @@ const PropsTable = props => {
 }
 
 PropsTable.propTypes = {
-  props: PropTypes.object.isRequired
+  props: PropTypes.object
 }
 
 export default PropsTable
