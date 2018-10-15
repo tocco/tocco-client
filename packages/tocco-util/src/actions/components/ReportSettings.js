@@ -31,14 +31,14 @@ class ReportSettings extends React.Component {
     this.setState({...this.state, values, valid})
   }
 
-  handleCustomSettingsChange = (customSettingValues, customSettingsValid) => {
-    this.setState({...this.state, customSettingValues, customSettingsValid})
+  handleCustomSettingsChange = (customSettings, customSettingsValid) => {
+    this.setState({...this.state, customSettings, customSettingsValid})
   }
 
   handleDownloadClick = () => {
     const groupedValues = {
       ...getGroupedValues(this.props.settingsDefinition, transformValues(this.state.values)),
-      customSettingValues: this.state.customSettingValues
+      customSettings: this.state.customSettings
     }
 
     this.props.onSubmit(groupedValues)
