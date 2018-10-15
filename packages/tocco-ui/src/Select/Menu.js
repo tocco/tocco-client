@@ -24,6 +24,8 @@ const StyledMenu = styled(components.Menu)`
  }
 `
 
+const TetherPosition = () => <div/>
+
 class Menu extends React.Component {
   render() {
     const props = this.props
@@ -36,7 +38,7 @@ class Menu extends React.Component {
           attachment: 'together'
         }]}
       >
-        <div></div>
+        <TetherPosition/>
         <div>
           <StyledMenu {...(_omit(props, ['innerRef']))}>
             {props.children}
