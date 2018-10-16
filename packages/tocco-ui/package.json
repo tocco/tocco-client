@@ -16,7 +16,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.1.0-11",
     "@fortawesome/free-solid-svg-icons": "^5.1.0-11",
     "@fortawesome/react-fontawesome": "^0.1.0-11",
-    "flatpickr": "^4.5.1",
+    "flatpickr": "^4.5.2",
     "libphonenumber-js": "^1.2.15",
     "react-autosize-textarea": "^0.4.3",
     "react-dropzone": "^4.1.3",
