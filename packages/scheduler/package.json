@@ -1,6 +1,7 @@
 {
   "name": "tocco-scheduler",
   "version": "0.1.4",
+  "private": true,
   "description": "",
   "main": "dist/index.js",
   "scripts": {

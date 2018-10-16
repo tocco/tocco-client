@@ -1,6 +1,7 @@
 {
   "name": "tocco-simple-form",
   "version": "0.1.5",
+  "private": true,
   "description": "",
   "main": "dist/index.js",
   "scripts": {

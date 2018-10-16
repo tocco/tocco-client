@@ -1,6 +1,7 @@
 {
   "name": "tocco-entity-list",
   "version": "0.1.14",
+  "private": true,
   "description": "",
   "main": "dist/index.js",
   "scripts": {
