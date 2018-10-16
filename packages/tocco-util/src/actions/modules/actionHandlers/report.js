@@ -12,12 +12,19 @@ import {call, put, take} from 'redux-saga/effects'
 
 export default function* (actionDefinition, entity, ids) {
   const answerChannel = yield call(channel)
-  const settingsModalId = yield call(displayReportSettings, actionDefinition, answerChannel)
+  const settingsModalId = yield call(displayReportSettings, actionDefinition, entity, ids, answerChannel)
   yield call(awaitSettingsSubmit, actionDefinition, answerChannel, settingsModalId, entity, ids)
 }
 
-export function* displayReportSettings(actionDefinition, answerChannel) {
-  const {body: settingsDefinition} = yield call(requestSaga, `report/${actionDefinition.reportId}/settings`)
+export function* displayReportSettings(actionDefinition, entity, ids, answerChannel) {
+  const options = {
+    queryParams: {
+      entity,
+      ids: ids.join(',')
+    }
+  }
+
+  const {body: settingsDefinition} = yield call(requestSaga, `report/${actionDefinition.reportId}/settings`, options)
   const onSubmit = values => answerChannel.put(values)
   const settingsModalId = yield call(uuid)
 
