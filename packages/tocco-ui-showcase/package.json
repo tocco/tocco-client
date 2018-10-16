@@ -1,6 +1,7 @@
 {
   "name": "tocco-ui-showcase",
   "version": "0.1.9",
+  "private": true,
   "description": "some ui elements",
   "main": "dist/index.js",
   "scripts": {
