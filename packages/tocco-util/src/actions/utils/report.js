@@ -19,12 +19,18 @@ export const getGroupedValues = (settingsDefinition, values) => {
   }
 }
 
-export const transformValues = values => (
-  _reduce(values, (result, value, key) => {
-    const newValue = value.key ? value.key : value
-    return {...result, [key]: newValue}
-  }, {})
-)
+export const transformValues = values => {
+  const transform = v => {
+    return v.key ? v.key : v
+  }
+
+  return _reduce(values, (result, value, key) => (
+    {
+      ...result,
+      [key]: Array.isArray(value) ? value.map(transform) : transform(value)
+    }
+  ), {})
+}
 
 export const getFormDataDefaults = settingsDefinition => {
   const extractDefaultValues = name =>
