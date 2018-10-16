@@ -1,7 +1,7 @@
 import _get from 'lodash/get'
 import {IntlStub} from 'tocco-test-util'
 
-import {getGroupedValues, getFormDataDefaults, getModel, getFormDefinition} from './report'
+import {getGroupedValues, getFormDataDefaults, getModel, getFormDefinition, transformValues} from './report'
 describe('tocco-util', () => {
   describe('actions', () => {
     describe('utils', () => {
@@ -85,6 +85,26 @@ describe('tocco-util', () => {
             expect(_get(formDefinition, 'children[0].layoutType')).to.eql('vertical-box')
             expect(_get(formDefinition, 'children[0].children[0].label')).to.eql('Some String')
             expect(_get(formDefinition, 'children[1].children[0].label')).to.eql('Some Int')
+          })
+        })
+
+        describe('transformValues', () => {
+          it('should transform select/remote fields to key only and copy others', () => {
+            const values = {
+              recipient1: {key: '1', display: 'User1'},
+              recipient2: [{key: '1', display: 'User1'}, {key: '33', display: 'User33'}],
+              someString: 'test'
+            }
+
+            const transformedValues = transformValues(values)
+
+            const expectedResult = {
+              recipient1: '1',
+              recipient2: ['1', '33'],
+              someString: 'test'
+            }
+
+            expect(transformedValues).to.eql(expectedResult)
           })
         })
       })
