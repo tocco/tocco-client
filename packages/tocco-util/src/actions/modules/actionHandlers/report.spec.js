@@ -54,7 +54,7 @@ describe('tocco-util', () => {
           describe('displayReportSettings', () => {
             test('should open a modal component and returns an id', () => {
               const id = '04d39342-5e87-40eb-bd76-832435ccb147'
-              return expectSaga(displayReportSettings, mockData.definition, null)
+              return expectSaga(displayReportSettings, mockData.definition, 'User', ['1', '2'], null)
                 .provide([
                   [matchers.call.fn(requestSaga), {body: mockData.settingsDefinition}],
                   [matchers.call.fn(uuid), id]
