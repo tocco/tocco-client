@@ -10,6 +10,7 @@ class DateAbstract extends React.Component {
 
   constructor(props) {
     super(props)
+    this.wrapper = React.createRef()
 
     import(/* webpackChunkName: "flatpickr" */ '!style-loader!css-loader!flatpickr/dist/themes/light.css')
 
@@ -44,7 +45,7 @@ class DateAbstract extends React.Component {
       ...(this.props.options ? this.props.options.flatpickrOptions : {})
     }
 
-    this.flatpickr = new this.Flatpickr(this.wrapper, this.options)
+    this.flatpickr = new this.Flatpickr(this.wrapper.current, this.options)
     this.flatpickr.calendarContainer.classList.add('tocco-ui-theme')
 
     if (this.props.initialized) {
@@ -78,13 +79,13 @@ class DateAbstract extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.flatpickr.destroy()
+  }
+
   handleOnChange(selectedDates) {
     const isoStrings = selectedDates.map(date => date.toISOString())
     this.props.onChange(isoStrings)
-  }
-
-  refMapper(ref) {
-    this.wrapper = ref
   }
 
   hasValue() {
@@ -112,7 +113,7 @@ class DateAbstract extends React.Component {
       <span>
         <span
           className={spanClass}
-          ref={this.refMapper.bind(this)}
+          ref={this.wrapper}
           data-wrap
           onBlur={this.handleOnBlur.bind(this)}
         >
