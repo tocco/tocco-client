@@ -63,6 +63,11 @@ export const entitiesListTransformer = json => {
           type: 'html',
           value: paths[path].value
         }
+      } else {
+        result[path] = {
+          type: 'string',
+          value: ''
+        }
       }
     }
     return result
