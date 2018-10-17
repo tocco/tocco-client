@@ -26,6 +26,9 @@ export class LoginForm extends Component {
   }
 
   render() {
+    const passwordFocus = !!this.props.username
+    const usernameFocus = !passwordFocus
+
     return (
       <div className="login-form">
         {
@@ -47,7 +50,7 @@ export class LoginForm extends Component {
                 placeholder={this.msg('client.login.form.userPlaceholder')}
                 value={this.props.username}
                 required
-                autoFocus
+                autoFocus={usernameFocus}
               />
             </div>
           </div>
@@ -61,6 +64,7 @@ export class LoginForm extends Component {
                 onChange={this.handlePasswordChange.bind(this)}
                 placeholder={this.msg('client.login.form.passwordPlaceholder')}
                 required
+                autoFocus={passwordFocus}
               />
             </div>
           </div>
