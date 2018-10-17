@@ -215,6 +215,24 @@ describe('login', () => {
         expect(login).to.have.property('callCount', 1)
         expect(login.firstCall.args).to.eql(['username', 'password'])
       })
+
+      test('should focus password input if username is set', () => {
+        const wrapper = shallow(
+          <LoginForm
+            intl={IntlStub}
+            login={() => undefined}
+            changePage={() => undefined}
+            setUsername={() => undefined}
+            setPassword={() => undefined}
+            loginPending={false}
+            username="username"
+            password=""
+          />
+        )
+
+        const input = wrapper.find('input[name="password"]')
+        expect(input.props().autoFocus).to.eql(true)
+      })
     })
   })
 })
