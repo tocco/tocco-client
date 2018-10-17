@@ -19,8 +19,8 @@ export default function* (actionDefinition, entity, ids) {
 export function* displayReportSettings(actionDefinition, entity, ids, answerChannel) {
   const options = {
     queryParams: {
-      entity,
-      ids: ids.join(',')
+      model: entity,
+      keys: ids.join(',')
     }
   }
 
