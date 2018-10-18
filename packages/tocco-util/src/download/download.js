@@ -1,4 +1,4 @@
-export function downloadUrl(url, fileName) {
+export const downloadUrl = (url, fileName) => {
   const a = document.createElement('a')
   a.href = url
   a.download = fileName || url.split('/').pop()
@@ -6,5 +6,22 @@ export function downloadUrl(url, fileName) {
   document.body.appendChild(a)
   a.click()
   if (window.URL.revokeObjectURL) { window.URL.revokeObjectURL(url) }
-  a.remove()
+  if (a.remove) { a.remove() }
+}
+
+export const openUrl = url => {
+  const a = document.createElement('a')
+  a.href = url
+  a.target = '_blank'
+  document.body.appendChild(a)
+  a.click()
+  if (window.URL.revokeObjectURL) { window.URL.revokeObjectURL(url) }
+  if (a.remove) { a.remove() }
+}
+
+export const downloadSupportedByBrowser = () => {
+  const a = document.createElement('a')
+  const result = typeof a.download !== 'undefined'
+  if (a.remove) { a.remove() }
+  return result
 }

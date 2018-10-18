@@ -1,5 +1,7 @@
-import {downloadUrl} from './download'
+import {downloadUrl, openUrl, downloadSupportedByBrowser} from './download'
 
 export default {
-  downloadUrl
+  downloadUrl,
+  openUrl,
+  downloadSupportedByBrowser
 }
