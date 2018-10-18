@@ -2,6 +2,7 @@ import React from 'react'
 import {channel} from 'redux-saga'
 import uuid from 'uuid/v4'
 
+import {submitActions} from '../../utils/report'
 import {requestSaga, fetchEntity} from '../../../rest'
 import notifier from '../../../notifier'
 import ReportSettings from '../../components/ReportSettings'
@@ -25,7 +26,7 @@ export function* displayReportSettings(actionDefinition, entity, ids, answerChan
   }
 
   const {body: settingsDefinition} = yield call(requestSaga, `report/${actionDefinition.reportId}/settings`, options)
-  const onSubmit = values => answerChannel.put(values)
+  const onSubmit = (submitAction, values) => answerChannel.put({submitAction, values})
   const settingsModalId = yield call(uuid)
 
   yield put(notifier.modalComponent(
@@ -46,8 +47,8 @@ export function* displayReportSettings(actionDefinition, entity, ids, answerChan
 
 export function* awaitSettingsSubmit(definition, answerChannel, settingsModalId, entity, ids) {
   while (true) {
-    const settings = yield take(answerChannel)
-    const body = {entityModel: entity, entityIds: ids, ...settings}
+    const {submitAction, values} = yield take(answerChannel)
+    const body = {entityModel: entity, entityIds: ids, ...values}
     const requestOptions = {
       method: 'POST',
       body,
@@ -59,12 +60,12 @@ export function* awaitSettingsSubmit(definition, answerChannel, settingsModalId,
     if (generationsResponse.status === 400) {
       yield call(handleFailedGenerationsRequest, settingsModalId, generationsResponse)
     } else {
-      yield call(handleReportGenerations, settingsModalId, generationsResponse)
+      yield call(handleReportGenerations, settingsModalId, generationsResponse, submitAction)
     }
   }
 }
 
-export function* handleReportGenerations(settingsModalId, generationsResponse) {
+export function* handleReportGenerations(settingsModalId, generationsResponse, submitAction) {
   yield put(notifier.removeModalComponent(settingsModalId))
   const pollingUrl = generationsResponse.headers.get('Location')
   const blockingInfoId = yield call(uuid)
@@ -73,17 +74,23 @@ export function* handleReportGenerations(settingsModalId, generationsResponse) {
   const completed = yield call(sagaHelpers.checkStatusLoop, pollingUrl, 'in_progress')
   yield put(notifier.removeBlockingInfo(blockingInfoId))
   if (completed.body.status === 'completed') {
-    yield call(handleSuccessfulReport, completed)
+    yield call(handleSuccessfulReport, completed, submitAction)
   } else {
     yield call(handleFailedReport)
   }
 }
 
-export function* handleSuccessfulReport(completed) {
+export function* handleSuccessfulReport(completed, submitAction) {
   const outputJobId = completed.body.outputJobId
   const outputJob = yield call(fetchEntity, 'Output_job', outputJobId, {paths: ['document']})
   const {fileName, binaryLink} = outputJob.paths.document.value.value
-  yield call(download.downloadUrl, binaryLink, fileName)
+
+  if (submitAction === submitActions.DOWNLOAD) {
+    yield call(download.downloadUrl, binaryLink, fileName)
+  } else if (submitAction === submitActions.DISPLAY) {
+    yield call(download.openUrl, binaryLink)
+  }
+
   yield put(notifier.info('success', 'client.common.report.successful', null))
 }
 
