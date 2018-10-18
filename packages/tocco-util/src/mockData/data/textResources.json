@@ -35,6 +35,7 @@
   "client.common.unexpectedError",
   "client.common.advancedSearch",
   "client.common.report.download",
+  "client.common.report.display",
   "client.common.report.recipientSettings",
   "client.common.report.generalSettings",
   "client.common.report.failedGenerationTitle",
