@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Button} from 'tocco-ui'
+import {Button, ButtonGroup} from 'tocco-ui'
 import {FormattedMessage, intlShape} from 'react-intl'
 
 import {defaultModelTransformer} from '../../rest'
@@ -11,9 +11,11 @@ import {
   getFormDefinition,
   getGroupedValues,
   reportSettingsDefinitionPropType,
-  transformValues
+  transformValues,
+  submitActions
 } from '../utils/report'
 import StyledReportSettings from './StyledReportSettings'
+import {downloadSupportedByBrowser} from '../../download/download'
 
 class ReportSettings extends React.Component {
   constructor(props) {
@@ -35,26 +37,17 @@ class ReportSettings extends React.Component {
     this.setState({...this.state, customSettings, customSettingsValid})
   }
 
-  handleDownloadClick = () => {
+  handleButtonClick = action => () => {
     const groupedValues = {
       ...getGroupedValues(this.props.settingsDefinition, transformValues(this.state.values)),
       customSettings: this.state.customSettings
     }
 
-    this.props.onSubmit(groupedValues)
+    this.props.onSubmit(action, groupedValues)
   }
 
   render() {
     const {settingsDefinition} = this.props
-
-    const DownloadButton = () =>
-      <Button
-        disabled={!this.state.customSettingsValid || !this.state.valid}
-        icon="download"
-        onClick={this.handleDownloadClick}
-      >
-        <FormattedMessage id="client.common.report.download"/>
-      </Button>
 
     return (
       <StyledReportSettings>
@@ -73,7 +66,24 @@ class ReportSettings extends React.Component {
           onChange={({values, valid}) => { this.handleCustomSettingsChange(values, valid) }}
         />
         }
-        <DownloadButton/>
+        <ButtonGroup>
+          {downloadSupportedByBrowser()
+          && <Button
+            disabled={!this.state.customSettingsValid || !this.state.valid}
+            icon="file-download"
+            onClick={this.handleButtonClick(submitActions.DOWNLOAD)}
+          >
+            <FormattedMessage id="client.common.report.download"/>
+          </Button>
+          }
+          <Button
+            disabled={!this.state.customSettingsValid || !this.state.valid}
+            icon="file"
+            onClick={this.handleButtonClick(submitActions.DISPLAY)}
+          >
+            <FormattedMessage id="client.common.report.display"/>
+          </Button>
+        </ButtonGroup>
       </StyledReportSettings>
     )
   }
