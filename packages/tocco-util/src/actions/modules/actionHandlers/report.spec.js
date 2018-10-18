@@ -19,6 +19,7 @@ import reportSaga, {
 } from './report'
 import download from '../../../download'
 import sagaHelpers from '../../../sagaHelpers'
+import {submitActions} from '../../utils/report'
 
 describe('tocco-util', () => {
   describe('actions', () => {
@@ -70,6 +71,7 @@ describe('tocco-util', () => {
               const channelMock = channel()
               const modalId = '04d39342-5e87-40eb-bd76-832435ccb147'
               const generationResponse = {status: 202}
+              const submitAction = submitActions.DISPLAY
 
               return expectSaga(
                 awaitSettingsSubmit, mockData.definition, channelMock, modalId, mockData.entity, mockData.ids
@@ -79,8 +81,8 @@ describe('tocco-util', () => {
                   [matchers.call.fn(handleReportGenerations), undefined]
 
                 ])
-                .dispatch(channelMock.put(mockData.settings))
-                .call(handleReportGenerations, modalId, generationResponse)
+                .dispatch(channelMock.put({values: mockData.settings, submitAction}))
+                .call(handleReportGenerations, modalId, generationResponse, submitAction)
                 .silentRun()
             })
 
@@ -88,7 +90,7 @@ describe('tocco-util', () => {
               const channelMock = channel()
               const modalId = '04d39342-5e87-40eb-bd76-832435ccb147'
               const generationResponse = {status: 400, body: {message: 'error message'}}
-
+              const submitAction = submitActions.DISPLAY
               return expectSaga(
                 awaitSettingsSubmit, mockData.definition, channelMock, modalId, mockData.entity, mockData.ids
               )
@@ -97,7 +99,7 @@ describe('tocco-util', () => {
                   [matchers.call.fn(handleReportGenerations), undefined]
 
                 ])
-                .dispatch(channelMock.put(mockData.settings))
+                .dispatch(channelMock.put({values: mockData.settings, submitAction}))
                 .call(handleFailedGenerationsRequest, modalId, generationResponse)
                 .silentRun()
             })
@@ -110,9 +112,10 @@ describe('tocco-util', () => {
               const generationResponse = {
                 headers: {get: () => pollUrl}
               }
+              const submitAction = submitActions.DISPLAY
               const reportStatusResponse = {body: {status: 'completed'}}
 
-              return expectSaga(handleReportGenerations, modalId, generationResponse)
+              return expectSaga(handleReportGenerations, modalId, generationResponse, submitAction)
                 .provide([
                   [matchers.call(sagaHelpers.checkStatusLoop, pollUrl, 'in_progress'), reportStatusResponse],
                   [matchers.call.fn(handleSuccessfulReport), undefined]
@@ -120,7 +123,7 @@ describe('tocco-util', () => {
                 .put.like({action: {type: REMOVE_MODAL_COMPONENT}})
                 .put.like({action: {type: BLOCKING_INFO}})
                 .put.like({action: {type: REMOVE_BLOCKING_INFO}})
-                .call(handleSuccessfulReport, reportStatusResponse)
+                .call(handleSuccessfulReport, reportStatusResponse, submitAction)
                 .run()
             })
 
@@ -145,29 +148,38 @@ describe('tocco-util', () => {
           })
 
           describe('handleSuccessfulReport', () => {
-            test('should retrieve output job and call downloadUrl', () => {
-              const completedResponse = {body: {outputJobId: '33'}}
-              const binaryLink = 'http://linktofile/report.pdf'
-              const fileName = 'report.pdf'
+            const completedResponse = {body: {outputJobId: '33'}}
+            const binaryLink = 'http://linktofile/report.pdf'
+            const fileName = 'report.pdf'
 
-              const outputJob = {
-                paths: {
-                  document: {
+            const outputJob = {
+              paths: {
+                document: {
+                  value: {
                     value: {
-                      value: {
-                        fileName,
-                        binaryLink
-                      }
+                      fileName,
+                      binaryLink
                     }
                   }
                 }
               }
+            }
 
-              return expectSaga(handleSuccessfulReport, completedResponse)
+            test('should retrieve output job and call downloadUrl', () => {
+              return expectSaga(handleSuccessfulReport, completedResponse, submitActions.DOWNLOAD)
                 .provide([
                   [matchers.call.fn(fetchEntity), outputJob]
                 ])
                 .call(download.downloadUrl, binaryLink, fileName)
+                .run()
+            })
+
+            test('should retrieve output job and call display', () => {
+              return expectSaga(handleSuccessfulReport, completedResponse, submitActions.DISPLAY)
+                .provide([
+                  [matchers.call.fn(fetchEntity), outputJob]
+                ])
+                .call(download.openUrl, binaryLink)
                 .run()
             })
           })
