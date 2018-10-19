@@ -4,10 +4,10 @@ import _reduce from 'lodash/reduce'
 const GROUP_GENERAL = 'generalSettings'
 const GROUP_RECIPIENT = 'recipientSettings'
 
-export const submitActions = {
+export const submitActions = Object.freeze({
   DISPLAY: 'display',
   DOWNLOAD: 'download'
-}
+})
 
 export const getGroupedValues = (settingsDefinition, values) => {
   const groupValues = name => (
