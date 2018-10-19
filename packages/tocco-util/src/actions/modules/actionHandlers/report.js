@@ -26,7 +26,7 @@ export function* displayReportSettings(actionDefinition, entity, ids, answerChan
   }
 
   const {body: settingsDefinition} = yield call(requestSaga, `report/${actionDefinition.reportId}/settings`, options)
-  const onSubmit = (submitAction, values) => answerChannel.put({submitAction, values})
+  const onSubmit = (submitAction, formValues) => answerChannel.put({submitAction, formValues})
   const settingsModalId = yield call(uuid)
 
   yield put(notifier.modalComponent(
@@ -47,8 +47,8 @@ export function* displayReportSettings(actionDefinition, entity, ids, answerChan
 
 export function* awaitSettingsSubmit(definition, answerChannel, settingsModalId, entity, ids) {
   while (true) {
-    const {submitAction, values} = yield take(answerChannel)
-    const body = {entityModel: entity, entityIds: ids, ...values}
+    const {submitAction, formValues} = yield take(answerChannel)
+    const body = {entityModel: entity, entityIds: ids, ...formValues}
     const requestOptions = {
       method: 'POST',
       body,
