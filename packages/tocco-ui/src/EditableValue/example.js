@@ -60,6 +60,7 @@ class Example extends React.Component {
         singleSelect: {key: 2, display: 'Two'},
         multiSelect: [{key: 'a', display: 'One'}, {key: 'b', display: 'Two'}],
         date: '2015-12-18',
+        multiDate: '2018-10-23',
         dateRangeFrom: '2015-12-21',
         dateRangeTo: '2015-12-24',
         datetime: '2017-01-25T15:15:00.000Z',
@@ -308,6 +309,18 @@ class Example extends React.Component {
                   type="date"
                   value={this.state.values.date}
                   onChange={v => this.changeValue('date', v)}
+                  readOnly={this.state.readOnly}
+                  options={{placeholderText: 'Pick a date', flatpickrOptions: {weekNumbers: true}}}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>multi date</td>
+              <td>
+                <EditableValue
+                  type="multi-date"
+                  value={this.state.values.multiDate}
+                  onChange={v => this.changeValue('multiDate', v)}
                   readOnly={this.state.readOnly}
                   options={{placeholderText: 'Pick a date', flatpickrOptions: {weekNumbers: true}}}
                 />
