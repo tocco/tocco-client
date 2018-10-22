@@ -7,32 +7,31 @@ import DateAbstract from './DateAbstract'
 import {atMostOne, momentJStoToFlatpickrFormat, toLocalDateString} from '../utils'
 
 class DateRangeEdit extends React.Component {
+  DATE_FORMAT = 'YYYY-MM-DD'
+  RANGE_CALENDAR_LABEL = 'Range Calendar'
+  SINGLE_CALENDAR_LABEL = 'Exact Calendar'
+
   constructor(props) {
     super(props)
     this.state = {
-      showCalendar: true,
-      showDoubleCalendar: false,
-      label: this.RANGE_CALENDAR_LABEL
+      label: this.RANGE_CALENDAR_LABEL,
+      showRange: true
     }
     this.onChangeObject = {
       exactValue: null,
       fromValue: null,
       toValue: null
     }
-    this.counter = 1
   }
-  DATE_FORMAT = 'YYYY-MM-DD'
-  RANGE_CALENDAR_LABEL = 'Range Calendar'
-  SINGLE_CALENDAR_LABEL = 'Exact Calendar'
 
   getLocalizedAltFormat = () => moment().locale(this.props.intl.locale)._locale.longDateFormat('L')
 
-  parseDate = s => {
-    const momentDate = moment(s, [this.getLocalizedAltFormat(), this.DATE_FORMAT])
+  parseDate = timeString => {
+    const momentDate = moment(timeString, [this.getLocalizedAltFormat(), this.DATE_FORMAT])
     return momentDate.isValid() ? momentDate.toDate() : null
   }
 
-  compareTimeIntervals = () => {
+  areDatesInOrder = () => {
     const fromValue = this.onChangeObject.fromValue
     const toValue = this.onChangeObject.toValue
     return moment(fromValue).isBefore(toValue)
@@ -48,7 +47,7 @@ class DateRangeEdit extends React.Component {
     const dateTime = atMostOne(dates)
     this.onChangeObject.fromValue = dateTime ? toLocalDateString(dateTime) : null
     if (this.onChangeObject.fromValue && this.onChangeObject.toValue) {
-      if (this.compareTimeIntervals() === false) {
+      if (this.areDatesInOrder() === false) {
         this.onChangeObject.fromValue = null
       }
     }
@@ -59,7 +58,7 @@ class DateRangeEdit extends React.Component {
     const dateTime = atMostOne(dates)
     this.onChangeObject.toValue = dateTime ? toLocalDateString(dateTime) : null
     if (this.onChangeObject.fromValue && this.onChangeObject.toValue) {
-      if (this.compareTimeIntervals() === false) {
+      if (this.areDatesInOrder() === false) {
         this.onChangeObject.toValue = null
       }
     }
@@ -68,15 +67,13 @@ class DateRangeEdit extends React.Component {
 
   toggleRangeView = () => {
     this.setState(prevState => ({
-      showCalendar: !prevState.showCalendar,
-      showDoubleCalendar: !prevState.showDoubleCalendar
+      showRange: !prevState.showRange
     }))
-    this.counter += 1
     this.switchValues()
   }
 
   switchValues = () => {
-    if (this.counter % 2 === 0) {
+    if (this.state.showRange) {
       this.setState({label: this.SINGLE_CALENDAR_LABEL})
       if (this.onChangeObject.exactValue !== null) {
         if (this.onChangeObject.fromValue === null && this.onChangeObject.toValue === null) {
@@ -86,15 +83,15 @@ class DateRangeEdit extends React.Component {
             }
           }
         }
-      } else if (this.counter % 2 === 1) {
-        this.setState({label: this.RANGE_CALENDAR_LABEL})
-        if (this.onChangeObject.exactValue === null) {
-          if (this.onChangeObject.fromValue !== null) {
-            this.onChangeObject.exactValue = this.onChangeObject.fromValue
-          }
-          if (this.onChangeObject.toValue !== null && this.onChangeObject.fromValue === null) {
-            this.onChangeObject.exactValue = this.onChangeObject.toValue
-          }
+      }
+    } else if (!this.state.showRange) {
+      this.setState({label: this.RANGE_CALENDAR_LABEL})
+      if (this.onChangeObject.exactValue === null) {
+        if (this.onChangeObject.fromValue !== null) {
+          this.onChangeObject.exactValue = this.onChangeObject.fromValue
+        }
+        if (this.onChangeObject.toValue !== null && this.onChangeObject.fromValue === null) {
+          this.onChangeObject.exactValue = this.onChangeObject.toValue
         }
       }
     }
@@ -111,7 +108,7 @@ class DateRangeEdit extends React.Component {
 
     return (
       <div>
-        {this.state.showCalendar && <DateAbstract
+        {this.state.showRange && <DateAbstract
           value={[this.props.value.exactValue]}
           onChange={this.handleChange}
           options={{...this.props.options, flatpickrOptions}}
@@ -119,7 +116,7 @@ class DateRangeEdit extends React.Component {
           events={this.props.events}
         />}
         <button onClick={this.toggleRangeView}>{this.state.label}</button>
-        {this.state.showDoubleCalendar
+        {!this.state.showRange
         && <div>
           <DateAbstract
             value={[this.props.value.fromValue]}
