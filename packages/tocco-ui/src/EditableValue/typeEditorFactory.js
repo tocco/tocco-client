@@ -6,6 +6,7 @@ import MultiSelect from './typeEditors/MultiSelect'
 import StringEdit from './typeEditors/StringEdit'
 import TextEdit from './typeEditors/TextEdit'
 import DateEdit from './typeEditors/DateEdit'
+import MultiDateEdit from './typeEditors/MultiDateEdit'
 import DateRangeEdit from './typeEditors/DateRangeEdit'
 import DateTimeEdit from './typeEditors/DateTimeEdit'
 import BoolEdit from './typeEditors/BoolEdit'
@@ -24,6 +25,7 @@ export const map = {
   'string': StringEdit,
   'number': NumberEdit,
   'date': DateEdit,
+  'multi-date': MultiDateEdit,
   'date-range': DateRangeEdit,
   'birthdate': DateEdit,
   'datetime': DateTimeEdit,
