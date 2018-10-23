@@ -38,9 +38,10 @@ class ReportSettings extends React.Component {
   }
 
   handleButtonClick = action => () => {
+    const customSettingsModel = this.props.settingsDefinition.customSettings.entity.id
     const groupedValues = {
       ...getGroupedValues(this.props.settingsDefinition, transformValues(this.state.values)),
-      customSettings: this.state.customSettings
+      customSettings: {model: customSettingsModel, paths: this.state.customSettings}
     }
 
     this.props.onSubmit(action, groupedValues)
