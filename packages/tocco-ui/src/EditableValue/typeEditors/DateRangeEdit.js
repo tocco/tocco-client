@@ -97,6 +97,13 @@ class DateRangeEdit extends React.Component {
     }
   }
 
+  onBlur = (dateString, values, setValue) => {
+    const parsed = this.parseDate(dateString)
+    if (values[0] - parsed !== 0) {
+      setValue(parsed)
+    }
+  }
+
   render() {
     const flatpickrOptions = {
       altFormat: momentJStoToFlatpickrFormat(this.getLocalizedAltFormat()),
@@ -114,6 +121,7 @@ class DateRangeEdit extends React.Component {
           options={{...this.props.options, flatpickrOptions}}
           readOnly={this.props.readOnly}
           events={this.props.events}
+          onBlur={this.onBlur}
         />}
         <button onClick={this.toggleRangeView}>{this.state.label}</button>
         {!this.state.showRange
@@ -124,6 +132,8 @@ class DateRangeEdit extends React.Component {
             options={{...this.props.options, flatpickrOptions}}
             readOnly={this.props.readOnly}
             events={this.props.events}
+            maxDate={this.props.value.toValue}
+            onBlur={this.onBlur}
           />
           <DateAbstract
             value={[this.props.value.toValue]}
@@ -131,6 +141,8 @@ class DateRangeEdit extends React.Component {
             options={{...this.props.options, flatpickrOptions}}
             readOnly={this.props.readOnly}
             events={this.props.events}
+            minDate={this.props.value.fromValue}
+            onBlur={this.onBlur}
           />
         </div>
         }

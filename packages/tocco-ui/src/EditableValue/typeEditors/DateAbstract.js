@@ -66,16 +66,29 @@ class DateAbstract extends React.Component {
     return null
   }
 
-  componentWillReceiveProps(props) {
-    const locale = this.getLocale(props.intl.locale)
-
+  componentDidUpdate(prevProps) {
     if (this.Flatpickr && this.flatpickr) {
-      this.Flatpickr.localize(locale)
-      this.flatpickr.set('locale', locale)
+      if (prevProps.intl.locale !== this.props.intl.locale) {
+        const locale = this.getLocale(this.props.intl.locale)
+        this.Flatpickr.localize(locale)
+        this.flatpickr.set('locale', locale)
+      }
 
-      this.flatpickr.set('altFormat', props.options.flatpickrOptions.altFormat)
-      this.flatpickr.setDate(props.value, false)
-      this.flatpickr.redraw()
+      if (prevProps.options.flatpickrOptions.altFormat !== this.props.options.flatpickrOptions.altFormat) {
+        this.flatpickr.set('altFormat', this.props.options.flatpickrOptions.altFormat)
+      }
+
+      if (prevProps.value !== this.props.value) {
+        this.flatpickr.setDate(this.props.value, false)
+        this.flatpickr.redraw()
+      }
+
+      if (prevProps.minDate !== this.props.minDate) {
+        this.flatpickr.set('minDate', this.props.minDate)
+      }
+      if (prevProps.maxDate !== this.props.maxDate) {
+        this.flatpickr.set('maxDate', this.props.maxDate)
+      }
     }
   }
 
@@ -142,6 +155,11 @@ class DateAbstract extends React.Component {
   }
 }
 
+DateAbstract.defaultProps = {
+  minDate: null,
+  maxDate: null
+}
+
 DateAbstract.propTypes = {
   intl: intlShape.isRequired,
   onBlur: PropTypes.func,
@@ -155,7 +173,9 @@ DateAbstract.propTypes = {
   initialized: PropTypes.func,
   events: PropTypes.shape({
     onFocus: PropTypes.func
-  })
+  }),
+  minDate: PropTypes.string,
+  maxDate: PropTypes.string
 }
 
 export default injectIntl(DateAbstract)
