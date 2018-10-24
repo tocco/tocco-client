@@ -60,8 +60,11 @@ class Example extends React.Component {
         singleSelect: {key: 2, display: 'Two'},
         multiSelect: [{key: 'a', display: 'One'}, {key: 'b', display: 'Two'}],
         date: '2015-12-18',
-        dateRangeFrom: '2015-12-21',
-        dateRangeTo: '2015-12-24',
+        dateRangeObject: {
+          exactValue: '2018-06-24',
+          fromValue: '2018-09-13',
+          toValue: '2018-10-12'
+        },
         datetime: '2017-01-25T15:15:00.000Z',
         decimal: 123456.78,
         duration: 3660000,
@@ -318,16 +321,10 @@ class Example extends React.Component {
               <td>
                 <EditableValue
                   type="date-range"
-                  value={{
-                    from: this.state.values.dateRangeFrom,
-                    to: this.state.values.dateRangeTo
-                  }}
-                  onChange={v => {
-                    this.changeValue('dateRangeFrom', v ? v.from : null)
-                    this.changeValue('dateRangeTo', v ? v.to : null)
-                  }
-                  }
+                  value={this.state.values.dateRangeObject}
+                  onChange={v => this.changeValue('dateRangeObject', v)}
                   readOnly={this.state.readOnly}
+                  options={{placeholderText: 'Pick a date', flatpickrOptions: {weekNumbers: true}}}
                 />
               </td>
             </tr>
