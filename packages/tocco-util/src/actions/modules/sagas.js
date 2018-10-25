@@ -16,7 +16,7 @@ export function* invokeAction(config, {payload}) {
 
   if (!abort) {
     const actionHandler = actionHandlers[definition.actionType]
-    const response = yield call(actionHandler, definition, entity, ids, parent, params)
+    const response = yield call(actionHandler, definition, entity, ids, parent, params, config)
 
     if (response && response.success) {
       yield put(actions.actionInvoked(definition, entity, ids, response))

@@ -1,6 +1,7 @@
 export default Object.freeze({
+  CLIENT: 'client',
   CUSTOM: 'custom',
-  SIMPLE: 'simple',
+  DIVIDER: 'divider',
   REPORT: 'report',
-  DIVIDER: 'divider'
+  SIMPLE: 'simple'
 })
