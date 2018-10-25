@@ -41,10 +41,11 @@ export default (
       } else if (child.componentType === componentTypes.FIELD_SET) {
         result.push(createFieldSet(child, i))
       } else if (componentMapping && componentMapping[child.componentType]) {
-        const component = componentMapping[child.componentType]
-        const fieldName = child.id
-        const modelField = model[fieldName]
-        return component(child, modelField, i)
+        if (inScope(child, mode)) {
+          const component = componentMapping[child.componentType]
+          const modelField = model[child.id]
+          result.push(component(child, modelField, i))
+        }
       }
     }
 
@@ -82,8 +83,7 @@ export default (
     const modelField = model[modelSelector]
 
     const shouldRenderField = (formDefinitionField, entityField) => {
-      if (mode && formDefinitionField.scopes && formDefinitionField.scopes.length > 0
-        && !formDefinitionField.scopes.includes(mode)) {
+      if (!inScope(formDefinitionField, mode)) {
         return false
       }
 
@@ -173,3 +173,8 @@ export default (
     return formTraverser(formDefinition.children)
   }
 }
+
+const inScope = (fieldDefinition, mode) => (
+  !(mode && fieldDefinition.scopes && fieldDefinition.scopes.length > 0
+    && !fieldDefinition.scopes.includes(mode))
+)

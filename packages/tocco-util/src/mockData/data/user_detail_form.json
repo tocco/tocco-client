@@ -386,6 +386,20 @@
                         "label": null
                       }
                     ]
+                  },
+                  {
+                    "componentType": "field-set",
+                    "label": "Only show in Update mode",
+                    "scopes": ["update"],
+                    "hidden": false,
+                    "children": [
+                      {
+                        "id": "publish",
+                        "componentType": "field",
+                        "dataType": "boolean",
+                        "label": null
+                      }
+                    ]
                   }
                 ],
                 "label": "Communication"
