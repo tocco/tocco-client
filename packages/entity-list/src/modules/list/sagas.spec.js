@@ -41,6 +41,8 @@ describe('entity-list', () => {
               fork(takeLatest, actions.REFRESH, sagas.loadData),
               fork(takeLatest, actions.ON_ROW_CLICK, sagas.onRowClick),
               fork(takeLatest, actions.ON_SELECT_CHANGE, sagas.onSelectChange),
+              fork(takeEvery, actions.NAVIGATE_TO_CREATE, sagas.navigateToCreate),
+              fork(takeEvery, actions.DELETE_ENTITIES, sagas.deleteEntities),
               fork(takeEvery, actionUtil.actions.ACTION_INVOKED, sagas.actionInvoked)
             ]))
             expect(generator.next().done).to.be.true

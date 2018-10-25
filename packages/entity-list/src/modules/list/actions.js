@@ -25,6 +25,7 @@ export const SET_SELECTABLE = 'list/SET_SELECTABLE'
 export const ON_SELECT_CHANGE = 'list/ON_ROW_SELECT'
 export const SET_SELECTION = 'list/SET_SELECTION'
 export const SET_ENDPOINT = 'list/SET_ENDPOINT'
+export const DELETE_ENTITIES = 'list/DELETE_ENTITIES'
 
 export const initialize = () => ({
   type: INITIALIZE
@@ -192,5 +193,14 @@ export const setEndpoint = endpoint => ({
   type: SET_ENDPOINT,
   payload: {
     endpoint
+  }
+})
+
+export const deleteEntities = (actionDefinition, entity, ids) => ({
+  type: DELETE_ENTITIES,
+  payload: {
+    actionDefinition,
+    entity,
+    ids
   }
 })

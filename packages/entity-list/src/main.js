@@ -17,6 +17,8 @@ import reducers, {sagas} from './modules/reducers'
 import EntityListContainer from './containers/EntityListContainer'
 import {getDispatchActions} from './input'
 import {selectionStylePropType} from './util/selectionStyles'
+import clientActions from './clientActions'
+
 const packageName = 'entity-list'
 
 const EXTERNAL_EVENTS = [
@@ -41,7 +43,7 @@ const initApp = (id, input, events = {}, publicPath) => {
     actionEmitter.addToStore(store, events.emitAction)
     errorLogging.addToStore(store, false)
     notifier.addToStore(store, false)
-    actions.addToStore(store)
+    actions.addToStore(store, clientActions)
     formData.addToStore(store)
 
     dispatchActions = getDispatchActions(input, true)

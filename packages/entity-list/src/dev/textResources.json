@@ -1,5 +1,4 @@
 [
-
   "client.entity-list.search",
   "client.entity-list.reset",
   "client.entity-list.refresh",
@@ -14,5 +13,9 @@
   "client.entity-list.lastPageTitle",
   "client.entity-list.searchFormValidationMinLength",
   "client.entity-list.create",
-  "client.entity-list.fullTextPlaceholder"
+  "client.entity-list.fullTextPlaceholder",
+  "client.entity-list.deleteSuccessful",
+  "client.entity-list.deletePartlySuccessful",
+  "client.entity-list.deleteError",
+  "client.entity-list.deleteInProgress"
 ]

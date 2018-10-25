@@ -1,13 +1,19 @@
 import _isEmpty from 'lodash/isEmpty'
 import _join from 'lodash/join'
 import _union from 'lodash/union'
-import {externalEvents, actions as actionUtil, actionEmitter} from 'tocco-util'
+import {externalEvents, actions as actionUtil, actionEmitter, notifier, rest} from 'tocco-util'
+import uuid from 'uuid/v4'
 
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import {getSearchInputs} from '../searchForm/sagas'
 import {fetchForm, getSorting, getSelectable, getEndpoint, getFields} from '../../util/api/forms'
-import {fetchEntityCount, fetchEntities, entitiesListTransformer, fetchModel} from '../../util/api/entities'
+import {
+  fetchEntityCount,
+  fetchEntities,
+  entitiesListTransformer,
+  fetchModel
+} from '../../util/api/entities'
 import {combineSelection} from '../../util/selection'
 import selectionStyles from '../../util/selectionStyles'
 
@@ -27,6 +33,8 @@ export default function* sagas() {
     fork(takeLatest, actions.REFRESH, loadData),
     fork(takeLatest, actions.ON_ROW_CLICK, onRowClick),
     fork(takeLatest, actions.ON_SELECT_CHANGE, onSelectChange),
+    fork(takeEvery, actions.NAVIGATE_TO_CREATE, navigateToCreate),
+    fork(takeEvery, actions.DELETE_ENTITIES, deleteEntities),
     fork(takeEvery, actionUtil.actions.ACTION_INVOKED, actionInvoked)
   ])
 }
@@ -183,6 +191,28 @@ export function* onRowClick({payload}) {
     yield put(actions.onSelectChange([payload.id], !selected))
   }
   yield put(externalEvents.fireExternalEvent('onRowClick', {id: payload.id}))
+}
+
+export function* deleteEntities({payload}) {
+  const blockingInfoId = uuid()
+  yield put(notifier.blockingInfo(blockingInfoId, 'client.entity-detail.deleteInProgress', null))
+  const {entity, ids} = payload
+  const deleteRequests = yield all(ids.map(id => {
+    return call(rest.deleteEntity, entity, id)
+  }))
+
+  yield put(notifier.removeBlockingInfo(blockingInfoId))
+
+  if (deleteRequests.every(r => r.status !== 200)) {
+    yield put(notifier.info('error', 'client.entity-list.deleteError', null))
+  } else {
+    if (deleteRequests.every(r => r.status === 200)) {
+      yield put(notifier.info('success', 'client.entity-list.deleteSuccessful', null, 'trash'))
+    } else {
+      yield put(notifier.info('warning', 'client.entity-list.deletePartlySuccessful', null))
+    }
+    yield call(loadData)
+  }
 }
 
 export function* navigateToCreate() {
