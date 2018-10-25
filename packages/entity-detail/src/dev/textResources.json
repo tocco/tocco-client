@@ -14,5 +14,8 @@
   "client.entity-detail.createSuccessfulTitle",
   "client.entity-detail.createSuccessfulMessage",
   "client.entity-detail.validationError",
-  "client.entity-detail.validatorErrors"
+  "client.entity-detail.validatorErrors",
+  "client.entity-detail.deleteSuccessful",
+  "client.entity-detail.deleteError",
+  "client.entity-detail.deleteInProgress"
 ]

@@ -22,6 +22,7 @@ React-registry name: `entity-detail`
 | `onSubGridNavigateToCreate` | `gridName` (name of the sub grid), `relationName` (name of the sub grid relation)                                  | Is fired when a "create" button on the grid gets clicked
 | `onEntityCreated`           | `id` (of the newly created record)                                                                                 | Is fired when a a record got created
 | `onTouchedChange`           | `touched` (boolean flag which indicates if the form is touched)                                                    | This event is fired when the touched state changes
+| `navigateBack`              |                                                                                                                    | This event is fired when a navigation back is desired, e.g. after delete
 
 ## Development
 ### Mock Validation Tests

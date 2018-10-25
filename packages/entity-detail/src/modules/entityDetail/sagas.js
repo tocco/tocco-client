@@ -3,8 +3,9 @@ import {
   SubmissionError,
   getFormValues
 } from 'redux-form'
-import {externalEvents, notifier, errorLogging, form, actions as actionUtil, actionEmitter} from 'tocco-util'
+import {externalEvents, notifier, errorLogging, form, actions as actionUtil, actionEmitter, rest} from 'tocco-util'
 import {ClientQuestionCancelledException} from 'tocco-util/src/rest'
+import uuid from 'uuid/v4'
 
 import * as actions from './actions'
 import {
@@ -32,6 +33,7 @@ export default function* sagas() {
     fork(takeEvery, actions.UPLOAD_DOCUMENT, uploadDocument),
     fork(takeEvery, actions.FIRE_TOUCHED, fireTouched),
     fork(takeEvery, actions.ADVANCED_SEARCH_UPDATE, advancedSearchUpdate),
+    fork(takeEvery, actions.DELETE_ENTITY, deleteEntity),
     fork(takeEvery, actionUtil.actions.ACTION_INVOKED, actionInvoked)
   ])
 }
@@ -197,12 +199,12 @@ export function* fireTouched({payload}) {
   }
 }
 
-export function* showNotification(type, titleResourceName, messageResourceName, duration = 2000) {
+export function* showNotification(type, titleResourceName, messageResourceName, icon, duration = 2000) {
   yield put(notifier.info(
     type,
     `client.entity-detail.${titleResourceName}`,
-    `client.entity-detail.${messageResourceName}`,
-    'check',
+    messageResourceName ? `client.entity-detail.${messageResourceName}` : null,
+    icon || null,
     duration
   ))
 }
@@ -217,4 +219,19 @@ export function* loadData() {
 export function* actionInvoked(action) {
   yield call(loadData)
   yield put(actionEmitter.emitAction(action))
+}
+
+export function* deleteEntity() {
+  const blockingInfoId = uuid()
+  yield put(notifier.blockingInfo(blockingInfoId, 'client.entity-detail.deleteInProgress', null))
+  const {entityName, entityId} = yield select(entityDetailSelector)
+  const resp = yield call(rest.deleteEntity, entityName, entityId)
+
+  yield put(notifier.removeBlockingInfo(blockingInfoId))
+  if (resp.status === 200) {
+    yield put(externalEvents.fireExternalEvent('navigateBack'))
+    yield call(showNotification, 'success', 'deleteSuccessful', null, 'trash')
+  } else {
+    yield call(showNotification, 'error', 'deleteError')
+  }
 }

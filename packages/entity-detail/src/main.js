@@ -5,6 +5,7 @@ import {appFactory, notifier, errorLogging, actionEmitter, externalEvents, actio
 import reducers, {sagas} from './modules/reducers'
 import DetailViewContainer from './containers/DetailViewContainer'
 import {getDispatchActions} from './input'
+import clientActions from './clientActions'
 const packageName = 'entity-detail'
 
 const EXTERNAL_EVENTS = [
@@ -12,7 +13,8 @@ const EXTERNAL_EVENTS = [
   'onSubGridNavigateToCreate',
   'onEntityCreated',
   'onTouchedChange',
-  'emitAction'
+  'emitAction',
+  'navigateBack'
 ]
 
 const initApp = (id, input, events = {}, publicPath) => {
@@ -27,7 +29,7 @@ const initApp = (id, input, events = {}, publicPath) => {
   actionEmitter.addToStore(store, events.emitAction)
   errorLogging.addToStore(store, false)
   notifier.addToStore(store, false)
-  actions.addToStore(store)
+  actions.addToStore(store, clientActions)
   formData.addToStore(store)
 
   const dispatchActions = getDispatchActions(input)

@@ -15,6 +15,7 @@ export const SET_SHOW_SUB_GRIDS_CREATE_BUTTON = 'entityDetail/SET_SHOW_SUB_GRIDS
 export const UPLOAD_DOCUMENT = 'entityDetail/UPLOAD_DOCUMENT'
 export const SET_APP_ID = 'entityDetail/SET_APP_ID'
 export const ADVANCED_SEARCH_UPDATE = 'entityDetail/ADVANCED_SEARCH_UPDATE'
+export const DELETE_ENTITY = 'entityDetail/DELETE_ENTITY'
 
 export const setFormDefinition = formDefinition => ({
   type: SET_FORM_DEFINITION,
@@ -127,4 +128,8 @@ export const advancedSearchUpdate = (field, ids) => ({
     field,
     ids
   }
+})
+
+export const deleteEntity = () => ({
+  type: DELETE_ENTITY
 })
