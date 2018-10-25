@@ -44,6 +44,21 @@ export function* fetchEntities(entityName, options, transformer = defaultEntityT
 }
 
 /**
+ * Helper to delete an entity
+ *
+ * @param entityName {String} Name of the entity
+ * @param id {String} Id of the record
+ */
+export function* deleteEntity(entityName, id) {
+  const requestOptions = {
+    method: 'DELETE',
+    acceptedErrorCodes: ['CASCADING_DELETE_DENIED']
+  }
+
+  return yield call(requestSaga, `entities/${entityName}/${id}`, requestOptions)
+}
+
+/**
  * Helper to fetch forms.
  * @param formName {String} Name of the requested form
  * @param transformer {function} Function to directly manipulate the result. By default the form gets returned.
