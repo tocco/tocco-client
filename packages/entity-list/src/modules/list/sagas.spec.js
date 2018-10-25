@@ -1,5 +1,5 @@
 import {expectSaga} from 'redux-saga-test-plan'
-import {actions as actionUtil, externalEvents} from 'tocco-util'
+import {actions as actionUtil, externalEvents, rest, notifier} from 'tocco-util'
 import * as matchers from 'redux-saga-test-plan/matchers'
 
 import * as actions from './actions'
@@ -394,6 +394,36 @@ describe('entity-list', () => {
                 [select(sagas.inputSelector), input]
               ])
               .returns(endpoint)
+              .run()
+          })
+        })
+
+        describe('deleteEntities saga', () => {
+          test('should call deleteEntity and show a blocking info', () => {
+            const entityName = 'User'
+            const entityIds = ['99', '101']
+
+            return expectSaga(sagas.deleteEntities, actions.deleteEntities({}, entityName, entityIds))
+              .provide([
+                [matchers.call.fn(rest.deleteEntity), {status: 200}],
+                [matchers.call.fn(sagas.loadData)]
+              ])
+              .put.like({action: {type: notifier.removeBlockingInfo().type}})
+              .call(rest.deleteEntity, entityName, entityIds[0])
+              .call(rest.deleteEntity, entityName, entityIds[1])
+              .run()
+          })
+
+          test('should show an info if some delete requests fail', () => {
+            const entityName = 'User'
+            const entityIds = ['99', '101']
+
+            return expectSaga(sagas.deleteEntities, actions.deleteEntities({}, entityName, entityIds))
+              .provide([
+                [matchers.call.fn(rest.deleteEntity), {status: 409}],
+                [matchers.call.fn(sagas.loadData)]
+              ])
+              .put.like({action: {type: notifier.info().type}})
               .run()
           })
         })

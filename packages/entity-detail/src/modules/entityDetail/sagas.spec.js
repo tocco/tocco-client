@@ -2,7 +2,7 @@ import {
   actions as formActions,
   SubmissionError
 } from 'redux-form'
-import {externalEvents, form, actions as actionUtil, actionEmitter} from 'tocco-util'
+import {externalEvents, notifier, form, actions as actionUtil, actionEmitter, rest} from 'tocco-util'
 import {ClientQuestionCancelledException} from 'tocco-util/src/rest'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
@@ -374,6 +374,22 @@ describe('entity-detail', () => {
               ])
               .call.like({fn: sagas.loadData})
               .put(actionEmitter.emitAction(action))
+              .run()
+          })
+        })
+
+        describe('deleteEntity saga', () => {
+          test('should call deleteEntity and show a blocking info', () => {
+            const entityName = 'User'
+            const entityId = '99'
+
+            return expectSaga(sagas.deleteEntity)
+              .provide([
+                [matchers.call.fn(rest.deleteEntity), {status: 200}],
+                [select(sagas.entityDetailSelector), {entityName, entityId}]
+              ])
+              .put.like({action: {type: notifier.removeBlockingInfo().type}})
+              .call(rest.deleteEntity, entityName, entityId)
               .run()
           })
         })
