@@ -5,9 +5,20 @@
     "children": [
       {
         "componentType": "action",
-        "actionType": "new",
+        "actionType": "client",
+        "clientAction": "new",
         "icon": "plus",
         "label": "New"
+      },
+      {
+        "componentType": "action",
+        "actionType": "client",
+        "clientAction": "delete",
+        "icon": "trash",
+        "label": "Delete",
+        "minSelection": 1,
+        "showConfirmMessage": true,
+        "confirmMessage": "Do you really want to delete this entity?"
       },
       {
         "componentType": "action",
@@ -15,8 +26,6 @@
         "readonly": false,
         "label": "Simple Action",
         "icon": "cogs",
-        "Selections": 1,
-        "maxSelections": 1,
         "progressMsg": "Die Beispiel Aktion wird ausgeführt..",
         "showConfirmMessage": false,
         "endpoint": "actions/simpleAction",

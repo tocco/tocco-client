@@ -11,8 +11,10 @@ describe('tocco-util', () => {
       describe('setupEntities', () => {
         test('setup basic mocks', () => {
           const getSpy = sinon.spy()
+          const deleteSpy = sinon.spy()
           const fetchMockMock = {
-            get: getSpy
+            get: getSpy,
+            delete: deleteSpy
           }
 
           const entityStore = {}

@@ -113,6 +113,16 @@ export const setupEntities = (fetchMock, entityStore, timeout) => {
     createEntityResponse('Dummy_entity', entityStore)
   )
 
+  fetchMock.delete(
+    new RegExp('^.*?/nice2/rest/entities/User/[0-9](\\?.*)?'),
+    deleteEntityResponse('User', entityStore, timeout)
+  )
+
+  fetchMock.delete(
+    new RegExp('^.*?/nice2/rest/entities/Dummy_entity/[0-9](\\?.*)?'),
+    deleteEntityResponse('Dummy_entity', entityStore, timeout)
+  )
+
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/entities/User(\\?.*)?$'),
     createEntitiesResponse('User', entityStore, timeout)
@@ -129,9 +139,9 @@ export const setupEntities = (fetchMock, entityStore, timeout) => {
   )
 }
 
-const createToolTipResponse = (entityName, entityStore) => {
-  const entities = entityStore[entityName]
-  return (url, opts) => {
+const createToolTipResponse = (entityName, entityStore) =>
+  (url, opts) => {
+    const entities = entityStore[entityName]
     consoleLogger.log('fetchMock: called fetch tooltip', url, opts)
     const id = url.match(/^.*\/[A-Z][A-Za-z0-9_]*\/(\d+)/)[1]
     const entity = entities[id]
@@ -148,22 +158,41 @@ const createToolTipResponse = (entityName, entityStore) => {
                   <img src="https://picsum.photos/64/64" width="64" height="64"/>`
     }
   }
-}
 
-const createEntityResponse = (entityName, entityStore) => {
-  const entities = entityStore[entityName]
-
-  return (url, opts) => {
+const createEntityResponse = (entityName, entityStore) =>
+  (url, opts) => {
+    const entities = entityStore[entityName]
     consoleLogger.log('fetchMock: called fetch entity', url, opts)
     const id = url.match(/^.*\/[A-Z][A-Za-z0-9_]*\/(\d+)/)[1]
     return entities[id]
   }
-}
 
-const createEntitiesResponse = (entityName, entityStore, timeout, filter) => {
-  const entities = entityStore[entityName]
+const deleteEntityResponse = (entityName, entityStore, timeout) =>
+  url => {
+    const id = url.match(/^.*\/[A-Z][A-Za-z0-9_]*\/(\d+)/)[1]
+    consoleLogger.log('fetchMock: called delete entitiy', entityName, id)
 
-  return (url, opts) => {
+    const succeed = Math.random() < 0.5
+
+    const resonse = succeed ? 200 : {
+      body: {
+        errorCode: 'CASCADING_DELETE_DENIED',
+        message: 'Cascading delete aborted',
+        referencedFrom: [{href: `${__BACKEND_URL__}/rest/entities/Newsletter_dispatch/405`}]
+      },
+      status: 409
+    }
+
+    if (succeed) {
+      entityStore[entityName] = entityStore[entityName].filter(e => e.key !== id)
+    }
+
+    return sleep(timeout).then(() => resonse)
+  }
+
+const createEntitiesResponse = (entityName, entityStore, timeout, filter) =>
+  (url, opts) => {
+    const entities = entityStore[entityName]
     consoleLogger.log('fetchMock: called fetch entities', url)
     const limit = parseInt(getParameterValue('_limit', url)) || 25
     const offset = parseInt(getParameterValue('_offset', url)) || 0
@@ -201,7 +230,6 @@ const createEntitiesResponse = (entityName, entityStore, timeout, filter) => {
 
     return sleep(timeout).then(() => result)
   }
-}
 
 const handleQueryResult = (query, entities) => {
   const matchIN = query.match(/IN\(pk,(.*)\)/)

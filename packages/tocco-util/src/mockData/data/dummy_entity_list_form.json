@@ -10,6 +10,14 @@
     "children": [
       {
         "componentType": "action",
+        "actionType": "client",
+        "clientAction": "new",
+        "readonly": false,
+        "label": "Create",
+        "icon": "plus"
+      },
+      {
+        "componentType": "action",
         "actionType": "simple",
         "readonly": false,
         "label": "Simple Action",

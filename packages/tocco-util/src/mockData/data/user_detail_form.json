@@ -11,6 +11,16 @@
     "readonly": false,
     "children": [
       {
+        "componentType": "action",
+        "actionType": "client",
+        "clientAction": "delete",
+        "icon": "trash",
+        "label": "Delete",
+        "minSelection": 1,
+        "showConfirmMessage": true,
+        "confirmMessage": "Do you really want to delete this entity?"
+      },
+      {
         "componentType": "action-group",
         "actionType": "group",
         "label": "Reports",

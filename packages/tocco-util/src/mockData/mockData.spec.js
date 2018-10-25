@@ -7,9 +7,11 @@ describe('tocco-util', () => {
         test('setup basic mocks', () => {
           const getSpy = sinon.spy()
           const postSpy = sinon.spy()
+          const deleteSpy = sinon.spy()
           const fetchMockMock = {
             get: getSpy,
-            post: postSpy
+            post: postSpy,
+            delete: deleteSpy
           }
 
           const entityStore = {}
@@ -17,6 +19,7 @@ describe('tocco-util', () => {
           setupFetchMock(fetchMockMock, entityStore)
           expect(getSpy).to.be.called
           expect(postSpy).to.be.called
+          expect(deleteSpy).to.be.called
         })
       })
     })
