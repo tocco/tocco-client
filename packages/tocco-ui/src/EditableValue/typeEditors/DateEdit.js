@@ -46,6 +46,8 @@ class DateEdit extends React.Component {
         options={{...this.props.options, flatpickrOptions}}
         readOnly={this.props.readOnly}
         events={this.props.events}
+        minDate={this.props.minDate}
+        maxDate={this.props.maxDate}
       />
     )
   }
@@ -62,7 +64,9 @@ DateEdit.propTypes = {
   }),
   events: PropTypes.shape({
     onFocus: PropTypes.func
-  })
+  }),
+  minDate: PropTypes.string,
+  maxDate: PropTypes.string
 }
 
 export default injectIntl(DateEdit)

@@ -2,7 +2,7 @@ import React from 'react'
 import {intlEnzyme, IntlStub} from 'tocco-test-util'
 
 import DateRangeEdit from './DateRangeEdit'
-import DateAbstract from './DateAbstract'
+import DateEdit from './DateEdit'
 
 const EMPTY_FUNC = () => {}
 const valueObject = {
@@ -21,7 +21,7 @@ describe('tocco-ui', () => {
             <DateRangeEdit onChange={EMPTY_FUNC} value={valueObject}/>
           )
 
-          const dateAbstract = wrapper.find(DateAbstract)
+          const dateAbstract = wrapper.find(DateEdit)
           expect(dateAbstract).to.have.length(1)
         })
 
@@ -34,8 +34,8 @@ describe('tocco-ui', () => {
           const wrapper = intlEnzyme.mountWithIntl(
             <DateRangeEdit onChange={EMPTY_FUNC} value={testTimeInput} intl={intlOptions}/>
           )
-          const innerDateAbstract = wrapper.find(DateAbstract).first()
-          expect(innerDateAbstract.props().value).to.eql([testTimeInput.exactValue])
+          const innerDateAbstract = wrapper.find(DateEdit).first()
+          expect(innerDateAbstract.props().value).to.eql(testTimeInput.exactValue)
         })
 
         test('should switch button-text on click', done => {
@@ -67,7 +67,7 @@ describe('tocco-ui', () => {
           const button = wrapper.find('button')
           setTimeout(() => {
             button.simulate('click')
-            const inputFields = wrapper.find(DateAbstract)
+            const inputFields = wrapper.find(DateEdit)
             expect(inputFields).to.have.lengthOf(2)
             done()
           })
