@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import {theme} from 'styled-system'
 
 const StyledMergeMatrix = styled.div`
   && {
@@ -21,7 +22,7 @@ const StyledMergeMatrix = styled.div`
     }
 
     label.selection-label {
-      font-weight: normal;
+      font-weight: ${theme('fontWeights.regular')};
       margin: 0 .3rem;
     }
   }

@@ -69,7 +69,6 @@ const fontSizes = [
 ]
 
 const fontWeights = {
-  light: 300,
   regular: 400,
   bold: 700
 }
@@ -83,8 +82,6 @@ const lineHeights = [
   1.4
 ]
 
-const outline = 'none'
-
 const overlays = {
   disabled: {
     color: colors.base.paper,
@@ -92,9 +89,7 @@ const overlays = {
   }
 }
 
-const radii = [
-  0, '2px', '4px', '8px', '16px'
-]
+const radii = '4px'
 
 const shadows = {
   levels: [
@@ -131,7 +126,6 @@ const defaultTheme = {
   fontFamily,
   fontWeights,
   lineHeights,
-  outline,
   overlays,
   radii,
   shadows,

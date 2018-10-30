@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import {theme} from 'styled-system'
 
 const StyledFullCalendar = styled.div`
 && {
@@ -27,12 +28,12 @@ const StyledFullCalendar = styled.div`
     .fc-event{
       border: none;
       border-radius: 2px;
-      font-weight: 600;
+      font-weight: ${theme('fontWeights.bold')};
       background-color: #1287de;
       color: #fff;
 
       &.dark {
-        color: $text-color;
+        color: ${theme('colors.base.text')};
       }
 
       &.bright {

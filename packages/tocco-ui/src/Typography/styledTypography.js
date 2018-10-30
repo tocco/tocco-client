@@ -23,7 +23,7 @@ export const declareTypograhpy = (props, mode) => {
 
     b,
     strong {
-      font-weight: 700;
+      font-weight: ${theme('fontWeights.bold')(props)}
     }
 
     em,
@@ -34,7 +34,6 @@ export const declareTypograhpy = (props, mode) => {
     u {
       text-decoration: underline;
     }
-
 
     h1 {font-size: ${theme('fontSizes.7')(props)}}
     h2 {font-size: ${theme('fontSizes.6')(props)}}
@@ -49,7 +48,7 @@ export const declareTypograhpy = (props, mode) => {
     h4,
     h5,
     h6 {
-      font-weight: 700;
+      font-weight: ${theme('fontWeights.bold')(props)};
       margin-top: ${theme('space.6')(props)};
       margin-bottom: ${theme('space.5')(props)};
 

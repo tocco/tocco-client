@@ -3,7 +3,7 @@ import {theme} from 'styled-system'
 
 const StyledUploadInput = styled.div`
   border: dashed 1px ${theme('colors.base.fill.2')};
-  border-radius: ${theme('radii.2')};
+  border-radius: ${theme('radii')};
   padding: ${theme('space.3')} ${theme('space.4')};
   cursor: pointer;
 
