@@ -19,7 +19,7 @@ const StyledBox = styled('div')`
     background-color: ${theme('colors.base.paper')};
     display: flex;
     border: ${BORDER_WIDTH}px solid ${theme('colors.base.fill.2')};
-    border-radius: ${theme('radii.2')};
+    border-radius: ${theme('radii')};
     padding: ${props => props.rimless ? '0' : theme('space.5')};
     ${props => props.isPlainHtml && declareTypograhpy(props, 'html')}
   }

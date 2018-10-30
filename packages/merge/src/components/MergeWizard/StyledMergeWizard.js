@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import {theme} from 'styled-system'
 
 const StyledMergeWizard = styled.div`
   && {
@@ -19,7 +20,7 @@ const StyledMergeWizard = styled.div`
     }
 
     .bold {
-      font-weight: bold;
+      font-weight: ${theme('fontWeights.bold')};
     }
   }
 `

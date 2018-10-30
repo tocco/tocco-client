@@ -13,7 +13,7 @@ const StyledButtonGroup = styled.div`
       margin-bottom: ${props => props.melt ? 0 : theme('space.4')};
     }
 
-    border-radius: ${props => props.melt ? theme('radii.2') : 0};
+    border-radius: ${props => props.melt ? theme('radii') : 0};
   }
 `
 
