@@ -4,7 +4,9 @@ import {theme} from 'styled-system'
 import {
   declareFont,
   declareNoneWrappingText,
-  declareWrappingText
+  declareWrappingText,
+  fontScale,
+  trimDecimalPlaces
 } from '../utilStyles'
 
 const StyledB = styled.b`
@@ -20,7 +22,7 @@ const StyledCode = styled.code`
   && {
     ${props => declareFont(props, {
     fontFamily: theme('fontFamily.monospace')(props),
-    fontSize: theme('fontSizes.1')(props)
+    fontSize: fontScale(props, -1)
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     background-color: ${theme('colors.base.fill.0')};
@@ -49,7 +51,7 @@ const StyledEm = styled.em`
 const StyledFigcaption = styled.figcaption`
   && {
     ${props => declareFont(props, {
-    fontSize: theme('fontSizes.1')(props)
+    fontSize: fontScale(props, -1)
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     margin: ${theme('space.4')} 0;
@@ -80,7 +82,7 @@ const StyledKbd = styled.kbd`
   && {
     ${props => declareFont(props, {
     fontFamily: theme('fontFamily.monospace')(props),
-    fontSize: theme('fontSizes.1')(props)
+    fontSize: fontScale(props, -1)
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     background-color: ${theme('colors.base.line.0')};
@@ -118,7 +120,7 @@ const StyledPre = styled.pre`
   && {
     ${props => declareFont(props, {
     fontFamily: theme('fontFamily.monospace')(props),
-    fontSize: theme('fontSizes.1')(props)
+    fontSize: fontScale(props, -1)
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     background-color: ${theme('colors.base.fill.0')};
@@ -145,7 +147,7 @@ const StyledS = styled.s`
 const StyledSmall = styled.small`
   && {
     ${props => declareFont(props, {
-    fontSize: '.7em'
+    fontSize: `${trimDecimalPlaces(1 / theme('fontSizeScale')(props))}em`
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
   }
@@ -161,7 +163,7 @@ const StyledSpan = styled.span`
 const StyledSub = styled.sub`
   && {
     ${props => declareFont(props, {
-    fontSize: theme('fontSizes.1')(props)
+    fontSize: fontScale(props, -1)
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     line-height: 0;
@@ -174,7 +176,7 @@ const StyledSub = styled.sub`
 const StyledSup = styled.sup`
   && {
     ${props => declareFont(props, {
-    fontSize: theme('fontSizes.1')(props)
+    fontSize: fontScale(props, -1)
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     line-height: 0;
@@ -212,7 +214,7 @@ const StyledVar = styled.var`
   && {
     ${props => declareFont(props, {
     fontFamily: theme('fontFamily.monospace')(props),
-    fontSize: theme('fontSizes.1')(props)
+    fontSize: fontScale(props, -1)
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     &:after {

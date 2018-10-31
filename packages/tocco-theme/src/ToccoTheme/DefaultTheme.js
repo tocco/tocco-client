@@ -60,13 +60,14 @@ const fontFamily = {
   sansSerif: '"Helvetica Neue", Helvetica, Arial, sans-serif',
   monospace: 'Menlo, Monaco, Consolas, "Courier New", monospace'
 }
+
 /* FONT SIZES
- * Unit 'rem' is required for correct presentation, independently from zoom and nesting.
- * It is recommended to use a rhythmic scale to ensure a harmonic typography.
+ * All font sizes are calculated automatically as an exponential scale.
+ * Both variables are unitless factors. Base font size is interpreted as
+ * rem, hence it inherits from websites root.
  */
-const fontSizes = [
-  '.7rem', '1rem', '1.4rem', '1.4rem', '2rem', '2.8rem', '3.9rem', '5.6rem'
-]
+const fontSizeBase = 1.4
+const fontSizeScale = 1.3
 
 const fontWeights = {
   regular: 400,
@@ -122,7 +123,8 @@ const space = [
 
 const defaultTheme = {
   colors,
-  fontSizes,
+  fontSizeBase,
+  fontSizeScale,
   fontFamily,
   fontWeights,
   lineHeights,
