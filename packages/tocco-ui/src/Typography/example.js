@@ -11,9 +11,9 @@ export default () => {
       <Typography.H1>Heading 1</Typography.H1>
       <Typography.H2 breakWords={false}>Heading 2 supercalifragilisticexpialidocious</Typography.H2>
       <Typography.H3>Heading 3 supercalifragilisticexpialidocious</Typography.H3>
-      <Typography.H4>Heading 4</Typography.H4>
-      <Typography.H5>Heading 5</Typography.H5>
-      <Typography.H6>Heading 6</Typography.H6>
+      <Typography.H4>Heading 4 <Typography.Small>Small byline</Typography.Small></Typography.H4>
+      <Typography.H5>Heading 5 <Typography.Small>Small byline</Typography.Small></Typography.H5>
+      <Typography.H6>Heading 6 <Typography.Small>Small byline</Typography.Small></Typography.H6>
       <Typography.H1 styledLike="H3">H1 styled Like H3</Typography.H1>
       <Typography.P>&lt;P&gt;Laborum est molLit&lt;/P&gt;</Typography.P>
       &lt;Span&gt;<Typography.Span>Laborum est molLit</Typography.Span>&lt;/Span&gt;<br/>

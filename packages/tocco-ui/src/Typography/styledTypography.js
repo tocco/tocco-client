@@ -1,7 +1,10 @@
 import _range from 'lodash/range'
 import {theme} from 'styled-system'
 
-import {declareFont} from '../utilStyles'
+import {
+  declareFont,
+  fontScale
+} from '../utilStyles'
 
 export const declareTypograhpy = (props, mode) => {
   let css = `
@@ -35,12 +38,12 @@ export const declareTypograhpy = (props, mode) => {
       text-decoration: underline;
     }
 
-    h1 {font-size: ${theme('fontSizes.7')(props)}}
-    h2 {font-size: ${theme('fontSizes.6')(props)}}
-    h3 {font-size: ${theme('fontSizes.5')(props)}}
-    h4 {font-size: ${theme('fontSizes.4')(props)}}
-    h5 {font-size: ${theme('fontSizes.3')(props)}}
-    h6 {font-size: ${theme('fontSizes.2')(props)}}
+    h1 {font-size: ${fontScale(props, 5)}}
+    h2 {font-size: ${fontScale(props, 4)}}
+    h3 {font-size: ${fontScale(props, 3)}}
+    h4 {font-size: ${fontScale(props, 2)}}
+    h5 {font-size: ${fontScale(props, 1)}}
+    h6 {font-size: ${theme('fontSizeBase')(props)}rem}
 
     h1,
     h2,
