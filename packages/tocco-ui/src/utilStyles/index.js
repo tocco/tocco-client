@@ -14,6 +14,12 @@ import {
   declareWrappingText
 } from './declareWrapping'
 import getTextOfChildren from './getTextOfChildren'
+import {
+  fontScale,
+  scaleExponential,
+  spaceScale,
+  trimDecimalPlaces
+} from './modularScale'
 import objectToCss from './objectToCss'
 import {
   animation as stylingAnimation,
@@ -35,6 +41,7 @@ import assertObjectValuesMatchOtherObjectKeys from './assertObjectValuesMatchOth
 import {validateCssDimension} from './propTypesValidator'
 export {
   animationPropTypes,
+  assertObjectValuesMatchOtherObjectKeys,
   conditionPropTypes,
   declareDensity,
   declareElevation,
@@ -47,7 +54,7 @@ export {
   declareRaisedBaseColors,
   declareRaisedPrimaryColors,
   declareWrappingText,
-  assertObjectValuesMatchOtherObjectKeys,
+  fontScale,
   getTextOfChildren,
   inkPropTypes,
   layoutPropTypes,
@@ -55,12 +62,15 @@ export {
   objectToCss,
   oneOfPropTypeAndCompletelyMapped,
   positionPropTypes,
+  scaleExponential,
+  spaceScale,
   stylingAnimation,
   stylingCondition,
+  stylingFormat,
   stylingInk,
   stylingLayout,
   stylingLook,
-  stylingFormat,
   stylingPosition,
+  trimDecimalPlaces,
   validateCssDimension
 }
