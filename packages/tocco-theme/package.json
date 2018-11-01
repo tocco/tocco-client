@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "bootstrap-sass": "^3.3.7",
-    "react-select": "^1.0.0-rc.10"
+    "react-select": "^1.0.0-rc.10",
+    "tocco-ui": "^0.1.14"
   }
 }

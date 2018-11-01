@@ -5,7 +5,8 @@ import {
   declareFont,
   declareNoneWrappingText,
   declareWrappingText,
-  fontScale
+  fontScale,
+  spaceScale
 } from '../utilStyles'
 
 const declareHeaderFont = props => {
@@ -35,8 +36,8 @@ const declareHeaderFont = props => {
 
 const declareSpace = props =>
   `
-    margin-top: ${theme('space.6')(props)};
-    margin-bottom: ${theme('space.5')(props)};
+    margin-top: ${theme('spaceBase')(props)}rem;
+    margin-bottom: ${spaceScale(props, -1)};
 
     h1 + &,
     h2 + &,

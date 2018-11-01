@@ -6,6 +6,7 @@ import {
   declareNoneWrappingText,
   declareWrappingText,
   fontScale,
+  spaceScale,
   trimDecimalPlaces
 } from '../utilStyles'
 
@@ -27,7 +28,7 @@ const StyledCode = styled.code`
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     background-color: ${theme('colors.base.fill.0')};
     border-radius: ${theme('radii')};
-    padding: ${theme('space.1')} ${theme('space.3')};
+    padding: ${props => spaceScale(props, -4)} ${props => spaceScale(props, -2)};
   }
 `
 
@@ -54,7 +55,7 @@ const StyledFigcaption = styled.figcaption`
     fontSize: fontScale(props, -1)
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
-    margin: ${theme('space.4')} 0;
+    margin: ${props => spaceScale(props, -1)} 0;
 
     &:last-child {
       margin-bottom: 0;
@@ -88,7 +89,8 @@ const StyledKbd = styled.kbd`
     background-color: ${theme('colors.base.line.0')};
     border-radius: ${theme('radii')};
     color: ${theme('colors.base.paper')};
-    padding: ${theme('space.1')} ${theme('space.3')};
+    padding: ${props => spaceScale(props, -4)} ${props => spaceScale(props, -2)};
+    vertical-align: text-top;
   }
 `
 
@@ -100,7 +102,7 @@ const StyledMark = styled.mark`
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     background-color: ${theme('colors.signal.infoBg')};
     border-radius: ${theme('radii')};
-    padding: ${theme('space.1')} ${theme('space.3')};
+    padding: ${props => spaceScale(props, -4)} ${props => spaceScale(props, -2)};
   }
 `
 
@@ -108,7 +110,7 @@ const StyledP = styled.p`
   && {
     ${props => declareFont(props)}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
-    margin-bottom: ${theme('space.5')};
+    margin-bottom: ${props => spaceScale(props, -1)};
 
     &:last-child {
       margin-bottom: 0;
@@ -127,8 +129,8 @@ const StyledPre = styled.pre`
     border-radius: ${theme('radii')};
     border: 1px solid ${theme('colors.base.fill.1')};
     display: block;
-    margin: 0 0 ${theme('space.5')};
-    padding: ${theme('space.4')};
+    margin: 0 0 ${props => spaceScale(props, -1)};
+    padding: ${props => spaceScale(props, -3)} ${props => spaceScale(props, -2)};
 
     &:last-child {
       margin-bottom: 0;

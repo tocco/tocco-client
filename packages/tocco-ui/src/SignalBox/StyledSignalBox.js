@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import {StyledSignalListItem} from '../SignalList'
 import {
   oneOfPropTypeAndCompletelyMapped,
+  spaceScale,
   stylingCondition
 } from '../utilStyles'
 
@@ -29,8 +30,8 @@ const getColor = props => {
 const StyledSignalBox = styled.div`
   && {
     background-color: ${props => getColor(props)};
-    padding: ${theme('space.5')};
-    margin-bottom: ${theme('space.5')};
+    padding: ${props => spaceScale(props, -1)};
+    margin-bottom: ${props => spaceScale(props, -1)};
     border-radius: ${theme('radii')};
 
     &:last-child {

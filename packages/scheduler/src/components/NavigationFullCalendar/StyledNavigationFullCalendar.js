@@ -1,10 +1,13 @@
 import styled from 'styled-components'
-import {theme} from 'styled-system'
-import {StyledMenuButton, StyledItem} from 'tocco-ui'
+import {
+  spaceScale,
+  StyledMenuButton,
+  StyledItem
+} from 'tocco-ui'
 
 const StyledNavigationFullCalendar = styled.div`
   && {
-    margin-bottom: ${props => theme('space.3')};
+    margin-bottom: ${props => spaceScale(props, -2)};
 
     > ${StyledMenuButton} {
       display: flex;

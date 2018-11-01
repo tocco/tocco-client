@@ -1,3 +1,5 @@
+import {trimDecimalPlaces} from 'tocco-ui'
+
 /* COLORS
  * base.paper and base.text are the very basic colors
  * base.fill and primary.fill are used for backgrounds which change by state
@@ -102,24 +104,14 @@ const shadows = {
 }
 
 /* SPACE
- * Space controls vertical and horizontal white space rhythm.
- * Unit 'rem' is required for correct presentation, independently from zoom and nesting.
- * It is recommended to use powers of two to ensure alignment.
- * space[0] = 0px
- * space[1] = 1px
- * space[2] = 2px
- * space[3] = 4px
- * space[4] = 8px
- * space[5] = 16px
- * space[6] = 32px
- * space[7] = 64px
- * space[8] = 128px
- * space[9] = 256px
- * space[10] = 512px
+ * SpaceBase and spaceScale are used to control vertical and horizontal white
+ * space rhythm. All spaces are calculated automatically as an exponential scale.
+ * Both variables are unitless factors. SpaceBase is interpreted as
+ * rem, hence it inherits from websites root. It is recommended to use powers
+ * of two to ensure alignment.
  */
-const space = [
-  0, '.0625rem', '.125rem', '.25rem', '.5rem', '1rem', '2rem', '4rem', '8rem', '16rem', '32rem'
-]
+const spaceBase = trimDecimalPlaces(fontSizeBase * lineHeights[1])
+const spaceScale = 2
 
 const defaultTheme = {
   colors,
@@ -131,7 +123,8 @@ const defaultTheme = {
   overlays,
   radii,
   shadows,
-  space
+  spaceBase,
+  spaceScale
 }
 
 export default defaultTheme

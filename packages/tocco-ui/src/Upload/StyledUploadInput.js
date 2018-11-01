@@ -1,10 +1,12 @@
 import styled from 'styled-components'
 import {theme} from 'styled-system'
 
+import {spaceScale} from '../utilStyles'
+
 const StyledUploadInput = styled.div`
   border: dashed 1px ${theme('colors.base.fill.2')};
   border-radius: ${theme('radii')};
-  padding: ${theme('space.3')} ${theme('space.4')};
+  padding: ${props => spaceScale(props, -2)} ${props => spaceScale(props, -1)};
   cursor: pointer;
 
   &[aria-disabled="true"] {

@@ -10,6 +10,7 @@ import {
   declareOverlay,
   declareRaisedBaseColors,
   declareRaisedPrimaryColors,
+  spaceScale,
   stylingInk,
   stylingLook,
   stylingPosition
@@ -20,7 +21,7 @@ const meltButtons = props => {
   if (!props.melt && props.look === stylingLook.RAISED) {
     declaration = `
       &:not(:last-child) {
-        margin-right: ${theme('space.4')(props)};
+        margin-right: ${spaceScale(props, -1)};
       }
     `
   } else if (props.melt) {
