@@ -1,6 +1,7 @@
 import styled, {css, keyframes} from 'styled-components'
 import {theme} from 'styled-system'
 
+import {spaceScale} from '../utilStyles'
 import {StyledSpan} from '../Typography/StyledMisc'
 import {StyledIconToccoWrapper} from '../IconTocco'
 
@@ -17,12 +18,12 @@ const StyledLoadMask = styled.div`
       height: 100%;
       justify-content: center;
       align-items: center;
-      padding: ${theme('space.4')}
+      padding: ${props => spaceScale(props, -1)};
       width: 100%;
       animation: ${fadeIn} 400ms ease-in-out both;
 
       > ${StyledSpan} {
-        margin-top: ${theme('space.4')}
+        margin-top: ${props => spaceScale(props, -1)};
         z-index: 1;
       }
 

@@ -3,7 +3,8 @@ import {theme} from 'styled-system'
 
 import {
   declareFont,
-  fontScale
+  fontScale,
+  spaceScale
 } from '../utilStyles'
 
 export const declareTypograhpy = (props, mode) => {
@@ -52,8 +53,8 @@ export const declareTypograhpy = (props, mode) => {
     h5,
     h6 {
       font-weight: ${theme('fontWeights.bold')(props)};
-      margin-top: ${theme('space.6')(props)};
-      margin-bottom: ${theme('space.5')(props)};
+      margin-top: ${theme('spaceBase')(props)}rem;
+      margin-bottom: ${spaceScale(props, -1)};
 
       + h1,
       + h2,
@@ -71,7 +72,7 @@ export const declareTypograhpy = (props, mode) => {
     }
 
     p {
-      margin-bottom: ${theme('space.5')(props)};
+      margin-bottom: ${spaceScale(props, -1)};
       &:last-child {
         margin-bottom: 0;
       }
@@ -85,7 +86,7 @@ export const declareTypograhpy = (props, mode) => {
       ul {
         display: block;
         list-style-position: outside;
-        margin: 0 0 ${theme('space.5')(props)} 0;
+        margin: 0 0 ${spaceScale(props, -1)} 0;
         padding: 0;
 
         &:last-child {
@@ -120,7 +121,7 @@ export const declareTypograhpy = (props, mode) => {
       ul {
         display: block;
         list-style-position: outside;
-        margin: 0 0 ${theme('space.5')(props)} 1.6rem;
+        margin: 0 0 ${spaceScale(props, -1)} 1.6rem;
         padding: 0;
 
         ol,

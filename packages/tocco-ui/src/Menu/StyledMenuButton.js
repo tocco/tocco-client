@@ -1,13 +1,16 @@
 import {theme} from 'styled-system'
 
 import StyledMenu from './StyledMenu'
-import {stylingLook} from '../utilStyles'
+import {
+  spaceScale,
+  stylingLook
+} from '../utilStyles'
 
 const StyledMenuButton = StyledMenu.extend`
   && {
     display: inline-flex;
     flex-flow: row wrap;
-    margin-bottom: ${props => props.look === stylingLook.RAISED ? `-${theme('space.4')(props)}` : 0};
+    margin-bottom: ${props => props.look === stylingLook.RAISED ? `-${spaceScale(props, -1)}` : 0};
 
     > hr {
       border: none;
@@ -19,10 +22,10 @@ const StyledMenuButton = StyledMenu.extend`
 
     > li,
     > hr {
-      margin-bottom: ${props => props.look === stylingLook.RAISED ? theme('space.4') : 0};
+      margin-bottom: ${props => props.look === stylingLook.RAISED ? spaceScale(props, -1) : 0};
 
       :not(:last-child) {
-        margin-right: ${props => props.look === stylingLook.RAISED ? theme('space.4') : ''};
+        margin-right: ${props => props.look === stylingLook.RAISED ? spaceScale(props, -1) : ''};
       }
     }
   }

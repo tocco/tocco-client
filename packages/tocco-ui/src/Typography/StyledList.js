@@ -1,10 +1,10 @@
 import styled from 'styled-components'
-import {theme} from 'styled-system'
 
 import {
   declareFont,
   declareNoneWrappingText,
-  declareWrappingText
+  declareWrappingText,
+  spaceScale
 } from '../utilStyles'
 
 const StyledDd = styled.dd`
@@ -17,7 +17,7 @@ const StyledDd = styled.dd`
 
 const StyledDl = styled.dl`
   && {
-    margin: 0 0 ${props => theme('space.5')};
+    margin: 0 0 ${props => spaceScale(props, -1)};
 
     &:last-child {
       margin-bottom: 0;
@@ -44,7 +44,7 @@ const StyledList = styled.ol`
   && {
     display: block;
     list-style-position: outside;
-    margin: 0 0 ${theme('space.5')} 1.6rem;
+    margin: 0 0 ${props => spaceScale(props, -1)} 1.6rem;
     padding: 0;
 
     & &,

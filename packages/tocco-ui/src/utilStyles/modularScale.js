@@ -14,7 +14,7 @@ export const fontScale = (props, exponent, unit = 'rem') => {
 }
 
 export const spaceScale = (props, exponent, unit = 'rem') => {
-  const base = theme('spaceBase')(props) * theme('lineHeights.1')(props)
+  const base = theme('spaceBase')(props)
   const scale = theme('spaceScale')(props)
   return `${trimDecimalPlaces(scaleExponential(base, exponent, scale))}${unit}`
 }

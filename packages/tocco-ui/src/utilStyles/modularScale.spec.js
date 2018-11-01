@@ -76,11 +76,12 @@ describe('tocco-ui', () => {
       const exponents = [-2, -1, 0, 1, 2]
       const props = {
         theme: {
-          spaceBase: 1,
+          fontSizeBase: 1,
           spaceScale: 2,
           lineHeights: [1, 1.5]
         }
       }
+      props['theme']['spaceBase'] = props['theme']['fontSizeBase'] * props['theme']['lineHeights'][1]
       const unit = 'em'
 
       test('should be valid scale in em', () => {

@@ -3,21 +3,22 @@ import {declareDensity} from '../utilStyles'
 const props = {
   theme: {
     lineHeights: [1, 1.4],
-    space: [0, '.0625rem', '.125rem', '.25rem', '.5rem', '1rem', '2rem', '4rem', '8rem', '16rem', '32rem']
+    spaceBase: 16,
+    spaceScale: 2
   }
 }
 
 describe('tocco-ui', () => {
   describe('utilStyles', () => {
     describe('declareDensity', () => {
-      test('should be elevation 0', () => {
+      test('should be normal padding', () => {
         props.dense = false
-        expect(declareDensity(props)).to.equal('line-height: 1.4;\npadding: .25rem .5rem;')
+        expect(declareDensity(props)).to.equal('line-height: 1.4;\npadding: 2rem 4rem;')
       })
 
-      test('should be elevation 1', () => {
+      test('should be dense padding', () => {
         props.dense = true
-        expect(declareDensity(props)).to.equal('line-height: 1;\npadding: .125rem;')
+        expect(declareDensity(props)).to.equal('line-height: 1;\npadding: 1rem;')
       })
     })
   })

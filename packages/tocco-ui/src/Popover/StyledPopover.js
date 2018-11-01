@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import {theme} from 'styled-system'
 
 import {declareTypograhpy} from '../Typography'
+import {spaceScale} from '../utilStyles'
 
 const BORDER_WIDTH = 1
 const ARROW_WIDTH = 16
@@ -20,7 +21,7 @@ const StyledBox = styled('div')`
     display: flex;
     border: ${BORDER_WIDTH}px solid ${theme('colors.base.fill.2')};
     border-radius: ${theme('radii')};
-    padding: ${props => props.rimless ? '0' : theme('space.5')};
+    padding: ${props => props.rimless ? '0' : spaceScale(props, -1)};
     ${props => props.isPlainHtml && declareTypograhpy(props, 'html')}
   }
 `
