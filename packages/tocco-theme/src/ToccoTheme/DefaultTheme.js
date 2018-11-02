@@ -1,56 +1,27 @@
-import {trimDecimalPlaces} from 'tocco-ui'
+import {getInteractionColor, trimDecimalPlaces} from 'tocco-ui'
+import {getLuminance} from 'polished'
 
-/* COLORS
- * base.paper and base.text are the very basic colors
- * base.fill and primary.fill are used for backgrounds which change by state
- * base.line and primary.line are use for text and borders which change by state
- * line and fill must have a high contrast
- * primary.fill and pirmary.line must have the same hue but differentiate in saturation
- * and/or brightness to align visual perception
- * primary line must have a high contrast to to base fill
- * primary fillContrast could be set if the contrast between primary fill and base line is not sufficient
- * color[0] is used as default (stateless)
- * color[1] is used for hover state
- * color[2] is used for active state
-*/
+const paper = '#FFFFFF'
+const text = '#212121'
+const primary = '#9E2124'
 
 const colors = {
+  paper,
+  text,
   base: {
-    fill: [
-      '#EEEEEE', // Grey 200
-      '#E0E0E0', // Grey 300
-      '#BDBDBD' // Grey 400
-    ],
-    line: [
-      '#424242', // Grey 800
-      '#303030', // Grey 850
-      '#212121' // Grey 900
-    ],
-    paper: '#FFFFFF',
-    text: '#212121' // Grey 900
+    fill: getInteractionColor(paper, {shadeOffset: 0.1}),
+    line: getInteractionColor(paper, {shadeOffset: 0.4})
   },
   primary: {
-    fill: [
-      '#9E2124', // Tocco Red
-      '#841B1D', // Tocco Red (darken 10%)
-      '#6B1617' // Tocco Red (darken 20%)
-    ],
-    line: [
-      '#9E2124', // Tocco Red
-      '#841B1D', // Tocco Red (darken 10%)
-      '#6B1617' // Tocco Red (darken 20%)
-    ],
-    fillContrast: [
-      '#FAFAFA', // Grey 50
-      '#F5F5F5', // Grey 100
-      '#EEEEEE' // Grey 200
-    ]
+    fill: getInteractionColor(primary, {action: 'darken'}),
+    line: getInteractionColor(primary, {action: 'darken'}),
+    fillContrast: getLuminance(primary) > 0.5 ? getInteractionColor(text) : getInteractionColor(paper)
   },
   signal: {
     danger: '#D32F2F', // Red 700
     dangerBg: '#EF9A9A', // Red 200
-    info: '#FBC02D', // Yellow 700
-    infoBg: '#FFF59D', // Yellow 200
+    info: '#0288D1', // Light Blue 700
+    infoBg: '#81D4FA', // Light Blue 200
     success: '#388E3C', // Green 700
     successBg: '#A5D6A7', // Green 200
     warning: '#FFA000', // Amber 700

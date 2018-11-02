@@ -17,7 +17,7 @@ const StyledBoxWrapper = styled('div')`
 
 const StyledBox = styled('div')`
   && {
-    background-color: ${theme('colors.base.paper')};
+    background-color: ${theme('colors.paper')};
     display: flex;
     border: ${BORDER_WIDTH}px solid ${theme('colors.base.fill.2')};
     border-radius: ${theme('radii')};

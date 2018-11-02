@@ -4,7 +4,9 @@ import {
   declareInteractionColors,
   declareRaisedBaseColors,
   declareRaisedPrimaryColors,
-  declareFlatPrimaryColors
+  declareFlatPrimaryColors,
+  getInteractionColor,
+  shadeColor
 } from './declareInteractionColors'
 import declareOverlay from './declareOverlay'
 import declareElevation from './declareElevation'
@@ -55,6 +57,7 @@ export {
   declareRaisedPrimaryColors,
   declareWrappingText,
   fontScale,
+  getInteractionColor,
   getTextOfChildren,
   inkPropTypes,
   layoutPropTypes,
@@ -63,6 +66,7 @@ export {
   oneOfPropTypeAndCompletelyMapped,
   positionPropTypes,
   scaleExponential,
+  shadeColor,
   spaceScale,
   stylingAnimation,
   stylingCondition,

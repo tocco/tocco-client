@@ -20,7 +20,7 @@ const StyledMenuStack = StyledMenu.extend`
 
     > hr {
       border: none;
-      border-top: 1px solid ${props => theme('colors.base.text')};
+      border-top: 1px solid ${props => theme('colors.text')};
       display: list-item;
       margin: 0;
     }

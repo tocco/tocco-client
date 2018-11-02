@@ -14,7 +14,7 @@ const StyledMenuButton = StyledMenu.extend`
 
     > hr {
       border: none;
-      border-left: 1px solid ${props => theme('colors.base.text')};
+      border-left: 1px solid ${props => theme('colors.text')};
       display: list-item;
       height: auto;
       margin: 0;

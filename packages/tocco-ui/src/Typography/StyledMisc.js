@@ -88,7 +88,7 @@ const StyledKbd = styled.kbd`
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     background-color: ${theme('colors.base.line.0')};
     border-radius: ${theme('radii')};
-    color: ${theme('colors.base.paper')};
+    color: ${theme('colors.paper')};
     padding: ${props => spaceScale(props, -4)} ${props => spaceScale(props, -2)};
     vertical-align: text-top;
   }

@@ -33,7 +33,7 @@ const StyledFullCalendar = styled.div`
       color: #fff;
 
       &.dark {
-        color: ${theme('colors.base.text')};
+        color: ${theme('colors.text')};
       }
 
       &.bright {
