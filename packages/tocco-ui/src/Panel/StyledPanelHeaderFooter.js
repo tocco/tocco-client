@@ -2,17 +2,18 @@ import styled from 'styled-components'
 import {theme} from 'styled-system'
 
 import {StyledButton} from '../Button'
+import {shadeColor} from '../utilStyles'
 
 const declareDivider = props => {
   const cssShared = `
     &:first-child {
-      border-bottom-color: ${theme('colors.base.fill.2')(props)};
+      border-bottom-color: ${shadeColor(theme('colors.paper')(props), 1)};
       border-bottom-style: ${props.isFramed ? 'solid' : 'none'};
     }
 
     &:last-child,
     &:nth-child(3) {
-      border-top-color: ${theme('colors.base.fill.2')(props)};
+      border-top-color: ${shadeColor(theme('colors.paper')(props), 1)};
       border-top-style: ${props.isFramed ? 'solid' : 'none'};
     }
   `

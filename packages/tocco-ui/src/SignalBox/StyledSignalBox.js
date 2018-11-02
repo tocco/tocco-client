@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import {StyledSignalListItem} from '../SignalList'
 import {
   oneOfPropTypeAndCompletelyMapped,
+  shadeColor,
   spaceScale,
   stylingCondition
 } from '../utilStyles'
@@ -19,12 +20,12 @@ const COLORS = {
   [stylingCondition.DANGER]: theme('colors.signal.dangerBg'),
   [stylingCondition.SUCCESS]: theme('colors.signal.successBg'),
   [stylingCondition.WARNING]: theme('colors.signal.warningBg'),
-  [stylingCondition.BASE]: theme('colors.base.fill.1')
+  [stylingCondition.BASE]: props => shadeColor(theme('colors.paper')(props), 1)
 }
 
 const getColor = props => {
   const color = COLORS[props.condition]
-  return color || theme('colors.base.fill.1')
+  return color || shadeColor(theme('colors.paper')(props), 1)
 }
 
 const StyledSignalBox = styled.div`

@@ -28,7 +28,7 @@ const StyledLoadMask = styled.div`
       }
 
       > ${StyledIconToccoWrapper} {
-        color: ${theme('colors.primary.line.0')};
+        color: ${theme('colors.primary')};
       }
     }
   `}

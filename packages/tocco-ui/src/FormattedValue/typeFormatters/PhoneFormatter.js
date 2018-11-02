@@ -2,6 +2,8 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import _isEmpty from 'lodash/isEmpty'
 
+import Typography from '../../Typography'
+
 class PhoneFormatter extends React.Component {
   constructor(props) {
     super(props)
@@ -26,7 +28,7 @@ class PhoneFormatter extends React.Component {
   }
 
   render() {
-    return <span>{this.getFormattedInput()}</span>
+    return <Typography.Span>{this.getFormattedInput()}</Typography.Span>
   }
 }
 

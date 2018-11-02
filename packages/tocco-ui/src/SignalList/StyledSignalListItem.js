@@ -3,13 +3,14 @@ import {theme} from 'styled-system'
 import {StyledLi} from '../Typography'
 import {
   conditionPropTypes,
+  shadeColor,
   stylingCondition
 } from '../utilStyles'
 
 const COLORS = {
   [stylingCondition.BASE]: 'inherit',
   [stylingCondition.DANGER]: theme('colors.signal.danger'),
-  [stylingCondition.PRIMARY]: theme('colors.primary.line.1'),
+  [stylingCondition.PRIMARY]: props => shadeColor(theme('colors.primary')(props), 1),
   [stylingCondition.SUCCESS]: theme('colors.signal.success'),
   [stylingCondition.WARNING]: theme('colors.signal.warning')
 }

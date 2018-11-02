@@ -1,6 +1,9 @@
 import styled, {keyframes} from 'styled-components'
 import {theme} from 'styled-system'
-import {StyledIconToccoWrapper} from 'tocco-ui'
+import {
+  StyledIconToccoWrapper,
+  shadeColor
+} from 'tocco-ui'
 
 const wobbleHorizontal = keyframes`
   16.65% { transform: translateX(8px); }
@@ -118,7 +121,8 @@ const StyledNotifier = styled.div`
 
   .redux-toastr {
     .toastr {
-      background-color: ${props => theme('colors.base.fill.0')};  // reset: react-redux-toastr (index.scss)
+      background-color: ${props =>
+    shadeColor(theme('colors.paper')(props), 1)};  // reset: react-redux-toastr (index.scss)
       color: ${props => theme('colors.text')};  // reset: react-redux-toastr (index.scss)
 
       .toastr-status {
@@ -131,7 +135,8 @@ const StyledNotifier = styled.div`
         }
 
         &.info {
-          background-color: ${props => theme('colors.base.fill.0')};  // reset: react-redux-toastr (index.scss)
+          background-color: ${props =>
+    shadeColor(theme('colors.paper')(props), 1)};  // reset: react-redux-toastr (index.scss)
         }
 
         &.error {
@@ -151,7 +156,8 @@ const StyledNotifier = styled.div`
       }
 
       &.rrt-info {
-        background-color: ${props => theme('colors.base.fill.0')};  // reset: react-redux-toastr (index.scss)
+        background-color: ${props =>
+    shadeColor(theme('colors.paper')(props), 1)};  // reset: react-redux-toastr (index.scss)
       }
 
       &.rrt-success {
