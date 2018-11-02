@@ -1,5 +1,5 @@
 import React from 'react'
-import {shallow, mount} from 'enzyme'
+import {mount} from 'enzyme'
 
 import PhoneFormatter from './PhoneFormatter'
 
@@ -15,7 +15,7 @@ describe('tocco-ui', () => {
 
         test('should show original string if its not a valid phone number', () => {
           const invalidPhoneNumber = '+41 4438860011111110'
-          const wrapper = shallow(<PhoneFormatter value={invalidPhoneNumber}/>)
+          const wrapper = mount(<PhoneFormatter value={invalidPhoneNumber}/>)
           return wrapper.instance().importLibPhoneNumber()
             .then(() => expect(wrapper.text()).to.equal(invalidPhoneNumber))
         })

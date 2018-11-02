@@ -1,4 +1,4 @@
-import {theme} from 'styled-system'
+import {themeGet} from 'styled-system'
 import {lighten, darken, getLuminance} from 'polished'
 
 import {stylingFormat} from '../utilStyles'
@@ -28,47 +28,85 @@ const declareInteractionColors = (colors, format = stylingFormat.HTML) => {
 }
 
 const declareFlatBaseColors = props => {
+  const text = themeGet('colors.text', '#010101')(props)
+  const paper = themeGet('colors.paper', '#fefefe')(props)
+  const fg = getInteractionColor(text, {
+    action: getLuminance(paper) > 0.5 ? 'darken' : 'lighten'
+  })
+  const bg = getInteractionColor(paper)
+
   return {
-    defaultColor: theme('colors.text')(props),
-    defaultBackground: theme('colors.paper')(props),
-    focusColor: theme('colors.base.line.1')(props),
-    focusBackground: theme('colors.base.fill.0')(props),
-    activeColor: theme('colors.base.line.2')(props),
-    activeBackground: theme('colors.base.fill.1')(props)
+    defaultColor: fg[0],
+    defaultBackground: bg[0],
+    focusColor: fg[1],
+    focusBackground: bg[1],
+    activeColor: fg[2],
+    activeBackground: bg[2]
   }
 }
 
 const declareFlatPrimaryColors = props => {
+  const primary = themeGet('colors.primary', '#010101')(props)
+  const paper = themeGet('colors.paper', '#fefefe')(props)
+  const fg = getInteractionColor(primary, {
+    action: getLuminance(paper) > 0.5 ? 'darken' : 'lighten'
+  })
+  const bg = getInteractionColor(paper)
+
   return {
-    defaultColor: theme('colors.primary.line.0')(props),
-    defaultBackground: theme('colors.paper')(props),
-    focusColor: theme('colors.primary.line.1')(props),
-    focusBackground: theme('colors.base.fill.0')(props),
-    activeColor: theme('colors.primary.line.2')(props),
-    activeBackground: theme('colors.base.fill.1')(props)
+    defaultColor: fg[0],
+    defaultBackground: bg[0],
+    focusColor: fg[1],
+    focusBackground: bg[1],
+    activeColor: fg[2],
+    activeBackground: bg[2]
   }
 }
 
 const declareRaisedBaseColors = props => {
+  const text = themeGet('colors.text', '#010101')(props)
+  const paper = themeGet('colors.paper', '#fefefe')(props)
+  const fg = getInteractionColor(text, {
+    action: getLuminance(paper) > 0.5 ? 'darken' : 'lighten'
+  })
+  const bg = getInteractionColor(paper, {
+    shadeOffset: 0.1
+  })
+
   return {
-    defaultColor: theme('colors.base.line.0')(props),
-    defaultBackground: theme('colors.base.fill.0')(props),
-    focusColor: theme('colors.base.line.1')(props),
-    focusBackground: theme('colors.base.fill.1')(props),
-    activeColor: theme('colors.base.line.2')(props),
-    activeBackground: theme('colors.base.fill.2')(props)
+    defaultColor: fg[0],
+    defaultBackground: bg[0],
+    focusColor: fg[1],
+    focusBackground: bg[1],
+    activeColor: fg[2],
+    activeBackground: bg[2]
   }
 }
 
 const declareRaisedPrimaryColors = props => {
+  const text = themeGet('colors.text', '#010101')(props)
+  const paper = themeGet('colors.paper', '#fefefe')(props)
+  const primary = themeGet('colors.primary', '#010101')(props)
+  const higherContrast = getContrast(text, primary) > getContrast(paper, primary) ? text : paper
+  const fg = getInteractionColor(higherContrast, {
+    action: getLuminance(primary) > 0.5 ? 'darken' : 'lighten'
+  })
+  const bg = getInteractionColor(primary)
+
   return {
-    defaultColor: theme('colors.primary.fillContrast.0')(props),
-    defaultBackground: theme('colors.primary.fill.0')(props),
-    focusColor: theme('colors.primary.fillContrast.1')(props),
-    focusBackground: theme('colors.primary.fill.1')(props),
-    activeColor: theme('colors.primary.fillContrast.2')(props),
-    activeBackground: theme('colors.primary.fill.2')(props)
+    defaultColor: fg[0],
+    defaultBackground: bg[0],
+    focusColor: fg[1],
+    focusBackground: bg[1],
+    activeColor: fg[2],
+    activeBackground: bg[2]
   }
+}
+
+const getContrast = (colorA, colorB) => {
+  const luminanceA = getLuminance(colorA)
+  const luminanceB = getLuminance(colorB)
+  return luminanceA > luminanceB ? luminanceA - luminanceB : luminanceB - luminanceA
 }
 
 const getInteractionColor = (color = '#000', options = {}) => ([

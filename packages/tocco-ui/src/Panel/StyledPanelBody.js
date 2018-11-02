@@ -26,7 +26,7 @@ const StyledPanelBody = styled.div`
     transition:
       height 300ms ease-in-out,
       padding 300ms ease-in-out;
-    will-change: height, padding;
+      will-change: height, padding;
 
     > div {
       padding: ${props => props.isFramed ? '20px' : 0} 0;

@@ -11,36 +11,26 @@ import {
 const props = {
   theme: {
     colors: {
-      paper: 'base_paper',
-      text: 'base_text',
-      base: {
-        fill: [
-          'base_fill_0',
-          'base_fill_1',
-          'base_fill_2'
-        ],
-        line: [
-          'base_line_0',
-          'base_line_1',
-          'base_line_2'
-        ]
-      },
-      primary: {
-        fill: [
-          'primary_fill_0',
-          'primary_fill_1',
-          'primary_fill_2'
-        ],
-        line: [
-          'primary_line_0',
-          'primary_line_1',
-          'primary_line_2'
-        ],
-        fillContrast: [
-          'primary_fillContrast_0',
-          'primary_fillContrast_1',
-          'primary_fillContrast_2'
-        ]
+      paper: '#300',
+      primary: '#600',
+      text: '#900',
+      signal: {
+        danger: {
+          paper: '#030',
+          text: '#090'
+        },
+        info: {
+          paper: '#330',
+          text: '#990'
+        },
+        success: {
+          paper: '#003',
+          text: '#009'
+        },
+        warning: {
+          paper: '#033',
+          text: '#099'
+        }
       }
     }
   }
@@ -61,45 +51,53 @@ describe('tocco-ui', () => {
       test('should be color set for flat base', () => {
         const colors = declareFlatBaseColors(props)
         expect(Object.keys(colors)).to.have.lengthOf(6)
-        expect(colors.defaultColor).to.equal('base_text')
-        expect(colors.defaultBackground).to.equal('base_paper')
-        expect(colors.focusColor).to.equal('base_line_1')
-        expect(colors.focusBackground).to.equal('base_fill_0')
-        expect(colors.activeColor).to.equal('base_line_2')
-        expect(colors.activeBackground).to.equal('base_fill_1')
+        expect(colors).to.deep.equal({
+          defaultColor: '#900',
+          defaultBackground: '#300',
+          focusColor: '#c00',
+          focusBackground: '#600',
+          activeColor: '#f00',
+          activeBackground: '#900'
+        })
       })
 
       test('should be color set for flat primary', () => {
         const colors = declareFlatPrimaryColors(props)
         expect(Object.keys(colors)).to.have.lengthOf(6)
-        expect(colors.defaultColor).to.equal('primary_line_0')
-        expect(colors.defaultBackground).to.equal('base_paper')
-        expect(colors.focusColor).to.equal('primary_line_1')
-        expect(colors.focusBackground).to.equal('base_fill_0')
-        expect(colors.activeColor).to.equal('primary_line_2')
-        expect(colors.activeBackground).to.equal('base_fill_1')
+        expect(colors).to.deep.equal({
+          defaultColor: '#600',
+          defaultBackground: '#300',
+          focusColor: '#900',
+          focusBackground: '#600',
+          activeColor: '#c00',
+          activeBackground: '#900'
+        })
       })
 
       test('should be color set for raised base', () => {
         const colors = declareRaisedBaseColors(props)
         expect(Object.keys(colors)).to.have.lengthOf(6)
-        expect(colors.defaultColor).to.equal('base_line_0')
-        expect(colors.defaultBackground).to.equal('base_fill_0')
-        expect(colors.focusColor).to.equal('base_line_1')
-        expect(colors.focusBackground).to.equal('base_fill_1')
-        expect(colors.activeColor).to.equal('base_line_2')
-        expect(colors.activeBackground).to.equal('base_fill_2')
+        expect(colors).to.deep.equal({
+          defaultColor: '#900',
+          defaultBackground: '#600',
+          focusColor: '#c00',
+          focusBackground: '#900',
+          activeColor: '#f00',
+          activeBackground: '#c00'
+        })
       })
 
       test('should be color set for raised primary', () => {
         const colors = declareRaisedPrimaryColors(props)
         expect(Object.keys(colors)).to.have.lengthOf(6)
-        expect(colors.defaultColor).to.equal('primary_fillContrast_0')
-        expect(colors.defaultBackground).to.equal('primary_fill_0')
-        expect(colors.focusColor).to.equal('primary_fillContrast_1')
-        expect(colors.focusBackground).to.equal('primary_fill_1')
-        expect(colors.activeColor).to.equal('primary_fillContrast_2')
-        expect(colors.activeBackground).to.equal('primary_fill_2')
+        expect(colors).to.deep.equal({
+          defaultColor: '#900',
+          defaultBackground: '#600',
+          focusColor: '#c00',
+          focusBackground: '#900',
+          activeColor: '#f00',
+          activeBackground: '#c00'
+        })
       })
 
       test(

@@ -1,22 +1,13 @@
-import {getInteractionColor, trimDecimalPlaces} from 'tocco-ui'
-import {getLuminance} from 'polished'
+import {trimDecimalPlaces} from 'tocco-ui'
 
-const paper = '#FFFFFF'
-const text = '#212121'
-const primary = '#9E2124'
-
+/* COLORS
+ * Paper, text and primary are the main colors. Whereas signal colors are only used to
+ * emphasize states. Colors text and primary must have a high contrast to paper.
+ */
 const colors = {
-  paper,
-  text,
-  base: {
-    fill: getInteractionColor(paper, {shadeOffset: 0.1}),
-    line: getInteractionColor(paper, {shadeOffset: 0.4})
-  },
-  primary: {
-    fill: getInteractionColor(primary, {action: 'darken'}),
-    line: getInteractionColor(primary, {action: 'darken'}),
-    fillContrast: getLuminance(primary) > 0.5 ? getInteractionColor(text) : getInteractionColor(paper)
-  },
+  paper: '#fff',
+  text: '#212121',
+  primary: '#9E2124',
   signal: {
     danger: '#D32F2F', // Red 700
     dangerBg: '#EF9A9A', // Red 200
@@ -58,7 +49,7 @@ const lineHeights = [
 
 const overlays = {
   disabled: {
-    color: colors.base.paper,
+    color: colors.paper,
     opacity: 0.7
   }
 }

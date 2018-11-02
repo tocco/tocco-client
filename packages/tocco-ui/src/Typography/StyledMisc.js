@@ -6,6 +6,7 @@ import {
   declareNoneWrappingText,
   declareWrappingText,
   fontScale,
+  shadeColor,
   spaceScale,
   trimDecimalPlaces
 } from '../utilStyles'
@@ -26,7 +27,7 @@ const StyledCode = styled.code`
     fontSize: fontScale(props, -1)
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
-    background-color: ${theme('colors.base.fill.0')};
+    background-color: ${props => shadeColor(theme('colors.paper')(props), 1)};
     border-radius: ${theme('radii')};
     padding: ${props => spaceScale(props, -4)} ${props => spaceScale(props, -2)};
   }
@@ -86,9 +87,8 @@ const StyledKbd = styled.kbd`
     fontSize: fontScale(props, -1)
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
-    background-color: ${theme('colors.base.line.0')};
+    background-color: ${props => shadeColor(theme('colors.paper')(props), 2)};
     border-radius: ${theme('radii')};
-    color: ${theme('colors.paper')};
     padding: ${props => spaceScale(props, -4)} ${props => spaceScale(props, -2)};
     vertical-align: text-top;
   }
@@ -125,9 +125,9 @@ const StyledPre = styled.pre`
     fontSize: fontScale(props, -1)
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
-    background-color: ${theme('colors.base.fill.0')};
+    background-color: ${props => shadeColor(theme('colors.paper')(props), 1)};
     border-radius: ${theme('radii')};
-    border: 1px solid ${theme('colors.base.fill.1')};
+    border: 1px solid ${props => shadeColor(theme('colors.paper')(props), 2)};
     display: block;
     margin: 0 0 ${props => spaceScale(props, -1)};
     padding: ${props => spaceScale(props, -3)} ${props => spaceScale(props, -2)};

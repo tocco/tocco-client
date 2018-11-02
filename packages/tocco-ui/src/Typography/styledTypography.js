@@ -4,6 +4,7 @@ import {theme} from 'styled-system'
 import {
   declareFont,
   fontScale,
+  shadeColor,
   spaceScale
 } from '../utilStyles'
 
@@ -11,17 +12,17 @@ export const declareTypograhpy = (props, mode) => {
   let css = `
     ${declareFont(props)}
     a {
-      color: ${theme('colors.primary.line.0')(props)}
+      color: ${theme('colors.primary')(props)}
       text-decoration: none;
 
       &:hover,
       &:focus {
-        color: ${theme('colors.primary.line.1')(props)}
+        color: ${shadeColor(theme('colors.primary')(props), 1)}
         text-decoration: underline;
       }
 
       &:active {
-        color: ${theme('colors.primary.line.2')(props)}
+        color: ${shadeColor(theme('colors.primary')(props), 2)}
       }
     }
 
