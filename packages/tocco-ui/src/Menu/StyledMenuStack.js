@@ -5,13 +5,17 @@ import StyledItemFlyout from './StyledItemFlyout'
 
 const StyledMenuStack = StyledMenu.extend`
   && {
-    > li > button,
-    > li > a {
-      border-radius: 0;
-      box-shadow: none;
-      text-align: left;
-      text-transform: none;
-      width: 100%;
+    > li {
+      flex-direction: column;
+
+      > button,
+      > a {
+        border-radius: 0;
+        box-shadow: none;
+        text-align: left;
+        text-transform: none;
+        width: 100%;
+      }
     }
 
     > hr {
@@ -22,6 +26,7 @@ const StyledMenuStack = StyledMenu.extend`
     }
 
     > :not(${StyledItemFlyout}) > ul {
+      width: calc(100% - 20px);
       margin-left: 20px;
     }
   }
