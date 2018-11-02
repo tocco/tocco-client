@@ -9,7 +9,7 @@ const StyledModalContent = styled.div.attrs({
   className: props => `rrt-confirm animated ${props.isClosing ? 'fadeOut' : 'fadeIn'}`
 })`
    &&& {
-    background-color: ${theme('colors.base.paper')};    // reset: react-redux-toastr (confirm.scss)
+    background-color: ${theme('colors.paper')};    // reset: react-redux-toastr (confirm.scss)
     border-radius: ${theme('radii')};                   // reset: react-redux-toastr (confirm.scss)
     box-shadow: 2px 2px 10px rgba(0, 0, 0, .4);         // reset: react-redux-toastr (confirm.scss)
     left: 0;                                            // reset: react-redux-toastr (confirm.scss)

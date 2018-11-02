@@ -3,12 +3,16 @@ import {
   declareFlatPrimaryColors,
   declareInteractionColors,
   declareRaisedBaseColors,
-  declareRaisedPrimaryColors
+  declareRaisedPrimaryColors,
+  getInteractionColor,
+  shadeColor
 } from '../utilStyles'
 
 const props = {
   theme: {
     colors: {
+      paper: 'base_paper',
+      text: 'base_text',
       base: {
         fill: [
           'base_fill_0',
@@ -19,9 +23,7 @@ const props = {
           'base_line_0',
           'base_line_1',
           'base_line_2'
-        ],
-        paper: 'base_paper',
-        text: 'base_text'
+        ]
       },
       primary: {
         fill: [
@@ -109,6 +111,69 @@ describe('tocco-ui', () => {
           expect(css).to.match(/&:active {[\n\s]*background-color: activeBackground;[\n\s]*color: activeColor;[\n\s]*}/)
         }
       )
+
+      test('should shade colors', () => {
+        const scenarios = [{
+          color: '#777',
+          expectation: '#919191'
+        }, {
+          color: '#777',
+          expectation: '#aaa',
+          step: 2
+        }, {
+          color: '#777',
+          expectation: '#aaa',
+          options: {shadeFactor: 0.2}
+        }, {
+          color: '#777',
+          expectation: '#aaa',
+          options: {shadeOffset: 0.1}
+        }]
+
+        scenarios.map(scenario => {
+          const {color, expectation, options, step} = scenario
+          expect(shadeColor(color, step, options)).to.equal(expectation)
+        })
+      })
+
+      test('should ligthen or darken depending on luminosity', () => {
+        const scenarios = [{
+          color: '#bdbdbd',
+          expectation: '#a4a4a4'
+        }, {
+          color: '#bdbdbd',
+          expectation: '#d7d7d7',
+          options: {action: 'lighten'}
+        }, {
+          color: '#9e9e9e',
+          expectation: '#b8b8b8'
+        }, {
+          color: '#9e9e9e',
+          expectation: '#858585',
+          options: {action: 'darken'}
+        }]
+
+        scenarios.map(scenario => {
+          const {color, expectation, options} = scenario
+          expect(shadeColor(color, 1, options)).to.equal(expectation)
+        })
+      })
+
+      test('should calculate interaction color', () => {
+        const scenarios = [{
+          color: '#fff',
+          expectation: ['#fff', '#e6e6e6', '#ccc']
+        }, {
+          color: '#fff',
+          expectation: ['#e6e6e6', '#b3b3b3', '#808080'],
+          options: {shadeFactor: 0.2, shadeOffset: 0.1}
+        }]
+
+        scenarios.map(scenario => {
+          const {color, expectation, options} = scenario
+          expect(getInteractionColor(color, options)).to.deep.equal(expectation)
+        })
+      })
     })
   })
 })

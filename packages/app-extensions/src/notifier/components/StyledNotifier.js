@@ -119,7 +119,7 @@ const StyledNotifier = styled.div`
   .redux-toastr {
     .toastr {
       background-color: ${props => theme('colors.base.fill.0')};  // reset: react-redux-toastr (index.scss)
-      color: ${props => theme('colors.base.text')};  // reset: react-redux-toastr (index.scss)
+      color: ${props => theme('colors.text')};  // reset: react-redux-toastr (index.scss)
 
       .toastr-status {
         &.success {
@@ -143,7 +143,7 @@ const StyledNotifier = styled.div`
       &.rrt-success,
       &.rrt-warning,
       &.rrt-error {
-        color: ${props => theme('colors.base.text')};  // reset: react-redux-toastr (index.scss)
+        color: ${props => theme('colors.text')};  // reset: react-redux-toastr (index.scss)
 
         .rrt-progressbar {
           background-color: rgba(0, 0, 0, .3);  // reset: react-redux-toastr (index.scss)

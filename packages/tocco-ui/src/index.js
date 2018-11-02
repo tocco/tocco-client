@@ -65,6 +65,8 @@ export {
 } from './Typography'
 export {default as Upload, StyledUploadInput, StyledView} from './Upload'
 export {
+  getInteractionColor,
+  shadeColor,
   spaceScale,
   stylingCondition,
   stylingInk,

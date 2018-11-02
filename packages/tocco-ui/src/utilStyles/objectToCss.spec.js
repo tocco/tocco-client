@@ -5,14 +5,14 @@ const props = {
     space: [0, '1rem', '2rem'],
     lineHeights: [1, 2, 3],
     colors: {
+      paper: '#CCC',
+      text: '#BBB',
       base: {
         fill: [
           '#FFF',
           '#EEE',
           '#DDD'
-        ],
-        paper: '#CCC',
-        text: '#BBB'
+        ]
       }
     }
   }
@@ -64,7 +64,7 @@ describe('tocco-ui', () => {
         'should be one css declaration with one deep nested string value from theme',
         () => {
           const declarations = {
-            'color': ['colors.base.text']
+            'color': ['colors.text']
           }
           expect(objectToCss(declarations, props)).to.equal('color: #BBB;')
         }
