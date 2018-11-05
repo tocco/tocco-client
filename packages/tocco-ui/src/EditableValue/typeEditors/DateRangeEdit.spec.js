@@ -16,13 +16,13 @@ describe('tocco-ui', () => {
   describe('EditableValue', () => {
     describe('typeEditors', () => {
       describe('DateRangeEdit ', () => {
-        test('should render an instance of DateAbstract', () => {
+        test('should render an instance of DateEdit', () => {
           const wrapper = intlEnzyme.mountWithIntl(
             <DateRangeEdit onChange={EMPTY_FUNC} value={valueObject}/>
           )
 
-          const dateAbstract = wrapper.find(DateEdit)
-          expect(dateAbstract).to.have.length(1)
+          const dateEdit = wrapper.find(DateEdit)
+          expect(dateEdit).to.have.length(1)
         })
 
         test('should set a single date', () => {
@@ -57,8 +57,8 @@ describe('tocco-ui', () => {
 
         test('should render two input fields on click', done => {
           const testTimeInput = {
-            exactValue: null,
-            fromValue: '2018-10-20',
+            exactValue: '2018-10-20',
+            fromValue: null,
             toValue: null
           }
           const wrapper = intlEnzyme.mountWithIntl(
