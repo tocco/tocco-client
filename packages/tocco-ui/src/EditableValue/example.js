@@ -61,9 +61,10 @@ class Example extends React.Component {
         multiSelect: [{key: 'a', display: 'One'}, {key: 'b', display: 'Two'}],
         date: '2015-12-18',
         dateRangeObject: {
-          exactValue: '2018-06-24',
+          showExact: true,
+          exactValue: '2018-09-24',
           fromValue: '2018-09-13',
-          toValue: '2018-10-12'
+          toValue: '2018-09-12'
         },
         datetime: '2017-01-25T15:15:00.000Z',
         decimal: 123456.78,

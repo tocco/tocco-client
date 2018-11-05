@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import moment from 'moment'
 import {injectIntl, intlShape} from 'react-intl'
 
 import DateEdit from './DateEdit'
@@ -13,19 +12,78 @@ class DateRangeEdit extends React.Component {
     super(props)
     this.state = {
       label: this.RANGE_CALENDAR_LABEL,
-      showRange: true
+      showExact: this.handleShowExact()
     }
     this.onChangeObject = {
       exactValue: null,
       fromValue: null,
       toValue: null
     }
+    this.fillInValuesOnLoad()
   }
 
-  areDatesInOrder = () => {
-    const fromValue = this.onChangeObject.fromValue
-    const toValue = this.onChangeObject.toValue
-    return moment(fromValue).isBefore(toValue)
+  handleShowExact = () => {
+    if (typeof this.props.value.showExact === 'boolean') {
+      return this.props.value.showExact
+    }
+    if (!this.props.value.showExact) {
+      if (this.props.value.exactValue) {
+        return true
+      }
+      if (this.props.value.fromValue || this.props.value.toValue) {
+        return false
+      }
+    }
+    return true
+  }
+
+  fillInValuesOnLoad = () => {
+    if (this.props.value.exactValue) {
+      if (!this.props.value.fromValue && !this.props.value.toValue) {
+        this.props.value.fromValue = this.props.value.exactValue
+        this.props.value.toValue = this.props.value.exactValue
+
+        this.onChangeObject.fromValue = this.props.value.exactValue
+        this.onChangeObject.toValue = this.props.value.exactValue
+      }
+    }
+
+    if (!this.props.value.exactValue) {
+      if (this.props.value.fromValue && this.props.value.toValue) {
+        this.props.value.exactValue = this.props.value.fromValue
+      }
+      if (this.props.value.fromValue && !this.props.value.toValue) {
+        this.props.value.exactValue = this.props.value.fromValue
+      }
+      if (this.props.value.toValue && !this.props.value.fromValue) {
+        this.props.value.exactValue = this.props.value.toValue
+      }
+    }
+  }
+
+  fillInExactValueOnChange = () => {
+    if (this.onChangeObject.exactValue !== null) {
+      if (this.onChangeObject.fromValue === null && this.onChangeObject.toValue === null) {
+        this.onChangeObject.fromValue = this.onChangeObject.exactValue
+        this.onChangeObject.toValue = this.onChangeObject.exactValue
+      }
+    }
+  }
+
+  fillInRangeValuesOnChange = () => {
+    if (this.onChangeObject.exactValue === null) {
+      if (this.onChangeObject.fromValue !== null && this.onChangeObject.toValue !== null) {
+        this.onChangeObject.exactValue = this.onChangeObject.fromValue
+      }
+
+      if (this.onChangeObject.fromValue !== null && this.onChangeObject.toValue === null) {
+        this.onChangeObject.exactValue = this.onChangeObject.fromValue
+      }
+
+      if (this.onChangeObject.fromValue === null && this.onChangeObject.toValue !== null) {
+        this.onChangeObject.exactValue = this.onChangeObject.toValue
+      }
+    }
   }
 
   handleChange = date => {
@@ -35,53 +93,29 @@ class DateRangeEdit extends React.Component {
 
   handleFromDateChange = date => {
     this.onChangeObject.fromValue = date
-    if (this.onChangeObject.fromValue && this.onChangeObject.toValue) {
-      if (this.areDatesInOrder() === false) {
-        this.onChangeObject.fromValue = null
-      }
-    }
     this.props.onChange(this.onChangeObject)
   }
 
   handleToDateChange = date => {
     this.onChangeObject.toValue = date
-    if (this.onChangeObject.fromValue && this.onChangeObject.toValue) {
-      if (this.areDatesInOrder() === false) {
-        this.onChangeObject.toValue = null
-      }
-    }
     this.props.onChange(this.onChangeObject)
   }
 
-  toggleRangeView = () => {
+  toggleView = () => {
     this.setState(prevState => ({
-      showRange: !prevState.showRange
+      showExact: !prevState.showExact
     }))
     this.switchValues()
   }
 
   switchValues = () => {
-    if (this.state.showRange) {
+    if (this.state.showExact === true) {
       this.setState({label: this.SINGLE_CALENDAR_LABEL})
-      if (this.onChangeObject.exactValue !== null) {
-        if (this.onChangeObject.fromValue === null && this.onChangeObject.toValue === null) {
-          for (const key in this.onChangeObject) {
-            if (this.onChangeObject.hasOwnProperty(key)) {
-              this.onChangeObject[key] = this.onChangeObject.exactValue
-            }
-          }
-        }
-      }
-    } else if (!this.state.showRange) {
+      this.fillInExactValueOnChange()
+    }
+    if (this.state.showExact === false) {
       this.setState({label: this.RANGE_CALENDAR_LABEL})
-      if (this.onChangeObject.exactValue === null) {
-        if (this.onChangeObject.fromValue !== null) {
-          this.onChangeObject.exactValue = this.onChangeObject.fromValue
-        }
-        if (this.onChangeObject.toValue !== null && this.onChangeObject.fromValue === null) {
-          this.onChangeObject.exactValue = this.onChangeObject.toValue
-        }
-      }
+      this.fillInRangeValuesOnChange()
     }
   }
 
@@ -90,15 +124,15 @@ class DateRangeEdit extends React.Component {
 
     return (
       <div>
-        {this.state.showRange && <DateEdit
+        {this.state.showExact && <DateEdit
           value={this.props.value.exactValue}
           onChange={this.handleChange}
           options={{...this.props.options, flatpickrOptions}}
           readOnly={this.props.readOnly}
           events={this.props.events}
         />}
-        <button onClick={this.toggleRangeView}>{this.state.label}</button>
-        {!this.state.showRange
+        <button onClick={this.toggleView}>{this.state.label}</button>
+        {!this.state.showExact
         && <div>
           <DateEdit
             value={this.props.value.fromValue}
@@ -137,7 +171,8 @@ DateRangeEdit.propTypes = {
   value: PropTypes.shape({
     exactValue: PropTypes.string,
     fromValue: PropTypes.string,
-    toValue: PropTypes.string
+    toValue: PropTypes.string,
+    showExact: PropTypes.bool
   }),
   readOnly: PropTypes.bool,
   options: PropTypes.shape({
