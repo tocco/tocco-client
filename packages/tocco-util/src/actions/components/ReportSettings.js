@@ -69,6 +69,7 @@ class ReportSettings extends React.Component {
         <ButtonGroup>
           {downloadSupportedByBrowser()
           && <Button
+            ink="primary"
             disabled={!this.state.customSettingsValid || !this.state.valid}
             icon="file-download"
             onClick={this.handleButtonClick(submitActions.DOWNLOAD)}
