@@ -1,6 +1,6 @@
 {
   "name": "tocco-ui",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "private": true,
   "description": "some ui elements",
   "main": "src/index.js",
@@ -26,6 +26,6 @@
     "react-quill": "^1.2.7",
     "react-select": "1.2.1",
     "react-tether": "^0.6.1",
-    "tocco-test-util": ">0.1.0"
+    "tocco-test-util": "0.1.3"
   }
 }

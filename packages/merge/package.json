@@ -1,6 +1,6 @@
 {
   "name": "tocco-merge",
-  "version": "0.2.16",
+  "version": "0.2.17",
   "description": "merge action",
   "main": "dist/index.js",
   "publishConfig": {
@@ -11,9 +11,9 @@
     "prepublish": "npm run compile"
   },
   "devDependencies": {
-    "tocco-test-util": ">0.1.0",
-    "tocco-theme": ">0.1.0",
-    "tocco-ui": "^0.1.14",
-    "tocco-util": "^0.1.11"
+    "tocco-test-util": "0.1.3",
+    "tocco-theme": "0.2.3",
+    "tocco-ui": "0.1.15",
+    "tocco-util": "0.1.12"
   }
 }
