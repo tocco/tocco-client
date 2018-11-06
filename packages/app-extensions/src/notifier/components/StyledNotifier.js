@@ -1,3 +1,4 @@
+import {rgba, shade} from 'polished'
 import styled, {keyframes} from 'styled-components'
 import {theme} from 'styled-system'
 import {
@@ -104,7 +105,7 @@ const StyledNotifier = styled.div`
     // reset: react-redux-toastr (index.scss & confirm.scss)
     .redux-toastr .toastr-attention,
     .rrt-confirm-holder .shadow {
-      background-color: ${props => theme('shadows.color')};
+      background-color: ${props => rgba(shade(0.8, theme('colors.paper')(props)), 0.7)};
     }
 
     // blockingInfo
