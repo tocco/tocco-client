@@ -2,21 +2,29 @@ import {trimDecimalPlaces} from 'tocco-ui'
 
 /* COLORS
  * Paper, text and primary are the main colors. Whereas signal colors are only used to
- * emphasize states. Colors text and primary must have a high contrast to paper.
+ * emphasize states. Colors text and primary must have a high contrast to paper colors.
  */
 const colors = {
   paper: '#fff',
-  text: '#212121',
   primary: '#9E2124',
+  text: '#212121',
   signal: {
-    danger: '#D32F2F', // Red 700
-    dangerBg: '#EF9A9A', // Red 200
-    info: '#0288D1', // Light Blue 700
-    infoBg: '#81D4FA', // Light Blue 200
-    success: '#388E3C', // Green 700
-    successBg: '#A5D6A7', // Green 200
-    warning: '#FFA000', // Amber 700
-    warningBg: '#FFE082' // Amber 200
+    danger: {
+      paper: '#EF9A9A', // Red 200
+      text: '#D32F2F' // Red 700
+    },
+    info: {
+      paper: '#81D4FA', // Light Blue 200
+      text: '#0288D1' // Light Blue 700
+    },
+    success: {
+      paper: '#A5D6A7', // Green 200
+      text: '#388E3C' // Green 700
+    },
+    warning: {
+      paper: '#FFE082', // Amber 200
+      text: '#FFA000' // Amber 700
+    }
   }
 }
 

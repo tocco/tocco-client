@@ -107,7 +107,7 @@ const StyledEditableValue = styled.span`
       }
 
       .reset:hover {
-        color: ${theme('colors.signal.danger')};
+        color: ${theme('colors.signal.danger.text')};
       }
     }
   }
