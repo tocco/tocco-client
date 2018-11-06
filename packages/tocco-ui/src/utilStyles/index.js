@@ -9,7 +9,6 @@ import {
   shadeColor
 } from './declareInteractionColors'
 import declareOverlay from './declareOverlay'
-import declareElevation from './declareElevation'
 import declareFont from './declareFont'
 import {
   declareNoneWrappingText,
@@ -46,7 +45,6 @@ export {
   assertObjectValuesMatchOtherObjectKeys,
   conditionPropTypes,
   declareDensity,
-  declareElevation,
   declareFlatBaseColors,
   declareFlatPrimaryColors,
   declareFont,

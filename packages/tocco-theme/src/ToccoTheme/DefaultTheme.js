@@ -64,15 +64,6 @@ const overlays = {
 
 const radii = '4px'
 
-const shadows = {
-  levels: [
-    'none',
-    '0 1px 1px 1px',
-    '0 2px 2px 2px'
-  ],
-  color: 'rgba(33, 33, 33, .6)'
-}
-
 /* SPACE
  * SpaceBase and spaceScale are used to control vertical and horizontal white
  * space rhythm. All spaces are calculated automatically as an exponential scale.
@@ -92,7 +83,6 @@ const defaultTheme = {
   lineHeights,
   overlays,
   radii,
-  shadows,
   spaceBase,
   spaceScale
 }
