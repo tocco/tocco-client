@@ -100,7 +100,7 @@ const StyledMark = styled.mark`
     fontFamily: theme('fontFamily.monospace')(props)
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
-    background-color: ${theme('colors.signal.infoBg')};
+    background-color: ${theme('colors.signal.info.paper')};
     border-radius: ${theme('radii')};
     padding: ${props => spaceScale(props, -4)} ${props => spaceScale(props, -2)};
   }

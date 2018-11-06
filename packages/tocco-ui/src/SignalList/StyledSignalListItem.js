@@ -9,10 +9,10 @@ import {
 
 const COLORS = {
   [stylingCondition.BASE]: 'inherit',
-  [stylingCondition.DANGER]: theme('colors.signal.danger'),
+  [stylingCondition.DANGER]: theme('colors.signal.danger.text'),
   [stylingCondition.PRIMARY]: props => shadeColor(theme('colors.primary')(props), 1),
-  [stylingCondition.SUCCESS]: theme('colors.signal.success'),
-  [stylingCondition.WARNING]: theme('colors.signal.warning')
+  [stylingCondition.SUCCESS]: theme('colors.signal.success.text'),
+  [stylingCondition.WARNING]: theme('colors.signal.warning.text')
 }
 
 const getColor = props => {

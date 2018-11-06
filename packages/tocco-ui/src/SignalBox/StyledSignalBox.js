@@ -17,9 +17,9 @@ const ALLOWED_CONDITIONS = [
 ]
 
 const COLORS = {
-  [stylingCondition.DANGER]: theme('colors.signal.dangerBg'),
-  [stylingCondition.SUCCESS]: theme('colors.signal.successBg'),
-  [stylingCondition.WARNING]: theme('colors.signal.warningBg'),
+  [stylingCondition.DANGER]: theme('colors.signal.danger.paper'),
+  [stylingCondition.SUCCESS]: theme('colors.signal.success.paper'),
+  [stylingCondition.WARNING]: theme('colors.signal.warning.paper'),
   [stylingCondition.BASE]: props => shadeColor(theme('colors.paper')(props), 1)
 }
 
