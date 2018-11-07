@@ -1,10 +1,10 @@
 import {
-  declareFlatBaseColors,
-  declareFlatPrimaryColors,
+  generateFlatBaseColors,
+  generateFlatPrimaryColors,
   declareInteractionColors,
-  declareRaisedBaseColors,
-  declareRaisedPrimaryColors,
-  getInteractionColor,
+  generateRaisedBaseColors,
+  generateRaisedPrimaryColors,
+  generateInteractionColor,
   shadeColor
 } from '../utilStyles'
 
@@ -49,7 +49,7 @@ describe('tocco-ui', () => {
   describe('utilStyles', () => {
     describe('declareInteractionColors', () => {
       test('should be color set for flat base', () => {
-        const colors = declareFlatBaseColors(props)
+        const colors = generateFlatBaseColors(props)
         expect(Object.keys(colors)).to.have.lengthOf(6)
         expect(colors).to.deep.equal({
           defaultColor: '#900',
@@ -62,7 +62,7 @@ describe('tocco-ui', () => {
       })
 
       test('should be color set for flat primary', () => {
-        const colors = declareFlatPrimaryColors(props)
+        const colors = generateFlatPrimaryColors(props)
         expect(Object.keys(colors)).to.have.lengthOf(6)
         expect(colors).to.deep.equal({
           defaultColor: '#600',
@@ -75,7 +75,7 @@ describe('tocco-ui', () => {
       })
 
       test('should be color set for raised base', () => {
-        const colors = declareRaisedBaseColors(props)
+        const colors = generateRaisedBaseColors(props)
         expect(Object.keys(colors)).to.have.lengthOf(6)
         expect(colors).to.deep.equal({
           defaultColor: '#900',
@@ -88,7 +88,7 @@ describe('tocco-ui', () => {
       })
 
       test('should be color set for raised primary', () => {
-        const colors = declareRaisedPrimaryColors(props)
+        const colors = generateRaisedPrimaryColors(props)
         expect(Object.keys(colors)).to.have.lengthOf(6)
         expect(colors).to.deep.equal({
           defaultColor: '#900',
@@ -169,7 +169,7 @@ describe('tocco-ui', () => {
 
         scenarios.map(scenario => {
           const {color, expectation, options} = scenario
-          expect(getInteractionColor(color, options)).to.deep.equal(expectation)
+          expect(generateInteractionColor(color, options)).to.deep.equal(expectation)
         })
       })
     })

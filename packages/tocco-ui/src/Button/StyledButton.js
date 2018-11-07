@@ -4,11 +4,11 @@ import {theme} from 'styled-system'
 import {StyledButtonGroup} from '../ButtonGroup'
 import {
   declareDensity,
-  declareFlatBaseColors,
-  declareFlatPrimaryColors,
+  generateFlatBaseColors,
+  generateFlatPrimaryColors,
   declareInteractionColors,
-  declareRaisedBaseColors,
-  declareRaisedPrimaryColors,
+  generateRaisedBaseColors,
+  generateRaisedPrimaryColors,
   spaceScale,
   stylingInk,
   stylingLook,
@@ -47,13 +47,13 @@ const declareButtonColor = props => {
   const {FLAT, RAISED} = stylingLook
   const {BASE, PRIMARY} = stylingInk
   if (look === FLAT && ink === BASE) {
-    declareColor = declareFlatBaseColors
+    declareColor = generateFlatBaseColors
   } else if (look === FLAT && ink === PRIMARY) {
-    declareColor = declareFlatPrimaryColors
+    declareColor = generateFlatPrimaryColors
   } else if (look === RAISED && ink === BASE) {
-    declareColor = declareRaisedBaseColors
+    declareColor = generateRaisedBaseColors
   } else if (look === RAISED && ink === PRIMARY) {
-    declareColor = declareRaisedPrimaryColors
+    declareColor = generateRaisedPrimaryColors
   }
   return declareInteractionColors(declareColor(props), 'html')
 }
