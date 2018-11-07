@@ -3,7 +3,10 @@ import {objectToCss} from '../utilStyles'
 const props = {
   theme: {
     space: [0, '1rem', '2rem'],
-    lineHeights: [1, 2, 3],
+    lineHeights: {
+      dense: 1,
+      regular: 2.5
+    },
     colors: {
       paper: '#CCC',
       text: '#BBB',
@@ -38,9 +41,9 @@ describe('tocco-ui', () => {
 
       test('should be one css declaration with one value from theme', () => {
         const declarations = {
-          'line-height': ['lineHeights', 1]
+          'line-height': ['lineHeights.regular']
         }
-        expect(objectToCss(declarations, props)).to.equal('line-height: 2;')
+        expect(objectToCss(declarations, props)).to.equal('line-height: 2.5;')
       })
 
       test('should be one css declaration with two values from theme', () => {
