@@ -8,7 +8,6 @@ import {
   getInteractionColor,
   shadeColor
 } from './declareInteractionColors'
-import declareOverlay from './declareOverlay'
 import declareFont from './declareFont'
 import {
   declareNoneWrappingText,
@@ -50,7 +49,6 @@ export {
   declareFont,
   declareInteractionColors,
   declareNoneWrappingText,
-  declareOverlay,
   declareRaisedBaseColors,
   declareRaisedPrimaryColors,
   declareWrappingText,

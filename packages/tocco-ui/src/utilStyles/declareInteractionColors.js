@@ -1,7 +1,14 @@
 import {themeGet} from 'styled-system'
-import {lighten, darken, getLuminance} from 'polished'
+import {
+  lighten,
+  darken,
+  getLuminance,
+  tint
+} from 'polished'
 
-import {stylingFormat} from '../utilStyles'
+import {
+  stylingFormat
+} from '../utilStyles'
 
 const declareInteractionColors = (colors, format = stylingFormat.HTML) => {
   const fillProperty = format === stylingFormat.HTML ? 'background-color' : 'fill'
@@ -22,6 +29,23 @@ const declareInteractionColors = (colors, format = stylingFormat.HTML) => {
       &:active {
         ${fillProperty}: ${colors.activeBackground};
         ${strokeProperty}: ${colors.activeColor};
+      }
+    }
+
+    &:disabled {
+      ${fillProperty}: ${generateDisabledShade(colors.defaultBackground)};
+      ${strokeProperty}: ${generateDisabledShade(colors.defaultColor)};
+
+      &:focus,
+      &:hover {
+        ${fillProperty}: ${generateDisabledShade(colors.focusBackground)};
+        ${strokeProperty}: ${generateDisabledShade(colors.focusColor)};
+      }
+
+      /* :active must be declared after :hover and :focus to visualize state change */
+      &:active {
+        ${fillProperty}: ${generateDisabledShade(colors.activeBackground)};
+        ${strokeProperty}: ${generateDisabledShade(colors.activeColor)};
       }
     }
   `
@@ -142,6 +166,8 @@ const shadeColor = (color = '#000', step = 1, options = {}) => {
     return color
   }
 }
+
+const generateDisabledShade = color => tint(0.5, color)
 
 export {
   declareFlatBaseColors,
