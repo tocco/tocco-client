@@ -2,7 +2,8 @@ import {trimDecimalPlaces} from 'tocco-ui'
 
 /* COLORS
  * Paper, text and primary are the main colors. Whereas signal colors are only used to
- * emphasize states. Colors text and primary must have a high contrast to paper colors.
+ * emphasize states. Paper must be a light color. Colors text and primary must have
+ * a high contrast to paper colors.
  */
 const colors = {
   paper: '#fff',
@@ -28,6 +29,10 @@ const colors = {
   }
 }
 
+/* FONT Family
+ * Use web safe fonts or provide font files and @font-face separately.
+ * Variable fontFamily control declaration but does not load fonts.
+ */
 const fontFamily = {
   sansSerif: '"Helvetica Neue", Helvetica, Arial, sans-serif',
   monospace: 'Menlo, Monaco, Consolas, "Courier New", monospace'
@@ -41,26 +46,34 @@ const fontFamily = {
 const fontSizeBase = 1.4
 const fontSizeScale = 1.3
 
+/* FONT WEIGHTS
+ * Change weights for extra light or extra bold typography but ensure that
+ * font files does provide such weights.
+ */
 const fontWeights = {
   regular: 400,
   bold: 700
 }
 
 /* LINE HEIGHT
-   lineHeights[0] = dense mode
-   lineHeights[1] = normal mode
+ * Line height is a factor applied on font size.
+ * lineHeights[0] = dense mode
+ * lineHeights[1] = normal mode
  */
 const lineHeights = [
   1,
   1.4
 ]
 
+/* RADII
+ * Radii is used to round corners of elements like panels, field and buttons.
+ */
 const radii = '4px'
 
 /* SPACE
  * SpaceBase and spaceScale are used to control vertical and horizontal white
  * space rhythm. All spaces are calculated automatically as an exponential scale.
- * Both variables are unitless factors. SpaceBase is interpreted as
+ * Both variables must be provided as unitless factors. SpaceBase is interpreted as
  * rem, hence it inherits from websites root. It is recommended to use powers
  * of two to ensure alignment.
  */
