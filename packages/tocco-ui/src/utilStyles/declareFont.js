@@ -9,7 +9,7 @@ const declareFont = (props, options) => {
     fontSize: `${theme('fontSizeBase')(props)}rem`,
     fontStyle: 'normal',
     fontWeight: theme('fontWeights.regular')(props),
-    lineHeight: theme('lineHeights.1')(props)
+    lineHeight: theme('lineHeights.regular')(props)
   }, options)
 
   const declarations = {

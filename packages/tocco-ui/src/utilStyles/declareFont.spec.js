@@ -11,9 +11,10 @@ const props = {
       regular: 400,
       bold: 700
     },
-    lineHeights: [
-      1, 1.4
-    ]
+    lineHeights: {
+      dense: 2.1,
+      regular: 4.2
+    }
   }
 }
 
@@ -34,7 +35,7 @@ describe('tocco-ui', () => {
         expect(css).to.match(/font-size: 1.4rem;/)
         expect(css).to.match(/font-style: normal;/)
         expect(css).to.match(/font-weight: 400;/)
-        expect(css).to.match(/line-height: 1.4;/)
+        expect(css).to.match(/line-height: 4.2;/)
       })
 
       test('should declare font according options', () => {

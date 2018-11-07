@@ -57,13 +57,11 @@ const fontWeights = {
 
 /* LINE HEIGHT
  * Line height is a factor applied on font size.
- * lineHeights[0] = dense mode
- * lineHeights[1] = normal mode
  */
-const lineHeights = [
-  1,
-  1.4
-]
+const lineHeights = {
+  dense: 1,
+  regular: 1.4
+}
 
 /* RADII
  * Radii is used to round corners of elements like panels, field and buttons.
@@ -77,7 +75,7 @@ const radii = '4px'
  * rem, hence it inherits from websites root. It is recommended to use powers
  * of two to ensure alignment.
  */
-const spaceBase = trimDecimalPlaces(fontSizeBase * lineHeights[1])
+const spaceBase = trimDecimalPlaces(fontSizeBase * lineHeights.regular)
 const spaceScale = 2
 
 const defaultTheme = {

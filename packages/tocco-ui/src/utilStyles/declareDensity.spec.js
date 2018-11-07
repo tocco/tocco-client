@@ -2,7 +2,10 @@ import {declareDensity} from '../utilStyles'
 
 const props = {
   theme: {
-    lineHeights: [1, 1.4],
+    lineHeights: {
+      dense: 2.1,
+      regular: 4.2
+    },
     spaceBase: 16,
     spaceScale: 2
   }
@@ -13,12 +16,12 @@ describe('tocco-ui', () => {
     describe('declareDensity', () => {
       test('should be normal padding', () => {
         props.dense = false
-        expect(declareDensity(props)).to.equal('line-height: 1.4;\npadding: 2rem 4rem;')
+        expect(declareDensity(props)).to.equal('line-height: 4.2;\npadding: 2rem 4rem;')
       })
 
       test('should be dense padding', () => {
         props.dense = true
-        expect(declareDensity(props)).to.equal('line-height: 1;\npadding: 1rem;')
+        expect(declareDensity(props)).to.equal('line-height: 2.1;\npadding: 1rem;')
       })
     })
   })

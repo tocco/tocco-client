@@ -59,7 +59,10 @@ describe('tocco-ui', () => {
         theme: {
           fontSizeBase: 1,
           fontSizeScale: 2,
-          lineHeights: [1, 1.5]
+          lineHeights: {
+            dense: 1,
+            regular: 1.5
+          }
         }
       }
       const unit = undefined
@@ -78,10 +81,13 @@ describe('tocco-ui', () => {
         theme: {
           fontSizeBase: 1,
           spaceScale: 2,
-          lineHeights: [1, 1.5]
+          lineHeights: {
+            dense: 1,
+            regular: 1.5
+          }
         }
       }
-      props['theme']['spaceBase'] = props['theme']['fontSizeBase'] * props['theme']['lineHeights'][1]
+      props['theme']['spaceBase'] = props['theme']['fontSizeBase'] * props['theme']['lineHeights']['regular']
       const unit = 'em'
 
       test('should be valid scale in em', () => {
