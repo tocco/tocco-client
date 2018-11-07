@@ -6,17 +6,15 @@ import {
   StyledIconToccoSvg
 } from './StyledIconTocco'
 import {
-  inkPropTypes,
   positionPropTypes,
-  stylingInk,
-  stylingLook,
   stylingPosition
 } from '../utilStyles'
 
+/**
+ * Use <IconTocco> as spinner. Circle color is inherited from parent.
+ */
 const IconTocco = props =>
   <StyledIconToccoWrapper
-    ink={props.ink || stylingInk.BASE}
-    look={props.look}
     position={props.position}
     size={props.size}
   >
@@ -28,8 +26,6 @@ const IconTocco = props =>
   </StyledIconToccoWrapper>
 
 IconTocco.defaultProps = {
-  ink: stylingInk.PRIMARY,
-  look: stylingLook.FLAT,
   position: stylingPosition.SOLE
 }
 
@@ -38,14 +34,6 @@ IconTocco.propTypes = {
    * Specify if icon is positioned next to text or not to control spacing. Default value is 'prepend'.
    */
   position: positionPropTypes,
-  /**
-   * Specify color palette. Default value is 'base'.
-   */
-  ink: inkPropTypes,
-  /**
-   * Look of button. Default value is 'flat'.
-   */
-  look: PropTypes.oneOf([stylingLook.FLAT, stylingLook.RAISED]),
   /**
    * Specify width and height.
    */

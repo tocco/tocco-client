@@ -10,6 +10,7 @@ export default () => {
       {/* start example */}
       <Button
         label="Base color flat"
+        onClick={() => alert('do something')}
       />
       <Button
         ink="primary"
@@ -25,16 +26,16 @@ export default () => {
         look="raised"
       />
       <Button
-        dense
-        icon="hand-peace"
-        label="Dense"
-        look="raised"
-      />
-      <Button
         icon="handshake"
         iconPosition="append"
         label="Icon with text"
         type="submit"
+      />
+      <Button
+        dense
+        icon="hand-peace"
+        label="Dense"
+        look="raised"
       />
       <Button
         icon="hand-spock"
@@ -43,32 +44,14 @@ export default () => {
       />
       <Button
         disabled
+        icon="handshake"
+        ink="primary"
         label="Disabled"
-        onClick={() => alert('do something')}
-        title="This button is disabled"
-      />
-      <Button
-        label="Pending"
-        onClick={() => alert('do something')}
-        pending
+        look="raised"
       />
       <Button
         ink="primary"
         label="Pending"
-        onClick={() => alert('do something')}
-        pending
-      />
-      <Button
-        label="Pending"
-        look="raised"
-        onClick={() => alert('do something')}
-        pending
-      />
-      <Button
-        ink="primary"
-        label="Pending"
-        look="raised"
-        onClick={() => alert('do something')}
         pending
       />
       {/* end example */}
