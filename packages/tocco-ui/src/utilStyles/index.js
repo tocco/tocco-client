@@ -1,11 +1,11 @@
 import declareDensity from './declareDensity'
 import {
-  declareFlatBaseColors,
+  generateFlatBaseColors,
   declareInteractionColors,
-  declareRaisedBaseColors,
-  declareRaisedPrimaryColors,
-  declareFlatPrimaryColors,
-  getInteractionColor,
+  generateRaisedBaseColors,
+  generateRaisedPrimaryColors,
+  generateFlatPrimaryColors,
+  generateInteractionColor,
   shadeColor
 } from './declareInteractionColors'
 import declareFont from './declareFont'
@@ -44,16 +44,16 @@ export {
   assertObjectValuesMatchOtherObjectKeys,
   conditionPropTypes,
   declareDensity,
-  declareFlatBaseColors,
-  declareFlatPrimaryColors,
+  generateFlatBaseColors,
+  generateFlatPrimaryColors,
   declareFont,
   declareInteractionColors,
   declareNoneWrappingText,
-  declareRaisedBaseColors,
-  declareRaisedPrimaryColors,
+  generateRaisedBaseColors,
+  generateRaisedPrimaryColors,
   declareWrappingText,
   fontScale,
-  getInteractionColor,
+  generateInteractionColor,
   getTextOfChildren,
   inkPropTypes,
   layoutPropTypes,
