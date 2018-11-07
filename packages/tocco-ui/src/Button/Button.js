@@ -34,7 +34,7 @@ const Button = props => {
       {props.pending && <IconTocco
         ink={props.ink || props.buttonGroupInk || stylingInk.BASE}
         look={props.look}
-        position="prepend"
+        position={props.iconPosition}
         size="1em"/>}
       {props.label ? <span>{props.label}</span> : props.children}
     </StyledButton>

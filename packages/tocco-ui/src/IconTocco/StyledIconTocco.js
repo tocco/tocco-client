@@ -1,31 +1,6 @@
 import styled, {keyframes} from 'styled-components'
 
-import {
-  declareFlatBaseColors,
-  declareFlatPrimaryColors,
-  declareInteractionColors,
-  declareRaisedBaseColors,
-  declareRaisedPrimaryColors,
-  stylingInk,
-  stylingLook
-} from '../utilStyles'
-
-const declareIconColor = props => {
-  let declareColor
-  const {ink, look} = props
-  const {FLAT, RAISED} = stylingLook
-  const {BASE, PRIMARY} = stylingInk
-  if (look === FLAT && ink === BASE) {
-    declareColor = declareFlatBaseColors
-  } else if (look === FLAT && ink === PRIMARY) {
-    declareColor = declareFlatPrimaryColors
-  } else if (look === RAISED && ink === BASE) {
-    declareColor = declareRaisedBaseColors
-  } else if (look === RAISED && ink === PRIMARY) {
-    declareColor = declareRaisedPrimaryColors
-  }
-  return declareInteractionColors(declareColor(props), 'svg')
-}
+import {getSpacing} from '../Icon'
 
 const rotateClockwise = keyframes`
   from {transform: rotate(0deg);}
@@ -71,7 +46,7 @@ const StyledIconToccoWrapper = styled.i`
     display: block;
     height: ${props => props.size ? props.size : ''};
     width: ${props => props.size ? props.size : '100%'};
-    ${props => declareIconColor(props)}
+    ${props => getSpacing(props)}
 
     // if not Internet Explorer 11 or lower do sophisticated animation (https://bit.ly/2Okub3j)
     @supports not (old: ie) {
@@ -97,7 +72,7 @@ const StyledIconToccoSvg = styled.svg.attrs({
   viewBox: '0 0 100 100'
 })`
   &&& {
-    fill: inherit;
+    fill: transparent;
     height: ${props => props.size ? props.size : ''};
     width: ${props => props.size ? props.size : '100%'};
 
@@ -108,7 +83,7 @@ const StyledIconToccoSvg = styled.svg.attrs({
       animation-iteration-count: infinite;
       fill: transparent;
       stroke-width: 14.4;
-      stroke: inherit;
+      stroke: currentColor;
     }
 
     .tocco-icon-top-left {

@@ -40,7 +40,7 @@ class Icon extends React.Component {
   }
 
   render() {
-    const filteredProps = _omit(this.props, ['dense', 'position', 'onLoaded'])
+    const filteredProps = _omit(this.props, ['dense', 'onLoaded', 'position', 'theme'])
     return <this.lazyFontAwesomeIcon
       {...filteredProps}
       style={{...this.props.style, ...(getSpacing(this.props))}}

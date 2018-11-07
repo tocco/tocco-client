@@ -2,6 +2,7 @@ import styled, {css, keyframes} from 'styled-components'
 import {theme} from 'styled-system'
 
 import {StyledSpan} from '../Typography/StyledMisc'
+import {StyledIconToccoWrapper} from '../IconTocco'
 
 const fadeIn = keyframes`
   from {opacity: 0;}
@@ -23,6 +24,10 @@ const StyledLoadMask = styled.div`
       > ${StyledSpan} {
         margin-top: ${theme('space.4')}
         z-index: 1;
+      }
+
+      > ${StyledIconToccoWrapper} {
+        color: ${theme('colors.primary.line.0')};
       }
     }
   `}
