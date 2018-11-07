@@ -7,7 +7,6 @@ import {
   declareFlatBaseColors,
   declareFlatPrimaryColors,
   declareInteractionColors,
-  declareOverlay,
   declareRaisedBaseColors,
   declareRaisedPrimaryColors,
   spaceScale,
@@ -86,10 +85,6 @@ const StyledButton = styled.button`
 
     &:enabled {
       cursor: pointer;
-    }
-
-    &:disabled {
-      ${props => declareOverlay(theme('overlays.disabled.color')(props), theme('overlays.disabled.opacity')(props))}
     }
 
     &:active,

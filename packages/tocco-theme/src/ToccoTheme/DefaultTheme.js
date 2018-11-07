@@ -55,13 +55,6 @@ const lineHeights = [
   1.4
 ]
 
-const overlays = {
-  disabled: {
-    color: colors.paper,
-    opacity: 0.7
-  }
-}
-
 const radii = '4px'
 
 /* SPACE
@@ -81,7 +74,6 @@ const defaultTheme = {
   fontFamily,
   fontWeights,
   lineHeights,
-  overlays,
   radii,
   spaceBase,
   spaceScale

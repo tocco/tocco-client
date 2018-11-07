@@ -37,12 +37,12 @@ const props = {
 }
 
 const colorSet = {
-  defaultBackground: 'defaultBackground',
-  defaultColor: 'defaultColor',
-  focusBackground: 'focusBackground',
-  focusColor: 'focusColor',
-  activeBackground: 'activeBackground',
-  activeColor: 'activeColor'
+  defaultBackground: '#000',
+  defaultColor: '#300',
+  focusBackground: '#030',
+  focusColor: '#330',
+  activeBackground: '#003',
+  activeColor: '#033'
 }
 
 describe('tocco-ui', () => {
@@ -104,9 +104,9 @@ describe('tocco-ui', () => {
         'should declare color and background for default state, :focus, :hover and :active',
         () => {
           const css = declareInteractionColors(colorSet)
-          expect(css).to.match(/background-color: defaultBackground;[\n\s]*color: defaultColor;/)
-          expect(css).to.match(/&:focus,[\n\s]*&:hover {[\n\s]*background-color: focusBackground;[\n\s]*color: focusColor;[\n\s]*}/)  // eslint-disable-line
-          expect(css).to.match(/&:active {[\n\s]*background-color: activeBackground;[\n\s]*color: activeColor;[\n\s]*}/)
+          expect(css).to.match(/background-color: #000;[\n\s]*color: #300;/)
+          expect(css).to.match(/&:focus,[\n\s]*&:hover {[\n\s]*background-color: #030;[\n\s]*color: #330;[\n\s]*}/)  // eslint-disable-line
+          expect(css).to.match(/&:active {[\n\s]*background-color: #003;[\n\s]*color: #033;[\n\s]*}/)
         }
       )
 
