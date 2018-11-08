@@ -1,5 +1,7 @@
 import {rest} from 'tocco-app-extensions'
 import _get from 'lodash/get'
+import _reduce from 'lodash/reduce'
+import {consoleLogger} from 'tocco-util'
 
 import {call} from 'redux-saga/effects'
 
@@ -36,42 +38,44 @@ export function* fetchModel(entityName, transformer = defaultModelTransformer) {
   return transformer(resp.body)
 }
 
-export const entitiesListTransformer = json => {
-  return json.data.map(entity => {
-    const result = {
+export const entitiesListTransformer = json => (
+  json.data.map(entity => (
+    {
       __key: entity.key,
-      __model: entity.model
+      __model: entity.model,
+      ...(_reduce(entity.paths, (result, value, key) => ({...result, [key]: getFieldValues(value)}), {}))
     }
+  ))
+)
 
-    const paths = entity.paths
-    for (const path in paths) {
-      const type = paths[path].type
-      if (type === 'field') {
-        result[path] = paths[path].value
-      } else if (type === 'entity') {
-        result[path] = {
-          type: 'string',
-          value: paths[path].value ? paths[path].value.display : ''
-        }
-      } else if (type === 'entity-list') {
-        result[path] = {
-          type: 'string',
-          value: paths[path].value ? paths[path].value.map(v => v.display).join(', ') : ''
-        }
-      } else if (type === 'display-expression') {
-        result[path] = {
-          type: 'html',
-          value: paths[path].value
-        }
-      } else {
-        result[path] = {
-          type: 'string',
-          value: ''
-        }
-      }
+const getFieldValues = path => {
+  const type = path.type
+  if (type === 'field') {
+    return path.value
+  } else if (type === 'entity') {
+    return {
+      type: 'string',
+      value: path.value ? path.value.display : ''
     }
-    return result
-  })
+  } else if (type === 'entity-list') {
+    return path.value.map(v => ({
+      type: 'string',
+      value: v.display
+    }))
+  } else if (type === 'display-expression') {
+    return {
+      type: 'html',
+      value: path.value
+    }
+  } else if (type === 'multi') {
+    return path.value.map(v => getFieldValues(v))
+  } else {
+    consoleLogger.log(`Unable to map type ${type}`)
+    return {
+      type: 'string',
+      value: ''
+    }
+  }
 }
 
 export const defaultEntitiesTransformer = json => (json)

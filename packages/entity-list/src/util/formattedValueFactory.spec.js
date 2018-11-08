@@ -2,7 +2,7 @@ import {IntlStub} from 'tocco-test-util'
 import {FormattedValue} from 'tocco-ui'
 import {shallow} from 'enzyme'
 
-import formattedValueFactory from './formattedValueFactory'
+import formattedValueFactory, {MultiSeparator} from './formattedValueFactory'
 
 describe('entity-list', () => {
   describe('util', () => {
@@ -37,6 +37,26 @@ describe('entity-list', () => {
         const wrapper = shallow(formattedValueFactory(field, entity, IntlStub))
         expect(wrapper.find(FormattedValue).props()).to.have.property('options')
         expect(wrapper.find(FormattedValue).props()['options']).to.not.be.undefined
+      })
+
+      test('should return array with separator', () => {
+        const field = {
+          id: 'relSomething.xy'
+        }
+        const entity = {
+          'relSomething.xy': [{value: 'V1', type: 'string'}, {value: 'V1', type: 'string'}]
+        }
+
+        const wrapper = shallow(formattedValueFactory(field, entity, IntlStub))
+        expect(wrapper.find(FormattedValue)).to.have.length(2)
+        expect(wrapper.find(MultiSeparator)).to.have.length(1)
+      })
+
+      test('should return null', () => {
+        const field = {id: 'xy'}
+        const entity = {'xy': []}
+
+        expect(formattedValueFactory(field, entity, IntlStub)).to.be.null
       })
     })
   })
