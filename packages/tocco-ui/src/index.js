@@ -69,6 +69,5 @@ export {
   shadeColor,
   spaceScale,
   stylingCondition,
-  stylingInk,
-  trimDecimalPlaces
+  stylingInk
 } from './utilStyles'

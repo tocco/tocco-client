@@ -17,8 +17,7 @@ import getTextOfChildren from './getTextOfChildren'
 import {
   fontScale,
   scaleExponential,
-  spaceScale,
-  trimDecimalPlaces
+  spaceScale
 } from './modularScale'
 import objectToCss from './objectToCss'
 import {
@@ -71,6 +70,5 @@ export {
   stylingLayout,
   stylingLook,
   stylingPosition,
-  trimDecimalPlaces,
   validateCssDimension
 }

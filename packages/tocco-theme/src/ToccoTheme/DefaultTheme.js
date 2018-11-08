@@ -1,4 +1,4 @@
-import {trimDecimalPlaces} from 'tocco-ui'
+import _round from 'lodash/round'
 
 /* COLORS
  * Paper, text and primary are the main colors. Whereas signal colors are only used to
@@ -75,7 +75,7 @@ const radii = '4px'
  * rem, hence it inherits from websites root. It is recommended to use powers
  * of two to ensure alignment.
  */
-const spaceBase = trimDecimalPlaces(fontSizeBase * lineHeights.regular)
+const spaceBase = _round(fontSizeBase * lineHeights.regular, 3)
 const spaceScale = 2
 
 const defaultTheme = {

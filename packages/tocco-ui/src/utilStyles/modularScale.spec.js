@@ -1,8 +1,7 @@
 import {
   fontScale,
   scaleExponential,
-  spaceScale,
-  trimDecimalPlaces
+  spaceScale
 } from '../utilStyles'
 
 describe('tocco-ui', () => {
@@ -40,19 +39,7 @@ describe('tocco-ui', () => {
       })
     })
 
-    describe('trimDecimalPlaces', () => {
-      const expectation = [1.235, 1, 1.2, 1.23, 1.235, 1.2346]
-      const maxDecimalPlaces = [undefined, 0, 1, 2, 3, 4]
-      const value = 1.23456
-
-      test('should trim floats', () => {
-        maxDecimalPlaces.map((places, i) => {
-          expect(trimDecimalPlaces(value, places)).to.equal(expectation[i])
-        })
-      })
-    })
-
-    describe('fontScale', () => {
+    describe('fontScale in rem', () => {
       const expectation = ['0.25rem', '0.5rem', '1rem', '2rem', '4rem']
       const exponents = [-2, -1, 0, 1, 2]
       const props = {
@@ -74,9 +61,9 @@ describe('tocco-ui', () => {
       })
     })
 
-    describe('spaceScale in em', () => {
-      const expectation = ['0.375em', '0.75em', '1.5em', '3em', '6em']
-      const exponents = [-2, -1, 0, 1, 2]
+    describe('spaceScale in em and maximal precision of 3', () => {
+      const expectation = ['0.188em', '0.375em', '0.75em', '1.5em', '3em', '6em']
+      const exponents = [-3, -2, -1, 0, 1, 2]
       const props = {
         theme: {
           fontSizeBase: 1,
