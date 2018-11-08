@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import {theme} from 'styled-system'
+import _round from 'lodash/round'
 
 import {
   declareFont,
@@ -7,8 +8,7 @@ import {
   declareWrappingText,
   fontScale,
   shadeColor,
-  spaceScale,
-  trimDecimalPlaces
+  spaceScale
 } from '../utilStyles'
 
 const StyledB = styled.b`
@@ -149,7 +149,7 @@ const StyledS = styled.s`
 const StyledSmall = styled.small`
   && {
     ${props => declareFont(props, {
-    fontSize: `${trimDecimalPlaces(1 / theme('fontSizeScale')(props))}em`
+    fontSize: `${_round(1 / theme('fontSizeScale')(props), 3)}em`
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
   }

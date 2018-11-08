@@ -1,7 +1,5 @@
 import {theme} from 'styled-system'
-
-export const trimDecimalPlaces = (value, maxDecimalPlaces = 3) =>
-  Math.round(value * Math.pow(10, maxDecimalPlaces)) / Math.pow(10, maxDecimalPlaces)
+import _round from 'lodash/round'
 
 export const scaleExponential = (base, exponent, scale) => {
   return Math.pow(scale, exponent) * base
@@ -10,11 +8,11 @@ export const scaleExponential = (base, exponent, scale) => {
 export const fontScale = (props, exponent, unit = 'rem') => {
   const base = theme('fontSizeBase')(props)
   const scale = theme('fontSizeScale')(props)
-  return `${trimDecimalPlaces(scaleExponential(base, exponent, scale))}${unit}`
+  return `${_round(scaleExponential(base, exponent, scale), 3)}${unit}`
 }
 
 export const spaceScale = (props, exponent, unit = 'rem') => {
   const base = theme('spaceBase')(props)
   const scale = theme('spaceScale')(props)
-  return `${trimDecimalPlaces(scaleExponential(base, exponent, scale))}${unit}`
+  return `${_round(scaleExponential(base, exponent, scale), 3)}${unit}`
 }
