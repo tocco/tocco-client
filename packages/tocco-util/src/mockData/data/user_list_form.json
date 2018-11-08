@@ -373,6 +373,27 @@
             "sortable": true
           },
           {
+            "id": "relMulti_entity1.relPayment_status",
+            "label": "Status (to n path)",
+            "componentType": "column",
+            "children": [
+              {
+                "id": "relMulti_entity1.relPayment_status",
+                "label": null,
+                "componentType": "field",
+                "path": "relMulti_entity1.relPayment_status",
+                "dataType": "single-select-box",
+                "defaultValue": {
+                  "display": "Unbezahlt",
+                  "key": "2"
+                }
+              }
+            ],
+            "readonly": false,
+            "hidden": false,
+            "sortable": false
+          },
+          {
             "id": "durationDisplay",
             "label": "Display Expression",
             "componentType": "column",

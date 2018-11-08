@@ -1,4 +1,7 @@
 import _forOwn from 'lodash/forOwn'
+import _sample from 'lodash/sample'
+
+const fiftyFifty = () => _sample([true, false])
 
 const getRandomDate = (startYear, endYear) => {
   const start = new Date(startYear, 1, 1)
@@ -164,6 +167,35 @@ export const createUsers = amount => {
             type: 'duration',
             writable: false
           }
+        },
+        'relMulti_entity1.relPayment_status': {
+          path: 'relMulti_entity1.relPayment_status',
+          type: 'multi',
+          writable: false,
+          value: [
+            ...fiftyFifty() ? [{
+              path: 'relMulti_entity1.relPayment_status',
+              type: 'entity',
+              writable: false,
+              value: {
+                key: '2',
+                model: 'Payment_status',
+                version: 3,
+                display: 'Unbezahlt'
+              }
+            }] : [],
+            ...fiftyFifty() ? [{
+              path: 'relMulti_entity1.relPayment_status',
+              type: 'entity',
+              writable: false,
+              value: {
+                key: '1',
+                model: 'Payment_status',
+                version: 3,
+                display: 'Bezahlt'
+              }
+            }] : []
+          ]
         }
       }
     })
