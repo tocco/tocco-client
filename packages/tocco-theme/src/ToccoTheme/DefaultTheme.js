@@ -34,7 +34,7 @@ const colors = {
  * Variable fontFamily control declaration but does not load fonts.
  */
 const fontFamily = {
-  sansSerif: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+  regular: '"Helvetica Neue", Helvetica, Arial, sans-serif',
   monospace: 'Menlo, Monaco, Consolas, "Courier New", monospace'
 }
 

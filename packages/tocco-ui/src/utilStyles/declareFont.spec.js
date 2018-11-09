@@ -3,7 +3,7 @@ import {declareFont} from '../utilStyles'
 const props = {
   theme: {
     fontFamily: {
-      sansSerif: 'Arial, sans-serif'
+      regular: 'Arial, sans-serif'
     },
     fontSizeBase: 1.4,
     fontWeights: {
