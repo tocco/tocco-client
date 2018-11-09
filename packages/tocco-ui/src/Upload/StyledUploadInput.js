@@ -2,11 +2,13 @@ import styled from 'styled-components'
 import {theme} from 'styled-system'
 
 import {
+  declareFont,
   shadeColor,
   spaceScale
 } from '../utilStyles'
 
 const StyledUploadInput = styled.div`
+  ${props => declareFont(props)}
   border: dashed 1px ${props => shadeColor(theme('colors.paper')(props), 1)};
   border-radius: ${theme('radii')};
   padding: ${props => spaceScale(props, -2)} ${props => spaceScale(props, -1)};

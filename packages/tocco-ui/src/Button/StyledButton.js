@@ -4,9 +4,10 @@ import {theme} from 'styled-system'
 import {StyledButtonGroup} from '../ButtonGroup'
 import {
   declareDensity,
+  declareFont,
+  declareInteractionColors,
   generateFlatBaseColors,
   generateFlatPrimaryColors,
-  declareInteractionColors,
   generateRaisedBaseColors,
   generateRaisedPrimaryColors,
   spaceScale,
@@ -92,6 +93,7 @@ const StyledButton = styled.button`
       outline: none;
     }
 
+    ${props => declareFont(props)}
     ${props => declareButtonColor(props)}
     ${props => declareDensity(props)}
     ${props => declareIconPosition(props)}

@@ -4,6 +4,7 @@ import React from 'react'
 import Button from '../Button'
 import ButtonLink from '../ButtonLink'
 import Icon from '../Icon'
+import Typography from '../Typography'
 import Menu from './'
 // real-import:import {Menu} from 'tocco-ui'
 
@@ -29,10 +30,10 @@ export default () => {
 
       <h3>Menu Items Miscellaneous</h3>
       <Menu.Stack look="flat">
-        <Menu.Item><span>span</span></Menu.Item>
-        <Menu.Item><em>em</em></Menu.Item>
+        <Menu.Item><Typography.Span>span</Typography.Span></Menu.Item>
+        <Menu.Item><Typography.Em>em</Typography.Em></Menu.Item>
         <hr/>
-        <Menu.Item><strong>strong</strong></Menu.Item>
+        <Menu.Item><Typography.Strong>strong</Typography.Strong></Menu.Item>
         <Menu.Item><Icon icon={['far', 'check-square']}/></Menu.Item>
       </Menu.Stack>
       <h3>Menu Bar Flat</h3>
