@@ -2,10 +2,10 @@ import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 
 import {requestSaga} from '../rest'
-import {checkStatusLoop} from './sagaHelpers'
+import {checkStatusLoop} from './saga'
 
 describe('tocco-util', () => {
-  describe('sagaHelpers', () => {
+  describe('saga', () => {
     describe('checkReportStatusLoop', () => {
       test('should return response if status is not in_progress', () => {
         const response = {body: {status: 'done'}}

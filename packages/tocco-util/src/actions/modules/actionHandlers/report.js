@@ -7,7 +7,7 @@ import {requestSaga, fetchEntity} from '../../../rest'
 import notifier from '../../../notifier'
 import ReportSettings from '../../components/ReportSettings'
 import download from '../../../download'
-import sagaHelpers from '../../../sagaHelpers'
+import sagaUtil from '../../../saga'
 
 import {call, put, take} from 'redux-saga/effects'
 
@@ -71,7 +71,7 @@ export function* handleReportGenerations(settingsModalId, generationsResponse, s
   const blockingInfoId = yield call(uuid)
   yield put(notifier.blockingInfo(blockingInfoId, 'client.common.report.inProgress', null, 'file-pdf'))
 
-  const completed = yield call(sagaHelpers.checkStatusLoop, pollingUrl, 'in_progress')
+  const completed = yield call(sagaUtil.checkStatusLoop, pollingUrl, 'in_progress')
   yield put(notifier.removeBlockingInfo(blockingInfoId))
   if (completed.body.status === 'completed') {
     yield call(handleSuccessfulReport, completed, submitAction)

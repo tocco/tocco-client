@@ -18,7 +18,7 @@ import reportSaga, {
   handleReportGenerations, handleSuccessfulReport
 } from './report'
 import download from '../../../download'
-import sagaHelpers from '../../../sagaHelpers'
+import sagaUtil from '../../../saga'
 import {submitActions} from '../../utils/report'
 
 describe('tocco-util', () => {
@@ -117,7 +117,7 @@ describe('tocco-util', () => {
 
               return expectSaga(handleReportGenerations, modalId, generationResponse, submitAction)
                 .provide([
-                  [matchers.call(sagaHelpers.checkStatusLoop, pollUrl, 'in_progress'), reportStatusResponse],
+                  [matchers.call(sagaUtil.checkStatusLoop, pollUrl, 'in_progress'), reportStatusResponse],
                   [matchers.call.fn(handleSuccessfulReport), undefined]
                 ])
                 .put.like({action: {type: REMOVE_MODAL_COMPONENT}})
@@ -137,7 +137,7 @@ describe('tocco-util', () => {
 
               return expectSaga(handleReportGenerations, modalId, generationResponse)
                 .provide([
-                  [matchers.call(sagaHelpers.checkStatusLoop, pollUrl, 'in_progress'), reportStatusResponse],
+                  [matchers.call(sagaUtil.checkStatusLoop, pollUrl, 'in_progress'), reportStatusResponse],
                   [matchers.call.fn(handleFailedReport), undefined]
                 ])
                 .put.like({action: {type: BLOCKING_INFO}})
