@@ -1,7 +1,7 @@
 import React from 'react'
 import {IntlStub} from 'tocco-test-util'
 import {shallow} from 'enzyme'
-import {actions} from 'tocco-util'
+import {actions} from 'tocco-app-extensions'
 
 import TableContainer from '../../containers/TableContainer'
 import ListView from './ListView'

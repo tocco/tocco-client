@@ -1,6 +1,14 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {appFactory, notifier, errorLogging, actionEmitter, externalEvents, actions, formData} from 'tocco-util'
+import {
+  appFactory,
+  notifier,
+  errorLogging,
+  actionEmitter,
+  externalEvents,
+  actions,
+  formData
+} from 'tocco-app-extensions'
 
 import reducers, {sagas} from './modules/reducers'
 import DetailViewContainer from './containers/DetailViewContainer'

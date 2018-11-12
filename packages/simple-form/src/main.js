@@ -1,5 +1,5 @@
 import React from 'react'
-import {appFactory, externalEvents, formData, notifier, actionEmitter} from 'tocco-util'
+import {appFactory, externalEvents, formData, notifier, actionEmitter} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
 
 import reducers, {sagas} from './modules/reducers'

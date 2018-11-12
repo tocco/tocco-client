@@ -1,4 +1,4 @@
-import {requestSaga} from 'tocco-util/src/rest'
+import {rest} from 'tocco-app-extensions'
 
 import * as entities from './entities'
 
@@ -12,7 +12,7 @@ describe('entity-browser', () => {
           test('should call request saga and transform response', () => {
             const gen = entities.fetchModel('User')
 
-            expect(gen.next().value).to.eql(call(requestSaga, 'entities/User/model'))
+            expect(gen.next().value).to.eql(call(rest.requestSaga, 'entities/User/model'))
 
             const resp = {
               body: {

@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 import EntityListApp from 'tocco-entity-list/src/main'
-import {actionEmitter} from 'tocco-util'
+import {actionEmitter} from 'tocco-app-extensions'
 
 const mapActionCreators = {
   emitAction: action => actionEmitter.dispatchEmittedAction(action)

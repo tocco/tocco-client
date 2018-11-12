@@ -10,6 +10,10 @@
   },
   "plugins": [
     ["transform-imports", {
+      "tocco-app-extensions": {
+        "transform": "tocco-app-extensions/src/${member}", // eslint-disable-line no-template-curly-in-string
+        "preventFullImport": true
+      },
       "tocco-util": {
         "transform": "tocco-util/src/${member}", // eslint-disable-line no-template-curly-in-string
         "preventFullImport": true

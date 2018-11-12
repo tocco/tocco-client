@@ -1,4 +1,4 @@
-import {requestSaga} from 'tocco-util/src/rest'
+import {rest} from 'tocco-app-extensions'
 import fetchMock from 'fetch-mock'
 
 import * as entities from './entities'
@@ -25,7 +25,7 @@ describe('entity-detail', () => {
             }
             const gen = entities.fetchEntities('User', params)
 
-            expect(gen.next().value).to.eql(call(requestSaga, 'entities/User', {
+            expect(gen.next().value).to.eql(call(rest.requestSaga, 'entities/User', {
               queryParams: {
                 _fields: null,
                 _filter: '',
@@ -67,7 +67,7 @@ describe('entity-detail', () => {
               }
               const gen = entities.fetchEntities('User', params)
 
-              expect(gen.next().value).to.eql(call(requestSaga, 'entities/User', {
+              expect(gen.next().value).to.eql(call(rest.requestSaga, 'entities/User', {
                 queryParams: {
                   _fields: '!',
                   _filter: '',
@@ -102,7 +102,7 @@ describe('entity-detail', () => {
           test('should call fetch', () => {
             const gen = entities.fetchEntity('User', 99, ['f1', 'f2'], 'User_detail')
 
-            expect(gen.next().value).to.eql(call(requestSaga, 'entities/User/99', {
+            expect(gen.next().value).to.eql(call(rest.requestSaga, 'entities/User/99', {
               queryParams: {
                 _form: 'User_detail',
                 _paths: 'f1,f2'
@@ -130,7 +130,7 @@ describe('entity-detail', () => {
             const gen = entities.updateEntity(entity, ['f1', 'f2'])
 
             expect(gen.next().value).to.eql(call(
-              requestSaga,
+              rest.requestSaga,
               'entities/User/1',
               {
                 body: entity,
@@ -157,7 +157,7 @@ describe('entity-detail', () => {
           test('should call request saga and transform response', () => {
             const gen = entities.fetchModel('User')
 
-            expect(gen.next().value).to.eql(call(requestSaga, 'entities/User/model'))
+            expect(gen.next().value).to.eql(call(rest.requestSaga, 'entities/User/model'))
 
             const resp = {
               body: {

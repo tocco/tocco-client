@@ -1,0 +1,15 @@
+{
+  "name": "tocco-app-extensions",
+  "version": "0.1.0",
+  "private": true,
+  "description": "app extensions",
+  "main": "src/main.js",
+  "devDependencies": {
+    "libphonenumber-js": "1.2.15",
+    "tocco-simple-form": ">0.1.0",
+    "tocco-theme": ">0.1.0",
+    "tocco-ui": ">0.1.0",
+    "tocco-util": ">0.1.0",
+    "validator": "10.0.0"
+  }
+}

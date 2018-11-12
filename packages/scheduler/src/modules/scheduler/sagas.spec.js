@@ -1,5 +1,5 @@
 import {expectSaga, testSaga} from 'redux-saga-test-plan'
-import {externalEvents} from 'tocco-util'
+import {externalEvents} from 'tocco-app-extensions'
 
 import mainSaga, * as sagas from './sagas'
 import * as actions from './actions'

@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
-import {formData} from 'tocco-util'
+import {formData} from 'tocco-app-extensions'
 
 import SearchForm from '../components/SearchForm'
 import {

@@ -1,4 +1,4 @@
-import {requestSaga} from 'tocco-util/src/rest'
+import {rest} from 'tocco-app-extensions'
 
 import * as actions from './actions'
 import {changePage, setUsername} from '../login/actions'
@@ -11,7 +11,7 @@ export const textResourceSelector = state => state.intl.messages
 
 export function* requestPasswordSaga({payload}) {
   yield put(setPending(true))
-  yield call(requestSaga, `principals/${payload.username}/password-reset`, {method: 'POST'})
+  yield call(rest.requestSaga, `principals/${payload.username}/password-reset`, {method: 'POST'})
   yield put(setUsername(payload.username))
   const textResourcesState = yield select(textResourceSelector)
   yield put(setMessage(textResourcesState['client.login.from.passwordRequested']))

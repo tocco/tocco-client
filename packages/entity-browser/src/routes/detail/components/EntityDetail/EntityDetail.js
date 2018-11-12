@@ -52,6 +52,7 @@ class EntityDetail extends React.Component {
       this.props.dispatchEmittedAction(action)
     }}
     showSubGridsCreateButton={this.props.showSubGridsCreateButton}
+    theme={{}}
   />)
 
   msg = id => (this.props.intl.formatMessage({id}))

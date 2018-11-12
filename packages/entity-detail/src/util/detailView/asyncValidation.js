@@ -1,6 +1,5 @@
 import {SubmissionError} from 'redux-form'
-import {simpleRequest} from 'tocco-util/src/rest'
-import {form} from 'tocco-util'
+import {form, rest} from 'tocco-app-extensions'
 
 import modes from '../modes'
 
@@ -26,7 +25,7 @@ const validateRequest = (values, initialValues, entityName, entityId, entityMode
     body: entity
   }
 
-  return simpleRequest(`entities/${entity.model}${entity.key ? `/${entity.key}` : ''}`, options)
+  return rest.simpleRequest(`entities/${entity.model}${entity.key ? `/${entity.key}` : ''}`, options)
     .then(resp => resp.body)
     .then(body => {
       if (body.valid) {

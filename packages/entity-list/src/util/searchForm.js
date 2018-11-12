@@ -1,6 +1,6 @@
 import _get from 'lodash/get'
 import _join from 'lodash/join'
-import {fetchEntities} from 'tocco-util/src/rest'
+import {rest} from 'tocco-app-extensions'
 
 import {call} from 'redux-saga/effects'
 
@@ -16,7 +16,7 @@ export function* getPreselectedValues(preselectedSearchFields, entityModel, load
       if (!preselectedSearchField.hidden && searchFormVisible) {
         const targetEntity = entityModel[fieldName].targetEntity
         const query = `IN(pk,${_join(value, ',')})`
-        entities = yield call(fetchEntities, targetEntity, {query, fields: ['pk']})
+        entities = yield call(rest.fetchEntities, targetEntity, {query, fields: ['pk']})
       }
       transformedValue = entities
     } else {

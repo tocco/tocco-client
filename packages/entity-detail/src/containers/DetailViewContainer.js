@@ -1,7 +1,7 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 import {getFormInitialValues} from 'redux-form'
-import {errorLogging} from 'tocco-util'
+import {errorLogging} from 'tocco-app-extensions'
 
 import {
   loadDetailView,

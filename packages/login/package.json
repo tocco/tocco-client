@@ -12,5 +12,8 @@
     "tocco-theme": "0.2.3",
     "tocco-ui": "0.1.16",
     "tocco-util": "0.1.13"
+  },
+  "dependencies": {
+    "tocco-app-extensions": "^0.1.0"
   }
 }

@@ -1,7 +1,7 @@
 import _isEmpty from 'lodash/isEmpty'
 import _join from 'lodash/join'
 import _union from 'lodash/union'
-import {externalEvents, actions as actionUtil, actionEmitter} from 'tocco-util'
+import {externalEvents, actions as actionUtil, actionEmitter} from 'tocco-app-extensions'
 
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'

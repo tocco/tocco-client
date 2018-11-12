@@ -1,4 +1,4 @@
-import {requestSaga} from 'tocco-util/src/rest'
+import {rest} from 'tocco-app-extensions'
 
 import * as entities from './entities'
 
@@ -19,7 +19,7 @@ describe('entity-list', () => {
               formName: 'User_list'
             })
 
-            expect(gen.next().value).to.eql(call(requestSaga, 'entities/User', {
+            expect(gen.next().value).to.eql(call(rest.requestSaga, 'entities/User', {
               queryParams: {
                 _filter: '',
                 _form: 'User_list',
@@ -57,7 +57,7 @@ describe('entity-list', () => {
               formName: 'User_list'
             })
 
-            expect(gen.next().value).to.eql(call(requestSaga, 'entities/User/count', {
+            expect(gen.next().value).to.eql(call(rest.requestSaga, 'entities/User/count', {
               queryParams: {
                 _filter: '',
                 _form: 'User_list',
@@ -272,7 +272,7 @@ describe('entity-list', () => {
           test('should call request saga and transform response', () => {
             const gen = entities.fetchModel('User')
 
-            expect(gen.next().value).to.eql(call(requestSaga, 'entities/User/model'))
+            expect(gen.next().value).to.eql(call(rest.requestSaga, 'entities/User/model'))
 
             const resp = {
               body: {

@@ -1,5 +1,6 @@
 import React from 'react'
-import {appFactory, consoleLogger, externalEvents, errorLogging} from 'tocco-util'
+import {consoleLogger} from 'tocco-util'
+import {appFactory, errorLogging, externalEvents} from 'tocco-app-extensions'
 
 import * as passwordUpdate from './modules/passwordUpdate/dialog/actions'
 import * as passwordRequest from './modules/passwordRequest/actions'

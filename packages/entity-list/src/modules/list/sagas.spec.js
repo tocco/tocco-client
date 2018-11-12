@@ -1,5 +1,5 @@
 import {expectSaga} from 'redux-saga-test-plan'
-import {actions as actionUtil, externalEvents} from 'tocco-util'
+import {actions as actionUtil, externalEvents} from 'tocco-app-extensions'
 import * as matchers from 'redux-saga-test-plan/matchers'
 
 import * as actions from './actions'

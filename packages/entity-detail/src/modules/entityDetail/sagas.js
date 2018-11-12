@@ -3,8 +3,8 @@ import {
   SubmissionError,
   getFormValues
 } from 'redux-form'
-import {externalEvents, notifier, errorLogging, form, actions as actionUtil, actionEmitter} from 'tocco-util'
-import {ClientQuestionCancelledException} from 'tocco-util/src/rest'
+import {externalEvents, notifier, errorLogging, form, actions as actionUtil, actionEmitter, rest}
+  from 'tocco-app-extensions'
 
 import * as actions from './actions'
 import {
@@ -114,7 +114,7 @@ export function* handleSubmitError(error) {
     yield put(formActions.touch(FORM_ID, ...Object.keys(error.errors)))
     yield put(formActions.stopSubmit(FORM_ID, error.errors))
   } else {
-    if (!(error instanceof ClientQuestionCancelledException)) {
+    if (!(error instanceof rest.ClientQuestionCancelledException)) {
       yield put(errorLogging.logError(
         'client.common.unexpectedError',
         'client.entity-detail.saveError',

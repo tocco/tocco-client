@@ -3,7 +3,7 @@ import React from 'react'
 import {reduxForm} from 'redux-form'
 import {intlShape, FormattedRelative, FormattedMessage} from 'react-intl'
 import {Button} from 'tocco-ui'
-import {form, formField} from 'tocco-util'
+import {form, formField} from 'tocco-app-extensions'
 
 import SubGrid from '../../util/detailView/fromFieldFactories/subGrid'
 import ErrorBox from '../ErrorBox'

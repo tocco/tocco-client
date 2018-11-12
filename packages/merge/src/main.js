@@ -1,5 +1,5 @@
 import React from 'react'
-import {appFactory, externalEvents, errorLogging} from 'tocco-util'
+import {appFactory, errorLogging, externalEvents} from 'tocco-app-extensions'
 
 import MergeWizardContainer from './containers/MergeWizardContainer'
 import {getDispatchActions} from './utils/input'

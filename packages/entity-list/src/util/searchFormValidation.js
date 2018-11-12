@@ -1,7 +1,7 @@
 import React from 'react'
 import _forOwn from 'lodash/forOwn'
 import {FormattedMessage} from 'react-intl'
-import {form} from 'tocco-util'
+import {form} from 'tocco-app-extensions'
 
 export const validateSearchFields = (values, formDefinition) => {
   const errors = {}

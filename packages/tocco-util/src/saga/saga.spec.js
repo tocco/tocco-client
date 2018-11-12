@@ -1,17 +1,18 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 
-import {requestSaga} from '../rest'
 import {checkStatusLoop} from './saga'
 
 describe('tocco-util', () => {
   describe('saga', () => {
+    const mockRequest = () => {}
     describe('checkReportStatusLoop', () => {
       test('should return response if status is not in_progress', () => {
         const response = {body: {status: 'done'}}
-        return expectSaga(checkStatusLoop, 'http://url', 'in_progress')
+
+        return expectSaga(checkStatusLoop, mockRequest, 'http://url', 'in_progress')
           .provide([
-            [matchers.call.fn(requestSaga), response]
+            [matchers.call.fn(mockRequest), response]
           ])
           .returns(response)
           .run()
@@ -21,10 +22,10 @@ describe('tocco-util', () => {
         const response = {body: {status: 'in_progress'}}
         let counter = 0
 
-        await expectSaga(checkStatusLoop, 'http://url', 'in_progress')
+        await expectSaga(checkStatusLoop, mockRequest, 'http://url', 'in_progress')
           .provide({
             call(effect) {
-              if (effect.fn === requestSaga) {
+              if (effect.fn === mockRequest) {
                 ++counter
                 return response
               }

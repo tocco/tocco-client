@@ -1,7 +1,5 @@
 import {delay} from 'redux-saga'
 
-import {requestSaga} from '../rest'
-
 import {all, call, put} from 'redux-saga/effects'
 
 /**
@@ -11,7 +9,7 @@ import {all, call, put} from 'redux-saga/effects'
  * @param {string} retryStatus As long as the body.status equals the retryStatus, the request gets repeated
  * @returns {object} response Request response
  */
-export function* checkStatusLoop(location, retryStatus) {
+export function* checkStatusLoop(requestSaga, location, retryStatus) {
   let delayer = 1
   while (true) {
     const response = yield call(requestSaga, location)

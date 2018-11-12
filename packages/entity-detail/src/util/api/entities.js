@@ -1,6 +1,5 @@
-import {requestSaga} from 'tocco-util/src/rest'
 import {SubmissionError} from 'redux-form'
-import {form} from 'tocco-util'
+import {form, rest} from 'tocco-app-extensions'
 
 import {call} from 'redux-saga/effects'
 
@@ -12,7 +11,7 @@ export function* fetchEntity(entityName, id, fields, formName) {
     }
   }
 
-  const resp = yield call(requestSaga, `entities/${entityName}/${id}`, options)
+  const resp = yield call(rest.requestSaga, `entities/${entityName}/${id}`, options)
   return resp.body
 }
 
@@ -26,7 +25,7 @@ export function* updateEntity(entity, fields = []) {
     acceptedErrorCodes: ['VALIDATION_FAILED']
   }
   const resource = `entities/${entity.model}/${entity.key}`
-  const resp = yield call(requestSaga, resource, options)
+  const resp = yield call(rest.requestSaga, resource, options)
 
   if (resp.body.errorCode === 'VALIDATION_FAILED') {
     throw new SubmissionError(form.validationErrorToFormError(entity, resp.body.errors))
@@ -47,7 +46,7 @@ export function* createEntity(entity, fields = []) {
     acceptedErrorCodes: ['VALIDATION_FAILED']
   }
   const resource = `entities/${entity.model}`
-  const resp = yield call(requestSaga, resource, options)
+  const resp = yield call(rest.requestSaga, resource, options)
 
   if (resp.status === SUCCESSFUL_SAVED_STATUS) {
     const location = resp.headers.get('Location')
@@ -80,7 +79,7 @@ export const defaultModelTransformer = json => {
 }
 
 export function* fetchModel(entityName, transformer = defaultModelTransformer) {
-  const resp = yield call(requestSaga, `entities/${entityName}/model`)
+  const resp = yield call(rest.requestSaga, `entities/${entityName}/model`)
   return yield call(transformer, resp.body)
 }
 
@@ -119,7 +118,7 @@ function buildParams({
 
 export function* fetchEntities(entityName, searchInputs, transformer = defaultEntitiesTransformer) {
   const queryParams = buildParams(searchInputs)
-  const resp = yield call(requestSaga, `entities/${entityName}`, {
+  const resp = yield call(rest.requestSaga, `entities/${entityName}`, {
     queryParams
   })
   return yield call(transformer, resp.body)

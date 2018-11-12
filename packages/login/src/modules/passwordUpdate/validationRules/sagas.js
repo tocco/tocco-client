@@ -1,4 +1,4 @@
-import {requestSaga} from 'tocco-util/src/rest'
+import {rest} from 'tocco-app-extensions'
 
 import * as actions from './actions'
 
@@ -10,7 +10,7 @@ export const intlSelector = state => state.intl
 export function* loadValidationRules(username, locale = '') {
   const resource = `principals/${username}/password-rules`
 
-  const validationResponse = yield call(requestSaga, resource, {queryParams: {locale}})
+  const validationResponse = yield call(rest.requestSaga, resource, {queryParams: {locale}})
   return validationResponse.body
 }
 

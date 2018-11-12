@@ -8,6 +8,7 @@ cache:
   directories:
     - node_modules
     - server/static/node_modules
+    - packages/app-extensions-browser/node_modules
     - packages/entity-browser/node_modules
     - packages/entity-detail/node_modules
     - packages/entity-list/node_modules
