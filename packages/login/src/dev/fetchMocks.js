@@ -1,4 +1,4 @@
-import {utilFetchMocks} from 'tocco-util'
+import {mockData} from 'tocco-util'
 
 const delay = new Promise(resolve => setTimeout(resolve, 500))
 
@@ -7,9 +7,7 @@ const response500 = () => {
 }
 
 export default function setupFetchMock(packageName, fetchMock) {
-  utilFetchMocks.log(fetchMock)
-  utilFetchMocks.session(fetchMock)
-  utilFetchMocks.textResource(packageName, fetchMock, require('./messages.json'))
+  mockData.setupSystemMock(packageName, fetchMock, require('./textResources.json'))
 
   fetchMock.post(new RegExp('^.*?/nice2/login$'), function(url, opts) {
     if (opts.body.includes('username=succ')) {
