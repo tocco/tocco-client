@@ -1,6 +1,6 @@
 import {getFormValues, actions as formActions, isValid} from 'redux-form'
 import {CHANGE, UPDATE_SYNC_ERRORS, INITIALIZE} from 'redux-form/es/actionTypes'
-import {externalEvents, form as formUtil} from 'tocco-util'
+import {externalEvents, form as formUtil} from 'tocco-app-extensions'
 
 import * as actions from './actions'
 import * as documentActions from '../../utils/form/document/actions'

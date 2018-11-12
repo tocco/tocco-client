@@ -3,7 +3,6 @@ import fetchMock from 'fetch-mock'
 
 import {setupEntities} from './entities'
 import {createUsers} from './entityFactory'
-import {simpleRequest} from '../rest'
 
 describe('tocco-util', () => {
   describe('mockData', () => {
@@ -26,39 +25,32 @@ describe('tocco-util', () => {
           done => {
             const users = createUsers(50)
             setupEntities(fetchMock, {User: users})
-            const resource = 'http://localhost:8080/nice2/rest/entities/User'
-            const queryParams = {
-              _limit: 5,
-              _offset: 10,
-              _sort: 'firstname desc'
-            }
+            const url = 'http://localhost:8080/nice2/rest/entities/User?_limit=5&_offset=10&_sort=firstname desc'
 
-            simpleRequest(resource, {queryParams}).then(res => {
-              const records = res.body.data
-              const fistNameSelector = 'paths.firstname.value.value'
-              expect(records.length).to.eql(5)
+            fetch(url).then(res => res.json())
+              .then(res => {
+                const records = res.data
+                const fistNameSelector = 'paths.firstname.value.value'
+                expect(records.length).to.eql(5)
 
-              expect(_get(records[0], fistNameSelector)).to.eql('Firstname 44')
-              expect(_get(records[1], fistNameSelector)).to.eql('Firstname 43')
-              done()
-            })
+                expect(_get(records[0], fistNameSelector)).to.eql('Firstname 44')
+                expect(_get(records[1], fistNameSelector)).to.eql('Firstname 43')
+                done()
+              })
           }
         )
 
         test('should setup a entities and return only a few a searchstring', done => {
           const users = createUsers(50)
           setupEntities(fetchMock, {User: users})
-          const resource = 'http://localhost:8080/nice2/rest/entities/User'
-          const queryParams = {
-            _limit: 50,
-            _search: 'few'
-          }
+          const url = 'http://localhost:8080/nice2/rest/entities/User?_limit=50&_search=few'
 
-          simpleRequest(resource, {queryParams}).then(res => {
-            const records = res.body.data
-            expect(records.length).to.be.lessThan(50)
-            done()
-          })
+          fetch(url).then(res => res.json())
+            .then(res => {
+              const records = res.data
+              expect(records.length).to.be.lessThan(50)
+              done()
+            })
         })
 
         test('should setup a entities and return only a few with a query', done => {
@@ -70,8 +62,8 @@ describe('tocco-util', () => {
             _search: 'few'
           }
 
-          simpleRequest(resource, {queryParams}).then(res => {
-            const records = res.body.data
+          fetch(resource, {queryParams}).then(res => res.json()).then(res => {
+            const records = res.data
             expect(records.length).to.be.lessThan(50)
             done()
           })

@@ -1,4 +1,4 @@
-import {externalEvents} from 'tocco-util'
+import {externalEvents} from 'tocco-app-extensions'
 
 import rootSaga, * as sagas from './sagas'
 import * as actions from './actions'

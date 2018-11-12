@@ -1,5 +1,5 @@
 import {actions as formActions} from 'redux-form'
-import {errorLogging} from 'tocco-util'
+import {errorLogging} from 'tocco-app-extensions'
 
 import {uploadRequest, documentToFormValueTransformer} from './utils'
 

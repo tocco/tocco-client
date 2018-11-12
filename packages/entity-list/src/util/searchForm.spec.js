@@ -1,5 +1,5 @@
 import {call} from 'redux-saga/es/effects'
-import {fetchEntities} from 'tocco-util/src/rest'
+import {rest} from 'tocco-app-extensions'
 
 import * as searchForm from './searchForm'
 
@@ -48,10 +48,10 @@ describe('entity-list', () => {
               preSelectedSearchFields, entityModel, callRelatedEntity, searchFormVisible
             )
             expect(generator.next().value).to.deep.equal(
-              call(fetchEntities, targetEntity, {query: 'IN(pk,2)', fields: ['pk']})
+              call(rest.fetchEntities, targetEntity, {query: 'IN(pk,2)', fields: ['pk']})
             )
             expect(generator.next(record2).value).to.deep.equal(
-              call(fetchEntities, targetEntity, {query: 'IN(pk,1,2)', fields: ['pk']})
+              call(rest.fetchEntities, targetEntity, {query: 'IN(pk,1,2)', fields: ['pk']})
             )
             const expectedResult = {
               txtFulltext: '',

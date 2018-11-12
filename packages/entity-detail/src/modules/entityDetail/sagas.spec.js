@@ -2,8 +2,7 @@ import {
   actions as formActions,
   SubmissionError
 } from 'redux-form'
-import {externalEvents, form, actions as actionUtil, actionEmitter} from 'tocco-util'
-import {ClientQuestionCancelledException} from 'tocco-util/src/rest'
+import {externalEvents, form, actions as actionUtil, actionEmitter} from 'tocco-app-extensions'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 
@@ -188,20 +187,6 @@ describe('entity-detail', () => {
             )
             expect(gen.next().done).to.be.true
           })
-
-          test(
-            'should should not log errors of type ClientQuestionCancelledException',
-            () => {
-              const error = new ClientQuestionCancelledException()
-
-              const gen = sagas.handleSubmitError(error)
-              expect(gen.next().value).to.eql(put(formActions.stopSubmit(FORM_ID)))
-              expect(gen.next().value).to.eql(
-                call(sagas.showNotification, 'warning', 'saveAbortedTitle', 'saveAbortedMessage', 5000)
-              )
-              expect(gen.next().done).to.be.true
-            }
-          )
         })
 
         describe('updateFormSubmit saga', () => {

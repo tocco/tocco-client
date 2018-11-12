@@ -1,4 +1,4 @@
-import {requestSaga} from 'tocco-util/src/rest'
+import {rest} from 'tocco-app-extensions'
 import _get from 'lodash/get'
 
 import {call} from 'redux-saga/effects'
@@ -32,7 +32,7 @@ export const defaultModelTransformer = json => {
 }
 
 export function* fetchModel(entityName, transformer = defaultModelTransformer) {
-  const resp = yield call(requestSaga, `entities/${entityName}/model`)
+  const resp = yield call(rest.requestSaga, `entities/${entityName}/model`)
   return transformer(resp.body)
 }
 
@@ -117,7 +117,7 @@ export function* fetchEntities(entityName, searchInputs, transformer = defaultEn
   const queryParams = buildParams(searchInputs)
   resource = resource || `entities/${entityName}`
 
-  const response = yield call(requestSaga, resource, {
+  const response = yield call(rest.requestSaga, resource, {
     queryParams
   })
   return yield call(transformer, response.body)
@@ -127,6 +127,6 @@ export function* fetchEntityCount(entityName, searchInputs, resource) {
   const queryParams = buildParams(searchInputs)
   const countSuffix = '/count'
   resource = (resource || `entities/${entityName}`) + countSuffix
-  const response = yield call(requestSaga, resource, {queryParams})
+  const response = yield call(rest.requestSaga, resource, {queryParams})
   return response.body.count
 }

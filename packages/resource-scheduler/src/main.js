@@ -1,5 +1,5 @@
 import React from 'react'
-import {appFactory, externalEvents} from 'tocco-util'
+import {appFactory, externalEvents} from 'tocco-app-extensions'
 
 import reducers, {sagas} from './modules/reducers'
 import ResourceSchedulerContainer from './containers/ResourceSchedulerContainer'

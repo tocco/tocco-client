@@ -1,4 +1,4 @@
-import {requestSaga} from 'tocco-util/src/rest'
+import {rest} from 'tocco-app-extensions'
 
 import {call} from 'redux-saga/effects'
 
@@ -20,6 +20,6 @@ export const defaultModelTransformer = json => {
 }
 
 export function* fetchModel(entityName, transformer = defaultModelTransformer) {
-  const resp = yield call(requestSaga, `entities/${entityName}/model`)
+  const resp = yield call(rest.requestSaga, `entities/${entityName}/model`)
   return yield call(transformer, resp.body)
 }

@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import {form, formData} from 'tocco-util'
+import {form, formData} from 'tocco-app-extensions'
 import {injectIntl} from 'react-intl'
 import EntityListApp from 'tocco-entity-list/src/main'
 

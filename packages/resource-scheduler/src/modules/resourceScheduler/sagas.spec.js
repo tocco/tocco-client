@@ -1,6 +1,6 @@
 import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {requestSaga} from 'tocco-util/src/rest'
+import {rest} from 'tocco-app-extensions'
 import fetchMock from 'fetch-mock'
 
 import mainSaga, * as sagas from './sagas'
@@ -51,7 +51,7 @@ describe('resource-scheduler', () => {
 
             return expectSaga(sagas.loadCalendarTypes)
               .provide([
-                [matchers.call.fn(requestSaga), calendarResponse]
+                [matchers.call.fn(rest.requestSaga), calendarResponse]
               ])
               .put(actions.setCalendarTypes(calendarTypes))
               .run()
@@ -77,9 +77,9 @@ describe('resource-scheduler', () => {
                 .provide([
                   [select(sagas.resourceSchedulerSelector), mockedState],
                   [matchers.call.fn(transformRequestedCalendars), []],
-                  [matchers.call.fn(requestSaga), {body: {data: mockCalendars}}]
+                  [matchers.call.fn(rest.requestSaga), {body: {data: mockCalendars}}]
                 ])
-                .call(requestSaga, 'calendar/events',
+                .call(rest.requestSaga, 'calendar/events',
                   {
                     method: 'POST',
                     body: {

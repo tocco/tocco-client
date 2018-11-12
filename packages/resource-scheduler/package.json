@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "react-split-pane": "^0.1.84",
+    "tocco-app-extensions": "^0.1.0",
     "tocco-entity-list": "0.1.16",
     "tocco-scheduler": "0.1.6",
     "tocco-test-util": "0.1.3",

@@ -1,4 +1,5 @@
-import {consoleLogger, externalEvents} from 'tocco-util'
+import {consoleLogger} from 'tocco-util'
+import {externalEvents} from 'tocco-app-extensions'
 
 import sendDwrRequest from '../../utils/Dwr'
 import createMergeResult from '../../utils/MergeActionResult'

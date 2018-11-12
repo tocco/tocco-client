@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {notifier} from 'tocco-util'
+import {notifier} from 'tocco-app-extensions'
 
 import RouteWithSubRoutes from '../../../../components/RouteWithSubRoutes'
 import StyledEntityBrowser from './StyledEntityBrowser'

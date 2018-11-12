@@ -1,4 +1,4 @@
-import {externalEvents} from 'tocco-util'
+import {externalEvents} from 'tocco-app-extensions'
 
 import sagas, {initializeWatcher} from './sagas'
 import * as actions from './actions'

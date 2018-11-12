@@ -1,4 +1,5 @@
-import {route, appFactory} from 'tocco-util'
+import {route} from 'tocco-util'
+import {appFactory} from 'tocco-app-extensions'
 
 export default (store, input) => {
   if (module.hot) {

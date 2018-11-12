@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {intlShape} from 'react-intl'
 import _isEmpty from 'lodash/isEmpty'
-import {form} from 'tocco-util'
+import {form} from 'tocco-app-extensions'
 import {LoadMask} from 'tocco-ui'
 
 import DetailFormContainer from '../../containers/DetailFormContainer'

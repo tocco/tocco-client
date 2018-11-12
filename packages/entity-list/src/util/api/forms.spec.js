@@ -1,4 +1,4 @@
-import {requestSaga} from 'tocco-util/src/rest'
+import {rest} from 'tocco-app-extensions'
 
 import * as forms from './forms'
 
@@ -126,7 +126,7 @@ describe('entity-list', () => {
           test('should fetch the form', () => {
             const gen = forms.fetchForm('User_search')
 
-            expect(gen.next().value).to.eql(call(requestSaga, 'forms/User_search', {
+            expect(gen.next().value).to.eql(call(rest.requestSaga, 'forms/User_search', {
               acceptedStatusCodes: [404]
             }))
 
@@ -149,7 +149,7 @@ describe('entity-list', () => {
           test('should ignore 404 errors', () => {
             const gen = forms.fetchForm('User_search')
 
-            expect(gen.next().value).to.eql(call(requestSaga, 'forms/User_search', {
+            expect(gen.next().value).to.eql(call(rest.requestSaga, 'forms/User_search', {
               acceptedStatusCodes: [404]
             }))
 

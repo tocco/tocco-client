@@ -1,4 +1,4 @@
-import {requestSaga} from 'tocco-util/src/rest'
+import {rest} from 'tocco-app-extensions'
 
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
@@ -31,7 +31,7 @@ describe('login', () => {
             const textResourceState = {'client.login.from.passwordRequested': 'msg'}
             expect(generator.next().value).to.eql(put(setPending(true)))
             expect(generator.next().value).to.eql(
-              call(requestSaga, 'principals/user1/password-reset', {method: 'POST'})
+              call(rest.requestSaga, 'principals/user1/password-reset', {method: 'POST'})
             )
             expect(generator.next().value).to.deep.equal(put(setUsername('user1')))
             expect(generator.next().value).to.deep.equal(select(sagas.textResourceSelector))

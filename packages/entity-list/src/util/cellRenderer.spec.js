@@ -2,7 +2,7 @@ import React from 'react'
 import {IntlStub} from 'tocco-test-util'
 import {shallow} from 'enzyme'
 import {FormattedValue} from 'tocco-ui'
-import {actions} from 'tocco-util'
+import {actions} from 'tocco-app-extensions'
 import {Provider} from 'react-redux'
 import {createStore} from 'redux'
 

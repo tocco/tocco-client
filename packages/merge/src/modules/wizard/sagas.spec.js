@@ -1,4 +1,4 @@
-import {externalEvents} from 'tocco-util'
+import {externalEvents} from 'tocco-app-extensions'
 
 import * as sagas from './sagas'
 import createMergeResult from './../../utils/MergeActionResult'

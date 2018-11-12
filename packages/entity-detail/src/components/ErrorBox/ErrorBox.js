@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedMessage} from 'react-intl'
 import {Link, SignalBox, SignalList, stylingCondition} from 'tocco-ui'
-import {form} from 'tocco-util'
+import {form} from 'tocco-app-extensions'
 
 const ErrorBox = ({formErrors, showErrors}) => {
   let output = null

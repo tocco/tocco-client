@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
-import {actionEmitter} from 'tocco-util'
+import {actionEmitter} from 'tocco-app-extensions'
 
 import EntityDetail from '../components/EntityDetail'
 import {loadDetailParams, clearDetailParams, setFormTouched} from '../modules/actions'

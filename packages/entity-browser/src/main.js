@@ -1,9 +1,8 @@
 import React from 'react'
-import {appFactory, notifier, errorLogging, actionEmitter, externalEvents} from 'tocco-util'
+import {appFactory, notifier, errorLogging, actionEmitter, externalEvents, rest} from 'tocco-app-extensions'
 import {Router} from 'react-router'
 import createHashHistory from 'history/createHashHistory'
 import createMemoryHistory from 'history/createMemoryHistory'
-import {setNullBusinessUnit} from 'tocco-util/src/rest'
 
 import RouteWithSubRoutes from './components/RouteWithSubRoutes'
 
@@ -50,7 +49,7 @@ const navigateToDetailIfKeySet = (history, input) => {
 const initApp = (id, input, events, publicPath) => {
   input = {...input, id}
   if (input.nullBusinessUnit) {
-    setNullBusinessUnit(input.nullBusinessUnit)
+    rest.setNullBusinessUnit(input.nullBusinessUnit)
   }
 
   const store = appFactory.createStore(undefined, undefined, input, packageName)

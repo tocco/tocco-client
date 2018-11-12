@@ -1,4 +1,4 @@
-import {form} from 'tocco-util'
+import {form} from 'tocco-app-extensions'
 import _reduce from 'lodash/reduce'
 import {
   actions as formActions,

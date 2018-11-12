@@ -3,7 +3,7 @@ import React from 'react'
 import {intlShape} from 'react-intl'
 import {reduxForm} from 'redux-form'
 import {Button} from 'tocco-ui'
-import {form, formField} from 'tocco-util'
+import {form, formField} from 'tocco-app-extensions'
 
 class SearchForm extends React.Component {
   constructor(props) {

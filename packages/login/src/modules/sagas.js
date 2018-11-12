@@ -1,4 +1,5 @@
-import {externalEvents, consoleLogger} from 'tocco-util'
+import {consoleLogger} from 'tocco-util'
+import {externalEvents} from 'tocco-app-extensions'
 
 import * as actions from './actions'
 import {setMessage, setPending} from './loginForm/actions'

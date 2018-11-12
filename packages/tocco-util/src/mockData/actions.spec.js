@@ -1,7 +1,6 @@
 import fetchMock from 'fetch-mock'
 
 import {setupActions} from './actions'
-import {simpleRequest} from '../rest'
 
 describe('tocco-util', () => {
   describe('mockData', () => {
@@ -20,23 +19,23 @@ describe('tocco-util', () => {
       test('should setup simpleAction', done => {
         setupActions(fetchMock, null, 1)
 
-        const resource = 'actions/simpleAction'
+        const resource = '/nice2/rest/actions/simpleAction'
 
-        simpleRequest(resource, {method: 'post'}).then(res => {
-          expect(res.body.success).to.be.true
+        fetch(resource, {method: 'POST'}).then(res => res.json()).then(res => {
+          expect(res.success).to.be.true
           done()
         })
       })
 
-      const clientQuestionEndpoint = 'actions/yesNoClientQuestion'
+      const clientQuestionEndpoint = '/nice2/rest/actions/yesNoClientQuestion'
 
       test(
         'should setup simpleActionWithClientQuestion and return a clientquestion',
         done => {
           setupActions(fetchMock, null, 1)
 
-          simpleRequest(clientQuestionEndpoint, {method: 'post', body: {}}).then(res => {
-            expect(res.body.clientQuestion).not.to.be.undefined
+          fetch(clientQuestionEndpoint, {method: 'POST', body: '{}'}).then(res => res.json()).then(res => {
+            expect(res.clientQuestion).not.to.be.undefined
             done()
           })
         }
@@ -47,13 +46,15 @@ describe('tocco-util', () => {
         done => {
           setupActions(fetchMock, null, 1)
 
-          simpleRequest(clientQuestionEndpoint, {
+          fetch(clientQuestionEndpoint, {
             method: 'post',
-            body: {clientAnswers: {myYesNoQuestion: true}}
-          }).then(res => {
-            expect(res.body.success).to.be.true
-            done()
+            body: '{"clientAnswers": {"myYesNoQuestion": true}}'
           })
+            .then(res => res.json())
+            .then(res => {
+              expect(res.success).to.be.true
+              done()
+            })
         }
       )
 
@@ -62,37 +63,40 @@ describe('tocco-util', () => {
         done => {
           setupActions(fetchMock, null, 1)
 
-          simpleRequest(clientQuestionEndpoint, {
+          fetch(clientQuestionEndpoint, {
             method: 'post',
-            body: {clientAnswers: {myYesNoQuestion: false}}
-          }).then(res => {
-            expect(res.body.success).to.be.false
-            done()
+            body: '{"clientAnswers": {"myYesNoQuestion": false}}'
           })
+            .then(res => res.json())
+            .then(res => {
+              expect(res.success).to.be.false
+              done()
+            })
         }
       )
 
-      const formQuestionEndpoint = 'actions/formClientQuestion'
+      const formQuestionEndpoint = '/nice2/rest/actions/formClientQuestion'
 
       test('should return a form client question', done => {
         setupActions(fetchMock, null, 1)
 
-        simpleRequest(formQuestionEndpoint, {
-          method: 'post',
-          body: {}
-        }).then(res => {
-          expect(res.body.clientQuestion.form).not.to.be.undefined
-          done()
+        fetch(formQuestionEndpoint, {
+          method: 'POST',
+          body: '{}'
         })
+          .then(res => res.json())
+          .then(res => {
+            expect(res.clientQuestion.form).not.to.be.undefined
+            done()
+          })
       })
 
-      const validationErrorUrl = 'actions/validationError'
+      const validationErrorUrl = '/nice2/rest/actions/validationError'
 
       test('should setup a action endpoint that throws a validation error', done => {
         setupActions(fetchMock, null, 1)
-        simpleRequest(validationErrorUrl, {
-          method: 'post',
-          body: {},
+        fetch(validationErrorUrl, {
+          method: 'POST',
           acceptedErrorCodes: 'VALIDATION_FAILED'
         }).then(res => {
           done()

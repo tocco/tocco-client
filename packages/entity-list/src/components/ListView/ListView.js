@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {intlShape} from 'react-intl'
-import {actions, form} from 'tocco-util'
+import {actions, form} from 'tocco-app-extensions'
 import {LoadMask} from 'tocco-ui'
 
 import {getColumnDefinition} from '../../util/api/forms'

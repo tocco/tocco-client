@@ -1,4 +1,4 @@
-import {formField} from 'tocco-util'
+import {formField} from 'tocco-app-extensions'
 
 import SubGrid from './fromFieldFactories/subGrid'
 

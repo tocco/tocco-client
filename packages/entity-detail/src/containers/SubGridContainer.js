@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import {externalEvents, actionEmitter} from 'tocco-util'
+import {externalEvents, actionEmitter} from 'tocco-app-extensions'
 
 import SubGrid from '../components/SubGrid'
 

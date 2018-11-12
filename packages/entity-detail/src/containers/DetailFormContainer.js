@@ -8,7 +8,7 @@ import {
   getFormAsyncErrors,
   getFormSubmitErrors
 } from 'redux-form'
-import {errorLogging, formData} from 'tocco-util'
+import {errorLogging, formData} from 'tocco-app-extensions'
 import EntityListApp from 'tocco-entity-list/src/main'
 
 import DetailForm from '../components/DetailForm/DetailForm'
