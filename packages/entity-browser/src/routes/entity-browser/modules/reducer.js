@@ -1,4 +1,4 @@
-import {reducers} from 'tocco-util'
+import {reducer as reducerUtil} from 'tocco-util'
 
 import * as actions from './actions'
 
@@ -13,9 +13,9 @@ const setFormBase = (state, {payload}) => {
 }
 
 const ACTION_HANDLERS = {
-  [actions.SET_ENTITY_NAME]: reducers.singleTransferReducer('entityName'),
+  [actions.SET_ENTITY_NAME]: reducerUtil.singleTransferReducer('entityName'),
   [actions.SET_FORM_BASE]: setFormBase,
-  [actions.SET_APP_ID]: reducers.singleTransferReducer('appId')
+  [actions.SET_APP_ID]: reducerUtil.singleTransferReducer('appId')
 }
 
 const initialState = {

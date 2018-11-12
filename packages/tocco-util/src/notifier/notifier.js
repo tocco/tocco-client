@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux'
 import {reducer as toastrReducer} from 'react-redux-toastr'
 
-import appFactory from '../appFactory'
+import reducerUtil from '../reducer'
 import sagas from './modules/sagas'
 import modalComponents from './modules/modalComponents/reducer'
 
@@ -19,7 +19,7 @@ export const defaultToastrOptions = {
 
 export const addToStore = (store, accept) => {
   if (accept) {
-    appFactory.injectReducers(
+    reducerUtil.injectReducers(
       store,
       {
         toastr: toastrReducer,

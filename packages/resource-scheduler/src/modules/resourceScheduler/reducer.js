@@ -1,4 +1,4 @@
-import {reducers} from 'tocco-util'
+import {reducer as reducerUtil} from 'tocco-util'
 import _omit from 'lodash/omit'
 
 import * as actions from './actions'
@@ -32,9 +32,9 @@ const removeRequestedCalendar = (state, {payload}) => {
 }
 
 const ACTION_HANDLERS = {
-  [actions.SET_CALENDAR_TYPES]: reducers.singleTransferReducer('calendarTypes'),
-  [actions.SET_CALENDARS]: reducers.singleTransferReducer('calendars'),
-  [actions.SET_DATE_RANGE]: reducers.singleTransferReducer('dateRange'),
+  [actions.SET_CALENDAR_TYPES]: reducerUtil.singleTransferReducer('calendarTypes'),
+  [actions.SET_CALENDARS]: reducerUtil.singleTransferReducer('calendars'),
+  [actions.SET_DATE_RANGE]: reducerUtil.singleTransferReducer('dateRange'),
   [actions.UPDATE_REQUESTED_CALENDARS]: updateRequestedCalendars,
   [actions.REMOVE_REQUESTED_CALENDAR]: removeRequestedCalendar
 }

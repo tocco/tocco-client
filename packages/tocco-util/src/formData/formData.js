@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux'
 import PropTypes from 'prop-types'
 
-import appFactory from '../appFactory'
+import reducerUtil from '../reducer'
 import relationEntities from './relationEntities/reducer'
 import tooltips from './tooltips/reducer'
 import relationEntitiesSagas from './relationEntities/sagas'
@@ -12,7 +12,7 @@ export const relationEntitiesSelector = store => store.formData.relationEntities
 export const tooltipSelector = store => store.formData.tooltips.data
 
 export const addToStore = (store, values) => {
-  appFactory.injectReducers(store, {formData: combineReducers({relationEntities, tooltips})})
+  reducerUtil.injectReducers(store, {formData: combineReducers({relationEntities, tooltips})})
 
   store.sagaMiddleware.run(relationEntitiesSagas)
   store.sagaMiddleware.run(tooltipsSaga)
