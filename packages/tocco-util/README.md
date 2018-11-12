@@ -27,6 +27,3 @@ Helpers for sagas.
 
 #### storeStorage
 Simple singleton to get and set a store by id.
-
-#### utilFetchMock
-Generic fetchMocks e.g. log, session, text-resources.

@@ -1,7 +1,5 @@
-import mockData from '../mockData'
-
-export default (packageName, fetchMock, textResourceKeys = []) => {
-  textResourceKeys = [...textResourceKeys, ...mockData.data.textResources]
+export const setupTextResources = (packageName, fetchMock, textResourceKeys = []) => {
+  textResourceKeys = [...textResourceKeys, ...require('./data/textResources.json')]
   const textResources = {}
   textResourceKeys.forEach(key => {
     textResources[key] = transformKeyToReadableText(key)
