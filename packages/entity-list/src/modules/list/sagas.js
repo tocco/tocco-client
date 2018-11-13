@@ -197,9 +197,7 @@ export function* deleteEntities({payload}) {
   const blockingInfoId = uuid()
   yield put(notifier.blockingInfo(blockingInfoId, 'client.entity-detail.deleteInProgress', null))
   const {entity, ids} = payload
-  const deleteRequests = yield all(ids.map(id => {
-    return call(rest.deleteEntity, entity, id)
-  }))
+  const deleteRequests = yield all(ids.map(id => call(rest.deleteEntity, entity, id)))
 
   yield put(notifier.removeBlockingInfo(blockingInfoId))
 
