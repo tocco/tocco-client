@@ -212,7 +212,9 @@ class Example extends React.Component {
                   type="decimal"
                   value={this.state.values.decimal}
                   options={{
-                    intl: this.context.intl
+                    intl: this.context.intl,
+                    prePointDigits: 8,
+                    postPointDigits: 3
                   }}
                   onChange={v => this.changeValue('decimal', v)}
                   readOnly={this.state.readOnly}

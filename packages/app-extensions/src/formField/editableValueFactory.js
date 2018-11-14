@@ -95,8 +95,8 @@ const getOptions = (type, formField, modelField, utils) => {
       if (utils.intl) {
         options.intl = utils.intl
       }
-      options.postPointDigits = modelField.postPointDigits
-      options.maxValue = modelField.maxValue
+      options.postPointDigits = modelField.validation.decimalDigits.postPointDigits
+      options.prePointDigits = modelField.validation.decimalDigits.prePointDigits
   }
 
   return options

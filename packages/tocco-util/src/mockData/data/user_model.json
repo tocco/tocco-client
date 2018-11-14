@@ -146,12 +146,12 @@
     {
       "fieldName": "decimal",
       "type": "decimal",
-      "maxValue": 999999999999.99,
-      "postPointDigits": 2,
+      "defaultValue": null,
       "validation": {
-        "mandatory": false,
-        "maxNumber": 999999999999.99,
-        "postPoint": 2
+        "decimalDigits": {
+          "prePointDigits": 12,
+          "postPointDigits": 2
+        }
       }
     },
     {

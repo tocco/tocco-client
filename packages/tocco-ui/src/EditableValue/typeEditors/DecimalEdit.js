@@ -14,6 +14,10 @@ const DecimalEdit = props => {
   const {thousandSeparator, decimalSeparator} = parseLocalePlaceholder(props.options.intl.locale)
   const value = props.value === null ? '' : props.value
 
+  const maxInteger = (10 ** props.options.prePointDigits)
+  const maxFloat = 1 / (10 ** props.options.postPointDigits)
+  const maxValue = maxInteger - maxFloat
+  
   const handleChange = values => {
     if (props.onChange) {
       props.onChange(convertStringToNumber(values.value))
@@ -32,9 +36,16 @@ const DecimalEdit = props => {
       decimalScale={props.options.postPointDigits}
       thousandSeparator={thousandSeparator}
       decimalSeparator={decimalSeparator}
-      isAllowed={limitValue(props.options.maxValue)}
+      isAllowed={limitValue(maxValue)}
     />
   )
+}
+
+DecimalEdit.defaultProps = {
+  options: {
+    prePointDigits: 12,
+    postPointDigits: 2
+  }
 }
 
 DecimalEdit.propTypes = {
@@ -46,7 +57,7 @@ DecimalEdit.propTypes = {
   options: PropTypes.shape({
     intl: intlShape.isRequired,
     postPointDigits: PropTypes.number,
-    maxValue: PropTypes.number
+    prePointDigits: PropTypes.number
   }).isRequired
 }
 
