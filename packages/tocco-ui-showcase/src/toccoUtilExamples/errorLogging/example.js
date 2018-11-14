@@ -1,7 +1,7 @@
 import React from 'react'
 import {Provider} from 'react-redux'
 import {Button} from 'tocco-ui'
-import {appFactory, errorLogging, notifier} from 'tocco-util'
+import {appFactory, errorLogging, notifier} from 'tocco-app-extensions'
 // real-import:import {appFactory, errorLogging, notifier} from 'tocco-util'
 
 /* start example */
