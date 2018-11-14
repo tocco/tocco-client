@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import React from 'react'
 import {Provider} from 'react-redux'
-import {appFactory, notifier} from 'tocco-util'
+import {appFactory, notifier} from 'tocco-app-extensions'
 import {Button, ButtonGroup, Typography} from 'tocco-ui'
 // real-import:import {appFactory, notifier} from 'tocco-util'
 
