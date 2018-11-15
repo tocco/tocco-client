@@ -65,6 +65,7 @@ class Example extends React.Component {
         datetime: '2017-01-25T15:15:00.000Z',
         decimal: 123456.78,
         duration: 3660000,
+        moneyamount: 1234.56,
         boolean: false,
         number: 99,
         remote: {key: 999, display: 'Dummy User 999'},
@@ -217,6 +218,22 @@ class Example extends React.Component {
                     postPointDigits: 3
                   }}
                   onChange={v => this.changeValue('decimal', v)}
+                  readOnly={this.state.readOnly}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>money amount</td>
+              <td>
+                <EditableValue
+                  type="moneyamount"
+                  value={this.state.values.moneyamount}
+                  options={{
+                    intl: this.context.intl,
+                    prePointDigits: 12,
+                    postPointDigits: 2
+                  }}
+                  onChange={v => this.changeValue('moneyamount', v)}
                   readOnly={this.state.readOnly}
                 />
               </td>

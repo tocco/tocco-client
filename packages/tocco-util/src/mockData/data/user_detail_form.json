@@ -375,6 +375,20 @@
                   },
                   {
                     "componentType": "field-set",
+                    "label": "Money Amount",
+                    "scopes": [],
+                    "hidden": false,
+                    "children": [
+                      {
+                        "id": "moneyamount",
+                        "componentType": "field",
+                        "dataType": "moneyamount",
+                        "label": null
+                      }
+                    ]
+                  },
+                  {
+                    "componentType": "field-set",
                     "label": "Published",
                     "scopes": [],
                     "hidden": false,
