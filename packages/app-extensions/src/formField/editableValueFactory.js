@@ -92,11 +92,12 @@ const getOptions = (type, formField, modelField, utils) => {
       }
       break
     case 'decimal':
+    case 'moneyamount':
       if (utils.intl) {
         options.intl = utils.intl
       }
-      options.postPointDigits = modelField.validation.decimalDigits.postPointDigits
-      options.prePointDigits = modelField.validation.decimalDigits.prePointDigits
+      options.prePointDigits = _get(modelField, 'validation.decimalDigits.prePointDigits', null)
+      options.postPointDigits = _get(modelField, 'validation.decimalDigits.postPointDigits', null)
   }
 
   return options

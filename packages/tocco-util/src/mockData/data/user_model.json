@@ -155,6 +155,17 @@
       }
     },
     {
+      "fieldName": "moneyamount",
+      "type": "moneyamount",
+      "defaultValue": null,
+      "validation": {
+        "decimalDigits": {
+          "prePointDigits": 12,
+          "postPointDigits": 2
+        }
+      }
+    },
+    {
       "fieldName": "publish",
       "type": "boolean",
       "validation": {
