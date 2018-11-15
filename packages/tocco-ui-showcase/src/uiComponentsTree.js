@@ -34,6 +34,10 @@ import IconToccoRaw from '!raw-loader!../../tocco-ui/src/IconTocco/IconTocco'
 import IconToccoExample from '../../tocco-ui/src/IconTocco/example'
 import IconToccoExampleRaw from '!raw-loader!../../tocco-ui/src/IconTocco/example'
 
+import MultiCheckboxRaw from '!raw-loader!../../tocco-ui/src/MultiCheckbox/MultiCheckbox'
+import MultiCheckboxExample from '../../tocco-ui/src/MultiCheckbox/example'
+import MultiCheckboxExampleRaw from '!raw-loader!../../tocco-ui/src/MultiCheckbox/example'
+
 import LayoutRaw from '!raw-loader!../../tocco-ui/src/Layout/Layout'
 import LayoutExample from '../../tocco-ui/src/Layout/example'
 import LayoutExampleRaw from '!raw-loader!../../tocco-ui/src/Layout/example'
@@ -203,6 +207,13 @@ export default [{
     example: {
       component: SearchBoxExample,
       raw: SearchBoxExampleRaw
+    }
+  }, {
+    name: 'MultiCheckbox',
+    raw: MultiCheckboxRaw,
+    example: {
+      component: MultiCheckboxExample,
+      raw: MultiCheckboxExampleRaw
     }
   }]
 }, {
