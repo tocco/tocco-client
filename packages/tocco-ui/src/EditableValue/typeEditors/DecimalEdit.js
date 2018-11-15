@@ -10,14 +10,25 @@ export const limitValue = maxValueObject => values => {
   return formattedValue === '' || floatValue <= maxValueObject
 }
 
+export const calculateMaxValue = (prePointDigits, postPointDigits) => {
+  const maxValueMinuend = (10 ** prePointDigits)
+  const maxValueSubtrahend = 1 / (10 ** postPointDigits)
+  return maxValueMinuend - maxValueSubtrahend
+}
+
 const DecimalEdit = props => {
   const {thousandSeparator, decimalSeparator} = parseLocalePlaceholder(props.options.intl.locale)
   const value = props.value === null ? '' : props.value
 
-  const maxInteger = (10 ** props.options.prePointDigits)
-  const maxFloat = 1 / (10 ** props.options.postPointDigits)
-  const maxValue = maxInteger - maxFloat
-  
+  const prePointDigits = props.options.prePointDigits
+  const postPointDigits = props.options.postPointDigits
+
+  const numberFormatOptions = {
+    ...(prePointDigits && postPointDigits
+      ? {isAllowed: limitValue(calculateMaxValue(prePointDigits, postPointDigits))} : {}),
+    ...(postPointDigits ? {decimalScale: postPointDigits} : {})
+  }
+
   const handleChange = values => {
     if (props.onChange) {
       props.onChange(convertStringToNumber(values.value))
@@ -33,19 +44,11 @@ const DecimalEdit = props => {
       value={value}
       isNumericString={true}
       onValueChange={handleChange}
-      decimalScale={props.options.postPointDigits}
       thousandSeparator={thousandSeparator}
       decimalSeparator={decimalSeparator}
-      isAllowed={limitValue(maxValue)}
+      {...numberFormatOptions}
     />
   )
-}
-
-DecimalEdit.defaultProps = {
-  options: {
-    prePointDigits: 12,
-    postPointDigits: 2
-  }
 }
 
 DecimalEdit.propTypes = {
