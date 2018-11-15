@@ -77,9 +77,9 @@ import SignalListRaw from '!raw-loader!../../tocco-ui/src/SignalList/SignalList'
 import SignalListExample from '../../tocco-ui/src/SignalList/example'
 import SignalListExampleRaw from '!raw-loader!../../tocco-ui/src/SignalList/example'
 
-import SomeOfButtonRaw from '!raw-loader!../../tocco-ui/src/SomeOfButton/SomeOfButton'
-import SomeOfButtonExample from '../../tocco-ui/src/SomeOfButton/example'
-import SomeOfButtonExampleRaw from '!raw-loader!../../tocco-ui/src/SomeOfButton/example'
+import SomeOfRaw from '!raw-loader!../../tocco-ui/src/SomeOf/SomeOf'
+import SomeOfExample from '../../tocco-ui/src/SomeOf/example'
+import SomeOfExampleRaw from '!raw-loader!../../tocco-ui/src/SomeOf/example'
 
 import TypographyRaw from '!raw-loader!../../tocco-ui/src/Typography/Typography'
 import TypographyExample from '../../tocco-ui/src/Typography/example'
@@ -128,6 +128,13 @@ export default [{
       component: IconExample,
       raw: IconExampleRaw
     }
+  }, {
+    name: 'SomeOf',
+    raw: SomeOfRaw,
+    example: {
+      component: SomeOfExample,
+      raw: SomeOfExampleRaw
+    }
   }]
 }, {
   category: categories.EDIT_DATA,
@@ -175,13 +182,6 @@ export default [{
     example: {
       component: ButtonLinkExample,
       raw: ButtonLinkExampleRaw
-    }
-  }, {
-    name: 'SomeOfButton',
-    raw: SomeOfButtonRaw,
-    example: {
-      component: SomeOfButtonExample,
-      raw: SomeOfButtonExampleRaw
     }
   }, {
     name: 'ButtonGroup',
