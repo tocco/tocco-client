@@ -2,7 +2,7 @@ import React from 'react'
 import {mount} from 'enzyme'
 import {IntlStub} from 'tocco-test-util'
 
-import DecimalEdit, {limitValue} from './DecimalEdit'
+import DecimalEdit, {limitValue, calculateMaxValue} from './DecimalEdit'
 
 const EMPTY_FUNC = () => {}
 
@@ -51,6 +51,14 @@ describe('tocco-ui', () => {
             }
             expect(limitValue(maxValue)(valuesObject)).to.be.eql(true)
           })
+        })
+      })
+      describe('calculateMaxValue', () => {
+        test('should return maxValue', () => {
+          const prePointDigits = 5
+          const postPointDigits = 3
+          const result = 99999.999
+          expect(calculateMaxValue(prePointDigits, postPointDigits)).to.be.eql(result)
         })
       })
     })
