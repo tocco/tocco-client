@@ -15,6 +15,7 @@ React-registry name: `simple-form`
 | `submitText`           |           | Text on submit button
 | `cancelText`           |           | Text on cancel button
 | `formData`             |           | Provides the option to set relation-entities formData in advance
+| `listApp`              |           | List app (tocco-entity-list) must be provided to support 
 
 
 ### Events

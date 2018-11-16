@@ -9,6 +9,7 @@ import rest from '../../../rest'
 describe('app-extensions', () => {
   describe('actions', () => {
     describe('preAction', () => {
+      const config = {formApp: () => {}}
       describe('initialForm', () => {
         describe('shouldRun', () => {
           test('should return true if attribute is set', () => {
@@ -31,7 +32,7 @@ describe('app-extensions', () => {
           test(
             'should dispatch confirm and return abort eql false in case of positive answer',
             () => {
-              return expectSaga(initialForm.run, params, definition, ids)
+              return expectSaga(initialForm.run, params, definition, ids, config)
                 .provide([{
                   call(effect, next) {
                     return effect.fn === channel ? channelMock : next()
@@ -51,7 +52,7 @@ describe('app-extensions', () => {
           )
 
           test('should return abort in case of negative answer', () => {
-            return expectSaga(initialForm.run, params, definition, ids)
+            return expectSaga(initialForm.run, params, definition, ids, config)
               .provide([
                 {
                   call(effect, next) {

@@ -1,7 +1,7 @@
 import {call} from 'redux-saga/effects'
 
 export default preAction =>
-  function* (definition, ids) {
+  function* (definition, ids, config) {
     let abort = false
     let i = 0
     let params = {}
@@ -9,7 +9,7 @@ export default preAction =>
     while (!abort && preAction[i]) {
       const handler = preAction[i]
       if (handler.shouldRun(definition)) {
-        const response = yield call(handler.run, params, definition, ids)
+        const response = yield call(handler.run, params, definition, ids, config)
 
         abort = response.abort
         params = {...params, ...response.params}

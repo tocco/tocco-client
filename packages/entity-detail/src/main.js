@@ -9,6 +9,8 @@ import {
   actions,
   formData
 } from 'tocco-app-extensions'
+import SimpleFormApp from 'tocco-simple-form/src/main'
+import EntityListApp from 'tocco-entity-list/src/main'
 
 import reducers, {sagas} from './modules/reducers'
 import DetailViewContainer from './containers/DetailViewContainer'
@@ -35,7 +37,7 @@ const initApp = (id, input, events = {}, publicPath) => {
   actionEmitter.addToStore(store, events.emitAction)
   errorLogging.addToStore(store, false)
   notifier.addToStore(store, false)
-  actions.addToStore(store)
+  actions.addToStore(store, {formApp: SimpleFormApp, listApp: EntityListApp})
   formData.addToStore(store)
 
   const dispatchActions = getDispatchActions(input)
