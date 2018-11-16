@@ -5,7 +5,6 @@
   "description": "tocco util",
   "main": "src/main.js",
   "devDependencies": {
-    "tocco-simple-form": ">0.0.0",
     "tocco-test-util": ">0.0.0",
     "tocco-theme": ">0.0.0"
   }
