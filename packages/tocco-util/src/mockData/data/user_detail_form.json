@@ -62,7 +62,8 @@
                         "id": "user_nr",
                         "componentType": "field",
                         "dataType": "integer",
-                        "label": null
+                        "label": null,
+                        "readonly": true
                       }
                     ]
                   },
@@ -147,6 +148,20 @@
                         "id": "address",
                         "dataType": "text",
                         "componentType": "field",
+                        "label": null
+                      }
+                    ]
+                  },
+                  {
+                    "componentType": "field-set",
+                    "label": "Licence Plate",
+                    "scopes": [],
+                    "hidden": false,
+                    "children": [
+                      {
+                        "id": "licence_plate",
+                        "componentType": "field",
+                        "dataType": "long",
                         "label": null
                       }
                     ]

@@ -265,6 +265,24 @@
             "sortable": true
           },
           {
+            "id": "licence_plate",
+            "componentType": "Column",
+            "readonly": false,
+            "children": [
+              {
+                "id": "licence_plate",
+                "componentType": "field",
+                "readonly": false,
+                "children": [],
+                "dataType": "long",
+                "label": "Licence Plate"
+              }
+            ],
+            "label": "Licence Plate",
+
+            "sortable": true
+          },
+          {
             "id": "relSingle_entity2",
             "componentType": "Column",
             "readonly": false,
