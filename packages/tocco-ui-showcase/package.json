@@ -15,9 +15,9 @@
     "react-highlight": "^0.12.0",
     "react-scrollspy": "^3.3.5",
     "tocco-app-extensions": ">0.0.0",
-    "tocco-test-util": "0.1.3",
-    "tocco-theme": "0.2.3",
-    "tocco-ui": "0.1.16",
-    "tocco-util": "0.1.13"
+    "tocco-test-util": ">0.0.0",
+    "tocco-theme": ">0.0.0",
+    "tocco-ui": ">0.0.0",
+    "tocco-util": ">0.0.0"
   }
 }

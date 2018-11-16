@@ -11,9 +11,10 @@
   "devDependencies": {
     "react-bootstrap-table": "4.2.0",
     "tocco-app-extensions": ">0.0.0",
-    "tocco-test-util": "0.1.3",
-    "tocco-theme": "0.2.3",
-    "tocco-ui": "0.1.16",
-    "tocco-util": "0.1.13"
+    "tocco-simple-form": ">0.0.0",
+    "tocco-test-util": ">0.0.0",
+    "tocco-theme": ">0.0.0",
+    "tocco-ui": ">0.0.0",
+    "tocco-util": ">0.0.0"
   }
 }

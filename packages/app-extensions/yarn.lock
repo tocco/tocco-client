@@ -22,22 +22,6 @@ semver-compare@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/semver-compare/-/semver-compare-1.0.0.tgz#0dee216a1c941ab37e9efb1788f6afc5ff5537fc"
 
-tocco-simple-form@>0.1.0:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/tocco-simple-form/-/tocco-simple-form-0.1.5.tgz#18c4f1156cc12dd0fe7423487a45fa373ff0f9d9"
-
-tocco-theme@>0.1.0:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/tocco-theme/-/tocco-theme-0.2.3.tgz#e04e043abb94ee1f99029798f5c2aae248ba9fc4"
-
-tocco-ui@>0.1.0:
-  version "0.1.14"
-  resolved "https://registry.yarnpkg.com/tocco-ui/-/tocco-ui-0.1.14.tgz#5e8ceceee76cf1acb2ae2b79fe5f5c63b035ca3b"
-
-tocco-util@>0.1.0:
-  version "0.1.11"
-  resolved "https://registry.yarnpkg.com/tocco-util/-/tocco-util-0.1.11.tgz#c159134e9bb8359384aab0996286de233b19d0a8"
-
 validator@10.0.0:
   version "10.0.0"
   resolved "https://registry.yarnpkg.com/validator/-/validator-10.0.0.tgz#f57664d1d4bee46291f76be95ed27733cc8156aa"
