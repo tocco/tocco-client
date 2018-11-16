@@ -61,7 +61,8 @@ export const getModel = settingsDefinition => {
         ...result,
         [field.id]: {
           ...(field.targetEntity ? {targetEntity: field.targetEntity} : {}),
-          ...(field.validation ? {validation: field.validation} : {})
+          ...(field.validation ? {validation: field.validation} : {}),
+          ...(field.multi ? {multi: field.multi} : {})
         }
       }
     ), {})
