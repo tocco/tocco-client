@@ -52,6 +52,15 @@ const declareInteractionColors = (colors, format = stylingFormat.HTML) => {
   `
 }
 
+const mapColors = (bg, fg) => ({
+  defaultColor: fg[0],
+  defaultBackground: bg[0],
+  focusColor: fg[1],
+  focusBackground: bg[1],
+  activeColor: fg[2],
+  activeBackground: bg[2]
+})
+
 const generateFlatBaseColors = props => {
   const text = themeGet('colors.text', fallbackColors.TEXT)(props)
   const paper = themeGet('colors.paper', fallbackColors.PAPER)(props)
@@ -59,15 +68,7 @@ const generateFlatBaseColors = props => {
     action: getLuminance(paper) > 0.5 ? 'darken' : 'lighten'
   })
   const bg = generateInteractionColor(paper)
-
-  return {
-    defaultColor: fg[0],
-    defaultBackground: bg[0],
-    focusColor: fg[1],
-    focusBackground: bg[1],
-    activeColor: fg[2],
-    activeBackground: bg[2]
-  }
+  return mapColors(bg, fg)
 }
 
 const generateFlatPrimaryColors = props => {
@@ -77,15 +78,7 @@ const generateFlatPrimaryColors = props => {
     action: getLuminance(paper) > 0.5 ? 'darken' : 'lighten'
   })
   const bg = generateInteractionColor(paper)
-
-  return {
-    defaultColor: fg[0],
-    defaultBackground: bg[0],
-    focusColor: fg[1],
-    focusBackground: bg[1],
-    activeColor: fg[2],
-    activeBackground: bg[2]
-  }
+  return mapColors(bg, fg)
 }
 
 const generateRaisedBaseColors = props => {
@@ -97,15 +90,7 @@ const generateRaisedBaseColors = props => {
   const bg = generateInteractionColor(paper, {
     shadeOffset: 0.1
   })
-
-  return {
-    defaultColor: fg[0],
-    defaultBackground: bg[0],
-    focusColor: fg[1],
-    focusBackground: bg[1],
-    activeColor: fg[2],
-    activeBackground: bg[2]
-  }
+  return mapColors(bg, fg)
 }
 
 const generateRaisedPrimaryColors = props => {
@@ -117,15 +102,7 @@ const generateRaisedPrimaryColors = props => {
     action: getLuminance(primary) > 0.5 ? 'darken' : 'lighten'
   })
   const bg = generateInteractionColor(primary)
-
-  return {
-    defaultColor: fg[0],
-    defaultBackground: bg[0],
-    focusColor: fg[1],
-    focusBackground: bg[1],
-    activeColor: fg[2],
-    activeBackground: bg[2]
-  }
+  return mapColors(bg, fg)
 }
 
 const getContrast = (colorA, colorB) => {
