@@ -28,6 +28,13 @@
       }
     },
     {
+      "fieldName": "licence_plate",
+      "type": "long",
+      "validation": {
+        "mandatory": true
+      }
+    },
+    {
       "fieldName": "email",
       "type": "email",
       "validation": {

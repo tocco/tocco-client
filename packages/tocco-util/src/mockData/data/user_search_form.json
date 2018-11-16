@@ -115,7 +115,6 @@
             "hidden": false,
             "scopes": [ ]
           },
-
           {
             "id": "user_nr",
             "label": "Person-Nr.",
