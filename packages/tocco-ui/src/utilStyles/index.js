@@ -15,6 +15,7 @@ import {
 } from './declareWrapping'
 import getTextOfChildren from './getTextOfChildren'
 import {
+  declareScale,
   fontScale,
   scaleExponential,
   spaceScale
@@ -44,6 +45,7 @@ export {
   assertObjectValuesMatchOtherObjectKeys,
   conditionPropTypes,
   declareDensity,
+  declareScale,
   generateFlatBaseColors,
   generateFlatPrimaryColors,
   declareFont,
