@@ -35,7 +35,7 @@ export default (fieldDefinition, entity, intl) => {
             const options = getOptions(mappedType, intl)
             return <FormattedValue key={idx} type={mappedType} value={value} {...(options ? {options} : {})}/>
           })
-          .reduce((prev, curr, idx) => [prev, <MultiSeparator key={idx}/>, curr])
+          .reduce((prev, curr, idx) => [prev, <MultiSeparator key={`ms-${idx}`}/>, curr])
       }
     </span>
     : null
