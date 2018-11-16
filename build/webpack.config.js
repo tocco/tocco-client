@@ -27,7 +27,7 @@ const webpackConfig = {
   mode: __PROD__ ? 'production' : 'development',
   name: 'client',
   target: 'web',
-  devtool: __PROD__ ? 'source-map' : 'eval',
+  devtool: 'source-map',
   resolve: {
     modules: [
       path.resolve(paths.client(), packageDir, 'src'),
