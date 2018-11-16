@@ -3,7 +3,7 @@ import {appFactory, externalEvents, formData, notifier, actionEmitter} from 'toc
 import PropTypes from 'prop-types'
 
 import reducers, {sagas} from './modules/reducers'
-
+import FormContainer from './containers/FormContainer'
 const packageName = 'simple-form'
 
 const EXTERNAL_EVENTS = [
@@ -14,9 +14,7 @@ const EXTERNAL_EVENTS = [
 ]
 
 const initApp = (id, input, events = {}, publicPath) => {
-  // workaround, if container gets imported normally, karma fails
-  const Container = require('./containers/FormContainer').default
-  const content = <div><Container/></div>
+  const content = <FormContainer listApp={input.listApp}/>
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   actionEmitter.addToStore(store, events.emitAction)

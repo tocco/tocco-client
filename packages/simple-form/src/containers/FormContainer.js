@@ -1,21 +1,27 @@
 import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 import {form, formData} from 'tocco-app-extensions'
 import {injectIntl} from 'react-intl'
-import EntityListApp from 'tocco-entity-list/src/main'
 
 import Form from '../../src/components/Form'
 import {initializeForm, submit, cancel, advancedSearchUpdate} from '../modules/simpleForm/actions'
 import {uploadDocument} from '../utils/form/document/actions'
 
-const mapActionCreators = {
-  initializeForm,
-  onSubmit: submit,
-  onCancel: cancel,
-  loadRelationEntities: formData.loadRelationEntities,
-  loadTooltip: formData.loadTooltip,
-  openAdvancedSearch: (...args) => formData.openAdvancedSearch(EntityListApp, advancedSearchUpdate, ...args),
-  uploadDocument
-}
+const mapActionCreators = (dispatch, props) => (
+  {
+    ...bindActionCreators(
+      {
+        initializeForm,
+        onSubmit: submit,
+        onCancel: cancel,
+        loadRelationEntities: formData.loadRelationEntities,
+        loadTooltip: formData.loadTooltip,
+        uploadDocument
+      }, dispatch
+    ),
+    openAdvancedSearch: (...args) => dispatch(formData.openAdvancedSearch(props.listApp, advancedSearchUpdate, ...args))
+  }
+)
 
 const mapStateToProps = (state, props) => ({
   noButtons: state.input.noButtons,
@@ -27,7 +33,8 @@ const mapStateToProps = (state, props) => ({
   formDefinition: state.input.form,
   validate: form.syncValidation(state.input.model),
   relationEntities: formData.relationEntitiesSelector(state),
-  tooltips: formData.tooltipSelector(state)
+  tooltips: formData.tooltipSelector(state),
+  listApp: state.input.listApp
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(Form))

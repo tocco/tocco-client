@@ -10,13 +10,13 @@ import ReportSettings from '../../components/ReportSettings'
 
 import {call, put, take} from 'redux-saga/effects'
 
-export default function* (actionDefinition, entity, ids) {
+export default function* (actionDefinition, entity, ids, parent, params, config) {
   const answerChannel = yield call(channel)
-  const settingsModalId = yield call(displayReportSettings, actionDefinition, entity, ids, answerChannel)
+  const settingsModalId = yield call(displayReportSettings, actionDefinition, entity, ids, answerChannel, config)
   yield call(awaitSettingsSubmit, actionDefinition, answerChannel, settingsModalId, entity, ids)
 }
 
-export function* displayReportSettings(actionDefinition, entity, ids, answerChannel) {
+export function* displayReportSettings(actionDefinition, entity, ids, answerChannel, config) {
   const options = {
     queryParams: {
       model: entity,
@@ -35,6 +35,8 @@ export function* displayReportSettings(actionDefinition, entity, ids, answerChan
     null,
     () => (
       <ReportSettings
+        listApp={config.listApp}
+        formApp={config.formApp}
         onSubmit={onSubmit}
         settingsDefinition={settingsDefinition}
       />

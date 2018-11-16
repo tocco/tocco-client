@@ -1,7 +1,6 @@
 import React from 'react'
 import {intlEnzyme} from 'tocco-test-util'
 
-import SimpleFormContainer from './../containers/SimpleFormContainer'
 import ReportSettings from './ReportSettings'
 
 const EMPTY_FUNC = () => {}
@@ -12,18 +11,18 @@ describe('app-extensions', () => {
       describe('ReportSettings', () => {
         it('should render simple-form for genereal and recipient settings and one for custom settings', () => {
           const wrapper = intlEnzyme.shallowWithIntl(<ReportSettings onSubmit={EMPTY_FUNC}
-            settingsDefinition={formDefinitionFull}/>)
+            settingsDefinition={formDefinitionFull} listApp={EMPTY_FUNC} formApp={EMPTY_FUNC}/>)
 
-          expect(wrapper.find(SimpleFormContainer)).to.have.length(2)
+          expect(wrapper.find(wrapper.instance().SimpleFormContainer)).to.have.length(2)
         })
 
         it('should not render custom settings simple-form if custom settings are null', () => {
           const settingsDefinition = {...formDefinitionFull, customSettings: null}
 
           const wrapper = intlEnzyme.shallowWithIntl(<ReportSettings onSubmit={EMPTY_FUNC}
-            settingsDefinition={settingsDefinition}/>)
+            settingsDefinition={settingsDefinition} listApp={EMPTY_FUNC} formApp={EMPTY_FUNC}/>)
 
-          expect(wrapper.find(SimpleFormContainer)).to.have.length(1)
+          expect(wrapper.find(wrapper.instance().SimpleFormContainer)).to.have.length(1)
         })
       })
     })

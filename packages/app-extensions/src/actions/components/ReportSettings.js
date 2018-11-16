@@ -5,7 +5,7 @@ import {FormattedMessage, intlShape} from 'react-intl'
 import {download} from 'tocco-util'
 
 import rest from '../../rest'
-import SimpleFormContainer from './../containers/SimpleFormContainer'
+import simpleFormConnector from '../containers/simpleFormConnector'
 import {
   getFormDataDefaults,
   getModel,
@@ -27,6 +27,8 @@ class ReportSettings extends React.Component {
       valid: false,
       customSettingsValid: !this.customSettingsDefined
     }
+
+    this.SimpleFormContainer = simpleFormConnector(props.formApp)
   }
 
   handleSettingsChange = (values, valid) => {
@@ -51,7 +53,8 @@ class ReportSettings extends React.Component {
 
     return (
       <StyledReportSettings>
-        <SimpleFormContainer
+        <this.SimpleFormContainer
+          listApp={this.props.listApp}
           form={getFormDefinition(settingsDefinition, this.context.intl)}
           model={getModel(settingsDefinition)}
           noButtons
@@ -59,7 +62,8 @@ class ReportSettings extends React.Component {
           formData={getFormDataDefaults(settingsDefinition)}
         />
         {this.customSettingsDefined
-        && <SimpleFormContainer
+        && <this.SimpleFormContainer
+          listApp={this.props.listApp}
           form={settingsDefinition.customSettings.form.form}
           model={rest.defaultModelTransformer(settingsDefinition.customSettings.entity)}
           noButtons
@@ -96,6 +100,8 @@ ReportSettings.contextTypes = {
 
 ReportSettings.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  listApp: PropTypes.func.isRequired,
+  formApp: PropTypes.func.isRequired,
   settingsDefinition: reportSettingsDefinitionPropType.isRequired
 }
 
