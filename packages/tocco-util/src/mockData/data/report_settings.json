@@ -320,7 +320,8 @@
       "label": "Remote",
       "id": "recipients2",
       "options": null,
-      "targetEntity": "User"
+      "targetEntity": "User",
+      "multi": true
     }
   ]
 }
