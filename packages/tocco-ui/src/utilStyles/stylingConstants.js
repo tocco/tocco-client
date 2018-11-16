@@ -15,6 +15,12 @@ const condition = {
   WARNING: 'warning'
 }
 
+const fallbackColors = {
+  SHADE: '#000000',
+  TEXT: '#010101',
+  PAPER: '#fefefe'
+}
+
 const format = {
   HTML: 'html',
   SVG: 'svg'
@@ -67,6 +73,7 @@ export {
   layoutPropTypes,
   look,
   lookPropTypes,
+  fallbackColors,
   format,
   oneOfPropTypeAndCompletelyMapped,
   position,

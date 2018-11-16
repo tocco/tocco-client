@@ -7,6 +7,7 @@ import {
 } from 'polished'
 
 import {
+  fallbackColors,
   stylingFormat
 } from '../utilStyles'
 
@@ -52,8 +53,8 @@ const declareInteractionColors = (colors, format = stylingFormat.HTML) => {
 }
 
 const generateFlatBaseColors = props => {
-  const text = themeGet('colors.text', '#010101')(props)
-  const paper = themeGet('colors.paper', '#fefefe')(props)
+  const text = themeGet('colors.text', fallbackColors.TEXT)(props)
+  const paper = themeGet('colors.paper', fallbackColors.PAPER)(props)
   const fg = generateInteractionColor(text, {
     action: getLuminance(paper) > 0.5 ? 'darken' : 'lighten'
   })
@@ -70,8 +71,8 @@ const generateFlatBaseColors = props => {
 }
 
 const generateFlatPrimaryColors = props => {
-  const primary = themeGet('colors.primary', '#010101')(props)
-  const paper = themeGet('colors.paper', '#fefefe')(props)
+  const primary = themeGet('colors.primary', fallbackColors.TEXT)(props)
+  const paper = themeGet('colors.paper', fallbackColors.PAPER)(props)
   const fg = generateInteractionColor(primary, {
     action: getLuminance(paper) > 0.5 ? 'darken' : 'lighten'
   })
@@ -88,8 +89,8 @@ const generateFlatPrimaryColors = props => {
 }
 
 const generateRaisedBaseColors = props => {
-  const text = themeGet('colors.text', '#010101')(props)
-  const paper = themeGet('colors.paper', '#fefefe')(props)
+  const text = themeGet('colors.text', fallbackColors.TEXT)(props)
+  const paper = themeGet('colors.paper', fallbackColors.PAPER)(props)
   const fg = generateInteractionColor(text, {
     action: getLuminance(paper) > 0.5 ? 'darken' : 'lighten'
   })
@@ -108,9 +109,9 @@ const generateRaisedBaseColors = props => {
 }
 
 const generateRaisedPrimaryColors = props => {
-  const text = themeGet('colors.text', '#010101')(props)
-  const paper = themeGet('colors.paper', '#fefefe')(props)
-  const primary = themeGet('colors.primary', '#010101')(props)
+  const text = themeGet('colors.text', fallbackColors.TEXT)(props)
+  const paper = themeGet('colors.paper', fallbackColors.PAPER)(props)
+  const primary = themeGet('colors.primary', fallbackColors.TEXT)(props)
   const higherContrast = getContrast(text, primary) > getContrast(paper, primary) ? text : paper
   const fg = generateInteractionColor(higherContrast, {
     action: getLuminance(primary) > 0.5 ? 'darken' : 'lighten'
@@ -133,7 +134,7 @@ const getContrast = (colorA, colorB) => {
   return luminanceA > luminanceB ? luminanceA - luminanceB : luminanceB - luminanceA
 }
 
-const generateInteractionColor = (color = '#000', options = {}) => ([
+const generateInteractionColor = (color = fallbackColors.SHADE, options = {}) => ([
   options.shadeOffset >= 0
     ? shadeColor(color, 0, options)
     : color,
@@ -141,7 +142,7 @@ const generateInteractionColor = (color = '#000', options = {}) => ([
   shadeColor(color, 2, options)
 ])
 
-const shadeColor = (color = '#000', step = 1, options = {}) => {
+const shadeColor = (color = fallbackColors.SHADE, step = 1, options = {}) => {
   const {
     action,
     shadeFactor,
