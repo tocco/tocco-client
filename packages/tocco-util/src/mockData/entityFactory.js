@@ -100,7 +100,7 @@ export const createUsers = amount => {
           type: 'field',
           value: {
             type: 'counter',
-            value: i,
+            value: i * 1000,
             writable: false
           }
         },
@@ -141,6 +141,14 @@ export const createUsers = amount => {
           value: {
             value: getRandomInt(0, 10000),
             type: 'moneyamount',
+            writable: true
+          }
+        },
+        licence_plate: {
+          type: 'field',
+          value: {
+            value: getRandomInt(1000, 1000000),
+            type: 'long',
             writable: true
           }
         },
