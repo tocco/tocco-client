@@ -36,16 +36,16 @@ const StyledMenuButtonGroup = StyledMenu.extend`
       &:first-child {
         > a,
         > button {
-          border-top-left-radius: ${theme('radii')};
-          border-bottom-left-radius: ${theme('radii')};
+          border-top-left-radius: ${theme('radii.regular')};
+          border-bottom-left-radius: ${theme('radii.regular')};
         }
       }
 
       &:last-child {
         > a,
         > button {
-          border-top-right-radius: ${theme('radii')};
-          border-bottom-right-radius: ${theme('radii')};
+          border-top-right-radius: ${theme('radii.regular')};
+          border-bottom-right-radius: ${theme('radii.regular')};
         }
       }
     }

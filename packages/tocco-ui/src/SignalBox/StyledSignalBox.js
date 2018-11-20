@@ -33,7 +33,7 @@ const StyledSignalBox = styled.div`
     background-color: ${props => getColor(props)};
     padding: ${props => spaceScale(props, -1)};
     margin-bottom: ${props => spaceScale(props, -1)};
-    border-radius: ${theme('radii')};
+    border-radius: ${theme('radii.regular')};
 
     &:last-child {
       margin-bottom: 0;
