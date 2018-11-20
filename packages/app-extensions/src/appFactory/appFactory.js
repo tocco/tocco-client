@@ -4,17 +4,15 @@ import {Provider} from 'react-redux'
 import {addLocaleData} from 'react-intl'
 import {IntlProvider} from 'react-intl-redux'
 import _union from 'lodash/union'
-import _merge from 'lodash/merge'
-import {ThemeProvider} from 'styled-components'
 import de from 'react-intl/locale-data/de'
 import en from 'react-intl/locale-data/en'
 import fr from 'react-intl/locale-data/fr'
 import it from 'react-intl/locale-data/it'
-import {LoadMask, Typography} from 'tocco-ui'
-import {ToccoTheme} from 'tocco-theme'
+import {LoadMask} from 'tocco-ui'
 import {intl, consoleLogger} from 'tocco-util'
 
 import errorLogging from '../errorLogging'
+import ThemeWrapper from './ThemeWrapper'
 
 export const createApp = (name,
   content,
@@ -23,11 +21,10 @@ export const createApp = (name,
     input = {},
     actions = undefined,
     publicPath = undefined,
-    textResourceModules = [],
-    customTheme = {}
+    textResourceModules = []
   }) => {
   try {
-    const theme = _merge({}, ToccoTheme, customTheme)
+    const theme = input.customTheme
 
     if (publicPath) {
       setWebpacksPublicPath(publicPath)
@@ -104,22 +101,23 @@ const setWebpacksPublicPath = publicPath => {
   __webpack_public_path__ = publicPath
 }
 
-const getAppComponent = (store, initIntlPromise, name, content, theme) => (
-  <ThemeProvider theme={theme}>
+const getAppComponent = (store, initIntlPromise, name, content, theme) => {
+  return (
     <div className="tocco-ui-theme">
-      <Typography.InjectFontRoboto theme={theme}/>
-      <Provider store={store}>
-        <LoadMask promises={[initIntlPromise]}>
-          <IntlProvider>
-            <div className={`tocco-${name}`}>
-              {content}
-            </div>
-          </IntlProvider>
-        </LoadMask>
-      </Provider>
+      <ThemeWrapper appTheme={theme}>
+        <Provider store={store}>
+          <LoadMask promises={[initIntlPromise]}>
+            <IntlProvider>
+              <div className={`tocco-${name}`}>
+                {content}
+              </div>
+            </IntlProvider>
+          </LoadMask>
+        </Provider>
+      </ThemeWrapper>
     </div>
-  </ThemeProvider>
-)
+  )
+}
 
 const setupIntl = (input, store, module, textResourceModules) => {
   const modules = _union([module], textResourceModules)
