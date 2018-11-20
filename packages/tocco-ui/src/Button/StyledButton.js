@@ -29,13 +29,13 @@ const meltButtons = props => {
       border-radius: 0;
 
       &:first-child {
-        border-top-left-radius: ${theme('radii')(props)};
-        border-bottom-left-radius: ${theme('radii')(props)};
+        border-top-left-radius: ${theme('radii.regular')(props)};
+        border-bottom-left-radius: ${theme('radii.regular')(props)};
       }
 
       &:last-child {
-        border-top-right-radius: ${theme('radii')(props)};
-        border-bottom-right-radius: ${theme('radii')(props)};
+        border-top-right-radius: ${theme('radii.regular')(props)};
+        border-bottom-right-radius: ${theme('radii.regular')(props)};
       }
     `
   }
@@ -74,7 +74,7 @@ const StyledButton = styled.button`
   && {
     align-items: center;
     background-image: none;
-    border-radius: ${theme('radii')};
+    border-radius: ${theme('radii.regular')};
     border: none;
     display: inline-flex;
     margin: 0;

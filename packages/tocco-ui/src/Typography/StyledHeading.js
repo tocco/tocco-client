@@ -29,14 +29,14 @@ const declareHeaderFont = props => {
       fontSize = fontScale(props, 1)
       break
     default:
-      fontSize = `${theme('fontSizeBase')(props)}rem`
+      fontSize = `${theme('fontSize.base')(props)}rem`
   }
   return declareFont(props, {fontWeight: 700, fontSize})
 }
 
 const declareSpace = props =>
   `
-    margin-top: ${theme('spaceBase')(props)}rem;
+    margin-top: ${theme('space.base')(props)}rem;
     margin-bottom: ${spaceScale(props, -1)};
 
     h1 + &,

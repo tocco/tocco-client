@@ -45,7 +45,7 @@ export const declareTypograhpy = (props, mode) => {
     h3 {font-size: ${fontScale(props, 3)}}
     h4 {font-size: ${fontScale(props, 2)}}
     h5 {font-size: ${fontScale(props, 1)}}
-    h6 {font-size: ${theme('fontSizeBase')(props)}rem}
+    h6 {font-size: ${theme('fontSize.base')(props)}rem}
 
     h1,
     h2,
@@ -54,7 +54,7 @@ export const declareTypograhpy = (props, mode) => {
     h5,
     h6 {
       font-weight: ${theme('fontWeights.bold')(props)};
-      margin-top: ${theme('spaceBase')(props)}rem;
+      margin-top: ${theme('space.base')(props)}rem;
       margin-bottom: ${spaceScale(props, -1)};
 
       + h1,

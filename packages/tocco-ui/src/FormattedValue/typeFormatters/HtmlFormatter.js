@@ -8,7 +8,7 @@ import {declareTypograhpy} from '../../Typography'
 const StyledHtmlFormatter = styled.div`
 && {
   ${props => declareTypograhpy(props, 'html')}
-  margin: 0 0 ${props => theme('spaceBase')}rem;
+  margin: 0 0 ${props => theme('space.base')}rem;
 
   &:last-child {
     margin-bottom: 0;

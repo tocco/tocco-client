@@ -6,8 +6,10 @@ const props = {
       dense: 2.1,
       regular: 4.2
     },
-    spaceBase: 16,
-    spaceScale: 2
+    space: {
+      base: 16,
+      scale: 2
+    }
   }
 }
 

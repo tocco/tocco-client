@@ -28,7 +28,7 @@ const StyledCode = styled.code`
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     background-color: ${props => shadeColor(theme('colors.paper')(props), 1)};
-    border-radius: ${theme('radii')};
+    border-radius: ${theme('radii.regular')};
     padding: ${props => spaceScale(props, -4)} ${props => spaceScale(props, -2)};
   }
 `
@@ -88,7 +88,7 @@ const StyledKbd = styled.kbd`
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     background-color: ${props => shadeColor(theme('colors.paper')(props), 2)};
-    border-radius: ${theme('radii')};
+    border-radius: ${theme('radii.regular')};
     padding: ${props => spaceScale(props, -4)} ${props => spaceScale(props, -2)};
     vertical-align: text-top;
   }
@@ -101,7 +101,7 @@ const StyledMark = styled.mark`
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     background-color: ${theme('colors.signal.info.paper')};
-    border-radius: ${theme('radii')};
+    border-radius: ${theme('radii.regular')};
     padding: ${props => spaceScale(props, -4)} ${props => spaceScale(props, -2)};
   }
 `
@@ -126,7 +126,7 @@ const StyledPre = styled.pre`
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     background-color: ${props => shadeColor(theme('colors.paper')(props), 1)};
-    border-radius: ${theme('radii')};
+    border-radius: ${theme('radii.regular')};
     border: 1px solid ${props => shadeColor(theme('colors.paper')(props), 2)};
     display: block;
     margin: 0 0 ${props => spaceScale(props, -1)};
@@ -149,7 +149,7 @@ const StyledS = styled.s`
 const StyledSmall = styled.small`
   && {
     ${props => declareFont(props, {
-    fontSize: `${_round(1 / theme('fontSizeScale')(props), 3)}em`
+    fontSize: `${_round(1 / theme('fontSize.scale')(props), 3)}em`
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
   }

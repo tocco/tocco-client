@@ -10,7 +10,7 @@ const StyledModalContent = styled.div.attrs({
 })`
    &&& {
     background-color: ${theme('colors.paper')};    // reset: react-redux-toastr (confirm.scss)
-    border-radius: ${theme('radii')};                   // reset: react-redux-toastr (confirm.scss)
+    border-radius: ${theme('radii.regular')};                   // reset: react-redux-toastr (confirm.scss)
     box-shadow: 2px 2px 10px rgba(0, 0, 0, .4);         // reset: react-redux-toastr (confirm.scss)
     left: 0;                                            // reset: react-redux-toastr (confirm.scss)
     margin-left: ${Math.ceil(gutterWidth / 2)}px;       // reset: react-redux-toastr (confirm.scss)

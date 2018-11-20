@@ -5,7 +5,9 @@ const props = {
     fontFamily: {
       regular: 'Arial, sans-serif'
     },
-    fontSizeBase: 1.4,
+    fontSize: {
+      base: 1.4
+    },
     fontWeights: {
       light: 300,
       regular: 400,
