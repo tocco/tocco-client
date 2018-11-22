@@ -9,56 +9,45 @@ describe('tocco-ui', () => {
     test('should render input', () => {
       const cb = sinon.spy()
       const wrapper = mount(
-        <MultiCheckbox
-          cbCheck={cb}
-          cbUncheck={cb}
-        />
+        <MultiCheckbox onChange={cb} />
       )
       expect(wrapper.find('input')).to.have.lengthOf(1)
     })
 
-    test('should call cbCheck on status unchecked', () => {
-      const cbCheck = sinon.spy()
-      const cbUncheck = sinon.spy()
+    test('should call onChange(\'checked\') on status unchecked', () => {
+      const cb = sinon.spy()
       const wrapper = mount(
-        <MultiCheckbox
-          cbCheck={cbCheck}
-          cbUncheck={cbUncheck}
-        />
+        <MultiCheckbox onChange={cb} />
       )
       wrapper.find('input').simulate('change')
-      expect(cbCheck).to.have.property('callCount', 1)
-      expect(cbUncheck).to.have.property('callCount', 0)
+      expect(cb).to.have.property('callCount', 1)
+      expect(cb).to.have.been.calledWith('checked')
     })
 
-    test('should call cbUncheck on status checked', () => {
-      const cbCheck = sinon.spy()
-      const cbUncheck = sinon.spy()
+    test('should call onChange(\'unchecked\') on status checked', () => {
+      const cb = sinon.spy()
       const wrapper = mount(
         <MultiCheckbox
           status="checked"
-          cbCheck={cbCheck}
-          cbUncheck={cbUncheck}
+          onChange={cb}
         />
       )
       wrapper.find('input').simulate('change')
-      expect(cbCheck).to.have.property('callCount', 0)
-      expect(cbUncheck).to.have.property('callCount', 1)
+      expect(cb).to.have.property('callCount', 1)
+      expect(cb).to.have.been.calledWith('unchecked')
     })
 
-    test('should call cbUncheck on status indeterminate', () => {
-      const cbCheck = sinon.spy()
-      const cbUncheck = sinon.spy()
+    test('should call onChange(\'unchecked\') on status indeterminate', () => {
+      const cb = sinon.spy()
       const wrapper = mount(
         <MultiCheckbox
           status="indeterminate"
-          cbCheck={cbCheck}
-          cbUncheck={cbUncheck}
+          onChange={cb}
         />
       )
       wrapper.find('input').simulate('change')
-      expect(cbCheck).to.have.property('callCount', 0)
-      expect(cbUncheck).to.have.property('callCount', 1)
+      expect(cb).to.have.property('callCount', 1)
+      expect(cb).to.have.been.calledWith('unchecked')
     })
 
     test('should change states correctly', () => {
@@ -66,22 +55,25 @@ describe('tocco-ui', () => {
       const wrapper = mount(
         <MultiCheckbox
           status="indeterminate"
-          cbCheck={cb}
-          cbUncheck={cb}
+          onChange={cb}
         />
       )
+      expect(wrapper.state().status).to.equal('indeterminate')
       expect(wrapper.getDOMNode()).to.have.property('checked', true)
       expect(wrapper.getDOMNode()).to.have.property('indeterminate', true)
 
       wrapper.find('input').simulate('change')
+      expect(wrapper.state().status).to.be.false
       expect(wrapper.getDOMNode()).to.have.property('checked', false)
       expect(wrapper.getDOMNode()).to.have.property('indeterminate', false)
 
       wrapper.find('input').simulate('change')
+      expect(wrapper.state().status).to.equal('checked')
       expect(wrapper.getDOMNode()).to.have.property('checked', true)
       expect(wrapper.getDOMNode()).to.have.property('indeterminate', false)
 
       wrapper.find('input').simulate('change')
+      expect(wrapper.state().status).to.be.false
       expect(wrapper.getDOMNode()).to.have.property('checked', false)
       expect(wrapper.getDOMNode()).to.have.property('indeterminate', false)
     })
