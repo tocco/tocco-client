@@ -61,7 +61,7 @@
                       {
                         "id": "user_nr",
                         "componentType": "field",
-                        "dataType": "integer",
+                        "dataType": "counter",
                         "label": null,
                         "readonly": true
                       }
