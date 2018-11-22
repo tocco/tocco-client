@@ -17,7 +17,7 @@ export default {
   'html': formField.formattedValueFactory('html'),
   'image': formField.formattedValueFactory('document'),
   'login': formField.formattedValueFactory('string'),
-  'long': formField.formattedValueFactory('number'),
+  'long': formField.formattedValueFactory('string'),
   'moneyamount': formField.formattedValueFactory('moneyamount'),
   'multi-remote-field': formField.formattedValueFactory('multi-remote'),
   'multi-select-box': formField.formattedValueFactory('multi-select'),
