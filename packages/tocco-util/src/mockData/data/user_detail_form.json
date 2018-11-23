@@ -362,6 +362,20 @@
                   },
                   {
                     "componentType": "field-set",
+                    "label": "Time",
+                    "scopes": [],
+                    "hidden": false,
+                    "children": [
+                      {
+                        "id": "time",
+                        "componentType": "field",
+                        "dataType": "time",
+                        "label": null
+                      }
+                    ]
+                  },
+                  {
+                    "componentType": "field-set",
                     "label": "Duration",
                     "scopes": [],
                     "hidden": false,

@@ -144,6 +144,13 @@
       }
     },
     {
+      "fieldName": "time",
+      "type": "time",
+      "validation": {
+        "mandatory": false
+      }
+    },
+    {
       "fieldName": "duration",
       "type": "duration",
       "validation": {
