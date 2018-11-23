@@ -59,12 +59,10 @@ Excepteur sint occaecat cupidatat non proident</p>
 
 const Example = () => {
   const timeValue = {
-    value: {
-      hourOfDay: 23,
-      minuteOfHour: 15,
-      secondOfMinute: 0,
-      millisOfSecond: 0
-    }
+    hourOfDay: 23,
+    minuteOfHour: 15,
+    secondOfMinute: 0,
+    millisOfSecond: 0
   }
 
   return (
