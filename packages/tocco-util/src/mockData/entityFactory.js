@@ -176,6 +176,19 @@ export const createUsers = amount => {
             writable: false
           }
         },
+        time: {
+          type: 'field',
+          value: {
+            value: {
+              hourOfDay: getRandomInt(0, 24),
+              minuteOfHour: getRandomInt(0, 60),
+              secondOfMinute: getRandomInt(0, 60),
+              millisOfSecond: getRandomInt(0, 1000)
+            },
+            type: 'time',
+            writable: false
+          }
+        },
         'relMulti_entity1.relPayment_status': {
           path: 'relMulti_entity1.relPayment_status',
           type: 'multi',
