@@ -11,6 +11,7 @@ export default {
   'data-amount': formField.formattedValueFactory('number'),
   'date': formField.formattedValueFactory('date'),
   'datetime': formField.formattedValueFactory('datetime'),
+  'time': formField.formattedValueFactory('time'),
   'display': formField.formattedValueFactory('html'),
   'document': formField.formattedValueFactory('document'),
   'email': formField.formattedValueFactory('email'),
