@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
+import {calculateMilliseconds} from '../utils'
 import Typography from '../../Typography'
 import StyledDurationEdit from './StyledDurationEdit'
 
@@ -23,7 +24,14 @@ class DurationEdit extends React.Component {
   }
 
   handleHourChange = e => {
-    const hours = e.target.value.replace(/[^\d]/g, '')
+    let hours = e.target.value.replace(/[^\d]/g, '')
+    if (this.props.options.maxHours) {
+      if (hours > this.props.options.maxHours) {
+        hours = 0
+      } else if (hours < 0) {
+        hours = this.props.options.maxHours
+      }
+    }
     this.setState({...this.state, hours})
     this.handleChange(hours, null)
   }
@@ -58,12 +66,6 @@ class DurationEdit extends React.Component {
     }
   }
 
-  calculateMilliseconds = (hoursValue, minutesValue) => {
-    const hoursMilliseconds = (hoursValue || 0) * 60 * 60000
-    const minutesMilliseconds = (minutesValue || 0) * 60000
-    return hoursMilliseconds + minutesMilliseconds
-  }
-
   handleChange = (hours, minutes) => {
     const minutesValue = minutes !== null ? minutes : this.state.minutes
     const hoursValue = (hours !== null ? hours : this.state.hours)
@@ -71,7 +73,7 @@ class DurationEdit extends React.Component {
       this.props.onChange(null)
       return
     }
-    this.props.onChange(this.calculateMilliseconds(minutesValue, hoursValue))
+    this.props.onChange(calculateMilliseconds(minutesValue, hoursValue))
   }
 
   preventNonNumeric = event => {
@@ -127,7 +129,8 @@ DurationEdit.propTypes = {
   readOnly: PropTypes.bool,
   options: PropTypes.shape({
     hoursLabel: PropTypes.string,
-    minutesLabel: PropTypes.string
+    minutesLabel: PropTypes.string,
+    maxHours: PropTypes.number
   })
 }
 

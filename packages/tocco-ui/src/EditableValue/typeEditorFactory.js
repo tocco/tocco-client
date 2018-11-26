@@ -20,6 +20,7 @@ import PhoneEdit from './typeEditors/PhoneEdit'
 import DurationEdit from './typeEditors/DurationEdit'
 import DecimalEdit from './typeEditors/DecimalEdit'
 import MoneyEdit from './typeEditors/MoneyEdit'
+import TimeEdit from './typeEditors/TimeEdit'
 
 export const map = {
   'string': StringEdit,
@@ -28,6 +29,7 @@ export const map = {
   'date-range': DateRangeEdit,
   'birthdate': DateEdit,
   'datetime': DateTimeEdit,
+  'time': TimeEdit,
   'count': StringEdit,
   'html': HtmlEdit,
   'phone': PhoneEdit,

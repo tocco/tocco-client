@@ -65,6 +65,7 @@ class Example extends React.Component {
         datetime: '2017-01-25T15:15:00.000Z',
         decimal: 123456.78,
         duration: 3660000,
+        time: 0,
         moneyamount: 1234.56,
         boolean: false,
         number: 99,
@@ -359,6 +360,18 @@ class Example extends React.Component {
                   onChange={v => this.changeValue('datetime', v)}
                   readOnly={this.state.readOnly}
                   options={{placeholderText: 'Pick a date time'}}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>time</td>
+              <td>
+                <EditableValue
+                  type="time"
+                  value={this.state.values.time}
+                  onChange={v => this.changeValue('time', v)}
+                  readOnly={this.state.readOnly}
+                  options={{maxHours: 24}}
                 />
               </td>
             </tr>
