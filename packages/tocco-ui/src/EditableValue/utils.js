@@ -70,3 +70,12 @@ export const parseLocalePlaceholder = countryCode => {
 export const convertStringToNumber = stringValue => (
   !stringValue || isNaN(stringValue) ? null : parseFloat(stringValue)
 )
+
+/*
+ * Convert two numbers as hours and minutes to milliseconds
+ */
+export const calculateMilliseconds = (hoursValue, minutesValue) => {
+  const hoursMilliseconds = (hoursValue || 0) * 60 * 60000
+  const minutesMilliseconds = (minutesValue || 0) * 60000
+  return hoursMilliseconds + minutesMilliseconds
+}
