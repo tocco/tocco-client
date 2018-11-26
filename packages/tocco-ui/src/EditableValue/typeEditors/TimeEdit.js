@@ -5,6 +5,9 @@ import DurationEdit from './DurationEdit'
 import {calculateMilliseconds} from '../utils'
 
 const TimeEdit = props => {
+  const propHours = props.value === null ? 0 : props.value.hoursOfDay
+  const propMinutes = props.value === null ? 0 : props.value.minutesOfHour
+
   const millisecondsToDuration = milliSeconds => {
     if (!milliSeconds && milliSeconds !== 0) {
       return {hoursOfDay: '', minutesOfHour: ''}
@@ -21,7 +24,7 @@ const TimeEdit = props => {
     }
   }
 
-  const value = calculateMilliseconds(props.value.hoursOfDay, props.value.minutesOfHour)
+  const value = calculateMilliseconds(propHours, propMinutes)
 
   return (
     <DurationEdit
