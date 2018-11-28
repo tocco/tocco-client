@@ -10,7 +10,8 @@ export default () => {
     <div>
       {/* start example */}
       <Icon icon="address-card" /><br />
-      <Icon icon={['far', 'address-card']} /><br />
+      <Icon icon={['far', 'address-card']} />
+      <Icon icon={['fab', 'facebook-square']}/><br />
       Appended icon<Icon
         icon="user"
         position="append"
