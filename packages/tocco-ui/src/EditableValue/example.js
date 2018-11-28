@@ -65,7 +65,12 @@ class Example extends React.Component {
         datetime: '2017-01-25T15:15:00.000Z',
         decimal: 123456.78,
         duration: 3660000,
-        time: 0,
+        time: {
+          hoursOfDay: 8,
+          minutesOfHour: 33,
+          secondOfMinute: 24,
+          millisOfSecond: 203
+        },
         moneyamount: 1234.56,
         boolean: false,
         number: 99,
@@ -371,7 +376,6 @@ class Example extends React.Component {
                   value={this.state.values.time}
                   onChange={v => this.changeValue('time', v)}
                   readOnly={this.state.readOnly}
-                  options={{maxHours: 24}}
                 />
               </td>
             </tr>

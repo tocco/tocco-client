@@ -74,8 +74,29 @@ export const convertStringToNumber = stringValue => (
 /*
  * Convert two numbers as hours and minutes to milliseconds
  */
-export const calculateMilliseconds = (hoursValue, minutesValue) => {
-  const hoursMilliseconds = (hoursValue || 0) * 60 * 60000
-  const minutesMilliseconds = (minutesValue || 0) * 60000
+export const calculateMilliseconds = (hours, minutes) => {
+  if (!hours && !minutes) {
+    return null
+  }
+  const hoursMilliseconds = (hours || 0) * 60 * 60000
+  const minutesMilliseconds = (minutes || 0) * 60000
   return hoursMilliseconds + minutesMilliseconds
+}
+
+/*
+ * Return true if the value is null or undefined
+ */
+export const isNullOrUndefined = value => value === null || value === undefined
+
+/*
+ * Return true if the value is null or undefined
+ */
+export const millisecondsToDuration = milliSeconds => {
+  if (!milliSeconds && milliSeconds !== 0) {
+    return {hoursOfDay: 0, minutesOfHour: 0}
+  }
+
+  const hoursOfDay = Math.floor(milliSeconds / (60 * 60 * 1000))
+  const minutesOfHour = Math.floor((milliSeconds - (hoursOfDay * (60 * 60 * 1000))) / (60 * 1000))
+  return {hoursOfDay, minutesOfHour}
 }

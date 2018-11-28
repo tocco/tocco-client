@@ -1,22 +1,12 @@
-import PropTypes from 'prop-types'
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import DurationEdit from './DurationEdit'
-import {calculateMilliseconds} from '../utils'
+import {calculateMilliseconds, isNullOrUndefined, millisecondsToDuration} from '../utils'
 
 const TimeEdit = props => {
-  const propHours = props.value === null ? 0 : props.value.hoursOfDay
-  const propMinutes = props.value === null ? 0 : props.value.minutesOfHour
-
-  const millisecondsToDuration = milliSeconds => {
-    if (!milliSeconds && milliSeconds !== 0) {
-      return {hoursOfDay: '', minutesOfHour: ''}
-    }
-
-    const minutesOfHour = parseInt((milliSeconds / (1000 * 60 * 60)) % 60)
-    const hoursOfDay = parseInt((milliSeconds / (1000 * 60)) % 24)
-    return {hoursOfDay, minutesOfHour}
-  }
+  const hours = isNullOrUndefined(props.value) ? null : props.value.hoursOfDay
+  const minutes = isNullOrUndefined(props.value) ? null : props.value.minutesOfHour
 
   const handleChange = value => {
     if (props.onChange) {
@@ -24,7 +14,7 @@ const TimeEdit = props => {
     }
   }
 
-  const value = calculateMilliseconds(propHours, propMinutes)
+  const value = calculateMilliseconds(hours, minutes)
 
   return (
     <DurationEdit
@@ -34,7 +24,7 @@ const TimeEdit = props => {
       id={props.id}
       readOnly={props.readOnly}
       options={{
-        maxHours: 24,
+        maxHours: 23,
         hoursLabel: ' : '
       }}
     />
@@ -49,12 +39,7 @@ TimeEdit.propTypes = {
   }),
   name: PropTypes.string,
   id: PropTypes.string,
-  readOnly: PropTypes.bool,
-  options: PropTypes.shape({
-    hoursLabel: PropTypes.string,
-    minutesLabel: PropTypes.string,
-    maxHours: PropTypes.number
-  })
+  readOnly: PropTypes.bool
 }
 
 export default TimeEdit

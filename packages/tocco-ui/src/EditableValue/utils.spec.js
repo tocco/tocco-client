@@ -5,7 +5,9 @@ import {
   toLocalDateString,
   momentJStoToFlatpickrFormat,
   convertStringToNumber,
-  calculateMilliseconds
+  calculateMilliseconds,
+  isNullOrUndefined,
+  millisecondsToDuration
 } from './utils'
 import {getExpectedDate} from './specUtils'
 
@@ -90,6 +92,37 @@ describe('tocco-ui', () => {
         test('should return null on object as input', () => {
           const result = 2640000
           expect(calculateMilliseconds(undefined, 44)).to.be.eql(result)
+        })
+        test('should return null on null input', () => {
+          const result = null
+          expect(calculateMilliseconds(null, null)).to.be.eql(result)
+        })
+        test('should return hours on null minutes input', () => {
+          const result = 25200000
+          expect(calculateMilliseconds(7, null)).to.be.eql(result)
+        })
+      })
+
+      describe('isNullOrUndefined', () => {
+        test('should return true on undefined and null', () => {
+          expect(isNullOrUndefined()).to.be.eql(true)
+          expect(isNullOrUndefined(null)).to.be.eql(true)
+        })
+        test('should return false on defined input value', () => {
+          expect(isNullOrUndefined(244)).to.be.eql(false)
+        })
+      })
+
+      describe('milliSecondsToDuration', () => {
+        const result = {hoursOfDay: 6, minutesOfHour: 44}
+        const milliSeconds = 24240000
+        test('should return correct time object', () => {
+          expect(millisecondsToDuration(milliSeconds)).to.be.eql(result)
+        })
+
+        const zeroTimeObject = {hoursOfDay: 0, minutesOfHour: 0}
+        test('should return time object with values zero on undefined input', () => {
+          expect(millisecondsToDuration()).to.be.eql(zeroTimeObject)
         })
       })
     })

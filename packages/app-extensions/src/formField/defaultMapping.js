@@ -36,7 +36,6 @@ export default {
     'date': editableValueFactory('date-range'),
     'birthdate': editableValueFactory('date-range')
   },
-  'remote-field': editableValueFactory('remote'),
   'single-remote-field': editableValueFactory('remote'),
   'search-filter': editableValueFactory('search-filter'),
   'sorting': editableValueFactory('number'),
