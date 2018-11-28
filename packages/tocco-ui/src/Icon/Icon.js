@@ -26,9 +26,10 @@ class Icon extends React.Component {
       import(/* webpackChunkName: "fontawesomeicon" */ '@fortawesome/react-fontawesome'),
       import(/* webpackChunkName: "fontawesomeicon" */ '@fortawesome/fontawesome-svg-core'),
       import(/* webpackChunkName: "fontawesomeicon" */ '@fortawesome/free-solid-svg-icons'),
-      import(/* webpackChunkName: "fontawesomeicon" */ '@fortawesome/free-regular-svg-icons')
+      import(/* webpackChunkName: "fontawesomeicon" */ '@fortawesome/free-regular-svg-icons'),
+      import(/* webpackChunkName: "fontawesomeicon" */ '@fortawesome/free-brands-svg-icons')
     ]).then(response => {
-      response[1].library.add(response[2].fas, response[3].far)
+      response[1].library.add(response[2].fas, response[3].far, response[4].fab)
       return response
     })
 
@@ -53,6 +54,13 @@ Icon.defaultProps = {
 }
 
 Icon.propTypes = {
+  /**
+   * If true, button occupies less space. It should only used for crowded areas like tables and only if necessary.
+   */
+  icon: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string)
+  ]).isRequired,
   /**
    * If true, button occupies less space. It should only used for crowded areas like tables and only if necessary.
    */

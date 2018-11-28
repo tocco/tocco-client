@@ -27,7 +27,7 @@ const Button = props => {
       title={props.title}
       type={props.type}
     >
-      {props.icon && <Icon
+      {props.icon && !props.pending && <Icon
         dense={props.dense}
         icon={props.icon}
         position={props.label || props.children ? props.iconPosition : stylingPosition.sole}/>}
@@ -73,9 +73,12 @@ Button.propTypes = {
   /**
    * Display an icon alongside button label. It is possible to omit label text if a icon is chosen. Utilize free
    * Font Awesome 5.1 icons by setting specific classname (e.g. "check").
-   * https://fontawesome.com/icons?d=gallery&s=regular,solid&m=free
+   * https://fontawesome.com/icons?d=gallery&s=brands,regular,solid&m=free
    */
-  icon: PropTypes.string,
+  icon: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string)
+  ]),
   /**
    * Prepend icon or append icon to label. Use 'sole' if label text is omitted. Default value is 'prepend'.
    * Possible values: append|prepend|sole
