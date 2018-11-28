@@ -1,3 +1,3 @@
-import defaultTheme from './DefaultTheme'
+import defaultTheme from './defaultTheme'
 
 export default defaultTheme
