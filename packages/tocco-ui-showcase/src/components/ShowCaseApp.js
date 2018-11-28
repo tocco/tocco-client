@@ -39,8 +39,8 @@ export default class ShowCaseApp extends React.Component {
       <ThemeProvider theme={ToccoTheme || {}}>
         <IntlProvider locale={this.state.locale}>
           <StyledShowCaseApp>
+            <Typography.InjectFont />
             <div className="show-case-app tocco-ui-theme">
-              <Typography.InjectFontRoboto theme={ToccoTheme}/>
               <div className="col title">
                 <span>Tocco UI</span>
               </div>

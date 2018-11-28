@@ -1,5 +1,5 @@
 import React from 'react'
-import {shallow, mount} from 'enzyme'
+import {mount} from 'enzyme'
 import {ThemeProvider} from 'styled-components'
 
 import Icon from './Icon'
@@ -7,8 +7,8 @@ import Icon from './Icon'
 describe('tocco-ui', () => {
   describe('Icon', () => {
     test('should have 1 defaultProps', () => {
-      const wrapper = shallow(<Icon />)
-      expect(wrapper.props().position).to.equal('sole')
+      const wrapper = mount(<Icon />)
+      expect(wrapper.children().prop('position')).to.equal('sole')
     })
 
     test('should receive theme', () => {

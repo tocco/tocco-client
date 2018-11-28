@@ -1,6 +1,8 @@
+import styled from 'styled-components'
+
 import {StyledButton} from '../Button'
 
-const StyledButtonLink = StyledButton.withComponent('a').extend`
+const StyledButtonLink = styled(StyledButton)`
   && {
     :hover,
     :focus {

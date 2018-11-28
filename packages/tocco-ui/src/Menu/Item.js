@@ -10,6 +10,7 @@ import {stylingLook} from '../utilStyles'
 class Item extends React.Component {
   constructor(props) {
     super(props)
+    this.ref = React.createRef()
     this.state = {isOpen: props.isOpen}
   }
 
@@ -56,7 +57,7 @@ class Item extends React.Component {
   render() {
     return (
       <StyledItem
-        innerRef={node => { this.node = node }}
+        ref={this.ref}
         isOpen={this.state.isOpen}
       >
         {this.getChildren()}

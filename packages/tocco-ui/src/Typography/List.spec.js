@@ -97,7 +97,7 @@ describe('tocco-ui', () => {
       describe('Ul', () => {
         test('should display text', () => {
           const wrapper = mount(
-            <Ul>Lorem ipsum</Ul>
+            <Ul as="ul">Lorem ipsum</Ul>
           )
           expect(wrapper.find('ul').text()).to.equal('Lorem ipsum')
         })

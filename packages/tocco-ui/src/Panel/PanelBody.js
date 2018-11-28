@@ -10,11 +10,11 @@ class PanelBody extends React.Component {
   state = {}
 
   setHeight = () => {
-    this.outerElement.setAttribute('style', 'height: auto; animation: none;')
+    this.outerEl.setAttribute('style', 'height: auto; animation: none;')
     this.setState({
-      heightIfOpen: `${this.outerElement.offsetHeight}px`
+      heightIfOpen: `${this.outerEl.offsetHeight}px`
     })
-    this.outerElement.removeAttribute('style')
+    this.outerEl.removeAttribute('style')
   }
 
   connectObserver() {
@@ -55,7 +55,7 @@ class PanelBody extends React.Component {
       <StyledPanelBody
         isFramed={isFramed}
         isOpen={isOpen}
-        innerRef={outerElement => { this.outerElement = outerElement }}
+        ref={outerEl => { this.outerEl = outerEl }}
         heightIfOpen={this.state.heightIfOpen}
       >
         <div ref={innerEl => { this.innerEl = innerEl }}>

@@ -1,4 +1,4 @@
-import styled, {keyframes} from 'styled-components'
+import styled, {css, keyframes} from 'styled-components'
 
 import {getSpacing} from '../Icon'
 
@@ -40,9 +40,13 @@ const stepClockwiseBottomLeft = keyframes`
   78%      {transform: translate(0, 0);}
 `
 
+const rotateClockwiseAnimation = css`
+  ${rotateClockwise} 3s linear infinite;
+`
+
 const StyledIconToccoWrapper = styled.i`
   &&& {
-    animation: ${rotateClockwise} 3s linear infinite;
+    animation: ${rotateClockwiseAnimation};
     display: block;
     height: ${props => props.size ? props.size : ''};
     width: ${props => props.size ? props.size : '100%'};

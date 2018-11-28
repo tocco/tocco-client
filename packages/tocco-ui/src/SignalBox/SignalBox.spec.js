@@ -31,8 +31,8 @@ describe('tocco-ui', () => {
         </SignalBox>
       )
       expect(wrapper.children()).to.have.length(3)
-      expect(wrapper.find(Typography.H5).dive().dive().text()).to.be.equal('title text')
-      expect(wrapper.find(Typography.Small).dive().dive().text()).to.be.equal('meta text')
+      expect(wrapper.find(Typography.H5).dive().text()).to.be.equal('title text')
+      expect(wrapper.find(Typography.Small).dive().text()).to.be.equal('meta text')
       expect(wrapper.find('span').text()).to.be.equal('child text')
     })
   })

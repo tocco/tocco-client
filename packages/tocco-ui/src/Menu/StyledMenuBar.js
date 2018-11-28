@@ -1,3 +1,4 @@
+import styled from 'styled-components'
 import {theme} from 'styled-system'
 
 import StyledMenu from './StyledMenu'
@@ -6,7 +7,7 @@ import {
   stylingLook
 } from '../utilStyles'
 
-const StyledMenuBar = StyledMenu.extend`
+const StyledMenuBar = styled(StyledMenu)`
   && {
     display: inline-flex;
     flex-flow: row wrap;

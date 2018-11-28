@@ -1,4 +1,4 @@
-import styled, {keyframes} from 'styled-components'
+import styled, {css, keyframes} from 'styled-components'
 
 const delayScrollbar = keyframes`
   0%,
@@ -7,7 +7,7 @@ const delayScrollbar = keyframes`
 `
 
 const declareScrollbar = isOpen => {
-  return isOpen ? `
+  return isOpen ? css`
     animation-name: ${delayScrollbar};
     animation-duration: 300ms;
     animation-fill-mode: forwards;

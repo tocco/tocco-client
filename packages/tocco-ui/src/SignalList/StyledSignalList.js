@@ -1,6 +1,8 @@
+import styled from 'styled-components'
+
 import {StyledUl} from '../Typography'
 
-const StyledSignalList = StyledUl.extend`
+const StyledSignalList = styled(StyledUl)`
   && {
     list-style-type: none;
   }

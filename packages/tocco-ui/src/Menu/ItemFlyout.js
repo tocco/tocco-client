@@ -20,7 +20,7 @@ class ItemFlyout extends Item {
   render() {
     return (
       <StyledItemFlyout
-        innerRef={node => { this.node = node }}
+        ref={node => { this.node = node }}
         isOpen={this.state.isOpen}
       >
         <Button

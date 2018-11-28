@@ -25,6 +25,7 @@ const ButtonLink = props => {
   return (
     <StyledButtonLink
       alt={props.alt}
+      as="a"
       dense={props.dense}
       download={props.download}
       href={props.href}

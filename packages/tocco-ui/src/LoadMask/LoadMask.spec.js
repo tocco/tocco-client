@@ -70,7 +70,7 @@ describe('tocco-ui', () => {
           loadingText="Lorem ipsum"
         />
       )
-      expect(wrapper.find(Typography.Span).dive().dive().text()).to.be.equal('Lorem ipsum')
+      expect(wrapper.find(Typography.Span).dive().text()).to.be.equal('Lorem ipsum')
 
       wrapper = shallow(
         <LoadMask

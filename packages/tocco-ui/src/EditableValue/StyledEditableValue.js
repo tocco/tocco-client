@@ -1,7 +1,7 @@
-import styled, {injectGlobal} from 'styled-components'
+import styled, {createGlobalStyle} from 'styled-components'
 import {theme} from 'styled-system'
 
-injectGlobal`
+const StyledGlobalEditableValue = createGlobalStyle`
   .tocco-ui-theme.tether-select {
     z-index: 100000001;
 
@@ -113,4 +113,7 @@ const StyledEditableValue = styled.span`
   }
 `
 
-export default StyledEditableValue
+export {
+  StyledEditableValue as default,
+  StyledGlobalEditableValue
+}
