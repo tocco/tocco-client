@@ -26,10 +26,10 @@ class DurationEdit extends React.Component {
   handleHourChange = e => {
     let hours = e.target.value.replace(/[^\d]/g, '')
     if (this.props.options.maxHours) {
-      if (hours > this.props.options.maxHours) {
+      if (hours > 23) {
         hours = 0
       } else if (hours < 0) {
-        hours = this.props.options.maxHours
+        hours = 23
       }
     }
     this.setState({...this.state, hours})
@@ -73,7 +73,7 @@ class DurationEdit extends React.Component {
       this.props.onChange(null)
       return
     }
-    this.props.onChange(calculateMilliseconds(minutesValue, hoursValue))
+    this.props.onChange(calculateMilliseconds(hoursValue, minutesValue))
   }
 
   preventNonNumeric = event => {
@@ -130,7 +130,7 @@ DurationEdit.propTypes = {
   options: PropTypes.shape({
     hoursLabel: PropTypes.string,
     minutesLabel: PropTypes.string,
-    maxHours: PropTypes.number
+    maxHours: PropTypes.bool
   })
 }
 
