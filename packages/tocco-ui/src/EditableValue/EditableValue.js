@@ -2,26 +2,29 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import typeEditorFactory, {map as typeEditorFactoryMap} from './typeEditorFactory'
-import StyledEditableValue from './StyledEditableValue'
+import StyledEditableValue, {StyledGlobalEditableValue} from './StyledEditableValue'
 
 /**
  *  To edit values of given type.
  */
 const EditableValue = props => {
   return (
-    <StyledEditableValue>
-      {
-        typeEditorFactory(
-          props.type,
-          props.value,
-          props.onChange,
-          props.options,
-          props.id,
-          props.events,
-          props.readOnly
-        )
-      }
-    </StyledEditableValue>
+    <React.Fragment>
+      <StyledEditableValue>
+        {
+          typeEditorFactory(
+            props.type,
+            props.value,
+            props.onChange,
+            props.options,
+            props.id,
+            props.events,
+            props.readOnly
+          )
+        }
+      </StyledEditableValue>
+      <StyledGlobalEditableValue />
+    </React.Fragment>
   )
 }
 

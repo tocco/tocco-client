@@ -20,7 +20,7 @@ describe('tocco-ui', () => {
           <span/><span/>
         </SignalList.Item>
       )
-      expect(wrapper.dive()).to.contain.text('Lorem ipsum')
+      expect(wrapper).to.contain.text('Lorem ipsum')
       expect(wrapper.find('i')).to.have.length(1)
       expect(wrapper.find('span')).to.have.length(2)
     })

@@ -9,11 +9,15 @@ import {layoutPropTypes, stylingLayout} from '../utilStyles'
  * Define how many cells are displayed per row and breakpoint.
  */
 class LayoutContainer extends React.Component {
-  state = {}
+  constructor(props) {
+    super(props)
+    this.ref = React.createRef()
+    this.state = {}
+  }
 
   setDeviceIndependentPixelWidth = () => {
     this.setState({
-      containerWidth: Math.floor(this.node.offsetWidth / window.devicePixelRatio)
+      containerWidth: Math.floor(this.ref.current.offsetWidth / window.devicePixelRatio)
     })
   }
 
@@ -29,7 +33,7 @@ class LayoutContainer extends React.Component {
   render() {
     return (
       <StyledLayoutContainer
-        innerRef={node => { this.node = node }}
+        ref={this.ref}
         isNestedCorrectly={this.props.parent !== stylingLayout.CONTAINER}
       >
         {

@@ -25,11 +25,13 @@ export default {
       }
     }
   },
-  /* Use web safe fonts or provide font files and @font-face separately.
-   * Variable fontFamily control declaration but does not load fonts. */
+  /* Use web safe fonts or load fonts from a web service.
+   * Declare font stack by variables monospace and regular (e.g. "font-family: [VARIABLE];").
+   * Load fonts from web font services (e.g. "@import url([VARIABLE]);". */
   fontFamily: {
+    monospace: 'Menlo, Monaco, Consolas, "Courier New", monospace',
     regular: '"Helvetica Neue", Helvetica, Arial, sans-serif',
-    monospace: 'Menlo, Monaco, Consolas, "Courier New", monospace'
+    url: ''
   },
   /* All font sizes are calculated automatically as an exponential scale.
    * Both values must be provided as unitless factors. Base is interpreted as

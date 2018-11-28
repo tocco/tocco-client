@@ -65,7 +65,7 @@ class Popover extends React.Component {
         >
           {({ref, style, placement, arrowProps}) => (
             <StyledBoxWrapper
-              innerRef={ref}
+              ref={ref}
               style={style}
               spacer={spacer}
             >
@@ -76,7 +76,7 @@ class Popover extends React.Component {
                 {content}
               </StyledBox>
               <StyledArrow
-                innerRef={arrowProps.ref}
+                ref={arrowProps.ref}
                 data-placement={placement}
                 style={arrowProps.style}
               />

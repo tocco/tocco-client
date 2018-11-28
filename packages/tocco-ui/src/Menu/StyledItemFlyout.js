@@ -1,7 +1,9 @@
+import styled from 'styled-components'
+
 import StyledItem from './StyledItem'
 import {spaceScale} from '../utilStyles'
 
-const StyledItemFlyout = StyledItem.extend`
+const StyledItemFlyout = styled(StyledItem)`
   > ul {
     position: absolute;
     top: calc(100% + ${props => spaceScale(props, -3)});

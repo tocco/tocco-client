@@ -1,9 +1,10 @@
+import styled from 'styled-components'
 import {theme} from 'styled-system'
 
 import StyledMenu from './StyledMenu'
 import StyledItemFlyout from './StyledItemFlyout'
 
-const StyledMenuStack = StyledMenu.extend`
+const StyledMenuStack = styled(StyledMenu)`
   && {
     > li {
       flex-direction: column;

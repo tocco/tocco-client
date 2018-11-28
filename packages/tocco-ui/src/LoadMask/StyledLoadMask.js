@@ -10,6 +10,10 @@ const fadeIn = keyframes`
   to {opacity: 1;}
 `
 
+const fadeInAnimation = css`
+  ${fadeIn} 400ms ease-in-out both;
+`
+
 const StyledLoadMask = styled.div`
   ${props => !props.isInitialized && css`
     && {
@@ -20,7 +24,7 @@ const StyledLoadMask = styled.div`
       align-items: center;
       padding: ${props => spaceScale(props, -1)};
       width: 100%;
-      animation: ${fadeIn} 400ms ease-in-out both;
+      animation: ${fadeInAnimation};
 
       > ${StyledSpan} {
         margin-top: ${props => spaceScale(props, -1)};

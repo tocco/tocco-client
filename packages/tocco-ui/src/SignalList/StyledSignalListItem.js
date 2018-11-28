@@ -1,3 +1,4 @@
+import styled from 'styled-components'
 import {theme} from 'styled-system'
 
 import {StyledLi} from '../Typography'
@@ -20,7 +21,7 @@ const getColor = props => {
   return color || 'inherit'
 }
 
-const StyledSignalListItem = StyledLi.extend`
+const StyledSignalListItem = styled(StyledLi)`
   && {
     color: ${props => getColor(props)};
     position: relative;

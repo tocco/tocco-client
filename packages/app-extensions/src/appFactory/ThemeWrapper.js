@@ -11,7 +11,7 @@ const ThemeWrapper = props => {
 
   return <ThemeProvider theme={mergedTheme}>
     <React.Fragment>
-      {!theme && <Typography.InjectFontRoboto theme={mergedTheme}/>}
+      {!theme && <Typography.InjectFont />}
       {props.children}
     </React.Fragment>
   </ThemeProvider>

@@ -54,11 +54,11 @@ const StyledList = styled.ol`
   }
 `
 
-const StyledOl = StyledList.extend`
+const StyledOl = styled(StyledList)`
   list-style-type: decimal;
 `
 
-const StyledUl = StyledList.withComponent('ul').extend`
+const StyledUl = styled(StyledList)`
   && {
     list-style-type: disc;
   }

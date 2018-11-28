@@ -24,7 +24,7 @@ class ItemAccordion extends Item {
   render() {
     return (
       <StyledItemAccordion
-        innerRef={node => { this.node = node }}
+        ref={node => { this.node = node }}
         isOpen={this.state.isOpen}
       >
         <Button

@@ -9,8 +9,8 @@ describe('login', () => {
     describe('ValidationRules', () => {
       test('should render empty ul if no rules', () => {
         const wrapper = mount(<ValidationRules rules={[]}/>)
-        expect(wrapper.find('ul')).to.have.length(1)
-        expect(wrapper.find('li')).to.have.length(0)
+        expect(wrapper.find(SignalList.List)).to.have.length(1)
+        expect(wrapper.find(SignalList.Item)).to.have.length(0)
       })
 
       test('should render rules w/o status if no errors object given', () => {

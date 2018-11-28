@@ -29,7 +29,7 @@ const Li = props => <StyledLi>{props.children}</StyledLi>
 
 const Ol = props => <StyledOl>{props.children}</StyledOl>
 
-const Ul = props => <StyledUl>{props.children}</StyledUl>
+const Ul = props => <StyledUl as="ul">{props.children}</StyledUl>
 
 Dd.defaultProps
 = Dt.defaultProps = {

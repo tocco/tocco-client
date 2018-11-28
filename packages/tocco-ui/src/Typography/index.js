@@ -1,4 +1,4 @@
-import InjectFontRoboto from './Font'
+import InjectFont from './Font'
 import {
   H1,
   H2,
@@ -149,5 +149,5 @@ export default {
   Time,
   U,
   Var,
-  InjectFontRoboto
+  InjectFont
 }
