@@ -11,10 +11,12 @@
     "import",
     "chai-friendly",
     "import",
-    "monorepo"
+    "monorepo",
+    "jest"
   ],
   "env"     : {
-    "browser" : true
+    "browser" : true,
+    "jest/globals": true
   },
   "globals" : {
     "__DEV__"      : false,
