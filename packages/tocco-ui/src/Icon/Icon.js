@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {withTheme} from 'styled-components'
-import _omit from 'lodash/omit'
 
 import getSpacing from './StyledIcon'
 import {
@@ -41,9 +40,12 @@ class Icon extends React.Component {
   }
 
   render() {
-    const filteredProps = _omit(this.props, ['dense', 'onLoaded', 'position', 'theme'])
+    const icon = (typeof this.props.icon === 'string' && this.props.icon.includes(','))
+      ? this.props.icon.replace(/\s+/, '').split(',')
+      : this.props.icon
+
     return <this.lazyFontAwesomeIcon
-      {...filteredProps}
+      icon={icon}
       style={{...this.props.style, ...(getSpacing(this.props))}}
     />
   }
@@ -55,7 +57,10 @@ Icon.defaultProps = {
 
 Icon.propTypes = {
   /**
-   * If true, button occupies less space. It should only used for crowded areas like tables and only if necessary.
+   * Accepts a valid fontawesome class name as string. The optional fontawesome prefix can either be passed as
+   * first element of an array or comma separated string.
+   * Available icons:
+   * https://fontawesome.com/icons?d=gallery&s=brands,regular,solid&m=free
    */
   icon: PropTypes.oneOfType([
     PropTypes.string,
