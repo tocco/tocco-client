@@ -21,14 +21,27 @@ class Icon extends React.Component {
   constructor(props) {
     super(props)
 
+    const fontLib = props.icon.includes('fab')
+      ? {
+        import: import(/* webpackChunkName: "fontawesomeicon-brands" */ '@fortawesome/free-brands-svg-icons'),
+        module: 'fab'
+      }
+      : props.icon.includes('far')
+        ? {
+          import: import(/* webpackChunkName: "fontawesomeicon-regular" */ '@fortawesome/free-regular-svg-icons'),
+          module: 'far'
+        }
+        : {
+          import: import(/* webpackChunkName: "fontawesomeicon-solid" */ '@fortawesome/free-solid-svg-icons'),
+          module: 'fas'
+        }
+
     const loadComponent = Promise.all([
       import(/* webpackChunkName: "fontawesomeicon" */ '@fortawesome/react-fontawesome'),
       import(/* webpackChunkName: "fontawesomeicon" */ '@fortawesome/fontawesome-svg-core'),
-      import(/* webpackChunkName: "fontawesomeicon" */ '@fortawesome/free-solid-svg-icons'),
-      import(/* webpackChunkName: "fontawesomeicon" */ '@fortawesome/free-regular-svg-icons'),
-      import(/* webpackChunkName: "fontawesomeicon" */ '@fortawesome/free-brands-svg-icons')
+      fontLib.import
     ]).then(response => {
-      response[1].library.add(response[2].fas, response[3].far, response[4].fab)
+      response[1].library.add(response[2][fontLib.module])
       return response
     })
 
@@ -57,15 +70,11 @@ Icon.defaultProps = {
 
 Icon.propTypes = {
   /**
-   * Accepts a valid fontawesome class name as string. The optional fontawesome prefix can either be passed as
-   * first element of an array or comma separated string.
+   * Accepts a valid fontawesome class names as string. Fontawesome prefix can be added first separated by comma.
    * Available icons:
    * https://fontawesome.com/icons?d=gallery&s=brands,regular,solid&m=free
    */
-  icon: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.arrayOf(PropTypes.string)
-  ]).isRequired,
+  icon: PropTypes.string.isRequired,
   /**
    * If true, button occupies less space. It should only used for crowded areas like tables and only if necessary.
    */

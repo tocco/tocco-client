@@ -30,7 +30,7 @@ class Preview extends React.Component {
       />
     ) : (
       <Icon
-        icon={['far', 'file-alt']}
+        icon="far, file-alt"
       />
     )
 

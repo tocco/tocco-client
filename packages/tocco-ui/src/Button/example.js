@@ -38,7 +38,7 @@ class Examlple extends React.Component {
           type="submit"
         />
         <Button
-          icon={['fab', 'facebook']}
+          icon="fab, facebook"
           label="Brand Icon"
         />
         <Button
