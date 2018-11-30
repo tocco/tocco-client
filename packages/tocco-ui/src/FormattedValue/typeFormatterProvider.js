@@ -11,7 +11,6 @@ import HtmlFormatter from './typeFormatters/HtmlFormatter'
 import LoginFormatter from './typeFormatters/LoginFormatter'
 import LongitudeFormatter from './typeFormatters/LongitudeFormatter'
 import MoneyFormatter from './typeFormatters/MoneyFormatter'
-import NumberFormatter from './typeFormatters/NumberFormatter'
 import MultiSelectFormatter from './typeFormatters/MultiSelectFormatter'
 import PercentFormatter from './typeFormatters/PercentFormatter'
 import PhoneFormatter from './typeFormatters/PhoneFormatter'
@@ -39,7 +38,7 @@ export const map = {
   'counter': StringFormatter,
   'createts': DateTimeFormatter,
   'createuser': StringFormatter,
-  'dataamount': NumberFormatter,
+  'dataamount': DecimalFormatter,
   'date': DateFormatter,
   'datetime': DateTimeFormatter,
   'decimal': DecimalFormatter,
@@ -50,7 +49,7 @@ export const map = {
   'email': StringFormatter,
   'html': HtmlFormatter,
   'identifier': StringFormatter,
-  'integer': NumberFormatter,
+  'integer': DecimalFormatter,
   'ipaddress': StringFormatter,
   'latitude': LongitudeFormatter,
   'login': LoginFormatter,
@@ -59,18 +58,18 @@ export const map = {
   'moneyamount': MoneyFormatter,
   'multi-remote': MultiSelectFormatter,
   'multi-select': MultiSelectFormatter,
-  'number': NumberFormatter,
+  'number': DecimalFormatter,
   'percent': PercentFormatter,
   'phone': PhoneFormatter,
   'postcode': StringFormatter,
   'remote': SingleSelectFormatter,
-  'short': NumberFormatter,
+  'short': DecimalFormatter,
   'single-select': SingleSelectFormatter,
-  'sorting': NumberFormatter,
+  'sorting': DecimalFormatter,
   'string': StringFormatter,
   'text': TextFormatter,
   'time': TimeFormatter,
   'url': UrlFormatter,
   'uuid': StringFormatter,
-  'version': NumberFormatter
+  'version': DecimalFormatter
 }
