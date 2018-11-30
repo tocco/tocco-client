@@ -34,7 +34,7 @@ export default () => {
         <Menu.Item><Typography.Em>em</Typography.Em></Menu.Item>
         <hr/>
         <Menu.Item><Typography.Strong>strong</Typography.Strong></Menu.Item>
-        <Menu.Item><Icon icon={['far', 'check-square']}/></Menu.Item>
+        <Menu.Item><Icon icon="far, check-square"/></Menu.Item>
       </Menu.Stack>
       <h3>Menu Bar Flat</h3>
       <Menu.Bar>
