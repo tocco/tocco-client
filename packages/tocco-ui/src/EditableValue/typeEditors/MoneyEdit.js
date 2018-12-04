@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {intlShape} from 'react-intl'
 
-import DecimalEdit from './DecimalEdit'
+import NumberEdit from './NumberEdit'
 
 const MoneyEdit = props => {
   const handleChange = value => {
@@ -12,7 +12,7 @@ const MoneyEdit = props => {
   }
 
   return (
-    <DecimalEdit
+    <NumberEdit
       onChange={handleChange}
       value={props.value}
       options={props.options}
