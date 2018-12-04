@@ -4,18 +4,20 @@ import {FormattedNumber} from 'react-intl'
 
 import Typography from '../../Typography'
 
-const NumberFormatter = props => (
-  <Typography.Span>
-    <FormattedNumber
-      value={props.value}
-      style="decimal"
-      maximumFractionDigits={0}
-    />
-  </Typography.Span>
-)
+const NumberFormatter = props => {
+  return (
+    <Typography.Span>
+      <FormattedNumber
+        value={props.value}
+        style="decimal"
+        minimumFractionDigits={2}
+      />
+    </Typography.Span>
+  )
+}
 
 NumberFormatter.propTypes = {
-  value: PropTypes.number
+  value: PropTypes.number.isRequired
 }
 
 export default NumberFormatter

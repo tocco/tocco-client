@@ -3,7 +3,7 @@ import React from 'react'
 import BooleanFormatter from './typeFormatters/BooleanFormatter'
 import DateFormatter from './typeFormatters/DateFormatter'
 import DateTimeFormatter from './typeFormatters/DateTimeFormatter'
-import DecimalFormatter from './typeFormatters/DecimalFormatter'
+import NumberFormatter from './typeFormatters/NumberFormatter'
 import DocumentCompactFormatter from './typeFormatters/DocumentCompactFormatter'
 import DocumentFormatter from './typeFormatters/DocumentFormatter'
 import DurationFormatter from './typeFormatters/DurationFormatter'
@@ -38,18 +38,18 @@ export const map = {
   'counter': StringFormatter,
   'createts': DateTimeFormatter,
   'createuser': StringFormatter,
-  'dataamount': DecimalFormatter,
+  'dataamount': NumberFormatter,
   'date': DateFormatter,
   'datetime': DateTimeFormatter,
-  'decimal': DecimalFormatter,
+  'decimal': NumberFormatter,
   'document': DocumentFormatter,
   'document-compact': DocumentCompactFormatter,
-  'double': DecimalFormatter,
+  'double': NumberFormatter,
   'duration': DurationFormatter,
   'email': StringFormatter,
   'html': HtmlFormatter,
   'identifier': StringFormatter,
-  'integer': DecimalFormatter,
+  'integer': NumberFormatter,
   'ipaddress': StringFormatter,
   'latitude': LongitudeFormatter,
   'login': LoginFormatter,
@@ -58,18 +58,18 @@ export const map = {
   'moneyamount': MoneyFormatter,
   'multi-remote': MultiSelectFormatter,
   'multi-select': MultiSelectFormatter,
-  'number': DecimalFormatter,
+  'number': NumberFormatter,
   'percent': PercentFormatter,
   'phone': PhoneFormatter,
   'postcode': StringFormatter,
   'remote': SingleSelectFormatter,
-  'short': DecimalFormatter,
+  'short': NumberFormatter,
   'single-select': SingleSelectFormatter,
-  'sorting': DecimalFormatter,
+  'sorting': NumberFormatter,
   'string': StringFormatter,
   'text': TextFormatter,
   'time': TimeFormatter,
   'url': UrlFormatter,
   'uuid': StringFormatter,
-  'version': DecimalFormatter
+  'version': NumberFormatter
 }
