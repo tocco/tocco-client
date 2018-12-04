@@ -202,6 +202,11 @@ class Example extends React.Component {
                   type="number"
                   value={this.state.values.number}
                   onChange={v => this.changeValue('number', v)}
+                  options={{
+                    intl: this.context.intl,
+                    prePointDigits: 8,
+                    postPointDigits: 3
+                  }}
                   readOnly={this.state.readOnly}
                 />
               </td>

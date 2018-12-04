@@ -2,18 +2,18 @@ import React from 'react'
 import {mount} from 'enzyme'
 import {IntlStub} from 'tocco-test-util'
 
-import DecimalEdit, {limitValue, calculateMaxValue} from './DecimalEdit'
+import NumberEdit, {limitValue, calculateMaxValue} from './NumberEdit'
 
 const EMPTY_FUNC = () => {}
 
 describe('tocco-ui', () => {
   describe('EditableValue', () => {
     describe('typeEditors', () => {
-      describe('DecimalEdit ', () => {
-        test('should render DecimalEdit', () => {
+      describe('NumberEdit ', () => {
+        test('should render NumberEdit', () => {
           const optionsObject = {intl: {...IntlStub, locale: 'en'}}
           const wrapper = mount(
-            <DecimalEdit value={1234567.89} options={optionsObject} onChange={EMPTY_FUNC} />
+            <NumberEdit value={1234567.89} options={optionsObject} onChange={EMPTY_FUNC} />
           )
           expect(wrapper.find('input')).to.have.length(1)
         })
@@ -22,7 +22,7 @@ describe('tocco-ui', () => {
           const result = '1,234,567.89'
           const optionsObject = {intl: {...IntlStub, locale: 'en'}}
           const wrapper = mount(
-            <DecimalEdit value={1234567.89} options={optionsObject} onChange={EMPTY_FUNC} />
+            <NumberEdit value={1234567.89} options={optionsObject} onChange={EMPTY_FUNC} />
           )
           expect(wrapper.html()).to.contains(result)
         })
@@ -30,7 +30,7 @@ describe('tocco-ui', () => {
           const result = '1&nbsp;234&nbsp;567,89'
           const optionsObject = {intl: {...IntlStub, locale: 'fr'}}
           const wrapper = mount(
-            <DecimalEdit value={1234567.89} options={optionsObject} onChange={EMPTY_FUNC} />
+            <NumberEdit value={1234567.89} options={optionsObject} onChange={EMPTY_FUNC} />
           )
           expect(wrapper.html()).to.contains(result)
         })

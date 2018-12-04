@@ -9,7 +9,6 @@ import DateEdit from './typeEditors/DateEdit'
 import DateRangeEdit from './typeEditors/DateRangeEdit'
 import DateTimeEdit from './typeEditors/DateTimeEdit'
 import BoolEdit from './typeEditors/BoolEdit'
-import NumberEdit from './typeEditors/NumberEdit'
 import Document from './typeEditors/Document'
 import HtmlEdit from './typeEditors/HtmlEdit'
 import RemoteSelect from './typeEditors/RemoteSelect'
@@ -18,7 +17,7 @@ import SearchFilterEdit from './typeEditors/SearchFilterEdit'
 import UrlEdit from './typeEditors/UrlEdit'
 import PhoneEdit from './typeEditors/PhoneEdit'
 import DurationEdit from './typeEditors/DurationEdit'
-import DecimalEdit from './typeEditors/DecimalEdit'
+import NumberEdit from './typeEditors/NumberEdit'
 import MoneyEdit from './typeEditors/MoneyEdit'
 
 export const map = {
@@ -45,7 +44,7 @@ export const map = {
   'createuser': StringEdit,
   'createts': DateTimeEdit,
   'duration': DurationEdit,
-  'decimal': DecimalEdit,
+  'decimal': NumberEdit,
   'moneyamount': MoneyEdit
 }
 
