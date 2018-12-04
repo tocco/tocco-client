@@ -40,6 +40,7 @@ export default {
   'sorting': editableValueFactory('number'),
   'single-select-box': editableValueFactory('single-select'),
   'string': editableValueFactory('string'),
+  'time': editableValueFactory('time'),
   'ch.tocco.nice2.model.form.components.simple.UploadField': editableValueFactory('document'),
   'url': editableValueFactory('url'),
   'ch.tocco.nice2.model.form.components.simple.UuidField': editableValueFactory('string')
