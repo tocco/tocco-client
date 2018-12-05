@@ -3,11 +3,13 @@ import React from 'react'
 import ReactSelect from 'react-select'
 import _debounce from 'lodash/debounce'
 
-import Menu from './Menu'
-import SingleValue from './SingleValue'
-import MultiValueLabel from './MultiValueLabel'
 import ClearIndicator from './ClearIndicator'
-import Button from '../Button/Button'
+import DropdownIndicator from './DropdownIndicator'
+import IndicatorsContainer from './IndicatorsContainer'
+import LoadingIndicator from './LoadingIndicator'
+import Menu from './Menu'
+import MultiValueLabel from './MultiValueLabel'
+import SingleValue from './SingleValue'
 
 class Select extends React.Component {
   SEARCH_DEBOUNCE = 300
@@ -59,7 +61,6 @@ class Select extends React.Component {
     this.props.searchOptions ? _debounce(this.props.searchOptions, this.SEARCH_DEBOUNCE) : () => {}
 
   render() {
-    const advancedSearchButtonWidth = this.props.openAdvancedSearch ? '30px' : '0px'
     const wrapperWidth = this.selectWrapper.current ? this.selectWrapper.current.clientWidth : 300
     const wrapperHeight = this.selectWrapper.current ? this.selectWrapper.current.clientHeight : 35
 
@@ -78,16 +79,26 @@ class Select extends React.Component {
       />
 
     return (
-      <span tabIndex="-1" id={this.props.id} onFocus={this.focus} className="clearfix">
-        <span style={{width: `calc(100% - ${advancedSearchButtonWidth})`, float: 'left'}} ref={this.selectWrapper}>
+      <div tabIndex="-1" id={this.props.id} onFocus={this.focus}>
+        <div ref={this.selectWrapper}>
           <ReactSelect
             getOptionLabel={option => option.display}
             getOptionValue={option => option.key}
             components={{
+              ClearIndicator: ClearIndicator,
+              DropdownIndicator: DropdownIndicator,
+              LoadingIndicator: LoadingIndicator,
+              IndicatorsContainer: props =>
+                <IndicatorsContainer
+                  openAdvancedSearch = {this.props.openAdvancedSearch}
+                  readOnly = {this.props.readOnly}
+                  value = {this.props.value}
+                  {...props}
+                />,
+              IndicatorSeparator: null,
               Menu: CustomMenu,
-              SingleValue: CustomSingleValue,
               MultiValueLabel: CustomMultiValueLabel,
-              ClearIndicator: ClearIndicator
+              SingleValue: CustomSingleValue
             }}
             noOptionsMessage={() => (this.props.noResultsText || ' - ')}
             isMulti={this.props.isMulti}
@@ -109,18 +120,8 @@ class Select extends React.Component {
             onMenuClose={() => this.setState({isOpen: false})}
             onMenuOpen={this.onMenuOpen}
           />
-        </span>
-        {this.props.openAdvancedSearch
-        && <span style={{width: this.advancedSearchButtonWidth, float: 'right', padding: '3px'}}>
-          <Button
-            disabled={this.props.readOnly || !this.props.openAdvancedSearch}
-            type="button"
-            icon="search"
-            onClick={() => this.props.openAdvancedSearch(this.props.value)}
-          />
-        </span>
-        }
-      </span>
+        </div>
+      </div>
     )
   }
 }
