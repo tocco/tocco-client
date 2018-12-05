@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import ReactSelect from 'react-select'
 import _debounce from 'lodash/debounce'
+import {withTheme} from 'styled-components'
 
 import ClearIndicator from './ClearIndicator'
 import DropdownIndicator from './DropdownIndicator'
@@ -10,6 +11,7 @@ import LoadingIndicator from './LoadingIndicator'
 import Menu from './Menu'
 import MultiValueLabel from './MultiValueLabel'
 import SingleValue from './SingleValue'
+import {reactSelectStyles, reactSelectTheme} from './StyledReactSelect'
 
 class Select extends React.Component {
   SEARCH_DEBOUNCE = 300
@@ -119,6 +121,8 @@ class Select extends React.Component {
             ref={this.selectComponent}
             onMenuClose={() => this.setState({isOpen: false})}
             onMenuOpen={this.onMenuOpen}
+            styles={reactSelectStyles(this.props.theme)}
+            theme={theme => reactSelectTheme(theme, this.props.theme)}
           />
         </div>
       </div>
@@ -183,6 +187,10 @@ Select.propTypes = {
    */
   openAdvancedSearch: PropTypes.func,
   /**
+   * Theme provided by styled-components ThemeProvider.
+   */
+  theme: PropTypes.object,
+  /**
    * Object containing tooltips with the key as attribute name.
    */
   tooltips: PropTypes.objectOf(PropTypes.string),
@@ -200,4 +208,4 @@ Select.propTypes = {
   id: PropTypes.string
 }
 
-export default Select
+export default withTheme(Select)
