@@ -6,7 +6,8 @@ import Button from '../Button'
 const ClearIndicator = props =>
   <span {...props.innerProps}>
     <Button
-      icon="times" />
+      icon="times"
+      look="ball" />
   </span>
 
 ClearIndicator.propTypes = {

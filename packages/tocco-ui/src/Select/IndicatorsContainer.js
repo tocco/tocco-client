@@ -22,6 +22,7 @@ const IndicatorsContainer = props => {
         <Button
           disabled={readOnly || !openAdvancedSearch}
           icon="search"
+          look="ball"
           onClick={() => openAdvancedSearch(value)}
         />
       </span>}
