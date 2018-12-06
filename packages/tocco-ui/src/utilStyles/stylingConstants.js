@@ -39,6 +39,7 @@ const layout = {
 }
 
 const look = {
+  BALL: 'ball',
   FLAT: 'flat',
   PLAIN: 'plain',
   RAISED: 'raised'

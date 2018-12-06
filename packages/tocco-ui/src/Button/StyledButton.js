@@ -45,15 +45,15 @@ const meltButtons = props => {
 const declareButtonColor = props => {
   let declareColor
   const {ink, look} = props
-  const {FLAT, RAISED} = stylingLook
+  const {BALL, FLAT, RAISED} = stylingLook
   const {BASE, PRIMARY} = stylingInk
   if (look === FLAT && ink === BASE) {
     declareColor = generateFlatBaseColors
   } else if (look === FLAT && ink === PRIMARY) {
     declareColor = generateFlatPrimaryColors
-  } else if (look === RAISED && ink === BASE) {
+  } else if ((look === BALL || look === RAISED) && ink === BASE) {
     declareColor = generateRaisedBaseColors
-  } else if (look === RAISED && ink === PRIMARY) {
+  } else if ((look === BALL || look === RAISED) && ink === PRIMARY) {
     declareColor = generateRaisedPrimaryColors
   }
   return declareInteractionColors(declareColor(props), 'html')
@@ -65,6 +65,26 @@ const declareIconPosition = props => {
       justify-content: space-between;
       > span {
         order: -1;
+      }
+    `
+  }
+}
+
+const declareBall = props => {
+  if (props.look === stylingLook.BALL) {
+    return `
+      border-radius: 50%;
+      justify-content: center;
+      align-items: center;
+
+      // ensure that width has at least the size of height
+      min-width: calc(1rem * ${theme('fontSize.base')(props)} * ${theme('lineHeights.regular')(props)});
+
+      // increase height to the size of width
+      &:before {
+        content: "";
+        display: block;
+        padding-bottom: 100%;
       }
     `
   }
@@ -97,6 +117,7 @@ const StyledButton = styled.button`
     ${props => declareButtonColor(props)}
     ${props => declareDensity(props)}
     ${props => declareIconPosition(props)}
+    ${props => declareBall(props)}
 
     ${StyledButtonGroup} & {
       ${props => meltButtons(props)}
