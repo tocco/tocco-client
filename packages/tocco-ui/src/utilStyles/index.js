@@ -1,6 +1,7 @@
 import declareDensity from './declareDensity'
 import {
   generateFlatBaseColors,
+  declareFocus,
   declareInteractionColors,
   generateRaisedBaseColors,
   generateRaisedPrimaryColors,
@@ -45,6 +46,7 @@ export {
   assertObjectValuesMatchOtherObjectKeys,
   conditionPropTypes,
   declareDensity,
+  declareFocus,
   declareScale,
   generateFlatBaseColors,
   generateFlatPrimaryColors,
