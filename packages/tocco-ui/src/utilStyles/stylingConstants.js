@@ -17,6 +17,7 @@ const condition = {
 
 const fallbackColors = {
   SHADE: '#000000',
+  INFO: '#0000ff',
   TEXT: '#010101',
   PAPER: '#fefefe'
 }

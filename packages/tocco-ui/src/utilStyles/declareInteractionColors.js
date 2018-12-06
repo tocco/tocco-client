@@ -3,13 +3,24 @@ import {
   lighten,
   darken,
   getLuminance,
-  tint
+  tint,
+  transparentize
 } from 'polished'
 
 import {
   fallbackColors,
   stylingFormat
 } from '../utilStyles'
+
+const declareFocus = props => {
+  const infoText = themeGet('colors.signal.info.text', fallbackColors.IFNO)(props)
+  return `
+    border-color: ${infoText};
+    box-shadow: inset 0 1px 1px ${transparentize(0.25, infoText)},
+                      0 0 8px ${transparentize(0.4, infoText)};
+    outline: 0;
+  `
+}
 
 const declareInteractionColors = (colors, format = stylingFormat.HTML) => {
   const fillProperty = format === stylingFormat.HTML ? 'background-color' : 'fill'
@@ -149,6 +160,7 @@ const generateDisabledShade = color => tint(0.5, color)
 
 export {
   generateFlatBaseColors,
+  declareFocus,
   declareInteractionColors,
   generateRaisedBaseColors,
   generateRaisedPrimaryColors,
