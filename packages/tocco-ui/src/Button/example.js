@@ -48,11 +48,6 @@ class Examlple extends React.Component {
           look="raised"
         />
         <Button
-          icon="hand-spock"
-          iconPosition="sole"
-          title="Icon without text"
-        />
-        <Button
           disabled
           icon="handshake"
           ink="primary"
@@ -65,6 +60,25 @@ class Examlple extends React.Component {
           label={`${this.state.pending ? '' : 'Not '}Pending (Click me)`}
           pending={this.state.pending}
           onClick={() => this.setState({pending: !this.state.pending})}
+        />
+        <Button
+          icon="times"
+          look="ball" />
+        <Button
+          icon="hand-spock"
+          iconPosition="sole"
+          look="ball"
+          title="Ball button with icon"
+        />
+        <Button
+          icon="handshake"
+          iconPosition="sole"
+          look="ball"
+          title="Ball button with icon"
+        />
+        <Button
+          look="ball"
+          label="Ball"
         />
         {/* end example */}
       </div>

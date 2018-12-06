@@ -96,7 +96,11 @@ Button.propTypes = {
   /**
    * Look of button. Default value is 'flat'.
    */
-  look: PropTypes.oneOf([stylingLook.FLAT, stylingLook.RAISED]),
+  look: PropTypes.oneOf([
+    stylingLook.BALL,
+    stylingLook.FLAT,
+    stylingLook.RAISED
+  ]),
   /**
    * Function that will be triggered on click event.
    */
