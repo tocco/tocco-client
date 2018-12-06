@@ -64,6 +64,7 @@ class Example extends React.Component {
         dateRangeTo: '2015-12-24',
         datetime: '2017-01-25T15:15:00.000Z',
         decimal: 123456.78,
+        integer: 200,
         duration: 3660000,
         moneyamount: 1234.56,
         boolean: false,
@@ -205,7 +206,7 @@ class Example extends React.Component {
                   options={{
                     intl: this.context.intl,
                     prePointDigits: 8,
-                    postPointDigits: 3
+                    postPointDigits: 2
                   }}
                   readOnly={this.state.readOnly}
                 />
@@ -220,9 +221,25 @@ class Example extends React.Component {
                   options={{
                     intl: this.context.intl,
                     prePointDigits: 8,
-                    postPointDigits: 3
+                    postPointDigits: 2
                   }}
                   onChange={v => this.changeValue('decimal', v)}
+                  readOnly={this.state.readOnly}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>integer</td>
+              <td>
+                <EditableValue
+                  type="integer"
+                  value={this.state.values.integer}
+                  options={{
+                    intl: this.context.intl,
+                    minValue: 0,
+                    maxValue: 300
+                  }}
+                  onChange={v => this.changeValue('integer', v)}
                   readOnly={this.state.readOnly}
                 />
               </td>
@@ -235,7 +252,7 @@ class Example extends React.Component {
                   value={this.state.values.moneyamount}
                   options={{
                     intl: this.context.intl,
-                    prePointDigits: 12,
+                    prePointDigits: 8,
                     postPointDigits: 2
                   }}
                   onChange={v => this.changeValue('moneyamount', v)}

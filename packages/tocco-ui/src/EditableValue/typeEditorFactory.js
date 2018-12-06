@@ -19,6 +19,7 @@ import PhoneEdit from './typeEditors/PhoneEdit'
 import DurationEdit from './typeEditors/DurationEdit'
 import NumberEdit from './typeEditors/NumberEdit'
 import MoneyEdit from './typeEditors/MoneyEdit'
+import IntegerEdit from './typeEditors/IntegerEdit'
 
 export const map = {
   'string': StringEdit,
@@ -45,7 +46,8 @@ export const map = {
   'createts': DateTimeEdit,
   'duration': DurationEdit,
   'decimal': NumberEdit,
-  'moneyamount': MoneyEdit
+  'moneyamount': MoneyEdit,
+  'integer': IntegerEdit
 }
 
 export default (type, value, onChange, options, id, events, readOnly = false) => {

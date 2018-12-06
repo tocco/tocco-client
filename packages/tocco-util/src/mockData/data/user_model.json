@@ -101,7 +101,7 @@
     },
     {
       "fieldName": "age",
-      "type": "number",
+      "type": "integer",
       "validation": {
         "mandatory": true,
         "decimalDigits": {
@@ -170,6 +170,13 @@
           "prePointDigits": 12,
           "postPointDigits": 2
         }
+      }
+    },
+    {
+      "fieldName": "rank",
+      "type": "integer",
+      "validation": {
+        "mandatory": false
       }
     },
     {

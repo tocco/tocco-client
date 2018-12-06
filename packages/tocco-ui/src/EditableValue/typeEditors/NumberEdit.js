@@ -16,17 +16,42 @@ export const calculateMaxValue = (prePointDigits, postPointDigits) => {
   return maxValueMinuend - maxValueSubtrahend
 }
 
+export const isAllowedIntegerValue = allowedIntegerObject => values => {
+  const {formattedValue, floatValue} = values
+  const {minValue, maxValue} = allowedIntegerObject
+  return formattedValue === '' || (floatValue >= minValue && floatValue <= maxValue)
+}
+
+export const returnAllowedIntegerObject = (minValue, maxValue) => {
+  return {minValue, maxValue}
+}
+
 const NumberEdit = props => {
   const {thousandSeparator, decimalSeparator} = parseLocalePlaceholder(props.options.intl.locale)
   const value = props.value === null ? '' : props.value
 
   const prePointDigits = props.options.prePointDigits
   const postPointDigits = props.options.postPointDigits
+  const prePointMarker = prePointDigits === 0 ? true : prePointDigits
+  const postPointMarker = postPointDigits === 0 ? true : postPointDigits
+
+  const minValue = props.options.minValue
+  const maxValue = props.options.maxValue
+  const minValueMarker = minValue === 0 ? true : minValue
+  const maxValueMarker = maxValue === 0 ? true : maxValue
 
   const numberFormatOptions = {
-    ...(prePointDigits && postPointDigits
-      ? {isAllowed: limitValue(calculateMaxValue(prePointDigits, postPointDigits))} : {}),
-    ...(postPointDigits ? {decimalScale: postPointDigits} : {})
+    ...(prePointMarker && postPointMarker
+      ? {
+        isAllowed: limitValue(calculateMaxValue(prePointDigits, postPointDigits)),
+        decimalScale: postPointDigits
+      } : {}),
+    ...(minValueMarker && maxValueMarker
+      ? {
+        isAllowed: isAllowedIntegerValue(returnAllowedIntegerObject(minValue, maxValue)),
+        decimalScale: 0,
+        allowNegative: false
+      } : {})
   }
 
   const handleChange = values => {
@@ -57,10 +82,13 @@ NumberEdit.propTypes = {
   name: PropTypes.string,
   id: PropTypes.string,
   readOnly: PropTypes.bool,
+  isInteger: PropTypes.bool,
   options: PropTypes.shape({
     intl: intlShape.isRequired,
     postPointDigits: PropTypes.number,
-    prePointDigits: PropTypes.number
+    prePointDigits: PropTypes.number,
+    minValue: PropTypes.number,
+    maxValue: PropTypes.number
   }).isRequired
 }
 

@@ -26,7 +26,7 @@ export default {
   'multi-remote-field': editableValueFactory('multi-remote'),
   'multi-select-box': editableValueFactory('multi-select'),
   'named-upload': editableValueFactory('document'),
-  'integer': editableValueFactory('decimal'),
+  'integer': editableValueFactory('integer'),
   'percent': editableValueFactory('decimal'),
   'phone': editableValueFactory('phone'),
   'range': {

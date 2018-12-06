@@ -2,7 +2,7 @@ import React from 'react'
 import {mount} from 'enzyme'
 import {IntlStub} from 'tocco-test-util'
 
-import NumberEdit, {limitValue, calculateMaxValue} from './NumberEdit'
+import NumberEdit, {limitValue, calculateMaxValue, isAllowedIntegerValue} from './NumberEdit'
 
 const EMPTY_FUNC = () => {}
 
@@ -34,23 +34,23 @@ describe('tocco-ui', () => {
           )
           expect(wrapper.html()).to.contains(result)
         })
-        describe('limitValue', () => {
-          test('should return false on too large input', () => {
-            const maxValue = 1234567891234.56
-            const valuesObject = {
-              formattedValue: '12345678912344.56',
-              floatValue: 12345678912344.56
-            }
-            expect(limitValue(maxValue)(valuesObject)).to.be.eql(false)
-          })
-          test('should return true on small enough input', () => {
-            const maxValue = 12345678912344.56
-            const valuesObject = {
-              formattedValue: '1234567891234.56',
-              floatValue: 1234567891234.56
-            }
-            expect(limitValue(maxValue)(valuesObject)).to.be.eql(true)
-          })
+      })
+      describe('limitValue', () => {
+        test('should return false on too large input', () => {
+          const maxValue = 1234567891234.56
+          const valuesObject = {
+            formattedValue: '12345678912344.56',
+            floatValue: 12345678912344.56
+          }
+          expect(limitValue(maxValue)(valuesObject)).to.be.eql(false)
+        })
+        test('should return true on small enough input', () => {
+          const maxValue = 12345678912344.56
+          const valuesObject = {
+            formattedValue: '1234567891234.56',
+            floatValue: 1234567891234.56
+          }
+          expect(limitValue(maxValue)(valuesObject)).to.be.eql(true)
         })
       })
       describe('calculateMaxValue', () => {
@@ -59,6 +59,24 @@ describe('tocco-ui', () => {
           const postPointDigits = 3
           const result = 99999.999
           expect(calculateMaxValue(prePointDigits, postPointDigits)).to.be.eql(result)
+        })
+      })
+      describe('isAllowedIntegerValue', () => {
+        test('should return false on too large input', () => {
+          const allowedIntegerObject = {minValue: 5, maxValue: 100}
+          const valuesObject = {
+            formattedValue: '123',
+            floatValue: 123
+          }
+          expect(isAllowedIntegerValue(allowedIntegerObject)(valuesObject)).to.be.eql(false)
+        })
+        test('should return true on small enough input', () => {
+          const allowedIntegerObject = {minValue: 2, maxValue: 10000}
+          const valuesObject = {
+            formattedValue: '1234',
+            floatValue: 1234
+          }
+          expect(isAllowedIntegerValue(allowedIntegerObject)(valuesObject)).to.be.eql(true)
         })
       })
     })
