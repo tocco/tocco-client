@@ -1,4 +1,7 @@
-import {getLuminance} from 'polished'
+import {
+  getLuminance,
+  transparentize
+} from 'polished'
 
 import {generateInteractionColor} from '../utilStyles'
 
@@ -21,8 +24,21 @@ const reactSelectStyles = outerTheme => {
   const text = generateInteractionColor(outerTheme.colors.text, {
     action: getLuminance(outerTheme.colors.paper) > 0.5 ? 'darken' : 'lighten'
   })
-
+  const infoText = outerTheme.colors.signal.info.text
   return {
+    control: (base, state) => ({
+      ...base,
+      borderColor: state.isFocused
+        ? infoText
+        : state.theme.colors.neutral20,
+      boxShadow: state.isFocused
+        ? `0 0 8px ${transparentize(0.4, infoText)}`
+        : null,
+      '&:hover': {
+        borderColor: state.isFocused ? infoText : state.theme.colors.neutral30
+      }
+    }),
+
     option: (base, state) => ({
       ...base,
       backgroundColor: state.isSelected
