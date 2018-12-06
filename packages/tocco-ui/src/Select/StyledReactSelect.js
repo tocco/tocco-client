@@ -26,6 +26,10 @@ const reactSelectStyles = outerTheme => {
   })
   const infoText = outerTheme.colors.signal.info.text
   return {
+    container: (base, state) => ({
+      ...base,
+      outline: 0
+    }),
     control: (base, state) => ({
       ...base,
       borderColor: state.isFocused

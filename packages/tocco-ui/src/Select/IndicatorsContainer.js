@@ -16,11 +16,12 @@ const IndicatorsContainer = props => {
     <components.IndicatorsContainer {...restProps}>
       {children}
       {openAdvancedSearch
+      && !readOnly
       && <span
         onTouchEnd={e => e.stopPropagation()}
         onMouseDown={e => e.stopPropagation()}>
         <Button
-          disabled={readOnly || !openAdvancedSearch}
+          disabled={!openAdvancedSearch}
           icon="search"
           look="ball"
           onClick={() => openAdvancedSearch(value)}
