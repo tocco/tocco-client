@@ -38,7 +38,6 @@ const reactSelectStyles = outerTheme => {
         borderColor: state.isFocused ? infoText : state.theme.colors.neutral30
       }
     }),
-
     option: (base, state) => ({
       ...base,
       backgroundColor: state.isSelected
@@ -50,6 +49,15 @@ const reactSelectStyles = outerTheme => {
         backgroundColor: state.isSelected
           ? paper[2]
           : paper[1]
+      }
+    }),
+    indicatorsContainer: (base, state) => ({
+      ...base,
+      '> span': {
+        marginRight: state.theme.spacing.baseUnit
+      },
+      '> span > button': {
+        width: '2.6rem'
       }
     }),
     multiValueRemove: (base, state) => ({

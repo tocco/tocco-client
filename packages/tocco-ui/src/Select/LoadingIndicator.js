@@ -2,6 +2,6 @@ import React from 'react'
 
 import IconTocco from '../IconTocco'
 
-const LoadingIndicator = () => <IconTocco size="1.2em"/>
+const LoadingIndicator = () => <span><IconTocco size="1.8rem"/></span>
 
 export default LoadingIndicator
