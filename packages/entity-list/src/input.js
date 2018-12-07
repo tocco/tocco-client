@@ -12,9 +12,10 @@ import {
 import {
   setLimit,
   setSearchFilters,
-  setListFormName,
-  setSelection
+  setListFormName
+
 } from './modules/list/actions'
+import {setSelection} from './modules/selection/actions'
 
 const isDefined = value => !(value === undefined || value === null)
 
