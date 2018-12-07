@@ -12,11 +12,10 @@ const EXPECTED_INITIAL_STATE = {
   entityCount: 0,
   entityStore: {},
   inProgress: false,
-  searchFilters: [],
   showSearchForm: true,
+  searchFilters: [],
   createPermission: false,
-  selectable: false,
-  selection: []
+  formSelectable: false
 }
 
 describe('entity-list', () => {
@@ -203,30 +202,16 @@ describe('entity-list', () => {
           expect(reducer(stateBefore, actions.setInProgress(true))).to.deep.equal(expectedStateAfter)
         })
 
-        test('should handle SET_SELECTABLE', () => {
+        test('should handle SET_FORM_SELECTABLE', () => {
           const stateBefore = {
-            selectable: false
+            formSelectable: false
           }
 
           const expectedStateAfter = {
-            selectable: true
+            formSelectable: true
           }
 
-          expect(reducer(stateBefore, actions.setSelectable(true))).to.deep.equal(expectedStateAfter)
-        })
-
-        test('should handle SET_SELECTION', () => {
-          const stateBefore = {
-            selection: [1, 2, 3, 4]
-          }
-
-          const expectedStateAfter = {
-            selection: [1, 2, 8, 9]
-          }
-
-          const selection = [1, 2, 8, 9]
-
-          expect(reducer(stateBefore, actions.setSelection(selection))).to.deep.equal(expectedStateAfter)
+          expect(reducer(stateBefore, actions.setFormSelectable(true))).to.deep.equal(expectedStateAfter)
         })
       })
     })
