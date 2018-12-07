@@ -56,19 +56,12 @@ const Table = (props, context) => {
     }
   }
 
-  const getSelectionMode = () => {
-    const wrapValue = mode => ({mode})
-
-    if (props.selectionStyle) {
-      return props.selectionStyle === selectionStyles.MULTI
-        ? wrapValue('checkbox')
-        : props.selectionStyle === selectionStyles.SINGLE
-          ? wrapValue('radio')
-          : {}
-    }
-
-    return props.selectable === true ? wrapValue('checkbox') : {}
-  }
+  const getSelectionMode = () =>
+    (props.tableSelectionStyle && props.tableSelectionStyle !== selectionStyles.NONE)
+      ? props.tableSelectionStyle === selectionStyles.SINGLE
+        ? {mode: 'radio'}
+        : {mode: 'checkbox'}
+      : {}
 
   const selectRow = {
     ...(getSelectionMode()),
@@ -168,8 +161,7 @@ Table.propTypes = {
   onRowClick: PropTypes.func,
   setSorting: PropTypes.func,
   changePage: PropTypes.func.isRequired,
-  selectionStyle: selectionStylePropType,
-  selectable: PropTypes.bool,
+  tableSelectionStyle: selectionStylePropType,
   onSelectChange: PropTypes.func,
   refresh: PropTypes.func,
   selection: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),

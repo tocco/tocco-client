@@ -11,7 +11,7 @@ const mapActionCreators = {
 const mapStateToProps = (state, props) => {
   return {
     formDefinition: state.list.formDefinition,
-    selection: state.list.selection,
+    selection: state.selection.selection,
     currentPageIds: state.list.entities.map(e => e.__key),
     entityName: state.entityList.entityName,
     parent: state.entityList.parent

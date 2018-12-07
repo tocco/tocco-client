@@ -1,5 +1,25 @@
 import _uniq from 'lodash/uniq'
 
+import selectionStyles from './selectionStyles'
+import selectionModes from './selectionModes'
+
+export const showSelectionComponent = (inputSelectionStyle, fromSelectable) => {
+  return (!inputSelectionStyle || inputSelectionStyle === selectionStyles.MULTI) && fromSelectable !== false
+}
+
+export const getTableSelectionStyle = (selectionMode, inputSelectionStyle, fromSelectable) => {
+  if (fromSelectable === false || inputSelectionStyle === selectionStyles.NONE
+    || selectionMode === selectionModes.ALL) {
+    return selectionStyles.NONE
+  }
+
+  if (inputSelectionStyle === selectionStyles.SINGLE) {
+    return selectionStyles.SINGLE
+  }
+
+  return selectionStyles.MULTI
+}
+
 /**
  * Comparator function which can be used to sort numerical arrays in ascending order.
  */

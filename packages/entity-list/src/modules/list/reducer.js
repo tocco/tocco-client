@@ -1,5 +1,4 @@
 import {reducer as reducerUtil} from 'tocco-util'
-import _uniq from 'lodash/uniq'
 
 import * as actions from './actions'
 
@@ -14,13 +13,6 @@ const addEntityToStore = (state, {payload}) => ({
 const clearEntityStore = state => ({
   ...state,
   entityStore: {}
-})
-
-const comparator = (a, b) => a - b
-
-const setSelection = (state, {payload}) => ({
-  ...state,
-  selection: _uniq(payload.selection).sort(comparator)
 })
 
 const ACTION_HANDLERS = {
@@ -38,9 +30,9 @@ const ACTION_HANDLERS = {
   [actions.SET_SHOW_SEARCH_FORM]: reducerUtil.singleTransferReducer('showSearchForm'),
   [actions.SET_SEARCH_FILTERS]: reducerUtil.singleTransferReducer('searchFilters'),
   [actions.SET_CREATE_PERMISSION]: reducerUtil.singleTransferReducer('createPermission'),
-  [actions.SET_SELECTABLE]: reducerUtil.singleTransferReducer('selectable'),
-  [actions.SET_ENDPOINT]: reducerUtil.singleTransferReducer('endpoint'),
-  [actions.SET_SELECTION]: setSelection
+  [actions.SET_FORM_SELECTABLE]: reducerUtil.singleTransferReducer('formSelectable'),
+  [actions.SET_ENDPOINT]: reducerUtil.singleTransferReducer('endpoint')
+
 }
 
 const initialState = {
@@ -57,8 +49,7 @@ const initialState = {
   showSearchForm: true,
   searchFilters: [],
   createPermission: false,
-  selectable: false,
-  selection: []
+  formSelectable: false
 }
 
 export default function reducer(state = initialState, action) {

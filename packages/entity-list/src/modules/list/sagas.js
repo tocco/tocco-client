@@ -6,11 +6,10 @@ import _omit from 'lodash/omit'
 import {getFetchOptionsFromSearchForm} from '../../util/api/fetchOptions'
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
+import * as selectionActions from '../selection/actions'
 import {getSearchFormValues} from '../searchForm/sagas'
 import {fetchForm, getSorting, getSelectable, getEndpoint, getFields} from '../../util/api/forms'
 import {entitiesListTransformer, fetchModel} from '../../util/api/entities'
-import {combineSelection} from '../../util/selection'
-import selectionStyles from '../../util/selectionStyles'
 
 import {call, put, fork, select, spawn, takeEvery, takeLatest, all} from 'redux-saga/effects'
 
@@ -28,7 +27,6 @@ export default function* sagas() {
     fork(takeEvery, actions.RESET_DATA_SET, loadData, 1),
     fork(takeLatest, actions.REFRESH, loadData),
     fork(takeLatest, actions.ON_ROW_CLICK, onRowClick),
-    fork(takeLatest, actions.ON_SELECT_CHANGE, onSelectChange),
     fork(takeEvery, actionUtil.actions.ACTION_INVOKED, actionInvoked)
   ])
 }
@@ -176,7 +174,7 @@ export function* loadFormDefinition(formDefinition, formBase) {
     const sorting = yield call(getSorting, formDefinition)
     yield put(actions.setSorting(sorting))
     const selectable = yield call(getSelectable, formDefinition)
-    yield put(actions.setSelectable(selectable))
+    yield put(actions.setFormSelectable(selectable))
     const endpoint = yield call(getEndpoint, formDefinition)
     yield put(actions.setEndpoint(endpoint))
   }
@@ -195,24 +193,13 @@ export function* onRowClick({payload}) {
   if (selectOnRowClick === true) {
     const list = yield select(listSelector)
     const selected = list.selection.includes(payload.id)
-    yield put(actions.onSelectChange([payload.id], !selected))
+    yield put(selectionActions.onSelectChange([payload.id], !selected))
   }
   yield put(externalEvents.fireExternalEvent('onRowClick', {id: payload.id}))
 }
 
 export function* navigateToCreate() {
   yield put(externalEvents.fireExternalEvent('onNavigateToCreate'))
-}
-
-export function* onSelectChange({payload: {keys, isSelected}}) {
-  const {selection: currentSelection} = yield select(listSelector)
-  const {selectionStyle} = yield select(inputSelector)
-
-  const newSelection = selectionStyle === selectionStyles.SINGLE
-    ? keys : yield call(combineSelection, currentSelection, keys, isSelected)
-
-  yield put(actions.setSelection(newSelection))
-  yield put(externalEvents.fireExternalEvent('onSelectChange', newSelection))
 }
 
 export function* actionInvoked(action) {

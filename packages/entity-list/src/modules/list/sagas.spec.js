@@ -4,6 +4,7 @@ import * as matchers from 'redux-saga-test-plan/matchers'
 
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
+import * as selectionActions from '../selection/actions'
 import rootSaga, * as sagas from './sagas'
 import {fetchForm, getSorting, getSelectable, getFields, getEndpoint} from '../../util/api/forms'
 import {fetchModel} from '../../util/api/entities'
@@ -36,7 +37,6 @@ describe('entity-list', () => {
               fork(takeEvery, actions.RESET_DATA_SET, sagas.loadData, 1),
               fork(takeLatest, actions.REFRESH, sagas.loadData),
               fork(takeLatest, actions.ON_ROW_CLICK, sagas.onRowClick),
-              fork(takeLatest, actions.ON_SELECT_CHANGE, sagas.onSelectChange),
               fork(takeEvery, actionUtil.actions.ACTION_INVOKED, sagas.actionInvoked)
             ]))
             expect(generator.next().done).to.be.true
@@ -260,7 +260,7 @@ describe('entity-list', () => {
             expect(gen.next().value).to.eql(call(getSorting, loadedFormDefinition))
             expect(gen.next(sorting).value).to.eql(put(actions.setSorting(sorting)))
             expect(gen.next().value).to.eql(call(getSelectable, loadedFormDefinition))
-            expect(gen.next(selectable).value).to.eql(put(actions.setSelectable(selectable)))
+            expect(gen.next(selectable).value).to.eql(put(actions.setFormSelectable(selectable)))
             expect(gen.next().value).to.eql(call(getEndpoint, loadedFormDefinition))
             expect(gen.next(endpoint).value).to.eql(put(actions.setEndpoint(endpoint)))
             expect(gen.next().done).to.be.true
@@ -317,7 +317,7 @@ describe('entity-list', () => {
             expect(gen.next().value).to.eql(select(sagas.inputSelector))
             expect(gen.next({selectOnRowClick: true}).value).to.eql(select(sagas.listSelector))
             expect(gen.next({selection: ['2']}).value)
-              .to.eql(put(actions.onSelectChange(['1'], true)))
+              .to.eql(put(selectionActions.onSelectChange(['1'], true)))
             expect(gen.next().value)
               .to.eql(put(externalEvents.fireExternalEvent('onRowClick', {id: '1'})))
             expect(gen.next().done).to.be.true
@@ -328,40 +328,10 @@ describe('entity-list', () => {
             expect(gen.next().value).to.eql(select(sagas.inputSelector))
             expect(gen.next({selectOnRowClick: true}).value).to.eql(select(sagas.listSelector))
             expect(gen.next({selection: ['1']}).value)
-              .to.eql(put(actions.onSelectChange(['1'], false)))
+              .to.eql(put(selectionActions.onSelectChange(['1'], false)))
             expect(gen.next().value)
               .to.eql(put(externalEvents.fireExternalEvent('onRowClick', {id: '1'})))
             expect(gen.next().done).to.be.true
-          })
-        })
-
-        describe('onSelectChange', () => {
-          test('should calculate new selection an put action and external event', () => {
-            const expectedSelection = ['1', '2', '3']
-
-            return expectSaga(sagas.onSelectChange, actions.onSelectChange(['2', '3'], true))
-              .provide([
-                [select(sagas.inputSelector), {}],
-                [select(sagas.listSelector), {selection: ['1', '2']}]
-              ])
-
-              .put(actions.setSelection(expectedSelection))
-              .put(externalEvents.fireExternalEvent('onSelectChange', expectedSelection))
-              .run()
-          })
-
-          test('should put action of key in case of single', () => {
-            const expectedSelection = ['33']
-
-            return expectSaga(sagas.onSelectChange, actions.onSelectChange(['33'], true))
-              .provide([
-                [select(sagas.inputSelector), {selectionStyle: 'single'}],
-                [select(sagas.listSelector), {selection: ['2']}]
-              ])
-
-              .put(actions.setSelection(expectedSelection))
-              .put(externalEvents.fireExternalEvent('onSelectChange', expectedSelection))
-              .run()
           })
         })
 

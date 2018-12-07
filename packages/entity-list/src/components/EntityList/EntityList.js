@@ -4,6 +4,7 @@ import React from 'react'
 import SearchFormContainer from '../../containers/SearchFormContainer'
 import FullTextSearchForm from '../../containers/FullTextSearchFormContainer'
 import ListViewContainer from '../../containers/ListViewContainer'
+import SelectionControllerContainer from '../../containers/SelectionControllerContainer'
 
 class EntityList extends React.Component {
   componentWillMount() {
@@ -18,6 +19,10 @@ class EntityList extends React.Component {
           this.props.showSearchForm
           && (this.props.showFullTextSearchForm ? <FullTextSearchForm/> : <SearchFormContainer/>)
         }
+        {
+          this.props.showSelectionController
+          && <div style={{float: 'right'}}><SelectionControllerContainer/></div>
+        }
         <ListViewContainer/>
       </div>
     )
@@ -28,7 +33,8 @@ EntityList.propTypes = {
   initialize: PropTypes.func.isRequired,
   initializeSearchForm: PropTypes.func.isRequired,
   showSearchForm: PropTypes.bool,
-  showFullTextSearchForm: PropTypes.bool
+  showFullTextSearchForm: PropTypes.bool,
+  showSelectionController: PropTypes.bool
 }
 
 export default EntityList
