@@ -8,10 +8,12 @@ import {
   onRowClick,
   setSorting,
   setSelectable,
-  onSelectChange,
-  setSelection,
   refresh
 } from '../modules/list/actions'
+import {
+  onSelectChange,
+  setSelection
+} from '../modules/selection/actions'
 
 const mapActionCreators = {
   initialize,
@@ -31,9 +33,8 @@ const mapStateToProps = (state, props) => ({
   entityCount: state.list.entityCount,
   limit: state.list.limit,
   inProgress: state.list.inProgress,
-  selectionStyle: state.input.selectionStyle,
-  selectable: state.list.selectable,
-  selection: state.list.selection,
+  tableSelectionStyle: state.selection.tableSelectionStyle,
+  selection: state.selection.selection,
   parent: state.entityList.parent
 })
 
