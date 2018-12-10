@@ -202,10 +202,9 @@
               {
                 "id": "lastname",
                 "componentType": "field",
-                "readonly": false,
-                "children": [],
+                "path": "lastname",
                 "dataType": "string",
-                "label": "Nachname"
+                "label": null
               }
             ],
             "label": "Nachname",
@@ -220,9 +219,8 @@
               {
                 "id": "email",
                 "componentType": "field",
-                "readonly": false,
-                "children": [],
-                "label": "E-Mail",
+                "path": "email",
+                "label": null,
                 "dataType": "email"
               }
             ],
@@ -237,9 +235,8 @@
               {
                 "id": "birthdate",
                 "componentType": "field",
-                "readonly": false,
-                "children": [],
-                "label": "Geburi",
+                "path": "birthdate",
+                "label": null,
                 "dataType": "birthdate"
               }
             ],
@@ -255,9 +252,8 @@
               {
                 "id": "salary",
                 "componentType": "field",
-                "readonly": false,
-                "children": [],
-                "label": "Lohn",
+                "path": "salary",
+                "label": null,
                 "dataType": "moneyamount"
               }
             ],
@@ -272,10 +268,9 @@
               {
                 "id": "licence_plate",
                 "componentType": "field",
-                "readonly": false,
-                "children": [],
+                "path": "licence_plate",
                 "dataType": "long",
-                "label": "Licence Plate"
+                "label": null
               }
             ],
             "label": "Licence Plate",
@@ -290,9 +285,9 @@
               {
                 "id": "relSingle_entity2",
                 "componentType": "field",
-                "readonly": false,
-                "children": [],
-                "label": "Dummy Entity (n:1)"
+                "path": "relSingle_entity2",
+                "dataTime": "single-select-box",
+                "label": null
               }
             ],
             "label": "Dummy Entity (n:1)",
@@ -307,9 +302,9 @@
               {
                 "id": "phone_company",
                 "componentType": "field",
-                "readonly": false,
-                "children": [],
-                "label": "Telefon G"
+                "path": "phone_company",
+                "dataType": "phone",
+                "label": null
               }
             ],
             "label": "Telefon G",
@@ -324,9 +319,9 @@
               {
                 "id": "publish",
                 "componentType": "field",
-                "readonly": false,
-                "children": [],
-                "label": "Publiziert"
+                "path": "publish",
+                "dataType": "boolean",
+                "label": null
               }
             ],
             "label": "Publiziert",
@@ -341,9 +336,9 @@
               {
                 "id": "website",
                 "componentType": "field",
-                "readonly": false,
-                "children": [],
-                "label": "Webseite"
+                "path": "website",
+                "dataType": "url",
+                "label": null
               }
             ],
             "label": "Webseite",
@@ -358,16 +353,16 @@
               {
                 "id": "firstname",
                 "componentType": "field",
-                "readonly": false,
-                "children": [],
-                "label": "Adresse"
+                "path": "firstname",
+                "dataType": "string",
+                "label": null
               },
               {
                 "id": "lastname",
                 "componentType": "field",
-                "readonly": false,
-                "children": [],
-                "label": "Adresse"
+                "path": "firstname",
+                "dataType": "string",
+                "label": null
               }
             ],
             "label": "Fullname",
@@ -382,9 +377,9 @@
               {
                 "id": "relMulti_entity2",
                 "componentType": "field",
-                "readonly": false,
-                "children": [],
-                "label": "Dummy Entity (n:n)"
+                "path": "relMulti_entity2",
+                "dataType": "multi-select-box",
+                "label": null
               }
             ],
             "label": "Dummy Entity (n:n)",

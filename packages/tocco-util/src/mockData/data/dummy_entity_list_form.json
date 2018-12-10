@@ -22,7 +22,7 @@
       },
       {
         "id": "table",
-       "componentType": "table",
+        "componentType": "table",
         "layoutType": "table",
         "hidden": false,
         "endpoint": "entities/User/{parentKey}/entitydocs",
@@ -35,8 +35,7 @@
               {
                 "id": "label",
                 "componentType": "field",
-                "hidden": false,
-                "children": []
+                "path": "label"
               }
             ],
             "label": "Label"
@@ -49,9 +48,8 @@
               {
                 "id": "active",
                 "componentType": "field",
-                "hidden": false,
-                "children": [],
-                "label": "Active"
+                "path": "active",
+                "label": null
               },
               {
                 "id": "subaction",

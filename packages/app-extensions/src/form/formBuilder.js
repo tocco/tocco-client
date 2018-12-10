@@ -73,7 +73,7 @@ export default (
 
     }
 
-    const fieldName = formDefinitionField.id
+    const fieldName = formDefinitionField.path || formDefinitionField.id
     const entityField = entity ? entity.paths[fieldName] : null
     const modelSelector = formDefinitionField.path
       ? formDefinitionField.path.split('.')[0]

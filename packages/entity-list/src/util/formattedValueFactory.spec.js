@@ -9,7 +9,8 @@ describe('entity-list', () => {
     describe('formattedValueFactory', () => {
       test('should return FormattedValue', () => {
         const field = {
-          id: 'firstname'
+          id: 'firstname',
+          path: 'firstname'
         }
         const entity = {
           firstname: {
@@ -25,7 +26,8 @@ describe('entity-list', () => {
 
       test('should return FormattedValue and add type specific props', () => {
         const field = {
-          id: 'doc'
+          id: 'doc',
+          path: 'doc'
         }
         const entity = {
           doc: {
@@ -41,7 +43,8 @@ describe('entity-list', () => {
 
       test('should return array with separator', () => {
         const field = {
-          id: 'relSomething.xy'
+          id: 'relSomething.xy',
+          path: 'relSomething.xy'
         }
         const entity = {
           'relSomething.xy': [{value: 'V1', type: 'string'}, {value: 'V1', type: 'string'}]
@@ -53,7 +56,7 @@ describe('entity-list', () => {
       })
 
       test('should return null', () => {
-        const field = {id: 'xy'}
+        const field = {id: 'xy', path: 'xy'}
         const entity = {'xy': []}
 
         expect(formattedValueFactory(field, entity, IntlStub)).to.be.null

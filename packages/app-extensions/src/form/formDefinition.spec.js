@@ -8,12 +8,14 @@ import {call} from 'redux-saga/effects'
 const testField1 = {
   id: 'firstname',
   componentType: 'field',
+  path: 'firstname',
   dataType: 'string',
   defaultValue: undefined
 }
 const testField2 = {
   id: 'lastname',
   componentType: 'field',
+  path: 'lastname',
   dataType: 'string',
   defaultValue: 'SomeLastname'
 }
@@ -21,6 +23,7 @@ const testField2 = {
 const testField3 = {
   id: 'xyz',
   componentType: 'field',
+  path: 'xyz',
   dataType: 'something',
   defaultValue: {key: '9', display: 'Display'}
 }

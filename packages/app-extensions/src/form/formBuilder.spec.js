@@ -79,6 +79,7 @@ const testData = {
                       {
                         'id': 'firstname',
                         'componentType': 'field',
+                        'path': 'firstname',
                         'dataType': 'string',
                         'label': null
                       }
@@ -94,6 +95,7 @@ const testData = {
                       {
                         'id': 'lastname',
                         'componentType': 'field',
+                        'path': 'lastname',
                         'dataType': 'string',
                         'label': null
                       }

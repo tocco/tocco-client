@@ -43,7 +43,7 @@ export const getDefaultValues = fieldDefinitions =>
       [field.id]: field.defaultValue
     }), {})
 
-export const getFieldNames = fieldDefinitions => fieldDefinitions.map(f => f.id)
+export const getFieldNames = fieldDefinitions => fieldDefinitions.map(f => f.path || f.id)
 
 export const defaultFormTransformer = json => (json.form)
 
