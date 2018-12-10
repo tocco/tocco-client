@@ -59,11 +59,11 @@
                     "hidden": false,
                     "children": [
                       {
-                        "id": "user_nr",
+                        "id": "user_nr_field",
                         "componentType": "field",
+                        "path": "user_nr",
                         "dataType": "counter",
-                        "label": null,
-                        "readonly": true
+                        "label": null
                       }
                     ]
                   },
@@ -77,6 +77,7 @@
                         "id": "firstname",
                         "dataType": "string",
                         "componentType": "field",
+                        "path": "firstname",
                         "defaultValue": "Homer",
                         "label": null
                       }
@@ -92,6 +93,7 @@
                         "id": "lastname",
                         "dataType": "string",
                         "componentType": "field",
+                        "path": "lastname",
                         "label": null
                       }
                     ]
@@ -106,6 +108,7 @@
                         "id": "birthdate",
                         "dataType": "birthdate",
                         "componentType": "field",
+                        "path": "birthdate",
                         "label": null
                       }
                     ]
@@ -120,6 +123,7 @@
                         "id": "age",
                         "dataType": "integer",
                         "componentType": "field",
+                        "path": "age",
                         "label": null
                       }
                     ]
@@ -134,6 +138,7 @@
                         "id": "callname",
                         "dataType": "string",
                         "componentType": "field",
+                        "path": "callname",
                         "label": null
                       }
                     ]
@@ -148,6 +153,7 @@
                         "id": "address",
                         "dataType": "text",
                         "componentType": "field",
+                        "path": "address",
                         "label": null
                       }
                     ]
@@ -162,6 +168,7 @@
                         "id": "licence_plate",
                         "componentType": "field",
                         "dataType": "long",
+                        "path": "licence_plate",
                         "label": null
                       }
                     ]
@@ -196,6 +203,7 @@
                         "id": "preview_picture",
                         "dataType": "document",
                         "componentType": "field",
+                        "path": "preview_picture",
                         "label": null
                       }
                     ]
@@ -211,6 +219,7 @@
                         "id": "firstname",
                         "dataType": "string",
                         "componentType": "field",
+                        "path": "firstname",
                         "label": null
                       }
                     ]
@@ -269,6 +278,7 @@
                         "id": "notreadable",
                         "componentType": "field",
                         "dataType": "string",
+                        "path": "notreadable",
                         "label": null
                       }
                     ]
@@ -300,6 +310,7 @@
                         "id": "email",
                         "componentType": "field",
                         "dataType": "email",
+                        "path": "email",
                         "label": null
                       }
                     ]
@@ -314,6 +325,7 @@
                         "id": "phone_company",
                         "componentType": "field",
                         "dataType": "phone",
+                        "path": "phone_company",
                         "label": null
                       }
                     ]
@@ -328,6 +340,7 @@
                         "id": "phone_custom",
                         "componentType": "field",
                         "dataType": "phone",
+                        "path": "phone_custom",
                         "label": null
                       }
                     ]
@@ -342,6 +355,7 @@
                         "id": "website",
                         "componentType": "field",
                         "dataType": "url",
+                        "path": "website",
                         "label": null
                       }
                     ]
@@ -356,6 +370,7 @@
                         "id": "date_time",
                         "componentType": "field",
                         "dataType": "datetime",
+                        "path": "date_time",
                         "label": null
                       }
                     ]
@@ -370,6 +385,7 @@
                         "id": "duration",
                         "componentType": "field",
                         "dataType": "duration",
+                        "path": "duration",
                         "label": null
                       }
                     ]
@@ -384,6 +400,7 @@
                         "id": "decimal",
                         "componentType": "field",
                         "dataType": "decimal",
+                        "path": "decimal",
                         "label": null
                       }
                     ]
@@ -398,6 +415,7 @@
                         "id": "moneyamount",
                         "componentType": "field",
                         "dataType": "moneyamount",
+                        "path": "moneyamount",
                         "label": null
                       }
                     ]
@@ -412,6 +430,7 @@
                         "id": "publish",
                         "componentType": "field",
                         "dataType": "boolean",
+                        "path": "publish",
                         "label": null
                       }
                     ]
@@ -435,6 +454,7 @@
                         "id": "relMulti_entity1",
                         "componentType": "field",
                         "dataType": "multi-select-box",
+                        "path": "relMulti_entity1",
                         "label": null,
                         "defaultValue": [
                           {"display": "User 0", "key": "0"},
@@ -453,6 +473,7 @@
                         "id": "relMulti_entity2",
                         "componentType": "field",
                         "dataType": "multi-select-box",
+                        "path": "relMulti_entity2",
                         "label": null
                       }
                     ]
@@ -467,6 +488,7 @@
                         "id": "relSingle_entity1",
                         "componentType": "field",
                         "dataType": "single-select-box",
+                        "path": "relSingle_entity1",
                         "label": null,
                         "defaultValue": {"display": "User 0", "key": "0"}
                       }
@@ -482,6 +504,7 @@
                         "id": "relSingle_entity2",
                         "componentType": "field",
                         "dataType": "single-select-box",
+                        "path": "relSingle_entity2",
                         "label": null
                       }
                     ]
@@ -496,6 +519,7 @@
                         "id": "relUser",
                         "componentType": "field",
                         "dataType": "single-remote-field",
+                        "path": "relUser",
                         "label": null,
                         "formBase": "User_withconstriction"
                       }
@@ -511,6 +535,7 @@
                         "id": "relChildren",
                         "componentType": "field",
                         "dataType": "multi-remote-field",
+                        "path": "relChildren",
                         "label": null,
                         "formBase": "User_small"
                       }

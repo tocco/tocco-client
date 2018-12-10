@@ -22,8 +22,9 @@ const formattedValueCustomTypeMapper = type => customTypeMap[type] ? customTypeM
 export const MultiSeparator = () => ', '
 
 export default (fieldDefinition, entity, intl) => {
-  const {id} = fieldDefinition
-  const contents = Array.isArray(entity[id]) ? entity[id] : [entity[id]]
+  const {id, path} = fieldDefinition
+  const value = entity[path]
+  const contents = Array.isArray(value) ? value : [value]
 
   return contents.length > 0
     ? <span key={id} style={{marginRight: '2px'}}>

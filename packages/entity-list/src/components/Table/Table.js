@@ -132,7 +132,7 @@ const Table = (props, context) => {
               key={idx}
               dataFormat={cellFormatter(column, idx)}
               dataSort={column.sortable}
-              dataField={field.id}
+              dataField={field.path || field.id}
               {...RIGHT_ALIGNED_TYPES.includes(field.dataType) && {dataAlign: 'right'}}
             >
               {column.label}
