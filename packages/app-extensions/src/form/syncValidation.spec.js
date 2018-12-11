@@ -43,6 +43,25 @@ describe('app-extensions', () => {
         const errors = syncValidation(entityModel, IntlStub)(values)
         expect(errors).to.eql({})
       })
+
+      test('should return no error on unspecified validator', () => {
+        const entityModel = {
+          iban: {
+            type: 'string',
+            validate: {
+              mandatory: true,
+              minLength: 3
+            }
+          }
+        }
+
+        const values = {
+          iban: 'CH-05-123456789'
+        }
+
+        const errors = syncValidation(entityModel, IntlStub)(values)
+        expect(errors).to.eql({})
+      })
     })
   })
 })
