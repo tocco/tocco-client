@@ -173,13 +173,6 @@
       }
     },
     {
-      "fieldName": "rank",
-      "type": "integer",
-      "validation": {
-        "mandatory": false
-      }
-    },
-    {
       "fieldName": "publish",
       "type": "boolean",
       "validation": {

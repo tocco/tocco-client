@@ -11,11 +11,16 @@ const MoneyEdit = props => {
     }
   }
 
+  const options = {
+    ...props.options,
+    postPointDigits: 2
+  }
+
   return (
     <NumberEdit
       onChange={handleChange}
       value={props.value}
-      options={props.options}
+      options={options}
       id={props.id}
       name={props.name}
       readOnly={props.readOnly}

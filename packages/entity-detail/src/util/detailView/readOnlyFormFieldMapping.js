@@ -22,7 +22,7 @@ export default {
   'multi-remote-field': formField.formattedValueFactory('multi-remote'),
   'multi-select-box': formField.formattedValueFactory('multi-select'),
   'named-upload': formField.formattedValueFactory('document'),
-  'integer': formField.formattedValueFactory('decimal'),
+  'integer': formField.formattedValueFactory('integer'),
   'percent': formField.formattedValueFactory('decimal'),
   'phone': formField.formattedValueFactory('phone'),
   'pulldown-date': formField.formattedValueFactory('date'),

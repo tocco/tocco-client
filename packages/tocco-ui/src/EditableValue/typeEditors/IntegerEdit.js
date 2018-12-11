@@ -32,7 +32,6 @@ IntegerEdit.propTypes = {
   options: PropTypes.shape({
     intl: intlShape.isRequired,
     prePointDigits: PropTypes.number,
-    postPointDigits: PropTypes.number,
     minValue: PropTypes.number,
     maxValue: PropTypes.number
   })

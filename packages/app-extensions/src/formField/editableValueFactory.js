@@ -91,14 +91,21 @@ const getOptions = (type, formField, modelField, utils) => {
         options.minutesLabel = utils.intl.formatMessage({id: 'client.component.duration.minutesLabel'})
       }
       break
-    case 'decimal':
+    case 'number':
     case 'moneyamount':
-    case 'integer':
       if (utils.intl) {
         options.intl = utils.intl
       }
       options.prePointDigits = _get(modelField, 'validation.decimalDigits.prePointDigits', null)
       options.postPointDigits = _get(modelField, 'validation.decimalDigits.postPointDigits', null)
+      options.minValue = _get(modelField, 'validation.numberRange.fromIncluding', null)
+      options.maxValue = _get(modelField, 'validation.numberRange.toIncluding', null)
+      break
+    case 'integer':
+      if (utils.intl) {
+        options.intl = utils.intl
+      }
+      options.prePointDigits = _get(modelField, 'validation.decimalDigits.prePointDigits', null)
       options.minValue = _get(modelField, 'validation.numberRange.fromIncluding', null)
       options.maxValue = _get(modelField, 'validation.numberRange.toIncluding', null)
   }

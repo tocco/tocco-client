@@ -17,7 +17,7 @@ const NumberFormatter = props => {
 }
 
 NumberFormatter.propTypes = {
-  value: PropTypes.number.isRequired
+  value: PropTypes.number
 }
 
 export default NumberFormatter
