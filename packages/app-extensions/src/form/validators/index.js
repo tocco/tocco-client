@@ -1,4 +1,4 @@
 import modelValidators from './model'
-import typeValidators from './type'
+import {syncValidators, asyncValidators} from './type'
 
-export default {typeValidators, modelValidators}
+export default {modelValidators, syncValidators, asyncValidators}

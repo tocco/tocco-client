@@ -1,9 +1,7 @@
 import {SubmissionError} from 'redux-form'
 import {form, rest} from 'tocco-app-extensions'
-import {addErrors} from 'tocco-app-extensions/src/form/syncValidation'
 import _isEmpty from 'lodash/isEmpty'
 import _get from 'lodash/get'
-import validators from 'tocco-app-extensions/src/form/validators'
 
 import modes from '../modes'
 
@@ -40,15 +38,17 @@ export const asyncValidateTypes = async(values, entityModel, errors) => {
         const type = _get(entityModel, key + '.type')
 
         if (shouldUseAsyncValidator(type)) {
-          const typeValidator = validators.typeValidators[type]
+          const asyncValidators = form.validators.asyncValidators
 
-          if (typeValidator) {
-            const fieldModel = entityModel[key]
-            const validationError = await typeValidator(values[key], fieldModel)
+          for (const validator of asyncValidators) {
+            if (validator) {
+              const fieldModel = entityModel[key]
+              const validationError = await validator(values[key], fieldModel)
 
-            if (validationError) {
-              const error = addErrors(errors, key, validationError)
-              errorArray.push(new Promise(resolve => resolve(error)))
+              if (validationError) {
+                const error = form.addErrors(errors, key, validationError)
+                errorArray.push(new Promise(resolve => resolve(error)))
+              }
             }
           }
         }

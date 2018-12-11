@@ -25,8 +25,8 @@ export const addErrors = (errors, field, fieldErrors) => (
 export const validate = (values, entityModel) => {
   let errors = {}
 
-  errors = validateModel(values, entityModel, errors)
-  errors = validateTypes(values, entityModel, errors)
+  errors = syncValidateModel(values, entityModel, errors)
+  errors = syncValidateTypes(values, entityModel, errors)
 
   return errors
 }
@@ -36,18 +36,20 @@ export const shouldUseSyncValidator = type => {
   return syncValidators.includes(type)
 }
 
-export const validateTypes = (values, entityModel, errors) => {
+export const syncValidateTypes = (values, entityModel, errors) => {
   _forOwn(values, (value, key) => {
     if (value) {
-      const type = _get(entityModel, key + '.type')
-      if (shouldUseSyncValidator(type)) {
-        const typeValidator = validators.typeValidators[type]
-        if (typeValidator) {
-          const fieldModel = entityModel[key]
-          const validatorError = typeValidator(value, fieldModel)
-          if (validatorError) {
-            errors = addErrors(errors, key, validatorError)
-          }
+      if (validators) {
+        const type = _get(entityModel, key + '.type')
+        if (shouldUseSyncValidator(type)) {
+          const syncValidators = validators.syncValidators
+          syncValidators.forEach(validator => {
+            const fieldModel = entityModel[key]
+            const validatorError = validator(value, fieldModel)
+            if (validatorError) {
+              errors = addErrors(errors, key, validatorError)
+            }
+          })
         }
       }
     }
@@ -56,7 +58,7 @@ export const validateTypes = (values, entityModel, errors) => {
   return errors
 }
 
-export const validateModel = (values, entityModel, errors) => {
+export const syncValidateModel = (values, entityModel, errors) => {
   const getValidatorValue = (fieldModel, selector) => {
     if (fieldModel.validation) {
       return fieldModel.validation[selector]
