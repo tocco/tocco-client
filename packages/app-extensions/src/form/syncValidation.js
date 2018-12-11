@@ -11,7 +11,7 @@ export default entityModel =>
     )
   )
 
-const addErrors = (errors, field, fieldErrors) => (
+export const addErrors = (errors, field, fieldErrors) => (
   {
     ...errors,
     [field]:
@@ -22,7 +22,7 @@ const addErrors = (errors, field, fieldErrors) => (
   }
 )
 
-const validate = (values, entityModel) => {
+export const validate = (values, entityModel) => {
   let errors = {}
 
   errors = validateModel(values, entityModel, errors)
@@ -31,12 +31,16 @@ const validate = (values, entityModel) => {
   return errors
 }
 
-const validateTypes = (values, entityModel, errors) => {
+export const shouldUseSyncValidator = type => {
+  const syncValidators = ['url']
+  return syncValidators.includes(type)
+}
+
+export const validateTypes = (values, entityModel, errors) => {
   _forOwn(values, (value, key) => {
     if (value) {
       const type = _get(entityModel, key + '.type')
-
-      if (type) {
+      if (shouldUseSyncValidator(type)) {
         const typeValidator = validators.typeValidators[type]
         if (typeValidator) {
           const fieldModel = entityModel[key]
@@ -52,7 +56,7 @@ const validateTypes = (values, entityModel, errors) => {
   return errors
 }
 
-const validateModel = (values, entityModel, errors) => {
+export const validateModel = (values, entityModel, errors) => {
   const getValidatorValue = (fieldModel, selector) => {
     if (fieldModel.validation) {
       return fieldModel.validation[selector]

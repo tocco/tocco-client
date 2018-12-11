@@ -35,20 +35,20 @@ describe('app-extensions', () => {
         })
 
         describe('phone', () => {
-          test('should not return an error for valid inputs', () => {
+          test('should not return an error for valid inputs', async() => {
             const validValues = [
               '+41444005555',
               '+41 44 400 55 55',
               '079 478 22 69'
             ]
 
-            validValues.forEach(validValue => {
-              const result = phoneValidator(validValue)
+            for (let i; i < validValues.length; i++) {
+              const result = await phoneValidator(validValues[i])
               expect(result).to.be.null
-            })
+            }
           })
 
-          test('should return an error for invalid inputs', () => {
+          test('should return an error for invalid inputs', async() => {
             const invalidValues = [
               ' ',
               '1',
@@ -57,17 +57,17 @@ describe('app-extensions', () => {
               '(541) 754-3010'
             ]
 
-            invalidValues.forEach(invalidValue => {
-              const result = phoneValidator(invalidValue)
+            for (let i; i < invalidValues.length; i++) {
+              const result = await phoneValidator(invalidValues[i])
               expect(result).to.not.be.null
-            })
+            }
           })
 
-          test('should country', () => {
-            expect(phoneValidator('(541) 754-3010', {defaultCountry: 'US'})).to.be.null
+          test('should country', async() => {
+            expect(await phoneValidator('(541) 754-3010', {defaultCountry: 'US'})).to.be.null
           })
 
-          test('should validate agains regex if given', () => {
+          test('should validate agains regex if given', async() => {
             const customPhoneRegex = '^\\d{3}$'
 
             const testData = [
@@ -78,15 +78,15 @@ describe('app-extensions', () => {
               {number: '+41444005555', valid: true}
             ]
 
-            testData.forEach(data => {
-              const result = phoneValidator(data.number, {customPhoneRegex})
+            for (let i; i < testData.length; i++) {
+              const result = await phoneValidator(testData[i].number, {customPhoneRegex})
 
-              if (data.valid) {
+              if (testData[i].valid) {
                 expect(result).to.be.null
               } else {
                 expect(result).to.not.be.null
               }
-            })
+            }
           })
         })
       })
