@@ -9,7 +9,7 @@ describe('entity-list', () => {
     describe('formattedValueFactory', () => {
       test('should return FormattedValue', () => {
         const field = {
-          id: 'firstname',
+          id: 'firstname-field', // does not match path by intention (-> should use path to get data)
           path: 'firstname'
         }
         const entity = {

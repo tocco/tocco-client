@@ -14,7 +14,7 @@ describe('entity-list', () => {
       test('should return a formattedValue for componentType field', () => {
         const field = {
           componentType: 'field',
-          id: 'firstname',
+          id: 'firstname-field', // does not match path by intention (-> should use path to get data)
           path: 'firstname'
         }
         const entity = {

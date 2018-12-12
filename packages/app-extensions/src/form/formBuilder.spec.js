@@ -77,7 +77,7 @@ const testData = {
                     'readonly': true,
                     'children': [
                       {
-                        'id': 'firstname',
+                        'id': 'firstname-field', // does not match path by intention (-> should use path to get data)
                         'componentType': 'field',
                         'path': 'firstname',
                         'dataType': 'string',
