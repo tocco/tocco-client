@@ -6,7 +6,7 @@ import rest from '../rest'
 import {call} from 'redux-saga/effects'
 
 const testField1 = {
-  id: 'firstname',
+  id: 'firstname-field', // does not match path by intention (-> should use path for getFieldNames)
   componentType: 'field',
   path: 'firstname',
   dataType: 'string',
@@ -85,7 +85,7 @@ describe('app-extensions', () => {
         test('should return a list of all field names', () => {
           const fields = formDefinition.getFieldDefinitions(testFormDefinition)
           const fieldNames = formDefinition.getFieldNames(fields)
-          expect(fieldNames).to.eql([testField1.id, testField2.id, testDisplay.id, testField3.id])
+          expect(fieldNames).to.eql([testField1.path, testField2.path, testDisplay.id, testField3.path])
         })
       })
 
