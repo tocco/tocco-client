@@ -12,6 +12,35 @@ class DurationEdit extends React.Component {
       ...this.millisecondsToDuration(props.value)
     }
     this.maxHours = this.props.options.maxHours
+    this.setHourInputProps()
+    this.setOnBlurProps()
+  }
+
+  setOnBlurProps = () => {
+    if (this.maxHours) {
+      this.onBlurProps = {
+        onBlur: this.fillInZeroOnBlur
+      }
+    }
+  }
+
+  fillInZeroOnBlur = () => {
+    if (this.state.minutes === '' && this.state.hours === '') {
+      return undefined
+    } else if (this.state.minutes === '') {
+      this.setState({...this.state, minutes: 0})
+    } else if (this.state.hours === '') {
+      this.setState({...this.state, hours: 0})
+    }
+  }
+
+  setHourInputProps = () => {
+    if (!this.maxHours) {
+      this.hourInputProps = {
+        pattern: '\\d+',
+        min: 0
+      }
+    }
   }
 
   millisecondsToDuration = milliSeconds => {
@@ -25,15 +54,20 @@ class DurationEdit extends React.Component {
   }
 
   handleHourChange = e => {
-    let hours = e.target.value.replace(/[^\d]/g, '')
+    let hours = e.target.value.replace(/[^-\d]/g, '')
+
+    this.setState({...this.state, hours})
     if (this.maxHours) {
       if (hours > this.maxHours) {
         hours = 0
-      } else if (hours < 0) {
+      }
+      
+      if (hours < 0) {
         hours = this.maxHours
       }
+      this.setState({...this.state, hours})
     }
-    this.setState({...this.state, hours})
+    
     this.handleChange(hours, null)
   }
 
@@ -51,6 +85,11 @@ class DurationEdit extends React.Component {
     if (minutes > 59) {
       minutes = 0
     }
+
+    if (minutes < 0) {
+      minutes = 59
+    }
+
     return minutes
   }
 
@@ -75,6 +114,10 @@ class DurationEdit extends React.Component {
     this.props.onChange(calculateMilliseconds(hoursValue, minutesValue))
   }
 
+  clearInput = () => {
+    this.setState({...this.state, hours: '', minutes: ''})
+  }
+
   preventNonNumeric = event => {
     if (!(event.charCode >= 48 && event.charCode <= 57)) {
       event.preventDefault()
@@ -93,8 +136,8 @@ class DurationEdit extends React.Component {
           onInput={this.handleHourChange}
           onKeyPress={this.preventNonNumeric}
           disabled={this.props.readOnly}
-          pattern="\d+"
-          min={0}
+          {...this.hourInputProps}
+          {...this.onBlurProps}
         />
         <Typography.Span>{this.props.options.hoursLabel}</Typography.Span>
         <input
@@ -107,8 +150,10 @@ class DurationEdit extends React.Component {
           onKeyPress={this.preventNonNumeric}
           disabled={this.props.readOnly}
           pattern="\d+"
+          {...this.onBlurProps}
         />
         <Typography.Span>{this.props.options.minutesLabel}</Typography.Span>
+        { this.maxHours && <button onClick={this.clearInput}>Clear</button>}
       </StyledDurationEdit>
     )
   }
