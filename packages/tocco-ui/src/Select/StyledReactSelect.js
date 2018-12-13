@@ -42,6 +42,18 @@ const reactSelectStyles = outerTheme => {
         borderColor: state.isFocused ? infoText : state.theme.colors.neutral30
       }
     }),
+    noOptionsMessage: (base, state) => ({
+      ...base,
+      color: outerTheme.colors.signal.warning.text,
+      cursor: 'default',
+      textAlign: 'left'
+    }),
+    loadingMessage: (base, state) => ({
+      ...base,
+      color: outerTheme.colors.signal.warning.text,
+      cursor: 'default',
+      textAlign: 'left'
+    }),
     option: (base, state) => ({
       ...base,
       backgroundColor: state.isSelected
@@ -49,6 +61,7 @@ const reactSelectStyles = outerTheme => {
         : state.isFocused
           ? paper[1]
           : paper[0],
+      cursor: 'pointer',
       ':active': {
         backgroundColor: state.isSelected
           ? paper[2]
@@ -72,6 +85,10 @@ const reactSelectStyles = outerTheme => {
         backgroundColor: outerTheme.colors.signal.danger.paper,
         cursor: 'pointer'
       }
+    }),
+    valueContainer: (base, state) => ({
+      ...base,
+      padding: `${state.theme.spacing.baseUnit / 2}px ${state.theme.spacing.baseUnit}px`
     })
   }
 }
