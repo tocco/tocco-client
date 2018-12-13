@@ -5,8 +5,8 @@ import DurationEdit from './DurationEdit'
 import {calculateMilliseconds, isNullOrUndefined, millisecondsToDuration} from '../utils'
 
 const TimeEdit = props => {
-  const hours = isNullOrUndefined(props.value) ? null : props.value.hoursOfDay
-  const minutes = isNullOrUndefined(props.value) ? null : props.value.minutesOfHour
+  const hours = isNullOrUndefined(props.value) ? '' : props.value.hourOfDay
+  const minutes = isNullOrUndefined(props.value) ? '' : props.value.minuteOfHour
 
   const handleChange = value => {
     if (props.onChange) {
@@ -34,8 +34,8 @@ const TimeEdit = props => {
 TimeEdit.propTypes = {
   onChange: PropTypes.func.isRequired,
   value: PropTypes.shape({
-    hoursOfDay: PropTypes.number,
-    minutesOfHour: PropTypes.number
+    hourOfDay: PropTypes.number,
+    minuteOfHour: PropTypes.number
   }),
   name: PropTypes.string,
   id: PropTypes.string,
