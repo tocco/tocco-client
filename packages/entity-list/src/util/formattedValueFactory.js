@@ -23,7 +23,7 @@ export const MultiSeparator = () => ', '
 
 export default (fieldDefinition, entity, intl) => {
   const {id, path} = fieldDefinition
-  const value = entity[path]
+  const value = entity[path || id]
   const contents = Array.isArray(value) ? value : [value]
 
   return contents.length > 0
