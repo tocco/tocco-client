@@ -9,6 +9,7 @@ import DropdownIndicator from './DropdownIndicator'
 import IndicatorsContainer from './IndicatorsContainer'
 import LoadingIndicator from './LoadingIndicator'
 import Menu from './Menu'
+import MenuList from './MenuList'
 import MultiValueLabel from './MultiValueLabel'
 import SingleValue from './SingleValue'
 import {reactSelectStyles, reactSelectTheme} from './StyledReactSelect'
@@ -23,14 +24,7 @@ class Select extends React.Component {
     this.state = {isOpen: false}
   }
 
-  getOptions = () => {
-    const options = [...(this.props.options || [])]
-    if (this.props.moreOptionsAvailable) {
-      const option = {display: this.props.moreOptionsAvailableText || '...', isDisabled: true}
-      options.push(option)
-    }
-    return options
-  }
+  getOptions = () => [...(this.props.options || [])]
 
   focus = () => {
     this.selectComponent.current.focus()
@@ -99,6 +93,12 @@ class Select extends React.Component {
                 />,
               IndicatorSeparator: null,
               Menu: CustomMenu,
+              MenuList: props =>
+                <MenuList
+                  moreOptionsAvailable = {this.props.moreOptionsAvailable}
+                  moreOptionsAvailableText = {this.props.moreOptionsAvailableText}
+                  {...props}
+                />,
               MultiValueLabel: CustomMultiValueLabel,
               SingleValue: CustomSingleValue
             }}
@@ -123,6 +123,7 @@ class Select extends React.Component {
             onMenuOpen={this.onMenuOpen}
             styles={reactSelectStyles(this.props.theme)}
             theme={theme => reactSelectTheme(theme, this.props.theme)}
+
           />
         </div>
       </div>
