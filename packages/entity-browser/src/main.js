@@ -108,7 +108,7 @@ const initApp = (id, input, events, publicPath) => {
       fetchMock.spy()
     }
 
-    const input = require('./dev/input.json')
+    const input = !__NO_MOCK__ ? require('./dev/input.json') : require('./dev/input-no-mock.json')
 
     const app = initApp('id', input)
     appFactory.renderApp(app.renderComponent())
