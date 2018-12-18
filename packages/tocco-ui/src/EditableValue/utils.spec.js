@@ -7,7 +7,9 @@ import {
   convertStringToNumber,
   calculateMilliseconds,
   isNullOrUndefined,
-  millisecondsToDuration
+  millisecondsToDuration,
+  stringToDuration,
+  numbersToTimeFormat
 } from './utils'
 import {getExpectedDate} from './specUtils'
 
@@ -123,6 +125,36 @@ describe('tocco-ui', () => {
         const zeroTimeObject = {hoursOfDay: 0, minutesOfHour: 0}
         test('should return time object with values zero on undefined input', () => {
           expect(millisecondsToDuration()).to.be.eql(zeroTimeObject)
+        })
+      })
+
+      describe('stringToDuration', () => {
+        const timeString = '08:45'
+        const expectedResult = {hourOfDay: 8, minuteOfHour: 45}
+        test('should return correct time object', () => {
+          expect(stringToDuration(timeString)).to.be.eql(expectedResult)
+        })
+
+        const zeroTimeObject = {hourOfDay: 0, minuteOfHour: 0}
+        test('should return time object with values zero on undefined input', () => {
+          expect(stringToDuration()).to.be.eql(zeroTimeObject)
+        })
+      })
+
+      describe('numbersToTimeFormat', () => {
+        const expectedResult = '07:30'
+        test('should return correct time object', () => {
+          expect(numbersToTimeFormat(7, 30)).to.be.eql(expectedResult)
+        })
+
+        const zeroTimeString = '00:00'
+        test('should return 00:00 on undefined input', () => {
+          expect(numbersToTimeFormat()).to.be.eql(zeroTimeString)
+        })
+
+        const hourTimeString = '06:00'
+        test('should return 06:00 on undefined minute input', () => {
+          expect(numbersToTimeFormat(6)).to.be.eql(hourTimeString)
         })
       })
     })

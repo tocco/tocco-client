@@ -100,3 +100,35 @@ export const millisecondsToDuration = milliSeconds => {
   const minutesOfHour = Math.floor((milliSeconds - (hoursOfDay * (60 * 60 * 1000))) / (60 * 1000))
   return {hoursOfDay, minutesOfHour}
 }
+
+/*
+ * Convert a timeString of type HH:MM to time number object
+ */
+export const stringToDuration = timeString => {
+  if (!timeString && timeString !== '') {
+    return {hourOfDay: 0, minuteOfHour: 0}
+  }
+  const hourOfDay = parseInt(timeString.split(':')[0])
+  const minuteOfHour = parseInt(timeString.split(':')[1])
+  return {hourOfDay, minuteOfHour}
+}
+
+/*
+ * Convert hour and minute numbers to time string of type HH:MM
+ */
+export const numbersToTimeFormat = (hours, minutes) => {
+  if (!hours && !minutes) {
+    return '00:00'
+  }
+  const hourString = hours ? hours.toString() : '00'
+  const minuteString = minutes ? minutes.toString() : '00'
+  const timeArray = [hourString, minuteString]
+  const checkArray = []
+  timeArray.forEach(item => {
+    if (item.length < 2) {
+      item = ('0' + item)
+    }
+    checkArray.push(item)
+  })
+  return checkArray.join(':')
+}

@@ -66,8 +66,8 @@ class Example extends React.Component {
         decimal: 123456.78,
         duration: 3660000,
         time: {
-          hoursOfDay: 8,
-          minutesOfHour: 33,
+          hourOfDay: 8,
+          minuteOfHour: 33,
           secondOfMinute: 24,
           millisOfSecond: 203
         },

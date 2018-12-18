@@ -56,19 +56,6 @@ describe('tocco-ui', () => {
           wrapper.find('input').at(1).simulate('input', implyTargetObject(input))
           expect(wrapper.find('input').at(1)).to.have.value('59')
         })
-
-        describe('maxValue', () => {
-          test('should fill in zero in empty field', () => {
-            const onInputSpy = sinon.spy()
-            const maxHours = {maxHours: 23}
-            const wrapper = mount(
-              <DurationEdit value={null} options={maxHours} onChange={onInputSpy}/>
-            )
-            const input = '1'
-            wrapper.find('input').first().simulate('input', implyTargetObject(input)).simulate('blur')
-            expect(wrapper.find('input').at(1)).to.have.value('0')
-          })
-        })
       })
     })
   })
