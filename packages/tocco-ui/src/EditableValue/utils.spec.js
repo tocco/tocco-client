@@ -147,9 +147,9 @@ describe('tocco-ui', () => {
           expect(numbersToTimeFormat(7, 30)).to.be.eql(expectedResult)
         })
 
-        const zeroTimeString = '00:00'
-        test('should return 00:00 on undefined input', () => {
-          expect(numbersToTimeFormat()).to.be.eql(zeroTimeString)
+        const undefinedTimeString = '--:--'
+        test('should return --:-- on undefined input', () => {
+          expect(numbersToTimeFormat()).to.be.eql(undefinedTimeString)
         })
 
         const hourTimeString = '06:00'
