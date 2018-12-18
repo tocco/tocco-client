@@ -82,7 +82,11 @@ class Select extends React.Component {
             getOptionValue={option => option.key}
             components={{
               ClearIndicator: ClearIndicator,
-              DropdownIndicator: DropdownIndicator,
+              DropdownIndicator: props =>
+                <DropdownIndicator
+                  isDisabled = {this.props.readOnly}
+                  {...props}
+                />,
               LoadingIndicator: LoadingIndicator,
               IndicatorsContainer: props =>
                 <IndicatorsContainer

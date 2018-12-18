@@ -21,7 +21,6 @@ const IndicatorsContainer = props => {
         onTouchEnd={e => e.stopPropagation()}
         onMouseDown={e => e.stopPropagation()}>
         <Button
-          disabled={!openAdvancedSearch}
           icon="search"
           look="ball"
           onClick={() => openAdvancedSearch(value)}
