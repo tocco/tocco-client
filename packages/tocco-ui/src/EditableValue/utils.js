@@ -118,17 +118,17 @@ export const stringToDuration = timeString => {
  */
 export const numbersToTimeFormat = (hours, minutes) => {
   if (!hours && !minutes) {
-    return '00:00'
+    if (hours !== 0 && minutes !== 0) {
+      return '--:--'
+    }
   }
   const hourString = hours ? hours.toString() : '00'
   const minuteString = minutes ? minutes.toString() : '00'
-  const timeArray = [hourString, minuteString]
-  const checkArray = []
-  timeArray.forEach(item => {
-    if (item.length < 2) {
-      item = ('0' + item)
-    }
-    checkArray.push(item)
-  })
-  return checkArray.join(':')
+
+  const padLeadingZeros = timeString => timeString.length < 2 ? timeString.padStart(2, '0') : timeString
+
+  const paddedHour = padLeadingZeros(hourString)
+  const paddedMinute = padLeadingZeros(minuteString)
+
+  return paddedHour + ':' + paddedMinute
 }
