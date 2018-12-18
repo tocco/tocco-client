@@ -1,33 +1,32 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import DurationEdit from './DurationEdit'
-import {calculateMilliseconds, isNullOrUndefined, millisecondsToDuration} from '../utils'
+import StyledTimeEdit from './StyledTimeEdit'
+import {stringToDuration, numbersToTimeFormat} from '../utils'
 
 const TimeEdit = props => {
-  const hours = isNullOrUndefined(props.value) ? '' : props.value.hourOfDay
-  const minutes = isNullOrUndefined(props.value) ? '' : props.value.minuteOfHour
+  const hours = props.value.hourOfDay || 0
+  const minutes = props.value.minuteOfHour || 0
 
-  const handleChange = value => {
+  const timeString = numbersToTimeFormat(hours, minutes)
+
+  const handleChange = e => {
     if (props.onChange) {
-      props.onChange(millisecondsToDuration(value))
+      props.onChange(stringToDuration(e.target.value))
     }
   }
 
-  const value = calculateMilliseconds(hours, minutes)
-
   return (
-    <DurationEdit
-      onChange={handleChange}
-      value={value}
-      name={props.name}
-      id={props.id}
-      readOnly={props.readOnly}
-      options={{
-        maxHours: 23,
-        hoursLabel: ' : '
-      }}
-    />
+    <StyledTimeEdit>
+      <input
+        type="time"
+        value={timeString}
+        onChange={handleChange}
+        name={props.name}
+        id={props.id}
+        readOnly={props.readOnly}
+      />
+    </StyledTimeEdit>
   )
 }
 
