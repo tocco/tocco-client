@@ -4,13 +4,12 @@ import PropTypes from 'prop-types'
 import Button from '../Button'
 
 const DropdownIndicator = props =>
-  props.isDisabled
-    ? null
-    : <span>
-      <Button
-        icon="chevron-down"
-        look="ball" />
-    </span>
+  !props.isDisabled
+  && <span>
+    <Button
+      icon="chevron-down"
+      look="ball" />
+  </span>
 
 DropdownIndicator.propTypes = {
   /**
