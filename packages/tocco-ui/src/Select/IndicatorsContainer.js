@@ -3,6 +3,11 @@ import {components} from 'react-select'
 
 import Button from '../Button'
 
+const handleMouseUp = (openAdvancedSearch, value) => event => {
+  openAdvancedSearch(value)
+  event.stopPropagation()
+}
+
 const IndicatorsContainer = props => {
   const {
     children,
@@ -19,11 +24,11 @@ const IndicatorsContainer = props => {
       && !readOnly
       && <span
         onTouchEnd={e => e.stopPropagation()}
-        onMouseDown={e => e.stopPropagation()}>
+        onMouseDown={e => e.stopPropagation()}
+        onMouseUp={handleMouseUp(openAdvancedSearch, value)}>
         <Button
           icon="search"
           look="ball"
-          onClick={() => openAdvancedSearch(value)}
         />
       </span>}
     </components.IndicatorsContainer>
