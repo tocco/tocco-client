@@ -80,7 +80,7 @@ const StyledButton = styled.button`
     margin: 0;
     position: relative;
     text-align: center;
-    text-transform: uppercase;
+    text-transform: ${props => props.theme.matchNiceDesign ? 'none' : 'uppercase'};
     vertical-align: middle;
     white-space: nowrap;
 
