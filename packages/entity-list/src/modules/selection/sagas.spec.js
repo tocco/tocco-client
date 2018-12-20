@@ -1,9 +1,11 @@
 import {expectSaga} from 'redux-saga-test-plan'
+import * as matchers from 'redux-saga-test-plan/matchers'
 import {externalEvents} from 'tocco-app-extensions'
 
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
 import {SET_FORM_SELECTABLE} from '../list/actions'
+import {showSelectionComponent} from '../../util/selection'
 
 import {fork, select, takeLatest, all} from 'redux-saga/effects'
 
@@ -48,6 +50,29 @@ describe('entity-list', () => {
 
               .put(actions.setSelection(expectedSelection))
               .put(externalEvents.fireExternalEvent('onSelectChange', expectedSelection))
+              .run()
+          })
+        })
+
+        describe('initialize', () => {
+          test('should initialize the selection module', () => {
+            const selectionStyle = undefined
+            const disableSelectionController = false
+            const formSelectable = true
+            const selectionMode = 'selection'
+            const showSelectCmp = true
+
+            return expectSaga(sagas.initialize)
+              .provide([
+                [select(sagas.listSelector), {formSelectable}],
+                [select(sagas.inputSelector), {selectionStyle, disableSelectionController}],
+                [select(sagas.selectionSelector), {selectionMode}],
+                [matchers.call.fn(showSelectionComponent), showSelectCmp]
+              ])
+
+              .call(showSelectionComponent, selectionStyle, disableSelectionController, formSelectable)
+              .put(actions.setShowSelectionController(showSelectCmp))
+              .call(sagas.setTableStyle, 'selection')
               .run()
           })
         })
