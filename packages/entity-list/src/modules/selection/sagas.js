@@ -38,10 +38,15 @@ export function* selectionModeSet({payload}) {
 
 export function* initialize() {
   const {formSelectable} = yield select(listSelector)
-  const {selectionStyle} = yield select(inputSelector)
+  const {selectionStyle, disableSelectionController} = yield select(inputSelector)
   const {selectionMode} = yield select(selectionSelector)
 
-  const selectionControllerVisible = yield call(showSelectionComponent, selectionStyle, formSelectable)
+  const selectionControllerVisible = yield call(
+    showSelectionComponent,
+    selectionStyle,
+    disableSelectionController,
+    formSelectable
+  )
   yield put(actions.setShowSelectionController(selectionControllerVisible))
 
   yield call(setTableStyle, selectionMode)
