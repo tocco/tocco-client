@@ -1,8 +1,35 @@
-import {combineSelection} from './selection'
+import {showSelectionComponent, combineSelection} from './selection'
+import selectionStyles from './selectionStyles'
 
 describe('entity-list', () => {
   describe('util', () => {
     describe('selection', () => {
+      describe('showSelectionComponent', () => {
+        test.each([
+          // don't show if disableSelectionController is true, show if false or undefined
+          [undefined, true, true, false],
+          [undefined, false, true, true],
+          [undefined, undefined, true, true],
+
+          // don't show if formSelectable is false, show if true or undefined
+          [undefined, false, false, false],
+          [undefined, false, true, true],
+          [undefined, false, undefined, true],
+
+          // don't show if inputSelectionStyle is SINGLE or NONE, show if MULTI or undefined
+          [selectionStyles.SINGLE, false, true, false],
+          [selectionStyles.NONE, false, true, false],
+          [selectionStyles.MULTI, false, true, true],
+          [undefined, false, true, true]
+        ])(
+          'inputSelectionStyle: %s, disableSelectionController: %s, formSelectable: %s, expectedResult: %s',
+          (inputSelectionStyle, disableSelectionController, formSelectable, expectedResult) => {
+            expect(showSelectionComponent(inputSelectionStyle, disableSelectionController, formSelectable))
+              .to.equal(expectedResult)
+          }
+        )
+      })
+
       describe('combineSelection', () => {
         test('should add the new selection', () => {
           const existingSelection = []

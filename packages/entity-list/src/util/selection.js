@@ -3,8 +3,10 @@ import _uniq from 'lodash/uniq'
 import selectionStyles from './selectionStyles'
 import selectionModes from './selectionModes'
 
-export const showSelectionComponent = (inputSelectionStyle, fromSelectable) => {
-  return (!inputSelectionStyle || inputSelectionStyle === selectionStyles.MULTI) && fromSelectable !== false
+export const showSelectionComponent = (inputSelectionStyle, disableSelectionController, formSelectable) => {
+  return disableSelectionController !== true
+    && (!inputSelectionStyle || inputSelectionStyle === selectionStyles.MULTI)
+    && formSelectable !== false
 }
 
 export const getTableSelectionStyle = (selectionMode, inputSelectionStyle, fromSelectable) => {
