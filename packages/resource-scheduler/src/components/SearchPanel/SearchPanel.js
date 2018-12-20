@@ -58,6 +58,7 @@ class SearchPanel extends React.PureComponent {
           selection={this.props.requestedCalendars ? this.props.requestedCalendars[calendarType.name] || [] : []}
           onSelectChange={this.handleSelect(calendarType.name)}
           simpleSearchFields="txtFulltext, searchFilter"
+          disableSelectionController
         />
       </Panel>
     )
