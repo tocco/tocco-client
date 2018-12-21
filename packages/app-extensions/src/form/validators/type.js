@@ -36,6 +36,6 @@ export const phoneValidator = async(value, fieldModel = {}) => {
   }))
 }
 
-export const syncValidators = [urlValidator]
+export const syncValidators = {url: urlValidator}
 
-export const asyncValidators = [phoneValidator]
+export const asyncValidators = {phone: phoneValidator}
