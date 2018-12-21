@@ -7,126 +7,148 @@ import * as helpers from './helpers'
 
 import {call} from 'redux-saga/effects'
 
-describe('toccoutil', () => {
+describe('app-extensions', () => {
   describe('rest', () => {
     describe('helpers', () => {
-      describe('fetchEntites', () => {
-        describe('buildParams', () => {
-          test('should call fetch return object of valid params', () => {
-            const options = {
-              page: 2,
-              orderBy: 'firstname',
-              limit: 20,
-              paths: ['f1', 'f2'],
-              searchInputs: {_search: 'test'}
-            }
-
-            const params = helpers.buildParams(options)
-
-            const expectedParams = {
-              _fields: null,
-              _filter: '',
-              _form: undefined,
-              _limit: 20,
-              _offset: 20,
-              _paths: 'f1,f2',
-              _relations: null,
-              _search: 'test',
-              _sort: undefined,
-              _where: undefined
-            }
-
-            expect(params).to.eql(expectedParams)
-          })
-
-          test(
-            'should set exclamation mark for fields and relations if explicitly empty',
-            () => {
-              const options = {
-                page: 2,
-                orderBy: 'firstname',
-                limit: 20,
-                fields: [],
-                relations: [],
-                searchInputs: {_search: 'test'}
-              }
-
-              const params = helpers.buildParams(options)
-
-              const expectedParams = {
-                _fields: '!',
-                _filter: '',
-                _form: undefined,
-                _limit: 20,
-                _offset: 20,
-                _paths: '',
-                _relations: '!',
-                _search: 'test',
-                _sort: undefined,
-                _where: undefined
-              }
-
-              expect(params).to.eql(expectedParams)
-            }
-          )
+      describe('buildEntityQueryObject', () => {
+        test('should return an empty object with no options', () => {
+          expect(helpers.buildEntityQueryObject()).to.eql({})
         })
 
-        describe('fetchEntity', () => {
-          test('should call fetch', async() => {
-            const params = {
-              paths: ['firstname', 'lastname'],
-              forms: 'User_detail'
-            }
-            const reponseEntity = {paths: {fistname: 'Jack'}}
+        test('should return object with valid params', () => {
+          const options = {
+            paths: ['f1', 'f2'],
+            conditions: {_search: 'test'},
+            filters: ['filter1', 'filter2']
+          }
 
-            await expectSaga(helpers.fetchEntity, 'User', '1', {...params})
-              .provide([
-                [matchers.call.fn(requestSaga), {body: reponseEntity}]
-              ])
-              .returns(reponseEntity)
-              .run()
+          const params = helpers.buildEntityQueryObject(options)
+
+          const expectedParams = {
+            paths: ['f1', 'f2'],
+            conditions: {_search: 'test'},
+            filter: ['filter1', 'filter2']
+          }
+
+          expect(params).to.eql(expectedParams)
+        })
+
+        test('should set exclamation mark for fields and relations if explicitly empty', () => {
+          const options = {
+            fields: [],
+            relations: []
+          }
+
+          const params = helpers.buildEntityQueryObject(options)
+
+          expect(params).to.eql({
+            fields: '!',
+            relations: '!'
           })
         })
 
-        describe('fetchEntities', () => {
-          test('should call fetch', () => {
-            const params = {
-              page: 2,
-              orderBy: 'firstname',
-              limit: 20,
-              paths: ['f1', 'f2'],
-              searchInputs: {_search: 'test'}
-            }
+        test('should set sort if sorting is valid', () => {
+          const options = {
+            sorting: [{field: 'firstname', order: 'desc'}]
+          }
 
-            const queryParams = {
-              _fields: null,
-              _filter: '',
-              _form: undefined,
-              _limit: 20,
-              _offset: 20,
-              _paths: 'f1,f2',
-              _relations: null,
-              _search: 'test',
-              _sort: undefined
-            }
+          const params = helpers.buildEntityQueryObject(options)
 
-            const gen = helpers.fetchEntities('User', params)
-            expect(gen.next().value).to.eql(call(helpers.buildParams, params))
-            expect(gen.next(queryParams).value).to.eql(call(requestSaga, 'entities/User', {queryParams}))
-
-            const resp = {
-              body: {}
-            }
-
-            expect(gen.next(resp).value).to.eql(call(helpers.defaultEntityTransformer, resp.body))
-
-            const transformedResponse = {}
-
-            const next = gen.next(transformedResponse)
-
-            expect(next.value).to.equal(transformedResponse) // expect same (not just equal)
-            expect(next.done).to.be.true
+          expect(params).to.eql({
+            sort: 'firstname desc'
           })
+        })
+
+        test('should not sort if oderBy is not valid', () => {
+          const options = {
+            orderBy: [{id: 'firstname'}]
+          }
+
+          const params = helpers.buildEntityQueryObject(options)
+          expect(params).to.eql({})
+        })
+
+        test('should set limit and offset accordingly', () => {
+          const options = {
+            limit: 20,
+            page: 3
+          }
+
+          const params = helpers.buildEntityQueryObject(options)
+          expect(params).to.eql({
+            limit: 20,
+            offset: 40
+          })
+        })
+      })
+
+      describe('queryObjectToUrlParams', () => {
+        test('should prepend lodash to attribute name and join arrays\'', () => {
+          const input = {
+            limit: 20,
+            offset: 40,
+            paths: ['firstname', 'lastname']
+          }
+
+          const expectedResult = {
+            _limit: 20,
+            _offset: 40,
+            _paths: 'firstname,lastname'
+
+          }
+          expect(helpers.queryObjectToUrlParams(input)).to.eql(expectedResult)
+        })
+
+        test('should attach conditions to object and let them be arrays', () => {
+          const input = {
+            limit: 10,
+            conditions: {
+              _search: 'asd',
+              firstname: ['dake', 'rott']
+            }
+          }
+
+          const expectedResult = {
+            _limit: 10,
+            _search: 'asd',
+            firstname: ['dake', 'rott']
+          }
+          expect(helpers.queryObjectToUrlParams(input)).to.eql(expectedResult)
+        })
+      })
+
+      describe('fetchEntity', () => {
+        test('should call fetch', async() => {
+          const params = {
+            paths: ['firstname', 'lastname'],
+            forms: 'User_detail'
+          }
+          const reponseEntity = {paths: {fistname: 'Jack'}}
+
+          await expectSaga(helpers.fetchEntity, 'User', '1', {...params})
+            .provide([
+              [matchers.call.fn(requestSaga), {body: reponseEntity}]
+            ])
+            .returns(reponseEntity)
+            .run()
+        })
+      })
+
+      describe('fetchEntities', () => {
+        test('should call fetch', () => {
+          const options = {
+            paths: ['firstname', 'lastname'],
+            forms: 'User_detail'
+          }
+
+          const responseEntities = [{}, {}]
+
+          return expectSaga(helpers.fetchEntities, 'User', options)
+            .provide([
+              [matchers.call.fn(requestSaga), {body: {data: responseEntities}}]
+            ])
+            .returns(responseEntities)
+            .run()
         })
       })
 

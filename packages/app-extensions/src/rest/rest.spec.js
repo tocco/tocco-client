@@ -108,7 +108,7 @@ describe('app-extensions', () => {
       test('should set content type header', () => {
         fetchMock.get('*', {})
 
-        simpleRequest('')
+        simpleRequest('', {body: {}})
 
         const headers = fetchMock.lastOptions().headers
         expect(headers.get('randomxyxc')).to.be.null
