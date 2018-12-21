@@ -1,3 +1,5 @@
+import _reduce from 'lodash/reduce'
+
 import {requestSaga} from './rest'
 
 import {call} from 'redux-saga/effects'
@@ -15,31 +17,47 @@ import {call} from 'redux-saga/effects'
  * @param transformer {function} Function to directly manipulate the result. By default returns data attribute
  */
 export function* fetchEntity(entityName, key, options, transformer = json => json) {
-  const queryParams = yield call(buildParams, options)
+  const queryParams = yield call(buildEntityQueryObject, options)
   const resp = yield call(requestSaga, `entities/${entityName}/${key}`, {queryParams})
   return yield call(transformer, resp.body)
+}
+
+/**
+ * Fetch amount of entities
+ *
+ * @param entityName {String} Name of the entity
+ * @param options {Object} see 'buildEntityQueryObject' function
+ * @param resource {String} To overwrite default endpoint entities/entityName/search
+ */
+export function* fetchEntityCount(entityName, options, resource) {
+  const queryParams = buildEntityQueryObject(options)
+  const countSuffix = '/count'
+  resource = (resource || `entities/${entityName}`) + countSuffix
+
+  const requestOptions = {method: 'POST', body: queryParams}
+  const response = yield call(requestSaga, resource, requestOptions)
+  return response.body.count
 }
 
 /**
  * Helper to fetch entities.
  *
  * @param entityName {String} Name of the entity
- * @param options {Object} An object which can contain the following options:
- * - page {Number} Current page, needed to calculate offset. Default is undefined which means no offset.
- * - limit {Object} Maximum amount of entities to be retrieved
- * - orderBy {Array} Array of objects containing a field and order String. e.g. [{field: 'firstname', order: 'asc'}]
- * - paths {Array} Paths that should be returned
- * - fields {Array} Fields that should be returned
- * - relations {String} Relations that should be returned
- * - searchFilters {Array} List of filter names to be applied
- * - searchInputs {Object} Object that can contain search field values and fulltext _search attribute
- * - formName {String} Name of the form, needed to resolve display expressions and such
- * - query {String} TQL query
+ * @param options {Object} see 'buildEntityQueryObject' function
  * @param transformer {function} Function to directly manipulate the result. By default returns data attribute
+ * @param resource {String} To overwrite default endpoint entities/entityName/search
+ * @param method {String} To overwrite default method 'POST'
  */
-export function* fetchEntities(entityName, options, transformer = defaultEntityTransformer) {
-  const queryParams = yield call(buildParams, options)
-  const resp = yield call(requestSaga, `entities/${entityName}`, {queryParams})
+export function* fetchEntities(entityName, options, transformer = defaultEntityTransformer, resource, method = 'POST') {
+  const params = yield call(buildEntityQueryObject, options)
+  resource = resource || `entities/${entityName}/search`
+
+  const requestOptions = {
+    method,
+    ...(method === 'GET' ? {queryParams: queryObjectToUrlParams(params)} : {body: params})
+  }
+
+  const resp = yield call(requestSaga, resource, requestOptions)
   return yield call(transformer, resp.body)
 }
 
@@ -85,34 +103,65 @@ export const defaultFormTransformer = json => (json.form)
 
 export const defaultEntityTransformer = json => (json.data)
 
-export function buildParams({
-  page = undefined,
-  orderBy = {},
-  limit = undefined,
-  paths = [],
-  fields = undefined,
-  relations = undefined,
-  searchFilters = [],
-  searchInputs = {},
-  formName = undefined,
-  query = undefined
+/**
+ * Helper to fetch entities.
+ *
+ * @param options {Object} An object which can contain the following options:
+ * - conditions {Object} Object that can contain search fields. Each field
+ * - fields {Array} Fields that should be returned
+ * - form {String} Name of the form, needed to resolve display expressions and such
+ * - limit {Object} Maximum amount of entities to be retrieved
+ * - search {Object} Fulltext search on entity
+ * - sorting {Array} Array of objects containing a field and order String. e.g. [{field: 'firstname', order: 'asc'}]
+ * - page {Number} Current page, needed to calculate offset. Default is undefined which means no offset.
+ * - paths {Array} Paths that should be returned
+ * - query {String} TQL query
+ * - relations {String} Relations that should be returned
+ * - filters {Array} List of filter names to be applied
+ */
+export function buildEntityQueryObject({
+  conditions,
+  fields,
+  form,
+  limit,
+  search,
+  sorting,
+  page,
+  paths,
+  query,
+  relations,
+  filters
 } = {}) {
-  const params = {
-    '_sort': Object.keys(orderBy || {}).length === 2 ? `${orderBy.name} ${orderBy.direction}` : undefined,
-    '_paths': paths.join(','),
-    '_fields': fields && fields.length === 0 ? '!' : fields ? fields.join(',') : null,
-    '_relations': relations && relations.length === 0 ? '!' : relations ? relations.join(',') : null,
-    '_form': formName,
-    '_filter': searchFilters.join(','),
-    '_where': query,
-    ...searchInputs
-  }
+  const isValidSorting = sorting =>
+    Array.isArray(sorting) && sorting.length >= 1 && sorting[0].field && sorting[0].order
 
-  if (limit) {
-    params._limit = limit
-    if (page) {
-      params._offset = (page - 1) * limit
-    }
+  return {
+    ...(conditions ? {conditions} : {}),
+    ...(Array.isArray(fields) ? {'fields': fields.length === 0 ? '!' : fields} : {}),
+    ...(form ? {form} : {}),
+    ...(limit ? {limit} : {}),
+    ...(search ? {search} : {}),
+    ...(isValidSorting(sorting) ? {'sort': `${sorting[0].field} ${sorting[0].order}`} : {}),
+    ...(page && limit ? {'offset': (page - 1) * limit} : {}),
+    ...(paths ? {paths} : {}),
+    ...(query ? {'where': query} : {}),
+    ...(Array.isArray(relations) ? {'relations': relations.length === 0 ? '!' : relations} : {}),
+    ...(filters ? {'filter': filters} : {})
   }
-  return params
+}
+
+export function queryObjectToUrlParams(queryObject) {
+  return _reduce(queryObject, (result, value, key) => {
+    let add = {}
+    if (key === 'conditions') {
+      add = {...value}
+    } else {
+      add['_' + key] = Array.isArray(value) ? value.join(',') : value
+    }
+
+    return {
+      ...result,
+      ...add
+    }
+  }, {})
 }

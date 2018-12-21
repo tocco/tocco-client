@@ -10,8 +10,10 @@ describe('tocco-util', () => {
       describe('setupEntities', () => {
         test('setup basic mocks', () => {
           const getSpy = sinon.spy()
+          const postSpy = sinon.spy()
           const fetchMockMock = {
-            get: getSpy
+            get: getSpy,
+            post: postSpy
           }
 
           const entityStore = {}
@@ -27,7 +29,7 @@ describe('tocco-util', () => {
             setupEntities(fetchMock, {User: users})
             const url = 'http://localhost:8080/nice2/rest/entities/User?_limit=5&_offset=10&_sort=firstname desc'
 
-            fetch(url).then(res => res.json())
+            fetch(url, {method: 'GET'}).then(res => res.json())
               .then(res => {
                 const records = res.data
                 const fistNameSelector = 'paths.firstname.value.value'
@@ -45,7 +47,7 @@ describe('tocco-util', () => {
           setupEntities(fetchMock, {User: users})
           const url = 'http://localhost:8080/nice2/rest/entities/User?_limit=50&_search=few'
 
-          fetch(url).then(res => res.json())
+          fetch(url, {method: 'GET'}).then(res => res.json())
             .then(res => {
               const records = res.data
               expect(records.length).to.be.lessThan(50)
@@ -58,6 +60,7 @@ describe('tocco-util', () => {
           setupEntities(fetchMock, {User: users})
           const resource = 'http://localhost:8080/nice2/rest/entities/User'
           const queryParams = {
+            method: 'GET',
             _limit: 50,
             _search: 'few'
           }

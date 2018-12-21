@@ -79,12 +79,19 @@ export function prepareRequest(resource, options = {}) {
   const {
     queryParams = {},
     method = 'GET',
-    body,
     backendUrl = `${__BACKEND_URL__}`
   } = options
 
-  const headers = {
-    'Content-Type': 'application/json'
+  let body = options.body
+  const headers = {}
+
+  if (body) {
+    if (typeof body === 'string') {
+      headers['Content-Type'] = 'text/plain'
+    } else {
+      headers['Content-Type'] = 'application/json'
+      body = JSON.stringify(body)
+    }
   }
 
   if (nullBusinessUnit) {
@@ -94,11 +101,8 @@ export function prepareRequest(resource, options = {}) {
   const fetchOptions = {
     method,
     headers: new Headers(headers),
-    credentials: 'include'
-  }
-
-  if (body) {
-    fetchOptions.body = JSON.stringify(body)
+    credentials: 'include',
+    ...(body ? {body} : {})
   }
 
   const paramString = getParameterString(queryParams)

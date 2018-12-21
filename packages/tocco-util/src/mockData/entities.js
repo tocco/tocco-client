@@ -88,8 +88,18 @@ export const setupEntities = (fetchMock, entityStore, timeout) => {
     () => ({'count': entityStore['Dummy_entity'].length})
   )
 
+  fetchMock.post(
+    new RegExp('^.*?/nice2/rest/entities/Dummy_entity/count$'),
+    () => ({'count': entityStore['Dummy_entity'].length})
+  )
+
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/entities/User/count(\\?.*)?'),
+    () => sleep(timeout).then(() => ({'count': entityStore['User'].length}))
+  )
+
+  fetchMock.post(
+    new RegExp('^.*?/nice2/rest/entities/User/count'),
     () => sleep(timeout).then(() => ({'count': entityStore['User'].length}))
   )
 
@@ -99,6 +109,11 @@ export const setupEntities = (fetchMock, entityStore, timeout) => {
   )
 
   fetchMock.get(
+    new RegExp('^.*?/nice2/rest/entities/User/[0-9]+/entitydocs(\\?.*)?'),
+    createEntitiesResponse('Dummy_entity', entityStore, timeout, evenFilter)
+  )
+
+  fetchMock.post(
     new RegExp('^.*?/nice2/rest/entities/User/[0-9]+/entitydocs(\\?.*)?'),
     createEntitiesResponse('Dummy_entity', entityStore, timeout, evenFilter)
   )
@@ -118,8 +133,18 @@ export const setupEntities = (fetchMock, entityStore, timeout) => {
     createEntitiesResponse('User', entityStore, timeout)
   )
 
+  fetchMock.post(
+    new RegExp('^.*?/nice2/rest/entities/User/search$'),
+    createEntitiesResponse('User', entityStore, timeout)
+  )
+
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/entities/Dummy_entity(\\?.*)?$'),
+    createEntitiesResponse('Dummy_entity', entityStore, timeout)
+  )
+
+  fetchMock.post(
+    new RegExp('^.*?/nice2/rest/entities/Dummy_entity/search$'),
     createEntitiesResponse('Dummy_entity', entityStore, timeout)
   )
 
@@ -160,19 +185,33 @@ const createEntityResponse = (entityName, entityStore) => {
   }
 }
 
+const extractUrlParams = url => () => {
+  return {
+    limit: parseInt(getParameterValue('_limit', url)) || 25,
+    offset: parseInt(getParameterValue('_offset', url)) || 0,
+    sort: getParameterValue('_sort', url),
+    search: getParameterValue('_search', url),
+    where: getParameterValue('_where', url)
+  }
+}
+
+const extractBodyParams = body => () => {
+  const {limit = 25, offset = 0, sort, search, where} = body
+  return {limit, offset, sort, search, where}
+}
+
 const createEntitiesResponse = (entityName, entityStore, timeout, filter) => {
   const entities = entityStore[entityName]
 
   return (url, opts) => {
-    consoleLogger.log('fetchMock: called fetch entities', url)
-    const limit = parseInt(getParameterValue('_limit', url)) || 25
-    const offset = parseInt(getParameterValue('_offset', url)) || 0
-    const orderBy = getParameterValue('_sort', url)
-    const searchTerm = getParameterValue('_search', url)
-    const query = getParameterValue('_where', url)
+    consoleLogger.log('fetchMock: called fetch entities', url, opts)
 
-    if (orderBy) {
-      const parts = orderBy.split(' ')
+    const extractFunction = opts.method === 'POST' ? extractBodyParams(JSON.parse(opts.body)) : extractUrlParams(url)
+
+    const {limit, offset, sort, search, where} = extractFunction()
+
+    if (sort) {
+      const parts = sort.split(' ')
       const fieldName = parts[0]
       const direction = parts[1]
       entities.sort((a, b) => {
@@ -189,11 +228,11 @@ const createEntitiesResponse = (entityName, entityStore, timeout, filter) => {
     const filteredEntities = filter ? entities.filter(filter) : entities
 
     let result
-    if (query) {
-      result = wrapEntitiesResponse(entityName, handleQueryResult(query, filteredEntities))
-    } else if (searchTerm === 'few') {
+    if (where) {
+      result = wrapEntitiesResponse(entityName, handleQueryResult(where, filteredEntities))
+    } else if (search === 'few') {
       result = wrapEntitiesResponse(entityName, filteredEntities.slice(0, 3))
-    } else if (searchTerm === 'none') {
+    } else if (search === 'none') {
       result = wrapEntitiesResponse(entityName, [])
     } else {
       result = wrapEntitiesResponse(entityName, filteredEntities.slice(offset, offset + limit))
