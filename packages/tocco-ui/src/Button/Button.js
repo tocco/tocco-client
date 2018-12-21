@@ -26,6 +26,7 @@ const Button = props => {
       onClick={props.onClick}
       title={props.title}
       type={props.type}
+      tabIndex={props.tabIndex}
     >
       {props.icon && !props.pending && <Icon
         dense={props.dense}
@@ -111,7 +112,12 @@ Button.propTypes = {
   /**
    * HTML Button type. Default is 'button'.
    */
-  type: PropTypes.oneOf(['button', 'submit', 'reset'])
+  type: PropTypes.oneOf(['button', 'submit', 'reset']),
+  /**
+   * Tabindex indicates if the button can be focused and if/where it participates
+   * in sequential keyboard navigation.
+   */
+  tabIndex: PropTypes.number
 }
 
 export default Button
