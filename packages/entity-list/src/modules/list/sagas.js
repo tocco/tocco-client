@@ -1,13 +1,15 @@
 import _isEmpty from 'lodash/isEmpty'
 import _join from 'lodash/join'
 import _union from 'lodash/union'
-import {externalEvents, actions as actionUtil, actionEmitter} from 'tocco-app-extensions'
+import {externalEvents, actions as actionUtil, actionEmitter, rest} from 'tocco-app-extensions'
+import _omit from 'lodash/omit'
 
+import {getFetchOptionsFromSearchForm} from '../../util/api/fetchOptions'
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
-import {getSearchInputs} from '../searchForm/sagas'
+import {getSearchFormValues} from '../searchForm/sagas'
 import {fetchForm, getSorting, getSelectable, getEndpoint, getFields} from '../../util/api/forms'
-import {fetchEntityCount, fetchEntities, entitiesListTransformer, fetchModel} from '../../util/api/entities'
+import {entitiesListTransformer, fetchModel} from '../../util/api/entities'
 import {combineSelection} from '../../util/selection'
 import selectionStyles from '../../util/selectionStyles'
 
@@ -68,16 +70,20 @@ export function* loadData(page) {
   yield put(actions.setInProgress(false))
 }
 
-export function* getBasicFetchParams() {
+export function* getBasicFetchOptions() {
   const {formBase, searchFilters: inputSearchFilters} = yield select(inputSelector)
-  const formName = `${formBase}_list`
+  const {entityModel} = yield select(listSelector)
 
-  const searchInputs = yield call(getSearchInputs)
-  searchInputs._filter = yield call(getSearchFilter, inputSearchFilters, searchInputs._filter)
+  const form = `${formBase}_list`
 
+  const searchFormValues = yield call(getSearchFormValues)
+  const searchFormFetchOptions = yield getFetchOptionsFromSearchForm(searchFormValues, entityModel)
+
+  const filters = yield call(getSearchFilter, inputSearchFilters, searchFormFetchOptions.filters)
   return {
-    searchInputs,
-    formName
+    ..._omit(searchFormFetchOptions, 'filters'),
+    filters,
+    form
   }
 }
 
@@ -89,10 +95,10 @@ export function* prepareEndpointUrl(endpoint) {
 export function* countEntities() {
   const {entityName} = yield select(inputSelector)
   const {endpoint} = yield select(listSelector)
-  const fetchParams = yield call(getBasicFetchParams)
-  const resource = endpoint ? yield call(prepareEndpointUrl, endpoint) : endpoint
+  const fetchOptions = yield call(getBasicFetchOptions)
 
-  const entityCount = yield call(fetchEntityCount, entityName, fetchParams, resource)
+  const resource = endpoint ? yield call(prepareEndpointUrl, endpoint) : endpoint
+  const entityCount = yield call(rest.fetchEntityCount, entityName, fetchOptions, resource)
   yield put(actions.setEntityCount(entityCount))
 }
 
@@ -120,18 +126,19 @@ export function* fetchEntitiesAndAddToStore(page) {
   const {entityName} = yield select(inputSelector)
   const {entityStore, sorting, limit, formDefinition, endpoint} = yield select(listSelector)
   if (!entityStore[page]) {
-    const fields = yield call(getFields, formDefinition)
-    const basicFetchParams = yield call(getBasicFetchParams)
-    const fetchParams = {
-      ...basicFetchParams,
+    const paths = yield call(getFields, formDefinition)
+    const basicFetchOptions = yield call(getBasicFetchOptions)
+
+    const fetchOptions = {
+      ...basicFetchOptions,
       page,
       sorting,
       limit,
-      fields
+      paths
     }
 
     const resource = endpoint ? yield call(prepareEndpointUrl, endpoint) : endpoint
-    const entities = yield call(fetchEntities, entityName, fetchParams, entitiesListTransformer, resource)
+    const entities = yield call(rest.fetchEntities, entityName, fetchOptions, entitiesListTransformer, resource)
     yield put(actions.addEntitiesToStore(page, entities))
   }
 }

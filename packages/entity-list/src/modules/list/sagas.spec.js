@@ -1,17 +1,12 @@
 import {expectSaga} from 'redux-saga-test-plan'
-import {actions as actionUtil, externalEvents} from 'tocco-app-extensions'
+import {actions as actionUtil, externalEvents, rest} from 'tocco-app-extensions'
 import * as matchers from 'redux-saga-test-plan/matchers'
 
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
-import {getSearchInputs} from '../searchForm/sagas'
 import rootSaga, * as sagas from './sagas'
 import {fetchForm, getSorting, getSelectable, getFields, getEndpoint} from '../../util/api/forms'
-import {
-  fetchEntityCount,
-  fetchEntities,
-  fetchModel
-} from '../../util/api/entities'
+import {fetchModel} from '../../util/api/entities'
 
 import {put, select, call, fork, spawn, takeLatest, takeEvery, all} from 'redux-saga/effects'
 
@@ -145,8 +140,8 @@ describe('entity-list', () => {
                 [select(sagas.inputSelector), input],
                 [select(sagas.listSelector), listViewState],
                 [matchers.call.fn(getFields), fields],
-                [matchers.call.fn(fetchEntities), entities],
-                [matchers.call.fn(sagas.getBasicFetchParams), {}]
+                [matchers.call.fn(rest.fetchEntities), entities],
+                [matchers.call.fn(sagas.getBasicFetchOptions), {}]
               ])
               .put(actions.addEntitiesToStore(page, entities))
               .run()
@@ -229,7 +224,7 @@ describe('entity-list', () => {
           test('should refresh current page', () => {
             const formBase = 'User'
             const entityName = 'User'
-            const searchInputs = {}
+            const fetchOptions = {}
             const entityCount = 100
             const searchFilters = []
             const endpoint = null
@@ -239,8 +234,8 @@ describe('entity-list', () => {
               .provide([
                 [select(sagas.inputSelector), {endpoint}],
                 [select(sagas.listSelector), input],
-                [matchers.call.fn(getSearchInputs), searchInputs],
-                [matchers.call.fn(fetchEntityCount), entityCount]
+                [matchers.call.fn(sagas.getBasicFetchOptions), fetchOptions],
+                [matchers.call.fn(rest.fetchEntityCount), entityCount]
               ])
               .put(actions.setEntityCount(entityCount))
               .run()
