@@ -12,15 +12,11 @@ const TimeEdit = props => {
   const timeString = numbersToTimeFormat(hours, minutes)
 
   const handleChange = e => {
-    if (props.onChange) {
-      props.onChange(stringToDuration(e.target.value))
-    }
+    props.onChange(stringToDuration(e.target.value))
   }
 
   const clearInput = () => {
-    if (props.onChange) {
-      props.onChange(null)
-    }
+    props.onChange(null)
   }
 
   return (
@@ -48,7 +44,9 @@ TimeEdit.propTypes = {
   onChange: PropTypes.func.isRequired,
   value: PropTypes.shape({
     hourOfDay: PropTypes.number,
-    minuteOfHour: PropTypes.number
+    minuteOfHour: PropTypes.number,
+    secondOfMinute: PropTypes.number,
+    millisOfSecond: PropTypes.number
   }),
   name: PropTypes.string,
   id: PropTypes.string,

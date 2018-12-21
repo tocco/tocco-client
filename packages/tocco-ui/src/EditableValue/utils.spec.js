@@ -9,7 +9,8 @@ import {
   isNullOrUndefined,
   millisecondsToDuration,
   stringToDuration,
-  numbersToTimeFormat
+  numbersToTimeFormat,
+  padLeadingZeros
 } from './utils'
 import {getExpectedDate} from './specUtils'
 
@@ -155,6 +156,13 @@ describe('tocco-ui', () => {
         const hourTimeString = '06:00'
         test('should return 06:00 on undefined minute input', () => {
           expect(numbersToTimeFormat(6)).to.be.eql(hourTimeString)
+        })
+      })
+
+      describe('padLeadingZeros', () => {
+        test('should return correct time object', () => {
+          const expectedResult = '07'
+          expect(padLeadingZeros('7', 2)).to.be.eql(expectedResult)
         })
       })
     })
