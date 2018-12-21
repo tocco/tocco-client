@@ -36,15 +36,25 @@ describe('tocco-ui', () => {
           expect(onInputSpy).to.be.calledWith(3660000)
         })
 
-        test('should call onChange with zero on invalid input', () => {
+        test('should call onChange with null on invalid input', () => {
           const onInputSpy = sinon.spy()
           const wrapper = mount(
             <DurationEdit value={0} onChange={onInputSpy}/>
           )
           const invalidInput = '..'
-          const expectedCallValue = 0
+          const expectedCallValue = null
           wrapper.find('input').first().simulate('input', implyTargetObject(invalidInput))
           expect(onInputSpy).to.be.calledWith(expectedCallValue)
+        })
+
+        test('should display 59 on sub zero minutes input', () => {
+          const onInputSpy = sinon.spy()
+          const wrapper = mount(
+            <DurationEdit value={null} onChange={onInputSpy}/>
+          )
+          const input = '-1'
+          wrapper.find('input').at(1).simulate('input', implyTargetObject(input))
+          expect(wrapper.find('input').at(1)).to.have.value('59')
         })
       })
     })

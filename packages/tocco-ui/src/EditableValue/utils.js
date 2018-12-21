@@ -70,3 +70,70 @@ export const parseLocalePlaceholder = countryCode => {
 export const convertStringToNumber = stringValue => (
   !stringValue || isNaN(stringValue) ? null : parseFloat(stringValue)
 )
+
+/*
+ * Convert two numbers as hours and minutes to milliseconds
+ */
+export const calculateMilliseconds = (hours, minutes) => {
+  if (!hours && !minutes) {
+    return null
+  }
+  const hoursMilliseconds = (hours || 0) * 60 * 60000
+  const minutesMilliseconds = (minutes || 0) * 60000
+  return hoursMilliseconds + minutesMilliseconds
+}
+
+/*
+ * Return true if the value is null or undefined
+ */
+export const isNullOrUndefined = value => value === null || value === undefined
+
+/*
+ * Return true if the value is null or undefined
+ */
+export const millisecondsToDuration = milliseconds => {
+  if (!milliseconds && milliseconds !== 0) {
+    return {hoursOfDay: 0, minutesOfHour: 0}
+  }
+
+  const hoursOfDay = Math.floor(milliseconds / (60 * 60 * 1000))
+  const minutesOfHour = Math.floor((milliseconds - (hoursOfDay * (60 * 60 * 1000))) / (60 * 1000))
+  return {hoursOfDay, minutesOfHour}
+}
+
+/*
+ * Convert a timeString of type HH:MM to time number object
+ */
+export const stringToDuration = timeString => {
+  if (!timeString && timeString !== '') {
+    return {hourOfDay: 0, minuteOfHour: 0}
+  }
+  const hourOfDay = parseInt(timeString.split(':')[0])
+  const minuteOfHour = parseInt(timeString.split(':')[1])
+  return {hourOfDay, minuteOfHour}
+}
+
+/*
+ * Pad a string with leading zeros
+ */
+export const padLeadingZeros = (string, numberOfZeros) => {
+  return string.length < numberOfZeros ? string.padStart(numberOfZeros, '0') : string
+}
+
+/*
+ * Convert hour and minute numbers to time string of type HH:MM
+ */
+export const numbersToTimeFormat = (hours, minutes) => {
+  if (!hours && !minutes) {
+    if (hours !== 0 && minutes !== 0) {
+      return '--:--'
+    }
+  }
+  const hourString = hours ? hours.toString() : '00'
+  const minuteString = minutes ? minutes.toString() : '00'
+
+  const paddedHour = padLeadingZeros(hourString, 2)
+  const paddedMinute = padLeadingZeros(minuteString, 2)
+
+  return paddedHour + ':' + paddedMinute
+}
