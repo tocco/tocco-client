@@ -31,9 +31,11 @@ export const validate = (values, entityModel) => {
   return errors
 }
 
-export const shouldUseSyncValidator = type => {
-  const syncValidators = ['url']
-  return syncValidators.includes(type)
+export const shouldUseSyncValidator = (values, type) => {
+  const syncValidators = validators.syncValidators
+  const validatorKeys = Object.keys(syncValidators)
+
+  return validatorKeys.includes(type)
 }
 
 export const syncValidateTypes = (values, entityModel, errors) => {
@@ -41,15 +43,17 @@ export const syncValidateTypes = (values, entityModel, errors) => {
     if (value) {
       if (validators) {
         const type = _get(entityModel, key + '.type')
-        if (shouldUseSyncValidator(type)) {
+        if (shouldUseSyncValidator(values, type)) {
           const syncValidators = validators.syncValidators
-          syncValidators.forEach(validator => {
-            const fieldModel = entityModel[key]
-            const validatorError = validator(value, fieldModel)
-            if (validatorError) {
-              errors = addErrors(errors, key, validatorError)
+          for (const validator in syncValidators) {
+            if (syncValidators.hasOwnProperty(validator)) {
+              const fieldModel = entityModel[key]
+              const validatorError = syncValidators[validator](value, fieldModel)
+              if (validatorError) {
+                errors = addErrors(errors, key, validatorError)
+              }
             }
-          })
+          }
         }
       }
     }

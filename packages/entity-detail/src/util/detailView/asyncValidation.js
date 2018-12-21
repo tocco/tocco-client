@@ -5,6 +5,8 @@ import _get from 'lodash/get'
 
 import modes from '../modes'
 
+const {asyncValidators} = form.validators
+
 export class AsyncValidationException {
   constructor(errors) {
     this.name = 'AsyncValidationException'
@@ -25,9 +27,9 @@ export const asyncVerify = async(values, entityModel) => {
   return errors
 }
 
-export const shouldUseAsyncValidator = type => {
-  const asyncValidators = ['phone']
-  return asyncValidators.includes(type)
+export const shouldUseAsyncValidator = (values, type) => {
+  const validatorKeys = Object.keys(asyncValidators)
+  return validatorKeys.includes(type)
 }
 
 export const asyncValidateTypes = async(values, entityModel, errors) => {
@@ -37,13 +39,11 @@ export const asyncValidateTypes = async(values, entityModel, errors) => {
       if (values[key]) {
         const type = _get(entityModel, key + '.type')
 
-        if (shouldUseAsyncValidator(type)) {
-          const asyncValidators = form.validators.asyncValidators
-
-          for (const validator of asyncValidators) {
-            if (validator) {
+        if (shouldUseAsyncValidator(values, type)) {
+          for (const validator in asyncValidators) {
+            if (asyncValidators.hasOwnProperty(validator)) {
               const fieldModel = entityModel[key]
-              const validationError = await validator(values[key], fieldModel)
+              const validationError = await asyncValidators[validator](values[key], fieldModel)
 
               if (validationError) {
                 const error = form.addErrors(errors, key, validationError)
