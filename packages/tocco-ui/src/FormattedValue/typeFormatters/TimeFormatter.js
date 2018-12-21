@@ -27,7 +27,12 @@ const TimeFormatter = props => {
 
 TimeFormatter.propTypes = {
   intl: intlShape.isRequired,
-  value: PropTypes.object.isRequired
+  value: PropTypes.shape({
+    hourOfDay: PropTypes.number,
+    minuteOfHour: PropTypes.number,
+    secondOfMinute: PropTypes.number,
+    millisOfSecond: PropTypes.number
+  }).isRequired
 }
 
 export default injectIntl(TimeFormatter)
