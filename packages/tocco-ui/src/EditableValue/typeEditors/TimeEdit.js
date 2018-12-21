@@ -33,13 +33,12 @@ const TimeEdit = props => {
         name={props.name}
         id={props.id}
         readOnly={props.readOnly}
-        tabIndex={0}
       />
       <Button
         icon="times"
         look="raised"
         onClick={clearInput}
-        tabIndex={0}
+        tabIndex={-1}
       />
     </StyledTimeEdit>
   )
