@@ -1,19 +1,17 @@
-import {form} from 'tocco-app-extensions'
+import {form, rest} from 'tocco-app-extensions'
 import _reduce from 'lodash/reduce'
 import {
   actions as formActions,
   getFormValues
 } from 'redux-form'
 import * as formActionTypes from 'redux-form/es/actionTypes'
-import _forOwn from 'lodash/forOwn'
 
 import * as actions from './actions'
 import {fetchForm, searchFormTransformer} from '../../util/api/forms'
 import {getPreselectedValues} from '../../util/searchForm'
-import {fetchEntities, searchFilterTransformer} from '../../util/api/entities'
+import {searchFilterTransformer} from '../../util/api/entities'
 import {SET_INITIALIZED as LIST_SET_INITIALIZED} from '../entityList/actions'
 import {validateSearchFields} from '../../util/searchFormValidation'
-import {getSearchInputsForRequest} from '../../util/searchInputs'
 
 import {call, put, fork, select, takeLatest, take, all} from 'redux-saga/effects'
 
@@ -111,17 +109,16 @@ export function* loadSearchFilters({payload}) {
   const {model, group} = payload
   const {searchFilter} = yield select(searchFormSelector)
   if (!searchFilter) {
-    const params = {
-      searchInputs: {
+    const options = {
+      conditions: {
         entity: model,
         ...(group ? {'relSearch_filter_group.unique_id': group} : {})
       },
       fields: ['unique_id']
     }
 
-    const json = yield call(fetchEntities, 'Search_filter', params)
-    const entities = yield call(searchFilterTransformer, json)
-    yield put(actions.setSearchFilter(entities))
+    const searchFilters = yield call(rest.fetchEntities, 'Search_filter', options, searchFilterTransformer)
+    yield put(actions.setSearchFilter(searchFilters))
   }
 
   return searchFilter
@@ -132,35 +129,21 @@ export function* resetSearch() {
   yield call(submitSearchFrom)
 }
 
-const getFilterArray = v => {
-  if (Array.isArray(v)) {
-    return v.map(e => e.uniqueId)
-  } else {
-    return [v.uniqueId]
-  }
-}
-
-export function* getSearchInputs() {
+export function* getSearchFormValues() {
   const {valuesInitialized} = yield select(searchFormSelector)
 
   if (!valuesInitialized) {
     yield take(actions.SET_VALUES_INITIALIZED)
   }
 
-  const searchInputs = yield select(searchValuesSelector)
-  const {entityModel} = yield select(entityListSelector)
+  const searchValues = yield select(searchValuesSelector)
 
-  const searchInputsRenamed = {}
-  _forOwn(searchInputs, (value, key) => {
-    if (key === 'searchFilter' && value) {
-      searchInputsRenamed._filter = getFilterArray(value)
-    } else if (key === 'txtFulltext') {
-      searchInputsRenamed._search = value
-    } else {
-      searchInputsRenamed[form.transformFieldNameBack(key)] = value
+  return _reduce(searchValues, (result, value, key) => (
+    {
+      ...result,
+      ...(!Array.isArray(value) || value.length) ? {[form.transformFieldNameBack(key)]: value} : {}
     }
-  })
-  return yield call(getSearchInputsForRequest, searchInputsRenamed, entityModel)
+  ), {})
 }
 
 export function* advancedSearchUpdate({payload: {field, ids}}) {

@@ -1,4 +1,4 @@
-import {form} from 'tocco-app-extensions'
+import {form, rest} from 'tocco-app-extensions'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {
@@ -6,18 +6,13 @@ import {
 } from 'redux-form'
 import * as formActionTypes from 'redux-form/es/actionTypes'
 
-import {
-  fetchEntities,
-  searchFilterTransformer
-} from '../../util/api/entities'
 import rootSaga, * as sagas from './sagas'
 import * as actions from './actions'
 import {validateSearchFields} from '../../util/searchFormValidation'
-import {getSearchInputsForRequest} from '../../util/searchInputs'
 import {fetchForm} from '../../util/api/forms'
 import {setInitialized} from '../entityList/actions'
 
-import {put, select, call, fork, takeLatest, all, take} from 'redux-saga/effects'
+import {put, select, call, fork, takeLatest, all} from 'redux-saga/effects'
 
 describe('entity-list', () => {
   describe('modules', () => {
@@ -117,28 +112,26 @@ describe('entity-list', () => {
           })
         })
 
-        describe('getSearchInputs saga', () => {
-          test('should get searchInputs', () => {
-            const valuesInitialized = false
-            const entityModel = {}
+        describe('getSearchFormValues saga', () => {
+          test('should return values of search form', () => {
             const searchValues = {
-              txtFulltext: 'txtFulltext',
-              searchFilter: [{uniqueId: 'filter'}]
+              relGender: '1',
+              'nameto--transform': 'test',
+              emptyArray: []
             }
 
-            const renamedSearchValues = {
-              _search: 'txtFulltext',
-              _filter: ['filter']
+            const expectedReturn = {
+              relGender: '1',
+              'nameto.transform': 'test'
             }
 
-            const gen = sagas.getSearchInputs()
-            expect(gen.next().value).to.eql(select(sagas.searchFormSelector))
-            expect(gen.next({valuesInitialized}).value).to.eql(take(actions.SET_VALUES_INITIALIZED))
-            expect(gen.next().value).to.eql(select(sagas.searchValuesSelector))
-            expect(gen.next(searchValues).value).to.eql(select(sagas.entityListSelector))
-            expect(gen.next({entityModel}).value).to.eql(
-              call(getSearchInputsForRequest, renamedSearchValues, entityModel))
-            expect(gen.next().done).to.be.true
+            return expectSaga(sagas.getSearchFormValues)
+              .provide([
+                [select(sagas.searchFormSelector), {valuesInitialized: true}],
+                [select(sagas.searchValuesSelector), searchValues]
+              ])
+              .returns(expectedReturn)
+              .run()
           })
         })
 
@@ -199,21 +192,6 @@ describe('entity-list', () => {
               }
             }
 
-            const json = {
-              data: [
-                {
-                  display: 'Filter 1',
-                  paths: {
-                    unique_id: {
-                      value: {
-                        value: 'filter1'
-                      }
-                    }
-                  }
-                }
-              ]
-            }
-
             const entities = {
               display: 'Filter 1',
               key: 'filter1'
@@ -222,8 +200,7 @@ describe('entity-list', () => {
             return expectSaga(sagas.loadSearchFilters, args)
               .provide([
                 [select(sagas.searchFormSelector), {searchForm: {}}],
-                [matchers.call.fn(fetchEntities), json],
-                [matchers.call.fn(searchFilterTransformer), entities]
+                [matchers.call.fn(rest.fetchEntities), entities]
               ])
               .put(actions.setSearchFilter(entities))
               .run()
@@ -257,21 +234,6 @@ describe('entity-list', () => {
               }
             }
 
-            const json = {
-              data: [
-                {
-                  display: 'Filter 1',
-                  paths: {
-                    unique_id: {
-                      value: {
-                        value: 'filter1'
-                      }
-                    }
-                  }
-                }
-              ]
-            }
-
             const entities = {
               display: 'Filter 1',
               key: 'filter1'
@@ -280,8 +242,7 @@ describe('entity-list', () => {
             return expectSaga(sagas.loadSearchFilters, args)
               .provide([
                 [select(sagas.searchFormSelector), {searchForm: {}}],
-                [matchers.call.fn(fetchEntities), json],
-                [matchers.call.fn(searchFilterTransformer), entities]
+                [matchers.call.fn(rest.fetchEntities), entities]
               ])
               .put(actions.setSearchFilter(entities))
               .run()
