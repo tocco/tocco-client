@@ -29,12 +29,15 @@ export function* fetchEntity(entityName, key, options, transformer = json => jso
  * @param options {Object} see 'buildEntityQueryObject' function
  * @param resource {String} To overwrite default endpoint entities/entityName/search
  */
-export function* fetchEntityCount(entityName, options, resource) {
-  const queryParams = buildEntityQueryObject(options)
-  const countSuffix = '/count'
-  resource = (resource || `entities/${entityName}`) + countSuffix
+export function* fetchEntityCount(entityName, options, resource, method = 'POST') {
+  const params = buildEntityQueryObject(options)
+  resource = (resource || `entities/${entityName}`) + '/count'
 
-  const requestOptions = {method: 'POST', body: queryParams}
+  const requestOptions = {
+    method,
+    ...(method === 'GET' ? {queryParams: queryObjectToUrlParams(params)} : {body: params})
+  }
+
   const response = yield call(requestSaga, resource, requestOptions)
   return response.body.count
 }
