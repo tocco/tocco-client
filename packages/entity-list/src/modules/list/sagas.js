@@ -98,7 +98,8 @@ export function* countEntities() {
   const fetchOptions = yield call(getBasicFetchOptions)
 
   const resource = endpoint ? yield call(prepareEndpointUrl, endpoint) : endpoint
-  const entityCount = yield call(rest.fetchEntityCount, entityName, fetchOptions, resource)
+  const method = endpoint ? 'GET' : 'POST'
+  const entityCount = yield call(rest.fetchEntityCount, entityName, fetchOptions, resource, method)
   yield put(actions.setEntityCount(entityCount))
 }
 
@@ -137,7 +138,8 @@ export function* fetchEntitiesAndAddToStore(page) {
     }
 
     const resource = endpoint ? yield call(prepareEndpointUrl, endpoint) : endpoint
-    const entities = yield call(rest.fetchEntities, entityName, fetchOptions, entitiesListTransformer, resource)
+    const method = endpoint ? 'GET' : 'POST'
+    const entities = yield call(rest.fetchEntities, entityName, fetchOptions, entitiesListTransformer, resource, method)
     yield put(actions.addEntitiesToStore(page, entities))
   }
 }
