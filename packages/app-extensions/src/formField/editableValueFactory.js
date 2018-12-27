@@ -43,11 +43,11 @@ const getOptions = (type, formField, modelField, utils) => {
       options.fetchOptions = () => utils.loadRelationEntities(formField.id, modelField.targetEntity, {
         forceReload: true,
         limit: settings.REMOTE_SUGGESTION_LIMIT,
-        orderBy: {name: settings.REMOTE_SUGGESTION_ORDER_FIELD, direction: 'desc'},
+        sorting: [{field: settings.REMOTE_SUGGESTION_ORDER_FIELD, order: 'desc'}],
         formBase: formField.formBase
       })
-      options.searchOptions = searchTerm => utils.loadRelationEntities(formField.id, modelField.targetEntity, {
-        searchTerm,
+      options.searchOptions = search => utils.loadRelationEntities(formField.id, modelField.targetEntity, {
+        search,
         limit: settings.REMOTE_SEARCH_RESULT_LIMIT,
         forceReload: true,
         formBase: formField.formBase

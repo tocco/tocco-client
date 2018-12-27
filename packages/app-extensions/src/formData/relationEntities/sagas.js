@@ -14,7 +14,7 @@ export function* loadRelationEntity({payload: {fieldName, entityName, options = 
   if (!dataLoaded(fieldData) || options.forceReload) {
     yield put(relationEntitiesActions.setRelationEntityLoading(fieldName))
     const fetchParams = yield call(getFetchParams, options)
-    const entities = yield call(rest.fetchEntities, entityName, fetchParams, selectEntitiesTransformer)
+    const entities = yield call(rest.fetchEntities, entityName, fetchParams, selectEntitiesTransformer, null, 'GET')
     const moreEntitiesAvailable = options.limit ? entities.length > options.limit : false
     yield put(
       relationEntitiesActions.setRelationEntities(
@@ -30,9 +30,9 @@ const dataLoaded = fieldData => !!(fieldData && fieldData.data && fieldData.data
 export const getFetchParams = options => (
   {
     ...(options.limit ? {limit: options.limit + 1} : {}),
-    ...(options.searchTerm ? {searchInputs: {_search: options.searchTerm}} : {}),
-    ...(options.orderBy ? {orderBy: options.orderBy} : {}),
-    ...(options.formBase ? {formName: `${options.formBase}_list`} : {}),
+    ...(options.searchTerm ? {search: options.searchTerm} : {}),
+    ...(options.sorting ? {sorting: options.sorting} : {}),
+    ...(options.formBase ? {form: `${options.formBase}_list`} : {}),
     fields: [],
     relations: []
   }
