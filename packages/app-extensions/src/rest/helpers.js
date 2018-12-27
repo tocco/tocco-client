@@ -50,7 +50,7 @@ export function* fetchEntityCount(entityName, options, resource) {
  */
 export function* fetchEntities(entityName, options, transformer = defaultEntityTransformer, resource, method = 'POST') {
   const params = yield call(buildEntityQueryObject, options)
-  resource = resource || `entities/${entityName}/search`
+  resource = resource || `entities/${entityName}${method === 'POST' ? '/search' : ''}`
 
   const requestOptions = {
     method,
