@@ -1,4 +1,5 @@
 import {rest} from 'tocco-app-extensions'
+import {mockData} from 'tocco-util'
 
 import * as forms from './forms'
 
@@ -293,6 +294,24 @@ describe('entity-list', () => {
           test('should return null if endpoint is empty', () => {
             const result = forms.getEndpoint(getFormDefinition(''))
             expect(result).to.be.null
+          })
+        })
+        describe('getFields', () => {
+          test('should return array of all fields but none more than once', () => {
+            const expectedResult = {
+              txtFulltext: 'fulltext-search',
+              searchFilter: 'search-filter',
+              'relAddress_user.relAddress': 'string',
+              relSingle_entity2: 'single-select-box',
+              relMulti_entity2: 'multi-select-box',
+              birthdate: 'range',
+              user_nr: 'range',
+              relChildren: 'multi-remote-field',
+              'relSingle_entity1.relUser': 'string'
+            }
+
+            const result = forms.getFormFieldFlat(mockData.data.userSearchForm.form)
+            expect(result).to.eql(expectedResult)
           })
         })
       })

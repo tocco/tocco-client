@@ -59,3 +59,20 @@ export const getFields = formDefinition => {
 
   return _uniq(fields)
 }
+
+export const getFormFieldFlat = formDefinition => {
+  return searchChildren(formDefinition)
+}
+
+const searchChildren = node => {
+  if (node.componentType === 'field-set') {
+    return node.children.reduce((acc, value) => ({...acc, [value.id]: value.dataType}), {})
+  } else {
+    if (node.children) {
+      return node.children.reduce((acc, value) => ({
+        ...acc,
+        ...searchChildren(value)
+      }), {})
+    }
+  }
+}
