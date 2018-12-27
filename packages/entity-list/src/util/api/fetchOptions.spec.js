@@ -111,6 +111,26 @@ describe('entity-list', () => {
 
             expect(result).to.deep.eql(expectedResult)
           })
+
+          test('should handle fields that are not in form', () => {
+            const searchFormValues = {
+              relUser: {key: '1'},
+              someString: 'TEST'
+            }
+
+            const formFields = {}
+
+            const expectedResult = {
+              conditions: {
+                'relUser.pk': {value: '1'},
+                'someString': {value: 'TEST'}
+              }
+            }
+
+            const result = getFetchOptionsFromSearchForm(searchFormValues, formFields)
+
+            expect(result).to.deep.eql(expectedResult)
+          })
         })
       })
     })
