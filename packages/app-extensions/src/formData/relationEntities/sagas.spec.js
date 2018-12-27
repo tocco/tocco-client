@@ -96,7 +96,7 @@ describe('app-extensions', () => {
               const fieldData = {}
               const fieldName = 'relUser'
               const entities = [{display: 'User1', key: 1}]
-              const options = {limit: 5, searchTerm: 'Tes', orderBy: {name: 'update_timestamp', direction: 'desc'}}
+              const options = {limit: 5, searchTerm: 'Tes', sorting: [{name: 'update_timestamp', direction: 'desc'}]}
 
               return expectSaga(
                 sagas.loadRelationEntity, relationEntitiesActions.loadRelationEntities(fieldName, 'User', options)
@@ -111,11 +111,9 @@ describe('app-extensions', () => {
                   const expectedFetchParams = {
                     fields: [],
                     limit: options.limit + 1,
-                    orderBy: options.orderBy,
+                    sorting: options.sorting,
                     relations: [],
-                    searchInputs: {
-                      _search: options.searchTerm
-                    }
+                    search: options.searchTerm
                   }
 
                   const paramArg = asEffect.call(effects.call[1]).args[1]
@@ -130,7 +128,7 @@ describe('app-extensions', () => {
               }
               const result = sagas.getFetchParams(options)
               const expectedFetchParams = {
-                formName: `${options.formBase}_list`,
+                form: `${options.formBase}_list`,
                 fields: [],
                 relations: []
               }
