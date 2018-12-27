@@ -1,4 +1,5 @@
 import _reduce from 'lodash/reduce'
+import _isObject from 'lodash/isObject'
 
 const getFilterArray = v =>
   Array.isArray(v) ? v.map(e => e.uniqueId) : [v.uniqueId]
@@ -12,6 +13,13 @@ const transformSearchValue = (value, key, formFields) => {
     }
 
     if (fieldType === 'single-select-box' || fieldType === 'single-remote-field') {
+      return {[`${key}.pk`]: {value: value.key}}
+    }
+  } else {
+    // Fallback for fields that are not in the search form (parent and preselectedSearchFields)
+    if (Array.isArray(value)) {
+      return {[`${key}.pk`]: value.map(v => ({value: v.key}))}
+    } else if (_isObject(value)) {
       return {[`${key}.pk`]: {value: value.key}}
     }
   }
