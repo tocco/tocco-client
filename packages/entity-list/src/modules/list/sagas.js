@@ -1,5 +1,4 @@
 import _isEmpty from 'lodash/isEmpty'
-import _join from 'lodash/join'
 import _union from 'lodash/union'
 import {externalEvents, actions as actionUtil, actionEmitter, rest} from 'tocco-app-extensions'
 import _omit from 'lodash/omit'
@@ -18,6 +17,7 @@ import {call, put, fork, select, spawn, takeEvery, takeLatest, all} from 'redux-
 export const inputSelector = state => state.input
 export const entityListSelector = state => state.entityList
 export const listSelector = state => state.list
+export const searchFormSelector = state => state.searchForm
 
 export default function* sagas() {
   yield all([
@@ -72,12 +72,12 @@ export function* loadData(page) {
 
 export function* getBasicFetchOptions() {
   const {formBase, searchFilters: inputSearchFilters} = yield select(inputSelector)
-  const {entityModel} = yield select(listSelector)
+  const {formFieldsFlat} = yield select(searchFormSelector)
 
   const form = `${formBase}_list`
 
   const searchFormValues = yield call(getSearchFormValues)
-  const searchFormFetchOptions = yield getFetchOptionsFromSearchForm(searchFormValues, entityModel)
+  const searchFormFetchOptions = yield call(getFetchOptionsFromSearchForm, searchFormValues, formFieldsFlat)
 
   const filters = yield call(getSearchFilter, inputSearchFilters, searchFormFetchOptions.filters)
   return {
@@ -118,8 +118,7 @@ export function* setSorting() {
 }
 
 export function* getSearchFilter(inputSearchFilters, searchInputsFilters) {
-  const filters = yield call(_union, inputSearchFilters, searchInputsFilters)
-  return yield call(_join, filters, ',')
+  return yield call(_union, inputSearchFilters, searchInputsFilters)
 }
 
 export function* fetchEntitiesAndAddToStore(page) {

@@ -85,33 +85,29 @@ describe('entity-list', () => {
 
           test('should set relation types in condition object with pk', () => {
             const searchFormValues = {
+              relGenderSingle: {key: '1'},
               relGenderMulti: [{key: '1'}, {key: '2'}],
-              relGenderSingle: {key: '1'}
+              relUser: {key: '100'},
+              relUsers: [{key: '99'}]
             }
 
-            const model = {
-              relGenderMulti: {
-                type: 'relation',
-                multi: true
-              },
-              relGenderSingle: {
-                type: 'relation',
-                multi: false
-              }
+            const formFields = {
+              relGenderMulti: 'multi-select-box',
+              relUsers: 'multi-remote-field',
+              relGenderSingle: 'single-select-box',
+              relUser: 'single-remote-field'
             }
 
             const expectedResult = {
               conditions: {
-                'relGenderMulti.pk': [
-                  {value: '1'},
-                  {value: '2'}
-                ],
-                'relGenderSingle.pk':
-                  {value: '1'}
+                'relGenderMulti.pk': [{value: '1'}, {value: '2'}],
+                'relGenderSingle.pk': {value: '1'},
+                'relUsers.pk': [{value: '99'}],
+                'relUser.pk': {value: '100'}
               }
             }
 
-            const result = getFetchOptionsFromSearchForm(searchFormValues, model)
+            const result = getFetchOptionsFromSearchForm(searchFormValues, formFields)
 
             expect(result).to.deep.eql(expectedResult)
           })

@@ -152,7 +152,7 @@ describe('entity-list', () => {
           test('should return a string with unique values separated by comma', () => {
             const inputFilers = ['filter1', 'filter2']
             const searchFilter = ['filter1', 'filter3']
-            const expectedReturnValue = 'filter1,filter2,filter3'
+            const expectedReturnValue = ['filter1', 'filter2', 'filter3']
 
             return expectSaga(sagas.getSearchFilter, inputFilers, searchFilter)
               .returns(expectedReturnValue)

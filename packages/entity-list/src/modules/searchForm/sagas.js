@@ -7,7 +7,7 @@ import {
 import * as formActionTypes from 'redux-form/es/actionTypes'
 
 import * as actions from './actions'
-import {fetchForm, searchFormTransformer} from '../../util/api/forms'
+import {fetchForm, searchFormTransformer, getFormFieldFlat} from '../../util/api/forms'
 import {getPreselectedValues} from '../../util/searchForm'
 import {searchFilterTransformer} from '../../util/api/entities'
 import {SET_INITIALIZED as LIST_SET_INITIALIZED} from '../entityList/actions'
@@ -88,6 +88,7 @@ export function* loadSearchForm(searchFormName) {
   const formDefinition = yield call(fetchForm, searchFormName, searchFormTransformer)
   if (formDefinition) {
     yield put(actions.setFormDefinition(formDefinition))
+    yield put(actions.setFormFieldsFlat(getFormFieldFlat(formDefinition)))
   } else {
     yield put(actions.setShowFullTextSearchForm(true))
   }
@@ -117,7 +118,7 @@ export function* loadSearchFilters({payload}) {
       fields: ['unique_id']
     }
 
-    const searchFilters = yield call(rest.fetchEntities, 'Search_filter', options, searchFilterTransformer)
+    const searchFilters = yield call(rest.fetchEntities, 'Search_filter', options, searchFilterTransformer, null, 'GET')
     yield put(actions.setSearchFilter(searchFilters))
   }
 

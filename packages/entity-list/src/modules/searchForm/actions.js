@@ -14,6 +14,7 @@ export const SUBMIT_SEARCH_FORM = 'searchForm/SUBMIT_SEARCH_FORM'
 export const SET_VALUES_INITIALIZED = 'searchForm/SET_VALUES_INITIALIZED'
 export const ADVANCED_SEARCH_UPDATE = 'searchForm/ADVANCED_SEARCH_UPDATE'
 export const SET_SHOW_FULL_TEXT_SEARCH_FORM = 'searchForm/SET_SHOW_FULL_TEXT_SEARCH_FORM'
+export const SET_FORM_FIELDS_FLAT = 'searchForm/SET_FORM_FIELDS_FLAT'
 
 export const setInitialized = (initialized = true) => ({
   type: SET_INITIALIZED,
@@ -110,5 +111,12 @@ export const setShowFullTextSearchForm = showFullTextSearchForm => ({
   type: SET_SHOW_FULL_TEXT_SEARCH_FORM,
   payload: {
     showFullTextSearchForm
+  }
+})
+
+export const setFormFieldsFlat = formFieldsFlat => ({
+  type: SET_FORM_FIELDS_FLAT,
+  payload: {
+    formFieldsFlat
   }
 })
