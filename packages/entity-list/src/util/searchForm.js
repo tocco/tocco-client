@@ -10,17 +10,16 @@ export function* getPreselectedValues(preselectedSearchFields, entityModel, load
     const fieldName = preselectedSearchField.id
     const value = preselectedSearchField.value
 
-    let transformedValue
+    let transformedValue = value
+
     if (entityModel[fieldName] && entityModel[fieldName].type === 'relation') {
-      let entities = []
       if (!preselectedSearchField.hidden && searchFormVisible) {
         const targetEntity = entityModel[fieldName].targetEntity
         const query = `IN(pk,${_join(value, ',')})`
-        entities = yield call(rest.fetchEntities, targetEntity, {query, fields: ['pk']})
+        transformedValue = yield call(rest.fetchEntities, targetEntity, {query, fields: ['pk']})
+      } else {
+        transformedValue = Array.isArray(value) ? value.map(v => ({key: v})) : {key: value}
       }
-      transformedValue = entities
-    } else {
-      transformedValue = value
     }
 
     formValues[fieldName] = transformedValue
