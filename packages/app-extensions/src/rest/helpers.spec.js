@@ -152,6 +152,24 @@ describe('app-extensions', () => {
         })
       })
 
+      describe('fetchEntityCount', () => {
+        test('should call fetch', () => {
+          const options = {
+            paths: ['firstname', 'lastname'],
+            forms: 'User_detail'
+          }
+
+          const responseCount = {count: 1}
+
+          return expectSaga(helpers.fetchEntityCount, 'User', options)
+            .provide([
+              [matchers.call.fn(requestSaga), {body: responseCount}]
+            ])
+            .returns(responseCount.count)
+            .run()
+        })
+      })
+
       describe('fetchForm', () => {
         const formName = 'User_detail'
         const resp = {body: {form: {}}}
