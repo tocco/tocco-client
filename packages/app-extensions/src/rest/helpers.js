@@ -27,11 +27,11 @@ export function* fetchEntity(entityName, key, options, transformer = json => jso
  *
  * @param entityName {String} Name of the entity
  * @param options {Object} see 'buildEntityQueryObject' function
- * @param resource {String} To overwrite default endpoint entities/entityName/search
+ * @param endpoint {String} To overwrite default endpoint entities/entityName/search
  */
-export function* fetchEntityCount(entityName, options, resource, method = 'POST') {
+export function* fetchEntityCount(entityName, options, endpoint, method = 'POST') {
   const params = buildEntityQueryObject(options)
-  resource = (resource || `entities/${entityName}`) + '/count'
+  const resource = (endpoint || `entities/${entityName}`) + '/count'
 
   const requestOptions = {
     method,
@@ -48,12 +48,12 @@ export function* fetchEntityCount(entityName, options, resource, method = 'POST'
  * @param entityName {String} Name of the entity
  * @param options {Object} see 'buildEntityQueryObject' function
  * @param transformer {function} Function to directly manipulate the result. By default returns data attribute
- * @param resource {String} To overwrite default endpoint entities/entityName/search
- * @param method {String} To overwrite default method 'POST'
+ * @param endpoint {String} To overwrite default endpoint entities/entityName/search
+ * @param method {String} To overwrite default http method 'POST'
  */
-export function* fetchEntities(entityName, options, transformer = defaultEntityTransformer, resource, method = 'POST') {
+export function* fetchEntities(entityName, options, transformer = defaultEntityTransformer, endpoint, method = 'POST') {
   const params = yield call(buildEntityQueryObject, options)
-  resource = resource || `entities/${entityName}${method === 'POST' ? '/search' : ''}`
+  const resource = endpoint || `entities/${entityName}${method === 'POST' ? '/search' : ''}`
 
   const requestOptions = {
     method,
@@ -106,8 +106,12 @@ export const defaultFormTransformer = json => (json.form)
 
 export const defaultEntityTransformer = json => (json.data)
 
+const isValidSorting = sorting =>
+  Array.isArray(sorting) && sorting.length >= 1 && sorting[0].field && sorting[0].order
+
 /**
- * Helper to fetch entities.
+ * Function that converts options in a certain format into query object that gets attached to any request.
+ * Some options get converted or calculated and other removed if there are undefined.
  *
  * @param options {Object} An object which can contain the following options:
  * - conditions {Object} Object that can contain search fields. Each field
@@ -122,7 +126,7 @@ export const defaultEntityTransformer = json => (json.data)
  * - relations {String} Relations that should be returned
  * - filters {Array} List of filter names to be applied
  */
-export function buildEntityQueryObject({
+export const buildEntityQueryObject = ({
   conditions,
   fields,
   form,
@@ -134,11 +138,8 @@ export function buildEntityQueryObject({
   query,
   relations,
   filters
-} = {}) {
-  const isValidSorting = sorting =>
-    Array.isArray(sorting) && sorting.length >= 1 && sorting[0].field && sorting[0].order
-
-  return {
+} = {}) => (
+  {
     ...(conditions ? {conditions} : {}),
     ...(Array.isArray(fields) ? {'fields': fields.length === 0 ? '!' : fields} : {}),
     ...(form ? {form} : {}),
@@ -151,10 +152,10 @@ export function buildEntityQueryObject({
     ...(Array.isArray(relations) ? {'relations': relations.length === 0 ? '!' : relations} : {}),
     ...(filters ? {'filter': filters} : {})
   }
-}
+)
 
-export function queryObjectToUrlParams(queryObject) {
-  return _reduce(queryObject, (result, value, key) => {
+export const queryObjectToUrlParams = queryObject => (
+  _reduce(queryObject, (result, value, key) => {
     let add = {}
     if (key === 'conditions') {
       add = {...value}
@@ -167,4 +168,4 @@ export function queryObjectToUrlParams(queryObject) {
       ...add
     }
   }, {})
-}
+)
