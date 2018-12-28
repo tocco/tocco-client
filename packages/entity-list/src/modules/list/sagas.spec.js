@@ -7,6 +7,7 @@ import * as searchFormActions from '../searchForm/actions'
 import rootSaga, * as sagas from './sagas'
 import {fetchForm, getSorting, getSelectable, getFields, getEndpoint} from '../../util/api/forms'
 import {fetchModel} from '../../util/api/entities'
+import {getSearchFormValues} from '../searchForm/sagas'
 
 import {put, select, call, fork, spawn, takeLatest, takeEvery, all} from 'redux-saga/effects'
 
@@ -387,6 +388,42 @@ describe('entity-list', () => {
                 [select(sagas.inputSelector), input]
               ])
               .returns(endpoint)
+              .run()
+          })
+        })
+
+        describe('getBasicFetchOptions', () => {
+          test('should return an object with correct attributes', () => {
+            const input = {formBase: 'User', searchFilters: ['filter1', 'filter2']}
+            const searchForm = {
+              formFieldsFlat: {
+                'relGender': 'single-remote-field'
+              }
+            }
+            const searchFormValues = {
+              relParent: {key: '1'},
+              relGender: {key: '3'},
+              txtFulltext: 'full',
+              searchFilter: [{uniqueId: 'filter2'}, {uniqueId: 'filter3'}]
+            }
+
+            const expectedResult = {
+              filters: ['filter1', 'filter2', 'filter3'],
+              form: 'User_list',
+              search: 'full',
+              conditions: {
+                'relParent.pk': {value: '1'},
+                'relGender.pk': {value: '3'}
+              }
+            }
+
+            return expectSaga(sagas.getBasicFetchOptions)
+              .provide([
+                [select(sagas.inputSelector), input],
+                [select(sagas.searchFormSelector), searchForm],
+                [matchers.call.fn(getSearchFormValues), searchFormValues]
+              ])
+              .returns(expectedResult)
               .run()
           })
         })
