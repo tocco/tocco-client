@@ -8,6 +8,7 @@ import TextEdit from './typeEditors/TextEdit'
 import DateEdit from './typeEditors/DateEdit'
 import DateRangeEdit from './typeEditors/DateRangeEdit'
 import DateTimeEdit from './typeEditors/DateTimeEdit'
+import TimeEdit from './typeEditors/TimeEdit'
 import BoolEdit from './typeEditors/BoolEdit'
 import Document from './typeEditors/Document'
 import HtmlEdit from './typeEditors/HtmlEdit'
@@ -63,7 +64,8 @@ export const map = {
   'text': TextEdit,
   'url': UrlEdit,
   'uuid': StringEdit,
-  'version': NumberEdit
+  'version': NumberEdit,
+  'time': TimeEdit
 }
 
 export default (type, value, onChange, options, id, events, readOnly = false) => {
