@@ -92,6 +92,7 @@ const getOptions = (type, formField, modelField, utils) => {
       }
       break
     case 'number':
+    case 'decimal':
     case 'moneyamount':
       if (utils.intl) {
         options.intl = utils.intl
