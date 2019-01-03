@@ -99,7 +99,7 @@ export const setupEntities = (fetchMock, entityStore, timeout) => {
   )
 
   fetchMock.post(
-    new RegExp('^.*?/nice2/rest/entities/User/count'),
+    new RegExp('^.*?/nice2/rest/entities/User/count$'),
     () => sleep(timeout).then(() => ({'count': entityStore['User'].length}))
   )
 
@@ -185,15 +185,15 @@ const createEntityResponse = (entityName, entityStore) => {
   }
 }
 
-const extractUrlParams = url => () => {
-  return {
+const extractUrlParams = url => () => (
+  {
     limit: parseInt(getParameterValue('_limit', url)) || 25,
     offset: parseInt(getParameterValue('_offset', url)) || 0,
     sort: getParameterValue('_sort', url),
     search: getParameterValue('_search', url),
     where: getParameterValue('_where', url)
   }
-}
+)
 
 const extractBodyParams = body => () => {
   const {limit = 25, offset = 0, sort, search, where} = body
