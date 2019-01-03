@@ -16,6 +16,10 @@ const objectTransformFallback = (value, key) => {
 }
 
 const transformSearchValue = (value, key, formFields) => {
+  if (value === null || value === undefined) {
+    return {}
+  }
+
   const fieldType = formFields[key]
   if (fieldType) {
     if (fieldType === 'multi-select-box' || fieldType === 'multi-remote-field') {
@@ -34,8 +38,8 @@ const transformSearchValue = (value, key, formFields) => {
   return {[key]: {value}}
 }
 
-export const getFetchOptionsFromSearchForm = (searchFormValues, formFields = {}) => {
-  return _reduce(searchFormValues, (result, value, key) => {
+export const getFetchOptionsFromSearchForm = (searchFormValues, formFields = {}) => (
+  _reduce(searchFormValues, (result, value, key) => {
     const addition = {}
     if (key === 'searchFilter') {
       addition.filters = getFilterArray(value)
@@ -50,4 +54,4 @@ export const getFetchOptionsFromSearchForm = (searchFormValues, formFields = {})
 
     return {...result, ...addition}
   }, {})
-}
+)

@@ -9,15 +9,11 @@ import {call} from 'redux-saga/effects'
  *
  * @param entityName {String} Name of the entity
  * @param key {String} key of the entity
- * @param options {Object} An object which can contain the following options:
- * - paths {Array} Paths that should be returned
- * - fields {Array} Fields that should be returned
- * - relations {String} Relations that should be returned
- * - formName {String} Name of the form, needed to resolve display expressions and such
+ * @param query {Object} see 'buildEntityQueryObject' function
  * @param transformer {function} Function to directly manipulate the result. By default returns data attribute
  */
-export function* fetchEntity(entityName, key, options, transformer = json => json) {
-  const queryParams = yield call(buildEntityQueryObject, options)
+export function* fetchEntity(entityName, key, query, transformer = json => json) {
+  const queryParams = yield call(buildRequestQuery, query)
   const resp = yield call(requestSaga, `entities/${entityName}/${key}`, {queryParams})
   return yield call(transformer, resp.body)
 }
@@ -26,19 +22,28 @@ export function* fetchEntity(entityName, key, options, transformer = json => jso
  * Fetch amount of entities
  *
  * @param entityName {String} Name of the entity
- * @param options {Object} see 'buildEntityQueryObject' function
- * @param endpoint {String} To overwrite default endpoint entities/entityName/search
+ * @param query {Object} see 'buildEntityQueryObject' function
+ * @param requestOptions {Object} An object which can contain the following options:
+ * - method {String} HTTP Method of request. Default is POST
+ * - endpoint {String} To overwrite default endpoint entities/{entityName}/count
  */
-export function* fetchEntityCount(entityName, options, endpoint, method = 'POST') {
-  const params = buildEntityQueryObject(options)
+export function* fetchEntityCount(
+  entityName,
+  query,
+  {
+    method = 'POST',
+    endpoint
+  } = {}
+) {
+  const requestQuery = yield call(buildRequestQuery, query)
   const resource = (endpoint || `entities/${entityName}`) + '/count'
 
-  const requestOptions = {
+  const options = {
     method,
-    ...(method === 'GET' ? {queryParams: queryObjectToUrlParams(params)} : {body: params})
+    ...(method === 'GET' ? {queryParams: requestQueryToUrlParams(requestQuery)} : {body: requestQuery})
   }
 
-  const response = yield call(requestSaga, resource, requestOptions)
+  const response = yield call(requestSaga, resource, options)
   return response.body.count
 }
 
@@ -46,21 +51,30 @@ export function* fetchEntityCount(entityName, options, endpoint, method = 'POST'
  * Helper to fetch entities.
  *
  * @param entityName {String} Name of the entity
- * @param options {Object} see 'buildEntityQueryObject' function
+ * @param query {Object} see 'buildEntityQueryObject' function
+ * @param requestOptions {Object} An object which can contain the following options:
+ * - method {String} HTTP Method of request. Default is POST
+ * - endpoint {String} To overwrite default endpoint entities/{entityName}/search
  * @param transformer {function} Function to directly manipulate the result. By default returns data attribute
- * @param endpoint {String} To overwrite default endpoint entities/entityName/search
- * @param method {String} To overwrite default http method 'POST'
  */
-export function* fetchEntities(entityName, options, transformer = defaultEntityTransformer, endpoint, method = 'POST') {
-  const params = yield call(buildEntityQueryObject, options)
+export function* fetchEntities(
+  entityName,
+  query,
+  {
+    method = 'POST',
+    endpoint
+  } = {},
+  transformer = defaultEntityTransformer
+) {
+  const requestQuery = yield call(buildRequestQuery, query)
   const resource = endpoint || `entities/${entityName}${method === 'POST' ? '/search' : ''}`
 
-  const requestOptions = {
+  const options = {
     method,
-    ...(method === 'GET' ? {queryParams: queryObjectToUrlParams(params)} : {body: params})
+    ...(method === 'GET' ? {queryParams: requestQueryToUrlParams(requestQuery)} : {body: requestQuery})
   }
 
-  const resp = yield call(requestSaga, resource, requestOptions)
+  const resp = yield call(requestSaga, resource, options)
   return yield call(transformer, resp.body)
 }
 
@@ -110,7 +124,7 @@ const isValidSorting = sorting =>
   Array.isArray(sorting) && sorting.length >= 1 && sorting[0].field && sorting[0].order
 
 /**
- * Function that converts options in a certain format into query object that gets attached to any request.
+ * Function that converts a query object into request query object that can be attached to a request.
  * Some options get converted or calculated and other removed if there are undefined.
  *
  * @param options {Object} An object which can contain the following options:
@@ -122,11 +136,11 @@ const isValidSorting = sorting =>
  * - sorting {Array} Array of objects containing a field and order String. e.g. [{field: 'firstname', order: 'asc'}]
  * - page {Number} Current page, needed to calculate offset. Default is undefined which means no offset.
  * - paths {Array} Paths that should be returned
- * - query {String} TQL query
+ * - tql {String} TQL query
  * - relations {String} Relations that should be returned
  * - filters {Array} List of filter names to be applied
  */
-export const buildEntityQueryObject = ({
+export const buildRequestQuery = ({
   conditions,
   fields,
   form,
@@ -135,7 +149,7 @@ export const buildEntityQueryObject = ({
   sorting,
   page,
   paths,
-  query,
+  tql,
   relations,
   filters
 } = {}) => (
@@ -148,13 +162,13 @@ export const buildEntityQueryObject = ({
     ...(isValidSorting(sorting) ? {'sort': `${sorting[0].field} ${sorting[0].order}`} : {}),
     ...(page && limit ? {'offset': (page - 1) * limit} : {}),
     ...(paths ? {paths} : {}),
-    ...(query ? {'where': query} : {}),
+    ...(tql ? {'where': tql} : {}),
     ...(Array.isArray(relations) ? {'relations': relations.length === 0 ? '!' : relations} : {}),
     ...(filters ? {'filter': filters} : {})
   }
 )
 
-export const queryObjectToUrlParams = queryObject => (
+export const requestQueryToUrlParams = queryObject =>
   _reduce(queryObject, (result, value, key) => {
     let add = {}
     if (key === 'conditions') {
@@ -168,4 +182,3 @@ export const queryObjectToUrlParams = queryObject => (
       ...add
     }
   }, {})
-)

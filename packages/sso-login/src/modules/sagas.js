@@ -11,14 +11,13 @@ export const intlSelector = state => state.intl
 
 export function* loadProviders() {
   const intl = yield select(intlSelector)
-  const paths = [
-    'unique_id', 'label', 'button_primary_color', 'button_secondary_color', 'button_icon', 'button_label'
-  ]
 
-  const entities = yield call(rest.fetchEntities, entityName, {
-    searchInputs: {locale: intl.locale, active: true},
-    paths
-  }, transformProviderEntities)
+  const query = {
+    paths: ['unique_id', 'label', 'button_primary_color', 'button_secondary_color', 'button_icon', 'button_label'],
+    conditions: {locale: intl.locale, active: true}
+  }
+
+  const entities = yield call(rest.fetchEntities, entityName, query, transformProviderEntities)
   yield put(actions.setProviders(entities))
 }
 

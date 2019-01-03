@@ -70,7 +70,7 @@ export function* loadData(page) {
   yield put(actions.setInProgress(false))
 }
 
-export function* getBasicFetchOptions() {
+export function* getBasicQuery() {
   const {formBase, searchFilters: inputSearchFilters} = yield select(inputSelector)
   const {formFieldsFlat} = yield select(searchFormSelector)
 
@@ -95,11 +95,15 @@ export function* prepareEndpointUrl(endpoint) {
 export function* countEntities() {
   const {entityName} = yield select(inputSelector)
   const {endpoint} = yield select(listSelector)
-  const fetchOptions = yield call(getBasicFetchOptions)
+  const query = yield call(getBasicQuery)
 
-  const resource = endpoint ? yield call(prepareEndpointUrl, endpoint) : endpoint
-  const method = endpoint ? 'GET' : 'POST'
-  const entityCount = yield call(rest.fetchEntityCount, entityName, fetchOptions, resource, method)
+  const preparedEndpoint = endpoint ? yield call(prepareEndpointUrl, endpoint) : endpoint
+
+  const requestOptions = {
+    method: endpoint ? 'GET' : 'POST',
+    ...(preparedEndpoint ? {endpoint: preparedEndpoint} : {})
+  }
+  const entityCount = yield call(rest.fetchEntityCount, entityName, query, requestOptions)
   yield put(actions.setEntityCount(entityCount))
 }
 
@@ -127,19 +131,22 @@ export function* fetchEntitiesAndAddToStore(page) {
   const {entityStore, sorting, limit, formDefinition, endpoint} = yield select(listSelector)
   if (!entityStore[page]) {
     const paths = yield call(getFields, formDefinition)
-    const basicFetchOptions = yield call(getBasicFetchOptions)
+    const basicQuery = yield call(getBasicQuery)
 
-    const fetchOptions = {
-      ...basicFetchOptions,
+    const query = {
+      ...basicQuery,
       page,
       sorting,
       limit,
       paths
     }
+    const preparedEndpoint = endpoint ? yield call(prepareEndpointUrl, endpoint) : endpoint
+    const requestOptions = {
+      method: endpoint ? 'GET' : 'POST',
+      ...(preparedEndpoint ? {endpoint: preparedEndpoint} : {})
+    }
 
-    const resource = endpoint ? yield call(prepareEndpointUrl, endpoint) : endpoint
-    const method = endpoint ? 'GET' : 'POST'
-    const entities = yield call(rest.fetchEntities, entityName, fetchOptions, entitiesListTransformer, resource, method)
+    const entities = yield call(rest.fetchEntities, entityName, query, requestOptions, entitiesListTransformer)
     yield put(actions.addEntitiesToStore(page, entities))
   }
 }

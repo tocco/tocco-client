@@ -15,8 +15,11 @@ export function* getPreselectedValues(preselectedSearchFields, entityModel, load
     if (entityModel[fieldName] && entityModel[fieldName].type === 'relation') {
       if (!preselectedSearchField.hidden && searchFormVisible) {
         const targetEntity = entityModel[fieldName].targetEntity
-        const query = `IN(pk,${_join(value, ',')})`
-        transformedValue = yield call(rest.fetchEntities, targetEntity, {query, fields: ['pk']})
+        const query = {
+          fields: ['pk'],
+          tql: `IN(pk,${_join(value, ',')})`
+        }
+        transformedValue = yield call(rest.fetchEntities, targetEntity, query)
       } else {
         transformedValue = Array.isArray(value) ? value.map(v => ({key: v})) : {key: value}
       }

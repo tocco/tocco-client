@@ -142,7 +142,7 @@ describe('entity-list', () => {
                 [select(sagas.listSelector), listViewState],
                 [matchers.call.fn(getFields), fields],
                 [matchers.call.fn(rest.fetchEntities), entities],
-                [matchers.call.fn(sagas.getBasicFetchOptions), {}]
+                [matchers.call.fn(sagas.getBasicQuery), {}]
               ])
               .put(actions.addEntitiesToStore(page, entities))
               .run()
@@ -235,7 +235,7 @@ describe('entity-list', () => {
               .provide([
                 [select(sagas.inputSelector), {endpoint}],
                 [select(sagas.listSelector), input],
-                [matchers.call.fn(sagas.getBasicFetchOptions), fetchOptions],
+                [matchers.call.fn(sagas.getBasicQuery), fetchOptions],
                 [matchers.call.fn(rest.fetchEntityCount), entityCount]
               ])
               .put(actions.setEntityCount(entityCount))
@@ -392,7 +392,7 @@ describe('entity-list', () => {
           })
         })
 
-        describe('getBasicFetchOptions', () => {
+        describe('getBasicQuery', () => {
           test('should return an object with correct attributes', () => {
             const input = {formBase: 'User', searchFilters: ['filter1', 'filter2']}
             const searchForm = {
@@ -417,7 +417,7 @@ describe('entity-list', () => {
               }
             }
 
-            return expectSaga(sagas.getBasicFetchOptions)
+            return expectSaga(sagas.getBasicQuery)
               .provide([
                 [select(sagas.inputSelector), input],
                 [select(sagas.searchFormSelector), searchForm],
