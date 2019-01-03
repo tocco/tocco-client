@@ -47,8 +47,10 @@ export function* closeAdvancedSearch(answerChannel, modalId, fieldId, entity, on
     const {payload, type} = yield take(answerChannel)
     if (type === advancedSearchActions.ADVANCED_SEARCH_UPDATE) {
       if (payload.ids && payload.ids.length > 0) {
-        const query = `IN(pk,${_join(payload.ids, ',')})`
-        const entities = yield call(rest.fetchEntities, entity, {query, fields: ''})
+        const query = {
+          tql: `IN(pk,${_join(payload.ids, ',')})`
+        }
+        const entities = yield call(rest.fetchEntities, entity, query)
         const value = yield call(getValue, entities, multi)
         yield put(onSelect(fieldId, value))
       } else {

@@ -13,8 +13,11 @@ export function* loadRelationEntity({payload: {fieldName, entityName, options = 
   const fieldData = yield select(fieldDataSelector, fieldName)
   if (!dataLoaded(fieldData) || options.forceReload) {
     yield put(relationEntitiesActions.setRelationEntityLoading(fieldName))
-    const fetchParams = yield call(getFetchParams, options)
-    const entities = yield call(rest.fetchEntities, entityName, fetchParams, selectEntitiesTransformer, null, 'GET')
+    const query = yield call(getQuery, options)
+    const requestOptions = {
+      method: 'GET'
+    }
+    const entities = yield call(rest.fetchEntities, entityName, query, requestOptions, selectEntitiesTransformer)
     const moreEntitiesAvailable = options.limit ? entities.length > options.limit : false
     yield put(
       relationEntitiesActions.setRelationEntities(
@@ -27,7 +30,7 @@ export const fieldDataSelector = (state, fieldName) => state.formData.relationEn
 
 const dataLoaded = fieldData => !!(fieldData && fieldData.data && fieldData.data.length > 0)
 
-export const getFetchParams = options => (
+export const getQuery = options => (
   {
     ...(options.limit ? {limit: options.limit + 1} : {}),
     ...(options.searchTerm ? {search: options.searchTerm} : {}),

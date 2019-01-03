@@ -110,7 +110,7 @@ export function* loadSearchFilters({payload}) {
   const {model, group} = payload
   const {searchFilter} = yield select(searchFormSelector)
   if (!searchFilter) {
-    const options = {
+    const query = {
       conditions: {
         entity: model,
         ...(group ? {'relSearch_filter_group.unique_id': group} : {})
@@ -118,7 +118,9 @@ export function* loadSearchFilters({payload}) {
       fields: ['unique_id']
     }
 
-    const searchFilters = yield call(rest.fetchEntities, 'Search_filter', options, searchFilterTransformer, null, 'GET')
+    const requestOptions = {method: 'GET'}
+    const searchFilters = yield call(rest.fetchEntities,
+      'Search_filter', query, requestOptions, searchFilterTransformer)
     yield put(actions.setSearchFilter(searchFilters))
   }
 

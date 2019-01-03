@@ -126,7 +126,7 @@ describe('app-extensions', () => {
               const options = {
                 formBase: 'User_with_constrictions'
               }
-              const result = sagas.getFetchParams(options)
+              const result = sagas.getQuery(options)
               const expectedFetchParams = {
                 form: `${options.formBase}_list`,
                 fields: [],
