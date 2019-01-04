@@ -6,6 +6,7 @@ import {LoadMask} from 'tocco-ui'
 
 import {getColumnDefinition} from '../../util/api/forms'
 import TableContainer from '../../containers/TableContainer'
+import ActionContainer from '../../containers/ActionContainer'
 
 class ListView extends React.Component {
   componentWillMount = () => {
@@ -16,7 +17,6 @@ class ListView extends React.Component {
 
   render() {
     const props = this.props
-    const selectedRecordsCurrentPage = this.props.currentPageIds.filter(id => this.props.selection.includes(id))
     return (
       <div className="list-view">
         <LoadMask
@@ -28,10 +28,9 @@ class ListView extends React.Component {
               if (child.componentType === form.componentTypes.TABLE) {
                 return <TableContainer key={idx} columnDefinitions={getColumnDefinition(child)}/>
               } else if (actions.isAction(child.componentType)) {
-                return <actions.Action
+                return <ActionContainer
                   key={`listAction${idx}`}
                   definition={child}
-                  ids={selectedRecordsCurrentPage}
                   entity={props.entityName}
                   parent={props.parent}
                 />
