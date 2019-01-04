@@ -17,6 +17,7 @@ export const inputSelector = state => state.input
 export const entityListSelector = state => state.entityList
 export const listSelector = state => state.list
 export const searchFormSelector = state => state.searchForm
+export const selectionSelector = state => state.selection
 
 export default function* sagas() {
   yield all([
@@ -26,6 +27,7 @@ export default function* sagas() {
     fork(takeEvery, actions.SET_SORTING, setSorting),
     fork(takeEvery, actions.RESET_DATA_SET, loadData, 1),
     fork(takeLatest, actions.REFRESH, loadData),
+    fork(takeLatest, selectionActions.RELOAD_DATA, loadData, 1),
     fork(takeLatest, actions.ON_ROW_CLICK, onRowClick),
     fork(takeEvery, actionUtil.actions.ACTION_INVOKED, actionInvoked)
   ])
@@ -69,6 +71,11 @@ export function* loadData(page) {
 }
 
 export function* getBasicQuery() {
+  const {showSelectedRecords, selection} = yield select(selectionSelector)
+  if (showSelectedRecords) {
+    return {tql: `IN(pk,${selection.join(',')})`}
+  }
+
   const {formBase, searchFilters: inputSearchFilters} = yield select(inputSelector)
   const {formFieldsFlat} = yield select(searchFormSelector)
 

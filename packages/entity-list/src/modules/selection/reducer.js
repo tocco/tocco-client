@@ -12,11 +12,20 @@ const setSelection = (state, {payload}) => ({
 
 const clearSelection = (state, {payload}) => ({
   ...state,
-  selection: []
+  selection: [],
+  showSelectedRecords: false
+})
+
+const setSelectionMode = (state, {payload}) => ({
+  ...state,
+  selectionMode: payload.selectionMode,
+  showSelectedRecords: false
 })
 
 const ACTION_HANDLERS = {
-  [actions.SET_SELECTION_MODE]: reducerUtil.singleTransferReducer('selectionMode'),
+  [actions.SET_SELECTION_MODE]: setSelectionMode,
+  [actions.SET_TABLE_SELECTION_STYLE]: reducerUtil.singleTransferReducer('tableSelectionStyle'),
+  [actions.TOGGLE_SHOW_SELECTED_RECORDS]: reducerUtil.toggleReducer('showSelectedRecords'),
   [actions.SET_SELECTION]: setSelection,
   [actions.CLEAR_SELECTION]: clearSelection,
   [actions.SET_SHOW_SELECTION_CONTROLLER]: reducerUtil.singleTransferReducer('showSelectionController'),
@@ -24,6 +33,7 @@ const ACTION_HANDLERS = {
 }
 
 const initialState = {
+  showSelectedRecords: false,
   selectionMode: 'selection',
   selection: [],
   showSelectionController: false,

@@ -36,6 +36,7 @@ describe('entity-list', () => {
               fork(takeEvery, actions.SET_SORTING, sagas.setSorting),
               fork(takeEvery, actions.RESET_DATA_SET, sagas.loadData, 1),
               fork(takeLatest, actions.REFRESH, sagas.loadData),
+              fork(takeLatest, selectionActions.RELOAD_DATA, sagas.loadData, 1),
               fork(takeLatest, actions.ON_ROW_CLICK, sagas.onRowClick),
               fork(takeEvery, actionUtil.actions.ACTION_INVOKED, sagas.actionInvoked)
             ]))
@@ -370,6 +371,9 @@ describe('entity-list', () => {
                 'relGender': 'single-remote-field'
               }
             }
+            const selection = {
+              showSelectedRecords: false
+            }
             const searchFormValues = {
               relParent: {key: '1'},
               relGender: {key: '3'},
@@ -391,10 +395,26 @@ describe('entity-list', () => {
               .provide([
                 [select(sagas.inputSelector), input],
                 [select(sagas.searchFormSelector), searchForm],
+                [select(sagas.selectionSelector), selection],
                 [matchers.call.fn(getSearchFormValues), searchFormValues]
               ])
               .returns(expectedResult)
               .run()
+          })
+
+          test('should return tql if show selected is true', async() => {
+            const selection = {
+              showSelectedRecords: true,
+              selection: ['1', '22', '99']
+            }
+
+            const saga = await expectSaga(sagas.getBasicQuery)
+              .provide([
+                [select(sagas.selectionSelector), selection]
+              ])
+              .run()
+
+            expect(saga.returnValue).to.have.property('tql')
           })
         })
       })
