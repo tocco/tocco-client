@@ -2,17 +2,19 @@ import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 
 import SelectionController from '../components/SelectionController'
-import {setSelectionMode, clearSelection} from '../modules/selection/actions'
+import {setSelectionMode, clearSelection, toggleShowSelectedRecords} from '../modules/selection/actions'
 
 const mapActionCreators = {
   setSelectionMode,
-  clearSelection
+  clearSelection,
+  toggleShowSelectedRecords
 }
 
 const mapStateToProps = (state, props) => (
   {
     selectionMode: state.selection.selectionMode,
-    selection: state.selection.selection
+    selection: state.selection.selection,
+    showSelectedRecords: state.selection.showSelectedRecords
   }
 )
 
