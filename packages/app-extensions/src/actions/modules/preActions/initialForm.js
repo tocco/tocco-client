@@ -11,7 +11,7 @@ export const formValues = formValues => ({formValues})
 
 const shouldRun = actionDefinition => !!actionDefinition.formDataEntityModel
 
-export function* run(params, {formDataEntityModel, formDataTitle, formDataMessage}, ids, config) {
+export function* run(params, {formDataEntityModel, formDataTitle, formDataMessage}, selection, config) {
   const answerChannel = yield call(channel)
 
   const [model, form] = yield all([

@@ -16,7 +16,7 @@ describe('app-extensions', () => {
             actionType: 'simple',
             id: 'test'
           }
-          const props = {onClick: EMPTY_FUNC}
+          const props = {onClick: EMPTY_FUNC, selection: {}}
           expect(
             shallow(<Action {...props} definition={{...definition, scopes: ['update']}} mode="update"/>
             ).type()).not.to.be.null
@@ -40,7 +40,7 @@ describe('app-extensions', () => {
             ]
           }
 
-          const wrapper = mount(<Action onClick={EMPTY_FUNC} definition={definition}/>)
+          const wrapper = mount(<Action onClick={EMPTY_FUNC} selection={{}} definition={definition}/>)
           expect(wrapper.find(ActionGroup)).to.have.length(1)
         })
 
@@ -59,7 +59,7 @@ describe('app-extensions', () => {
             ]
           }
 
-          const wrapper = mount(<Action onClick={EMPTY_FUNC} definition={definition}/>)
+          const wrapper = mount(<Action onClick={EMPTY_FUNC} selection={{}} definition={definition}/>)
           expect(wrapper.find(ActionGroup)).to.have.length(1)
         })
       })

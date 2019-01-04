@@ -4,20 +4,26 @@ import notifier from '../../../notifier'
 
 import {put, call} from 'redux-saga/effects'
 
-export default function* (definition, entity, ids, parent, params) {
+export default function* (definition, entity, selection, parent, params) {
   const randomId = Math.random()
   const title = definition.progressMsg || 'client.component.actions.defaultProgressMessage'
   yield put(notifier.blockingInfo(randomId, title))
-  const response = yield call(invokeRequest, definition, entity, ids, parent, params)
+  const response = yield call(invokeRequest, definition, entity, selection, parent, params)
   yield put(notifier.removeBlockingInfo(randomId))
   return response
 }
 
-export function* invokeRequest(definition, entity, ids, parent, params) {
+export function* invokeRequest(definition, entity, selection, parent, params) {
   try {
     const response = yield call(rest.requestSaga, definition.endpoint, {
       method: 'POST',
-      body: {ids, entity, parent, ...params},
+      body: {
+        entity,
+        mode: selection.mode,
+        payload: selection.payload,
+        parent,
+        ...params
+      },
       acceptedErrorCodes: ['VALIDATION_FAILED']
     })
     if (response.body && response.body.errorCode === 'VALIDATION_FAILED') {
