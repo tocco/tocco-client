@@ -6,7 +6,9 @@ const EXPECTED_INITIAL_STATE = {
   selectionMode: 'selection',
   selection: [],
   showSelectionController: false,
-  tableSelectionStyle: 'none'
+  tableSelectionStyle: 'none',
+  query: {},
+  queryCount: 0
 }
 
 describe('entity-list', () => {

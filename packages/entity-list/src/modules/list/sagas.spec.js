@@ -33,6 +33,7 @@ describe('entity-list', () => {
               fork(takeLatest, actions.INITIALIZE, sagas.initialize),
               fork(takeLatest, actions.CHANGE_PAGE, sagas.changePage),
               fork(takeLatest, searchFormActions.EXECUTE_SEARCH, sagas.loadData, 1),
+              fork(takeLatest, searchFormActions.EXECUTE_SEARCH, sagas.queryChanged),
               fork(takeEvery, actions.SET_SORTING, sagas.setSorting),
               fork(takeEvery, actions.RESET_DATA_SET, sagas.loadData, 1),
               fork(takeLatest, actions.REFRESH, sagas.loadData),
@@ -64,6 +65,7 @@ describe('entity-list', () => {
             ]))
 
             expect(gen.next().value).to.eql(call(sagas.loadData, 1))
+            expect(gen.next().value).to.eql(call(sagas.queryChanged))
             expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
             expect(gen.next().value).to.eql(put(actions.setInitialized()))
             expect(gen.next().done).to.be.true
@@ -82,6 +84,7 @@ describe('entity-list', () => {
             expect(gen.next({entityName}).value).to.eql(select(sagas.inputSelector))
             expect(gen.next({formBase}).value).to.eql(select(sagas.listSelector))
             expect(gen.next({columnDefinition, entityModel, initialized}).value).to.eql(call(sagas.loadData))
+            expect(gen.next().value).to.eql(call(sagas.queryChanged))
             expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
             expect(gen.next().value).to.eql(put(actions.setInitialized()))
             expect(gen.next().done).to.be.true

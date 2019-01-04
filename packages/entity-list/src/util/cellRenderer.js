@@ -25,7 +25,10 @@ const getAction = (field, entity, parent, cb) =>
   <actions.Action
     key={'tableAction' + field.id}
     definition={field}
-    ids={[entity.__key]}
+    selection={{
+      mode: 'ID',
+      ids: [entity.__key]
+    }}
     entity={entity.__model}
     callback={result =>
       cb.refresh()

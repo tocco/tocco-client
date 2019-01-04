@@ -29,7 +29,9 @@ const ACTION_HANDLERS = {
   [actions.SET_SELECTION]: setSelection,
   [actions.CLEAR_SELECTION]: clearSelection,
   [actions.SET_SHOW_SELECTION_CONTROLLER]: reducerUtil.singleTransferReducer('showSelectionController'),
-  [actions.SET_TABLE_SELECTION_STYLE]: reducerUtil.singleTransferReducer('tableSelectionStyle')
+  [actions.SET_TABLE_SELECTION_STYLE]: reducerUtil.singleTransferReducer('tableSelectionStyle'),
+  [actions.SET_QUERY]: reducerUtil.singleTransferReducer('query'),
+  [actions.SET_QUERY_COUNT]: reducerUtil.singleTransferReducer('queryCount')
 }
 
 const initialState = {
@@ -37,7 +39,9 @@ const initialState = {
   selectionMode: 'selection',
   selection: [],
   showSelectionController: false,
-  tableSelectionStyle: 'none'
+  tableSelectionStyle: 'none',
+  query: {},
+  queryCount: 0
 }
 
 export default function reducer(state = initialState, action) {

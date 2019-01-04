@@ -4,7 +4,7 @@ import {externalEvents} from 'tocco-app-extensions'
 
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
-import {SET_FORM_SELECTABLE} from '../list/actions'
+import {QUERY_CHANGED, SET_ENTITY_COUNT, SET_FORM_SELECTABLE} from '../list/actions'
 import {showSelectionComponent} from '../../util/selection'
 
 import {fork, select, takeLatest, all} from 'redux-saga/effects'
@@ -21,7 +21,8 @@ describe('entity-list', () => {
             fork(takeLatest, actions.ON_SELECT_CHANGE, sagas.onSelectChange),
             fork(takeLatest, actions.SET_SELECTION_MODE, sagas.selectionModeSet),
             fork(takeLatest, SET_FORM_SELECTABLE, sagas.initialize),
-            fork(takeLatest, actions.SET_SELECTION_MODE, sagas.selectionModeSet)
+            fork(takeLatest, QUERY_CHANGED, sagas.setQuery),
+            fork(takeLatest, SET_ENTITY_COUNT, sagas.setCount)
           ]))
           expect(generator.next().done).to.be.true
         })
