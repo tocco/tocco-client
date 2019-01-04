@@ -1,8 +1,8 @@
 import React from 'react'
 import {IntlStub} from 'tocco-test-util'
 import {shallow} from 'enzyme'
-import {actions} from 'tocco-app-extensions'
 
+import ActionContainer from '../../containers/ActionContainer'
 import TableContainer from '../../containers/TableContainer'
 import ListView from './ListView'
 
@@ -42,7 +42,7 @@ describe('entity-list', () => {
       test('should render ', () => {
         const wrapper = shallow(<ListView {...props}/>)
         expect(wrapper.find(TableContainer)).to.have.length(1)
-        expect(wrapper.find(actions.Action)).to.have.length(2)
+        expect(wrapper.find(ActionContainer)).to.have.length(2)
       })
     })
   })
