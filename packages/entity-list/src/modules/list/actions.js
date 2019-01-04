@@ -23,6 +23,7 @@ export const NAVIGATE_TO_CREATE = 'entityList/NAVIGATE_TO_CREATE'
 export const SET_CREATE_PERMISSION = 'list/SET_CREATE_PERMISSION'
 export const SET_FORM_SELECTABLE = 'list/SET_FORM_SELECTABLE'
 export const SET_ENDPOINT = 'list/SET_ENDPOINT'
+export const QUERY_CHANGED = 'list/QUERY_CHANGED'
 
 export const initialize = () => ({
   type: INITIALIZE
@@ -175,5 +176,12 @@ export const setEndpoint = endpoint => ({
   type: SET_ENDPOINT,
   payload: {
     endpoint
+  }
+})
+
+export const queryChanged = query => ({
+  type: QUERY_CHANGED,
+  payload: {
+    query
   }
 })

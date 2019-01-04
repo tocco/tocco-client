@@ -24,6 +24,7 @@ export default function* sagas() {
     fork(takeLatest, actions.INITIALIZE, initialize),
     fork(takeLatest, actions.CHANGE_PAGE, changePage),
     fork(takeLatest, searchFormActions.EXECUTE_SEARCH, loadData, 1),
+    fork(takeLatest, searchFormActions.EXECUTE_SEARCH, queryChanged),
     fork(takeEvery, actions.SET_SORTING, setSorting),
     fork(takeEvery, actions.RESET_DATA_SET, loadData, 1),
     fork(takeLatest, actions.REFRESH, loadData),
@@ -50,8 +51,14 @@ export function* initialize() {
     yield call(loadData)
   }
 
+  yield call(queryChanged)
   yield put(actions.setInProgress(false))
   yield put(actions.setInitialized())
+}
+
+export function* queryChanged() {
+  const query = yield call(getBasicQuery)
+  yield put(actions.queryChanged(query))
 }
 
 export function* loadData(page) {
@@ -80,7 +87,6 @@ export function* getBasicQuery() {
   const {formFieldsFlat} = yield select(searchFormSelector)
 
   const form = `${formBase}_list`
-
   const searchFormValues = yield call(getSearchFormValues)
   const searchFormFetchOptions = yield call(getFetchOptionsFromSearchForm, searchFormValues, formFieldsFlat)
 
