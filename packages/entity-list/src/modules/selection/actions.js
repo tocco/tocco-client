@@ -4,6 +4,8 @@ export const SET_SELECTION_MODE = 'list/setSelectionMode'
 export const CLEAR_SELECTION = 'selection/CLEAR_SELECTION'
 export const SET_SHOW_SELECTION_CONTROLLER = 'selection/SET_SHOW_SELECTION_CONTROLLER'
 export const SET_TABLE_SELECTION_STYLE = 'selection/SET_TABLE_SELECTION_STYLE'
+export const TOGGLE_SHOW_SELECTED_RECORDS = 'selection/TOOGLE_SHOW_SELECTED_RECORDS'
+export const RELOAD_DATA = 'selection/RELOAD_DATA'
 
 export const setSelectionMode = selectionMode => ({
   type: SET_SELECTION_MODE,
@@ -43,4 +45,12 @@ export const setTableSelectionStyle = tableSelectionStyle => ({
   payload: {
     tableSelectionStyle
   }
+})
+
+export const toggleShowSelectedRecords = () => ({
+  type: TOGGLE_SHOW_SELECTED_RECORDS
+})
+
+export const reloadData = () => ({
+  type: RELOAD_DATA
 })
