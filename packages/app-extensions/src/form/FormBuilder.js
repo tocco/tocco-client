@@ -118,9 +118,12 @@ class FormBuilder extends React.Component {
   createAction = (child, key) =>
     <actions.Action
       definition={child}
-      entity={this.props.entity.model}
-      ids={[...(this.props.entity.key ? [this.props.entity.key] : [])]}
-      mode={this.props.mode}
+      entity={entity.model}
+      selection={{
+        mode: 'ID',
+        ids: [...(entity.key ? [entity.key] : [])]
+      }}
+      mode={mode}
       key={'detailAction' + key}
     />
 
