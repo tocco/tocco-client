@@ -7,7 +7,7 @@ import {modeFitsScopes} from '../actions'
 import ActionGroup from './ActionGroup'
 import SingleAction from './SingleAction'
 
-const Action = ({definition, onClick, ids, parent, entity, mode, callback}) => {
+const Action = ({definition, onClick, selection, parent, entity, mode, callback}) => {
   if (!modeFitsScopes(mode, definition.scopes)) return null
 
   const ActionType = definition.componentType === componentTypes.ACTION_GROUP ? ActionGroup : SingleAction
@@ -17,9 +17,9 @@ const Action = ({definition, onClick, ids, parent, entity, mode, callback}) => {
       <ActionType
         definition={definition}
         onClick={definition => {
-          onClick(_omit(definition, ['label']), entity, ids, parent, callback)
+          onClick(_omit(definition, ['label']), entity, selection, parent, callback)
         }}
-        selectedCount={ids ? ids.length : 0}
+        selectedCount={selection.count}
       />
     </span>
   )
@@ -33,7 +33,14 @@ Action.propTypes = {
     label: PropTypes.string,
     config: PropTypes.object
   }).isRequired,
-  ids: PropTypes.array,
+  selection: PropTypes.shape({
+    mode: PropTypes.oneOf(['ID', 'QUERY']),
+    payload: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object
+    ]),
+    count: PropTypes.number
+  }).isRequired,
   entity: PropTypes.string,
   onClick: PropTypes.func.isRequired,
   callback: PropTypes.func,

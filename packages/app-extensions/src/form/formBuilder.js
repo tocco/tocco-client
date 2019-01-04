@@ -50,15 +50,18 @@ export default (
     return result
   }
 
-  const createAction = (child, key) => {
-    return <actions.Action
+  const createAction = (child, key) => (
+    <actions.Action
       definition={child}
       entity={entity.model}
-      ids={[...(entity.key ? [entity.key] : [])]}
+      selection={{
+        mode: 'ID',
+        ids: [...(entity.key ? [entity.key] : [])]
+      }}
       mode={mode}
       key={'detailAction' + key}
     />
-  }
+  )
 
   const createFieldSet = (fieldSet, key) => {
     const fieldDefinition = fieldSet.children.find(child => !isAction(child.componentType))
