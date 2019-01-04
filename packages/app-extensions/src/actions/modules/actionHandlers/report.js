@@ -10,17 +10,17 @@ import ReportSettings from '../../components/ReportSettings'
 
 import {call, put, take} from 'redux-saga/effects'
 
-export default function* (actionDefinition, entity, ids, parent, params, config) {
+export default function* (actionDefinition, entity, selection, parent, params, config) {
   const answerChannel = yield call(channel)
-  const settingsModalId = yield call(displayReportSettings, actionDefinition, entity, ids, answerChannel, config)
-  yield call(awaitSettingsSubmit, actionDefinition, answerChannel, settingsModalId, entity, ids)
+  const settingsModalId = yield call(displayReportSettings, actionDefinition, entity, selection, answerChannel, config)
+  yield call(awaitSettingsSubmit, actionDefinition, answerChannel, settingsModalId, entity, selection)
 }
 
-export function* displayReportSettings(actionDefinition, entity, ids, answerChannel, config) {
+export function* displayReportSettings(actionDefinition, entity, selection, answerChannel, config) {
   const options = {
     queryParams: {
       model: entity,
-      keys: ids.join(',')
+      ...(selection.mode === 'ID' ? {keys: selection.playload.join(',')} : {})
     }
   }
 
@@ -47,10 +47,16 @@ export function* displayReportSettings(actionDefinition, entity, ids, answerChan
   return settingsModalId
 }
 
-export function* awaitSettingsSubmit(definition, answerChannel, settingsModalId, entity, ids) {
+export function* awaitSettingsSubmit(definition, answerChannel, settingsModalId, entity, selection) {
   while (true) {
     const {submitAction, formValues} = yield take(answerChannel)
-    const body = {entityModel: entity, entityIds: ids, ...formValues}
+    const body = {
+      entityModel: entity,
+      type: selection.mode,
+      payload: selection.payload,
+      ...formValues
+    }
+
     const requestOptions = {
       method: 'POST',
       body,
