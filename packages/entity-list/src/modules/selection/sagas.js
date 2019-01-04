@@ -14,7 +14,10 @@ export const listSelector = state => state.list
 
 export default function* sagas() {
   yield all([
+    fork(takeLatest, actions.TOGGLE_SHOW_SELECTED_RECORDS, reloadData),
+    fork(takeLatest, actions.CLEAR_SELECTION, reloadData),
     fork(takeLatest, actions.ON_SELECT_CHANGE, onSelectChange),
+    fork(takeLatest, actions.SET_SELECTION_MODE, selectionModeSet),
     fork(takeLatest, SET_FORM_SELECTABLE, initialize),
     fork(takeLatest, actions.SET_SELECTION_MODE, selectionModeSet)
   ])
@@ -29,6 +32,10 @@ export function* onSelectChange({payload: {keys, isSelected}}) {
 
   yield put(actions.setSelection(newSelection))
   yield put(externalEvents.fireExternalEvent('onSelectChange', newSelection))
+}
+
+export function* reloadData() {
+  yield put(actions.reloadData())
 }
 
 export function* selectionModeSet({payload}) {

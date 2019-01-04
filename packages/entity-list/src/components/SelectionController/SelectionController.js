@@ -12,10 +12,15 @@ const SelectionController = props => {
   return (
     <div>
       {props.selectionMode === 'selection'
-      && <span>
+      && <React.Fragment>
         <Button dense icon="times" onClick={props.clearSelection}/>
-        <Button dense label={`${props.selection.length} selected`}/>
-      </span>
+        <Button
+          dense
+          look={props.showSelectedRecords ? 'raised' : 'flat'}
+          onClick={props.toggleShowSelectedRecords}
+          label={`${props.selection.length} selected`}
+        />
+      </React.Fragment>
       }
       <select value={props.selectionMode} onChange={changeMode}>
         <option value={selectionModes.SELECTION}>Selection</option>
@@ -29,7 +34,9 @@ SelectionController.propTypes = {
   clearSelection: PropTypes.func.isRequired,
   selection: PropTypes.array.isRequired,
   setSelectionMode: PropTypes.func.isRequired,
-  selectionMode: PropTypes.string
+  toggleShowSelectedRecords: PropTypes.func.isRequired,
+  selectionMode: PropTypes.string,
+  showSelectedRecords: PropTypes.bool
 }
 
 export default SelectionController

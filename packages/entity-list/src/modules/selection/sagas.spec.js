@@ -16,7 +16,10 @@ describe('entity-list', () => {
         test('should fork child sagas', () => {
           const generator = rootSaga()
           expect(generator.next().value).to.deep.equal(all([
+            fork(takeLatest, actions.TOGGLE_SHOW_SELECTED_RECORDS, sagas.reloadData),
+            fork(takeLatest, actions.CLEAR_SELECTION, sagas.reloadData),
             fork(takeLatest, actions.ON_SELECT_CHANGE, sagas.onSelectChange),
+            fork(takeLatest, actions.SET_SELECTION_MODE, sagas.selectionModeSet),
             fork(takeLatest, SET_FORM_SELECTABLE, sagas.initialize),
             fork(takeLatest, actions.SET_SELECTION_MODE, sagas.selectionModeSet)
           ]))
@@ -75,6 +78,14 @@ describe('entity-list', () => {
               .call(sagas.setTableStyle, 'selection')
               .run()
           })
+        })
+
+        describe('reloadData', () => {
+          test('should dispatch reload action', () =>
+            expectSaga(sagas.reloadData)
+              .put(actions.reloadData())
+              .run()
+          )
         })
       })
     })
