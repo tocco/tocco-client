@@ -16,7 +16,8 @@
     "setup": "yarn && cd server/static && yarn && cd .. && lerna bootstrap --ignore-scripts",
     "plop": "babel-node ./node_modules/plop",
     "commitmsg": "babel-node githooks/msg-validation",
-    "precommit": "npm run lint"
+    "precommit": "npm run lint",
+    "storybook": "start-storybook -s ./storybook/assets -p 3003 -c ./storybook"
   },
   "author": "Tocco AG",
   "license": "AGPL-3.0+",
@@ -25,10 +26,17 @@
     "react-dom": "^16.4.2"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^4.1.4",
+    "@storybook/addon-backgrounds": "^4.1.4",
+    "@storybook/addon-info": "^4.1.4",
+    "@storybook/addon-knobs": "^4.1.4",
+    "@storybook/addon-options": "^4.1.4",
+    "@storybook/react": "^4.1.4",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "8.2.5",
     "babel-loader": "7.1.5",
+    "babel-plugin-add-module-exports": "^1.0.0",
     "babel-plugin-dynamic-import-node": "^2.1.0",
     "babel-plugin-istanbul": "4.1.6",
     "babel-plugin-lodash": "3.3.4",
@@ -116,6 +124,9 @@
     "sass-loader": "^7.0.3",
     "sinon": "^6.1.2",
     "sinon-chai": "^3.2.0",
+    "storybook-addon-intl": "^2.3.2",
+    "storybook-addon-smart-knobs": "^4.1.0",
+    "storybook-addon-styled-component-theme": "^1.1.0",
     "style-loader": "^0.21.0",
     "styled-components": "^4.1.1",
     "styled-system": "^2.3.3",

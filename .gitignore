@@ -11,3 +11,4 @@ coverage
 *.iml
 .eslintcache
 .jestcache
+.cache
