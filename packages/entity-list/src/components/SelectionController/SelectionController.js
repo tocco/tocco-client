@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Button} from 'tocco-ui'
 
-import selectionModes from '../../util/selectionModes'
+import selectionModes, {selectionModesPropTypes} from '../../util/selectionModes'
 
 const SelectionController = props => {
   const changeMode = event => {
@@ -11,7 +11,7 @@ const SelectionController = props => {
 
   return (
     <div>
-      {props.selectionMode === 'selection'
+      {props.selectionMode === selectionModes.SELECTION
       && <React.Fragment>
         <Button dense icon="times" onClick={props.clearSelection}/>
         <Button
@@ -35,7 +35,7 @@ SelectionController.propTypes = {
   selection: PropTypes.array.isRequired,
   setSelectionMode: PropTypes.func.isRequired,
   toggleShowSelectedRecords: PropTypes.func.isRequired,
-  selectionMode: PropTypes.string,
+  selectionMode: selectionModesPropTypes,
   showSelectedRecords: PropTypes.bool
 }
 
