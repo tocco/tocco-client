@@ -7,7 +7,8 @@ const ClearIndicator = props =>
   <span {...props.innerProps}>
     <Button
       icon="times"
-      look="ball" />
+      look="ball"
+      tabIndex={-1} />
   </span>
 
 ClearIndicator.propTypes = {

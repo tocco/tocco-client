@@ -30,6 +30,7 @@ const IndicatorsContainer = props => {
         <Button
           icon="search"
           look="ball"
+          tabIndex={-1}
         />
       </span>}
     </components.IndicatorsContainer>

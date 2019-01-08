@@ -8,7 +8,8 @@ const DropdownIndicator = props =>
   && <span>
     <Button
       icon="chevron-down"
-      look="ball" />
+      look="ball"
+      tabIndex={-1} />
   </span>
 
 DropdownIndicator.propTypes = {
