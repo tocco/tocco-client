@@ -27,13 +27,13 @@ export const phoneValidator = async(value, fieldModel = {}) => {
     return null
   }
 
-  return new Promise(resolve => resolve({
+  return {
     format: [<FormattedMessage
-      key="invalidUrl"
+      key="invalidPhoneNumber"
       id="client.component.form.invalidPhoneNumber"
     />
     ]
-  }))
+  }
 }
 
 export const syncValidators = {url: urlValidator}
