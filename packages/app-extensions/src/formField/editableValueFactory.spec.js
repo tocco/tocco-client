@@ -27,28 +27,6 @@ describe('app-extensions', () => {
         expect(wrapper).to.have.prop('events', events)
       })
 
-      test('should return an advanced editableValue', () => {
-        const factory = editableValueFactory('remote')
-
-        const util = {
-          intl: {
-            formatMessage: v => (v.id)
-          }
-        }
-
-        const editableValue = factory({}, {}, {}, {}, util)
-
-        const wrapper = mount(editableValue)
-
-        expect(wrapper).to.have.type(EditableValue)
-        expect(wrapper.props.options).to.not.be.null
-
-        const options = wrapper.prop('options')
-
-        expect(options.isLoading).to.be.false
-        expect(options.noResultsText).to.eql('client.component.remoteselect.noResultsText')
-      })
-
       test('should should format message to hours and minutes label', () => {
         const factory = editableValueFactory('duration')
         const util = {

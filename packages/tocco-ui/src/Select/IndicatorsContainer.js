@@ -1,5 +1,6 @@
 import React from 'react'
 import {components} from 'react-select'
+import PropTypes from 'prop-types'
 
 import Button from '../Button'
 
@@ -33,6 +34,24 @@ const IndicatorsContainer = props => {
       </span>}
     </components.IndicatorsContainer>
   )
+}
+
+const ItemPropType = PropTypes.shape({
+  key: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]).isRequired,
+  display: PropTypes.string
+})
+
+IndicatorsContainer.propTypes = {
+  children: PropTypes.node,
+  openAdvancedSearch: PropTypes.func,
+  readOnly: PropTypes.bool,
+  value: PropTypes.oneOfType([
+    ItemPropType,
+    PropTypes.arrayOf(ItemPropType)
+  ])
 }
 
 export default IndicatorsContainer

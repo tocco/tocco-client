@@ -127,7 +127,6 @@ class Select extends React.Component {
             onMenuOpen={this.onMenuOpen}
             styles={reactSelectStyles(this.props.theme)}
             theme={theme => reactSelectTheme(theme, this.props.theme)}
-
           />
         </div>
       </div>

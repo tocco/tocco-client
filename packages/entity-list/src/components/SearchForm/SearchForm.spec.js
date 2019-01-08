@@ -2,12 +2,33 @@ import React from 'react'
 import {MemoryRouter} from 'react-router-dom'
 import {Provider} from 'react-redux'
 import {createStore} from 'redux'
+import {ThemeProvider} from 'styled-components'
 import {IntlStub, intlEnzyme} from 'tocco-test-util'
 import {Button, FormField} from 'tocco-ui'
 
 import SearchForm from './'
 
 const EMPTY_FUNC = () => {
+}
+
+const theme = {
+  colors: {
+    paper: '#fff',
+    text: '#212121',
+    signal: {
+      danger: {
+        paper: '#EF9A9A',
+        text: '#D32F2F'
+      },
+      info: {
+        paper: '#81D4FA',
+        text: '#0288D1'
+      }
+    }
+  },
+  radii: {
+    regular: '4px'
+  }
 }
 
 describe('entity-list', () => {
@@ -56,32 +77,34 @@ describe('entity-list', () => {
         })
 
         const wrapper = intlEnzyme.mountWithIntl(
-          <Provider store={store}>
-            <MemoryRouter>
-              <SearchForm
-                initializeSearchForm={EMPTY_FUNC}
-                entityModel={entityModel}
-                searchFormDefinition={searchFormDefinition}
-                setSearchInput={EMPTY_FUNC}
-                relationEntities={{}}
-                searchInputs={{}}
-                loadRelationEntities={EMPTY_FUNC}
-                loadTooltip={EMPTY_FUNC}
-                submitSearchForm={EMPTY_FUNC}
-                resetSearch={EMPTY_FUNC}
-                intl={IntlStub}
-                simpleSearchFields={[]}
-                disableSimpleSearch
-                preselectedSearchFields={[]}
-                setShowExtendedSearchForm={EMPTY_FUNC}
-                loadSearchFilters={EMPTY_FUNC}
-              />
-            </MemoryRouter>
-          </Provider>
+          <ThemeProvider theme={theme}>
+            <Provider store={store}>
+              <MemoryRouter>
+                <SearchForm
+                  initializeSearchForm={EMPTY_FUNC}
+                  entityModel={entityModel}
+                  searchFormDefinition={searchFormDefinition}
+                  setSearchInput={EMPTY_FUNC}
+                  relationEntities={{}}
+                  searchInputs={{}}
+                  loadRelationEntities={EMPTY_FUNC}
+                  loadTooltip={EMPTY_FUNC}
+                  submitSearchForm={EMPTY_FUNC}
+                  resetSearch={EMPTY_FUNC}
+                  intl={IntlStub}
+                  simpleSearchFields={[]}
+                  disableSimpleSearch
+                  preselectedSearchFields={[]}
+                  setShowExtendedSearchForm={EMPTY_FUNC}
+                  loadSearchFilters={EMPTY_FUNC}
+                />
+              </MemoryRouter>
+            </Provider>
+          </ThemeProvider>
         )
 
         expect(wrapper.find(FormField)).to.have.length(searchFormDefinition.children.length)
-        expect(wrapper.find(Button)).to.have.length(2)
+        expect(wrapper.find(Button)).to.have.length(3)
       })
 
       test('should render only the fulltext field', () => {
@@ -127,31 +150,33 @@ describe('entity-list', () => {
         })
 
         const wrapper = intlEnzyme.mountWithIntl(
-          <Provider store={store}>
-            <MemoryRouter>
-              <SearchForm
-                initializeSearchForm={EMPTY_FUNC}
-                entityModel={entityModel}
-                searchFormDefinition={searchFormDefinition}
-                setSearchInput={EMPTY_FUNC}
-                relationEntities={{}}
-                searchInputs={{}}
-                loadRelationEntities={EMPTY_FUNC}
-                loadTooltip={EMPTY_FUNC}
-                submitSearchForm={EMPTY_FUNC}
-                resetSearch={EMPTY_FUNC}
-                intl={IntlStub}
-                simpleSearchFields={['txtFulltext', 'relUser_code1']}
-                preselectedSearchFields={[]}
-                setShowExtendedSearchForm={EMPTY_FUNC}
-                loadSearchFilters={EMPTY_FUNC}
-              />
-            </MemoryRouter>
-          </Provider>
+          <ThemeProvider theme={theme}>
+            <Provider store={store}>
+              <MemoryRouter>
+                <SearchForm
+                  initializeSearchForm={EMPTY_FUNC}
+                  entityModel={entityModel}
+                  searchFormDefinition={searchFormDefinition}
+                  setSearchInput={EMPTY_FUNC}
+                  relationEntities={{}}
+                  searchInputs={{}}
+                  loadRelationEntities={EMPTY_FUNC}
+                  loadTooltip={EMPTY_FUNC}
+                  submitSearchForm={EMPTY_FUNC}
+                  resetSearch={EMPTY_FUNC}
+                  intl={IntlStub}
+                  simpleSearchFields={['txtFulltext', 'relUser_code1']}
+                  preselectedSearchFields={[]}
+                  setShowExtendedSearchForm={EMPTY_FUNC}
+                  loadSearchFilters={EMPTY_FUNC}
+                />
+              </MemoryRouter>
+            </Provider>
+          </ThemeProvider>
         )
 
         expect(wrapper.find(FormField)).to.have.length(2)
-        expect(wrapper.find(Button)).to.have.length(3)
+        expect(wrapper.find(Button)).to.have.length(4)
       })
 
       test('should not show hidden value', () => {
