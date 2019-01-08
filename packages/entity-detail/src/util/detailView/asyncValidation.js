@@ -1,6 +1,5 @@
 import {SubmissionError} from 'redux-form'
 import {form, rest} from 'tocco-app-extensions'
-import _isEmpty from 'lodash/isEmpty'
 import _get from 'lodash/get'
 
 import modes from '../modes'
@@ -19,50 +18,30 @@ const hasError = errors => (
   errors && Object.keys(errors).length > 0
 )
 
-export const asyncVerify = async(values, entityModel) => {
+export const asyncValidateTypes = async(values, entityModel) => {
   let errors = {}
-
-  errors = await asyncValidateTypes(values, entityModel, errors)
-
-  return errors
-}
-
-export const shouldUseAsyncValidator = (values, type) => {
-  const validatorKeys = Object.keys(asyncValidators)
-  return validatorKeys.includes(type)
-}
-
-export const asyncValidateTypes = async(values, entityModel, errors) => {
-  const errorArray = []
   for (const key in values) {
-    if (values.hasOwnProperty(key)) {
-      if (values[key]) {
-        const type = _get(entityModel, key + '.type')
+    const value = values[key]
+    if (value) {
+      const type = _get(entityModel, key + '.type')
+      const typeValidator = asyncValidators[type]
+      if (typeValidator) {
+        const fieldModel = entityModel[key]
+        const validationError = await typeValidator(value, fieldModel)
 
-        if (shouldUseAsyncValidator(values, type)) {
-          for (const validator in asyncValidators) {
-            if (asyncValidators.hasOwnProperty(validator)) {
-              const fieldModel = entityModel[key]
-              const validationError = await asyncValidators[validator](values[key], fieldModel)
-
-              if (validationError) {
-                const error = form.addErrors(errors, key, validationError)
-                errorArray.push(new Promise(resolve => resolve(error)))
-              }
-            }
-          }
+        if (validationError) {
+          const error = form.formErrorsUtil.addErrors(errors, key, validationError)
+          errors = {...errors, ...error}
         }
       }
     }
   }
-  return Promise.all(errorArray).then(value => {
-    return value
-  })
+
+  return errors
 }
 
 const validateRequest = (values, initialValues, entityName, entityId, entityModel, mode) => {
   const dirtyFields = form.getDirtyFields(initialValues, values)
-
   const entity = form.formValuesToEntity(values, dirtyFields, entityName, entityId, entityModel)
   const options = {
     queryParams: {_validate: true},
@@ -70,20 +49,13 @@ const validateRequest = (values, initialValues, entityName, entityId, entityMode
     body: entity
   }
 
-  return asyncVerify(values, entityModel)
-    .then(errorObject => {
-      if (_isEmpty(errorObject)) {
-        return rest.simpleRequest(`entities/${entity.model}${entity.key ? `/${entity.key}` : ''}`, options)
-      }
-    })
-    .then(resp => {
-      if (!resp) {
+  return rest.simpleRequest(`entities/${entity.model}${entity.key ? `/${entity.key}` : ''}`, options)
+    .then(resp => resp.body)
+    .then(body => {
+      if (body.valid) {
         return {}
       }
-      if (resp.body.valid) {
-        return {}
-      }
-      return form.validationErrorToFormError(entity, resp.body.errors)
+      return form.validationErrorToFormError(entity, body.errors)
     })
 }
 
@@ -96,11 +68,15 @@ export const submitValidate = (values, initialValues, entityName, entityId, enti
     })
 }
 
-export const asyncValidate = (values, initialValues, entityName, entityId, entityModel, mode) => {
-  return validateRequest(values, initialValues, entityName, entityId, entityModel, mode)
-    .then(errors => {
-      if (hasError(errors)) {
-        throw new AsyncValidationException(errors)
-      }
-    })
+export const asyncValidate = async(values, initialValues, entityName, entityId, entityModel, mode) => {
+  const typeValidationErrors = await asyncValidateTypes(values, entityModel)
+
+  if (hasError(typeValidationErrors)) {
+    throw new AsyncValidationException(typeValidationErrors)
+  }
+
+  const validateRequestErrors = await validateRequest(values, initialValues, entityName, entityId, entityModel, mode)
+  if (hasError(validateRequestErrors)) {
+    throw new AsyncValidationException(validateRequestErrors)
+  }
 }

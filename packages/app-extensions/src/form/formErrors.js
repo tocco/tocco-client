@@ -64,6 +64,17 @@ const getRelatedEntityErrorsCompact = formErrors => {
   }, [])
 }
 
+const addErrors = (errors, field, fieldErrors) => (
+  {
+    ...errors,
+    [field]:
+      {
+        ...(errors[field] || {}),
+        ...(fieldErrors || {})
+      }
+  }
+)
+
 export default {
   hasFieldErrors,
   getFieldErrors,
@@ -71,5 +82,6 @@ export default {
   hasValidatorErrors,
   hasRelatedEntityErrors,
   getFirstErrorField,
-  getRelatedEntityErrorsCompact
+  getRelatedEntityErrorsCompact,
+  addErrors
 }
