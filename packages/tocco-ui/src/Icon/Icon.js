@@ -58,6 +58,7 @@ class Icon extends React.Component {
       : this.props.icon
 
     return <this.lazyFontAwesomeIcon
+      {...this.props}
       icon={icon}
       style={{...this.props.style, ...(getSpacing(this.props))}}
     />
