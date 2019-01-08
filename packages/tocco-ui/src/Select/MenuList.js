@@ -2,6 +2,7 @@ import React from 'react'
 import {components} from 'react-select'
 import styled from 'styled-components'
 import {theme} from 'styled-system'
+import PropTypes from 'prop-types'
 
 import {declareFont} from '../utilStyles'
 
@@ -28,6 +29,13 @@ const MenuList = props => {
       }
     </components.MenuList>
   )
+}
+
+MenuList.propTypes = {
+  children: PropTypes.node,
+  moreOptionsAvailable: PropTypes.bool,
+  moreOptionsAvailableText: PropTypes.string,
+  theme: PropTypes.object
 }
 
 export default MenuList
