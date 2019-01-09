@@ -47,15 +47,17 @@ const declareButtonColor = props => {
   const {ink, look} = props
   const {BALL, FLAT, RAISED} = stylingLook
   const {BASE, PRIMARY} = stylingInk
-  if (look === FLAT && ink === BASE) {
-    declareColor = generateFlatBaseColors
-  } else if (look === FLAT && ink === PRIMARY) {
+
+  if (look === FLAT && ink === PRIMARY) {
     declareColor = generateFlatPrimaryColors
   } else if ((look === BALL || look === RAISED) && ink === BASE) {
     declareColor = generateRaisedBaseColors
   } else if ((look === BALL || look === RAISED) && ink === PRIMARY) {
     declareColor = generateRaisedPrimaryColors
+  } else {
+    declareColor = generateFlatBaseColors
   }
+
   return declareInteractionColors(declareColor(props), 'html')
 }
 
