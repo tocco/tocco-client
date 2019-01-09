@@ -5,18 +5,17 @@ import Button from '../Button'
 
 const DropdownIndicator = props =>
   !props.isDisabled
-  && <span>
+  && <span onMouseDown={() => props.openMenu()}>
     <Button
       icon="chevron-down"
       look="ball"
-      tabIndex={-1} />
+      tabIndex={-1}
+    />
   </span>
 
 DropdownIndicator.propTypes = {
-  /**
-   * Whether the user can edit the value or not.
-   */
-  isDisabled: PropTypes.bool
+  isDisabled: PropTypes.bool,
+  openMenu: PropTypes.func.isRequired
 }
 
 export default DropdownIndicator

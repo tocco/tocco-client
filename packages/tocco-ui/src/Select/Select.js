@@ -85,6 +85,8 @@ class Select extends React.Component {
               DropdownIndicator: props =>
                 <DropdownIndicator
                   isDisabled = {this.props.readOnly}
+                  isOpen={this.state.isOpen}
+                  openMenu={this.onMenuOpen}
                   {...props}
                 />,
               LoadingIndicator: LoadingIndicator,
@@ -127,6 +129,8 @@ class Select extends React.Component {
             onMenuOpen={this.onMenuOpen}
             styles={reactSelectStyles(this.props.theme)}
             theme={theme => reactSelectTheme(theme, this.props.theme)}
+            openMenuOnClick={false}
+            menuIsOpen={this.state.isOpen}
           />
         </div>
       </div>
