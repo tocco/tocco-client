@@ -12,8 +12,8 @@ fi
 rev=$(git rev-parse --short HEAD)
 BRANCH_FOLDER_NAME="${TRAVIS_BRANCH//\//_}"
 echo ">>> ${BRANCH_FOLDER_NAME}"
-mkdir dist/deployment/${BRANCH_FOLDER_NAME}
-mv dist/storybook dist/deployment/${BRANCH_FOLDER_NAME}
+mkdir dist/deployment/$BRANCH_FOLDER_NAME
+mv dist/storybook dist/deployment/$BRANCH_FOLDER_NAME
 cd dist/deployment
 
 git init
