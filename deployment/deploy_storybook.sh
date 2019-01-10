@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e # Exit with nonzero exit code if anything fails
-SOURCE_BRANCH="master"
-TARGET_BRANCH="gh-pages"
+PAGES_BRANCH="gh-pages"
 
 if [ "$TRAVIS_PULL_REQUEST" != "false"  ]
 then
@@ -9,40 +8,39 @@ then
   exit 0
 fi
 
-
-rev=$(git rev-parse --short HEAD)
-BRANCH_FOLDER_NAME="${TRAVIS_BRANCH//\//_}"
-
-
-# Get the deploy key by using Travis's stored variables to  decrypt deploy_key.enc
+echo "Get the deploy key by using Travis's stored variables to decrypt deploy_key.enc"
 ENCRYPTED_KEY_VAR="encrypted_${ENCRYPTION_LABEL}_key"
 ENCRYPTED_IV_VAR="encrypted_${ENCRYPTION_LABEL}_iv"
 ENCRYPTED_KEY=${!ENCRYPTED_KEY_VAR}
 ENCRYPTED_IV=${!ENCRYPTED_IV_VAR}
 
+echo "open ssl connection"
 openssl aes-256-cbc -K $ENCRYPTED_KEY -iv $ENCRYPTED_IV -in ./deployment/deploy_key.enc -out deploy_key -d
 chmod 600 deploy_key
 eval `ssh-agent -s`
 ssh-add deploy_key
 
-# Clone repo and move storybook into it
+echo "Clone ${PAGES_BRANCH} branch"
 cd dist
-git clone https://github.com/tocco/tocco-client.git $TARGET_BRANCH --single-branch --branch $TARGET_BRANCH --depth 1
-mkdir $TARGET_BRANCH/$BRANCH_FOLDER_NAME
-mv storybook/* $TARGET_BRANCH/$BRANCH_FOLDER_NAME
-cd $TARGET_BRANCH
+git clone https://github.com/tocco/tocco-client.git $PAGES_BRANCH --single-branch --branch $PAGES_BRANCH --depth 1
 
 
-# Commit and push
+echo "Copy storybook zu folder in repo"
+BRANCH_FOLDER_NAME="${TRAVIS_BRANCH//\//_}"
+rm -rf $PAGES_BRANCH/$BRANCH_FOLDER_NAME
+mkdir $PAGES_BRANCH/$BRANCH_FOLDER_NAME
+mv storybook/* $PAGES_BRANCH/$BRANCH_FOLDER_NAME
+
+echo "Commit and push"
 git config user.name "Travis CI"
 git config user.email "$COMMIT_AUTHOR_EMAIL"
 
 git remote add upstream "https://github.com/tocco/tocco-client.git"
 git fetch upstream
-git reset upstream/$TARGET_BRANCH
+git reset upstream/$PAGES_BRANCH
 
 git add -A .
+rev=$(git rev-parse --short HEAD)
 git commit -m "rebuild storybook at ${rev}"
 
-# Now that we're all set up, we can push.
-git push -q git@github.com:tocco/tocco-client.git HEAD:$TARGET_BRANCH
+git push -q git@github.com:tocco/tocco-client.git HEAD:$PAGES_BRANCH
