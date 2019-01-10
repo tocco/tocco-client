@@ -32,11 +32,12 @@ install:
 script:
   - npm run lint
   - jest --maxWorkers=4 --silent --verbose false
+  - yarn build-storybook
 
 after_success:
+  - npm run codecov;
   - if [ ${TRAVIS_EVENT_TYPE} != "cron" ]; then
-        npm run codecov;
-        bash deployment/deploy_showcase.sh;
+        bash deployment/deploy_storybook.sh;
     fi
 
 env:
