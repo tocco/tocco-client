@@ -9,14 +9,12 @@ then
   exit 0
 fi
 
-if [ "$TRAVIS_BRANCH" != "$SOURCE_BRANCH"  ]
-then
-  echo "This commit was made against the $TRAVIS_BRANCH and not the master! No deploy of showcase app!"
-  exit 0
-fi
-
 rev=$(git rev-parse --short HEAD)
-cd packages/tocco-ui-showcase/dist
+BRANCH_FOLDER_NAME="${TRAVIS_BRANCH//\//_}"
+echo ">>> ${BRANCH_FOLDER_NAME}"
+mkdir dist/deployment/${BRANCH_FOLDER_NAME}
+mv dist/storybook dist/deployment/${BRANCH_FOLDER_NAME}
+cd dist/deployment
 
 git init
 git config user.name "Travis CI"

@@ -27,16 +27,14 @@ cache:
 
 install:
   - yarn setup
-  - travis_wait lerna bootstrap --concurrency=1 --mutex network
 
 script:
-  - npm run lint
-  - jest --maxWorkers=4 --silent --verbose false
+  - yarn build-storybook
 
 after_success:
   - if [ ${TRAVIS_EVENT_TYPE} != "cron" ]; then
         npm run codecov;
-        bash deployment/deploy_showcase.sh;
+        bash deployment/deploy_storybook.sh;
     fi
 
 env:

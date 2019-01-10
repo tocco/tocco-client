@@ -17,7 +17,8 @@
     "plop": "babel-node ./node_modules/plop",
     "commitmsg": "babel-node githooks/msg-validation",
     "precommit": "npm run lint",
-    "storybook": "start-storybook -s ./storybook/assets -p 3003 -c ./storybook"
+    "storybook": "start-storybook -s ./storybook/assets -p 3003 -c ./storybook",
+    "build-storybook": "build-storybook -s ./storybook/assets -c ./storybook -o ./dist/storybook"
   },
   "author": "Tocco AG",
   "license": "AGPL-3.0+",
