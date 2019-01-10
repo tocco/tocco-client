@@ -27,7 +27,7 @@ ssh-add deploy_key
 
 # Clone repo and move storybook into it
 cd dist
-git clone https://github.com/tocco/tocco-client.git TARGET_BRANCH --single-branch --branch gh-pages --depth 1
+git clone https://github.com/tocco/tocco-client.git $TARGET_BRANCH --single-branch --branch $TARGET_BRANCH --depth 1
 mkdir $TARGET_BRANCH/$BRANCH_FOLDER_NAME
 mv storybook/* $TARGET_BRANCH/$BRANCH_FOLDER_NAME
 cd $TARGET_BRANCH
