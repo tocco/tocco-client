@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import ReactSelect from 'react-select'
 import _debounce from 'lodash/debounce'
+import _isEqual from 'lodash/isEqual'
 import {withTheme} from 'styled-components'
 
 import ClearIndicator from './ClearIndicator'
@@ -14,7 +15,10 @@ import MultiValueLabel from './MultiValueLabel'
 import SingleValue from './SingleValue'
 import {reactSelectStyles, reactSelectTheme} from './StyledReactSelect'
 
-class Select extends React.Component {
+/**
+ * To select between multiple options. Loading of options and so on are remotely controlled.
+ */
+export class Select extends React.Component {
   SEARCH_DEBOUNCE = 300
 
   constructor(props) {
@@ -47,6 +51,9 @@ class Select extends React.Component {
       this.debouncedSearchOptions(searchTerm)
     }
   }
+
+  shouldComponentUpdate = (nextProps, nextState) =>
+    !_isEqual(this.props, nextProps) || !_isEqual(this.state, nextState)
 
   onMenuOpen = () => {
     this.setState({isOpen: true})
