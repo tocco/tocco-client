@@ -30,18 +30,16 @@ const declareInteractionColors = (colors, format = stylingFormat.HTML) => {
     ${fillProperty}: ${colors.defaultBackground};
     ${strokeProperty}: ${colors.defaultColor};
 
-    &:enabled {
-      &:focus,
-      &:hover {
-        ${fillProperty}: ${colors.focusBackground};
-        ${strokeProperty}: ${colors.focusColor};
-      }
+    &:focus,
+    &:hover {
+      ${fillProperty}: ${colors.focusBackground};
+      ${strokeProperty}: ${colors.focusColor};
+    }
 
-      /* :active must be declared after :hover and :focus to visualize state change */
-      &:active {
-        ${fillProperty}: ${colors.activeBackground};
-        ${strokeProperty}: ${colors.activeColor};
-      }
+    /* :active must be declared after :hover and :focus to visualize state change */
+    &:active {
+      ${fillProperty}: ${colors.activeBackground};
+      ${strokeProperty}: ${colors.activeColor};
     }
 
     &:disabled {
