@@ -25,9 +25,17 @@ const reactSelectStyles = outerTheme => {
     action: getLuminance(outerTheme.colors.paper) > 0.5 ? 'darken' : 'lighten'
   })
   const infoText = outerTheme.colors.signal.info.text
+  const typography = {
+    color: text,
+    fontFamily: outerTheme.fontFamily.regular,
+    fontSize: `${outerTheme.fontSize.base}rem`,
+    fontWeight: outerTheme.fontWeights.regular,
+    lineHeight: outerTheme.lineHeights.regular
+  }
   return {
     container: (base, state) => ({
       ...base,
+      ...typography,
       outline: 0
     }),
     control: (base, state) => ({
@@ -77,8 +85,17 @@ const reactSelectStyles = outerTheme => {
         width: '2.6rem'
       }
     }),
+    menuList: (base, state) => ({
+      ...base,
+      ...typography
+    }),
+    multiValue: (base, state) => ({
+      ...base,
+      borderRadius: outerTheme.radii.regular
+    }),
     multiValueRemove: (base, state) => ({
       ...base,
+      borderRadius: outerTheme.radii.regular,
       ':hover': {
         ...base[':hover'],
         color: text[0],
