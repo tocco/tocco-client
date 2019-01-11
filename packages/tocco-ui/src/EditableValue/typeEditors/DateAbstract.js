@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {injectIntl, intlShape} from 'react-intl'
-import classNames from 'classnames'
 
-import Icon from '../../Icon'
+import Button from '../../Button'
+import StyledFormControl from './StyledFormControl'
 
 class DateAbstract extends React.Component {
   Flatpickr = null
@@ -39,6 +39,7 @@ class DateAbstract extends React.Component {
       wrap: true,
       onChange: this.handleOnChange.bind(this),
       altInput: true,
+      altInputClass: '',
       clickOpens: !this.props.readOnly,
       defaultDate: this.props.value,
       ...(locale ? {locale} : {}),
@@ -99,45 +100,30 @@ class DateAbstract extends React.Component {
     }
   }
 
-  handleToggleClick() {
-    if (this.props.events && this.props.events.onFocus) {
-      this.props.events.onFocus()
-    }
-  }
-
   render() {
-    const spanClass = classNames('input-group', 'date-edit', {'hidden': this.props.readOnly})
-    const resetClass = classNames('reset', {'hidden': !this.hasValue()})
+    const showClearButton = this.hasValue && !this.props.readOnly
 
     return (
-      <span>
-        <span
-          className={spanClass}
-          ref={this.wrapper}
-          data-wrap
-          onBlur={this.handleOnBlur.bind(this)}
-        >
-          <span className="right-addon">
-            <input
-              {...(this.props.options ? {placeholder: this.props.options.placeholderText} : {})}
-              data-input
+      <StyledFormControl
+        data-wrap
+        onBlur={this.handleOnBlur.bind(this)}
+        readOnly={this.props.readOnly}
+        ref={this.wrapper}
+      >
+        <input
+          {...(this.props.options ? {placeholder: this.props.options.placeholderText} : {})}
+          data-input
+        />
+        { showClearButton
+          && <span data-clear>
+            <Button
+              icon="times"
+              look="ball"
+              tabIndex={-1}
             />
-            <span className={resetClass} data-clear>×</span>
           </span>
-          <span
-            data-toggle
-            className="input-group-addon"
-            onClick={this.handleToggleClick.bind(this)}
-          >
-            <Icon icon="calendar"/>
-          </span>
-        </span>
-        {this.props.readOnly && <input
-          className="form-control"
-          disabled
-          value={this.flatpickr ? this.flatpickr.altInput.value : ''}
-        />}
-      </span>
+        }
+      </StyledFormControl>
     )
   }
 }

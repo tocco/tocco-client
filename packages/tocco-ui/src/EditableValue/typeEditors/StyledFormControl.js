@@ -32,7 +32,8 @@ const StyledFormControl = styled.div.attrs({
     }
 
     > a,
-    > button {
+    > button,
+    > span > button {
       margin-left: ${props => spaceScale(props, -2)};
       min-width: 2.6rem;
     }
