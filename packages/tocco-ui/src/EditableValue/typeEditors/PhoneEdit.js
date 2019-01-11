@@ -89,7 +89,7 @@ class PhoneEdit extends React.Component {
           id={this.props.id}
           disabled={this.props.readOnly}
         />
-        {this.props.value && <ButtonLink
+        {displayValue && <ButtonLink
           href={`tel:${this.props.value}`}
           icon="phone"
           iconPosition="sole"
