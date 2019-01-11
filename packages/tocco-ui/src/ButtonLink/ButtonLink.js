@@ -32,6 +32,8 @@ const ButtonLink = props => {
       look={props.look}
       melt={props.buttonGroupMelt}
       onClick={onClickHandler}
+      tabIndex={props.tabIndex}
+      target={props.target}
       title={props.title}
     >
       {props.icon && <Icon dense={props.dense} icon={props.icon} position={props.iconPosition}/>}
@@ -44,7 +46,8 @@ ButtonLink.defaultProps = {
   href: '#',
   iconPosition: stylingPosition.PREPEND,
   ink: stylingInk.BASE,
-  look: stylingLook.FLAT
+  look: stylingLook.FLAT,
+  target: '_self'
 }
 
 ButtonLink.propTypes = {
@@ -98,6 +101,15 @@ ButtonLink.propTypes = {
    * If true, the click event will not be propagated.
    */
   stopPropagation: PropTypes.bool,
+  /**
+   * Tabindex indicates if the button can be focused and if/where it participates
+   * in sequential keyboard navigation.
+   */
+  tabIndex: PropTypes.number,
+  /**
+   * Define browsing context. Default value is '_self'. Possible values: _self|_blank
+   */
+  target: PropTypes.oneOf(['_self', '_blank']),
   /**
    * Describe link target in detail to instruct users. It is shown as popover on mouse over.
    */
