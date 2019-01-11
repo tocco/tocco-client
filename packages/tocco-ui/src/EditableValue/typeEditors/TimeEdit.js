@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import StyledTimeEdit from './StyledTimeEdit'
 import Button from '../../Button'
+import StyledFormControl from './StyledFormControl'
 import {stringToDuration, numbersToTimeFormat} from '../utils'
 
 const TimeEdit = props => {
@@ -20,9 +20,8 @@ const TimeEdit = props => {
   }
 
   return (
-    <StyledTimeEdit>
+    <StyledFormControl readOnly={props.readOnly}>
       <input
-        className="form-control"
         type="time"
         value={timeString}
         onChange={handleChange}
@@ -30,13 +29,15 @@ const TimeEdit = props => {
         id={props.id}
         readOnly={props.readOnly}
       />
-      <Button
-        icon="times"
-        look="raised"
-        onClick={clearInput}
-        tabIndex={-1}
-      />
-    </StyledTimeEdit>
+      { !props.readOnly
+        && <Button
+          icon="times"
+          look="ball"
+          onClick={clearInput}
+          tabIndex={-1}
+        />
+      }
+    </StyledFormControl>
   )
 }
 

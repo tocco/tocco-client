@@ -2,7 +2,8 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import _isEmpty from 'lodash/isEmpty'
 
-import Icon from '../../Icon'
+import ButtonLink from '../../ButtonLink'
+import StyledFormControl from './StyledFormControl'
 
 class PhoneEdit extends React.Component {
   DEFAULT_DEFAULT_COUNTRY = 'CH'
@@ -78,23 +79,24 @@ class PhoneEdit extends React.Component {
     const displayValue = this.determineDisplayValue()
 
     return (
-      <div className={this.props.value ? 'input-group' : ''}>
+      <StyledFormControl readOnly={this.props.readOnly}>
         <input
           ref={this.inputElement}
           type="tel"
-          className="form-control"
           name={name}
           value={displayValue}
           onChange={this.handleChange}
           id={this.props.id}
           disabled={this.props.readOnly}
         />
-        {this.props.value && <span className="input-group-addon">
-          <a tabIndex="-1" href={`tel:${this.props.value}`}>
-            <Icon icon="phone"/>
-          </a>
-        </span>}
-      </div>
+        {this.props.value && <ButtonLink
+          href={`tel:${this.props.value}`}
+          icon="phone"
+          iconPosition="sole"
+          look="ball"
+          tabIndex={-1}
+        />}
+      </StyledFormControl>
     )
   }
 }
