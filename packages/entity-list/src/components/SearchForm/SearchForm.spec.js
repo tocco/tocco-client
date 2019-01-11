@@ -28,6 +28,18 @@ const theme = {
   },
   radii: {
     regular: '4px'
+  },
+  fontFamily: {
+    regular: 'sans-serif'
+  },
+  fontSize: {
+    base: 1.4
+  },
+  fontWeights: {
+    regular: 400
+  },
+  lineHeights: {
+    regular: 1.4
   }
 }
 
