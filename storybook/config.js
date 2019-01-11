@@ -67,19 +67,11 @@ addDecorator(withIntl)
 addDecorator(withThemesProvider([
   {
     ...defaultTheme,
-    name: 'Default',
-    fontSize: {
-      ...defaultTheme.fontSize,
-      base: 1
-    }
+    name: 'Default'
   },
   {
     ...darkTheme,
-    name: 'Dark',
-    fontSize: {
-      ...darkTheme.fontSize,
-      base: 1
-    }
+    name: 'Dark'
   }
 ]))
 
