@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import Icon from '../../Icon'
+import ButtonLink from '../../ButtonLink'
+import StyledFormControl from './StyledFormControl'
 
 const StringEdit = props => {
   const value = props.value || ''
@@ -23,22 +24,24 @@ const StringEdit = props => {
   }
 
   return (
-    <div className={value ? 'input-group' : ''}>
+    <StyledFormControl readOnly={props.readOnly}>
       <input
         type="url"
-        className="form-control"
         name={props.name}
         value={value}
         onChange={handleChange}
         id={props.id}
         disabled={props.readOnly}
       />
-      {value && <span className="input-group-addon">
-        <a tabIndex="-1" href={value} target="_blank" rel="noopener noreferrer">
-          <Icon icon="external-link-alt"/>
-        </a>
-      </span>}
-    </div>
+      {value && <ButtonLink
+        href={value}
+        icon="external-link-alt"
+        iconPosition="sole"
+        look="ball"
+        tabIndex={-1}
+        target="_blank"
+      />}
+    </StyledFormControl>
   )
 }
 
