@@ -19,6 +19,10 @@ const TimeEdit = props => {
     props.onChange(null)
   }
 
+  const isFirefox = !!window.sidebar
+
+  const showClearButton = props.value && !props.readOnly && !isFirefox
+
   return (
     <StyledFormControl readOnly={props.readOnly}>
       <input
@@ -29,8 +33,8 @@ const TimeEdit = props => {
         id={props.id}
         readOnly={props.readOnly}
       />
-      { !props.readOnly
-        && <Button
+      {
+        showClearButton && <Button
           icon="times"
           look="ball"
           onClick={clearInput}
