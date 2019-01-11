@@ -5,7 +5,6 @@ import Icon from '../Icon'
 import StyledButtonLink from './StyledButtonLink'
 import {
   inkPropTypes,
-  lookPropTypes,
   stylingInk,
   stylingLook,
   stylingPosition
@@ -90,7 +89,11 @@ ButtonLink.propTypes = {
   /**
    * Look of link according Material Design (button section). Default value is 'flat'.
    */
-  look: lookPropTypes,
+  look: PropTypes.oneOf([
+    stylingLook.BALL,
+    stylingLook.FLAT,
+    stylingLook.RAISED
+  ]),
   /**
    * If true, the click event will not be propagated.
    */
