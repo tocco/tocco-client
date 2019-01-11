@@ -43,6 +43,16 @@ export default () => {
         label="Link with alternative text and title"
         title="title text"
       />
+      <ButtonLink
+        icon="phone"
+        iconPosition="sole"
+        look="ball"
+      />
+      <ButtonLink
+        icon="envelope"
+        iconPosition="sole"
+        look="ball"
+      />
       {/* end example */}
     </div>
   )
