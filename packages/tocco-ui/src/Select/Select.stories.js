@@ -21,7 +21,7 @@ class Story extends React.Component {
     this.state = {
       isLoading: false,
       options: null,
-      value: [{key: 3, display: 'Option 3.'}],
+      value: [{key: 3, display: 'Option 3'}],
       moreOptionsAvailable: false,
       tooltips: {}
     }
@@ -67,7 +67,7 @@ class Story extends React.Component {
           isLoading={this.state.isLoading}
           onChange={this.setValue}
           value={this.state.value}
-          noResultsText="No."
+          noResultsText="No more options."
           moreOptionsAvailable={this.state.moreOptionsAvailable}
           moreOptionsAvailableText="More options available"
           openAdvancedSearch={action('open advanced search')}
@@ -81,7 +81,6 @@ class Story extends React.Component {
 
 Story.propTypes = {
   isMulti: PropTypes.bool
-
 }
 
 storiesOf('Select', module)
