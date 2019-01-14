@@ -19,12 +19,10 @@
     "jest/globals": true
   },
   "globals" : {
+    "__CI__"      : false,
     "__DEV__"      : false,
-    "__TEST__"     : false,
     "__PROD__"     : false,
-    "__DEBUG__"    : false,
     "__STANDALONE__": false,
-    "__COVERAGE__" : false,
     "__BACKEND_URL__" : false,
     "__PACKAGE__": false,
     "__PACKAGE_NAME__": false,

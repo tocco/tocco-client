@@ -22,10 +22,17 @@ if (config.env === 'development') {
 
   updateMutableImportSCSS()
 
+  const wdm = require('webpack-dev-middleware')(compiler, {
+    publicPath: webpackConfig.output.publicPath,
+    logLevel: 'warn'
+  })
+
   logger.info('Enabling webpack dev and HMR middleware')
-  app.use(require('webpack-dev-middleware')(compiler, {
-    publicPath: webpackConfig.output.publicPath
-  }))
+  app.use(wdm)
+  wdm.waitUntilValid(() => {
+    logger.success('Compilation finished! Hot reload is watching for changes...')
+  })
+
   app.use(require('webpack-hot-middleware')(compiler))
 
   // Serve static assets from ~/public since Webpack is unaware of
