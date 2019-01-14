@@ -46,11 +46,10 @@ config.globals = {
     'NODE_ENV' : JSON.stringify(config.env)
   },
   'NODE_ENV'     : config.env,
+  '__CI__'       : !!process.env.CI,
   '__DEV__'      : config.env === 'development',
   '__PROD__'     : config.env === 'production',
   '__STANDALONE__': config.env === 'standalone',
-  '__TEST__'     : config.env === 'test',
-  '__DEBUG__'    : config.env === 'development' && !argv.no_debug,
   '__BACKEND_URL__': JSON.stringify(''),
   '__PACKAGE__'   : argv.package,
   '__PACKAGE_NAME__'   : JSON.stringify(argv.package),

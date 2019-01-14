@@ -14,7 +14,7 @@ import config from '../config'
 import logger from './lib/logger'
 
 const paths = config.utils_paths
-const {__DEV__, __PROD__, __STANDALONE__, __TEST__, __PACKAGE__} = config.globals
+const {__CI__, __DEV__, __PROD__, __STANDALONE__, __PACKAGE__} = config.globals
 
 const packageDir = `packages/${__PACKAGE__}`
 const absolutePackagePath = paths.client(`${packageDir}/`)
@@ -27,7 +27,7 @@ const webpackConfig = {
   mode: __PROD__ ? 'production' : 'development',
   name: 'client',
   target: 'web',
-  devtool: 'source-map',
+  devtool: false,
   resolve: {
     modules: [
       path.resolve(paths.client(), packageDir, 'src'),
@@ -44,11 +44,8 @@ const webpackConfig = {
   performance: {
     hints: __PROD__ ? 'warning' : false
   },
-  module: {}
-}
-
-if (!__TEST__) {
-  webpackConfig.externals = {
+  module: {},
+  externals: {
     'react': 'React',
     'React': 'React',
     'react-dom': 'ReactDOM',
@@ -93,7 +90,16 @@ webpackConfig.plugins = [
   }),
   // prevent all moment locales from being loaded when importing momentjs
   new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /de|en|fr|it/)
+
 ]
+
+if (!__CI__) {
+  const SourceMapPlugin = __DEV__ ? webpack.EvalSourceMapDevToolPlugin : webpack.SourceMapDevToolPlugin
+  webpackConfig.plugins.push(new SourceMapPlugin({
+    filename: '[file].map',
+    exclude: /vendors~.+\.js/
+  }))
+}
 
 if (__DEV__) {
   webpackConfig.plugins.push(

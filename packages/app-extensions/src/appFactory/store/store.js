@@ -23,7 +23,7 @@ export const createStore = (reducers = {}, sagas = [], input, name = '', logErro
   const sagaMiddleware = createSagaMiddleware()
   let middleware = applyMiddleware(thunk, sagaMiddleware)
 
-  if (__DEBUG__) {
+  if (__DEV__) {
     const composeEnhancers = composeWithDevTools({
       name,
       shouldHotReload: false
