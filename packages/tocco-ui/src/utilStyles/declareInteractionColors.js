@@ -1,4 +1,5 @@
 import {themeGet} from 'styled-system'
+import {css} from 'styled-components'
 import {
   lighten,
   darken,
@@ -13,12 +14,19 @@ import {
 } from '../utilStyles'
 
 const declareFocus = props => {
-  const infoText = themeGet('colors.signal.info.text', fallbackColors.IFNO)(props)
-  return `
-    border-color: ${infoText};
-    box-shadow: inset 0 1px 1px ${transparentize(0.25, infoText)},
-                      0 0 8px ${transparentize(0.4, infoText)};
-    outline: 0;
+  const infoText = themeGet('colors.signal.info.text', fallbackColors.INFO)(props)
+  return css`
+    transition:  border-color ease-in-out 100ms,
+                 box-shadow ease-in-out 100ms;
+    will-change: border-color,
+                 box-shadow;
+
+    &:focus,
+    &:focus-within {
+      border-color: ${infoText};
+      box-shadow: 0 0 6px ${transparentize(0.4, infoText)};
+      outline: 0;
+    }
   `
 }
 

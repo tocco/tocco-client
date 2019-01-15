@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import TextareaAutosize from 'react-autosize-textarea'
+
+import {StyledEditableWrapper} from '../StyledEditableValue'
+import StyledTextareaAutosize from './StyledTextEdit'
 
 const TextEdit = props => {
   const value = props.value === null ? '' : props.value
@@ -11,16 +13,17 @@ const TextEdit = props => {
   }
 
   return (
-    <TextareaAutosize
-      rows={2}
-      maxRows={20}
-      className="form-control"
-      name={props.name}
-      onChange={handleChange}
-      id={props.id}
-      value={value}
-      disabled={props.readOnly}
-    />
+    <StyledEditableWrapper readOnly={props.readOnly}>
+      <StyledTextareaAutosize
+        rows={2}
+        maxRows={20}
+        name={props.name}
+        onChange={handleChange}
+        id={props.id}
+        value={value}
+        disabled={props.readOnly}
+      />
+    </StyledEditableWrapper>
   )
 }
 

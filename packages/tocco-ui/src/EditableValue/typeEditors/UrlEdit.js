@@ -2,7 +2,11 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import ButtonLink from '../../ButtonLink'
-import StyledFormControl from './StyledFormControl'
+import {
+  StyledEditableControl,
+  StyledEditableWrapper
+} from '../StyledEditableValue'
+import StyledUrlEdit from './StyledUrlEdit'
 
 const StringEdit = props => {
   const value = props.value || ''
@@ -24,24 +28,25 @@ const StringEdit = props => {
   }
 
   return (
-    <StyledFormControl readOnly={props.readOnly}>
-      <input
-        type="url"
+    <StyledEditableWrapper readOnly={props.readOnly}>
+      <StyledUrlEdit
         name={props.name}
         value={value}
         onChange={handleChange}
         id={props.id}
         disabled={props.readOnly}
       />
-      {value && <ButtonLink
-        href={value}
-        icon="external-link-alt"
-        iconPosition="sole"
-        look="ball"
-        tabIndex={-1}
-        target="_blank"
-      />}
-    </StyledFormControl>
+      {value && <StyledEditableControl>
+        <ButtonLink
+          href={value}
+          icon="external-link-alt"
+          iconPosition="sole"
+          look="ball"
+          tabIndex={-1}
+          target="_blank"
+        />
+      </StyledEditableControl>}
+    </StyledEditableWrapper>
   )
 }
 

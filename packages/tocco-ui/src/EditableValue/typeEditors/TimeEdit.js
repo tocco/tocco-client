@@ -1,9 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Button from '../../Button'
-import StyledFormControl from './StyledFormControl'
 import {stringToDuration, numbersToTimeFormat} from '../utils'
+import Button from '../../Button'
+import {
+  StyledEditableControl,
+  StyledEditableWrapper
+} from '../StyledEditableValue'
+import StyledTimeEdit from './StyledTimeEdit'
 
 const TimeEdit = props => {
   const hours = props.value ? props.value.hourOfDay : null
@@ -24,24 +28,23 @@ const TimeEdit = props => {
   const showClearButton = props.value && !props.readOnly && !isFirefox
 
   return (
-    <StyledFormControl readOnly={props.readOnly}>
-      <input
-        type="time"
+    <StyledEditableWrapper readOnly={props.readOnly}>
+      <StyledTimeEdit
         value={timeString}
         onChange={handleChange}
         name={props.name}
         id={props.id}
         readOnly={props.readOnly}
       />
-      {
-        showClearButton && <Button
+      {showClearButton && <StyledEditableControl>
+        <Button
           icon="times"
           look="ball"
           onClick={clearInput}
           tabIndex={-1}
         />
-      }
-    </StyledFormControl>
+      </StyledEditableControl>}
+    </StyledEditableWrapper>
   )
 }
 

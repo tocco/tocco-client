@@ -1,5 +1,59 @@
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 import {theme} from 'styled-system'
+
+import {
+  declareFocus,
+  declareFont,
+  shadeColor,
+  spaceScale
+} from '../utilStyles'
+
+const StyledEditableWrapperCss = css`
+  align-items: center;
+  background-color: ${props => props.readOnly
+    ? shadeColor(theme('colors.paper')(props), 1)
+    : theme('colors.paper')};
+  border: 1px solid ${props => shadeColor(theme('colors.paper')(props), 2)};
+  border-radius: ${theme('radii.regular')};
+  cursor: ${props => props.readOnly ? 'not-allowed' : 'default'};
+  display: flex;
+  padding: ${props => spaceScale(props, -2)} ${props => spaceScale(props, -1)};
+  ${props => declareFocus(props)}
+`
+
+const StyledEditableWrapper = styled.div`
+  && {
+    ${StyledEditableWrapperCss}
+  }
+`
+
+const StyledInputCss = css`
+  background-color: transparent;
+  border: 0;
+  cursor: inherit;
+  flex-grow: 1;
+  min-height: 2.6rem;
+  min-width: 0;
+  outline: 0;
+  padding: 0;
+  ${props => declareFont(props)}
+`
+
+const StyledEditableControlCss = css`
+  > a,
+  > button,
+  > span > button {
+    margin-left: ${props => spaceScale(props, -2)};
+    margin-right: -${props => spaceScale(props, -2)};
+    min-width: 2.6rem;
+  }
+`
+
+const StyledEditableControl = styled.div`
+  && {
+    ${StyledEditableControlCss}
+  }
+`
 
 const StyledEditableValue = styled.span`
   && {
@@ -90,4 +144,11 @@ const StyledEditableValue = styled.span`
   }
 `
 
-export default StyledEditableValue
+export {
+  StyledEditableControl,
+  StyledEditableControlCss,
+  StyledEditableValue as default,
+  StyledEditableWrapper,
+  StyledEditableWrapperCss,
+  StyledInputCss
+}
