@@ -48,7 +48,7 @@ A good starting point can be found in these docs:
 Just install yarn  https://yarnpkg.com/en/docs/install 
 and execute the following commands:
 ```
-npm install --global lerna@v3.1.1 
+npm install --global lerna@v3.10.5
 yarn setup
 yarn start --package={PACKAGE_NAME}
 ```
