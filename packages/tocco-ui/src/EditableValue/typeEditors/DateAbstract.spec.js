@@ -14,7 +14,7 @@ describe('tocco-ui', () => {
             <DateAbstract options={{}} initialized={initSpy}/>
           )
 
-          expect(wrapper.find('input')).to.have.length(1)
+          expect(wrapper.find('input')).to.have.length(2)
         })
       })
     })

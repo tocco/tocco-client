@@ -116,6 +116,10 @@ class DateAbstract extends React.Component {
         <StyledDateAbstractInput
           {...(this.props.options ? {placeholder: this.props.options.placeholderText} : {})}
         />
+        <StyledDateAbstractInput
+          disabled
+          value={this.flatpickr ? this.flatpickr.altInput.value : ''}
+        />
         { showClearButton
           && <StyledDateAbstractControl>
             <Button
