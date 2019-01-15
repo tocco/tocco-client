@@ -3,7 +3,11 @@ import React from 'react'
 import _isEmpty from 'lodash/isEmpty'
 
 import ButtonLink from '../../ButtonLink'
-import StyledFormControl from './StyledFormControl'
+import {
+  StyledEditableControl,
+  StyledEditableWrapper
+} from '../StyledEditableValue'
+import StyledPhoneEdit from './StyledPhoneEdit'
 
 class PhoneEdit extends React.Component {
   DEFAULT_DEFAULT_COUNTRY = 'CH'
@@ -79,24 +83,25 @@ class PhoneEdit extends React.Component {
     const displayValue = this.determineDisplayValue()
 
     return (
-      <StyledFormControl readOnly={this.props.readOnly}>
-        <input
+      <StyledEditableWrapper readOnly={this.props.readOnly}>
+        <StyledPhoneEdit
           ref={this.inputElement}
-          type="tel"
           name={name}
           value={displayValue}
           onChange={this.handleChange}
           id={this.props.id}
           disabled={this.props.readOnly}
         />
-        {displayValue && <ButtonLink
-          href={`tel:${this.props.value}`}
-          icon="phone"
-          iconPosition="sole"
-          look="ball"
-          tabIndex={-1}
-        />}
-      </StyledFormControl>
+        {displayValue && <StyledEditableControl>
+          <ButtonLink
+            href={`tel:${this.props.value}`}
+            icon="phone"
+            iconPosition="sole"
+            look="ball"
+            tabIndex={-1}
+          />
+        </StyledEditableControl>}
+      </StyledEditableWrapper>
     )
   }
 }

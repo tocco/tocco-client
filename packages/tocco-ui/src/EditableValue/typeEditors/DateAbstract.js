@@ -3,7 +3,11 @@ import PropTypes from 'prop-types'
 import {injectIntl, intlShape} from 'react-intl'
 
 import Button from '../../Button'
-import StyledFormControl from './StyledFormControl'
+import {
+  StyledDateAbstractControl,
+  StyledDateAbstractInput,
+  StyledDateAbstractWrapper
+} from './StyledDateAbstract'
 
 class DateAbstract extends React.Component {
   Flatpickr = null
@@ -104,26 +108,24 @@ class DateAbstract extends React.Component {
     const showClearButton = this.hasValue && !this.props.readOnly
 
     return (
-      <StyledFormControl
-        data-wrap
+      <StyledDateAbstractWrapper
         onBlur={this.handleOnBlur.bind(this)}
         readOnly={this.props.readOnly}
         ref={this.wrapper}
       >
-        <input
+        <StyledDateAbstractInput
           {...(this.props.options ? {placeholder: this.props.options.placeholderText} : {})}
-          data-input
         />
         { showClearButton
-          && <span data-clear>
+          && <StyledDateAbstractControl>
             <Button
               icon="times"
               look="ball"
               tabIndex={-1}
             />
-          </span>
+          </StyledDateAbstractControl>
         }
-      </StyledFormControl>
+      </StyledDateAbstractWrapper>
     )
   }
 }

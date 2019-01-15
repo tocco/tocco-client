@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types'
 import {intlShape} from 'react-intl'
 import React from 'react'
-import NumberFormat from 'react-number-format'
 
 import {parseLocalePlaceholder, convertStringToNumber} from '../utils'
+import {StyledEditableWrapper} from '../StyledEditableValue'
+import StyledNumberEdit from './StyledNumberEdit'
 
 export const limitValue = maxValueObject => values => {
   const {formattedValue, floatValue} = values
@@ -61,18 +62,19 @@ const NumberEdit = props => {
   }
 
   return (
-    <NumberFormat
-      className="form-control"
-      disabled={props.readOnly}
-      name={props.name}
-      id={props.id}
-      value={value}
-      isNumericString={true}
-      onValueChange={handleChange}
-      thousandSeparator={thousandSeparator}
-      decimalSeparator={decimalSeparator}
-      {...numberFormatOptions}
-    />
+    <StyledEditableWrapper readOnly={props.readOnly}>
+      <StyledNumberEdit
+        decimalSeparator={decimalSeparator}
+        disabled={props.readOnly}
+        id={props.id}
+        isNumericString={true}
+        name={props.name}
+        onValueChange={handleChange}
+        thousandSeparator={thousandSeparator}
+        value={value}
+        {...numberFormatOptions}
+      />
+    </StyledEditableWrapper>
   )
 }
 
