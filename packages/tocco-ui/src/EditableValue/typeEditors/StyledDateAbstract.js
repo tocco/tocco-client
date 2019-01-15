@@ -28,6 +28,14 @@ const StyledDateAbstractWrapper = styled.div.attrs({
 })`
   && {
     ${StyledEditableWrapperCss}
+
+    input {
+      display: ${props => props.readOnly ? 'none' : 'block'}
+
+      &:last-of-type {
+        display: ${props => props.readOnly ? 'block' : 'none'}
+      }
+    }
   }
 `
 
