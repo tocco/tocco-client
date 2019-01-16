@@ -1,4 +1,5 @@
 import React from 'react'
+import {reducer as reducerUtil} from 'tocco-util'
 import {appFactory, externalEvents} from 'tocco-app-extensions'
 
 import reducers, {sagas} from './modules'
@@ -43,7 +44,7 @@ const initApp = (id, input, events, publicPath) => {
     if (module.hot) {
       module.hot.accept('./modules/index', () => {
         const reducers = require('./modules').default
-        appFactory.hotReloadReducers(app.store, reducers)
+        reducerUtil.hotReloadReducers(app.store, reducers)
       })
     }
 
