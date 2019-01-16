@@ -2,6 +2,7 @@ import {
   getLuminance,
   transparentize
 } from 'polished'
+import _round from 'lodash/round'
 
 import {generateInteractionColor} from '../utilStyles'
 
@@ -20,18 +21,33 @@ const reactSelectTheme = (theme, outerTheme) => ({
 })
 
 const reactSelectStyles = outerTheme => {
+  const spaceScale = exponent =>
+    `${_round(scaleExponential(outerTheme.space.base, exponent, outerTheme.space.scale), 3)}rem`
+
+  const scaleExponential = (base, exponent, scale) =>
+    Math.pow(scale, exponent) * base
+
   const paper = generateInteractionColor(outerTheme.colors.paper)
   const text = generateInteractionColor(outerTheme.colors.text, {
     action: getLuminance(outerTheme.colors.paper) > 0.5 ? 'darken' : 'lighten'
   })
   const infoText = outerTheme.colors.signal.info.text
+  const typography = {
+    color: text[0],
+    fontFamily: outerTheme.fontFamily.regular,
+    fontSize: `${outerTheme.fontSize.base}rem`,
+    fontWeight: outerTheme.fontWeights.regular,
+    lineHeight: outerTheme.lineHeights.regular
+  }
   return {
     container: (base, state) => ({
       ...base,
+      ...typography,
       outline: 0
     }),
     control: (base, state) => ({
       ...base,
+      backgroundColor: state.isDisabled ? paper[1] : paper[0],
       borderColor: state.isFocused
         ? infoText
         : state.theme.colors.neutral20,
@@ -71,24 +87,50 @@ const reactSelectStyles = outerTheme => {
     indicatorsContainer: (base, state) => ({
       ...base,
       '> span': {
-        marginRight: state.theme.spacing.baseUnit
+        marginRight: `${spaceScale(-2)}`
       },
       '> span > button': {
         width: '2.6rem'
       }
     }),
+    input: (base, state) => ({
+      margin: `0 0 ${spaceScale(-2)} 0`
+    }),
+    menuList: (base, state) => ({
+      ...base,
+      ...typography
+    }),
+    multiValue: (base, state) => ({
+      ...base,
+      borderRadius: outerTheme.radii.regular,
+      margin: `0 ${spaceScale(-2)} ${spaceScale(-2)} 0`
+    }),
+    multiValueLabel: (base, state) => ({
+      ...base,
+      borderRadius: outerTheme.radii.regular,
+      color: text[0],
+      fontSize: 'inherit'
+    }),
     multiValueRemove: (base, state) => ({
       ...base,
+      borderRadius: outerTheme.radii.regular,
+      color: text[0],
+      display: state.isDisabled ? 'none' : 'flex',
       ':hover': {
         ...base[':hover'],
-        color: text[0],
-        backgroundColor: outerTheme.colors.signal.danger.paper,
+        color: text[1],
+        backgroundColor: paper[2],
         cursor: 'pointer'
       }
     }),
+    singleValue: (base, state) => ({
+      ...base,
+      color: text[0],
+      margin: `0 ${spaceScale(-2)}`
+    }),
     valueContainer: (base, state) => ({
       ...base,
-      padding: `${state.theme.spacing.baseUnit / 2}px ${state.theme.spacing.baseUnit}px`
+      padding: `${spaceScale(-2)} ${spaceScale(-1)} 0 ${spaceScale(-2)}`
     })
   }
 }
