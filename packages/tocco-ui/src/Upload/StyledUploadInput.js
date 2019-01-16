@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import {theme} from 'styled-system'
 
 import {
+  declareFocus,
   declareFont,
   shadeColor,
   spaceScale
@@ -13,6 +14,7 @@ const StyledUploadInput = styled.div`
   border-radius: ${theme('radii.regular')};
   padding: ${props => spaceScale(props, -2)} ${props => spaceScale(props, -1)};
   cursor: pointer;
+  ${props => declareFocus(props)}
 
   &[aria-disabled="true"] {
     cursor: no-drop;
