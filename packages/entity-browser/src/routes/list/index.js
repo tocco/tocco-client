@@ -1,11 +1,10 @@
-import {route} from 'tocco-util'
-import {appFactory} from 'tocco-app-extensions'
+import {route, reducer as reducerUtil} from 'tocco-util'
 
 export default (store, input) => {
   if (module.hot) {
     module.hot.accept('./route', () => {
       const reducers = require('./route').default.reducers
-      appFactory.hotReloadReducers(store, reducers)
+      reducerUtil.hotReloadReducers(store, reducers)
     })
   }
 
