@@ -7,17 +7,6 @@ const StyledTimeEdit = styled.input.attrs({
 })`
   && {
     ${StyledInputCss}
-    &[type=time] {
-      &::-ms-clear {
-        display: none;
-      }
-      &::-webkit-clear-button {
-        display: none;
-      }
-      &::-webkit-inner-spin-button {
-        display: none;
-      }
-    }
   }
 `
 
