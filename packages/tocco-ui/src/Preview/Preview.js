@@ -15,7 +15,11 @@ class Preview extends React.Component {
     loaded: false
   }
 
-  handleOnClick = () => this.props.onClick(this.props.srcUrl, this.props.thumbnailUrl)
+  handleOnClick = () => {
+    if (typeof this.props.onClick === 'function') {
+      this.props.onClick(this.props.srcUrl, this.props.thumbnailUrl)
+    }
+  }
 
   handleOnLoad = () => this.setState({loaded: true})
 
