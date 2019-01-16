@@ -1,5 +1,5 @@
 import React from 'react'
-import {consoleLogger} from 'tocco-util'
+import {consoleLogger, reducer as reducerUtil} from 'tocco-util'
 import {appFactory, errorLogging, externalEvents} from 'tocco-app-extensions'
 
 import * as passwordUpdate from './modules/passwordUpdate/dialog/actions'
@@ -102,7 +102,7 @@ const initPasswordUpdateApp = (id, input, events, publicPath, customTheme) => {
     if (module.hot) {
       module.hot.accept('./modules/reducers', () => {
         const reducers = require('./modules/reducers').default
-        appFactory.hotReloadReducers(app.store, reducers)
+        reducerUtil.hotReloadReducers(app.store, reducers)
       })
     }
 
