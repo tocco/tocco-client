@@ -37,6 +37,15 @@ const StyledInputCss = css`
   outline: 0;
   padding: 0;
   ${props => declareFont(props)}
+  &::-ms-clear {
+    display: none;
+  }
+  &::-webkit-clear-button {
+    display: none;
+  }
+  &::-webkit-inner-spin-button {
+    display: none;
+  }
 `
 
 const StyledEditableControlCss = css`
