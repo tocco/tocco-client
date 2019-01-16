@@ -17,7 +17,7 @@ export function* loadProviders() {
     conditions: {locale: intl.locale, active: true}
   }
 
-  const entities = yield call(rest.fetchEntities, entityName, query, transformProviderEntities)
+  const entities = yield call(rest.fetchEntities, entityName, query, {method: 'GET'}, transformProviderEntities)
   yield put(actions.setProviders(entities))
 }
 
