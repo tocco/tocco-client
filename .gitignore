@@ -1,13 +1,10 @@
-.DS_STORE
 *.log
-
-node_modules/
-packages/*/dist/
-packages/*/node_modules/
-
-coverage
+*.iml
 
 .idea
-*.iml
-.eslintcache
 .jestcache
+.eslintcache
+coverage
+node_modules
+packages/*/dist
+packages/*/node_modules
