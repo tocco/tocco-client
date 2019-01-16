@@ -1,19 +1,26 @@
 import styled from 'styled-components'
 
+import {
+  declareFont,
+  spaceScale
+} from '../../utilStyles'
+
 const StyledDurationEdit = styled.div`
 && {
   display: flex;
   flew-wrap: nowrap;
   align-items: center;
-  > input:nth-of-type(1) { 
-      margin-right: 5px;
-  }
-  > input: nth-of-type(2) {
-      margin: 0 5px 0 5px;
-  }
-  > button {
-      width: 90px;
-      margin-top: 20px;
+
+  > input {
+    ${props => declareFont(props)}
+
+    &:nth-of-type(1) {
+      margin-right: ${props => spaceScale(props, -1)};
+    }
+
+    &: nth-of-type(2) {
+        margin: 0 ${props => spaceScale(props, -1)};
+    }
   }
 }
 `
