@@ -26,8 +26,24 @@ const theme = {
       }
     }
   },
+  fontFamily: {
+    regular: '"Helvetica Neue", Helvetica, Arial, sans-serif'
+  },
+  fontSize: {
+    base: 1.4
+  },
+  fontWeights: {
+    regular: 400
+  },
+  lineHeights: {
+    regular: 1.4
+  },
   radii: {
     regular: '4px'
+  },
+  space: {
+    base: 2,
+    scale: 2
   }
 }
 
