@@ -82,7 +82,14 @@ export class Select extends React.Component {
       />
 
     return (
-      <div tabIndex="-1" id={this.props.id} onFocus={this.focus} style={{outlineStyle: 'none'}}>
+      <div
+        tabIndex="-1"
+        id={this.props.id}
+        onFocus={this.focus}
+        style={{
+          outlineStyle: 'none',
+          cursor: this.props.readOnly ? 'not-allowed' : 'default'
+        }}>
         <div ref={this.selectWrapper} style={{outlineStyle: 'none'}}>
           <ReactSelect
             getOptionLabel={option => option.display}
