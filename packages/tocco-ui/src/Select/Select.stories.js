@@ -1,4 +1,5 @@
 import React from 'react'
+import {IntlProvider} from 'react-intl'
 import PropTypes from 'prop-types'
 import {storiesOf} from '@storybook/react'
 import {action} from '@storybook/addon-actions'
@@ -15,7 +16,7 @@ const options = [
   {key: 5, display: 'Option 5'}
 ]
 
-class Story extends React.Component {
+export class SelectStory extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -30,7 +31,7 @@ class Story extends React.Component {
   fetchOptions = () => {
     if (this.state.options === null) {
       this.setState({...this.state, options: null, isLoading: true})
-      setTimeout(() => { this.setState({...this.state, options, isLoading: false}) }, 2000)
+      setTimeout(() => { this.setState({...this.state, options, isLoading: false}) }, this.props.delay || 0)
     }
   }
 
@@ -43,7 +44,7 @@ class Story extends React.Component {
         isLoading: false,
         moreOptionsAvailable: true
       })
-    }, 2000)
+    }, this.props.delay || 0)
   }
 
   setValue = value => {
@@ -79,14 +80,15 @@ class Story extends React.Component {
   }
 }
 
-Story.propTypes = {
-  isMulti: PropTypes.bool
+SelectStory.propTypes = {
+  isMulti: PropTypes.bool,
+  delay: PropTypes.number
 }
 
-storiesOf('Select', module)
+storiesOf('Edit Data', module)
   .addDecorator(withKnobs)
   .add(
     'Select',
-    () => <Story isMulti={boolean('isMulti', true)} action={action}/>,
-    {info: {propTables: [Raw], propTablesExclude: [Story], source: false}}
+    () => <SelectStory isMulti={boolean('isMulti', true)} delay={2000} action={action}/>,
+    {info: {propTables: [Raw], propTablesExclude: [SelectStory, IntlProvider], source: false}}
   )

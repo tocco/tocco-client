@@ -6,8 +6,9 @@ import _pick from 'lodash/pick'
 
 import Button from './'
 import {stylingInk, stylingPosition, stylingLook} from '../utilStyles'
+import excludeIntlInfo from '../util/excludeIntlInfo'
 
-storiesOf('Button', module)
+storiesOf('Navigation/Button', module)
   .addDecorator(withKnobs)
   .add(
     'Knobs',
@@ -20,11 +21,11 @@ storiesOf('Button', module)
           onClick={action('clicked')}
           look={select('look', {'-': null, ..._pick(stylingLook, ['FLAT', 'RAISED'])}) || undefined}
           iconPosition={select('iconPosition', {'-': null, ...stylingPosition}) || undefined}
-          pending={boolean('pending', false) || undefined}
+          pending={boolean('pending', false)}
           dense={boolean('dense', false) || undefined}
           title={text('title')}
         />
-      )
+      ), excludeIntlInfo()
   )
   .add(
     'Showcase',
@@ -57,5 +58,5 @@ storiesOf('Button', module)
           dense
         />
       ]
-    }
+    }, excludeIntlInfo()
   )

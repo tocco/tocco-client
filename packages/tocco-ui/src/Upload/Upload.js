@@ -9,7 +9,7 @@ import UploadInput from './UploadInput'
 /**
  * Component to upload files. If uploaded, the file will be displayed by the Preview component.
  */
-class Upload extends React.Component {
+export class Upload extends React.Component {
   constructor(props) {
     super(props)
     this.state = {isUploading: false}
