@@ -1,28 +1,44 @@
 import styled from 'styled-components'
 
+import {spaceScale} from '../../utilStyles'
+import {StyledSpan} from '../../Typography'
 import {
-  declareFont,
-  spaceScale
-} from '../../utilStyles'
+  StyledEditableWrapper,
+  StyledInputCss
+} from '../StyledEditableValue'
 
-const StyledDurationEdit = styled.div`
+const StyledDurationEdit = styled.input.attrs({
+  type: 'number'
+})`
+  && {
+    ${StyledInputCss}
+    width: 100%;
+  }
+`
+
+const StyledDurationEditWrapper = styled.div`
 && {
-  display: flex;
-  flew-wrap: nowrap;
   align-items: center;
+  display: flex;
+  min-width: 20rem;
 
-  > input {
-    ${props => declareFont(props)}
+  > ${StyledEditableWrapper} {
+    flex-grow: 1;
+  }
 
+  > ${StyledSpan} {
     &:nth-of-type(1) {
-      margin-right: ${props => spaceScale(props, -1)};
+      margin: 0 ${props => spaceScale(props, -1)};
     }
 
-    &: nth-of-type(2) {
-        margin: 0 ${props => spaceScale(props, -1)};
+    &:nth-of-type(2) {
+      margin-left: ${props => spaceScale(props, -1)};
     }
   }
 }
 `
 
-export default StyledDurationEdit
+export {
+  StyledDurationEditWrapper,
+  StyledDurationEdit
+}

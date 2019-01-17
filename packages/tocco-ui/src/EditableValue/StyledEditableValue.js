@@ -46,6 +46,9 @@ const StyledInputCss = css`
   &::-webkit-inner-spin-button {
     display: none;
   }
+  &[type="number"] {
+    -moz-appearance: textfield;
+  }
 `
 
 const StyledEditableControlCss = css`

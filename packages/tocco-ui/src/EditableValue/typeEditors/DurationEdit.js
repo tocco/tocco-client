@@ -3,7 +3,11 @@ import React from 'react'
 
 import {calculateMilliseconds} from '../utils'
 import Typography from '../../Typography'
-import StyledDurationEdit from './StyledDurationEdit'
+import {
+  StyledDurationEditWrapper,
+  StyledDurationEdit
+} from './StyledDurationEdit'
+import {StyledEditableWrapper} from '../StyledEditableValue'
 
 class DurationEdit extends React.Component {
   constructor(props) {
@@ -80,33 +84,33 @@ class DurationEdit extends React.Component {
 
   render() {
     return (
-      <StyledDurationEdit>
-        <input
-          type="number"
-          step={1}
-          onChange={() => {}} // Empty onChange function to prevent React internal error
-          className="form-control"
-          value={this.state.hours}
-          onInput={this.handleHourChange}
-          onKeyPress={this.preventNonNumeric}
-          disabled={this.props.readOnly}
-          pattern="\d+"
-          min={0}
-        />
+      <StyledDurationEditWrapper>
+        <StyledEditableWrapper>
+          <StyledDurationEdit
+            step={1}
+            onChange={() => {}} // Empty onChange function to prevent React internal error
+            value={this.state.hours}
+            onInput={this.handleHourChange}
+            onKeyPress={this.preventNonNumeric}
+            disabled={this.props.readOnly}
+            pattern="\d+"
+            min={0}
+          />
+        </StyledEditableWrapper>
         <Typography.Span>{this.props.options.hoursLabel}</Typography.Span>
-        <input
-          type="number"
-          step={1}
-          onChange={() => {}} // Empty onChange function to prevent React internal error
-          className="form-control"
-          value={this.state.minutes}
-          onInput={this.handleMinutesChange}
-          onKeyPress={this.preventNonNumeric}
-          disabled={this.props.readOnly}
-          pattern="\d+"
-        />
+        <StyledEditableWrapper>
+          <StyledDurationEdit
+            step={1}
+            onChange={() => {}} // Empty onChange function to prevent React internal error
+            value={this.state.minutes}
+            onInput={this.handleMinutesChange}
+            onKeyPress={this.preventNonNumeric}
+            disabled={this.props.readOnly}
+            pattern="\d+"
+          />
+        </StyledEditableWrapper>
         <Typography.Span>{this.props.options.minutesLabel}</Typography.Span>
-      </StyledDurationEdit>
+      </StyledDurationEditWrapper>
     )
   }
 }
