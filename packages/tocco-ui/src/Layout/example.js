@@ -6,9 +6,9 @@ import Typography from '../Typography'
 import Layout from './'
 // real-import:import {Layout} from 'tocco-ui'
 
-const ExampleCell = () => <div style={{backgroundColor: '#ddd'}}>Cell</div>
+export const ExampleCell = () => <div style={{backgroundColor: '#ddd'}}>Cell</div>
 
-const ExamplePanel1 = () =>
+export const ExamplePanel1 = () =>
   <Panel.Wrapper>
     <Panel.Header>
       <Typography.H4>Header</Typography.H4>
@@ -19,7 +19,7 @@ const ExamplePanel1 = () =>
     </Panel.Body>
   </Panel.Wrapper>
 
-const ExamplePanel2 = () =>
+export const ExamplePanel2 = () =>
   <Panel.Wrapper>
     <Panel.Body>
       <Typography.Span>Body</Typography.Span>
@@ -29,7 +29,7 @@ const ExamplePanel2 = () =>
     </Panel.Footer>
   </Panel.Wrapper>
 
-const ExamplePanel3 = () =>
+export const ExamplePanel3 = () =>
   <Panel.Wrapper>
     <Panel.Header>
       <Typography.H4>Header</Typography.H4>
@@ -42,7 +42,7 @@ const ExamplePanel3 = () =>
     </Panel.Footer>
   </Panel.Wrapper>
 
-export default () =>
+export const insertLayoutContent = () =>
   <div>
     {/* start example */}
     <Layout.Container maxCellsPerRow={{sm: 2, md: 3, lg: 4, xl: 5}}>
@@ -64,3 +64,5 @@ export default () =>
     </Layout.Container>
     {/* end example */}
   </div>
+
+export default () => insertLayoutContent()
