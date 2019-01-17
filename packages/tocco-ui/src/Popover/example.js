@@ -7,7 +7,7 @@ import Typography from '../Typography'
 import Link from '../Link'
 // real-import:import {Popover} from 'tocco-ui'
 
-const image = <img src="https://picsum.photos/200/200" width="200" height="200"/>
+export const image = <img src="https://picsum.photos/200/200" width="200" height="200"/>
 
 const plainHtml = <div>
   <h4>dolor sit amet</h4>
