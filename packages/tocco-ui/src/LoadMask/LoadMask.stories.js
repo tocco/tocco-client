@@ -1,18 +1,16 @@
 import React from 'react'
 import {storiesOf} from '@storybook/react'
-import {withKnobs, boolean} from '@storybook/addon-knobs'
+import {withKnobs, boolean, text} from '@storybook/addon-knobs'
 
 import LoadMask from './'
+import excludeIntlInfo from '../util/excludeIntlInfo'
 
-storiesOf('LoadMask', module)
+storiesOf('Layout', module)
   .addDecorator(withKnobs)
   .add(
     'LoadMask',
     () =>
-      <LoadMask
-        required={[boolean('loaded')]}
-        loadingText="Loading..."
-      >
+      <LoadMask required={[boolean('loaded', false)]} loadingText={text('loadingText', 'Loading...')}>
         LOADED
-      </LoadMask>
+      </LoadMask>, excludeIntlInfo()
   )
