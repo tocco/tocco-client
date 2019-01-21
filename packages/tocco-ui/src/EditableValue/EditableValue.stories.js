@@ -1,123 +1,160 @@
-/* eslint-disable no-console */
 import React from 'react'
 import {storiesOf} from '@storybook/react'
 import {withKnobs, number, text, boolean} from '@storybook/addon-knobs'
-import {IntlProvider} from 'react-intl'
+import PropTypes from 'prop-types'
 
 import EditableValue from './'
-import excludeIntlInfo from '../util/excludeIntlInfo'
-import {htmlMarkup} from '../util/htmlMarkup'
+import {storybookHtmlMarkup} from '../util/storybookHtmlMarkup'
 import {SelectStory} from '../Select/Select.stories'
 import {UploadStory} from '../Upload/Upload.stories'
-import {Upload as Raw} from '../Upload/Upload'
+import {Upload} from '../Upload/Upload'
+import StringEdit from './typeEditors/StringEdit'
+import TextEdit from './typeEditors/TextEdit'
+import UrlEdit from './typeEditors/UrlEdit'
+import PhoneEdit from './typeEditors/PhoneEdit'
+import NumberEdit from './typeEditors/NumberEdit'
+import IntegerEdit from './typeEditors/IntegerEdit'
+import MoneyEdit from './typeEditors/MoneyEdit'
+import TimeEdit from './typeEditors/TimeEdit'
+import SingleSelect from './typeEditors/SingleSelect'
+import MultiSelect from './typeEditors/MultiSelect'
+import RemoteSelect from './typeEditors/RemoteSelect'
+import MultiRemoteSelect from './typeEditors/MultiRemoteSelect'
+import {DateEdit} from './typeEditors/DateEdit'
+import {DateRangeEdit} from './typeEditors/DateRangeEdit'
+import {DateTimeEdit} from './typeEditors/DateTimeEdit'
+import DurationEdit from './typeEditors/DurationEdit'
+import HtmlEdit from './typeEditors/HtmlEdit'
+
+export class EditableValueStory extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      value: props.value || ''
+    }
+  }
+
+  changeValue = value => {
+    this.setState({...this.state, value})
+  }
+
+  render() {
+    const ChildComponent = this.props.ChildComponent
+    return (
+      <span>
+        <ChildComponent
+          onChange={this.changeValue}
+          value={this.state.value}
+          options={{...this.props.options}}
+        />
+      </span>
+    )
+  }
+}
+
+EditableValueStory.propTypes = {
+  ChildComponent: PropTypes.node,
+  options: PropTypes.object,
+  value: PropTypes.node
+}
 
 const EMPTY_FUNC = () => {}
 
-storiesOf('Edit Data/EditableValue', module)
+storiesOf('EditableValue', module)
   .addDecorator(withKnobs)
   .add(
     'String',
-    () => <EditableValue type="string" value={text('String', 'This is a simple string.')} onChange={EMPTY_FUNC}/>,
-    excludeIntlInfo()
+    () =>
+      <EditableValueStory ChildComponent={StringEdit} value={'Simple String'} />,
+    {info: {propTables: [StringEdit], propTablesExclude: [EditableValueStory], source: false}}
   )
   .add(
     'Text',
-    () => <EditableValue
-      type="text"
-      value={text('Text', 'This is the first line.\nTo be continued...')}
-      onChange={EMPTY_FUNC}
-    />, excludeIntlInfo()
+    () => <EditableValueStory ChildComponent={TextEdit} value={'This is the first line.\nTo be continued...'} />,
+    {info: {propTables: [TextEdit], propTablesExclude: [EditableValueStory], source: false}}
   )
   .add(
     'Url',
-    () => <EditableValue type="url" value={text('Url', 'http://www.tocco.ch')} onChange={EMPTY_FUNC}/>,
-    excludeIntlInfo()
+    () => <EditableValueStory ChildComponent={UrlEdit} value={'http://www.tocco.ch'} />,
+    {info: {propTables: [UrlEdit], propTablesExclude: [EditableValueStory], source: false}}
   )
   .add(
     'Phone',
-    () => <EditableValue type="phone" value={text('Phone', '+41761234567')} onChange={EMPTY_FUNC}/>,
-    excludeIntlInfo()
+    () => <EditableValueStory ChildComponent={PhoneEdit} value={'+41761234567'} />,
+    {info: {propTables: [PhoneEdit], propTablesExclude: [EditableValueStory], source: false}}
   )
   .add(
     'Number',
-    () =>
-      <EditableValue
-        type="number"
-        value={number('Number', 543)}
-        options={{
-          prePointDigits: 8,
-          postPointDigits: 2
-        }}
-        onChange={EMPTY_FUNC}
-      />, excludeIntlInfo()
+    () => <EditableValueStory
+      ChildComponent={NumberEdit}
+      value={12345}
+      options={{prePointDigits: number('prePointDigits', 8), postPointDigits: number('postPointDigits', 2)}}
+    />,
+    {info: {propTables: [NumberEdit], propTablesExclude: [EditableValueStory], source: false}}
   )
   .add(
     'Decimal',
-    () => <EditableValue
-      type="decimal"
-      value={number('Decimal', 123456.78)}
-      options={{
-        prePointDigits: 8,
-        postPointDigits: 2
-      }}
-      onChange={EMPTY_FUNC}
-    />, excludeIntlInfo()
+    () => <EditableValueStory
+      ChildComponent={NumberEdit}
+      value={54321}
+      options={{prePointDigits: number('prePointDigits', 10), postPointDigits: number('postPointDigits', 3)}}
+    />,
+    {info: {propTables: [NumberEdit], propTablesExclude: [EditableValueStory], source: false}}
   )
   .add(
     'Integer',
-    () => <EditableValue
-      type="integer"
-      value={number('Integer', 200)}
-      options={{
-        minValue: 0,
-        maxValue: 300
-      }}
-      onChange={EMPTY_FUNC}
-    />, excludeIntlInfo()
+    () => <EditableValueStory
+      ChildComponent={IntegerEdit}
+      value={200}
+      options={{minValue: number('minValue', 0), maxValue: number('maxValue', 300)}}
+    />,
+    {info: {propTables: [IntegerEdit], propTablesExclude: [EditableValueStory], source: false}}
   )
   .add(
-    'Money Amount',
-    () => <EditableValue
-      type="moneyamount"
-      value={number('Money Amount', 1234.56)}
-      options={{
-        prePointDigits: 8,
-        postPointDigits: 2
-      }}
-      onChange={EMPTY_FUNC}
-    />, excludeIntlInfo()
+    'MoneyAmount',
+    () => <EditableValueStory
+      ChildComponent={MoneyEdit}
+      value={1234.56}
+      options={{prePointDigits: number('prePointDigits', 8), postPointDigits: number('postPointDigits', 2)}}
+    />,
+    {info: {propTables: [MoneyEdit], propTablesExclude: [EditableValueStory], source: false}}
   )
   .add(
     'Single-Select',
     () => <SelectStory
       isMulti={false}
       delay={0}
-    />, excludeIntlInfo()
+    />,
+    {info: {propTables: [SingleSelect], propTablesExclude: [SelectStory], source: false}}
   )
   .add(
     'Multi-Select',
     () => <SelectStory
       isMulti
       delay={0}
-    />, excludeIntlInfo()
+    />,
+    {info: {propTables: [MultiSelect], propTablesExclude: [SelectStory], source: false}}
   )
   .add(
     'Remote',
     () => <SelectStory
       isMulti={false}
       delay={2000}
-    />, excludeIntlInfo()
+    />,
+    {info: {propTables: [RemoteSelect], propTablesExclude: [SelectStory], source: false}}
   )
   .add(
     'Multi-Remote',
     () => <SelectStory
       isMulti
       delay={2000}
-    />, excludeIntlInfo()
+    />,
+    {info: {propTables: [MultiRemoteSelect], propTablesExclude: [SelectStory], source: false}}
   )
   .add(
     'Date',
-    () => <EditableValue type="date" value={text('Date', '2019-12-18')} onChange={EMPTY_FUNC}/>, excludeIntlInfo()
+    () => <EditableValue type="date" value={text('Date', '2019-12-18')} onChange={EMPTY_FUNC}/>,
+    {info: {propTables: [DateEdit], propTablesExclude: [EditableValue], source: false}}
   )
   .add(
     'Date-Range',
@@ -125,47 +162,51 @@ storiesOf('Edit Data/EditableValue', module)
       type="date-range"
       value={{from: '2019-12-21', to: '2019-12-23'}}
       onChange={EMPTY_FUNC}
-    />, excludeIntlInfo()
+    />,
+    {info: {propTables: [DateRangeEdit], propTablesExclude: [EditableValue], source: false}}
   )
   .add(
     'Datetime',
     () => <EditableValue type="datetime" value={text('Datetime', '2017-01-25T15:15:00.000Z')} onChange={EMPTY_FUNC}/>,
-    excludeIntlInfo()
+    {info: {propTables: [DateTimeEdit], propTablesExclude: [EditableValue], source: false}}
   )
   .add(
     'Time',
-    () => <EditableValue type="time" value={
-      {
-        hourOfDay: number('Hour', 8),
-        minuteOfHour: number('Minute', 35),
-        secondOfMinute: 0,
-        millisOfSecond: 0
+    () => <EditableValueStory
+      ChildComponent={TimeEdit}
+      value={
+        {
+          hourOfDay: 8,
+          minuteOfHour: 35,
+          secondOfMinute: 0,
+          millisOfSecond: 0
+        }
       }
-    }
-    onChange={EMPTY_FUNC}
-    />, excludeIntlInfo()
+    />,
+    {info: {propTables: [TimeEdit], propTablesExclude: [EditableValueStory], source: false}}
   )
   .add(
     'Duration',
     () => <EditableValue type="duration" value={number('Duration', 3660000)} onChange={EMPTY_FUNC}/>,
-    excludeIntlInfo()
+    {info: {propTables: [DurationEdit], propTablesExclude: [EditableValue], source: false}}
   )
   .add(
     'Document',
     () => <UploadStory
-      readOnly={boolean('readonly', false)}
+      readOnly={boolean('readOnly', false)}
       textResources={{
         upload: text('upload', 'D`n`D or click'),
         uploading: text('uploading', 'uploading...'),
         download: text('download', 'DOWNLOAD'),
         delete: text('delete', 'DEL')
       }}
-    />, {info: {propTables: [Raw], propTablesExclude: [UploadStory, IntlProvider], source: false}}
+    />, {info: {propTables: [Upload], propTablesExclude: [UploadStory], source: false}}
   )
   .add(
     'HTML',
     () => {
-      const minifiedMarkup = htmlMarkup.replace(/\n/g, '')
+      const minifiedMarkup = storybookHtmlMarkup.replace(/\n/g, '')
       return (<EditableValue type="html" value={minifiedMarkup} onChange={EMPTY_FUNC}/>)
-    }, excludeIntlInfo()
+    },
+    {info: {propTables: [HtmlEdit], propTablesExclude: [EditableValue], source: false}}
   )

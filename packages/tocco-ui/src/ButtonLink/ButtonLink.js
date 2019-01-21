@@ -14,7 +14,7 @@ import {
  * Use <ButtonLink> for internal and external links if it feels like an action
  * or links compete with actions. Choose look and ink according Material Design.
  */
-const ButtonLink = props => {
+export const ButtonLink = props => {
   const onClickHandler = e => {
     if (props.stopPropagation) {
       e.stopPropagation()

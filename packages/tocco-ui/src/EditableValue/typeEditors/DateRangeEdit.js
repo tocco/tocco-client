@@ -6,7 +6,7 @@ import {injectIntl, intlShape} from 'react-intl'
 import DateAbstract from './DateAbstract'
 import {momentJStoToFlatpickrFormat} from '../utils'
 
-const DateRangeEdit = props => {
+export const DateRangeEdit = props => {
   const flatpickrOptions = {
     mode: 'range',
     altFormat: momentJStoToFlatpickrFormat(moment().locale(props.intl.locale)._locale.longDateFormat('L')),
