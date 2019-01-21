@@ -16,6 +16,7 @@ export default function* sagas() {
   yield all([
     fork(takeLatest, actions.TOGGLE_SHOW_SELECTED_RECORDS, reloadData),
     fork(takeLatest, actions.CLEAR_SELECTION, reloadData),
+    fork(takeLatest, actions.SET_TABLE_SELECTION_STYLE, reloadData),
     fork(takeLatest, actions.ON_SELECT_CHANGE, onSelectChange),
     fork(takeLatest, actions.SET_SELECTION_MODE, selectionModeSet),
     fork(takeLatest, SET_FORM_SELECTABLE, initialize),
