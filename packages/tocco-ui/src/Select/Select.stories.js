@@ -1,5 +1,4 @@
 import React from 'react'
-import {IntlProvider} from 'react-intl'
 import PropTypes from 'prop-types'
 import {storiesOf} from '@storybook/react'
 import {action} from '@storybook/addon-actions'
@@ -85,10 +84,10 @@ SelectStory.propTypes = {
   delay: PropTypes.number
 }
 
-storiesOf('Edit Data', module)
+storiesOf('Select', module)
   .addDecorator(withKnobs)
   .add(
     'Select',
     () => <SelectStory isMulti={boolean('isMulti', true)} delay={2000} action={action}/>,
-    {info: {propTables: [Raw], propTablesExclude: [SelectStory, IntlProvider], source: false}}
+    {info: {propTables: [Raw], propTablesExclude: [SelectStory], source: false}}
   )

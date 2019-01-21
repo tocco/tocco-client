@@ -1,17 +1,12 @@
 import React from 'react'
 import {storiesOf} from '@storybook/react'
 import {withKnobs, boolean, select, text} from '@storybook/addon-knobs'
+import _pick from 'lodash/pick'
 
 import ButtonLink from './'
-import {stylingInk, stylingLook} from '../utilStyles'
-import excludeIntlInfo from '../util/excludeIntlInfo'
+import {stylingInk, stylingLook, stylingPosition} from '../utilStyles'
 
-const position = {
-  PREPEND: 'prepend',
-  SOLE: 'sole'
-}
-
-storiesOf('Navigation', module)
+storiesOf('ButtonLink', module)
   .addDecorator(withKnobs)
   .add(
     'ButtonLink',
@@ -22,11 +17,11 @@ storiesOf('Navigation', module)
       download={text('download', 'tocco-101x101.png')}
       href={text('href', '#Link')}
       icon={text('icon', 'phone')}
-      iconPosition={select('iconPosition', {'-': null, ...position}) || undefined}
+      iconPosition={select('iconPosition', {'-': null, ..._pick(stylingPosition, ['PREPEND', 'SOLE'])}) || undefined}
       ink={select('ink', stylingInk)}
       label={text('label', 'Button Link')}
-      look={select('look', stylingLook)}
+      look={select('look', {'-': null, ..._pick(stylingLook, ['BALL', 'FLAT'])}) || undefined}
       stopPropagation={boolean('stopPropagation', false)}
       title={text('title', 'This is the button link.')}
-    />, excludeIntlInfo()
+    />
   )
