@@ -27,8 +27,8 @@ export const returnAllowedIntegerObject = (minValue, maxValue) => {
   return {minValue, maxValue}
 }
 
-const NumberEdit = props => {
-  const {thousandSeparator, decimalSeparator} = parseLocalePlaceholder(props.options.intl.locale)
+const NumberEdit = (props, context) => {
+  const {thousandSeparator, decimalSeparator} = parseLocalePlaceholder(context.intl.locale)
   const value = props.value === null ? '' : props.value
 
   const prePointDigits = props.options.prePointDigits
@@ -78,6 +78,10 @@ const NumberEdit = props => {
   )
 }
 
+NumberEdit.contextTypes = {
+  intl: intlShape
+}
+
 NumberEdit.propTypes = {
   onChange: PropTypes.func.isRequired,
   value: PropTypes.number,
@@ -86,7 +90,6 @@ NumberEdit.propTypes = {
   readOnly: PropTypes.bool,
   isInteger: PropTypes.bool,
   options: PropTypes.shape({
-    intl: intlShape.isRequired,
     postPointDigits: PropTypes.number,
     prePointDigits: PropTypes.number,
     minValue: PropTypes.number,

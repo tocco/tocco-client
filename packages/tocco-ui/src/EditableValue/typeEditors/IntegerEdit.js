@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {intlShape} from 'react-intl'
 
 import NumberEdit from './NumberEdit'
 
@@ -30,7 +29,6 @@ IntegerEdit.propTypes = {
   id: PropTypes.string,
   readOnly: PropTypes.bool,
   options: PropTypes.shape({
-    intl: intlShape.isRequired,
     prePointDigits: PropTypes.number,
     minValue: PropTypes.number,
     maxValue: PropTypes.number
