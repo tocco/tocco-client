@@ -3,7 +3,6 @@ import {storiesOf} from '@storybook/react'
 import {withKnobs, boolean, text} from '@storybook/addon-knobs'
 
 import Preview from './'
-import excludeIntlInfo from '../util/excludeIntlInfo'
 
 storiesOf('Display Data', module)
   .addDecorator(withKnobs)
@@ -18,5 +17,5 @@ storiesOf('Display Data', module)
       thumbnailUrl={text('Thumbnail URL', 'https://picsum.photos/1000/1000?image=1070')}
       maxDimensionY={text('MaxDimensionY', '430px')}
       maxDimensionX={text('MaxDimensionX', '420px')}
-    />, excludeIntlInfo()
+    />
   )

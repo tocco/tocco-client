@@ -3,11 +3,10 @@ import {storiesOf} from '@storybook/react'
 import {withKnobs, number} from '@storybook/addon-knobs'
 
 import SomeOf from './'
-import excludeIntlInfo from '../util/excludeIntlInfo'
 
-storiesOf('Display Data', module)
+storiesOf('SomeOf', module)
   .addDecorator(withKnobs)
   .add(
     'SomeOf',
-    () => <SomeOf some={number('Some', 9)} of={number('Of', 8048)} />, excludeIntlInfo()
+    () => <SomeOf some={number('Some', 9)} of={number('Of', 8048)} />
   )

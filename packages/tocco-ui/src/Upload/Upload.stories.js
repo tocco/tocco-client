@@ -1,10 +1,9 @@
-/* eslint-disable */
 import React from 'react'
-import {IntlProvider} from 'react-intl'
-import Upload from './'
 import {storiesOf} from '@storybook/react'
 import {boolean, text, withKnobs} from '@storybook/addon-knobs'
-import {Upload as Raw} from './Upload'
+
+import Upload from './'
+import {Upload as RawUpload} from './Upload'
 
 export class UploadStory extends React.Component {
   state = {
@@ -16,6 +15,7 @@ export class UploadStory extends React.Component {
   }
 
   changeValue(file) {
+    // eslint-disable-next-line no-console
     console.log('Upload called', file)
 
     if (file === null) {
@@ -41,12 +41,12 @@ export class UploadStory extends React.Component {
         <Upload
           value={this.state.value}
           onUpload={this.changeValue.bind(this)}
-          readOnly={false}
+          readOnly={boolean('readOnly', false)}
           textResources={{
-            upload: 'D`n`D or click',
-            uploading: 'uploading...',
-            download: 'DOWNLOAD',
-            delete: 'DEL'
+            upload: text('upload', 'D`n`D or click'),
+            uploading: text('uploading', 'uploading...'),
+            download: text('download', 'DOWNLOAD'),
+            delete: text('delete', 'DEL')
           }}
         />
       </div>
@@ -54,17 +54,9 @@ export class UploadStory extends React.Component {
   }
 }
 
-storiesOf('Edit Data', module)
+storiesOf('Upload', module)
   .addDecorator(withKnobs)
   .add(
     'Upload',
-    () => <UploadStory
-      readOnly={boolean('readonly', false)}
-      textResources={{
-        upload: text('upload', 'D`n`D or click'),
-        uploading: text('uploading', 'uploading...'),
-        download: text('download', 'DOWNLOAD'),
-        delete: text('delete', 'DEL')
-      }}
-    />, {info: {propTables: [Raw], propTablesExclude: [UploadStory, IntlProvider], source: false}}
+    () => <UploadStory/>, {info: {propTables: [RawUpload], propTablesExclude: [UploadStory], source: false}}
   )

@@ -4,7 +4,7 @@ import {FormattedDate, FormattedTime, injectIntl, intlShape} from 'react-intl'
 
 import Typography from '../../Typography'
 
-const DateTimeFormatter = props => {
+export const DateTimeFormatter = props => {
   const timestamp = Date.parse(props.value)
   if (isNaN(timestamp)) {
     // eslint-disable-next-line no-console

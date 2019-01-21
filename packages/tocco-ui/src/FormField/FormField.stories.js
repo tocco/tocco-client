@@ -3,11 +3,10 @@ import {storiesOf} from '@storybook/react'
 import {withKnobs, boolean, text} from '@storybook/addon-knobs'
 
 import FormField from './FormField'
-import excludeIntlInfo from '../util/excludeIntlInfo'
 
 const getInput = id => <input type="text" className="form-control" id={id}/>
 
-storiesOf('Edit Data', module)
+storiesOf('FormField', module)
   .addDecorator(withKnobs)
   .add(
     'FormField',
@@ -25,5 +24,5 @@ storiesOf('Edit Data', module)
         className={text('className', 'row')}
       >
         {getInput('test2')}
-      </FormField>, excludeIntlInfo()
+      </FormField>
   )
