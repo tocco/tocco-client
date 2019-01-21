@@ -1,10 +1,28 @@
+/* eslint-disable no-console */
+import React from 'react'
 import {storiesOf} from '@storybook/react'
 
-import {insertMultiCheckBoxContent} from './example'
-import excludeIntlInfo from '../util/excludeIntlInfo'
+import MultiCheckbox from './'
 
-storiesOf('Navigation', module)
+const cb = state => state === 'checked' ? console.log('now is checked') : console.log('now is unchecked')
+
+storiesOf('MultiCheckbox', module)
   .add(
     'MultiCheckbox',
-    () => insertMultiCheckBoxContent(), excludeIntlInfo()
+    () =>
+      <div>
+        {/* start example */}
+        <MultiCheckbox
+          onChange={cb}
+        />
+        <MultiCheckbox
+          status="checked"
+          onChange={cb}
+        />
+        <MultiCheckbox
+          status="indeterminate"
+          onChange={cb}
+        />
+        {/* end example */}
+      </div>
   )

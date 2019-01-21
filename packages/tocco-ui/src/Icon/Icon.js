@@ -15,7 +15,7 @@ import lazyComponent from '../util/lazyComponent'
  * https://www.npmjs.com/package/@fortawesome/react-fontawesome for detailed feature
  * description. All free solid and regular icons are available.
  */
-class Icon extends React.Component {
+export class Icon extends React.Component {
   lazyFontAwesomeIcon = null
 
   constructor(props) {

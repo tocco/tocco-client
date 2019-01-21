@@ -3,9 +3,8 @@ import {storiesOf} from '@storybook/react'
 import {boolean, number, text, withKnobs} from '@storybook/addon-knobs'
 
 import SearchBox from './'
-import excludeIntlInfo from '../util/excludeIntlInfo'
 
-storiesOf('Navigation', module)
+storiesOf('SearchBox', module)
   .addDecorator(withKnobs)
   .add(
     'SearchBox',
@@ -16,5 +15,5 @@ storiesOf('Navigation', module)
         liveSearch={boolean('liveSearch', false)}
         debounce={number('debounce', 300)}
         minInputLength={number('minInputLength', 2)}
-      />, excludeIntlInfo()
+      />
   )

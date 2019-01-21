@@ -6,7 +6,7 @@ import {injectIntl, intlShape} from 'react-intl'
 import DateAbstract from './DateAbstract'
 import {atMostOne, toLocalDateString, momentJStoToFlatpickrFormat} from '../utils'
 
-class DateEdit extends React.Component {
+export class DateEdit extends React.Component {
   DATE_FORMAT = 'YYYY-MM-DD'
 
   getLocalizedAltFormat = () => moment().locale(this.props.intl.locale)._locale.longDateFormat('L')
