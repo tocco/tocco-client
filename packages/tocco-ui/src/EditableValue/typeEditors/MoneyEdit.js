@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {intlShape} from 'react-intl'
 
 import NumberEdit from './NumberEdit'
 
@@ -35,7 +34,6 @@ MoneyEdit.propTypes = {
   id: PropTypes.string,
   readOnly: PropTypes.bool,
   options: PropTypes.shape({
-    intl: intlShape.isRequired,
     postPointDigits: PropTypes.number,
     prePointDigits: PropTypes.number
   }).isRequired

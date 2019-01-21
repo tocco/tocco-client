@@ -1,6 +1,5 @@
 import React from 'react'
-import {mount} from 'enzyme'
-import {IntlStub} from 'tocco-test-util'
+import {mountWithIntl} from 'tocco-test-util/src/intlEnzyme/intlEnzyme'
 
 import NumberEdit, {limitValue, calculateMaxValue, isAllowedIntegerValue} from './NumberEdit'
 
@@ -11,26 +10,16 @@ describe('tocco-ui', () => {
     describe('typeEditors', () => {
       describe('NumberEdit ', () => {
         test('should render NumberEdit', () => {
-          const optionsObject = {intl: {...IntlStub, locale: 'en'}}
-          const wrapper = mount(
-            <NumberEdit value={1234567.89} options={optionsObject} onChange={EMPTY_FUNC} />
+          const wrapper = mountWithIntl(
+            <NumberEdit value={1234567.89} options={{}} onChange={EMPTY_FUNC} />
           )
           expect(wrapper.find('input')).to.have.length(1)
         })
 
         test('should return number string in en', () => {
           const result = '1,234,567.89'
-          const optionsObject = {intl: {...IntlStub, locale: 'en'}}
-          const wrapper = mount(
-            <NumberEdit value={1234567.89} options={optionsObject} onChange={EMPTY_FUNC} />
-          )
-          expect(wrapper.html()).to.contains(result)
-        })
-        test('should return number string in fr', () => {
-          const result = '1&nbsp;234&nbsp;567,89'
-          const optionsObject = {intl: {...IntlStub, locale: 'fr'}}
-          const wrapper = mount(
-            <NumberEdit value={1234567.89} options={optionsObject} onChange={EMPTY_FUNC} />
+          const wrapper = mountWithIntl(
+            <NumberEdit value={1234567.89} options={{}} onChange={EMPTY_FUNC} />
           )
           expect(wrapper.html()).to.contains(result)
         })
