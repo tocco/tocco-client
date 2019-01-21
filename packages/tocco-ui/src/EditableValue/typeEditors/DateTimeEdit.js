@@ -6,7 +6,7 @@ import moment from 'moment'
 import DateAbstract from './DateAbstract'
 import {atMostOne, momentJStoToFlatpickrFormat} from '../utils'
 
-const DateTimeEdit = props => {
+export const DateTimeEdit = props => {
   const altDateFormat = momentJStoToFlatpickrFormat(moment().locale(props.intl.locale)._locale.longDateFormat('L'))
   const altTimeFormat = momentJStoToFlatpickrFormat(moment().locale(props.intl.locale)._locale.longDateFormat('LT'))
 

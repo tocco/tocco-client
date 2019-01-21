@@ -4,7 +4,7 @@ import React from 'react'
 import StyledMenu from './StyledMenu'
 import {stylingLook} from '../utilStyles'
 
-class Menu extends React.Component {
+export class Menu extends React.Component {
   getChildren = () => {
     return React.Children.map(this.props.children, child =>
       React.cloneElement(child, {look: this.props.look})

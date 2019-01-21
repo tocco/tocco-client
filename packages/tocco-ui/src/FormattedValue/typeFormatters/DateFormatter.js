@@ -4,7 +4,7 @@ import {FormattedDate, injectIntl, intlShape} from 'react-intl'
 import {matchesIsoDate} from '../util/DateUtils'
 import Typography from '../../Typography'
 
-const DateFormatter = props => {
+export const DateFormatter = props => {
   return (
     <Typography.Time
       dateTime={props.value}
