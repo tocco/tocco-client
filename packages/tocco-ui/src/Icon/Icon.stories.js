@@ -1,6 +1,6 @@
 import React from 'react'
 import {storiesOf} from '@storybook/react'
-import {text, withKnobs} from '@storybook/addon-knobs'
+import {select, withKnobs} from '@storybook/addon-knobs'
 
 import {Icon} from './Icon'
 
@@ -20,7 +20,7 @@ storiesOf('Icon', module)
     'Icon Append',
     () => (
       <div>
-        Appended Icon <Icon icon={text('icon', 'user')} position="append" />
+        Appended Icon <Icon icon={select('Icon', ['user', 'envelope']) || 'user'} position="append" />
       </div>
     )
   )
@@ -28,7 +28,7 @@ storiesOf('Icon', module)
     'Icon Prepend',
     () => (
       <div>
-        <Icon icon={text('icon', 'user')} position="prepend"/> Prepended Icon
+        <Icon icon={select('Icon', ['user', 'envelope']) || 'user'} position="prepend"/> Prepended Icon
       </div>
     )
   )
@@ -36,7 +36,7 @@ storiesOf('Icon', module)
     'Icon Between',
     () => (
       <div>
-        Icon between <Icon icon={text('icon', 'user')} position="between"/> Text
+        Icon between <Icon icon={select('Icon', ['user', 'envelope']) || 'user'} position="between"/> Text
       </div>
     )
   )
@@ -44,7 +44,7 @@ storiesOf('Icon', module)
     'Icon Sole',
     () => (
       <div>
-        Icon Dense <Icon icon={text('icon', 'user')} position="sole"/>
+        Icon Dense <Icon icon={select('Icon', ['user', 'envelope']) || 'user'} position="sole"/>
       </div>
     )
   )

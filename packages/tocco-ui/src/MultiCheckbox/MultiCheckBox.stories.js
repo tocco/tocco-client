@@ -1,10 +1,9 @@
 /* eslint-disable no-console */
 import React from 'react'
 import {storiesOf} from '@storybook/react'
+import {action} from '@storybook/addon-actions'
 
 import MultiCheckbox from './'
-
-const cb = state => state === 'checked' ? console.log('now is checked') : console.log('now is unchecked')
 
 storiesOf('MultiCheckbox', module)
   .add(
@@ -13,15 +12,15 @@ storiesOf('MultiCheckbox', module)
       <div>
         {/* start example */}
         <MultiCheckbox
-          onChange={cb}
+          onChange={action('box-action')}
         />
         <MultiCheckbox
           status="checked"
-          onChange={cb}
+          onChange={action('box-action')}
         />
         <MultiCheckbox
           status="indeterminate"
-          onChange={cb}
+          onChange={action('box-action')}
         />
         {/* end example */}
       </div>
