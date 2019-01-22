@@ -13,10 +13,10 @@ storiesOf('Link', module)
       breakWords={boolean('breakWords', false)}
       download={text('download', 'tocco-101x101.png')}
       href={text('href', '#Link')}
-      icon={text('icon', 'phone')}
+      icon={select('icon', ['envelope', 'phone']) || undefined}
       label={text('label', 'Phone Link')}
-      neutral={boolean('neutral', true)}
-      target={select('target', ['_blank', '_self'])}
+      neutral={boolean('neutral', false)}
+      target={select('target', ['_self', '_blank'])}
       title={text('title', 'This is the phone link.')}
     />
   )

@@ -53,7 +53,7 @@ export class EditableValueStory extends React.Component {
 }
 
 EditableValueStory.propTypes = {
-  ChildComponent: PropTypes.node,
+  ChildComponent: PropTypes.func,
   options: PropTypes.object,
   value: PropTypes.node
 }
