@@ -14,7 +14,7 @@ const View = props => (
         iconPosition="sole"
         download={props.value.fileName}
         href={props.value.binaryLink}
-        tabIndex="-1"
+        tabIndex={-1}
         title={props.downloadTitle || 'download'}
       />
       {!props.readOnly
@@ -22,7 +22,7 @@ const View = props => (
         icon="times"
         iconPosition="sole"
         onClick={() => props.onUpload(null)}
-        tabIndex="-1"
+        tabIndex={-1}
         title={props.deleteTitle || 'delete'}
       />
       }
