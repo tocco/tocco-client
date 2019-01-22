@@ -24,7 +24,7 @@ describe('sso-login', () => {
         test('should call external event with result', () => {
           const result = {successful: true, xy: 2}
           return expectSaga(sagas.loginCompleted, actions.loginCompleted(result))
-            .put(externalEvents.fireExternalEvent('loginCompleted', {result}))
+            .put(externalEvents.fireExternalEvent('loginCompleted', result))
             .run()
         })
       })

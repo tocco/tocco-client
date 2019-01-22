@@ -22,7 +22,7 @@ export function* loadProviders() {
 }
 
 export function* loginCompleted({payload: {result}}) {
-  yield put(externalEvents.fireExternalEvent('loginCompleted', {result}))
+  yield put(externalEvents.fireExternalEvent('loginCompleted', result))
 }
 
 export default function* mainSagas() {
