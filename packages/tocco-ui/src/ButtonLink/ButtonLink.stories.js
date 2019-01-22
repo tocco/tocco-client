@@ -20,7 +20,7 @@ storiesOf('ButtonLink', module)
       iconPosition={select('iconPosition', {'-': null, ..._pick(stylingPosition, ['PREPEND', 'SOLE'])}) || undefined}
       ink={select('ink', stylingInk)}
       label={text('label', 'Button Link')}
-      look={select('look', {'-': null, ..._pick(stylingLook, ['BALL', 'FLAT'])}) || undefined}
+      look={select('look', {'-': null, ..._pick(stylingLook, ['BALL', 'FLAT', 'RAISED'])}) || undefined}
       stopPropagation={boolean('stopPropagation', false)}
       title={text('title', 'This is the button link.')}
     />
