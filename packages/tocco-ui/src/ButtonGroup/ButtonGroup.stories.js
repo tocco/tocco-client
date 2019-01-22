@@ -15,7 +15,7 @@ storiesOf('ButtonGroup', module)
     () => (
       <ButtonGroup
         ink={select('ink', stylingInk)}
-        look={select('look', {'-': null, ..._pick(stylingLook, ['BALL', 'FLAT', 'RAISED'])}) || undefined}
+        look={select('look', {'-': null, ..._pick(stylingLook, ['FLAT', 'RAISED'])}) || undefined}
         melt={boolean('melt', false)}
       >
         <Button label="Lorem ipsum dolor"/>
