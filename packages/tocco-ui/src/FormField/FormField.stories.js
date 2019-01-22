@@ -13,6 +13,7 @@ storiesOf('FormField', module)
     () =>
       <FormField
         id="test2"
+        className="row"
         label={text('Label', 'Label 1')}
         mandatory={boolean('Mandatory', false)}
         dirty={boolean('Dirty', true)}
@@ -21,7 +22,6 @@ storiesOf('FormField', module)
           error1: [<div key="1"><b>error1-1 line1</b><br/>error1-1 line2</div>],
           error2: ['error2-1', 'error2-2']
         }}
-        className={text('className', 'row')}
       >
         {getInput('test2')}
       </FormField>
