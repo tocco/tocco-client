@@ -26,14 +26,6 @@ export function iso(value) {
   return moment(knob).format('YYYY-MM-DD')
 }
 
-const inputObject = {
-  alt: text('alt', 'hundreds of juicy strawberries tempting to degustate'),
-  binaryLink: text('binaryLink', 'https://picsum.photos/1000/1000?image=1070'),
-  caption: text('caption', 'hundred juicy strawberries'),
-  fileName: text('fileName', 'strawberry.jpg'),
-  thumbnailLink: text('thumbnailLink', 'https://picsum.photos/400/400?image=1081')
-}
-
 storiesOf('FormattedValue', module)
   .addDecorator(withKnobs({
     escapeHTML: false
@@ -156,12 +148,23 @@ storiesOf('FormattedValue', module)
   )
   .add(
     'Document',
-    () => <FormattedValue type="document" value={inputObject}/>,
+    () => <FormattedValue type="document" value={{
+      alt: text('alt', 'a classic car parked in nature'),
+      binaryLink: text('binaryLink', 'https://picsum.photos/1000/1000?image=1070'),
+      caption: text('caption', 'car parked nature'),
+      fileName: text('fileName', 'nature_car.jpg'),
+      thumbnailLink: text('thumbnailLink', 'https://picsum.photos/400/400?image=1070')}}/>,
     {info: {propTables: [DocumentFormatter], propTablesExclude: [FormattedValue], source: false}}
   )
   .add(
     'Document Compact',
-    () => <FormattedValue type="document-compact" value={inputObject}/>,
+    () => <FormattedValue type="document-compact" value={{
+      alt: text('alt', 'modern building captured from frog view'),
+      binaryLink: text('binaryLink', 'https://picsum.photos/1000/1000?image=1081'),
+      caption: text('caption', 'modern skyscraper'),
+      fileName: text('fileName', 'modern_skyscraper.jpg'),
+      thumbnailLink: text('thumbnailLink', 'https://picsum.photos/400/400?image=1081')
+    }}/>,
     {info: {propTables: [DocumentCompactFormatter], propTablesExclude: [FormattedValue], source: false}}
   )
   .add(
@@ -176,7 +179,7 @@ storiesOf('FormattedValue', module)
   )
   .add(
     'Login',
-    () => <FormattedValue type="login" value={text('Login', {username: text('username', 'tocco_user')})}/>,
+    () => <FormattedValue type="login" value={{username: text('username', 'tocco_user')}}/>,
     {info: {propTables: [LoginFormatter], propTablesExclude: [FormattedValue], source: false}}
   )
   .add(
