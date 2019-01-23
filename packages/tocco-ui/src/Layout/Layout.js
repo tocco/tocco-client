@@ -6,7 +6,7 @@ import React from 'react'
  */
 
 // This is a dummy component only for showcase.
-class Layout extends React.Component {
+export class Layout extends React.Component {
   render() {
     return <React.Fragment/>
   }

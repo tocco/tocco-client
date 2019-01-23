@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from 'react'
 import {storiesOf} from '@storybook/react'
 import {action} from '@storybook/addon-actions'
@@ -10,7 +9,6 @@ storiesOf('MultiCheckbox', module)
     'MultiCheckbox',
     () =>
       <div>
-        {/* start example */}
         <MultiCheckbox
           onChange={action('box-action')}
         />
@@ -22,6 +20,5 @@ storiesOf('MultiCheckbox', module)
           status="indeterminate"
           onChange={action('box-action')}
         />
-        {/* end example */}
       </div>
   )

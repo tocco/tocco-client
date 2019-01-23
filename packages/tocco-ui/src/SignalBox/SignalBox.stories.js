@@ -10,7 +10,6 @@ storiesOf('SignalBox', module)
   .add(
     'SignalBox',
     () => <div>
-      {/* start example */}
       <SignalBox
         condition="danger"
         title="Summarize information"
@@ -45,7 +44,6 @@ storiesOf('SignalBox', module)
           Lorem ipsum <Typography.B>bold</Typography.B> sit <Typography.I>italic</Typography.I> amet
         </Typography.P>
       </SignalBox>
-      {/* end example */}
     </div>,
     {info: {propTables: [SignalBox], propTablesExclude: [Raw, Typography.I, Typography.P, Typography.B]}}
   )

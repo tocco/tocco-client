@@ -1,6 +1,7 @@
 import React from 'react'
 import {storiesOf} from '@storybook/react'
 import {boolean, text, withKnobs} from '@storybook/addon-knobs'
+import {action} from '@storybook/addon-actions'
 
 import Upload from './'
 import {Upload as RawUpload} from './Upload'
@@ -15,8 +16,7 @@ export class UploadStory extends React.Component {
   }
 
   changeValue(file) {
-    // eslint-disable-next-line no-console
-    console.log('Upload called', file)
+    action('File uploaded')(file)
 
     if (file === null) {
       this.setState({
