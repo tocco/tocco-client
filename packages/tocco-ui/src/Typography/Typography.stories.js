@@ -8,7 +8,6 @@ storiesOf('Typography', module)
     'Typography',
     () =>
       <div>
-        {/* start example */}
         <Typography.H1>Heading 1</Typography.H1>
         <Typography.H2 breakWords={false}>Heading 2 supercalifragilisticexpialidocious</Typography.H2>
         <Typography.H3>Heading 3 supercalifragilisticexpialidocious</Typography.H3>
@@ -78,6 +77,5 @@ storiesOf('Typography', module)
           <Typography.Dt>Excepteur sint occaecat</Typography.Dt>
           <Typography.Dd>Excepteur sint occaecat cupidatat non proident, sunt in cUlpa qui officia.</Typography.Dd>
         </Typography.Dl>
-        {/* end example */}
       </div>
   )

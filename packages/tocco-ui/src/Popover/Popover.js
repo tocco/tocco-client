@@ -60,7 +60,7 @@ class Popover extends React.Component {
       {this.state.showToolTip && content
       && ReactDOM.createPortal(
         <Popper
-          modifiers={{preventOverflow: {enabled: false}, hide: {enabled: false}}}
+          modifiers={{preventOverflow: {enabled: false}}}
           placement={placement}
         >
           {({ref, style, placement, arrowProps}) => (

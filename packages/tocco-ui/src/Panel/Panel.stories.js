@@ -11,7 +11,6 @@ storiesOf('Panel', module)
     'Panel',
     () =>
       <div>
-        {/* start example */}
         <Panel.Wrapper isFramed={false}>
           <Panel.Header>
             <Typography.H4>Header</Typography.H4>
@@ -91,7 +90,6 @@ storiesOf('Panel', module)
           </Panel.Body>
           <Panel.Footer/>
         </Panel.Wrapper>
-        {/* end example */}
       </div>, {info: {propTablesExclude:
         [Preview, RawTypography, Typography.H4, Typography.H5, Typography.P, Typography.Span]}}
   )
