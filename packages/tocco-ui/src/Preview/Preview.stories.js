@@ -4,7 +4,7 @@ import {withKnobs, boolean, text} from '@storybook/addon-knobs'
 
 import Preview from './'
 
-storiesOf('Display Data', module)
+storiesOf('Preview', module)
   .addDecorator(withKnobs)
   .add(
     'Preview',

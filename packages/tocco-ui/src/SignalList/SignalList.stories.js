@@ -7,7 +7,6 @@ storiesOf('SignalList', module)
   .add(
     'SignalList',
     () => <div>
-      {/* start example */}
       <SignalList.List>
         <SignalList.Item
           label="base"
@@ -70,6 +69,5 @@ storiesOf('SignalList', module)
           </SignalList.List>
         </SignalList.Item>
       </SignalList.List>
-      {/* end example */}
     </div>
   )
