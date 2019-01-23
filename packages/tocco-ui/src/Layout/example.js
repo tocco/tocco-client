@@ -42,7 +42,7 @@ const ExamplePanel3 = () =>
     </Panel.Footer>
   </Panel.Wrapper>
 
-export const insertLayoutContent = () =>
+export default () =>
   <div>
     {/* start example */}
     <Layout.Container maxCellsPerRow={{sm: 2, md: 3, lg: 4, xl: 5}}>
@@ -64,5 +64,3 @@ export const insertLayoutContent = () =>
     </Layout.Container>
     {/* end example */}
   </div>
-
-export default () => insertLayoutContent()
