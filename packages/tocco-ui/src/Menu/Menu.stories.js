@@ -13,7 +13,6 @@ storiesOf('Menu', module)
     'Menu',
     () =>
       <div>
-        {/* start example */}
         <h3>Menu Items Flat</h3>
         <Menu.Stack look="flat">
           <Menu.Item><Button label="<Button>"/></Menu.Item>
@@ -180,7 +179,6 @@ storiesOf('Menu', module)
             </Menu.ButtonGroup>
           </Menu.Item>
         </Menu.Button>
-        {/* end example */}
       </div>,
     {info: {
       propTables: [Raw],

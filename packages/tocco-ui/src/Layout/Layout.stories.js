@@ -4,6 +4,7 @@ import React from 'react'
 import Panel from '../Panel'
 import Typography from '../Typography'
 import Layout from './index'
+import {Layout as RawLayout} from './Layout'
 
 const ExampleCell = () => <div style={{backgroundColor: '#ddd'}}>Cell</div>
 
@@ -46,7 +47,6 @@ storiesOf('Layout', module)
     'Layout',
     () =>
       <div>
-        {/* start example */}
         <Layout.Container maxCellsPerRow={{sm: 2, md: 3, lg: 4, xl: 5}}>
           <Layout.Box><ExampleCell/></Layout.Box>
           <Layout.Box><ExampleCell/></Layout.Box>
@@ -64,7 +64,6 @@ storiesOf('Layout', module)
           <Layout.Box><ExamplePanel2/></Layout.Box>
           <Layout.Box><ExamplePanel3/></Layout.Box>
         </Layout.Container>
-        {/* end example */}
       </div>,
-    {info: {propTablesExclude: [ExampleCell, ExamplePanel1, ExamplePanel2, ExamplePanel3]}}
+    {info: {propTables: [RawLayout], propTablesExclude: [ExampleCell, ExamplePanel1, ExamplePanel2, ExamplePanel3]}}
   )

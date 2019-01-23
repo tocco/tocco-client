@@ -22,5 +22,5 @@ storiesOf('ButtonGroup', module)
         <ButtonLink href="#ButtonGroup" label="Sit amet consectetur adipisicing"/>
         <Button label="Quisquam modi nam" ink="base"/>
       </ButtonGroup>
-    ), {info: {propTablesExclude: [RawButton, RawButtonLink], source: false}}
+    ), {info: {propTablesExclude: [RawButton, RawButtonLink]}}
   )

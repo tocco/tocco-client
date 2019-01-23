@@ -5,28 +5,14 @@ import {withKnobs, select, boolean, text} from '@storybook/addon-knobs'
 import _pick from 'lodash/pick'
 
 import Button from './'
+import {Button as RawButton} from './Button'
 import {stylingInk, stylingPosition, stylingLook} from '../utilStyles'
-
-class ButtonStory extends React.Component {
-  state = {pending: true}
-
-  render() {
-    return (
-      <span>
-        <Button
-          ink="primary"
-          icon="air-freshener"
-          pending={this.state.pending}
-          label={`${this.state.pending ? '' : 'Not '}Pending (Click me)`}
-          onClick={() => this.setState({pending: !this.state.pending})}
-        />
-      </span>
-    )
-  }
-}
 
 storiesOf('Button', module)
   .addDecorator(withKnobs)
+  .addParameters({
+    info: {propTables: [RawButton]}
+  })
   .add(
     'Knobs',
     () =>
@@ -61,7 +47,7 @@ storiesOf('Button', module)
         <Button
           key="1"
           label="Base color flat"
-          onClick={() => alert('do something')}
+          onClick={action('clicked')}
         />,
         <Button
           key="2"
@@ -106,11 +92,17 @@ storiesOf('Button', module)
           label="Disabled"
           look="raised"
         />,
-        <ButtonStory key="9"/>,
+        <Button
+          key="9"
+          ink="primary"
+          icon="air-freshener"
+          pending={true}
+          label="Pending"
+        />,
         <Button
           key="10"
           icon="times"
           look="ball" />
       ]
-    }, {info: {propTablesExclude: [ButtonStory], source: false}}
+    }
   )
