@@ -1,13 +1,23 @@
 import styled from 'styled-components'
 import {theme} from 'styled-system'
+import {StyledButton} from 'tocco-ui/src/Button'
+import {
+  declareInteractionColors,
+  generateCustomColors
+} from 'tocco-ui/src/utilStyles'
 
-export default styled.button`
+export default styled(StyledButton)`
   && {
-    background-color: ${props => props.primaryColor};
-    border-color: ${props => props.primaryColor};
-    color: ${props => props.secondaryColor};
-    width:100%;
-    height: 30px;
-        border-radius: ${theme('radii.2')};
+    display: inline-block;
+    width: 100%;
+    ${props => declareInteractionColors(
+    generateCustomColors(
+      props.primaryColor,
+      props.secondaryColor || theme('colors.paper')(props),
+      props.secondaryColor || theme('colors.text')(props)))}
+
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
   }
 `
