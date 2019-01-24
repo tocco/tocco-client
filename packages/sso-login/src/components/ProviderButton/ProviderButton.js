@@ -19,16 +19,14 @@ const ProviderButton = ({provider, loginCompleted, loginEndpoint}) => {
   }
 
   return (
-    <div>
-      <StyledProviderButton
-        primaryColor={provider.button_primary_color}
-        secondaryColor={provider.button_secondary_color}
-        onClick={clickHandler}
-      >
-        {provider.button_icon && <Icon position="prepend" icon={provider.button_icon}/>}
-        {provider.button_label}
-      </StyledProviderButton>
-    </div>
+    <StyledProviderButton
+      primaryColor={provider.button_primary_color}
+      secondaryColor={provider.button_secondary_color}
+      onClick={clickHandler}
+    >
+      {provider.button_icon && <Icon position="prepend" icon={provider.button_icon}/>}
+      {provider.button_label}
+    </StyledProviderButton>
   )
 }
 
