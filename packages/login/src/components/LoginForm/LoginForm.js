@@ -9,6 +9,7 @@ import {
   Typography
 } from 'tocco-ui'
 
+import StyledLoginForm from './StyledLoginForm'
 import {Pages} from '../../types/Pages'
 
 export class LoginForm extends Component {
@@ -30,7 +31,7 @@ export class LoginForm extends Component {
     const usernameFocus = !passwordFocus
 
     return (
-      <div className="login-form">
+      <StyledLoginForm className="login-form">
         {
           this.props.showTitle
           && <div>
@@ -54,7 +55,7 @@ export class LoginForm extends Component {
               />
             </div>
           </div>
-          <div className="form-group">
+          <div className="form-group dense">
             <div className="input-group">
               <span className="input-group-addon"><Icon icon="unlock"/></span>
               <input
@@ -79,26 +80,22 @@ export class LoginForm extends Component {
             </SignalList.List>
           }
 
-          <div>
-            <div>
-              <ButtonGroup look="raised">
-                <Button
-                  disabled={this.props.loginPending || this.props.username === '' || this.props.password === ''}
-                  ink="primary"
-                  label={this.msg('client.login.form.button')}
-                  pending={this.props.loginPending}
-                  type="submit"
-                />
-                <Button
-                  className="forgot-password"
-                  label={this.msg('client.login.form.forgotLink')}
-                  onClick={() => this.props.changePage(Pages.PASSWORD_REQUEST)}
-                />
-              </ButtonGroup>
-            </div>
-          </div>
+          <ButtonGroup look="raised">
+            <Button
+              disabled={this.props.loginPending || this.props.username === '' || this.props.password === ''}
+              ink="primary"
+              label={this.msg('client.login.form.button')}
+              pending={this.props.loginPending}
+              type="submit"
+            />
+            <Button
+              className="forgot-password"
+              label={this.msg('client.login.form.forgotLink')}
+              onClick={() => this.props.changePage(Pages.PASSWORD_REQUEST)}
+            />
+          </ButtonGroup>
         </form>
-      </div>
+      </StyledLoginForm>
     )
   }
 
