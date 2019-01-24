@@ -114,11 +114,20 @@ const generateRaisedPrimaryColors = props => {
   const text = themeGet('colors.text', fallbackColors.TEXT)(props)
   const paper = themeGet('colors.paper', fallbackColors.PAPER)(props)
   const primary = themeGet('colors.primary', fallbackColors.TEXT)(props)
-  const higherContrast = getContrast(text, primary) > getContrast(paper, primary) ? text : paper
+  const higherContrast = getHigherContrast(primary, text, paper)
   const fg = generateInteractionColor(higherContrast, {
     action: getLuminance(primary) > 0.5 ? 'darken' : 'lighten'
   })
   const bg = generateInteractionColor(primary)
+  return mapColors(bg, fg)
+}
+
+const generateCustomColors = (base, colorA, colorB) => {
+  const higherContrast = getHigherContrast(base, colorA, colorB)
+  const bg = generateInteractionColor(base)
+  const fg = generateInteractionColor(higherContrast, {
+    action: getLuminance(base) > 0.5 ? 'darken' : 'lighten'
+  })
   return mapColors(bg, fg)
 }
 
@@ -127,6 +136,9 @@ const getContrast = (colorA, colorB) => {
   const luminanceB = getLuminance(colorB)
   return luminanceA > luminanceB ? luminanceA - luminanceB : luminanceB - luminanceA
 }
+
+const getHigherContrast = (base, colorA, colorB) =>
+  getContrast(colorA, base) > getContrast(colorB, base) ? colorA : colorB
 
 const generateInteractionColor = (color = fallbackColors.SHADE, options = {}) => ([
   options.shadeOffset >= 0
@@ -165,12 +177,14 @@ const shadeColor = (color = fallbackColors.SHADE, step = 1, options = {}) => {
 const generateDisabledShade = color => tint(0.5, color)
 
 export {
-  generateFlatBaseColors,
   declareFocus,
   declareInteractionColors,
+  generateCustomColors,
   generateRaisedBaseColors,
   generateRaisedPrimaryColors,
+  generateFlatBaseColors,
   generateFlatPrimaryColors,
   generateInteractionColor,
+  getHigherContrast,
   shadeColor
 }
