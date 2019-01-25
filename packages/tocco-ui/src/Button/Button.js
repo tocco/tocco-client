@@ -14,7 +14,7 @@ import {
 /**
  * Use <Button> to trigger any actions. Choose look and ink according Material Design.
  */
-export const Button = props => {
+const Button = props => {
   return (
     <StyledButton
       dense={props.dense}
