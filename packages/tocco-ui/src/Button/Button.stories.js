@@ -5,14 +5,10 @@ import {withKnobs, select, boolean, text} from '@storybook/addon-knobs'
 import _pick from 'lodash/pick'
 
 import Button from './'
-import {Button as RawButton} from './Button'
 import {stylingInk, stylingPosition, stylingLook} from '../utilStyles'
 
 storiesOf('Button', module)
   .addDecorator(withKnobs)
-  .addParameters({
-    info: {propTables: [RawButton]}
-  })
   .add(
     'Knobs',
     () =>
