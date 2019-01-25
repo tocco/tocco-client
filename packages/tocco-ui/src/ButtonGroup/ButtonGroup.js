@@ -11,7 +11,7 @@ import {
 /**
  * Wrap <Button> and <ButtonLink> into <ButtonGroup> to control flow and style.
  */
-export const ButtonGroup = props => {
+const ButtonGroup = props => {
   return (
     <StyledButtonGroup melt={props.melt}>
       { // eslint-disable-next-line
