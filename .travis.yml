@@ -20,7 +20,6 @@ cache:
     - packages/tocco-test-util/node_modules
     - packages/tocco-theme/node_modules
     - packages/tocco-ui/node_modules
-    - packages/tocco-ui-showcase/node_modules
     - packages/tocco-util/node_modules
     - .eslintcache
     - .jestcache
