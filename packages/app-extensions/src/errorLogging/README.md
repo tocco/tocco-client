@@ -27,16 +27,3 @@ Notifier: Displays error in UI. Notifier needs to be added to the store if handl
 ```javascript
 store.dispatch(errorLogging.logError('client.errorTitle', 'client.errorDescription', new Error('Some Error')))
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-

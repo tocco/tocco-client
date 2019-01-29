@@ -8,13 +8,13 @@ import {notifier} from  'tocco-app-extensions'
 ```
 
 ### Setup
-Firstly the notifier util has be added to the store:
+Firstly the Notifier util must be added to the store:
 ```javascript
 notifier.addToStore(store, accept)
 ```
 
 The first parameter is the redux store. The store is needed to adding its reducers and add saga middleware.
-The second parameter (accept) determines whether the app is handling the notifier action itself or just emits the
+The second parameter (accept) determines whether the app is handling the Notifier action itself or just emits the
 actions to the parent app. The latter also needs the `emmitAction` util added to the store.
 
 Secondly the Notifier Components must be added to dom:
