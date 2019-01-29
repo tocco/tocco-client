@@ -19,8 +19,7 @@ export function* invokeRequest(definition, entity, selection, parent, params) {
       method: 'POST',
       body: {
         entity,
-        mode: selection.mode,
-        payload: selection.payload,
+        selection,
         parent,
         ...params
       },

@@ -9,6 +9,7 @@ const EMPTY_FUNC = () => {}
 describe('app-extensions', () => {
   describe('actions', () => {
     describe('components', () => {
+      const baseProps = {onClick: EMPTY_FUNC, selection: {entityName: 'User', type: 'ID', ids: []}}
       describe('Action', () => {
         test('should return null for if mode does not fit scopes', () => {
           const definition = {
@@ -16,16 +17,18 @@ describe('app-extensions', () => {
             actionType: 'simple',
             id: 'test'
           }
-          const props = {onClick: EMPTY_FUNC, selection: {}}
+
           expect(
-            shallow(<Action {...props} definition={{...definition, scopes: ['update']}} mode="update"/>
+            shallow(<Action {...baseProps} definition={{...definition, scopes: ['update']}} mode="update"/>
             ).type()).not.to.be.null
           expect(
-            shallow(<Action {...props} definition={{...definition, scopes: ['update']}} mode="create'"/>
+            shallow(<Action {...baseProps} definition={{...definition, scopes: ['update']}} mode="create'"/>
             ).type()).be.null
-          expect(shallow(<Action {...props} definition={{...definition}}/>).type()).not.to.be.null
-          expect(shallow(<Action {...props} definition={{...definition, scopes: ['update']}}/>).type()).not.to.be.null
-          expect(shallow(<Action {...props} definition={{...definition}} mode="update"/>).type()).not.to.be.null
+          expect(shallow(<Action {...baseProps} definition={{...definition}}/>).type()).not.to.be.null
+          expect(shallow(
+            <Action {...baseProps} definition={{...definition, scopes: ['update']}}/>)
+            .type()).not.to.be.null
+          expect(shallow(<Action {...baseProps} definition={{...definition}} mode="update"/>).type()).not.to.be.null
         })
 
         test('should return groups', () => {
@@ -40,7 +43,7 @@ describe('app-extensions', () => {
             ]
           }
 
-          const wrapper = mount(<Action onClick={EMPTY_FUNC} selection={{}} definition={definition}/>)
+          const wrapper = mount(<Action {...baseProps} definition={definition}/>)
           expect(wrapper.find(ActionGroup)).to.have.length(1)
         })
 
@@ -59,7 +62,7 @@ describe('app-extensions', () => {
             ]
           }
 
-          const wrapper = mount(<Action onClick={EMPTY_FUNC} selection={{}} definition={definition}/>)
+          const wrapper = mount(<Action {...baseProps} definition={definition}/>)
           expect(wrapper.find(ActionGroup)).to.have.length(1)
         })
       })
