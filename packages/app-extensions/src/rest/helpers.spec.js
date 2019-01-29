@@ -19,7 +19,7 @@ describe('app-extensions', () => {
           const options = {
             paths: ['f1', 'f2'],
             conditions: {firstname: 'test'},
-            filters: ['filter1', 'filter2'],
+            filter: ['filter1', 'filter2'],
             random: 1
           }
 
