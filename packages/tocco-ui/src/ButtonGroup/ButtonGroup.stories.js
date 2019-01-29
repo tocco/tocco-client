@@ -20,7 +20,7 @@ storiesOf('ButtonGroup', module)
       >
         <Button label="Lorem ipsum dolor"/>
         <ButtonLink href="#ButtonGroup" label="Sit amet consectetur adipisicing"/>
-        <Button label="Quisquam modi nam" ink="base"/>
+        <Button label="Quisquam modi nam"/>
       </ButtonGroup>
     )
   )
