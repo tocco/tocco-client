@@ -34,11 +34,14 @@ Action.propTypes = {
     config: PropTypes.object
   }).isRequired,
   selection: PropTypes.shape({
-    mode: PropTypes.oneOf(['ID', 'QUERY']),
-    payload: PropTypes.oneOfType([
-      PropTypes.array,
-      PropTypes.object
-    ]),
+    entityName: PropTypes.string.isRequired,
+    ids: PropTypes.arrayOf(PropTypes.string).isRequired,
+    query: (props, propName, componentName) => {
+      if (props.selection && props.selection.type === 'QUERY' && !props.selection[propName]) {
+        return new Error(`Selection.query prop not defined. Component: ${componentName}'.`)
+      }
+    },
+    type: PropTypes.oneOf(['ID', 'QUERY']).isRequired,
     count: PropTypes.number
   }).isRequired,
   entity: PropTypes.string,
