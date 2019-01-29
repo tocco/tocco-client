@@ -5,6 +5,9 @@ describe('entity-list', () => {
     describe('actions', () => {
       test('should handle query selection ', () => {
         const state = {
+          entityList: {
+            entityName: 'User'
+          },
           selection: {
             selectionMode: 'all',
             query: {search: 'test'},
@@ -13,8 +16,9 @@ describe('entity-list', () => {
         }
 
         const expectedSelection = {
-          mode: 'QUERY',
-          payload: {search: 'test'},
+          entityName: 'User',
+          type: 'QUERY',
+          query: {search: 'test'},
           count: 99
         }
 
@@ -23,6 +27,9 @@ describe('entity-list', () => {
 
       test('should handle selection', () => {
         const state = {
+          entityList: {
+            entityName: 'User'
+          },
           selection: {
             selectionMode: 'selection',
             selection: [1, 2, 4]
@@ -30,8 +37,9 @@ describe('entity-list', () => {
         }
 
         const expectedSelection = {
-          mode: 'ID',
-          payload: [1, 2, 4],
+          entityName: 'User',
+          type: 'ID',
+          ids: [1, 2, 4],
           count: 3
         }
 
