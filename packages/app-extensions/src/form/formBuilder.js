@@ -54,10 +54,7 @@ export default (
     <actions.Action
       definition={child}
       entity={entity.model}
-      selection={{
-        mode: 'ID',
-        ids: [...(entity.key ? [entity.key] : [])]
-      }}
+      selection={actions.getSingleEntitySelection(entity.model, entity.key)}
       mode={mode}
       key={'detailAction' + key}
     />
