@@ -90,10 +90,10 @@ export function* getBasicQuery() {
   const searchFormValues = yield call(getSearchFormValues)
   const searchFormFetchOptions = yield call(getFetchOptionsFromSearchForm, searchFormValues, formFieldsFlat)
 
-  const filters = yield call(getSearchFilter, inputSearchFilters, searchFormFetchOptions.filters)
+  const filter = yield call(getSearchFilter, inputSearchFilters, searchFormFetchOptions.filters)
   return {
     ..._omit(searchFormFetchOptions, 'filters'),
-    filters,
+    ...(filter && filter.length > 0 ? {filter} : {}),
     form
   }
 }
