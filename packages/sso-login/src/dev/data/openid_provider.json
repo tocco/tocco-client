@@ -87,18 +87,7 @@
           "type": "field",
           "writable": true,
           "value": {
-            "value": "#4285f4",
-            "type": "string",
-            "readable": true,
-            "writable": true
-          }
-        },
-        "button_secondary_color": {
-          "path": "button_secondary_color",
-          "type": "field",
-          "writable": true,
-          "value": {
-            "value": "#fff",
+            "value": "#bad6ff",
             "type": "string",
             "readable": true,
             "writable": true
@@ -121,6 +110,89 @@
           "writable": true,
           "value": {
             "value": "Mit Google einloggen",
+            "type": "string",
+            "readable": true,
+            "writable": true
+          }
+        }
+      }
+    },
+    {
+      "_links": {
+        "self": {
+          "href": "http://localhost:8080/nice2/rest/entities/Openid_provider/7"
+        },
+        "model": {
+          "href": "http://localhost:8080/nice2/rest/entities/Openid_provider/model"
+        },
+        "entity-list": {
+          "href": "http://localhost:8080/nice2/rest/entities/Openid_provider"
+        },
+        "default-display": {
+          "href": "http://localhost:8080/nice2/rest/entity/Openid_provider/7/display"
+        },
+        "entity-model-list": {
+          "href": "http://localhost:8080/nice2/rest/entities"
+        }
+      },
+      "key": "7",
+      "model": "Openid_provider",
+      "version": 4,
+      "display": "Facebook",
+      "fields": null,
+      "singleRelations": [],
+      "multiRelations": [],
+      "paths": {
+        "unique_id": {
+          "path": "unique_id",
+          "type": "field",
+          "writable": true,
+          "value": {
+            "value": "facebook",
+            "type": "identifier",
+            "readable": true,
+            "writable": true
+          }
+        },
+        "label": {
+          "path": "label",
+          "type": "field",
+          "writable": true,
+          "value": {
+            "value": "Facebook",
+            "type": "string",
+            "readable": true,
+            "writable": true
+          }
+        },
+        "active": {
+          "path": "active",
+          "type": "field",
+          "writable": true,
+          "value": {
+            "value": true,
+            "type": "boolean",
+            "readable": true,
+            "writable": true
+          }
+        },
+        "button_primary_color": {
+          "path": "button_primary_color",
+          "type": "field",
+          "writable": true,
+          "value": {
+            "value": "#3A5696",
+            "type": "string",
+            "readable": true,
+            "writable": true
+          }
+        },
+        "button_label": {
+          "path": "button_label",
+          "type": "field",
+          "writable": true,
+          "value": {
+            "value": "Mit Facebook einloggen",
             "type": "string",
             "readable": true,
             "writable": true
@@ -192,7 +264,7 @@
           "type": "field",
           "writable": true,
           "value": {
-            "value": "#ea3e23",
+            "value": "#d33b17",
             "type": "string",
             "readable": true,
             "writable": true
@@ -203,7 +275,7 @@
           "type": "field",
           "writable": true,
           "value": {
-            "value": "#f3f4f7",
+            "value": "#dddddd",
             "type": "string",
             "readable": true,
             "writable": true
@@ -214,7 +286,7 @@
           "type": "field",
           "writable": true,
           "value": {
-            "value": "fab,microsoft",
+            "value": "fab, microsoft",
             "type": "string",
             "readable": true,
             "writable": true

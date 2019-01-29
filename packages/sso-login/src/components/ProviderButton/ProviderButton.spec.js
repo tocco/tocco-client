@@ -1,17 +1,25 @@
 import React from 'react'
-import {render, mount} from 'enzyme'
+import {mount} from 'enzyme'
+import {ThemeProvider} from 'styled-components'
 
 import ProviderButton from './ProviderButton'
 
 const EMPTY_FUNC = () => {}
 
+const theme = {
+  colors: {
+    paper: '#fff',
+    text: '#212121'
+  }
+}
+
 describe('sso-login', () => {
   describe('components', () => {
     const baseProps = {
       provider: {
-        primaryColor: 'red',
-        secondaryColor: 'blue',
-        button_icon: 'microsoft',
+        button_primary_color: '#F00',
+        button_secondary_color: '#00F',
+        button_icon: 'fab, microsoft',
         button_label: 'Login with MS'
       },
       loginCompleted: EMPTY_FUNC,
@@ -21,7 +29,11 @@ describe('sso-login', () => {
 
     describe('ProviderButton', () => {
       it('should render a button', () => {
-        const wrapper = render(<ProviderButton {...baseProps}/>)
+        const wrapper = mount(
+          <ThemeProvider theme={theme}>
+            <ProviderButton {...baseProps}/>
+          </ThemeProvider>
+        )
         expect(wrapper.find('button')).to.have.length(1)
       })
 
@@ -29,7 +41,11 @@ describe('sso-login', () => {
         global.open = jest.fn(() => ({close: jest.fn()}))
 
         const loginCompleted = jest.fn()
-        const wrapper = mount(<ProviderButton {...baseProps} loginCompleted={loginCompleted}/>)
+        const wrapper = mount(
+          <ThemeProvider theme={theme}>
+            <ProviderButton {...baseProps} loginCompleted={loginCompleted}/>
+          </ThemeProvider>
+        )
 
         wrapper.find('button').simulate('click')
 
