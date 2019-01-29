@@ -385,7 +385,7 @@ describe('entity-list', () => {
             }
 
             const expectedResult = {
-              filters: ['filter1', 'filter2', 'filter3'],
+              filter: ['filter1', 'filter2', 'filter3'],
               form: 'User_list',
               search: 'full',
               conditions: {

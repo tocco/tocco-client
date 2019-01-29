@@ -9,12 +9,17 @@ import {call} from 'redux-saga/effects'
  *
  * @param entityName {String} Name of the entity
  * @param key {String} key of the entity
- * @param query {Object} see 'buildEntityQueryObject' function
+ * @param query {Object} see 'buildRequestQuery' function
  * @param transformer {function} Function to directly manipulate the result. By default returns data attribute
  */
 export function* fetchEntity(entityName, key, query, transformer = json => json) {
-  const queryParams = yield call(buildRequestQuery, query)
-  const resp = yield call(requestSaga, `entities/${entityName}/${key}`, {queryParams})
+  const requestQuery = yield call(buildRequestQuery, query)
+  const options = {
+    method: 'GET',
+    queryParams: requestQueryToUrlParams(requestQuery)
+  }
+
+  const resp = yield call(requestSaga, `entities/${entityName}/${key}`, options)
   return yield call(transformer, resp.body)
 }
 
@@ -22,7 +27,7 @@ export function* fetchEntity(entityName, key, query, transformer = json => json)
  * Fetch amount of entities
  *
  * @param entityName {String} Name of the entity
- * @param query {Object} see 'buildEntityQueryObject' function
+ * @param query {Object} see 'buildRequestQuery' function
  * @param requestOptions {Object} An object which can contain the following options:
  * - method {String} HTTP Method of request. Default is POST
  * - endpoint {String} To overwrite default endpoint entities/{entityName}/count
@@ -51,7 +56,7 @@ export function* fetchEntityCount(
  * Helper to fetch entities.
  *
  * @param entityName {String} Name of the entity
- * @param query {Object} see 'buildEntityQueryObject' function
+ * @param query {Object} see 'buildRequestQuery' function
  * @param requestOptions {Object} An object which can contain the following options:
  * - method {String} HTTP Method of request. Default is POST
  * - endpoint {String} To overwrite default endpoint entities/{entityName}/search
@@ -151,7 +156,7 @@ export const buildRequestQuery = ({
   paths,
   tql,
   relations,
-  filters
+  filter
 } = {}) => (
   {
     ...(conditions ? {conditions} : {}),
@@ -164,7 +169,7 @@ export const buildRequestQuery = ({
     ...(paths ? {paths} : {}),
     ...(tql ? {'where': tql} : {}),
     ...(Array.isArray(relations) ? {'relations': relations.length === 0 ? '!' : relations} : {}),
-    ...(filters ? {'filter': filters} : {})
+    ...(filter ? {filter} : {})
   }
 )
 
