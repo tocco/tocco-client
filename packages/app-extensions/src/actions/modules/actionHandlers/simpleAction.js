@@ -30,8 +30,9 @@ export function* invokeRequest(definition, entity, ids, parent, params) {
       const type = success ? 'success' : 'warning'
       const title = response.body.message || 'client.component.actions.successDefault'
       const icon = success ? 'check' : 'exclamation'
+      const timeOut = success ? 3000 : null
 
-      yield put(notifier.info(type, title, null, icon))
+      yield put(notifier.info(type, title, null, icon, timeOut))
     }
 
     return response.body
