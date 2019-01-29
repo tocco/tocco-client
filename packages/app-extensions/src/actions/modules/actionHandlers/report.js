@@ -20,7 +20,7 @@ export function* displayReportSettings(actionDefinition, entity, selection, answ
   const options = {
     queryParams: {
       model: entity,
-      ...(selection.mode === 'ID' ? {keys: selection.playload.join(',')} : {})
+      ...(selection.mode === 'ID' ? {keys: selection.ids.join(',')} : {})
     }
   }
 
@@ -52,8 +52,7 @@ export function* awaitSettingsSubmit(definition, answerChannel, settingsModalId,
     const {submitAction, formValues} = yield take(answerChannel)
     const body = {
       entityModel: entity,
-      type: selection.mode,
-      payload: selection.payload,
+      selection,
       ...formValues
     }
 
