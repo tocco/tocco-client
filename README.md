@@ -95,10 +95,10 @@ At the moment there is a generator to create a react-component and a generator t
 
 ## Publish bundle
 Once the package is ready to publish, run following npm scripts. This registers the bundle
-in the npm registry, increases versions and creates a git tag. 
+in the npm registry, increases versions and creates a git tag using lerna publish command.
 
 ```
-lerna publish --exact -m "chore: publish" 
+yarn publish-packages
 ```
 
 For more information see [the official documentation](https://github.com/lerna/lerna/tree/master/commands/publish#readme) 

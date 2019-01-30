@@ -16,7 +16,8 @@
     "setup": "yarn && cd server/static && yarn && cd .. && lerna bootstrap --ignore-scripts",
     "plop": "babel-node ./node_modules/plop",
     "commitmsg": "babel-node githooks/msg-validation",
-    "precommit": "npm run lint"
+    "precommit": "npm run lint",
+    "publish-packages": "yarn setup && lerna publish --exact -m \"chore: publish\""
   },
   "author": "Tocco AG",
   "license": "AGPL-3.0+",
