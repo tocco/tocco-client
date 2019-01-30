@@ -1,6 +1,6 @@
 {
   "name": "tocco-ui-showcase",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "private": true,
   "description": "some ui elements",
   "main": "dist/index.js",
@@ -14,10 +14,10 @@
     "react-docgen": "3.0.0-rc.0",
     "react-highlight": "^0.12.0",
     "react-scrollspy": "^3.3.5",
-    "tocco-app-extensions": "0.1.5",
+    "tocco-app-extensions": "0.1.6",
     "tocco-test-util": ">0.0.0",
     "tocco-theme": "0.2.4",
-    "tocco-ui": "0.1.20",
+    "tocco-ui": "0.1.21",
     "tocco-util": "0.1.18"
   }
 }
