@@ -1,9 +1,9 @@
 (window["tocco-ui-showcasejsonp"] = window["tocco-ui-showcasejsonp"] || []).push([["vendors~libphonenumber-js"],{
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/AsYouType.js":
-/*!***************************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/es6/AsYouType.js ***!
-  \***************************************************************************/
+/***/ "./node_modules/libphonenumber-js/es6/AsYouType.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/libphonenumber-js/es6/AsYouType.js ***!
+  \*********************************************************/
 /*! exports provided: DIGIT_PLACEHOLDER, default, strip_dangling_braces, cut_stripping_dangling_braces, close_dangling_braces, count_occurences, repeat */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -15,13 +15,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "close_dangling_braces", function() { return close_dangling_braces; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "count_occurences", function() { return count_occurences; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "repeat", function() { return repeat; });
-/* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./metadata */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/metadata.js");
-/* harmony import */ var _PhoneNumber__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PhoneNumber */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/PhoneNumber.js");
-/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./common */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/common.js");
-/* harmony import */ var _parse__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./parse */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/parse.js");
-/* harmony import */ var _format__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./format */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/format.js");
-/* harmony import */ var _getNumberType__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./getNumberType */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/getNumberType.js");
-/* harmony import */ var _parseIncompletePhoneNumber__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./parseIncompletePhoneNumber */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/parseIncompletePhoneNumber.js");
+/* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./metadata */ "./node_modules/libphonenumber-js/es6/metadata.js");
+/* harmony import */ var _PhoneNumber__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PhoneNumber */ "./node_modules/libphonenumber-js/es6/PhoneNumber.js");
+/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./common */ "./node_modules/libphonenumber-js/es6/common.js");
+/* harmony import */ var _parse__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./parse */ "./node_modules/libphonenumber-js/es6/parse.js");
+/* harmony import */ var _format__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./format */ "./node_modules/libphonenumber-js/es6/format.js");
+/* harmony import */ var _getNumberType__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./getNumberType */ "./node_modules/libphonenumber-js/es6/getNumberType.js");
+/* harmony import */ var _parseIncompletePhoneNumber__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./parseIncompletePhoneNumber */ "./node_modules/libphonenumber-js/es6/parseIncompletePhoneNumber.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1108,10 +1108,10 @@ function repeat(string, times) {
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/IDD.js":
-/*!*********************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/es6/IDD.js ***!
-  \*********************************************************************/
+/***/ "./node_modules/libphonenumber-js/es6/IDD.js":
+/*!***************************************************!*\
+  !*** ./node_modules/libphonenumber-js/es6/IDD.js ***!
+  \***************************************************/
 /*! exports provided: getIDDPrefix, stripIDDPrefix */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1119,8 +1119,8 @@ function repeat(string, times) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getIDDPrefix", function() { return getIDDPrefix; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stripIDDPrefix", function() { return stripIDDPrefix; });
-/* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./metadata */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/metadata.js");
-/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./common */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/common.js");
+/* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./metadata */ "./node_modules/libphonenumber-js/es6/metadata.js");
+/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./common */ "./node_modules/libphonenumber-js/es6/common.js");
 
 
 
@@ -1185,20 +1185,20 @@ function stripIDDPrefix(number, country, metadata) {
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/PhoneNumber.js":
-/*!*****************************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/es6/PhoneNumber.js ***!
-  \*****************************************************************************/
+/***/ "./node_modules/libphonenumber-js/es6/PhoneNumber.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/libphonenumber-js/es6/PhoneNumber.js ***!
+  \***********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./metadata */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/metadata.js");
-/* harmony import */ var _isPossibleNumber__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./isPossibleNumber */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/isPossibleNumber.js");
-/* harmony import */ var _validate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./validate */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/validate.js");
-/* harmony import */ var _getNumberType__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getNumberType */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/getNumberType.js");
-/* harmony import */ var _format__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./format */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/format.js");
+/* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./metadata */ "./node_modules/libphonenumber-js/es6/metadata.js");
+/* harmony import */ var _isPossibleNumber__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./isPossibleNumber */ "./node_modules/libphonenumber-js/es6/isPossibleNumber.js");
+/* harmony import */ var _validate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./validate */ "./node_modules/libphonenumber-js/es6/validate.js");
+/* harmony import */ var _getNumberType__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getNumberType */ "./node_modules/libphonenumber-js/es6/getNumberType.js");
+/* harmony import */ var _format__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./format */ "./node_modules/libphonenumber-js/es6/format.js");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1286,26 +1286,26 @@ var isCountryCode = function isCountryCode(value) {
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/PhoneNumberMatcher.js":
-/*!************************************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/es6/PhoneNumberMatcher.js ***!
-  \************************************************************************************/
+/***/ "./node_modules/libphonenumber-js/es6/PhoneNumberMatcher.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/libphonenumber-js/es6/PhoneNumberMatcher.js ***!
+  \******************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _PhoneNumber__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PhoneNumber */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/PhoneNumber.js");
-/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./common */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/common.js");
-/* harmony import */ var _findNumbers_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./findNumbers/util */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/findNumbers/util.js");
-/* harmony import */ var _findNumbers_utf_8__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./findNumbers/utf-8 */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/findNumbers/utf-8.js");
-/* harmony import */ var _findNumbers_Leniency__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./findNumbers/Leniency */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/findNumbers/Leniency.js");
-/* harmony import */ var _findNumbers_parsePreCandidate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./findNumbers/parsePreCandidate */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/findNumbers/parsePreCandidate.js");
-/* harmony import */ var _findNumbers_isValidPreCandidate__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./findNumbers/isValidPreCandidate */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/findNumbers/isValidPreCandidate.js");
-/* harmony import */ var _findNumbers_isValidCandidate__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./findNumbers/isValidCandidate */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/findNumbers/isValidCandidate.js");
-/* harmony import */ var _format__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./format */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/format.js");
-/* harmony import */ var _parse__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./parse */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/parse.js");
-/* harmony import */ var _validate__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./validate */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/validate.js");
+/* harmony import */ var _PhoneNumber__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PhoneNumber */ "./node_modules/libphonenumber-js/es6/PhoneNumber.js");
+/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./common */ "./node_modules/libphonenumber-js/es6/common.js");
+/* harmony import */ var _findNumbers_util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./findNumbers/util */ "./node_modules/libphonenumber-js/es6/findNumbers/util.js");
+/* harmony import */ var _findNumbers_utf_8__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./findNumbers/utf-8 */ "./node_modules/libphonenumber-js/es6/findNumbers/utf-8.js");
+/* harmony import */ var _findNumbers_Leniency__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./findNumbers/Leniency */ "./node_modules/libphonenumber-js/es6/findNumbers/Leniency.js");
+/* harmony import */ var _findNumbers_parsePreCandidate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./findNumbers/parsePreCandidate */ "./node_modules/libphonenumber-js/es6/findNumbers/parsePreCandidate.js");
+/* harmony import */ var _findNumbers_isValidPreCandidate__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./findNumbers/isValidPreCandidate */ "./node_modules/libphonenumber-js/es6/findNumbers/isValidPreCandidate.js");
+/* harmony import */ var _findNumbers_isValidCandidate__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./findNumbers/isValidCandidate */ "./node_modules/libphonenumber-js/es6/findNumbers/isValidCandidate.js");
+/* harmony import */ var _format__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./format */ "./node_modules/libphonenumber-js/es6/format.js");
+/* harmony import */ var _parse__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./parse */ "./node_modules/libphonenumber-js/es6/parse.js");
+/* harmony import */ var _validate__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./validate */ "./node_modules/libphonenumber-js/es6/validate.js");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1688,10 +1688,10 @@ var PhoneNumberMatcher = function () {
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/RFC3966.js":
-/*!*************************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/es6/RFC3966.js ***!
-  \*************************************************************************/
+/***/ "./node_modules/libphonenumber-js/es6/RFC3966.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/libphonenumber-js/es6/RFC3966.js ***!
+  \*******************************************************/
 /*! exports provided: parseRFC3966, formatRFC3966 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1699,7 +1699,7 @@ var PhoneNumberMatcher = function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "parseRFC3966", function() { return parseRFC3966; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "formatRFC3966", function() { return formatRFC3966; });
-/* harmony import */ var _parse__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./parse */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/parse.js");
+/* harmony import */ var _parse__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./parse */ "./node_modules/libphonenumber-js/es6/parse.js");
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 
@@ -1787,10 +1787,10 @@ function formatRFC3966(_ref2) {
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/common.js":
-/*!************************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/es6/common.js ***!
-  \************************************************************************/
+/***/ "./node_modules/libphonenumber-js/es6/common.js":
+/*!******************************************************!*\
+  !*** ./node_modules/libphonenumber-js/es6/common.js ***!
+  \******************************************************/
 /*! exports provided: WHITESPACE, VALID_DIGITS, VALID_PUNCTUATION, PLUS_CHARS, MAX_LENGTH_FOR_NSN, MAX_LENGTH_COUNTRY_CODE, DIGITS, parseDigit, extractCountryCallingCode, matches_entirely, create_extension_pattern */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1807,9 +1807,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "extractCountryCallingCode", function() { return extractCountryCallingCode; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "matches_entirely", function() { return matches_entirely; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "create_extension_pattern", function() { return create_extension_pattern; });
-/* harmony import */ var _IDD__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./IDD */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/IDD.js");
-/* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./metadata */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/metadata.js");
-/* harmony import */ var _parseIncompletePhoneNumber__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./parseIncompletePhoneNumber */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/parseIncompletePhoneNumber.js");
+/* harmony import */ var _IDD__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./IDD */ "./node_modules/libphonenumber-js/es6/IDD.js");
+/* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./metadata */ "./node_modules/libphonenumber-js/es6/metadata.js");
+/* harmony import */ var _parseIncompletePhoneNumber__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./parseIncompletePhoneNumber */ "./node_modules/libphonenumber-js/es6/parseIncompletePhoneNumber.js");
 
 
 
@@ -2011,18 +2011,18 @@ function create_extension_pattern(purpose) {
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/findNumbers.js":
-/*!*****************************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/es6/findNumbers.js ***!
-  \*****************************************************************************/
+/***/ "./node_modules/libphonenumber-js/es6/findNumbers.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/libphonenumber-js/es6/findNumbers.js ***!
+  \***********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return findNumbers; });
-/* harmony import */ var _findPhoneNumbers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./findPhoneNumbers */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/findPhoneNumbers.js");
-/* harmony import */ var _PhoneNumberMatcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PhoneNumberMatcher */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/PhoneNumberMatcher.js");
+/* harmony import */ var _findPhoneNumbers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./findPhoneNumbers */ "./node_modules/libphonenumber-js/es6/findPhoneNumbers.js");
+/* harmony import */ var _PhoneNumberMatcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PhoneNumberMatcher */ "./node_modules/libphonenumber-js/es6/PhoneNumberMatcher.js");
 
 
 
@@ -2044,20 +2044,20 @@ function findNumbers(arg_1, arg_2, arg_3, arg_4) {
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/findNumbers/Leniency.js":
-/*!**************************************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/es6/findNumbers/Leniency.js ***!
-  \**************************************************************************************/
+/***/ "./node_modules/libphonenumber-js/es6/findNumbers/Leniency.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/libphonenumber-js/es6/findNumbers/Leniency.js ***!
+  \********************************************************************/
 /*! exports provided: default, containsMoreThanOneSlashInNationalNumber */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "containsMoreThanOneSlashInNationalNumber", function() { return containsMoreThanOneSlashInNationalNumber; });
-/* harmony import */ var _parse__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../parse */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/parse.js");
-/* harmony import */ var _validate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../validate */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/validate.js");
-/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../common */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/common.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/findNumbers/util.js");
+/* harmony import */ var _parse__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../parse */ "./node_modules/libphonenumber-js/es6/parse.js");
+/* harmony import */ var _validate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../validate */ "./node_modules/libphonenumber-js/es6/validate.js");
+/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../common */ "./node_modules/libphonenumber-js/es6/common.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util */ "./node_modules/libphonenumber-js/es6/findNumbers/util.js");
 
 
 
@@ -2405,10 +2405,10 @@ function parseDigits(string) {
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/findNumbers/isValidCandidate.js":
-/*!**********************************************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/es6/findNumbers/isValidCandidate.js ***!
-  \**********************************************************************************************/
+/***/ "./node_modules/libphonenumber-js/es6/findNumbers/isValidCandidate.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/libphonenumber-js/es6/findNumbers/isValidCandidate.js ***!
+  \****************************************************************************/
 /*! exports provided: LEAD_CLASS, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2416,9 +2416,9 @@ function parseDigits(string) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LEAD_CLASS", function() { return LEAD_CLASS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return isValidCandidate; });
-/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../common */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/common.js");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./util */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/findNumbers/util.js");
-/* harmony import */ var _utf_8__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utf-8 */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/findNumbers/utf-8.js");
+/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../common */ "./node_modules/libphonenumber-js/es6/common.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./util */ "./node_modules/libphonenumber-js/es6/findNumbers/util.js");
+/* harmony import */ var _utf_8__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utf-8 */ "./node_modules/libphonenumber-js/es6/findNumbers/utf-8.js");
 // Copy-pasted from `PhoneNumberMatcher.js`.
 
 
@@ -2495,10 +2495,10 @@ function isValidCandidate(candidate, offset, text, leniency) {
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/findNumbers/isValidPreCandidate.js":
-/*!*************************************************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/es6/findNumbers/isValidPreCandidate.js ***!
-  \*************************************************************************************************/
+/***/ "./node_modules/libphonenumber-js/es6/findNumbers/isValidPreCandidate.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/libphonenumber-js/es6/findNumbers/isValidPreCandidate.js ***!
+  \*******************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2536,17 +2536,17 @@ function isValidPreCandidate(candidate, offset, text) {
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/findNumbers/parsePreCandidate.js":
-/*!***********************************************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/es6/findNumbers/parsePreCandidate.js ***!
-  \***********************************************************************************************/
+/***/ "./node_modules/libphonenumber-js/es6/findNumbers/parsePreCandidate.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/libphonenumber-js/es6/findNumbers/parsePreCandidate.js ***!
+  \*****************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return parsePreCandidate; });
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./util */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/findNumbers/util.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./util */ "./node_modules/libphonenumber-js/es6/findNumbers/util.js");
 
 
 // Regular expression of characters typically used to start a second phone number for the purposes
@@ -2569,10 +2569,10 @@ function parsePreCandidate(candidate) {
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/findNumbers/utf-8.js":
-/*!***********************************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/es6/findNumbers/utf-8.js ***!
-  \***********************************************************************************/
+/***/ "./node_modules/libphonenumber-js/es6/findNumbers/utf-8.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/libphonenumber-js/es6/findNumbers/utf-8.js ***!
+  \*****************************************************************/
 /*! exports provided: pZ, PZ, _pN, pNd, _pL, isLatinLetter, isInvalidPunctuationSymbol */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2659,10 +2659,10 @@ function isInvalidPunctuationSymbol(character) {
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/findNumbers/util.js":
-/*!**********************************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/es6/findNumbers/util.js ***!
-  \**********************************************************************************/
+/***/ "./node_modules/libphonenumber-js/es6/findNumbers/util.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/libphonenumber-js/es6/findNumbers/util.js ***!
+  \****************************************************************/
 /*! exports provided: limit, trimAfterFirstMatch, startsWith, endsWith */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2705,10 +2705,10 @@ function endsWith(string, substring) {
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/findPhoneNumbers.js":
-/*!**********************************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/es6/findPhoneNumbers.js ***!
-  \**********************************************************************************/
+/***/ "./node_modules/libphonenumber-js/es6/findPhoneNumbers.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/libphonenumber-js/es6/findPhoneNumbers.js ***!
+  \****************************************************************/
 /*! exports provided: default, searchPhoneNumbers, PhoneNumberSearch, sort_out_arguments */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2718,12 +2718,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "searchPhoneNumbers", function() { return searchPhoneNumbers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PhoneNumberSearch", function() { return PhoneNumberSearch; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sort_out_arguments", function() { return sort_out_arguments; });
-/* harmony import */ var _parse__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./parse */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/parse.js");
-/* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./metadata */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/metadata.js");
-/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./common */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/common.js");
-/* harmony import */ var _findNumbers_parsePreCandidate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./findNumbers/parsePreCandidate */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/findNumbers/parsePreCandidate.js");
-/* harmony import */ var _findNumbers_isValidPreCandidate__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./findNumbers/isValidPreCandidate */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/findNumbers/isValidPreCandidate.js");
-/* harmony import */ var _findNumbers_isValidCandidate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./findNumbers/isValidCandidate */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/findNumbers/isValidCandidate.js");
+/* harmony import */ var _parse__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./parse */ "./node_modules/libphonenumber-js/es6/parse.js");
+/* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./metadata */ "./node_modules/libphonenumber-js/es6/metadata.js");
+/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./common */ "./node_modules/libphonenumber-js/es6/common.js");
+/* harmony import */ var _findNumbers_parsePreCandidate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./findNumbers/parsePreCandidate */ "./node_modules/libphonenumber-js/es6/findNumbers/parsePreCandidate.js");
+/* harmony import */ var _findNumbers_isValidPreCandidate__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./findNumbers/isValidPreCandidate */ "./node_modules/libphonenumber-js/es6/findNumbers/isValidPreCandidate.js");
+/* harmony import */ var _findNumbers_isValidCandidate__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./findNumbers/isValidCandidate */ "./node_modules/libphonenumber-js/es6/findNumbers/isValidCandidate.js");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -2987,10 +2987,10 @@ function sort_out_arguments(arg_1, arg_2, arg_3, arg_4) {
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/format.js":
-/*!************************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/es6/format.js ***!
-  \************************************************************************/
+/***/ "./node_modules/libphonenumber-js/es6/format.js":
+/*!******************************************************!*\
+  !*** ./node_modules/libphonenumber-js/es6/format.js ***!
+  \******************************************************/
 /*! exports provided: default, FIRST_GROUP_PATTERN, format_national_number_using_format, choose_format_for_number, changeInternationalFormatStyle, formatIDDSameCountryCallingCodeNumber */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3002,11 +3002,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "choose_format_for_number", function() { return choose_format_for_number; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeInternationalFormatStyle", function() { return changeInternationalFormatStyle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "formatIDDSameCountryCallingCodeNumber", function() { return formatIDDSameCountryCallingCodeNumber; });
-/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./common */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/common.js");
-/* harmony import */ var _parse__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./parse */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/parse.js");
-/* harmony import */ var _IDD__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./IDD */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/IDD.js");
-/* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./metadata */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/metadata.js");
-/* harmony import */ var _RFC3966__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./RFC3966 */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/RFC3966.js");
+/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./common */ "./node_modules/libphonenumber-js/es6/common.js");
+/* harmony import */ var _parse__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./parse */ "./node_modules/libphonenumber-js/es6/parse.js");
+/* harmony import */ var _IDD__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./IDD */ "./node_modules/libphonenumber-js/es6/IDD.js");
+/* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./metadata */ "./node_modules/libphonenumber-js/es6/metadata.js");
+/* harmony import */ var _RFC3966__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./RFC3966 */ "./node_modules/libphonenumber-js/es6/RFC3966.js");
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -3338,17 +3338,17 @@ function formatIDDSameCountryCallingCodeNumber(number, toCountryCallingCode, fro
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/formatIncompletePhoneNumber.js":
-/*!*********************************************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/es6/formatIncompletePhoneNumber.js ***!
-  \*********************************************************************************************/
+/***/ "./node_modules/libphonenumber-js/es6/formatIncompletePhoneNumber.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/libphonenumber-js/es6/formatIncompletePhoneNumber.js ***!
+  \***************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return formatIncompletePhoneNumber; });
-/* harmony import */ var _AsYouType__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AsYouType */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/AsYouType.js");
+/* harmony import */ var _AsYouType__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AsYouType */ "./node_modules/libphonenumber-js/es6/AsYouType.js");
 
 
 /**
@@ -3370,16 +3370,16 @@ function formatIncompletePhoneNumber(value, country, metadata) {
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/getCountryCallingCode.js":
-/*!***************************************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/es6/getCountryCallingCode.js ***!
-  \***************************************************************************************/
+/***/ "./node_modules/libphonenumber-js/es6/getCountryCallingCode.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/libphonenumber-js/es6/getCountryCallingCode.js ***!
+  \*********************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./metadata */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/metadata.js");
+/* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./metadata */ "./node_modules/libphonenumber-js/es6/metadata.js");
 
 
 /* harmony default export */ __webpack_exports__["default"] = (function (country, metadata) {
@@ -3395,17 +3395,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/getExampleNumber.js":
-/*!**********************************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/es6/getExampleNumber.js ***!
-  \**********************************************************************************/
+/***/ "./node_modules/libphonenumber-js/es6/getExampleNumber.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/libphonenumber-js/es6/getExampleNumber.js ***!
+  \****************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return getExampleNumber; });
-/* harmony import */ var _PhoneNumber__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PhoneNumber */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/PhoneNumber.js");
+/* harmony import */ var _PhoneNumber__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PhoneNumber */ "./node_modules/libphonenumber-js/es6/PhoneNumber.js");
 
 
 function getExampleNumber(country, examples, metadata) {
@@ -3415,10 +3415,10 @@ function getExampleNumber(country, examples, metadata) {
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/getNumberType.js":
-/*!*******************************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/es6/getNumberType.js ***!
-  \*******************************************************************************/
+/***/ "./node_modules/libphonenumber-js/es6/getNumberType.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/libphonenumber-js/es6/getNumberType.js ***!
+  \*************************************************************/
 /*! exports provided: default, is_of_type, sort_out_arguments, check_number_length_for_type, merge_arrays */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3429,9 +3429,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sort_out_arguments", function() { return sort_out_arguments; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "check_number_length_for_type", function() { return check_number_length_for_type; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "merge_arrays", function() { return merge_arrays; });
-/* harmony import */ var _parse__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./parse */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/parse.js");
-/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./common */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/common.js");
-/* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./metadata */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/metadata.js");
+/* harmony import */ var _parse__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./parse */ "./node_modules/libphonenumber-js/es6/parse.js");
+/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./common */ "./node_modules/libphonenumber-js/es6/common.js");
+/* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./metadata */ "./node_modules/libphonenumber-js/es6/metadata.js");
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 
@@ -3733,10 +3733,10 @@ function merge_arrays(a, b) {
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/isPossibleNumber.js":
-/*!**********************************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/es6/isPossibleNumber.js ***!
-  \**********************************************************************************/
+/***/ "./node_modules/libphonenumber-js/es6/isPossibleNumber.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/libphonenumber-js/es6/isPossibleNumber.js ***!
+  \****************************************************************/
 /*! exports provided: default, is_possible_number */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3744,7 +3744,7 @@ function merge_arrays(a, b) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return isPossibleNumber; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "is_possible_number", function() { return is_possible_number; });
-/* harmony import */ var _getNumberType__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getNumberType */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/getNumberType.js");
+/* harmony import */ var _getNumberType__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getNumberType */ "./node_modules/libphonenumber-js/es6/getNumberType.js");
 
 
 /**
@@ -3810,18 +3810,18 @@ function is_possible_number(national_number, is_international, metadata) {
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/isValidNumberForRegion.js":
-/*!****************************************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/es6/isValidNumberForRegion.js ***!
-  \****************************************************************************************/
+/***/ "./node_modules/libphonenumber-js/es6/isValidNumberForRegion.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/libphonenumber-js/es6/isValidNumberForRegion.js ***!
+  \**********************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return isValidNumberForRegion; });
-/* harmony import */ var _getNumberType__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getNumberType */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/getNumberType.js");
-/* harmony import */ var _validate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./validate */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/validate.js");
+/* harmony import */ var _getNumberType__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getNumberType */ "./node_modules/libphonenumber-js/es6/getNumberType.js");
+/* harmony import */ var _validate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./validate */ "./node_modules/libphonenumber-js/es6/validate.js");
 
 
 
@@ -3858,10 +3858,10 @@ function isValidNumberForRegion(number, country, _metadata) {
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/metadata.js":
-/*!**************************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/es6/metadata.js ***!
-  \**************************************************************************/
+/***/ "./node_modules/libphonenumber-js/es6/metadata.js":
+/*!********************************************************!*\
+  !*** ./node_modules/libphonenumber-js/es6/metadata.js ***!
+  \********************************************************/
 /*! exports provided: default, validateMetadata, getExtPrefix */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3869,7 +3869,7 @@ function isValidNumberForRegion(number, country, _metadata) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validateMetadata", function() { return validateMetadata; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getExtPrefix", function() { return getExtPrefix; });
-/* harmony import */ var semver_compare__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! semver-compare */ "./packages/tocco-ui/node_modules/semver-compare/index.js");
+/* harmony import */ var semver_compare__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! semver-compare */ "./node_modules/semver-compare/index.js");
 /* harmony import */ var semver_compare__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(semver_compare__WEBPACK_IMPORTED_MODULE_0__);
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -4250,10 +4250,10 @@ function getExtPrefix(country, metadata) {
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/parse.js":
-/*!***********************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/es6/parse.js ***!
-  \***********************************************************************/
+/***/ "./node_modules/libphonenumber-js/es6/parse.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/libphonenumber-js/es6/parse.js ***!
+  \*****************************************************/
 /*! exports provided: default, is_viable_phone_number, extract_formatted_phone_number, strip_national_prefix_and_carrier_code, find_country_code */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4264,14 +4264,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "extract_formatted_phone_number", function() { return extract_formatted_phone_number; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "strip_national_prefix_and_carrier_code", function() { return strip_national_prefix_and_carrier_code; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "find_country_code", function() { return find_country_code; });
-/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./common */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/common.js");
-/* harmony import */ var _parseIncompletePhoneNumber__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./parseIncompletePhoneNumber */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/parseIncompletePhoneNumber.js");
-/* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./metadata */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/metadata.js");
-/* harmony import */ var _getCountryCallingCode__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getCountryCallingCode */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/getCountryCallingCode.js");
-/* harmony import */ var _getNumberType__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./getNumberType */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/getNumberType.js");
-/* harmony import */ var _isPossibleNumber__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./isPossibleNumber */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/isPossibleNumber.js");
-/* harmony import */ var _RFC3966__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./RFC3966 */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/RFC3966.js");
-/* harmony import */ var _PhoneNumber__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./PhoneNumber */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/PhoneNumber.js");
+/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./common */ "./node_modules/libphonenumber-js/es6/common.js");
+/* harmony import */ var _parseIncompletePhoneNumber__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./parseIncompletePhoneNumber */ "./node_modules/libphonenumber-js/es6/parseIncompletePhoneNumber.js");
+/* harmony import */ var _metadata__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./metadata */ "./node_modules/libphonenumber-js/es6/metadata.js");
+/* harmony import */ var _getCountryCallingCode__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./getCountryCallingCode */ "./node_modules/libphonenumber-js/es6/getCountryCallingCode.js");
+/* harmony import */ var _getNumberType__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./getNumberType */ "./node_modules/libphonenumber-js/es6/getNumberType.js");
+/* harmony import */ var _isPossibleNumber__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./isPossibleNumber */ "./node_modules/libphonenumber-js/es6/isPossibleNumber.js");
+/* harmony import */ var _RFC3966__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./RFC3966 */ "./node_modules/libphonenumber-js/es6/RFC3966.js");
+/* harmony import */ var _PhoneNumber__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./PhoneNumber */ "./node_modules/libphonenumber-js/es6/PhoneNumber.js");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -4917,10 +4917,10 @@ function parse_national_number(number, metadata) {
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/parseIncompletePhoneNumber.js":
-/*!********************************************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/es6/parseIncompletePhoneNumber.js ***!
-  \********************************************************************************************/
+/***/ "./node_modules/libphonenumber-js/es6/parseIncompletePhoneNumber.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/libphonenumber-js/es6/parseIncompletePhoneNumber.js ***!
+  \**************************************************************************/
 /*! exports provided: default, parsePhoneNumberCharacter */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4928,7 +4928,7 @@ function parse_national_number(number, metadata) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return parseIncompletePhoneNumber; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "parsePhoneNumberCharacter", function() { return parsePhoneNumberCharacter; });
-/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./common */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/common.js");
+/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./common */ "./node_modules/libphonenumber-js/es6/common.js");
 
 
 /**
@@ -5002,18 +5002,18 @@ function parsePhoneNumberCharacter(character, value) {
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/parsePhoneNumber.js":
-/*!**********************************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/es6/parsePhoneNumber.js ***!
-  \**********************************************************************************/
+/***/ "./node_modules/libphonenumber-js/es6/parsePhoneNumber.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/libphonenumber-js/es6/parsePhoneNumber.js ***!
+  \****************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return parsePhoneNumber; });
-/* harmony import */ var _PhoneNumber__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PhoneNumber */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/PhoneNumber.js");
-/* harmony import */ var _parse__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./parse */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/parse.js");
+/* harmony import */ var _PhoneNumber__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PhoneNumber */ "./node_modules/libphonenumber-js/es6/PhoneNumber.js");
+/* harmony import */ var _parse__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./parse */ "./node_modules/libphonenumber-js/es6/parse.js");
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 
@@ -5036,18 +5036,18 @@ var isObject = function isObject(_) {
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/searchNumbers.js":
-/*!*******************************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/es6/searchNumbers.js ***!
-  \*******************************************************************************/
+/***/ "./node_modules/libphonenumber-js/es6/searchNumbers.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/libphonenumber-js/es6/searchNumbers.js ***!
+  \*************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return searchNumbers; });
-/* harmony import */ var _findPhoneNumbers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./findPhoneNumbers */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/findPhoneNumbers.js");
-/* harmony import */ var _PhoneNumberMatcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PhoneNumberMatcher */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/PhoneNumberMatcher.js");
+/* harmony import */ var _findPhoneNumbers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./findPhoneNumbers */ "./node_modules/libphonenumber-js/es6/findPhoneNumbers.js");
+/* harmony import */ var _PhoneNumberMatcher__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PhoneNumberMatcher */ "./node_modules/libphonenumber-js/es6/PhoneNumberMatcher.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -5084,18 +5084,18 @@ function searchNumbers(arg_1, arg_2, arg_3, arg_4) {
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/validate.js":
-/*!**************************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/es6/validate.js ***!
-  \**************************************************************************/
+/***/ "./node_modules/libphonenumber-js/es6/validate.js":
+/*!********************************************************!*\
+  !*** ./node_modules/libphonenumber-js/es6/validate.js ***!
+  \********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return isValidNumber; });
-/* harmony import */ var _getNumberType__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getNumberType */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/getNumberType.js");
-/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./common */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/common.js");
+/* harmony import */ var _getNumberType__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./getNumberType */ "./node_modules/libphonenumber-js/es6/getNumberType.js");
+/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./common */ "./node_modules/libphonenumber-js/es6/common.js");
 
 
 
@@ -5163,10 +5163,10 @@ function isValidNumber(arg_1, arg_2, arg_3, arg_4) {
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/index.es6.js":
-/*!***********************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/index.es6.js ***!
-  \***********************************************************************/
+/***/ "./node_modules/libphonenumber-js/index.es6.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/libphonenumber-js/index.es6.js ***!
+  \*****************************************************/
 /*! exports provided: Metadata, parseIncompletePhoneNumber, parsePhoneNumberCharacter, parsePhoneNumber, parseNumber, parse, formatNumber, format, getNumberType, getExampleNumber, isPossibleNumber, isValidNumber, isValidNumberForRegion, findPhoneNumbers, searchPhoneNumbers, PhoneNumberSearch, findNumbers, searchNumbers, PhoneNumberMatcher, AsYouType, getExtPrefix, parseRFC3966, formatRFC3966, formatIncompletePhoneNumber, DIGITS, parseCustom, formatCustom, isValidNumberCustom, findPhoneNumbersCustom, searchPhoneNumbersCustom, PhoneNumberSearchCustom, getNumberTypeCustom, getCountryCallingCodeCustom, AsYouTypeCustom, DIGIT_PLACEHOLDER, getCountryCallingCode, getPhoneCode, getPhoneCodeCustom */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -5196,33 +5196,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCountryCallingCode", function() { return getCountryCallingCode; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPhoneCode", function() { return getPhoneCode; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPhoneCodeCustom", function() { return getPhoneCodeCustom; });
-/* harmony import */ var _metadata_min_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./metadata.min.json */ "./packages/tocco-ui/node_modules/libphonenumber-js/metadata.min.json");
-var _metadata_min_json__WEBPACK_IMPORTED_MODULE_0___namespace = /*#__PURE__*/__webpack_require__.t(/*! ./metadata.min.json */ "./packages/tocco-ui/node_modules/libphonenumber-js/metadata.min.json", 1);
-/* harmony import */ var _es6_parsePhoneNumber__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./es6/parsePhoneNumber */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/parsePhoneNumber.js");
-/* harmony import */ var _es6_parse__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./es6/parse */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/parse.js");
-/* harmony import */ var _es6_format__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./es6/format */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/format.js");
-/* harmony import */ var _es6_getNumberType__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./es6/getNumberType */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/getNumberType.js");
-/* harmony import */ var _es6_getExampleNumber__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./es6/getExampleNumber */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/getExampleNumber.js");
-/* harmony import */ var _es6_isPossibleNumber__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./es6/isPossibleNumber */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/isPossibleNumber.js");
-/* harmony import */ var _es6_validate__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./es6/validate */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/validate.js");
-/* harmony import */ var _es6_isValidNumberForRegion__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./es6/isValidNumberForRegion */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/isValidNumberForRegion.js");
-/* harmony import */ var _es6_findPhoneNumbers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./es6/findPhoneNumbers */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/findPhoneNumbers.js");
-/* harmony import */ var _es6_findNumbers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./es6/findNumbers */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/findNumbers.js");
-/* harmony import */ var _es6_searchNumbers__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./es6/searchNumbers */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/searchNumbers.js");
-/* harmony import */ var _es6_PhoneNumberMatcher__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./es6/PhoneNumberMatcher */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/PhoneNumberMatcher.js");
-/* harmony import */ var _es6_AsYouType__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./es6/AsYouType */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/AsYouType.js");
-/* harmony import */ var _es6_getCountryCallingCode__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./es6/getCountryCallingCode */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/getCountryCallingCode.js");
-/* harmony import */ var _es6_metadata__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./es6/metadata */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/metadata.js");
+/* harmony import */ var _metadata_min_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./metadata.min.json */ "./node_modules/libphonenumber-js/metadata.min.json");
+var _metadata_min_json__WEBPACK_IMPORTED_MODULE_0___namespace = /*#__PURE__*/__webpack_require__.t(/*! ./metadata.min.json */ "./node_modules/libphonenumber-js/metadata.min.json", 1);
+/* harmony import */ var _es6_parsePhoneNumber__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./es6/parsePhoneNumber */ "./node_modules/libphonenumber-js/es6/parsePhoneNumber.js");
+/* harmony import */ var _es6_parse__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./es6/parse */ "./node_modules/libphonenumber-js/es6/parse.js");
+/* harmony import */ var _es6_format__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./es6/format */ "./node_modules/libphonenumber-js/es6/format.js");
+/* harmony import */ var _es6_getNumberType__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./es6/getNumberType */ "./node_modules/libphonenumber-js/es6/getNumberType.js");
+/* harmony import */ var _es6_getExampleNumber__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./es6/getExampleNumber */ "./node_modules/libphonenumber-js/es6/getExampleNumber.js");
+/* harmony import */ var _es6_isPossibleNumber__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./es6/isPossibleNumber */ "./node_modules/libphonenumber-js/es6/isPossibleNumber.js");
+/* harmony import */ var _es6_validate__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./es6/validate */ "./node_modules/libphonenumber-js/es6/validate.js");
+/* harmony import */ var _es6_isValidNumberForRegion__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./es6/isValidNumberForRegion */ "./node_modules/libphonenumber-js/es6/isValidNumberForRegion.js");
+/* harmony import */ var _es6_findPhoneNumbers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./es6/findPhoneNumbers */ "./node_modules/libphonenumber-js/es6/findPhoneNumbers.js");
+/* harmony import */ var _es6_findNumbers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./es6/findNumbers */ "./node_modules/libphonenumber-js/es6/findNumbers.js");
+/* harmony import */ var _es6_searchNumbers__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./es6/searchNumbers */ "./node_modules/libphonenumber-js/es6/searchNumbers.js");
+/* harmony import */ var _es6_PhoneNumberMatcher__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./es6/PhoneNumberMatcher */ "./node_modules/libphonenumber-js/es6/PhoneNumberMatcher.js");
+/* harmony import */ var _es6_AsYouType__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./es6/AsYouType */ "./node_modules/libphonenumber-js/es6/AsYouType.js");
+/* harmony import */ var _es6_getCountryCallingCode__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./es6/getCountryCallingCode */ "./node_modules/libphonenumber-js/es6/getCountryCallingCode.js");
+/* harmony import */ var _es6_metadata__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./es6/metadata */ "./node_modules/libphonenumber-js/es6/metadata.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Metadata", function() { return _es6_metadata__WEBPACK_IMPORTED_MODULE_15__["default"]; });
 
-/* harmony import */ var _es6_RFC3966__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./es6/RFC3966 */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/RFC3966.js");
-/* harmony import */ var _es6_formatIncompletePhoneNumber__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./es6/formatIncompletePhoneNumber */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/formatIncompletePhoneNumber.js");
-/* harmony import */ var _es6_parseIncompletePhoneNumber__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./es6/parseIncompletePhoneNumber */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/parseIncompletePhoneNumber.js");
+/* harmony import */ var _es6_RFC3966__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./es6/RFC3966 */ "./node_modules/libphonenumber-js/es6/RFC3966.js");
+/* harmony import */ var _es6_formatIncompletePhoneNumber__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./es6/formatIncompletePhoneNumber */ "./node_modules/libphonenumber-js/es6/formatIncompletePhoneNumber.js");
+/* harmony import */ var _es6_parseIncompletePhoneNumber__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./es6/parseIncompletePhoneNumber */ "./node_modules/libphonenumber-js/es6/parseIncompletePhoneNumber.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "parseIncompletePhoneNumber", function() { return _es6_parseIncompletePhoneNumber__WEBPACK_IMPORTED_MODULE_18__["default"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "parsePhoneNumberCharacter", function() { return _es6_parseIncompletePhoneNumber__WEBPACK_IMPORTED_MODULE_18__["parsePhoneNumberCharacter"]; });
 
-/* harmony import */ var _es6_common__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./es6/common */ "./packages/tocco-ui/node_modules/libphonenumber-js/es6/common.js");
+/* harmony import */ var _es6_common__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./es6/common */ "./node_modules/libphonenumber-js/es6/common.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DIGITS", function() { return _es6_common__WEBPACK_IMPORTED_MODULE_19__["DIGITS"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "parseCustom", function() { return _es6_parse__WEBPACK_IMPORTED_MODULE_2__["default"]; });
@@ -5466,10 +5466,10 @@ function getPhoneCodeCustom(country, metadata)
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/libphonenumber-js/metadata.min.json":
-/*!****************************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/libphonenumber-js/metadata.min.json ***!
-  \****************************************************************************/
+/***/ "./node_modules/libphonenumber-js/metadata.min.json":
+/*!**********************************************************!*\
+  !*** ./node_modules/libphonenumber-js/metadata.min.json ***!
+  \**********************************************************/
 /*! exports provided: version, country_calling_codes, countries, default */
 /***/ (function(module) {
 
@@ -5477,10 +5477,10 @@ module.exports = {"version":"1.6.8","country_calling_codes":{"1":["US","AG","AI"
 
 /***/ }),
 
-/***/ "./packages/tocco-ui/node_modules/semver-compare/index.js":
-/*!****************************************************************!*\
-  !*** ./packages/tocco-ui/node_modules/semver-compare/index.js ***!
-  \****************************************************************/
+/***/ "./node_modules/semver-compare/index.js":
+/*!**********************************************!*\
+  !*** ./node_modules/semver-compare/index.js ***!
+  \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
