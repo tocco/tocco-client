@@ -32,13 +32,11 @@ export class LoginForm extends Component {
 
     return (
       <StyledLoginForm className="login-form">
-        {
-          this.props.showTitle
-          && <div>
+        {this.props.showTitle
+          && <React.Fragment>
             <Typography.H5><FormattedMessage id="client.login.form.title"/></Typography.H5>
             <Typography.P><FormattedMessage id="client.login.form.introduction"/></Typography.P>
-          </div>
-        }
+          </React.Fragment>}
         <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="form-group dense">
             <div className="input-group">

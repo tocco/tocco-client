@@ -4,10 +4,12 @@ import {FormattedMessage, intlShape} from 'react-intl'
 import {
   Button,
   ButtonGroup,
-  Icon
+  Icon,
+  Typography
 } from 'tocco-ui'
 
 import {Pages} from '../../types/Pages'
+import StyledPasswordRequest from './StyledPasswordRequest'
 
 export class PasswordRequest extends React.Component {
   constructor(props) {
@@ -30,9 +32,10 @@ export class PasswordRequest extends React.Component {
 
   render() {
     return (
-      <div className="login-form">
-        {this.props.showTitle && <h1><FormattedMessage id="client.login.passwordRequest.title"/></h1>}
-        <p><FormattedMessage id="client.login.passwordRequest.introduction"/></p>
+      <StyledPasswordRequest className="login-form">
+        {this.props.showTitle
+          && <Typography.H5><FormattedMessage id="client.login.passwordRequest.title"/></Typography.H5>}
+        <Typography.P><FormattedMessage id="client.login.passwordRequest.introduction"/></Typography.P>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="form-group dense">
             <div className="input-group">
@@ -47,25 +50,23 @@ export class PasswordRequest extends React.Component {
               />
             </div>
           </div>
-          <div>
-            <ButtonGroup look="raised">
-              <Button
-                disabled={!this.state.username || this.props.pending}
-                ink="primary"
-                label={this.msg('client.login.passwordRequest.button')}
-                pending={this.props.pending}
-                type="submit"
-              />
-              <Button
-                disabled={this.props.pending}
-                label={this.msg('client.login.passwordRequest.abortButton')}
-                name="abort"
-                onClick={() => this.props.changePage(Pages.LOGIN_FORM)}
-              />
-            </ButtonGroup>
-          </div>
+          <ButtonGroup look="raised">
+            <Button
+              disabled={!this.state.username || this.props.pending}
+              ink="primary"
+              label={this.msg('client.login.passwordRequest.button')}
+              pending={this.props.pending}
+              type="submit"
+            />
+            <Button
+              disabled={this.props.pending}
+              label={this.msg('client.login.passwordRequest.abortButton')}
+              name="abort"
+              onClick={() => this.props.changePage(Pages.LOGIN_FORM)}
+            />
+          </ButtonGroup>
         </form>
-      </div>
+      </StyledPasswordRequest>
     )
   }
 

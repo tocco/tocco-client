@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
-import {Button, LoadMask, SignalList} from 'tocco-ui'
+import {Button, LoadMask, SignalList, Typography} from 'tocco-ui'
 
 import PasswordInput from './PasswordInput'
+import StyledPasswordUpdateDialog from './StyledPasswordUpdateDialog'
 import ValidationRules from '../ValidationRules'
 import FailureMessage from '../FailureMessage'
 
@@ -44,17 +45,11 @@ class PasswordUpdateDialog extends Component {
       || (password.newPasswordValidationErrors && Object.keys(password.newPasswordValidationErrors).length > 0)
 
     return (
-      <div>
-        <div>
-          {this.props.showTitle
-          && <h1><FormattedMessage id="client.login.passwordUpdate.title"/></h1>
-          }
-          {
-            this.props.forcedUpdate
-            && <p><FormattedMessage id="client.login.passwordUpdate.introduction"/></p>
-          }
-        </div>
-
+      <StyledPasswordUpdateDialog>
+        {this.props.showTitle
+          && <Typography.H5><FormattedMessage id="client.login.passwordUpdate.title"/></Typography.H5>}
+        {this.props.forcedUpdate
+          && <Typography.P><FormattedMessage id="client.login.passwordUpdate.introduction"/></Typography.P>}
         <form className="password-update-dialog" onSubmit={this.handleSubmit.bind(this)}>
           {this.props.showOldPasswordField === true
           && <PasswordInput
@@ -109,7 +104,7 @@ class PasswordUpdateDialog extends Component {
             type="submit"
           />
         </form>
-      </div>
+      </StyledPasswordUpdateDialog>
     )
   }
 
