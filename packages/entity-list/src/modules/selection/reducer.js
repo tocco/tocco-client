@@ -16,14 +16,7 @@ const clearSelection = (state, {payload}) => ({
   showSelectedRecords: false
 })
 
-const setSelectionMode = (state, {payload}) => ({
-  ...state,
-  selectionMode: payload.selectionMode,
-  showSelectedRecords: false
-})
-
 const ACTION_HANDLERS = {
-  [actions.SET_SELECTION_MODE]: setSelectionMode,
   [actions.SET_TABLE_SELECTION_STYLE]: reducerUtil.singleTransferReducer('tableSelectionStyle'),
   [actions.TOGGLE_SHOW_SELECTED_RECORDS]: reducerUtil.toggleReducer('showSelectedRecords'),
   [actions.SET_SELECTION]: setSelection,
@@ -36,7 +29,6 @@ const ACTION_HANDLERS = {
 
 const initialState = {
   showSelectedRecords: false,
-  selectionMode: 'selection',
   selection: [],
   showSelectionController: false,
   tableSelectionStyle: 'none',
