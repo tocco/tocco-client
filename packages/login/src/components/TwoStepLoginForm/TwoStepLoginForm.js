@@ -3,8 +3,11 @@ import React, {Component} from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
 import {
   Button,
-  Icon
+  Icon,
+  Typography
 } from 'tocco-ui'
+
+import StyledTwoStepLoginForm from './StyledTwoStepLoginForm'
 
 export class TwoStepLoginForm extends Component {
   constructor(props) {
@@ -27,11 +30,14 @@ export class TwoStepLoginForm extends Component {
 
   render() {
     return (
-      <div className="login-form">
-        {this.props.showTitle && <h1><FormattedMessage id="client.login.form.title"/></h1>}
+      <StyledTwoStepLoginForm className="login-form">
+        {this.props.showTitle
+          && <Typography.H5><FormattedMessage id="client.login.form.title"/></Typography.H5>}
         <form onSubmit={this.handleSubmit.bind(this)}>
-          <p><FormattedMessage id="client.login.twoStepLogin.introduction"/></p>
-          <p><FormattedMessage id="client.login.twoStepLogin.requestedCode"/>{this.props.requestedCode}</p>
+          <Typography.P><FormattedMessage id="client.login.twoStepLogin.introduction"/></Typography.P>
+          <Typography.P>
+            <FormattedMessage id="client.login.twoStepLogin.requestedCode"/>{this.props.requestedCode}
+          </Typography.P>
           <div className="form-group dense">
             <div className="input-group">
               <span className="input-group-addon"><Icon icon="unlock"/></span>
@@ -45,19 +51,17 @@ export class TwoStepLoginForm extends Component {
               />
             </div>
           </div>
-          <div>
-            <Button
-              disabled={!this.state.userCode || this.props.loginPending}
-              ink="primary"
-              label={this.msg('client.login.form.button')}
-              look="raised"
-              name="submit"
-              pending={this.props.loginPending}
-              type="submit"
-            />
-          </div>
+          <Button
+            disabled={!this.state.userCode || this.props.loginPending}
+            ink="primary"
+            label={this.msg('client.login.form.button')}
+            look="raised"
+            name="submit"
+            pending={this.props.loginPending}
+            type="submit"
+          />
         </form>
-      </div>
+      </StyledTwoStepLoginForm>
     )
   }
 

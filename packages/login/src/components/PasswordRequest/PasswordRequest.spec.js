@@ -1,6 +1,6 @@
 import React from 'react'
 import {shallow} from 'enzyme'
-import {Button} from 'tocco-ui'
+import {Button, Typography} from 'tocco-ui'
 import {IntlStub} from 'tocco-test-util'
 
 import {Pages} from '../../types/Pages'
@@ -94,7 +94,7 @@ describe('login', () => {
           />
         )
 
-        expect(wrapper.find('h1')).to.have.length(0)
+        expect(wrapper.find(Typography.H5)).to.have.length(0)
       })
 
       test('should display title if showTitle prop is true', () => {
@@ -107,7 +107,7 @@ describe('login', () => {
           />
         )
 
-        expect(wrapper.find('h1')).to.have.length(1)
+        expect(wrapper.find(Typography.H5)).to.have.length(1)
       })
 
       test('should prevent default and call requestPassword on submit', () => {
