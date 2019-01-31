@@ -1,6 +1,7 @@
 import {actions as toastrActionsr} from 'react-redux-toastr'
+import {expectSaga} from 'redux-saga-test-plan'
 
-import {getConfirmationAction, getInfoAction, getYesNoAction, getBlockingInfo} from '../notificationActionFactory'
+import {getConfirmationAction, getYesNoAction, getBlockingInfo} from '../notificationActionFactory'
 import rootSaga, * as sagas from './sagas'
 import * as actions from './actions'
 import actionEmitter from '../../actionEmitter'
@@ -51,22 +52,53 @@ describe('app-extensions', () => {
       })
 
       describe('handleNotify', () => {
-        test('should handel notify', () => {
+        test('Should call remove after userActive is dispatched and timeout has passed', () => {
           const type = 'error'
           const title = 'title'
           const message = 'message'
           const icon = 'star'
-          const timeOut = 1000
+          const timeOut = 300
+
           const infoAction = actions.info(type, title, message, icon, timeOut)
 
-          const generator = sagas.handleNotify(infoAction)
+          return expectSaga(sagas.handleNotify, infoAction)
+            .put.like({action: {type: '@ReduxToastr/toastr/ADD'}})
+            .dispatch(actions.userActive())
+            .put.like({action: {type: '@ReduxToastr/toastr/REMOVE'}})
+            .run(1000)
+        })
+      })
 
-          const resultAction = {TYPE: 'something'}
+      describe('handleNotify', () => {
+        test('Should NOT call remove if timeOut is set', () => {
+          const type = 'error'
+          const title = 'title'
+          const message = 'message'
+          const icon = 'star'
 
-          expect(generator.next().value).to.deep.equal(call(getInfoAction, type, title, message, icon, timeOut))
-          expect(generator.next(resultAction).value).to.deep.equal(put(resultAction))
+          const infoAction = actions.info(type, title, message, icon)
 
-          expect(generator.next().done).to.be.true
+          return expectSaga(sagas.handleNotify, infoAction)
+            .put.like({action: {type: '@ReduxToastr/toastr/ADD'}})
+            .not.put.like({action: {type: '@ReduxToastr/toastr/REMOVE'}})
+            .run(1000)
+        })
+      })
+
+      describe('handleNotify', () => {
+        test('Should NOT call remove if no userActive is dispatched', () => {
+          const type = 'error'
+          const title = 'title'
+          const message = 'message'
+          const icon = 'star'
+          const timeOut = 300
+
+          const infoAction = actions.info(type, title, message, icon, timeOut)
+
+          return expectSaga(sagas.handleNotify, infoAction)
+            .put.like({action: {type: '@ReduxToastr/toastr/ADD'}})
+            .not.put.like({action: {type: '@ReduxToastr/toastr/REMOVE'}})
+            .run(1000)
         })
       })
 

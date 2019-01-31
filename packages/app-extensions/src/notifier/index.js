@@ -1,5 +1,5 @@
 import {addToStore} from './notifier'
-import Notifier from './components/Notifier'
+import Notifier from './containers/NotifierContainer'
 import {
   info,
   confirm,

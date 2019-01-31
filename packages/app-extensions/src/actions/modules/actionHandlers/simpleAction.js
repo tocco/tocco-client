@@ -31,7 +31,7 @@ export function* invokeRequest(definition, entity, ids, parent, params) {
       const title = response.body.message || 'client.component.actions.successDefault'
       const icon = success ? 'check' : 'exclamation'
 
-      yield put(notifier.info(type, title, null, icon))
+      yield put(notifier.info(type, title, null, icon, 3000))
     }
 
     return response.body
