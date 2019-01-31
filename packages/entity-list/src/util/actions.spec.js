@@ -9,9 +9,9 @@ describe('entity-list', () => {
             entityName: 'User'
           },
           selection: {
-            selectionMode: 'all',
             query: {search: 'test'},
-            queryCount: 99
+            queryCount: 99,
+            selection: []
           }
         }
 
@@ -31,7 +31,6 @@ describe('entity-list', () => {
             entityName: 'User'
           },
           selection: {
-            selectionMode: 'selection',
             selection: [1, 2, 4]
           }
         }

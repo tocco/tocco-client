@@ -3,7 +3,6 @@ import * as actions from './actions'
 
 const EXPECTED_INITIAL_STATE = {
   showSelectedRecords: false,
-  selectionMode: 'selection',
   selection: [],
   showSelectionController: false,
   tableSelectionStyle: 'none',

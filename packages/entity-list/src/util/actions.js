@@ -1,9 +1,7 @@
-import selectionModes from './../util/selectionModes'
-
 export const deriveSelectionFromState = state => {
   const {selection} = state
 
-  if (selection.selectionMode === selectionModes.ALL) {
+  if (selection.selection.length <= 0) {
     return {
       entityName: state.entityList.entityName,
       type: 'QUERY',
