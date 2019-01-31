@@ -18,7 +18,6 @@ export default function* sagas() {
     fork(takeLatest, actions.CLEAR_SELECTION, reloadData),
     fork(takeLatest, actions.SET_TABLE_SELECTION_STYLE, reloadData),
     fork(takeLatest, actions.ON_SELECT_CHANGE, onSelectChange),
-    fork(takeLatest, actions.SET_SELECTION_MODE, selectionModeSet),
     fork(takeLatest, SET_FORM_SELECTABLE, initialize),
     fork(takeLatest, QUERY_CHANGED, setQuery),
     fork(takeLatest, SET_ENTITY_COUNT, setCount)
@@ -40,11 +39,6 @@ export function* reloadData() {
   yield put(actions.reloadData())
 }
 
-export function* selectionModeSet({payload}) {
-  const {selectionMode} = payload
-  yield call(setTableStyle, selectionMode)
-}
-
 export function* initialize() {
   const {formSelectable} = yield select(listSelector)
   const {selectionStyle, disableSelectionController} = yield select(inputSelector)
@@ -61,11 +55,11 @@ export function* initialize() {
   yield call(setTableStyle, selectionMode)
 }
 
-export function* setTableStyle(selectionMode) {
+export function* setTableStyle() {
   const {formSelectable} = yield select(listSelector)
   const {selectionStyle} = yield select(inputSelector)
 
-  const tableSelectionStyle = yield call(getTableSelectionStyle, selectionMode, selectionStyle, formSelectable)
+  const tableSelectionStyle = yield call(getTableSelectionStyle, selectionStyle, formSelectable)
   yield put(actions.setTableSelectionStyle(tableSelectionStyle))
 }
 

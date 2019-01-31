@@ -20,7 +20,6 @@ describe('entity-list', () => {
             fork(takeLatest, actions.CLEAR_SELECTION, sagas.reloadData),
             fork(takeLatest, actions.SET_TABLE_SELECTION_STYLE, sagas.reloadData),
             fork(takeLatest, actions.ON_SELECT_CHANGE, sagas.onSelectChange),
-            fork(takeLatest, actions.SET_SELECTION_MODE, sagas.selectionModeSet),
             fork(takeLatest, SET_FORM_SELECTABLE, sagas.initialize),
             fork(takeLatest, QUERY_CHANGED, sagas.setQuery),
             fork(takeLatest, SET_ENTITY_COUNT, sagas.setCount)

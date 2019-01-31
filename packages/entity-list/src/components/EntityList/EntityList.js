@@ -21,7 +21,7 @@ class EntityList extends React.Component {
         }
         {
           this.props.showSelectionController
-          && <div style={{float: 'right'}}><SelectionControllerContainer/></div>
+          && <SelectionControllerContainer/>
         }
         <ListViewContainer/>
       </div>
