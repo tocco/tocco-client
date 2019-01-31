@@ -35,6 +35,7 @@ export function getInfoAction(uncheckedType, title, message, icon, timeOut) {
   }
 
   return toastrActions.add({
+    id: uuid(),
     type,
     options
   })

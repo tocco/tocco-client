@@ -5,6 +5,11 @@ export const BLOCKING_INFO = 'notifier/BLOCKING_INFO'
 export const REMOVE_BLOCKING_INFO = 'notifier/REMOVE_BLOCKING_INFO'
 export const MODAL_COMPONENT = 'notifier/MODAL_COMPONENT'
 export const REMOVE_MODAL_COMPONENT = 'notifier/REMOVE_MODAL_COMPONENT'
+export const USER_ACTIVE = 'notifier/USER_ACTIVE'
+
+export const userActive = () => ({
+  type: USER_ACTIVE
+})
 
 export const info = (type, title, message, icon, timeOut) => ({
   type: INFO,

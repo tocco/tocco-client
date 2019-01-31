@@ -1,4 +1,5 @@
 import {actions as toastrActionsr} from 'react-redux-toastr'
+import {delay} from 'redux-saga'
 
 import {
   getInfoAction,
@@ -9,7 +10,7 @@ import {
 import * as actions from './actions'
 import actionEmitter from '../../actionEmitter'
 
-import {takeEvery, fork, call, put, all} from 'redux-saga/effects'
+import {takeEvery, fork, call, put, all, take} from 'redux-saga/effects'
 
 export default function* sagas(accept) {
   if (accept) {
@@ -35,8 +36,13 @@ export default function* sagas(accept) {
 
 export function* handleNotify({payload}) {
   const {type, title, message, icon, timeOut} = payload
-  const action = yield call(getInfoAction, type, title, message, icon, timeOut)
+  const action = yield call(getInfoAction, type, title, message, icon)
   yield put(action)
+  if (timeOut) {
+    yield take(actions.USER_ACTIVE)
+    yield delay(timeOut)
+    yield put(toastrActionsr.remove(action.payload.id))
+  }
 }
 
 export function* handleConfirm({payload}) {

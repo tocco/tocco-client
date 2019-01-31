@@ -10,12 +10,11 @@ describe('app-extensions', () => {
     describe('Components', () => {
       describe('Notifier', () => {
         test('should render toastr and modal ', () => {
-          const title = 'Title'
-          const message = 'message'
           const wrapper = shallow(
             <Notifier
-              title={title}
-              message={message}
+              toastrOptions={{}}
+              hasNotifications
+              userActive={() => {}}
             />
           )
 
