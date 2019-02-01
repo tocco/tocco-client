@@ -1,11 +1,11 @@
 {
   "name": "tocco-util",
-  "version": "0.1.18",
+  "version": "0.1.19",
   "private": true,
   "description": "tocco util",
   "main": "src/main.js",
   "devDependencies": {
     "tocco-test-util": ">0.0.0",
-    "tocco-theme": "0.2.4"
+    "tocco-theme": "0.2.5"
   }
 }

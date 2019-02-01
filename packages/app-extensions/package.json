@@ -1,13 +1,13 @@
 {
   "name": "tocco-app-extensions",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "private": true,
   "description": "app extensions",
   "main": "src/main.js",
   "devDependencies": {
-    "tocco-theme": "0.2.4",
-    "tocco-ui": "0.1.21",
-    "tocco-util": "0.1.18",
+    "tocco-theme": "0.2.5",
+    "tocco-ui": "0.1.22",
+    "tocco-util": "0.1.19",
     "validator": "10.0.0"
   }
 }
