@@ -28,7 +28,7 @@ describe('sso-login', () => {
     }
 
     describe('ProviderButton', () => {
-      it('should render a button', () => {
+      test('should render a button', () => {
         const wrapper = mount(
           <ThemeProvider theme={theme}>
             <ProviderButton {...baseProps}/>
@@ -37,7 +37,7 @@ describe('sso-login', () => {
         expect(wrapper.find('button')).to.have.length(1)
       })
 
-      it('should call window.open and loginCompleted callback', () => {
+      test('should call window.open and loginCompleted callback', () => {
         global.open = jest.fn(() => ({close: jest.fn()}))
 
         const loginCompleted = jest.fn()

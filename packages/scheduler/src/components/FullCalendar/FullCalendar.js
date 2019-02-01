@@ -3,8 +3,6 @@ import ReactDOMServer from 'react-dom/server'
 import PropTypes from 'prop-types'
 import _isEqual from 'lodash/isEqual'
 import $ from 'jquery'
-import 'jquery/src/jquery'
-import 'bootstrap/dist/js/bootstrap.min.js'
 import 'twix'
 import 'fullcalendar'
 import 'fullcalendar-scheduler'
@@ -19,6 +17,8 @@ import {consoleLogger} from 'tocco-util'
 import Conflict from '../Conflict'
 import NavigationFullCalendar from '../NavigationFullCalendar'
 import StyledFullCalendar from './StyledFullCalendar'
+window.$ = window.jQuery = require('jquery')
+require('bootstrap/dist/js/bootstrap.min.js')
 
 class FullCalendar extends React.Component {
   constructor(props) {

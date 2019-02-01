@@ -9,14 +9,14 @@ describe('app-extensions', () => {
   describe('actions', () => {
     describe('components', () => {
       describe('ReportSettings', () => {
-        it('should render simple-form for genereal and recipient settings and one for custom settings', () => {
+        test('should render simple-form for genereal and recipient settings and one for custom settings', () => {
           const wrapper = intlEnzyme.shallowWithIntl(<ReportSettings onSubmit={EMPTY_FUNC}
             settingsDefinition={formDefinitionFull} listApp={EMPTY_FUNC} formApp={EMPTY_FUNC}/>)
 
           expect(wrapper.find(wrapper.instance().SimpleFormContainer)).to.have.length(2)
         })
 
-        it('should not render custom settings simple-form if custom settings are null', () => {
+        test('should not render custom settings simple-form if custom settings are null', () => {
           const settingsDefinition = {...formDefinitionFull, customSettings: null}
 
           const wrapper = intlEnzyme.shallowWithIntl(<ReportSettings onSubmit={EMPTY_FUNC}
