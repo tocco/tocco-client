@@ -10,7 +10,7 @@ const EMPTY_FUNC = () => {}
 describe('resource-scheduler', () => {
   describe('components', () => {
     describe('ResourceScheduler', () => {
-      it('should render SearchPanel and SchedulerApp ', () => {
+      test('should render SearchPanel and SchedulerApp ', () => {
         const wrapper = shallow(
           <ResourceScheduler
             initialize={EMPTY_FUNC}

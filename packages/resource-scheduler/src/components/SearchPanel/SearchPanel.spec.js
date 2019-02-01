@@ -8,7 +8,7 @@ const EMPTY_FUNC = () => {}
 describe('resource-scheduler', () => {
   describe('components', () => {
     describe('SearchPanel', () => {
-      it('should render', () => {
+      test('should render', () => {
         const wrapper = shallow(
           <SearchPanel
             addCalendarsOfType={EMPTY_FUNC}

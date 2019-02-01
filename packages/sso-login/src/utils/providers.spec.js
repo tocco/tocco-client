@@ -4,7 +4,7 @@ describe('sso-login', () => {
   describe('utils', () => {
     describe('providers', () => {
       describe('transformProviderEntities', () => {
-        it('should return an array of flatten objects', () => {
+        test('should return an array of flatten objects', () => {
           const response = require('../dev/data/openid_provider')
           const result = transformProviderEntities(response)
 

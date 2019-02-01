@@ -11,14 +11,14 @@ const EMPTY_FUNC = () => {}
 describe('entity-list', () => {
   describe('components', () => {
     describe('EntityList', () => {
-      it('should render ListView', () => {
+      test('should render ListView', () => {
         const wrapper = shallow(
           <EntityList initialize={EMPTY_FUNC} initializeSearchForm={EMPTY_FUNC} navigateToCreate={EMPTY_FUNC}/>
         )
         expect(wrapper.find(ListViewContainer)).to.have.length(1)
       })
 
-      it('should call inizialize', () => {
+      test('should call inizialize', () => {
         const initSpy = sinon.spy()
         const initSearchFormSpy = sinon.spy()
         const showSearchForm = false
@@ -33,7 +33,7 @@ describe('entity-list', () => {
         expect(initSearchFormSpy).to.have.calledWith(showSearchForm)
       })
 
-      it('should show searchForm depending on prop', () => {
+      test('should show searchForm depending on prop', () => {
         const wrapper = shallow(
           <EntityList
             initialize={EMPTY_FUNC}
@@ -47,7 +47,7 @@ describe('entity-list', () => {
         expect(wrapper.find(SearchFormContainer)).to.have.length(1)
       })
 
-      it('should show full text searchForm depending on prop', () => {
+      test('should show full text searchForm depending on prop', () => {
         const wrapper = shallow(
           <EntityList
             initialize={EMPTY_FUNC}

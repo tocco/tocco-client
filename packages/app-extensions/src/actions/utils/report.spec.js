@@ -7,7 +7,7 @@ describe('app-extensions', () => {
     describe('utils', () => {
       describe('report', () => {
         describe('getGroupedValues', () => {
-          it('should return values by group name', () => {
+          test('should return values by group name', () => {
             const settingsDefinition = {generalSettings: [{id: 'a'}, {id: 'c'}], customSettings: [{id: 'b'}]}
             const values = {a: 1, b: 2, c: 3}
 
@@ -15,7 +15,7 @@ describe('app-extensions', () => {
             expect(result).to.eql({generalSettings: {a: 1, c: 3}, recipientSettings: {}})
           })
 
-          it('should handle a empty group', () => {
+          test('should handle a empty group', () => {
             const settingsDefinition = {generalSettings: null}
             const values = {a: 1}
 
@@ -25,7 +25,7 @@ describe('app-extensions', () => {
         })
 
         describe('getFormDataDefaults', () => {
-          it('should return an object with relatinEntites', () => {
+          test('should return an object with relatinEntites', () => {
             const options1 = [{key: 1, display: 'a'}, {key: 2, display: 'b'}]
             const options2 = [{key: 3, display: 'c'}, {key: 4, display: 'd'}]
 
@@ -45,7 +45,7 @@ describe('app-extensions', () => {
         })
 
         describe('getModel', () => {
-          it('should return a model', () => {
+          test('should return a model', () => {
             const settingsDefinition = {
               generalSettings: [
                 {id: 'relSomething', type: 'multi-selext-box', targetEntity: 'User', validation: {mandatory: false}},
@@ -69,7 +69,7 @@ describe('app-extensions', () => {
         })
 
         describe('getFormDefinition', () => {
-          it('should return a form definition with the fields wrapped by a vertical box', () => {
+          test('should return a form definition with the fields wrapped by a vertical box', () => {
             const settingsDefinition = {
               generalSettings: [
                 {id: 'someString', type: 'string', label: 'Some String'}
@@ -89,7 +89,7 @@ describe('app-extensions', () => {
         })
 
         describe('transformValues', () => {
-          it('should transform select/remote fields to key only and copy others', () => {
+          test('should transform select/remote fields to key only and copy others', () => {
             const values = {
               recipient1: {key: '1', display: 'User1'},
               recipient2: [{key: '1', display: 'User1'}, {key: '33', display: 'User33'}],

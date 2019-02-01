@@ -8,12 +8,12 @@ describe('scheduler', () => {
   describe('components', () => {
     describe('FullCalendar', () => {
       describe('NavigationFullCalendar', () => {
-        it('should get button ink prop', () => {
+        test('should get button ink prop', () => {
           expect(getButtonInkProps('a', 'a')).to.deep.equal({ink: 'primary'})
           expect(getButtonInkProps('a', 'b')).to.deep.equal({})
         })
 
-        it('should render title and buttons', () => {
+        test('should render title and buttons', () => {
           const changeRange = sinon.spy()
           const changeView = sinon.spy()
           const chooseNext = sinon.spy()
@@ -44,7 +44,7 @@ describe('scheduler', () => {
           expect(refresh).to.have.property('callCount', 1)
         })
 
-        it('should signal states', () => {
+        test('should signal states', () => {
           const mockProps = {
             changeRange: () => {},
             changeView: () => {},

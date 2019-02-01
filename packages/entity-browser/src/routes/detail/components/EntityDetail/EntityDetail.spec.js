@@ -11,7 +11,7 @@ const EMPTY_FUNC = () => {}
 describe('entity-browser', () => {
   describe('components', () => {
     describe('EntityDetail', () => {
-      it('should render App ', () => {
+      test('should render App ', () => {
         const detailParams = {
           entityName: 'User',
           formName: 'UserSearch'
