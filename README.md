@@ -32,7 +32,7 @@ and can be re-used in other packages. A description of each package can be found
 Please ensure that every package is prefixed with ``tocco-``
 
 ## Documentation
-* [Code Styleguide](https://github.com/tocco/tocco-client/blob/master/docs/code-styleguide.md)
+* [Client Documentation](https://tocco-docs.readthedocs.io/en/latest/framework/client/index.html)
 
 Since this project heavily uses Redux and Sagas, you should be aware of it's concepts and also ES6.
 A good starting point can be found in these docs:
