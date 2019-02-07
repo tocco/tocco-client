@@ -85,10 +85,12 @@ addDecorator(
 
 const req = require.context('../packages/tocco-ui/src/', true, /\.stories\.js$/)
 const req2 = require.context('../packages/app-extensions/src/', true, /\.stories\.js$/)
+const req3 = require.context('../packages/entity-browser/src/', true, /\.stories\.js$/)
 
 function loadStories() {
   req.keys().forEach(filename => req(filename))
   req2.keys().forEach(filename => req2(filename))
+  req3.keys().forEach(filename => req3(filename))
 }
 
 configure(loadStories, module)

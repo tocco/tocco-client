@@ -3,6 +3,7 @@ import {appFactory, notifier, errorLogging, actionEmitter, externalEvents, rest}
 import {Router} from 'react-router'
 import createHashHistory from 'history/createHashHistory'
 import createMemoryHistory from 'history/createMemoryHistory'
+import PropTypes from 'prop-types'
 
 import RouteWithSubRoutes from './components/RouteWithSubRoutes'
 
@@ -116,3 +117,24 @@ const initApp = (id, input, events, publicPath) => {
     appFactory.registerAppInRegistry(packageName, initApp)
   }
 })()
+
+class EntityBrowserApp extends React.Component {
+  constructor(props) {
+    super(props)
+    this.app = initApp('id', props)
+  }
+
+  render() {
+    return (
+      <div>{this.app.renderComponent()}</div>
+    )
+  }
+}
+
+EntityBrowserApp.propTypes = {
+  entityName: PropTypes.string.isRequired,
+  formName: PropTypes.string.isRequired,
+  mode: PropTypes.oneOf(['update', 'create'])
+}
+
+export default EntityBrowserApp
