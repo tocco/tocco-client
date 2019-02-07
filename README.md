@@ -51,9 +51,11 @@ yarn start --package={PACKAGE_NAME}
 ```
 Open http://localhost:3000 and start coding!
 
-Add ``--noMock`` parameter to disable mocked data.
-In this case you must run the Tocco Business Framework application with enabled REST API on:
-http://localhost:8080
+Optional: 
+- Add ``--noMock`` parameter to disable mocked data.
+  In this case you must run the Tocco Business Framework application with enabled REST API on:
+  http://localhost:8080
+- Add ``--backend={BACKEND_URL}`` parameter to enable an alternative backend.
 
 ### Storybook
 It might be helpful to start up storybook locally to test the current state of development. This can be done with the following
@@ -61,6 +63,8 @@ command:
 ```
 yarn storybook
 ```
+Optional:
+- Use ``BACKEND={BACKEND_URL} yarn storybook`` to enable an alternative backend.
 
 #### Tests
 Tests are using following tools and libraries:
@@ -113,7 +117,9 @@ yarn compile:dev --package={PACKAGE_NAME}
 yarn compile:prod --package={PACKAGE_NAME}
 ```
 
-Optional the `--bundle-analyzer` parameter can be added to open BundleAnalyzerPlugin to investigate the bundle sizes. 
+Optional:
+  - Add `--bundle-analyzer` parameter to open BundleAnalyzerPlugin to investigate the bundle sizes. 
+  - Add ``--backend={BACKEND_URL}`` parameter to enable an alternative backend.
 
 ## Linting
 Eslint is used for linting. Linting will also be executed automatically on our CI.
