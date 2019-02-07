@@ -41,6 +41,11 @@ const config = {
 // Environment
 // ------------------------------------
 // N.B.: globals added here must _also_ be added to .eslintrc
+
+const setNoMock = () => (argv.backend && config.env === 'development') || argv.noMock
+
+export const setBackendUrl = () => JSON.stringify(argv.backend) || JSON.stringify(process.env.BACKEND)
+
 config.globals = {
   'process.env'  : {
     'NODE_ENV' : JSON.stringify(config.env)
@@ -50,10 +55,10 @@ config.globals = {
   '__DEV__'      : config.env === 'development',
   '__PROD__'     : config.env === 'production',
   '__STANDALONE__': config.env === 'standalone',
-  '__BACKEND_URL__': JSON.stringify(''),
+  '__BACKEND_URL__': setBackendUrl() || JSON.stringify(''),
   '__PACKAGE__'   : argv.package,
   '__PACKAGE_NAME__'   : JSON.stringify(argv.package),
-  '__NO_MOCK__': argv.noMock || false
+  '__NO_MOCK__': setNoMock() || false
 }
 
 // ------------------------------------
@@ -64,7 +69,7 @@ const base = (...args) =>
   Reflect.apply(resolve, null, [config.path_base, ...args])
 
 config.utils_paths = {
-  base   : base,
+  base,
   client : base.bind(null, config.dir_client)
 }
 
