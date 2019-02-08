@@ -31,7 +31,7 @@ install:
 script:
   - npm run lint
   - jest --maxWorkers=4 --silent --verbose false
-  - BACKEND=http://master.tocco.ch yarn build-storybook
+  - BACKEND=https://master.tocco.ch yarn build-storybook
 
 after_success:
   - npm run codecov;

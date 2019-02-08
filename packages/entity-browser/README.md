@@ -20,7 +20,7 @@ React-registry name: `entity-browser`
 | `initialKey`           |           | If set, the entity browser will start on the detail page of the entity with the specified key instead of showing a list.
 | `nullBusinessUnit`     |           | If true, all REST-request have the null business unit header (X-Business-Unit: __n-u-l-l__)
 | `showCreateButton`     |           | (Temporary) Flag to show/hide a create button in list view
-| `memoryHistory`        |           | By default, a url based history is used. In case of embedding for example, this will not work
+| `memoryHistory`        |           | A url based history is used if set to true. In case of embedding for example, this will not work.
 
 ### Events
 
