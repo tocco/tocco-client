@@ -3,3 +3,6 @@ node_modules
 tests
 coverage
 .eslintrc
+jest.config.js
+plop
+yarn-error.log
