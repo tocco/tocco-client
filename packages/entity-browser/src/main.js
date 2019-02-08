@@ -132,9 +132,19 @@ class EntityBrowserApp extends React.Component {
 }
 
 EntityBrowserApp.propTypes = {
-  entityName: PropTypes.string.isRequired,
   formName: PropTypes.string.isRequired,
-  mode: PropTypes.oneOf(['update', 'create'])
+  entityName: PropTypes.string.isRequired,
+  showSearchForm: PropTypes.bool,
+  disableSimpleSearch: PropTypes.bool,
+  formBase: PropTypes.bool,
+  limit: PropTypes.number,
+  preselectedSearchFields: PropTypes.array,
+  searchFilters: PropTypes.array,
+  simpleSearchFields: PropTypes.string,
+  initialKey: PropTypes.string,
+  nullBusinessUnit: PropTypes.bool,
+  showCreateButton: PropTypes.bool,
+  memoryHistory: PropTypes.bool
 }
 
 export default EntityBrowserApp
