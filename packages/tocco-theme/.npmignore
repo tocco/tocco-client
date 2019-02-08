@@ -2,3 +2,6 @@ dist/index.js
 node_modules
 src
 dist/scss
+jest.config.js
+plop
+yarn-error.log

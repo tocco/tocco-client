@@ -4,4 +4,5 @@ tests
 coverage
 .eslintrc
 jest.config.js
+plop
 yarn-error.log
