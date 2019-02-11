@@ -6,6 +6,7 @@ import thunk from 'redux-thunk'
 import {reducer as reducerUtil, saga as sagaUtil} from 'tocco-util'
 
 import inputReducer from './input/reducer'
+import errorLogging from '../../errorLogging'
 
 import {fork} from 'redux-saga/effects'
 
@@ -18,7 +19,7 @@ const getIntialState = input => {
   return initialState
 }
 
-export const createStore = (reducers = {}, sagas = [], input, name = '', logErrorAction) => {
+export const createStore = (reducers = {}, sagas = [], input, name = '') => {
   const initialState = getIntialState(input)
   const sagaMiddleware = createSagaMiddleware()
   let middleware = applyMiddleware(thunk, sagaMiddleware)
@@ -47,7 +48,7 @@ export const createStore = (reducers = {}, sagas = [], input, name = '', logErro
 
   if (sagas && sagas.length > 0) {
     const rootSaga = sagaUtil.createGenerator(sagas.map(s => fork(s)))
-    sagaMiddleware.run(sagaUtil.autoRestartSaga(rootSaga, null, logErrorAction))
+    sagaMiddleware.run(sagaUtil.autoRestartSaga(rootSaga, null, errorLogging.logError))
   }
 
   return store

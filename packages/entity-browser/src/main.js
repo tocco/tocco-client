@@ -55,7 +55,7 @@ const initApp = (id, input, events, publicPath) => {
   const store = appFactory.createStore(undefined, undefined, input, packageName)
   externalEvents.addToStore(store, events)
   actionEmitter.addToStore(store)
-  errorLogging.addToStore(store, true, ['console', 'remote', 'toastr'])
+  errorLogging.addToStore(store, true, ['console', 'remote', 'notifier'])
   notifier.addToStore(store, true)
 
   const history = createHistory(store, input.memoryHistory)
