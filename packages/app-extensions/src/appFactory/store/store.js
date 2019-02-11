@@ -45,8 +45,10 @@ export const createStore = (reducers = {}, sagas = [], input, name = '', logErro
   store.sagaMiddleware = sagaMiddleware
   store.hotReloadReducers = reducerUtil.hotReloadReducers
 
-  const rootSaga = sagaUtil.createGenerator(sagas.map(s => fork(s)))
-  sagaMiddleware.run(sagaUtil.autoRestartSaga(rootSaga, null, logErrorAction))
+  if (sagas && sagas.length > 0) {
+    const rootSaga = sagaUtil.createGenerator(sagas.map(s => fork(s)))
+    sagaMiddleware.run(sagaUtil.autoRestartSaga(rootSaga, null, logErrorAction))
+  }
 
   return store
 }
