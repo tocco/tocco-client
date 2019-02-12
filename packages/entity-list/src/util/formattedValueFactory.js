@@ -19,14 +19,25 @@ const getOptions = (type, intl) => {
 
 const formattedValueCustomTypeMapper = type => customTypeMap[type] ? customTypeMap[type] : type
 
-export default (field, entity, intl) => {
-  const {id} = field
-  const {type, value} = entity[id]
+export const MultiSeparator = () => ', '
 
-  const mappedType = formattedValueCustomTypeMapper(type)
-  const options = getOptions(mappedType, intl)
+export default (fieldDefinition, entity, intl) => {
+  const {id, path} = fieldDefinition
+  const value = entity[path || id]
+  const contents = Array.isArray(value) ? value : [value]
 
-  return (<span key={id} style={{marginRight: '2px'}}>
-    <FormattedValue type={mappedType} value={value} {...(options ? {options} : {})}/>
-  </span>)
+  return contents.length > 0
+    ? <span key={id} style={{marginRight: '2px'}}>
+      {
+        contents
+          .map((content, idx) => {
+            const {type, value} = content
+            const mappedType = formattedValueCustomTypeMapper(type)
+            const options = getOptions(mappedType, intl)
+            return <FormattedValue key={idx} type={mappedType} value={value} {...(options ? {options} : {})}/>
+          })
+          .reduce((prev, curr, idx) => [prev, <MultiSeparator key={`ms-${idx}`}/>, curr])
+      }
+    </span>
+    : null
 }

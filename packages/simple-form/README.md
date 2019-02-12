@@ -11,13 +11,17 @@ React-registry name: `simple-form`
 |------------------------|:---------:|-------------
 | `form`                 | x         | Full form definition 
 | `model`                | x         | Model of the fields that are present in the form
+| `noButtons`            |           | Whether submit and cancel buttons should be shown and the form is controlled from outside (Default: false)
 | `submitText`           |           | Text on submit button
 | `cancelText`           |           | Text on cancel button
+| `formData`             |           | Provides the option to set relation-entities formData in advance
+| `listApp`              |           | List app (tocco-entity-list) must be provided to support 
 
 
 ### Events
 
-| Name            | Payload                             | Description
+| Name            | Payload attributes                                                | Description
 |-----------------|--------------------------------------------------------------------------------------------------------------------|-------------
-| `onSubmit`      | `values` (Validated Form Values)    | Is fired when form is submitted and snycvalidation is valid
-| `onCancel`      | `values` (Unvalidated Form Values)  | Is fired when "cancel" button is clicked
+| `onSubmit`      | `values` (Validated form values)                                  | Is fired when form is submitted and snycvalidation is valid
+| `onCancel`      | `values` (Unvalidated form values)                                | Is fired when "cancel" button is clicked
+| `onChange`      | `values` form values `valid` true if all fields have valid inputs | Fired on any value change

@@ -1,5 +1,7 @@
 /* eslint no-console: 0 */
 import React from 'react'
+import {intlShape} from 'react-intl'
+
 import EditableValue from './'
 // real-import:import {EditableValue} from 'tocco-ui'
 
@@ -61,6 +63,9 @@ class Example extends React.Component {
         dateRangeFrom: '2015-12-21',
         dateRangeTo: '2015-12-24',
         datetime: '2017-01-25T15:15:00.000Z',
+        decimal: 123456.78,
+        duration: 3660000,
+        moneyamount: 1234.56,
         boolean: false,
         number: 99,
         remote: {key: 999, display: 'Dummy User 999'},
@@ -92,7 +97,6 @@ class Example extends React.Component {
   }
 
   changeValue(name, value) {
-    console.log('changeValue', name, value)
     this.setState({
       ...this.state,
       values: {
@@ -198,6 +202,38 @@ class Example extends React.Component {
                   type="number"
                   value={this.state.values.number}
                   onChange={v => this.changeValue('number', v)}
+                  readOnly={this.state.readOnly}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>decimal</td>
+              <td>
+                <EditableValue
+                  type="decimal"
+                  value={this.state.values.decimal}
+                  options={{
+                    intl: this.context.intl,
+                    prePointDigits: 8,
+                    postPointDigits: 3
+                  }}
+                  onChange={v => this.changeValue('decimal', v)}
+                  readOnly={this.state.readOnly}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>money amount</td>
+              <td>
+                <EditableValue
+                  type="moneyamount"
+                  value={this.state.values.moneyamount}
+                  options={{
+                    intl: this.context.intl,
+                    prePointDigits: 12,
+                    postPointDigits: 2
+                  }}
+                  onChange={v => this.changeValue('moneyamount', v)}
                   readOnly={this.state.readOnly}
                 />
               </td>
@@ -327,6 +363,17 @@ class Example extends React.Component {
               </td>
             </tr>
             <tr>
+              <td>duration</td>
+              <td>
+                <EditableValue
+                  type="duration"
+                  value={this.state.values.duration}
+                  onChange={v => this.changeValue('duration', v)}
+                  readOnly={this.state.readOnly}
+                />
+              </td>
+            </tr>
+            <tr>
               <td>document</td>
               <td>
                 <EditableValue
@@ -359,6 +406,10 @@ class Example extends React.Component {
       </div>
     )
   }
+}
+
+Example.contextTypes = {
+  intl: intlShape
 }
 
 export default () => <Example/>

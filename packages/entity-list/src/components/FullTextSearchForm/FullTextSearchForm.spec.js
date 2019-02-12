@@ -2,7 +2,6 @@ import React from 'react'
 import {MemoryRouter} from 'react-router-dom'
 import {Provider} from 'react-redux'
 import {createStore} from 'redux'
-
 import {IntlStub, intlEnzyme} from 'tocco-test-util'
 import {SearchBox} from 'tocco-ui'
 
@@ -13,7 +12,7 @@ const EMPTY_FUNC = () => {}
 describe('entity-list', () => {
   describe('components', () => {
     describe('FullTextSearchForm', () => {
-      it('should render SearchBox component', () => {
+      test('should render SearchBox component', () => {
         const store = createStore(() => {})
 
         const wrapper = intlEnzyme.mountWithIntl(

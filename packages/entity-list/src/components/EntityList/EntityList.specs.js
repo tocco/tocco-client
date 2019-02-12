@@ -1,9 +1,10 @@
 import React from 'react'
+import {shallow} from 'enzyme'
+
 import EntityList from './EntityList'
 import ListViewContainer from '../../containers/ListViewContainer'
 import SearchFormContainer from '../../containers/SearchFormContainer'
 import FullTextSearchFormContainer from '../../containers/FullTextSearchFormContainer'
-import {shallow} from 'enzyme'
 
 const EMPTY_FUNC = () => {}
 

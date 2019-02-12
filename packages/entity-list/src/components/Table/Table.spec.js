@@ -2,6 +2,7 @@ import React from 'react'
 import {BootstrapTable} from 'react-bootstrap-table'
 import {IntlStub} from 'tocco-test-util/src/main'
 import {shallow} from 'enzyme'
+
 import Table from './Table'
 
 const EMPTY_FUNC = () => {}
@@ -21,7 +22,7 @@ const defaultProps = {
 describe('entity-list', () => {
   describe('components', () => {
     describe('Table', () => {
-      it('should render bootstrap table', () => {
+      test('should render bootstrap table', () => {
         const wrapper = shallow(<Table {...defaultProps}/>)
         expect(wrapper.find(BootstrapTable)).to.have.length(1)
       })

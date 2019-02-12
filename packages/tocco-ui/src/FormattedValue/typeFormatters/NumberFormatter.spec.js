@@ -1,13 +1,14 @@
 import React from 'react'
-import NumberFormatter from './NumberFormatter'
 import {mount} from 'enzyme'
 import {addLocaleData, IntlProvider} from 'react-intl'
+
+import NumberFormatter from './NumberFormatter'
 
 describe('tocco-ui', () => {
   describe('FormattedValue', () => {
     describe('typeFormatters', () => {
       describe('NumberFormatter ', () => {
-        before(() => {
+        beforeAll(() => {
           require('intl/locale-data/jsonp/en.js')
           require('intl/locale-data/jsonp/de.js')
           const en = require('react-intl/locale-data/en')
@@ -15,25 +16,25 @@ describe('tocco-ui', () => {
           addLocaleData([...en, ...de])
         })
 
-        it('should format value', () => {
+        test('should format value', () => {
           const wrapper = mount(<IntlProvider locale="en"><NumberFormatter
             value={1337}/></IntlProvider>)
           expect(wrapper.text()).to.equal('1,337')
         })
 
-        it('should format number 0', () => {
+        test('should format number 0', () => {
           const wrapper = mount(<IntlProvider locale="en"><NumberFormatter
             value={0}/></IntlProvider>)
           expect(wrapper.text()).to.equal('0')
         })
 
-        it('should format value accorind to locale DE', () => {
+        test('should format value accorind to locale DE', () => {
           const wrapper = mount(<IntlProvider locale="de"><NumberFormatter
             value={1337}/></IntlProvider>)
           expect(wrapper.text()).to.equal('1.337')
         })
 
-        it('should format value accorind to locale CH', () => {
+        test('should format value accorind to locale CH', () => {
           const wrapper = mount(<IntlProvider locale="de-CH"><NumberFormatter
             value={1337}/></IntlProvider>)
           expect(wrapper.text()).to.match(/1['’]337/)

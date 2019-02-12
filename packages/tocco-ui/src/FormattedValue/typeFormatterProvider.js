@@ -54,7 +54,7 @@ export const map = {
   'ipaddress': StringFormatter,
   'latitude': LongitudeFormatter,
   'login': LoginFormatter,
-  'long': NumberFormatter,
+  'long': StringFormatter,
   'longitude': LongitudeFormatter,
   'moneyamount': MoneyFormatter,
   'multi-remote': MultiSelectFormatter,

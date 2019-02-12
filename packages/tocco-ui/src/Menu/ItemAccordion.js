@@ -11,26 +11,25 @@ import {
 } from '../utilStyles'
 
 /**
- * Wrap <MenuStack> in <ItemAccordion> if it should be toggleable. Submenu expand and
+ * Wrap <Menu.Stack> in <MenuItemAccordion> if it should be toggleable. Submenu expand and
  * collapse alternating on click and push subsequent content down.
  */
 class ItemAccordion extends Item {
   getChildren = () => {
-    // eslint-disable-next-line
-    return React.Children.map(this.props.children, child => {
-      return React.cloneElement(child, {look: this.props.look, ink: this.props.ink})
-    })
+    return React.Children.map(this.props.children, child =>
+      React.cloneElement(child, {look: this.props.look, ink: this.props.ink})
+    )
   }
 
   render() {
     return (
       <StyledItemAccordion
-        innerRef={node => { this.node = node }}
+        ref={node => { this.node = node }}
         isOpen={this.state.isOpen}
       >
         <Button
           ink={this.props.ink}
-          icon={this.state.isOpen ? 'fa-caret-up' : 'fa-caret-down'}
+          icon={this.state.isOpen ? 'caret-up' : 'caret-down'}
           iconPosition={stylingPosition.APPEND}
           label={this.props.label}
           look={this.props.look}

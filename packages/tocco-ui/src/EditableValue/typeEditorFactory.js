@@ -17,6 +17,9 @@ import MultiRemoteSelect from './typeEditors/MultiRemoteSelect'
 import SearchFilterEdit from './typeEditors/SearchFilterEdit'
 import UrlEdit from './typeEditors/UrlEdit'
 import PhoneEdit from './typeEditors/PhoneEdit'
+import DurationEdit from './typeEditors/DurationEdit'
+import DecimalEdit from './typeEditors/DecimalEdit'
+import MoneyEdit from './typeEditors/MoneyEdit'
 
 export const map = {
   'string': StringEdit,
@@ -40,7 +43,10 @@ export const map = {
   'multi-remote': MultiRemoteSelect,
   'search-filter': SearchFilterEdit,
   'createuser': StringEdit,
-  'createts': DateTimeEdit
+  'createts': DateTimeEdit,
+  'duration': DurationEdit,
+  'decimal': DecimalEdit,
+  'moneyamount': MoneyEdit
 }
 
 export default (type, value, onChange, options, id, events, readOnly = false) => {

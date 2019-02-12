@@ -1,6 +1,7 @@
 import React from 'react'
-import Upload from './Upload'
 import {shallow} from 'enzyme'
+
+import Upload from './Upload'
 
 const EMPTY_FUNC = () => {}
 
@@ -12,12 +13,12 @@ const sampleValue = {
 
 describe('tocco-ui', () => {
   describe('Upload', () => {
-    it('should show input if no value set', () => {
+    test('should show input if no value set', () => {
       const wrapper = shallow(<Upload onUpload={EMPTY_FUNC}/>)
       expect(wrapper.find('UploadInput')).to.have.length(1)
     })
 
-    it('should show view if value set', () => {
+    test('should show view if value set', () => {
       const wrapper = shallow(<Upload onUpload={EMPTY_FUNC} value={sampleValue}/>)
       expect(wrapper.find('View')).to.have.length(1)
     })

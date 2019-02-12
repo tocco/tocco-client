@@ -1,4 +1,5 @@
 import {argv} from 'yargs'
+
 import config from '../../config/index'
 import server from '../../server/main'
 import logger from '../lib/logger'

@@ -1,19 +1,20 @@
 import React from 'react'
-import DateAbstract from './DateAbstract'
 import {intlEnzyme} from 'tocco-test-util'
+
+import DateAbstract from './DateAbstract'
 
 describe('tocco-ui', () => {
   describe('EditableValue', () => {
     describe('typeEditors', () => {
       describe('DateAbstract', () => {
-        it('should call initialized', function(done) {
-          this.timeout(10000)
-
+        test('should call initialized', done => {
           const initSpy = () => { done() }
 
-          intlEnzyme.mountWithIntl(
+          const wrapper = intlEnzyme.mountWithIntl(
             <DateAbstract options={{}} initialized={initSpy}/>
           )
+
+          expect(wrapper.find('input')).to.have.length(1)
         })
       })
     })

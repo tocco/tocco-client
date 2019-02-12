@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import DateAbstract from './DateAbstract'
-import {momentJStoToFlatpickrFormat} from '../utils'
 import moment from 'moment'
 import {injectIntl, intlShape} from 'react-intl'
+
+import DateAbstract from './DateAbstract'
+import {momentJStoToFlatpickrFormat} from '../utils'
 
 const DateRangeEdit = props => {
   const flatpickrOptions = {
@@ -41,13 +42,10 @@ const DateRangeEdit = props => {
 DateRangeEdit.propTypes = {
   intl: intlShape.isRequired,
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.oneOfType([
-    PropTypes.shape({
-      from: PropTypes.string,
-      to: PropTypes.string
-    }),
-    PropTypes.string // empty string coming from Redux Form if value null
-  ]),
+  value: PropTypes.shape({
+    from: PropTypes.string,
+    to: PropTypes.string
+  }),
   readOnly: PropTypes.bool,
   options: PropTypes.shape({
     placeholderText: PropTypes.string,

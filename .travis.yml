@@ -1,12 +1,14 @@
-sudo: false
+sudo: true
 language: node_js
 node_js:
   - "9"
-
+dist: trusty
 cache:
   yarn: true
   directories:
     - node_modules
+    - server/static/node_modules
+    - packages/app-extensions-browser/node_modules
     - packages/entity-browser/node_modules
     - packages/entity-detail/node_modules
     - packages/entity-list/node_modules
@@ -21,21 +23,16 @@ cache:
     - packages/tocco-ui-showcase/node_modules
     - packages/tocco-util/node_modules
     - .eslintcache
-
-before_install:
-  - curl -o- -L https://yarnpkg.com/install.sh | bash
-  - export PATH=$HOME/.yarn/bin:$PATH
+    - .jestcache
 
 install:
-  - yarn
+  - yarn setup
   - travis_wait lerna bootstrap --concurrency=1 --mutex network
 
 script:
   - npm run lint
-  - npm run test
-  - if [ ${TRAVIS_EVENT_TYPE} = "cron" ]; then
-      npm run test:saucelabs;
-    fi
+  - jest --maxWorkers=4 --silent --verbose false
+
 after_success:
   - if [ ${TRAVIS_EVENT_TYPE} != "cron" ]; then
         npm run codecov;

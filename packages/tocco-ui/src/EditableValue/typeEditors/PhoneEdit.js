@@ -1,73 +1,102 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import _isEmpty from 'lodash/isEmpty'
-import {AsYouType, formatNumber, parseNumber} from 'libphonenumber-js'
 
-const DEFAULT_DEFAULT_COUNTRY = 'CH'
+import Icon from '../../Icon'
 
-const removeSpaces = str => str.replace(/\s/g, '')
+class PhoneEdit extends React.Component {
+  DEFAULT_DEFAULT_COUNTRY = 'CH'
 
-const amountOfSpacesBeforeCaret = (str, caretPosition) => {
-  const spaces = str.substring(0, caretPosition - 1).match(/\s/g)
-  return spaces ? spaces.length : 0
-}
-
-const repositionCaret = (value, previousValue, caretPosition, inputElement, defaultCountry) => {
-  if (caretPosition && value.length !== caretPosition) {
-    const previousValueFormatted = new AsYouType(defaultCountry).input(previousValue)
-    const currentValueFormatted = new AsYouType(defaultCountry).input(value)
-
-    const spacesPrevious = amountOfSpacesBeforeCaret(previousValueFormatted, caretPosition)
-    const spacesCurrent = amountOfSpacesBeforeCaret(currentValueFormatted, caretPosition)
-
-    const offset = spacesCurrent - spacesPrevious
-
-    window.requestAnimationFrame(function() {
-      const start = caretPosition + offset
-      this.setSelectionRange(start, start)
-    }.bind(inputElement))
+  constructor(props) {
+    super(props)
+    this.state = {libPhoneImport: null, defaultCountry: this.DEFAULT_DEFAULT_COUNTRY}
+    this.importLibPhoneNumber()
+    this.inputElement = React.createRef()
   }
-}
 
-const PhoneEdit = ({value, options, onChange, id, readOnly}) => {
-  let inputElement
+  async importLibPhoneNumber() {
+    const libPhoneImport = await import(/* webpackChunkName: "libphonenumber-js" */ 'libphonenumber-js')
+    this.setState({...this.state, libPhoneImport})
+  }
 
-  const defaultCountry = (options && options.defaultCountry) || DEFAULT_DEFAULT_COUNTRY
+  amountOfSpacesBeforeCaret = (str, caretPosition) => {
+    const spaces = str.substring(0, caretPosition - 1).match(/\s/g)
+    return spaces ? spaces.length : 0
+  }
 
-  const handleChange = e => {
+  repositionCaret = (value, previousValue, caretPosition) => {
+    if (caretPosition && value.length !== caretPosition) {
+      const defaultCountryString = this.state.defaultCountry
+      const previousValueFormatted = new this.state.libPhoneImport.AsYouType(defaultCountryString).input(previousValue)
+      const currentValueFormatted = new this.state.libPhoneImport.AsYouType(defaultCountryString).input(value)
+
+      const spacesPrevious = this.amountOfSpacesBeforeCaret(previousValueFormatted, caretPosition)
+      const spacesCurrent = this.amountOfSpacesBeforeCaret(currentValueFormatted, caretPosition)
+
+      const offset = spacesCurrent - spacesPrevious
+
+      window.requestAnimationFrame(function() {
+        const start = caretPosition + offset
+        this.setSelectionRange(start, start)
+      }.bind(this.inputElement))
+    }
+  }
+
+  removeSpaces = str => str.replace(/\s/g, '')
+
+  handleChange = e => {
+    const defaultCountry = (this.props.options && this.props.options.defaultCountry) || this.state.defaultCountry
     const newValue = e.target.value
-    const parsedNumber = parseNumber(newValue, defaultCountry)
+    const {libPhoneImport} = this.state
+    const parsedNumber = libPhoneImport ? libPhoneImport.parseNumber(newValue, defaultCountry) : newValue
 
-    if (onChange) {
-      const valueNormalized = _isEmpty(parsedNumber) ? removeSpaces(newValue) : formatNumber(parsedNumber, 'E.164')
-      onChange(valueNormalized)
+    if (this.props.onChange) {
+      const valueWithoutSpaces = this.removeSpaces(newValue)
+      const isEmpty = _isEmpty(parsedNumber)
+
+      if (libPhoneImport) {
+        this.valueNormalized = isEmpty ? valueWithoutSpaces : libPhoneImport.formatNumber(parsedNumber, 'E.164')
+      } else {
+        this.valueNormalized = valueWithoutSpaces
+      }
+      this.props.onChange(this.valueNormalized)
     }
 
     const currentCaretPosition = e.target.selectionStart
-    repositionCaret(newValue, value, currentCaretPosition, inputElement, defaultCountry)
+    this.repositionCaret(newValue, this.props.value, currentCaretPosition)
   }
 
-  const displayValue = new AsYouType(defaultCountry).input(value) || value
+  determineDisplayValue = () => {
+    if (this.state.libPhoneImport && this.state.libPhoneImport.AsYouType) {
+      return new this.state.libPhoneImport.AsYouType(this.state.defaultCountry).input(this.props.value)
+    } else {
+      return (this.props.value === null ? '' : this.props.value)
+    }
+  }
 
-  return (
-    <div className={value ? 'input-group' : ''}>
-      <input
-        ref={e => { inputElement = e }}
-        type="tel"
-        className="form-control"
-        name={name}
-        value={displayValue}
-        onChange={handleChange}
-        id={id}
-        disabled={readOnly}
-      />
-      {value && <span className="input-group-addon">
-        <a tabIndex="-1" href={`tel:${value}`}>
-          <span className="fa fa-phone"/>
-        </a>
-      </span>}
-    </div>
-  )
+  render() {
+    const displayValue = this.determineDisplayValue()
+
+    return (
+      <div className={this.props.value ? 'input-group' : ''}>
+        <input
+          ref={this.inputElement}
+          type="tel"
+          className="form-control"
+          name={name}
+          value={displayValue}
+          onChange={this.handleChange}
+          id={this.props.id}
+          disabled={this.props.readOnly}
+        />
+        {this.props.value && <span className="input-group-addon">
+          <a tabIndex="-1" href={`tel:${this.props.value}`}>
+            <Icon icon="phone"/>
+          </a>
+        </span>}
+      </div>
+    )
+  }
 }
 
 PhoneEdit.propTypes = {

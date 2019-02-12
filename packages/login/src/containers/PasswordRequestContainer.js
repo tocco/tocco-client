@@ -2,7 +2,6 @@ import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 
 import PasswordRequest from '../components/PasswordRequest'
-
 import {changePage} from '../modules/login/actions'
 import {requestPassword} from '../modules/passwordRequest/actions'
 
@@ -12,6 +11,7 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = state => ({
+  username: state.login.username,
   pending: state.loginForm.loginPending
 })
 

@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import * as SelectionUtil from '../../../utils/SelectionUtil'
 import sortBy from 'lodash/sortBy'
+
+import * as SelectionUtil from '../../../utils/SelectionUtil'
 
 const MultiSelection = props => {
   const disabled = (props.disabled) ? 'disabled' : ''

@@ -1,6 +1,7 @@
 {
   "name": "tocco-entity-list",
-  "version": "0.1.12",
+  "version": "0.1.20",
+  "private": true,
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -9,9 +10,11 @@
   },
   "devDependencies": {
     "react-bootstrap-table": "4.2.0",
-    "tocco-test-util": ">0.1.0",
-    "tocco-theme": ">0.1.0",
-    "tocco-ui": ">0.1.0",
-    "tocco-util": ">0.1.0"
+    "tocco-app-extensions": "0.1.4",
+    "tocco-simple-form": "0.1.11",
+    "tocco-test-util": ">0.0.0",
+    "tocco-theme": "0.2.4",
+    "tocco-ui": "0.1.19",
+    "tocco-util": "0.1.17"
   }
 }

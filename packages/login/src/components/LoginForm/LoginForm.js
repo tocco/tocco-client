@@ -1,10 +1,15 @@
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
+import {
+  Button,
+  ButtonGroup,
+  Icon,
+  SignalList,
+  Typography
+} from 'tocco-ui'
+
 import {Pages} from '../../types/Pages'
-import {Button, ButtonGroup} from 'tocco-ui'
-import {H5, P} from 'tocco-ui/src/Typography'
-import SignalList, {SignalListItem} from 'tocco-ui/src/SignalList'
 
 export class LoginForm extends Component {
   handleSubmit(e) {
@@ -21,19 +26,22 @@ export class LoginForm extends Component {
   }
 
   render() {
+    const passwordFocus = !!this.props.username
+    const usernameFocus = !passwordFocus
+
     return (
       <div className="login-form">
         {
           this.props.showTitle
           && <div>
-            <H5><FormattedMessage id="client.login.form.title"/></H5>
-            <P><FormattedMessage id="client.login.form.introduction"/></P>
+            <Typography.H5><FormattedMessage id="client.login.form.title"/></Typography.H5>
+            <Typography.P><FormattedMessage id="client.login.form.introduction"/></Typography.P>
           </div>
         }
         <form onSubmit={this.handleSubmit.bind(this)}>
           <div className="form-group dense">
             <div className="input-group">
-              <span className="input-group-addon"><i className="glyphicon glyphicon-user"/></span>
+              <span className="input-group-addon"><Icon icon="user"/></span>
               <input
                 type="text"
                 className="form-control"
@@ -42,13 +50,13 @@ export class LoginForm extends Component {
                 placeholder={this.msg('client.login.form.userPlaceholder')}
                 value={this.props.username}
                 required
-                autoFocus
+                autoFocus={usernameFocus}
               />
             </div>
           </div>
           <div className="form-group">
             <div className="input-group">
-              <span className="input-group-addon"><i className="glyphicon glyphicon-lock"/></span>
+              <span className="input-group-addon"><Icon icon="unlock"/></span>
               <input
                 type="password"
                 className="form-control"
@@ -56,18 +64,19 @@ export class LoginForm extends Component {
                 onChange={this.handlePasswordChange.bind(this)}
                 placeholder={this.msg('client.login.form.passwordPlaceholder')}
                 required
+                autoFocus={passwordFocus}
               />
             </div>
           </div>
 
           {
             this.props.message && this.props.message.text
-            && <SignalList>
-              <SignalListItem
+            && <SignalList.List>
+              <SignalList.Item
                 condition={this.props.message.negative ? 'danger' : 'base'}
                 label={this.props.message.text}
               />
-            </SignalList>
+            </SignalList.List>
           }
 
           <div>

@@ -1,32 +1,32 @@
 import React from 'react'
-import LoadMask from './LoadMask'
 import {shallow, mount} from 'enzyme'
 
-import Icon from '../Icon'
-import {Span} from '../Typography'
+import LoadMask from './LoadMask'
+import IconTocco from '../IconTocco'
+import Typography from '../Typography'
 
-describe('tocco-ui', function() {
-  describe('LoadMask', function() {
-    it('shows spinner if an object is falsy', () => {
+describe('tocco-ui', () => {
+  describe('LoadMask', () => {
+    test('shows spinner if an object is falsy', () => {
       const wrapper = mount(
         <LoadMask
           required={[undefined, undefined, true]}
         />
       )
 
-      expect(wrapper.find(Icon)).to.have.length(1)
+      expect(wrapper.find(IconTocco)).to.have.length(1)
       wrapper.setProps({required: [{}, undefined]})
-      expect(wrapper.find(Icon)).to.have.length(1)
+      expect(wrapper.find(IconTocco)).to.have.length(1)
       wrapper.setProps({required: [false]})
-      expect(wrapper.find(Icon)).to.have.length(1)
+      expect(wrapper.find(IconTocco)).to.have.length(1)
       wrapper.setProps({required: [null]})
-      expect(wrapper.find(Icon)).to.have.length(1)
+      expect(wrapper.find(IconTocco)).to.have.length(1)
 
       wrapper.setProps({required: [{}, {}]})
-      expect(wrapper.find(Icon)).to.have.length(0)
+      expect(wrapper.find(IconTocco)).to.have.length(0)
     })
 
-    it('shows children if loaded', () => {
+    test('shows children if loaded', () => {
       const wrapper = mount(
         <LoadMask
           required={[{}]}
@@ -37,7 +37,7 @@ describe('tocco-ui', function() {
       expect(wrapper.find('#test123')).to.have.length(1)
     })
 
-    it('shows spinner while promise is not finished', done => {
+    test('shows spinner while promise is not finished', done => {
       const promise = new Promise(resolve => resolve())
 
       const wrapper = shallow(
@@ -46,11 +46,11 @@ describe('tocco-ui', function() {
         />
       )
 
-      expect(wrapper.find(Icon)).to.have.length(1)
+      expect(wrapper.find(IconTocco)).to.have.length(1)
       done()
     })
 
-    it('does not show spinner after promise is resolved', done => {
+    test('does not show spinner after promise is resolved', done => {
       const promise = Promise.resolve({})
 
       const wrapper = shallow(
@@ -63,21 +63,21 @@ describe('tocco-ui', function() {
       expect(wrapper.find('span')).to.have.length(0)
     })
 
-    it('shows loading-text if set', () => {
+    test('shows loading-text if set', () => {
       let wrapper = shallow(
         <LoadMask
           required={[undefined]}
           loadingText="Lorem ipsum"
         />
       )
-      expect(wrapper.find(Span).dive().dive().text()).to.be.equal('Lorem ipsum')
+      expect(wrapper.find(Typography.Span).dive().text()).to.be.equal('Lorem ipsum')
 
       wrapper = shallow(
         <LoadMask
           required={[undefined]}
         />
       )
-      expect(wrapper.find(Span)).to.have.length(0)
+      expect(wrapper.find(Typography.Span)).to.have.length(0)
     })
   })
 })

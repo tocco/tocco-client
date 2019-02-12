@@ -2,10 +2,10 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import Icon from '../Icon'
+import IconTocco from '../IconTocco'
 import StyledButton from './StyledButton'
 import {
   inkPropTypes,
-  stylingAnimation,
   stylingInk,
   stylingLook,
   stylingPosition
@@ -27,15 +27,15 @@ const Button = props => {
       title={props.title}
       type={props.type}
     >
-      {props.icon && <Icon
+      {props.icon && !props.pending && <Icon
         dense={props.dense}
         icon={props.icon}
-        position={props.label ? props.iconPosition : stylingPosition.sole}/>}
-      {props.pending && <Icon
-        animation={stylingAnimation.SPIN}
-        dense={props.dense}
-        icon="fa-spinner"
-        position={props.label ? props.iconPosition : stylingPosition.sole}/>}
+        position={props.label || props.children ? props.iconPosition : stylingPosition.sole}/>}
+      {props.pending && <IconTocco
+        ink={props.ink || props.buttonGroupInk || stylingInk.BASE}
+        look={props.look}
+        position={props.iconPosition}
+        size="1em"/>}
       {props.label ? <span>{props.label}</span> : props.children}
     </StyledButton>
   )
@@ -57,7 +57,9 @@ Button.propTypes = {
    */
   buttonGroupMelt: PropTypes.bool,
   /**
-   * As an alternative to the label you can pass a child element to display the buttons content.
+   * Instead of using label prop it is possible to pass a child
+   * (e.g. <Button><FormattedMessage id="client.message"/></Button>). This is not useful for
+   * styled tags since buttons design is controlled by props ink and look and immutable.
    */
   children: PropTypes.node,
   /**
@@ -69,11 +71,14 @@ Button.propTypes = {
    */
   disabled: PropTypes.bool,
   /**
-   * Display an icon alongside button label. It is possible to omit label text if a icon is chosen. Utilize
-   * Glyphicon of Bootstrap 3.7 or Font Awesome 4.7 by setting specific classname (e.g. "bars")
-   * https://getbootstrap.com/docs/3.3/components/#glyphicons or https://fontawesome.com/v4.7.0/icons/
+   * Display an icon alongside button label. It is possible to omit label text if a icon is chosen. Utilize free
+   * Font Awesome 5.1 icons by setting specific classname (e.g. "check").
+   * https://fontawesome.com/icons?d=gallery&s=brands,regular,solid&m=free
    */
-  icon: PropTypes.string,
+  icon: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string)
+  ]),
   /**
    * Prepend icon or append icon to label. Use 'sole' if label text is omitted. Default value is 'prepend'.
    * Possible values: append|prepend|sole

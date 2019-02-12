@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import Icon from '../Icon'
-import {Span} from '../Typography'
+import IconTocco from '../IconTocco'
+import Typography from '../Typography'
 import StyledLoadMask from './StyledLoadMask'
 
 /**
@@ -55,17 +55,12 @@ class LoadMask extends React.Component {
 
   render() {
     const loadingIconAndText = [
-      <Icon
-        animation="spin"
-        dense={true}
-        icon="fa-spinner"
-        key="loader-icon"
-      />
+      <IconTocco key="IconTocco" size="30px" />
     ]
 
     if (this.props.loadingText) {
       loadingIconAndText.push(
-        <Span key="loader-text">{this.props.loadingText}</Span>
+        <Typography.Span key="loadingText">{this.props.loadingText}</Typography.Span>
       )
     }
 

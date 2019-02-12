@@ -2,16 +2,16 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedNumber} from 'react-intl'
 
-import {Span} from '../../Typography'
+import Typography from '../../Typography'
 
 const MoneyFormatter = props => (
-  <Span>
+  <Typography.Span>
     <FormattedNumber
       value={props.value}
       style="decimal"
       minimumFractionDigits={2}
     />
-  </Span>
+  </Typography.Span>
 )
 
 MoneyFormatter.propTypes = {

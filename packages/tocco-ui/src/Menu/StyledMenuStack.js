@@ -1,27 +1,33 @@
+import styled from 'styled-components'
 import {theme} from 'styled-system'
 
 import StyledMenu from './StyledMenu'
 import StyledItemFlyout from './StyledItemFlyout'
 
-const StyledMenuStack = StyledMenu.extend`
+const StyledMenuStack = styled(StyledMenu)`
   && {
-    > li > button,
-    > li > a {
-      border-radius: 0;
-      box-shadow: none;
-      text-align: left;
-      text-transform: none;
-      width: 100%;
+    > li {
+      flex-direction: column;
+
+      > button,
+      > a {
+        border-radius: 0;
+        box-shadow: none;
+        text-align: left;
+        text-transform: none;
+        width: 100%;
+      }
     }
 
     > hr {
       border: none;
-      border-top: 1px solid ${props => theme('colors.base.text')};
+      border-top: 1px solid ${props => theme('colors.text')};
       display: list-item;
       margin: 0;
     }
 
     > :not(${StyledItemFlyout}) > ul {
+      width: calc(100% - 20px);
       margin-left: 20px;
     }
   }

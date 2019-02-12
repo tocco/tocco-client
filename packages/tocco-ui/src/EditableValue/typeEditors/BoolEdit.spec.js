@@ -3,17 +3,17 @@ import {mount} from 'enzyme'
 
 import BoolEdit from './BoolEdit'
 
-describe('tocco-ui', function() {
-  describe('EditableValue', function() {
-    describe('typeEditors', function() {
-      describe('BoolEdit ', function() {
-        it('should show checked checkbox on true', function() {
+describe('tocco-ui', () => {
+  describe('EditableValue', () => {
+    describe('typeEditors', () => {
+      describe('BoolEdit ', () => {
+        test('should show checked checkbox on true', () => {
           const wrapper = mount(<BoolEdit value/>)
           const checkbox = () => wrapper.find('input')
           checkbox().should.be.checked()
         })
 
-        it('should show unchecked checkbox on falsy values', function() {
+        test('should show unchecked checkbox on falsy values', () => {
           const wrapper = mount(<BoolEdit value={false}/>)
           const checkbox = () => wrapper.find('input')
           checkbox().should.not.be.checked()
@@ -27,7 +27,7 @@ describe('tocco-ui', function() {
           checkbox3().should.not.be.checked()
         })
 
-        it('call on change', function() {
+        test('call on change', () => {
           const spy = sinon.spy()
           const wrapper = mount(<BoolEdit value={false} onChange={spy}/>)
           const checkbox = () => wrapper.find('input')

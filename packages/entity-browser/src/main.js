@@ -1,11 +1,10 @@
 import React from 'react'
-
-import {appFactory, notifier, errorLogging, actionEmitter, externalEvents} from 'tocco-util'
+import {appFactory, notifier, errorLogging, actionEmitter, externalEvents, rest} from 'tocco-app-extensions'
 import {Router} from 'react-router'
 import createHashHistory from 'history/createHashHistory'
 import createMemoryHistory from 'history/createMemoryHistory'
+
 import RouteWithSubRoutes from './components/RouteWithSubRoutes'
-import {setNullBusinessUnit} from 'tocco-util/src/rest'
 
 const packageName = 'entity-browser'
 
@@ -50,7 +49,7 @@ const navigateToDetailIfKeySet = (history, input) => {
 const initApp = (id, input, events, publicPath) => {
   input = {...input, id}
   if (input.nullBusinessUnit) {
-    setNullBusinessUnit(input.nullBusinessUnit)
+    rest.setNullBusinessUnit(input.nullBusinessUnit)
   }
 
   const store = appFactory.createStore(undefined, undefined, input, packageName)
@@ -109,7 +108,7 @@ const initApp = (id, input, events, publicPath) => {
       fetchMock.spy()
     }
 
-    const input = require('./dev/input.json')
+    const input = !__NO_MOCK__ ? require('./dev/input.json') : require('./dev/input-no-mock.json')
 
     const app = initApp('id', input)
     appFactory.renderApp(app.renderComponent())

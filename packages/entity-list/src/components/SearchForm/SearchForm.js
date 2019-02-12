@@ -2,9 +2,8 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {intlShape} from 'react-intl'
 import {reduxForm} from 'redux-form'
-
 import {Button} from 'tocco-ui'
-import {form, formField} from 'tocco-util'
+import {form, formField} from 'tocco-app-extensions'
 
 class SearchForm extends React.Component {
   constructor(props) {
@@ -22,6 +21,8 @@ class SearchForm extends React.Component {
       loadRelationEntities: props.loadRelationEntities,
       loadRemoteEntity: props.loadRemoteEntity,
       remoteEntities: props.remoteEntities,
+      loadTooltip: props.loadTooltip,
+      tooltips: props.tooltips,
       loadSearchFilters: props.loadSearchFilters,
       searchFilters: props.searchFilters,
       intl: this.props.intl,
@@ -105,7 +106,7 @@ class SearchForm extends React.Component {
             {!props.disableSimpleSearch
             && <span style={{float: 'right'}} title={this.msg('client.entity-list.extendedSearch')}>
               <Button
-                icon={`glyphicon-chevron-${this.props.showExtendedSearchForm ? 'up' : 'down'}`}
+                icon={`chevron-${this.props.showExtendedSearchForm ? 'up' : 'down'}`}
                 iconPosition="sole"
                 onClick={this.toggleExtendedSearchForm}
               />
@@ -143,6 +144,8 @@ SearchForm.propTypes = {
     })
   }).isRequired,
   loadRelationEntities: PropTypes.func.isRequired,
+  tooltips: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)),
+  loadTooltip: PropTypes.func.isRequired,
   loadSearchFilters: PropTypes.func.isRequired,
   searchFilters: PropTypes.arrayOf(
     PropTypes.shape({

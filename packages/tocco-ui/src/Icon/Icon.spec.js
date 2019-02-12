@@ -1,63 +1,33 @@
 import React from 'react'
+import {mount} from 'enzyme'
+import {ThemeProvider} from 'styled-components'
+
 import Icon from './Icon'
-import {shallow} from 'enzyme'
 
-describe('tocco-ui', function() {
-  describe('Icon', function() {
-    it('should have 2 defaultProps', () => {
-      const wrapper = shallow(<Icon icon="fa-bar"/>)
-      expect(wrapper.props().position).to.equal('sole')
-      expect(Icon.defaultProps.animation).to.equal('none')
+describe('tocco-ui', () => {
+  describe('Icon', () => {
+    test('should have 1 defaultProps', () => {
+      const wrapper = mount(<Icon icon="square"/>)
+      expect(wrapper.children().prop('position')).to.equal('sole')
     })
 
-    it('should pass 4 props to StyledIcon', () => {
-      const wrapper = shallow(
-        <Icon
-          animation="none"
-          dense={true}
-          icon="fa-bar"
-          position="between"
-        />
+    test('should receive theme', () => {
+      const wrapper = mount(
+        <ThemeProvider theme={{key: 'value'}}>
+          <Icon icon="square"/>
+        </ThemeProvider>
       )
-      const props = wrapper.props()
-      const {
-        animation,
-        className,
-        dense,
-        position
-      } = props
-      expect(Object.keys(props)).to.have.lengthOf(5)
-      expect(animation).to.equal('none')
-      expect(className).to.equal('fa fa-bar icon')
-      expect(dense).to.be.true
-      expect(position).to.equal('between')
+      expect(wrapper.prop('theme')).to.deep.equal({key: 'value'})
     })
 
-    it('should set classnames for Glyphicon', () => {
-      const wrapper = shallow(<Icon icon="glyphicon-plus"/>)
-      expect(wrapper.props().className).to.equal('glyphicon glyphicon-plus icon')
-    })
-
-    it('should set classnames for Font Awesome', () => {
-      const wrapper = shallow(<Icon icon="fa-bar"/>)
-      expect(wrapper.props().className).to.equal('fa fa-bar icon')
-    })
-
-    it('should animate Font Awesome', () => {
-      const wrapper = shallow(<Icon animation="spin" icon="fa-bar"/>)
-      expect(wrapper.props().className).to.equal('fa fa-spin fa-bar icon')
-    })
-
-    it('should render unicode and set classname', () => {
-      const wrapper = shallow(<Icon unicode={'\u2022'}/>)
-      expect(wrapper.dive().text()).to.equal('•')
-      expect(wrapper.props().className).to.equal('fa')
-    })
-
-    it('should render unicode and set classname', () => {
-      const wrapper = shallow(<Icon unicode={'\u2022'}/>)
-      expect(wrapper.dive().text()).to.equal('•')
-      expect(wrapper.props().className).to.equal('fa')
+    test('should render an icon', done => {
+      let wrapper = null
+      const loaded = () => {
+        wrapper.update()
+        expect(wrapper.find('svg')).to.have.length(1)
+        done()
+      }
+      wrapper = mount(<Icon icon="user" onLoaded={loaded}/>)
     })
   })
 })

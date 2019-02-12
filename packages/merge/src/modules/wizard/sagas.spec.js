@@ -1,15 +1,17 @@
-import {externalEvents} from 'tocco-util'
-import {call, put, select} from 'redux-saga/effects'
+import {externalEvents} from 'tocco-app-extensions'
+
 import * as sagas from './sagas'
 import createMergeResult from './../../utils/MergeActionResult'
 import {setMergeResponse} from './actions'
+
+import {call, put, select} from 'redux-saga/effects'
 
 describe('merge', () => {
   describe('modules', () => {
     describe('wizard', () => {
       describe('sagas', () => {
         describe('save', () => {
-          it('should extract mergeResult from state and send dwr request', () => {
+          test('should extract mergeResult from state and send dwr request', () => {
             const generator = sagas.save()
 
             const state = {}
@@ -24,7 +26,7 @@ describe('merge', () => {
             expect(generator.next().done).to.equal(true)
           })
 
-          it('should handle respsonse with problems', () => {
+          test('should handle respsonse with problems', () => {
             const generator = sagas.save()
 
             const mergeResponse = {notCopiedRelations: [{}]}

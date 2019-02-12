@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import {Span} from '../../Typography'
+import Typography from '../../Typography'
 
 const StringFormatter = props => (
-  <Span>{props.value.toString()}</Span>
+  <Typography.Span>{props.value.toString()}</Typography.Span>
 )
 
 StringFormatter.propTypes = {

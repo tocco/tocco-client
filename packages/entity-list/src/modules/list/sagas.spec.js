@@ -1,5 +1,7 @@
-import {put, select, call, fork, spawn, takeLatest, takeEvery, all} from 'redux-saga/effects'
 import {expectSaga} from 'redux-saga-test-plan'
+import {actions as actionUtil, externalEvents} from 'tocco-app-extensions'
+import * as matchers from 'redux-saga-test-plan/matchers'
+
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import {getSearchInputs} from '../searchForm/sagas'
@@ -10,8 +12,8 @@ import {
   fetchEntities,
   fetchModel
 } from '../../util/api/entities'
-import {actions as actionUtil, externalEvents} from 'tocco-util'
-import * as matchers from 'redux-saga-test-plan/matchers'
+
+import {put, select, call, fork, spawn, takeLatest, takeEvery, all} from 'redux-saga/effects'
 
 const generateState = (entityStore = {}, page) => ({
   initialized: false,
@@ -28,7 +30,7 @@ describe('entity-list', () => {
     describe('list', () => {
       describe('sagas', () => {
         describe('rootSaga', () => {
-          it('should fork child sagas', () => {
+          test('should fork child sagas', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal(all([
               fork(takeLatest, actions.INITIALIZE, sagas.initialize),
@@ -46,7 +48,7 @@ describe('entity-list', () => {
         })
 
         describe('initialize saga', () => {
-          it('should initialize the list', () => {
+          test('should initialize the list', () => {
             const entityName = 'Test_entity'
             const formBase = 'Base_form'
             const formDefinition = null
@@ -70,7 +72,7 @@ describe('entity-list', () => {
             expect(gen.next().done).to.be.true
           })
 
-          it('should refresh the current page if already initialized', () => {
+          test('should refresh the current page if already initialized', () => {
             const entityName = 'Test_entity'
             const formBase = 'Base_form'
             const columnDefinition = []
@@ -90,7 +92,7 @@ describe('entity-list', () => {
         })
 
         describe('changePage saga', () => {
-          it('should set currentPage and requestEntities', () => {
+          test('should set currentPage and requestEntities', () => {
             const page = 1
             const gen = sagas.changePage({payload: {page: page}})
             expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
@@ -102,7 +104,7 @@ describe('entity-list', () => {
         })
 
         describe('setSorting saga', () => {
-          it('should call reset data if list is initialized', () => {
+          test('should call reset data if list is initialized', () => {
             const initialized = true
             const gen = sagas.setSorting()
             expect(gen.next().value).to.eql(select(sagas.listSelector))
@@ -110,7 +112,7 @@ describe('entity-list', () => {
             expect(gen.next().done).to.be.true
           })
 
-          it('should not call reset data if list isnt initialized', () => {
+          test('should not call reset data if list isnt initialized', () => {
             const initialized = false
             const gen = sagas.setSorting()
             expect(gen.next().value).to.eql(select(sagas.listSelector))
@@ -119,7 +121,7 @@ describe('entity-list', () => {
         })
 
         describe('fetchEntitiesAndAddToStore saga', () => {
-          it('should not add entities to store if already in it', () => {
+          test('should not add entities to store if already in it', () => {
             const entityName = 'User'
             const formBase = 'UserForm'
             const entityStore = {1: {}}
@@ -130,7 +132,7 @@ describe('entity-list', () => {
             expect(gen.next({entityStore}).done).to.be.true
           })
 
-          it('should add entities to store', () => {
+          test('should add entities to store', () => {
             const listViewState = generateState({}, 1)
             const input = {formBase: 'Base_form', entityName: 'User', searchFilters: []}
             const entities = []
@@ -152,7 +154,7 @@ describe('entity-list', () => {
         })
 
         describe('getSearchFilter saga', () => {
-          it('should return a string with unique values separated by comma', () => {
+          test('should return a string with unique values separated by comma', () => {
             const inputFilers = ['filter1', 'filter2']
             const searchFilter = ['filter1', 'filter3']
             const expectedReturnValue = 'filter1,filter2,filter3'
@@ -164,7 +166,7 @@ describe('entity-list', () => {
         })
 
         describe('requestEntities saga', () => {
-          it('should request entities', () => {
+          test('should request entities', () => {
             const page = 1
             const gen = sagas.requestEntities(page)
 
@@ -181,7 +183,7 @@ describe('entity-list', () => {
         })
 
         describe('displayEntity saga', () => {
-          it('should display entity', () => {
+          test('should display entity', () => {
             const page = 1
             const gen = sagas.displayEntity(page)
             const entities = [{}]
@@ -193,7 +195,7 @@ describe('entity-list', () => {
         })
 
         describe('loadData saga', () => {
-          it('should request entities for current page and recount forked', () => {
+          test('should request entities for current page and recount forked', () => {
             const currentPage = 33
             const entities = [{}]
             const state = {currentPage}
@@ -208,7 +210,7 @@ describe('entity-list', () => {
             expect(gen.next().done).to.be.true
           })
 
-          it('should load data of provided page', () => {
+          test('should load data of provided page', () => {
             const requestedPage = 223
             const entities = [{}]
 
@@ -224,7 +226,7 @@ describe('entity-list', () => {
         })
 
         describe('countEntities saga', () => {
-          it('should refresh current page', () => {
+          test('should refresh current page', () => {
             const formBase = 'User'
             const entityName = 'User'
             const searchInputs = {}
@@ -246,7 +248,7 @@ describe('entity-list', () => {
         })
 
         describe('loadTableDefinition saga', () => {
-          it('should load Columndefinition if not loaded', () => {
+          test('should load Columndefinition if not loaded', () => {
             const formDefinition = null
             const formBase = 'UserSearch'
             const loadedFormDefinition = {
@@ -268,7 +270,7 @@ describe('entity-list', () => {
             expect(gen.next().done).to.be.true
           })
 
-          it('should not load Columndefinition if already loaded', () => {
+          test('should not load Columndefinition if already loaded', () => {
             const columnDefinition = [{someContent: true}]
             const formBase = 'UserSearch'
             const gen = sagas.loadFormDefinition(columnDefinition, formBase)
@@ -277,7 +279,7 @@ describe('entity-list', () => {
         })
 
         describe('loadEntityModel saga', () => {
-          it('should load the entity model if not loaded', () => {
+          test('should load the entity model if not loaded', () => {
             const entityName = 'User'
             const entityModel = {}
 
@@ -294,7 +296,7 @@ describe('entity-list', () => {
             expect(gen.next().done).to.be.true
           })
 
-          it('should not load the entity model if already loaded', () => {
+          test('should not load the entity model if already loaded', () => {
             const entityName = 'User'
             const entityModel = {
               name: 'User'
@@ -306,7 +308,7 @@ describe('entity-list', () => {
         })
 
         describe('onRowClick saga', () => {
-          it('should not change selection if selectOnRowClick not true', () => {
+          test('should not change selection if selectOnRowClick not true', () => {
             const gen = sagas.onRowClick(actions.onRowClick('1'))
             expect(gen.next().value).to.eql(select(sagas.inputSelector))
             expect(gen.next({selectOnRowClick: false}).value)
@@ -314,7 +316,7 @@ describe('entity-list', () => {
             expect(gen.next().done).to.be.true
           })
 
-          it('should select a deselected row on click', () => {
+          test('should select a deselected row on click', () => {
             const gen = sagas.onRowClick(actions.onRowClick('1'))
             expect(gen.next().value).to.eql(select(sagas.inputSelector))
             expect(gen.next({selectOnRowClick: true}).value).to.eql(select(sagas.listSelector))
@@ -325,7 +327,7 @@ describe('entity-list', () => {
             expect(gen.next().done).to.be.true
           })
 
-          it('should deselect a selected row on click', () => {
+          test('should deselect a selected row on click', () => {
             const gen = sagas.onRowClick(actions.onRowClick('1'))
             expect(gen.next().value).to.eql(select(sagas.inputSelector))
             expect(gen.next({selectOnRowClick: true}).value).to.eql(select(sagas.listSelector))
@@ -338,7 +340,7 @@ describe('entity-list', () => {
         })
 
         describe('onSelectChange', () => {
-          it('should calculate new selection an put action and external event', () => {
+          test('should calculate new selection an put action and external event', () => {
             const expectedSelection = ['1', '2', '3']
 
             return expectSaga(sagas.onSelectChange, actions.onSelectChange(['2', '3'], true))
@@ -352,7 +354,7 @@ describe('entity-list', () => {
               .run()
           })
 
-          it('should put action of key in case of single', () => {
+          test('should put action of key in case of single', () => {
             const expectedSelection = ['33']
 
             return expectSaga(sagas.onSelectChange, actions.onSelectChange(['33'], true))
@@ -368,7 +370,7 @@ describe('entity-list', () => {
         })
 
         describe('prepareEndpointUrl', () => {
-          it('should replace parentKey if parent exists', () => {
+          test('should replace parentKey if parent exists', () => {
             const input = {parent: {key: 123}}
             const endpoint = 'nice2/rest/entities/User/{parentKey}/test'
             const expectedResult = 'nice2/rest/entities/User/123/test'
@@ -381,7 +383,7 @@ describe('entity-list', () => {
               .run()
           })
 
-          it('should return endpoint as it is if parent is undefined', () => {
+          test('should return endpoint as it is if parent is undefined', () => {
             const input = {parent: null}
             const endpoint = 'nice2/rest/entities/User/{parentKey}/test'
 

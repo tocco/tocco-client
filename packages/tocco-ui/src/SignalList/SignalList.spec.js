@@ -1,15 +1,15 @@
 import {shallow} from 'enzyme'
 import React from 'react'
 
-import SignalList from './SignalList'
+import SignalList from './'
 
-describe('tocco-ui', function() {
-  describe('SignalList', function() {
-    it('should render children', () => {
+describe('tocco-ui', () => {
+  describe('SignalList', () => {
+    test('should render children', () => {
       const wrapper = shallow(
-        <SignalList>
+        <SignalList.List>
           <span/><span/>
-        </SignalList>
+        </SignalList.List>
       )
       expect(wrapper.find('span')).to.have.length(2)
     })

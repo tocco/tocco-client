@@ -1,5 +1,6 @@
+import {reducer as reducerUtil} from 'tocco-util'
+
 import * as actions from './actions'
-import {reducers} from 'tocco-util'
 
 const simpleSearchFieldsToArray = simpleSearchFields => (
   simpleSearchFields.split(',')
@@ -24,15 +25,15 @@ const setSearchFilter = (state, {payload}) => {
 }
 
 const ACTION_HANDLERS = {
-  [actions.SET_INITIALIZED]: reducers.singleTransferReducer('initialized'),
-  [actions.SET_SEARCH_FORM_NAME]: reducers.singleTransferReducer('searchFormName'),
+  [actions.SET_INITIALIZED]: reducerUtil.singleTransferReducer('initialized'),
+  [actions.SET_SEARCH_FORM_NAME]: reducerUtil.singleTransferReducer('searchFormName'),
   [actions.SET_SIMPLE_SEARCH_FIELDS]: setSimpleSearchFields,
-  [actions.SET_FORM_DEFINITION]: reducers.singleTransferReducer('formDefinition'),
-  [actions.SET_SHOW_EXTENDED_SEARCH_FORM]: reducers.singleTransferReducer('showExtendedSearchForm'),
-  [actions.SET_DISABLE_SIMPLE_SEARCH]: reducers.singleTransferReducer('disableSimpleSearch'),
-  [actions.SET_VALUES_INITIALIZED]: reducers.singleTransferReducer('valuesInitialized'),
+  [actions.SET_FORM_DEFINITION]: reducerUtil.singleTransferReducer('formDefinition'),
+  [actions.SET_SHOW_EXTENDED_SEARCH_FORM]: reducerUtil.singleTransferReducer('showExtendedSearchForm'),
+  [actions.SET_DISABLE_SIMPLE_SEARCH]: reducerUtil.singleTransferReducer('disableSimpleSearch'),
+  [actions.SET_VALUES_INITIALIZED]: reducerUtil.singleTransferReducer('valuesInitialized'),
   [actions.SET_SEARCH_FILTER]: setSearchFilter,
-  [actions.SET_SHOW_FULL_TEXT_SEARCH_FORM]: reducers.singleTransferReducer('showFullTextSearchForm')
+  [actions.SET_SHOW_FULL_TEXT_SEARCH_FORM]: reducerUtil.singleTransferReducer('showFullTextSearchForm')
 }
 
 const initialState = {

@@ -1,21 +1,22 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import {storeStorage} from 'tocco-util'
 import {
   appFactory,
   notifier,
   errorLogging,
   actionEmitter,
   externalEvents,
-  storeStorage,
   actions,
   formData
-} from 'tocco-util'
+} from 'tocco-app-extensions'
+import _pickBy from 'lodash/pickBy'
+import _isEqual from 'lodash/isEqual'
+import SimpleFormApp from 'tocco-simple-form/src/main'
 
 import reducers, {sagas} from './modules/reducers'
 import EntityListContainer from './containers/EntityListContainer'
 import {getDispatchActions} from './input'
-import _pickBy from 'lodash/pickBy'
-import _isEqual from 'lodash/isEqual'
 import {selectionStylePropType} from './util/selectionStyles'
 const packageName = 'entity-list'
 
@@ -41,7 +42,7 @@ const initApp = (id, input, events = {}, publicPath) => {
     actionEmitter.addToStore(store, events.emitAction)
     errorLogging.addToStore(store, false)
     notifier.addToStore(store, false)
-    actions.addToStore(store)
+    actions.addToStore(store, {formApp: SimpleFormApp, listApp: EntityListApp})
     formData.addToStore(store)
 
     dispatchActions = getDispatchActions(input, true)

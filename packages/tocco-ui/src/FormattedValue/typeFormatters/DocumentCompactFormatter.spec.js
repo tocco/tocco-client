@@ -1,12 +1,13 @@
 import React from 'react'
 import {mount} from 'enzyme'
+
 import DocumentCompactFormatter from './DocumentCompactFormatter'
 
 describe('tocco-ui', () => {
   describe('FormattedValue', () => {
     describe('typeFormatters', () => {
       describe('DocumentCompactFormatter ', () => {
-        it('should pass four props', () => {
+        test('should pass four props', () => {
           const wrapper = mount(<DocumentCompactFormatter value={{
             alt: 'alt text',
             binaryLink: 'binary url',
@@ -27,7 +28,7 @@ describe('tocco-ui', () => {
           expect(fileName).to.equal('file name')
         })
 
-        it('should render link but no image', () => {
+        test('should render link but no image', () => {
           const wrapper = mount(<DocumentCompactFormatter value={{
             alt: 'alt text',
             binaryLink: 'binary url',

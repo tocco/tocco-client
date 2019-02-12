@@ -1,16 +1,17 @@
 import React from 'react'
+import {shallow} from 'enzyme'
+
 import {Login} from './Login'
 import LoginFormContainer from '../../containers/LoginFormContainer'
 import PasswordUpdateDialogContainer from '../../containers/PasswordUpdateDialogContainer'
 import PasswordRequestContainer from '../../containers/PasswordRequestContainer'
 import TwoStepLoginContainer from '../../containers/TwoStepLoginContainer'
-import {shallow} from 'enzyme'
 import {Pages} from '../../types/Pages'
 
 describe('login', () => {
   describe('components', () => {
     describe('Login', () => {
-      it('should render LoginFormContainer as default', () => {
+      test('should render LoginFormContainer as default', () => {
         const withoutTitle = shallow(
           <Login checkSession={() => undefined}/>
         )
@@ -24,7 +25,7 @@ describe('login', () => {
         expect(withTitle.find(LoginFormContainer).prop('showTitle')).to.equal(true)
       })
 
-      it('should render PasswordUpdateContainer', () => {
+      test('should render PasswordUpdateContainer', () => {
         const withoutTitle = shallow(
           <Login currentPage={Pages.PASSWORD_UPDATE} checkSession={() => undefined}/>
         )
@@ -38,7 +39,7 @@ describe('login', () => {
         expect(withTitle.find(PasswordUpdateDialogContainer).prop('showTitle')).to.equal(true)
       })
 
-      it('should render PasswordRequestContainer', () => {
+      test('should render PasswordRequestContainer', () => {
         const withoutTitle = shallow(
           <Login currentPage={Pages.PASSWORD_REQUEST} checkSession={() => undefined}/>
         )
@@ -52,7 +53,7 @@ describe('login', () => {
         expect(withTitle.find(PasswordRequestContainer).prop('showTitle')).to.equal(true)
       })
 
-      it('should render TwoStepLoginContainer', () => {
+      test('should render TwoStepLoginContainer', () => {
         const withoutTitle = shallow(
           <Login currentPage={Pages.TWOSTEPLOGIN} checkSession={() => undefined}/>
         )

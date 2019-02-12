@@ -2,13 +2,14 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {reduxForm} from 'redux-form'
 import {intlShape, FormattedRelative, FormattedMessage} from 'react-intl'
-import {Button, LayoutBox} from 'tocco-ui'
-import {form, formField} from 'tocco-util'
-import SubGrid from '../../util/detailView/fromFieldFactories/subGrid'
+import {Button} from 'tocco-ui'
+import {form, formField} from 'tocco-app-extensions'
 
+import SubGrid from '../../util/detailView/fromFieldFactories/subGrid'
 import ErrorBox from '../ErrorBox'
 import modes from '../../util/modes'
 import readOnlyFormFieldMapping from '../../util/detailView/readOnlyFormFieldMapping'
+import StyledDetailForm from './StyledDetailForm'
 
 export class DetailForm extends React.Component {
   constructor(props) {
@@ -26,6 +27,8 @@ export class DetailForm extends React.Component {
     const formFieldUtils = {
       relationEntities: props.relationEntities,
       loadRelationEntities: props.loadRelationEntities,
+      loadTooltip: props.loadTooltip,
+      tooltips: props.tooltips,
       uploadDocument: props.uploadDocument,
       intl: this.props.intl,
       openAdvancedSearch: props.openAdvancedSearch
@@ -85,7 +88,8 @@ export class DetailForm extends React.Component {
     }
   }
 
-  showErrors = () => {
+  showErrors = event => {
+    event.preventDefault()
     this.touchFieldsWithError()
     this.focusErrorFields()
   }
@@ -100,16 +104,16 @@ export class DetailForm extends React.Component {
     }
 
     return (
-      <form
-        className="form-horizontal detail-form"
-        tabIndex="0"
-        onSubmit={this.handleSubmit}
-        onKeyDown={this.handleKeyPress}
-      >
-        {this.formBuilder()}
-        {!this.isReadOnlyForm()
-        && <LayoutBox alignment="horizontal">
-          <LayoutBox alignment="vertical">
+      <StyledDetailForm>
+        <form
+          className="form-horizontal detail-form"
+          tabIndex="0"
+          onSubmit={this.handleSubmit}
+          onKeyDown={this.handleKeyPress}
+        >
+          {this.formBuilder()}
+          {!this.isReadOnlyForm()
+          && <div>
             {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
             <Button
               disabled={props.submitting || (props.anyTouched && !props.valid)}
@@ -125,10 +129,10 @@ export class DetailForm extends React.Component {
               <span style={{marginLeft: '3px'}}> <FormattedRelative value={props.lastSave}/></span>
             </div>
             }
-          </LayoutBox>
-        </LayoutBox>
-        }
-      </form>
+          </div>
+          }
+        </form>
+      </StyledDetailForm>
     )
   }
 }

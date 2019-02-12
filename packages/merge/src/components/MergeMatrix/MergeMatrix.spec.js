@@ -1,35 +1,39 @@
 import React from 'react'
 import {IntlStub, intlEnzyme} from 'tocco-test-util'
+
 import MergeMatrix from './MergeMatrix'
 import {HeaderRow, ToManyRelationRow, FieldRow, RelationRow} from './table-components'
 
 describe('merge', () => {
   describe('components', () => {
     describe('MergeMatrix', () => {
-      it('should load the matrix as a table with the desired amount of rows ', () => {
-        const emptyFnc = () => {
+      test(
+        'should load the matrix as a table with the desired amount of rows ',
+        () => {
+          const emptyFnc = () => {
+          }
+
+          const wrapper = intlEnzyme.mountWithIntl(
+            <MergeMatrix
+              intl={IntlStub}
+              targetEntityPk="498"
+              entities={testData.entities}
+              model={testData.model}
+              selections={{fields: {}, relations: {}, toManyRelations: {}}}
+              changeTargetEntity={emptyFnc}
+              selectSourceField={emptyFnc}
+              selectSourceRelation={emptyFnc}
+              toggleRelationMany={emptyFnc}
+            />
+          )
+
+          expect(wrapper.find('table')).to.have.length(1)
+          expect(wrapper.find(HeaderRow)).to.have.length(1)
+          expect(wrapper.find(FieldRow)).to.have.length(testData.model.fields.length)
+          expect(wrapper.find(RelationRow)).to.have.length(testData.model.relations.filter(r => r.toMany).length)
+          expect(wrapper.find(ToManyRelationRow)).to.have.length(testData.model.relations.filter(r => r.toMany).length)
         }
-
-        const wrapper = intlEnzyme.mountWithIntl(
-          <MergeMatrix
-            intl={IntlStub}
-            targetEntityPk="498"
-            entities={testData.entities}
-            model={testData.model}
-            selections={{fields: {}, relations: {}, toManyRelations: {}}}
-            changeTargetEntity={emptyFnc}
-            selectSourceField={emptyFnc}
-            selectSourceRelation={emptyFnc}
-            toggleRelationMany={emptyFnc}
-          />
-        )
-
-        expect(wrapper.find('table')).to.have.length(1)
-        expect(wrapper.find(HeaderRow)).to.have.length(1)
-        expect(wrapper.find(FieldRow)).to.have.length(testData.model.fields.length)
-        expect(wrapper.find(RelationRow)).to.have.length(testData.model.relations.filter(r => r.toMany).length)
-        expect(wrapper.find(ToManyRelationRow)).to.have.length(testData.model.relations.filter(r => r.toMany).length)
-      })
+      )
     })
   })
 })

@@ -14,11 +14,11 @@ describe('entity-list', () => {
   describe('modules', () => {
     describe('entityList', () => {
       describe('reducer', () => {
-        it('should create a valid initial state', () => {
+        test('should create a valid initial state', () => {
           expect(reducer(undefined, {})).to.deep.equal(EXPECTED_INITIAL_STATE)
         })
 
-        it('should handle SET_INITIALIZED', () => {
+        test('should handle SET_INITIALIZED', () => {
           let state = EXPECTED_INITIAL_STATE
           state = reducer(state, actions.setInitialized())
           expect(state.initialized).to.be.true

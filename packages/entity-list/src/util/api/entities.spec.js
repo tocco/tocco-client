@@ -1,13 +1,15 @@
-import {call} from 'redux-saga/effects'
-import {requestSaga} from 'tocco-util/src/rest'
+import {rest} from 'tocco-app-extensions'
+
 import * as entities from './entities'
+
+import {call} from 'redux-saga/effects'
 
 describe('entity-list', () => {
   describe('util', () => {
     describe('api', () => {
       describe('entities', () => {
         describe('fetchEntities', () => {
-          it('should fetch the data', () => {
+          test('should fetch the data', () => {
             const gen = entities.fetchEntities('User', {
               page: 2,
               sorting: [{field: 'firstname', order: 'asc'}, {field: 'lastname', order: 'desc'}],
@@ -17,7 +19,7 @@ describe('entity-list', () => {
               formName: 'User_list'
             })
 
-            expect(gen.next().value).to.eql(call(requestSaga, 'entities/User', {
+            expect(gen.next().value).to.eql(call(rest.requestSaga, 'entities/User', {
               queryParams: {
                 _filter: '',
                 _form: 'User_list',
@@ -45,7 +47,7 @@ describe('entity-list', () => {
         })
 
         describe('fetchEntityCount', () => {
-          it('should call fetch and return correct amount', () => {
+          test('should call fetch and return correct amount', () => {
             const gen = entities.fetchEntityCount('User', {
               page: 2,
               sort: '',
@@ -55,7 +57,7 @@ describe('entity-list', () => {
               formName: 'User_list'
             })
 
-            expect(gen.next().value).to.eql(call(requestSaga, 'entities/User/count', {
+            expect(gen.next().value).to.eql(call(rest.requestSaga, 'entities/User/count', {
               queryParams: {
                 _filter: '',
                 _form: 'User_list',
@@ -79,7 +81,7 @@ describe('entity-list', () => {
         })
 
         describe('entitiesListTransformer', () => {
-          it('should return an array with flatten attributes', () => {
+          test('should return an array with flatten attributes', () => {
             const fetchResult = {
               data: [
                 {
@@ -156,15 +158,21 @@ describe('entity-list', () => {
             expect(transformedResult[0]).to.have.property('relGender')
             expect(transformedResult[0].firstname).to.eql({type: 'string', value: 'Jon'})
             expect(transformedResult[0].relGender).to.eql({type: 'string', value: 'Male'})
-            expect(transformedResult[0].titles).to.eql({type: 'string', value: 'Dr., Bundesrat'})
+            expect(transformedResult[0].titles).to.eql([
+              {type: 'string', value: 'Dr.'},
+              {type: 'string', value: 'Bundesrat'}
+            ])
 
             expect(transformedResult[1]).to.have.property('firstname')
             expect(transformedResult[1]).to.have.property('relGender')
             expect(transformedResult[1].firstname).to.eql({type: 'string', value: 'Klaus'})
-            expect(transformedResult[1].titles).to.eql({type: 'string', value: 'Dr., Prof'})
+            expect(transformedResult[1].titles).to.eql([
+              {type: 'string', value: 'Dr.'},
+              {type: 'string', value: 'Prof'}
+            ])
           })
 
-          it('should add __key to entity', () => {
+          test('should add __key to entity', () => {
             const fetchResult = {
               data: [
                 {
@@ -186,7 +194,7 @@ describe('entity-list', () => {
             expect(transformedResult[1].__key).to.eql(22)
           })
 
-          it('should handle path type display-expression', () => {
+          test('should handle path type display-expression', () => {
             const fetchResult = {
               data: [
                 {
@@ -223,7 +231,7 @@ describe('entity-list', () => {
         })
 
         describe('selectEntitiesPathsTransformer', () => {
-          it('should extract the key with the specified path', () => {
+          test('should extract the key with the specified path', () => {
             const json = {
               data: [
                 {
@@ -267,10 +275,10 @@ describe('entity-list', () => {
         })
 
         describe('fetchModel', () => {
-          it('should call request saga and transform response', () => {
+          test('should call request saga and transform response', () => {
             const gen = entities.fetchModel('User')
 
-            expect(gen.next().value).to.eql(call(requestSaga, 'entities/User/model'))
+            expect(gen.next().value).to.eql(call(rest.requestSaga, 'entities/User/model'))
 
             const resp = {
               body: {
@@ -307,65 +315,71 @@ describe('entity-list', () => {
         })
 
         describe('defaultModelTransformer', () => {
-          it('should return an object with field names as key as model attribute and createPermission', () => {
-            const fetchResult = {
-              name: 'User',
-              createPermission: true,
-              fields: [
-                {
-                  fieldName: 'pk',
-                  type: 'serial'
-                },
-                {
-                  fieldName: 'firstname',
-                  type: 'string'
-                }
-              ],
-              relations: [
-                {
-                  relationName: 'some_relation',
-                  targetEntity: 'Address',
-                  multi: true
-                }
-              ]
-            }
-            const result = entities.defaultModelTransformer(fetchResult)
-            const expectedResult = {
-              createPermission: true,
-              model: {
-                pk: {
-                  'fieldName': 'pk',
-                  type: 'serial'
+          test(
+            'should return an object with field names as key as model attribute and createPermission',
+            () => {
+              const fetchResult = {
+                name: 'User',
+                createPermission: true,
+                fields: [
+                  {
+                    fieldName: 'pk',
+                    type: 'serial'
+                  },
+                  {
+                    fieldName: 'firstname',
+                    type: 'string'
+                  }
+                ],
+                relations: [
+                  {
+                    relationName: 'some_relation',
+                    targetEntity: 'Address',
+                    multi: true
+                  }
+                ]
+              }
+              const result = entities.defaultModelTransformer(fetchResult)
+              const expectedResult = {
+                createPermission: true,
+                model: {
+                  pk: {
+                    'fieldName': 'pk',
+                    type: 'serial'
 
-                },
-                firstname: {
-                  'fieldName': 'firstname',
-                  type: 'string'
-                },
-                some_relation: {
-                  type: 'relation',
-                  targetEntity: 'Address',
-                  multi: true
+                  },
+                  firstname: {
+                    'fieldName': 'firstname',
+                    type: 'string'
+                  },
+                  some_relation: {
+                    type: 'relation',
+                    targetEntity: 'Address',
+                    multi: true
+                  }
                 }
               }
+              expect(result).to.eql(expectedResult)
             }
-            expect(result).to.eql(expectedResult)
-          })
+          )
 
-          it('should return fallback createPermission even if not defined in model', () => {
-            const fetchResult = {
-              name: 'User',
-              fields: [],
-              relations: []
-            }
-            const result = entities.defaultModelTransformer(fetchResult)
+          test(
+            'should return fallback createPermission even if not defined in model',
+            () => {
+              const fetchResult = {
+                name: 'User',
+                fields: [],
+                relations: []
+              }
+              const result = entities.defaultModelTransformer(fetchResult)
 
-            const expectedResult = {
-              createPermission: false,
-              model: {}
+              const expectedResult = {
+                createPermission: false,
+                model: {}
+              }
+              expect(result).to.eql(expectedResult)
             }
-            expect(result).to.eql(expectedResult)
-          })
+          )
         })
       })
     })

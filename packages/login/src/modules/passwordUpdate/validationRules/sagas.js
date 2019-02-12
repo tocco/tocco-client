@@ -1,6 +1,8 @@
+import {rest} from 'tocco-app-extensions'
+
 import * as actions from './actions'
+
 import {takeLatest, call, fork, put, select, all} from 'redux-saga/effects'
-import {requestSaga} from 'tocco-util/src/rest'
 
 export const usernameSelector = state => state.passwordUpdate.dialog.username
 export const intlSelector = state => state.intl
@@ -8,7 +10,7 @@ export const intlSelector = state => state.intl
 export function* loadValidationRules(username, locale = '') {
   const resource = `principals/${username}/password-rules`
 
-  const validationResponse = yield call(requestSaga, resource, {queryParams: {locale}})
+  const validationResponse = yield call(rest.requestSaga, resource, {queryParams: {locale}})
   return validationResponse.body
 }
 

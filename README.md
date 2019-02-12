@@ -2,7 +2,7 @@
 [![travics-ci Build Status](https://travis-ci.org/tocco/tocco-client.svg?branch=master)](https://travis-ci.org/tocco/tocco-client)
 [![codecov](https://codecov.io/gh/tocco/tocco-client/branch/master/graph/badge.svg)](https://codecov.io/gh/tocco/tocco-client)
 [![devDependencies Status](https://david-dm.org/tocco/tocco-client/dev-status.svg)](https://david-dm.org/tocco/tocco-client?type=dev)
-[![saucelabs Build Status](https://saucelabs.com/buildstatus/toccoag)](https://saucelabs.com/beta/builds/8df5245e577149c4b482955c33964f0c)
+[![Documentation Status](https://readthedocs.org/projects/tocco-docs/badge/?version=latest)](http://tocco-docs.readthedocs.io/?badge=latest)
 
 This repository contains the web client for the [Tocco Business Framework](https://www.tocco.ch).
 
@@ -25,7 +25,7 @@ Packages are located in folder ``packages/``. Every package maintains its own de
 and can be re-used in other packages.
 
 ### Package naming
-* ``tocco-...`` naming is used in ``package.json``; in folder structure ``tocco-`` prefix can be omitted
+* ``tocco-...`` naming is used in ``package.json``; in folder structure ``tocco-`` prefix can be omitted.
 
 Please ensure that every package is prefixed with ``tocco-``
 
@@ -48,7 +48,7 @@ A good starting point can be found in these docs:
 Just install yarn  https://yarnpkg.com/en/docs/install 
 and execute the following commands:
 ```
-npm install --global lerna@v2.9.1
+npm install --global lerna@v3.1.1 
 yarn setup
 yarn start --package={PACKAGE_NAME}
 ```
@@ -60,8 +60,7 @@ http://localhost:8080
 
 #### Tests
 Tests are using following tools and libraries:
-* [Karma](https://karma-runner.github.io/)
-* [Mocha](https://mochajs.org/)
+* [Jest](https://jestjs.io/)
 * [Sinon](http://sinonjs.org/)
 * [Chai](http://chaijs.com/)
 * [Enzyme](https://github.com/airbnb/enzyme)
@@ -69,18 +68,22 @@ Tests are using following tools and libraries:
 
 All packages:
 ```
-npm test
+yarn test
 ```
 
-Single Package:
+List of packages or single packages:
 ```
-yarn test --package={PACKAGE_NAME}
+yarn test --projects packages/{PACKAGE_NAME} packages/{PACKAGE_NAME}
 ```
 
 During development with watch:
 ```
-yarn test:dev --package={PACKAGE_NAME}
+yarn test [...] --watch
 ```
+
+Note: If working with IntelliJ single tests or test-suites can be run in the IDE directly. Just set the 
+jest.config.js file in the Jest run configuration. 
+
 
 #### Generators
 The project provides some code generators. Generators are developed with [Plop](https://github.com/amwmedia/plop) and can be executed with:
@@ -93,11 +96,12 @@ At the moment there is a generator to create a react-component and a generator t
 ## Publish bundle
 Once the package is ready to publish, run following npm scripts. This registers the bundle
 in the npm registry, increases versions and creates a git tag. 
-Scope flag is optional and allows you to publish a subset of packages.
 
 ```
-lerna publish [--scope {PACKAGE_NAME}] --exact -m "chore: publish" 
+lerna publish --exact -m "chore: publish" 
 ```
+
+For more information see [the official documentation](https://github.com/lerna/lerna/tree/master/commands/publish#readme) 
 
 Only build:
 ```
@@ -151,9 +155,9 @@ First line must not be longer than 70 characters, second line is always blank an
 - chore (updating grunt tasks etc; no production code change)
 
 **Example `<scope>` values:**
-- If the changes affect a single package the scope is set to package name (e.g. login)
+- If the changes affect a single package the scope is set to package name (e.g. login).
 - If the change is a global or difficult to assign to a single package the parentheses are omitted.
-- If changes affect the monorepo itself, the scope is set to 'tocco-client'
+- If changes affect the monorepo itself, the scope is set to 'tocco-client'.
 
 #### Message body
 - uses the imperative, present tense: “change” not “changed” nor “changes”

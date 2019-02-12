@@ -1,12 +1,12 @@
-import {externalEvents} from 'tocco-util'
-import {requestSaga} from 'tocco-util/src/rest'
-import {takeLatest, call, fork, select, put, all} from 'redux-saga/effects'
+import {externalEvents, rest} from 'tocco-app-extensions'
 
 import * as actions from './actions'
 import localValidate from './validate'
 import {isEmptyObject, validationMessagesToErrorMap} from './utils'
 import {loginSaga} from '../../sagas'
 import {setPassword} from '../../login/actions'
+
+import {takeLatest, call, fork, select, put, all} from 'redux-saga/effects'
 
 export const validationRulesSelector = state => state.passwordUpdate.validationRules
 export const inputSelector = state => state.input
@@ -23,7 +23,7 @@ export function* storePassword(username, data) {
   }
 
   try {
-    const resp = yield call(requestSaga, `principals/${username}/password-update`, options)
+    const resp = yield call(rest.requestSaga, `principals/${username}/password-update`, options)
     return resp.ok ? {error: null} : {error: resp.body}
   } catch (exception) {
     return {error: {errorCode: 'UNEXPECTED_ERROR', exception}}
@@ -40,7 +40,7 @@ export function* remoteValidate(username, data) {
   }
 
   try {
-    const resp = yield call(requestSaga, `principals/${username}/password-validation`, options)
+    const resp = yield call(rest.requestSaga, `principals/${username}/password-validation`, options)
     return resp.body
   } catch (exception) {
     // validation request failed for some reason. we ignore that.

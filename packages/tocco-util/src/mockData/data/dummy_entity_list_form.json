@@ -13,7 +13,7 @@
         "actionType": "simple",
         "readonly": false,
         "label": "Simple Action",
-        "icon": "fa-cogs",
+        "icon": "cogs",
         "Selections": 1,
         "maxSelections": 1,
         "progressMsg": "Die Beispiel Aktion wird ausgeführt..",
@@ -22,7 +22,7 @@
       },
       {
         "id": "table",
-       "componentType": "table",
+        "componentType": "table",
         "layoutType": "table",
         "hidden": false,
         "endpoint": "entities/User/{parentKey}/entitydocs",
@@ -35,8 +35,7 @@
               {
                 "id": "label",
                 "componentType": "field",
-                "hidden": false,
-                "children": []
+                "path": "label"
               }
             ],
             "label": "Label"
@@ -49,16 +48,15 @@
               {
                 "id": "active",
                 "componentType": "field",
-                "hidden": false,
-                "children": [],
-                "label": "Active"
+                "path": "active",
+                "label": null
               },
               {
                 "id": "subaction",
                 "label": null,
                 "componentType": "action",
                 "actionType": "simple",
-                "icon": "fa-pencil",
+                "icon": "edit",
                 "endpoint": "actions/simpleAction",
                 "appId": null,
                 "formDataEntityModel": "MySessionOnly"

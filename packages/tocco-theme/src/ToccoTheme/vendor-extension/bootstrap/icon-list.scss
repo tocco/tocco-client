@@ -5,8 +5,8 @@
 
 $icon-list-intend-0: '\2022';  /* bullet point */
 $icon-neutral: $icon-list-intend-0;
-$icon-valid: $fa-var-check;
-$icon-invalid: $fa-var-times;
+$icon-valid: ✓;
+$icon-invalid: x;
 $icon-list-icon-size: floor($font-size-base * 1.5);
 $icon-list-indent: $icon-list-icon-size;
 $icon-list-margin: 0 0 $line-height-computed floor($font-size-base / 7);
@@ -26,7 +26,6 @@ $icon-list-margin: 0 0 $line-height-computed floor($font-size-base / 7);
     position: relative;
 
     &:before {
-      font-family: FontAwesome;
       position: absolute;
       left: -$icon-list-indent;
       content: $icon-list-intend-0;

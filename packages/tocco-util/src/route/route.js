@@ -1,5 +1,7 @@
 import React from 'react'
-import appFactory from '../appFactory'
+
+import reducerUtil from '../reducer'
+import sagaUtil from '../saga'
 import asyncRoute from './asyncRoute'
 import {dispatchInput} from './input'
 
@@ -10,12 +12,12 @@ export const loadRoute = (store, input, importRouteDependencies, path) => props 
         const route = imported.default
 
         if (route.reducers) {
-          appFactory.injectReducers(store, route.reducers)
+          reducerUtil.injectReducers(store, route.reducers)
         }
 
         if (route.sagas) {
           route.sagas.forEach(saga => {
-            appFactory.injectSaga(store, saga)
+            sagaUtil.injectSaga(store, saga)
           })
         }
 

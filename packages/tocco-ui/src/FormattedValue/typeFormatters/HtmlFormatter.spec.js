@@ -1,12 +1,13 @@
 import React from 'react'
-import HtmlFormatter from './HtmlFormatter'
 import {mount} from 'enzyme'
 
-describe('tocco-ui', function() {
-  describe('FormattedValue', function() {
+import HtmlFormatter from './HtmlFormatter'
+
+describe('tocco-ui', () => {
+  describe('FormattedValue', () => {
     describe('typeFormatters', () => {
-      describe('HtmlFormatter ', function() {
-        it('should format value', function() {
+      describe('HtmlFormatter ', () => {
+        test('should format value', () => {
           const wrapper = mount(<HtmlFormatter value="<p>TEST TEST</p>"/>)
           expect(wrapper.find('div')).to.have.length(1)
           expect(wrapper.text()).to.equal('TEST TEST')

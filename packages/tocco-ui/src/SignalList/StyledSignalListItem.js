@@ -1,18 +1,19 @@
+import styled from 'styled-components'
 import {theme} from 'styled-system'
 
-import {StyledIcon} from '../Icon'
 import {StyledLi} from '../Typography'
 import {
   conditionPropTypes,
+  shadeColor,
   stylingCondition
 } from '../utilStyles'
 
 const COLORS = {
   [stylingCondition.BASE]: 'inherit',
-  [stylingCondition.DANGER]: theme('colors.signal.danger'),
-  [stylingCondition.PRIMARY]: theme('colors.primary.line.1'),
-  [stylingCondition.SUCCESS]: theme('colors.signal.success'),
-  [stylingCondition.WARNING]: theme('colors.signal.warning')
+  [stylingCondition.DANGER]: theme('colors.signal.danger.text'),
+  [stylingCondition.PRIMARY]: props => shadeColor(theme('colors.primary')(props), 1),
+  [stylingCondition.SUCCESS]: theme('colors.signal.success.text'),
+  [stylingCondition.WARNING]: theme('colors.signal.warning.text')
 }
 
 const getColor = props => {
@@ -20,15 +21,20 @@ const getColor = props => {
   return color || 'inherit'
 }
 
-const StyledSignalListItem = StyledLi.extend`
+const StyledSignalListItem = styled(StyledLi)`
   && {
     color: ${props => getColor(props)};
     position: relative;
 
-    ${StyledIcon} {
+    > i,
+    > svg {
       position: absolute;
       left: -1.6rem;
       text-align: left;
+    }
+
+    > svg {
+      top: .2em;
     }
   }
 `

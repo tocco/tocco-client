@@ -1,60 +1,73 @@
 /* eslint-disable no-console */
 import React from 'react'
 import {Provider} from 'react-redux'
-import Button from '../../../../tocco-ui/src/Button'
-import {appFactory, notifier} from 'tocco-util'
+import {appFactory, notifier} from 'tocco-app-extensions'
+import {Button, ButtonGroup, Typography} from 'tocco-ui'
 // real-import:import {appFactory, notifier} from 'tocco-util'
 
+/* start example */
 const longText = `Lorem ipsum dolor sit amet, at sed inermis intellegam scriptorem, usu facete apeirian ad.
 Sit et meliore intellegam. Mel cu maluisset philosophia, pri et habeo oportere. Vis in purto verear luptatum, has
 ne graecis qualisque. Mei ei placerat incorrupte adversarium, eum rebum nonumy ut.`
 
-/* start example */
+const title = <Typography.H4>Main title <Typography.Small>additional byline</Typography.Small></Typography.H4>
+
+const message = <React.Fragment>
+  <Typography.P>Message
+    <Typography.B> Line 1</Typography.B>
+  </Typography.P>
+  <Typography.P>Message Line 2</Typography.P>
+</React.Fragment>
+
 class Example extends React.Component {
   constructor(props) {
     super(props)
-
     this.store = appFactory.createStore({}, undefined, {}, 'notifier')
     notifier.addToStore(this.store, true)
   }
 
-  info = () => {
-    this.store.dispatch(notifier.info('info', 'client.title', 'client.description', 'bomb', 2000))
+  info1 = () => {
+    this.store.dispatch(notifier.info(
+      'info', 'client.title', 'client.message', ['far', 'thumbs-up'], 2000))
+  }
+
+  info2 = () => {
+    this.store.dispatch(notifier.info('info', title, 'message line contains <b>html</b>'))
   }
 
   success = () => {
-    this.store.dispatch(notifier.info('success', 'client.title', 'client.description', 'beer', 0))
+    this.store.dispatch(notifier.info('success', 'client.title', 'client.message', null, 2000))
   }
 
   warning = () => {
-    this.store.dispatch(notifier.info('warning', 'client.title', longText, 'glass'))
+    this.store.dispatch(notifier.info('warning', 'client.title', longText))
   }
 
   error = () => {
-    this.store.dispatch(notifier.info('error', 'client.title', 'client.description', 'blind', 10000))
+    this.store.dispatch(notifier.info('error', 'client.title', 'client.description'))
   }
 
   confirmQuestion = () => {
     this.store.dispatch(notifier.confirm(
       'Title',
-      'Message Line 1<br/>Message Line 2',
-      'OK Text',
-      'Cancel Text',
-      () => console.log('ok pressed'),
-      () => console.log('cancel pressed')
+      'message line contains <b>html</b>',
+      'OK text',
+      'Cancel text',
+      () => console.log('Ok was pressed'),
+      () => console.log('Cancel was pressed')
     ))
   }
 
   yesNoQuestion = () => {
     this.store.dispatch(notifier.yesNoQuestion(
-      'Title',
-      'Message Line 1<br/>Message Line 2',
-      'Yes Text',
-      'No Text',
-      'Cancel Text',
-      () => console.log('yes pressed'),
-      () => console.log('no pressed'),
-      () => console.log('Cancel pressed')
+      title,
+      message,
+      'Yes text',
+      'No text',
+      'Cancel text',
+      () => console.log('Yes was pressed'),
+      () => console.log('No was pressed'),
+      () => console.log('Cancel was pressed')
     ))
   }
 
@@ -63,13 +76,12 @@ class Example extends React.Component {
     this.store.dispatch(notifier.blockingInfo(
       id,
       'Title',
-      'Please wait',
-      'diamond fa-spin fa-3x fa-fw'
+      'Please wait'
     ))
 
     setTimeout(() => {
       this.store.dispatch(notifier.removeBlockingInfo(id))
-    }, 2000)
+    }, 5000)
   }
 
   modalComponent = () => {
@@ -77,21 +89,24 @@ class Example extends React.Component {
     this.store.dispatch(notifier.modalComponent(
       id,
       'Title',
-      'Please wait',
+      'Message',
       props => (
-        <div style={{border: '1px dotted red'}}>
-          <p>My Custom-Component</p>
-          <Button
-            ink="primary"
-            label="primary action"
-            onClick={props.close}
-          />
-          <Button
-            label="secondary action"
-            onClick={props.close}
-          />
-        </div>
-      )
+        <React.Fragment>
+          <Typography.P>Custom component starts here</Typography.P>
+          <ButtonGroup look="raised">
+            <Button
+              ink="primary"
+              label="Primary action"
+              onClick={() => console.log('Primary action was pressed')}
+            />
+            <Button
+              label="Secondary action"
+              onClick={() => console.log('Secondary action was pressed')}
+            />
+          </ButtonGroup>
+        </React.Fragment>
+      ),
+      true
     ))
 
     setTimeout(() => {
@@ -106,15 +121,19 @@ class Example extends React.Component {
           <notifier.Notifier/>
           <div>
             <Button
-              label="Info"
+              label="Info 1"
               look="raised"
-              onClick={this.info}/>&nbsp;
+              onClick={this.info1}/>&nbsp;
             <Button
-              label="Success (no timeout)"
+              label="Info 2"
+              look="raised"
+              onClick={this.info2}/>&nbsp;
+            <Button
+              label="Success"
               look="raised"
               onClick={this.success}/>&nbsp;
             <Button
-              label="Warning (long)"
+              label="Warning"
               look="raised"
               onClick={this.warning}/>&nbsp;
             <Button

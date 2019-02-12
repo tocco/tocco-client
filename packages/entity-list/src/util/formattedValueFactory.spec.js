@@ -1,14 +1,16 @@
 import {IntlStub} from 'tocco-test-util'
-import formattedValueFactory from './formattedValueFactory'
 import {FormattedValue} from 'tocco-ui'
 import {shallow} from 'enzyme'
+
+import formattedValueFactory, {MultiSeparator} from './formattedValueFactory'
 
 describe('entity-list', () => {
   describe('util', () => {
     describe('formattedValueFactory', () => {
-      it('should return FormattedValue', () => {
+      test('should return FormattedValue', () => {
         const field = {
-          id: 'firstname'
+          id: 'firstname-field', // does not match path by intention (-> should use path to get data)
+          path: 'firstname'
         }
         const entity = {
           firstname: {
@@ -22,9 +24,10 @@ describe('entity-list', () => {
         expect(wrapper.find(FormattedValue).props()).to.not.have.property('options')
       })
 
-      it('should return FormattedValue and add type specific props', () => {
+      test('should return FormattedValue and add type specific props', () => {
         const field = {
-          id: 'doc'
+          id: 'doc',
+          path: 'doc'
         }
         const entity = {
           doc: {
@@ -36,6 +39,27 @@ describe('entity-list', () => {
         const wrapper = shallow(formattedValueFactory(field, entity, IntlStub))
         expect(wrapper.find(FormattedValue).props()).to.have.property('options')
         expect(wrapper.find(FormattedValue).props()['options']).to.not.be.undefined
+      })
+
+      test('should return array with separator', () => {
+        const field = {
+          id: 'relSomething.xy',
+          path: 'relSomething.xy'
+        }
+        const entity = {
+          'relSomething.xy': [{value: 'V1', type: 'string'}, {value: 'V1', type: 'string'}]
+        }
+
+        const wrapper = shallow(formattedValueFactory(field, entity, IntlStub))
+        expect(wrapper.find(FormattedValue)).to.have.length(2)
+        expect(wrapper.find(MultiSeparator)).to.have.length(1)
+      })
+
+      test('should return null', () => {
+        const field = {id: 'xy', path: 'xy'}
+        const entity = {'xy': []}
+
+        expect(formattedValueFactory(field, entity, IntlStub)).to.be.null
       })
     })
   })

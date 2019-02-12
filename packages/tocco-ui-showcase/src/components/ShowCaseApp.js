@@ -1,19 +1,19 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {addLocaleData, IntlProvider} from 'react-intl'
-import Navigation from './Navigation'
-import LocaleSwitcher from './LocaleSwitcher'
-import ShowCaseList from './ShowCaseList'
-import Affix from './Affix'
 import {ThemeProvider} from 'styled-components'
-
 import de from 'react-intl/locale-data/de'
 import en from 'react-intl/locale-data/en'
 import fr from 'react-intl/locale-data/fr'
 import it from 'react-intl/locale-data/it'
-
 import {ToccoTheme} from 'tocco-theme'
-import InjectFontRoboto from '../../../tocco-ui/src/Typography/Font'
+import {Typography} from 'tocco-ui'
+
+import Affix from './Affix'
+import ShowCaseList from './ShowCaseList'
+import LocaleSwitcher from './LocaleSwitcher'
+import Navigation from './Navigation'
+import StyledShowCaseApp from './StyledShowCaseApp'
 
 export default class ShowCaseApp extends React.Component {
   constructor(props) {
@@ -36,23 +36,25 @@ export default class ShowCaseApp extends React.Component {
 
   render() {
     return (
-      <ThemeProvider theme={ToccoTheme}>
+      <ThemeProvider theme={ToccoTheme || {}}>
         <IntlProvider locale={this.state.locale}>
-          <div className="show-case-app tocco-ui-theme">
-            <InjectFontRoboto theme={ToccoTheme}/>
-            <div className="col title">
-              <span>Tocco UI</span>
+          <StyledShowCaseApp>
+            <Typography.InjectFont />
+            <div className="show-case-app tocco-ui-theme">
+              <div className="col title">
+                <span>Tocco UI</span>
+              </div>
+              <div className="col-md-10">
+                <ShowCaseList componentsTree={this.props.componentsTree}/>
+              </div>
+              <div className="col-md-2 hidden-xs hidden-sm">
+                <Affix className="navi-affix" offset={50}>
+                  <LocaleSwitcher onLocaleChange={this.localeChange.bind(this)}/>
+                  <Navigation componentsTree={this.props.componentsTree}/>
+                </Affix>
+              </div>
             </div>
-            <div className="col-md-10">
-              <ShowCaseList componentsTree={this.props.componentsTree}/>
-            </div>
-            <div className="col-md-2 hidden-xs hidden-sm">
-              <Affix className="navi-affix" offset={50}>
-                <LocaleSwitcher onLocaleChange={this.localeChange.bind(this)}/>
-                <Navigation componentsTree={this.props.componentsTree}/>
-              </Affix>
-            </div>
-          </div>
+          </StyledShowCaseApp>
         </IntlProvider>
       </ThemeProvider>
     )

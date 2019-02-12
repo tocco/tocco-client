@@ -1,19 +1,25 @@
 import declareDensity from './declareDensity'
 import {
-  declareFlatBaseColors,
+  generateFlatBaseColors,
   declareInteractionColors,
-  declareRaisedBaseColors,
-  declareRaisedPrimaryColors,
-  declareFlatPrimaryColors
+  generateRaisedBaseColors,
+  generateRaisedPrimaryColors,
+  generateFlatPrimaryColors,
+  generateInteractionColor,
+  shadeColor
 } from './declareInteractionColors'
-import declareOverlay from './declareOverlay'
-import declareElevation from './declareElevation'
 import declareFont from './declareFont'
 import {
   declareNoneWrappingText,
   declareWrappingText
 } from './declareWrapping'
 import getTextOfChildren from './getTextOfChildren'
+import {
+  declareScale,
+  fontScale,
+  scaleExponential,
+  spaceScale
+} from './modularScale'
 import objectToCss from './objectToCss'
 import {
   animation as stylingAnimation,
@@ -22,6 +28,10 @@ import {
   conditionPropTypes,
   ink as stylingInk,
   inkPropTypes,
+  fallbackColors,
+  format as stylingFormat,
+  layout as stylingLayout,
+  layoutPropTypes,
   look as stylingLook,
   lookPropTypes,
   oneOfPropTypeAndCompletelyMapped,
@@ -32,28 +42,36 @@ import assertObjectValuesMatchOtherObjectKeys from './assertObjectValuesMatchOth
 import {validateCssDimension} from './propTypesValidator'
 export {
   animationPropTypes,
+  assertObjectValuesMatchOtherObjectKeys,
   conditionPropTypes,
   declareDensity,
-  declareElevation,
-  declareFlatBaseColors,
-  declareFlatPrimaryColors,
+  declareScale,
+  generateFlatBaseColors,
+  generateFlatPrimaryColors,
   declareFont,
   declareInteractionColors,
   declareNoneWrappingText,
-  declareOverlay,
-  declareRaisedBaseColors,
-  declareRaisedPrimaryColors,
+  generateRaisedBaseColors,
+  generateRaisedPrimaryColors,
   declareWrappingText,
-  assertObjectValuesMatchOtherObjectKeys,
+  fallbackColors,
+  fontScale,
+  generateInteractionColor,
   getTextOfChildren,
   inkPropTypes,
+  layoutPropTypes,
   lookPropTypes,
   objectToCss,
   oneOfPropTypeAndCompletelyMapped,
   positionPropTypes,
+  scaleExponential,
+  shadeColor,
+  spaceScale,
   stylingAnimation,
   stylingCondition,
+  stylingFormat,
   stylingInk,
+  stylingLayout,
   stylingLook,
   stylingPosition,
   validateCssDimension

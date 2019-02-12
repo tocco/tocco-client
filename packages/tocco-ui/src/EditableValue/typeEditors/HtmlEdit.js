@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import lazyComponent from '../../util/lazyComponent'
-
-import {declareTypograhpy} from '../../Typography'
 import styled from 'styled-components'
+
+import lazyComponent from '../../util/lazyComponent'
+import {declareTypograhpy} from '../../Typography'
 
 const StyledHtmlEdit = styled.div`
 && {
@@ -26,7 +26,7 @@ class HtmlEdit extends React.Component {
     import(/* webpackChunkName: "quill" */ '!style-loader!css-loader!react-quill/dist/quill.snow.css')
     import(/* webpackChunkName: "quill" */ '!style-loader!css-loader!react-quill/dist/quill.core.css')
 
-    this.lazyQuill = lazyComponent(() => import(/* webpackChunkName: "quill" */ 'react-quill'))
+    this.lazyQuill = lazyComponent(() => import(/* webpackChunkName: "quill" */ 'react-quill'), 'default')
   }
 
   handleChange = value => {

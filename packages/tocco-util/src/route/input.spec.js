@@ -11,7 +11,7 @@ describe('tocco-util', () => {
           }
         })
 
-        it('should dispatch action with input value', () => {
+        test('should dispatch action with input value', () => {
           const input = {
             entityName: 'User'
           }
@@ -27,7 +27,7 @@ describe('tocco-util', () => {
           store.dispatch.verify()
         })
 
-        it('should not dispatch action if input value missing', () => {
+        test('should not dispatch action if input value missing', () => {
           const input = { // no `entityName` property
           }
 
@@ -42,7 +42,7 @@ describe('tocco-util', () => {
           store.dispatch.verify()
         })
 
-        it('should log error if mandatory input value missing', () => {
+        test('should log error if mandatory input value missing', () => {
           const input = { // no `entityName` property
           }
 
@@ -60,7 +60,7 @@ describe('tocco-util', () => {
           store.dispatch.verify()
         })
 
-        it('should dispatch defaultValues', () => {
+        test('should dispatch defaultValues', () => {
           const input = { // no `entityName` property
           }
 

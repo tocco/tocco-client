@@ -10,11 +10,11 @@ import {
   Ul
 } from './List'
 
-describe('tocco-ui', function() {
-  describe('Typography', function() {
-    describe('List', function() {
-      describe('Dd', function() {
-        it('should have one defaultProps', () => {
+describe('tocco-ui', () => {
+  describe('Typography', () => {
+    describe('List', () => {
+      describe('Dd', () => {
+        test('should have one defaultProps', () => {
           const wrapper = shallow(
             <Dd>Lorem Ipsum</Dd>
           )
@@ -23,7 +23,7 @@ describe('tocco-ui', function() {
           expect(title).to.be.undefined
         })
 
-        it('should not render title', () => {
+        test('should not render title', () => {
           const wrapper = mount(
             <Dd>Lorem ipsum</Dd>
           )
@@ -31,7 +31,7 @@ describe('tocco-ui', function() {
           expect(wrapper.find('dd').prop('title')).to.be.undefined
         })
 
-        it('should render title', () => {
+        test('should render title', () => {
           const wrapper = mount(
             <Dd breakWords={false}>Lorem ipsum</Dd>
           )
@@ -40,8 +40,8 @@ describe('tocco-ui', function() {
         })
       })
 
-      describe('Dl', function() {
-        it('should display text', () => {
+      describe('Dl', () => {
+        test('should display text', () => {
           const wrapper = mount(
             <Dl>Lorem ipsum</Dl>
           )
@@ -49,8 +49,8 @@ describe('tocco-ui', function() {
         })
       })
 
-      describe('Dt', function() {
-        it('should have one defaultProps', () => {
+      describe('Dt', () => {
+        test('should have one defaultProps', () => {
           const wrapper = shallow(
             <Dt>Lorem Ipsum</Dt>
           )
@@ -59,7 +59,7 @@ describe('tocco-ui', function() {
           expect(title).to.be.undefined
         })
 
-        it('should not render title', () => {
+        test('should not render title', () => {
           const wrapper = mount(
             <Dt>Lorem ipsum</Dt>
           )
@@ -67,7 +67,7 @@ describe('tocco-ui', function() {
           expect(wrapper.find('dt').prop('title')).to.be.undefined
         })
 
-        it('should render title', () => {
+        test('should render title', () => {
           const wrapper = mount(
             <Dt breakWords={false}>Lorem ipsum</Dt>
           )
@@ -76,8 +76,8 @@ describe('tocco-ui', function() {
         })
       })
 
-      describe('Li', function() {
-        it('should display text', () => {
+      describe('Li', () => {
+        test('should display text', () => {
           const wrapper = mount(
             <Li>Lorem ipsum</Li>
           )
@@ -85,8 +85,8 @@ describe('tocco-ui', function() {
         })
       })
 
-      describe('Ol', function() {
-        it('should display text', () => {
+      describe('Ol', () => {
+        test('should display text', () => {
           const wrapper = mount(
             <Ol>Lorem ipsum</Ol>
           )
@@ -94,10 +94,10 @@ describe('tocco-ui', function() {
         })
       })
 
-      describe('Ul', function() {
-        it('should display text', () => {
+      describe('Ul', () => {
+        test('should display text', () => {
           const wrapper = mount(
-            <Ul>Lorem ipsum</Ul>
+            <Ul as="ul">Lorem ipsum</Ul>
           )
           expect(wrapper.find('ul').text()).to.equal('Lorem ipsum')
         })

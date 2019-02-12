@@ -16,6 +16,7 @@ import {
   Q,
   S,
   Small,
+  Span,
   Strong,
   Sub,
   Sup,
@@ -24,11 +25,11 @@ import {
   Var
 } from './Misc'
 
-describe('tocco-ui', function() {
-  describe('Typography', function() {
-    describe('Misc', function() {
-      describe('B', function() {
-        it('should have one defaultProps', () => {
+describe('tocco-ui', () => {
+  describe('Typography', () => {
+    describe('Misc', () => {
+      describe('B', () => {
+        test('should have one defaultProps', () => {
           const wrapper = shallow(
             <B>Lorem Ipsum</B>
           )
@@ -37,7 +38,7 @@ describe('tocco-ui', function() {
           expect(title).to.be.undefined
         })
 
-        it('should not render title', () => {
+        test('should not render title', () => {
           const wrapper = mount(
             <B>Lorem ipsum</B>
           )
@@ -45,7 +46,7 @@ describe('tocco-ui', function() {
           expect(wrapper.find('b').prop('title')).to.be.undefined
         })
 
-        it('should render title', () => {
+        test('should render title', () => {
           const wrapper = mount(
             <B breakWords={false}>Lorem ipsum</B>
           )
@@ -54,8 +55,8 @@ describe('tocco-ui', function() {
         })
       })
 
-      describe('Code', function() {
-        it('should have one defaultProps', () => {
+      describe('Code', () => {
+        test('should have one defaultProps', () => {
           const wrapper = shallow(
             <Code>Lorem Ipsum</Code>
           )
@@ -64,7 +65,7 @@ describe('tocco-ui', function() {
           expect(title).to.be.undefined
         })
 
-        it('should not render title', () => {
+        test('should not render title', () => {
           const wrapper = mount(
             <Code>Lorem ipsum</Code>
           )
@@ -72,7 +73,7 @@ describe('tocco-ui', function() {
           expect(wrapper.find('code').prop('title')).to.be.undefined
         })
 
-        it('should render title', () => {
+        test('should render title', () => {
           const wrapper = mount(
             <Code breakWords={false}>Lorem ipsum</Code>
           )
@@ -81,8 +82,8 @@ describe('tocco-ui', function() {
         })
       })
 
-      describe('Del', function() {
-        it('should have one defaultProps', () => {
+      describe('Del', () => {
+        test('should have one defaultProps', () => {
           const wrapper = shallow(
             <Del>Lorem Ipsum</Del>
           )
@@ -91,7 +92,7 @@ describe('tocco-ui', function() {
           expect(title).to.be.undefined
         })
 
-        it('should not render title', () => {
+        test('should not render title', () => {
           const wrapper = mount(
             <Del>Lorem ipsum</Del>
           )
@@ -99,7 +100,7 @@ describe('tocco-ui', function() {
           expect(wrapper.find('del').prop('title')).to.be.undefined
         })
 
-        it('should render title', () => {
+        test('should render title', () => {
           const wrapper = mount(
             <Del breakWords={false}>Lorem ipsum</Del>
           )
@@ -108,8 +109,8 @@ describe('tocco-ui', function() {
         })
       })
 
-      describe('Em', function() {
-        it('should have one defaultProps', () => {
+      describe('Em', () => {
+        test('should have one defaultProps', () => {
           const wrapper = shallow(
             <Em>Lorem Ipsum</Em>
           )
@@ -118,7 +119,7 @@ describe('tocco-ui', function() {
           expect(title).to.be.undefined
         })
 
-        it('should not render title', () => {
+        test('should not render title', () => {
           const wrapper = mount(
             <Em>Lorem ipsum</Em>
           )
@@ -126,7 +127,7 @@ describe('tocco-ui', function() {
           expect(wrapper.find('em').prop('title')).to.be.undefined
         })
 
-        it('should render title', () => {
+        test('should render title', () => {
           const wrapper = mount(
             <Em breakWords={false}>Lorem ipsum</Em>
           )
@@ -135,8 +136,8 @@ describe('tocco-ui', function() {
         })
       })
 
-      describe('Figcaption', function() {
-        it('should have one defaultProps', () => {
+      describe('Figcaption', () => {
+        test('should have one defaultProps', () => {
           const wrapper = shallow(
             <Figcaption>Lorem Ipsum</Figcaption>
           )
@@ -145,7 +146,7 @@ describe('tocco-ui', function() {
           expect(title).to.be.undefined
         })
 
-        it('should not render title', () => {
+        test('should not render title', () => {
           const wrapper = mount(
             <Figcaption>Lorem ipsum</Figcaption>
           )
@@ -153,7 +154,7 @@ describe('tocco-ui', function() {
           expect(wrapper.find('figcaption').prop('title')).to.be.undefined
         })
 
-        it('should render title', () => {
+        test('should render title', () => {
           const wrapper = mount(
             <Figcaption breakWords={false}>Lorem ipsum</Figcaption>
           )
@@ -162,8 +163,8 @@ describe('tocco-ui', function() {
         })
       })
 
-      describe('I', function() {
-        it('should have one defaultProps', () => {
+      describe('I', () => {
+        test('should have one defaultProps', () => {
           const wrapper = shallow(
             <I>Lorem Ipsum</I>
           )
@@ -172,7 +173,7 @@ describe('tocco-ui', function() {
           expect(title).to.be.undefined
         })
 
-        it('should not render title', () => {
+        test('should not render title', () => {
           const wrapper = mount(
             <I>Lorem ipsum</I>
           )
@@ -180,7 +181,7 @@ describe('tocco-ui', function() {
           expect(wrapper.find('i').prop('title')).to.be.undefined
         })
 
-        it('should render title', () => {
+        test('should render title', () => {
           const wrapper = mount(
             <I breakWords={false}>Lorem ipsum</I>
           )
@@ -189,8 +190,8 @@ describe('tocco-ui', function() {
         })
       })
 
-      describe('Ins', function() {
-        it('should have one defaultProps', () => {
+      describe('Ins', () => {
+        test('should have one defaultProps', () => {
           const wrapper = shallow(
             <Ins>Lorem Ipsum</Ins>
           )
@@ -199,7 +200,7 @@ describe('tocco-ui', function() {
           expect(title).to.be.undefined
         })
 
-        it('should not render title', () => {
+        test('should not render title', () => {
           const wrapper = mount(
             <Ins>Lorem ipsum</Ins>
           )
@@ -207,7 +208,7 @@ describe('tocco-ui', function() {
           expect(wrapper.find('ins').prop('title')).to.be.undefined
         })
 
-        it('should render title', () => {
+        test('should render title', () => {
           const wrapper = mount(
             <Ins breakWords={false}>Lorem ipsum</Ins>
           )
@@ -216,8 +217,8 @@ describe('tocco-ui', function() {
         })
       })
 
-      describe('Kbd', function() {
-        it('should have one defaultProps', () => {
+      describe('Kbd', () => {
+        test('should have one defaultProps', () => {
           const wrapper = shallow(
             <Kbd>Lorem Ipsum</Kbd>
           )
@@ -226,7 +227,7 @@ describe('tocco-ui', function() {
           expect(title).to.be.undefined
         })
 
-        it('should not render title', () => {
+        test('should not render title', () => {
           const wrapper = mount(
             <Kbd>Lorem ipsum</Kbd>
           )
@@ -234,7 +235,7 @@ describe('tocco-ui', function() {
           expect(wrapper.find('kbd').prop('title')).to.be.undefined
         })
 
-        it('should render title', () => {
+        test('should render title', () => {
           const wrapper = mount(
             <Kbd breakWords={false}>Lorem ipsum</Kbd>
           )
@@ -243,8 +244,8 @@ describe('tocco-ui', function() {
         })
       })
 
-      describe('Mark', function() {
-        it('should have one defaultProps', () => {
+      describe('Mark', () => {
+        test('should have one defaultProps', () => {
           const wrapper = shallow(
             <Mark>Lorem Ipsum</Mark>
           )
@@ -253,7 +254,7 @@ describe('tocco-ui', function() {
           expect(title).to.be.undefined
         })
 
-        it('should not render title', () => {
+        test('should not render title', () => {
           const wrapper = mount(
             <Mark>Lorem ipsum</Mark>
           )
@@ -261,7 +262,7 @@ describe('tocco-ui', function() {
           expect(wrapper.find('mark').prop('title')).to.be.undefined
         })
 
-        it('should render title', () => {
+        test('should render title', () => {
           const wrapper = mount(
             <Mark breakWords={false}>Lorem ipsum</Mark>
           )
@@ -270,8 +271,8 @@ describe('tocco-ui', function() {
         })
       })
 
-      describe('P', function() {
-        it('should have one defaultProps', () => {
+      describe('P', () => {
+        test('should have one defaultProps', () => {
           const wrapper = shallow(
             <P>Lorem Ipsum</P>
           )
@@ -280,7 +281,7 @@ describe('tocco-ui', function() {
           expect(title).to.be.undefined
         })
 
-        it('should not render title', () => {
+        test('should not render title', () => {
           const wrapper = mount(
             <P>Lorem ipsum</P>
           )
@@ -288,7 +289,7 @@ describe('tocco-ui', function() {
           expect(wrapper.find('p').prop('title')).to.be.undefined
         })
 
-        it('should render title', () => {
+        test('should render title', () => {
           const wrapper = mount(
             <P breakWords={false}>Lorem ipsum</P>
           )
@@ -297,8 +298,8 @@ describe('tocco-ui', function() {
         })
       })
 
-      describe('Pre', function() {
-        it('should have one defaultProps', () => {
+      describe('Pre', () => {
+        test('should have one defaultProps', () => {
           const wrapper = shallow(
             <Pre>Lorem Ipsum</Pre>
           )
@@ -307,7 +308,7 @@ describe('tocco-ui', function() {
           expect(title).to.be.undefined
         })
 
-        it('should not render title', () => {
+        test('should not render title', () => {
           const wrapper = mount(
             <Pre>Lorem ipsum</Pre>
           )
@@ -315,7 +316,7 @@ describe('tocco-ui', function() {
           expect(wrapper.find('pre').prop('title')).to.be.undefined
         })
 
-        it('should render title', () => {
+        test('should render title', () => {
           const wrapper = mount(
             <Pre breakWords={false}>Lorem ipsum</Pre>
           )
@@ -324,8 +325,8 @@ describe('tocco-ui', function() {
         })
       })
 
-      describe('Q', function() {
-        it('should have one defaultProps', () => {
+      describe('Q', () => {
+        test('should have one defaultProps', () => {
           const wrapper = shallow(
             <Q>Lorem Ipsum</Q>
           )
@@ -334,7 +335,7 @@ describe('tocco-ui', function() {
           expect(title).to.be.undefined
         })
 
-        it('should not render title', () => {
+        test('should not render title', () => {
           const wrapper = mount(
             <Q>Lorem ipsum</Q>
           )
@@ -342,7 +343,7 @@ describe('tocco-ui', function() {
           expect(wrapper.find('q').prop('title')).to.be.undefined
         })
 
-        it('should render title', () => {
+        test('should render title', () => {
           const wrapper = mount(
             <Q breakWords={false}>Lorem ipsum</Q>
           )
@@ -351,8 +352,8 @@ describe('tocco-ui', function() {
         })
       })
 
-      describe('S', function() {
-        it('should have one defaultProps', () => {
+      describe('S', () => {
+        test('should have one defaultProps', () => {
           const wrapper = shallow(
             <S>Lorem Ipsum</S>
           )
@@ -361,7 +362,7 @@ describe('tocco-ui', function() {
           expect(title).to.be.undefined
         })
 
-        it('should not render title', () => {
+        test('should not render title', () => {
           const wrapper = mount(
             <S>Lorem ipsum</S>
           )
@@ -369,7 +370,7 @@ describe('tocco-ui', function() {
           expect(wrapper.find('s').prop('title')).to.be.undefined
         })
 
-        it('should render title', () => {
+        test('should render title', () => {
           const wrapper = mount(
             <S breakWords={false}>Lorem ipsum</S>
           )
@@ -378,8 +379,8 @@ describe('tocco-ui', function() {
         })
       })
 
-      describe('Small', function() {
-        it('should have one defaultProps', () => {
+      describe('Small', () => {
+        test('should have one defaultProps', () => {
           const wrapper = shallow(
             <Small>Lorem Ipsum</Small>
           )
@@ -388,7 +389,7 @@ describe('tocco-ui', function() {
           expect(title).to.be.undefined
         })
 
-        it('should not render title', () => {
+        test('should not render title', () => {
           const wrapper = mount(
             <Small>Lorem ipsum</Small>
           )
@@ -396,7 +397,7 @@ describe('tocco-ui', function() {
           expect(wrapper.find('small').prop('title')).to.be.undefined
         })
 
-        it('should render title', () => {
+        test('should render title', () => {
           const wrapper = mount(
             <Small breakWords={false}>Lorem ipsum</Small>
           )
@@ -405,8 +406,35 @@ describe('tocco-ui', function() {
         })
       })
 
-      describe('Strong', function() {
-        it('should have one defaultProps', () => {
+      describe('Span', () => {
+        test('should have one defaultProps', () => {
+          const wrapper = shallow(
+            <Span>Lorem Ipsum</Span>
+          )
+          const {breakWords, title} = wrapper.props()
+          expect(breakWords).to.be.true
+          expect(title).to.be.undefined
+        })
+
+        test('should not render title', () => {
+          const wrapper = mount(
+            <Span>Lorem ipsum</Span>
+          )
+          expect(wrapper.find('span').text()).to.equal('Lorem ipsum')
+          expect(wrapper.find('span').prop('title')).to.be.undefined
+        })
+
+        test('should render title', () => {
+          const wrapper = mount(
+            <Span breakWords={false}>Lorem ipsum</Span>
+          )
+          expect(wrapper.find('span').text()).to.equal('Lorem ipsum')
+          expect(wrapper.find('span').prop('title')).to.equal('Lorem ipsum')
+        })
+      })
+
+      describe('Strong', () => {
+        test('should have one defaultProps', () => {
           const wrapper = shallow(
             <Strong>Lorem Ipsum</Strong>
           )
@@ -415,7 +443,7 @@ describe('tocco-ui', function() {
           expect(title).to.be.undefined
         })
 
-        it('should not render title', () => {
+        test('should not render title', () => {
           const wrapper = mount(
             <Strong>Lorem ipsum</Strong>
           )
@@ -423,7 +451,7 @@ describe('tocco-ui', function() {
           expect(wrapper.find('strong').prop('title')).to.be.undefined
         })
 
-        it('should render title', () => {
+        test('should render title', () => {
           const wrapper = mount(
             <Strong breakWords={false}>Lorem ipsum</Strong>
           )
@@ -432,8 +460,8 @@ describe('tocco-ui', function() {
         })
       })
 
-      describe('Sub', function() {
-        it('should have one defaultProps', () => {
+      describe('Sub', () => {
+        test('should have one defaultProps', () => {
           const wrapper = shallow(
             <Sub>Lorem Ipsum</Sub>
           )
@@ -442,7 +470,7 @@ describe('tocco-ui', function() {
           expect(title).to.be.undefined
         })
 
-        it('should not render title', () => {
+        test('should not render title', () => {
           const wrapper = mount(
             <Sub>Lorem ipsum</Sub>
           )
@@ -450,7 +478,7 @@ describe('tocco-ui', function() {
           expect(wrapper.find('sub').prop('title')).to.be.undefined
         })
 
-        it('should render title', () => {
+        test('should render title', () => {
           const wrapper = mount(
             <Sub breakWords={false}>Lorem ipsum</Sub>
           )
@@ -459,8 +487,8 @@ describe('tocco-ui', function() {
         })
       })
 
-      describe('Sup', function() {
-        it('should have one defaultProps', () => {
+      describe('Sup', () => {
+        test('should have one defaultProps', () => {
           const wrapper = shallow(
             <Sup>Lorem Ipsum</Sup>
           )
@@ -469,7 +497,7 @@ describe('tocco-ui', function() {
           expect(title).to.be.undefined
         })
 
-        it('should not render title', () => {
+        test('should not render title', () => {
           const wrapper = mount(
             <Sup>Lorem ipsum</Sup>
           )
@@ -477,7 +505,7 @@ describe('tocco-ui', function() {
           expect(wrapper.find('sup').prop('title')).to.be.undefined
         })
 
-        it('should render title', () => {
+        test('should render title', () => {
           const wrapper = mount(
             <Sup breakWords={false}>Lorem ipsum</Sup>
           )
@@ -486,8 +514,8 @@ describe('tocco-ui', function() {
         })
       })
 
-      describe('Time', function() {
-        it('should have one defaultProps', () => {
+      describe('Time', () => {
+        test('should have one defaultProps', () => {
           const wrapper = shallow(
             <Time dateTime="23:59:59">23:59:59</Time>
           )
@@ -496,7 +524,7 @@ describe('tocco-ui', function() {
           expect(dateTime).not.to.be.undefined
         })
 
-        it('should not render title', () => {
+        test('should not render title', () => {
           const wrapper = mount(
             <Time
               breakWords={true}
@@ -507,7 +535,7 @@ describe('tocco-ui', function() {
           expect(wrapper.find('time').prop('title')).to.be.undefined
         })
 
-        it('should render title', () => {
+        test('should render title', () => {
           const wrapper = mount(
             <Time
               dateTime="23:59:59"
@@ -519,8 +547,8 @@ describe('tocco-ui', function() {
         })
       })
 
-      describe('U', function() {
-        it('should have one defaultProps', () => {
+      describe('U', () => {
+        test('should have one defaultProps', () => {
           const wrapper = shallow(
             <U>Lorem Ipsum</U>
           )
@@ -529,7 +557,7 @@ describe('tocco-ui', function() {
           expect(title).to.be.undefined
         })
 
-        it('should not render title', () => {
+        test('should not render title', () => {
           const wrapper = mount(
             <U>Lorem ipsum</U>
           )
@@ -537,7 +565,7 @@ describe('tocco-ui', function() {
           expect(wrapper.find('u').prop('title')).to.be.undefined
         })
 
-        it('should render title', () => {
+        test('should render title', () => {
           const wrapper = mount(
             <U breakWords={false}>Lorem ipsum</U>
           )
@@ -546,8 +574,8 @@ describe('tocco-ui', function() {
         })
       })
 
-      describe('Var', function() {
-        it('should have one defaultProps', () => {
+      describe('Var', () => {
+        test('should have one defaultProps', () => {
           const wrapper = shallow(
             <Var>Lorem Ipsum</Var>
           )
@@ -556,7 +584,7 @@ describe('tocco-ui', function() {
           expect(title).to.be.undefined
         })
 
-        it('should not render title', () => {
+        test('should not render title', () => {
           const wrapper = mount(
             <Var>Lorem ipsum</Var>
           )
@@ -564,7 +592,7 @@ describe('tocco-ui', function() {
           expect(wrapper.find('var').prop('title')).to.be.undefined
         })
 
-        it('should render title', () => {
+        test('should render title', () => {
           const wrapper = mount(
             <Var breakWords={false}>Lorem ipsum</Var>
           )

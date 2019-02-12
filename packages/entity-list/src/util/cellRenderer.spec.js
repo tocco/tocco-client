@@ -1,19 +1,21 @@
 import React from 'react'
 import {IntlStub} from 'tocco-test-util'
-import cellRenderer from './cellRenderer'
 import {shallow} from 'enzyme'
 import {FormattedValue} from 'tocco-ui'
-import {actions} from 'tocco-util'
+import {actions} from 'tocco-app-extensions'
 import {Provider} from 'react-redux'
 import {createStore} from 'redux'
+
+import cellRenderer from './cellRenderer'
 
 describe('entity-list', () => {
   describe('util', () => {
     describe('cellRenderer', () => {
-      it('should return a formattedValue for componentType field', () => {
+      test('should return a formattedValue for componentType field', () => {
         const field = {
           componentType: 'field',
-          id: 'firstname'
+          id: 'firstname-field', // does not match path by intention (-> should use path to get data)
+          path: 'firstname'
         }
         const entity = {
           firstname: {
@@ -27,7 +29,7 @@ describe('entity-list', () => {
         expect(wrapper.find(FormattedValue)).to.have.length(1)
       })
 
-      it('should return an html formattedValue for DisplayExpressions', () => {
+      test('should return an html formattedValue for DisplayExpressions', () => {
         const field = {
           componentType: 'display',
           id: 'myDisplayExpression'
@@ -42,7 +44,7 @@ describe('entity-list', () => {
         expect(wrapper.find(FormattedValue)).to.have.prop('type', 'html')
       })
 
-      it('should return an action for componentType action', () => {
+      test('should return an action for componentType action', () => {
         const field = {
           componentType: 'action',
           id: 'myAction'

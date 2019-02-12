@@ -40,10 +40,7 @@ Document.propTypes = {
     field: PropTypes.string
   }),
   onChange: PropTypes.func,
-  value: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string // empty string coming from Redux Form if value null
-  ])
+  value: PropTypes.object
 }
 
 export default Document

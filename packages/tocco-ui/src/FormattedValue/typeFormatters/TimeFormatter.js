@@ -3,7 +3,7 @@ import React from 'react'
 import {FormattedTime, injectIntl, intlShape} from 'react-intl'
 import moment from 'moment'
 
-import {Time} from '../../Typography'
+import Typography from '../../Typography'
 
 const TimeFormatter = props => {
   const hours = parseInt(props.value.value.hourOfDay) || 0
@@ -14,14 +14,14 @@ const TimeFormatter = props => {
   const timeIso = moment(date).format(moment.HTML5_FMT.TIME_MS)
 
   return (
-    <Time
+    <Typography.Time
       dateTime={timeIso}
       title={props.intl.formatTime(date)}
     >
       <FormattedTime
         value={date}
       />
-    </Time>
+    </Typography.Time>
   )
 }
 

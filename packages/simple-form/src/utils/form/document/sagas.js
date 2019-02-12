@@ -1,7 +1,9 @@
-import {call, put} from 'redux-saga/effects'
-import {uploadRequest, documentToFormValueTransformer} from './utils'
 import {actions as formActions} from 'redux-form'
-import {errorLogging} from 'tocco-util'
+import {errorLogging} from 'tocco-app-extensions'
+
+import {uploadRequest, documentToFormValueTransformer} from './utils'
+
+import {call, put} from 'redux-saga/effects'
 
 const FORM_ID = 'simpleForm'
 

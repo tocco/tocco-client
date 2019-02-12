@@ -1,5 +1,6 @@
 /* eslint key-spacing:0 spaced-comment:0 */
 import path from 'path'
+
 import {argv} from 'yargs'
 
 const config = {
@@ -33,28 +34,6 @@ const config = {
     chunkModules : false,
     colors : true,
     maxModules: false
-  },
-  // ----------------------------------
-  // Test Configuration
-  // ----------------------------------
-  test_excluded_packages: [
-    'tocco-test-util',
-    'tocco-theme'
-  ],
-  coverage_reporters: {
-    dir: 'coverage',
-    reporters: [
-      {type: 'text-summary'},
-      {
-        type: 'html',
-        subdir: 'report-html'
-      },
-      {
-        type: 'lcov',
-        subdir: 'lcov'
-      }
-
-    ]
   }
 }
 

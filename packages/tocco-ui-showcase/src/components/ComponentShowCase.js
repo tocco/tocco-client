@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {parse} from 'react-docgen'
+
 import PropsTable from './PropsTable'
 import Example from './Example'
 
@@ -15,7 +16,7 @@ const ComponentShowCase = props => {
         <div>{componentInfo.description}</div>
         <div className="row">
           <div className="col-sm-6">
-            <PropsTable props={componentInfo.props}/>
+            {componentInfo.props && <PropsTable props={componentInfo.props}/>}
           </div>
           <div className="col-sm-6">
             <Example example={props.example}/>

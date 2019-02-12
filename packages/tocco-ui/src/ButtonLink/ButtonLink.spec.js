@@ -1,21 +1,12 @@
 import {shallow, mount} from 'enzyme'
 import React from 'react'
-import {ThemeProvider} from 'styled-components'
 
+import Icon from '../Icon'
 import ButtonLink from './ButtonLink'
 
-const theme = {
-  overlays: {
-    disabled: {
-      color: '#f00',
-      opacity: 0.8
-    }
-  }
-}
-
-describe('tocco-ui', function() {
-  describe('ButtonLink', function() {
-    it('should have 4 defaultProps', () => {
+describe('tocco-ui', () => {
+  describe('ButtonLink', () => {
+    test('should have 4 defaultProps', () => {
       const wrapper = shallow(<ButtonLink/>)
       const {href, ink, look} = wrapper.props()
       expect(href).to.equal('#')
@@ -24,7 +15,7 @@ describe('tocco-ui', function() {
       expect(ButtonLink.defaultProps.iconPosition).to.equal('prepend')
     })
 
-    it('should pass 8 props to StyledButtonLink', () => {
+    test('should pass 8 props to StyledButtonLink', () => {
       const wrapper = shallow(
         <ButtonLink
           alt="alt text"
@@ -60,26 +51,22 @@ describe('tocco-ui', function() {
       expect(ButtonLink.defaultProps.iconPosition).to.equal('prepend')
     })
 
-    it('should display icon', () => {
+    test('should display icon', () => {
       const wrapper = shallow(<ButtonLink icon="bar"/>)
-      expect(wrapper.find('Icon')).to.have.length(1)
+      expect(wrapper.find(Icon).prop('icon')).to.equal('bar')
     })
 
-    it('should not display icon', () => {
+    test('should not display icon', () => {
       const wrapper = shallow(<ButtonLink/>)
       expect(wrapper.find('Icon')).to.have.length(0)
     })
 
-    it('should display label', () => {
-      const wrapper = mount(
-        <ThemeProvider theme={theme}>
-          <ButtonLink label="label text"/>
-        </ThemeProvider>
-      )
+    test('should display label', () => {
+      const wrapper = mount(<ButtonLink label="label text"/>)
       expect(wrapper.text()).to.equal('label text')
     })
 
-    it('should propagate click event', () => {
+    test('should propagate click event', () => {
       const wrapperClickSpy = sinon.spy()
       const wrapper = mount(
         <div onClick={wrapperClickSpy}>
@@ -91,7 +78,7 @@ describe('tocco-ui', function() {
       expect(wrapperClickSpy).to.have.property('callCount', 1)
     })
 
-    it('should stop propagation with stopPropagation true', () => {
+    test('should stop propagation with stopPropagation true', () => {
       const wrapperClickSpy = sinon.spy()
       const wrapper = mount(
         <div onClick={wrapperClickSpy}>

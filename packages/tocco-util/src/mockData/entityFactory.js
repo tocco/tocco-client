@@ -1,4 +1,7 @@
 import _forOwn from 'lodash/forOwn'
+import _sample from 'lodash/sample'
+
+const fiftyFifty = () => _sample([true, false])
 
 const getRandomDate = (startYear, endYear) => {
   const start = new Date(startYear, 1, 1)
@@ -97,7 +100,7 @@ export const createUsers = amount => {
           type: 'field',
           value: {
             type: 'counter',
-            value: i,
+            value: i * 1000,
             writable: false
           }
         },
@@ -141,6 +144,14 @@ export const createUsers = amount => {
             writable: true
           }
         },
+        licence_plate: {
+          type: 'field',
+          value: {
+            value: getRandomInt(1000, 1000000),
+            type: 'long',
+            writable: true
+          }
+        },
         publish: {
           type: 'field',
           value: {
@@ -156,6 +167,43 @@ export const createUsers = amount => {
             type: 'updatets',
             writable: false
           }
+        },
+        duration: {
+          type: 'field',
+          value: {
+            value: getRandomInt(0, 1000 * 60 * 60 * 24),
+            type: 'duration',
+            writable: false
+          }
+        },
+        'relMulti_entity1.relPayment_status': {
+          path: 'relMulti_entity1.relPayment_status',
+          type: 'multi',
+          writable: false,
+          value: [
+            ...fiftyFifty() ? [{
+              path: 'relMulti_entity1.relPayment_status',
+              type: 'entity',
+              writable: false,
+              value: {
+                key: '2',
+                model: 'Payment_status',
+                version: 3,
+                display: 'Unbezahlt'
+              }
+            }] : [],
+            ...fiftyFifty() ? [{
+              path: 'relMulti_entity1.relPayment_status',
+              type: 'entity',
+              writable: false,
+              value: {
+                key: '1',
+                model: 'Payment_status',
+                version: 3,
+                display: 'Bezahlt'
+              }
+            }] : []
+          ]
         }
       }
     })

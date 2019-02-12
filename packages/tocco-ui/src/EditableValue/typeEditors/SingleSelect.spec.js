@@ -1,7 +1,7 @@
 import React from 'react'
 import {shallow, mount} from 'enzyme'
-import TetheredSelectWrap from './TetherSelectWrap'
 
+import TetheredSelectWrap from './TetherSelectWrap'
 import SingleSelect from './SingleSelect'
 
 const EMPTY_FUNC = () => {}
@@ -10,7 +10,7 @@ describe('tocco-ui', () => {
   describe('EditableValue', () => {
     describe('typeEditors', () => {
       describe('SingleSelect ', () => {
-        it('should render a Select component', () => {
+        test('should render a Select component', () => {
           const options = {
             store: [
               {key: 1, display: 'label1'},
@@ -18,13 +18,13 @@ describe('tocco-ui', () => {
             ]
           }
 
-          const wrapper = shallow(<SingleSelect options={options} value="1" onChange={() => {}}/>)
+          const wrapper = shallow(<SingleSelect options={options} value={{key: '1'}} onChange={() => {}}/>)
           expect(wrapper.find(TetheredSelectWrap)).to.have.length(1)
           const select = wrapper.find(TetheredSelectWrap)
           expect(select.props().options).to.eql(options.store)
         })
 
-        it('should call onChange ', () => {
+        test('should call onChange ', () => {
           const newValue = {key: 1, display: 'label1'}
           const spy = sinon.spy()
           const options = {
@@ -38,7 +38,7 @@ describe('tocco-ui', () => {
           expect(spy).to.have.been.calledWith(newValue)
         })
 
-        it('should use value as options if no store provided', () => {
+        test('should use value as options if no store provided', () => {
           const value = {key: 1, display: 'label1'}
           const options = {}
 

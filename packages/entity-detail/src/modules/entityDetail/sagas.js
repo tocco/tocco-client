@@ -1,12 +1,11 @@
-import {call, put, fork, select, takeLatest, takeEvery, all} from 'redux-saga/effects'
 import {
   actions as formActions,
   SubmissionError,
   getFormValues
 } from 'redux-form'
+import {externalEvents, notifier, errorLogging, form, actions as actionUtil, actionEmitter, rest}
+  from 'tocco-app-extensions'
 
-import {externalEvents, notifier, errorLogging, form, actions as actionUtil, actionEmitter} from 'tocco-util'
-import {ClientQuestionCancelledException} from 'tocco-util/src/rest'
 import * as actions from './actions'
 import {
   fetchEntity,
@@ -14,10 +13,11 @@ import {
   fetchModel,
   createEntity
 } from '../../util/api/entities'
-
 import {uploadRequest, documentToFormValueTransformer} from '../../util/api/documents'
 import {submitValidate} from '../../util/detailView/asyncValidation'
 import modes from '../../util/modes'
+
+import {call, put, fork, select, takeLatest, takeEvery, all} from 'redux-saga/effects'
 
 export const formInitialValueSelector = formId => state => state.form[formId].initial
 export const entityDetailSelector = state => state.entityDetail
@@ -114,7 +114,7 @@ export function* handleSubmitError(error) {
     yield put(formActions.touch(FORM_ID, ...Object.keys(error.errors)))
     yield put(formActions.stopSubmit(FORM_ID, error.errors))
   } else {
-    if (!(error instanceof ClientQuestionCancelledException)) {
+    if (!(error instanceof rest.ClientQuestionCancelledException)) {
       yield put(errorLogging.logError(
         'client.common.unexpectedError',
         'client.entity-detail.saveError',

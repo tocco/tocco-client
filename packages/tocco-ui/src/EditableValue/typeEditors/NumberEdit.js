@@ -6,6 +6,7 @@ const convertStringToNumber = stringValue => (
 )
 
 const NumberEdit = props => {
+  const value = props.value === null ? '' : props.value
   const handleChange = e => {
     if (props.onChange) {
       props.onChange(convertStringToNumber(e.target.value))
@@ -17,7 +18,7 @@ const NumberEdit = props => {
       type="number"
       className="form-control"
       name={props.name}
-      value={props.value}
+      value={value}
       onChange={handleChange}
       id={props.id}
       disabled={props.readOnly}
@@ -27,10 +28,7 @@ const NumberEdit = props => {
 
 NumberEdit.propTypes = {
   onChange: PropTypes.func,
-  value: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string // empty string coming from Redux Form if value null
-  ]),
+  value: PropTypes.number,
   name: PropTypes.string,
   id: PropTypes.string,
   readOnly: PropTypes.bool

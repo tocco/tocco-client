@@ -1,9 +1,10 @@
+import {reducer as reducerUtil} from 'tocco-util'
+
 import * as actions from './actions'
-import {reducers} from 'tocco-util'
 
 const ACTION_HANDLERS = {
-  [actions.SET_FORM_TOUCHED]: reducers.singleTransferReducer('formTouched'),
-  [actions.SET_DETAIL_PARAMS]: reducers.singleTransferReducer('detailParams')
+  [actions.SET_FORM_TOUCHED]: reducerUtil.singleTransferReducer('formTouched'),
+  [actions.SET_DETAIL_PARAMS]: reducerUtil.singleTransferReducer('detailParams')
 }
 
 const initialState = {

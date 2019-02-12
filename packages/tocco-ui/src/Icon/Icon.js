@@ -1,60 +1,80 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import classNames from 'classnames'
+import {withTheme} from 'styled-components'
 
-import StyledIcon from './StyledIcon'
+import getSpacing from './StyledIcon'
 import {
-  animationPropTypes,
   positionPropTypes,
-  stylingAnimation,
   stylingPosition
 } from '../utilStyles'
-
-const getClassName = (icon, animation) => {
-  if (icon) {
-    return classNames({
-      'glyphicon': icon.startsWith('glyphicon-'),
-      'fa': icon.startsWith('fa-'),
-      'fa-spin': animation === stylingAnimation.SPIN
-    }, icon, 'icon')
-  } else {
-    return 'fa'
-  }
-}
+import lazyComponent from '../util/lazyComponent'
 
 /**
  * Utilize <Icon> to create additional meaning or to omit text labels. Every chosen
- * icon must be concise and convey the same meaning in all contexts.
+ * icon must be concise and convey the same meaning in all contexts. See
+ * https://www.npmjs.com/package/@fortawesome/react-fontawesome for detailed feature
+ * description. All free solid and regular icons are available.
  */
-const Icon = props => {
-  return (
-    <StyledIcon
-      animation={props.animation}
-      className={getClassName(props.icon, props.animation)}
-      dense={props.dense}
-      position={props.position}
-    >
-      {props.unicode}
-    </StyledIcon>
-  )
+class Icon extends React.Component {
+  lazyFontAwesomeIcon = null
+
+  constructor(props) {
+    super(props)
+
+    const fontLib = props.icon.includes('fab')
+      ? {
+        import: import(/* webpackChunkName: "fontawesomeicon-brands" */ '@fortawesome/free-brands-svg-icons'),
+        module: 'fab'
+      }
+      : props.icon.includes('far')
+        ? {
+          import: import(/* webpackChunkName: "fontawesomeicon-regular" */ '@fortawesome/free-regular-svg-icons'),
+          module: 'far'
+        }
+        : {
+          import: import(/* webpackChunkName: "fontawesomeicon-solid" */ '@fortawesome/free-solid-svg-icons'),
+          module: 'fas'
+        }
+
+    const loadComponent = Promise.all([
+      import(/* webpackChunkName: "fontawesomeicon" */ '@fortawesome/react-fontawesome'),
+      import(/* webpackChunkName: "fontawesomeicon" */ '@fortawesome/fontawesome-svg-core'),
+      fontLib.import
+    ]).then(response => {
+      response[1].library.add(response[2][fontLib.module])
+      return response
+    })
+
+    this.lazyFontAwesomeIcon = lazyComponent(() => loadComponent, '[0].FontAwesomeIcon', <i/>, () => {
+      if (this.props.onLoaded) {
+        this.props.onLoaded()
+      }
+    })
+  }
+
+  render() {
+    const icon = (typeof this.props.icon === 'string' && this.props.icon.includes(','))
+      ? this.props.icon.replace(/\s+/, '').split(',')
+      : this.props.icon
+
+    return <this.lazyFontAwesomeIcon
+      icon={icon}
+      style={{...this.props.style, ...(getSpacing(this.props))}}
+    />
+  }
 }
 
 Icon.defaultProps = {
-  animation: stylingAnimation.NONE,
   position: stylingPosition.SOLE
 }
 
 Icon.propTypes = {
   /**
-  * Animate Icon. Default value is 'none'.
-  */
-  animation: animationPropTypes,
-  /**
-   * Display an icon. Utilize Glyphicon of Bootstrap 3.7 or Font Awesome 4.7 by setting
-   * specific classname (e.g. "bars")
-   * https://getbootstrap.com/docs/3.3/components/#glyphicons or https://fontawesome.com/v4.7.0/icons/
+   * Accepts a valid fontawesome class names as string. Fontawesome prefix can be added first separated by comma.
+   * Available icons:
+   * https://fontawesome.com/icons?d=gallery&s=brands,regular,solid&m=free
    */
-  icon: PropTypes.string,
+  icon: PropTypes.string.isRequired,
   /**
    * If true, button occupies less space. It should only used for crowded areas like tables and only if necessary.
    */
@@ -63,14 +83,14 @@ Icon.propTypes = {
    * Specify if icon is positioned next to text or not to control spacing. Default value is 'prepend'.
    */
   position: positionPropTypes,
-  /*
-   * Display one or more unicode characters. Use unicode escape string (e.g. \u2022).
-   * Font Awesome styling is used. If prop icon and unicode is used together, icon prepend unicode characters.
+  /**
+   * Callback that gets invoked when component is fully loaded.
    */
-  unicode: PropTypes.string
+  onLoaded: PropTypes.func,
+  /**
+   * CSS Styles object.
+   */
+  style: PropTypes.objectOf(PropTypes.string)
 }
 
-export {
-  Icon as default,
-  StyledIcon
-}
+export default withTheme(Icon)

@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-
 import _debounce from 'lodash/debounce'
 
 import Button from '../Button'
@@ -54,7 +53,7 @@ class SearchBox extends React.Component {
           />
           <StyledInputGroupBtn>
             <Button
-              icon="glyphicon-search"
+              icon="search"
               iconPosition="sole"
               type="submit"
             />

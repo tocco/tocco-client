@@ -1,6 +1,8 @@
-import {put, fork, takeLatest, all} from 'redux-saga/effects'
+import {externalEvents} from 'tocco-app-extensions'
+
 import * as actions from './actions'
-import {externalEvents} from 'tocco-util'
+
+import {put, fork, takeLatest, all} from 'redux-saga/effects'
 
 export default function* sagas() {
   yield all([

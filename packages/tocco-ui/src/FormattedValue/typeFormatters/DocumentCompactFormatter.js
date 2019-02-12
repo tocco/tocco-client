@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+
 import ButtonLink from '../../ButtonLink'
 
 const DocumentCompactFormatter = props => (
   <ButtonLink
     alt={props.value.alt || props.value.fileName}
     download={props.value.fileName}
-    icon="fa-download"
+    icon="download"
     look="raised"
     href={props.value.binaryLink}
     stopPropagation={true}

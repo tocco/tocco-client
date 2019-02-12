@@ -11,7 +11,7 @@ const BoolEdit = props => {
   return (
     <input
       type="checkbox"
-      checked={props.value}
+      checked={props.value || false}
       name={props.name}
       onChange={handleChange}
       id={props.id}
@@ -22,10 +22,7 @@ const BoolEdit = props => {
 
 BoolEdit.propTypes = {
   onChange: PropTypes.func,
-  value: PropTypes.oneOfType([
-    PropTypes.bool,
-    PropTypes.string // empty string coming from Redux Form if value null
-  ]),
+  value: PropTypes.bool,
   name: PropTypes.string,
   id: PropTypes.string,
   readOnly: PropTypes.bool

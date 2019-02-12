@@ -1,3 +1,4 @@
+/* eslint-disable monorepo/no-relative-import,import/order */
 import ButtonRaw from '!raw-loader!../../tocco-ui/src/Button/Button'
 import ButtonExample from '../../tocco-ui/src/Button/example'
 import ButtonExampleRaw from '!raw-loader!../../tocco-ui/src/Button/example'
@@ -29,9 +30,17 @@ import IconRaw from '!raw-loader!../../tocco-ui/src/Icon/Icon'
 import IconExample from '../../tocco-ui/src/Icon/example'
 import IconExampleRaw from '!raw-loader!../../tocco-ui/src/Icon/example'
 
-import LayoutBoxRaw from '!raw-loader!../../tocco-ui/src/LayoutBox/LayoutBox'
-import LayoutBoxExample from '../../tocco-ui/src/LayoutBox/example'
-import LayoutBoxExampleRaw from '!raw-loader!../../tocco-ui/src/LayoutBox/example'
+import IconToccoRaw from '!raw-loader!../../tocco-ui/src/IconTocco/IconTocco'
+import IconToccoExample from '../../tocco-ui/src/IconTocco/example'
+import IconToccoExampleRaw from '!raw-loader!../../tocco-ui/src/IconTocco/example'
+
+import MultiCheckboxRaw from '!raw-loader!../../tocco-ui/src/MultiCheckbox/MultiCheckbox'
+import MultiCheckboxExample from '../../tocco-ui/src/MultiCheckbox/example'
+import MultiCheckboxExampleRaw from '!raw-loader!../../tocco-ui/src/MultiCheckbox/example'
+
+import LayoutRaw from '!raw-loader!../../tocco-ui/src/Layout/Layout'
+import LayoutExample from '../../tocco-ui/src/Layout/example'
+import LayoutExampleRaw from '!raw-loader!../../tocco-ui/src/Layout/example'
 
 import LinkRaw from '!raw-loader!../../tocco-ui/src/Link/Link'
 import LinkExample from '../../tocco-ui/src/Link/example'
@@ -47,10 +56,6 @@ import MenuExampleRaw from '!raw-loader!../../tocco-ui/src/Menu/example'
 
 import NotifierExample from './toccoUtilExamples/notifier/example'
 import NotifierExampleRaw from '!raw-loader!./toccoUtilExamples/notifier/example'
-
-import PaginationRaw from '!raw-loader!../../tocco-ui/src/Pagination/Pagination'
-import PaginationExample from '../../tocco-ui/src/Pagination/example'
-import PaginationExampleRaw from '!raw-loader!../../tocco-ui/src/Pagination/example'
 
 import PanelRaw from '!raw-loader!../../tocco-ui/src/Panel/Panel'
 import PanelExample from '../../tocco-ui/src/Panel/example'
@@ -68,13 +73,17 @@ import SignalBoxRaw from '!raw-loader!../../tocco-ui/src/SignalBox/SignalBox'
 import SignalBoxExample from '../../tocco-ui/src/SignalBox/example'
 import SignalBoxExampleRaw from '!raw-loader!../../tocco-ui/src/SignalBox/example'
 
+import PopoverRaw from '!raw-loader!../../tocco-ui/src/Popover/Popover'
+import PopoverExample from '../../tocco-ui/src/Popover/example'
+import PopoverExampleRaw from '!raw-loader!../../tocco-ui/src/Popover/example'
+
 import SignalListRaw from '!raw-loader!../../tocco-ui/src/SignalList/SignalList'
 import SignalListExample from '../../tocco-ui/src/SignalList/example'
 import SignalListExampleRaw from '!raw-loader!../../tocco-ui/src/SignalList/example'
 
-import TableRaw from '!raw-loader!../../tocco-ui/src/Table/Table'
-import TableExample from '../../tocco-ui/src/Table/example'
-import TableExampleRaw from '!raw-loader!../../tocco-ui/src/Table/example'
+import SomeOfRaw from '!raw-loader!../../tocco-ui/src/SomeOf/SomeOf'
+import SomeOfExample from '../../tocco-ui/src/SomeOf/example'
+import SomeOfExampleRaw from '!raw-loader!../../tocco-ui/src/SomeOf/example'
 
 import TypographyRaw from '!raw-loader!../../tocco-ui/src/Typography/Typography'
 import TypographyExample from '../../tocco-ui/src/Typography/example'
@@ -89,7 +98,8 @@ const categories = {
   EDIT_DATA: 'Edit Data',
   LAYOUT: 'Layout',
   MESSAGE: 'Message',
-  NAVIGATION: 'Navigation'
+  NAVIGATION: 'Navigation',
+  TOCCO: 'Tocco Specific'
 }
 
 export default [{
@@ -123,11 +133,11 @@ export default [{
       raw: IconExampleRaw
     }
   }, {
-    name: 'Table',
-    raw: TableRaw,
+    name: 'SomeOf',
+    raw: SomeOfRaw,
     example: {
-      component: TableExample,
-      raw: TableExampleRaw
+      component: SomeOfExample,
+      raw: SomeOfExampleRaw
     }
   }]
 }, {
@@ -199,11 +209,11 @@ export default [{
       raw: SearchBoxExampleRaw
     }
   }, {
-    name: 'Pagination',
-    raw: PaginationRaw,
+    name: 'MultiCheckbox',
+    raw: MultiCheckboxRaw,
     example: {
-      component: PaginationExample,
-      raw: PaginationExampleRaw
+      component: MultiCheckboxExample,
+      raw: MultiCheckboxExampleRaw
     }
   }]
 }, {
@@ -216,11 +226,11 @@ export default [{
       raw: PanelExampleRaw
     }
   }, {
-    name: 'Box Layouts',
-    raw: LayoutBoxRaw,
+    name: 'Layout',
+    raw: LayoutRaw,
     example: {
-      component: LayoutBoxExample,
-      raw: LayoutBoxExampleRaw
+      component: LayoutExample,
+      raw: LayoutExampleRaw
     }
   }, {
     name: 'LoadMask',
@@ -233,6 +243,14 @@ export default [{
 }, {
   category: categories.MESSAGE,
   components: [{
+    name: 'Popover',
+    raw: PopoverRaw,
+    example: {
+      component: PopoverExample,
+      raw: PopoverExampleRaw
+    }
+  },
+  {
     name: 'SignalList',
     raw: SignalListRaw,
     example: {
@@ -259,6 +277,16 @@ export default [{
     example: {
       component: ErrorLoggingExample,
       raw: ErrorLoggingExampleRaw
+    }
+  }]
+}, {
+  category: categories.TOCCO,
+  components: [{
+    name: 'Tocco Logo',
+    raw: IconToccoRaw,
+    example: {
+      component: IconToccoExample,
+      raw: IconToccoExampleRaw
     }
   }]
 }]

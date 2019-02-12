@@ -1,10 +1,11 @@
 import {createDummyEntities, createUsers} from './entityFactory'
-import {setupFetchMock} from './mockData'
+import {setupFetchMock, setupSystemMock} from './mockData'
 
 export default {
   createDummyEntities,
   createUsers,
   setupFetchMock,
+  setupSystemMock,
   data: {
     userLisForm: require('./data/user_list_form'),
     userDetailForm: require('./data/user_detail_form'),

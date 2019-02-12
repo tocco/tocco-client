@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import {Icon} from 'tocco-ui'
 
 const PropsTable = props => {
   const rows = []
@@ -11,7 +12,7 @@ const PropsTable = props => {
         <tr key={propName}>
           <td>{propName}</td>
           <td>{prop.description}</td>
-          <td>{prop.required && <span className="glyphicon glyphicon-exclamation-sign required-prop"/>}</td>
+          <td>{prop.required && <Icon icon="exclamation"/>}</td>
           <td>{prop.type.name}</td>
         </tr>
       )

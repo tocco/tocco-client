@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+
 import assertObjectValuesMatchOtherObjectKeys from './assertObjectValuesMatchOtherObjectKeys'
 
 const animation = {
@@ -14,9 +15,26 @@ const condition = {
   WARNING: 'warning'
 }
 
+const fallbackColors = {
+  SHADE: '#000000',
+  TEXT: '#010101',
+  PAPER: '#fefefe'
+}
+
+const format = {
+  HTML: 'html',
+  SVG: 'svg'
+}
+
 const ink = {
   BASE: 'base',
   PRIMARY: 'primary'
+}
+
+const layout = {
+  BOX: 'layoutBox',
+  CONTAINER: 'layoutContainer',
+  NONE: 'none'
 }
 
 const look = {
@@ -42,6 +60,7 @@ const conditionPropTypes = potentialIncompleteMap => oneOfPropTypeAndCompletelyM
 const inkPropTypes = PropTypes.oneOf(Object.values(ink))
 const lookPropTypes = PropTypes.oneOf(Object.values(look))
 const positionPropTypes = PropTypes.oneOf(Object.values(position))
+const layoutPropTypes = PropTypes.oneOf(Object.values(layout))
 
 export {
   animation,
@@ -50,8 +69,12 @@ export {
   conditionPropTypes,
   ink,
   inkPropTypes,
+  layout,
+  layoutPropTypes,
   look,
   lookPropTypes,
+  fallbackColors,
+  format,
   oneOfPropTypeAndCompletelyMapped,
   position,
   positionPropTypes

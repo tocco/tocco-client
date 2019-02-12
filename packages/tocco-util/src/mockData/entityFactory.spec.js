@@ -4,7 +4,7 @@ describe('tocco-util', () => {
   describe('mockData', () => {
     describe('entityFactory', () => {
       describe('createDummyEntities', () => {
-        it('should create right amount of dummy entities', () => {
+        test('should create right amount of dummy entities', () => {
           const amount = 101
           const dummyEntities = createDummyEntities(amount)
           expect(dummyEntities.length).to.eql(amount)
@@ -12,7 +12,7 @@ describe('tocco-util', () => {
       })
 
       describe('createUsers', () => {
-        it('should create right amount of user entities', () => {
+        test('should create right amount of user entities', () => {
           const amount = 99
           const users = createUsers(amount)
           expect(users.length).to.eql(amount)

@@ -1,26 +1,25 @@
 import React from 'react'
-import {appFactory, externalEvents, formData, notifier, actionEmitter} from 'tocco-util'
-
-import reducers, {sagas} from './modules/reducers'
+import {appFactory, externalEvents, formData, notifier, actionEmitter} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
 
+import reducers, {sagas} from './modules/reducers'
+import FormContainer from './containers/FormContainer'
 const packageName = 'simple-form'
 
 const EXTERNAL_EVENTS = [
   'onSubmit',
   'onCancel',
+  'onChange',
   'emitAction'
 ]
 
-const initApp = (id, input, events, publicPath) => {
-  // workaround, if container gets imported normally, karma fails
-  const Container = require('./containers/FormContainer').default
-  const content = <div><Container/></div>
+const initApp = (id, input, events = {}, publicPath) => {
+  const content = <FormContainer listApp={input.listApp}/>
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   actionEmitter.addToStore(store, events.emitAction)
   externalEvents.addToStore(store, events)
-  formData.addToStore(store)
+  formData.addToStore(store, input.formData)
   notifier.addToStore(store, false)
 
   const app = appFactory.createApp(
@@ -88,10 +87,12 @@ class SimpleFormApp extends React.Component {
 }
 
 SimpleFormApp.propTypes = {
+  hideButton: PropTypes.bool,
   submitText: PropTypes.string,
   cancelText: PropTypes.string,
   form: PropTypes.object.isRequired,
   model: PropTypes.object.isRequired,
+  formData: formData.formDataPropType,
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
     propTypes[event] = PropTypes.func
     return propTypes

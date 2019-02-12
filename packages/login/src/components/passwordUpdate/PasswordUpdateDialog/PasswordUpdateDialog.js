@@ -1,12 +1,11 @@
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
-import classNames from 'classnames'
 import {FormattedMessage, intlShape} from 'react-intl'
-import {Button, LoadMask} from 'tocco-ui'
+import {Button, LoadMask, SignalList} from 'tocco-ui'
+
 import PasswordInput from './PasswordInput'
 import ValidationRules from '../ValidationRules'
 import FailureMessage from '../FailureMessage'
-import SignalList, {SignalListItem} from 'tocco-ui/src/SignalList'
 
 class PasswordUpdateDialog extends Component {
   componentWillMount() {
@@ -95,14 +94,14 @@ class PasswordUpdateDialog extends Component {
           {
             password.newPasswordRepeat
             && password.newPassword !== password.newPasswordRepeat
-            && <SignalList>
-              <SignalListItem condition="danger" label="bla"/>
-            </SignalList>
+            && <SignalList.List>
+              <SignalList.Item condition="danger" label={<FormattedMessage id="client.login.passwordUpdate.noMatch"/>}/>
+            </SignalList.List>
           }
 
           {password.passwordUpdateFailed === true && <FailureMessage errorCode={password.passwordUpdateErrorCode}/>}
           <Button
-            className={classNames('last-element-in-block', {'update-pending': password.passwordUpdatePending})}
+            pending={password.passwordUpdatePending}
             disabled={this.isSubmittable() === false}
             ink="primary"
             label={this.msg('client.login.passwordUpdate.saveButton')}

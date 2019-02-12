@@ -1,14 +1,15 @@
-import {put, call, fork, takeLatest, all} from 'redux-saga/effects'
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
 import {fetchModel} from '../../util/api/entities'
+
+import {put, call, fork, takeLatest, all} from 'redux-saga/effects'
 
 describe('entity-list', () => {
   describe('modules', () => {
     describe('entityList', () => {
       describe('sagas', () => {
         describe('rootSaga', () => {
-          it('should fork child sagas', () => {
+          test('should fork child sagas', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal(all([
               fork(takeLatest, actions.INITIALIZE, sagas.initialize)
@@ -18,7 +19,7 @@ describe('entity-list', () => {
         })
 
         describe('loadEntityModel saga', () => {
-          it('should load model if not already loaded', () => {
+          test('should load model if not already loaded', () => {
             const entityName = 'User'
             const entityModel = {}
             const loadedModel = {}
@@ -30,7 +31,7 @@ describe('entity-list', () => {
             expect(gen.next().done).to.be.true
           })
 
-          it('should not load model if already loaded', () => {
+          test('should not load model if already loaded', () => {
             const entityName = 'User'
             const entityModel = {someContent: true}
 

@@ -4,12 +4,13 @@ import {theme} from 'styled-system'
 import {StyledButtonGroup} from '../ButtonGroup'
 import {
   declareDensity,
-  declareFlatBaseColors,
-  declareFlatPrimaryColors,
+  declareFont,
   declareInteractionColors,
-  declareOverlay,
-  declareRaisedBaseColors,
-  declareRaisedPrimaryColors,
+  generateFlatBaseColors,
+  generateFlatPrimaryColors,
+  generateRaisedBaseColors,
+  generateRaisedPrimaryColors,
+  spaceScale,
   stylingInk,
   stylingLook,
   stylingPosition
@@ -20,7 +21,7 @@ const meltButtons = props => {
   if (!props.melt && props.look === stylingLook.RAISED) {
     declaration = `
       &:not(:last-child) {
-        margin-right: ${theme('space.4')(props)};
+        margin-right: ${spaceScale(props, -1)};
       }
     `
   } else if (props.melt) {
@@ -28,13 +29,13 @@ const meltButtons = props => {
       border-radius: 0;
 
       &:first-child {
-        border-top-left-radius: ${theme('radii.2')(props)};
-        border-bottom-left-radius: ${theme('radii.2')(props)};
+        border-top-left-radius: ${theme('radii.regular')(props)};
+        border-bottom-left-radius: ${theme('radii.regular')(props)};
       }
 
       &:last-child {
-        border-top-right-radius: ${theme('radii.2')(props)};
-        border-bottom-right-radius: ${theme('radii.2')(props)};
+        border-top-right-radius: ${theme('radii.regular')(props)};
+        border-bottom-right-radius: ${theme('radii.regular')(props)};
       }
     `
   }
@@ -47,15 +48,15 @@ const declareButtonColor = props => {
   const {FLAT, RAISED} = stylingLook
   const {BASE, PRIMARY} = stylingInk
   if (look === FLAT && ink === BASE) {
-    declareColor = declareFlatBaseColors
+    declareColor = generateFlatBaseColors
   } else if (look === FLAT && ink === PRIMARY) {
-    declareColor = declareFlatPrimaryColors
+    declareColor = generateFlatPrimaryColors
   } else if (look === RAISED && ink === BASE) {
-    declareColor = declareRaisedBaseColors
+    declareColor = generateRaisedBaseColors
   } else if (look === RAISED && ink === PRIMARY) {
-    declareColor = declareRaisedPrimaryColors
+    declareColor = generateRaisedPrimaryColors
   }
-  return declareInteractionColors(declareColor(props))
+  return declareInteractionColors(declareColor(props), 'html')
 }
 
 const declareIconPosition = props => {
@@ -73,13 +74,13 @@ const StyledButton = styled.button`
   && {
     align-items: center;
     background-image: none;
-    border-radius: ${theme('radii.2')};
+    border-radius: ${theme('radii.regular')};
     border: none;
     display: inline-flex;
     margin: 0;
     position: relative;
     text-align: center;
-    text-transform: uppercase;
+    text-transform: ${props => props.theme.matchNiceDesign ? 'none' : 'uppercase'};
     vertical-align: middle;
     white-space: nowrap;
 
@@ -87,15 +88,12 @@ const StyledButton = styled.button`
       cursor: pointer;
     }
 
-    &:disabled {
-      ${props => declareOverlay(theme('overlays.disabled.color')(props), theme('overlays.disabled.opacity')(props))}
-    }
-
     &:active,
     &:focus {
-      outline: ${theme('outline')};
+      outline: none;
     }
 
+    ${props => declareFont(props)}
     ${props => declareButtonColor(props)}
     ${props => declareDensity(props)}
     ${props => declareIconPosition(props)}

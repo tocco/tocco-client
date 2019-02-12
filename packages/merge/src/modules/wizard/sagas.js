@@ -1,9 +1,12 @@
-import {takeEvery, call, fork, select, put, all} from 'redux-saga/effects'
-import {consoleLogger, externalEvents} from 'tocco-util'
+import {consoleLogger} from 'tocco-util'
+import {externalEvents} from 'tocco-app-extensions'
+
 import sendDwrRequest from '../../utils/Dwr'
 import createMergeResult from '../../utils/MergeActionResult'
 import {SAVE_MERGE, setMergeResponse} from './actions'
 import {mergingWithoutProblems} from '../../utils/MergeResponse'
+
+import {takeEvery, call, fork, select, put, all} from 'redux-saga/effects'
 
 export function sendDwr(mergeActionResult) {
   if (__DEV__) {

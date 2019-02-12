@@ -1,6 +1,7 @@
 import {connect} from 'react-redux'
+import {externalEvents, actionEmitter} from 'tocco-app-extensions'
+
 import SubGrid from '../components/SubGrid'
-import {externalEvents, actionEmitter} from 'tocco-util'
 
 const mapStateToProps = (state, props) => ({
   appId: state.entityDetail.appId,

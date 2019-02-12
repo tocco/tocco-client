@@ -3,9 +3,9 @@ import React from 'react'
 
 import MergeMatrixContainer from './../../containers/MergeMatrixContainer'
 import MergeStrategyContainer from './../../containers/MergeStrategyContainer'
-
 import {Wizard} from './../Wizard'
 import MergeResponse from './MergeResponse'
+import StyledMergeWizard from './StyledMergeWizard'
 
 class MergeStrategy extends React.Component {
   render() {
@@ -35,9 +35,9 @@ class MergeStrategy extends React.Component {
       )
     }
     return (
-      <div className="merge-wizard">
+      <StyledMergeWizard>
         {content}
-      </div>
+      </StyledMergeWizard>
     )
   }
 }

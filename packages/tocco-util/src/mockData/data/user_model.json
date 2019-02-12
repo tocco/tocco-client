@@ -28,6 +28,13 @@
       }
     },
     {
+      "fieldName": "licence_plate",
+      "type": "long",
+      "validation": {
+        "mandatory": true
+      }
+    },
+    {
       "fieldName": "email",
       "type": "email",
       "validation": {
@@ -134,6 +141,35 @@
       "type": "datetime",
       "validation": {
         "mandatory": false
+      }
+    },
+    {
+      "fieldName": "duration",
+      "type": "duration",
+      "validation": {
+        "mandatory": false
+      }
+    },
+    {
+      "fieldName": "decimal",
+      "type": "decimal",
+      "defaultValue": null,
+      "validation": {
+        "decimalDigits": {
+          "prePointDigits": 12,
+          "postPointDigits": 2
+        }
+      }
+    },
+    {
+      "fieldName": "moneyamount",
+      "type": "moneyamount",
+      "defaultValue": null,
+      "validation": {
+        "decimalDigits": {
+          "prePointDigits": 12,
+          "postPointDigits": 2
+        }
       }
     },
     {

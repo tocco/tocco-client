@@ -1,4 +1,5 @@
 import {mount} from 'enzyme'
+
 import typeEditorFactory from './typeEditorFactory'
 import StringEdit from './typeEditors/StringEdit'
 
@@ -7,7 +8,7 @@ const EMPTY_FUNC = () => {}
 describe('tocco-ui', () => {
   describe('EditableValue', () => {
     describe('typeFormatterProvider', () => {
-      it('should render a type and set props', () => {
+      test('should render a type and set props', () => {
         const wrapper = mount(
           typeEditorFactory('string', 'test', EMPTY_FUNC, {})
         )
@@ -17,11 +18,11 @@ describe('tocco-ui', () => {
         expect(typeWrapper.props().value).to.eql('test')
       })
 
-      it('should handle unknown types', () => {
+      test('should handle unknown types', () => {
         expect(typeEditorFactory('abc', 'test', EMPTY_FUNC, {})).to.be.null
       })
 
-      it('should attach events', () => {
+      test('should attach events', () => {
         const blurSpy = sinon.spy()
         const focusSpy = sinon.spy()
 

@@ -1,14 +1,16 @@
-import {fork, put, take, all} from 'redux-saga/effects'
+import {externalEvents} from 'tocco-app-extensions'
+
 import sagas, {initializeWatcher} from './sagas'
 import * as actions from './actions'
-import {externalEvents} from 'tocco-util'
+
+import {fork, put, take, all} from 'redux-saga/effects'
 
 describe('login', () => {
   describe('modules', () => {
     describe('passwordUpdate', () => {
       describe('sagas', () => {
         describe('root saga', () => {
-          it('should fork child sagas', () => {
+          test('should fork child sagas', () => {
             const generator = sagas()
             expect(generator.next().value).to.deep.equal(all([fork(initializeWatcher)]))
             expect(generator.next().done).to.equal(true)
@@ -16,7 +18,7 @@ describe('login', () => {
         })
 
         describe('initializeWatcher', () => {
-          it('should invoke initialized event', () => {
+          test('should invoke initialized event', () => {
             const generator = initializeWatcher()
             expect(generator.next().value).to.deep.equal(take(actions.INITIALIZED))
             expect(generator.next().value).to.deep.equal(put(externalEvents.fireExternalEvent('resize')))

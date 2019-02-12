@@ -1,6 +1,9 @@
-import {call} from 'redux-saga/effects'
-import {requestSaga} from 'tocco-util/src/rest'
+import {rest} from 'tocco-app-extensions'
 import _get from 'lodash/get'
+import _reduce from 'lodash/reduce'
+import {consoleLogger} from 'tocco-util'
+
+import {call} from 'redux-saga/effects'
 
 const getCreatePermission = json => {
   if (json.createPermission && typeof json.createPermission === 'boolean') {
@@ -31,41 +34,48 @@ export const defaultModelTransformer = json => {
 }
 
 export function* fetchModel(entityName, transformer = defaultModelTransformer) {
-  const resp = yield call(requestSaga, `entities/${entityName}/model`)
+  const resp = yield call(rest.requestSaga, `entities/${entityName}/model`)
   return transformer(resp.body)
 }
 
-export const entitiesListTransformer = json => {
-  return json.data.map(entity => {
-    const result = {
+export const entitiesListTransformer = json => (
+  json.data.map(entity => (
+    {
       __key: entity.key,
-      __model: entity.model
+      __model: entity.model,
+      ...(_reduce(entity.paths, (result, value, key) => ({...result, [key]: getFieldValues(value)}), {}))
     }
+  ))
+)
 
-    const paths = entity.paths
-    for (const path in paths) {
-      const type = paths[path].type
-      if (type === 'field') {
-        result[path] = paths[path].value
-      } else if (type === 'entity') {
-        result[path] = {
-          type: 'string',
-          value: paths[path].value ? paths[path].value.display : ''
-        }
-      } else if (type === 'entity-list') {
-        result[path] = {
-          type: 'string',
-          value: paths[path].value ? paths[path].value.map(v => v.display).join(', ') : ''
-        }
-      } else if (type === 'display-expression') {
-        result[path] = {
-          type: 'html',
-          value: paths[path].value
-        }
-      }
+const getFieldValues = path => {
+  const type = path.type
+  if (type === 'field') {
+    return path.value
+  } else if (type === 'entity') {
+    return {
+      type: 'string',
+      value: path.value ? path.value.display : ''
     }
-    return result
-  })
+  } else if (type === 'entity-list') {
+    return path.value.map(v => ({
+      type: 'string',
+      value: v.display
+    }))
+  } else if (type === 'display-expression') {
+    return {
+      type: 'html',
+      value: path.value
+    }
+  } else if (type === 'multi') {
+    return path.value.map(v => getFieldValues(v))
+  } else {
+    consoleLogger.log(`Unable to map type ${type}`)
+    return {
+      type: 'string',
+      value: ''
+    }
+  }
 }
 
 export const defaultEntitiesTransformer = json => (json)
@@ -111,7 +121,7 @@ export function* fetchEntities(entityName, searchInputs, transformer = defaultEn
   const queryParams = buildParams(searchInputs)
   resource = resource || `entities/${entityName}`
 
-  const response = yield call(requestSaga, resource, {
+  const response = yield call(rest.requestSaga, resource, {
     queryParams
   })
   return yield call(transformer, response.body)
@@ -121,6 +131,6 @@ export function* fetchEntityCount(entityName, searchInputs, resource) {
   const queryParams = buildParams(searchInputs)
   const countSuffix = '/count'
   resource = (resource || `entities/${entityName}`) + countSuffix
-  const response = yield call(requestSaga, resource, {queryParams})
+  const response = yield call(rest.requestSaga, resource, {queryParams})
   return response.body.count
 }

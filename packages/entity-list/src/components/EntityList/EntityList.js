@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+
 import SearchFormContainer from '../../containers/SearchFormContainer'
 import FullTextSearchForm from '../../containers/FullTextSearchFormContainer'
 import ListViewContainer from '../../containers/ListViewContainer'

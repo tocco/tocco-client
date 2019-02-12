@@ -6,7 +6,7 @@
       {
         "componentType": "action",
         "actionType": "new",
-        "icon": "fa-plus",
+        "icon": "plus",
         "label": "New"
       },
       {
@@ -14,7 +14,7 @@
         "actionType": "simple",
         "readonly": false,
         "label": "Simple Action",
-        "icon": "fa-cogs",
+        "icon": "cogs",
         "Selections": 1,
         "maxSelections": 1,
         "progressMsg": "Die Beispiel Aktion wird ausgeführt..",
@@ -33,7 +33,7 @@
             "actionType": "simple",
             "readonly": false,
             "label": "Confirm Simple Action",
-            "icon": "fa-gear",
+            "icon": "hand-paper",
             "minSelection": 1,
             "maxSelection": 1,
             "progressMsg": "Die Beispiel Aktion wird ausgeführt..",
@@ -45,7 +45,7 @@
             "actionType": "simple",
             "readonly": false,
             "label": "Simple Action (client questions)",
-            "icon": "fa-question",
+            "icon": "hand-scissors",
             "progressMsg": "Die Beispiel Aktion wird ausgeführt",
             "showConfirmMessage": false,
             "endpoint": "actions/yesNoClientQuestion"
@@ -55,7 +55,7 @@
             "actionType": "simple",
             "readonly": false,
             "label": "Form data Simple Action",
-            "icon": "fa-keyboard-o",
+            "icon": "hand-rock",
             "showConfirmMessage": false,
             "endpoint": "actions/simpleAction",
             "formDataEntityModel": "MySessionOnly",
@@ -65,7 +65,7 @@
           {
             "componentType": "action",
             "actionType": "custom",
-            "icon": "fa-compress",
+            "icon": "handshake",
             "readonly": false,
             "label": "Merge (custom action)",
             "useLabel": true,
@@ -78,7 +78,7 @@
           {
             "componentType": "action",
             "actionType": "delete",
-            "icon": "fa-trash-o",
+            "icon": "trash",
             "label": "Delete"
           },
           {
@@ -92,7 +92,7 @@
             "actionType": "simple",
             "label": "Validation Error Action",
             "endpoint": "actions/validationError",
-            "icon": "fa-exclamation-triangle"
+            "icon": "exclamation-triangle"
           }
         ]
       },
@@ -102,21 +102,43 @@
         "label": "Reports",
         "children": [
           {
-            "id": "birthday_list",
-            "label": null,
+            "id": "sample_report",
+            "label": "Sample Report",
             "componentType": "report",
             "children": [],
             "actionType": "report",
-            "icon": null,
+            "icon": "file-pdf",
             "minSelection": null,
             "maxSelection": null,
             "showConfirmMessage": false,
             "confirmationMessageText": null,
-            "runInBackgroundTask": false,
-            "formDataEntityModel": null,
-            "formDataTitle": null,
-            "formDataMessage": null,
-            "reportId": "birthday_list"
+            "reportId": "sample_report"
+          },
+          {
+            "id": "invalid_settings_report",
+            "label": "Invalid Settings Report",
+            "componentType": "report",
+            "children": [],
+            "actionType": "report",
+            "icon": "file-medical",
+            "minSelection": null,
+            "maxSelection": null,
+            "showConfirmMessage": false,
+            "confirmationMessageText": null,
+            "confirmationMessageText": null,
+            "reportId": "invalid_settings_report"
+          },
+          {
+            "id": "generate_fails_report",
+            "label": "Generate Fails Report",
+            "componentType": "report",
+            "children": [],
+            "actionType": "report",
+            "icon": "file-medical",
+            "minSelection": null,
+            "maxSelection": null,
+            "showConfirmMessage": false,
+            "reportId": "generate_fails_report"
           }
         ]
       },
@@ -180,10 +202,9 @@
               {
                 "id": "lastname",
                 "componentType": "field",
-                "readonly": false,
-                "children": [],
+                "path": "lastname",
                 "dataType": "string",
-                "label": "Nachname"
+                "label": null
               }
             ],
             "label": "Nachname",
@@ -198,9 +219,8 @@
               {
                 "id": "email",
                 "componentType": "field",
-                "readonly": false,
-                "children": [],
-                "label": "E-Mail",
+                "path": "email",
+                "label": null,
                 "dataType": "email"
               }
             ],
@@ -215,9 +235,8 @@
               {
                 "id": "birthdate",
                 "componentType": "field",
-                "readonly": false,
-                "children": [],
-                "label": "Geburi",
+                "path": "birthdate",
+                "label": null,
                 "dataType": "birthdate"
               }
             ],
@@ -233,13 +252,29 @@
               {
                 "id": "salary",
                 "componentType": "field",
-                "readonly": false,
-                "children": [],
-                "label": "Lohn",
+                "path": "salary",
+                "label": null,
                 "dataType": "moneyamount"
               }
             ],
             "label": "Lohn",
+            "sortable": true
+          },
+          {
+            "id": "licence_plate",
+            "componentType": "Column",
+            "readonly": false,
+            "children": [
+              {
+                "id": "licence_plate",
+                "componentType": "field",
+                "path": "licence_plate",
+                "dataType": "long",
+                "label": null
+              }
+            ],
+            "label": "Licence Plate",
+
             "sortable": true
           },
           {
@@ -250,9 +285,9 @@
               {
                 "id": "relSingle_entity2",
                 "componentType": "field",
-                "readonly": false,
-                "children": [],
-                "label": "Dummy Entity (n:1)"
+                "path": "relSingle_entity2",
+                "dataTime": "single-select-box",
+                "label": null
               }
             ],
             "label": "Dummy Entity (n:1)",
@@ -267,9 +302,9 @@
               {
                 "id": "phone_company",
                 "componentType": "field",
-                "readonly": false,
-                "children": [],
-                "label": "Telefon G"
+                "path": "phone_company",
+                "dataType": "phone",
+                "label": null
               }
             ],
             "label": "Telefon G",
@@ -284,9 +319,9 @@
               {
                 "id": "publish",
                 "componentType": "field",
-                "readonly": false,
-                "children": [],
-                "label": "Publiziert"
+                "path": "publish",
+                "dataType": "boolean",
+                "label": null
               }
             ],
             "label": "Publiziert",
@@ -301,9 +336,9 @@
               {
                 "id": "website",
                 "componentType": "field",
-                "readonly": false,
-                "children": [],
-                "label": "Webseite"
+                "path": "website",
+                "dataType": "url",
+                "label": null
               }
             ],
             "label": "Webseite",
@@ -318,16 +353,16 @@
               {
                 "id": "firstname",
                 "componentType": "field",
-                "readonly": false,
-                "children": [],
-                "label": "Adresse"
+                "path": "firstname",
+                "dataType": "string",
+                "label": null
               },
               {
                 "id": "lastname",
                 "componentType": "field",
-                "readonly": false,
-                "children": [],
-                "label": "Adresse"
+                "path": "firstname",
+                "dataType": "string",
+                "label": null
               }
             ],
             "label": "Fullname",
@@ -342,21 +377,42 @@
               {
                 "id": "relMulti_entity2",
                 "componentType": "field",
-                "readonly": false,
-                "children": [],
-                "label": "Dummy Entity (n:n)"
+                "path": "relMulti_entity2",
+                "dataType": "multi-select-box",
+                "label": null
               }
             ],
             "label": "Dummy Entity (n:n)",
             "sortable": true
           },
           {
-            "id": "duration",
+            "id": "relMulti_entity1.relPayment_status",
+            "label": "Status (to n path)",
+            "componentType": "column",
+            "children": [
+              {
+                "id": "relMulti_entity1.relPayment_status",
+                "label": null,
+                "componentType": "field",
+                "path": "relMulti_entity1.relPayment_status",
+                "dataType": "single-select-box",
+                "defaultValue": {
+                  "display": "Unbezahlt",
+                  "key": "2"
+                }
+              }
+            ],
+            "readonly": false,
+            "hidden": false,
+            "sortable": false
+          },
+          {
+            "id": "durationDisplay",
             "label": "Display Expression",
             "componentType": "column",
             "children": [
               {
-                "id": "duration",
+                "id": "durationDisplay",
                 "label": null,
                 "componentType": "display",
                 "language": "freemarker",
@@ -379,7 +435,7 @@
                 "name":"simpleAction",
                 "label": null,
                 "readonly": false,
-                "icon": "fa-random",
+                "icon": "random",
                 "showConfirmMessage": "false",
                 "endpoint": "actions/simpleAction"
               }
@@ -407,7 +463,7 @@
       {
         "componentType": "action",
         "actionType": "new",
-        "icon": "fa-plus",
+        "icon": "plus",
         "label": "New"
       }
     ]

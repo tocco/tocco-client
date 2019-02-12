@@ -1,4 +1,11 @@
 [
   "client.scheduler.conflictAccepted",
-  "client.scheduler.conflictExisting"
+  "client.scheduler.conflictExisting",
+  "client.scheduler.today",
+  "client.scheduler.next",
+  "client.scheduler.previous",
+  "client.scheduler.reload",
+  "client.scheduler.month",
+  "client.scheduler.week",
+  "client.scheduler.day"
 ]

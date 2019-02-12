@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import StyledSignalBox, {ALLOWED_CONDITIONS} from './StyledSignalBox'
-import {H5, Small} from '../Typography'
+import Typography from '../Typography'
 import {stylingCondition} from '../utilStyles'
 
 /**
@@ -10,9 +10,9 @@ import {stylingCondition} from '../utilStyles'
  */
 const SignalBox = props =>
   <StyledSignalBox condition={props.condition}>
-    {props.title && <H5>{props.title}</H5>}
+    {props.title && <Typography.H5>{props.title}</Typography.H5>}
     {React.Children.map(props.children, child => React.cloneElement(child))}
-    {props.meta && <Small>{props.meta}</Small>}
+    {props.meta && <Typography.Small>{props.meta}</Typography.Small>}
   </StyledSignalBox>
 
 SignalBox.defaultProps = {
@@ -21,7 +21,7 @@ SignalBox.defaultProps = {
 
 SignalBox.propTypes = {
   /**
-   * Prefer <SignalList/> and <SignalListItem/> to list items over any other typographic component.
+   * Prefer <SignalList.List/> and <SignalList.Item/> to list items over any other typographic component.
    */
   children: PropTypes.node,
   /**

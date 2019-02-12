@@ -1,8 +1,18 @@
-import styled, {css} from 'styled-components'
+import styled, {css, keyframes} from 'styled-components'
 import {theme} from 'styled-system'
 
-import {StyledIcon} from '../Icon'
-import {StyledSpan} from '../Typography/StyledTypography'
+import {spaceScale} from '../utilStyles'
+import {StyledSpan} from '../Typography/StyledMisc'
+import {StyledIconToccoWrapper} from '../IconTocco'
+
+const fadeIn = keyframes`
+  from {opacity: 0;}
+  to {opacity: 1;}
+`
+
+const fadeInAnimation = css`
+  ${fadeIn} 400ms ease-in-out both;
+`
 
 const StyledLoadMask = styled.div`
   ${props => !props.isInitialized && css`
@@ -11,17 +21,18 @@ const StyledLoadMask = styled.div`
       flex-flow: column nowrap;
       height: 100%;
       justify-content: center;
-      padding: ${theme('space.4')}
+      align-items: center;
+      padding: ${props => spaceScale(props, -1)};
       width: 100%;
+      animation: ${fadeInAnimation};
 
       > ${StyledSpan} {
-        text-align: center;
+        margin-top: ${props => spaceScale(props, -1)};
+        z-index: 1;
       }
 
-      > ${StyledIcon} {
-        font-size: ${theme('fontSizes.5')};
-        margin-bottom: ${theme('space.4')}
-        text-align: center;
+      > ${StyledIconToccoWrapper} {
+        color: ${theme('colors.primary')};
       }
     }
   `}

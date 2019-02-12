@@ -1,12 +1,12 @@
 import React from 'react'
 import {FormattedDate, injectIntl, intlShape} from 'react-intl'
-import {matchesIsoDate} from '../util/DateUtils'
 
-import {Time} from '../../Typography'
+import {matchesIsoDate} from '../util/DateUtils'
+import Typography from '../../Typography'
 
 const DateFormatter = props => {
   return (
-    <Time
+    <Typography.Time
       dateTime={props.value}
       title={props.intl.formatDate(props.value)}
     >
@@ -17,7 +17,7 @@ const DateFormatter = props => {
         day="2-digit"
         timeZone="UTC"
       />
-    </Time>
+    </Typography.Time>
   )
 }
 

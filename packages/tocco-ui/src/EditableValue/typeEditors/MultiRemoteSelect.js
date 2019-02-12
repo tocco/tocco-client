@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+
 import TetheredSelectWrap from './TetherSelectWrap'
 import Button from '../../Button/Button'
+import ValueRenderer from './select/ValueRenderer'
 
 class MultiRemoteSelect extends React.Component {
   onValueClick = v => {
@@ -50,14 +52,22 @@ class MultiRemoteSelect extends React.Component {
             disabled={this.props.readOnly}
             ref={select => { this.selectComponent = select }}
             onOpen={() => this.props.options.fetchOptions()}
+            valueRenderer={option =>
+              <ValueRenderer
+                option={option}
+                loadTooltip={this.props.options.loadTooltip}
+                tooltips={this.props.options.tooltips}
+                onValueClick={this.onValueClick}
+              />
+            }
           />
         </span>
         {this.props.options.openAdvancedSearch
         && <span style={{width: this.advancedSearchButtonWidth, float: 'right', padding: '5px'}}>
           <Button
             type="button"
-            disabled={this.props.readOnly}
-            icon="fa-search"
+            disabled={this.props.readOnly || !this.props.options.openAdvancedSearch}
+            icon="search"
             onClick={() => this.props.options.openAdvancedSearch(this.props.value)}
           />
         </span>
@@ -69,17 +79,14 @@ class MultiRemoteSelect extends React.Component {
 
 MultiRemoteSelect.propTypes = {
   onChange: PropTypes.func,
-  value: PropTypes.oneOfType([
-    PropTypes.arrayOf(
-      PropTypes.shape({
-        key: PropTypes.oneOfType([
-          PropTypes.string,
-          PropTypes.number
-        ])
-      })
-    ),
-    PropTypes.string // empty string coming from Redux Form if value null
-  ]),
+  value: PropTypes.arrayOf(
+    PropTypes.shape({
+      key: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+      ])
+    })
+  ),
   options: PropTypes.shape({
     options: PropTypes.array,
     fetchOptions: PropTypes.func,
@@ -91,7 +98,9 @@ MultiRemoteSelect.propTypes = {
     searchPromptText: PropTypes.string,
     noResultsText: PropTypes.string,
     moreOptionsAvailable: PropTypes.bool,
-    moreOptionsAvailableText: PropTypes.string
+    moreOptionsAvailableText: PropTypes.string,
+    tooltips: PropTypes.objectOf(PropTypes.string),
+    loadTooltip: PropTypes.func
   }),
   readOnly: PropTypes.bool,
   id: PropTypes.string

@@ -1,4 +1,5 @@
 import _map from 'lodash/map'
+
 import consoleLogger from '../consoleLogger'
 import {sleep} from './mockData'
 

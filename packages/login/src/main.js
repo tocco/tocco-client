@@ -1,7 +1,10 @@
 import React from 'react'
-import {appFactory, consoleLogger, externalEvents, errorLogging} from 'tocco-util'
+import {consoleLogger} from 'tocco-util'
+import {appFactory, errorLogging, externalEvents} from 'tocco-app-extensions'
 
 import * as passwordUpdate from './modules/passwordUpdate/dialog/actions'
+import * as passwordRequest from './modules/passwordRequest/actions'
+import * as login from './modules/login/actions'
 import LoginContainer from './containers/LoginContainer'
 import PasswordUpdateDialog from './containers/PasswordUpdateDialogContainer'
 import loginReducers, {sagas} from './modules/reducers'
@@ -12,7 +15,9 @@ const initLoginApp = (id, input, events, publicPath, customTheme) => {
   const actions = [
     passwordUpdate.setShowOldPasswordField(false),
     passwordUpdate.setForcedUpdate(true),
-    passwordUpdate.setStandalone(false)
+    passwordUpdate.setStandalone(false),
+    passwordRequest.setPasswordRequest(input.passwordRequest),
+    login.setUsername(input.username)
   ]
 
   const showTitle = !!input.showTitle

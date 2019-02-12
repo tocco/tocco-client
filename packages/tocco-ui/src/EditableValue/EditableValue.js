@@ -1,25 +1,30 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+
 import typeEditorFactory, {map as typeEditorFactoryMap} from './typeEditorFactory'
+import StyledEditableValue, {StyledGlobalEditableValue} from './StyledEditableValue'
 
 /**
  *  To edit values of given type.
  */
 const EditableValue = props => {
   return (
-    <span className="tocco-editable-value">
-      {
-        typeEditorFactory(
-          props.type,
-          props.value,
-          props.onChange,
-          props.options,
-          props.id,
-          props.events,
-          props.readOnly
-        )
-      }
-    </span>
+    <React.Fragment>
+      <StyledEditableValue>
+        {
+          typeEditorFactory(
+            props.type,
+            props.value,
+            props.onChange,
+            props.options,
+            props.id,
+            props.events,
+            props.readOnly
+          )
+        }
+      </StyledEditableValue>
+      <StyledGlobalEditableValue />
+    </React.Fragment>
   )
 }
 

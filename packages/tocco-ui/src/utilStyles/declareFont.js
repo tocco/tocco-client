@@ -4,14 +4,16 @@ import objectToCss from './objectToCss'
 
 const declareFont = (props, options) => {
   options = Object.assign({
-    fontFamily: theme('fontFamily.sansSerif')(props),
-    fontSize: theme('fontSizes.2')(props),
+    color: theme('colors.text')(props),
+    fontFamily: theme('fontFamily.regular')(props),
+    fontSize: `${theme('fontSize.base')(props)}rem`,
     fontStyle: 'normal',
     fontWeight: theme('fontWeights.regular')(props),
-    lineHeight: theme('lineHeights.1')(props)
+    lineHeight: theme('lineHeights.regular')(props)
   }, options)
 
   const declarations = {
+    'color': options.color,
     'font-family': options.fontFamily,
     'font-size': options.fontSize,
     'font-style': options.fontStyle,

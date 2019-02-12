@@ -1,4 +1,3 @@
-import {call, put, fork, select, takeLatest, all} from 'redux-saga/effects'
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
 import parseUrl from '../../../util/parseUrl'
@@ -6,12 +5,14 @@ import {fetchModel} from '../../../util/api/entities'
 import doShowBackButton from '../../../util/showBackButton'
 import detail from '../../../util/detail'
 
+import {call, put, fork, select, takeLatest, all} from 'redux-saga/effects'
+
 describe('entity-browser', () => {
   describe('routes', () => {
     describe('detail', () => {
       describe('sagas', () => {
         describe('rootSaga', () => {
-          it('should fork child sagas', () => {
+          test('should fork child sagas', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal(all([
               fork(takeLatest, actions.LOAD_DETAIL_PARAMS, sagas.loadEntityDetail),
@@ -21,7 +22,7 @@ describe('entity-browser', () => {
           })
 
           describe('clearDetailParams saga', () => {
-            it('set undefined detail params', () => {
+            test('set undefined detail params', () => {
               const gen = sagas.clearDetailParams()
 
               expect(gen.next().value).to.eql(put(actions.setDetailParams(undefined)))
@@ -30,7 +31,7 @@ describe('entity-browser', () => {
           })
 
           describe('loadEntityDetail saga', () => {
-            it('should set dispatch DetailParams object', () => {
+            test('should set dispatch DetailParams object', () => {
               const entityName = 'User'
               const formBase = 'UserSearch'
 
@@ -69,7 +70,7 @@ describe('entity-browser', () => {
           })
 
           describe('getTargetEntity saga', () => {
-            it('should return getTargetEntity', () => {
+            test('should return getTargetEntity', () => {
               const entityName = 'User'
               const dummyEntity = 'Dummy_Entity'
               const modelPaths = ['relDummySubGrid', 'relDummy2']

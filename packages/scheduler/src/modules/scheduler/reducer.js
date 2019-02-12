@@ -1,5 +1,6 @@
+import {reducer as reducerUtil} from 'tocco-util'
+
 import * as actions from './actions'
-import {reducers} from 'tocco-util'
 
 const removeEvents = state => ({
   ...state,
@@ -7,8 +8,8 @@ const removeEvents = state => ({
 })
 
 const ACTION_HANDLERS = {
-  [actions.SET_CALENDARS]: reducers.singleTransferReducer('calendars'),
-  [actions.SET_IS_LOADING]: reducers.singleTransferReducer('isLoading'),
+  [actions.SET_CALENDARS]: reducerUtil.singleTransferReducer('calendars'),
+  [actions.SET_IS_LOADING]: reducerUtil.singleTransferReducer('isLoading'),
   [actions.REMOVE_EVENTS]: removeEvents
 }
 

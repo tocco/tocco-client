@@ -2,8 +2,10 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {intlShape, FormattedMessage} from 'react-intl'
 import classNames from 'classnames'
+
 import EditOption from './EditOption'
 import {SourceEntityAction} from '../../types/SourceEntityAction'
+import StyledMergeStrategyAnswer from './StyledMergeStrategyAnswer'
 
 class MergeStrategy extends React.Component {
   render() {
@@ -16,7 +18,7 @@ class MergeStrategy extends React.Component {
         <form>
           <div>
             <h5><FormattedMessage id="client.merge.copyRelationsTitle"/></h5>
-            <div className="answer">
+            <StyledMergeStrategyAnswer>
               <div onClick={() => this.props.changeStrategy('copyRelations', true)}>
                 <input
                   type="radio"
@@ -35,11 +37,11 @@ class MergeStrategy extends React.Component {
                 />
                 <span className="p-l-5"><FormattedMessage id="client.merge.no"/></span>
               </div>
-            </div>
+            </StyledMergeStrategyAnswer>
           </div>
           <div>
             <h5><FormattedMessage id="client.merge.strategyTitle"/></h5>
-            <div className="answer">
+            <StyledMergeStrategyAnswer>
               <select
                 className="form-control"
                 value={this.props.strategies.sourceEntityAction}
@@ -58,12 +60,11 @@ class MergeStrategy extends React.Component {
                     </option>
                   )
                 }
-
               </select>
-            </div>
+            </StyledMergeStrategyAnswer>
             <div className={editClassNames}>
               <h5><FormattedMessage id="client.merge.editTitle"/></h5>
-              <div className="answer">
+              <StyledMergeStrategyAnswer>
                 {
                   this.props.editOptions.map((editOption, idx) => {
                     return <EditOption
@@ -74,7 +75,7 @@ class MergeStrategy extends React.Component {
                     />
                   })
                 }
-              </div>
+              </StyledMergeStrategyAnswer>
             </div>
           </div>
         </form>

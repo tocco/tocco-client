@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import TetheredSelectWrap from './TetherSelectWrap'
 import _isEmpty from 'lodash/isEmpty'
+
+import TetheredSelectWrap from './TetherSelectWrap'
+import ValueRenderer from './select/ValueRenderer'
 
 const MultiSelect = props => {
   const handleChange = value => {
@@ -28,6 +30,9 @@ const MultiSelect = props => {
         disabled={props.readOnly}
         ref={select => { selectComponent = select }}
         isLoading={props.options.isLoading}
+        valueRenderer={option =>
+          <ValueRenderer option={option} loadTooltip={props.options.loadTooltip} tooltips={props.options.tooltips}/>
+        }
       />
     </span>
   )
@@ -35,10 +40,7 @@ const MultiSelect = props => {
 
 MultiSelect.propTypes = {
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.string // empty string coming from Redux Form if value null
-  ]),
+  value: PropTypes.array,
   options: PropTypes.shape({
     store: PropTypes.arrayOf(
       PropTypes.shape({
@@ -46,7 +48,9 @@ MultiSelect.propTypes = {
         label: PropTypes.string
       })),
     isLoading: PropTypes.bool,
-    noResultsText: PropTypes.string
+    noResultsText: PropTypes.string,
+    tooltips: PropTypes.objectOf(PropTypes.string),
+    loadTooltip: PropTypes.func
   }),
   readOnly: PropTypes.bool,
   id: PropTypes.string

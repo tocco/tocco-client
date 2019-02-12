@@ -1,15 +1,17 @@
-import {argv} from 'yargs'
 import path from 'path'
+import fs from 'fs'
+
+import {argv} from 'yargs'
 import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
 import CleanWebpackPlugin from 'clean-webpack-plugin'
-import config from '../config'
-import logger from './lib/logger'
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
 import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
-import fs from 'fs'
+
+import config from '../config'
+import logger from './lib/logger'
 
 const paths = config.utils_paths
 const {__DEV__, __PROD__, __STANDALONE__, __TEST__, __PACKAGE__} = config.globals
@@ -25,7 +27,7 @@ const webpackConfig = {
   mode: __PROD__ ? 'production' : 'development',
   name: 'client',
   target: 'web',
-  devtool: __PROD__ ? 'source-map' : 'eval',
+  devtool: 'source-map',
   resolve: {
     modules: [
       path.resolve(paths.client(), packageDir, 'src'),
@@ -82,7 +84,7 @@ webpackConfig.output = {
 // Plugins
 // ------------------------------------
 webpackConfig.plugins = [
-  new CleanWebpackPlugin(['dist'], {root: absolutePackagePath}),
+  new CleanWebpackPlugin(['dist'], {root: absolutePackagePath, verbose: false}),
   new webpack.DefinePlugin(config.globals),
   new LodashModuleReplacementPlugin({
     shorthands: true,
@@ -150,19 +152,6 @@ if (__DEV__) {
   )
 }
 
-// see: https://github.com/karma-runner/karma-sauce-launcher/issues/95
-if (!process || !process.env || !process.env.DISABLE_ISTANBUL_COVERAGE) {
-  logger.info('Enable instanbul test plugin.')
-  testPlugins.push(['istanbul', {
-    exclude: [
-      '**/dev/**',
-      '**/dist/**',
-      '**/example.js',
-      '**/*/*.spec.js'
-    ]
-  }])
-}
-
 if (argv['bundle-analyzer']) {
   webpackConfig.plugins.push(new BundleAnalyzerPlugin({
     analyzerMode: 'static',
@@ -183,10 +172,6 @@ webpackConfig.module.rules = [
       cacheDirectory: true,
       plugins: [
         ['transform-imports', {
-          'tocco-ui': {
-            'transform': 'tocco-ui/src/${member}', // eslint-disable-line no-template-curly-in-string
-            'preventFullImport': true
-          },
           'tocco-util': {
             'transform': 'tocco-util/src/${member}', // eslint-disable-line no-template-curly-in-string
             'preventFullImport': true

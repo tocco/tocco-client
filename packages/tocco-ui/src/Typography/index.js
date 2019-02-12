@@ -1,31 +1,20 @@
+import InjectFont from './Font'
 import {
   H1,
   H2,
   H3,
   H4,
   H5,
-  H6} from './Heading'
-import {
-  StyledH1,
-  StyledH2,
-  StyledH3,
-  StyledH4,
-  StyledH5,
-  StyledH6} from './StyledHeading'
+  H6
+} from './Heading'
 import {
   Dd,
   Dt,
   Dl,
   Li,
   Ol,
-  Ul} from './List'
-import {
-  StyledDd,
-  StyledDt,
-  StyledDl,
-  StyledLi,
-  StyledOl,
-  StyledUl} from './StyledList'
+  Ul
+} from './List'
 import {
   B,
   Code,
@@ -41,12 +30,30 @@ import {
   Q,
   S,
   Small,
+  Span,
   Strong,
   Sub,
   Sup,
   Time,
   U,
-  Var} from './Misc'
+  Var
+} from './Misc'
+import {
+  StyledH1,
+  StyledH2,
+  StyledH3,
+  StyledH4,
+  StyledH5,
+  StyledH6
+} from './StyledHeading'
+import {
+  StyledDd,
+  StyledDt,
+  StyledDl,
+  StyledLi,
+  StyledOl,
+  StyledUl
+} from './StyledList'
 import {
   StyledB,
   StyledCode,
@@ -62,49 +69,17 @@ import {
   StyledQ,
   StyledS,
   StyledSmall,
+  StyledSpan,
   StyledStrong,
   StyledSub,
   StyledSup,
   StyledTime,
   StyledU,
-  StyledVar} from './StyledMisc'
-import Span from './Typography'
-import {
-  declareTypograhpy,
-  StyledSpan
-} from './StyledTypography'
-import InjectFontRoboto from './Font'
+  StyledVar
+} from './StyledMisc'
+export {declareTypograhpy} from './styledTypography'
 
 export {
-  B,
-  Code,
-  Dd,
-  declareTypograhpy,
-  Del,
-  Dl,
-  Dt,
-  Em,
-  Figcaption,
-  H1,
-  H2,
-  H3,
-  H4,
-  H5,
-  H6,
-  I,
-  Ins,
-  InjectFontRoboto,
-  Kbd,
-  Li,
-  Mark,
-  Ol,
-  P,
-  Pre,
-  Q,
-  S,
-  Small,
-  Span,
-  Strong,
   StyledB,
   StyledCode,
   StyledDd,
@@ -137,11 +112,42 @@ export {
   StyledTime,
   StyledU,
   StyledUl,
-  StyledVar,
+  StyledVar
+}
+
+export default {
+  H1,
+  H2,
+  H3,
+  H4,
+  H5,
+  H6,
+  Dd,
+  Dt,
+  Dl,
+  Li,
+  Ol,
+  Ul,
+  B,
+  Code,
+  Del,
+  Em,
+  Figcaption,
+  I,
+  Ins,
+  Kbd,
+  Mark,
+  P,
+  Pre,
+  Q,
+  S,
+  Small,
+  Span,
+  Strong,
   Sub,
   Sup,
   Time,
   U,
-  Ul,
-  Var
+  Var,
+  InjectFont
 }

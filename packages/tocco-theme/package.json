@@ -1,6 +1,6 @@
 {
   "name": "tocco-theme",
-  "version": "0.2.1",
+  "version": "0.2.4",
   "description": "styling framework",
   "main": "dist/index.js",
   "scripts": {
@@ -13,7 +13,6 @@
   },
   "devDependencies": {
     "bootstrap-sass": "^3.3.7",
-    "font-awesome": "^4.7.0",
     "react-select": "^1.0.0-rc.10"
   }
 }

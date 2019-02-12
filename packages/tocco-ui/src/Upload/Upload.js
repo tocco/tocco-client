@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import _isEqual from 'lodash/isEqual'
+
 import View from './View'
 import UploadProgress from './UploadProgress'
 import UploadInput from './UploadInput'

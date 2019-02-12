@@ -2,9 +2,10 @@ import {theme} from 'styled-system'
 import styled from 'styled-components'
 
 import {StyledSignalListItem} from '../SignalList'
-
 import {
   oneOfPropTypeAndCompletelyMapped,
+  shadeColor,
+  spaceScale,
   stylingCondition
 } from '../utilStyles'
 
@@ -16,23 +17,23 @@ const ALLOWED_CONDITIONS = [
 ]
 
 const COLORS = {
-  [stylingCondition.DANGER]: theme('colors.signal.dangerBg'),
-  [stylingCondition.SUCCESS]: theme('colors.signal.successBg'),
-  [stylingCondition.WARNING]: theme('colors.signal.warningBg'),
-  [stylingCondition.BASE]: theme('colors.base.fill.1')
+  [stylingCondition.DANGER]: theme('colors.signal.danger.paper'),
+  [stylingCondition.SUCCESS]: theme('colors.signal.success.paper'),
+  [stylingCondition.WARNING]: theme('colors.signal.warning.paper'),
+  [stylingCondition.BASE]: props => shadeColor(theme('colors.paper')(props), 1)
 }
 
 const getColor = props => {
   const color = COLORS[props.condition]
-  return color || theme('colors.base.fill.1')
+  return color || shadeColor(theme('colors.paper')(props), 1)
 }
 
 const StyledSignalBox = styled.div`
   && {
     background-color: ${props => getColor(props)};
-    padding: ${theme('space.5')};
-    margin-bottom: ${theme('space.5')};
-    border-radius: ${theme('radii.2')};
+    padding: ${props => spaceScale(props, -1)};
+    margin-bottom: ${props => spaceScale(props, -1)};
+    border-radius: ${theme('radii.regular')};
 
     &:last-child {
       margin-bottom: 0;

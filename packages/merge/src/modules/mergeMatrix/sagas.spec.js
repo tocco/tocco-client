@@ -1,13 +1,14 @@
-import {put, select} from 'redux-saga/effects'
 import * as sagas from './sagas'
 import {selectSourceField, selectSourceRelation} from './selections/actions'
+
+import {put, select} from 'redux-saga/effects'
 
 describe('merge', () => {
   describe('modules', () => {
     describe('MergeMatrix', () => {
       describe('sagas', () => {
         describe('selectTargetEntityFields', () => {
-          it('should dispatch the selection of new target entity', () => {
+          test('should dispatch the selection of new target entity', () => {
             const generator = sagas.selectTargetEntityFields({payload: {pk: '1'}})
 
             const state = {

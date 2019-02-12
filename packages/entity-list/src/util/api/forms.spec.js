@@ -1,13 +1,15 @@
-import {call} from 'redux-saga/effects'
-import {requestSaga} from 'tocco-util/src/rest'
+import {rest} from 'tocco-app-extensions'
+
 import * as forms from './forms'
+
+import {call} from 'redux-saga/effects'
 
 describe('entity-list', () => {
   describe('util', () => {
     describe('api', () => {
       describe('forms', () => {
         describe('getSorting', () => {
-          it('should return sorting array of table', () => {
+          test('should return sorting array of table', () => {
             const sorting = [ {
               'field': 'user_nr',
               'order': 'asc'
@@ -24,7 +26,7 @@ describe('entity-list', () => {
             expect(result).to.eql(sorting)
           })
 
-          it('should return empty array in case of no sorting', () => {
+          test('should return empty array in case of no sorting', () => {
             const formDefinition = {
               children: [{
                 layoutType: 'table',
@@ -37,20 +39,20 @@ describe('entity-list', () => {
         })
 
         describe('searchFormTransformer', () => {
-          it('should return the form property', () => {
+          test('should return the form property', () => {
             const fetchResult = require('../../dev/test-data/user_search.json')
             const result = forms.searchFormTransformer(fetchResult)
             expect(result).to.eql(fetchResult.form)
           })
 
-          it('should return undefined if form is missing', () => {
+          test('should return undefined if form is missing', () => {
             const result = forms.searchFormTransformer({})
             expect(result).to.eql(undefined)
           })
         })
 
         describe('getColumnDefinition', () => {
-          it('should return an array', () => {
+          test('should return an array', () => {
             const field1 = {id: 'name1', componentType: 'field', dataType: 'string', label: 'label'}
             const field2 = {id: 'name2', componentType: 'field', dataType: 'string', label: 'label'}
 
@@ -82,7 +84,7 @@ describe('entity-list', () => {
             expect(result).to.eql(expectedColumnDefinition)
           })
 
-          it('should ignore HIDDEN columns and hidden fields', () => {
+          test('should ignore HIDDEN columns and hidden fields', () => {
             const field1 = {id: 'name1', componentType: 'field', label: 'label'}
             const field2Hidden = {id: 'name2', componentType: 'field', hidden: true, label: 'label'}
 
@@ -121,10 +123,10 @@ describe('entity-list', () => {
         })
 
         describe('fetchForm', () => {
-          it('should fetch the form', () => {
+          test('should fetch the form', () => {
             const gen = forms.fetchForm('User_search')
 
-            expect(gen.next().value).to.eql(call(requestSaga, 'forms/User_search', {
+            expect(gen.next().value).to.eql(call(rest.requestSaga, 'forms/User_search', {
               acceptedStatusCodes: [404]
             }))
 
@@ -144,10 +146,10 @@ describe('entity-list', () => {
             expect(next.done).to.be.true
           })
 
-          it('should ignore 404 errors', () => {
+          test('should ignore 404 errors', () => {
             const gen = forms.fetchForm('User_search')
 
-            expect(gen.next().value).to.eql(call(requestSaga, 'forms/User_search', {
+            expect(gen.next().value).to.eql(call(rest.requestSaga, 'forms/User_search', {
               acceptedStatusCodes: [404]
             }))
 
@@ -161,7 +163,7 @@ describe('entity-list', () => {
         })
 
         describe('getFields', () => {
-          it('should return array of all fields but none more than once', () => {
+          test('should return array of all fields but none more than once', () => {
             const formDefintion = {
               children: [{
                 componentType: 'table',
@@ -201,7 +203,7 @@ describe('entity-list', () => {
             expect(result).to.eql(['firstname', 'lastname', 'email'])
           })
 
-          it('should ignore actions and other fields', () => {
+          test('should ignore actions and other fields', () => {
             const formDefinition = {
               children: [{
                 componentType: 'table',
@@ -252,17 +254,17 @@ describe('entity-list', () => {
             }]
           })
 
-          it('should return seletable boolean of the form definition', () => {
+          test('should return seletable boolean of the form definition', () => {
             const result = forms.getSelectable(getFormDefinition(true))
             expect(result).to.be.true
           })
 
-          it('should return seletable boolean false of the form definition', () => {
+          test('should return seletable boolean false of the form definition', () => {
             const result = forms.getSelectable(getFormDefinition(false))
             expect(result).to.be.false
           })
 
-          it('should return true if selectable not in defintion', () => {
+          test('should return true if selectable not in defintion', () => {
             const result = forms.getSelectable(getFormDefinition(null))
             expect(result).to.be.true
           })
@@ -277,18 +279,18 @@ describe('entity-list', () => {
             }]
           })
 
-          it('should return endpoint', () => {
+          test('should return endpoint', () => {
             const endpoint = 'nice2/rest/xc'
             const result = forms.getEndpoint(getFormDefinition(endpoint))
             expect(result).to.eql(endpoint)
           })
 
-          it('should return null if endpoint is not defined', () => {
+          test('should return null if endpoint is not defined', () => {
             const result = forms.getEndpoint(getFormDefinition(null))
             expect(result).to.be.null
           })
 
-          it('should return null if endpoint is empty', () => {
+          test('should return null if endpoint is empty', () => {
             const result = forms.getEndpoint(getFormDefinition(''))
             expect(result).to.be.null
           })

@@ -1,16 +1,18 @@
-import {call} from 'redux-saga/effects'
-import {requestSaga} from 'tocco-util/src/rest'
+import {rest} from 'tocco-app-extensions'
+
 import * as entities from './entities'
+
+import {call} from 'redux-saga/effects'
 
 describe('entity-browser', () => {
   describe('util', () => {
     describe('api', () => {
       describe('entities', () => {
         describe('fetchModel', () => {
-          it('should call request saga and transform response', () => {
+          test('should call request saga and transform response', () => {
             const gen = entities.fetchModel('User')
 
-            expect(gen.next().value).to.eql(call(requestSaga, 'entities/User/model'))
+            expect(gen.next().value).to.eql(call(rest.requestSaga, 'entities/User/model'))
 
             const resp = {
               body: {
@@ -46,7 +48,7 @@ describe('entity-browser', () => {
         })
 
         describe('defaultModelTransformer', () => {
-          it('should return an object with field names as key', () => {
+          test('should return an object with field names as key', () => {
             const fetchResult = {
               name: 'User',
               fields: [

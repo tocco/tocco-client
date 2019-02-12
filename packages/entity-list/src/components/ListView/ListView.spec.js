@@ -1,9 +1,10 @@
 import React from 'react'
-import ListView from './ListView'
 import {IntlStub} from 'tocco-test-util'
 import {shallow} from 'enzyme'
+import {actions} from 'tocco-app-extensions'
+
 import TableContainer from '../../containers/TableContainer'
-import {actions} from 'tocco-util'
+import ListView from './ListView'
 
 const EMPTY_FUNC = () => {}
 
@@ -38,7 +39,7 @@ const props = {
 describe('entity-list', () => {
   describe('components', () => {
     describe('ListView', () => {
-      it('should render ', () => {
+      test('should render ', () => {
         const wrapper = shallow(<ListView {...props}/>)
         expect(wrapper.find(TableContainer)).to.have.length(1)
         expect(wrapper.find(actions.Action)).to.have.length(2)

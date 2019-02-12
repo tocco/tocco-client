@@ -1,4 +1,6 @@
 {
   "showTitle": true,
-  "locale": "de-CH"
+  "locale": "de-CH",
+  "passwordRequest": false,
+  "username": ""
 }

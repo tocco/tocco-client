@@ -1,6 +1,8 @@
+import {externalEvents} from 'tocco-app-extensions'
+
 import * as actions from './actions'
+
 import {put, fork, take, all} from 'redux-saga/effects'
-import {externalEvents} from 'tocco-util'
 
 export function* initializeWatcher() {
   yield take(actions.INITIALIZED)

@@ -1,10 +1,17 @@
 import styled from 'styled-components'
 import {theme} from 'styled-system'
 
+import {
+  declareFont,
+  shadeColor,
+  spaceScale
+} from '../utilStyles'
+
 const StyledUploadInput = styled.div`
-  border: dashed 1px ${theme('colors.base.fill.2')};
-  border-radius: ${theme('radii.2')};
-  padding: ${theme('space.3')} ${theme('space.4')};
+  ${props => declareFont(props)}
+  border: dashed 1px ${props => shadeColor(theme('colors.paper')(props), 1)};
+  border-radius: ${theme('radii.regular')};
+  padding: ${props => spaceScale(props, -2)} ${props => spaceScale(props, -1)};
   cursor: pointer;
 
   &[aria-disabled="true"] {

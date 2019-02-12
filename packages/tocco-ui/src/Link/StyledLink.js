@@ -4,7 +4,8 @@ import {theme} from 'styled-system'
 import {
   declareFont,
   declareNoneWrappingText,
-  declareWrappingText
+  declareWrappingText,
+  shadeColor
 } from '../utilStyles'
 
 const StyledLink = styled.a`
@@ -12,16 +13,24 @@ const StyledLink = styled.a`
   ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
 
   && {
-    color: ${theme('colors.primary.line.0')}
-    text-decoration: none;
+    color: ${props => props.neutral
+    ? theme('colors.text')
+    : theme('colors.primary')};
+    text-decoration: ${props => props.neutral ? 'underline' : 'none'};
 
     &:hover,
     &:focus {
-      color: ${theme('colors.primary.line.1')}
+      color: ${props => props.neutral
+    ? shadeColor(theme('colors.text')(props), 1)
+    : shadeColor(theme('colors.primary')(props), 1)};
+      text-decoration: ${props => props.neutral ? 'none' : 'underline'};
     }
 
     &:active {
-      color: ${theme('colors.primary.line.2')}
+      color: ${props => props.neutral
+    ? shadeColor(theme('colors.text')(props), 2)
+    : shadeColor(theme('colors.primary')(props), 2)};
+      text-decoration: ${props => props.neutral ? 'none' : 'underline'};
     }
   }
 `

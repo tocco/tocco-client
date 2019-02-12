@@ -1,0 +1,327 @@
+{
+  "_links": {},
+  "customSettings": {
+    "entity": {
+      "_links": {
+        "self": {
+          "href": "http://localhost:8080/nice2/rest/entities/Bill_report_settings/model"
+        }
+      },
+      "createPermission": false,
+      "fields": [
+        {
+          "defaultValue": null,
+          "fieldName": "pk",
+          "type": "serial",
+          "validation": {
+            "numberRange": {
+              "fromIncluding": 1.0,
+              "toIncluding": 9.223372036854776e+18
+            }
+          }
+        },
+        {
+          "defaultValue": null,
+          "fieldName": "print_article_description",
+          "type": "boolean",
+          "validation": {}
+        },
+        {
+          "defaultValue": null,
+          "fieldName": "print_copy_background_image",
+          "type": "boolean",
+          "validation": {}
+        },
+        {
+          "defaultValue": null,
+          "fieldName": "sorting",
+          "type": "string",
+          "validation": {
+            "mandatory": false
+          }
+        },
+        {
+          "defaultValue": null,
+          "fieldName": "display_postage",
+          "type": "boolean",
+          "validation": {}
+        },
+        {
+          "defaultValue": null,
+          "fieldName": "version",
+          "type": "version",
+          "validation": {}
+        },
+        {
+          "defaultValue": null,
+          "fieldName": "create_timestamp",
+          "type": "createts",
+          "validation": {}
+        },
+        {
+          "defaultValue": null,
+          "fieldName": "update_timestamp",
+          "type": "updatets",
+          "validation": {}
+        },
+        {
+          "defaultValue": null,
+          "fieldName": "create_user",
+          "type": "createuser",
+          "validation": {}
+        },
+        {
+          "defaultValue": null,
+          "fieldName": "update_user",
+          "type": "updateuser",
+          "validation": {}
+        }
+      ],
+      "id": "Bill_report_settings",
+      "relations": []
+    },
+    "form": {
+      "_links": {
+        "self": {
+          "href": "http://localhost:8080/nice2/rest/forms/Bill_report_settings_detail"
+        }
+      },
+      "form": {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "componentType": "field",
+                            "dataType": "boolean",
+                            "defaultValue": null,
+                            "id": "print_article_description",
+                            "label": null,
+                            "path": "print_article_description"
+                          }
+                        ],
+                        "componentType": "field-set",
+                        "hidden": false,
+                        "id": "print_article_description",
+                        "label": "Mit Artikelbeschr.",
+                        "readonly": false,
+                        "scopes": []
+                      },
+                      {
+                        "children": [
+                          {
+                            "componentType": "field",
+                            "dataType": "boolean",
+                            "defaultValue": null,
+                            "id": "print_copy_background_image",
+                            "label": null,
+                            "path": "print_copy_background_image"
+                          }
+                        ],
+                        "componentType": "field-set",
+                        "hidden": false,
+                        "id": "print_copy_background_image",
+                        "label": "Kopie",
+                        "readonly": false,
+                        "scopes": []
+                      },
+                      {
+                        "children": [
+                          {
+                            "componentType": "field",
+                            "dataType": "boolean",
+                            "defaultValue": null,
+                            "id": "display_postage",
+                            "label": null,
+                            "path": "display_postage"
+                          }
+                        ],
+                        "componentType": "field-set",
+                        "hidden": false,
+                        "id": "display_postage",
+                        "label": "P.P. Frankatur",
+                        "readonly": false,
+                        "scopes": []
+                      },
+                      {
+                        "children": [
+                          {
+                            "componentType": "field",
+                            "dataType": "string",
+                            "defaultValue": null,
+                            "id": "sorting",
+                            "label": null,
+                            "path": "sorting"
+                          }
+                        ],
+                        "componentType": "field-set",
+                        "hidden": false,
+                        "id": "sorting",
+                        "label": "Sortierung",
+                        "readonly": false,
+                        "scopes": []
+                      }
+                    ],
+                    "componentType": "layout",
+                    "id": "master_data",
+                    "label": "Stammdaten",
+                    "layoutType": "vertical-box"
+                  }
+                ],
+                "componentType": "layout",
+                "id": "box1",
+                "label": null,
+                "layoutType": "vertical-box"
+              }
+            ],
+            "componentType": "layout",
+            "id": "box1",
+            "label": null,
+            "layoutType": "horizontal-box"
+          }
+        ],
+        "componentType": "form",
+        "id": "Bill_report_settings_detail",
+        "label": null,
+        "modelid": "Bill_report_settings",
+        "readonly": false
+      },
+      "model": "Bill_report_settings"
+    }
+  },
+  "description": {
+    "ignoreSelection": false,
+    "name": "Sample Report"
+  },
+  "generalSettings": [
+    {
+      "defaultValue": "Rechnung",
+      "description": null,
+      "disabled": false,
+      "label": "Dateiid",
+      "id": "fileid",
+      "options": null,
+      "dataType": "string"
+    },
+    {
+      "defaultValue": null,
+      "description": null,
+      "disabled": false,
+      "label": "Archivierung",
+      "id": "archiveType",
+      "options": [
+        {
+          "display": "Nicht archiviert",
+          "key": "not_archived"
+        },
+        {
+          "display": "Archiviert",
+          "key": "archived"
+        },
+        {
+          "display": "Archiviert mit Publikation",
+          "key": "archived_and_published"
+        }
+      ],
+      "dataType": "single-select-box"
+    },
+    {
+      "defaultValue": {"key": "de", "display": "Deutsch"},
+      "description": null,
+      "disabled": false,
+      "label": "Sprache",
+      "id": "language",
+      "options": [
+        {
+          "display": "Deutsch",
+          "key": "de"
+        },
+        {
+          "display": "Englisch",
+          "key": "en"
+        },
+        {
+          "display": "Franz\u00f6sisch",
+          "key": "fr"
+        },
+        {
+          "display": "Italienisch",
+          "key": "it"
+        }
+      ],
+      "dataType": "single-select-box"
+    },
+    {
+      "defaultValue": {"key": "tocco_standard", "display": "Tocco Standard"},
+      "description": null,
+      "disabled": false,
+      "label": "Corporate Design",
+      "id": "corporateDesign",
+      "options": [
+        {
+          "display": "Tocco Standard",
+          "key": "tocco_standard"
+        },
+        {
+          "display": "test1 (saldobesteuert)",
+          "key": "test1"
+        },
+        {
+          "display": "test2",
+          "key": "test2"
+        },
+        {
+          "display": "Korrespondenz",
+          "key": "correspondence_migration"
+        }
+      ],
+      "dataType": "single-select-box"
+    },
+    {
+      "defaultValue": false,
+      "description": null,
+      "disabled": false,
+      "label": "Briefpapier",
+      "id": "stationery",
+      "options": null,
+      "dataType": "boolean"
+    },
+    {
+      "defaultValue": false,
+      "description": "Datum setzen f\u00fcr \"Rechnung versendet\"",
+      "disabled": false,
+      "label": null,
+      "id": "afterReportFunction",
+      "options": null,
+      "dataType": "boolean"
+    }
+  ],
+  "recipientSettings": [
+    {
+      "dataType": "multi-select-box",
+      "defaultValue": [],
+      "label": "test",
+      "id": "recipients",
+      "options": [
+        {
+          "display": "Auftrag (1)",
+          "key": "33"
+        }
+      ]
+    },
+    {
+      "dataType": "multi-remote-field",
+      "defaultValue": [],
+      "label": "Remote",
+      "id": "recipients2",
+      "options": null,
+      "targetEntity": "User",
+      "multi": true
+    }
+  ]
+}

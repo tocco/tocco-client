@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-import {theme} from 'styled-system'
+
+import {spaceScale} from '../utilStyles'
 
 const StyledView = styled.div`
     display: inline-block;
@@ -7,9 +8,9 @@ const StyledView = styled.div`
 
     > div {
       position: absolute;
-      top: ${theme('space.4')};
-      right: ${theme('space.4')};
-      left: ${theme('space.4')};
+      top: ${props => spaceScale(props, -1)};
+      right: ${props => spaceScale(props, -1)};
+      left: ${props => spaceScale(props, -1)};
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;

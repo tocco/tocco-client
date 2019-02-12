@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+
 import TetheredSelectWrap from './TetherSelectWrap'
 import Button from '../../Button/Button'
+import ValueRenderer from './select/ValueRenderer'
 
 class RemoteSelect extends React.Component {
   onValueClick = v => {
@@ -37,7 +39,6 @@ class RemoteSelect extends React.Component {
             multi={false}
             value={this.props.value}
             onChange={this.props.onChange}
-            onValueClick={this.onValueClick}
             filterOption={() => (true)}
             autoload={false}
             onInputChange={searchTerm => {
@@ -50,14 +51,22 @@ class RemoteSelect extends React.Component {
             isLoading={this.props.options.isLoading}
             disabled={this.props.readOnly}
             ref={select => { this.selectComponent = select }}
+            valueRenderer={option =>
+              <ValueRenderer
+                option={option}
+                loadTooltip={this.props.options.loadTooltip}
+                tooltips={this.props.options.tooltips}
+                onValueClick={this.onValueClick}
+              />
+            }
           />
         </span>
         {this.props.options.openAdvancedSearch
         && <span style={{width: this.advancedSearchButtonWidth, float: 'right', padding: '5px'}}>
           <Button
-            disabled={this.props.readOnly}
+            disabled={this.props.readOnly || !this.props.options.openAdvancedSearch}
             type="button"
-            icon="fa-search"
+            icon="search"
             onClick={() => this.props.options.openAdvancedSearch(this.props.value)}
           />
         </span>
@@ -69,15 +78,12 @@ class RemoteSelect extends React.Component {
 
 RemoteSelect.propTypes = {
   onChange: PropTypes.func,
-  value: PropTypes.oneOfType([
-    PropTypes.shape({
-      key: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-      ])
-    }),
-    PropTypes.string // empty string coming from Redux Form if value null
-  ]),
+  value: PropTypes.shape({
+    key: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ])
+  }),
   options: PropTypes.shape({
     options: PropTypes.array,
     fetchOptions: PropTypes.func,
@@ -89,7 +95,9 @@ RemoteSelect.propTypes = {
     noResultsText: PropTypes.string,
     moreOptionsAvailable: PropTypes.bool,
     moreOptionsAvailableText: PropTypes.string,
-    openAdvancedSearch: PropTypes.func
+    openAdvancedSearch: PropTypes.func,
+    tooltips: PropTypes.objectOf(PropTypes.string),
+    loadTooltip: PropTypes.func
   }),
   readOnly: PropTypes.bool,
   id: PropTypes.string

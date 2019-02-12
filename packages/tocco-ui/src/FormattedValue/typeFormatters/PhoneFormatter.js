@@ -1,11 +1,35 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {parseNumber, formatNumber} from 'libphonenumber-js'
 import _isEmpty from 'lodash/isEmpty'
 
-const PhoneFormatter = props => {
-  const parsed = parseNumber(props.value)
-  return <span>{_isEmpty(parsed) ? props.value : formatNumber(parsed, 'International')}</span>
+import Typography from '../../Typography'
+
+class PhoneFormatter extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {libPhoneImport: null}
+    this.importLibPhoneNumber()
+  }
+
+  async importLibPhoneNumber() {
+    const libPhoneImport = await import(/* webpackChunkName: "libphonenumber-js" */ 'libphonenumber-js')
+    this.setState({libPhoneImport})
+  }
+
+  getFormattedInput = () => {
+    const {libPhoneImport} = this.state
+    const {value} = this.props
+    if (libPhoneImport) {
+      const parsed = libPhoneImport.parseNumber(value)
+      return _isEmpty(parsed) ? value : libPhoneImport.formatNumber(parsed, 'International')
+    } else {
+      return value
+    }
+  }
+
+  render() {
+    return <Typography.Span>{this.getFormattedInput()}</Typography.Span>
+  }
 }
 
 PhoneFormatter.propTypes = {

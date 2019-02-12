@@ -1,5 +1,6 @@
 /* eslint no-console: 0 */
 import React from 'react'
+
 import Link from './'
 // real-import:import {Link} from 'tocco-ui'
 
@@ -13,6 +14,10 @@ export default () => {
         href="#Link"
         label="Standard link"/><br/>
       <Link
+        href="#Link"
+        label="Neutral link"
+        neutral /><br/>
+      <Link
         alt="alt text"
         href="#Link"
         label="Link with alternative text and title"
@@ -20,12 +25,12 @@ export default () => {
       /><br/>
       <Link
         href="mailto:info@test.com"
-        icon="fa-envelope-o"
+        icon="envelope"
         label="Mailto link"
       /><br/>
       <Link
         href="tel:1234567890"
-        icon="fa-phone"
+        icon="phone"
         label="Phone Link"
       /><br/>
       <Link

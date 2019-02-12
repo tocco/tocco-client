@@ -3,6 +3,7 @@ import React from 'react'
 import TextareaAutosize from 'react-autosize-textarea'
 
 const TextEdit = props => {
+  const value = props.value === null ? '' : props.value
   const handleChange = e => {
     if (props.onChange) {
       props.onChange(e.target.value)
@@ -17,7 +18,7 @@ const TextEdit = props => {
       name={props.name}
       onChange={handleChange}
       id={props.id}
-      value={props.value}
+      value={value}
       disabled={props.readOnly}
     />
   )

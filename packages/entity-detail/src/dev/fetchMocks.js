@@ -1,4 +1,5 @@
-import {utilFetchMocks, mockData} from 'tocco-util'
+import {mockData} from 'tocco-util'
+
 import {
   userUpdateResponse,
   userCreateResponse,
@@ -13,9 +14,7 @@ const defaultStore = {
 }
 
 export default function setupFetchMock(packageName, fetchMock, entityStore = defaultStore) {
-  utilFetchMocks.session(fetchMock)
-  utilFetchMocks.textResource(packageName, fetchMock, require('./textResources.json'))
-  mockData.setupFetchMock(fetchMock, entityStore)
+  mockData.setupSystemMock(packageName, fetchMock, require('./textResources.json'))
 
   fetchMock.patch(
     new RegExp('^.*?/nice2/rest/entities/User/[0-9]+\\?_validate=true'),

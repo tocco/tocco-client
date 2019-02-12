@@ -1,7 +1,8 @@
 import React from 'react'
+import {intlEnzyme} from 'tocco-test-util'
+
 import DateRangeEdit from './DateRangeEdit'
 import DateAbstract from './DateAbstract'
-import {intlEnzyme} from 'tocco-test-util'
 
 const EMPTY_FUNC = () => {}
 
@@ -9,7 +10,7 @@ describe('tocco-ui', () => {
   describe('EditableValue', () => {
     describe('typeEditors', () => {
       describe('DateRangeEdit ', () => {
-        it('should render an instance of DateAbstract', () => {
+        test('should render an instance of DateAbstract', () => {
           const wrapper = intlEnzyme.mountWithIntl(
             <DateRangeEdit onChange={EMPTY_FUNC}/>
           )

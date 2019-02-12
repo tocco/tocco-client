@@ -1,6 +1,7 @@
-import * as actions from './actions'
-import {reducers} from 'tocco-util'
+import {reducer as reducerUtil} from 'tocco-util'
 import _uniq from 'lodash/uniq'
+
+import * as actions from './actions'
 
 const addEntityToStore = (state, {payload}) => ({
   ...state,
@@ -23,22 +24,22 @@ const setSelection = (state, {payload}) => ({
 })
 
 const ACTION_HANDLERS = {
-  [actions.SET_INITIALIZED]: reducers.singleTransferReducer('initialized'),
-  [actions.SET_ENTITIES]: reducers.singleTransferReducer('entities'),
-  [actions.SET_FORM_DEFINITION]: reducers.singleTransferReducer('formDefinition'),
-  [actions.SET_ENTITY_MODEL]: reducers.singleTransferReducer('entityModel'),
-  [actions.SET_LIMIT]: reducers.singleTransferReducer('limit'),
-  [actions.SET_CURRENT_PAGE]: reducers.singleTransferReducer('currentPage'),
-  [actions.SET_SORTING]: reducers.singleTransferReducer('sorting'),
-  [actions.SET_ENTITY_COUNT]: reducers.singleTransferReducer('entityCount'),
+  [actions.SET_INITIALIZED]: reducerUtil.singleTransferReducer('initialized'),
+  [actions.SET_ENTITIES]: reducerUtil.singleTransferReducer('entities'),
+  [actions.SET_FORM_DEFINITION]: reducerUtil.singleTransferReducer('formDefinition'),
+  [actions.SET_ENTITY_MODEL]: reducerUtil.singleTransferReducer('entityModel'),
+  [actions.SET_LIMIT]: reducerUtil.singleTransferReducer('limit'),
+  [actions.SET_CURRENT_PAGE]: reducerUtil.singleTransferReducer('currentPage'),
+  [actions.SET_SORTING]: reducerUtil.singleTransferReducer('sorting'),
+  [actions.SET_ENTITY_COUNT]: reducerUtil.singleTransferReducer('entityCount'),
   [actions.ADD_ENTITIES_TO_STORE]: addEntityToStore,
   [actions.CLEAR_ENTITY_STORE]: clearEntityStore,
-  [actions.SET_IN_PROGRESS]: reducers.singleTransferReducer('inProgress'),
-  [actions.SET_SHOW_SEARCH_FORM]: reducers.singleTransferReducer('showSearchForm'),
-  [actions.SET_SEARCH_FILTERS]: reducers.singleTransferReducer('searchFilters'),
-  [actions.SET_CREATE_PERMISSION]: reducers.singleTransferReducer('createPermission'),
-  [actions.SET_SELECTABLE]: reducers.singleTransferReducer('selectable'),
-  [actions.SET_ENDPOINT]: reducers.singleTransferReducer('endpoint'),
+  [actions.SET_IN_PROGRESS]: reducerUtil.singleTransferReducer('inProgress'),
+  [actions.SET_SHOW_SEARCH_FORM]: reducerUtil.singleTransferReducer('showSearchForm'),
+  [actions.SET_SEARCH_FILTERS]: reducerUtil.singleTransferReducer('searchFilters'),
+  [actions.SET_CREATE_PERMISSION]: reducerUtil.singleTransferReducer('createPermission'),
+  [actions.SET_SELECTABLE]: reducerUtil.singleTransferReducer('selectable'),
+  [actions.SET_ENDPOINT]: reducerUtil.singleTransferReducer('endpoint'),
   [actions.SET_SELECTION]: setSelection
 }
 

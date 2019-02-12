@@ -1,17 +1,21 @@
+import styled from 'styled-components'
 import {theme} from 'styled-system'
 
 import StyledMenu from './StyledMenu'
-import {stylingLook} from '../utilStyles'
+import {
+  spaceScale,
+  stylingLook
+} from '../utilStyles'
 
-const StyledMenuButton = StyledMenu.extend`
+const StyledMenuButton = styled(StyledMenu)`
   && {
     display: inline-flex;
     flex-flow: row wrap;
-    margin-bottom: -${props => props.look === stylingLook.RAISED ? theme('space.4') : 0};
+    margin-bottom: ${props => props.look === stylingLook.RAISED ? `-${spaceScale(props, -1)}` : 0};
 
     > hr {
       border: none;
-      border-left: 1px solid ${props => theme('colors.base.text')};
+      border-left: 1px solid ${props => theme('colors.text')};
       display: list-item;
       height: auto;
       margin: 0;
@@ -19,10 +23,10 @@ const StyledMenuButton = StyledMenu.extend`
 
     > li,
     > hr {
-      margin-bottom: ${props => props.look === stylingLook.RAISED ? theme('space.4') : 0};
+      margin-bottom: ${props => props.look === stylingLook.RAISED ? spaceScale(props, -1) : 0};
 
       :not(:last-child) {
-        margin-right: ${props => props.look === stylingLook.RAISED ? theme('space.4') : ''};
+        margin-right: ${props => props.look === stylingLook.RAISED ? spaceScale(props, -1) : ''};
       }
     }
   }

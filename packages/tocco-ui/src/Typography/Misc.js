@@ -16,6 +16,7 @@ import {
   StyledQ,
   StyledS,
   StyledSmall,
+  StyledSpan,
   StyledStrong,
   StyledSub,
   StyledSup,
@@ -103,6 +104,12 @@ const Small = props =>
     title={props.breakWords ? undefined : getTextOfChildren(props.children)}
   >{props.children}</StyledSmall>
 
+const Span = props =>
+  <StyledSpan
+    breakWords={props.breakWords}
+    title={props.breakWords ? undefined : getTextOfChildren(props.children)}
+  >{props.children}</StyledSpan>
+
 const Sub = props =>
   <StyledSub
     breakWords={props.breakWords}
@@ -147,57 +154,61 @@ const Q = props =>
   >{props.children}</StyledQ>
 
 B.defaultProps
-= Code.defaultProps
-= Del.defaultProps
-= Em.defaultProps
-= Figcaption.defaultProps
-= I.defaultProps
-= Ins.defaultProps
-= Kbd.defaultProps
-= Mark.defaultProps
-= P.defaultProps
-= Pre.defaultProps
-= Q.defaultProps
-= S.defaultProps
-= Small.defaultProps
-= Strong.defaultProps
-= Sub.defaultProps
-= Sup.defaultProps
-= U.defaultProps
-= Var.defaultProps = {
-                                      breakWords: true
-                                    }
+  = Code.defaultProps
+  = Del.defaultProps
+  = Em.defaultProps
+  = Figcaption.defaultProps
+  = I.defaultProps
+  = Ins.defaultProps
+  = Kbd.defaultProps
+  = Mark.defaultProps
+  = P.defaultProps
+  = Pre.defaultProps
+  = Q.defaultProps
+  = S.defaultProps
+  = Small.defaultProps
+  = Span.defaultProps
+  = Strong.defaultProps
+  = Sub.defaultProps
+  = Sup.defaultProps
+  = U.defaultProps
+  = Var.defaultProps
+  = {breakWords: true}
 
 Time.defaultProps = {
   breakWords: false
 }
 
+const propTypes = {
+  /**
+   * If true words break with hyphens.
+   * If false text is forced into a single truncated line.
+   */
+  breakWords: PropTypes.bool,
+  children: PropTypes.node
+}
+
 B.propTypes
-= Code.propTypes
-= Del.propTypes
-= Em.propTypes
-= Figcaption.propTypes
-= I.propTypes
-= Ins.propTypes
-= Kbd.propTypes
-= Mark.propTypes
-= P.propTypes
-= Pre.propTypes
-= Q.propTypes
-= S.propTypes
-= Small.propTypes
-= Strong.propTypes
-= Sub.propTypes
-= Sup.propTypes
-= U.propTypes
-= Var.propTypes = {
-                                    /**
-                                   * If true words break with hyphens.
-                                   * If false text is forced into a single truncated line.
-                                   */
-                                      breakWords: PropTypes.bool,
-                                      children: PropTypes.node.isRequired
-                                    }
+  = Code.propTypes
+  = Del.propTypes
+  = Em.propTypes
+  = Figcaption.propTypes
+  = I.propTypes
+  = Ins.propTypes
+  = Kbd.propTypes
+  = Mark.propTypes
+  = P.propTypes
+  = Pre.propTypes
+  = Q.propTypes
+  = S.propTypes
+  = Small.propTypes
+  = Span.propTypes
+  = Strong.propTypes
+  = Sub.propTypes
+  = Sup.propTypes
+  = U.propTypes
+  = Var.propTypes
+  = propTypes
 
 Time.propTypes = {
 /**
@@ -205,7 +216,7 @@ Time.propTypes = {
 * If false text is forced into a single truncated line.
 */
   breakWords: PropTypes.bool,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   dateTime: PropTypes.string.isRequired,
   title: PropTypes.string
 }
@@ -225,6 +236,7 @@ export {
   Q,
   S,
   Small,
+  Span,
   Strong,
   Sub,
   Sup,

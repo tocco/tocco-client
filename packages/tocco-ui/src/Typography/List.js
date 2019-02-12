@@ -29,7 +29,7 @@ const Li = props => <StyledLi>{props.children}</StyledLi>
 
 const Ol = props => <StyledOl>{props.children}</StyledOl>
 
-const Ul = props => <StyledUl>{props.children}</StyledUl>
+const Ul = props => <StyledUl as="ul">{props.children}</StyledUl>
 
 Dd.defaultProps
 = Dt.defaultProps = {
@@ -42,14 +42,14 @@ Dd.propTypes
              * If true words break with hyphens. If false text is forced into a single truncated line.
              */
     breakWords: PropTypes.bool,
-    children: PropTypes.node.isRequired
+    children: PropTypes.node
   }
 
 Dl.propTypes
 = Li.propTypes
 = Ol.propTypes
 = Ul.propTypes = {
-        children: PropTypes.node.isRequired
+        children: PropTypes.node
       }
 
 export {

@@ -1,13 +1,14 @@
+import {reducer as reducerUtil} from 'tocco-util'
+
 import * as actions from './actions'
-import {reducers} from 'tocco-util'
 
 const ACTION_HANDLERS = {
-  [actions.SET_INITIALIZED]: reducers.singleTransferReducer('initialized'),
-  [actions.SET_ENTITY_NAME]: reducers.singleTransferReducer('entityName'),
-  [actions.SET_ENTITY_MODEL]: reducers.singleTransferReducer('entityModel'),
-  [actions.SET_SHOW_SEARCH_FORM]: reducers.singleTransferReducer('showSearchForm'),
-  [actions.SET_SHOW_CREATE_BUTTON]: reducers.singleTransferReducer('showCreateButton'),
-  [actions.SET_PARENT]: reducers.singleTransferReducer('parent')
+  [actions.SET_INITIALIZED]: reducerUtil.singleTransferReducer('initialized'),
+  [actions.SET_ENTITY_NAME]: reducerUtil.singleTransferReducer('entityName'),
+  [actions.SET_ENTITY_MODEL]: reducerUtil.singleTransferReducer('entityModel'),
+  [actions.SET_SHOW_SEARCH_FORM]: reducerUtil.singleTransferReducer('showSearchForm'),
+  [actions.SET_SHOW_CREATE_BUTTON]: reducerUtil.singleTransferReducer('showCreateButton'),
+  [actions.SET_PARENT]: reducerUtil.singleTransferReducer('parent')
 }
 
 const initialState = {

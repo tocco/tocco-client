@@ -1,23 +1,25 @@
 import React from 'react'
-import {mount} from 'enzyme'
+import {shallow} from 'enzyme'
+
+import Icon from '../../Icon'
 import BooleanFormatter from './BooleanFormatter'
 
-describe('tocco-ui', function() {
-  describe('FormattedValue', function() {
+describe('tocco-ui', () => {
+  describe('FormattedValue', () => {
     describe('typeFormatters', () => {
-      describe('BooleanFormatter ', function() {
-        it('should format true value', function() {
-          const wrapper = mount(
+      describe('BooleanFormatter ', () => {
+        test('should format true value', () => {
+          const wrapper = shallow(
             <BooleanFormatter value/>
           )
-          expect(wrapper.html()).to.contains('fa-check')
+          expect(wrapper.find(Icon).prop('icon')).to.equal('check')
         })
 
-        it('should format falsy value', function() {
-          const wrapper = mount(
+        test('should format falsy value', () => {
+          const wrapper = shallow(
             <BooleanFormatter value={false}/>
           )
-          expect(wrapper.html()).to.contains('fa-times')
+          expect(wrapper.find(Icon).prop('icon')).to.equal('times')
         })
       })
     })

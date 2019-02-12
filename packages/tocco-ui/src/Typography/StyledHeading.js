@@ -4,7 +4,9 @@ import {theme} from 'styled-system'
 import {
   declareFont,
   declareNoneWrappingText,
-  declareWrappingText
+  declareWrappingText,
+  fontScale,
+  spaceScale
 } from '../utilStyles'
 
 const declareHeaderFont = props => {
@@ -12,31 +14,30 @@ const declareHeaderFont = props => {
 
   switch (props.styledLike) {
     case 'H1':
-      fontSize = theme('fontSizes.7')(props)
+      fontSize = fontScale(props, 5)
       break
     case 'H2':
-      fontSize = theme('fontSizes.6')(props)
+      fontSize = fontScale(props, 4)
       break
     case 'H3':
-      fontSize = theme('fontSizes.5')(props)
+      fontSize = fontScale(props, 3)
       break
     case 'H4':
-      fontSize = theme('fontSizes.4')(props)
+      fontSize = fontScale(props, 2)
       break
     case 'H5':
-      fontSize = theme('fontSizes.3')(props)
+      fontSize = fontScale(props, 1)
       break
     default:
-      fontSize = theme('fontSizes.2')(props)
+      fontSize = `${theme('fontSize.base')(props)}rem`
   }
-
-  return declareFont(props, {fontWeight: 700, fontSize: fontSize})
+  return declareFont(props, {fontWeight: 700, fontSize})
 }
 
 const declareSpace = props =>
   `
-    margin-top: ${theme('space.6')(props)};
-    margin-bottom: ${theme('space.5')(props)};
+    margin-top: ${theme('space.base')(props)}rem;
+    margin-bottom: ${spaceScale(props, -1)};
 
     h1 + &,
     h2 + &,

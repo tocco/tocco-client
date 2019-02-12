@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+
 import MultiSelect from './MultiSelect'
 import SingleSelect from './SingleSelect'
 
@@ -10,18 +11,18 @@ const SearchFilterEdit = props => {
     return <SingleSelect {...props}/>
   }
 }
+const valueObjectType = PropTypes.shape({
+  key: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]).isRequired
+})
 
 SearchFilterEdit.propTypes = {
   onChange: PropTypes.func.isRequired,
   value: PropTypes.oneOfType([
-    PropTypes.shape({
-      key: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-      ])
-    }),
-    PropTypes.array,
-    PropTypes.string // empty string coming from Redux Form if value null
+    valueObjectType,
+    PropTypes.arrayOf(valueObjectType)
   ]),
   options: PropTypes.shape({
     multi: PropTypes.bool,

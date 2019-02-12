@@ -10,7 +10,7 @@ const View = props => (
   <StyledView>
     <div>
       <ButtonLink
-        icon="fa-download"
+        icon="download"
         iconPosition="sole"
         download={props.value.fileName}
         href={props.value.binaryLink}
@@ -18,7 +18,7 @@ const View = props => (
       />
       {!props.readOnly
       && <Button
-        icon="fa-trash-o"
+        icon="times"
         iconPosition="sole"
         onClick={() => props.onUpload(null)}
         title={props.deleteTitle || 'delete'}

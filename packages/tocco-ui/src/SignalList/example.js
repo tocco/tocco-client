@@ -1,74 +1,75 @@
 /* eslint no-console: 0 */
 import React from 'react'
-import SignalList, {SignalListItem} from './'
-// real-import:import {SignalList, SignalListItem} from 'tocco-ui'
+
+import SignalList from './'
+// real-import:import {SignalList} from 'tocco-ui'
 
 export default () => {
   return (
     <div>
       {/* start example */}
-      <SignalList>
-        <SignalListItem
+      <SignalList.List>
+        <SignalList.Item
           label="base"
         />
-        <SignalListItem
+        <SignalList.Item
           condition="primary"
           label="primary"
         />
-        <SignalListItem
+        <SignalList.Item
           condition="danger"
           label="danger"
         />
-        <SignalListItem
+        <SignalList.Item
           condition="success"
           label="success"
         />
-        <SignalListItem
+        <SignalList.Item
           condition="warning"
           label="warning"
         />
-      </SignalList>
+      </SignalList.List>
 
-      <SignalList>
-        <SignalListItem
+      <SignalList.List>
+        <SignalList.Item
           condition="danger"
           label="danger supercalifragilisticexpialidocioussupercalifragilisticexpialidocious">
-          <SignalList>
-            <SignalListItem
+          <SignalList.List>
+            <SignalList.Item
               condition="danger"
               label="A. signalize error supercalifragilisticexpialidocioussupercalifragilisticexpialidocious">
-              <SignalList>
-                <SignalListItem
+              <SignalList.List>
+                <SignalList.Item
                   condition="success"
                   label="A.1. signalize success supercalifragilisticexpialidocioussupercalifragilisticexpialidocious"
                 />
-                <SignalListItem
+                <SignalList.Item
                   condition="danger"
                   label="B.2 signalize danger"
                 />
-                <SignalListItem
+                <SignalList.Item
                   condition="danger"
                   label="B.3. signalize danger"
                 />
-              </SignalList>
-            </SignalListItem>
-            <SignalListItem
+              </SignalList.List>
+            </SignalList.Item>
+            <SignalList.Item
               condition="warning"
               label="B. signalize warning">
-              <SignalList>
-                <SignalListItem
+              <SignalList.List>
+                <SignalList.Item
                   condition="warning"
                   label="B.1. signalize warning"
                 />
-                <SignalListItem
+                <SignalList.Item
                   condition="success"
                   label="B.2. signalize success"
                 />
-              </SignalList>
-            </SignalListItem>
-          </SignalList>
-        </SignalListItem>
-      </SignalList>
+              </SignalList.List>
+            </SignalList.Item>
+          </SignalList.List>
+        </SignalList.Item>
+      </SignalList.List>
       {/* end example */}
     </div>
   )

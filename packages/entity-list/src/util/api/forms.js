@@ -1,12 +1,12 @@
-import {call} from 'redux-saga/effects'
 import _uniq from 'lodash/uniq'
-import {requestSaga} from 'tocco-util/src/rest'
-import {actions, form} from 'tocco-util'
+import {actions, form, rest} from 'tocco-app-extensions'
+
+import {call} from 'redux-saga/effects'
 
 export const defaultFormTransformer = json => (json.form)
 
 export function* fetchForm(formName, transformer = defaultFormTransformer) {
-  const response = yield call(requestSaga, `forms/${formName}`, {
+  const response = yield call(rest.requestSaga, `forms/${formName}`, {
     acceptedStatusCodes: [404]
   })
   return response.body ? yield call(transformer, response.body) : null
