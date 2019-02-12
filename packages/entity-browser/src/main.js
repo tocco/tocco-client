@@ -136,7 +136,7 @@ EntityBrowserApp.propTypes = {
   entityName: PropTypes.string.isRequired,
   showSearchForm: PropTypes.bool,
   disableSimpleSearch: PropTypes.bool,
-  formBase: PropTypes.bool,
+  formBase: PropTypes.string,
   limit: PropTypes.number,
   preselectedSearchFields: PropTypes.array,
   searchFilters: PropTypes.array,

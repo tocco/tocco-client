@@ -4,7 +4,7 @@ import {withKnobs, array, boolean, number, text} from '@storybook/addon-knobs'
 
 import EntityBrowserApp from './main'
 
-storiesOf('Entity Browser', module)
+storiesOf('Apps/Entity Browser', module)
   .addDecorator(withKnobs)
   .add(
     'Entity Browser',
@@ -13,7 +13,7 @@ storiesOf('Entity Browser', module)
       entityName={text('entityName', 'User')}
       showSearchForm={boolean('showSearchForm', true)}
       disableSimpleSearch={boolean('disableSimpleSearch', false)}
-      formBase={boolean('formBase', true)}
+      formBase={text('formBase', 'User')}
       limit={number('limit', 10)}
       preselectedSearchFields={array('preselectedSearchFields', []) || undefined}
       searchFilters={array('searchFilters', []) || undefined}
