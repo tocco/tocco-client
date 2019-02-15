@@ -53,18 +53,6 @@ const declareInteractionColors = (colors, format = stylingFormat.HTML) => {
     &:disabled {
       ${fillProperty}: ${generateDisabledShade(colors.defaultBackground)};
       ${strokeProperty}: ${generateDisabledShade(colors.defaultColor)};
-
-      &:focus,
-      &:hover {
-        ${fillProperty}: ${generateDisabledShade(colors.focusBackground)};
-        ${strokeProperty}: ${generateDisabledShade(colors.focusColor)};
-      }
-
-      /* :active must be declared after :hover and :focus to visualize state change */
-      &:active {
-        ${fillProperty}: ${generateDisabledShade(colors.activeBackground)};
-        ${strokeProperty}: ${generateDisabledShade(colors.activeColor)};
-      }
     }
   `
 }
