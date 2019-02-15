@@ -23,9 +23,12 @@ storiesOf('Button', module)
             times: 'times'}) || undefined
           }
           onClick={action('clicked')}
-          look={select('look', {'-': null, ..._pick(stylingLook, ['BALL', 'FLAT', 'RAISED'])}) || undefined}
+          look={select('look', {
+            [Button.defaultProps.look.toUpperCase()]: Button.defaultProps.look,
+            ..._pick(stylingLook, ['BALL', 'FLAT', 'RAISED'])
+          }) || undefined}
           iconPosition={select('iconPosition', {
-            '-': null,
+            [Button.defaultProps.iconPosition.toUpperCase()]: Button.defaultProps.iconPosition,
             ..._pick(stylingPosition, ['APPEND', 'PREPEND', 'SOLE'])}) || undefined
           }
           pending={boolean('pending', false) || undefined}
