@@ -12,6 +12,7 @@ import deLocaleData from 'react-intl/locale-data/de'
 
 import darkTheme from '../packages/tocco-theme/src/ToccoTheme/darkTheme'
 import defaultTheme from '../packages/tocco-theme/src/ToccoTheme/defaultTheme'
+import CustomPropTable from './CustomPropTable'
 
 addLocaleData(enLocaleData)
 addLocaleData(deLocaleData)
@@ -43,19 +44,47 @@ addDecorator(
 )
 
 addDecorator(withInfo({
+  TableComponent: CustomPropTable,
   styles: defaultTheme => (
     {
       ...defaultTheme,
-      header: {
-        ...defaultTheme.header,
-        h2: {fontSize: '12px'}
-      },
       button: {
         ...defaultTheme.button,
         base: {
           ...defaultTheme.button.base,
           backgroundColor: '#9E2124',
-          border: '1px solid white'
+          border: 0
+        }
+      },
+      header: {
+        ...defaultTheme.header,
+        body: {
+          ...defaultTheme.header.body,
+          borderBottom: 0
+        },
+        h2: {
+          display: 'none'
+        }
+      },
+      info: {
+        ...defaultTheme.info,
+        margin: 0,
+        padding: '10px'
+      },
+      infoBody: {
+        ...defaultTheme.infoBody,
+        border: 0,
+        margin: 0,
+        padding: 0
+      },
+      propTableHead: {
+        display: 'none'
+      },
+      source: {
+        ...defaultTheme.source,
+        h1: {
+          ...defaultTheme.source.h1,
+          borderBottom: 0
         }
       }
     }
