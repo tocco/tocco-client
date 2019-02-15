@@ -44,27 +44,37 @@ storiesOf('Button', module)
     () => {
       return [
         <Button
+          dense={boolean('dense', false) || undefined}
+          disabled={boolean('disabled', false) || undefined}
           key="1"
           label="Base color flat"
           onClick={action('clicked')}
         />,
         <Button
+          dense={boolean('dense', false) || undefined}
+          disabled={boolean('disabled', false) || undefined}
           key="2"
           ink="primary"
           label="Primary color flat"
         />,
         <Button
+          dense={boolean('dense', false) || undefined}
+          disabled={boolean('disabled', false) || undefined}
           key="3"
           label="Base color raised"
           look="raised"
         />,
         <Button
+          dense={boolean('dense', false) || undefined}
+          disabled={boolean('disabled', false) || undefined}
           key="4"
           ink="primary"
           label="Primary color raised"
           look="raised"
         />,
         <Button
+          dense={boolean('dense', false) || undefined}
+          disabled={boolean('disabled', false) || undefined}
           key="5"
           icon="handshake"
           iconPosition="append"
@@ -72,26 +82,15 @@ storiesOf('Button', module)
           type="submit"
         />,
         <Button
+          dense={boolean('dense', false) || undefined}
+          disabled={boolean('disabled', false) || undefined}
           key="6"
           icon="fab, facebook"
           label="Brand Icon"
         />,
         <Button
-          key="7"
-          dense
-          icon="hand-peace"
-          label="Dense"
-          look="raised"
-        />,
-        <Button
-          key="8"
-          disabled
-          icon="handshake"
-          ink="primary"
-          label="Disabled"
-          look="raised"
-        />,
-        <Button
+          dense={boolean('dense', false) || undefined}
+          disabled={boolean('disabled', false) || undefined}
           key="9"
           ink="primary"
           icon="air-freshener"
@@ -99,6 +98,8 @@ storiesOf('Button', module)
           label="Pending"
         />,
         <Button
+          dense={boolean('dense', false) || undefined}
+          disabled={boolean('disabled', false) || undefined}
           key="10"
           icon="times"
           look="ball" />

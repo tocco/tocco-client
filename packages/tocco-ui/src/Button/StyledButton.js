@@ -110,6 +110,10 @@ const StyledButton = styled.button`
       cursor: pointer;
     }
 
+    &:disabled {
+      cursor: not-allowed;
+    }
+
     &:active,
     &:focus {
       outline: none;
