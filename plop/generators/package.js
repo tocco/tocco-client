@@ -17,6 +17,7 @@ export default {
     const files = [
       'README.md',
       'package.json',
+      '.yarnrc',
       '.npmignore',
       '/src/main.js',
       '/src/modules/reducers.js',
