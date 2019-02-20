@@ -5,6 +5,14 @@ import config from '../config'
 module.exports = (storybookBaseConfig, configType) => {
   storybookBaseConfig.plugins.push(new webpack.DefinePlugin(config.globals))
 
+  const babelLoaderRule = storybookBaseConfig.module.rules.find(element => {
+    return element.use.find(usageObject => {
+      return usageObject.loader === 'babel-loader'
+    })
+  })
+
+  babelLoaderRule.exclude[0] = /node_modules/
+
   storybookBaseConfig.module.rules.push({
     test: /\.scss$/,
       use: ['style-loader', 'css-loader', `sass-loader?data=$node-env:${config.env};&includePaths[]=./packages/tocco-theme/node_modules/`]  // eslint-disable-line

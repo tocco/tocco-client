@@ -89,7 +89,7 @@ const req3 = require.context('../packages/entity-browser/src/', true, /\.stories
 const req4 = require.context('../packages/entity-detail/src/', true, /\.stories\.js$/)
 const req5 = require.context('../packages/entity-list/src/', true, /\.stories\.js$/)
 const req6 = require.context('../packages/login/src/', true, /\.stories\.js$/)
-const req7 = require.context('../packages/scheduler/src/', true, /\.stories\.js$/)
+const req7 = require.context('../packages/resource-scheduler/src/', true, /\.stories\.js$/)
 
 function loadStories() {
   req.keys().forEach(filename => req(filename))

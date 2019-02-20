@@ -9,13 +9,29 @@ storiesOf('Apps/Login', module)
   .addDecorator(withKnobs)
   .add(
     'Login',
-    () => <LoginApp
-      showTitle={boolean('showTitle', false)}
-      locale={text('locale', 'de-CH')}
-      passwordRequest={boolean('passwordRequest', false)}
-      username={text('username', '')}
-
-      success={action('success')}
-      resize={action('resize')}
-    />
+    () => <LoginAppWrapper/>
   )
+
+class LoginAppWrapper extends React.Component {
+  constructor(props) {
+    super(props)
+    this.childKey = 0
+  }
+
+  render() {
+    this.childKey++
+    return (
+      <div>
+        <LoginApp
+          key={this.childKey}
+          showTitle={boolean('showTitle', false)}
+          locale={text('locale', 'de-CH') || 'de-CH'}
+          passwordRequest={boolean('passwordRequest', false)}
+          username={text('username', 'Test User')}
+
+          loginSuccess={action('success')}
+        />
+      </div>
+    )
+  }
+}
