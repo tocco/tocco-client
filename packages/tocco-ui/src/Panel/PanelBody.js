@@ -9,7 +9,13 @@ import StyledPanelBody from './StyledPanelBody'
 class PanelBody extends React.Component {
   state = {}
 
-  setHeight = () => {
+  setHeight = a => {
+    if (a && a[0].type === 'attributes') {
+      if (a[0].attributeName !== 'data-image-in-cache') {
+        return
+      }
+    }
+
     this.outerEl.setAttribute('style', 'height: auto; animation: none;')
     this.setState({
       heightIfOpen: `${this.outerEl.offsetHeight}px`
@@ -18,7 +24,7 @@ class PanelBody extends React.Component {
   }
 
   connectObserver() {
-    this.observer = new MutationObserver(() => { this.setHeight() })
+    this.observer = new MutationObserver(a => { this.setHeight(a) })
     this.observer.observe(this.innerEl, {
       attributes: true,
       childList: true,
