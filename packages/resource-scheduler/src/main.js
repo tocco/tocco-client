@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {reducer as reducerUtil} from 'tocco-util'
 import {appFactory, externalEvents} from 'tocco-app-extensions'
 
@@ -53,3 +54,21 @@ const initApp = (id, input, events, publicPath) => {
     appFactory.registerAppInRegistry(packageName, initApp)
   }
 })()
+
+export class ResourceSchedulerApp extends React.Component {
+  constructor(props) {
+    super(props)
+    this.app = initApp('id', props)
+  }
+
+  render() {
+    return (
+      <div style={{height: '100vh'}}>{this.app.renderComponent()}</div>
+    )
+  }
+}
+
+ResourceSchedulerApp.propTypes = {
+  locale: PropTypes.string,
+  onEventClick: PropTypes.func
+}
