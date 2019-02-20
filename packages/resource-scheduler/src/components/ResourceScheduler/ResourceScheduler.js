@@ -52,9 +52,9 @@ ResourceScheduler.propTypes = {
         }
         )
       ),
-      id: PropTypes.string.isRequred,
-      label: PropTypes.string.isRequred,
-      model: PropTypes.string.isRequred
+      id: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+      model: PropTypes.string.isRequired
     })),
   calendarTypes: PropTypes.arrayOf(
     PropTypes.shape({
