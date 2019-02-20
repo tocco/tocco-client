@@ -9,7 +9,7 @@ React-registry name: `entity-detail`
 | Name                   | Mandatory | Description
 |------------------------|:---------:|-------------
 | `entityName`           | x         | Entity name of the record
-| `entityId`             | x         | The ID of the entity 
+| `entityId`             | x         | The key/ID of the entity 
 | `formName`             |           | Detail-form that should be loaded
 | `mode`                 |           | Determines if the detail is in `create` or `update` mode
 | `showSubGridsCreateButton`|        | (Temporary) Flag to show/hide a create button on any subgrid
