@@ -13,6 +13,20 @@ export default type =>
   (formField, modelField, formName, props, events, utils) => {
     const options = getOptions(type, formField, modelField, utils, formName)
 
+    // TODO: Refactor to function
+    if (type === 'location') {
+      props.value = {
+        city: 'Weinfelden',
+        zipcode: '8570'
+      } // = utils.valueprovider('address_')
+
+      props.onChange = locationObject => {
+        for (const key in locationObject) {
+          utils.changeFieldValue(key, locationObject[key])
+        }
+      }
+    }
+
     return <EditableValue type={type} events={events} {...props} options={options}/>
   }
 
@@ -106,6 +120,15 @@ const getOptions = (type, formField, modelField, utils, formName) => {
       options.prePointDigits = _get(modelField, 'validation.decimalDigits.prePointDigits', null)
       options.minValue = _get(modelField, 'validation.numberRange.fromIncluding', null)
       options.maxValue = _get(modelField, 'validation.numberRange.toIncluding', null)
+      break
+    case 'location':
+      // TODO: Create Fetch Suggestions and connect here
+      options.fetchSuggestions = () => {
+        options.suggestions = [{
+          city: 'Zuri',
+          zipcode: 8000
+        }]
+      }
   }
 
   return options

@@ -19,6 +19,7 @@ export default {
   'image': editableValueFactory('document'),
   'identifier': editableValueFactory('string'),
   'latitude': editableValueFactory('number'),
+  'location': editableValueFactory('location'),
   'login': editableValueFactory('string'),
   'long': editableValueFactory('number'),
   'longitude': editableValueFactory('number'),

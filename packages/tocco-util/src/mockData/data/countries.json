@@ -1,0 +1,1633 @@
+{
+  "metaData": {
+    "modelName": "Country",
+    "label": "Land"
+  },
+  "data": [
+    {
+      "key": "107",
+      "model": "Country",
+      "version": 1,
+      "display": "Schweiz",
+      "fields": {
+        "label_de": {
+          "value": "Schweiz",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_fr": {
+          "value": "Suisse",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_it": {
+          "value": "Svizzera",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_en": {
+          "value": "Switzerland",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "iso2": {
+          "value": "CH",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "ioc": {
+          "value": "SUI",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "currency_code": {
+          "value": "CHF",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "licence_plate": {
+          "value": "CH",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "sorting": {
+          "value": 10,
+          "type": "sorting",
+          "readable": true,
+          "writable": true
+       }
+      },
+      "singleRelations": [ ],
+      "multiRelations": [ ],
+      "paths": { }
+    },
+    {
+      "key": "20",
+      "model": "Country",
+      "version": 1,
+      "display": "Deutschland",
+      "fields": {
+        "label_de": {
+          "value": "Deutschland",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_fr": {
+          "value": "Allemagne",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_it": {
+          "value": "Germania",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_en": {
+          "value": "Germany",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "iso2": {
+          "value": "DE",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "ioc": {
+          "value": "GER",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "currency_code": {
+          "value": "EUR",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "licence_plate": {
+          "value": "D",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "sorting": {
+          "value": 20,
+          "type": "sorting",
+          "readable": true,
+          "writable": true
+       }
+      },
+      "singleRelations": [ ],
+      "multiRelations": [ ],
+      "paths": { }
+    },
+    {
+      "key": "148",
+      "model": "Country",
+      "version": 1,
+      "display": "Frankreich",
+      "fields": {
+        "label_de": {
+          "value": "Frankreich",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_fr": {
+          "value": "France",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_it": {
+          "value": "Francia",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_en": {
+          "value": "France",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "iso2": {
+          "value": "FR",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "ioc": {
+          "value": "FRA",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "currency_code": {
+          "value": "EUR",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "licence_plate": {
+          "value": "F",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "sorting": {
+          "value": 30,
+          "type": "sorting",
+          "readable": true,
+          "writable": true
+       }
+      },
+      "singleRelations": [ ],
+      "multiRelations": [ ],
+      "paths": { }
+    },
+    {
+      "key": "178",
+      "model": "Country",
+      "version": 1,
+      "display": "Italien",
+      "fields": {
+        "label_de": {
+          "value": "Italien",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_fr": {
+          "value": "Italie",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_it": {
+          "value": "Italia",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_en": {
+          "value": "Italy",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "iso2": {
+          "value": "IT",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "ioc": {
+          "value": "ITA",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "currency_code": {
+          "value": "EUR",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "licence_plate": {
+          "value": "I",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "sorting": {
+          "value": 40,
+          "type": "sorting",
+          "readable": true,
+          "writable": true
+       }
+      },
+      "singleRelations": [ ],
+      "multiRelations": [ ],
+      "paths": { }
+    },
+    {
+      "key": "172",
+      "model": "Country",
+      "version": 1,
+      "display": "Österreich",
+      "fields": {
+        "label_de": {
+          "value": "Österreich",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_fr": {
+          "value": "Autriche",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_it": {
+          "value": "Austria",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_en": {
+          "value": "Austria",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "iso2": {
+          "value": "AT",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "ioc": {
+          "value": "AUT",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "currency_code": {
+          "value": "EUR",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "licence_plate": {
+          "value": "A",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "sorting": {
+          "value": 50,
+          "type": "sorting",
+          "readable": true,
+          "writable": true
+       }
+      },
+      "singleRelations": [ ],
+      "multiRelations": [ ],
+      "paths": { }
+    },
+    {
+      "key": "108",
+      "model": "Country",
+      "version": 1,
+      "display": "Liechtenstein, Fürstentum",
+      "fields": {
+        "label_de": {
+          "value": "Liechtenstein, Fürstentum",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_fr": {
+          "value": "La principauté de Liechtenstein",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_it": {
+          "value": "Liechtenstein",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_en": {
+          "value": "Liechtenstein",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "iso2": {
+          "value": "LI",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "ioc": {
+          "value": "LIE",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "currency_code": {
+          "value": "CHF",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "licence_plate": {
+          "value": "FL",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "sorting": {
+          "value": 60,
+          "type": "sorting",
+          "readable": true,
+          "writable": true
+       }
+      },
+      "singleRelations": [ ],
+      "multiRelations": [ ],
+      "paths": { }
+    },
+    {
+      "key": "111",
+      "model": "Country",
+      "version": 1,
+      "display": "Afghanistan",
+      "fields": {
+        "label_de": {
+          "value": "Afghanistan",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_fr": {
+          "value": "Afghanistan",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_it": {
+          "value": "Afghanistan",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_en": {
+          "value": "Afghanistan",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "iso2": {
+          "value": "AF",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "ioc": {
+          "value": "AFG",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "currency_code": {
+          "value": "AFN",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "licence_plate": {
+          "value": "AFG",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "sorting": {
+          "value": 100,
+          "type": "sorting",
+          "readable": true,
+          "writable": true
+       }
+      },
+      "singleRelations": [ ],
+      "multiRelations": [ ],
+      "paths": { }
+    },
+    {
+      "key": "139",
+      "model": "Country",
+      "version": 1,
+      "display": "Ägypten",
+      "fields": {
+        "label_de": {
+          "value": "Ägypten",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_fr": {
+          "value": "l'Égypte",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_it": {
+          "value": "Egitto",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_en": {
+          "value": "Egypt",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "iso2": {
+          "value": "EG",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "ioc": {
+          "value": "EGY",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "currency_code": {
+          "value": "EGP",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "licence_plate": {
+          "value": "ET",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "sorting": {
+          "value": 100,
+          "type": "sorting",
+          "readable": true,
+          "writable": true
+       }
+      },
+      "singleRelations": [ ],
+      "multiRelations": [ ],
+      "paths": { }
+    },
+    {
+      "key": "105",
+      "model": "Country",
+      "version": 1,
+      "display": "Aland",
+      "fields": {
+        "label_de": {
+          "value": "Aland",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_fr": {
+          "value": "Aland",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_it": {
+          "value": "Isole Åland",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_en": {
+          "value": "Aland Islands",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "iso2": {
+          "value": "AX",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "ioc": {
+          "value": "",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "currency_code": {
+          "value": "EUR",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "licence_plate": {
+          "value": "",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "sorting": {
+          "value": 100,
+          "type": "sorting",
+          "readable": true,
+          "writable": true
+       }
+      },
+      "singleRelations": [ ],
+      "multiRelations": [ ],
+      "paths": { }
+    },
+    {
+      "key": "112",
+      "model": "Country",
+      "version": 1,
+      "display": "Albanien",
+      "fields": {
+        "label_de": {
+          "value": "Albanien",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_fr": {
+          "value": "Albanie",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_it": {
+          "value": "Albania",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_en": {
+          "value": "Albania",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "iso2": {
+          "value": "AL",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "ioc": {
+          "value": "ALB",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "currency_code": {
+          "value": "ALL",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "licence_plate": {
+          "value": "AL",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "sorting": {
+          "value": 100,
+          "type": "sorting",
+          "readable": true,
+          "writable": true
+       }
+      },
+      "singleRelations": [ ],
+      "multiRelations": [ ],
+      "paths": { }
+    },
+    {
+      "key": "113",
+      "model": "Country",
+      "version": 1,
+      "display": "Algerien",
+      "fields": {
+        "label_de": {
+          "value": "Algerien",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_fr": {
+          "value": "Algérie",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_it": {
+          "value": "Algeria",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_en": {
+          "value": "Algeria",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "iso2": {
+          "value": "DZ",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "ioc": {
+          "value": "ALG",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "currency_code": {
+          "value": "DZD",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "licence_plate": {
+          "value": "DZ",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "sorting": {
+          "value": 100,
+          "type": "sorting",
+          "readable": true,
+          "writable": true
+       }
+      },
+      "singleRelations": [ ],
+      "multiRelations": [ ],
+      "paths": { }
+    },
+    {
+      "key": "106",
+      "model": "Country",
+      "version": 1,
+      "display": "Amerikanische Jungferninseln",
+      "fields": {
+        "label_de": {
+          "value": "Amerikanische Jungferninseln",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_fr": {
+          "value": "Iles Vierges",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_it": {
+          "value": "Isole Vergini Statunitensi",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_en": {
+          "value": "Virgin Islands, U.S.",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "iso2": {
+          "value": "VI",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "ioc": {
+          "value": "ISV",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "currency_code": {
+          "value": "USD",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "licence_plate": {
+          "value": "VI",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "sorting": {
+          "value": 100,
+          "type": "sorting",
+          "readable": true,
+          "writable": true
+       }
+      },
+      "singleRelations": [ ],
+      "multiRelations": [ ],
+      "paths": { }
+    },
+    {
+      "key": "114",
+      "model": "Country",
+      "version": 1,
+      "display": "Amerikanisch-Samoa",
+      "fields": {
+        "label_de": {
+          "value": "Amerikanisch-Samoa",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_fr": {
+          "value": "Samoa américaines",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_it": {
+          "value": "Samoa Americane",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_en": {
+          "value": "American Samoa",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "iso2": {
+          "value": "AS",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "ioc": {
+          "value": "ASA",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "currency_code": {
+          "value": "USD",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "licence_plate": {
+          "value": "AS",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "sorting": {
+          "value": 100,
+          "type": "sorting",
+          "readable": true,
+          "writable": true
+       }
+      },
+      "singleRelations": [ ],
+      "multiRelations": [ ],
+      "paths": { }
+    },
+    {
+      "key": "115",
+      "model": "Country",
+      "version": 1,
+      "display": "Andorra",
+      "fields": {
+        "label_de": {
+          "value": "Andorra",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_fr": {
+          "value": "Andorre",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_it": {
+          "value": "Andorra",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_en": {
+          "value": "Andorra",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "iso2": {
+          "value": "AD",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "ioc": {
+          "value": "AND",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "currency_code": {
+          "value": "EUR",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "licence_plate": {
+          "value": "AND",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "sorting": {
+          "value": 100,
+          "type": "sorting",
+          "readable": true,
+          "writable": true
+       }
+      },
+      "singleRelations": [ ],
+      "multiRelations": [ ],
+      "paths": { }
+    },
+    {
+      "key": "116",
+      "model": "Country",
+      "version": 1,
+      "display": "Angola",
+      "fields": {
+        "label_de": {
+          "value": "Angola",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_fr": {
+          "value": "Angola",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_it": {
+          "value": "Angola",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_en": {
+          "value": "Angola",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "iso2": {
+          "value": "AO",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "ioc": {
+          "value": "ANG",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "currency_code": {
+          "value": "AOA",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "licence_plate": {
+          "value": "ANG",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "sorting": {
+          "value": 100,
+          "type": "sorting",
+          "readable": true,
+          "writable": true
+       }
+      },
+      "singleRelations": [ ],
+      "multiRelations": [ ],
+      "paths": { }
+    },
+    {
+      "key": "117",
+      "model": "Country",
+      "version": 1,
+      "display": "Anguilla",
+      "fields": {
+        "label_de": {
+          "value": "Anguilla",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_fr": {
+          "value": "Anguille",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_it": {
+          "value": "Anguilla",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_en": {
+          "value": "Anguilla",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "iso2": {
+          "value": "AI",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "ioc": {
+          "value": "AIA",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "currency_code": {
+          "value": "XCD",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "licence_plate": {
+          "value": "AI",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "sorting": {
+          "value": 100,
+          "type": "sorting",
+          "readable": true,
+          "writable": true
+       }
+      },
+      "singleRelations": [ ],
+      "multiRelations": [ ],
+      "paths": { }
+    },
+    {
+      "key": "118",
+      "model": "Country",
+      "version": 1,
+      "display": "Antarktis",
+      "fields": {
+        "label_de": {
+          "value": "Antarktis",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_fr": {
+          "value": "Antarctique",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_it": {
+          "value": "Antartide",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_en": {
+          "value": "Antarctica",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "iso2": {
+          "value": "AQ",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "ioc": {
+          "value": "",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "currency_code": {
+          "value": "",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "licence_plate": {
+          "value": "",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "sorting": {
+          "value": 100,
+          "type": "sorting",
+          "readable": true,
+          "writable": true
+       }
+      },
+      "singleRelations": [ ],
+      "multiRelations": [ ],
+      "paths": { }
+    },
+    {
+      "key": "119",
+      "model": "Country",
+      "version": 1,
+      "display": "Antigua und Barbuda",
+      "fields": {
+        "label_de": {
+          "value": "Antigua und Barbuda",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_fr": {
+          "value": "Antigua et Barbuda",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_it": {
+          "value": "Antigua e Barbuda",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_en": {
+          "value": "Antigua And Barbuda",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "iso2": {
+          "value": "AG",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "ioc": {
+          "value": "ANT",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "currency_code": {
+          "value": "XCD",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "licence_plate": {
+          "value": "ANT",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "sorting": {
+          "value": 100,
+          "type": "sorting",
+          "readable": true,
+          "writable": true
+       }
+      },
+      "singleRelations": [ ],
+      "multiRelations": [ ],
+      "paths": { }
+    },
+    {
+      "key": "120",
+      "model": "Country",
+      "version": 1,
+      "display": "Argentinien",
+      "fields": {
+        "label_de": {
+          "value": "Argentinien",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_fr": {
+          "value": "Argentine",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_it": {
+          "value": "Argentina",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_en": {
+          "value": "Argentina",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "iso2": {
+          "value": "AR",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "ioc": {
+          "value": "ARG",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "currency_code": {
+          "value": "ARS",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "licence_plate": {
+          "value": "RA",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "sorting": {
+          "value": 100,
+          "type": "sorting",
+          "readable": true,
+          "writable": true
+       }
+      },
+      "singleRelations": [ ],
+      "multiRelations": [ ],
+      "paths": { }
+    },
+    {
+      "key": "121",
+      "model": "Country",
+      "version": 1,
+      "display": "Armenien",
+      "fields": {
+        "label_de": {
+          "value": "Armenien",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_fr": {
+          "value": "Armenie",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_it": {
+          "value": "Armenia",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_en": {
+          "value": "Armenia",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "iso2": {
+          "value": "AM",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "ioc": {
+          "value": "ARM",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "currency_code": {
+          "value": "AMD",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "licence_plate": {
+          "value": "ARM",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "sorting": {
+          "value": 100,
+          "type": "sorting",
+          "readable": true,
+          "writable": true
+       }
+      },
+      "singleRelations": [ ],
+      "multiRelations": [ ],
+      "paths": { }
+    },
+    {
+      "key": "122",
+      "model": "Country",
+      "version": 1,
+      "display": "Aruba",
+      "fields": {
+        "label_de": {
+          "value": "Aruba",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_fr": {
+          "value": "Arube",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_it": {
+          "value": "Aruba",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_en": {
+          "value": "Aruba",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "iso2": {
+          "value": "AW",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "ioc": {
+          "value": "ARU",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "currency_code": {
+          "value": "ANG",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "licence_plate": {
+          "value": "AW",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "sorting": {
+          "value": 100,
+          "type": "sorting",
+          "readable": true,
+          "writable": true
+       }
+      },
+      "singleRelations": [ ],
+      "multiRelations": [ ],
+      "paths": { }
+    },
+    {
+      "key": "123",
+      "model": "Country",
+      "version": 1,
+      "display": "Aserbaidschan",
+      "fields": {
+        "label_de": {
+          "value": "Aserbaidschan",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_fr": {
+          "value": "Azerbaïdjan",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_it": {
+          "value": "Azerbaijan",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_en": {
+          "value": "Azerbaijan",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "iso2": {
+          "value": "AZ",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "ioc": {
+          "value": "AZE",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "currency_code": {
+          "value": "AZN",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "licence_plate": {
+          "value": "AZ",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "sorting": {
+          "value": 100,
+          "type": "sorting",
+          "readable": true,
+          "writable": true
+       }
+      },
+      "singleRelations": [ ],
+      "multiRelations": [ ],
+      "paths": { }
+    },
+    {
+      "key": "143",
+      "model": "Country",
+      "version": 1,
+      "display": "Äthiopien",
+      "fields": {
+        "label_de": {
+          "value": "Äthiopien",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_fr": {
+          "value": "Ethiopie",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_it": {
+          "value": "Etiopia",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_en": {
+          "value": "Ethiopia",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "iso2": {
+          "value": "ET",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "ioc": {
+          "value": "ETH",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "currency_code": {
+          "value": "ETB",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "licence_plate": {
+          "value": "ETH",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "sorting": {
+          "value": 100,
+          "type": "sorting",
+          "readable": true,
+          "writable": true
+       }
+      },
+      "singleRelations": [ ],
+      "multiRelations": [ ],
+      "paths": { }
+    },
+    {
+      "key": "124",
+      "model": "Country",
+      "version": 1,
+      "display": "Australien",
+      "fields": {
+        "label_de": {
+          "value": "Australien",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_fr": {
+          "value": "Australie",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_it": {
+          "value": "Australia",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_en": {
+          "value": "Australia",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "iso2": {
+          "value": "AU",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "ioc": {
+          "value": "AUS",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "currency_code": {
+          "value": "AUD",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "licence_plate": {
+          "value": "AUS",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "sorting": {
+          "value": 100,
+          "type": "sorting",
+          "readable": true,
+          "writable": true
+       }
+      },
+      "singleRelations": [ ],
+      "multiRelations": [ ],
+      "paths": { }
+    },
+    {
+      "key": "125",
+      "model": "Country",
+      "version": 1,
+      "display": "Bahamas",
+      "fields": {
+        "label_de": {
+          "value": "Bahamas",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_fr": {
+          "value": "Bahamas",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_it": {
+          "value": "Bahamas",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "label_en": {
+          "value": "Bahamas",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "iso2": {
+          "value": "BS",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "ioc": {
+          "value": "BAH",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "currency_code": {
+          "value": "BSD",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "licence_plate": {
+          "value": "BS",
+          "type": "string",
+          "readable": true,
+          "writable": true
+       },
+        "sorting": {
+          "value": 100,
+          "type": "sorting",
+          "readable": true,
+          "writable": true
+       }
+      },
+      "singleRelations": [ ],
+      "multiRelations": [ ],
+      "paths": { }
+    }
+  ]
+}
