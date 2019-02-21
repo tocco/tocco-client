@@ -5,6 +5,8 @@ import {Button} from 'tocco-ui'
 import {reduxForm} from 'redux-form'
 import {intlShape} from 'react-intl'
 
+const REDUX_FORM_NAME = 'simpleForm'
+
 class Form extends React.Component {
   constructor(props) {
     super(props)
@@ -33,6 +35,7 @@ class Form extends React.Component {
       intl: this.props.intl,
       openAdvancedSearch: props.openAdvancedSearch,
       loadTooltip: props.loadTooltip,
+      changeFieldValue: props.changeFieldValue.bind(null, REDUX_FORM_NAME),
       tooltips: props.tooltips
     }
 
@@ -100,7 +103,8 @@ Form.propTypes = {
   noButtons: PropTypes.bool,
   openAdvancedSearch: PropTypes.func.isRequired,
   tooltips: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)),
-  loadTooltip: PropTypes.func.isRequired
+  loadTooltip: PropTypes.func.isRequired,
+  changeFieldValue: PropTypes.func.isRequired
 }
 
-export default reduxForm({form: 'simpleForm', destroyOnUnmount: false})(Form)
+export default reduxForm({form: REDUX_FORM_NAME, destroyOnUnmount: false})(Form)
