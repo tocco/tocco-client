@@ -27,6 +27,20 @@ export default type =>
       }
     }
 
+    // TODO: Refactor to function
+    if (type === 'location') {
+      props.value = {
+        city: 'Weinfelden',
+        zipcode: '8570'
+      } // = utils.valueprovider('address_')
+
+      props.onChange = locationObject => {
+        for (const key in locationObject) {
+          utils.changeFieldValue(key, locationObject[key])
+        }
+      }
+    }
+
     return <EditableValue type={type} events={events} {...props} options={options}/>
   }
 
