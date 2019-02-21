@@ -96,6 +96,7 @@ describe('simple-form', () => {
                 uploadDocument={EMPTY_FUNC}
                 openAdvancedSearch={EMPTY_FUNC}
                 loadTooltip={EMPTY_FUNC}
+                changeFieldValue={EMPTY_FUNC}
               />
             </Provider>
           )

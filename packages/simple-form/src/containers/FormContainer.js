@@ -2,6 +2,7 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {form, formData} from 'tocco-app-extensions'
 import {injectIntl} from 'react-intl'
+import {actions as formActions} from 'redux-form'
 
 import Form from '../../src/components/Form'
 import {initializeForm, submit, cancel, advancedSearchUpdate} from '../modules/simpleForm/actions'
@@ -16,6 +17,7 @@ const mapActionCreators = (dispatch, props) => (
         onCancel: cancel,
         loadRelationEntities: formData.loadRelationEntities,
         loadTooltip: formData.loadTooltip,
+        changeFieldValue: formActions.change,
         uploadDocument
       }, dispatch
     ),
