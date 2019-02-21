@@ -21,6 +21,7 @@ import DurationEdit from './typeEditors/DurationEdit'
 import NumberEdit from './typeEditors/NumberEdit'
 import MoneyEdit from './typeEditors/MoneyEdit'
 import IntegerEdit from './typeEditors/IntegerEdit'
+import LocationEdit from './typeEditors/LocationEdit'
 
 export const map = {
   'binary': Document,
@@ -46,6 +47,7 @@ export const map = {
   'integer': IntegerEdit,
   'ipaddress': StringEdit,
   'latitude': NumberEdit,
+  'location': LocationEdit,
   'login': StringEdit,
   'long': IntegerEdit,
   'longitude': NumberEdit,
