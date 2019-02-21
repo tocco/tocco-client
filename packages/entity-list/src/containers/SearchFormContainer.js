@@ -1,6 +1,7 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 import {formData} from 'tocco-app-extensions'
+import {actions as formActions} from 'redux-form'
 
 import SearchForm from '../components/SearchForm'
 import {
@@ -19,7 +20,8 @@ const mapActionCreators = {
   loadRelationEntities: formData.loadRelationEntities,
   loadTooltip: formData.loadTooltip,
   openAdvancedSearch: (...args) =>
-    formData.openAdvancedSearch(require('./../main').default, advancedSearchUpdate, ...args)
+    formData.openAdvancedSearch(require('./../main').default, advancedSearchUpdate, ...args),
+  changeFieldValue: formActions.change
 }
 
 const mapStateToProps = (state, props) => ({
