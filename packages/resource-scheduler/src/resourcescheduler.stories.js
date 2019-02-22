@@ -1,6 +1,6 @@
 import React from 'react'
 import {storiesOf} from '@storybook/react'
-import {withKnobs, text} from '@storybook/addon-knobs'
+import {withKnobs, select} from '@storybook/addon-knobs'
 
 import {ResourceSchedulerApp} from './main'
 
@@ -22,7 +22,7 @@ class ResourceSchedulerWrapper extends React.Component {
       <div>
         <ResourceSchedulerApp
           key={this.childKey}
-          locale={text('locale', 'de')}
+          locale={select('locale', ['de', 'en'])}
         />
       </div>
     )

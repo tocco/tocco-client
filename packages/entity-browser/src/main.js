@@ -132,7 +132,6 @@ class EntityBrowserApp extends React.Component {
 }
 
 EntityBrowserApp.propTypes = {
-  formName: PropTypes.string.isRequired,
   entityName: PropTypes.string.isRequired,
   showSearchForm: PropTypes.bool,
   disableSimpleSearch: PropTypes.bool,

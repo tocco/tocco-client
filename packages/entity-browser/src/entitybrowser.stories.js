@@ -20,8 +20,7 @@ class EntityStoryWrapper extends React.Component {
     this.childKey++
     return <EntityBrowserApp
       key={this.childKey}
-      entityId="DEV"
-      formName={text('formName', 'User')}
+      entityId="1"
       entityName={text('entityName', 'User')}
       showSearchForm={boolean('showSearchForm', true)}
       disableSimpleSearch={boolean('disableSimpleSearch', false)}
