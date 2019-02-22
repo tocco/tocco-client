@@ -1,6 +1,6 @@
 import React from 'react'
 import {storiesOf} from '@storybook/react'
-import {withKnobs, boolean, text} from '@storybook/addon-knobs'
+import {withKnobs, boolean, select, text} from '@storybook/addon-knobs'
 import {action} from '@storybook/addon-actions'
 
 import LoginApp from './main'
@@ -25,7 +25,7 @@ class LoginAppWrapper extends React.Component {
         <LoginApp
           key={this.childKey}
           showTitle={boolean('showTitle', false)}
-          locale={text('locale', 'de-CH') || 'de-CH'}
+          locale={select('locale', ['de', 'en'])}
           passwordRequest={boolean('passwordRequest', false)}
           username={text('username', 'Test User')}
 
