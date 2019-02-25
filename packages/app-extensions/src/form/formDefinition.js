@@ -1,3 +1,5 @@
+import _uniq from 'lodash/uniq'
+
 import componentTypes from './enums/componentTypes'
 import rest from '../rest'
 
@@ -11,6 +13,13 @@ export const getFieldDefinitions = formDefinition => {
   return getFieldsOfChildren(formDefinition.children)
 }
 
+const validFieldTypes = [
+  componentTypes.FIELD,
+  componentTypes.DISPLAY,
+  componentTypes.SEARCH_FILTER,
+  componentTypes.FULLTEXT_SEARCH
+]
+
 const getFieldsOfChildren = children => {
   const result = []
 
@@ -20,14 +29,8 @@ const getFieldsOfChildren = children => {
     }
 
     const componentType = children[i].componentType
-    const validTypes = [
-      componentTypes.FIELD,
-      componentTypes.DISPLAY,
-      componentTypes.SEARCH_FILTER,
-      componentTypes.FULLTEXT_SEARCH
-    ]
 
-    if (validTypes.includes(componentType)) {
+    if (validFieldTypes.includes(componentType)) {
       result.push(children[i])
     }
   }
@@ -43,7 +46,16 @@ export const getDefaultValues = fieldDefinitions =>
       [field.id]: field.defaultValue
     }), {})
 
-export const getFieldNames = fieldDefinitions => fieldDefinitions.map(f => f.path || f.id)
+const typePathsHandlers = {
+  'location': fieldDefinition => Object.values(fieldDefinition.locationMapping)
+}
+
+export const getUsedPaths = fieldDefinitions => _uniq(fieldDefinitions.reduce((accumulator, field) =>
+  [
+    ...accumulator,
+    ...(typePathsHandlers[field.dataType] ? typePathsHandlers[field.dataType](field) : [field.path || field.id])
+  ],
+[]))
 
 export const defaultFormTransformer = json => (json.form)
 
