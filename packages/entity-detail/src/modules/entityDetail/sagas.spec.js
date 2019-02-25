@@ -127,7 +127,7 @@ describe('entity-detail', () => {
             const gen = sagas.submitForm()
             expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
             expect(gen.next({mode}).value).to.eql(call(sagas.getEntityForSubmit))
-            expect(gen.next(entity).value).to.eql(call(sagas.getFields))
+            expect(gen.next(entity).value).to.eql(call(sagas.getPaths))
             expect(gen.next(fields).value).to.eql(call(sagas.createFormSubmit, entity, fields))
             expect(gen.next().done).to.be.true
           })
@@ -138,7 +138,7 @@ describe('entity-detail', () => {
             const gen = sagas.submitForm()
             expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
             expect(gen.next({mode}).value).to.eql(call(sagas.getEntityForSubmit))
-            expect(gen.next(entity).value).to.eql(call(sagas.getFields))
+            expect(gen.next(entity).value).to.eql(call(sagas.getPaths))
             expect(gen.next(fields).value).to.eql(call(sagas.updateFormSubmit, entity, fields))
             expect(gen.next().done).to.be.true
           })
@@ -150,7 +150,7 @@ describe('entity-detail', () => {
             const gen = sagas.submitForm()
             expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
             expect(gen.next({mode}).value).to.eql(call(sagas.getEntityForSubmit))
-            expect(gen.next(entity).value).to.eql(call(sagas.getFields))
+            expect(gen.next(entity).value).to.eql(call(sagas.getPaths))
             expect(gen.next(fields).value).to.eql(call(sagas.updateFormSubmit, entity, fields))
 
             expect(gen.throw(error).value).to.eql(call(sagas.handleSubmitError, error))
@@ -280,16 +280,16 @@ describe('entity-detail', () => {
           })
         })
 
-        describe('getFields saga', () => {
+        describe('getPaths saga', () => {
           test('should return array of fields', () => {
             const formDefinition = {}
             const fieldDefinitions = {}
 
-            const gen = sagas.getFields()
+            const gen = sagas.getPaths()
             expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
 
             expect(gen.next({formDefinition}).value).to.eql(call(form.getFieldDefinitions, formDefinition))
-            expect(gen.next(fieldDefinitions).value).to.eql(call(form.getFieldNames, fieldDefinitions))
+            expect(gen.next(fieldDefinitions).value).to.eql(call(form.getUsedPaths, fieldDefinitions))
 
             const next = gen.next(fieldDefinitions)
             expect(next.value).to.eql(fieldDefinitions)
