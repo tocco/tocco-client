@@ -41,8 +41,8 @@ export function* loadDetailFormDefinition(formName) {
 
 export function* loadEntity(entityName, entityId, formDefinition, formName) {
   const fieldDefinitions = yield call(form.getFieldDefinitions, formDefinition)
-  const fields = yield call(form.getFieldNames, fieldDefinitions)
-  const entity = yield call(fetchEntity, entityName, entityId, fields, formName)
+  const paths = yield call(form.getUsedPaths, fieldDefinitions)
+  const entity = yield call(fetchEntity, entityName, entityId, paths, formName)
   yield put(actions.setEntity(entity))
   return entity
 }
@@ -90,8 +90,8 @@ export function* loadDetailView() {
   }
 }
 
-export function* updateFormSubmit(entity, fields) {
-  const updatedEntity = yield call(updateEntity, entity, fields)
+export function* updateFormSubmit(entity, paths) {
+  const updatedEntity = yield call(updateEntity, entity, paths)
   const updatedFormValues = yield call(form.entityToFormValues, updatedEntity)
   yield put(formActions.initialize(FORM_ID, updatedFormValues))
 
@@ -100,8 +100,8 @@ export function* updateFormSubmit(entity, fields) {
   yield put(formActions.stopSubmit(FORM_ID))
 }
 
-export function* createFormSubmit(entity, fields) {
-  const createdEntityId = yield call(createEntity, entity, fields)
+export function* createFormSubmit(entity, paths) {
+  const createdEntityId = yield call(createEntity, entity, paths)
   yield put(externalEvents.fireExternalEvent('onEntityCreated', {id: createdEntityId}))
   yield call(showNotification, 'success', 'createSuccessfulTitle', 'createSuccessfulMessage')
 }
@@ -134,21 +134,21 @@ export function* getEntityForSubmit() {
   return yield call(form.formValuesToEntity, values, dirtyFields, entityName, entityId, entityModel)
 }
 
-export function* getFields() {
+export function* getPaths() {
   const {formDefinition} = yield select(entityDetailSelector)
   const fieldDefinitions = yield call(form.getFieldDefinitions, formDefinition)
-  return yield call(form.getFieldNames, fieldDefinitions)
+  return yield call(form.getUsedPaths, fieldDefinitions)
 }
 
 export function* submitForm() {
   try {
     const {mode} = yield select(entityDetailSelector)
     const entity = yield call(getEntityForSubmit)
-    const fields = yield call(getFields)
+    const paths = yield call(getPaths)
     if (mode === modes.UPDATE) {
-      yield call(updateFormSubmit, entity, fields)
+      yield call(updateFormSubmit, entity, paths)
     } else if (mode === modes.CREATE) {
-      yield call(createFormSubmit, entity, fields)
+      yield call(createFormSubmit, entity, paths)
     }
   } catch (error) {
     yield call(handleSubmitError, error)
