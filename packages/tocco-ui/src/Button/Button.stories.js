@@ -11,98 +11,93 @@ storiesOf('Button', module)
   .addDecorator(withKnobs)
   .add(
     'Knobs',
-    () =>
-      (
-        <Button
-          label={text('label', 'My Button')}
-          ink={select('ink', {'-': null, ...stylingInk}) || undefined}
-          icon={select('icon', {
-            '-': null,
-            regular: 'air-freshener',
-            brand: ['fab', 'google'],
-            times: 'times'}) || undefined
-          }
-          onClick={action('clicked')}
-          look={select('look', {
-            [Button.defaultProps.look.toUpperCase()]: Button.defaultProps.look,
-            ..._pick(stylingLook, ['BALL', 'FLAT', 'RAISED'])
-          }) || undefined}
-          iconPosition={select('iconPosition', {
-            [Button.defaultProps.iconPosition.toUpperCase()]: Button.defaultProps.iconPosition,
-            ..._pick(stylingPosition, ['APPEND', 'PREPEND', 'SOLE'])}) || undefined
-          }
-          pending={boolean('pending', false) || undefined}
-          dense={boolean('dense', false) || undefined}
-          title={text('title')}
-          disabled={boolean('disabled', false)}
-          type={select('type', ['button', 'submit', 'reset'] || undefined)}
-        />
-      )
-  )
-  .add(
+    () => (
+      <Button
+        dense={boolean('dense', false) || undefined}
+        disabled={boolean('disabled', false) || undefined}
+        ink={select('ink', {'-': null, ...stylingInk}) || undefined}
+        icon={select('icon', {
+          '-': null,
+          regular: 'air-freshener',
+          brand: ['fab', 'google'],
+          times: 'times'}) || undefined
+        }
+        iconPosition={select('iconPosition', {
+          [Button.defaultProps.iconPosition.toUpperCase()]: Button.defaultProps.iconPosition,
+          ..._pick(stylingPosition, ['APPEND', 'PREPEND', 'SOLE'])}) || undefined
+        }
+        label={text('label', 'My Button')}
+        look={select('look', {
+          [Button.defaultProps.look.toUpperCase()]: Button.defaultProps.look,
+          ..._pick(stylingLook, ['BALL', 'FLAT', 'RAISED'])
+        }) || undefined}
+        onClick={action('clicked')}
+        pending={boolean('pending', false) || undefined}
+        title={text('title')}
+        type={select('type', ['button', 'submit', 'reset'] || undefined)}
+      />
+    )
+  ).add(
     'Showcase',
     () => {
+      const knobs = {
+        dense: boolean('dense', false) || undefined,
+        disabled: boolean('disabled', false) || undefined
+      }
       return [
         <Button
-          dense={boolean('dense', false) || undefined}
-          disabled={boolean('disabled', false) || undefined}
+          {...knobs}
           key="1"
           label="Base color flat"
           onClick={action('clicked')}
         />,
         <Button
-          dense={boolean('dense', false) || undefined}
-          disabled={boolean('disabled', false) || undefined}
-          key="2"
+          {...knobs}
           ink="primary"
+          key="2"
           label="Primary color flat"
         />,
         <Button
-          dense={boolean('dense', false) || undefined}
-          disabled={boolean('disabled', false) || undefined}
+          {...knobs}
           key="3"
           label="Base color raised"
           look="raised"
         />,
         <Button
-          dense={boolean('dense', false) || undefined}
-          disabled={boolean('disabled', false) || undefined}
-          key="4"
+          {...knobs}
           ink="primary"
+          key="4"
           label="Primary color raised"
           look="raised"
         />,
         <Button
-          dense={boolean('dense', false) || undefined}
-          disabled={boolean('disabled', false) || undefined}
-          key="5"
+          {...knobs}
           icon="handshake"
           iconPosition="append"
+          key="5"
           label="Icon with text"
           type="submit"
         />,
         <Button
-          dense={boolean('dense', false) || undefined}
-          disabled={boolean('disabled', false) || undefined}
-          key="6"
+          {...knobs}
           icon="fab, facebook"
+          key="6"
           label="Brand Icon"
         />,
         <Button
-          dense={boolean('dense', false) || undefined}
-          disabled={boolean('disabled', false) || undefined}
-          key="9"
-          ink="primary"
+          {...knobs}
           icon="air-freshener"
-          pending={true}
+          ink="primary"
+          key="9"
           label="Pending"
+          pending={true}
         />,
         <Button
-          dense={boolean('dense', false) || undefined}
-          disabled={boolean('disabled', false) || undefined}
-          key="10"
+          {...knobs}
           icon="times"
-          look="ball" />
+          key="10"
+          look="ball"
+        />
       ]
     }
   )
