@@ -12,6 +12,7 @@ logger.info(`Apply environment overrides for NODE_ENV ${chalk.bold(config.env)}.
 // way we can provide better error reporting that overrides
 // weren't applied simply because the file didn't exist.
 const overridesFilename = `_${config.env}`
+console.log('__________________________ overridesFilename', overridesFilename)
 let hasOverridesFile
 try {
   fs.lstatSync(`${__dirname}/${overridesFilename}.js`)
