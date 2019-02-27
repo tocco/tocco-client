@@ -17,8 +17,8 @@ addLocaleData(enLocaleData)
 addLocaleData(deLocaleData)
 
 setIntlConfig({
-  locales: ['en', 'de'],
-  defaultLocale: 'en',
+  locales: ['de-CH', 'en', 'de'],
+  defaultLocale: 'de-CH',
   getMessages: () => {}
 })
 
