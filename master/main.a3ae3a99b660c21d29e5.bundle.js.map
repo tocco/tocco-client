@@ -1,1 +1,0 @@
-{"version":3,"file":"main.a3ae3a99b660c21d29e5.bundle.js","sources":["webpack:///./packages/tocco-ui/src/ButtonLink/index.js"],"sourcesContent":["import ButtonLink from './ButtonLink'\nimport StyledButtonLink from './StyledButtonLink'\n\nexport {\n  ButtonLink as default,\n  StyledButtonLink\n}\n"],"mappings":"AAAA","sourceRoot":""}
