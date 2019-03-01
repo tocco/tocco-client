@@ -26,9 +26,10 @@ const LocationEdit = props => {
         id={props.id}
         disabled={props.readOnly}
       />
-      <button onClick={() => props.options.fetchSuggestions('ZH')}/>
+      <button onClick={() => props.options.fetchSuggestions(props.value.city)}>ZH</button>
+      {JSON.stringify(props.options.suggestions)}
+      {JSON.stringify(props.options.isLoading)}
     </StyledEditableWrapper>
-
   )
 }
 

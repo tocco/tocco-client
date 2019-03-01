@@ -114,6 +114,12 @@ const getOptions = (type, formField, modelField, utils, formName) => {
       options.prePointDigits = _get(modelField, 'validation.decimalDigits.prePointDigits', null)
       options.minValue = _get(modelField, 'validation.numberRange.fromIncluding', null)
       options.maxValue = _get(modelField, 'validation.numberRange.toIncluding', null)
+
+      break
+    case 'location':
+      options.fetchSuggestions = searchTerm => utils.loadLocationsSuggestions(formField.id, searchTerm)
+      options.isLoading = _get(utils.locationSuggestions, [formField.id, 'isLoading'], false)
+      options.suggestions = _get(utils.locationSuggestions, [formField.id, 'suggestions'], null)
   }
 
   return options
