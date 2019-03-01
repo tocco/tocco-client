@@ -136,13 +136,9 @@ const getOptions = (type, formField, modelField, utils, formName) => {
       options.maxValue = _get(modelField, 'validation.numberRange.toIncluding', null)
       break
     case 'location':
-      // TODO: Create Fetch Suggestions and connect here
-      options.fetchSuggestions = () => {
-        options.suggestions = [{
-          city: 'Zuri',
-          zipcode: 8000
-        }]
-      }
+      options.fetchSuggestions = searchTerm => utils.loadLocationsSuggestions(formField.id, searchTerm)
+      options.isLoading = _get(utils.locationSuggestions, [formField.id, 'isLoading'], false)
+      options.suggestions = _get(utils.locationSuggestions, [formField.id, 'suggestions'], null)
   }
 
   return options
