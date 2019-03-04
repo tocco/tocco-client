@@ -9,6 +9,7 @@ import relationEntitiesSagas from './relationEntities/sagas'
 import tooltipsSaga from './tooltips/sagas'
 import advancedSearchSagas from './advancedSearch/sagas'
 import valueSagas from './values/sagas'
+import uploadSagas from './upload/sagas'
 import {setRelationEntities} from './relationEntities/actions'
 export const relationEntitiesSelector = store => store.formData.relationEntities.data
 export const tooltipSelector = store => store.formData.tooltips.data
@@ -20,6 +21,7 @@ export const addToStore = (store, config) => {
   store.sagaMiddleware.run(tooltipsSaga)
   store.sagaMiddleware.run(advancedSearchSagas, config)
   store.sagaMiddleware.run(valueSagas)
+  store.sagaMiddleware.run(uploadSagas)
 
   const relationEntitiesData = _get(config, 'data.relationEntities', null)
   if (relationEntitiesData !== null) {

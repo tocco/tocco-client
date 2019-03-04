@@ -13,7 +13,6 @@ import {
   fetchModel,
   createEntity
 } from '../../util/api/entities'
-import {uploadRequest, documentToFormValueTransformer} from '../../util/api/documents'
 import {submitValidate} from '../../util/detailView/asyncValidation'
 import modes from '../../util/modes'
 
@@ -29,7 +28,6 @@ export default function* sagas() {
     fork(takeLatest, actions.LOAD_DETAIL_VIEW, loadDetailView),
     fork(takeLatest, actions.UNLOAD_DETAIL_VIEW, unloadDetailView),
     fork(takeEvery, actions.SUBMIT_FORM, submitForm),
-    fork(takeEvery, actions.UPLOAD_DOCUMENT, uploadDocument),
     fork(takeEvery, actions.FIRE_TOUCHED, fireTouched),
     fork(takeEvery, actionUtil.actions.ACTION_INVOKED, actionInvoked)
   ])
@@ -154,29 +152,6 @@ export function* submitForm() {
     }
   } catch (error) {
     yield call(handleSubmitError, error)
-  }
-}
-
-export function* uploadDocument({payload}) {
-  const {file, field} = payload
-
-  try {
-    const uploadResponse = yield call(uploadRequest, file)
-
-    if (uploadResponse.success) {
-      const documentFormValue = yield call(documentToFormValueTransformer, uploadResponse, file)
-      yield put(formActions.change(FORM_ID, field, documentFormValue))
-    } else {
-      throw new Error(`upload not successful: ${JSON.stringify(uploadResponse)}`)
-    }
-  } catch (error) {
-    // timestamp is needed as workaround, so that Upload component rerenders
-    yield put(formActions.change(FORM_ID, field, {id: null, timestamp: Date.now()}))
-    yield put(errorLogging.logError(
-      'client.component.form.uploadFailedTitle',
-      'client.component.form.uploadFailedMessage',
-      error
-    ))
   }
 }
 
