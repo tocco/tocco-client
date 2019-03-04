@@ -6,19 +6,16 @@ import {
   getFormInitialValues,
   getFormSyncErrors,
   getFormAsyncErrors,
-  getFormSubmitErrors,
-  actions as formActions
+  getFormSubmitErrors
 } from 'redux-form'
 import {errorLogging, formData} from 'tocco-app-extensions'
-import EntityListApp from 'tocco-entity-list/src/main'
 
 import DetailForm from '../components/DetailForm/DetailForm'
 import {
   unloadDetailView,
   submitForm,
   uploadDocument,
-  fireTouched,
-  advancedSearchUpdate
+  fireTouched
 } from '../modules/entityDetail/actions'
 
 const mapActionCreators = {
@@ -29,8 +26,8 @@ const mapActionCreators = {
   uploadDocument,
   logError: errorLogging.logError,
   fireTouched,
-  openAdvancedSearch: (...args) => formData.openAdvancedSearch(EntityListApp, advancedSearchUpdate, ...args),
-  changeFieldValue: formActions.change
+  openAdvancedSearch: formData.openAdvancedSearch,
+  changeFieldValue: formData.changeFieldValue
 }
 
 const getFormGeneralErrors = formName =>

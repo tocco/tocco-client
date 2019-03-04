@@ -31,7 +31,6 @@ export default function* sagas() {
     fork(takeEvery, actions.SUBMIT_FORM, submitForm),
     fork(takeEvery, actions.UPLOAD_DOCUMENT, uploadDocument),
     fork(takeEvery, actions.FIRE_TOUCHED, fireTouched),
-    fork(takeEvery, actions.ADVANCED_SEARCH_UPDATE, advancedSearchUpdate),
     fork(takeEvery, actionUtil.actions.ACTION_INVOKED, actionInvoked)
   ])
 }
@@ -179,10 +178,6 @@ export function* uploadDocument({payload}) {
       error
     ))
   }
-}
-
-export function* advancedSearchUpdate({payload: {field, ids}}) {
-  yield put(formActions.change(FORM_ID, field, ids))
 }
 
 export function* fireTouched({payload}) {

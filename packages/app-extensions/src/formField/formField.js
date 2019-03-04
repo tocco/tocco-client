@@ -19,7 +19,8 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
       error,
       utils,
       submitting,
-      readOnlyForm
+      readOnlyForm,
+      formName
     } = data
 
     const readOnly = (
@@ -35,6 +36,7 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
       mapping,
       formDefinitionField,
       modelField,
+      formName,
       {
         id,
         value,
@@ -67,7 +69,7 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
   }
 }
 
-const valueFieldFactory = (mapping, formField, modelField, props, events, utils) => {
+const valueFieldFactory = (mapping, formField, modelField, formName, props, events, utils) => {
   const type = formField.dataType ? 'dataType' : 'componentType'
 
   let typeFactory = mapping[formField[type]]
@@ -85,5 +87,5 @@ const valueFieldFactory = (mapping, formField, modelField, props, events, utils)
     }
   }
 
-  return typeFactory(formField, modelField, props, events, utils)
+  return typeFactory(formField, modelField, formName, props, events, utils)
 }

@@ -5,20 +5,23 @@ import uuid from 'uuid/v4'
 import notifier from './../../notifier'
 import rest from '../../rest'
 import * as advancedSearchActions from './actions'
+import * as valueActions from '../values/actions'
 import {getSelection, getValue, getAdvancedSearchComponent} from './utils'
 
 import {all, call, fork, put, takeEvery, take, spawn, select} from 'redux-saga/effects'
 
 export const textResourceSelector = (state, key) => state.intl.messages[key] || key
 
-export default function* sagas() {
+export default function* sagas(config) {
   yield all([
-    fork(takeEvery, advancedSearchActions.OPEN_ADVANCED_SEARCH, openAdvancedSearch)
+    fork(takeEvery, advancedSearchActions.OPEN_ADVANCED_SEARCH, openAdvancedSearch, config)
   ])
 }
 
-export function* openAdvancedSearch({payload}) {
-  const {listApp, onSelect, formField, modelField, value} = payload
+export function* openAdvancedSearch(config, {payload}) {
+  const {listApp} = config
+  const {formName, formField, modelField, value} = payload
+
   const {multi, targetEntity: entity} = modelField
   const {id: fieldId, label, formBase: fieldFormBase} = formField
   const formBase = fieldFormBase || entity
@@ -38,10 +41,10 @@ export function* openAdvancedSearch({payload}) {
     multi)
 
   yield put(notifier.modalComponent(modalId, `${label}: ${advancedSearchTitle}`, null, advancedSearchComponent, true))
-  yield spawn(closeAdvancedSearch, answerChannel, modalId, fieldId, entity, onSelect, multi)
+  yield spawn(closeAdvancedSearch, answerChannel, modalId, fieldId, formName, entity, multi)
 }
 
-export function* closeAdvancedSearch(answerChannel, modalId, fieldId, entity, onSelect, multi) {
+export function* closeAdvancedSearch(answerChannel, modalId, fieldId, formName, entity, multi) {
   let modalOpen = true
   while (modalOpen) {
     const {payload, type} = yield take(answerChannel)
@@ -52,9 +55,9 @@ export function* closeAdvancedSearch(answerChannel, modalId, fieldId, entity, on
         }
         const entities = yield call(rest.fetchEntities, entity, query)
         const value = yield call(getValue, entities, multi)
-        yield put(onSelect(fieldId, value))
+        yield call(advancedSearchUpdate, formName, fieldId, value)
       } else {
-        yield put(onSelect(fieldId, []))
+        yield call(advancedSearchUpdate, formName, fieldId, [])
       }
       if (!multi) {
         yield put(notifier.removeModalComponent(modalId))
@@ -65,4 +68,8 @@ export function* closeAdvancedSearch(answerChannel, modalId, fieldId, entity, on
       modalOpen = false
     }
   }
+}
+
+export function* advancedSearchUpdate(formName, field, ids) {
+  yield put(valueActions.changeFieldValue(formName, field, ids))
 }

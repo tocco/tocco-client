@@ -18,7 +18,6 @@ export default function* sagas() {
     fork(takeEvery, actions.SUBMIT, submit),
     fork(takeEvery, actions.CANCEL, cancel),
     fork(takeLatest, documentActions.UPLOAD_DOCUMENT, documentSagas.uploadDocument),
-    fork(takeLatest, actions.ADVANCED_SEARCH_UPDATE, advancedSearchUpdate),
     fork(takeLatest, CHANGE, change),
     fork(takeLatest, UPDATE_SYNC_ERRORS, change),
     fork(takeLatest, INITIALIZE, change)
@@ -46,8 +45,4 @@ export function* change() {
   const values = yield select(getFormValues(FORM_ID))
   const valid = yield select(isValid(FORM_ID))
   yield put(externalEvents.fireExternalEvent('onChange', {values, valid}))
-}
-
-export function* advancedSearchUpdate({payload: {field, ids}}) {
-  yield put(formActions.change(FORM_ID, formUtil.transformFieldName(field), ids))
 }

@@ -17,11 +17,3 @@ export const submit = () => ({
 export const cancel = () => ({
   type: CANCEL
 })
-
-export const advancedSearchUpdate = (field, ids) => ({
-  type: ADVANCED_SEARCH_UPDATE,
-  payload: {
-    field,
-    ids
-  }
-})

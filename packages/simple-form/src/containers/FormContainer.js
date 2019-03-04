@@ -1,29 +1,21 @@
 import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
 import {form, formData} from 'tocco-app-extensions'
 import {injectIntl} from 'react-intl'
-import {actions as formActions} from 'redux-form'
 
 import Form from '../../src/components/Form'
-import {initializeForm, submit, cancel, advancedSearchUpdate} from '../modules/simpleForm/actions'
+import {initializeForm, submit, cancel} from '../modules/simpleForm/actions'
 import {uploadDocument} from '../utils/form/document/actions'
 
-const mapActionCreators = (dispatch, props) => (
-  {
-    ...bindActionCreators(
-      {
-        initializeForm,
-        onSubmit: submit,
-        onCancel: cancel,
-        loadRelationEntities: formData.loadRelationEntities,
-        loadTooltip: formData.loadTooltip,
-        changeFieldValue: formActions.change,
-        uploadDocument
-      }, dispatch
-    ),
-    openAdvancedSearch: (...args) => dispatch(formData.openAdvancedSearch(props.listApp, advancedSearchUpdate, ...args))
-  }
-)
+const mapActionCreators = {
+  initializeForm,
+  onSubmit: submit,
+  onCancel: cancel,
+  loadRelationEntities: formData.loadRelationEntities,
+  loadTooltip: formData.loadTooltip,
+  uploadDocument,
+  openAdvancedSearch: formData.openAdvancedSearch,
+  changeFieldValue: formData.changeFieldValue
+}
 
 const mapStateToProps = (state, props) => ({
   noButtons: state.input.noButtons,

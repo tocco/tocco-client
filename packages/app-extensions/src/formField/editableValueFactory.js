@@ -10,13 +10,13 @@ const settings = {
 }
 
 export default type =>
-  (formField, modelField, props, events, utils) => {
-    const options = getOptions(type, formField, modelField, utils)
+  (formField, modelField, formName, props, events, utils) => {
+    const options = getOptions(type, formField, modelField, utils, formName)
 
     return <EditableValue type={type} events={events} {...props} options={options}/>
   }
 
-const getOptions = (type, formField, modelField, utils) => {
+const getOptions = (type, formField, modelField, utils, formName) => {
   const options = {}
 
   switch (type) {
@@ -56,7 +56,7 @@ const getOptions = (type, formField, modelField, utils) => {
         formBase: formField.formBase
       })
 
-      options.openAdvancedSearch = value => utils.openAdvancedSearch(formField, modelField, value)
+      options.openAdvancedSearch = value => utils.openAdvancedSearch(formName, formField, modelField, value)
       options.tooltips = _get(utils.tooltips, modelField.targetEntity, null)
       options.loadTooltip = id => utils.loadTooltip(modelField.targetEntity, id)
 
