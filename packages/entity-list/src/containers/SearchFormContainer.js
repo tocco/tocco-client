@@ -8,8 +8,7 @@ import {
   submitSearchForm,
   resetSearch,
   setShowExtendedSearchForm,
-  loadSearchFilters,
-  advancedSearchUpdate
+  loadSearchFilters
 } from '../modules/searchForm/actions'
 
 const mapActionCreators = {
@@ -19,8 +18,7 @@ const mapActionCreators = {
   setShowExtendedSearchForm,
   loadRelationEntities: formData.loadRelationEntities,
   loadTooltip: formData.loadTooltip,
-  openAdvancedSearch: (...args) =>
-    formData.openAdvancedSearch(require('./../main').default, advancedSearchUpdate, ...args),
+  openAdvancedSearch: formData.openAdvancedSearch,
   changeFieldValue: formActions.change
 }
 

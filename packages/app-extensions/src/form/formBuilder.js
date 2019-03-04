@@ -120,6 +120,7 @@ export default (
           readOnlyForm={isReadOnlyForm}
           name={transformFieldName(fieldName)}
           id={getFieldId(formName, fieldName)}
+          formName={formName}
           component={ReduxFormFieldAdapter}
           formDefinitionField={formDefinitionField}
           entityField={entityField}

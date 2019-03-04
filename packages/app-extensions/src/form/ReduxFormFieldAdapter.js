@@ -17,7 +17,8 @@ const ReduxFormFieldAdapter = props => {
     entityField,
     modelField,
     formFieldUtils,
-    readOnlyForm
+    readOnlyForm,
+    formName
   } = props
 
   const events = extractEventsFromInput(input)
@@ -26,6 +27,7 @@ const ReduxFormFieldAdapter = props => {
     formDefinitionField,
     modelField,
     id,
+    formName,
     value: input.value,
     dirty,
     touched,

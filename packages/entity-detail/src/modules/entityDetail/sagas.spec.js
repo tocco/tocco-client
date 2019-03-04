@@ -34,7 +34,6 @@ describe('entity-detail', () => {
               fork(takeEvery, actions.SUBMIT_FORM, sagas.submitForm),
               fork(takeEvery, actions.UPLOAD_DOCUMENT, sagas.uploadDocument),
               fork(takeEvery, actions.FIRE_TOUCHED, sagas.fireTouched),
-              fork(takeEvery, actions.ADVANCED_SEARCH_UPDATE, sagas.advancedSearchUpdate),
               fork(takeEvery, actionUtil.actions.ACTION_INVOKED, sagas.actionInvoked)
             ]))
             expect(generator.next().done).to.be.true

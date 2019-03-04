@@ -99,14 +99,6 @@ export const setValuesInitialized = valuesInitialized => ({
   }
 })
 
-export const advancedSearchUpdate = (field, ids) => ({
-  type: ADVANCED_SEARCH_UPDATE,
-  payload: {
-    field,
-    ids
-  }
-})
-
 export const setShowFullTextSearchForm = showFullTextSearchForm => ({
   type: SET_SHOW_FULL_TEXT_SEARCH_FORM,
   payload: {

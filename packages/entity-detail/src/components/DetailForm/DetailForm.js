@@ -11,8 +11,6 @@ import modes from '../../util/modes'
 import readOnlyFormFieldMapping from '../../util/detailView/readOnlyFormFieldMapping'
 import StyledDetailForm from './StyledDetailForm'
 
-const REDUX_FORM_NAME = 'detailForm'
-
 export class DetailForm extends React.Component {
   constructor(props) {
     super(props)
@@ -34,7 +32,7 @@ export class DetailForm extends React.Component {
       uploadDocument: props.uploadDocument,
       intl: this.props.intl,
       openAdvancedSearch: props.openAdvancedSearch,
-      changeFieldValue: props.changeFieldValue.bind(null, REDUX_FORM_NAME)
+      changeFieldValue: props.changeFieldValue
     }
 
     return form.initFormBuilder(
@@ -174,6 +172,6 @@ DetailForm.propTypes = {
 }
 
 export default reduxForm({
-  form: REDUX_FORM_NAME,
+  form: 'detailForm',
   destroyOnUnmount: false
 })(DetailForm)
