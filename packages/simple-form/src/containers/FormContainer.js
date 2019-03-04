@@ -4,7 +4,6 @@ import {injectIntl} from 'react-intl'
 
 import Form from '../../src/components/Form'
 import {initializeForm, submit, cancel} from '../modules/simpleForm/actions'
-import {uploadDocument} from '../utils/form/document/actions'
 
 const mapActionCreators = {
   initializeForm,
@@ -12,7 +11,7 @@ const mapActionCreators = {
   onCancel: cancel,
   loadRelationEntities: formData.loadRelationEntities,
   loadTooltip: formData.loadTooltip,
-  uploadDocument,
+  uploadDocument: formData.uploadDocument,
   openAdvancedSearch: formData.openAdvancedSearch,
   changeFieldValue: formData.changeFieldValue
 }

@@ -76,9 +76,10 @@ const getOptions = (type, formField, modelField, utils, formName) => {
       }
       break
     case 'document':
-      options.field = formField.id
-      options.upload = utils.uploadDocument
-      options.uploadText = utils.intl.formatMessage({id: 'client.component.upload.upload'})
+      options.upload = document => {
+        utils.uploadDocument(formName, formField.id, document)
+        options.uploadText = utils.intl.formatMessage({id: 'client.component.upload.upload'})
+      }
       options.uploadingText = utils.intl.formatMessage({id: 'client.component.upload.uploading'})
       options.downloadText = utils.intl.formatMessage({id: 'client.component.upload.downloadTitle'})
       options.deleteText = utils.intl.formatMessage({id: 'client.component.upload.deleteTitle'})

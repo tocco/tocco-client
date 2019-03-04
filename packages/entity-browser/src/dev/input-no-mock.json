@@ -1,8 +1,8 @@
 {
   "id": "DEV",
-  "entityName": "Event",
+  "entityName": "User",
   "limit": 25,
-  "formBase": "Event",
+  "formBase": "User",
   "showSearchForm": true,
   "showCreateButton": true,
   "disableSimpleSearch": false,

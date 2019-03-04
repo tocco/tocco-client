@@ -14,18 +14,17 @@ import DetailForm from '../components/DetailForm/DetailForm'
 import {
   unloadDetailView,
   submitForm,
-  uploadDocument,
   fireTouched
 } from '../modules/entityDetail/actions'
 
 const mapActionCreators = {
   unloadDetailView,
   submitForm,
+  fireTouched,
+  logError: errorLogging.logError,
   loadRelationEntities: formData.loadRelationEntities,
   loadTooltip: formData.loadTooltip,
-  uploadDocument,
-  logError: errorLogging.logError,
-  fireTouched,
+  uploadDocument: formData.uploadDocument,
   openAdvancedSearch: formData.openAdvancedSearch,
   changeFieldValue: formData.changeFieldValue
 }

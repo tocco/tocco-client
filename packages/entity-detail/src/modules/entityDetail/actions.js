@@ -106,13 +106,6 @@ export const setShowSubGridsCreateButton = showSubGridCreateButton => ({
   }
 })
 
-export const uploadDocument = (file, field) => ({
-  type: UPLOAD_DOCUMENT,
-  payload: {
-    file,
-    field
-  }
-})
 export const setAppId = appId => ({
   type: SET_APP_ID,
   payload: {
