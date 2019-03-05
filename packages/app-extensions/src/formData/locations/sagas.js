@@ -1,4 +1,4 @@
-import {delay} from 'redux-saga'
+// import {delay} from 'redux-saga'
 import uuid from 'uuid/v4'
 
 import * as actions from './actions'
@@ -13,11 +13,12 @@ export default function* sagas() {
 
 export function* loadLocations({payload: {field, searchInput}}) {
   yield put(actions.setLocationSuggestionsLoading(field))
+  // uncomment to see isLoading animation
   // MOCK
-  yield delay(1000)
+  // yield delay(1000)
   const suggestions = [
     {
-      city: `Zurich ${searchInput}`,
+      city: `Zurich`,
       plz: '8006',
       canton: 'ZH',
       district: 'Zurich',
@@ -27,12 +28,6 @@ export function* loadLocations({payload: {field, searchInput}}) {
       city: 'Bern',
       plz: '3000',
       district: 'Bern',
-      country: 'CH'
-    },
-    {
-      city: 'Lausanne',
-      plz: '1000',
-      district: 'Lausanne',
       country: 'CH'
     }
   ]
