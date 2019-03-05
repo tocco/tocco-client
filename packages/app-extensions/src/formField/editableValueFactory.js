@@ -27,16 +27,19 @@ export default type =>
       }
     }
 
-    // TODO: Refactor to function
     if (type === 'location') {
-      props.value = {
-        city: 'Weinfelden',
-        zipcode: '8570'
-      } // = utils.valueprovider('address_')
-
+      const locationMapping = formField.locationMapping
       props.onChange = locationObject => {
-        for (const key in locationObject) {
-          utils.changeFieldValue(key, locationObject[key])
+        const locationChangeObject = {
+          [locationMapping.postcode]: locationObject.plz,
+          [locationMapping.location]: locationObject.city,
+          [locationMapping.district]: locationObject.district,
+          [locationMapping.state]: locationObject.canton,
+          [locationMapping.country]: locationObject.country
+        }
+
+        for (const key in locationChangeObject) {
+          utils.changeFieldValue(key, locationChangeObject[key])
         }
       }
     }
