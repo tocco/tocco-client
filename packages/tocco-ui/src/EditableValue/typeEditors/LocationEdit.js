@@ -25,7 +25,7 @@ const LocationEdit = props => {
 
   const formatOptionLabel = attr => (input, info) => {
     const menuString = `${input.plz} ${input.city} - ${input.district} / ${input.country}`
-    const deleteValueString = 'Wert löschen'
+    const deleteValueString = props.deleteLabel || 'Wert löschen'
 
     if (info.selectValue.length > 0) {
       if (info.context === 'menu' && input.label === '') {
@@ -110,7 +110,8 @@ LocationEdit.propTypes = {
   }),
   name: PropTypes.string,
   id: PropTypes.string,
-  readOnly: PropTypes.bool
+  readOnly: PropTypes.bool,
+  deleteLabel: PropTypes.string
 }
 
 export default LocationEdit
