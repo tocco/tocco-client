@@ -93,7 +93,6 @@ SimpleFormApp.propTypes = {
   cancelText: PropTypes.string,
   form: PropTypes.object.isRequired,
   model: PropTypes.object.isRequired,
-  formData: formData.formDataPropType,
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
     propTypes[event] = PropTypes.func
     return propTypes

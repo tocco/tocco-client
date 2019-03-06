@@ -114,7 +114,7 @@ describe('app-extensions', () => {
     describe('formBuilder', () => {
       test('should render layout boxes and Fields', () => {
         const {entity, model, formName, formDefinition, formValues} = testData
-        const props = {entity, model, formName, formDefinition, formValues}
+        const props = {entity, model, formName, formDefinition, formValues, formFieldMapping: {}}
         const wrapper = shallow(<FormBuilder {...props}/>)
         expect(wrapper.find(Layout.Box)).to.have.length(2)
         expect(wrapper.find(Field)).to.have.length(2)
@@ -125,7 +125,7 @@ describe('app-extensions', () => {
 
         const beforeRenderField = name => name !== 'lastname'
 
-        const props = {entity, model, formName, formDefinition, formValues, beforeRenderField}
+        const props = {entity, model, formName, formDefinition, formValues, beforeRenderField, formFieldMapping: {}}
         const wrapper = shallow(<FormBuilder {...props}/>)
         expect(wrapper.find(Layout.Box)).to.have.length(2)
         expect(wrapper.find(Field)).to.have.length(1)
@@ -144,7 +144,7 @@ describe('app-extensions', () => {
           }
         }
 
-        const props = {entity, model, formName, formDefinition, formValues}
+        const props = {entity, model, formName, formDefinition, formValues, formFieldMapping: {}}
         const wrapper = shallow(<FormBuilder {...props}/>)
 
         expect(wrapper.find(Field)).to.have.length(1)
@@ -155,7 +155,7 @@ describe('app-extensions', () => {
         () => {
           const {model, formName, formDefinition, formValues} = testData
           const entity = null
-          const props = {entity, model, formName, formDefinition, formValues}
+          const props = {entity, model, formName, formDefinition, formValues, formFieldMapping: {}}
           const wrapper = shallow(<FormBuilder {...props}/>)
           expect(wrapper.find(Field)).to.have.length(2)
         }
@@ -164,7 +164,7 @@ describe('app-extensions', () => {
       test('should not render empty values in readonly form', () => {
         const {entity, model, formName, formDefinition} = testData
         const formValues = {...testData.formValues, lastname: ''}
-        const props = {entity, model, formName, formDefinition, formValues}
+        const props = {entity, model, formName, formDefinition, formValues, formFieldMapping: {}}
         const wrapper = shallow(<FormBuilder {...props}/>)
         expect(wrapper.find(Field)).to.have.length(1)
       })
@@ -172,7 +172,7 @@ describe('app-extensions', () => {
       test('should render fields with matching scope', () => {
         const {model, formName, formDefinition, formValues} = testData
         const entity = null
-        const props = {entity, model, formName, formDefinition, formValues, mode: 'create'}
+        const props = {entity, model, formName, formDefinition, formValues, mode: 'create', formFieldMapping: {}}
         const wrapper = shallow(<FormBuilder {...props}/>)
         expect(wrapper.find(Field)).to.have.length(2)
       })
@@ -180,7 +180,7 @@ describe('app-extensions', () => {
       test('should NOT render fields with unmatching scope', () => {
         const {model, formName, formDefinition, formValues} = testData
         const entity = null
-        const props = {entity, model, formName, formDefinition, formValues, mode: 'update'}
+        const props = {entity, model, formName, formDefinition, formValues, mode: 'update', formFieldMapping: {}}
         const wrapper = shallow(<FormBuilder {...props}/>)
         expect(wrapper.find(Field)).to.have.length(1)
       })

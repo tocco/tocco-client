@@ -177,14 +177,14 @@ class FormBuilder extends React.Component {
 
 FormBuilder.propTypes = {
   entity: PropTypes.object,
-  model: PropTypes.object,
-  formName: PropTypes.string,
-  formDefinition: PropTypes.object,
+  model: PropTypes.object.isRequired,
+  formName: PropTypes.string.isRequired,
+  formDefinition: PropTypes.object.isRequired,
+  formFieldMapping: PropTypes.object.isRequired,
   formValues: PropTypes.object,
-  formFieldMapping: PropTypes.object,
   readOnlyFormFieldMapping: PropTypes.object,
   mode: PropTypes.string,
-  componentMapping: PropTypes.object,
+  componentMapping: PropTypes.objectOf(PropTypes.func),
   beforeRenderField: PropTypes.func
 }
 
