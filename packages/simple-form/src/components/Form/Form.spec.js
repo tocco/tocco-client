@@ -80,8 +80,12 @@ describe('simple-form', () => {
             relations: []
           }
 
-          const store = createStore(() => {
-          })
+          const store = createStore(() => ({
+            formData: {
+              relationEntities: {data: {}},
+              tooltips: {data: {}}
+            }
+          }))
 
           const wrapper = intlEnzyme.mountWithIntl(
             <Provider store={store}>

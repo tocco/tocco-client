@@ -1,6 +1,8 @@
-import {mount} from 'enzyme'
 import {FormField, EditableValue} from 'tocco-ui'
 import {intlEnzyme} from 'tocco-test-util'
+import {createStore} from 'redux'
+import {Provider} from 'react-redux'
+import React from 'react'
 
 import editableValueFactory from './editableValueFactory'
 import {formFieldFactory} from './formField'
@@ -23,7 +25,18 @@ describe('app-extensions', () => {
         }
         const formField = formFieldFactory(mapping, formFieldData)
 
-        const wrapper = mount(formField)
+        const store = createStore(() => ({
+          formData: {
+            relationEntities: {data: {}},
+            tooltips: {data: {}}
+          }
+        }))
+
+        const wrapper = intlEnzyme.mountWithIntl(
+          <Provider store={store}>
+            {formField}
+          </Provider>
+        )
 
         expect(wrapper.find(FormField)).to.have.length(1)
         expect(wrapper.find(EditableValue)).to.have.length(1)
@@ -52,7 +65,18 @@ describe('app-extensions', () => {
         }
         const formField = formFieldFactory(mapping, formFieldData)
 
-        const wrapper = intlEnzyme.mountWithIntl(formField)
+        const store = createStore(() => ({
+          formData: {
+            relationEntities: {data: {}},
+            tooltips: {data: {}}
+          }
+        }))
+
+        const wrapper = intlEnzyme.mountWithIntl(
+          <Provider store={store}>
+            {formField}
+          </Provider>
+        )
 
         expect(wrapper.find(FormField)).to.have.length(1)
         expect(wrapper.find(EditableValue)).to.have.length(1)

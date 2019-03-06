@@ -97,8 +97,12 @@ describe('entity-detail', () => {
             }
           }
 
-          const store = createStore(() => {
-          })
+          const store = createStore(() => ({
+            formData: {
+              relationEntities: {data: {}},
+              tooltips: {data: {}}
+            }
+          }))
 
           const wrapper = intlEnzyme.mountWithIntl(
             <Provider store={store}>

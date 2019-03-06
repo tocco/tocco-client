@@ -91,8 +91,12 @@ describe('entity-list', () => {
         const entityModel = require('../../dev/test-data/userModel.json')
         const searchFormDefinition = require('../../dev/test-data/searchFormDefinition.json')
 
-        const store = createStore(() => {
-        })
+        const store = createStore(() => ({
+          formData: {
+            relationEntities: {data: {}},
+            tooltips: {data: {}}
+          }
+        }))
 
         const wrapper = intlEnzyme.mountWithIntl(
           <ThemeProvider theme={theme}>
@@ -131,8 +135,12 @@ describe('entity-list', () => {
         const entityModel = require('../../dev/test-data/userModel.json')
         const searchFormDefinition = require('../../dev/test-data/searchFormDefinition.json')
 
-        const store = createStore(() => {
-        })
+        const store = createStore(() => ({
+          formData: {
+            relationEntities: {data: {}},
+            tooltips: {data: {}}
+          }
+        }))
 
         const wrapper = intlEnzyme.mountWithIntl(
           <Provider store={store}>
@@ -168,8 +176,12 @@ describe('entity-list', () => {
         const entityModel = require('../../dev/test-data/userModel.json')
         const searchFormDefinition = require('../../dev/test-data/searchFormDefinition.json')
 
-        const store = createStore(() => {
-        })
+        const store = createStore(() => ({
+          formData: {
+            relationEntities: {data: {}},
+            tooltips: {data: {}}
+          }
+        }))
 
         const wrapper = intlEnzyme.mountWithIntl(
           <ThemeProvider theme={theme}>
@@ -214,8 +226,12 @@ describe('entity-list', () => {
           }
         ]
 
-        const store = createStore(() => {
-        })
+        const store = createStore(() => ({
+          formData: {
+            relationEntities: {data: {}},
+            tooltips: {data: {}}
+          }
+        }))
 
         const wrapper = intlEnzyme.mountWithIntl(
           <Provider store={store}>
