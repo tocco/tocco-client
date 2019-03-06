@@ -1,4 +1,4 @@
-import {form, rest} from 'tocco-app-extensions'
+import {form} from 'tocco-app-extensions'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {
@@ -23,7 +23,6 @@ describe('entity-list', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal(all([
               fork(takeLatest, actions.INITIALIZE, sagas.initialize),
-              fork(takeLatest, actions.LOAD_SEARCH_FILTERS, sagas.loadSearchFilters),
               fork(takeLatest, formActionTypes.CHANGE, sagas.submitSearchFrom),
               fork(takeLatest, actions.SUBMIT_SEARCH_FORM, sagas.submitSearchFrom),
               fork(takeLatest, actions.RESET_SEARCH, sagas.resetSearch)
@@ -178,72 +177,6 @@ describe('entity-list', () => {
               ])
               .dispatch(setInitialized())
               .returns(entityModel)
-              .run()
-          })
-        })
-
-        describe('loadSearchFilters saga', () => {
-          test('should load search filters', () => {
-            const args = {
-              payload: {
-                model: 'User',
-                filters: []
-              }
-            }
-
-            const entities = {
-              display: 'Filter 1',
-              key: 'filter1'
-            }
-
-            return expectSaga(sagas.loadSearchFilters, args)
-              .provide([
-                [select(sagas.searchFormSelector), {searchForm: {}}],
-                [matchers.call.fn(rest.fetchEntities), entities]
-              ])
-              .put(actions.setSearchFilter(entities))
-              .run()
-          })
-
-          test('should not load search filters if already loaded', () => {
-            const args = {
-              payload: {
-                model: 'User',
-                filters: []
-              }
-            }
-
-            const existingSearchFilters = [{
-              display: 'Filter 1',
-              key: 'filter1'
-            }]
-
-            return expectSaga(sagas.loadSearchFilters, args)
-              .provide([
-                [select(sagas.searchFormSelector), {searchFilter: existingSearchFilters}]
-              ])
-              .run()
-          })
-
-          test('should add filters passed in arguments', () => {
-            const args = {
-              payload: {
-                model: 'User',
-                filters: ['filter1']
-              }
-            }
-
-            const entities = {
-              display: 'Filter 1',
-              key: 'filter1'
-            }
-
-            return expectSaga(sagas.loadSearchFilters, args)
-              .provide([
-                [select(sagas.searchFormSelector), {searchForm: {}}],
-                [matchers.call.fn(rest.fetchEntities), entities]
-              ])
-              .put(actions.setSearchFilter(entities))
               .run()
           })
         })

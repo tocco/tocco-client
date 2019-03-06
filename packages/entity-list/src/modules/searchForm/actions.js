@@ -1,8 +1,6 @@
 export const SET_INITIALIZED = 'searchForm/SET_INITIALIZED'
 export const INITIALIZE = 'searchForm/INITIALIZE'
 export const SET_FORM_DEFINITION = 'searchForm/SET_FORM_DEFINITION'
-export const LOAD_SEARCH_FILTERS = 'searchForm/LOAD_SEARCH_FILTERS'
-export const SET_SEARCH_FILTER = 'searchForm/SET_SEARCH_FILTER'
 export const EXECUTE_SEARCH = 'searchForm/EXECUTE_SEARCH'
 export const RESET_SEARCH = 'searchForm/RESET_SEARCH'
 export const SET_SHOW_EXTENDED_SEARCH_FORM = 'searchForm/SET_SHOW_EXTENDED_SEARCH_FORM'
@@ -34,21 +32,6 @@ export const setFormDefinition = formDefinition => ({
   type: SET_FORM_DEFINITION,
   payload: {
     formDefinition
-  }
-})
-
-export const loadSearchFilters = (model, group) => ({
-  type: LOAD_SEARCH_FILTERS,
-  payload: {
-    model,
-    group
-  }
-})
-
-export const setSearchFilter = filter => ({
-  type: SET_SEARCH_FILTER,
-  payload: {
-    filter
   }
 })
 

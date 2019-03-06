@@ -10,18 +10,21 @@ import tooltipsSaga from './tooltips/sagas'
 import advancedSearchSagas from './advancedSearch/sagas'
 import valueSagas from './values/sagas'
 import uploadSagas from './upload/sagas'
+import searchFilters from './searchFilters/reducer'
+import searchFilterSagas from './searchFilters/sagas'
 import {setRelationEntities} from './relationEntities/actions'
 export const relationEntitiesSelector = store => store.formData.relationEntities.data
 export const tooltipSelector = store => store.formData.tooltips.data
 
 export const addToStore = (store, config) => {
-  reducerUtil.injectReducers(store, {formData: combineReducers({relationEntities, tooltips})})
+  reducerUtil.injectReducers(store, {formData: combineReducers({relationEntities, tooltips, searchFilters})})
 
   store.sagaMiddleware.run(relationEntitiesSagas)
   store.sagaMiddleware.run(tooltipsSaga)
   store.sagaMiddleware.run(advancedSearchSagas, config)
   store.sagaMiddleware.run(valueSagas)
   store.sagaMiddleware.run(uploadSagas)
+  store.sagaMiddleware.run(searchFilterSagas)
 
   const relationEntitiesData = _get(config, 'data.relationEntities', null)
   if (relationEntitiesData !== null) {
