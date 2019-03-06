@@ -3,7 +3,7 @@ import {shallow} from 'enzyme'
 import {Layout} from 'tocco-ui'
 import {Field} from 'redux-form'
 
-import createFromBuilder from './formBuilder'
+import FormBuilder from './FormBuilder'
 
 const testData = {
   entity: {
@@ -44,8 +44,6 @@ const testData = {
     firstname: 'Fist Name',
     lastname: 'Last Name'
   },
-
-  formFieldUtils: {},
   formDefinition: {
     'id': 'UserSearch_detail',
     'readonly': true,
@@ -115,30 +113,26 @@ describe('app-extensions', () => {
   describe('form', () => {
     describe('formBuilder', () => {
       test('should render layout boxes and Fields', () => {
-        const {entity, model, formName, formDefinition, formValues, formFieldUtils} = testData
-
-        const formBuilder = createFromBuilder(entity, model, formName, formDefinition, formValues, formFieldUtils)
-        const wrapper = shallow(<form>{formBuilder()}</form>)
+        const {entity, model, formName, formDefinition, formValues} = testData
+        const props = {entity, model, formName, formDefinition, formValues}
+        const wrapper = shallow(<FormBuilder {...props}/>)
         expect(wrapper.find(Layout.Box)).to.have.length(2)
         expect(wrapper.find(Field)).to.have.length(2)
       })
 
       test('should not render field if beforeRenderField returns false', () => {
-        const {entity, model, formName, formDefinition, formValues, formFieldUtils} = testData
+        const {entity, model, formName, formDefinition, formValues} = testData
 
         const beforeRenderField = name => name !== 'lastname'
 
-        const formBuilder = createFromBuilder(
-          entity, model, formName, formDefinition, formValues, formFieldUtils, {}, {}, beforeRenderField
-        )
-
-        const wrapper = shallow(<form>{formBuilder()}</form>)
+        const props = {entity, model, formName, formDefinition, formValues, beforeRenderField}
+        const wrapper = shallow(<FormBuilder {...props}/>)
         expect(wrapper.find(Layout.Box)).to.have.length(2)
         expect(wrapper.find(Field)).to.have.length(1)
       })
 
       test('should not render none readable fields', () => {
-        const {entity, model, formName, formDefinition, formValues, formFieldUtils} = testData
+        const {entity, model, formName, formDefinition, formValues} = testData
 
         entity.paths['lastname'] = {
           type: 'field',
@@ -150,9 +144,8 @@ describe('app-extensions', () => {
           }
         }
 
-        const formBuilder = createFromBuilder(entity, model, formName, formDefinition, formValues, formFieldUtils)
-
-        const wrapper = shallow(<form>{formBuilder()}</form>)
+        const props = {entity, model, formName, formDefinition, formValues}
+        const wrapper = shallow(<FormBuilder {...props}/>)
 
         expect(wrapper.find(Field)).to.have.length(1)
       })
@@ -160,52 +153,35 @@ describe('app-extensions', () => {
       test(
         'should not require an entity (should not check readable flag in this case)',
         () => {
-          const {model, formName, formDefinition, formValues, formFieldUtils} = testData
-
+          const {model, formName, formDefinition, formValues} = testData
           const entity = null
-
-          const formBuilder = createFromBuilder(entity, model, formName, formDefinition, formValues, formFieldUtils)
-
-          const wrapper = shallow(<form>{formBuilder()}</form>)
-
+          const props = {entity, model, formName, formDefinition, formValues}
+          const wrapper = shallow(<FormBuilder {...props}/>)
           expect(wrapper.find(Field)).to.have.length(2)
         }
       )
 
       test('should not render empty values in readonly form', () => {
-        const {entity, model, formName, formDefinition, formFieldUtils} = testData
-
-        const formValues = testData.lastname = ''
-
-        const formBuilder = createFromBuilder(entity, model, formName, formDefinition, formValues, formFieldUtils)
-
-        const wrapper = shallow(<form>{formBuilder()}</form>)
-
+        const {entity, model, formName, formDefinition} = testData
+        const formValues = {...testData.formValues, lastname: ''}
+        const props = {entity, model, formName, formDefinition, formValues}
+        const wrapper = shallow(<FormBuilder {...props}/>)
         expect(wrapper.find(Field)).to.have.length(1)
       })
 
       test('should render fields with matching scope', () => {
-        const {model, formName, formDefinition, formFieldUtils, formValues} = testData
+        const {model, formName, formDefinition, formValues} = testData
         const entity = null
-
-        const formBuilder = createFromBuilder(
-          entity, model, formName, formDefinition, formValues, formFieldUtils, undefined, undefined, undefined, 'create'
-        )
-
-        const wrapper = shallow(<form>{formBuilder()}</form>)
-
+        const props = {entity, model, formName, formDefinition, formValues, mode: 'create'}
+        const wrapper = shallow(<FormBuilder {...props}/>)
         expect(wrapper.find(Field)).to.have.length(2)
       })
 
       test('should NOT render fields with unmatching scope', () => {
-        const {model, formName, formDefinition, formFieldUtils, formValues} = testData
+        const {model, formName, formDefinition, formValues} = testData
         const entity = null
-        const formBuilder = createFromBuilder(
-          entity, model, formName, formDefinition, formValues, formFieldUtils, undefined, undefined, undefined, 'update'
-        )
-
-        const wrapper = shallow(<form>{formBuilder()}</form>)
-
+        const props = {entity, model, formName, formDefinition, formValues, mode: 'update'}
+        const wrapper = shallow(<FormBuilder {...props}/>)
         expect(wrapper.find(Field)).to.have.length(1)
       })
     })
