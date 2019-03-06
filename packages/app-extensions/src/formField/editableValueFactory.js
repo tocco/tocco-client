@@ -68,7 +68,7 @@ const getOptions = (type, formField, modelField, utils, formName) => {
       break
     case 'search-filter':
       options.isMulti = formField.multiple
-      options.options = utils.searchFilters
+      options.options = _get(utils.searchFilters, formField.model, null)
       options.fetchOptions = () => utils.loadSearchFilters(formField.model, formField.group)
 
       if (utils.intl) {

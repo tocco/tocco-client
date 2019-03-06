@@ -29,40 +29,6 @@ describe('entity-list', () => {
             definition
           )
         })
-
-        describe('setSearchFilter', () => {
-          test('should set search filters', () => {
-            const searchFilter = [
-              {key: 'key1', display: 'display1'},
-              {key: 'key2', display: 'display2'}
-            ]
-
-            const stateBefore = {}
-
-            const expectedStateAfter = {
-              searchFilter
-            }
-
-            expect(reducer(stateBefore, actions.setSearchFilter(searchFilter))).to.deep.equal(expectedStateAfter)
-          })
-
-          test('should update search filters', () => {
-            const searchFilter = [
-              {key: 'key1', display: 'display1'},
-              {key: 'key2', display: 'display2'}
-            ]
-
-            const stateBefore = {
-              searchFilter: [{key: 'someOther', display: 'Some Other'}]
-            }
-
-            const expectedStateAfter = {
-              searchFilter
-            }
-
-            expect(reducer(stateBefore, actions.setSearchFilter(searchFilter))).to.deep.equal(expectedStateAfter)
-          })
-        })
       })
     })
   })

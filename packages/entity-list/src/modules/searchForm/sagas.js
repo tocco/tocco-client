@@ -1,4 +1,4 @@
-import {form, rest} from 'tocco-app-extensions'
+import {form} from 'tocco-app-extensions'
 import _reduce from 'lodash/reduce'
 import {
   actions as formActions,
@@ -9,7 +9,6 @@ import * as formActionTypes from 'redux-form/es/actionTypes'
 import * as actions from './actions'
 import {fetchForm, searchFormTransformer, getFormFieldFlat} from '../../util/api/forms'
 import {getPreselectedValues} from '../../util/searchForm'
-import {searchFilterTransformer} from '../../util/api/entities'
 import {SET_INITIALIZED as LIST_SET_INITIALIZED} from '../entityList/actions'
 import {validateSearchFields} from '../../util/searchFormValidation'
 
@@ -25,7 +24,7 @@ const FORM_ID = 'searchForm'
 export default function* sagas() {
   yield all([
     fork(takeLatest, actions.INITIALIZE, initialize),
-    fork(takeLatest, actions.LOAD_SEARCH_FILTERS, loadSearchFilters),
+
     fork(takeLatest, formActionTypes.CHANGE, submitSearchFrom),
     fork(takeLatest, actions.SUBMIT_SEARCH_FORM, submitSearchFrom),
     fork(takeLatest, actions.RESET_SEARCH, resetSearch)
@@ -103,27 +102,6 @@ export function* getEntityModel() {
   entityList = yield select(entityListSelector)
 
   return entityList.entityModel
-}
-
-export function* loadSearchFilters({payload}) {
-  const {model, group} = payload
-  const {searchFilter} = yield select(searchFormSelector)
-  if (!searchFilter) {
-    const query = {
-      conditions: {
-        entity: model,
-        ...(group ? {'relSearch_filter_group.unique_id': group} : {})
-      },
-      fields: ['unique_id']
-    }
-
-    const requestOptions = {method: 'GET'}
-    const searchFilters = yield call(rest.fetchEntities,
-      'Search_filter', query, requestOptions, searchFilterTransformer)
-    yield put(actions.setSearchFilter(searchFilters))
-  }
-
-  return searchFilter
 }
 
 export function* resetSearch() {
