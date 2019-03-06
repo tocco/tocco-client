@@ -51,9 +51,11 @@ yarn start --package={PACKAGE_NAME}
 ```
 Open http://localhost:3000 and start coding!
 
-Add ``--noMock`` parameter to disable mocked data.
-In this case you must run the Tocco Business Framework application with enabled REST API on:
-http://localhost:8080
+Optional: 
+- Add ``--noMock`` parameter to disable mocked data.
+  In this case you must run the Tocco Business Framework application with enabled REST API on:
+  http://localhost:8080
+- Add ``--backend={BACKEND_URL}`` parameter to enable an alternative backend.
 
 ### Storybook
 It might be helpful to start up storybook locally to test the current state of development. This can be done with the following
@@ -61,6 +63,8 @@ command:
 ```
 yarn storybook
 ```
+Optional:
+- Use ``BACKEND={BACKEND_URL} yarn storybook`` to enable an alternative backend.
 
 #### Tests
 Tests are using following tools and libraries:
@@ -98,14 +102,21 @@ npm run plop
 At the moment there is a generator to create a react-component and a generator to add a redux-action.
 
 ## Publish bundle
-Once the package is ready to publish, run following npm scripts. This registers the bundle
-in the npm registry, increases versions and creates a git tag using lerna publish command.
+Once the package is ready to publish, run the publish-package npm scripts.
+This will run yarn setup at the beginning to make sure all local dependencies are up to date. 
+After that the new version can be entered. The script will then create a changelog entry which can be edited manually,
+bumps the version of the package, creates a git release tag and uploads the package to the npm registry.
+Everything gets committed but needs to be pushed to origin.
 
 ```
-yarn publish-packages
+yarn publish-package {PACKAGE_NAME}
 ```
 
-For more information see [the official documentation](https://github.com/lerna/lerna/tree/master/commands/publish#readme) 
+To check the upcoming changelog:
+
+```
+yarn changelog {PACKAGE_NAME}
+```
 
 Only build:
 ```
@@ -113,7 +124,9 @@ yarn compile:dev --package={PACKAGE_NAME}
 yarn compile:prod --package={PACKAGE_NAME}
 ```
 
-Optional the `--bundle-analyzer` parameter can be added to open BundleAnalyzerPlugin to investigate the bundle sizes. 
+Optional:
+  - Add `--bundle-analyzer` parameter to open BundleAnalyzerPlugin to investigate the bundle sizes. 
+  - Add ``--backend={BACKEND_URL}`` parameter to enable an alternative backend.
 
 ## Linting
 Eslint is used for linting. Linting will also be executed automatically on our CI.
@@ -144,6 +157,7 @@ Similar to [Karma](http://karma-runner.github.io/0.10/dev/git-commit-msg.html) c
 <type>(<scope>): <subject>
 
 <body>
+Changelog: <feature>
 ```
 
 #### Message subject (first line)
@@ -156,7 +170,7 @@ First line must not be longer than 70 characters, second line is always blank an
 - style (formatting etc.; no code change)
 - refactor (refactoring production code)
 - test (adding missing tests, refactoring tests; no production code change)
-- chore (updating grunt tasks etc; no production code change)
+- chore (updating webpack etc; no production code change)
 
 **Example `<scope>` values:**
 - If the changes affect a single package the scope is set to package name (e.g. login).
@@ -164,6 +178,13 @@ First line must not be longer than 70 characters, second line is always blank an
 - If changes affect the monorepo itself, the scope is set to 'tocco-client'.
 
 #### Message body
+- If a release relevant feature is added with the commit, a **Changelog:** line can be added.
+  e.g.
+  ```
+  Changelog: Add feature XY
+  ```
+  A commit can have several changelog entries but an entry needs to be on one single line.
+  The changelog entries are used to generate the changelog of the corresponding `<scope>` package.
 - uses the imperative, present tense: “change” not “changed” nor “changes”
 - includes motivation for the change and contrasts with previous behavior
 

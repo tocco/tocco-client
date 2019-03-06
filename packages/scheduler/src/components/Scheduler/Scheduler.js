@@ -33,9 +33,9 @@ Scheduler.propTypes = {
           allDay: PropTypes.bool
         })
       ),
-      id: PropTypes.string.isRequred,
-      label: PropTypes.string.isRequred,
-      model: PropTypes.string.isRequred
+      id: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+      model: PropTypes.string.isRequired
     })).isRequired,
   onDateRangeChange: PropTypes.func,
   onCalendarRemove: PropTypes.func,

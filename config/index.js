@@ -28,4 +28,4 @@ if (hasOverridesFile) {
   logger.info(`No configuration overrides found for NODE_ENV "${config.env}"`)
 }
 
-export default Object.assign({}, config, overrides)
+export default {...config, ...overrides}

@@ -8,12 +8,13 @@ const Document = props => {
     if (file === null) {
       props.onChange(null)
     } else {
-      props.options.upload(file, props.options.field)
+      props.options.upload(file)
     }
   }
 
   return (
     <div className="document">
+      {props.options.field}
       <Upload
         onUpload={onUpload}
         readOnly={props.readOnly}

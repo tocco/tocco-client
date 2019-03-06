@@ -19,7 +19,7 @@ describe('app-extensions', () => {
 
             expect(generator.next().value).to.deep.equal(
               all([
-                fork(takeEvery, advancedSearchActions.OPEN_ADVANCED_SEARCH, sagas.openAdvancedSearch)
+                fork(takeEvery, advancedSearchActions.OPEN_ADVANCED_SEARCH, sagas.openAdvancedSearch, config)
               ])
             )
 
@@ -33,10 +33,11 @@ describe('app-extensions', () => {
             const formField = {id: 'relRemote'}
             const modelField = {targetEntity: 'User', multi: true}
             const value = []
-            const selectSpy = sinon.spy()
+            const formName = 'searchForm'
 
-            const action = advancedSearchActions.openAdvancedSearch(ListApp, selectSpy, formField, modelField, value)
-            return expectSaga(sagas.openAdvancedSearch, action)
+            const action = advancedSearchActions.openAdvancedSearch(formName, formField, modelField, value)
+            const config = {ListApp}
+            return expectSaga(sagas.openAdvancedSearch, config, action)
               .provide([
                 [select(sagas.textResourceSelector, 'client.common.advancedSearch'), {}],
                 [matchers.spawn.fn(sagas.closeAdvancedSearch), () => {}]
@@ -74,22 +75,16 @@ describe('app-extensions', () => {
           })
 
           test('should put feedback action if action got dispatched to channel', () => {
-            const onSelect = (field, ids) => ({
-              type: advancedSearchActions.ADVANCED_SEARCH_UPDATE,
-              payload: {
-                field,
-                ids
-              }
-            })
             const modalId = '123'
             const fieldId = 'relRemote'
+            const formName = 'detailForm'
             const entity = 'user'
             const multi = true
 
             const entities = [{display: 'User1', key: 1}]
 
             let i = 0
-            return expectSaga(sagas.closeAdvancedSearch, answerChannelMock, modalId, fieldId, entity, onSelect, multi)
+            return expectSaga(sagas.closeAdvancedSearch, answerChannelMock, modalId, fieldId, formName, entity, multi)
               .provide([
                 {
                   take() {
@@ -100,7 +95,7 @@ describe('app-extensions', () => {
                 },
                 [matchers.call.fn(rest.fetchEntities), entities]
               ])
-              .put.actionType(onSelect().type)
+              .call(sagas.advancedSearchUpdate, formName, fieldId, entities)
               .put.actionType(notifier.removeModalComponent().type)
               .run()
           })

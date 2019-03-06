@@ -182,6 +182,13 @@ const StyledNotifier = styled.div`
       margin: 0 auto;
     }
   }
+
+  // Safari 10.1+ according https://stackoverflow.com/questions/16348489/is-there-a-css-hack-for-safari-only-not-chrome
+  @media not all and (min-resolution:.001dpcm) { @media {
+      .tocco-notifier .redux-toastr .toastr-attention {
+        background-color: transparent;
+      }
+  }}
 }
 `
 

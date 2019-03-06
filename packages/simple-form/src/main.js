@@ -20,7 +20,7 @@ const initApp = (id, input, events = {}, publicPath) => {
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   actionEmitter.addToStore(store, events.emitAction)
   externalEvents.addToStore(store, events)
-  formData.addToStore(store, input.formData)
+  formData.addToStore(store, {data: input.formData, listApp: input.listApp})
   notifier.addToStore(store, false)
 
   const app = appFactory.createApp(

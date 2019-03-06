@@ -3,8 +3,6 @@ import {CHANGE, UPDATE_SYNC_ERRORS, INITIALIZE} from 'redux-form/es/actionTypes'
 import {externalEvents, form as formUtil} from 'tocco-app-extensions'
 
 import * as actions from './actions'
-import * as documentActions from '../../utils/form/document/actions'
-import * as documentSagas from '../../utils/form/document/sagas'
 
 import {all, call, fork, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
 
@@ -17,8 +15,6 @@ export default function* sagas() {
     fork(takeEvery, actions.INITIALIZE_QUESTION_FORM, initialize),
     fork(takeEvery, actions.SUBMIT, submit),
     fork(takeEvery, actions.CANCEL, cancel),
-    fork(takeLatest, documentActions.UPLOAD_DOCUMENT, documentSagas.uploadDocument),
-    fork(takeLatest, actions.ADVANCED_SEARCH_UPDATE, advancedSearchUpdate),
     fork(takeLatest, CHANGE, change),
     fork(takeLatest, UPDATE_SYNC_ERRORS, change),
     fork(takeLatest, INITIALIZE, change)
@@ -46,8 +42,4 @@ export function* change() {
   const values = yield select(getFormValues(FORM_ID))
   const valid = yield select(isValid(FORM_ID))
   yield put(externalEvents.fireExternalEvent('onChange', {values, valid}))
-}
-
-export function* advancedSearchUpdate({payload: {field, ids}}) {
-  yield put(formActions.change(FORM_ID, formUtil.transformFieldName(field), ids))
 }

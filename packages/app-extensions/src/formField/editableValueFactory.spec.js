@@ -18,7 +18,7 @@ describe('app-extensions', () => {
           }
         }
 
-        const editableValue = factory({}, {}, props, events, {})
+        const editableValue = factory({}, {}, 'formName', props, events, {})
 
         const wrapper = mount(editableValue)
 
@@ -35,7 +35,7 @@ describe('app-extensions', () => {
           }
         }
 
-        const editableValue = factory({}, {}, {}, {}, util)
+        const editableValue = factory({}, {}, 'formName', {}, {}, util)
 
         const wrapper = mount(editableValue)
 

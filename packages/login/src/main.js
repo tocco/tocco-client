@@ -1,6 +1,7 @@
 import React from 'react'
 import {consoleLogger, reducer as reducerUtil} from 'tocco-util'
 import {appFactory, errorLogging, externalEvents} from 'tocco-app-extensions'
+import PropTypes from 'prop-types'
 
 import * as passwordUpdate from './modules/passwordUpdate/dialog/actions'
 import * as passwordRequest from './modules/passwordRequest/actions'
@@ -10,6 +11,11 @@ import PasswordUpdateDialog from './containers/PasswordUpdateDialogContainer'
 import loginReducers, {sagas} from './modules/reducers'
 
 const packageName = 'login'
+
+const EXTERNAL_EVENTS = [
+  'loginSuccess',
+  'resize'
+]
 
 const initLoginApp = (id, input, events, publicPath, customTheme) => {
   const actions = [
@@ -112,3 +118,44 @@ const initPasswordUpdateApp = (id, input, events, publicPath, customTheme) => {
     appFactory.registerAppInRegistry('password-update', initPasswordUpdateApp)
   }
 })()
+
+class LoginApp extends React.Component {
+  constructor(props) {
+    super(props)
+    this.input = {
+      showTitle: props.showTitle || true,
+      locale: props.locale || 'de-CH',
+      passwordRequest: props.passwordRequest || false,
+      username: props.username || ''
+    }
+
+    const events = EXTERNAL_EVENTS.reduce((events, event) => {
+      if (props[event]) {
+        events[event] = props[event]
+      }
+      return events
+    }, {})
+
+    this.app = initLoginApp('id', this.input, events)
+  }
+
+  render() {
+    return (
+      <div>{this.app.renderComponent()}</div>
+    )
+  }
+}
+
+LoginApp.propTypes = {
+  showTitle: PropTypes.bool,
+  locale: PropTypes.string,
+  passwordRequest: PropTypes.bool,
+  username: PropTypes.string,
+  setLocale: PropTypes.func,
+  ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
+    propTypes[event] = PropTypes.func
+    return propTypes
+  }, {})
+}
+
+export default LoginApp

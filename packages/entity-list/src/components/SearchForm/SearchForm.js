@@ -5,6 +5,8 @@ import {reduxForm} from 'redux-form'
 import {Button} from 'tocco-ui'
 import {form, formField} from 'tocco-app-extensions'
 
+const REDUX_FORM_NAME = 'searchForm'
+
 class SearchForm extends React.Component {
   constructor(props) {
     super(props)
@@ -26,7 +28,8 @@ class SearchForm extends React.Component {
       loadSearchFilters: props.loadSearchFilters,
       searchFilters: props.searchFilters,
       intl: this.props.intl,
-      openAdvancedSearch: props.openAdvancedSearch
+      openAdvancedSearch: props.openAdvancedSearch,
+      changeFieldValue: props.changeFieldValue.bind(null, REDUX_FORM_NAME)
     }
 
     return form.initFormBuilder(
@@ -147,6 +150,8 @@ SearchForm.propTypes = {
   tooltips: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)),
   loadTooltip: PropTypes.func.isRequired,
   loadSearchFilters: PropTypes.func.isRequired,
+  openAdvancedSearch: PropTypes.func.isRequired,
+  changeFieldValue: PropTypes.func.isRequired,
   searchFilters: PropTypes.arrayOf(
     PropTypes.shape({
       key: PropTypes.string,
@@ -168,6 +173,6 @@ SearchForm.propTypes = {
 }
 
 export default reduxForm({
-  form: 'searchForm',
+  form: REDUX_FORM_NAME,
   destroyOnUnmount: false
 })(SearchForm)

@@ -31,7 +31,8 @@ export class DetailForm extends React.Component {
       tooltips: props.tooltips,
       uploadDocument: props.uploadDocument,
       intl: this.props.intl,
-      openAdvancedSearch: props.openAdvancedSearch
+      openAdvancedSearch: props.openAdvancedSearch,
+      changeFieldValue: props.changeFieldValue
     }
 
     return form.initFormBuilder(
@@ -147,6 +148,8 @@ DetailForm.propTypes = {
   formValues: PropTypes.object,
   uploadDocument: PropTypes.func.isRequired,
   loadRelationEntities: PropTypes.func.isRequired,
+  openAdvancedSearch: PropTypes.func.isRequired,
+  changeFieldValue: PropTypes.func.isRequired,
   relationEntities: PropTypes.shape({
     entityName: PropTypes.shape({
       loaded: PropTypes.bool,

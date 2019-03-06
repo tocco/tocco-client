@@ -39,7 +39,7 @@ const initApp = (id, input, events = {}, publicPath) => {
   errorLogging.addToStore(store, false)
   notifier.addToStore(store, false)
   actions.addToStore(store, {formApp: SimpleFormApp, listApp: EntityListApp})
-  formData.addToStore(store)
+  formData.addToStore(store, {listApp: EntityListApp})
 
   const dispatchActions = getDispatchActions(input)
 
