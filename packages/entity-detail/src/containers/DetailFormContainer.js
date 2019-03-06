@@ -8,7 +8,7 @@ import {
   getFormAsyncErrors,
   getFormSubmitErrors
 } from 'redux-form'
-import {errorLogging, formData} from 'tocco-app-extensions'
+import {errorLogging} from 'tocco-app-extensions'
 
 import DetailForm from '../components/DetailForm/DetailForm'
 import {
@@ -21,12 +21,7 @@ const mapActionCreators = {
   unloadDetailView,
   submitForm,
   fireTouched,
-  logError: errorLogging.logError,
-  loadRelationEntities: formData.loadRelationEntities,
-  loadTooltip: formData.loadTooltip,
-  uploadDocument: formData.uploadDocument,
-  openAdvancedSearch: formData.openAdvancedSearch,
-  changeFieldValue: formData.changeFieldValue
+  logError: errorLogging.logError
 }
 
 const getFormGeneralErrors = formName =>
@@ -38,8 +33,6 @@ const mapStateToProps = state => {
   return {
     formDefinition: state.entityDetail.formDefinition,
     entity: state.entityDetail.entity,
-    relationEntities: formData.relationEntitiesSelector(state),
-    tooltips: formData.tooltipSelector(state),
     entityModel: state.entityDetail.entityModel,
     formValues: getFormValues('detailForm')(state),
     formErrors: {
