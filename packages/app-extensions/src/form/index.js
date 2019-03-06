@@ -1,5 +1,5 @@
 import formErrorsUtil from './formErrors'
-import initFormBuilder from './formBuilder'
+import FormBuilder from './FormBuilder'
 import {getFieldId, getFieldDefinitions, getDefaultValues, getFieldNames, fetchForm} from './formDefinition'
 import syncValidation from './syncValidation'
 import {
@@ -17,7 +17,7 @@ import validators from './validators'
 
 export default {
   formErrorsUtil,
-  initFormBuilder,
+  FormBuilder,
   getFieldId,
   getFieldDefinitions,
   getDefaultValues,

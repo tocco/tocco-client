@@ -8,50 +8,11 @@ import {intlShape} from 'react-intl'
 const REDUX_FORM_NAME = 'simpleForm'
 
 class Form extends React.Component {
-  constructor(props) {
-    super(props)
-    this.formBuilder = this.createFormBuilder(props)
-  }
-
   componentWillMount() {
     this.props.initializeForm()
   }
 
-  componentWillReceiveProps(props) {
-    this.formBuilder = this.createFormBuilder(props)
-  }
-
   msg = id => this.props.intl.formatMessage({id})
-
-  createFormBuilder = props => {
-    const formFieldUtils = {
-      relationEntities: props.relationEntities,
-      loadRelationEntities: props.loadRelationEntities,
-      loadRemoteEntity: props.loadRemoteEntity,
-      remoteEntities: props.remoteEntities,
-      loadSearchFilters: props.loadSearchFilters,
-      searchFilters: props.searchFilters,
-      uploadDocument: props.uploadDocument,
-      intl: this.props.intl,
-      openAdvancedSearch: props.openAdvancedSearch,
-      loadTooltip: props.loadTooltip,
-      changeFieldValue: props.changeFieldValue.bind(null, REDUX_FORM_NAME),
-      tooltips: props.tooltips
-    }
-
-    return form.initFormBuilder(
-      undefined,
-      props.model,
-      'simpleForm',
-      props.formDefinition,
-      props.formValues,
-      formFieldUtils,
-      formField.defaultMapping,
-      {}, // never read only
-      this.shouldRenderField,
-      'simple'
-    )
-  }
 
   handleCancel = () => {
     this.props.onCancel()
@@ -67,7 +28,15 @@ class Form extends React.Component {
 
   render = () => (
     <form onSubmit={this.props.handleSubmit(this.handleSubmit)} className="form form-horizontal">
-      {this.formBuilder()}
+      <form.FormBuilder
+        entity={undefined}
+        model={this.props.model}
+        formName={this.props.form}
+        formDefinition={this.props.formDefinition}
+        formValues={this.props.formValues}
+        formFieldMapping={formField.defaultMapping}
+        readOnlyFormFieldMapping={null}
+      />
       {!this.props.noButtons
       && <React.Fragment>
         <Button
@@ -91,7 +60,6 @@ class Form extends React.Component {
 Form.propTypes = {
   intl: intlShape.isRequired,
   initializeForm: PropTypes.func.isRequired,
-  uploadDocument: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
@@ -101,10 +69,8 @@ Form.propTypes = {
   cancelText: PropTypes.string,
   submitText: PropTypes.string,
   noButtons: PropTypes.bool,
-  openAdvancedSearch: PropTypes.func.isRequired,
-  tooltips: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)),
-  loadTooltip: PropTypes.func.isRequired,
-  changeFieldValue: PropTypes.func.isRequired
+  formValues: PropTypes.object,
+  form: PropTypes.string
 }
 
 export default reduxForm({form: REDUX_FORM_NAME, destroyOnUnmount: false})(Form)

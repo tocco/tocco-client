@@ -8,47 +8,6 @@ import {form, formField} from 'tocco-app-extensions'
 const REDUX_FORM_NAME = 'searchForm'
 
 class SearchForm extends React.Component {
-  constructor(props) {
-    super(props)
-    this.formBuilder = this.createFormBuilder(props)
-  }
-
-  componentWillReceiveProps(props) {
-    this.formBuilder = this.createFormBuilder(props)
-  }
-
-  createFormBuilder = props => {
-    const formFieldUtils = {
-      relationEntities: props.relationEntities,
-      loadRelationEntities: props.loadRelationEntities,
-      loadRemoteEntity: props.loadRemoteEntity,
-      remoteEntities: props.remoteEntities,
-      loadTooltip: props.loadTooltip,
-      tooltips: props.tooltips,
-      loadSearchFilters: props.loadSearchFilters,
-      searchFilters: props.searchFilters,
-      intl: this.props.intl,
-      openAdvancedSearch: props.openAdvancedSearch,
-      changeFieldValue: props.changeFieldValue.bind(null, REDUX_FORM_NAME)
-    }
-
-    return form.initFormBuilder(
-      props.entity,
-      props.entityModel,
-      props.form,
-      props.searchFormDefinition,
-      props.formValues,
-      formFieldUtils,
-      {
-        ...formField.defaultMapping,
-        'fulltext-search': formField.editableValueFactory('string')
-      },
-      formField.defaultMapping,
-      this.shouldRenderField,
-      'search'
-    )
-  }
-
   handleResetClick = () => {
     this.props.resetSearch()
   }
@@ -61,20 +20,23 @@ class SearchForm extends React.Component {
 
   msg = id => (this.props.intl.formatMessage({id}))
 
-  isHidden = name => {
-    if (!this.props.preselectedSearchFields) {
+  isHidden = (preselectedSearchFields, name) => {
+    if (!preselectedSearchFields) {
       return false
     }
-    const field = this.props.preselectedSearchFields.find(f => f.id === name)
+    const field = preselectedSearchFields.find(f => f.id === name)
     return field && field.hidden
   }
 
-  shouldRenderField = name => (
-    !this.isHidden(name)
+  shouldRenderField = (preselectedSearchFields,
+    disableSimpleSearch,
+    showExtendedSearchForm,
+    simpleSearchFields) => name => (
+    !this.isHidden(preselectedSearchFields, name)
     && (
-      this.props.disableSimpleSearch
-      || this.props.showExtendedSearchForm
-      || this.props.simpleSearchFields.includes(name)
+      disableSimpleSearch
+      || showExtendedSearchForm
+      || simpleSearchFields.includes(name)
     )
   )
 
@@ -82,16 +44,35 @@ class SearchForm extends React.Component {
     this.props.setShowExtendedSearchForm(!this.props.showExtendedSearchForm)
   }
 
+  customMapping = {'fulltext-search': formField.editableValueFactory('string')}
+
   render() {
     const props = this.props
 
     if (!props.searchFormDefinition.children || Object.keys(props.entityModel).length === 0) {
       return null
     }
-
     return (
       <form onSubmit={this.handleSubmit} className="form-horizontal">
-        {this.formBuilder()}
+        <form.FormBuilder
+          entity={props.entity}
+          model={props.entityModel}
+          formName={props.form}
+          formDefinition={props.searchFormDefinition}
+          formValues={props.formValues}
+          formFieldMapping={{
+            ...formField.defaultMapping,
+            ...this.customMapping
+          }}
+          readOnlyFormFieldMapping={formField.defaultMapping}
+          beforeRenderField={this.shouldRenderField(
+            this.props.preselectedSearchFields,
+            this.props.disableSimpleSearch,
+            this.props.showExtendedSearchForm,
+            this.props.simpleSearchFields)
+          }
+          mode="search"
+        />
         <div className="row" style={{marginBottom: '1em'}}>
           <div className="col-sm-9 col-sm-push-3">
             <Button
@@ -135,29 +116,6 @@ SearchForm.propTypes = {
   }).isRequired,
   submitSearchForm: PropTypes.func.isRequired,
   resetSearch: PropTypes.func.isRequired,
-  relationEntities: PropTypes.shape({
-    entityName: PropTypes.shape({
-      loaded: PropTypes.bool,
-      data: PropTypes.arrayOf(
-        PropTypes.shape({
-          value: PropTypes.string,
-          label: PropTypes.string
-        })
-      )
-    })
-  }).isRequired,
-  loadRelationEntities: PropTypes.func.isRequired,
-  tooltips: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)),
-  loadTooltip: PropTypes.func.isRequired,
-  loadSearchFilters: PropTypes.func.isRequired,
-  openAdvancedSearch: PropTypes.func.isRequired,
-  changeFieldValue: PropTypes.func.isRequired,
-  searchFilters: PropTypes.arrayOf(
-    PropTypes.shape({
-      key: PropTypes.string,
-      display: PropTypes.string
-    })
-  ),
   disableSimpleSearch: PropTypes.bool,
   simpleSearchFields: PropTypes.arrayOf(
     PropTypes.string

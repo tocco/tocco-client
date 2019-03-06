@@ -12,42 +12,8 @@ import readOnlyFormFieldMapping from '../../util/detailView/readOnlyFormFieldMap
 import StyledDetailForm from './StyledDetailForm'
 
 export class DetailForm extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.formBuilder = this.createFormBuilder(props)
-  }
-
   componentWillReceiveProps(nextProps) {
-    this.formBuilder = this.createFormBuilder(nextProps)
     this.props.fireTouched(nextProps.anyTouched)
-  }
-
-  createFormBuilder = props => {
-    const formFieldUtils = {
-      relationEntities: props.relationEntities,
-      loadRelationEntities: props.loadRelationEntities,
-      loadTooltip: props.loadTooltip,
-      tooltips: props.tooltips,
-      uploadDocument: props.uploadDocument,
-      intl: this.props.intl,
-      openAdvancedSearch: props.openAdvancedSearch,
-      changeFieldValue: props.changeFieldValue
-    }
-
-    return form.initFormBuilder(
-      props.entity,
-      props.entityModel,
-      props.form,
-      props.formDefinition,
-      props.formValues,
-      formFieldUtils,
-      formField.defaultMapping,
-      readOnlyFormFieldMapping,
-      undefined,
-      props.mode,
-      {[form.componentTypes.SUB_TABLE]: SubGrid()}
-    )
   }
 
   isReadOnlyForm = () => this.props.formDefinition.readonly
@@ -112,7 +78,17 @@ export class DetailForm extends React.Component {
           onSubmit={this.handleSubmit}
           onKeyDown={this.handleKeyPress}
         >
-          {this.formBuilder()}
+          <form.FormBuilder
+            entity={props.entity}
+            model={props.entityModel}
+            formName={props.form}
+            formDefinition={props.formDefinition}
+            formValues={props.formValues}
+            formFieldMapping={formField.defaultMapping}
+            readOnlyFormFieldMapping={readOnlyFormFieldMapping}
+            mode={props.mode}
+            componentMapping={{[form.componentTypes.SUB_TABLE]: SubGrid}}
+          />
           {!this.isReadOnlyForm()
           && <div>
             {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
@@ -145,22 +121,7 @@ DetailForm.propTypes = {
   submitForm: PropTypes.func.isRequired,
   formDefinition: PropTypes.object.isRequired,
   entity: PropTypes.object.isRequired,
-  formValues: PropTypes.object,
-  uploadDocument: PropTypes.func.isRequired,
-  loadRelationEntities: PropTypes.func.isRequired,
-  openAdvancedSearch: PropTypes.func.isRequired,
-  changeFieldValue: PropTypes.func.isRequired,
-  relationEntities: PropTypes.shape({
-    entityName: PropTypes.shape({
-      loaded: PropTypes.bool,
-      data: PropTypes.arrayOf(
-        PropTypes.shape({
-          value: PropTypes.string,
-          label: PropTypes.string
-        })
-      )
-    })
-  }).isRequired,
+
   form: PropTypes.string.isRequired,
   touch: PropTypes.func.isRequired,
   submitting: PropTypes.bool,

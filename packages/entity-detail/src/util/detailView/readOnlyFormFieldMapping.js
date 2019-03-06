@@ -47,5 +47,5 @@ export default {
   'upload': formField.formattedValueFactory('document'),
   'url': formField.formattedValueFactory('url'),
   'uuid': formField.formattedValueFactory('string'),
-  'subTable': SubGrid()
+  'subTable': SubGrid
 }
