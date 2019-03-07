@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
+import SignalList from '../SignalList'
+
 const ErrorList = props => {
   if (!props.error) {
     return null
@@ -12,11 +14,15 @@ const ErrorList = props => {
   })
 
   return (
-    <ul className="icon-list">
+    <SignalList.List>
       {errorValues.map((value, idx) => (
-        <li className="text-danger" key={idx}>{value}</li>
+        <SignalList.Item
+          condition="danger"
+          key={idx}
+          label={value}
+        />
       ))}
-    </ul>
+    </SignalList.List>
   )
 }
 
