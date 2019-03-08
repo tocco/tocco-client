@@ -3,17 +3,16 @@ import {theme} from 'styled-system'
 
 import {StyledLi} from '../Typography'
 import {
-  conditionPropTypes,
   shadeColor,
-  stylingCondition
+  design
 } from '../utilStyles'
 
 const COLORS = {
-  [stylingCondition.BASE]: 'inherit',
-  [stylingCondition.DANGER]: theme('colors.signal.danger.text'),
-  [stylingCondition.PRIMARY]: props => shadeColor(theme('colors.primary')(props), 1),
-  [stylingCondition.SUCCESS]: theme('colors.signal.success.text'),
-  [stylingCondition.WARNING]: theme('colors.signal.warning.text')
+  [design.condition.BASE]: 'inherit',
+  [design.condition.DANGER]: theme('colors.signal.danger.text'),
+  [design.condition.PRIMARY]: props => shadeColor(theme('colors.primary')(props), 1),
+  [design.condition.SUCCESS]: theme('colors.signal.success.text'),
+  [design.condition.WARNING]: theme('colors.signal.warning.text')
 }
 
 const getColor = props => {
@@ -40,7 +39,7 @@ const StyledSignalListItem = styled(StyledLi)`
 `
 
 StyledSignalListItem.propTypes = {
-  condition: conditionPropTypes(COLORS)
+  condition: design.conditionPropTypes(COLORS)
 }
 
 export default StyledSignalListItem

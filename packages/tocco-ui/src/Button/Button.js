@@ -4,12 +4,7 @@ import React from 'react'
 import Icon from '../Icon'
 import IconTocco from '../IconTocco'
 import StyledButton from './StyledButton'
-import {
-  inkPropTypes,
-  stylingInk,
-  stylingLook,
-  stylingPosition
-} from '../utilStyles'
+import {design} from '../utilStyles'
 
 /**
  * Use <Button> to trigger any actions. Choose look and ink according Material Design.
@@ -21,7 +16,7 @@ const Button = props => {
       dense={props.dense}
       disabled={props.disabled}
       iconPosition={props.iconPosition}
-      ink={props.ink || props.buttonGroupInk || stylingInk.BASE}
+      ink={props.ink || props.buttonGroupInk || design.ink.BASE}
       look={props.look}
       melt={props.buttonGroupMelt}
       onClick={props.onClick}
@@ -32,9 +27,9 @@ const Button = props => {
       {props.icon && !props.pending && <Icon
         dense={props.dense}
         icon={props.icon}
-        position={props.label || props.children ? props.iconPosition : stylingPosition.sole}/>}
+        position={props.label || props.children ? props.iconPosition : design.position.sole}/>}
       {props.pending && <IconTocco
-        ink={props.ink || props.buttonGroupInk || stylingInk.BASE}
+        ink={props.ink || props.buttonGroupInk || design.ink.BASE}
         look={props.look}
         position={props.iconPosition}
         size="1em"/>}
@@ -44,8 +39,8 @@ const Button = props => {
 }
 
 Button.defaultProps = {
-  iconPosition: stylingPosition.PREPEND,
-  look: stylingLook.FLAT,
+  iconPosition: design.position.PREPEND,
+  look: design.look.FLAT,
   type: 'button'
 }
 
@@ -57,7 +52,7 @@ Button.propTypes = {
   /**
    * May be passed from <ButtonGroup> to use as default for ink. Do not set manually.
    */
-  buttonGroupInk: inkPropTypes,
+  buttonGroupInk: design.inkPropTypes,
   /**
    * May be passed from <ButtonGroup> to morph buttons into a split button. Do not set manually.
    */
@@ -89,11 +84,11 @@ Button.propTypes = {
    * Prepend icon or append icon to label. Use 'sole' if label text is omitted. Default value is 'prepend'.
    * Possible values: append|prepend|sole
    */
-  iconPosition: PropTypes.oneOf([stylingPosition.APPEND, stylingPosition.PREPEND, stylingPosition.SOLE]),
+  iconPosition: PropTypes.oneOf([design.position.APPEND, design.position.PREPEND, design.position.SOLE]),
   /**
    * Specify color palette. Default value is 'base'.
    */
-  ink: inkPropTypes,
+  ink: design.inkPropTypes,
   /**
    * Describe button action concise. Default is ''.
    */
@@ -102,9 +97,9 @@ Button.propTypes = {
    * Look of button. Default value is 'flat'.
    */
   look: PropTypes.oneOf([
-    stylingLook.BALL,
-    stylingLook.FLAT,
-    stylingLook.RAISED
+    design.look.BALL,
+    design.look.FLAT,
+    design.look.RAISED
   ]),
   /**
    * Function that will be triggered on click event.

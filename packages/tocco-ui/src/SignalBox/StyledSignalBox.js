@@ -3,24 +3,23 @@ import styled from 'styled-components'
 
 import {StyledSignalListItem} from '../SignalList'
 import {
-  oneOfPropTypeAndCompletelyMapped,
   shadeColor,
   spaceScale,
-  stylingCondition
+  design
 } from '../utilStyles'
 
 const ALLOWED_CONDITIONS = [
-  stylingCondition.BASE,
-  stylingCondition.DANGER,
-  stylingCondition.SUCCESS,
-  stylingCondition.WARNING
+  design.condition.BASE,
+  design.condition.DANGER,
+  design.condition.SUCCESS,
+  design.condition.WARNING
 ]
 
 const COLORS = {
-  [stylingCondition.DANGER]: theme('colors.signal.danger.paper'),
-  [stylingCondition.SUCCESS]: theme('colors.signal.success.paper'),
-  [stylingCondition.WARNING]: theme('colors.signal.warning.paper'),
-  [stylingCondition.BASE]: props => shadeColor(theme('colors.paper')(props), 1)
+  [design.condition.DANGER]: theme('colors.signal.danger.paper'),
+  [design.condition.SUCCESS]: theme('colors.signal.success.paper'),
+  [design.condition.WARNING]: theme('colors.signal.warning.paper'),
+  [design.condition.BASE]: props => shadeColor(theme('colors.paper')(props), 1)
 }
 
 const getColor = props => {
@@ -46,7 +45,7 @@ const StyledSignalBox = styled.div`
 `
 
 StyledSignalBox.propTypes = {
-  condition: oneOfPropTypeAndCompletelyMapped(ALLOWED_CONDITIONS, COLORS)
+  condition: design.oneOfPropTypeAndCompletelyMapped(ALLOWED_CONDITIONS, COLORS)
 }
 
 export {

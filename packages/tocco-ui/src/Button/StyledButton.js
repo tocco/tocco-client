@@ -11,14 +11,12 @@ import {
   generateRaisedBaseColors,
   generateRaisedPrimaryColors,
   spaceScale,
-  stylingInk,
-  stylingLook,
-  stylingPosition
+  design
 } from '../utilStyles'
 
 const meltButtons = props => {
   let declaration = ''
-  if (!props.melt && props.look === stylingLook.RAISED) {
+  if (!props.melt && props.look === design.look.RAISED) {
     declaration = `
       &:not(:last-child) {
         margin-right: ${spaceScale(props, -1)};
@@ -45,8 +43,8 @@ const meltButtons = props => {
 const declareButtonColor = props => {
   let declareColor
   const {ink, look} = props
-  const {BALL, FLAT, RAISED} = stylingLook
-  const {BASE, PRIMARY} = stylingInk
+  const {BALL, FLAT, RAISED} = design.look
+  const {BASE, PRIMARY} = design.ink
 
   if (look === FLAT && ink === PRIMARY) {
     declareColor = generateFlatPrimaryColors
@@ -62,7 +60,7 @@ const declareButtonColor = props => {
 }
 
 const declareIconPosition = props => {
-  if (props.iconPosition === stylingPosition.APPEND) {
+  if (props.iconPosition === design.position.APPEND) {
     return `
       justify-content: space-between;
       > span {
@@ -73,7 +71,7 @@ const declareIconPosition = props => {
 }
 
 const declareBall = props => {
-  if (props.look === stylingLook.BALL) {
+  if (props.look === design.look.BALL) {
     return `
       border-radius: 50%;
       justify-content: center;

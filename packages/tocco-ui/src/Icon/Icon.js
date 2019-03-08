@@ -3,10 +3,7 @@ import React from 'react'
 import {withTheme} from 'styled-components'
 
 import getSpacing from './StyledIcon'
-import {
-  positionPropTypes,
-  stylingPosition
-} from '../utilStyles'
+import {design} from '../utilStyles'
 import lazyComponent from '../util/lazyComponent'
 
 /**
@@ -66,7 +63,7 @@ export class Icon extends React.Component {
 }
 
 Icon.defaultProps = {
-  position: stylingPosition.SOLE
+  position: design.position.SOLE
 }
 
 Icon.propTypes = {
@@ -83,7 +80,7 @@ Icon.propTypes = {
   /**
    * Specify if icon is positioned next to text or not to control spacing. Default value is 'prepend'.
    */
-  position: positionPropTypes,
+  position: design.positionPropTypes,
   /**
    * Callback that gets invoked when component is fully loaded.
    */

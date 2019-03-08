@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Button, ButtonGroup, stylingInk} from 'tocco-ui'
+import {Button, ButtonGroup, design} from 'tocco-ui'
 
 const ModalButtons = ({buttons}) =>
   <ButtonGroup look="raised">
     {buttons.map((button, i) =>
       <Button
-        ink={button.primary ? stylingInk['PRIMARY'] : stylingInk['BASE']}
+        ink={button.primary ? design.ink['PRIMARY'] : design.ink['BASE']}
         key={i}
         label={button.label}
         onClick={button.callback}

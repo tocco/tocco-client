@@ -3,24 +3,20 @@ import React from 'react'
 
 import Icon from '../Icon'
 import StyledSignalListItem from './StyledSignalListItem'
-import {
-  conditionPropTypes,
-  stylingPosition,
-  stylingCondition
-} from '../utilStyles'
+import {design} from '../utilStyles'
 
 const ICONS = {
-  [stylingCondition.BASE]: false,
-  [stylingCondition.PRIMARY]: false,
-  [stylingCondition.DANGER]: 'times',
-  [stylingCondition.SUCCESS]: 'check',
-  [stylingCondition.WARNING]: 'exclamation-triangle'
+  [design.condition.BASE]: false,
+  [design.condition.PRIMARY]: false,
+  [design.condition.DANGER]: 'times',
+  [design.condition.SUCCESS]: 'check',
+  [design.condition.WARNING]: 'exclamation-triangle'
 }
 
 const getIcon = props => {
   const icon = ICONS[props.condition]
   if (icon) {
-    return <Icon icon={icon} position={stylingPosition.SOLE}/>
+    return <Icon icon={icon} position={design.position.SOLE}/>
   } else {
     return <i>{'\u2022'}</i>
   }
@@ -37,7 +33,7 @@ const SignalListItem = props =>
   </StyledSignalListItem>
 
 SignalListItem.defaultProps = {
-  condition: stylingCondition.BASE
+  condition: design.condition.BASE
 }
 
 SignalListItem.propTypes = {
@@ -53,7 +49,7 @@ SignalListItem.propTypes = {
    * Color and icon is set according condition. Default value is 'base'.
    * Possible values: base|danger|primary|success|warning
    */
-  condition: conditionPropTypes(ICONS)
+  condition: design.conditionPropTypes(ICONS)
 }
 
 export default SignalListItem

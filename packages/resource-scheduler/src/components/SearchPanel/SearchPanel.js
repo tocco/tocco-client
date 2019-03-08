@@ -4,7 +4,7 @@ import EntityListApp from 'tocco-entity-list/src/main'
 import Panel from 'react-bootstrap/lib/Panel'
 import PanelGroup from 'react-bootstrap/lib/PanelGroup'
 import {Icon} from 'tocco-ui'
-import {stylingPosition} from 'tocco-ui/src/utilStyles'
+import {design} from 'tocco-ui/src/utilStyles'
 
 class SearchPanel extends React.PureComponent {
   constructor() {
@@ -28,7 +28,7 @@ class SearchPanel extends React.PureComponent {
           icon={color ? 'square' : ['far', 'square']}
           aria-hidden="true"
           style={{...(color ? {color} : {})}}
-          position={stylingPosition.PREPEND}
+          position={design.position.PREPEND}
         />
         {content}
         <Icon

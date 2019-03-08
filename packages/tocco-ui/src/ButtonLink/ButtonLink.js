@@ -3,12 +3,7 @@ import React from 'react'
 
 import Icon from '../Icon'
 import StyledButtonLink from './StyledButtonLink'
-import {
-  inkPropTypes,
-  stylingInk,
-  stylingLook,
-  stylingPosition
-} from '../utilStyles'
+import {design} from '../utilStyles'
 
 /**
  * Use <ButtonLink> for internal and external links if it feels like an action
@@ -45,9 +40,9 @@ const ButtonLink = props => {
 
 ButtonLink.defaultProps = {
   href: '#',
-  iconPosition: stylingPosition.PREPEND,
-  ink: stylingInk.BASE,
-  look: stylingLook.FLAT,
+  iconPosition: design.position.PREPEND,
+  ink: design.ink.BASE,
+  look: design.look.FLAT,
   target: '_self'
 }
 
@@ -81,11 +76,11 @@ ButtonLink.propTypes = {
   /**
    * Prepend icon or append icon to label. Use 'sole' if label text is omitted. Default value is 'prepend'.
    */
-  iconPosition: PropTypes.oneOf([stylingPosition.PREPEND, stylingPosition.SOLE]),
+  iconPosition: PropTypes.oneOf([design.position.PREPEND, design.position.SOLE]),
   /**
    * Specify color palette. Default value is 'base'.
    */
-  ink: inkPropTypes,
+  ink: design.inkPropTypes,
   /**
    * Describe link target concise. Default is ''.
    */
@@ -94,9 +89,9 @@ ButtonLink.propTypes = {
    * Look of link according Material Design (button section). Default value is 'flat'.
    */
   look: PropTypes.oneOf([
-    stylingLook.BALL,
-    stylingLook.FLAT,
-    stylingLook.RAISED
+    design.look.BALL,
+    design.look.FLAT,
+    design.look.RAISED
   ]),
   /**
    * Define HTML rel attribute.

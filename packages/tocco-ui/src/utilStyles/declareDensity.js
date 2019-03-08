@@ -1,10 +1,10 @@
 import objectToCss from './objectToCss'
 import {spaceScale} from './modularScale'
-import {stylingLook} from '../utilStyles'
+import {design} from '../utilStyles'
 
 const declareDensity = props => objectToCss({
   'line-height': [props.dense ? 'lineHeights.dense' : 'lineHeights.regular'],
-  'padding': props.look === stylingLook.BALL
+  'padding': props.look === design.look.BALL
     ? spaceScale(props, -3)
     : props.dense
       ? spaceScale(props, -4)
