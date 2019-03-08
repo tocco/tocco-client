@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {Field} from 'redux-form'
 import _get from 'lodash/get'
 import _pick from 'lodash/pick'
+import _isEmpty from 'lodash/isEmpty'
 import {Layout, Panel, Typography} from 'tocco-ui'
 import {consoleLogger, js} from 'tocco-util'
 
@@ -15,6 +16,26 @@ import layoutTypes from './enums/layoutTypes'
 import {isAction} from '../actions/actions'
 
 class FormBuilder extends React.Component {
+  modeFitsScope = (mode, scopes) => (!mode || !scopes || scopes.length === 0 || scopes.includes(mode))
+
+  formTraverser = children => {
+    const result = []
+    for (let i = 0; i < children.length; i++) {
+      const child = children[i]
+      if (child.componentType === componentTypes.LAYOUT) {
+        const travers = () => this.formTraverser(child.children)
+        result.push(this.createLayoutComponent(child, child.layoutType, i, travers))
+      } else if (isAction(child.componentType)) {
+        result.push(this.createAction(child, i))
+      } else if (child.componentType === componentTypes.FIELD_SET) {
+        result.push(this.createFieldSet(child, i))
+      } else if (this.props.componentMapping && this.props.componentMapping[child.componentType]) {
+        return this.createCustomComponent(child, i)
+      }
+    }
+    return result
+  }
+
   createFieldSet = (fieldSet, key) => {
     const fieldDefinition = fieldSet.children.find(child => !isAction(child.componentType))
 
@@ -36,8 +57,7 @@ class FormBuilder extends React.Component {
     const modelField = this.props.model[modelSelector]
 
     const shouldRenderField = (formDefinitionField, entityField) => {
-      if (this.props.mode && formDefinitionField.scopes && formDefinitionField.scopes.length > 0
-        && !formDefinitionField.scopes.includes(this.props.mode)) {
+      if (!this.modeFitsScope(this.props.mode, formDefinitionField.scopes)) {
         return false
       }
 
@@ -138,36 +158,26 @@ class FormBuilder extends React.Component {
     }
   }
 
-  formTraverser = children => {
-    const result = []
-    for (let i = 0; i < children.length; i++) {
-      const child = children[i]
-      if (child.componentType === componentTypes.LAYOUT) {
-        const travers = () => this.formTraverser(child.children)
-        result.push(this.createLayoutComponent(child, child.layoutType, i, travers))
-      } else if (isAction(child.componentType)) {
-        result.push(this.createAction(child, i))
-      } else if (child.componentType === componentTypes.FIELD_SET) {
-        result.push(this.createFieldSet(child, i))
-      } else if (this.props.componentMapping && this.props.componentMapping[child.componentType]) {
-        const component = this.props.componentMapping[child.componentType]
-        const fieldName = child.id
-        const modelField = this.props.model[fieldName]
-        return component(child, modelField, i)
-      }
+  createCustomComponent(child, i) {
+    if (!this.modeFitsScope(this.props.mode, child.scopes)) {
+      return null
     }
-    return result
+
+    const component = this.props.componentMapping[child.componentType]
+    const fieldName = child.id
+    const modelField = this.props.model[fieldName]
+    return component(child, modelField, i)
   }
 
+  ignoredUpdateProps = ['formValues']
   shouldComponentUpdate(nextProps, nextState) {
     const diff = js.difference(this.props, nextProps)
 
-    const isEmpty = Object.keys(diff).length === 0
+    if (_isEmpty(diff)) {
+      return false
+    }
 
-    const ignoredProps = ['formValues']
-    const onlyIgnoredProps = Object.keys(diff).every(key => ignoredProps.includes(key))
-
-    return !isEmpty && !onlyIgnoredProps
+    return Object.keys(diff).some(key => !this.ignoredUpdateProps.includes(key))
   }
 
   render() {
