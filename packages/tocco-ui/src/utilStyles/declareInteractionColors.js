@@ -32,37 +32,28 @@ const declareInteractionColors = (colors, format = design.format.HTML) => {
   const strokeProperty = format === design.format.HTML ? 'color' : 'stroke'
 
   return `
-    ${fillProperty}: ${colors.defaultBackground};
-    ${strokeProperty}: ${colors.defaultColor};
+    ${fillProperty}: ${colors.bg[0]};
+    ${strokeProperty}: ${colors.fg[0]};
 
     &:focus,
     &:hover {
-      ${fillProperty}: ${colors.focusBackground};
-      ${strokeProperty}: ${colors.focusColor};
+      ${fillProperty}: ${colors.bg[1]};
+      ${strokeProperty}: ${colors.fg[1]};
     }
 
     /* :active must be declared after :hover and :focus to visualize state change */
     &:active,
     &[aria-pressed="true"] {
-      ${fillProperty}: ${colors.activeBackground};
-      ${strokeProperty}: ${colors.activeColor};
+      ${fillProperty}: ${colors.bg[2]};
+      ${strokeProperty}: ${colors.fg[2]};
     }
 
     &:disabled {
-      ${fillProperty}: ${generateDisabledShade(colors.defaultBackground)};
-      ${strokeProperty}: ${generateDisabledShade(colors.defaultColor)};
+      ${fillProperty}: ${generateDisabledShade(colors.bg[0])};
+      ${strokeProperty}: ${generateDisabledShade(colors.fg[0])};
     }
   `
 }
-
-const mapColors = (bg, fg) => ({
-  defaultColor: fg[0],
-  defaultBackground: bg[0],
-  focusColor: fg[1],
-  focusBackground: bg[1],
-  activeColor: fg[2],
-  activeBackground: bg[2]
-})
 
 const generateFlatBaseColors = props => {
   const text = _get(props.theme, 'colors.text', design.fallbackColors.TEXT)
@@ -71,7 +62,7 @@ const generateFlatBaseColors = props => {
     action: getLuminance(paper) > 0.5 ? 'darken' : 'lighten'
   })
   const bg = generateInteractionColor(paper)
-  return mapColors(bg, fg)
+  return {bg, fg}
 }
 
 const generateFlatPrimaryColors = props => {
@@ -81,7 +72,7 @@ const generateFlatPrimaryColors = props => {
     action: getLuminance(paper) > 0.5 ? 'darken' : 'lighten'
   })
   const bg = generateInteractionColor(paper)
-  return mapColors(bg, fg)
+  return {bg, fg}
 }
 
 const generateRaisedBaseColors = props => {
@@ -93,7 +84,7 @@ const generateRaisedBaseColors = props => {
   const bg = generateInteractionColor(paper, {
     shadeOffset: 0.1
   })
-  return mapColors(bg, fg)
+  return {bg, fg}
 }
 
 const generateRaisedPrimaryColors = props => {
@@ -105,7 +96,7 @@ const generateRaisedPrimaryColors = props => {
     action: getLuminance(primary) > 0.5 ? 'darken' : 'lighten'
   })
   const bg = generateInteractionColor(primary)
-  return mapColors(bg, fg)
+  return {bg, fg}
 }
 
 const generateCustomColors = (base, colorA, colorB) => {
@@ -114,7 +105,7 @@ const generateCustomColors = (base, colorA, colorB) => {
   const fg = generateInteractionColor(higherContrast, {
     action: getLuminance(base) > 0.5 ? 'darken' : 'lighten'
   })
-  return mapColors(bg, fg)
+  return {bg, fg}
 }
 
 const getContrast = (colorA, colorB) => {
