@@ -5,16 +5,18 @@ import {Typography} from 'tocco-ui'
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const ThemeWrapper = props => {
-  const {theme} = props
-  const mergedTheme = _merge({}, theme || ToccoTheme, props.appTheme)
+class ThemeWrapper extends React.PureComponent {
+  render() {
+    const {theme, appTheme} = this.props
+    const mergedTheme = _merge({}, theme || ToccoTheme, appTheme)
 
-  return <ThemeProvider theme={mergedTheme}>
-    <React.Fragment>
-      {!theme && <Typography.InjectFont />}
-      {props.children}
-    </React.Fragment>
-  </ThemeProvider>
+    return <ThemeProvider theme={mergedTheme}>
+      <React.Fragment>
+        {!theme && <Typography.InjectFont />}
+        {this.props.children}
+      </React.Fragment>
+    </ThemeProvider>
+  }
 }
 
 ThemeWrapper.propTypes = {
