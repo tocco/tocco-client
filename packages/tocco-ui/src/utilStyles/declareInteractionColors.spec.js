@@ -4,7 +4,7 @@ import {
   declareInteractionColors,
   generateRaisedBaseColors,
   generateRaisedPrimaryColors,
-  generateInteractionColor,
+  generateShades,
   shadeColor
 } from '../utilStyles'
 
@@ -148,7 +148,7 @@ describe('tocco-ui', () => {
 
         scenarios.map(scenario => {
           const {color, expectation, options} = scenario
-          expect(generateInteractionColor(color, options)).to.deep.equal(expectation)
+          expect(generateShades(color, options)).to.deep.equal(expectation)
         })
       })
     })
