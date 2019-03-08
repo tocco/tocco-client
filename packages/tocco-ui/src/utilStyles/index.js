@@ -19,12 +19,7 @@ import {
 } from './declareWrapping'
 import filterObjectByKeysStartingWith from './filterObjectByKeysStartingWith'
 import getTextOfChildren from './getTextOfChildren'
-import {
-  declareScale,
-  fontScale,
-  scaleExponential,
-  spaceScale
-} from './modularScale'
+import scale from './modularScale'
 import objectToCss from './objectToCss'
 import design from './designConstants'
 import {validateCssDimension} from './propTypesValidator'
@@ -35,10 +30,8 @@ export {
   declareFont,
   declareInteractionColors,
   declareNoneWrappingText,
-  declareScale,
   declareWrappingText,
   design,
-  fontScale,
   generateCustomColors,
   generateFlatBaseColors,
   generateFlatPrimaryColors,
@@ -49,8 +42,7 @@ export {
   filterObjectByKeysStartingWith,
   getTextOfChildren,
   objectToCss,
-  scaleExponential,
+  scale,
   shadeColor,
-  spaceScale,
   validateCssDimension
 }

@@ -22,10 +22,10 @@ const reactSelectTheme = (theme, outerTheme) => ({
 
 const reactSelectStyles = outerTheme => {
   const spaceScale = exponent =>
-    `${_round(scaleExponential(outerTheme.space.base, exponent, outerTheme.space.scale), 3)}rem`
+    `${_round(exponentiate(outerTheme.space.base, exponent, outerTheme.space.factor), 3)}rem`
 
-  const scaleExponential = (base, exponent, scale) =>
-    Math.pow(scale, exponent) * base
+  const exponentiate = (base, exponent, factor) =>
+    Math.pow(factor, exponent) * base
 
   const paper = generateInteractionColor(outerTheme.colors.paper)
   const text = generateInteractionColor(outerTheme.colors.text, {

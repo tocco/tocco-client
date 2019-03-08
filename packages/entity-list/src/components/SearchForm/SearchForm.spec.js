@@ -43,7 +43,7 @@ const theme = {
   },
   space: {
     base: 2,
-    scale: 2
+    factor: 2
   }
 }
 

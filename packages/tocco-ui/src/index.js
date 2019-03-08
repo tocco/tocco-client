@@ -67,6 +67,6 @@ export {default as Upload, StyledUploadInput, StyledView} from './Upload'
 export {
   generateInteractionColor,
   shadeColor,
-  spaceScale,
+  scale,
   design
 } from './utilStyles'
