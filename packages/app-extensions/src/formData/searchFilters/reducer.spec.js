@@ -3,7 +3,7 @@ import reducer from './reducer'
 
 describe('app-extensions', () => {
   describe('formData', () => {
-    describe('searchFilter', () => {
+    describe('searchFilters', () => {
       describe('reducer', () => {
         describe('setSearchFilter', () => {
           test('should set search filters', () => {
