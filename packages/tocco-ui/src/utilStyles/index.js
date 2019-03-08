@@ -26,28 +26,10 @@ import {
   spaceScale
 } from './modularScale'
 import objectToCss from './objectToCss'
-import {
-  animation as stylingAnimation,
-  animationPropTypes,
-  condition as stylingCondition,
-  conditionPropTypes,
-  ink as stylingInk,
-  inkPropTypes,
-  fallbackColors,
-  format as stylingFormat,
-  layout as stylingLayout,
-  layoutPropTypes,
-  look as stylingLook,
-  lookPropTypes,
-  oneOfPropTypeAndCompletelyMapped,
-  position as stylingPosition,
-  positionPropTypes
-} from './stylingConstants'
+import design from './designConstants'
 import {validateCssDimension} from './propTypesValidator'
 export {
-  animationPropTypes,
   assertObjectValuesMatchOtherObjectKeys,
-  conditionPropTypes,
   declareDensity,
   declareFocus,
   declareFont,
@@ -55,7 +37,7 @@ export {
   declareNoneWrappingText,
   declareScale,
   declareWrappingText,
-  fallbackColors,
+  design,
   fontScale,
   generateCustomColors,
   generateFlatBaseColors,
@@ -66,21 +48,9 @@ export {
   getHigherContrast,
   filterObjectByKeysStartingWith,
   getTextOfChildren,
-  inkPropTypes,
-  layoutPropTypes,
-  lookPropTypes,
   objectToCss,
-  oneOfPropTypeAndCompletelyMapped,
-  positionPropTypes,
   scaleExponential,
   shadeColor,
   spaceScale,
-  stylingAnimation,
-  stylingCondition,
-  stylingFormat,
-  stylingInk,
-  stylingLayout,
-  stylingLook,
-  stylingPosition,
   validateCssDimension
 }

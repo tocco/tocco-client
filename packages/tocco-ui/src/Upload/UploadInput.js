@@ -4,7 +4,7 @@ import Dropzone from 'react-dropzone'
 
 import Icon from '../Icon'
 import StyledUploadInput from './StyledUploadInput'
-import {stylingPosition} from '../utilStyles'
+import {design} from '../utilStyles'
 
 const UploadInput = props => {
   const onDrop = files => {
@@ -20,7 +20,7 @@ const UploadInput = props => {
     >
       <Icon
         icon="upload"
-        position={stylingPosition.PREPEND}
+        position={design.position.PREPEND}
       />
       {props.text || 'drag and drop or click'}
     </Dropzone>

@@ -5,10 +5,7 @@ import {
   StyledIconToccoWrapper,
   StyledIconToccoSvg
 } from './StyledIconTocco'
-import {
-  positionPropTypes,
-  stylingPosition
-} from '../utilStyles'
+import {design} from '../utilStyles'
 
 /**
  * Use <IconTocco> as spinner. Circle color is inherited from parent.
@@ -26,14 +23,14 @@ const IconTocco = props =>
   </StyledIconToccoWrapper>
 
 IconTocco.defaultProps = {
-  position: stylingPosition.SOLE
+  position: design.position.SOLE
 }
 
 IconTocco.propTypes = {
   /**
    * Specify if icon is positioned next to text or not to control spacing. Default value is 'prepend'.
    */
-  position: positionPropTypes,
+  position: design.positionPropTypes,
   /**
    * Specify width and height.
    */

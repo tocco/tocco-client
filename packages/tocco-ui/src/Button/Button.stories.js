@@ -5,7 +5,7 @@ import {withKnobs, select, boolean, text} from '@storybook/addon-knobs'
 import _pick from 'lodash/pick'
 
 import Button from './'
-import {stylingInk, stylingPosition, stylingLook} from '../utilStyles'
+import {design} from '../utilStyles'
 
 storiesOf('Button', module)
   .addDecorator(withKnobs)
@@ -15,7 +15,7 @@ storiesOf('Button', module)
       <Button
         dense={boolean('dense', false) || undefined}
         disabled={boolean('disabled', false) || undefined}
-        ink={select('ink', {'-': null, ...stylingInk}) || undefined}
+        ink={select('ink', {'-': null, ...design.ink}) || undefined}
         icon={select('icon', {
           '-': null,
           regular: 'air-freshener',
@@ -24,12 +24,12 @@ storiesOf('Button', module)
         }
         iconPosition={select('iconPosition', {
           [Button.defaultProps.iconPosition.toUpperCase()]: Button.defaultProps.iconPosition,
-          ..._pick(stylingPosition, ['APPEND', 'PREPEND', 'SOLE'])}) || undefined
+          ..._pick(design.position, ['APPEND', 'PREPEND', 'SOLE'])}) || undefined
         }
         label={text('label', 'My Button')}
         look={select('look', {
           [Button.defaultProps.look.toUpperCase()]: Button.defaultProps.look,
-          ..._pick(stylingLook, ['BALL', 'FLAT', 'RAISED'])
+          ..._pick(design.look, ['BALL', 'FLAT', 'RAISED'])
         }) || undefined}
         onClick={action('clicked')}
         pending={boolean('pending', false) || undefined}

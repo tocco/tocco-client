@@ -64,7 +64,7 @@ const lookPropTypes = PropTypes.oneOf(Object.values(look))
 const positionPropTypes = PropTypes.oneOf(Object.values(position))
 const layoutPropTypes = PropTypes.oneOf(Object.values(layout))
 
-export {
+export default {
   animation,
   animationPropTypes,
   condition,

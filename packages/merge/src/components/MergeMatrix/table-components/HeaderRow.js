@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {intlShape} from 'react-intl'
 import {Icon} from 'tocco-ui'
-import {stylingPosition} from 'tocco-ui/src/utilStyles'
+import {design} from 'tocco-ui/src/utilStyles'
 
 const HeaderRow = props => {
   const isTargetEntity = pk => pk === props.targetEntityPk
@@ -28,7 +28,7 @@ const HeaderRow = props => {
               <span className="targetIcon">
                 <Icon
                   icon="crosshairs"
-                  position={stylingPosition.PREPEND}
+                  position={design.position.PREPEND}
                 />
               </span>
               <span>{entity.label}</span>

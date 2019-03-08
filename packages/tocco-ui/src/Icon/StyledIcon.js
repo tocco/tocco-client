@@ -1,6 +1,6 @@
 import {
   spaceScale,
-  stylingPosition
+  design
 } from '../utilStyles'
 
 // Return a style object instead of a styled-component to omit an additional wrapper on FontAwesomeIcon.
@@ -10,11 +10,11 @@ const getSpacing = props => {
 
   const space = (props.dense) ? spaceScale(props, -4) : spaceScale(props, -3)
 
-  if (props.position === stylingPosition.APPEND || props.position === stylingPosition.BETWEEN) {
+  if (props.position === design.position.APPEND || props.position === design.position.BETWEEN) {
     left = space
   }
 
-  if (props.position === stylingPosition.PREPEND || props.position === stylingPosition.BETWEEN) {
+  if (props.position === design.position.PREPEND || props.position === design.position.BETWEEN) {
     right = space
   }
 

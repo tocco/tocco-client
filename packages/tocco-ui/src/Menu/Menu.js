@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import StyledMenu from './StyledMenu'
-import {stylingLook} from '../utilStyles'
+import {design} from '../utilStyles'
 
 export class Menu extends React.Component {
   getChildren = () => {
@@ -21,14 +21,14 @@ export class Menu extends React.Component {
 }
 
 Menu.defaultProps = {
-  look: stylingLook.FLAT
+  look: design.look.FLAT
 }
 
 Menu.propTypes = {
   /**
    * Look of all menu items. Default value is 'flat'.
    */
-  look: PropTypes.oneOf([stylingLook.FLAT, stylingLook.RAISED]),
+  look: PropTypes.oneOf([design.look.FLAT, design.look.RAISED]),
   children: PropTypes.node
 }
 
