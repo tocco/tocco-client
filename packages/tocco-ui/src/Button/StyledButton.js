@@ -10,7 +10,7 @@ import {
   generateFlatPrimaryColors,
   generateRaisedBaseColors,
   generateRaisedPrimaryColors,
-  spaceScale,
+  scale,
   design
 } from '../utilStyles'
 
@@ -19,7 +19,7 @@ const meltButtons = props => {
   if (!props.melt && props.look === design.look.RAISED) {
     declaration = `
       &:not(:last-child) {
-        margin-right: ${spaceScale(props, -1)};
+        margin-right: ${scale.space(props, -1)};
       }
     `
   } else if (props.melt) {

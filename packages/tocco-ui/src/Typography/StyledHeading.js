@@ -5,8 +5,7 @@ import {
   declareFont,
   declareNoneWrappingText,
   declareWrappingText,
-  fontScale,
-  spaceScale
+  scale
 } from '../utilStyles'
 
 const declareHeaderFont = props => {
@@ -14,19 +13,19 @@ const declareHeaderFont = props => {
 
   switch (props.styledLike) {
     case 'H1':
-      fontSize = fontScale(props, 5)
+      fontSize = scale.font(props, 5)
       break
     case 'H2':
-      fontSize = fontScale(props, 4)
+      fontSize = scale.font(props, 4)
       break
     case 'H3':
-      fontSize = fontScale(props, 3)
+      fontSize = scale.font(props, 3)
       break
     case 'H4':
-      fontSize = fontScale(props, 2)
+      fontSize = scale.font(props, 2)
       break
     case 'H5':
-      fontSize = fontScale(props, 1)
+      fontSize = scale.font(props, 1)
       break
     default:
       fontSize = `${theme('fontSize.base')(props)}rem`
@@ -37,7 +36,7 @@ const declareHeaderFont = props => {
 const declareSpace = props =>
   `
     margin-top: ${theme('space.base')(props)}rem;
-    margin-bottom: ${spaceScale(props, -1)};
+    margin-bottom: ${scale.space(props, -1)};
 
     h1 + &,
     h2 + &,

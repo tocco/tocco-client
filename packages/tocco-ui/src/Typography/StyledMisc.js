@@ -6,9 +6,8 @@ import {
   declareFont,
   declareNoneWrappingText,
   declareWrappingText,
-  fontScale,
-  shadeColor,
-  spaceScale
+  scale,
+  shadeColor
 } from '../utilStyles'
 
 const StyledB = styled.b`
@@ -24,12 +23,12 @@ const StyledCode = styled.code`
   && {
     ${props => declareFont(props, {
     fontFamily: theme('fontFamily.monospace')(props),
-    fontSize: fontScale(props, -1)
+    fontSize: scale.font(props, -1)
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     background-color: ${props => shadeColor(theme('colors.paper')(props), 1)};
     border-radius: ${theme('radii.regular')};
-    padding: ${props => spaceScale(props, -4)} ${props => spaceScale(props, -2)};
+    padding: ${props => scale.space(props, -4)} ${props => scale.space(props, -2)};
   }
 `
 
@@ -53,10 +52,10 @@ const StyledEm = styled.em`
 const StyledFigcaption = styled.figcaption`
   && {
     ${props => declareFont(props, {
-    fontSize: fontScale(props, -1)
+    fontSize: scale.font(props, -1)
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
-    margin: ${props => spaceScale(props, -1)} 0;
+    margin: ${props => scale.space(props, -1)} 0;
 
     &:last-child {
       margin-bottom: 0;
@@ -84,12 +83,12 @@ const StyledKbd = styled.kbd`
   && {
     ${props => declareFont(props, {
     fontFamily: theme('fontFamily.monospace')(props),
-    fontSize: fontScale(props, -1)
+    fontSize: scale.font(props, -1)
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     background-color: ${props => shadeColor(theme('colors.paper')(props), 2)};
     border-radius: ${theme('radii.regular')};
-    padding: ${props => spaceScale(props, -4)} ${props => spaceScale(props, -2)};
+    padding: ${props => scale.space(props, -4)} ${props => scale.space(props, -2)};
     vertical-align: text-top;
   }
 `
@@ -102,7 +101,7 @@ const StyledMark = styled.mark`
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     background-color: ${theme('colors.signal.info.paper')};
     border-radius: ${theme('radii.regular')};
-    padding: ${props => spaceScale(props, -4)} ${props => spaceScale(props, -2)};
+    padding: ${props => scale.space(props, -4)} ${props => scale.space(props, -2)};
   }
 `
 
@@ -110,7 +109,7 @@ const StyledP = styled.p`
   && {
     ${props => declareFont(props)}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
-    margin-bottom: ${props => spaceScale(props, -1)};
+    margin-bottom: ${props => scale.space(props, -1)};
 
     &:last-child {
       margin-bottom: 0;
@@ -122,15 +121,15 @@ const StyledPre = styled.pre`
   && {
     ${props => declareFont(props, {
     fontFamily: theme('fontFamily.monospace')(props),
-    fontSize: fontScale(props, -1)
+    fontSize: scale.font(props, -1)
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     background-color: ${props => shadeColor(theme('colors.paper')(props), 1)};
     border-radius: ${theme('radii.regular')};
     border: 1px solid ${props => shadeColor(theme('colors.paper')(props), 2)};
     display: block;
-    margin: 0 0 ${props => spaceScale(props, -1)};
-    padding: ${props => spaceScale(props, -3)} ${props => spaceScale(props, -2)};
+    margin: 0 0 ${props => scale.space(props, -1)};
+    padding: ${props => scale.space(props, -3)} ${props => scale.space(props, -2)};
 
     &:last-child {
       margin-bottom: 0;
@@ -165,7 +164,7 @@ const StyledSpan = styled.span`
 const StyledSub = styled.sub`
   && {
     ${props => declareFont(props, {
-    fontSize: fontScale(props, -1)
+    fontSize: scale.font(props, -1)
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     line-height: 0;
@@ -178,7 +177,7 @@ const StyledSub = styled.sub`
 const StyledSup = styled.sup`
   && {
     ${props => declareFont(props, {
-    fontSize: fontScale(props, -1)
+    fontSize: scale.font(props, -1)
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     line-height: 0;
@@ -216,7 +215,7 @@ const StyledVar = styled.var`
   && {
     ${props => declareFont(props, {
     fontFamily: theme('fontFamily.monospace')(props),
-    fontSize: fontScale(props, -1)
+    fontSize: scale.font(props, -1)
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     &:after {

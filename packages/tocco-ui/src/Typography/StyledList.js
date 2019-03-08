@@ -4,7 +4,7 @@ import {
   declareFont,
   declareNoneWrappingText,
   declareWrappingText,
-  spaceScale
+  scale
 } from '../utilStyles'
 
 const StyledDd = styled.dd`
@@ -17,7 +17,7 @@ const StyledDd = styled.dd`
 
 const StyledDl = styled.dl`
   && {
-    margin: 0 0 ${props => spaceScale(props, -1)};
+    margin: 0 0 ${props => scale.space(props, -1)};
 
     &:last-child {
       margin-bottom: 0;
@@ -44,7 +44,7 @@ const StyledList = styled.ol`
   && {
     display: block;
     list-style-position: outside;
-    margin: 0 0 ${props => spaceScale(props, -1)} 1.6rem;
+    margin: 0 0 ${props => scale.space(props, -1)} 1.6rem;
     padding: 0;
 
     & &,

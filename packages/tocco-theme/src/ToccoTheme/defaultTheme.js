@@ -38,7 +38,7 @@ export default {
    * rem, hence it inherits from websites root. */
   fontSize: {
     base: 1.4,
-    scale: 1.3
+    factor: 1.3
   },
   /* Change weights for extra light or extra bold typography but ensure that
    * font files does provide such weights. */
@@ -55,14 +55,14 @@ export default {
   radii: {
     regular: '4px'
   },
-  /* Base and scale are used to control vertical and horizontal white
+  /* Base and factor are used to control vertical and horizontal white
    * space rhythm. All spaces are calculated automatically as an exponential scale.
    * Both values must be provided as unitless factors. Base is interpreted as
    * rem, hence it inherits from websites root. It is recommended to use
    * fontSice.base multiplied by lineHeights.regular for space.base and powers
-   * of for space.scale two to ensure alignment */
+   * of for space.factor two to ensure alignment */
   space: {
     base: 2,
-    scale: 2
+    factor: 2
   }
 }

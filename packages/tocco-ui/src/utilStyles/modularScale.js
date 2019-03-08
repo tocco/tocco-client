@@ -1,14 +1,21 @@
 import {theme} from 'styled-system'
 import _round from 'lodash/round'
 
-export const fontScale = (props, exponent, unit) =>
-  declareScale(props, exponent, 'fontSize.base', 'fontSize.scale', unit)
+const font = (props, exponent, unit) =>
+  declareScale(props, exponent, 'fontSize.base', 'fontSize.factor', unit)
 
-export const spaceScale = (props, exponent, unit) =>
-  declareScale(props, exponent, 'space.base', 'space.scale', unit)
+const space = (props, exponent, unit) =>
+  declareScale(props, exponent, 'space.base', 'space.factor', unit)
 
-export const declareScale = (props, exponent, base, scale, unit = 'rem') =>
-  `${_round(scaleExponential(theme(base)(props), exponent, theme(scale)(props)), 3)}${unit}`
+const declareScale = (props, exponent, base, factor, unit = 'rem') =>
+  `${_round(exponentiate(theme(base)(props), exponent, theme(factor)(props)), 3)}${unit}`
 
-export const scaleExponential = (base, exponent, scale) =>
-  Math.pow(scale, exponent) * base
+const exponentiate = (base, exponent, factor) =>
+  Math.pow(factor, exponent) * base
+
+export default {
+  declareScale,
+  exponentiate,
+  font,
+  space
+}
