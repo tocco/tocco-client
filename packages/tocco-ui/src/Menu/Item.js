@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import StyledItem from './StyledItem'
-import {stylingLook} from '../utilStyles'
+import {design} from '../utilStyles'
 
 /**
  * Wrap all <Button> and <ButtonLink> in <Item>.
@@ -83,7 +83,7 @@ Item.propTypes = {
   /**
    * Look of menu item. Default value is 'flat'. Value is always overridden by parent element.
    */
-  look: PropTypes.oneOf([stylingLook.FLAT, stylingLook.RAISED])
+  look: PropTypes.oneOf([design.look.FLAT, design.look.RAISED])
 }
 
 export default Item

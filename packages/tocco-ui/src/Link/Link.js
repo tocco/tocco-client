@@ -3,7 +3,7 @@ import React from 'react'
 
 import Icon from '../Icon'
 import StyledLink from './StyledLink'
-import {stylingPosition} from '../utilStyles'
+import {design} from '../utilStyles'
 
 /**
  * Use <Link> for internal and external links in running text.
@@ -22,7 +22,7 @@ const Link = props => {
       target={props.target}
       title={props.title || (props.breakWords ? undefined : props.label)}
     >
-      {props.icon && <Icon icon={props.icon} position={stylingPosition.PREPEND}/>}
+      {props.icon && <Icon icon={props.icon} position={design.position.PREPEND}/>}
       {props.label}
     </StyledLink>
   )
