@@ -58,30 +58,30 @@ const declareInteractionColors = (colors, format = design.format.HTML) => {
 const generateFlatBaseColors = props => {
   const text = _get(props.theme, 'colors.text', design.fallbackColors.TEXT)
   const paper = _get(props.theme, 'colors.paper', design.fallbackColors.PAPER)
-  const fg = generateInteractionColor(text, {
+  const fg = generateShades(text, {
     action: getLuminance(paper) > 0.5 ? 'darken' : 'lighten'
   })
-  const bg = generateInteractionColor(paper)
+  const bg = generateShades(paper)
   return {bg, fg}
 }
 
 const generateFlatPrimaryColors = props => {
   const primary = _get(props.theme, 'colors.primary', design.fallbackColors.TEXT)
   const paper = _get(props.theme, 'colors.paper', design.fallbackColors.PAPER)
-  const fg = generateInteractionColor(primary, {
+  const fg = generateShades(primary, {
     action: getLuminance(paper) > 0.5 ? 'darken' : 'lighten'
   })
-  const bg = generateInteractionColor(paper)
+  const bg = generateShades(paper)
   return {bg, fg}
 }
 
 const generateRaisedBaseColors = props => {
   const text = _get(props.theme, 'colors.text', design.fallbackColors.TEXT)
   const paper = _get(props.theme, 'colors.paper', design.fallbackColors.PAPER)
-  const fg = generateInteractionColor(text, {
+  const fg = generateShades(text, {
     action: getLuminance(paper) > 0.5 ? 'darken' : 'lighten'
   })
-  const bg = generateInteractionColor(paper, {
+  const bg = generateShades(paper, {
     shadeOffset: 0.1
   })
   return {bg, fg}
@@ -92,17 +92,17 @@ const generateRaisedPrimaryColors = props => {
   const paper = _get(props.theme, 'colors.paper', design.fallbackColors.PAPER)
   const primary = _get(props.theme, 'colors.primary', design.fallbackColors.TEXT)
   const higherContrast = getHigherContrast(primary, text, paper)
-  const fg = generateInteractionColor(higherContrast, {
+  const fg = generateShades(higherContrast, {
     action: getLuminance(primary) > 0.5 ? 'darken' : 'lighten'
   })
-  const bg = generateInteractionColor(primary)
+  const bg = generateShades(primary)
   return {bg, fg}
 }
 
 const generateCustomColors = (base, colorA, colorB) => {
   const higherContrast = getHigherContrast(base, colorA, colorB)
-  const bg = generateInteractionColor(base)
-  const fg = generateInteractionColor(higherContrast, {
+  const bg = generateShades(base)
+  const fg = generateShades(higherContrast, {
     action: getLuminance(base) > 0.5 ? 'darken' : 'lighten'
   })
   return {bg, fg}
@@ -117,7 +117,7 @@ const getContrast = (colorA, colorB) => {
 const getHigherContrast = (base, colorA, colorB) =>
   getContrast(colorA, base) > getContrast(colorB, base) ? colorA : colorB
 
-const generateInteractionColor = (color = design.fallbackColors.SHADE, options = {}) => ([
+const generateShades = (color = fallbackColors.SHADE, options = {}) => ([
   options.shadeOffset >= 0
     ? shadeColor(color, 0, options)
     : color,
@@ -161,7 +161,7 @@ export {
   generateRaisedPrimaryColors,
   generateFlatBaseColors,
   generateFlatPrimaryColors,
-  generateInteractionColor,
+  generateShades,
   getHigherContrast,
   shadeColor
 }

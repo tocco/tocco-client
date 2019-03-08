@@ -4,7 +4,7 @@ import {
 } from 'polished'
 
 import {
-  generateInteractionColor,
+  generateShades,
   scale
 } from '../utilStyles'
 
@@ -23,8 +23,8 @@ const reactSelectTheme = (theme, outerTheme) => ({
 })
 
 const reactSelectStyles = outerTheme => {
-  const paper = generateInteractionColor(outerTheme.colors.paper)
-  const text = generateInteractionColor(outerTheme.colors.text, {
+  const paper = generateShades(outerTheme.colors.paper)
+  const text = generateShades(outerTheme.colors.text, {
     action: getLuminance(outerTheme.colors.paper) > 0.5 ? 'darken' : 'lighten'
   })
   const infoText = outerTheme.colors.signal.info.text
