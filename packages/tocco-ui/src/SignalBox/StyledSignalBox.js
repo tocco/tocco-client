@@ -3,9 +3,9 @@ import styled from 'styled-components'
 
 import {StyledSignalListItem} from '../SignalList'
 import {
-  shadeColor,
-  spaceScale,
-  design
+  design,
+  scale,
+  shadeColor
 } from '../utilStyles'
 
 const ALLOWED_CONDITIONS = [
@@ -30,8 +30,8 @@ const getColor = props => {
 const StyledSignalBox = styled.div`
   && {
     background-color: ${props => getColor(props)};
-    padding: ${props => spaceScale(props, -1)};
-    margin-bottom: ${props => spaceScale(props, -1)};
+    padding: ${props => scale.space(props, -1)};
+    margin-bottom: ${props => scale.space(props, -1)};
     border-radius: ${theme('radii.regular')};
 
     &:last-child {

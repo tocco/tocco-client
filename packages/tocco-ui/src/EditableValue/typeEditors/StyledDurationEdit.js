@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import {spaceScale} from '../../utilStyles'
+import {scale} from '../../utilStyles'
 import {StyledSpan} from '../../Typography'
 import {
   StyledEditableWrapper,
@@ -28,11 +28,11 @@ const StyledDurationEditWrapper = styled.div`
 
   > ${StyledSpan} {
     &:nth-of-type(1) {
-      margin: 0 ${props => spaceScale(props, -1)};
+      margin: 0 ${props => scale.space(props, -1)};
     }
 
     &:nth-of-type(2) {
-      margin-left: ${props => spaceScale(props, -1)};
+      margin-left: ${props => scale.space(props, -1)};
     }
   }
 }

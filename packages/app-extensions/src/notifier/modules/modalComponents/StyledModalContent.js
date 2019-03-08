@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import {theme} from 'styled-system'
-import {spaceScale} from 'tocco-ui'
+import {scale} from 'tocco-ui'
 
 const modalWidth = 700
 const gutterWidth = 30
@@ -14,7 +14,7 @@ const StyledModalContent = styled.div.attrs({
     box-shadow: 2px 2px 10px rgba(0, 0, 0, .4);         // reset: react-redux-toastr (confirm.scss)
     left: 0;                                            // reset: react-redux-toastr (confirm.scss)
     margin-left: ${Math.ceil(gutterWidth / 2)}px;       // reset: react-redux-toastr (confirm.scss)
-    padding: ${props => spaceScale(props, -1)};         // reset: react-redux-toastr (confirm.scss)
+    padding: ${props => scale.space(props, -1)};         // reset: react-redux-toastr (confirm.scss)
     width: calc(100% - ${gutterWidth}px);
 
     @media (min-width: ${modalWidth + gutterWidth}px) {
