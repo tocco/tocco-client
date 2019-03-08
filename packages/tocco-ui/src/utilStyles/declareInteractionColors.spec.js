@@ -36,74 +36,52 @@ const props = {
   }
 }
 
-const colorSet = {
-  defaultBackground: '#000',
-  defaultColor: '#300',
-  focusBackground: '#030',
-  focusColor: '#330',
-  activeBackground: '#003',
-  activeColor: '#033'
-}
-
 describe('tocco-ui', () => {
   describe('utilStyles', () => {
     describe('declareInteractionColors', () => {
       test('should be color set for flat base', () => {
         const colors = generateFlatBaseColors(props)
-        expect(Object.keys(colors)).to.have.lengthOf(6)
+        expect(Object.keys(colors)).to.have.lengthOf(2)
         expect(colors).to.deep.equal({
-          defaultColor: '#900',
-          defaultBackground: '#300',
-          focusColor: '#c00',
-          focusBackground: '#600',
-          activeColor: '#f00',
-          activeBackground: '#900'
+          bg: ['#300', '#600', '#900'],
+          fg: ['#900', '#c00', '#f00']
         })
       })
 
       test('should be color set for flat primary', () => {
         const colors = generateFlatPrimaryColors(props)
-        expect(Object.keys(colors)).to.have.lengthOf(6)
+        expect(Object.keys(colors)).to.have.lengthOf(2)
         expect(colors).to.deep.equal({
-          defaultColor: '#600',
-          defaultBackground: '#300',
-          focusColor: '#900',
-          focusBackground: '#600',
-          activeColor: '#c00',
-          activeBackground: '#900'
+          bg: ['#300', '#600', '#900'],
+          fg: ['#600', '#900', '#c00']
         })
       })
 
       test('should be color set for raised base', () => {
         const colors = generateRaisedBaseColors(props)
-        expect(Object.keys(colors)).to.have.lengthOf(6)
+        expect(Object.keys(colors)).to.have.lengthOf(2)
         expect(colors).to.deep.equal({
-          defaultColor: '#900',
-          defaultBackground: '#600',
-          focusColor: '#c00',
-          focusBackground: '#900',
-          activeColor: '#f00',
-          activeBackground: '#c00'
+          bg: ['#600', '#900', '#c00'],
+          fg: ['#900', '#c00', '#f00']
         })
       })
 
       test('should be color set for raised primary', () => {
         const colors = generateRaisedPrimaryColors(props)
-        expect(Object.keys(colors)).to.have.lengthOf(6)
+        expect(Object.keys(colors)).to.have.lengthOf(2)
         expect(colors).to.deep.equal({
-          defaultColor: '#900',
-          defaultBackground: '#600',
-          focusColor: '#c00',
-          focusBackground: '#900',
-          activeColor: '#f00',
-          activeBackground: '#c00'
+          bg: ['#600', '#900', '#c00'],
+          fg: ['#900', '#c00', '#f00']
         })
       })
 
       test(
         'should declare color and background for default state, :focus, :hover and :active',
         () => {
-          const css = declareInteractionColors(colorSet)
+          const css = declareInteractionColors({
+            bg: ['#000', '#030', '#003'],
+            fg: ['#300', '#330', '#033']
+          })
           expect(css).to.match(/background-color: #000;[\n\s]*color: #300;/)
           expect(css).to.match(/&:focus,[\n\s]*&:hover {[\n\s]*background-color: #030;[\n\s]*color: #330;[\n\s]*}/)  // eslint-disable-line
           expect(css).to.match(/&:active,[\n\s]*&\[aria-pressed="true"\] {[\n\s]*background-color: #003;[\n\s]*color: #033;[\n\s]*}/)  // eslint-disable-line
