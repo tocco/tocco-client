@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import _isEmpty from 'lodash/isEmpty'
+import _get from 'lodash/get'
 
 import ButtonLink from '../../ButtonLink'
 import {
@@ -10,11 +11,12 @@ import {
 import StyledPhoneEdit from './StyledPhoneEdit'
 
 class PhoneEdit extends React.Component {
-  DEFAULT_DEFAULT_COUNTRY = 'CH'
+  FALLBACK_DEFAULT_COUNTRY = 'CH'
 
   constructor(props) {
     super(props)
-    this.state = {libPhoneImport: null, defaultCountry: this.DEFAULT_DEFAULT_COUNTRY}
+    const defaultCountry = _get(props, 'options.defaultCountry') || this.FALLBACK_DEFAULT_COUNTRY
+    this.state = {libPhoneImport: null, defaultCountry}
     this.importLibPhoneNumber()
     this.inputElement = React.createRef()
   }
@@ -31,41 +33,33 @@ class PhoneEdit extends React.Component {
 
   repositionCaret = (value, previousValue, caretPosition) => {
     if (caretPosition && value.length !== caretPosition) {
-      const defaultCountryString = this.state.defaultCountry
-      const previousValueFormatted = new this.state.libPhoneImport.AsYouType(defaultCountryString).input(previousValue)
-      const currentValueFormatted = new this.state.libPhoneImport.AsYouType(defaultCountryString).input(value)
+      const previousFormatted = new this.state.libPhoneImport.AsYouType(this.state.defaultCountry).input(previousValue)
+      const currentFormatted = new this.state.libPhoneImport.AsYouType(this.state.defaultCountry).input(value)
 
-      const spacesPrevious = this.amountOfSpacesBeforeCaret(previousValueFormatted, caretPosition)
-      const spacesCurrent = this.amountOfSpacesBeforeCaret(currentValueFormatted, caretPosition)
+      const spacesPrevious = this.amountOfSpacesBeforeCaret(previousFormatted, caretPosition)
+      const spacesCurrent = this.amountOfSpacesBeforeCaret(currentFormatted, caretPosition)
 
       const offset = spacesCurrent - spacesPrevious
 
       window.requestAnimationFrame(function() {
         const start = caretPosition + offset
         this.setSelectionRange(start, start)
-      }.bind(this.inputElement))
+      }.bind(this.inputElement.current))
     }
   }
 
   removeSpaces = str => str.replace(/\s/g, '')
 
   handleChange = e => {
-    const defaultCountry = (this.props.options && this.props.options.defaultCountry) || this.state.defaultCountry
     const newValue = e.target.value
     const {libPhoneImport} = this.state
-    const parsedNumber = libPhoneImport ? libPhoneImport.parseNumber(newValue, defaultCountry) : newValue
+    const parsedNumber = libPhoneImport ? libPhoneImport.parseNumber(newValue, this.state.defaultCountry) : newValue
 
-    if (this.props.onChange) {
-      const valueWithoutSpaces = this.removeSpaces(newValue)
-      const isEmpty = _isEmpty(parsedNumber)
+    const valueNormalized = _isEmpty(parsedNumber)
+      ? this.removeSpaces(new this.state.libPhoneImport.AsYouType(this.state.defaultCountry).input(newValue))
+      : libPhoneImport.formatNumber(parsedNumber, 'E.164')
 
-      if (libPhoneImport) {
-        this.valueNormalized = isEmpty ? valueWithoutSpaces : libPhoneImport.formatNumber(parsedNumber, 'E.164')
-      } else {
-        this.valueNormalized = valueWithoutSpaces
-      }
-      this.props.onChange(this.valueNormalized)
-    }
+    this.props.onChange(valueNormalized)
 
     const currentCaretPosition = e.target.selectionStart
     this.repositionCaret(newValue, this.props.value, currentCaretPosition)
@@ -74,9 +68,9 @@ class PhoneEdit extends React.Component {
   determineDisplayValue = () => {
     if (this.state.libPhoneImport && this.state.libPhoneImport.AsYouType) {
       return new this.state.libPhoneImport.AsYouType(this.state.defaultCountry).input(this.props.value)
-    } else {
-      return (this.props.value === null ? '' : this.props.value)
     }
+
+    return this.props.value || ''
   }
 
   render() {
@@ -90,7 +84,7 @@ class PhoneEdit extends React.Component {
           value={displayValue}
           onChange={this.handleChange}
           id={this.props.id}
-          disabled={this.props.readOnly}
+          disabled={this.props.readOnly || !this.state.libPhoneImport}
         />
         {displayValue && <StyledEditableControl>
           <ButtonLink
@@ -107,7 +101,7 @@ class PhoneEdit extends React.Component {
 }
 
 PhoneEdit.propTypes = {
-  onChange: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
   value: PropTypes.node,
   name: PropTypes.string,
   id: PropTypes.string,
