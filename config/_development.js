@@ -3,8 +3,8 @@ import {argv} from 'yargs'
 // to fix this issue:
 // http://stackoverflow.com/questions/34133808/webpack-ots-parsing-error-loading-fonts/34133809#34133809
 
-const getUrl = () => JSON.stringify(argv.backend) || JSON.stringify(process.env.BACKEND)
-const getNoMock = () => !!(process.env.BACKEND || argv.backend || argv.noMock)
+export const getUrl = () => JSON.stringify(argv.backend) || JSON.stringify(process.env.BACKEND)
+export const getNoMock = () => !!(process.env.BACKEND || argv.backend || argv.noMock)
 
 export default config => ({
   proxy: {
