@@ -7,20 +7,23 @@ import {layoutPropTypes, stylingLayout} from '../utilStyles'
 /**
  * Wrap as many <Layout.Box/> into a <Layout.Container> to layout them.
  */
-const LayoutBox = props =>
-  <StyledLayoutBox
-    containerWidth={props.containerWidth}
-    isNestedCorrectly={props.parent === stylingLayout.CONTAINER}
-    maxCellsPerRow={props.maxCellsPerRow}
-  >
-    {
-      React.Children.map(props.children, child =>
-        React.cloneElement(child, {
-          parent: stylingLayout.BOX
-        })
-      )
-    }
-  </StyledLayoutBox>
+class LayoutBox extends React.PureComponent {
+  render() {
+    return <StyledLayoutBox
+      containerWidth={this.props.containerWidth}
+      isNestedCorrectly={this.props.parent === stylingLayout.CONTAINER}
+      maxCellsPerRow={this.props.maxCellsPerRow}
+    >
+      {
+        React.Children.map(this.props.children, child =>
+          React.cloneElement(child, {
+            parent: stylingLayout.BOX
+          })
+        )
+      }
+    </StyledLayoutBox>
+  }
+}
 
 LayoutBox.defaultProps = {
   maxCellsPerRow: {

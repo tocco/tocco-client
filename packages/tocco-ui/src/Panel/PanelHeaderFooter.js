@@ -8,7 +8,7 @@ import Button from '../Button'
  * <Panel.Header/> and <Panel.Footer/> contain by default a button to toggle the visibility state of <Panel.Body>.
  * Header and footer can contain any content. If both are displayed is up to the implementer.
  */
-class PanelHeaderFooter extends React.Component {
+class PanelHeaderFooter extends React.PureComponent {
   render() {
     const {
       children,

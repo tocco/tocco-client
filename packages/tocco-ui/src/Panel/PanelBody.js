@@ -6,7 +6,7 @@ import StyledPanelBody from './StyledPanelBody'
 /**
  * Only <Panel.Body/> is affected by the visibility state.
  */
-class PanelBody extends React.Component {
+class PanelBody extends React.PureComponent {
   state = {}
 
   setHeight = () => {
