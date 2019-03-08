@@ -68,6 +68,5 @@ export {
   generateInteractionColor,
   shadeColor,
   spaceScale,
-  stylingCondition,
-  stylingInk
+  design
 } from './utilStyles'

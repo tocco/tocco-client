@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedMessage} from 'react-intl'
-import {Link, SignalBox, SignalList, stylingCondition} from 'tocco-ui'
+import {Link, SignalBox, SignalList, design} from 'tocco-ui'
 import {form} from 'tocco-app-extensions'
 
 const ErrorBox = ({formErrors, showErrors}) => {
@@ -11,7 +11,7 @@ const ErrorBox = ({formErrors, showErrors}) => {
   if (form.formErrorsUtil.hasFieldErrors(formErrors)) {
     elements.push(
       <SignalList.Item
-        condition={stylingCondition.DANGER}
+        condition={design.condition.DANGER}
         key="hasFieldErrors"
       >
         <Link
@@ -25,11 +25,11 @@ const ErrorBox = ({formErrors, showErrors}) => {
 
   if (form.formErrorsUtil.hasValidatorErrors(formErrors)) {
     elements.push(
-      <SignalList.Item condition={stylingCondition.DANGER} key="hasValidatorErrors">
+      <SignalList.Item condition={design.condition.DANGER} key="hasValidatorErrors">
         <FormattedMessage id="client.entity-detail.validatorErrors"/>
         <SignalList.List>
           {form.formErrorsUtil.getValidatorErrors(formErrors).map((message, idx) =>
-            <SignalList.Item condition={stylingCondition.DANGER} key={idx} label={message} />
+            <SignalList.Item condition={design.condition.DANGER} key={idx} label={message} />
           )}
         </SignalList.List>
       </SignalList.Item>
@@ -38,11 +38,11 @@ const ErrorBox = ({formErrors, showErrors}) => {
 
   if (form.formErrorsUtil.hasRelatedEntityErrors(formErrors)) {
     elements.push(
-      <SignalList.Item condition={stylingCondition.DANGER} key="hasRelatedEntityErrors">
+      <SignalList.Item condition={design.condition.DANGER} key="hasRelatedEntityErrors">
         <FormattedMessage id="client.entity-detail.invalidRelationErrors"/>
         <SignalList.List>
           {form.formErrorsUtil.getRelatedEntityErrorsCompact(formErrors).map((message, idx) =>
-            <SignalList.Item condition={stylingCondition.DANGER} key={idx} label={message} />
+            <SignalList.Item condition={design.condition.DANGER} key={idx} label={message} />
           )}
         </SignalList.List>
       </SignalList.Item>
@@ -51,7 +51,7 @@ const ErrorBox = ({formErrors, showErrors}) => {
 
   if (elements.length > 0) {
     output = (
-      <SignalBox condition={stylingCondition.DANGER}>
+      <SignalBox condition={design.condition.DANGER}>
         <SignalList.List>
           {elements.map(el => el)}
         </SignalList.List>

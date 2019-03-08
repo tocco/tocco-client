@@ -3,7 +3,7 @@ import React from 'react'
 
 import StyledSignalBox, {ALLOWED_CONDITIONS} from './StyledSignalBox'
 import Typography from '../Typography'
-import {stylingCondition} from '../utilStyles'
+import {design} from '../utilStyles'
 
 /**
  * Emphasize important information by context. Group them by utilizing several instances of <SignalBox/>.
@@ -16,7 +16,7 @@ const SignalBox = props =>
   </StyledSignalBox>
 
 SignalBox.defaultProps = {
-  condition: stylingCondition.BASE
+  condition: design.condition.BASE
 }
 
 SignalBox.propTypes = {

@@ -4,7 +4,7 @@ import {withKnobs, boolean, number, select, text} from '@storybook/addon-knobs'
 import _pick from 'lodash/pick'
 
 import ButtonLink from './'
-import {stylingInk, stylingLook, stylingPosition} from '../utilStyles'
+import {design} from '../utilStyles'
 
 storiesOf('ButtonLink', module)
   .addDecorator(withKnobs)
@@ -17,10 +17,10 @@ storiesOf('ButtonLink', module)
       download={text('download', 'tocco-101x101.png')}
       href={text('href', '#Link')}
       icon={text('icon', 'phone')}
-      iconPosition={select('iconPosition', {'-': null, ..._pick(stylingPosition, ['PREPEND', 'SOLE'])}) || undefined}
-      ink={select('ink', stylingInk)}
+      iconPosition={select('iconPosition', {'-': null, ..._pick(design.position, ['PREPEND', 'SOLE'])}) || undefined}
+      ink={select('ink', design.ink)}
       label={text('label', 'Button Link')}
-      look={select('look', {'-': null, ..._pick(stylingLook, ['BALL', 'FLAT', 'RAISED'])}) || undefined}
+      look={select('look', {'-': null, ..._pick(design.look, ['BALL', 'FLAT', 'RAISED'])}) || undefined}
       rel={text('rel', undefined)}
       stopPropagation={boolean('stopPropagation', false)}
       tabIndex={number('tabIndex', undefined)}

@@ -6,7 +6,7 @@ import _pick from 'lodash/pick'
 import ButtonGroup from './'
 import Button from '../Button/Button'
 import ButtonLink from '../ButtonLink/ButtonLink'
-import {stylingInk, stylingLook} from '../utilStyles'
+import {design} from '../utilStyles'
 
 storiesOf('ButtonGroup', module)
   .addDecorator(withKnobs)
@@ -14,8 +14,8 @@ storiesOf('ButtonGroup', module)
     'ButtonGroup',
     () => (
       <ButtonGroup
-        ink={select('ink', stylingInk)}
-        look={select('look', {'-': null, ..._pick(stylingLook, ['FLAT', 'RAISED'])}) || undefined}
+        ink={select('ink', design.ink)}
+        look={select('look', {'-': null, ..._pick(design.look, ['FLAT', 'RAISED'])}) || undefined}
         melt={boolean('melt', false)}
       >
         <Button label="Lorem ipsum dolor"/>

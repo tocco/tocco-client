@@ -4,7 +4,7 @@ import React from 'react'
 import Button from '../Button'
 import Item from './Item'
 import StyledItemFlyout from './StyledItemFlyout'
-import {stylingInk, stylingLook, stylingPosition} from '../utilStyles'
+import {design} from '../utilStyles'
 
 /**
  * Wrap <Menu.Stack> in <Menu.ItemFlyout> if it should be toggleable. Submenu fly out on
@@ -26,7 +26,7 @@ class ItemFlyout extends Item {
         <Button
           ink={this.props.ink}
           icon={this.state.isOpen ? 'caret-up' : 'caret-down'}
-          iconPosition={stylingPosition.APPEND}
+          iconPosition={design.position.APPEND}
           label={this.props.label}
           look={this.props.look}
           onClick={this.toggleOpenState}
@@ -46,7 +46,7 @@ ItemFlyout.propTypes = {
   /**
    * Specify color palette. Default value is 'base'.
    */
-  'ink': PropTypes.oneOf([stylingInk.BASE, stylingInk.PRIMARY]),
+  'ink': PropTypes.oneOf([design.ink.BASE, design.ink.PRIMARY]),
   /**
    * Boolean to control if a submenu is initially opened. Default value is 'true'.
    */
@@ -58,7 +58,7 @@ ItemFlyout.propTypes = {
   /**
    * Look of menu item. Default value is 'flat'. Value is always overridden by parent element.
    */
-  look: PropTypes.oneOf([stylingLook.FLAT, stylingLook.RAISED])
+  look: PropTypes.oneOf([design.look.FLAT, design.look.RAISED])
 }
 
 export default ItemFlyout
