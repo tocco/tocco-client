@@ -1,8 +1,6 @@
 import * as actions from './actions'
 
-const setSearchFilter = (state, {payload: {entity, filters}}) => {
-  return {...state, [entity]: filters}
-}
+const setSearchFilter = (state, {payload: {entity, filters}}) => ({...state, [entity]: filters})
 
 const ACTION_HANDLERS = {
   [actions.SET_SEARCH_FILTER]: setSearchFilter

@@ -115,15 +115,14 @@ class FormBuilder extends React.Component {
     return null
   }
 
-  createAction = (child, key) => {
-    return <actions.Action
+  createAction = (child, key) =>
+    <actions.Action
       definition={child}
       entity={this.props.entity.model}
       ids={[...(this.props.entity.key ? [this.props.entity.key] : [])]}
       mode={this.props.mode}
       key={'detailAction' + key}
     />
-  }
 
   createLayoutComponent = (field, type, key, traverser) => {
     let elements = traverser()

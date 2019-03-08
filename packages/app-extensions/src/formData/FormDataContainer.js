@@ -10,21 +10,18 @@ import {changeFieldValue} from './values/actions'
 import {uploadDocument} from './upload/actions'
 import {loadSearchFilters} from './searchFilters/actions'
 
-const FormData = props => {
-  return <React.Fragment>{React.cloneElement(props.children, {utils: props})}</React.Fragment>
-}
+const FormData = props =>
+  <React.Fragment>{React.cloneElement(props.children, {utils: props})}</React.Fragment>
 
 FormData.propTypes = {
   children: PropTypes.node
 }
 
-const mapStateToProps = state => {
-  return {
-    relationEntities: state.formData.relationEntities.data,
-    tooltips: state.formData.tooltips.data,
-    searchFilters: state.formData.searchFilters
-  }
-}
+const mapStateToProps = state => ({
+  relationEntities: state.formData.relationEntities.data,
+  tooltips: state.formData.tooltips.data,
+  searchFilters: state.formData.searchFilters
+})
 
 const mapActionCreators = {
   loadRelationEntities: loadRelationEntities,

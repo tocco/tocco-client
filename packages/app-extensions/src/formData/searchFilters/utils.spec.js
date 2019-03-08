@@ -2,7 +2,7 @@ import {searchFilterTransformer} from './utils'
 
 describe('app-extensions', () => {
   describe('formData', () => {
-    describe('searchFilter', () => {
+    describe('searchFilters', () => {
       describe('utils', () => {
         describe('searchFilterTransformer', () => {
           test('should extract the key with the specified path', () => {
