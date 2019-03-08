@@ -2,9 +2,11 @@ import {
   getLuminance,
   transparentize
 } from 'polished'
-import _round from 'lodash/round'
 
-import {generateInteractionColor} from '../utilStyles'
+import {
+  generateInteractionColor,
+  scale
+} from '../utilStyles'
 
 const reactSelectTheme = (theme, outerTheme) => ({
   ...theme,
@@ -21,12 +23,7 @@ const reactSelectTheme = (theme, outerTheme) => ({
 })
 
 const reactSelectStyles = outerTheme => {
-  const spaceScale = exponent =>
-    `${_round(exponentiate(outerTheme.space.base, exponent, outerTheme.space.factor), 3)}rem`
-
-  const exponentiate = (base, exponent, factor) =>
-    Math.pow(factor, exponent) * base
-
+  const fakeProps = {theme: outerTheme}
   const paper = generateInteractionColor(outerTheme.colors.paper)
   const text = generateInteractionColor(outerTheme.colors.text, {
     action: getLuminance(outerTheme.colors.paper) > 0.5 ? 'darken' : 'lighten'
@@ -87,14 +84,14 @@ const reactSelectStyles = outerTheme => {
     indicatorsContainer: (base, state) => ({
       ...base,
       '> span': {
-        marginRight: `${spaceScale(-2)}`
+        marginRight: `${scale.space(fakeProps, -2)}`
       },
       '> span > button': {
         width: '2.6rem'
       }
     }),
     input: (base, state) => ({
-      margin: `0 0 ${spaceScale(-2)} 0`
+      margin: `0 0 ${scale.space(fakeProps, -2)} 0`
     }),
     menuList: (base, state) => ({
       ...base,
@@ -103,7 +100,7 @@ const reactSelectStyles = outerTheme => {
     multiValue: (base, state) => ({
       ...base,
       borderRadius: outerTheme.radii.regular,
-      margin: `0 ${spaceScale(-2)} ${spaceScale(-2)} 0`
+      margin: `0 ${scale.space(fakeProps, -2)} ${scale.space(fakeProps, -2)} 0`
     }),
     multiValueLabel: (base, state) => ({
       ...base,
@@ -126,11 +123,11 @@ const reactSelectStyles = outerTheme => {
     singleValue: (base, state) => ({
       ...base,
       color: text[0],
-      margin: `0 ${spaceScale(-2)}`
+      margin: `0 ${scale.space(fakeProps, -2)}`
     }),
     valueContainer: (base, state) => ({
       ...base,
-      padding: `${spaceScale(-2)} ${spaceScale(-1)} 0 ${spaceScale(-2)}`
+      padding: `${scale.space(fakeProps, -2)} ${scale.space(fakeProps, -1)} 0 ${scale.space(fakeProps, -2)}`
     })
   }
 }
