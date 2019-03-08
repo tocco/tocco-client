@@ -7,7 +7,7 @@ import StyledPanel from './StyledPanel'
  * <Panel/> is used to conceal and display related content alternating by interaction and to
  * emphasize close relationship of content.
  */
-class Panel extends React.Component {
+class Panel extends React.PureComponent {
   state = {
     isOpen: this.props.isOpen
   }

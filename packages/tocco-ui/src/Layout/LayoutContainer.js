@@ -8,7 +8,7 @@ import {layoutPropTypes, stylingLayout} from '../utilStyles'
  * Use <Layout.Container/> to apply grid and gutter on <Layout.Box>.
  * Define how many cells are displayed per row and breakpoint.
  */
-class LayoutContainer extends React.Component {
+class LayoutContainer extends React.PureComponent {
   constructor(props) {
     super(props)
     this.ref = React.createRef()
