@@ -29,7 +29,7 @@ export default {
   },
   fontSize: {
     base: 1.4,
-    scale: 1.3
+    factor: 1.3
   },
   fontWeights: {
     regular: 400,
@@ -44,6 +44,6 @@ export default {
   },
   space: {
     base: 2,
-    scale: 2
+    factor: 2
   }
 }

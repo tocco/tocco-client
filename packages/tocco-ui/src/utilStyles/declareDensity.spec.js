@@ -8,7 +8,7 @@ const props = {
     },
     space: {
       base: 16,
-      scale: 2
+      factor: 2
     }
   }
 }
