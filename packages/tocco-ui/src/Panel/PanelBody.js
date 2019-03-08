@@ -17,8 +17,18 @@ class PanelBody extends React.PureComponent {
     this.outerEl.removeAttribute('style')
   }
 
+  relevantAttributes = ['data-image-in-cache']
+  observerCallback = mutationsList => {
+    const isNotIgnorableAttributeChange = mutation =>
+      mutation.type !== 'attributes' || this.relevantAttributes.includes(mutation.attributeName)
+
+    if (mutationsList.some(isNotIgnorableAttributeChange)) {
+      this.setHeight()
+    }
+  }
+
   connectObserver() {
-    this.observer = new MutationObserver(() => { this.setHeight() })
+    this.observer = new MutationObserver(this.observerCallback)
     this.observer.observe(this.innerEl, {
       attributes: true,
       childList: true,
