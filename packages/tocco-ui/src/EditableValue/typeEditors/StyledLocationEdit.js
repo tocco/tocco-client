@@ -1,35 +1,35 @@
 import styled from 'styled-components'
 
-const StyledLocationEdit = styled.div`
+export const StyledLocationEdit = styled.div`
 && {
   display: flex;
   justify-content: space-between;
-
-  > .zipInput {
-    width: 35%;
-    margin-right: 10px;
-  }
-
-  > .cityInput {
-    width: 65%;
-  }
+  align-items: center;
 }
+`
+
+export const StyledLocationEditZipInput = styled.span`
+  width: 35%;
+  margin-right: 10px;
+`
+
+export const StyledLocationEditCityInput = styled.span`
+  width: 65%;
+  margin-right: 10px;
 `
 
 export const menuZipStyles = {
   menu: styles => ({
     ...styles,
-    width: '250%'
+    width: '294%'
   })
 }
 
 export const menuCityStyles = {
   menu: styles => ({
     ...styles,
-    width: '150%',
+    width: '158%',
     position: 'absolute',
     right: '0%'
   })
 }
-
-export default StyledLocationEdit

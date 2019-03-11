@@ -13,39 +13,24 @@ export default type =>
   (formField, modelField, formName, props, events, utils) => {
     const options = getOptions(type, formField, modelField, utils, formName)
 
-    // TODO: Refactor to function
-    if (type === 'location') {
-      props.value = {
-        city: 'Weinfelden',
-        zipcode: '8570'
-      } // = utils.valueprovider('address_')
+    setLocation(type, formField, props, utils)
 
-      props.onChange = locationObject => {
-        for (const key in locationObject) {
+    return <EditableValue type={type} events={events} {...props} options={options}/>
+  }
+
+const setLocation = (type, formField, props, utils) => {
+  if (type === 'location') {
+    const locationMapping = formField.locationMapping
+
+    props.onChange = locationObject => {
+      for (const key in locationMapping) {
+        if (locationObject[key]) {
           utils.changeFieldValue(key, locationObject[key])
         }
       }
     }
-
-    if (type === 'location') {
-      const locationMapping = formField.locationMapping
-      props.onChange = locationObject => {
-        const locationChangeObject = {
-          [locationMapping.postcode]: locationObject.plz,
-          [locationMapping.location]: locationObject.city,
-          [locationMapping.district]: locationObject.district,
-          [locationMapping.state]: locationObject.canton,
-          [locationMapping.country]: locationObject.country
-        }
-
-        for (const key in locationChangeObject) {
-          utils.changeFieldValue(key, locationChangeObject[key])
-        }
-      }
-    }
-
-    return <EditableValue type={type} events={events} {...props} options={options}/>
   }
+}
 
 const getOptions = (type, formField, modelField, utils, formName) => {
   const options = {}
@@ -140,7 +125,7 @@ const getOptions = (type, formField, modelField, utils, formName) => {
       break
     case 'location':
       if (utils.intl) {
-        options.deleteLabel = utils.intl.formatMessage({id: 'client.component.location.deleteLabel'})
+        // options.deleteLabel = utils.intl.formatMessage({id: 'client.component.location.deleteLabel'})
       }
       options.fetchSuggestions = searchTerm => utils.loadLocationsSuggestions(formField.id, searchTerm)
       options.isLoading = _get(utils.locationSuggestions, [formField.id, 'isLoading'], false)
