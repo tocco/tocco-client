@@ -76,8 +76,8 @@ describe('tocco-ui', () => {
 
           test('should return input label on value created without context', () => {
             const input = {label: 'Test City'}
-            const result = <span>{input.label}</span>
-            expect(formatOptionLabel('zip')(input)).to.equal(result)
+            const info = {}
+            expect(formatOptionLabel('zip')(input, info).props.children).to.equal(input.label)
           })
 
           test('should return null on no input or context', () => {
