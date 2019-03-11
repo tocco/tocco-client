@@ -31,21 +31,26 @@ export const getMapsAddress = locationInput => {
 export const formatOptionLabel = (attr, createLabel) => (input, info) => {
   const menuString = `${input.zip} ${input.city} - ${input.district} / ${input.country}`
   const createValueString = createLabel || 'Wert einfügen'
-
-  if (info.context === 'menu' && input.label === '') {
-    return <span>{createValueString}</span>
+  if (info && input) {
+    if (info.context === 'menu' && input.label === '') {
+      return <span>{createValueString}</span>
+    }
+    if (info.context === 'value' && input.label) {
+      return <span>{input.label}</span>
+    }
+    if (info.context === 'menu' && !input.label) {
+      return <span>{menuString}</span>
+    }
   }
-  if (info.context === 'value' && input.label) {
-    return <span>{input.label}</span>
+  if (info) {
+    if (info.context === 'value') {
+      return <span>{input[attr]}</span>
+    }
   }
-  if (info.context === 'value') {
-    return <span>{input[attr]}</span>
-  }
-  if (info.context === 'menu' && !input.label) {
-    return <span>{menuString}</span>
-  }
-  if (input.label) {
-    return <span>{input.label}</span>
+  if (input) {
+    if (input.label) {
+      return <span>{input.label}</span>
+    }
   }
   return null
 }

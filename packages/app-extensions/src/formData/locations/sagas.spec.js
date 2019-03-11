@@ -10,14 +10,15 @@ import {fork, takeEvery} from 'redux-saga/effects'
 const suggestions = [
   {
     city: `Zurich`,
-    plz: '8006',
+    zip: '8006',
     canton: 'ZH',
     district: 'Zurich',
     country: 'CH'
   },
   {
     city: 'Bern',
-    plz: '3000',
+    zip: '3000',
+    canton: 'BE',
     district: 'Bern',
     country: 'CH'
   }

@@ -125,7 +125,7 @@ const getOptions = (type, formField, modelField, utils, formName) => {
       break
     case 'location':
       if (utils.intl) {
-        // options.deleteLabel = utils.intl.formatMessage({id: 'client.component.location.deleteLabel'})
+        options.createLabel = utils.intl.formatMessage({id: 'client.component.location.deleteLabel'})
       }
       options.fetchSuggestions = searchTerm => utils.loadLocationsSuggestions(formField.id, searchTerm)
       options.isLoading = _get(utils.locationSuggestions, [formField.id, 'isLoading'], false)
