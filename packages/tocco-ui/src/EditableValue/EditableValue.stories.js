@@ -52,6 +52,30 @@ EditableValueStory.propTypes = {
 
 const EMPTY_FUNC = () => {}
 
+const suggestions = [
+  {
+    city: `Zurich`,
+    zip: '8006',
+    canton: 'ZH',
+    district: 'Zurich',
+    country: 'CH'
+  },
+  {
+    city: 'Bern',
+    zip: '3000',
+    canton: 'BE',
+    district: 'Bern',
+    country: 'CH'
+  }
+]
+
+const locationOptions = {
+  suggestions,
+  fetchSuggestions: EMPTY_FUNC,
+  noSuggestionsText: text('noSuggestionsText', 'Keine Werte'),
+  isLoading: boolean('isLoading', false)
+}
+
 storiesOf('EditableValue', module)
   .addDecorator(withKnobs)
   .addParameters({
@@ -190,5 +214,23 @@ storiesOf('EditableValue', module)
       const minifiedMarkup = storybookHtmlMarkup.replace(/\n/g, '')
       return (<EditableValue type="html" value={minifiedMarkup} onChange={EMPTY_FUNC}/>)
     },
+    {info: {source: true}}
+  )
+  .add(
+    'Location',
+    () => <EditableValue
+      type="location"
+      options={locationOptions}
+      readOnly={boolean('readOnly', false)}
+      createLabel={text('createLabel', 'Wert löschen')}
+      value={{
+        zip: text('zip', '8000') || undefined,
+        city: text('city', 'Zürich') || undefined,
+        address: text('address', 'Strasse 123') || undefined,
+        canton: text('canton', 'ZH') || undefined,
+        district: text('district', 'ZH') || undefined,
+        country: text('country', 'CH') || undefined
+      }}
+      onChange={EMPTY_FUNC}/>,
     {info: {source: true}}
   )
