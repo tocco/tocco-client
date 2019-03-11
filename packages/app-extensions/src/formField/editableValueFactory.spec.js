@@ -54,13 +54,13 @@ describe('app-extensions', () => {
             {city: 'Bern', plz: '3000', district: 'Bern', country: 'CH'}
           ]
           const util = {
-            locationSuggestions: {
+            locations: {
               location_c: {suggestions}
             }
           }
           const formField = {id: 'location_c'}
 
-          const editableValue = factory(formField, {}, {}, {}, util)
+          const editableValue = factory(formField, {}, 'formName', {}, {}, util)
           const wrapper = mount(editableValue)
 
           const options = wrapper.prop('options')
@@ -71,13 +71,13 @@ describe('app-extensions', () => {
         test('should return location isLoading', () => {
           const factory = editableValueFactory('location')
           const util = {
-            locationSuggestions: {
+            locations: {
               location_c: {isLoading: true}
             }
           }
           const formField = {id: 'location_c'}
 
-          const editableValue = factory(formField, {}, {}, {}, util)
+          const editableValue = factory(formField, {}, 'formName', {}, {}, util)
           const wrapper = mount(editableValue)
 
           const options = wrapper.prop('options')
@@ -98,30 +98,12 @@ describe('app-extensions', () => {
 
           const field = {id: 'location_c'}
 
-          const editableValue = factory(field, {}, {}, {}, util)
+          const editableValue = factory(field, {}, 'formName', {}, {}, util)
           const wrapper = mount(editableValue)
 
           const options = wrapper.prop('options')
           expect(wrapper).to.have.type(EditableValue)
           expect(options.fetchSuggestions('123')).to.eql(util.loadLocationsSuggestions(field.id, '123'))
-        })
-
-        test('should format message to delete label', () => {
-          const factory = editableValueFactory('location')
-          const util = {
-            intl: {
-              formatMessage: v => (v.id)
-            }
-          }
-
-          const editableValue = factory({}, {}, {}, {}, util)
-
-          const wrapper = mount(editableValue)
-
-          const options = wrapper.prop('options')
-
-          expect(wrapper).to.have.type(EditableValue)
-          expect(options.deleteLabel).to.eql('client.component.location.deleteLabel')
         })
       })
     })

@@ -124,12 +124,9 @@ const getOptions = (type, formField, modelField, utils, formName) => {
       options.maxValue = _get(modelField, 'validation.numberRange.toIncluding', null)
       break
     case 'location':
-      if (utils.intl) {
-        options.createLabel = utils.intl.formatMessage({id: 'client.component.location.deleteLabel'})
-      }
       options.fetchSuggestions = searchTerm => utils.loadLocationsSuggestions(formField.id, searchTerm)
-      options.isLoading = _get(utils.locationSuggestions, [formField.id, 'isLoading'], false)
-      options.suggestions = _get(utils.locationSuggestions, [formField.id, 'suggestions'], null)
+      options.isLoading = _get(utils, ['locations', formField.id, 'isLoading'], false)
+      options.suggestions = _get(utils, ['locations', formField.id, 'suggestions'], null)
   }
 
   return options
