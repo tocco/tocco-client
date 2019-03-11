@@ -485,11 +485,11 @@
                         "path": null,
                         "dataType": "location",
                         "locationMapping": {
-                          "postcode": "zip_c",
-                          "location": "city_c",
+                          "zip": "zip_c",
+                          "city": "city_c",
                           "street": "address_c",
                           "country": "relCountry_c",
-                          "state": "canton_c",
+                          "canton": "canton_c",
                           "district": "district_c"
                         },
                         "countries": ["CH", "LI"]
