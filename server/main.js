@@ -1,5 +1,6 @@
 const path = require('path')
 
+const opn = require('opn')
 const express = require('express')
 const webpack = require('webpack')
 const compress = require('compression')
@@ -31,6 +32,7 @@ if (config.env === 'development') {
   app.use(wdm)
   wdm.waitUntilValid(() => {
     logger.success('Compilation finished! Hot reload is watching for changes...')
+    opn(`http://${config.server_host}:${config.server_port}`)
   })
 
   app.use(require('webpack-hot-middleware')(compiler))
