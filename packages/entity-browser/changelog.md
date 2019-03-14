@@ -1,3 +1,6 @@
+0.8.16
+- Fix readonly bug where fields where not shown in readonly mode
+
 0.8.15
 - Performance optimization in form
 - Custom Signallist (used for Field errors)
