@@ -189,6 +189,22 @@ export const createUsers = amount => {
             writable: false
           }
         },
+        decimal: {
+          type: 'field',
+          value: {
+            value: 1337.11,
+            type: 'moneyamount',
+            writable: true
+          }
+        },
+        moneyamount: {
+          type: 'field',
+          value: {
+            value: 28123.33,
+            type: 'moneyamount',
+            writable: true
+          }
+        },
         'relMulti_entity1.relPayment_status': {
           path: 'relMulti_entity1.relPayment_status',
           type: 'multi',

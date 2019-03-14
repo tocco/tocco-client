@@ -65,13 +65,13 @@ class FormBuilder extends React.Component {
         return false
       }
 
-      if (this.props.beforeRenderField && this.props.beforeRenderField(formDefinitionField.id) === false) {
+      if (this.props.beforeRenderField && this.props.beforeRenderField(fieldName) === false) {
         return false
       }
 
       const hasEmptyValue = (fieldName, formValues) => {
         if (!formValues.hasOwnProperty(fieldName)) {
-          return false
+          return true
         } else {
           const value = formValues[fieldName]
           return (value == null || value === '' || (Array.isArray(value) && value.length === 0))
@@ -86,7 +86,7 @@ class FormBuilder extends React.Component {
       }
 
       return !(this.props.formDefinition.readonly
-        && hasEmptyValue(transformFieldName(formDefinitionField.id), this.props.formValues))
+        && hasEmptyValue(transformFieldName(fieldName), this.props.formValues))
     }
 
     if (shouldRenderField(
