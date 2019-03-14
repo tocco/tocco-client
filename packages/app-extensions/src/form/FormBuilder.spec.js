@@ -46,7 +46,7 @@ const testData = {
   },
   formDefinition: {
     'id': 'UserSearch_detail',
-    'readonly': true,
+    'readonly': false,
     'children': [
       {
         'id': 'box1',
@@ -163,10 +163,11 @@ describe('app-extensions', () => {
 
       test('should not render empty values in readonly form', () => {
         const {entity, model, formName, formDefinition} = testData
-        const formValues = {...testData.formValues, lastname: ''}
-        const props = {entity, model, formName, formDefinition, formValues, formFieldMapping: {}}
-        const wrapper = shallow(<FormBuilder {...props}/>)
-        expect(wrapper.find(Field)).to.have.length(1)
+        const formDefinitionReadOnly = {...formDefinition, readonly: true}
+        const formValues = {lastname: undefined}
+        const props = {entity, model, formName, formValues, formFieldMapping: {}}
+        const wrapper = shallow(<FormBuilder {...props} formDefinition={formDefinitionReadOnly}/>)
+        expect(wrapper.find(Field)).to.have.length(0)
       })
 
       test('should render fields with matching scope', () => {
