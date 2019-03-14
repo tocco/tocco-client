@@ -25,8 +25,8 @@
   "author": "Tocco AG",
   "license": "AGPL-3.0+",
   "peerDependencies": {
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2"
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^4.1.4",
@@ -107,10 +107,10 @@
     "polished": "^2.3.0",
     "postcss-loader": "^2.1.5",
     "prop-types": "^15.6.2",
-    "react": "^16.3.1",
+    "react": "16.8.4",
     "react-addons-test-utils": "^15.6.2",
     "react-bootstrap": "0.31.5",
-    "react-dom": "^16.3.1",
+    "react-dom": "16.8.4",
     "react-intl": "2.4.0",
     "react-intl-redux": "2.0.0",
     "react-redux": "5.0.7",

@@ -1,3 +1,5 @@
+- Update React and React-Dom PeerDependency to 16.8.4
+
 0.8.16
 - Fix readonly bug where fields where not shown in readonly mode
 
