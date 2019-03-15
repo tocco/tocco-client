@@ -18,6 +18,7 @@ const AdvancedSearch = props =>
       emitAction={props.emitAction}
       selectionStyle={props.multi ? 'multi' : 'single'}
       selectOnRowClick={true}
+      disableSelectionController={true}
     />
     <div style={{margin: '5px'}}>
       <Button look="raised" onClick={props.onOkClick}>
