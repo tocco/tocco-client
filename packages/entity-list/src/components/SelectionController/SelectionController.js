@@ -11,24 +11,36 @@ import StyledSelectionController from './StyledSelectionController'
 
 const SelectionController = props => {
   const msg = id => (props.intl.formatMessage({id}))
+  const getInk = primary => primary ? {ink: 'primary'} : {}
   const type = props.selection.length > 0 ? 'ID' : 'QUERY'
   const count = type === 'ID' ? props.selection.length : props.queryCount
 
   return (
     <StyledSelectionController>
+      {type === 'ID' && <Button
+        icon="times"
+        title={msg('client.entity-list.clearSelection')}
+        onClick={props.clearSelection}
+      />}
       <Typography.Span>
         <FormattedMessage
           id={`client.entity-list.operateOn${type === 'ID' ? 'Selected' : 'Queried'}Items`}
           values={{count: count}}/>
       </Typography.Span>
 
-      {props.selection.length > 0
-      && <ButtonGroup look="raised" melt>
+      {type === 'ID' && <ButtonGroup melt look="raised">
         <Button
+          icon="search"
+          title={msg('client.entity-list.showAllFilteredItems')}
+          {...(getInk(!props.showSelectedRecords))}
           onClick={props.toggleShowSelectedRecords}
-          label={msg(`client.entity-list.show${props.showSelectedRecords ? 'AllFilteredItems' : 'SelectedItemsOnly'}`)}
         />
-        <Button icon="times" onClick={props.clearSelection}/>
+        <Button
+          icon="check-square"
+          title={msg('client.entity-list.showSelectedItemsOnly')}
+          {...(getInk(props.showSelectedRecords))}
+          onClick={props.toggleShowSelectedRecords}
+        />
       </ButtonGroup>
       }
     </StyledSelectionController>
