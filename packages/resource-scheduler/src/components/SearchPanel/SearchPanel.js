@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import EntityListApp from 'tocco-entity-list/src/main'
 import Panel from 'react-bootstrap/lib/Panel'
 import PanelGroup from 'react-bootstrap/lib/PanelGroup'
-import {Icon} from 'tocco-ui'
-import {design} from 'tocco-ui/src/utilStyles'
+import {Icon, design} from 'tocco-ui'
 
 class SearchPanel extends React.PureComponent {
   constructor() {
