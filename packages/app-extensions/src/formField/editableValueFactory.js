@@ -9,11 +9,19 @@ const settings = {
   SELECT_LIMIT: 10000
 }
 
+const valueOverwriter = {
+  'coordinate': value => value.value
+}
+
 export default type =>
-  (formField, modelField, formName, props, events, utils) => {
+  (formField, modelField, formName, data, events, utils) => {
     const options = getOptions(type, formField, modelField, utils, formName)
 
-    return <EditableValue type={type} events={events} {...props} options={options}/>
+    if (valueOverwriter[type]) {
+      data.value = valueOverwriter[type](data.value)
+    }
+
+    return <EditableValue type={type} events={events} {...data} options={options}/>
   }
 
 const getOptions = (type, formField, modelField, utils, formName) => {

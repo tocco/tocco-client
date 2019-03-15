@@ -45,6 +45,17 @@ describe('app-extensions', () => {
         expect(options.hoursLabel).to.eql('client.component.duration.hoursLabel')
         expect(options.minutesLabel).to.eql('client.component.duration.minutesLabel')
       })
+
+      test('should return coordinate value', () => {
+        const factory = editableValueFactory('coordinate')
+        const data = {value: {value: 0.8285692490653721}}
+        const editableValue = factory({}, {}, 'formName', data, {}, {})
+
+        const wrapper = mount(editableValue)
+
+        const value = wrapper.prop('value')
+        expect(value).to.eql(data.value)
+      })
     })
   })
 })
