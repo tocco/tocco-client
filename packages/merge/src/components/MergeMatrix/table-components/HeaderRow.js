@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {intlShape} from 'react-intl'
-import {Icon} from 'tocco-ui'
-import {design} from 'tocco-ui/src/utilStyles'
+import {Icon, design} from 'tocco-ui'
 
 const HeaderRow = props => {
   const isTargetEntity = pk => pk === props.targetEntityPk
