@@ -411,13 +411,19 @@ describe('entity-list', () => {
               selection: ['1', '22', '99']
             }
 
+            const input = {
+              formBase: 'User'
+            }
+
             const saga = await expectSaga(sagas.getBasicQuery)
               .provide([
-                [select(sagas.selectionSelector), selection]
+                [select(sagas.selectionSelector), selection],
+                [select(sagas.inputSelector), input]
               ])
               .run()
 
             expect(saga.returnValue).to.have.property('tql')
+            expect(saga.returnValue).to.have.property('form')
           })
         })
       })

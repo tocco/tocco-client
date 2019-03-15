@@ -78,15 +78,19 @@ export function* loadData(page) {
 }
 
 export function* getBasicQuery() {
-  const {showSelectedRecords, selection} = yield select(selectionSelector)
-  if (showSelectedRecords) {
-    return {tql: `IN(pk,${selection.join(',')})`}
-  }
-
   const {formBase, searchFilters: inputSearchFilters} = yield select(inputSelector)
-  const {formFieldsFlat} = yield select(searchFormSelector)
 
   const form = `${formBase}_list`
+
+  const {showSelectedRecords, selection} = yield select(selectionSelector)
+  if (showSelectedRecords) {
+    return {
+      form,
+      tql: `IN(pk,${selection.join(',')})`
+    }
+  }
+
+  const {formFieldsFlat} = yield select(searchFormSelector)
   const searchFormValues = yield call(getSearchFormValues)
   const searchFormFetchOptions = yield call(getFetchOptionsFromSearchForm, searchFormValues, formFieldsFlat)
 
@@ -143,7 +147,6 @@ export function* fetchEntitiesAndAddToStore(page) {
   if (!entityStore[page]) {
     const paths = yield call(getFields, formDefinition)
     const basicQuery = yield call(getBasicQuery)
-
     const query = {
       ...basicQuery,
       page,
