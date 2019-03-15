@@ -35,7 +35,11 @@ Action.propTypes = {
   }).isRequired,
   selection: PropTypes.shape({
     entityName: PropTypes.string.isRequired,
-    ids: PropTypes.arrayOf(PropTypes.string).isRequired,
+    if: (props, propName, componentName) => {
+      if (props.selection && props.selection.type === 'SELECTION' && !props.selection[propName]) {
+        return new Error(`Selection.ids prop not defined. Component: ${componentName}'.`)
+      }
+    },
     query: (props, propName, componentName) => {
       if (props.selection && props.selection.type === 'QUERY' && !props.selection[propName]) {
         return new Error(`Selection.query prop not defined. Component: ${componentName}'.`)
