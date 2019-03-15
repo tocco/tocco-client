@@ -4,14 +4,15 @@ import {FormattedMessage} from 'react-intl'
 import {
   Button,
   ButtonGroup,
-  Typography
+  Typography,
+  stylingInk
 } from 'tocco-ui'
 
 import StyledSelectionController from './StyledSelectionController'
 
 const SelectionController = props => {
   const msg = id => (props.intl.formatMessage({id}))
-  const getInk = primary => primary ? {ink: 'primary'} : {}
+  const getInk = primary => primary ? {ink: stylingInk.PRIMARY} : {}
   const type = props.selection.length > 0 ? 'ID' : 'QUERY'
   const count = type === 'ID' ? props.selection.length : props.queryCount
 
