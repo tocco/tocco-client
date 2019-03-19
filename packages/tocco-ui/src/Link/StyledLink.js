@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {theme} from 'styled-system'
+import _get from 'lodash/get'
 
 import {
   declareFont,
@@ -14,22 +14,22 @@ const StyledLink = styled.a`
 
   && {
     color: ${props => props.neutral
-    ? theme('colors.text')
-    : theme('colors.primary')};
+    ? _get(props.theme, 'colors.text')
+    : _get(props.theme, 'colors.primary')};
     text-decoration: ${props => props.neutral ? 'underline' : 'none'};
 
     &:hover,
     &:focus {
       color: ${props => props.neutral
-    ? shadeColor(theme('colors.text')(props), 1)
-    : shadeColor(theme('colors.primary')(props), 1)};
+    ? shadeColor(_get(props.theme, 'colors.text'), 1)
+    : shadeColor(_get(props.theme, 'colors.primary'), 1)};
       text-decoration: ${props => props.neutral ? 'none' : 'underline'};
     }
 
     &:active {
       color: ${props => props.neutral
-    ? shadeColor(theme('colors.text')(props), 2)
-    : shadeColor(theme('colors.primary')(props), 2)};
+    ? shadeColor(_get(props.theme, 'colors.text'), 2)
+    : shadeColor(_get(props.theme, 'colors.primary'), 2)};
       text-decoration: ${props => props.neutral ? 'none' : 'underline'};
     }
   }

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {theme} from 'styled-system'
+import _get from 'lodash/get'
 
 import {scale} from '../utilStyles'
 
@@ -15,7 +15,7 @@ const StyledButtonGroup = styled.div`
       margin-bottom: ${props => props.melt ? 0 : scale.space(props.theme, -1)};
     }
 
-    border-radius: ${props => props.melt ? theme('radii.regular') : 0};
+    border-radius: ${props => props.melt ? _get(props.theme, 'radii.regular') : 0};
   }
 `
 

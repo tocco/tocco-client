@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {theme} from 'styled-system'
+import _get from 'lodash/get'
 
 import {StyledButton} from '../Button'
 import {shadeColor} from '../utilStyles'
@@ -7,13 +7,13 @@ import {shadeColor} from '../utilStyles'
 const declareDivider = props => {
   const cssShared = `
     &:first-child {
-      border-bottom-color: ${shadeColor(theme('colors.paper')(props), 1)};
+      border-bottom-color: ${shadeColor(_get(props.theme, 'colors.paper'), 1)};
       border-bottom-style: ${props.isFramed ? 'solid' : 'none'};
     }
 
     &:last-child,
     &:nth-child(3) {
-      border-top-color: ${shadeColor(theme('colors.paper')(props), 1)};
+      border-top-color: ${shadeColor(_get(props.theme, 'colors.paper'), 1)};
       border-top-style: ${props.isFramed ? 'solid' : 'none'};
     }
   `

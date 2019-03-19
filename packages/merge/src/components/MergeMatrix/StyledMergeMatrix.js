@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {theme} from 'styled-system'
+import _get from 'lodash/get'
 
 const StyledMergeMatrix = styled.div`
   && {
@@ -22,7 +22,7 @@ const StyledMergeMatrix = styled.div`
     }
 
     label.selection-label {
-      font-weight: ${theme('fontWeights.regular')};
+      font-weight: ${props => _get(props.theme, 'fontWeights.regular')};
       margin: 0 .3rem;
     }
   }
