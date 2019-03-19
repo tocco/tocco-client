@@ -38,23 +38,21 @@ describe('tocco-ui', () => {
     describe('scale.font in rem', () => {
       const expectation = ['0.25rem', '0.5rem', '1rem', '2rem', '4rem']
       const exponents = [-2, -1, 0, 1, 2]
-      const props = {
-        theme: {
-          fontSize: {
-            base: 1,
-            factor: 2
-          },
-          lineHeights: {
-            dense: 1,
-            regular: 1.5
-          }
+      const theme = {
+        fontSize: {
+          base: 1,
+          factor: 2
+        },
+        lineHeights: {
+          dense: 1,
+          regular: 1.5
         }
       }
       const unit = undefined
 
       test('should be valid scale in rem', () => {
         exponents.map((exponent, i) => {
-          expect(scale.font(props, exponent, unit)).to.equal(expectation[i])
+          expect(scale.font(theme, exponent, unit)).to.equal(expectation[i])
         })
       })
     })
@@ -62,27 +60,25 @@ describe('tocco-ui', () => {
     describe('scale.space in em and maximal precision of 3', () => {
       const expectation = ['0.188em', '0.375em', '0.75em', '1.5em', '3em', '6em']
       const exponents = [-3, -2, -1, 0, 1, 2]
-      const props = {
-        theme: {
-          fontSize: {
-            base: 1
-          },
-          space: {
-            factor: 2
-          },
-          lineHeights: {
-            dense: 1,
-            regular: 1.5
-          }
+      const theme = {
+        fontSize: {
+          base: 1
+        },
+        space: {
+          factor: 2
+        },
+        lineHeights: {
+          dense: 1,
+          regular: 1.5
         }
       }
-      props['theme']['space']['base'] = props['theme']['fontSize']['base'] * props['theme']['lineHeights']['regular']
+      theme.space.base = theme.fontSize.base * theme.lineHeights.regular
       const unit = 'em'
 
       test('should be valid scale in em', () => {
         exponents.map((exponent, i) => {
-          scale.space(props, exponent, unit)
-          expect(scale.space(props, exponent, unit)).to.equal(expectation[i])
+          scale.space(theme, exponent, unit)
+          expect(scale.space(theme, exponent, unit)).to.equal(expectation[i])
         })
       })
     })
