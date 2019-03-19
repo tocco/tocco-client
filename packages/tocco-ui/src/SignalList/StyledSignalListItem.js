@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {theme} from 'styled-system'
+import _get from 'lodash/get'
 
 import {StyledLi} from '../Typography'
 import {
@@ -9,10 +9,10 @@ import {
 
 const COLORS = {
   [design.condition.BASE]: 'inherit',
-  [design.condition.DANGER]: theme('colors.signal.danger.text'),
-  [design.condition.PRIMARY]: props => shadeColor(theme('colors.primary')(props), 1),
-  [design.condition.SUCCESS]: theme('colors.signal.success.text'),
-  [design.condition.WARNING]: theme('colors.signal.warning.text')
+  [design.condition.DANGER]: props => _get(props.theme, 'colors.signal.danger.text'),
+  [design.condition.PRIMARY]: props => shadeColor(_get(props.theme, 'colors.primary'), 1),
+  [design.condition.SUCCESS]: props => _get(props.theme, 'colors.signal.success.text'),
+  [design.condition.WARNING]: props => _get(props.theme, 'colors.signal.warning.text')
 }
 
 const getColor = props => {

@@ -1,5 +1,5 @@
 import styled, {css} from 'styled-components'
-import {theme} from 'styled-system'
+import _get from 'lodash/get'
 
 import {
   declareFocus,
@@ -11,10 +11,10 @@ import {
 const StyledEditableWrapperCss = css`
   align-items: center;
   background-color: ${props => props.readOnly
-    ? shadeColor(theme('colors.paper')(props), 1)
-    : theme('colors.paper')};
-  border: 1px solid ${props => shadeColor(theme('colors.paper')(props), 2)};
-  border-radius: ${theme('radii.regular')};
+    ? shadeColor(_get(props.theme, 'colors.paper'), 1)
+    : _get(props.theme, 'colors.paper')};
+  border: 1px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
+  border-radius: ${props => _get(props.theme, 'radii.regular')};
   cursor: ${props => props.readOnly ? 'not-allowed' : 'default'};
   display: flex;
   padding: ${props => scale.space(props.theme, -2)} ${props => scale.space(props.theme, -1)};
@@ -150,7 +150,7 @@ const StyledEditableValue = styled.span`
       }
 
       .reset:hover {
-        color: ${theme('colors.signal.danger.text')};
+        color: ${props => _get(props.theme, 'colors.signal.danger.text')};
       }
     }
   }

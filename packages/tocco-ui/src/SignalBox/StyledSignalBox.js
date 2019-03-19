@@ -1,4 +1,4 @@
-import {theme} from 'styled-system'
+import _get from 'lodash/get'
 import styled from 'styled-components'
 
 import {StyledSignalListItem} from '../SignalList'
@@ -16,15 +16,15 @@ const ALLOWED_CONDITIONS = [
 ]
 
 const COLORS = {
-  [design.condition.DANGER]: theme('colors.signal.danger.paper'),
-  [design.condition.SUCCESS]: theme('colors.signal.success.paper'),
-  [design.condition.WARNING]: theme('colors.signal.warning.paper'),
-  [design.condition.BASE]: props => shadeColor(theme('colors.paper')(props), 1)
+  [design.condition.DANGER]: props => _get(props.theme, 'colors.signal.danger.paper'),
+  [design.condition.SUCCESS]: props => _get(props.theme, 'colors.signal.success.paper'),
+  [design.condition.WARNING]: props => _get(props.theme, 'colors.signal.warning.paper'),
+  [design.condition.BASE]: props => shadeColor(_get(props.theme, 'colors.paper'), 1)
 }
 
 const getColor = props => {
   const color = COLORS[props.condition]
-  return color || shadeColor(theme('colors.paper')(props), 1)
+  return color || shadeColor(_get(props.theme, 'colors.paper'), 1)
 }
 
 const StyledSignalBox = styled.div`
@@ -32,7 +32,7 @@ const StyledSignalBox = styled.div`
     background-color: ${props => getColor(props)};
     padding: ${props => scale.space(props.theme, -1)};
     margin-bottom: ${props => scale.space(props.theme, -1)};
-    border-radius: ${theme('radii.regular')};
+    border-radius: ${props => _get(props.theme, 'radii.regular')};
 
     &:last-child {
       margin-bottom: 0;
