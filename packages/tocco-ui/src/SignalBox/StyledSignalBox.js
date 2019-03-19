@@ -30,8 +30,8 @@ const getColor = props => {
 const StyledSignalBox = styled.div`
   && {
     background-color: ${props => getColor(props)};
-    padding: ${props => scale.space(props, -1)};
-    margin-bottom: ${props => scale.space(props, -1)};
+    padding: ${props => scale.space(props.theme, -1)};
+    margin-bottom: ${props => scale.space(props.theme, -1)};
     border-radius: ${theme('radii.regular')};
 
     &:last-child {

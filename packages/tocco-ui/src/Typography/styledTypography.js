@@ -39,11 +39,11 @@ export const declareTypograhpy = (props, mode) => {
       text-decoration: underline;
     }
 
-    h1 {font-size: ${scale.font(props, 5)}}
-    h2 {font-size: ${scale.font(props, 4)}}
-    h3 {font-size: ${scale.font(props, 3)}}
-    h4 {font-size: ${scale.font(props, 2)}}
-    h5 {font-size: ${scale.font(props, 1)}}
+    h1 {font-size: ${scale.font(props.theme, 5)}}
+    h2 {font-size: ${scale.font(props.theme, 4)}}
+    h3 {font-size: ${scale.font(props.theme, 3)}}
+    h4 {font-size: ${scale.font(props.theme, 2)}}
+    h5 {font-size: ${scale.font(props.theme, 1)}}
     h6 {font-size: ${theme('fontSize.base')(props)}rem}
 
     h1,
@@ -54,7 +54,7 @@ export const declareTypograhpy = (props, mode) => {
     h6 {
       font-weight: ${theme('fontWeights.bold')(props)};
       margin-top: ${theme('space.base')(props)}rem;
-      margin-bottom: ${scale.space(props, -1)};
+      margin-bottom: ${scale.space(props.theme, -1)};
 
       + h1,
       + h2,
@@ -72,7 +72,7 @@ export const declareTypograhpy = (props, mode) => {
     }
 
     p {
-      margin-bottom: ${scale.space(props, -1)};
+      margin-bottom: ${scale.space(props.theme, -1)};
       &:last-child {
         margin-bottom: 0;
       }
@@ -86,7 +86,7 @@ export const declareTypograhpy = (props, mode) => {
       ul {
         display: block;
         list-style-position: outside;
-        margin: 0 0 ${scale.space(props, -1)} 0;
+        margin: 0 0 ${scale.space(props.theme, -1)} 0;
         padding: 0;
 
         &:last-child {
@@ -121,7 +121,7 @@ export const declareTypograhpy = (props, mode) => {
       ul {
         display: block;
         list-style-position: outside;
-        margin: 0 0 ${scale.space(props, -1)} 1.6rem;
+        margin: 0 0 ${scale.space(props.theme, -1)} 1.6rem;
         padding: 0;
 
         ol,

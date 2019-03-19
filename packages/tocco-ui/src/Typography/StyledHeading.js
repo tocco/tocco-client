@@ -13,19 +13,19 @@ const declareHeaderFont = props => {
 
   switch (props.styledLike) {
     case 'H1':
-      fontSize = scale.font(props, 5)
+      fontSize = scale.font(props.theme, 5)
       break
     case 'H2':
-      fontSize = scale.font(props, 4)
+      fontSize = scale.font(props.theme, 4)
       break
     case 'H3':
-      fontSize = scale.font(props, 3)
+      fontSize = scale.font(props.theme, 3)
       break
     case 'H4':
-      fontSize = scale.font(props, 2)
+      fontSize = scale.font(props.theme, 2)
       break
     case 'H5':
-      fontSize = scale.font(props, 1)
+      fontSize = scale.font(props.theme, 1)
       break
     default:
       fontSize = `${theme('fontSize.base')(props)}rem`
@@ -36,7 +36,7 @@ const declareHeaderFont = props => {
 const declareSpace = props =>
   `
     margin-top: ${theme('space.base')(props)}rem;
-    margin-bottom: ${scale.space(props, -1)};
+    margin-bottom: ${scale.space(props.theme, -1)};
 
     h1 + &,
     h2 + &,

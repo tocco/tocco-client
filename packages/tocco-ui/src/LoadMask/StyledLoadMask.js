@@ -22,12 +22,12 @@ const StyledLoadMask = styled.div`
       height: 100%;
       justify-content: center;
       align-items: center;
-      padding: ${props => scale.space(props, -1)};
+      padding: ${props => scale.space(props.theme, -1)};
       width: 100%;
       animation: ${fadeInAnimation};
 
       > ${StyledSpan} {
-        margin-top: ${props => scale.space(props, -1)};
+        margin-top: ${props => scale.space(props.theme, -1)};
         z-index: 1;
       }
 

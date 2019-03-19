@@ -7,7 +7,7 @@ import {
 
 const StyledNavigationFullCalendar = styled.div`
   && {
-    margin-bottom: ${props => scale.space(props, -2)};
+    margin-bottom: ${props => scale.space(props.theme, -2)};
 
     > ${StyledMenuButton} {
       display: flex;
