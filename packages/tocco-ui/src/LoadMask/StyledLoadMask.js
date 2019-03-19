@@ -1,5 +1,5 @@
 import styled, {css, keyframes} from 'styled-components'
-import {theme} from 'styled-system'
+import _get from 'lodash/get'
 
 import {scale} from '../utilStyles'
 import {StyledSpan} from '../Typography/StyledMisc'
@@ -32,7 +32,7 @@ const StyledLoadMask = styled.div`
       }
 
       > ${StyledIconToccoWrapper} {
-        color: ${theme('colors.primary')};
+        color: ${props => _get(props.theme, 'colors.primary')};
       }
     }
   `}

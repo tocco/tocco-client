@@ -1,15 +1,15 @@
-import {theme} from 'styled-system'
+import _get from 'lodash/get'
 
 import objectToCss from './objectToCss'
 
 const declareFont = (props, options) => {
   options = Object.assign({
-    color: theme('colors.text')(props),
-    fontFamily: theme('fontFamily.regular')(props),
-    fontSize: `${theme('fontSize.base')(props)}rem`,
+    color: _get(props.theme, 'colors.text'),
+    fontFamily: _get(props.theme, 'fontFamily.regular'),
+    fontSize: `${_get(props.theme, 'fontSize.base')}rem`,
     fontStyle: 'normal',
-    fontWeight: theme('fontWeights.regular')(props),
-    lineHeight: theme('lineHeights.regular')(props)
+    fontWeight: _get(props.theme, 'fontWeights.regular'),
+    lineHeight: _get(props.theme, 'lineHeights.regular')
   }, options)
 
   const declarations = {

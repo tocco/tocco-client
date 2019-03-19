@@ -1,4 +1,4 @@
-import {themeGet} from 'styled-system'
+import _get from 'lodash/get'
 import {css} from 'styled-components'
 import {
   lighten,
@@ -11,7 +11,7 @@ import {
 import {design} from '../utilStyles'
 
 const declareFocus = props => {
-  const infoText = themeGet('colors.signal.info.text', design.fallbackColors.INFO)(props)
+  const infoText = _get(props.theme, 'colors.signal.info.text', design.fallbackColors.INFO)
   return css`
     transition:  border-color ease-in-out 100ms,
                  box-shadow ease-in-out 100ms;
@@ -65,8 +65,8 @@ const mapColors = (bg, fg) => ({
 })
 
 const generateFlatBaseColors = props => {
-  const text = themeGet('colors.text', design.fallbackColors.TEXT)(props)
-  const paper = themeGet('colors.paper', design.fallbackColors.PAPER)(props)
+  const text = _get(props.theme, 'colors.text', design.fallbackColors.TEXT)
+  const paper = _get(props.theme, 'colors.paper', design.fallbackColors.PAPER)
   const fg = generateInteractionColor(text, {
     action: getLuminance(paper) > 0.5 ? 'darken' : 'lighten'
   })
@@ -75,8 +75,8 @@ const generateFlatBaseColors = props => {
 }
 
 const generateFlatPrimaryColors = props => {
-  const primary = themeGet('colors.primary', design.fallbackColors.TEXT)(props)
-  const paper = themeGet('colors.paper', design.fallbackColors.PAPER)(props)
+  const primary = _get(props.theme, 'colors.primary', design.fallbackColors.TEXT)
+  const paper = _get(props.theme, 'colors.paper', design.fallbackColors.PAPER)
   const fg = generateInteractionColor(primary, {
     action: getLuminance(paper) > 0.5 ? 'darken' : 'lighten'
   })
@@ -85,8 +85,8 @@ const generateFlatPrimaryColors = props => {
 }
 
 const generateRaisedBaseColors = props => {
-  const text = themeGet('colors.text', design.fallbackColors.TEXT)(props)
-  const paper = themeGet('colors.paper', design.fallbackColors.PAPER)(props)
+  const text = _get(props.theme, 'colors.text', design.fallbackColors.TEXT)
+  const paper = _get(props.theme, 'colors.paper', design.fallbackColors.PAPER)
   const fg = generateInteractionColor(text, {
     action: getLuminance(paper) > 0.5 ? 'darken' : 'lighten'
   })
@@ -97,9 +97,9 @@ const generateRaisedBaseColors = props => {
 }
 
 const generateRaisedPrimaryColors = props => {
-  const text = themeGet('colors.text', design.fallbackColors.TEXT)(props)
-  const paper = themeGet('colors.paper', design.fallbackColors.PAPER)(props)
-  const primary = themeGet('colors.primary', design.fallbackColors.TEXT)(props)
+  const text = _get(props.theme, 'colors.text', design.fallbackColors.TEXT)
+  const paper = _get(props.theme, 'colors.paper', design.fallbackColors.PAPER)
+  const primary = _get(props.theme, 'colors.primary', design.fallbackColors.TEXT)
   const higherContrast = getHigherContrast(primary, text, paper)
   const fg = generateInteractionColor(higherContrast, {
     action: getLuminance(primary) > 0.5 ? 'darken' : 'lighten'

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {theme} from 'styled-system'
+import _get from 'lodash/get'
 
 import {StyledButtonGroup} from '../ButtonGroup'
 import {
@@ -27,13 +27,13 @@ const meltButtons = props => {
       border-radius: 0;
 
       &:first-child {
-        border-top-left-radius: ${theme('radii.regular')(props)};
-        border-bottom-left-radius: ${theme('radii.regular')(props)};
+        border-top-left-radius: ${props => _get(props.theme, 'radii.regular')};
+        border-bottom-left-radius: ${props => _get(props.theme, 'radii.regular')};
       }
 
       &:last-child {
-        border-top-right-radius: ${theme('radii.regular')(props)};
-        border-bottom-right-radius: ${theme('radii.regular')(props)};
+        border-top-right-radius: ${props => _get(props.theme, 'radii.regular')};
+        border-bottom-right-radius: ${props => _get(props.theme, 'radii.regular')};
       }
     `
   }
@@ -79,9 +79,9 @@ const declareBall = props => {
 
       // ensure that width has at least the size of height
       min-width: calc(1rem
-        * ${theme('fontSize.base')(props)}
-        * ${theme('lineHeights.regular')(props)}
-        + 2 * ${spaceScale(props, -3)});
+        * ${_get(props.theme, 'fontSize.base')}
+        * ${_get(props.theme, 'lineHeights.regular')}
+        + 2 * ${scale.space(props.theme, -3)});
 
       // increase height to the size of width
       &:before {
@@ -97,7 +97,7 @@ const StyledButton = styled.button`
   && {
     align-items: center;
     background-image: none;
-    border-radius: ${theme('radii.regular')};
+    border-radius: ${props => _get(props.theme, 'radii.regular')};
     border: none;
     display: inline-flex;
     margin: 0;

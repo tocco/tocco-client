@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {theme} from 'styled-system'
+import _get from 'lodash/get'
 
 const StyledMergeWizard = styled.div`
   && {
@@ -20,7 +20,7 @@ const StyledMergeWizard = styled.div`
     }
 
     .bold {
-      font-weight: ${theme('fontWeights.bold')};
+      font-weight: ${props => _get(props.theme, 'fontWeights.bold')};
     }
   }
 `

@@ -1,5 +1,5 @@
 import _range from 'lodash/range'
-import {theme} from 'styled-system'
+import _get from 'lodash/get'
 
 import {
   declareFont,
@@ -11,23 +11,23 @@ export const declareTypograhpy = (props, mode) => {
   let css = `
     ${declareFont(props)}
     a {
-      color: ${theme('colors.primary')(props)}
+      color: ${props => _get(props.theme, 'colors.primary')}
       text-decoration: none;
 
       &:hover,
       &:focus {
-        color: ${shadeColor(theme('colors.primary')(props), 1)}
+        color: ${props => shadeColor(_get(props.theme, 'colors.primary'), 1)}
         text-decoration: underline;
       }
 
       &:active {
-        color: ${shadeColor(theme('colors.primary')(props), 2)}
+        color: ${props => shadeColor(_get(props.theme, 'colors.primary'), 2)}
       }
     }
 
     b,
     strong {
-      font-weight: ${theme('fontWeights.bold')(props)}
+      font-weight: ${props => _get(props.theme, 'fontWeights.bold')}
     }
 
     em,
@@ -44,7 +44,7 @@ export const declareTypograhpy = (props, mode) => {
     h3 {font-size: ${scale.font(props.theme, 3)}}
     h4 {font-size: ${scale.font(props.theme, 2)}}
     h5 {font-size: ${scale.font(props.theme, 1)}}
-    h6 {font-size: ${theme('fontSize.base')(props)}rem}
+    h6 {font-size: ${props => _get(props.theme, 'fontSize.base')}rem}
 
     h1,
     h2,
@@ -52,8 +52,8 @@ export const declareTypograhpy = (props, mode) => {
     h4,
     h5,
     h6 {
-      font-weight: ${theme('fontWeights.bold')(props)};
-      margin-top: ${theme('space.base')(props)}rem;
+      font-weight: ${props => _get(props.theme, 'fontWeights.bold')};
+      margin-top: ${props => _get(props.theme, 'space.base')}rem;
       margin-bottom: ${scale.space(props.theme, -1)};
 
       + h1,

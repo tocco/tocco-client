@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {theme} from 'styled-system'
+import _get from 'lodash/get'
 import {scale} from 'tocco-ui'
 
 const modalWidth = 700
@@ -9,12 +9,12 @@ const StyledModalContent = styled.div.attrs({
   className: props => `rrt-confirm animated ${props.isClosing ? 'fadeOut' : 'fadeIn'}`
 })`
    &&& {
-    background-color: ${theme('colors.paper')};    // reset: react-redux-toastr (confirm.scss)
-    border-radius: ${theme('radii.regular')};                   // reset: react-redux-toastr (confirm.scss)
+    background-color: ${props => _get(props.theme, 'colors.paper')};  // reset: react-redux-toastr (confirm.scss)
+    border-radius: ${props => _get(props.theme, 'radii.regular')};    // reset: react-redux-toastr (confirm.scss)
     box-shadow: 2px 2px 10px rgba(0, 0, 0, .4);         // reset: react-redux-toastr (confirm.scss)
     left: 0;                                            // reset: react-redux-toastr (confirm.scss)
     margin-left: ${Math.ceil(gutterWidth / 2)}px;       // reset: react-redux-toastr (confirm.scss)
-    padding: ${props => scale.space(props.theme, -1)};         // reset: react-redux-toastr (confirm.scss)
+    padding: ${props => scale.space(props.theme, -1)};  // reset: react-redux-toastr (confirm.scss)
     width: calc(100% - ${gutterWidth}px);
 
     @media (min-width: ${modalWidth + gutterWidth}px) {
