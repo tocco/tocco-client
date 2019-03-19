@@ -3,21 +3,12 @@ import React from 'react'
 import classNames from 'classnames'
 
 import ErrorList from './ErrorList'
+import StyledFormFieldWrapper from './StyledFormField'
 
 const FormField = props => {
   if (props.hidden) {
     return null
   }
-
-  const fromGroupClass = classNames(
-    'form-group',
-    props.className,
-    {
-      'mandatory': props.mandatory,
-      'dirty': props.dirty,
-      'has-error': props.error && props.touched
-    }
-  )
 
   const labelClass = classNames(
     'col-sm-3',
@@ -34,7 +25,11 @@ const FormField = props => {
   })
 
   return (
-    <div className={fromGroupClass}>
+    <StyledFormFieldWrapper
+      className={props.className}
+      dirty={props.dirty}
+      hasError={props.error && props.touched}
+      mandatory={props.mandatory}>
       <label className={labelClass} htmlFor={props.id} alt={labelAlt} title={labelAlt}>
         {props.label}
       </label>
@@ -42,7 +37,7 @@ const FormField = props => {
         {props.children}
         {props.touched && props.error && <ErrorList error={props.error}/>}
       </div>
-    </div>
+    </StyledFormFieldWrapper>
   )
 }
 
