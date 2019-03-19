@@ -6,7 +6,7 @@ const ModalButtons = ({buttons}) =>
   <ButtonGroup look="raised">
     {buttons.map((button, i) =>
       <Button
-        ink={button.primary ? design.ink['PRIMARY'] : design.ink['BASE']}
+        {...(button.primary ? {ink: design.ink.PRIMARY} : {})}
         key={i}
         label={button.label}
         onClick={button.callback}
