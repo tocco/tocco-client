@@ -12,7 +12,7 @@ const StyledUploadInput = styled.div`
   ${props => declareFont(props)}
   border: dashed 1px ${props => shadeColor(theme('colors.paper')(props), 1)};
   border-radius: ${theme('radii.regular')};
-  padding: ${props => scale.space(props, -2)} ${props => scale.space(props, -1)};
+  padding: ${props => scale.space(props.theme, -2)} ${props => scale.space(props.theme, -1)};
   cursor: pointer;
   ${props => declareFocus(props)}
 

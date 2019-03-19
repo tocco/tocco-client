@@ -6,13 +6,13 @@ import {scale} from '../utilStyles'
 const StyledItemFlyout = styled(StyledItem)`
   > ul {
     position: absolute;
-    top: calc(100% + ${props => scale.space(props, -3)});
+    top: calc(100% + ${props => scale.space(props.theme, -3)});
     left: 0;
     z-index: 1;
 
     ul {
       top: 0;
-      left: calc(100% + ${props => scale.space(props, -3)});
+      left: calc(100% + ${props => scale.space(props.theme, -3)});
       right: auto;
     }
   }
