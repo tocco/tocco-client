@@ -7,7 +7,7 @@ import StyledSignalList from './StyledSignalList'
  * Signalize conditions by icon and color in a list.
  */
 export const SignalList = props =>
-  <StyledSignalList>
+  <StyledSignalList as="ul">
     {React.Children.map(props.children, child => React.cloneElement(child))}
   </StyledSignalList>
 
