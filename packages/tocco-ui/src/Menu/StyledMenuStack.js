@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {theme} from 'styled-system'
+import _get from 'lodash/get'
 
 import StyledMenu from './StyledMenu'
 import StyledItemFlyout from './StyledItemFlyout'
@@ -21,7 +21,7 @@ const StyledMenuStack = styled(StyledMenu)`
 
     > hr {
       border: none;
-      border-top: 1px solid ${props => theme('colors.text')};
+      border-top: 1px solid ${props => _get(props.theme, 'colors.text')};
       display: list-item;
       margin: 0;
     }

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {theme} from 'styled-system'
+import _get from 'lodash/get'
 import {StyledButton} from 'tocco-ui/src/Button'
 import {
   declareInteractionColors,
@@ -13,8 +13,8 @@ export default styled(StyledButton)`
     ${props => declareInteractionColors(
     generateCustomColors(
       props.primaryColor,
-      props.secondaryColor || theme('colors.paper')(props),
-      props.secondaryColor || theme('colors.text')(props)))}
+      props.secondaryColor || _get(props.theme, 'colors.paper'),
+      props.secondaryColor || _get(props.theme, 'colors.text')))}
 
     &:not(:last-child) {
       margin-bottom: 1rem;

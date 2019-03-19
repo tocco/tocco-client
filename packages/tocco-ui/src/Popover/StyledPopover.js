@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {theme} from 'styled-system'
+import _get from 'lodash/get'
 
 import {declareTypograhpy} from '../Typography'
 import {
@@ -20,10 +20,10 @@ const StyledBoxWrapper = styled('div')`
 
 const StyledBox = styled('div')`
   && {
-    background-color: ${theme('colors.paper')};
+    background-color: ${props => _get(props.theme, 'colors.paper')};
     display: flex;
-    border: ${BORDER_WIDTH}px solid ${props => shadeColor(theme('colors.paper')(props), 1)};
-    border-radius: ${theme('radii.regular')};
+    border: ${BORDER_WIDTH}px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 1)};
+    border-radius: ${props => _get(props.theme, 'radii.regular')};
     padding: ${props => props.rimless ? '0' : scale.space(props.theme, -1)};
     ${props => props.isPlainHtml && declareTypograhpy(props, 'html')}
   }
@@ -40,7 +40,7 @@ const StyledArrow = styled('i')`
 
     &::before {
       border-width: 0 ${ARROW_WIDTH / 2}px ${ARROW_WIDTH / 2}px ${ARROW_WIDTH / 2}px;
-      border-color: transparent transparent ${props => shadeColor(theme('colors.paper')(props), 1)} transparent;
+      border-color: transparent transparent ${props => shadeColor(_get(props.theme, 'colors.paper'), 1)} transparent;
     }
   }
 
@@ -49,7 +49,7 @@ const StyledArrow = styled('i')`
 
     &::before {
       border-width: ${ARROW_WIDTH / 2}px ${ARROW_WIDTH / 2}px 0 ${ARROW_WIDTH / 2}px;
-      border-color: ${props => shadeColor(theme('colors.paper')(props), 1)} transparent transparent transparent;
+      border-color: ${props => shadeColor(_get(props.theme, 'colors.paper'), 1)} transparent transparent transparent;
     }
   }
 

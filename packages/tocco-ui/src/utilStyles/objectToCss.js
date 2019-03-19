@@ -1,4 +1,4 @@
-import {theme} from 'styled-system'
+import _get from 'lodash/get'
 
 /**
  * parse object as css, additionally request values from theme
@@ -12,18 +12,15 @@ import {theme} from 'styled-system'
 
 const objectToCss = (declarations, props) => {
   const css = []
-  const getDefaultValue = themePath => theme(themePath, 0)(props)
+
   for (const [key, value] of Object.entries(declarations)) {
     let cssValue
     if (Array.isArray(value)) {
       const themePath = value.shift()
       if (value.length === 0) {
-        cssValue = getDefaultValue(themePath)
+        cssValue = _get(props.theme, themePath, 0)
       } else {
-        const values = value.map(themeIndex => {
-          const themeIdentifier = `${themePath}.${themeIndex}`
-          return `${theme(themeIdentifier, 0)(props)}`
-        })
+        const values = value.map(themeIndex => _get(props.theme, themePath, 0)[themeIndex])
         cssValue = values.join(' ')
       }
     } else {
