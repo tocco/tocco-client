@@ -45,7 +45,8 @@ const declareInteractionColors = (colors, format = stylingFormat.HTML) => {
     }
 
     /* :active must be declared after :hover and :focus to visualize state change */
-    &:active {
+    &:active,
+    &[aria-pressed="true"] {
       ${fillProperty}: ${colors.activeBackground};
       ${strokeProperty}: ${colors.activeColor};
     }
