@@ -4,15 +4,13 @@ import {FormattedMessage} from 'react-intl'
 import {
   Button,
   ButtonGroup,
-  Typography,
-  stylingInk
+  Typography
 } from 'tocco-ui'
 
 import StyledSelectionController from './StyledSelectionController'
 
 const SelectionController = props => {
   const msg = id => (props.intl.formatMessage({id}))
-  const getInk = primary => primary ? {ink: stylingInk.PRIMARY} : {}
   const type = props.selection.length > 0 ? 'ID' : 'QUERY'
   const count = type === 'ID' ? props.selection.length : props.queryCount
 
@@ -31,15 +29,15 @@ const SelectionController = props => {
 
       {type === 'ID' && <ButtonGroup melt look="raised">
         <Button
+          aria={{'aria-pressed': !props.showSelectedRecords}}
           icon="search"
           title={msg('client.entity-list.showAllFilteredItems')}
-          {...(getInk(!props.showSelectedRecords))}
           onClick={props.toggleShowSelectedRecords}
         />
         <Button
+          aria={{'aria-pressed': props.showSelectedRecords}}
           icon="check-square"
           title={msg('client.entity-list.showSelectedItemsOnly')}
-          {...(getInk(props.showSelectedRecords))}
           onClick={props.toggleShowSelectedRecords}
         />
       </ButtonGroup>

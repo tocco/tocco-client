@@ -106,7 +106,8 @@ describe('tocco-ui', () => {
           const css = declareInteractionColors(colorSet)
           expect(css).to.match(/background-color: #000;[\n\s]*color: #300;/)
           expect(css).to.match(/&:focus,[\n\s]*&:hover {[\n\s]*background-color: #030;[\n\s]*color: #330;[\n\s]*}/)  // eslint-disable-line
-          expect(css).to.match(/&:active {[\n\s]*background-color: #003;[\n\s]*color: #033;[\n\s]*}/)
+          expect(css).to.match(/&:active,[\n\s]*&\[aria-pressed="true"\] {[\n\s]*background-color: #003;[\n\s]*color: #033;[\n\s]*}/)  // eslint-disable-line
+          expect(css).to.match(/&:disabled {[\n\s]*background-color: #7f7f7f;[\n\s]*color: #997f7f;[\n\s]*}/)  // eslint-disable-line
         }
       )
 
