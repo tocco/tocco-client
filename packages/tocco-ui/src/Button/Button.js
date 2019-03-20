@@ -17,6 +17,7 @@ import {
 const Button = props => {
   return (
     <StyledButton
+      {...props.aria}
       dense={props.dense}
       disabled={props.disabled}
       iconPosition={props.iconPosition}
@@ -49,6 +50,10 @@ Button.defaultProps = {
 }
 
 Button.propTypes = {
+  /**
+   * A flat object of ARIA keys and values.
+   */
+  aria: PropTypes.object,
   /**
    * May be passed from <ButtonGroup> to use as default for ink. Do not set manually.
    */
