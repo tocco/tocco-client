@@ -80,7 +80,10 @@ const declareBall = props => {
       align-items: center;
 
       // ensure that width has at least the size of height
-      min-width: calc(1rem * ${theme('fontSize.base')(props)} * ${theme('lineHeights.regular')(props)});
+      min-width: calc(1rem
+        * ${theme('fontSize.base')(props)}
+        * ${theme('lineHeights.regular')(props)}
+        + 2 * ${spaceScale(props, -3)});
 
       // increase height to the size of width
       &:before {
