@@ -38,7 +38,7 @@ const Button = props => {
         look={props.look}
         position={props.iconPosition}
         size="1em"/>}
-      {props.label ? <span>{props.label}</span> : props.children}
+      {props.label ? <span>{props.label}</span> : props.children ? props.children : '\u200B' }
     </StyledButton>
   )
 }

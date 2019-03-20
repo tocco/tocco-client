@@ -94,10 +94,15 @@ storiesOf('Button', module)
         />,
         <Button
           {...knobs}
-          icon="times"
+          label="I"
           key="10"
           look="ball"
-        />
+        />,
+        <Button
+          {...knobs}
+          key="10"
+          look="raised"
+        ><i>child</i></Button>
       ]
     }
   )
