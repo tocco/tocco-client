@@ -7,8 +7,12 @@ import {
 export default styled.div`
   float: right;
 
+  > *:not(:last-child) {
+    margin-right: ${props => spaceScale(props, -1)};
+  }
+
   ${StyledButtonGroup} {
-    margin-left: ${props => spaceScale(props, -1)};
     display: inline-flex;
+    vertical-align: bottom;
   }
 `

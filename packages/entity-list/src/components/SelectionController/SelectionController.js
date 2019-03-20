@@ -18,6 +18,7 @@ const SelectionController = props => {
     <StyledSelectionController>
       {type === 'ID' && <Button
         icon="times"
+        look="raised"
         title={msg('client.entity-list.clearSelection')}
         onClick={props.clearSelection}
       />}
@@ -26,7 +27,6 @@ const SelectionController = props => {
           id={`client.entity-list.operateOn${type === 'ID' ? 'Selected' : 'Queried'}Items`}
           values={{count: count}}/>
       </Typography.Span>
-
       {type === 'ID' && <ButtonGroup melt look="raised">
         <Button
           aria={{'aria-pressed': !props.showSelectedRecords}}
@@ -36,7 +36,7 @@ const SelectionController = props => {
         />
         <Button
           aria={{'aria-pressed': props.showSelectedRecords}}
-          icon="check-square"
+          icon="far, check-square"
           title={msg('client.entity-list.showSelectedItemsOnly')}
           onClick={props.toggleShowSelectedRecords}
         />
