@@ -1,6 +1,7 @@
 import React from 'react'
 import {EditableValue} from 'tocco-ui'
 import _get from 'lodash/get'
+import _mapKeys from 'lodash/mapKeys'
 
 const settings = {
   REMOTE_SEARCH_RESULT_LIMIT: 50,
@@ -9,8 +10,35 @@ const settings = {
   SELECT_LIMIT: 10000
 }
 
-const valueOverwriter = {
-  'coordinate': value => value.value
+export const valueOverwriter = {
+  'coordinate': value => value.value,
+  'location': (type, formField, formName, props, utils) => {
+    const locationMapping = formField.locationMapping
+    props.onChange = locationObject => {
+      for (const key in locationMapping) {
+        if (locationObject[key]) {
+          utils.changeFieldValue(formName, locationMapping[key], locationObject[key])
+        }
+      }
+    }
+
+    const formValues = utils.formState.detailForm.values
+
+    const locationMappingValues = Object.values(locationMapping)
+
+    const filteredLocationData = Object.keys(formValues)
+      .filter(key => locationMappingValues.includes(key))
+      .reduce((obj, key) => {
+        obj[key] = formValues[key]
+        return obj
+      }, {})
+
+    const renamedLocationData = _mapKeys(filteredLocationData, (value, key) => {
+      return key.replace(/_\S/, '')
+    })
+
+    props.value = renamedLocationData
+  }
 }
 
 export default type =>
@@ -18,9 +46,12 @@ export default type =>
     const options = getOptions(type, formField, modelField, utils, formName)
 
     if (valueOverwriter[type]) {
-      data.value = valueOverwriter[type](data.value)
+      valueOverwriter[type](type, formField, formName, data, utils)
     }
 
+    if (valueOverwriter[type]) {
+      data.value = valueOverwriter[type](data.value)
+    }
     return <EditableValue type={type} events={events} {...data} options={options}/>
   }
 
@@ -114,7 +145,6 @@ const getOptions = (type, formField, modelField, utils, formName) => {
       options.prePointDigits = _get(modelField, 'validation.decimalDigits.prePointDigits', null)
       options.minValue = _get(modelField, 'validation.numberRange.fromIncluding', null)
       options.maxValue = _get(modelField, 'validation.numberRange.toIncluding', null)
-
       break
     case 'location':
       options.fetchSuggestions = searchTerm => utils.loadLocationsSuggestions(formField.id, searchTerm)

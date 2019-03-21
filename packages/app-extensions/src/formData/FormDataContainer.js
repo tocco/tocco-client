@@ -22,7 +22,8 @@ const mapStateToProps = state => ({
   relationEntities: state.formData.relationEntities.data,
   tooltips: state.formData.tooltips.data,
   searchFilters: state.formData.searchFilters,
-  locations: state.formData.locations
+  locations: state.formData.locations,
+  formState: state.form
 })
 
 const mapActionCreators = {

@@ -19,15 +19,25 @@ export function* loadLocations({payload: {field, searchInput}}) {
   const suggestions = [
     {
       city: `Zurich`,
-      zip: '8006',
+      zip: '2306',
       canton: 'ZH',
+      address: 'Bahnhofstrasse 1',
       district: 'Zurich',
       country: 'CH'
     },
     {
-      city: 'Bern',
+      city: 'Lausanne',
       zip: '3000',
+      canton: 'VD',
+      address: 'Rue Saint Roche 1',
+      district: 'VD',
+      country: 'CH'
+    },
+    {
+      city: 'Bern',
+      zip: '3450',
       canton: 'BE',
+      address: 'Bundesplatz',
       district: 'Bern',
       country: 'CH'
     }
