@@ -1,9 +1,6 @@
 import {
-  generateFlatBaseColors,
-  generateFlatPrimaryColors,
   declareInteractionColors,
-  generateRaisedBaseColors,
-  generateRaisedPrimaryColors,
+  generateInteractionColors,
   generateShades,
   shadeColor
 } from '../utilStyles'
@@ -39,42 +36,6 @@ const props = {
 describe('tocco-ui', () => {
   describe('utilStyles', () => {
     describe('declareInteractionColors', () => {
-      test('should be color set for flat base', () => {
-        const colors = generateFlatBaseColors(props)
-        expect(Object.keys(colors)).to.have.lengthOf(2)
-        expect(colors).to.deep.equal({
-          bg: ['#300', '#600', '#900'],
-          fg: ['#900', '#c00', '#f00']
-        })
-      })
-
-      test('should be color set for flat primary', () => {
-        const colors = generateFlatPrimaryColors(props)
-        expect(Object.keys(colors)).to.have.lengthOf(2)
-        expect(colors).to.deep.equal({
-          bg: ['#300', '#600', '#900'],
-          fg: ['#600', '#900', '#c00']
-        })
-      })
-
-      test('should be color set for raised base', () => {
-        const colors = generateRaisedBaseColors(props)
-        expect(Object.keys(colors)).to.have.lengthOf(2)
-        expect(colors).to.deep.equal({
-          bg: ['#600', '#900', '#c00'],
-          fg: ['#900', '#c00', '#f00']
-        })
-      })
-
-      test('should be color set for raised primary', () => {
-        const colors = generateRaisedPrimaryColors(props)
-        expect(Object.keys(colors)).to.have.lengthOf(2)
-        expect(colors).to.deep.equal({
-          bg: ['#600', '#900', '#c00'],
-          fg: ['#900', '#c00', '#f00']
-        })
-      })
-
       test(
         'should declare color and background for default state, :focus, :hover and :active',
         () => {
@@ -149,6 +110,74 @@ describe('tocco-ui', () => {
         scenarios.map(scenario => {
           const {color, expectation, options} = scenario
           expect(generateShades(color, options)).to.deep.equal(expectation)
+        })
+      })
+
+      test('should generate interaction color', () => {
+        const scenarios = [{
+          scheme: 'flatBase',
+          expectation: {
+            bg: ['#300', '#600', '#900'],
+            fg: ['#900', '#c00', '#f00']
+          }
+        }, {
+          scheme: 'flatPrimary',
+          expectation: {
+            bg: ['#300', '#600', '#900'],
+            fg: ['#600', '#900', '#c00']
+          }
+        }, {
+          scheme: 'raisedBase',
+          expectation: {
+            bg: ['#600', '#900', '#c00'],
+            fg: ['#900', '#c00', '#f00']
+          }
+        }, {
+          scheme: 'raisedPrimary',
+          expectation: {
+            bg: ['#600', '#900', '#c00'],
+            fg: ['#900', '#c00', '#f00']
+          }
+        }, {
+          scheme: {
+            bg: 'colors.primary',
+            fg: 'colors.text, colors.paper'
+          },
+          expectation: {
+            bg: ['#600', '#900', '#c00'],
+            fg: ['#900', '#c00', '#f00']
+          }
+        }, {
+          scheme: {
+            bg: '#d33b17',
+            fg: '#dddddd'
+          },
+          expectation: {
+            bg: ['#d33b17', '#e95734', '#ee7d62'],
+            fg: ['#dddddd', '#f7f7f7', '#fff']
+          }
+        }, {
+          scheme: {
+            bg: '#3A5696',
+            fg: 'colors.paper, colors.text'
+          },
+          expectation: {
+            bg: ['#3A5696', '#4a6cb9', '#6f8ac7'],
+            fg: ['#300', '#600', '#900']
+          }
+        }, {
+          scheme: {
+            bg: '#bad6ff',
+            fg: 'colors.paper, colors.text'
+          },
+          expectation: {
+            bg: ['#bad6ff', '#87b8ff', '#5499ff'],
+            fg: ['#300', '#000', '#000']
+          }
+        }]
+        scenarios.map(scenario => {
+          const {scheme, expectation} = scenario
+          expect(generateInteractionColors(props, scheme)).to.deep.equal(expectation)
         })
       })
     })

@@ -3,13 +3,8 @@ import declareDensity from './declareDensity'
 import {
   declareFocus,
   declareInteractionColors,
-  generateCustomColors,
-  generateFlatBaseColors,
-  generateFlatPrimaryColors,
+  generateInteractionColors,
   generateShades,
-  generateRaisedBaseColors,
-  generateRaisedPrimaryColors,
-  getHigherContrast,
   shadeColor
 } from './declareInteractionColors'
 import declareFont from './declareFont'
@@ -32,13 +27,8 @@ export {
   declareNoneWrappingText,
   declareWrappingText,
   design,
-  generateCustomColors,
-  generateFlatBaseColors,
-  generateFlatPrimaryColors,
+  generateInteractionColors,
   generateShades,
-  generateRaisedBaseColors,
-  generateRaisedPrimaryColors,
-  getHigherContrast,
   filterObjectByKeysStartingWith,
   getTextOfChildren,
   objectToCss,
