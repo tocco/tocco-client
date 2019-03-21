@@ -3,28 +3,48 @@ import {mount} from 'enzyme'
 
 import LocationEdit,
 {
-  formatOptionLabel,
-  getMapsAddress
+  getMapsAddress,
+  returnGetSuggestions,
+  returnGetSuggestion
 }
   from './LocationEdit'
 
 const options = {
   suggestions: [],
   fetchSuggestions: () => {},
-  noSuggestionsText: '',
   isLoading: false
 }
 
-const locationInput = {
-  city: `Zurich`,
-  zip: '8006',
-  address: 'Teststrasse',
-  canton: 'ZH',
-  district: 'Zurich',
-  country: 'CH'
-}
+const EMPTY_FUNC = () => {}
 
-const menuString = `${locationInput.zip} ${locationInput.city} - ${locationInput.district} / ${locationInput.country}`
+const suggestions = [
+  {
+    city: `Zurich`,
+    zip: '2306',
+    canton: 'ZH',
+    address: 'Bahnhofstrasse 1',
+    district: 'Zurich',
+    country: 'CH'
+  },
+  {
+    city: 'Lausanne',
+    zip: '2300',
+    canton: 'VD',
+    address: 'Rue Saint Roche 1',
+    district: 'VD',
+    country: 'CH'
+  },
+  {
+    city: 'Bern',
+    zip: '3450',
+    canton: 'BE',
+    address: 'Bundesplatz',
+    district: 'Bern',
+    country: 'CH'
+  }
+]
+
+const locationString = 'https://www.google.com/maps/search/?api=1&query=Zurich+2306+ZH+Bahnhofstrasse 1+Zurich+CH+'
 
 describe('tocco-ui', () => {
   describe('EditableValue', () => {
@@ -35,10 +55,36 @@ describe('tocco-ui', () => {
           expect(wrapper.find('input')).to.have.length(2)
         })
 
+        test('should render input value', () => {
+          const wrapper = mount(<LocationEdit
+            options={options}
+            onChange={EMPTY_FUNC}
+            value={suggestions[0]}/>)
+
+          expect(wrapper.props().value.zip).to.eql(suggestions[0].zip)
+        })
+
+        test('should render ButtonLink', () => {
+          const wrapper = mount(<LocationEdit
+            options={options}
+            onChange={EMPTY_FUNC}
+            value={suggestions[0]}/>)
+
+          expect(wrapper.find('ButtonLink')).to.have.length(1)
+        })
+
+        test('should set ButtonLink href', () => {
+          const wrapper = mount(<LocationEdit
+            options={options}
+            onChange={EMPTY_FUNC}
+            value={suggestions[0]}/>)
+
+          expect(wrapper.find('ButtonLink').props().href).to.eql(locationString)
+        })
+
         describe('getMapsAddress', () => {
           test('should get maps address', () => {
-            const result = `https://www.google.com/maps/search/?api=1&query=Zurich+8006+Teststrasse+ZH+Zurich+CH+`
-            expect(getMapsAddress(locationInput)).to.equal(result)
+            expect(getMapsAddress(suggestions[0])).to.eql(locationString)
           })
 
           test('should get default maps address', () => {
@@ -47,43 +93,27 @@ describe('tocco-ui', () => {
           })
         })
 
-        describe('formatOptionLabel', () => {
-          test('should return createValueString', () => {
-            const input = {label: ''}
-            const info = {context: 'menu'}
-            const result = <span>Provide Value</span>
-            expect(formatOptionLabel('zip', 'Provide Value')(input, info)).to.eql(result)
+        describe('returnGetSuggestions', () => {
+          test('should return empty array', () => {
+            const attr = 'zip'
+            const value = '23'
+            const result = []
+            expect(returnGetSuggestions(attr)(value)).to.eql(result)
+            expect(returnGetSuggestions(attr)('', suggestions)).to.eql(result)
           })
 
-          test('should return input label on value created', () => {
-            const input = {label: 'street'}
-            const info = {context: 'value'}
-            const result = <span>street</span>
-            expect(formatOptionLabel('city')(input, info)).to.eql(result)
+          test('should return suggestions', () => {
+            const attr = 'zip'
+            const value = '23'
+            const result = [suggestions[0], suggestions[1]]
+            expect(returnGetSuggestions(attr)(value, suggestions)).to.eql(result)
           })
+        })
 
-          test('should return input label on suggested value', () => {
-            const input = {zip: '2345'}
-            const info = {context: 'value'}
-            const result = <span>{input.zip}</span>
-            expect(formatOptionLabel('zip')(input, info)).to.eql(result)
-          })
-
-          test('should return menu string', () => {
-            const info = {context: 'menu'}
-            expect(formatOptionLabel('zip')(locationInput, info).props.children).to.equal(menuString)
-          })
-
-          test('should return input label on value created without context', () => {
-            const input = {label: 'Test City'}
-            const info = {}
-            expect(formatOptionLabel('zip')(input, info).props.children).to.equal(input.label)
-          })
-
-          test('should return null on no input or context', () => {
-            const input = {}
-            const info = {}
-            expect(formatOptionLabel('zip')(input, info)).to.equal(null)
+        describe('returnGetSuggestion', () => {
+          test('should return suggestion value', () => {
+            const result = suggestions[0].zip
+            expect(returnGetSuggestion('zip')(suggestions[0])).to.eql(result)
           })
         })
       })

@@ -1,20 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import CreatableSelect from 'react-select/lib/Creatable'
+import Autosuggest from 'react-autosuggest'
 
-import {
-  StyledLocationEdit,
-  StyledLocationEditZipInput,
-  StyledLocationEditCityInput,
-  menuCityStyles,
-  menuZipStyles
-} from './StyledLocationEdit'
 import ButtonLink from '../../ButtonLink'
-
-const components = {
-  DropdownIndicator: null,
-  ClearIndicator: null
-}
+import {StyledLocationEdit} from './StyledLocationEdit'
+import IconTocco from '../../IconTocco'
 
 export const getMapsAddress = locationInput => {
   const mapsBaseAddress = `https://www.google.com/maps/search/?api=1&query=`
@@ -25,123 +15,177 @@ export const getMapsAddress = locationInput => {
     }
     return `${mapsBaseAddress}${location}`
   }
+  
   return mapsBaseAddress
 }
 
-export const formatOptionLabel = (attr, createLabel) => (input, info) => {
-  const menuString = `${input.zip} ${input.city} - ${input.district} / ${input.country}`
-  const createValueString = createLabel || 'Wert einfügen'
-  if (info && input) {
-    if (info.context === 'menu' && input.label === '') {
-      return <span>{createValueString}</span>
-    }
-    if (info.context === 'value' && input.label) {
-      return <span>{input.label}</span>
-    }
-    if (info.context === 'menu' && !input.label) {
-      return <span>{menuString}</span>
-    }
+export const returnGetSuggestions = attr => (value, suggestions) => {
+  if (suggestions) {
+    const inputValue = value.trim().toLowerCase()
+    const inputLength = inputValue.length
+
+    return inputLength === 0 ? [] : suggestions.filter(item =>
+      item[attr].toLowerCase().slice(0, inputLength) === inputValue
+    )
   }
-  if (info) {
-    if (info.context === 'value') {
-      return <span>{input[attr]}</span>
-    }
-  }
-  if (input) {
-    if (input.label) {
-      return <span>{input.label}</span>
-    }
-  }
-  return null
+  return []
 }
 
-const LocationEdit = props => {
-  const handleInputZipChange = zip => {
-    if (zip && props.options.fetchSuggestions) {
-      props.options.fetchSuggestions(zip)
-      props.onChange({zip})
+export const returnGetSuggestion = attr => suggestion => suggestion[attr]
+
+const renderSuggestion = suggestion => (
+  <div>
+    {suggestion.zip} {suggestion.city} - {suggestion.canton} / {suggestion.country}
+  </div>
+)
+
+class LocationEdit extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      valueZip: '',
+      valueCity: '',
+      suggestions: [],
+
+      zipFieldFocused: false,
+      cityFieldFocused: false
     }
   }
 
-  const handleInputCityChange = city => {
-    if (city && props.options.fetchSuggestions) {
-      props.options.fetchSuggestions(city)
-      props.onChange({city})
-    }
+  onChangeZip = (event, {newValue}) => {
+    this.setState({
+      valueZip: newValue,
+      zipFieldFocused: true,
+      cityFieldFocused: false
+    })
+
+    this.props.options.fetchSuggestions(newValue)
+    this.props.onChange({zip: newValue})
   }
 
-  const handleZipChange = zip => {
-    if (zip && props.onChange) {
-      props.onChange({zip: zip.value || zip.zip})
-    }
+  onChangeCity = (event, {newValue}) => {
+    this.setState({
+      valueCity: newValue,
+      zipFieldFocused: false,
+      cityFieldFocused: true
+    })
+    
+    this.props.options.fetchSuggestions(newValue)
+    this.props.onChange({city: newValue})
   }
 
-  const handleCityChange = city => {
-    if (city && props.onChange) {
-      props.onChange({city: city.value || city.city})
-    }
-  }
-
-  const selectOptions = {
-    components,
-    name: props.name,
-    id: props.id,
-    value: props.value,
-    isDisabled: props.readOnly,
-    isLoading: props.options.isLoading,
-    options: props.options.suggestions,
-    placeholder: null,
-    isClearable: true,
-    isMulti: false,
-    openMenuOnClick: false,
-    openMenuOnFocus: false,
-    hideSelectedOptions: true,
-    createOptionPosition: 'first',
-    allowCreateWhileLoading: true,
-    filterOption: false,
-    noOptionsMessage: () => props.options.noSuggestionsText,
-    isValidNewOption: () => true,
-    formatCreateLabel: inputValue => inputValue,
-    theme: theme => ({
-      ...theme,
-      colors: {
-        ...theme.colors,
-        primary25: '#e0dede'
-      }
+  onSuggestionsFetchRequestedZip = ({value}) => {
+    this.setState({
+      suggestions: returnGetSuggestions('zip')(value, this.props.options.suggestions)
     })
   }
 
-  return (
-    <StyledLocationEdit>
-      <StyledLocationEditZipInput>
-        <CreatableSelect
-          styles={menuZipStyles}
-          onChange={handleZipChange}
-          onInputChange={handleInputZipChange}
-          formatOptionLabel={formatOptionLabel('zip', props.createLabel)}
-          {...selectOptions}
+  onSuggestionsFetchRequestedCity = ({value}) => {
+    this.setState({
+      suggestions: returnGetSuggestions('city')(value, this.props.options.suggestions)
+    })
+  }
+
+  onSuggestionsClearRequested = () => {
+    this.setState({
+      suggestions: []
+    })
+  }
+
+  renderSuggestionsZipContainer = ({containerProps, children}) => {
+    if (this.props.options.isLoading && this.state.zipFieldFocused) {
+      return (
+        <div {... containerProps}>
+          <div className="dropdown-icon"><IconTocco/></div>
+        </div>
+      )
+    }
+    return (
+      <div {... containerProps}>
+        {children}
+      </div>
+    )
+  }
+
+  renderSuggestionsCityContainer = ({containerProps, children}) => {
+    if (this.props.options.isLoading && this.state.cityFieldFocused) {
+      return (
+        <div {... containerProps}>
+          <div className="dropdown-icon"><IconTocco/></div>
+        </div>
+      )
+    }
+    return (
+      <div {... containerProps}>
+        {children}
+      </div>
+    )
+  }
+
+  onSuggestionSelected = (event, {suggestion}) => {
+    this.setState({valueZip: suggestion.zip, valueCity: suggestion.city})
+    this.props.onChange({
+      zip: suggestion.zip,
+      city: suggestion.city,
+      street: suggestion.address,
+      canton: suggestion.canton,
+      district: suggestion.district,
+      country: {display: suggestion.country, key: suggestion.country}
+    })
+  }
+
+  render() {
+    const {valueZip, valueCity, suggestions} = this.state
+
+    const inputPropsZip = {
+      value: valueZip,
+      onChange: this.onChangeZip,
+      readOnly: this.props.readOnly
+    }
+
+    const inputPropsCity = {
+      value: valueCity,
+      onChange: this.onChangeCity,
+      readOnly: this.props.readOnly
+    }
+
+    return (
+      <StyledLocationEdit
+        name={this.props.name}
+        id={this.props.id}
+      >
+        <Autosuggest
+          suggestions={suggestions}
+          onSuggestionsFetchRequested={this.onSuggestionsFetchRequestedZip}
+          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+          getSuggestionValue={returnGetSuggestion('zip')}
+          renderSuggestion={renderSuggestion}
+          inputProps={inputPropsZip}
+          renderSuggestionsContainer={this.renderSuggestionsZipContainer}
+          onSuggestionSelected={this.onSuggestionSelected}
         />
-      </StyledLocationEditZipInput>
-      <StyledLocationEditCityInput>
-        <CreatableSelect
-          styles={menuCityStyles}
-          onChange={handleCityChange}
-          onInputChange={handleInputCityChange}
-          formatOptionLabel={formatOptionLabel('city', props.createLabel)}
-          {...selectOptions}
+        <Autosuggest
+          suggestions={suggestions}
+          onSuggestionsFetchRequested={this.onSuggestionsFetchRequestedCity}
+          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+          getSuggestionValue={returnGetSuggestion('city')}
+          renderSuggestion={renderSuggestion}
+          inputProps={inputPropsCity}
+          renderSuggestionsContainer={this.renderSuggestionsCityContainer}
+          onSuggestionSelected={this.onSuggestionSelected}
         />
-      </StyledLocationEditCityInput>
-      <ButtonLink
-        href={getMapsAddress(props.value)}
-        icon="external-link-alt"
-        iconPosition="sole"
-        look="ball"
-        tabIndex={-1}
-        target="_blank"
-        dense={false}
-      />
-    </StyledLocationEdit>
-  )
+        <ButtonLink
+          href={getMapsAddress(this.props.value)}
+          icon="external-link-alt"
+          iconPosition="sole"
+          look="ball"
+          tabIndex={-1}
+          target="_blank"
+          dense={false}
+        />
+      </StyledLocationEdit>
+    )
+  }
 }
 
 const locationObjectPropType = PropTypes.shape({
@@ -159,13 +203,11 @@ LocationEdit.propTypes = {
   options: PropTypes.shape({
     suggestions: PropTypes.arrayOf(locationObjectPropType),
     fetchSuggestions: PropTypes.func,
-    noSuggestionsText: PropTypes.string,
     isLoading: PropTypes.bool
   }),
   name: PropTypes.string,
   id: PropTypes.string,
-  readOnly: PropTypes.bool,
-  createLabel: PropTypes.string
+  readOnly: PropTypes.bool
 }
 
 export default LocationEdit

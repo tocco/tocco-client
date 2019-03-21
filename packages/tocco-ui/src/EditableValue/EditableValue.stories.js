@@ -50,30 +50,38 @@ EditableValueStory.propTypes = {
   value: PropTypes.node
 }
 
-const EMPTY_FUNC = () => {}
-
 const suggestions = [
   {
     city: `Zurich`,
-    zip: '8006',
+    zip: '2306',
     canton: 'ZH',
+    address: 'Bahnhofstrasse 1',
     district: 'Zurich',
     country: 'CH'
   },
   {
-    city: 'Bern',
+    city: 'Lausanne',
     zip: '3000',
+    canton: 'VD',
+    address: 'Rue Saint Roche 1',
+    district: 'VD',
+    country: 'CH'
+  },
+  {
+    city: 'Bern',
+    zip: '3450',
     canton: 'BE',
+    address: 'Bundesplatz',
     district: 'Bern',
     country: 'CH'
   }
 ]
 
+const EMPTY_FUNC = () => {}
+
 const locationOptions = {
   suggestions,
-  fetchSuggestions: EMPTY_FUNC,
-  noSuggestionsText: text('noSuggestionsText', 'Keine Werte'),
-  isLoading: boolean('isLoading', false)
+  fetchSuggestions: EMPTY_FUNC
 }
 
 storiesOf('EditableValue', module)
@@ -220,9 +228,8 @@ storiesOf('EditableValue', module)
     'Location',
     () => <EditableValue
       type="location"
-      options={locationOptions}
+      options={{...locationOptions, isLoading: boolean('isLoading', false)}}
       readOnly={boolean('readOnly', false)}
-      createLabel={text('createLabel', 'Wert löschen')}
       value={{
         zip: text('zip', '8000') || undefined,
         city: text('city', 'Zürich') || undefined,
