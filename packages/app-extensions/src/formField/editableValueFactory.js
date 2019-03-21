@@ -13,7 +13,7 @@ const settings = {
 export const valueOverwriter = {
   'coordinate': value => value.value,
   'location': (type, formField, formName, props, utils) => {
-    const locationMapping = formField.locationMapping
+    const locationMapping = formField.locationMapping || {}
     props.onChange = locationObject => {
       for (const key in locationMapping) {
         if (locationObject[key]) {
@@ -22,7 +22,12 @@ export const valueOverwriter = {
       }
     }
 
-    const formValues = utils.formState.detailForm.values
+    let formValues = {}
+
+    const formState = utils.formState
+    if (formState && formState.detailForm) {
+      formValues = formState.detailForm.values
+    }
 
     const locationMappingValues = Object.values(locationMapping)
 
