@@ -10,6 +10,26 @@ import {
 
 import {design} from '../utilStyles'
 
+const colorSchemes = {
+  flatBase: {
+    bg: 'colors.paper',
+    fg: 'colors.text'
+  },
+  flatPrimary: {
+    bg: 'colors.paper',
+    fg: 'colors.primary'
+  },
+  raisedBase: {
+    bg: 'colors.paper',
+    bgOption: {shadeOffset: 0.1},
+    fg: 'colors.text'
+  },
+  raisedPrimary: {
+    bg: 'colors.primary',
+    fg: 'colors.text, colors.paper'
+  }
+}
+
 const declareFocus = props => {
   const infoText = _get(props.theme, 'colors.signal.info.text', design.fallbackColors.INFO)
   return css`
@@ -55,69 +75,53 @@ const declareInteractionColors = (colors, format = design.format.HTML) => {
   `
 }
 
-const generateFlatBaseColors = props => {
-  const text = _get(props.theme, 'colors.text', design.fallbackColors.TEXT)
-  const paper = _get(props.theme, 'colors.paper', design.fallbackColors.PAPER)
-  const fg = generateShades(text, {
-    action: getLuminance(paper) > 0.5 ? 'darken' : 'lighten'
-  })
-  const bg = generateShades(paper)
-  return {bg, fg}
+const resolveColors = (theme, colors) =>
+  colors.split(/\s*,\s*/).map(color =>
+    color.startsWith('colors.')
+      ? _get(theme, color)
+      : color
+  )
+
+const lightenOrDarken = (color = design.fallbackColors.SHADE) =>
+  getLuminance(color) > 0.5 ? 'darken' : 'lighten'
+
+const generateInteractionColors = ({theme}, scheme) => {
+  const {
+    bg,
+    bgOption = {},
+    fg,
+    fgOption = {}
+  } = colorSchemes[scheme] || scheme
+
+  const bgResolved = resolveColors(theme, bg)
+  const fgResolved = resolveColors(theme, fg)
+
+  const bgBestContrast = bgResolved.length > 1
+    ? getBestContrast(fgResolved[0], bgResolved[0], bgResolved[1])
+    : bgResolved[0]
+  const fgBestContrast = fgResolved.length > 1
+    ? getBestContrast(bgResolved[0], fgResolved[0], fgResolved[1])
+    : fgResolved[0]
+
+  bgOption['action'] = bgOption['action'] || lightenOrDarken(bgBestContrast)
+  fgOption['action'] = fgOption['action'] || lightenOrDarken(bgBestContrast)
+
+  return {
+    bg: generateShades(bgBestContrast, bgOption),
+    fg: generateShades(fgBestContrast, fgOption)
+  }
 }
 
-const generateFlatPrimaryColors = props => {
-  const primary = _get(props.theme, 'colors.primary', design.fallbackColors.TEXT)
-  const paper = _get(props.theme, 'colors.paper', design.fallbackColors.PAPER)
-  const fg = generateShades(primary, {
-    action: getLuminance(paper) > 0.5 ? 'darken' : 'lighten'
-  })
-  const bg = generateShades(paper)
-  return {bg, fg}
-}
-
-const generateRaisedBaseColors = props => {
-  const text = _get(props.theme, 'colors.text', design.fallbackColors.TEXT)
-  const paper = _get(props.theme, 'colors.paper', design.fallbackColors.PAPER)
-  const fg = generateShades(text, {
-    action: getLuminance(paper) > 0.5 ? 'darken' : 'lighten'
-  })
-  const bg = generateShades(paper, {
-    shadeOffset: 0.1
-  })
-  return {bg, fg}
-}
-
-const generateRaisedPrimaryColors = props => {
-  const text = _get(props.theme, 'colors.text', design.fallbackColors.TEXT)
-  const paper = _get(props.theme, 'colors.paper', design.fallbackColors.PAPER)
-  const primary = _get(props.theme, 'colors.primary', design.fallbackColors.TEXT)
-  const higherContrast = getHigherContrast(primary, text, paper)
-  const fg = generateShades(higherContrast, {
-    action: getLuminance(primary) > 0.5 ? 'darken' : 'lighten'
-  })
-  const bg = generateShades(primary)
-  return {bg, fg}
-}
-
-const generateCustomColors = (base, colorA, colorB) => {
-  const higherContrast = getHigherContrast(base, colorA, colorB)
-  const bg = generateShades(base)
-  const fg = generateShades(higherContrast, {
-    action: getLuminance(base) > 0.5 ? 'darken' : 'lighten'
-  })
-  return {bg, fg}
-}
-
-const getContrast = (colorA, colorB) => {
+const getContrast = (colorA = design.fallbackColors.SHADE, colorB = design.fallbackColors.PAPER) => {
   const luminanceA = getLuminance(colorA)
   const luminanceB = getLuminance(colorB)
   return luminanceA > luminanceB ? luminanceA - luminanceB : luminanceB - luminanceA
 }
 
-const getHigherContrast = (base, colorA, colorB) =>
+const getBestContrast = (base, colorA, colorB) =>
   getContrast(colorA, base) > getContrast(colorB, base) ? colorA : colorB
 
-const generateShades = (color = fallbackColors.SHADE, options = {}) => ([
+const generateShades = (color = design.fallbackColors.SHADE, options = {}) => ([
   options.shadeOffset >= 0
     ? shadeColor(color, 0, options)
     : color,
@@ -131,23 +135,20 @@ const shadeColor = (color = design.fallbackColors.SHADE, step = 1, options = {})
     shadeFactor,
     shadeOffset
   } = Object.assign({}, {
-    action: 'auto',
     shadeFactor: 0.1,
     shadeOffset: 0
   }, options)
 
   const factor = shadeFactor * step + shadeOffset
 
-  if (action === 'auto') {
-    return getLuminance(color) < 0.5
-      ? lighten(factor, color)
-      : darken(factor, color)
-  } else if (action === 'lighten') {
+  if (action === 'lighten') {
     return lighten(factor, color)
   } else if (action === 'darken') {
     return darken(factor, color)
   } else {
-    return color
+    return getLuminance(color) > 0.5
+      ? darken(factor, color)
+      : lighten(factor, color)
   }
 }
 
@@ -156,12 +157,8 @@ const generateDisabledShade = color => tint(0.5, color)
 export {
   declareFocus,
   declareInteractionColors,
-  generateCustomColors,
-  generateRaisedBaseColors,
-  generateRaisedPrimaryColors,
-  generateFlatBaseColors,
-  generateFlatPrimaryColors,
   generateShades,
-  getHigherContrast,
+  generateInteractionColors,
+  getBestContrast,
   shadeColor
 }

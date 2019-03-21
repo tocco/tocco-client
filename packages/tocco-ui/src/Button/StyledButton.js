@@ -6,13 +6,12 @@ import {
   declareDensity,
   declareFont,
   declareInteractionColors,
-  generateFlatBaseColors,
-  generateFlatPrimaryColors,
-  generateRaisedBaseColors,
-  generateRaisedPrimaryColors,
-  scale,
-  design
+  design,
+  generateInteractionColors,
+  scale
 } from '../utilStyles'
+
+let scheme
 
 const meltButtons = props => {
   let declaration = ''
@@ -41,22 +40,21 @@ const meltButtons = props => {
 }
 
 const declareButtonColor = props => {
-  let declareColor
   const {ink, look} = props
   const {BALL, FLAT, RAISED} = design.look
   const {BASE, PRIMARY} = design.ink
 
   if (look === FLAT && ink === PRIMARY) {
-    declareColor = generateFlatPrimaryColors
+    scheme = 'flatPrimary'
   } else if ((look === BALL || look === RAISED) && ink === BASE) {
-    declareColor = generateRaisedBaseColors
+    scheme = 'raisedBase'
   } else if ((look === BALL || look === RAISED) && ink === PRIMARY) {
-    declareColor = generateRaisedPrimaryColors
+    scheme = 'raisedPrimary'
   } else {
-    declareColor = generateFlatBaseColors
+    scheme = 'flatBase'
   }
 
-  return declareInteractionColors(declareColor(props), 'html')
+  return declareInteractionColors(generateInteractionColors(props, scheme), 'html')
 }
 
 const declareIconPosition = props => {
