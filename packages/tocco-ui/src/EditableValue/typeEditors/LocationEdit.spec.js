@@ -11,7 +11,7 @@ import LocationEdit,
 
 const options = {
   suggestions: [],
-  fetchSuggestions: () => {},
+  fetchSuggestions: sinon.spy(),
   isLoading: false
 }
 
@@ -62,6 +62,36 @@ describe('tocco-ui', () => {
             value={suggestions[0]}/>)
 
           expect(wrapper.props().value.zip).to.eql(suggestions[0].zip)
+        })
+
+        test('should update valueZip in state', () => {
+          const wrapper = mount(<LocationEdit
+            options={options}
+            onChange={EMPTY_FUNC}
+            value={suggestions[0]}/>)
+
+          wrapper.find('input').at(0).simulate('change', {target: {value: '23'}})
+          expect(wrapper.state().valueZip).to.eql('23')
+        })
+
+        test('should call fetchSuggestions with new value', () => {
+          const wrapper = mount(<LocationEdit
+            options={options}
+            onChange={EMPTY_FUNC}
+            value={suggestions[0]}/>)
+
+          wrapper.find('input').at(0).simulate('change', {target: {value: '23'}})
+          expect(wrapper.props().options.fetchSuggestions).to.have.been.calledWith('23')
+        })
+
+        test('should call onChange with new value', () => {
+          const wrapper = mount(<LocationEdit
+            options={options}
+            onChange={sinon.spy()}
+            value={suggestions[0]}/>)
+
+          wrapper.find('input').at(0).simulate('change', {target: {value: '2345'}})
+          expect(wrapper.props().onChange).to.have.been.calledWith({zip: '2345'})
         })
 
         test('should render ButtonLink', () => {
