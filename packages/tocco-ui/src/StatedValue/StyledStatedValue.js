@@ -10,6 +10,7 @@ import {
 } from '../utilStyles'
 
 const BORDER_WIDTH = '1px'
+const ANIMATION_DURATION = '200ms'
 
 const getTextColor = ({theme, signal}) =>
   signal
@@ -22,13 +23,30 @@ const getBorderColor = ({theme, signal}) =>
     : shadeColor(_get(theme, 'colors.paper'), 2)
 
 const moveLabel = () => css`
-  top: 0%;
-  font-size: ${scale.font(-1)};
-  font-weight: ${getTheme.fontWeight('bold')};
+  ${StyledStatedValueLabel}  {
+    transition: top ${ANIMATION_DURATION},
+                font-size ${ANIMATION_DURATION},
+                font-weight ${ANIMATION_DURATION};
+    will-change: top, font-size, font-weight;
+  }
+
+
+  ${props => props.hasValue && css`${StyledStatedValueLabel},`}
+  &:focus-within ${StyledStatedValueLabel} {
+    top: 0%;
+    font-size: ${scale.font(-1)};
+    font-weight: ${getTheme.fontWeight('bold')};
+  }
 `
 
 const retainSpace = () => css`
-  padding-top: calc(${scale.font(-1)} / 2 );
+  transition: padding-top ${ANIMATION_DURATION};
+  will-change: padding-top;
+
+  ${props => props.hasValue && '&,'}
+  &:focus-within {
+    padding-top: calc(${scale.font(-1)} / 2 );
+  }
 `
 
 const StyledStatedValueLabel = styled.label`
@@ -45,7 +63,6 @@ const StyledStatedValueLabel = styled.label`
     padding: 0 ${scale.space(-2)};
     position: absolute;
     top: 50%;
-    ${props => props.hasValue && moveLabel()}
   }
 `
 
@@ -56,10 +73,7 @@ const StyledStatedValueBox = styled.div`
     padding: ${scale.space(-2)} ${scale.space(-1)};
     position: relative;
     ${props => declareFocus(props)}
-
-    &:focus-within ${StyledStatedValueLabel} {
-      ${props => moveLabel()}
-    }
+    ${moveLabel()}
   }
 `
 
@@ -82,11 +96,6 @@ const StyledStatedValueWrapper = styled.div`
   &&& {
     margin-bottom: ${scale.space(-1)};
 
-    ${props => props.hasValue && retainSpace()}
-    &:focus-within {
-      ${retainSpace()}
-    }
-
     ${StyledStatedValueBox},
     ${StyledStatedValueDescription},
     ${StyledStatedValueError} {
@@ -101,6 +110,8 @@ const StyledStatedValueWrapper = styled.div`
     ${StyledStatedValueError} {
       margin-left: calc(${scale.space(-1)} + ${BORDER_WIDTH});
     }
+
+    ${retainSpace()}
   }
 `
 

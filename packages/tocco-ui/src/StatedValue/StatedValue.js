@@ -41,7 +41,9 @@ const StatedValue = props => {
 
   return (
     <StyledStatedValueWrapper hasValue={hasValue}>
-      <StyledStatedValueBox signal={signal}>
+      <StyledStatedValueBox
+        hasValue={hasValue}
+        signal={signal}>
         {content}
         <StyledStatedValueLabel
           hasValue={hasValue}
