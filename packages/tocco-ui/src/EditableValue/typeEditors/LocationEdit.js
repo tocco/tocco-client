@@ -45,7 +45,7 @@ class LocationEdit extends React.Component {
     this.state = {
       valueZip: '',
       valueCity: '',
-      suggestions: [],
+      suggestions: this.props.options.suggestions || [],
 
       zipFieldFocused: false,
       cityFieldFocused: false
