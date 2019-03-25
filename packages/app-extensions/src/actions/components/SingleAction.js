@@ -6,7 +6,7 @@ import {intlShape} from 'react-intl'
 
 import {selectionText, isValidSelection} from './selectionHelper'
 
-const SingleAction = ({definition, onClick, selectedCount}, context) => {
+const SingleAction = ({definition, onClick, selectedCount, disabled}, context) => {
   const validSelection = isValidSelection(selectedCount, definition)
   const title = selectionText(selectedCount, definition, context.intl)
 
@@ -19,7 +19,7 @@ const SingleAction = ({definition, onClick, selectedCount}, context) => {
       }}
       icon={definition.icon}
       {...definition.label && definition.useLabel === 'NO' ? {title: definition.label} : {label: definition.label}}
-      {...(definition.readonly === true || !validSelection) && {disabled: true}}
+      {...(definition.readonly === true || !validSelection || disabled) && {disabled: true}}
       title={title}
     />
   )
@@ -32,7 +32,8 @@ SingleAction.contextTypes = {
 SingleAction.propTypes = {
   definition: PropTypes.object.isRequired,
   onClick: PropTypes.func,
-  selectedCount: PropTypes.number
+  selectedCount: PropTypes.number,
+  disabled: PropTypes.bool
 }
 
 export default SingleAction

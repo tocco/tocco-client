@@ -6,15 +6,15 @@ import {Button, Menu} from 'tocco-ui'
 import GroupElement from './GroupElement'
 import {isValidSelection, selectionText} from './selectionHelper'
 
-const MainAction = ({definition, selectedCount, onClick}, context) => {
+const MainAction = ({definition, selectedCount, onClick, disabled}, context) => {
   const validSelection = isValidSelection(selectedCount, definition)
   const title = selectionText(selectedCount, definition, context.intl)
-  const disabled = definition.readonly === true || !validSelection
+  const buttonDisabled = definition.readonly === true || !validSelection || disabled
 
   return (
     <Menu.Item look="raised">
       <Button
-        disabled={disabled}
+        disabled={buttonDisabled}
         icon={definition.icon}
         label={definition.label}
         onClick={() => { onClick(definition) }}
@@ -31,10 +31,11 @@ MainAction.contextTypes = {
 MainAction.propTypes = {
   definition: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired,
-  selectedCount: PropTypes.number
+  selectedCount: PropTypes.number,
+  disabled: PropTypes.bool
 }
 
-const ActionGroup = ({definition, onClick, selectedCount}, context) => {
+const ActionGroup = ({definition, onClick, selectedCount, disabled}, context) => {
   const hasMainAction = (definition.action && Object.keys(definition.action).length > 0)
 
   if (hasMainAction) {
@@ -49,6 +50,7 @@ const ActionGroup = ({definition, onClick, selectedCount}, context) => {
               definition={definition.action}
               onClick={onClick}
               selectedCount={selectedCount}
+              disabled={disabled}
             />
             <Menu.ItemFlyout
               isToggleable={definition.readonly !== true}
@@ -57,6 +59,7 @@ const ActionGroup = ({definition, onClick, selectedCount}, context) => {
               <Menu.Stack>
                 {definition.children.map((actionDefinition, idx) =>
                   <GroupElement
+                    disabled={disabled}
                     definition={actionDefinition}
                     key={idx}
                     onClick={onClick}
@@ -81,6 +84,7 @@ const ActionGroup = ({definition, onClick, selectedCount}, context) => {
           <Menu.Stack>
             {definition.children.map((actionDefinition, idx) =>
               <GroupElement
+                disabled={disabled}
                 definition={actionDefinition}
                 key={idx}
                 onClick={onClick}
@@ -101,7 +105,8 @@ ActionGroup.contextTypes = {
 ActionGroup.propTypes = {
   definition: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired,
-  selectedCount: PropTypes.number
+  selectedCount: PropTypes.number,
+  disabled: PropTypes.bool
 }
 
 export default ActionGroup
