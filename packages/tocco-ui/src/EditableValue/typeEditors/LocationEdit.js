@@ -3,7 +3,10 @@ import PropTypes from 'prop-types'
 import Autosuggest from 'react-autosuggest'
 
 import ButtonLink from '../../ButtonLink'
-import {StyledLocationEdit} from './StyledLocationEdit'
+import {
+  StyledLocationEdit,
+  StyledZipInput
+} from './StyledLocationEdit'
 import IconTocco from '../../IconTocco'
 
 export const getMapsAddress = locationInput => {
@@ -19,14 +22,12 @@ export const getMapsAddress = locationInput => {
   return mapsBaseAddress
 }
 
-export const returnGetSuggestions = attr => (value, suggestions) => {
+export const getSuggestions = (value, suggestions) => {
   if (suggestions) {
     const inputValue = value.trim().toLowerCase()
     const inputLength = inputValue.length
 
-    return inputLength === 0 ? [] : suggestions.filter(item =>
-      item[attr].toLowerCase().slice(0, inputLength) === inputValue
-    )
+    return inputLength === 0 ? [] : suggestions
   }
   return []
 }
@@ -76,13 +77,13 @@ class LocationEdit extends React.Component {
 
   onSuggestionsFetchRequestedZip = ({value}) => {
     this.setState({
-      suggestions: returnGetSuggestions('zip')(value, this.props.options.suggestions)
+      suggestions: getSuggestions(value, this.props.options.suggestions)
     })
   }
 
   onSuggestionsFetchRequestedCity = ({value}) => {
     this.setState({
-      suggestions: returnGetSuggestions('city')(value, this.props.options.suggestions)
+      suggestions: getSuggestions(value, this.props.options.suggestions)
     })
   }
 
@@ -154,16 +155,18 @@ class LocationEdit extends React.Component {
         name={this.props.name}
         id={this.props.id}
       >
-        <Autosuggest
-          suggestions={suggestions}
-          onSuggestionsFetchRequested={this.onSuggestionsFetchRequestedZip}
-          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-          getSuggestionValue={returnGetSuggestion('zip')}
-          renderSuggestion={renderSuggestion}
-          inputProps={inputPropsZip}
-          renderSuggestionsContainer={this.renderSuggestionsZipContainer}
-          onSuggestionSelected={this.onSuggestionSelected}
-        />
+        <StyledZipInput>
+          <Autosuggest
+            suggestions={suggestions}
+            onSuggestionsFetchRequested={this.onSuggestionsFetchRequestedZip}
+            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+            getSuggestionValue={returnGetSuggestion('zip')}
+            renderSuggestion={renderSuggestion}
+            inputProps={inputPropsZip}
+            renderSuggestionsContainer={this.renderSuggestionsZipContainer}
+            onSuggestionSelected={this.onSuggestionSelected}
+          />
+        </StyledZipInput>
         <Autosuggest
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequestedCity}
