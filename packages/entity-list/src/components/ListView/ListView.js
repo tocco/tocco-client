@@ -33,6 +33,7 @@ class ListView extends React.Component {
                   definition={child}
                   entity={props.entityName}
                   parent={props.parent}
+                  disabled={this.props.dataLoadingInProgress}
                 />
               }
             })
@@ -55,7 +56,8 @@ ListView.propTypes = {
     key: PropTypes.string.isRequired,
     model: PropTypes.string.isRequired,
     reverseRelationName: PropTypes.string
-  })
+  }),
+  dataLoadingInProgress: PropTypes.bool
 }
 
 export default ListView
