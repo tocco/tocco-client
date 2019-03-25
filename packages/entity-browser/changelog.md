@@ -1,4 +1,4 @@
-0.8.17
+0.9.0
 - Multi page selection concept
 - Update React and React-Dom PeerDependency to 16.8.4
 
