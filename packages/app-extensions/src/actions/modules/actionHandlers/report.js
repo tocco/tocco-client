@@ -99,7 +99,7 @@ export function* handleSuccessfulReport(completed, submitAction) {
     yield call(download.openUrl, binaryLink)
   }
 
-  yield put(notifier.info('success', 'client.common.report.successful', null))
+  yield put(notifier.info('success', 'client.common.report.successful', null, null, 3000))
 }
 
 export function* handleFailedReport() {
