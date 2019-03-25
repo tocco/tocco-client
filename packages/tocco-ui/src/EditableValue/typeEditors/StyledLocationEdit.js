@@ -108,3 +108,7 @@ export const StyledLocationEdit = styled.div`
     background-color: #ddd;
   }
 `
+
+export const StyledZipInput = styled.span`
+  width: 40%;
+`

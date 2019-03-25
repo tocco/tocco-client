@@ -4,8 +4,7 @@ import {mount} from 'enzyme'
 import LocationEdit,
 {
   getMapsAddress,
-  returnGetSuggestions,
-  returnGetSuggestion
+  getSuggestions
 }
   from './LocationEdit'
 
@@ -123,27 +122,17 @@ describe('tocco-ui', () => {
           })
         })
 
-        describe('returnGetSuggestions', () => {
+        describe('getSuggestions', () => {
           test('should return empty array', () => {
-            const attr = 'zip'
-            const value = '23'
+            const value = '   '
             const result = []
-            expect(returnGetSuggestions(attr)(value)).to.eql(result)
-            expect(returnGetSuggestions(attr)('', suggestions)).to.eql(result)
+            expect(getSuggestions(value)).to.eql(result)
+            expect(getSuggestions(value, suggestions)).to.eql(result)
           })
 
           test('should return suggestions', () => {
-            const attr = 'zip'
             const value = '23'
-            const result = [suggestions[0], suggestions[1]]
-            expect(returnGetSuggestions(attr)(value, suggestions)).to.eql(result)
-          })
-        })
-
-        describe('returnGetSuggestion', () => {
-          test('should return suggestion value', () => {
-            const result = suggestions[0].zip
-            expect(returnGetSuggestion('zip')(suggestions[0])).to.eql(result)
+            expect(getSuggestions(value, suggestions)).to.eql(suggestions)
           })
         })
       })
