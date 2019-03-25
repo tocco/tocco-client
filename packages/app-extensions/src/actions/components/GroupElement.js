@@ -22,7 +22,7 @@ const GroupElement = ({definition, onClick, selectedCount, disabled}, context) =
         disabled={buttonDisabled}
         icon={definition.icon}
         label={definition.label}
-        onClick={() => !disabled && onClick(definition)}
+        onClick={() => !buttonDisabled && onClick(definition)}
         title={title}
       />
     </Menu.Item>
