@@ -7,16 +7,18 @@ import {
 import * as formActionTypes from 'redux-form/es/actionTypes'
 
 import * as actions from './actions'
-import {fetchForm, searchFormTransformer, getFormFieldFlat} from '../../util/api/forms'
+import {fetchForm, searchFormTransformer, getFormFieldFlat, getEndpoint} from '../../util/api/forms'
 import {getPreselectedValues} from '../../util/searchForm'
 import {SET_INITIALIZED as LIST_SET_INITIALIZED} from '../entityList/actions'
 import {validateSearchFields} from '../../util/searchFormValidation'
+import {SET_FORM_DEFINITION} from '../list/actions'
 
 import {call, put, fork, select, takeLatest, take, all} from 'redux-saga/effects'
 
 export const inputSelector = state => state.input
 export const searchFormSelector = state => state.searchForm
 export const entityListSelector = state => state.entityList
+export const listFromDefinitionSelector = state => state.list.formDefinition
 export const searchValuesSelector = getFormValues('searchForm')
 
 const FORM_ID = 'searchForm'
@@ -24,7 +26,6 @@ const FORM_ID = 'searchForm'
 export default function* sagas() {
   yield all([
     fork(takeLatest, actions.INITIALIZE, initialize),
-
     fork(takeLatest, formActionTypes.CHANGE, submitSearchFrom),
     fork(takeLatest, actions.SUBMIT_SEARCH_FORM, submitSearchFrom),
     fork(takeLatest, actions.RESET_SEARCH, resetSearch)
@@ -40,16 +41,33 @@ export function* initialize({payload: {searchFormVisible}}) {
   }
 }
 
+export function* getListFormDefinition() {
+  const formDefinition = yield select(listFromDefinitionSelector)
+  if (!formDefinition) {
+    const action = yield take(SET_FORM_DEFINITION)
+    return action.payload.formDefinition
+  }
+
+  return formDefinition
+}
+
 export function* setInitialFormValues(searchFormVisible, formDefinition) {
   const {preselectedSearchFields, parent} = yield select(inputSelector)
-  const {model} = yield call(getEntityModel)
 
-  let formValues = preselectedSearchFields
-    ? yield call(getPreselectedValues, preselectedSearchFields, model, null, searchFormVisible)
-    : {}
+  let formValues = {}
+
+  if (preselectedSearchFields) {
+    const {model} = yield call(getEntityModel)
+    const preselectedValues = yield call(getPreselectedValues, preselectedSearchFields, model, null, searchFormVisible)
+    formValues = {...formValues, ...preselectedValues}
+  }
 
   if (parent && !formValues.hasOwnProperty(parent.reverseRelationName)) {
-    formValues[parent.reverseRelationName] = {key: parent.key}
+    const listFormDefinition = yield call(getListFormDefinition)
+    const endpoint = yield call(getEndpoint, listFormDefinition)
+    if (!endpoint) {
+      formValues[parent.reverseRelationName] = {key: parent.key}
+    }
   }
 
   if (searchFormVisible && formDefinition) {
