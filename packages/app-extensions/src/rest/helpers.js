@@ -1,4 +1,5 @@
 import _reduce from 'lodash/reduce'
+import _isObject from 'lodash/isObject'
 
 import {requestSaga} from './rest'
 
@@ -177,7 +178,7 @@ export const requestQueryToUrlParams = queryObject =>
   _reduce(queryObject, (result, value, key) => {
     let add = {}
     if (key === 'conditions') {
-      add = {...value}
+      add = flattenObjectValues(value)
     } else {
       add['_' + key] = Array.isArray(value) ? value.join(',') : value
     }
@@ -187,3 +188,9 @@ export const requestQueryToUrlParams = queryObject =>
       ...add
     }
   }, {})
+
+export const flattenObjectValues = value =>
+  _reduce(value, (result, value, key) => ({
+    ...result,
+    [key]: _isObject(value) && value.value ? value.value : value
+  }), {})

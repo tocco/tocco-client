@@ -302,6 +302,23 @@ describe('app-extensions', () => {
             expect(result).to.eql(expectedModel)
           })
         })
+
+        describe('flattenObjectValues', () => {
+          test('should extract value attributes of object values', () => {
+            const values = {
+              'relUser.pk': {value: '1', display: 'Tocco'},
+              'firstname': 'Test'
+            }
+
+            const expectedResult = {
+              'relUser.pk': '1',
+              'firstname': 'Test'
+            }
+
+            const result = helpers.flattenObjectValues(values)
+            expect(result).to.eql(expectedResult)
+          })
+        })
       })
     })
   })
