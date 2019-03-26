@@ -23,7 +23,7 @@ const mapStateToProps = state => ({
   tooltips: state.formData.tooltips.data,
   searchFilters: state.formData.searchFilters,
   locations: state.formData.locations,
-  formState: state.form
+  formState: state.form.detailForm
 })
 
 const mapActionCreators = {

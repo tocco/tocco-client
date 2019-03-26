@@ -61,8 +61,8 @@ describe('app-extensions', () => {
         test('should return location suggestions', () => {
           const factory = editableValueFactory('location')
           const suggestions = [
-            {city: 'Zurich', plz: '8006', canton: 'ZH', district: 'Zurich', country: 'CH'},
-            {city: 'Bern', plz: '3000', district: 'Bern', country: 'CH'}
+            {city: 'Zurich', plz: '8006', canton: 'ZH', district: 'Zurich', country: {display: 'CH', key: 'CH'}},
+            {city: 'Bern', plz: '3000', district: 'Bern', country: {display: 'CH', key: 'CH'}}
           ]
           const util = {
             locations: {
@@ -75,7 +75,6 @@ describe('app-extensions', () => {
           const wrapper = mount(editableValue)
 
           const options = wrapper.prop('options')
-          expect(wrapper).to.have.type(EditableValue)
           expect(options.suggestions).to.eql(suggestions)
         })
 
@@ -92,7 +91,6 @@ describe('app-extensions', () => {
           const wrapper = mount(editableValue)
 
           const options = wrapper.prop('options')
-          expect(wrapper).to.have.type(EditableValue)
           expect(options.isLoading).to.eql(true)
         })
 
@@ -135,9 +133,7 @@ describe('app-extensions', () => {
         const props = {
           onChange: locationObject => {
             for (const key in formField.locationMapping) {
-              if (locationObject[key]) {
-                utils.changeFieldValue(formName, formField.locationMapping[key], locationObject[key])
-              }
+              utils.changeFieldValue(formName, formField.locationMapping[key], locationObject[key])
             }
           }
         }
@@ -145,26 +141,24 @@ describe('app-extensions', () => {
         const utils = {
           changeFieldValue: sinon.spy(),
           formState: {
-            detailForm: {
-              values: {
-                zip_c: '2306',
-                address_c: 'Bahnhofstrasse 1',
-                canton_c: 'ZH',
-                city_c: 'Zurich',
-                district_c: 'Zurich',
-                relCountry_c: {display: 'CH', key: 'CH'}
-              }
+            values: {
+              zip_c: '2306',
+              address_c: 'Bahnhofstrasse 1',
+              canton_c: 'ZH',
+              city_c: 'Zurich',
+              district_c: 'Zurich',
+              relCountry_c: {display: 'CH', key: 'CH'}
             }
           }
         }
 
         const locationObject = {
           zip: '2306',
-          address: 'Bahnhofstrasse 1',
+          street: 'Bahnhofstrasse 1',
           canton: 'ZH',
           city: 'Zurich',
           district: 'Zurich',
-          relCountry: {display: 'CH', key: 'CH'}
+          country: {display: 'CH', key: 'CH'}
         }
 
         const factory = editableValueFactory('location')
