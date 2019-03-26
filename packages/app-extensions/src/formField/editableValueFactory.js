@@ -1,33 +1,43 @@
 import React from 'react'
 import {EditableValue} from 'tocco-ui'
 import _get from 'lodash/get'
-import _mapKeys from 'lodash/mapKeys'
 
-const settings = {
-  REMOTE_SEARCH_RESULT_LIMIT: 50,
-  REMOTE_SUGGESTION_LIMIT: 10,
-  REMOTE_SUGGESTION_ORDER_FIELD: 'update_timestamp',
-  SELECT_LIMIT: 10000
+export default type =>
+  (formField, modelField, formName, data, events, utils) => {
+    const options = getOptions(type, formField, modelField, utils, formName)
+
+    overwriteValue(type, formField, formName, data, utils)
+
+    return <EditableValue type={type} events={events} {...data} options={options}/>
+  }
+
+const overwriteValue = (type, formField, formName, data, utils) => {
+  switch (type) {
+    case 'coordinate':
+      data.value = valueOverwriter[type](data.value)
+      break
+    case 'location':
+      valueOverwriter[type](type, formField, formName, data, utils)
+  }
+}
+
+export const setOnChange = (props, formName, utils, locationMapping) => {
+  props.onChange = locationObject => {
+    for (const key in locationMapping) {
+      utils.changeFieldValue(formName, locationMapping[key], locationObject[key])
+    }
+  }
 }
 
 export const valueOverwriter = {
   'coordinate': value => value.value,
   'location': (type, formField, formName, props, utils) => {
     const locationMapping = formField.locationMapping || {}
-    props.onChange = locationObject => {
-      for (const key in locationMapping) {
-        if (locationObject[key]) {
-          utils.changeFieldValue(formName, locationMapping[key], locationObject[key])
-        }
-      }
-    }
 
-    let formValues = {}
+    setOnChange(props, formName, utils, locationMapping)
 
-    const formState = utils.formState
-    if (formState && formState.detailForm) {
-      formValues = formState.detailForm.values
-    }
+    const formState = utils.formState ? utils.formState : {}
+    const formValues = formState.values ? formState.values : {}
 
     const locationMappingValues = Object.values(locationMapping)
 
@@ -38,27 +48,25 @@ export const valueOverwriter = {
         return obj
       }, {})
 
-    const renamedLocationData = _mapKeys(filteredLocationData, (value, key) => {
-      return key.replace(/_\S/, '')
-    })
+    let renamedLocationData = {}
+    for (const locKey in locationMapping) {
+      for (const filteredLocDataKey in filteredLocationData) {
+        if (locationMapping[locKey] === filteredLocDataKey) {
+          renamedLocationData = {...renamedLocationData, [locKey]: filteredLocationData[filteredLocDataKey]}
+        }
+      }
+    }
 
     props.value = renamedLocationData
   }
 }
 
-export default type =>
-  (formField, modelField, formName, data, events, utils) => {
-    const options = getOptions(type, formField, modelField, utils, formName)
-
-    if (valueOverwriter[type]) {
-      valueOverwriter[type](type, formField, formName, data, utils)
-    }
-
-    if (valueOverwriter[type]) {
-      data.value = valueOverwriter[type](data.value)
-    }
-    return <EditableValue type={type} events={events} {...data} options={options}/>
-  }
+const settings = {
+  REMOTE_SEARCH_RESULT_LIMIT: 50,
+  REMOTE_SUGGESTION_LIMIT: 10,
+  REMOTE_SUGGESTION_ORDER_FIELD: 'update_timestamp',
+  SELECT_LIMIT: 10000
+}
 
 const getOptions = (type, formField, modelField, utils, formName) => {
   const options = {}

@@ -12,11 +12,16 @@ import IconTocco from '../../IconTocco'
 export const getMapsAddress = locationInput => {
   const mapsBaseAddress = `https://www.google.com/maps/search/?api=1&query=`
   if (locationInput) {
-    let location = ''
+    const locationAcc = []
     for (const key in locationInput) {
-      location += `${locationInput[key]}+`
+      if (typeof locationInput[key] === 'string') {
+        locationAcc.push(locationInput[key])
+      }
+      if (typeof locationInput[key] === 'object') {
+        locationAcc.push(locationInput[key].display)
+      }
     }
-    return `${mapsBaseAddress}${location}`
+    return `${mapsBaseAddress}${locationAcc.join('+')}`
   }
   
   return mapsBaseAddress
@@ -44,10 +49,6 @@ class LocationEdit extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      valueZip: '',
-      valueCity: '',
-      suggestions: this.props.options.suggestions || [],
-
       zipFieldFocused: false,
       cityFieldFocused: false
     }
@@ -55,7 +56,6 @@ class LocationEdit extends React.Component {
 
   onChangeZip = (event, {newValue}) => {
     this.setState({
-      valueZip: newValue,
       zipFieldFocused: true,
       cityFieldFocused: false
     })
@@ -66,7 +66,6 @@ class LocationEdit extends React.Component {
 
   onChangeCity = (event, {newValue}) => {
     this.setState({
-      valueCity: newValue,
       zipFieldFocused: false,
       cityFieldFocused: true
     })
@@ -77,13 +76,13 @@ class LocationEdit extends React.Component {
 
   onSuggestionsFetchRequestedZip = ({value}) => {
     this.setState({
-      suggestions: getSuggestions(value, this.props.options.suggestions)
+      suggestions: getSuggestions(value, this.props.options.suggestions || [])
     })
   }
 
   onSuggestionsFetchRequestedCity = ({value}) => {
     this.setState({
-      suggestions: getSuggestions(value, this.props.options.suggestions)
+      suggestions: getSuggestions(value, this.props.options.suggestions || [])
     })
   }
 
@@ -124,7 +123,6 @@ class LocationEdit extends React.Component {
   }
 
   onSuggestionSelected = (event, {suggestion}) => {
-    this.setState({valueZip: suggestion.zip, valueCity: suggestion.city})
     this.props.onChange({
       zip: suggestion.zip,
       city: suggestion.city,
@@ -136,16 +134,14 @@ class LocationEdit extends React.Component {
   }
 
   render() {
-    const {valueZip, valueCity, suggestions} = this.state
-
     const inputPropsZip = {
-      value: valueZip,
+      value: this.props.value.zip || '',
       onChange: this.onChangeZip,
       readOnly: this.props.readOnly
     }
 
     const inputPropsCity = {
-      value: valueCity,
+      value: this.props.value.city || '',
       onChange: this.onChangeCity,
       readOnly: this.props.readOnly
     }
@@ -157,7 +153,7 @@ class LocationEdit extends React.Component {
       >
         <StyledZipInput>
           <Autosuggest
-            suggestions={suggestions}
+            suggestions={this.props.options.suggestions || []}
             onSuggestionsFetchRequested={this.onSuggestionsFetchRequestedZip}
             onSuggestionsClearRequested={this.onSuggestionsClearRequested}
             getSuggestionValue={returnGetSuggestion('zip')}
@@ -168,7 +164,7 @@ class LocationEdit extends React.Component {
           />
         </StyledZipInput>
         <Autosuggest
-          suggestions={suggestions}
+          suggestions={this.props.options.suggestions || []}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequestedCity}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
           getSuggestionValue={returnGetSuggestion('city')}
@@ -195,7 +191,10 @@ const locationObjectPropType = PropTypes.shape({
   city: PropTypes.string,
   zip: PropTypes.string,
   address: PropTypes.string,
-  country: PropTypes.string,
+  country: PropTypes.shape({
+    display: PropTypes.string,
+    key: PropTypes.string
+  }),
   canton: PropTypes.string,
   district: PropTypes.string
 })

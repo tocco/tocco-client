@@ -23,7 +23,7 @@ const suggestions = [
     canton: 'ZH',
     address: 'Bahnhofstrasse 1',
     district: 'Zurich',
-    country: 'CH'
+    country: {display: 'CH', key: 'CH'}
   },
   {
     city: 'Lausanne',
@@ -31,7 +31,7 @@ const suggestions = [
     canton: 'VD',
     address: 'Rue Saint Roche 1',
     district: 'VD',
-    country: 'CH'
+    country: {display: 'CH', key: 'CH'}
   },
   {
     city: 'Bern',
@@ -39,18 +39,21 @@ const suggestions = [
     canton: 'BE',
     address: 'Bundesplatz',
     district: 'Bern',
-    country: 'CH'
+    country: {display: 'CH', key: 'CH'}
   }
 ]
 
-const locationString = 'https://www.google.com/maps/search/?api=1&query=Zurich+2306+ZH+Bahnhofstrasse 1+Zurich+CH+'
+const locationString = 'https://www.google.com/maps/search/?api=1&query=Zurich+2306+ZH+Bahnhofstrasse 1+Zurich+CH'
 
 describe('tocco-ui', () => {
   describe('EditableValue', () => {
     describe('typeEditors', () => {
       describe('LocationEdit ', () => {
         test('should render LocationEdit', () => {
-          const wrapper = mount(<LocationEdit options={options}/>)
+          const wrapper = mount(<LocationEdit
+            options={options}
+            onChange={EMPTY_FUNC}
+            value={suggestions[0]}/>)
           expect(wrapper.find('input')).to.have.length(2)
         })
 
@@ -63,14 +66,16 @@ describe('tocco-ui', () => {
           expect(wrapper.props().value.zip).to.eql(suggestions[0].zip)
         })
 
-        test('should update valueZip in state', () => {
+        test('should update value zip', () => {
+          const spy = sinon.spy()
           const wrapper = mount(<LocationEdit
             options={options}
-            onChange={EMPTY_FUNC}
-            value={suggestions[0]}/>)
+            onChange={spy}
+            value={{}}
+          />)
 
-          wrapper.find('input').at(0).simulate('change', {target: {value: '23'}})
-          expect(wrapper.state().valueZip).to.eql('23')
+          wrapper.find('input.react-autosuggest__input').at(0).simulate('change', {target: {value: '23'}})
+          expect(wrapper.props().onChange).to.have.been.calledWith({zip: '23'})
         })
 
         test('should call fetchSuggestions with new value', () => {
