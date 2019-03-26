@@ -29,6 +29,9 @@ describe('app-extensions', () => {
           formData: {
             relationEntities: {data: {}},
             tooltips: {data: {}}
+          },
+          form: {
+            detailForm: {}
           }
         }))
 
@@ -69,6 +72,9 @@ describe('app-extensions', () => {
           formData: {
             relationEntities: {data: {}},
             tooltips: {data: {}}
+          },
+          form: {
+            detailForm: {}
           }
         }))
 

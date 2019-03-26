@@ -101,6 +101,9 @@ describe('entity-detail', () => {
             formData: {
               relationEntities: {data: {}},
               tooltips: {data: {}}
+            },
+            form: {
+              detailForm: {}
             }
           }))
 

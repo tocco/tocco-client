@@ -54,8 +54,11 @@ describe('entity-list', () => {
         const entityModel = require('../../dev/test-data/userModel.json')
         const searchFormDefinition = {}
 
-        const store = createStore(() => {
-        })
+        const store = createStore(() => ({
+          form: {
+            detailForm: {}
+          }
+        }))
 
         const wrapper = intlEnzyme.mountWithIntl(
           <Provider store={store}>
@@ -95,6 +98,9 @@ describe('entity-list', () => {
           formData: {
             relationEntities: {data: {}},
             tooltips: {data: {}}
+          },
+          form: {
+            detailForm: {}
           }
         }))
 
@@ -139,6 +145,9 @@ describe('entity-list', () => {
           formData: {
             relationEntities: {data: {}},
             tooltips: {data: {}}
+          },
+          form: {
+            detailForm: {}
           }
         }))
 
@@ -180,6 +189,9 @@ describe('entity-list', () => {
           formData: {
             relationEntities: {data: {}},
             tooltips: {data: {}}
+          },
+          form: {
+            detailForm: {}
           }
         }))
 
@@ -230,6 +242,9 @@ describe('entity-list', () => {
           formData: {
             relationEntities: {data: {}},
             tooltips: {data: {}}
+          },
+          form: {
+            detailForm: {}
           }
         }))
 
