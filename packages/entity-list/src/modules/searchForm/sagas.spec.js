@@ -9,8 +9,9 @@ import * as formActionTypes from 'redux-form/es/actionTypes'
 import rootSaga, * as sagas from './sagas'
 import * as actions from './actions'
 import {validateSearchFields} from '../../util/searchFormValidation'
-import {fetchForm} from '../../util/api/forms'
+import {fetchForm, getEndpoint} from '../../util/api/forms'
 import {setInitialized} from '../entityList/actions'
+import {setFormDefinition} from '../list/actions'
 
 import {put, select, call, fork, takeLatest, all} from 'redux-saga/effects'
 
@@ -50,8 +51,7 @@ describe('entity-list', () => {
         })
 
         describe('setInitialFormValues saga', () => {
-          test(
-            'should set initital form values (preselected and form definition)',
+          test('should set initial form values (preselected and form definition)',
             () => {
               const searchFormVisible = true
               const FORM_ID = 'searchForm'
@@ -62,7 +62,7 @@ describe('entity-list', () => {
                 {'id': 'first.name', 'type': 'string'},
                 {'id': 'defaultTest', type: 'string', defaultValue: 'default'}
               ]
-              const values = {'first--name': 'test', 'defaultTest': 'default'}
+              const expectedValues = {'first--name': 'test', 'defaultTest': 'default'}
 
               return expectSaga(sagas.setInitialFormValues, searchFormVisible, formDefinition)
                 .provide([
@@ -70,8 +70,44 @@ describe('entity-list', () => {
                   [matchers.call.fn(sagas.getEntityModel), entityModel],
                   [matchers.call.fn(form.getFieldDefinitions), fieldDefinitions]
                 ])
-                .put(formActions.initialize(FORM_ID, values))
+                .put(formActions.initialize(FORM_ID, expectedValues))
                 .put(actions.setValuesInitialized(true))
+                .run()
+            }
+          )
+
+          test('should set parent relation by default',
+            () => {
+              const FORM_ID = 'searchForm'
+              const parent = {key: '22', reverseRelationName: 'relWhatever'}
+              const expectedValues = {relWhatever: {key: '22'}}
+
+              return expectSaga(sagas.setInitialFormValues, false, null)
+                .provide([
+                  [select(sagas.inputSelector), {parent}],
+                  [matchers.call.fn(sagas.getListFormDefinition), null],
+                  [matchers.call.fn(getEndpoint), null]
+                ])
+                .put(formActions.initialize(FORM_ID, expectedValues))
+                .run()
+            }
+          )
+
+          test('should set parent relation if custom endpoint is defined',
+            () => {
+              const searchFormVisible = true
+              const FORM_ID = 'searchForm'
+              const parent = {key: '22', reverseRelationName: 'relWhatever'}
+              const formDefinition = {children: []}
+              const expectedValues = {}
+
+              return expectSaga(sagas.setInitialFormValues, searchFormVisible, formDefinition)
+                .provide([
+                  [select(sagas.inputSelector), {parent}],
+                  [matchers.call.fn(sagas.getListFormDefinition), null],
+                  [matchers.call.fn(getEndpoint), '/custom/']
+                ])
+                .put(formActions.initialize(FORM_ID, expectedValues))
                 .run()
             }
           )
@@ -177,6 +213,19 @@ describe('entity-list', () => {
               ])
               .dispatch(setInitialized())
               .returns(entityModel)
+              .run()
+          })
+        })
+
+        describe('getListFormDefinition saga', () => {
+          test('should return the ist form definition as soon as loaded', () => {
+            const formDefinition = {table: {}}
+            return expectSaga(sagas.getListFormDefinition)
+              .provide([
+                [select(sagas.listFromDefinitionSelector), null]
+              ])
+              .dispatch(setFormDefinition(formDefinition))
+              .returns(formDefinition)
               .run()
           })
         })
