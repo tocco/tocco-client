@@ -22,6 +22,7 @@ export default {
   'login': editableValueFactory('string'),
   'long': editableValueFactory('number'),
   'longitude': editableValueFactory('coordinate'),
+  'location': editableValueFactory('location'),
   'moneyamount': editableValueFactory('moneyamount'),
   'multi-remote-field': editableValueFactory('multi-remote'),
   'multi-select-box': editableValueFactory('multi-select'),

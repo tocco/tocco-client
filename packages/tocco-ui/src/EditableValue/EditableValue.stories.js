@@ -50,7 +50,39 @@ EditableValueStory.propTypes = {
   value: PropTypes.node
 }
 
+const suggestions = [
+  {
+    city: `Zurich`,
+    zip: '2306',
+    canton: 'ZH',
+    address: 'Bahnhofstrasse 1',
+    district: 'Zurich',
+    country: 'CH'
+  },
+  {
+    city: 'Lausanne',
+    zip: '3000',
+    canton: 'VD',
+    address: 'Rue Saint Roche 1',
+    district: 'VD',
+    country: 'CH'
+  },
+  {
+    city: 'Bern',
+    zip: '3450',
+    canton: 'BE',
+    address: 'Bundesplatz',
+    district: 'Bern',
+    country: 'CH'
+  }
+]
+
 const EMPTY_FUNC = () => {}
+
+const locationOptions = {
+  suggestions,
+  fetchSuggestions: EMPTY_FUNC
+}
 
 storiesOf('EditableValue', module)
   .addDecorator(withKnobs)
@@ -190,5 +222,22 @@ storiesOf('EditableValue', module)
       const minifiedMarkup = storybookHtmlMarkup.replace(/\n/g, '')
       return (<EditableValue type="html" value={minifiedMarkup} onChange={EMPTY_FUNC}/>)
     },
+    {info: {source: true}}
+  )
+  .add(
+    'Location',
+    () => <EditableValue
+      type="location"
+      options={{...locationOptions, isLoading: boolean('isLoading', false)}}
+      readOnly={boolean('readOnly', false)}
+      value={{
+        zip: text('zip', '8000') || undefined,
+        city: text('city', 'Zürich') || undefined,
+        address: text('address', 'Strasse 123') || undefined,
+        canton: text('canton', 'ZH') || undefined,
+        district: text('district', 'ZH') || undefined,
+        country: text('country', 'CH') || undefined
+      }}
+      onChange={EMPTY_FUNC}/>,
     {info: {source: true}}
   )

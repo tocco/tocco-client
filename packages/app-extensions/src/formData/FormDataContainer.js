@@ -9,6 +9,7 @@ import {openAdvancedSearch} from './advancedSearch/actions'
 import {changeFieldValue} from './values/actions'
 import {uploadDocument} from './upload/actions'
 import {loadSearchFilters} from './searchFilters/actions'
+import {loadLocationsSuggestions} from './locations/actions'
 
 const FormData = props =>
   <React.Fragment>{React.cloneElement(props.children, {utils: props})}</React.Fragment>
@@ -20,7 +21,9 @@ FormData.propTypes = {
 const mapStateToProps = state => ({
   relationEntities: state.formData.relationEntities.data,
   tooltips: state.formData.tooltips.data,
-  searchFilters: state.formData.searchFilters
+  searchFilters: state.formData.searchFilters,
+  locations: state.formData.locations,
+  formState: state.form.detailForm
 })
 
 const mapActionCreators = {
@@ -29,7 +32,8 @@ const mapActionCreators = {
   openAdvancedSearch: openAdvancedSearch,
   uploadDocument: uploadDocument,
   changeFieldValue: changeFieldValue,
-  loadSearchFilters: loadSearchFilters
+  loadSearchFilters: loadSearchFilters,
+  loadLocationsSuggestions: loadLocationsSuggestions
 }
 
 const FormDataContainer = connect(

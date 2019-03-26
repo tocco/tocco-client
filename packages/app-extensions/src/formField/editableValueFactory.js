@@ -2,27 +2,71 @@ import React from 'react'
 import {EditableValue} from 'tocco-ui'
 import _get from 'lodash/get'
 
+export default type =>
+  (formField, modelField, formName, data, events, utils) => {
+    const options = getOptions(type, formField, modelField, utils, formName)
+
+    overwriteValue(type, formField, formName, data, utils)
+
+    return <EditableValue type={type} events={events} {...data} options={options}/>
+  }
+
+const overwriteValue = (type, formField, formName, data, utils) => {
+  switch (type) {
+    case 'coordinate':
+      data.value = valueOverwriter[type](data.value)
+      break
+    case 'location':
+      valueOverwriter[type](type, formField, formName, data, utils)
+  }
+}
+
+export const setOnChange = (props, formName, utils, locationMapping) => {
+  props.onChange = locationObject => {
+    for (const key in locationMapping) {
+      utils.changeFieldValue(formName, locationMapping[key], locationObject[key])
+    }
+  }
+}
+
+export const valueOverwriter = {
+  'coordinate': value => value.value,
+  'location': (type, formField, formName, props, utils) => {
+    const locationMapping = formField.locationMapping || {}
+
+    setOnChange(props, formName, utils, locationMapping)
+
+    const formState = utils.formState ? utils.formState : {}
+    const formValues = formState.values ? formState.values : {}
+
+    const locationMappingValues = Object.values(locationMapping)
+
+    const filteredLocationData = Object.keys(formValues)
+      .filter(key => locationMappingValues.includes(key))
+      .reduce((obj, key) => {
+        obj[key] = formValues[key]
+        return obj
+      }, {})
+
+    let renamedLocationData = {}
+    for (const locKey in locationMapping) {
+      for (const filteredLocDataKey in filteredLocationData) {
+        if (locationMapping[locKey] === filteredLocDataKey) {
+          renamedLocationData = {...renamedLocationData, [locKey]: filteredLocationData[filteredLocDataKey]}
+        }
+      }
+    }
+
+    props.value = renamedLocationData
+  }
+}
+
 const settings = {
   REMOTE_SEARCH_RESULT_LIMIT: 50,
   REMOTE_SUGGESTION_LIMIT: 10,
   REMOTE_SUGGESTION_ORDER_FIELD: 'update_timestamp',
   SELECT_LIMIT: 10000
 }
-
-const valueOverwriter = {
-  'coordinate': value => value.value
-}
-
-export default type =>
-  (formField, modelField, formName, data, events, utils) => {
-    const options = getOptions(type, formField, modelField, utils, formName)
-
-    if (valueOverwriter[type]) {
-      data.value = valueOverwriter[type](data.value)
-    }
-
-    return <EditableValue type={type} events={events} {...data} options={options}/>
-  }
 
 const getOptions = (type, formField, modelField, utils, formName) => {
   const options = {}
@@ -114,6 +158,11 @@ const getOptions = (type, formField, modelField, utils, formName) => {
       options.prePointDigits = _get(modelField, 'validation.decimalDigits.prePointDigits', null)
       options.minValue = _get(modelField, 'validation.numberRange.fromIncluding', null)
       options.maxValue = _get(modelField, 'validation.numberRange.toIncluding', null)
+      break
+    case 'location':
+      options.fetchSuggestions = searchTerm => utils.loadLocationsSuggestions(formField.id, searchTerm)
+      options.isLoading = _get(utils, ['locations', formField.id, 'isLoading'], false)
+      options.suggestions = _get(utils, ['locations', formField.id, 'suggestions'], null)
   }
 
   return options
