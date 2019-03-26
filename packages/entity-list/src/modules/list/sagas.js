@@ -182,7 +182,7 @@ export function* preloadNextPage(currentPage) {
   let {entityCount} = list
   const nextPage = currentPage + 1
 
-  if (entityCount === null) {
+  if (entityCount === null || entityCount === undefined) {
     const setCountAction = yield take(actions.SET_ENTITY_COUNT)
     entityCount = setCountAction.payload.entityCount
   }
