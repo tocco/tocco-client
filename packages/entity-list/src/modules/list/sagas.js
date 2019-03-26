@@ -11,7 +11,7 @@ import {getSearchFormValues} from '../searchForm/sagas'
 import {fetchForm, getSorting, getSelectable, getEndpoint, getFields} from '../../util/api/forms'
 import {entitiesListTransformer, fetchModel} from '../../util/api/entities'
 
-import {call, put, fork, select, spawn, takeEvery, takeLatest, all} from 'redux-saga/effects'
+import {call, put, fork, select, spawn, takeEvery, takeLatest, all, take} from 'redux-saga/effects'
 
 export const inputSelector = state => state.input
 export const entityListSelector = state => state.entityList
@@ -166,15 +166,30 @@ export function* fetchEntitiesAndAddToStore(page) {
 }
 
 export function* requestEntities(page) {
-  const list = yield select(listSelector)
-  const {entityStore} = list
+  const {entityStore} = yield select(listSelector)
 
   if (!entityStore[page]) {
     yield call(fetchEntitiesAndAddToStore, page)
   }
 
   yield call(displayEntity, page)
-  yield spawn(fetchEntitiesAndAddToStore, page + 1)
+  yield spawn(preloadNextPage, page)
+}
+
+export function* preloadNextPage(currentPage) {
+  const list = yield select(listSelector)
+  const {entityStore, limit} = list
+  let {entityCount} = list
+  const nextPage = currentPage + 1
+
+  if (entityCount === null) {
+    const setCountAction = yield take(actions.SET_ENTITY_COUNT)
+    entityCount = setCountAction.payload.entityCount
+  }
+
+  if (currentPage * limit < entityCount && !entityStore[nextPage]) {
+    yield call(fetchEntitiesAndAddToStore, nextPage)
+  }
 }
 
 export function* displayEntity(page) {
