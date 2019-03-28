@@ -9,7 +9,7 @@ export default {
     signal: {
       danger: {
         paper: '#EF9A9A', // Red 200
-        text: '#D32F2F' // Red 700
+        text: '#B71C1C' // Red 900
       },
       info: {
         paper: '#81D4FA', // Light Blue 200
@@ -17,11 +17,11 @@ export default {
       },
       success: {
         paper: '#A5D6A7', // Green 200
-        text: '#388E3C' // Green 700
+        text: '#1B5E20' // Green 900
       },
       warning: {
-        paper: '#FFE082', // Amber 200
-        text: '#FFA000' // Amber 700
+        paper: '#FFF59D', // Yellow 200
+        text: '#F57F17' // Yellow 900
       }
     }
   },
