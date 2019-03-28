@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 class ThemeWrapper extends React.PureComponent {
   render() {
     const {theme, appTheme} = this.props
-    const mergedTheme = _merge({}, theme || ToccoTheme, appTheme)
+    const mergedTheme = _merge({}, theme, appTheme)
 
     return <ThemeProvider theme={mergedTheme}>
       <React.Fragment>
@@ -17,6 +17,10 @@ class ThemeWrapper extends React.PureComponent {
       </React.Fragment>
     </ThemeProvider>
   }
+}
+
+ThemeWrapper.defaultProps = {
+  theme: ToccoTheme
 }
 
 ThemeWrapper.propTypes = {
