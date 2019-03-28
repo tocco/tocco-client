@@ -10,9 +10,9 @@ import {
 } from './StyledStatedValue'
 
 describe('tocco-ui', () => {
-  describe('Button', () => {
+  describe('StatedValue', () => {
     test('should show content', () => {
-      const wrapper = mount(<StatedValue content={<input key="StatedValueContent"/>} />)
+      const wrapper = mount(<StatedValue><input key="StatedValueContent"/></StatedValue>)
       expect(wrapper.find(StyledStatedValueBox).children().children().children()).to.have.length(2)
       expect(wrapper.find('input')).to.have.length(1)
     })

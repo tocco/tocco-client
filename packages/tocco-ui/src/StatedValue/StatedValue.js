@@ -25,7 +25,7 @@ const detectSignal = (dirty, hasError) => {
  */
 const StatedValue = props => {
   const {
-    content,
+    children,
     description,
     dirty,
     error,
@@ -44,7 +44,7 @@ const StatedValue = props => {
       <StyledStatedValueBox
         hasValue={hasValue}
         signal={signal}>
-        {content}
+        {children}
         <StyledStatedValueLabel
           hasValue={hasValue}
           signal={signal}
@@ -66,7 +66,7 @@ StatedValue.propTypes = {
   /**
    * A component to enter or display data.
    */
-  content: PropTypes.node,
+  children: PropTypes.node,
   /**
    * A helper text to instruct users.
    */
