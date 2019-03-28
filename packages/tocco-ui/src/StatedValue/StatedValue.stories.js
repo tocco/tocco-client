@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {storiesOf} from '@storybook/react'
 import {withKnobs, boolean, select, text} from '@storybook/addon-knobs'
 
@@ -12,7 +13,67 @@ const errors = {
   }
 }
 
-const content = <input id="input" style={{width: '100%', border: 0, outline: 0}} />
+class StatedValueWrapper extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      hasValue: props.value.length > 0 || false,
+      value: props.value
+    }
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleChange(event) {
+    this.setState({
+      dirty: event.target.value !== this.props.value,
+      hasValue: event.target.value.length > 0,
+      touched: true,
+      value: event.target.value
+    })
+  }
+
+  render() {
+    const {
+      id,
+      knobs
+    } = this.props
+
+    const {
+      dirty,
+      hasValue,
+      touched,
+      value
+    } = this.state
+
+    return (
+      <StatedValue
+        {...knobs}
+        dirty={dirty}
+        hasValue={hasValue}
+        id={id}
+        key={id}
+        touched={touched}>
+        <input
+          id={id}
+          onChange={this.handleChange}
+          style={{width: '100%', border: 0, outline: 0}}
+          type="text"
+          value={value}
+        />
+      </StatedValue>
+    )
+  }
+}
+
+StatedValueWrapper.defaultProps = {
+  value: ''
+}
+
+StatedValueWrapper.propTypes = {
+  id: PropTypes.string,
+  value: PropTypes.string,
+  knobs: PropTypes.object
+}
 
 storiesOf('StatedValue', module)
   .addDecorator(withKnobs)
@@ -21,28 +82,29 @@ storiesOf('StatedValue', module)
     () => {
       const knobs = {
         description: text('description', 'A helper text to instruct users.'),
-        dirty: boolean('dirty', false) || undefined,
         error: select('error', {
-          'mixed errors': errors.mixed,
-          'no errors': errors.no
-        }, errors.mixed),
-        hasValue: boolean('hasValue', false) || undefined,
+          'no errors': errors.no,
+          'mixed errors': errors.mixed
+        }),
         label: text('label', 'label'),
-        mandatory: boolean('mandatory', false) || undefined,
-        touched: boolean('touched', false) || undefined
+        mandatory: boolean('mandatory', false) || undefined
       }
       return [
-        <StatedValue
-          {...knobs}
-          content={content}
-          id="input"
+        <StatedValueWrapper
+          id="input-1"
           key="input-1"
+          knobs={knobs}
         />,
-        <StatedValue
-          {...knobs}
-          content={content}
-          id="input"
+        <StatedValueWrapper
+          id="input-2"
           key="input-2"
+          knobs={knobs}
+          value="initial value"
+        />,
+        <StatedValueWrapper
+          id="input-3"
+          key="input-3"
+          knobs={knobs}
         />
       ]
     }
