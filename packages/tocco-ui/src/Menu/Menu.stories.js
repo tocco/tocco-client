@@ -17,6 +17,7 @@ storiesOf('Menu', module)
         <Menu.Stack look="flat">
           <Menu.Item><Button label="<Button>"/></Menu.Item>
           <Menu.Item><Button ink="primary" label="<Button primary>"/></Menu.Item>
+          <hr/>
           <Menu.Item><ButtonLink href="#Menu" label="<ButtonLink>"/></Menu.Item>
           <Menu.Item><ButtonLink href="#Menu" ink="primary" label="<ButtonLink primary>"/></Menu.Item>
         </Menu.Stack>

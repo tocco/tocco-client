@@ -18,7 +18,7 @@ const StyledEditableWrapperCss = css`
   border-radius: ${theme.radii('regular')};
   cursor: ${props => props.readOnly ? 'not-allowed' : 'default'};
   display: flex;
-  padding: ${props => scale.space(props.theme, -2)} ${props => scale.space(props.theme, -1)};
+  padding: ${scale.space(-2)} ${scale.space(-1)};
   ${props => declareFocus(props)}
 `
 
@@ -56,8 +56,8 @@ const StyledEditableControlCss = css`
   > a,
   > button,
   > span > button {
-    margin-left: ${props => scale.space(props.theme, -2)};
-    margin-right: -${props => scale.space(props.theme, -2)};
+    margin-left: ${scale.space(-2)};
+    margin-right: -${scale.space(-2)};
     min-width: 2.6rem;
   }
 `

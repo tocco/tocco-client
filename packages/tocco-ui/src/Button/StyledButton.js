@@ -18,7 +18,7 @@ const meltButtons = props => {
   if (!props.melt && props.look === design.look.RAISED) {
     declaration = `
       &:not(:last-child) {
-        margin-right: ${scale.space(props.theme, -1)};
+        margin-right: ${scale.space(-1)(props)};
       }
     `
   } else if (props.melt) {
@@ -79,7 +79,7 @@ const declareBall = props => {
       min-width: calc(1rem
         * ${theme.fontSize('base')(props)}
         * ${theme.lineHeight('regular')(props)}
-        + 2 * ${scale.space(props.theme, -3)});
+        + 2 * ${scale.space(-3)(props)});
 
       // increase height to the size of width
       &:before {

@@ -16,7 +16,7 @@ const StyledModalContent = styled.div.attrs({
     box-shadow: 2px 2px 10px rgba(0, 0, 0, .4);         // reset: react-redux-toastr (confirm.scss)
     left: 0;                                            // reset: react-redux-toastr (confirm.scss)
     margin-left: ${Math.ceil(gutterWidth / 2)}px;       // reset: react-redux-toastr (confirm.scss)
-    padding: ${props => scale.space(props.theme, -1)};  // reset: react-redux-toastr (confirm.scss)
+    padding: ${scale.space(-1)};                        // reset: react-redux-toastr (confirm.scss)
     width: calc(100% - ${gutterWidth}px);
 
     @media (min-width: ${modalWidth + gutterWidth}px) {

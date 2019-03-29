@@ -28,6 +28,8 @@ const reactSelectStyles = outerTheme => {
     action: getLuminance(outerTheme.colors.paper) > 0.5 ? 'darken' : 'lighten'
   })
   const infoText = outerTheme.colors.signal.info.text
+  const space1 = scale.space(-1)({theme: outerTheme})
+  const space2 = scale.space(-2)({theme: outerTheme})
   const typography = {
     color: text[0],
     fontFamily: outerTheme.fontFamily.regular,
@@ -83,14 +85,14 @@ const reactSelectStyles = outerTheme => {
     indicatorsContainer: (base, state) => ({
       ...base,
       '> span': {
-        marginRight: `${scale.space(outerTheme, -2)}`
+        marginRight: `${space2}`
       },
       '> span > button': {
         width: '2.6rem'
       }
     }),
     input: (base, state) => ({
-      margin: `0 0 ${scale.space(outerTheme, -2)} 0`
+      margin: `0 ${space2} ${space2} 0`
     }),
     menuList: (base, state) => ({
       ...base,
@@ -99,7 +101,7 @@ const reactSelectStyles = outerTheme => {
     multiValue: (base, state) => ({
       ...base,
       borderRadius: outerTheme.radii.regular,
-      margin: `0 ${scale.space(outerTheme, -2)} ${scale.space(outerTheme, -2)} 0`
+      margin: `0 ${space2} ${space2} 0`
     }),
     multiValueLabel: (base, state) => ({
       ...base,
@@ -122,11 +124,11 @@ const reactSelectStyles = outerTheme => {
     singleValue: (base, state) => ({
       ...base,
       color: text[0],
-      margin: `0 ${scale.space(outerTheme, -2)}`
+      margin: `0 ${space2}`
     }),
     valueContainer: (base, state) => ({
       ...base,
-      padding: `${scale.space(outerTheme, -2)} ${scale.space(outerTheme, -1)} 0 ${scale.space(outerTheme, -2)}`
+      padding: `${space2} ${space1} 0 ${space2}`
     })
   }
 }

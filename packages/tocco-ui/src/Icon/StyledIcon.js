@@ -8,7 +8,7 @@ const getSpacing = props => {
   let left = 0
   let right = 0
 
-  const space = (props.dense) ? scale.space(props.theme, -4) : scale.space(props.theme, -3)
+  const space = (props.dense) ? scale.space(-4)(props) : scale.space(-3)(props)
 
   if (props.position === design.position.APPEND || props.position === design.position.BETWEEN) {
     left = space

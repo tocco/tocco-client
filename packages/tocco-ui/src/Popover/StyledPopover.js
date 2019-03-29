@@ -25,7 +25,7 @@ const StyledBox = styled('div')`
     display: flex;
     border: ${BORDER_WIDTH}px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 1)};
     border-radius: ${theme.radii('regular')};
-    padding: ${props => props.rimless ? '0' : scale.space(props.theme, -1)};
+    padding: ${props => props.rimless ? '0' : scale.space(-1)};
     ${props => props.isPlainHtml && declareTypograhpy(props, 'html')}
   }
 `

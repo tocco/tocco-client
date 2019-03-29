@@ -8,7 +8,7 @@ export default styled.div`
   float: right;
 
   > *:not(:last-child) {
-    margin-right: ${props => scale.space(props.theme, -1)};
+    margin-right: ${scale.space(-1)};
   }
 
   ${StyledButtonGroup} {
