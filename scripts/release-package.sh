@@ -26,7 +26,7 @@ fi
 read -p "${color_green}Edit the changelog and press ENTER to continue${color_reset}"
 
 git commit -m "docs(${package}): changelog ${new_version}" ${changelog_file}
-echo "publishing ${package} with version ${new_version}"
+echo "releasing and publishing ${package} with version ${new_version}"
 yarn publish --new-version ${new_version}
 echo "${color_green}Published! Now you push!${color_reset}"
 echo "---------------------"
