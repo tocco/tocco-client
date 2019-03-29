@@ -8,9 +8,9 @@ const StyledView = styled.div`
 
     > div {
       position: absolute;
-      top: ${props => scale.space(props.theme, -1)};
-      right: ${props => scale.space(props.theme, -1)};
-      left: ${props => scale.space(props.theme, -1)};
+      top: ${scale.space(-1)};
+      right: ${scale.space(-1)};
+      left: ${scale.space(-1)};
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
