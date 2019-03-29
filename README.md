@@ -20,7 +20,7 @@ Initial project structure is based on:
 https://github.com/davezuko/react-redux-starter-kit.
 
 ## Documentation
-How to setup the project, how to contribute and much more is documented in the [Read the docs Client Documentation](https://tocco-docs.readthedocs.io/en/latest/framework/client/index.html)
+How to setup the project, to contribute and much more is documented in the [Read the docs Client Documentation](https://tocco-docs.readthedocs.io/en/latest/framework/client/index.html)
 
 Since this project heavily uses Redux and Sagas, you should be aware of it's concepts and also ES6.
 A good starting point can be found in these docs:
