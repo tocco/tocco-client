@@ -1,10 +1,10 @@
 import styled from 'styled-components'
-import _get from 'lodash/get'
 
 import StyledMenu from './StyledMenu'
 import {
+  design,
   scale,
-  design
+  theme
 } from '../utilStyles'
 
 const StyledMenuBar = styled(StyledMenu)`
@@ -23,7 +23,7 @@ const StyledMenuBar = styled(StyledMenu)`
 
     > hr {
       border: none;
-      border-left: 1px solid ${props => _get(props.theme, 'colors.text')};
+      border-left: 1px solid ${theme.color('text')};
       display: list-item;
       height: auto;
       margin: 0;

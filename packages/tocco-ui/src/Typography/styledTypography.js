@@ -4,14 +4,15 @@ import _get from 'lodash/get'
 import {
   declareFont,
   scale,
-  shadeColor
+  shadeColor,
+  theme
 } from '../utilStyles'
 
 export const declareTypograhpy = (props, mode) => {
   let css = `
     ${declareFont(props)}
     a {
-      color: ${props => _get(props.theme, 'colors.primary')}
+      color: ${theme.color('primary')(props)}
       text-decoration: none;
 
       &:hover,
@@ -27,7 +28,7 @@ export const declareTypograhpy = (props, mode) => {
 
     b,
     strong {
-      font-weight: ${props => _get(props.theme, 'fontWeights.bold')}
+      font-weight: ${theme.fontWeight('bold')(props)}
     }
 
     em,
@@ -39,12 +40,12 @@ export const declareTypograhpy = (props, mode) => {
       text-decoration: underline;
     }
 
-    h1 {font-size: ${scale.font(props.theme, 5)}}
-    h2 {font-size: ${scale.font(props.theme, 4)}}
-    h3 {font-size: ${scale.font(props.theme, 3)}}
-    h4 {font-size: ${scale.font(props.theme, 2)}}
-    h5 {font-size: ${scale.font(props.theme, 1)}}
-    h6 {font-size: ${props => _get(props.theme, 'fontSize.base')}rem}
+    h1 {font-size: ${scale.font(props.theme, 5)};}
+    h2 {font-size: ${scale.font(props.theme, 4)};}
+    h3 {font-size: ${scale.font(props.theme, 3)};}
+    h4 {font-size: ${scale.font(props.theme, 2)};}
+    h5 {font-size: ${scale.font(props.theme, 1)};}
+    h6 {font-size: ${scale.font(props.theme, 0)};}
 
     h1,
     h2,
@@ -52,8 +53,8 @@ export const declareTypograhpy = (props, mode) => {
     h4,
     h5,
     h6 {
-      font-weight: ${props => _get(props.theme, 'fontWeights.bold')};
-      margin-top: ${props => _get(props.theme, 'space.base')}rem;
+      font-weight: ${theme.fontWeight('bold')(props)};
+      margin-top: ${theme.space('base')(props)}rem;
       margin-bottom: ${scale.space(props.theme, -1)};
 
       + h1,

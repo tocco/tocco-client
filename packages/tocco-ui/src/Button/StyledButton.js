@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import _get from 'lodash/get'
 
 import {StyledButtonGroup} from '../ButtonGroup'
 import {
@@ -8,7 +7,8 @@ import {
   declareInteractionColors,
   design,
   generateInteractionColors,
-  scale
+  scale,
+  theme
 } from '../utilStyles'
 
 let scheme
@@ -26,13 +26,13 @@ const meltButtons = props => {
       border-radius: 0;
 
       &:first-child {
-        border-top-left-radius: ${props => _get(props.theme, 'radii.regular')};
-        border-bottom-left-radius: ${props => _get(props.theme, 'radii.regular')};
+        border-top-left-radius: ${theme.radii('regular')(props)};
+        border-bottom-left-radius: ${theme.radii('regular')(props)};
       }
 
       &:last-child {
-        border-top-right-radius: ${props => _get(props.theme, 'radii.regular')};
-        border-bottom-right-radius: ${props => _get(props.theme, 'radii.regular')};
+        border-top-right-radius: ${theme.radii('regular')(props)};
+        border-bottom-right-radius: ${theme.radii('regular')(props)};
       }
     `
   }
@@ -77,8 +77,8 @@ const declareBall = props => {
 
       // ensure that width has at least the size of height
       min-width: calc(1rem
-        * ${_get(props.theme, 'fontSize.base')}
-        * ${_get(props.theme, 'lineHeights.regular')}
+        * ${theme.fontSize('base')(props)}
+        * ${theme.lineHeight('regular')(props)}
         + 2 * ${scale.space(props.theme, -3)});
 
       // increase height to the size of width
@@ -95,7 +95,7 @@ const StyledButton = styled.button`
   && {
     align-items: center;
     background-image: none;
-    border-radius: ${props => _get(props.theme, 'radii.regular')};
+    border-radius: ${theme.radii('regular')};
     border: none;
     display: inline-flex;
     margin: 0;
