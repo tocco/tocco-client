@@ -1,10 +1,10 @@
 import styled from 'styled-components'
-import _get from 'lodash/get'
 
 import StyledMenu from './StyledMenu'
 import {
+  design,
   scale,
-  design
+  theme
 } from '../utilStyles'
 
 const StyledMenuButtonGroup = styled(StyledMenu)`
@@ -15,7 +15,7 @@ const StyledMenuButtonGroup = styled(StyledMenu)`
 
     > hr {
       border: none;
-      border-left: 1px solid ${props => _get(props.theme, 'colors.text')};
+      border-left: 1px solid ${theme.color('text')};
       display: list-item;
       height: auto;
       margin: 0;
@@ -37,16 +37,16 @@ const StyledMenuButtonGroup = styled(StyledMenu)`
       &:first-child {
         > a,
         > button {
-          border-top-left-radius: ${props => _get(props.theme, 'radii.regular')};
-          border-bottom-left-radius: ${props => _get(props.theme, 'radii.regular')};
+          border-top-left-radius: ${theme.radii('regular')};
+          border-bottom-left-radius: ${theme.radii('regular')};
         }
       }
 
       &:last-child {
         > a,
         > button {
-          border-top-right-radius: ${props => _get(props.theme, 'radii.regular')};
-          border-bottom-right-radius: ${props => _get(props.theme, 'radii.regular')};
+          border-top-right-radius: ${theme.radii('regular')};
+          border-bottom-right-radius: ${theme.radii('regular')};
         }
       }
     }

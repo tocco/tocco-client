@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import _get from 'lodash/get'
+import {theme} from 'tocco-ui'
 
 const StyledMergeMatrix = styled.div`
   && {
@@ -22,7 +22,7 @@ const StyledMergeMatrix = styled.div`
     }
 
     label.selection-label {
-      font-weight: ${props => _get(props.theme, 'fontWeights.regular')};
+      font-weight: ${theme.fontWeight('regular')};
       margin: 0 .3rem;
     }
   }

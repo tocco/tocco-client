@@ -1,15 +1,14 @@
-import _get from 'lodash/get'
-
+import {theme} from '../utilStyles'
 import objectToCss from './objectToCss'
 
 const declareFont = (props, options) => {
   options = Object.assign({
-    color: _get(props.theme, 'colors.text'),
-    fontFamily: _get(props.theme, 'fontFamily.regular'),
-    fontSize: `${_get(props.theme, 'fontSize.base')}rem`,
+    color: theme.color('text')(props),
+    fontFamily: theme.fontFamily('regular')(props),
+    fontSize: `${theme.fontSize('base')(props)}rem`,
     fontStyle: 'normal',
-    fontWeight: _get(props.theme, 'fontWeights.regular'),
-    lineHeight: _get(props.theme, 'lineHeights.regular')
+    fontWeight: theme.fontWeight('regular')(props),
+    lineHeight: theme.lineHeight('regular')(props)
   }, options)
 
   const declarations = {

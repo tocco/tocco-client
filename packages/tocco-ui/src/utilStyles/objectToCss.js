@@ -1,4 +1,4 @@
-import _get from 'lodash/get'
+import {theme} from '../utilStyles'
 
 /**
  * parse object as css, additionally request values from theme
@@ -18,9 +18,9 @@ const objectToCss = (declarations, props) => {
     if (Array.isArray(value)) {
       const themePath = value.shift()
       if (value.length === 0) {
-        cssValue = _get(props.theme, themePath, 0)
+        cssValue = theme.path(themePath, 0)(props)
       } else {
-        const values = value.map(themeIndex => _get(props.theme, themePath, 0)[themeIndex])
+        const values = value.map(themeIndex => theme.path(themePath, 0)(props)[themeIndex])
         cssValue = values.join(' ')
       }
     } else {

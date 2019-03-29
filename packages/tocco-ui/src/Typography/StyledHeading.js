@@ -1,5 +1,4 @@
-import styled from 'styled-components'
-import _get from 'lodash/get'
+import styled, {css} from 'styled-components'
 
 import {
   declareFont,
@@ -28,14 +27,13 @@ const declareHeaderFont = props => {
       fontSize = scale.font(props.theme, 1)
       break
     default:
-      fontSize = `${props => _get(props.theme, 'fontSize.base')}rem`
+      fontSize = scale.font(props.theme, 0)
   }
   return declareFont(props, {fontWeight: 700, fontSize})
 }
 
-const declareSpace = props =>
-  `
-    margin-top: ${props => _get(props.theme, 'space.base')}rem;
+const declareSpace = props => css`
+    margin-top: ${scale.space(props.theme, 0)};
     margin-bottom: ${scale.space(props.theme, -1)};
 
     h1 + &,

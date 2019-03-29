@@ -4,7 +4,8 @@ import _get from 'lodash/get'
 import {declareTypograhpy} from '../Typography'
 import {
   scale,
-  shadeColor
+  shadeColor,
+  theme
 } from '../utilStyles'
 
 const BORDER_WIDTH = 1
@@ -20,10 +21,10 @@ const StyledBoxWrapper = styled('div')`
 
 const StyledBox = styled('div')`
   && {
-    background-color: ${props => _get(props.theme, 'colors.paper')};
+    background-color: ${theme.color('paper')};
     display: flex;
     border: ${BORDER_WIDTH}px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 1)};
-    border-radius: ${props => _get(props.theme, 'radii.regular')};
+    border-radius: ${theme.radii('regular')};
     padding: ${props => props.rimless ? '0' : scale.space(props.theme, -1)};
     ${props => props.isPlainHtml && declareTypograhpy(props, 'html')}
   }
