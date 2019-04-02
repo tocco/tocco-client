@@ -10,7 +10,7 @@ import {
 
 export const declareTypograhpy = (props, mode) => {
   let css = `
-    ${declareFont(props)}
+    ${declareFont()}
     a {
       color: ${theme.color('primary')(props)}
       text-decoration: none;

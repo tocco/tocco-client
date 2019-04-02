@@ -10,7 +10,7 @@ import {
 } from '../utilStyles'
 
 const StyledLink = styled.a`
-  ${props => declareFont(props)}
+  ${declareFont()}
   ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
 
   && {

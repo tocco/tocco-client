@@ -37,7 +37,7 @@ const StyledInputCss = css`
   min-width: 0;
   outline: 0;
   padding: 0;
-  ${props => declareFont(props)}
+  ${declareFont()}
   &::-ms-clear {
     display: none;
   }

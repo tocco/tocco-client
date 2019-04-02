@@ -29,7 +29,7 @@ const declareHeaderFont = props => {
     default:
       fontSize = scale.font(0)(props)
   }
-  return declareFont(props, {fontWeight: 700, fontSize})
+  return declareFont({fontWeight: 700, fontSize})
 }
 
 const declareSpace = props => css`

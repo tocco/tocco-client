@@ -105,7 +105,7 @@ const StyledButton = styled.button`
       outline: none;
     }
 
-    ${props => declareFont(props)}
+    ${declareFont()}
     ${props => declareButtonColor(props)}
     ${props => declareDensity(props)}
     ${props => props.iconPosition === design.position.APPEND && declareIconPosition}

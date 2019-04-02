@@ -9,7 +9,7 @@ import {
 
 const StyledDd = styled.dd`
   && {
-    ${props => declareFont(props)}
+    ${declareFont()}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     margin: 0;
   }
@@ -27,7 +27,7 @@ const StyledDl = styled.dl`
 
 const StyledDt = styled.dt`
   && {
-    ${props => declareFont(props, {fontWeight: 700})}
+    ${declareFont({fontWeight: 700})}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     margin: 0;
   }
@@ -35,7 +35,7 @@ const StyledDt = styled.dt`
 
 const StyledLi = styled.li`
   && {
-    ${props => declareFont(props)}
+    ${declareFont()}
     ${declareWrappingText()}
   }
 `

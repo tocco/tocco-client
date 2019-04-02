@@ -1,26 +1,17 @@
-import {theme} from '../utilStyles'
-import objectToCss from './objectToCss'
+import {css} from 'styled-components'
 
-const declareFont = (props, options) => {
-  options = Object.assign({
-    color: theme.color('text')(props),
-    fontFamily: theme.fontFamily('regular')(props),
-    fontSize: `${theme.fontSize('base')(props)}rem`,
-    fontStyle: 'normal',
-    fontWeight: theme.fontWeight('regular')(props),
-    lineHeight: theme.lineHeight('regular')(props)
-  }, options)
+import {
+  scale,
+  theme
+} from '../utilStyles'
 
-  const declarations = {
-    'color': options.color,
-    'font-family': options.fontFamily,
-    'font-size': options.fontSize,
-    'font-style': options.fontStyle,
-    'font-weight': options.fontWeight,
-    'line-height': options.lineHeight
-  }
-
-  return objectToCss(declarations)
-}
+const declareFont = (options = {}) => css`
+  color: ${options.color || theme.color('text')};
+  font-family: ${options.fontFamily || theme.fontFamily('regular')};
+  font-size: ${options.fontSize || scale.font(0)};
+  font-style: ${options.fontStyle || 'normal'};
+  font-weight: ${options.fontWeight || theme.fontWeight('regular')};
+  line-height: ${options.lineHeight || theme.lineHeight('regular')};
+`
 
 export default declareFont
