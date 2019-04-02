@@ -10,7 +10,7 @@ import {
 } from '../utilStyles'
 
 const StyledUploadInput = styled.div`
-  ${props => declareFont(props)}
+  ${declareFont()}
   border: dashed 1px ${props => shadeColor(_get(props.theme, 'colors.paper'), 1)};
   border-radius: ${theme.radii('regular')};
   padding: ${scale.space(-2)} ${scale.space(-1)};
