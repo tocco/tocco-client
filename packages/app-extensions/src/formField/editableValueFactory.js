@@ -2,51 +2,46 @@ import React from 'react'
 import {EditableValue} from 'tocco-ui'
 import _get from 'lodash/get'
 
+const settings = {
+  REMOTE_SEARCH_RESULT_LIMIT: 50,
+  REMOTE_SUGGESTION_LIMIT: 10,
+  REMOTE_SUGGESTION_ORDER_FIELD: 'update_timestamp',
+  SELECT_LIMIT: 10000
+}
+
 export default type =>
   (formField, modelField, formName, data, events, utils) => {
     const options = getOptions(type, formField, modelField, utils, formName)
 
-    overwriteValue(type, formField, formName, data, utils)
+    if (methodOverwriter[type]) {
+      methodOverwriter[type](formField, formName, data, utils)
+    }
+    if (valueOverwriter[type]) {
+      valueOverwriter[type](formField, formName, data, utils)
+    }
 
     return <EditableValue type={type} events={events} {...data} options={options}/>
   }
 
-const overwriteValue = (type, formField, formName, data, utils) => {
-  switch (type) {
-    case 'coordinate':
-      data.value = valueOverwriter[type](data.value)
-      break
-    case 'location':
-      valueOverwriter[type](type, formField, formName, data, utils)
-  }
-}
-
-export const setOnChange = (props, formName, utils, locationMapping) => {
-  props.onChange = locationObject => {
-    for (const key in locationMapping) {
-      utils.changeFieldValue(formName, locationMapping[key], locationObject[key])
+const methodOverwriter = {
+  'location': (formField, formName, data, utils) => {
+    const locationMapping = formField.locationMapping || {}
+    data.onChange = locationObject => {
+      for (const key in locationMapping) {
+        utils.changeFieldValue(formName, locationMapping[key], locationObject[key])
+      }
     }
   }
 }
 
-export const valueOverwriter = {
-  'coordinate': value => value.value,
-  'location': (type, formField, formName, props, utils) => {
-    const locationMapping = formField.locationMapping || {}
+const valueOverwriter = {
+  'coordinate': (formField, formName, data) => {
+    data.value = data.value.value
+  },
+  'location': (formField, formName, data, utils) => {
+    const locationMapping = formField.locationMapping
 
-    setOnChange(props, formName, utils, locationMapping)
-
-    const formState = utils.formState ? utils.formState : {}
-    const formValues = formState.values ? formState.values : {}
-
-    const locationMappingValues = Object.values(locationMapping)
-
-    const filteredLocationData = Object.keys(formValues)
-      .filter(key => locationMappingValues.includes(key))
-      .reduce((obj, key) => {
-        obj[key] = formValues[key]
-        return obj
-      }, {})
+    const filteredLocationData = utils.formValues
 
     let renamedLocationData = {}
     for (const locKey in locationMapping) {
@@ -57,15 +52,8 @@ export const valueOverwriter = {
       }
     }
 
-    props.value = renamedLocationData
+    data.value = renamedLocationData
   }
-}
-
-const settings = {
-  REMOTE_SEARCH_RESULT_LIMIT: 50,
-  REMOTE_SUGGESTION_LIMIT: 10,
-  REMOTE_SUGGESTION_ORDER_FIELD: 'update_timestamp',
-  SELECT_LIMIT: 10000
 }
 
 const getOptions = (type, formField, modelField, utils, formName) => {
