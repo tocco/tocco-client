@@ -13,30 +13,6 @@ export const StyledLocationEdit = styled.div`
     padding: 10px 5px 5px 10px;
   }
   
-  .load-icon-zip {
-    width: 15px;
-    height: auto;
-    padding: 0;
-    margin: 0;
-    
-    position: absolute;
-    top: 13px;
-    right: 20px;
-    z-index: 10;
-  }
-  
-  .load-icon-city {
-    width: 15px;
-    height: auto;
-    padding: 0;
-    margin: 0;
-    
-    position: absolute;
-    top: 13px;
-    right: 20px;
-    z-index: 10;
-  }
-  
   .react-autosuggest__container {
     flex-grow: 1;
     display: flex;
@@ -82,7 +58,7 @@ export const StyledLocationEdit = styled.div`
     position: absolute;
     top: 40px;
     left:0;
-    right: calc(1rem * ${theme('fontSize.base')} * ${theme('lineHeights.regular')} + 10px );
+    right: calc(1rem * ${theme('fontSize.base')} * ${theme('lineHeights.regular')} + 15px );
     border: 1px solid #aaa;
     background-color: #fff;
     font-family: Helvetica, sans-serif;
@@ -110,5 +86,5 @@ export const StyledLocationEdit = styled.div`
 `
 
 export const StyledZipInput = styled.span`
-  width: 40%;
+  width: 30%;
 `

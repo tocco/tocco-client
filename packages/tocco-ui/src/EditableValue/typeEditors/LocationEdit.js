@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Autosuggest from 'react-autosuggest'
+import uuid from 'uuid/v4'
 
 import ButtonLink from '../../ButtonLink'
 import {
@@ -39,25 +40,33 @@ export const getSuggestions = (value, suggestions) => {
 
 export const returnGetSuggestion = attr => suggestion => suggestion[attr]
 
-const renderSuggestion = suggestion => (
-  <div>
-    {suggestion.zip} {suggestion.city} - {suggestion.canton} / {suggestion.country}
-  </div>
-)
+const renderSuggestion = suggestion => {
+  const cantonString = `- ${suggestion.canton}`
+  const countryString = `/ ${suggestion.country}`
+
+  return (
+    <div>
+      {suggestion.zip} {suggestion.city} {cantonString} {countryString}
+    </div>
+  )
+}
 
 class LocationEdit extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       zipFieldFocused: false,
-      cityFieldFocused: false
+      cityFieldFocused: false,
+      currentZipValue: '',
+      currentCityValue: ''
     }
   }
 
   onChangeZip = (event, {newValue}) => {
     this.setState({
       zipFieldFocused: true,
-      cityFieldFocused: false
+      cityFieldFocused: false,
+      currentZipValue: event.target.value
     })
 
     this.props.options.fetchSuggestions(newValue)
@@ -67,50 +76,29 @@ class LocationEdit extends React.Component {
   onChangeCity = (event, {newValue}) => {
     this.setState({
       zipFieldFocused: false,
-      cityFieldFocused: true
+      cityFieldFocused: true,
+      currentCityValue: event.target.value
     })
     
     this.props.options.fetchSuggestions(newValue)
     this.props.onChange({city: newValue})
   }
 
-  onSuggestionsFetchRequestedZip = ({value}) => {
-    this.setState({
-      suggestions: getSuggestions(value, this.props.options.suggestions || [])
-    })
-  }
-
-  onSuggestionsFetchRequestedCity = ({value}) => {
-    this.setState({
-      suggestions: getSuggestions(value, this.props.options.suggestions || [])
-    })
-  }
-
   onSuggestionsClearRequested = () => {
     this.setState({
-      suggestions: []
+      zipFieldFocused: false,
+      cityFieldFocused: false
     })
   }
 
-  renderSuggestionsZipContainer = ({containerProps, children}) => {
-    if (this.props.options.isLoading && this.state.zipFieldFocused) {
-      return (
-        <div {... containerProps}>
-          <div className="dropdown-icon"><IconTocco/></div>
-        </div>
-      )
+  returnSuggestionsContainer = focusedField => ({containerProps, children}) => {
+    const containerData = {
+      ...containerProps,
+      className: 'react-autosuggest__suggestions-container--open'
     }
-    return (
-      <div {... containerProps}>
-        {children}
-      </div>
-    )
-  }
-
-  renderSuggestionsCityContainer = ({containerProps, children}) => {
-    if (this.props.options.isLoading && this.state.cityFieldFocused) {
+    if (this.props.options.isLoading && this.state[focusedField]) {
       return (
-        <div {... containerProps}>
+        <div {... containerData}>
           <div className="dropdown-icon"><IconTocco/></div>
         </div>
       )
@@ -129,19 +117,19 @@ class LocationEdit extends React.Component {
       street: suggestion.address,
       canton: suggestion.canton,
       district: suggestion.district,
-      country: {display: suggestion.country, key: suggestion.country}
+      country: {display: suggestion.country, key: uuid()}
     })
   }
 
   render() {
     const inputPropsZip = {
-      value: this.props.value.zip || '',
+      value: this.props.value.zip || this.state.currentZipValue,
       onChange: this.onChangeZip,
       readOnly: this.props.readOnly
     }
 
     const inputPropsCity = {
-      value: this.props.value.city || '',
+      value: this.props.value.city || this.state.currentCityValue,
       onChange: this.onChangeCity,
       readOnly: this.props.readOnly
     }
@@ -154,24 +142,26 @@ class LocationEdit extends React.Component {
         <StyledZipInput>
           <Autosuggest
             suggestions={this.props.options.suggestions || []}
-            onSuggestionsFetchRequested={this.onSuggestionsFetchRequestedZip}
+            onSuggestionsFetchRequested={() => {}}
             onSuggestionsClearRequested={this.onSuggestionsClearRequested}
             getSuggestionValue={returnGetSuggestion('zip')}
             renderSuggestion={renderSuggestion}
             inputProps={inputPropsZip}
-            renderSuggestionsContainer={this.renderSuggestionsZipContainer}
+            renderSuggestionsContainer={this.returnSuggestionsContainer('zipFieldFocused')}
             onSuggestionSelected={this.onSuggestionSelected}
+            focusInputOnSuggestionClick={false}
           />
         </StyledZipInput>
         <Autosuggest
           suggestions={this.props.options.suggestions || []}
-          onSuggestionsFetchRequested={this.onSuggestionsFetchRequestedCity}
+          onSuggestionsFetchRequested={() => {}}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
           getSuggestionValue={returnGetSuggestion('city')}
           renderSuggestion={renderSuggestion}
           inputProps={inputPropsCity}
-          renderSuggestionsContainer={this.renderSuggestionsCityContainer}
+          renderSuggestionsContainer={this.returnSuggestionsContainer('cityFieldFocused')}
           onSuggestionSelected={this.onSuggestionSelected}
+          focusInputOnSuggestionClick={false}
         />
         <ButtonLink
           href={getMapsAddress(this.props.value)}

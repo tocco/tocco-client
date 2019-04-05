@@ -116,7 +116,7 @@ describe('app-extensions', () => {
         })
       })
 
-      describe('valueOverwriter', () => {
+      describe('Overwriters', () => {
         const formField = {
           locationMapping: {
             canton: 'canton_c',
@@ -130,7 +130,7 @@ describe('app-extensions', () => {
 
         const formName = 'detailForm'
 
-        const props = {
+        const data = {
           onChange: locationObject => {
             for (const key in formField.locationMapping) {
               utils.changeFieldValue(formName, formField.locationMapping[key], locationObject[key])
@@ -140,15 +140,13 @@ describe('app-extensions', () => {
 
         const utils = {
           changeFieldValue: sinon.spy(),
-          formState: {
-            values: {
-              zip_c: '2306',
-              address_c: 'Bahnhofstrasse 1',
-              canton_c: 'ZH',
-              city_c: 'Zurich',
-              district_c: 'Zurich',
-              relCountry_c: {display: 'CH', key: 'CH'}
-            }
+          formValues: {
+            zip_c: '2306',
+            address_c: 'Bahnhofstrasse 1',
+            canton_c: 'ZH',
+            city_c: 'Zurich',
+            district_c: 'Zurich',
+            relCountry_c: {display: 'CH', key: 'CH'}
           }
         }
 
@@ -163,19 +161,31 @@ describe('app-extensions', () => {
 
         const factory = editableValueFactory('location')
 
-        test('should call changeFieldValue with first key value pair', () => {
-          const editableValue = factory(formField, {}, formName, props, {}, utils)
-          const wrapper = mount(editableValue)
+        describe('valueOverwriter', () => {
+          test('should set coordinate as data value', () => {
+            const factory = editableValueFactory('coordinate')
+            const data = {value: {value: '52.347'}}
+            const editableValue = factory(formField, {}, formName, data, {}, {})
+            const wrapper = mount(editableValue)
+            expect(wrapper.props().value).to.eql(data.value)
+          })
 
-          wrapper.props().onChange(locationObject)
-          const changeFielCallArgmuents = [ 'detailForm', 'canton_c', 'ZH' ]
-          expect(utils.changeFieldValue.firstCall.args).to.eql(changeFielCallArgmuents)
+          test('should set location data as data value', () => {
+            const editableValue = factory(formField, {}, formName, data, {}, utils)
+            const wrapper = mount(editableValue)
+            expect(wrapper.props().value).to.eql(locationObject)
+          })
         })
 
-        test('should set location data as props value', () => {
-          const editableValue = factory(formField, {}, formName, props, {}, utils)
-          const wrapper = mount(editableValue)
-          expect(wrapper.props().value).to.eql(locationObject)
+        describe('methodOverwriter', () => {
+          test('should call changeFieldValue with first key value pair', () => {
+            const editableValue = factory(formField, {}, formName, data, {}, utils)
+            const wrapper = mount(editableValue)
+
+            wrapper.props().onChange(locationObject)
+            const changeFielCallArgmuents = [ 'detailForm', 'canton_c', 'ZH' ]
+            expect(utils.changeFieldValue.firstCall.args).to.eql(changeFielCallArgmuents)
+          })
         })
       })
     })
