@@ -103,7 +103,7 @@ describe('entity-detail', () => {
               tooltips: {data: {}}
             },
             form: {
-              detailForm: {}
+              detailForm: {values: {}}
             }
           }))
 
