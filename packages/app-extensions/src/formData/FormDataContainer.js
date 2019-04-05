@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {injectIntl} from 'react-intl'
 import {connect} from 'react-redux'
+import _isEqual from 'lodash/isEqual'
 
 import {loadRelationEntities} from './relationEntities/actions'
 import {loadTooltip} from './tooltips/actions'
@@ -18,13 +19,33 @@ FormData.propTypes = {
   children: PropTypes.node
 }
 
-const mapStateToProps = state => ({
-  relationEntities: state.formData.relationEntities.data,
-  tooltips: state.formData.tooltips.data,
-  searchFilters: state.formData.searchFilters,
-  locations: state.formData.locations,
-  formState: state.form.detailForm
-})
+export const mapStateToProps = (state, props) => {
+  let formValues = {}
+
+  if (state.form) {
+    if (state.form[props.children.props.formName]) {
+      formValues = state.form[props.children.props.formName].values
+    }
+  }
+
+  const locationMapping = props.children.props.formField.locationMapping || {}
+  const locationMappingValues = Object.values(locationMapping)
+
+  const filteredLocationData = Object.keys(formValues)
+    .filter(key => locationMappingValues.includes(key))
+    .reduce((obj, key) => {
+      obj[key] = formValues[key]
+      return obj
+    }, {})
+
+  return {
+    relationEntities: state.formData.relationEntities.data,
+    tooltips: state.formData.tooltips.data,
+    searchFilters: state.formData.searchFilters,
+    locations: state.formData.locations,
+    formValues: filteredLocationData
+  }
+}
 
 const mapActionCreators = {
   loadRelationEntities: loadRelationEntities,
@@ -38,7 +59,16 @@ const mapActionCreators = {
 
 const FormDataContainer = connect(
   mapStateToProps,
-  mapActionCreators
+  mapActionCreators,
+  null,
+  {
+    areStatesEqual: (prev, next) => {
+      return _isEqual(prev.formData, next.formData)
+    },
+    areStatePropsEqual: (prev, next) => {
+      return _isEqual(next.formValues, {})
+    }
+  }
 )(injectIntl(FormData))
 
 export default FormDataContainer
