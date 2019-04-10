@@ -22,31 +22,24 @@ const getBorderColor = ({theme, signal}) =>
     ? getTheme.color(`signal.${signal}.text`)({theme})
     : shadeColor(_get(theme, 'colors.paper'), 2)
 
-const moveLabel = () => css`
-  ${StyledStatedValueLabel}  {
+const transformLabel = ({secondaryPosition, theme}) => css`
+  &&& {
     transition: top ${ANIMATION_DURATION},
                 font-size ${ANIMATION_DURATION},
                 font-weight ${ANIMATION_DURATION};
     will-change: top, font-size, font-weight;
-  }
 
-
-  ${props => props.hasValue && css`${StyledStatedValueLabel},`}
-  &:focus-within ${StyledStatedValueLabel} {
-    top: 0%;
-    font-size: ${scale.font(-1)};
-    font-weight: ${getTheme.fontWeight('bold')};
-  }
+    ${secondaryPosition && css`
+      top: 0%;
+      font-size: ${scale.font(-1)};
+      font-weight: ${getTheme.fontWeight('bold')};
+    `}
 `
 
-const retainSpace = () => css`
+const retainSpace = ({secondaryPosition, theme}) => css`
   transition: padding-top ${ANIMATION_DURATION};
   will-change: padding-top;
-
-  ${props => props.hasValue && '&,'}
-  &:focus-within {
-    padding-top: calc(${scale.font(-1)} / 2 );
-  }
+  padding-top: ${secondaryPosition ? css`calc(${scale.font(-1)} / 2 )` : 0};
 `
 
 const StyledStatedValueLabel = styled.label`
@@ -63,6 +56,7 @@ const StyledStatedValueLabel = styled.label`
     padding: 0 ${scale.space(-2)};
     position: absolute;
     top: 50%;
+    ${props => transformLabel(props)}
   }
 `
 
@@ -73,7 +67,6 @@ const StyledStatedValueBox = styled.div`
     padding: ${scale.space(-2)} ${scale.space(-1)};
     position: relative;
     ${props => declareFocus(props)}
-    ${moveLabel()}
   }
 `
 
@@ -111,7 +104,7 @@ const StyledStatedValueWrapper = styled.div`
       margin-left: calc(${scale.space(-1)} + ${BORDER_WIDTH});
     }
 
-    ${retainSpace()}
+    ${props => retainSpace(props)}
   }
 `
 

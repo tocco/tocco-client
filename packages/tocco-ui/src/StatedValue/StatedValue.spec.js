@@ -1,4 +1,4 @@
-import {mount, shallow} from 'enzyme'
+import {mount} from 'enzyme'
 import React from 'react'
 
 import StatedValue from './StatedValue'
@@ -41,19 +41,19 @@ describe('tocco-ui', () => {
     })
 
     test('should not detect condition error if not touched', () => {
-      const wrapper = shallow(<StatedValue error={{error: ['error']}}/>)
+      const wrapper = mount(<StatedValue error={{error: ['error']}}/>)
       expect(wrapper.find(StyledStatedValueBox).prop('signal')).to.be.undefined
       expect(wrapper.find(StyledStatedValueLabel).prop('signal')).to.be.undefined
     })
 
     test('should detect condition error if touched', () => {
-      const wrapper = shallow(<StatedValue error={{error: ['error']}} touched={true}/>)
+      const wrapper = mount(<StatedValue error={{error: ['error']}} touched={true}/>)
       expect(wrapper.find(StyledStatedValueBox).prop('signal')).to.be.equal('danger')
       expect(wrapper.find(StyledStatedValueLabel).prop('signal')).to.be.equal('danger')
     })
 
     test('condition error should overrule condition dirty', () => {
-      const wrapper = shallow(
+      const wrapper = mount(
         <StatedValue
           dirty={true}
           error={{error: ['error']}}
@@ -74,10 +74,10 @@ describe('tocco-ui', () => {
       expect(el.last().text()).to.be.equal('error 2')
     })
 
-    test('should pass prop hasValue', () => {
+    test('should pass prop hasValue as secondaryPosition', () => {
       const wrapper = mount(<StatedValue hasValue={true} />)
-      expect(wrapper.find(StyledStatedValueWrapper).prop('hasValue')).to.be.true
-      expect(wrapper.find(StyledStatedValueLabel).prop('hasValue')).to.be.true
+      expect(wrapper.find(StyledStatedValueWrapper).prop('secondaryPosition')).to.be.true
+      expect(wrapper.find(StyledStatedValueLabel).prop('secondaryPosition')).to.be.true
     })
 
     test('should show label', () => {

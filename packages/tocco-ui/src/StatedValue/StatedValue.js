@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import FocusWithin from 'react-simple-focus-within'
 
 import ErrorList from '../FormField/ErrorList'
 import {
@@ -40,25 +41,33 @@ const StatedValue = props => {
   const signal = detectSignal(dirty, hasError)
 
   return (
-    <StyledStatedValueWrapper hasValue={hasValue}>
-      <StyledStatedValueBox
-        hasValue={hasValue}
-        signal={signal}>
-        {children}
-        <StyledStatedValueLabel
-          hasValue={hasValue}
-          signal={signal}
-          htmlFor={id}
-        >{label}{mandatory && ' *'}</StyledStatedValueLabel>
-      </StyledStatedValueBox>
-      {description
-        && <StyledStatedValueDescription>{description}</StyledStatedValueDescription>}
-      {hasError
-        && <StyledStatedValueError>
-          <ErrorList error={error}/>
-        </StyledStatedValueError>
-      }
-    </StyledStatedValueWrapper>
+    <FocusWithin>
+      {({focused, getRef}) => {
+        const secondaryPosition = focused || hasValue
+        return (
+          <StyledStatedValueWrapper
+            ref={getRef}
+            secondaryPosition={secondaryPosition}>
+            <StyledStatedValueBox
+              signal={signal}>
+              {children}
+              <StyledStatedValueLabel
+                secondaryPosition={secondaryPosition}
+                signal={signal}
+                htmlFor={id}
+              >{label}{mandatory && ' *'}</StyledStatedValueLabel>
+            </StyledStatedValueBox>
+            {description
+              && <StyledStatedValueDescription>{description}</StyledStatedValueDescription>}
+            {hasError
+              && <StyledStatedValueError>
+                <ErrorList error={error}/>
+              </StyledStatedValueError>
+            }
+          </StyledStatedValueWrapper>
+        )
+      }}
+    </FocusWithin>
   )
 }
 
