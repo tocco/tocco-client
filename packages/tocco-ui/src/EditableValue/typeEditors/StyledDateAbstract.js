@@ -10,6 +10,9 @@ const StyledDateAbstractControl = styled.div.attrs({
   'data-clear': true
 })`
   && {
+  ${props => props.hideButton && `
+    display: none;
+  `}
     ${StyledEditableControlCss}
   }
 `
