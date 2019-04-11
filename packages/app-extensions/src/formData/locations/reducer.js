@@ -1,11 +1,10 @@
 import * as actions from './actions'
 
-export const setLocationSuggestions = (state, {payload: {field, suggestions, hash}}) => (
+export const setLocationSuggestions = (state, {payload: {field, suggestions}}) => (
   {
     ...state,
     [field]: {
-      suggestions,
-      hash
+      suggestions
     }
   }
 )
