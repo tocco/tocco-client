@@ -6,7 +6,6 @@ describe('app-extensions', () => {
     describe('tooltips', () => {
       describe('reducer', () => {
         describe('setLocationSuggestions', () => {
-          const HASH = 1234
           test('should add new location suggestions', () => {
             const initialState = {}
 
@@ -17,13 +16,12 @@ describe('app-extensions', () => {
 
             const newState = setLocationSuggestions(
               initialState,
-              actions.setLocationSuggestions('location_c', locationSuggestions, HASH)
+              actions.setLocationSuggestions('location_c', locationSuggestions)
             )
 
             const expectedStateAfter = {
               location_c: {
-                suggestions: locationSuggestions,
-                hash: HASH
+                suggestions: locationSuggestions
               }
             }
 
@@ -35,14 +33,12 @@ describe('app-extensions', () => {
               location_c: {
                 suggestions: [{
                   city: 'Zurich'
-                }],
-                hash: 1
+                }]
               },
               location_i: {
                 suggestions: [{
                   city: 'Winterthur'
-                }],
-                hash: 2
+                }]
               }
             }
 
@@ -53,7 +49,7 @@ describe('app-extensions', () => {
 
             const newState = setLocationSuggestions(
               initialState,
-              actions.setLocationSuggestions('location_c', locationSuggestions, HASH)
+              actions.setLocationSuggestions('location_c', locationSuggestions)
             )
 
             const expectedStateAfter = {
@@ -61,14 +57,12 @@ describe('app-extensions', () => {
                 suggestions: [{
                   city: 'Weinfelden',
                   zipcode: '8570'
-                }],
-                hash: HASH
+                }]
               },
               location_i: {
                 suggestions: [{
                   city: 'Winterthur'
-                }],
-                hash: 2
+                }]
               }
             }
 

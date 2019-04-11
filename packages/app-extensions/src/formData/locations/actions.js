@@ -10,12 +10,11 @@ export const loadLocationsSuggestions = (field, searchInput) => ({
   }
 })
 
-export const setLocationSuggestions = (field, suggestions, hash) => ({
+export const setLocationSuggestions = (field, suggestions) => ({
   type: SET_LOCATION_SUGGESTIONS,
   payload: {
     field,
-    suggestions,
-    hash
+    suggestions
   }
 })
 
