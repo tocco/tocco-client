@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {theme} from 'styled-system'
+import _get from 'lodash/get'
 
 export const StyledLocationEdit = styled.div`
   display: flex;
@@ -54,11 +54,15 @@ export const StyledLocationEdit = styled.div`
   }
   
   .react-autosuggest__suggestions-container--open {
+    color: black;
     display: block;
     position: absolute;
     top: 40px;
     left:0;
-    right: calc(1rem * ${theme('fontSize.base')} * ${theme('lineHeights.regular')} + 15px );
+    right: calc(1rem *
+      ${props => _get(props.theme, 'fontSize.base')}
+      * ${props => _get(props.theme, 'lineHeights.regular')} + 15px
+      );
     border: 1px solid #aaa;
     background-color: #fff;
     font-family: Helvetica, sans-serif;
