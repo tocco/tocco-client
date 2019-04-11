@@ -111,28 +111,30 @@ class DateAbstract extends React.Component {
   }
 
   handleButtonVisibility = () => {
-    if (this.hasValue() && !this.props.readOnly) {
-      this.setState({hideButton: false})
-    } else {
-      this.setState({hideButton: true})
-    }
+    this.setState({hideButton: !this.hasValue() && !this.props.readOnly})
   }
 
   render() {
     return (
       <StyledDateAbstractWrapper
+        data-wrap
         onBlur={this.handleOnBlur}
         readOnly={this.props.readOnly}
         ref={this.wrapper}
       >
         <StyledDateAbstractInput
+          type="text"
+          data-input
           {...(this.props.options ? {placeholder: this.props.options.placeholderText} : {})}
         />
         <StyledDateAbstractInput
           disabled
           value={this.flatpickr ? this.flatpickr.altInput.value : ''}
         />
-        <StyledDateAbstractControl hideButton={this.state.hideButton}>
+        <StyledDateAbstractControl
+          data-clear
+          hideButton={this.state.hideButton}
+        >
           <Button
             icon="times"
             look="ball"

@@ -6,9 +6,7 @@ import {
   StyledInputCss
 } from '../StyledEditableValue'
 
-const StyledDateAbstractControl = styled.div.attrs({
-  'data-clear': true
-})`
+const StyledDateAbstractControl = styled.div`
   && {
   ${props => props.hideButton && `
     display: none;
@@ -17,18 +15,13 @@ const StyledDateAbstractControl = styled.div.attrs({
   }
 `
 
-const StyledDateAbstractInput = styled.input.attrs({
-  type: 'text',
-  'data-input': true
-})`
+const StyledDateAbstractInput = styled.input`
   &&& {
     ${StyledInputCss}
   }
 `
 
-const StyledDateAbstractWrapper = styled.div.attrs({
-  'data-wrap': true
-})`
+const StyledDateAbstractWrapper = styled.div`
   && {
     ${StyledEditableWrapperCss}
 
