@@ -10,7 +10,7 @@ const settings = {
 }
 
 const valueOverwriter = {
-  'coordinate': value => value.value
+  'coordinate': value => _get(value, 'value.value', '')
 }
 
 export default type =>
