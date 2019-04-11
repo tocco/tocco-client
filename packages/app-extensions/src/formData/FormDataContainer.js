@@ -20,30 +20,26 @@ FormData.propTypes = {
 }
 
 export const mapStateToProps = (state, props) => {
-  let formValues = {}
+  const locationMapping = props.children.props.formField.locationMapping || {}
+
+  const formValues = {}
 
   if (state.form) {
     if (state.form[props.children.props.formName]) {
-      formValues = state.form[props.children.props.formName].values
+      for (const key in locationMapping) {
+        if (state.form[props.children.props.formName].values[locationMapping[key]]) {
+          formValues[locationMapping[key]] = state.form[props.children.props.formName].values[locationMapping[key]]
+        }
+      }
     }
   }
-
-  const locationMapping = props.children.props.formField.locationMapping || {}
-  const locationMappingValues = Object.values(locationMapping)
-
-  const filteredLocationData = Object.keys(formValues)
-    .filter(key => locationMappingValues.includes(key))
-    .reduce((obj, key) => {
-      obj[key] = formValues[key]
-      return obj
-    }, {})
 
   return {
     relationEntities: state.formData.relationEntities.data,
     tooltips: state.formData.tooltips.data,
     searchFilters: state.formData.searchFilters,
     locations: state.formData.locations,
-    formValues: filteredLocationData
+    formValues
   }
 }
 
@@ -62,12 +58,10 @@ const FormDataContainer = connect(
   mapActionCreators,
   null,
   {
-    areStatesEqual: (prev, next) => {
-      return _isEqual(prev.formData, next.formData)
-    },
     areStatePropsEqual: (prev, next) => {
-      return _isEqual(next.formValues, {})
+      return _isEqual(prev.formValues, next.formValues)
     }
+
   }
 )(injectIntl(FormData))
 
