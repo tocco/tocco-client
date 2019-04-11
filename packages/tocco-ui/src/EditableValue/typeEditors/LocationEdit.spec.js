@@ -2,10 +2,7 @@ import React from 'react'
 import {mount} from 'enzyme'
 
 import LocationEdit,
-{
-  getMapsAddress,
-  getSuggestions
-}
+{getMapsAddress}
   from './LocationEdit'
 
 const options = {
@@ -124,20 +121,6 @@ describe('tocco-ui', () => {
           test('should get default maps address', () => {
             const result = `https://www.google.com/maps/search/?api=1&query=`
             expect(getMapsAddress()).to.equal(result)
-          })
-        })
-
-        describe('getSuggestions', () => {
-          test('should return empty array', () => {
-            const value = '   '
-            const result = []
-            expect(getSuggestions(value)).to.eql(result)
-            expect(getSuggestions(value, suggestions)).to.eql(result)
-          })
-
-          test('should return suggestions', () => {
-            const value = '23'
-            expect(getSuggestions(value, suggestions)).to.eql(suggestions)
           })
         })
       })
