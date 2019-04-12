@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {injectIntl} from 'react-intl'
 import {connect} from 'react-redux'
 import _isEqual from 'lodash/isEqual'
+import _pick from 'lodash/pick'
 
 import {loadRelationEntities} from './relationEntities/actions'
 import {loadTooltip} from './tooltips/actions'
@@ -13,35 +14,20 @@ import {loadSearchFilters} from './searchFilters/actions'
 import {loadLocationsSuggestions} from './locations/actions'
 
 const FormData = props =>
-  <React.Fragment>{React.cloneElement(props.children, {utils: props})}</React.Fragment>
+  <React.Fragment>{React.cloneElement(props.children, {formData: props})}</React.Fragment>
 
 FormData.propTypes = {
   children: PropTypes.node
 }
 
-export const mapStateToProps = (state, props) => {
-  const locationMapping = props.children.props.formField.locationMapping || {}
-
-  const formValues = {}
-
-  if (state.form) {
-    if (state.form[props.children.props.formName]) {
-      for (const key in locationMapping) {
-        if (state.form[props.children.props.formName].values[locationMapping[key]]) {
-          formValues[locationMapping[key]] = state.form[props.children.props.formName].values[locationMapping[key]]
-        }
-      }
-    }
-  }
-
-  return {
-    relationEntities: state.formData.relationEntities.data,
-    tooltips: state.formData.tooltips.data,
-    searchFilters: state.formData.searchFilters,
-    locations: state.formData.locations,
-    formValues
-  }
-}
+const mapStateToProps = (state, {formValues, tooltips, locations, relationEntities, searchFilters}) => ({
+  ...(relationEntities ? {relationEntities: _pick(state.formData.relationEntities.data, relationEntities)} : {}),
+  ...(tooltips ? {tooltips: _pick(state.formData.tooltips.data, tooltips)} : {}),
+  ...(searchFilters ? {searchFilters: _pick(state.formData.searchFilters, searchFilters)} : {}),
+  ...(locations ? {locations: _pick(state.formData.locations, locations)} : {}),
+  ...(formValues && state.form[formValues.formName]
+    ? {formValues: _pick(state.form[formValues.formName].values, formValues.fields)} : {})
+})
 
 const mapActionCreators = {
   loadRelationEntities: loadRelationEntities,
@@ -58,10 +44,7 @@ const FormDataContainer = connect(
   mapActionCreators,
   null,
   {
-    areStatePropsEqual: (prev, next) => {
-      return _isEqual(prev.formValues, next.formValues)
-    }
-
+    areStatePropsEqual: _isEqual
   }
 )(injectIntl(FormData))
 

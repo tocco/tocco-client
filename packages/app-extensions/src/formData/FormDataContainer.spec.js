@@ -1,42 +1,63 @@
-import {mapStateToProps} from './FormDataContainer'
+import React from 'react'
+import {intlEnzyme} from 'tocco-test-util'
+import {Provider} from 'react-redux'
+import {createStore} from 'redux'
+
+import FormDataContainer from './FormDataContainer'
 
 describe('app-extensions', () => {
   describe('formData', () => {
     describe('FormDataContainer', () => {
-      test('should return mapStateToProps with formValues', () => {
-        const state = {
-          form: {detailForm: {values: {
-            user_nr: 0,
-            website: 'http://www.google.ch',
-            zip_c: '1234',
-            city_c: 'Test City'
-          }}},
-          formData: {
-            relationEntities: {data: {}},
-            tooltips: {},
-            searchFilters: {},
-            locations: {}
+      const store = createStore(() => ({
+        formData: {
+          relationEntities: {
+            data: {
+              relUser: [{key: 1}, {key: 3}],
+              relUser2: [{key: 33}]
+            }
+          },
+          tooltips: {data: {}}
+
+        },
+        form: {
+          detailForm: {
+            values: {
+              canton_c: 'ZH',
+              city_c: 'Zurich',
+              zip: '8000'
+            }
           }
         }
+      }))
 
-        const props = {children: {props: {
-          formName: 'detailForm',
-          formField: {locationMapping: {
-            canton: 'canton_c',
-            city: 'city_c',
-            country: 'relCountry_c',
-            district: 'district_c',
-            street: 'address_c',
-            zip: 'zip_c'
-          }}
-        }}}
+      const Content = () => <span/>
 
-        const result = {
-          zip_c: '1234',
-          city_c: 'Test City'
-        }
+      test('should set intl', () => {
+        const wrapper = intlEnzyme.mountWithIntl(<Provider store={store}>
+          <FormDataContainer>
+            <Content/>
+          </FormDataContainer></Provider>)
 
-        expect(mapStateToProps(state, props).formValues).to.eql(result)
+        expect(wrapper.find(Content).props()).to.have.property('formData')
+        expect(wrapper.find(Content).props().formData).to.have.property('intl')
+      })
+
+      test('should form values', () => {
+        const wrapper = intlEnzyme.mountWithIntl(<Provider store={store}>
+          <FormDataContainer formValues={{formName: 'detailForm', fields: ['canton_c', 'city_c']}}>
+            <Content/>
+          </FormDataContainer></Provider>)
+
+        expect(wrapper.find(Content).props().formData.formValues).to.eql({canton_c: 'ZH', city_c: 'Zurich'})
+      })
+
+      test('should relation entities', () => {
+        const wrapper = intlEnzyme.mountWithIntl(<Provider store={store}>
+          <FormDataContainer relationEntities="relUser2">
+            <Content/>
+          </FormDataContainer></Provider>)
+
+        expect(wrapper.find(Content).props().formData.relationEntities).to.eql({relUser2: [{key: 33}]})
       })
     })
   })

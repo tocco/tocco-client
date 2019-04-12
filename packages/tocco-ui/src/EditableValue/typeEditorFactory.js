@@ -1,5 +1,6 @@
 import React from 'react'
 import _isEmpty from 'lodash/isEmpty'
+import _omit from 'lodash/omit'
 
 import SingleSelect from './typeEditors/SingleSelect'
 import MultiSelect from './typeEditors/MultiSelect'
@@ -71,7 +72,7 @@ export const map = {
   'time': TimeEdit
 }
 
-export default (type, value, onChange, options, id, events, readOnly = false) => {
+export default (type, value, options, id, events, readOnly = false) => {
   if (map[type]) {
     const Component = map[type]
 
@@ -86,12 +87,12 @@ export default (type, value, onChange, options, id, events, readOnly = false) =>
     }
 
     return (
-      <div {...events}>
+      <div {..._omit(events, 'onChange')}>
         <Component
           value={value}
           onChange={v => {
             blurValue = v
-            onChange(v)
+            events.onChange(v)
           }}
           {...(_isEmpty(options) ? {} : {options})}
           id={id}

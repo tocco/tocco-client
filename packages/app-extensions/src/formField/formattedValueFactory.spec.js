@@ -10,11 +10,8 @@ describe('app-extensions', () => {
         const factory = formattedValueFactory('string')
 
         const value = 'test'
-        const props = {
-          value
-        }
 
-        const editableValue = factory({}, {}, 'formName', props, {}, {})
+        const editableValue = factory({}, {}, 'formName', value, {}, {}, {})
 
         const wrapper = mount(editableValue)
 
