@@ -7,9 +7,7 @@ import {
   StyledInputCss
 } from '../StyledEditableValue'
 
-const StyledDurationEdit = styled.input.attrs({
-  type: 'number'
-})`
+const StyledDurationEdit = styled.input`
   && {
     ${StyledInputCss}
     width: 100%;
