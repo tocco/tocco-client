@@ -5,7 +5,7 @@ import {injectIntl, intlShape} from 'react-intl'
 import formField from '../formField'
 
 const extractEventsFromInput = input => (
-  _omit(input, ['name', 'value', 'onChange'])
+  _omit(input, ['name', 'value'])
 )
 
 const ReduxFormFieldAdapter = props => {
@@ -33,7 +33,6 @@ const ReduxFormFieldAdapter = props => {
     submitting,
     events,
     error,
-    onChange: input.onChange,
     entityField,
     readOnlyForm
   }

@@ -10,7 +10,7 @@ describe('tocco-ui', () => {
     describe('typeFormatterProvider', () => {
       test('should render a type and set props', () => {
         const wrapper = mount(
-          typeEditorFactory('string', 'test', EMPTY_FUNC, {})
+          typeEditorFactory('string', 'test', {})
         )
 
         const typeWrapper = wrapper.children().first()
@@ -31,7 +31,7 @@ describe('tocco-ui', () => {
           onFocus: focusSpy
         }
         const wrapper = mount(
-          typeEditorFactory('string', 'test', EMPTY_FUNC, {}, 'id', events)
+          typeEditorFactory('string', 'test', {}, 'id', events)
         )
 
         wrapper.find('input').first().simulate('focus')
