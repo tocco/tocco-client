@@ -4,7 +4,6 @@ import {reduxForm} from 'redux-form'
 import {intlShape, FormattedRelative, FormattedMessage} from 'react-intl'
 import {Button} from 'tocco-ui'
 import {form, formField} from 'tocco-app-extensions'
-import _isEqual from 'lodash/isEqual'
 
 import SubGrid from '../../util/detailView/fromFieldFactories/subGrid'
 import ErrorBox from '../ErrorBox'
@@ -13,16 +12,9 @@ import readOnlyFormFieldMapping from '../../util/detailView/readOnlyFormFieldMap
 import StyledDetailForm from './StyledDetailForm'
 
 export class DetailForm extends React.Component {
-  constructor(props) {
-    super(props)
-    this.formValues = this.props.formValues
-  }
-
-  handleBlur = () => {
-    if (!_isEqual(this.formValues, this.props.formValues)) {
-      this.props.fireTouched(true)
-    } else {
-      this.props.fireTouched(false)
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps !== this.props) {
+      this.props.fireTouched(this.props.isDirty)
     }
   }
 
@@ -83,7 +75,6 @@ export class DetailForm extends React.Component {
     return (
       <StyledDetailForm>
         <form
-          onBlur={this.handleBlur}
           className="form-horizontal detail-form"
           tabIndex="0"
           onSubmit={this.handleSubmit}
@@ -138,8 +129,8 @@ DetailForm.propTypes = {
   submitting: PropTypes.bool,
   anyTouched: PropTypes.bool,
   formErrors: PropTypes.object,
-  formValues: PropTypes.object,
   valid: PropTypes.bool,
+  isDirty: PropTypes.bool,
   lastSave: PropTypes.number,
   fireTouched: PropTypes.func.isRequired
 }
