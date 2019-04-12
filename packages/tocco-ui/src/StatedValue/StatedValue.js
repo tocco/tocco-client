@@ -34,6 +34,7 @@ const StatedValue = props => {
     id,
     label,
     mandatory,
+    immutable,
     touched
   } = props
 
@@ -49,12 +50,14 @@ const StatedValue = props => {
             ref={getRef}
             secondaryPosition={secondaryPosition}>
             <StyledStatedValueBox
+              immutable={immutable}
               signal={signal}>
               {children}
               <StyledStatedValueLabel
+                htmlFor={immutable ? '' : id}
+                immutable={immutable}
                 secondaryPosition={secondaryPosition}
                 signal={signal}
-                htmlFor={id}
               >{label}{mandatory && ' *'}</StyledStatedValueLabel>
             </StyledStatedValueBox>
             {description
@@ -106,6 +109,10 @@ StatedValue.propTypes = {
    * If true an asterisk is appended to the label.
    */
   mandatory: PropTypes.bool,
+  /**
+   * Determines if value is editable
+   */
+  immutable: PropTypes.bool,
   /**
    * If true field was in focus.
    */

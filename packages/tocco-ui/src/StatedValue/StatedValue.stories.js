@@ -55,8 +55,16 @@ class StatedValueWrapper extends React.Component {
         touched={touched}>
         <input
           id={id}
+          disabled={knobs.immutable}
           onChange={this.handleChange}
-          style={{width: '100%', border: 0, outline: 0}}
+          style={{
+            border: 0,
+            cursor: knobs.immutable ? 'not-allowed' : 'auto',
+            color: knobs.immutable ? '#909090' : '#000',
+            outline: 0,
+            transition: 'color 200ms',
+            width: '100%'
+          }}
           type="text"
           value={value}
         />
@@ -71,8 +79,9 @@ StatedValueWrapper.defaultProps = {
 
 StatedValueWrapper.propTypes = {
   id: PropTypes.string,
-  value: PropTypes.string,
-  knobs: PropTypes.object
+  knobs: PropTypes.object,
+  immutable: PropTypes.bool,
+  value: PropTypes.string
 }
 
 storiesOf('StatedValue', module)
@@ -87,7 +96,8 @@ storiesOf('StatedValue', module)
           'mixed errors': errors.mixed
         }),
         label: text('label', 'label'),
-        mandatory: boolean('mandatory', false) || undefined
+        mandatory: boolean('mandatory', false) || undefined,
+        immutable: boolean('immutable', false) || undefined
       }
       return [
         <StatedValueWrapper

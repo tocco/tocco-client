@@ -157,8 +157,9 @@ const generateDisabledShade = color => tint(0.5, color)
 export {
   declareFocus,
   declareInteractionColors,
-  generateShades,
+  generateDisabledShade,
   generateInteractionColors,
+  generateShades,
   getBestContrast,
   shadeColor
 }

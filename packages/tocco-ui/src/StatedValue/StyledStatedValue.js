@@ -4,6 +4,7 @@ import _get from 'lodash/get'
 import {
   declareFocus,
   declareFont,
+  generateDisabledShade,
   scale,
   shadeColor,
   theme as getTheme
@@ -12,22 +13,26 @@ import {
 const BORDER_WIDTH = '1px'
 const ANIMATION_DURATION = '200ms'
 
-const getTextColor = ({theme, signal}) =>
-  signal
+const getTextColor = ({immutable, theme, signal}) => {
+  const color = signal
     ? getTheme.color(`signal.${signal}.text`)({theme})
     : getTheme.color('text')({theme})
-
-const getBorderColor = ({theme, signal}) =>
-  signal
+  return immutable ? generateDisabledShade(color) : color
+}
+const getBorderColor = ({immutable, theme, signal}) => {
+  const color = signal
     ? getTheme.color(`signal.${signal}.text`)({theme})
     : shadeColor(_get(theme, 'colors.paper'), 2)
+  return immutable ? generateDisabledShade(color) : color
+}
 
 const transformLabel = ({secondaryPosition, theme}) => css`
   &&& {
-    transition: top ${ANIMATION_DURATION},
+    transition: color ${ANIMATION_DURATION},
                 font-size ${ANIMATION_DURATION},
-                font-weight ${ANIMATION_DURATION};
-    will-change: top, font-size, font-weight;
+                font-weight ${ANIMATION_DURATION},
+                top ${ANIMATION_DURATION};
+    will-change: color, font-size, font-weight, top;
 
     ${secondaryPosition && css`
       top: 0%;
@@ -35,6 +40,8 @@ const transformLabel = ({secondaryPosition, theme}) => css`
       font-weight: ${getTheme.fontWeight('bold')};
     `}
 `
+
+const declareCursor = ({immutable}) => `cursor: ${immutable ? 'not-allowed' : 'auto'};`
 
 const retainSpace = ({secondaryPosition, theme}) => css`
   transition: padding-top ${ANIMATION_DURATION};
@@ -57,6 +64,7 @@ const StyledStatedValueLabel = styled.label`
     position: absolute;
     top: 50%;
     ${props => transformLabel(props)}
+    ${props => declareCursor(props)}
   }
 `
 
@@ -67,6 +75,9 @@ const StyledStatedValueBox = styled.div`
     padding: ${scale.space(-2)} ${scale.space(-1)};
     position: relative;
     ${props => declareFocus(props)}
+    ${props => declareCursor(props)}
+    transition: border-color ${ANIMATION_DURATION};
+    will-change: border-color;
   }
 `
 
