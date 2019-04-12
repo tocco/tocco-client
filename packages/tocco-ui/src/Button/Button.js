@@ -76,10 +76,7 @@ Button.propTypes = {
    * Font Awesome 5.1 icons by setting specific classname (e.g. "check").
    * https://fontawesome.com/icons?d=gallery&s=brands,regular,solid&m=free
    */
-  icon: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.arrayOf(PropTypes.string)
-  ]),
+  icon: PropTypes.string,
   /**
    * Prepend icon or append icon to label. Use 'sole' if label text is omitted. Default value is 'prepend'.
    * Possible values: append|prepend|sole

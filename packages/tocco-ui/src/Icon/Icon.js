@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {withTheme} from 'styled-components'
+import _omit from 'lodash/omit'
 
 import getSpacing from './StyledIcon'
 import {design} from '../utilStyles'
@@ -50,12 +51,14 @@ export class Icon extends React.Component {
   }
 
   render() {
+    const filteredProps = _omit(this.props, ['dense', 'position', 'theme'])
+
     const icon = (typeof this.props.icon === 'string' && this.props.icon.includes(','))
       ? this.props.icon.replace(/\s+/, '').split(',')
       : this.props.icon
 
     return <this.lazyFontAwesomeIcon
-      {...this.props}
+      {...filteredProps}
       icon={icon}
       style={{...this.props.style, ...(getSpacing(this.props))}}
     />

@@ -19,7 +19,7 @@ storiesOf('Button', module)
         icon={select('icon', {
           '-': null,
           regular: 'air-freshener',
-          brand: ['fab', 'google'],
+          brand: 'fab, google',
           times: 'times'}) || undefined
         }
         iconPosition={select('iconPosition', {
