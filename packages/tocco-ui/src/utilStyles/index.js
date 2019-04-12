@@ -3,8 +3,10 @@ import declareDensity from './declareDensity'
 import {
   declareFocus,
   declareInteractionColors,
+  generateDisabledShade,
   generateInteractionColors,
   generateShades,
+  getBestContrast,
   shadeColor
 } from './declareInteractionColors'
 import declareFont from './declareFont'
@@ -28,9 +30,11 @@ export {
   declareNoneWrappingText,
   declareWrappingText,
   design,
+  filterObjectByKeysStartingWith,
+  generateDisabledShade,
   generateInteractionColors,
   generateShades,
-  filterObjectByKeysStartingWith,
+  getBestContrast,
   getTextOfChildren,
   objectToCss,
   scale,
