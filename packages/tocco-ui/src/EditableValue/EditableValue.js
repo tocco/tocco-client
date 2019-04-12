@@ -7,25 +7,20 @@ import StyledEditableValue from './StyledEditableValue'
 /**
  *  To edit values of given type.
  */
-const EditableValue = props => {
-  return (
-    <React.Fragment>
-      <StyledEditableValue>
-        {
-          typeEditorFactory(
-            props.type,
-            props.value,
-            props.onChange,
-            props.options,
-            props.id,
-            props.events,
-            props.readOnly
-          )
-        }
-      </StyledEditableValue>
-    </React.Fragment>
-  )
-}
+const EditableValue = props => (
+  <StyledEditableValue>
+    {
+      typeEditorFactory(
+        props.type,
+        props.value,
+        props.options,
+        props.id,
+        props.events,
+        props.readOnly
+      )
+    }
+  </StyledEditableValue>
+)
 
 EditableValue.propTypes = {
   /**

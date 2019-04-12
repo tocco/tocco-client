@@ -1,192 +1,53 @@
 import {EditableValue} from 'tocco-ui'
-import {mount} from 'enzyme'
+import {intlEnzyme} from 'tocco-test-util'
+import {createStore} from 'redux'
+import {Provider} from 'react-redux'
+import React from 'react'
 
 import editableValueFactory from './editableValueFactory'
 
 describe('app-extensions', () => {
   describe('formField', () => {
     describe('editableValueFactory', () => {
+      const store = createStore(() => ({
+        formData: {
+          relationEntities: {
+            data: {
+              relUser: [{key: 1}, {key: 3}],
+              relUser2: [{key: 33}]
+            }
+          },
+          tooltips: {data: {}}
+
+        },
+        form: {
+          detailForm: {
+            values: {
+              canton_c: 'ZH',
+              city_c: 'Zurich',
+              zip: '8000'
+            }
+          }
+        }
+      }))
+
       test('should return simple editableValue', () => {
         const factory = editableValueFactory('string')
 
-        const props = {
-          value: 'test'
-        }
-
-        const events = {
-          onClick: () => {
-          }
-        }
-
-        const editableValue = factory({}, {}, 'formName', props, events, {})
-
-        const wrapper = mount(editableValue)
-
-        expect(wrapper).to.have.type(EditableValue)
-        expect(wrapper).to.have.prop('value', 'test')
-        expect(wrapper).to.have.prop('events', events)
-      })
-
-      test('should format message to hours and minutes label', () => {
-        const factory = editableValueFactory('duration')
-        const util = {
-          intl: {
-            formatMessage: v => (v.id)
-          }
-        }
-
-        const editableValue = factory({}, {}, 'formName', {}, {}, util)
-
-        const wrapper = mount(editableValue)
-
-        const options = wrapper.prop('options')
-
-        expect(wrapper).to.have.type(EditableValue)
-        expect(options.hoursLabel).to.eql('client.component.duration.hoursLabel')
-        expect(options.minutesLabel).to.eql('client.component.duration.minutesLabel')
-      })
-
-      test('should return coordinate value', () => {
-        const factory = editableValueFactory('coordinate')
-        const data = {value: {value: 0.8285692490653721}}
-        const editableValue = factory({}, {}, 'formName', data, {}, {})
-
-        const wrapper = mount(editableValue)
-
-        const value = wrapper.prop('value')
-        expect(value).to.eql(data.value)
-      })
-
-      describe('location', () => {
-        test('should return location suggestions', () => {
-          const factory = editableValueFactory('location')
-          const suggestions = [
-            {city: 'Zurich', plz: '8006', canton: 'ZH', district: 'Zurich', country: {display: 'CH', key: 'CH'}},
-            {city: 'Bern', plz: '3000', district: 'Bern', country: {display: 'CH', key: 'CH'}}
-          ]
-          const util = {
-            locations: {
-              location_c: {suggestions}
-            }
-          }
-          const formField = {id: 'location_c'}
-
-          const editableValue = factory(formField, {}, 'formName', {}, {}, util)
-          const wrapper = mount(editableValue)
-
-          const options = wrapper.prop('options')
-          expect(options.suggestions).to.eql(suggestions)
-        })
-
-        test('should return location isLoading', () => {
-          const factory = editableValueFactory('location')
-          const util = {
-            locations: {
-              location_c: {isLoading: true}
-            }
-          }
-          const formField = {id: 'location_c'}
-
-          const editableValue = factory(formField, {}, 'formName', {}, {}, util)
-          const wrapper = mount(editableValue)
-
-          const options = wrapper.prop('options')
-          expect(options.isLoading).to.eql(true)
-        })
-
-        test('should return location fetchSuggestions', () => {
-          const factory = editableValueFactory('location')
-          const util = {
-            loadLocationsSuggestions: (id, searchTerm) => (
-              {
-                payload: {field: id, searchTerm: searchTerm},
-                type: 'type: "formData/LOAD_LOCATION_SUGGESTIONS"'
-              }
-            )
-          }
-
-          const field = {id: 'location_c'}
-
-          const editableValue = factory(field, {}, 'formName', {}, {}, util)
-          const wrapper = mount(editableValue)
-
-          const options = wrapper.prop('options')
-          expect(wrapper).to.have.type(EditableValue)
-          expect(options.fetchSuggestions('123')).to.eql(util.loadLocationsSuggestions(field.id, '123'))
-        })
-      })
-
-      describe('Overwriters', () => {
-        const formField = {
-          locationMapping: {
-            canton: 'canton_c',
-            city: 'city_c',
-            country: 'relCountry_c',
-            district: 'district_c',
-            street: 'address_c',
-            zip: 'zip_c'
-          }
-        }
-
+        const formField = {}
+        const modelField = {}
         const formName = 'detailForm'
+        const value = 'test'
+        const info = {mandatory: false, readOnly: false}
+        const onChangeSpy = sinon.spy()
+        const events = {onChange: onChangeSpy}
 
-        const data = {
-          onChange: locationObject => {
-            for (const key in formField.locationMapping) {
-              utils.changeFieldValue(formName, formField.locationMapping[key], locationObject[key])
-            }
-          }
-        }
+        const editableValue = factory(formField, modelField, formName, value, info, events)
 
-        const utils = {
-          changeFieldValue: sinon.spy(),
-          formValues: {
-            zip_c: '2306',
-            address_c: 'Bahnhofstrasse 1',
-            canton_c: 'ZH',
-            city_c: 'Zurich',
-            district_c: 'Zurich',
-            relCountry_c: {display: 'CH', key: 'CH'}
-          }
-        }
+        const wrapper = intlEnzyme.mountWithIntl(<Provider store={store}>{editableValue}</Provider>)
 
-        const locationObject = {
-          zip: '2306',
-          street: 'Bahnhofstrasse 1',
-          canton: 'ZH',
-          city: 'Zurich',
-          district: 'Zurich',
-          country: {display: 'CH', key: 'CH'}
-        }
-
-        const factory = editableValueFactory('location')
-
-        describe('valueOverwriter', () => {
-          test('should set coordinate as data value', () => {
-            const factory = editableValueFactory('coordinate')
-            const data = {value: {value: '52.347'}}
-            const editableValue = factory(formField, {}, formName, data, {}, {})
-            const wrapper = mount(editableValue)
-            expect(wrapper.props().value).to.eql(data.value)
-          })
-
-          test('should set location data as data value', () => {
-            const editableValue = factory(formField, {}, formName, data, {}, utils)
-            const wrapper = mount(editableValue)
-            expect(wrapper.props().value).to.eql(locationObject)
-          })
-        })
-
-        describe('methodOverwriter', () => {
-          test('should call changeFieldValue with first key value pair', () => {
-            const editableValue = factory(formField, {}, formName, data, {}, utils)
-            const wrapper = mount(editableValue)
-
-            wrapper.props().onChange(locationObject)
-            const changeFielCallArgmuents = [ 'detailForm', 'canton_c', 'ZH' ]
-            expect(utils.changeFieldValue.firstCall.args).to.eql(changeFielCallArgmuents)
-          })
-        })
+        expect(wrapper.find(EditableValue)).to.have.length(1)
+        expect(wrapper.find(EditableValue).props()).to.have.property('value', 'test')
       })
     })
   })
