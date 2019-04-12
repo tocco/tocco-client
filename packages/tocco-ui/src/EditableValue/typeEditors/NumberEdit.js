@@ -27,27 +27,30 @@ export const returnAllowedIntegerObject = (minValue, maxValue) => {
   return {minValue, maxValue}
 }
 
+export const isValidMarker = value => !!(value || value === null || value === 0)
+
 const NumberEdit = (props, context) => {
-  const {thousandSeparator, decimalSeparator} = parseLocalePlaceholder(context.intl.locale)
+  const {
+    thousandSeparator,
+    decimalSeparator
+  } = parseLocalePlaceholder(context.intl.locale)
+
   const value = props.value === null ? '' : props.value
 
-  const prePointDigits = props.options.prePointDigits
-  const postPointDigits = props.options.postPointDigits
-  const prePointMarker = prePointDigits === 0 ? true : prePointDigits
-  const postPointMarker = postPointDigits === 0 ? true : postPointDigits
-
-  const minValue = props.options.minValue
-  const maxValue = props.options.maxValue
-  const minValueMarker = minValue === 0 ? true : minValue
-  const maxValueMarker = maxValue === 0 ? true : maxValue
+  const {
+    prePointDigits,
+    postPointDigits,
+    minValue,
+    maxValue
+  } = props.options
 
   const numberFormatOptions = {
-    ...(prePointMarker && postPointMarker
+    ...(isValidMarker(prePointDigits) && isValidMarker(postPointDigits)
       ? {
         isAllowed: limitValue(calculateMaxValue(prePointDigits, postPointDigits)),
         decimalScale: postPointDigits
       } : {}),
-    ...(minValueMarker && maxValueMarker
+    ...(isValidMarker(minValue) && isValidMarker(maxValue)
       ? {
         isAllowed: isAllowedIntegerValue(returnAllowedIntegerObject(minValue, maxValue)),
         decimalScale: 0,

@@ -1,7 +1,13 @@
 import React from 'react'
 import {mountWithIntl} from 'tocco-test-util/src/intlEnzyme/intlEnzyme'
 
-import NumberEdit, {limitValue, calculateMaxValue, isAllowedIntegerValue} from './NumberEdit'
+import NumberEdit,
+{
+  limitValue,
+  calculateMaxValue,
+  isAllowedIntegerValue,
+  isValidMarker
+} from './NumberEdit'
 
 const EMPTY_FUNC = () => {}
 
@@ -66,6 +72,20 @@ describe('tocco-ui', () => {
             floatValue: 1234
           }
           expect(isAllowedIntegerValue(allowedIntegerObject)(valuesObject)).to.be.eql(true)
+        })
+      })
+
+      describe('isValidMarker', () => {
+        test('should return true on null input', () => {
+          const value = null
+          expect(isValidMarker(value)).to.be.eql(true)
+        })
+        test('should return true on zero input', () => {
+          const value = 0
+          expect(isValidMarker(value)).to.be.eql(true)
+        })
+        test('should return false undefined', () => {
+          expect(isValidMarker()).to.be.eql(false)
         })
       })
     })
