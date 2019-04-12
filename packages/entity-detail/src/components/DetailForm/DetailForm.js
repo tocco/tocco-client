@@ -12,8 +12,8 @@ import readOnlyFormFieldMapping from '../../util/detailView/readOnlyFormFieldMap
 import StyledDetailForm from './StyledDetailForm'
 
 export class DetailForm extends React.Component {
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps !== this.props) {
+  componentDidUpdate(prevProps) {
+    if (prevProps.isDirty !== this.props.isDirty) {
       this.props.fireTouched(this.props.isDirty)
     }
   }
@@ -93,9 +93,9 @@ export class DetailForm extends React.Component {
           />
           {!this.isReadOnlyForm()
           && <div>
-            {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
+            {!props.valid && props.isDirty && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
             <Button
-              disabled={props.submitting || (props.anyTouched && !props.valid)}
+              disabled={props.submitting || (props.isDirty && !props.valid)}
               ink="primary"
               label={this.msg(`client.entity-detail.${props.mode === modes.CREATE ? 'create' : 'save'}`)}
               look="raised"
@@ -127,7 +127,6 @@ DetailForm.propTypes = {
   form: PropTypes.string.isRequired,
   touch: PropTypes.func.isRequired,
   submitting: PropTypes.bool,
-  anyTouched: PropTypes.bool,
   formErrors: PropTypes.object,
   valid: PropTypes.bool,
   isDirty: PropTypes.bool,
