@@ -85,8 +85,9 @@ class DurationEdit extends React.Component {
   render() {
     return (
       <StyledDurationEditWrapper>
-        <StyledEditableWrapper>
+        <StyledEditableWrapper readOnly={this.props.readOnly}>
           <StyledDurationEdit
+            type="number"
             step={1}
             onChange={() => {}} // Empty onChange function to prevent React internal error
             value={this.state.hours}
@@ -98,8 +99,9 @@ class DurationEdit extends React.Component {
           />
         </StyledEditableWrapper>
         <Typography.Span>{this.props.options.hoursLabel}</Typography.Span>
-        <StyledEditableWrapper>
+        <StyledEditableWrapper readOnly={this.props.readOnly}>
           <StyledDurationEdit
+            type="number"
             step={1}
             onChange={() => {}} // Empty onChange function to prevent React internal error
             value={this.state.minutes}
