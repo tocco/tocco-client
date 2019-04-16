@@ -16,11 +16,13 @@ export const getMapsAddress = locationInput => {
   if (locationInput) {
     const locationAcc = []
     for (const key in locationInput) {
-      if (typeof locationInput[key] === 'string') {
-        locationAcc.push(locationInput[key])
-      }
-      if (typeof locationInput[key] === 'object') {
-        locationAcc.push(locationInput[key].display)
+      if (locationInput[key]) {
+        if (typeof locationInput[key] === 'string') {
+          locationAcc.push(locationInput[key])
+        }
+        if (typeof locationInput[key] === 'object') {
+          locationAcc.push(locationInput[key].display)
+        }
       }
     }
     return `${mapsBaseAddress}${locationAcc.join('+')}`
@@ -44,7 +46,7 @@ class LocationEdit extends React.Component {
 
   renderSuggestion = suggestion => {
     const cantonString = suggestion.canton ? `- ${suggestion.canton}` : ''
-    const countryString = suggestion.country ? `/ ${suggestion.country}` : ''
+    const countryString = suggestion.country ? `/ ${suggestion.country.display}` : ''
 
     return (
       <div>
@@ -108,7 +110,7 @@ class LocationEdit extends React.Component {
       street: suggestion.address,
       canton: suggestion.canton,
       district: suggestion.district,
-      country: {display: suggestion.country, key: uuid()}
+      country: {display: suggestion.country.display, key: uuid()}
     })
   }
 
