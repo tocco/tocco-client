@@ -14,6 +14,7 @@ class DateAbstract extends React.Component {
 
   constructor(props) {
     super(props)
+    this.state = {hideButton: true}
     this.wrapper = React.createRef()
 
     import(/* webpackChunkName: "flatpickr" */ '!style-loader!css-loader!flatpickr/dist/themes/light.css')
@@ -41,7 +42,7 @@ class DateAbstract extends React.Component {
 
     this.options = {
       wrap: true,
-      onChange: this.handleOnChange.bind(this),
+      onChange: this.handleOnChange,
       altInput: true,
       altInputClass: '',
       clickOpens: !this.props.readOnly,
@@ -72,6 +73,7 @@ class DateAbstract extends React.Component {
   }
 
   componentWillReceiveProps(props) {
+    this.handleButtonVisibility()
     const locale = this.getLocale(props.intl.locale)
 
     if (this.Flatpickr && this.flatpickr) {
@@ -84,51 +86,61 @@ class DateAbstract extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.handleButtonVisibility()
+  }
+
   componentWillUnmount() {
     this.flatpickr.destroy()
   }
 
-  handleOnChange(selectedDates) {
+  handleOnChange = selectedDates => {
     const isoStrings = selectedDates.map(date => date.toISOString())
     this.props.onChange(isoStrings)
   }
 
-  hasValue() {
+  hasValue = () => {
     return this.props.value && this.props.value.length > 0 && this.props.value.every(v => v)
   }
 
-  handleOnBlur() {
+  handleOnBlur = () => {
     if (this.props.onBlur) {
       const altValue = this.flatpickr.altInput.value
       this.props.onBlur(altValue, this.flatpickr.selectedDates, r => this.flatpickr.setDate(r, true))
     }
   }
 
-  render() {
-    const showClearButton = this.hasValue && !this.props.readOnly
+  handleButtonVisibility = () => {
+    this.setState({hideButton: !this.hasValue() && !this.props.readOnly})
+  }
 
+  render() {
     return (
       <StyledDateAbstractWrapper
-        onBlur={this.handleOnBlur.bind(this)}
+        data-wrap
+        onBlur={this.handleOnBlur}
         readOnly={this.props.readOnly}
         ref={this.wrapper}
       >
         <StyledDateAbstractInput
+          type="text"
+          data-input
           {...(this.props.options ? {placeholder: this.props.options.placeholderText} : {})}
         />
         <StyledDateAbstractInput
           disabled
           value={this.flatpickr ? this.flatpickr.altInput.value : ''}
         />
-        { showClearButton
-          && <StyledDateAbstractControl>
-            <Button
-              icon="times"
-              look="ball"
-              tabIndex={-1}
-            />
-          </StyledDateAbstractControl>
-        }
+        <StyledDateAbstractControl
+          data-clear
+          hideButton={this.state.hideButton}
+        >
+          <Button
+            icon="times"
+            look="ball"
+            tabIndex={-1}
+          />
+        </StyledDateAbstractControl>
       </StyledDateAbstractWrapper>
     )
   }

@@ -27,3 +27,6 @@ Helpers for sagas.
 
 #### storeStorage
 Simple singleton to get and set a store by id.
+
+#### units
+Helpers around unit conversion and calculators.

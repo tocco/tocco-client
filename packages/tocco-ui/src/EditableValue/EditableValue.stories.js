@@ -169,7 +169,12 @@ storiesOf('EditableValue', module)
   )
   .add(
     'Duration',
-    () => <EditableValue type="duration" value={number('Duration', 3660000)} onChange={EMPTY_FUNC}/>,
+    () => <EditableValue
+      type="duration"
+      value={number('Duration', 3660000)}
+      readOnly={boolean('readOnly', false)}
+      onChange={EMPTY_FUNC}
+    />,
     {info: {source: true}}
   )
   .add(

@@ -56,6 +56,13 @@ describe('tocco-ui', () => {
           wrapper.find('input').at(1).simulate('input', implyTargetObject(input))
           expect(wrapper.find('input').at(1)).to.have.value('59')
         })
+
+        test('should set readOnly prop to true', () => {
+          const wrapper = mount(
+            <DurationEdit value={null} onChange={EMPTY_FUNC} readOnly/>
+          )
+          expect(wrapper.props().readOnly).to.eql(true)
+        })
       })
     })
   })
