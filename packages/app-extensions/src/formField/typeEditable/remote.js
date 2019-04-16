@@ -11,7 +11,7 @@ export default {
     relationEntities: formField.id,
     tooltips: modelField.targetEntity
   }),
-  getOptions: ({formField, modelField, formData, formName}) => ({
+  getOptions: ({formField, modelField, formName, formData}) => ({
     options: _get(formData, ['relationEntities', formField.id, 'data'], []),
     moreOptionsAvailable: _get(formData, ['relationEntities', formField.id, 'moreEntitiesAvailable'], false),
     isLoading: _get(formData, ['relationEntities', formField.id, 'isLoading'], false),
@@ -30,7 +30,9 @@ export default {
     openAdvancedSearch: value => formData.openAdvancedSearch(formName, formField, modelField, value),
     tooltips: _get(formData.tooltips, modelField.targetEntity, null),
     loadTooltip: id => formData.loadTooltip(modelField.targetEntity, id),
-    noResultsText: formData.intl.formatMessage({id: 'client.component.remoteselect.noResultsText'}),
+    noResultsText: formData.intl.formatMessage(
+      {id: 'client.component.remoteselect.noResultsText'}
+    ),
     moreOptionsAvailableText: formData.intl.formatMessage(
       {id: 'client.component.remoteselect.moreOptionsAvailableText'}
     )

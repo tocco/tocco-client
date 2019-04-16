@@ -15,7 +15,7 @@ export default {
     }
     return renamedLocationData
   },
-  getEvents: ({events, formField, formData, formName}) => {
+  getEvents: ({formField, formName, formData, events}) => {
     const locationMapping = formField.locationMapping || {}
     const onChange = locationObject => {
       for (const key in locationMapping) {
@@ -27,15 +27,13 @@ export default {
       onChange
     }
   },
-  dataContainerProps: ({formField, formName}) => {
-    return {
-      locations: formField.id,
-      formValues: {
-        formName: formName,
-        fields: Object.values(formField.locationMapping)
-      }
+  dataContainerProps: ({formField, formName}) => ({
+    locations: formField.id,
+    formValues: {
+      formName: formName,
+      fields: Object.values(formField.locationMapping)
     }
-  },
+  }),
   getOptions: ({formField, formData}) => ({
     fetchSuggestions: searchTerm => formData.loadLocationsSuggestions(formField.id, searchTerm),
     isLoading: _get(formData, ['locations', formField.id, 'isLoading'], false),
