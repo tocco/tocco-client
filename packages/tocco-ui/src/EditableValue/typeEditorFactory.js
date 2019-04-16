@@ -94,7 +94,7 @@ export default (type, value, options, id, events, readOnly = false) => {
             blurValue = v
             events.onChange(v)
           }}
-          {...(_isEmpty(options) ? {} : {options})}
+          {...(_isEmpty(options) ? options : {options})}
           id={id}
           readOnly={readOnly}
           events={events}

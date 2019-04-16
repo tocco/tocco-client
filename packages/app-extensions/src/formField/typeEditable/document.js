@@ -1,5 +1,5 @@
 export default {
-  getOptions: ({formField, modelField, formData, formName}) => ({
+  getOptions: ({formField, formName, formData}) => ({
     upload: document => {
       formData.uploadDocument(formName, formField.id, document)
     },
