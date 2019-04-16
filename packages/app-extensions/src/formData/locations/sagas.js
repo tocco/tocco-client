@@ -23,7 +23,7 @@ export function* loadLocations({payload: {field, searchInput}}) {
       canton: 'ZH',
       address: 'Bahnhofstrasse 1',
       district: 'Zurich',
-      country: 'CH'
+      country: {display: 'Schweiz', key: uuid()}
     },
     {
       city: 'Lausanne',
@@ -31,7 +31,7 @@ export function* loadLocations({payload: {field, searchInput}}) {
       canton: 'VD',
       address: 'Rue Saint Roche 1',
       district: 'VD',
-      country: 'CH'
+      country: {display: 'Schweiz', key: uuid()}
     },
     {
       city: 'Bern',
@@ -39,7 +39,7 @@ export function* loadLocations({payload: {field, searchInput}}) {
       canton: 'BE',
       address: 'Bundesplatz',
       district: 'Bern',
-      country: 'CH'
+      country: {display: 'Schweiz', key: uuid()}
     }
   ]
   // END MOCK
