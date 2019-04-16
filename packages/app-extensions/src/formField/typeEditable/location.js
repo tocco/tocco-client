@@ -31,7 +31,7 @@ export default {
     locations: formField.id,
     formValues: {
       formName: formName,
-      fields: Object.values(formField.locationMapping)
+      fields: formField.locationMapping ? Object.values(formField.locationMapping) : {}
     }
   }),
   getOptions: ({formField, formData}) => ({
