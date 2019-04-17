@@ -5,15 +5,9 @@
 
 /* spacing rythm */
 $line-height-computed-half: floor(($line-height-computed / 2)) !default;
-$line-height-computed-double: floor(($line-height-computed * 2)) !default;
 
 /* forms */
 $button-min-width: fit-content;
-$field-max-width: 40rem;
-
-/* tocco-ui pagination */
-$tocco-pagination-delimiter: '/';
-$tocco-pagination-dividing-space: $line-height-computed-half;
 
 /* backdrop */
 $backdrop-bg: rgba(0, 0, 0, .6);
