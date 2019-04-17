@@ -8,12 +8,10 @@
   // import variables
   @import 'variable/tocco-variable-before-vendor';
   @import 'variable/bootstrap-variable';
-  @import 'variable/react-select-variable';
   @import 'variable/tocco-variable-after-vendor';
 
   // import vendor's styling frameworks
   @import 'vendor/bootstrap';
-  @import 'vendor/react-select';
 
   // import vendor's styling frameworks extension
   @import 'vendor-extension/bootstrap/normalize';
