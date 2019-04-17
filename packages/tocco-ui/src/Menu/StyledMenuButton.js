@@ -12,6 +12,7 @@ const StyledMenuButton = styled(StyledMenu)`
     display: inline-flex;
     flex-flow: row wrap;
     margin-bottom: ${props => props.look === design.look.RAISED ? `-${scale.space(-1)(props)}` : 0};
+    vertical-align: middle;
 
     > hr {
       border: none;
