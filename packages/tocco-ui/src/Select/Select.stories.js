@@ -60,19 +60,20 @@ export class SelectStory extends React.Component {
     return (
       <span>
         <Select
-          isMulti={this.props.isMulti}
           fetchOptions={this.fetchOptions}
-          searchOptions={this.searchOptions}
-          options={this.state.options}
           isLoading={this.state.isLoading}
-          onChange={this.setValue}
-          value={this.state.value}
-          noResultsText="No more options."
+          isMulti={this.props.isMulti}
+          loadTooltip={this.loadToolTip}
           moreOptionsAvailable={this.state.moreOptionsAvailable}
           moreOptionsAvailableText="More options available"
+          noResultsText="No more options."
+          onChange={this.setValue}
           openAdvancedSearch={action('open advanced search')}
+          options={this.state.options}
+          readOnly={this.props.readOnly}
+          searchOptions={this.searchOptions}
           tooltips={this.state.tooltips}
-          loadTooltip={this.loadToolTip}
+          value={this.state.value}
         />
       </span>
     )
@@ -80,14 +81,21 @@ export class SelectStory extends React.Component {
 }
 
 SelectStory.propTypes = {
+  delay: PropTypes.number,
   isMulti: PropTypes.bool,
-  delay: PropTypes.number
+  readOnly: PropTypes.bool
 }
 
 storiesOf('Select', module)
   .addDecorator(withKnobs)
   .add(
     'Select',
-    () => <SelectStory isMulti={boolean('isMulti', true)} delay={2000} action={action}/>,
+    () =>
+      <SelectStory
+        action={action}
+        delay={2000}
+        isMulti={boolean('isMulti', true)}
+        readOnly={boolean('readOnly', true)}
+      />,
     {info: {propTables: [Raw], propTablesExclude: [SelectStory], source: false}}
   )
