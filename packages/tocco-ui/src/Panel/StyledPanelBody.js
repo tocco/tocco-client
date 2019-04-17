@@ -2,8 +2,7 @@ import styled, {css, keyframes} from 'styled-components'
 
 const delayScrollbar = keyframes`
   0%,
-  99% {overflow-y: hidden;}
-  100% {overflow-y: auto;}
+  100% {overflow-y: visible;}
 `
 
 const declareScrollbar = isOpen => {
