@@ -34,12 +34,76 @@ export function* loadLocations({payload: {field, searchInput}}) {
       country: {display: 'Schweiz', key: uuid()}
     },
     {
-      city: 'Bern',
-      zip: '3450',
-      canton: 'BE',
-      address: 'Bundesplatz',
-      district: 'Bern',
+      city: 'Hawaii',
+      zip: '1234',
+      canton: 'HA',
+      address: 'Vulcanostreet 12',
+      district: 'HA',
+      country: {display: 'Hawaii', key: uuid()}
+    },
+    {
+      city: 'Hawaii',
+      zip: '1234',
+      canton: 'HA',
+      address: 'Vulcanostreet 12',
+      district: 'HA',
+      country: {display: 'Hawaii', key: uuid()}
+    },
+    {
+      city: 'Hawaii',
+      zip: '1234',
+      canton: 'HA',
+      address: 'Vulcanostreet 12',
+      district: 'HA',
+      country: {display: 'Hawaii', key: uuid()}
+    },
+    {
+      city: 'Lausanne',
+      zip: '3000',
+      canton: 'VD',
+      address: 'Rue Saint Roche 1',
+      district: 'VD',
       country: {display: 'Schweiz', key: uuid()}
+    },
+    {
+      city: 'Lausanne',
+      zip: '3000',
+      canton: 'VD',
+      address: 'Rue Saint Roche 1',
+      district: 'VD',
+      country: {display: 'Schweiz', key: uuid()}
+    },
+    {
+      city: 'Hawaii',
+      zip: '1234',
+      canton: 'HA',
+      address: 'Vulcanostreet 12',
+      district: 'HA',
+      country: {display: 'Hawaii', key: uuid()}
+    },
+    {
+      city: 'Hawaii',
+      zip: '1234',
+      canton: 'HA',
+      address: 'Vulcanostreet 12',
+      district: 'HA',
+      country: {display: 'Hawaii', key: uuid()}
+    },
+    {
+      city: 'Hawaii',
+      zip: '1234',
+      canton: 'HA',
+      address: 'Vulcanostreet 12',
+      district: 'HA',
+      country: {display: 'Hawaii', key: uuid()}
+    },
+    {
+      city: 'Hawaii',
+      zip: '1234',
+      canton: 'HA',
+      address: 'Vulcanostreet 12',
+      district: 'HA',
+      country: {display: 'Hawaii', key: uuid()}
     }
   ]
   // END MOCK

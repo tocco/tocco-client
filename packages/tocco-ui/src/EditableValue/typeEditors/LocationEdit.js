@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Autosuggest from 'react-autosuggest'
 import uuid from 'uuid/v4'
-import _isEmpty from 'lodash/isEmpty'
 
 import ButtonLink from '../../ButtonLink'
 import {
@@ -36,9 +35,7 @@ class LocationEdit extends React.Component {
     super(props)
     this.state = {
       zipFieldFocused: false,
-      cityFieldFocused: false,
-      currentZipValue: '',
-      currentCityValue: ''
+      cityFieldFocused: false
     }
   }
 
@@ -56,25 +53,23 @@ class LocationEdit extends React.Component {
   }
 
   onChangeZip = (event, {newValue}) => {
+    if (!newValue) {
+      this.props.onChange({zip: ''})
+    }
     this.setState({
       zipFieldFocused: true,
-      cityFieldFocused: false,
-      currentZipValue: event.target.value
+      cityFieldFocused: false
     })
-
-    this.props.options.fetchSuggestions(newValue)
-    this.props.onChange({zip: newValue})
   }
 
   onChangeCity = (event, {newValue}) => {
+    if (!newValue) {
+      this.props.onChange({city: ''})
+    }
     this.setState({
       zipFieldFocused: false,
-      cityFieldFocused: true,
-      currentCityValue: event.target.value
+      cityFieldFocused: true
     })
-    
-    this.props.options.fetchSuggestions(newValue)
-    this.props.onChange({city: newValue})
   }
 
   onSuggestionsClearRequested = () => {
@@ -114,15 +109,26 @@ class LocationEdit extends React.Component {
     })
   }
 
+  returnOnSuggestionFetchRequested = attr => ({value}) => {
+    this.props.options.fetchSuggestions(value)
+    this.props.onChange({[attr]: value})
+  }
+
+  showButtonLink = value => {
+    if (value) {
+      return Object.values(value).some(val => val)
+    }
+  }
+
   render() {
     const inputPropsZip = {
-      value: this.props.value.zip || this.state.currentZipValue,
+      value: this.props.value.zip || '',
       onChange: this.onChangeZip,
       readOnly: this.props.readOnly
     }
 
     const inputPropsCity = {
-      value: this.props.value.city || this.state.currentCityValue,
+      value: this.props.value.city || '',
       onChange: this.onChangeCity,
       readOnly: this.props.readOnly
     }
@@ -135,7 +141,7 @@ class LocationEdit extends React.Component {
         <StyledZipInput>
           <Autosuggest
             suggestions={this.props.options.suggestions || []}
-            onSuggestionsFetchRequested={() => {}}
+            onSuggestionsFetchRequested={this.returnOnSuggestionFetchRequested('zip')}
             onSuggestionsClearRequested={this.onSuggestionsClearRequested}
             getSuggestionValue={this.returnGetSuggestion('zip')}
             renderSuggestion={this.renderSuggestion}
@@ -147,7 +153,7 @@ class LocationEdit extends React.Component {
         </StyledZipInput>
         <Autosuggest
           suggestions={this.props.options.suggestions || []}
-          onSuggestionsFetchRequested={() => {}}
+          onSuggestionsFetchRequested={this.returnOnSuggestionFetchRequested('city')}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
           getSuggestionValue={this.returnGetSuggestion('city')}
           renderSuggestion={this.renderSuggestion}
@@ -156,16 +162,16 @@ class LocationEdit extends React.Component {
           onSuggestionSelected={this.onSuggestionSelected}
           focusInputOnSuggestionClick={false}
         />
-        {!_isEmpty(this.props.value)
-          && <ButtonLink
-            href={getMapsAddress(this.props.value)}
-            icon="external-link-alt"
-            iconPosition="sole"
-            look="ball"
-            tabIndex={-1}
-            target="_blank"
-            dense={false}
-          />
+        {this.showButtonLink(this.props.value)
+            && <ButtonLink
+              href={getMapsAddress(this.props.value)}
+              icon="external-link-alt"
+              iconPosition="sole"
+              look="ball"
+              tabIndex={-1}
+              target="_blank"
+              dense={false}
+            />
         }
       </StyledLocationEdit>
     )
