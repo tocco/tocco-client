@@ -2,11 +2,13 @@ export const LOAD_LOCATION_SUGGESTIONS = 'formData/LOAD_LOCATION_SUGGESTIONS'
 export const SET_LOCATION_SUGGESTIONS = 'formData/SET_LOCATION_SUGGESTIONS'
 export const SET_LOCATION_SUGGESTIONS_LOADING = 'formData/SET_LOCATION_SUGGESTIONS_LOADING'
 
-export const loadLocationsSuggestions = (field, searchInput) => ({
+export const loadLocationsSuggestions = (field, searchInput, countryValue, fieldCountries) => ({
   type: LOAD_LOCATION_SUGGESTIONS,
   payload: {
     field,
-    searchInput
+    searchInput,
+    countryValue,
+    fieldCountries
   }
 })
 

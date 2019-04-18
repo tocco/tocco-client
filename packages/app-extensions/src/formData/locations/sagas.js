@@ -1,113 +1,23 @@
-// import {delay} from 'redux-saga'
-import uuid from 'uuid/v4'
-
 import * as actions from './actions'
+import {loadCountries, transformToSuggestions, requestSuggestions, getCountry} from './utils'
 
-import {all, call, fork, put, takeEvery} from 'redux-saga/effects'
+import {all, call, fork, put, takeLatest} from 'redux-saga/effects'
 
 export default function* sagas() {
   yield all([
-    fork(takeEvery, actions.LOAD_LOCATION_SUGGESTIONS, loadLocations)
+    fork(takeLatest, actions.LOAD_LOCATION_SUGGESTIONS, loadLocations)
   ])
 }
 
-export function* loadLocations({payload: {field, searchInput}}) {
+export function* loadLocations({payload: {field, searchInput, countryValue, fieldCountries}}) {
   yield put(actions.setLocationSuggestionsLoading(field))
-  // uncomment to see isLoading animation
-  // MOCK
-  // yield delay(1000)
-  const suggestions = [
-    {
-      city: `Zurich`,
-      zip: '2306',
-      canton: 'ZH',
-      address: 'Bahnhofstrasse 1',
-      district: 'Zurich',
-      country: {display: 'Schweiz', key: uuid()}
-    },
-    {
-      city: 'Lausanne',
-      zip: '3000',
-      canton: 'VD',
-      address: 'Rue Saint Roche 1',
-      district: 'VD',
-      country: {display: 'Schweiz', key: uuid()}
-    },
-    {
-      city: 'Hawaii',
-      zip: '1234',
-      canton: 'HA',
-      address: 'Vulcanostreet 12',
-      district: 'HA',
-      country: {display: 'Hawaii', key: uuid()}
-    },
-    {
-      city: 'Hawaii',
-      zip: '1234',
-      canton: 'HA',
-      address: 'Vulcanostreet 12',
-      district: 'HA',
-      country: {display: 'Hawaii', key: uuid()}
-    },
-    {
-      city: 'Hawaii',
-      zip: '1234',
-      canton: 'HA',
-      address: 'Vulcanostreet 12',
-      district: 'HA',
-      country: {display: 'Hawaii', key: uuid()}
-    },
-    {
-      city: 'Lausanne',
-      zip: '3000',
-      canton: 'VD',
-      address: 'Rue Saint Roche 1',
-      district: 'VD',
-      country: {display: 'Schweiz', key: uuid()}
-    },
-    {
-      city: 'Lausanne',
-      zip: '3000',
-      canton: 'VD',
-      address: 'Rue Saint Roche 1',
-      district: 'VD',
-      country: {display: 'Schweiz', key: uuid()}
-    },
-    {
-      city: 'Hawaii',
-      zip: '1234',
-      canton: 'HA',
-      address: 'Vulcanostreet 12',
-      district: 'HA',
-      country: {display: 'Hawaii', key: uuid()}
-    },
-    {
-      city: 'Hawaii',
-      zip: '1234',
-      canton: 'HA',
-      address: 'Vulcanostreet 12',
-      district: 'HA',
-      country: {display: 'Hawaii', key: uuid()}
-    },
-    {
-      city: 'Hawaii',
-      zip: '1234',
-      canton: 'HA',
-      address: 'Vulcanostreet 12',
-      district: 'HA',
-      country: {display: 'Hawaii', key: uuid()}
-    },
-    {
-      city: 'Hawaii',
-      zip: '1234',
-      canton: 'HA',
-      address: 'Vulcanostreet 12',
-      district: 'HA',
-      country: {display: 'Hawaii', key: uuid()}
-    }
-  ]
-  // END MOCK
 
-  const hash = yield call(uuid)
-  yield put(actions.setLocationSuggestions(field, suggestions, hash))
+  const {city, postcode} = searchInput
+  const country = yield call(getCountry, countryValue, fieldCountries)
+  const suggestionsResponse = yield call(requestSuggestions, city, postcode, country)
+
+  const countries = yield call(loadCountries, suggestionsResponse)
+  const suggestions = yield call(transformToSuggestions, suggestionsResponse, countries)
+
+  yield put(actions.setLocationSuggestions(field, suggestions))
 }
