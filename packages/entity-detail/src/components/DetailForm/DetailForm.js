@@ -95,7 +95,7 @@ export class DetailForm extends React.Component {
           && <div>
             {!props.valid && props.isDirty && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
             <Button
-              disabled={props.submitting || (props.isDirty && !props.valid)}
+              disabled={props.submitting || (props.anyTouched && !props.valid)}
               ink="primary"
               label={this.msg(`client.entity-detail.${props.mode === modes.CREATE ? 'create' : 'save'}`)}
               look="raised"
