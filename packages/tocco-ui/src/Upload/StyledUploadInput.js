@@ -5,14 +5,15 @@ import {
   declareFocus,
   declareFont,
   shadeColor,
-  scale
+  scale,
+  theme
 } from '../utilStyles'
 
 const StyledUploadInput = styled.div`
-  ${props => declareFont(props)}
+  ${declareFont()}
   border: dashed 1px ${props => shadeColor(_get(props.theme, 'colors.paper'), 1)};
-  border-radius: ${props => _get(props.theme, 'radii.regular')};
-  padding: ${props => scale.space(props.theme, -2)} ${props => scale.space(props.theme, -1)};
+  border-radius: ${theme.radii('regular')};
+  padding: ${scale.space(-2)} ${scale.space(-1)};
   cursor: pointer;
   ${props => declareFocus(props)}
 

@@ -13,6 +13,7 @@ import {
   declareWrappingText
 } from './declareWrapping'
 import filterObjectByKeysStartingWith from './filterObjectByKeysStartingWith'
+import theme from './resolveThemePath'
 import getTextOfChildren from './getTextOfChildren'
 import scale from './modularScale'
 import objectToCss from './objectToCss'
@@ -34,5 +35,6 @@ export {
   objectToCss,
   scale,
   shadeColor,
+  theme,
   validateCssDimension
 }

@@ -1,7 +1,9 @@
 import styled, {css, keyframes} from 'styled-components'
-import _get from 'lodash/get'
 
-import {scale} from '../utilStyles'
+import {
+  scale,
+  theme
+} from '../utilStyles'
 import {StyledSpan} from '../Typography/StyledMisc'
 import {StyledIconToccoWrapper} from '../IconTocco'
 
@@ -22,17 +24,17 @@ const StyledLoadMask = styled.div`
       height: 100%;
       justify-content: center;
       align-items: center;
-      padding: ${props => scale.space(props.theme, -1)};
+      padding: ${scale.space(-1)};
       width: 100%;
       animation: ${fadeInAnimation};
 
       > ${StyledSpan} {
-        margin-top: ${props => scale.space(props.theme, -1)};
+        margin-top: ${scale.space(-1)};
         z-index: 1;
       }
 
       > ${StyledIconToccoWrapper} {
-        color: ${props => _get(props.theme, 'colors.primary')};
+        color: ${theme.color('primary')};
       }
     }
   `}

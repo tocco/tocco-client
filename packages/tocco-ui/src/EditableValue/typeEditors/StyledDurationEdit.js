@@ -7,9 +7,7 @@ import {
   StyledInputCss
 } from '../StyledEditableValue'
 
-const StyledDurationEdit = styled.input.attrs({
-  type: 'number'
-})`
+const StyledDurationEdit = styled.input`
   && {
     ${StyledInputCss}
     width: 100%;
@@ -28,11 +26,11 @@ const StyledDurationEditWrapper = styled.div`
 
   > ${StyledSpan} {
     &:nth-of-type(1) {
-      margin: 0 ${props => scale.space(props.theme, -1)};
+      margin: 0 ${scale.space(-1)};
     }
 
     &:nth-of-type(2) {
-      margin-left: ${props => scale.space(props.theme, -1)};
+      margin-left: ${scale.space(-1)};
     }
   }
 }

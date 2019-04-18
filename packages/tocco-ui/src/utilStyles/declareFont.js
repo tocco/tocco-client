@@ -1,27 +1,17 @@
-import _get from 'lodash/get'
+import {css} from 'styled-components'
 
-import objectToCss from './objectToCss'
+import {
+  scale,
+  theme
+} from '../utilStyles'
 
-const declareFont = (props, options) => {
-  options = Object.assign({
-    color: _get(props.theme, 'colors.text'),
-    fontFamily: _get(props.theme, 'fontFamily.regular'),
-    fontSize: `${_get(props.theme, 'fontSize.base')}rem`,
-    fontStyle: 'normal',
-    fontWeight: _get(props.theme, 'fontWeights.regular'),
-    lineHeight: _get(props.theme, 'lineHeights.regular')
-  }, options)
-
-  const declarations = {
-    'color': options.color,
-    'font-family': options.fontFamily,
-    'font-size': options.fontSize,
-    'font-style': options.fontStyle,
-    'font-weight': options.fontWeight,
-    'line-height': options.lineHeight
-  }
-
-  return objectToCss(declarations)
-}
+const declareFont = (options = {}) => css`
+  color: ${options.color || theme.color('text')};
+  font-family: ${options.fontFamily || theme.fontFamily('regular')};
+  font-size: ${options.fontSize || scale.font(0)};
+  font-style: ${options.fontStyle || 'normal'};
+  font-weight: ${options.fontWeight || theme.fontWeight('regular')};
+  line-height: ${options.lineHeight || theme.lineHeight('regular')};
+`
 
 export default declareFont

@@ -5,17 +5,18 @@ import {
   declareFont,
   declareNoneWrappingText,
   declareWrappingText,
+  theme,
   shadeColor
 } from '../utilStyles'
 
 const StyledLink = styled.a`
-  ${props => declareFont(props)}
+  ${declareFont()}
   ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
 
   && {
     color: ${props => props.neutral
-    ? _get(props.theme, 'colors.text')
-    : _get(props.theme, 'colors.primary')};
+    ? theme.color('text')
+    : theme.color('primary')};
     text-decoration: ${props => props.neutral ? 'underline' : 'none'};
 
     &:hover,

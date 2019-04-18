@@ -19,7 +19,7 @@
     "plop": "babel-node ./node_modules/plop",
     "commitmsg": "babel-node scripts/msg-validation",
     "precommit": "npm run lint",
-    "publish-package": "yarn setup && ./scripts/publish-package.sh",
+    "release-package": "yarn setup && ./scripts/release-package.sh",
     "storybook": "start-storybook -s ./storybook/assets -p 3003 -c ./storybook"
   },
   "author": "Tocco AG",

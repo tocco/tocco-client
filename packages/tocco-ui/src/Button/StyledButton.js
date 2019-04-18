@@ -1,5 +1,4 @@
-import styled from 'styled-components'
-import _get from 'lodash/get'
+import styled, {css} from 'styled-components'
 
 import {StyledButtonGroup} from '../ButtonGroup'
 import {
@@ -8,36 +7,31 @@ import {
   declareInteractionColors,
   design,
   generateInteractionColors,
-  scale
+  scale,
+  theme
 } from '../utilStyles'
 
 let scheme
 
-const meltButtons = props => {
-  let declaration = ''
-  if (!props.melt && props.look === design.look.RAISED) {
-    declaration = `
-      &:not(:last-child) {
-        margin-right: ${scale.space(props.theme, -1)};
-      }
-    `
-  } else if (props.melt) {
-    declaration = `
-      border-radius: 0;
-
-      &:first-child {
-        border-top-left-radius: ${props => _get(props.theme, 'radii.regular')};
-        border-bottom-left-radius: ${props => _get(props.theme, 'radii.regular')};
-      }
-
-      &:last-child {
-        border-top-right-radius: ${props => _get(props.theme, 'radii.regular')};
-        border-bottom-right-radius: ${props => _get(props.theme, 'radii.regular')};
-      }
-    `
+const spaceButtons = () => css`
+  &:not(:last-child) {
+    margin-right: ${scale.space(-1)};
   }
-  return declaration
-}
+`
+
+const meltButtons = () => css`
+  border-radius: 0;
+
+  &:first-child {
+    border-top-left-radius: ${theme.radii('regular')};
+    border-bottom-left-radius: ${theme.radii('regular')};
+  }
+
+  &:last-child {
+    border-top-right-radius: ${theme.radii('regular')};
+    border-bottom-right-radius: ${theme.radii('regular')};
+  }
+`
 
 const declareButtonColor = props => {
   const {ink, look} = props
@@ -57,45 +51,38 @@ const declareButtonColor = props => {
   return declareInteractionColors(generateInteractionColors(props, scheme), 'html')
 }
 
-const declareIconPosition = props => {
-  if (props.iconPosition === design.position.APPEND) {
-    return `
-      justify-content: space-between;
-      > span {
-        order: -1;
-      }
-    `
+const declareIconPosition = `
+  justify-content: space-between;
+
+  > span {
+    order: -1;
   }
-}
+`
 
-const declareBall = props => {
-  if (props.look === design.look.BALL) {
-    return `
-      border-radius: 50%;
-      justify-content: center;
-      align-items: center;
+const declareBall = () => css`
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
 
-      // ensure that width has at least the size of height
-      min-width: calc(1rem
-        * ${_get(props.theme, 'fontSize.base')}
-        * ${_get(props.theme, 'lineHeights.regular')}
-        + 2 * ${scale.space(props.theme, -3)});
+  // ensure that width has at least the size of height
+  min-width: calc(1rem
+    * ${theme.fontSize('base')}
+    * ${theme.lineHeight('regular')}
+    + 2 * ${scale.space(-3)});
 
-      // increase height to the size of width
-      &:before {
-        content: "";
-        display: block;
-        padding-bottom: 100%;
-      }
-    `
+  // increase height to the size of width
+  &:before {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
   }
-}
+`
 
 const StyledButton = styled.button`
   && {
     align-items: center;
     background-image: none;
-    border-radius: ${props => _get(props.theme, 'radii.regular')};
+    border-radius: ${theme.radii('regular')};
     border: none;
     display: inline-flex;
     margin: 0;
@@ -118,14 +105,15 @@ const StyledButton = styled.button`
       outline: none;
     }
 
-    ${props => declareFont(props)}
+    ${declareFont()}
     ${props => declareButtonColor(props)}
     ${props => declareDensity(props)}
-    ${props => declareIconPosition(props)}
-    ${props => declareBall(props)}
+    ${props => props.iconPosition === design.position.APPEND && declareIconPosition}
+    ${props => props.look === design.look.BALL && declareBall()}
 
     ${StyledButtonGroup} & {
-      ${props => meltButtons(props)}
+      ${props => !props.melt && props.look === design.look.RAISED && spaceButtons()}
+      ${props => props.melt && meltButtons()}
     }
   }
 `

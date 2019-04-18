@@ -5,7 +5,8 @@ import {StyledSignalListItem} from '../SignalList'
 import {
   design,
   scale,
-  shadeColor
+  shadeColor,
+  theme
 } from '../utilStyles'
 
 const ALLOWED_CONDITIONS = [
@@ -16,9 +17,9 @@ const ALLOWED_CONDITIONS = [
 ]
 
 const COLORS = {
-  [design.condition.DANGER]: props => _get(props.theme, 'colors.signal.danger.paper'),
-  [design.condition.SUCCESS]: props => _get(props.theme, 'colors.signal.success.paper'),
-  [design.condition.WARNING]: props => _get(props.theme, 'colors.signal.warning.paper'),
+  [design.condition.DANGER]: theme.color('signal.danger.paper'),
+  [design.condition.SUCCESS]: theme.color('signal.success.paper'),
+  [design.condition.WARNING]: theme.color('signal.warning.paper'),
   [design.condition.BASE]: props => shadeColor(_get(props.theme, 'colors.paper'), 1)
 }
 
@@ -30,9 +31,9 @@ const getColor = props => {
 const StyledSignalBox = styled.div`
   && {
     background-color: ${props => getColor(props)};
-    padding: ${props => scale.space(props.theme, -1)};
-    margin-bottom: ${props => scale.space(props.theme, -1)};
-    border-radius: ${props => _get(props.theme, 'radii.regular')};
+    padding: ${scale.space(-1)};
+    margin-bottom: ${scale.space(-1)};
+    border-radius: ${theme.radii('radii.regular')};
 
     &:last-child {
       margin-bottom: 0;

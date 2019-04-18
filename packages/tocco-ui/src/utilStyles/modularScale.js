@@ -1,14 +1,15 @@
 import _round from 'lodash/round'
-import _get from 'lodash/get'
 
-const font = (theme, exponent, unit) =>
-  declareScale(theme, exponent, 'fontSize.base', 'fontSize.factor', unit)
+import theme from './resolveThemePath'
 
-const space = (theme, exponent, unit) =>
-  declareScale(theme, exponent, 'space.base', 'space.factor', unit)
+const font = (exponent, unit) => props =>
+  declareScale(exponent, theme.fontSize('base')(props), theme.fontSize('factor')(props), unit)
 
-const declareScale = (theme, exponent, base, factor, unit = 'rem') =>
-  `${_round(exponentiate(_get(theme, base), exponent, _get(theme, factor)), 3)}${unit}`
+const space = (exponent, unit) => props =>
+  declareScale(exponent, theme.space('base')(props), theme.space('factor')(props), unit)
+
+const declareScale = (exponent, base, factor, unit = 'rem') =>
+  `${_round(exponentiate(base, exponent, factor), 3)}${unit}`
 
 const exponentiate = (base, exponent, factor) =>
   Math.pow(factor, exponent) * base

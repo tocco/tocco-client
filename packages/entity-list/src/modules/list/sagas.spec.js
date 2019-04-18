@@ -177,7 +177,7 @@ describe('entity-list', () => {
             expect(gen.next().value).to.eql(select(sagas.listSelector))
             expect(gen.next(state).value).to.eql(call(sagas.fetchEntitiesAndAddToStore, page))
             expect(gen.next().value).to.eql(call(sagas.displayEntity, page))
-            expect(gen.next().value).to.eql(spawn(sagas.fetchEntitiesAndAddToStore, page + 1))
+            expect(gen.next().value).to.eql(spawn(sagas.preloadNextPage, page))
             expect(gen.next().done).to.be.true
           })
         })
@@ -424,6 +424,40 @@ describe('entity-list', () => {
 
             expect(saga.returnValue).to.have.property('tql')
             expect(saga.returnValue).to.have.property('form')
+          })
+        })
+
+        describe('preloadNextPage saga', () => {
+          test('should load next page if not already done and not end', () => {
+            const listState = {
+              entityStore: {},
+              limit: 10,
+              entityCount: 20
+            }
+
+            return expectSaga(sagas.preloadNextPage, 1)
+              .provide([
+                [select(sagas.listSelector), listState],
+                [matchers.call.fn(sagas.fetchEntitiesAndAddToStore), null]
+              ])
+              .call(sagas.fetchEntitiesAndAddToStore, 2)
+              .run()
+          })
+
+          test('should not load next page if at end', () => {
+            const listState = {
+              entityStore: {},
+              limit: 10,
+              entityCount: 20
+            }
+
+            return expectSaga(sagas.preloadNextPage, 2)
+              .provide([
+                [select(sagas.listSelector), listState],
+                [matchers.call.fn(sagas.fetchEntitiesAndAddToStore), null]
+              ])
+              .not.call(sagas.fetchEntitiesAndAddToStore, 3)
+              .run()
           })
         })
       })

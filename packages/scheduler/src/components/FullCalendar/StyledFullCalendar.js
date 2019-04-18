@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import _get from 'lodash/get'
+import {theme} from 'tocco-ui'
 
 const StyledFullCalendar = styled.div`
 && {
@@ -28,12 +28,12 @@ const StyledFullCalendar = styled.div`
     .fc-event{
       border: none;
       border-radius: 2px;
-      font-weight: ${props => _get(props.theme, 'fontWeights.bold')};
+      font-weight: ${theme.fontWeight('bold')};
       background-color: #1287de;
       color: #fff;
 
       &.dark {
-        color: ${props => _get(props.theme, 'colors.text')};
+        color: ${theme.color('text')};
       }
 
       &.bright {

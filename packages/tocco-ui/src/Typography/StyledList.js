@@ -9,7 +9,7 @@ import {
 
 const StyledDd = styled.dd`
   && {
-    ${props => declareFont(props)}
+    ${declareFont()}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     margin: 0;
   }
@@ -17,7 +17,7 @@ const StyledDd = styled.dd`
 
 const StyledDl = styled.dl`
   && {
-    margin: 0 0 ${props => scale.space(props.theme, -1)};
+    margin: 0 0 ${scale.space(-1)};
 
     &:last-child {
       margin-bottom: 0;
@@ -27,7 +27,7 @@ const StyledDl = styled.dl`
 
 const StyledDt = styled.dt`
   && {
-    ${props => declareFont(props, {fontWeight: 700})}
+    ${declareFont({fontWeight: 700})}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     margin: 0;
   }
@@ -35,7 +35,7 @@ const StyledDt = styled.dt`
 
 const StyledLi = styled.li`
   && {
-    ${props => declareFont(props)}
+    ${declareFont()}
     ${declareWrappingText()}
   }
 `
@@ -44,7 +44,7 @@ const StyledList = styled.ol`
   && {
     display: block;
     list-style-position: outside;
-    margin: 0 0 ${props => scale.space(props.theme, -1)} 1.6rem;
+    margin: 0 0 ${scale.space(-1)} 1.6rem;
     padding: 0;
 
     & &,

@@ -1,21 +1,23 @@
 import styled from 'styled-components'
-import _get from 'lodash/get'
 
-import {scale} from '../utilStyles'
+import {
+  scale,
+  theme
+} from '../utilStyles'
 
 const StyledButtonGroup = styled.div`
   && {
     display: flex;
     flex-flow: row wrap;
     width: fit-content;
-    margin-bottom: ${props => props.melt ? 0 : `-${scale.space(props.theme, -1)}`};
+    margin-bottom: ${props => props.melt ? 0 : `-${scale.space(-1)(props)}`};
 
     a,
     button {
-      margin-bottom: ${props => props.melt ? 0 : scale.space(props.theme, -1)};
+      margin-bottom: ${props => props.melt ? 0 : scale.space(-1)(props)};
     }
 
-    border-radius: ${props => props.melt ? _get(props.theme, 'radii.regular') : 0};
+    border-radius: ${props => props.melt ? theme.radii('regular') : 0};
   }
 `
 

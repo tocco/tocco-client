@@ -2,8 +2,9 @@ import {rgba, shade} from 'polished'
 import styled, {keyframes} from 'styled-components'
 import _get from 'lodash/get'
 import {
+  shadeColor,
   StyledIconToccoWrapper,
-  shadeColor
+  theme
 } from 'tocco-ui'
 
 const wobbleHorizontal = keyframes`
@@ -49,7 +50,7 @@ const StyledNotifier = styled.div`
     .toastr {
       min-height: 80px;  // reset: react-redux-toastr (index.scss)
       opacity: 1;  // reset: react-redux-toastr (index.scss)
-      border-radius: ${props => _get(props.theme, 'radii.regular')}  // reset: react-redux-toastr (index.scss)
+      border-radius: ${theme.radii('regular')}  // reset: react-redux-toastr (index.scss)
 
       &:hover:not( .rrt-message ) {
         box-shadow: 2px 2px 10px rgba(0, 0, 0, .4);  // reset: react-redux-toastr (index.scss)
@@ -124,17 +125,15 @@ const StyledNotifier = styled.div`
     .toastr {
       background-color: ${props =>
     shadeColor(_get(props.theme, 'colors.paper'), 1)};  // reset: react-redux-toastr (index.scss)
-      color: ${props => _get(props.theme, 'colors.text')};  // reset: react-redux-toastr (index.scss)
+      color: ${props => theme.color('text')};  // reset: react-redux-toastr (index.scss)
 
       .toastr-status {
         &.success {
-          background-color: ${props =>
-    _get(props.theme, 'colors.signal.success.paper')};  // reset: react-redux-toastr (index.scss)
+          background-color: ${theme.color('signal.success.paper')};  // reset: react-redux-toastr (index.scss)
         }
 
         &.warning {
-          background-color: ${props =>
-    _get(props.theme, 'colors.signal.warning.paper')};  // reset: react-redux-toastr (index.scss)
+          background-color: ${theme.color('signal.warning.paper')};  // reset: react-redux-toastr (index.scss)
         }
 
         &.info {
@@ -143,8 +142,7 @@ const StyledNotifier = styled.div`
         }
 
         &.error {
-          background-color: ${props =>
-    _get(props.theme, 'colors.signal.danger.paper')}; // reset: react-redux-toastr (index.scss)
+          background-color: ${theme.color('signal.danger.paper')}; // reset: react-redux-toastr (index.scss)
         }
       }
 
@@ -152,7 +150,7 @@ const StyledNotifier = styled.div`
       &.rrt-success,
       &.rrt-warning,
       &.rrt-error {
-        color: ${props => _get(props.theme, 'colors.text')};  // reset: react-redux-toastr (index.scss)
+        color: ${theme.color('text')};  // reset: react-redux-toastr (index.scss)
 
         .rrt-progressbar {
           background-color: rgba(0, 0, 0, .3);  // reset: react-redux-toastr (index.scss)
@@ -165,18 +163,15 @@ const StyledNotifier = styled.div`
       }
 
       &.rrt-success {
-        background-color: ${props =>
-    _get(props.theme, 'colors.signal.success.paper')};  // reset: react-redux-toastr (index.scss)
+        background-color: ${theme.color('signal.success.paper')};  // reset: react-redux-toastr (index.scss)
       }
 
       &.rrt-warning {
-        background-color: ${props =>
-    _get(props.theme, 'colors.signal.warning.paper')};  // reset: react-redux-toastr (index.scss)
+        background-color: ${theme.color('signal.warning.paper')};  // reset: react-redux-toastr (index.scss)
       }
 
       &.rrt-error {
-        background-color: ${props =>
-    _get(props.theme, 'colors.signal.danger.paper')};  // reset: react-redux-toastr (index.scss)
+        background-color: ${theme.color('signal.danger.paper')};  // reset: react-redux-toastr (index.scss)
       }
 
       .rrt-holder {

@@ -1,15 +1,17 @@
 import React from 'react'
 import {components} from 'react-select'
 import styled from 'styled-components'
-import _get from 'lodash/get'
 import PropTypes from 'prop-types'
 
-import {declareFont} from '../utilStyles'
+import {
+  declareFont,
+  theme
+} from '../utilStyles'
 
 const StyledMoreOptionsAvailable = styled.div`
   && {
     ${props => declareFont(props, {
-    color: _get(props.theme, 'colors.signal.warning.text'),
+    color: theme.color('signal.warning.text'),
     lineHeight: 'normal'
   })}
     cursor: default;

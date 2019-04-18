@@ -4,14 +4,15 @@ import _get from 'lodash/get'
 import {
   declareFont,
   scale,
-  shadeColor
+  shadeColor,
+  theme
 } from '../utilStyles'
 
 export const declareTypograhpy = (props, mode) => {
   let css = `
-    ${declareFont(props)}
+    ${declareFont()}
     a {
-      color: ${props => _get(props.theme, 'colors.primary')}
+      color: ${theme.color('primary')(props)}
       text-decoration: none;
 
       &:hover,
@@ -27,7 +28,7 @@ export const declareTypograhpy = (props, mode) => {
 
     b,
     strong {
-      font-weight: ${props => _get(props.theme, 'fontWeights.bold')}
+      font-weight: ${theme.fontWeight('bold')(props)}
     }
 
     em,
@@ -39,12 +40,12 @@ export const declareTypograhpy = (props, mode) => {
       text-decoration: underline;
     }
 
-    h1 {font-size: ${scale.font(props.theme, 5)}}
-    h2 {font-size: ${scale.font(props.theme, 4)}}
-    h3 {font-size: ${scale.font(props.theme, 3)}}
-    h4 {font-size: ${scale.font(props.theme, 2)}}
-    h5 {font-size: ${scale.font(props.theme, 1)}}
-    h6 {font-size: ${props => _get(props.theme, 'fontSize.base')}rem}
+    h1 {font-size: ${scale.font(5)(props)};}
+    h2 {font-size: ${scale.font(4)(props)};}
+    h3 {font-size: ${scale.font(3)(props)};}
+    h4 {font-size: ${scale.font(2)(props)};}
+    h5 {font-size: ${scale.font(1)(props)};}
+    h6 {font-size: ${scale.font(0)(props)};}
 
     h1,
     h2,
@@ -52,9 +53,9 @@ export const declareTypograhpy = (props, mode) => {
     h4,
     h5,
     h6 {
-      font-weight: ${props => _get(props.theme, 'fontWeights.bold')};
-      margin-top: ${props => _get(props.theme, 'space.base')}rem;
-      margin-bottom: ${scale.space(props.theme, -1)};
+      font-weight: ${theme.fontWeight('bold')(props)};
+      margin-top: ${scale.space(0)(props)};
+      margin-bottom: ${scale.space(-1)(props)};
 
       + h1,
       + h2,
@@ -72,7 +73,7 @@ export const declareTypograhpy = (props, mode) => {
     }
 
     p {
-      margin-bottom: ${scale.space(props.theme, -1)};
+      margin-bottom: ${scale.space(-1)(props)};
       &:last-child {
         margin-bottom: 0;
       }
@@ -86,7 +87,7 @@ export const declareTypograhpy = (props, mode) => {
       ul {
         display: block;
         list-style-position: outside;
-        margin: 0 0 ${scale.space(props.theme, -1)} 0;
+        margin: 0 0 ${scale.space(-1)(props)} 0;
         padding: 0;
 
         &:last-child {
@@ -121,7 +122,7 @@ export const declareTypograhpy = (props, mode) => {
       ul {
         display: block;
         list-style-position: outside;
-        margin: 0 0 ${scale.space(props.theme, -1)} 1.6rem;
+        margin: 0 0 ${scale.space(-1)(props)} 1.6rem;
         padding: 0;
 
         ol,

@@ -9,7 +9,7 @@ const EXPECTED_INITIAL_STATE = {
   currentPage: 1,
   sorting: null,
   formDefinition: null,
-  entityCount: 0,
+  entityCount: null,
   entityStore: {},
   inProgress: false,
   showSearchForm: true,

@@ -1,5 +1,4 @@
-import styled from 'styled-components'
-import _get from 'lodash/get'
+import styled, {css} from 'styled-components'
 
 import {
   declareFont,
@@ -13,30 +12,29 @@ const declareHeaderFont = props => {
 
   switch (props.styledLike) {
     case 'H1':
-      fontSize = scale.font(props.theme, 5)
+      fontSize = scale.font(5)(props)
       break
     case 'H2':
-      fontSize = scale.font(props.theme, 4)
+      fontSize = scale.font(4)(props)
       break
     case 'H3':
-      fontSize = scale.font(props.theme, 3)
+      fontSize = scale.font(3)(props)
       break
     case 'H4':
-      fontSize = scale.font(props.theme, 2)
+      fontSize = scale.font(2)(props)
       break
     case 'H5':
-      fontSize = scale.font(props.theme, 1)
+      fontSize = scale.font(1)(props)
       break
     default:
-      fontSize = `${props => _get(props.theme, 'fontSize.base')}rem`
+      fontSize = scale.font(0)(props)
   }
-  return declareFont(props, {fontWeight: 700, fontSize})
+  return declareFont({fontWeight: 700, fontSize})
 }
 
-const declareSpace = props =>
-  `
-    margin-top: ${props => _get(props.theme, 'space.base')}rem;
-    margin-bottom: ${scale.space(props.theme, -1)};
+const declareSpace = props => css`
+    margin-top: ${scale.space(0)};
+    margin-bottom: ${scale.space(-1)};
 
     h1 + &,
     h2 + &,

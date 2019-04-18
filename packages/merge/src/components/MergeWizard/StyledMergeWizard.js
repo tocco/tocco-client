@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import _get from 'lodash/get'
+import {theme} from 'tocco-ui'
 
 const StyledMergeWizard = styled.div`
   && {
@@ -20,7 +20,7 @@ const StyledMergeWizard = styled.div`
     }
 
     .bold {
-      font-weight: ${props => _get(props.theme, 'fontWeights.bold')};
+      font-weight: ${theme.fontWeight('bold')};
     }
   }
 `
