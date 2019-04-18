@@ -1,0 +1,40 @@
+{
+  "_links": {},
+  "metaData": null,
+  "data": [
+    {
+      "city": "Zürich",
+      "postcode": "8001",
+      "state": "ZH",
+      "district": "Bezirk Zürich",
+      "country": "CH"
+    },
+    {
+      "city": "Zürich",
+      "postcode": "8047",
+      "state": "ZH",
+      "district": "Albisrieden",
+      "country": "CH"
+    },
+    {
+      "city": "Bern",
+      "postcode": "3001",
+      "state": "BE",
+      "district": "Bezirk Bern",
+      "country": "CH"
+    },
+    {
+      "city": "Berlin",
+      "postcode": "10000",
+      "state": "B",
+      "district": "Berlin Mitte",
+      "country": "DE"
+    },
+    {
+      "city": "Berlin (No District)",
+      "postcode": "10001",
+      "state": "B",
+      "country": "DE"
+    }
+  ]
+}

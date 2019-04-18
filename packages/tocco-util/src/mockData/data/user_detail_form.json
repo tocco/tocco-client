@@ -475,24 +475,29 @@
                   },
                   {
                     "id": "location_c",
-                    "label": "City",
+                    "label": "PLZ / Ort",
                     "componentType": "field-set",
                     "children": [
                       {
                         "id": "location_c",
                         "label": null,
-                        "componentType": "field",
+                        "componentType": "",
                         "path": null,
                         "dataType": "location",
+                        "defaultValue": null,
                         "locationMapping": {
-                          "zip": "zip_c",
+                          "postcode": "zip_c",
                           "city": "city_c",
                           "street": "address_c",
                           "country": "relCountry_c",
-                          "canton": "canton_c",
+                          "state": "canton_c",
                           "district": "district_c"
                         },
-                        "countries": ["CH", "LI"]
+                        "countries": [
+                          "DE",
+                          "AT",
+                          "CH"
+                        ]
                       }
                     ],
                     "readonly": false,
