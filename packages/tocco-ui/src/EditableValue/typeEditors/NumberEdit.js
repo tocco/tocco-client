@@ -23,19 +23,17 @@ export const isAllowedIntegerValue = allowedIntegerObject => values => {
   return formattedValue === '' || (floatValue >= minValue && floatValue <= maxValue)
 }
 
+export const allowedValuesWithoutPropOptions = values => {
+  const {formattedValue, floatValue} = values
+  return formattedValue === '' || floatValue <= 1E20
+}
+
 export const returnAllowedIntegerObject = (minValue, maxValue) => {
   return {minValue, maxValue}
 }
 
-export const isValidMarker = value => !!(value || value === null || value === 0)
-
 const NumberEdit = (props, context) => {
-  const {
-    thousandSeparator,
-    decimalSeparator
-  } = parseLocalePlaceholder(context.intl.locale)
-
-  const value = props.value === null ? '' : props.value
+  const {thousandSeparator, decimalSeparator} = parseLocalePlaceholder(context.intl.locale)
 
   const {
     prePointDigits,
@@ -44,18 +42,27 @@ const NumberEdit = (props, context) => {
     maxValue
   } = props.options
 
+  const value = props.value === null ? '' : props.value
+
+  const optionsAreNull = Object.values(props.options).every(v => v === null)
+
+  const isValidMarker = value => value === 0 ? true : value
+
   const numberFormatOptions = {
-    ...(isValidMarker(prePointDigits) && isValidMarker(postPointDigits)
-      ? {
-        isAllowed: limitValue(calculateMaxValue(prePointDigits, postPointDigits)),
-        decimalScale: postPointDigits
-      } : {}),
-    ...(isValidMarker(minValue) && isValidMarker(maxValue)
-      ? {
-        isAllowed: isAllowedIntegerValue(returnAllowedIntegerObject(minValue, maxValue)),
-        decimalScale: 0,
-        allowNegative: false
-      } : {})
+    ...(isValidMarker(prePointDigits) && isValidMarker(postPointDigits) && {
+      decimalScale: postPointDigits,
+      isAllowed: limitValue(calculateMaxValue(prePointDigits, postPointDigits))
+    }),
+    ...(isValidMarker(minValue) && isValidMarker(maxValue) && {
+      allowNegative: false,
+      decimalScale: 0,
+      isAllowed: isAllowedIntegerValue(returnAllowedIntegerObject(minValue, maxValue))
+    }),
+    ...(optionsAreNull && {
+      allowNegative: false,
+      decimalScale: 0,
+      isAllowed: allowedValuesWithoutPropOptions
+    })
   }
 
   const handleChange = values => {
