@@ -72,7 +72,8 @@ export const StyledLocationEdit = styled.div`
     border-bottom-right-radius: 4px;
     z-index: 2;
     max-height: 300px;
-    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
   
   .react-autosuggest__suggestions-list {
