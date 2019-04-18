@@ -19,12 +19,15 @@ export default {
     const locationMapping = formField.locationMapping || {}
     const onChange = locationObject => {
       for (const key in locationMapping) {
-        formData.changeFieldValue(formName, locationMapping[key], locationObject[key])
+        if (locationMapping[key] && locationObject[key] !== undefined) {
+          formData.changeFieldValue(formName, locationMapping[key], locationObject[key])
+        }
       }
     }
     return {
       ...events,
-      onChange
+      onChange,
+      onBlur: onChange
     }
   },
   dataContainerProps: ({formField, formName}) => ({
@@ -35,7 +38,8 @@ export default {
     }
   }),
   getOptions: ({formField, formData}) => ({
-    fetchSuggestions: searchTerm => formData.loadLocationsSuggestions(formField.id, searchTerm),
+    fetchSuggestions: (searchTerm, country) =>
+      formData.loadLocationsSuggestions(formField.id, searchTerm, country, _get(formField, 'countries')),
     isLoading: _get(formData, ['locations', formField.id, 'isLoading'], false),
     suggestions: _get(formData, ['locations', formField.id, 'suggestions'], null)
   })
