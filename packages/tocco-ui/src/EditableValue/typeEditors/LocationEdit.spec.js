@@ -1,14 +1,13 @@
 import React from 'react'
 import {mount} from 'enzyme'
 
-import LocationEdit,
-{getMapsAddress}
-  from './LocationEdit'
+import LocationEdit, {getGoogleMapsAddress} from './LocationEdit'
 
 const options = {
   suggestions: [],
   fetchSuggestions: sinon.spy(),
-  isLoading: false
+  isLoading: false,
+  country: ['CH', 'AT']
 }
 
 const EMPTY_FUNC = () => {}
@@ -16,27 +15,27 @@ const EMPTY_FUNC = () => {}
 const suggestions = [
   {
     city: `Zurich`,
-    zip: '2306',
+    postcode: '2306',
     canton: 'ZH',
     address: 'Bahnhofstrasse 1',
     district: 'Zurich',
-    country: {display: 'CH', key: 'CH'}
+    country: {display: 'CH', key: '1'}
   },
   {
     city: 'Lausanne',
-    zip: '2300',
+    postcode: '2300',
     canton: 'VD',
     address: 'Rue Saint Roche 1',
     district: 'VD',
-    country: {display: 'CH', key: 'CH'}
+    country: {display: 'CH', key: '1'}
   },
   {
     city: 'Bern',
-    zip: '3450',
+    postcode: '3450',
     canton: 'BE',
     address: 'Bundesplatz',
     district: 'Bern',
-    country: {display: 'CH', key: 'CH'}
+    country: {display: 'CH', key: '1'}
   }
 ]
 
@@ -60,10 +59,10 @@ describe('tocco-ui', () => {
             onChange={EMPTY_FUNC}
             value={suggestions[0]}/>)
 
-          expect(wrapper.props().value.zip).to.eql(suggestions[0].zip)
+          expect(wrapper.props().value.postcode).to.eql(suggestions[0].postcode)
         })
 
-        test('should update value zip', () => {
+        test('should update value postcode', () => {
           const spy = sinon.spy()
           const wrapper = mount(<LocationEdit
             options={options}
@@ -72,7 +71,7 @@ describe('tocco-ui', () => {
           />)
 
           wrapper.find('input.react-autosuggest__input').at(0).simulate('change', {target: {value: '23'}})
-          expect(wrapper.props().onChange).to.have.been.calledWith({zip: '23'})
+          expect(wrapper.props().onChange).to.have.been.calledWith({postcode: '23'})
         })
 
         test('should call fetchSuggestions with new value', () => {
@@ -82,7 +81,9 @@ describe('tocco-ui', () => {
             value={suggestions[0]}/>)
 
           wrapper.find('input').at(0).simulate('change', {target: {value: '23'}})
-          expect(wrapper.props().options.fetchSuggestions).to.have.been.calledWith('23')
+          expect(wrapper.props().options.fetchSuggestions).to.have.been.calledWith(
+            {postcode: '23'}, {display: 'CH', key: '1'}
+          )
         })
 
         test('should call onChange with new value', () => {
@@ -92,7 +93,7 @@ describe('tocco-ui', () => {
             value={suggestions[0]}/>)
 
           wrapper.find('input').at(0).simulate('change', {target: {value: '2345'}})
-          expect(wrapper.props().onChange).to.have.been.calledWith({zip: '2345'})
+          expect(wrapper.props().onChange).to.have.been.calledWith({postcode: '2345'})
         })
 
         test('should render ButtonLink', () => {
@@ -115,12 +116,12 @@ describe('tocco-ui', () => {
 
         describe('getMapsAddress', () => {
           test('should get maps address', () => {
-            expect(getMapsAddress(suggestions[0])).to.eql(locationString)
+            expect(getGoogleMapsAddress(suggestions[0])).to.eql(locationString)
           })
 
           test('should get default maps address', () => {
             const result = `https://www.google.com/maps/search/?api=1&query=`
-            expect(getMapsAddress()).to.equal(result)
+            expect(getGoogleMapsAddress()).to.equal(result)
           })
         })
       })
