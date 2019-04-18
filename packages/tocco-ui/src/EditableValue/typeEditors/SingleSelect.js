@@ -9,6 +9,7 @@ const SingleSelect = props => (
     isMulti={false}
     onChange={props.onChange}
     value={props.value}
+    openMenuOnClick
     {...props.options}
   />
 )

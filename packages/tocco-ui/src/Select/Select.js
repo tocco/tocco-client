@@ -98,7 +98,7 @@ export class Select extends React.Component {
               ClearIndicator: ClearIndicator,
               DropdownIndicator: props =>
                 <DropdownIndicator
-                  isDisabled = {this.props.readOnly}
+                  isDisabled={this.props.readOnly}
                   isOpen={this.state.isOpen}
                   openMenu={this.onMenuOpen}
                   {...props}
@@ -143,7 +143,7 @@ export class Select extends React.Component {
             onMenuOpen={this.onMenuOpen}
             styles={reactSelectStyles(this.props.theme)}
             theme={theme => reactSelectTheme(theme, this.props.theme)}
-            openMenuOnClick={false}
+            openMenuOnClick={this.props.openMenuOnClick || false}
             menuIsOpen={this.state.isOpen}
           />
         </div>
@@ -227,7 +227,11 @@ Select.propTypes = {
   /**
    * Id of outter element
    */
-  id: PropTypes.string
+  id: PropTypes.string,
+  /**
+   * Open menu with click on input field
+   */
+  openMenuOnClick: PropTypes.bool
 }
 
 export default withTheme(Select)
