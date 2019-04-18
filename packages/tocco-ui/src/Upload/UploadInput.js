@@ -11,7 +11,7 @@ const UploadInput = props => {
     props.onDrop(files[0])
   }
 
-  return <StyledUploadInput>
+  return <StyledUploadInput readOnly={props.readOnly}>
     <Dropzone
       className="dropzone"
       disabled={props.readOnly}
