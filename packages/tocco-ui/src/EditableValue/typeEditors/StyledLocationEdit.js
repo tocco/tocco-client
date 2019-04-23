@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import _get from 'lodash/get'
 
+import {shadeColor} from '../../utilStyles'
+
 export const StyledLocationEdit = styled.div`
   display: flex;
   flex-flow: row nowrap;
@@ -35,6 +37,9 @@ export const StyledLocationEdit = styled.div`
     border: 1px solid #ccc;
     transition: border-color ease-in-out 100ms, box-shadow ease-in-out 100ms;
     will-change: border-color, box-shadow;
+    
+    cursor: ${props => props.readOnly ? 'not-allowed' : 'pointer'};
+    background-color: ${props => props.readOnly ? shadeColor(_get(props.theme, 'colors.paper'), 1) : 'inital'};
   }
   
   .react-autosuggest__input--focused {

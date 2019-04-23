@@ -60,19 +60,20 @@ class LocationEdit extends React.Component {
     const inputPropsZip = {
       value: this.props.value.postcode || '',
       onChange: this.onChange('postcode'),
-      readOnly: this.props.readOnly
+      disabled: this.props.readOnly
     }
 
     const inputPropsCity = {
       value: this.props.value.city || '',
       onChange: this.onChange('city'),
-      readOnly: this.props.readOnly
+      disabled: this.props.readOnly
     }
 
     return (
       <StyledLocationEdit
         name={this.props.name}
         id={this.props.id}
+        readOnly={this.props.readOnly}
       >
         <StyledZipInput>
           <Autosuggest
