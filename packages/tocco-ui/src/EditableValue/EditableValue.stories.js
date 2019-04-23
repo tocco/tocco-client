@@ -52,28 +52,20 @@ EditableValueStory.propTypes = {
 
 const suggestions = [
   {
-    city: `Zurich`,
-    zip: '2306',
-    canton: 'ZH',
-    address: 'Bahnhofstrasse 1',
-    district: 'Zurich',
-    country: 'CH'
-  },
-  {
-    city: 'Lausanne',
-    zip: '3000',
-    canton: 'VD',
-    address: 'Rue Saint Roche 1',
-    district: 'VD',
-    country: 'CH'
-  },
-  {
+    address: 'Bundeshaus',
     city: 'Bern',
-    zip: '3450',
-    canton: 'BE',
-    address: 'Bundesplatz',
-    district: 'Bern',
-    country: 'CH'
+    country: {display: 'CH'},
+    district: 'Ostermundigen',
+    postcode: '1234',
+    state: 'BE'
+  },
+  {
+    address: 'Rue 123',
+    city: 'Lausanne',
+    country: {display: 'CH'},
+    district: 'District de Lausanne',
+    postcode: '5678',
+    state: 'VD'
   }
 ]
 
@@ -228,15 +220,16 @@ storiesOf('EditableValue', module)
     'Location',
     () => <EditableValue
       type="location"
-      options={{...locationOptions, isLoading: boolean('isLoading', false)}}
+      options={{
+        ...locationOptions,
+        isLoading: boolean('isLoading', false)
+      }}
       readOnly={boolean('readOnly', false)}
       value={{
-        zip: text('zip', '8000') || undefined,
-        city: text('city', 'Zürich') || undefined,
-        address: text('address', 'Strasse 123') || undefined,
-        canton: text('canton', 'ZH') || undefined,
-        district: text('district', 'ZH') || undefined,
-        country: text('country', 'CH') || undefined
+        city: text('city', 'Zürich'),
+        country: {display: text('country', 'CH')},
+        postcode: text('postcode', '8000'),
+        state: text('state', 'ZH')
       }}
       onChange={EMPTY_FUNC}/>,
     {info: {source: true}}
