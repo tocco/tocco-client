@@ -8,7 +8,7 @@ import {StyledSignalList} from '../SignalList'
 const markAsMandatory = () => css`
   label:after {
     content: '*';
-    padding-left: ${props => scale.space(props, -3)};
+    padding-left: ${scale.space(-3)};
   }
 `
 
@@ -27,8 +27,8 @@ const StyledFormFieldWrapper = styled.div.attrs(props => ({
     color: ${props => colorizeByCondition(props)}
 
     ${StyledSignalList} {
-      margin-top: ${props => scale.space(props, -2)};
-      padding-left: ${props => scale.space(props, -1)};
+      margin-top: ${scale.space(-2)};
+      padding-left: ${scale.space(-1)};
     }
   }
 `
