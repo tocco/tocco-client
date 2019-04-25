@@ -13,6 +13,12 @@ const countryCodeField = 'iso2'
 // e.g. {'CH': {key: '22', display: 'Switzerland'}
 let countryCache = {}
 
+export const setCountryCache = newCountryCache => {
+  countryCache = newCountryCache
+}
+
+export const getCountryCache = () => countryCache
+
 export function* getCountryCodeByKey(key) {
   for (const prop in countryCache) {
     if (countryCache[prop].key === key) {
@@ -21,7 +27,14 @@ export function* getCountryCodeByKey(key) {
   }
 
   const entity = yield call(rest.fetchEntity, 'Country', key, {fields: [countryCodeField]})
-  return _get(entity, ['fields', countryCodeField, 'value'])
+  const countryCode = _get(entity, ['fields', countryCodeField, 'value'])
+  countryCache = {
+    ...countryCache,
+    [countryCode]: {key: entity.key, display: entity.display}
+
+  }
+
+  return countryCode
 }
 
 export function* loadCountries(suggestions) {
