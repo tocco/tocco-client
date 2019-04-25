@@ -86,7 +86,7 @@ class LocationEdit extends React.Component {
             renderSuggestionsContainer={this.returnSuggestionsContainer}
             onSuggestionSelected={this.onSuggestionSelected}
             focusInputOnSuggestionClick={false}
-            shouldRenderSuggestions={() => !this.props.readOnly}
+            shouldRenderSuggestions={v => v && !this.props.readOnly}
           />
         </StyledPostcodeInput>
         <Autosuggest
@@ -99,7 +99,7 @@ class LocationEdit extends React.Component {
           renderSuggestionsContainer={this.returnSuggestionsContainer}
           onSuggestionSelected={this.onSuggestionSelected}
           focusInputOnSuggestionClick={false}
-          shouldRenderSuggestions={() => !this.props.readOnly}
+          shouldRenderSuggestions={v => v && !this.props.readOnly}
         />
         {this.showGoogleMaps(this.props.value)
             && <ButtonLink
