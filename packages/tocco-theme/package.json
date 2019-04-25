@@ -12,7 +12,6 @@
     "react-dom": "^15.2.1"
   },
   "devDependencies": {
-    "bootstrap-sass": "^3.3.7",
-    "react-select": "^1.0.0-rc.10"
+    "bootstrap-sass": "^3.3.7"
   }
 }

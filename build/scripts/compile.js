@@ -5,7 +5,6 @@ import webpackCompiler from '../webpack-compiler'
 import webpackConfig from '../webpack.config'
 import config from '../../config/index'
 import {packagesExists} from '../lib/packages'
-import {updateMutableImportSCSS} from '../mutable-scss-imports'
 
 const compile = () => {
   logger.info('Run compiler')
@@ -32,5 +31,4 @@ const compile = () => {
     })
 }
 
-updateMutableImportSCSS()
 compile()

@@ -8,12 +8,10 @@
   // import variables
   @import 'variable/tocco-variable-before-vendor';
   @import 'variable/bootstrap-variable';
-  @import 'variable/react-select-variable';
   @import 'variable/tocco-variable-after-vendor';
 
   // import vendor's styling frameworks
   @import 'vendor/bootstrap';
-  @import 'vendor/react-select';
 
   // import vendor's styling frameworks extension
   @import 'vendor-extension/bootstrap/normalize';
@@ -22,15 +20,7 @@
   @import 'vendor-extension/bootstrap/typography';
 
   // import tocco's declarations
-  @import 'tocco/convenience-classes';
   @import 'tocco/legacy-nice2-extjs';
-  @import 'tocco/legacy-nice2-standard.scss';
-
-  // import declarations or react components by collocating scss dynamically
-  @import 'variable/mutable-imports';
-
-  // import declarations for webpack environments
-  @import 'tocco/webpack-environment-development';
 
   // import customers's declarations
   @import 'customer/customer';

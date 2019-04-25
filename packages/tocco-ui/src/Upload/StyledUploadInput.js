@@ -14,7 +14,10 @@ const StyledUploadInput = styled.div`
   border: dashed 1px ${props => shadeColor(_get(props.theme, 'colors.paper'), 1)};
   border-radius: ${theme.radii('regular')};
   padding: ${scale.space(-2)} ${scale.space(-1)};
-  cursor: pointer;
+  cursor: ${props => props.readOnly ? 'not-allowed' : 'pointer'};
+  background-color: ${props => props.readOnly
+    ? shadeColor(_get(props.theme, 'colors.paper'), 1)
+    : theme.color('paper')};
   ${props => declareFocus(props)}
 
   &[aria-disabled="true"] {

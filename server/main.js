@@ -7,7 +7,6 @@ const compress = require('compression')
 
 const webpackConfig = require('../build/webpack.config').default
 const config = require('../config').default
-const updateMutableImportSCSS = require('../build/mutable-scss-imports').updateMutableImportSCSS
 const logger = require('../build/lib/logger').default
 
 const app = express()
@@ -20,8 +19,6 @@ const publicPath = webpackConfig.output.path
 
 if (config.env === 'development') {
   const compiler = webpack(webpackConfig)
-
-  updateMutableImportSCSS()
 
   const wdm = require('webpack-dev-middleware')(compiler, {
     publicPath: webpackConfig.output.publicPath,

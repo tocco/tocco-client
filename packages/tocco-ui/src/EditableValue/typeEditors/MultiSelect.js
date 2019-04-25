@@ -9,6 +9,7 @@ const MultiSelect = props => (
     readOnly={props.readOnly}
     onChange={props.onChange}
     value={props.value}
+    openMenuOnClick
     {...props.options}
   />
 )
