@@ -5,7 +5,7 @@ import Autosuggest from 'react-autosuggest'
 import ButtonLink from '../../ButtonLink'
 import {
   StyledLocationEdit,
-  StyledZipInput
+  StyledPostcodeInput
 } from './StyledLocationEdit'
 import IconTocco from '../../IconTocco'
 
@@ -75,7 +75,7 @@ class LocationEdit extends React.Component {
         id={this.props.id}
         readOnly={this.props.readOnly}
       >
-        <StyledZipInput>
+        <StyledPostcodeInput>
           <Autosuggest
             suggestions={this.props.options.suggestions || []}
             onSuggestionsFetchRequested={this.returnOnSuggestionFetchRequested('postcode')}
@@ -87,7 +87,7 @@ class LocationEdit extends React.Component {
             onSuggestionSelected={this.onSuggestionSelected}
             focusInputOnSuggestionClick={false}
           />
-        </StyledZipInput>
+        </StyledPostcodeInput>
         <Autosuggest
           suggestions={this.props.options.suggestions || []}
           onSuggestionsFetchRequested={this.returnOnSuggestionFetchRequested('city')}

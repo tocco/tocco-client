@@ -97,6 +97,6 @@ export const StyledLocationEdit = styled.div`
   }
 `
 
-export const StyledZipInput = styled.span`
+export const StyledPostcodeInput = styled.span`
   width: 30%;
 `

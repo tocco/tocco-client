@@ -24,7 +24,7 @@ describe('app-extensions', () => {
             values: {
               canton_c: 'ZH',
               city_c: 'Zurich',
-              zip: '8000'
+              postcode: '8000'
             }
           }
         }

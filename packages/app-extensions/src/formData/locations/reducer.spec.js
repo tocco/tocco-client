@@ -11,7 +11,7 @@ describe('app-extensions', () => {
 
             const locationSuggestions = [{
               city: 'Zurich',
-              zipcode: '8006'
+              postcode: '8006'
             }]
 
             const newState = setLocationSuggestions(
@@ -44,7 +44,7 @@ describe('app-extensions', () => {
 
             const locationSuggestions = [{
               city: 'Weinfelden',
-              zipcode: '8570'
+              postcode: '8570'
             }]
 
             const newState = setLocationSuggestions(
@@ -56,7 +56,7 @@ describe('app-extensions', () => {
               location_c: {
                 suggestions: [{
                   city: 'Weinfelden',
-                  zipcode: '8570'
+                  postcode: '8570'
                 }]
               },
               location_i: {
