@@ -41,6 +41,7 @@ export default {
     fetchSuggestions: (searchTerm, country) =>
       formData.loadLocationsSuggestions(formField.id, searchTerm, country, _get(formField, 'countries')),
     isLoading: _get(formData, ['locations', formField.id, 'isLoading'], false),
-    suggestions: _get(formData, ['locations', formField.id, 'suggestions'], null)
+    suggestions: _get(formData, ['locations', formField.id, 'suggestions'], null),
+    mapButtonTitle: formData.intl.formatMessage({id: 'client.component.location.mapButtonTitle'})
   })
 }

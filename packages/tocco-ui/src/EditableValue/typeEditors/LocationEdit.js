@@ -86,6 +86,7 @@ class LocationEdit extends React.Component {
             renderSuggestionsContainer={this.returnSuggestionsContainer}
             onSuggestionSelected={this.onSuggestionSelected}
             focusInputOnSuggestionClick={false}
+            shouldRenderSuggestions={() => !this.props.readOnly}
           />
         </StyledPostcodeInput>
         <Autosuggest
@@ -98,16 +99,18 @@ class LocationEdit extends React.Component {
           renderSuggestionsContainer={this.returnSuggestionsContainer}
           onSuggestionSelected={this.onSuggestionSelected}
           focusInputOnSuggestionClick={false}
+          shouldRenderSuggestions={() => !this.props.readOnly}
         />
         {this.showGoogleMaps(this.props.value)
             && <ButtonLink
               href={getGoogleMapsAddress(this.props.value)}
-              icon="globe"
+              icon="map-marked-alt"
               iconPosition="sole"
               look="ball"
               tabIndex={-1}
               target="_blank"
               dense={false}
+              title={this.props.options.mapButtonTitle || 'Show on Maps'}
             />
         }
       </StyledLocationEdit>
@@ -133,7 +136,8 @@ LocationEdit.propTypes = {
   options: PropTypes.shape({
     suggestions: PropTypes.arrayOf(locationObjectPropType),
     fetchSuggestions: PropTypes.func,
-    isLoading: PropTypes.bool
+    isLoading: PropTypes.bool,
+    mapButtonTitle: PropTypes.string
   }),
   name: PropTypes.string,
   id: PropTypes.string,
