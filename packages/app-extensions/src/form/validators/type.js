@@ -1,6 +1,7 @@
 import React from 'react'
 import {FormattedMessage} from 'react-intl'
 import isUrl from 'validator/lib/isURL'
+import isEmail from 'validator/lib/isEmail'
 
 export const urlValidator = value => {
   if (!isUrl(value)) {
@@ -8,6 +9,20 @@ export const urlValidator = value => {
       format: [<FormattedMessage
         key="invalidUrl"
         id="client.component.form.invalidUrl"
+      />
+      ]
+    }
+  }
+
+  return null
+}
+
+export const emailValidator = value => {
+  if (!isEmail(value)) {
+    return {
+      format: [<FormattedMessage
+        key="invalidEmail"
+        id="client.component.form.invalidEmail"
       />
       ]
     }
@@ -36,6 +51,9 @@ export const phoneValidator = async(value, fieldModel = {}) => {
   }
 }
 
-export const syncValidators = {url: urlValidator}
+export const syncValidators = {
+  email: emailValidator,
+  url: urlValidator
+}
 
 export const asyncValidators = {phone: phoneValidator}

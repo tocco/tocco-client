@@ -19,6 +19,7 @@
   "client.component.form.uploadFailedTitle",
   "client.component.form.uploadFailedMessage",
   "client.component.form.invalidUrl",
+  "client.component.form.invalidEmail",
   "client.component.form.invalidPhoneNumber",
   "client.component.upload.upload",
   "client.component.upload.uploading",

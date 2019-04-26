@@ -1,4 +1,8 @@
-import {urlValidator, phoneValidator} from './type'
+import {
+  emailValidator,
+  phoneValidator,
+  urlValidator
+} from './type'
 
 describe('app-extensions', () => {
   describe('form', () => {
@@ -29,6 +33,35 @@ describe('app-extensions', () => {
 
             invalidValues.forEach(invalidValue => {
               const result = urlValidator(invalidValue)
+              expect(result).to.not.be.null
+            })
+          })
+        })
+
+        describe('email', () => {
+          test('should not return error on valid inputs', () => {
+            const validValues = [
+              'abc@tocco.ch',
+              'a.beta@te.cz',
+              'c@c.it'
+            ]
+
+            validValues.forEach(validValue => {
+              const result = emailValidator(validValue)
+              expect(result).to.be.null
+            })
+          })
+
+          test('should return an error for invalid values', () => {
+            const invalidValues = [
+              'a..beta@te.cz',
+              'tocco.ch',
+              'c@c.i',
+              ' '
+            ]
+
+            invalidValues.forEach(invalidValue => {
+              const result = emailValidator(invalidValue)
               expect(result).to.not.be.null
             })
           })
