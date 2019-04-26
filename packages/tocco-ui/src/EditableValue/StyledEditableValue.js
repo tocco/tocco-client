@@ -22,8 +22,9 @@ const StyledEditableWrapperCss = css`
   ${props => declareFocus(props)}
 `
 
-const StyledEditableWrapper = styled.div`
+const StyledEditableWrapper = styled.label`
   && {
+    margin-bottom: 0; /* reset bootstrap */
     ${StyledEditableWrapperCss}
   }
 `
