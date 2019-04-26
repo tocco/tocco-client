@@ -1,3 +1,10 @@
+0.9.1
+- Add location field support
+- Fix confirm on leave bug when form was not dirty
+- Various usability fixes in detail view
+- Detail form performance improvements
+- Various styling optimizations
+
 0.9.0
 - Multi page selection concept
 - Update React and React-Dom PeerDependency to 16.8.4
