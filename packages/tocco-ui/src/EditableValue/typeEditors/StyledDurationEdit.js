@@ -18,12 +18,11 @@ const StyledDurationEdit = styled.input`
   }
 `
 
-const StyledDurationEditUnit = styled.span`
+const StyledDurationEditFocusable = styled.label`
   && {
-    line-height: 1;
-    border-bottom: 1px solid transparent;
+    margin-bottom: 0; /* reset bootstrap */
 
-    &:not(:last-child) {
+    &:first-child {
       margin-right: ${scale.space(-1)};
     }
   }
@@ -39,6 +38,6 @@ const StyledDurationEditShadow = styled.span`
 
 export {
   StyledDurationEditShadow,
-  StyledDurationEditUnit,
+  StyledDurationEditFocusable,
   StyledDurationEdit
 }
