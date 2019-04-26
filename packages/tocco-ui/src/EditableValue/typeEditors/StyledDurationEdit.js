@@ -1,9 +1,11 @@
 import styled from 'styled-components'
+import _get from 'lodash/get'
 
-import {scale} from '../../utilStyles'
-import {StyledSpan} from '../../Typography'
 import {
-  StyledEditableWrapper,
+  scale,
+  shadeColor
+} from '../../utilStyles'
+import {
   StyledInputCss
 } from '../StyledEditableValue'
 
@@ -11,32 +13,21 @@ const StyledDurationEdit = styled.input`
   && {
     ${StyledInputCss}
     width: 100%;
+    border-bottom: 1px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
   }
 `
 
-const StyledDurationEditWrapper = styled.div`
-&& {
-  align-items: center;
-  display: flex;
-  min-width: 20rem;
+const StyledDurationEditUnit = styled.span`
+  && {
+    margin-left: ${scale.space(-2)};
 
-  > ${StyledEditableWrapper} {
-    flex-grow: 1;
-  }
-
-  > ${StyledSpan} {
-    &:nth-of-type(1) {
-      margin: 0 ${scale.space(-1)};
-    }
-
-    &:nth-of-type(2) {
-      margin-left: ${scale.space(-1)};
+    &:not(:last-child) {
+      margin-right: ${scale.space(-1)};
     }
   }
-}
 `
 
 export {
-  StyledDurationEditWrapper,
+  StyledDurationEditUnit,
   StyledDurationEdit
 }
