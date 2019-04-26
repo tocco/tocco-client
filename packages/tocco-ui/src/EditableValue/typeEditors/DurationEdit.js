@@ -103,7 +103,9 @@ class DurationEdit extends React.Component {
 
   render() {
     return (
-      <StyledEditableWrapper readOnly={this.props.readOnly}>
+      <StyledEditableWrapper
+        readOnly={this.props.readOnly}
+        style={{overflowX: 'auto'}}>
         <StyledDurationEditFocusable>
           <StyledDurationEdit
             type="number"
@@ -146,6 +148,7 @@ DurationEdit.defaultProps = {
     minutesLabel: 'min'
   }
 }
+
 DurationEdit.propTypes = {
   onChange: PropTypes.func.isRequired,
   value: PropTypes.number,

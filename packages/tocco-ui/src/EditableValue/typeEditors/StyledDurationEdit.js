@@ -20,19 +20,30 @@ const StyledDurationEdit = styled.input`
 
 const StyledDurationEditFocusable = styled.label`
   && {
+    align-items: center;
+    display: flex;
+    flex-wrap: nowrap;
     margin-bottom: 0; /* reset bootstrap */
 
     &:first-child {
       margin-right: ${scale.space(-1)};
+    }
+
+    > span {
+      border-bottom: 1px solid transparent;
     }
   }
 `
 
 const StyledDurationEditShadow = styled.span`
   && {
-    position: absolute;
     border: 1px solid transparent;
+    left: 0;
+    max-width: 100%;
+    overflow: hidden;
+    position: absolute;
     z-index: -1;
+    visibility: hidden;
   }
 `
 
