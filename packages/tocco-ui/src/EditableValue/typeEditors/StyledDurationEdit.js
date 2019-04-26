@@ -12,14 +12,16 @@ import {
 const StyledDurationEdit = styled.input`
   && {
     ${StyledInputCss}
-    width: 100%;
+    flex-grow: 0;
+    min-width: 1ch;
     border-bottom: 1px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
   }
 `
 
 const StyledDurationEditUnit = styled.span`
   && {
-    margin-left: ${scale.space(-2)};
+    line-height: 1;
+    border-bottom: 1px solid transparent;
 
     &:not(:last-child) {
       margin-right: ${scale.space(-1)};
@@ -27,7 +29,16 @@ const StyledDurationEditUnit = styled.span`
   }
 `
 
+const StyledDurationEditShadow = styled.span`
+  && {
+    position: absolute;
+    border: 1px solid transparent;
+    z-index: -1;
+  }
+`
+
 export {
+  StyledDurationEditShadow,
   StyledDurationEditUnit,
   StyledDurationEdit
 }

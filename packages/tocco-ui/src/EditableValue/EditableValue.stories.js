@@ -230,7 +230,7 @@ storiesOf('EditableValue', module)
     'Duration',
     () => <EditableValue
       type="duration"
-      value={number('Duration', 3660000)}
+      value={number('Duration', 3720000)}
       readOnly={boolean('readOnly', false)}
       onChange={EMPTY_FUNC}
     />,

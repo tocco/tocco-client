@@ -4,6 +4,7 @@ import React from 'react'
 import {calculateMilliseconds} from '../utils'
 import Typography from '../../Typography'
 import {
+  StyledDurationEditShadow,
   StyledDurationEditUnit,
   StyledDurationEdit
 } from './StyledDurationEdit'
@@ -12,6 +13,8 @@ import {StyledEditableWrapper} from '../StyledEditableValue'
 class DurationEdit extends React.Component {
   constructor(props) {
     super(props)
+    this.hoursShadow = React.createRef()
+    this.minutesShadow = React.createRef()
     this.state = {
       ...this.millisecondsToDuration(props.value)
     }
@@ -82,6 +85,22 @@ class DurationEdit extends React.Component {
     }
   }
 
+  componentDidMount = () => {
+    this.setState({
+      hoursWidth: this.hoursShadow.current.offsetWidth,
+      minutesWidth: this.minutesShadow.current.offsetWidth
+    })
+  }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (this.state.hours !== prevState.hours) {
+      this.setState({hoursWidth: this.hoursShadow.current.offsetWidth})
+    }
+    if (this.state.minutes !== prevState.minutes) {
+      this.setState({minutesWidth: this.minutesShadow.current.offsetWidth})
+    }
+  }
+
   render() {
     return (
       <StyledEditableWrapper readOnly={this.props.readOnly}>
@@ -95,6 +114,7 @@ class DurationEdit extends React.Component {
           disabled={this.props.readOnly}
           pattern="\d+"
           min={0}
+          style={{width: this.state.hoursWidth}}
         />
         <StyledDurationEditUnit>
           <Typography.Span>{this.props.options.hoursLabel}</Typography.Span>
@@ -108,10 +128,13 @@ class DurationEdit extends React.Component {
           onKeyPress={this.preventNonNumeric}
           disabled={this.props.readOnly}
           pattern="\d+"
+          style={{width: this.state.minutesWidth}}
         />
         <StyledDurationEditUnit>
           <Typography.Span>{this.props.options.minutesLabel}</Typography.Span>
         </StyledDurationEditUnit>
+        <StyledDurationEditShadow ref={this.hoursShadow}>{this.state.hours}</StyledDurationEditShadow>
+        <StyledDurationEditShadow ref={this.minutesShadow}>{this.state.minutes}</StyledDurationEditShadow>
       </StyledEditableWrapper>
     )
   }
