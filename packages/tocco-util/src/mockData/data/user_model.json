@@ -185,6 +185,40 @@
       "validation": {
         "mandatory": false
       }
+    },
+    {
+      "fieldName": "address_c",
+      "type": "string",
+      "defaultValue": null,
+      "validation": { }
+    },
+    {
+      "fieldName": "zip_c",
+      "type": "postcode",
+      "defaultValue": null,
+      "validation": {
+        "mandatory": true
+      }
+    },
+    {
+      "fieldName": "city_c",
+      "type": "string",
+      "defaultValue": null,
+      "validation": {
+        "mandatory": true
+      }
+    },
+    {
+      "fieldName": "canton",
+      "type": "string",
+      "defaultValue": null,
+      "validation": { }
+    },
+    {
+      "fieldName": "district",
+      "type": "string",
+      "defaultValue": null,
+      "validation": { }
     }
   ],
   "relations": [
@@ -240,6 +274,20 @@
       "targetEntity": "Dummy_entity",
       "reverseRelationName": "relUser",
       "multi": true
+    },
+    {
+      "relationName": "relCountry_c",
+      "targetEntity": "Country",
+      "reverseRelationName": "relUser_c",
+      "multi": false,
+      "validation": {
+        "mandatory": true
+      },
+      "defaultValues": {
+        "display": "Switzerland",
+        "key": "1"
+      },
+      "defaultValueType": "query"
     }
   ]
 }

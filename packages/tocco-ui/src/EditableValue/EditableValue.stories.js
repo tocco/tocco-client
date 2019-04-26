@@ -52,7 +52,31 @@ EditableValueStory.propTypes = {
   value: PropTypes.node
 }
 
+const suggestions = [
+  {
+    address: 'Bundeshaus',
+    city: 'Bern',
+    country: {display: 'CH'},
+    district: 'Ostermundigen',
+    postcode: '1234',
+    state: 'BE'
+  },
+  {
+    address: 'Rue 123',
+    city: 'Lausanne',
+    country: {display: 'CH'},
+    district: 'District de Lausanne',
+    postcode: '5678',
+    state: 'VD'
+  }
+]
+
 const EMPTY_FUNC = () => {}
+
+const locationOptions = {
+  suggestions,
+  fetchSuggestions: EMPTY_FUNC
+}
 
 storiesOf('EditableValue', module)
   .addDecorator(withKnobs)
@@ -235,5 +259,23 @@ storiesOf('EditableValue', module)
           value={minifiedMarkup}
         />)
     },
+    {info: {source: true}}
+  )
+  .add(
+    'Location',
+    () => <EditableValue
+      type="location"
+      options={{
+        ...locationOptions,
+        isLoading: boolean('isLoading', false)
+      }}
+      readOnly={boolean('readOnly', false)}
+      value={{
+        city: text('city', 'Zürich'),
+        country: {display: text('country', 'CH')},
+        postcode: text('postcode', '8000'),
+        state: text('state', 'ZH')
+      }}
+      onChange={EMPTY_FUNC}/>,
     {info: {source: true}}
   )

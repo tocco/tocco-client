@@ -84,6 +84,9 @@ describe('simple-form', () => {
             formData: {
               relationEntities: {data: {}},
               tooltips: {data: {}}
+            },
+            form: {
+              detailForm: {}
             }
           }))
 

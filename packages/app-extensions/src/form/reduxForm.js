@@ -50,7 +50,7 @@ export const formValuesToEntity = (values, dirtyFields, entityName, entityId, en
 
 const getType = (fieldName, entityModel) => {
   const modelField = entityModel[fieldName]
-  if (modelField.relationName) {
+  if (modelField && modelField.relationName) {
     return modelField.multi ? 'entity-list' : 'entity'
   }
   return 'field'

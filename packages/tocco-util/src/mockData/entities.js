@@ -152,6 +152,16 @@ export const setupEntities = (fetchMock, entityStore, timeout) => {
     new RegExp('^.*?/nice2/rest/entities/Search_filter(\\?.*)?$'),
     createSearchFilterResponse(timeout)
   )
+
+  fetchMock.get(
+    new RegExp('^.*?/nice2/rest/entities/Country/[0-9]+\\?.*'),
+    require('./data/countries.json').data[1]
+  )
+
+  fetchMock.get(
+    new RegExp('^.*?/nice2/rest/entities/Country(\\?.*)?$'),
+    require('./data/countries.json')
+  )
 }
 
 const createToolTipResponse = (entityName, entityStore) => {

@@ -3,8 +3,6 @@ import _get from 'lodash/get'
 import {FormField} from 'tocco-ui'
 import {consoleLogger} from 'tocco-util'
 
-import formData from '../formData'
-
 export const formFieldFactory = (mapping, data, resources = {}) => {
   try {
     const {
@@ -15,8 +13,6 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
       value,
       dirty,
       touched,
-      onChange,
-      onBlur,
       events,
       error,
       submitting,
@@ -44,16 +40,15 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
         touched={touched}
         dirty={dirty}
       >
-        <formData.FormDataContainer>
-          <ValueField
-            mapping={mapping}
-            formName={formName}
-            formField={formDefinitionField}
-            modelField={modelField}
-            reduxFormProps={{id, value, onChange, onBlur, readOnly, mandatory}}
-            events={events}
-          />
-        </formData.FormDataContainer>
+        <ValueField
+          mapping={mapping}
+          formName={formName}
+          formField={formDefinitionField}
+          modelField={modelField}
+          value={value}
+          info={{id, readOnly, mandatory}}
+          events={events}
+        />
       </FormField>
 
     )
@@ -64,7 +59,7 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
 }
 
 const ValueField = props => {
-  const {mapping, formName, formField, modelField, reduxFormProps, events, utils} = props
+  const {mapping, formName, formField, modelField, value, info, events, utils} = props
   const type = formField.dataType ? 'dataType' : 'componentType'
 
   let typeFactory = mapping[formField[type]]
@@ -82,5 +77,5 @@ const ValueField = props => {
     }
   }
 
-  return typeFactory(formField, modelField, formName, reduxFormProps, events, utils)
+  return typeFactory(formField, modelField, formName, value, info, events, utils)
 }

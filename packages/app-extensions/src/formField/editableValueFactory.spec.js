@@ -1,60 +1,73 @@
 import {EditableValue} from 'tocco-ui'
-import {mount} from 'enzyme'
+import {intlEnzyme} from 'tocco-test-util'
+import {createStore} from 'redux'
+import {Provider} from 'react-redux'
+import React from 'react'
 
 import editableValueFactory from './editableValueFactory'
 
 describe('app-extensions', () => {
   describe('formField', () => {
     describe('editableValueFactory', () => {
+      const store = createStore(() => ({
+        formData: {
+          relationEntities: {
+            data: {
+              relUser: [{key: 1}, {key: 3}],
+              relUser2: [{key: 33}]
+            }
+          },
+          tooltips: {data: {}}
+
+        },
+        form: {
+          detailForm: {
+            values: {
+              canton_c: 'ZH',
+              city_c: 'Zurich',
+              postcode: '8000'
+            }
+          }
+        }
+      }))
+
       test('should return simple editableValue', () => {
         const factory = editableValueFactory('string')
 
-        const props = {
-          value: 'test'
-        }
+        const formField = {}
+        const modelField = {}
+        const formName = 'detailForm'
+        const value = 'test'
+        const info = {mandatory: false, readOnly: false}
+        const onChangeSpy = sinon.spy()
+        const events = {onChange: onChangeSpy}
 
-        const events = {
-          onClick: () => {
-          }
-        }
+        const editableValue = factory(formField, modelField, formName, value, info, events)
 
-        const editableValue = factory({}, {}, 'formName', props, events, {})
+        const wrapper = intlEnzyme.mountWithIntl(<Provider store={store}>{editableValue}</Provider>)
 
-        const wrapper = mount(editableValue)
-
-        expect(wrapper).to.have.type(EditableValue)
-        expect(wrapper).to.have.prop('value', 'test')
-        expect(wrapper).to.have.prop('events', events)
-      })
-
-      test('should should format message to hours and minutes label', () => {
-        const factory = editableValueFactory('duration')
-        const util = {
-          intl: {
-            formatMessage: v => (v.id)
-          }
-        }
-
-        const editableValue = factory({}, {}, 'formName', {}, {}, util)
-
-        const wrapper = mount(editableValue)
-
-        const options = wrapper.prop('options')
-
-        expect(wrapper).to.have.type(EditableValue)
-        expect(options.hoursLabel).to.eql('client.component.duration.hoursLabel')
-        expect(options.minutesLabel).to.eql('client.component.duration.minutesLabel')
+        expect(wrapper.find(EditableValue)).to.have.length(1)
+        expect(wrapper.find(EditableValue).props()).to.have.property('value', 'test')
       })
 
       test('should return coordinate value', () => {
         const factory = editableValueFactory('coordinate')
-        const data = {value: {value: 0.8285692490653721}}
-        const editableValue = factory({}, {}, 'formName', data, {}, {})
 
-        const wrapper = mount(editableValue)
+        const formField = {}
+        const modelField = {}
+        const formName = 'detailForm'
+        const inputValue = {value: 0.8285692490653721}
+        const info = {mandatory: false, readOnly: false}
+        const onChangeSpy = sinon.spy()
+        const events = {onChange: onChangeSpy}
 
-        const value = wrapper.prop('value')
-        expect(value).to.eql(data.value)
+        const editableValue = factory(formField, modelField, formName, inputValue, info, events)
+
+        const wrapper = intlEnzyme.mountWithIntl(<Provider store={store}>{editableValue}</Provider>)
+
+        const value = wrapper.find(EditableValue).prop('value')
+
+        expect(value).to.eql(inputValue.value)
       })
     })
   })

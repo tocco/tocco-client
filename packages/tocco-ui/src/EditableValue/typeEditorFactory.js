@@ -1,5 +1,6 @@
 import React from 'react'
 import _isEmpty from 'lodash/isEmpty'
+import _omit from 'lodash/omit'
 
 import SingleSelect from './typeEditors/SingleSelect'
 import MultiSelect from './typeEditors/MultiSelect'
@@ -21,6 +22,7 @@ import DurationEdit from './typeEditors/DurationEdit'
 import NumberEdit from './typeEditors/NumberEdit'
 import MoneyEdit from './typeEditors/MoneyEdit'
 import IntegerEdit from './typeEditors/IntegerEdit'
+import LocationEdit from './typeEditors/LocationEdit'
 
 export const map = {
   'binary': Document,
@@ -46,6 +48,7 @@ export const map = {
   'integer': IntegerEdit,
   'ipaddress': StringEdit,
   'latitude': NumberEdit,
+  'location': LocationEdit,
   'login': StringEdit,
   'long': IntegerEdit,
   'longitude': NumberEdit,
@@ -69,7 +72,7 @@ export const map = {
   'time': TimeEdit
 }
 
-export default (type, value, onChange, options, id, events, readOnly = false) => {
+export default (type, value, options, id, events, readOnly = false) => {
   if (map[type]) {
     const Component = map[type]
 
@@ -84,12 +87,12 @@ export default (type, value, onChange, options, id, events, readOnly = false) =>
     }
 
     return (
-      <div {...events}>
+      <div {..._omit(events, 'onChange')}>
         <Component
           value={value}
           onChange={v => {
             blurValue = v
-            onChange(v)
+            events.onChange(v)
           }}
           {...(_isEmpty(options) ? {} : {options})}
           id={id}

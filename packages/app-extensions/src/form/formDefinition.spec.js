@@ -6,7 +6,7 @@ import rest from '../rest'
 import {call} from 'redux-saga/effects'
 
 const testField1 = {
-  id: 'firstname-field', // does not match path by intention (-> should use path for getFieldNames)
+  id: 'firstname-field', // does not match path by intention (-> should use path for getUsedPaths)
   componentType: 'field',
   path: 'firstname',
   dataType: 'string',
@@ -81,11 +81,33 @@ describe('app-extensions', () => {
         })
       })
 
-      describe('getFieldNames', () => {
-        test('should return a list of all field names', () => {
+      describe('getUsedPaths', () => {
+        test('should return a list of all paths that are used in the form', () => {
           const fields = formDefinition.getFieldDefinitions(testFormDefinition)
-          const fieldNames = formDefinition.getFieldNames(fields)
+          const fieldNames = formDefinition.getUsedPaths(fields)
           expect(fieldNames).to.eql([testField1.path, testField2.path, testDisplay.id, testField3.path])
+        })
+
+        test('should return location mappings in paths', () => {
+          const fieldNames = formDefinition.getUsedPaths([{
+            dataType: 'location',
+            locationMapping: {
+              city: 'city_c',
+              country: 'relCountry_c'
+            }
+          }])
+          expect(fieldNames).to.eql(['city_c', 'relCountry_c'])
+        })
+
+        test('should return no douplettes in result', () => {
+          const fieldNames = formDefinition.getUsedPaths([{
+            dataType: 'string',
+            path: 'firstname'
+          }, {
+            dataType: 'string',
+            path: 'firstname'
+          }])
+          expect(fieldNames).to.eql(['firstname'])
         })
       })
 

@@ -453,6 +453,112 @@
                 "label": "Communication"
               },
               {
+                "id": "address",
+                "componentType": "layout",
+                "layoutType": "vertical-box",
+                "hidden": false,
+                "children": [
+                  {
+                    "componentType": "field-set",
+                    "label": "Street",
+                    "scopes": [],
+                    "hidden": false,
+                    "children": [
+                      {
+                        "id": "address_c",
+                        "componentType": "field",
+                        "dataType": "string",
+                        "path": "address_c",
+                        "label": null
+                      }
+                    ]
+                  },
+                  {
+                    "id": "location_c",
+                    "label": "PLZ / Ort",
+                    "componentType": "field-set",
+                    "children": [
+                      {
+                        "id": "location_c",
+                        "label": null,
+                        "componentType": "",
+                        "path": null,
+                        "dataType": "location",
+                        "defaultValue": null,
+                        "locationMapping": {
+                          "postcode": "zip_c",
+                          "city": "city_c",
+                          "street": "address_c",
+                          "country": "relCountry_c",
+                          "state": "canton_c",
+                          "district": "district_c"
+                        },
+                        "countries": [
+                          "DE",
+                          "AT",
+                          "CH"
+                        ]
+                      }
+                    ],
+                    "readonly": false,
+                    "hidden": false,
+                    "scopes": []
+                  },
+                  {
+                    "id": "relCountry_c",
+                    "label": "Country",
+                    "componentType": "field-set",
+                    "children": [
+                      {
+                        "id": "relCountry_c",
+                        "label": null,
+                        "componentType": "field",
+                        "path": "relCountry_c",
+                        "dataType": "single-remote-field",
+                        "defaultValue": {
+                          "display": "Switzerland",
+                          "key": "1"
+                        }
+                      }
+                    ],
+                    "readonly": false,
+                    "hidden": false,
+                    "scopes": [ ]
+                  },
+                  {
+                    "componentType": "field-set",
+                    "label": "Canton",
+                    "scopes": [],
+                    "hidden": false,
+                    "children": [
+                      {
+                        "id": "canton_c",
+                        "componentType": "field",
+                        "dataType": "string",
+                        "path": "canton_c",
+                        "label": null
+                      }
+                    ]
+                  },
+                  {
+                    "componentType": "field-set",
+                    "label": "District",
+                    "scopes": [],
+                    "hidden": false,
+                    "children": [
+                      {
+                        "id": "district_c",
+                        "componentType": "field",
+                        "dataType": "string",
+                        "path": "district_c",
+                        "label": null
+                      }
+                    ]
+                  }
+                ],
+                "label": "Address"
+              },
+              {
                 "id": "marketing_information",
                 "componentType": "layout",
                 "layoutType": "vertical-box",

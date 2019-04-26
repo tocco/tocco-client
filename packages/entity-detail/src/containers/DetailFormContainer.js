@@ -29,21 +29,19 @@ const getFormGeneralErrors = formName =>
     _get(state, `form.${formName}.error`, {})
   )
 
-const mapStateToProps = state => {
-  return {
-    formDefinition: state.entityDetail.formDefinition,
-    entity: state.entityDetail.entity,
-    entityModel: state.entityDetail.entityModel,
-    formValues: getFormValues('detailForm')(state),
-    formErrors: {
-      ...getFormSyncErrors('detailForm')(state),
-      ...getFormAsyncErrors('detailForm')(state),
-      ...getFormSubmitErrors('detailForm')(state),
-      _error: getFormGeneralErrors('detailForm')(state)
-    },
-    formInitialValues: getFormInitialValues('detailForm')(state),
-    lastSave: state.entityDetail.lastSave
-  }
-}
+const mapStateToProps = state => ({
+  formDefinition: state.entityDetail.formDefinition,
+  entity: state.entityDetail.entity,
+  entityModel: state.entityDetail.entityModel,
+  formValues: getFormValues('detailForm')(state),
+  formErrors: {
+    ...getFormSyncErrors('detailForm')(state),
+    ...getFormAsyncErrors('detailForm')(state),
+    ...getFormSubmitErrors('detailForm')(state),
+    _error: getFormGeneralErrors('detailForm')(state)
+  },
+  formInitialValues: getFormInitialValues('detailForm')(state),
+  lastSave: state.entityDetail.lastSave
+})
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(DetailForm))
