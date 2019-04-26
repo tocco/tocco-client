@@ -133,7 +133,7 @@ class DateAbstract extends React.Component {
         />
         <StyledDateAbstractControl
           data-clear
-          hideButton={this.state.hideButton}
+          hideButton={this.state.hideButton || this.props.readOnly}
         >
           <Button
             icon="times"
