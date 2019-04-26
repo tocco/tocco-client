@@ -13,8 +13,8 @@ import StyledDetailForm from './StyledDetailForm'
 
 export class DetailForm extends React.Component {
   componentDidUpdate(prevProps) {
-    if (prevProps.isDirty !== this.props.isDirty) {
-      this.props.fireTouched(this.props.isDirty)
+    if (prevProps.dirty !== this.props.dirty) {
+      this.props.fireTouched(this.props.dirty)
     }
   }
 
@@ -93,7 +93,7 @@ export class DetailForm extends React.Component {
           />
           {!this.isReadOnlyForm()
           && <div>
-            {!props.valid && props.isDirty && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
+            {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
             <Button
               disabled={props.submitting || (props.anyTouched && !props.valid)}
               ink="primary"
@@ -129,7 +129,7 @@ DetailForm.propTypes = {
   submitting: PropTypes.bool,
   formErrors: PropTypes.object,
   valid: PropTypes.bool,
-  isDirty: PropTypes.bool,
+  dirty: PropTypes.bool,
   lastSave: PropTypes.number,
   fireTouched: PropTypes.func.isRequired
 }
