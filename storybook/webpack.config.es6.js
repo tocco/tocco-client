@@ -1,11 +1,11 @@
 import webpack from 'webpack'
 
-import config from '../config'
+import runConfig from '../config'
 
-module.exports = (storybookBaseConfig, configType) => {
-  storybookBaseConfig.plugins.push(new webpack.DefinePlugin(config.globals))
+module.exports = ({config, configType}) => {
+  config.plugins.push(new webpack.DefinePlugin(runConfig.globals))
 
-  const babelLoaderRule = storybookBaseConfig.module.rules.find(element => {
+  const babelLoaderRule = config.module.rules.find(element => {
     return element.use.find(usageObject => {
       return usageObject.loader === 'babel-loader'
     })
@@ -13,9 +13,9 @@ module.exports = (storybookBaseConfig, configType) => {
 
   babelLoaderRule.exclude[0] = /node_modules/
 
-  storybookBaseConfig.module.rules.push({
+  config.module.rules.push({
     test: /\.scss$/,
-      use: ['style-loader', 'css-loader', `sass-loader?data=$node-env:${config.env};&includePaths[]=./packages/tocco-theme/node_modules/`]  // eslint-disable-line
+      use: ['style-loader', 'css-loader', `sass-loader?data=$node-env:${runConfig.env};&includePaths[]=./packages/tocco-theme/node_modules/`]  // eslint-disable-line
   },
   {
     test: /\.woff(\?.*)?$/,
@@ -47,5 +47,5 @@ module.exports = (storybookBaseConfig, configType) => {
   }
   )
 
-  return storybookBaseConfig
+  return config
 }
