@@ -6,7 +6,7 @@ import Preview from '../Preview'
 import Typography from '../Typography'
 import {Typography as RawTypography} from '../Typography/Typography'
 
-storiesOf('Panel', module)
+storiesOf('Tocco-UI | Layout / Panel', module)
   .add(
     'Panel',
     () =>

@@ -8,7 +8,7 @@ import {Icon} from '../Icon/Icon'
 import Menu from './'
 import {Menu as Raw} from './Menu'
 
-storiesOf('Menu', module)
+storiesOf('Tocco-UI | Menu', module)
   .add(
     'Menu',
     () =>

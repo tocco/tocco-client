@@ -4,7 +4,7 @@ import {withKnobs, boolean, text} from '@storybook/addon-knobs'
 
 import LoadMask from './'
 
-storiesOf('LoadMask', module)
+storiesOf('Tocco-UI | LoadMask', module)
   .addDecorator(withKnobs)
   .add(
     'LoadMask',

@@ -4,7 +4,7 @@ import {select, text, withKnobs} from '@storybook/addon-knobs'
 
 import IconTocco from './'
 
-storiesOf('IconTocco', module)
+storiesOf('Tocco-UI | IconTocco', module)
   .addDecorator(withKnobs)
   .add(
     'IconTocco',

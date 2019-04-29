@@ -4,7 +4,7 @@ import {withKnobs, array, boolean, number, text} from '@storybook/addon-knobs'
 
 import EntityBrowserApp from './main'
 
-storiesOf('Apps/Entity Browser', module)
+storiesOf('Apps|Entity Browser', module)
   .addDecorator(withKnobs)
   .add(
     'Entity Browser',

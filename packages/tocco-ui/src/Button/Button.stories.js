@@ -7,7 +7,7 @@ import _pick from 'lodash/pick'
 import Button from './'
 import {design} from '../utilStyles'
 
-storiesOf('Button', module)
+storiesOf('Tocco-UI | Buttons / Button', module)
   .addDecorator(withKnobs)
   .add(
     'Knobs',
@@ -44,32 +44,32 @@ storiesOf('Button', module)
         dense: boolean('dense', false) || undefined,
         disabled: boolean('disabled', false) || undefined
       }
-      return [
+      return <span>
         <Button
           {...knobs}
           key="1"
           label="Base color flat"
           onClick={action('clicked')}
-        />,
+        />
         <Button
           {...knobs}
           ink="primary"
           key="2"
           label="Primary color flat"
-        />,
+        />
         <Button
           {...knobs}
           key="3"
           label="Base color raised"
           look="raised"
-        />,
+        />
         <Button
           {...knobs}
           ink="primary"
           key="4"
           label="Primary color raised"
           look="raised"
-        />,
+        />
         <Button
           {...knobs}
           icon="handshake"
@@ -77,13 +77,13 @@ storiesOf('Button', module)
           key="5"
           label="Icon with text"
           type="submit"
-        />,
+        />
         <Button
           {...knobs}
           icon="fab, facebook"
           key="6"
           label="Brand Icon"
-        />,
+        />
         <Button
           {...knobs}
           icon="air-freshener"
@@ -91,7 +91,7 @@ storiesOf('Button', module)
           key="9"
           label="Pending"
           pending={true}
-        />,
+        />
         <Button
           {...knobs}
           label="I"
@@ -103,6 +103,6 @@ storiesOf('Button', module)
           key="10"
           look="raised"
         ><i>child</i></Button>
-      ]
+      </span>
     }
   )

@@ -86,7 +86,7 @@ SelectStory.propTypes = {
   readOnly: PropTypes.bool
 }
 
-storiesOf('Select', module)
+storiesOf('Tocco-UI | Select', module)
   .addDecorator(withKnobs)
   .add(
     'Select',

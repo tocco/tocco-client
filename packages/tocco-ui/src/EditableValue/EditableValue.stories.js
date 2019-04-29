@@ -78,7 +78,7 @@ const locationOptions = {
   fetchSuggestions: EMPTY_FUNC
 }
 
-storiesOf('EditableValue', module)
+storiesOf('Tocco-UI | EditableValue', module)
   .addDecorator(withKnobs)
   .addParameters({
     info: {propTables: [EditableValue], propTablesExclude: [EditableValueStory], source: false}
