@@ -4,7 +4,7 @@ import {withKnobs, select} from '@storybook/addon-knobs'
 
 import {ResourceSchedulerApp} from './main'
 
-storiesOf('Apps/Resource Scheduler', module)
+storiesOf('Apps|Resource Scheduler', module)
   .addDecorator(withKnobs)
   .add(
     'Resource Scheduler',

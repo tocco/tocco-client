@@ -3,7 +3,7 @@ import {storiesOf} from '@storybook/react'
 
 import Typography from './'
 
-storiesOf('Typography', module)
+storiesOf('Tocco-UI | Typography', module)
   .add(
     'Typography',
     () =>

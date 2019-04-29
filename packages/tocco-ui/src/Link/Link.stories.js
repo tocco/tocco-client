@@ -4,7 +4,7 @@ import {withKnobs, boolean, number, select, text} from '@storybook/addon-knobs'
 
 import Link from './'
 
-storiesOf('Link', module)
+storiesOf('Tocco-UI | Link', module)
   .addDecorator(withKnobs)
   .add(
     'Link',

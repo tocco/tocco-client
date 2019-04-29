@@ -4,7 +4,6 @@ import {withKnobs} from '@storybook/addon-knobs'
 import {action} from '@storybook/addon-actions'
 import {Provider} from 'react-redux'
 import {Button, ButtonGroup, Typography} from 'tocco-ui'
-import {withReadme} from 'storybook-readme'
 
 import Readme from './README.md'
 import notifier from './'
@@ -169,11 +168,10 @@ class Story extends React.Component {
   }
 }
 
-storiesOf('App Extensions', module)
+storiesOf('App-Extensions|Notifier', module)
   .addDecorator(withKnobs)
-  .addDecorator(withReadme([Readme]))
   .add(
-    'notifier',
+    'Basic',
     () => <Story/>,
-    {info: {disable: true}}
+    {info: {disable: true}, notes: Readme}
   )

@@ -42,7 +42,7 @@ const ExamplePanel3 = () =>
     </Panel.Footer>
   </Panel.Wrapper>
 
-storiesOf('Layout', module)
+storiesOf('Tocco-UI | Layout / Layout', module)
   .add(
     'Layout',
     () =>

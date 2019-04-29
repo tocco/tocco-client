@@ -6,7 +6,7 @@ import SignalList from '../SignalList'
 import {SignalList as Raw} from '../SignalList/SignalList'
 import {Typography} from '../index'
 
-storiesOf('SignalBox', module)
+storiesOf('Tocco-UI | SignalBox', module)
   .add(
     'SignalBox',
     () => <div>

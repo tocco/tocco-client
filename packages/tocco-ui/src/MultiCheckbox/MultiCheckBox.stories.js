@@ -4,7 +4,7 @@ import {action} from '@storybook/addon-actions'
 
 import MultiCheckbox from './'
 
-storiesOf('MultiCheckbox', module)
+storiesOf('Tocco-UI | MultiCheckbox', module)
   .add(
     'MultiCheckbox',
     () =>

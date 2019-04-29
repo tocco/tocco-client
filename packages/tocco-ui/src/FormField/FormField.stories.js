@@ -6,7 +6,7 @@ import FormField from './FormField'
 
 const getInput = id => <input type="text" className="form-control" id={id}/>
 
-storiesOf('FormField', module)
+storiesOf('Tocco-UI | FormField', module)
   .addDecorator(withKnobs)
   .add(
     'FormField',

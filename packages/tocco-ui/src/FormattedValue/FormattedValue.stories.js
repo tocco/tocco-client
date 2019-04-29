@@ -11,7 +11,7 @@ export function iso(value) {
   return moment(knob).format('YYYY-MM-DD')
 }
 
-storiesOf('FormattedValue', module)
+storiesOf('Tocco-UI | FormattedValue', module)
   .addDecorator(withKnobs({
     escapeHTML: false
   }))

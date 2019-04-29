@@ -6,7 +6,7 @@ import _pick from 'lodash/pick'
 import ButtonLink from './'
 import {design} from '../utilStyles'
 
-storiesOf('ButtonLink', module)
+storiesOf('Tocco-UI | Buttons / ButtonLink', module)
   .addDecorator(withKnobs)
   .add(
     'ButtonLink',

@@ -3,7 +3,7 @@ import React from 'react'
 
 import SignalList from './index'
 
-storiesOf('SignalList', module)
+storiesOf('Tocco-UI | SignalList', module)
   .add(
     'SignalList',
     () => <div>

@@ -8,7 +8,7 @@ import Button from '../Button/Button'
 import ButtonLink from '../ButtonLink/ButtonLink'
 import {design} from '../utilStyles'
 
-storiesOf('ButtonGroup', module)
+storiesOf('Tocco-UI | Buttons / ButtonGroup', module)
   .addDecorator(withKnobs)
   .add(
     'ButtonGroup',
