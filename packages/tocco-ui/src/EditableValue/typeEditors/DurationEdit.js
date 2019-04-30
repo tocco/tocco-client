@@ -30,6 +30,22 @@ class DurationEdit extends React.Component {
     return {hours, minutes}
   }
 
+  componentDidMount = () => {
+    this.setState({
+      hoursWidth: this.hoursShadow.current.offsetWidth,
+      minutesWidth: this.minutesShadow.current.offsetWidth
+    })
+  }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (this.state.hours !== prevState.hours) {
+      this.setState({hoursWidth: this.hoursShadow.current.offsetWidth})
+    }
+    if (this.state.minutes !== prevState.minutes) {
+      this.setState({minutesWidth: this.minutesShadow.current.offsetWidth})
+    }
+  }
+
   handleHourChange = e => {
     const hours = e.target.value.replace(/[^-\d]/g, '')
     this.setState({...this.state, hours})
@@ -82,22 +98,6 @@ class DurationEdit extends React.Component {
   preventNonNumeric = event => {
     if (!(event.charCode >= 48 && event.charCode <= 57)) {
       event.preventDefault()
-    }
-  }
-
-  componentDidMount = () => {
-    this.setState({
-      hoursWidth: this.hoursShadow.current.offsetWidth,
-      minutesWidth: this.minutesShadow.current.offsetWidth
-    })
-  }
-
-  componentDidUpdate = (prevProps, prevState) => {
-    if (this.state.hours !== prevState.hours) {
-      this.setState({hoursWidth: this.hoursShadow.current.offsetWidth})
-    }
-    if (this.state.minutes !== prevState.minutes) {
-      this.setState({minutesWidth: this.minutesShadow.current.offsetWidth})
     }
   }
 
