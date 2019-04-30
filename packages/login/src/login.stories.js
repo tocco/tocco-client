@@ -1,40 +1,57 @@
 import React from 'react'
 import {storiesOf} from '@storybook/react'
-import {withKnobs, boolean, select, text} from '@storybook/addon-knobs'
+import {withKnobs, boolean, text} from '@storybook/addon-knobs'
 import {action} from '@storybook/addon-actions'
 import {linkTo} from '@storybook/addon-links'
+import {injectIntl, intlShape} from 'react-intl'
 
 import LoginApp from './main'
+import Readme from '../README.md'
 
 storiesOf('Apps|Login', module)
   .addDecorator(withKnobs)
   .add(
-    'tocco',
-    () => <LoginAppWrapper/>
+    'Login',
+    () => <LoginAppWrapperStoryIntl/>,
+    {info: {disable: true}, notes: Readme}
   )
 
-class LoginAppWrapper extends React.Component {
+class LoginAppWrapperStory extends React.Component {
   constructor(props) {
     super(props)
     this.childKey = 0
   }
 
+  confirmed = false
+
   render() {
-    this.childKey++
     return (
       <div>
         <LoginApp
-          key={this.childKey}
-          showTitle={boolean('showTitle', false)}
-          locale={select('locale', ['de', 'en'])}
+          key={this.childKey++}
+          showTitle={boolean('showTitle', true)}
+          locale={this.props.intl.locale}
           passwordRequest={boolean('passwordRequest', false)}
-          username={text('username', 'Tocco')}
+          username={text('username', 'tocco')}
           loginSuccess={() => {
             action('login success')()
-            setTimeout(linkTo('Apps|Entity Browser', 'Entity Browser'), 1000)
+            if (!this.confirmed) {
+              const redirect = confirm('Login successful. Redirect to Entity-Browser?')
+              if (redirect) {
+                linkTo('Apps|Entity Browser', 'Entity Browser')()
+              } else {
+                this.confirmed = true
+              }
+            }
           }}
         />
       </div>
     )
   }
 }
+
+LoginAppWrapperStory.propTypes = {
+  intl: intlShape
+}
+
+const LoginAppWrapperStoryIntl = injectIntl(LoginAppWrapperStory)

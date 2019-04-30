@@ -5,6 +5,8 @@ import {setIntlConfig, withIntl} from 'storybook-addon-intl'
 import {addLocaleData} from 'react-intl'
 import enLocaleData from 'react-intl/locale-data/en'
 import deLocaleData from 'react-intl/locale-data/de'
+import frLocaleData from 'react-intl/locale-data/fr'
+import itLocaleData from 'react-intl/locale-data/it'
 import {withThemes} from 'storybook-styled-components'
 import {withA11y} from '@storybook/addon-a11y'
 import '@storybook/addon-console'
@@ -16,9 +18,11 @@ import CustomPropTable from './CustomPropTable'
 
 addLocaleData(enLocaleData)
 addLocaleData(deLocaleData)
+addLocaleData(frLocaleData)
+addLocaleData(itLocaleData)
 
 setIntlConfig({
-  locales: ['de-CH', 'en', 'de'],
+  locales: ['de-CH', 'en', 'de', 'fr', 'it'],
   defaultLocale: 'de-CH',
   getMessages: () => {}
 })

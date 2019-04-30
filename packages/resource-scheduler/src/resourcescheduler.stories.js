@@ -1,14 +1,18 @@
 import React from 'react'
 import {storiesOf} from '@storybook/react'
-import {withKnobs, select} from '@storybook/addon-knobs'
+import {withKnobs} from '@storybook/addon-knobs'
+import {injectIntl, intlShape} from 'react-intl'
 
 import {ResourceSchedulerApp} from './main'
+import Readme from '../README.md'
 
 storiesOf('Apps|Resource Scheduler', module)
   .addDecorator(withKnobs)
   .add(
     'Resource Scheduler',
-    () => <ResourceSchedulerWrapper/>
+    () => <A/>,
+    {info: {disable: true}, notes: Readme}
+
   )
 
 class ResourceSchedulerWrapper extends React.Component {
@@ -22,9 +26,15 @@ class ResourceSchedulerWrapper extends React.Component {
       <div>
         <ResourceSchedulerApp
           key={this.childKey}
-          locale={select('locale', ['de', 'en'])}
+          locale={this.props.intl.locale}
         />
       </div>
     )
   }
 }
+
+ResourceSchedulerWrapper.propTypes = {
+  intl: intlShape
+}
+
+const A = injectIntl(ResourceSchedulerWrapper)
