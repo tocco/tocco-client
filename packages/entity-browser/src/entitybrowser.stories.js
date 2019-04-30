@@ -1,32 +1,38 @@
 import React from 'react'
 import {storiesOf} from '@storybook/react'
-import {withKnobs, array, boolean, number, text} from '@storybook/addon-knobs'
+import {array, boolean, number, text, object, withKnobs} from '@storybook/addon-knobs'
+import {injectIntl, intlShape} from 'react-intl'
 
 import EntityBrowserApp from './main'
+import Readme from '../README.md'
 
 storiesOf('Apps|Entity Browser', module)
   .addDecorator(withKnobs)
   .add(
     'Entity Browser',
-    () => <EntityStoryWrapper/>
+    () => <EntityBrowserStoryIntl/>,
+    {info: {disable: true}, notes: Readme}
   )
 
-class EntityStoryWrapper extends React.Component {
+class EntityBrowserStory extends React.Component {
   constructor(props) {
     super(props)
     this.childKey = 0
   }
   render() {
-    this.childKey++
     return <EntityBrowserApp
-      key={this.childKey}
-      entityId="1"
+      key={this.childKey++}
+      locale={this.props.intl.locale}
       entityName={text('entityName', 'User')}
       showSearchForm={boolean('showSearchForm', true)}
       disableSimpleSearch={boolean('disableSimpleSearch', false)}
       formBase={text('formBase', 'User')}
       limit={number('limit', 10)}
-      preselectedSearchFields={array('preselectedSearchFields', [])}
+      preselectedSearchFields={object('preselectedSearchFields', [{
+        'id': 'txtFulltext',
+        'value': '',
+        'hidden': false
+      }])}
       searchFilters={array('searchFilters', [])}
       initialKey={text('initialKey', '')}
       simpleSearchFields={text('simpleSearchFields', '')}
@@ -36,3 +42,9 @@ class EntityStoryWrapper extends React.Component {
     />
   }
 }
+
+EntityBrowserStory.propTypes = {
+  intl: intlShape
+}
+
+const EntityBrowserStoryIntl = injectIntl(EntityBrowserStory)
