@@ -10,7 +10,7 @@
   "devDependencies": {
     "tocco-app-extensions": "0.1.8",
     "tocco-test-util": ">0.1.0",
-    "tocco-theme": "0.2.5",
+    "tocco-theme": ">0.0.0",
     "tocco-ui": "0.1.22",
     "tocco-util": "0.1.19"
   }
