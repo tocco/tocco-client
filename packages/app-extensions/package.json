@@ -5,7 +5,7 @@
   "description": "app extensions",
   "main": "src/main.js",
   "devDependencies": {
-    "tocco-theme": "0.2.5",
+    "tocco-theme": ">0.0.0",
     "tocco-ui": "0.1.22",
     "tocco-util": "0.1.19",
     "validator": "10.0.0"
