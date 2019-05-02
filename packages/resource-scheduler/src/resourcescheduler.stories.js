@@ -10,12 +10,12 @@ storiesOf('Apps|Resource Scheduler', module)
   .addDecorator(withKnobs)
   .add(
     'Resource Scheduler',
-    () => <A/>,
+    () => <ResourceSchedulerStoryIntl/>,
     {info: {disable: true}, notes: Readme}
 
   )
 
-class ResourceSchedulerWrapper extends React.Component {
+class ResourceSchedulerStory extends React.Component {
   constructor(props) {
     super(props)
     this.childKey = 0
@@ -33,8 +33,8 @@ class ResourceSchedulerWrapper extends React.Component {
   }
 }
 
-ResourceSchedulerWrapper.propTypes = {
+ResourceSchedulerStory.propTypes = {
   intl: intlShape
 }
 
-const A = injectIntl(ResourceSchedulerWrapper)
+const ResourceSchedulerStoryIntl = injectIntl(ResourceSchedulerStory)
