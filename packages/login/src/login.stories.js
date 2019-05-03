@@ -17,18 +17,14 @@ storiesOf('Apps|Login', module)
   )
 
 class LoginAppWrapperStory extends React.Component {
-  constructor(props) {
-    super(props)
-    this.childKey = 0
-  }
-
+  key = 0
   confirmed = false
 
   render() {
     return (
       <div>
         <LoginApp
-          key={this.childKey++}
+          key={this.key++}
           showTitle={boolean('showTitle', true)}
           locale={this.props.intl.locale}
           passwordRequest={boolean('passwordRequest', false)}

@@ -16,16 +16,13 @@ storiesOf('Apps|Resource Scheduler', module)
   )
 
 class ResourceSchedulerStory extends React.Component {
-  constructor(props) {
-    super(props)
-    this.childKey = 0
-  }
+  key = 0
+
   render() {
-    this.childKey++
     return (
       <div>
         <ResourceSchedulerApp
-          key={this.childKey}
+          key={this.key++}
           locale={this.props.intl.locale}
         />
       </div>
