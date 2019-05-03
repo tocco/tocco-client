@@ -15,13 +15,11 @@ storiesOf('Apps|Entity Browser', module)
   )
 
 class EntityBrowserStory extends React.Component {
-  constructor(props) {
-    super(props)
-    this.childKey = 0
-  }
+  key = 0
+
   render() {
     return <EntityBrowserApp
-      key={this.childKey++}
+      key={this.key++}
       locale={this.props.intl.locale}
       entityName={text('entityName', 'User')}
       showSearchForm={boolean('showSearchForm', true)}
