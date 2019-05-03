@@ -3,11 +3,10 @@ import PropTypes from 'prop-types'
 import Autosuggest from 'react-autosuggest'
 
 import ButtonLink from '../../ButtonLink'
-import {
-  StyledLocationEdit,
-  StyledPostcodeInput
-} from './StyledLocationEdit'
 import IconTocco from '../../IconTocco'
+import Typography from '../../Typography'
+import {StyledEditableControl} from '../StyledEditableValue'
+import {StyledLocationEdit} from './StyledLocationEdit'
 
 export const getGoogleMapsAddress = locationInput => {
   const mapsBaseAddress = `https://www.google.com/maps/search/?api=1&query=`
@@ -29,20 +28,12 @@ class LocationEdit extends React.Component {
     const cantonString = suggestion.state ? `- ${suggestion.state}` : ''
     const countryString = suggestion.country ? `/ ${suggestion.country.display}` : ''
 
-    return <span>{suggestion.postcode} {suggestion.city} {cantonString} {countryString}</span>
+    return <Typography.Span>{suggestion.postcode} {suggestion.city} {cantonString} {countryString}</Typography.Span>
   }
 
   onChange = field => (event, {newValue}) => {
     this.props.onChange({[field]: newValue})
   }
-
-  returnSuggestionsContainer = ({containerProps, children}) =>
-    <div
-      {...containerProps}
-      {...(this.props.options.isLoading ? {className: 'react-autosuggest__suggestions-container--open'} : {})}
-    >
-      {this.props.options.isLoading ? <div className="dropdown-icon"><IconTocco/></div> : children}
-    </div>
 
   onSuggestionSelected = (event, {suggestion}) => {
     this.props.onChange(suggestion)
@@ -75,20 +66,18 @@ class LocationEdit extends React.Component {
         id={this.props.id}
         readOnly={this.props.readOnly}
       >
-        <StyledPostcodeInput>
-          <Autosuggest
-            suggestions={this.props.options.suggestions || []}
-            onSuggestionsFetchRequested={this.returnOnSuggestionFetchRequested('postcode')}
-            getSuggestionValue={this.returnGetSuggestion('postcode')}
-            renderSuggestion={this.renderSuggestion}
-            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-            inputProps={inputPropsZip}
-            renderSuggestionsContainer={this.returnSuggestionsContainer}
-            onSuggestionSelected={this.onSuggestionSelected}
-            focusInputOnSuggestionClick={false}
-            shouldRenderSuggestions={v => v && !this.props.readOnly}
-          />
-        </StyledPostcodeInput>
+        <Autosuggest
+          suggestions={this.props.options.suggestions || []}
+          onSuggestionsFetchRequested={this.returnOnSuggestionFetchRequested('postcode')}
+          getSuggestionValue={this.returnGetSuggestion('postcode')}
+          renderSuggestion={this.renderSuggestion}
+          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+          inputProps={inputPropsZip}
+          onSuggestionSelected={this.onSuggestionSelected}
+          focusInputOnSuggestionClick={false}
+          shouldRenderSuggestions={v => v && !this.props.readOnly}
+        />
+        <Typography.Span>/</Typography.Span>
         <Autosuggest
           suggestions={this.props.options.suggestions || []}
           onSuggestionsFetchRequested={this.returnOnSuggestionFetchRequested('city')}
@@ -96,12 +85,13 @@ class LocationEdit extends React.Component {
           renderSuggestion={this.renderSuggestion}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
           inputProps={inputPropsCity}
-          renderSuggestionsContainer={this.returnSuggestionsContainer}
           onSuggestionSelected={this.onSuggestionSelected}
           focusInputOnSuggestionClick={false}
           shouldRenderSuggestions={v => v && !this.props.readOnly}
         />
-        {this.showGoogleMaps(this.props.value)
+        <StyledEditableControl>
+          {this.props.options.isLoading && <IconTocco size="1.8rem"/>}
+          {this.showGoogleMaps(this.props.value)
             && <ButtonLink
               href={getGoogleMapsAddress(this.props.value)}
               icon="map-marked-alt"
@@ -112,7 +102,9 @@ class LocationEdit extends React.Component {
               dense={false}
               title={this.props.options.mapButtonTitle || 'Show on Maps'}
             />
-        }
+          }
+        </StyledEditableControl>
+
       </StyledLocationEdit>
     )
   }
