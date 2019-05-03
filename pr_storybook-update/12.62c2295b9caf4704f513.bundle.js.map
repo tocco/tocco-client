@@ -1,0 +1,1 @@
+{"version":3,"file":"12.62c2295b9caf4704f513.bundle.js","sources":["webpack:///./packages/entity-browser/src/routes/list/route.js"],"sourcesContent":["import ListViewContainer from './containers/ListViewContainer'\n\nexport default {\n  container: ListViewContainer,\n  reducers: {},\n  sagas: [],\n  inputDispatches: []\n}\n"],"mappings":"AAAA","sourceRoot":""}
