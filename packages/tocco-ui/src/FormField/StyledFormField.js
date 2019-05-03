@@ -6,7 +6,7 @@ import {scale} from '../utilStyles'
 import {StyledSignalList} from '../SignalList'
 
 const markAsMandatory = () => css`
-  label:after {
+  > label:after {
     content: '*';
     padding-left: ${scale.space(-3)};
   }
