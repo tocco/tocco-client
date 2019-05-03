@@ -77,10 +77,11 @@ addDecorator(withInfo({
 
 addDecorator(withIntl)
 
-addDecorator(withThemes({
-  'Default Theme': defaultTheme,
-  'Dark Theme': darkTheme
-}
+addDecorator(withThemes(
+  {
+    'Default Theme': defaultTheme,
+    'Dark Theme': darkTheme
+  }
 ))
 
 addParameters({
@@ -94,8 +95,7 @@ addParameters({
     {name: 'Dark', value: '#707070'},
     {name: 'Tocco', value: '#9E2124'}
   ]
-}
-)
+})
 
 addDecorator(withA11y)
 
