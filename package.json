@@ -100,6 +100,7 @@
     "intl": "1.2.5",
     "isomorphic-fetch": "~2.2.1",
     "jest": "^23.6.0",
+    "json": "^9.0.6",
     "json-loader": "^0.5.7",
     "lerna": "3.10.5",
     "libphonenumber-js": "^1.6.8",
