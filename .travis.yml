@@ -38,6 +38,7 @@ after_success:
   - if [ ${TRAVIS_EVENT_TYPE} != "cron" ]; then
         bash deployment/deploy_storybook.sh;
     fi
+  - bash deployment/storybook_link.sh;
 
 env:
   global:
