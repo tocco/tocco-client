@@ -9761,6 +9761,10 @@ json5@^2.1.0:
   dependencies:
     minimist "^1.2.0"
 
+json@^9.0.6:
+  version "9.0.6"
+  resolved "https://registry.yarnpkg.com/json/-/json-9.0.6.tgz#7972c2a5a48a42678db2730c7c2c4ee6e4e24585"
+
 jsonfile@^2.1.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/jsonfile/-/jsonfile-2.4.0.tgz#3736a2b428b87bbda0cc83b53fa3d633a35c2ae8"
@@ -13027,17 +13031,6 @@ react-router@^4.3.1:
     prop-types "^15.6.1"
     warning "^4.0.1"
 
-react-simple-focus-within@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/react-simple-focus-within/-/react-simple-focus-within-1.1.4.tgz#fb0ac8e1e82e44954b72b281e8493ac43830f208"
-  integrity sha512-aM6rncaJ8W2IJ0tiLVlQDY8DstoWIxKnKP252EW7YjxnDvC81U+fa+dUTpgo/PMwyc49eyrdnZ8v1IJ2HX3w/Q==
-  dependencies:
-    prop-types "^15.6.2"
-
-react-split-pane@^0.1.84:
-  version "0.1.85"
-  resolved "https://registry.yarnpkg.com/react-split-pane/-/react-split-pane-0.1.85.tgz#64819946a99b617ffa2d20f6f45a0056b6ee4faa"
-  integrity sha512-3GhaYs6+eVNrewgN4eQKJoNMQ4pcegNMTMhR5bO/NFO91K6/98qdD1sCuWPpsefCjzxNTjkvVYWQC0bMaC45mA==
 react-select@^2.3.0:
   version "2.4.3"
   resolved "https://registry.yarnpkg.com/react-select/-/react-select-2.4.3.tgz#62efdf76d7e33e9bde22d907a0cc8abd0aeab656"
@@ -13049,6 +13042,12 @@ react-select@^2.3.0:
     raf "^3.4.0"
     react-input-autosize "^2.2.1"
     react-transition-group "^2.2.1"
+
+react-simple-focus-within@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/react-simple-focus-within/-/react-simple-focus-within-1.1.4.tgz#fb0ac8e1e82e44954b72b281e8493ac43830f208"
+  dependencies:
+    prop-types "^15.6.2"
 
 react-syntax-highlighter@^8.0.1:
   version "8.1.0"
