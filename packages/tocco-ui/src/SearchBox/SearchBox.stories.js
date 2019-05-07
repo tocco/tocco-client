@@ -4,7 +4,7 @@ import {boolean, number, text, withKnobs} from '@storybook/addon-knobs'
 
 import SearchBox from './'
 
-storiesOf('SearchBox', module)
+storiesOf('Tocco-UI | SearchBox', module)
   .addDecorator(withKnobs)
   .add(
     'SearchBox',

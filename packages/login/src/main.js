@@ -122,12 +122,6 @@ const initPasswordUpdateApp = (id, input, events, publicPath, customTheme) => {
 class LoginApp extends React.Component {
   constructor(props) {
     super(props)
-    this.input = {
-      showTitle: props.showTitle || true,
-      locale: props.locale || 'de-CH',
-      passwordRequest: props.passwordRequest || false,
-      username: props.username || ''
-    }
 
     const events = EXTERNAL_EVENTS.reduce((events, event) => {
       if (props[event]) {
@@ -136,7 +130,7 @@ class LoginApp extends React.Component {
       return events
     }, {})
 
-    this.app = initLoginApp('id', this.input, events)
+    this.app = initLoginApp('id', props, events)
   }
 
   render() {

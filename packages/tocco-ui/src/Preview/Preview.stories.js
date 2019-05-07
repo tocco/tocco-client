@@ -4,7 +4,7 @@ import {withKnobs, boolean, text} from '@storybook/addon-knobs'
 
 import Preview from './'
 
-storiesOf('Preview', module)
+storiesOf('Tocco-UI | Preview', module)
   .addDecorator(withKnobs)
   .add(
     'Preview',

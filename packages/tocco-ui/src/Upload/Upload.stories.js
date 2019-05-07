@@ -54,7 +54,7 @@ export class UploadStory extends React.Component {
   }
 }
 
-storiesOf('Upload', module)
+storiesOf('Tocco-UI | Upload', module)
   .addDecorator(withKnobs)
   .add(
     'Upload',

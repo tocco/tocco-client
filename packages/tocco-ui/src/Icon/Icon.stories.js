@@ -4,7 +4,7 @@ import {select, withKnobs} from '@storybook/addon-knobs'
 
 import {Icon} from './Icon'
 
-storiesOf('Icon', module)
+storiesOf('Tocco-UI | Icon', module)
   .addDecorator(withKnobs)
   .add(
     'Icon Cards',
