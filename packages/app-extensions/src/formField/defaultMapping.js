@@ -15,7 +15,7 @@ export default {
   'duration': editableValueFactory('duration'),
   'document': editableValueFactory('document'),
   'email': editableValueFactory('email'),
-  'html': editableValueFactory('text'),
+  'html': editableValueFactory('html'),
   'image': editableValueFactory('document'),
   'identifier': editableValueFactory('string'),
   'latitude': editableValueFactory('coordinate'),
