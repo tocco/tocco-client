@@ -319,7 +319,7 @@ describe('entity-list', () => {
           test('should select a deselected row on click', () => {
             const gen = sagas.onRowClick(actions.onRowClick('1'))
             expect(gen.next().value).to.eql(select(sagas.inputSelector))
-            expect(gen.next({selectOnRowClick: true}).value).to.eql(select(sagas.listSelector))
+            expect(gen.next({selectOnRowClick: true}).value).to.eql(select(sagas.selectionSelector))
             expect(gen.next({selection: ['2']}).value)
               .to.eql(put(selectionActions.onSelectChange(['1'], true)))
             expect(gen.next().value)
@@ -330,7 +330,7 @@ describe('entity-list', () => {
           test('should deselect a selected row on click', () => {
             const gen = sagas.onRowClick(actions.onRowClick('1'))
             expect(gen.next().value).to.eql(select(sagas.inputSelector))
-            expect(gen.next({selectOnRowClick: true}).value).to.eql(select(sagas.listSelector))
+            expect(gen.next({selectOnRowClick: true}).value).to.eql(select(sagas.selectionSelector))
             expect(gen.next({selection: ['1']}).value)
               .to.eql(put(selectionActions.onSelectChange(['1'], false)))
             expect(gen.next().value)
