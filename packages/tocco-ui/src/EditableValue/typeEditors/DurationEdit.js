@@ -16,7 +16,8 @@ class DurationEdit extends React.Component {
     this.hoursShadow = React.createRef()
     this.minutesShadow = React.createRef()
     this.state = {
-      ...this.millisecondsToDuration(props.value)
+      ...this.millisecondsToDuration(props.value),
+      showUnits: props.value >= 0
     }
   }
 
@@ -95,6 +96,11 @@ class DurationEdit extends React.Component {
     this.props.onChange(calculateMilliseconds(hoursValue, minutesValue))
   }
 
+  handleOnBlur = () => this.setState({showUnits:
+    (this.state.hours.toString().length >= 1 || this.state.minutes.toString().length >= 1)})
+
+  handleOnFocus = () => this.setState({showUnits: true})
+
   preventNonNumeric = event => {
     if (!(event.charCode >= 48 && event.charCode <= 57)) {
       event.preventDefault()
@@ -104,36 +110,39 @@ class DurationEdit extends React.Component {
   render() {
     return (
       <StyledEditableWrapper
+        onBlur={this.handleOnBlur}
         readOnly={this.props.readOnly}
         style={{overflowX: 'auto'}}>
         <StyledDurationEditFocusable>
           <StyledDurationEdit
-            type="number"
-            step={1}
+            disabled={this.props.readOnly}
+            min={0}
             onChange={() => {}} // Empty onChange function to prevent React internal error
-            value={this.state.hours}
+            onFocus={this.handleOnFocus}
             onInput={this.handleHourChange}
             onKeyPress={this.preventNonNumeric}
-            disabled={this.props.readOnly}
             pattern="\d+"
-            min={0}
+            step={1}
             style={{width: this.state.hoursWidth}}
+            type="number"
+            value={this.state.hours}
           />
-          <Typography.Span>{this.props.options.hoursLabel}</Typography.Span>
+          {this.state.showUnits && <Typography.Span>{this.props.options.hoursLabel}</Typography.Span>}
         </StyledDurationEditFocusable>
         <StyledDurationEditFocusable>
           <StyledDurationEdit
-            type="number"
-            step={1}
+            disabled={this.props.readOnly}
             onChange={() => {}} // Empty onChange function to prevent React internal error
-            value={this.state.minutes}
+            onFocus={this.handleOnFocus}
             onInput={this.handleMinutesChange}
             onKeyPress={this.preventNonNumeric}
-            disabled={this.props.readOnly}
             pattern="\d+"
+            step={1}
             style={{width: this.state.minutesWidth}}
+            type="number"
+            value={this.state.minutes}
           />
-          <Typography.Span>{this.props.options.minutesLabel}</Typography.Span>
+          {this.state.showUnits && <Typography.Span>{this.props.options.minutesLabel}</Typography.Span>}
         </StyledDurationEditFocusable>
         <StyledDurationEditShadow ref={this.hoursShadow}>{this.state.hours}</StyledDurationEditShadow>
         <StyledDurationEditShadow ref={this.minutesShadow}>{this.state.minutes}</StyledDurationEditShadow>
