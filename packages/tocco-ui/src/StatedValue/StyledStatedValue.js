@@ -13,17 +13,22 @@ import {
 const BORDER_WIDTH = '1px'
 const ANIMATION_DURATION = '200ms'
 
-const getTextColor = ({immutable, theme, signal}) => {
-  const color = signal
-    ? getTheme.color(`signal.${signal}.text`)({theme})
-    : getTheme.color('text')({theme})
-  return immutable ? generateDisabledShade(color) : color
+const getTextColor = ({look, theme, signal}) => {
+  const color = look === 'display'
+    ? getTheme.color('text')({theme})
+    : signal
+      ? getTheme.color(`signal.${signal}.text`)({theme})
+      : getTheme.color('text')({theme})
+  return look === 'immutableField' ? generateDisabledShade(color) : color
 }
-const getBorderColor = ({immutable, theme, signal}) => {
-  const color = signal
-    ? getTheme.color(`signal.${signal}.text`)({theme})
-    : shadeColor(_get(theme, 'colors.paper'), 2)
-  return immutable ? generateDisabledShade(color) : color
+
+const getBorderColor = ({look, theme, signal}) => {
+  const color = look === 'display'
+    ? 'transparent'
+    : signal
+      ? getTheme.color(`signal.${signal}.text`)({theme})
+      : shadeColor(_get(theme, 'colors.paper'), 2)
+  return look === 'immutableField' ? generateDisabledShade(color) : color
 }
 
 const transformLabel = ({secondaryPosition, theme}) => css`
@@ -41,7 +46,7 @@ const transformLabel = ({secondaryPosition, theme}) => css`
     `}
 `
 
-const declareCursor = ({immutable}) => `cursor: ${immutable ? 'not-allowed' : 'auto'};`
+const declareCursor = ({look}) => `cursor: ${look === 'immutableField' ? 'not-allowed' : 'auto'};`
 
 const retainSpace = ({secondaryPosition, theme}) => css`
   transition: padding-top ${ANIMATION_DURATION};
