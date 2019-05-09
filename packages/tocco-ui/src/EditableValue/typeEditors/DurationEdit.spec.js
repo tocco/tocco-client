@@ -1,6 +1,7 @@
 import React from 'react'
 import {mount} from 'enzyme'
 
+import Typography from '../../Typography'
 import DurationEdit from './DurationEdit'
 
 const EMPTY_FUNC = () => {}
@@ -62,6 +63,26 @@ describe('tocco-ui', () => {
             <DurationEdit value={null} onChange={EMPTY_FUNC} readOnly/>
           )
           expect(wrapper.props().readOnly).to.eql(true)
+        })
+
+        test('should always show units', () => {
+          const wrapper = mount(
+            <DurationEdit value={0} onChange={EMPTY_FUNC}/>
+          )
+          expect(wrapper.find(Typography.Span)).to.have.length(2)
+          expect(wrapper.state('showUnits')).to.be.true
+        })
+
+        test('should show and hide units', () => {
+          const wrapper = mount(
+            <DurationEdit onChange={EMPTY_FUNC}/>
+          )
+          expect(wrapper.find(Typography.Span)).to.have.length(0)
+          expect(wrapper.state('showUnits')).to.be.false
+          wrapper.instance().handleOnFocus()
+          expect(wrapper.state('showUnits')).to.be.true
+          wrapper.instance().handleOnBlur()
+          expect(wrapper.state('showUnits')).to.be.false
         })
       })
     })
