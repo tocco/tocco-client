@@ -35,27 +35,33 @@ const StatedValue = props => {
     label,
     mandatory,
     immutable,
+    type,
     touched
   } = props
 
   const hasError = touched && props.error && Object.keys(props.error).length > 0
   const signal = detectSignal(dirty, hasError)
+  const look = type === 'display'
+    ? 'display'
+    : immutable
+      ? 'immutableField'
+      : 'mutableField'
 
   return (
     <FocusWithin>
       {({focused, getRef}) => {
-        const secondaryPosition = focused || hasValue
+        const secondaryPosition = focused || hasValue || type === 'display'
         return (
           <StyledStatedValueWrapper
             ref={getRef}
             secondaryPosition={secondaryPosition}>
             <StyledStatedValueBox
-              immutable={immutable}
+              look={look}
               signal={signal}>
               {children}
               <StyledStatedValueLabel
-                htmlFor={immutable ? '' : id}
-                immutable={immutable}
+                {...look === 'mutableField' ? {htmlFor: id} : {}}
+                look={look}
                 secondaryPosition={secondaryPosition}
                 signal={signal}
               >{label}{mandatory && ' *'}</StyledStatedValueLabel>
@@ -79,6 +85,10 @@ StatedValue.propTypes = {
    * A component to enter or display data.
    */
   children: PropTypes.node,
+  /**
+   * Visualize as field or display according child's type.
+   */
+  type: PropTypes.oneOf(['display', 'field']),
   /**
    * A helper text to instruct users.
    */
