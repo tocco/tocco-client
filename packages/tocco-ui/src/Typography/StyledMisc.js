@@ -55,7 +55,7 @@ const StyledFigcaption = styled.figcaption`
     fontSize: scale.font(-1)
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
-    margin: ${scale.space(-1)} 0;
+    margin: ${scale.space(-2)} 0 ${scale.space(-1)} 0;
 
     &:last-child {
       margin-bottom: 0;
