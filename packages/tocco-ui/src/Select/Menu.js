@@ -5,6 +5,10 @@ import TetherComponent from 'react-tether'
 import {components} from 'react-select'
 import _omit from 'lodash/omit'
 
+import {
+  scale
+} from '../utilStyles'
+
 const StyledTether = styled(TetherComponent)`
 && {
   z-index: 10000000000000;
@@ -12,13 +16,11 @@ const StyledTether = styled(TetherComponent)`
 
 const StyledMenu = styled(components.Menu)`
  && {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px;
-     margin-bottom: 0px;
-     margin-top: 3px;
-     width: ${props => props.wrapperWidth}px;
-     position: inherit;
-    .tether-target-attached-top & { 
+    margin: calc(${scale.space(-2)} + 1px) calc(-${scale.space(-1)} - 1px);
+    width: calc(${props => props.wrapperWidth}px + 2px + ${scale.space(0)});
+    position: relative;
+
+    .tether-target-attached-top & {
       transform: translateY(-${props => props.wrapperHeight + 6}px);
     }
  }
