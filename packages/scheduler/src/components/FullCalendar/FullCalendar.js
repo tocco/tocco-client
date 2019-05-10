@@ -13,6 +13,7 @@ import '!style-loader!css-loader!fullcalendar/dist/fullcalendar.css'
 import '!style-loader!css-loader!fullcalendar-scheduler/dist/scheduler.css'
 import {injectIntl, intlShape} from 'react-intl'
 import {consoleLogger} from 'tocco-util'
+import {FormattedValue} from 'tocco-ui'
 
 import Conflict from '../Conflict'
 import NavigationFullCalendar from '../NavigationFullCalendar'
@@ -51,7 +52,7 @@ class FullCalendar extends React.Component {
     eventRender: (event, element) => {
       const time = event.start.twix(event.end).format({monthFormat: 'MMMM', dayFormat: 'Do'})
       const tooltipDescriptionContent = <div>
-        <p>{event.description}</p>
+        <FormattedValue type="html" value={event.description}/>
         <p>{time}</p>
         <p><Conflict conflictStatus={event.conflict} intl={this.props.intl}/></p>
       </div>
