@@ -113,7 +113,7 @@ class DurationEdit extends React.Component {
         onBlur={this.handleOnBlur}
         readOnly={this.props.readOnly}
         style={{overflowX: 'auto'}}>
-        <StyledDurationEditFocusable>
+        <StyledDurationEditFocusable disabled={this.props.readOnly}>
           <StyledDurationEdit
             disabled={this.props.readOnly}
             min={0}
@@ -129,7 +129,7 @@ class DurationEdit extends React.Component {
           />
           {this.state.showUnits && <Typography.Span>{this.props.options.hoursLabel}</Typography.Span>}
         </StyledDurationEditFocusable>
-        <StyledDurationEditFocusable>
+        <StyledDurationEditFocusable disabled={this.props.readOnly}>
           <StyledDurationEdit
             disabled={this.props.readOnly}
             onChange={() => {}} // Empty onChange function to prevent React internal error
