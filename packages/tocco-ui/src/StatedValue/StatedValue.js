@@ -34,12 +34,14 @@ const StatedValue = props => {
     id,
     label,
     mandatory,
+    mandatoryTitle,
     immutable,
     type,
     touched
   } = props
 
   const hasError = touched && props.error && Object.keys(props.error).length > 0
+  const labelAlt = `${label}${mandatory && mandatoryTitle ? `, ${mandatoryTitle}` : ''}`
   const signal = detectSignal(dirty, hasError)
   const look = type === 'display'
     ? 'display'
@@ -62,6 +64,7 @@ const StatedValue = props => {
               <StyledStatedValueLabel
                 {...look === 'mutableField' ? {htmlFor: id} : {}}
                 look={look}
+                alt={labelAlt}
                 secondaryPosition={secondaryPosition}
                 signal={signal}
               >{label}{mandatory && ' *'}</StyledStatedValueLabel>
@@ -119,6 +122,10 @@ StatedValue.propTypes = {
    * If true an asterisk is appended to the label.
    */
   mandatory: PropTypes.bool,
+  /**
+   * Append to label's alternative text.
+   */
+  mandatoryTitle: PropTypes.string,
   /**
    * Determines if value is editable
    */
