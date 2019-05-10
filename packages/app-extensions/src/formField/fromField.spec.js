@@ -1,4 +1,4 @@
-import {FormField, EditableValue} from 'tocco-ui'
+import {EditableValue, StatedValue} from 'tocco-ui'
 import {intlEnzyme} from 'tocco-test-util'
 import {createStore} from 'redux'
 import {Provider} from 'react-redux'
@@ -10,7 +10,7 @@ import {formFieldFactory} from './formField'
 describe('app-extensions', () => {
   describe('formField', () => {
     describe('fieldFactory', () => {
-      test('should return a FormField with correct edit Field', () => {
+      test('should return a StatedValue with correct EditableValue', () => {
         const mapping = {'string': editableValueFactory('string')}
 
         const formDefinitionField = {
@@ -41,11 +41,11 @@ describe('app-extensions', () => {
           </Provider>
         )
 
-        expect(wrapper.find(FormField)).to.have.length(1)
+        expect(wrapper.find(StatedValue)).to.have.length(1)
         expect(wrapper.find(EditableValue)).to.have.length(1)
       })
 
-      test('should return a FormField with correct edit Field', () => {
+      test('should return a StatedValue with correct EditableValue', () => {
         const mapping = {
           'range': {
             'date': editableValueFactory('date-range'),
@@ -84,7 +84,7 @@ describe('app-extensions', () => {
           </Provider>
         )
 
-        expect(wrapper.find(FormField)).to.have.length(1)
+        expect(wrapper.find(StatedValue)).to.have.length(1)
         expect(wrapper.find(EditableValue)).to.have.length(1)
       })
     })
