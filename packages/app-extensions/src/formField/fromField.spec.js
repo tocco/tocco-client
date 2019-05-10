@@ -3,9 +3,16 @@ import {intlEnzyme} from 'tocco-test-util'
 import {createStore} from 'redux'
 import {Provider} from 'react-redux'
 import React from 'react'
+import {ThemeProvider} from 'styled-components'
 
 import editableValueFactory from './editableValueFactory'
 import {formFieldFactory} from './formField'
+
+const theme = {
+  colors: {
+    text: '#212121'
+  }
+}
 
 describe('app-extensions', () => {
   describe('formField', () => {
@@ -79,9 +86,11 @@ describe('app-extensions', () => {
         }))
 
         const wrapper = intlEnzyme.mountWithIntl(
-          <Provider store={store}>
-            {formField}
-          </Provider>
+          <ThemeProvider theme={theme}>
+            <Provider store={store}>
+              {formField}
+            </Provider>
+          </ThemeProvider>
         )
 
         expect(wrapper.find(StatedValue)).to.have.length(1)
