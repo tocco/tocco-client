@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import FocusWithin from 'react-simple-focus-within'
 
-import ErrorList from '../FormField/ErrorList'
+import ErrorList from './ErrorList'
 import {
   StyledStatedValueBox,
   StyledStatedValueDescription,
