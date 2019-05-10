@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {intlShape} from 'react-intl'
+import {Typography} from 'tocco-ui'
 
 import conflicts from '../../utils/conflicts'
 
@@ -16,10 +17,10 @@ const Conflict = ({conflictStatus, intl}) => {
     ...(accepted ? {} : {color: '#8b0000'})
   }
 
-  return <span style={style}>
-    {accepted ? <span>&#10003; </span> : <span>&#10005; </span>}
+  return <Typography.Span style={style}>
+    {accepted ? <Typography.Span>&#10003; </Typography.Span> : <span>&#10005; </span>}
     {intl.formatMessage({id: textResource})}
-  </span>
+  </Typography.Span>
 }
 
 Conflict.propTypes = {
