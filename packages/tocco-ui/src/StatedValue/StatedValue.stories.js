@@ -52,6 +52,7 @@ class StatedValueWrapper extends React.Component {
         hasValue={hasValue}
         id={id}
         key={id}
+        mandatoryTitle="input is required"
         touched={touched}>
         <input
           id={id}

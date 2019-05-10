@@ -87,6 +87,27 @@ describe('tocco-ui', () => {
       expect(el.text()).to.be.equal('label a')
     })
 
+    test('should add alt attribute to label', () => {
+      const wrapper1 = mount(
+        <StatedValue
+          label="firstname"
+          mandatoryTitle="input is required"
+        />)
+      const el1 = wrapper1.find(StyledStatedValueLabel)
+      expect(el1).to.have.length(1)
+      expect(el1.prop('alt')).to.be.equal('firstname')
+
+      const wrapper2 = mount(
+        <StatedValue
+          label="lastname"
+          mandatory={true}
+          mandatoryTitle="input is required"
+        />)
+      const el2 = wrapper2.find(StyledStatedValueLabel)
+      expect(el2).to.have.length(1)
+      expect(el2.prop('alt')).to.be.equal('lastname, input is required')
+    })
+
     test('should extend label if mandatory', () => {
       const wrapper = mount(<StatedValue label="label b" mandatory={true}/>)
       expect(wrapper.find(StyledStatedValueLabel).text()).to.be.equal('label b *')
@@ -94,7 +115,8 @@ describe('tocco-ui', () => {
 
     test('should use prop id for htmlFor on label', () => {
       const wrapper = mount(<StatedValue id="target-element" />)
-      expect(wrapper.find(StyledStatedValueLabel).prop('htmlFor')).to.be.equal('target-element')
+      const el = wrapper.find(StyledStatedValueLabel)
+      expect(el.prop('htmlFor')).to.be.equal('target-element')
     })
   })
 })
