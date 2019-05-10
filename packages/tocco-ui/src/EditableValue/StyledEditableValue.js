@@ -2,28 +2,19 @@ import styled, {css} from 'styled-components'
 import _get from 'lodash/get'
 
 import {
-  declareFocus,
   declareFont,
+  generateDisabledShade,
   scale,
-  shadeColor,
   theme
 } from '../utilStyles'
 
 const StyledEditableWrapperCss = css`
   align-items: center;
-  background-color: ${props => props.readOnly
-    ? shadeColor(_get(props.theme, 'colors.paper'), 1)
-    : theme.color('paper')};
-  border: 1px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
-  border-radius: ${theme.radii('regular')};
-  cursor: ${props => props.readOnly ? 'not-allowed' : 'default'};
   display: flex;
-  padding: ${scale.space(-2)} ${scale.space(-1)};
-  ${props => declareFocus(props)}
 `
 
 const StyledEditableWrapper = styled.label`
-  && {
+  &&& {
     margin-bottom: 0; /* reset bootstrap */
     ${StyledEditableWrapperCss}
   }
@@ -38,7 +29,9 @@ const StyledInputCss = css`
   min-width: 0;
   outline: 0;
   padding: 0;
-  ${declareFont()}
+  ${props => declareFont({
+    color: props.disabled ? generateDisabledShade(_get(props.theme, 'colors.text')) : theme.color('text')
+  })}
   &::-ms-clear {
     display: none;
   }

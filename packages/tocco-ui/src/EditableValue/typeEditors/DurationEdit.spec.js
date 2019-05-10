@@ -1,8 +1,15 @@
 import React from 'react'
 import {mount} from 'enzyme'
+import {ThemeProvider} from 'styled-components'
 
 import Typography from '../../Typography'
 import DurationEdit from './DurationEdit'
+
+const theme = {
+  colors: {
+    text: '#212121'
+  }
+}
 
 const EMPTY_FUNC = () => {}
 
@@ -60,9 +67,11 @@ describe('tocco-ui', () => {
 
         test('should set readOnly prop to true', () => {
           const wrapper = mount(
-            <DurationEdit value={null} onChange={EMPTY_FUNC} readOnly/>
+            <ThemeProvider theme={theme}>
+              <DurationEdit value={null} onChange={EMPTY_FUNC} readOnly/>
+            </ThemeProvider>
           )
-          expect(wrapper.props().readOnly).to.eql(true)
+          expect(wrapper.find(DurationEdit).props().readOnly).to.eql(true)
         })
 
         test('should always show units', () => {
