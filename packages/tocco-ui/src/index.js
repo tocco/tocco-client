@@ -27,6 +27,7 @@ export {default as SearchBox, StyledInputGroupBtn} from './SearchBox'
 export {default as SignalBox, StyledSignalBox} from './SignalBox'
 export {default as SignalList, StyledSignalList, StyledSignalListItem} from './SignalList'
 export {default as SomeOf} from './SomeOf'
+export {default as StatedValue} from './StatedValue'
 export {
   default as Typography,
   StyledSpan,
