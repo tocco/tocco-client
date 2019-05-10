@@ -227,7 +227,7 @@
                   {
                     "componentType": "field-set",
                     "hidden": false,
-                    "label": "Dauer",
+                    "label": "HTML Display",
                     "scopes": ["update"],
                     "readonly": true,
                     "children": [
