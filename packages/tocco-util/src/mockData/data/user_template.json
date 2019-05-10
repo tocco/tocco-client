@@ -226,7 +226,7 @@
     "durationDisplay": {
       "path": "durationDisplay",
       "type": "display-expression",
-      "value": "<span class='label label-primary'>0:00:38</span>"
+      "value": "<b>bold</b> <i>italic</i>"
     },
     "notreadable": {
       "type": "field",
