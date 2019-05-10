@@ -64,7 +64,7 @@ class LocationEdit extends React.Component {
       <StyledLocationEdit
         name={this.props.name}
         id={this.props.id}
-        readOnly={this.props.readOnly}
+        disabled={this.props.readOnly}
       >
         <Autosuggest
           suggestions={this.props.options.suggestions || []}

@@ -34,7 +34,7 @@ const TimeEdit = props => {
         onChange={handleChange}
         name={props.name}
         id={props.id}
-        readOnly={props.readOnly}
+        disabled={props.readOnly}
       />
       {showClearButton && <StyledEditableControl>
         <Button
