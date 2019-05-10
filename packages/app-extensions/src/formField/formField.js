@@ -1,16 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import _get from 'lodash/get'
-import {FormField} from 'tocco-ui'
+import {StatedValue} from 'tocco-ui'
 import {consoleLogger} from 'tocco-util'
 
 import fromData from '../formData'
 import typeEditable from './typeEditable'
 
 const FormFieldWrapper = props =>
-  <FormField {...props} dirty={props.formData.isDirty || props.dirty} error={props.formData.errors || props.error}>
+  <StatedValue
+    {...props}
+    dirty={props.formData.isDirty || props.dirty}
+    error={props.formData.errors || props.error}
+  >
     {React.cloneElement(props.children, {formData: props.formData})}
-  </FormField>
+  </StatedValue>
 
 FormFieldWrapper.propTypes = {
   children: PropTypes.node,
@@ -54,14 +58,17 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
     return (
       <fromData.FormDataContainer {...requestedFromData}>
         <FormFieldWrapper
-          key={id}
+          dirty={dirty}
+          error={error}
+          hasValue={(value !== null && value !== undefined && value.length !== 0)}
           id={id}
+          immutable={readOnly}
+          key={id}
           label={formDefinitionField.label}
           mandatory={mandatory}
           mandatoryTitle={resources.mandatoryTitle}
-          error={error}
           touched={touched}
-          dirty={dirty}
+          type={data.formDefinitionField.componentType}
         >
           <ValueField
             mapping={mapping}
@@ -74,7 +81,6 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
           />
         </FormFieldWrapper>
       </fromData.FormDataContainer>
-
     )
   } catch (exception) {
     consoleLogger.logError('Error creating formField', exception)
