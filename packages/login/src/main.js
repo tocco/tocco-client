@@ -22,7 +22,7 @@ const initLoginApp = (id, input, events, publicPath, customTheme) => {
     passwordUpdate.setShowOldPasswordField(false),
     passwordUpdate.setForcedUpdate(true),
     passwordUpdate.setStandalone(false),
-    passwordRequest.setPasswordRequest(input.passwordRequest),
+    passwordRequest.setPasswordRequest(!!input.passwordRequest),
     login.setUsername(input.username)
   ]
 
@@ -122,6 +122,12 @@ const initPasswordUpdateApp = (id, input, events, publicPath, customTheme) => {
 class LoginApp extends React.Component {
   constructor(props) {
     super(props)
+    this.input = {
+      showTitle: props.showTitle,
+      locale: props.locale || 'de-CH',
+      passwordRequest: props.passwordRequest,
+      username: props.username || ''
+    }
 
     const events = EXTERNAL_EVENTS.reduce((events, event) => {
       if (props[event]) {
@@ -130,7 +136,7 @@ class LoginApp extends React.Component {
       return events
     }, {})
 
-    this.app = initLoginApp('id', props, events)
+    this.app = initLoginApp('id', this.input, events)
   }
 
   render() {
