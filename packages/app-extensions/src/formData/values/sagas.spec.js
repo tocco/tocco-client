@@ -14,7 +14,8 @@ describe('app-extensions', () => {
           test('should fork sagas', () => {
             const saga = testSaga(sagas.default)
             saga.next().all([
-              fork(takeEvery, actions.CHANGE_FIELD_VALUE, sagas.changeValue)
+              fork(takeEvery, actions.CHANGE_FIELD_VALUE, sagas.changeValue),
+              fork(takeEvery, actions.TOUCH_FIELD, sagas.touchField)
             ])
           })
         })
@@ -29,6 +30,19 @@ describe('app-extensions', () => {
               sagas.changeValue, actions.changeFieldValue(formName, field, value)
             )
               .put(formActions.change(formName, field, value))
+              .run()
+          })
+        })
+
+        describe('touchField saga', () => {
+          test('should put redux form action', () => {
+            const formName = 'detailForm'
+            const field = 'firstname'
+
+            return expectSaga(
+              sagas.touchField, actions.touchField(formName, field)
+            )
+              .put(formActions.touch(formName, field))
               .run()
           })
         })

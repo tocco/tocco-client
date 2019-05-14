@@ -7,10 +7,15 @@ import {all, fork, put, takeEvery} from 'redux-saga/effects'
 
 export default function* sagas() {
   yield all([
-    fork(takeEvery, tooltipActions.CHANGE_FIELD_VALUE, changeValue)
+    fork(takeEvery, tooltipActions.CHANGE_FIELD_VALUE, changeValue),
+    fork(takeEvery, tooltipActions.TOUCH_FIELD, touchField)
   ])
 }
 
 export function* changeValue({payload: {formName, fieldName, value}}) {
   yield put(formActions.change(formName, form.transformFieldName(fieldName), value))
+}
+
+export function* touchField({payload: {formName, fieldName}}) {
+  yield put(formActions.touch(formName, form.transformFieldName(fieldName)))
 }
