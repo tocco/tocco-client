@@ -6,6 +6,12 @@ import ButtonLink from '../ButtonLink'
 import Preview from '../Preview'
 import StyledView from './StyledView'
 
+const addParameterToURL = (url, param, value) =>
+  `${url}${url.indexOf('?') >= 0 ? '&' : '?'}${param}=${value}`
+
+export const getDownloadUrl = binaryLink =>
+  addParameterToURL(binaryLink, 'download', true)
+
 const View = props => (
   <StyledView>
     <div>
@@ -13,7 +19,7 @@ const View = props => (
         icon="download"
         iconPosition="sole"
         download={props.value.fileName}
-        href={props.value.binaryLink}
+        href={getDownloadUrl(props.value.binaryLink)}
         tabIndex={-1}
         title={props.downloadTitle || 'download'}
       />
