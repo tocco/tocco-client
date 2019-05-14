@@ -222,7 +222,7 @@ export function* loadEntityModel(entityName, entityModel) {
 export function* onRowClick({payload}) {
   const {selectOnRowClick} = yield select(inputSelector)
   if (selectOnRowClick === true) {
-    const list = yield select(listSelector)
+    const list = yield select(selectionSelector)
     const selected = list.selection.includes(payload.id)
     yield put(selectionActions.onSelectChange([payload.id], !selected))
   }
