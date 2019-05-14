@@ -1,37 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {EditableValue} from 'tocco-ui'
 
 import typeEditable from './typeEditable'
-import FormDataContainer from '../formData/FormDataContainer'
-
-const EditableValueWrapper = ({type, formField, modelField, formName, value, info, events, formData}) => {
-  const options = getOptions(type, formField, modelField, formName, formData)
-
-  events = getEvents(type, formField, formName, formData, events)
-  value = getValue(type, formField, modelField, formName, formData, value)
-
-  return (
-    <EditableValue
-      type={type}
-      events={events}
-      value={value}
-      {...info}
-      options={options}
-    />
-  )
-}
-
-EditableValueWrapper.propTypes = {
-  type: PropTypes.string,
-  formName: PropTypes.string,
-  formField: PropTypes.object,
-  modelField: PropTypes.object,
-  events: PropTypes.object,
-  info: PropTypes.object,
-  value: PropTypes.any,
-  formData: PropTypes.object
-}
 
 const getEvents = (type, formField, formName, formData, events) =>
   typeEditable[type] && typeEditable[type].getEvents
@@ -48,23 +18,20 @@ const getOptions = (type, formField, modelField, formName, formData) =>
     ? typeEditable[type].getOptions({formField, modelField, formName, formData})
     : {}
 
-export default type => (formField, modelField, formName, value, info, events) => {
-  let requestedProps
-  if (typeEditable[type] && typeEditable[type].dataContainerProps) {
-    requestedProps = typeEditable[type].dataContainerProps({formField, modelField, formName})
-  }
+export default type => (formField, modelField, formName, value, info, events, formData) => {
+  const formType = formField.dataType
+  const options = getOptions(formType, formField, modelField, formName, formData)
+
+  events = getEvents(formType, formField, formName, formData, events)
+  value = getValue(formType, formField, modelField, formName, formData, value)
 
   return (
-    <FormDataContainer {...requestedProps}>
-      <EditableValueWrapper
-        type={type}
-        formField={formField}
-        modelField={modelField}
-        formName={formName}
-        value={value}
-        info={info}
-        events={events}
-      />
-    </FormDataContainer>
+    <EditableValue
+      type={type}
+      events={events}
+      value={value}
+      {...info}
+      options={options}
+    />
   )
 }
