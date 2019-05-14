@@ -27,7 +27,7 @@ export default {
     return {
       ...events,
       onChange,
-      onBlur: onChange
+      onBlur: () => { formData.touchField(formName, formField.id) }
     }
   },
   dataContainerProps: ({formField, formName}) => ({
@@ -35,6 +35,15 @@ export default {
     formValues: {
       formName: formName,
       fields: formField.locationMapping ? Object.values(formField.locationMapping) : {}
+    },
+    isDirty: {
+      formName: formName,
+      fields: formField.locationMapping
+        ? [formField.locationMapping['city'], formField.locationMapping['postcode']] : []
+    },
+    errors: {
+      formName: formName,
+      fields: [formField.locationMapping['city'], formField.locationMapping['postcode']]
     }
   }),
   getOptions: ({formField, formData}) => ({
