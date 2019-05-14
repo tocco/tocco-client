@@ -126,6 +126,7 @@ describe('entity-detail', () => {
                   intl={IntlStub}
                   touch={EMPTY_FUNC}
                   fireTouched={EMPTY_FUNC}
+                  touchAllFields={EMPTY_FUNC}
                 />
               </MemoryRouter>
             </Provider>
