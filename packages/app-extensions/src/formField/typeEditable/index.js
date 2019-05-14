@@ -10,18 +10,26 @@ import select from './select'
 import searchFilter from './searchFilter'
 
 export default {
-  'coordinate': coordinate,
+  'binary': document,
+  'counter': number,
+  'data-amount': number,
   'decimal': number,
   'document': document,
   'duration': duration,
+  'image': document,
   'integer': integer,
+  'latitude': coordinate,
   'location': location,
-  'multi-remote': remote,
-  'multi-select': select,
+  'long': integer,
+  'longitude': coordinate,
   'moneyamount': number,
+  'multi-remote-field': remote,
+  'multi-select-box': select,
+  'named-upload': document,
   'number': number,
   'phone': phone,
-  'remote': remote,
   'search-filter': searchFilter,
-  'single-select': select
+  'single-remote-field': remote,
+  'single-select-box': select,
+  'sorting': number
 }
