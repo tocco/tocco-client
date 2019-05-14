@@ -22,14 +22,13 @@ export class DetailForm extends React.Component {
 
   isEntityLoaded = () => (this.props.entity && this.props.entity.paths)
 
-  touchFieldsWithError = () => {
-    Object.keys(form.formErrorsUtil.getFieldErrors(this.props.formErrors)).forEach(f => this.props.touch(f))
-  }
-
   focusErrorFields = () => {
     const firstErrorField = form.formErrorsUtil.getFirstErrorField(this.props.formErrors)
     if (firstErrorField) {
-      document.getElementById(form.getFieldId(this.props.form, firstErrorField)).focus()
+      const element = document.getElementById(form.getFieldId(this.props.form, firstErrorField))
+      if (element) {
+        document.getElementById(form.getFieldId(this.props.form, firstErrorField)).focus()
+      }
     }
   }
 
@@ -59,7 +58,7 @@ export class DetailForm extends React.Component {
 
   showErrors = event => {
     event.preventDefault()
-    this.touchFieldsWithError()
+    this.props.touchAllFields()
     this.focusErrorFields()
   }
 
@@ -131,7 +130,8 @@ DetailForm.propTypes = {
   valid: PropTypes.bool,
   dirty: PropTypes.bool,
   lastSave: PropTypes.number,
-  fireTouched: PropTypes.func.isRequired
+  fireTouched: PropTypes.func.isRequired,
+  touchAllFields: PropTypes.func.isRequired
 }
 
 export default reduxForm({

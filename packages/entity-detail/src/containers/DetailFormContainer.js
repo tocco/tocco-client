@@ -14,13 +14,15 @@ import DetailForm from '../components/DetailForm/DetailForm'
 import {
   unloadDetailView,
   submitForm,
-  fireTouched
+  fireTouched,
+  touchAllFields
 } from '../modules/entityDetail/actions'
 
 const mapActionCreators = {
   unloadDetailView,
   submitForm,
   fireTouched,
+  touchAllFields,
   logError: errorLogging.logError
 }
 

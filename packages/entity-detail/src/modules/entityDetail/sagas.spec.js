@@ -30,6 +30,7 @@ describe('entity-detail', () => {
             expect(generator.next().value).to.deep.equal(all([
               fork(takeLatest, actions.LOAD_DETAIL_VIEW, sagas.loadDetailView),
               fork(takeLatest, actions.UNLOAD_DETAIL_VIEW, sagas.unloadDetailView),
+              fork(takeLatest, actions.TOUCH_ALL_FIELDS, sagas.touchAllFields),
               fork(takeEvery, actions.SUBMIT_FORM, sagas.submitForm),
               fork(takeEvery, actions.FIRE_TOUCHED, sagas.fireTouched),
               fork(takeEvery, actionUtil.actions.ACTION_INVOKED, sagas.actionInvoked)
@@ -160,7 +161,7 @@ describe('entity-detail', () => {
             const error = new SubmissionError({})
 
             const gen = sagas.handleSubmitError(error)
-            expect(gen.next().value).to.eql(put(formActions.touch(FORM_ID, ...Object.keys(error.errors))))
+            expect(gen.next().value).to.eql(call(sagas.touchAllFields))
             expect(gen.next().value).to.eql(put(formActions.stopSubmit(FORM_ID, error.errors)))
             expect(gen.next().value).to.eql(
               call(sagas.showNotification, 'warning', 'saveAbortedTitle', 'saveAbortedMessage', 5000)
@@ -337,6 +338,20 @@ describe('entity-detail', () => {
               ])
               .call.like({fn: sagas.loadData})
               .put(actionEmitter.emitAction(action))
+              .run()
+          })
+        })
+
+        describe('touchAllFields saga', () => {
+          test('should call redux form action with all fields', () => {
+            const action = {}
+            return expectSaga(sagas.touchAllFields, action)
+              .provide([
+                [select(sagas.entityDetailSelector), {}],
+                [matchers.call.fn(form.getFieldDefinitions), [{id: 'firstname'}, {id: 'lastname'}]]
+              ])
+
+              .put(formActions.touch(FORM_ID, 'firstname', 'lastname'))
               .run()
           })
         })

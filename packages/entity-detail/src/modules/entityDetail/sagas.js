@@ -27,6 +27,7 @@ export default function* sagas() {
   yield all([
     fork(takeLatest, actions.LOAD_DETAIL_VIEW, loadDetailView),
     fork(takeLatest, actions.UNLOAD_DETAIL_VIEW, unloadDetailView),
+    fork(takeLatest, actions.TOUCH_ALL_FIELDS, touchAllFields),
     fork(takeEvery, actions.SUBMIT_FORM, submitForm),
     fork(takeEvery, actions.FIRE_TOUCHED, fireTouched),
     fork(takeEvery, actionUtil.actions.ACTION_INVOKED, actionInvoked)
@@ -106,9 +107,15 @@ export function* createFormSubmit(entity, paths) {
   yield call(showNotification, 'success', 'createSuccessfulTitle', 'createSuccessfulMessage')
 }
 
+export function* touchAllFields() {
+  const {formDefinition} = yield select(entityDetailSelector)
+  const fieldDefinitions = yield call(form.getFieldDefinitions, formDefinition)
+  yield put(formActions.touch(FORM_ID, ...(fieldDefinitions.map(f => f.id))))
+}
+
 export function* handleSubmitError(error) {
   if (error instanceof SubmissionError) {
-    yield put(formActions.touch(FORM_ID, ...Object.keys(error.errors)))
+    yield call(touchAllFields)
     yield put(formActions.stopSubmit(FORM_ID, error.errors))
   } else {
     if (!(error instanceof rest.ClientQuestionCancelledException)) {
