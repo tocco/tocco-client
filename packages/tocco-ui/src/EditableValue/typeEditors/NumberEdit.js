@@ -1,58 +1,68 @@
 import PropTypes from 'prop-types'
 import {intlShape} from 'react-intl'
 import React from 'react'
+import _get from 'lodash/get'
 
 import {parseLocalePlaceholder, convertStringToNumber} from '../utils'
 import {StyledEditableWrapper} from '../StyledEditableValue'
 import StyledNumberEdit from './StyledNumberEdit'
 
-export const limitValue = maxValueObject => values => {
+export const calculateMaxPointValue = (prePointDigits, postPointDigits, maxValue) => {
+  if (prePointDigits && postPointDigits) {
+    const maxValueMinuend = (10 ** prePointDigits)
+    const maxValueSubtrahend = 1 / (10 ** postPointDigits)
+    return maxValueMinuend - maxValueSubtrahend
+  }
+  if (prePointDigits) {
+    return (10 ** prePointDigits) - 1
+  }
+  if (postPointDigits) {
+    const postPointFraction = (1 / (10 ** postPointDigits))
+    return maxValue ? maxValue - postPointFraction : 1E28 - postPointFraction
+  }
+}
+
+export const isAllowedValue = (prePointDigits, postPointDigits, minValue, maxValue) => values => {
+  if (!(prePointDigits || postPointDigits || minValue || maxValue)) {
+    return true
+  }
   const {formattedValue, floatValue} = values
-  return formattedValue === '' || floatValue <= maxValueObject
-}
+  const maxPointValue = calculateMaxPointValue(prePointDigits, postPointDigits, maxValue)
 
-export const calculateMaxValue = (prePointDigits, postPointDigits) => {
-  const maxValueMinuend = (10 ** prePointDigits)
-  const maxValueSubtrahend = 1 / (10 ** postPointDigits)
-  return maxValueMinuend - maxValueSubtrahend
-}
+  const isValidMaxPointValue = floatValue <= maxPointValue
+  const isLargerThanMinValue = floatValue >= minValue
+  const isSmallerThanMaxValue = floatValue <= maxValue
 
-export const isAllowedIntegerValue = allowedIntegerObject => values => {
-  const {formattedValue, floatValue} = values
-  const {minValue, maxValue} = allowedIntegerObject
-  return formattedValue === '' || (floatValue >= minValue && floatValue <= maxValue)
-}
+  let isValueInRange
 
-export const returnAllowedIntegerObject = (minValue, maxValue) => {
-  return {minValue, maxValue}
+  if (prePointDigits || postPointDigits) {
+    isValueInRange = isValidMaxPointValue
+  }
+  if (minValue || maxValue) {
+    isValueInRange = isLargerThanMinValue || isSmallerThanMaxValue
+  }
+  if ((prePointDigits || postPointDigits) && minValue) {
+    isValueInRange = isValidMaxPointValue && isLargerThanMinValue
+  }
+  if ((prePointDigits || postPointDigits) && maxValue) {
+    isValueInRange = isValidMaxPointValue && isSmallerThanMaxValue
+  }
+  if (minValue && maxValue) {
+    isValueInRange = isLargerThanMinValue && isSmallerThanMaxValue
+  }
+
+  return formattedValue === '' || isValueInRange
 }
 
 const NumberEdit = (props, context) => {
   const {thousandSeparator, decimalSeparator} = parseLocalePlaceholder(context.intl.locale)
-  const value = props.value === null ? '' : props.value
 
-  const prePointDigits = props.options.prePointDigits
-  const postPointDigits = props.options.postPointDigits
-  const prePointMarker = prePointDigits === 0 ? true : prePointDigits
-  const postPointMarker = postPointDigits === 0 ? true : postPointDigits
-
-  const minValue = props.options.minValue
-  const maxValue = props.options.maxValue
-  const minValueMarker = minValue === 0 ? true : minValue
-  const maxValueMarker = maxValue === 0 ? true : maxValue
+  const {prePointDigits, postPointDigits, minValue, maxValue, decimalScale, allowNegative} = props.options
 
   const numberFormatOptions = {
-    ...(prePointMarker && postPointMarker
-      ? {
-        isAllowed: limitValue(calculateMaxValue(prePointDigits, postPointDigits)),
-        decimalScale: postPointDigits
-      } : {}),
-    ...(minValueMarker && maxValueMarker
-      ? {
-        isAllowed: isAllowedIntegerValue(returnAllowedIntegerObject(minValue, maxValue)),
-        decimalScale: 0,
-        allowNegative: false
-      } : {})
+    isAllowed: isAllowedValue(prePointDigits, postPointDigits, minValue, maxValue),
+    allowNegative: !!allowNegative,
+    decimalScale: postPointDigits || decimalScale || 100
   }
 
   const handleChange = values => {
@@ -60,6 +70,8 @@ const NumberEdit = (props, context) => {
       props.onChange(convertStringToNumber(values.value))
     }
   }
+
+  const value = _get(props, 'value', '')
 
   return (
     <StyledEditableWrapper readOnly={props.readOnly}>
@@ -88,8 +100,9 @@ NumberEdit.propTypes = {
   name: PropTypes.string,
   id: PropTypes.string,
   readOnly: PropTypes.bool,
-  isInteger: PropTypes.bool,
+  allowNegative: PropTypes.bool,
   options: PropTypes.shape({
+    decimalScale: PropTypes.number,
     postPointDigits: PropTypes.number,
     prePointDigits: PropTypes.number,
     minValue: PropTypes.number,

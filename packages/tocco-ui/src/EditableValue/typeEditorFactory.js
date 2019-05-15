@@ -20,8 +20,6 @@ import UrlEdit from './typeEditors/UrlEdit'
 import PhoneEdit from './typeEditors/PhoneEdit'
 import DurationEdit from './typeEditors/DurationEdit'
 import NumberEdit from './typeEditors/NumberEdit'
-import MoneyEdit from './typeEditors/MoneyEdit'
-import IntegerEdit from './typeEditors/IntegerEdit'
 import LocationEdit from './typeEditors/LocationEdit'
 
 export const map = {
@@ -30,7 +28,7 @@ export const map = {
   'boolean': BoolEdit,
   'char': StringEdit,
   'count': StringEdit,
-  'counter': IntegerEdit,
+  'counter': NumberEdit,
   'createts': DateTimeEdit,
   'createuser': StringEdit,
   'coordinate': StringEdit,
@@ -45,14 +43,14 @@ export const map = {
   'email': StringEdit,
   'html': HtmlEdit,
   'identifier': StringEdit,
-  'integer': IntegerEdit,
+  'integer': NumberEdit,
   'ipaddress': StringEdit,
   'latitude': NumberEdit,
   'location': LocationEdit,
   'login': StringEdit,
-  'long': IntegerEdit,
+  'long': NumberEdit,
   'longitude': NumberEdit,
-  'moneyamount': MoneyEdit,
+  'moneyamount': NumberEdit,
   'multi-remote': MultiRemoteSelect,
   'multi-select': MultiSelect,
   'number': NumberEdit,
@@ -61,7 +59,7 @@ export const map = {
   'postcode': StringEdit,
   'remote': RemoteSelect,
   'search-filter': SearchFilterEdit,
-  'short': IntegerEdit,
+  'short': NumberEdit,
   'single-select': SingleSelect,
   'sorting': NumberEdit,
   'string': StringEdit,

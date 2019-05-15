@@ -5,6 +5,8 @@ export default {
     prePointDigits: _get(modelField, 'validation.decimalDigits.prePointDigits', null),
     postPointDigits: _get(modelField, 'validation.decimalDigits.postPointDigits', null),
     minValue: _get(modelField, 'validation.numberRange.fromIncluding', null),
-    maxValue: _get(modelField, 'validation.numberRange.toIncluding', null)
+    maxValue: _get(modelField, 'validation.numberRange.toIncluding', null),
+    decimalScale: 100,
+    allowNegative: true
   })
 }
