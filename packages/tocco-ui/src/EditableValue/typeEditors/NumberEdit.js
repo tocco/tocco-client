@@ -54,6 +54,19 @@ export const isAllowedValue = (prePointDigits, postPointDigits, minValue, maxVal
   return formattedValue === '' || isValueInRange
 }
 
+export const setDecimalScale = (postPointDigits, decimalScale) => {
+  if (postPointDigits === 0 || decimalScale === 0) {
+    return 0
+  }
+  if (postPointDigits) {
+    return postPointDigits
+  }
+  if (decimalScale) {
+    return decimalScale
+  }
+  return 100
+}
+
 const NumberEdit = (props, context) => {
   const {thousandSeparator, decimalSeparator} = parseLocalePlaceholder(context.intl.locale)
 
@@ -62,7 +75,7 @@ const NumberEdit = (props, context) => {
   const numberFormatOptions = {
     isAllowed: isAllowedValue(prePointDigits, postPointDigits, minValue, maxValue),
     allowNegative: !!allowNegative,
-    decimalScale: postPointDigits || decimalScale || 100
+    decimalScale: setDecimalScale(postPointDigits, decimalScale)
   }
 
   const handleChange = values => {

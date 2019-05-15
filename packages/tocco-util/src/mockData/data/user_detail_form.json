@@ -436,6 +436,81 @@
                   },
                   {
                     "componentType": "field-set",
+                    "label": "Double",
+                    "scopes": [],
+                    "hidden": false,
+                    "children": [
+                      {
+                        "id": "double",
+                        "componentType": "field",
+                        "dataType": "double",
+                        "path": "double",
+                        "label": null
+                      }
+                    ]
+                  },
+                  {
+                    "componentType": "field-set",
+                    "label": "Long",
+                    "scopes": [],
+                    "hidden": false,
+                    "children": [
+                      {
+                        "id": "long",
+                        "componentType": "field",
+                        "dataType": "long",
+                        "path": "long",
+                        "label": null
+                      }
+                    ]
+                  },
+                  {
+                    "componentType": "field-set",
+                    "label": "Short",
+                    "scopes": [],
+                    "hidden": false,
+                    "children": [
+                      {
+                        "id": "short",
+                        "componentType": "field",
+                        "dataType": "short",
+                        "path": "short",
+                        "label": null
+                      }
+                    ]
+                  },
+                  {
+                    "componentType": "field-set",
+                    "label": "Longitude",
+                    "scopes": [],
+                    "hidden": false,
+                    "children": [
+                      {
+                        "id": "longitude",
+                        "componentType": "field",
+                        "dataType": "longitude",
+                        "path": "longitude",
+                        "label": null
+                      }
+                    ]
+                  },
+                  {
+                    "componentType": "field-set",
+                    "label": "Latitude",
+                    "scopes": [],
+                    "hidden": false,
+                    "children": [
+                      {
+                        "id": "latitude",
+                        "componentType": "field",
+                        "dataType": "latitude",
+                        "path": "latitude",
+                        "label": null
+                      }
+                    ]
+                  },
+                  {
+                    "componentType": "field-set",
                     "label": "Published",
                     "scopes": [],
                     "hidden": false,
