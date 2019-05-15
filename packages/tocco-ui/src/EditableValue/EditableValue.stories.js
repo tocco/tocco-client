@@ -1,28 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {storiesOf} from '@storybook/react'
-import {withKnobs, number, text, boolean} from '@storybook/addon-knobs'
+import {withKnobs, number, text, boolean, object} from '@storybook/addon-knobs'
 import {action} from '@storybook/addon-actions'
 
 import EditableValue from './'
-import {storybookHtmlMarkup} from '../util/storybookHtmlMarkup'
-import {SelectStory} from '../Select/Select.stories'
-import {UploadStory} from '../Upload/Upload.stories'
-import StringEdit from './typeEditors/StringEdit'
-import TextEdit from './typeEditors/TextEdit'
-import UrlEdit from './typeEditors/UrlEdit'
-import PhoneEdit from './typeEditors/PhoneEdit'
-import NumberEdit from './typeEditors/NumberEdit'
-import IntegerEdit from './typeEditors/IntegerEdit'
-import MoneyEdit from './typeEditors/MoneyEdit'
-import TimeEdit from './typeEditors/TimeEdit'
 
 export class EditableValueStory extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      value: props.value || ''
-    }
+  state = {
+    value: this.props.defaultValue || ''
   }
 
   changeValue = value => {
@@ -31,195 +17,293 @@ export class EditableValueStory extends React.Component {
   }
 
   render() {
-    const ChildComponent = this.props.ChildComponent
     return (
-      <span>
-        <ChildComponent
-          onChange={this.changeValue}
+      <div style={{width: '33%'}}>
+        <EditableValue
+          type={this.props.type}
+          events={{onChange: this.changeValue}}
           options={{...this.props.options}}
-          readOnly={this.props.readOnly}
-          value={this.state.value}
+          readOnly={boolean('readOnly', false)}
+          value={this.props.knobType('value', this.state.value)}
         />
-      </span>
+      </div>
     )
   }
 }
 
 EditableValueStory.propTypes = {
-  ChildComponent: PropTypes.func,
+  type: PropTypes.string.isRequired,
   options: PropTypes.object,
-  readOnly: PropTypes.bool,
-  value: PropTypes.node
+  knobType: PropTypes.func,
+  defaultValue: PropTypes.any
 }
 
-const suggestions = [
-  {
-    address: 'Bundeshaus',
-    city: 'Bern',
-    country: {display: 'CH'},
-    district: 'Ostermundigen',
-    postcode: '1234',
-    state: 'BE'
-  },
-  {
-    address: 'Rue 123',
-    city: 'Lausanne',
-    country: {display: 'CH'},
-    district: 'District de Lausanne',
-    postcode: '5678',
-    state: 'VD'
-  }
-]
-
-const EMPTY_FUNC = () => {}
-
-const locationOptions = {
-  suggestions,
-  fetchSuggestions: EMPTY_FUNC
-}
+const loadTooltip = (...args) => action('options.loadTooltip called with')(...args)
+const fetchOptions = (...args) => action('options.fetchOptions called with')(...args)
+const searchOptions = (...args) => action('options.searchOptions called with')(...args)
+const openAdvancedSearch = (...args) => action('options.openAdvancedSearch called with')(...args)
+const upload = (...args) => action('options.upload called with')(...args)
+const fetchSuggestions = (...args) => action('options.fetchSuggestions called with')(...args)
 
 storiesOf('Tocco-UI | EditableValue', module)
   .addDecorator(withKnobs)
   .addParameters({
-    info: {propTables: [EditableValue], propTablesExclude: [EditableValueStory], source: false}
+    info: {propTables: [EditableValue], propTablesExclude: [EditableValueStory], source: true}
   }
   ).add(
-    'String',
+    'Boolean',
     () =>
       <EditableValueStory
-        ChildComponent={StringEdit}
-        readOnly={boolean('readOnly', false) || undefined}
-        value={'Simple String'}
+        type="boolean"
+        knobType={boolean}
+        defaultValue={true}
       />
   ).add(
-    'Text',
+    'Date',
     () =>
       <EditableValueStory
-        ChildComponent={TextEdit}
-        readOnly={boolean('readOnly', false) || undefined}
-        value={'This is the first line.\nTo be continued...'}
+        type="date"
+        knobType={text}
+        defaultValue={'2019-12-18'}
       />
   ).add(
-    'Url',
+    'Date-Range',
     () =>
       <EditableValueStory
-        ChildComponent={UrlEdit}
-        readOnly={boolean('readOnly', false) || undefined}
-        value={'http://www.tocco.ch'}
+        type="date-range"
+        knobType={object}
+        defaultValue={{from: '2019-12-21', to: '2019-12-23'}}
       />
   ).add(
-    'Phone',
+    'Datetime',
     () =>
       <EditableValueStory
-        ChildComponent={PhoneEdit}
-        readOnly={boolean('readOnly', false) || undefined}
-        value={'+41761234567'}
+        type="datetime"
+        knobType={text}
+        defaultValue="2017-01-25T15:15:00.000Z"
       />
   ).add(
-    'Number',
+    'Document',
     () =>
       <EditableValueStory
-        ChildComponent={NumberEdit}
-        options={{prePointDigits: number('prePointDigits', 8), postPointDigits: number('postPointDigits', 2)}}
-        readOnly={boolean('readOnly', false) || undefined}
-        value={12345}
+        type="document"
+        knobType={object}
+        defaultValue={{
+          mimeType: 'image/png',
+          fileExtension: 'png',
+          sizeInBytes: 3336,
+          fileName: 'Blue-Square.png',
+          binaryLink: 'http://link.to/my/image.png',
+          thumbnailLink: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgAQMAAADYVuV7AAAACXBIWXMAAA7'
+          + 'EAAAOxAGVKw4bAAAABlBMVEUCd72z5fwcX0uLAAAAHElEQVQ4y2NgwAns/8PBn1HOKGeUM8oZrBycAAD'
+          + 'OggXZNnQmgAAAAABJRU5ErkJggg=='
+        }}
+        options={object('options',
+          {
+            upload,
+            uploadText: 'upload Text',
+            uploadingText: 'uploading Text',
+            deleteText: 'delete Text',
+            downloadText: 'download Text'
+          })}
       />
   ).add(
-    'Decimal',
+    'Duration',
     () =>
       <EditableValueStory
-        ChildComponent={NumberEdit}
-        options={{prePointDigits: number('prePointDigits', 10), postPointDigits: number('postPointDigits', 3)}}
-        readOnly={boolean('readOnly', false) || undefined}
-        value={54321}
+        type="duration"
+        knobType={number}
+        defaultValue={3700350000}
+        options={object('options',
+          {
+            hoursLabel: 'hrs',
+            minutesLabel: 'min'
+          })}
       />
+  ).add(
+    'HTML',
+    () =>
+      <EditableValueStory
+        type="html"
+        knobType={text}
+        defaultValue={'<h1>Test</h1>'}
+      />,
+    {knobs: {escapeHTML: false}}
   ).add(
     'Integer',
     () =>
       <EditableValueStory
-        ChildComponent={IntegerEdit}
-        options={{minValue: number('minValue', 0), maxValue: number('maxValue', 300)}}
-        readOnly={boolean('readOnly', false) || undefined}
-        value={200}
+        type="integer"
+        options={object('options', {minValue: 0, maxValue: 300})}
+        defaultValue={200}
+        knobType={number}
+      />
+  ).add(
+    'Location',
+    () =>
+      <EditableValueStory
+        type="location"
+        knobType={object}
+        defaultValue={{
+          city: 'Zürich',
+          country: 'CH',
+          postcode: '8000',
+          state: 'ZH',
+          street: 'Bahnhofstrasse 1'
+        }}
+        options={object('options',
+          {
+            suggestions: [
+              {
+                address: 'Bundeshaus',
+                city: 'Bern',
+                country: {display: 'CH'},
+                district: 'Ostermundigen',
+                postcode: '1234',
+                state: 'BE'
+              },
+              {
+                address: 'Rue 123',
+                city: 'Lausanne',
+                country: {display: 'CH'},
+                district: 'District de Lausanne',
+                postcode: '5678',
+                state: 'VD'
+              }
+            ],
+            fetchSuggestions,
+            isLoading: false,
+            mapButtonTitle: 'map Button Title'
+          })}
       />
   ).add(
     'MoneyAmount',
     () =>
       <EditableValueStory
-        ChildComponent={MoneyEdit}
-        options={{prePointDigits: number('prePointDigits', 8), postPointDigits: number('postPointDigits', 2)}}
-        readOnly={boolean('readOnly', false) || undefined}
-        value={1234.56}
-      />
-  ).add(
-    'Single-Select',
-    () =>
-      <SelectStory
-        delay={0}
-        isMulti={false}
-        readOnly={boolean('readOnly', false) || undefined}
+        type="moneyamount"
+        knobType={number}
+        options={object('options', {prePointDigits: 8, postPointDigits: 2})}
+        defaultValue={1234.56}
       />
   ).add(
     'Multi-Select',
     () =>
-      <SelectStory
-        delay={0}
-        isMulti
-        readOnly={boolean('readOnly', false) || undefined}
-      />
-  ).add(
-    'Remote',
-    () =>
-      <SelectStory
-        delay={2000}
-        isMulti={false}
-        readOnly={boolean('readOnly', false) || undefined}
+      <EditableValueStory
+        type="multi-select"
+        knobType={object}
+        options={object('options', {
+          options: [{key: 1, display: 'One'}, {key: 2, display: 'Two'}, {key: 3, display: 'Three'}],
+          noResultsText: 'no results found',
+          isLoading: false,
+          tooltips: {2: 'Tooltip for Two'},
+          loadTooltip,
+          fetchOptions
+        })}
+        defaultValue={[{key: 2, display: 'Two v'}, {key: 3, display: 'Three v'}]}
       />
   ).add(
     'Multi-Remote',
     () =>
-      <SelectStory
-        delay={2000}
-        isMulti
-        readOnly={boolean('readOnly', false) || undefined}
+      <EditableValueStory
+        type="multi-remote"
+        knobType={object}
+        options={object('options', {
+          options: [{key: 1, display: 'One'}, {key: 2, display: 'Two'}, {key: 3, display: 'Three'}],
+          isLoading: false,
+          tooltips: {2: 'Tooltip for Two'},
+          clearValueText: 'clear Value Text',
+          searchPromptText: 'search Prompt Text',
+          noResultsText: 'no results found',
+          moreOptionsAvailable: true,
+          moreOptionsAvailableText: 'more Options Available Text',
+          loadTooltip,
+          fetchOptions,
+          searchOptions,
+          openAdvancedSearch
+        })}
+        defaultValue={[{key: 2, display: 'Two v'}]}
       />
   ).add(
-    'Date',
+    'Number',
     () =>
-      <EditableValue
-        onChange={EMPTY_FUNC}
-        readOnly={boolean('readOnly', false) || undefined}
-        type="date"
-        value={text('Date', '2019-12-18')}
-      />,
-    {info: {source: true}}
+      <EditableValueStory
+        type="number"
+        knobType={number}
+        options={object('options',
+          {prePointDigits: 8, postPointDigits: 2, minValue: null, maxValue: 3000000}
+        )}
+        defaultValue={12345}
+      />
   ).add(
-    'Date-Range',
+    'Phone',
     () =>
-      <EditableValue
-        onChange={EMPTY_FUNC}
-        readOnly={boolean('readOnly', false) || undefined}
-        type="date-range"
-        value={{from: '2019-12-21', to: '2019-12-23'}}
-      />,
-    {info: {source: true}}
+      <EditableValueStory
+        type="phone"
+        knobType={text}
+        defaultValue="+41761234567"
+      />
   ).add(
-    'Datetime',
+    'Remote',
     () =>
-      <EditableValue
-        onChange={EMPTY_FUNC}
-        readOnly={boolean('readOnly', false) || undefined}
-        type="datetime"
-        value={text('Datetime', '2017-01-25T15:15:00.000Z')}
-      />,
-    {info: {source: true}}
+      <EditableValueStory
+        type="remote"
+        knobType={object}
+        options={object('options', {
+          options: [{key: 1, display: 'One'}, {key: 2, display: 'Two'}, {key: 3, display: 'Three'}],
+          isLoading: false,
+          tooltips: {2: 'Tooltip for Two'},
+          clearValueText: 'clear Value Text',
+          searchPromptText: 'search Prompt Text',
+          noResultsText: 'no results found',
+          moreOptionsAvailable: true,
+          moreOptionsAvailableText: 'more Options Available Text',
+          loadTooltip,
+          fetchOptions,
+          searchOptions,
+          openAdvancedSearch
+        })}
+        defaultValue={{key: 2, display: 'Two v'}}
+      />
+  ).add(
+    'Single-Select',
+    () =>
+      <EditableValueStory
+        type="single-select"
+        knobType={object}
+        options={object('options', {
+          options: [{key: 1, display: 'One'}, {key: 2, display: 'Two'}, {key: 3, display: 'Three'}],
+          noResultsText: 'no results found',
+          isLoading: false,
+          tooltips: {2: 'Tooltip for Two'},
+          loadTooltip,
+          fetchOptions
+        })}
+        defaultValue={{key: 2, display: 'Two v'}}
+      />
+
+  ).add(
+    'String',
+    () =>
+      <EditableValueStory
+        type="string"
+        knobType={text}
+        defaultValue="Simple String"
+      />
+  ).add(
+    'Text',
+    () =>
+      <EditableValueStory
+        type="text"
+        knobType={text}
+        defaultValue={'This is the first line.\nTo be continued...'}
+      />
   ).add(
     'Time',
     () =>
       <EditableValueStory
-        ChildComponent={TimeEdit}
-        readOnly={boolean('readOnly', false) || undefined}
-        value={{
+        type="time"
+        knobType={object}
+        defaultValue={{
           hourOfDay: 8,
           minuteOfHour: 35,
           secondOfMinute: 0,
@@ -227,55 +311,12 @@ storiesOf('Tocco-UI | EditableValue', module)
         }}
       />
   ).add(
-    'Duration',
-    () => <EditableValue
-      type="duration"
-      value={number('Duration', 3720000)}
-      readOnly={boolean('readOnly', false)}
-      onChange={EMPTY_FUNC}
-    />,
-    {info: {source: true}}
-  ).add(
-    'Document',
+    'Url',
     () =>
-      <UploadStory
-        readOnly={boolean('readOnly', false) || undefined}
-        textResources={{
-          upload: text('upload', 'D`n`D or click'),
-          uploading: text('uploading', 'uploading...'),
-          download: text('download', 'DOWNLOAD'),
-          delete: text('delete', 'DEL')
-        }}
+      <EditableValueStory
+        type="url"
+        knobType={text}
+        defaultValue="http://www.tooco.ch"
       />
-  ).add(
-    'HTML',
-    () => {
-      const minifiedMarkup = storybookHtmlMarkup.replace(/\n/g, '')
-      return (
-        <EditableValue
-          onChange={EMPTY_FUNC}
-          readOnly={boolean('readOnly', false) || undefined}
-          type="html"
-          value={minifiedMarkup}
-        />)
-    },
-    {info: {source: true}}
-  )
-  .add(
-    'Location',
-    () => <EditableValue
-      type="location"
-      options={{
-        ...locationOptions,
-        isLoading: boolean('isLoading', false)
-      }}
-      readOnly={boolean('readOnly', false)}
-      value={{
-        city: text('city', 'Zürich'),
-        country: {display: text('country', 'CH')},
-        postcode: text('postcode', '8000'),
-        state: text('state', 'ZH')
-      }}
-      onChange={EMPTY_FUNC}/>,
-    {info: {source: true}}
+
   )

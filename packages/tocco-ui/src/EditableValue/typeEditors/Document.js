@@ -14,7 +14,6 @@ const Document = props => {
 
   return (
     <div className="document">
-      {props.options.field}
       <Upload
         onUpload={onUpload}
         readOnly={props.readOnly}
@@ -37,8 +36,7 @@ Document.propTypes = {
     uploadText: PropTypes.string,
     uploadingText: PropTypes.string,
     deleteText: PropTypes.string,
-    downloadText: PropTypes.string,
-    field: PropTypes.string
+    downloadText: PropTypes.string
   }),
   onChange: PropTypes.func,
   value: PropTypes.object

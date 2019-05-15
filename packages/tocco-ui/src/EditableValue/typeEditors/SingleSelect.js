@@ -23,7 +23,7 @@ SingleSelect.propTypes = {
     ])
   }),
   options: PropTypes.shape({
-    store: PropTypes.arrayOf(
+    options: PropTypes.arrayOf(
       PropTypes.shape({
         value: PropTypes.any,
         label: PropTypes.string
