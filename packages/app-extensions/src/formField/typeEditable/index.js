@@ -1,8 +1,11 @@
 import coordinate from './coordinate'
+import decimal from './decimal'
 import document from './document'
 import duration from './duration'
 import integer from './integer'
 import location from './location'
+import long from './long'
+import moneyamount from './moneyamount'
 import number from './number'
 import phone from './phone'
 import remote from './remote'
@@ -11,18 +14,20 @@ import searchFilter from './searchFilter'
 
 export default {
   'binary': document,
+  'coordinate': coordinate,
   'counter': number,
   'data-amount': number,
-  'decimal': number,
+  'decimal': decimal,
   'document': document,
+  'double': number,
   'duration': duration,
   'image': document,
   'integer': integer,
   'latitude': coordinate,
   'location': location,
-  'long': integer,
+  'long': long,
   'longitude': coordinate,
-  'moneyamount': number,
+  'moneyamount': moneyamount,
   'multi-remote-field': remote,
   'multi-select-box': select,
   'named-upload': document,

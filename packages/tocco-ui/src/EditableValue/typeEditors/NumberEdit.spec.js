@@ -1,7 +1,7 @@
 import React from 'react'
 import {mountWithIntl} from 'tocco-test-util/src/intlEnzyme/intlEnzyme'
 
-import NumberEdit, {limitValue, calculateMaxValue, isAllowedIntegerValue} from './NumberEdit'
+import NumberEdit, {calculateMaxPointValue, isAllowedValue} from './NumberEdit'
 
 const EMPTY_FUNC = () => {}
 
@@ -19,53 +19,85 @@ describe('tocco-ui', () => {
         test('should return number string in en', () => {
           const result = '1,234,567.89'
           const wrapper = mountWithIntl(
-            <NumberEdit value={1234567.89} options={{}} onChange={EMPTY_FUNC} />
+            <NumberEdit
+              value={1234567.89}
+              options={{
+                prePointDigits: 30,
+                postPointDigits: 3
+              }}
+              onChange={EMPTY_FUNC} />
           )
           expect(wrapper.html()).to.contains(result)
         })
       })
-      describe('limitValue', () => {
-        test('should return false on too large input', () => {
-          const maxValue = 1234567891234.56
-          const valuesObject = {
-            formattedValue: '12345678912344.56',
-            floatValue: 12345678912344.56
-          }
-          expect(limitValue(maxValue)(valuesObject)).to.be.eql(false)
-        })
-        test('should return true on small enough input', () => {
-          const maxValue = 12345678912344.56
-          const valuesObject = {
-            formattedValue: '1234567891234.56',
-            floatValue: 1234567891234.56
-          }
-          expect(limitValue(maxValue)(valuesObject)).to.be.eql(true)
-        })
-      })
-      describe('calculateMaxValue', () => {
+
+      describe('calculateMaxPointValue', () => {
         test('should return maxValue', () => {
           const prePointDigits = 5
           const postPointDigits = 3
           const result = 99999.999
-          expect(calculateMaxValue(prePointDigits, postPointDigits)).to.be.eql(result)
+          expect(calculateMaxPointValue(prePointDigits, postPointDigits)).to.be.eql(result)
+        })
+        test('should return maxValue on prePointDigits only', () => {
+          const prePointDigits = 5
+          const result = 99999
+          expect(calculateMaxPointValue(prePointDigits)).to.be.eql(result)
+        })
+        test('should return maxValue on postPointDigits only', () => {
+          const postPointDigits = 2
+          const result = 1E28 - 0.01
+          expect(calculateMaxPointValue(undefined, postPointDigits)).to.be.eql(result)
+        })
+        test('should return maxValue on postPointDigits with maxValue', () => {
+          const postPointDigits = 2
+          const maxValue = 1000
+          const result = 999.99
+          expect(calculateMaxPointValue(undefined, postPointDigits, maxValue)).to.be.eql(result)
         })
       })
-      describe('isAllowedIntegerValue', () => {
-        test('should return false on too large input', () => {
-          const allowedIntegerObject = {minValue: 5, maxValue: 100}
-          const valuesObject = {
-            formattedValue: '123',
-            floatValue: 123
-          }
-          expect(isAllowedIntegerValue(allowedIntegerObject)(valuesObject)).to.be.eql(false)
+      describe('isAllowedValue', () => {
+        const prePointDigits = 8
+        const postPointDigits = 2
+        const minValue = 1
+        const maxValue = 1000
+        const valuesObject = {
+          formattedValue: '123',
+          floatValue: 123
+        }
+        test('should return true on no arguments called', () => {
+          expect(isAllowedValue()(valuesObject)).to.be.eql(true)
         })
-        test('should return true on small enough input', () => {
-          const allowedIntegerObject = {minValue: 2, maxValue: 10000}
-          const valuesObject = {
-            formattedValue: '1234',
-            floatValue: 1234
-          }
-          expect(isAllowedIntegerValue(allowedIntegerObject)(valuesObject)).to.be.eql(true)
+        test('should return true on empty string', () => {
+          expect(isAllowedValue(prePointDigits, postPointDigits)(valuesObject)).to.be.eql(true)
+        })
+        test('should return true on valid value and only prePointDigits', () => {
+          expect(isAllowedValue(prePointDigits)(valuesObject)).to.be.eql(true)
+        })
+        test('should return true on valid value and only minValue', () => {
+          expect(isAllowedValue(undefined, undefined, minValue)(valuesObject)).to.be.eql(true)
+        })
+        test('should return true on valid value and minValue/maxValue', () => {
+          expect(isAllowedValue(
+            undefined,
+            undefined,
+            minValue,
+            maxValue
+          )(valuesObject)).to.be.eql(true)
+        })
+        test('should return true on valid value and pre- or postPointDigits and minValue', () => {
+          expect(isAllowedValue(
+            prePointDigits,
+            postPointDigits,
+            minValue
+          )(valuesObject)).to.be.eql(true)
+        })
+        test('should return false on valid value and pre- or postPointDigits and maxValue', () => {
+          expect(isAllowedValue(
+            1,
+            2,
+            undefined,
+            100
+          )(valuesObject)).to.be.eql(false)
         })
       })
     })
