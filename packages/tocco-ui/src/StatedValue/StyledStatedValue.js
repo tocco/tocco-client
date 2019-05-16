@@ -13,22 +13,22 @@ import {
 const BORDER_WIDTH = '1px'
 const ANIMATION_DURATION = '200ms'
 
-const getTextColor = ({look, theme, signal}) => {
-  const color = look === 'display'
+const getTextColor = ({immutable, isDisplay, theme, signal}) => {
+  const color = isDisplay
     ? getTheme.color('text')({theme})
     : signal
       ? getTheme.color(`signal.${signal}.text`)({theme})
       : getTheme.color('text')({theme})
-  return look === 'immutableField' ? generateDisabledShade(color) : color
+  return !isDisplay && immutable ? generateDisabledShade(color) : color
 }
 
-const getBorderColor = ({look, theme, signal}) => {
-  const color = look === 'display'
+const getBorderColor = ({immutable, isDisplay, theme, signal}) => {
+  const color = isDisplay
     ? 'transparent'
     : signal
       ? getTheme.color(`signal.${signal}.text`)({theme})
       : shadeColor(_get(theme, 'colors.paper'), 2)
-  return look === 'immutableField' ? generateDisabledShade(color) : color
+  return !isDisplay && immutable ? generateDisabledShade(color) : color
 }
 
 const transformLabel = ({secondaryPosition, theme}) => css`
@@ -46,7 +46,7 @@ const transformLabel = ({secondaryPosition, theme}) => css`
     `}
 `
 
-const declareCursor = ({look}) => `cursor: ${look === 'immutableField' ? 'not-allowed' : 'auto'};`
+const declareCursor = ({isDisplay, immutable}) => `cursor: ${(!isDisplay && immutable) ? 'not-allowed' : 'auto'};`
 
 const retainSpace = ({secondaryPosition, theme}) => css`
   transition: padding-top ${ANIMATION_DURATION};
