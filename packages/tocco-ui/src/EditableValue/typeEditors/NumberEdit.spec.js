@@ -1,7 +1,7 @@
 import React from 'react'
 import {mountWithIntl} from 'tocco-test-util/src/intlEnzyme/intlEnzyme'
 
-import NumberEdit, {calculateMaxPointValue, isAllowedValue, setDecimalScale} from './NumberEdit'
+import NumberEdit, {calculateMaxValue, isAllowedValue, calculateDecimalScale} from './NumberEdit'
 
 const EMPTY_FUNC = () => {}
 
@@ -36,23 +36,22 @@ describe('tocco-ui', () => {
           const prePointDigits = 5
           const postPointDigits = 3
           const result = 99999.999
-          expect(calculateMaxPointValue(prePointDigits, postPointDigits)).to.be.eql(result)
+          expect(calculateMaxValue(prePointDigits, postPointDigits)).to.be.eql(result)
         })
         test('should return maxValue on prePointDigits only', () => {
           const prePointDigits = 5
           const result = 99999
-          expect(calculateMaxPointValue(prePointDigits)).to.be.eql(result)
+          expect(calculateMaxValue(prePointDigits)).to.be.eql(result)
         })
-        test('should return maxValue on postPointDigits only', () => {
-          const postPointDigits = 2
-          const result = 1E28 - 0.01
-          expect(calculateMaxPointValue(undefined, postPointDigits)).to.be.eql(result)
+        test('should undefined if no parameters are set', () => {
+          const result = undefined
+          expect(calculateMaxValue()).to.be.eql(result)
         })
         test('should return maxValue on postPointDigits with maxValue', () => {
           const postPointDigits = 2
           const maxValue = 1000
-          const result = 999.99
-          expect(calculateMaxPointValue(undefined, postPointDigits, maxValue)).to.be.eql(result)
+          const result = 1000
+          expect(calculateMaxValue(undefined, postPointDigits, maxValue)).to.be.eql(result)
         })
       })
       describe('isAllowedValue', () => {
@@ -100,17 +99,17 @@ describe('tocco-ui', () => {
           )(valuesObject)).to.be.eql(false)
         })
       })
-      describe('setDecimalScale ', () => {
+      describe('calculateDecimalScale ', () => {
         test('should return zero on zero input', () => {
-          expect(setDecimalScale(0)).to.be.eql(0)
-          expect(setDecimalScale(undefined, 0)).to.be.eql(0)
+          expect(calculateDecimalScale(0)).to.be.eql(0)
+          expect(calculateDecimalScale(undefined, 0)).to.be.eql(0)
         })
         test('should set decimalScale', () => {
-          expect(setDecimalScale(2)).to.be.eql(2)
-          expect(setDecimalScale(undefined, 3)).to.be.eql(3)
+          expect(calculateDecimalScale(2)).to.be.eql(2)
+          expect(calculateDecimalScale(undefined, 3)).to.be.eql(3)
         })
-        test('should set default decimalScale', () => {
-          expect(setDecimalScale()).to.be.eql(100)
+        test('should return undefined with no params', () => {
+          expect(calculateDecimalScale()).to.be.undefined
         })
       })
     })

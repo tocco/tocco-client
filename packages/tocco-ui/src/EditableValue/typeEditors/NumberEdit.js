@@ -1,70 +1,40 @@
 import PropTypes from 'prop-types'
 import {intlShape} from 'react-intl'
 import React from 'react'
-import _get from 'lodash/get'
 
 import {parseLocalePlaceholder, convertStringToNumber} from '../utils'
 import {StyledEditableWrapper} from '../StyledEditableValue'
 import StyledNumberEdit from './StyledNumberEdit'
 
-export const calculateMaxPointValue = (prePointDigits, postPointDigits, maxValue) => {
-  if (prePointDigits && postPointDigits) {
-    const maxValueMinuend = (10 ** prePointDigits)
-    const maxValueSubtrahend = 1 / (10 ** postPointDigits)
-    return maxValueMinuend - maxValueSubtrahend
-  }
+export const calculateMaxValue = (prePointDigits, postPointDigits, maxValue) => {
   if (prePointDigits) {
-    return (10 ** prePointDigits) - 1
+    const calculatedMaxValue = (10 ** prePointDigits) - (postPointDigits ? (1 / (10 ** postPointDigits)) : 1)
+    return maxValue && maxValue > calculatedMaxValue ? maxValue : calculatedMaxValue
   }
-  if (postPointDigits) {
-    const postPointFraction = (1 / (10 ** postPointDigits))
-    return maxValue ? maxValue - postPointFraction : 1E28 - postPointFraction
-  }
+
+  return maxValue
 }
 
-export const isAllowedValue = (prePointDigits, postPointDigits, minValue, maxValue) => values => {
-  if (!(prePointDigits || postPointDigits || minValue || maxValue)) {
-    return true
-  }
-  const {formattedValue, floatValue} = values
-  const maxPointValue = calculateMaxPointValue(prePointDigits, postPointDigits, maxValue)
+export const isAllowedValue = (prePointDigits, postPointDigits, minValue, maxValue) => ({floatValue}) => {
+  const calculatedMaxValue = calculateMaxValue(prePointDigits, postPointDigits, maxValue)
 
-  const isValidMaxPointValue = floatValue <= maxPointValue
-  const isLargerThanMinValue = floatValue >= minValue
-  const isSmallerThanMaxValue = floatValue <= maxValue
-
-  let isValueInRange
-
-  if (prePointDigits || postPointDigits) {
-    isValueInRange = isValidMaxPointValue
-  }
-  if (minValue || maxValue) {
-    isValueInRange = isLargerThanMinValue || isSmallerThanMaxValue
-  }
-  if ((prePointDigits || postPointDigits) && minValue) {
-    isValueInRange = isValidMaxPointValue && isLargerThanMinValue
-  }
-  if ((prePointDigits || postPointDigits) && maxValue) {
-    isValueInRange = isValidMaxPointValue && isSmallerThanMaxValue
-  }
-  if (minValue && maxValue) {
-    isValueInRange = isLargerThanMinValue && isSmallerThanMaxValue
+  if (calculatedMaxValue && floatValue > calculatedMaxValue) {
+    return false
   }
 
-  return formattedValue === '' || isValueInRange
+  if (minValue && floatValue < minValue) {
+    return false
+  }
+
+  return true
 }
 
-export const setDecimalScale = (postPointDigits, decimalScale) => {
-  if (postPointDigits === 0 || decimalScale === 0) {
-    return 0
-  }
-  if (postPointDigits) {
+export const calculateDecimalScale = (postPointDigits, decimalScale) => {
+  if (!isNaN(postPointDigits)) {
     return postPointDigits
   }
-  if (decimalScale) {
-    return decimalScale
-  }
-  return 100
+
+  return decimalScale
 }
 
 const NumberEdit = (props, context) => {
@@ -72,10 +42,12 @@ const NumberEdit = (props, context) => {
 
   const {prePointDigits, postPointDigits, minValue, maxValue, decimalScale, allowNegative} = props.options
 
+  const calculatedDecimalScale = calculateDecimalScale(postPointDigits, decimalScale)
+
   const numberFormatOptions = {
     isAllowed: isAllowedValue(prePointDigits, postPointDigits, minValue, maxValue),
     allowNegative: !!allowNegative,
-    decimalScale: setDecimalScale(postPointDigits, decimalScale)
+    ...(!isNaN(calculatedDecimalScale) ? {decimalScale: calculatedDecimalScale} : {})
   }
 
   const handleChange = values => {
@@ -83,8 +55,6 @@ const NumberEdit = (props, context) => {
       props.onChange(convertStringToNumber(values.value))
     }
   }
-
-  const value = _get(props, 'value', '')
 
   return (
     <StyledEditableWrapper readOnly={props.readOnly}>
@@ -96,7 +66,7 @@ const NumberEdit = (props, context) => {
         name={props.name}
         onValueChange={handleChange}
         thousandSeparator={thousandSeparator}
-        value={value}
+        value={props.value}
         {...numberFormatOptions}
       />
     </StyledEditableWrapper>
