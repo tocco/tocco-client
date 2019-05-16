@@ -68,7 +68,7 @@ describe('entity-list', () => {
         }))
 
         const wrapper = intlEnzyme.mountWithIntl(
-
+          <TestThemeProvider>
             <Provider store={store}>
               <MemoryRouter>
                 <SearchForm
@@ -93,10 +93,10 @@ describe('entity-list', () => {
                 />
               </MemoryRouter>
             </Provider>
-
+          </TestThemeProvider>
         )
 
-        expect(wrapper.find(StatedValue)).to.have.length(2)
+        expect(wrapper.find(StatedValue)).to.have.length(3)
         expect(wrapper.find(Button)).to.have.length(3)
       })
 
@@ -161,7 +161,7 @@ describe('entity-list', () => {
         const wrapper = intlEnzyme.mountWithIntl(
           <Provider store={store}>
             <MemoryRouter>
-
+              <TestThemeProvider>
                 <SearchForm
                   initializeSearchForm={EMPTY_FUNC}
                   entityModel={entityModel}
@@ -181,7 +181,7 @@ describe('entity-list', () => {
                   openAdvancedSearch={EMPTY_FUNC}
                   changeFieldValue={EMPTY_FUNC}
                 />
-
+              </TestThemeProvider>
             </MemoryRouter>
           </Provider>
         )
