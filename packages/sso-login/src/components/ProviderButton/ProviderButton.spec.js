@@ -1,17 +1,9 @@
 import React from 'react'
 import {mount} from 'enzyme'
-import {ThemeProvider} from 'styled-components'
 
 import ProviderButton from './ProviderButton'
 
 const EMPTY_FUNC = () => {}
-
-const theme = {
-  colors: {
-    paper: '#fff',
-    text: '#212121'
-  }
-}
 
 describe('sso-login', () => {
   describe('components', () => {
@@ -30,9 +22,7 @@ describe('sso-login', () => {
     describe('ProviderButton', () => {
       test('should render a button', () => {
         const wrapper = mount(
-          <ThemeProvider theme={theme}>
-            <ProviderButton {...baseProps}/>
-          </ThemeProvider>
+          <ProviderButton {...baseProps}/>
         )
         expect(wrapper.find('button')).to.have.length(1)
       })
@@ -42,9 +32,7 @@ describe('sso-login', () => {
 
         const loginCompleted = jest.fn()
         const wrapper = mount(
-          <ThemeProvider theme={theme}>
-            <ProviderButton {...baseProps} loginCompleted={loginCompleted}/>
-          </ThemeProvider>
+          <ProviderButton {...baseProps} loginCompleted={loginCompleted}/>
         )
 
         wrapper.find('button').simulate('click')

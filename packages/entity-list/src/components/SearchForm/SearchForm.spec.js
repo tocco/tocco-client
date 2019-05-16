@@ -2,49 +2,12 @@ import React from 'react'
 import {MemoryRouter} from 'react-router-dom'
 import {Provider} from 'react-redux'
 import {createStore} from 'redux'
-import {ThemeProvider} from 'styled-components'
-import {IntlStub, intlEnzyme} from 'tocco-test-util'
+import {IntlStub, intlEnzyme, TestThemeProvider} from 'tocco-test-util'
 import {Button, FormField} from 'tocco-ui'
 
 import SearchForm from './'
 
 const EMPTY_FUNC = () => {
-}
-
-const theme = {
-  colors: {
-    paper: '#fff',
-    text: '#212121',
-    signal: {
-      danger: {
-        paper: '#EF9A9A',
-        text: '#D32F2F'
-      },
-      info: {
-        paper: '#81D4FA',
-        text: '#0288D1'
-      }
-    }
-  },
-  fontFamily: {
-    regular: '"Helvetica Neue", Helvetica, Arial, sans-serif'
-  },
-  fontSize: {
-    base: 1.4
-  },
-  fontWeights: {
-    regular: 400
-  },
-  lineHeights: {
-    regular: 1.4
-  },
-  radii: {
-    regular: '4px'
-  },
-  space: {
-    base: 2,
-    factor: 2
-  }
 }
 
 describe('entity-list', () => {
@@ -105,7 +68,7 @@ describe('entity-list', () => {
         }))
 
         const wrapper = intlEnzyme.mountWithIntl(
-          <ThemeProvider theme={theme}>
+          <TestThemeProvider>
             <Provider store={store}>
               <MemoryRouter>
                 <SearchForm
@@ -130,7 +93,7 @@ describe('entity-list', () => {
                 />
               </MemoryRouter>
             </Provider>
-          </ThemeProvider>
+          </TestThemeProvider>
         )
 
         expect(wrapper.find(FormField)).to.have.length(searchFormDefinition.children.length)
@@ -196,9 +159,9 @@ describe('entity-list', () => {
         }))
 
         const wrapper = intlEnzyme.mountWithIntl(
-          <ThemeProvider theme={theme}>
-            <Provider store={store}>
-              <MemoryRouter>
+          <Provider store={store}>
+            <MemoryRouter>
+              <TestThemeProvider>
                 <SearchForm
                   initializeSearchForm={EMPTY_FUNC}
                   entityModel={entityModel}
@@ -218,9 +181,9 @@ describe('entity-list', () => {
                   openAdvancedSearch={EMPTY_FUNC}
                   changeFieldValue={EMPTY_FUNC}
                 />
-              </MemoryRouter>
-            </Provider>
-          </ThemeProvider>
+              </TestThemeProvider>
+            </MemoryRouter>
+          </Provider>
         )
 
         expect(wrapper.find(FormField)).to.have.length(2)
