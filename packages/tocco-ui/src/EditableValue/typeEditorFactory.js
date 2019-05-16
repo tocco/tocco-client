@@ -59,7 +59,6 @@ export const map = {
   'postcode': StringEdit,
   'remote': RemoteSelect,
   'search-filter': SearchFilterEdit,
-  'short': NumberEdit,
   'single-select': SingleSelect,
   'sorting': NumberEdit,
   'string': StringEdit,

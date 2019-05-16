@@ -88,10 +88,6 @@ storiesOf('Tocco-UI | FormattedValue', module)
     () => <FormattedValue type="number" value={number('Number', 8473226)}/>
   )
   .add(
-    'Short',
-    () => <FormattedValue type="short" value={number('Short', 7.34)}/>
-  )
-  .add(
     'Sorting',
     () => <FormattedValue type="sorting" value={number('Sorting', 3.35)}/>
   )

@@ -19,7 +19,7 @@ export default {
   'data-amount': number,
   'decimal': decimal,
   'document': document,
-  'double': number,
+  'double': decimal,
   'duration': duration,
   'image': document,
   'integer': integer,

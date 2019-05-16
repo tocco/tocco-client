@@ -161,7 +161,7 @@ storiesOf('Tocco-UI | EditableValue', module)
     'Latitude',
     () =>
       <EditableValueStory
-        type="latitude"
+        type="coordinate"
         knobType={number}
         options={object('options', {
           minValue: -90,
@@ -174,7 +174,7 @@ storiesOf('Tocco-UI | EditableValue', module)
     'Longitude',
     () =>
       <EditableValueStory
-        type="longitude"
+        type="coordinate"
         knobType={number}
         options={object('options', {
           minValue: -180,
@@ -192,8 +192,7 @@ storiesOf('Tocco-UI | EditableValue', module)
         options={object('options', {
           minValue: -300000,
           maxValue: 300000,
-          allowNegative: true,
-          decimalScale: 0
+          allowNegative: true
         })}
         defaultValue={12345}
       />
@@ -236,15 +235,6 @@ storiesOf('Tocco-UI | EditableValue', module)
           })}
       />
   ).add(
-    'MoneyAmount',
-    () =>
-      <EditableValueStory
-        type="moneyamount"
-        knobType={number}
-        options={object('options', {prePointDigits: 8, postPointDigits: 2})}
-        defaultValue={1234.56}
-      />
-  ).add(
     'Multi-Select',
     () =>
       <EditableValueStory
@@ -283,6 +273,19 @@ storiesOf('Tocco-UI | EditableValue', module)
         defaultValue={[{key: 2, display: 'Two v'}]}
       />
   ).add(
+    'MoneyAmount',
+    () =>
+      <EditableValueStory
+        type="moneyamount"
+        knobType={number}
+        options={object('options', {
+          prePointDigits: 8,
+          allowNegative: true,
+          decimalScale: 2
+        })}
+        defaultValue={1234.56}
+      />
+  ).add(
     'Number',
     () =>
       <EditableValueStory
@@ -309,10 +312,24 @@ storiesOf('Tocco-UI | EditableValue', module)
           postPointDigits: 2,
           minValue: -30000,
           maxValue: 30000,
-          decimalScale: 5,
-          allowNegative: true
+          allowNegative: true,
+          decimalScale: 5
         })}
-        defaultValue={123.45}
+        defaultValue={12345}
+      />
+  ).add(
+    'Long',
+    () =>
+      <EditableValueStory
+        type="long"
+        knobType={number}
+        options={object('options', {
+          minValue: -300000,
+          maxValue: 300000,
+          allowNegative: true,
+          decimalScale: 0
+        })}
+        defaultValue={12345}
       />
   ).add(
     'Phone',
