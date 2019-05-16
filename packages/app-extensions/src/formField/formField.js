@@ -48,6 +48,8 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
     )
 
     const mandatory = !readOnly && _get(modelField, `validation.mandatory`, false)
+    const hasValue = value !== null && value !== undefined && value.length !== 0
+    const isDisplay = data.formDefinitionField.componentType === 'display' || readOnlyForm
 
     const type = formDefinitionField.dataType
     let requestedFromData
@@ -60,15 +62,15 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
         <FormFieldWrapper
           dirty={dirty}
           error={error}
-          hasValue={(value !== null && value !== undefined && value.length !== 0)}
+          hasValue={hasValue}
           id={id}
           immutable={readOnly}
+          isDisplay={isDisplay}
           key={id}
           label={formDefinitionField.label}
           mandatory={mandatory}
           mandatoryTitle={resources.mandatoryTitle}
           touched={touched}
-          type={data.formDefinitionField.componentType}
         >
           <ValueField
             mapping={mapping}
