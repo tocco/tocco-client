@@ -29,6 +29,7 @@ const StatedValue = props => {
     children,
     description,
     dirty,
+    isDisplay,
     error,
     hasValue,
     id,
@@ -36,36 +37,32 @@ const StatedValue = props => {
     mandatory,
     mandatoryTitle,
     immutable,
-    type,
     touched
   } = props
 
   const hasError = touched && props.error && Object.keys(props.error).length > 0
   const labelAlt = `${label}${mandatory && mandatoryTitle ? `, ${mandatoryTitle}` : ''}`
   const signal = detectSignal(dirty, hasError)
-  const look = type === 'display'
-    ? 'display'
-    : immutable
-      ? 'immutableField'
-      : 'mutableField'
 
   return (
     <FocusWithin>
       {({focused, getRef}) => {
-        const secondaryPosition = focused || hasValue || type === 'display'
+        const secondaryPosition = focused || hasValue || isDisplay
         return (
           <StyledStatedValueWrapper
             ref={getRef}
             secondaryPosition={secondaryPosition}>
             <StyledStatedValueBox
-              look={look}
+              immutable={immutable}
+              isDisplay={isDisplay}
               signal={signal}>
               {children}
               <StyledStatedValueLabel
-                {...look === 'mutableField' ? {htmlFor: id} : {}}
-                look={look}
+                {...(!isDisplay && !immutable) ? {htmlFor: id} : {}}
                 alt={labelAlt}
                 secondaryPosition={secondaryPosition}
+                immutable={immutable}
+                isDisplay={isDisplay}
                 signal={signal}
               >{label}{mandatory && ' *'}</StyledStatedValueLabel>
             </StyledStatedValueBox>
@@ -89,9 +86,9 @@ StatedValue.propTypes = {
    */
   children: PropTypes.node,
   /**
-   * Visualize as field or display according child's type.
+   * Visualize as display and not as field.
    */
-  type: PropTypes.oneOf(['display', 'field']),
+  isDisplay: PropTypes.bool,
   /**
    * A helper text to instruct users.
    */
