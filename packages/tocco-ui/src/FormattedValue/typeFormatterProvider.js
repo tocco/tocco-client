@@ -65,7 +65,6 @@ export const map = {
   'phone': PhoneFormatter,
   'postcode': StringFormatter,
   'remote': SingleSelectFormatter,
-  'short': NumberFormatter,
   'single-select': SingleSelectFormatter,
   'sorting': NumberFormatter,
   'string': StringFormatter,

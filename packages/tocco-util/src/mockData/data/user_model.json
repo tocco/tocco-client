@@ -31,7 +31,11 @@
       "fieldName": "licence_plate",
       "type": "long",
       "validation": {
-        "mandatory": true
+        "mandatory": true,
+        "numberRange": {
+          "fromIncluding": -9223372036854776000,
+          "toIncluding": 9223372036854776000
+        }
       }
     },
     {
@@ -109,8 +113,8 @@
           "postPointDigits": 0
         },
         "numberRange": {
-          "fromIncluding": 0,
-          "toIncluding": 200
+          "fromIncluding": -2147483648,
+          "toIncluding": 2147483648
         }
       }
     },
@@ -163,74 +167,20 @@
       "defaultValue": null,
       "validation": {
         "decimalDigits": {
-          "prePointDigits": 12,
+          "prePointDigits": 7,
           "postPointDigits": 2
-        },
-        "numberRange": {
-          "fromIncluding": -7.92281625142643E+28,
-          "toIncluding": 7.92281625142643E+28
-        }
-      }
-    },
-    {
-      "fieldName": "long",
-      "type": "long",
-      "validation": {
-        "numberRange": {
-          "fromIncluding": -9.223372E+18,
-          "toIncluding": 9.223372E+18
-        }
-      }
-    },
-    {
-      "fieldName": "short",
-      "type": "short",
-      "validation": {
-        "numberRange": {
-          "fromIncluding": -32768,
-          "toIncluding": 32768
-        }
-      }
-    },
-    {
-      "fieldName": "short",
-      "type": "short",
-      "validation": {
-        "numberRange": {
-          "fromIncluding": -32768,
-          "toIncluding": 32768
         }
       }
     },
     {
       "fieldName": "longitude",
       "type": "longitude",
-      "validation": {
-        "numberRange": {
-          "fromIncluding": -180,
-          "toIncluding": 180
-        }
-      }
+      "validation": {}
     },
     {
       "fieldName": "latitude",
       "type": "latitude",
-      "validation": {
-        "numberRange": {
-          "fromIncluding": -90,
-          "toIncluding": 90
-        }
-      }
-    },
-    {
-      "fieldName": "double",
-      "type": "double",
-      "validation": {
-        "numberRange": {
-          "fromIncluding": -1.79769313486231E+308,
-          "toIncluding": 1.79769313486231E+308
-        }
-      }
+      "validation": {}
     },
     {
       "fieldName": "moneyamount",
@@ -239,7 +189,7 @@
       "validation": {
         "decimalDigits": {
           "prePointDigits": 12,
-          "postPointDigits": 2
+          "postPointDigits": 8
         }
       }
     },
