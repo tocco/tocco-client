@@ -75,12 +75,11 @@ NumberEdit.propTypes = {
   readOnly: PropTypes.bool,
   options: PropTypes.shape({
     allowNegative: PropTypes.bool,
-    decimalScale: PropTypes.number,
     postPointDigits: PropTypes.number,
     prePointDigits: PropTypes.number,
     minValue: PropTypes.number,
     maxValue: PropTypes.number
-  }).isRequired
+  })
 }
 
 export default NumberEdit
