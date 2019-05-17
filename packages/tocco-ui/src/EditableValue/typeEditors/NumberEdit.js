@@ -29,25 +29,15 @@ export const isAllowedValue = (prePointDigits, postPointDigits, minValue, maxVal
   return true
 }
 
-export const calculateDecimalScale = (postPointDigits, decimalScale) => {
-  if (!isNaN(postPointDigits)) {
-    return postPointDigits
-  }
-
-  return decimalScale
-}
-
 const NumberEdit = (props, context) => {
   const {thousandSeparator, decimalSeparator} = parseLocalePlaceholder(context.intl.locale)
 
-  const {prePointDigits, postPointDigits, minValue, maxValue, decimalScale, allowNegative} = props.options
-
-  const calculatedDecimalScale = calculateDecimalScale(postPointDigits, decimalScale)
+  const {prePointDigits, postPointDigits, minValue, maxValue, allowNegative} = props.options
 
   const numberFormatOptions = {
     isAllowed: isAllowedValue(prePointDigits, postPointDigits, minValue, maxValue),
     allowNegative: !!allowNegative,
-    ...(!isNaN(calculatedDecimalScale) ? {decimalScale: calculatedDecimalScale} : {})
+    ...(!isNaN(postPointDigits) ? {decimalScale: postPointDigits} : {})
   }
 
   const handleChange = values => {
