@@ -32,7 +32,6 @@ export const map = {
   'createts': DateTimeEdit,
   'createuser': StringEdit,
   'coordinate': StringEdit,
-  'dataamount': NumberEdit,
   'date': DateEdit,
   'date-range': DateRangeEdit,
   'datetime': DateTimeEdit,
