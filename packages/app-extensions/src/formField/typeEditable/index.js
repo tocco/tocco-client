@@ -4,7 +4,6 @@ import document from './document'
 import duration from './duration'
 import integer from './integer'
 import location from './location'
-import long from './long'
 import moneyamount from './moneyamount'
 import number from './number'
 import phone from './phone'
@@ -25,7 +24,6 @@ export default {
   'integer': integer,
   'latitude': coordinate,
   'location': location,
-  'long': long,
   'longitude': coordinate,
   'moneyamount': moneyamount,
   'multi-remote-field': remote,

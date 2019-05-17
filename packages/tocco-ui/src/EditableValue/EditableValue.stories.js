@@ -129,19 +129,6 @@ storiesOf('Tocco-UI | EditableValue', module)
         defaultValue={'<h1>Test</h1>'}
       />,
     {knobs: {escapeHTML: false}}
-  ).add(
-    'Integer',
-    () =>
-      <EditableValueStory
-        type="integer"
-        options={object('options', {
-          minValue: -30000,
-          maxValue: 30000,
-          allowNegative: true
-        })}
-        defaultValue={200}
-        knobType={number}
-      />
   )
   .add(
     'Location',
