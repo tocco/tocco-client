@@ -20,7 +20,7 @@ export default {
   'identifier': editableValueFactory('string'),
   'latitude': editableValueFactory('coordinate'),
   'login': editableValueFactory('string'),
-  'long': editableValueFactory('long'),
+  'long': editableValueFactory('integer'),
   'longitude': editableValueFactory('coordinate'),
   'location': editableValueFactory('location'),
   'moneyamount': editableValueFactory('moneyamount'),
