@@ -1,7 +1,7 @@
 import React from 'react'
 import {mountWithIntl} from 'tocco-test-util/src/intlEnzyme/intlEnzyme'
 
-import NumberEdit, {calculateMaxValue, isAllowedValue, calculateDecimalScale} from './NumberEdit'
+import NumberEdit, {calculateMaxValue, isAllowedValue} from './NumberEdit'
 
 const EMPTY_FUNC = () => {}
 
@@ -97,19 +97,6 @@ describe('tocco-ui', () => {
             undefined,
             100
           )(valuesObject)).to.be.eql(false)
-        })
-      })
-      describe('calculateDecimalScale ', () => {
-        test('should return zero on zero input', () => {
-          expect(calculateDecimalScale(0)).to.be.eql(0)
-          expect(calculateDecimalScale(undefined, 0)).to.be.eql(0)
-        })
-        test('should set decimalScale', () => {
-          expect(calculateDecimalScale(2)).to.be.eql(2)
-          expect(calculateDecimalScale(undefined, 3)).to.be.eql(3)
-        })
-        test('should return undefined with no params', () => {
-          expect(calculateDecimalScale()).to.be.undefined
         })
       })
     })
