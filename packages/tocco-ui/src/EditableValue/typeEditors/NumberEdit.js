@@ -83,8 +83,8 @@ NumberEdit.propTypes = {
   name: PropTypes.string,
   id: PropTypes.string,
   readOnly: PropTypes.bool,
-  allowNegative: PropTypes.bool,
   options: PropTypes.shape({
+    allowNegative: PropTypes.bool,
     decimalScale: PropTypes.number,
     postPointDigits: PropTypes.number,
     prePointDigits: PropTypes.number,
