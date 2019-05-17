@@ -72,10 +72,6 @@ storiesOf('Tocco-UI | FormattedValue', module)
     () => <FormattedValue type="datetime" value={text('Datetime', '2017-11-16T03:21:23.123Z')}/>
   )
   .add(
-    'Dataamount',
-    () => <FormattedValue type="dataamount" value={number('Dataamount', 21)}/>
-  )
-  .add(
     'Integer',
     () => <FormattedValue type="integer" value={number('Integer', 8766)}/>
   )

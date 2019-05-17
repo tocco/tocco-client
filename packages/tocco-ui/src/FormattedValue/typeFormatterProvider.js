@@ -39,7 +39,6 @@ export const map = {
   'counter': StringFormatter,
   'createts': DateTimeFormatter,
   'createuser': StringFormatter,
-  'dataamount': NumberFormatter,
   'date': DateFormatter,
   'date-range': DateFormatter,
   'datetime': DateTimeFormatter,

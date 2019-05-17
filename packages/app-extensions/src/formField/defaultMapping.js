@@ -7,7 +7,6 @@ export default {
   'boolean': editableValueFactory('boolean'),
   'code': editableValueFactory('code'),
   'counter': editableValueFactory('number'),
-  'data-amount': editableValueFactory('integer'),
   'date': editableValueFactory('date'),
   'datetime': editableValueFactory('datetime'),
   'decimal': editableValueFactory('decimal'),
