@@ -9,9 +9,11 @@ import phone from './phone'
 import remote from './remote'
 import select from './select'
 import searchFilter from './searchFilter'
+import boolean from './boolean'
 
 export default {
   'binary': document,
+  'boolean': boolean,
   'coordinate': coordinate,
   'counter': number,
   'data-amount': number,
