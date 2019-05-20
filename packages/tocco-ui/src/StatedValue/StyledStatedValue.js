@@ -70,6 +70,7 @@ const StyledStatedValueLabel = styled.label`
     top: 50%;
     ${props => transformLabel(props)}
     ${props => declareCursor(props)}
+    pointer-events: ${props => props.secondaryPosition ? 'auto' : 'none'}
   }
 `
 
