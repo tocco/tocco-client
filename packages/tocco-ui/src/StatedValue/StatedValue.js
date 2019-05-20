@@ -47,7 +47,7 @@ const StatedValue = props => {
   return (
     <FocusWithin>
       {({focused, getRef}) => {
-        const secondaryPosition = focused || hasValue || isDisplay
+        const secondaryPosition = (!immutable && focused) || hasValue || isDisplay
         return (
           <StyledStatedValueWrapper
             ref={getRef}
