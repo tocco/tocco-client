@@ -5,22 +5,30 @@ import {StatedValue} from 'tocco-ui'
 import {consoleLogger} from 'tocco-util'
 
 import fromData from '../formData'
-import typeEditable from './typeEditable'
+import typeEditables from './typeEditable'
 
-const FormFieldWrapper = props =>
-  <StatedValue
+const FormFieldWrapper = props => {
+  const hasValueOverwrite = props.typeEditable && props.typeEditable.hasValue
+    && props.typeEditable.hasValue(props.formData.formValues, props.formField)
+
+  return <StatedValue
     {...props}
     dirty={props.formData.isDirty || props.dirty}
     error={props.formData.errors || props.error}
+    hasValue={hasValueOverwrite || props.hasValue}
   >
     {React.cloneElement(props.children, {formData: props.formData})}
   </StatedValue>
+}
 
 FormFieldWrapper.propTypes = {
+  typeEditable: PropTypes.object,
   children: PropTypes.node,
   formData: PropTypes.object,
+  formField: PropTypes.object,
   dirty: PropTypes.bool,
-  error: PropTypes.object
+  error: PropTypes.object,
+  hasValue: PropTypes.bool
 }
 
 export const formFieldFactory = (mapping, data, resources = {}) => {
@@ -53,24 +61,31 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
 
     const type = formDefinitionField.dataType
     let requestedFromData
-    if (typeEditable[type] && typeEditable[type].dataContainerProps) {
-      requestedFromData = typeEditable[type].dataContainerProps({formField: formDefinitionField, modelField, formName})
+
+    const typeEditable = typeEditables[type]
+
+    if (typeEditable && typeEditable.dataContainerProps) {
+      requestedFromData = typeEditable.dataContainerProps({formField: formDefinitionField, modelField, formName})
     }
+
+    const fixLabel = typeEditable && typeEditable.fixLabel && typeEditable.fixLabel()
 
     return (
       <fromData.FormDataContainer {...requestedFromData}>
         <FormFieldWrapper
+          typeEditable={typeEditable}
           dirty={dirty}
           error={error}
           hasValue={hasValue}
           id={id}
           immutable={readOnly}
-          isDisplay={isDisplay}
+          isDisplay={fixLabel || isDisplay}
           key={id}
           label={formDefinitionField.label}
           mandatory={mandatory}
           mandatoryTitle={resources.mandatoryTitle}
           touched={touched}
+          formField={formDefinitionField}
         >
           <ValueField
             mapping={mapping}

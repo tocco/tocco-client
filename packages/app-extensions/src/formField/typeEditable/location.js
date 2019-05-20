@@ -1,6 +1,10 @@
 import _get from 'lodash/get'
 
 export default {
+  hasValue: (value, formField) => {
+    const locationMapping = formField.locationMapping
+    return !!(value[locationMapping['city']] || value[locationMapping['postcode']])
+  },
   getValue: ({formField, formData}) => {
     const locationMapping = formField.locationMapping
     const filteredLocationData = formData.formValues
