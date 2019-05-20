@@ -7,5 +7,6 @@ export default {
     uploadingText: formData.intl.formatMessage({id: 'client.component.upload.uploading'}),
     downloadText: formData.intl.formatMessage({id: 'client.component.upload.downloadTitle'}),
     deleteText: formData.intl.formatMessage({id: 'client.component.upload.deleteTitle'})
-  })
+  }),
+  fixLabel: () => true
 }
