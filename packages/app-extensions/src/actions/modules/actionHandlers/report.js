@@ -88,13 +88,17 @@ export function* handleReportGenerations(settingsModalId, generationsResponse, s
   }
 }
 
+export const getDownloadUrl = binaryLink =>
+  download.addParameterToURL(binaryLink, 'download', true)
+
 export function* handleSuccessfulReport(completed, submitAction) {
   const outputJobId = completed.body.outputJobId
   const outputJob = yield call(rest.fetchEntity, 'Output_job', outputJobId, {paths: ['document']})
   const {fileName, binaryLink} = outputJob.paths.document.value.value
 
   if (submitAction === submitActions.DOWNLOAD) {
-    yield call(download.downloadUrl, binaryLink, fileName)
+    const downloadLink = yield call(getDownloadUrl, binaryLink)
+    yield call(download.downloadUrl, downloadLink, fileName)
   } else if (submitAction === submitActions.DISPLAY) {
     yield call(download.openUrl, binaryLink)
   }

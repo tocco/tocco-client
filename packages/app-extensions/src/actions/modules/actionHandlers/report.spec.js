@@ -164,12 +164,12 @@ describe('app-extensions', () => {
               }
             }
 
-            test('should retrieve output job and call downloadUrl', () => {
+            test('should retrieve output job and call downloadUrl with download query param', () => {
               return expectSaga(handleSuccessfulReport, completedResponse, submitActions.DOWNLOAD)
                 .provide([
                   [matchers.call.fn(rest.fetchEntity), outputJob]
                 ])
-                .call(download.downloadUrl, binaryLink, fileName)
+                .call(download.downloadUrl, binaryLink + '?download=true', fileName)
                 .run()
             })
 
