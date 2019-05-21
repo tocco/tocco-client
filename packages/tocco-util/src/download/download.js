@@ -25,3 +25,6 @@ export const downloadSupportedByBrowser = () => {
   if (a.remove) { a.remove() }
   return result
 }
+
+export const addParameterToURL = (url, param, value) =>
+  `${url}${url.indexOf('?') >= 0 ? '&' : '?'}${param}=${value}`
