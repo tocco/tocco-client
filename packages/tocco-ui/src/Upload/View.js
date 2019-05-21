@@ -1,16 +1,14 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import {download} from 'tocco-util'
 
 import Button from '../Button'
 import ButtonLink from '../ButtonLink'
 import Preview from '../Preview'
 import StyledView from './StyledView'
 
-const addParameterToURL = (url, param, value) =>
-  `${url}${url.indexOf('?') >= 0 ? '&' : '?'}${param}=${value}`
-
 export const getDownloadUrl = binaryLink =>
-  addParameterToURL(binaryLink, 'download', true)
+  download.addParameterToURL(binaryLink, 'download', true)
 
 const View = props => (
   <StyledView>
