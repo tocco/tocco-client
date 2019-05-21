@@ -27,6 +27,7 @@
     "react-quill": "^1.2.7",
     "react-select": "^2.0.0",
     "react-tether": "^1.0.2",
-    "tocco-test-util": ">0.1.0"
+    "tocco-test-util": ">0.1.0",
+    "tocco-util": "^0.1.19"
   }
 }
