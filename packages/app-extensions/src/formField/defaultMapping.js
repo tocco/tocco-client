@@ -38,7 +38,6 @@ export default {
     'birthdate': editableValueFactory('date-range')
   },
   'single-remote-field': editableValueFactory('remote'),
-  'remote': editableValueFactory('remote'),
   'search-filter': editableValueFactory('search-filter'),
   'single-select-box': editableValueFactory('single-select'),
   'sorting': editableValueFactory('integer'),
