@@ -46,7 +46,7 @@ class LocationEdit extends React.Component {
 
   onSuggestionsClearRequested = () => {}
 
-  showGoogleMaps = value => value && Object.values(value).some(val => val)
+  showGoogleMaps = value => !!(value.city || value.postcode)
 
   render() {
     const inputPropsZip = {
