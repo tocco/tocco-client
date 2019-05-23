@@ -2,6 +2,8 @@
 import path from 'path'
 
 import {argv} from 'yargs'
+import dotenv from 'dotenv'
+import _mapValues from 'lodash/mapValues'
 
 const config = {
   env : process.env.NODE_ENV || 'development',
@@ -22,6 +24,8 @@ const config = {
   }
 }
 
+const secretGlobals = _mapValues(dotenv.config().parsed, v => JSON.stringify(v))
+
 config.globals = {
   'process.env'  : {
     'NODE_ENV' : JSON.stringify(config.env)
@@ -34,7 +38,8 @@ config.globals = {
   '__BACKEND_URL__': JSON.stringify(argv.backend) || JSON.stringify(process.env.BACKEND),
   '__PACKAGE__'   : argv.package,
   '__PACKAGE_NAME__'   : JSON.stringify(argv.package),
-  '__NO_MOCK__':  !!(process.env.BACKEND || argv.backend || argv.noMock)
+  '__NO_MOCK__':  !!(process.env.BACKEND || argv.backend || argv.noMock),
+  ...secretGlobals
 }
 
 const resolve = path.resolve
