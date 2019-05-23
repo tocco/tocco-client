@@ -17,13 +17,13 @@ export const StyledLocationEdit = styled.div`
     ${StyledEditableWrapperCss}
     position: relative;
 
-    .react-autosuggest__container {
-      :first-child {
+    div {
+      :nth-of-type(1) {
         flex: 0 0 6ch;
         margin-right: ${scale.space(-2)};
       }
 
-      :nth-child(3) {
+      :nth-of-type(2) {
         flex: 1 1 auto;
       }
     }
