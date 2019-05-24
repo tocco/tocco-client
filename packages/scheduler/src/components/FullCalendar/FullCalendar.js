@@ -32,7 +32,7 @@ class FullCalendar extends React.Component {
   }
 
   getLicense = () => {
-    const licence = process.env.SCHEDULER_LICENCE
+    const licence = process.env.FULL_CALENDAR_LICENCE
     if (licence) return licence
     consoleLogger.logWarning('This Version runs with the NonCommercial FullCalendar license.')
     return 'CC-Attribution-NonCommercial-NoDerivatives' // noncommercial license
