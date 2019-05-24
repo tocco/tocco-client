@@ -3,12 +3,12 @@ export default {
   prompts: [{
     type: 'input',
     name: 'CYPRESS_LOGIN',
-    message: 'CYPRESS_LOGIN?'
+    message: 'CYPRESS_LOGIN:'
   },
   {
     type: 'input',
-    name: 'SCHEDULER_LICENCE',
-    message: 'SCHEDULER_LICENCE?'
+    name: 'FULL_CALENDAR_LICENCE',
+    message: 'FULL_CALENDAR_LICENCE (Setting this is optional for local development but mandatory for releases):'
   }],
   actions: [{
     type: 'add',
