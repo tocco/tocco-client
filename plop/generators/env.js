@@ -1,5 +1,5 @@
 export default {
-  description: 'Create environment keys in a .env file',
+  description: 'Create environment variables in a .env file',
   prompts: [{
     type: 'input',
     name: 'CYPRESS_LOGIN',
