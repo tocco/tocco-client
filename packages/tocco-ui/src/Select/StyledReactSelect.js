@@ -88,7 +88,8 @@ const reactSelectStyles = outerTheme => {
       }
     }),
     input: (base, state) => ({
-      margin: `0 ${space2} 0 0`
+      margin: `0 ${space2} 0 0`,
+      minHeight: '2.6rem'
     }),
     menuList: (base, state) => ({
       ...base,
