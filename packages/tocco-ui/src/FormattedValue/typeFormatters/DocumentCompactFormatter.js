@@ -1,7 +1,11 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import {download} from 'tocco-util'
 
 import ButtonLink from '../../ButtonLink'
+
+const getDownloadUrl = binaryLink =>
+  download.addParameterToURL(binaryLink, 'download', true)
 
 const DocumentCompactFormatter = props => (
   <ButtonLink
@@ -9,7 +13,7 @@ const DocumentCompactFormatter = props => (
     download={props.value.fileName}
     icon="download"
     look="raised"
-    href={props.value.binaryLink}
+    href={getDownloadUrl(props.value.binaryLink)}
     stopPropagation={true}
   />
 )
