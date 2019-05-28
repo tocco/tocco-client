@@ -9,6 +9,7 @@ import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
 import CleanWebpackPlugin from 'clean-webpack-plugin'
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
 import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
+import DotEnv from 'dotenv-webpack'
 
 import config from '../config'
 import logger from './lib/logger'
@@ -89,8 +90,8 @@ webpackConfig.plugins = [
     collections: true
   }),
   // prevent all moment locales from being loaded when importing momentjs
-  new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /de|en|fr|it/)
-
+  new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /de|en|fr|it/),
+  new DotEnv()
 ]
 
 if (!__CI__) {

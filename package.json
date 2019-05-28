@@ -20,7 +20,9 @@
     "commitmsg": "babel-node scripts/msg-validation",
     "precommit": "npm run lint",
     "release-package": "yarn setup && ./scripts/release-package.sh",
-    "storybook": "start-storybook -s ./storybook/assets -p 3003 -c ./storybook"
+    "storybook": "start-storybook -s ./storybook/assets -p 3003 -c ./storybook",
+    "cypress:localhost": "CYPRESS_BASE_URL=http://localhost:3003 yarn cypress open",
+    "cypress:master": "yarn cypress open"
   },
   "author": "Tocco AG",
   "license": "AGPL-3.0+",
@@ -72,6 +74,9 @@
     "compression": "1.7.2",
     "copy-webpack-plugin": "4.5.2",
     "css-loader": "0.28.11",
+    "cypress": "^3.2.0",
+    "dotenv": "^6.2.0",
+    "dotenv-webpack": "^1.7.0",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.7.0",
     "es6-error": "4.1.1",
