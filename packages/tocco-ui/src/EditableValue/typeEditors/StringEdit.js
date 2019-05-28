@@ -16,11 +16,12 @@ const StringEdit = props => {
   return (
     <StyledEditableWrapper readOnly={props.readOnly}>
       <StyledStringEdit
-        name={props.name}
-        value={value}
-        onChange={handleChange}
-        id={props.id}
         disabled={props.readOnly}
+        id={props.id}
+        name={props.name}
+        onChange={handleChange}
+        readOnly={props.readOnly}
+        value={value}
       />
     </StyledEditableWrapper>
   )

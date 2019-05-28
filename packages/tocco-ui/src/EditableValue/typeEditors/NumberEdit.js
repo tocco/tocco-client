@@ -55,6 +55,7 @@ const NumberEdit = (props, context) => {
         isNumericString={true}
         name={props.name}
         onValueChange={handleChange}
+        readOnly={props.readOnly}
         thousandSeparator={thousandSeparator}
         value={props.value}
         {...numberFormatOptions}

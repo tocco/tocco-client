@@ -15,13 +15,14 @@ const TextEdit = props => {
   return (
     <StyledEditableWrapper readOnly={props.readOnly}>
       <StyledTextareaAutosize
-        rows={2}
+        disabled={props.readOnly}
+        id={props.id}
         maxRows={20}
         name={props.name}
         onChange={handleChange}
-        id={props.id}
+        readOnly={props.readOnly}
+        rows={2}
         value={value}
-        disabled={props.readOnly}
       />
     </StyledEditableWrapper>
   )

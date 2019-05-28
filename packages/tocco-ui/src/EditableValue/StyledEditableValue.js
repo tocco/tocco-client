@@ -10,6 +10,7 @@ import {
 
 const StyledEditableWrapperCss = css`
   align-items: center;
+  cursor: ${props => props.readOnly ? 'not-allowed' : 'default'};
   display: flex;
 `
 
@@ -23,7 +24,7 @@ const StyledEditableWrapper = styled.label`
 const StyledInputCss = css`
   background-color: transparent;
   border: 0;
-  cursor: inherit;
+  cursor: ${props => props.readOnly ? 'not-allowed' : 'default'};
   flex-grow: 1;
   min-height: 2.6rem;
   min-width: 0;
