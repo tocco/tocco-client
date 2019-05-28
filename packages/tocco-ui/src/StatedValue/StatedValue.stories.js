@@ -61,7 +61,7 @@ class StatedValueWrapper extends React.Component {
           style={{
             border: 0,
             cursor: knobs.immutable && !knobs.isDisplay ? 'not-allowed' : 'auto',
-            color: knobs.immutable && !knobs.isDisplay ? '#909090' : '#000',
+            color: knobs.immutable && !knobs.isDisplay ? '#545454' : '#000',
             outline: 0,
             transition: 'color 200ms',
             width: '100%'
