@@ -8,7 +8,9 @@ import {
   transparentize
 } from 'polished'
 
-import {design} from '../utilStyles'
+import {
+  design
+} from '../utilStyles'
 
 const colorSchemes = {
   flatBase: {
@@ -69,8 +71,8 @@ const declareInteractionColors = (colors, format = design.format.HTML) => {
     }
 
     &:disabled {
-      ${fillProperty}: ${generateDisabledShade(colors.bg[0])};
-      ${strokeProperty}: ${generateDisabledShade(colors.fg[0])};
+      ${fillProperty}: ${tint(0.5, colors.bg[0])};
+      ${strokeProperty}: ${tint(0.5, colors.fg[0])};
     }
   `
 }
@@ -152,7 +154,7 @@ const shadeColor = (color = design.fallbackColors.SHADE, step = 1, options = {})
   }
 }
 
-const generateDisabledShade = color => tint(0.5, color)
+const generateDisabledShade = color => shadeColor(color, 3, {action: 'lighten'})
 
 export {
   declareFocus,
