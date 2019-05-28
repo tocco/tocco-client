@@ -1,34 +1,41 @@
 import styled, {css} from 'styled-components'
-import _get from 'lodash/get'
 
 import {
+  colorizeBorder,
+  colorizeText,
   declareFocus,
   declareFont,
-  generateDisabledShade,
   scale,
-  shadeColor,
   theme as getTheme
 } from '../utilStyles'
 
 const BORDER_WIDTH = '1px'
 const ANIMATION_DURATION = '200ms'
 
-const getTextColor = ({immutable, isDisplay, theme, signal}) => {
-  const color = isDisplay
-    ? getTheme.color('text')({theme})
-    : signal
-      ? getTheme.color(`signal.${signal}.text`)({theme})
-      : getTheme.color('text')({theme})
-  return !isDisplay && immutable ? generateDisabledShade(color) : color
+const getTextColor = ({immutable, isDisplay, secondaryPosition, signal}) => {
+  return isDisplay
+    ? secondaryPosition
+      ? 'shade0'
+      : 'shade1'
+    : immutable
+      ? secondaryPosition
+        ? 'shade1'
+        : 'shade2'
+      : signal
+        ? 'signal'
+        : secondaryPosition
+          ? 'shade0'
+          : 'shade1'
 }
 
-const getBorderColor = ({immutable, isDisplay, theme, signal}) => {
-  const color = isDisplay
+const getBorderColor = ({immutable, isDisplay, secondaryPosition, signal}) => {
+  return isDisplay
     ? 'transparent'
-    : signal
-      ? getTheme.color(`signal.${signal}.text`)({theme})
-      : shadeColor(_get(theme, 'colors.paper'), 2)
-  return !isDisplay && immutable ? generateDisabledShade(color) : color
+    : immutable
+      ? 'shade1'
+      : signal
+        ? 'signal'
+        : 'shade2'
 }
 
 const transformLabel = ({secondaryPosition, theme}) => css`
@@ -56,13 +63,13 @@ const retainSpace = ({secondaryPosition, theme}) => css`
 
 const StyledStatedValueLabel = styled.label`
   &&& {
-    ${declareFont({
+    ${props => declareFont({
     fontSize: scale.font(0),
     fontWeight: getTheme.fontWeight('regular'),
     lineHeight: 1
   })}
     background-color: ${getTheme.color('paper')};
-    color: ${props => getTextColor(props)};
+    color: ${props => colorizeText[getTextColor(props)](props)};
     left: ${scale.space(-2)};
     margin-top: calc(${scale.font(-1)} / -2);
     padding: 0 ${scale.space(-2)};
@@ -77,7 +84,7 @@ const StyledStatedValueLabel = styled.label`
 const StyledStatedValueBox = styled.div`
   &&& {
     border-radius: ${getTheme.radii('regular')};
-    border: ${BORDER_WIDTH} solid ${props => getBorderColor(props)};
+    border: ${BORDER_WIDTH} solid ${props => colorizeBorder[getBorderColor(props)](props)};
     padding: ${scale.space(-2)} ${scale.space(-1)};
     position: relative;
     ${props => declareFocus(props)}
@@ -126,6 +133,8 @@ const StyledStatedValueWrapper = styled.div`
 `
 
 export {
+  getTextColor,
+  getBorderColor,
   StyledStatedValueBox,
   StyledStatedValueDescription,
   StyledStatedValueError,
