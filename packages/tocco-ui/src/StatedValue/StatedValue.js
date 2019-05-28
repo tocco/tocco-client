@@ -69,6 +69,7 @@ const StatedValue = props => {
             {description
               && <StyledStatedValueDescription>{description}</StyledStatedValueDescription>}
             {hasError
+              && !immutable
               && <StyledStatedValueError>
                 <ErrorList error={error}/>
               </StyledStatedValueError>
