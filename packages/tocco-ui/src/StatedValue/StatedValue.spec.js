@@ -3,6 +3,8 @@ import React from 'react'
 
 import StatedValue from './StatedValue'
 import {
+  getTextColor,
+  getBorderColor,
   StyledStatedValueBox,
   StyledStatedValueDescription,
   StyledStatedValueLabel,
@@ -117,6 +119,278 @@ describe('tocco-ui', () => {
       const wrapper = mount(<StatedValue id="target-element" />)
       const el = wrapper.find(StyledStatedValueLabel)
       expect(el.prop('htmlFor')).to.be.equal('target-element')
+    })
+
+    const mapTextColorNames = [{
+      input: {
+        immutable: false,
+        isDisplay: false,
+        secondaryPosition: false,
+        signal: 'success'
+      },
+      output: 'signal'
+    }, {
+      input: {
+        immutable: false,
+        isDisplay: false,
+        secondaryPosition: false,
+        signal: undefined
+      },
+      output: 'shade1'
+    }, {
+      input: {
+        immutable: false,
+        isDisplay: false,
+        secondaryPosition: true,
+        signal: 'success'
+      },
+      output: 'signal'
+    }, {
+      input: {
+        immutable: false,
+        isDisplay: false,
+        secondaryPosition: true,
+        signal: undefined
+      },
+      output: 'shade0'
+    }, {
+      input: {
+        immutable: true,
+        isDisplay: false,
+        secondaryPosition: false,
+        signal: 'success'
+      },
+      output: 'shade2'
+    }, {
+      input: {
+        immutable: true,
+        isDisplay: false,
+        secondaryPosition: false,
+        signal: undefined
+      },
+      output: 'shade2'
+    }, {
+      input: {
+        immutable: true,
+        isDisplay: false,
+        secondaryPosition: true,
+        signal: 'success'
+      },
+      output: 'shade1'
+    }, {
+      input: {
+        immutable: true,
+        isDisplay: false,
+        secondaryPosition: true,
+        signal: undefined
+      },
+      output: 'shade1'
+    }, {
+      input: {
+        immutable: false,
+        isDisplay: true,
+        secondaryPosition: false,
+        signal: 'success'
+      },
+      output: 'shade1'
+    }, {
+      input: {
+        immutable: false,
+        isDisplay: true,
+        secondaryPosition: false,
+        signal: undefined
+      },
+      output: 'shade1'
+    }, {
+      input: {
+        immutable: false,
+        isDisplay: true,
+        secondaryPosition: true,
+        signal: 'success'
+      },
+      output: 'shade0'
+    }, {
+      input: {
+        immutable: false,
+        isDisplay: true,
+        secondaryPosition: true,
+        signal: undefined
+      },
+      output: 'shade0'
+    }, {
+      input: {
+        immutable: true,
+        isDisplay: true,
+        secondaryPosition: false,
+        signal: 'success'
+      },
+      output: 'shade1'
+    }, {
+      input: {
+        immutable: true,
+        isDisplay: true,
+        secondaryPosition: false,
+        signal: undefined
+      },
+      output: 'shade1'
+    }, {
+      input: {
+        immutable: true,
+        isDisplay: true,
+        secondaryPosition: true,
+        signal: 'success'
+      },
+      output: 'shade0'
+    }, {
+      input: {
+        immutable: true,
+        isDisplay: true,
+        secondaryPosition: true,
+        signal: undefined
+      },
+      output: 'shade0'
+    }]
+
+    test('should get correct name of color for text', () => {
+      mapTextColorNames.map(item => {
+        expect(getTextColor(item.input)).to.be.equal(item.output)
+      })
+    })
+
+    const mapBorderColorNames = [{
+      input: {
+        immutable: false,
+        isDisplay: false,
+        secondaryPosition: false,
+        signal: 'success'
+      },
+      output: 'signal'
+    }, {
+      input: {
+        immutable: false,
+        isDisplay: false,
+        secondaryPosition: false,
+        signal: undefined
+      },
+      output: 'shade2'
+    }, {
+      input: {
+        immutable: false,
+        isDisplay: false,
+        secondaryPosition: true,
+        signal: 'success'
+      },
+      output: 'signal'
+    }, {
+      input: {
+        immutable: false,
+        isDisplay: false,
+        secondaryPosition: true,
+        signal: undefined
+      },
+      output: 'shade2'
+    }, {
+      input: {
+        immutable: true,
+        isDisplay: false,
+        secondaryPosition: false,
+        signal: 'success'
+      },
+      output: 'shade1'
+    }, {
+      input: {
+        immutable: true,
+        isDisplay: false,
+        secondaryPosition: false,
+        signal: undefined
+      },
+      output: 'shade1'
+    }, {
+      input: {
+        immutable: true,
+        isDisplay: false,
+        secondaryPosition: true,
+        signal: 'success'
+      },
+      output: 'shade1'
+    }, {
+      input: {
+        immutable: true,
+        isDisplay: false,
+        secondaryPosition: true,
+        signal: undefined
+      },
+      output: 'shade1'
+    }, {
+      input: {
+        immutable: false,
+        isDisplay: true,
+        secondaryPosition: true,
+        signal: undefined
+      },
+      output: 'transparent'
+    }, {
+      input: {
+        immutable: false,
+        isDisplay: true,
+        secondaryPosition: false,
+        signal: 'success'
+      },
+      output: 'transparent'
+    }, {
+      input: {
+        immutable: false,
+        isDisplay: true,
+        secondaryPosition: false,
+        signal: undefined
+      },
+      output: 'transparent'
+    }, {
+      input: {
+        immutable: false,
+        isDisplay: true,
+        secondaryPosition: true,
+        signal: 'success'
+      },
+      output: 'transparent'
+    }, {
+      input: {
+        immutable: true,
+        isDisplay: true,
+        secondaryPosition: false,
+        signal: 'success'
+      },
+      output: 'transparent'
+    }, {
+      input: {
+        immutable: true,
+        isDisplay: true,
+        secondaryPosition: false,
+        signal: undefined
+      },
+      output: 'transparent'
+    }, {
+      input: {
+        immutable: true,
+        isDisplay: true,
+        secondaryPosition: true,
+        signal: 'success'
+      },
+      output: 'transparent'
+    }, {
+      input: {
+        immutable: true,
+        isDisplay: true,
+        secondaryPosition: true,
+        signal: undefined
+      },
+      output: 'transparent'
+    }]
+
+    test('should get correct name of color for borders', () => {
+      mapBorderColorNames.map(item => {
+        expect(getBorderColor(item.input)).to.be.equal(item.output)
+      })
     })
   })
 })
