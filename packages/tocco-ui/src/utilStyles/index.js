@@ -1,4 +1,8 @@
 import assertObjectValuesMatchOtherObjectKeys from './assertObjectValuesMatchOtherObjectKeys'
+import {
+  colorizeBorder,
+  colorizeText
+} from './colorMap'
 import declareDensity from './declareDensity'
 import {
   declareFocus,
@@ -23,6 +27,8 @@ import design from './designConstants'
 import {validateCssDimension} from './propTypesValidator'
 export {
   assertObjectValuesMatchOtherObjectKeys,
+  colorizeBorder,
+  colorizeText,
   declareDensity,
   declareFocus,
   declareFont,
