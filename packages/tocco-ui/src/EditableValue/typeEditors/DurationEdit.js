@@ -116,6 +116,7 @@ class DurationEdit extends React.Component {
         <StyledDurationEditFocusable disabled={this.props.readOnly}>
           <StyledDurationEdit
             disabled={this.props.readOnly}
+            readOnly={this.props.readOnly}
             min={0}
             onChange={() => {}} // Empty onChange function to prevent React internal error
             onFocus={this.handleOnFocus}
@@ -132,6 +133,7 @@ class DurationEdit extends React.Component {
         <StyledDurationEditFocusable disabled={this.props.readOnly}>
           <StyledDurationEdit
             disabled={this.props.readOnly}
+            readOnly={this.props.readOnly}
             onChange={() => {}} // Empty onChange function to prevent React internal error
             onFocus={this.handleOnFocus}
             onInput={this.handleMinutesChange}

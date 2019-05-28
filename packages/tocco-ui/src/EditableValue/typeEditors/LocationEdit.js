@@ -65,9 +65,10 @@ class LocationEdit extends React.Component {
       <FocusWithin>
         {({focused, getRef}) => {
           return <StyledLocationEdit
-            name={this.props.name}
-            id={this.props.id}
             disabled={this.props.readOnly}
+            id={this.props.id}
+            name={this.props.name}
+            readOnly={this.props.readOnly}
             ref={getRef}
           >
             <Autosuggest

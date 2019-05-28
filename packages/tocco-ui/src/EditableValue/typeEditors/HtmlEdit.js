@@ -13,6 +13,10 @@ const StyledHtmlEdit = styled.div`
 
   .ql-editor {
     ${props => declareTypograhpy(props, 'quill')}
+
+    &[contenteditable] * {
+      cursor: not-allowed;
+    }
   }
 }
 `

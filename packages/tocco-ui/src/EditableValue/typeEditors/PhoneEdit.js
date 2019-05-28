@@ -79,12 +79,13 @@ class PhoneEdit extends React.Component {
     return (
       <StyledEditableWrapper readOnly={this.props.readOnly}>
         <StyledPhoneEdit
-          ref={this.inputElement}
-          name={name}
-          value={displayValue}
-          onChange={this.handleChange}
-          id={this.props.id}
           disabled={this.props.readOnly || !this.state.libPhoneImport}
+          id={this.props.id}
+          name={name}
+          onChange={this.handleChange}
+          readOnly={this.props.readOnly || !this.state.libPhoneImport}
+          ref={this.inputElement}
+          value={displayValue}
         />
         {displayValue && <StyledEditableControl>
           <ButtonLink

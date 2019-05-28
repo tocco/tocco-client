@@ -30,11 +30,12 @@ const TimeEdit = props => {
   return (
     <StyledEditableWrapper readOnly={props.readOnly}>
       <StyledTimeEdit
-        value={timeString}
-        onChange={handleChange}
-        name={props.name}
-        id={props.id}
         disabled={props.readOnly}
+        id={props.id}
+        name={props.name}
+        onChange={handleChange}
+        readOnly={props.readOnly}
+        value={timeString}
       />
       {showClearButton && <StyledEditableControl>
         <Button
