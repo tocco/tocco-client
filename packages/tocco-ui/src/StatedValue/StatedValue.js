@@ -29,6 +29,7 @@ const StatedValue = props => {
     children,
     description,
     dirty,
+    fixLabel,
     isDisplay,
     error,
     hasValue,
@@ -47,7 +48,7 @@ const StatedValue = props => {
   return (
     <FocusWithin>
       {({focused, getRef}) => {
-        const secondaryPosition = (!immutable && focused) || hasValue || isDisplay
+        const secondaryPosition = (!immutable && focused) || hasValue || isDisplay || fixLabel
         return (
           <StyledStatedValueWrapper
             ref={getRef}
@@ -104,6 +105,10 @@ StatedValue.propTypes = {
   error: PropTypes.objectOf(PropTypes.arrayOf(
     PropTypes.oneOfType([PropTypes.node, PropTypes.string]))
   ),
+  /**
+   * Force label on secondaryPosition.
+   */
+  fixLabel: PropTypes.bool,
   /**
    * If true label is moved to uncover value.
    */

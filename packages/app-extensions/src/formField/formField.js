@@ -79,12 +79,13 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
           hasValue={hasValue}
           id={id}
           immutable={readOnly}
-          isDisplay={fixLabel || isDisplay}
+          isDisplay={isDisplay}
           key={id}
           label={formDefinitionField.label}
           mandatory={mandatory}
           mandatoryTitle={resources.mandatoryTitle}
           touched={touched}
+          fixLabel={fixLabel}
           formField={formDefinitionField}
         >
           <ValueField
