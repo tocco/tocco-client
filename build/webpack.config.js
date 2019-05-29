@@ -82,7 +82,7 @@ webpackConfig.output = {
 // Plugins
 // ------------------------------------
 webpackConfig.plugins = [
-  new CleanWebpackPlugin(['dist'], {root: absolutePackagePath, verbose: false}),
+  new CleanWebpackPlugin(),
   new webpack.DefinePlugin(config.globals),
   new LodashModuleReplacementPlugin({
     shorthands: true,
