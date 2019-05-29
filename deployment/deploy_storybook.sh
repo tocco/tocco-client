@@ -39,6 +39,6 @@ git config user.email "$COMMIT_AUTHOR_EMAIL"
 
 git add -A
 rev=$(git rev-parse --short HEAD)
-git commit -m "rebuild storybook at ${rev}"
+git diff-index --quiet HEAD || git commit -m "rebuild storybook at ${rev}"
 
 git push -q git@github.com:tocco/tocco-client.git HEAD:$PAGES_BRANCH
