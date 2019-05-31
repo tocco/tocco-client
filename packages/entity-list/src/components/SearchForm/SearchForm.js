@@ -88,7 +88,11 @@ class SearchForm extends React.Component {
               onClick={this.handleResetClick}
             />
             {!props.disableSimpleSearch
-            && <span style={{float: 'right'}} title={this.msg('client.entity-list.extendedSearch')}>
+            && <span
+              style={{float: 'right'}}
+              title={this.msg('client.entity-list.extendedSearch')}
+              data-cy="extend-search-button"
+            >
               <Button
                 icon={`chevron-${this.props.showExtendedSearchForm ? 'up' : 'down'}`}
                 iconPosition="sole"

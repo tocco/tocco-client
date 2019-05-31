@@ -83,7 +83,7 @@ export default (type, value, options, id, events, readOnly = false) => {
     }
 
     return (
-      <div {..._omit(events, 'onChange')}>
+      <div {..._omit(events, 'onChange')} data-cy="cypress-form-field">
         <Component
           value={value}
           onChange={v => {
