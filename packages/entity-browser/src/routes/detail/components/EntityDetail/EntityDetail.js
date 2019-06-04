@@ -68,7 +68,7 @@ class EntityDetail extends React.Component {
           {this.props.detailParams
           && <div>
             {this.props.detailParams.showBackButton
-            && <div style={{marginBottom: '.5em'}}>
+            && <div style={{marginBottom: '.5em'}} data-cy="entity-detail_back-button">
               <Button
                 icon="chevron-left"
                 label={this.msg('client.entity-browser.back')}

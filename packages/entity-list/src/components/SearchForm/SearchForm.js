@@ -74,14 +74,14 @@ class SearchForm extends React.Component {
           mode="search"
         />
         <div className="row" style={{marginBottom: '1em'}}>
-          <div className="col-sm-9 col-sm-push-3">
+          <div className="col-sm-9 col-sm-push-3" data-cy="search-form_submit-button">
             <Button
               ink="primary"
               label={this.msg('client.entity-list.search')}
               look="raised"
               type="submit"
             />
-            <span style={{display: 'inline-block', width: '.5em'}}/>
+            <span style={{display: 'inline-block', width: '.5em'}} data-cy="search-form_reset-button"/>
             <Button
               label={this.msg('client.entity-list.reset')}
               look="raised"

@@ -91,7 +91,7 @@ export class DetailForm extends React.Component {
             componentMapping={{[form.componentTypes.SUB_TABLE]: SubGrid}}
           />
           {!this.isReadOnlyForm()
-          && <div>
+          && <div data-cy="detail-form_submit-button">
             {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
             <Button
               disabled={props.submitting || (props.anyTouched && !props.valid)}
