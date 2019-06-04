@@ -35,13 +35,13 @@ describe('Entity Browser', function() {
       cy.get('input#input-detailForm-callname')
         .type('{selectall}{del}Test Callname')
         .should('have.value', 'Test Callname')
-      cy.contains('Speichern')
+      cy.get('[data-cy=detail-form_submit-button]').children().first()
         .click()
       cy.contains('Zuletzt gespeichert')
     })
 
     it('should change page back to list view without warning', function() {
-      cy.get('button').first()
+      cy.get('[data-cy=entity-detail_back-button]').children().first().children().first()
         .click()
       cy.get('[data-list-cell]').should('have.length.above', 10)
     })
@@ -49,7 +49,7 @@ describe('Entity Browser', function() {
     it('should display warning on changing page back to list view on edited form', function() {
       cy.get('input#input-detailForm-callname')
         .type('{selectall}{del}')
-      cy.get('button').first()
+      cy.get('[data-cy=entity-detail_back-button]').children().first().children().first()
         .click()
       cy.contains('ungespeicherte Änderungen')
     })
@@ -67,7 +67,7 @@ describe('Entity Browser', function() {
       cy.get('[data-cy=cypress-form-field]').children().children()
         .type('Test Person')
       cy.contains('Daten werden geladen...')
-      cy.get('button').next().next()
+      cy.get('[data-cy=search-form_reset-button]').next().children().first()
         .click()
       cy.get('[data-list-cell]').should('have.length.above', 10)
     })
