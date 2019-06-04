@@ -74,7 +74,7 @@ webpackConfig.output = {
   chunkFilename: '[name]-chunk-[chunkhash:6].js',
   path: outputDir,
   libraryTarget: 'umd',
-  publicPath: '',
+  publicPath: '/',
   jsonpFunction: __PACKAGE__ + 'jsonp'
 }
 
