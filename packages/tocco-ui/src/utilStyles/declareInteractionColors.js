@@ -154,7 +154,7 @@ const shadeColor = (color = design.fallbackColors.SHADE, step = 1, options = {})
   }
 }
 
-const generateDisabledShade = color => shadeColor(color, 3, {action: 'lighten'})
+const generateDisabledShade = color => shadeColor(color, 5, {action: 'lighten'})
 
 export {
   declareFocus,
