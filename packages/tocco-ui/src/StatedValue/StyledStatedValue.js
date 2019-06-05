@@ -41,13 +41,15 @@ const transformLabel = ({secondaryPosition, theme}) => css`
     transition: color ${ANIMATION_DURATION},
                 font-size ${ANIMATION_DURATION},
                 font-weight ${ANIMATION_DURATION},
+                margin-top ${ANIMATION_DURATION},
                 top ${ANIMATION_DURATION};
-    will-change: color, font-size, font-weight, top;
+    will-change: color, font-size, font-weight, margin-top, top;
 
     ${secondaryPosition && css`
       top: 0%;
       font-size: ${scale.font(-1)};
       font-weight: ${getTheme.fontWeight('bold')};
+      margin-top: calc(${scale.font(-1)} / -2);
     `}
 `
 
@@ -69,7 +71,7 @@ const StyledStatedValueLabel = styled.label`
     background-color: ${getTheme.color('paper')};
     color: ${props => colorizeText[getTextColor(props)](props)};
     left: ${scale.space(-2)};
-    margin-top: calc(${scale.font(-1)} / -2);
+    margin-top: calc(${scale.font(0)} / -2);
     padding: 0 ${scale.space(-2)};
     position: absolute;
     top: 50%;
