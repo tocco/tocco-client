@@ -2,8 +2,13 @@ export default {
   description: 'Create secret environment variables in a .env file',
   prompts: [{
     type: 'input',
-    name: 'CYPRESS_LOGIN',
-    message: 'CYPRESS_LOGIN:'
+    name: 'CYPRESS_USER',
+    message: 'CYPRESS_USER:'
+  },
+  {
+    type: 'input',
+    name: 'CYPRESS_PASSWORD',
+    message: 'CYPRESS_PASSWORD:'
   },
   {
     type: 'input',
