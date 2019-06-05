@@ -176,7 +176,7 @@ describe('tocco-ui', () => {
         secondaryPosition: true,
         signal: 'success'
       },
-      output: 'shade1'
+      output: 'shade2'
     }, {
       input: {
         immutable: true,
@@ -184,7 +184,7 @@ describe('tocco-ui', () => {
         secondaryPosition: true,
         signal: undefined
       },
-      output: 'shade1'
+      output: 'shade2'
     }, {
       input: {
         immutable: false,
