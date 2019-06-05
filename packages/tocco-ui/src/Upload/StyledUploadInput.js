@@ -1,19 +1,17 @@
 import styled from 'styled-components'
-import _get from 'lodash/get'
 
 import {
+  colorizeText,
   declareFont,
   scale,
-  shadeColor,
   theme
 } from '../utilStyles'
 
 const StyledUploadInput = styled.div`
   ${declareFont()}
   cursor: ${props => props.readOnly ? 'not-allowed' : 'pointer'};
-  background-color: ${props => props.readOnly
-    ? shadeColor(_get(props.theme, 'colors.paper'), 1)
-    : theme.color('paper')};
+  background-color: ${theme.color('paper')};
+  color: ${props => props.readOnly ? colorizeText.shade1(props) : colorizeText.shade0(props)};
   padding: ${scale.space(-2)} 0 0 0;
 `
 
