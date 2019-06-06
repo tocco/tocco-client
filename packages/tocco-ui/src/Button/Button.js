@@ -23,6 +23,7 @@ const Button = props => {
       title={props.title}
       type={props.type}
       tabIndex={props.tabIndex}
+      data-cy={props['data-cy']}
     >
       {props.icon && !props.pending && <Icon
         dense={props.dense}
@@ -118,7 +119,11 @@ Button.propTypes = {
    * Tabindex indicates if the button can be focused and if/where it participates
    * in sequential keyboard navigation.
    */
-  tabIndex: PropTypes.number
+  tabIndex: PropTypes.number,
+  /**
+   * cypress selector string
+   */
+  'data-cy': PropTypes.string
 }
 
 export default Button
