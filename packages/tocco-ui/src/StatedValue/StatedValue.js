@@ -59,7 +59,7 @@ const StatedValue = props => {
               signal={signal}>
               {children}
               <StyledStatedValueLabel
-                {...(!isDisplay && !immutable) ? {htmlFor: id} : {}}
+                {...!isDisplay && !immutable && {htmlFor: id}}
                 alt={labelAlt}
                 secondaryPosition={secondaryPosition}
                 immutable={immutable}
