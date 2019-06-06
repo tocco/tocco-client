@@ -72,7 +72,7 @@ Upload.propTypes = {
   /**
    * Can user upload new files or just view existing
    */
-  readOnly: PropTypes.bool,
+  immutable: PropTypes.bool,
   /**
    * Allows to overwrite texts of the component
    */

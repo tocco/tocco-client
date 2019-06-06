@@ -21,7 +21,7 @@ const View = props => (
         tabIndex={-1}
         title={props.downloadTitle || 'download'}
       />
-      {!props.readOnly
+      {!props.immutable
       && <Button
         icon="times"
         iconPosition="sole"
@@ -43,7 +43,7 @@ const View = props => (
 )
 
 View.propTypes = {
-  readOnly: PropTypes.bool,
+  immutable: PropTypes.bool,
   onUpload: PropTypes.func,
   value: PropTypes.shape({
     fileName: PropTypes.string.isRequired,

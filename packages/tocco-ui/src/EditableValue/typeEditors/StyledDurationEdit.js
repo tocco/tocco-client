@@ -28,8 +28,8 @@ const StyledDurationEditFocusable = styled.label`
     }
 
     > span {
-      color: ${props => props.disabled ? generateDisabledShade(_get(props.theme, 'colors.text')) : theme.color('text')}
-      cursor: ${props => props.disabled ? 'not-allowed' : 'default'}
+      color: ${props => props.immutable ? generateDisabledShade(_get(props.theme, 'colors.text')) : theme.color('text')}
+      cursor: ${props => props.immutable ? 'not-allowed' : 'default'}
     }
   }
 `

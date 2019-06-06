@@ -92,7 +92,7 @@ export default (type, value, options, id, events, readOnly = false) => {
           }}
           {...(_isEmpty(options) ? {} : {options})}
           id={id}
-          readOnly={readOnly}
+          immutable={readOnly}
           events={events}
         />
       </div>

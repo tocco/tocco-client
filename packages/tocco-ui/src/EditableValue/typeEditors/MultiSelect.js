@@ -6,7 +6,7 @@ import Select from '../../Select'
 const MultiSelect = props => (
   <Select
     isMulti={true}
-    readOnly={props.readOnly}
+    immutable={props.immutable}
     onChange={props.onChange}
     value={props.value}
     openMenuOnClick
@@ -29,7 +29,7 @@ MultiSelect.propTypes = {
     tooltips: PropTypes.objectOf(PropTypes.string),
     loadTooltip: PropTypes.func
   }),
-  readOnly: PropTypes.bool,
+  immutable: PropTypes.bool,
   id: PropTypes.string
 }
 

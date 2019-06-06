@@ -45,7 +45,7 @@ class DateAbstract extends React.Component {
       onChange: this.handleOnChange,
       altInput: true,
       altInputClass: '',
-      clickOpens: !this.props.readOnly,
+      clickOpens: !this.props.immutable,
       defaultDate: this.props.value,
       ...(locale ? {locale} : {}),
       ...(this.props.options ? this.props.options.flatpickrOptions : {})
@@ -111,7 +111,7 @@ class DateAbstract extends React.Component {
   }
 
   handleButtonVisibility = () => {
-    this.setState({hideButton: !this.hasValue() && !this.props.readOnly})
+    this.setState({hideButton: !this.hasValue() && !this.props.immutable})
   }
 
   render() {
@@ -119,21 +119,23 @@ class DateAbstract extends React.Component {
       <StyledDateAbstractWrapper
         data-wrap
         onBlur={this.handleOnBlur}
-        readOnly={this.props.readOnly}
+        immutable={this.props.immutable}
         ref={this.wrapper}
       >
         <StyledDateAbstractInput
           type="text"
           data-input
+          immutable={this.props.immutable}
           {...(this.props.options ? {placeholder: this.props.options.placeholderText} : {})}
         />
         <StyledDateAbstractInput
           disabled
+          immutable={this.props.immutable}
           value={this.flatpickr ? this.flatpickr.altInput.value : ''}
         />
         <StyledDateAbstractControl
           data-clear
-          hideButton={this.state.hideButton || this.props.readOnly}
+          hideButton={this.state.hideButton || this.props.immutable}
         >
           <Button
             icon="times"
@@ -155,7 +157,7 @@ DateAbstract.propTypes = {
     placeholderText: PropTypes.string,
     flatpickrOptions: PropTypes.object
   }),
-  readOnly: PropTypes.bool,
+  immutable: PropTypes.bool,
   initialized: PropTypes.func,
   events: PropTypes.shape({
     onFocus: PropTypes.func
