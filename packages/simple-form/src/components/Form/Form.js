@@ -27,7 +27,7 @@ class Form extends React.Component {
     })
 
   render = () => (
-    <form onSubmit={this.props.handleSubmit(this.handleSubmit)} className="form form-horizontal">
+    <form onSubmit={this.props.handleSubmit(this.handleSubmit)}>
       <form.FormBuilder
         entity={undefined}
         model={this.props.model}
