@@ -1,14 +1,7 @@
 import React from 'react'
 import {mount} from 'enzyme'
-import {ThemeProvider} from 'styled-components'
 
 import PhoneEdit from './PhoneEdit'
-
-const theme = {
-  colors: {
-    text: '#212121'
-  }
-}
 
 describe('tocco-ui', () => {
   describe('EditableValue', () => {
@@ -17,9 +10,7 @@ describe('tocco-ui', () => {
         test('should call on change with phone number in e.164 format', () => {
           const onChangeSpy = sinon.spy()
           const wrapper = mount(
-            <ThemeProvider theme={theme}>
-              <PhoneEdit value="0792345678" onChange={onChangeSpy}/>
-            </ThemeProvider>
+            <PhoneEdit value="0792345678" onChange={onChangeSpy}/>
           )
           return wrapper.find(PhoneEdit).instance().importLibPhoneNumber().then(() => {
             wrapper.find('input').simulate('change', {target: {value: '0793456789'}})
