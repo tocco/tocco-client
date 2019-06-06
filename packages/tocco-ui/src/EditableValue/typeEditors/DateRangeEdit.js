@@ -32,7 +32,7 @@ export const DateRangeEdit = props => {
     <DateAbstract
       value={value}
       onChange={handleChange}
-      readOnly={props.readOnly}
+      immutable={props.immutable}
       options={{...props.options, flatpickrOptions}}
       events={props.events}
     />
@@ -46,7 +46,7 @@ DateRangeEdit.propTypes = {
     from: PropTypes.string,
     to: PropTypes.string
   }),
-  readOnly: PropTypes.bool,
+  immutable: PropTypes.bool,
   options: PropTypes.shape({
     placeholderText: PropTypes.string,
     flatpickrOptions: PropTypes.object

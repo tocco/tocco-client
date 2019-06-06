@@ -9,9 +9,9 @@ import {
 const StyledDateAbstractControl = styled.div`
   && {
     ${StyledEditableControlCss}
-  ${props => props.hideButton && `
-    display: none;
-  `}
+    ${props => props.hideButton && `
+      display: none;
+    `}
   }
 `
 
@@ -26,10 +26,10 @@ const StyledDateAbstractWrapper = styled.div`
     ${StyledEditableWrapperCss}
 
     input {
-      display: ${props => props.readOnly ? 'none' : 'block'}
+      display: ${props => props.immutable ? 'none' : 'block'}
 
       &:last-of-type {
-        display: ${props => props.readOnly ? 'block' : 'none'}
+        display: ${props => props.immutable ? 'block' : 'none'}
       }
     }
   }

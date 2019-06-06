@@ -28,13 +28,13 @@ const StringEdit = props => {
   }
 
   return (
-    <StyledEditableWrapper readOnly={props.readOnly}>
+    <StyledEditableWrapper immutable={props.immutable}>
       <StyledUrlEdit
-        disabled={props.readOnly}
+        disabled={props.immutable}
         id={props.id}
+        immutable={props.immutable}
         name={props.name}
         onChange={handleChange}
-        readOnly={props.readOnly}
         value={value}
       />
       {value && <StyledEditableControl>
@@ -56,7 +56,7 @@ StringEdit.propTypes = {
   value: PropTypes.node,
   name: PropTypes.string,
   id: PropTypes.string,
-  readOnly: PropTypes.bool
+  immutable: PropTypes.bool
 }
 
 export default StringEdit

@@ -77,13 +77,13 @@ class PhoneEdit extends React.Component {
     const displayValue = this.determineDisplayValue()
 
     return (
-      <StyledEditableWrapper readOnly={this.props.readOnly}>
+      <StyledEditableWrapper immutable={this.props.immutable}>
         <StyledPhoneEdit
-          disabled={this.props.readOnly || !this.state.libPhoneImport}
+          disabled={this.props.immutable || !this.state.libPhoneImport}
           id={this.props.id}
           name={name}
           onChange={this.handleChange}
-          readOnly={this.props.readOnly || !this.state.libPhoneImport}
+          immutable={this.props.immutable || !this.state.libPhoneImport}
           ref={this.inputElement}
           value={displayValue}
         />
@@ -106,7 +106,7 @@ PhoneEdit.propTypes = {
   value: PropTypes.node,
   name: PropTypes.string,
   id: PropTypes.string,
-  readOnly: PropTypes.bool,
+  immutable: PropTypes.bool,
   options: PropTypes.shape({
     defaultCountry: PropTypes.string,
     customPhoneRegex: PropTypes.string

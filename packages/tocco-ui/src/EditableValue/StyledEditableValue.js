@@ -10,7 +10,7 @@ import {
 
 const StyledEditableWrapperCss = css`
   align-items: center;
-  cursor: ${props => props.readOnly ? 'not-allowed' : 'default'};
+  cursor: ${props => props.immutable ? 'not-allowed' : 'default'};
   display: flex;
 `
 
@@ -24,14 +24,14 @@ const StyledEditableWrapper = styled.label`
 const StyledInputCss = css`
   background-color: transparent;
   border: 0;
-  cursor: ${props => props.readOnly ? 'not-allowed' : 'default'};
+  cursor: ${props => props.immutable ? 'not-allowed' : 'default'};
   flex-grow: 1;
   min-height: 2.6rem;
   min-width: 0;
   outline: 0;
   padding: 0;
   ${props => declareFont({
-    color: props.disabled ? generateDisabledShade(_get(props.theme, 'colors.text')) : theme.color('text')
+    color: props.immutable ? generateDisabledShade(_get(props.theme, 'colors.text')) : theme.color('text')
   })}
   &::-ms-clear {
     display: none;

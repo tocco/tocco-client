@@ -5,7 +5,7 @@ import Select from '../../Select'
 
 const SearchFilterEdit = props => (
   <Select
-    readOnly={props.readOnly}
+    immutable={props.immutable}
     onChange={props.onChange}
     value={props.value}
     {...props.options}
@@ -34,7 +34,7 @@ SearchFilterEdit.propTypes = {
         label: PropTypes.string
       }))
   }).isRequired,
-  readOnly: PropTypes.bool,
+  immutable: PropTypes.bool,
   id: PropTypes.string
 }
 

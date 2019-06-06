@@ -11,10 +11,10 @@ const UploadInput = props => {
     props.onDrop(files[0])
   }
 
-  return <StyledUploadInput readOnly={props.readOnly}>
+  return <StyledUploadInput immutable={props.immutable}>
     <Dropzone
       className="dropzone"
-      disabled={props.readOnly}
+      disabled={props.immutable}
       multiple={false}
       onDrop={onDrop}
     >
@@ -28,7 +28,7 @@ const UploadInput = props => {
 }
 
 UploadInput.propTypes = {
-  readOnly: PropTypes.bool,
+  immutable: PropTypes.bool,
   onDrop: PropTypes.func.isRequired,
   text: PropTypes.string
 }

@@ -88,7 +88,7 @@ export class Select extends React.Component {
         onFocus={this.focus}
         style={{
           outlineStyle: 'none',
-          cursor: this.props.readOnly ? 'not-allowed' : 'default'
+          cursor: this.props.immutable ? 'not-allowed' : 'default'
         }}>
         <div ref={this.selectWrapper} style={{outlineStyle: 'none'}}>
           <ReactSelect
@@ -98,7 +98,7 @@ export class Select extends React.Component {
               ClearIndicator: ClearIndicator,
               DropdownIndicator: props =>
                 <DropdownIndicator
-                  isDisabled={this.props.readOnly}
+                  immutable={this.props.immutable}
                   isOpen={this.state.isOpen}
                   openMenu={this.onMenuOpen}
                   {...props}
@@ -107,7 +107,7 @@ export class Select extends React.Component {
               IndicatorsContainer: props =>
                 <IndicatorsContainer
                   openAdvancedSearch = {this.props.openAdvancedSearch}
-                  readOnly = {this.props.readOnly}
+                  immutable = {this.props.immutable}
                   value = {this.props.value}
                   {...props}
                 />,
@@ -137,7 +137,7 @@ export class Select extends React.Component {
             onInputChange={this.onInputChange}
             options={this.getOptions()}
             isLoading={this.props.isLoading}
-            isDisabled={this.props.readOnly}
+            isDisabled={this.props.immutable}
             ref={this.selectComponent}
             onMenuClose={() => this.setState({isOpen: false})}
             onMenuOpen={this.onMenuOpen}
@@ -223,7 +223,7 @@ Select.propTypes = {
   /**
    * Whether the user can edit the value or not.
    */
-  readOnly: PropTypes.bool,
+  immutable: PropTypes.bool,
   /**
    * Id of outter element
    */

@@ -58,11 +58,11 @@ describe('tocco-ui', () => {
           expect(wrapper.find('input').at(1)).to.have.value('59')
         })
 
-        test('should set readOnly prop to true', () => {
+        test('should set immutable prop to true', () => {
           const wrapper = mount(
-            <DurationEdit value={null} onChange={EMPTY_FUNC} readOnly/>
+            <DurationEdit value={null} onChange={EMPTY_FUNC} immutable/>
           )
-          expect(wrapper.find(DurationEdit).props().readOnly).to.eql(true)
+          expect(wrapper.find(DurationEdit).props().immutable).to.eql(true)
         })
 
         test('should always show units', () => {
