@@ -26,7 +26,7 @@ export const DateTimeEdit = props => {
       <DateAbstract
         value={[props.value]}
         onChange={handleChange}
-        readOnly={props.readOnly}
+        immutable={props.immutable}
         options={{...props.options, flatpickrOptions}}
         events={props.events}
       />
@@ -38,7 +38,7 @@ DateTimeEdit.propTypes = {
   intl: intlShape.isRequired,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string,
-  readOnly: PropTypes.bool,
+  immutable: PropTypes.bool,
   options: PropTypes.shape({
     placeholderText: PropTypes.string,
     flatpickrOptions: PropTypes.object

@@ -13,14 +13,14 @@ const TextEdit = props => {
   }
 
   return (
-    <StyledEditableWrapper readOnly={props.readOnly}>
+    <StyledEditableWrapper immutable={props.immutable}>
       <StyledTextareaAutosize
-        disabled={props.readOnly}
         id={props.id}
+        immutable={props.immutable}
         maxRows={20}
         name={props.name}
         onChange={handleChange}
-        readOnly={props.readOnly}
+        disabled={props.immutable}
         rows={2}
         value={value}
       />
@@ -37,7 +37,7 @@ TextEdit.propTypes = {
   value: PropTypes.node,
   name: PropTypes.string,
   id: PropTypes.string,
-  readOnly: PropTypes.bool
+  immutable: PropTypes.bool
 }
 
 export default TextEdit

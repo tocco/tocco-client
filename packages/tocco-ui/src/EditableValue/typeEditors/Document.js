@@ -16,7 +16,7 @@ const Document = props => {
     <div className="document">
       <Upload
         onUpload={onUpload}
-        readOnly={props.readOnly}
+        immutable={props.immutable}
         textResources={{
           upload: props.options.uploadText,
           uploading: props.options.uploadingText,
@@ -30,7 +30,7 @@ const Document = props => {
 }
 
 Document.propTypes = {
-  readOnly: PropTypes.bool,
+  immutable: PropTypes.bool,
   options: PropTypes.shape({
     upload: PropTypes.func.isRequired,
     uploadText: PropTypes.string,

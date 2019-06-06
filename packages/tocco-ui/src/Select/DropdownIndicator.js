@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import Button from '../Button'
 
 const DropdownIndicator = props =>
-  !props.isDisabled
+  !props.immutable
   && <span onMouseDown={() => props.openMenu()}>
     <Button
       icon="chevron-down"
@@ -14,7 +14,7 @@ const DropdownIndicator = props =>
   </span>
 
 DropdownIndicator.propTypes = {
-  isDisabled: PropTypes.bool,
+  immutable: PropTypes.bool,
   openMenu: PropTypes.func.isRequired
 }
 

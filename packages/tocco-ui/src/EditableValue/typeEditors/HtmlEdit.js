@@ -48,8 +48,8 @@ class HtmlEdit extends React.Component {
           id={this.props.id}
           theme="snow"
           value={this.props.value}
-          readOnly={this.props.readOnly}
-          modules={{toolbar: !this.props.readOnly}}
+          readOnly={this.props.immutable}
+          modules={{toolbar: !this.props.immutable}}
         />
       </StyledHtmlEdit>
     )
@@ -65,7 +65,7 @@ HtmlEdit.propTypes = {
   value: PropTypes.node,
   name: PropTypes.string,
   id: PropTypes.string,
-  readOnly: PropTypes.bool
+  immutable: PropTypes.bool
 }
 
 export default HtmlEdit

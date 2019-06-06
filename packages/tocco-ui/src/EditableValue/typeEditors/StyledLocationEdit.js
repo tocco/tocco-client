@@ -31,7 +31,7 @@ export const StyledLocationEdit = styled.div`
     > span {
       flex: 0 0 auto;
       margin-right: ${scale.space(-2)};
-      color: ${props => props.disabled ? generateDisabledShade(_get(props.theme, 'colors.text')) : theme.color('text')}
+      color: ${props => props.immutable ? generateDisabledShade(_get(props.theme, 'colors.text')) : theme.color('text')}
     }
 
     .react-autosuggest__input {

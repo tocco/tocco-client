@@ -13,7 +13,7 @@ const IndicatorsContainer = props => {
   const {
     children,
     openAdvancedSearch,
-    readOnly,
+    immutable,
     value,
     ...restProps
   } = props
@@ -22,7 +22,7 @@ const IndicatorsContainer = props => {
     <components.IndicatorsContainer {...restProps}>
       {children}
       {openAdvancedSearch
-      && !readOnly
+      && !immutable
       && <span
         onTouchEnd={e => e.stopPropagation()}
         onMouseDown={e => e.stopPropagation()}
@@ -48,7 +48,7 @@ const ItemPropType = PropTypes.shape({
 IndicatorsContainer.propTypes = {
   children: PropTypes.node,
   openAdvancedSearch: PropTypes.func,
-  readOnly: PropTypes.bool,
+  immutable: PropTypes.bool,
   value: PropTypes.oneOfType([
     ItemPropType,
     PropTypes.arrayOf(ItemPropType)

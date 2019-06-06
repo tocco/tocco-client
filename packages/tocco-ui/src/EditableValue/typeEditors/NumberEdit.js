@@ -47,15 +47,15 @@ const NumberEdit = (props, context) => {
   }
 
   return (
-    <StyledEditableWrapper readOnly={props.readOnly}>
+    <StyledEditableWrapper immutable={props.immutable}>
       <StyledNumberEdit
         decimalSeparator={decimalSeparator}
-        disabled={props.readOnly}
+        disabled={props.immutable}
         id={props.id}
         isNumericString={true}
         name={props.name}
         onValueChange={handleChange}
-        readOnly={props.readOnly}
+        immutable={props.immutable}
         thousandSeparator={thousandSeparator}
         value={props.value}
         {...numberFormatOptions}
@@ -73,7 +73,7 @@ NumberEdit.propTypes = {
   value: PropTypes.number,
   name: PropTypes.string,
   id: PropTypes.string,
-  readOnly: PropTypes.bool,
+  immutable: PropTypes.bool,
   options: PropTypes.shape({
     allowNegative: PropTypes.bool,
     postPointDigits: PropTypes.number,

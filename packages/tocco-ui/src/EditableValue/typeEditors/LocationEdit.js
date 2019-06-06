@@ -52,23 +52,22 @@ class LocationEdit extends React.Component {
     const inputPropsZip = {
       value: this.props.value.postcode || '',
       onChange: this.onChange('postcode'),
-      disabled: this.props.readOnly
+      disabled: this.props.immutable
     }
 
     const inputPropsCity = {
       value: this.props.value.city || '',
       onChange: this.onChange('city'),
-      disabled: this.props.readOnly
+      disabled: this.props.immutable
     }
 
     return (
       <FocusWithin>
         {({focused, getRef}) => {
           return <StyledLocationEdit
-            disabled={this.props.readOnly}
             id={this.props.id}
+            immutable={this.props.immutable}
             name={this.props.name}
-            readOnly={this.props.readOnly}
             ref={getRef}
           >
             <Autosuggest
@@ -80,7 +79,7 @@ class LocationEdit extends React.Component {
               inputProps={inputPropsZip}
               onSuggestionSelected={this.onSuggestionSelected}
               focusInputOnSuggestionClick={false}
-              shouldRenderSuggestions={v => v && !this.props.readOnly}
+              shouldRenderSuggestions={v => v && !this.props.immutable}
             />
             {(focused || this.props.value.city || this.props.value.postcode) && <Typography.Span>/</Typography.Span>}
             <Autosuggest
@@ -92,7 +91,7 @@ class LocationEdit extends React.Component {
               inputProps={inputPropsCity}
               onSuggestionSelected={this.onSuggestionSelected}
               focusInputOnSuggestionClick={false}
-              shouldRenderSuggestions={v => v && !this.props.readOnly}
+              shouldRenderSuggestions={v => v && !this.props.immutable}
             />
             <StyledEditableControl>
               {this.props.options.isLoading && <IconTocco size="1.8rem"/>}
@@ -140,7 +139,7 @@ LocationEdit.propTypes = {
   }),
   name: PropTypes.string,
   id: PropTypes.string,
-  readOnly: PropTypes.bool
+  immutable: PropTypes.bool
 }
 
 export default LocationEdit
