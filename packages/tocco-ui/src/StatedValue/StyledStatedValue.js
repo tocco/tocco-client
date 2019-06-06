@@ -87,7 +87,7 @@ const StyledStatedValueBox = styled.div`
     border: ${BORDER_WIDTH} solid ${props => colorizeBorder[getBorderColor(props)](props)};
     padding: ${scale.space(-2)} ${scale.space(-1)};
     position: relative;
-    ${props => declareFocus(props)}
+    ${props => !props.immutable && declareFocus(props)}
     ${props => declareCursor(props)}
     transition: border-color ${ANIMATION_DURATION};
     will-change: border-color;
