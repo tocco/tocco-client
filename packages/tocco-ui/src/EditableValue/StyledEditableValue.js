@@ -101,7 +101,6 @@ const StyledEditableValue = styled.span`
       .ql-container.ql-disabled {
         border-top-left-radius: .27rem;
         border-top-right-radius: .27rem;
-        background-color: #eee;
 
         .ql-editor {
           cursor: not-allowed;
@@ -111,10 +110,6 @@ const StyledEditableValue = styled.span`
 
     //date
     .date-edit {
-      input[ readonly ] {
-        background-color: #fff;
-      }
-
       .input-group-addon {
         cursor: pointer;
       }
@@ -125,7 +120,6 @@ const StyledEditableValue = styled.span`
 
       &.disabled {
         input {
-          background-color: #eee;
           cursor: not-allowed;
         }
       }
