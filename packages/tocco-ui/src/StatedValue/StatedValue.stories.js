@@ -97,9 +97,9 @@ storiesOf('Tocco-UI | StatedValue', module)
           'mixed errors': errors.mixed
         }),
         label: text('label', 'label'),
-        mandatory: boolean('mandatory', false) || undefined,
-        isDisplay: boolean('isDisplay', false) || undefined,
-        immutable: boolean('immutable', false) || undefined
+        mandatory: boolean('mandatory', false),
+        isDisplay: boolean('isDisplay', false),
+        immutable: boolean('immutable', false)
       }
       return [
         <StatedValueWrapper
