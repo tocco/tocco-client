@@ -45,6 +45,7 @@ export class LoginForm extends Component {
                 type="text"
                 className="form-control"
                 name="user"
+                data-cy="login-form_user-input"
                 onChange={this.handleUsernameChange.bind(this)}
                 placeholder={this.msg('client.login.form.userPlaceholder')}
                 value={this.props.username}
@@ -60,6 +61,7 @@ export class LoginForm extends Component {
                 type="password"
                 className="form-control"
                 name="password"
+                data-cy="login-form_password-input"
                 onChange={this.handlePasswordChange.bind(this)}
                 placeholder={this.msg('client.login.form.passwordPlaceholder')}
                 required
@@ -85,11 +87,13 @@ export class LoginForm extends Component {
               label={this.msg('client.login.form.button')}
               pending={this.props.loginPending}
               type="submit"
+              data-cy="login-form_login-button"
             />
             <Button
               className="forgot-password"
               label={this.msg('client.login.form.forgotLink')}
               onClick={() => this.props.changePage(Pages.PASSWORD_REQUEST)}
+              data-cy="login-form_request-button"
             />
           </ButtonGroup>
         </form>

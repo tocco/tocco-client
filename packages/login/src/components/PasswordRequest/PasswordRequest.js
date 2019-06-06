@@ -47,6 +47,7 @@ export class PasswordRequest extends React.Component {
                 placeholder={this.msg('client.login.form.userPlaceholder')}
                 onChange={this.handleUsernameChange.bind(this)}
                 value={this.state.username}
+                data-cy="password-request_input"
               />
             </div>
           </div>
@@ -57,12 +58,14 @@ export class PasswordRequest extends React.Component {
               label={this.msg('client.login.passwordRequest.button')}
               pending={this.props.pending}
               type="submit"
+              data-cy="password-request_submit-button"
             />
             <Button
               disabled={this.props.pending}
               label={this.msg('client.login.passwordRequest.abortButton')}
               name="abort"
               onClick={() => this.props.changePage(Pages.LOGIN_FORM)}
+              data-cy="password-request_abort-button"
             />
           </ButtonGroup>
         </form>
