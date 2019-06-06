@@ -3,15 +3,8 @@ import {Field} from 'redux-form'
 import {Provider} from 'react-redux'
 import {createStore} from 'redux'
 import {IntlStub, intlEnzyme} from 'tocco-test-util'
-import {ThemeProvider} from 'styled-components'
 
 import Form from './Form'
-
-const theme = {
-  colors: {
-    text: '#212121'
-  }
-}
 
 const EMPTY_FUNC = () => {}
 
@@ -97,23 +90,21 @@ describe('simple-form', () => {
           }))
 
           const wrapper = intlEnzyme.mountWithIntl(
-            <ThemeProvider theme={theme}>
-              <Provider store={store}>
-                <Form
-                  initializeForm={EMPTY_FUNC}
-                  handleSubmit={EMPTY_FUNC}
-                  onSubmit={EMPTY_FUNC}
-                  onCancel={EMPTY_FUNC}
-                  formDefinition={formDefinition}
-                  model={model}
-                  intl={IntlStub}
-                  uploadDocument={EMPTY_FUNC}
-                  openAdvancedSearch={EMPTY_FUNC}
-                  loadTooltip={EMPTY_FUNC}
-                  changeFieldValue={EMPTY_FUNC}
-                />
-              </Provider>
-            </ThemeProvider>
+            <Provider store={store}>
+              <Form
+                initializeForm={EMPTY_FUNC}
+                handleSubmit={EMPTY_FUNC}
+                onSubmit={EMPTY_FUNC}
+                onCancel={EMPTY_FUNC}
+                formDefinition={formDefinition}
+                model={model}
+                intl={IntlStub}
+                uploadDocument={EMPTY_FUNC}
+                openAdvancedSearch={EMPTY_FUNC}
+                loadTooltip={EMPTY_FUNC}
+                changeFieldValue={EMPTY_FUNC}
+              />
+            </Provider>
           )
 
           expect(wrapper.find('form')).to.have.length(1)
