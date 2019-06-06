@@ -1,5 +1,5 @@
 import React from 'react'
-import {shallow} from 'enzyme'
+import {mount} from 'enzyme'
 
 import SearchBox from './SearchBox'
 
@@ -9,14 +9,14 @@ describe('tocco-ui', () => {
     const SEARCH_STRING = 'My Search String'
 
     test('should render', () => {
-      const wrapper = shallow(<SearchBox onSearch={() => {
+      const wrapper = mount(<SearchBox onSearch={() => {
       }}/>)
-      expect(wrapper.find('.tocco-searchbox')).to.have.length(1)
+      expect(wrapper.find('form')).to.have.length(1)
     })
 
     test('should call search function on form submit (button click)', () => {
       const searchFunc = sinon.spy()
-      const wrapper = shallow(<SearchBox
+      const wrapper = mount(<SearchBox
         onSearch={searchFunc}
       />)
 
@@ -32,7 +32,7 @@ describe('tocco-ui', () => {
 
     test('should not call search twice for same term in a row', () => {
       const searchFunc = sinon.spy()
-      const wrapper = shallow(<SearchBox
+      const wrapper = mount(<SearchBox
         onSearch={searchFunc}
       />)
 
@@ -54,22 +54,9 @@ describe('tocco-ui', () => {
       expect(searchFunc).to.have.been.calledWith('same')
     })
 
-    test('should render the placeholder', () => {
-      const placeholder = 'MyPlaceHolder'
-      const wrapper = shallow(<SearchBox
-        onSearch={() => {
-        }}
-        placeholder={placeholder}
-      />)
-      const searchBox = wrapper.find('.tocco-searchbox')
-
-      expect(searchBox).to.have.length(1)
-      expect(searchBox.find('input').prop('placeholder')).to.equal(placeholder)
-    })
-
     test('should call search function on change event with live search', done => {
       const searchFunc = sinon.spy()
-      const wrapper = shallow(<SearchBox
+      const wrapper = mount(<SearchBox
         onSearch={searchFunc}
         liveSearch
       />)
@@ -87,7 +74,7 @@ describe('tocco-ui', () => {
       'should not call search function on keyDown events with live search but to short input',
       done => {
         const searchFunc = sinon.spy()
-        const wrapper = shallow(<SearchBox
+        const wrapper = mount(<SearchBox
           onSearch={searchFunc}
           liveSearch
         />)
@@ -104,7 +91,7 @@ describe('tocco-ui', () => {
 
     test('should await debounce time on livesearch', done => {
       const searchFunc = sinon.spy()
-      const wrapper = shallow(<SearchBox
+      const wrapper = mount(<SearchBox
         onSearch={searchFunc}
         liveSearch
         debounce={100}
@@ -127,7 +114,7 @@ describe('tocco-ui', () => {
 
     test('should update the input value', () => {
       const searchFunc = sinon.spy()
-      const wrapper = shallow(<SearchBox
+      const wrapper = mount(<SearchBox
         onSearch={searchFunc}
       />)
 
@@ -139,7 +126,7 @@ describe('tocco-ui', () => {
 
     test('should accept an input value', () => {
       const inputValue = 'TEST'
-      const wrapper = shallow(<SearchBox onSearch={() => {}} value={inputValue}/>)
+      const wrapper = mount(<SearchBox onSearch={() => {}} value={inputValue}/>)
 
       expect(wrapper.state().inputValue).to.equal(inputValue)
     })
