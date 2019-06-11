@@ -1,7 +1,11 @@
 export {default as Button, StyledButton} from './Button'
 export {default as ButtonGroup, StyledButtonGroup} from './ButtonGroup'
 export {default as ButtonLink, StyledButtonLink} from './ButtonLink'
-export {default as EditableValue} from './EditableValue'
+export {
+  default as EditableValue,
+  StyledEditableWrapperCss,
+  StyledInputCss
+} from './EditableValue'
 export {default as FormattedValue} from './FormattedValue'
 export {default as Icon, StyledIcon} from './Icon'
 export {default as IconTocco, StyledIconToccoSvg, StyledIconToccoWrapper} from './IconTocco'

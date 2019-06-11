@@ -1,30 +1,36 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import classNames from 'classnames'
+import {design, StatedValue} from 'tocco-ui'
+
+import {StyledPasswordInput, StyledPasswordInputWrapper} from './StyledPasswordInput'
 
 const PasswordInput = props => {
-  const className = classNames(
-    props.name,
-    'form-group',
-    {'has-success': props.value && props.valid === true},
-    {'has-error': props.value && props.valid === false}
-  )
+  const getSignal = props.value
+    ? props.valid
+      ? design.condition.SUCCESS
+      : design.condition.DANGER
+    : null
 
   return (
-    <div className={className}>
-      <label htmlFor={`${props.name} Input`}>{props.label}</label>
-      <input
-        type="password"
-        className="form-control"
-        id={`${props.name} Input`}
-        value={props.value}
-        onChange={e => props.onChange(e.target.value)}
-        readOnly={props.readOnly === true}
-        disabled={props.readOnly === true}
-        onKeyDown={props.onKeyDown}
-        autoFocus={props.autoFocus}
-      />
-    </div>
+    <StatedValue
+      hasValue={!!props.value && props.value.length > 0}
+      id={`${props.name}-input`}
+      immutable={props.readOnly === true}
+      label={props.label}
+      signal={getSignal}
+    >
+      <StyledPasswordInputWrapper immutable={props.readOnly === true}>
+        <StyledPasswordInput
+          id={`${props.name}-input`}
+          value={props.value}
+          onChange={e => props.onChange(e.target.value)}
+          disabled={props.readOnly === true}
+          immutable={props.readOnly === true}
+          onKeyDown={props.onKeyDown}
+          autoFocus={props.autoFocus}
+        />
+      </StyledPasswordInputWrapper>
+    </StatedValue>
   )
 }
 

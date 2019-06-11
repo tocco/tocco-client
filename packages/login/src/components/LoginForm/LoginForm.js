@@ -4,12 +4,16 @@ import {FormattedMessage, intlShape} from 'react-intl'
 import {
   Button,
   ButtonGroup,
-  Icon,
   SignalList,
+  StatedValue,
   Typography
 } from 'tocco-ui'
 
-import StyledLoginForm from './StyledLoginForm'
+import {
+  StyledLoginFormInput,
+  StyledLoginFormInputWrapper,
+  StyledLoginFormWrapper
+} from '../StyledLoginForm'
 import {Pages} from '../../types/Pages'
 
 export class LoginForm extends Component {
@@ -31,44 +35,51 @@ export class LoginForm extends Component {
     const usernameFocus = !passwordFocus
 
     return (
-      <StyledLoginForm className="login-form">
+      <StyledLoginFormWrapper>
         {this.props.showTitle
           && <React.Fragment>
             <Typography.H5><FormattedMessage id="client.login.form.title"/></Typography.H5>
             <Typography.P><FormattedMessage id="client.login.form.introduction"/></Typography.P>
           </React.Fragment>}
         <form onSubmit={this.handleSubmit.bind(this)}>
-          <div className="form-group dense">
-            <div className="input-group">
-              <span className="input-group-addon"><Icon icon="user"/></span>
-              <input
-                type="text"
-                className="form-control"
+
+          <StatedValue
+            hasValue={!!this.props.username && this.props.username.length > 0}
+            id="login-username"
+            label={this.msg('client.login.form.userPlaceholder')}
+            mandatory
+          >
+            <StyledLoginFormInputWrapper>
+              <StyledLoginFormInput
+                autoFocus={usernameFocus}
                 name="user"
                 data-cy="login-form_user-input"
                 onChange={this.handleUsernameChange.bind(this)}
-                placeholder={this.msg('client.login.form.userPlaceholder')}
-                value={this.props.username}
                 required
-                autoFocus={usernameFocus}
+                type="text"
+                value={this.props.username}
               />
-            </div>
-          </div>
-          <div className="form-group dense">
-            <div className="input-group">
-              <span className="input-group-addon"><Icon icon="unlock"/></span>
-              <input
-                type="password"
-                className="form-control"
+            </StyledLoginFormInputWrapper>
+          </StatedValue>
+
+          <StatedValue
+            hasValue={!!this.props.password && this.props.password.length > 0}
+            id="login-password"
+            label={this.msg('client.login.form.passwordPlaceholder')}
+            mandatory
+          >
+            <StyledLoginFormInputWrapper>
+              <StyledLoginFormInput
+                autoFocus={passwordFocus}
                 name="password"
                 data-cy="login-form_password-input"
                 onChange={this.handlePasswordChange.bind(this)}
-                placeholder={this.msg('client.login.form.passwordPlaceholder')}
                 required
-                autoFocus={passwordFocus}
+                type="password"
+                value={this.props.password}
               />
-            </div>
-          </div>
+            </StyledLoginFormInputWrapper>
+          </StatedValue>
 
           {
             this.props.message && this.props.message.text
@@ -90,14 +101,13 @@ export class LoginForm extends Component {
               data-cy="login-form_login-button"
             />
             <Button
-              className="forgot-password"
               label={this.msg('client.login.form.forgotLink')}
               onClick={() => this.props.changePage(Pages.PASSWORD_REQUEST)}
               data-cy="login-form_request-button"
             />
           </ButtonGroup>
         </form>
-      </StyledLoginForm>
+      </StyledLoginFormWrapper>
     )
   }
 
