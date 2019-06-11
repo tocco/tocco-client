@@ -43,7 +43,7 @@ const StatedValue = props => {
 
   const hasError = touched && props.error && Object.keys(props.error).length > 0
   const labelAlt = `${label}${mandatory && mandatoryTitle ? `, ${mandatoryTitle}` : ''}`
-  const signal = detectSignal(dirty, hasError)
+  const signal = props.signal || detectSignal(dirty, hasError)
 
   return (
     <FocusWithin>
@@ -133,6 +133,10 @@ StatedValue.propTypes = {
    * Determines if value is editable
    */
   immutable: PropTypes.bool,
+  /**
+   * Pass a valid signal condition to omit auto detection
+   */
+  signal: PropTypes.string,
   /**
    * If true field was in focus.
    */

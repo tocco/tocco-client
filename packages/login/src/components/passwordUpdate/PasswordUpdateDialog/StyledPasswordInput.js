@@ -4,13 +4,15 @@ import {
   StyledEditableWrapperCss
 } from 'tocco-ui'
 
-export const StyledLoginFormInput = styled.input`
+export const StyledPasswordInput = styled.input.attrs({
+  type: 'password'
+})`
   && {
     ${StyledInputCss}
   }
 `
 
-export const StyledLoginFormInputWrapper = styled.div`
+export const StyledPasswordInputWrapper = styled.div`
   && {
     ${StyledEditableWrapperCss}
   }
