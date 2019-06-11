@@ -56,7 +56,7 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
     )
 
     const mandatory = !readOnly && _get(modelField, `validation.mandatory`, false)
-    const hasValue = value !== null && value !== undefined && value.length !== 0
+    const hasValue = value !== null && value !== undefined && (value.length === undefined || value.length > 0)
     const isDisplay = data.formDefinitionField.componentType === 'display' || readOnlyForm
 
     const type = formDefinitionField.dataType
