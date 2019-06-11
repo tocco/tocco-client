@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {SignalList} from 'tocco-ui'
+import {design, SignalList} from 'tocco-ui'
 
 const ValidationRules = props => (
   <SignalList.List>
@@ -12,12 +12,12 @@ const ValidationRules = props => (
       if (props.errors) {
         const error = props.errors[rule.name]
         if (error === true) {
-          condition = 'danger'
+          condition = design.condition.DANGER
         } else if (typeof error === 'string') {
-          condition = 'danger'
+          condition = design.condition.DANGER
           message = error
         } else {
-          condition = 'success'
+          condition = design.condition.SUCCESS
         }
       }
 

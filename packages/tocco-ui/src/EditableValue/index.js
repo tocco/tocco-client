@@ -1,3 +1,11 @@
 import EditableValue from './EditableValue'
+import {
+  StyledEditableWrapperCss,
+  StyledInputCss
+} from './StyledEditableValue'
 
-export default EditableValue
+export {
+  EditableValue as default,
+  StyledEditableWrapperCss,
+  StyledInputCss
+}
