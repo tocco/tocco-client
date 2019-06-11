@@ -94,7 +94,7 @@ const initPasswordUpdateApp = (id, input, events, publicPath, customTheme) => {
     require('tocco-theme/src/ToccoTheme/theme.scss')
   }
 
-  if (__DEV__) {
+  if (__DEV__ && __PACKAGE_NAME__ === packageName) {
     if (!__NO_MOCK__) {
       const fetchMock = require('fetch-mock')
       const setupFetchMocks = require('./dev/fetchMocks')
