@@ -104,11 +104,10 @@ class LocationEdit extends React.Component {
                 tabIndex={-1}
                 target="_blank"
                 dense={false}
-                title={this.props.options.mapButtonTitle || 'Show on Maps'}
+                title={this.props.options.mapButtonTitle || 'Show on map'}
               />
               }
             </StyledEditableControl>
-
           </StyledLocationEdit>
         }}
       </FocusWithin>
