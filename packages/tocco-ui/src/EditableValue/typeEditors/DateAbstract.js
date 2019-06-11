@@ -15,7 +15,6 @@ class DateAbstract extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {hideButton: true}
     this.wrapper = React.createRef()
 
     import(/* webpackChunkName: "flatpickr" */ '!style-loader!css-loader!flatpickr/dist/themes/light.css')
@@ -74,8 +73,9 @@ class DateAbstract extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (!_isEqual(prevProps.value, this.props.value)) {
-      this.handleButtonVisibility()
+    const sameValue = _isEqual(prevProps.value, this.props.value)
+    const sameLocale = _isEqual(prevProps.options.locale, this.props.intl.locale)
+    if (!sameValue || !sameLocale) {
       const locale = this.getLocale(this.props.intl.locale)
 
       if (this.Flatpickr && this.flatpickr) {
@@ -87,10 +87,6 @@ class DateAbstract extends React.Component {
         this.flatpickr.redraw()
       }
     }
-  }
-
-  componentDidMount() {
-    this.handleButtonVisibility()
   }
 
   componentWillUnmount() {
@@ -111,10 +107,6 @@ class DateAbstract extends React.Component {
       const altValue = this.flatpickr.altInput.value
       this.props.onBlur(altValue, this.flatpickr.selectedDates, r => this.flatpickr.setDate(r, true))
     }
-  }
-
-  handleButtonVisibility = () => {
-    this.setState({hideButton: !this.hasValue() && !this.props.immutable})
   }
 
   render() {
@@ -138,7 +130,7 @@ class DateAbstract extends React.Component {
         />
         <StyledDateAbstractControl
           data-clear
-          hideButton={this.state.hideButton || this.props.immutable}
+          hideButton={!this.hasValue() && !this.props.immutable}
         >
           <Button
             icon="times"
