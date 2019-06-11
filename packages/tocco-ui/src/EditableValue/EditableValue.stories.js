@@ -218,7 +218,8 @@ storiesOf('Tocco-UI | EditableValue', module)
           minValue: -30000,
           maxValue: 30000,
           decimalScale: 5,
-          allowNegative: true
+          allowNegative: true,
+          fixedDecimalScale: true
         })}
         defaultValue={123.45}
       />

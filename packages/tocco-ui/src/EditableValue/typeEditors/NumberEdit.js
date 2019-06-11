@@ -32,12 +32,13 @@ export const isAllowedValue = (prePointDigits, postPointDigits, minValue, maxVal
 const NumberEdit = (props, context) => {
   const {thousandSeparator, decimalSeparator} = parseLocalePlaceholder(context.intl.locale)
 
-  const {prePointDigits, postPointDigits, minValue, maxValue, allowNegative} = props.options
+  const {prePointDigits, postPointDigits, minValue, maxValue, allowNegative, fixedDecimalScale} = props.options
 
   const numberFormatOptions = {
     isAllowed: isAllowedValue(prePointDigits, postPointDigits, minValue, maxValue),
     allowNegative: !!allowNegative,
-    ...(!isNaN(postPointDigits) ? {decimalScale: postPointDigits} : {})
+    ...(!isNaN(postPointDigits) ? {decimalScale: postPointDigits} : {}),
+    fixedDecimalScale: !!fixedDecimalScale
   }
 
   const handleChange = values => {
@@ -76,6 +77,7 @@ NumberEdit.propTypes = {
   immutable: PropTypes.bool,
   options: PropTypes.shape({
     allowNegative: PropTypes.bool,
+    fixedDecimalScale: PropTypes.bool,
     postPointDigits: PropTypes.number,
     prePointDigits: PropTypes.number,
     minValue: PropTypes.number,

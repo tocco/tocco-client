@@ -4,6 +4,7 @@ import document from './document'
 import duration from './duration'
 import integer from './integer'
 import location from './location'
+import moneyamount from './moneyamount'
 import number from './number'
 import phone from './phone'
 import remote from './remote'
@@ -27,7 +28,7 @@ export default {
   'location': location,
   'long': integer,
   'longitude': coordinate,
-  'moneyamount': decimal,
+  'moneyamount': moneyamount,
   'multi-remote-field': remote,
   'multi-select-box': select,
   'named-upload': document,
