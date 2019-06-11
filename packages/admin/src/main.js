@@ -5,12 +5,11 @@ import {
 } from 'tocco-app-extensions'
 
 import reducers, {sagas} from './modules/reducers'
-import Admin from './components/Admin'
-
+import AdminContainer from './containers/AdminContainer'
 const packageName = 'admin'
 
 const initApp = (id, input, events, publicPath) => {
-  const content = <Admin/>
+  const content = <AdminContainer/>
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
 

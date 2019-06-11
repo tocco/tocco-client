@@ -1,5 +1,9 @@
-export default {
+import session, {sagas as sessionSagas} from './session'
 
+export default {
+  session
 }
 
-export const sagas = []
+export const sagas = [
+  sessionSagas
+]
