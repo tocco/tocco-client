@@ -13,7 +13,7 @@ const PasswordInput = props => {
 
   return (
     <StatedValue
-      hasValue={!!props.value && props.value.length > 0}
+      hasValue={!!props.value}
       id={`${props.name}-input`}
       immutable={props.readOnly === true}
       label={props.label}
