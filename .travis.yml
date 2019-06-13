@@ -31,6 +31,7 @@ script:
   - yarn lint
   - jest --maxWorkers=4 --silent --verbose false
   - BACKEND=https://master.tocco.ch yarn build-storybook
+  - bash deployment/cypress_pr_branch.sh
   - bash deployment/deploy_storybook.sh
   - if [[ $TRAVIS_BRANCH == "master" ]]; then yarn cypress run; fi
 
