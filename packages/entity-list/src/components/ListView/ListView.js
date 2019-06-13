@@ -18,28 +18,26 @@ class ListView extends React.Component {
   render() {
     const props = this.props
     return (
-      <div className="list-view">
-        <LoadMask
-          required={[props.formDefinition]}
-          loadingText={this.msg('client.entity-list.loadingText')}
-        >
-          {
-            this.props.formDefinition && this.props.formDefinition.children.map((child, idx) => {
-              if (child.componentType === form.componentTypes.TABLE) {
-                return <TableContainer key={idx} columnDefinitions={getColumnDefinition(child)}/>
-              } else if (actions.isAction(child.componentType)) {
-                return <ActionContainer
-                  key={`listAction${idx}`}
-                  definition={child}
-                  entity={props.entityName}
-                  parent={props.parent}
-                  disabled={this.props.dataLoadingInProgress}
-                />
-              }
-            })
-          }
-        </LoadMask>
-      </div>
+      <LoadMask
+        required={[props.formDefinition]}
+        loadingText={this.msg('client.entity-list.loadingText')}
+      >
+        {
+          this.props.formDefinition && this.props.formDefinition.children.map((child, idx) => {
+            if (child.componentType === form.componentTypes.TABLE) {
+              return <TableContainer key={idx} columnDefinitions={getColumnDefinition(child)}/>
+            } else if (actions.isAction(child.componentType)) {
+              return <ActionContainer
+                key={`listAction${idx}`}
+                definition={child}
+                entity={props.entityName}
+                parent={props.parent}
+                disabled={this.props.dataLoadingInProgress}
+              />
+            }
+          })
+        }
+      </LoadMask>
     )
   }
 }
