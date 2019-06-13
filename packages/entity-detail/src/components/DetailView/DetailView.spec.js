@@ -37,7 +37,6 @@ describe('entity-detail', () => {
           logError={EMPTY_FUNC}
         />)
 
-        expect(wrapper.find('.detail-view')).to.have.length(1)
         expect(wrapper.find(DetailFormContainer)).to.have.length(1)
       })
     })

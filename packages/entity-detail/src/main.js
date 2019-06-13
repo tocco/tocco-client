@@ -27,11 +27,7 @@ const EXTERNAL_EVENTS = [
 ]
 
 const initApp = (id, input, events = {}, publicPath) => {
-  const content = (
-    <div>
-      <DetailViewContainer/>
-    </div>
-  )
+  const content = <DetailViewContainer/>
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   externalEvents.addToStore(store, events)
@@ -105,9 +101,7 @@ class EntityDetailApp extends React.Component {
   }
 
   render() {
-    return (
-      <div>{this.app.renderComponent()}</div>
-    )
+    return this.app.renderComponent()
   }
 }
 
