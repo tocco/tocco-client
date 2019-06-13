@@ -2,13 +2,14 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {reduxForm} from 'redux-form'
 import {intlShape, FormattedRelative, FormattedMessage} from 'react-intl'
-import {Button} from 'tocco-ui'
+import {Button, Typography} from 'tocco-ui'
 import {form, formField} from 'tocco-app-extensions'
 
 import SubGrid from '../../util/detailView/fromFieldFactories/subGrid'
 import ErrorBox from '../ErrorBox'
 import modes from '../../util/modes'
 import readOnlyFormFieldMapping from '../../util/detailView/readOnlyFormFieldMapping'
+import {StyledDetailFormLastSaved} from './StyledDetailFormLastSaved'
 
 export class DetailForm extends React.Component {
   componentDidUpdate(prevProps) {
@@ -72,7 +73,6 @@ export class DetailForm extends React.Component {
 
     return (
       <form
-        className="form-horizontal detail-form"
         onSubmit={this.handleSubmit}
         onKeyDown={this.handleKeyPress}
       >
@@ -88,24 +88,25 @@ export class DetailForm extends React.Component {
           componentMapping={{[form.componentTypes.SUB_TABLE]: SubGrid}}
         />
         {!this.isReadOnlyForm()
-          && <div>
-            {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
-            <Button
-              disabled={props.submitting || (props.anyTouched && !props.valid)}
-              ink="primary"
-              label={this.msg(`client.entity-detail.${props.mode === modes.CREATE ? 'create' : 'save'}`)}
-              look="raised"
-              pending={props.submitting}
-              type="submit"
-              data-cy="detail-form_submit-button"
-            />
-            {props.lastSave
-            && <div>
-              <FormattedMessage id="client.entity-detail.lastSave"/>
-              <span style={{marginLeft: '3px'}}> <FormattedRelative value={props.lastSave}/></span>
-            </div>
-            }
-          </div>
+        && <React.Fragment>
+          {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
+          <Button
+            data-cy="detail-form_submit-button"
+            disabled={props.submitting || (props.anyTouched && !props.valid)}
+            ink="primary"
+            label={this.msg(`client.entity-detail.${props.mode === modes.CREATE ? 'create' : 'save'}`)}
+            look="raised"
+            pending={props.submitting}
+            type="submit"
+          />
+          {props.lastSave
+          && <StyledDetailFormLastSaved>
+            <Typography.Span>
+              <FormattedMessage id="client.entity-detail.lastSave"/> <FormattedRelative value={props.lastSave}/>
+            </Typography.Span>
+          </StyledDetailFormLastSaved>
+          }
+        </React.Fragment>
         }
       </form>
     )
