@@ -56,8 +56,7 @@ describe('Entity Browser', function() {
       cy.get('input#input-detailForm-callname')
         .type('{selectall}{del}Test Callname')
         .should('have.value', 'Test Callname')
-      cy.get('[data-cy=detail-form_submit-button]').children().first()
-        .click()
+      cy.get('[data-cy=detail-form_submit-button]').click()
       cy.contains('Zuletzt gespeichert')
     })
 

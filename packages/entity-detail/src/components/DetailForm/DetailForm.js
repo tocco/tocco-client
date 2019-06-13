@@ -9,7 +9,6 @@ import SubGrid from '../../util/detailView/fromFieldFactories/subGrid'
 import ErrorBox from '../ErrorBox'
 import modes from '../../util/modes'
 import readOnlyFormFieldMapping from '../../util/detailView/readOnlyFormFieldMapping'
-import StyledDetailForm from './StyledDetailForm'
 
 export class DetailForm extends React.Component {
   componentDidUpdate(prevProps) {
@@ -72,25 +71,23 @@ export class DetailForm extends React.Component {
     }
 
     return (
-      <StyledDetailForm>
-        <form
-          className="form-horizontal detail-form"
-          tabIndex="0"
-          onSubmit={this.handleSubmit}
-          onKeyDown={this.handleKeyPress}
-        >
-          <form.FormBuilder
-            entity={props.entity}
-            model={props.entityModel}
-            formName={props.form}
-            formDefinition={props.formDefinition}
-            formValues={props.formValues}
-            formFieldMapping={formField.defaultMapping}
-            readOnlyFormFieldMapping={readOnlyFormFieldMapping}
-            mode={props.mode}
-            componentMapping={{[form.componentTypes.SUB_TABLE]: SubGrid}}
-          />
-          {!this.isReadOnlyForm()
+      <form
+        className="form-horizontal detail-form"
+        onSubmit={this.handleSubmit}
+        onKeyDown={this.handleKeyPress}
+      >
+        <form.FormBuilder
+          entity={props.entity}
+          model={props.entityModel}
+          formName={props.form}
+          formDefinition={props.formDefinition}
+          formValues={props.formValues}
+          formFieldMapping={formField.defaultMapping}
+          readOnlyFormFieldMapping={readOnlyFormFieldMapping}
+          mode={props.mode}
+          componentMapping={{[form.componentTypes.SUB_TABLE]: SubGrid}}
+        />
+        {!this.isReadOnlyForm()
           && <div>
             {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
             <Button
@@ -109,9 +106,8 @@ export class DetailForm extends React.Component {
             </div>
             }
           </div>
-          }
-        </form>
-      </StyledDetailForm>
+        }
+      </form>
     )
   }
 }
