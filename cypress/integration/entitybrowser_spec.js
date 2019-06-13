@@ -11,62 +11,78 @@ describe('Entity Browser', function() {
 
   describe('ListView', () => {
     it('should load and display essential parts of the list view', function() {
+      cy.contains('Daten werden geladen...', {timeout: 15000})
       cy.get('[title="Vorname"]')
       cy.get('[type="submit"]')
+      cy.contains('Einträgen')
       cy.contains('Aktionen auf Alle')
-      cy.get('[data-list-cell]').should('have.length.above', 1)
+      cy.get('[data-list-cell]').then(el => {
+        cy.wrap(el).should('have.length.above', 10)
+      })
     })
   })
 
   describe('DetailView', () => {
     beforeEach(() => {
-      cy.get('[data-list-cell]').first()
-        .click()
+      cy.get('[data-list-cell]').then(el => {
+        const firstCell = el.first()
+        cy.wrap(firstCell).click()
+      })
     })
 
     it('should display detail view', function() {
-      cy.get('[data-cy=cypress-form-field]')
-        .should('have.length.above', 1)
+      cy.get('[data-cy=cypress-form-field]').then(el => {
+        cy.wrap(el).should('have.length.above', 50)
+      })
     })
 
     it('should change value in detail view and save', function() {
-      cy.get('input#input-detailForm-callname')
-        .type('{selectall}{del}Test Callname')
-        .should('have.value', 'Test Callname')
-      cy.get('[data-cy=detail-form_submit-button]').children().first()
+      cy.get('input#input-detailForm-callname').then(el => {
+        cy.wrap(el)
+          .type('{selectall}{del}Test Callname')
+          .should('have.value', 'Test Callname')
+      })
+      cy.get('[data-cy=detail-form_submit-button]')
         .click()
       cy.contains('Zuletzt gespeichert')
     })
 
     it('should change page back to list view without warning', function() {
-      cy.get('[data-cy=entity-detail_back-button]').children().first().children().first()
-        .click()
-      cy.get('[data-list-cell]').should('have.length.above', 1)
+      cy.get('[data-cy=entity-detail_back-button]').then(el => {
+        cy.wrap(el).click()
+      })
+      cy.get('[data-list-cell]').then(el => {
+        cy.wrap(el).should('have.length.above', 10)
+      })
     })
 
     it('should display warning on changing page back to list view on edited form', function() {
       cy.get('input#input-detailForm-callname')
         .type('{selectall}{del}')
-      cy.get('[data-cy=entity-detail_back-button]').children().first().children().first()
-        .click()
+      cy.get('[data-cy=entity-detail_back-button]').then(el => {
+        cy.wrap(el).click()
+      })
       cy.contains('ungespeicherte Änderungen')
     })
   })
 
   describe('SearchForm', () => {
     it('should display extended search form', function() {
-      cy.get('[data-cy=extend-search-button]').children()
+      cy.get('[data-cy=extend-search-button]')
         .click()
-      cy.get('[data-cy=cypress-form-field]')
-        .should('have.length.above', 1)
+      cy.get('[data-cy=cypress-form-field]').then(el => {
+        cy.wrap(el).should('have.length.above', 10)
+      })
     })
 
     it('should reset list view through search button reset', function() {
       cy.get('[data-cy=cypress-form-field]').children().children()
         .type('Test Person')
-      cy.get('[data-cy=search-form_reset-button]').next().children().first()
+      cy.get('[data-cy=search-form_reset-button]')
         .click()
-      cy.get('[data-list-cell]').should('have.length.above', 1)
+      cy.get('[data-list-cell]').then(el => {
+        cy.wrap(el).should('have.length.above', 10)
+      })
     })
   })
 })

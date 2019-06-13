@@ -74,29 +74,31 @@ class SearchForm extends React.Component {
           mode="search"
         />
         <div className="row" style={{marginBottom: '1em'}}>
-          <div className="col-sm-9 col-sm-push-3" data-cy="search-form_submit-button">
+          <div className="col-sm-9 col-sm-push-3">
             <Button
               ink="primary"
               label={this.msg('client.entity-list.search')}
               look="raised"
               type="submit"
+              data-cy="search-form_submit-button"
             />
-            <span style={{display: 'inline-block', width: '.5em'}} data-cy="search-form_reset-button"/>
+            <span style={{display: 'inline-block', width: '.5em'}}/>
             <Button
               label={this.msg('client.entity-list.reset')}
               look="raised"
               onClick={this.handleResetClick}
+              data-cy="search-form_reset-button"
             />
             {!props.disableSimpleSearch
             && <span
               style={{float: 'right'}}
               title={this.msg('client.entity-list.extendedSearch')}
-              data-cy="extend-search-button"
             >
               <Button
                 icon={`chevron-${this.props.showExtendedSearchForm ? 'up' : 'down'}`}
                 iconPosition="sole"
                 onClick={this.toggleExtendedSearchForm}
+                data-cy="extend-search-button"
               />
             </span>
             }

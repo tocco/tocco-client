@@ -91,7 +91,7 @@ export class DetailForm extends React.Component {
             componentMapping={{[form.componentTypes.SUB_TABLE]: SubGrid}}
           />
           {!this.isReadOnlyForm()
-          && <div data-cy="detail-form_submit-button">
+          && <div>
             {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
             <Button
               disabled={props.submitting || (props.anyTouched && !props.valid)}
@@ -100,6 +100,7 @@ export class DetailForm extends React.Component {
               look="raised"
               pending={props.submitting}
               type="submit"
+              data-cy="detail-form_submit-button"
             />
             {props.lastSave
             && <div>
