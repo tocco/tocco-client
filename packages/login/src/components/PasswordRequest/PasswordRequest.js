@@ -42,7 +42,7 @@ export class PasswordRequest extends React.Component {
         <Typography.P><FormattedMessage id="client.login.passwordRequest.introduction"/></Typography.P>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <StatedValue
-            hasValue={!!this.props.username && this.props.username.length > 0}
+            hasValue={!!this.props.username}
             id="login-username"
             label={this.msg('client.login.form.userPlaceholder')}
             mandatory

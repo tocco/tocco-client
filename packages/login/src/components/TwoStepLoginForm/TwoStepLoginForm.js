@@ -43,7 +43,7 @@ export class TwoStepLoginForm extends Component {
             <FormattedMessage id="client.login.twoStepLogin.requestedCode"/>{this.props.requestedCode}
           </Typography.P>
           <StatedValue
-            hasValue={!!this.state.userCode && this.state.userCode.length > 0}
+            hasValue={!!this.state.userCode}
             id={`usercode`}
             label={this.msg('client.login.twoStepLogin.codePlaceholder')}
           >

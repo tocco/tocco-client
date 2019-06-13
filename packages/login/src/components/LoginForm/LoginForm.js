@@ -44,7 +44,7 @@ export class LoginForm extends Component {
         <form onSubmit={this.handleSubmit.bind(this)}>
 
           <StatedValue
-            hasValue={!!this.props.username && this.props.username.length > 0}
+            hasValue={!!this.props.username}
             id="login-username"
             label={this.msg('client.login.form.userPlaceholder')}
             mandatory
@@ -63,7 +63,7 @@ export class LoginForm extends Component {
           </StatedValue>
 
           <StatedValue
-            hasValue={!!this.props.password && this.props.password.length > 0}
+            hasValue={!!this.props.password}
             id="login-password"
             label={this.msg('client.login.form.passwordPlaceholder')}
             mandatory
