@@ -44,7 +44,7 @@ describe('Entity Browser', function() {
       })
       cy.get('[data-cy=detail-form_submit-button]')
         .click()
-      cy.contains('Zuletzt gespeichert')
+      cy.contains('Zuletzt gespeichert', {timeout: 2000})
     })
 
     it('should change page back to list view without warning', function() {
@@ -52,7 +52,8 @@ describe('Entity Browser', function() {
         cy.wrap(el).click()
       })
       cy.get('[data-list-cell]').then(el => {
-        cy.wrap(el).should('have.length.above', 10)
+        const listCells = el.children()
+        cy.wrap(listCells).should('have.length.above', 10)
       })
     })
 
@@ -62,7 +63,7 @@ describe('Entity Browser', function() {
       cy.get('[data-cy=entity-detail_back-button]').then(el => {
         cy.wrap(el).click()
       })
-      cy.contains('ungespeicherte Änderungen')
+      cy.contains('ungespeicherte Änderungen', {timeout: 2000})
     })
   })
 
@@ -79,9 +80,10 @@ describe('Entity Browser', function() {
       cy.get('[data-cy=cypress-form-field]').children().children()
         .type('Test Person')
       cy.get('[data-cy=search-form_reset-button]')
-        .click()
+        .click({force: true})
       cy.get('[data-list-cell]').then(el => {
-        cy.wrap(el).should('have.length.above', 10)
+        const listCells = el.children()
+        cy.wrap(listCells).should('have.length.above', 10)
       })
     })
   })
