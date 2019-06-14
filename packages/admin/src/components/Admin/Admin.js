@@ -1,7 +1,7 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {Flex, Box} from '@rebass/grid'
 import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'
-import PropTypes from 'prop-types'
 import {Button, LoadMask} from 'tocco-ui'
 
 import Navigation from '../Navigation'
@@ -16,7 +16,7 @@ class Admin extends React.Component {
   }
 
   render() {
-    return <Router>
+    return <Router {...this.props.baseRoute && {basename: this.props.baseRoute}}>
       <LoadMask required={[this.props.loggedIn !== undefined]} loadingText="Logging in...">
         <div>
           {
@@ -25,11 +25,14 @@ class Admin extends React.Component {
                 <LoginContainer/>
               </div>
               : <div>
-                <div style={{backgroundColor: '#9E2124', color: '#fff'}}>
-                  <h1>Tocco</h1><Button label="Loggout" onClick={this.props.doLogout}/>
-                </div>
+                <Flex style={{backgroundColor: '#9E2124', color: '#fff'}}>
+                  <Box> <h1>Tocco</h1></Box>
+                  <Box ml="auto">
+                    <Button label="Loggout" onClick={this.props.doLogout}/>
+                  </Box>
+                </Flex>
                 <Flex>
-                  <Box width={1 / 5} px={2} bg="lightgrey">
+                  <Box width={1 / 5} px={2} bg="lightgrey" >
                     <Navigation/>
                   </Box>
                   <Box width={4 / 5} px={2}>
@@ -53,6 +56,7 @@ class Admin extends React.Component {
 }
 
 Admin.propTypes = {
+  baseRoute: PropTypes.string,
   loggedIn: PropTypes.bool,
   doLogout: PropTypes.func.isRequired,
   doSessionCheck: PropTypes.func.isRequired

@@ -10,7 +10,8 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state, props) => ({
-  loggedIn: state.session.loggedIn
+  loggedIn: state.session.loggedIn,
+  baseRoute: state.input.baseRoute
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(Admin))

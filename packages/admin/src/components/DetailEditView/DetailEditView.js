@@ -1,17 +1,18 @@
 import React from 'react'
-
-import image from './screenshot.png'
+import PropTypes from 'prop-types'
+import {Typography} from 'tocco-ui'
 
 const DetailEditView = props => {
   return (
     <div>
-      <h1>Detail Edit View</h1>
-      <img src={image}/>
+      <Typography.H1>Detail Edit View</Typography.H1>
+      <Typography.Span>{JSON.stringify(props.match)}</Typography.Span>
     </div>
   )
 }
 
 DetailEditView.propTypes = {
+  match: PropTypes.object
 }
 
 export default DetailEditView

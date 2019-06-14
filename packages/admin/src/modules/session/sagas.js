@@ -63,10 +63,3 @@ export default function* mainSagas() {
     fork(takeLatest, actions.DO_LOGOUT, logout)
   ])
 }
-
-//
-// TODO
-//
-// - Login erweitern damit ui erst angezeigt wird wenn session gecheckt wurde
-// - Abklären heartbeat jede Sekunde? Sucess auswerten
-// - Sockets für Session ablaufen?

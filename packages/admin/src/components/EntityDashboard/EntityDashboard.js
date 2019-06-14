@@ -1,14 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
-import dashboard from './dashboard.png'
+import {Typography} from 'tocco-ui'
 
 const EntityDashboard = ({match}) => {
   const entityName = match.params.entity
   return (
     <div>
-      <h1>{entityName} Dashboard</h1>
-      <img src={dashboard}/>
+      <Typography.H1>{entityName}  Dashboard</Typography.H1>
+      <Typography.Span>{JSON.stringify(match)}</Typography.Span>
     </div>
   )
 }

@@ -7,13 +7,15 @@ import ListView from '../ListView'
 import EntityDashboard from '../EntityDashboard'
 import DetailEditView from '../DetailEditView'
 
+const Spacer = () => <span style={{paddingLeft: '5px'}}/>
+
 const EntityDetailRoute = ({match}) => {
   return (
     <div>
       <div>
-        <NavLink activeStyle={{fontWeight: 'bold'}} to={`${match.url}/dashboard`}>Dashboard</NavLink>&nbsp;
-        | <NavLink activeStyle={{fontWeight: 'bold'}} to={`${match.url}/list`}>List</NavLink>&nbsp;
-        | <NavLink activeStyle={{fontWeight: 'bold'}} to={`${match.url}/create`}>New</NavLink>
+        <NavLink activeStyle={{fontWeight: 'bold'}} to={`${match.url}/dashboard`}>Dashboard</NavLink><Spacer/>
+        |<Spacer/><NavLink activeStyle={{fontWeight: 'bold'}} to={`${match.url}/list`}>List</NavLink><Spacer/>
+        |<Spacer/><NavLink activeStyle={{fontWeight: 'bold'}} to={`${match.url}/create`}>New</NavLink>
         <Switch>
           <Route exact path={match.url} render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/list`}/>}/>
           <Route path={`${match.path}/dashboard`} component={EntityDashboard}/>

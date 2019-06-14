@@ -1,17 +1,18 @@
 import React from 'react'
-
-import image from './dashboard.png'
+import PropTypes from 'prop-types'
+import {Typography} from 'tocco-ui'
 
 const Dashboard = props => {
   return (
     <div>
-      <h1>Dashboard</h1>
-      <img src={image}/>
+      <Typography.H1>Dashboard</Typography.H1>
+      <Typography.Span>{JSON.stringify(props.match)}</Typography.Span>
     </div>
   )
 }
 
 Dashboard.propTypes = {
+  match: PropTypes.object
 }
 
 export default Dashboard

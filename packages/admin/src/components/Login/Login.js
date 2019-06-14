@@ -20,7 +20,7 @@ const Login = props => {
 }
 
 Login.propTypes = {
-  loginSuccessful: PropTypes.func.isRequred
+  loginSuccessful: PropTypes.func.isRequired
 }
 
 export default Login

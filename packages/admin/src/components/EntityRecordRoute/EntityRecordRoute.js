@@ -7,12 +7,14 @@ import EntityDetailRoute from '../EntityDetailRoute'
 import RelationsView from '../RelationsView'
 import DetailEditView from '../DetailEditView'
 
+const Spacer = () => <span style={{paddingLeft: '5px'}}/>
+
 const EntityRecordRoute = ({match}) => {
   return (
     <div>
-      <NavLink activeStyle={{fontWeight: 'bold'}} to={`${match.url}/overview`}>overview</NavLink>&nbsp;
-      | <NavLink activeStyle={{fontWeight: 'bold'}} to={`${match.url}/edit`}>edit</NavLink>&nbsp;
-      | <NavLink activeStyle={{fontWeight: 'bold'}} to={`${match.url}/relations`}>relations</NavLink>
+      <NavLink activeStyle={{fontWeight: 'bold'}} to={`${match.url}/overview`}>overview</NavLink><Spacer/>
+      |<Spacer/><NavLink activeStyle={{fontWeight: 'bold'}} to={`${match.url}/edit`}>edit</NavLink><Spacer/>
+      |<Spacer/><NavLink activeStyle={{fontWeight: 'bold'}} to={`${match.url}/relations`}>relations</NavLink>
       <Switch>
         <Route exact path={`${match.url}`} render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/overview`}/>}/>
         <Route path={`${match.path}/overview`} render={({match}) => <div>Entity Overview {JSON.stringify(match)}</div>}/>
