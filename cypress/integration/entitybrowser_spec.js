@@ -61,7 +61,7 @@ describe('Entity Browser', function() {
     })
 
     it('should change page back to list view without warning', function() {
-      cy.get('[data-cy=entity-detail_back-button]').children().first()
+      cy.get('[data-cy=entity-detail_back-button]')
         .click({force: true})
       cy.get('[data-cy=list-cell]', {timeout: 15000})
         .should('have.length.above', 1)
@@ -70,8 +70,7 @@ describe('Entity Browser', function() {
     it('should display warning on changing page back to list view on edited form', function() {
       cy.get('input#input-detailForm-callname')
         .type('{selectall}{del}')
-      cy.get('[data-cy=entity-detail_back-button]').children().first()
-        .click()
+      cy.get('[data-cy=entity-detail_back-button]').click()
       cy.contains('ungespeicherte Änderungen')
     })
   })
