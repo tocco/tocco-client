@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {injectIntl, intlShape} from 'react-intl'
-import _isEqual from 'lodash/isEqual'
 
 import Button from '../../Button'
 import {
@@ -73,19 +72,14 @@ class DateAbstract extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    const sameValue = _isEqual(prevProps.value, this.props.value)
-    const sameLocale = _isEqual(prevProps.options.locale, this.props.intl.locale)
-    if (!sameValue || !sameLocale) {
-      const locale = this.getLocale(this.props.intl.locale)
+    const locale = this.getLocale(this.props.intl.locale)
 
-      if (this.Flatpickr && this.flatpickr) {
-        this.Flatpickr.localize(locale)
-        this.flatpickr.set('locale', locale)
+    if (this.Flatpickr && this.flatpickr) {
+      this.Flatpickr.localize(locale)
+      this.flatpickr.set('locale', locale)
 
-        this.flatpickr.set('altFormat', this.props.options.flatpickrOptions.altFormat)
-        this.flatpickr.setDate(this.props.value, false)
-        this.flatpickr.redraw()
-      }
+      this.flatpickr.set('altFormat', this.props.options.flatpickrOptions.altFormat)
+      this.flatpickr.redraw()
     }
   }
 
@@ -130,7 +124,7 @@ class DateAbstract extends React.Component {
         />
         <StyledDateAbstractControl
           data-clear
-          hideButton={!this.hasValue() && !this.props.immutable}
+          hideButton={!this.hasValue() || this.props.immutable}
         >
           <Button
             icon="times"
