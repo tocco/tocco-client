@@ -66,11 +66,11 @@ const initApp = (id, input, events, publicPath) => {
 
   const content = (
     <Router history={history}>
-      <div>
+      <React.Fragment>
         {routes.map((route, i) => (
           <RouteWithSubRoutes key={i} {...route}/>
         ))}
-      </div>
+      </React.Fragment>
     </Router>
   )
 
@@ -125,9 +125,7 @@ class EntityBrowserApp extends React.Component {
   }
 
   render() {
-    return (
-      <div>{this.app.renderComponent()}</div>
-    )
+    return this.app.renderComponent()
   }
 }
 
