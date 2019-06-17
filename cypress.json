@@ -1,5 +1,4 @@
 {
-  "baseUrl": "https://tocco.github.io/tocco-client/master",
   "env": {
     "BACKEND_URL": "https://master.tocco.ch"
   }

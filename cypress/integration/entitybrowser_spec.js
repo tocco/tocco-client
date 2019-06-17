@@ -70,7 +70,7 @@ describe('Entity Browser', function() {
   describe('SearchForm', () => {
     it('should display extended search form', function() {
       cy.get('[data-cy=extend-search-button]').children().first()
-        .click()
+        .click({force: true})
       cy.get('[data-cy=cypress-form-field]').then(el => {
         cy.wrap(el).should('have.length.above', 10)
       })

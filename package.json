@@ -21,7 +21,7 @@
     "precommit": "npm run lint",
     "release-package": "yarn setup && ./scripts/release-package.sh",
     "storybook": "start-storybook -s ./storybook/assets -p 3003 -c ./storybook",
-    "cypress:localhost": "CYPRESS_BASE_URL=http://localhost:3003 yarn cypress open",
+    "cypress:localhost": "CYPRESS_LOCAL_URL=http://localhost:3003 yarn cypress open",
     "cypress:master": "yarn cypress open"
   },
   "author": "Tocco AG",
