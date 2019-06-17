@@ -1,6 +1,6 @@
 Cypress.Commands.add('login', () => {
   cy.request({
-    url: Cypress.env('CYPRESS_PR_URL') || `${Cypress.env('BACKEND_URL')}/nice2/session`,
+    url: `${Cypress.env('BACKEND_URL')}/nice2/session`,
     method: 'POST',
     form: true,
     json: true

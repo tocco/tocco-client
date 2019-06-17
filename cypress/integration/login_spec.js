@@ -43,28 +43,8 @@ describe('Login', function() {
         cy.wrap(el).type('{selectall}{del}Test_pw1')
       })
       cy.get('[data-cy=login-form_login-button]').then(el => {
-        cy.wrap(el).click()
+        cy.wrap(el).click({force: true})
           .children().first().should('be', 'svg', {timeout: 5000})
-      })
-    })
-
-    it('should display error message on wrong login', function() {
-      cy.get('[data-cy=login-form_user-input]').then(el => {
-        cy.wrap(el).type('{selectall}{del}cypress_test')
-      })
-      cy.get('[data-cy=login-form_password-input]').then(el => {
-        cy.wrap(el).type('{selectall}{del}asdf')
-      })
-      cy.get('[data-cy=login-form_login-button]').then(el => {
-        cy.wrap(el).click()
-      })
-      cy.contains('Login fehlgeschlagen.', {timeout: 3000})
-      // do successful login to reset failed login counter
-      cy.get('[data-cy=login-form_user-input]').then(el => {
-        cy.wrap(el).type('{selectall}{del}cypress_test')
-      })
-      cy.get('[data-cy=login-form_password-input]').then(el => {
-        cy.wrap(el).type('{selectall}{del}Test_pw1')
       })
     })
 
