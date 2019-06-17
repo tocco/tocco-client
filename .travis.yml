@@ -28,12 +28,11 @@ install:
   - travis_wait lerna bootstrap --concurrency=1 --mutex network
 
 script:
-  - bash deployment/cypress_pr_branch.sh
   - yarn lint
   - jest --maxWorkers=4 --silent --verbose false
   - BACKEND=https://master.tocco.ch yarn build-storybook
   - bash deployment/deploy_storybook.sh
-  - if [[ $TRAVIS_BRANCH == "master" ]]; then yarn cypress run; fi
+  - if [[ $TRAVIS_BRANCH == "master" ]]; then yarn cypress run --env PR_BRANCH=$TRAVIS_PULL_REQUEST_BRANCH; fi
 
 after_success:
   - npm run codecov
