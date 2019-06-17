@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {injectIntl, intlShape} from 'react-intl'
+import _isEqual from 'lodash/isEqual'
 
 import Button from '../../Button'
 import {
@@ -72,14 +73,24 @@ class DateAbstract extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    const locale = this.getLocale(this.props.intl.locale)
-
     if (this.Flatpickr && this.flatpickr) {
-      this.Flatpickr.localize(locale)
-      this.flatpickr.set('locale', locale)
-
-      this.flatpickr.set('altFormat', this.props.options.flatpickrOptions.altFormat)
-      this.flatpickr.redraw()
+      if (!_isEqual(
+        prevProps.options.flatpickrOptions.altFormat,
+        this.props.options.flatpickrOptions.altFormat
+      )) {
+        this.flatpickr.set('altFormat', this.props.options.flatpickrOptions.altFormat)
+        this.flatpickr.redraw()
+      }
+      if (!_isEqual(prevProps.intl.locale, this.props.intl.locale)) {
+        const locale = this.getLocale(this.props.intl.locale)
+        this.Flatpickr.localize(locale)
+        this.flatpickr.set('locale', locale)
+        this.flatpickr.redraw()
+      }
+      if (!_isEqual(prevProps.value, this.props.value)) {
+        this.flatpickr.setDate(this.props.value, false)
+        this.flatpickr.redraw()
+      }
     }
   }
 
