@@ -97,7 +97,7 @@ const Table = (props, context) => {
   const showPagination = props.entityCount - props.limit > 0 && !props.inProgress
 
   const cellFormatter = (column, idx) => (cell, entity) => (
-    <span key={idx} data-list-cell>
+    <span key={idx} data-cy="list-cell">
       {column.children.map(child => cellRenderer(child, entity, props.parent, {refresh: props.refresh}, context.intl))}
     </span>
   )
