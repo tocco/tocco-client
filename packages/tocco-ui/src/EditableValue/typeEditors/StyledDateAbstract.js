@@ -8,10 +8,9 @@ import {
 
 const StyledDateAbstractControl = styled.div`
   && {
-    ${StyledEditableControlCss}
-    ${props => props.hideButton && `
-      display: none;
-    `}
+    ${StyledEditableControlCss};
+    
+    display: ${props => props.hideButton ? 'none' : 'block'}
   }
 `
 
