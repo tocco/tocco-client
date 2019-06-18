@@ -8,7 +8,7 @@ export default {
       minValue: _get(modelField, 'validation.numberRange.fromIncluding', null),
       maxValue: _get(modelField, 'validation.numberRange.toIncluding', null),
       allowNegative: true,
-      fixedDecimalScale: 2
+      fixedDecimalScale: true
     }
   }
 }
