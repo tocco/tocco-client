@@ -1,10 +1,6 @@
 import helpers from '../helpers/helpers'
 
 describe('Login', function() {
-  before(() => {
-    cy.login()
-  })
-
   beforeEach(() => {
     cy.visit(`${helpers.getStoryUrl(['Apps', 'Login'], 'Login')}`)
   })
@@ -16,62 +12,48 @@ describe('Login', function() {
     })
 
     it('should not be possible to click login button', function() {
-      cy.get('[data-cy=login-form_user-input]').then(el => {
-        cy.wrap(el).type('{selectall}{del}cypress_test')
-      })
-      cy.get('[data-cy=login-form_login-button]').then(el => {
-        cy.wrap(el).click({force: true})
-      })
+      cy.get('[data-cy=login-form_user-input]')
+        .type('{selectall}{del}cypress_test')
+      cy.get('[data-cy=login-form_login-button]')
+        .should('be', 'disabled')
       cy.contains('Dieser Bereich ist privat.')
-      cy.get('[data-cy=login-form_user-input]').then(el => {
-        cy.wrap(el).type('{selectall}{del}')
-      })
-      cy.get('[data-cy=login-form_password-input]').then(el => {
-        cy.wrap(el).type('{selectall}{del}12345')
-      })
-      cy.get('[data-cy=login-form_login-button]').then(el => {
-        cy.wrap(el).click({force: true})
-      })
+      cy.get('[data-cy=login-form_user-input]')
+        .type('{selectall}{del}')
+      cy.get('[data-cy=login-form_password-input]')
+        .type('{selectall}{del}12345')
+      cy.get('[data-cy=login-form_login-button]')
+        .should('be', 'disabled')
       cy.contains('Dieser Bereich ist privat.')
     })
 
     it('should login', function() {
-      cy.get('[data-cy=login-form_user-input]').then(el => {
-        cy.wrap(el).type('{selectall}{del}cypress_test')
-      })
-      cy.get('[data-cy=login-form_password-input]').then(el => {
-        cy.wrap(el).type('{selectall}{del}Test_pw1')
-      })
-      cy.get('[data-cy=login-form_login-button]').then(el => {
-        cy.wrap(el).click({force: true})
-          .children().first().should('be', 'svg', {timeout: 5000})
-      })
+      cy.get('[data-cy=login-form_user-input]')
+        .type('{selectall}{del}cypress_test')
+      cy.get('[data-cy=login-form_password-input]')
+        .type('{selectall}{del}Test_pw1')
+      cy.get('[data-cy=login-form_login-button]')
+        .click()
+        .children().first().should('be', 'svg', {timeout: 5000})
     })
 
     it('should request password from request page', function() {
-      cy.contains('Passwort vergessen?', {timeout: 2000})
-      cy.get('[data-cy=login-form_request-button]').then(el => {
-        cy.wrap(el).click()
-      })
-      cy.get('[data-cy=password-request_input]').then(el => {
-        cy.wrap(el).type('{selectall}{del}test@testmail.com')
-      })
-      cy.get('[data-cy=password-request_submit-button]').then(el => {
-        cy.wrap(el).click()
-      })
-      cy.contains('Dieser Bereich ist privat.', {timeout: 2000})
+      cy.contains('Passwort vergessen?')
+      cy.get('[data-cy=login-form_request-button]')
+        .click()
+      cy.get('[data-cy=password-request_input]')
+        .type('{selectall}{del}test@testmail.com')
+      cy.get('[data-cy=password-request_submit-button]')
+        .click()
       cy.contains('Passwort wurde per E-Mail versendet')
     })
 
     it('should change to login page on abort of password request ', function() {
-      cy.get('[data-cy=login-form_request-button]').then(el => {
-        cy.wrap(el).click()
-      })
-      cy.contains('Passwort vergessen?', {timeout: 2000})
-      cy.get('[data-cy=password-request_abort-button]').then(el => {
-        cy.wrap(el).click()
-      })
-      cy.contains('Dieser Bereich ist privat.', {timeout: 2000})
+      cy.get('[data-cy=login-form_request-button]')
+        .click()
+      cy.contains('Passwort vergessen?')
+      cy.get('[data-cy=password-request_abort-button]')
+        .click()
+      cy.contains('Dieser Bereich ist privat.')
     })
   })
 })
