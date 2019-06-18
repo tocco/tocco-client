@@ -47,7 +47,6 @@ export class LoginForm extends Component {
             hasValue={!!this.props.username}
             id="login-username"
             label={this.msg('client.login.form.userPlaceholder')}
-            mandatory
           >
             <StyledLoginFormInputWrapper>
               <StyledLoginFormInput
@@ -66,7 +65,6 @@ export class LoginForm extends Component {
             hasValue={!!this.props.password}
             id="login-password"
             label={this.msg('client.login.form.passwordPlaceholder')}
-            mandatory
           >
             <StyledLoginFormInputWrapper>
               <StyledLoginFormInput

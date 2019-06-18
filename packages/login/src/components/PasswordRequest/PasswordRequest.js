@@ -45,7 +45,6 @@ export class PasswordRequest extends React.Component {
             hasValue={!!this.props.username}
             id="login-username"
             label={this.msg('client.login.form.userPlaceholder')}
-            mandatory
           >
             <StyledLoginFormInputWrapper>
               <StyledLoginFormInput
