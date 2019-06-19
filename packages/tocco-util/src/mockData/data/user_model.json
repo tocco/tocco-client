@@ -189,7 +189,7 @@
       "validation": {
         "decimalDigits": {
           "prePointDigits": 12,
-          "postPointDigits": 8
+          "postPointDigits": 2
         }
       }
     },
