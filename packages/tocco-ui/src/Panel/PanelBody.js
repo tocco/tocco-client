@@ -17,7 +17,7 @@ class PanelBody extends React.PureComponent {
     this.outerEl.removeAttribute('style')
   }
 
-  relevantAttributes = ['data-image-in-cache']
+  relevantAttributes = ['data-image-in-cache', 'style']
   observerCallback = mutationsList => {
     const isNotIgnorableAttributeChange = mutation =>
       mutation.type !== 'attributes' || this.relevantAttributes.includes(mutation.attributeName)
