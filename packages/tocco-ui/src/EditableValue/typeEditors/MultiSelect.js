@@ -5,6 +5,7 @@ import Select from '../../Select'
 
 const MultiSelect = props => (
   <Select
+    id={props.id}
     isMulti={true}
     immutable={props.immutable}
     onChange={props.onChange}

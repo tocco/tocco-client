@@ -5,6 +5,7 @@ import Select from '../../Select'
 
 const RemoteSelect = props => (
   <Select
+    id={props.id}
     isMulti={false}
     immutable={props.immutable}
     onChange={props.onChange}
