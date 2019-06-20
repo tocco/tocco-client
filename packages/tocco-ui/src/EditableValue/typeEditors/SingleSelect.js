@@ -5,6 +5,7 @@ import Select from '../../Select'
 
 const SingleSelect = props => (
   <Select
+    id={props.id}
     immutable={props.immutable}
     isMulti={false}
     onChange={props.onChange}

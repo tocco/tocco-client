@@ -5,6 +5,7 @@ import Select from '../../Select'
 
 const MultiRemoteSelect = props => (
   <Select
+    id={props.id}
     isMulti
     immutable={props.immutable}
     onChange={props.onChange}
