@@ -1,5 +1,5 @@
 import React from 'react'
-import {IntlStub, intlEnzyme} from 'tocco-test-util'
+import {IntlStub, intlEnzyme, TestThemeProvider} from 'tocco-test-util'
 
 import MergeMatrix from './MergeMatrix'
 import {HeaderRow, ToManyRelationRow, FieldRow, RelationRow} from './table-components'
@@ -14,17 +14,19 @@ describe('merge', () => {
           }
 
           const wrapper = intlEnzyme.mountWithIntl(
-            <MergeMatrix
-              intl={IntlStub}
-              targetEntityPk="498"
-              entities={testData.entities}
-              model={testData.model}
-              selections={{fields: {}, relations: {}, toManyRelations: {}}}
-              changeTargetEntity={emptyFnc}
-              selectSourceField={emptyFnc}
-              selectSourceRelation={emptyFnc}
-              toggleRelationMany={emptyFnc}
-            />
+            <TestThemeProvider>
+              <MergeMatrix
+                intl={IntlStub}
+                targetEntityPk="498"
+                entities={testData.entities}
+                model={testData.model}
+                selections={{fields: {}, relations: {}, toManyRelations: {}}}
+                changeTargetEntity={emptyFnc}
+                selectSourceField={emptyFnc}
+                selectSourceRelation={emptyFnc}
+                toggleRelationMany={emptyFnc}
+              />
+            </TestThemeProvider>
           )
 
           expect(wrapper.find('table')).to.have.length(1)

@@ -3,6 +3,7 @@ import React from 'react'
 import {FormattedValue} from 'tocco-ui'
 
 import SingleSelection from './SingleSelection'
+import {StyledMergeMatrixTd} from '../StyledMergeMatrix'
 
 const FieldRow = props => {
   const isTargetEntity = pk => pk === props.targetEntity.pk
@@ -10,24 +11,24 @@ const FieldRow = props => {
 
   return (
     <tr>
-      <td className="bold">{props.field.label}</td>
+      <StyledMergeMatrixTd bold>{props.field.label}</StyledMergeMatrixTd>
       {
         props.entities.map((entity, idx) => {
-          const cls = isTargetEntity(entity.pk) ? 'merge-matrix-selected-col' : ''
           const entityField = entity.fields[props.field.name]
-
           return (
-            <td className={cls} key={'td' + idx}>
+            <StyledMergeMatrixTd
+              disabled={!isWritableRow}
+              selected={isTargetEntity(entity.pk)}
+              key={'td' + idx}>
               <SingleSelection
                 identifier={props.field.name}
                 pk={entity.pk}
                 onChange={props.selectSourceField}
                 checked={props.selections.fields[props.field.name] === entity.pk}
-                disabled={!isWritableRow}
-              >
+                disabled={!isWritableRow}>
                 <FormattedValue type={entityField.type} value={entityField.value}/>
               </SingleSelection>
-            </td>
+            </StyledMergeMatrixTd>
           )
         })
       }

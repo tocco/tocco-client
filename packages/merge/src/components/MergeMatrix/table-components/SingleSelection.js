@@ -1,23 +1,21 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import {Typography} from 'tocco-ui'
+
+import {StyledMergeMatrixLabel} from '../StyledMergeMatrix'
 
 const SingleSelectionCell = props => {
-  const cls = props.disabled ? 'disabled' : ''
-  const id = props.identifier + props.pk
-
   const clickFnc = () => props.onChange(props.identifier, props.pk)
   return (
-    <div className={cls}>
+    <StyledMergeMatrixLabel>
       <input
         type="radio"
-        disabled={cls}
+        disabled={props.disabled}
         onChange={clickFnc}
         checked={props.checked}
         name={props.identifier}
-        id={id}
-      />
-      <label htmlFor={id} className="selection-label">{props.children}</label>
-    </div>
+      /><Typography.Span>{props.children}</Typography.Span>
+    </StyledMergeMatrixLabel>
   )
 }
 
