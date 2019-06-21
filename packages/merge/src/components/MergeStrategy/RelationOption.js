@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
+import {StyledRelationOptionSelect} from './StyledRelationOption'
+
 const RelationOption = props => {
   const handleOnChange = event => {
     props.onChange(props.name, event.target.value)
@@ -19,16 +21,12 @@ const RelationOption = props => {
   }
 
   return (
-    <div>
-      <select
-        className="form-control"
-        disabled={props.disabled}
-        value={props.value}
-        onChange={handleOnChange}>
-        {options}
-
-      </select>
-    </div>
+    <StyledRelationOptionSelect
+      disabled={props.disabled}
+      value={props.value}
+      onChange={handleOnChange}>
+      {options}
+    </StyledRelationOptionSelect>
   )
 }
 

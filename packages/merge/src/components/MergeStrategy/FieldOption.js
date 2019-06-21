@@ -7,15 +7,13 @@ const FieldOption = props => {
     props.onChange(props.name, value)
   }
   return (
-    <div>
-      <EditableValue
-        type={props.fieldType}
-        id={props.name}
-        value={props.value}
-        onChange={onChange}
-        readOnly={props.disabled}
-      />
-    </div>
+    <EditableValue
+      type={props.fieldType}
+      id={props.name}
+      value={props.value}
+      onChange={onChange}
+      readOnly={props.disabled}
+    />
   )
 }
 
