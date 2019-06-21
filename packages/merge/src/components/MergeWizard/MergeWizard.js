@@ -5,40 +5,30 @@ import MergeMatrixContainer from './../../containers/MergeMatrixContainer'
 import MergeStrategyContainer from './../../containers/MergeStrategyContainer'
 import {Wizard} from './../Wizard'
 import MergeResponse from './MergeResponse'
-import StyledMergeWizard from './StyledMergeWizard'
 
 class MergeStrategy extends React.Component {
   render() {
     const saveButtonLabel = this.props.intl.formatMessage({id: 'client.merge.saveButton'})
 
-    let content
     if (!this.props.mergeResponse.merged) {
-      content = (
-        <div>
-          <Wizard
-            save={{fn: this.props.saveMerge, label: saveButtonLabel}}
-            intl={this.props.intl}
-          >
-            <MergeStrategyContainer/>
-            <MergeMatrixContainer/>
-          </Wizard>
-        </div>
+      return (
+        <Wizard
+          save={{fn: this.props.saveMerge, label: saveButtonLabel}}
+          intl={this.props.intl}
+        >
+          <MergeStrategyContainer/>
+          <MergeMatrixContainer/>
+        </Wizard>
       )
     } else {
-      content = (
+      return (
         <MergeResponse
-          className="merge-wizard"
           mergeResponse={this.props.mergeResponse}
           intl={this.props.intl}
           fireExternalEvent={this.props.fireExternalEvent}
         />
       )
     }
-    return (
-      <StyledMergeWizard>
-        {content}
-      </StyledMergeWizard>
-    )
   }
 }
 
