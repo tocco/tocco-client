@@ -9,7 +9,7 @@ import TableContainer from '../../containers/TableContainer'
 import ActionContainer from '../../containers/ActionContainer'
 
 class ListView extends React.Component {
-  componentWillMount = () => {
+  componentDidMount = () => {
     this.props.initialize()
   }
 

@@ -7,7 +7,7 @@ import ListViewContainer from '../../containers/ListViewContainer'
 import SelectionControllerContainer from '../../containers/SelectionControllerContainer'
 
 class EntityList extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.initialize()
     this.props.initializeSearchForm(this.props.showSearchForm)
   }

@@ -8,7 +8,7 @@ import {intlShape} from 'react-intl'
 const REDUX_FORM_NAME = 'simpleForm'
 
 class Form extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.initializeForm()
   }
 
