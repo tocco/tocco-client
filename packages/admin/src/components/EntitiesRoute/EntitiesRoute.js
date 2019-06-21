@@ -3,7 +3,7 @@ import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import EntitiesOverview from '../EntitiesOverview'
-import EntityDetailRoute from '../EntityDetailRoute'
+import EntityRoute from '../EntityRoute'
 
 const EntitiesRoute = ({match}) => {
   return (
@@ -11,7 +11,7 @@ const EntitiesRoute = ({match}) => {
       <div>Breadcrumps comming soon...</div>
       <Switch>
 
-        <Route path={`${match.url}/:entity`} component={EntityDetailRoute}/>
+        <Route path={`${match.url}/:entity`} component={EntityRoute}/>
         <Route exact path={match.url} component={EntitiesOverview}/>
       </Switch>
     </div>

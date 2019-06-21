@@ -9,7 +9,10 @@
   },
   "devDependencies": {
     "@rebass/grid": "^6.0.0",
+    "path-to-regexp": "^3.0.0",
     "tocco-app-extensions": ">0.1.0",
+    "tocco-entity-detail": ">0.1.0",
+    "tocco-entity-list": ">0.1.0",
     "tocco-login": ">0.1.0",
     "tocco-test-util": ">0.1.0",
     "tocco-theme": ">0.1.0",

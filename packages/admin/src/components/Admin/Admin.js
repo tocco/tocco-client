@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Flex, Box} from '@rebass/grid'
-import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'
+import {Router, Route, Redirect, Switch} from 'react-router-dom'
+import {createBrowserHistory} from 'history'
 import {Button, LoadMask} from 'tocco-ui'
 
 import Navigation from '../Navigation'
@@ -11,12 +12,19 @@ import Settings from '../Settings'
 import LoginContainer from '../../containers/LoginContainer'
 
 class Admin extends React.Component {
+  history = createBrowserHistory({...this.props.baseRoute && {basename: this.props.baseRoute}})
+
   componentDidMount() {
     this.props.doSessionCheck()
+
+    this.props.locationChanged(this.history.location.pathname)
+    this.history.listen((location, action) => {
+      this.props.locationChanged(location.pathname)
+    })
   }
 
   render() {
-    return <Router {...this.props.baseRoute && {basename: this.props.baseRoute}}>
+    return <Router history={this.history}>
       <LoadMask required={[this.props.loggedIn !== undefined]} loadingText="Logging in...">
         <div>
           {
@@ -59,7 +67,8 @@ Admin.propTypes = {
   baseRoute: PropTypes.string,
   loggedIn: PropTypes.bool,
   doLogout: PropTypes.func.isRequired,
-  doSessionCheck: PropTypes.func.isRequired
+  doSessionCheck: PropTypes.func.isRequired,
+  locationChanged: PropTypes.func.isRequired
 }
 
 export default Admin
