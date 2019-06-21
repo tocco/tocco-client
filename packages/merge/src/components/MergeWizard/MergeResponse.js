@@ -1,19 +1,29 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
-import {Button} from 'tocco-ui'
+import {
+  Button,
+  SignalBox,
+  Typography
+} from 'tocco-ui'
+
+import {
+  StyledMergeMatrixTable,
+  StyledMergeMatrixTd,
+  StyledMergeMatrixTh
+} from '../MergeMatrix/StyledMergeMatrix'
 
 export const EntityResponseTable = props => {
   if (!props.responseEntities || props.responseEntities.length === 0) return <div/>
   return (
-    <div>
-      <h4>{props.title}</h4>
-      <table className="table table-striped table-hover">
+    <React.Fragment>
+      <Typography.H5>{props.title}</Typography.H5>
+      <StyledMergeMatrixTable>
         <thead>
           <tr>
-            <th><FormattedMessage id="client.merge.entity"/></th>
-            <th><FormattedMessage id="client.merge.primaryKey"/></th>
-            <th><FormattedMessage id="client.merge.label"/></th>
+            <StyledMergeMatrixTh bold><FormattedMessage id="client.merge.entity"/></StyledMergeMatrixTh>
+            <StyledMergeMatrixTh bold><FormattedMessage id="client.merge.primaryKey"/></StyledMergeMatrixTh>
+            <StyledMergeMatrixTh bold><FormattedMessage id="client.merge.label"/></StyledMergeMatrixTh>
           </tr>
         </thead>
         <tbody>
@@ -21,16 +31,16 @@ export const EntityResponseTable = props => {
             props.responseEntities.map((e, idx) => {
               return (
                 <tr key={idx}>
-                  <td>{e.entity}</td>
-                  <td>{e.pk}</td>
-                  <td>{e.name}</td>
+                  <StyledMergeMatrixTd>{e.entity}</StyledMergeMatrixTd>
+                  <StyledMergeMatrixTd>{e.pk}</StyledMergeMatrixTd>
+                  <StyledMergeMatrixTd>{e.name}</StyledMergeMatrixTd>
                 </tr>
               )
             })
           }
         </tbody>
-      </table>
-    </div>
+      </StyledMergeMatrixTable>
+    </React.Fragment>
   )
 }
 
@@ -42,9 +52,9 @@ EntityResponseTable.propTypes = {
 class MergeResponse extends React.Component {
   render() {
     return (
-      <div className="merge-response">
-        <h1><FormattedMessage id="client.merge.responseTitle"/></h1>
-        <span><FormattedMessage id="client.merge.responseDescription"/></span>
+      <React.Fragment>
+        <Typography.H4><FormattedMessage id="client.merge.responseTitle"/></Typography.H4>
+        <Typography.P><FormattedMessage id="client.merge.responseDescription"/></Typography.P>
         <EntityResponseTable
           title={this.props.intl.formatMessage({id: 'client.merge.notCopiedRelationsTitle'})}
           responseEntities={this.props.mergeResponse.notCopiedRelations}
@@ -54,9 +64,9 @@ class MergeResponse extends React.Component {
           responseEntities={this.props.mergeResponse.notDeletedEntities}
         />
         {(this.props.mergeResponse.showPermissionMessage)
-        && <div className="alert alert-info">
-          <FormattedMessage id="client.merge.missingReadPermissions"/>
-        </div>
+          && <SignalBox condition="danger">
+            <FormattedMessage id="client.merge.missingReadPermissions"/>
+          </SignalBox>
         }
         <Button
           ink="primary"
@@ -64,7 +74,7 @@ class MergeResponse extends React.Component {
           look="raised"
           onClick={() => { this.props.fireExternalEvent('close') }}
         />
-      </div>
+      </React.Fragment>
     )
   }
 
