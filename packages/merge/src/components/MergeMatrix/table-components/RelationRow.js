@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import {Typography} from 'tocco-ui'
 
 import SingleSelection from './SingleSelection'
+import {StyledMergeMatrixTd} from '../StyledMergeMatrix'
 
 const RelationRow = props => {
   const isTargetEntity = pk => pk === props.targetEntity.pk
@@ -10,23 +12,24 @@ const RelationRow = props => {
 
   return (
     <tr>
-      <td className="bold">{props.relation.label}</td>
+      <StyledMergeMatrixTd bold>{props.relation.label}</StyledMergeMatrixTd>
       {
         props.entities.map((entity, idx) => {
-          const cls = isTargetEntity(entity.pk) ? 'merge-matrix-selected-col' : ''
           const entityRelationValue = entity.relations[props.relation.name].values[0]
           return (
-            <td className={cls} key={'td' + idx}>
+            <StyledMergeMatrixTd
+              disabled={isWritableRow}
+              selected={isTargetEntity(entity.pk)}
+              key={'td' + idx}>
               <SingleSelection
                 identifier={props.relation.name}
                 pk={entity.pk}
                 onChange={props.selectSourceRelation}
                 checked={props.selections.relations[props.relation.name] === entity.pk}
-                disabled={isWritableRow}
-              >
-                <div>{entityRelationValue && entityRelationValue.label}</div>
+                disabled={isWritableRow}>
+                <Typography.Span>{entityRelationValue && entityRelationValue.label}</Typography.Span>
               </SingleSelection>
-            </td>
+            </StyledMergeMatrixTd>
           )
         })
       }
