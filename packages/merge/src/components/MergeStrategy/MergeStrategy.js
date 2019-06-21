@@ -1,85 +1,74 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {intlShape, FormattedMessage} from 'react-intl'
-import classNames from 'classnames'
+import {intlShape} from 'react-intl'
+import {
+  Button,
+  ButtonGroup,
+  Typography
+} from 'tocco-ui'
 
 import EditOption from './EditOption'
 import {SourceEntityAction} from '../../types/SourceEntityAction'
-import StyledMergeStrategyAnswer from './StyledMergeStrategyAnswer'
+import {StyledMergeStrategyAnswer} from './StyledMergeStrategy'
 
 class MergeStrategy extends React.Component {
-  render() {
-    const editClassNames = classNames({
-      hidden: this.props.strategies.sourceEntityAction !== SourceEntityAction.EDIT
-    })
+  msg(id) {
+    return this.props.intl.formatMessage({id})
+  }
 
+  render() {
     return (
-      <div>
-        <form>
-          <div>
-            <h5><FormattedMessage id="client.merge.copyRelationsTitle"/></h5>
+      <form>
+        <Typography.H6>{this.msg('client.merge.copyRelationsTitle')}</Typography.H6>
+        <ButtonGroup melt look="raised">
+          <Button
+            aria={{'aria-pressed': this.props.strategies.copyRelations}}
+            label={this.msg('client.merge.yes')}
+            onClick={() => this.props.changeStrategy('copyRelations', true)}
+          />
+          <Button
+            aria={{'aria-pressed': !this.props.strategies.copyRelations}}
+            label={this.msg('client.merge.no')}
+            onClick={() => this.props.changeStrategy('copyRelations', false)}
+          />
+        </ButtonGroup>
+
+        <Typography.H6>{this.msg('client.merge.strategyTitle')}</Typography.H6>
+        <StyledMergeStrategyAnswer>
+          <select
+            value={this.props.strategies.sourceEntityAction}
+            onChange={event => this.props.changeStrategy('sourceEntityAction', event.target.value)}
+          >
+            <option value={SourceEntityAction.NO_ACTION}>
+              {this.msg('client.merge.strategyNoAction')}
+            </option>
+            <option value={SourceEntityAction.DELETE} hidden>
+              {this.msg('client.merge.strategyDelete')}
+            </option>
+            {(this.props.editOptions.length > 0
+              && <option value={SourceEntityAction.EDIT}>
+                {this.msg('client.merge.strategyEdit')}
+              </option>
+            )}
+          </select>
+        </StyledMergeStrategyAnswer>
+
+        {this.props.strategies.sourceEntityAction === SourceEntityAction.EDIT
+          && <React.Fragment>
+            <Typography.H6>{this.msg('client.merge.editTitle')}</Typography.H6>
             <StyledMergeStrategyAnswer>
-              <div onClick={() => this.props.changeStrategy('copyRelations', true)}>
-                <input
-                  type="radio"
-                  className="form-check-input"
-                  checked={this.props.strategies.copyRelations}
-                  onChange={() => {}}
+              { this.props.editOptions.map((editOption, idx) =>
+                <EditOption
+                  key={`fieldset${idx}`}
+                  editOption={editOption}
+                  activateEditOption={this.props.activateEditOption}
+                  onValueChange={this.props.changeEditOptionValue}
                 />
-                <span className="p-l-5"><FormattedMessage id="client.merge.yes"/></span>
-              </div>
-              <div onClick={() => this.props.changeStrategy('copyRelations', false)}>
-                <input
-                  type="radio"
-                  className="form-check-input"
-                  checked={!this.props.strategies.copyRelations}
-                  onChange={() => {}}
-                />
-                <span className="p-l-5"><FormattedMessage id="client.merge.no"/></span>
-              </div>
+              )}
             </StyledMergeStrategyAnswer>
-          </div>
-          <div>
-            <h5><FormattedMessage id="client.merge.strategyTitle"/></h5>
-            <StyledMergeStrategyAnswer>
-              <select
-                className="form-control"
-                value={this.props.strategies.sourceEntityAction}
-                onChange={event => this.props.changeStrategy('sourceEntityAction', event.target.value)}
-              >
-                <option value={SourceEntityAction.NO_ACTION}>
-                  {this.props.intl.formatMessage({id: 'client.merge.strategyNoAction'})}
-                </option>
-                <option value={SourceEntityAction.DELETE} hidden>
-                  {this.props.intl.formatMessage({id: 'client.merge.strategyDelete'})}
-                </option>
-                {
-                  (this.props.editOptions.length > 0
-                    && <option value={SourceEntityAction.EDIT}>
-                      {this.props.intl.formatMessage({id: 'client.merge.strategyEdit'})}
-                    </option>
-                  )
-                }
-              </select>
-            </StyledMergeStrategyAnswer>
-            <div className={editClassNames}>
-              <h5><FormattedMessage id="client.merge.editTitle"/></h5>
-              <StyledMergeStrategyAnswer>
-                {
-                  this.props.editOptions.map((editOption, idx) => {
-                    return <EditOption
-                      key={`fieldset${idx}`}
-                      editOption={editOption}
-                      activateEditOption={this.props.activateEditOption}
-                      onValueChange={this.props.changeEditOptionValue}
-                    />
-                  })
-                }
-              </StyledMergeStrategyAnswer>
-            </div>
-          </div>
-        </form>
-      </div>
+          </React.Fragment>
+        }
+      </form>
     )
   }
 }

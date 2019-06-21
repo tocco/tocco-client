@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import classNames from 'classnames'
+import {Typography} from 'tocco-ui'
 
 import FieldOption from './FieldOption'
 import RelationOption from './RelationOption'
@@ -30,18 +30,14 @@ const EditOption = props => {
     props.activateEditOption(props.editOption.name, !props.editOption.active)
   }
 
-  const labelClasses = classNames(
-    {
-      'disabled': !props.editOption.active
-    }
-  )
-
   return (
-    <div className="form-group">
-      <input className="w20" type="checkbox" checked={props.editOption.active} onClick={handleCheck}/>
-      <label className={labelClasses}>{props.editOption.label}</label>
+    <Typography.P >
+      <label>
+        <input type="checkbox" checked={props.editOption.active} onClick={handleCheck}/>
+        {props.editOption.label}
+      </label><br/>
       {input}
-    </div>
+    </Typography.P>
   )
 }
 
