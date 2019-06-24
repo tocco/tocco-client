@@ -17,17 +17,17 @@ describe('Entity Browser', function() {
       cy.contains('Einträgen')
       cy.contains('Aktionen auf Alle')
       cy.get('[data-cy=list-cell]', {timeout: 6000})
-        .should('have.length.above', 10)
+        .should('have.length.above', 1)
     })
 
     describe('SearchForm', () => {
       it('should display extended search form', function() {
-        cy.get('[data-cy=cypress-form-field]')
+        cy.get('[data-cy=form-field]')
           .should('have.length', 1)
         cy.get('[data-cy=extend-search-button]')
           .click()
-        cy.get('[data-cy=cypress-form-field]')
-          .should('have.length.above', 10)
+        cy.get('[data-cy=form-field]')
+          .should('have.length.above', 1)
       })
 
       it('should reset list view through search button reset', function() {
@@ -35,7 +35,7 @@ describe('Entity Browser', function() {
           .type('Test Person')
         cy.get('[data-cy=search-form_reset-button]')
           .click({force: true})
-        cy.get('[data-cy=cypress-form-field]').children().children()
+        cy.get('[data-cy=form-field]').children().children()
           .should('be.empty')
       })
     })
@@ -43,11 +43,11 @@ describe('Entity Browser', function() {
 
   describe('DetailView', () => {
     beforeEach(() => {
-      cy.visit(`${helpers.getStoryUrl(['Apps', 'Entity Browser'], 'Entity Browser')}detail/13477`)
+      cy.visit(`${helpers.getStoryUrl(['Apps', 'Entity Browser'], 'Entity Browser')}detail/15737`)
     })
 
     it('should display detail view', function() {
-      cy.get('[data-cy=cypress-form-field]').should('have.length.above', 1)
+      cy.get('[data-cy=form-field]').should('have.length.above', 1)
     })
 
     it('should change value in detail view and save', function() {
@@ -63,7 +63,7 @@ describe('Entity Browser', function() {
       cy.get('[data-cy=entity-detail_back-button]').children().first()
         .click({force: true})
       cy.get('[data-cy=list-cell]', {timeout: 6000})
-        .should('have.length.above', 10)
+        .should('have.length.above', 1)
     })
 
     it('should display warning on changing page back to list view on edited form', function() {

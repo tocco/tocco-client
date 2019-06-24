@@ -7,7 +7,7 @@ describe('Login', function() {
 
   describe('Login', () => {
     it('should load and display login view', function() {
-      cy.contains('Dieser Bereich ist privat.', {timeout: 15000})
+      cy.get('[data-cy=login-form_user-input]', {timeout: 15000})
       cy.get('button').should('have.length', 2)
     })
 
@@ -23,7 +23,7 @@ describe('Login', function() {
         .type('{selectall}{del}12345')
       cy.get('[data-cy=login-form_login-button]')
         .should('be', 'disabled')
-      cy.contains('Dieser Bereich ist privat.')
+      cy.get('[data-cy=login-form_request-button]')
     })
 
     it('should login', function() {
@@ -53,7 +53,8 @@ describe('Login', function() {
       cy.contains('Passwort vergessen?')
       cy.get('[data-cy=password-request_abort-button]')
         .click()
-      cy.contains('Dieser Bereich ist privat.')
+      cy.get('[data-cy=login-form_user-input]')
+      cy.get('[data-cy=login-form_password-input]')
     })
   })
 })
