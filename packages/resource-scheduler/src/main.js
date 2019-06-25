@@ -62,9 +62,7 @@ export class ResourceSchedulerApp extends React.Component {
   }
 
   render() {
-    return (
-      <div style={{height: '100vh'}}>{this.app.renderComponent()}</div>
-    )
+    return this.app.renderComponent()
   }
 }
 

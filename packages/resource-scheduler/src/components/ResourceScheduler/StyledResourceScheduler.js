@@ -1,24 +1,18 @@
 import styled from 'styled-components'
+import {scale} from 'tocco-ui'
 
 const drawerSymbol = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==' // eslint-disable-line max-len
 
-const StyledResourceScheduler = styled.div`
-  && {
-    .spit-panel-wrapper {
-      height: 100%;
-      overflow: auto;
-      padding: 8px;
-    }
+export const resizerStyle = {
+  background: `transparent url(${drawerSymbol}) 50% no-repeat`,
+  width: '11px',
+  cursor: 'col-resize'
+}
 
-    .Resizer.vertical {
-      background-color: transparent;
-      background-image: url(${drawerSymbol});
-      background-position: 50%;
-      background-repeat: no-repeat;
-      width: 11px;
-      cursor: col-resize;
-    }
+export const StyledSplitPanelWrapper = styled.div`
+  && {
+    height: 100%;
+    overflow: auto;
+    padding: ${scale.space(-1)};
   }
 `
-
-export default StyledResourceScheduler
