@@ -8,6 +8,7 @@ describe('Login', function() {
   describe('Login', () => {
     it('should load and display login view', function() {
       cy.get('[data-cy=login-form_user-input]', {timeout: 15000})
+        .should('be.visible')
       cy.get('button').should('have.length', 2)
     })
 
@@ -54,7 +55,9 @@ describe('Login', function() {
       cy.get('[data-cy=password-request_abort-button]')
         .click()
       cy.get('[data-cy=login-form_user-input]')
+        .should('be.visible')
       cy.get('[data-cy=login-form_password-input]')
+        .should('be.visible')
     })
   })
 })

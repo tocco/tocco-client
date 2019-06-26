@@ -13,7 +13,9 @@ describe('Entity Browser', function() {
     it('should load and display essential parts of the list view', function() {
       cy.contains('Daten werden geladen...', {timeout: 15000})
       cy.get('[title="Vorname"]')
+        .should('be.visible')
       cy.get('[type="submit"]')
+        .should('be.visible')
       cy.contains('Einträgen')
       cy.contains('Aktionen auf Alle')
       cy.get('[data-cy=list-cell]', {timeout: 6000})
@@ -62,7 +64,7 @@ describe('Entity Browser', function() {
     it('should change page back to list view without warning', function() {
       cy.get('[data-cy=entity-detail_back-button]').children().first()
         .click({force: true})
-      cy.get('[data-cy=list-cell]', {timeout: 6000})
+      cy.get('[data-cy=list-cell]', {timeout: 15000})
         .should('have.length.above', 1)
     })
 
