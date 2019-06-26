@@ -22,15 +22,13 @@ export const DateTimeEdit = props => {
   const handleChange = dates => props.onChange(atMostOne(dates))
 
   return (
-    <span>
-      <DateAbstract
-        value={[props.value]}
-        onChange={handleChange}
-        immutable={props.immutable}
-        options={{...props.options, flatpickrOptions}}
-        events={props.events}
-      />
-    </span>
+    <DateAbstract
+      value={[props.value]}
+      onChange={handleChange}
+      immutable={props.immutable}
+      options={{...props.options, flatpickrOptions}}
+      events={props.events}
+    />
   )
 }
 

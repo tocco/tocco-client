@@ -13,19 +13,17 @@ const Document = props => {
   }
 
   return (
-    <div className="document">
-      <Upload
-        onUpload={onUpload}
-        immutable={props.immutable}
-        textResources={{
-          upload: props.options.uploadText,
-          uploading: props.options.uploadingText,
-          delete: props.options.deleteText,
-          download: props.options.downloadText
-        }}
-        value={props.value ? props.value : null}
-      />
-    </div>
+    <Upload
+      onUpload={onUpload}
+      immutable={props.immutable}
+      textResources={{
+        upload: props.options.uploadText,
+        uploading: props.options.uploadingText,
+        delete: props.options.deleteText,
+        download: props.options.downloadText
+      }}
+      value={props.value ? props.value : null}
+    />
   )
 }
 
