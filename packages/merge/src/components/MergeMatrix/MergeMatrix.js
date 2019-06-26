@@ -60,9 +60,23 @@ const MergeMatrix = props => {
   )
 }
 
+const fieldsPropType = PropTypes.shape({
+  label: PropTypes.string,
+  name: PropTypes.string
+})
+
+const relationsPropType = PropTypes.shape({
+  label: PropTypes.string,
+  name: PropTypes.string,
+  toMany: PropTypes.bool
+})
+
 MergeMatrix.propTypes = {
   entities: PropTypes.array.isRequired,
-  model: PropTypes.object.isRequired,
+  model: PropTypes.shape({
+    fields: PropTypes.arrayOf(fieldsPropType).isRequired,
+    relations: PropTypes.arrayOf(relationsPropType).isRequired
+  }).isRequired,
   targetEntityPk: PropTypes.string,
   selections: PropTypes.object,
   changeTargetEntity: PropTypes.func.isRequired,
