@@ -13,9 +13,9 @@ const UploadInput = props => {
 
   return <StyledUploadInput immutable={props.immutable}>
     <Dropzone
-      className="dropzone"
       disabled={props.immutable}
       multiple={false}
+      style={{position: 'relative'}}
       onDrop={onDrop}
     >
       <Icon
