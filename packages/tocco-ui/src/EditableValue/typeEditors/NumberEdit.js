@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import {intlShape} from 'react-intl'
+import {injectIntl, intlShape} from 'react-intl'
 import React from 'react'
 
 import {parseLocalePlaceholder, convertStringToNumber} from '../utils'
@@ -29,9 +29,8 @@ export const isAllowedValue = (prePointDigits, postPointDigits, minValue, maxVal
   return true
 }
 
-const NumberEdit = (props, context) => {
-  const {thousandSeparator, decimalSeparator} = parseLocalePlaceholder(context.intl.locale)
-
+const NumberEdit = props => {
+  const {thousandSeparator, decimalSeparator} = parseLocalePlaceholder(props.intl.locale)
   const {prePointDigits, postPointDigits, minValue, maxValue, allowNegative, fixedDecimalScale} = props.options
 
   const numberFormatOptions = {
@@ -65,15 +64,12 @@ const NumberEdit = (props, context) => {
   )
 }
 
-NumberEdit.contextTypes = {
-  intl: intlShape
-}
-
 NumberEdit.propTypes = {
   onChange: PropTypes.func.isRequired,
   value: PropTypes.number,
   name: PropTypes.string,
   id: PropTypes.string,
+  intl: intlShape,
   immutable: PropTypes.bool,
   options: PropTypes.shape({
     allowNegative: PropTypes.bool,
@@ -85,4 +81,4 @@ NumberEdit.propTypes = {
   })
 }
 
-export default NumberEdit
+export default injectIntl(NumberEdit)

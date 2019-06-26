@@ -1,8 +1,7 @@
 import React from 'react'
 import {intlEnzyme} from 'tocco-test-util'
 
-import ReportSettings from './ReportSettings'
-
+import {ReportSettings} from './ReportSettings'
 const EMPTY_FUNC = () => {}
 
 describe('app-extensions', () => {
