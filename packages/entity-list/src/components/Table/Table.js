@@ -10,7 +10,7 @@ import StyledTable from './StyledTable'
 
 const RIGHT_ALIGNED_TYPES = ['moneyamount', 'counter', 'integer', 'long']
 
-const Table = (props, context) => {
+const Table = props => {
   const msg = (id, values = {}) => (props.intl.formatMessage({id}, values))
 
   const onSortChange = (field, order) => {
@@ -136,10 +136,6 @@ const Table = (props, context) => {
       }
     </StyledTable>
   )
-}
-
-Table.contextTypes = {
-  intl: intlShape
 }
 
 Table.propTypes = {
