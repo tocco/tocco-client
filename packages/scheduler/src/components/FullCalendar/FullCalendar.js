@@ -114,16 +114,18 @@ class FullCalendar extends React.Component {
     this.forceUpdate()
   }
 
-  componentWillReceiveProps(newProps) {
-    this.calendarElement.fullCalendar('option', this.getFullCalendarOptions(newProps))
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (!_isEqual(prevProps, this.props)) {
+      this.calendarElement.fullCalendar('option', this.getFullCalendarOptions(this.props))
 
-    if (!_isEqual(newProps.events, this.props.events)) {
-      this.calendarElement.fullCalendar('removeEventSources')
-      this.calendarElement.fullCalendar('addEventSource', newProps.events)
-    }
+      if (!_isEqual(prevProps.events, this.props.events)) {
+        this.calendarElement.fullCalendar('removeEventSources')
+        this.calendarElement.fullCalendar('addEventSource', this.props.events)
+      }
 
-    if (!_isEqual(newProps.resources, this.props.resources)) {
-      this.calendarElement.fullCalendar('refetchResources')
+      if (!_isEqual(prevProps.resources, this.props.resources)) {
+        this.calendarElement.fullCalendar('refetchResources')
+      }
     }
   }
 

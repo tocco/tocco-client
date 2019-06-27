@@ -10,7 +10,6 @@ import StyledLoadMask from './StyledLoadMask'
  */
 class LoadMask extends React.Component {
   mounted = false
-
   constructor(props) {
     super(props)
 
@@ -45,9 +44,10 @@ class LoadMask extends React.Component {
     this.mounted = false
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(prevProps, prevState, snapshot) {
     if (!this.state.initialized) {
-      if (nextProps.required && this.requiredLoaded(nextProps.required)) {
+      const test = this.requiredLoaded(this.props.required)
+      if (this.props.required && test) {
         this.setInitialized()
       }
     }

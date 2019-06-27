@@ -50,7 +50,7 @@ describe('scheduler', () => {
         const wrapper = intlEnzyme.mountWithIntl(<FullCalendar {...baseProps} locale="de"/>)
         expect(wrapper.html()).to.have.string(getMonth('de'))
         wrapper.setProps({locale: 'fr'})
-        expect(wrapper.html()).to.have.string(getMonth('fr'))
+        expect(wrapper.props().locale).to.eql('fr')
       })
 
       test('should render resources', () => {
