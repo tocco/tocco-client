@@ -5,15 +5,26 @@ import _isEmpty from 'lodash/isEmpty'
 import Typography from '../../Typography'
 
 class PhoneFormatter extends React.Component {
+  mounted = false
   constructor(props) {
     super(props)
     this.state = {libPhoneImport: null}
+  }
+
+  componentDidMount() {
+    this.mounted = true
     this.importLibPhoneNumber()
   }
 
   async importLibPhoneNumber() {
     const libPhoneImport = await import(/* webpackChunkName: "libphonenumber-js" */ 'libphonenumber-js')
-    this.setState({libPhoneImport})
+    if (this.mounted) {
+      this.setState({libPhoneImport})
+    }
+  }
+
+  componentWillUnmount() {
+    this.mounted = false
   }
 
   getFormattedInput = () => {
