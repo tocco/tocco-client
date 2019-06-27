@@ -98,7 +98,7 @@ const Table = props => {
 
   const cellFormatter = (column, idx) => (cell, entity) => (
     <span key={idx} data-cy="list-cell">
-      {column.children.map(child => cellRenderer(child, entity, props.parent, {refresh: props.refresh}, context.intl))}
+      {column.children.map(child => cellRenderer(child, entity, props.parent, {refresh: props.refresh}, props.intl))}
     </span>
   )
 
