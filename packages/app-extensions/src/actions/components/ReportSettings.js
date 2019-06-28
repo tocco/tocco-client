@@ -94,7 +94,7 @@ export class ReportSettings extends React.Component {
 }
 
 ReportSettings.propTypes = {
-  intl: intlShape,
+  intl: intlShape.isRequired,
   onSubmit: PropTypes.func.isRequired,
   listApp: PropTypes.func.isRequired,
   formApp: PropTypes.func.isRequired,

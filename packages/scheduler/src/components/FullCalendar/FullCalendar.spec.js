@@ -46,11 +46,12 @@ describe('scheduler', () => {
 
       const getMonth = locale => new Date().toLocaleString(locale, {month: 'long'})
 
-      test('should set locale on fullcalendar', () => {
+      test('should set locale on fullcalendar', async() => {
         const wrapper = intlEnzyme.mountWithIntl(<FullCalendar {...baseProps} locale="de"/>)
         expect(wrapper.html()).to.have.string(getMonth('de'))
         wrapper.setProps({locale: 'fr'})
-        expect(wrapper.props().locale).to.eql('fr')
+        await wrapper.instance().forceUpdate()
+        expect(wrapper.html()).to.have.string(getMonth('fr'))
       })
 
       test('should render resources', () => {
