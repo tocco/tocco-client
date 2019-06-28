@@ -64,7 +64,6 @@ const initApp = (id, input, events = {}, publicPath) => {
 
 (() => {
   if (__DEV__ && __PACKAGE_NAME__ === 'entity-detail') {
-    require('tocco-theme/src/ToccoTheme/theme.scss')
     const input = require('./dev/input.json')
 
     if (!__NO_MOCK__) {

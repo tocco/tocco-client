@@ -2,6 +2,7 @@ import {rgba, shade} from 'polished'
 import styled, {keyframes} from 'styled-components'
 import _get from 'lodash/get'
 import {
+  scale,
   shadeColor,
   StyledIconToccoWrapper,
   theme
@@ -79,7 +80,7 @@ const StyledNotifier = styled.div`
       overflow-y: auto; // todo: enhance usability - it is not obvious that content is scrollable
 
       .dialog {
-        padding: $line-height-computed-half;
+        padding: ${scale.space(-1)};
       }
 
       .rrt-buttons-holder .rrt-button {

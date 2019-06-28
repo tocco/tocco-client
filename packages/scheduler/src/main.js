@@ -40,7 +40,6 @@ const initApp = (input, events, publicPath) => {
 
 (() => {
   if (__DEV__ && __PACKAGE_NAME__ === 'scheduler') {
-    require('tocco-theme/src/ToccoTheme/theme.scss')
     const input = require('./dev/input.json')
 
     if (!__NO_MOCK__) {
