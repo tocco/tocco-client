@@ -2,10 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {intlShape} from 'react-intl'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
+import {Typography} from 'tocco-ui'
 
 import cellRenderer from '../../util/cellRenderer'
 import {default as selectionStyles, selectionStylePropType} from '../../util/selectionStyles'
 import StyledTable from './StyledTable'
+import PaginationPanel from '../PaginationPanel'
 
 const RIGHT_ALIGNED_TYPES = ['moneyamount', 'counter', 'integer', 'long']
 
@@ -33,14 +35,9 @@ const Table = props => {
     } : {}
   )
 
-  const renderShowsTotal = (start, to, total) => {
-    if (total === 0) return <span/>
-    return (
-      <span>
-        {msg('client.entity-list.total', {start, to, total})}
-      </span>
-    )
-  }
+  const renderShowsTotal = (start, to, total) => total === 0
+    ? <span/>
+    : <Typography.Span>{msg('client.entity-list.total', {start, to, total})}</Typography.Span>
 
   const handleAllSelectionChange = (isSelected, rows) => {
     const keys = rows.map(r => r.__key)
@@ -71,25 +68,16 @@ const Table = props => {
   }
 
   const tableOption = {
-    onSortChange: onSortChange,
-    sizePerPage: props.limit,
-    onPageChange: onPageChange,
-    page: props.currentPage,
-    paginationShowsTotal: renderShowsTotal,
-    paginationSize: 3,
-    hideSizePerPage: true,
-    onRowClick: handleRowClick,
     noDataText: props.inProgress
       ? msg('client.entity-list.dataLoading')
       : msg('client.entity-list.noData'),
-    nextPageTitle: msg('client.entity-list.nextPageTitle'),
-    prePageTitle: msg('client.entity-list.prePageTitle'),
-    firstPageTitle: msg('client.entity-list.firstPageTitle'),
-    lastPageTitle: msg('client.entity-list.lastPageTitle'),
-    prePage: '‹',
-    nextPage: '›',
-    firstPage: '«',
-    lastPage: '»',
+    onPageChange: onPageChange,
+    onRowClick: handleRowClick,
+    onSortChange: onSortChange,
+    page: props.currentPage,
+    paginationPanel: PaginationPanel,
+    paginationShowsTotal: renderShowsTotal,
+    sizePerPage: props.limit,
     ...sortingOptions()
   }
 

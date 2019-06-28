@@ -72,6 +72,8 @@ export {default as Upload, StyledUploadInput, StyledView} from './Upload'
 export {
   colorizeBorder,
   colorizeText,
+  declareFont,
+  declareWrappingText,
   design,
   generateInteractionColor,
   generateShades,
