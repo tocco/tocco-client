@@ -68,7 +68,7 @@ const initApp = (input, events, publicPath) => {
 class SchedulerApp extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {props}
+
     const events = EXTERNAL_EVENTS.reduce((events, event) => {
       if (props[event]) {
         events[event] = props[event]
@@ -79,14 +79,12 @@ class SchedulerApp extends React.Component {
     this.app = initApp(props, events)
   }
 
-  static getDerivedStateFromProps = (props, state) => {
-    if (!_isEqual(props, state.props)) {
-      getDispatchActions(props).forEach(action => {
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (!_isEqual(prevProps, this.props)) {
+      getDispatchActions(this.props).forEach(action => {
         this.app.store.dispatch(action)
       })
-      return {...state, props}
     }
-    return null
   }
 
   render = () => <div>{this.app.renderComponent()}</div>

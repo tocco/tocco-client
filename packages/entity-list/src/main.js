@@ -12,7 +12,6 @@ import {
 } from 'tocco-app-extensions'
 import _pickBy from 'lodash/pickBy'
 import _isEqual from 'lodash/isEqual'
-import _isEmpty from 'lodash/isEmpty'
 import SimpleFormApp from 'tocco-simple-form/src/main'
 
 import reducers, {sagas} from './modules/reducers'
@@ -95,7 +94,7 @@ const initApp = (id, input, events = {}, publicPath) => {
 class EntityListApp extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+
     const events = EXTERNAL_EVENTS.reduce((events, event) => {
       if (props[event]) {
         events[event] = props[event]
@@ -106,14 +105,13 @@ class EntityListApp extends React.Component {
     this.app = initApp(props.id, props, events)
   }
 
-  static getDerivedStateFromProps = props => {
-    const changedProps = _pickBy(props, (value, key) => !_isEqual(value, props[key]))
-    if (!_isEmpty(changedProps)) {
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (!_isEqual(prevProps, this.props)) {
+      const changedProps = _pickBy(this.props, (value, key) => !_isEqual(value, prevProps[key]))
       getDispatchActions(changedProps).forEach(action => {
         this.app.store.dispatch(action)
       })
     }
-    return null
   }
 
   render() {

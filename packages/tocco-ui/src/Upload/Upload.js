@@ -12,14 +12,15 @@ import UploadInput from './UploadInput'
 export class Upload extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      isUploading: false,
-      value: null
-    }
+    this.state = {isUploading: false}
   }
 
   setUploadingState(file) {
     this.setState({isUploading: true, previewFile: file})
+  }
+
+  abortUploadingState() {
+    this.setState({isUploading: false, previewFile: null})
   }
 
   onDrop(file) {
@@ -27,15 +28,10 @@ export class Upload extends React.Component {
     this.props.onUpload(file)
   }
 
-  static getDerivedStateFromProps(props, state) {
-    if (!_isEqual(props.value, state.value)) {
-      return {
-        isUploading: false,
-        previewFile: null,
-        value: props.value
-      }
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (!_isEqual(prevProps.value, this.props.value)) {
+      this.abortUploadingState()
     }
-    return null
   }
 
   getContent(props) {

@@ -6,7 +6,7 @@ import {Button, Menu} from 'tocco-ui'
 import actionTypes from '../actionTypes'
 import {isValidSelection, selectionText} from './selectionHelper'
 
-const GroupElement = ({definition, onClick, selectedCount, disabled, intl}) => {
+export const GroupElement = ({definition, onClick, selectedCount, disabled, intl}) => {
   if (definition.actionType === actionTypes.DIVIDER) {
     return <hr/>
   }
