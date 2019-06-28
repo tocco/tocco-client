@@ -126,6 +126,7 @@ class FullCalendar extends React.Component {
       if (!_isEqual(prevProps.resources, this.props.resources)) {
         this.calendarElement.fullCalendar('refetchResources')
       }
+      this.forceUpdate()
     }
   }
 

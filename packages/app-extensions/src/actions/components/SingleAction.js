@@ -6,7 +6,7 @@ import {injectIntl, intlShape} from 'react-intl'
 
 import {selectionText, isValidSelection} from './selectionHelper'
 
-const SingleAction = ({definition, onClick, selectedCount, disabled, intl}) => {
+export const SingleAction = ({definition, onClick, selectedCount, disabled, intl}) => {
   const validSelection = isValidSelection(selectedCount, definition)
   const title = selectionText(selectedCount, definition, intl)
   return (
