@@ -17,6 +17,8 @@ class DateAbstract extends React.Component {
     super(props)
     this.wrapper = React.createRef()
 
+    this.state = {altInput: ''}
+
     import(/* webpackChunkName: "flatpickr" */ '!style-loader!css-loader!flatpickr/dist/themes/light.css')
 
     Promise.all([
@@ -53,10 +55,11 @@ class DateAbstract extends React.Component {
 
     this.flatpickr = new this.Flatpickr(this.wrapper.current, this.options)
     this.flatpickr.calendarContainer.classList.add('tocco-ui-theme')
-
+    
     if (this.props.initialized) {
       this.props.initialized()
     }
+    this.setState({altInput: this.flatpickr.altInput.value})
   }
 
   getLocale = localeCode => {
@@ -131,7 +134,7 @@ class DateAbstract extends React.Component {
         <StyledDateAbstractInput
           disabled
           immutable={this.props.immutable}
-          value={this.flatpickr ? this.flatpickr.altInput.value : ''}
+          value={this.state.altInput}
         />
         <StyledDateAbstractControl
           data-clear
