@@ -4,7 +4,6 @@ import fs from 'fs'
 import {argv} from 'yargs'
 import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import CopyWebpackPlugin from 'copy-webpack-plugin'
 import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
 import CleanWebpackPlugin from 'clean-webpack-plugin'
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
@@ -134,17 +133,6 @@ if (__DEV__) {
 
   webpackConfig.plugins.push(
     new webpack.optimize.OccurrenceOrderPlugin())
-
-  webpackConfig.plugins.push(
-    new CopyWebpackPlugin([
-      {
-        context: `${packageDir}/src/`,
-        from: '**/*.scss',
-        flatten: true,
-        to: 'scss'
-      }
-    ])
-  )
 } else if (__STANDALONE__) {
   webpackConfig.plugins.push(
     new HtmlWebpackPlugin({
@@ -234,12 +222,6 @@ if (!__PROD__) {
       use: ['eslint-loader']
     }
   )
-
-  // write all styles into index.js
-  webpackConfig.module.rules.push({
-    test: /\.scss$/,
-    use: ['style-loader', 'css-loader', `sass-loader?data=$node-env:${config.env};&includePaths[]=${paths.client()}/packages/tocco-theme/node_modules/`]  // eslint-disable-line
-  })
 
   // File loaders
   /* eslint-disable */

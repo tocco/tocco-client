@@ -98,8 +98,6 @@ const initApp = (id, input, events, publicPath) => {
 
 (() => {
   if (__DEV__ && __PACKAGE_NAME__ === 'entity-browser') {
-    require('tocco-theme/src/ToccoTheme/theme.scss')
-
     if (!__NO_MOCK__) {
       const fetchMock = require('fetch-mock')
 
