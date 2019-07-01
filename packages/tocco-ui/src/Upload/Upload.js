@@ -28,7 +28,7 @@ export class Upload extends React.Component {
     this.props.onUpload(file)
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps) {
     if (!_isEqual(prevProps.value, this.props.value)) {
       this.abortUploadingState()
     }

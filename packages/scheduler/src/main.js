@@ -79,7 +79,7 @@ class SchedulerApp extends React.Component {
     this.app = initApp(props, events)
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps) {
     if (!_isEqual(prevProps, this.props)) {
       getDispatchActions(this.props).forEach(action => {
         this.app.store.dispatch(action)

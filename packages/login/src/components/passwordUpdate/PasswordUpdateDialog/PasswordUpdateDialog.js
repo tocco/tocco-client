@@ -9,7 +9,8 @@ import ValidationRules from '../ValidationRules'
 import FailureMessage from '../FailureMessage'
 
 class PasswordUpdateDialog extends Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props)
     this.props.fetchValidationRules()
   }
 

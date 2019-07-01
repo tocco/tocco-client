@@ -12,6 +12,7 @@ import {
 } from 'tocco-app-extensions'
 import _pickBy from 'lodash/pickBy'
 import _isEqual from 'lodash/isEqual'
+import _isEmpty from 'lodash/isEmpty'
 import SimpleFormApp from 'tocco-simple-form/src/main'
 
 import reducers, {sagas} from './modules/reducers'
@@ -105,9 +106,9 @@ class EntityListApp extends React.Component {
     this.app = initApp(props.id, props, events)
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (!_isEqual(prevProps, this.props)) {
-      const changedProps = _pickBy(this.props, (value, key) => !_isEqual(value, prevProps[key]))
+  componentDidUpdate(prevProps) {
+    const changedProps = _pickBy(this.props, (value, key) => !_isEqual(value, prevProps[key]))
+    if (!_isEmpty(changedProps)) {
       getDispatchActions(changedProps).forEach(action => {
         this.app.store.dispatch(action)
       })
