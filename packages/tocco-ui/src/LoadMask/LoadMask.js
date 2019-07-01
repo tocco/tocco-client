@@ -44,10 +44,9 @@ class LoadMask extends React.Component {
     this.mounted = false
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate() {
     if (!this.state.initialized) {
-      const test = this.requiredLoaded(this.props.required)
-      if (this.props.required && test) {
+      if (this.props.required && this.requiredLoaded(this.props.required)) {
         this.setInitialized()
       }
     }

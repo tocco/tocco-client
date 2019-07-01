@@ -8,7 +8,8 @@ import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {StyledEntityDetailBackButton} from './StyledEntityDetail'
 
 class EntityDetail extends React.Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props)
     this.props.loadDetailParams(this.props.router.match.url)
     this.props.setFormTouched(false)
   }

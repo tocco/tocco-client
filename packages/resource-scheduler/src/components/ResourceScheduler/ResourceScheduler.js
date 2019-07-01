@@ -10,7 +10,8 @@ import {
 } from './StyledResourceScheduler'
 
 class ResourceScheduler extends React.Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props)
     this.props.initialize()
   }
 
