@@ -6,7 +6,8 @@ import SearchPanel from '../SearchPanel/SearchPanel'
 import SchedulerAppContainer from '../../containers/SchedulerAppContainer'
 import {
   resizerStyle,
-  StyledSplitPanelWrapper
+  StyledSplitPanelWrapperLeft,
+  StyledSplitPanelWrapperRight
 } from './StyledResourceScheduler'
 
 class ResourceScheduler extends React.Component {
@@ -27,17 +28,17 @@ class ResourceScheduler extends React.Component {
           resizerStyle={resizerStyle}
           split="vertical"
         >
-          <StyledSplitPanelWrapper>
+          <StyledSplitPanelWrapperLeft>
             <SearchPanel
               locale={props.locale}
               calendarTypes={props.calendarTypes}
               updateRequestedCalendars={props.updateRequestedCalendars}
               requestedCalendars={this.props.requestedCalendars}
             />
-          </StyledSplitPanelWrapper>
-          <StyledSplitPanelWrapper>
+          </StyledSplitPanelWrapperLeft>
+          <StyledSplitPanelWrapperRight>
             <SchedulerAppContainer/>
-          </StyledSplitPanelWrapper>
+          </StyledSplitPanelWrapperRight>
         </SplitPane>
       </React.Fragment>
     )
