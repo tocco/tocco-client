@@ -1,5 +1,6 @@
 import React from 'react'
 import {shallow} from 'enzyme'
+import PanelGroup from 'react-bootstrap/lib/PanelGroup'
 
 import SearchPanel from './SearchPanel'
 
@@ -16,7 +17,7 @@ describe('resource-scheduler', () => {
             calendarTypes={[]}
           />
         )
-        expect(wrapper.find('div')).to.have.length(1)
+        expect(wrapper.find(PanelGroup)).to.have.length(1)
       })
     })
   })

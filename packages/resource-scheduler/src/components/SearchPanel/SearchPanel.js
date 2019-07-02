@@ -3,7 +3,13 @@ import PropTypes from 'prop-types'
 import EntityListApp from 'tocco-entity-list/src/main'
 import Panel from 'react-bootstrap/lib/Panel'
 import PanelGroup from 'react-bootstrap/lib/PanelGroup'
-import {Icon, design} from 'tocco-ui'
+import {
+  design,
+  Icon,
+  Typography
+} from 'tocco-ui'
+
+import {StyledPanel} from './StyledSearchPanel'
 
 class SearchPanel extends React.PureComponent {
   constructor() {
@@ -21,23 +27,22 @@ class SearchPanel extends React.PureComponent {
   }
 
   getSearchLists = calendarTypes => {
-    const accordionHeader = (content, name, color) => {
-      return <div onClick={() => { this.handleAccordionSelect(name) }}>
+    const accordionHeader = (label, name, color) =>
+      <div onClick={() => { this.handleAccordionSelect(name) }}>
         <Icon
           icon={color ? 'square' : ['far', 'square']}
           aria-hidden="true"
           style={{...(color ? {color} : {})}}
           position={design.position.PREPEND}
         />
-        {content}
+        <Typography.H5>{label}</Typography.H5>
         <Icon
           icon={`chevron-${this.state.activeKey === name ? 'up' : 'down'}`}
           style={{float: 'right'}}
         />
       </div>
-    }
 
-    return calendarTypes.map(calendarType => (
+    return calendarTypes.map(calendarType =>
       <Panel
         collapsible
         className="accordion-panel"
@@ -61,15 +66,14 @@ class SearchPanel extends React.PureComponent {
         />
       </Panel>
     )
-    )
   }
 
   render = () => (
-    <div>
+    <StyledPanel>
       <PanelGroup accordion activeKey={this.state.activeKey} onSelect={this.handleAccordionSelect}>
         {this.getSearchLists(this.props.calendarTypes)}
       </PanelGroup>
-    </div>
+    </StyledPanel>
   )
 }
 

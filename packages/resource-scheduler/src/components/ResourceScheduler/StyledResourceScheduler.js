@@ -9,10 +9,18 @@ export const resizerStyle = {
   cursor: 'col-resize'
 }
 
-export const StyledSplitPanelWrapper = styled.div`
+export const StyledSplitPanelWrapperLeft = styled.div`
   && {
     height: 100%;
     overflow: auto;
-    padding: ${scale.space(-1)};
+    padding-right: ${scale.space(-1)};
+  }
+`
+
+export const StyledSplitPanelWrapperRight = styled.div`
+  && {
+    height: 100%;
+    overflow: auto;
+    padding-left: ${scale.space(-1)};
   }
 `
