@@ -14,7 +14,7 @@ export class Login extends React.Component {
 
   render() {
     return (
-      <div className="tocco-login">
+      <React.Fragment>
         {(() => {
           switch (this.props.currentPage) {
             case Pages.PASSWORD_UPDATE:
@@ -27,7 +27,7 @@ export class Login extends React.Component {
               return <LoginFormContainer showTitle={this.props.showTitle}/>
           }
         })()}
-      </div>
+      </React.Fragment>
     )
   }
 }
