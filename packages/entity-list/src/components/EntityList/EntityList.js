@@ -15,7 +15,7 @@ class EntityList extends React.Component {
 
   render() {
     return (
-      <div className="entity-list">
+      <React.Fragment>
         {
           this.props.showSearchForm
           && (this.props.showFullTextSearchForm ? <FullTextSearchForm/> : <SearchFormContainer/>)
@@ -25,7 +25,7 @@ class EntityList extends React.Component {
           && <SelectionControllerContainer/>
         }
         <ListViewContainer/>
-      </div>
+      </React.Fragment>
     )
   }
 }

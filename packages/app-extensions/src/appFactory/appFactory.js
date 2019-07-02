@@ -103,19 +103,17 @@ const setWebpacksPublicPath = publicPath => {
 
 const getAppComponent = (store, initIntlPromise, name, content, theme) => {
   return (
-    <div className="tocco-ui-theme">
-      <ThemeWrapper appTheme={theme}>
-        <Provider store={store}>
-          <LoadMask promises={[initIntlPromise]}>
-            <IntlProvider>
-              <div className={`tocco-${name}`}>
-                {content}
-              </div>
-            </IntlProvider>
-          </LoadMask>
-        </Provider>
-      </ThemeWrapper>
-    </div>
+    <ThemeWrapper appTheme={theme}>
+      <Provider store={store}>
+        <LoadMask promises={[initIntlPromise]}>
+          <IntlProvider>
+            <div className={`tocco-${name}`}>
+              {content}
+            </div>
+          </IntlProvider>
+        </LoadMask>
+      </Provider>
+    </ThemeWrapper>
   )
 }
 
