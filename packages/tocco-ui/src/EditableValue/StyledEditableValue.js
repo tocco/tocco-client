@@ -16,7 +16,8 @@ const StyledEditableWrapperCss = css`
 
 const StyledEditableWrapper = styled.label`
   &&& {
-    margin-bottom: 0; /* reset bootstrap */
+    margin: 0; /* reset Bootstrap and Ext JS */
+    padding: 0; /* reset Ext JS */
     ${StyledEditableWrapperCss}
   }
 `

@@ -8,6 +8,7 @@ import {
   scale,
   theme as getTheme
 } from '../utilStyles'
+import {StyledHtmlFormatter} from '../FormattedValue/typeFormatters/HtmlFormatter'
 
 const BORDER_WIDTH = '1px'
 const ANIMATION_DURATION = '200ms'
@@ -43,15 +44,15 @@ const transformLabel = ({secondaryPosition, theme}) => css`
     transition: color ${ANIMATION_DURATION},
                 font-size ${ANIMATION_DURATION},
                 font-weight ${ANIMATION_DURATION},
-                margin-top ${ANIMATION_DURATION},
+                margin ${ANIMATION_DURATION},
                 top ${ANIMATION_DURATION};
-    will-change: color, font-size, font-weight, margin-top, top;
+    will-change: color, font-size, font-weight, margin, top;
 
     ${secondaryPosition && css`
       top: 0%;
       font-size: ${scale.font(-1)};
       font-weight: ${getTheme.fontWeight('bold')};
-      margin-top: calc(${scale.font(-1)} / -2);
+      margin: calc(${scale.font(-1)} / -2) 0 0;
     `}
 `
 
@@ -73,7 +74,7 @@ const StyledStatedValueLabel = styled.label`
     background-color: ${getTheme.color('paper')};
     color: ${props => colorizeText[getTextColor(props)](props)};
     left: ${scale.space(-2)};
-    margin-top: calc(${scale.font(0)} / -2);
+    margin: calc(${scale.font(0)} / -2) 0 0;
     padding: 0 ${scale.space(-2)};
     position: absolute;
     top: 50%;
@@ -93,6 +94,10 @@ const StyledStatedValueBox = styled.div`
     ${props => declareCursor(props)}
     transition: border-color ${ANIMATION_DURATION};
     will-change: border-color;
+
+    > ${StyledHtmlFormatter} {
+      margin-bottom: 0;
+    }
   }
 `
 
