@@ -1,5 +1,8 @@
 import styled from 'styled-components'
-import {scale} from 'tocco-ui'
+import {
+  declareFont,
+  scale
+} from 'tocco-ui'
 
 export const StyledMergeStrategyAnswer = styled.div`
   && {
@@ -9,5 +12,12 @@ export const StyledMergeStrategyAnswer = styled.div`
     input[type="radio"] {
       margin-right: ${scale.space(-2)};
     }
+  }
+`
+
+export const StyledMergeStrategyLabel = styled.label`
+  && {
+    ${declareFont()}
+    margin: 0 0 ${scale.space(-2)};
   }
 `
