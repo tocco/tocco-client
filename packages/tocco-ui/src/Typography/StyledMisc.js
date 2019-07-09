@@ -109,7 +109,7 @@ const StyledP = styled.p`
   && {
     ${declareFont()}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
-    margin-bottom: ${scale.space(-1)};
+    margin: 0 0 ${scale.space(-1)};
 
     &:last-child {
       margin-bottom: 0;
