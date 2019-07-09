@@ -5,6 +5,7 @@ import {Typography} from 'tocco-ui'
 import FieldOption from './FieldOption'
 import RelationOption from './RelationOption'
 import {EditOptionType} from './../../types/EditOptionType'
+import {StyledMergeStrategyLabel} from './StyledMergeStrategy'
 
 const EditOption = props => {
   let input
@@ -32,10 +33,10 @@ const EditOption = props => {
 
   return (
     <Typography.P >
-      <label>
+      <StyledMergeStrategyLabel>
         <input type="checkbox" checked={props.editOption.active} onClick={handleCheck}/>
         {props.editOption.label}
-      </label><br/>
+      </StyledMergeStrategyLabel><br/>
       {input}
     </Typography.P>
   )

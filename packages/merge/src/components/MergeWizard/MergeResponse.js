@@ -65,7 +65,7 @@ class MergeResponse extends React.Component {
         />
         {(this.props.mergeResponse.showPermissionMessage)
           && <SignalBox condition="danger">
-            <FormattedMessage id="client.merge.missingReadPermissions"/>
+            <Typography.Span><FormattedMessage id="client.merge.missingReadPermissions"/></Typography.Span>
           </SignalBox>
         }
         <Button

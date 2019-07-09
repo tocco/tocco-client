@@ -1,6 +1,7 @@
 import styled, {css} from 'styled-components'
 import {
   colorizeBorder,
+  declareFont,
   scale,
   shadeColor,
   theme
@@ -23,6 +24,7 @@ export const StyledMergeMatrixTable = styled.table`
 `
 
 const StyledMergeMatrixCell = css`
+  ${declareFont()}
   background-color: ${props => props.selected ? theme.color('signal.info.paper') : 'transparent'};
   font-weight: ${props => props.bold ? theme.fontWeight('bold') : theme.fontWeight('regular')};
   padding: ${scale.space(-2)} ${scale.space(-1)};
@@ -57,8 +59,9 @@ export const StyledMergeMatrixTd = styled.td`
 export const StyledMergeMatrixTh = styled.th`
   && {
     ${StyledMergeMatrixCell}
+    border-bottom: 0;
     cursor: pointer;
-    border-bottom: 2px solid ${props => colorizeBorder.shade2(props)};
+    text-align: left;
   }
 `
 
