@@ -11,7 +11,7 @@ storiesOf('Tocco-UI | Layout / Panel', module)
   .add(
     'PanelGroup',
     () => (
-      <Panel.Group openPanelId={2}>
+      <Panel.Group openPanelIndex={2}>
         {
           ['Group 1', 'Group 2', 'Group 3'].map((item, i) =>
             <Panel.Wrapper key={i}>

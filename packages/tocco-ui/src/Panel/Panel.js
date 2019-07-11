@@ -14,8 +14,8 @@ class Panel extends React.PureComponent {
 
   toggleOpenState = () => {
     if (this.props.isToggleable) {
-      if (typeof this.props.toggleOpenStateAsGroup === 'function') {
-        this.props.toggleOpenStateAsGroup(this.state.isOpen ? -1 : this.props.panelId)
+      if (typeof this.props.onToggle === 'function') {
+        this.props.onToggle(!this.state.isOpen)
       }
       this.setState(prevState => ({
         isOpen: !prevState.isOpen
@@ -24,7 +24,7 @@ class Panel extends React.PureComponent {
   }
 
   componentDidUpdate() {
-    if (typeof this.props.toggleOpenStateAsGroup === 'function') {
+    if (typeof this.props.onToggle === 'function') {
       this.setState({isOpen: this.props.isOpen})
     }
   }
@@ -76,13 +76,9 @@ Panel.propTypes = {
    */
   isToggleable: PropTypes.bool,
   /**
-   * Function gets passed from PanelGroup to ensure that only one Panel is open at one time.
+   * Function is triggered by componentDidUpdate or by toggleOpenState.
    */
-  toggleOpenStateAsGroup: PropTypes.func,
-  /**
-   * Id is passed from PanelGroup to identify each Panel in a group.
-   */
-  panelId: PropTypes.number
+  onToggle: PropTypes.func
 }
 
 export default Panel
