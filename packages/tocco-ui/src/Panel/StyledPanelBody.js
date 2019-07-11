@@ -1,14 +1,17 @@
 import styled, {css, keyframes} from 'styled-components'
 
+const ANIMATION_DURATION = '300ms'
+
 const delayScrollbar = keyframes`
   0%,
+  99% {overflow-y: hidden;}
   100% {overflow-y: visible;}
 `
 
 const declareScrollbar = isOpen => {
   return isOpen ? css`
     animation-name: ${delayScrollbar};
-    animation-duration: 300ms;
+    animation-duration: ${ANIMATION_DURATION};
     animation-fill-mode: forwards;
   ` : `
     overflow-y: hidden;
@@ -23,8 +26,8 @@ const StyledPanelBody = styled.div`
     ${props => declareScrollbar(props.isOpen)}
 
     transition:
-      height 300ms ease-in-out,
-      padding 300ms ease-in-out;
+      height ${ANIMATION_DURATION} ease-in-out,
+      padding ${ANIMATION_DURATION} ease-in-out;
       will-change: height, padding;
 
     > div {
