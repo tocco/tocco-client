@@ -56,10 +56,12 @@ const PaginationPanel = props => {
 }
 
 PaginationPanel.propTypes = {
-  currPage: PropTypes.number,
-  totalPages: PropTypes.number,
-  changePage: PropTypes.func,
-  components: PropTypes.objectOf(PropTypes.element)
+  currPage: PropTypes.number.isRequired,
+  totalPages: PropTypes.number.isRequired,
+  changePage: PropTypes.func.isRequired,
+  components: PropTypes.shape({
+    totalText: PropTypes.element.isRequired
+  }).isRequired
 }
 
 export default PaginationPanel
