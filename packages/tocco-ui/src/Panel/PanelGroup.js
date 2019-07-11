@@ -5,11 +5,13 @@ import StyledPanelGroup from './StyledPanelGroup'
 
 class PanelGroup extends React.Component {
   state = {
-    openPanelId: this.props.openPanelId >= 0 ? this.props.openPanelId : -1
+    openPanelIndex: this.props.openPanelIndex
   }
 
-  toggleOpenStateAsGroup = panelId => {
-    this.setState({openPanelId: panelId})
+  onToggle = (index, open) => {
+    this.setState({
+      openPanelIndex: open === true ? index : undefined
+    })
   }
 
   render() {
@@ -18,9 +20,8 @@ class PanelGroup extends React.Component {
         {
           React.Children.map(this.props.children, (child, i) =>
             React.cloneElement(child, {
-              isOpen: this.state.openPanelId === i,
-              panelId: i,
-              toggleOpenStateAsGroup: this.toggleOpenStateAsGroup
+              isOpen: this.state.openPanelIndex === i,
+              onToggle: this.onToggle.bind(this, i)
             })
           )
         }
@@ -34,7 +35,7 @@ PanelGroup.propTypes = {
   /**
    * Define a panel which is initially opened (zero-based index).
    */
-  openPanelId: PropTypes.number
+  openPanelIndex: PropTypes.number
 }
 
 export default PanelGroup
