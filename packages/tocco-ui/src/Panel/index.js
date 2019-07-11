@@ -1,4 +1,5 @@
 import Wrapper from './Panel'
+import Group from './PanelGroup'
 import Body from './PanelBody'
 import HeaderFooter from './PanelHeaderFooter'
 import StyledPanel from './StyledPanel'
@@ -17,6 +18,7 @@ export {
 export default {
   Body,
   Footer,
+  Group,
   Header,
   Wrapper
 }

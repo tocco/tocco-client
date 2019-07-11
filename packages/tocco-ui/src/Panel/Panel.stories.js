@@ -11,6 +11,48 @@ storiesOf('Tocco-UI | Layout / Panel', module)
     'Panel',
     () =>
       <div>
+        <Panel.Group>
+          <Panel.Wrapper>
+            <Panel.Header>
+              <Typography.H4>Group 1 - Panel 1</Typography.H4>
+            </Panel.Header>
+            <Panel.Body>
+              <Typography.Span>Panel 1 Body</Typography.Span>
+            </Panel.Body>
+          </Panel.Wrapper>
+
+          <Panel.Wrapper>
+            <Panel.Header>
+              <Typography.H4>Group 1 - Panel 2</Typography.H4>
+            </Panel.Header>
+            <Panel.Body>
+              <Typography.Span>Group 1 Body</Typography.Span>
+            </Panel.Body>
+          </Panel.Wrapper>
+        </Panel.Group>
+
+        <Panel.Group openPanelId={1}>
+          <Panel.Wrapper>
+            <Panel.Header>
+              <Typography.H4>Group 2 - Panel 1</Typography.H4>
+            </Panel.Header>
+            <Panel.Body>
+              <Typography.Span>Panel 1 Body</Typography.Span>
+            </Panel.Body>
+          </Panel.Wrapper>
+
+          <Panel.Wrapper>
+            <Panel.Header>
+              <Typography.H4>Group 2 - Panel 2</Typography.H4>
+            </Panel.Header>
+            <Panel.Body>
+              <Typography.Span>Group 2 Body</Typography.Span>
+            </Panel.Body>
+          </Panel.Wrapper>
+        </Panel.Group>
+
+        <hr/>
+
         <Panel.Wrapper isFramed={false}>
           <Panel.Header>
             <Typography.H4>Header</Typography.H4>
