@@ -6,21 +6,16 @@ import {createBrowserHistory} from 'history'
 import {Button, LoadMask} from 'tocco-ui'
 
 import Navigation from '../Navigation'
-import Dashboard from '../Dashboard'
-import EntitiesRoute from '../EntitiesRoute'
-import Settings from '../Settings'
-import LoginContainer from '../../containers/LoginContainer'
+import DashboardRoute from '../../routes/dashboard'
+import EntitiesRoute from '../../routes/entities'
+import Settings from '../../routes/settings'
+import Login from '../../components/Login'
 
 class Admin extends React.Component {
   history = createBrowserHistory({...this.props.baseRoute && {basename: this.props.baseRoute}})
 
   componentDidMount() {
     this.props.doSessionCheck()
-
-    this.props.locationChanged(this.history.location.pathname)
-    this.history.listen((location, action) => {
-      this.props.locationChanged(location.pathname)
-    })
   }
 
   render() {
@@ -30,7 +25,7 @@ class Admin extends React.Component {
           {
             !this.props.loggedIn
               ? <div>
-                <LoginContainer/>
+                <Login/>
               </div>
               : <div>
                 <Flex style={{backgroundColor: '#9E2124', color: '#fff'}}>
@@ -47,7 +42,7 @@ class Admin extends React.Component {
                     <Switch>
                       <Route exact path="/"
                         render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/dashboard`}/>}/>
-                      <Route exact={true} path="/dashboard" component={Dashboard}/>
+                      <Route exact={true} path="/dashboard" component={DashboardRoute}/>
                       <Route path="/e" component={EntitiesRoute}/>
                       <Route path="/s" component={Settings}/>
                       <Route render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/dashboard`}/>}/>
@@ -67,8 +62,7 @@ Admin.propTypes = {
   baseRoute: PropTypes.string,
   loggedIn: PropTypes.bool,
   doLogout: PropTypes.func.isRequired,
-  doSessionCheck: PropTypes.func.isRequired,
-  locationChanged: PropTypes.func.isRequired
+  doSessionCheck: PropTypes.func.isRequired
 }
 
 export default Admin

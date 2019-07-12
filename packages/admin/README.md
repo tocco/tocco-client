@@ -24,9 +24,8 @@ none so far
 
 ### Admin Prototype Next Steps
 
-- [ ] Establish folder structure routes/modules/components
-- [ ] Harmonize Loading Screens (Not returning null from list and detail view)
-- [ ] Async loading of routes. Code splitting in general
+- [X] Establish folder structure routes/modules/components
+- [X] Async loading of routes. 
 - [ ] Implement relation view
 - [ ] Setup Breadcrumbs
 - [ ] Not Found Route / Error Handling in Sagas (invalid route)
@@ -35,5 +34,7 @@ none so far
 - [ ] Create Event > redirect to detail
 - [ ] Load entities for navigation
 - [ ] Performance optimization. Caching of paths / models ...
+- [ ] Code splitting plan
+- [ ] One Loading Mask (Preload data and inject into detail/List?)
 
 
