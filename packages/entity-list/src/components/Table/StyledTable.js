@@ -92,6 +92,10 @@ const StyledTable = styled.div`
         }
       }
     }
+
+    .react-bs-table-pagination .row {
+      margin: ${scale.space(-1)} 0 0 0 !important;
+    }
   }
 `
 
