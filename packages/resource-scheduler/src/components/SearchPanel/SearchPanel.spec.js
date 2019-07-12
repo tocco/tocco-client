@@ -1,6 +1,6 @@
 import React from 'react'
 import {shallow} from 'enzyme'
-import PanelGroup from 'react-bootstrap/lib/PanelGroup'
+import {Panel} from 'tocco-ui'
 
 import SearchPanel from './SearchPanel'
 
@@ -17,7 +17,7 @@ describe('resource-scheduler', () => {
             calendarTypes={[]}
           />
         )
-        expect(wrapper.find(PanelGroup)).to.have.length(1)
+        expect(wrapper.find(Panel.Group)).to.have.length(1)
       })
     })
   })
