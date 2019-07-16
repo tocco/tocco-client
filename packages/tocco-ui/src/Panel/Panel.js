@@ -9,7 +9,7 @@ import StyledPanel from './StyledPanel'
  */
 class Panel extends React.PureComponent {
   state = {
-    isOpen: undefined
+    isOpen: this.props.isOpen
   }
 
   toggleOpenState = () => {
@@ -23,8 +23,10 @@ class Panel extends React.PureComponent {
     }
   }
 
-  static getDerivedStateFromProps(props, state) {
-    return (props.isOpen !== state.isOpen) ? {isOpen: props.isOpen} : null
+  componentDidUpdate() {
+    if (typeof this.props.onToggle === 'function') {
+      this.setState({isOpen: this.props.isOpen})
+    }
   }
 
   render() {
@@ -74,7 +76,7 @@ Panel.propTypes = {
    */
   isToggleable: PropTypes.bool,
   /**
-   * Function that is called when Panel is opened or closed.
+   * Function is triggered by componentDidUpdate or by toggleOpenState.
    */
   onToggle: PropTypes.func
 }
