@@ -73,19 +73,22 @@ export function* unloadDetailView() {
 export function* loadEntityModel(entityName) {
   const entityModel = yield call(fetchModel, entityName)
   yield put(actions.setEntityModel(entityModel))
+  return entityModel
 }
 
 export function* loadDetailView() {
-  const {entityName, formName, mode} = yield select(entityDetailSelector)
+  const {entityName, formName, mode, defaultValues} = yield select(entityDetailSelector)
 
-  yield call(loadEntityModel, entityName)
+  const model = yield call(loadEntityModel, entityName)
   const formDefinition = yield call(loadDetailFormDefinition, formName)
 
   if (mode === modes.CREATE) {
     yield put(actions.setEntity({paths: {}, model: entityName}))
     const fieldDefinitions = yield call(form.getFieldDefinitions, formDefinition)
-    const defaultValues = yield call(form.getDefaultValues, fieldDefinitions)
-    yield put(formActions.initialize(FORM_ID, defaultValues))
+    const formDefaultValues = yield call(form.getDefaultValues, fieldDefinitions)
+    const inputDefaultValues = yield call(form.loadDisplaysOfRelationFields, defaultValues, model)
+
+    yield put(formActions.initialize(FORM_ID, {...formDefaultValues, ...inputDefaultValues}))
   } else {
     yield call(loadData)
   }
