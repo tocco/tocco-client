@@ -13,6 +13,8 @@ React-registry name: `entity-detail`
 | `formName`             |           | Detail-form that should be loaded
 | `mode`                 |           | Determines if the detail is in `create` or `update` mode
 | `showSubGridsCreateButton`|        | (Temporary) Flag to show/hide a create button on any subgrid
+| `defaultValues`        |           | Array of object with attributes id, value. Only for Create mode. e.g. [{id: 'lastname', value: 'Simpson}, {id:'relGender', value: '1'}]
+
 
 ### Events
 

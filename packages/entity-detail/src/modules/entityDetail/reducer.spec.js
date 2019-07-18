@@ -10,7 +10,8 @@ const EXPECTED_INITIAL_STATE = {
   formName: '',
   mode: 'update',
   touched: false,
-  showSubGridCreateButton: false
+  showSubGridCreateButton: false,
+  defaultValues: {}
 }
 
 describe('entity-detail', () => {
