@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
 
-const DetailView = props => {
-  const mode = 'update'
+const CreateView = props => {
+  const mode = 'create'
 
   if (!props.currentViewInfo) {
     return null
@@ -14,16 +14,15 @@ const DetailView = props => {
   return (
     <EntityDetailApp
       entityName={entityName}
-      entityId={props.currentViewInfo.key}
       formName={`${entityName}_detail`}
       mode={mode}
     />
   )
 }
 
-DetailView.propTypes = {
+CreateView.propTypes = {
   match: PropTypes.object,
   currentViewInfo: PropTypes.object
 }
 
-export default DetailView
+export default CreateView

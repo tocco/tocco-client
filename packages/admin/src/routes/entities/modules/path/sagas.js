@@ -1,12 +1,14 @@
 import pathToRegexp from 'path-to-regexp'
 import {rest} from 'tocco-app-extensions'
 import _get from 'lodash/get'
+import _pickBy from 'lodash/pickBy'
+import _pick from 'lodash/pick'
 
 import * as actions from './actions'
 
 import {takeLatest, fork, all, call, put, select} from 'redux-saga/effects'
-
 export const modelSelector = (state, entity) => _get(state, `state.path.modelCache.${entity}`, null)
+export const relationsSelector = (state, entity) => _get(state, `state.path.relationsCache.${entity}`, null)
 
 const isEven = n => n % 2 === 0
 
@@ -39,6 +41,12 @@ export function* getModel(entity) {
   const entityModel = yield call(rest.fetchModel, entity, modelTransformer)
   yield put(actions.cacheModel(entity, entityModel))
   return entityModel
+}
+
+export function* extractMultiRelations(model) {
+  const relations = _pickBy(model.paths, (value, key) => value.type === 'relation' && value.multi === true)
+
+  return Object.keys(relations).map(k => _pick(relations[k], ['relationName', 'targetEntity']))
 }
 
 export function* loadCurrentViewInfo({payload: {location}}) {
@@ -75,11 +83,19 @@ export function* loadCurrentViewInfo({payload: {location}}) {
           idx++
         }
       }
+
+      let relations
+
+      if (model) {
+        relations = yield call(extractMultiRelations, model)
+      }
+
       yield put(actions.setCurrentViewInfo({
         model,
         key,
         reverseRelation,
-        parentModel
+        parentModel,
+        relations
       }))
     }
   }

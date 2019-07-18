@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {NavLink, Redirect, Route, Switch} from 'react-router-dom'
 
 import Record from '../../subroutes/record'
-import Detail from '../../subroutes/detail'
+import Create from '../../subroutes/create'
 import List from '../../subroutes/list'
 
 const Spacer = () => <span style={{paddingLeft: '5px'}}/>
@@ -20,7 +20,7 @@ const EntityRoute = ({match}) => {
         <Switch>
           <Route exact path={match.url} render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/list`}/>}/>
           <Route path={`${match.path}/list`} component={List}/>
-          <Route path={`${match.path}/create`} component={Detail}/>
+          <Route path={`${match.path}/create`} component={Create}/>
           <Route path={`${match.path}/:key`} component={Record}/>
         </Switch>
       </div>

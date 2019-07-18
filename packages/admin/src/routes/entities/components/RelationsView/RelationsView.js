@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
+import {Icon} from 'tocco-ui'
 
 const RelationsView = ({match, currentViewInfo}) => {
   if (!currentViewInfo) {
@@ -10,14 +11,15 @@ const RelationsView = ({match, currentViewInfo}) => {
   return (
     <div>
       <h1>Relations {currentViewInfo.model.name}</h1>
-
       <ul>
-        <li>
-          <Link to={match.url.replace(/relations$/, 'relAddress_c')}>Address</Link>
-        </li>
-        <li>
-          <Link to={match.url.replace(/relations$/, 'relDonation')}>Donation</Link>
-        </li>
+        {currentViewInfo.relations.map((relation, idx) => (
+          <li key={idx}>
+            <Link to={match.url.replace(/relations$/, relation.relationName)}>
+              {relation.relationName} ({relation.targetEntity})
+            </Link>
+            <Link to={match.url.replace(/relations$/, relation.relationName) + '/create'}><Icon icon="plus"/></Link>
+          </li>
+        ))}
       </ul>
     </div>
   )
