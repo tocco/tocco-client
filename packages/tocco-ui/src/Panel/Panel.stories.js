@@ -35,7 +35,7 @@ storiesOf('Tocco-UI | Layout / Panel', module)
         isToggleable: boolean('isToggleable', true)
       }
       return (
-        <Panel.Wrapper isOpen={true} {...wrapperKnobs}>
+        <Panel.Wrapper isOpenInitial={true} {...wrapperKnobs}>
           <Panel.Header>
             <Typography.H4>Header</Typography.H4>
           </Panel.Header>
@@ -54,7 +54,7 @@ storiesOf('Tocco-UI | Layout / Panel', module)
         isToggleable: boolean('isToggleable', true)
       }
       return (
-        <Panel.Wrapper isOpen={true} {...wrapperKnobs}>
+        <Panel.Wrapper isOpenInitial={false} {...wrapperKnobs}>
           <Panel.Body>
             <Preview
               alt="modern building captured from frog view"
