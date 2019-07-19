@@ -20,7 +20,7 @@ class PanelGroup extends React.Component {
         {
           React.Children.map(this.props.children, (child, i) =>
             React.cloneElement(child, {
-              isOpen: this.state.openPanelIndex === i,
+              controlledIsOpen: this.state.openPanelIndex === i,
               onToggle: this.onToggle.bind(this, i)
             })
           )
