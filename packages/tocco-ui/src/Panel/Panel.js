@@ -76,7 +76,7 @@ Panel.propTypes = {
    */
   isToggleable: PropTypes.bool,
   /**
-   * Function is triggered by componentDidUpdate or by toggleOpenState.
+   * Function is triggered if panel is opened or closed.
    */
   onToggle: PropTypes.func
 }
