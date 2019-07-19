@@ -62,7 +62,7 @@ describe('app-extensions', () => {
       })
 
       describe('entityToFormValues', () => {
-        test('should return paths values in an object ', () => {
+        test('should return paths values in an object and set empty values as null', () => {
           const entity = {
             model: 'User',
             key: '99',
@@ -75,15 +75,60 @@ describe('app-extensions', () => {
                   type: 'string'
                 }
               },
+              mail: {
+                type: 'field',
+                value: {
+                  value: 'test@test.ch',
+                  type: 'email'
+                }
+              },
+              profession: {
+                path: 'profession',
+                type: 'field',
+                value: {
+                  value: '',
+                  type: 'string'
+                }
+              }
+            }
+          }
+
+          const formValues = reduxForm.entityToFormValues(entity)
+
+          expect(formValues).to.have.property('lastname', 'keller')
+          expect(formValues).to.have.property('mail', 'test@test.ch')
+          expect(formValues).to.have.property('profession', null)
+        })
+
+        test('should relations as simple object with only relevant attributes', () => {
+          const entity = {
+            model: 'User',
+            key: '99',
+            version: 0,
+            paths: {
+              relGender: {
+                path: 'relGender',
+                type: 'entity',
+                value: {
+                  key: '2',
+                  model: 'Gender',
+                  version: 3,
+                  display: 'Weiblich',
+                  fields: null,
+                  singleRelations: [],
+                  multiRelations: [],
+                  paths: null
+                }
+              },
               relMulti_entity2: {
+                path: 'relMulti_entity2',
                 type: 'entity-list',
                 value: [
                   {
                     key: '1',
                     model: 'Dummy_entity',
                     version: '1',
-                    display: 'Entity Label 1',
-                    fields: {}
+                    display: 'Entity Label 1'
                   },
                   {
                     key: '3',
@@ -92,38 +137,58 @@ describe('app-extensions', () => {
                     display: 'Entity Label 3'
                   }
                 ]
+              },
+              relNative_language: {
+                path: 'relNative_language',
+                type: 'entity',
+                writable: true,
+                value: null
               }
             }
           }
+
           const formValues = reduxForm.entityToFormValues(entity)
 
-          const expectedValues = {
-            __version: 0,
-            lastname: 'keller',
-            relMulti_entity2: entity.paths.relMulti_entity2.value
+          expect(formValues).to.have.deep.property('relGender', {key: '2', display: 'Weiblich'})
+          expect(formValues).to.have.deep.property('relNative_language', null)
+          expect(formValues).to.have.deep.property('relMulti_entity2',
+            [{key: '1', display: 'Entity Label 1'}, {key: '3', display: 'Entity Label 3'}]
+          )
+        })
+
+        test('should handle display expressions', () => {
+          const entity = {
+            model: 'User',
+            key: '99',
+            version: 0,
+            paths: {
+              durationDisplay: {
+                path: 'durationDisplay',
+                type: 'display-expression',
+                value: '<b>bold</b> <i>italic</i>'
+              }
+            }
           }
 
-          expect(formValues).to.eql(expectedValues)
+          const formValues = reduxForm.entityToFormValues(entity)
+
+          expect(formValues).to.have.deep.property('durationDisplay', '<b>bold</b> <i>italic</i>')
         })
 
-        describe('entityToFormValues', () => {
-          test('should set version as value', () => {
-            const entity = {
-              model: 'User',
-              key: '99',
-              version: 23,
-              paths: {}
-            }
-            const formValues = reduxForm.entityToFormValues(entity)
-            expect(formValues).to.have.property('__version', 23)
-          })
+        test('should set version as value', () => {
+          const entity = {
+            model: 'User',
+            key: '99',
+            version: 23,
+            paths: {}
+          }
+          const formValues = reduxForm.entityToFormValues(entity)
+          expect(formValues).to.have.property('__version', 23)
         })
 
-        describe('entityToFormValues', () => {
-          test('should return an empty object if entity is undefined', () => {
-            const formValues = reduxForm.entityToFormValues(undefined)
-            expect(formValues).to.be.empty
-          })
+        test('should return an empty object if entity is undefined', () => {
+          const formValues = reduxForm.entityToFormValues(undefined)
+          expect(formValues).to.be.empty
         })
       })
 
