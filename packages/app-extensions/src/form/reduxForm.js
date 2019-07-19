@@ -1,5 +1,7 @@
 import _forOwn from 'lodash/forOwn'
 import _isEqual from 'lodash/isEqual'
+import _pick from 'lodash/pick'
+import _isEmpty from 'lodash/isEmpty'
 
 import {generalErrorField, entityValidatorErrorsField, relatedEntityErrorsField} from './formErrors'
 
@@ -62,19 +64,27 @@ export const transformFieldNameBack = fieldName => (fieldName.replace(/--/g, '.'
 
 export const entityToFormValues = entity => {
   if (!entity || !entity.paths) return {}
-  const result = {}
-  const paths = entity.paths
+
+  const result = {
+    [versionField]: entity.version
+  }
 
   Object.keys(entity.paths).forEach(key => {
-    const field = paths[key]
-    if (field.type === 'entity' || field.type === 'entity-list' || field.type === 'display-expression') {
-      result[transformFieldName(key)] = field.value
+    const field = entity.paths[key]
+    const transformedFieldName = transformFieldName(key)
+    const typeValueTransformer = typeValueTransformers[field.type]
+
+    const value = field.value
+
+    if (!value || _isEmpty(value)) {
+      result[transformedFieldName] = null
     } else {
-      result[transformFieldName(key)] = field.value ? field.value.value : null
+      result[transformedFieldName] = typeValueTransformer
+        ? typeValueTransformer(value)
+        : value.value || null
     }
   })
 
-  result[versionField] = entity.version
   return result
 }
 
@@ -88,4 +98,11 @@ export const getDirtyFields = (initialValues, values, isCreate) => {
   })
 
   return dirtyFields
+}
+
+const relevantRelationAttributes = ['key', 'display']
+const typeValueTransformers = {
+  'display-expression': value => value,
+  'entity': value => _pick(value, relevantRelationAttributes),
+  'entity-list': value => value.map(childValue => _pick(childValue, relevantRelationAttributes))
 }
