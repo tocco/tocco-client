@@ -8,10 +8,24 @@ import {
   Typography
 } from 'tocco-ui'
 
+const PanelHeaderContent = ({color, label}) =>
+  <Typography.H5>
+    <Icon
+      icon={color ? 'square' : ['far', 'square']}
+      aria-hidden="true"
+      style={{...(color ? {color} : {})}}
+      position={design.position.PREPEND}
+    />  {label}
+  </Typography.H5>
+
+PanelHeaderContent.propTypes = {
+  color: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired
+}
+
 class SearchPanel extends React.PureComponent {
   constructor() {
     super()
-
     this.state = {activeKey: -1}
   }
 
@@ -19,22 +33,15 @@ class SearchPanel extends React.PureComponent {
     this.props.updateRequestedCalendars(name, selection)
   }
 
-  accordionHeader = (label, color) =>
-    <Panel.Header>
-      <Typography.H5>
-        <Icon
-          icon={color ? 'square' : ['far', 'square']}
-          aria-hidden="true"
-          style={{...(color ? {color} : {})}}
-          position={design.position.PREPEND}
-        />  {label}
-      </Typography.H5>
-    </Panel.Header>
-
   getSearchLists = calendarTypes =>
     calendarTypes.map(calendarType =>
       <Panel.Wrapper key={calendarType.name}>
-        {this.accordionHeader(calendarType.label, calendarType.color)}
+        <Panel.Header>
+          <PanelHeaderContent
+            color={calendarType.color}
+            label={calendarType.label}
+          />
+        </Panel.Header>
         <Panel.Body>
           <EntityListApp
             locale={this.props.locale}
