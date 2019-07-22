@@ -87,8 +87,12 @@ export function* loadDetailView() {
     const fieldDefinitions = yield call(form.getFieldDefinitions, formDefinition)
     const formDefaultValues = yield call(form.getDefaultValues, fieldDefinitions)
     const inputDefaultValues = yield call(form.loadDisplaysOfRelationFields, defaultValues, model)
+    const defaultValuesFields = {...formDefaultValues, ...inputDefaultValues}
 
-    yield put(formActions.initialize(FORM_ID, {...formDefaultValues, ...inputDefaultValues}))
+    yield put(formActions.initialize(FORM_ID, {}))
+    yield all(Object.keys(defaultValuesFields).map(key =>
+      put(formActions.change(FORM_ID, key, defaultValuesFields[key]))
+    ))
   } else {
     yield call(loadData)
   }
