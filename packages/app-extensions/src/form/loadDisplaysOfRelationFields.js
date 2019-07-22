@@ -19,23 +19,21 @@ export default function* loadDisplaysOfRelationFields(fields, entityModel) {
   const result = {}
   if (fields) {
     for (const field of fields) {
-      const fieldName = field.id
-      const value = field.value
-
+      const {id, value} = field
       let transformedValue = value
-      const fieldModel = entityModel[fieldName]
+
+      const fieldModel = entityModel[id]
       if (fieldModel && fieldModel.type === 'relation') {
         const targetEntity = fieldModel.targetEntity
 
         if (fieldModel.multi) {
-          const entities = yield call(fetchEntities, targetEntity, value)
-          transformedValue = entities
+          transformedValue = yield call(fetchEntities, targetEntity, value)
         } else {
           const entities = yield call(fetchEntities, targetEntity, [value])
           transformedValue = entities[0]
         }
       }
-      result[fieldName] = transformedValue
+      result[id] = transformedValue
     }
     return result
   }
