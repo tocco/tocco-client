@@ -36,7 +36,7 @@ export class DetailForm extends React.Component {
     if (this.props.valid) {
       this.props.submitForm()
     } else if (this.props.formErrors) {
-      this.touchFieldsWithError()
+      this.showErrors()
     }
   }
 
@@ -57,7 +57,10 @@ export class DetailForm extends React.Component {
   }
 
   showErrors = event => {
-    event.preventDefault()
+    if (event) {
+      event.preventDefault()
+    }
+
     this.props.touchAllFields()
     this.focusErrorFields()
   }
