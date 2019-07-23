@@ -2,7 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {injectIntl, intlShape} from 'react-intl'
 import _isEqual from 'lodash/isEqual'
+import {withTheme} from 'styled-components'
 
+import {theme} from '../../utilStyles'
 import Button from '../../Button'
 import {
   StyledDateAbstractControl,
@@ -55,7 +57,8 @@ class DateAbstract extends React.Component {
 
     this.flatpickr = new this.Flatpickr(this.wrapper.current, this.options)
     this.flatpickr.calendarContainer.classList.add('tocco-ui-theme')
-    
+    this.flatpickr.calendarContainer.style.fontFamily = theme.fontFamily('regular')(this.props)
+
     if (this.props.initialized) {
       this.props.initialized()
     }
@@ -167,4 +170,4 @@ DateAbstract.propTypes = {
   })
 }
 
-export default injectIntl(DateAbstract)
+export default withTheme(injectIntl(DateAbstract))
