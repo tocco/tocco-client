@@ -5,7 +5,7 @@ import getPreselectedValues, {getDisplay, NOT_FOUND_DISPLAY, fetchEntities} from
 describe('app-extensions', () => {
   describe('form', () => {
     describe('loadDisplaysOfRelationFields', () => {
-      test('should return and object with values from preselected saerchfields', () => {
+      test('should return and object with values from preselected searchfields', () => {
         const values = [
           {
             'id': 'txtFulltext',
