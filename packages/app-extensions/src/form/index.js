@@ -14,6 +14,7 @@ import componentTypes from './enums/componentTypes'
 import layoutTypes from './enums/layoutTypes'
 import scopes from './enums/scopes'
 import validators from './validators'
+import loadDisplaysOfRelationFields from './loadDisplaysOfRelationFields'
 
 export default {
   formErrorsUtil,
@@ -33,5 +34,6 @@ export default {
   componentTypes,
   layoutTypes,
   scopes,
-  validators
+  validators,
+  loadDisplaysOfRelationFields
 }
