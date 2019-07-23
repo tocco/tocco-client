@@ -9,13 +9,19 @@ const CreateView = props => {
     return null
   }
 
-  const entityName = props.currentViewInfo.model.name
+  const {model, reverseRelation, key} = props.currentViewInfo
+  const entityName = model.name
+
+  const defaultValues = [
+    ...((reverseRelation && key) ? [{id: reverseRelation, value: key}] : [])
+  ]
 
   return (
     <EntityDetailApp
       entityName={entityName}
       formName={`${entityName}_detail`}
       mode={mode}
+      defaultValues={defaultValues}
     />
   )
 }

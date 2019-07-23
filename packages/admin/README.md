@@ -26,7 +26,7 @@ none so far
 
 - [X] Establish folder structure routes/modules/components
 - [X] Async loading of routes. 
-- [ ] Implement relation view
+- [X] Implement relation view
 - [ ] Setup Breadcrumbs
 - [ ] Not Found Route / Error Handling in Sagas (invalid route)
 - [ ] Notification und Error handling usw in Admin
