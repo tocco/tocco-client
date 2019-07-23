@@ -66,11 +66,11 @@ const initApp = (id, input, events, publicPath) => {
 
   const content = (
     <Router history={history}>
-      <div>
+      <React.Fragment>
         {routes.map((route, i) => (
           <RouteWithSubRoutes key={i} {...route}/>
         ))}
-      </div>
+      </React.Fragment>
     </Router>
   )
 
@@ -98,8 +98,6 @@ const initApp = (id, input, events, publicPath) => {
 
 (() => {
   if (__DEV__ && __PACKAGE_NAME__ === 'entity-browser') {
-    require('tocco-theme/src/ToccoTheme/theme.scss')
-
     if (!__NO_MOCK__) {
       const fetchMock = require('fetch-mock')
 
@@ -125,9 +123,7 @@ class EntityBrowserApp extends React.Component {
   }
 
   render() {
-    return (
-      <div>{this.app.renderComponent()}</div>
-    )
+    return this.app.renderComponent()
   }
 }
 

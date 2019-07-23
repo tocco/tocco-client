@@ -5,8 +5,9 @@ import Select from '../../Select'
 
 const RemoteSelect = props => (
   <Select
+    id={props.id}
     isMulti={false}
-    readOnly={props.readOnly}
+    immutable={props.immutable}
     onChange={props.onChange}
     value={props.value}
     {...props.options}
@@ -36,7 +37,7 @@ RemoteSelect.propTypes = {
     tooltips: PropTypes.objectOf(PropTypes.string),
     loadTooltip: PropTypes.func
   }),
-  readOnly: PropTypes.bool,
+  immutable: PropTypes.bool,
   id: PropTypes.string
 }
 

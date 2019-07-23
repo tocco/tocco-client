@@ -1,5 +1,6 @@
-import {shallow, mount} from 'enzyme'
+import {shallow} from 'enzyme'
 import React from 'react'
+import {intlEnzyme} from 'tocco-test-util'
 
 import Action from './Action'
 import ActionGroup from './ActionGroup'
@@ -43,7 +44,7 @@ describe('app-extensions', () => {
             ]
           }
 
-          const wrapper = mount(<Action {...baseProps} definition={definition}/>)
+          const wrapper = intlEnzyme.mountWithIntl(<Action {...baseProps} definition={definition}/>)
           expect(wrapper.find(ActionGroup)).to.have.length(1)
         })
 
@@ -62,7 +63,7 @@ describe('app-extensions', () => {
             ]
           }
 
-          const wrapper = mount(<Action {...baseProps} definition={definition}/>)
+          const wrapper = intlEnzyme.mountWithIntl(<Action {...baseProps} definition={definition}/>)
           expect(wrapper.find(ActionGroup)).to.have.length(1)
         })
       })

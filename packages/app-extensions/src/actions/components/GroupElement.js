@@ -1,18 +1,18 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {intlShape} from 'react-intl'
+import {injectIntl, intlShape} from 'react-intl'
 import {Button, Menu} from 'tocco-ui'
 
 import actionTypes from '../actionTypes'
 import {isValidSelection, selectionText} from './selectionHelper'
 
-const GroupElement = ({definition, onClick, selectedCount, disabled}, context) => {
+export const GroupElement = ({definition, onClick, selectedCount, disabled, intl}) => {
   if (definition.actionType === actionTypes.DIVIDER) {
     return <hr/>
   }
 
   const validSelection = isValidSelection(selectedCount, definition)
-  const title = selectionText(selectedCount, definition, context.intl)
+  const title = selectionText(selectedCount, definition, intl)
 
   const buttonDisabled = definition.readonly === true || !validSelection || disabled
 
@@ -29,11 +29,8 @@ const GroupElement = ({definition, onClick, selectedCount, disabled}, context) =
   )
 }
 
-GroupElement.contextTypes = {
-  intl: intlShape
-}
-
 GroupElement.propTypes = {
+  intl: intlShape.isRequired,
   definition: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired,
   onSelect: PropTypes.func,
@@ -41,4 +38,4 @@ GroupElement.propTypes = {
   disabled: PropTypes.bool
 }
 
-export default GroupElement
+export default injectIntl(GroupElement)

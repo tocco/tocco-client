@@ -5,7 +5,8 @@ import Select from '../../Select'
 
 const SingleSelect = props => (
   <Select
-    readOnly={props.readOnly}
+    id={props.id}
+    immutable={props.immutable}
     isMulti={false}
     onChange={props.onChange}
     value={props.value}
@@ -34,7 +35,7 @@ SingleSelect.propTypes = {
     tooltips: PropTypes.objectOf(PropTypes.string),
     loadTooltip: PropTypes.func
   }),
-  readOnly: PropTypes.bool,
+  immutable: PropTypes.bool,
   id: PropTypes.string
 }
 

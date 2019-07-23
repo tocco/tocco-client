@@ -9,7 +9,8 @@ export default function asyncRoute(getComponent) {
       Component: AsyncComponent.Component
     }
 
-    componentWillMount() {
+    componentDidMount() {
+      this.mounted = true
       if (this.state.Component === null) {
         getComponent().then(Component => {
           AsyncComponent.Component = Component
@@ -18,10 +19,6 @@ export default function asyncRoute(getComponent) {
           }
         })
       }
-    }
-
-    componentDidMount() {
-      this.mounted = true
     }
 
     componentWillUnmount() {

@@ -8,7 +8,7 @@ import {declareTypograhpy} from '../../Typography'
 const StyledHtmlFormatter = styled.div`
   && {
     ${props => declareTypograhpy(props, 'html')}
-    margin: 0 0 ${scale.space(0)};
+    margin: 0 0 ${scale.space(-1)};
 
     &:last-child {
       margin-bottom: 0;
@@ -22,4 +22,7 @@ HtmlFormatter.propTypes = {
   value: PropTypes.string.isRequired
 }
 
-export default HtmlFormatter
+export {
+  HtmlFormatter as default,
+  StyledHtmlFormatter
+}

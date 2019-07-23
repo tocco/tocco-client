@@ -60,8 +60,8 @@ class StatedValueWrapper extends React.Component {
           onChange={this.handleChange}
           style={{
             border: 0,
-            cursor: knobs.immutable && knobs.type === 'field' ? 'not-allowed' : 'auto',
-            color: knobs.immutable && knobs.type === 'field' ? '#909090' : '#000',
+            cursor: knobs.immutable && !knobs.isDisplay ? 'not-allowed' : 'auto',
+            color: knobs.immutable && !knobs.isDisplay ? '#545454' : '#000',
             outline: 0,
             transition: 'color 200ms',
             width: '100%'
@@ -97,12 +97,9 @@ storiesOf('Tocco-UI | StatedValue', module)
           'mixed errors': errors.mixed
         }),
         label: text('label', 'label'),
-        mandatory: boolean('mandatory', false) || undefined,
-        immutable: boolean('immutable', false) || undefined,
-        type: select('type', {
-          'display': 'display',
-          'field': 'field'
-        }, 'display')
+        mandatory: boolean('mandatory', false),
+        isDisplay: boolean('isDisplay', false),
+        immutable: boolean('immutable', false)
       }
       return [
         <StatedValueWrapper

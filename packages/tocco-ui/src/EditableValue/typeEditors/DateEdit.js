@@ -44,7 +44,7 @@ export class DateEdit extends React.Component {
         onBlur={this.onBlur}
         onChange={this.handleChange}
         options={{...this.props.options, flatpickrOptions}}
-        readOnly={this.props.readOnly}
+        immutable={this.props.immutable}
         events={this.props.events}
       />
     )
@@ -55,7 +55,7 @@ DateEdit.propTypes = {
   intl: intlShape.isRequired,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string,
-  readOnly: PropTypes.bool,
+  immutable: PropTypes.bool,
   options: PropTypes.shape({
     placeholderText: PropTypes.string,
     flatpickrOptions: PropTypes.object

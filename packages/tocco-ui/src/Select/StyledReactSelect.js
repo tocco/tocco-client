@@ -1,9 +1,9 @@
 import {
-  getLuminance,
-  transparentize
+  getLuminance
 } from 'polished'
 
 import {
+  generateDisabledShade,
   generateShades,
   scale
 } from '../utilStyles'
@@ -27,8 +27,7 @@ const reactSelectStyles = outerTheme => {
   const text = generateShades(outerTheme.colors.text, {
     action: getLuminance(outerTheme.colors.paper) > 0.5 ? 'darken' : 'lighten'
   })
-  const infoText = outerTheme.colors.signal.info.text
-  const space1 = scale.space(-1)({theme: outerTheme})
+  const textDisabled = generateDisabledShade(outerTheme.colors.text)
   const space2 = scale.space(-2)({theme: outerTheme})
   const typography = {
     color: text[0],
@@ -45,16 +44,10 @@ const reactSelectStyles = outerTheme => {
     }),
     control: (base, state) => ({
       ...base,
-      backgroundColor: state.isDisabled ? paper[1] : paper[0],
-      borderColor: state.isFocused
-        ? infoText
-        : state.theme.colors.neutral20,
-      boxShadow: state.isFocused
-        ? `0 0 8px ${transparentize(0.4, infoText)}`
-        : null,
-      '&:hover': {
-        borderColor: state.isFocused ? infoText : state.theme.colors.neutral30
-      }
+      backgroundColor: paper[0],
+      borderWidth: 0,
+      boxShadow: null,
+      minHeight: 0
     }),
     noOptionsMessage: (base, state) => ({
       ...base,
@@ -87,12 +80,16 @@ const reactSelectStyles = outerTheme => {
       '> span': {
         marginRight: `${space2}`
       },
+      '> span:last-child': {
+        marginRight: `-${space2}`
+      },
       '> span > button': {
         width: '2.6rem'
       }
     }),
     input: (base, state) => ({
-      margin: `0 ${space2} ${space2} 0`
+      margin: `0 ${space2} 0 0`,
+      minHeight: '2.6rem'
     }),
     menuList: (base, state) => ({
       ...base,
@@ -101,13 +98,17 @@ const reactSelectStyles = outerTheme => {
     multiValue: (base, state) => ({
       ...base,
       borderRadius: outerTheme.radii.regular,
-      margin: `0 ${space2} ${space2} 0`
+      margin: `${space2} ${space2} 0 0`,
+      ':first-child': {
+        marginLeft: `-${space2}`
+      }
     }),
     multiValueLabel: (base, state) => ({
       ...base,
       borderRadius: outerTheme.radii.regular,
-      color: text[0],
+      color: state.isDisabled ? textDisabled : text[0],
       fontSize: 'inherit'
+
     }),
     multiValueRemove: (base, state) => ({
       ...base,
@@ -123,12 +124,14 @@ const reactSelectStyles = outerTheme => {
     }),
     singleValue: (base, state) => ({
       ...base,
-      color: text[0],
-      margin: `0 ${space2}`
+      color: state.isDisabled ? textDisabled : text[0],
+      margin: 0
     }),
     valueContainer: (base, state) => ({
       ...base,
-      padding: `${space2} ${space1} 0 ${space2}`
+      padding: 0,
+      margin: 0,
+      overflow: 'visible'
     })
   }
 }

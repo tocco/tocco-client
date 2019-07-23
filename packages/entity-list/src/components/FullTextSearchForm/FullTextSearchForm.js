@@ -24,7 +24,7 @@ class FullTextSearchForm extends React.Component {
 
   render() {
     return (
-      <form style={{padding: '10px'}} onSubmit={this.handleSubmit} className="form-horizontal">
+      <form onSubmit={this.handleSubmit}>
         <Field name="txtFulltext" component={this.field}/>
       </form>
     )

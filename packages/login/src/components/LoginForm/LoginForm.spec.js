@@ -2,7 +2,7 @@ import React from 'react'
 import {shallow} from 'enzyme'
 import {FormattedMessage} from 'react-intl'
 import {Button} from 'tocco-ui'
-import {IntlStub} from 'tocco-test-util'
+import {intlEnzyme, IntlStub} from 'tocco-test-util'
 
 import {Pages} from '../../types/Pages'
 import {LoginForm} from './LoginForm'
@@ -118,7 +118,7 @@ describe('login', () => {
       test('should change page if password is requested', () => {
         const changePage = sinon.spy()
 
-        const wrapper = shallow(
+        const wrapper = intlEnzyme.mountWithIntl(
           <LoginForm
             intl={IntlStub}
             login={() => undefined}
@@ -130,9 +130,9 @@ describe('login', () => {
             password="password"
           />
         )
-        expect(wrapper.find('.forgot-password')).to.have.length(1)
-        wrapper.find('.forgot-password').simulate('click')
-
+        const Buttons = wrapper.find(Button)
+        expect(Buttons).to.have.length(2)
+        Buttons.at(1).simulate('click')
         expect(changePage).to.have.property('callCount', 1)
         expect(changePage.firstCall.args).to.eql([Pages.PASSWORD_REQUEST])
       })
@@ -140,7 +140,7 @@ describe('login', () => {
       test('should call setUsername on username change', () => {
         const setUsername = sinon.spy()
 
-        const wrapper = shallow(
+        const wrapper = intlEnzyme.mountWithIntl(
           <LoginForm
             intl={IntlStub}
             login={() => undefined}
@@ -166,7 +166,7 @@ describe('login', () => {
       test('should call setPassword on password change', () => {
         const setPassword = sinon.spy()
 
-        const wrapper = shallow(
+        const wrapper = intlEnzyme.mountWithIntl(
           <LoginForm
             intl={IntlStub}
             login={() => undefined}
@@ -217,7 +217,7 @@ describe('login', () => {
       })
 
       test('should focus password input if username is set', () => {
-        const wrapper = shallow(
+        const wrapper = intlEnzyme.mountWithIntl(
           <LoginForm
             intl={IntlStub}
             login={() => undefined}

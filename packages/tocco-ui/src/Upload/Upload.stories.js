@@ -41,7 +41,7 @@ export class UploadStory extends React.Component {
         <Upload
           value={this.state.value}
           onUpload={this.changeValue.bind(this)}
-          readOnly={boolean('readOnly', false)}
+          immutable={boolean('immutable', false)}
           textResources={{
             upload: text('upload', 'D`n`D or click'),
             uploading: text('uploading', 'uploading...'),

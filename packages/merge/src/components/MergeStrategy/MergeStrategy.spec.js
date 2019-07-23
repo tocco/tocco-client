@@ -48,9 +48,8 @@ describe('merge', () => {
             />
           </IntlProvider>
         )
-
-        expect(wrapper.find('select')).to.have.length(2)
-        expect(wrapper.find('input[type="radio"]')).to.have.length(2)
+        expect(wrapper.find('button')).to.have.length(2)
+        expect(wrapper.find('select')).to.have.length(1)
       })
     })
   })

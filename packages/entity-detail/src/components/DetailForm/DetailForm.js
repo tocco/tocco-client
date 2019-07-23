@@ -2,14 +2,14 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {reduxForm} from 'redux-form'
 import {intlShape, FormattedRelative, FormattedMessage} from 'react-intl'
-import {Button} from 'tocco-ui'
+import {Button, Typography} from 'tocco-ui'
 import {form, formField} from 'tocco-app-extensions'
 
 import SubGrid from '../../util/detailView/fromFieldFactories/subGrid'
 import ErrorBox from '../ErrorBox'
 import modes from '../../util/modes'
 import readOnlyFormFieldMapping from '../../util/detailView/readOnlyFormFieldMapping'
-import StyledDetailForm from './StyledDetailForm'
+import {StyledDetailFormLastSaved} from './StyledDetailFormLastSaved'
 
 export class DetailForm extends React.Component {
   componentDidUpdate(prevProps) {
@@ -36,7 +36,7 @@ export class DetailForm extends React.Component {
     if (this.props.valid) {
       this.props.submitForm()
     } else if (this.props.formErrors) {
-      this.touchFieldsWithError()
+      this.showErrors()
     }
   }
 
@@ -57,7 +57,10 @@ export class DetailForm extends React.Component {
   }
 
   showErrors = event => {
-    event.preventDefault()
+    if (event) {
+      event.preventDefault()
+    }
+
     this.props.touchAllFields()
     this.focusErrorFields()
   }
@@ -72,45 +75,43 @@ export class DetailForm extends React.Component {
     }
 
     return (
-      <StyledDetailForm>
-        <form
-          className="form-horizontal detail-form"
-          tabIndex="0"
-          onSubmit={this.handleSubmit}
-          onKeyDown={this.handleKeyPress}
-        >
-          <form.FormBuilder
-            entity={props.entity}
-            model={props.entityModel}
-            formName={props.form}
-            formDefinition={props.formDefinition}
-            formValues={props.formValues}
-            formFieldMapping={formField.defaultMapping}
-            readOnlyFormFieldMapping={readOnlyFormFieldMapping}
-            mode={props.mode}
-            componentMapping={{[form.componentTypes.SUB_TABLE]: SubGrid}}
+      <form
+        onSubmit={this.handleSubmit}
+        onKeyDown={this.handleKeyPress}
+      >
+        <form.FormBuilder
+          entity={props.entity}
+          model={props.entityModel}
+          formName={props.form}
+          formDefinition={props.formDefinition}
+          formValues={props.formValues}
+          formFieldMapping={formField.defaultMapping}
+          readOnlyFormFieldMapping={readOnlyFormFieldMapping}
+          mode={props.mode}
+          componentMapping={{[form.componentTypes.SUB_TABLE]: SubGrid}}
+        />
+        {!this.isReadOnlyForm()
+        && <React.Fragment>
+          {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
+          <Button
+            data-cy="detail-form_submit-button"
+            disabled={props.submitting || (props.anyTouched && !props.valid)}
+            ink="primary"
+            label={this.msg(`client.entity-detail.${props.mode === modes.CREATE ? 'create' : 'save'}`)}
+            look="raised"
+            pending={props.submitting}
+            type="submit"
           />
-          {!this.isReadOnlyForm()
-          && <div>
-            {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
-            <Button
-              disabled={props.submitting || (props.anyTouched && !props.valid)}
-              ink="primary"
-              label={this.msg(`client.entity-detail.${props.mode === modes.CREATE ? 'create' : 'save'}`)}
-              look="raised"
-              pending={props.submitting}
-              type="submit"
-            />
-            {props.lastSave
-            && <div>
-              <FormattedMessage id="client.entity-detail.lastSave"/>
-              <span style={{marginLeft: '3px'}}> <FormattedRelative value={props.lastSave}/></span>
-            </div>
-            }
-          </div>
+          {props.lastSave
+          && <StyledDetailFormLastSaved>
+            <Typography.Span>
+              <FormattedMessage id="client.entity-detail.lastSave"/> <FormattedRelative value={props.lastSave}/>
+            </Typography.Span>
+          </StyledDetailFormLastSaved>
           }
-        </form>
-      </StyledDetailForm>
+        </React.Fragment>
+        }
+      </form>
     )
   }
 }

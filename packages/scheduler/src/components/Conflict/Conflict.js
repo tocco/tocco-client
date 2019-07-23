@@ -1,9 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {intlShape} from 'react-intl'
-import {Typography} from 'tocco-ui'
 
 import conflicts from '../../utils/conflicts'
+
+const CHECK = '\u2713'
+const CROSS = '\u2715'
 
 const Conflict = ({conflictStatus, intl}) => {
   if (!(conflictStatus === conflicts.ACCEPTED || conflictStatus === conflicts.EXISTING)) {
@@ -11,16 +13,12 @@ const Conflict = ({conflictStatus, intl}) => {
   }
 
   const accepted = conflictStatus === conflicts.ACCEPTED
-
   const textResource = `client.scheduler.conflict${accepted ? 'Accepted' : 'Existing'}`
-  const style = {
-    ...(accepted ? {} : {color: '#8b0000'})
-  }
+  const icon = accepted ? CHECK : CROSS
 
-  return <Typography.Span style={style}>
-    {accepted ? <Typography.Span>&#10003; </Typography.Span> : <span>&#10005; </span>}
-    {intl.formatMessage({id: textResource})}
-  </Typography.Span>
+  return (
+    <span>{icon} {intl.formatMessage({id: textResource})}</span>
+  )
 }
 
 Conflict.propTypes = {

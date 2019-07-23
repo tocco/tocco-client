@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {injectIntl, intlShape} from 'react-intl'
+import _isEqual from 'lodash/isEqual'
 
 import Button from '../../Button'
 import {
@@ -14,8 +15,9 @@ class DateAbstract extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {hideButton: true}
     this.wrapper = React.createRef()
+
+    this.state = {altInput: ''}
 
     import(/* webpackChunkName: "flatpickr" */ '!style-loader!css-loader!flatpickr/dist/themes/light.css')
 
@@ -45,7 +47,7 @@ class DateAbstract extends React.Component {
       onChange: this.handleOnChange,
       altInput: true,
       altInputClass: '',
-      clickOpens: !this.props.readOnly,
+      clickOpens: !this.props.immutable,
       defaultDate: this.props.value,
       ...(locale ? {locale} : {}),
       ...(this.props.options ? this.props.options.flatpickrOptions : {})
@@ -53,10 +55,11 @@ class DateAbstract extends React.Component {
 
     this.flatpickr = new this.Flatpickr(this.wrapper.current, this.options)
     this.flatpickr.calendarContainer.classList.add('tocco-ui-theme')
-
+    
     if (this.props.initialized) {
       this.props.initialized()
     }
+    this.setState({altInput: this.flatpickr.altInput.value})
   }
 
   getLocale = localeCode => {
@@ -72,22 +75,26 @@ class DateAbstract extends React.Component {
     return null
   }
 
-  componentWillReceiveProps(props) {
-    this.handleButtonVisibility()
-    const locale = this.getLocale(props.intl.locale)
-
+  componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.Flatpickr && this.flatpickr) {
-      this.Flatpickr.localize(locale)
-      this.flatpickr.set('locale', locale)
-
-      this.flatpickr.set('altFormat', props.options.flatpickrOptions.altFormat)
-      this.flatpickr.setDate(props.value, false)
-      this.flatpickr.redraw()
+      if (!_isEqual(
+        prevProps.options.flatpickrOptions.altFormat,
+        this.props.options.flatpickrOptions.altFormat
+      )) {
+        this.flatpickr.set('altFormat', this.props.options.flatpickrOptions.altFormat)
+        this.flatpickr.redraw()
+      }
+      if (!_isEqual(prevProps.intl.locale, this.props.intl.locale)) {
+        const locale = this.getLocale(this.props.intl.locale)
+        this.Flatpickr.localize(locale)
+        this.flatpickr.set('locale', locale)
+        this.flatpickr.redraw()
+      }
+      if (!_isEqual(prevProps.value, this.props.value)) {
+        this.flatpickr.setDate(this.props.value, false)
+        this.flatpickr.redraw()
+      }
     }
-  }
-
-  componentDidMount() {
-    this.handleButtonVisibility()
   }
 
   componentWillUnmount() {
@@ -110,30 +117,28 @@ class DateAbstract extends React.Component {
     }
   }
 
-  handleButtonVisibility = () => {
-    this.setState({hideButton: !this.hasValue() && !this.props.readOnly})
-  }
-
   render() {
     return (
       <StyledDateAbstractWrapper
         data-wrap
         onBlur={this.handleOnBlur}
-        readOnly={this.props.readOnly}
+        immutable={this.props.immutable}
         ref={this.wrapper}
       >
         <StyledDateAbstractInput
           type="text"
           data-input
+          immutable={this.props.immutable}
           {...(this.props.options ? {placeholder: this.props.options.placeholderText} : {})}
         />
         <StyledDateAbstractInput
           disabled
-          value={this.flatpickr ? this.flatpickr.altInput.value : ''}
+          immutable={this.props.immutable}
+          value={this.state.altInput}
         />
         <StyledDateAbstractControl
           data-clear
-          hideButton={this.state.hideButton || this.props.readOnly}
+          hideButton={!this.hasValue() || this.props.immutable}
         >
           <Button
             icon="times"
@@ -155,7 +160,7 @@ DateAbstract.propTypes = {
     placeholderText: PropTypes.string,
     flatpickrOptions: PropTypes.object
   }),
-  readOnly: PropTypes.bool,
+  immutable: PropTypes.bool,
   initialized: PropTypes.func,
   events: PropTypes.shape({
     onFocus: PropTypes.func

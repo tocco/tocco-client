@@ -15,6 +15,7 @@ export const SET_SHOW_SUB_GRIDS_CREATE_BUTTON = 'entityDetail/SET_SHOW_SUB_GRIDS
 export const UPLOAD_DOCUMENT = 'entityDetail/UPLOAD_DOCUMENT'
 export const SET_APP_ID = 'entityDetail/SET_APP_ID'
 export const TOUCH_ALL_FIELDS = 'entityDetail/TOCH_ALL_FIELDS'
+export const SET_DEFAULT_VALUES = 'entityDetail/SET_DEFAULT_VALUES'
 
 export const setFormDefinition = formDefinition => ({
   type: SET_FORM_DEFINITION,
@@ -116,4 +117,11 @@ export const setAppId = appId => ({
 
 export const touchAllFields = () => ({
   type: TOUCH_ALL_FIELDS
+})
+
+export const setDefaultValues = defaultValues => ({
+  type: SET_DEFAULT_VALUES,
+  payload: {
+    defaultValues
+  }
 })

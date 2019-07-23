@@ -8,7 +8,6 @@ import * as formActionTypes from 'redux-form/es/actionTypes'
 
 import * as actions from './actions'
 import {fetchForm, searchFormTransformer, getFormFieldFlat, getEndpoint} from '../../util/api/forms'
-import {getPreselectedValues} from '../../util/searchForm'
 import {SET_INITIALIZED as LIST_SET_INITIALIZED} from '../entityList/actions'
 import {validateSearchFields} from '../../util/searchFormValidation'
 import {SET_FORM_DEFINITION} from '../list/actions'
@@ -58,7 +57,10 @@ export function* setInitialFormValues(searchFormVisible, formDefinition) {
 
   if (preselectedSearchFields) {
     const {model} = yield call(getEntityModel)
-    const preselectedValues = yield call(getPreselectedValues, preselectedSearchFields, model, null, searchFormVisible)
+    const preselectedValues = searchFormVisible
+      ? yield call(form.loadDisplaysOfRelationFields, preselectedSearchFields, model)
+      : preselectedSearchFields
+
     formValues = {...formValues, ...preselectedValues}
   }
 

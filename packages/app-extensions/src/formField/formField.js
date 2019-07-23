@@ -1,22 +1,34 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import _get from 'lodash/get'
-import {FormField} from 'tocco-ui'
+import {StatedValue} from 'tocco-ui'
 import {consoleLogger} from 'tocco-util'
 
 import fromData from '../formData'
-import typeEditable from './typeEditable'
+import typeEditables from './typeEditable'
 
-const FormFieldWrapper = props =>
-  <FormField {...props} dirty={props.formData.isDirty || props.dirty} error={props.formData.errors || props.error}>
+const FormFieldWrapper = props => {
+  const hasValueOverwrite = props.typeEditable && props.typeEditable.hasValue
+    && props.typeEditable.hasValue(props.formData.formValues, props.formField)
+
+  return <StatedValue
+    {...props}
+    dirty={props.formData.isDirty || props.dirty}
+    error={props.formData.errors || props.error}
+    hasValue={hasValueOverwrite || props.hasValue}
+  >
     {React.cloneElement(props.children, {formData: props.formData})}
-  </FormField>
+  </StatedValue>
+}
 
 FormFieldWrapper.propTypes = {
+  typeEditable: PropTypes.object,
   children: PropTypes.node,
   formData: PropTypes.object,
+  formField: PropTypes.object,
   dirty: PropTypes.bool,
-  error: PropTypes.object
+  error: PropTypes.object,
+  hasValue: PropTypes.bool
 }
 
 export const formFieldFactory = (mapping, data, resources = {}) => {
@@ -44,24 +56,37 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
     )
 
     const mandatory = !readOnly && _get(modelField, `validation.mandatory`, false)
+    const hasValue = value !== null && value !== undefined && (value.length === undefined || value.length > 0)
+    const isDisplay = data.formDefinitionField.componentType === 'display' || readOnlyForm
 
     const type = formDefinitionField.dataType
     let requestedFromData
-    if (typeEditable[type] && typeEditable[type].dataContainerProps) {
-      requestedFromData = typeEditable[type].dataContainerProps({formField: formDefinitionField, modelField, formName})
+
+    const typeEditable = typeEditables[type]
+
+    if (typeEditable && typeEditable.dataContainerProps) {
+      requestedFromData = typeEditable.dataContainerProps({formField: formDefinitionField, modelField, formName})
     }
+
+    const fixLabel = typeEditable && typeEditable.fixLabel && typeEditable.fixLabel()
 
     return (
       <fromData.FormDataContainer {...requestedFromData}>
         <FormFieldWrapper
-          key={id}
+          typeEditable={typeEditable}
+          dirty={dirty}
+          error={error}
+          hasValue={hasValue}
           id={id}
+          immutable={readOnly}
+          isDisplay={isDisplay}
+          key={id}
           label={formDefinitionField.label}
           mandatory={mandatory}
           mandatoryTitle={resources.mandatoryTitle}
-          error={error}
           touched={touched}
-          dirty={dirty}
+          fixLabel={fixLabel}
+          formField={formDefinitionField}
         >
           <ValueField
             mapping={mapping}
@@ -74,7 +99,6 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
           />
         </FormFieldWrapper>
       </fromData.FormDataContainer>
-
     )
   } catch (exception) {
     consoleLogger.logError('Error creating formField', exception)

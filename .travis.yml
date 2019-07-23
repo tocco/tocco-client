@@ -4,9 +4,8 @@ node_js:
   - "9"
 dist: trusty
 cache:
-  yarn: true
   directories:
-    - node_modules
+    - $HOME/.cache
     - server/static/node_modules
     - packages/app-extensions-browser/node_modules
     - packages/entity-browser/node_modules
@@ -25,20 +24,19 @@ cache:
     - .jestcache
 
 install:
-  - yarn setup
+  - yarn setup --frozen-lockfile
   - travis_wait lerna bootstrap --concurrency=1 --mutex network
 
 script:
-  - npm run lint
+  - yarn lint
   - jest --maxWorkers=4 --silent --verbose false
   - BACKEND=https://master.tocco.ch yarn build-storybook
+  - bash deployment/deploy_storybook.sh
+  - if [[ $TRAVIS_BRANCH == "master" ]]; then yarn cypress run --env PR_BRANCH=$TRAVIS_PULL_REQUEST_BRANCH; fi
 
 after_success:
-  - npm run codecov;
-  - if [ ${TRAVIS_EVENT_TYPE} != "cron" ]; then
-        bash deployment/deploy_storybook.sh;
-    fi
-  - bash deployment/storybook_link.sh;
+  - npm run codecov
+  - bash deployment/storybook_link.sh
 
 env:
   global:

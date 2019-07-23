@@ -12,6 +12,7 @@ import {
 } from 'tocco-app-extensions'
 import _pickBy from 'lodash/pickBy'
 import _isEqual from 'lodash/isEqual'
+import _isEmpty from 'lodash/isEmpty'
 import SimpleFormApp from 'tocco-simple-form/src/main'
 
 import reducers, {sagas} from './modules/reducers'
@@ -74,7 +75,6 @@ const initApp = (id, input, events = {}, publicPath) => {
 
 (() => {
   if (__DEV__ && __PACKAGE_NAME__ === 'entity-list') {
-    require('tocco-theme/src/ToccoTheme/theme.scss')
     const input = require('./dev/input.json')
 
     if (!__NO_MOCK__) {
@@ -105,12 +105,13 @@ class EntityListApp extends React.Component {
     this.app = initApp(props.id, props, events)
   }
 
-  componentWillReceiveProps = nextProps => {
-    const changedProps = _pickBy(nextProps, (value, key) => !_isEqual(value, this.props[key]))
-
-    getDispatchActions(changedProps).forEach(action => {
-      this.app.store.dispatch(action)
-    })
+  componentDidUpdate(prevProps) {
+    const changedProps = _pickBy(this.props, (value, key) => !_isEqual(value, prevProps[key]))
+    if (!_isEmpty(changedProps)) {
+      getDispatchActions(changedProps).forEach(action => {
+        this.app.store.dispatch(action)
+      })
+    }
   }
 
   render() {

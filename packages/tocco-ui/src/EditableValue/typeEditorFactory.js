@@ -83,7 +83,7 @@ export default (type, value, options, id, events, readOnly = false) => {
     }
 
     return (
-      <div {..._omit(events, 'onChange')}>
+      <div {..._omit(events, 'onChange')} data-cy="form-field">
         <Component
           value={value}
           onChange={v => {
@@ -92,7 +92,7 @@ export default (type, value, options, id, events, readOnly = false) => {
           }}
           {...(_isEmpty(options) ? {} : {options})}
           id={id}
-          readOnly={readOnly}
+          immutable={readOnly}
           events={events}
         />
       </div>

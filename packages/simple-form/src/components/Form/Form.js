@@ -8,7 +8,8 @@ import {intlShape} from 'react-intl'
 const REDUX_FORM_NAME = 'simpleForm'
 
 class Form extends React.Component {
-  componentWillMount() {
+  constructor(props) {
+    super(props)
     this.props.initializeForm()
   }
 
@@ -27,7 +28,7 @@ class Form extends React.Component {
     })
 
   render = () => (
-    <form onSubmit={this.props.handleSubmit(this.handleSubmit)} className="form form-horizontal">
+    <form onSubmit={this.props.handleSubmit(this.handleSubmit)}>
       <form.FormBuilder
         entity={undefined}
         model={this.props.model}

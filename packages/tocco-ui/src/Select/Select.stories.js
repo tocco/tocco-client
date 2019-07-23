@@ -70,7 +70,7 @@ export class SelectStory extends React.Component {
           onChange={this.setValue}
           openAdvancedSearch={action('open advanced search')}
           options={this.state.options}
-          readOnly={this.props.readOnly}
+          immutable={this.props.immutable}
           searchOptions={this.searchOptions}
           tooltips={this.state.tooltips}
           value={this.state.value}
@@ -83,7 +83,7 @@ export class SelectStory extends React.Component {
 SelectStory.propTypes = {
   delay: PropTypes.number,
   isMulti: PropTypes.bool,
-  readOnly: PropTypes.bool
+  immutable: PropTypes.bool
 }
 
 storiesOf('Tocco-UI | Select', module)
@@ -95,7 +95,7 @@ storiesOf('Tocco-UI | Select', module)
         action={action}
         delay={2000}
         isMulti={boolean('isMulti', true)}
-        readOnly={boolean('readOnly', true)}
+        immutable={boolean('immutable', true)}
       />,
     {info: {propTables: [Raw], propTablesExclude: [SelectStory], source: false}}
   )

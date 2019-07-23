@@ -7,14 +7,15 @@ import ListViewContainer from '../../containers/ListViewContainer'
 import SelectionControllerContainer from '../../containers/SelectionControllerContainer'
 
 class EntityList extends React.Component {
-  componentWillMount() {
+  constructor(props) {
+    super(props)
     this.props.initialize()
     this.props.initializeSearchForm(this.props.showSearchForm)
   }
 
   render() {
     return (
-      <div className="entity-list">
+      <React.Fragment>
         {
           this.props.showSearchForm
           && (this.props.showFullTextSearchForm ? <FullTextSearchForm/> : <SearchFormContainer/>)
@@ -24,7 +25,7 @@ class EntityList extends React.Component {
           && <SelectionControllerContainer/>
         }
         <ListViewContainer/>
-      </div>
+      </React.Fragment>
     )
   }
 }

@@ -111,11 +111,12 @@ class DurationEdit extends React.Component {
     return (
       <StyledEditableWrapper
         onBlur={this.handleOnBlur}
-        readOnly={this.props.readOnly}
+        immutable={this.props.immutable}
         style={{overflowX: 'auto'}}>
-        <StyledDurationEditFocusable>
+        <StyledDurationEditFocusable immutable={this.props.immutable}>
           <StyledDurationEdit
-            disabled={this.props.readOnly}
+            disabled={this.props.immutable}
+            immutable={this.props.immutable}
             min={0}
             onChange={() => {}} // Empty onChange function to prevent React internal error
             onFocus={this.handleOnFocus}
@@ -129,9 +130,10 @@ class DurationEdit extends React.Component {
           />
           {this.state.showUnits && <Typography.Span>{this.props.options.hoursLabel}</Typography.Span>}
         </StyledDurationEditFocusable>
-        <StyledDurationEditFocusable>
+        <StyledDurationEditFocusable immutable={this.props.immutable}>
           <StyledDurationEdit
-            disabled={this.props.readOnly}
+            disabled={this.props.immutable}
+            immutable={this.props.immutable}
             onChange={() => {}} // Empty onChange function to prevent React internal error
             onFocus={this.handleOnFocus}
             onInput={this.handleMinutesChange}
@@ -163,7 +165,7 @@ DurationEdit.propTypes = {
   value: PropTypes.number,
   name: PropTypes.string,
   id: PropTypes.string,
-  readOnly: PropTypes.bool,
+  immutable: PropTypes.bool,
   options: PropTypes.shape({
     hoursLabel: PropTypes.string,
     minutesLabel: PropTypes.string

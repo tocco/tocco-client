@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import {intlShape} from 'react-intl'
+import {injectIntl, intlShape} from 'react-intl'
 import React from 'react'
 
 import {parseLocalePlaceholder, convertStringToNumber} from '../utils'
@@ -29,15 +29,15 @@ export const isAllowedValue = (prePointDigits, postPointDigits, minValue, maxVal
   return true
 }
 
-const NumberEdit = (props, context) => {
-  const {thousandSeparator, decimalSeparator} = parseLocalePlaceholder(context.intl.locale)
-
-  const {prePointDigits, postPointDigits, minValue, maxValue, allowNegative} = props.options
+const NumberEdit = props => {
+  const {thousandSeparator, decimalSeparator} = parseLocalePlaceholder(props.intl.locale)
+  const {prePointDigits, postPointDigits, minValue, maxValue, allowNegative, fixedDecimalScale} = props.options
 
   const numberFormatOptions = {
     isAllowed: isAllowedValue(prePointDigits, postPointDigits, minValue, maxValue),
     allowNegative: !!allowNegative,
-    ...(!isNaN(postPointDigits) ? {decimalScale: postPointDigits} : {})
+    ...(!isNaN(postPointDigits) ? {decimalScale: postPointDigits} : {}),
+    fixedDecimalScale: !!fixedDecimalScale
   }
 
   const handleChange = values => {
@@ -47,14 +47,15 @@ const NumberEdit = (props, context) => {
   }
 
   return (
-    <StyledEditableWrapper readOnly={props.readOnly}>
+    <StyledEditableWrapper immutable={props.immutable}>
       <StyledNumberEdit
         decimalSeparator={decimalSeparator}
-        disabled={props.readOnly}
+        disabled={props.immutable}
         id={props.id}
         isNumericString={true}
         name={props.name}
         onValueChange={handleChange}
+        immutable={props.immutable}
         thousandSeparator={thousandSeparator}
         value={props.value}
         {...numberFormatOptions}
@@ -63,18 +64,16 @@ const NumberEdit = (props, context) => {
   )
 }
 
-NumberEdit.contextTypes = {
-  intl: intlShape
-}
-
 NumberEdit.propTypes = {
   onChange: PropTypes.func.isRequired,
   value: PropTypes.number,
   name: PropTypes.string,
   id: PropTypes.string,
-  readOnly: PropTypes.bool,
+  intl: intlShape,
+  immutable: PropTypes.bool,
   options: PropTypes.shape({
     allowNegative: PropTypes.bool,
+    fixedDecimalScale: PropTypes.bool,
     postPointDigits: PropTypes.number,
     prePointDigits: PropTypes.number,
     minValue: PropTypes.number,
@@ -82,4 +81,4 @@ NumberEdit.propTypes = {
   })
 }
 
-export default NumberEdit
+export default injectIntl(NumberEdit)

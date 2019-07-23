@@ -2,6 +2,7 @@ import React from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
 import {appFactory, externalEvents} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
+import _isEqual from 'lodash/isEqual'
 
 import reducers, {sagas} from './modules/reducers'
 import SchedulerContainer from './containers/SchedulerContainer'
@@ -39,7 +40,6 @@ const initApp = (input, events, publicPath) => {
 
 (() => {
   if (__DEV__ && __PACKAGE_NAME__ === 'scheduler') {
-    require('tocco-theme/src/ToccoTheme/theme.scss')
     const input = require('./dev/input.json')
 
     if (!__NO_MOCK__) {
@@ -78,10 +78,12 @@ class SchedulerApp extends React.Component {
     this.app = initApp(props, events)
   }
 
-  componentWillReceiveProps = nextProps => {
-    getDispatchActions(nextProps).forEach(action => {
-      this.app.store.dispatch(action)
-    })
+  componentDidUpdate(prevProps) {
+    if (!_isEqual(prevProps, this.props)) {
+      getDispatchActions(this.props).forEach(action => {
+        this.app.store.dispatch(action)
+      })
+    }
   }
 
   render = () => <div>{this.app.renderComponent()}</div>

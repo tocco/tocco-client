@@ -1,6 +1,11 @@
 import styled from 'styled-components'
+import _get from 'lodash/get'
 
-import {scale} from '../../utilStyles'
+import {
+  generateDisabledShade,
+  scale,
+  theme
+} from '../../utilStyles'
 import {StyledInputCss} from '../StyledEditableValue'
 
 const StyledDurationEdit = styled.input`
@@ -12,7 +17,7 @@ const StyledDurationEdit = styled.input`
 `
 
 const StyledDurationEditFocusable = styled.label`
-  && {
+  &&& {
     align-items: center;
     display: flex;
     flex-wrap: nowrap;
@@ -20,6 +25,11 @@ const StyledDurationEditFocusable = styled.label`
 
     &:first-child {
       margin-right: ${scale.space(-1)};
+    }
+
+    > span {
+      color: ${props => props.immutable ? generateDisabledShade(_get(props.theme, 'colors.text')) : theme.color('text')}
+      cursor: ${props => props.immutable ? 'not-allowed' : 'default'}
     }
   }
 `

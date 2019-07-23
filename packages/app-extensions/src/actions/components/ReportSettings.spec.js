@@ -1,16 +1,16 @@
 import React from 'react'
-import {intlEnzyme} from 'tocco-test-util'
+import {IntlStub} from 'tocco-test-util'
+import {shallow} from 'enzyme'
 
-import ReportSettings from './ReportSettings'
-
+import {ReportSettings} from './ReportSettings'
 const EMPTY_FUNC = () => {}
 
 describe('app-extensions', () => {
   describe('actions', () => {
     describe('components', () => {
       describe('ReportSettings', () => {
-        test('should render simple-form for genereal and recipient settings and one for custom settings', () => {
-          const wrapper = intlEnzyme.shallowWithIntl(<ReportSettings onSubmit={EMPTY_FUNC}
+        test('should render simple-form for general and recipient settings and one for custom settings', () => {
+          const wrapper = shallow(<ReportSettings onSubmit={EMPTY_FUNC} intl={IntlStub}
             settingsDefinition={formDefinitionFull} listApp={EMPTY_FUNC} formApp={EMPTY_FUNC}/>)
 
           expect(wrapper.find(wrapper.instance().SimpleFormContainer)).to.have.length(2)
@@ -19,7 +19,7 @@ describe('app-extensions', () => {
         test('should not render custom settings simple-form if custom settings are null', () => {
           const settingsDefinition = {...formDefinitionFull, customSettings: null}
 
-          const wrapper = intlEnzyme.shallowWithIntl(<ReportSettings onSubmit={EMPTY_FUNC}
+          const wrapper = shallow(<ReportSettings onSubmit={EMPTY_FUNC} intl={IntlStub}
             settingsDefinition={settingsDefinition} listApp={EMPTY_FUNC} formApp={EMPTY_FUNC}/>)
 
           expect(wrapper.find(wrapper.instance().SimpleFormContainer)).to.have.length(1)

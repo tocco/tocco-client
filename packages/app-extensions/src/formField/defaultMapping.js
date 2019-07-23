@@ -23,7 +23,7 @@ export default {
   'long': editableValueFactory('integer'),
   'longitude': editableValueFactory('coordinate'),
   'location': editableValueFactory('location'),
-  'moneyamount': editableValueFactory('decimal'),
+  'moneyamount': editableValueFactory('moneyamount'),
   'multi-remote-field': editableValueFactory('multi-remote'),
   'multi-select-box': editableValueFactory('multi-select'),
   'named-upload': editableValueFactory('document'),

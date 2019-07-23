@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {intlShape} from 'react-intl'
+import {injectIntl, intlShape} from 'react-intl'
 import {Button, Menu} from 'tocco-ui'
 
 import GroupElement from './GroupElement'
 import {isValidSelection, selectionText} from './selectionHelper'
 
-const MainAction = ({definition, selectedCount, onClick, disabled}, context) => {
+const MainAction = ({definition, selectedCount, onClick, disabled, intl}) => {
   const validSelection = isValidSelection(selectedCount, definition)
-  const title = selectionText(selectedCount, definition, context.intl)
+  const title = selectionText(selectedCount, definition, intl)
   const buttonDisabled = definition.readonly === true || !validSelection || disabled
 
   return (
@@ -24,18 +24,15 @@ const MainAction = ({definition, selectedCount, onClick, disabled}, context) => 
   )
 }
 
-MainAction.contextTypes = {
-  intl: intlShape
-}
-
 MainAction.propTypes = {
+  intl: intlShape.isRequired,
   definition: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired,
   selectedCount: PropTypes.number,
   disabled: PropTypes.bool
 }
 
-const ActionGroup = ({definition, onClick, selectedCount, disabled}, context) => {
+const ActionGroup = ({definition, onClick, selectedCount, disabled, intl}) => {
   const hasMainAction = (definition.action && Object.keys(definition.action).length > 0)
 
   if (hasMainAction) {
@@ -51,6 +48,7 @@ const ActionGroup = ({definition, onClick, selectedCount, disabled}, context) =>
               onClick={onClick}
               selectedCount={selectedCount}
               disabled={disabled}
+              intl={intl}
             />
             <Menu.ItemFlyout
               isToggleable={definition.readonly !== true}
@@ -98,15 +96,12 @@ const ActionGroup = ({definition, onClick, selectedCount, disabled}, context) =>
   }
 }
 
-ActionGroup.contextTypes = {
-  intl: intlShape
-}
-
 ActionGroup.propTypes = {
+  intl: intlShape.isRequired,
   definition: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired,
   selectedCount: PropTypes.number,
   disabled: PropTypes.bool
 }
 
-export default ActionGroup
+export default injectIntl(ActionGroup)

@@ -9,7 +9,8 @@ import ValidationRules from '../ValidationRules'
 import FailureMessage from '../FailureMessage'
 
 class PasswordUpdateDialog extends Component {
-  componentWillMount() {
+  constructor(props) {
+    super(props)
     this.props.fetchValidationRules()
   }
 
@@ -50,7 +51,7 @@ class PasswordUpdateDialog extends Component {
           && <Typography.H5><FormattedMessage id="client.login.passwordUpdate.title"/></Typography.H5>}
         {this.props.forcedUpdate
           && <Typography.P><FormattedMessage id="client.login.passwordUpdate.introduction"/></Typography.P>}
-        <form className="password-update-dialog" onSubmit={this.handleSubmit.bind(this)}>
+        <form onSubmit={this.handleSubmit.bind(this)}>
           {this.props.showOldPasswordField === true
           && <PasswordInput
             label={this.msg('client.login.passwordUpdate.oldPassword')}

@@ -23,6 +23,7 @@ describe('tocco-ui', () => {
       expect(wrapper.find(IconTocco)).to.have.length(1)
 
       wrapper.setProps({required: [{}, {}]})
+      wrapper.update()
       expect(wrapper.find(IconTocco)).to.have.length(0)
     })
 

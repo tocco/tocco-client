@@ -10,8 +10,5 @@
   "peerDependencies": {
     "react": "^15.2.1",
     "react-dom": "^15.2.1"
-  },
-  "devDependencies": {
-    "bootstrap-sass": "^3.3.7"
   }
 }

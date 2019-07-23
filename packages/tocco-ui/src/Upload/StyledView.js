@@ -5,12 +5,13 @@ import {scale} from '../utilStyles'
 const StyledView = styled.div`
     display: inline-block;
     position: relative;
+    padding-top: ${scale.space(-2)};
 
     > div {
       position: absolute;
       top: ${scale.space(-1)};
-      right: ${scale.space(-1)};
-      left: ${scale.space(-1)};
+      right: ${scale.space(-2)};
+      left: ${scale.space(-2)};
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;

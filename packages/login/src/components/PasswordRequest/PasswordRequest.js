@@ -4,12 +4,16 @@ import {FormattedMessage, intlShape} from 'react-intl'
 import {
   Button,
   ButtonGroup,
-  Icon,
+  StatedValue,
   Typography
 } from 'tocco-ui'
 
+import {
+  StyledLoginFormInput,
+  StyledLoginFormInputWrapper,
+  StyledLoginFormWrapper
+} from '../StyledLoginForm'
 import {Pages} from '../../types/Pages'
-import StyledPasswordRequest from './StyledPasswordRequest'
 
 export class PasswordRequest extends React.Component {
   constructor(props) {
@@ -32,24 +36,28 @@ export class PasswordRequest extends React.Component {
 
   render() {
     return (
-      <StyledPasswordRequest className="login-form">
+      <StyledLoginFormWrapper>
         {this.props.showTitle
           && <Typography.H5><FormattedMessage id="client.login.passwordRequest.title"/></Typography.H5>}
         <Typography.P><FormattedMessage id="client.login.passwordRequest.introduction"/></Typography.P>
         <form onSubmit={this.handleSubmit.bind(this)}>
-          <div className="form-group dense">
-            <div className="input-group">
-              <span className="input-group-addon"><Icon icon="user"/></span>
-              <input
-                type="text"
-                className="form-control"
+          <StatedValue
+            hasValue={!!this.props.username}
+            id="login-username"
+            label={this.msg('client.login.form.userPlaceholder')}
+          >
+            <StyledLoginFormInputWrapper>
+              <StyledLoginFormInput
                 name="user"
-                placeholder={this.msg('client.login.form.userPlaceholder')}
                 onChange={this.handleUsernameChange.bind(this)}
+                required
+                type="text"
                 value={this.state.username}
+                data-cy="password-request_input"
               />
-            </div>
-          </div>
+            </StyledLoginFormInputWrapper>
+          </StatedValue>
+
           <ButtonGroup look="raised">
             <Button
               disabled={!this.state.username || this.props.pending}
@@ -57,16 +65,18 @@ export class PasswordRequest extends React.Component {
               label={this.msg('client.login.passwordRequest.button')}
               pending={this.props.pending}
               type="submit"
+              data-cy="password-request_submit-button"
             />
             <Button
               disabled={this.props.pending}
               label={this.msg('client.login.passwordRequest.abortButton')}
               name="abort"
               onClick={() => this.props.changePage(Pages.LOGIN_FORM)}
+              data-cy="password-request_abort-button"
             />
           </ButtonGroup>
         </form>
-      </StyledPasswordRequest>
+      </StyledLoginFormWrapper>
     )
   }
 

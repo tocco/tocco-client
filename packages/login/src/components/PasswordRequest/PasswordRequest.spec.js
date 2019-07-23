@@ -1,7 +1,7 @@
 import React from 'react'
 import {shallow} from 'enzyme'
 import {Button, Typography} from 'tocco-ui'
-import {IntlStub} from 'tocco-test-util'
+import {intlEnzyme, IntlStub} from 'tocco-test-util'
 
 import {Pages} from '../../types/Pages'
 import {PasswordRequest} from './PasswordRequest'
@@ -10,14 +10,13 @@ describe('login', () => {
   describe('components', () => {
     describe('PasswordRequest', () => {
       test('should render components', () => {
-        const wrapper = shallow(
+        const wrapper = intlEnzyme.mountWithIntl(
           <PasswordRequest
             intl={IntlStub}
             changePage={() => undefined}
             requestPassword={() => undefined}
           />
         )
-
         expect(wrapper.find('input[name="user"]')).to.have.length(1)
         expect(wrapper.find(Button)).to.have.length(2)
       })
@@ -34,7 +33,7 @@ describe('login', () => {
       })
 
       test('should update username state on username change', () => {
-        const wrapper = shallow(
+        const wrapper = intlEnzyme.mountWithIntl(
           <PasswordRequest
             intl={IntlStub}
             changePage={() => undefined}
@@ -148,7 +147,7 @@ describe('login', () => {
       })
 
       test('should display provided username', () => {
-        const wrapper = shallow(
+        const wrapper = intlEnzyme.mountWithIntl(
           <PasswordRequest
             intl={IntlStub}
             changePage={() => undefined}

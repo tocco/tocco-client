@@ -29,6 +29,21 @@ describe('tocco-ui', () => {
           )
           expect(wrapper.html()).to.contains(result)
         })
+
+        test('fill in postPointDigit zeros on fixedDecimalScale', () => {
+          const result = '1,234,567.800'
+          const wrapper = mountWithIntl(
+            <NumberEdit
+              value={1234567.8}
+              options={{
+                prePointDigits: 30,
+                postPointDigits: 3,
+                fixedDecimalScale: true
+              }}
+              onChange={EMPTY_FUNC} />
+          )
+          expect(wrapper.html()).to.contains(result)
+        })
       })
 
       describe('calculateMaxPointValue', () => {

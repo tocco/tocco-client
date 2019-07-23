@@ -13,7 +13,8 @@ const ACTION_HANDLERS = {
   [actions.SET_ENTITY_MODEL]: reducerUtil.singleTransferReducer('entityModel'),
   [actions.SET_TOUCHED]: reducerUtil.singleTransferReducer('touched'),
   [actions.SET_SHOW_SUB_GRIDS_CREATE_BUTTON]: reducerUtil.singleTransferReducer('showSubGridCreateButton'),
-  [actions.SET_APP_ID]: reducerUtil.singleTransferReducer('appId')
+  [actions.SET_APP_ID]: reducerUtil.singleTransferReducer('appId'),
+  [actions.SET_DEFAULT_VALUES]: reducerUtil.singleTransferReducer('defaultValues')
 }
 
 const initialState = {
@@ -25,7 +26,8 @@ const initialState = {
   entity: {},
   entityModel: {},
   touched: false,
-  showSubGridCreateButton: false
+  showSubGridCreateButton: false,
+  defaultValues: {}
 }
 
 export default function reducer(state = initialState, action) {

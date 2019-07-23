@@ -22,15 +22,13 @@ export const DateTimeEdit = props => {
   const handleChange = dates => props.onChange(atMostOne(dates))
 
   return (
-    <span>
-      <DateAbstract
-        value={[props.value]}
-        onChange={handleChange}
-        readOnly={props.readOnly}
-        options={{...props.options, flatpickrOptions}}
-        events={props.events}
-      />
-    </span>
+    <DateAbstract
+      value={[props.value]}
+      onChange={handleChange}
+      immutable={props.immutable}
+      options={{...props.options, flatpickrOptions}}
+      events={props.events}
+    />
   )
 }
 
@@ -38,7 +36,7 @@ DateTimeEdit.propTypes = {
   intl: intlShape.isRequired,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string,
-  readOnly: PropTypes.bool,
+  immutable: PropTypes.bool,
   options: PropTypes.shape({
     placeholderText: PropTypes.string,
     flatpickrOptions: PropTypes.object

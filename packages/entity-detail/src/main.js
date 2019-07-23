@@ -27,11 +27,7 @@ const EXTERNAL_EVENTS = [
 ]
 
 const initApp = (id, input, events = {}, publicPath) => {
-  const content = (
-    <div>
-      <DetailViewContainer/>
-    </div>
-  )
+  const content = <DetailViewContainer/>
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   externalEvents.addToStore(store, events)
@@ -68,7 +64,6 @@ const initApp = (id, input, events = {}, publicPath) => {
 
 (() => {
   if (__DEV__ && __PACKAGE_NAME__ === 'entity-detail') {
-    require('tocco-theme/src/ToccoTheme/theme.scss')
     const input = require('./dev/input.json')
 
     if (!__NO_MOCK__) {
@@ -105,9 +100,7 @@ class EntityDetailApp extends React.Component {
   }
 
   render() {
-    return (
-      <div>{this.app.renderComponent()}</div>
-    )
+    return this.app.renderComponent()
   }
 }
 

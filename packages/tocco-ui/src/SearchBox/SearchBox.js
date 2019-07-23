@@ -3,7 +3,9 @@ import React from 'react'
 import _debounce from 'lodash/debounce'
 
 import Button from '../Button'
-import StyledInputGroupBtn from './StyledSearchBox'
+import {StyledSearchBoxForm, StyledSearchBoxInput} from './StyledSearchBox'
+import {StyledEditableWrapper, StyledEditableControl} from '../EditableValue/StyledEditableValue'
+import StatedValue from '../StatedValue'
 
 class SearchBox extends React.Component {
   constructor(props) {
@@ -42,24 +44,28 @@ class SearchBox extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit} className="tocco-searchbox">
-        <div className="input-group">
-          <input
-            type="text"
-            className="form-control"
-            placeholder={this.props.placeholder}
-            value={this.state.inputValue}
-            onChange={this.onChange}
-          />
-          <StyledInputGroupBtn>
-            <Button
-              icon="search"
-              iconPosition="sole"
-              type="submit"
+      <StyledSearchBoxForm onSubmit={this.handleSubmit}>
+        <StatedValue
+          hasValue={!!this.state.inputValue}
+          label={this.props.placeholder}
+        >
+          <StyledEditableWrapper>
+            <StyledSearchBoxInput
+              onChange={this.onChange}
+              value={this.state.inputValue}
             />
-          </StyledInputGroupBtn>
-        </div>
-      </form>
+            <StyledEditableControl>
+              <Button
+                icon="search"
+                iconPosition="sole"
+                look="ball"
+                tabIndex={-1}
+                type="submit"
+              />
+            </StyledEditableControl>
+          </StyledEditableWrapper>
+        </StatedValue>
+      </StyledSearchBoxForm>
     )
   }
 }

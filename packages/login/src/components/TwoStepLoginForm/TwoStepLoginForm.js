@@ -3,11 +3,15 @@ import React, {Component} from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
 import {
   Button,
-  Icon,
+  StatedValue,
   Typography
 } from 'tocco-ui'
 
-import StyledTwoStepLoginForm from './StyledTwoStepLoginForm'
+import {
+  StyledTwoStepLogin,
+  StyledTwoStepLoginInput,
+  StyledTwoStepLoginInputWrapper
+} from './StyledTwoStepLoginForm'
 
 export class TwoStepLoginForm extends Component {
   constructor(props) {
@@ -30,7 +34,7 @@ export class TwoStepLoginForm extends Component {
 
   render() {
     return (
-      <StyledTwoStepLoginForm className="login-form">
+      <StyledTwoStepLogin>
         {this.props.showTitle
           && <Typography.H5><FormattedMessage id="client.login.form.title"/></Typography.H5>}
         <form onSubmit={this.handleSubmit.bind(this)}>
@@ -38,19 +42,22 @@ export class TwoStepLoginForm extends Component {
           <Typography.P>
             <FormattedMessage id="client.login.twoStepLogin.requestedCode"/>{this.props.requestedCode}
           </Typography.P>
-          <div className="form-group dense">
-            <div className="input-group">
-              <span className="input-group-addon"><Icon icon="unlock"/></span>
-              <input
-                type="text"
-                className="form-control"
-                name="code"
+          <StatedValue
+            hasValue={!!this.state.userCode}
+            id={`usercode`}
+            label={this.msg('client.login.twoStepLogin.codePlaceholder')}
+          >
+            <StyledTwoStepLoginInputWrapper>
+              <StyledTwoStepLoginInput
                 autoComplete="off"
+                id={`usercode`}
+                value={this.state.username}
                 onChange={this.handleUserCodeChange.bind(this)}
-                placeholder={this.msg('client.login.twoStepLogin.codePlaceholder')}
+                name="code"
               />
-            </div>
-          </div>
+            </StyledTwoStepLoginInputWrapper>
+          </StatedValue>
+
           <Button
             disabled={!this.state.userCode || this.props.loginPending}
             ink="primary"
@@ -61,7 +68,7 @@ export class TwoStepLoginForm extends Component {
             type="submit"
           />
         </form>
-      </StyledTwoStepLoginForm>
+      </StyledTwoStepLogin>
     )
   }
 

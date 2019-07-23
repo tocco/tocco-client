@@ -17,6 +17,7 @@ const declareStylesIfNestedCorrectly = props => {
     flex-shrink: 0;
     flex-basis: ${setColumnWidth(props.containerWidth, props.maxCellsPerRow)};
     padding: 0 15px 20px 15px;
+    box-sizing: border-box;  // reset Tocco Framework
   ` : `
     &:not(:last-child) {
       padding: 0 0 20px 0;
@@ -25,7 +26,9 @@ const declareStylesIfNestedCorrectly = props => {
 }
 
 const StyledLayoutBox = styled.div`
-  ${props => declareStylesIfNestedCorrectly(props)}
+  && {
+    ${props => declareStylesIfNestedCorrectly(props)}
+  }
 `
 
 export default StyledLayoutBox

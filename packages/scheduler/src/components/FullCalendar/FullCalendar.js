@@ -13,7 +13,7 @@ import '!style-loader!css-loader!fullcalendar/dist/fullcalendar.css'
 import '!style-loader!css-loader!fullcalendar-scheduler/dist/scheduler.css'
 import {injectIntl, intlShape} from 'react-intl'
 import {consoleLogger} from 'tocco-util'
-import {FormattedValue, Typography} from 'tocco-ui'
+import {FormattedValue} from 'tocco-ui'
 
 import Conflict from '../Conflict'
 import NavigationFullCalendar from '../NavigationFullCalendar'
@@ -51,8 +51,8 @@ class FullCalendar extends React.Component {
       const time = event.start.twix(event.end).format({monthFormat: 'MMMM', dayFormat: 'Do'})
       const tooltipDescriptionContent = <div>
         <FormattedValue type="html" value={event.description}/>
-        <Typography.P>{time}</Typography.P>
-        <Typography.P><Conflict conflictStatus={event.conflict} intl={this.props.intl}/></Typography.P>
+        <p>{time}</p>
+        <p><Conflict conflictStatus={event.conflict} intl={this.props.intl}/></p>
       </div>
 
       const content = ReactDOMServer.renderToString(tooltipDescriptionContent)
@@ -114,16 +114,21 @@ class FullCalendar extends React.Component {
     this.forceUpdate()
   }
 
-  componentWillReceiveProps(newProps) {
-    this.calendarElement.fullCalendar('option', this.getFullCalendarOptions(newProps))
-
-    if (!_isEqual(newProps.events, this.props.events)) {
-      this.calendarElement.fullCalendar('removeEventSources')
-      this.calendarElement.fullCalendar('addEventSource', newProps.events)
+  componentDidUpdate(prevProps) {
+    if (!_isEqual(prevProps.resources, this.props.resources) || prevProps.locale !== this.props.locale) {
+      this.calendarElement.fullCalendar('option', this.getFullCalendarOptions(this.props))
+      this.forceUpdate()
     }
 
-    if (!_isEqual(newProps.resources, this.props.resources)) {
+    if (!_isEqual(prevProps.events, this.props.events)) {
+      this.calendarElement.fullCalendar('removeEventSources')
+      this.calendarElement.fullCalendar('addEventSource', this.props.events)
+      this.forceUpdate()
+    }
+
+    if (!_isEqual(prevProps.resources, this.props.resources)) {
       this.calendarElement.fullCalendar('refetchResources')
+      this.forceUpdate()
     }
   }
 

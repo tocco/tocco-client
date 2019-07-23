@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Autosuggest from 'react-autosuggest'
+import FocusWithin from 'react-simple-focus-within'
 
 import ButtonLink from '../../ButtonLink'
 import IconTocco from '../../IconTocco'
@@ -45,67 +46,71 @@ class LocationEdit extends React.Component {
 
   onSuggestionsClearRequested = () => {}
 
-  showGoogleMaps = value => value && Object.values(value).some(val => val)
+  showGoogleMaps = value => !!(value.city || value.postcode)
 
   render() {
     const inputPropsZip = {
       value: this.props.value.postcode || '',
       onChange: this.onChange('postcode'),
-      disabled: this.props.readOnly
+      disabled: this.props.immutable
     }
 
     const inputPropsCity = {
       value: this.props.value.city || '',
       onChange: this.onChange('city'),
-      disabled: this.props.readOnly
+      disabled: this.props.immutable
     }
 
     return (
-      <StyledLocationEdit
-        name={this.props.name}
-        id={this.props.id}
-        readOnly={this.props.readOnly}
-      >
-        <Autosuggest
-          suggestions={this.props.options.suggestions || []}
-          onSuggestionsFetchRequested={this.returnOnSuggestionFetchRequested('postcode')}
-          getSuggestionValue={this.returnGetSuggestion('postcode')}
-          renderSuggestion={this.renderSuggestion}
-          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-          inputProps={inputPropsZip}
-          onSuggestionSelected={this.onSuggestionSelected}
-          focusInputOnSuggestionClick={false}
-          shouldRenderSuggestions={v => v && !this.props.readOnly}
-        />
-        <Typography.Span>/</Typography.Span>
-        <Autosuggest
-          suggestions={this.props.options.suggestions || []}
-          onSuggestionsFetchRequested={this.returnOnSuggestionFetchRequested('city')}
-          getSuggestionValue={this.returnGetSuggestion('city')}
-          renderSuggestion={this.renderSuggestion}
-          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-          inputProps={inputPropsCity}
-          onSuggestionSelected={this.onSuggestionSelected}
-          focusInputOnSuggestionClick={false}
-          shouldRenderSuggestions={v => v && !this.props.readOnly}
-        />
-        <StyledEditableControl>
-          {this.props.options.isLoading && <IconTocco size="1.8rem"/>}
-          {this.showGoogleMaps(this.props.value)
-            && <ButtonLink
-              href={getGoogleMapsAddress(this.props.value)}
-              icon="map-marked-alt"
-              iconPosition="sole"
-              look="ball"
-              tabIndex={-1}
-              target="_blank"
-              dense={false}
-              title={this.props.options.mapButtonTitle || 'Show on Maps'}
+      <FocusWithin>
+        {({focused, getRef}) => {
+          return <StyledLocationEdit
+            id={this.props.id}
+            immutable={this.props.immutable}
+            name={this.props.name}
+            ref={getRef}
+          >
+            <Autosuggest
+              suggestions={this.props.options.suggestions || []}
+              onSuggestionsFetchRequested={this.returnOnSuggestionFetchRequested('postcode')}
+              getSuggestionValue={this.returnGetSuggestion('postcode')}
+              renderSuggestion={this.renderSuggestion}
+              onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+              inputProps={inputPropsZip}
+              onSuggestionSelected={this.onSuggestionSelected}
+              focusInputOnSuggestionClick={false}
+              shouldRenderSuggestions={v => v && !this.props.immutable}
             />
-          }
-        </StyledEditableControl>
-
-      </StyledLocationEdit>
+            {(focused || this.props.value.city || this.props.value.postcode) && <Typography.Span>/</Typography.Span>}
+            <Autosuggest
+              suggestions={this.props.options.suggestions || []}
+              onSuggestionsFetchRequested={this.returnOnSuggestionFetchRequested('city')}
+              getSuggestionValue={this.returnGetSuggestion('city')}
+              renderSuggestion={this.renderSuggestion}
+              onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+              inputProps={inputPropsCity}
+              onSuggestionSelected={this.onSuggestionSelected}
+              focusInputOnSuggestionClick={false}
+              shouldRenderSuggestions={v => v && !this.props.immutable}
+            />
+            <StyledEditableControl>
+              {this.props.options.isLoading && <IconTocco size="1.8rem"/>}
+              {this.showGoogleMaps(this.props.value)
+              && <ButtonLink
+                href={getGoogleMapsAddress(this.props.value)}
+                icon="map-marked-alt"
+                iconPosition="sole"
+                look="ball"
+                tabIndex={-1}
+                target="_blank"
+                dense={false}
+                title={this.props.options.mapButtonTitle || 'Show on map'}
+              />
+              }
+            </StyledEditableControl>
+          </StyledLocationEdit>
+        }}
+      </FocusWithin>
     )
   }
 }
@@ -133,7 +138,7 @@ LocationEdit.propTypes = {
   }),
   name: PropTypes.string,
   id: PropTypes.string,
-  readOnly: PropTypes.bool
+  immutable: PropTypes.bool
 }
 
 export default LocationEdit

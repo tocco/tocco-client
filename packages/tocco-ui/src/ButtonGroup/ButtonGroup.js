@@ -12,7 +12,8 @@ const ButtonGroup = props => {
     <StyledButtonGroup melt={props.melt}>
       { // eslint-disable-next-line
         React.Children.map(props.children, child => {
-          return React.cloneElement(child, {look: props.look, buttonGroupInk: props.ink, buttonGroupMelt: props.melt})
+          return child && React.cloneElement(child, {
+            look: props.look, buttonGroupInk: props.ink, buttonGroupMelt: props.melt})
         })}
     </StyledButtonGroup>
   )

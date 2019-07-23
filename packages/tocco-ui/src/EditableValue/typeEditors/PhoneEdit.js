@@ -77,14 +77,15 @@ class PhoneEdit extends React.Component {
     const displayValue = this.determineDisplayValue()
 
     return (
-      <StyledEditableWrapper readOnly={this.props.readOnly}>
+      <StyledEditableWrapper immutable={this.props.immutable}>
         <StyledPhoneEdit
-          ref={this.inputElement}
-          name={name}
-          value={displayValue}
-          onChange={this.handleChange}
+          disabled={this.props.immutable || !this.state.libPhoneImport}
           id={this.props.id}
-          disabled={this.props.readOnly || !this.state.libPhoneImport}
+          name={name}
+          onChange={this.handleChange}
+          immutable={this.props.immutable || !this.state.libPhoneImport}
+          ref={this.inputElement}
+          value={displayValue}
         />
         {displayValue && <StyledEditableControl>
           <ButtonLink
@@ -105,7 +106,7 @@ PhoneEdit.propTypes = {
   value: PropTypes.node,
   name: PropTypes.string,
   id: PropTypes.string,
-  readOnly: PropTypes.bool,
+  immutable: PropTypes.bool,
   options: PropTypes.shape({
     defaultCountry: PropTypes.string,
     customPhoneRegex: PropTypes.string

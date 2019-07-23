@@ -2,7 +2,6 @@ import _range from 'lodash/range'
 import _get from 'lodash/get'
 
 import {
-  declareFont,
   scale,
   shadeColor,
   theme
@@ -10,9 +9,15 @@ import {
 
 export const declareTypograhpy = (props, mode) => {
   let css = `
-    ${declareFont()}
+    color: ${theme.color('text')(props)};
+    font-family: ${theme.fontFamily('regular')(props)};
+    font-size: ${scale.font(0)(props)};
+    font-style: ${'normal'};
+    font-weight: ${theme.fontWeight('regular')(props)};
+    line-height: ${theme.lineHeight('regular')(props)};
+
     a {
-      color: ${theme.color('primary')(props)}
+      color: ${theme.color('primary')(props)};
       text-decoration: none;
 
       &:hover,

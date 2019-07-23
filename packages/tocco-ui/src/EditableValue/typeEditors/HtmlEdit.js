@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, {lazy, Suspense} from 'react'
 import styled from 'styled-components'
 
-import lazyComponent from '../../util/lazyComponent'
 import {declareTypograhpy} from '../../Typography'
 
 const StyledHtmlEdit = styled.div`
@@ -13,6 +12,10 @@ const StyledHtmlEdit = styled.div`
 
   .ql-editor {
     ${props => declareTypograhpy(props, 'quill')}
+
+    &[contenteditable="false"] * {
+      cursor: not-allowed;
+    }
   }
 }
 `
@@ -26,7 +29,7 @@ class HtmlEdit extends React.Component {
     import(/* webpackChunkName: "quill" */ '!style-loader!css-loader!react-quill/dist/quill.snow.css')
     import(/* webpackChunkName: "quill" */ '!style-loader!css-loader!react-quill/dist/quill.core.css')
 
-    this.lazyQuill = lazyComponent(() => import(/* webpackChunkName: "quill" */ 'react-quill'), 'default')
+    this.lazyQuill = lazy(() => import(/* webpackChunkName: "quill" */ 'react-quill'))
   }
 
   handleChange = value => {
@@ -38,15 +41,17 @@ class HtmlEdit extends React.Component {
   render() {
     return (
       <StyledHtmlEdit>
-        <this.lazyQuill
-          name={this.props.name}
-          onChange={this.handleChange}
-          id={this.props.id}
-          theme="snow"
-          value={this.props.value}
-          readOnly={this.props.readOnly}
-          modules={{toolbar: !this.props.readOnly}}
-        />
+        <Suspense fallback={<i/>}>
+          <this.lazyQuill
+            name={this.props.name}
+            onChange={this.handleChange}
+            id={this.props.id}
+            theme="snow"
+            value={this.props.value}
+            readOnly={this.props.immutable}
+            modules={{toolbar: !this.props.immutable}}
+          />
+        </Suspense>
       </StyledHtmlEdit>
     )
   }
@@ -61,7 +66,7 @@ HtmlEdit.propTypes = {
   value: PropTypes.node,
   name: PropTypes.string,
   id: PropTypes.string,
-  readOnly: PropTypes.bool
+  immutable: PropTypes.bool
 }
 
 export default HtmlEdit

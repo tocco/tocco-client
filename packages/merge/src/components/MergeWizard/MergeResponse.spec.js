@@ -1,7 +1,7 @@
 import React from 'react'
 import {shallow} from 'enzyme'
 import {FormattedMessage} from 'react-intl'
-import {IntlStub} from 'tocco-test-util'
+import {IntlStub, intlEnzyme, TestThemeProvider} from 'tocco-test-util'
 
 import MergeResponse, {EntityResponseTable} from './MergeResponse'
 
@@ -49,13 +49,15 @@ describe('merge', () => {
       })
 
       test('should render a table', () => {
-        const wrapper = shallow(
-          <EntityResponseTable
-            title=""
-            responseEntities={[
-              {pk: 'pk', entity: 'entity', name: 'name'}
-            ]}
-          />
+        const wrapper = intlEnzyme.mountWithIntl(
+          <TestThemeProvider>
+            <EntityResponseTable
+              title=""
+              responseEntities={[
+                {pk: 'pk', entity: 'entity', name: 'name'}
+              ]}
+            />
+          </TestThemeProvider>
         )
 
         expect(wrapper.find('table')).to.have.length(1)

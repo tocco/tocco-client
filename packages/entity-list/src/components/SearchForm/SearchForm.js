@@ -5,6 +5,12 @@ import {reduxForm} from 'redux-form'
 import {Button} from 'tocco-ui'
 import {form, formField} from 'tocco-app-extensions'
 
+import {
+  StyledSearchForm,
+  StyledSearchFormButtonGroup,
+  StyledSearchFormButtonGroupGap
+} from './StyledSearchForm'
+
 const REDUX_FORM_NAME = 'searchForm'
 
 class SearchForm extends React.Component {
@@ -53,52 +59,55 @@ class SearchForm extends React.Component {
       return null
     }
     return (
-      <form onSubmit={this.handleSubmit} className="form-horizontal">
-        <form.FormBuilder
-          entity={props.entity}
-          model={props.entityModel}
-          formName={props.form}
-          formDefinition={props.searchFormDefinition}
-          formValues={props.formValues}
-          formFieldMapping={{
-            ...formField.defaultMapping,
-            ...this.customMapping
-          }}
-          readOnlyFormFieldMapping={formField.defaultMapping}
-          beforeRenderField={this.shouldRenderField(
-            this.props.preselectedSearchFields,
-            this.props.disableSimpleSearch,
-            this.props.showExtendedSearchForm,
-            this.props.simpleSearchFields)
-          }
-          mode="search"
-        />
-        <div className="row" style={{marginBottom: '1em'}}>
-          <div className="col-sm-9 col-sm-push-3">
+      <StyledSearchForm>
+        <form onSubmit={this.handleSubmit}>
+          <form.FormBuilder
+            entity={props.entity}
+            model={props.entityModel}
+            formName={props.form}
+            formDefinition={props.searchFormDefinition}
+            formValues={props.formValues}
+            formFieldMapping={{
+              ...formField.defaultMapping,
+              ...this.customMapping
+            }}
+            readOnlyFormFieldMapping={formField.defaultMapping}
+            beforeRenderField={this.shouldRenderField(
+              this.props.preselectedSearchFields,
+              this.props.disableSimpleSearch,
+              this.props.showExtendedSearchForm,
+              this.props.simpleSearchFields)
+            }
+            mode="search"
+          />
+          <StyledSearchFormButtonGroup look="raised">
             <Button
               ink="primary"
               label={this.msg('client.entity-list.search')}
               look="raised"
               type="submit"
             />
-            <span style={{display: 'inline-block', width: '.5em'}}/>
             <Button
+              data-cy="search-form_reset-button"
               label={this.msg('client.entity-list.reset')}
               look="raised"
               onClick={this.handleResetClick}
             />
             {!props.disableSimpleSearch
-            && <span style={{float: 'right'}} title={this.msg('client.entity-list.extendedSearch')}>
+            && <React.Fragment>
+              <StyledSearchFormButtonGroupGap/>
               <Button
+                data-cy="extend-search-button"
                 icon={`chevron-${this.props.showExtendedSearchForm ? 'up' : 'down'}`}
                 iconPosition="sole"
                 onClick={this.toggleExtendedSearchForm}
+                title={this.msg('client.entity-list.extendedSearch')}
               />
-            </span>
+            </React.Fragment>
             }
-          </div>
-        </div>
-      </form>
+          </StyledSearchFormButtonGroup>
+        </form>
+      </StyledSearchForm>
     )
   }
 }

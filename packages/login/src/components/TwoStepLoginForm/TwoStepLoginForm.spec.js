@@ -1,7 +1,7 @@
 import React from 'react'
 import {shallow} from 'enzyme'
 import {Button, Typography} from 'tocco-ui'
-import {IntlStub} from 'tocco-test-util'
+import {intlEnzyme, IntlStub} from 'tocco-test-util'
 
 import {TwoStepLoginForm} from './TwoStepLoginForm'
 
@@ -9,7 +9,7 @@ describe('login', () => {
   describe('components', () => {
     describe('TwoStepLoginForm', () => {
       test('should render components', () => {
-        const wrapper = shallow(
+        const wrapper = intlEnzyme.mountWithIntl(
           <TwoStepLoginForm
             intl={IntlStub}
             changePage={() => undefined}
@@ -39,7 +39,7 @@ describe('login', () => {
       })
 
       test('should update code state on code change', () => {
-        const wrapper = shallow(
+        const wrapper = intlEnzyme.mountWithIntl(
           <TwoStepLoginForm
             intl={IntlStub}
             changePage={() => undefined}

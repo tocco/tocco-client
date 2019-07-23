@@ -1,0 +1,5 @@
+{
+  "env": {
+    "BACKEND_URL": "https://master.tocco.ch"
+  }
+}

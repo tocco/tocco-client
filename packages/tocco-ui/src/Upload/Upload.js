@@ -28,8 +28,8 @@ export class Upload extends React.Component {
     this.props.onUpload(file)
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!_isEqual(nextProps.value, this.props.value)) {
+  componentDidUpdate(prevProps) {
+    if (!_isEqual(prevProps.value, this.props.value)) {
       this.abortUploadingState()
     }
   }
@@ -72,7 +72,7 @@ Upload.propTypes = {
   /**
    * Can user upload new files or just view existing
    */
-  readOnly: PropTypes.bool,
+  immutable: PropTypes.bool,
   /**
    * Allows to overwrite texts of the component
    */

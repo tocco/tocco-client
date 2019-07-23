@@ -2,23 +2,25 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import MultiSelection from './MultiSelection'
+import {StyledMergeMatrixTd} from '../StyledMergeMatrix'
 
 const ToManyRelationRow = props => {
   const isTargetEntity = pk => pk === props.targetEntity.pk
-
   const isWritableRow = props.targetEntity.relations[props.relation.name].writable
 
   return (
     <tr>
-      <td className="bold">{props.relation.label}</td>
+      <StyledMergeMatrixTd bold>{props.relation.label}</StyledMergeMatrixTd>
       {
         props.entities.map((entity, idx) => {
-          const cls = isTargetEntity(entity.pk) ? 'merge-matrix-selected-col' : ''
           const disabled = !(props.targetEntity.pk === entity.pk)
           const values = entity.relations[props.relation.name].values
 
           return (
-            <td className={cls} key={'td' + idx}>
+            <StyledMergeMatrixTd
+              disabled={disabled || !isWritableRow}
+              key={'td' + idx}
+              selected={isTargetEntity(entity.pk)}>
               <MultiSelection
                 relationName={props.relation.name}
                 values={values}
@@ -27,7 +29,7 @@ const ToManyRelationRow = props => {
                 selections={props.selections}
                 disabled={disabled || !isWritableRow}
               />
-            </td>
+            </StyledMergeMatrixTd>
           )
         })
       }

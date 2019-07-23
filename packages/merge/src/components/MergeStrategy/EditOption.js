@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import classNames from 'classnames'
+import {Typography} from 'tocco-ui'
 
 import FieldOption from './FieldOption'
 import RelationOption from './RelationOption'
 import {EditOptionType} from './../../types/EditOptionType'
+import {StyledMergeStrategyLabel} from './StyledMergeStrategy'
 
 const EditOption = props => {
   let input
@@ -30,18 +31,14 @@ const EditOption = props => {
     props.activateEditOption(props.editOption.name, !props.editOption.active)
   }
 
-  const labelClasses = classNames(
-    {
-      'disabled': !props.editOption.active
-    }
-  )
-
   return (
-    <div className="form-group">
-      <input className="w20" type="checkbox" checked={props.editOption.active} onClick={handleCheck}/>
-      <label className={labelClasses}>{props.editOption.label}</label>
+    <Typography.P >
+      <StyledMergeStrategyLabel>
+        <input type="checkbox" checked={props.editOption.active} onClick={handleCheck}/>
+        {props.editOption.label}
+      </StyledMergeStrategyLabel><br/>
       {input}
-    </div>
+    </Typography.P>
   )
 }
 

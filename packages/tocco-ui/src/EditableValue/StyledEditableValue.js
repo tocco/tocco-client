@@ -2,29 +2,22 @@ import styled, {css} from 'styled-components'
 import _get from 'lodash/get'
 
 import {
-  declareFocus,
   declareFont,
+  generateDisabledShade,
   scale,
-  shadeColor,
   theme
 } from '../utilStyles'
 
 const StyledEditableWrapperCss = css`
   align-items: center;
-  background-color: ${props => props.readOnly
-    ? shadeColor(_get(props.theme, 'colors.paper'), 1)
-    : theme.color('paper')};
-  border: 1px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
-  border-radius: ${theme.radii('regular')};
-  cursor: ${props => props.readOnly ? 'not-allowed' : 'default'};
+  cursor: ${props => props.immutable ? 'not-allowed' : 'default'};
   display: flex;
-  padding: ${scale.space(-2)} ${scale.space(-1)};
-  ${props => declareFocus(props)}
 `
 
 const StyledEditableWrapper = styled.label`
-  && {
-    margin-bottom: 0; /* reset bootstrap */
+  &&& {
+    margin: 0; /* reset Bootstrap and Ext JS */
+    padding: 0; /* reset Ext JS */
     ${StyledEditableWrapperCss}
   }
 `
@@ -32,13 +25,15 @@ const StyledEditableWrapper = styled.label`
 const StyledInputCss = css`
   background-color: transparent;
   border: 0;
-  cursor: inherit;
+  cursor: ${props => props.immutable ? 'not-allowed' : 'default'};
   flex-grow: 1;
   min-height: 2.6rem;
   min-width: 0;
   outline: 0;
   padding: 0;
-  ${declareFont()}
+  ${props => declareFont({
+    color: props.immutable ? generateDisabledShade(_get(props.theme, 'colors.text')) : theme.color('text')
+  })}
   &::-ms-clear {
     display: none;
   }
@@ -107,7 +102,6 @@ const StyledEditableValue = styled.span`
       .ql-container.ql-disabled {
         border-top-left-radius: .27rem;
         border-top-right-radius: .27rem;
-        background-color: #eee;
 
         .ql-editor {
           cursor: not-allowed;
@@ -117,10 +111,6 @@ const StyledEditableValue = styled.span`
 
     //date
     .date-edit {
-      input[ readonly ] {
-        background-color: #fff;
-      }
-
       .input-group-addon {
         cursor: pointer;
       }
@@ -131,7 +121,6 @@ const StyledEditableValue = styled.span`
 
       &.disabled {
         input {
-          background-color: #eee;
           cursor: not-allowed;
         }
       }

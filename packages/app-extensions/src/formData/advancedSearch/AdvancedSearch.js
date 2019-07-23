@@ -3,8 +3,11 @@ import React from 'react'
 import {Button} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
 import uuid from 'uuid/v4'
+
+import {StyledAdvancedSearch} from './StyledAdvancedSearch'
+
 const AdvancedSearch = props =>
-  <div>
+  <StyledAdvancedSearch>
     <props.ListApp
       id={`advancedSearch-${uuid()}`}
       keepStore={false}
@@ -20,12 +23,10 @@ const AdvancedSearch = props =>
       selectOnRowClick={true}
       disableSelectionController={true}
     />
-    <div style={{margin: '5px'}}>
-      <Button look="raised" onClick={props.onOkClick}>
-        <FormattedMessage id="client.common.ok"/>
-      </Button>
-    </div>
-  </div>
+    <Button look="raised" onClick={props.onOkClick}>
+      <FormattedMessage id="client.common.ok"/>
+    </Button>
+  </StyledAdvancedSearch>
 
 AdvancedSearch.propTypes = {
   ListApp: PropTypes.func.isRequired,

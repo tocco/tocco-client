@@ -2,15 +2,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {intlShape} from 'react-intl'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
+import {Typography} from 'tocco-ui'
 
 import cellRenderer from '../../util/cellRenderer'
-import '!style-loader!css-loader!react-bootstrap-table/dist/react-bootstrap-table.min.css'
 import {default as selectionStyles, selectionStylePropType} from '../../util/selectionStyles'
 import StyledTable from './StyledTable'
+import PaginationPanel from '../PaginationPanel'
 
 const RIGHT_ALIGNED_TYPES = ['moneyamount', 'counter', 'integer', 'long']
 
-const Table = (props, context) => {
+const Table = props => {
   const msg = (id, values = {}) => (props.intl.formatMessage({id}, values))
 
   const onSortChange = (field, order) => {
@@ -34,14 +35,9 @@ const Table = (props, context) => {
     } : {}
   )
 
-  const renderShowsTotal = (start, to, total) => {
-    if (total === 0) return <span/>
-    return (
-      <span>
-        {msg('client.entity-list.total', {start, to, total})}
-      </span>
-    )
-  }
+  const renderShowsTotal = (start, to, total) => total === 0
+    ? <span/>
+    : <Typography.Span>{msg('client.entity-list.total', {start, to, total})}</Typography.Span>
 
   const handleAllSelectionChange = (isSelected, rows) => {
     const keys = rows.map(r => r.__key)
@@ -72,33 +68,24 @@ const Table = (props, context) => {
   }
 
   const tableOption = {
-    onSortChange: onSortChange,
-    sizePerPage: props.limit,
-    onPageChange: onPageChange,
-    page: props.currentPage,
-    paginationShowsTotal: renderShowsTotal,
-    paginationSize: 3,
-    hideSizePerPage: true,
-    onRowClick: handleRowClick,
     noDataText: props.inProgress
       ? msg('client.entity-list.dataLoading')
       : msg('client.entity-list.noData'),
-    nextPageTitle: msg('client.entity-list.nextPageTitle'),
-    prePageTitle: msg('client.entity-list.prePageTitle'),
-    firstPageTitle: msg('client.entity-list.firstPageTitle'),
-    lastPageTitle: msg('client.entity-list.lastPageTitle'),
-    prePage: '‹',
-    nextPage: '›',
-    firstPage: '«',
-    lastPage: '»',
+    onPageChange: onPageChange,
+    onRowClick: handleRowClick,
+    onSortChange: onSortChange,
+    page: props.currentPage,
+    paginationPanel: PaginationPanel,
+    paginationShowsTotal: renderShowsTotal,
+    sizePerPage: props.limit,
     ...sortingOptions()
   }
 
   const showPagination = props.entityCount - props.limit > 0 && !props.inProgress
 
   const cellFormatter = (column, idx) => (cell, entity) => (
-    <span key={idx} data-list-cell>
-      {column.children.map(child => cellRenderer(child, entity, props.parent, {refresh: props.refresh}, context.intl))}
+    <span key={idx} data-cy="list-cell">
+      {column.children.map(child => cellRenderer(child, entity, props.parent, {refresh: props.refresh}, props.intl))}
     </span>
   )
 
@@ -136,10 +123,6 @@ const Table = (props, context) => {
       }
     </StyledTable>
   )
-}
-
-Table.contextTypes = {
-  intl: intlShape
 }
 
 Table.propTypes = {

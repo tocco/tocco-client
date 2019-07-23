@@ -2,10 +2,10 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {withTheme} from 'styled-components'
 import _omit from 'lodash/omit'
+import _get from 'lodash/get'
 
 import getSpacing from './StyledIcon'
 import {design} from '../utilStyles'
-import lazyComponent from '../util/lazyComponent'
 
 /**
  * Utilize <Icon> to create additional meaning or to omit text labels. Every chosen
@@ -14,54 +14,65 @@ import lazyComponent from '../util/lazyComponent'
  * description. All free solid and regular icons are available.
  */
 export class Icon extends React.Component {
-  lazyFontAwesomeIcon = null
-
+  mounted = false
   constructor(props) {
     super(props)
+    this.state = {LazyFontAwesomeIcon: null}
+  }
 
-    const fontLib = props.icon.includes('fab')
+  componentDidMount() {
+    this.mounted = true
+    this.lazyLoadComponent()
+  }
+
+  componentWillUnmount() {
+    this.mounted = false
+  }
+
+  fontLib = this.props.icon.includes('fab')
+    ? {
+      import: import(/* webpackChunkName: "fontawesomeicon-brands" */ '@fortawesome/free-brands-svg-icons'),
+      module: 'fab'
+    }
+    : this.props.icon.includes('far')
       ? {
-        import: import(/* webpackChunkName: "fontawesomeicon-brands" */ '@fortawesome/free-brands-svg-icons'),
-        module: 'fab'
+        import: import(/* webpackChunkName: "fontawesomeicon-regular" */ '@fortawesome/free-regular-svg-icons'),
+        module: 'far'
       }
-      : props.icon.includes('far')
-        ? {
-          import: import(/* webpackChunkName: "fontawesomeicon-regular" */ '@fortawesome/free-regular-svg-icons'),
-          module: 'far'
-        }
-        : {
-          import: import(/* webpackChunkName: "fontawesomeicon-solid" */ '@fortawesome/free-solid-svg-icons'),
-          module: 'fas'
-        }
-
-    const loadComponent = Promise.all([
+      : {
+        import: import(/* webpackChunkName: "fontawesomeicon-solid" */ '@fortawesome/free-solid-svg-icons'),
+        module: 'fas'
+      }
+      
+  lazyLoadComponent = () => {
+    Promise.all([
       import(/* webpackChunkName: "fontawesomeicon" */ '@fortawesome/react-fontawesome'),
       import(/* webpackChunkName: "fontawesomeicon" */ '@fortawesome/fontawesome-svg-core'),
-      fontLib.import
+      this.fontLib.import
     ]).then(response => {
-      response[1].library.add(response[2][fontLib.module])
-      return response
-    })
+      response[1].library.add(response[2][this.fontLib.module])
 
-    this.lazyFontAwesomeIcon = lazyComponent(() => loadComponent, '[0].FontAwesomeIcon', <i/>, () => {
-      if (this.props.onLoaded) {
-        this.props.onLoaded()
-      }
+      if (this.mounted) this.setState({LazyFontAwesomeIcon: _get(response, '[0].FontAwesomeIcon')})
+
+      if (this.props.onLoaded) this.props.onLoaded()
     })
   }
 
   render() {
+    const {LazyFontAwesomeIcon} = this.state
     const filteredProps = _omit(this.props, ['dense', 'position', 'theme'])
 
     const icon = (typeof this.props.icon === 'string' && this.props.icon.includes(','))
       ? this.props.icon.replace(/\s+/, '').split(',')
       : this.props.icon
 
-    return <this.lazyFontAwesomeIcon
-      {...filteredProps}
-      icon={icon}
-      style={{...this.props.style, ...(getSpacing(this.props))}}
-    />
+    return (LazyFontAwesomeIcon
+      && <LazyFontAwesomeIcon
+        {...filteredProps}
+        icon={icon}
+        style={{...this.props.style, ...(getSpacing(this.props))}}
+      />
+    )
   }
 }
 
@@ -77,11 +88,11 @@ Icon.propTypes = {
    */
   icon: PropTypes.string.isRequired,
   /**
-   * If true, button occupies less space. It should only used for crowded areas like tables and only if necessary.
+   * If true, button occupies less space. It should only be used for crowded areas like tables and only if necessary.
    */
   dense: PropTypes.bool,
   /**
-   * Specify if icon is positioned next to text or not to control spacing. Default value is 'prepend'.
+   * Specify if icon is positioned next to text or not, to control spacing. Default value is 'prepend'.
    */
   position: design.positionPropTypes,
   /**

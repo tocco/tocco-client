@@ -42,18 +42,16 @@ class DetailView extends React.Component {
     const props = this.props
 
     return (
-      <div className="detail-view">
-        <LoadMask
-          required={[props.formInitialValues]}
-          loadingText={this.msg('client.entity-detail.loadingText')}
-        >
-          <DetailFormContainer
-            mode={this.props.mode}
-            validate={this.getSyncValidation()}
-            asyncValidate={this.handledAsyncValidate}
-          />
-        </LoadMask>
-      </div>
+      <LoadMask
+        required={[props.formInitialValues]}
+        loadingText={this.msg('client.entity-detail.loadingText')}
+      >
+        <DetailFormContainer
+          mode={this.props.mode}
+          validate={this.getSyncValidation()}
+          asyncValidate={this.handledAsyncValidate}
+        />
+      </LoadMask>
     )
   }
 }

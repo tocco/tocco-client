@@ -1,8 +1,9 @@
-import {shallow} from 'enzyme'
 import React from 'react'
 import {Button} from 'tocco-ui'
+import {IntlStub} from 'tocco-test-util'
+import {shallow} from 'enzyme'
 
-import GroupElement from './GroupElement'
+import {GroupElement} from './GroupElement'
 
 const EMPTY_FUNC = () => {}
 
@@ -17,7 +18,9 @@ describe('app-extensions', () => {
           }
           const clickSpy = sinon.spy()
           const selectSpy = sinon.spy()
-          const wrapper = shallow(<GroupElement definition={definition} onSelect={selectSpy} onClick={clickSpy}/>)
+          const wrapper = shallow(
+            <GroupElement definition={definition} onSelect={selectSpy} onClick={clickSpy} intl={IntlStub}/>
+          )
           wrapper.find(Button).simulate('click')
           expect(clickSpy).to.have.property('callCount', 1)
         })
@@ -29,7 +32,9 @@ describe('app-extensions', () => {
           }
           const clickSpy = sinon.spy()
           const selectSpy = sinon.spy()
-          const wrapper = shallow(<GroupElement definition={definition} onSelect={selectSpy} onClick={clickSpy}/>)
+          const wrapper = shallow(
+            <GroupElement definition={definition} onSelect={selectSpy} onClick={clickSpy} intl={IntlStub}/>
+          )
           wrapper.find(Button).simulate('click')
           expect(clickSpy).to.have.property('callCount', 0)
         })
@@ -39,7 +44,7 @@ describe('app-extensions', () => {
             componentType: 'action-group',
             actionType: 'divider'
           }
-          const wrapper = shallow(<GroupElement definition={definition} onClick={EMPTY_FUNC}/>)
+          const wrapper = shallow(<GroupElement definition={definition} onClick={EMPTY_FUNC} intl={IntlStub}/>)
           expect(wrapper.find('hr')).to.have.length(1)
         })
       })

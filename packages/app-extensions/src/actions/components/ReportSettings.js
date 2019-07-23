@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Button, ButtonGroup} from 'tocco-ui'
-import {FormattedMessage, intlShape} from 'react-intl'
+import {FormattedMessage, injectIntl, intlShape} from 'react-intl'
 import {download} from 'tocco-util'
 
 import rest from '../../rest'
@@ -17,7 +17,7 @@ import {
 } from '../utils/report'
 import StyledReportSettings from './StyledReportSettings'
 
-class ReportSettings extends React.Component {
+export class ReportSettings extends React.Component {
   constructor(props) {
     super(props)
 
@@ -49,13 +49,12 @@ class ReportSettings extends React.Component {
   }
 
   render() {
-    const {settingsDefinition} = this.props
-
+    const {intl, settingsDefinition} = this.props
     return (
       <StyledReportSettings>
         <this.SimpleFormContainer
           listApp={this.props.listApp}
-          form={getFormDefinition(settingsDefinition, this.context.intl)}
+          form={getFormDefinition(settingsDefinition, intl)}
           model={getModel(settingsDefinition)}
           noButtons
           onChange={({values, valid}) => { this.handleSettingsChange(values, valid) }}
@@ -94,15 +93,12 @@ class ReportSettings extends React.Component {
   }
 }
 
-ReportSettings.contextTypes = {
-  intl: intlShape
-}
-
 ReportSettings.propTypes = {
+  intl: intlShape.isRequired,
   onSubmit: PropTypes.func.isRequired,
   listApp: PropTypes.func.isRequired,
   formApp: PropTypes.func.isRequired,
   settingsDefinition: reportSettingsDefinitionPropType.isRequired
 }
 
-export default ReportSettings
+export default injectIntl(ReportSettings)

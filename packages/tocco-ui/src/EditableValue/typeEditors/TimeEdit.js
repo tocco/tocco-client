@@ -25,16 +25,17 @@ const TimeEdit = props => {
 
   const isFirefox = !!window.sidebar
 
-  const showClearButton = props.value && !props.readOnly && !isFirefox
+  const showClearButton = props.value && !props.immutable && !isFirefox
 
   return (
-    <StyledEditableWrapper readOnly={props.readOnly}>
+    <StyledEditableWrapper immutable={props.immutable}>
       <StyledTimeEdit
-        value={timeString}
-        onChange={handleChange}
-        name={props.name}
+        disabled={props.immutable}
         id={props.id}
-        readOnly={props.readOnly}
+        immutable={props.immutable}
+        name={props.name}
+        onChange={handleChange}
+        value={timeString}
       />
       {showClearButton && <StyledEditableControl>
         <Button
@@ -58,7 +59,7 @@ TimeEdit.propTypes = {
   }),
   name: PropTypes.string,
   id: PropTypes.string,
-  readOnly: PropTypes.bool
+  immutable: PropTypes.bool
 }
 
 export default TimeEdit

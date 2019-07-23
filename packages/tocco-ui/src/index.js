@@ -1,8 +1,11 @@
 export {default as Button, StyledButton} from './Button'
 export {default as ButtonGroup, StyledButtonGroup} from './ButtonGroup'
 export {default as ButtonLink, StyledButtonLink} from './ButtonLink'
-export {default as EditableValue} from './EditableValue'
-export {default as FormField} from './FormField'
+export {
+  default as EditableValue,
+  StyledEditableWrapperCss,
+  StyledInputCss
+} from './EditableValue'
 export {default as FormattedValue} from './FormattedValue'
 export {default as Icon, StyledIcon} from './Icon'
 export {default as IconTocco, StyledIconToccoSvg, StyledIconToccoWrapper} from './IconTocco'
@@ -23,10 +26,12 @@ export {
 export {default as Panel, StyledPanel, StyledPanelBody, StyledPanelHeaderFooter} from './Panel'
 export {default as Popover} from './Popover'
 export {default as Preview, StyledPreview} from './Preview'
-export {default as SearchBox, StyledInputGroupBtn} from './SearchBox'
+export {default as SearchBox} from './SearchBox'
+export {default as Select} from './Select'
 export {default as SignalBox, StyledSignalBox} from './SignalBox'
 export {default as SignalList, StyledSignalList, StyledSignalListItem} from './SignalList'
 export {default as SomeOf} from './SomeOf'
+export {default as StatedValue} from './StatedValue'
 export {
   default as Typography,
   StyledSpan,
@@ -65,6 +70,10 @@ export {
 } from './Typography'
 export {default as Upload, StyledUploadInput, StyledView} from './Upload'
 export {
+  colorizeBorder,
+  colorizeText,
+  declareFont,
+  declareWrappingText,
   design,
   generateInteractionColor,
   generateShades,

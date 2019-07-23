@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import FocusWithin from 'react-simple-focus-within'
 
-import ErrorList from '../FormField/ErrorList'
+import ErrorList from './ErrorList'
 import {
   StyledStatedValueBox,
   StyledStatedValueDescription,
@@ -29,6 +29,8 @@ const StatedValue = props => {
     children,
     description,
     dirty,
+    fixLabel,
+    isDisplay,
     error,
     hasValue,
     id,
@@ -36,42 +38,39 @@ const StatedValue = props => {
     mandatory,
     mandatoryTitle,
     immutable,
-    type,
     touched
   } = props
 
   const hasError = touched && props.error && Object.keys(props.error).length > 0
   const labelAlt = `${label}${mandatory && mandatoryTitle ? `, ${mandatoryTitle}` : ''}`
-  const signal = detectSignal(dirty, hasError)
-  const look = type === 'display'
-    ? 'display'
-    : immutable
-      ? 'immutableField'
-      : 'mutableField'
+  const signal = props.signal || detectSignal(dirty, hasError)
 
   return (
     <FocusWithin>
       {({focused, getRef}) => {
-        const secondaryPosition = focused || hasValue || type === 'display'
+        const secondaryPosition = (!immutable && focused) || hasValue || isDisplay || fixLabel
         return (
           <StyledStatedValueWrapper
             ref={getRef}
             secondaryPosition={secondaryPosition}>
             <StyledStatedValueBox
-              look={look}
+              immutable={immutable}
+              isDisplay={isDisplay}
               signal={signal}>
               {children}
               <StyledStatedValueLabel
-                {...look === 'mutableField' ? {htmlFor: id} : {}}
-                look={look}
+                {...!isDisplay && !immutable && {htmlFor: id}}
                 alt={labelAlt}
                 secondaryPosition={secondaryPosition}
+                immutable={immutable}
+                isDisplay={isDisplay}
                 signal={signal}
               >{label}{mandatory && ' *'}</StyledStatedValueLabel>
             </StyledStatedValueBox>
             {description
               && <StyledStatedValueDescription>{description}</StyledStatedValueDescription>}
             {hasError
+              && !immutable
               && <StyledStatedValueError>
                 <ErrorList error={error}/>
               </StyledStatedValueError>
@@ -89,9 +88,9 @@ StatedValue.propTypes = {
    */
   children: PropTypes.node,
   /**
-   * Visualize as field or display according child's type.
+   * Visualize as display and not as field.
    */
-  type: PropTypes.oneOf(['display', 'field']),
+  isDisplay: PropTypes.bool,
   /**
    * A helper text to instruct users.
    */
@@ -106,6 +105,10 @@ StatedValue.propTypes = {
   error: PropTypes.objectOf(PropTypes.arrayOf(
     PropTypes.oneOfType([PropTypes.node, PropTypes.string]))
   ),
+  /**
+   * Force label on secondaryPosition.
+   */
+  fixLabel: PropTypes.bool,
   /**
    * If true label is moved to uncover value.
    */
@@ -130,6 +133,10 @@ StatedValue.propTypes = {
    * Determines if value is editable
    */
   immutable: PropTypes.bool,
+  /**
+   * Pass a valid signal condition to omit auto detection
+   */
+  signal: PropTypes.string,
   /**
    * If true field was in focus.
    */

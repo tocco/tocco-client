@@ -15,7 +15,7 @@ const BoolEdit = props => {
       name={props.name}
       onChange={handleChange}
       id={props.id}
-      disabled={props.readOnly}
+      disabled={props.immutable}
     />
   )
 }
@@ -25,7 +25,7 @@ BoolEdit.propTypes = {
   value: PropTypes.bool,
   name: PropTypes.string,
   id: PropTypes.string,
-  readOnly: PropTypes.bool
+  immutable: PropTypes.bool
 }
 
 export default BoolEdit

@@ -2,14 +2,13 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {Button} from 'tocco-ui'
-import {intlShape} from 'react-intl'
+import {injectIntl, intlShape} from 'react-intl'
 
 import {selectionText, isValidSelection} from './selectionHelper'
 
-const SingleAction = ({definition, onClick, selectedCount, disabled}, context) => {
+export const SingleAction = ({definition, onClick, selectedCount, disabled, intl}) => {
   const validSelection = isValidSelection(selectedCount, definition)
-  const title = selectionText(selectedCount, definition, context.intl)
-
+  const title = selectionText(selectedCount, definition, intl)
   return (
     <Button
       look="raised"
@@ -25,15 +24,12 @@ const SingleAction = ({definition, onClick, selectedCount, disabled}, context) =
   )
 }
 
-SingleAction.contextTypes = {
-  intl: intlShape
-}
-
 SingleAction.propTypes = {
+  intl: intlShape.isRequired,
   definition: PropTypes.object.isRequired,
   onClick: PropTypes.func,
   selectedCount: PropTypes.number,
   disabled: PropTypes.bool
 }
 
-export default SingleAction
+export default injectIntl(SingleAction)

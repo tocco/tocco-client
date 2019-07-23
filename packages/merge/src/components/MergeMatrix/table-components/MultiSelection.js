@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import sortBy from 'lodash/sortBy'
+import {Typography} from 'tocco-ui'
 
 import * as SelectionUtil from '../../../utils/SelectionUtil'
+import {StyledMergeMatrixLabel} from '../StyledMergeMatrix'
 
 const MultiSelection = props => {
   const disabled = (props.disabled) ? 'disabled' : ''
@@ -17,26 +19,23 @@ const MultiSelection = props => {
 
   const clickFnc = value => props.onChange(props.relationName, value.pk, props.entity.pk)
   return (
-    <div>
+    <React.Fragment>
       {
         sortBy(props.values, v => v.pk).map((value, idx) => {
-          const id = `multiselection${idx}${props.entity.pk}`
           return (
-            <div key={`multiselection${idx}`}>
+            <StyledMergeMatrixLabel
+              key={`multiselection${idx}`}>
               <input
                 type="checkbox"
                 disabled={disabled}
                 onChange={() => clickFnc(value)}
                 checked={isChecked(value.pk)}
-                id={id}
-              />
-              <label htmlFor={id} className="selection-label">{value.label}</label>
-            </div>
+              /><Typography.Span>{value.label}</Typography.Span>
+            </StyledMergeMatrixLabel>
           )
         })
-
       }
-    </div>
+    </React.Fragment>
   )
 }
 

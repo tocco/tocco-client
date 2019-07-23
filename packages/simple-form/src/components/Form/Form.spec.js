@@ -6,8 +6,7 @@ import {IntlStub, intlEnzyme} from 'tocco-test-util'
 
 import Form from './Form'
 
-const EMPTY_FUNC = () => {
-}
+const EMPTY_FUNC = () => {}
 
 describe('simple-form', () => {
   describe('components', () => {

@@ -1,17 +1,17 @@
 import styled from 'styled-components'
-import {StyledButton} from 'tocco-ui/src/Button'
-import {StyledButtonGroup} from 'tocco-ui/src/ButtonGroup'
+import {
+  StyledInputCss,
+  StyledEditableWrapperCss
+} from 'tocco-ui'
 
-export default styled.div`
-  ${StyledButtonGroup} {
-    width: auto;
+export const StyledLoginFormInput = styled.input`
+  && {
+    ${StyledInputCss}
+  }
+`
 
-    ${StyledButton} {
-      flex-grow: 1;
-
-      > span {
-        width: 100%;
-      }
-    }
+export const StyledLoginFormInputWrapper = styled.div`
+  && {
+    ${StyledEditableWrapperCss}
   }
 `

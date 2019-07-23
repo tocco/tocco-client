@@ -6,6 +6,7 @@ import componentTypes from '../actionComponentTypes'
 import {modeFitsScopes} from '../actions'
 import ActionGroup from './ActionGroup'
 import SingleAction from './SingleAction'
+import {StyledAction} from './StyledAction'
 
 const Action = ({definition, onClick, selection, parent, entity, mode, callback, disabled}) => {
   if (!modeFitsScopes(mode, definition.scopes)) return null
@@ -13,7 +14,7 @@ const Action = ({definition, onClick, selection, parent, entity, mode, callback,
   const ActionType = definition.componentType === componentTypes.ACTION_GROUP ? ActionGroup : SingleAction
 
   return (
-    <span className="action" style={{marginBottom: '.5em', display: 'inline-block'}}>
+    <StyledAction>
       <ActionType
         definition={definition}
         onClick={definition => {
@@ -22,7 +23,7 @@ const Action = ({definition, onClick, selection, parent, entity, mode, callback,
         selectedCount={selection.count}
         disabled={disabled}
       />
-    </span>
+    </StyledAction>
   )
 }
 
