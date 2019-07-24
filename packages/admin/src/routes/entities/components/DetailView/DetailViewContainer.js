@@ -1,10 +1,10 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {actionEmitter} from 'tocco-app-extensions'
 
 import DetailView from './DetailView'
-
 const mapActionCreators = {
-
+  dispatchEmittedAction: actionEmitter.dispatchEmittedAction
 }
 
 const mapStateToProps = (state, props) => ({

@@ -1,12 +1,14 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {notifier} from 'tocco-app-extensions'
 
 import {doLogout, doSessionCheck} from '../../modules/session/actions'
 import Admin from './Admin'
 
 const mapActionCreators = {
   doLogout,
-  doSessionCheck
+  doSessionCheck,
+  confirm: notifier.confirm
 }
 
 const mapStateToProps = (state, props) => ({

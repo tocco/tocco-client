@@ -55,18 +55,18 @@ export function* extractMultiRelations(model) {
 }
 
 export function* getDisplay(entityName, key, breadcrumbsIdx) {
-  const display = yield select(displaySelector, entityName, key)
-  if (display) {
-    return display
+  let display = yield select(displaySelector, entityName, key)
+  if (!display) {
+    const query = {
+      fields: [],
+      relations: []
+    }
+    const entity = yield call(rest.fetchEntity, entityName, key, query)
+    display = entity.display
+    yield put(actions.cacheDisplay(entityName, key, display))
   }
 
-  const query = {
-    fields: [],
-    relations: []
-  }
-  const entity = yield call(rest.fetchEntity, entityName, key, query)
-  yield put(actions.setBreadcrumbDisplay(entity.display, breadcrumbsIdx))
-  yield put(actions.cacheDisplay(entityName, key, entity.display))
+  yield put(actions.setBreadcrumbDisplay(display, breadcrumbsIdx))
 }
 
 export function* addEntityToBreadcrumbs(path, entityName) {

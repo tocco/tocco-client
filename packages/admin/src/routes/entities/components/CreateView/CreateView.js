@@ -1,8 +1,12 @@
-import React from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
+import {intlShape} from 'react-intl'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
+import {Prompt} from 'react-router'
 
 const CreateView = props => {
+  const [touched, setTouched] = useState(false)
+
   const mode = 'create'
 
   if (!props.currentViewInfo) {
@@ -16,19 +20,43 @@ const CreateView = props => {
     ...((reverseRelation && key) ? [{id: reverseRelation, value: key}] : [])
   ]
 
+  const handleEntityCreated = ({id}) => {
+    props.history.push(props.match.url.replace(/create$/, id))
+  }
+
+  const handleToucheChanged = ({touched}) => {
+    setTouched(touched)
+  }
+
+  const msg = id => props.intl.formatMessage({id})
+
   return (
-    <EntityDetailApp
-      entityName={entityName}
-      formName={`${entityName}_detail`}
-      mode={mode}
-      defaultValues={defaultValues}
-    />
+    <React.Fragment>
+      <Prompt
+        when={touched}
+        message={msg('client.entity-browser.detail.confirmTouchedFormLeave')}
+      />
+      <EntityDetailApp
+        entityName={entityName}
+        formName={`${entityName}_detail`}
+        mode={mode}
+        defaultValues={defaultValues}
+        emitAction={action => {
+          props.dispatchEmittedAction(action)
+        }}
+        onEntityCreated={handleEntityCreated}
+        onTouchedChange={handleToucheChanged}
+      />
+    </React.Fragment>
   )
 }
 
 CreateView.propTypes = {
+  intl: intlShape,
   match: PropTypes.object,
-  currentViewInfo: PropTypes.object
+  history: PropTypes.object,
+  currentViewInfo: PropTypes.object,
+  dispatchEmittedAction: PropTypes.func.isRequired
 }
 
 export default CreateView

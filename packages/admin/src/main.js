@@ -1,8 +1,6 @@
 import React from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
-import {
-  appFactory
-} from 'tocco-app-extensions'
+import {appFactory, notifier, errorLogging, actionEmitter, externalEvents} from 'tocco-app-extensions'
 
 import reducers, {sagas} from './modules/reducers'
 import Admin from './components/Admin'
@@ -12,6 +10,10 @@ const initApp = (id, input, events, publicPath) => {
   const content = <Admin/>
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
+  externalEvents.addToStore(store, events)
+  actionEmitter.addToStore(store)
+  errorLogging.addToStore(store, true, ['console', 'remote', 'notifier'])
+  notifier.addToStore(store, true)
 
   return appFactory.createApp(
     packageName,
@@ -22,7 +24,7 @@ const initApp = (id, input, events, publicPath) => {
       events,
       actions: [],
       publicPath,
-      textResourceModules: ['component', 'common', packageName]
+      textResourceModules: ['component', 'common', 'entity-browser', 'entity-list', 'entity-detail', packageName]
     }
   )
 }
