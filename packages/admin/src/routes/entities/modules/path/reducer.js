@@ -12,14 +12,40 @@ export const cacheModel = (state, {payload: {entity, model}}) => (
   }
 )
 
+export const cacheDisplay = (state, {payload: {entity, key, display}}) => (
+  {
+    ...state,
+    displayCache: {
+      ...state.displayCache,
+      [entity]: {
+        ...state.displayCache[entity],
+        [key]: display
+      }
+    }
+  }
+)
+
+export const setBreadcrumbDisplay = (state, {payload: {display, idx}}) => {
+  const newState = {...state, breadcrumbsInfo: [...state.breadcrumbsInfo]}
+  newState.breadcrumbsInfo[idx].display = display
+  return newState
+}
+
 const ACTION_HANDLERS = {
   [actions.CACHE_MODEL]: cacheModel,
-  [actions.SET_CURRENT_VIEW_INFO]: reducerUtil.singleTransferReducer('currentViewInfo')
+  [actions.CACHE_DISPLAY]: cacheDisplay,
+  [actions.SET_CURRENT_VIEW_INFO]: reducerUtil.singleTransferReducer('currentViewInfo'),
+  [actions.SET_BREADCRUMBS_INFO]: reducerUtil.singleTransferReducer('breadcrumbsInfo'),
+  [actions.SET_RELATIONS]: reducerUtil.singleTransferReducer('relations'),
+  [actions.SET_BREADCRUMB_DISPLAY]: setBreadcrumbDisplay
 }
 
 const initialState = {
   modelCache: {},
-  currentViewInfo: null
+  displayCache: {},
+  currentViewInfo: null,
+  breadcrumbsInfo: [],
+  relations: null
 }
 
 export default function reducer(state = initialState, action) {

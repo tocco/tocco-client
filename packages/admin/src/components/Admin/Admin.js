@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {Flex, Box} from '@rebass/grid'
 import {Router, Route, Redirect, Switch} from 'react-router-dom'
 import {createBrowserHistory} from 'history'
-import {Button, LoadMask} from 'tocco-ui'
+import {Button, LoadMask, Typography} from 'tocco-ui'
 
 import Navigation from '../Navigation'
 import DashboardRoute from '../../routes/dashboard'
@@ -29,7 +29,7 @@ class Admin extends React.Component {
               </div>
               : <div>
                 <Flex style={{backgroundColor: '#9E2124', color: '#fff'}}>
-                  <Box> <h1>Tocco</h1></Box>
+                  <Box><Typography.H1 style={{color: 'white'}}>Tocco</Typography.H1></Box>
                   <Box ml="auto">
                     <Button label="Loggout" onClick={this.props.doLogout}/>
                   </Box>

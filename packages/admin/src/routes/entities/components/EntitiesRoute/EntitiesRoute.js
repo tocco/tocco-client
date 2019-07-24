@@ -4,16 +4,17 @@ import PropTypes from 'prop-types'
 
 import Overview from '../../subroutes/overview'
 import Entity from '../../subroutes/entity'
+import Breadcrumbs from '../Breadcrumbs'
 
 const EntitiesRoute = ({match, history, loadCurrentViewInfo, currentViewInfo}) => {
   useEffect(() => { loadCurrentViewInfo(history.location.pathname) }, [])
 
   return (
     <div>
-      <div>Breadcrumps comming soon...</div>
+      <Breadcrumbs/>
 
       <Switch>
-        < Route
+        <Route
           path={`${match.url}/:entity`}
           component={Entity}
         />

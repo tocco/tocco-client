@@ -3,8 +3,8 @@ import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Icon} from 'tocco-ui'
 
-const RelationsView = ({match, currentViewInfo}) => {
-  if (!currentViewInfo) {
+const RelationsView = ({match, currentViewInfo, relations}) => {
+  if (!relations || !currentViewInfo) {
     return null
   }
 
@@ -12,7 +12,7 @@ const RelationsView = ({match, currentViewInfo}) => {
     <div>
       <h1>Relations {currentViewInfo.model.name}</h1>
       <ul>
-        {currentViewInfo.relations.map((relation, idx) => (
+        {relations.map((relation, idx) => (
           <li key={idx}>
             <Link to={match.url.replace(/relations$/, relation.relationName)}>
               {relation.relationName} ({relation.targetEntity})
@@ -27,7 +27,8 @@ const RelationsView = ({match, currentViewInfo}) => {
 
 RelationsView.propTypes = {
   match: PropTypes.object.isRequired,
-  currentViewInfo: PropTypes.object
+  currentViewInfo: PropTypes.object,
+  relations: PropTypes.array
 }
 
 export default RelationsView

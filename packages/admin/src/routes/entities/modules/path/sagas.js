@@ -6,9 +6,12 @@ import _pick from 'lodash/pick'
 
 import * as actions from './actions'
 
-import {takeLatest, fork, all, call, put, select} from 'redux-saga/effects'
-export const modelSelector = (state, entity) => _get(state, `state.path.modelCache.${entity}`, null)
-export const relationsSelector = (state, entity) => _get(state, `state.path.relationsCache.${entity}`, null)
+import {takeLatest, fork, all, call, put, select, spawn} from 'redux-saga/effects'
+
+export const modelSelector = (state, entity) => _get(state, `entities.path.modelCache.${entity}`, null)
+export const displaySelector = (state, entity, key) => _get(state, `entities.path.displayCache.${entity}.${key}`, null)
+
+export const breadcrumbsSelector = state => state.entities.path.breadcrumbsInfo
 
 const isEven = n => n % 2 === 0
 
@@ -46,57 +49,106 @@ export function* getModel(entity) {
 export function* extractMultiRelations(model) {
   const relations = _pickBy(model.paths, (value, key) => value.type === 'relation' && value.multi === true)
 
-  return Object.keys(relations).map(k => _pick(relations[k], ['relationName', 'targetEntity']))
+  const relationsTransformed = Object.keys(relations).map(k => _pick(relations[k], ['relationName', 'targetEntity']))
+
+  yield put(actions.setRelations(relationsTransformed))
+}
+
+export function* getDisplay(entityName, key, breadcrumbsIdx) {
+  const display = yield select(displaySelector, entityName, key)
+  if (display) {
+    return display
+  }
+
+  const query = {
+    fields: [],
+    relations: []
+  }
+  const entity = yield call(rest.fetchEntity, entityName, key, query)
+  yield put(actions.setBreadcrumbDisplay(entity.display, breadcrumbsIdx))
+  yield put(actions.cacheDisplay(entityName, key, entity.display))
+}
+
+export function* addEntityToBreadcrumbs(path, entityName) {
+  const breadcrumbs = yield select(breadcrumbsSelector)
+  const type = 'list'
+
+  const display = entityName
+  breadcrumbs.push({display, path, type})
+  yield put(actions.setBreadcrumbsInfo(breadcrumbs))
+}
+
+export function* addRecordToBreadcrumbs(path, entityName, key) {
+  const type = 'record'
+  const breadcrumbs = yield select(breadcrumbsSelector)
+  const display = '...'
+  const breadcrumbsLength = breadcrumbs.push({display, path, type})
+  yield put(actions.setBreadcrumbsInfo(breadcrumbs))
+
+  if (type === 'record') {
+    yield spawn(getDisplay, entityName, key, breadcrumbsLength - 1)
+  }
 }
 
 export function* loadCurrentViewInfo({payload: {location}}) {
+  const currentViewInfo = {
+    model: null,
+    key: null,
+    reverseRelation: null,
+    parentModel: null,
+    relations: null
+  }
+
+  yield put(actions.setBreadcrumbsInfo([]))
   yield put(actions.setCurrentViewInfo(null))
-  const keys = []
-  const re = pathToRegexp('/e/:entity/:key?/:relation*/:view(list|edit|create|relations)', keys)
+
+  const pathParts = []
+  const re = pathToRegexp('/e/:entity/:key?/:relation*/:view(list|edit|create|relations)', pathParts)
   const res = re.exec(location)
 
   if (res !== null) {
     const path = {}
-    keys.forEach((key, idx) => {
+    pathParts.forEach((key, idx) => {
       path[key.name] = res[idx + 1]
     })
 
     if (path.entity) {
-      const entityModel = yield call(getModel, path.entity)
-      let model = entityModel
-      let key = path.key
-      let reverseRelation
-      let parentModel
+      yield call(addEntityToBreadcrumbs, path.entity, path.entity)
 
-      if (path.relation) {
-        let idx = 0
-        for (const name of path.relation.split('/')) {
-          if (isEven(idx)) {
-            const targetEntity = model.paths[name].targetEntity
+      const baseEntityModel = yield call(getModel, path.entity)
 
-            reverseRelation = model.paths[name].reverseRelationName
-            parentModel = model
-            model = yield call(getModel, targetEntity)
-          } else {
-            key = name
+      currentViewInfo.model = baseEntityModel
+      if (path.key) {
+        currentViewInfo.key = path.key
+
+        yield call(addRecordToBreadcrumbs, path.entity + '/' + path.key, path.entity, path.key)
+
+        if (path.relation) {
+          const splittedRelation = path.relation.split('/')
+          for (let i = 0; i < splittedRelation.length; i++) {
+            const relationStringPart = splittedRelation[i]
+            const breadcrumbPath = [path.entity, path.key, ...path.relation.split('/').slice(0, i + 1)].join('/')
+
+            if (isEven(i)) {
+              const relationName = relationStringPart
+              const targetEntity = currentViewInfo.model.paths[relationName].targetEntity
+
+              currentViewInfo.reverseRelation = currentViewInfo.model.paths[relationName].reverseRelationName
+              currentViewInfo.parentModel = currentViewInfo.model
+              currentViewInfo.model = yield call(getModel, targetEntity)
+
+              yield call(addEntityToBreadcrumbs, breadcrumbPath, currentViewInfo.model.name)
+            } else {
+              const key = relationStringPart
+              currentViewInfo.key = key
+              yield call(addRecordToBreadcrumbs, breadcrumbPath, currentViewInfo.model.name, key)
+            }
           }
-          idx++
         }
       }
 
-      let relations
-
-      if (model) {
-        relations = yield call(extractMultiRelations, model)
-      }
-
-      yield put(actions.setCurrentViewInfo({
-        model,
-        key,
-        reverseRelation,
-        parentModel,
-        relations
-      }))
+      yield spawn(extractMultiRelations, currentViewInfo.model)
+      yield put(actions.setCurrentViewInfo(currentViewInfo))
     }
   }
 }

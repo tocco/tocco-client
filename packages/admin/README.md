@@ -27,7 +27,7 @@ none so far
 - [X] Establish folder structure routes/modules/components
 - [X] Async loading of routes. 
 - [X] Implement relation view
-- [ ] Setup Breadcrumbs
+- [X] Setup Breadcrumbs
 - [ ] Not Found Route / Error Handling in Sagas (invalid route)
 - [ ] Notification und Error handling usw in Admin
 - [ ] Detail OnChange mit Dirty Box.
@@ -36,5 +36,6 @@ none so far
 - [ ] Performance optimization. Caching of paths / models ...
 - [ ] Code splitting plan
 - [ ] One Loading Mask (Preload data and inject into detail/List?)
+- [ ] Evaluate caching in locale store
 
 
