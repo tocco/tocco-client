@@ -1,7 +1,8 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Icon} from 'tocco-ui'
+import {Icon, Typography} from 'tocco-ui'
+
+import {StyledLink} from '../../../../components/StyledLink'
 
 const RelationsView = ({match, currentViewInfo, relations}) => {
   if (!relations || !currentViewInfo) {
@@ -10,14 +11,16 @@ const RelationsView = ({match, currentViewInfo, relations}) => {
 
   return (
     <div>
-      <h1>Relations {currentViewInfo.model.name}</h1>
+      <Typography.H2>Relations {currentViewInfo.model.name}</Typography.H2>
       <ul>
         {relations.map((relation, idx) => (
           <li key={idx}>
-            <Link to={match.url.replace(/relations$/, relation.relationName)}>
+            <StyledLink to={match.url.replace(/relations$/, relation.relationName)}>
               {relation.relationName} ({relation.targetEntity})
-            </Link>
-            <Link to={match.url.replace(/relations$/, relation.relationName) + '/create'}><Icon icon="plus"/></Link>
+            </StyledLink>
+            <StyledLink to={match.url.replace(/relations$/, relation.relationName) + '/create'}>
+              <Icon icon="plus"/>
+            </StyledLink>
           </li>
         ))}
       </ul>

@@ -1,11 +1,12 @@
 /* eslint-disable max-len */
 import React from 'react'
-import {NavLink, Redirect, Route, Switch} from 'react-router-dom'
+import {Redirect, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import Entity from '../../subroutes/entity'
 import Relations from '../../subroutes/relations'
 import Detail from '../../subroutes/detail'
+import {StyledNavLink} from '../../../../components/StyledLink'
 
 const Spacer = () => <span style={{paddingLeft: '5px'}}/>
 
@@ -20,8 +21,8 @@ const EntityRecordRoute = ({match}) => {
     <div>
       <Route exact path={[`${match.path}/edit`, `${match.path}/relations`]} render={() =>
         <div>
-          <Spacer/><NavLink activeStyle={{fontWeight: 'bold'}} to={`${match.url}/edit`}>edit</NavLink><Spacer/>
-          |<Spacer/><NavLink activeStyle={{fontWeight: 'bold'}} to={`${match.url}/relations`}>relations</NavLink>
+          <Spacer/><StyledNavLink activeStyle={{fontWeight: 'bold'}} to={`${match.url}/edit`}>edit</StyledNavLink><Spacer/>
+          |<Spacer/><StyledNavLink activeStyle={{fontWeight: 'bold'}} to={`${match.url}/relations`}>relations</StyledNavLink>
         </div>} />
 
       <Switch>

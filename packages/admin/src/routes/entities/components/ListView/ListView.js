@@ -12,22 +12,19 @@ const ListView = ({match, history, currentViewInfo}) => {
   }
 
   return (
-    <div>
-      <h1>List View</h1>
-      <EntityListApp
-        id={`${match.params.entity}_list`}
-        entityName={currentViewInfo.model.name}
-        formBase={currentViewInfo.model.name}
-        onRowClick={handleRowClick}
-        {...(currentViewInfo.reverseRelation && {
-          parent: {
-            key: currentViewInfo.key,
-            reverseRelationName: currentViewInfo.reverseRelation,
-            model: currentViewInfo.parentModel.name
-          }
-        })}
-      />
-    </div>
+    <EntityListApp
+      id={`${match.params.entity}_list`}
+      entityName={currentViewInfo.model.name}
+      formBase={currentViewInfo.model.name}
+      onRowClick={handleRowClick}
+      {...(currentViewInfo.reverseRelation && {
+        parent: {
+          key: currentViewInfo.key,
+          reverseRelationName: currentViewInfo.reverseRelation,
+          model: currentViewInfo.parentModel.name
+        }
+      })}
+    />
   )
 }
 

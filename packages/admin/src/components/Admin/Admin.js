@@ -3,15 +3,26 @@ import PropTypes from 'prop-types'
 import {Flex, Box} from '@rebass/grid'
 import {Router, Route, Redirect, Switch} from 'react-router-dom'
 import {createBrowserHistory} from 'history'
-import {Button, LoadMask, Typography} from 'tocco-ui'
+import {Button, LoadMask, StyledH1} from 'tocco-ui'
 import {notifier} from 'tocco-app-extensions'
 import {FormattedMessage} from 'react-intl'
+import styled from 'styled-components'
 
 import Navigation from '../Navigation'
 import DashboardRoute from '../../routes/dashboard'
 import EntitiesRoute from '../../routes/entities'
 import Settings from '../../routes/settings'
 import Login from '../../components/Login'
+import {StyledLink} from '../StyledLink'
+
+const Title = styled(StyledH1)`
+ && {
+ color: white;
+ padding-left: 8px;
+ padding-top: 5px;
+ font-size: 2.5rem;
+ }
+`
 
 class Admin extends React.Component {
   history = createBrowserHistory({
@@ -44,16 +55,16 @@ class Admin extends React.Component {
               </div>
               : <div>
                 <Flex style={{backgroundColor: '#9E2124', color: '#fff'}}>
-                  <Box><Typography.H1 style={{color: 'white'}}>Tocco</Typography.H1></Box>
-                  <Box ml="auto">
-                    <Button label="Loggout" onClick={this.props.doLogout}/>
+                  <Box><StyledLink to="/"><Title>Tocco</Title></StyledLink></Box>
+                  <Box ml="auto" pt={9} pr={10}>
+                    <Button icon="sign-out-alt" label="Loggout" onClick={this.props.doLogout}/>
                   </Box>
                 </Flex>
                 <Flex>
-                  <Box width={1 / 5} px={2} bg="lightgrey" >
+                  <Box width={1 / 7} px={2} bg="#F5F5F5" >
                     <Navigation/>
                   </Box>
-                  <Box width={4 / 5} px={2}>
+                  <Box width={6 / 7} px={10}>
                     <Switch>
                       <Route exact path="/"
                         render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/dashboard`}/>}/>

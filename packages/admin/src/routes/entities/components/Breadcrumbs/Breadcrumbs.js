@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Link} from 'react-router-dom'
 import {Icon, Typography} from 'tocco-ui'
+
+import {StyledLink} from '../../../../components/StyledLink'
+
 const Breadcrumbs = ({breadcrumbsInfo}) => {
   if (breadcrumbsInfo.length === 0) { return null }
 
@@ -10,7 +12,9 @@ const Breadcrumbs = ({breadcrumbsInfo}) => {
       breadcrumbsInfo
         .map((b, idx) => {
           return <Typography.Span key={idx}>
-            <Link to={`/e/${b.path}`}> {b.type === 'list' && <Icon icon="list" />}  {b.display ? b.display : ''}</Link>
+            <StyledLink to={`/e/${b.path}`}>
+              {b.type === 'list' && <Icon icon="list" />}  {b.display ? b.display : ''}
+            </StyledLink>
           </Typography.Span>
         })
         .reduce((prev, curr, idx) =>

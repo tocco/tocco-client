@@ -29,9 +29,9 @@ none so far
 - [X] Implement relation view
 - [X] Setup Breadcrumbs
 - [ ] Not Found Route / Error Handling in Sagas (invalid route)
-- [ ] Notification und Error handling usw in Admin
-- [ ] Detail OnChange mit Dirty Box.
-- [ ] Create Event > redirect to detail
+- [X] Notification und Error handling usw in Admin
+- [X] Detail OnChange mit Dirty Box.
+- [X] Create Event > redirect to detail
 - [ ] Load entities for navigation
 - [ ] Performance optimization. Caching of paths / models ...
 - [ ] Code splitting plan

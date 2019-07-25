@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {NavLink, Redirect, Route, Switch} from 'react-router-dom'
+import {Redirect, Route, Switch} from 'react-router-dom'
 
 import Record from '../../subroutes/record'
 import Create from '../../subroutes/create'
 import List from '../../subroutes/list'
+import {StyledNavLink} from '../../../../components/StyledLink'
 
 const Spacer = () => <span style={{paddingLeft: '5px'}}/>
 
@@ -14,8 +15,8 @@ const EntityRoute = ({match}) => {
       <div>
         <Route exact path={[`${match.path}/list`, `${match.path}/create`]} render={() =>
           <div>
-            <Spacer/><NavLink activeStyle={{fontWeight: 'bold'}} to={`${match.url}/list`}>List</NavLink><Spacer/>
-          |<Spacer/><NavLink activeStyle={{fontWeight: 'bold'}} to={`${match.url}/create`}>New</NavLink>
+            <Spacer/><StyledNavLink to={`${match.url}/list`}>List</StyledNavLink><Spacer/>
+          |<Spacer/><StyledNavLink to={`${match.url}/create`}>New</StyledNavLink>
           </div>} />
         <Switch>
           <Route exact path={match.url} render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/list`}/>}/>

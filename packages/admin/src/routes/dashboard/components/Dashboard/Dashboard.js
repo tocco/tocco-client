@@ -5,7 +5,7 @@ import {Typography} from 'tocco-ui'
 const Dashboard = props => {
   return (
     <div>
-      <Typography.H1>Dashboard</Typography.H1>
+      <Typography.H1>Home / Dashboard</Typography.H1>
       <Typography.Span>{JSON.stringify(props.match)}</Typography.Span>
     </div>
   )
