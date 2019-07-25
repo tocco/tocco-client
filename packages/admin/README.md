@@ -32,6 +32,7 @@ none so far
 - [X] Notification und Error handling usw in Admin
 - [X] Detail OnChange mit Dirty Box.
 - [X] Create Event > redirect to detail
+- [ ] Support Remote field Navigation
 - [ ] Load entities for navigation
 - [ ] Performance optimization. Caching of paths / models ...
 - [ ] Code splitting plan

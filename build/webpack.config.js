@@ -251,7 +251,7 @@ if (!__PROD__) {
       use: 'file-loader?name=fonts/[name].[ext]&mimetype=image/svg+xml'
     },
     {
-      test: /\.(png|jpg)$/,
+      test: /\.(png|jpg|ico)$/,
       use: 'file-loader?limit=8192'
     }
   )

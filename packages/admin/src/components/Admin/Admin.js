@@ -15,6 +15,7 @@ import EntitiesRoute from '../../routes/entities'
 import Settings from '../../routes/settings'
 import Login from '../../components/Login'
 import {StyledLink} from '../StyledLink'
+import fav from './favicon.ico'
 
 const Title = styled(StyledH1)`
  && {
@@ -49,6 +50,7 @@ class Admin extends React.Component {
       <notifier.Notifier/>
       <Helmet>
         <title>Tocco</title>
+        <link rel="icon" type="image/png" href={fav} sizes="16x16" />
       </Helmet>
       <LoadMask required={[this.props.loggedIn !== undefined]} loadingText="Logging in...">
         <div>
