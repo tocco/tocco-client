@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Icon, Typography} from 'tocco-ui'
+import {Helmet} from 'react-helmet'
 
 import {StyledLink} from '../../../../components/StyledLink'
 
@@ -8,7 +9,10 @@ const Breadcrumbs = ({breadcrumbsInfo}) => {
   if (breadcrumbsInfo.length === 0) { return null }
 
   return <div>
-    {
+    <Helmet>
+      <title>Tocco - {breadcrumbsInfo[breadcrumbsInfo.length - 1].display}</title>
+    </Helmet>
+    <div>  {
       breadcrumbsInfo
         .map((b, idx) => {
           return <Typography.Span key={idx}>
@@ -21,7 +25,8 @@ const Breadcrumbs = ({breadcrumbsInfo}) => {
           [prev,
             <Typography.Span key={'icon' + idx}> <Icon icon="caret-right"/> </Typography.Span>,
             curr]
-        )}</div>
+        )}  </div>
+  </div>
 }
 
 Breadcrumbs.propTypes = {

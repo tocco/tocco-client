@@ -21,6 +21,7 @@ const CreateView = props => {
   ]
 
   const handleEntityCreated = ({id}) => {
+    setTouched(false)
     props.history.push(props.match.url.replace(/create$/, id))
   }
 

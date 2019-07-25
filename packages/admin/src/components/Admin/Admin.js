@@ -7,6 +7,7 @@ import {Button, LoadMask, StyledH1} from 'tocco-ui'
 import {notifier} from 'tocco-app-extensions'
 import {FormattedMessage} from 'react-intl'
 import styled from 'styled-components'
+import {Helmet} from 'react-helmet'
 
 import Navigation from '../Navigation'
 import DashboardRoute from '../../routes/dashboard'
@@ -46,6 +47,9 @@ class Admin extends React.Component {
   render() {
     return <Router history={this.history}>
       <notifier.Notifier/>
+      <Helmet>
+        <title>Tocco</title>
+      </Helmet>
       <LoadMask required={[this.props.loggedIn !== undefined]} loadingText="Logging in...">
         <div>
           {
