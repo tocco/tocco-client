@@ -72,21 +72,19 @@ export function* getDisplay(entityName, key, breadcrumbsIdx) {
 export function* addEntityToBreadcrumbs(path, entityName) {
   const breadcrumbs = yield select(breadcrumbsSelector)
   const type = 'list'
-
   const display = entityName
-  breadcrumbs.push({display, path, type})
-  yield put(actions.setBreadcrumbsInfo(breadcrumbs))
+
+  yield put(actions.setBreadcrumbsInfo([...breadcrumbs, {display, path, type}]))
 }
 
 export function* addRecordToBreadcrumbs(path, entityName, key) {
   const type = 'record'
   const breadcrumbs = yield select(breadcrumbsSelector)
   const display = '...'
-  const breadcrumbsLength = breadcrumbs.push({display, path, type})
-  yield put(actions.setBreadcrumbsInfo(breadcrumbs))
+  yield put(actions.setBreadcrumbsInfo([...breadcrumbs, {display, path, type}]))
 
   if (type === 'record') {
-    yield spawn(getDisplay, entityName, key, breadcrumbsLength - 1)
+    yield spawn(getDisplay, entityName, key, breadcrumbs.length)
   }
 }
 
@@ -132,7 +130,6 @@ export function* loadCurrentViewInfo({payload: {location}}) {
             if (isEven(i)) {
               const relationName = relationStringPart
               const targetEntity = currentViewInfo.model.paths[relationName].targetEntity
-
               currentViewInfo.reverseRelation = currentViewInfo.model.paths[relationName].reverseRelationName
               currentViewInfo.parentModel = currentViewInfo.model
               currentViewInfo.model = yield call(getModel, targetEntity)
