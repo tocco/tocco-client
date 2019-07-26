@@ -43,6 +43,7 @@ class Admin extends React.Component {
 
   componentDidMount() {
     this.props.doSessionCheck()
+    this.props.initializeNavigation()
   }
 
   render() {
@@ -95,7 +96,8 @@ Admin.propTypes = {
   loggedIn: PropTypes.bool,
   doLogout: PropTypes.func.isRequired,
   confirm: PropTypes.func.isRequired,
-  doSessionCheck: PropTypes.func.isRequired
+  doSessionCheck: PropTypes.func.isRequired,
+  initializeNavigation: PropTypes.func.isRequired
 }
 
 export default Admin

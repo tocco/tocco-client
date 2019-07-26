@@ -32,11 +32,12 @@ none so far
 - [X] Notification und Error handling usw in Admin
 - [X] Detail OnChange mit Dirty Box.
 - [X] Create Event > redirect to detail
-- [ ] Support Remote field Navigation
-- [ ] Load entities for navigation
+- [X] Load entities for navigation
 - [ ] Performance optimization. Caching of paths / models ...
 - [ ] Code splitting plan
 - [ ] One Loading Mask (Preload data and inject into detail/List?)
 - [ ] Evaluate caching in locale store
+- [ ] Remote field Navigation
+- [ ] Subgrid Navigation
 
 

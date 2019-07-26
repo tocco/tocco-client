@@ -1,34 +1,13 @@
-export const SET_LOGGED_IN = 'root/SET_LOGGED_IN'
-export const DO_SESSION_HEART_BEAT = 'root/DO_SESSION_HEART_BEAT'
-export const DO_LOGOUT = 'session/DO_LOGOUT'
-export const LOGIN_SUCCESSFUL = 'session/LOGIN_SUCCESSFUL'
-export const DO_SESSION_CHECK = 'session/DO_SESSION_CHECK'
+export const SET_ENTITIES = 'navigation/SET_ENTITIES'
+export const INITIALIZE_NAVIGATION = 'navigation/INITIALIZE_NAVIGATION'
 
-export const setLoggedIn = loggedIn => ({
-  type: SET_LOGGED_IN,
+export const setEntities = entities => ({
+  type: SET_ENTITIES,
   payload: {
-    loggedIn
+    entities
   }
 })
 
-export const doSessionHeartBeat = timeout => ({
-  type: DO_SESSION_HEART_BEAT,
-  payload: {
-    timeout
-  }
-})
-
-export const doLogout = () => ({
-  type: DO_LOGOUT
-})
-
-export const loginSuccessful = sessionTimeout => ({
-  type: LOGIN_SUCCESSFUL,
-  payload: {
-    sessionTimeout
-  }
-})
-
-export const doSessionCheck = () => ({
-  type: DO_SESSION_CHECK
+export const initializeNavigation = () => ({
+  type: INITIALIZE_NAVIGATION
 })

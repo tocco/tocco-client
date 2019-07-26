@@ -1,14 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 import {StyledLink} from '../StyledLink'
 
 const StyledUl = styled.ul`
   list-style-type: none;
   padding-inline-start: 10px;
-  li{
-   list-style-type: none;
-  }
 `
 
 const Navigation = props => {
@@ -16,13 +14,13 @@ const Navigation = props => {
     <nav>
       <StyledUl>
         <li>
-
-        </li>
-        <li>
-          <StyledLink to="/e">Entity Browser</StyledLink>
+          <StyledLink to="/e">Entities</StyledLink>
           <ul>
-            <li><StyledLink to="/e/User">User</StyledLink></li>
-            <li><StyledLink to="/e/Address">Address</StyledLink></li>
+            {
+              props.entities.map((entity, idx) => {
+                return <li key={idx}><StyledLink to={`/e/${entity.entity}`}>{entity.label}</StyledLink></li>
+              })
+            }
           </ul>
         </li>
         <li>
@@ -34,6 +32,7 @@ const Navigation = props => {
 }
 
 Navigation.propTypes = {
+  entities: PropTypes.array
 }
 
 export default Navigation

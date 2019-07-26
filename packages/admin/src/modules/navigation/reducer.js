@@ -3,11 +3,11 @@ import {reducer as reducerUtil} from 'tocco-util'
 import * as actions from './actions'
 
 const ACTION_HANDLERS = {
-  [actions.SET_LOGGED_IN]: reducerUtil.singleTransferReducer('loggedIn')
+  [actions.SET_ENTITIES]: reducerUtil.singleTransferReducer('entities')
 }
 
 const initialState = {
-  loggedIn: undefined
+  entities: []
 }
 
 export default function reducer(state = initialState, action) {
