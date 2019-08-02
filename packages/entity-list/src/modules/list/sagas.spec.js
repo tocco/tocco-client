@@ -274,7 +274,7 @@ describe('entity-list', () => {
             const columnDefinition = [{someContent: true}]
             const formBase = 'UserSearch'
             const gen = sagas.loadFormDefinition(columnDefinition, formBase)
-            expect(gen.next().done).to.be.true
+            expect(gen.next().value).to.eql(call(getSorting, columnDefinition))
           })
         })
 
