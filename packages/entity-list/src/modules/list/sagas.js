@@ -200,15 +200,16 @@ export function* displayEntity(page) {
 
 export function* loadFormDefinition(formDefinition, formBase) {
   if (formDefinition === null) {
-    const formDefinition = yield call(fetchForm, `${formBase}_list`)
+    formDefinition = yield call(fetchForm, `${formBase}_list`)
     yield put(actions.setFormDefinition(formDefinition))
-    const sorting = yield call(getSorting, formDefinition)
-    yield put(actions.setSorting(sorting))
-    const selectable = yield call(getSelectable, formDefinition)
-    yield put(actions.setFormSelectable(selectable))
-    const endpoint = yield call(getEndpoint, formDefinition)
-    yield put(actions.setEndpoint(endpoint))
   }
+
+  const sorting = yield call(getSorting, formDefinition)
+  yield put(actions.setSorting(sorting))
+  const selectable = yield call(getSelectable, formDefinition)
+  yield put(actions.setFormSelectable(selectable))
+  const endpoint = yield call(getEndpoint, formDefinition)
+  yield put(actions.setEndpoint(endpoint))
 }
 
 export function* loadEntityModel(entityName, entityModel) {
