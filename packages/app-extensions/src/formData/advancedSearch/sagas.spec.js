@@ -40,7 +40,8 @@ describe('app-extensions', () => {
             return expectSaga(sagas.openAdvancedSearch, config, action)
               .provide([
                 [select(sagas.textResourceSelector, 'client.common.advancedSearch'), {}],
-                [matchers.spawn.fn(sagas.closeAdvancedSearch), () => {}]
+                [matchers.spawn.fn(sagas.closeAdvancedSearch), () => {}],
+                [matchers.call.fn(rest.fetchForm), {form: {}}]
               ])
               .put.actionType(notifier.modalComponent().type)
               .spawn.like(sagas.closeAdvancedSearch)

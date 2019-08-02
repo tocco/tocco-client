@@ -25,6 +25,7 @@ export function* openAdvancedSearch(config, {payload}) {
   const {multi, targetEntity: entity} = modelField
   const {id: fieldId, label, formBase: fieldFormBase} = formField
   const formBase = fieldFormBase || entity
+  const listFormDefinition = yield call(rest.fetchForm, `${formBase}_remotefield`)
   const answerChannel = yield call(channel)
   const modalId = yield call(uuid)
   const advancedSearchTitle = yield select(textResourceSelector, 'client.common.advancedSearch')
@@ -34,6 +35,7 @@ export function* openAdvancedSearch(config, {payload}) {
     listApp,
     entity,
     formBase,
+    listFormDefinition,
     selection,
     ids => { answerChannel.put(advancedSearchActions.advancedSearchUpdate(ids)) },
     () => { answerChannel.put(advancedSearchActions.advancedSearchClose()) },
