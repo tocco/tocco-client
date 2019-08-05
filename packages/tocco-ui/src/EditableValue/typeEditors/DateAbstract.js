@@ -14,6 +14,7 @@ import {
 
 class DateAbstract extends React.Component {
   Flatpickr = null
+  componentIsUnmounted = false
 
   constructor(props) {
     super(props)
@@ -29,15 +30,17 @@ class DateAbstract extends React.Component {
       import(/* webpackChunkName: "flatpickr" */ 'flatpickr/dist/l10n/fr.js'),
       import(/* webpackChunkName: "flatpickr" */ 'flatpickr/dist/l10n/it.js')
     ]).then(response => {
-      this.Flatpickr = response[0].default
-      this.localeMap = {
-        'de-CH': response[1].German,
-        'de': response[1].German,
-        'fr': response[2].French,
-        'it': response[3].Italian
-      }
+      if (!this.componentIsUnmounted) {
+        this.Flatpickr = response[0].default
+        this.localeMap = {
+          'de-CH': response[1].German,
+          'de': response[1].German,
+          'fr': response[2].French,
+          'it': response[3].Italian
+        }
 
-      this.initializeFlatPickr()
+        this.initializeFlatPickr()
+      }
     })
   }
 
@@ -101,7 +104,10 @@ class DateAbstract extends React.Component {
   }
 
   componentWillUnmount() {
-    this.flatpickr.destroy()
+    this.componentIsUnmounted = true
+    if (this.flatpickr) {
+      this.flatpickr.destroy()
+    }
   }
 
   handleOnChange = selectedDates => {
