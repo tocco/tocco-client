@@ -11,6 +11,7 @@ import {
 import StyledPhoneEdit from './StyledPhoneEdit'
 
 class PhoneEdit extends React.Component {
+  componentIsUnmounted = false
   FALLBACK_DEFAULT_COUNTRY = 'CH'
 
   constructor(props) {
@@ -23,7 +24,13 @@ class PhoneEdit extends React.Component {
 
   async importLibPhoneNumber() {
     const libPhoneImport = await import(/* webpackChunkName: "libphonenumber-js" */ 'libphonenumber-js')
-    this.setState({...this.state, libPhoneImport})
+    if (!this.componentIsUnmounted) {
+      this.setState({...this.state, libPhoneImport})
+    }
+  }
+
+  componentWillUnmount() {
+    this.componentIsUnmounted = true
   }
 
   amountOfSpacesBeforeCaret = (str, caretPosition) => {
