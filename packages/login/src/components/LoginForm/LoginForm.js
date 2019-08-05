@@ -17,6 +17,10 @@ import {
 import {Pages} from '../../types/Pages'
 
 export class LoginForm extends Component {
+  state = {
+    autoFill: false
+  }
+
   handleSubmit(e) {
     e.preventDefault()
     this.props.login(this.props.username, this.props.password)
@@ -24,10 +28,18 @@ export class LoginForm extends Component {
 
   handleUsernameChange(e) {
     this.props.setUsername(e.target.value)
+    this.setState({...this.state, autoFill: false})
   }
 
   handlePasswordChange(e) {
     this.props.setPassword(e.target.value)
+    this.setState({...this.state, autoFill: false})
+  }
+
+  handleAutoFill = e => {
+    if (e.animationName === 'onAutoFillStart') {
+      this.setState({...this.state, autoFill: true})
+    }
   }
 
   render() {
@@ -44,7 +56,7 @@ export class LoginForm extends Component {
         <form onSubmit={this.handleSubmit.bind(this)}>
 
           <StatedValue
-            hasValue={!!this.props.username}
+            hasValue={!!this.props.username || this.state.autoFill}
             id="login-username"
             label={this.msg('client.login.form.userPlaceholder')}
           >
@@ -57,12 +69,14 @@ export class LoginForm extends Component {
                 required
                 type="text"
                 value={this.props.username}
+                onAnimationStart={this.handleAutoFill}
+                onFocus={e => e.target.select()}
               />
             </StyledLoginFormInputWrapper>
           </StatedValue>
 
           <StatedValue
-            hasValue={!!this.props.password}
+            hasValue={!!this.props.password || this.state.autoFill}
             id="login-password"
             label={this.msg('client.login.form.passwordPlaceholder')}
           >
@@ -75,6 +89,8 @@ export class LoginForm extends Component {
                 required
                 type="password"
                 value={this.props.password}
+                onAnimationStart={this.handleAutoFill}
+                onFocus={e => e.target.select()}
               />
             </StyledLoginFormInputWrapper>
           </StatedValue>
@@ -91,7 +107,9 @@ export class LoginForm extends Component {
 
           <ButtonGroup look="raised">
             <Button
-              disabled={this.props.loginPending || this.props.username === '' || this.props.password === ''}
+              disabled={
+                !this.state.autoFill
+                && (this.props.loginPending || this.props.username === '' || this.props.password === '')}
               ink="primary"
               label={this.msg('client.login.form.button')}
               pending={this.props.loginPending}
