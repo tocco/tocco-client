@@ -1,3 +1,6 @@
+0.2.2
+-  Fix Chrome autofill bug
+
 0.2.1
 -  Floating labels
 
