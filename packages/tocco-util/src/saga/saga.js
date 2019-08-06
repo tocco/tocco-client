@@ -1,4 +1,7 @@
 import {delay} from 'redux-saga'
+import _pick from 'lodash/pick'
+
+import consoleLogger from '../consoleLogger'
 
 import {all, call, put} from 'redux-saga/effects'
 
@@ -36,7 +39,10 @@ export const autoRestartSaga = (generator, config, logErrorAction) => {
         yield call(generator, config, ...args)
       } catch (error) {
         if (logErrorAction) {
-          yield put(logErrorAction('client.common.unexpectedError', 'client.common.unexpectedError', error))
+          const errorObj = {..._pick(error, ['message', 'stack'])}
+          yield put(logErrorAction('client.common.unexpectedError', 'client.common.unexpectedError', errorObj))
+        } else {
+          consoleLogger.logError('error', error)
         }
       }
     }
