@@ -13,6 +13,7 @@ const AdvancedSearch = props =>
       keepStore={false}
       entityName={props.entityName}
       formBase={props.formBase}
+      listFormDefinition={props.listFormDefinition}
       limit={5}
       showSearchForm={true}
       onSelectChange={selection => { props.onSelectionChange(selection) }}
@@ -32,6 +33,9 @@ AdvancedSearch.propTypes = {
   ListApp: PropTypes.func.isRequired,
   entityName: PropTypes.string.isRequired,
   formBase: PropTypes.string.isRequired,
+  listFormDefinition: PropTypes.shape({
+    children: PropTypes.arrayOf(PropTypes.object)
+  }),
   emitAction: PropTypes.func.isRequired,
   selection: PropTypes.array,
   field: PropTypes.string,

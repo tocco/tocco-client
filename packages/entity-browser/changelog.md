@@ -1,3 +1,8 @@
+0.9.2
+- Floating labels
+- Location field support
+- Various bug fixes 
+
 0.9.1
 - Add location field support
 - Fix confirm on leave bug when form was not dirty

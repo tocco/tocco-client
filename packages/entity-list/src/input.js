@@ -12,8 +12,8 @@ import {
 import {
   setLimit,
   setSearchFilters,
-  setListFormName
-
+  setListFormName,
+  setFormDefinition as setListFormDefinition
 } from './modules/list/actions'
 import {setSelection} from './modules/selection/actions'
 
@@ -83,5 +83,10 @@ const actionSettings = [
     name: 'parent',
     action: setParent,
     argsFactory: input => [input.parent]
+  },
+  {
+    name: 'listFormDefinition',
+    action: setListFormDefinition,
+    argsFactory: input => [input.listFormDefinition]
   }
 ]
