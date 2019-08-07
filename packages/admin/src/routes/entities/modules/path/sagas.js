@@ -18,6 +18,7 @@ const isEven = n => n % 2 === 0
 export const modelTransformer = json => {
   const model = {
     name: json.name,
+    label: json.label,
     paths: {}
   }
   json.fields.forEach(field => {
@@ -46,12 +47,21 @@ export function* getModel(entity) {
   return entityModel
 }
 
-export function* extractMultiRelations(model) {
-  const relations = _pickBy(model.paths, (value, key) => value.type === 'relation' && value.multi === true)
+export function* extractMultiRelations(model, key) {
+  const relations = _pickBy(model.paths, (value, key) =>
+    value.multi && value.relationDisplay && value.relationDisplay.show
+  )
 
-  const relationsTransformed = Object.keys(relations).map(k => _pick(relations[k], ['relationName', 'targetEntity']))
+  const relationsTransformed = Object.keys(relations)
+    .map(k =>
+      _pick(relations[k],
+        ['relationName', 'reverseRelationName', 'targetEntity', 'relationDisplay.label', 'relationDisplay.order']
+      )
+    )
+    .sort((a, b) => a.relationDisplay.order < b.relationDisplay.order ? 1 : -1)
 
   yield put(actions.setRelations(relationsTransformed))
+  yield spawn(loadRelationCounts, relationsTransformed, key)
 }
 
 export function* getDisplay(entityName, key, breadcrumbsIdx) {
@@ -77,6 +87,19 @@ export function* addEntityToBreadcrumbs(path, entityName) {
   yield put(actions.setBreadcrumbsInfo([...breadcrumbs, {display, path, type}]))
 }
 
+export function* loadRelationCounts(relations, key) {
+  const a = yield all(relations.map(r => call(rest.fetchEntityCount, r.targetEntity, {
+    conditions: {
+      [r.reverseRelationName + '.pk']: {value: key}
+    }
+  })))
+
+  const relationsCount = a.reduce((accumulator, currentValue, idx) => {
+    return {...accumulator, [relations[idx].relationName]: currentValue}
+  }, {})
+  yield put(actions.setRelationCount(relationsCount))
+}
+
 export function* addRecordToBreadcrumbs(path, entityName, key) {
   const type = 'record'
   const breadcrumbs = yield select(breadcrumbsSelector)
@@ -94,14 +117,15 @@ export function* loadCurrentViewInfo({payload: {location}}) {
     key: null,
     reverseRelation: null,
     parentModel: null,
-    relations: null
+    relations: null,
+    location
   }
 
   yield put(actions.setBreadcrumbsInfo([]))
   yield put(actions.setCurrentViewInfo(null))
 
   const pathParts = []
-  const re = pathToRegexp('/e/:entity/:key?/:relation*/:view(list|edit|create|relations)', pathParts)
+  const re = pathToRegexp('/e/:entity/:key?/:relation*/:view(list|detail|edit|create|relations)', pathParts)
   const res = re.exec(location)
 
   if (res !== null) {
@@ -111,10 +135,8 @@ export function* loadCurrentViewInfo({payload: {location}}) {
     })
 
     if (path.entity) {
-      yield call(addEntityToBreadcrumbs, path.entity, path.entity)
-
       const baseEntityModel = yield call(getModel, path.entity)
-
+      yield call(addEntityToBreadcrumbs, path.entity, baseEntityModel.label)
       currentViewInfo.model = baseEntityModel
       if (path.key) {
         currentViewInfo.key = path.key
@@ -144,7 +166,8 @@ export function* loadCurrentViewInfo({payload: {location}}) {
         }
       }
 
-      yield spawn(extractMultiRelations, currentViewInfo.model)
+      yield spawn(extractMultiRelations, currentViewInfo.model, currentViewInfo.key)
+
       yield put(actions.setCurrentViewInfo(currentViewInfo))
     }
   }

@@ -49,7 +49,7 @@ class Admin extends React.Component {
   render() {
     return <Router history={this.history}>
       <notifier.Notifier/>
-      <Helmet>
+      <Helmet defer={false}>
         <title>Tocco</title>
         <link rel="icon" type="image/png" href={fav} sizes="16x16" />
       </Helmet>
@@ -64,7 +64,7 @@ class Admin extends React.Component {
                 <Flex style={{backgroundColor: '#9E2124', color: '#fff'}}>
                   <Box><StyledLink to="/"><Title>Tocco</Title></StyledLink></Box>
                   <Box ml="auto" pt={9} pr={10}>
-                    <Button icon="sign-out-alt" label="Loggout" onClick={this.props.doLogout}/>
+                    <Button icon="sign-out-alt" label="Logout" onClick={this.props.doLogout}/>
                   </Box>
                 </Flex>
                 <Flex>

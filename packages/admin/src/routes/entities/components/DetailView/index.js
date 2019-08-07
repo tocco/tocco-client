@@ -1,1 +1,1 @@
-export {default} from './DetailViewContainer'
+export {default} from './DetaiViewContainer'

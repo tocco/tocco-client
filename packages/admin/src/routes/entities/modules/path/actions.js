@@ -5,6 +5,7 @@ export const SET_BREADCRUMBS_INFO = 'path/SET_BREADCRUMBS_INFO'
 export const SET_RELATIONS = 'path/SET_RELATIONS'
 export const SET_BREADCRUMB_DISPLAY = 'path/SET_BREADCRUMB_DISPLAY'
 export const CACHE_DISPLAY = 'path/CACHE_DISPLAY'
+export const SET_RELATION_COUNT = 'path/SET_RELATION_COUNT'
 
 export const cacheModel = (entity, model) => ({
   type: CACHE_MODEL,
@@ -56,5 +57,12 @@ export const cacheDisplay = (entity, key, display) => ({
     entity,
     key,
     display
+  }
+})
+
+export const setRelationCount = relationsCount => ({
+  type: SET_RELATION_COUNT,
+  payload: {
+    relationsCount
   }
 })

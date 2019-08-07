@@ -1,29 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Icon, Typography} from 'tocco-ui'
+import {Typography, Button} from 'tocco-ui'
 
 import {StyledLink} from '../../../../components/StyledLink'
 
-const RelationsView = ({match, currentViewInfo, relations}) => {
+const RelationsView = ({match, currentViewInfo, relations, relationsCount}) => {
   if (!relations || !currentViewInfo) {
     return null
   }
 
+  const count = relationName => relationsCount[relationName] ? <span>({relationsCount[relationName]})</span> : null
   return (
     <div>
-      <Typography.H2>Relations {currentViewInfo.model.name}</Typography.H2>
-      <ul>
-        {relations.map((relation, idx) => (
-          <li key={idx}>
-            <StyledLink to={match.url.replace(/relations$/, relation.relationName)}>
-              {relation.relationName} ({relation.targetEntity})
+      <Typography.H4>Relations</Typography.H4>
+      {relations.map((relation, idx) => (
+        <span key={idx} style={{padding: '3px'}}>
+          <Button look="raised">
+            <StyledLink to={match.url.replace(/(relations|detail)$/, relation.relationName)}>
+              {relation.relationDisplay.label} {count(relation.relationName)}
             </StyledLink>
-            <StyledLink to={match.url.replace(/relations$/, relation.relationName) + '/create'}>
-              <Icon icon="plus"/>
-            </StyledLink>
-          </li>
-        ))}
-      </ul>
+          </Button>
+        </span>
+      ))}
     </div>
   )
 }
@@ -31,7 +29,8 @@ const RelationsView = ({match, currentViewInfo, relations}) => {
 RelationsView.propTypes = {
   match: PropTypes.object.isRequired,
   currentViewInfo: PropTypes.object,
-  relations: PropTypes.array
+  relations: PropTypes.array,
+  relationsCount: PropTypes.object
 }
 
 export default RelationsView

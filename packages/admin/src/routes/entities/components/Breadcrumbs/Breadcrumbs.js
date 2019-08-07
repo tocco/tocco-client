@@ -9,7 +9,7 @@ const Breadcrumbs = ({breadcrumbsInfo}) => {
   if (breadcrumbsInfo.length === 0) { return null }
 
   return <div>
-    <Helmet>
+    <Helmet defer={false}>
       <title>Tocco - {breadcrumbsInfo[breadcrumbsInfo.length - 1].display}</title>
     </Helmet>
     <div>  {

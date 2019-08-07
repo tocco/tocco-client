@@ -37,6 +37,7 @@ const ACTION_HANDLERS = {
   [actions.SET_CURRENT_VIEW_INFO]: reducerUtil.singleTransferReducer('currentViewInfo'),
   [actions.SET_BREADCRUMBS_INFO]: reducerUtil.singleTransferReducer('breadcrumbsInfo'),
   [actions.SET_RELATIONS]: reducerUtil.singleTransferReducer('relations'),
+  [actions.SET_RELATION_COUNT]: reducerUtil.singleTransferReducer('relationsCount'),
   [actions.SET_BREADCRUMB_DISPLAY]: setBreadcrumbDisplay
 }
 
@@ -45,7 +46,8 @@ const initialState = {
   displayCache: {},
   currentViewInfo: null,
   breadcrumbsInfo: [],
-  relations: null
+  relations: null,
+  relationsCount: {}
 }
 
 export default function reducer(state = initialState, action) {
