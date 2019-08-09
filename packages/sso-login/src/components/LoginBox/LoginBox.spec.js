@@ -11,7 +11,8 @@ describe('sso-login', () => {
     providers: [],
     loginCompleted: EMPTY_FUNC,
     loadProviders: EMPTY_FUNC,
-    loginEndpoint: 'test'
+    loginEndpoint: 'test',
+    autoLogin: undefined
   }
 
   describe('components', () => {

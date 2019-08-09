@@ -11,7 +11,8 @@ const mapActionCreators = {
 const mapStateToProps = state => {
   return {
     providers: state.ssoLogin.providers,
-    loginEndpoint: state.input.ssoLoginEndpoint
+    loginEndpoint: state.input.ssoLoginEndpoint,
+    autoLogin: state.input.autoLogin
   }
 }
 
