@@ -5,4 +5,5 @@ import {linkStyle} from './linkStyle'
 
 export default styled(Link)`
  ${linkStyle}
+ color: #9DA5B1;
 `

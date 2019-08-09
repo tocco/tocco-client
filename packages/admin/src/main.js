@@ -1,7 +1,8 @@
 import React from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
-import {appFactory, notifier, errorLogging, actionEmitter, externalEvents} from 'tocco-app-extensions'
+import {appFactory, notifier, errorLogging, actionEmitter, externalEvents, keyDown} from 'tocco-app-extensions'
 
+import shortcuts from './shortcuts'
 import reducers, {sagas} from './modules/reducers'
 import Admin from './components/Admin'
 const packageName = 'admin'
@@ -14,6 +15,7 @@ const initApp = (id, input, events, publicPath) => {
   actionEmitter.addToStore(store)
   errorLogging.addToStore(store, true, ['console', 'remote', 'notifier'])
   notifier.addToStore(store, true)
+  keyDown.addToStore(store, shortcuts)
 
   return appFactory.createApp(
     packageName,

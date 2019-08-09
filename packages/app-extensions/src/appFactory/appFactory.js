@@ -13,6 +13,7 @@ import {intl, consoleLogger} from 'tocco-util'
 
 import errorLogging from '../errorLogging'
 import ThemeWrapper from './ThemeWrapper'
+import keyDown from '../keyDown'
 
 export const createApp = (name,
   content,
@@ -105,13 +106,15 @@ const getAppComponent = (store, initIntlPromise, name, content, theme) => {
   return (
     <ThemeWrapper appTheme={theme}>
       <Provider store={store}>
-        <LoadMask promises={[initIntlPromise]}>
-          <IntlProvider>
-            <div className={`tocco-${name}`}>
-              {content}
-            </div>
-          </IntlProvider>
-        </LoadMask>
+        <keyDown.KeyDownWatcher>
+          <LoadMask promises={[initIntlPromise]}>
+            <IntlProvider>
+              <div className={`tocco-${name}`}>
+                {content}
+              </div>
+            </IntlProvider>
+          </LoadMask>
+        </keyDown.KeyDownWatcher>
       </Provider>
     </ThemeWrapper>
   )
