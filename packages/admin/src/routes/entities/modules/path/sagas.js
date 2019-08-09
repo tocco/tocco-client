@@ -48,20 +48,22 @@ export function* getModel(entity) {
 }
 
 export function* extractMultiRelations(model, key) {
-  const relations = _pickBy(model.paths, (value, key) =>
-    value.multi && value.relationDisplay && value.relationDisplay.show
-  )
-
-  const relationsTransformed = Object.keys(relations)
-    .map(k =>
-      _pick(relations[k],
-        ['relationName', 'reverseRelationName', 'targetEntity', 'relationDisplay.label', 'relationDisplay.order']
-      )
+  if (key !== null) {
+    const relations = _pickBy(model.paths, (value, key) =>
+      value.multi && value.relationDisplay && value.relationDisplay.show
     )
-    .sort((a, b) => a.relationDisplay.order < b.relationDisplay.order ? 1 : -1)
 
-  yield put(actions.setRelations(relationsTransformed))
-  yield spawn(loadRelationCounts, relationsTransformed, key)
+    const relationsTransformed = Object.keys(relations)
+      .map(k =>
+        _pick(relations[k],
+          ['relationName', 'reverseRelationName', 'targetEntity', 'relationDisplay.label', 'relationDisplay.order']
+        )
+      )
+      .sort((a, b) => a.relationDisplay.order < b.relationDisplay.order ? 1 : -1)
+
+    yield put(actions.setRelations(relationsTransformed))
+    yield spawn(loadRelationCounts, relationsTransformed, key)
+  }
 }
 
 export function* getDisplay(entityName, key, breadcrumbsIdx) {
