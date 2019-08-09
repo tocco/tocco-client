@@ -1,4 +1,5 @@
 {
   "ssoLoginEndpoint": "/test.html",
-  "locale": "en"
+  "locale": "en",
+  "autoLogin": "google"
 }
