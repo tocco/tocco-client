@@ -143,6 +143,19 @@ storiesOf('Tocco-UI | FormattedValue', module)
     () => <FormattedValue type="moneyamount" value={number('Money', 1235.67)}/>
   )
   .add(
+    'Remote',
+    () => <FormattedValue
+      type="remote"
+      value={object(
+        'Remote',
+        {key: '1', display: 'apple'}
+      )}
+      options={{
+        linkFactory: (key, children) => <a href={`/${key}`} target="_blank" rel="noopener noreferrer">{children}</a>
+      }}
+    />
+  )
+  .add(
     'Multi Remote',
     () => <FormattedValue
       type="multi-remote"
@@ -150,6 +163,9 @@ storiesOf('Tocco-UI | FormattedValue', module)
         'Multi Remote',
         [{key: '1', display: 'apple'}, {key: '2', display: 'khaki'}]
       )}
+      options={{
+        linkFactory: (key, children) => <a href={`/${key}`} target="_blank" rel="noopener noreferrer">{children}</a>
+      }}
     />
   )
   .add(
