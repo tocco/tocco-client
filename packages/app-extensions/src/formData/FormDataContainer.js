@@ -50,7 +50,8 @@ const mapStateToProps = (
             _pick(getFormAsyncErrors(errors.formName)(state), errors.fields)
           ),
           (result, value) => ({...result, ...value}), null)
-      } : null)
+      } : null),
+    linkFactory: state.formData.linkFactory.linkFactory
   }
 }
 
