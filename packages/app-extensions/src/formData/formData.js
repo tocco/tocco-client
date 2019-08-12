@@ -15,13 +15,21 @@ import searchFilterSagas from './searchFilters/sagas'
 import {setRelationEntities} from './relationEntities/actions'
 import locationSagas from './locations/sagas'
 import locations from './locations/reducer'
+import linkFactory from './linkFactory/reducer'
+import {setLinkFactory} from './linkFactory/actions'
 
 export const relationEntitiesSelector = store => store.formData.relationEntities.data
 export const tooltipSelector = store => store.formData.tooltips.data
 export const locationSuggestionsSelector = store => store.formData.locations
 
 export const addToStore = (store, config) => {
-  reducerUtil.injectReducers(store, {formData: combineReducers({relationEntities, tooltips, searchFilters, locations})})
+  reducerUtil.injectReducers(store, {formData: combineReducers({
+    relationEntities,
+    tooltips,
+    searchFilters,
+    locations,
+    linkFactory
+  })})
 
   store.sagaMiddleware.run(relationEntitiesSagas)
   store.sagaMiddleware.run(tooltipsSaga)
@@ -30,6 +38,10 @@ export const addToStore = (store, config) => {
   store.sagaMiddleware.run(uploadSagas)
   store.sagaMiddleware.run(searchFilterSagas)
   store.sagaMiddleware.run(locationSagas)
+
+  if (config.linkFactory) {
+    store.dispatch(setLinkFactory(config.linkFactory))
+  }
 
   const relationEntitiesData = _get(config, 'data.relationEntities', null)
   if (relationEntitiesData !== null) {
