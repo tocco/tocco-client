@@ -51,7 +51,8 @@ const mapStateToProps = (
           ),
           (result, value) => ({...result, ...value}), null)
       } : null),
-    linkFactory: state.formData.linkFactory.linkFactory
+    ...(state.formData.linkFactory ? {linkFactory: state.formData.linkFactory.linkFactory} : {})
+
   }
 }
 
