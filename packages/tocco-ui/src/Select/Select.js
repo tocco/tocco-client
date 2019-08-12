@@ -200,8 +200,8 @@ Select.propTypes = {
    */
   openAdvancedSearch: PropTypes.func,
   /**
-   * A function that returns the value. This allows to wrap values in a <Link> für navigation purposes. First parameter
-   * is the key of the value, the second parameter is the value itself.
+   * Function that can wrap the value. This allows to render a <Link> around the value label for navigation purposes.
+   * First parameter is the key of the value, the second parameter is the value node itself.
    *
    * e.g.
    * (key, children) => <a href={`/${key}`} target="_blank" rel="noopener noreferrer">{children}</a>
