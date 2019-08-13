@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import EntityListApp from 'tocco-entity-list/src/main'
 
+import StyledLink from '../../../../components/StyledLink/StyledLink'
+
 const ListView = ({match, history, currentViewInfo, emitAction}) => {
   const handleRowClick = ({id}) => {
     history.push(match.url.replace(/list$/, '') + id)
@@ -25,6 +27,10 @@ const ListView = ({match, history, currentViewInfo, emitAction}) => {
           model: currentViewInfo.parentModel.name
         }
       })}
+      linkFactory={{
+        detail: (entity, relation, key, children) =>
+          <StyledLink to={`/e/${entity}/${key}`} target="_bank">{children}</StyledLink>
+      }}
     />
   )
 }

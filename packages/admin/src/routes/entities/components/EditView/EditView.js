@@ -4,6 +4,8 @@ import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {Prompt} from 'react-router'
 import {intlShape} from 'react-intl'
 
+import StyledLink from '../../../../components/StyledLink/StyledLink'
+
 const EditView = props => {
   const [touched, setTouched] = useState(false)
   const mode = 'update'
@@ -32,6 +34,10 @@ const EditView = props => {
         mode={mode}
         emitAction={props.emitAction}
         onTouchedChange = {handleToucheChanged}
+        linkFactory={{
+          detail: (entity, relation, key, children) =>
+            <StyledLink to={`/e/${entity}/${key}`} target="_bank">{children}</StyledLink>
+        }}
       />
     </React.Fragment>
   )
