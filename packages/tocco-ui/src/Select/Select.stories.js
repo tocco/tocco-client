@@ -22,6 +22,7 @@ export class SelectStory extends React.Component {
       isLoading: false,
       options: null,
       value: [{key: 3, display: 'Option 3'}],
+      valueMulti: [{key: 2, display: 'Option 2'}],
       moreOptionsAvailable: false,
       tooltips: {}
     }
@@ -50,6 +51,10 @@ export class SelectStory extends React.Component {
     this.setState({...this.state, value})
   }
 
+  setValueMulti = valueMulti => {
+    this.setState({...this.state, valueMulti})
+  }
+
   loadToolTip = key => {
     if (!this.state.tooltips[key]) {
       this.setState({...this.state, tooltips: {...this.state.tooltips, [key]: `TOOL TIP ${key}`}})
@@ -58,11 +63,11 @@ export class SelectStory extends React.Component {
 
   render() {
     return (
-      <span>
+      <div style={{maxWidth: '400px'}}>
         <Select
           fetchOptions={this.fetchOptions}
           isLoading={this.state.isLoading}
-          isMulti={this.props.isMulti}
+          isMulti={false}
           loadTooltip={this.loadToolTip}
           moreOptionsAvailable={this.state.moreOptionsAvailable}
           moreOptionsAvailableText="More options available"
@@ -75,7 +80,26 @@ export class SelectStory extends React.Component {
           tooltips={this.state.tooltips}
           value={this.state.value}
         />
-      </span>
+        <Select
+          fetchOptions={this.fetchOptions}
+          isLoading={this.state.isLoading}
+          isMulti={true}
+          loadTooltip={this.loadToolTip}
+          moreOptionsAvailable={this.state.moreOptionsAvailable}
+          moreOptionsAvailableText="More options available"
+          noResultsText="No more options."
+          onChange={this.setValueMulti}
+          openAdvancedSearch={action('open advanced search')}
+          options={this.state.options}
+          immutable={this.props.immutable}
+          searchOptions={this.searchOptions}
+          tooltips={this.state.tooltips}
+          value={this.state.valueMulti}
+          valueLinkFactory={(key, children) =>
+            <a href={`/${key}`} target="_blank" rel="noopener noreferrer" >{children}</a>
+          }
+        />
+      </div>
     )
   }
 }
@@ -94,8 +118,7 @@ storiesOf('Tocco-UI | Select', module)
       <SelectStory
         action={action}
         delay={2000}
-        isMulti={boolean('isMulti', true)}
-        immutable={boolean('immutable', true)}
+        immutable={boolean('immutable', false)}
       />,
     {info: {propTables: [Raw], propTablesExclude: [SelectStory], source: false}}
   )

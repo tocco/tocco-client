@@ -68,18 +68,6 @@ export class Select extends React.Component {
     const wrapperHeight = this.selectWrapper.current ? this.selectWrapper.current.clientHeight : 35
 
     const CustomMenu = props => <Menu {...props} wrapperWidth={wrapperWidth} wrapperHeight={wrapperHeight}/>
-    const CustomSingleValue = props =>
-      <SingleValue
-        {...props}
-        loadTooltip={this.props.loadTooltip}
-        tooltips={this.props.tooltips}/>
-
-    const CustomMultiValueLabel = props =>
-      <MultiValueLabel
-        {...props}
-        loadTooltip={this.props.loadTooltip}
-        tooltips={this.props.tooltips}
-      />
 
     return (
       <div
@@ -95,7 +83,7 @@ export class Select extends React.Component {
             getOptionLabel={option => option.display}
             getOptionValue={option => option.key}
             components={{
-              ClearIndicator: ClearIndicator,
+              ClearIndicator,
               DropdownIndicator: props =>
                 <DropdownIndicator
                   immutable={this.props.immutable}
@@ -103,7 +91,7 @@ export class Select extends React.Component {
                   openMenu={this.onMenuOpen}
                   {...props}
                 />,
-              LoadingIndicator: LoadingIndicator,
+              LoadingIndicator,
               IndicatorsContainer: props =>
                 <IndicatorsContainer
                   openAdvancedSearch = {this.props.openAdvancedSearch}
@@ -119,8 +107,8 @@ export class Select extends React.Component {
                   moreOptionsAvailableText = {this.props.moreOptionsAvailableText}
                   {...props}
                 />,
-              MultiValueLabel: CustomMultiValueLabel,
-              SingleValue: CustomSingleValue
+              MultiValueLabel,
+              SingleValue
             }}
             noOptionsMessage={() => (this.props.noResultsText || ' - ')}
             isMulti={this.props.isMulti}
@@ -145,6 +133,9 @@ export class Select extends React.Component {
             theme={theme => reactSelectTheme(theme, this.props.theme)}
             openMenuOnClick={this.props.openMenuOnClick || false}
             menuIsOpen={this.state.isOpen}
+            loadTooltip={this.props.loadTooltip}
+            tooltips={this.props.tooltips}
+            valueLinkFactory={this.props.valueLinkFactory}
           />
         </div>
       </div>
@@ -208,6 +199,14 @@ Select.propTypes = {
    * If defined a button is shown next to the select box that invokes this callback.
    */
   openAdvancedSearch: PropTypes.func,
+  /**
+   * Function that can wrap the value. This allows to render a <Link> around the value label for navigation purposes.
+   * First parameter is the key of the value, the second parameter is the value node itself.
+   *
+   * e.g.
+   * (key, children) => <a href={`/${key}`} target="_blank" rel="noopener noreferrer">{children}</a>
+   */
+  valueLinkFactory: PropTypes.func,
   /**
    * Theme provided by styled-components ThemeProvider.
    */

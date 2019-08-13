@@ -2,21 +2,12 @@ import React from 'react'
 import {Icon} from 'tocco-ui'
 import PropTypes from 'prop-types'
 
-import {getPopUpFeatures} from '../../utils/popUp'
+import {openLoginWindow} from '../../utils/loginWindow'
 import StyledProviderButton from './StyledProviderButton'
 
 const ProviderButton = ({provider, loginCompleted, loginEndpoint}) => {
   const clickHandler = () => {
-    const baseUrl = __DEV__ ? '' : __BACKEND_URL__
-    const encodedWindowUrl = encodeURIComponent(window.location.href)
-    const url = `${baseUrl}${loginEndpoint}?provider=${provider.unique_id}&sourceUri=${encodedWindowUrl}`
-
-    const popUp = window.open(url, provider.label, getPopUpFeatures(650, 500))
-
-    window.ssoPopUpCallback = result => {
-      popUp.close()
-      loginCompleted(result)
-    }
+    openLoginWindow(loginEndpoint, loginCompleted, provider)
   }
 
   return (

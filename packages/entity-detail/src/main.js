@@ -37,7 +37,7 @@ const initApp = (id, input, events = {}, publicPath) => {
   errorLogging.addToStore(store, false)
   notifier.addToStore(store, false)
   actions.addToStore(store, {formApp: SimpleFormApp, listApp: EntityListApp})
-  formData.addToStore(store, {listApp: EntityListApp})
+  formData.addToStore(store, {listApp: EntityListApp, linkFactory: input.linkFactory})
   keyDown.addToStore(store, shortcuts)
 
   const dispatchActions = getDispatchActions(input)

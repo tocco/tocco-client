@@ -22,7 +22,26 @@ Can be added to the store to call external events/callback from anywhere with an
 Utils for redux forms (`redux-form`).
 
 #### formData
-Helps loading form data such as relation entities from remote and select fields.
+Helps connect fields with logic and data such as relation entities from remote and select fields.
+
+Import:
+
+```javascript
+ import {formData} from 'tocco-app-extensions'
+```
+
+Initialization: 
+
+```javascript
+ formData.addToStore(store, {listApp, linkFactory})
+```
+
+config, the second parameter, is an object an can have the following properties:
+* listApp: Entity-List App component. Is used to connect the remote field with a list search.
+* linkFactory: An object consisting of different types of link factories. Form components such as remote field can use 
+  these factories to create a link around the values for navigation purposes.
+   e.g. {detail: (entity, relation, key, children) => <a ../>}
+  
 
 #### formField
 Helper to create tocco-ui FormField component.

@@ -1,14 +1,20 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import Typography from '../../Typography'
+import SingleSelectFormatter from './SingleSelectFormatter'
 
-const MultiSelectFormatter = props => (
-  <Typography.Span>{props.value.map(v => v.display).join(', ')}</Typography.Span>
-)
+const MultiSelectFormatter = ({value, options}) =>
+  value && value.length > 0
+    ? value
+      .map((v, idx) => <SingleSelectFormatter key={idx} value={v} options={options}/>)
+      .reduce((prev, curr) => [prev, ', ', curr])
+    : null
 
 MultiSelectFormatter.propTypes = {
-  value: PropTypes.array
+  value: PropTypes.array,
+  options: PropTypes.shape({
+    linkFactory: PropTypes.func
+  })
 }
 
 export default MultiSelectFormatter

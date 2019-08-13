@@ -9,7 +9,8 @@ const settings = {
 export default {
   dataContainerProps: ({formField, modelField}) => ({
     relationEntities: formField.id,
-    tooltips: modelField.targetEntity
+    tooltips: modelField.targetEntity,
+    linkFactory: true
   }),
   getOptions: ({formField, modelField, formName, formData}) => ({
     options: _get(formData, ['relationEntities', formField.id, 'data'], []),
@@ -35,6 +36,9 @@ export default {
     ),
     moreOptionsAvailableText: formData.intl.formatMessage(
       {id: 'client.component.remoteselect.moreOptionsAvailableText'}
-    )
+    ),
+    valueLinkFactory: formData.linkFactory && formData.linkFactory.detail
+      ? (key, content) => formData.linkFactory.detail(modelField.targetEntity, modelField.relationName, key, content)
+      : null
   })
 }

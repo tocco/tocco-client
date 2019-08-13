@@ -1,5 +1,5 @@
 import React from 'react'
-import {IntlStub} from 'tocco-test-util'
+import {IntlStub, intlEnzyme} from 'tocco-test-util'
 import {shallow} from 'enzyme'
 import {FormattedValue} from 'tocco-ui'
 import {actions} from 'tocco-app-extensions'
@@ -10,6 +10,7 @@ import cellRenderer from './cellRenderer'
 
 describe('entity-list', () => {
   describe('util', () => {
+    const getStore = () => createStore(() => ({formData: {}}))
     describe('cellRenderer', () => {
       test('should return a formattedValue for componentType field', () => {
         const field = {
@@ -25,7 +26,11 @@ describe('entity-list', () => {
         }
         const parent = {}
 
-        const wrapper = shallow(cellRenderer(field, entity, parent, {}, IntlStub))
+        const wrapper = intlEnzyme.mountWithIntl(
+          <Provider store={getStore()}>
+            {cellRenderer(field, entity, parent, {}, IntlStub)}
+          </Provider>)
+
         expect(wrapper.find(FormattedValue)).to.have.length(1)
       })
 
