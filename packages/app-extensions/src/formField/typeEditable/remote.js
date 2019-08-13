@@ -9,7 +9,8 @@ const settings = {
 export default {
   dataContainerProps: ({formField, modelField}) => ({
     relationEntities: formField.id,
-    tooltips: modelField.targetEntity
+    tooltips: modelField.targetEntity,
+    linkFactory: true
   }),
   getOptions: ({formField, modelField, formName, formData}) => ({
     options: _get(formData, ['relationEntities', formField.id, 'data'], []),
