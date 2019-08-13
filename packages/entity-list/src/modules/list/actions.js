@@ -24,6 +24,7 @@ export const SET_CREATE_PERMISSION = 'list/SET_CREATE_PERMISSION'
 export const SET_FORM_SELECTABLE = 'list/SET_FORM_SELECTABLE'
 export const SET_ENDPOINT = 'list/SET_ENDPOINT'
 export const QUERY_CHANGED = 'list/QUERY_CHANGED'
+export const SET_SHOW_LINK = 'list/SET_SHOW_LINK'
 
 export const initialize = () => ({
   type: INITIALIZE
@@ -183,5 +184,12 @@ export const queryChanged = query => ({
   type: QUERY_CHANGED,
   payload: {
     query
+  }
+})
+
+export const setShowLink = showLink => ({
+  type: SET_SHOW_LINK,
+  payload: {
+    showLink
   }
 })
