@@ -4,9 +4,11 @@ import React from 'react'
 import SingleSelectFormatter from './SingleSelectFormatter'
 
 const MultiSelectFormatter = ({value, options}) =>
-  value
-    .map((v, idx) => <SingleSelectFormatter key={idx} value={v} options={options}/>)
-    .reduce((prev, curr) => [prev, ', ', curr])
+  value && value.length > 0
+    ? value
+      .map((v, idx) => <SingleSelectFormatter key={idx} value={v} options={options}/>)
+      .reduce((prev, curr) => [prev, ', ', curr])
+    : null
 
 MultiSelectFormatter.propTypes = {
   value: PropTypes.array,
