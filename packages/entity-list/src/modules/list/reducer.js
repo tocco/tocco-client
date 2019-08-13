@@ -31,7 +31,8 @@ const ACTION_HANDLERS = {
   [actions.SET_SEARCH_FILTERS]: reducerUtil.singleTransferReducer('searchFilters'),
   [actions.SET_CREATE_PERMISSION]: reducerUtil.singleTransferReducer('createPermission'),
   [actions.SET_FORM_SELECTABLE]: reducerUtil.singleTransferReducer('formSelectable'),
-  [actions.SET_ENDPOINT]: reducerUtil.singleTransferReducer('endpoint')
+  [actions.SET_ENDPOINT]: reducerUtil.singleTransferReducer('endpoint'),
+  [actions.SET_SHOW_LINK]: reducerUtil.singleTransferReducer('showLink')
 
 }
 
@@ -49,7 +50,8 @@ const initialState = {
   showSearchForm: true,
   searchFilters: [],
   createPermission: false,
-  formSelectable: false
+  formSelectable: false,
+  showLink: false
 }
 
 export default function reducer(state = initialState, action) {

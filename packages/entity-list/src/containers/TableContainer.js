@@ -35,7 +35,9 @@ const mapStateToProps = (state, props) => ({
   inProgress: state.list.inProgress,
   tableSelectionStyle: state.selection.tableSelectionStyle,
   selection: state.selection.selection,
-  parent: state.entityList.parent
+  parent: state.entityList.parent,
+  showLink: state.list.showLink,
+  linkFactory: state.formData.linkFactory.linkFactory
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(Table))

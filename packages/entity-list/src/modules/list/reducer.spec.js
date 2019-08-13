@@ -15,7 +15,8 @@ const EXPECTED_INITIAL_STATE = {
   showSearchForm: true,
   searchFilters: [],
   createPermission: false,
-  formSelectable: false
+  formSelectable: false,
+  showLink: false
 }
 
 describe('entity-list', () => {

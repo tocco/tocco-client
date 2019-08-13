@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {intlShape} from 'react-intl'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
-import {Typography} from 'tocco-ui'
+import {Typography, Icon} from 'tocco-ui'
 
 import cellRenderer from '../../util/cellRenderer'
 import {default as selectionStyles, selectionStylePropType} from '../../util/selectionStyles'
@@ -89,6 +89,18 @@ const Table = props => {
     </span>
   )
 
+  const getLinkColumn = () =>
+    props.linkFactory && props.linkFactory.detail && props.showLink
+      ? <TableHeaderColumn
+        width="30px"
+        dataFormat={(cell, row, formatExtraData, rowIdx) => (
+          <span onClick={e => e.stopPropagation()}>
+            {props.linkFactory.detail(null, null, row.__key, <Icon icon="external-link-alt"/>)}
+          </span>
+        )}
+      />
+      : null
+
   return (
     <StyledTable>
       {props.sorting
@@ -104,6 +116,7 @@ const Table = props => {
         bordered={false}
         selectRow={selectRow}
       >
+        {getLinkColumn()}
         <TableHeaderColumn dataField="__key" isKey hidden>Key</TableHeaderColumn>
         {
           props.columnDefinitions.map((column, idx) => {
@@ -152,7 +165,9 @@ Table.propTypes = {
     key: PropTypes.string.isRequired,
     model: PropTypes.string.isRequired,
     reverseRelationName: PropTypes.string
-  })
+  }),
+  showLink: PropTypes.bool,
+  linkFactory: PropTypes.object
 }
 
 export default Table
