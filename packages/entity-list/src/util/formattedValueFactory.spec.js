@@ -1,11 +1,15 @@
-import {IntlStub} from 'tocco-test-util'
+import React from 'react'
+import {intlEnzyme, IntlStub} from 'tocco-test-util'
 import {FormattedValue} from 'tocco-ui'
-import {shallow} from 'enzyme'
+import {createStore} from 'redux'
+import {Provider} from 'react-redux'
 
 import formattedValueFactory, {MultiSeparator} from './formattedValueFactory'
 
 describe('entity-list', () => {
   describe('util', () => {
+    const getStore = () => createStore(() => ({formData: {}}))
+
     describe('formattedValueFactory', () => {
       test('should return FormattedValue', () => {
         const field = {
@@ -19,7 +23,11 @@ describe('entity-list', () => {
           }
         }
 
-        const wrapper = shallow(formattedValueFactory(field, entity, IntlStub))
+        const wrapper = intlEnzyme.mountWithIntl(
+          <Provider store={getStore()}>
+            {formattedValueFactory(field, entity, IntlStub)}
+          </Provider>
+        )
         expect(wrapper.find(FormattedValue)).to.have.length(1)
         expect(wrapper.find(FormattedValue).props()).to.not.have.property('options')
       })
@@ -36,7 +44,12 @@ describe('entity-list', () => {
           }
         }
 
-        const wrapper = shallow(formattedValueFactory(field, entity, IntlStub))
+        const wrapper = intlEnzyme.mountWithIntl(
+          <Provider store={getStore()}>
+            {formattedValueFactory(field, entity, IntlStub)}
+          </Provider>
+        )
+
         expect(wrapper.find(FormattedValue).props()).to.have.property('options')
         expect(wrapper.find(FormattedValue).props()['options']).to.not.be.undefined
       })
@@ -50,7 +63,12 @@ describe('entity-list', () => {
           'relSomething.xy': [{value: 'V1', type: 'string'}, {value: 'V1', type: 'string'}]
         }
 
-        const wrapper = shallow(formattedValueFactory(field, entity, IntlStub))
+        const wrapper = intlEnzyme.mountWithIntl(
+          <Provider store={getStore()}>
+            {formattedValueFactory(field, entity, IntlStub)}
+          </Provider>
+        )
+
         expect(wrapper.find(FormattedValue)).to.have.length(2)
         expect(wrapper.find(MultiSeparator)).to.have.length(1)
       })

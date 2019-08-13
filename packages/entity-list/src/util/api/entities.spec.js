@@ -85,19 +85,23 @@ describe('entity-list', () => {
             expect(transformedResult[0]).to.have.property('firstname')
             expect(transformedResult[0]).to.have.property('relGender')
             expect(transformedResult[0].firstname).to.eql({type: 'string', value: 'Jon'})
-            expect(transformedResult[0].relGender).to.eql({type: 'string', value: 'Male'})
-            expect(transformedResult[0].titles).to.eql([
-              {type: 'string', value: 'Dr.'},
-              {type: 'string', value: 'Bundesrat'}
-            ])
+            expect(transformedResult[0].relGender).to.eql({
+              type: 'remote',
+              value: {key: '1', model: 'Gender', display: 'Male'}
+            })
+            expect(transformedResult[0].titles).to.eql({
+              type: 'multi-remote',
+              value: [{key: '1', model: 'title', display: 'Dr.'}, {key: '3', model: 'title', display: 'Bundesrat'}]
+            })
 
             expect(transformedResult[1]).to.have.property('firstname')
             expect(transformedResult[1]).to.have.property('relGender')
             expect(transformedResult[1].firstname).to.eql({type: 'string', value: 'Klaus'})
-            expect(transformedResult[1].titles).to.eql([
-              {type: 'string', value: 'Dr.'},
-              {type: 'string', value: 'Prof'}
-            ])
+            expect(transformedResult[1].titles).to.eql(
+              {
+                type: 'multi-remote',
+                value: [{key: '1', model: 'title', display: 'Dr.'}, {key: '2', model: 'title', display: 'Prof'}]
+              })
           })
 
           test('should add __key to entity', () => {

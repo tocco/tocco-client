@@ -53,14 +53,14 @@ const getFieldValues = path => {
     return path.value
   } else if (type === 'entity') {
     return {
-      type: 'string',
-      value: path.value ? path.value.display : ''
+      type: 'remote',
+      value: path.value
     }
   } else if (type === 'entity-list') {
-    return path.value.map(v => ({
-      type: 'string',
-      value: v.display
-    }))
+    return {
+      type: 'multi-remote',
+      value: path.value
+    }
   } else if (type === 'display-expression') {
     return {
       type: 'html',
