@@ -30,7 +30,7 @@ FormData.propTypes = {
 
 const mapStateToProps = (
   state,
-  {formValues, tooltips, locations, relationEntities, searchFilters, isDirty, errors}
+  {formValues, tooltips, locations, relationEntities, searchFilters, isDirty, errors, linkFactory}
 ) => {
   return {
     ...(relationEntities ? {relationEntities: _pick(state.formData.relationEntities.data, relationEntities)} : {}),
@@ -51,8 +51,7 @@ const mapStateToProps = (
           ),
           (result, value) => ({...result, ...value}), null)
       } : null),
-    ...(state.formData.linkFactory ? {linkFactory: state.formData.linkFactory.linkFactory} : {})
-
+    ...(linkFactory && state.formData.linkFactory ? {linkFactory: state.formData.linkFactory.linkFactory} : {})
   }
 }
 
