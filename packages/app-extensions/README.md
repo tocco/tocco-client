@@ -22,7 +22,7 @@ Can be added to the store to call external events/callback from anywhere with an
 Utils for redux forms (`redux-form`).
 
 #### formData
-Helps connection field with logic and data such as relation entities from remote and select fields.
+Helps connect fields with logic and data such as relation entities from remote and select fields.
 
 Import:
 
