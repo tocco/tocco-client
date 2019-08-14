@@ -27,9 +27,12 @@ const ListView = ({match, history, currentViewInfo, emitAction}) => {
           model: currentViewInfo.parentModel.name
         }
       })}
+      showLink={true}
       linkFactory={{
         detail: (entity, relation, key, children) =>
-          <StyledLink to={`/e/${entity}/${key}`} target="_bank">{children}</StyledLink>
+          entity
+            ? <StyledLink to={`/e/${entity}/${key}`} target="_bank">{children}</StyledLink>
+            : <StyledLink to={key}>{children}</StyledLink>
       }}
     />
   )
