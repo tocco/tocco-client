@@ -13,7 +13,8 @@ import {
   setLimit,
   setSearchFilters,
   setListFormName,
-  setFormDefinition as setListFormDefinition
+  setFormDefinition as setListFormDefinition,
+  setShowLink
 } from './modules/list/actions'
 import {setSelection} from './modules/selection/actions'
 
@@ -88,5 +89,10 @@ const actionSettings = [
     name: 'listFormDefinition',
     action: setListFormDefinition,
     argsFactory: input => [input.listFormDefinition]
+  },
+  {
+    name: 'showLink',
+    action: setShowLink,
+    argsFactory: input => [input.showLink]
   }
 ]
