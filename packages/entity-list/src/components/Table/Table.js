@@ -167,7 +167,7 @@ Table.propTypes = {
     reverseRelationName: PropTypes.string
   }),
   showLink: PropTypes.bool,
-  linkFactory: PropTypes.object
+  linkFactory: PropTypes.objectOf(PropTypes.func)
 }
 
 export default Table
