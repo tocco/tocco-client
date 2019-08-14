@@ -59,7 +59,7 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
     const hasValue = value !== null && value !== undefined && (value.length === undefined || value.length > 0)
     const isDisplay = data.formDefinitionField.componentType === 'display' || readOnlyForm
 
-    const type = formDefinitionField.dataType
+    const type = formDefinitionField.dataType || formDefinitionField.componentType
     let requestedFromData
 
     const typeEditable = typeEditables[type]
