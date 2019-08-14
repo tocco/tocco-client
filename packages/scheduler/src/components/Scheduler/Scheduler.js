@@ -33,7 +33,7 @@ Scheduler.propTypes = {
           allDay: PropTypes.bool
         })
       ),
-      id: PropTypes.string.isRequired,
+      key: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
       model: PropTypes.string.isRequired
     })).isRequired,
