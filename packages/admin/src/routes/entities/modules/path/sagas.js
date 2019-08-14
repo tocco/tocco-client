@@ -49,9 +49,7 @@ export function* getModel(entity) {
 
 export function* extractMultiRelations(model, key) {
   if (key !== null) {
-    const relations = _pickBy(model.paths, (value, key) =>
-      value.multi && value.relationDisplay && value.relationDisplay.show
-    )
+    const relations = _pickBy(model.paths, (value, key) => value.relationDisplay && value.relationDisplay.show)
 
     const relationsTransformed = Object.keys(relations)
       .map(k =>
@@ -59,7 +57,7 @@ export function* extractMultiRelations(model, key) {
           ['relationName', 'reverseRelationName', 'targetEntity', 'relationDisplay.label', 'relationDisplay.order']
         )
       )
-      .sort((a, b) => a.relationDisplay.order < b.relationDisplay.order ? 1 : -1)
+      .sort((a, b) => a.relationDisplay.order > b.relationDisplay.order ? 1 : -1)
 
     yield put(actions.setRelations(relationsTransformed))
     yield spawn(loadRelationCounts, relationsTransformed, key)
