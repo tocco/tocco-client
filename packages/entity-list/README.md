@@ -26,7 +26,7 @@ React-registry name: `entity-list`
 | `keepStore`                  |           | If true, the app preserves the store with given `id`. If the same list gets shown again, the store is recovered.                                                                                        | Bool   |                         |
 | `parent`                     |           | Object with key and reverseRelationName of a parent entity. If set, the result gets filtered to only show related entities.                                                                             | Object |                         |
 | `linkFactory`                |           | Object consisting of various link factories. For more information see formData documentation.                                                                                                           | Object |                         |
-| `showLink`                   |           | If true a link is shown in each row to open the record. A detail Link factory need to be provided.                                                                                                      | Bool   | false                   |
+| `showLink`                   |           | If true a link is shown in each row to open the record. A detail Link factory needs to be provided.                                                                                                      | Bool   | false                   |
 
 
 ### Events
