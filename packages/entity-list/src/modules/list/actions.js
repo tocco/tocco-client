@@ -155,8 +155,11 @@ export const onRowClick = id => ({
   }
 })
 
-export const navigateToCreate = () => ({
-  type: NAVIGATE_TO_CREATE
+export const navigateToCreate = relationName => ({
+  type: NAVIGATE_TO_CREATE,
+  payload: {
+    relationName
+  }
 })
 
 export const setCreatePermission = createPermission => ({

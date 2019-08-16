@@ -1,7 +1,6 @@
 import {
   setShowSearchForm,
   setEntityName,
-  setShowCreateButton,
   setParent
 } from './modules/entityList/actions'
 import {
@@ -59,10 +58,6 @@ const actionSettings = [
     name: 'showSearchForm',
     action: setShowSearchForm,
     argsFactory: input => [input.showSearchForm]
-  }, {
-    name: 'showCreateButton',
-    action: setShowCreateButton,
-    argsFactory: input => [input.showCreateButton]
   },
   {
     name: 'disableSimpleSearch',

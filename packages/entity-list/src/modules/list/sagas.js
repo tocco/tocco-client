@@ -28,6 +28,7 @@ export default function* sagas() {
     fork(takeEvery, actions.SET_SORTING, setSorting),
     fork(takeEvery, actions.RESET_DATA_SET, loadData, 1),
     fork(takeLatest, actions.REFRESH, loadData),
+    fork(takeLatest, actions.NAVIGATE_TO_CREATE, navigateToCreate),
     fork(takeLatest, selectionActions.RELOAD_DATA, loadData, 1),
     fork(takeLatest, actions.ON_ROW_CLICK, onRowClick),
     fork(takeEvery, actionUtil.actions.ACTION_INVOKED, actionInvoked)
@@ -230,8 +231,8 @@ export function* onRowClick({payload}) {
   yield put(externalEvents.fireExternalEvent('onRowClick', {id: payload.id}))
 }
 
-export function* navigateToCreate() {
-  yield put(externalEvents.fireExternalEvent('onNavigateToCreate'))
+export function* navigateToCreate({payload}) {
+  yield put(externalEvents.fireExternalEvent('onNavigateToCreate', payload.relationName))
 }
 
 export function* actionInvoked(action) {
