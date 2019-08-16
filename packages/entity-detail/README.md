@@ -20,7 +20,7 @@ React-registry name: `entity-detail`
 | Name                        | Payload                                                                                                            | Description
 |-----------------------------|--------------------------------------------------------------------------------------------------------------------|-------------
 | `onSubGridRowClick`         | `id` (id of the clicked record), `gridName` (name of the sub grid), `relationName` (name of the sub grid relation) | Is fired when a row of a sub grid is clicked
-| `onNavigateToCreate`        | `relationName` (Optional. If not defined, create button of the current entity was clicked)                         | Is fired when a "create" button gets clicked
+| `onNavigateToCreate`        | `relationName` (Optional. If not defined, the create button of the current entity was clicked)                     | Is fired when a "create" button gets clicked
 | `onEntityCreated`           | `id` (of the newly created record)                                                                                 | Is fired when a a record got created
 | `onTouchedChange`           | `touched` (boolean flag which indicates if the form is touched)                                                    | This event is fired when the touched state changes
 
