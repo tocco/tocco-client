@@ -12,7 +12,7 @@ describe('entity-detail', () => {
         gridName: 'relFoo',
         modelField: {targetEntity: 'Foo'},
         relationName: 'relFoo',
-        onNavigateToCreate: () => {},
+        navigateToCreate: () => {},
         showSubGridsCreateButton: false,
         dispatchEmittedAction: () => {},
         entityName: 'User'

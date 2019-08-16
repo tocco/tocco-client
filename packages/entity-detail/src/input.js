@@ -4,7 +4,6 @@ import {
   setEntityId,
   setFormName,
   setMode,
-  setShowSubGridsCreateButton,
   setAppId,
   setDefaultValues
 } from './modules/entityDetail/actions'
@@ -14,7 +13,6 @@ export const getDispatchActions = input => ([
   setEntityId(input.entityId ? input.entityId : null),
   setMode(input.mode),
   setFormName(input.formName),
-  setShowSubGridsCreateButton(input.showSubGridsCreateButton),
   setAppId(input.id),
   setDefaultValues(input.defaultValues),
   loadDetailView()
