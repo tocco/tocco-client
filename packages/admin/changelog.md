@@ -1,7 +1,4 @@
 0.1.2
-
-
-0.1.2
 - improved navigation and detail view
 
 0.1.1
