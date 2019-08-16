@@ -3,7 +3,7 @@ import {submitForm} from './modules/entityDetail/actions'
 export default [
   {
     ctrl: true,
-    key: 'l',
+    key: 's',
     action: submitForm()
   }
 ]
