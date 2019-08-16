@@ -2,7 +2,6 @@ import React from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
 import {appFactory, externalEvents} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
-import _isEqual from 'lodash/isEqual'
 
 import reducers, {sagas} from './modules/reducers'
 import SchedulerContainer from './containers/SchedulerContainer'
@@ -79,11 +78,9 @@ class SchedulerApp extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (!_isEqual(prevProps, this.props)) {
-      getDispatchActions(this.props).forEach(action => {
-        this.app.store.dispatch(action)
-      })
-    }
+    getDispatchActions(this.props).forEach(action => {
+      this.app.store.dispatch(action)
+    })
   }
 
   render = () => <div>{this.app.renderComponent()}</div>
@@ -102,7 +99,7 @@ SchedulerApp.propTypes = {
         }
         )
       ),
-      id: PropTypes.string.isRequired,
+      key: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
       model: PropTypes.string.isRequired
     })),

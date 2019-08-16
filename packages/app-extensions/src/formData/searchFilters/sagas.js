@@ -22,7 +22,8 @@ export function* loadSearchFilters({payload}) {
         entity: entity,
         ...(group ? {'relSearch_filter_group.unique_id': group} : {})
       },
-      fields: ['unique_id']
+      fields: ['unique_id'],
+      relations: []
     }
 
     const requestOptions = {method: 'GET'}

@@ -62,7 +62,7 @@ ResourceScheduler.propTypes = {
         }
         )
       ),
-      id: PropTypes.string.isRequired,
+      key: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
       model: PropTypes.string.isRequired
     })),

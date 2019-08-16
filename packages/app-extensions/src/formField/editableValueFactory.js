@@ -19,7 +19,7 @@ const getOptions = (type, formField, modelField, formName, formData) =>
     : {}
 
 export default type => (formField, modelField, formName, value, info, events, formData) => {
-  const formType = formField.dataType
+  const formType = formField.dataType || formField.componentType
   const options = getOptions(formType, formField, modelField, formName, formData)
 
   events = getEvents(formType, formField, formName, formData, events)
