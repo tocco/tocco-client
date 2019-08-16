@@ -7,6 +7,14 @@ const mapActionCreators = {
   emitAction: action => actionEmitter.dispatchEmittedAction(action)
 }
 
+const handleNavigateToCreate = props => relationName => {
+  if (relationName) {
+    props.router.history.push(`${props.router.match.url}/${relationName}/`)
+  } else {
+    props.router.history.push(`/detail`)
+  }
+}
+
 const mapStateToProps = (state, props) => {
   const hash = objectHash(state.input)
   return {
@@ -21,13 +29,10 @@ const mapStateToProps = (state, props) => {
     preselectedSearchFields: state.input.preselectedSearchFields,
     disableSimpleSearch: state.input.disableSimpleSearch,
     simpleSearchFields: state.input.simpleSearchFields,
-    showCreateButton: state.input.showCreateButton,
     onRowClick: e => {
       props.router.history.push(`/detail/${e.id}`)
     },
-    onNavigateToCreate: e => {
-      props.router.history.push(`/detail/`)
-    }
+    onNavigateToCreate: handleNavigateToCreate(props)
   }
 }
 
