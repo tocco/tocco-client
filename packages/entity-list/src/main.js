@@ -19,6 +19,8 @@ import reducers, {sagas} from './modules/reducers'
 import EntityListContainer from './containers/EntityListContainer'
 import {getDispatchActions} from './input'
 import {selectionStylePropType} from './util/selectionStyles'
+import customActions from './customActions'
+
 const packageName = 'entity-list'
 
 const EXTERNAL_EVENTS = [
@@ -43,7 +45,7 @@ const initApp = (id, input, events = {}, publicPath) => {
     actionEmitter.addToStore(store, events.emitAction)
     errorLogging.addToStore(store, false)
     notifier.addToStore(store, false)
-    actions.addToStore(store, {formApp: SimpleFormApp, listApp: EntityListApp})
+    actions.addToStore(store, {formApp: SimpleFormApp, listApp: EntityListApp, customActions})
     formData.addToStore(store, {listApp: EntityListApp, linkFactory: input.linkFactory})
 
     dispatchActions = getDispatchActions(input, true)
@@ -128,7 +130,6 @@ EntityListApp.propTypes = {
   keepStore: PropTypes.bool,
   limit: PropTypes.number,
   showSearchForm: PropTypes.bool,
-  showCreateButton: PropTypes.bool,
   searchFilters: PropTypes.arrayOf(PropTypes.string),
   preselectedSearchFields: PropTypes.arrayOf(
     PropTypes.shape({

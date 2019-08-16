@@ -3,7 +3,6 @@
   "formBase": "User",
   "limit": 100,
   "showSearchForm": true,
-  "showCreateButton": true,
   "disableSimpleSearch": false,
   "simpleSearchFields": "txtFulltext,birthdate",
   "searchFilters": [
