@@ -11,6 +11,13 @@
     "readonly": true,
     "children": [
       {
+        "componentType": "action",
+        "actionType": "custom",
+        "id":"new",
+        "icon": "plus",
+        "label": "New"
+      },
+      {
         "id": "box1",
         "componentType": "layout",
         "layoutType": "horizontal-box",

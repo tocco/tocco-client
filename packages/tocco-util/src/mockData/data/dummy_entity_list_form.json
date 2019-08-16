@@ -10,6 +10,13 @@
     "children": [
       {
         "componentType": "action",
+        "actionType": "custom",
+        "id":"new",
+        "icon": "plus",
+        "label": "New"
+      },
+      {
+        "componentType": "action",
         "actionType": "simple",
         "readonly": false,
         "label": "Simple Action",

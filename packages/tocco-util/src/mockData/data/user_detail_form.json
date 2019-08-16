@@ -11,6 +11,13 @@
     "readonly": false,
     "children": [
       {
+        "componentType": "action",
+        "actionType": "custom",
+        "id":"new",
+        "icon": "plus",
+        "label": "New"
+      },
+      {
         "componentType": "action-group",
         "actionType": "group",
         "label": "Reports",
