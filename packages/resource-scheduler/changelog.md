@@ -1,3 +1,6 @@
+0.2.15-hotfix222.2
+- Release with license 
+
 0.2.15-hotfix222.1
 - Fix search-filter field bug
 - Fix bug where the refresh button didnt stopped turning 
