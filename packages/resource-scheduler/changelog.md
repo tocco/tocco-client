@@ -1,3 +1,6 @@
+0.2.17
+- Add fullcalendar license
+
 0.2.16
 - Fix search-filter fields and loading bug 
 - use _remotefield form for remotefields
