@@ -1,3 +1,7 @@
+0.2.16
+- Fix search-filter fields and loading bug 
+- use _remotefield form for remotefields
+
 0.2.15
 - Floating Labels
 - Panel control (only one open)
