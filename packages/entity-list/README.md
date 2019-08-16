@@ -33,5 +33,5 @@ React-registry name: `entity-list`
 | Name                | Payload                       | Description
 |---------------------|-------------------------------|-------------
 | `onRowClick`        | `id` (The id of the record)   | This event is fired when a list row is clicked
-| `navigateToCreate`  | `relationName` (Optional. If not undefined a related create button is clicked) | This event is fired when the "new" button is clicked
+| `navigateToCreate`  | `relationName` (Optional. If defined, a related create button was clicked. From a subgrid for example.) | This event is fired when the "new" button is clicked
 | `onSelectChange`    | An array containing the ids of the new selection | This event is fired when the selection changes
