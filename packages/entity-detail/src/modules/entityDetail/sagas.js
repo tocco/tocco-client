@@ -30,6 +30,7 @@ export default function* sagas() {
     fork(takeLatest, actions.TOUCH_ALL_FIELDS, touchAllFields),
     fork(takeEvery, actions.SUBMIT_FORM, submitForm),
     fork(takeEvery, actions.FIRE_TOUCHED, fireTouched),
+    fork(takeEvery, actions.NAVIGATE_TO_CREATE, navigateToCreate),
     fork(takeEvery, actionUtil.actions.ACTION_INVOKED, actionInvoked)
   ])
 }
@@ -201,4 +202,8 @@ export function* loadData() {
 export function* actionInvoked(action) {
   yield call(loadData)
   yield put(actionEmitter.emitAction(action))
+}
+
+export function* navigateToCreate({payload}) {
+  yield put(externalEvents.fireExternalEvent('onNavigateToCreate', payload.relationName))
 }
