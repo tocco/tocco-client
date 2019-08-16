@@ -71,7 +71,7 @@ export class Icon extends React.Component {
         {...filteredProps}
         icon={icon}
         style={{...this.props.style, ...(getSpacing(this.props))}}
-        color={this.props.color}
+        {..._get(this.props, 'style.color') && {color: this.props.style.color}}
       />
     )
   }
@@ -101,13 +101,9 @@ Icon.propTypes = {
    */
   onLoaded: PropTypes.func,
   /**
-   * CSS Styles object.
+   * CSS Styles object. Color property can be used to coloize the icon.
    */
-  style: PropTypes.objectOf(PropTypes.string),
-  /**
-   * Color of icon
-   */
-  color: PropTypes.string
+  style: PropTypes.objectOf(PropTypes.string)
 }
 
 export default withTheme(Icon)
