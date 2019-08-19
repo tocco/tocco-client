@@ -19,13 +19,13 @@ Import:
 Initialization: 
 
 ```javascript
- actions.addToStore(store, {formApp, listApp, customAction})
+ actions.addToStore(store, {formApp, listApp, customActions})
 ```
 
-config, the second parameter, is an object an can have the following properties:
+config, the second parameter, is an object that can have the following properties:
 * formApp: Simple form App, is needed to render simple Action settings.
 * listApp: Entity-List App, is needed to render remote fields in action settings.
-* customAction: An object with App specific custom actions. The key is the id of the custom action as defined
+* customActions: An object with App specific custom actions. The key is the id of the custom action as defined
   in the form.
   
 #### appFactory
