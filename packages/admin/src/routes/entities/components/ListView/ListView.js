@@ -3,10 +3,20 @@ import PropTypes from 'prop-types'
 import EntityListApp from 'tocco-entity-list/src/main'
 
 import StyledLink from '../../../../components/StyledLink/StyledLink'
+import {goBack} from '../../../../utils/routing'
 
 const ListView = ({match, history, currentViewInfo, emitAction}) => {
   const handleRowClick = ({id}) => {
     history.push(match.url.replace(/list$/, '') + id)
+  }
+
+  const handleNavigateToCreate = relationName => {
+    if (relationName) {
+      history.push(`${match.url}/${relationName}/create`)
+    } else {
+      const entityBaseUrl = goBack(match.url)
+      history.push(entityBaseUrl + '/create')
+    }
   }
 
   if (!currentViewInfo) {
@@ -34,6 +44,7 @@ const ListView = ({match, history, currentViewInfo, emitAction}) => {
             ? <StyledLink to={`/e/${entity}/${key}`} target="_bank">{children}</StyledLink>
             : <StyledLink to={key}>{children}</StyledLink>
       }}
+      onNavigateToCreate={handleNavigateToCreate}
     />
   )
 }

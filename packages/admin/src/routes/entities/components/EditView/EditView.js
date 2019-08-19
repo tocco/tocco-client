@@ -4,6 +4,7 @@ import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {Prompt} from 'react-router'
 import {intlShape} from 'react-intl'
 
+import {goBack} from '../../../../utils/routing'
 import StyledLink from '../../../../components/StyledLink/StyledLink'
 
 const EditView = props => {
@@ -16,6 +17,15 @@ const EditView = props => {
 
   const handleToucheChanged = ({touched}) => {
     setTouched(touched)
+  }
+
+  const handleNavigateToCreate = relationName => {
+    if (relationName) {
+      props.history.push(`${props.match.url}/${relationName}/create`)
+    } else {
+      const entityBaseUrl = goBack(props.match.url, 2)
+      props.history.push(entityBaseUrl + '/create')
+    }
   }
 
   const entityName = props.currentViewInfo.model.name
@@ -38,6 +48,7 @@ const EditView = props => {
           detail: (entity, relation, key, children) =>
             <StyledLink to={`/e/${entity}/${key}`} target="_bank">{children}</StyledLink>
         }}
+        onNavigateToCreate={handleNavigateToCreate}
       />
     </React.Fragment>
   )

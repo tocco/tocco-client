@@ -80,7 +80,7 @@ class Admin extends React.Component {
                   <Navigation onClick={() => this.props.setMenuOpen(false)}/>
                 </Menu>
                 <Flex>
-                  <Box px={10} id="page-wrap">
+                  <Box id="page-wrap" width={1} bg="#edf1f5">
                     <Switch>
                       <Route exact path="/"
                         render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/dashboard`}/>}/>
