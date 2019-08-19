@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import ToccoLogin from 'tocco-Login/src/main'
+import ToccoLogin from 'tocco-login/src/main'
 import {Box} from '@rebass/grid'
 const Login = props => {
   const loginSuccess = ({timeout}) => {
