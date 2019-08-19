@@ -461,6 +461,18 @@ describe('entity-list', () => {
               .run()
           })
         })
+
+        describe('navigateToCreate saga', () => {
+          test('should call external event onNavigateToCreate', () => {
+            const payload = {
+              relationName: 'relUser'
+            }
+
+            return expectSaga(sagas.navigateToCreate, {payload})
+              .put(externalEvents.fireExternalEvent('onNavigateToCreate', payload.relationName))
+              .run()
+          })
+        })
       })
     })
   })
