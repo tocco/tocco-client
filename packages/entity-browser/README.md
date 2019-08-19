@@ -19,7 +19,6 @@ React-registry name: `entity-browser`
 | `simpleSearchFields`   |           | Comma separated String of searchfields which should be displayed by default.
 | `initialKey`           |           | If set, the entity browser will start on the detail page of the entity with the specified key instead of showing a list.
 | `nullBusinessUnit`     |           | If true, all REST-request have the null business unit header (X-Business-Unit: __n-u-l-l__)
-| `showCreateButton`     |           | (Temporary) Flag to show/hide a create button in list view
 | `memoryHistory`        |           | If set to true in-memory history is used instead of hash history. This is useful in testing and non-DOM environments.
 
 ### Events

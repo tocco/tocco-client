@@ -1,10 +1,15 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import styled from 'styled-components'
 
 import SearchFormContainer from '../../containers/SearchFormContainer'
 import FullTextSearchForm from '../../containers/FullTextSearchFormContainer'
 import ListViewContainer from '../../containers/ListViewContainer'
 import SelectionControllerContainer from '../../containers/SelectionControllerContainer'
+
+const SearchFormWrapper = styled.div`
+ margin-bottom: 12px;
+`
 
 class EntityList extends React.Component {
   constructor(props) {
@@ -18,8 +23,11 @@ class EntityList extends React.Component {
       <React.Fragment>
         {
           this.props.showSearchForm
-          && (this.props.showFullTextSearchForm ? <FullTextSearchForm/> : <SearchFormContainer/>)
+          && <SearchFormWrapper>
+            {this.props.showFullTextSearchForm ? <FullTextSearchForm/> : <SearchFormContainer/>}
+          </SearchFormWrapper>
         }
+
         {
           this.props.showSelectionController
           && <SelectionControllerContainer/>

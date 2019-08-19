@@ -18,7 +18,6 @@ const AdvancedSearch = props =>
       showSearchForm={true}
       onSelectChange={selection => { props.onSelectionChange(selection) }}
       selection={props.selection}
-      showCreateButton={false}
       emitAction={props.emitAction}
       selectionStyle={props.multi ? 'multi' : 'single'}
       selectOnRowClick={true}

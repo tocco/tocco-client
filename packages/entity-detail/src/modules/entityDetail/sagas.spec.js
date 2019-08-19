@@ -33,6 +33,7 @@ describe('entity-detail', () => {
               fork(takeLatest, actions.TOUCH_ALL_FIELDS, sagas.touchAllFields),
               fork(takeEvery, actions.SUBMIT_FORM, sagas.submitForm),
               fork(takeEvery, actions.FIRE_TOUCHED, sagas.fireTouched),
+              fork(takeEvery, actions.NAVIGATE_TO_CREATE, sagas.navigateToCreate),
               fork(takeEvery, actionUtil.actions.ACTION_INVOKED, sagas.actionInvoked)
             ]))
             expect(generator.next().done).to.be.true
@@ -352,6 +353,18 @@ describe('entity-detail', () => {
               ])
 
               .put(formActions.touch(FORM_ID, 'firstname', 'lastname'))
+              .run()
+          })
+        })
+
+        describe('navigateToCreate saga', () => {
+          test('should call external event onNavigateToCreate', () => {
+            const payload = {
+              relationName: 'relUser'
+            }
+
+            return expectSaga(sagas.navigateToCreate, {payload})
+              .put(externalEvents.fireExternalEvent('onNavigateToCreate', payload.relationName))
               .run()
           })
         })

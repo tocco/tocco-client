@@ -17,15 +17,17 @@ import EntityListApp from 'tocco-entity-list/src/main'
 import reducers, {sagas} from './modules/reducers'
 import DetailViewContainer from './containers/DetailViewContainer'
 import {getDispatchActions} from './input'
+import customActions from './customActions'
 import shortcuts from './shortcuts'
+
 const packageName = 'entity-detail'
 
 const EXTERNAL_EVENTS = [
   'onSubGridRowClick',
-  'onSubGridNavigateToCreate',
   'onEntityCreated',
   'onTouchedChange',
-  'emitAction'
+  'emitAction',
+  'onNavigateToCreate'
 ]
 
 const initApp = (id, input, events = {}, publicPath) => {
@@ -36,7 +38,7 @@ const initApp = (id, input, events = {}, publicPath) => {
   actionEmitter.addToStore(store, events.emitAction)
   errorLogging.addToStore(store, false)
   notifier.addToStore(store, false)
-  actions.addToStore(store, {formApp: SimpleFormApp, listApp: EntityListApp})
+  actions.addToStore(store, {formApp: SimpleFormApp, listApp: EntityListApp, customActions})
   formData.addToStore(store, {listApp: EntityListApp, linkFactory: input.linkFactory})
   keyDown.addToStore(store, shortcuts)
 

@@ -9,6 +9,25 @@ For example logging-actions or errors that can't be handled by a package itself.
 #### actions
 Can render action buttons and runs action executions.
 
+
+Import:
+
+```javascript
+ import {actions} from 'tocco-app-extensions'
+```
+
+Initialization: 
+
+```javascript
+ actions.addToStore(store, {formApp, listApp, customActions})
+```
+
+config, the second parameter, is an object that can have the following properties:
+* formApp: Simple form App, is needed to render simple Action settings.
+* listApp: Entity-List App, is needed to render remote fields in action settings.
+* customActions: An object with App specific custom actions. The key is the id of the custom action as defined
+  in the form.
+  
 #### appFactory
 Helper methods to create a react/redux/saga app.
 

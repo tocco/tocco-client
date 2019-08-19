@@ -21,14 +21,9 @@ const SubGrid = props => {
           })
         }
       }}
-      onNavigateToCreate={e => {
-        props.onNavigateToCreate({
-          gridName: props.gridName,
-          relationName: props.relationName
-        })
-      }
-      }
-      showCreateButton={props.showSubGridsCreateButton}
+      onNavigateToCreate={() => {
+        props.navigateToCreate(props.relationName)
+      }}
       emitAction={action => { props.dispatchEmittedAction(action) }}
       parent={{
         key: props.entityKey,
@@ -54,7 +49,7 @@ SubGrid.propTypes = {
     reverseRelationName: PropTypes.string
   }).isRequired,
   onRowClick: PropTypes.func,
-  onNavigateToCreate: PropTypes.func.isRequired,
+  navigateToCreate: PropTypes.func.isRequired,
   dispatchEmittedAction: PropTypes.func.isRequired,
   showSubGridsCreateButton: PropTypes.bool,
   appId: PropTypes.string,

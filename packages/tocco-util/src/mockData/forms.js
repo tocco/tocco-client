@@ -1,10 +1,10 @@
 export const setupForms = fetchMock => {
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/User_list$'),
+    new RegExp('^.*?/nice2/rest/forms/User_(list|remotefield)$'),
     require('./data/user_list_form.json')
   )
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/User_withconstriction_list'),
+    new RegExp('^.*?/nice2/rest/forms/User_withconstriction_(list|remotefield)'),
     require('./data/user_list_form.json')
   )
 
@@ -38,7 +38,7 @@ export const setupForms = fetchMock => {
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/User_small_list$'),
+    new RegExp('^.*?/nice2/rest/forms/User_small_(list|remotefield)$'),
     require('./data/user_list_small_form.json')
   )
 
@@ -48,7 +48,7 @@ export const setupForms = fetchMock => {
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/Dummy_entity_list$'),
+    new RegExp('^.*?/nice2/rest/forms/Dummy_entity_(list|remotefield)$'),
     require('./data/dummy_entity_list_form.json')
   )
 

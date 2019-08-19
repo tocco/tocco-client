@@ -18,7 +18,6 @@ React-registry name: `entity-list`
 | `preselectedSearchFields`    |           | List of predefined search-values                                                                                                                                                                        | Array  |                         |
 | `disableSimpleSearch`        |           | If true, the full search form is always visible                                                                                                                                                         | Bool   | false                   |
 | `simpleSearchFields`         |           | List of fields, that should be shown with activated simple search. If empty, fulltext search field will be displayed in simple search. Comma-separated string.                                          | String | txtFulltext             |
-| `showCreateButton`           |           | (Temporary) Flag to show/hide a create button                                                                                                                                                           | Bool   |                         |
 | `selectionStyle`             |           | "none", "multi" or "single". If not defined and form model selectable is true, "multi" is used. Otherwise no selection is possible.                                                                     | String |                         |
 | `disableSelectionController` |           | If true, the selection controller components are not visible (selection controller components include the button to display all selected records and the component to switch to the "select-all" mode). | Bool   | false                   |
 | `selection`                  |           | Array of keys. The whole selection can be preset with this property.                                                                                                                                    | Array  |                         |
@@ -34,5 +33,5 @@ React-registry name: `entity-list`
 | Name                | Payload                       | Description
 |---------------------|-------------------------------|-------------
 | `onRowClick`        | `id` (The id of the record)   | This event is fired when a list row is clicked
-| `navigateToCreate`  | -                             | This event is fired when the "new" button is clicked
+| `navigateToCreate`  | `relationName` (Optional. If defined, a related create button was clicked. From a subgrid for example.) | This event is fired when the "new" button is clicked
 | `onSelectChange`    | An array containing the ids of the new selection | This event is fired when the selection changes

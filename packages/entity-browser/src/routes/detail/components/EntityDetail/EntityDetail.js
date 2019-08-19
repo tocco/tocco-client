@@ -22,8 +22,14 @@ class EntityDetail extends React.Component {
     this.props.router.history.push(`${this.props.router.match.url}/${relationName}/${id}`)
   }
 
-  handleSubGridNavigateToCreate = ({gridName, relationName}) => {
-    this.props.router.history.push(`${this.props.router.match.url}/${relationName}/`)
+  handleNavigateToCreate = relationName => {
+    if (relationName) {
+      this.props.router.history.push(`${this.props.router.match.url}/${relationName}/`)
+    } else {
+      const url = this.props.router.match.url.replace(/\/$/, '')
+      const a = url.substring(0, url.lastIndexOf('/') + 1)
+      this.props.router.history.push(a)
+    }
   }
 
   handleEntityCreated = ({id}) => {
@@ -48,13 +54,12 @@ class EntityDetail extends React.Component {
     formName={formName}
     mode={mode}
     onSubGridRowClick={this.handleSubGridRowClick}
-    onSubGridNavigateToCreate={this.handleSubGridNavigateToCreate}
+    onNavigateToCreate={this.handleNavigateToCreate}
     onEntityCreated={this.handleEntityCreated}
     onTouchedChange={this.handleTouchedChange}
     emitAction={action => {
       this.props.dispatchEmittedAction(action)
     }}
-    showSubGridsCreateButton={this.props.showSubGridsCreateButton}
     theme={{}}
   />)
 

@@ -37,6 +37,7 @@ describe('entity-list', () => {
               fork(takeEvery, actions.SET_SORTING, sagas.setSorting),
               fork(takeEvery, actions.RESET_DATA_SET, sagas.loadData, 1),
               fork(takeLatest, actions.REFRESH, sagas.loadData),
+              fork(takeLatest, actions.NAVIGATE_TO_CREATE, sagas.navigateToCreate),
               fork(takeLatest, selectionActions.RELOAD_DATA, sagas.loadData, 1),
               fork(takeLatest, actions.ON_ROW_CLICK, sagas.onRowClick),
               fork(takeEvery, actionUtil.actions.ACTION_INVOKED, sagas.actionInvoked)
@@ -457,6 +458,18 @@ describe('entity-list', () => {
                 [matchers.call.fn(sagas.fetchEntitiesAndAddToStore), null]
               ])
               .not.call(sagas.fetchEntitiesAndAddToStore, 3)
+              .run()
+          })
+        })
+
+        describe('navigateToCreate saga', () => {
+          test('should call external event onNavigateToCreate', () => {
+            const payload = {
+              relationName: 'relUser'
+            }
+
+            return expectSaga(sagas.navigateToCreate, {payload})
+              .put(externalEvents.fireExternalEvent('onNavigateToCreate', payload.relationName))
               .run()
           })
         })
