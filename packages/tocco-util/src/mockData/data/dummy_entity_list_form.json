@@ -11,7 +11,7 @@
       {
         "componentType": "action",
         "actionType": "custom",
-        "id":"new",
+        "id": "new",
         "icon": "plus",
         "label": "New"
       },
