@@ -10,8 +10,8 @@ export const toogleMenu = state => (
 )
 
 const ACTION_HANDLERS = {
-  [actions.SET_ENTITIES]: reducerUtil.singleTransferReducer('entities'),
   [actions.SET_MENU_OPEN]: reducerUtil.singleTransferReducer('menuOpen'),
+  [actions.SET_MENU_ITEMS]: reducerUtil.singleTransferReducer('menuItems'),
   [actions.TOGGLE_MENU_OPEN]: toogleMenu
 }
 

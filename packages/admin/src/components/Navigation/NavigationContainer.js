@@ -6,7 +6,9 @@ import Navigation from './Navigation'
 const mapActionCreators = {}
 
 const mapStateToProps = (state, props) => ({
-  entities: state.navigation.entities
+  menuItems: state.navigation.menuItems,
+  menuOpen: state.navigation.menuOpen
+
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(Navigation))
