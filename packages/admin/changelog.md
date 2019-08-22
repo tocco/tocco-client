@@ -1,3 +1,7 @@
+0.1.3
+- menu and navigation improvements
+- detail dashboard
+
 0.1.2
 - improved navigation and detail view
 
