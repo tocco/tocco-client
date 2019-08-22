@@ -73,7 +73,7 @@ webpackConfig.output = {
   chunkFilename: '[name]-chunk-[chunkhash:6].js',
   path: outputDir,
   libraryTarget: 'umd',
-  publicPath: '',
+  publicPath: '/',
   jsonpFunction: __PACKAGE__ + 'jsonp'
 }
 
@@ -222,41 +222,40 @@ if (!__PROD__) {
       use: ['eslint-loader']
     }
   )
-
-  // File loaders
-  /* eslint-disable */
-  webpackConfig.module.rules.push(
-    {
-      test: /\.woff(\?.*)?$/,
-      use: 'file-loader?name=fonts/[name].[ext]&mimetype=application/font-woff'
-    },
-    {
-      test: /\.woff2(\?.*)?$/,
-      use: 'file-loader?name=fonts/[name].[ext]&mimetype=application/font-woff2'
-    },
-    {
-      test: /\.otf(\?.*)?$/,
-      use: 'file-loader?name=fonts/[name].[ext]&mimetype=font/opentype'
-    },
-    {
-      test: /\.ttf(\?.*)?$/,
-      use: 'file-loader?name=fonts/[name].[ext]&mimetype=application/octet-stream'
-    },
-    {
-      test: /\.eot(\?.*)?$/,
-      use: 'file-loader?name=fonts/[name].[ext]'
-    },
-    {
-      test: /\.svg(\?.*)?$/,
-      use: 'file-loader?name=fonts/[name].[ext]&mimetype=image/svg+xml'
-    },
-    {
-      test: /\.(png|jpg)$/,
-      use: 'file-loader?limit=8192'
-    }
-  )
-  /* eslint-enable */
 }
+// File loaders
+/* eslint-disable */
+webpackConfig.module.rules.push(
+  {
+    test: /\.woff(\?.*)?$/,
+    use: 'file-loader?name=fonts/[name].[ext]&mimetype=application/font-woff'
+  },
+  {
+    test: /\.woff2(\?.*)?$/,
+    use: 'file-loader?name=fonts/[name].[ext]&mimetype=application/font-woff2'
+  },
+  {
+    test: /\.otf(\?.*)?$/,
+    use: 'file-loader?name=fonts/[name].[ext]&mimetype=font/opentype'
+  },
+  {
+    test: /\.ttf(\?.*)?$/,
+    use: 'file-loader?name=fonts/[name].[ext]&mimetype=application/octet-stream'
+  },
+  {
+    test: /\.eot(\?.*)?$/,
+    use: 'file-loader?name=fonts/[name].[ext]'
+  },
+  {
+    test: /\.svg(\?.*)?$/,
+    use: 'file-loader?name=fonts/[name].[ext]&mimetype=image/svg+xml'
+  },
+  {
+    test: /\.(png|jpg|ico)$/,
+    use: 'file-loader?limit=8192'
+  }
+)
+/* eslint-enable */
 
 const packageWebpackFile = packageDir + '/build/webpack.js'
 if (fs.existsSync(packageWebpackFile)) {

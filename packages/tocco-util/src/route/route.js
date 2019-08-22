@@ -5,7 +5,7 @@ import sagaUtil from '../saga'
 import asyncRoute from './asyncRoute'
 import {dispatchInput} from './input'
 
-export const loadRoute = (store, input, importRouteDependencies, path) => props => {
+export const loadRoute = (store, input, importRouteDependencies) => props => {
   const Component = asyncRoute(() =>
     new Promise(resolve => {
       importRouteDependencies().then(imported => {

@@ -43,7 +43,7 @@ export class Icon extends React.Component {
         import: import(/* webpackChunkName: "fontawesomeicon-solid" */ '@fortawesome/free-solid-svg-icons'),
         module: 'fas'
       }
-      
+
   lazyLoadComponent = () => {
     Promise.all([
       import(/* webpackChunkName: "fontawesomeicon" */ '@fortawesome/react-fontawesome'),
@@ -71,6 +71,7 @@ export class Icon extends React.Component {
         {...filteredProps}
         icon={icon}
         style={{...this.props.style, ...(getSpacing(this.props))}}
+        {..._get(this.props, 'style.color') && {color: this.props.style.color}}
       />
     )
   }
@@ -100,7 +101,7 @@ Icon.propTypes = {
    */
   onLoaded: PropTypes.func,
   /**
-   * CSS Styles object.
+   * CSS Styles object. Color property can be used to coloize the icon.
    */
   style: PropTypes.objectOf(PropTypes.string)
 }

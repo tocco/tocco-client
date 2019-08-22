@@ -1,0 +1,24 @@
+{
+  "name": "tocco-admin",
+  "version": "0.1.3",
+  "description": "Alpha version of new tocco admin.",
+  "main": "dist/index.js",
+  "scripts": {
+    "compile:prod": "cd ../../ && npm run compile:prod -- --package=admin",
+    "prepublish": "npm run compile:prod"
+  },
+  "devDependencies": {
+    "@rebass/grid": "^6.0.0",
+    "path-to-regexp": "^3.0.0",
+    "react-burger-menu": "^2.6.11",
+    "react-helmet": "^5.2.1",
+    "tocco-app-extensions": ">0.1.0",
+    "tocco-entity-detail": ">0.1.0",
+    "tocco-entity-list": ">0.1.0",
+    "tocco-login": ">0.1.0",
+    "tocco-test-util": ">0.1.0",
+    "tocco-theme": ">0.1.0",
+    "tocco-ui": ">0.1.0",
+    "tocco-util": ">0.1.0"
+  }
+}

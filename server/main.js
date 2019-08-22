@@ -40,7 +40,7 @@ if (config.env === 'development') {
   // when the application is compiled.
 
   app.use(express.static(publicPath))
-  app.use(express.static('server/static'))
+  app.use('/static', express.static('server/static'))
 
   // This rewrites all routes requests to the root /index.html file
   // (ignoring file requests). If you want to implement universal

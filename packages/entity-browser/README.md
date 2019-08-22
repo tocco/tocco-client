@@ -1,7 +1,7 @@
-#Entity Browser
+# Entity Browser
 List/detail view of any entity with configurable search-form.
 
-##Embedding
+## Embedding
 
 React-registry name: `entity-browser`
 

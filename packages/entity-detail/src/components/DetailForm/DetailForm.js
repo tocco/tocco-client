@@ -46,13 +46,8 @@ export class DetailForm extends React.Component {
   }
 
   handleKeyPress = event => {
-    if (event.ctrlKey && event.key === 's') {
-      event.preventDefault()
-      this.save()
-    }
-
     if (event.key === 'Enter' && event.target.tagName !== 'TEXTAREA') {
-      event.preventDefault()
+      event.preventDefault() // disable save on enter key down
     }
   }
 
