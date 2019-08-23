@@ -1,20 +1,30 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {intlShape} from 'react-intl'
-import {Flex, Box} from '@rebass/grid'
+import styled from 'styled-components'
 
 import RelationsView from '../RelationsView'
 import EditView from '../EditView'
 
+const DetailViewContainer = styled.div`
+  display:flex;
+  flex-direction: row;
+`
+
+const DetailViewPart = styled.div`
+  margin: 5px;
+  flex: 1;
+`
+
 const DetailView = props => (
-  <Flex key="flex">
-    <Box width={1 / 2} p={10}>
+  <DetailViewContainer>
+    <DetailViewPart>
       <EditView match={props.match} history={props.history}/>
-    </Box>
-    <Box width={1 / 2} p={10}>
+    </DetailViewPart>
+    <DetailViewPart>
       <RelationsView match={props.match}/>
-    </Box>
-  </Flex>
+    </DetailViewPart>
+  </DetailViewContainer>
 )
 
 DetailView.propTypes = {

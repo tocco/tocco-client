@@ -1,21 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ToccoLogin from 'tocco-login/src/main'
-import {Box} from '@rebass/grid'
+import styled from 'styled-components'
+
+const StyledLogin = styled.div`
+  width: 400px;
+  margin: 0 auto;
+`
+
 const Login = props => {
   const loginSuccess = ({timeout}) => {
     props.loginSuccessful(timeout)
   }
 
   return (
-    <div>
-      <Box width={1 / 4} ml="auto" mr="auto" mt="auto">
-        <ToccoLogin
-          loginSuccess={loginSuccess}
-          showTitle
-        />
-      </Box>
-    </div>
+    <StyledLogin>
+      <ToccoLogin
+        loginSuccess={loginSuccess}
+        showTitle
+      />
+    </StyledLogin>
   )
 }
 

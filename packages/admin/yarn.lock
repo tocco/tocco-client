@@ -2,18 +2,6 @@
 # yarn lockfile v1
 
 
-"@babel/runtime@^7.4.2":
-  version "7.4.5"
-  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.4.5.tgz#582bb531f5f9dc67d2fcb682979894f75e253f12"
-  dependencies:
-    regenerator-runtime "^0.13.2"
-
-"@rebass/grid@^6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@rebass/grid/-/grid-6.0.0.tgz#79ad5ae7951bba41a62db5caf1ee2006a201b3b1"
-  dependencies:
-    styled-system "^4.0.6"
-
 amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
@@ -154,10 +142,6 @@ react-side-effect@^1.1.0:
     exenv "^1.2.1"
     shallowequal "^1.0.1"
 
-regenerator-runtime@^0.13.2:
-  version "0.13.2"
-  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.2.tgz#32e59c9a6fb9b1a4aff09b4930ca2d4477343447"
-
 resolve@1.1.7:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.1.7.tgz#203114d82ad2c5ed9e8e0411b3932875e889e97b"
@@ -189,14 +173,42 @@ source-map@~0.1.30:
   dependencies:
     amdefine ">=0.0.4"
 
-styled-system@^4.0.6:
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/styled-system/-/styled-system-4.2.3.tgz#124c470b593b9d38bdba5b76e69e71d63317e90b"
-  dependencies:
-    "@babel/runtime" "^7.4.2"
-    prop-types "^15.7.2"
-
 through@~2.3.4:
   version "2.3.8"
   resolved "https://registry.yarnpkg.com/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
   integrity sha1-DdTJ/6q8NXlgsbckEV1+Doai4fU=
+
+tocco-entity-detail@>0.1.0:
+  version "0.1.14"
+  resolved "https://registry.yarnpkg.com/tocco-entity-detail/-/tocco-entity-detail-0.1.14.tgz#c425128d0540786316eff1acd9ddb30dfe57ac1c"
+  integrity sha512-RsPAztUceV792kWS/HjOd8Ucc0384Lr+L5BuknlH9qQByWH9FYA4Bis+djRpCnFqIPdxjdlmrPiTkktPmUA8ww==
+
+tocco-entity-list@>0.1.0:
+  version "0.1.14"
+  resolved "https://registry.yarnpkg.com/tocco-entity-list/-/tocco-entity-list-0.1.14.tgz#ec58ac5fdb958a418a19d6a8771ffa6771b23ee6"
+  integrity sha512-9PVy4KXEMQNWG0DFzdxLZa/rLUQjndi6tuzM9lmv+VtbQy1sV97DduPuCMGGBb1S2ejrxMcBqjdTAtsZ2/TWfw==
+
+tocco-login@>0.1.0:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/tocco-login/-/tocco-login-0.2.2.tgz#5c421f609b8c63263997b5c2d9bc87f8e90d3fc3"
+  integrity sha512-ur/M83uoaOClL3mek4gzzwXaQCEv4WUAPaVy0XHOX08pAVI1io07vuYhQps2P1EQ61Jrw6lrHu3l49YTcOTrfA==
+
+tocco-test-util@>0.1.0:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/tocco-test-util/-/tocco-test-util-0.1.2.tgz#6388309f1598d612cbc29e27564fb10706ade6f6"
+  integrity sha1-Y4gwnxWY1hLLwp4nVk+xBwat5vY=
+
+tocco-theme@>0.1.0:
+  version "0.2.7"
+  resolved "https://registry.yarnpkg.com/tocco-theme/-/tocco-theme-0.2.7.tgz#b46f25f7b46e15f5cd69bd812d9f1f0bb3a792aa"
+  integrity sha512-zPr8vRWERLncumLzDJUMwQo3abfzGpe9YHqEY/DIh5828MvYaU/0D5kH0ewQdNspRAK+eoqX+AzsVosjVO+Q/Q==
+
+tocco-ui@>0.1.0:
+  version "0.1.14"
+  resolved "https://registry.yarnpkg.com/tocco-ui/-/tocco-ui-0.1.14.tgz#5e8ceceee76cf1acb2ae2b79fe5f5c63b035ca3b"
+  integrity sha512-/VHrJcS/aKdDmB6qEFQCx3KUDmsD56g2HitbYEhcvpJ8UCyV4I5ClOxGpcUcjbkjr8pwgD5JR1HuQ3BVnS0nQQ==
+
+tocco-util@>0.1.0:
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/tocco-util/-/tocco-util-0.1.11.tgz#c159134e9bb8359384aab0996286de233b19d0a8"
+  integrity sha512-7VbdKXPPAyXXibJ1AIiPDdwb4ksU0RmbvHr/mznU//slM9I8ncoOLR/159lcnDnXiI6HokWE+fKqRCuyZ9oQNw==

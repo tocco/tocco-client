@@ -4,11 +4,11 @@ import {appFactory, notifier, errorLogging, actionEmitter, externalEvents, keyDo
 
 import shortcuts from './shortcuts'
 import reducers, {sagas} from './modules/reducers'
-import Admin from './components/Admin'
+import LoginGuard from './components/LoginGuard'
 const packageName = 'admin'
 
 const initApp = (id, input, events, publicPath) => {
-  const content = <Admin/>
+  const content = <LoginGuard/>
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   externalEvents.addToStore(store, events)
