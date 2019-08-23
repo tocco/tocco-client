@@ -1,12 +1,20 @@
-import {route} from 'tocco-util'
-import React from 'react'
+import {route, js} from 'tocco-util'
+import React, {memo} from 'react'
 import {ReactReduxContext} from 'react-redux'
 
-export default props => {
-  return <ReactReduxContext.Consumer>
-    {({store}) => {
-      const Component = route.loadRoute(store, {}, () => (import('./route')))
-      return <Component {...props}/>
-    }}
-  </ReactReduxContext.Consumer>
+function areEqual(prevProps, nextProps) {
+  const diff = js.difference(prevProps, nextProps)
+  return Object.entries(diff).length === 0
 }
+
+export default memo(
+  props => (
+    <ReactReduxContext.Consumer>
+      {({store}) => {
+        const Component = route.loadRoute(store, {}, () => (import('./route')))
+        return <Component {...props}/>
+      }}
+    </ReactReduxContext.Consumer>
+  ),
+  areEqual
+)
