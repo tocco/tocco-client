@@ -8,7 +8,6 @@
     "prepublish": "npm run compile:prod"
   },
   "devDependencies": {
-    "@rebass/grid": "^6.0.0",
     "path-to-regexp": "^3.0.0",
     "react-burger-menu": "^2.6.11",
     "react-helmet": "^5.2.1",

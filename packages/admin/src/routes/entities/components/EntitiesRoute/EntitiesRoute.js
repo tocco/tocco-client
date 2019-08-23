@@ -1,26 +1,48 @@
 import React, {useEffect} from 'react'
 import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
 import Overview from '../../subroutes/overview'
 import Entity from '../../subroutes/entity'
 import Breadcrumbs from '../Breadcrumbs'
 
+const StyledWrapper = styled.div`
+  display: grid;
+  grid-template-rows: auto  1fr;
+  grid-template-areas:
+    "breadcrumbs"
+    "content";
+  height: 100%;
+`
+
+const StyledContent = styled.div`
+  grid-area: content;
+  overflow: auto;
+`
+
+const StyledBreadcrumbs = styled.div`
+  grid-area: breadcrumbs;
+  overflow: hidden;
+`
+
 const EntitiesRoute = ({match, history, loadCurrentViewInfo, currentViewInfo}) => {
   useEffect(() => { loadCurrentViewInfo(history.location.pathname) }, [])
 
   return (
-    <div>
-      <Breadcrumbs/>
+    <StyledWrapper>
 
-      <Switch>
-        <Route
-          path={`${match.url}/:entity`}
-          component={Entity}
-        />
-        <Route exact path={match.url} component={Overview}/>
-      </Switch>
-    </div>
+      <StyledBreadcrumbs><Breadcrumbs/></StyledBreadcrumbs>
+      <StyledContent>
+        <Switch>
+          <Route
+            path={`${match.url}/:entity`}
+            component={Entity}
+          />
+          <Route exact path={match.url} component={Overview}/>
+        </Switch>
+      </StyledContent>
+    </StyledWrapper>
   )
 }
 
