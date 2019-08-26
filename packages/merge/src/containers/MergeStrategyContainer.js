@@ -18,4 +18,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, mapActionCreators, null, {withRef: true})(injectIntl(MergeStrategy))
+export default connect(mapStateToProps, mapActionCreators)(injectIntl(MergeStrategy))
