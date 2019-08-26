@@ -7,7 +7,7 @@ export {
   StyledInputCss
 } from './EditableValue'
 export {default as FormattedValue} from './FormattedValue'
-export {default as Icon, StyledIcon} from './Icon'
+export {default as Icon} from './Icon'
 export {default as IconTocco, StyledIconToccoSvg, StyledIconToccoWrapper} from './IconTocco'
 export {default as MultiCheckbox} from './MultiCheckbox'
 export {default as Layout, StyledLayoutBox, StyledLayoutContainer} from './Layout'
@@ -75,7 +75,6 @@ export {
   declareFont,
   declareWrappingText,
   design,
-  generateInteractionColor,
   generateShades,
   scale,
   shadeColor,
