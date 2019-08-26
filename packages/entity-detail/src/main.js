@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {reducer as reducerUtil} from 'tocco-util'
 import {
   appFactory,
   notifier,
@@ -56,13 +55,6 @@ const initApp = (id, input, events = {}, publicPath) => {
       textResourceModules: ['component', 'common', 'entity-list']
     }
   )
-
-  if (module.hot) {
-    module.hot.accept('./modules/reducers', () => {
-      const reducers = require('./modules/reducers').default
-      reducerUtil.hotReloadReducers(app.store, reducers)
-    })
-  }
 
   return app
 }

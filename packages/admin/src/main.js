@@ -1,5 +1,4 @@
 import React from 'react'
-import {reducer as reducerUtil} from 'tocco-util'
 import {appFactory, notifier, errorLogging, actionEmitter, externalEvents, keyDown} from 'tocco-app-extensions'
 
 import shortcuts from './shortcuts'
@@ -43,13 +42,6 @@ const initApp = (id, input, events, publicPath) => {
     }
 
     const app = initApp(packageName, input)
-
-    if (module.hot) {
-      module.hot.accept('./modules/reducers', () => {
-        const reducers = require('./modules/reducers').default
-        reducerUtil.hotReloadReducers(app.store, reducers)
-      })
-    }
 
     appFactory.renderApp(app.renderComponent())
   } else {
