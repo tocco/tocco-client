@@ -136,7 +136,8 @@ PasswordUpdateDialog.propTypes = {
     newPasswordRepeat: PropTypes.string.isRequired,
     newPasswordValidationErrors: PropTypes.object,
     passwordUpdatePending: PropTypes.bool.isRequired,
-    passwordUpdateErrorCode: PropTypes.string
+    passwordUpdateErrorCode: PropTypes.string,
+    passwordUpdateFailed: PropTypes.bool
   }).isRequired,
   validationRules: PropTypes.array,
   showOldPasswordField: PropTypes.bool,

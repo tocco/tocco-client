@@ -136,7 +136,10 @@ SearchForm.propTypes = {
       id: PropTypes.string.isRequired,
       hidden: PropTypes.bool
     })
-  )
+  ),
+  entity: PropTypes.object,
+  form: PropTypes.string,
+  formValues: PropTypes.object
 }
 
 export default reduxForm({

@@ -25,7 +25,8 @@ const EntityExplorerMenuEntry = ({onClick, item}) => {
 EntityExplorerMenuEntry.propTypes = {
   item: PropTypes.shape({
     entity: PropTypes.string,
-    label: PropTypes.string
+    label: PropTypes.string,
+    matchingAttribute: PropTypes.string
   }),
   onClick: PropTypes.func
 }

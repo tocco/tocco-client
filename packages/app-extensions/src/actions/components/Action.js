@@ -33,7 +33,9 @@ Action.propTypes = {
     useLabel: PropTypes.string,
     icon: PropTypes.string,
     label: PropTypes.string,
-    config: PropTypes.object
+    config: PropTypes.object,
+    scopes: PropTypes.arrayOf(PropTypes.string),
+    componentType: PropTypes.string
   }).isRequired,
   selection: PropTypes.shape({
     entityName: PropTypes.string.isRequired,

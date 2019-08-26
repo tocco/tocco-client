@@ -56,7 +56,8 @@ ListView.propTypes = {
     model: PropTypes.string.isRequired,
     reverseRelationName: PropTypes.string
   }),
-  dataLoadingInProgress: PropTypes.bool
+  dataLoadingInProgress: PropTypes.bool,
+  entityName: PropTypes.string
 }
 
 export default ListView
