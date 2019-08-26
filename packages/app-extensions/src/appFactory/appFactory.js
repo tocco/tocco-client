@@ -61,7 +61,7 @@ export const renderApp = (app, mountElementName = 'root') => {
     ReactDOM.render(app, mountElement)
   }
 
-  if (__DEV__ && module.hot) {
+  if (__DEV__) {
     const renderApp = render
     const renderError = error => {
       const RedBox = require('redbox-react')

@@ -60,7 +60,6 @@ const webpackConfig = {
 const APP_ENTRY_PATH = paths.client(`${packageDir}/src/main.js`)
 
 webpackConfig.entry = [
-  ...(__DEV__ ? ['webpack-hot-middleware/client'] : []),
   APP_ENTRY_PATH
 ]
 
@@ -198,11 +197,6 @@ webpackConfig.module.rules = [
             'lodash',
             'transform-react-remove-prop-types',
             'transform-react-constant-elements'
-          ]
-        },
-        development: {
-          presets: [
-            'react-hmre'
           ]
         },
         test: {

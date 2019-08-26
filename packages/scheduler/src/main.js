@@ -1,5 +1,4 @@
 import React from 'react'
-import {reducer as reducerUtil} from 'tocco-util'
 import {appFactory, externalEvents} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
 
@@ -49,13 +48,6 @@ const initApp = (input, events, publicPath) => {
     }
 
     const app = initApp(input)
-
-    if (module.hot) {
-      module.hot.accept('./modules/reducers', () => {
-        const reducers = require('./modules/reducers').default
-        reducerUtil.hotReloadReducers(app.store, reducers)
-      })
-    }
 
     appFactory.renderApp(app.renderComponent())
   } else {
