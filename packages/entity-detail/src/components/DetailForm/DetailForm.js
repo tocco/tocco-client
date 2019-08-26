@@ -118,16 +118,17 @@ DetailForm.propTypes = {
   submitForm: PropTypes.func.isRequired,
   formDefinition: PropTypes.object.isRequired,
   entity: PropTypes.object.isRequired,
-
   form: PropTypes.string.isRequired,
   touch: PropTypes.func.isRequired,
+  formValues: PropTypes.object,
   submitting: PropTypes.bool,
   formErrors: PropTypes.object,
   valid: PropTypes.bool,
   dirty: PropTypes.bool,
   lastSave: PropTypes.number,
   fireTouched: PropTypes.func.isRequired,
-  touchAllFields: PropTypes.func.isRequired
+  touchAllFields: PropTypes.func.isRequired,
+  anyTouched: PropTypes.bool
 }
 
 export default reduxForm({

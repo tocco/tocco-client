@@ -29,7 +29,8 @@ const MenuItem = ({item, typeMapping}) => {
 
 MenuItem.propTypes = {
   item: PropTypes.shape({
-    menuType: PropTypes.string
+    menuType: PropTypes.string,
+    children: PropTypes.array
   }),
   typeMapping: PropTypes.objectOf(
     PropTypes.shape({
