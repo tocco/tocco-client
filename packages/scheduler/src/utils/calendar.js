@@ -1,4 +1,3 @@
-import classNames from 'classnames'
 import {color} from 'tocco-util'
 
 import conflicts from './conflicts'
@@ -30,10 +29,10 @@ export const getEvents = calendars =>
         description: event.description,
         conflict: event.conflict,
         ...(event.color ? {backgroundColor: event.color} : {}),
-        className: classNames(
-          {conflict: event.conflict === conflicts.EXISTING},
+        className: [
+          ...(event.conflict === conflicts.EXISTING ? ['conflict'] : []),
           getOptimalTextColorClass(event.color)
-        )
+        ]
       }))
     ]
   ), [])
