@@ -1,7 +1,7 @@
+import {call} from 'redux-saga/effects'
+
 import {sendRequest} from './request'
 import {handleClientQuestion} from './clientQuestions'
-
-import {call} from 'redux-saga/effects'
 
 export const getParameterString = params => {
   const paramString = Object.keys(params || {})

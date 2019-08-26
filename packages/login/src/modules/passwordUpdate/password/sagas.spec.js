@@ -1,11 +1,10 @@
 import {externalEvents} from 'tocco-app-extensions'
+import {takeLatest, put, select, call, fork, all} from 'redux-saga/effects'
 
 import rootSaga, * as sagas from './sagas'
 import * as actions from './actions'
 import {setPassword} from '../../login/actions'
 import {loginSaga} from '../../sagas'
-
-import {takeLatest, put, select, call, fork, all} from 'redux-saga/effects'
 
 describe('login', () => {
   describe('modules', () => {

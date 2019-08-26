@@ -1,10 +1,9 @@
 import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import {externalEvents} from 'tocco-app-extensions'
+import {fork, takeLatest} from 'redux-saga/effects'
 
 import mainSaga, * as sagas from './sagas'
 import * as actions from './actions'
-
-import {fork, takeLatest} from 'redux-saga/effects'
 
 describe('scheduler', () => {
   describe('modules', () => {

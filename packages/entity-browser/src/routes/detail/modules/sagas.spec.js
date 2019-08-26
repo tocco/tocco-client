@@ -1,11 +1,11 @@
+import {call, put, fork, select, takeLatest, all} from 'redux-saga/effects'
+
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
 import parseUrl from '../../../util/parseUrl'
 import {fetchModel} from '../../../util/api/entities'
 import doShowBackButton from '../../../util/showBackButton'
 import detail from '../../../util/detail'
-
-import {call, put, fork, select, takeLatest, all} from 'redux-saga/effects'
 
 describe('entity-browser', () => {
   describe('routes', () => {

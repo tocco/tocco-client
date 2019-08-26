@@ -1,9 +1,8 @@
 import {rest} from 'tocco-app-extensions'
 import {mockData} from 'tocco-util'
+import {call} from 'redux-saga/effects'
 
 import * as forms from './forms'
-
-import {call} from 'redux-saga/effects'
 
 describe('entity-list', () => {
   describe('util', () => {

@@ -1,9 +1,8 @@
 import _uniq from 'lodash/uniq'
+import {call} from 'redux-saga/effects'
 
 import componentTypes from './enums/componentTypes'
 import rest from '../rest'
-
-import {call} from 'redux-saga/effects'
 
 export const getFieldId = (formName, fieldName) => (
   `input-${formName}-${fieldName}`

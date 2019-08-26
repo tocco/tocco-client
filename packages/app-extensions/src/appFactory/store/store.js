@@ -4,11 +4,10 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import createSagaMiddleware from 'redux-saga'
 import thunk from 'redux-thunk'
 import {reducer as reducerUtil, saga as sagaUtil} from 'tocco-util'
+import {fork} from 'redux-saga/effects'
 
 import inputReducer from './input/reducer'
 import errorLogging from '../../errorLogging'
-
-import {fork} from 'redux-saga/effects'
 
 const getIntialState = input => {
   const initialState = window.__INITIAL_STATE__ || {}

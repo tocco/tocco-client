@@ -1,5 +1,4 @@
 import {consoleLogger} from 'tocco-util'
-
 import {call} from 'redux-saga/effects'
 
 export default function* consoleLog(title, description, error) {

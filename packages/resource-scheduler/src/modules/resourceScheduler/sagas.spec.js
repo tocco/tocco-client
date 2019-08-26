@@ -2,12 +2,11 @@ import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {rest} from 'tocco-app-extensions'
 import fetchMock from 'fetch-mock'
+import {fork, select, takeLatest} from 'redux-saga/effects'
 
 import mainSaga, * as sagas from './sagas'
 import * as actions from './actions'
 import {transformRequestedCalendars} from '../../utils/rest'
-
-import {fork, select, takeLatest} from 'redux-saga/effects'
 
 describe('resource-scheduler', () => {
   describe('modules', () => {

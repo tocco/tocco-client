@@ -1,9 +1,8 @@
 import {consoleLogger} from 'tocco-util'
 import {delay} from 'redux-saga'
+import {takeLatest, fork, call, all, put} from 'redux-saga/effects'
 
 import * as actions from './actions'
-
-import {takeLatest, fork, call, all, put} from 'redux-saga/effects'
 
 export function* sessionHeartBeat(sessionTimeout) {
   const threeQuarterSeconds = sessionTimeout * 45000

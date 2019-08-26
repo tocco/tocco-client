@@ -1,13 +1,12 @@
 
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
+import {takeEvery, fork, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import actionHandlers from './actionHandlers'
 import preAction from './preActions'
 import rootSaga, * as sagas from './sagas'
-
-import {takeEvery, fork, all} from 'redux-saga/effects'
 
 describe('app-extensions', () => {
   describe('actions', () => {

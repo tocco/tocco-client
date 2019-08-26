@@ -1,9 +1,8 @@
 import fetchMock from 'fetch-mock'
+import {call} from 'redux-saga/effects'
 
 import * as formDefinition from './formDefinition'
 import rest from '../rest'
-
-import {call} from 'redux-saga/effects'
 
 const testField1 = {
   id: 'firstname-field', // does not match path by intention (-> should use path for getUsedPaths)

@@ -1,6 +1,5 @@
 import _uniq from 'lodash/uniq'
 import {actions, form, rest} from 'tocco-app-extensions'
-
 import {call} from 'redux-saga/effects'
 
 export const defaultFormTransformer = json => (json.form)

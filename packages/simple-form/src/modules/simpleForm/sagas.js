@@ -1,10 +1,9 @@
 import {getFormValues, actions as formActions, isValid} from 'redux-form'
 import {CHANGE, UPDATE_SYNC_ERRORS, INITIALIZE} from 'redux-form/es/actionTypes'
 import {externalEvents, form as formUtil} from 'tocco-app-extensions'
+import {all, call, fork, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
 
 import * as actions from './actions'
-
-import {all, call, fork, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
 
 const FORM_ID = 'simpleForm'
 export const inputSelector = state => state.input

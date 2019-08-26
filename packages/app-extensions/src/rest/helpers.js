@@ -1,9 +1,8 @@
 import _reduce from 'lodash/reduce'
 import _isObject from 'lodash/isObject'
+import {call} from 'redux-saga/effects'
 
 import {requestSaga} from './rest'
-
-import {call} from 'redux-saga/effects'
 
 /**
  * Helper to fetch a single entity

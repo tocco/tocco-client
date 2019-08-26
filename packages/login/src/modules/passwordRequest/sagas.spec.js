@@ -1,12 +1,11 @@
 import {rest} from 'tocco-app-extensions'
+import {call, put, select, fork, takeLatest, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
 import {changePage, setUsername} from '../login/actions'
 import {setMessage, setPending} from '../loginForm/actions'
 import {Pages} from '../../types/Pages'
-
-import {call, put, select, fork, takeLatest, all} from 'redux-saga/effects'
 
 export const inputSelector = state => state.input
 

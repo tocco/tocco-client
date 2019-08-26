@@ -1,7 +1,7 @@
+import {takeEvery, fork, select, put, all} from 'redux-saga/effects'
+
 import {CHANGE_TARGET_ENTITY} from './actions'
 import {selectSourceField, selectSourceRelation} from './selections/actions'
-
-import {takeEvery, fork, select, put, all} from 'redux-saga/effects'
 
 export const mergeMatrixSelector = state => state.mergeMatrix
 

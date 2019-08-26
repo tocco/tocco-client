@@ -1,11 +1,10 @@
 import React from 'react'
 import {channel} from 'redux-saga'
+import {call, put, take, all} from 'redux-saga/effects'
 
 import notifier from '../../../notifier'
 import rest from '../../../rest'
 import simpleFormConnector from '../../containers/simpleFormConnector'
-
-import {call, put, take, all} from 'redux-saga/effects'
 
 export const formValues = formValues => ({formValues})
 

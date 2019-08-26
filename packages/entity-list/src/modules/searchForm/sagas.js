@@ -5,14 +5,13 @@ import {
   getFormValues
 } from 'redux-form'
 import * as formActionTypes from 'redux-form/es/actionTypes'
+import {call, put, fork, select, takeLatest, take, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import {fetchForm, searchFormTransformer, getFormFieldFlat, getEndpoint} from '../../util/api/forms'
 import {SET_INITIALIZED as LIST_SET_INITIALIZED} from '../entityList/actions'
 import {validateSearchFields} from '../../util/searchFormValidation'
 import {SET_FORM_DEFINITION} from '../list/actions'
-
-import {call, put, fork, select, takeLatest, take, all} from 'redux-saga/effects'
 
 export const inputSelector = state => state.input
 export const searchFormSelector = state => state.searchForm

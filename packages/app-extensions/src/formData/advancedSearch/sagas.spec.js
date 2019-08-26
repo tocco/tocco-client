@@ -2,11 +2,10 @@ import React from 'react'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {rest, notifier} from 'tocco-app-extensions'
+import {takeEvery, fork, all, select} from 'redux-saga/effects'
 
 import * as advancedSearchActions from './actions'
 import rootSaga, * as sagas from './sagas'
-
-import {takeEvery, fork, all, select} from 'redux-saga/effects'
 
 describe('app-extensions', () => {
   describe('formData', () => {

@@ -1,7 +1,6 @@
 import {rest} from 'tocco-app-extensions'
 import _reduce from 'lodash/reduce'
 import {consoleLogger} from 'tocco-util'
-
 import {call} from 'redux-saga/effects'
 
 const getCreatePermission = json => {

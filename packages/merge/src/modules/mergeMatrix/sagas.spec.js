@@ -1,7 +1,7 @@
+import {put, select} from 'redux-saga/effects'
+
 import * as sagas from './sagas'
 import {selectSourceField, selectSourceRelation} from './selections/actions'
-
-import {put, select} from 'redux-saga/effects'
 
 describe('merge', () => {
   describe('modules', () => {

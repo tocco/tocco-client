@@ -1,11 +1,10 @@
 import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
+import {fork, takeLatest} from 'redux-saga/effects'
 
 import * as locationActions from './actions'
 import * as sagas from './sagas'
 import {getCountry, loadCountries, requestSuggestions, transformToSuggestions} from './utils'
-
-import {fork, takeLatest} from 'redux-saga/effects'
 
 const suggestions = [
   {

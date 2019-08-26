@@ -2,13 +2,12 @@ import React from 'react'
 import {channel} from 'redux-saga'
 import uuid from 'uuid/v4'
 import {saga as sagaUtil, download} from 'tocco-util'
+import {call, put, take} from 'redux-saga/effects'
 
 import {submitActions} from '../../utils/report'
 import rest from '../../../rest'
 import notifier from '../../../notifier'
 import ReportSettings from '../../components/ReportSettings'
-
-import {call, put, take} from 'redux-saga/effects'
 
 export default function* (actionDefinition, entity, selection, parent, params, config) {
   const answerChannel = yield call(channel)

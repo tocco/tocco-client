@@ -5,6 +5,7 @@ import {
   actions as formActions
 } from 'redux-form'
 import * as formActionTypes from 'redux-form/es/actionTypes'
+import {put, select, call, fork, takeLatest, all} from 'redux-saga/effects'
 
 import rootSaga, * as sagas from './sagas'
 import * as actions from './actions'
@@ -12,8 +13,6 @@ import {validateSearchFields} from '../../util/searchFormValidation'
 import {fetchForm, getEndpoint} from '../../util/api/forms'
 import {setInitialized} from '../entityList/actions'
 import {setFormDefinition} from '../list/actions'
-
-import {put, select, call, fork, takeLatest, all} from 'redux-saga/effects'
 
 describe('entity-list', () => {
   describe('modules', () => {

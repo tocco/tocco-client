@@ -1,7 +1,7 @@
+import {all, call, fork, put, takeLatest} from 'redux-saga/effects'
+
 import * as actions from './actions'
 import {loadCountries, transformToSuggestions, requestSuggestions, getCountry} from './utils'
-
-import {all, call, fork, put, takeLatest} from 'redux-saga/effects'
 
 export default function* sagas() {
   yield all([

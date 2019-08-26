@@ -1,12 +1,11 @@
 import {externalEvents, rest} from 'tocco-app-extensions'
+import {takeLatest, call, fork, select, put, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import localValidate from './validate'
 import {isEmptyObject, validationMessagesToErrorMap} from './utils'
 import {loginSaga} from '../../sagas'
 import {setPassword} from '../../login/actions'
-
-import {takeLatest, call, fork, select, put, all} from 'redux-saga/effects'
 
 export const validationRulesSelector = state => state.passwordUpdate.validationRules
 export const inputSelector = state => state.input

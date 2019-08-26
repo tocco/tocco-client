@@ -1,11 +1,10 @@
 import {externalEvents} from 'tocco-app-extensions'
+import {call, put, fork, select, takeLatest, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import selectionStyles from '../../util/selectionStyles'
 import {SET_FORM_SELECTABLE, QUERY_CHANGED, SET_ENTITY_COUNT} from '../list/actions'
 import {combineSelection, showSelectionComponent, getTableSelectionStyle} from '../../util/selection'
-
-import {call, put, fork, select, takeLatest, all} from 'redux-saga/effects'
 
 export const inputSelector = state => state.input
 export const entityListSelector = state => state.entityList

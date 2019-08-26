@@ -1,10 +1,9 @@
 import _pick from 'lodash/pick'
 import _uniq from 'lodash/uniq'
 import _get from 'lodash/get'
+import {all, call} from 'redux-saga/effects'
 
 import rest from '../../rest'
-
-import {all, call} from 'redux-saga/effects'
 
 const LOCATION_ENDPOINT = 'location/suggestions'
 const countryCodeField = 'iso2'
