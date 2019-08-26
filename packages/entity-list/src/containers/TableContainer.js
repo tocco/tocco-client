@@ -7,7 +7,6 @@ import {
   initialize,
   onRowClick,
   setSorting,
-  setSelectable,
   refresh
 } from '../modules/list/actions'
 import {
@@ -20,7 +19,6 @@ const mapActionCreators = {
   changePage,
   setSorting,
   onRowClick,
-  setSelectable,
   onSelectChange,
   setSelection,
   refresh
