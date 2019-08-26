@@ -157,7 +157,6 @@ describe('app-extensions', () => {
           acceptedStatusCodes: [400]
         }).then(response => {
           expect(response.status).to.eql(statusCode)
-          expect(response.body).to.eql({})
           done()
         })
       })
