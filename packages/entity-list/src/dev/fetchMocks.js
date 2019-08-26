@@ -9,5 +9,3 @@ export default function setupFetchMock(packageName, fetchMock, entityStore = def
   mockData.setupSystemMock(packageName, fetchMock, require('./textResources.json'))
   mockData.setupFetchMock(fetchMock, entityStore)
 }
-
-module.exports = setupFetchMock

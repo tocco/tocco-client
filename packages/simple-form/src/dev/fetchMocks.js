@@ -9,5 +9,3 @@ export default function setupFetchMock(packageName, fetchMock, entityStore = def
   mockData.setupFetchMock(fetchMock, entityStore)
   fetchMock.spy()
 }
-
-module.exports = setupFetchMock
