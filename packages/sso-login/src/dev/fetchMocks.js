@@ -10,5 +10,3 @@ export default function setupFetchMock(packageName, fetchMock) {
 
   fetchMock.spy()
 }
-
-module.exports = setupFetchMock

@@ -46,5 +46,3 @@ export default function setupFetchMock(packageName, fetchMock, entityStore = def
     dummyEntityCreateResponse(entityStore)
   )
 }
-
-module.exports = setupFetchMock
