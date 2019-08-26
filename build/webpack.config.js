@@ -5,7 +5,7 @@ import {argv} from 'yargs'
 import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import {BundleAnalyzerPlugin} from 'webpack-bundle-analyzer'
-import CleanWebpackPlugin from 'clean-webpack-plugin'
+import {CleanWebpackPlugin} from 'clean-webpack-plugin'
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin'
 import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
 import DotEnv from 'dotenv-webpack'
@@ -20,7 +20,6 @@ const packageDir = `packages/${__PACKAGE__}`
 const absolutePackagePath = paths.client(`${packageDir}/`)
 
 const outputDir = absolutePackagePath + '/dist'
-const testPlugins = []
 
 logger.info('Create webpack configuration.')
 const webpackConfig = {
@@ -50,22 +49,11 @@ const webpackConfig = {
     'React': 'React',
     'react-dom': 'ReactDOM',
     'ReactDOM': 'ReactDOM'
-  }
+  },
+  entry: [
+    paths.client(`${packageDir}/src/main.js`)
+  ]
 }
-
-// ------------------------------------
-// Entry Points
-// ------------------------------------
-
-const APP_ENTRY_PATH = paths.client(`${packageDir}/src/main.js`)
-
-webpackConfig.entry = [
-  APP_ENTRY_PATH
-]
-
-// ------------------------------------
-// Bundle Output
-// ------------------------------------
 
 webpackConfig.output = {
   filename: 'index.js',
@@ -76,9 +64,6 @@ webpackConfig.output = {
   jsonpFunction: __PACKAGE__ + 'jsonp'
 }
 
-// ------------------------------------
-// Plugins
-// ------------------------------------
 webpackConfig.plugins = [
   new CleanWebpackPlugin(),
   new webpack.DefinePlugin(config.globals),
@@ -153,72 +138,14 @@ if (argv['bundle-analyzer']) {
   }))
 }
 
-// ------------------------------------
-// Modules
-// ------------------------------------
-
 webpackConfig.module.rules = [
   {
     test: /\.(js|jsx)$/,
     exclude: /node_modules/,
-    loader: 'babel-loader',
-    options: {
-      cacheDirectory: true,
-      plugins: [
-        ['transform-imports', {
-          'tocco-util': {
-            'transform': 'tocco-util/src/${member}', // eslint-disable-line no-template-curly-in-string
-            'preventFullImport': true
-          },
-          'tocco-test-util': {
-            'transform': 'tocco-test-util/src/${member}', // eslint-disable-line no-template-curly-in-string
-            'preventFullImport': true
-          },
-          'redux-form': {
-            'transform': 'redux-form/es/${member}', // eslint-disable-line no-template-curly-in-string
-            'preventFullImport': true
-          },
-          'tocco-theme': {
-            'transform': 'tocco-theme/src/${member}', // eslint-disable-line no-template-curly-in-string
-            'preventFullImport': true
-          }
-        }],
-        'transform-runtime',
-        'syntax-dynamic-import'
-      ],
-      presets: [
-        ['es2015', {modules: false}],
-        'react',
-        'stage-0'
-      ],
-      env: {
-        production: {
-          plugins: [
-            'lodash',
-            'transform-react-remove-prop-types',
-            'transform-react-constant-elements'
-          ]
-        },
-        test: {
-          plugins: testPlugins
-        }
-      }
-    }
+    loader: 'babel-loader'
   }
 ]
 
-if (!__PROD__) {
-  // Run linting but only show errors as warning
-  webpackConfig.module.rules.push(
-    {
-      test: /\.jsx?$/,
-      enforce: 'pre',
-      use: ['eslint-loader']
-    }
-  )
-}
-// File loaders
-/* eslint-disable */
 webpackConfig.module.rules.push(
   {
     test: /\.woff(\?.*)?$/,
@@ -249,7 +176,6 @@ webpackConfig.module.rules.push(
     use: 'file-loader?limit=8192'
   }
 )
-/* eslint-enable */
 
 const packageWebpackFile = packageDir + '/build/webpack.js'
 if (fs.existsSync(packageWebpackFile)) {
