@@ -1,5 +1,5 @@
 module.exports = {
-  setupTestFrameworkScriptFile: '<rootDir>/build/jest-setup.js',
+  setupFilesAfterEnv: ['<rootDir>/build/jest-setup.js'],
   transformIgnorePatterns: [
     'node_modules/(?!redux-form|lodash-es|redux-saga)'
   ],
