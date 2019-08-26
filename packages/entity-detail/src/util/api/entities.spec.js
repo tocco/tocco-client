@@ -1,9 +1,8 @@
 import {rest} from 'tocco-app-extensions'
 import fetchMock from 'fetch-mock'
+import {call} from 'redux-saga/effects'
 
 import * as entities from './entities'
-
-import {call} from 'redux-saga/effects'
 
 describe('entity-detail', () => {
   describe('util', () => {

@@ -1,11 +1,10 @@
 
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
+import {call} from 'redux-saga/effects'
 
 import {requestSaga} from './rest'
 import * as helpers from './helpers'
-
-import {call} from 'redux-saga/effects'
 
 describe('app-extensions', () => {
   describe('rest', () => {

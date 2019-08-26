@@ -1,9 +1,8 @@
 import {delay} from 'redux-saga'
 import _pick from 'lodash/pick'
+import {all, call, put} from 'redux-saga/effects'
 
 import consoleLogger from '../consoleLogger'
-
-import {all, call, put} from 'redux-saga/effects'
 
 /**
  * Sends a request to a location in a repetitive manner until the response has another status

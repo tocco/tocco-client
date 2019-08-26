@@ -1,10 +1,9 @@
 import _get from 'lodash/get'
 import _join from 'lodash/join'
 import _pick from 'lodash/pick'
+import {call} from 'redux-saga/effects'
 
 import rest from '../rest'
-
-import {call} from 'redux-saga/effects'
 
 export function* fetchEntities(entity, ids) {
   const query = {

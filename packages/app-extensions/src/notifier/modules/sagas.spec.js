@@ -1,12 +1,11 @@
 import {actions as toastrActionsr} from 'react-redux-toastr'
 import {expectSaga} from 'redux-saga-test-plan'
+import {fork, takeEvery, all, call, put} from 'redux-saga/effects'
 
 import {getConfirmationAction, getYesNoAction, getBlockingInfo} from '../notificationActionFactory'
 import rootSaga, * as sagas from './sagas'
 import * as actions from './actions'
 import actionEmitter from '../../actionEmitter'
-
-import {fork, takeEvery, all, call, put} from 'redux-saga/effects'
 
 const EMPTY_FUNC = () => {}
 

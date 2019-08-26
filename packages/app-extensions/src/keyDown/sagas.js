@@ -1,6 +1,6 @@
-import * as actions from './actions'
-
 import {fork, takeEvery, all, put} from 'redux-saga/effects'
+
+import * as actions from './actions'
 
 export default function* sagas(configs) {
   yield all([

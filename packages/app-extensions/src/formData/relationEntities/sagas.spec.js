@@ -1,12 +1,11 @@
 import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
+import {select, fork, takeEvery} from 'redux-saga/effects'
+import {asEffect} from 'redux-saga/utils'
 
 import * as relationEntitiesActions from './actions'
 import rest from '../../rest'
 import * as sagas from './sagas'
-
-import {select, fork, takeEvery} from 'redux-saga/effects'
-import {asEffect} from 'redux-saga/utils'
 
 describe('app-extensions', () => {
   describe('formData', () => {

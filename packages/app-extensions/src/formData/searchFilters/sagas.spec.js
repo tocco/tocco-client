@@ -1,11 +1,10 @@
 import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
+import {fork, select, takeLatest} from 'redux-saga/effects'
 
 import rest from '../../rest'
 import * as sagas from './sagas'
 import * as actions from './actions'
-
-import {fork, select, takeLatest} from 'redux-saga/effects'
 
 describe('app-extensions', () => {
   describe('formData', () => {

@@ -1,9 +1,9 @@
+import {takeLatest, fork, put, call, all} from 'redux-saga/effects'
+
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
 import {loginSaga} from '../sagas'
 import {setPending} from '../loginForm/actions'
-
-import {takeLatest, fork, put, call, all} from 'redux-saga/effects'
 
 describe('login', () => {
   describe('modules', () => {

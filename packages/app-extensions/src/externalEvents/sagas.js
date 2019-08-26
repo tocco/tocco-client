@@ -1,7 +1,7 @@
+import {fork, takeEvery, call, all} from 'redux-saga/effects'
+
 import * as actions from './actions'
 import {invokeExternalEvent} from './externalEvents'
-
-import {fork, takeEvery, call, all} from 'redux-saga/effects'
 
 export default function* sagas(events) {
   yield all([

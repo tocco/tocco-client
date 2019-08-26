@@ -1,6 +1,5 @@
 import {SubmissionError} from 'redux-form'
 import {form, rest} from 'tocco-app-extensions'
-
 import {call} from 'redux-saga/effects'
 
 export function* fetchEntity(entityName, id, paths, formName) {

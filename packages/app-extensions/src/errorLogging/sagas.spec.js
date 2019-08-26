@@ -1,8 +1,8 @@
+import {call, takeEvery} from 'redux-saga/effects'
+
 import rootSaga, * as sagas from './sagas'
 import * as actions from './actions'
 import handlerRegistry from './handlerRegistry'
-
-import {call, takeEvery} from 'redux-saga/effects'
 
 describe('app-extensions', () => {
   describe('errorLogging', () => {

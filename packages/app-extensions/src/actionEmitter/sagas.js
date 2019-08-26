@@ -1,6 +1,6 @@
-import * as actions from './actions'
-
 import {fork, takeEvery, all, put, call} from 'redux-saga/effects'
+
+import * as actions from './actions'
 
 export default function* sagas(parentEmitAction) {
   yield all([

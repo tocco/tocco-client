@@ -1,4 +1,5 @@
 import fetchMock from 'fetch-mock'
+import {call} from 'redux-saga/effects'
 
 import {
   getParameterString,
@@ -9,8 +10,6 @@ import {
 } from './rest'
 import {sendRequest} from './request'
 import {handleClientQuestion} from './clientQuestions'
-
-import {call} from 'redux-saga/effects'
 
 describe('app-extensions', () => {
   describe('rest', () => {

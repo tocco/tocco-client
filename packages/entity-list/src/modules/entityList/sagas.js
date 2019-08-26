@@ -1,9 +1,8 @@
 import _isEmpty from 'lodash/isEmpty'
+import {put, fork, select, call, takeLatest, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import {fetchModel} from '../../util/api/entities'
-
-import {put, fork, select, call, takeLatest, all} from 'redux-saga/effects'
 
 export const entityListSelector = state => state.entityList
 

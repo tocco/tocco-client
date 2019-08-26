@@ -1,8 +1,8 @@
+import {put, call, fork, takeLatest, all} from 'redux-saga/effects'
+
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
 import {fetchModel} from '../../util/api/entities'
-
-import {put, call, fork, takeLatest, all} from 'redux-saga/effects'
 
 describe('entity-list', () => {
   describe('modules', () => {

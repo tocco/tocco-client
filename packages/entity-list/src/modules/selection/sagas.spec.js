@@ -1,13 +1,12 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {externalEvents} from 'tocco-app-extensions'
+import {fork, select, takeLatest, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
 import {QUERY_CHANGED, SET_ENTITY_COUNT, SET_FORM_SELECTABLE} from '../list/actions'
 import {showSelectionComponent} from '../../util/selection'
-
-import {fork, select, takeLatest, all} from 'redux-saga/effects'
 
 describe('entity-list', () => {
   describe('modules', () => {

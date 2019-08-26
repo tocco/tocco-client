@@ -1,10 +1,9 @@
 import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import {actions as formActions} from 'redux-form'
+import {fork, takeEvery} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import * as sagas from './sagas'
-
-import {fork, takeEvery} from 'redux-saga/effects'
 
 describe('app-extensions', () => {
   describe('formData', () => {

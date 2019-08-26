@@ -1,8 +1,8 @@
+import {fork, takeEvery, all, call} from 'redux-saga/effects'
+
 import {invokeExternalEvent} from './externalEvents'
 import rootSaga, * as sagas from './sagas'
 import * as actions from './actions'
-
-import {fork, takeEvery, all, call} from 'redux-saga/effects'
 
 describe('app-extensions', () => {
   describe('externalEvents', () => {

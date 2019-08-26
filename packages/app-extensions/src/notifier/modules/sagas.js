@@ -1,5 +1,6 @@
 import {actions as toastrActionsr} from 'react-redux-toastr'
 import {delay} from 'redux-saga'
+import {takeEvery, fork, call, put, all, take} from 'redux-saga/effects'
 
 import {
   getInfoAction,
@@ -9,8 +10,6 @@ import {
 } from '../notificationActionFactory'
 import * as actions from './actions'
 import actionEmitter from '../../actionEmitter'
-
-import {takeEvery, fork, call, put, all, take} from 'redux-saga/effects'
 
 export default function* sagas(accept) {
   if (accept) {

@@ -1,10 +1,10 @@
+import {call, put, fork, select, takeLatest, all} from 'redux-saga/effects'
+
 import * as actions from './actions'
 import {fetchModel} from '../../../util/api/entities'
 import parseUrl from '../../../util/parseUrl'
 import doShowBackButton from '../../../util/showBackButton'
 import detail from '../../../util/detail'
-
-import {call, put, fork, select, takeLatest, all} from 'redux-saga/effects'
 
 export const entityBrowserSelector = state => state.entityBrowser
 export const inputSelector = state => state.input

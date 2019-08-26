@@ -1,9 +1,8 @@
 import {externalEvents, rest} from 'tocco-app-extensions'
+import {takeLatest, fork, all, call, put, select} from 'redux-saga/effects'
 
 import {transformProviderEntities} from '../utils/providers'
 import * as actions from './actions'
-
-import {takeLatest, fork, all, call, put, select} from 'redux-saga/effects'
 
 const entityName = 'Openid_provider'
 

@@ -1,5 +1,4 @@
 import {rest} from 'tocco-app-extensions'
-
 import {call} from 'redux-saga/effects'
 
 export const defaultModelTransformer = json => {

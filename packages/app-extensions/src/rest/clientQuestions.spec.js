@@ -1,4 +1,5 @@
 import {channel} from 'redux-saga'
+import {call, take} from 'redux-saga/effects'
 
 import {
   handleClientQuestion,
@@ -8,8 +9,6 @@ import {
   answer
 } from './clientQuestions'
 import {sendRequest} from './request'
-
-import {call, take} from 'redux-saga/effects'
 
 describe('app-extensions', () => {
   describe('rest', () => {

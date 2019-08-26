@@ -1,9 +1,8 @@
 import {externalEvents} from 'tocco-app-extensions'
+import {fork, put, take, all} from 'redux-saga/effects'
 
 import sagas, {initializeWatcher} from './sagas'
 import * as actions from './actions'
-
-import {fork, put, take, all} from 'redux-saga/effects'
 
 describe('login', () => {
   describe('modules', () => {

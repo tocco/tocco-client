@@ -1,8 +1,7 @@
 import {rest} from 'tocco-app-extensions'
+import {takeLatest, fork, call, all, put} from 'redux-saga/effects'
 
 import * as actions from './actions'
-
-import {takeLatest, fork, call, all, put} from 'redux-saga/effects'
 
 export function* loadNavigation() {
   const response = yield call(rest.requestSaga, 'menus/modules')

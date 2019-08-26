@@ -1,6 +1,7 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import {actions as actionUtil, externalEvents, rest} from 'tocco-app-extensions'
 import * as matchers from 'redux-saga-test-plan/matchers'
+import {put, select, call, fork, spawn, takeLatest, takeEvery, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
@@ -9,8 +10,6 @@ import rootSaga, * as sagas from './sagas'
 import {fetchForm, getSorting, getSelectable, getFields, getEndpoint} from '../../util/api/forms'
 import {fetchModel} from '../../util/api/entities'
 import {getSearchFormValues} from '../searchForm/sagas'
-
-import {put, select, call, fork, spawn, takeLatest, takeEvery, all} from 'redux-saga/effects'
 
 const generateState = (entityStore = {}, page) => ({
   initialized: false,
