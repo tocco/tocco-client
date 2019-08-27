@@ -47,10 +47,8 @@
     "key-spacing": ["error", { "beforeColon": false, "afterColon": true, "mode": "strict" }],
     "semi" : [2, "never"],
     "max-len": [2, 120, 2],
-    "arrow-parens": [
-      2,
-      "as-needed"
-    ],
+    "arrow-parens": [2, "as-needed"],
+    "quote-props": ["error", "consistent-as-needed"],
     "standard/object-curly-even-spacing": ["error", "never"],
     "object-curly-spacing": ["error", "never"],
     "no-var": "error",
@@ -63,13 +61,9 @@
 
     "react/jsx-no-bind": [2, { "allowArrowFunctions": true, "allowBind": true }],
     "react/display-name": 0,
-    "react/no-deprecated": 0, // TODO: Remove and fix errros
-    "react/no-unused-prop-types": 0, // temporary disabled until this issue is solved: https://github.com/yannickcr/eslint-plugin-react/issues/1135
-
     "jsx-quotes": [2, "prefer-double"],
 
-    // "no-unused-expressions" is included with "chai-friendly/no-unused-expressions"
-    "no-unused-expressions": 0,
+    "no-unused-expressions": 0, // "no-unused-expressions" is included with "chai-friendly/no-unused-expressions"
     "chai-friendly/no-unused-expressions": [2, {"allowTaggedTemplates": true}],
 
     "import/default": 2,
