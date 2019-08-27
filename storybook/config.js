@@ -1,4 +1,5 @@
-import 'babel-polyfill'
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
 import {configure, addParameters, addDecorator} from '@storybook/react'
 import {withInfo} from '@storybook/addon-info'
 import {setIntlConfig, withIntl} from 'storybook-addon-intl'
