@@ -52,6 +52,7 @@
       "as-needed"
     ],
     "standard/object-curly-even-spacing": ["error", "never"],
+    "object-curly-spacing": ["error", "never"],
     "no-var": "error",
     "prefer-const": "error",
     "no-trailing-spaces": ["error", { "skipBlankLines": true }],
