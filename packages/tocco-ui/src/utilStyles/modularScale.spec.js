@@ -29,7 +29,7 @@ describe('tocco-ui', () => {
         scenarios.map(scenario => {
           const {base, exponents, factor} = scenario
           exponents.map((exponent, i) => {
-            expect(scale.exponentiate(base, exponent, factor)).to.equal(scenario.expectation[i])
+            expect(scale.exponentiate(base, exponent, factor)).to.be.closeTo(scenario.expectation[i], 0.1)
           })
         })
       })
