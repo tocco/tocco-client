@@ -1,6 +1,5 @@
 {
   "npmClient": "yarn",
-  "lerna": "3.10.5",
   "version": "independent",
   "packages": ["packages/*"]
 }
