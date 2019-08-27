@@ -15,7 +15,7 @@ describe('app-extensions', () => {
             const stateBefore = {}
 
             const expectedStateAfter = {
-              'User': searchFilters
+              User: searchFilters
             }
 
             expect(reducer(stateBefore, actions.setSearchFilter('User', searchFilters)))
@@ -29,11 +29,11 @@ describe('app-extensions', () => {
             ]
 
             const stateBefore = {
-              'User': [{key: 'someOther', display: 'Some Other'}]
+              User: [{key: 'someOther', display: 'Some Other'}]
             }
 
             const expectedStateAfter = {
-              'User': searchFilters
+              User: searchFilters
             }
 
             expect(reducer(stateBefore, actions.setSearchFilter('User', searchFilters)))

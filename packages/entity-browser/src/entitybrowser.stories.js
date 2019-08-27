@@ -27,9 +27,9 @@ class EntityBrowserStory extends React.Component {
       formBase={text('formBase', 'User')}
       limit={number('limit', 10)}
       preselectedSearchFields={object('preselectedSearchFields', [{
-        'id': 'txtFulltext',
-        'value': '',
-        'hidden': false
+        id: 'txtFulltext',
+        value: '',
+        hidden: false
       }])}
       searchFilters={array('searchFilters', [])}
       initialKey={text('initialKey', '')}

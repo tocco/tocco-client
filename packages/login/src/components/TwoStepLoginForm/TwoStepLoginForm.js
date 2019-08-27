@@ -44,13 +44,13 @@ export class TwoStepLoginForm extends Component {
           </Typography.P>
           <StatedValue
             hasValue={!!this.state.userCode}
-            id={`usercode`}
+            id={'usercode'}
             label={this.msg('client.login.twoStepLogin.codePlaceholder')}
           >
             <StyledTwoStepLoginInputWrapper>
               <StyledTwoStepLoginInput
                 autoComplete="off"
-                id={`usercode`}
+                id={'usercode'}
                 value={this.state.username}
                 onChange={this.handleUserCodeChange.bind(this)}
                 name="code"

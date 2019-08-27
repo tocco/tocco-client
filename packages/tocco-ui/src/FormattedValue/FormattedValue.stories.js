@@ -106,7 +106,8 @@ storiesOf('Tocco-UI | FormattedValue', module)
       binaryLink: text('binaryLink', 'https://picsum.photos/1000/1000?image=1070'),
       caption: text('caption', 'car parked nature'),
       fileName: text('fileName', 'nature_car.jpg'),
-      thumbnailLink: text('thumbnailLink', 'https://picsum.photos/400/400?image=1070')}}/>
+      thumbnailLink: text('thumbnailLink', 'https://picsum.photos/400/400?image=1070')
+    }}/>
   )
   .add(
     'Document Compact',

@@ -34,9 +34,9 @@ const webpackConfig = {
       path.resolve(paths.client(), 'node_modules')
     ],
     alias: {
-      'ReactDOM': `${__dirname}/../node_modules/react-dom/index.js`,
-      'React': `${__dirname}/../node_modules/react/react.js`,
-      'moment': `${__dirname}/../node_modules/moment/moment.js`
+      ReactDOM: `${__dirname}/../node_modules/react-dom/index.js`,
+      React: `${__dirname}/../node_modules/react/react.js`,
+      moment: `${__dirname}/../node_modules/moment/moment.js`
     },
     extensions: ['.js', '.jsx', '.json']
   },

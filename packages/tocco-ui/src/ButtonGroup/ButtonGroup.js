@@ -10,11 +10,10 @@ import {design} from '../utilStyles'
 const ButtonGroup = props => {
   return (
     <StyledButtonGroup melt={props.melt}>
-      { // eslint-disable-next-line
-        React.Children.map(props.children, child => {
-          return child && React.cloneElement(child, {
-            look: props.look, buttonGroupInk: props.ink, buttonGroupMelt: props.melt})
-        })}
+      {
+        React.Children.map(props.children, child =>
+          child && React.cloneElement(child, {look: props.look, buttonGroupInk: props.ink, buttonGroupMelt: props.melt})
+        )}
     </StyledButtonGroup>
   )
 }
@@ -38,7 +37,8 @@ ButtonGroup.propTypes = {
   /**
    * If true buttons morphs into a split button. Default value is 'false'.
    */
-  melt: PropTypes.bool.isRequired
+  melt: PropTypes.bool.isRequired,
+  children: PropTypes.node
 }
 
 export default ButtonGroup

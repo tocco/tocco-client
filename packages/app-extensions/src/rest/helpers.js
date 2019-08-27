@@ -160,15 +160,15 @@ export const buildRequestQuery = ({
 } = {}) => (
   {
     ...(conditions ? {conditions} : {}),
-    ...(Array.isArray(fields) ? {'fields': fields.length === 0 ? '!' : fields} : {}),
+    ...(Array.isArray(fields) ? {fields: fields.length === 0 ? '!' : fields} : {}),
     ...(form ? {form} : {}),
     ...(limit ? {limit} : {}),
     ...(search ? {search} : {}),
-    ...(isValidSorting(sorting) ? {'sort': `${sorting[0].field} ${sorting[0].order}`} : {}),
-    ...(page && limit ? {'offset': (page - 1) * limit} : {}),
+    ...(isValidSorting(sorting) ? {sort: `${sorting[0].field} ${sorting[0].order}`} : {}),
+    ...(page && limit ? {offset: (page - 1) * limit} : {}),
     ...(paths ? {paths} : {}),
-    ...(tql ? {'where': tql} : {}),
-    ...(Array.isArray(relations) ? {'relations': relations.length === 0 ? '!' : relations} : {}),
+    ...(tql ? {where: tql} : {}),
+    ...(Array.isArray(relations) ? {relations: relations.length === 0 ? '!' : relations} : {}),
     ...(filter ? {filter} : {})
   }
 )

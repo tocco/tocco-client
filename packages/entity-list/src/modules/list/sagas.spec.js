@@ -371,7 +371,7 @@ describe('entity-list', () => {
             const input = {formBase: 'User', searchFilters: ['filter1', 'filter2']}
             const searchForm = {
               formFieldsFlat: {
-                'relGender': 'single-remote-field'
+                relGender: 'single-remote-field'
               }
             }
             const selection = {

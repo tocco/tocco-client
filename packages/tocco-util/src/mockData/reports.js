@@ -12,17 +12,16 @@ export const setupReports = (fetchMock, entityStore, timeout = 2000) => {
         return {
           status: 400,
           body: {
-            'status': 400,
-            'message': 'Invalid setting message',
-            'errorCode': 'INVALID_SETTINGS'
+            status: 400,
+            message: 'Invalid setting message',
+            errorCode: 'INVALID_SETTINGS'
           }
         }
       } else {
         const generationId = Math.floor(Math.random() * 1000)
         return {
           status: 202,
-          headers: {
-            Location: `${__BACKEND_URL__}/nice2/rest/report/${reportId}/generations/${generationId}`},
+          headers: {Location: `${__BACKEND_URL__}/nice2/rest/report/${reportId}/generations/${generationId}`},
           body: {}
         }
       }

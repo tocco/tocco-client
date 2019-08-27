@@ -54,12 +54,12 @@ describe('entity-list', () => {
             () => {
               const searchFormVisible = true
               const FORM_ID = 'searchForm'
-              const entityModel = {model: {fields: [{'fieldName': 'firstname', 'type': 'string'}]}}
+              const entityModel = {model: {fields: [{fieldName: 'firstname', type: 'string'}]}}
               const preselectedSearchFields = [{id: 'first.name', value: 'test'}]
               const formDefinition = {children: []}
               const fieldDefinitions = [
-                {'id': 'first.name', 'type': 'string'},
-                {'id': 'defaultTest', type: 'string', defaultValue: 'default'}
+                {id: 'first.name', type: 'string'},
+                {id: 'defaultTest', type: 'string', defaultValue: 'default'}
               ]
               const expectedValues = {'first--name': 'test', 'defaultTest': 'default'}
 
@@ -148,13 +148,13 @@ describe('entity-list', () => {
         describe('getSearchFormValues saga', () => {
           test('should return values of search form', () => {
             const searchValues = {
-              relGender: '1',
+              'relGender': '1',
               'nameto--transform': 'test',
-              emptyArray: []
+              'emptyArray': []
             }
 
             const expectedReturn = {
-              relGender: '1',
+              'relGender': '1',
               'nameto.transform': 'test'
             }
 

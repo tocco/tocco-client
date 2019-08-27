@@ -10,9 +10,9 @@ describe('entity-list', () => {
       describe('forms', () => {
         describe('getSorting', () => {
           test('should return sorting array of table', () => {
-            const sorting = [ {
-              'field': 'user_nr',
-              'order': 'asc'
+            const sorting = [{
+              field: 'user_nr',
+              order: 'asc'
             }]
             const formDefinition = {
 
@@ -298,14 +298,14 @@ describe('entity-list', () => {
         describe('getFields', () => {
           test('should return array of all fields but none more than once', () => {
             const expectedResult = {
-              txtFulltext: 'fulltext-search',
-              searchFilter: 'search-filter',
+              'txtFulltext': 'fulltext-search',
+              'searchFilter': 'search-filter',
               'relAddress_user.relAddress': 'string',
-              relSingle_entity2: 'single-select-box',
-              relMulti_entity2: 'multi-select-box',
-              birthdate: 'range',
-              user_nr: 'range',
-              relChildren: 'multi-remote-field',
+              'relSingle_entity2': 'single-select-box',
+              'relMulti_entity2': 'multi-select-box',
+              'birthdate': 'range',
+              'user_nr': 'range',
+              'relChildren': 'multi-remote-field',
               'relSingle_entity1.relUser': 'string'
             }
 

@@ -29,7 +29,7 @@ describe('app-extensions', () => {
 
         test('should not fetch if counrty in cache', () => {
           const countryKey = 2
-          utils.setCountryCache({'DE': {key: 2, display: 'Germany'}})
+          utils.setCountryCache({DE: {key: 2, display: 'Germany'}})
           return expectSaga(utils.getCountryCodeByKey, countryKey)
             .not.call.like({fn: rest.fetchEntity})
             .returns('DE')

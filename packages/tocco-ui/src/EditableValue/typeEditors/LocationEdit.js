@@ -10,7 +10,7 @@ import {StyledEditableControl} from '../StyledEditableValue'
 import {StyledLocationEdit} from './StyledLocationEdit'
 
 export const getGoogleMapsAddress = locationInput => {
-  const mapsBaseAddress = `https://www.google.com/maps/search/?api=1&query=`
+  const mapsBaseAddress = 'https://www.google.com/maps/search/?api=1&query='
 
   const queryParams = locationInput
     ? Object.values(locationInput)

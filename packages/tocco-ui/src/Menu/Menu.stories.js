@@ -181,8 +181,10 @@ storiesOf('Tocco-UI | Menu', module)
           </Menu.Item>
         </Menu.Button>
       </div>,
-    {info: {
-      propTables: [Raw],
-      propTablesExclude: [Button, ButtonLink, Icon, Typography.Em, Typography.Span, Typography.Strong]
-    }}
+    {
+      info: {
+        propTables: [Raw],
+        propTablesExclude: [Button, ButtonLink, Icon, Typography.Em, Typography.Span, Typography.Strong]
+      }
+    }
   )

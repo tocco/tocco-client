@@ -45,64 +45,64 @@ const testData = {
     lastname: 'Last Name'
   },
   formDefinition: {
-    'id': 'UserSearch_detail',
-    'readonly': false,
-    'children': [
+    id: 'UserSearch_detail',
+    readonly: false,
+    children: [
       {
-        'id': 'box1',
-        'componentType': 'layout',
-        'layoutType': 'vertical-box',
-        'readonly': true,
-        'children': [
+        id: 'box1',
+        componentType: 'layout',
+        layoutType: 'vertical-box',
+        readonly: true,
+        children: [
           {
-            'id': 'box1',
-            'componentType': 'layout',
-            'layoutType': 'horizontal-box',
-            'displayType': 'READONLY',
-            'children': [
+            id: 'box1',
+            componentType: 'layout',
+            layoutType: 'horizontal-box',
+            displayType: 'READONLY',
+            children: [
               {
-                'id': 'user_information',
-                'componentType': 'layout',
-                'layoutType': 'vertical-box',
-                'readonly': true,
-                'children': [
+                id: 'user_information',
+                componentType: 'layout',
+                layoutType: 'vertical-box',
+                readonly: true,
+                children: [
                   {
-                    'id': 'firstname',
-                    'componentType': 'field-set',
-                    'label': 'Vorname',
-                    'scopes': ['create'],
-                    'hidden': false,
-                    'readonly': true,
-                    'children': [
+                    id: 'firstname',
+                    componentType: 'field-set',
+                    label: 'Vorname',
+                    scopes: ['create'],
+                    hidden: false,
+                    readonly: true,
+                    children: [
                       {
-                        'id': 'firstname-field', // does not match path by intention (-> should use path to get data)
-                        'componentType': 'field',
-                        'path': 'firstname',
-                        'dataType': 'string',
-                        'label': null
+                        id: 'firstname-field', // does not match path by intention (-> should use path to get data)
+                        componentType: 'field',
+                        path: 'firstname',
+                        dataType: 'string',
+                        label: null
                       }
                     ]
                   },
                   {
-                    'id': 'lastname',
-                    'componentType': 'field-set',
-                    'label': 'Nachname',
-                    'hidden': false,
-                    'readonly': true,
-                    'children': [
+                    id: 'lastname',
+                    componentType: 'field-set',
+                    label: 'Nachname',
+                    hidden: false,
+                    readonly: true,
+                    children: [
                       {
-                        'id': 'lastname',
-                        'componentType': 'field',
-                        'path': 'lastname',
-                        'dataType': 'string',
-                        'label': null
+                        id: 'lastname',
+                        componentType: 'field',
+                        path: 'lastname',
+                        dataType: 'string',
+                        label: null
                       }
                     ]
                   }
                 ]
               }
             ],
-            'label': null
+            label: null
           }
         ]
       }]
@@ -134,7 +134,7 @@ describe('app-extensions', () => {
       test('should not render none readable fields', () => {
         const {entity, model, formName, formDefinition, formValues} = testData
 
-        entity.paths['lastname'] = {
+        entity.paths.lastname = {
           type: 'field',
           value: {
             value: 'Last Name',

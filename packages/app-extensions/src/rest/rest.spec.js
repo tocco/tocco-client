@@ -16,9 +16,9 @@ describe('app-extensions', () => {
     describe('getParameterString', () => {
       test('should order params', () => {
         const params = {
-          'param1': 'val1',
-          'param3': 'val3',
-          'param2': 'val2'
+          param1: 'val1',
+          param3: 'val3',
+          param2: 'val2'
         }
         const res = getParameterString(params)
 
@@ -27,8 +27,8 @@ describe('app-extensions', () => {
 
       test('should remove empty params', () => {
         const params = {
-          'param1': '',
-          'param2': 'val2'
+          param1: '',
+          param2: 'val2'
         }
         const res = getParameterString(params)
 
@@ -37,7 +37,7 @@ describe('app-extensions', () => {
 
       test('should decode string', () => {
         const params = {
-          'param1': '%'
+          param1: '%'
         }
         const res = getParameterString(params)
 
@@ -46,7 +46,7 @@ describe('app-extensions', () => {
 
       test('should handle arrays string', () => {
         const params = {
-          'param1': ['1', '2']
+          param1: ['1', '2']
         }
         const res = getParameterString(params)
 
@@ -71,13 +71,13 @@ describe('app-extensions', () => {
         const bodyObj = {
           errorCode: 'SAVE_FAILED',
           errors: {
-            'firstname': {
-              'illegal': ['SPEICHERFEHLER: Vorname tocco1 nicht toleriert.']
+            firstname: {
+              illegal: ['SPEICHERFEHLER: Vorname tocco1 nicht toleriert.']
             }
           }
         }
         const body = new Blob([JSON.stringify(bodyObj, null, 2)], {type: 'application/json'})
-        const mockedResponse = new Response(body, {'status': statusCode})
+        const mockedResponse = new Response(body, {status: statusCode})
 
         fetchMock.get('*', mockedResponse)
         const resource = 'entities/Contact'
@@ -95,7 +95,7 @@ describe('app-extensions', () => {
         }
 
         const body = new Blob([JSON.stringify(bodyObj, null, 2)], {type: 'application/json'})
-        const mockedResponse = new Response(body, {'status': statusCode, statusText: 'Some error'})
+        const mockedResponse = new Response(body, {status: statusCode, statusText: 'Some error'})
 
         fetchMock.get('*', mockedResponse)
         const resource = 'entities/Contact'
@@ -148,7 +148,7 @@ describe('app-extensions', () => {
         const statusCode = 400
 
         const body = new Blob(['{}'], {type: 'application/json'})
-        const mockedResponse = new Response(body, {'status': statusCode})
+        const mockedResponse = new Response(body, {status: statusCode})
 
         fetchMock.get('*', mockedResponse)
         const resource = 'entities/Contact'
@@ -164,7 +164,7 @@ describe('app-extensions', () => {
         const statusCode = 400
 
         const body = new Blob(['{}'], {type: 'application/json'})
-        const mockedResponse = new Response(body, {'status': statusCode})
+        const mockedResponse = new Response(body, {status: statusCode})
 
         fetchMock.get('*', mockedResponse)
         const resource = 'entities/Contact'

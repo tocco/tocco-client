@@ -50,8 +50,8 @@ describe('login', () => {
             }
 
             const errors = {
-              'rule1': true,
-              'rule3': true
+              rule1: true,
+              rule3: true
             }
             const expectedStateAfter = {
               newPasswordValidationErrors: errors

@@ -30,157 +30,157 @@ describe('app-extensions', () => {
 })
 
 const formDefinitionFull = {
-  '_links': {},
-  'customSettings': {
-    'entity': {
-      'createPermission': false,
-      'fields': [
+  _links: {},
+  customSettings: {
+    entity: {
+      createPermission: false,
+      fields: [
         {
-          'defaultValue': null,
-          'fieldName': 'print_article_description',
-          'type': 'boolean',
-          'validation': {}
+          defaultValue: null,
+          fieldName: 'print_article_description',
+          type: 'boolean',
+          validation: {}
         },
         {
-          'defaultValue': null,
-          'fieldName': 'print_copy_background_image',
-          'type': 'boolean',
-          'validation': {}
+          defaultValue: null,
+          fieldName: 'print_copy_background_image',
+          type: 'boolean',
+          validation: {}
         }
       ],
-      'id': 'Bill_report_settings',
-      'relations': []
+      id: 'Bill_report_settings',
+      relations: []
     },
-    'form': {
-      'form': {
-        'children': [
+    form: {
+      form: {
+        children: [
           {
-            'children': [
+            children: [
               {
-                'children': [
+                children: [
                   {
-                    'children': [
+                    children: [
                       {
-                        'children': [
+                        children: [
                           {
-                            'componentType': 'field',
-                            'dataType': 'boolean',
-                            'defaultValue': null,
-                            'id': 'print_article_description',
-                            'label': null,
-                            'path': 'print_article_description'
+                            componentType: 'field',
+                            dataType: 'boolean',
+                            defaultValue: null,
+                            id: 'print_article_description',
+                            label: null,
+                            path: 'print_article_description'
                           }
                         ],
-                        'componentType': 'field-set',
-                        'hidden': false,
-                        'id': 'print_article_description',
-                        'label': 'Mit Artikelbeschr.',
-                        'readonly': false,
-                        'scopes': []
+                        componentType: 'field-set',
+                        hidden: false,
+                        id: 'print_article_description',
+                        label: 'Mit Artikelbeschr.',
+                        readonly: false,
+                        scopes: []
                       },
                       {
-                        'children': [
+                        children: [
                           {
-                            'componentType': 'field',
-                            'dataType': 'boolean',
-                            'defaultValue': null,
-                            'id': 'print_copy_background_image',
-                            'label': null,
-                            'path': 'print_copy_background_image'
+                            componentType: 'field',
+                            dataType: 'boolean',
+                            defaultValue: null,
+                            id: 'print_copy_background_image',
+                            label: null,
+                            path: 'print_copy_background_image'
                           }
                         ],
-                        'componentType': 'field-set',
-                        'hidden': false,
-                        'id': 'print_copy_background_image',
-                        'label': 'Kopie',
-                        'readonly': false,
-                        'scopes': []
+                        componentType: 'field-set',
+                        hidden: false,
+                        id: 'print_copy_background_image',
+                        label: 'Kopie',
+                        readonly: false,
+                        scopes: []
                       }
                     ],
-                    'componentType': 'layout',
-                    'id': 'master_data',
-                    'label': 'Stammdaten',
-                    'layoutType': 'vertical-box'
+                    componentType: 'layout',
+                    id: 'master_data',
+                    label: 'Stammdaten',
+                    layoutType: 'vertical-box'
                   }
                 ],
-                'componentType': 'layout',
-                'id': 'box1',
-                'label': null,
-                'layoutType': 'vertical-box'
+                componentType: 'layout',
+                id: 'box1',
+                label: null,
+                layoutType: 'vertical-box'
               }
             ],
-            'componentType': 'layout',
-            'id': 'box1',
-            'label': null,
-            'layoutType': 'horizontal-box'
+            componentType: 'layout',
+            id: 'box1',
+            label: null,
+            layoutType: 'horizontal-box'
           }
         ],
-        'componentType': 'form',
-        'id': 'Bill_report_settings_detail',
-        'label': null,
-        'modelid': 'Bill_report_settings',
-        'readonly': false
+        componentType: 'form',
+        id: 'Bill_report_settings_detail',
+        label: null,
+        modelid: 'Bill_report_settings',
+        readonly: false
       },
-      'model': 'Bill_report_settings'
+      model: 'Bill_report_settings'
     }
   },
-  'description': {
-    'ignoreSelection': false,
-    'name': 'Sample Report'
+  description: {
+    ignoreSelection: false,
+    name: 'Sample Report'
   },
-  'generalSettings': [
+  generalSettings: [
     {
-      'defaultValue': 'Rechnung',
-      'description': null,
-      'disabled': false,
-      'label': 'Dateiid',
-      'id': 'fileid',
-      'options': null,
-      'type': 'string'
+      defaultValue: 'Rechnung',
+      description: null,
+      disabled: false,
+      label: 'Dateiid',
+      id: 'fileid',
+      options: null,
+      type: 'string'
     },
     {
-      'defaultValue': null,
-      'description': null,
-      'disabled': false,
-      'label': 'Archivierung',
-      'id': 'archiveType',
-      'options': [
+      defaultValue: null,
+      description: null,
+      disabled: false,
+      label: 'Archivierung',
+      id: 'archiveType',
+      options: [
         {
-          'display': 'Nicht archiviert',
-          'key': 'not_archived'
+          display: 'Nicht archiviert',
+          key: 'not_archived'
         },
         {
-          'display': 'Archiviert',
-          'key': 'archived'
+          display: 'Archiviert',
+          key: 'archived'
         },
         {
-          'display': 'Archiviert mit Publikation',
-          'key': 'archived_and_published'
+          display: 'Archiviert mit Publikation',
+          key: 'archived_and_published'
         }
       ],
-      'type': 'single-select-box'
+      type: 'single-select-box'
     }
   ],
-  'recipientSettings': [
+  recipientSettings: [
     {
-      'type': 'multi-select-box',
-      'defaultValue': [],
-      'label': 'test',
-      'id': 'recipients',
-      'options': [
+      type: 'multi-select-box',
+      defaultValue: [],
+      label: 'test',
+      id: 'recipients',
+      options: [
         {
-          'display': 'Auftrag (1)',
-          'key': '33'
+          display: 'Auftrag (1)',
+          key: '33'
         }
       ]
     },
     {
-      'type': 'multi-remote-field',
-      'defaultValue': [],
-      'label': 'Remote',
-      'id': 'recipients2',
-      'options': null,
-      'targetEntity': 'User'
+      type: 'multi-remote-field',
+      defaultValue: [],
+      label: 'Remote',
+      id: 'recipients2',
+      options: null,
+      targetEntity: 'User'
     }
   ]
 }

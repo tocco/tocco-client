@@ -8,7 +8,7 @@ export const adjustConfig = (webpackConfig, config, paths) => {
     webpackConfig.plugins.push(
       new CopyWebpackPlugin([
         {
-          context: `packages/tocco-theme/src/ToccoTheme`,
+          context: 'packages/tocco-theme/src/ToccoTheme',
           from: '**/*.scss'
         }
       ])

@@ -57,7 +57,7 @@ describe('app-extensions', () => {
 
             return expectSaga(sagas.loadSearchFilters, args)
               .provide([
-                [select(sagas.searchFiltersSelector), {'User': existingSearchFilters}]
+                [select(sagas.searchFiltersSelector), {User: existingSearchFilters}]
               ])
               .run()
           })

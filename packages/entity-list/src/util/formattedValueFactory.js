@@ -2,8 +2,8 @@ import React from 'react'
 import {FormattedValue} from 'tocco-ui'
 import {formData} from 'tocco-app-extensions'
 const customTypeMap = {
-  'document': 'document-compact',
-  'binary': 'document-compact'
+  document: 'document-compact',
+  binary: 'document-compact'
 }
 
 const getOptions = (type, value, intl, formData) => {

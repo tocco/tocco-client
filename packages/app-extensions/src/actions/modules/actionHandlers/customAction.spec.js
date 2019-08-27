@@ -16,7 +16,7 @@ describe('app-extensions', () => {
             const params = {}
             const config = {
               customActions: {
-                'new': newActionSpy
+                new: newActionSpy
               }
             }
             return expectSaga(customActionHandler, definition, entity, selection, parent, params, config)

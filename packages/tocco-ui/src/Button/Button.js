@@ -49,52 +49,52 @@ Button.propTypes = {
   /**
    * A flat object of ARIA keys and values.
    */
-  aria: PropTypes.object,
+  'aria': PropTypes.object,
   /**
    * May be passed from <ButtonGroup> to use as default for ink. Do not set manually.
    */
-  buttonGroupInk: design.inkPropTypes,
+  'buttonGroupInk': design.inkPropTypes,
   /**
    * May be passed from <ButtonGroup> to morph buttons into a split button. Do not set manually.
    */
-  buttonGroupMelt: PropTypes.bool,
+  'buttonGroupMelt': PropTypes.bool,
   /**
    * Instead of using label prop it is possible to pass a child
    * (e.g. <Button><FormattedMessage id="client.message"/></Button>). This is not useful for
    * styled tags since buttons design is controlled by props ink and look and immutable.
    */
-  children: PropTypes.node,
+  'children': PropTypes.node,
   /**
    * If true, button occupies less space. It should only used for crowded areas like tables and only if necessary.
    */
-  dense: PropTypes.bool,
+  'dense': PropTypes.bool,
   /**
    * If true, the button can not be triggered. Disable a button rather than hide it temporarily.
    */
-  disabled: PropTypes.bool,
+  'disabled': PropTypes.bool,
   /**
    * Display an icon alongside button label. It is possible to omit label text if a icon is chosen. Utilize free
    * Font Awesome 5.1 icons by setting specific classname (e.g. "check").
    * https://fontawesome.com/icons?d=gallery&s=brands,regular,solid&m=free
    */
-  icon: PropTypes.string,
+  'icon': PropTypes.string,
   /**
    * Prepend icon or append icon to label. Use 'sole' if label text is omitted. Default value is 'prepend'.
    * Possible values: append|prepend|sole
    */
-  iconPosition: PropTypes.oneOf([design.position.APPEND, design.position.PREPEND, design.position.SOLE]),
+  'iconPosition': PropTypes.oneOf([design.position.APPEND, design.position.PREPEND, design.position.SOLE]),
   /**
    * Specify color palette. Default value is 'base'.
    */
-  ink: design.inkPropTypes,
+  'ink': design.inkPropTypes,
   /**
    * Describe button action concise. Default is ''.
    */
-  label: PropTypes.node,
+  'label': PropTypes.node,
   /**
    * Look of button. Default value is 'flat'.
    */
-  look: PropTypes.oneOf([
+  'look': PropTypes.oneOf([
     design.look.BALL,
     design.look.FLAT,
     design.look.RAISED
@@ -102,24 +102,24 @@ Button.propTypes = {
   /**
    * Function that will be triggered on click event.
    */
-  onClick: PropTypes.func,
+  'onClick': PropTypes.func,
   /**
   * If true, an animated spinner icon is prepended.
   */
-  pending: PropTypes.bool,
+  'pending': PropTypes.bool,
   /**
    * Describe button action in detail to instruct users. It is shown as popover on mouse over.
    */
-  title: PropTypes.string,
+  'title': PropTypes.string,
   /**
    * HTML Button type. Default is 'button'.
    */
-  type: PropTypes.oneOf(['button', 'submit', 'reset']),
+  'type': PropTypes.oneOf(['button', 'submit', 'reset']),
   /**
    * Tabindex indicates if the button can be focused and if/where it participates
    * in sequential keyboard navigation.
    */
-  tabIndex: PropTypes.number,
+  'tabIndex': PropTypes.number,
   /**
    * cypress selector string
    */

@@ -235,7 +235,7 @@ describe('app-extensions', () => {
               model: 'relStatus',
               key: '99',
               paths: {
-                'fieldZ': mandatory
+                fieldZ: mandatory
               }
             }
           ]

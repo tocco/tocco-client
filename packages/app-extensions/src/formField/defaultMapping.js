@@ -32,10 +32,10 @@ export default {
   'phone': editableValueFactory('phone'),
   'pulldown-date': editableValueFactory('date-range'),
   'range': {
-    'number': editableValueFactory('number'),
-    'counter': editableValueFactory('number'),
-    'date': editableValueFactory('date-range'),
-    'birthdate': editableValueFactory('date-range')
+    number: editableValueFactory('number'),
+    counter: editableValueFactory('number'),
+    date: editableValueFactory('date-range'),
+    birthdate: editableValueFactory('date-range')
   },
   'single-remote-field': editableValueFactory('remote'),
   'search-filter': editableValueFactory('search-filter'),

@@ -30,7 +30,9 @@ describe('entity-detail', () => {
                   mandatory: ['Pflichtfeld ist nicht ausgefüllt.']
                 }
               }
-            }]}}
+            }]
+          }
+        }
 
         const wrapper = mount(
           <IntlProvider locale="en">

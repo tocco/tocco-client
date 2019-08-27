@@ -11,7 +11,7 @@ const handleNavigateToCreate = props => relationName => {
   if (relationName) {
     props.router.history.push(`${props.router.match.url}/${relationName}/`)
   } else {
-    props.router.history.push(`/detail`)
+    props.router.history.push('/detail')
   }
 }
 

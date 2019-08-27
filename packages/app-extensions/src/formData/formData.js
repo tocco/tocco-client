@@ -23,13 +23,15 @@ export const tooltipSelector = store => store.formData.tooltips.data
 export const locationSuggestionsSelector = store => store.formData.locations
 
 export const addToStore = (store, config) => {
-  reducerUtil.injectReducers(store, {formData: combineReducers({
-    relationEntities,
-    tooltips,
-    searchFilters,
-    locations,
-    linkFactory
-  })})
+  reducerUtil.injectReducers(store, {
+    formData: combineReducers({
+      relationEntities,
+      tooltips,
+      searchFilters,
+      locations,
+      linkFactory
+    })
+  })
 
   store.sagaMiddleware.run(relationEntitiesSagas)
   store.sagaMiddleware.run(tooltipsSaga)

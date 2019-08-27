@@ -63,7 +63,7 @@ export function* setInitialFormValues(searchFormVisible, formDefinition) {
     formValues = {...formValues, ...preselectedValues}
   }
 
-  if (parent && !formValues.hasOwnProperty(parent.reverseRelationName)) {
+  if (parent && !Object.prototype.hasOwnProperty.call(formValues, parent.reverseRelationName)) {
     const listFormDefinition = yield call(getListFormDefinition)
     const endpoint = yield call(getEndpoint, listFormDefinition)
     if (!endpoint) {

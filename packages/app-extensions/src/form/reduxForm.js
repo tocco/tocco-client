@@ -14,7 +14,7 @@ export const validationErrorToFormError = (entity, errors) => {
   errors.forEach(error => {
     if (error.model === entity.model && error.key === entity.key) {
       result = {...result, ...error.paths}
-      if (error.hasOwnProperty(entityValidatorErrorsField)) {
+      if (Object.prototype.hasOwnProperty.call(error, entityValidatorErrorsField)) {
         result[generalErrorField][entityValidatorErrorsField] = error[entityValidatorErrorsField]
       }
     } else {
@@ -43,7 +43,7 @@ export const formValuesToEntity = (values, dirtyFields, entityName, entityId, en
       } else if (type === 'entity') {
         entity.paths[transformedKey] = values[key] && values[key].key ? {key: values[key].key} : null
       } else if (type === 'entity-list') {
-        entity.paths[transformedKey] = values[key] ? values[key].map(value => ({'key': value.key})) : []
+        entity.paths[transformedKey] = values[key] ? values[key].map(value => ({key: value.key})) : []
       }
     }
   })

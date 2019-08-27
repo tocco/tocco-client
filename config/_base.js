@@ -24,7 +24,7 @@ const config = {
 
 config.globals = {
   'process.env'  : {
-    'NODE_ENV' : JSON.stringify(config.env)
+    NODE_ENV : JSON.stringify(config.env)
   },
   'NODE_ENV'     : config.env,
   '__CI__'       : !!process.env.CI,

@@ -70,7 +70,7 @@ class FormBuilder extends React.Component {
       }
 
       const hasEmptyValue = (fieldName, formValues) => {
-        if (!formValues.hasOwnProperty(fieldName)) {
+        if (!Object.prototype.hasOwnProperty.call(formValues, fieldName)) {
           return true
         } else {
           const value = formValues[fieldName]

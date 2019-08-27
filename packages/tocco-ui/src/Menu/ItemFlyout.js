@@ -46,7 +46,7 @@ ItemFlyout.propTypes = {
   /**
    * Specify color palette. Default value is 'base'.
    */
-  'ink': PropTypes.oneOf([design.ink.BASE, design.ink.PRIMARY]),
+  ink: PropTypes.oneOf([design.ink.BASE, design.ink.PRIMARY]),
   /**
    * Boolean to control if a submenu is initially opened. Default value is 'true'.
    */

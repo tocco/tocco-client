@@ -20,7 +20,7 @@ describe('tocco-ui', () => {
         onSearch={searchFunc}
       />)
 
-      wrapper.setState({'inputValue': SEARCH_STRING})
+      wrapper.setState({inputValue: SEARCH_STRING})
       const form = wrapper.find('form')
       form.simulate('submit', {
         preventDefault: () => {
@@ -38,13 +38,13 @@ describe('tocco-ui', () => {
 
       const form = wrapper.find('form')
 
-      wrapper.setState({'inputValue': 'same'})
+      wrapper.setState({inputValue: 'same'})
       form.simulate('submit', {
         preventDefault: () => {
         }
       })
 
-      wrapper.setState({'inputValue': 'same'})
+      wrapper.setState({inputValue: 'same'})
       form.simulate('submit', {
         preventDefault: () => {
         }
@@ -97,7 +97,7 @@ describe('tocco-ui', () => {
         debounce={100}
       />)
 
-      wrapper.setState({'inputValue': SEARCH_STRING})
+      wrapper.setState({inputValue: SEARCH_STRING})
 
       const input = wrapper.find('input')
       input.simulate('change', {target: {value: SEARCH_STRING}})
