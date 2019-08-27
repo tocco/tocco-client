@@ -42,13 +42,13 @@ export const toLocalDateString = date => {
  */
 export const momentJStoToFlatpickrFormat = format => {
   const formattingMap = {
-    'd': 'DD',
-    'm': 'MM',
-    'Y': 'YYYY',
-    'K': 'A',
-    'H': 'HH',
-    'h': 'h',
-    'i': 'mm'
+    d: 'DD',
+    m: 'MM',
+    Y: 'YYYY',
+    K: 'A',
+    H: 'HH',
+    h: 'h',
+    i: 'mm'
   }
   _forOwn(formattingMap, (v, k) => { format = format.replace(v, k) })
   return format

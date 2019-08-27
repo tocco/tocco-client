@@ -5,8 +5,8 @@ describe('merge', () => {
     describe('MergeResponse', () => {
       test('should be successfully if both arrays empty', () => {
         const response = {
-          'notCopiedRelations': [],
-          'notDeletedEntities': []
+          notCopiedRelations: [],
+          notDeletedEntities: []
         }
 
         const result = mergingWithoutProblems(response)
@@ -16,16 +16,16 @@ describe('merge', () => {
 
     test('should not be successfully if either array is not empty', () => {
       let response = {
-        'notCopiedRelations': [{}],
-        'notDeletedEntities': []
+        notCopiedRelations: [{}],
+        notDeletedEntities: []
       }
 
       let result = mergingWithoutProblems(response)
       expect(result).to.be.false
 
       response = {
-        'notCopiedRelations': [],
-        'notDeletedEntities': [{}]
+        notCopiedRelations: [],
+        notDeletedEntities: [{}]
       }
 
       result = mergingWithoutProblems(response)

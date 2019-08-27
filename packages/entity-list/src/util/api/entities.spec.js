@@ -231,12 +231,12 @@ describe('entity-list', () => {
                 createPermission: true,
                 model: {
                   pk: {
-                    'fieldName': 'pk',
+                    fieldName: 'pk',
                     type: 'serial'
 
                   },
                   firstname: {
-                    'fieldName': 'firstname',
+                    fieldName: 'firstname',
                     type: 'string'
                   },
                   some_relation: {

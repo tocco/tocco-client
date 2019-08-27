@@ -15,61 +15,61 @@ describe('simple-form', () => {
         'should display the right amount of fields according to form definition',
         () => {
           const formDefinition = {
-            'id': 'UserSearch_detail',
-            'children': [
+            id: 'UserSearch_detail',
+            children: [
               {
-                'id': 'box1',
-                'componentType': 'layout',
-                'layoutType': 'vertical-box',
-                'readonly': true,
-                'children': [
+                id: 'box1',
+                componentType: 'layout',
+                layoutType: 'vertical-box',
+                readonly: true,
+                children: [
                   {
-                    'id': 'box1',
-                    'componentType': 'layout',
-                    'layoutType': 'horizontal-box',
-                    'readonly': true,
-                    'children': [
+                    id: 'box1',
+                    componentType: 'layout',
+                    layoutType: 'horizontal-box',
+                    readonly: true,
+                    children: [
                       {
-                        'id': 'user_information',
-                        'componentType': 'layout',
-                        'layoutType': 'horizontal-box',
-                        'readonly': true,
-                        'children': [
+                        id: 'user_information',
+                        componentType: 'layout',
+                        layoutType: 'horizontal-box',
+                        readonly: true,
+                        children: [
 
                           {
-                            'id': 'firstname',
-                            'componentType': 'field-set',
-                            'label': 'Vorname',
-                            'hidden': false,
-                            'readonly': true,
-                            'children': [
+                            id: 'firstname',
+                            componentType: 'field-set',
+                            label: 'Vorname',
+                            hidden: false,
+                            readonly: true,
+                            children: [
                               {
-                                'id': 'firstname',
-                                'componentType': 'field',
-                                'dataType': 'string',
-                                'label': null
+                                id: 'firstname',
+                                componentType: 'field',
+                                dataType: 'string',
+                                label: null
                               }
                             ]
                           },
                           {
-                            'id': 'lastname',
-                            'componentType': 'field-set',
-                            'label': 'Nachname',
-                            'hidden': false,
-                            'readonly': true,
-                            'children': [
+                            id: 'lastname',
+                            componentType: 'field-set',
+                            label: 'Nachname',
+                            hidden: false,
+                            readonly: true,
+                            children: [
                               {
-                                'id': 'lastname',
-                                'componentType': 'field',
-                                'dataType': 'string',
-                                'label': null
+                                id: 'lastname',
+                                componentType: 'field',
+                                dataType: 'string',
+                                label: null
                               }
                             ]
                           }
                         ]
                       }
                     ],
-                    'label': null
+                    label: null
                   }
                 ]
               }]

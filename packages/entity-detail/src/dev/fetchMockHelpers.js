@@ -41,7 +41,7 @@ export const userCreateResponse = (entityStore, delay = 1000) =>
 
       const newEntity = getNewEntity(entity, entityStore)
 
-      entityStore['User'][newEntity.key] = newEntity
+      entityStore.User[newEntity.key] = newEntity
       return {
         status: 201,
         headers: {Location: `http://localhost:8080/nice2/rest/entities/User/${newEntity.key}`}
@@ -64,7 +64,7 @@ export const dummyEntityCreateResponse = (entityStore, delay = 2000) =>
 
       const newEntity = getNewEntity(entity, entityStore)
 
-      entityStore['Dummy_entity'][newEntity.key] = newEntity
+      entityStore.Dummy_entity[newEntity.key] = newEntity
       return {
         status: 201,
         headers: {Location: `http://localhost:8080/nice2/rest/entities/Dummy_entity/${newEntity.key}`}
@@ -85,7 +85,7 @@ export const userUpdateResponse = (entityStore, delay = 1000) =>
 
       const newEntity = getNewEntity(entity, entityStore)
 
-      entityStore['User'][newEntity.key] = newEntity
+      entityStore.User[newEntity.key] = newEntity
       return sleep(1000).then(() => (newEntity))
     })
   }
@@ -201,7 +201,7 @@ const validationErrorResponse = entity => {
     ]
   }
   const body = new Blob([JSON.stringify(result, null, 2)], {type: 'application/json'})
-  return new Response(body, {'status': 400})
+  return new Response(body, {status: 400})
 }
 
 const notAcceptResponse = () => {
@@ -210,7 +210,7 @@ const notAcceptResponse = () => {
     errors: []
   }
   const body = new Blob([JSON.stringify(result, null, 2)], {type: 'application/json'})
-  return new Response(body, {'status': 400})
+  return new Response(body, {status: 400})
 }
 
 const confirmClientQuestionResponse = entity => ({

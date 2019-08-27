@@ -44,7 +44,7 @@ describe('app-extensions', () => {
               .provide([
                 [matchers.call.fn(preAction.run), {abort: false}]
               ])
-              .call.like({fn: actionHandlers['simple']})
+              .call.like({fn: actionHandlers.simple})
               .run()
           })
 
@@ -53,7 +53,7 @@ describe('app-extensions', () => {
               .provide([
                 [matchers.call.fn(preAction.run), {abort: true}]
               ])
-              .not.call.like({fn: actionHandlers['simple']})
+              .not.call.like({fn: actionHandlers.simple})
               .run()
           })
 

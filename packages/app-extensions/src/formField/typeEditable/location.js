@@ -3,7 +3,7 @@ import _get from 'lodash/get'
 export default {
   hasValue: (value, formField) => {
     const locationMapping = formField.locationMapping
-    return !!(value[locationMapping['city']] || value[locationMapping['postcode']])
+    return !!(value[locationMapping.city] || value[locationMapping.postcode])
   },
   getValue: ({formField, formData}) => {
     const locationMapping = formField.locationMapping
@@ -43,11 +43,11 @@ export default {
     isDirty: {
       formName: formName,
       fields: formField.locationMapping
-        ? [formField.locationMapping['city'], formField.locationMapping['postcode']] : []
+        ? [formField.locationMapping.city, formField.locationMapping.postcode] : []
     },
     errors: {
       formName: formName,
-      fields: [formField.locationMapping['city'], formField.locationMapping['postcode']]
+      fields: [formField.locationMapping.city, formField.locationMapping.postcode]
     }
   }),
   getOptions: ({formField, formData}) => ({

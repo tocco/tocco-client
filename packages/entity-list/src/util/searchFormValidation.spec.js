@@ -17,8 +17,8 @@ describe('entity-list', () => {
           () => {
             const formDefinition = require('../dev/test-data/user_search.json').form
             const values = {
-              txtFulltext: 'a',
-              firstname: 'a',
+              'txtFulltext': 'a',
+              'firstname': 'a',
               'relAddress_user.relAddress': 'abc'
             }
 

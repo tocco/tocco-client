@@ -11,7 +11,7 @@ describe('app-extensions', () => {
   describe('formField', () => {
     describe('fieldFactory', () => {
       test('should return a StatedValue with correct EditableValue', () => {
-        const mapping = {'string': editableValueFactory('string')}
+        const mapping = {string: editableValueFactory('string')}
 
         const formDefinitionField = {
           name: 'firstname',
@@ -47,10 +47,11 @@ describe('app-extensions', () => {
 
       test('should return a StatedValue with correct EditableValue', () => {
         const mapping = {
-          'range': {
-            'date': editableValueFactory('date-range'),
-            'birthdate': editableValueFactory('date-range')
-          }}
+          range: {
+            date: editableValueFactory('date-range'),
+            birthdate: editableValueFactory('date-range')
+          }
+        }
 
         const formDefinitionField = {
           name: 'range',

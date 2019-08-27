@@ -20,7 +20,7 @@ describe('login', () => {
 
       test('should render specific message if error code known', () => {
         const wrapper = shallow(<FailureMessage errorCode="INVALID_CREDENTIALS"/>)
-        expect(wrapper.find(FormattedMessage).prop('id')).to.be.equal(messages['INVALID_CREDENTIALS'])
+        expect(wrapper.find(FormattedMessage).prop('id')).to.be.equal(messages.INVALID_CREDENTIALS)
       })
     })
   })

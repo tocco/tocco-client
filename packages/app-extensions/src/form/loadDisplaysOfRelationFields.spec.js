@@ -8,16 +8,16 @@ describe('app-extensions', () => {
       test('should return and object with values from preselected searchfields', () => {
         const values = [
           {
-            'id': 'txtFulltext',
-            'value': ''
+            id: 'txtFulltext',
+            value: ''
           },
           {
-            'id': 'relSingle_entity',
-            'value': '2'
+            id: 'relSingle_entity',
+            value: '2'
           },
           {
-            'id': 'relMulti_entity',
-            'value': [
+            id: 'relMulti_entity',
+            value: [
               '1',
               '2'
             ]

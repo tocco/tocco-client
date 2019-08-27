@@ -55,7 +55,7 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
       || !_get(entityField, 'writable', true)
     )
 
-    const mandatory = !readOnly && _get(modelField, `validation.mandatory`, false)
+    const mandatory = !readOnly && _get(modelField, 'validation.mandatory', false)
     const hasValue = value !== null && value !== undefined && (value.length === undefined || value.length > 0)
     const isDisplay = data.formDefinitionField.componentType === 'display' || readOnlyForm
 

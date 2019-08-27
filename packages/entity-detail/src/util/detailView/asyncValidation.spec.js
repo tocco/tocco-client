@@ -112,7 +112,8 @@ describe('entity-detail', () => {
                 defaultCountry: 'CH',
                 fieldName: 'phone_company',
                 type: 'phone'
-              }},
+              }
+            },
             mode: 'update',
             entityName: 'User',
             entityId: '1'

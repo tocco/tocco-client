@@ -96,7 +96,7 @@ export const createUsers = amount => {
       display: `Dummy User ${i}`,
       paths: {
         ...userTemplate.paths,
-        user_nr: {
+        'user_nr': {
           type: 'field',
           value: {
             type: 'counter',
@@ -104,7 +104,7 @@ export const createUsers = amount => {
             writable: false
           }
         },
-        firstname: {
+        'firstname': {
           type: 'field',
           value: {
             value: 'Firstname ' + i,
@@ -112,7 +112,7 @@ export const createUsers = amount => {
             writable: true
           }
         },
-        lastname: {
+        'lastname': {
           type: 'field',
           value: {
             value: 'Lastname ' + (amount - i),
@@ -120,7 +120,7 @@ export const createUsers = amount => {
             writable: true
           }
         },
-        birthdate: {
+        'birthdate': {
           type: 'field',
           value: {
             value: getRandomDate(1980, 2010),
@@ -128,7 +128,7 @@ export const createUsers = amount => {
             writable: true
           }
         },
-        age: {
+        'age': {
           type: 'field',
           value: {
             value: getRandomInt(10, 100),
@@ -136,7 +136,7 @@ export const createUsers = amount => {
             writable: true
           }
         },
-        salary: {
+        'salary': {
           type: 'field',
           value: {
             value: getRandomInt(0, 10000),
@@ -144,7 +144,7 @@ export const createUsers = amount => {
             writable: true
           }
         },
-        licence_plate: {
+        'licence_plate': {
           type: 'field',
           value: {
             value: getRandomInt(1000, 1000000),
@@ -152,7 +152,7 @@ export const createUsers = amount => {
             writable: true
           }
         },
-        publish: {
+        'publish': {
           type: 'field',
           value: {
             value: (i % 2 === 0),
@@ -160,7 +160,7 @@ export const createUsers = amount => {
             writable: true
           }
         },
-        update_timestamp: {
+        'update_timestamp': {
           type: 'field',
           value: {
             value: getRandomDate(new Date().getFullYear() - 1, new Date().getFullYear()),
@@ -168,7 +168,7 @@ export const createUsers = amount => {
             writable: false
           }
         },
-        duration: {
+        'duration': {
           type: 'field',
           value: {
             value: getRandomInt(0, 1000 * 60 * 60 * 24),
@@ -176,7 +176,7 @@ export const createUsers = amount => {
             writable: false
           }
         },
-        time: {
+        'time': {
           type: 'field',
           value: {
             value: {
@@ -189,7 +189,7 @@ export const createUsers = amount => {
             writable: false
           }
         },
-        decimal: {
+        'decimal': {
           type: 'field',
           value: {
             value: 1337.11,
@@ -197,7 +197,7 @@ export const createUsers = amount => {
             writable: true
           }
         },
-        moneyamount: {
+        'moneyamount': {
           type: 'field',
           value: {
             value: 28123.33,

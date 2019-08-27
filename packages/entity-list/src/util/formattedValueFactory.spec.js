@@ -51,7 +51,7 @@ describe('entity-list', () => {
         )
 
         expect(wrapper.find(FormattedValue).props()).to.have.property('options')
-        expect(wrapper.find(FormattedValue).props()['options']).to.not.be.undefined
+        expect(wrapper.find(FormattedValue).props().options).to.not.be.undefined
       })
 
       test('should return array with separator', () => {
@@ -75,7 +75,7 @@ describe('entity-list', () => {
 
       test('should return null', () => {
         const field = {id: 'xy', path: 'xy'}
-        const entity = {'xy': []}
+        const entity = {xy: []}
 
         expect(formattedValueFactory(field, entity, IntlStub)).to.be.null
       })

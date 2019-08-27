@@ -63,12 +63,12 @@ const reactSelectStyles = outerTheme => {
     }),
     option: (base, state) => ({
       ...base,
-      backgroundColor: state.isSelected
+      'backgroundColor': state.isSelected
         ? paper[2]
         : state.isFocused
           ? paper[1]
           : paper[0],
-      cursor: 'pointer',
+      'cursor': 'pointer',
       ':active': {
         backgroundColor: state.isSelected
           ? paper[2]
@@ -97,8 +97,8 @@ const reactSelectStyles = outerTheme => {
     }),
     multiValue: (base, state) => ({
       ...base,
-      borderRadius: outerTheme.radii.regular,
-      margin: `${space2} ${space2} 0 0`,
+      'borderRadius': outerTheme.radii.regular,
+      'margin': `${space2} ${space2} 0 0`,
       ':first-child': {
         marginLeft: `-${space2}`
       }
@@ -112,9 +112,9 @@ const reactSelectStyles = outerTheme => {
     }),
     multiValueRemove: (base, state) => ({
       ...base,
-      borderRadius: outerTheme.radii.regular,
-      color: text[0],
-      display: state.isDisabled ? 'none' : 'flex',
+      'borderRadius': outerTheme.radii.regular,
+      'color': text[0],
+      'display': state.isDisabled ? 'none' : 'flex',
       ':hover': {
         ...base[':hover'],
         color: text[1],

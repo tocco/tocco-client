@@ -85,27 +85,27 @@ export const setupEntities = (fetchMock, entityStore, timeout) => {
 
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/entities/Dummy_entity/count(\\?.*)?'),
-    () => ({'count': entityStore['Dummy_entity'].length})
+    () => ({count: entityStore.Dummy_entity.length})
   )
 
   fetchMock.post(
     new RegExp('^.*?/nice2/rest/entities/Dummy_entity/count$'),
-    () => ({'count': entityStore['Dummy_entity'].length})
+    () => ({count: entityStore.Dummy_entity.length})
   )
 
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/entities/User/count(\\?.*)?'),
-    () => sleep(timeout).then(() => ({'count': entityStore['User'].length}))
+    () => sleep(timeout).then(() => ({count: entityStore.User.length}))
   )
 
   fetchMock.post(
     new RegExp('^.*?/nice2/rest/entities/User/count$'),
-    () => sleep(timeout).then(() => ({'count': entityStore['User'].length}))
+    () => sleep(timeout).then(() => ({count: entityStore.User.length}))
   )
 
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/entities/User/[0-9]+/entitydocs/count(\\?.*)?'),
-    () => sleep(timeout).then(() => ({'count': -1}))
+    () => sleep(timeout).then(() => ({count: -1}))
   )
 
   fetchMock.get(

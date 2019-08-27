@@ -43,7 +43,7 @@ class ModalContent extends React.Component {
 
 ModalContent.propTypes = {
   id: PropTypes.any.isRequired,
-  component: PropTypes.oneOfType([ PropTypes.node, PropTypes.func ]).isRequired,
+  component: PropTypes.oneOfType([PropTypes.node, PropTypes.func]).isRequired,
   close: PropTypes.func.isRequired,
   title: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   message: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),

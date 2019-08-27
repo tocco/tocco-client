@@ -48,7 +48,7 @@ describe('tocco-ui', () => {
 
       test('should be one css declaration with two values from theme', () => {
         const declarations = {
-          'padding': ['space', 0, 2]
+          padding: ['space', 0, 2]
         }
         expect(objectToCss(declarations, props)).to.equal('padding: 0 2rem;')
       })
@@ -67,7 +67,7 @@ describe('tocco-ui', () => {
         'should be one css declaration with one deep nested string value from theme',
         () => {
           const declarations = {
-            'color': ['colors.text']
+            color: ['colors.text']
           }
           expect(objectToCss(declarations, props)).to.equal('color: #BBB;')
         }

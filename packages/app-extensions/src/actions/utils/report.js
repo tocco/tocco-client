@@ -79,43 +79,43 @@ export const getFormDefinition = (settingsDefinition, intl) => {
   const extractFields = name =>
     (settingsDefinition[name] || []).map(field => (
       {
-        'children': [
+        children: [
           {
-            'componentType': 'field',
-            'dataType': field.dataType,
-            'defaultValue': field.defaultValue,
-            'id': field.id,
-            'label': field.label || field.description,
-            'path': field.id
+            componentType: 'field',
+            dataType: field.dataType,
+            defaultValue: field.defaultValue,
+            id: field.id,
+            label: field.label || field.description,
+            path: field.id
           }
         ],
-        'componentType': 'field-set',
-        'hidden': false,
-        'id': field.id,
-        'label': field.label || field.description,
-        'readonly': field.disabled,
-        'scopes': []
+        componentType: 'field-set',
+        hidden: false,
+        id: field.id,
+        label: field.label || field.description,
+        readonly: field.disabled,
+        scopes: []
       }
     ))
 
   return {
-    'componentType': 'form',
-    'label': null,
-    'modelid': 'Bill_report_settings',
-    'readonly': false,
-    'children': [
+    componentType: 'form',
+    label: null,
+    modelid: 'Bill_report_settings',
+    readonly: false,
+    children: [
       {
-        'componentType': 'layout',
-        'id': 'generalSettings',
-        'label': msg('client.common.report.generalSettings'),
-        'layoutType': 'vertical-box',
+        componentType: 'layout',
+        id: 'generalSettings',
+        label: msg('client.common.report.generalSettings'),
+        layoutType: 'vertical-box',
         children: extractFields(GROUP_GENERAL)
       },
       {
-        'componentType': 'layout',
-        'id': 'recipientSettings',
-        'label': msg('client.common.report.recipientSettings'),
-        'layoutType': 'vertical-box',
+        componentType: 'layout',
+        id: 'recipientSettings',
+        label: msg('client.common.report.recipientSettings'),
+        layoutType: 'vertical-box',
         children: extractFields(GROUP_RECIPIENT)
       }
     ]

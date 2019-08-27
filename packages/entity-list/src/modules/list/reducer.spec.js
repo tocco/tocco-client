@@ -45,7 +45,7 @@ describe('entity-list', () => {
 
         test('should handle ADD_ENTITIES_TO_STORE', () => {
           const existingEntities = {
-            '1': [
+            1: [
               {field: 'value1'},
               {field: 'value2'}
             ]
@@ -56,11 +56,11 @@ describe('entity-list', () => {
           ]
 
           const mergedEntities = {
-            '1': [
+            1: [
               {field: 'value1'},
               {field: 'value2'}
             ],
-            '2': [
+            2: [
               {field: 'value3'},
               {field: 'value4'}
             ]

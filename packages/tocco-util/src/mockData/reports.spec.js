@@ -54,7 +54,7 @@ describe('tocco-util', () => {
           test('should first return in_progress answer and then completed.', async() => {
             setupReports(fetchMock, null, 0)
 
-            const resource = `/nice2/rest/report/sample_report/generations`
+            const resource = '/nice2/rest/report/sample_report/generations'
 
             const response = await fetch(resource, {method: 'POST', body: {settings: {}}})
             const location = response.headers.get('Location')

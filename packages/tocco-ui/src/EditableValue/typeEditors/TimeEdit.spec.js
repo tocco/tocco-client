@@ -9,8 +9,7 @@ describe('tocco-ui', () => {
   describe('EditableValue', () => {
     describe('typeEditors', () => {
       describe('TimeEdit ', () => {
-        const valueObject = {
-          value: {hourOfDay: 8, minuteOfHour: 45}}
+        const valueObject = {value: {hourOfDay: 8, minuteOfHour: 45}}
 
         test('should render input', () => {
           const wrapper = mount(

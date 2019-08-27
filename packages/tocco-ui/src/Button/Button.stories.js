@@ -18,13 +18,15 @@ storiesOf('Tocco-UI | Buttons / Button', module)
         ink={select('ink', {'-': null, ...design.ink}) || undefined}
         icon={select('icon', {
           '-': null,
-          regular: 'air-freshener',
-          brand: 'fab, google',
-          times: 'times'}) || undefined
+          'regular': 'air-freshener',
+          'brand': 'fab, google',
+          'times': 'times'
+        }) || undefined
         }
         iconPosition={select('iconPosition', {
           [Button.defaultProps.iconPosition.toUpperCase()]: Button.defaultProps.iconPosition,
-          ..._pick(design.position, ['APPEND', 'PREPEND', 'SOLE'])}) || undefined
+          ..._pick(design.position, ['APPEND', 'PREPEND', 'SOLE'])
+        }) || undefined
         }
         label={text('label', 'My Button')}
         look={select('look', {

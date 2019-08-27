@@ -8,7 +8,7 @@ import {getCountry, loadCountries, requestSuggestions, transformToSuggestions} f
 
 const suggestions = [
   {
-    city: `Zurich`,
+    city: 'Zurich',
     zip: '2306',
     canton: 'ZH',
     address: 'Bahnhofstrasse 1',

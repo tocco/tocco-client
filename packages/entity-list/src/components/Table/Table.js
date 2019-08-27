@@ -5,7 +5,7 @@ import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import {Typography, Icon} from 'tocco-ui'
 
 import cellRenderer from '../../util/cellRenderer'
-import {default as selectionStyles, selectionStylePropType} from '../../util/selectionStyles'
+import selectionStyles, {selectionStylePropType} from '../../util/selectionStyles'
 import StyledTable from './StyledTable'
 import PaginationPanel from '../PaginationPanel'
 

@@ -17,81 +17,81 @@ describe('entity-detail', () => {
         'should display the right amount of fields according to form definition',
         () => {
           const formDefinition = {
-            'id': 'UserSearch_detail',
-            'children': [
+            id: 'UserSearch_detail',
+            children: [
               {
-                'id': 'box1',
-                'componentType': 'layout',
-                'layoutType': 'vertical-box',
-                'readonly': true,
-                'children': [
+                id: 'box1',
+                componentType: 'layout',
+                layoutType: 'vertical-box',
+                readonly: true,
+                children: [
                   {
-                    'id': 'box1',
-                    'componentType': 'layout',
-                    'layoutType': 'horizontal-box',
-                    'readonly': true,
-                    'children': [
+                    id: 'box1',
+                    componentType: 'layout',
+                    layoutType: 'horizontal-box',
+                    readonly: true,
+                    children: [
                       {
-                        'id': 'user_information',
-                        'componentType': 'layout',
-                        'layoutType': 'horizontal-box',
-                        'displayType': 'READONLY',
-                        'children': [
+                        id: 'user_information',
+                        componentType: 'layout',
+                        layoutType: 'horizontal-box',
+                        displayType: 'READONLY',
+                        children: [
                           {
-                            'id': 'firstname',
-                            'componentType': 'field-set',
-                            'label': 'Vorname',
-                            'scopes': [],
-                            'hidden': false,
-                            'children': [
+                            id: 'firstname',
+                            componentType: 'field-set',
+                            label: 'Vorname',
+                            scopes: [],
+                            hidden: false,
+                            children: [
                               {
-                                'id': 'firstname',
-                                'componentType': 'field',
-                                'dataType': 'string',
-                                'label': null
+                                id: 'firstname',
+                                componentType: 'field',
+                                dataType: 'string',
+                                label: null
                               }
                             ]
                           },
                           {
-                            'id': 'lastname',
-                            'componentType': 'field-set',
-                            'label': 'Nachname',
-                            'scopes': [],
-                            'hidden': false,
-                            'children': [
+                            id: 'lastname',
+                            componentType: 'field-set',
+                            label: 'Nachname',
+                            scopes: [],
+                            hidden: false,
+                            children: [
                               {
-                                'id': 'lastname',
-                                'componentType': 'field',
-                                'dataType': 'string',
-                                'label': null
+                                id: 'lastname',
+                                componentType: 'field',
+                                dataType: 'string',
+                                label: null
                               }
                             ]
                           }
                         ]
                       }
                     ],
-                    'label': null
+                    label: null
                   }
                 ]
               }]
           }
 
           const entity = {
-            'key': 6,
-            'model': 'User',
-            'paths': {
-              'firstname': {
-                'type': 'field',
-                'value': {
-                  'value': 'Firstname 6',
-                  'type': 'string'
+            key: 6,
+            model: 'User',
+            paths: {
+              firstname: {
+                type: 'field',
+                value: {
+                  value: 'Firstname 6',
+                  type: 'string'
                 }
               },
-              'lastname': {
-                'type': 'field',
-                'value': {
-                  'value': 'Lastname 997',
-                  'type': 'string'
+              lastname: {
+                type: 'field',
+                value: {
+                  value: 'Lastname 997',
+                  type: 'string'
                 }
               }
             }

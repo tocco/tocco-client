@@ -14,7 +14,7 @@ const EMPTY_FUNC = () => {}
 
 const suggestions = [
   {
-    city: `Zurich`,
+    city: 'Zurich',
     postcode: '2306',
     canton: 'ZH',
     address: 'Bahnhofstrasse 1',
@@ -120,7 +120,7 @@ describe('tocco-ui', () => {
           })
 
           test('should get default maps address', () => {
-            const result = `https://www.google.com/maps/search/?api=1&query=`
+            const result = 'https://www.google.com/maps/search/?api=1&query='
             expect(getGoogleMapsAddress()).to.equal(result)
           })
         })

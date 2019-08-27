@@ -11,11 +11,11 @@ export const condenseNumber = value => {
   ]
 
   const index = ranges.findIndex(range =>
-    _round(value / 10 ** range['base']) < 1000)
+    _round(value / 10 ** range.base) < 1000)
 
   const range = index >= 0
     ? ranges[index]
     : ranges[ranges.length - 1]
 
-  return `${_round(value / 10 ** range['base'])}${range['symbol']}`
+  return `${_round(value / 10 ** range.base)}${range.symbol}`
 }

@@ -5,8 +5,8 @@ import {call} from 'redux-saga/effects'
 export function* fetchEntity(entityName, id, paths, formName) {
   const options = {
     queryParams: {
-      '_paths': paths.join(','),
-      '_form': formName
+      _paths: paths.join(','),
+      _form: formName
     }
   }
 
@@ -18,7 +18,7 @@ export function* updateEntity(entity, paths = []) {
   const options = {
     method: 'PATCH',
     queryParams: {
-      '_paths': paths.join(',')
+      _paths: paths.join(',')
     },
     body: entity,
     acceptedErrorCodes: ['VALIDATION_FAILED']
@@ -39,7 +39,7 @@ export function* createEntity(entity, paths = []) {
   const options = {
     method: 'POST',
     queryParams: {
-      '_paths': paths.join(',')
+      _paths: paths.join(',')
     },
     body: entity,
     acceptedErrorCodes: ['VALIDATION_FAILED']
@@ -97,12 +97,12 @@ function buildParams({
   formName = undefined
 } = {}) {
   const params = {
-    '_sort': Object.keys(orderBy || {}).length === 2 ? `${orderBy.name} ${orderBy.direction}` : undefined,
-    '_paths': paths.join(','),
-    '_fields': fields && fields.length === 0 ? '!' : fields ? fields.join(',') : null,
-    '_relations': relations && relations.length === 0 ? '!' : relations ? relations.join(',') : null,
-    '_form': formName,
-    '_filter': searchFilters.join(','),
+    _sort: Object.keys(orderBy || {}).length === 2 ? `${orderBy.name} ${orderBy.direction}` : undefined,
+    _paths: paths.join(','),
+    _fields: fields && fields.length === 0 ? '!' : fields ? fields.join(',') : null,
+    _relations: relations && relations.length === 0 ? '!' : relations ? relations.join(',') : null,
+    _form: formName,
+    _filter: searchFilters.join(','),
     ...searchInputs
   }
 

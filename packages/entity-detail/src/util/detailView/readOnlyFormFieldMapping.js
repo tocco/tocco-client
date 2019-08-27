@@ -33,8 +33,8 @@ export default {
   'phone': formField.formattedValueFactory('phone'),
   'pulldown-date': formField.formattedValueFactory('date'),
   'range': {
-    'date': formField.formattedValueFactory('date-range'),
-    'birthdate': formField.formattedValueFactory('date-range')
+    date: formField.formattedValueFactory('date-range'),
+    birthdate: formField.formattedValueFactory('date-range')
   },
   'remote': formField.formattedValueFactory('remote'),
   'search-filter': formField.formattedValueFactory('search-filter'),

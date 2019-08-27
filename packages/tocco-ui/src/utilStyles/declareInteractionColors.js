@@ -105,8 +105,8 @@ const generateInteractionColors = ({theme}, scheme) => {
     ? getBestContrast(bgResolved[0], fgResolved[0], fgResolved[1])
     : fgResolved[0]
 
-  bgOption['action'] = bgOption['action'] || lightenOrDarken(bgBestContrast)
-  fgOption['action'] = fgOption['action'] || lightenOrDarken(bgBestContrast)
+  bgOption.action = bgOption.action || lightenOrDarken(bgBestContrast)
+  fgOption.action = fgOption.action || lightenOrDarken(bgBestContrast)
 
   return {
     bg: generateShades(bgBestContrast, bgOption),

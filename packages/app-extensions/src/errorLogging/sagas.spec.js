@@ -39,8 +39,8 @@ describe('app-extensions', () => {
         const gen = sagas.handleError(handlers, actions.logError(title, description, error))
 
         expect(gen.next().value).to.eql([
-          call(handlerRegistry['console'], title, description, error),
-          call(handlerRegistry['notifier'], title, description, error)
+          call(handlerRegistry.console, title, description, error),
+          call(handlerRegistry.notifier, title, description, error)
         ])
 
         expect(gen.next().done).to.be.true

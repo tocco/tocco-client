@@ -74,14 +74,14 @@ describe('tocco-ui', () => {
 
       test('should be valid dimension', () => {
         valid.map(value => {
-          props['dimension'] = value
+          props.dimension = value
           expect(validateCssDimension(props, 'dimension')).to.be.null
         })
       })
 
       test('should be invalid dimension', () => {
         invalid.map(value => {
-          props['dimension'] = value
+          props.dimension = value
           expect(validateCssDimension(props, 'dimension')).to.be.an('error')
         })
       })

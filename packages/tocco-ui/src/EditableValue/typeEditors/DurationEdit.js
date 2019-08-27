@@ -96,8 +96,10 @@ class DurationEdit extends React.Component {
     this.props.onChange(calculateMilliseconds(hoursValue, minutesValue))
   }
 
-  handleOnBlur = () => this.setState({showUnits:
-    (this.state.hours.toString().length >= 1 || this.state.minutes.toString().length >= 1)})
+  handleOnBlur = () => this.setState({
+    showUnits:
+    (this.state.hours.toString().length >= 1 || this.state.minutes.toString().length >= 1)
+  })
 
   handleOnFocus = () => this.setState({showUnits: true})
 

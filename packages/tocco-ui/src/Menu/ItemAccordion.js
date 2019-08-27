@@ -46,7 +46,7 @@ ItemAccordion.propTypes = {
   /**
    * Specify color palette. Default value is 'base'.
    */
-  'ink': design.inkPropTypes,
+  ink: design.inkPropTypes,
   /**
    * Boolean to control if a submenu is initially opened. Default value is 'true'.
    */
