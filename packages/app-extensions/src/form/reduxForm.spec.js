@@ -84,11 +84,7 @@ describe('app-extensions', () => {
               },
               profession: {
                 path: 'profession',
-                type: 'field',
-                value: {
-                  value: '',
-                  type: 'string'
-                }
+                type: 'field'
               }
             }
           }
