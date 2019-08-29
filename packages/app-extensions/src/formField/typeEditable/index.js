@@ -11,6 +11,7 @@ import remote from './remote'
 import select from './select'
 import searchFilter from './searchFilter'
 import boolean from './boolean'
+import percent from './percent'
 
 export default {
   'binary': document,
@@ -37,5 +38,6 @@ export default {
   'search-filter': searchFilter,
   'single-remote-field': remote,
   'single-select-box': select,
-  'sorting': number
+  'sorting': number,
+  'percent': percent
 }
