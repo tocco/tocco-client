@@ -40,7 +40,7 @@ const initApp = (id, input, events, publicPath) => {
 
     const app = initApp('dev', input)
 
-    appFactory.renderApp(app.renderComponent())
+    appFactory.renderApp(app.component)
   } else {
     appFactory.registerAppInRegistry(packageName, initApp)
   }
@@ -53,7 +53,7 @@ export class ResourceSchedulerApp extends React.Component {
   }
 
   render() {
-    return this.app.renderComponent()
+    return this.app.component
   }
 }
 

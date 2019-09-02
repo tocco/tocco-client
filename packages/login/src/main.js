@@ -101,7 +101,7 @@ const initPasswordUpdateApp = (id, input, events, publicPath, customTheme) => {
     // uncomment to develop passwordUpdate App
     // const app = initPasswordUpdateApp('id', require('./dev/password_update_input.json'))
 
-    appFactory.renderApp(app.renderComponent())
+    appFactory.renderApp(app.component)
   } else {
     appFactory.registerAppInRegistry(packageName, initLoginApp)
     appFactory.registerAppInRegistry('password-update', initPasswordUpdateApp)
@@ -129,9 +129,7 @@ class LoginApp extends React.Component {
   }
 
   render() {
-    return (
-      <div>{this.app.renderComponent()}</div>
-    )
+    return this.app.component
   }
 }
 

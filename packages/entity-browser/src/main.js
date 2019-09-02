@@ -102,7 +102,7 @@ const initApp = (id, input, events, publicPath) => {
     const input = !__NO_MOCK__ ? require('./dev/input.json') : require('./dev/input-no-mock.json')
 
     const app = initApp('id', input)
-    appFactory.renderApp(app.renderComponent())
+    appFactory.renderApp(app.component)
   } else {
     appFactory.registerAppInRegistry(packageName, initApp)
   }
@@ -115,7 +115,7 @@ class EntityBrowserApp extends React.Component {
   }
 
   render() {
-    return this.app.renderComponent()
+    return this.app.component
   }
 }
 
