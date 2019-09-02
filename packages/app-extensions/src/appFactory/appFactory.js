@@ -1,19 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {Provider} from 'react-redux'
 import {addLocaleData} from 'react-intl'
-import {IntlProvider} from 'react-intl-redux'
 import _union from 'lodash/union'
 import de from 'react-intl/locale-data/de'
 import en from 'react-intl/locale-data/en'
 import fr from 'react-intl/locale-data/fr'
 import it from 'react-intl/locale-data/it'
-import {LoadMask} from 'tocco-ui'
 import {intl, consoleLogger} from 'tocco-util'
 
 import errorLogging from '../errorLogging'
-import ThemeWrapper from './ThemeWrapper'
-import keyDown from '../keyDown'
+import App from './App'
 
 export const createApp = (name,
   content,
@@ -36,10 +32,9 @@ export const createApp = (name,
     }
 
     const initIntlPromise = setupIntl(input, store, name, textResourceModules)
-    const component = getAppComponent(store, initIntlPromise, name, content, theme)
 
     return {
-      renderComponent: () => component,
+      component: <App store={store} initIntlPromise={initIntlPromise} name={name} content={content} theme={theme} />,
       store,
       methods: {
         setLocale: locale => intl.setLocale(store, textResourceModules, locale)
@@ -55,10 +50,11 @@ export const createApp = (name,
   }
 }
 
-export const renderApp = (app, mountElementName = 'root') => {
+export const renderApp = (App, mountElementName = 'root') => {
   const mountElement = document.getElementById(mountElementName)
+
   let render = () => {
-    ReactDOM.render(app, mountElement)
+    ReactDOM.render(App, mountElement)
   }
 
   if (__DEV__) {
@@ -100,24 +96,6 @@ const dispatchActions = (actions, store) => {
 const setWebpacksPublicPath = publicPath => {
   /* eslint camelcase: 0 */
   __webpack_public_path__ = publicPath
-}
-
-const getAppComponent = (store, initIntlPromise, name, content, theme) => {
-  return (
-    <ThemeWrapper appTheme={theme}>
-      <Provider store={store}>
-        <keyDown.KeyDownWatcher>
-          <LoadMask promises={[initIntlPromise]}>
-            <IntlProvider>
-              <div className={`tocco-${name}`}>
-                {content}
-              </div>
-            </IntlProvider>
-          </LoadMask>
-        </keyDown.KeyDownWatcher>
-      </Provider>
-    </ThemeWrapper>
-  )
 }
 
 const setupIntl = (input, store, module, textResourceModules) => {

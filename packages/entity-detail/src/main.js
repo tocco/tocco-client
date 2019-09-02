@@ -76,7 +76,7 @@ const initApp = (id, input, events = {}, publicPath) => {
     }
 
     const app = initApp('id', input)
-    appFactory.renderApp(app.renderComponent())
+    appFactory.renderApp(app.component)
   } else {
     appFactory.registerAppInRegistry(packageName, initApp)
   }
@@ -97,7 +97,7 @@ class EntityDetailApp extends React.Component {
   }
 
   render() {
-    return this.app.renderComponent()
+    return this.app.component
   }
 }
 

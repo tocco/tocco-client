@@ -49,7 +49,7 @@ const initApp = (input, events, publicPath) => {
 
     const app = initApp(input)
 
-    appFactory.renderApp(app.renderComponent())
+    appFactory.renderApp(app.component)
   } else {
     appFactory.registerAppInRegistry(packageName, initApp)
   }
@@ -75,7 +75,7 @@ class SchedulerApp extends React.Component {
     })
   }
 
-  render = () => <div>{this.app.renderComponent()}</div>
+  render = () => this.app.component
 }
 
 SchedulerApp.propTypes = {

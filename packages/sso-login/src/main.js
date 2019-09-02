@@ -39,7 +39,7 @@ const initApp = (id, input, events, publicPath) => {
 
     const app = initApp(packageName, input)
 
-    appFactory.renderApp(app.renderComponent())
+    appFactory.renderApp(app.component)
   } else {
     appFactory.registerAppInRegistry(packageName, initApp)
   }
