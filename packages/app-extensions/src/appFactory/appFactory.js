@@ -52,27 +52,7 @@ export const createApp = (name,
 
 export const renderApp = (App, mountElementName = 'root') => {
   const mountElement = document.getElementById(mountElementName)
-
-  let render = () => {
-    ReactDOM.render(App, mountElement)
-  }
-
-  if (__DEV__) {
-    const renderApp = render
-    const renderError = error => {
-      const RedBox = require('redbox-react')
-
-      ReactDOM.render(<RedBox error={error}/>, mountElement)
-    }
-    render = () => {
-      try {
-        renderApp()
-      } catch (error) {
-        renderError(error)
-      }
-    }
-  }
-  render()
+  ReactDOM.render(App, mountElement)
 }
 
 export const reloadApp = (app, mountElementName = 'root') => {
