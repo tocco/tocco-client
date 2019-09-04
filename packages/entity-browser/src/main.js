@@ -77,6 +77,14 @@ const initApp = (id, input, events, publicPath) => {
     }
   )
 
+  if (module.hot) {
+    module.hot.accept('./routes/index', () =>
+      setImmediate(() => {
+        appFactory.reloadApp(app.renderComponent())
+      })
+    )
+  }
+
   return app
 }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import {consoleLogger} from 'tocco-util'
+import {consoleLogger, reducer as reducerUtil} from 'tocco-util'
 import {appFactory, errorLogging, externalEvents} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
 import {hot} from 'react-hot-loader/root'
@@ -101,6 +101,13 @@ const initPasswordUpdateApp = (id, input, events, publicPath, customTheme) => {
     const app = initLoginApp('id', require('./dev/login_input.json'))
     // uncomment to develop passwordUpdate App
     // const app = initPasswordUpdateApp('id', require('./dev/password_update_input.json'))
+
+    if (module.hot) {
+      module.hot.accept('./modules/reducers', () => {
+        const reducers = require('./modules/reducers').default
+        reducerUtil.hotReloadReducers(app.store, reducers)
+      })
+    }
 
     appFactory.renderApp(app.component)
   } else {
