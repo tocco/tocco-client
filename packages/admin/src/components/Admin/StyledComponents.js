@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {slide as Menu} from 'react-burger-menu'
+import SlideMenu from 'react-burger-menu/lib/menus/slide'
 import {StyledH1} from 'tocco-ui'
 
 export const StyledTitle = styled(StyledH1)`
@@ -38,7 +38,7 @@ export const StyledHeader = styled.div`
   padding-left: 40px;
 `
 
-export const StyledMenu = styled(Menu)`
+export const StyledMenu = styled(SlideMenu)`
   grid-area: menu;
 `
 
