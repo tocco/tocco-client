@@ -1,11 +1,11 @@
 import React from 'react'
 import {appFactory, notifier, errorLogging, actionEmitter, externalEvents, rest} from 'tocco-app-extensions'
-import {Router} from 'react-router'
 import createHashHistory from 'history/createHashHistory'
 import createMemoryHistory from 'history/createMemoryHistory'
 import PropTypes from 'prop-types'
+import {hot} from 'react-hot-loader/root'
 
-import RouteWithSubRoutes from './components/RouteWithSubRoutes'
+import Router from './components/Router'
 
 const packageName = 'entity-browser'
 
@@ -64,15 +64,7 @@ const initApp = (id, input, events, publicPath) => {
 
   const routes = require('./routes/index').default(store, input)
 
-  const content = (
-    <Router history={history}>
-      <React.Fragment>
-        {routes.map((route, i) => (
-          <RouteWithSubRoutes key={i} {...route}/>
-        ))}
-      </React.Fragment>
-    </Router>
-  )
+  const content = <Router history={history} routes={routes}/>
 
   const app = appFactory.createApp(
     packageName,
@@ -134,4 +126,4 @@ EntityBrowserApp.propTypes = {
   memoryHistory: PropTypes.bool
 }
 
-export default EntityBrowserApp
+export default hot(EntityBrowserApp)

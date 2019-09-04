@@ -1,5 +1,6 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {hot} from 'react-hot-loader/root'
 
 import PasswordUpdateDialog from '../components/passwordUpdate/PasswordUpdateDialog'
 import {initialized} from '../modules/passwordUpdate/actions'
@@ -24,4 +25,4 @@ const mapStateToProps = state => ({
   forcedUpdate: state.passwordUpdate.dialog.forcedUpdate
 })
 
-export default connect(mapStateToProps, mapActionCreators)(injectIntl(PasswordUpdateDialog))
+export default hot(connect(mapStateToProps, mapActionCreators)(injectIntl(PasswordUpdateDialog)))

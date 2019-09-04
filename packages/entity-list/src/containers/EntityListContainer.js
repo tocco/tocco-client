@@ -1,5 +1,6 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {hot} from 'react-hot-loader/root'
 
 import EntityList from '../components/EntityList'
 import {initialize} from '../modules/entityList/actions'
@@ -15,4 +16,4 @@ const mapStateToProps = (state, props) => ({
   showSelectionController: state.selection.showSelectionController
 })
 
-export default connect(mapStateToProps, mapActionCreators)(injectIntl(EntityList))
+export default hot(connect(mapStateToProps, mapActionCreators)(injectIntl(EntityList)))

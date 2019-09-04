@@ -2,6 +2,7 @@ import React from 'react'
 import {consoleLogger} from 'tocco-util'
 import {appFactory, errorLogging, externalEvents} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
+import {hot} from 'react-hot-loader/root'
 
 import * as passwordUpdate from './modules/passwordUpdate/dialog/actions'
 import * as passwordRequest from './modules/passwordRequest/actions'
@@ -145,4 +146,4 @@ LoginApp.propTypes = {
   }, {})
 }
 
-export default LoginApp
+export default hot(LoginApp)

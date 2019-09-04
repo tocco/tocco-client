@@ -1,6 +1,7 @@
 import React from 'react'
 import {appFactory, externalEvents} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
+import {hot} from 'react-hot-loader/root'
 
 import reducers, {sagas} from './modules/reducers'
 import SchedulerContainer from './containers/SchedulerContainer'
@@ -101,4 +102,4 @@ SchedulerApp.propTypes = {
   locale: PropTypes.string
 }
 
-export default SchedulerApp
+export default hot(SchedulerApp)
