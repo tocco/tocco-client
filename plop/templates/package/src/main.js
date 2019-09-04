@@ -38,6 +38,13 @@ const initApp = (id, input, events, publicPath) => {
 
     const app = initApp(packageName, input)
 
+    if (module.hot) {
+      module.hot.accept('./modules/reducers', () => {
+        const reducers = require('./modules/reducers').default
+        reducerUtil.hotReloadReducers(app.store, reducers)
+      })
+    }
+
     appFactory.renderApp(app.component)
   } else {
     appFactory.registerAppInRegistry(packageName, initApp)
