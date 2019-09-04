@@ -25,7 +25,6 @@ logger.info('Create webpack configuration.')
 const webpackConfig = {
   mode: __PROD__ ? 'production' : 'development',
   name: 'client',
-  target: 'web',
   devtool: false,
   resolve: {
     modules: [
@@ -34,23 +33,20 @@ const webpackConfig = {
       path.resolve(paths.client(), 'node_modules')
     ],
     alias: {
-      ReactDOM: `${__dirname}/../node_modules/react-dom/index.js`,
-      React: `${__dirname}/../node_modules/react/react.js`,
+      ...(__DEV__ ? {'react-dom': '@hot-loader/react-dom'} : {}),
       moment: `${__dirname}/../node_modules/moment/moment.js`
-    },
-    extensions: ['.js', '.jsx', '.json']
+    }
   },
   performance: {
     hints: __PROD__ ? 'warning' : false
   },
   module: {},
+
   externals: {
-    'react': 'React',
-    'React': 'React',
-    'react-dom': 'ReactDOM',
-    'ReactDOM': 'ReactDOM'
+    ...(__PROD__ ? {'react': 'React', 'react-dom': 'ReactDOM'} : {})
   },
   entry: [
+    ...(__DEV__ ? ['webpack-hot-middleware/client', 'react-hot-loader/patch'] : []),
     paths.client(`${packageDir}/src/main.js`)
   ]
 }
