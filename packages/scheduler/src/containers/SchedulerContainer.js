@@ -1,5 +1,6 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {hot} from 'react-hot-loader/root'
 
 import {
   onDateRangeChange,
@@ -24,4 +25,4 @@ const mapStateToProps = (state, props) => {
   }
 }
 
-export default connect(mapStateToProps, mapActionCreators)(injectIntl(Scheduler))
+export default hot(connect(mapStateToProps, mapActionCreators)(injectIntl(Scheduler)))

@@ -1,6 +1,7 @@
 import React from 'react'
 import {appFactory, externalEvents, formData, notifier, actionEmitter} from 'tocco-app-extensions'
 import PropTypes from 'prop-types'
+import {hot} from 'react-hot-loader/root'
 
 import reducers, {sagas} from './modules/reducers'
 import FormContainer from './containers/FormContainer'
@@ -88,4 +89,4 @@ SimpleFormApp.propTypes = {
   }, {})
 }
 
-export default SimpleFormApp
+export default hot(SimpleFormApp)

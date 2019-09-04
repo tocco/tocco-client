@@ -2,6 +2,7 @@ import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 import {getFormInitialValues} from 'redux-form'
 import {errorLogging} from 'tocco-app-extensions'
+import {hot} from 'react-hot-loader/root'
 
 import {
   loadDetailView,
@@ -25,4 +26,4 @@ const mapStateToProps = (state, props) => {
   }
 }
 
-export default connect(mapStateToProps, mapActionCreators)(injectIntl(DetailView))
+export default hot(connect(mapStateToProps, mapActionCreators)(injectIntl(DetailView)))

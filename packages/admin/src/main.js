@@ -1,5 +1,6 @@
 import React from 'react'
 import {appFactory, notifier, errorLogging, actionEmitter, externalEvents, keyDown} from 'tocco-app-extensions'
+import {hot} from 'react-hot-loader/root'
 
 import shortcuts from './shortcuts'
 import reducers, {sagas} from './modules/reducers'
@@ -43,7 +44,8 @@ const initApp = (id, input, events, publicPath) => {
 
     const app = initApp(packageName, input)
 
-    appFactory.renderApp(app.component)
+    const App = hot(() => app.component)
+    appFactory.renderApp(<App/>)
   } else {
     appFactory.registerAppInRegistry(packageName, initApp)
   }

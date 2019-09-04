@@ -14,6 +14,7 @@ import _pickBy from 'lodash/pickBy'
 import _isEqual from 'lodash/isEqual'
 import _isEmpty from 'lodash/isEmpty'
 import SimpleFormApp from 'tocco-simple-form/src/main'
+import {hot} from 'react-hot-loader/root'
 
 import reducers, {sagas} from './modules/reducers'
 import EntityListContainer from './containers/EntityListContainer'
@@ -150,4 +151,4 @@ EntityListApp.propTypes = {
   })
 }
 
-export default EntityListApp
+export default hot(EntityListApp)

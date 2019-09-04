@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import {hot} from 'react-hot-loader/root'
 import {
   appFactory,
   notifier,
@@ -111,4 +112,4 @@ EntityDetailApp.propTypes = {
   }, {})
 }
 
-export default EntityDetailApp
+export default hot(EntityDetailApp)
