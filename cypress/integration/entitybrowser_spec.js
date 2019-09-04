@@ -45,7 +45,7 @@ describe('Entity Browser', function() {
 
   describe('DetailView', () => {
     beforeEach(() => {
-      cy.visit(`${helpers.getStoryUrl(['Apps', 'Entity Browser'], 'Entity Browser')}detail/15737`)
+      cy.visit(`${helpers.getStoryUrl(['Apps', 'Entity Browser'], 'Entity Browser')}detail/3427`)
     })
 
     it('should display detail view', function() {
