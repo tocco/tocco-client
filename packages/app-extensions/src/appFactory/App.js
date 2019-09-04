@@ -24,7 +24,7 @@ const App = ({store, initIntlPromise, name, content, theme}) =>
 
 App.propTypes = {
   store: PropTypes.object.isRequired,
-  initIntlPromise: PropTypes.func.isRequired,
+  initIntlPromise: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   content: PropTypes.node.isRequired,
   theme: PropTypes.object
