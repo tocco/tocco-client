@@ -1,5 +1,6 @@
 import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
+import {hot} from 'react-hot-loader/root'
 
 import EntitiesRoute from './EntitiesRoute'
 import {loadCurrentViewInfo} from '../../modules/path/actions'
@@ -12,4 +13,4 @@ const mapActionCreators = {
   loadCurrentViewInfo
 }
 
-export default connect(mapStateToProps, mapActionCreators)(injectIntl(EntitiesRoute))
+export default hot(connect(mapStateToProps, mapActionCreators)(injectIntl(EntitiesRoute)))
