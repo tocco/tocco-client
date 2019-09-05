@@ -1,32 +1,93 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
-import {Typography, Button} from 'tocco-ui'
+import {Icon, Typography} from 'tocco-ui'
+import EntityListApp from 'tocco-entity-list/src/main'
 
+import {RelationBox, RelationLabel, RelationLinks, StyledPreviewBox, StyledRelationBox} from './StyledComponents'
 import {StyledLink} from '../../../../components/StyledLink'
+import {goBack} from '../../../../utils/routing'
 
-const RelationsView = ({match, currentViewInfo, relations, relationsCount}) => {
-  if (!relations || !currentViewInfo) {
+const RelationsView = ({history, match, currentViewInfo, relations, relationsCount}) => {
+  const [selectedRelation, selectRelation] = useState(null)
+
+  useEffect(
+    () => {
+      if (relations && relations.length > 0) {
+        selectRelation(relations[0])
+      } else {
+        selectRelation(null)
+      }
+    },
+    [relations]
+  )
+
+  const getRelationCountLabel = relationName => relationsCount[relationName]
+    ? <RelationLabel>&nbsp;({relationsCount[relationName]})</RelationLabel> : null
+
+  if (!relations || relations.length === 0 || !currentViewInfo) {
     return null
   }
 
-  const count = relationName => relationsCount[relationName] ? <span>({relationsCount[relationName]})</span> : null
   return (
     <div>
-      <Typography.H4>Relations</Typography.H4>
-      {relations.map((relation, idx) => (
-        <span key={idx} style={{padding: '3px'}}>
-          <Button look="raised">
-            <StyledLink to={match.url.replace(/(relations|detail)$/, relation.relationName)}>
-              {relation.relationDisplay.label} {count(relation.relationName)}
-            </StyledLink>
-          </Button>
-        </span>
-      ))}
+      <StyledRelationBox>
+        {relations.map((relation, idx) => (
+          <RelationBox
+            key={idx}
+            selected={selectedRelation && relation.relationName === selectedRelation.relationName}
+            onClick={() => { selectRelation(relation) }}
+          >
+            <RelationLabel title={relation.relationDisplay.label}>
+              {relation.relationDisplay.label}</RelationLabel>{getRelationCountLabel(relation.relationName)}
+            <RelationLinks>
+              <StyledLink to={match.url.replace(/(relations|detail)$/, relation.relationName)}>
+                <Icon icon="external-link-alt"/>
+              </StyledLink>
+              <StyledLink to={match.url.replace(/(relations|detail)$/, relation.relationName) + '/create'}>
+                <Icon icon="plus"/>
+              </StyledLink>
+            </RelationLinks>
+          </RelationBox>
+        ))}
+      </StyledRelationBox>
+
+      {selectedRelation
+      && <StyledPreviewBox>
+        <Typography.H4>{selectedRelation.relationDisplay.label}</Typography.H4>
+        <EntityListApp
+          id={'preview' + selectedRelation.reverseRelationName + selectedRelation.targetEntity}
+          key={selectedRelation.reverseRelationName + selectedRelation.targetEntity}
+          entityName={selectedRelation.targetEntity}
+          formBase={selectedRelation.targetEntity}
+          keepStore={true}
+          parent={{
+            key: currentViewInfo.key,
+            reverseRelationName: selectedRelation.reverseRelationName,
+            model: currentViewInfo.model.name
+          }}
+          showLink={true}
+          linkFactory={{
+            detail: (entity, relation2, key, children) =>
+              <StyledLink to={selectedRelation.relationName + '/' + key}>{children}</StyledLink>
+          }}
+          onRowClick={({id}) => {
+            const entityBaseUrl = match.url.replace(/detail$/, '')
+            history.push(`${entityBaseUrl}${selectedRelation.relationName}/${id}`)
+          }}
+          onNavigateToCreate={() => {
+            const entityBaseUrl = goBack(match.url)
+            history.push(entityBaseUrl + '/' + selectedRelation.relationName + '/create')
+          }}
+        />
+      </StyledPreviewBox>
+      }
     </div>
+
   )
 }
 
 RelationsView.propTypes = {
+  history: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
   currentViewInfo: PropTypes.object,
   relations: PropTypes.array,

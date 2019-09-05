@@ -22,7 +22,7 @@ const DetailView = props => (
       <EditView match={props.match} history={props.history}/>
     </DetailViewPart>
     <DetailViewPart>
-      <RelationsView match={props.match}/>
+      <RelationsView match={props.match} history={props.history}/>
     </DetailViewPart>
   </DetailViewContainer>
 )
