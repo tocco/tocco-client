@@ -113,6 +113,7 @@
     "plop": "^2.4.0",
     "polished": "^2.3.0",
     "prop-types": "^15.7.2",
+    "query-string": "^6.8.3",
     "react": "16.8.4",
     "react-addons-test-utils": "^15.6.2",
     "react-bootstrap": "0.31.5",

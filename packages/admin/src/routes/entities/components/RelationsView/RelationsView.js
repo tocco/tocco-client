@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {Icon, Typography} from 'tocco-ui'
 import EntityListApp from 'tocco-entity-list/src/main'
+import queryString from 'query-string'
 
 import {RelationBox, RelationLabel, RelationLinks, StyledPreviewBox, StyledRelationBox} from './StyledComponents'
 import {StyledLink} from '../../../../components/StyledLink'
@@ -13,7 +14,12 @@ const RelationsView = ({history, match, currentViewInfo, relations, relationsCou
   useEffect(
     () => {
       if (relations && relations.length > 0) {
-        selectRelation(relations[0])
+        const queryRelation = queryString.parse(history.location.search).relation
+        if (queryRelation) {
+          selectRelation(relations.find(r => r.relationName === queryRelation))
+        } else {
+          selectRelation(relations[0])
+        }
       } else {
         selectRelation(null)
       }
@@ -35,7 +41,12 @@ const RelationsView = ({history, match, currentViewInfo, relations, relationsCou
           <RelationBox
             key={idx}
             selected={selectedRelation && relation.relationName === selectedRelation.relationName}
-            onClick={() => { selectRelation(relation) }}
+            onClick={() => {
+              selectRelation(relation)
+              history.replace({
+                search: '?relation=' + relation.relationName
+              })
+            }}
           >
             <RelationLabel title={relation.relationDisplay.label}>
               {relation.relationDisplay.label}</RelationLabel>{getRelationCountLabel(relation.relationName)}
