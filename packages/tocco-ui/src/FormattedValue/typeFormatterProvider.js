@@ -8,8 +8,6 @@ import DocumentCompactFormatter from './typeFormatters/DocumentCompactFormatter'
 import DocumentFormatter from './typeFormatters/DocumentFormatter'
 import DurationFormatter from './typeFormatters/DurationFormatter'
 import HtmlFormatter from './typeFormatters/HtmlFormatter'
-import LoginFormatter from './typeFormatters/LoginFormatter'
-import LongitudeFormatter from './typeFormatters/LongitudeFormatter'
 import MoneyFormatter from './typeFormatters/MoneyFormatter'
 import MultiSelectFormatter from './typeFormatters/MultiSelectFormatter'
 import PercentFormatter from './typeFormatters/PercentFormatter'
@@ -19,6 +17,7 @@ import StringFormatter from './typeFormatters/StringFormatter'
 import TextFormatter from './typeFormatters/TextFormatter'
 import TimeFormatter from './typeFormatters/TimeFormatter'
 import UrlFormatter from './typeFormatters/UrlFormatter'
+import CoordinateFormatter from './typeFormatters/CoordinateFormatter'
 
 export default (type, value, options) => {
   if (map[type]) {
@@ -35,11 +34,13 @@ export const map = {
   'birthdate': DateFormatter,
   'boolean': BooleanFormatter,
   'char': StringFormatter,
+  'code': TextFormatter,
   'count': StringFormatter,
   'counter': StringFormatter,
   'createts': DateTimeFormatter,
   'createuser': StringFormatter,
   'date': DateFormatter,
+  'data-amoun': NumberFormatter,
   'date-range': DateFormatter,
   'datetime': DateTimeFormatter,
   'decimal': NumberFormatter,
@@ -50,12 +51,12 @@ export const map = {
   'email': StringFormatter,
   'html': HtmlFormatter,
   'identifier': StringFormatter,
-  'integer': NumberFormatter,
+  'integer': StringFormatter,
   'ipaddress': StringFormatter,
-  'latitude': LongitudeFormatter,
-  'login': LoginFormatter,
+  'latitude': CoordinateFormatter,
+  'login': StringFormatter,
   'long': StringFormatter,
-  'longitude': LongitudeFormatter,
+  'longitude': CoordinateFormatter,
   'moneyamount': MoneyFormatter,
   'multi-remote': MultiSelectFormatter,
   'multi-select': MultiSelectFormatter,
@@ -68,6 +69,7 @@ export const map = {
   'sorting': NumberFormatter,
   'string': StringFormatter,
   'text': TextFormatter,
+  'text-area': TextFormatter,
   'time': TimeFormatter,
   'url': UrlFormatter,
   'uuid': StringFormatter,
