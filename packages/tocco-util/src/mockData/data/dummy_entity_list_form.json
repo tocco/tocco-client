@@ -42,7 +42,8 @@
               {
                 "id": "label",
                 "componentType": "field",
-                "path": "label"
+                "path": "label",
+                "dataType": "string"
               }
             ],
             "label": "Label"
@@ -56,6 +57,7 @@
                 "id": "active",
                 "componentType": "field",
                 "path": "active",
+                "dataType": "boolean",
                 "label": null
               },
               {
