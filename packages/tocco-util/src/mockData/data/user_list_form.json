@@ -285,7 +285,7 @@
                 "id": "relSingle_entity2",
                 "componentType": "field",
                 "path": "relSingle_entity2",
-                "dataTime": "single-select-box",
+                "dataType": "single-select-box",
                 "label": null
               }
             ],
@@ -394,11 +394,7 @@
                 "label": null,
                 "componentType": "field",
                 "path": "relMulti_entity1.relPayment_status",
-                "dataType": "single-select-box",
-                "defaultValue": {
-                  "display": "Unbezahlt",
-                  "key": "2"
-                }
+                "dataType": "single-select-box"
               }
             ],
             "readonly": false,

@@ -226,7 +226,7 @@
     "durationDisplay": {
       "path": "durationDisplay",
       "type": "display-expression",
-      "value": "<b>bold</b> <i>italic</i>"
+      "value": "<i class=\"fas fa-adjust\"></i><b>bold</b> <i>italic</i>"
     },
     "notreadable": {
       "type": "field",

@@ -485,6 +485,21 @@
                         "label": null
                       }
                     ]
+                  },
+                  {
+                    "componentType": "field-set",
+                    "label": "Status (to n path)",
+                    "scopes": [],
+                    "hidden": false,
+                    "children": [
+                      {
+                        "id": "relMulti_entity1.relPayment_status",
+                        "componentType": "field",
+                        "dataType": "single-select-box",
+                        "path": "relMulti_entity1.relPayment_status",
+                        "label": null
+                      }
+                    ]
                   }
                 ],
                 "label": "Communication"
