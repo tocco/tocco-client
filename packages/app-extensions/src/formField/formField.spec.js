@@ -23,7 +23,7 @@ describe('app-extensions', () => {
         const formFieldData = {
           formDefinitionField
         }
-        const formField = formFieldFactory(mapping, formFieldData)
+        const formField = formFieldFactory(mapping, mapping, formFieldData)
 
         const store = createStore(() => ({
           formData: {
@@ -67,7 +67,7 @@ describe('app-extensions', () => {
           formDefinitionField,
           modelField
         }
-        const formField = formFieldFactory(mapping, formFieldData)
+        const formField = formFieldFactory(mapping, mapping, formFieldData)
 
         const store = createStore(() => ({
           formData: {

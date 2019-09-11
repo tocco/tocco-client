@@ -15,7 +15,7 @@ const getOptions = (type, modelField, formData) => {
   return {}
 }
 
-export default type => (formField, modelField, formName, value, info, events, formData) => {
+export default type => (formField, modelField, formName, value, info, events, formData, key) => {
   const options = getOptions(type, modelField, formData)
-  return <FormattedValue type={type} value={value} options={options}/>
+  return <FormattedValue key={key} type={type} value={value} options={options}/>
 }

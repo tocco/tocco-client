@@ -1,8 +1,7 @@
 import _forOwn from 'lodash/forOwn'
 import _isEqual from 'lodash/isEqual'
-import _pick from 'lodash/pick'
 import _isEmpty from 'lodash/isEmpty'
-import _get from 'lodash/get'
+import {api} from 'tocco-util'
 
 import {generalErrorField, entityValidatorErrorsField, relatedEntityErrorsField} from './formErrors'
 
@@ -73,7 +72,7 @@ export const entityToFormValues = entity => {
   Object.keys(entity.paths).forEach(key => {
     const field = entity.paths[key]
     const transformedFieldName = transformFieldName(key)
-    const typeValueTransformer = typeValueTransformers[field.type]
+    const typeValueTransformer = api.typeValueExtractor[field.type]
 
     const value = field.value
 
@@ -99,22 +98,4 @@ export const getDirtyFields = (initialValues, values, isCreate) => {
   })
 
   return dirtyFields
-}
-
-const relevantRelationAttributes = ['key', 'display']
-const typeValueTransformers = {
-  'display-expression': value => value,
-  'entity': value => _pick(value, relevantRelationAttributes),
-  'entity-list': value => value.map(childValue => _pick(childValue, relevantRelationAttributes)),
-  'field': value => {
-    switch (value.type) {
-      case 'login':
-        return _get(value, 'value.username')
-      case 'longitude':
-      case 'latitude':
-        return _get(value, 'value.value')
-      default:
-        return value.value === null ? null : value.value
-    }
-  }
 }
