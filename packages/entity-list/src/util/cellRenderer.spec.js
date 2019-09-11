@@ -10,20 +10,19 @@ import cellRenderer from './cellRenderer'
 
 describe('entity-list', () => {
   describe('util', () => {
-    const getStore = () => createStore(() => ({formData: {}}))
+    const getStore = () => createStore(() => ({formData: {linkFactory: {}}}))
     describe('cellRenderer', () => {
       test('should return a formattedValue for componentType field', () => {
         const field = {
           componentType: 'field',
           id: 'firstname-field', // does not match path by intention (-> should use path to get data)
-          path: 'firstname'
+          path: 'firstname',
+          dataType: 'string'
         }
         const entity = {
-          firstname: {
-            value: 'Donald',
-            type: 'string'
-          }
+          firstname: 'Donald'
         }
+
         const parent = {}
 
         const wrapper = intlEnzyme.mountWithIntl(

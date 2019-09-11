@@ -1,6 +1,6 @@
 import {rest} from 'tocco-app-extensions'
 import _reduce from 'lodash/reduce'
-import {consoleLogger} from 'tocco-util'
+import {api} from 'tocco-util'
 import {call} from 'redux-saga/effects'
 
 const getCreatePermission = json => {
@@ -41,40 +41,14 @@ export const entitiesListTransformer = json => (
     {
       __key: entity.key,
       __model: entity.model,
-      ...(_reduce(entity.paths, (result, value, key) => ({...result, [key]: getFieldValues(value)}), {}))
+      ...(_reduce(
+        entity.paths,
+        (acc, value, key) => ({...acc, [key]: api.typeValueExtractor[value.type](value.value)}),
+        {}
+      ))
     }
   ))
 )
-
-const getFieldValues = path => {
-  const type = path.type
-  if (type === 'field') {
-    return path.value
-  } else if (type === 'entity') {
-    return {
-      type: 'remote',
-      value: path.value
-    }
-  } else if (type === 'entity-list') {
-    return {
-      type: 'multi-remote',
-      value: path.value
-    }
-  } else if (type === 'display-expression') {
-    return {
-      type: 'html',
-      value: path.value
-    }
-  } else if (type === 'multi') {
-    return path.value.map(v => getFieldValues(v))
-  } else {
-    consoleLogger.log(`Unable to map type ${type}`)
-    return {
-      type: 'string',
-      value: ''
-    }
-  }
-}
 
 export const defaultEntitiesTransformer = json => (json)
 export const selectEntitiesTransformer = json => (json.data.map(e => ({display: e.display, key: e.key})))

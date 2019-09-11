@@ -18,7 +18,7 @@ export default (field, entity, parent, cb, intl) => {
 
 const getDisplayExpression = (field, entity) =>
   <span key={field.id}>
-    <FormattedValue type="html" value={entity[field.id].value}/>
+    <FormattedValue type="html" value={entity[field.id]}/>
   </span>
 
 const getAction = (field, entity, parent, cb) =>
