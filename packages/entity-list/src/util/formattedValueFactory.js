@@ -50,7 +50,7 @@ export default (fieldDefinition, entity, intl) => {
       <formData.FormDataContainer key={idx} linkFactory={true}>
         <FormattedValueWrapper type={type} value={v} intl={intl}/>
       </formData.FormDataContainer>
-    )).reduce((prev, curr, idx) => [prev, <MultiSeparator key={idx}/>, curr])
+    )).reduce((prev, curr, idx) => [prev, <MultiSeparator key={'sep' + idx}/>, curr])
     }
   </span>
 }
