@@ -145,10 +145,13 @@ describe('app-extensions', () => {
 
           const formValues = reduxForm.entityToFormValues(entity)
 
-          expect(formValues).to.have.deep.property('relGender', {key: '2', display: 'Weiblich'})
+          expect(formValues).to.have.deep.property('relGender', {key: '2', display: 'Weiblich', model: 'Gender'})
           expect(formValues).to.have.deep.property('relNative_language', null)
           expect(formValues).to.have.deep.property('relMulti_entity2',
-            [{key: '1', display: 'Entity Label 1'}, {key: '3', display: 'Entity Label 3'}]
+            [
+              {key: '1', display: 'Entity Label 1', model: 'Dummy_entity'},
+              {key: '3', display: 'Entity Label 3', model: 'Dummy_entity'}
+            ]
           )
         })
 

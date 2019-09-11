@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import _get from 'lodash/get'
-import {StatedValue} from 'tocco-ui'
+import {StatedValue, Typography} from 'tocco-ui'
 import {consoleLogger} from 'tocco-util'
 
 import fromData from '../formData'
@@ -31,7 +31,7 @@ FormFieldWrapper.propTypes = {
   hasValue: PropTypes.bool
 }
 
-export const formFieldFactory = (mapping, data, resources = {}) => {
+export const formFieldFactory = (primaryMapping, readOnlyMapping, data, resources = {}) => {
   try {
     const {
       formDefinitionField,
@@ -89,7 +89,8 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
           formField={formDefinitionField}
         >
           <ValueField
-            mapping={mapping}
+            primaryMapping={primaryMapping}
+            readOnlyMapping={readOnlyMapping}
             formName={formName}
             formField={formDefinitionField}
             modelField={modelField}
@@ -106,11 +107,25 @@ export const formFieldFactory = (mapping, data, resources = {}) => {
   }
 }
 
-const ValueField = props => {
-  const {mapping, formName, formField, modelField, value, info, events, formData} = props
-  const type = formField.dataType ? 'dataType' : 'componentType'
+const forceReadOnly = value => value && value.multi
 
-  let typeFactory = mapping[formField[type]]
+export const MultiSeparator = () => (<Typography.Span>, </Typography.Span>)
+
+const ValueField = ({
+  primaryMapping,
+  readOnlyMapping,
+  formName,
+  formField,
+  modelField,
+  value,
+  info,
+  events,
+  formData
+}) => {
+  const typeSelector = formField.dataType ? 'dataType' : 'componentType'
+  const type = formField[typeSelector]
+
+  let typeFactory = forceReadOnly(value) ? readOnlyMapping[type] : primaryMapping[type]
 
   if (!typeFactory) {
     consoleLogger.log(`FormType '${formField.dataType}' not present in typeFactoryMap`)
@@ -125,5 +140,15 @@ const ValueField = props => {
     }
   }
 
-  return typeFactory(formField, modelField, formName, value, info, events, formData)
+  if (value && value.multi) {
+    return <React.Fragment>
+      {
+        value.values
+          .map((value, idx) => typeFactory(formField, modelField, formName, value, info, events, formData, idx))
+          .reduce((prev, curr, idx) => [prev, <MultiSeparator key={'sep' + idx}/>, curr])
+      }
+    </React.Fragment>
+  } else {
+    return typeFactory(formField, modelField, formName, value, info, events, formData)
+  }
 }

@@ -40,9 +40,9 @@ const ReduxFormFieldAdapter = props => {
     mandatoryTitle: props.intl.formatMessage({id: 'client.component.form.mandatoryFieldTitle'})
   }
 
-  const mapping = readOnlyForm ? props.readOnlyFormFieldMapping : props.formFieldMapping
+  const primaryMapping = readOnlyForm ? props.readOnlyFormFieldMapping : props.formFieldMapping
 
-  return formField.formFieldFactory(mapping, fomFieldData, resources)
+  return formField.formFieldFactory(primaryMapping, props.readOnlyFormFieldMapping, fomFieldData, resources)
 }
 
 ReduxFormFieldAdapter.propTypes = {
