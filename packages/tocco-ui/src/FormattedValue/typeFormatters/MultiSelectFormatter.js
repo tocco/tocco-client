@@ -10,7 +10,7 @@ const MultiSelectFormatter = ({value, options}) =>
   value && value.length > 0
     ? value
       .map((v, idx) => <SingleSelectFormatter key={idx} value={v} options={options}/>)
-      .reduce((prev, curr, idx) => [prev, <MultiSeparator key={idx}/>, curr])
+      .reduce((prev, curr, idx) => [prev, <MultiSeparator key={'sep' + idx}/>, curr])
     : null
 
 MultiSelectFormatter.propTypes = {
