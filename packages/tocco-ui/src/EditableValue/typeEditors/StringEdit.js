@@ -1,17 +1,12 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import {hooks} from 'tocco-util'
 
 import {StyledEditableWrapper} from '../StyledEditableValue'
 import StyledStringEdit from './StyledStringEdit'
 
 const StringEdit = props => {
-  const value = props.value || ''
-
-  const handleChange = e => {
-    if (props.onChange) {
-      props.onChange(e.target.value)
-    }
-  }
+  const [value, onChange] = hooks.useDebounce(props.value || '', props.onChange)
 
   return (
     <StyledEditableWrapper immutable={props.immutable}>
@@ -19,7 +14,7 @@ const StringEdit = props => {
         disabled={props.immutable}
         id={props.id}
         name={props.name}
-        onChange={handleChange}
+        onChange={e => onChange(e.target.value)}
         immutable={props.immutable}
         value={value}
       />

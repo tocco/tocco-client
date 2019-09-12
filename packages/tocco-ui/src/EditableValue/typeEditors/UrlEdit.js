@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import {hooks} from 'tocco-util'
 
 import ButtonLink from '../../ButtonLink'
 import {
@@ -8,24 +9,17 @@ import {
 } from '../StyledEditableValue'
 import StyledUrlEdit from './StyledUrlEdit'
 
-const StringEdit = props => {
-  const value = props.value || ''
-
-  const normalizeUrl = url => {
-    url = url.toLowerCase()
-    if (url.indexOf('.') > 0 && !/^[a-z0-9]+:\/\//.test(url)) {
-      url = `https://${url}`
-    }
-
-    return url
+const normalizeUrl = url => {
+  url = url.toLowerCase()
+  if (url.indexOf('.') > 0 && !/^[a-z0-9]+:\/\//.test(url)) {
+    url = `https://${url}`
   }
 
-  const handleChange = e => {
-    const url = normalizeUrl(e.target.value)
-    if (props.onChange) {
-      props.onChange(url)
-    }
-  }
+  return url
+}
+
+const UrlEdit = props => {
+  const [value, onChange] = hooks.useDebounce(props.value || '', props.onChange)
 
   return (
     <StyledEditableWrapper immutable={props.immutable}>
@@ -34,7 +28,7 @@ const StringEdit = props => {
         id={props.id}
         immutable={props.immutable}
         name={props.name}
-        onChange={handleChange}
+        onChange={e => onChange(normalizeUrl(e.target.value))}
         value={value}
       />
       {value && <StyledEditableControl>
@@ -51,7 +45,7 @@ const StringEdit = props => {
   )
 }
 
-StringEdit.propTypes = {
+UrlEdit.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.node,
   name: PropTypes.string,
@@ -59,4 +53,4 @@ StringEdit.propTypes = {
   immutable: PropTypes.bool
 }
 
-export default StringEdit
+export default UrlEdit

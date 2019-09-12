@@ -1,16 +1,12 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import {hooks} from 'tocco-util'
 
 import {StyledEditableWrapper} from '../StyledEditableValue'
 import StyledTextareaAutosize from './StyledTextEdit'
 
 const TextEdit = props => {
-  const value = props.value === null ? '' : props.value
-  const handleChange = e => {
-    if (props.onChange) {
-      props.onChange(e.target.value)
-    }
-  }
+  const [value, onChange] = hooks.useDebounce(props.value || '', props.onChange)
 
   return (
     <StyledEditableWrapper immutable={props.immutable}>
@@ -19,17 +15,13 @@ const TextEdit = props => {
         immutable={props.immutable}
         maxRows={20}
         name={props.name}
-        onChange={handleChange}
+        onChange={e => onChange(e.target.value)}
         disabled={props.immutable}
         rows={2}
         value={value}
       />
     </StyledEditableWrapper>
   )
-}
-
-TextEdit.defaultProps = {
-  value: ''
 }
 
 TextEdit.propTypes = {
