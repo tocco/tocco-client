@@ -1,3 +1,7 @@
+0.1.5
+- Detail performance improvement
+- Relation view in detail
+
 0.1.3
 - menu and navigation improvements
 - detail dashboard
