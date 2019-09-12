@@ -19,13 +19,16 @@ describe('tocco-ui', () => {
           expect(wrapper.find('input').first()).to.have.attr('value', '')
         })
 
-        test('should call onChange', () => {
+        test('should call onChange', async() => {
           const spy = sinon.spy()
           const newValue = 'newValue'
 
           const wrapper = mount(<StringEdit onChange={spy}/>)
           wrapper.find('input').first().simulate('change', {target: {value: newValue}})
-          expect(spy).to.have.been.calledWith(newValue)
+          await new Promise(resolve => setTimeout(() => {
+            expect(spy).to.have.been.calledWith(newValue)
+            resolve()
+          }, 300))
         })
       })
     })

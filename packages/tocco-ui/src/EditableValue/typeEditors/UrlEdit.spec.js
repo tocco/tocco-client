@@ -20,14 +20,17 @@ describe('tocco-ui', () => {
           expect(wrapper.find('a')).to.have.length(0)
         })
 
-        test('should normalize new input', () => {
+        test('should normalize new input', async() => {
           const input = 'www.google.COM'
           const expectedResult = 'https://www.google.com'
           const onChangeSpy = sinon.spy()
           const wrapper = mount(<UrlEdit value="" onChange={onChangeSpy}/>)
           wrapper.find('input').simulate('change', {target: {value: input}})
 
-          expect(onChangeSpy).to.have.been.calledWith(expectedResult)
+          await new Promise(resolve => setTimeout(() => {
+            expect(onChangeSpy).to.have.been.calledWith(expectedResult)
+            resolve()
+          }, 300))
         })
       })
     })
