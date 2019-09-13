@@ -9,9 +9,7 @@ import {call, put, fork, select, takeLatest, takeEvery, all} from 'redux-saga/ef
 
 import * as actions from './actions'
 import {
-  fetchEntity,
   updateEntity,
-  fetchModel,
   createEntity
 } from '../../util/api/entities'
 import {submitValidate} from '../../util/detailView/asyncValidation'
@@ -35,7 +33,7 @@ export default function* sagas() {
 }
 
 export function* loadDetailFormDefinition(formName) {
-  const formDefinition = yield call(form.fetchForm, formName)
+  const formDefinition = yield call(rest.fetchForm, formName)
   yield put(actions.setFormDefinition(formDefinition))
   return formDefinition
 }
@@ -43,26 +41,15 @@ export function* loadDetailFormDefinition(formName) {
 export function* loadEntity(entityName, entityId, formDefinition, formName) {
   const fieldDefinitions = yield call(form.getFieldDefinitions, formDefinition)
   const paths = yield call(form.getUsedPaths, fieldDefinitions)
-  const entity = yield call(fetchEntity, entityName, entityId, paths, formName)
-  yield put(actions.setEntity(entity))
-  return entity
-}
 
-export function* getTargetEntityName(entityName, modelPaths) {
-  if (modelPaths && modelPaths.length > 0) {
-    let model = yield call(fetchModel, entityName)
-
-    for (const path of modelPaths) {
-      const relation = model[path]
-      if (!relation) {
-        throw new Error(`No such path '${path}' found on entity model '${entityName}'`)
-      }
-      entityName = relation.targetEntity
-      model = yield call(fetchModel, entityName)
-    }
+  const query = {
+    formName,
+    paths
   }
 
-  return entityName
+  const entity = yield call(rest.fetchEntity, entityName, entityId, query)
+  yield put(actions.setEntity(entity))
+  return entity
 }
 
 export function* unloadDetailView() {
@@ -71,7 +58,7 @@ export function* unloadDetailView() {
 }
 
 export function* loadEntityModel(entityName) {
-  const entityModel = yield call(fetchModel, entityName)
+  const entityModel = yield call(rest.fetchModel, entityName)
   yield put(actions.setEntityModel(entityModel))
   return entityModel
 }
