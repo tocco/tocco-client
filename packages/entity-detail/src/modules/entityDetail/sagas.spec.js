@@ -2,7 +2,7 @@ import {
   actions as formActions,
   SubmissionError
 } from 'redux-form'
-import {externalEvents, form, actions as actionUtil, actionEmitter} from 'tocco-app-extensions'
+import {externalEvents, form, actions as actionUtil, actionEmitter, rest} from 'tocco-app-extensions'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {call, put, fork, select, takeLatest, takeEvery, all} from 'redux-saga/effects'
@@ -10,7 +10,6 @@ import {call, put, fork, select, takeLatest, takeEvery, all} from 'redux-saga/ef
 import * as actions from './actions'
 import {
   updateEntity,
-  fetchModel,
   createEntity
 } from '../../util/api/entities'
 import {submitValidate} from '../../util/detailView/asyncValidation'
@@ -36,61 +35,6 @@ describe('entity-detail', () => {
               fork(takeEvery, actionUtil.actions.ACTION_INVOKED, sagas.actionInvoked)
             ]))
             expect(generator.next().done).to.be.true
-          })
-        })
-
-        describe('getTargetEntityName saga', () => {
-          test('should return the base entity name if paths empty', () => {
-            const entityName = 'User'
-            const modelPaths = []
-
-            const gen = sagas.getTargetEntityName(entityName, modelPaths)
-
-            const next = gen.next()
-            expect(next.value).to.eql(entityName)
-            expect(next.done).to.be.true
-          })
-
-          test('should return the entity name resolved via paths', () => {
-            const baseEntityName = 'User'
-            const fooEntityName = 'Foo'
-            const barEntityName = 'Bar'
-
-            const userEntityModel = {
-              relFoo: {targetEntity: fooEntityName}
-            }
-            const fooEntityModel = {
-              relBar: {targetEntity: barEntityName}
-            }
-
-            const modelPaths = ['relFoo', 'relBar']
-
-            const gen = sagas.getTargetEntityName(baseEntityName, modelPaths)
-
-            expect(gen.next().value).to.eql(call(fetchModel, baseEntityName))
-            expect(gen.next(userEntityModel).value).to.eql(call(fetchModel, fooEntityName))
-            expect(gen.next(fooEntityModel).value).to.eql(call(fetchModel, barEntityName))
-
-            const next = gen.next()
-            expect(next.value).to.eql(barEntityName)
-            expect(next.done).to.be.true
-          })
-
-          test('should throw an exception if path could not be found', () => {
-            const baseEntityName = 'User'
-            const knownEntityName = 'Known_entity'
-
-            const userEntityModel = {
-              relKnown: {targetEntity: knownEntityName}
-            }
-
-            const modelPaths = ['relUnknown']
-
-            const gen = sagas.getTargetEntityName(baseEntityName, modelPaths)
-
-            expect(gen.next().value).to.eql(call(fetchModel, baseEntityName))
-            expect(() => gen.next(userEntityModel).value)
-              .to.throw('No such path \'relUnknown\' found on entity model \'User\'')
           })
         })
 
@@ -236,7 +180,7 @@ describe('entity-detail', () => {
             const formDefinition = {}
 
             const gen = sagas.loadDetailFormDefinition(formName)
-            expect(gen.next().value).to.eql(call(form.fetchForm, formName))
+            expect(gen.next().value).to.eql(call(rest.fetchForm, formName))
             expect(gen.next(formDefinition).value).to.eql(put(actions.setFormDefinition(formDefinition)))
             const next = gen.next(formDefinition)
             expect(next.value).to.eql(formDefinition)
