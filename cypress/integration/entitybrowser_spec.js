@@ -70,6 +70,7 @@ describe('Entity Browser', function() {
     it('should display warning on changing page back to list view on edited form', function() {
       cy.get('input#input-detailForm-callname')
         .type('{selectall}{del}')
+      cy.wait(200) // Wait for debounced onChange
       cy.get('[data-cy=entity-detail_back-button]').click()
       cy.contains('ungespeicherte Änderungen')
     })
