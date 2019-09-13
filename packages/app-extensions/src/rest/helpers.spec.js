@@ -186,30 +186,6 @@ describe('app-extensions', () => {
           expect(next.done).to.be.true
         })
 
-        test('should call fetch and use provided transformer', () => {
-          const myTransformer = () => {}
-          const gen = helpers.fetchForm(formName, myTransformer)
-          expect(gen.next().value).to.eql(call(requestSaga, `forms/${formName}`))
-
-          expect(gen.next(resp).value).to.eql(call(myTransformer, resp.body))
-
-          const next = gen.next(transformedResponse)
-          expect(next.value).to.equal(transformedResponse)
-          expect(next.done).to.be.true
-        })
-
-        test('should call fetch and use provided transformer', () => {
-          const myTransformer = () => {}
-          const gen = helpers.fetchForm(formName, myTransformer)
-          expect(gen.next().value).to.eql(call(requestSaga, `forms/${formName}`))
-
-          expect(gen.next(resp).value).to.eql(call(myTransformer, resp.body))
-
-          const next = gen.next(transformedResponse)
-          expect(next.value).to.equal(transformedResponse)
-          expect(next.done).to.be.true
-        })
-
         describe('defaulFormTransformer', () => {
           test('should return form propery', () => {
             const inputForm = {form: {children: []}}
@@ -235,21 +211,11 @@ describe('app-extensions', () => {
           expect(next.done).to.be.true
         })
 
-        test('should call fetch and use provided transformer', () => {
-          const myTransformer = () => {}
-          const gen = helpers.fetchModel(entity, myTransformer)
-          expect(gen.next().value).to.eql(call(requestSaga, `entities/${entity}/model`))
-
-          expect(gen.next(resp).value).to.eql(call(myTransformer, resp.body))
-
-          const next = gen.next(transformedResponse)
-          expect(next.value).to.equal(transformedResponse)
-          expect(next.done).to.be.true
-        })
-
         describe('defaultModelTransformer', () => {
           test('should return flatten object ', () => {
             const inputModel = {
+              label: 'Test',
+              name: 'test',
               fields: [
                 {
                   fieldName: 'pk',
@@ -276,24 +242,28 @@ describe('app-extensions', () => {
             }
 
             const expectedModel = {
-              active: {
-                fieldName: 'active',
-                type: 'boolean',
-                validation: {
-                  mandatory: false
+              label: 'Test',
+              name: 'test',
+              paths: {
+                active: {
+                  fieldName: 'active',
+                  type: 'boolean',
+                  validation: {
+                    mandatory: false
+                  }
+                },
+                pk: {
+                  fieldName: 'pk',
+                  type: 'serial',
+                  validation: {}
+                },
+                relUser: {
+                  multi: false,
+                  relationName: 'relUser',
+                  reverseRelationName: 'relDummySubGrid',
+                  targetEntity: 'User',
+                  type: 'relation'
                 }
-              },
-              pk: {
-                fieldName: 'pk',
-                type: 'serial',
-                validation: {}
-              },
-              relUser: {
-                multi: false,
-                relationName: 'relUser',
-                reverseRelationName: 'relDummySubGrid',
-                targetEntity: 'User',
-                type: 'relation'
               }
             }
 

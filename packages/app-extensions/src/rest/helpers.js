@@ -88,9 +88,9 @@ export function* fetchEntities(
  * @param formName {String} Name of the requested form
  * @param transformer {function} Function to directly manipulate the result. By default the form gets returned.
  */
-export function* fetchForm(formName, transformer = defaultFormTransformer) {
+export function* fetchForm(formName) {
   const response = yield call(requestSaga, `forms/${formName}`)
-  return yield call(transformer, response.body)
+  return yield call(defaultFormTransformer, response.body)
 }
 
 /**
@@ -99,21 +99,25 @@ export function* fetchForm(formName, transformer = defaultFormTransformer) {
  * @param transformer {function} Function to directly manipulate the result. By default returns a flatten object of
  * fields and relations in one object. Relations get "type": "relation"
  */
-export function* fetchModel(entityName, transformer = defaultModelTransformer) {
+export function* fetchModel(entityName) {
   const resp = yield call(requestSaga, `entities/${entityName}/model`)
-  return yield call(transformer, resp.body)
+  return yield call(defaultModelTransformer, resp.body)
 }
 
 export const defaultModelTransformer = json => {
-  const model = {}
+  const model = {
+    name: json.name,
+    label: json.label,
+    paths: {}
+  }
   json.fields.forEach(field => {
-    model[field.fieldName] = {
+    model.paths[field.fieldName] = {
       ...field
     }
   })
 
   json.relations.forEach(relation => {
-    model[relation.relationName] = {
+    model.paths[relation.relationName] = {
       type: 'relation',
       ...relation
     }
