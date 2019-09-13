@@ -1,9 +1,6 @@
 import _uniq from 'lodash/uniq'
-import {call} from 'redux-saga/effects'
 
 import componentTypes from './enums/componentTypes'
-import rest from '../rest'
-
 export const getFieldId = (formName, fieldName) => (
   `input-${formName}-${fieldName}`
 )
@@ -55,10 +52,3 @@ export const getUsedPaths = fieldDefinitions => _uniq(fieldDefinitions.reduce((a
     ...(typePathsHandlers[field.dataType] ? typePathsHandlers[field.dataType](field) : [field.path || field.id])
   ],
 []))
-
-export const defaultFormTransformer = json => (json.form)
-
-export function* fetchForm(formName, transformer = defaultFormTransformer) {
-  const response = yield call(rest.requestSaga, `forms/${formName}`)
-  return yield call(transformer, response.body)
-}

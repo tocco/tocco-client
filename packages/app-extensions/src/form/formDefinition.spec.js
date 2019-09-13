@@ -1,8 +1,6 @@
 import fetchMock from 'fetch-mock'
-import {call} from 'redux-saga/effects'
 
 import * as formDefinition from './formDefinition'
-import rest from '../rest'
 
 const testField1 = {
   id: 'firstname-field', // does not match path by intention (-> should use path for getUsedPaths)
@@ -118,45 +116,6 @@ describe('app-extensions', () => {
             [testField2.id]: testField2.defaultValue,
             [testField3.id]: testField3.defaultValue
           })
-        })
-      })
-
-      describe('fetchForm', () => {
-        test('should call request saga and transform response', () => {
-          const gen = formDefinition.fetchForm('User_search')
-
-          expect(gen.next().value).to.eql(call(rest.requestSaga, 'forms/User_search'))
-
-          const resp = {
-            body: {
-              form: {
-                children: [{
-                  name: 'firstname',
-                  type: 'ch.tocco.nice2.model.form.components.simple.TextArea'
-                }]
-              }
-            }
-          }
-
-          expect(gen.next(resp).value).to.eql(call(formDefinition.defaultFormTransformer, resp.body))
-
-          const next = gen.next(resp.body.form)
-
-          expect(next.value).to.eql(resp.body.form)
-          expect(next.done).to.be.true
-        })
-      })
-
-      describe('defaultFormTransformer', () => {
-        test('should return form without table overhead', () => {
-          const form = {
-            id: 'fromX',
-            children: [
-              {}
-            ]
-          }
-          const result = formDefinition.defaultFormTransformer({form})
-          expect(result).to.eql(form)
         })
       })
 

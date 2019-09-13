@@ -17,14 +17,13 @@ const validate = (values, entityModel) => {
 
   errors = validateModel(values, entityModel, errors)
   errors = validateTypes(values, entityModel, errors)
-
   return errors
 }
 
 const validateTypes = (values, entityModel, errors) => {
   _forOwn(values, (value, key) => {
     if (value) {
-      const type = _get(entityModel, key + '.type')
+      const type = _get(entityModel, `paths.${key}.type`)
       const typeValidator = validators.syncValidators[type]
       if (typeValidator) {
         const fieldModel = entityModel[key]
@@ -48,7 +47,7 @@ const validateModel = (values, entityModel, errors) => {
 
   const getValueSelector = fieldModel => fieldModel.type === 'relation' ? fieldModel.relationName : fieldModel.fieldName
 
-  _forOwn(entityModel, fieldModel => {
+  _forOwn(entityModel.paths, fieldModel => {
     const valueSelector = getValueSelector(fieldModel)
     const fieldValue = values[valueSelector]
 

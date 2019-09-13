@@ -7,12 +7,14 @@ describe('app-extensions', () => {
     describe('syncValidation', () => {
       test('should combine model and type validation errors', () => {
         const entityModel = {
-          website: {
-            fieldName: 'website',
-            type: 'url',
-            validation: {
-              mandatory: true,
-              minLength: 3
+          paths: {
+            website: {
+              fieldName: 'website',
+              type: 'url',
+              validation: {
+                mandatory: true,
+                minLength: 3
+              }
             }
           }
         }
@@ -27,11 +29,13 @@ describe('app-extensions', () => {
 
       test('should return no error on valid input', () => {
         const entityModel = {
-          website: {
-            type: 'url',
-            validate: {
-              mandatory: true,
-              minLength: 3
+          paths: {
+            website: {
+              type: 'url',
+              validate: {
+                mandatory: true,
+                minLength: 3
+              }
             }
           }
         }

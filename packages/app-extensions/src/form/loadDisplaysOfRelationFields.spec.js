@@ -27,8 +27,10 @@ describe('app-extensions', () => {
         const targetEntity = 'targetEntity'
 
         const entityModel = {
-          relSingle_entity: {type: 'relation', targetEntity, multi: false},
-          relMulti_entity: {type: 'relation', targetEntity, multi: true}
+          paths: {
+            relSingle_entity: {type: 'relation', targetEntity, multi: false},
+            relMulti_entity: {type: 'relation', targetEntity, multi: true}
+          }
         }
 
         const record1 = {key: '1', display: 'display1'}

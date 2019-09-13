@@ -54,7 +54,7 @@ class FormBuilder extends React.Component {
     const modelSelector = formDefinitionField.path
       ? formDefinitionField.path.split('.')[0]
       : formDefinitionField.id
-    const modelField = this.props.model[modelSelector]
+    const modelField = this.props.model.paths[modelSelector]
 
     const shouldRenderField = (formDefinitionField, entityField) => {
       if (!this.modeFitsScope(this.props.mode, formDefinitionField.scopes)) {
@@ -168,7 +168,7 @@ class FormBuilder extends React.Component {
 
     const component = this.props.componentMapping[child.componentType]
     const fieldName = child.id
-    const modelField = this.props.model[fieldName]
+    const modelField = this.props.model.paths[fieldName]
     return component(child, modelField, i)
   }
 
