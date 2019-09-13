@@ -1,6 +1,4 @@
-import {rest} from 'tocco-app-extensions'
 import {mockData} from 'tocco-util'
-import {call} from 'redux-saga/effects'
 
 import * as forms from './forms'
 
@@ -35,19 +33,6 @@ describe('entity-list', () => {
             }
             const result = forms.getSorting(formDefinition)
             expect(result).to.eql([])
-          })
-        })
-
-        describe('searchFormTransformer', () => {
-          test('should return the form property', () => {
-            const fetchResult = require('../../dev/test-data/user_search.json')
-            const result = forms.searchFormTransformer(fetchResult)
-            expect(result).to.eql(fetchResult.form)
-          })
-
-          test('should return undefined if form is missing', () => {
-            const result = forms.searchFormTransformer({})
-            expect(result).to.eql(undefined)
           })
         })
 
@@ -119,46 +104,6 @@ describe('entity-list', () => {
               {label: 'label1', id: 'lb1', children: [field1], sortable: true}
             ]
             expect(result).to.eql(expectedcolumnDefinition)
-          })
-        })
-
-        describe('fetchForm', () => {
-          test('should fetch the form', () => {
-            const gen = forms.fetchForm('User_search')
-
-            expect(gen.next().value).to.eql(call(rest.requestSaga, 'forms/User_search', {
-              acceptedStatusCodes: [404]
-            }))
-
-            const resp = {
-              body: {
-                form: {
-                  name: 'User_search'
-                }
-              }
-            }
-
-            expect(gen.next(resp).value).to.eql(call(forms.defaultFormTransformer, resp.body))
-
-            const next = gen.next(resp.body.form)
-
-            expect(next.value).to.eql(resp.body.form)
-            expect(next.done).to.be.true
-          })
-
-          test('should ignore 404 errors', () => {
-            const gen = forms.fetchForm('User_search')
-
-            expect(gen.next().value).to.eql(call(rest.requestSaga, 'forms/User_search', {
-              acceptedStatusCodes: [404]
-            }))
-
-            const resp = {status: 404}
-
-            const next = gen.next(resp)
-
-            expect(next.value).to.eql(null)
-            expect(next.done).to.be.true
           })
         })
 

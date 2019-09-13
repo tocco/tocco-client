@@ -1,15 +1,5 @@
 import _uniq from 'lodash/uniq'
-import {actions, form, rest} from 'tocco-app-extensions'
-import {call} from 'redux-saga/effects'
-
-export const defaultFormTransformer = json => (json.form)
-
-export function* fetchForm(formName, transformer = defaultFormTransformer) {
-  const response = yield call(rest.requestSaga, `forms/${formName}`, {
-    acceptedStatusCodes: [404]
-  })
-  return response.body ? yield call(transformer, response.body) : null
-}
+import {actions, form} from 'tocco-app-extensions'
 
 const getTable = formDefinition =>
   formDefinition.children.find(child => child.componentType === form.componentTypes.TABLE)
@@ -43,8 +33,6 @@ export const getColumnDefinition = table =>
         children: c.children.filter(isDisplayableChild)
       }
     ))
-
-export const searchFormTransformer = json => json.form
 
 export const getFields = formDefinition => {
   const columns = getColumnDefinition(getTable(formDefinition))

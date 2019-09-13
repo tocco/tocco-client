@@ -1,4 +1,4 @@
-import {form} from 'tocco-app-extensions'
+import {form, rest} from 'tocco-app-extensions'
 import _reduce from 'lodash/reduce'
 import {
   actions as formActions,
@@ -8,7 +8,7 @@ import * as formActionTypes from 'redux-form/es/actionTypes'
 import {call, put, fork, select, takeLatest, take, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
-import {fetchForm, searchFormTransformer, getFormFieldFlat, getEndpoint} from '../../util/api/forms'
+import {getFormFieldFlat, getEndpoint} from '../../util/api/forms'
 import {SET_INITIALIZED as LIST_SET_INITIALIZED} from '../entityList/actions'
 import {validateSearchFields} from '../../util/searchFormValidation'
 import {SET_FORM_DEFINITION} from '../list/actions'
@@ -55,7 +55,7 @@ export function* setInitialFormValues(searchFormVisible, formDefinition) {
   let formValues = {}
 
   if (preselectedSearchFields) {
-    const {model} = yield call(getEntityModel)
+    const model = yield call(getEntityModel)
     const preselectedValues = searchFormVisible
       ? yield call(form.loadDisplaysOfRelationFields, preselectedSearchFields, model)
       : preselectedSearchFields
@@ -102,7 +102,7 @@ export function* submitSearchFrom() {
 }
 
 export function* loadSearchForm(searchFormName) {
-  const formDefinition = yield call(fetchForm, searchFormName, searchFormTransformer)
+  const formDefinition = yield call(rest.fetchForm, searchFormName)
   if (formDefinition) {
     yield put(actions.setFormDefinition(formDefinition))
     yield put(actions.setFormFieldsFlat(getFormFieldFlat(formDefinition)))
@@ -119,7 +119,6 @@ export function* getEntityModel() {
   }
 
   entityList = yield select(entityListSelector)
-
   return entityList.entityModel
 }
 

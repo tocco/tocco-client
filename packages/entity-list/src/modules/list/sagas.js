@@ -9,8 +9,8 @@ import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import * as selectionActions from '../selection/actions'
 import {getSearchFormValues} from '../searchForm/sagas'
-import {fetchForm, getSorting, getSelectable, getEndpoint, getFields} from '../../util/api/forms'
-import {entitiesListTransformer, fetchModel} from '../../util/api/entities'
+import {getSorting, getSelectable, getEndpoint, getFields} from '../../util/api/forms'
+import {entitiesListTransformer} from '../../util/api/entities'
 
 export const inputSelector = state => state.input
 export const entityListSelector = state => state.entityList
@@ -200,7 +200,7 @@ export function* displayEntity(page) {
 
 export function* loadFormDefinition(formDefinition, formBase) {
   if (formDefinition === null) {
-    formDefinition = yield call(fetchForm, `${formBase}_list`)
+    formDefinition = yield call(rest.fetchForm, `${formBase}_list`)
     yield put(actions.setFormDefinition(formDefinition))
   }
 
@@ -214,9 +214,8 @@ export function* loadFormDefinition(formDefinition, formBase) {
 
 export function* loadEntityModel(entityName, entityModel) {
   if (_isEmpty(entityModel)) {
-    const {model, createPermission} = yield call(fetchModel, entityName)
+    const model = yield call(rest.fetchModel, entityName)
     yield put(actions.setEntityModel(model))
-    yield put(actions.setCreatePermission(createPermission))
   }
 }
 

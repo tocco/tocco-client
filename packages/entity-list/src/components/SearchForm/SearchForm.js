@@ -114,12 +114,10 @@ class SearchForm extends React.Component {
 
 SearchForm.propTypes = {
   intl: intlShape.isRequired,
-  entityModel: PropTypes.objectOf(
-    PropTypes.shape({
-      type: PropTypes.string.isRequired,
-      targetEntity: PropTypes.string
-    })
-  ).isRequired,
+  entityModel: PropTypes.shape({
+    paths: PropTypes.object,
+    name: PropTypes.string
+  }).isRequired,
   searchFormDefinition: PropTypes.shape({
     children: PropTypes.array
   }).isRequired,
