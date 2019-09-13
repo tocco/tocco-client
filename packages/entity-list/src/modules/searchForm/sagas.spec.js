@@ -1,4 +1,4 @@
-import {form} from 'tocco-app-extensions'
+import {form, rest} from 'tocco-app-extensions'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {
@@ -10,7 +10,7 @@ import {put, select, call, fork, takeLatest, all} from 'redux-saga/effects'
 import rootSaga, * as sagas from './sagas'
 import * as actions from './actions'
 import {validateSearchFields} from '../../util/searchFormValidation'
-import {fetchForm, getEndpoint} from '../../util/api/forms'
+import {getEndpoint} from '../../util/api/forms'
 import {setInitialized} from '../entityList/actions'
 import {setFormDefinition} from '../list/actions'
 
@@ -54,7 +54,7 @@ describe('entity-list', () => {
             () => {
               const searchFormVisible = true
               const FORM_ID = 'searchForm'
-              const entityModel = {model: {fields: [{fieldName: 'firstname', type: 'string'}]}}
+              const entityModel = {paths: [{fieldName: 'firstname', type: 'string'}]}
               const preselectedSearchFields = [{id: 'first.name', value: 'test'}]
               const formDefinition = {children: []}
               const fieldDefinitions = [
@@ -183,7 +183,7 @@ describe('entity-list', () => {
 
             return expectSaga(sagas.loadSearchForm)
               .provide([
-                [matchers.call.fn(fetchForm), formDefinition]
+                [matchers.call.fn(rest.fetchForm), formDefinition]
               ])
               .put(actions.setFormDefinition(formDefinition))
               .returns(formDefinition)
@@ -195,7 +195,7 @@ describe('entity-list', () => {
 
             return expectSaga(sagas.loadSearchForm)
               .provide([
-                [matchers.call.fn(fetchForm), formDefinition]
+                [matchers.call.fn(rest.fetchForm), formDefinition]
               ])
               .not.put(actions.setFormDefinition(formDefinition))
               .put(actions.setShowFullTextSearchForm(true))

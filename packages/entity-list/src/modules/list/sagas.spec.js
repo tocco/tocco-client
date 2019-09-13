@@ -7,8 +7,7 @@ import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import * as selectionActions from '../selection/actions'
 import rootSaga, * as sagas from './sagas'
-import {fetchForm, getSorting, getSelectable, getFields, getEndpoint} from '../../util/api/forms'
-import {fetchModel} from '../../util/api/entities'
+import {getSorting, getSelectable, getFields, getEndpoint} from '../../util/api/forms'
 import {getSearchFormValues} from '../searchForm/sagas'
 
 const generateState = (entityStore = {}, page) => ({
@@ -259,7 +258,7 @@ describe('entity-list', () => {
             const endpoint = null
 
             const gen = sagas.loadFormDefinition(formDefinition, formBase)
-            expect(gen.next().value).to.eql(call(fetchForm, `${formBase}_list`))
+            expect(gen.next().value).to.eql(call(rest.fetchForm, `${formBase}_list`))
             expect(gen.next(loadedFormDefinition).value).to.eql(put(actions.setFormDefinition(loadedFormDefinition)))
             expect(gen.next().value).to.eql(call(getSorting, loadedFormDefinition))
             expect(gen.next(sorting).value).to.eql(put(actions.setSorting(sorting)))
@@ -283,15 +282,11 @@ describe('entity-list', () => {
             const entityName = 'User'
             const entityModel = {}
 
-            const loadedModel = {
-              model: {name: 'User'},
-              createPermission: false
-            }
+            const model = {name: 'User'}
 
             const gen = sagas.loadEntityModel(entityName, entityModel)
-            expect(gen.next().value).to.eql(call(fetchModel, entityName))
-            expect(gen.next(loadedModel).value).to.eql(put(actions.setEntityModel(loadedModel.model)))
-            expect(gen.next().value).to.eql(put(actions.setCreatePermission(loadedModel.createPermission)))
+            expect(gen.next().value).to.eql(call(rest.fetchModel, entityName))
+            expect(gen.next(model).value).to.eql(put(actions.setEntityModel(model)))
 
             expect(gen.next().done).to.be.true
           })

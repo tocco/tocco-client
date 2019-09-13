@@ -20,7 +20,6 @@ export const SET_SIMPLE_SEARCH_FIELDS = 'list/SET_SIMPLE_SEARCH_FIELDS'
 export const SET_LIST_FORM_NAME = 'list/SET_LIST_FORM_NAME'
 export const ON_ROW_CLICK = 'list/ON_ROW_CLICK'
 export const NAVIGATE_TO_CREATE = 'entityList/NAVIGATE_TO_CREATE'
-export const SET_CREATE_PERMISSION = 'list/SET_CREATE_PERMISSION'
 export const SET_FORM_SELECTABLE = 'list/SET_FORM_SELECTABLE'
 export const SET_ENDPOINT = 'list/SET_ENDPOINT'
 export const QUERY_CHANGED = 'list/QUERY_CHANGED'
@@ -159,13 +158,6 @@ export const navigateToCreate = relationName => ({
   type: NAVIGATE_TO_CREATE,
   payload: {
     relationName
-  }
-})
-
-export const setCreatePermission = createPermission => ({
-  type: SET_CREATE_PERMISSION,
-  payload: {
-    createPermission
   }
 })
 

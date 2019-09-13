@@ -29,7 +29,6 @@ const ACTION_HANDLERS = {
   [actions.SET_IN_PROGRESS]: reducerUtil.singleTransferReducer('inProgress'),
   [actions.SET_SHOW_SEARCH_FORM]: reducerUtil.singleTransferReducer('showSearchForm'),
   [actions.SET_SEARCH_FILTERS]: reducerUtil.singleTransferReducer('searchFilters'),
-  [actions.SET_CREATE_PERMISSION]: reducerUtil.singleTransferReducer('createPermission'),
   [actions.SET_FORM_SELECTABLE]: reducerUtil.singleTransferReducer('formSelectable'),
   [actions.SET_ENDPOINT]: reducerUtil.singleTransferReducer('endpoint'),
   [actions.SET_SHOW_LINK]: reducerUtil.singleTransferReducer('showLink')

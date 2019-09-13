@@ -1,8 +1,8 @@
 import {put, call, fork, takeLatest, all} from 'redux-saga/effects'
+import {rest} from 'tocco-app-extensions'
 
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
-import {fetchModel} from '../../util/api/entities'
 
 describe('entity-list', () => {
   describe('modules', () => {
@@ -25,7 +25,7 @@ describe('entity-list', () => {
             const loadedModel = {}
             const gen = sagas.loadEntityModel(entityName, entityModel)
 
-            expect(gen.next().value).to.eql(call(fetchModel, entityName))
+            expect(gen.next().value).to.eql(call(rest.fetchModel, entityName))
             expect(gen.next(loadedModel).value).to.eql(put(actions.setEntityModel(loadedModel)))
 
             expect(gen.next().done).to.be.true
