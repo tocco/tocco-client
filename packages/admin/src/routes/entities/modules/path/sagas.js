@@ -14,34 +14,13 @@ export const breadcrumbsSelector = state => state.entities.path.breadcrumbsInfo
 
 const isEven = n => n % 2 === 0
 
-export const modelTransformer = json => {
-  const model = {
-    name: json.name,
-    label: json.label,
-    paths: {}
-  }
-  json.fields.forEach(field => {
-    model.paths[field.fieldName] = {
-      ...field
-    }
-  })
-
-  json.relations.forEach(relation => {
-    model.paths[relation.relationName] = {
-      type: 'relation',
-      ...relation
-    }
-  })
-  return model
-}
-
 export function* getModel(entity) {
   const cachedModel = yield select(modelSelector, entity)
   if (cachedModel) {
     return cachedModel
   }
 
-  const entityModel = yield call(rest.fetchModel, entity, modelTransformer)
+  const entityModel = yield call(rest.fetchModel, entity)
   yield put(actions.cacheModel(entity, entityModel))
   return entityModel
 }
