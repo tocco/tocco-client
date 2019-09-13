@@ -30,13 +30,15 @@ const testData = {
     }
   },
   model: {
-    fistname: {
-      fieldName: 'firstname',
-      type: 'string'
-    },
-    lastname: {
-      fieldName: 'lastname',
-      type: 'string'
+    paths: {
+      fistname: {
+        fieldName: 'firstname',
+        type: 'string'
+      },
+      lastname: {
+        fieldName: 'lastname',
+        type: 'string'
+      }
     }
   },
   formName: 'detail',

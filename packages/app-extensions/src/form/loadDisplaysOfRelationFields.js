@@ -21,7 +21,7 @@ export default function* loadDisplaysOfRelationFields(fields, entityModel) {
       const {id, value} = field
       let transformedValue = value
 
-      const fieldModel = entityModel[id]
+      const fieldModel = entityModel.paths[id]
       if (fieldModel && fieldModel.type === 'relation') {
         const targetEntity = fieldModel.targetEntity
 

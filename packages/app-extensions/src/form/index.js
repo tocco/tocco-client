@@ -1,6 +1,6 @@
 import formErrorsUtil from './formErrors'
 import FormBuilder from './FormBuilder'
-import {getFieldId, getFieldDefinitions, getDefaultValues, getUsedPaths, fetchForm} from './formDefinition'
+import {getFieldId, getFieldDefinitions, getDefaultValues, getUsedPaths} from './formDefinition'
 import syncValidation from './syncValidation'
 import {
   formValuesToEntity,
@@ -23,7 +23,6 @@ export default {
   getFieldDefinitions,
   getDefaultValues,
   getUsedPaths,
-  fetchForm,
   formValuesToEntity,
   entityToFormValues,
   getDirtyFields,
