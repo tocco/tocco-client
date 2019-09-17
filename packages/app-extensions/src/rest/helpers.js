@@ -86,7 +86,6 @@ export function* fetchEntities(
 /**
  * Helper to fetch forms.
  * @param formName {String} Name of the requested form
- * @param transformer {function} Function to directly manipulate the result. By default the form gets returned.
  */
 export function* fetchForm(formName) {
   const response = yield call(requestSaga, `forms/${formName}`)
@@ -96,8 +95,6 @@ export function* fetchForm(formName) {
 /**
  * Helper to fetch models.
  * @param entityName {String} Name of the entity you like to fetch the model
- * @param transformer {function} Function to directly manipulate the result. By default returns a flatten object of
- * fields and relations in one object. Relations get "type": "relation"
  */
 export function* fetchModel(entityName) {
   const resp = yield call(requestSaga, `entities/${entityName}/model`)
