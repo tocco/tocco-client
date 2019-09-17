@@ -75,8 +75,7 @@ describe('simple-form', () => {
               }]
           }
           const model = {
-            fields: [],
-            relations: []
+            paths: {}
           }
 
           const store = createStore(() => ({
