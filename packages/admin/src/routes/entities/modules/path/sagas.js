@@ -45,12 +45,8 @@ export function* extractMultiRelations(model, key) {
 export function* getDisplay(entityName, key, breadcrumbsIdx) {
   let display = yield select(displaySelector, entityName, key)
   if (!display) {
-    const query = {
-      fields: [],
-      relations: []
-    }
-    const entity = yield call(rest.fetchEntity, entityName, key, query)
-    display = entity.display
+    display = yield call(rest.fetchDisplay, entityName, key)
+
     yield put(actions.cacheDisplay(entityName, key, display))
   }
 
