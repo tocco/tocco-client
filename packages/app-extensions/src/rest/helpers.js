@@ -24,6 +24,21 @@ export function* fetchEntity(entityName, key, query, transformer = json => json)
 }
 
 /**
+ * Helper to fetch the default-display of an entity
+ *
+ * @param entityName {String} Name of the entity
+ * @param key {String} key of the entity
+ */
+export function* fetchDisplay(entityName, key) {
+  const options = {
+    method: 'GET'
+  }
+
+  const resp = yield call(requestSaga, `entity/${entityName}/${key}/display`, options)
+  return resp.body.display
+}
+
+/**
  * Fetch amount of entities
  *
  * @param entityName {String} Name of the entity

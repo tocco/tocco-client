@@ -152,6 +152,19 @@ describe('app-extensions', () => {
         })
       })
 
+      describe('fetchDisplay', () => {
+        test('should call fetch', () => {
+          const response = {display: 'Test'}
+
+          return expectSaga(helpers.fetchDisplay, 'User', 1)
+            .provide([
+              [matchers.call.fn(requestSaga), {body: response}]
+            ])
+            .returns('Test')
+            .run()
+        })
+      })
+
       describe('fetchEntityCount', () => {
         test('should call fetch', () => {
           const query = {
