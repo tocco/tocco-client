@@ -3,9 +3,21 @@ import React from 'react'
 import {withTheme} from 'styled-components'
 import _omit from 'lodash/omit'
 import _get from 'lodash/get'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {library} from '@fortawesome/fontawesome-svg-core'
+import {fas} from '@fortawesome/free-solid-svg-icons'
+import {far} from '@fortawesome/free-regular-svg-icons'
+import {fab} from '@fortawesome/free-brands-svg-icons'
 
 import getSpacing from './StyledIcon'
 import {design} from '../utilStyles'
+
+// Load Libraries
+(() => {
+  library.add(fab)
+  library.add(far)
+  library.add(fas)
+})()
 
 /**
  * Utilize <Icon> to create additional meaning or to omit text labels. Every chosen
@@ -14,66 +26,19 @@ import {design} from '../utilStyles'
  * description. All free solid and regular icons are available.
  */
 export class Icon extends React.Component {
-  mounted = false
-  constructor(props) {
-    super(props)
-    this.state = {LazyFontAwesomeIcon: null}
-  }
-
-  componentDidMount() {
-    this.mounted = true
-    this.lazyLoadComponent()
-  }
-
-  componentWillUnmount() {
-    this.mounted = false
-  }
-
-  fontLib = this.props.icon.includes('fab')
-    ? {
-      import: import(/* webpackChunkName: "fontawesomeicon-brands" */ '@fortawesome/free-brands-svg-icons'),
-      module: 'fab'
-    }
-    : this.props.icon.includes('far')
-      ? {
-        import: import(/* webpackChunkName: "fontawesomeicon-regular" */ '@fortawesome/free-regular-svg-icons'),
-        module: 'far'
-      }
-      : {
-        import: import(/* webpackChunkName: "fontawesomeicon-solid" */ '@fortawesome/free-solid-svg-icons'),
-        module: 'fas'
-      }
-
-  lazyLoadComponent = () => {
-    Promise.all([
-      import(/* webpackChunkName: "fontawesomeicon" */ '@fortawesome/react-fontawesome'),
-      import(/* webpackChunkName: "fontawesomeicon" */ '@fortawesome/fontawesome-svg-core'),
-      this.fontLib.import
-    ]).then(response => {
-      response[1].library.add(response[2][this.fontLib.module])
-
-      if (this.mounted) this.setState({LazyFontAwesomeIcon: _get(response, '[0].FontAwesomeIcon')})
-
-      if (this.props.onLoaded) this.props.onLoaded()
-    })
-  }
-
   render() {
-    const {LazyFontAwesomeIcon} = this.state
-    const filteredProps = _omit(this.props, ['dense', 'position', 'theme'])
+    const filteredProps = _omit(this.props, ['dense', 'position', 'theme', 'size'])
 
     const icon = (typeof this.props.icon === 'string' && this.props.icon.includes(','))
       ? this.props.icon.replace(/\s+/, '').split(',')
       : this.props.icon
 
-    return (LazyFontAwesomeIcon
-      && <LazyFontAwesomeIcon
-        {...filteredProps}
-        icon={icon}
-        style={{...this.props.style, ...(getSpacing(this.props))}}
-        {..._get(this.props, 'style.color') && {color: this.props.style.color}}
-      />
-    )
+    return <FontAwesomeIcon
+      {...filteredProps}
+      icon={icon}
+      style={{...this.props.style, ...(getSpacing(this.props))}}
+      {..._get(this.props, 'style.color') && {color: this.props.style.color}}
+    />
   }
 }
 

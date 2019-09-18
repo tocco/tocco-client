@@ -20,14 +20,10 @@ describe('tocco-ui', () => {
       expect(wrapper.prop('theme')).to.deep.equal({key: 'value'})
     })
 
-    test('should render an icon', done => {
-      let wrapper = null
-      const loaded = () => {
-        wrapper.update()
-        expect(wrapper.find('svg')).to.have.length(1)
-        done()
-      }
-      wrapper = mount(<Icon icon="user" onLoaded={loaded}/>)
+    test('should render an icon', () => {
+      const wrapper = mount(<Icon icon="user"/>)
+
+      expect(wrapper.find('svg')).to.have.length(1)
     })
   })
 })
