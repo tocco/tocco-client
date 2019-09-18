@@ -69,7 +69,7 @@ class PanelBody extends React.PureComponent {
         heightIfOpen={this.state.heightIfOpen}
       >
         <div ref={innerEl => { this.innerEl = innerEl }}>
-          {React.Children.map(children, child => React.cloneElement(child))}
+          {children}
         </div>
       </StyledPanelBody>
     )
