@@ -20,8 +20,6 @@ export class DetailForm extends React.Component {
 
   isReadOnlyForm = () => this.props.formDefinition.readonly
 
-  isEntityLoaded = () => (this.props.entity && this.props.entity.paths)
-
   focusErrorFields = () => {
     const firstErrorField = form.formErrorsUtil.getFirstErrorField(this.props.formErrors)
     if (firstErrorField) {
@@ -64,10 +62,6 @@ export class DetailForm extends React.Component {
 
   render() {
     const props = this.props
-
-    if (!this.isEntityLoaded()) {
-      return <div/>
-    }
 
     return (
       <form
