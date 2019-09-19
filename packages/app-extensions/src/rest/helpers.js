@@ -1,6 +1,7 @@
 import _reduce from 'lodash/reduce'
 import _isObject from 'lodash/isObject'
 import {call} from 'redux-saga/effects'
+import {cache} from 'tocco-util'
 
 import {requestSaga} from './rest'
 
@@ -103,17 +104,31 @@ export function* fetchEntities(
  * @param formName {String} Name of the requested form
  */
 export function* fetchForm(formName) {
+  const cachedForm = cache.get('form', formName)
+  if (cachedForm) {
+    return cachedForm
+  }
+
   const response = yield call(requestSaga, `forms/${formName}`)
-  return yield call(defaultFormTransformer, response.body)
+  const form = yield call(defaultFormTransformer, response.body)
+  cache.add('form', formName, form)
+  return form
 }
 
 /**
  * Helper to fetch models.
  * @param entityName {String} Name of the entity you like to fetch the model
  */
-export function* fetchModel(entityName) {
+export function* fetchModel(entityName, transformer = defaultModelTransformer) {
+  const cachedModel = cache.get('model', entityName)
+  if (cachedModel) {
+    return cachedModel
+  }
+
   const resp = yield call(requestSaga, `entities/${entityName}/model`)
-  return yield call(defaultModelTransformer, resp.body)
+  const model = yield call(transformer, resp.body)
+  cache.add('model', entityName, model)
+  return model
 }
 
 export const defaultModelTransformer = json => {
