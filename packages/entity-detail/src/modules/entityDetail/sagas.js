@@ -76,10 +76,7 @@ export function* loadDetailView() {
     const inputDefaultValues = yield call(form.loadDisplaysOfRelationFields, defaultValues, model)
     const defaultValuesFields = {...formDefaultValues, ...inputDefaultValues}
 
-    yield put(formActions.initialize(FORM_ID, {}))
-    yield all(Object.keys(defaultValuesFields).map(key =>
-      put(formActions.change(FORM_ID, key, defaultValuesFields[key]))
-    ))
+    yield put(formActions.initialize(FORM_ID, defaultValuesFields))
   } else {
     yield call(loadData)
   }
@@ -127,9 +124,10 @@ export function* handleSubmitError(error) {
 
 export function* getEntityForSubmit() {
   const values = yield select(getFormValues(FORM_ID))
-  const initialValues = yield select(formInitialValueSelector(FORM_ID))
-  yield put(formActions.startSubmit(FORM_ID))
+  const initialFormValues = yield select(formInitialValueSelector(FORM_ID))
   const {entityName, entityId, entityModel, mode} = yield select(entityDetailSelector)
+  const initialValues = mode === modes.CREATE ? {} : initialFormValues
+  yield put(formActions.startSubmit(FORM_ID))
   yield call(submitValidate, values, initialValues, entityName, entityId, entityModel, mode)
   const dirtyFields = yield call(form.getDirtyFields, initialValues, values, mode === modes.CREATE)
   return yield call(form.formValuesToEntity, values, dirtyFields, entityName, entityId, entityModel)
