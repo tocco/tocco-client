@@ -1,8 +1,8 @@
-import {add, get} from './cache'
+import {add, get, clear} from './cache'
 
 describe('tocco-util', () => {
   describe('cache', () => {
-    describe('typeValueExtractor', () => {
+    describe('add & get', () => {
       test('should return cached value', () => {
         const value = 'Test'
         const type = 'label'
@@ -31,6 +31,18 @@ describe('tocco-util', () => {
 
         const cachedValue = get(type, id)
         expect(cachedValue.a).to.eql(21)
+      })
+    })
+
+    describe('clear', () => {
+      test('should clear cache', () => {
+        const id = 'id'
+        const type = 'label'
+
+        add(type, id, 'test')
+        clear()
+        const cachedValue = get(type, id)
+        expect(cachedValue).to.be.null
       })
     })
   })
