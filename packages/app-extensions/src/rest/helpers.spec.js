@@ -199,6 +199,22 @@ describe('app-extensions', () => {
           expect(next.done).to.be.true
         })
 
+        test('should cache the form after first fetch', async() => {
+          const formMock = {form: {}}
+
+          const result = await expectSaga(helpers.fetchForm, 'User_detail')
+            .provide([
+              [matchers.call.fn(requestSaga), {body: formMock}]
+            ])
+            .call.like({fn: requestSaga})
+            .run()
+
+          return expectSaga(helpers.fetchForm, 'User_detail')
+            .returns(result.returnValue)
+            .not.call.like({fn: requestSaga})
+            .run()
+        })
+
         describe('defaulFormTransformer', () => {
           test('should return form propery', () => {
             const inputForm = {form: {children: []}}
@@ -222,6 +238,34 @@ describe('app-extensions', () => {
           const next = gen.next(transformedResponse)
           expect(next.value).to.equal(transformedResponse)
           expect(next.done).to.be.true
+        })
+
+        test('should cache the model after first fetch', async() => {
+          const mockModel = {
+            name: 'User',
+            label: 'Person',
+            fields: [
+              {
+                fieldName: 'pk',
+                type: 'serial',
+                validation: {}
+              }
+            ],
+            relations: []
+
+          }
+
+          const result = await expectSaga(helpers.fetchModel, 'User')
+            .provide([
+              [matchers.call.fn(requestSaga), {body: mockModel}]
+            ])
+            .call.like({fn: requestSaga})
+            .run()
+
+          return expectSaga(helpers.fetchModel, 'User')
+            .returns(result.returnValue)
+            .not.call.like({fn: requestSaga})
+            .run()
         })
 
         describe('defaultModelTransformer', () => {
