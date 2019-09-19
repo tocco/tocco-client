@@ -4,6 +4,7 @@ import {shallow} from 'enzyme'
 import FormattedValue from './FormattedValue'
 import DateFormatter from './typeFormatters/DateFormatter'
 import StringFormatter from './typeFormatters/StringFormatter'
+import BooleanFormatter from './typeFormatters/BooleanFormatter'
 
 describe('tocco-ui', () => {
   describe('FormattedValue', () => {
@@ -34,7 +35,7 @@ describe('tocco-ui', () => {
 
     test('should not return an empty span on input false', () => {
       const wrapper = shallow(<FormattedValue type="boolean" value={false}/>)
-      expect(wrapper.html()).to.not.eql('<span></span>')
+      expect(wrapper.find(BooleanFormatter)).to.have.length(1)
     })
   })
 })

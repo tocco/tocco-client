@@ -2,6 +2,10 @@ import {add, get, clear} from './cache'
 
 describe('tocco-util', () => {
   describe('cache', () => {
+    beforeEach(() => {
+      clear()
+    })
+
     describe('add & get', () => {
       test('should return cached value', () => {
         const value = 'Test'
