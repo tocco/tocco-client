@@ -1,6 +1,8 @@
 import {mount, shallow} from 'enzyme'
 import React from 'react'
 
+import Icon from '../Icon'
+import IconTocco from '../IconTocco'
 import Button from './Button'
 
 describe('tocco-ui', () => {
@@ -36,18 +38,18 @@ describe('tocco-ui', () => {
 
     test('should show pending spinner', () => {
       let wrapper = mount(<Button/>)
-      expect(wrapper.find('IconTocco')).to.have.length(0)
+      expect(wrapper.find(IconTocco)).to.have.length(0)
 
       wrapper = mount(<Button pending={false}/>)
-      expect(wrapper.find('IconTocco')).to.have.length(0)
+      expect(wrapper.find(IconTocco)).to.have.length(0)
 
       wrapper = mount(<Button pending/>)
-      expect(wrapper.find('IconTocco')).to.have.length(1)
+      expect(wrapper.find(IconTocco)).to.have.length(1)
     })
 
     test('should show icon', () => {
       const wrapper = mount(<Button icon="icon"/>)
-      expect(wrapper.find('Icon')).to.have.length(1)
+      expect(wrapper.find(Icon)).to.have.length(1)
     })
 
     test('should set default type to button', () => {

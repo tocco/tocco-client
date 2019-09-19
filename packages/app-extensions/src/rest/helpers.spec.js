@@ -2,6 +2,7 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {call} from 'redux-saga/effects'
+import {cache} from 'tocco-util'
 
 import {requestSaga} from './rest'
 import * as helpers from './helpers'
@@ -9,6 +10,10 @@ import * as helpers from './helpers'
 describe('app-extensions', () => {
   describe('rest', () => {
     describe('helpers', () => {
+      beforeEach(() => {
+        cache.clear()
+      })
+
       describe('buildRequestQuery', () => {
         test('should return an empty object with no options', () => {
           expect(helpers.buildRequestQuery()).to.eql({})
