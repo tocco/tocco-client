@@ -7,3 +7,7 @@ export const get = (type, id) => {
   const key = `cache.${type}.${id}`
   return JSON.parse(sessionStorage.getItem(key))
 }
+
+export const clear = () => {
+  sessionStorage.clear()
+}
