@@ -204,13 +204,13 @@ describe('entity-detail', () => {
             const gen = sagas.getEntityForSubmit()
             gen.next()
             gen.next(values) // first two selects references are not comparable and therefore no tests possible
-
-            expect(gen.next(initialValues).value).to.eql(put(formActions.startSubmit(FORM_ID)))
-            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
+            expect(gen.next(initialValues).value).to.eql(select(sagas.entityDetailSelector))
             expect(gen.next({entityName, entityId, entityModel, formDefinition, mode}).value).to.eql(
+              put(formActions.startSubmit(FORM_ID))
+            )
+            expect(gen.next().value).to.eql(
               call(submitValidate, values, initialValues, entityName, entityId, entityModel, mode)
             )
-
             expect(gen.next().value).to.eql(call(form.getDirtyFields, initialValues, values, false))
             expect(gen.next(dirtyFields).value).to.eql(
               call(form.formValuesToEntity, values, dirtyFields, entityName, entityId, entityModel)
