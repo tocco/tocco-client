@@ -43,7 +43,7 @@ export function* loadEntity(entityName, entityId, formDefinition, formName) {
   const paths = yield call(form.getUsedPaths, fieldDefinitions)
 
   const query = {
-    formName,
+    form: formName,
     paths
   }
 
