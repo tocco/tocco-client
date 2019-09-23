@@ -33,7 +33,6 @@ class PanelHeaderFooter extends React.PureComponent {
             icon={isOpen ? 'chevron-up' : 'chevron-down'}
             onClick={toggleOpenState}
             title={isOpen ? this.props.options.collapseButtonText : this.props.options.unfoldButtonText}
-            iconPosition="sole"
           />
         }
       </StyledPanelHeaderFooter>

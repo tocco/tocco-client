@@ -98,7 +98,6 @@ class PhoneEdit extends React.Component {
           <ButtonLink
             href={`tel:${this.props.value}`}
             icon="phone"
-            iconPosition="sole"
             look="ball"
             tabIndex={-1}
           />
