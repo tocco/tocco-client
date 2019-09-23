@@ -6,11 +6,6 @@ import Icon from './Icon'
 
 describe('tocco-ui', () => {
   describe('Icon', () => {
-    test('should have 1 defaultProps', () => {
-      const wrapper = mount(<Icon icon="square"/>)
-      expect(wrapper.children().prop('position')).to.equal('sole')
-    })
-
     test('should receive theme', () => {
       const wrapper = mount(
         <ThemeProvider theme={{key: 'value'}}>

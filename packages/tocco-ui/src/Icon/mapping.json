@@ -1,0 +1,4463 @@
+{
+  "ad": {
+    "lib": "fa",
+    "id": "fas, ad"
+  },
+  "address-book": {
+    "lib": "fa",
+    "id": "fas, address-book"
+  },
+  "address-card": {
+    "lib": "fa",
+    "id": "fas, address-card"
+  },
+  "adjust": {
+    "lib": "fa",
+    "id": "fas, adjust"
+  },
+  "air-freshener": {
+    "lib": "fa",
+    "id": "fas, air-freshener"
+  },
+  "align-center": {
+    "lib": "fa",
+    "id": "fas, align-center"
+  },
+  "align-justify": {
+    "lib": "fa",
+    "id": "fas, align-justify"
+  },
+  "align-left": {
+    "lib": "fa",
+    "id": "fas, align-left"
+  },
+  "align-right": {
+    "lib": "fa",
+    "id": "fas, align-right"
+  },
+  "allergies": {
+    "lib": "fa",
+    "id": "fas, allergies"
+  },
+  "ambulance": {
+    "lib": "fa",
+    "id": "fas, ambulance"
+  },
+  "american-sign-language-interpreting": {
+    "lib": "fa",
+    "id": "fas, american-sign-language-interpreting"
+  },
+  "anchor": {
+    "lib": "fa",
+    "id": "fas, anchor"
+  },
+  "angle-double-down": {
+    "lib": "fa",
+    "id": "fas, angle-double-down"
+  },
+  "angle-double-left": {
+    "lib": "fa",
+    "id": "fas, angle-double-left"
+  },
+  "angle-double-right": {
+    "lib": "fa",
+    "id": "fas, angle-double-right"
+  },
+  "angle-double-up": {
+    "lib": "fa",
+    "id": "fas, angle-double-up"
+  },
+  "angle-down": {
+    "lib": "fa",
+    "id": "fas, angle-down"
+  },
+  "angle-left": {
+    "lib": "fa",
+    "id": "fas, angle-left"
+  },
+  "angle-right": {
+    "lib": "fa",
+    "id": "fas, angle-right"
+  },
+  "angle-up": {
+    "lib": "fa",
+    "id": "fas, angle-up"
+  },
+  "angry": {
+    "lib": "fa",
+    "id": "fas, angry"
+  },
+  "ankh": {
+    "lib": "fa",
+    "id": "fas, ankh"
+  },
+  "apple-alt": {
+    "lib": "fa",
+    "id": "fas, apple-alt"
+  },
+  "archive": {
+    "lib": "fa",
+    "id": "fas, archive"
+  },
+  "archway": {
+    "lib": "fa",
+    "id": "fas, archway"
+  },
+  "arrow-alt-circle-down": {
+    "lib": "fa",
+    "id": "fas, arrow-alt-circle-down"
+  },
+  "arrow-alt-circle-left": {
+    "lib": "fa",
+    "id": "fas, arrow-alt-circle-left"
+  },
+  "arrow-alt-circle-right": {
+    "lib": "fa",
+    "id": "fas, arrow-alt-circle-right"
+  },
+  "arrow-alt-circle-up": {
+    "lib": "fa",
+    "id": "fas, arrow-alt-circle-up"
+  },
+  "arrow-circle-down": {
+    "lib": "fa",
+    "id": "fas, arrow-circle-down"
+  },
+  "arrow-circle-left": {
+    "lib": "fa",
+    "id": "fas, arrow-circle-left"
+  },
+  "arrow-circle-right": {
+    "lib": "fa",
+    "id": "fas, arrow-circle-right"
+  },
+  "arrow-circle-up": {
+    "lib": "fa",
+    "id": "fas, arrow-circle-up"
+  },
+  "arrow-down": {
+    "lib": "fa",
+    "id": "fas, arrow-down"
+  },
+  "arrow-left": {
+    "lib": "fa",
+    "id": "fas, arrow-left"
+  },
+  "arrow-right": {
+    "lib": "fa",
+    "id": "fas, arrow-right"
+  },
+  "arrow-up": {
+    "lib": "fa",
+    "id": "fas, arrow-up"
+  },
+  "arrows-alt": {
+    "lib": "fa",
+    "id": "fas, arrows-alt"
+  },
+  "arrows-alt-h": {
+    "lib": "fa",
+    "id": "fas, arrows-alt-h"
+  },
+  "arrows-alt-v": {
+    "lib": "fa",
+    "id": "fas, arrows-alt-v"
+  },
+  "assistive-listening-systems": {
+    "lib": "fa",
+    "id": "fas, assistive-listening-systems"
+  },
+  "asterisk": {
+    "lib": "fa",
+    "id": "fas, asterisk"
+  },
+  "at": {
+    "lib": "fa",
+    "id": "fas, at"
+  },
+  "atlas": {
+    "lib": "fa",
+    "id": "fas, atlas"
+  },
+  "atom": {
+    "lib": "fa",
+    "id": "fas, atom"
+  },
+  "audio-description": {
+    "lib": "fa",
+    "id": "fas, audio-description"
+  },
+  "award": {
+    "lib": "fa",
+    "id": "fas, award"
+  },
+  "baby": {
+    "lib": "fa",
+    "id": "fas, baby"
+  },
+  "baby-carriage": {
+    "lib": "fa",
+    "id": "fas, baby-carriage"
+  },
+  "backspace": {
+    "lib": "fa",
+    "id": "fas, backspace"
+  },
+  "backward": {
+    "lib": "fa",
+    "id": "fas, backward"
+  },
+  "bacon": {
+    "lib": "fa",
+    "id": "fas, bacon"
+  },
+  "balance-scale": {
+    "lib": "fa",
+    "id": "fas, balance-scale"
+  },
+  "balance-scale-left": {
+    "lib": "fa",
+    "id": "fas, balance-scale-left"
+  },
+  "balance-scale-right": {
+    "lib": "fa",
+    "id": "fas, balance-scale-right"
+  },
+  "ban": {
+    "lib": "fa",
+    "id": "fas, ban"
+  },
+  "band-aid": {
+    "lib": "fa",
+    "id": "fas, band-aid"
+  },
+  "barcode": {
+    "lib": "fa",
+    "id": "fas, barcode"
+  },
+  "bars": {
+    "lib": "fa",
+    "id": "fas, bars"
+  },
+  "baseball-ball": {
+    "lib": "fa",
+    "id": "fas, baseball-ball"
+  },
+  "basketball-ball": {
+    "lib": "fa",
+    "id": "fas, basketball-ball"
+  },
+  "bath": {
+    "lib": "fa",
+    "id": "fas, bath"
+  },
+  "battery-empty": {
+    "lib": "fa",
+    "id": "fas, battery-empty"
+  },
+  "battery-full": {
+    "lib": "fa",
+    "id": "fas, battery-full"
+  },
+  "battery-half": {
+    "lib": "fa",
+    "id": "fas, battery-half"
+  },
+  "battery-quarter": {
+    "lib": "fa",
+    "id": "fas, battery-quarter"
+  },
+  "battery-three-quarters": {
+    "lib": "fa",
+    "id": "fas, battery-three-quarters"
+  },
+  "bed": {
+    "lib": "fa",
+    "id": "fas, bed"
+  },
+  "beer": {
+    "lib": "fa",
+    "id": "fas, beer"
+  },
+  "bell": {
+    "lib": "fa",
+    "id": "fas, bell"
+  },
+  "bell-slash": {
+    "lib": "fa",
+    "id": "fas, bell-slash"
+  },
+  "bezier-curve": {
+    "lib": "fa",
+    "id": "fas, bezier-curve"
+  },
+  "bible": {
+    "lib": "fa",
+    "id": "fas, bible"
+  },
+  "bicycle": {
+    "lib": "fa",
+    "id": "fas, bicycle"
+  },
+  "biking": {
+    "lib": "fa",
+    "id": "fas, biking"
+  },
+  "binoculars": {
+    "lib": "fa",
+    "id": "fas, binoculars"
+  },
+  "biohazard": {
+    "lib": "fa",
+    "id": "fas, biohazard"
+  },
+  "birthday-cake": {
+    "lib": "fa",
+    "id": "fas, birthday-cake"
+  },
+  "blender": {
+    "lib": "fa",
+    "id": "fas, blender"
+  },
+  "blender-phone": {
+    "lib": "fa",
+    "id": "fas, blender-phone"
+  },
+  "blind": {
+    "lib": "fa",
+    "id": "fas, blind"
+  },
+  "blog": {
+    "lib": "fa",
+    "id": "fas, blog"
+  },
+  "bold": {
+    "lib": "fa",
+    "id": "fas, bold"
+  },
+  "bolt": {
+    "lib": "fa",
+    "id": "fas, bolt"
+  },
+  "bomb": {
+    "lib": "fa",
+    "id": "fas, bomb"
+  },
+  "bone": {
+    "lib": "fa",
+    "id": "fas, bone"
+  },
+  "bong": {
+    "lib": "fa",
+    "id": "fas, bong"
+  },
+  "book": {
+    "lib": "fa",
+    "id": "fas, book"
+  },
+  "book-dead": {
+    "lib": "fa",
+    "id": "fas, book-dead"
+  },
+  "book-medical": {
+    "lib": "fa",
+    "id": "fas, book-medical"
+  },
+  "book-open": {
+    "lib": "fa",
+    "id": "fas, book-open"
+  },
+  "book-reader": {
+    "lib": "fa",
+    "id": "fas, book-reader"
+  },
+  "bookmark": {
+    "lib": "fa",
+    "id": "fas, bookmark"
+  },
+  "border-all": {
+    "lib": "fa",
+    "id": "fas, border-all"
+  },
+  "border-none": {
+    "lib": "fa",
+    "id": "fas, border-none"
+  },
+  "border-style": {
+    "lib": "fa",
+    "id": "fas, border-style"
+  },
+  "bowling-ball": {
+    "lib": "fa",
+    "id": "fas, bowling-ball"
+  },
+  "box": {
+    "lib": "fa",
+    "id": "fas, box"
+  },
+  "box-open": {
+    "lib": "fa",
+    "id": "fas, box-open"
+  },
+  "boxes": {
+    "lib": "fa",
+    "id": "fas, boxes"
+  },
+  "braille": {
+    "lib": "fa",
+    "id": "fas, braille"
+  },
+  "brain": {
+    "lib": "fa",
+    "id": "fas, brain"
+  },
+  "bread-slice": {
+    "lib": "fa",
+    "id": "fas, bread-slice"
+  },
+  "briefcase": {
+    "lib": "fa",
+    "id": "fas, briefcase"
+  },
+  "briefcase-medical": {
+    "lib": "fa",
+    "id": "fas, briefcase-medical"
+  },
+  "broadcast-tower": {
+    "lib": "fa",
+    "id": "fas, broadcast-tower"
+  },
+  "broom": {
+    "lib": "fa",
+    "id": "fas, broom"
+  },
+  "brush": {
+    "lib": "fa",
+    "id": "fas, brush"
+  },
+  "bug": {
+    "lib": "fa",
+    "id": "fas, bug"
+  },
+  "building": {
+    "lib": "fa",
+    "id": "fas, building"
+  },
+  "bullhorn": {
+    "lib": "fa",
+    "id": "fas, bullhorn"
+  },
+  "bullseye": {
+    "lib": "fa",
+    "id": "fas, bullseye"
+  },
+  "burn": {
+    "lib": "fa",
+    "id": "fas, burn"
+  },
+  "bus": {
+    "lib": "fa",
+    "id": "fas, bus"
+  },
+  "bus-alt": {
+    "lib": "fa",
+    "id": "fas, bus-alt"
+  },
+  "business-time": {
+    "lib": "fa",
+    "id": "fas, business-time"
+  },
+  "calculator": {
+    "lib": "fa",
+    "id": "fas, calculator"
+  },
+  "calendar": {
+    "lib": "fa",
+    "id": "fas, calendar"
+  },
+  "calendar-alt": {
+    "lib": "fa",
+    "id": "fas, calendar-alt"
+  },
+  "calendar-check": {
+    "lib": "fa",
+    "id": "fas, calendar-check"
+  },
+  "calendar-day": {
+    "lib": "fa",
+    "id": "fas, calendar-day"
+  },
+  "calendar-minus": {
+    "lib": "fa",
+    "id": "fas, calendar-minus"
+  },
+  "calendar-plus": {
+    "lib": "fa",
+    "id": "fas, calendar-plus"
+  },
+  "calendar-times": {
+    "lib": "fa",
+    "id": "fas, calendar-times"
+  },
+  "calendar-week": {
+    "lib": "fa",
+    "id": "fas, calendar-week"
+  },
+  "camera": {
+    "lib": "fa",
+    "id": "fas, camera"
+  },
+  "camera-retro": {
+    "lib": "fa",
+    "id": "fas, camera-retro"
+  },
+  "campground": {
+    "lib": "fa",
+    "id": "fas, campground"
+  },
+  "candy-cane": {
+    "lib": "fa",
+    "id": "fas, candy-cane"
+  },
+  "cannabis": {
+    "lib": "fa",
+    "id": "fas, cannabis"
+  },
+  "capsules": {
+    "lib": "fa",
+    "id": "fas, capsules"
+  },
+  "car": {
+    "lib": "fa",
+    "id": "fas, car"
+  },
+  "car-alt": {
+    "lib": "fa",
+    "id": "fas, car-alt"
+  },
+  "car-battery": {
+    "lib": "fa",
+    "id": "fas, car-battery"
+  },
+  "car-crash": {
+    "lib": "fa",
+    "id": "fas, car-crash"
+  },
+  "car-side": {
+    "lib": "fa",
+    "id": "fas, car-side"
+  },
+  "caret-down": {
+    "lib": "fa",
+    "id": "fas, caret-down"
+  },
+  "caret-left": {
+    "lib": "fa",
+    "id": "fas, caret-left"
+  },
+  "caret-right": {
+    "lib": "fa",
+    "id": "fas, caret-right"
+  },
+  "caret-square-down": {
+    "lib": "fa",
+    "id": "fas, caret-square-down"
+  },
+  "caret-square-left": {
+    "lib": "fa",
+    "id": "fas, caret-square-left"
+  },
+  "caret-square-right": {
+    "lib": "fa",
+    "id": "fas, caret-square-right"
+  },
+  "caret-square-up": {
+    "lib": "fa",
+    "id": "fas, caret-square-up"
+  },
+  "caret-up": {
+    "lib": "fa",
+    "id": "fas, caret-up"
+  },
+  "carrot": {
+    "lib": "fa",
+    "id": "fas, carrot"
+  },
+  "cart-arrow-down": {
+    "lib": "fa",
+    "id": "fas, cart-arrow-down"
+  },
+  "cart-plus": {
+    "lib": "fa",
+    "id": "fas, cart-plus"
+  },
+  "cash-register": {
+    "lib": "fa",
+    "id": "fas, cash-register"
+  },
+  "cat": {
+    "lib": "fa",
+    "id": "fas, cat"
+  },
+  "certificate": {
+    "lib": "fa",
+    "id": "fas, certificate"
+  },
+  "chair": {
+    "lib": "fa",
+    "id": "fas, chair"
+  },
+  "chalkboard": {
+    "lib": "fa",
+    "id": "fas, chalkboard"
+  },
+  "chalkboard-teacher": {
+    "lib": "fa",
+    "id": "fas, chalkboard-teacher"
+  },
+  "charging-station": {
+    "lib": "fa",
+    "id": "fas, charging-station"
+  },
+  "chart-area": {
+    "lib": "fa",
+    "id": "fas, chart-area"
+  },
+  "chart-bar": {
+    "lib": "fa",
+    "id": "fas, chart-bar"
+  },
+  "chart-line": {
+    "lib": "fa",
+    "id": "fas, chart-line"
+  },
+  "chart-pie": {
+    "lib": "fa",
+    "id": "fas, chart-pie"
+  },
+  "check": {
+    "lib": "fa",
+    "id": "fas, check"
+  },
+  "check-circle": {
+    "lib": "fa",
+    "id": "fas, check-circle"
+  },
+  "check-double": {
+    "lib": "fa",
+    "id": "fas, check-double"
+  },
+  "check-square": {
+    "lib": "fa",
+    "id": "fas, check-square"
+  },
+  "cheese": {
+    "lib": "fa",
+    "id": "fas, cheese"
+  },
+  "chess": {
+    "lib": "fa",
+    "id": "fas, chess"
+  },
+  "chess-bishop": {
+    "lib": "fa",
+    "id": "fas, chess-bishop"
+  },
+  "chess-board": {
+    "lib": "fa",
+    "id": "fas, chess-board"
+  },
+  "chess-king": {
+    "lib": "fa",
+    "id": "fas, chess-king"
+  },
+  "chess-knight": {
+    "lib": "fa",
+    "id": "fas, chess-knight"
+  },
+  "chess-pawn": {
+    "lib": "fa",
+    "id": "fas, chess-pawn"
+  },
+  "chess-queen": {
+    "lib": "fa",
+    "id": "fas, chess-queen"
+  },
+  "chess-rook": {
+    "lib": "fa",
+    "id": "fas, chess-rook"
+  },
+  "chevron-circle-down": {
+    "lib": "fa",
+    "id": "fas, chevron-circle-down"
+  },
+  "chevron-circle-left": {
+    "lib": "fa",
+    "id": "fas, chevron-circle-left"
+  },
+  "chevron-circle-right": {
+    "lib": "fa",
+    "id": "fas, chevron-circle-right"
+  },
+  "chevron-circle-up": {
+    "lib": "fa",
+    "id": "fas, chevron-circle-up"
+  },
+  "chevron-down": {
+    "lib": "fa",
+    "id": "fas, chevron-down"
+  },
+  "chevron-left": {
+    "lib": "fa",
+    "id": "fas, chevron-left"
+  },
+  "chevron-right": {
+    "lib": "fa",
+    "id": "fas, chevron-right"
+  },
+  "chevron-up": {
+    "lib": "fa",
+    "id": "fas, chevron-up"
+  },
+  "child": {
+    "lib": "fa",
+    "id": "fas, child"
+  },
+  "church": {
+    "lib": "fa",
+    "id": "fas, church"
+  },
+  "circle": {
+    "lib": "fa",
+    "id": "fas, circle"
+  },
+  "circle-notch": {
+    "lib": "fa",
+    "id": "fas, circle-notch"
+  },
+  "city": {
+    "lib": "fa",
+    "id": "fas, city"
+  },
+  "clinic-medical": {
+    "lib": "fa",
+    "id": "fas, clinic-medical"
+  },
+  "clipboard": {
+    "lib": "fa",
+    "id": "fas, clipboard"
+  },
+  "clipboard-check": {
+    "lib": "fa",
+    "id": "fas, clipboard-check"
+  },
+  "clipboard-list": {
+    "lib": "fa",
+    "id": "fas, clipboard-list"
+  },
+  "clock": {
+    "lib": "fa",
+    "id": "fas, clock"
+  },
+  "clone": {
+    "lib": "fa",
+    "id": "fas, clone"
+  },
+  "closed-captioning": {
+    "lib": "fa",
+    "id": "fas, closed-captioning"
+  },
+  "cloud": {
+    "lib": "fa",
+    "id": "fas, cloud"
+  },
+  "cloud-download-alt": {
+    "lib": "fa",
+    "id": "fas, cloud-download-alt"
+  },
+  "cloud-meatball": {
+    "lib": "fa",
+    "id": "fas, cloud-meatball"
+  },
+  "cloud-moon": {
+    "lib": "fa",
+    "id": "fas, cloud-moon"
+  },
+  "cloud-moon-rain": {
+    "lib": "fa",
+    "id": "fas, cloud-moon-rain"
+  },
+  "cloud-rain": {
+    "lib": "fa",
+    "id": "fas, cloud-rain"
+  },
+  "cloud-showers-heavy": {
+    "lib": "fa",
+    "id": "fas, cloud-showers-heavy"
+  },
+  "cloud-sun": {
+    "lib": "fa",
+    "id": "fas, cloud-sun"
+  },
+  "cloud-sun-rain": {
+    "lib": "fa",
+    "id": "fas, cloud-sun-rain"
+  },
+  "cloud-upload-alt": {
+    "lib": "fa",
+    "id": "fas, cloud-upload-alt"
+  },
+  "cocktail": {
+    "lib": "fa",
+    "id": "fas, cocktail"
+  },
+  "code": {
+    "lib": "fa",
+    "id": "fas, code"
+  },
+  "code-branch": {
+    "lib": "fa",
+    "id": "fas, code-branch"
+  },
+  "coffee": {
+    "lib": "fa",
+    "id": "fas, coffee"
+  },
+  "cog": {
+    "lib": "fa",
+    "id": "fas, cog"
+  },
+  "cogs": {
+    "lib": "fa",
+    "id": "fas, cogs"
+  },
+  "coins": {
+    "lib": "fa",
+    "id": "fas, coins"
+  },
+  "columns": {
+    "lib": "fa",
+    "id": "fas, columns"
+  },
+  "comment": {
+    "lib": "fa",
+    "id": "fas, comment"
+  },
+  "comment-alt": {
+    "lib": "fa",
+    "id": "fas, comment-alt"
+  },
+  "comment-dollar": {
+    "lib": "fa",
+    "id": "fas, comment-dollar"
+  },
+  "comment-dots": {
+    "lib": "fa",
+    "id": "fas, comment-dots"
+  },
+  "comment-medical": {
+    "lib": "fa",
+    "id": "fas, comment-medical"
+  },
+  "comment-slash": {
+    "lib": "fa",
+    "id": "fas, comment-slash"
+  },
+  "comments": {
+    "lib": "fa",
+    "id": "fas, comments"
+  },
+  "comments-dollar": {
+    "lib": "fa",
+    "id": "fas, comments-dollar"
+  },
+  "compact-disc": {
+    "lib": "fa",
+    "id": "fas, compact-disc"
+  },
+  "compass": {
+    "lib": "fa",
+    "id": "fas, compass"
+  },
+  "compress": {
+    "lib": "fa",
+    "id": "fas, compress"
+  },
+  "compress-arrows-alt": {
+    "lib": "fa",
+    "id": "fas, compress-arrows-alt"
+  },
+  "concierge-bell": {
+    "lib": "fa",
+    "id": "fas, concierge-bell"
+  },
+  "cookie": {
+    "lib": "fa",
+    "id": "fas, cookie"
+  },
+  "cookie-bite": {
+    "lib": "fa",
+    "id": "fas, cookie-bite"
+  },
+  "copy": {
+    "lib": "fa",
+    "id": "fas, copy"
+  },
+  "copyright": {
+    "lib": "fa",
+    "id": "fas, copyright"
+  },
+  "couch": {
+    "lib": "fa",
+    "id": "fas, couch"
+  },
+  "credit-card": {
+    "lib": "fa",
+    "id": "fas, credit-card"
+  },
+  "crop": {
+    "lib": "fa",
+    "id": "fas, crop"
+  },
+  "crop-alt": {
+    "lib": "fa",
+    "id": "fas, crop-alt"
+  },
+  "cross": {
+    "lib": "fa",
+    "id": "fas, cross"
+  },
+  "crosshairs": {
+    "lib": "fa",
+    "id": "fas, crosshairs"
+  },
+  "crow": {
+    "lib": "fa",
+    "id": "fas, crow"
+  },
+  "crown": {
+    "lib": "fa",
+    "id": "fas, crown"
+  },
+  "crutch": {
+    "lib": "fa",
+    "id": "fas, crutch"
+  },
+  "cube": {
+    "lib": "fa",
+    "id": "fas, cube"
+  },
+  "cubes": {
+    "lib": "fa",
+    "id": "fas, cubes"
+  },
+  "cut": {
+    "lib": "fa",
+    "id": "fas, cut"
+  },
+  "database": {
+    "lib": "fa",
+    "id": "fas, database"
+  },
+  "deaf": {
+    "lib": "fa",
+    "id": "fas, deaf"
+  },
+  "democrat": {
+    "lib": "fa",
+    "id": "fas, democrat"
+  },
+  "desktop": {
+    "lib": "fa",
+    "id": "fas, desktop"
+  },
+  "dharmachakra": {
+    "lib": "fa",
+    "id": "fas, dharmachakra"
+  },
+  "diagnoses": {
+    "lib": "fa",
+    "id": "fas, diagnoses"
+  },
+  "dice": {
+    "lib": "fa",
+    "id": "fas, dice"
+  },
+  "dice-d20": {
+    "lib": "fa",
+    "id": "fas, dice-d20"
+  },
+  "dice-d6": {
+    "lib": "fa",
+    "id": "fas, dice-d6"
+  },
+  "dice-five": {
+    "lib": "fa",
+    "id": "fas, dice-five"
+  },
+  "dice-four": {
+    "lib": "fa",
+    "id": "fas, dice-four"
+  },
+  "dice-one": {
+    "lib": "fa",
+    "id": "fas, dice-one"
+  },
+  "dice-six": {
+    "lib": "fa",
+    "id": "fas, dice-six"
+  },
+  "dice-three": {
+    "lib": "fa",
+    "id": "fas, dice-three"
+  },
+  "dice-two": {
+    "lib": "fa",
+    "id": "fas, dice-two"
+  },
+  "digital-tachograph": {
+    "lib": "fa",
+    "id": "fas, digital-tachograph"
+  },
+  "directions": {
+    "lib": "fa",
+    "id": "fas, directions"
+  },
+  "divide": {
+    "lib": "fa",
+    "id": "fas, divide"
+  },
+  "dizzy": {
+    "lib": "fa",
+    "id": "fas, dizzy"
+  },
+  "dna": {
+    "lib": "fa",
+    "id": "fas, dna"
+  },
+  "dog": {
+    "lib": "fa",
+    "id": "fas, dog"
+  },
+  "dollar-sign": {
+    "lib": "fa",
+    "id": "fas, dollar-sign"
+  },
+  "dolly": {
+    "lib": "fa",
+    "id": "fas, dolly"
+  },
+  "dolly-flatbed": {
+    "lib": "fa",
+    "id": "fas, dolly-flatbed"
+  },
+  "donate": {
+    "lib": "fa",
+    "id": "fas, donate"
+  },
+  "door-closed": {
+    "lib": "fa",
+    "id": "fas, door-closed"
+  },
+  "door-open": {
+    "lib": "fa",
+    "id": "fas, door-open"
+  },
+  "dot-circle": {
+    "lib": "fa",
+    "id": "fas, dot-circle"
+  },
+  "dove": {
+    "lib": "fa",
+    "id": "fas, dove"
+  },
+  "download": {
+    "lib": "fa",
+    "id": "fas, download"
+  },
+  "drafting-compass": {
+    "lib": "fa",
+    "id": "fas, drafting-compass"
+  },
+  "dragon": {
+    "lib": "fa",
+    "id": "fas, dragon"
+  },
+  "draw-polygon": {
+    "lib": "fa",
+    "id": "fas, draw-polygon"
+  },
+  "drum": {
+    "lib": "fa",
+    "id": "fas, drum"
+  },
+  "drum-steelpan": {
+    "lib": "fa",
+    "id": "fas, drum-steelpan"
+  },
+  "drumstick-bite": {
+    "lib": "fa",
+    "id": "fas, drumstick-bite"
+  },
+  "dumbbell": {
+    "lib": "fa",
+    "id": "fas, dumbbell"
+  },
+  "dumpster": {
+    "lib": "fa",
+    "id": "fas, dumpster"
+  },
+  "dumpster-fire": {
+    "lib": "fa",
+    "id": "fas, dumpster-fire"
+  },
+  "dungeon": {
+    "lib": "fa",
+    "id": "fas, dungeon"
+  },
+  "edit": {
+    "lib": "fa",
+    "id": "fas, edit"
+  },
+  "egg": {
+    "lib": "fa",
+    "id": "fas, egg"
+  },
+  "eject": {
+    "lib": "fa",
+    "id": "fas, eject"
+  },
+  "ellipsis-h": {
+    "lib": "fa",
+    "id": "fas, ellipsis-h"
+  },
+  "ellipsis-v": {
+    "lib": "fa",
+    "id": "fas, ellipsis-v"
+  },
+  "envelope": {
+    "lib": "fa",
+    "id": "fas, envelope"
+  },
+  "envelope-open": {
+    "lib": "fa",
+    "id": "fas, envelope-open"
+  },
+  "envelope-open-text": {
+    "lib": "fa",
+    "id": "fas, envelope-open-text"
+  },
+  "envelope-square": {
+    "lib": "fa",
+    "id": "fas, envelope-square"
+  },
+  "equals": {
+    "lib": "fa",
+    "id": "fas, equals"
+  },
+  "eraser": {
+    "lib": "fa",
+    "id": "fas, eraser"
+  },
+  "ethernet": {
+    "lib": "fa",
+    "id": "fas, ethernet"
+  },
+  "euro-sign": {
+    "lib": "fa",
+    "id": "fas, euro-sign"
+  },
+  "exchange-alt": {
+    "lib": "fa",
+    "id": "fas, exchange-alt"
+  },
+  "exclamation": {
+    "lib": "fa",
+    "id": "fas, exclamation"
+  },
+  "exclamation-circle": {
+    "lib": "fa",
+    "id": "fas, exclamation-circle"
+  },
+  "exclamation-triangle": {
+    "lib": "fa",
+    "id": "fas, exclamation-triangle"
+  },
+  "expand": {
+    "lib": "fa",
+    "id": "fas, expand"
+  },
+  "expand-arrows-alt": {
+    "lib": "fa",
+    "id": "fas, expand-arrows-alt"
+  },
+  "external-link-alt": {
+    "lib": "fa",
+    "id": "fas, external-link-alt"
+  },
+  "external-link-square-alt": {
+    "lib": "fa",
+    "id": "fas, external-link-square-alt"
+  },
+  "eye": {
+    "lib": "fa",
+    "id": "fas, eye"
+  },
+  "eye-dropper": {
+    "lib": "fa",
+    "id": "fas, eye-dropper"
+  },
+  "eye-slash": {
+    "lib": "fa",
+    "id": "fas, eye-slash"
+  },
+  "fan": {
+    "lib": "fa",
+    "id": "fas, fan"
+  },
+  "fast-backward": {
+    "lib": "fa",
+    "id": "fas, fast-backward"
+  },
+  "fast-forward": {
+    "lib": "fa",
+    "id": "fas, fast-forward"
+  },
+  "fax": {
+    "lib": "fa",
+    "id": "fas, fax"
+  },
+  "feather": {
+    "lib": "fa",
+    "id": "fas, feather"
+  },
+  "feather-alt": {
+    "lib": "fa",
+    "id": "fas, feather-alt"
+  },
+  "female": {
+    "lib": "fa",
+    "id": "fas, female"
+  },
+  "fighter-jet": {
+    "lib": "fa",
+    "id": "fas, fighter-jet"
+  },
+  "file": {
+    "lib": "fa",
+    "id": "fas, file"
+  },
+  "file-alt": {
+    "lib": "fa",
+    "id": "fas, file-alt"
+  },
+  "file-archive": {
+    "lib": "fa",
+    "id": "fas, file-archive"
+  },
+  "file-audio": {
+    "lib": "fa",
+    "id": "fas, file-audio"
+  },
+  "file-code": {
+    "lib": "fa",
+    "id": "fas, file-code"
+  },
+  "file-contract": {
+    "lib": "fa",
+    "id": "fas, file-contract"
+  },
+  "file-csv": {
+    "lib": "fa",
+    "id": "fas, file-csv"
+  },
+  "file-download": {
+    "lib": "fa",
+    "id": "fas, file-download"
+  },
+  "file-excel": {
+    "lib": "fa",
+    "id": "fas, file-excel"
+  },
+  "file-export": {
+    "lib": "fa",
+    "id": "fas, file-export"
+  },
+  "file-image": {
+    "lib": "fa",
+    "id": "fas, file-image"
+  },
+  "file-import": {
+    "lib": "fa",
+    "id": "fas, file-import"
+  },
+  "file-invoice": {
+    "lib": "fa",
+    "id": "fas, file-invoice"
+  },
+  "file-invoice-dollar": {
+    "lib": "fa",
+    "id": "fas, file-invoice-dollar"
+  },
+  "file-medical": {
+    "lib": "fa",
+    "id": "fas, file-medical"
+  },
+  "file-medical-alt": {
+    "lib": "fa",
+    "id": "fas, file-medical-alt"
+  },
+  "file-pdf": {
+    "lib": "fa",
+    "id": "fas, file-pdf"
+  },
+  "file-powerpoint": {
+    "lib": "fa",
+    "id": "fas, file-powerpoint"
+  },
+  "file-prescription": {
+    "lib": "fa",
+    "id": "fas, file-prescription"
+  },
+  "file-signature": {
+    "lib": "fa",
+    "id": "fas, file-signature"
+  },
+  "file-upload": {
+    "lib": "fa",
+    "id": "fas, file-upload"
+  },
+  "file-video": {
+    "lib": "fa",
+    "id": "fas, file-video"
+  },
+  "file-word": {
+    "lib": "fa",
+    "id": "fas, file-word"
+  },
+  "fill": {
+    "lib": "fa",
+    "id": "fas, fill"
+  },
+  "fill-drip": {
+    "lib": "fa",
+    "id": "fas, fill-drip"
+  },
+  "film": {
+    "lib": "fa",
+    "id": "fas, film"
+  },
+  "filter": {
+    "lib": "fa",
+    "id": "fas, filter"
+  },
+  "fingerprint": {
+    "lib": "fa",
+    "id": "fas, fingerprint"
+  },
+  "fire": {
+    "lib": "fa",
+    "id": "fas, fire"
+  },
+  "fire-alt": {
+    "lib": "fa",
+    "id": "fas, fire-alt"
+  },
+  "fire-extinguisher": {
+    "lib": "fa",
+    "id": "fas, fire-extinguisher"
+  },
+  "first-aid": {
+    "lib": "fa",
+    "id": "fas, first-aid"
+  },
+  "fish": {
+    "lib": "fa",
+    "id": "fas, fish"
+  },
+  "fist-raised": {
+    "lib": "fa",
+    "id": "fas, fist-raised"
+  },
+  "flag": {
+    "lib": "fa",
+    "id": "fas, flag"
+  },
+  "flag-checkered": {
+    "lib": "fa",
+    "id": "fas, flag-checkered"
+  },
+  "flag-usa": {
+    "lib": "fa",
+    "id": "fas, flag-usa"
+  },
+  "flask": {
+    "lib": "fa",
+    "id": "fas, flask"
+  },
+  "flushed": {
+    "lib": "fa",
+    "id": "fas, flushed"
+  },
+  "folder": {
+    "lib": "fa",
+    "id": "fas, folder"
+  },
+  "folder-minus": {
+    "lib": "fa",
+    "id": "fas, folder-minus"
+  },
+  "folder-open": {
+    "lib": "fa",
+    "id": "fas, folder-open"
+  },
+  "folder-plus": {
+    "lib": "fa",
+    "id": "fas, folder-plus"
+  },
+  "font": {
+    "lib": "fa",
+    "id": "fas, font"
+  },
+  "football-ball": {
+    "lib": "fa",
+    "id": "fas, football-ball"
+  },
+  "forward": {
+    "lib": "fa",
+    "id": "fas, forward"
+  },
+  "frog": {
+    "lib": "fa",
+    "id": "fas, frog"
+  },
+  "frown": {
+    "lib": "fa",
+    "id": "fas, frown"
+  },
+  "frown-open": {
+    "lib": "fa",
+    "id": "fas, frown-open"
+  },
+  "funnel-dollar": {
+    "lib": "fa",
+    "id": "fas, funnel-dollar"
+  },
+  "futbol": {
+    "lib": "fa",
+    "id": "fas, futbol"
+  },
+  "gamepad": {
+    "lib": "fa",
+    "id": "fas, gamepad"
+  },
+  "gas-pump": {
+    "lib": "fa",
+    "id": "fas, gas-pump"
+  },
+  "gavel": {
+    "lib": "fa",
+    "id": "fas, gavel"
+  },
+  "gem": {
+    "lib": "fa",
+    "id": "fas, gem"
+  },
+  "genderless": {
+    "lib": "fa",
+    "id": "fas, genderless"
+  },
+  "ghost": {
+    "lib": "fa",
+    "id": "fas, ghost"
+  },
+  "gift": {
+    "lib": "fa",
+    "id": "fas, gift"
+  },
+  "gifts": {
+    "lib": "fa",
+    "id": "fas, gifts"
+  },
+  "glass-cheers": {
+    "lib": "fa",
+    "id": "fas, glass-cheers"
+  },
+  "glass-martini": {
+    "lib": "fa",
+    "id": "fas, glass-martini"
+  },
+  "glass-martini-alt": {
+    "lib": "fa",
+    "id": "fas, glass-martini-alt"
+  },
+  "glass-whiskey": {
+    "lib": "fa",
+    "id": "fas, glass-whiskey"
+  },
+  "glasses": {
+    "lib": "fa",
+    "id": "fas, glasses"
+  },
+  "globe": {
+    "lib": "fa",
+    "id": "fas, globe"
+  },
+  "globe-africa": {
+    "lib": "fa",
+    "id": "fas, globe-africa"
+  },
+  "globe-americas": {
+    "lib": "fa",
+    "id": "fas, globe-americas"
+  },
+  "globe-asia": {
+    "lib": "fa",
+    "id": "fas, globe-asia"
+  },
+  "globe-europe": {
+    "lib": "fa",
+    "id": "fas, globe-europe"
+  },
+  "golf-ball": {
+    "lib": "fa",
+    "id": "fas, golf-ball"
+  },
+  "gopuram": {
+    "lib": "fa",
+    "id": "fas, gopuram"
+  },
+  "graduation-cap": {
+    "lib": "fa",
+    "id": "fas, graduation-cap"
+  },
+  "greater-than": {
+    "lib": "fa",
+    "id": "fas, greater-than"
+  },
+  "greater-than-equal": {
+    "lib": "fa",
+    "id": "fas, greater-than-equal"
+  },
+  "grimace": {
+    "lib": "fa",
+    "id": "fas, grimace"
+  },
+  "grin": {
+    "lib": "fa",
+    "id": "fas, grin"
+  },
+  "grin-alt": {
+    "lib": "fa",
+    "id": "fas, grin-alt"
+  },
+  "grin-beam": {
+    "lib": "fa",
+    "id": "fas, grin-beam"
+  },
+  "grin-beam-sweat": {
+    "lib": "fa",
+    "id": "fas, grin-beam-sweat"
+  },
+  "grin-hearts": {
+    "lib": "fa",
+    "id": "fas, grin-hearts"
+  },
+  "grin-squint": {
+    "lib": "fa",
+    "id": "fas, grin-squint"
+  },
+  "grin-squint-tears": {
+    "lib": "fa",
+    "id": "fas, grin-squint-tears"
+  },
+  "grin-stars": {
+    "lib": "fa",
+    "id": "fas, grin-stars"
+  },
+  "grin-tears": {
+    "lib": "fa",
+    "id": "fas, grin-tears"
+  },
+  "grin-tongue": {
+    "lib": "fa",
+    "id": "fas, grin-tongue"
+  },
+  "grin-tongue-squint": {
+    "lib": "fa",
+    "id": "fas, grin-tongue-squint"
+  },
+  "grin-tongue-wink": {
+    "lib": "fa",
+    "id": "fas, grin-tongue-wink"
+  },
+  "grin-wink": {
+    "lib": "fa",
+    "id": "fas, grin-wink"
+  },
+  "grip-horizontal": {
+    "lib": "fa",
+    "id": "fas, grip-horizontal"
+  },
+  "grip-lines": {
+    "lib": "fa",
+    "id": "fas, grip-lines"
+  },
+  "grip-lines-vertical": {
+    "lib": "fa",
+    "id": "fas, grip-lines-vertical"
+  },
+  "grip-vertical": {
+    "lib": "fa",
+    "id": "fas, grip-vertical"
+  },
+  "guitar": {
+    "lib": "fa",
+    "id": "fas, guitar"
+  },
+  "h-square": {
+    "lib": "fa",
+    "id": "fas, h-square"
+  },
+  "hamburger": {
+    "lib": "fa",
+    "id": "fas, hamburger"
+  },
+  "hammer": {
+    "lib": "fa",
+    "id": "fas, hammer"
+  },
+  "hamsa": {
+    "lib": "fa",
+    "id": "fas, hamsa"
+  },
+  "hand-holding": {
+    "lib": "fa",
+    "id": "fas, hand-holding"
+  },
+  "hand-holding-heart": {
+    "lib": "fa",
+    "id": "fas, hand-holding-heart"
+  },
+  "hand-holding-usd": {
+    "lib": "fa",
+    "id": "fas, hand-holding-usd"
+  },
+  "hand-lizard": {
+    "lib": "fa",
+    "id": "fas, hand-lizard"
+  },
+  "hand-middle-finger": {
+    "lib": "fa",
+    "id": "fas, hand-middle-finger"
+  },
+  "hand-paper": {
+    "lib": "fa",
+    "id": "fas, hand-paper"
+  },
+  "hand-peace": {
+    "lib": "fa",
+    "id": "fas, hand-peace"
+  },
+  "hand-point-down": {
+    "lib": "fa",
+    "id": "fas, hand-point-down"
+  },
+  "hand-point-left": {
+    "lib": "fa",
+    "id": "fas, hand-point-left"
+  },
+  "hand-point-right": {
+    "lib": "fa",
+    "id": "fas, hand-point-right"
+  },
+  "hand-point-up": {
+    "lib": "fa",
+    "id": "fas, hand-point-up"
+  },
+  "hand-pointer": {
+    "lib": "fa",
+    "id": "fas, hand-pointer"
+  },
+  "hand-rock": {
+    "lib": "fa",
+    "id": "fas, hand-rock"
+  },
+  "hand-scissors": {
+    "lib": "fa",
+    "id": "fas, hand-scissors"
+  },
+  "hand-spock": {
+    "lib": "fa",
+    "id": "fas, hand-spock"
+  },
+  "hands": {
+    "lib": "fa",
+    "id": "fas, hands"
+  },
+  "hands-helping": {
+    "lib": "fa",
+    "id": "fas, hands-helping"
+  },
+  "handshake": {
+    "lib": "fa",
+    "id": "fas, handshake"
+  },
+  "hanukiah": {
+    "lib": "fa",
+    "id": "fas, hanukiah"
+  },
+  "hard-hat": {
+    "lib": "fa",
+    "id": "fas, hard-hat"
+  },
+  "hashtag": {
+    "lib": "fa",
+    "id": "fas, hashtag"
+  },
+  "hat-wizard": {
+    "lib": "fa",
+    "id": "fas, hat-wizard"
+  },
+  "haykal": {
+    "lib": "fa",
+    "id": "fas, haykal"
+  },
+  "hdd": {
+    "lib": "fa",
+    "id": "fas, hdd"
+  },
+  "heading": {
+    "lib": "fa",
+    "id": "fas, heading"
+  },
+  "headphones": {
+    "lib": "fa",
+    "id": "fas, headphones"
+  },
+  "headphones-alt": {
+    "lib": "fa",
+    "id": "fas, headphones-alt"
+  },
+  "headset": {
+    "lib": "fa",
+    "id": "fas, headset"
+  },
+  "heart": {
+    "lib": "fa",
+    "id": "fas, heart"
+  },
+  "heart-broken": {
+    "lib": "fa",
+    "id": "fas, heart-broken"
+  },
+  "heartbeat": {
+    "lib": "fa",
+    "id": "fas, heartbeat"
+  },
+  "helicopter": {
+    "lib": "fa",
+    "id": "fas, helicopter"
+  },
+  "highlighter": {
+    "lib": "fa",
+    "id": "fas, highlighter"
+  },
+  "hiking": {
+    "lib": "fa",
+    "id": "fas, hiking"
+  },
+  "hippo": {
+    "lib": "fa",
+    "id": "fas, hippo"
+  },
+  "history": {
+    "lib": "fa",
+    "id": "fas, history"
+  },
+  "hockey-puck": {
+    "lib": "fa",
+    "id": "fas, hockey-puck"
+  },
+  "holly-berry": {
+    "lib": "fa",
+    "id": "fas, holly-berry"
+  },
+  "home": {
+    "lib": "fa",
+    "id": "fas, home"
+  },
+  "horse": {
+    "lib": "fa",
+    "id": "fas, horse"
+  },
+  "horse-head": {
+    "lib": "fa",
+    "id": "fas, horse-head"
+  },
+  "hospital": {
+    "lib": "fa",
+    "id": "fas, hospital"
+  },
+  "hospital-alt": {
+    "lib": "fa",
+    "id": "fas, hospital-alt"
+  },
+  "hospital-symbol": {
+    "lib": "fa",
+    "id": "fas, hospital-symbol"
+  },
+  "hot-tub": {
+    "lib": "fa",
+    "id": "fas, hot-tub"
+  },
+  "hotdog": {
+    "lib": "fa",
+    "id": "fas, hotdog"
+  },
+  "hotel": {
+    "lib": "fa",
+    "id": "fas, hotel"
+  },
+  "hourglass": {
+    "lib": "fa",
+    "id": "fas, hourglass"
+  },
+  "hourglass-end": {
+    "lib": "fa",
+    "id": "fas, hourglass-end"
+  },
+  "hourglass-half": {
+    "lib": "fa",
+    "id": "fas, hourglass-half"
+  },
+  "hourglass-start": {
+    "lib": "fa",
+    "id": "fas, hourglass-start"
+  },
+  "house-damage": {
+    "lib": "fa",
+    "id": "fas, house-damage"
+  },
+  "hryvnia": {
+    "lib": "fa",
+    "id": "fas, hryvnia"
+  },
+  "i-cursor": {
+    "lib": "fa",
+    "id": "fas, i-cursor"
+  },
+  "ice-cream": {
+    "lib": "fa",
+    "id": "fas, ice-cream"
+  },
+  "icicles": {
+    "lib": "fa",
+    "id": "fas, icicles"
+  },
+  "icons": {
+    "lib": "fa",
+    "id": "fas, icons"
+  },
+  "id-badge": {
+    "lib": "fa",
+    "id": "fas, id-badge"
+  },
+  "id-card": {
+    "lib": "fa",
+    "id": "fas, id-card"
+  },
+  "id-card-alt": {
+    "lib": "fa",
+    "id": "fas, id-card-alt"
+  },
+  "igloo": {
+    "lib": "fa",
+    "id": "fas, igloo"
+  },
+  "image": {
+    "lib": "fa",
+    "id": "fas, image"
+  },
+  "images": {
+    "lib": "fa",
+    "id": "fas, images"
+  },
+  "inbox": {
+    "lib": "fa",
+    "id": "fas, inbox"
+  },
+  "indent": {
+    "lib": "fa",
+    "id": "fas, indent"
+  },
+  "industry": {
+    "lib": "fa",
+    "id": "fas, industry"
+  },
+  "infinity": {
+    "lib": "fa",
+    "id": "fas, infinity"
+  },
+  "info": {
+    "lib": "fa",
+    "id": "fas, info"
+  },
+  "info-circle": {
+    "lib": "fa",
+    "id": "fas, info-circle"
+  },
+  "italic": {
+    "lib": "fa",
+    "id": "fas, italic"
+  },
+  "jedi": {
+    "lib": "fa",
+    "id": "fas, jedi"
+  },
+  "joint": {
+    "lib": "fa",
+    "id": "fas, joint"
+  },
+  "journal-whills": {
+    "lib": "fa",
+    "id": "fas, journal-whills"
+  },
+  "kaaba": {
+    "lib": "fa",
+    "id": "fas, kaaba"
+  },
+  "key": {
+    "lib": "fa",
+    "id": "fas, key"
+  },
+  "keyboard": {
+    "lib": "fa",
+    "id": "fas, keyboard"
+  },
+  "khanda": {
+    "lib": "fa",
+    "id": "fas, khanda"
+  },
+  "kiss": {
+    "lib": "fa",
+    "id": "fas, kiss"
+  },
+  "kiss-beam": {
+    "lib": "fa",
+    "id": "fas, kiss-beam"
+  },
+  "kiss-wink-heart": {
+    "lib": "fa",
+    "id": "fas, kiss-wink-heart"
+  },
+  "kiwi-bird": {
+    "lib": "fa",
+    "id": "fas, kiwi-bird"
+  },
+  "landmark": {
+    "lib": "fa",
+    "id": "fas, landmark"
+  },
+  "language": {
+    "lib": "fa",
+    "id": "fas, language"
+  },
+  "laptop": {
+    "lib": "fa",
+    "id": "fas, laptop"
+  },
+  "laptop-code": {
+    "lib": "fa",
+    "id": "fas, laptop-code"
+  },
+  "laptop-medical": {
+    "lib": "fa",
+    "id": "fas, laptop-medical"
+  },
+  "laugh": {
+    "lib": "fa",
+    "id": "fas, laugh"
+  },
+  "laugh-beam": {
+    "lib": "fa",
+    "id": "fas, laugh-beam"
+  },
+  "laugh-squint": {
+    "lib": "fa",
+    "id": "fas, laugh-squint"
+  },
+  "laugh-wink": {
+    "lib": "fa",
+    "id": "fas, laugh-wink"
+  },
+  "layer-group": {
+    "lib": "fa",
+    "id": "fas, layer-group"
+  },
+  "leaf": {
+    "lib": "fa",
+    "id": "fas, leaf"
+  },
+  "lemon": {
+    "lib": "fa",
+    "id": "fas, lemon"
+  },
+  "less-than": {
+    "lib": "fa",
+    "id": "fas, less-than"
+  },
+  "less-than-equal": {
+    "lib": "fa",
+    "id": "fas, less-than-equal"
+  },
+  "level-down-alt": {
+    "lib": "fa",
+    "id": "fas, level-down-alt"
+  },
+  "level-up-alt": {
+    "lib": "fa",
+    "id": "fas, level-up-alt"
+  },
+  "life-ring": {
+    "lib": "fa",
+    "id": "fas, life-ring"
+  },
+  "lightbulb": {
+    "lib": "fa",
+    "id": "fas, lightbulb"
+  },
+  "link": {
+    "lib": "fa",
+    "id": "fas, link"
+  },
+  "lira-sign": {
+    "lib": "fa",
+    "id": "fas, lira-sign"
+  },
+  "list": {
+    "lib": "fa",
+    "id": "fas, list"
+  },
+  "list-alt": {
+    "lib": "fa",
+    "id": "fas, list-alt"
+  },
+  "list-ol": {
+    "lib": "fa",
+    "id": "fas, list-ol"
+  },
+  "list-ul": {
+    "lib": "fa",
+    "id": "fas, list-ul"
+  },
+  "location-arrow": {
+    "lib": "fa",
+    "id": "fas, location-arrow"
+  },
+  "lock": {
+    "lib": "fa",
+    "id": "fas, lock"
+  },
+  "lock-open": {
+    "lib": "fa",
+    "id": "fas, lock-open"
+  },
+  "long-arrow-alt-down": {
+    "lib": "fa",
+    "id": "fas, long-arrow-alt-down"
+  },
+  "long-arrow-alt-left": {
+    "lib": "fa",
+    "id": "fas, long-arrow-alt-left"
+  },
+  "long-arrow-alt-right": {
+    "lib": "fa",
+    "id": "fas, long-arrow-alt-right"
+  },
+  "long-arrow-alt-up": {
+    "lib": "fa",
+    "id": "fas, long-arrow-alt-up"
+  },
+  "low-vision": {
+    "lib": "fa",
+    "id": "fas, low-vision"
+  },
+  "luggage-cart": {
+    "lib": "fa",
+    "id": "fas, luggage-cart"
+  },
+  "magic": {
+    "lib": "fa",
+    "id": "fas, magic"
+  },
+  "magnet": {
+    "lib": "fa",
+    "id": "fas, magnet"
+  },
+  "mail-bulk": {
+    "lib": "fa",
+    "id": "fas, mail-bulk"
+  },
+  "male": {
+    "lib": "fa",
+    "id": "fas, male"
+  },
+  "map": {
+    "lib": "fa",
+    "id": "fas, map"
+  },
+  "map-marked": {
+    "lib": "fa",
+    "id": "fas, map-marked"
+  },
+  "map-marked-alt": {
+    "lib": "fa",
+    "id": "fas, map-marked-alt"
+  },
+  "map-marker": {
+    "lib": "fa",
+    "id": "fas, map-marker"
+  },
+  "map-marker-alt": {
+    "lib": "fa",
+    "id": "fas, map-marker-alt"
+  },
+  "map-pin": {
+    "lib": "fa",
+    "id": "fas, map-pin"
+  },
+  "map-signs": {
+    "lib": "fa",
+    "id": "fas, map-signs"
+  },
+  "marker": {
+    "lib": "fa",
+    "id": "fas, marker"
+  },
+  "mars": {
+    "lib": "fa",
+    "id": "fas, mars"
+  },
+  "mars-double": {
+    "lib": "fa",
+    "id": "fas, mars-double"
+  },
+  "mars-stroke": {
+    "lib": "fa",
+    "id": "fas, mars-stroke"
+  },
+  "mars-stroke-h": {
+    "lib": "fa",
+    "id": "fas, mars-stroke-h"
+  },
+  "mars-stroke-v": {
+    "lib": "fa",
+    "id": "fas, mars-stroke-v"
+  },
+  "mask": {
+    "lib": "fa",
+    "id": "fas, mask"
+  },
+  "medal": {
+    "lib": "fa",
+    "id": "fas, medal"
+  },
+  "medkit": {
+    "lib": "fa",
+    "id": "fas, medkit"
+  },
+  "meh": {
+    "lib": "fa",
+    "id": "fas, meh"
+  },
+  "meh-blank": {
+    "lib": "fa",
+    "id": "fas, meh-blank"
+  },
+  "meh-rolling-eyes": {
+    "lib": "fa",
+    "id": "fas, meh-rolling-eyes"
+  },
+  "memory": {
+    "lib": "fa",
+    "id": "fas, memory"
+  },
+  "menorah": {
+    "lib": "fa",
+    "id": "fas, menorah"
+  },
+  "mercury": {
+    "lib": "fa",
+    "id": "fas, mercury"
+  },
+  "meteor": {
+    "lib": "fa",
+    "id": "fas, meteor"
+  },
+  "microchip": {
+    "lib": "fa",
+    "id": "fas, microchip"
+  },
+  "microphone": {
+    "lib": "fa",
+    "id": "fas, microphone"
+  },
+  "microphone-alt": {
+    "lib": "fa",
+    "id": "fas, microphone-alt"
+  },
+  "microphone-alt-slash": {
+    "lib": "fa",
+    "id": "fas, microphone-alt-slash"
+  },
+  "microphone-slash": {
+    "lib": "fa",
+    "id": "fas, microphone-slash"
+  },
+  "microscope": {
+    "lib": "fa",
+    "id": "fas, microscope"
+  },
+  "minus": {
+    "lib": "fa",
+    "id": "fas, minus"
+  },
+  "minus-circle": {
+    "lib": "fa",
+    "id": "fas, minus-circle"
+  },
+  "minus-square": {
+    "lib": "fa",
+    "id": "fas, minus-square"
+  },
+  "mitten": {
+    "lib": "fa",
+    "id": "fas, mitten"
+  },
+  "mobile": {
+    "lib": "fa",
+    "id": "fas, mobile"
+  },
+  "mobile-alt": {
+    "lib": "fa",
+    "id": "fas, mobile-alt"
+  },
+  "money-bill": {
+    "lib": "fa",
+    "id": "fas, money-bill"
+  },
+  "money-bill-alt": {
+    "lib": "fa",
+    "id": "fas, money-bill-alt"
+  },
+  "money-bill-wave": {
+    "lib": "fa",
+    "id": "fas, money-bill-wave"
+  },
+  "money-bill-wave-alt": {
+    "lib": "fa",
+    "id": "fas, money-bill-wave-alt"
+  },
+  "money-check": {
+    "lib": "fa",
+    "id": "fas, money-check"
+  },
+  "money-check-alt": {
+    "lib": "fa",
+    "id": "fas, money-check-alt"
+  },
+  "monument": {
+    "lib": "fa",
+    "id": "fas, monument"
+  },
+  "moon": {
+    "lib": "fa",
+    "id": "fas, moon"
+  },
+  "mortar-pestle": {
+    "lib": "fa",
+    "id": "fas, mortar-pestle"
+  },
+  "mosque": {
+    "lib": "fa",
+    "id": "fas, mosque"
+  },
+  "motorcycle": {
+    "lib": "fa",
+    "id": "fas, motorcycle"
+  },
+  "mountain": {
+    "lib": "fa",
+    "id": "fas, mountain"
+  },
+  "mouse-pointer": {
+    "lib": "fa",
+    "id": "fas, mouse-pointer"
+  },
+  "mug-hot": {
+    "lib": "fa",
+    "id": "fas, mug-hot"
+  },
+  "music": {
+    "lib": "fa",
+    "id": "fas, music"
+  },
+  "network-wired": {
+    "lib": "fa",
+    "id": "fas, network-wired"
+  },
+  "neuter": {
+    "lib": "fa",
+    "id": "fas, neuter"
+  },
+  "newspaper": {
+    "lib": "fa",
+    "id": "fas, newspaper"
+  },
+  "not-equal": {
+    "lib": "fa",
+    "id": "fas, not-equal"
+  },
+  "notes-medical": {
+    "lib": "fa",
+    "id": "fas, notes-medical"
+  },
+  "object-group": {
+    "lib": "fa",
+    "id": "fas, object-group"
+  },
+  "object-ungroup": {
+    "lib": "fa",
+    "id": "fas, object-ungroup"
+  },
+  "oil-can": {
+    "lib": "fa",
+    "id": "fas, oil-can"
+  },
+  "om": {
+    "lib": "fa",
+    "id": "fas, om"
+  },
+  "otter": {
+    "lib": "fa",
+    "id": "fas, otter"
+  },
+  "outdent": {
+    "lib": "fa",
+    "id": "fas, outdent"
+  },
+  "pager": {
+    "lib": "fa",
+    "id": "fas, pager"
+  },
+  "paint-brush": {
+    "lib": "fa",
+    "id": "fas, paint-brush"
+  },
+  "paint-roller": {
+    "lib": "fa",
+    "id": "fas, paint-roller"
+  },
+  "palette": {
+    "lib": "fa",
+    "id": "fas, palette"
+  },
+  "pallet": {
+    "lib": "fa",
+    "id": "fas, pallet"
+  },
+  "paper-plane": {
+    "lib": "fa",
+    "id": "fas, paper-plane"
+  },
+  "paperclip": {
+    "lib": "fa",
+    "id": "fas, paperclip"
+  },
+  "parachute-box": {
+    "lib": "fa",
+    "id": "fas, parachute-box"
+  },
+  "paragraph": {
+    "lib": "fa",
+    "id": "fas, paragraph"
+  },
+  "parking": {
+    "lib": "fa",
+    "id": "fas, parking"
+  },
+  "passport": {
+    "lib": "fa",
+    "id": "fas, passport"
+  },
+  "pastafarianism": {
+    "lib": "fa",
+    "id": "fas, pastafarianism"
+  },
+  "paste": {
+    "lib": "fa",
+    "id": "fas, paste"
+  },
+  "pause": {
+    "lib": "fa",
+    "id": "fas, pause"
+  },
+  "pause-circle": {
+    "lib": "fa",
+    "id": "fas, pause-circle"
+  },
+  "paw": {
+    "lib": "fa",
+    "id": "fas, paw"
+  },
+  "peace": {
+    "lib": "fa",
+    "id": "fas, peace"
+  },
+  "pen": {
+    "lib": "fa",
+    "id": "fas, pen"
+  },
+  "pen-alt": {
+    "lib": "fa",
+    "id": "fas, pen-alt"
+  },
+  "pen-fancy": {
+    "lib": "fa",
+    "id": "fas, pen-fancy"
+  },
+  "pen-nib": {
+    "lib": "fa",
+    "id": "fas, pen-nib"
+  },
+  "pen-square": {
+    "lib": "fa",
+    "id": "fas, pen-square"
+  },
+  "pencil-alt": {
+    "lib": "fa",
+    "id": "fas, pencil-alt"
+  },
+  "pencil-ruler": {
+    "lib": "fa",
+    "id": "fas, pencil-ruler"
+  },
+  "people-carry": {
+    "lib": "fa",
+    "id": "fas, people-carry"
+  },
+  "pepper-hot": {
+    "lib": "fa",
+    "id": "fas, pepper-hot"
+  },
+  "percent": {
+    "lib": "fa",
+    "id": "fas, percent"
+  },
+  "percentage": {
+    "lib": "fa",
+    "id": "fas, percentage"
+  },
+  "person-booth": {
+    "lib": "fa",
+    "id": "fas, person-booth"
+  },
+  "phone": {
+    "lib": "fa",
+    "id": "fas, phone"
+  },
+  "phone-alt": {
+    "lib": "fa",
+    "id": "fas, phone-alt"
+  },
+  "phone-slash": {
+    "lib": "fa",
+    "id": "fas, phone-slash"
+  },
+  "phone-square": {
+    "lib": "fa",
+    "id": "fas, phone-square"
+  },
+  "phone-square-alt": {
+    "lib": "fa",
+    "id": "fas, phone-square-alt"
+  },
+  "phone-volume": {
+    "lib": "fa",
+    "id": "fas, phone-volume"
+  },
+  "photo-video": {
+    "lib": "fa",
+    "id": "fas, photo-video"
+  },
+  "piggy-bank": {
+    "lib": "fa",
+    "id": "fas, piggy-bank"
+  },
+  "pills": {
+    "lib": "fa",
+    "id": "fas, pills"
+  },
+  "pizza-slice": {
+    "lib": "fa",
+    "id": "fas, pizza-slice"
+  },
+  "place-of-worship": {
+    "lib": "fa",
+    "id": "fas, place-of-worship"
+  },
+  "plane": {
+    "lib": "fa",
+    "id": "fas, plane"
+  },
+  "plane-arrival": {
+    "lib": "fa",
+    "id": "fas, plane-arrival"
+  },
+  "plane-departure": {
+    "lib": "fa",
+    "id": "fas, plane-departure"
+  },
+  "play": {
+    "lib": "fa",
+    "id": "fas, play"
+  },
+  "play-circle": {
+    "lib": "fa",
+    "id": "fas, play-circle"
+  },
+  "plug": {
+    "lib": "fa",
+    "id": "fas, plug"
+  },
+  "plus": {
+    "lib": "fa",
+    "id": "fas, plus"
+  },
+  "plus-circle": {
+    "lib": "fa",
+    "id": "fas, plus-circle"
+  },
+  "plus-square": {
+    "lib": "fa",
+    "id": "fas, plus-square"
+  },
+  "podcast": {
+    "lib": "fa",
+    "id": "fas, podcast"
+  },
+  "poll": {
+    "lib": "fa",
+    "id": "fas, poll"
+  },
+  "poll-h": {
+    "lib": "fa",
+    "id": "fas, poll-h"
+  },
+  "poo": {
+    "lib": "fa",
+    "id": "fas, poo"
+  },
+  "poo-storm": {
+    "lib": "fa",
+    "id": "fas, poo-storm"
+  },
+  "poop": {
+    "lib": "fa",
+    "id": "fas, poop"
+  },
+  "portrait": {
+    "lib": "fa",
+    "id": "fas, portrait"
+  },
+  "pound-sign": {
+    "lib": "fa",
+    "id": "fas, pound-sign"
+  },
+  "power-off": {
+    "lib": "fa",
+    "id": "fas, power-off"
+  },
+  "pray": {
+    "lib": "fa",
+    "id": "fas, pray"
+  },
+  "praying-hands": {
+    "lib": "fa",
+    "id": "fas, praying-hands"
+  },
+  "prescription": {
+    "lib": "fa",
+    "id": "fas, prescription"
+  },
+  "prescription-bottle": {
+    "lib": "fa",
+    "id": "fas, prescription-bottle"
+  },
+  "prescription-bottle-alt": {
+    "lib": "fa",
+    "id": "fas, prescription-bottle-alt"
+  },
+  "print": {
+    "lib": "fa",
+    "id": "fas, print"
+  },
+  "procedures": {
+    "lib": "fa",
+    "id": "fas, procedures"
+  },
+  "project-diagram": {
+    "lib": "fa",
+    "id": "fas, project-diagram"
+  },
+  "puzzle-piece": {
+    "lib": "fa",
+    "id": "fas, puzzle-piece"
+  },
+  "qrcode": {
+    "lib": "fa",
+    "id": "fas, qrcode"
+  },
+  "question": {
+    "lib": "fa",
+    "id": "fas, question"
+  },
+  "question-circle": {
+    "lib": "fa",
+    "id": "fas, question-circle"
+  },
+  "quidditch": {
+    "lib": "fa",
+    "id": "fas, quidditch"
+  },
+  "quote-left": {
+    "lib": "fa",
+    "id": "fas, quote-left"
+  },
+  "quote-right": {
+    "lib": "fa",
+    "id": "fas, quote-right"
+  },
+  "quran": {
+    "lib": "fa",
+    "id": "fas, quran"
+  },
+  "radiation": {
+    "lib": "fa",
+    "id": "fas, radiation"
+  },
+  "radiation-alt": {
+    "lib": "fa",
+    "id": "fas, radiation-alt"
+  },
+  "rainbow": {
+    "lib": "fa",
+    "id": "fas, rainbow"
+  },
+  "random": {
+    "lib": "fa",
+    "id": "fas, random"
+  },
+  "receipt": {
+    "lib": "fa",
+    "id": "fas, receipt"
+  },
+  "recycle": {
+    "lib": "fa",
+    "id": "fas, recycle"
+  },
+  "redo": {
+    "lib": "fa",
+    "id": "fas, redo"
+  },
+  "redo-alt": {
+    "lib": "fa",
+    "id": "fas, redo-alt"
+  },
+  "registered": {
+    "lib": "fa",
+    "id": "fas, registered"
+  },
+  "remove-format": {
+    "lib": "fa",
+    "id": "fas, remove-format"
+  },
+  "reply": {
+    "lib": "fa",
+    "id": "fas, reply"
+  },
+  "reply-all": {
+    "lib": "fa",
+    "id": "fas, reply-all"
+  },
+  "republican": {
+    "lib": "fa",
+    "id": "fas, republican"
+  },
+  "restroom": {
+    "lib": "fa",
+    "id": "fas, restroom"
+  },
+  "retweet": {
+    "lib": "fa",
+    "id": "fas, retweet"
+  },
+  "ribbon": {
+    "lib": "fa",
+    "id": "fas, ribbon"
+  },
+  "ring": {
+    "lib": "fa",
+    "id": "fas, ring"
+  },
+  "road": {
+    "lib": "fa",
+    "id": "fas, road"
+  },
+  "robot": {
+    "lib": "fa",
+    "id": "fas, robot"
+  },
+  "rocket": {
+    "lib": "fa",
+    "id": "fas, rocket"
+  },
+  "route": {
+    "lib": "fa",
+    "id": "fas, route"
+  },
+  "rss": {
+    "lib": "fa",
+    "id": "fas, rss"
+  },
+  "rss-square": {
+    "lib": "fa",
+    "id": "fas, rss-square"
+  },
+  "ruble-sign": {
+    "lib": "fa",
+    "id": "fas, ruble-sign"
+  },
+  "ruler": {
+    "lib": "fa",
+    "id": "fas, ruler"
+  },
+  "ruler-combined": {
+    "lib": "fa",
+    "id": "fas, ruler-combined"
+  },
+  "ruler-horizontal": {
+    "lib": "fa",
+    "id": "fas, ruler-horizontal"
+  },
+  "ruler-vertical": {
+    "lib": "fa",
+    "id": "fas, ruler-vertical"
+  },
+  "running": {
+    "lib": "fa",
+    "id": "fas, running"
+  },
+  "rupee-sign": {
+    "lib": "fa",
+    "id": "fas, rupee-sign"
+  },
+  "sad-cry": {
+    "lib": "fa",
+    "id": "fas, sad-cry"
+  },
+  "sad-tear": {
+    "lib": "fa",
+    "id": "fas, sad-tear"
+  },
+  "satellite": {
+    "lib": "fa",
+    "id": "fas, satellite"
+  },
+  "satellite-dish": {
+    "lib": "fa",
+    "id": "fas, satellite-dish"
+  },
+  "save": {
+    "lib": "fa",
+    "id": "fas, save"
+  },
+  "school": {
+    "lib": "fa",
+    "id": "fas, school"
+  },
+  "screwdriver": {
+    "lib": "fa",
+    "id": "fas, screwdriver"
+  },
+  "scroll": {
+    "lib": "fa",
+    "id": "fas, scroll"
+  },
+  "sd-card": {
+    "lib": "fa",
+    "id": "fas, sd-card"
+  },
+  "search": {
+    "lib": "fa",
+    "id": "fas, search"
+  },
+  "search-dollar": {
+    "lib": "fa",
+    "id": "fas, search-dollar"
+  },
+  "search-location": {
+    "lib": "fa",
+    "id": "fas, search-location"
+  },
+  "search-minus": {
+    "lib": "fa",
+    "id": "fas, search-minus"
+  },
+  "search-plus": {
+    "lib": "fa",
+    "id": "fas, search-plus"
+  },
+  "seedling": {
+    "lib": "fa",
+    "id": "fas, seedling"
+  },
+  "server": {
+    "lib": "fa",
+    "id": "fas, server"
+  },
+  "shapes": {
+    "lib": "fa",
+    "id": "fas, shapes"
+  },
+  "share": {
+    "lib": "fa",
+    "id": "fas, share"
+  },
+  "share-alt": {
+    "lib": "fa",
+    "id": "fas, share-alt"
+  },
+  "share-alt-square": {
+    "lib": "fa",
+    "id": "fas, share-alt-square"
+  },
+  "share-square": {
+    "lib": "fa",
+    "id": "fas, share-square"
+  },
+  "shekel-sign": {
+    "lib": "fa",
+    "id": "fas, shekel-sign"
+  },
+  "shield-alt": {
+    "lib": "fa",
+    "id": "fas, shield-alt"
+  },
+  "ship": {
+    "lib": "fa",
+    "id": "fas, ship"
+  },
+  "shipping-fast": {
+    "lib": "fa",
+    "id": "fas, shipping-fast"
+  },
+  "shoe-prints": {
+    "lib": "fa",
+    "id": "fas, shoe-prints"
+  },
+  "shopping-bag": {
+    "lib": "fa",
+    "id": "fas, shopping-bag"
+  },
+  "shopping-basket": {
+    "lib": "fa",
+    "id": "fas, shopping-basket"
+  },
+  "shopping-cart": {
+    "lib": "fa",
+    "id": "fas, shopping-cart"
+  },
+  "shower": {
+    "lib": "fa",
+    "id": "fas, shower"
+  },
+  "shuttle-van": {
+    "lib": "fa",
+    "id": "fas, shuttle-van"
+  },
+  "sign": {
+    "lib": "fa",
+    "id": "fas, sign"
+  },
+  "sign-in-alt": {
+    "lib": "fa",
+    "id": "fas, sign-in-alt"
+  },
+  "sign-language": {
+    "lib": "fa",
+    "id": "fas, sign-language"
+  },
+  "sign-out-alt": {
+    "lib": "fa",
+    "id": "fas, sign-out-alt",
+    "tags": ["loggout"]
+  },
+  "signal": {
+    "lib": "fa",
+    "id": "fas, signal"
+  },
+  "signature": {
+    "lib": "fa",
+    "id": "fas, signature"
+  },
+  "sim-card": {
+    "lib": "fa",
+    "id": "fas, sim-card"
+  },
+  "sitemap": {
+    "lib": "fa",
+    "id": "fas, sitemap"
+  },
+  "skating": {
+    "lib": "fa",
+    "id": "fas, skating"
+  },
+  "skiing": {
+    "lib": "fa",
+    "id": "fas, skiing"
+  },
+  "skiing-nordic": {
+    "lib": "fa",
+    "id": "fas, skiing-nordic"
+  },
+  "skull": {
+    "lib": "fa",
+    "id": "fas, skull"
+  },
+  "skull-crossbones": {
+    "lib": "fa",
+    "id": "fas, skull-crossbones"
+  },
+  "slash": {
+    "lib": "fa",
+    "id": "fas, slash"
+  },
+  "sleigh": {
+    "lib": "fa",
+    "id": "fas, sleigh"
+  },
+  "sliders-h": {
+    "lib": "fa",
+    "id": "fas, sliders-h"
+  },
+  "smile": {
+    "lib": "fa",
+    "id": "fas, smile"
+  },
+  "smile-beam": {
+    "lib": "fa",
+    "id": "fas, smile-beam"
+  },
+  "smile-wink": {
+    "lib": "fa",
+    "id": "fas, smile-wink"
+  },
+  "smog": {
+    "lib": "fa",
+    "id": "fas, smog"
+  },
+  "smoking": {
+    "lib": "fa",
+    "id": "fas, smoking"
+  },
+  "smoking-ban": {
+    "lib": "fa",
+    "id": "fas, smoking-ban"
+  },
+  "sms": {
+    "lib": "fa",
+    "id": "fas, sms"
+  },
+  "snowboarding": {
+    "lib": "fa",
+    "id": "fas, snowboarding"
+  },
+  "snowflake": {
+    "lib": "fa",
+    "id": "fas, snowflake"
+  },
+  "snowman": {
+    "lib": "fa",
+    "id": "fas, snowman"
+  },
+  "snowplow": {
+    "lib": "fa",
+    "id": "fas, snowplow"
+  },
+  "socks": {
+    "lib": "fa",
+    "id": "fas, socks"
+  },
+  "solar-panel": {
+    "lib": "fa",
+    "id": "fas, solar-panel"
+  },
+  "sort": {
+    "lib": "fa",
+    "id": "fas, sort"
+  },
+  "sort-alpha-down": {
+    "lib": "fa",
+    "id": "fas, sort-alpha-down"
+  },
+  "sort-alpha-down-alt": {
+    "lib": "fa",
+    "id": "fas, sort-alpha-down-alt"
+  },
+  "sort-alpha-up": {
+    "lib": "fa",
+    "id": "fas, sort-alpha-up"
+  },
+  "sort-alpha-up-alt": {
+    "lib": "fa",
+    "id": "fas, sort-alpha-up-alt"
+  },
+  "sort-amount-down": {
+    "lib": "fa",
+    "id": "fas, sort-amount-down"
+  },
+  "sort-amount-down-alt": {
+    "lib": "fa",
+    "id": "fas, sort-amount-down-alt"
+  },
+  "sort-amount-up": {
+    "lib": "fa",
+    "id": "fas, sort-amount-up"
+  },
+  "sort-amount-up-alt": {
+    "lib": "fa",
+    "id": "fas, sort-amount-up-alt"
+  },
+  "sort-down": {
+    "lib": "fa",
+    "id": "fas, sort-down"
+  },
+  "sort-numeric-down": {
+    "lib": "fa",
+    "id": "fas, sort-numeric-down"
+  },
+  "sort-numeric-down-alt": {
+    "lib": "fa",
+    "id": "fas, sort-numeric-down-alt"
+  },
+  "sort-numeric-up": {
+    "lib": "fa",
+    "id": "fas, sort-numeric-up"
+  },
+  "sort-numeric-up-alt": {
+    "lib": "fa",
+    "id": "fas, sort-numeric-up-alt"
+  },
+  "sort-up": {
+    "lib": "fa",
+    "id": "fas, sort-up"
+  },
+  "spa": {
+    "lib": "fa",
+    "id": "fas, spa"
+  },
+  "space-shuttle": {
+    "lib": "fa",
+    "id": "fas, space-shuttle"
+  },
+  "spell-check": {
+    "lib": "fa",
+    "id": "fas, spell-check"
+  },
+  "spider": {
+    "lib": "fa",
+    "id": "fas, spider"
+  },
+  "spinner": {
+    "lib": "fa",
+    "id": "fas, spinner"
+  },
+  "splotch": {
+    "lib": "fa",
+    "id": "fas, splotch"
+  },
+  "spray-can": {
+    "lib": "fa",
+    "id": "fas, spray-can"
+  },
+  "square": {
+    "lib": "fa",
+    "id": "fas, square"
+  },
+  "square-full": {
+    "lib": "fa",
+    "id": "fas, square-full"
+  },
+  "square-root-alt": {
+    "lib": "fa",
+    "id": "fas, square-root-alt"
+  },
+  "stamp": {
+    "lib": "fa",
+    "id": "fas, stamp"
+  },
+  "star": {
+    "lib": "fa",
+    "id": "fas, star"
+  },
+  "star-and-crescent": {
+    "lib": "fa",
+    "id": "fas, star-and-crescent"
+  },
+  "star-half": {
+    "lib": "fa",
+    "id": "fas, star-half"
+  },
+  "star-half-alt": {
+    "lib": "fa",
+    "id": "fas, star-half-alt"
+  },
+  "star-of-david": {
+    "lib": "fa",
+    "id": "fas, star-of-david"
+  },
+  "star-of-life": {
+    "lib": "fa",
+    "id": "fas, star-of-life"
+  },
+  "step-backward": {
+    "lib": "fa",
+    "id": "fas, step-backward"
+  },
+  "step-forward": {
+    "lib": "fa",
+    "id": "fas, step-forward"
+  },
+  "stethoscope": {
+    "lib": "fa",
+    "id": "fas, stethoscope"
+  },
+  "sticky-note": {
+    "lib": "fa",
+    "id": "fas, sticky-note"
+  },
+  "stop": {
+    "lib": "fa",
+    "id": "fas, stop"
+  },
+  "stop-circle": {
+    "lib": "fa",
+    "id": "fas, stop-circle"
+  },
+  "stopwatch": {
+    "lib": "fa",
+    "id": "fas, stopwatch"
+  },
+  "store": {
+    "lib": "fa",
+    "id": "fas, store"
+  },
+  "store-alt": {
+    "lib": "fa",
+    "id": "fas, store-alt"
+  },
+  "stream": {
+    "lib": "fa",
+    "id": "fas, stream"
+  },
+  "street-view": {
+    "lib": "fa",
+    "id": "fas, street-view"
+  },
+  "strikethrough": {
+    "lib": "fa",
+    "id": "fas, strikethrough"
+  },
+  "stroopwafel": {
+    "lib": "fa",
+    "id": "fas, stroopwafel"
+  },
+  "subscript": {
+    "lib": "fa",
+    "id": "fas, subscript"
+  },
+  "subway": {
+    "lib": "fa",
+    "id": "fas, subway"
+  },
+  "suitcase": {
+    "lib": "fa",
+    "id": "fas, suitcase"
+  },
+  "suitcase-rolling": {
+    "lib": "fa",
+    "id": "fas, suitcase-rolling"
+  },
+  "sun": {
+    "lib": "fa",
+    "id": "fas, sun"
+  },
+  "superscript": {
+    "lib": "fa",
+    "id": "fas, superscript"
+  },
+  "surprise": {
+    "lib": "fa",
+    "id": "fas, surprise"
+  },
+  "swatchbook": {
+    "lib": "fa",
+    "id": "fas, swatchbook"
+  },
+  "swimmer": {
+    "lib": "fa",
+    "id": "fas, swimmer"
+  },
+  "swimming-pool": {
+    "lib": "fa",
+    "id": "fas, swimming-pool"
+  },
+  "synagogue": {
+    "lib": "fa",
+    "id": "fas, synagogue"
+  },
+  "sync": {
+    "lib": "fa",
+    "id": "fas, sync"
+  },
+  "sync-alt": {
+    "lib": "fa",
+    "id": "fas, sync-alt"
+  },
+  "syringe": {
+    "lib": "fa",
+    "id": "fas, syringe"
+  },
+  "table": {
+    "lib": "fa",
+    "id": "fas, table"
+  },
+  "table-tennis": {
+    "lib": "fa",
+    "id": "fas, table-tennis"
+  },
+  "tablet": {
+    "lib": "fa",
+    "id": "fas, tablet"
+  },
+  "tablet-alt": {
+    "lib": "fa",
+    "id": "fas, tablet-alt"
+  },
+  "tablets": {
+    "lib": "fa",
+    "id": "fas, tablets"
+  },
+  "tachometer-alt": {
+    "lib": "fa",
+    "id": "fas, tachometer-alt"
+  },
+  "tag": {
+    "lib": "fa",
+    "id": "fas, tag"
+  },
+  "tags": {
+    "lib": "fa",
+    "id": "fas, tags"
+  },
+  "tape": {
+    "lib": "fa",
+    "id": "fas, tape"
+  },
+  "tasks": {
+    "lib": "fa",
+    "id": "fas, tasks"
+  },
+  "taxi": {
+    "lib": "fa",
+    "id": "fas, taxi"
+  },
+  "teeth": {
+    "lib": "fa",
+    "id": "fas, teeth"
+  },
+  "teeth-open": {
+    "lib": "fa",
+    "id": "fas, teeth-open"
+  },
+  "temperature-high": {
+    "lib": "fa",
+    "id": "fas, temperature-high"
+  },
+  "temperature-low": {
+    "lib": "fa",
+    "id": "fas, temperature-low"
+  },
+  "tenge": {
+    "lib": "fa",
+    "id": "fas, tenge"
+  },
+  "terminal": {
+    "lib": "fa",
+    "id": "fas, terminal"
+  },
+  "text-height": {
+    "lib": "fa",
+    "id": "fas, text-height"
+  },
+  "text-width": {
+    "lib": "fa",
+    "id": "fas, text-width"
+  },
+  "th": {
+    "lib": "fa",
+    "id": "fas, th"
+  },
+  "th-large": {
+    "lib": "fa",
+    "id": "fas, th-large"
+  },
+  "th-list": {
+    "lib": "fa",
+    "id": "fas, th-list"
+  },
+  "theater-masks": {
+    "lib": "fa",
+    "id": "fas, theater-masks"
+  },
+  "thermometer": {
+    "lib": "fa",
+    "id": "fas, thermometer"
+  },
+  "thermometer-empty": {
+    "lib": "fa",
+    "id": "fas, thermometer-empty"
+  },
+  "thermometer-full": {
+    "lib": "fa",
+    "id": "fas, thermometer-full"
+  },
+  "thermometer-half": {
+    "lib": "fa",
+    "id": "fas, thermometer-half"
+  },
+  "thermometer-quarter": {
+    "lib": "fa",
+    "id": "fas, thermometer-quarter"
+  },
+  "thermometer-three-quarters": {
+    "lib": "fa",
+    "id": "fas, thermometer-three-quarters"
+  },
+  "thumbs-down": {
+    "lib": "fa",
+    "id": "fas, thumbs-down"
+  },
+  "thumbs-up": {
+    "lib": "fa",
+    "id": "fas, thumbs-up"
+  },
+  "thumbtack": {
+    "lib": "fa",
+    "id": "fas, thumbtack"
+  },
+  "ticket-alt": {
+    "lib": "fa",
+    "id": "fas, ticket-alt"
+  },
+  "times": {
+    "lib": "fa",
+    "id": "fas, times"
+  },
+  "times-circle": {
+    "lib": "fa",
+    "id": "fas, times-circle"
+  },
+  "tint": {
+    "lib": "fa",
+    "id": "fas, tint"
+  },
+  "tint-slash": {
+    "lib": "fa",
+    "id": "fas, tint-slash"
+  },
+  "tired": {
+    "lib": "fa",
+    "id": "fas, tired"
+  },
+  "toggle-off": {
+    "lib": "fa",
+    "id": "fas, toggle-off"
+  },
+  "toggle-on": {
+    "lib": "fa",
+    "id": "fas, toggle-on"
+  },
+  "toilet": {
+    "lib": "fa",
+    "id": "fas, toilet"
+  },
+  "toilet-paper": {
+    "lib": "fa",
+    "id": "fas, toilet-paper"
+  },
+  "toolbox": {
+    "lib": "fa",
+    "id": "fas, toolbox"
+  },
+  "tools": {
+    "lib": "fa",
+    "id": "fas, tools"
+  },
+  "tooth": {
+    "lib": "fa",
+    "id": "fas, tooth"
+  },
+  "torah": {
+    "lib": "fa",
+    "id": "fas, torah"
+  },
+  "torii-gate": {
+    "lib": "fa",
+    "id": "fas, torii-gate"
+  },
+  "tractor": {
+    "lib": "fa",
+    "id": "fas, tractor"
+  },
+  "trademark": {
+    "lib": "fa",
+    "id": "fas, trademark"
+  },
+  "traffic-light": {
+    "lib": "fa",
+    "id": "fas, traffic-light"
+  },
+  "train": {
+    "lib": "fa",
+    "id": "fas, train"
+  },
+  "tram": {
+    "lib": "fa",
+    "id": "fas, tram"
+  },
+  "transgender": {
+    "lib": "fa",
+    "id": "fas, transgender"
+  },
+  "transgender-alt": {
+    "lib": "fa",
+    "id": "fas, transgender-alt"
+  },
+  "trash": {
+    "lib": "fa",
+    "id": "fas, trash"
+  },
+  "trash-alt": {
+    "lib": "fa",
+    "id": "fas, trash-alt"
+  },
+  "trash-restore": {
+    "lib": "fa",
+    "id": "fas, trash-restore"
+  },
+  "trash-restore-alt": {
+    "lib": "fa",
+    "id": "fas, trash-restore-alt"
+  },
+  "tree": {
+    "lib": "fa",
+    "id": "fas, tree"
+  },
+  "trophy": {
+    "lib": "fa",
+    "id": "fas, trophy"
+  },
+  "truck": {
+    "lib": "fa",
+    "id": "fas, truck"
+  },
+  "truck-loading": {
+    "lib": "fa",
+    "id": "fas, truck-loading"
+  },
+  "truck-monster": {
+    "lib": "fa",
+    "id": "fas, truck-monster"
+  },
+  "truck-moving": {
+    "lib": "fa",
+    "id": "fas, truck-moving"
+  },
+  "truck-pickup": {
+    "lib": "fa",
+    "id": "fas, truck-pickup"
+  },
+  "tshirt": {
+    "lib": "fa",
+    "id": "fas, tshirt"
+  },
+  "tty": {
+    "lib": "fa",
+    "id": "fas, tty"
+  },
+  "tv": {
+    "lib": "fa",
+    "id": "fas, tv"
+  },
+  "umbrella": {
+    "lib": "fa",
+    "id": "fas, umbrella"
+  },
+  "umbrella-beach": {
+    "lib": "fa",
+    "id": "fas, umbrella-beach"
+  },
+  "underline": {
+    "lib": "fa",
+    "id": "fas, underline"
+  },
+  "undo": {
+    "lib": "fa",
+    "id": "fas, undo"
+  },
+  "undo-alt": {
+    "lib": "fa",
+    "id": "fas, undo-alt"
+  },
+  "universal-access": {
+    "lib": "fa",
+    "id": "fas, universal-access"
+  },
+  "university": {
+    "lib": "fa",
+    "id": "fas, university"
+  },
+  "unlink": {
+    "lib": "fa",
+    "id": "fas, unlink"
+  },
+  "unlock": {
+    "lib": "fa",
+    "id": "fas, unlock"
+  },
+  "unlock-alt": {
+    "lib": "fa",
+    "id": "fas, unlock-alt"
+  },
+  "upload": {
+    "lib": "fa",
+    "id": "fas, upload"
+  },
+  "user": {
+    "lib": "fa",
+    "id": "fas, user"
+  },
+  "user-alt": {
+    "lib": "fa",
+    "id": "fas, user-alt"
+  },
+  "user-alt-slash": {
+    "lib": "fa",
+    "id": "fas, user-alt-slash"
+  },
+  "user-astronaut": {
+    "lib": "fa",
+    "id": "fas, user-astronaut"
+  },
+  "user-check": {
+    "lib": "fa",
+    "id": "fas, user-check"
+  },
+  "user-circle": {
+    "lib": "fa",
+    "id": "fas, user-circle"
+  },
+  "user-clock": {
+    "lib": "fa",
+    "id": "fas, user-clock"
+  },
+  "user-cog": {
+    "lib": "fa",
+    "id": "fas, user-cog"
+  },
+  "user-edit": {
+    "lib": "fa",
+    "id": "fas, user-edit"
+  },
+  "user-friends": {
+    "lib": "fa",
+    "id": "fas, user-friends"
+  },
+  "user-graduate": {
+    "lib": "fa",
+    "id": "fas, user-graduate"
+  },
+  "user-injured": {
+    "lib": "fa",
+    "id": "fas, user-injured"
+  },
+  "user-lock": {
+    "lib": "fa",
+    "id": "fas, user-lock"
+  },
+  "user-md": {
+    "lib": "fa",
+    "id": "fas, user-md"
+  },
+  "user-minus": {
+    "lib": "fa",
+    "id": "fas, user-minus"
+  },
+  "user-ninja": {
+    "lib": "fa",
+    "id": "fas, user-ninja"
+  },
+  "user-nurse": {
+    "lib": "fa",
+    "id": "fas, user-nurse"
+  },
+  "user-plus": {
+    "lib": "fa",
+    "id": "fas, user-plus"
+  },
+  "user-secret": {
+    "lib": "fa",
+    "id": "fas, user-secret"
+  },
+  "user-shield": {
+    "lib": "fa",
+    "id": "fas, user-shield"
+  },
+  "user-slash": {
+    "lib": "fa",
+    "id": "fas, user-slash"
+  },
+  "user-tag": {
+    "lib": "fa",
+    "id": "fas, user-tag"
+  },
+  "user-tie": {
+    "lib": "fa",
+    "id": "fas, user-tie"
+  },
+  "user-times": {
+    "lib": "fa",
+    "id": "fas, user-times"
+  },
+  "users": {
+    "lib": "fa",
+    "id": "fas, users"
+  },
+  "users-cog": {
+    "lib": "fa",
+    "id": "fas, users-cog"
+  },
+  "utensil-spoon": {
+    "lib": "fa",
+    "id": "fas, utensil-spoon"
+  },
+  "utensils": {
+    "lib": "fa",
+    "id": "fas, utensils"
+  },
+  "vector-square": {
+    "lib": "fa",
+    "id": "fas, vector-square"
+  },
+  "venus": {
+    "lib": "fa",
+    "id": "fas, venus"
+  },
+  "venus-double": {
+    "lib": "fa",
+    "id": "fas, venus-double"
+  },
+  "venus-mars": {
+    "lib": "fa",
+    "id": "fas, venus-mars"
+  },
+  "vial": {
+    "lib": "fa",
+    "id": "fas, vial"
+  },
+  "vials": {
+    "lib": "fa",
+    "id": "fas, vials"
+  },
+  "video": {
+    "lib": "fa",
+    "id": "fas, video"
+  },
+  "video-slash": {
+    "lib": "fa",
+    "id": "fas, video-slash"
+  },
+  "vihara": {
+    "lib": "fa",
+    "id": "fas, vihara"
+  },
+  "voicemail": {
+    "lib": "fa",
+    "id": "fas, voicemail"
+  },
+  "volleyball-ball": {
+    "lib": "fa",
+    "id": "fas, volleyball-ball"
+  },
+  "volume-down": {
+    "lib": "fa",
+    "id": "fas, volume-down"
+  },
+  "volume-mute": {
+    "lib": "fa",
+    "id": "fas, volume-mute"
+  },
+  "volume-off": {
+    "lib": "fa",
+    "id": "fas, volume-off"
+  },
+  "volume-up": {
+    "lib": "fa",
+    "id": "fas, volume-up"
+  },
+  "vote-yea": {
+    "lib": "fa",
+    "id": "fas, vote-yea"
+  },
+  "vr-cardboard": {
+    "lib": "fa",
+    "id": "fas, vr-cardboard"
+  },
+  "walking": {
+    "lib": "fa",
+    "id": "fas, walking"
+  },
+  "wallet": {
+    "lib": "fa",
+    "id": "fas, wallet"
+  },
+  "warehouse": {
+    "lib": "fa",
+    "id": "fas, warehouse"
+  },
+  "water": {
+    "lib": "fa",
+    "id": "fas, water"
+  },
+  "wave-square": {
+    "lib": "fa",
+    "id": "fas, wave-square"
+  },
+  "weight": {
+    "lib": "fa",
+    "id": "fas, weight"
+  },
+  "weight-hanging": {
+    "lib": "fa",
+    "id": "fas, weight-hanging"
+  },
+  "wheelchair": {
+    "lib": "fa",
+    "id": "fas, wheelchair"
+  },
+  "wifi": {
+    "lib": "fa",
+    "id": "fas, wifi"
+  },
+  "wind": {
+    "lib": "fa",
+    "id": "fas, wind"
+  },
+  "window-close": {
+    "lib": "fa",
+    "id": "fas, window-close"
+  },
+  "window-maximize": {
+    "lib": "fa",
+    "id": "fas, window-maximize"
+  },
+  "window-minimize": {
+    "lib": "fa",
+    "id": "fas, window-minimize"
+  },
+  "window-restore": {
+    "lib": "fa",
+    "id": "fas, window-restore"
+  },
+  "wine-bottle": {
+    "lib": "fa",
+    "id": "fas, wine-bottle"
+  },
+  "wine-glass": {
+    "lib": "fa",
+    "id": "fas, wine-glass"
+  },
+  "wine-glass-alt": {
+    "lib": "fa",
+    "id": "fas, wine-glass-alt"
+  },
+  "won-sign": {
+    "lib": "fa",
+    "id": "fas, won-sign"
+  },
+  "wrench": {
+    "lib": "fa",
+    "id": "fas, wrench"
+  },
+  "x-ray": {
+    "lib": "fa",
+    "id": "fas, x-ray"
+  },
+  "yen-sign": {
+    "lib": "fa",
+    "id": "fas, yen-sign"
+  },
+  "yin-yang": {
+    "lib": "fa",
+    "id": "fas, yin-yang"
+  },
+  "r-address-book": {
+    "lib": "fa",
+    "id": "far, address-book"
+  },
+  "r-address-card": {
+    "lib": "fa",
+    "id": "far, address-card"
+  },
+  "r-angry": {
+    "lib": "fa",
+    "id": "far, angry"
+  },
+  "r-arrow-alt-circle-down": {
+    "lib": "fa",
+    "id": "far, arrow-alt-circle-down"
+  },
+  "r-arrow-alt-circle-left": {
+    "lib": "fa",
+    "id": "far, arrow-alt-circle-left"
+  },
+  "r-arrow-alt-circle-right": {
+    "lib": "fa",
+    "id": "far, arrow-alt-circle-right"
+  },
+  "r-arrow-alt-circle-up": {
+    "lib": "fa",
+    "id": "far, arrow-alt-circle-up"
+  },
+  "r-bell": {
+    "lib": "fa",
+    "id": "far, bell"
+  },
+  "r-bell-slash": {
+    "lib": "fa",
+    "id": "far, bell-slash"
+  },
+  "r-bookmark": {
+    "lib": "fa",
+    "id": "far, bookmark"
+  },
+  "r-building": {
+    "lib": "fa",
+    "id": "far, building"
+  },
+  "r-calendar": {
+    "lib": "fa",
+    "id": "far, calendar"
+  },
+  "r-calendar-alt": {
+    "lib": "fa",
+    "id": "far, calendar-alt"
+  },
+  "r-calendar-check": {
+    "lib": "fa",
+    "id": "far, calendar-check"
+  },
+  "r-calendar-minus": {
+    "lib": "fa",
+    "id": "far, calendar-minus"
+  },
+  "r-calendar-plus": {
+    "lib": "fa",
+    "id": "far, calendar-plus"
+  },
+  "r-calendar-times": {
+    "lib": "fa",
+    "id": "far, calendar-times"
+  },
+  "r-caret-square-down": {
+    "lib": "fa",
+    "id": "far, caret-square-down"
+  },
+  "r-caret-square-left": {
+    "lib": "fa",
+    "id": "far, caret-square-left"
+  },
+  "r-caret-square-right": {
+    "lib": "fa",
+    "id": "far, caret-square-right"
+  },
+  "r-caret-square-up": {
+    "lib": "fa",
+    "id": "far, caret-square-up"
+  },
+  "r-chart-bar": {
+    "lib": "fa",
+    "id": "far, chart-bar"
+  },
+  "r-check-circle": {
+    "lib": "fa",
+    "id": "far, check-circle"
+  },
+  "r-check-square": {
+    "lib": "fa",
+    "id": "far, check-square"
+  },
+  "r-circle": {
+    "lib": "fa",
+    "id": "far, circle"
+  },
+  "r-clipboard": {
+    "lib": "fa",
+    "id": "far, clipboard"
+  },
+  "r-clock": {
+    "lib": "fa",
+    "id": "far, clock"
+  },
+  "r-clone": {
+    "lib": "fa",
+    "id": "far, clone"
+  },
+  "r-closed-captioning": {
+    "lib": "fa",
+    "id": "far, closed-captioning"
+  },
+  "r-comment": {
+    "lib": "fa",
+    "id": "far, comment"
+  },
+  "r-comment-alt": {
+    "lib": "fa",
+    "id": "far, comment-alt"
+  },
+  "r-comment-dots": {
+    "lib": "fa",
+    "id": "far, comment-dots"
+  },
+  "r-comments": {
+    "lib": "fa",
+    "id": "far, comments"
+  },
+  "r-compass": {
+    "lib": "fa",
+    "id": "far, compass"
+  },
+  "r-copy": {
+    "lib": "fa",
+    "id": "far, copy"
+  },
+  "r-copyright": {
+    "lib": "fa",
+    "id": "far, copyright"
+  },
+  "r-credit-card": {
+    "lib": "fa",
+    "id": "far, credit-card"
+  },
+  "r-dizzy": {
+    "lib": "fa",
+    "id": "far, dizzy"
+  },
+  "r-dot-circle": {
+    "lib": "fa",
+    "id": "far, dot-circle"
+  },
+  "r-edit": {
+    "lib": "fa",
+    "id": "far, edit"
+  },
+  "r-envelope": {
+    "lib": "fa",
+    "id": "far, envelope"
+  },
+  "r-envelope-open": {
+    "lib": "fa",
+    "id": "far, envelope-open"
+  },
+  "r-eye": {
+    "lib": "fa",
+    "id": "far, eye"
+  },
+  "r-eye-slash": {
+    "lib": "fa",
+    "id": "far, eye-slash"
+  },
+  "r-file": {
+    "lib": "fa",
+    "id": "far, file"
+  },
+  "r-file-alt": {
+    "lib": "fa",
+    "id": "far, file-alt"
+  },
+  "r-file-archive": {
+    "lib": "fa",
+    "id": "far, file-archive"
+  },
+  "r-file-audio": {
+    "lib": "fa",
+    "id": "far, file-audio"
+  },
+  "r-file-code": {
+    "lib": "fa",
+    "id": "far, file-code"
+  },
+  "r-file-excel": {
+    "lib": "fa",
+    "id": "far, file-excel"
+  },
+  "r-file-image": {
+    "lib": "fa",
+    "id": "far, file-image"
+  },
+  "r-file-pdf": {
+    "lib": "fa",
+    "id": "far, file-pdf"
+  },
+  "r-file-powerpoint": {
+    "lib": "fa",
+    "id": "far, file-powerpoint"
+  },
+  "r-file-video": {
+    "lib": "fa",
+    "id": "far, file-video"
+  },
+  "r-file-word": {
+    "lib": "fa",
+    "id": "far, file-word"
+  },
+  "r-flag": {
+    "lib": "fa",
+    "id": "far, flag"
+  },
+  "r-flushed": {
+    "lib": "fa",
+    "id": "far, flushed"
+  },
+  "r-folder": {
+    "lib": "fa",
+    "id": "far, folder"
+  },
+  "r-folder-open": {
+    "lib": "fa",
+    "id": "far, folder-open"
+  },
+  "r-frown": {
+    "lib": "fa",
+    "id": "far, frown"
+  },
+  "r-frown-open": {
+    "lib": "fa",
+    "id": "far, frown-open"
+  },
+  "r-futbol": {
+    "lib": "fa",
+    "id": "far, futbol"
+  },
+  "r-gem": {
+    "lib": "fa",
+    "id": "far, gem"
+  },
+  "r-grimace": {
+    "lib": "fa",
+    "id": "far, grimace"
+  },
+  "r-grin": {
+    "lib": "fa",
+    "id": "far, grin"
+  },
+  "r-grin-alt": {
+    "lib": "fa",
+    "id": "far, grin-alt"
+  },
+  "r-grin-beam": {
+    "lib": "fa",
+    "id": "far, grin-beam"
+  },
+  "r-grin-beam-sweat": {
+    "lib": "fa",
+    "id": "far, grin-beam-sweat"
+  },
+  "r-grin-hearts": {
+    "lib": "fa",
+    "id": "far, grin-hearts"
+  },
+  "r-grin-squint": {
+    "lib": "fa",
+    "id": "far, grin-squint"
+  },
+  "r-grin-squint-tears": {
+    "lib": "fa",
+    "id": "far, grin-squint-tears"
+  },
+  "r-grin-stars": {
+    "lib": "fa",
+    "id": "far, grin-stars"
+  },
+  "r-grin-tears": {
+    "lib": "fa",
+    "id": "far, grin-tears"
+  },
+  "r-grin-tongue": {
+    "lib": "fa",
+    "id": "far, grin-tongue"
+  },
+  "r-grin-tongue-squint": {
+    "lib": "fa",
+    "id": "far, grin-tongue-squint"
+  },
+  "r-grin-tongue-wink": {
+    "lib": "fa",
+    "id": "far, grin-tongue-wink"
+  },
+  "r-grin-wink": {
+    "lib": "fa",
+    "id": "far, grin-wink"
+  },
+  "r-hand-lizard": {
+    "lib": "fa",
+    "id": "far, hand-lizard"
+  },
+  "r-hand-paper": {
+    "lib": "fa",
+    "id": "far, hand-paper"
+  },
+  "r-hand-peace": {
+    "lib": "fa",
+    "id": "far, hand-peace"
+  },
+  "r-hand-point-down": {
+    "lib": "fa",
+    "id": "far, hand-point-down"
+  },
+  "r-hand-point-left": {
+    "lib": "fa",
+    "id": "far, hand-point-left"
+  },
+  "r-hand-point-right": {
+    "lib": "fa",
+    "id": "far, hand-point-right"
+  },
+  "r-hand-point-up": {
+    "lib": "fa",
+    "id": "far, hand-point-up"
+  },
+  "r-hand-pointer": {
+    "lib": "fa",
+    "id": "far, hand-pointer"
+  },
+  "r-hand-rock": {
+    "lib": "fa",
+    "id": "far, hand-rock"
+  },
+  "r-hand-scissors": {
+    "lib": "fa",
+    "id": "far, hand-scissors"
+  },
+  "r-hand-spock": {
+    "lib": "fa",
+    "id": "far, hand-spock"
+  },
+  "r-handshake": {
+    "lib": "fa",
+    "id": "far, handshake"
+  },
+  "r-hdd": {
+    "lib": "fa",
+    "id": "far, hdd"
+  },
+  "r-heart": {
+    "lib": "fa",
+    "id": "far, heart"
+  },
+  "r-hospital": {
+    "lib": "fa",
+    "id": "far, hospital"
+  },
+  "r-hourglass": {
+    "lib": "fa",
+    "id": "far, hourglass"
+  },
+  "r-id-badge": {
+    "lib": "fa",
+    "id": "far, id-badge"
+  },
+  "r-id-card": {
+    "lib": "fa",
+    "id": "far, id-card"
+  },
+  "r-image": {
+    "lib": "fa",
+    "id": "far, image"
+  },
+  "r-images": {
+    "lib": "fa",
+    "id": "far, images"
+  },
+  "r-keyboard": {
+    "lib": "fa",
+    "id": "far, keyboard"
+  },
+  "r-kiss": {
+    "lib": "fa",
+    "id": "far, kiss"
+  },
+  "r-kiss-beam": {
+    "lib": "fa",
+    "id": "far, kiss-beam"
+  },
+  "r-kiss-wink-heart": {
+    "lib": "fa",
+    "id": "far, kiss-wink-heart"
+  },
+  "r-laugh": {
+    "lib": "fa",
+    "id": "far, laugh"
+  },
+  "r-laugh-beam": {
+    "lib": "fa",
+    "id": "far, laugh-beam"
+  },
+  "r-laugh-squint": {
+    "lib": "fa",
+    "id": "far, laugh-squint"
+  },
+  "r-laugh-wink": {
+    "lib": "fa",
+    "id": "far, laugh-wink"
+  },
+  "r-lemon": {
+    "lib": "fa",
+    "id": "far, lemon"
+  },
+  "r-life-ring": {
+    "lib": "fa",
+    "id": "far, life-ring"
+  },
+  "r-lightbulb": {
+    "lib": "fa",
+    "id": "far, lightbulb"
+  },
+  "r-list-alt": {
+    "lib": "fa",
+    "id": "far, list-alt"
+  },
+  "r-map": {
+    "lib": "fa",
+    "id": "far, map"
+  },
+  "r-meh": {
+    "lib": "fa",
+    "id": "far, meh"
+  },
+  "r-meh-blank": {
+    "lib": "fa",
+    "id": "far, meh-blank"
+  },
+  "r-meh-rolling-eyes": {
+    "lib": "fa",
+    "id": "far, meh-rolling-eyes"
+  },
+  "r-minus-square": {
+    "lib": "fa",
+    "id": "far, minus-square"
+  },
+  "r-money-bill-alt": {
+    "lib": "fa",
+    "id": "far, money-bill-alt"
+  },
+  "r-moon": {
+    "lib": "fa",
+    "id": "far, moon"
+  },
+  "r-newspaper": {
+    "lib": "fa",
+    "id": "far, newspaper"
+  },
+  "r-object-group": {
+    "lib": "fa",
+    "id": "far, object-group"
+  },
+  "r-object-ungroup": {
+    "lib": "fa",
+    "id": "far, object-ungroup"
+  },
+  "r-paper-plane": {
+    "lib": "fa",
+    "id": "far, paper-plane"
+  },
+  "r-pause-circle": {
+    "lib": "fa",
+    "id": "far, pause-circle"
+  },
+  "r-play-circle": {
+    "lib": "fa",
+    "id": "far, play-circle"
+  },
+  "r-plus-square": {
+    "lib": "fa",
+    "id": "far, plus-square"
+  },
+  "r-question-circle": {
+    "lib": "fa",
+    "id": "far, question-circle"
+  },
+  "r-registered": {
+    "lib": "fa",
+    "id": "far, registered"
+  },
+  "r-sad-cry": {
+    "lib": "fa",
+    "id": "far, sad-cry"
+  },
+  "r-sad-tear": {
+    "lib": "fa",
+    "id": "far, sad-tear"
+  },
+  "r-save": {
+    "lib": "fa",
+    "id": "far, save"
+  },
+  "r-share-square": {
+    "lib": "fa",
+    "id": "far, share-square"
+  },
+  "r-smile": {
+    "lib": "fa",
+    "id": "far, smile"
+  },
+  "r-smile-beam": {
+    "lib": "fa",
+    "id": "far, smile-beam"
+  },
+  "r-smile-wink": {
+    "lib": "fa",
+    "id": "far, smile-wink"
+  },
+  "r-snowflake": {
+    "lib": "fa",
+    "id": "far, snowflake"
+  },
+  "r-square": {
+    "lib": "fa",
+    "id": "far, square"
+  },
+  "r-star": {
+    "lib": "fa",
+    "id": "far, star"
+  },
+  "r-star-half": {
+    "lib": "fa",
+    "id": "far, star-half"
+  },
+  "r-sticky-note": {
+    "lib": "fa",
+    "id": "far, sticky-note"
+  },
+  "r-stop-circle": {
+    "lib": "fa",
+    "id": "far, stop-circle"
+  },
+  "r-sun": {
+    "lib": "fa",
+    "id": "far, sun"
+  },
+  "r-surprise": {
+    "lib": "fa",
+    "id": "far, surprise"
+  },
+  "r-thumbs-down": {
+    "lib": "fa",
+    "id": "far, thumbs-down"
+  },
+  "r-thumbs-up": {
+    "lib": "fa",
+    "id": "far, thumbs-up"
+  },
+  "r-times-circle": {
+    "lib": "fa",
+    "id": "far, times-circle"
+  },
+  "r-tired": {
+    "lib": "fa",
+    "id": "far, tired"
+  },
+  "r-trash-alt": {
+    "lib": "fa",
+    "id": "far, trash-alt"
+  },
+  "r-user": {
+    "lib": "fa",
+    "id": "far, user"
+  },
+  "r-user-circle": {
+    "lib": "fa",
+    "id": "far, user-circle"
+  },
+  "r-window-close": {
+    "lib": "fa",
+    "id": "far, window-close"
+  },
+  "r-window-maximize": {
+    "lib": "fa",
+    "id": "far, window-maximize"
+  },
+  "r-window-minimize": {
+    "lib": "fa",
+    "id": "far, window-minimize"
+  },
+  "r-window-restore": {
+    "lib": "fa",
+    "id": "far, window-restore"
+  },
+  "apple": {
+    "lib": "fa",
+    "id": "fab, apple"
+  },
+  "google": {
+    "lib": "fa",
+    "id": "fab, google"
+  },
+  "facebook": {
+    "lib": "fa",
+    "id": "fab, facebook"
+  },
+  "facebook-f": {
+    "lib": "fa",
+    "id": "fab, facebook-f"
+  },
+  "microsoft": {
+    "lib": "fa",
+    "id": "fab, microsoft"
+  },
+  "dropbox": {
+    "lib": "fa",
+    "id": "fab, dropbox"
+  },
+  "jira": {
+    "lib": "fa",
+    "id": "fab, jira"
+  },
+  "tocco": {
+    "lib": "toc",
+    "id": "logo"
+  }
+}
