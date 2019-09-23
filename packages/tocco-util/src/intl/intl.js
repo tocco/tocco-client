@@ -7,8 +7,7 @@ export const initIntl = async(store, modules, forcedLocale) => {
   if (!locale) {
     locale = await getUserLocale()
   }
-  await setLocale(store, modules, locale)
-  return true
+  return setLocale(store, modules, locale)
 }
 
 export const setLocale = async(store, modules, locale) => {
