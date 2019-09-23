@@ -62,7 +62,7 @@ const Admin = ({initializeNavigation, setMenuOpen, menuOpen, baseRoute, confirm,
             </StyledConfig>
           </StyledHeader>
           <StyledMenu isOpen={menuOpen} onStateChange={isMenuOpen}
-            customBurgerIcon={<Icon color="white" icon="bars"/>} styles={burgerMenuStyles} pageWrapId={'page-wrap'}
+            customBurgerIcon={<Icon icon="bars"/>} styles={burgerMenuStyles} pageWrapId={'page-wrap'}
             outerContainerId={'outer-container'}>
             <Navigation onClick={() => setMenuOpen(false)}/>
           </StyledMenu>
