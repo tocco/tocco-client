@@ -16,16 +16,10 @@ storiesOf('Tocco-UI | Buttons / Button', module)
         dense={boolean('dense', false) || undefined}
         disabled={boolean('disabled', false) || undefined}
         ink={select('ink', {'-': null, ...design.ink}) || undefined}
-        icon={select('icon', {
-          '-': null,
-          'regular': 'air-freshener',
-          'brand': 'fab, google',
-          'times': 'times'
-        }) || undefined
-        }
+        icon={text('icon', 'user')}
         iconPosition={select('iconPosition', {
           [Button.defaultProps.iconPosition.toUpperCase()]: Button.defaultProps.iconPosition,
-          ..._pick(design.position, ['APPEND', 'PREPEND', 'SOLE'])
+          ..._pick(design.position, ['APPEND', 'PREPEND'])
         }) || undefined
         }
         label={text('label', 'My Button')}
@@ -96,13 +90,18 @@ storiesOf('Tocco-UI | Buttons / Button', module)
         />
         <Button
           {...knobs}
-          label="I"
-          key="10"
-          look="ball"
-        />,
+          icon="facebook"
+          key="11"
+        />
         <Button
           {...knobs}
-          key="10"
+          label="I"
+          key="12"
+          look="ball"
+        />
+        <Button
+          {...knobs}
+          key="13"
           look="raised"
         ><i>child</i></Button>
       </span>
