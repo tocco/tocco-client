@@ -55,7 +55,8 @@ export const burgerMenuStyles = {
     width: '16px',
     height: '16px',
     left: '16px',
-    top: '13px'
+    top: '13px',
+    color: 'white'
   },
   bmBurgerBars: {
     background: '#373a47'
