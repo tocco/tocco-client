@@ -9,35 +9,26 @@ import {design} from '../utilStyles'
 /**
  * Use <Button> to trigger any actions. Choose look and ink according Material Design.
  */
-const Button = props => {
-  return (
-    <StyledButton
-      {...props.aria}
-      dense={props.dense}
-      disabled={props.disabled}
-      iconPosition={props.iconPosition}
+const Button = props => (
+  <StyledButton
+    {...props.aria}
+    {...props}
+    ink={props.ink || props.buttonGroupInk || design.ink.BASE}
+    melt={props.buttonGroupMelt}
+    data-cy={props['data-cy']}
+  >
+
+    {props.icon && !props.pending && <Icon
+      icon={props.icon}
+    />}
+    {props.pending && <IconTocco
       ink={props.ink || props.buttonGroupInk || design.ink.BASE}
       look={props.look}
-      melt={props.buttonGroupMelt}
-      onClick={props.onClick}
-      title={props.title}
-      type={props.type}
-      tabIndex={props.tabIndex}
-      data-cy={props['data-cy']}
-    >
-      {props.icon && !props.pending && <Icon
-        dense={props.dense}
-        icon={props.icon}
-        position={props.label || props.children ? props.iconPosition : design.position.sole}/>}
-      {props.pending && <IconTocco
-        ink={props.ink || props.buttonGroupInk || design.ink.BASE}
-        look={props.look}
-        position={props.iconPosition}
-        size="1em"/>}
-      {props.label ? <span>{props.label}</span> : props.children ? props.children : '\u200B' }
-    </StyledButton>
-  )
-}
+      position={props.iconPosition}
+      size="1em"/>}
+    {props.label ? <span>{props.label}</span> : props.children ? props.children : '\u200B' }
+  </StyledButton>
+)
 
 Button.defaultProps = {
   iconPosition: design.position.PREPEND,
@@ -73,16 +64,15 @@ Button.propTypes = {
    */
   'disabled': PropTypes.bool,
   /**
-   * Display an icon alongside button label. It is possible to omit label text if a icon is chosen. Utilize free
-   * Font Awesome 5.1 icons by setting specific classname (e.g. "check").
-   * https://fontawesome.com/icons?d=gallery&s=brands,regular,solid&m=free
+   * Display an icon alongside button label. It is possible to omit label text if a icon is chosen.
+   * See Icon component for more information.
    */
   'icon': PropTypes.string,
   /**
-   * Prepend icon or append icon to label. Use 'sole' if label text is omitted. Default value is 'prepend'.
-   * Possible values: append|prepend|sole
+   * Prepend icon or append icon to label. Default value is 'prepend'.
+   * Possible values: append|prepend
    */
-  'iconPosition': PropTypes.oneOf([design.position.APPEND, design.position.PREPEND, design.position.SOLE]),
+  'iconPosition': PropTypes.oneOf([design.position.APPEND, design.position.PREPEND]),
   /**
    * Specify color palette. Default value is 'base'.
    */

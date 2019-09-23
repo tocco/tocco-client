@@ -51,13 +51,25 @@ const declareButtonColor = props => {
   return declareInteractionColors(generateInteractionColors(props, scheme), 'html')
 }
 
-const declareIconPosition = `
-  justify-content: space-between;
+const declareIconPosition = props => {
+  if (props.icon || props.pending) {
+    const space = props.dense ? scale.space(-4)(props) : scale.space(-3)(props)
+    if (props.iconPosition === design.position.APPEND) {
+      return `
+        > span {
+          order: -1;
+          margin-right: ${space};
+        }
+       `
+    }
 
-  > span {
-    order: -1;
+    return `
+      > span {
+        margin-left: ${space};
+      }
+     `
   }
-`
+}
 
 const declareBall = () => css`
   border-radius: 50%;
@@ -108,7 +120,8 @@ const StyledButton = styled.button`
     ${declareFont()}
     ${props => declareButtonColor(props)}
     ${props => declareDensity(props)}
-    ${props => props.iconPosition === design.position.APPEND && declareIconPosition}
+    ${props => declareIconPosition(props)}
+
     ${props => props.look === design.look.BALL && declareBall()}
 
     ${StyledButtonGroup} & {
