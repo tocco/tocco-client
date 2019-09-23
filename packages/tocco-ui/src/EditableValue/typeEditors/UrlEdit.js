@@ -35,7 +35,6 @@ const UrlEdit = props => {
         <ButtonLink
           href={value}
           icon="external-link-alt"
-          iconPosition="sole"
           look="ball"
           tabIndex={-1}
           target="_blank"

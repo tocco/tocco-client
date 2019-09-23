@@ -57,7 +57,6 @@ class SearchBox extends React.Component {
             <StyledEditableControl>
               <Button
                 icon="search"
-                iconPosition="sole"
                 look="ball"
                 tabIndex={-1}
                 type="submit"

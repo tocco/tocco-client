@@ -15,7 +15,6 @@ const View = props => (
     <div>
       <ButtonLink
         icon="download"
-        iconPosition="sole"
         download={props.value.fileName}
         href={getDownloadUrl(props.value.binaryLink)}
         tabIndex={-1}
@@ -24,7 +23,6 @@ const View = props => (
       {!props.immutable
       && <Button
         icon="times"
-        iconPosition="sole"
         onClick={() => props.onUpload(null)}
         tabIndex={-1}
         title={props.deleteTitle || 'delete'}

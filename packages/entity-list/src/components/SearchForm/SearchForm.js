@@ -99,7 +99,6 @@ class SearchForm extends React.Component {
               <Button
                 data-cy="extend-search-button"
                 icon={`chevron-${this.props.showExtendedSearchForm ? 'up' : 'down'}`}
-                iconPosition="sole"
                 onClick={this.toggleExtendedSearchForm}
                 title={this.msg('client.entity-list.extendedSearch')}
               />
