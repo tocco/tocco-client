@@ -2,6 +2,8 @@ import React from 'react'
 import {mount} from 'enzyme'
 import {ThemeProvider} from 'styled-components'
 
+import FontAwesomeAdapter from './FontAwesomeAdapter'
+import ToccoIcons from './ToccoIcons'
 import Icon from './Icon'
 
 describe('tocco-ui', () => {
@@ -19,6 +21,13 @@ describe('tocco-ui', () => {
       const wrapper = mount(<Icon icon="user"/>)
 
       expect(wrapper.find('svg')).to.have.length(1)
+      expect(wrapper.find(FontAwesomeAdapter)).to.have.length(1)
+    })
+
+    test('should render an icon of tocco icons', () => {
+      const wrapper = mount(<Icon icon="tocco"/>)
+
+      expect(wrapper.find(ToccoIcons)).to.have.length(1)
     })
   })
 })
