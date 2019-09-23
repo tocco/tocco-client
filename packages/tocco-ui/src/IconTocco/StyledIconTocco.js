@@ -1,7 +1,5 @@
 import styled, {css, keyframes} from 'styled-components'
 
-import {getSpacing} from '../Icon'
-
 const rotateClockwise = keyframes`
   from {transform: rotate(0deg);}
   to {transform: rotate(360deg);}
@@ -50,7 +48,6 @@ const StyledIconToccoWrapper = styled.i`
     display: block;
     height: ${props => props.size ? props.size : ''};
     width: ${props => props.size ? props.size : '100%'};
-    ${props => getSpacing(props)}
 
     // if not Internet Explorer 11 or lower do sophisticated animation (https://bit.ly/2Okub3j)
     @supports not (old: ie) {
