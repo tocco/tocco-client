@@ -64,7 +64,7 @@ Button.propTypes = {
    */
   'disabled': PropTypes.bool,
   /**
-   * Display an icon alongside button label. It is possible to omit label text if a icon is chosen.
+   * Display an icon alongside button label. It is possible to omit label text if an icon is chosen.
    * See Icon component for more information.
    */
   'icon': PropTypes.string,
