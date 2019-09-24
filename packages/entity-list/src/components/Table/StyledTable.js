@@ -72,6 +72,10 @@ const StyledTable = styled.div`
             }
           }
         }
+        
+        th:first-of-type {
+         text-overflow: clip;
+        }
 
         td {
           ${declareWrappingText()}
