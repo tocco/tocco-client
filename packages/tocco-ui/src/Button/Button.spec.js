@@ -2,7 +2,7 @@ import {mount, shallow} from 'enzyme'
 import React from 'react'
 
 import Icon from '../Icon'
-import IconTocco from '../IconTocco'
+import IconTocco from '../LoadingSpinner'
 import Button from './Button'
 
 describe('tocco-ui', () => {

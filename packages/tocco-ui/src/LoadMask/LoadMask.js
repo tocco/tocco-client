@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import IconTocco from '../IconTocco'
+import IconTocco from '../LoadingSpinner'
 import Typography from '../Typography'
 import StyledLoadMask from './StyledLoadMask'
 

@@ -4,7 +4,7 @@ import Autosuggest from 'react-autosuggest'
 import FocusWithin from 'react-simple-focus-within'
 
 import ButtonLink from '../../ButtonLink'
-import IconTocco from '../../IconTocco'
+import IconTocco from '../../LoadingSpinner'
 import Typography from '../../Typography'
 import {StyledEditableControl} from '../StyledEditableValue'
 import {StyledLocationEdit} from './StyledLocationEdit'

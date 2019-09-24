@@ -8,7 +8,7 @@ export {
 } from './EditableValue'
 export {default as FormattedValue} from './FormattedValue'
 export {default as Icon} from './Icon'
-export {default as IconTocco, StyledIconToccoSvg, StyledIconToccoWrapper} from './IconTocco'
+export {default as IconTocco} from './LoadingSpinner'
 export {default as MultiCheckbox} from './MultiCheckbox'
 export {default as Layout, StyledLayoutBox, StyledLayoutContainer} from './Layout'
 export {default as Link, StyledLink} from './Link'
