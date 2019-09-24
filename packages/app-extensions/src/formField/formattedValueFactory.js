@@ -5,9 +5,11 @@ const getOptions = (type, modelField, formData) => {
   switch (type) {
     case 'remote':
     case 'multi-remote': {
-      return {
-        linkFactory: (key, children) =>
-          formData.linkFactory.detail(modelField.targetEntity, modelField.relationName, key, children)
+      if (formData.linkFactory) {
+        return {
+          linkFactory: (key, children) =>
+            formData.linkFactory.detail(modelField.targetEntity, modelField.relationName, key, children)
+        }
       }
     }
   }
