@@ -3,7 +3,7 @@ import React from 'react'
 
 import Preview from '../Preview'
 import {bytesToSize} from './helpers'
-import IconTocco from '../IconTocco'
+import IconTocco from '../LoadingSpinner'
 import {design} from '../utilStyles'
 import {
   StyledUploadProgress,

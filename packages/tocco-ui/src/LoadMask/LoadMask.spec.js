@@ -2,7 +2,7 @@ import React from 'react'
 import {shallow, mount} from 'enzyme'
 
 import LoadMask from './LoadMask'
-import IconTocco from '../IconTocco'
+import IconTocco from '../LoadingSpinner'
 import Typography from '../Typography'
 
 describe('tocco-ui', () => {

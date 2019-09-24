@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 import {declareFont, scale} from '../utilStyles'
 import {StyledSpan} from '../Typography'
-import {StyledIconToccoWrapper} from '../IconTocco'
+import {StyledIconToccoWrapper} from '../LoadingSpinner'
 
 export const StyledUploadProgress = styled.div`
   && {

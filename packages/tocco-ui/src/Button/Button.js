@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import Icon from '../Icon'
-import IconTocco from '../IconTocco'
+import IconTocco from '../LoadingSpinner'
 import StyledButton from './StyledButton'
 import {design} from '../utilStyles'
 
