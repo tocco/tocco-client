@@ -1,3 +1,6 @@
+0.1.6
+- General performance optimizations
+
 0.1.5
 - Detail performance improvement
 - Relation view in detail
