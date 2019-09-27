@@ -11,6 +11,7 @@ export const SingleAction = ({definition, onClick, selectedCount, disabled, intl
   const title = selectionText(selectedCount, definition, intl)
   return (
     <Button
+      data-cy={`action-${definition.id}`}
       look="raised"
       onClick={e => {
         onClick(definition)
