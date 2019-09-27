@@ -40,6 +40,7 @@ export class DateEdit extends React.Component {
 
     return (
       <DateAbstract
+        id={this.props.id}
         value={[this.props.value]}
         onBlur={this.onBlur}
         onChange={this.handleChange}
@@ -52,6 +53,7 @@ export class DateEdit extends React.Component {
 }
 
 DateEdit.propTypes = {
+  id: PropTypes.string,
   intl: intlShape.isRequired,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.string,
