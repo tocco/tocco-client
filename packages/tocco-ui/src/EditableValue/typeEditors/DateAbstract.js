@@ -133,6 +133,7 @@ class DateAbstract extends React.Component {
         onBlur={this.handleOnBlur}
         immutable={this.props.immutable}
         ref={this.wrapper}
+        id={this.props.id}
       >
         <StyledDateAbstractInput
           type="text"
@@ -161,6 +162,7 @@ class DateAbstract extends React.Component {
 }
 
 DateAbstract.propTypes = {
+  id: PropTypes.string,
   intl: intlShape.isRequired,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
