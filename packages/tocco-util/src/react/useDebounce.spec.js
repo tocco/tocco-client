@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {mount} from 'enzyme'
 
 import useDebounce from './useDebounce'
@@ -13,9 +13,14 @@ describe('tocco-util', () => {
         const onChangeSpy = sinon.spy()
 
         const TestComponent = props => {
-          const [value, onChange] = useDebounce(props.value, props.onChange)
+          const [internalValue, setInternalValue] = useState(props.value)
+          const debouncedValue = useDebounce(internalValue, 100)
 
-          return <input onChange={e => onChange(e.target.value)} value={value}/>
+          useEffect(() => {
+            props.onChange(debouncedValue)
+          }, [debouncedValue])
+
+          return <input onChange={e => setInternalValue(e.target.value)} value={props.value}/>
         }
 
         const wrapper = mount(<TestComponent onChange={onChangeSpy} value={initialValue}/>)
@@ -29,14 +34,15 @@ describe('tocco-util', () => {
           input.simulate('change', {target: {value: 'Test3'}})
           input.simulate('change', {target: {value: 'Test4'}})
           resolve()
-        }, 300))
+        }, 130))
 
         await new Promise(resolve => setTimeout(() => {
-          expect(onChangeSpy).to.have.been.calledTwice
+          expect(onChangeSpy).to.have.been.calledThrice
+          expect(onChangeSpy).to.have.been.calledWith(initialValue)
           expect(onChangeSpy).to.have.been.calledWith('Test2')
           expect(onChangeSpy).to.have.been.calledWith('Test4')
           resolve()
-        }, 300))
+        }, 130))
       })
     })
   })

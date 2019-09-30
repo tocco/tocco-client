@@ -30,7 +30,7 @@ describe('tocco-ui', () => {
           await new Promise(resolve => setTimeout(() => {
             expect(onChangeSpy).to.have.been.calledWith(expectedResult)
             resolve()
-          }, 300))
+          }, 350))
         })
       })
     })
