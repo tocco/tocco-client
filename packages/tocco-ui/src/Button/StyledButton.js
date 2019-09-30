@@ -80,7 +80,7 @@ const declareBall = () => css`
   min-width: calc(1rem
     * ${theme.fontSize('base')}
     * ${theme.lineHeight('regular')}
-    + 2 * ${scale.space(-3)});
+    + 2.4 * ${scale.space(-3)});
 
   // increase height to the size of width
   &:before {
