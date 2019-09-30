@@ -1,28 +1,23 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {hooks} from 'tocco-util'
+import {react} from 'tocco-util'
 
 import {StyledEditableWrapper} from '../StyledEditableValue'
 import StyledTextareaAutosize from './StyledTextEdit'
 
-const TextEdit = props => {
-  const [value, onChange] = hooks.useDebounce(props.value || '', props.onChange)
-
-  return (
-    <StyledEditableWrapper immutable={props.immutable}>
-      <StyledTextareaAutosize
-        id={props.id}
-        immutable={props.immutable}
-        maxRows={20}
-        name={props.name}
-        onChange={e => onChange(e.target.value)}
-        disabled={props.immutable}
-        rows={2}
-        value={value}
-      />
-    </StyledEditableWrapper>
-  )
-}
+const TextEdit = props =>
+  <StyledEditableWrapper immutable={props.immutable}>
+    <StyledTextareaAutosize
+      id={props.id}
+      immutable={props.immutable}
+      maxRows={20}
+      name={props.name}
+      onChange={e => props.onChange(e.target.value)}
+      disabled={props.immutable}
+      rows={2}
+      value={props.value}
+    />
+  </StyledEditableWrapper>
 
 TextEdit.propTypes = {
   onChange: PropTypes.func,
@@ -32,4 +27,4 @@ TextEdit.propTypes = {
   immutable: PropTypes.bool
 }
 
-export default TextEdit
+export default react.Debouncer(TextEdit)

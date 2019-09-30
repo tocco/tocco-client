@@ -28,7 +28,7 @@ describe('tocco-ui', () => {
           await new Promise(resolve => setTimeout(() => {
             expect(spy).to.have.been.calledWith(newValue)
             resolve()
-          }, 300))
+          }, 350))
         })
       })
     })

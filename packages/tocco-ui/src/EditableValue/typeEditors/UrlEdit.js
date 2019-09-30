@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {hooks} from 'tocco-util'
+import {react} from 'tocco-util'
 
 import ButtonLink from '../../ButtonLink'
 import {
@@ -18,31 +18,26 @@ const normalizeUrl = url => {
   return url
 }
 
-const UrlEdit = props => {
-  const [value, onChange] = hooks.useDebounce(props.value || '', props.onChange)
-
-  return (
-    <StyledEditableWrapper immutable={props.immutable}>
-      <StyledUrlEdit
-        disabled={props.immutable}
-        id={props.id}
-        immutable={props.immutable}
-        name={props.name}
-        onChange={e => onChange(normalizeUrl(e.target.value))}
-        value={value}
+const UrlEdit = props =>
+  <StyledEditableWrapper immutable={props.immutable}>
+    <StyledUrlEdit
+      disabled={props.immutable}
+      id={props.id}
+      immutable={props.immutable}
+      name={props.name}
+      onChange={e => props.onChange(normalizeUrl(e.target.value))}
+      value={props.value}
+    />
+    {props.value && <StyledEditableControl>
+      <ButtonLink
+        href={props.value}
+        icon="external-link-alt"
+        look="ball"
+        tabIndex={-1}
+        target="_blank"
       />
-      {value && <StyledEditableControl>
-        <ButtonLink
-          href={value}
-          icon="external-link-alt"
-          look="ball"
-          tabIndex={-1}
-          target="_blank"
-        />
-      </StyledEditableControl>}
-    </StyledEditableWrapper>
-  )
-}
+    </StyledEditableControl>}
+  </StyledEditableWrapper>
 
 UrlEdit.propTypes = {
   onChange: PropTypes.func,
@@ -52,4 +47,4 @@ UrlEdit.propTypes = {
   immutable: PropTypes.bool
 }
 
-export default UrlEdit
+export default react.Debouncer(UrlEdit)
