@@ -2,7 +2,6 @@ import styled from 'styled-components'
 
 import {declareFont, scale} from '../utilStyles'
 import {StyledSpan} from '../Typography'
-import {StyledIconToccoWrapper} from '../LoadingSpinner'
 
 export const StyledUploadProgress = styled.div`
   && {
@@ -20,13 +19,12 @@ export const StyledUploadProgressText = styled(StyledSpan)`
 
 export const StyledUploadProgressIconAndText = styled.div`
   && {
-    text-align: center;
-    display: block;
-
-    ${StyledIconToccoWrapper} {
-      display: inline-block;
-      height: ${scale.font(-1)};
-      width: ${scale.font(-1)};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    span {
+      margin-left: ${scale.space(-2)}
     }
   }
 `
