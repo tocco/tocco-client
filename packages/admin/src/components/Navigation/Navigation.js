@@ -1,8 +1,10 @@
 import React, {useRef, useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
+import {Button} from 'tocco-ui'
 
 import MenuTree from '../MenuTree'
-import {StyledMenuEntry, StyledMenuLink, StyledNav, StyledSearch, StyledMewnuWrapper} from './StyledComponents'
+import {StyledTabsContainer, StyledMenuEntry, StyledMenuLink, StyledNav, StyledSearch, StyledMewnuWrapper}
+  from './StyledComponents'
 
 const MenuMenuEntry = ({item}) => {
   return <StyledMenuEntry>{item.label}</StyledMenuEntry>
@@ -31,7 +33,12 @@ EntityExplorerMenuEntry.propTypes = {
   onClick: PropTypes.func
 }
 
-const Navigation = ({menuItems, menuOpen, onClick}) => {
+const tabs = {
+  MODULES: 'modules',
+  SETTINGS: 'settings'
+}
+
+const Navigation = ({modulesMenuTree, settingsMenuTree, menuOpen, onClick, activeMenuTab, setActiveMenuTab}) => {
   const inputEl = useRef(null)
   const [filter, setFilter] = useState('')
 
@@ -50,21 +57,45 @@ const Navigation = ({menuItems, menuOpen, onClick}) => {
   }
 
   useEffect(() => {
-    inputEl.current.select()
-    inputEl.current.focus()
+    if (menuOpen) {
+      inputEl.current.select()
+      inputEl.current.focus()
+    }
   }, [menuOpen])
 
   return <StyledNav>
+    <StyledTabsContainer>
+      <Button
+        title="Modules"
+        ink={activeMenuTab === tabs.MODULES ? 'primary' : 'base'}
+        onClick={() => setActiveMenuTab(tabs.MODULES)}
+        icon="cubes"
+      />
+      <Button
+        title="Settings"
+        ink={activeMenuTab === tabs.SETTINGS ? 'primary' : 'base'}
+        icon="cogs"
+        onClick={() => setActiveMenuTab(tabs.SETTINGS)}
+      />
+    </StyledTabsContainer>
     <StyledSearch placeholder="search" ref={inputEl} onChange={e => { setFilter(e.target.value) }}/>
-    <StyledMewnuWrapper>
-      <MenuTree items={menuItems} searchFilter={filter} typeMapping={map}/>
-    </StyledMewnuWrapper>
+    {activeMenuTab === tabs.MODULES
+    && <StyledMewnuWrapper>
+      <MenuTree items={modulesMenuTree} searchFilter={filter} typeMapping={map}/>
+    </StyledMewnuWrapper>}
+    {activeMenuTab === tabs.SETTINGS
+    && <StyledMewnuWrapper>
+      <MenuTree items={settingsMenuTree} searchFilter={filter} typeMapping={map}/>
+    </StyledMewnuWrapper>}
   </StyledNav>
 }
 
 Navigation.propTypes = {
-  menuItems: PropTypes.array,
+  activeMenuTab: PropTypes.string.isRequired,
+  settingsMenuTree: PropTypes.array,
+  modulesMenuTree: PropTypes.array,
   onClick: PropTypes.func,
+  setActiveMenuTab: PropTypes.func,
   menuOpen: PropTypes.bool
 }
 

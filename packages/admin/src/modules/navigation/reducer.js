@@ -11,13 +11,16 @@ export const toogleMenu = state => (
 
 const ACTION_HANDLERS = {
   [actions.SET_MENU_OPEN]: reducerUtil.singleTransferReducer('menuOpen'),
-  [actions.SET_MENU_ITEMS]: reducerUtil.singleTransferReducer('menuItems'),
-  [actions.TOGGLE_MENU_OPEN]: toogleMenu
+  [actions.SET_MODULES_MENU_TREE]: reducerUtil.singleTransferReducer('modulesMenuTree'),
+  [actions.SET_SETTINGS_MENU_TREE]: reducerUtil.singleTransferReducer('settingsMenuTree'),
+  [actions.TOGGLE_MENU_OPEN]: toogleMenu,
+  [actions.SET_ACTIVE_MENU_TAB]: reducerUtil.singleTransferReducer('activeMenuTab')
 }
 
 const initialState = {
   menuOpen: false,
-  entities: []
+  entities: [],
+  activeMenuTab: 'modules'
 }
 
 export default function reducer(state = initialState, action) {

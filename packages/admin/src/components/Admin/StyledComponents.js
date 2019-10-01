@@ -77,7 +77,7 @@ export const burgerMenuStyles = {
   },
   bmMenu: {
     background: '#253653',
-    padding: '2.5em 1.5em 0',
+    padding: '.5em 1.5em .5em',
     fontSize: '1.15em'
   },
   bmMorphShape: {
