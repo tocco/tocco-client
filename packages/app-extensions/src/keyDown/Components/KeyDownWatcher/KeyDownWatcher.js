@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import _pick from 'lodash/pick'
@@ -12,6 +12,18 @@ const KeyDownWatcher = ({children, keyDownHandler}) => {
   const onKeyDown = event => {
     keyDownHandler({..._pick(event, ['metaKey', 'ctrlKey', 'key'])})
   }
+
+  const onDocumentKeyDown = event => {
+    keyDownHandler({..._pick(event, ['metaKey', 'ctrlKey', 'key']), global: true})
+  }
+
+  useEffect(() => {
+    document.addEventListener('keydown', onDocumentKeyDown)
+
+    return () => {
+      document.removeEventListener('keydown', onDocumentKeyDown)
+    }
+  }, [])
 
   return <StyledDiv tabIndex="0" onKeyDown={onKeyDown}>{children}</StyledDiv>
 }
