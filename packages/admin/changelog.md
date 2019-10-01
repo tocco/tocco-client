@@ -1,3 +1,9 @@
+0.1.7
+- Settings Menu
+- Menu Shortcut fix
+- Local caching
+- Show current beta version on Dashboard
+
 0.1.6
 - General performance optimizations
 
