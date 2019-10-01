@@ -4,6 +4,6 @@ export default [
   {
     ctrl: true,
     key: 's',
-    action: submitForm()
+    actions: [submitForm()]
   }
 ]

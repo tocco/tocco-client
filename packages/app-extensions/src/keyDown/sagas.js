@@ -10,10 +10,14 @@ export default function* sagas(configs) {
 
 export function* emitAction(configs, {payload}) {
   const {event} = payload
-
-  yield all(
-    configs
-      .filter(config => config.key === event.key && (!config.ctrl || (event.ctrlKey || event.metaKey)))
-      .map(config => put(config.action))
+  const config = configs.find(
+    config =>
+      config.key === event.key
+      && (!config.ctrl || (event.ctrlKey || event.metaKey))
+      && event.global === config.global
   )
+
+  if (config) {
+    yield all(config.actions.map(action => put(action)))
+  }
 }
