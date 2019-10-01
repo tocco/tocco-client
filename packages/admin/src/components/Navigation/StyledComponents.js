@@ -54,3 +54,10 @@ export const StyledMenuLink = styled(Link)`
       text-decoration: underline;
     }
 `
+
+export const StyledTabsContainer = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center; 
+  margin-bottom: 10px;
+`
