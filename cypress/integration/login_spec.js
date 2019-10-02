@@ -1,18 +1,18 @@
 import helpers from '../helpers/helpers'
 
-describe('Login', function() {
+describe('Login', () => {
   beforeEach(() => {
     cy.visit(`${helpers.getStoryUrl(['Apps', 'Login'], 'Login')}`)
   })
 
   describe('Login', () => {
-    it('should load and display login view', function() {
+    it('should load and display login view', () => {
       cy.get('[data-cy=login-form_user-input]', {timeout: 15000})
         .should('be.visible')
       cy.get('button').should('have.length', 2)
     })
 
-    it('should not be possible to click login button', function() {
+    it('should not be possible to click login button', () => {
       cy.get('[data-cy=login-form_user-input]')
         .type('{selectall}{del}cypress_test')
       cy.get('[data-cy=login-form_login-button]')
@@ -27,7 +27,7 @@ describe('Login', function() {
       cy.get('[data-cy=login-form_request-button]')
     })
 
-    it('should login', function() {
+    it('should login', () => {
       cy.get('[data-cy=login-form_user-input]')
         .type('{selectall}{del}cypress_test')
       cy.get('[data-cy=login-form_password-input]')
@@ -37,7 +37,7 @@ describe('Login', function() {
         .children().first().should('be', 'svg', {timeout: 5000})
     })
 
-    it('should request password from request page', function() {
+    it('should request password from request page', () => {
       cy.contains('Passwort vergessen?')
       cy.get('[data-cy=login-form_request-button]')
         .click()
@@ -48,7 +48,7 @@ describe('Login', function() {
       cy.contains('Passwort wurde per E-Mail versendet')
     })
 
-    it('should change to login page on abort of password request ', function() {
+    it('should change to login page on abort of password request ', () => {
       cy.get('[data-cy=login-form_request-button]')
         .click()
       cy.contains('Passwort vergessen?')
