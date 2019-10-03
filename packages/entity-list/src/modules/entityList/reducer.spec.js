@@ -6,6 +6,7 @@ const EXPECTED_INITIAL_STATE = {
   entityName: '',
   initialized: false,
   showSearchForm: false,
+  searchFormPosition: 'top',
   parent: null
 }
 

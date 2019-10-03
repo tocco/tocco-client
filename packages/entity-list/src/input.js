@@ -1,7 +1,8 @@
 import {
   setShowSearchForm,
   setEntityName,
-  setParent
+  setParent,
+  setSearchFormPosition
 } from './modules/entityList/actions'
 import {
   setSearchFormName,
@@ -58,6 +59,11 @@ const actionSettings = [
     name: 'showSearchForm',
     action: setShowSearchForm,
     argsFactory: input => [input.showSearchForm]
+  },
+  {
+    name: 'searchFormPosition',
+    action: setSearchFormPosition,
+    argsFactory: input => [input.searchFormPosition]
   },
   {
     name: 'disableSimpleSearch',
