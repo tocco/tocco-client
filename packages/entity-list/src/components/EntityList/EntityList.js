@@ -1,15 +1,11 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import styled from 'styled-components'
 
 import SearchFormContainer from '../../containers/SearchFormContainer'
 import FullTextSearchForm from '../../containers/FullTextSearchFormContainer'
 import ListViewContainer from '../../containers/ListViewContainer'
 import SelectionControllerContainer from '../../containers/SelectionControllerContainer'
-
-const SearchFormWrapper = styled.div`
- margin-bottom: 12px;
-`
+import {TopContainer, LeftContainer, ListContainer, SearchContainer} from './StyledComponents'
 
 class EntityList extends React.Component {
   constructor(props) {
@@ -19,21 +15,19 @@ class EntityList extends React.Component {
   }
 
   render() {
-    return (
-      <React.Fragment>
-        {
-          this.props.showSearchForm
-          && <SearchFormWrapper>
-            {this.props.showFullTextSearchForm ? <FullTextSearchForm/> : <SearchFormContainer/>}
-          </SearchFormWrapper>
-        }
+    const Container = this.props.searchFormPosition === 'left' ? LeftContainer : TopContainer
 
-        {
-          this.props.showSelectionController
-          && <SelectionControllerContainer/>
-        }
-        <ListViewContainer/>
-      </React.Fragment>
+    return (
+      <Container>
+        {this.props.showSearchForm
+       && <SearchContainer>
+         {this.props.showFullTextSearchForm ? <FullTextSearchForm/> : <SearchFormContainer/>}
+       </SearchContainer> }
+        <ListContainer>
+          {this.props.showSelectionController && <SelectionControllerContainer/>}
+          <ListViewContainer/>
+        </ListContainer>
+      </Container>
     )
   }
 }
@@ -43,7 +37,8 @@ EntityList.propTypes = {
   initializeSearchForm: PropTypes.func.isRequired,
   showSearchForm: PropTypes.bool,
   showFullTextSearchForm: PropTypes.bool,
-  showSelectionController: PropTypes.bool
+  showSelectionController: PropTypes.bool,
+  searchFormPosition: PropTypes.oneOf(['top', 'left'])
 }
 
 export default EntityList

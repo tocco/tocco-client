@@ -32,7 +32,8 @@ const mapStateToProps = (state, props) => {
     onRowClick: e => {
       props.router.history.push(`/detail/${e.id}`)
     },
-    onNavigateToCreate: handleNavigateToCreate(props)
+    onNavigateToCreate: handleNavigateToCreate(props),
+    searchFormPosition: 'top'
   }
 }
 
