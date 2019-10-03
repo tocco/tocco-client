@@ -195,7 +195,7 @@ describe('app-extensions', () => {
 
         test('should call fetch and use default transformer', () => {
           const gen = helpers.fetchForm(formName)
-          expect(gen.next().value).to.eql(call(requestSaga, `forms/${formName}`))
+          expect(gen.next().value).to.eql(call(requestSaga, `forms/${formName}`, {}))
 
           expect(gen.next(resp).value).to.eql(call(helpers.defaultFormTransformer, resp.body))
 
@@ -217,6 +217,15 @@ describe('app-extensions', () => {
           return expectSaga(helpers.fetchForm, 'User_detail')
             .returns(result.returnValue)
             .not.call.like({fn: requestSaga})
+            .run()
+        })
+
+        test('should return null on allowed 404', async() => {
+          return expectSaga(helpers.fetchForm, 'User_detail', true)
+            .provide([
+              [matchers.call.fn(requestSaga), {status: 404}]
+            ])
+            .returns(null)
             .run()
         })
 
