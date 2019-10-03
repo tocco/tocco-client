@@ -102,7 +102,7 @@ export function* submitSearchFrom() {
 }
 
 export function* loadSearchForm(searchFormName) {
-  const formDefinition = yield call(rest.fetchForm, searchFormName)
+  const formDefinition = yield call(rest.fetchForm, searchFormName, true)
   if (formDefinition) {
     yield put(actions.setFormDefinition(formDefinition))
     yield put(actions.setFormFieldsFlat(getFormFieldFlat(formDefinition)))
