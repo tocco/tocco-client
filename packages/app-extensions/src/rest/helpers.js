@@ -102,14 +102,26 @@ export function* fetchEntities(
 /**
  * Helper to fetch forms.
  * @param formName {String} Name of the requested form
+ * @param allowNotFound {Boolean} If true and the form does not exist null is returned.
+ *                                Otherwise an exception will be thrown.
  */
-export function* fetchForm(formName) {
+export function* fetchForm(formName, allowNotFound = false) {
   const cachedForm = cache.get('form', formName)
   if (cachedForm) {
     return cachedForm
   }
 
-  const response = yield call(requestSaga, `forms/${formName}`)
+  const options = {
+    ...(allowNotFound && {acceptedStatusCodes: [404]})
+  }
+
+  const response = yield call(requestSaga, `forms/${formName}`, options)
+
+  if (allowNotFound && response.status === 404) {
+    cache.add('form', formName, null)
+    return null
+  }
+
   const form = yield call(defaultFormTransformer, response.body)
   cache.add('form', formName, form)
   return form
