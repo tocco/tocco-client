@@ -89,6 +89,7 @@ const RelationsView = ({history, match, currentViewInfo, relations, relationsCou
             const entityBaseUrl = goBack(match.url)
             history.push(entityBaseUrl + '/' + selectedRelation.relationName + '/create')
           }}
+          searchFormType="simple"
         />
       </StyledPreviewBox>
       }
