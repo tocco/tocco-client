@@ -9,9 +9,10 @@ import {call, put, fork, select, takeLatest, take, all} from 'redux-saga/effects
 
 import * as actions from './actions'
 import {getFormFieldFlat, getEndpoint} from '../../util/api/forms'
-import {SET_INITIALIZED as LIST_SET_INITIALIZED} from '../entityList/actions'
+import {SET_INITIALIZED as LIST_SET_INITIALIZED, setSearchFormType} from '../entityList/actions'
 import {validateSearchFields} from '../../util/searchFormValidation'
 import {SET_FORM_DEFINITION} from '../list/actions'
+import searchFormTypes from '../../util/searchFormTypes'
 
 export const inputSelector = state => state.input
 export const searchFormSelector = state => state.searchForm
@@ -102,12 +103,16 @@ export function* submitSearchFrom() {
 }
 
 export function* loadSearchForm(searchFormName) {
+  const {searchFormType} = yield select(entityListSelector)
+  if (searchFormType === searchFormTypes.SIMPLE) {
+    return null
+  }
   const formDefinition = yield call(rest.fetchForm, searchFormName, true)
   if (formDefinition) {
     yield put(actions.setFormDefinition(formDefinition))
     yield put(actions.setFormFieldsFlat(getFormFieldFlat(formDefinition)))
   } else {
-    yield put(actions.setShowFullTextSearchForm(true))
+    yield put(setSearchFormType(searchFormTypes.SIMPLE))
   }
   return formDefinition
 }

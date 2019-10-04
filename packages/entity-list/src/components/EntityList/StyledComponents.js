@@ -1,16 +1,16 @@
 import styled from 'styled-components'
 
-export const TopContainer = styled.div`
+export const TopPositioning = styled.div`
   display: grid;
-  grid-row-gap: 12px;
+  grid-row-gap: 6px;
   grid-template-areas:
     "search"
     "list";
 `
 
-export const LeftContainer = styled.div`
+export const LeftPositioning = styled.div`
   display: grid;
-  grid-template-columns: minmax(300px, 18%) auto;
+  grid-template-columns: minmax(200px, 18%) auto;
   grid-column-gap: 15px;
   @media (max-width: 600px) {
     grid-column-gap: 8px;
@@ -19,11 +19,10 @@ export const LeftContainer = styled.div`
   grid-template-areas: "search list";
 `
 
-export const SearchContainer = styled.div`
-  grid-area: search;
-  overflow: auto;
+export const SearchGrid = styled.div`
+  grid-area: search;  
 `
 
-export const ListContainer = styled.div`
+export const ListGrid = styled.div`
   grid-area: list;
 `

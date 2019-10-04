@@ -1,6 +1,6 @@
 export const SET_INITIALIZED = 'entityList/SET_INITIALIZED'
 export const INITIALIZE = 'entityList/INITIALIZE'
-export const SET_SHOW_SEARCH_FORM = 'entityList/SET_SHOW_SEARCH_FORM'
+export const SET_SEARCH_FORM_TYPE = 'entityList/SET_SEARCH_FORM_TYPE'
 export const SET_ENTITY_NAME = 'entityList/SET_ENTITY_NAME'
 export const SET_ENTITY_MODEL = 'entityList/SET_ENTITY_MODEL'
 export const SET_PARENT = 'entityList/SET_PARENT'
@@ -24,10 +24,10 @@ export const setEntityModel = entityModel => ({
   }
 })
 
-export const setShowSearchForm = showSearchForm => ({
-  type: SET_SHOW_SEARCH_FORM,
+export const setSearchFormType = searchFormType => ({
+  type: SET_SEARCH_FORM_TYPE,
   payload: {
-    showSearchForm
+    searchFormType
   }
 })
 

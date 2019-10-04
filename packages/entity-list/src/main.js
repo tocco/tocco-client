@@ -21,6 +21,7 @@ import EntityListContainer from './containers/EntityListContainer'
 import {getDispatchActions} from './input'
 import {selectionStylePropType} from './util/selectionStyles'
 import customActions from './customActions'
+import {searchFormTypePropTypes} from './util/searchFormTypes'
 
 const packageName = 'entity-list'
 
@@ -128,7 +129,8 @@ EntityListApp.propTypes = {
   formBase: PropTypes.string.isRequired,
   keepStore: PropTypes.bool,
   limit: PropTypes.number,
-  showSearchForm: PropTypes.bool,
+  searchFormType: searchFormTypePropTypes,
+  searchFormPosition: PropTypes.oneOf(['top', 'left']),
   searchFilters: PropTypes.arrayOf(PropTypes.string),
   preselectedSearchFields: PropTypes.arrayOf(
     PropTypes.shape({

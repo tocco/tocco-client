@@ -6,14 +6,14 @@ import {Button} from 'tocco-ui'
 import {form, formField} from 'tocco-app-extensions'
 
 import {
-  StyledSearchForm,
+  StyledBasicSearchForm,
   StyledSearchFormButtonGroup,
   StyledSearchFormButtonGroupGap
-} from './StyledSearchForm'
+} from './StyledBasicSearchForm'
 
 const REDUX_FORM_NAME = 'searchForm'
 
-class SearchForm extends React.Component {
+class BasicSearchForm extends React.Component {
   handleResetClick = () => {
     this.props.resetSearch()
   }
@@ -59,7 +59,7 @@ class SearchForm extends React.Component {
       return null
     }
     return (
-      <StyledSearchForm>
+      <StyledBasicSearchForm>
         <form onSubmit={this.handleSubmit}>
           <form.FormBuilder
             entity={props.entity}
@@ -106,12 +106,12 @@ class SearchForm extends React.Component {
             }
           </StyledSearchFormButtonGroup>
         </form>
-      </StyledSearchForm>
+      </StyledBasicSearchForm>
     )
   }
 }
 
-SearchForm.propTypes = {
+BasicSearchForm.propTypes = {
   intl: intlShape.isRequired,
   entityModel: PropTypes.shape({
     paths: PropTypes.object,
@@ -142,4 +142,4 @@ SearchForm.propTypes = {
 export default reduxForm({
   form: REDUX_FORM_NAME,
   destroyOnUnmount: false
-})(SearchForm)
+})(BasicSearchForm)
