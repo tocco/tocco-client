@@ -45,6 +45,8 @@ const ListView = ({match, history, currentViewInfo, emitAction}) => {
             : <StyledLink to={key}>{children}</StyledLink>
       }}
       onNavigateToCreate={handleNavigateToCreate}
+      searchFormPosition="left"
+      searchFormType="admin"
     />
   )
 }
