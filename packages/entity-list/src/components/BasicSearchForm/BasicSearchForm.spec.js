@@ -12,7 +12,7 @@ const EMPTY_FUNC = () => {
 
 describe('entity-list', () => {
   describe('components', () => {
-    describe('SearchForm', () => {
+    describe('BasicSearchForm', () => {
       test('should render nothing if searchFormDefinition empty', () => {
         const entityModel = require('../../dev/test-data/userModel.json')
         const searchFormDefinition = {}

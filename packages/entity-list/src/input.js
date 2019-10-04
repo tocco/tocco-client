@@ -1,5 +1,5 @@
 import {
-  setShowSearchForm,
+  setSearchFormType,
   setEntityName,
   setParent,
   setSearchFormPosition
@@ -56,9 +56,9 @@ const actionSettings = [
     argsFactory: input => [input.searchFilters]
   },
   {
-    name: 'showSearchForm',
-    action: setShowSearchForm,
-    argsFactory: input => [input.showSearchForm]
+    name: 'searchFormType',
+    action: setSearchFormType,
+    argsFactory: input => [input.searchFormType]
   },
   {
     name: 'searchFormPosition',

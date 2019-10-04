@@ -11,7 +11,7 @@ import rootSaga, * as sagas from './sagas'
 import * as actions from './actions'
 import {validateSearchFields} from '../../util/searchFormValidation'
 import {getEndpoint} from '../../util/api/forms'
-import {setInitialized} from '../entityList/actions'
+import {setInitialized, setSearchFormType} from '../entityList/actions'
 import {setFormDefinition} from '../list/actions'
 
 describe('entity-list', () => {
@@ -178,12 +178,13 @@ describe('entity-list', () => {
         })
 
         describe('loadSearchForm saga', () => {
-          test('should load the form definition and dispatch setFormDefintion', () => {
+          test('should load the form definition and dispatch setFormDefinition', () => {
             const formDefinition = {children: []}
 
             return expectSaga(sagas.loadSearchForm)
               .provide([
-                [matchers.call.fn(rest.fetchForm), formDefinition]
+                [matchers.call.fn(rest.fetchForm), formDefinition],
+                [select(sagas.entityListSelector), {searchFormType: 'basic'}]
               ])
               .put(actions.setFormDefinition(formDefinition))
               .returns(formDefinition)
@@ -195,10 +196,11 @@ describe('entity-list', () => {
 
             return expectSaga(sagas.loadSearchForm)
               .provide([
-                [matchers.call.fn(rest.fetchForm), formDefinition]
+                [matchers.call.fn(rest.fetchForm), formDefinition],
+                [select(sagas.entityListSelector), {searchFormType: 'basic'}]
               ])
               .not.put(actions.setFormDefinition(formDefinition))
-              .put(actions.setShowFullTextSearchForm(true))
+              .put(setSearchFormType('simple'))
               .run()
           })
         })

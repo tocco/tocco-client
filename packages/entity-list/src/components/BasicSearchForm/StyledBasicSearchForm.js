@@ -4,7 +4,7 @@ import {StyledButton} from 'tocco-ui/src/Button'
 import {StyledButtonGroup} from 'tocco-ui/src/ButtonGroup'
 import {StyledLayoutBox} from 'tocco-ui/src/Layout'
 
-const StyledSearchForm = styled.div`
+const StyledBasicSearchForm = styled.div`
   && {
     ${StyledLayoutBox} {
       padding-bottom: 0;
@@ -29,7 +29,7 @@ const StyledSearchFormButtonGroupGap = styled.div`
 `
 
 export {
-  StyledSearchForm,
+  StyledBasicSearchForm,
   StyledSearchFormButtonGroup,
   StyledSearchFormButtonGroupGap
 }

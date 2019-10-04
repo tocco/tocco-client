@@ -11,9 +11,8 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state, props) => ({
-  showSearchForm: state.input.showSearchForm,
+  searchFormType: state.input.searchFormType,
   searchFormPosition: state.input.searchFormPosition,
-  showFullTextSearchForm: state.searchForm.showFullTextSearchForm,
   showSelectionController: state.selection.showSelectionController
 })
 
