@@ -23,7 +23,7 @@ const mapStateToProps = (state, props) => {
     locale: state.input.locale,
     entityName: state.entityBrowser.entityName,
     formBase: state.entityBrowser.formBase,
-    showSearchForm: state.input.showSearchForm,
+    searchFormType: state.input.showSearchForm ? 'basic' : 'none',
     limit: state.input.limit,
     searchFilters: state.input.searchFilters,
     preselectedSearchFields: state.input.preselectedSearchFields,
