@@ -176,6 +176,11 @@ const StyledNotifier = styled.div`
 
       .rrt-holder {
         opacity: .9;
+        
+        svg {
+          width: auto;
+          height: 5rem;
+        }
       }
     }
   }
