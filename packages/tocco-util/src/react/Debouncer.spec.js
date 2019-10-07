@@ -26,14 +26,14 @@ describe('tocco-util', () => {
           input.simulate('change', {target: {value: 'Test3'}})
           input.simulate('change', {target: {value: 'Test4'}})
           resolve()
-        }, 130))
+        }, 200))
 
         await new Promise(resolve => setTimeout(() => {
           expect(onChangeSpy).to.have.been.calledTwice
           expect(onChangeSpy).to.have.been.calledWith('Test2')
           expect(onChangeSpy).to.have.been.calledWith('Test4')
           resolve()
-        }, 130))
+        }, 200))
       })
 
       test('should pass other props', async() => {
