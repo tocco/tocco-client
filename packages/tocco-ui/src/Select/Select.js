@@ -120,7 +120,7 @@ export class Select extends React.Component {
             placeholder=""
             menuShouldScrollIntoView={false}
             autoFocus={false}
-            value={this.props.value}
+            value={this.props.value ? this.props.value : null}
             onChange={this.props.onChange}
             onInputChange={this.onInputChange}
             options={this.getOptions()}
