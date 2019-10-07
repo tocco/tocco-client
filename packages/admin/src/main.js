@@ -2,6 +2,7 @@ import React from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
 import {appFactory, notifier, errorLogging, actionEmitter, externalEvents, keyDown} from 'tocco-app-extensions'
 import {hot} from 'react-hot-loader/root'
+import PropTypes from 'prop-types'
 
 import shortcuts from './shortcuts'
 import reducers, {sagas} from './modules/reducers'
@@ -58,3 +59,20 @@ const initApp = (id, input, events, publicPath) => {
     appFactory.registerAppInRegistry(packageName, initApp)
   }
 })()
+
+class AdminApp extends React.Component {
+  constructor(props) {
+    super(props)
+    this.app = initApp('id', props)
+  }
+
+  render() {
+    return this.app.component
+  }
+}
+
+AdminApp.propTypes = {
+  baseRoute: PropTypes.string
+}
+
+export default hot(AdminApp)
