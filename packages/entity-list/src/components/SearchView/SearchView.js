@@ -8,6 +8,12 @@ import BasicSearchFormContainer from '../../containers/BasicSearchFormContainer'
 import AdminSearchForm from '../AdminSearchForm/AdminSearchForm'
 import searchFormTypes, {searchFormTypePropTypes} from '../../util/searchFormTypes'
 
+const AdminSearchFormWrapper = styled.div`
+  height: calc(100vh - 80px); // TODO: This is only a temporary workaround, height needs to be 100%
+  overflow-y: auto;
+  overflow-x: hidden;
+`
+
 const StyledWrapper = styled.div`
   padding: 4px;
 `
@@ -18,7 +24,7 @@ const SearchView = ({initializeSearchForm, searchFormType}) => {
   }, [])
 
   if (searchFormType === searchFormTypes.ADMIN) {
-    return <AdminSearchForm/>
+    return <AdminSearchFormWrapper> <AdminSearchForm/></AdminSearchFormWrapper>
   }
 
   return (
