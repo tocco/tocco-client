@@ -99,17 +99,17 @@ describe('Entity Browser', () => {
     it('should change page back to list view without warning if data did not change', () => {
       cy.get('input#input-detailForm-firstname')
         .type('{selectall}{del}Cypress Test')
-      cy.wait(200) // Wait for debounced onChange
+      cy.wait(300) // Wait for debounced onChange
       cy.get('[data-cy=entity-detail_back-button]')
         .click()
       cy.get('[data-cy=list-cell]', {timeout: 15000})
         .should('have.length.above', 1)
     })
 
-    it('should display warning on changing page back to list view on edited form', () => {
+    it.only('should display warning on changing page back to list view on edited form', () => {
       cy.get('input#input-detailForm-callname')
         .type('{selectall}{del}Test')
-      cy.wait(200) // Wait for debounced onChange
+      cy.wait(300) // Wait for debounced onChange
       cy.get('[data-cy=entity-detail_back-button]').click()
       cy.contains('ungespeicherte Änderungen')
     })
