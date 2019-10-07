@@ -107,6 +107,7 @@ const req4 = require.context('../packages/entity-detail/src/', true, /\.stories\
 const req5 = require.context('../packages/entity-list/src/', true, /\.stories\.js$/)
 const req6 = require.context('../packages/login/src/', true, /\.stories\.js$/)
 const req7 = require.context('../packages/resource-scheduler/src/', true, /\.stories\.js$/)
+const req8 = require.context('../packages/admin/src/', true, /\.stories\.js$/)
 
 function loadStories() {
   req.keys().forEach(filename => req(filename))
@@ -116,6 +117,7 @@ function loadStories() {
   req5.keys().forEach(filename => req5(filename))
   req6.keys().forEach(filename => req6(filename))
   req7.keys().forEach(filename => req7(filename))
+  req8.keys().forEach(filename => req8(filename))
 }
 
 configure(loadStories, module)
