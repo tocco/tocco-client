@@ -20,9 +20,10 @@ class AdminStory extends React.Component {
   key = 0
 
   render() {
+    const currentLocation = window.location.pathname + window.location.search
     return <AdminApp
       key={this.key++}
-      baseRoute="iframe.html?id=apps-admin--entity-browser"
+      baseRoute={currentLocation}
     />
   }
 }
