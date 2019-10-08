@@ -25,7 +25,7 @@ export function getInfoAction(uncheckedType, title, message, icon, timeOut) {
   const options = {
     attention: false,
     component: () => <TitleMessage title={title} message={message}/>,
-    icon: <Icon icon={icon || typeIconMap[type] || 'info'} size="3x" />,
+    icon: <Icon icon={icon || typeIconMap[type] || 'info'} style={{fontSize: '5rem'}}/>,
     preventDuplicates: true,
     removeOnHover: isNotWarningNorErrorAndDoesTimeOut(type, timeOut),
     removeOnHoverTimeOut: isWarningOrError(type) ? 0 : timeOut,
