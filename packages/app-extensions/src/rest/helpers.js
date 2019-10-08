@@ -107,7 +107,7 @@ export function* fetchEntities(
  */
 export function* fetchForm(formName, allowNotFound = false) {
   const cachedForm = cache.get('form', formName)
-  if (cachedForm) {
+  if (cachedForm !== undefined) {
     return cachedForm
   }
 
