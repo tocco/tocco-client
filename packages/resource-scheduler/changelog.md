@@ -1,3 +1,6 @@
+0.2.15-hotfix222.3
+- Fix filter bug
+
 0.2.15-hotfix222.2
 - Release with license 
 
