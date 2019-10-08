@@ -4,7 +4,6 @@ import _get from 'lodash/get'
 import {
   scale,
   shadeColor,
-  StyledIconToccoWrapper,
   theme
 } from 'tocco-ui'
 
@@ -178,10 +177,6 @@ const StyledNotifier = styled.div`
       .rrt-holder {
         opacity: .9;
       }
-    }
-
-    ${StyledIconToccoWrapper} {
-      margin: 0 auto;
     }
   }
 
