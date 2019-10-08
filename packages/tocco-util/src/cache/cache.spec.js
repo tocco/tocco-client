@@ -18,10 +18,18 @@ describe('tocco-util', () => {
         expect(cachedValue).to.eql(value)
       })
 
-      test('should return null on uncached value', () => {
+      test('should return undefined on uncached value', () => {
         const type = 'label'
         const id = 1
 
+        const cachedValue = get(type, id)
+        expect(cachedValue).to.be.undefined
+      })
+
+      test('should return null values', () => {
+        const type = 'label'
+        const id = 1
+        add(type, id, null)
         const cachedValue = get(type, id)
         expect(cachedValue).to.be.null
       })
@@ -46,7 +54,7 @@ describe('tocco-util', () => {
         add(type, id, 'test')
         clear()
         const cachedValue = get(type, id)
-        expect(cachedValue).to.be.null
+        expect(cachedValue).to.be.undefined
       })
     })
   })

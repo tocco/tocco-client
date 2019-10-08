@@ -5,7 +5,13 @@ export const add = (type, id, value) => {
 
 export const get = (type, id) => {
   const key = `cache.${type}.${id}`
-  return JSON.parse(sessionStorage.getItem(key))
+  const cachedValue = sessionStorage.getItem(key)
+
+  if (!cachedValue) {
+    return undefined
+  }
+
+  return JSON.parse(cachedValue)
 }
 
 export const clear = () => {
