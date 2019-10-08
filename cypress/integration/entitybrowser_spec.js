@@ -106,8 +106,8 @@ describe('Entity Browser', () => {
         .should('have.length.above', 1)
     })
 
-    it.only('should display warning on changing page back to list view on edited form', () => {
-      cy.get('input#input-detailForm-callname')
+    it('should display warning on changing page back to list view on edited form', () => {
+      cy.get('input#input-detailForm-callname', {timeout: 6000})
         .type('{selectall}{del}Test')
       cy.wait(300) // Wait for debounced onChange
       cy.get('[data-cy=entity-detail_back-button]').click()
