@@ -12,6 +12,7 @@ class Scheduler extends React.Component {
         resources={getResources(this.props.calendars)}
         onDateRangeChange={this.props.onDateRangeChange}
         onCalendarRemove={this.props.onCalendarRemove}
+        onCalendarRemoveAll={this.props.onCalendarRemoveAll}
         onEventClick={this.props.onEventClick}
         onRefresh={this.props.onRefresh}
         locale={this.props.locale}
@@ -39,6 +40,7 @@ Scheduler.propTypes = {
     })).isRequired,
   onDateRangeChange: PropTypes.func,
   onCalendarRemove: PropTypes.func,
+  onCalendarRemoveAll: PropTypes.func,
   onEventClick: PropTypes.func,
   onRefresh: PropTypes.func,
   locale: PropTypes.string,

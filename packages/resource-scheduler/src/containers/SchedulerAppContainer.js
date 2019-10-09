@@ -5,6 +5,7 @@ import SchedulerApp from 'tocco-scheduler/src/main'
 import {
   setDateRange,
   removeRequestedCalendar,
+  removeAllCalendars,
   onEventClick,
   onRefresh
 } from '../modules/resourceScheduler/actions'
@@ -12,6 +13,7 @@ import {
 const mapActionCreators = {
   onDateRangeChange: ({dateRange}) => setDateRange(dateRange),
   onCalendarRemove: ({calendarType, id}) => removeRequestedCalendar(calendarType, id),
+  onCalendarRemoveAll: removeAllCalendars,
   onEventClick: ({model, key}) => onEventClick(model, key),
   onRefresh
 }

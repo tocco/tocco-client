@@ -13,6 +13,7 @@ const packageName = 'scheduler'
 const EXTERNAL_EVENTS = [
   'onDateRangeChange',
   'onCalendarRemove',
+  'onCalendarRemoveAll',
   'onEventClick',
   'onRefresh'
 ]
