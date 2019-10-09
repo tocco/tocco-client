@@ -1,7 +1,7 @@
 {
   "defaultCommandTimeout": 10000,
-  "video": false,
   "env": {
     "BACKEND_URL": "https://master.tocco.ch"
-  }
+  },
+  "projectId": "zv466c"
 }

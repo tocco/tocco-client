@@ -32,7 +32,7 @@ script:
   - jest --maxWorkers=4 --silent --verbose false
   - BACKEND=https://master.tocco.ch yarn build-storybook
   - bash deployment/deploy_storybook.sh
-  - if [[ $TRAVIS_BRANCH == "master" ]]; then yarn cypress run --env PR_BRANCH=$TRAVIS_PULL_REQUEST_BRANCH; fi
+  - if [[ $TRAVIS_BRANCH == "master" ]]; then yarn cypress run --env PR_BRANCH=$TRAVIS_PULL_REQUEST_BRANCH --record --key 7657cc15-e969-4203-ae80-f3e0651a9667 --parallel; fi
 
 after_success:
   - npm run codecov
