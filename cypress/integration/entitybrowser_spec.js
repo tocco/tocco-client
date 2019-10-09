@@ -2,6 +2,8 @@ import helpers from '../helpers/helpers'
 
 const getPkFromUrl = url => url.substring(url.lastIndexOf('/') + 1)
 
+const LONG_TIMEOUT = 15000
+
 const createUser = (firstname, lastname) => {
   return cy.request({
     url: `${Cypress.env('BACKEND_URL')}/nice2/rest/entities/User`,
@@ -34,11 +36,11 @@ describe('Entity Browser', () => {
     it('should navigate to create view wit NEW button', () => {
       visitEntityBrowser()
 
-      cy.get('[data-cy=action-new]', {timeout: 10000})
+      cy.get('[data-cy=action-new]', {timeout: LONG_TIMEOUT})
         .should('be.enabled')
         .click()
 
-      cy.contains('Personenangaben', {timeout: 15000})
+      cy.contains('Personenangaben', {timeout: LONG_TIMEOUT})
     })
 
     it('should create a new User with basic data', () => {
@@ -92,7 +94,7 @@ describe('Entity Browser', () => {
     it('should change page back to list view without warning', () => {
       cy.get('[data-cy=entity-detail_back-button]')
         .click()
-      cy.get('[data-cy=list-cell]', {timeout: 15000})
+      cy.get('[data-cy=list-cell]', {timeout: LONG_TIMEOUT})
         .should('have.length.above', 1)
     })
 
@@ -102,12 +104,12 @@ describe('Entity Browser', () => {
       cy.wait(300) // Wait for debounced onChange
       cy.get('[data-cy=entity-detail_back-button]')
         .click()
-      cy.get('[data-cy=list-cell]', {timeout: 15000})
+      cy.get('[data-cy=list-cell]', {timeout: LONG_TIMEOUT})
         .should('have.length.above', 1)
     })
 
     it('should display warning on changing page back to list view on edited form', () => {
-      cy.get('input#input-detailForm-callname', {timeout: 6000})
+      cy.get('input#input-detailForm-callname')
         .type('{selectall}{del}Test')
       cy.wait(300) // Wait for debounced onChange
       cy.get('[data-cy=entity-detail_back-button]').click()
@@ -135,14 +137,14 @@ describe('Entity Browser', () => {
     })
 
     it('should load and display essential parts of the list view', () => {
-      cy.contains('Daten werden geladen...', {timeout: 15000})
+      cy.contains('Daten werden geladen...', {timeout: LONG_TIMEOUT})
       cy.get('[title="Vorname"]')
         .should('be.visible')
       cy.get('[type="submit"]')
         .should('be.visible')
       cy.contains('Einträgen')
       cy.contains('Aktionen auf Alle')
-      cy.get('[data-cy=list-cell]', {timeout: 6000})
+      cy.get('[data-cy=list-cell]')
         .should('have.length.above', 1)
     })
   })
@@ -179,7 +181,7 @@ describe('Entity Browser', () => {
         cy.wait(2000) // needed to make sure user is found via fulltext
         cy.get('input#input-searchForm-txtFulltext')
           .type(`${firstName}{enter}`)
-        cy.contains(lastName, {timeout: 10000})
+        cy.contains(lastName, {timeout: LONG_TIMEOUT})
 
         deleteUser(pk)
       })

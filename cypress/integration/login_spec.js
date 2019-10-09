@@ -34,7 +34,7 @@ describe('Login', () => {
         .type('{selectall}{del}Test_pw1')
       cy.get('[data-cy=login-form_login-button]')
         .click()
-        .children().first().should('be', 'svg', {timeout: 5000})
+        .children().first().should('be', 'svg')
     })
 
     it('should request password from request page', () => {
