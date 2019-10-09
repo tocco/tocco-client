@@ -82,15 +82,6 @@ describe('scheduler', () => {
         )
         expect(wrapper.html()).to.have.string(getMonth('fr'))
       })
-
-      test('should render resources', () => {
-        const wrapper = intlEnzyme.mountWithIntl(
-          <TestThemeProvider>
-            <FullCalendar onCalendarRemove={() => {}} {...baseProps} resources={mockResources} />
-          </TestThemeProvider>
-        )
-        expect(wrapper.first().html()).to.have.string('remove-resource-btn')
-      })
     })
   })
 })

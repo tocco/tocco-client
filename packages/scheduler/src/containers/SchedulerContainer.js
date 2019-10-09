@@ -5,6 +5,7 @@ import {hot} from 'react-hot-loader/root'
 import {
   onDateRangeChange,
   onCalendarRemove,
+  onCalendarRemoveAll,
   onEventClick,
   onRefresh
 } from '../modules/scheduler/actions'
@@ -13,6 +14,7 @@ import Scheduler from '../components/Scheduler'
 const mapActionCreators = {
   onDateRangeChange,
   onCalendarRemove,
+  onCalendarRemoveAll,
   onEventClick,
   onRefresh
 }

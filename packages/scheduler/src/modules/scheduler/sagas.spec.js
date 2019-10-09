@@ -15,6 +15,7 @@ describe('scheduler', () => {
             saga.next().all([
               fork(takeLatest, actions.ON_DATE_RANGE_CHANGE, sagas.onDateRangeChange),
               fork(takeLatest, actions.ON_CALENDAR_REMOVE, sagas.onCalendarRemove),
+              fork(takeLatest, actions.ON_CALENDARS_REMOVE_ALL, sagas.onCalendarRemoveAll),
               fork(takeLatest, actions.ON_EVENT_CLICK, sagas.onEventClick),
               fork(takeLatest, actions.ON_REFRESH, sagas.onRefresh),
               fork(takeLatest, actions.SET_CALENDARS, sagas.setCalendars)

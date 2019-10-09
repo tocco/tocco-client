@@ -1,6 +1,7 @@
 export const SET_CALENDARS = 'scheduler/SET_CALENDARS'
 export const ON_DATE_RANGE_CHANGE = 'scheduler/ON_DATE_RANGE_CHANGE'
 export const ON_CALENDAR_REMOVE = 'scheduler/ON_CALENDAR_REMOVE'
+export const ON_CALENDARS_REMOVE_ALL = 'scheduler/ON_CALENDARS_REMOVE_ALL'
 export const ON_EVENT_CLICK = 'scheduler/ON_EVENT_CLICK'
 export const ON_REFRESH = 'scheduler/ON_REFRESH'
 export const REMOVE_EVENTS = 'scheduler/REMOVE_EVENTS'
@@ -18,6 +19,10 @@ export const onDateRangeChange = dateRange => ({
   payload: {
     dateRange
   }
+})
+
+export const onCalendarRemoveAll = () => ({
+  type: ON_CALENDARS_REMOVE_ALL
 })
 
 export const onCalendarRemove = (id, calendarType) => ({

@@ -74,11 +74,11 @@ class FullCalendar extends React.Component {
       labelText: '',
       field: 'title',
       render: (resource, el) => {
-        const button = document.createElement('button')
-        button.innerHTML = '&#8722;'
-        button.className = 'remove-resource-btn'
-        button.onclick = () => this.props.onCalendarRemove(resource.entityKey, resource.calendarType)
-        el.prepend(button)
+        const checkbox = document.createElement('INPUT')
+        checkbox.type = 'checkbox'
+        checkbox.checked = 'checked'
+        checkbox.onclick = () => this.props.onCalendarRemove(resource.entityKey, resource.calendarType)
+        el.prepend(checkbox)
       }
     }
   ]
@@ -114,6 +114,22 @@ class FullCalendar extends React.Component {
     this.forceUpdate()
   }
 
+  addDeselectAllButton() {
+    const firstHeaderNode = document.querySelectorAll('.fc-widget-header')[0]
+    if (firstHeaderNode) {
+      const checkbox = document.createElement('INPUT')
+      checkbox.type = 'checkbox'
+      if (this.props.resources.length > 0) {
+        checkbox.checked = 'checked'
+      }
+      checkbox.className = 'remove-all-checkbox'
+      checkbox.onclick = this.props.onCalendarRemoveAll
+
+      firstHeaderNode.innerHTML = ''
+      firstHeaderNode.appendChild(checkbox)
+    }
+  }
+
   componentDidUpdate(prevProps) {
     if (!_isEqual(prevProps.resources, this.props.resources) || prevProps.locale !== this.props.locale) {
       this.calendarElement.fullCalendar('option', this.getFullCalendarOptions(this.props))
@@ -130,6 +146,8 @@ class FullCalendar extends React.Component {
       this.calendarElement.fullCalendar('refetchResources')
       this.forceUpdate()
     }
+
+    this.addDeselectAllButton()
   }
 
   changeView = (view = 'timelineDay') => {
@@ -168,6 +186,7 @@ FullCalendar.propTypes = {
   intl: intlShape.isRequired,
   onDateRangeChange: PropTypes.func,
   onCalendarRemove: PropTypes.func,
+  onCalendarRemoveAll: PropTypes.func,
   onRefresh: PropTypes.func,
   onEventClick: PropTypes.func,
   events: PropTypes.arrayOf(

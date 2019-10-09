@@ -31,12 +31,21 @@ const removeRequestedCalendar = (state, {payload}) => {
   }
 }
 
+const removeAllCalendars = state => {
+  return {
+    ...state,
+    requestedCalendars: {},
+    calendars: []
+  }
+}
+
 const ACTION_HANDLERS = {
   [actions.SET_CALENDAR_TYPES]: reducerUtil.singleTransferReducer('calendarTypes'),
   [actions.SET_CALENDARS]: reducerUtil.singleTransferReducer('calendars'),
   [actions.SET_DATE_RANGE]: reducerUtil.singleTransferReducer('dateRange'),
   [actions.UPDATE_REQUESTED_CALENDARS]: updateRequestedCalendars,
-  [actions.REMOVE_REQUESTED_CALENDAR]: removeRequestedCalendar
+  [actions.REMOVE_REQUESTED_CALENDAR]: removeRequestedCalendar,
+  [actions.REMOVE_ALL_CALENDARS]: removeAllCalendars
 }
 
 const initialState = {

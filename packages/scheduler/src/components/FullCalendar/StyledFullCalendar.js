@@ -13,23 +13,10 @@ const StyledFullCalendar = styled.div`
     h2{
       margin: 0;
     }
-
-    .remove-resource-btn{
-      margin: 0;
-      border: none;
-      outline: none;
-      background: #eee;
-      border-radius: 50%;
-      margin-right: 2px;
-      height: 20px;
-      width: 20px;
-      padding: 0;
-      vertical-align: 1px;
-
-      &:hover {
-        background-color: #e0e0e0;
-      }
-    }
+     .remove-all-checkbox{
+       margin-left: 7px;
+       margin-top: 4px;
+     }
 
     .fc-cell-content {
       ${declareFont({fontSize: scale.font(-1)})}
