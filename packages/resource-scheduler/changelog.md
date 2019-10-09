@@ -1,3 +1,9 @@
+0.2.18
+- Cache forms and models
+- Icon mapping list
+- Increase record limit to 25
+- Fix filter bug
+
 0.2.17
 - Add fullcalendar license
 
