@@ -1,3 +1,6 @@
+0.1.8
+- Search Form Prototype
+
 0.1.7
 - Settings Menu
 - Menu Shortcut fix
