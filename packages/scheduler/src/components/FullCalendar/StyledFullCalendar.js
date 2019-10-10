@@ -8,6 +8,8 @@ import {
 } from 'tocco-ui'
 
 const StyledFullCalendar = styled.div`
+  height: 100%;
+  
 && {
   .fc{
     h2{
@@ -15,12 +17,11 @@ const StyledFullCalendar = styled.div`
     }
 
     .remove-resource-btn{
-      margin: 0;
       border: none;
       outline: none;
       background: #eee;
       border-radius: 50%;
-      margin-right: 2px;
+      margin: 0 2px 0 0;
       height: 20px;
       width: 20px;
       padding: 0;

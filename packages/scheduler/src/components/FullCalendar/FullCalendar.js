@@ -43,7 +43,6 @@ class FullCalendar extends React.Component {
     defaultView: 'timelineDay',
     header: false,
     editable: false,
-    height: 'auto',
     resourceAreaWidth: '15%',
     timezone: 'local',
     eventClick: event => this.props.onEventClick(event),
