@@ -80,3 +80,5 @@ export {
   shadeColor,
   theme
 } from './utilStyles'
+
+export {default as DatePicker} from './DatePicker'
