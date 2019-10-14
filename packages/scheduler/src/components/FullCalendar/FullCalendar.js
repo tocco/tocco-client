@@ -165,6 +165,8 @@ class FullCalendar extends React.Component {
             chooseNext={() => this.calendarElement.fullCalendar('next')}
             choosePrev={() => this.calendarElement.fullCalendar('prev')}
             chooseToday={() => this.calendarElement.fullCalendar('today')}
+            goToDate={date => this.calendarElement.fullCalendar('gotoDate', date)}
+            date={this.calendarElement.fullCalendar('getDate').format('YYYY-MM-DD')}
             isLoading={this.props.isLoading}
             refresh={this.props.onRefresh}
             title={this.calendarElement.fullCalendar('getView').title}

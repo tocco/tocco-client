@@ -7,6 +7,7 @@ import {
 
 const StyledNavigationFullCalendar = styled.div`
   && {
+   margin-top: 4px;
     margin-bottom: ${scale.space(-2)};
 
     > ${StyledMenuButton} {
@@ -14,11 +15,6 @@ const StyledNavigationFullCalendar = styled.div`
 
       > ${StyledItem}:nth-child(3) {
         flex-grow: 1;
-
-        > h3 {
-          text-align: center;
-          width: 100%;
-        }
       }
     }
   }

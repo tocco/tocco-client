@@ -1,6 +1,6 @@
 import React from 'react'
 import {intlEnzyme, TestThemeProvider} from 'tocco-test-util'
-import {Button, Menu, Typography} from 'tocco-ui'
+import {Button, Menu} from 'tocco-ui'
 
 import FullCalendar from './FullCalendar'
 
@@ -18,8 +18,6 @@ describe('scheduler', () => {
         const menu = wrapper.find(Menu.Button)
         expect(menu).to.have.length(1)
         expect(menu.find(Button)).to.have.length(7)
-        expect(menu.find(Typography.H3)).to.have.length(1)
-        expect(wrapper.find('div')).to.have.length(4)
       })
 
       const mockEvents = [
