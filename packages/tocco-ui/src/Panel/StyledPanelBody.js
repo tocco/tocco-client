@@ -21,7 +21,7 @@ const declareScrollbar = isOpen => {
 const StyledPanelBody = styled.div`
   && {
     height: ${props => props.isOpen ? props.heightIfOpen : '0'};
-    padding: 0 ${props => props.isFramed ? '15px' : 0};
+    padding: 0 ${props => props.isFramed ? '10px' : 0};
 
     ${props => declareScrollbar(props.isOpen)}
 
@@ -31,7 +31,7 @@ const StyledPanelBody = styled.div`
       will-change: height, padding;
 
     > div {
-      padding: ${props => props.isFramed ? '20px' : 0} 0;
+      padding: ${props => props.isFramed ? '10px' : 0} 0;
     }
   }
 `
