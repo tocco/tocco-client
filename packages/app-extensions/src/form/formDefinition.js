@@ -43,7 +43,7 @@ export const getDefaultValues = fieldDefinitions =>
     }), {})
 
 const typePathsHandlers = {
-  location: fieldDefinition => Object.values(fieldDefinition.locationMapping)
+  location: fieldDefinition => Object.values(fieldDefinition.locationMapping).filter(v => v)
 }
 
 export const getUsedPaths = fieldDefinitions => _uniq(fieldDefinitions.reduce((accumulator, field) =>
