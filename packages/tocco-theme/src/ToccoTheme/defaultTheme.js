@@ -29,7 +29,7 @@ export default {
   },
   fontSize: {
     base: 1.4,
-    factor: 1.3
+    factor: 1.1
   },
   fontWeights: {
     regular: 400,
