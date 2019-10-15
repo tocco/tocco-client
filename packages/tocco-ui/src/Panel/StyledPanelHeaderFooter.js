@@ -51,8 +51,9 @@ const declareDivider = props => {
 const StyledPanelHeaderFooter = styled.div`
   && {
     display: flex;
-    padding: ${props => props.isFramed ? '15px' : 0};
-
+    padding: ${props => props.isFramed ? '4px 8px 4px 8px' : 0};
+    align-items: center;
+ 
     > div {
       flex: 1 1 auto;
     }

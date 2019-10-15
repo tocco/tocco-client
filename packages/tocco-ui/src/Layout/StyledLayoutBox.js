@@ -16,11 +16,11 @@ const declareStylesIfNestedCorrectly = props => {
     flex-grow: 1;
     flex-shrink: 0;
     flex-basis: ${setColumnWidth(props.containerWidth, props.maxCellsPerRow)};
-    padding: 0 15px 20px 15px;
+    padding: 0 10px 10px 10px;
     box-sizing: border-box;  // reset Tocco Framework
   ` : `
     &:not(:last-child) {
-      padding: 0 0 20px 0;
+      padding: 0 0 10px 0;
     }
   `
 }
