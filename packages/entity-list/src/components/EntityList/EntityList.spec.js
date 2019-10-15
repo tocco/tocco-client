@@ -2,7 +2,7 @@ import React from 'react'
 import {shallow} from 'enzyme'
 
 import EntityList from './EntityList'
-import SearchFormContainer from '../../containers/SearchFormContainer'
+import SearchViewContainer from '../../containers/SearchViewContainer'
 import searchFormTypes from '../../util/searchFormTypes'
 
 const EMPTY_FUNC = () => {}
@@ -12,7 +12,7 @@ describe('entity-list', () => {
     describe('EntityList', () => {
       test('should render ListView', () => {
         const wrapper = shallow(
-          <EntityList initialize={EMPTY_FUNC}/>
+          <EntityList initialize={EMPTY_FUNC} initializeSearchForm={EMPTY_FUNC}/>
         )
 
         expect(wrapper.find('List')).to.have.length(1)
@@ -27,9 +27,9 @@ describe('entity-list', () => {
             searchFormType={searchFormTypes.NONE}
           />
         )
-        expect(wrapper.find(SearchFormContainer)).to.have.length(0)
+        expect(wrapper.find(SearchViewContainer)).to.have.length(0)
         wrapper.setProps({searchFormType: searchFormTypes.BASIC})
-        expect(wrapper.find(SearchFormContainer)).to.have.length(1)
+        expect(wrapper.find(SearchViewContainer)).to.have.length(1)
       })
     })
   })

@@ -10,7 +10,7 @@ const mapActionCreators = {
   initializeSearchForm
 }
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = state => ({
   searchFormType: state.input.searchFormType,
   searchFormPosition: state.input.searchFormPosition,
   showSelectionController: state.selection.showSelectionController
