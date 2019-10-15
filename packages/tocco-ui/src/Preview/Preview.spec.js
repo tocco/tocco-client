@@ -54,7 +54,7 @@ describe('tocco-ui', () => {
       )
       expect(wrapper.find('img')).to.have.length(0)
       expect(wrapper.find(Icon)).to.have.length(1)
-      expect(wrapper.find(Icon).prop('icon')).to.deep.equal('far, file-alt')
+      expect(wrapper.find(Icon).prop('icon')).to.deep.equal('file-alt')
     })
 
     test('add figcaption only if caption in provided', () => {
