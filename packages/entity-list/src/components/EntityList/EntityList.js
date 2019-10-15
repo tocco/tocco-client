@@ -1,15 +1,22 @@
 import PropTypes from 'prop-types'
 import React, {useEffect} from 'react'
 
-import SearchFormContainer from '../../containers/SearchFormContainer'
+import SearchViewContainer from '../../containers/SearchViewContainer'
 import ListViewContainer from '../../containers/ListViewContainer'
 import SelectionControllerContainer from '../../containers/SelectionControllerContainer'
 import {TopPositioning, LeftPositioning, ListGrid, SearchGrid} from './StyledComponents'
 import searchFormTypes, {searchFormTypePropTypes} from '../../util/searchFormTypes'
 
-const EntityList = ({initialize, searchFormType, searchFormPosition, showSelectionController}) => {
+const EntityList = ({
+  initialize,
+  initializeSearchForm,
+  searchFormType,
+  searchFormPosition,
+  showSelectionController
+}) => {
   useEffect(() => {
     initialize()
+    initializeSearchForm(searchFormType !== searchFormTypes.NONE)
   }, [])
 
   const List = () => <React.Fragment>
@@ -26,7 +33,7 @@ const EntityList = ({initialize, searchFormType, searchFormPosition, showSelecti
   return (
     <PositioningContainer>
       <SearchGrid>
-        <SearchFormContainer/>
+        <SearchViewContainer/>
       </SearchGrid>
       <ListGrid>
         <List/>
@@ -37,6 +44,7 @@ const EntityList = ({initialize, searchFormType, searchFormPosition, showSelecti
 
 EntityList.propTypes = {
   initialize: PropTypes.func.isRequired,
+  initializeSearchForm: PropTypes.func.isRequired,
   searchFormType: searchFormTypePropTypes,
   showSelectionController: PropTypes.bool,
   searchFormPosition: PropTypes.oneOf(['top', 'left'])

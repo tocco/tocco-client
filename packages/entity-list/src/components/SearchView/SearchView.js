@@ -1,5 +1,4 @@
-import React, {useEffect} from 'react'
-import PropTypes from 'prop-types'
+import React from 'react'
 import {Panel} from 'tocco-ui'
 import styled from 'styled-components'
 
@@ -14,13 +13,9 @@ const AdminSearchFormWrapper = styled.div`
   overflow-x: hidden;
 `
 
-const SearchView = ({initializeSearchForm, searchFormType}) => {
-  useEffect(() => {
-    initializeSearchForm(true)
-  }, [])
-
+const SearchView = ({searchFormType}) => {
   if (searchFormType === searchFormTypes.ADMIN) {
-    return <AdminSearchFormWrapper> <AdminSearchForm/></AdminSearchFormWrapper>
+    return <AdminSearchFormWrapper><AdminSearchForm/></AdminSearchFormWrapper>
   }
 
   return (
@@ -33,7 +28,6 @@ const SearchView = ({initializeSearchForm, searchFormType}) => {
 }
 
 SearchView.propTypes = {
-  initializeSearchForm: PropTypes.func.isRequired,
   searchFormType: searchFormTypePropTypes
 }
 
