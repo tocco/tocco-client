@@ -14,10 +14,6 @@ const AdminSearchFormWrapper = styled.div`
   overflow-x: hidden;
 `
 
-const StyledWrapper = styled.div`
-  padding: 4px;
-`
-
 const SearchView = ({initializeSearchForm, searchFormType}) => {
   useEffect(() => {
     initializeSearchForm(true)
@@ -30,9 +26,7 @@ const SearchView = ({initializeSearchForm, searchFormType}) => {
   return (
     <Panel.Wrapper isToggleable={false} isFramed={false}>
       <Panel.Body>
-        <StyledWrapper>
-          {searchFormType === searchFormTypes.SIMPLE ? <FullTextSearchForm/> : <BasicSearchFormContainer/>}
-        </StyledWrapper>
+        {searchFormType === searchFormTypes.SIMPLE ? <FullTextSearchForm/> : <BasicSearchFormContainer/>}
       </Panel.Body>
     </Panel.Wrapper>
   )
