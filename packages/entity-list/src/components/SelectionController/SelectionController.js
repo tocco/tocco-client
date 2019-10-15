@@ -36,7 +36,7 @@ const SelectionController = props => {
         />
         <Button
           aria={{'aria-pressed': props.showSelectedRecords}}
-          icon="far, check-square"
+          icon="check-square"
           title={msg('client.entity-list.showSelectedItemsOnly')}
           onClick={props.toggleShowSelectedRecords}
         />
