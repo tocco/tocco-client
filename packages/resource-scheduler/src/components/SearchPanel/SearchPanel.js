@@ -9,14 +9,14 @@ import {
 } from 'tocco-ui'
 
 const PanelHeaderContent = ({color, label}) =>
-  <Typography.H5>
+  <Typography.Span >
     <Icon
       icon={color ? 'square' : ['far', 'square']}
       aria-hidden="true"
       style={{...(color ? {color} : {})}}
       position={design.position.PREPEND}
     />  {label}
-  </Typography.H5>
+  </Typography.Span>
 
 PanelHeaderContent.propTypes = {
   color: PropTypes.string.isRequired,
