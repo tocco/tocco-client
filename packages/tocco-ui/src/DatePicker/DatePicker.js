@@ -7,6 +7,8 @@ import {theme} from '../utilStyles'
 import {useDatePickr} from './useDatePickr'
 
 const WrapperStyle = styled.div`
+  cursor: pointer;
+  
   .flatpickr-calendar.open  {
     top: auto !important;
   }
