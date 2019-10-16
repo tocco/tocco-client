@@ -1,3 +1,7 @@
+0.2.0
+- Automatic login
+- Adjust padding and fontsize
+
 0.1.9
 - Add encodedWindowUrl to window url
 
