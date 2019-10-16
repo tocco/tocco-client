@@ -10,7 +10,7 @@ export function* loadMenu(id) {
     return cachedMenu
   }
 
-  const resp = yield call(rest.requestSaga, 'menus/' + id)
+  const resp = yield call(rest.requestSaga, 'client/menus/' + id)
   const menu = resp.body.menuItems
   cache.add('menu', id, menu)
   return menu
