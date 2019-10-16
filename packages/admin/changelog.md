@@ -1,3 +1,7 @@
+0.1.9
+- Menu endpoint url fix
+- Size and padding
+
 0.1.8
 - Search Form Prototype
 
