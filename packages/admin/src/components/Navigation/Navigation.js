@@ -33,6 +33,18 @@ EntityExplorerMenuEntry.propTypes = {
   onClick: PropTypes.func
 }
 
+const ActionMenuEntry = ({onClick, item}) => {
+  return <StyledMenuLink onClick={onClick} to={`/a/${item.name}`}>{item.label}</StyledMenuLink>
+}
+
+ActionMenuEntry.propTypes = {
+  item: PropTypes.shape({
+    name: PropTypes.string,
+    label: PropTypes.string
+  }),
+  onClick: PropTypes.func
+}
+
 const tabs = {
   MODULES: 'modules',
   SETTINGS: 'settings'
@@ -53,6 +65,13 @@ const Navigation = ({modulesMenuTree, settingsMenuTree, menuOpen, onClick, activ
         onClick
       },
       filterAttributes: ['label', 'entity']
+    },
+    'action': {
+      component: ActionMenuEntry,
+      props: {
+        onClick
+      },
+      filterAttributes: ['label']
     }
   }
 
