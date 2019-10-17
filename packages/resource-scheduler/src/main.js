@@ -2,11 +2,16 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {reducer as reducerUtil} from 'tocco-util'
 import {appFactory, externalEvents} from 'tocco-app-extensions'
+import {hot} from 'react-hot-loader/root'
 
 import reducers, {sagas} from './modules/reducers'
 import ResourceSchedulerContainer from './containers/ResourceSchedulerContainer'
 
 const packageName = 'resource-scheduler'
+
+const EXTERNAL_EVENTS = [
+  'onEventClick'
+]
 
 const initApp = (id, input, events, publicPath) => {
   const content = <ResourceSchedulerContainer/>
@@ -57,7 +62,15 @@ const initApp = (id, input, events, publicPath) => {
 export class ResourceSchedulerApp extends React.Component {
   constructor(props) {
     super(props)
-    this.app = initApp('id', props)
+
+    const events = EXTERNAL_EVENTS.reduce((events, event) => {
+      if (props[event]) {
+        events[event] = props[event]
+      }
+      return events
+    }, {})
+
+    this.app = initApp(props.id, props, events)
   }
 
   render() {
@@ -66,6 +79,9 @@ export class ResourceSchedulerApp extends React.Component {
 }
 
 ResourceSchedulerApp.propTypes = {
+  id: PropTypes.string,
   locale: PropTypes.string,
   onEventClick: PropTypes.func
 }
+
+export default hot(ResourceSchedulerApp)
