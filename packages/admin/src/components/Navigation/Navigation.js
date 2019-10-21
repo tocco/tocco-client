@@ -39,9 +39,9 @@ const ActionMenuEntry = ({onClick, item}) => {
 
 ActionMenuEntry.propTypes = {
   item: PropTypes.shape({
-    name: PropTypes.string,
-    label: PropTypes.string
-  }),
+    name: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired
+  }).isRequired,
   onClick: PropTypes.func
 }
 
