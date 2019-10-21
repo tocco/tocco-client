@@ -1,6 +1,6 @@
 import React from 'react'
 import {intlEnzyme, TestThemeProvider} from 'tocco-test-util'
-import {Button, Menu} from 'tocco-ui'
+import ReactFullCalendar from '@fullcalendar/react'
 
 import FullCalendar from './FullCalendar'
 
@@ -9,15 +9,13 @@ describe('scheduler', () => {
     describe('Fullcalendar', () => {
       const baseProps = {onRefresh: () => {}}
 
-      test('should render wrapping div with id and calendar div', () => {
+      test('should render calendar', () => {
         const wrapper = intlEnzyme.mountWithIntl(
           <TestThemeProvider>
             <FullCalendar {...baseProps}/>
           </TestThemeProvider>
         )
-        const menu = wrapper.find(Menu.Button)
-        expect(menu).to.have.length(1)
-        expect(menu.find(Button)).to.have.length(7)
+        expect(wrapper.find(ReactFullCalendar)).to.have.length(1)
       })
 
       const mockEvents = [
@@ -59,26 +57,6 @@ describe('scheduler', () => {
         )
         wrapper.setProps({events: mockEvents})
         // its not possible to check for updated events
-      })
-
-      const getMonth = locale => new Date().toLocaleString(locale, {month: 'long'})
-
-      test('should set locale de on fullcalendar', () => {
-        const wrapper = intlEnzyme.mountWithIntl(
-          <TestThemeProvider>
-            <FullCalendar {...baseProps} locale="de"/>
-          </TestThemeProvider>
-        )
-        expect(wrapper.html()).to.have.string(getMonth('de'))
-      })
-
-      test('should set locale fr on fullcalendar', () => {
-        const wrapper = intlEnzyme.mountWithIntl(
-          <TestThemeProvider>
-            <FullCalendar {...baseProps} locale="fr"/>
-          </TestThemeProvider>
-        )
-        expect(wrapper.html()).to.have.string(getMonth('fr'))
       })
     })
   })

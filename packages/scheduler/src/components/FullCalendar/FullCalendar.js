@@ -1,186 +1,147 @@
-import React from 'react'
-import ReactDOMServer from 'react-dom/server'
+import React, {useRef, useEffect} from 'react'
 import PropTypes from 'prop-types'
-import _isEqual from 'lodash/isEqual'
-import $ from 'jquery'
+import ReactDOMServer from 'react-dom/server'
+import ReactFullCalendar from '@fullcalendar/react'
+import resourceTimelinePlugin from '@fullcalendar/resource-timeline'
+import moment from 'moment'
 import 'twix'
-import 'fullcalendar'
-import 'fullcalendar-scheduler'
-import 'fullcalendar/dist/locale/fr.js'
-import 'fullcalendar/dist/locale/it.js'
-import 'fullcalendar/dist/locale/de.js'
-import '!style-loader!css-loader!fullcalendar/dist/fullcalendar.css'
-import '!style-loader!css-loader!fullcalendar-scheduler/dist/scheduler.css'
-import {injectIntl, intlShape} from 'react-intl'
-import {consoleLogger} from 'tocco-util'
+import '!style-loader!css-loader!@fullcalendar/core/main.css'
+import '!style-loader!css-loader!@fullcalendar/timeline/main.css'
+import '!style-loader!css-loader!@fullcalendar/resource-timeline/main.css'
 import {FormattedValue} from 'tocco-ui'
+import {consoleLogger} from 'tocco-util'
+import Tooltip from 'tooltip.js'
+import {injectIntl, intlShape} from 'react-intl'
 
-import Conflict from '../Conflict'
 import NavigationFullCalendar from '../NavigationFullCalendar'
 import StyledFullCalendar from './StyledFullCalendar'
-window.$ = window.jQuery = require('jquery')
-require('bootstrap/dist/js/bootstrap.min.js')
+import Conflict from '../Conflict'
 
-class FullCalendar extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      currentStartDate: null,
-      currentEndDate: null,
-      wrapperId: new Date().getTime()
-    }
-  }
+const getLicense = () => {
+  const licence = process.env.FULL_CALENDAR_LICENCE
+  if (licence) return licence
+  consoleLogger.logWarning('This Version runs with the NonCommercial FullCalendar license.')
+  return 'CC-Attribution-NonCommercial-NoDerivatives' // noncommercial license
+}
 
-  getLicense = () => {
-    const licence = process.env.FULL_CALENDAR_LICENCE
-    if (licence) return licence
-    consoleLogger.logWarning('This Version runs with the NonCommercial FullCalendar license.')
-    return 'CC-Attribution-NonCommercial-NoDerivatives' // noncommercial license
-  }
+const FullCalendar = ({
+  resources,
+  events,
+  onDateRangeChange,
+  isLoading,
+  onRefresh,
+  onCalendarRemove,
+  onCalendarRemoveAll,
+  locale,
+  intl
+}) => {
+  const calendarEl = useRef(null)
+  const wrapperEl = useRef(null)
 
-  fixOptions = {
-    schedulerLicenseKey: this.getLicense(),
-    defaultView: 'timelineDay',
-    header: false,
-    editable: false,
-    height: 'auto',
-    resourceAreaWidth: '15%',
-    timezone: 'local',
-    eventClick: event => this.props.onEventClick(event),
-    eventRender: (event, element) => {
-      const time = event.start.twix(event.end).format({monthFormat: 'MMMM', dayFormat: 'Do'})
-      const tooltipDescriptionContent = <div>
-        <FormattedValue type="html" value={event.description}/>
-        <p>{time}</p>
-        <p><Conflict conflictStatus={event.conflict} intl={this.props.intl}/></p>
-      </div>
+  useEffect(() => {
+    moment.locale(locale)
+    changeRange()
+  }, [])
 
-      const content = ReactDOMServer.renderToString(tooltipDescriptionContent)
+  useEffect(() => {
+    addDeselectAllButton()
+  })
 
-      window.jQuery(element).popover({
-        title: event.title,
-        animation: true,
-        placement: 'bottom',
-        trigger: 'hover',
-        html: true,
-        container: `.${this.state.wrapperId}`,
-        content: `${content}`
-      })
-    }
-  }
-
-  resourceColumsRemoveButton = [
-    {
-      labelText: '',
-      field: 'title',
-      render: (resource, el) => {
-        const checkbox = document.createElement('INPUT')
-        checkbox.type = 'checkbox'
-        checkbox.checked = 'checked'
-        checkbox.onclick = () => this.props.onCalendarRemove(resource.entityKey, resource.calendarType)
-        el.prepend(checkbox)
-      }
-    }
-  ]
-
-  changeRange = () => {
-    const view = this.calendarElement.fullCalendar('getView')
-
-    if (this.props.onDateRangeChange) {
-      const startMoment = view.start
-      const endMoment = view.end
-      if (!startMoment.isSame(this.state.currentStartDate) || !endMoment.isSame(this.state.currentEndDate)) {
-        this.props.onDateRangeChange({startDate: startMoment._d, endDate: endMoment._d})
-        this.setState({...this.state, currentStartDate: startMoment, currentEndDate: endMoment})
-      }
-    }
-  }
-
-  getFullCalendarOptions = props => {
-    const {locale, resources} = props
-
-    const dynamicOptions = {}
-    if (this.props.onCalendarRemove) {
-      dynamicOptions.resourceColumns = this.resourceColumsRemoveButton
-    }
-
-    return {...this.fixOptions, ...dynamicOptions, locale, resources}
-  }
-
-  componentDidMount() {
-    this.calendarElement = $(this.calendarElementRef)
-    this.calendarElement.fullCalendar(this.getFullCalendarOptions(this.props))
-    this.changeRange()
-    this.forceUpdate()
-  }
-
-  addDeselectAllButton() {
+  const addDeselectAllButton = () => {
     const firstHeaderNode = document.querySelectorAll('.fc-widget-header')[0]
     if (firstHeaderNode) {
       const checkbox = document.createElement('INPUT')
       checkbox.type = 'checkbox'
-      if (this.props.resources.length > 0) {
+      if (resources.length > 0) {
         checkbox.checked = 'checked'
       }
       checkbox.className = 'remove-all-checkbox'
-      checkbox.onclick = this.props.onCalendarRemoveAll
+      checkbox.onclick = onCalendarRemoveAll
 
       firstHeaderNode.innerHTML = ''
       firstHeaderNode.appendChild(checkbox)
     }
   }
 
-  componentDidUpdate(prevProps) {
-    if (!_isEqual(prevProps.resources, this.props.resources) || prevProps.locale !== this.props.locale) {
-      this.calendarElement.fullCalendar('option', this.getFullCalendarOptions(this.props))
-      this.forceUpdate()
+  const changeRange = () => {
+    const view = calendarEl.current.calendar.view
+    if (onDateRangeChange) {
+      onDateRangeChange({startDate: view.activeStart, endDate: view.activeEnd})
     }
-
-    if (!_isEqual(prevProps.events, this.props.events)) {
-      this.calendarElement.fullCalendar('removeEventSources')
-      this.calendarElement.fullCalendar('addEventSource', this.props.events)
-      this.forceUpdate()
-    }
-
-    if (!_isEqual(prevProps.resources, this.props.resources)) {
-      this.calendarElement.fullCalendar('refetchResources')
-      this.forceUpdate()
-    }
-
-    this.addDeselectAllButton()
   }
 
-  changeView = (view = 'timelineDay') => {
-    this.calendarElement.fullCalendar('changeView', view)
-    this.changeRange()
+  const changeView = (view = 'timelineDay') => {
+    calendarEl.current.calendar.changeView(view)
+    changeRange()
   }
 
-  render = () =>
-    <StyledFullCalendar>
-      <div className={this.state.wrapperId}>
-        { this.calendarElement
-          && <NavigationFullCalendar
-            changeRange={this.changeRange}
-            changeView={this.changeView}
-            chooseNext={() => this.calendarElement.fullCalendar('next')}
-            choosePrev={() => this.calendarElement.fullCalendar('prev')}
-            chooseToday={() => this.calendarElement.fullCalendar('today')}
-            goToDate={date => this.calendarElement.fullCalendar('gotoDate', date)}
-            date={this.calendarElement.fullCalendar('getDate').format('YYYY-MM-DD')}
-            isLoading={this.props.isLoading}
-            refresh={this.props.onRefresh}
-            title={this.calendarElement.fullCalendar('getView').title}
-            type={this.calendarElement.fullCalendar('getView').type}
-          />
-        }
-        <div ref={ref => { this.calendarElementRef = ref }}></div>
-      </div>
-    </StyledFullCalendar>
+  const resourceRender = renderInfo => {
+    const element = renderInfo.el.getElementsByClassName('fc-cell-content')[0]
+    const checkbox = document.createElement('INPUT')
+    checkbox.type = 'checkbox'
+    checkbox.checked = 'checked'
+    checkbox.onclick = () =>
+      onCalendarRemove(renderInfo.resource.extendedProps.entityKey, renderInfo.resource.extendedProps.calendarType)
+    element.prepend(checkbox)
+  }
+
+  const eventRender = ({event, el}) => {
+    const time = moment(event.start).twix(moment(event.end)).format({monthFormat: 'MMMM', dayFormat: 'Do'})
+    const tooltipDescriptionContent = <div>
+      <FormattedValue type="html" value={event.extendedProps.description}/>
+      <p>{time}</p>
+      <p><Conflict conflictStatus={event.extendedProps.conflict} intl={intl}/></p>
+    </div>
+
+    const content = ReactDOMServer.renderToString(tooltipDescriptionContent)
+
+    // eslint-disable-next-line no-new
+    new Tooltip(el, {
+      title: content,
+      placement: 'top',
+      trigger: 'hover',
+      container: wrapperEl.current,
+      html: true
+    })
+  }
+
+  return <StyledFullCalendar>
+    <div ref={wrapperEl}>
+      {calendarEl.current && <NavigationFullCalendar
+        changeRange={changeRange}
+        changeView={changeView}
+        chooseNext={() => calendarEl.current.calendar.next()}
+        choosePrev={() => calendarEl.current.calendar.prev()}
+        chooseToday={() => calendarEl.current.calendar.today()}
+
+        goToDate={date => calendarEl.current.calendar.gotoDate(date)}
+
+        date={calendarEl.current.calendar.getDate()}
+        isLoading={isLoading}
+        refresh={onRefresh}
+        title={calendarEl.current.calendar.view.title}
+        type={calendarEl.current.calendar.view.type}
+      />}
+      <ReactFullCalendar
+        locale={locale}
+        plugins={[resourceTimelinePlugin]}
+        ref={calendarEl}
+        schedulerLicenseKey={getLicense()}
+        defaultView={'resourceTimelineDay'}
+        header={false}
+        height="auto"
+        resourceAreaWidth="15%"
+        events={events}
+        resources={resources}
+        resourceColumns={[{labelText: ''}]}
+        resourceRender={resourceRender}
+        eventRender={eventRender}
+      />
+    </div>
+  </StyledFullCalendar>
 }
 
 FullCalendar.defaultProps = {
-  events: [],
-  resources: [],
   locale: 'en'
 }
 

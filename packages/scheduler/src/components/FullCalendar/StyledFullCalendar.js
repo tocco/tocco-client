@@ -3,7 +3,6 @@ import {
   colorizeBorder,
   declareFont,
   scale,
-  shadeColor,
   theme
 } from 'tocco-ui'
 
@@ -44,6 +43,10 @@ const StyledFullCalendar = styled.div`
       .fc-bg{
         opacity: 0;
       }
+      
+      .fc-time{
+          font-weight: ${theme.fontWeight('normal')};
+      }
     }
 
     .fc-timeline-event .fc-content{
@@ -51,77 +54,48 @@ const StyledFullCalendar = styled.div`
     }
   }
 
-
-  .popover {
-    ${declareFont()}
-    width: 300px;
-    position: absolute;
+  .tooltip {
+    display: flex;
+    flex-flow: column nowrap;
     z-index: 1060;
-    display: none;
-    padding: 1px;
-    background-color: ${theme.color('paper')};
-    background-clip: padding-box;
-    border: 1px solid ${props => colorizeBorder.shade2(props)};
-    border-radius: ${theme.radii('regular')};
-
-    &.bottom {
-      margin-top: 10px;
-    }
-
-    .popover-content {
-      padding: ${scale.space(-1)} ${scale.space(-1)} 0 ${scale.space(-1)};
-
-      > div > * {
-        ${declareFont()}
-        margin: 0 0 ${scale.space(-1)} 0;
+    width: 300px;
+    .tooltip-inner{
+      ${declareFont()}
+      background-color: ${theme.color('paper')};
+      border: 1px solid ${props => colorizeBorder.shade2(props)};
+      border-radius: ${theme.radii('regular')};
+      padding: 10px;
+      
+      b {
+        font-weight: ${theme.fontWeight('bold')};
+        font-size: ${scale.font(1)};
+        display: inline-block;
+        margin-bottom: 5px;
       }
     }
-
-    .popover-title {
-      font-weight: ${theme.fontWeight('bold')};
-      font-size: ${scale.font(1)};
-      margin: 0;
-      padding: ${scale.space(-2)} ${scale.space(-1)};
-      background-color: ${props => shadeColor(theme.color('paper')(props), 0.2)};
-      border-bottom: 1px solid ${props => colorizeBorder.shade2(props)};
-      border-radius: ${theme.radii('regular')} ${theme.radii('regular')} 0 0;
-    }
-
-    &.bottom > .arrow {
-      left: 50%;
-      margin-left: -11px;
-      border-top-width: 0;
-      border-bottom-color: ${props => colorizeBorder.shade2(props)};
-      top: -11px;
-    }
-
-    &.bottom > .arrow:after {
-      content: " ";
-      top: 1px;
-      margin-left: -10px;
-      border-top-width: 0;
-      border-bottom-color: ${props => colorizeBorder.shade2(props)};
-    }
-
-    .arrow {
-      border-width: 11px;
-    }
-
-    .arrow,
-    .arrow:after {
-      position: absolute;
-      display: block;
+    
+   .tooltip-arrow {
       width: 0;
       height: 0;
-      border-color: transparent;
-      border-style: solid;
+      margin-left: calc(50% - 5px);
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
     }
-
-    .arrow:after {
-      border-width: 10px;
-      content: "";
+     
+    &[x-placement^="bottom"] {
+      .tooltip-arrow {
+        border-bottom: 10px solid ${props => colorizeBorder.shade2(props)};
+      }
+    }
+    
+    &[x-placement^="top"] {
+      .tooltip-arrow {
+        order: 2;
+        border-top: 10px solid ${props => colorizeBorder.shade2(props)};
+      }
     }
   }
+ }
 }
 `
 export default StyledFullCalendar
