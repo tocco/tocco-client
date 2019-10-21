@@ -9,13 +9,15 @@
     "prepublish": "npm run compile:prod"
   },
   "devDependencies": {
-    "bootstrap": "^3.3.7",
-    "fullcalendar-scheduler": "^1.9.4",
+    "@fullcalendar/core": "^4.3.1",
+    "@fullcalendar/react": "^4.3.0",
+    "@fullcalendar/resource-timeline": "^4.3.0",
     "tocco-app-extensions": "0.1.8",
     "tocco-test-util": "0.1.3",
     "tocco-theme": ">0.0.0",
     "tocco-ui": "0.1.22",
     "tocco-util": "0.1.19",
+    "tooltip.js": "^1.3.3",
     "twix": "^1.2.1"
   }
 }

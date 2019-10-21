@@ -82,24 +82,24 @@ const NavigationFullCalendar = props => {
           >
             <Menu.Item>
               <Button
-                {...(getButtonInkProps('timelineDay', type))}
-                onClick={() => changeView('timelineDay')}
+                {...(getButtonInkProps('resourceTimelineDay', type))}
+                onClick={() => changeView('resourceTimelineDay')}
               >
                 <FormattedMessage id="client.scheduler.day"/>
               </Button>
             </Menu.Item>
             <Menu.Item>
               <Button
-                {...(getButtonInkProps('timelineWeek', type))}
-                onClick={() => changeView('timelineWeek')}
+                {...(getButtonInkProps('resourceTimelineWeek', type))}
+                onClick={() => changeView('resourceTimelineWeek')}
               >
                 <FormattedMessage id="client.scheduler.week"/>
               </Button>
             </Menu.Item>
             <Menu.Item>
               <Button
-                {...(getButtonInkProps('timelineMonth', type))}
-                onClick={() => changeView('timelineMonth')}
+                {...(getButtonInkProps('resourceTimelineMonth', type))}
+                onClick={() => changeView('resourceTimelineMonth')}
               >
                 <FormattedMessage id="client.scheduler.month"/>
               </Button>
@@ -121,7 +121,7 @@ const NavigationFullCalendar = props => {
 }
 
 NavigationFullCalendar.propTypes = {
-  date: PropTypes.string,
+  date: PropTypes.instanceOf(Date),
   changeRange: PropTypes.func.isRequired,
   changeView: PropTypes.func.isRequired,
   chooseNext: PropTypes.func.isRequired,
