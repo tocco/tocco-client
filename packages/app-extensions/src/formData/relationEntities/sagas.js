@@ -41,4 +41,4 @@ export const getQuery = options => (
   }
 )
 
-const selectEntitiesTransformer = json => (json.data.map(e => ({display: e.display, key: e.key})))
+const selectEntitiesTransformer = json => (json.data.map(e => ({display: e.display, key: e.key, model: e.model})))
