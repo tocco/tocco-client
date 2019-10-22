@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from 'react'
+import React, {useRef, useEffect, useMemo} from 'react'
 import PropTypes from 'prop-types'
 import ReactDOMServer from 'react-dom/server'
 import ReactFullCalendar from '@fullcalendar/react'
@@ -44,8 +44,35 @@ const FullCalendar = ({
   }, [])
 
   useEffect(() => {
-    addDeselectAllButton()
-  })
+    const calendar = calendarEl.current.calendar
+    calendar.batchRendering(() => {
+      const eventSources = calendar.getEventSources()
+      eventSources.forEach(eS => eS.remove())
+      calendar.addEventSource(events)
+    })
+  }, [JSON.stringify(events)])
+
+  useEffect(() => {
+    const calendar = calendarEl.current.calendar
+    calendar.batchRendering(() => {
+      const loadedResources = calendar.getResources()
+      loadedResources.forEach(l => {
+        const contains = resources.find(r => l.id === r.id)
+        if (!contains) {
+          l.remove()
+        }
+      })
+
+      resources.forEach(r => {
+        const contains = loadedResources.find(l => l.id === r.id)
+        if (!contains) {
+          calendar.addResource(r)
+        }
+      })
+
+      addDeselectAllButton()
+    })
+  }, [JSON.stringify(resources)])
 
   const addDeselectAllButton = () => {
     const firstHeaderNode = document.querySelectorAll('.fc-widget-header')[0]
@@ -105,6 +132,22 @@ const FullCalendar = ({
     })
   }
 
+  const FullCalendarMemorized = useMemo(() =>
+    <ReactFullCalendar
+      locale={locale}
+      plugins={[resourceTimelinePlugin]}
+      ref={calendarEl}
+      schedulerLicenseKey={getLicense()}
+      defaultView={'resourceTimelineDay'}
+      header={false}
+      height="auto"
+      resourceAreaWidth="15%"
+      resourceColumns={[{labelText: ''}]}
+      resourceRender={resourceRender}
+      eventRender={eventRender}
+    />
+  , [])
+
   return <StyledFullCalendar>
     <div ref={wrapperEl}>
       {calendarEl.current && <NavigationFullCalendar
@@ -122,21 +165,7 @@ const FullCalendar = ({
         title={calendarEl.current.calendar.view.title}
         type={calendarEl.current.calendar.view.type}
       />}
-      <ReactFullCalendar
-        locale={locale}
-        plugins={[resourceTimelinePlugin]}
-        ref={calendarEl}
-        schedulerLicenseKey={getLicense()}
-        defaultView={'resourceTimelineDay'}
-        header={false}
-        height="auto"
-        resourceAreaWidth="15%"
-        events={events}
-        resources={resources}
-        resourceColumns={[{labelText: ''}]}
-        resourceRender={resourceRender}
-        eventRender={eventRender}
-      />
+      {FullCalendarMemorized}
     </div>
   </StyledFullCalendar>
 }

@@ -7,7 +7,7 @@ import FullCalendar from './FullCalendar'
 describe('scheduler', () => {
   describe('components', () => {
     describe('Fullcalendar', () => {
-      const baseProps = {onRefresh: () => {}}
+      const baseProps = {onRefresh: () => {}, events: [], resources: []}
 
       test('should render calendar', () => {
         const wrapper = intlEnzyme.mountWithIntl(
