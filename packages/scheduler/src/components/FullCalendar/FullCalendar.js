@@ -128,7 +128,8 @@ const FullCalendar = ({
       placement: 'top',
       trigger: 'hover',
       container: wrapperEl.current,
-      html: true
+      html: true,
+      boundariesElement: 'body'
     })
   }
 
