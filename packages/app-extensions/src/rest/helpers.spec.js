@@ -238,6 +238,20 @@ describe('app-extensions', () => {
         })
       })
 
+      describe('fetchSearchFilters', () => {
+        const entity = 'User'
+        const resp = {body: {filters: [{uniqueId: 'activeUser'}]}}
+
+        test('should call request saga and return filters property ', () => {
+          return expectSaga(helpers.fetchSearchFilters, entity)
+            .provide([
+              [matchers.call.fn(requestSaga), resp]
+            ])
+            .returns(resp.body.filters)
+            .run()
+        })
+      })
+
       describe('fetchModel', () => {
         const entity = 'User'
         const resp = {body: {}}

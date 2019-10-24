@@ -128,6 +128,15 @@ export function* fetchForm(formName, allowNotFound = false) {
 }
 
 /**
+ * Helper to fetch filters of an entity
+ * @param entityName {String} Name of the  entity
+ */
+export function* fetchSearchFilters(entityName) {
+  const response = yield call(requestSaga, `client/searchfilters/${entityName}`)
+  return response.body.filters
+}
+
+/**
  * Helper to fetch models.
  * @param entityName {String} Name of the entity you like to fetch the model
  */
