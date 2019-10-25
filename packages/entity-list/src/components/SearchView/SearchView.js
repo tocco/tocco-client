@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 import FullTextSearchForm from '../../containers/FullTextSearchFormContainer'
 import BasicSearchFormContainer from '../../containers/BasicSearchFormContainer'
-import AdminSearchForm from '../AdminSearchForm/AdminSearchForm'
+import AdminSearchForm from '../AdminSearchForm'
 import searchFormTypes, {searchFormTypePropTypes} from '../../util/searchFormTypes'
 
 const AdminSearchFormWrapper = styled.div`

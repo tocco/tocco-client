@@ -16,7 +16,7 @@ const EntityList = ({
 }) => {
   useEffect(() => {
     initialize()
-    initializeSearchForm(searchFormType !== searchFormTypes.NONE)
+    initializeSearchForm()
   }, [])
 
   const List = () => <React.Fragment>

@@ -4,7 +4,7 @@ import {shallow} from 'enzyme'
 import SearchView from './SearchView'
 import FullTextSearchForm from '../../containers/FullTextSearchFormContainer'
 import BasicSearchFormContainer from '../../containers/BasicSearchFormContainer'
-import AdminSearchForm from '../AdminSearchForm/AdminSearchForm'
+import AdminSearchForm from '../AdminSearchForm'
 import searchFormTypes from '../../util/searchFormTypes'
 
 const EMPTY_FUNC = () => {}

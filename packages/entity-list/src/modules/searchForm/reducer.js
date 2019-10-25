@@ -19,6 +19,13 @@ const setSimpleSearchFields = (state, {payload}) => {
   return state
 }
 
+const setSearchFilterActive = (state, {payload: {searchFilterId, active}}) => ({
+  ...state,
+  searchFilters: [...state.searchFilters.map(searchFilter =>
+    ({...searchFilter, ...(searchFilterId === searchFilter.uniqueId && {active})})
+  )]
+})
+
 const ACTION_HANDLERS = {
   [actions.SET_INITIALIZED]: reducerUtil.singleTransferReducer('initialized'),
   [actions.SET_SEARCH_FORM_NAME]: reducerUtil.singleTransferReducer('searchFormName'),
@@ -27,7 +34,9 @@ const ACTION_HANDLERS = {
   [actions.SET_SHOW_EXTENDED_SEARCH_FORM]: reducerUtil.singleTransferReducer('showExtendedSearchForm'),
   [actions.SET_DISABLE_SIMPLE_SEARCH]: reducerUtil.singleTransferReducer('disableSimpleSearch'),
   [actions.SET_VALUES_INITIALIZED]: reducerUtil.singleTransferReducer('valuesInitialized'),
-  [actions.SET_FORM_FIELDS_FLAT]: reducerUtil.singleTransferReducer('formFieldsFlat')
+  [actions.SET_FORM_FIELDS_FLAT]: reducerUtil.singleTransferReducer('formFieldsFlat'),
+  [actions.SET_SEARCH_FILTERS]: reducerUtil.singleTransferReducer('searchFilters'),
+  [actions.SET_SEARCH_FILTER_ACTIVE]: setSearchFilterActive
 }
 
 const initialState = {
@@ -37,7 +46,8 @@ const initialState = {
   showExtendedSearchForm: false,
   simpleSearchFields: ['txtFulltext'],
   disableSimpleSearch: false,
-  valuesInitialized: false
+  valuesInitialized: false,
+  searchFilters: null
 }
 
 export default function reducer(state = initialState, action) {

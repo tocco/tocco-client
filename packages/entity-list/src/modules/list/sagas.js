@@ -90,11 +90,12 @@ export function* getBasicQuery() {
     }
   }
 
-  const {formFieldsFlat} = yield select(searchFormSelector)
+  const {formFieldsFlat, searchFilters: searchFormSearchFilter} = yield select(searchFormSelector)
   const searchFormValues = yield call(getSearchFormValues)
-  const searchFormFetchOptions = yield call(getFetchOptionsFromSearchForm, searchFormValues, formFieldsFlat)
 
-  const filter = yield call(getSearchFilter, inputSearchFilters, searchFormFetchOptions.filters)
+  const searchFormFetchOptions = yield call(getFetchOptionsFromSearchForm, searchFormValues, formFieldsFlat)
+  const filter = yield call(getSearchFilter, inputSearchFilters, searchFormFetchOptions.filters, searchFormSearchFilter)
+
   return {
     ..._omit(searchFormFetchOptions, 'filters'),
     ...(filter && filter.length > 0 ? {filter} : {}),
@@ -137,8 +138,11 @@ export function* setSorting() {
   }
 }
 
-export function* getSearchFilter(inputSearchFilters, searchInputsFilters) {
-  return yield call(_union, inputSearchFilters, searchInputsFilters)
+export function* getSearchFilter(inputSearchFilters, searchInputsFilters, adminSearchFormFilters = []) {
+  const activeSearchFormFilters = adminSearchFormFilters && adminSearchFormFilters
+    .filter(f => f.active).map(f => f.uniqueId)
+
+  return yield call(_union, inputSearchFilters, searchInputsFilters, activeSearchFormFilters)
 }
 
 export function* fetchEntitiesAndAddToStore(page) {
