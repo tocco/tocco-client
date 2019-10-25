@@ -1,22 +1,35 @@
-import React from 'react'
-import {Panel, Typography} from 'tocco-ui'
+import React, {useState, useRef, useEffect} from 'react'
+import {Button} from 'tocco-ui'
 
+import {AdminSearchGrid, SearchFiterBox, SearchFormBox} from './StyedComponents'
 import BasicSearchFormContainer from '../../containers/BasicSearchFormContainer'
+import SearchFilterList from '../SearchFilterList'
 
 const AdminSearchForm = () => {
-  return <div>
-    <Panel.Wrapper isToggleable={false} isFramed={false}><Panel.Body>
-      <div style={{padding: '10px'}}>
-        <Typography.Span>Search Filters coming soon...</Typography.Span>
-      </div>
-    </Panel.Body></Panel.Wrapper>
-    <br/>
-    <Panel.Wrapper isToggleable={false} isFramed={false}><Panel.Body>
-      <div style={{padding: '4px'}}>
-        <BasicSearchFormContainer disableSimpleSearch={true}/>
-      </div>
-    </Panel.Body></Panel.Wrapper>
-  </div>
+  const wrapperEl = useRef(null)
+  const [searchFilterExpanded, setSearchFilterExpanded] = useState(false)
+  const [searchFilterHasScroll, setSearchFilterHasScroll] = useState(false)
+
+  useEffect(() => {
+    setTimeout(() => {
+      setSearchFilterHasScroll(wrapperEl.current.scrollHeight > wrapperEl.current.clientHeight)
+    })
+  })
+
+  return <AdminSearchGrid searchFilterExpanded={searchFilterExpanded}>
+    <SearchFiterBox ref={wrapperEl}>
+      <SearchFilterList/>
+      {(searchFilterHasScroll || searchFilterExpanded)
+      && <Button
+        style={{position: 'sticky', left: 'calc(50% - 12px)'}}
+        icon={searchFilterExpanded ? 'arrow-up' : 'arrow-down'}
+        onClick={() => setSearchFilterExpanded(!searchFilterExpanded)}
+      />}
+    </SearchFiterBox>
+    <SearchFormBox>
+      <BasicSearchFormContainer disableSimpleSearch={true}/>
+    </SearchFormBox>
+  </AdminSearchGrid>
 }
 
 export default AdminSearchForm

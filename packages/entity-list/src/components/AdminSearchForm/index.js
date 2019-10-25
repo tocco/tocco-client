@@ -1,3 +1,3 @@
-import BasicSearchForm from './SearchForm'
+import AdminSearchFormContainer from './AdminSearchFormContainer'
 
-export default BasicSearchForm
+export default AdminSearchFormContainer

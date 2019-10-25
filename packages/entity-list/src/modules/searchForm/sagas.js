@@ -31,8 +31,15 @@ export default function* sagas() {
   ])
 }
 
-export function* initialize({payload: {searchFormVisible}}) {
+export function* initialize() {
   const {searchFormName, initialized} = yield select(searchFormSelector)
+  const {searchFormType, entityName} = yield select(entityListSelector)
+  const searchFormVisible = searchFormType !== searchFormTypes.NONE
+
+  if (searchFormType === searchFormTypes.ADMIN) {
+    yield call(loadSearchFilter, entityName)
+  }
+
   if (!initialized) {
     const formDefinition = searchFormVisible ? yield call(loadSearchForm, searchFormName) : null
     yield call(setInitialFormValues, searchFormVisible, formDefinition)
@@ -100,6 +107,14 @@ export function* submitSearchFrom() {
   if (Object.keys(errors).length === 0) {
     yield put(actions.executeSearch())
   }
+}
+
+export function* loadSearchFilter(entityName) {
+  const searchFilters = yield call(rest.fetchSearchFilters, entityName)
+
+  yield put(actions.setSearchFilters(searchFilters.map(searchFilter =>
+    ({...searchFilter, ...(searchFilter.defaultFilter && {active: true})}))
+  ))
 }
 
 export function* loadSearchForm(searchFormName) {

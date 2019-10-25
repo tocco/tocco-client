@@ -35,12 +35,16 @@ describe('entity-list', () => {
           test('should load form, initialvalues and set initialized status', () => {
             const formDefinition = []
             const searchFormName = 'SearchForm'
+            const entityName = 'User'
+            const searchFormType = 'admin'
             const initialized = false
             const showSearchForm = true
             const gen = sagas.initialize(actions.initialize(showSearchForm))
 
             expect(gen.next().value).to.eql(select(sagas.searchFormSelector))
-            expect(gen.next({searchFormName, initialized}).value).to.eql(call(sagas.loadSearchForm, searchFormName))
+            expect(gen.next({searchFormName, initialized}).value).to.eql(select(sagas.entityListSelector))
+            expect(gen.next({entityName, searchFormType}).value).to.eql(call(sagas.loadSearchFilter, entityName))
+            expect(gen.next().value).to.eql(call(sagas.loadSearchForm, searchFormName))
             expect(gen.next(
               formDefinition).value).to.eql(call(sagas.setInitialFormValues, showSearchForm, formDefinition)
             )
@@ -227,6 +231,27 @@ describe('entity-list', () => {
               ])
               .dispatch(setFormDefinition(formDefinition))
               .returns(formDefinition)
+              .run()
+          })
+        })
+
+        describe('loadSearchFilter saga', () => {
+          test('should call helper and set defaultFilters as active', () => {
+            const searchFilters = [
+              {uniqueId: 'active', label: 'Active', defaultFilter: 'true'},
+              {uniqueId: 'inactive', label: 'Inactive'}
+            ]
+
+            const expectedDispatch = [
+              {uniqueId: 'active', label: 'Active', defaultFilter: 'true', active: true},
+              {uniqueId: 'inactive', label: 'Inactive'}
+            ]
+
+            return expectSaga(sagas.loadSearchFilter, 'User')
+              .provide([
+                [matchers.call.fn(rest.fetchSearchFilters), searchFilters]
+              ])
+              .dispatch(actions.setSearchFilters(expectedDispatch))
               .run()
           })
         })
