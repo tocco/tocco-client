@@ -93,10 +93,11 @@ export const setSearchFilters = searchFilters => ({
   }
 })
 
-export const setSearchFilterActive = (searchFilterId, active) => ({
+export const setSearchFilterActive = (searchFilterId, active, exclusive) => ({
   type: SET_SEARCH_FILTER_ACTIVE,
   payload: {
     searchFilterId,
-    active
+    active,
+    exclusive
   }
 })

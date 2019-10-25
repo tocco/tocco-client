@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Typography} from 'tocco-ui'
+import {Typography, Button} from 'tocco-ui'
 import styled from 'styled-components'
 
 export const StyledSearchFilterButton = styled.div`
@@ -18,8 +18,16 @@ export const StyledSearchFilterButton = styled.div`
 `
 
 const SearchFilterButton = ({setActive, active, label}) =>
-  <StyledSearchFilterButton active={active} onClick={setActive}>
-    <Typography.Span>{label}</Typography.Span>
+  <StyledSearchFilterButton active={active} onClick={() => setActive(true)}>
+    <Typography.Span>{label}
+      <Button
+        onClick={e => {
+          setActive(false)
+          e.stopPropagation()
+        }}
+        icon="plus"
+        dense />
+    </Typography.Span>
   </StyledSearchFilterButton>
 
 SearchFilterButton.propTypes = {
@@ -37,14 +45,19 @@ const AdminSearchForm = ({searchFilters, setSearchFilterActive, executeSearch}) 
 
   return <div>
     {searchFilters
-      .sort((a, b) => a.sorting < b.sorting)
+      .sort((a, b) => {
+        if (a.defaultFilter) {
+          return -1
+        }
+        return a.sorting > b.sorting
+      })
       .map(searchFilter =>
         <SearchFilterButton
           key={searchFilter.uniqueId}
           active={searchFilter.active}
           label={searchFilter.label}
-          setActive={() => {
-            setSearchFilterActive(searchFilter.uniqueId, !searchFilter.active)
+          setActive={exclusive => {
+            setSearchFilterActive(searchFilter.uniqueId, !searchFilter.active, exclusive)
             executeSearch()
           }}
         />
