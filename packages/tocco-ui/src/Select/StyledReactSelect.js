@@ -47,7 +47,8 @@ const reactSelectStyles = outerTheme => {
       backgroundColor: paper[0],
       borderWidth: 0,
       boxShadow: null,
-      minHeight: 0
+      minHeight: 0,
+      flexWrap: 'nowrap'
     }),
     noOptionsMessage: (base, state) => ({
       ...base,
@@ -77,6 +78,7 @@ const reactSelectStyles = outerTheme => {
     }),
     indicatorsContainer: (base, state) => ({
       ...base,
+      'alignSelf': 'flex-end',
       '> span': {
         marginRight: `${space2}`
       },
@@ -97,18 +99,15 @@ const reactSelectStyles = outerTheme => {
     }),
     multiValue: (base, state) => ({
       ...base,
-      'borderRadius': outerTheme.radii.regular,
-      'margin': `${space2} ${space2} 0 0`,
-      ':first-child': {
-        marginLeft: `-${space2}`
-      }
+      borderRadius: outerTheme.radii.regular,
+      margin: `${space2} ${space2} 0 0`
     }),
     multiValueLabel: (base, state) => ({
       ...base,
       borderRadius: outerTheme.radii.regular,
       color: state.isDisabled ? textDisabled : text[0],
-      fontSize: 'inherit'
-
+      fontSize: 'inherit',
+      whiteSpace: 'wrap'
     }),
     multiValueRemove: (base, state) => ({
       ...base,
