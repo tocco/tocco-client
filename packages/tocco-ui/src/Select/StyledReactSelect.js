@@ -91,6 +91,8 @@ const reactSelectStyles = outerTheme => {
     }),
     input: (base, state) => ({
       margin: `0 ${space2} 0 0`,
+      display: 'flex',
+      alignItems: 'flex-end',
       minHeight: '2.6rem'
     }),
     menuList: (base, state) => ({
