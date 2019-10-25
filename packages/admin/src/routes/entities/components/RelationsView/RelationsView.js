@@ -78,8 +78,10 @@ const RelationsView = ({history, match, currentViewInfo, relations, relationsCou
           }}
           showLink={true}
           linkFactory={{
-            detail: (entity, relation2, key, children) =>
-              <StyledLink to={selectedRelation.relationName + '/' + key}>{children}</StyledLink>
+            detail: (entity, relation, key, children) =>
+              entity
+                ? <StyledLink to={`/e/${entity}/${key}`} target="_bank">{children}</StyledLink>
+                : <StyledLink to={selectedRelation.relationName + '/' + key}>{children}</StyledLink>
           }}
           onRowClick={({id}) => {
             const entityBaseUrl = match.url.replace(/detail$/, '')
@@ -90,6 +92,7 @@ const RelationsView = ({history, match, currentViewInfo, relations, relationsCou
             history.push(entityBaseUrl + '/' + selectedRelation.relationName + '/create')
           }}
           searchFormType="simple"
+          selectionStyle="none"
         />
       </StyledPreviewBox>
       }
