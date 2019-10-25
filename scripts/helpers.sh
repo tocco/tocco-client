@@ -33,7 +33,7 @@ function setGitVars() {
   last_version=$(echo ${last_release_tag} | awk -F '@' '{print $2}')
 
   greps=$(getDevDependenciesGreps)
-  changelog=$(git log --pretty='%b' "${last_release_tag}"..HEAD --grep="${package}" ${greps} --reverse | grep -E '^Changelog:' | awk '{gsub("Changelog:", "- ", $0); print}')
+  changelog=$(git log --pretty='%b' "${last_release_tag}"..HEAD --grep="${package}" ${greps} --reverse | grep -E '^Changelog:' | awk '{gsub("Changelog:", "-", $0); print}')
 }
 
 function checkPackage() {
