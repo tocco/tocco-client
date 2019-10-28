@@ -1,5 +1,6 @@
 import React from 'react'
-import {appFactory} from 'tocco-util'
+import {reducer as reducerUtil} from 'tocco-util'
+import {appFactory} from 'tocco-app-extensions'
 
 import reducers, {sagas} from './modules/reducers'
 
@@ -26,7 +27,6 @@ const initApp = (id, input, events, publicPath) => {
 
 (() => {
   if (__DEV__) {
-    require('tocco-theme/src/ToccoTheme/theme.scss')
     const input = require('./dev/input.json')
 
     if (!__NO_MOCK__) {
