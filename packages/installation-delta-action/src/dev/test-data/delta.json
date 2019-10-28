@@ -1,0 +1,55 @@
+{
+  "instanceRevision": "db93f4f089f42e2ef0356fd4601952bf3e11ed20",
+  "deltaRevision": "47638aa1e13d4f1b918668f92ef56bdcf31176d8",
+  "olderRevision": "db93f4f089f42e2ef0356fd4601952bf3e11ed20",
+  "newerRevision": "47638aa1e13d4f1b918668f92ef56bdcf31176d8",
+  "commits": [
+    {
+      "commit": {
+        "commitId": "abcdef0123456789",
+        "author": null,
+        "commitTimestamp": null,
+        "commitMessage": "Test 123",
+        "changedFiles": null,
+        "jiraIssueKeys": [
+          "TEST-123",
+          "TEST-124"
+        ]
+      },
+      "issues": [
+        {
+          "key": "TEST-123",
+          "summary": "Test 123",
+          "status": "closed",
+          "projectType": null
+        },
+        {
+          "key": "TEST-124",
+          "summary": "Test 124",
+          "status": "ready for development",
+          "projectType": null
+        }
+      ]
+    },
+    {
+      "commit": {
+        "commitId": "fedcba9876543210",
+        "author": null,
+        "commitTimestamp": null,
+        "commitMessage": "Test 321",
+        "changedFiles": null,
+        "jiraIssueKeys": [
+          "TEST-125"
+        ]
+      },
+      "issues": [
+        {
+          "key": "TEST-125",
+          "summary": "Test 125 ",
+          "status": "ready for testing",
+          "projectType": null
+        }
+      ]
+    }
+  ]
+}
