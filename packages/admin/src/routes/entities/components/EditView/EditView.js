@@ -46,7 +46,7 @@ const EditView = props => {
         onTouchedChange = {handleToucheChanged}
         linkFactory={{
           detail: (entity, relation, key, children) =>
-            <StyledLink to={`/e/${entity}/${key}`} target="_bank">{children}</StyledLink>
+            <StyledLink to={`/e/${entity}/${key}`} target="_blank">{children}</StyledLink>
         }}
         onNavigateToCreate={handleNavigateToCreate}
       />

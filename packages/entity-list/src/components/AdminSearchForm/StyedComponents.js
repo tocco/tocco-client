@@ -2,16 +2,16 @@ import styled, {css} from 'styled-components'
 import {scrollbarStyle, theme} from 'tocco-ui'
 
 const BoxStyle = css`
-background-color: white;
-overflow-y: auto;
-padding: 4px;
-border: 1px solid grey;
-border-radius: ${theme.radii('regular')}
-${scrollbarStyle}
+  background-color: white;
+  overflow-y: auto;
+  padding: 4px;
+  border: 1px solid grey;
+  border-radius: ${theme.radii('regular')}
+  ${scrollbarStyle}
 `
 
 export const AdminSearchGrid = styled.div`
-  padding-left:8px;
+  padding-left: 8px;
   display: grid;
   grid-row-gap: 10px;
   height: 100%;

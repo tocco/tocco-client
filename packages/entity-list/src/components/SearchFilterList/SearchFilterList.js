@@ -32,7 +32,7 @@ const SearchFilterButton = ({setActive, active, label}) =>
 
 SearchFilterButton.propTypes = {
   label: PropTypes.string,
-  setActive: PropTypes.func,
+  setActive: PropTypes.func.isRequired,
   active: PropTypes.bool
 }
 
@@ -67,8 +67,8 @@ const AdminSearchForm = ({searchFilters, setSearchFilterActive, executeSearch}) 
 
 AdminSearchForm.propTypes = {
   searchFilters: PropTypes.arrayOf(PropTypes.object),
-  setSearchFilterActive: PropTypes.func,
-  executeSearch: PropTypes.func
+  setSearchFilterActive: PropTypes.func.isRequired,
+  executeSearch: PropTypes.func.isRequired
 }
 
 export default AdminSearchForm
