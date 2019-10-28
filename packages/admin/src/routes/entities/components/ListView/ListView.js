@@ -41,7 +41,7 @@ const ListView = ({match, history, currentViewInfo, emitAction}) => {
       linkFactory={{
         detail: (entity, relation, key, children) =>
           entity
-            ? <StyledLink to={`/e/${entity}/${key}`} target="_bank">{children}</StyledLink>
+            ? <StyledLink to={`/e/${entity}/${key}`} target="_blank">{children}</StyledLink>
             : <StyledLink to={key}>{children}</StyledLink>
       }}
       onNavigateToCreate={handleNavigateToCreate}
