@@ -1,3 +1,6 @@
+0.2.1
+- Restrict global icon dom watch
+
 0.2.0
 - Automatic login
 - Adjust padding and fontsize
