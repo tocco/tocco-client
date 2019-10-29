@@ -33,10 +33,6 @@ export const createApp = (name,
 
     const initIntlPromise = setupIntl(input, store, name, textResourceModules)
 
-    import(/* webpackChunkName: "fontawesome" */ '@fortawesome/fontawesome-svg-core').then(fontawesome => {
-      fontawesome.dom.watch()
-    })
-
     return {
       component: <App store={store} initIntlPromise={initIntlPromise} name={name} content={content} theme={theme} />,
       store,
