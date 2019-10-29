@@ -1,3 +1,10 @@
+0.2.19
+- Add deselect all button
+- Add date picker
+- Adjust padding and fontsize
+- Update fullcalendar
+- Restrict global icon dom watch
+
 0.2.18
 - Cache forms and models
 - Icon mapping list
