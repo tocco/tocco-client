@@ -23,6 +23,7 @@ const StyledFullCalendar = styled.div`
 
     .fc-event{
       ${declareFont()}
+      cursor: pointer;
       border: none;
       border-radius: 2px;
       background-color: #1287de;
@@ -54,12 +55,12 @@ const StyledFullCalendar = styled.div`
     }
   }
 
-  .tooltip {
+  .na-tooltip {
     display: flex;
     flex-flow: column nowrap;
     z-index: 1060;
     width: 300px;
-    .tooltip-inner{
+    .na-tooltip-inner{
       ${declareFont()}
       background-color: ${theme.color('paper')};
       border: 1px solid ${props => colorizeBorder.shade2(props)};
@@ -74,7 +75,7 @@ const StyledFullCalendar = styled.div`
       }
     }
     
-   .tooltip-arrow {
+   .na-tooltip-arrow {
       width: 0;
       height: 0;
       margin-left: calc(50% - 5px);
@@ -83,13 +84,13 @@ const StyledFullCalendar = styled.div`
     }
      
     &[x-placement^="bottom"] {
-      .tooltip-arrow {
+      .na-tooltip-arrow {
         border-bottom: 10px solid ${props => colorizeBorder.shade2(props)};
       }
     }
     
     &[x-placement^="top"] {
-      .tooltip-arrow {
+      .na-tooltip-arrow {
         order: 2;
         border-top: 10px solid ${props => colorizeBorder.shade2(props)};
       }
