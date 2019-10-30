@@ -92,6 +92,7 @@ const declareBall = () => css`
 
 const StyledButton = styled.button`
   && {
+    box-sizing: border-box; //nice2 reset
     align-items: center;
     background-image: none;
     border-radius: ${theme.radii('regular')};
