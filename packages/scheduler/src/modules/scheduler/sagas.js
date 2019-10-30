@@ -32,7 +32,7 @@ export function* onCalendarRemoveAll() {
 }
 
 export function* onEventClick({payload}) {
-  const {event: {entity}} = payload
+  const {event: {extendedProps: {entity}}} = payload
   if (entity) {
     yield put(externalEvents.fireExternalEvent('onEventClick', entity))
   }

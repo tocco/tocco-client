@@ -33,6 +33,7 @@ const FullCalendar = ({
   onCalendarRemove,
   onCalendarRemoveAll,
   locale,
+  onEventClick,
   intl
 }) => {
   const calendarEl = useRef(null)
@@ -125,11 +126,16 @@ const FullCalendar = ({
     // eslint-disable-next-line no-new
     new Tooltip(el, {
       title: content,
-      placement: 'top',
+      placement: 'bottom',
       trigger: 'hover',
       container: wrapperEl.current,
       html: true,
-      boundariesElement: 'body'
+      boundariesElement: 'body',
+      innerSelector: '.na-tooltip-inner',
+      arrowSelector: '.na-tooltip-arrow',
+      template: `<div class="na-tooltip" role="tooltip"><div class="na-tooltip-arrow">
+                    </div><div class="na-tooltip-inner"></div></div>
+                   `
     })
   }
 
@@ -146,6 +152,8 @@ const FullCalendar = ({
       resourceColumns={[{labelText: ''}]}
       resourceRender={resourceRender}
       eventRender={eventRender}
+      eventClick={info => { onEventClick(info.event) }
+      }
     />
   , [])
 
