@@ -1,3 +1,6 @@
+0.2.21
+- Improve responsiveness of select field in scheduler
+
 0.2.20
 - Fix tooltip styling collision with nice
 - Fix event click handler
