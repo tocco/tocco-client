@@ -24,6 +24,8 @@ const getLicense = () => {
   return 'CC-Attribution-NonCommercial-NoDerivatives' // noncommercial license
 }
 
+const MONDAY = 1
+
 const FullCalendar = ({
   resources,
   events,
@@ -152,8 +154,8 @@ const FullCalendar = ({
       resourceColumns={[{labelText: ''}]}
       resourceRender={resourceRender}
       eventRender={eventRender}
-      eventClick={info => { onEventClick(info.event) }
-      }
+      eventClick={info => { onEventClick(info.event) }}
+      firstDay={MONDAY}
     />
   , [])
 
