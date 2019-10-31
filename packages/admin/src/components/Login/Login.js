@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ToccoLogin from 'tocco-login/src/main'
+import SsoLogin from 'tocco-sso-login/src/main'
 import styled from 'styled-components'
 
 const StyledLogin = styled.div`
@@ -18,6 +19,9 @@ const Login = props => {
       <ToccoLogin
         loginSuccess={loginSuccess}
         showTitle
+      />
+      <SsoLogin
+        ssoLoginEndpoint="/sso"
       />
     </StyledLogin>
   )
