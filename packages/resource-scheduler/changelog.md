@@ -1,3 +1,8 @@
+0.2.20
+- Fix tooltip styling collision with nice
+- Fix event click handler
+- Adjust button styling
+
 0.2.19
 - Add deselect all button
 - Add date picker
