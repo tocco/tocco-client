@@ -191,7 +191,7 @@ FullCalendar.propTypes = {
   onCalendarRemove: PropTypes.func,
   onCalendarRemoveAll: PropTypes.func,
   onRefresh: PropTypes.func,
-  onEventClick: PropTypes.func,
+  onEventClick: PropTypes.func.isRequired,
   events: PropTypes.arrayOf(
     PropTypes.shape({
       resourceId: PropTypes.string.isRequired,
