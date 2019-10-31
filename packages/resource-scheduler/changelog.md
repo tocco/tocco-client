@@ -1,3 +1,7 @@
+0.2.22
+- Checkbox margin fix for nice
+- Only show remove all checkbox if resources loaded
+
 0.2.21
 - Improve responsiveness of select field in scheduler
 
