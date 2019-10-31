@@ -1,11 +1,17 @@
 import React from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
 import {appFactory, externalEvents} from 'tocco-app-extensions'
+import PropTypes from 'prop-types'
+import {hot} from 'react-hot-loader/root'
 
 import reducers, {sagas} from './modules'
 import LoginBoxContainer from './containers/LoginBoxContainer'
 
 const packageName = 'sso-login'
+
+const EXTERNAL_EVENTS = [
+  'loginCompleted'
+]
 
 const initApp = (id, input, events, publicPath) => {
   const content = <LoginBoxContainer/>
@@ -52,3 +58,30 @@ const initApp = (id, input, events, publicPath) => {
     appFactory.registerAppInRegistry(packageName, initApp)
   }
 })()
+
+class SsoLoginApp extends React.Component {
+  constructor(props) {
+    super(props)
+
+    const events = EXTERNAL_EVENTS.reduce((events, event) => {
+      if (props[event]) {
+        events[event] = props[event]
+      }
+      return events
+    }, {})
+
+    this.app = initApp('id', props, events)
+  }
+
+  render() {
+    return this.app.component
+  }
+}
+
+SsoLoginApp.propTypes = {
+  ssoLoginEndpoint: PropTypes.string.isRequired,
+  locale: PropTypes.string,
+  autoLogin: PropTypes.bool
+}
+
+export default hot(SsoLoginApp)
