@@ -47,6 +47,10 @@ const FullCalendar = ({
   }, [])
 
   useEffect(() => {
+    addDeselectAllButton()
+  })
+
+  useEffect(() => {
     const calendar = calendarEl.current.calendar
     calendar.batchRendering(() => {
       const eventSources = calendar.getEventSources()
@@ -72,8 +76,6 @@ const FullCalendar = ({
           calendar.addResource(r)
         }
       })
-
-      addDeselectAllButton()
     })
   }, [JSON.stringify(resources)])
 
@@ -86,6 +88,7 @@ const FullCalendar = ({
         checkbox.checked = 'checked'
       }
       checkbox.className = 'remove-all-checkbox'
+      checkbox.style.visibility = resources.length > 0 ? 'visible' : 'hidden'
       checkbox.onclick = onCalendarRemoveAll
 
       firstHeaderNode.innerHTML = ''
@@ -110,8 +113,10 @@ const FullCalendar = ({
     const checkbox = document.createElement('INPUT')
     checkbox.type = 'checkbox'
     checkbox.checked = 'checked'
-    checkbox.onclick = () =>
+    checkbox.className = 'remove-resource-checkbox'
+    checkbox.onclick = () => {
       onCalendarRemove(renderInfo.resource.extendedProps.entityKey, renderInfo.resource.extendedProps.calendarType)
+    }
     element.prepend(checkbox)
   }
 
@@ -167,9 +172,7 @@ const FullCalendar = ({
         chooseNext={() => calendarEl.current.calendar.next()}
         choosePrev={() => calendarEl.current.calendar.prev()}
         chooseToday={() => calendarEl.current.calendar.today()}
-
         goToDate={date => calendarEl.current.calendar.gotoDate(date)}
-
         date={calendarEl.current.calendar.getDate()}
         isLoading={isLoading}
         refresh={onRefresh}

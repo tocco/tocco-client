@@ -16,6 +16,11 @@ const StyledFullCalendar = styled.div`
        margin-left: 7px;
        margin-top: 4px;
      }
+     
+     .remove-resource-checkbox{
+       margin-left: 3px;
+     }
+
 
     .fc-cell-content {
       ${declareFont({fontSize: scale.font(-1)})}
