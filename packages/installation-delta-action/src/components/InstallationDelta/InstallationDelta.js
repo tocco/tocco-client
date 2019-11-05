@@ -1,26 +1,70 @@
 import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
+import {hot} from 'react-hot-loader/root'
+import {LoadMask} from 'tocco-ui'
+
+import CommitMsg from '../CommitMsg'
+import CommitInfo from '../CommitInfo'
+import IssueInfos from '../IssueInfos'
+import Header from '../Header'
+
+const StyledInstallationDelta = styled.div`
+  margin: 8px;
+`
+
+const StyledRow = styled.div`
+  display: grid;
+  padding: 3px;
+  grid-template-columns: 25% 50% 25%;
+  grid-gap: 10px 10px;
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  background: ${props => props.isOdd ? '#F5F5F5' : ''};
+`
 
 const InstallationDelta = ({keys}) => {
   const [delta, setDelta] = useState(null)
 
-  useEffect(async() => {
-    setDelta({})
-    // const response = await fetch('nice2/rest/tocco/installationDelta', {method: 'POST'})
-    // const myJson = await response.json()
-    // setDelta(myJson)
-  }, [])
+  const fetchData = async() => {
+    const options = {credentials: 'include'}
+    const url = `${__BACKEND_URL__}/nice2/rest/tocco/commit-info/installation/${keys[0]}/delta?installation=${keys[1]}`
+    const response = await fetch(url, options)
+    return response.json()
+  }
+
+  useEffect(() => {
+    fetchData().then(delta => { setDelta(delta) })
+  }, [keys])
 
   return (
-    <div>
-      <h1>Installation Delta</h1>
-      {JSON.stringify(delta)}
-    </div>
+    <StyledInstallationDelta>
+      <Header id="Header" keys={keys} delta={delta}/>
+      <LoadMask required={[delta]} text="Loading delta...">
+        {delta && delta.commits.map((commit, idx) =>
+          <StyledRow isOdd={Boolean(idx % 2)} key={commit.commit.commitId}>
+            <div>
+              <CommitInfo
+                commitId={commit.commit.commitId}
+                author={commit.commit.author}
+                commitTimestamp={commit.commit.commitTimestamp}
+              />
+            </div>
+            <div>
+              <CommitMsg msg={commit.commit.commitMessage}/>
+            </div>
+            <div>
+              <IssueInfos issues={commit.issues} />
+            </div>
+          </StyledRow>
+        )}
+      </LoadMask>
+    </StyledInstallationDelta>
   )
 }
 
 InstallationDelta.propTypes = {
-  keys: PropTypes.string.isRequired
+  keys: PropTypes.arrayOf(PropTypes.string).isRequired
 }
 
-export default InstallationDelta
+export default hot(InstallationDelta)
