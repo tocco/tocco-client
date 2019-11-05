@@ -7,9 +7,9 @@
     {
       "commit": {
         "commitId": "abcdef0123456789",
-        "author": null,
-        "commitTimestamp": null,
-        "commitMessage": "Test 123",
+        "author": "Homer Simpson <hsimpson@tocco.ch>",
+        "commitTimestamp": "2019-10-23T16:01:29",
+        "commitMessage": "Test 123\nCommit msg body\nRefs: 1234",
         "changedFiles": null,
         "jiraIssueKeys": [
           "TEST-123",
@@ -34,8 +34,8 @@
     {
       "commit": {
         "commitId": "fedcba9876543210",
-        "author": null,
-        "commitTimestamp": null,
+        "author": "Bart Simpson <bsimpson@tocco.ch>",
+        "commitTimestamp": "2019-10-23T16:01:29",
         "commitMessage": "Test 321",
         "changedFiles": null,
         "jiraIssueKeys": [
