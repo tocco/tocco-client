@@ -7,7 +7,6 @@ const mapActionCreators = {}
 
 const mapStateToProps = state => ({
   keys: state.input.keys
-
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(InstallationDelta))
