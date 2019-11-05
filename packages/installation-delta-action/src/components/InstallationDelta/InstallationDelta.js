@@ -16,10 +16,10 @@ const StyledInstallationDelta = styled.div`
 const StyledRow = styled.div`
   display: grid;
   padding: 3px;
+  margin-top: 10px;
   grid-template-columns: 25% 50% 25%;
-  grid-gap: 10px 10px;
-  border-top: 1px solid black;
-  border-left: 1px solid black;
+  grid-column-gap: 10px;
+  border: 1px solid #888888;
   background: ${props => props.isOdd ? '#F5F5F5' : ''};
 `
 
