@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 const TimeWrapper = styled.span`
   time {
-  overflow: visible !important;
+    overflow: visible !important;
   }
 `
 
