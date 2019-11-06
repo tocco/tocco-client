@@ -16,7 +16,8 @@ IssueInfos.propTypes = {
   issues: PropTypes.arrayOf(PropTypes.shape({
     key: PropTypes.string,
     status: PropTypes.string
-  }))
+  })).isRequired,
+  issueUrl: PropTypes.string.isRequired
 }
 
 export default IssueInfos

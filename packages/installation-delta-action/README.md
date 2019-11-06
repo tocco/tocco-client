@@ -9,5 +9,5 @@ React-registry name: `installation-delta-action`
 
 | Name      | Mandatory | Description
 |-----------|:---------:|-------------
-| `keys`    | x         | Array of installation keys
-| `issueUrl`| x         | Url to jiira
+| `keys`    | x         | Array of installation keys. The array must contain exactly two keys.
+| `issueUrl`| x         | Url to Jira
