@@ -1,3 +1,7 @@
+0.1.10
+- Restrict global icon dom watch
+- Add search-filters to admin search form
+
 0.1.9
 - Menu endpoint url fix
 - Size and padding
