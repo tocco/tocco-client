@@ -11,7 +11,7 @@ const SubGrid = props => {
         keepStore={true}
         entityName={props.modelField.targetEntity}
         formBase={formBase}
-        limit={5}
+        limit={25}
         showSearchForm={props.showSearchForm}
         preselectedSearchFields={[{
           id: props.modelField.reverseRelationName,
