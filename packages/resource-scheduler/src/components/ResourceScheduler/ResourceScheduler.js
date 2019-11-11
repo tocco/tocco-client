@@ -16,7 +16,7 @@ class ResourceScheduler extends React.Component {
     this.props.initialize()
   }
 
-  paneWidth = 430
+  paneWidth = 325
 
   render() {
     const props = this.props
@@ -24,7 +24,7 @@ class ResourceScheduler extends React.Component {
       <React.Fragment>
         <SplitPane
           defaultSize={this.paneWidth}
-          minSize={380}
+          minSize={325}
           resizerStyle={resizerStyle}
           split="vertical"
         >
