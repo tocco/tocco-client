@@ -82,24 +82,24 @@ const NavigationFullCalendar = props => {
           >
             <Menu.Item>
               <Button
-                {...(getButtonInkProps('resourceTimelineDay', type))}
-                onClick={() => changeView('resourceTimelineDay')}
+                {...(getButtonInkProps('dayView', type))}
+                onClick={() => changeView('dayView')}
               >
                 <FormattedMessage id="client.scheduler.day"/>
               </Button>
             </Menu.Item>
             <Menu.Item>
               <Button
-                {...(getButtonInkProps('resourceTimelineWeek', type))}
-                onClick={() => changeView('resourceTimelineWeek')}
+                {...(getButtonInkProps('weekView', type))}
+                onClick={() => changeView('weekView')}
               >
                 <FormattedMessage id="client.scheduler.week"/>
               </Button>
             </Menu.Item>
             <Menu.Item>
               <Button
-                {...(getButtonInkProps('resourceTimelineMonth', type))}
-                onClick={() => changeView('resourceTimelineMonth')}
+                {...(getButtonInkProps('monthView', type))}
+                onClick={() => changeView('monthView')}
               >
                 <FormattedMessage id="client.scheduler.month"/>
               </Button>
