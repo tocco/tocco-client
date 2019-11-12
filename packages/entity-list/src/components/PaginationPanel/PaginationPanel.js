@@ -14,7 +14,7 @@ const PaginationPanel = props => {
 
   return (
     <StyledPaginationPanel>
-      {components.totalText}
+      <span>{components.totalText}</span>
 
       {totalPages > 1
         && <ButtonGroup
@@ -28,18 +28,6 @@ const PaginationPanel = props => {
             && <Button
               icon="angle-left"
               onClick={() => changePage(currPage - 1)} />}
-          {currPage > 1
-            && <Button
-              label={currPage - 1}
-              onClick={() => changePage(currPage - 1)} />}
-          <Button
-            disabled
-            ink="primary"
-            label={currPage} />
-          {currPage < totalPages
-            && <Button
-              label={currPage + 1}
-              onClick={() => changePage(currPage + 1)} />}
           {currPage < totalPages
             && <Button
               icon="angle-right"
