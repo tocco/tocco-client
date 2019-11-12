@@ -12,10 +12,12 @@ import {FormattedValue} from 'tocco-ui'
 import {consoleLogger} from 'tocco-util'
 import Tooltip from 'tooltip.js'
 import {injectIntl, intlShape} from 'react-intl'
+import interactionPlugin from '@fullcalendar/interaction'
 
 import NavigationFullCalendar from '../NavigationFullCalendar'
 import StyledFullCalendar from './StyledFullCalendar'
 import Conflict from '../Conflict'
+import {getFormattedTime} from '../../utils/time'
 
 const getLicense = () => {
   const licence = process.env.FULL_CALENDAR_LICENCE
@@ -149,10 +151,10 @@ const FullCalendar = ({
   const FullCalendarMemorized = useMemo(() =>
     <ReactFullCalendar
       locale={locale}
-      plugins={[resourceTimelinePlugin]}
+      plugins={[resourceTimelinePlugin, interactionPlugin]}
       ref={calendarEl}
       schedulerLicenseKey={getLicense()}
-      defaultView={'resourceTimelineDay'}
+      defaultView={'dayView'}
       header={false}
       height="auto"
       resourceAreaWidth="15%"
@@ -161,6 +163,25 @@ const FullCalendar = ({
       eventRender={eventRender}
       eventClick={info => { onEventClick(info.event) }}
       firstDay={MONDAY}
+      minTime="06:00:00"
+      maxTime="23:00:00"
+      views={{
+        dayView: {
+          type: 'resourceTimelineDay',
+          slotLabelFormat: info => getFormattedTime(moment(info.date).locale(locale))
+        },
+        weekView: {
+          type: 'resourceTimelineWeek',
+          slotLabelFormat: [
+            {weekday: 'short', month: 'numeric', day: 'numeric'},
+            info => getFormattedTime(moment(info.date).locale(locale))
+          ]
+        },
+        monthView: {
+          type: 'resourceTimelineMonth',
+          slotLabelFormat: {weekday: 'short', month: 'numeric', day: 'numeric', omitCommas: true}
+        }
+      }}
     />
   , [])
 

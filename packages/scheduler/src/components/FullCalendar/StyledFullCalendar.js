@@ -23,7 +23,7 @@ const StyledFullCalendar = styled.div`
 
 
     .fc-cell-content {
-      ${declareFont({fontSize: scale.font(-1)})}
+      ${declareFont({fontSize: scale.font(-2)})}
     }
 
     .fc-event{
