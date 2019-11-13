@@ -1,3 +1,7 @@
+0.2.23
+- Checkbox margin fix for nice
+- Only show remove all checkbox if resources loaded
+
 0.2.22
 - Checkbox margin fix for nice
 - Only show remove all checkbox if resources loaded
