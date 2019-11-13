@@ -142,7 +142,6 @@ describe('Entity Browser', () => {
         .should('be.visible')
       cy.get('[type="submit"]')
         .should('be.visible')
-      cy.contains('Einträgen')
       cy.contains('Aktionen auf Alle')
       cy.get('[data-cy=list-cell]')
         .should('have.length.above', 1)
