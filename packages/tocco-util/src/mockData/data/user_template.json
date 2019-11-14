@@ -3,184 +3,72 @@
   "version": 3,
   "paths": {
     "firstname": {
-      "type": "field",
-      "value": {
-        "value": "fistname",
-        "type": "string",
-        "readable": true,
-        "writable": true
-      }
+      "value": "firstname",
+      "type": "string"
     },
     "lastname": {
-      "type": "field",
-      "value": {
-        "value": "lastname",
-        "type": "string",
-        "readable": true,
-        "writable": true
-      }
-    },
-    "callname": {
-      "type": "field",
-      "value": {
-        "value": "",
-        "type": "string",
-        "readable": true,
-        "writable": true
-      }
+      "value": "lastname",
+      "type": "string"
     },
     "email": {
-      "type": "field",
-      "value": {
-        "value": "mail@tocco.ch",
-        "type": "email",
-        "readable": true,
-        "writable": true
-      }
+      "value": "mail@tocco.ch",
+      "type": "email"
     },
     "user_nr": {
-      "type": "field",
-      "value": {
-        "value": 110,
-        "type": "counter",
-        "readable": true,
-        "writable": false
-      }
+      "value": 110,
+      "type": "counter"
     },
     "birthdate": {
-      "type": "field",
-      "value": {
-        "value": "1988-11-22",
-        "type": "birthdate",
-        "readable": true,
-        "writable": true
-      }
+      "value": "1988-11-22",
+      "type": "birthdate"
     },
     "date_time": {
-      "type": "field",
-      "value": {
-        "value": "2016-04-01T06:07:00.000Z",
-        "type": "datetime",
-        "readable": true,
-        "writable": true
-      }
+      "value": "2016-04-01T06:07:00.000Z",
+      "type": "datetime"
     },
     "phone_company": {
-      "type": "field",
-      "value": {
-        "value": "+41784755448",
-        "type": "phone",
-        "readable": true,
-        "writable": true
-      }
-    },
-    "phone_custom": {
-      "type": "field",
-      "value": {
-        "value": "",
-        "type": "phone",
-        "readable": true,
-        "writable": true
-      }
+      "value": "+41784755448",
+      "type": "phone"
     },
     "website": {
-      "type": "field",
-      "value": {
-        "value": "http://www.google.ch",
-        "type": "url",
-        "readable": true,
-        "writable": true
-      }
-    },
-    "profession": {
-      "type": "field",
-      "value": {
-        "value": "",
-        "type": "string",
-        "readable": true,
-        "writable": true
-      }
+      "value": "http://www.google.ch",
+      "type": "url"
     },
     "spouse": {
-      "type": "field",
-      "value": {
-        "value": "This is a long text\nwith newline\nother new line",
-        "type": "text",
-        "readable": true,
-        "writable": true
-      }
+      "value": "This is a long text\nwith newline\nother new line",
+      "type": "text"
     },
     "publish": {
-      "type": "field",
-      "value": {
-        "value": true,
-        "type": "boolean",
-        "readable": true,
-        "writable": true
-      }
+      "value": true,
+      "type": "boolean"
     },
     "preview_picture": {
-      "type": "field",
       "value": {
-        "value": {
-          "mimeType": "image/png",
-          "fileExtension": "png",
-          "sizeInBytes": 3336,
-          "fileName": "Firstname,-Lastname-Vorschaubild.png",
-          "thumbnailLink": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgAQMAAADYVuV7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAABlBMVEUCd72z5fwcX0uLAAAAHElEQVQ4y2NgwAns/8PBn1HOKGeUM8oZrBycAADOggXZNnQmgAAAAABJRU5ErkJggg==",
-          "binaryLink": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgAQMAAADYVuV7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAABlBMVEUCd72z5fwcX0uLAAAAHElEQVQ4y2NgwAns/8PBn1HOKGeUM8oZrBycAADOggXZNnQmgAAAAABJRU5ErkJggg=="
-        },
-        "type": "document",
-        "readable": true,
-        "writable": true
-      }
-    },
-    "entrance": {
-      "type": "field",
-      "value": {
-        "value": null,
-        "type": "date",
-        "readable": true,
-        "writable": false
-      }
+        "mimeType": "image/png",
+        "fileExtension": "png",
+        "sizeInBytes": 3336,
+        "fileName": "Firstname,-Lastname-Vorschaubild.png",
+        "thumbnailLink": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgAQMAAADYVuV7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAABlBMVEUCd72z5fwcX0uLAAAAHElEQVQ4y2NgwAns/8PBn1HOKGeUM8oZrBycAADOggXZNnQmgAAAAABJRU5ErkJggg==",
+        "binaryLink": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgAQMAAADYVuV7AAAACXBIWXMAAA7EAAAOxAGVKw4bAAAABlBMVEUCd72z5fwcX0uLAAAAHElEQVQ4y2NgwAns/8PBn1HOKGeUM8oZrBycAADOggXZNnQmgAAAAABJRU5ErkJggg=="
+      },
+      "type": "document"
     },
     "salary": {
-      "type": "field",
-      "value": {
-        "value": "1000.00",
-        "type": "moneyamount",
-        "readable": true,
-        "writable": true
-      }
+      "value": "1000.00",
+      "type": "moneyamount"
     },
     "address": {
-      "type": "field",
-      "value": {
-        "value": "Riedtlistrasse 16\n8006 Zürich",
-        "type": "text",
-        "readable": true,
-        "writable": true
-      }
-    },
-    "relSingle_entity1": {
-      "type": "entity",
-      "value": null
+      "value": "Riedtlistrasse 16\n8006 Zürich",
+      "type": "text"
     },
     "relSingle_entity2": {
       "type": "entity",
       "value": {
-        "key": "2",
+        "key": "99",
         "model": "Dummy_entity",
         "version": 1,
-        "display": "Entity Label 2",
-        "fields": {},
-        "singleRelations": [],
-        "multiRelations": []
+        "paths": {}
       }
-    },
-    "relMulti_entity1": {
-      "type": "entity-list",
-      "value": []
     },
     "relMulti_entity2": {
       "type": "entity-list",
@@ -189,44 +77,24 @@
           "key": "1",
           "model": "Dummy_entity",
           "version": "1",
-          "display": "Entity Label 1",
-          "fields": {},
-          "singleRelations": [],
-          "multiRelations": []
+          "paths": {}
         },
         {
           "key": "3",
           "model": "Dummy_entity",
           "version": "1",
-          "display": "Entity Label 3",
-          "fields": {},
-          "singleRelations": [],
-          "multiRelations": []
+          "paths": {}
         }
       ]
     },
     "relUser": {
-      "path": "relUser",
       "type": "entity",
+      "key": "33",
       "value": {
-        "key": "33",
         "model": "User",
         "version": 1,
-        "display": "Dummy User 33",
-        "fields": {},
-        "singleRelations": [],
-        "multiRelations": []
+        "paths": {}
       }
-    },
-    "relChildren": {
-      "path": "relChildren",
-      "type": "entity-list",
-      "value": []
-    },
-    "durationDisplay": {
-      "path": "durationDisplay",
-      "type": "display-expression",
-      "value": "<i class=\"fas fa-adjust\"></i><b>bold</b> <i>italic</i>"
     },
     "notreadable": {
       "type": "field",

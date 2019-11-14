@@ -93,145 +93,125 @@ export const createUsers = amount => {
     entities.push({
       ...userTemplate,
       key: `${i}`,
-      display: `Dummy User ${i}`,
       paths: {
         ...userTemplate.paths,
-        'user_nr': {
-          type: 'field',
-          value: {
-            type: 'counter',
-            value: i * 1000,
-            writable: false
-          }
+        user_nr: {
+          type: 'counter',
+          value: i * 1000,
+          writable: false
         },
-        'firstname': {
-          type: 'field',
-          value: {
-            value: 'Firstname ' + i,
-            type: 'string',
-            writable: true
-          }
+        firstname: {
+          value: 'Firstname ' + i,
+          type: 'string',
+          writable: true
+
         },
-        'lastname': {
-          type: 'field',
-          value: {
-            value: 'Lastname ' + (amount - i),
-            type: 'string',
-            writable: true
-          }
+        lastname: {
+          value: 'Lastname ' + (amount - i),
+          type: 'string',
+          writable: true
         },
-        'birthdate': {
-          type: 'field',
-          value: {
-            value: getRandomDate(1980, 2010),
-            type: 'birthdate',
-            writable: true
-          }
+        birthdate: {
+          value: getRandomDate(1980, 2010),
+          type: 'birthdate',
+          writable: true
         },
-        'age': {
-          type: 'field',
-          value: {
-            value: getRandomInt(10, 100),
-            type: 'number',
-            writable: true
-          }
+        age: {
+          value: getRandomInt(10, 100),
+          type: 'number',
+          writable: true
         },
-        'salary': {
-          type: 'field',
-          value: {
-            value: getRandomInt(0, 10000),
-            type: 'moneyamount',
-            writable: true
-          }
+        salary: {
+          value: getRandomInt(0, 10000),
+          type: 'moneyamount',
+          writable: true
         },
-        'licence_plate': {
-          type: 'field',
-          value: {
-            value: getRandomInt(1000, 1000000),
-            type: 'long',
-            writable: true
-          }
+        licence_plate: {
+          value: getRandomInt(1000, 1000000),
+          type: 'long',
+          writable: true
         },
-        'publish': {
-          type: 'field',
-          value: {
-            value: (i % 2 === 0),
-            type: 'boolean',
-            writable: true
-          }
+        publish: {
+          value: (i % 2 === 0),
+          type: 'boolean',
+          writable: true
         },
-        'update_timestamp': {
-          type: 'field',
-          value: {
-            value: getRandomDate(new Date().getFullYear() - 1, new Date().getFullYear()),
-            type: 'updatets',
-            writable: false
-          }
+        update_timestamp: {
+          value: getRandomDate(new Date().getFullYear() - 1, new Date().getFullYear()),
+          type: 'updatets',
+          writable: false
         },
-        'duration': {
-          type: 'field',
-          value: {
-            value: getRandomInt(0, 1000 * 60 * 60 * 24),
-            type: 'duration',
-            writable: false
-          }
+        duration: {
+          value: getRandomInt(0, 1000 * 60 * 60 * 24),
+          type: 'duration',
+          writable: false
+
         },
-        'time': {
-          type: 'field',
+        time: {
           value: {
-            value: {
-              hourOfDay: getRandomInt(0, 24),
-              minuteOfHour: getRandomInt(0, 60),
-              secondOfMinute: getRandomInt(0, 60),
-              millisOfSecond: getRandomInt(0, 1000)
-            },
-            type: 'time',
-            writable: false
-          }
+            hourOfDay: getRandomInt(0, 24),
+            minuteOfHour: getRandomInt(0, 60),
+            secondOfMinute: getRandomInt(0, 60),
+            millisOfSecond: getRandomInt(0, 1000)
+          },
+          type: 'time',
+          writable: false
         },
-        'decimal': {
-          type: 'field',
-          value: {
-            value: 1337.11,
-            type: 'moneyamount',
-            writable: true
-          }
+        decimal: {
+          value: 1337.11,
+          type: 'moneyamount',
+          writable: true
         },
-        'moneyamount': {
-          type: 'field',
-          value: {
-            value: 28123.33,
-            type: 'moneyamount',
-            writable: true
-          }
+        moneyamount: {
+          value: 28123.33,
+          type: 'moneyamount',
+          writable: true
+
         },
-        'relMulti_entity1.relPayment_status': {
-          path: 'relMulti_entity1.relPayment_status',
-          type: 'multi',
-          writable: false,
-          value: [
-            ...fiftyFifty() ? [{
-              path: 'relMulti_entity1.relPayment_status',
-              type: 'entity',
-              writable: false,
-              value: {
-                key: '2',
-                model: 'Payment_status',
-                version: 3,
-                display: 'Unbezahlt'
+        relMulti_entity1: {
+          type: 'entity-list',
+          value: [...fiftyFifty() ? [{
+            key: '3150',
+            model: 'Multi_entity',
+            version: 12,
+            paths: {
+              relPayment_status: {
+                type: 'entity',
+                value: {
+                  key: '1',
+                  model: 'Payment_status',
+                  paths: {
+                    unique_id: {
+                      type: 'identifier',
+                      writable: null,
+                      value: 'fully_paid'
+                    }
+                  }
+                }
               }
-            }] : [],
-            ...fiftyFifty() ? [{
-              path: 'relMulti_entity1.relPayment_status',
-              type: 'entity',
-              writable: false,
-              value: {
-                key: '1',
-                model: 'Payment_status',
-                version: 3,
-                display: 'Bezahlt'
+            }
+          }] : [],
+          ...fiftyFifty() ? [{
+            key: '3152',
+            model: 'Multi_entity',
+            version: 10,
+            paths: {
+              relPayment_status: {
+                type: 'entity',
+                value: {
+                  key: '2',
+                  model: 'Payment_status',
+                  paths: {
+                    unique_id: {
+                      type: 'identifier',
+                      writable: null,
+                      value: 'partially_paid'
+                    }
+                  }
+                }
               }
-            }] : []
+            }
+          }] : []
           ]
         }
       }

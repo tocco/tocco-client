@@ -27,16 +27,16 @@ describe('tocco-util', () => {
           done => {
             const users = createUsers(50)
             setupEntities(fetchMock, {User: users})
-            const url = 'http://localhost:8080/nice2/rest/entities/User?_limit=5&_offset=10&_sort=firstname desc'
+            const url = 'http://localhost:8080/nice2/rest/entities/2.0/User?_limit=5&_offset=10&_sort=firstname desc'
 
             fetch(url, {method: 'GET'}).then(res => res.json())
               .then(res => {
                 const records = res.data
-                const fistNameSelector = 'paths.firstname.value.value'
+                const fistNameSelector = 'paths.firstname.value'
                 expect(records.length).to.eql(5)
 
-                expect(_get(records[0], fistNameSelector)).to.eql('Firstname 44')
-                expect(_get(records[1], fistNameSelector)).to.eql('Firstname 43')
+                expect(_get(records[0], fistNameSelector)).to.eql('Firstname 39')
+                expect(_get(records[1], fistNameSelector)).to.eql('Firstname 38')
                 done()
               })
           }
@@ -45,7 +45,7 @@ describe('tocco-util', () => {
         test('should setup a entities and return only a few a searchstring', done => {
           const users = createUsers(50)
           setupEntities(fetchMock, {User: users})
-          const url = 'http://localhost:8080/nice2/rest/entities/User?_limit=50&_search=few'
+          const url = 'http://localhost:8080/nice2/rest/entities/2.0/User?_limit=50&_search=few'
 
           fetch(url, {method: 'GET'}).then(res => res.json())
             .then(res => {
@@ -58,7 +58,7 @@ describe('tocco-util', () => {
         test('should setup a entities and return only a few with a query', done => {
           const users = createUsers(50)
           setupEntities(fetchMock, {User: users})
-          const resource = 'http://localhost:8080/nice2/rest/entities/User'
+          const resource = 'http://localhost:8080/nice2/rest/entities/2.0/User'
           const queryParams = {
             method: 'GET',
             _limit: 50,

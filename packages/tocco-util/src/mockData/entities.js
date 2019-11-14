@@ -130,12 +130,12 @@ export const setupEntities = (fetchMock, entityStore, timeout) => {
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/User(\\?.*)?$'),
+    new RegExp('^.*?/nice2/rest/entities/2.0/User(\\?.*)?$'),
     createEntitiesResponse('User', entityStore, timeout)
   )
 
   fetchMock.post(
-    new RegExp('^.*?/nice2/rest/entities/User/search$'),
+    new RegExp('^.*?/nice2/rest/entities/2.0/User/search.*$'),
     createEntitiesResponse('User', entityStore, timeout)
   )
 
@@ -145,7 +145,7 @@ export const setupEntities = (fetchMock, entityStore, timeout) => {
   )
 
   fetchMock.post(
-    new RegExp('^.*?/nice2/rest/entities/Dummy_entity/search$'),
+    new RegExp('^.*?/nice2/rest/entities/2.0/Dummy_entity/search.*$'),
     createEntitiesResponse('Dummy_entity', entityStore, timeout)
   )
 
