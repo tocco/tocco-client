@@ -170,6 +170,114 @@ describe('app-extensions', () => {
         })
       })
 
+      describe('fetchDisplayExpressions', () => {
+        test('should call requestSaga and transform response', () => {
+          const formName = 'User_list'
+          const entityKeys = ['1', '33']
+          const fields = ['display1', 'display2']
+
+          const responseFake = {
+            formName,
+            displayExpressions: [
+              {
+                key: '1',
+                displayExpressions: {
+                  display1: '<span>1-1</span>',
+                  display2: '<span>1-2</span>'
+                }
+              },
+              {
+                key: '33',
+                displayExpressions: {
+                  display1: '<span>33-1</span>',
+                  display2: '<span>33-2</span>'
+                }
+              }
+            ]
+          }
+
+          const expectedResult = {
+            1: {
+              display1: '<span>1-1</span>',
+              display2: '<span>1-2</span>'
+            },
+            33: {
+              display1: '<span>33-1</span>',
+              display2: '<span>33-2</span>'
+            }
+          }
+
+          return expectSaga(helpers.fetchDisplayExpressions, formName, entityKeys, fields)
+            .provide([
+              [matchers.call.fn(requestSaga), {body: responseFake}]
+            ])
+            .returns(expectedResult)
+            .run()
+        })
+      })
+
+      describe('fetchDisplays', () => {
+        test('should transform input and response to objects', () => {
+          const request = {
+            User_status: ['2293'],
+            Gender: ['1', '2']
+          }
+
+          const expectedOptions = {
+            method: 'POST',
+            body:
+              [{
+                model: 'User_status',
+                keys: ['2293']
+              },
+              {
+                model: 'Gender',
+                keys: ['1', '2']
+              }]
+          }
+
+          const responseFake = {
+            body: {
+              data: [{
+                model: 'User_status',
+                values: [{
+                  key: '2293',
+                  display: 'Hans Muster 123'
+                }]
+              },
+              {
+                model: 'Gender',
+                values: [{
+                  key: '1',
+                  display: 'Male'
+                }, {
+                  key: '2',
+                  display: 'Female'
+                }]
+              }]
+            }
+          }
+
+          const expectedResult = {
+            User_status: {
+              2293: 'Hans Muster 123'
+            },
+            Gender: {
+              1: 'Male',
+              2: 'Female'
+            }
+          }
+
+          return expectSaga(helpers.fetchDisplays, request)
+            .provide([
+              [matchers.call.fn(requestSaga), responseFake]
+            ])
+            .call(requestSaga, 'entities/2.0/displays/display', expectedOptions)
+            .returns(expectedResult)
+            .run()
+        })
+      })
+
       describe('fetchEntityCount', () => {
         test('should call fetch', () => {
           const query = {
