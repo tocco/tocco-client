@@ -390,11 +390,28 @@
             "componentType": "column",
             "children": [
               {
-                "id": "relMulti_entity1.relPayment_status",
+                "id": "relMulti_entity1.relPayment_status.unique_id",
                 "label": null,
                 "componentType": "field",
                 "path": "relMulti_entity1.relPayment_status",
                 "dataType": "single-select-box"
+              }
+            ],
+            "readonly": false,
+            "hidden": false,
+            "sortable": false
+          },
+          {
+            "id": "relMulti_entity1.relPayment_status.unique_id",
+            "label": "Status Field (to n path)",
+            "componentType": "column",
+            "children": [
+              {
+                "id": "relMulti_entity1.relPayment_status.unique_id",
+                "label": null,
+                "componentType": "field",
+                "path": "relMulti_entity1.relPayment_status.unique_id",
+                "dataType": "identifier"
               }
             ],
             "readonly": false,
