@@ -40,6 +40,47 @@ export function* fetchDisplay(entityName, key) {
 }
 
 /**
+ * Helper to fetch display-expressions of a form for a list of entities
+ *
+ * @param formName {String} Name of the form
+ * @param entityKeys {Array} List of entity keys
+ * @param displayExpressionFields {Array} List of desired display-expression fields
+ */
+export function* fetchDisplayExpressions(formName, entityKeys, displayExpressionFields) {
+  const options = {
+    method: 'GET',
+    queryParams: {
+      _where: `IN(pk,${entityKeys.join(',')})`,
+      _paths: `${displayExpressionFields.join(',')}`
+    }
+  }
+
+  const response = yield call(requestSaga, `forms/${formName}/display-expressions`, options)
+
+  return response.body.displayExpressions.reduce((acc, val) => ({...acc, [val.key]: val.displayExpressions}), {})
+}
+
+/**
+ * Helper to fetch the default-display of an entity
+ *
+ * @param request {Object} Object containing model and keys of desired entities e.g. {User: ["123"], Gender: ["1", "2"]}
+ */
+export function* fetchDisplays(request) {
+  const options = {
+    method: 'POST',
+    body: Object.keys(request).map(model => ({model, keys: request[model]}))
+  }
+  const response = yield call(requestSaga, 'entities/2.0/displays/display', options)
+
+  return response.body.data.reduce((acc, value) => (
+    {
+      ...acc,
+      [value.model]: value.values.reduce((acc, value) => ({...acc, [value.key]: value.display}), {})
+    }
+  ), {})
+}
+
+/**
  * Fetch amount of entities
  *
  * @param entityName {String} Name of the entity
