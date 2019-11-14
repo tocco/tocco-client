@@ -129,11 +129,15 @@ export function* fetchEntities(
   transformer = defaultEntityTransformer
 ) {
   const requestQuery = yield call(buildRequestQuery, query)
-  const resource = endpoint || `entities/${entityName}${method === 'POST' ? '/search' : ''}`
+  const resource = endpoint || `entities/2.0/${entityName}${method === 'POST' ? '/search' : ''}`
 
   const options = {
     method,
-    ...(method === 'GET' ? {queryParams: requestQueryToUrlParams(requestQuery)} : {body: requestQuery})
+    queryParams: {
+      _omitLinks: true,
+      ...(method === 'GET' && requestQueryToUrlParams(requestQuery))
+    },
+    ...(method === 'POST' && {body: requestQuery})
   }
 
   const resp = yield call(requestSaga, resource, options)
