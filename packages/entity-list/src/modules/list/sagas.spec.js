@@ -9,6 +9,7 @@ import * as selectionActions from '../selection/actions'
 import rootSaga, * as sagas from './sagas'
 import {getSorting, getSelectable, getFields, getEndpoint} from '../../util/api/forms'
 import {getSearchFormValues} from '../searchForm/sagas'
+import {getDisplayRequest} from '../../util/api/display'
 
 const generateState = (entityStore = {}, page) => ({
   initialized: false,
@@ -145,7 +146,9 @@ describe('entity-list', () => {
                 [select(sagas.listSelector), listViewState],
                 [matchers.call.fn(getFields), fields],
                 [matchers.call.fn(rest.fetchEntities), entities],
-                [matchers.call.fn(sagas.getBasicQuery), {}]
+                [matchers.call.fn(sagas.getBasicQuery), {}],
+                [matchers.spawn.fn(sagas.loadRelationDisplays), {}],
+                [matchers.spawn.fn(sagas.loadDisplayExpressions), {}]
               ])
               .put(actions.addEntitiesToStore(page, entities))
               .run()
@@ -464,6 +467,57 @@ describe('entity-list', () => {
 
             return expectSaga(sagas.navigateToCreate, {payload})
               .put(externalEvents.fireExternalEvent('onNavigateToCreate', payload.relationName))
+              .run()
+          })
+        })
+
+        describe('loadDisplayExpressions saga', () => {
+          test('should call rest helper with right params and call action to set lazy data', () => {
+            const formName = 'User_list'
+            const paths = ['display1', 'display2']
+            const entities = [{__key: '23'}, {__key: '24'}]
+
+            const fakeResult = {formName, displayExpressions: []}
+
+            return expectSaga(sagas.loadDisplayExpressions, formName, paths, entities)
+              .provide([
+                [matchers.call.fn(rest.fetchDisplayExpressions), fakeResult]
+              ])
+              .call(rest.fetchDisplayExpressions, formName, ['23', '24'], paths)
+              .put(actions.setLazyData('displayExpressions', formName, fakeResult))
+              .run()
+          })
+        })
+
+        describe('loadRelationDisplays saga', () => {
+          test('should call rest helper with right params and call action to set lazy data', () => {
+            const relationFields = ['relEntity1', 'relEntity2']
+            const entities = [{__key: '23'}, {__key: '24'}]
+            const listState = {
+              lazyData: {
+                defaultDisplays: {}
+              }
+            }
+
+            const fakeDisplayRequest = {relEntity1: [1]}
+            const fakeDisplayResponse = {
+              relEntity1: {
+                1: 'E 1',
+                2: 'E 2'
+              },
+              relEntity2: {
+                1: 'E2 1'
+              }
+            }
+
+            return expectSaga(sagas.loadRelationDisplays, relationFields, entities)
+              .provide([
+                [select(sagas.listSelector), listState],
+                [matchers.call.fn(getDisplayRequest), fakeDisplayRequest],
+                [matchers.call.fn(rest.fetchDisplays), fakeDisplayResponse]
+              ])
+              .put(actions.setLazyData('defaultDisplays', 'relEntity1', fakeDisplayResponse.relEntity1))
+              .put(actions.setLazyData('defaultDisplays', 'relEntity2', fakeDisplayResponse.relEntity2))
               .run()
           })
         })

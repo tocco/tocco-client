@@ -9,89 +9,131 @@ describe('entity-list', () => {
             const fetchResult = {
               data: [
                 {
+                  _links: null,
+                  key: '45',
+                  model: 'User',
+                  version: 7,
                   paths: {
                     firstname: {
-                      type: 'field',
-                      value: {
-                        type: 'string',
-                        value: 'Jon'
-                      }
+                      type: 'string',
+                      writable: null,
+                      value: 'Max'
                     },
-                    relGender: {
+                    relAddress_c: {
                       type: 'entity',
+                      writable: null,
                       value: {
-                        key: '1',
-                        model: 'Gender',
-                        display: 'Male'
+                        _links: null,
+                        key: '3195',
+                        model: 'Address',
+                        version: 0,
+                        paths: {
+                          canton: {
+                            type: 'string',
+                            writable: null,
+                            value: 'ZH'
+                          },
+                          relCountry_c: {
+                            type: 'entity',
+                            writable: null,
+                            value: {
+                              _links: null,
+                              key: '107',
+                              model: 'Country',
+                              version: 1,
+                              paths: {
+                                ioc: {
+                                  type: 'string',
+                                  writable: null,
+                                  value: 'SUI'
+                                },
+                                label: {
+                                  type: 'string',
+                                  writable: null,
+                                  value: 'Schweiz'
+                                }
+                              }
+                            }
+                          }
+                        }
                       }
                     },
-                    titles: {
+                    relUser_code1: {
                       type: 'entity-list',
-                      value: [{
-                        key: '1',
-                        model: 'title',
-                        display: 'Dr.'
-                      }, {
-                        key: '3',
-                        model: 'title',
-                        display: 'Bundesrat'
-                      }]
-                    }
-                  }
-                },
-                {
-                  paths: {
-                    firstname: {
-                      type: 'field',
-                      value: {
-                        type: 'string',
-                        value: 'Klaus'
-                      }
+                      writable: null,
+                      value: [
+                        {
+                          _links: null,
+                          key: '2',
+                          model: 'User_code1',
+                          version: 1,
+                          paths: {}
+                        },
+                        {
+                          _links: null,
+                          key: '1',
+                          model: 'User_code1',
+                          version: 1,
+                          paths: {}
+                        }
+                      ]
                     },
-                    relGender: {
-                      type: 'entity',
-                      value: {
-                        key: '1',
-                        model: 'Gender',
-                        display: 'Female'
-                      }
-                    },
-                    titles: {
+                    relUser_code2: {
                       type: 'entity-list',
-                      value: [{
-                        key: '1',
-                        model: 'title',
-                        display: 'Dr.'
-                      }, {
-                        key: '2',
-                        model: 'title',
-                        display: 'Prof'
-                      }]
+                      writable: null,
+                      value: [
+                        {
+                          _links: null,
+                          key: '2',
+                          model: 'User_code2',
+                          version: 1,
+                          paths: {
+                            unique_id: {
+                              type: 'identifier',
+                              writable: null,
+                              value: 'partially_paid'
+                            }
+                          }
+                        },
+                        {
+                          _links: null,
+                          key: '1',
+                          model: 'User_code2',
+                          version: 1,
+                          paths: {
+                            unique_id: {
+                              type: 'identifier',
+                              writable: null,
+                              value: 'fully_paid'
+                            }
+                          }
+                        }
+                      ]
                     }
                   }
                 }
               ]
             }
 
+            const expectedResult = [
+              {
+                '__key': '45',
+                '__model': 'User',
+                'firstname': 'Max',
+                'relAddress_c': {model: 'Address', key: '3195'},
+                'relAddress_c.canton': 'ZH',
+                'relAddress_c.relCountry_c': {key: '107', model: 'Country'},
+                'relAddress_c.relCountry_c.label': 'Schweiz',
+                'relAddress_c.relCountry_c.ioc': 'SUI',
+                'relUser_code1': [{model: 'User_code1', key: '2'}, {model: 'User_code1', key: '1'}],
+                'relUser_code2': [{key: '2', model: 'User_code2'}, {key: '1', model: 'User_code2'}],
+                'relUser_code2.unique_id': ['partially_paid', 'fully_paid']
+              }
+            ]
+
             const transformedResult = entities.entitiesListTransformer(fetchResult)
 
-            expect(transformedResult).to.be.a('array')
-            expect(transformedResult).to.have.length(2)
-
-            expect(transformedResult[0]).to.have.property('firstname')
-            expect(transformedResult[0]).to.have.property('relGender')
-            expect(transformedResult[0].firstname).to.eql('Jon')
-            expect(transformedResult[0].relGender).to.eql({key: '1', model: 'Gender', display: 'Male'})
-            expect(transformedResult[0].titles).to.eql(
-              [{key: '1', model: 'title', display: 'Dr.'}, {key: '3', model: 'title', display: 'Bundesrat'}]
-            )
-
-            expect(transformedResult[1]).to.have.property('firstname')
-            expect(transformedResult[1]).to.have.property('relGender')
-            expect(transformedResult[1].firstname).to.eql('Klaus')
-            expect(transformedResult[1].titles).to.eql(
-              [{key: '1', model: 'title', display: 'Dr.'}, {key: '2', model: 'title', display: 'Prof'}]
-            )
+            expect(transformedResult).to.eql(expectedResult)
           })
 
           test('should add __key to entity', () => {

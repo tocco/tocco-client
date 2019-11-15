@@ -11,6 +11,7 @@ import * as selectionActions from '../selection/actions'
 import {getSearchFormValues} from '../searchForm/sagas'
 import {getSorting, getSelectable, getEndpoint, getFields} from '../../util/api/forms'
 import {entitiesListTransformer} from '../../util/api/entities'
+import {getDisplayRequest} from '../../util/api/display'
 
 export const inputSelector = state => state.input
 export const entityListSelector = state => state.entityList
@@ -145,11 +146,30 @@ export function* getSearchFilter(inputSearchFilters, searchInputsFilters, adminS
   return yield call(_union, inputSearchFilters, searchInputsFilters, activeSearchFormFilters)
 }
 
+export function* loadDisplayExpressions(formName, paths, entities) {
+  if (paths && paths.length > 0) {
+    const keys = entities.map(e => e.__key)
+    const result = yield call(rest.fetchDisplayExpressions, formName, keys, paths)
+    yield put(actions.setLazyData('displayExpressions', formName, result))
+  }
+}
+
+export function* loadRelationDisplays(relationFields, entities) {
+  if (relationFields && relationFields.length > 0) {
+    const {lazyData} = yield select(listSelector)
+    const request = yield call(getDisplayRequest, entities, relationFields, lazyData)
+    const displays = yield call(rest.fetchDisplays, request)
+    yield all(Object.keys(displays).map(entity =>
+      put(actions.setLazyData('defaultDisplays', entity, displays[entity]))
+    ))
+  }
+}
+
 export function* fetchEntitiesAndAddToStore(page) {
   const {entityName} = yield select(inputSelector)
   const {entityStore, sorting, limit, formDefinition, endpoint} = yield select(listSelector)
   if (!entityStore[page]) {
-    const paths = yield call(getFields, formDefinition)
+    const {paths, relationFields, displayExpressionFields} = yield call(getFields, formDefinition)
     const basicQuery = yield call(getBasicQuery)
     const query = {
       ...basicQuery,
@@ -165,7 +185,10 @@ export function* fetchEntitiesAndAddToStore(page) {
     }
 
     const entities = yield call(rest.fetchEntities, entityName, query, requestOptions, entitiesListTransformer)
+
     yield put(actions.addEntitiesToStore(page, entities))
+    yield spawn(loadRelationDisplays, relationFields, entities)
+    yield spawn(loadDisplayExpressions, formDefinition.id, displayExpressionFields, entities)
   }
 }
 

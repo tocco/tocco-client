@@ -34,17 +34,29 @@ export const getColumnDefinition = table =>
       }
     ))
 
+const relationFormTypes = ['single-select-box', 'multi-select-box', 'single-remote-field', 'multi-remote-field']
 export const getFields = formDefinition => {
+  const relationFields = []
+  const displayExpressionFields = []
   const columns = getColumnDefinition(getTable(formDefinition))
   const fields = columns.reduce((accumulator, current) => (
     [
       ...accumulator,
       ...current.children
         .filter(child => !actions.isAction(child.componentType))
-        .map(child => child.id)]
+        .map(child => {
+          if (relationFormTypes.includes(child.dataType)) {
+            relationFields.push(child.path)
+          } else if (child.componentType === 'display') {
+            displayExpressionFields.push(child.id)
+            return null
+          }
+
+          return child.path
+        }).filter(f => f)]
   ), [])
 
-  return _uniq(fields)
+  return {paths: _uniq(fields), relationFields, displayExpressionFields}
 }
 
 export const getFormFieldFlat = formDefinition =>
