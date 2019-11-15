@@ -1,4 +1,5 @@
 import {reducer as reducerUtil} from 'tocco-util'
+import _get from 'lodash/get'
 
 import * as actions from './actions'
 
@@ -7,6 +8,17 @@ const addEntityToStore = (state, {payload}) => ({
   entityStore: {
     ...state.entityStore,
     [payload.page]: payload.entities
+  }
+})
+
+const setLazyData = (state, {payload: {type, id, values}}) => ({
+  ...state,
+  lazyData: {
+    ...state.lazyData,
+    [type]: {
+      ...state.lazyData[type],
+      [id]: {..._get(state, ['lazyData', type, id], {}), ...values}
+    }
   }
 })
 
@@ -25,6 +37,7 @@ const ACTION_HANDLERS = {
   [actions.SET_SORTING]: reducerUtil.singleTransferReducer('sorting'),
   [actions.SET_ENTITY_COUNT]: reducerUtil.singleTransferReducer('entityCount'),
   [actions.ADD_ENTITIES_TO_STORE]: addEntityToStore,
+  [actions.SET_LAZY_DATA]: setLazyData,
   [actions.CLEAR_ENTITY_STORE]: clearEntityStore,
   [actions.SET_IN_PROGRESS]: reducerUtil.singleTransferReducer('inProgress'),
   [actions.SET_SHOW_SEARCH_FORM]: reducerUtil.singleTransferReducer('showSearchForm'),
@@ -50,7 +63,8 @@ const initialState = {
   searchFilters: [],
   createPermission: false,
   formSelectable: false,
-  showLink: false
+  showLink: false,
+  lazyData: {}
 }
 
 export default function reducer(state = initialState, action) {

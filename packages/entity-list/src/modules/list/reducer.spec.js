@@ -16,7 +16,8 @@ const EXPECTED_INITIAL_STATE = {
   searchFilters: [],
   createPermission: false,
   formSelectable: false,
-  showLink: false
+  showLink: false,
+  lazyData: {}
 }
 
 describe('entity-list', () => {
@@ -213,6 +214,50 @@ describe('entity-list', () => {
           }
 
           expect(reducer(stateBefore, actions.setFormSelectable(true))).to.deep.equal(expectedStateAfter)
+        })
+
+        test('should handle SET_LAZY_DATA', () => {
+          const stateBefore = {
+            lazyData: {}
+          }
+
+          const expectedStateAfter = {
+            lazyData: {
+              defaultDisplays: {
+                Gender: {1: 'Male'}
+              }
+            }
+          }
+
+          expect(reducer(stateBefore, actions.setLazyData('defaultDisplays', 'Gender', {1: 'Male'})))
+            .to.deep.equal(expectedStateAfter)
+
+          const expectedStateAfter2 = {
+            lazyData: {
+              defaultDisplays: {
+                Gender: {1: 'Male', 2: 'Female'}
+              }
+            }
+          }
+
+          expect(reducer(expectedStateAfter, actions.setLazyData('defaultDisplays', 'Gender', {2: 'Female'})))
+            .to.deep.equal(expectedStateAfter2)
+
+          const expectedStateAfter3 = {
+            lazyData: {
+              defaultDisplays: {
+                Gender: {1: 'Male', 2: 'Female'}
+              },
+              displayExpressions: {
+                User_list: {
+                  44: 'Test'
+                }
+              }
+            }
+          }
+
+          expect(reducer(expectedStateAfter2, actions.setLazyData('displayExpressions', 'User_list', {44: 'Test'})))
+            .to.deep.equal(expectedStateAfter3)
         })
       })
     })

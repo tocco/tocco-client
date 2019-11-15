@@ -3,6 +3,7 @@ import {actions, form} from 'tocco-app-extensions'
 import {FormattedValue} from 'tocco-ui'
 
 import formattedValueFactory from './formattedValueFactory'
+import LazyDataCell from '../components/LazyDataEnhancer'
 
 export default (field, entity, parent, cb, intl) => {
   const {componentType} = field
@@ -16,10 +17,20 @@ export default (field, entity, parent, cb, intl) => {
   }
 }
 
-const getDisplayExpression = (field, entity) =>
-  <span key={field.id}>
-    <FormattedValue type="html" value={entity[field.id]}/>
+const getDisplayExpression = (field, entity) => {
+  return <span key={field.id}>
+
+    <LazyDataCell
+      path={field.id}
+      entityKey={entity.__key}
+      type={'displayExpression'}
+      value={null}
+    >
+      <FormattedValue type="html" value={entity[field.id]}/>
+    </LazyDataCell>
+
   </span>
+}
 
 const getAction = (field, entity, parent, cb) =>
   <actions.Action

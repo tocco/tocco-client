@@ -109,7 +109,7 @@ describe('entity-list', () => {
 
         describe('getFields', () => {
           test('should return array of all fields but none more than once', () => {
-            const formDefintion = {
+            const formDefinition = {
               children: [{
                 componentType: 'table',
                 layoutType: 'table',
@@ -122,8 +122,8 @@ describe('entity-list', () => {
                     componentType: 'layout',
                     layoutType: 'vertical-box',
                     children: [
-                      {id: 'firstname', dataType: 'text', componentType: 'field', hidden: false, label: 'Firstname'},
-                      {id: 'lastname', dataType: 'text', componentType: 'field', hidden: false, label: 'Lastname'}],
+                      {path: 'firstname', dataType: 'text', componentType: 'field', hidden: false, label: 'Firstname'},
+                      {path: 'lastname', dataType: 'text', componentType: 'field', hidden: false, label: 'Lastname'}],
                     sortable: true
                   },
                   {
@@ -133,8 +133,8 @@ describe('entity-list', () => {
                     componentType: 'layout',
                     layoutType: 'vertical-box',
                     children: [
-                      {id: 'firstname', dataType: 'text', componentType: 'field', hidden: false, label: 'Firstname'},
-                      {id: 'email', dataType: 'text', componentType: 'field', hidden: false, label: 'Mail'}
+                      {path: 'firstname', dataType: 'text', componentType: 'field', hidden: false, label: 'Firstname'},
+                      {path: 'email', dataType: 'text', componentType: 'field', hidden: false, label: 'Mail'}
 
                     ],
                     sortable: true
@@ -143,9 +143,10 @@ describe('entity-list', () => {
               }]
             }
 
-            const result = forms.getFields(formDefintion)
+            const result = forms.getFields(formDefinition)
 
-            expect(result).to.eql(['firstname', 'lastname', 'email'])
+            const expectedPaths = ['firstname', 'lastname', 'email']
+            expect(result.paths).to.eql(expectedPaths)
           })
 
           test('should ignore actions and other fields', () => {
@@ -163,6 +164,7 @@ describe('entity-list', () => {
                     children: [
                       {
                         id: 'description',
+                        path: 'description',
                         componentType: 'field'
                       },
                       {
@@ -170,12 +172,13 @@ describe('entity-list', () => {
                         id: 'exampleSimpelAction'
                       },
                       {
-                        componentType: 'display',
-                        id: 'firstname'
+                        componentType: 'field',
+                        id: 'firstname',
+                        path: 'firstname'
                       },
                       {
-                        id: 'description2',
-                        componentType: 'field'
+                        id: 'displayExpression',
+                        componentType: 'display'
                       }
                     ],
                     sortable: true
@@ -185,8 +188,63 @@ describe('entity-list', () => {
             }
 
             const result = forms.getFields(formDefinition)
+            const expectedResult = ['description', 'firstname']
+            expect(result.paths).to.eql(expectedResult)
+          })
 
-            expect(result).to.eql(['description', 'firstname', 'description2'])
+          test('should return relationFields and displayExpressions', () => {
+            const formDefinition = {
+              children: [{
+                componentType: 'table',
+                layoutType: 'table',
+                children: [
+                  {
+                    hidden: false,
+                    id: 'box2',
+                    label: null,
+                    componentType: 'layout',
+                    layoutType: 'vertical-box',
+                    children: [
+                      {
+                        id: 'relUser',
+                        path: 'relUser',
+                        componentType: 'field',
+                        dataType: 'single-select-box'
+                      },
+                      {
+                        componentType: 'action',
+                        id: 'exampleSimpelAction'
+                      },
+                      {
+                        componentType: 'field',
+
+                        id: 'firstname',
+                        path: 'firstname'
+                      },
+                      {
+                        id: 'display1',
+                        componentType: 'display'
+                      },
+                      {
+                        id: 'display2',
+                        componentType: 'display'
+                      },
+                      {
+                        id: 'relXy',
+                        path: 'relXy',
+                        componentType: 'field',
+                        dataType: 'multi-remote-field'
+                      }
+                    ],
+                    sortable: true
+                  }
+                ]
+              }]
+            }
+
+            const result = forms.getFields(formDefinition)
+            expect(result.relationFields).to.eql(['relUser', 'relXy'])
+            expect(result.displayExpressionFields).to.eql(['display1', 'display2'])
           })
         })
 
@@ -238,24 +296,6 @@ describe('entity-list', () => {
           test('should return null if endpoint is empty', () => {
             const result = forms.getEndpoint(getFormDefinition(''))
             expect(result).to.be.null
-          })
-        })
-        describe('getFields', () => {
-          test('should return array of all fields but none more than once', () => {
-            const expectedResult = {
-              'txtFulltext': 'fulltext-search',
-              'searchFilter': 'search-filter',
-              'relAddress_user.relAddress': 'string',
-              'relSingle_entity2': 'single-select-box',
-              'relMulti_entity2': 'multi-select-box',
-              'birthdate': 'range',
-              'user_nr': 'range',
-              'relChildren': 'multi-remote-field',
-              'relSingle_entity1.relUser': 'string'
-            }
-
-            const result = forms.getFormFieldFlat(mockData.data.userSearchForm.form)
-            expect(result).to.eql(expectedResult)
           })
         })
 

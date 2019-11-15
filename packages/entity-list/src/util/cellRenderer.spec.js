@@ -10,7 +10,11 @@ import cellRenderer from './cellRenderer'
 
 describe('entity-list', () => {
   describe('util', () => {
-    const getStore = () => createStore(() => ({formData: {linkFactory: {}}}))
+    const getStore = () => createStore(() => ({
+      formData: {linkFactory: {}},
+      list: {formDefinition: {id: 'User_list'}}
+    }))
+
     describe('cellRenderer', () => {
       test('should return a formattedValue for componentType field', () => {
         const field = {

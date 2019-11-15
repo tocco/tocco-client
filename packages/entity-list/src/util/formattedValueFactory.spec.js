@@ -8,7 +8,10 @@ import formattedValueFactory, {MultiSeparator} from './formattedValueFactory'
 
 describe('entity-list', () => {
   describe('util', () => {
-    const getStore = () => createStore(() => ({formData: {linkFactory: {}}}))
+    const getStore = () => createStore(() => ({
+      formData: {linkFactory: {}},
+      list: {formDefinition: {id: 'User_list'}}
+    }))
 
     describe('formattedValueFactory', () => {
       test('should return FormattedValue', () => {
@@ -60,7 +63,7 @@ describe('entity-list', () => {
           dataType: 'string'
         }
         const entity = {
-          'relSomething.xy': {multi: true, values: [{value: 'V1', type: 'string'}, {value: 'V1', type: 'string'}]}
+          'relSomething.xy': [{value: 'V1', type: 'string'}, {value: 'V1', type: 'string'}]
         }
 
         const wrapper = intlEnzyme.mountWithIntl(

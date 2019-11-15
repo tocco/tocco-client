@@ -24,6 +24,7 @@ export const SET_FORM_SELECTABLE = 'list/SET_FORM_SELECTABLE'
 export const SET_ENDPOINT = 'list/SET_ENDPOINT'
 export const QUERY_CHANGED = 'list/QUERY_CHANGED'
 export const SET_SHOW_LINK = 'list/SET_SHOW_LINK'
+export const SET_LAZY_DATA = 'list/SET_LAZY_DATA'
 
 export const initialize = () => ({
   type: INITIALIZE
@@ -186,5 +187,14 @@ export const setShowLink = showLink => ({
   type: SET_SHOW_LINK,
   payload: {
     showLink
+  }
+})
+
+export const setLazyData = (type, id, values) => ({
+  type: SET_LAZY_DATA,
+  payload: {
+    type,
+    id,
+    values
   }
 })
