@@ -68,9 +68,9 @@ export function* fetchDisplayExpressions(formName, entityKeys, displayExpression
 export function* fetchDisplays(request) {
   const options = {
     method: 'POST',
-    body: Object.keys(request).map(model => ({model, keys: request[model]}))
+    body: {data: Object.keys(request).map(model => ({model, keys: request[model]}))}
   }
-  const response = yield call(requestSaga, 'entities/2.0/displays/display', options)
+  const response = yield call(requestSaga, 'entities/2.0/displays', options)
 
   return response.body.data.reduce((acc, value) => (
     {

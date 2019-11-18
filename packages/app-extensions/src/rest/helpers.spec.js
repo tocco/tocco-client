@@ -225,15 +225,18 @@ describe('app-extensions', () => {
 
           const expectedOptions = {
             method: 'POST',
-            body:
-              [{
+            body: {
+              data: [{
                 model: 'User_status',
                 keys: ['2293']
               },
               {
                 model: 'Gender',
-                keys: ['1', '2']
-              }]
+                keys:
+                    ['1', '2']
+              }
+              ]
+            }
           }
 
           const responseFake = {
@@ -272,7 +275,7 @@ describe('app-extensions', () => {
             .provide([
               [matchers.call.fn(requestSaga), responseFake]
             ])
-            .call(requestSaga, 'entities/2.0/displays/display', expectedOptions)
+            .call(requestSaga, 'entities/2.0/displays', expectedOptions)
             .returns(expectedResult)
             .run()
         })
