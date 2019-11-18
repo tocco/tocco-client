@@ -14,6 +14,10 @@
       "value": "mail@tocco.ch",
       "type": "email"
     },
+    "callname": {
+      "value": null,
+      "type": "email"
+    },
     "user_nr": {
       "value": 110,
       "type": "counter"

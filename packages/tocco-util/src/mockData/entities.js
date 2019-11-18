@@ -150,7 +150,7 @@ export const setupEntities = (fetchMock, entityStore, timeout) => {
   )
 
   fetchMock.post(
-    new RegExp('^.*?/nice2/rest/entities/2.0/displays/.*$'),
+    new RegExp('^.*?/nice2/rest/entities/2.0/displays.*$'),
     createEntitiesDisplayResponse(entityStore, timeout)
   )
 
