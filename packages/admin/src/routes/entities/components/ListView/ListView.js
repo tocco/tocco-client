@@ -6,6 +6,10 @@ import StyledLink from '../../../../components/StyledLink/StyledLink'
 import {goBack} from '../../../../utils/routing'
 
 const ListView = ({match, history, currentViewInfo, emitAction}) => {
+  if (!currentViewInfo) {
+    return null
+  }
+
   const handleRowClick = ({id}) => {
     history.push(match.url.replace(/list$/, '') + id)
   }
@@ -17,10 +21,6 @@ const ListView = ({match, history, currentViewInfo, emitAction}) => {
       const entityBaseUrl = goBack(match.url)
       history.push(entityBaseUrl + '/create')
     }
-  }
-
-  if (!currentViewInfo) {
-    return null
   }
 
   return (

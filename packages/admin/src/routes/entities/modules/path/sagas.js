@@ -11,6 +11,7 @@ export const modelSelector = (state, entity) => _get(state, `entities.path.model
 export const displaySelector = (state, entity, key) => _get(state, `entities.path.displayCache.${entity}.${key}`, null)
 
 export const breadcrumbsSelector = state => state.entities.path.breadcrumbsInfo
+export const currentViewInfosSelector = state => state.entities.path.currentViewInfos
 
 const isEven = n => n % 2 === 0
 
@@ -96,7 +97,6 @@ export function* loadCurrentViewInfo({payload: {location}}) {
   }
 
   yield put(actions.setBreadcrumbsInfo([]))
-  yield put(actions.setCurrentViewInfo(null))
 
   const pathParts = []
   const re = pathToRegexp('/e/:entity/:key?/:relation*/:view(list|detail|edit|create|relations)', pathParts)
@@ -142,7 +142,11 @@ export function* loadCurrentViewInfo({payload: {location}}) {
 
       yield spawn(extractMultiRelations, currentViewInfo.model, currentViewInfo.key)
 
-      yield put(actions.setCurrentViewInfo(currentViewInfo))
+      const currentViewInfos = yield select(currentViewInfosSelector)
+
+      if (!currentViewInfos[location]) {
+        yield put(actions.setCurrentViewInfo(location, currentViewInfo))
+      }
     }
   }
 }
