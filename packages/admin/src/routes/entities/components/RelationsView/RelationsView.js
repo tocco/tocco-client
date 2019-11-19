@@ -70,7 +70,6 @@ const RelationsView = ({history, match, currentViewInfo, relations, relationsCou
           key={selectedRelation.reverseRelationName + selectedRelation.targetEntity}
           entityName={selectedRelation.targetEntity}
           formBase={selectedRelation.targetEntity}
-          keepStore={true}
           parent={{
             key: currentViewInfo.key,
             reverseRelationName: selectedRelation.reverseRelationName,

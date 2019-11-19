@@ -93,7 +93,8 @@ export function* loadCurrentViewInfo({payload: {location}}) {
     reverseRelation: null,
     parentModel: null,
     relations: null,
-    location
+    location,
+    level: 0
   }
 
   yield put(actions.setBreadcrumbsInfo([]))
@@ -129,6 +130,7 @@ export function* loadCurrentViewInfo({payload: {location}}) {
               currentViewInfo.reverseRelation = currentViewInfo.model.paths[relationName].reverseRelationName
               currentViewInfo.parentModel = currentViewInfo.model
               currentViewInfo.model = yield call(getModel, targetEntity)
+              currentViewInfo.level = (i / 2) + 1
 
               yield call(addEntityToBreadcrumbs, breadcrumbPath, currentViewInfo.model.name)
             } else {

@@ -4,6 +4,7 @@ import {Router, Route, Redirect, Switch} from 'react-router-dom'
 import {createBrowserHistory} from 'history'
 import {Icon, Button, LoadMask} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
+import {listViewStoreStorage} from 'tocco-util'
 
 import Navigation from '../Navigation'
 import DashboardRoute from '../../routes/dashboard'
@@ -65,7 +66,10 @@ const Admin = ({initializeNavigation, setMenuOpen, menuOpen, baseRoute, confirm,
           <StyledMenu isOpen={menuOpen} onStateChange={isMenuOpen}
             customBurgerIcon={<Icon icon="bars"/>} styles={burgerMenuStyles} pageWrapId={'page-wrap'}
             outerContainerId={'outer-container'}>
-            <Navigation onClick={() => setMenuOpen(false)}/>
+            <Navigation onClick={() => {
+              setMenuOpen(false)
+              listViewStoreStorage.clear()
+            }}/>
           </StyledMenu>
           <StyledContent id="page-wrap">
             <Switch>
