@@ -15,9 +15,10 @@ export const cacheModel = (entity, model) => ({
   }
 })
 
-export const setCurrentViewInfo = currentViewInfo => ({
+export const setCurrentViewInfo = (location, currentViewInfo) => ({
   type: SET_CURRENT_VIEW_INFO,
   payload: {
+    location,
     currentViewInfo
   }
 })

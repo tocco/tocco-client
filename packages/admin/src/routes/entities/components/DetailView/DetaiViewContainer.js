@@ -6,7 +6,7 @@ import DetailView from './DetailView'
 const mapActionCreators = {}
 
 const mapStateToProps = (state, props) => ({
-  currentViewInfo: state.entities.path.currentViewInfo
+  currentViewInfo: state.entities.path.currentViewInfos[props.history.location.pathname]
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(DetailView))

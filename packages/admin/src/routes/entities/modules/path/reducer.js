@@ -31,10 +31,18 @@ export const setBreadcrumbDisplay = (state, {payload: {display, idx}}) => {
   return newState
 }
 
+export const setCurrentViewInfo = (state, {payload: {location, currentViewInfo}}) => ({
+  ...state,
+  currentViewInfos: {
+    ...state.currentViewInfos,
+    [location]: currentViewInfo
+  }
+})
+
 const ACTION_HANDLERS = {
   [actions.CACHE_MODEL]: cacheModel,
   [actions.CACHE_DISPLAY]: cacheDisplay,
-  [actions.SET_CURRENT_VIEW_INFO]: reducerUtil.singleTransferReducer('currentViewInfo'),
+  [actions.SET_CURRENT_VIEW_INFO]: setCurrentViewInfo,
   [actions.SET_BREADCRUMBS_INFO]: reducerUtil.singleTransferReducer('breadcrumbsInfo'),
   [actions.SET_RELATIONS]: reducerUtil.singleTransferReducer('relations'),
   [actions.SET_RELATION_COUNT]: reducerUtil.singleTransferReducer('relationsCount'),
@@ -44,7 +52,7 @@ const ACTION_HANDLERS = {
 const initialState = {
   modelCache: {},
   displayCache: {},
-  currentViewInfo: null,
+  currentViewInfos: {},
   breadcrumbsInfo: [],
   relations: null,
   relationsCount: {}
