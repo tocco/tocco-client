@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {storeStorage, reducer as reducerUtil} from 'tocco-util'
+import {reducer as reducerUtil} from 'tocco-util'
 import {
   appFactory,
   notifier,
@@ -29,17 +29,16 @@ const EXTERNAL_EVENTS = [
   'onRowClick',
   'onNavigateToCreate',
   'emitAction',
-  'onSelectChange'
+  'onSelectChange',
+  'onStoreCreate'
 ]
 
 const initApp = (id, input, events = {}, publicPath) => {
   const content = <EntityListContainer/>
 
   let dispatchActions
-  let store
-  if (input.keepStore) {
-    store = storeStorage.get(id)
-  }
+  let store = input.store
+
   if (!store) {
     store = appFactory.createStore(reducers, sagas, input, packageName)
 
@@ -51,7 +50,8 @@ const initApp = (id, input, events = {}, publicPath) => {
     formData.addToStore(store, {listApp: EntityListApp, linkFactory: input.linkFactory})
 
     dispatchActions = getDispatchActions(input, true)
-    storeStorage.set(id, store)
+
+    store.dispatch(externalEvents.fireExternalEvent('onStoreCreate', store))
   }
 
   const app = appFactory.createApp(
@@ -127,7 +127,7 @@ EntityListApp.propTypes = {
   id: PropTypes.string.isRequired,
   entityName: PropTypes.string.isRequired,
   formBase: PropTypes.string.isRequired,
-  keepStore: PropTypes.bool,
+  store: PropTypes.object,
   limit: PropTypes.number,
   searchFormType: searchFormTypePropTypes,
   searchFormPosition: PropTypes.oneOf(['top', 'left']),

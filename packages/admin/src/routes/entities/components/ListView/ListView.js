@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import EntityListApp from 'tocco-entity-list/src/main'
+import {listViewStoreStorage} from 'tocco-util'
 
 import StyledLink from '../../../../components/StyledLink/StyledLink'
 import {goBack} from '../../../../utils/routing'
@@ -22,6 +23,10 @@ const ListView = ({match, history, currentViewInfo, emitAction}) => {
       history.push(entityBaseUrl + '/create')
     }
   }
+
+  listViewStoreStorage.removeStoresBelow(currentViewInfo.level)
+
+  const cachedStore = listViewStoreStorage.getStore(currentViewInfo.level, currentViewInfo.location)
 
   return (
     <EntityListApp
@@ -47,6 +52,10 @@ const ListView = ({match, history, currentViewInfo, emitAction}) => {
       onNavigateToCreate={handleNavigateToCreate}
       searchFormPosition="left"
       searchFormType="admin"
+      store={cachedStore}
+      onStoreCreate={store => {
+        listViewStoreStorage.setStore(currentViewInfo.level, currentViewInfo.location, store)
+      }}
     />
   )
 }

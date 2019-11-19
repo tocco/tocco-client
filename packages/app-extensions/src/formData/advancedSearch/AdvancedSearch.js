@@ -10,7 +10,6 @@ const AdvancedSearch = props =>
   <StyledAdvancedSearch>
     <props.ListApp
       id={`advancedSearch-${uuid()}`}
-      keepStore={false}
       entityName={props.entityName}
       formBase={props.formBase}
       listFormDefinition={props.listFormDefinition}

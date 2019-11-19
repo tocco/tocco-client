@@ -7,7 +7,6 @@ const SubGrid = props => {
   return (
     <EntityListApp
       id={`${props.appId}-subgrid-${formBase}`}
-      keepStore={true}
       entityName={props.modelField.targetEntity}
       formBase={formBase}
       limit={props.limit}
