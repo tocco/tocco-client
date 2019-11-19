@@ -1,9 +1,9 @@
-import {shallow} from 'enzyme'
 import React from 'react'
 import {intlEnzyme} from 'tocco-test-util'
 
 import Action from './Action'
 import ActionGroup from './ActionGroup'
+import {SingleAction} from './SingleAction'
 
 const EMPTY_FUNC = () => {}
 
@@ -19,17 +19,23 @@ describe('app-extensions', () => {
             id: 'test'
           }
 
-          expect(
-            shallow(<Action {...baseProps} definition={{...definition, scopes: ['update']}} mode="update"/>
-            ).type()).not.to.be.null
-          expect(
-            shallow(<Action {...baseProps} definition={{...definition, scopes: ['update']}} mode="create'"/>
-            ).type()).be.null
-          expect(shallow(<Action {...baseProps} definition={{...definition}}/>).type()).not.to.be.null
-          expect(shallow(
-            <Action {...baseProps} definition={{...definition, scopes: ['update']}}/>)
-            .type()).not.to.be.null
-          expect(shallow(<Action {...baseProps} definition={{...definition}} mode="update"/>).type()).not.to.be.null
+          expect(intlEnzyme.mountWithIntl(
+            <Action {...baseProps} definition={{...definition, scopes: ['update']}} mode="update"/>)
+            .find(SingleAction)).to.have.length(1)
+
+          expect(intlEnzyme.mountWithIntl(
+            <Action {...baseProps} definition={{...definition, scopes: ['update']}} mode="create"/>
+          ).find(SingleAction)).to.have.length(0)
+
+          expect(intlEnzyme.mountWithIntl(
+            <Action {...baseProps} definition={{...definition}}/>)
+            .find(SingleAction)).to.have.length(1)
+
+          expect(intlEnzyme.mountWithIntl(<Action {...baseProps} definition={{...definition, scopes: ['update']}}/>)
+            .find(SingleAction)).to.have.length(1)
+
+          expect(intlEnzyme.mountWithIntl(<Action {...baseProps} definition={{...definition}} mode="update"/>)
+            .find(SingleAction)).to.have.length(1)
         })
 
         test('should return groups', () => {
@@ -64,6 +70,43 @@ describe('app-extensions', () => {
           }
 
           const wrapper = intlEnzyme.mountWithIntl(<Action {...baseProps} definition={definition}/>)
+          expect(wrapper.find(ActionGroup)).to.have.length(1)
+        })
+
+        test('should return an array of actions if wrapped inside an action-bar', () => {
+          const definition = {
+            componentType: 'action-bar',
+            action: {
+              componentType: 'action',
+              actionType: 'simple'
+            },
+            children: [
+              {
+                componentType: 'action',
+                actionType: 'simple'
+              },
+              {
+                componentType: 'action',
+                actionType: 'simple'
+              },
+              {
+                componentType: 'action-group',
+                action: {
+                  componentType: 'action',
+                  actionType: 'simple'
+                },
+                children: [
+                  {
+                    componentType: 'action',
+                    actionType: 'simple'
+                  }
+                ]
+              }
+            ]
+          }
+
+          const wrapper = intlEnzyme.mountWithIntl(<Action {...baseProps} definition={definition}/>)
+          expect(wrapper.find(SingleAction)).to.have.length(2)
           expect(wrapper.find(ActionGroup)).to.have.length(1)
         })
       })
