@@ -1,5 +1,13 @@
 import React from 'react'
-import {appFactory, notifier, errorLogging, actionEmitter, externalEvents, rest} from 'tocco-app-extensions'
+import {
+  appFactory,
+  notifier,
+  errorLogging,
+  actionEmitter,
+  externalEvents,
+  rest,
+  viewPersistor
+} from 'tocco-app-extensions'
 import createHashHistory from 'history/createHashHistory'
 import createMemoryHistory from 'history/createMemoryHistory'
 import PropTypes from 'prop-types'
@@ -58,6 +66,7 @@ const initApp = (id, input, events, publicPath) => {
   actionEmitter.addToStore(store)
   errorLogging.addToStore(store, true, ['console', 'remote', 'notifier'])
   notifier.addToStore(store, true)
+  viewPersistor.addToStore(store)
 
   const history = createHistory(store, input.memoryHistory)
   navigateToDetailIfKeySet(history, input)
