@@ -8,7 +8,15 @@ import {RelationBox, RelationLabel, RelationLinks, StyledPreviewBox, StyledRelat
 import {StyledLink} from '../../../../components/StyledLink'
 import {goBack} from '../../../../utils/routing'
 
-const RelationsView = ({history, match, currentViewInfo, relations, relationsCount}) => {
+const RelationsView = ({
+  history,
+  match,
+  currentViewInfo,
+  relations,
+  relationsCount,
+  persistViewInfo,
+  persistedViewInfo
+}) => {
   const [selectedRelation, selectRelation] = useState(null)
 
   useEffect(
@@ -17,11 +25,11 @@ const RelationsView = ({history, match, currentViewInfo, relations, relationsCou
         const queryRelation = queryString.parse(history.location.search).relation
         if (queryRelation) {
           selectRelation(relations.find(r => r.relationName === queryRelation))
+        } else if (persistedViewInfo.selectedRelation) {
+          selectRelation(relations.find(r => r.relationName === persistedViewInfo.selectedRelation))
         } else {
           selectRelation(relations[0])
         }
-      } else {
-        selectRelation(null)
       }
     },
     [relations]
@@ -46,6 +54,11 @@ const RelationsView = ({history, match, currentViewInfo, relations, relationsCou
               history.replace({
                 search: '?relation=' + relation.relationName
               })
+              persistViewInfo(
+                currentViewInfo.location,
+                currentViewInfo.level,
+                {selectedRelation: relation.relationName}
+              )
             }}
           >
             <RelationLabel title={relation.relationDisplay.label}>
@@ -92,6 +105,14 @@ const RelationsView = ({history, match, currentViewInfo, relations, relationsCou
           }}
           searchFormType="simple"
           selectionStyle="none"
+          store={persistedViewInfo[`store-${selectedRelation.relationName}`]}
+          onStoreCreate={store => {
+            persistViewInfo(
+              currentViewInfo.location,
+              currentViewInfo.level,
+              {[`store-${selectedRelation.relationName}`]: store}
+            )
+          }}
         />
       </StyledPreviewBox>
       }
@@ -105,7 +126,11 @@ RelationsView.propTypes = {
   match: PropTypes.object.isRequired,
   currentViewInfo: PropTypes.object,
   relations: PropTypes.array,
-  relationsCount: PropTypes.object
+  relationsCount: PropTypes.object,
+  persistedViewInfo: PropTypes.shape({
+    selectedRelation: PropTypes.string
+  }),
+  persistViewInfo: PropTypes.func.isRequired
 }
 
 export default RelationsView

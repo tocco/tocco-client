@@ -1,5 +1,5 @@
 import pathToRegexp from 'path-to-regexp'
-import {rest} from 'tocco-app-extensions'
+import {rest, viewPersistor} from 'tocco-app-extensions'
 import _get from 'lodash/get'
 import _pickBy from 'lodash/pickBy'
 import _pick from 'lodash/pick'
@@ -113,8 +113,11 @@ export function* loadCurrentViewInfo({payload: {location}}) {
       const baseEntityModel = yield call(getModel, path.entity)
       yield call(addEntityToBreadcrumbs, path.entity, baseEntityModel.label)
       currentViewInfo.model = baseEntityModel
+      currentViewInfo.level = 0
+
       if (path.key) {
         currentViewInfo.key = path.key
+        currentViewInfo.level = 1
 
         yield call(addRecordToBreadcrumbs, path.entity + '/' + path.key, path.entity, path.key)
 
@@ -123,6 +126,8 @@ export function* loadCurrentViewInfo({payload: {location}}) {
           for (let i = 0; i < splittedRelation.length; i++) {
             const relationStringPart = splittedRelation[i]
             const breadcrumbPath = [path.entity, path.key, ...path.relation.split('/').slice(0, i + 1)].join('/')
+
+            currentViewInfo.level = i + 2
 
             if (isEven(i)) {
               const relationName = relationStringPart
@@ -149,6 +154,8 @@ export function* loadCurrentViewInfo({payload: {location}}) {
       if (!currentViewInfos[location]) {
         yield put(actions.setCurrentViewInfo(location, currentViewInfo))
       }
+
+      yield put(viewPersistor.clearPersistedViews(currentViewInfo.level + 1))
     }
   }
 }
