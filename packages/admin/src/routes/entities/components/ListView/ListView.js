@@ -1,12 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import EntityListApp from 'tocco-entity-list/src/main'
-import {listViewStoreStorage} from 'tocco-util'
 
 import StyledLink from '../../../../components/StyledLink/StyledLink'
 import {goBack} from '../../../../utils/routing'
 
-const ListView = ({match, history, currentViewInfo, emitAction}) => {
+const ListView = ({match, history, currentViewInfo, emitAction, persistViewInfo, persistedViewInfo}) => {
   if (!currentViewInfo) {
     return null
   }
@@ -23,10 +22,6 @@ const ListView = ({match, history, currentViewInfo, emitAction}) => {
       history.push(entityBaseUrl + '/create')
     }
   }
-
-  listViewStoreStorage.removeStoresBelow(currentViewInfo.level)
-
-  const cachedStore = listViewStoreStorage.getStore(currentViewInfo.level, currentViewInfo.location)
 
   return (
     <EntityListApp
@@ -52,9 +47,9 @@ const ListView = ({match, history, currentViewInfo, emitAction}) => {
       onNavigateToCreate={handleNavigateToCreate}
       searchFormPosition="left"
       searchFormType="admin"
-      store={cachedStore}
+      store={persistedViewInfo.store}
       onStoreCreate={store => {
-        listViewStoreStorage.setStore(currentViewInfo.level, currentViewInfo.location, store)
+        persistViewInfo(history.location.pathname, currentViewInfo.level, {store})
       }}
     />
   )
@@ -63,8 +58,12 @@ const ListView = ({match, history, currentViewInfo, emitAction}) => {
 ListView.propTypes = {
   match: PropTypes.object.isRequired,
   emitAction: PropTypes.func.isRequired,
+  persistViewInfo: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
-  currentViewInfo: PropTypes.object
+  currentViewInfo: PropTypes.object,
+  persistedViewInfo: PropTypes.shape({
+    store: PropTypes.object
+  })
 }
 
 export default ListView

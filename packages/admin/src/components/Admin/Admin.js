@@ -4,7 +4,6 @@ import {Router, Route, Redirect, Switch} from 'react-router-dom'
 import {createBrowserHistory} from 'history'
 import {Icon, Button, LoadMask} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
-import {listViewStoreStorage} from 'tocco-util'
 
 import Navigation from '../Navigation'
 import DashboardRoute from '../../routes/dashboard'
@@ -22,7 +21,7 @@ import {
   burgerMenuStyles
 } from './StyledComponents'
 
-const Admin = ({initializeNavigation, setMenuOpen, menuOpen, baseRoute, confirm, doLogout}) => {
+const Admin = ({initializeNavigation, setMenuOpen, menuOpen, baseRoute, confirm, doLogout, clearPersistedViews}) => {
   const [history, setHistory] = useState(null)
 
   useEffect(() => {
@@ -68,7 +67,7 @@ const Admin = ({initializeNavigation, setMenuOpen, menuOpen, baseRoute, confirm,
             outerContainerId={'outer-container'}>
             <Navigation onClick={() => {
               setMenuOpen(false)
-              listViewStoreStorage.clear()
+              clearPersistedViews()
             }}/>
           </StyledMenu>
           <StyledContent id="page-wrap">
@@ -93,6 +92,7 @@ Admin.propTypes = {
   loggedIn: PropTypes.bool,
   menuOpen: PropTypes.bool,
   doLogout: PropTypes.func.isRequired,
+  clearPersistedViews: PropTypes.func.isRequired,
   setMenuOpen: PropTypes.func.isRequired,
   confirm: PropTypes.func.isRequired,
   initializeNavigation: PropTypes.func.isRequired
