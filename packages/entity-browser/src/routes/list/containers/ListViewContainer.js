@@ -1,12 +1,14 @@
 import {connect} from 'react-redux'
 import EntityListApp from 'tocco-entity-list/src/main'
-import {actionEmitter} from 'tocco-app-extensions'
+import {actionEmitter, viewPersistor} from 'tocco-app-extensions'
 import objectHash from 'object-hash'
-import {listViewStoreStorage} from 'tocco-util'
 
-const mapActionCreators = {
-  emitAction: action => actionEmitter.dispatchEmittedAction(action)
-}
+const mapDispatchToProps = (dispatch, props) => ({
+  emitAction: action => actionEmitter.dispatchEmittedAction(action),
+  onStoreCreate: store => {
+    dispatch(viewPersistor.persistViewInfo(props.router.history.location.pathname, 0, {store}))
+  }
+})
 
 const handleNavigateToCreate = props => relationName => {
   if (relationName) {
@@ -20,10 +22,8 @@ const mapStateToProps = (state, props) => {
   const hash = objectHash(state.input)
   return {
     id: `${state.entityBrowser.appId}_entity-browser-list-${hash}`,
-    store: listViewStoreStorage.getStore(0, props.router.history.location.pathname),
-    onStoreCreate: store => {
-      listViewStoreStorage.setStore(0, props.router.history.location.pathname, store)
-    },
+    store: viewPersistor.viewInfoSelector(state, props.router.history.location.pathname).store,
+
     locale: state.input.locale,
     entityName: state.entityBrowser.entityName,
     formBase: state.entityBrowser.formBase,
@@ -41,4 +41,4 @@ const mapStateToProps = (state, props) => {
   }
 }
 
-export default connect(mapStateToProps, mapActionCreators)(EntityListApp)
+export default connect(mapStateToProps, mapDispatchToProps)(EntityListApp)
