@@ -1,3 +1,7 @@
+0.1.11
+- Fix navigation bug where the same url loaded different views
+- View caching
+
 0.1.10
 - Restrict global icon dom watch
 - Add search-filters to admin search form
