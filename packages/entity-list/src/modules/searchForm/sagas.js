@@ -8,7 +8,7 @@ import * as formActionTypes from 'redux-form/es/actionTypes'
 import {call, put, fork, select, takeLatest, take, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
-import {getFormFieldFlat, getEndpoint} from '../../util/api/forms'
+import {getFormFieldFlat, getEndpoint, changeParentFieldType} from '../../util/api/forms'
 import {SET_INITIALIZED as LIST_SET_INITIALIZED, setSearchFormType} from '../entityList/actions'
 import {validateSearchFields} from '../../util/searchFormValidation'
 import {SET_FORM_DEFINITION} from '../list/actions'
@@ -75,7 +75,8 @@ export function* setInitialFormValues(searchFormVisible, formDefinition) {
     const listFormDefinition = yield call(getListFormDefinition)
     const endpoint = yield call(getEndpoint, listFormDefinition)
     if (!endpoint) {
-      formValues[parent.reverseRelationName] = {key: parent.key}
+      const display = yield call(rest.fetchDisplay, parent.model, parent.key)
+      formValues[parent.reverseRelationName] = {key: parent.key, display}
     }
   }
 
@@ -122,8 +123,13 @@ export function* loadSearchForm(searchFormName) {
   if (searchFormType === searchFormTypes.SIMPLE) {
     return null
   }
-  const formDefinition = yield call(rest.fetchForm, searchFormName, true)
+  let formDefinition = yield call(rest.fetchForm, searchFormName, true)
   if (formDefinition) {
+    const {parent} = yield select(inputSelector)
+    if (parent && parent.reverseRelationName) {
+      formDefinition = yield call(changeParentFieldType, formDefinition, parent.reverseRelationName)
+    }
+
     yield put(actions.setFormDefinition(formDefinition))
     yield put(actions.setFormFieldsFlat(getFormFieldFlat(formDefinition)))
   } else {

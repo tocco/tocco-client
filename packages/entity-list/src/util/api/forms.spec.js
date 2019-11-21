@@ -258,6 +258,15 @@ describe('entity-list', () => {
             expect(result).to.eql(expectedResult)
           })
         })
+
+        describe('changeParentFieldType', () => {
+          test('should ', () => {
+            const result = forms.changeParentFieldType(mockData.data.dummyEntitySearchForm.form, 'relUser')
+
+            const flatten = forms.getFormFieldFlat(result)
+            expect(flatten.relUser).to.eql('single-select-box')
+          })
+        })
       })
     })
   })
