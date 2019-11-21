@@ -86,7 +86,6 @@ const StyledStatedValueLabel = styled.label`
 
 const StyledStatedValueBox = styled.div`
   &&& {
-    border-radius: ${getTheme.radii('regular')};
     border: ${BORDER_WIDTH} solid ${props => colorizeBorder[getBorderColor(props)](props)};
     padding: ${scale.space(-2)} ${scale.space(-1)};
     position: relative;
