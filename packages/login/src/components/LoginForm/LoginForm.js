@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
 import {
-  Button,
   ButtonGroup,
   SignalList,
   StatedValue,
@@ -12,7 +11,9 @@ import {
 import {
   StyledLoginFormInput,
   StyledLoginFormInputWrapper,
-  StyledLoginFormWrapper
+  StyledLoginFormWrapper,
+  StyledPasswordButton,
+  StyledLoginButton
 } from '../StyledLoginForm'
 import {Pages} from '../../types/Pages'
 
@@ -50,7 +51,7 @@ export class LoginForm extends Component {
       <StyledLoginFormWrapper>
         {this.props.showTitle
           && <React.Fragment>
-            <Typography.H5><FormattedMessage id="client.login.form.title"/></Typography.H5>
+            <Typography.H1><FormattedMessage id="client.login.form.title"/></Typography.H1>
             <Typography.P><FormattedMessage id="client.login.form.introduction"/></Typography.P>
           </React.Fragment>}
         <form onSubmit={this.handleSubmit.bind(this)}>
@@ -106,7 +107,7 @@ export class LoginForm extends Component {
           }
 
           <ButtonGroup look="raised">
-            <Button
+            <StyledLoginButton
               disabled={
                 !this.state.autoFill
                 && (this.props.loginPending || this.props.username === '' || this.props.password === '')}
@@ -116,7 +117,7 @@ export class LoginForm extends Component {
               type="submit"
               data-cy="login-form_login-button"
             />
-            <Button
+            <StyledPasswordButton
               label={this.msg('client.login.form.forgotLink')}
               onClick={() => this.props.changePage(Pages.PASSWORD_REQUEST)}
               data-cy="login-form_request-button"
