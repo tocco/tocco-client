@@ -2,7 +2,7 @@ export default {
   colors: {
     paper: '#fff',
     primary: '#9E2124',
-    text: '#212121',
+    text: '#4f5e60',
     signal: {
       danger: {
         paper: '#EF9A9A', // Red 200
@@ -40,7 +40,7 @@ export default {
     regular: 1.4
   },
   radii: {
-    regular: '4px'
+    regular: '25px'
   },
   space: {
     base: 2,
