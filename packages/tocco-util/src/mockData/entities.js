@@ -2,6 +2,7 @@ import _get from 'lodash/get'
 
 import consoleLogger from '../consoleLogger'
 import {sleep} from './mockData'
+import {evaluateINQuery, getParameterValue} from './utils'
 
 const evenFilter = (value, idx) => idx % 2 === 0
 
@@ -148,6 +149,11 @@ export const setupEntities = (fetchMock, entityStore, timeout) => {
     createEntitiesResponse('Dummy_entity', entityStore, timeout)
   )
 
+  fetchMock.post(
+    new RegExp('^.*?/nice2/rest/entities/2.0/displays/.*$'),
+    createEntitiesDisplayResponse(entityStore, timeout)
+  )
+
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/entities/Search_filter(\\?.*)?$'),
     createSearchFilterResponse(timeout)
@@ -210,6 +216,15 @@ const extractBodyParams = body => () => {
   return {limit, offset, sort, search, where}
 }
 
+const createEntitiesDisplayResponse = (entityStore, timeout) =>
+  (url, opts) =>
+    sleep(timeout).then(() => ({
+      data: JSON.parse(opts.body).map(val => ({
+        model: val.model,
+        values: val.keys.map(key => ({key, display: `${val.model} (${key})`}))
+      }))
+    }))
+
 const createEntitiesResponse = (entityName, entityStore, timeout, filter) => {
   const entities = entityStore[entityName]
 
@@ -252,16 +267,6 @@ const createEntitiesResponse = (entityName, entityStore, timeout, filter) => {
   }
 }
 
-const handleQueryResult = (query, entities) => {
-  const matchIN = query.match(/IN\(pk,(.*)\)/)
-  if (matchIN) {
-    const ids = matchIN[1].split(',')
-    entities = entities.filter(e => ids.includes(e.key))
-  }
-
-  return entities
-}
-
 const createSearchFilterResponse = () =>
   url => {
     consoleLogger.log('fetchMock: called fetch search filter', url)
@@ -278,13 +283,9 @@ const createSearchFilterResponse = () =>
     }
   }
 
-const getParameterValue = (name, url) => {
-  name = name.replace(/[[\]]/g, '\\$&')
-  const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)')
-  const results = regex.exec(url)
-  if (!results) return null
-  if (!results[2]) return ''
-  return decodeURIComponent(results[2].replace(/\+/g, ' '))
+const handleQueryResult = (query, entities) => {
+  const keys = evaluateINQuery(query)
+  return entities.filter(e => keys.includes(e.key))
 }
 
 const wrapEntitiesResponse = (entityName, entities) => ({

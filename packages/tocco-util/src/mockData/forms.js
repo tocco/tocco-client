@@ -1,4 +1,11 @@
+import {evaluateINQuery, getParameterValue} from './utils'
+
 export const setupForms = fetchMock => {
+  fetchMock.get(
+    new RegExp('^.*?/nice2/rest/forms/(.*)/display-expressions.*$'),
+    createDisplayExpressionResponse()
+  )
+
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/forms/User_(list|remotefield)$'),
     require('./data/user_list_form.json')
@@ -67,3 +74,23 @@ export const setupForms = fetchMock => {
     require('./data/dummy_entity_create_form.json')
   )
 }
+
+const createDisplayExpressionResponse = () =>
+  (url, opts) => {
+    const paths = getParameterValue('_paths', url).split(',')
+    const where = getParameterValue('_where', url)
+
+    const keys = evaluateINQuery(where)
+
+    const formName = url.match(/.*forms\/(.*)\/display-expressions.*/)[1]
+    return {
+      formName,
+      displayExpressions: keys.map(key => (
+        {
+          key: key.toString(),
+          displayExpressions: paths.reduce((acc, path) => (
+            {...acc, [path]: `<i class="fas fa-adjust"></i><b>bold</b> <i>${key}</i>`}
+          ), {})
+        }))
+    }
+  }
