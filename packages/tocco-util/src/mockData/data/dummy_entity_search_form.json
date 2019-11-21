@@ -30,6 +30,25 @@
             ]
           },
           {
+            "id": "relUser",
+            "label": "Person",
+            "componentType": "field-set",
+            "children": [
+              {
+                "id": "relUser",
+                "label": null,
+                "componentType": "fulltext-search",
+                "path": "relUser",
+                "dataType": "fulltext-search",
+                "defaultValue": null,
+                "minChars": null
+              }
+            ],
+            "readonly": false,
+            "hidden": false,
+            "scopes": []
+          },
+          {
             "componentType": "field-set",
             "id": "label",
             "label": "Bezeichnung",
@@ -64,6 +83,7 @@
         "useLabel": "NO"
       }
     ],
-    "model": "Dummy_entity"
+    "componentType": "form",
+    "modelName": "Dummy_entity"
   }
 }

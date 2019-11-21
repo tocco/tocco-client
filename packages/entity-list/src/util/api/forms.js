@@ -60,3 +60,29 @@ const searchChildren = node => {
     }), {})
   }
 }
+
+/**
+ * If the search form contains a field pointing to the parent entity this must not be a full-text
+ * search field and should be readonly. This function will search for the correct field and replace its
+ * type and change the readonly attribute.
+ */
+export const changeParentFieldType = (formElement, parentPath) => {
+  if (formElement.componentType === 'field-set') {
+    const containsParentField = formElement.children.some(child => child.path === parentPath)
+
+    return {
+      ...formElement,
+      ...(containsParentField && {readonly: true}),
+      children: formElement.children.map(child =>
+        child.path === parentPath
+          ? {...child, dataType: 'single-select-box'}
+          : child)
+    }
+  }
+  if (formElement.children) {
+    return {
+      ...formElement,
+      children: formElement.children.map(child => changeParentFieldType(child, parentPath))
+    }
+  }
+}

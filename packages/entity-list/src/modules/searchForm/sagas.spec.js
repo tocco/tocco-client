@@ -83,13 +83,14 @@ describe('entity-list', () => {
             () => {
               const FORM_ID = 'searchForm'
               const parent = {key: '22', reverseRelationName: 'relWhatever'}
-              const expectedValues = {relWhatever: {key: '22'}}
+              const expectedValues = {relWhatever: {key: '22', display: 'Test User'}}
 
               return expectSaga(sagas.setInitialFormValues, false, null)
                 .provide([
                   [select(sagas.inputSelector), {parent}],
                   [matchers.call.fn(sagas.getListFormDefinition), null],
-                  [matchers.call.fn(getEndpoint), null]
+                  [matchers.call.fn(getEndpoint), null],
+                  [matchers.call.fn(rest.fetchDisplay), 'Test User']
                 ])
                 .put(formActions.initialize(FORM_ID, expectedValues))
                 .run()
@@ -188,7 +189,8 @@ describe('entity-list', () => {
             return expectSaga(sagas.loadSearchForm)
               .provide([
                 [matchers.call.fn(rest.fetchForm), formDefinition],
-                [select(sagas.entityListSelector), {searchFormType: 'basic'}]
+                [select(sagas.entityListSelector), {searchFormType: 'basic'}],
+                [select(sagas.inputSelector), {}]
               ])
               .put(actions.setFormDefinition(formDefinition))
               .returns(formDefinition)
