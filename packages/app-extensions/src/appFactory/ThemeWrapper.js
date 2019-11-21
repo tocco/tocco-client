@@ -12,7 +12,7 @@ class ThemeWrapper extends React.PureComponent {
 
     return <ThemeProvider theme={mergedTheme}>
       <React.Fragment>
-        {!theme && <Typography.InjectFont />}
+        {theme && <Typography.InjectFont />}
         {this.props.children}
       </React.Fragment>
     </ThemeProvider>
