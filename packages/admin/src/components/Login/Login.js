@@ -21,8 +21,7 @@ const StyledLogin = styled.div`
 
 const LoginWrapper = styled.div`
   max-width: 490px;
-  margin-left: 28%;
-  margin-top: 5%;
+  margin: 5% 5% 0 28%;
 `
 
 const Slogan = styled.div`
