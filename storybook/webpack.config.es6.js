@@ -13,6 +13,13 @@ module.exports = ({config, configType}) => {
 
   babelLoaderRule.exclude[0] = /node_modules/
 
+  config.module.rules = config.module.rules.map(data => {
+    if (/svg\|/.test(String(data.test))) {
+      data.test = /\.(ico|jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|cur|ani)(\?.*)?$/
+    }
+    return data
+  })
+
   config.module.rules.push({
     test: /\.scss$/,
       use: ['style-loader', 'css-loader', `sass-loader?data=$node-env:${runConfig.env};&includePaths[]=./packages/tocco-theme/node_modules/`]  // eslint-disable-line
