@@ -68,8 +68,10 @@ export const getModel = settingsDefinition => {
     ), {})
 
   return {
-    ...extractModelFields(GROUP_GENERAL),
-    ...extractModelFields(GROUP_RECIPIENT)
+    paths: {
+      ...extractModelFields(GROUP_GENERAL),
+      ...extractModelFields(GROUP_RECIPIENT)
+    }
   }
 }
 

@@ -8,7 +8,7 @@ import ActionGroup from './ActionGroup'
 import SingleAction from './SingleAction'
 import {StyledAction} from './StyledAction'
 
-const ActionVisual = ({definition, onClick, selection, parent, entity, mode, callback, disabled}) => {
+const ActionVisual = ({definition, onClick, selection, parent, mode, callback, disabled}) => {
   if (!modeFitsScopes(mode, definition.scopes)) return null
 
   const ActionType = definition.componentType === componentTypes.ACTION_GROUP ? ActionGroup : SingleAction
@@ -17,7 +17,7 @@ const ActionVisual = ({definition, onClick, selection, parent, entity, mode, cal
     <ActionType
       definition={definition}
       onClick={definition => {
-        onClick(_omit(definition, ['label']), entity, selection, parent, callback)
+        onClick(_omit(definition, ['label']), selection, parent, callback)
       }}
       selectedCount={selection.count}
       disabled={disabled}
@@ -51,7 +51,6 @@ ActionVisual.propTypes = {
     type: PropTypes.oneOf(['ID', 'QUERY']).isRequired,
     count: PropTypes.number
   }).isRequired,
-  entity: PropTypes.string,
   onClick: PropTypes.func.isRequired,
   callback: PropTypes.func,
   mode: PropTypes.string,

@@ -4,21 +4,21 @@ import errorLogging from '../../../errorLogging'
 import rest from '../../../rest'
 import notifier from '../../../notifier'
 
-export default function* (definition, entity, selection, parent, params) {
+export default function* (definition, selection, parent, params) {
   const randomId = Math.random()
   const title = definition.progressMsg || 'client.component.actions.defaultProgressMessage'
   yield put(notifier.blockingInfo(randomId, title))
-  const response = yield call(invokeRequest, definition, entity, selection, parent, params)
+  const response = yield call(invokeRequest, definition, selection, parent, params)
   yield put(notifier.removeBlockingInfo(randomId))
   return response
 }
 
-export function* invokeRequest(definition, entity, selection, parent, params) {
+export function* invokeRequest(definition, selection, parent, params) {
   try {
     const response = yield call(rest.requestSaga, definition.endpoint, {
       method: 'POST',
       body: {
-        entity,
+        entity: selection.entityName,
         selection,
         parent,
         ...params

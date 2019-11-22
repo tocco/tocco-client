@@ -10,7 +10,6 @@ describe('app-extensions', () => {
           test('should call custom action from config', () => {
             const definition = {id: 'new'}
             const newActionSpy = sinon.spy()
-            const entity = {}
             const selection = {}
             const parent = {}
             const params = {}
@@ -19,15 +18,15 @@ describe('app-extensions', () => {
                 new: newActionSpy
               }
             }
-            return expectSaga(customActionHandler, definition, entity, selection, parent, params, config)
-              .call(newActionSpy, definition, entity, selection, parent, params, config)
+            return expectSaga(customActionHandler, definition, selection, parent, params, config)
+              .call(newActionSpy, definition, selection, parent, params, config)
               .run()
           })
 
           test('should run without exception if custom action type is not configured', () => {
             const definition = {id: 'something'}
             const config = {}
-            return expectSaga(customActionHandler, definition, {}, {}, {}, {}, config)
+            return expectSaga(customActionHandler, definition, {}, {}, {}, config)
               .run()
           })
         })
