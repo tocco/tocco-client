@@ -29,8 +29,23 @@ export const StyledLoginFormInputWrapper = styled.div`
 `
 
 export const StyledLoginButton = styled(Button)`
-  &&&& {
-    margin-right: 0;
+  &&& {
+    border-radius: ${theme.radii('large')};
+    display: flex;
+    justify-content: center;
+  
+    &:not(:last-child) {
+      margin-right: 0;
+    }
+    
+    svg {
+      font-size: ${theme.fontSize('base')}em !important;
+      margin-right: .5em;
+    }
+    
+    && > span {
+      width: auto;
+    }
   }
 `
 
@@ -38,10 +53,10 @@ export const StyledPasswordButton = styled(Button)`
   &&& {
     margin-right: 0;
     background-color: transparent;
-    color: ${theme.color('signal.danger.text')};
+    color: ${theme.color('primary')};
     
     &:hover {
-    background-color: transparent;
+      background-color: transparent;
     }
   }
 `
