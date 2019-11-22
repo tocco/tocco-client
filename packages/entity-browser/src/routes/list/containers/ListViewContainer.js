@@ -3,7 +3,7 @@ import EntityListApp from 'tocco-entity-list/src/main'
 import {actionEmitter, viewPersistor} from 'tocco-app-extensions'
 
 const mapDispatchToProps = (dispatch, props) => ({
-  emitAction: action => actionEmitter.dispatchEmittedAction(action),
+  emitAction: action => { dispatch(actionEmitter.dispatchEmittedAction(action)) },
   onStoreCreate: store => {
     dispatch(viewPersistor.persistViewInfo(props.router.history.location.pathname, 0, {store}))
   }
