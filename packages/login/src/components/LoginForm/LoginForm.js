@@ -51,7 +51,7 @@ export class LoginForm extends Component {
       <StyledLoginFormWrapper>
         {this.props.showTitle
           && <React.Fragment>
-            <Typography.H1><FormattedMessage id="client.login.form.title"/></Typography.H1>
+            <Typography.H5><FormattedMessage id="client.login.form.title"/></Typography.H5>
             <Typography.P><FormattedMessage id="client.login.form.introduction"/></Typography.P>
           </React.Fragment>}
         <form onSubmit={this.handleSubmit.bind(this)}>
