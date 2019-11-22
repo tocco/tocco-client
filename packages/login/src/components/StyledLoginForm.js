@@ -38,13 +38,9 @@ export const StyledLoginButton = styled(Button)`
       margin-right: 0;
     }
     
-    svg {
-      font-size: ${theme.fontSize('base')}em !important;
-      margin-right: .5em;
-    }
-    
     && > span {
       width: auto;
+      padding-left: .4em;
     }
   }
 `
