@@ -1,5 +1,5 @@
 import React from 'react'
-import {shallow} from 'enzyme'
+import {shallow, mount} from 'enzyme'
 import {FormattedMessage} from 'react-intl'
 import {Button} from 'tocco-ui'
 import {intlEnzyme, IntlStub} from 'tocco-test-util'
@@ -11,7 +11,7 @@ describe('login', () => {
   describe('components', () => {
     describe('LoginForm', () => {
       test('should render some components', () => {
-        const wrapper = shallow(
+        const wrapper = mount(
           <LoginForm
             intl={IntlStub}
             login={() => undefined}
@@ -27,7 +27,7 @@ describe('login', () => {
       test(
         'should render two <FormattedMessage> components if title is shown',
         () => {
-          const wrapper = shallow(
+          const wrapper = intlEnzyme.mountWithIntl(
             <LoginForm
               intl={IntlStub}
               login={() => undefined}
@@ -44,7 +44,7 @@ describe('login', () => {
       )
 
       test('should disable button if username and password are not set', () => {
-        const wrapper = shallow(
+        const wrapper = mount(
           <LoginForm
             intl={IntlStub}
             login={() => undefined}
@@ -62,7 +62,7 @@ describe('login', () => {
       })
 
       test('should disable button if only username is set', () => {
-        const wrapper = shallow(
+        const wrapper = mount(
           <LoginForm
             intl={IntlStub}
             login={() => undefined}
@@ -80,7 +80,7 @@ describe('login', () => {
       })
 
       test('should disable button if only password is set', () => {
-        const wrapper = shallow(
+        const wrapper = mount(
           <LoginForm
             intl={IntlStub}
             login={() => undefined}
@@ -98,7 +98,7 @@ describe('login', () => {
       })
 
       test('should enable button if username and password are set', () => {
-        const wrapper = shallow(
+        const wrapper = mount(
           <LoginForm
             intl={IntlStub}
             login={() => undefined}
@@ -110,7 +110,7 @@ describe('login', () => {
             password="password"
           />
         )
-        expect(wrapper.find(Button)).to.have.length(2)
+        expect(wrapper.find('button')).to.have.length(2)
         const button = wrapper.find(Button).first()
         expect(button.prop('disabled')).to.equal(false)
       })
