@@ -77,7 +77,12 @@ const RelationsView = ({
 
       {selectedRelation
       && <StyledPreviewBox>
-        <Typography.H4>{selectedRelation.relationDisplay.label}</Typography.H4>
+        <Typography.H4>
+          {selectedRelation.relationDisplay.label}&nbsp;
+          <StyledLink to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName)}>
+            <Icon icon="external-link-alt"/>
+          </StyledLink>
+        </Typography.H4>
         <EntityListApp
           id={'preview' + selectedRelation.reverseRelationName + selectedRelation.targetEntity}
           key={selectedRelation.reverseRelationName + selectedRelation.targetEntity}
