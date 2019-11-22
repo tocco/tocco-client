@@ -2,11 +2,11 @@ import styled from 'styled-components'
 import {
   StyledInputCss,
   StyledEditableWrapperCss,
-  Button
+  Button,
+  theme
 } from 'tocco-ui'
 import {StyledButton} from 'tocco-ui/src/Button'
 import {StyledButtonGroup} from 'tocco-ui/src/ButtonGroup'
-import {theme} from 'tocco-ui/src/utilStyles'
 
 export const StyledLoginFormInput = styled.input`
   @keyframes onAutoFillStart { from {} }
