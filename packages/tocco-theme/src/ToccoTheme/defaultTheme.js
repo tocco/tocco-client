@@ -40,7 +40,8 @@ export default {
     regular: 1.4
   },
   radii: {
-    regular: '25px'
+    regular: '4px',
+    large: '25px'
   },
   space: {
     base: 2,
