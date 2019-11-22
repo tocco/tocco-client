@@ -31,7 +31,6 @@ class ListView extends React.Component {
               return <ActionContainer
                 key={`listAction${idx}`}
                 definition={child}
-                entity={props.entityName}
                 parent={props.parent}
                 disabled={this.props.dataLoadingInProgress}
               />

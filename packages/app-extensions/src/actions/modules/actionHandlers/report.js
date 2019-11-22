@@ -9,16 +9,16 @@ import rest from '../../../rest'
 import notifier from '../../../notifier'
 import ReportSettings from '../../components/ReportSettings'
 
-export default function* (actionDefinition, entity, selection, parent, params, config) {
+export default function* (actionDefinition, selection, parent, params, config) {
   const answerChannel = yield call(channel)
-  const settingsModalId = yield call(displayReportSettings, actionDefinition, entity, selection, answerChannel, config)
-  yield call(awaitSettingsSubmit, actionDefinition, answerChannel, settingsModalId, entity, selection)
+  const settingsModalId = yield call(displayReportSettings, actionDefinition, selection, answerChannel, config)
+  yield call(awaitSettingsSubmit, actionDefinition, answerChannel, settingsModalId, selection)
 }
 
-export function* displayReportSettings(actionDefinition, entity, selection, answerChannel, config) {
+export function* displayReportSettings(actionDefinition, selection, answerChannel, config) {
   const options = {
     queryParams: {
-      model: entity,
+      model: selection.entityName,
       ...(selection.mode === 'ID' ? {keys: selection.ids.join(',')} : {})
     }
   }
@@ -46,11 +46,11 @@ export function* displayReportSettings(actionDefinition, entity, selection, answ
   return settingsModalId
 }
 
-export function* awaitSettingsSubmit(definition, answerChannel, settingsModalId, entity, selection) {
+export function* awaitSettingsSubmit(definition, answerChannel, settingsModalId, selection) {
   while (true) {
     const {submitAction, formValues} = yield take(answerChannel)
     const body = {
-      entityModel: entity,
+      entityModel: selection.entityName,
       selection,
       ...formValues
     }

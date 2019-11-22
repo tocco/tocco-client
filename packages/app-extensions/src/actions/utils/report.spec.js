@@ -55,12 +55,14 @@ describe('app-extensions', () => {
             }
 
             const expectedResult = {
-              relSomething: {
-                targetEntity: 'User',
-                validation: {mandatory: false}
-              },
-              shouldDo: {
-                validation: {mandatory: true}
+              paths: {
+                relSomething: {
+                  targetEntity: 'User',
+                  validation: {mandatory: false}
+                },
+                shouldDo: {
+                  validation: {mandatory: true}
+                }
               }
             }
 

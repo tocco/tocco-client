@@ -20,7 +20,6 @@ import StyledReportSettings from './StyledReportSettings'
 export class ReportSettings extends React.Component {
   constructor(props) {
     super(props)
-
     this.customSettingsDefined
       = props.settingsDefinition.customSettings && props.settingsDefinition.customSettings.entity
     this.state = {

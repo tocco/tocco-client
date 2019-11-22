@@ -26,7 +26,6 @@ const getAction = (field, entity, parent, cb) =>
     key={'tableAction' + field.id}
     definition={field}
     selection={actions.getSingleEntitySelection(entity.__model, entity.__key)}
-    entity={entity.__model}
     callback={result =>
       cb.refresh()
     }
