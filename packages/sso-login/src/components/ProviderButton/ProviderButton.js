@@ -17,7 +17,7 @@ const ProviderButton = ({provider, loginCompleted, loginEndpoint}) => {
       onClick={clickHandler}
     >
       {provider.button_icon && <Icon position="prepend" icon={provider.button_icon}/>}
-      {provider.button_label}
+      <span>{provider.button_label}</span>
     </StyledProviderButton>
   )
 }
