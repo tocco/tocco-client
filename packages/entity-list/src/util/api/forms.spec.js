@@ -260,11 +260,44 @@ describe('entity-list', () => {
         })
 
         describe('changeParentFieldType', () => {
-          test('should ', () => {
+          test('should change the type of a parent field to single-select-box', () => {
             const result = forms.changeParentFieldType(mockData.data.dummyEntitySearchForm.form, 'relUser')
-
             const flatten = forms.getFormFieldFlat(result)
             expect(flatten.relUser).to.eql('single-select-box')
+          })
+
+          test('should not change the type of any other field or the form structure', () => {
+            const form = mockData.data.dummyEntitySearchForm.form
+            const result = forms.changeParentFieldType(form, 'relUser')
+
+            expect(result.children[0].children[0]).to.eql(form.children[0].children[0])
+
+            const flatten = forms.getFormFieldFlat(result)
+            expect(flatten.txtFulltext).to.eql('fulltext-search')
+            expect(flatten.label).to.eql('string')
+            expect(flatten.active).to.eql('boolean')
+          })
+
+          test('should not break if children property is not defined', () => {
+            const form = {
+              id: 'User_detail_relDummySubGrid_search',
+              label: null,
+              children: [
+                {
+                  id: 'box1',
+                  componentType: 'layout',
+                  layoutType: 'vertical-box',
+                  hidden: false,
+                  label: null,
+                  useLabel: 'NO'
+                }
+              ],
+              componentType: 'form',
+              modelName: 'Dummy_entity'
+            }
+
+            const result = forms.changeParentFieldType(form, 'relUser')
+            expect(result).to.deep.eql(form)
           })
         })
       })
