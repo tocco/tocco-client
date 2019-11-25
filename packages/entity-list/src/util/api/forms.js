@@ -85,4 +85,6 @@ export const changeParentFieldType = (formElement, parentPath) => {
       children: formElement.children.map(child => changeParentFieldType(child, parentPath))
     }
   }
+
+  return formElement
 }
