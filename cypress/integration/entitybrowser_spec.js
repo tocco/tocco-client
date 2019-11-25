@@ -85,8 +85,8 @@ describe('Entity Browser', () => {
 
     it('should change value in detail view and save', () => {
       cy.get('#input-detailForm-callname')
-        .type('{selectall}{del}Test Callname')
-        .should('have.value', 'Test Callname')
+        .type('{selectall}{del}Test')
+        .should('have.value', 'Test')
       cy.get('[data-cy=detail-form_submit-button]').click()
       cy.contains('Zuletzt gespeichert')
     })
