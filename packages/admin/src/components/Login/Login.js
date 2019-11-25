@@ -17,6 +17,12 @@ const StyledLogin = styled.div`
   background-size: 61vw;
   background-position-y: -25vw;
   background-position-x: -41vw;
+  
+  .tocco-sso-login {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.8rem;
+  }
 `
 
 const LoginWrapper = styled.div`
@@ -46,12 +52,12 @@ const Login = props => {
       <Slogan/>
       <LoginWrapper>
         <Typography.H1>Login</Typography.H1>
+        <SsoLogin
+          ssoLoginEndpoint="/sso"
+        />
         <ToccoLogin
           loginSuccess={loginSuccess}
           showTitle={false}
-        />
-        <SsoLogin
-          ssoLoginEndpoint="/sso"
         />
       </LoginWrapper>
     </StyledLogin>
