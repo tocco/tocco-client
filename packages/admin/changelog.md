@@ -1,3 +1,9 @@
+0.1.12
+- Add relation preview open link on detail view
+- Style login and sso-login
+- Fix parent Search field bug
+- Fix url view bug
+
 0.1.11
 - Fix navigation bug where the same url loaded different views
 - View caching
