@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Suspense} from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
 import {
   appFactory,
@@ -14,11 +14,19 @@ import PropTypes from 'prop-types'
 
 import shortcuts from './shortcuts'
 import reducers, {sagas} from './modules/reducers'
-import LoginGuard from './components/LoginGuard'
 const packageName = 'admin'
 
+const LazyLoginGuard = React.lazy(() => import('./components/LoginGuard'))
+const LazyAdmin = () => (
+  <div>
+    <Suspense fallback="">
+      <LazyLoginGuard />
+    </Suspense>
+  </div>
+)
+
 const initApp = (id, input, events, publicPath) => {
-  const content = <LoginGuard/>
+  const content = <LazyAdmin/>
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   externalEvents.addToStore(store, events)
