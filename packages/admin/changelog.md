@@ -1,3 +1,6 @@
+0.1.13
+- Fix bug where images were not loaded correctly
+
 0.1.12
 - Add relation preview open link on detail view
 - Style login and sso-login
