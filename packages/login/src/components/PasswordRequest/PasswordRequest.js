@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
 import {
-  Button,
   ButtonGroup,
   StatedValue,
   Typography
@@ -11,7 +10,9 @@ import {
 import {
   StyledLoginFormInput,
   StyledLoginFormInputWrapper,
-  StyledLoginFormWrapper
+  StyledLoginFormWrapper,
+  StyledTransparentButton,
+  StyledLoginButton
 } from '../StyledLoginForm'
 import {Pages} from '../../types/Pages'
 
@@ -59,7 +60,7 @@ export class PasswordRequest extends React.Component {
           </StatedValue>
 
           <ButtonGroup look="raised">
-            <Button
+            <StyledLoginButton
               disabled={!this.state.username || this.props.pending}
               ink="primary"
               label={this.msg('client.login.passwordRequest.button')}
@@ -67,7 +68,7 @@ export class PasswordRequest extends React.Component {
               type="submit"
               data-cy="password-request_submit-button"
             />
-            <Button
+            <StyledTransparentButton
               disabled={this.props.pending}
               label={this.msg('client.login.passwordRequest.abortButton')}
               name="abort"
