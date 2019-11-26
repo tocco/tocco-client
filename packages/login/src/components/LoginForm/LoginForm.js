@@ -12,7 +12,7 @@ import {
   StyledLoginFormInput,
   StyledLoginFormInputWrapper,
   StyledLoginFormWrapper,
-  StyledPasswordButton,
+  StyledTransparentButton,
   StyledLoginButton
 } from '../StyledLoginForm'
 import {Pages} from '../../types/Pages'
@@ -117,7 +117,7 @@ export class LoginForm extends Component {
               type="submit"
               data-cy="login-form_login-button"
             />
-            <StyledPasswordButton
+            <StyledTransparentButton
               label={this.msg('client.login.form.forgotLink')}
               onClick={() => this.props.changePage(Pages.PASSWORD_REQUEST)}
               data-cy="login-form_request-button"

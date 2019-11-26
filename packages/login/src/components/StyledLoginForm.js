@@ -33,6 +33,7 @@ export const StyledLoginButton = styled(Button)`
     border-radius: ${theme.radii('large')};
     display: flex;
     justify-content: center;
+    padding: 1rem 0 1rem 0;
   
     &:not(:last-child) {
       margin-right: 0;
@@ -45,11 +46,12 @@ export const StyledLoginButton = styled(Button)`
   }
 `
 
-export const StyledPasswordButton = styled(Button)`
+export const StyledTransparentButton = styled(Button)`
   &&& {
     margin-right: 0;
     background-color: transparent;
     color: ${theme.color('primary')};
+    padding: 1rem 0 1rem 0;
     
     &:hover {
       background-color: transparent;
@@ -68,7 +70,6 @@ export const StyledLoginFormWrapper = styled.div`
 
       > span {
         width: 100%;
-        padding: 1rem 0 1rem 0;
       }
     }
   }

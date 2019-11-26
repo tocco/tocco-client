@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
 import {
-  Button,
   StatedValue,
   Typography
 } from 'tocco-ui'
@@ -12,6 +11,7 @@ import {
   StyledTwoStepLoginInput,
   StyledTwoStepLoginInputWrapper
 } from './StyledTwoStepLoginForm'
+import {StyledLoginButton} from '../StyledLoginForm'
 
 export class TwoStepLoginForm extends Component {
   constructor(props) {
@@ -58,7 +58,7 @@ export class TwoStepLoginForm extends Component {
             </StyledTwoStepLoginInputWrapper>
           </StatedValue>
 
-          <Button
+          <StyledLoginButton
             disabled={!this.state.userCode || this.props.loginPending}
             ink="primary"
             label={this.msg('client.login.form.button')}

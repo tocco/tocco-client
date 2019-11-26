@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
-import {Button, LoadMask, SignalList, Typography} from 'tocco-ui'
+import {LoadMask, SignalList, Typography} from 'tocco-ui'
 
 import PasswordInput from './PasswordInput'
 import StyledPasswordUpdateDialog from './StyledPasswordUpdateDialog'
 import ValidationRules from '../ValidationRules'
 import FailureMessage from '../FailureMessage'
+import {StyledLoginButton} from '../../StyledLoginForm'
 
 class PasswordUpdateDialog extends Component {
   constructor(props) {
@@ -96,7 +97,7 @@ class PasswordUpdateDialog extends Component {
           }
 
           {password.passwordUpdateFailed === true && <FailureMessage errorCode={password.passwordUpdateErrorCode}/>}
-          <Button
+          <StyledLoginButton
             pending={password.passwordUpdatePending}
             disabled={this.isSubmittable() === false}
             ink="primary"
