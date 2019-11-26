@@ -165,11 +165,11 @@ webpackConfig.module.rules.push(
   },
   {
     test: /\.svg(\?.*)?$/,
-    use: 'file-loader?name=fonts/[name].[ext]&mimetype=image/svg+xml'
+    use: 'file-loader?name=imgs/[name].[ext]&mimetype=image/svg+xml'
   },
   {
     test: /\.(png|jpg|ico)$/,
-    use: 'file-loader?limit=8192'
+    use: 'file-loader?name=imgs/[name].[ext]&limit=8192'
   }
 )
 
