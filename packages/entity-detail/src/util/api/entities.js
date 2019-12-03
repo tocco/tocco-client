@@ -11,7 +11,7 @@ export function* updateEntity(entity, paths = []) {
     body: entity,
     acceptedErrorCodes: ['VALIDATION_FAILED']
   }
-  const resource = `entities/${entity.model}/${entity.key}`
+  const resource = `entities/2.0/${entity.model}/${entity.key}`
   const resp = yield call(rest.requestSaga, resource, options)
 
   if (resp.body.errorCode === 'VALIDATION_FAILED') {
@@ -32,7 +32,7 @@ export function* createEntity(entity, paths = []) {
     body: entity,
     acceptedErrorCodes: ['VALIDATION_FAILED']
   }
-  const resource = `entities/${entity.model}`
+  const resource = `entities/2.0/${entity.model}`
   const resp = yield call(rest.requestSaga, resource, options)
 
   if (resp.status === SUCCESSFUL_SAVED_STATUS) {

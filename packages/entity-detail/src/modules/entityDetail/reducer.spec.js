@@ -10,7 +10,8 @@ const EXPECTED_INITIAL_STATE = {
   formName: '',
   mode: 'update',
   touched: false,
-  defaultValues: {}
+  defaultValues: {},
+  fieldDefinitions: []
 }
 
 describe('entity-detail', () => {

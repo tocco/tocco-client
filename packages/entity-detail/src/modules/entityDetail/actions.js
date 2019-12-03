@@ -16,6 +16,7 @@ export const SET_APP_ID = 'entityDetail/SET_APP_ID'
 export const TOUCH_ALL_FIELDS = 'entityDetail/TOCH_ALL_FIELDS'
 export const SET_DEFAULT_VALUES = 'entityDetail/SET_DEFAULT_VALUES'
 export const NAVIGATE_TO_CREATE = 'entityDetail/NAVIGATE_TO_CREATE'
+export const SET_FIELD_DEFINITIONS = 'entityDetail/SET_FIELD_DEFINITIONS'
 
 export const setFormDefinition = formDefinition => ({
   type: SET_FORM_DEFINITION,
@@ -124,5 +125,12 @@ export const navigateToCreate = relationName => ({
   type: NAVIGATE_TO_CREATE,
   payload: {
     relationName
+  }
+})
+
+export const setFieldDefinitions = fieldDefinitions => ({
+  type: SET_FIELD_DEFINITIONS,
+  payload: {
+    fieldDefinitions
   }
 })
