@@ -19,7 +19,7 @@ const Header = ({keys, delta}) => {
 
   const getFetchRequest = async key => {
     const options = {credentials: 'include'}
-    const url = `${__BACKEND_URL__}/nice2/rest/entities/Installation/${key}?relations=!&_fields=!`
+    const url = `${__BACKEND_URL__}/nice2/rest/entities/2.0/Installation/${key}?relations=!&_fields=!`
     const response = await fetch(url, options)
     return response.json()
   }
