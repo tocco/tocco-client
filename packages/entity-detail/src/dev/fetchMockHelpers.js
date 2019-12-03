@@ -5,7 +5,7 @@ import _get from 'lodash/get'
 export const userValidateResponse = (entityStore, delay = 1000) =>
   (url, opts) => {
     return sleep(delay).then(() => {
-      consoleLogger.log('fetchMock: called validate entity', url)
+      consoleLogger.log('fetchMock: called validate entity', url, opts)
 
       const entity = JSON.parse(opts.body)
       const firstName = _get(entity, 'paths.firstname', '')
@@ -44,7 +44,7 @@ export const userCreateResponse = (entityStore, delay = 1000) =>
       entityStore.User[newEntity.key] = newEntity
       return {
         status: 201,
-        headers: {Location: `http://localhost:8080/nice2/rest/entities/User/${newEntity.key}`}
+        headers: {Location: `http://localhost:8080/nice2/rest/entities/2.0/User/${newEntity.key}`}
       }
     })
   }
@@ -67,7 +67,7 @@ export const dummyEntityCreateResponse = (entityStore, delay = 2000) =>
       entityStore.Dummy_entity[newEntity.key] = newEntity
       return {
         status: 201,
-        headers: {Location: `http://localhost:8080/nice2/rest/entities/Dummy_entity/${newEntity.key}`}
+        headers: {Location: `http://localhost:8080/nice2/rest/entities/2.0/Dummy_entity/${newEntity.key}`}
       }
     })
   }

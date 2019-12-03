@@ -1,4 +1,3 @@
-import _forOwn from 'lodash/forOwn'
 import _sample from 'lodash/sample'
 
 const fiftyFifty = () => _sample([true, false])
@@ -22,7 +21,7 @@ export const createDummyEntities = amount => {
   const entities = []
 
   for (let i = 0; i < amount; i++) {
-    const values = {
+    const paths = {
       label: {
         value: `Dummy Entity ${i}`,
         type: 'string',
@@ -64,20 +63,10 @@ export const createDummyEntities = amount => {
       }
     }
 
-    const paths = {}
-    _forOwn(values, (value, key) => {
-      paths[key] = {
-        type: 'field',
-        value
-      }
-    })
-
     entities.push({
       key: `${i}`,
       model: 'Dummy_entity',
       version: 1,
-      display: `User ${i}`,
-      fields: values,
       paths
     })
   }
@@ -104,7 +93,6 @@ export const createUsers = amount => {
           value: 'Firstname ' + i,
           type: 'string',
           writable: true
-
         },
         lastname: {
           value: 'Lastname ' + (amount - i),

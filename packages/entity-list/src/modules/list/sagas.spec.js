@@ -340,8 +340,8 @@ describe('entity-list', () => {
         describe('prepareEndpointUrl', () => {
           test('should replace parentKey if parent exists', () => {
             const input = {parent: {key: 123}}
-            const endpoint = 'nice2/rest/entities/User/{parentKey}/test'
-            const expectedResult = 'nice2/rest/entities/User/123/test'
+            const endpoint = 'nice2/rest/entities/2.0/User/{parentKey}/test'
+            const expectedResult = 'nice2/rest/entities/2.0/User/123/test'
 
             return expectSaga(sagas.prepareEndpointUrl, endpoint)
               .provide([
@@ -353,7 +353,7 @@ describe('entity-list', () => {
 
           test('should return endpoint as it is if parent is undefined', () => {
             const input = {parent: null}
-            const endpoint = 'nice2/rest/entities/User/{parentKey}/test'
+            const endpoint = 'nice2/rest/entities/2.0/User/{parentKey}/test'
 
             return expectSaga(sagas.prepareEndpointUrl, endpoint)
               .provide([

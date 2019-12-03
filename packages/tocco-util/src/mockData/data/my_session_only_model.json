@@ -1,9 +1,5 @@
 {
-  "_links": {
-    "self": {
-      "href": "http://localhost:8080/nice2/rest/entities/User/model"
-    }
-  },
+  "_links": null,
   "name": "MySessionOnly",
   "fields": [
     {

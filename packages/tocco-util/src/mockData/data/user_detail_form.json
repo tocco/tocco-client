@@ -390,6 +390,7 @@
                     "children": [
                       {
                         "id": "time",
+                        "path": "time",
                         "componentType": "field",
                         "dataType": "time",
                         "label": null
@@ -488,15 +489,15 @@
                   },
                   {
                     "componentType": "field-set",
-                    "label": "Status (to n path)",
+                    "label": "Rel Status (multi path)",
                     "scopes": [],
                     "hidden": false,
                     "children": [
                       {
-                        "id": "relMulti_entity1.relPayment_status",
+                        "id": "relSingle_entity2.active",
                         "componentType": "field",
-                        "dataType": "single-select-box",
-                        "path": "relMulti_entity1.relPayment_status",
+                        "dataType": "boolean",
+                        "path": "relSingle_entity2.active",
                         "label": null
                       }
                     ]
