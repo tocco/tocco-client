@@ -1,6 +1,7 @@
 import {SubmissionError} from 'redux-form'
 import {form, rest} from 'tocco-app-extensions'
 import _get from 'lodash/get'
+import {api} from 'tocco-util'
 
 import modes from '../modes'
 
@@ -40,16 +41,17 @@ export const asyncValidateTypes = async(values, entityModel) => {
   return errors
 }
 
-const validateRequest = (values, initialValues, entityName, entityId, entityModel, mode) => {
-  const dirtyFields = form.getDirtyFields(initialValues, values)
-  const entity = form.formValuesToEntity(values, dirtyFields, entityName, entityId, entityModel)
+const validateRequest = (formValues, initialValues, mode) => {
+  const dirtyFields = form.getDirtyFields(initialValues, formValues)
+  const flattenEntity = form.formValuesToFlattenEntity(formValues)
+  const entity = api.toEntity(flattenEntity, dirtyFields)
   const options = {
     queryParams: {_validate: true},
     method: mode === modes.CREATE ? 'POST' : 'PATCH',
     body: entity
   }
 
-  return rest.simpleRequest(`entities/${entity.model}${entity.key ? `/${entity.key}` : ''}`, options)
+  return rest.simpleRequest(`entities/2.0/${entity.model}${entity.key ? `/${entity.key}` : ''}`, options)
     .then(resp => resp.body)
     .then(body => {
       if (body.valid) {
@@ -59,8 +61,8 @@ const validateRequest = (values, initialValues, entityName, entityId, entityMode
     })
 }
 
-export const submitValidate = (values, initialValues, entityName, entityId, entityModel, mode) => {
-  return validateRequest(values, initialValues, entityName, entityId, entityModel, mode)
+export const submitValidate = (formValues, initialValues, entityModel, mode) => {
+  return validateRequest(formValues, initialValues, mode)
     .then(errors => {
       if (hasError(errors)) {
         throw new SubmissionError(errors)
@@ -68,14 +70,14 @@ export const submitValidate = (values, initialValues, entityName, entityId, enti
     })
 }
 
-export const asyncValidate = async(values, initialValues, entityName, entityId, entityModel, mode) => {
-  const typeValidationErrors = await asyncValidateTypes(values, entityModel)
+export const asyncValidate = async(formValues, initialValues, entityModel, mode) => {
+  const typeValidationErrors = await asyncValidateTypes(formValues, entityModel)
 
   if (hasError(typeValidationErrors)) {
     throw new AsyncValidationException(typeValidationErrors)
   }
 
-  const validateRequestErrors = await validateRequest(values, initialValues, entityName, entityId, entityModel, mode)
+  const validateRequestErrors = await validateRequest(formValues, initialValues, mode)
   if (hasError(validateRequestErrors)) {
     throw new AsyncValidationException(validateRequestErrors)
   }

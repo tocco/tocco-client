@@ -13,12 +13,10 @@ class DetailView extends React.Component {
     this.props.unloadDetailView()
   }
 
-  handledAsyncValidate = values =>
+  handledAsyncValidate = formValues =>
     asyncValidate(
-      values,
+      formValues,
       this.props.formInitialValues,
-      this.props.entityName,
-      this.props.entityId,
       this.props.entityModel,
       this.props.mode
     ).catch(error => {

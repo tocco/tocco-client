@@ -61,7 +61,6 @@ describe('entity-detail', () => {
 
         describe('submitForm saga', () => {
           const entity = {paths: {}}
-          const fields = ['firstname']
 
           test('should call create submit', () => {
             const mode = modes.CREATE
@@ -69,8 +68,7 @@ describe('entity-detail', () => {
             const gen = sagas.submitForm()
             expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
             expect(gen.next({mode}).value).to.eql(call(sagas.getEntityForSubmit))
-            expect(gen.next(entity).value).to.eql(call(sagas.getPaths))
-            expect(gen.next(fields).value).to.eql(call(sagas.createFormSubmit, entity, fields))
+            expect(gen.next(entity).value).to.eql(call(sagas.createFormSubmit, entity))
             expect(gen.next().done).to.be.true
           })
 
@@ -80,8 +78,7 @@ describe('entity-detail', () => {
             const gen = sagas.submitForm()
             expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
             expect(gen.next({mode}).value).to.eql(call(sagas.getEntityForSubmit))
-            expect(gen.next(entity).value).to.eql(call(sagas.getPaths))
-            expect(gen.next(fields).value).to.eql(call(sagas.updateFormSubmit, entity, fields))
+            expect(gen.next(entity).value).to.eql(call(sagas.updateFormSubmit, entity))
             expect(gen.next().done).to.be.true
           })
 
@@ -92,8 +89,7 @@ describe('entity-detail', () => {
             const gen = sagas.submitForm()
             expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
             expect(gen.next({mode}).value).to.eql(call(sagas.getEntityForSubmit))
-            expect(gen.next(entity).value).to.eql(call(sagas.getPaths))
-            expect(gen.next(fields).value).to.eql(call(sagas.updateFormSubmit, entity, fields))
+            expect(gen.next(entity).value).to.eql(call(sagas.updateFormSubmit, entity))
 
             expect(gen.throw(error).value).to.eql(call(sagas.handleSubmitError, error))
             expect(gen.next().done).to.be.true
@@ -132,38 +128,31 @@ describe('entity-detail', () => {
         })
 
         describe('updateFormSubmit saga', () => {
-          const entity = {paths: {}}
-          const fields = ['firstname']
-          const updatedEntity = {paths: {}}
-          const updatedFormValues = {firstname: 'karl'}
-
-          test('should call api and store response', () => {
-            const gen = sagas.updateFormSubmit(entity, fields)
-            expect(gen.next().value).to.eql(call(updateEntity, entity, fields))
-            expect(gen.next(updatedEntity).value).to.eql(call(form.entityToFormValues, updatedEntity))
-            expect(gen.next(updatedFormValues).value).to.eql(put(formActions.initialize(FORM_ID, updatedFormValues)))
-            expect(gen.next().value).to.eql(
-              call(sagas.showNotification, 'success', 'saveSuccessfulTitle', 'saveSuccessfulMessage')
-            )
-            // because of setLastSave creates a new time stamp if no argument is passed, the test failed some times.
-            // That's why we only check if the SET_LAST_SAVE action was called instead of the whole PUT object.
-            const next = gen.next().value.PUT.action.type
-            expect(next).to.eql('entityDetail/SET_LAST_SAVE')
-            expect(gen.next().value).to.eql(put(formActions.stopSubmit(FORM_ID)))
-
-            expect(gen.next().done).to.be.true
+          const entity = {key: '123', model: 'User', paths: {lastname: 'test'}}
+          test('should call updateEntity, load data, show notification and set lastsaved', () => {
+            return expectSaga(sagas.updateFormSubmit, entity)
+              .provide([
+                [matchers.call.fn(updateEntity), null],
+                [matchers.call.fn(sagas.loadData), null],
+                [matchers.call.fn(sagas.showNotification), null]
+              ])
+              .call.like({fn: updateEntity})
+              .call.like({fn: sagas.loadData})
+              .call.like({fn: sagas.showNotification})
+              .put.like({action: {type: formActions.stopSubmit().type}})
+              .put.like({action: {type: actions.setLastSave().type}})
+              .run()
           })
         })
 
         describe('createFormSubmit saga', () => {
           const entity = {paths: {}}
-          const fields = ['firstname']
           const createdEntityId = 99
           const updatedFormValues = {firstname: 'karl'}
 
           test('should call api and store response', () => {
-            const gen = sagas.createFormSubmit(entity, fields)
-            expect(gen.next().value).to.eql(call(createEntity, entity, fields))
+            const gen = sagas.createFormSubmit(entity)
+            expect(gen.next().value).to.eql(call(createEntity, entity))
             expect(gen.next(createdEntityId).value).to.eql(
               put(externalEvents.fireExternalEvent('onEntityCreated', {id: createdEntityId}))
             )
@@ -178,64 +167,55 @@ describe('entity-detail', () => {
           test('should load formDefinition, save to store and return ', () => {
             const formName = 'User_detail'
             const formDefinition = {}
+            const fieldDefinitions = {}
 
             const gen = sagas.loadDetailFormDefinition(formName)
             expect(gen.next().value).to.eql(call(rest.fetchForm, formName))
             expect(gen.next(formDefinition).value).to.eql(put(actions.setFormDefinition(formDefinition)))
-            const next = gen.next(formDefinition)
-            expect(next.value).to.eql(formDefinition)
+            expect(gen.next().value).to.eql(call(form.getFieldDefinitions, formDefinition))
+            expect(gen.next(fieldDefinitions).value).to.eql(put(actions.setFieldDefinitions(fieldDefinitions)))
+            const next = gen.next()
+            expect(next.value).to.eql({formDefinition, fieldDefinitions})
             expect(next.done).to.be.true
           })
         })
 
         describe('getEntityForSubmit saga', () => {
           test('should return entity', () => {
-            const values = {fistname: 'test'}
-            const initialValues = {fistname: 'tst'}
+            const formValues = {__key: '3', __model: 'User', firstname: 'test'}
+            const initialValues = {firstname: 'tst'}
 
-            const entityName = 'User'
-            const entityId = '3'
             const entityModel = {}
-            const formDefinition = {}
             const mode = 'update'
-            const dirtyFields = ['firstname']
-            const entity = {paths: {}}
 
-            const gen = sagas.getEntityForSubmit()
-            gen.next()
-            gen.next(values) // first two selects references are not comparable and therefore no tests possible
-            expect(gen.next(initialValues).value).to.eql(select(sagas.entityDetailSelector))
-            expect(gen.next({entityName, entityId, entityModel, formDefinition, mode}).value).to.eql(
-              put(formActions.startSubmit(FORM_ID))
-            )
-            expect(gen.next().value).to.eql(
-              call(submitValidate, values, initialValues, entityName, entityId, entityModel, mode)
-            )
-            expect(gen.next().value).to.eql(call(form.getDirtyFields, initialValues, values, false))
-            expect(gen.next(dirtyFields).value).to.eql(
-              call(form.formValuesToEntity, values, dirtyFields, entityName, entityId, entityModel)
-            )
+            const expectedReturn = {
+              model: 'User',
+              key: '3',
+              version: undefined,
+              paths: {firstname: 'test'}
+            }
 
-            const next = gen.next(entity)
-            expect(next.value).to.eql(entity)
-            expect(next.done).to.be.true
-          })
-        })
+            let firstSelector = true
 
-        describe('getPaths saga', () => {
-          test('should return array of fields', () => {
-            const formDefinition = {}
-            const fieldDefinitions = {}
+            return expectSaga(sagas.getEntityForSubmit)
+              .provide([
+                {
+                  select(a, next, b) {
+                    if (firstSelector) {
+                      firstSelector = false
+                      return formValues
+                    }
+                    return next()
+                  }
+                },
+                [select(sagas.formInitialValueSelector, 'detailForm'), initialValues],
+                [select(sagas.entityDetailSelector), {entityModel, mode}],
+                [matchers.call.fn(submitValidate), null]
+              ])
 
-            const gen = sagas.getPaths()
-            expect(gen.next().value).to.eql(select(sagas.entityDetailSelector))
-
-            expect(gen.next({formDefinition}).value).to.eql(call(form.getFieldDefinitions, formDefinition))
-            expect(gen.next(fieldDefinitions).value).to.eql(call(form.getUsedPaths, fieldDefinitions))
-
-            const next = gen.next(fieldDefinitions)
-            expect(next.value).to.eql(fieldDefinitions)
-            expect(next.done).to.be.true
+              .put.like({action: {type: formActions.startSubmit().type}})
+              .returns(expectedReturn)
+              .run()
           })
         })
 
@@ -264,7 +244,9 @@ describe('entity-detail', () => {
             return expectSaga(sagas.loadData)
               .provide([
                 [select(sagas.entityDetailSelector), {}],
-                [matchers.call.fn(sagas.loadEntity), {paths: {}}]
+                [matchers.call.fn(sagas.loadEntity), {paths: {}}],
+                [matchers.call.fn(sagas.enhanceEntityWithDisplays), {}],
+                [matchers.call.fn(sagas.enhanceEntityWithDisplayExpressions), {}]
               ])
               .call.like({fn: sagas.loadEntity})
               .call.like({fn: form.entityToFormValues})
@@ -289,13 +271,13 @@ describe('entity-detail', () => {
         describe('touchAllFields saga', () => {
           test('should call redux form action with all fields', () => {
             const action = {}
+            const fieldDefinitions = [{path: 'firstname'}, {path: 'relGender.label'}]
             return expectSaga(sagas.touchAllFields, action)
               .provide([
-                [select(sagas.entityDetailSelector), {}],
-                [matchers.call.fn(form.getFieldDefinitions), [{id: 'firstname'}, {id: 'lastname'}]]
+                [select(sagas.entityDetailSelector), {fieldDefinitions}]
               ])
 
-              .put(formActions.touch(FORM_ID, 'firstname', 'lastname'))
+              .put(formActions.touch(FORM_ID, 'firstname', 'relGender--label'))
               .run()
           })
         })

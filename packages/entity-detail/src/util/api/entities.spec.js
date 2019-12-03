@@ -24,7 +24,7 @@ describe('entity-detail', () => {
 
             expect(gen.next().value).to.eql(call(
               rest.requestSaga,
-              'entities/User/1',
+              'entities/2.0/User/1',
               {
                 body: entity,
                 method: 'PATCH',
