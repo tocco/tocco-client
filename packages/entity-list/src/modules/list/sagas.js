@@ -3,6 +3,7 @@ import _union from 'lodash/union'
 import {externalEvents, actions as actionUtil, actionEmitter, rest} from 'tocco-app-extensions'
 import _omit from 'lodash/omit'
 import {call, put, fork, select, spawn, takeEvery, takeLatest, all, take} from 'redux-saga/effects'
+import {api} from 'tocco-util'
 
 import {getFetchOptionsFromSearchForm} from '../../util/api/fetchOptions'
 import * as actions from './actions'
@@ -11,7 +12,6 @@ import * as selectionActions from '../selection/actions'
 import {getSearchFormValues} from '../searchForm/sagas'
 import {getSorting, getSelectable, getEndpoint, getFields} from '../../util/api/forms'
 import {entitiesListTransformer} from '../../util/api/entities'
-import {getDisplayRequest} from '../../util/api/display'
 
 export const inputSelector = state => state.input
 export const entityListSelector = state => state.entityList
@@ -79,14 +79,11 @@ export function* loadData(page) {
 }
 
 export function* getBasicQuery() {
-  const {formBase, searchFilters: inputSearchFilters} = yield select(inputSelector)
-
-  const form = `${formBase}_list`
+  const {searchFilters: inputSearchFilters} = yield select(inputSelector)
 
   const {showSelectedRecords, selection} = yield select(selectionSelector)
   if (showSelectedRecords) {
     return {
-      form,
       tql: `IN(pk,${selection.join(',')})`
     }
   }
@@ -99,8 +96,7 @@ export function* getBasicQuery() {
 
   return {
     ..._omit(searchFormFetchOptions, 'filters'),
-    ...(filter && filter.length > 0 ? {filter} : {}),
-    form
+    ...(filter && filter.length > 0 ? {filter} : {})
   }
 }
 
@@ -147,7 +143,7 @@ export function* getSearchFilter(inputSearchFilters, searchInputsFilters, adminS
 }
 
 export function* loadDisplayExpressions(formName, paths, entities) {
-  if (paths && paths.length > 0) {
+  if (paths && paths.length > 0 && entities.length > 0) {
     const keys = entities.map(e => e.__key)
     const result = yield call(rest.fetchDisplayExpressions, formName, keys, paths)
     yield put(actions.setLazyData('displayExpressions', formName, result))
@@ -157,7 +153,7 @@ export function* loadDisplayExpressions(formName, paths, entities) {
 export function* loadRelationDisplays(relationFields, entities) {
   if (relationFields && relationFields.length > 0) {
     const {lazyData} = yield select(listSelector)
-    const request = yield call(getDisplayRequest, entities, relationFields, lazyData)
+    const request = yield call(api.getDisplayRequest, entities, relationFields, lazyData)
     const displays = yield call(rest.fetchDisplays, request)
     yield all(Object.keys(displays).map(entity =>
       put(actions.setLazyData('defaultDisplays', entity, displays[entity]))

@@ -119,14 +119,21 @@ describe('entity-list', () => {
               {
                 '__key': '45',
                 '__model': 'User',
+                '__version': 7,
                 'firstname': 'Max',
-                'relAddress_c': {model: 'Address', key: '3195'},
+                'relAddress_c': {model: 'Address', key: '3195', version: 0},
                 'relAddress_c.canton': 'ZH',
-                'relAddress_c.relCountry_c': {key: '107', model: 'Country'},
+                'relAddress_c.relCountry_c': {key: '107', model: 'Country', version: 1},
                 'relAddress_c.relCountry_c.label': 'Schweiz',
                 'relAddress_c.relCountry_c.ioc': 'SUI',
-                'relUser_code1': [{model: 'User_code1', key: '2'}, {model: 'User_code1', key: '1'}],
-                'relUser_code2': [{key: '2', model: 'User_code2'}, {key: '1', model: 'User_code2'}],
+                'relUser_code1': [
+                  {model: 'User_code1', key: '2', version: 1},
+                  {model: 'User_code1', key: '1', version: 1}
+                ],
+                'relUser_code2': [
+                  {key: '2', model: 'User_code2', version: 1},
+                  {key: '1', model: 'User_code2', version: 1}
+                ],
                 'relUser_code2.unique_id': ['partially_paid', 'fully_paid']
               }
             ]
