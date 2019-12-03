@@ -12,15 +12,14 @@ describe('app-extensions', () => {
           const countryKey = 1
           const countryEntity = {
             key: 1,
-            display: 'Switzerland',
             paths: {iso2: {value: 'CH'}}
           }
           utils.setCountryCache({})
 
           await expectSaga(utils.getCountryCodeByKey, countryKey)
             .provide([
-              [matchers.call.fn(rest.fetchEntity), countryEntity]
-
+              [matchers.call.fn(rest.fetchEntity), countryEntity],
+              [matchers.call.fn(rest.fetchDisplay), 'Switzerland']
             ])
             .call.like({fn: rest.fetchEntity})
             .returns('CH')
@@ -50,19 +49,25 @@ describe('app-extensions', () => {
           const countryEntities = [
             {
               key: 1,
-              display: 'Switzerland',
-              fields: {iso2: {value: 'CH'}}
+              paths: {iso2: {value: 'CH'}}
             },
             {
               key: 2,
-              display: 'Germany',
-              fields: {iso2: {value: 'DE'}}
+              paths: {iso2: {value: 'DE'}}
             }
           ]
 
+          const displays = {
+            Country: {
+              1: 'Switzerland',
+              2: 'Germany'
+            }
+          }
+
           const {returnValue} = await expectSaga(utils.loadCountries, suggestions)
             .provide([
-              [matchers.call.fn(rest.fetchEntities), countryEntities]
+              [matchers.call.fn(rest.fetchEntities), countryEntities],
+              [matchers.call.fn(rest.fetchDisplays), displays]
             ])
             .call.like({fn: rest.fetchEntities})
             .run()

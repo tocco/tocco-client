@@ -1,7 +1,7 @@
-import _pick from 'lodash/pick'
 import _uniq from 'lodash/uniq'
 import _get from 'lodash/get'
 import {all, call} from 'redux-saga/effects'
+import {api} from 'tocco-util'
 
 import rest from '../../rest'
 
@@ -26,11 +26,11 @@ export function* getCountryCodeByKey(key) {
   }
 
   const entity = yield call(rest.fetchEntity, 'Country', key, {paths: [countryCodeField]})
+  const display = yield call(rest.fetchDisplay, 'Country', key)
   const countryCode = _get(entity, ['paths', countryCodeField, 'value'])
   countryCache = {
     ...countryCache,
-    [countryCode]: {key: entity.key, display: entity.display}
-
+    [countryCode]: {key: entity.key, display}
   }
 
   return countryCode
@@ -52,16 +52,23 @@ export function* loadCountries(suggestions) {
       conditions: {
         [countryCodeField]: notLoaded
       },
-      fields: [countryCodeField]
+      paths: [countryCodeField]
     }
 
     const countriesResponse = yield call(rest.fetchEntities, 'Country', query, {method: 'GET'})
+    const displays = yield call(rest.fetchDisplays, api.getDisplayRequest(countriesResponse))
 
     countryCache = {
       ...countryCache,
       ...(countriesResponse.reduce(
         (acc, value) =>
-          ({...acc, [_get(value, ['fields', countryCodeField, 'value'])]: _pick(value, ['key', 'display'])}),
+          ({
+            ...acc,
+            [_get(value, ['paths', countryCodeField, 'value'])]: {
+              key: value.key,
+              display: _get(displays, ['Country', value.key])
+            }
+          }),
         {}
       ))
     }
