@@ -507,7 +507,7 @@ describe('entity-list', () => {
             return expectSaga(sagas.loadRelationDisplays, relationFields, entities)
               .provide([
                 [select(sagas.listSelector), listState],
-                [matchers.call.fn(api.getDisplayRequest), fakeDisplayRequest],
+                [matchers.call.fn(api.getPathDisplayRequest), fakeDisplayRequest],
                 [matchers.call.fn(rest.fetchDisplays), fakeDisplayResponse]
               ])
               .put(actions.setLazyData('defaultDisplays', 'relEntity1', fakeDisplayResponse.relEntity1))

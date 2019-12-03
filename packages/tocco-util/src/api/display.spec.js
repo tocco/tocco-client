@@ -1,10 +1,10 @@
-import {getDisplayRequest} from './display'
+import {getDisplayRequest, getPathDisplayRequest} from './display'
 
 describe('entity-list', () => {
   describe('util', () => {
     describe('api', () => {
       describe('display', () => {
-        describe('getDisplayRequest', () => {
+        describe('getPathDisplayRequest', () => {
           test('should find unloaded relation entities and put into request return object', () => {
             const entities = [
               {__key: '1', __model: 'User', relMulti_entity1: [{model: 'Multi_entity', key: '11'}]},
@@ -27,9 +27,22 @@ describe('entity-list', () => {
               }
             }
 
-            const result = getDisplayRequest(entities, relationFields, lazyData)
+            const result = getPathDisplayRequest(entities, relationFields, lazyData)
 
             const expectedResult = {Multi_entity: ['11', '44'], Multi_entity2: ['1']}
+            expect(result).to.eql(expectedResult)
+          })
+        })
+
+        describe('entityListToDisplayRequest', () => {
+          test('should return a object separated by model', () => {
+            const input = [{key: '1', model: 'Gender'}, {key: '22', model: 'Local'}, {key: '2', model: 'Gender'}]
+            const result = getDisplayRequest(input)
+
+            const expectedResult = {
+              Gender: ['1', '2'],
+              Local: ['22']
+            }
             expect(result).to.eql(expectedResult)
           })
         })
