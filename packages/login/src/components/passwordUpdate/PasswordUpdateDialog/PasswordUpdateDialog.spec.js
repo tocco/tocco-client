@@ -1,8 +1,9 @@
 import React from 'react'
-import {Button, LoadMask} from 'tocco-ui'
+import {LoadMask} from 'tocco-ui'
 import {mount, shallow} from 'enzyme'
 import {IntlStub} from 'tocco-test-util'
 
+import {StyledLoginButton} from '../../StyledLoginForm'
 import PasswordUpdateDialog from './PasswordUpdateDialog'
 
 describe('login', () => {
@@ -132,7 +133,7 @@ describe('login', () => {
         expect(wrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(false)
         expect(wrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(true)
         expect(wrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(true)
-        expect(wrapper.find(Button).prop('disabled')).to.equal(true)
+        expect(wrapper.find(StyledLoginButton).prop('disabled')).to.equal(true)
       })
 
       test('should enable new password as soon as old password is filled', () => {
@@ -154,7 +155,8 @@ describe('login', () => {
         expect(wrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(false)
         expect(wrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(false)
         expect(wrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(true)
-        expect(wrapper.find(Button).prop('disabled')).to.equal(true)
+
+        expect(wrapper.find(StyledLoginButton).prop('disabled')).to.equal(true)
       })
 
       test(
@@ -182,7 +184,7 @@ describe('login', () => {
           expect(invalidWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(false)
           expect(invalidWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(false)
           expect(invalidWrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(true)
-          expect(invalidWrapper.find(Button).prop('disabled')).to.equal(true)
+          expect(invalidWrapper.find(StyledLoginButton).prop('disabled')).to.equal(true)
 
           const validWrapper = shallow(<PasswordUpdateDialog
             fetchValidationRules={() => undefined}
@@ -204,7 +206,7 @@ describe('login', () => {
           expect(validWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(false)
           expect(validWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(false)
           expect(validWrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(false)
-          expect(validWrapper.find(Button).prop('disabled')).to.equal(true)
+          expect(validWrapper.find(StyledLoginButton).prop('disabled')).to.equal(true)
         }
       )
 
@@ -231,7 +233,7 @@ describe('login', () => {
           expect(newPwRepeatEmptyWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(false)
           expect(newPwRepeatEmptyWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(false)
           expect(newPwRepeatEmptyWrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(undefined)
-          expect(newPwRepeatEmptyWrapper.find(Button).prop('disabled')).to.equal(true)
+          expect(newPwRepeatEmptyWrapper.find(StyledLoginButton).prop('disabled')).to.equal(true)
 
           const newPwRepeatNoMatchWrapper = shallow(<PasswordUpdateDialog
             fetchValidationRules={() => undefined}
@@ -253,7 +255,7 @@ describe('login', () => {
           expect(newPwRepeatNoMatchWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(false)
           expect(newPwRepeatNoMatchWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(false)
           expect(newPwRepeatNoMatchWrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(undefined)
-          expect(newPwRepeatNoMatchWrapper.find(Button).prop('disabled')).to.equal(true)
+          expect(newPwRepeatNoMatchWrapper.find(StyledLoginButton).prop('disabled')).to.equal(true)
 
           const newPwRepeatMatchWrapper = shallow(<PasswordUpdateDialog
             fetchValidationRules={() => undefined}
@@ -275,7 +277,7 @@ describe('login', () => {
           expect(newPwRepeatMatchWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(false)
           expect(newPwRepeatMatchWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(false)
           expect(newPwRepeatMatchWrapper.find({name: 'newPasswordRepeat'}).prop('readOnly')).to.equal(undefined)
-          expect(newPwRepeatMatchWrapper.find(Button).prop('disabled')).to.equal(false)
+          expect(newPwRepeatMatchWrapper.find(StyledLoginButton).prop('disabled')).to.equal(false)
         }
       )
 
