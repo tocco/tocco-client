@@ -9,6 +9,8 @@ export default {
   'counter': editableValueFactory('number'),
   'date': editableValueFactory('date'),
   'datetime': editableValueFactory('datetime'),
+  'createts': editableValueFactory('datetime'),
+  'updatets': editableValueFactory('datetime'),
   'decimal': editableValueFactory('decimal'),
   'display': formattedValueFactory('html'),
   'double': editableValueFactory('decimal'),
@@ -20,6 +22,7 @@ export default {
   'identifier': editableValueFactory('string'),
   'latitude': editableValueFactory('coordinate'),
   'login': editableValueFactory('string'),
+  'createuser': editableValueFactory('string'),
   'long': editableValueFactory('integer'),
   'longitude': editableValueFactory('coordinate'),
   'location': editableValueFactory('location'),
@@ -49,5 +52,7 @@ export default {
   'url': editableValueFactory('url'),
   'uuid': editableValueFactory('string'),
   'ch.tocco.nice2.model.form.components.simple.UploadField': editableValueFactory('document'),
-  'ch.tocco.nice2.model.form.components.simple.UuidField': editableValueFactory('string')
+  'ch.tocco.nice2.model.form.components.simple.UuidField': editableValueFactory('string'),
+  'version': editableValueFactory('string'),
+  'serial': editableValueFactory('string')
 }
