@@ -17,10 +17,14 @@ export function* fetchEntity(entityName, key, query, transformer = json => json)
   const requestQuery = yield call(buildRequestQuery, query)
   const options = {
     method: 'GET',
-    queryParams: requestQueryToUrlParams(requestQuery)
+    queryParams: {
+      ...requestQueryToUrlParams(requestQuery),
+      _permissions: true,
+      _omitLinks: true
+    }
   }
 
-  const resp = yield call(requestSaga, `entities/${entityName}/${key}`, options)
+  const resp = yield call(requestSaga, `entities/2.0/${entityName}/${key}`, options)
   return yield call(transformer, resp.body)
 }
 
@@ -61,7 +65,7 @@ export function* fetchDisplayExpressions(formName, entityKeys, displayExpression
 }
 
 /**
- * Helper to fetch the default-display of an entity
+ * Helper to fetch the default-display of an entities.
  *
  * @param request {Object} Object containing model and keys of desired entities e.g. {User: ["123"], Gender: ["1", "2"]}
  */
@@ -87,7 +91,7 @@ export function* fetchDisplays(request) {
  * @param query {Object} see 'buildRequestQuery' function
  * @param requestOptions {Object} An object which can contain the following options:
  * - method {String} HTTP Method of request. Default is POST
- * - endpoint {String} To overwrite default endpoint entities/{entityName}/count
+ * - endpoint {String} To overwrite default endpoint entities/2.0/{entityName}/count
  */
 export function* fetchEntityCount(
   entityName,
@@ -98,7 +102,7 @@ export function* fetchEntityCount(
   } = {}
 ) {
   const requestQuery = yield call(buildRequestQuery, query)
-  const resource = (endpoint || `entities/${entityName}`) + '/count'
+  const resource = (endpoint || `entities/2.0/${entityName}`) + '/count'
 
   const options = {
     method,
@@ -116,7 +120,7 @@ export function* fetchEntityCount(
  * @param query {Object} see 'buildRequestQuery' function
  * @param requestOptions {Object} An object which can contain the following options:
  * - method {String} HTTP Method of request. Default is POST
- * - endpoint {String} To overwrite default endpoint entities/{entityName}/search
+ * - endpoint {String} To overwrite default endpoint entities/2.0/{entityName}/search
  * @param transformer {function} Function to directly manipulate the result. By default returns data attribute
  */
 export function* fetchEntities(

@@ -25,8 +25,8 @@ export function* getCountryCodeByKey(key) {
     }
   }
 
-  const entity = yield call(rest.fetchEntity, 'Country', key, {fields: [countryCodeField]})
-  const countryCode = _get(entity, ['fields', countryCodeField, 'value'])
+  const entity = yield call(rest.fetchEntity, 'Country', key, {paths: [countryCodeField]})
+  const countryCode = _get(entity, ['paths', countryCodeField, 'value'])
   countryCache = {
     ...countryCache,
     [countryCode]: {key: entity.key, display: entity.display}
