@@ -85,47 +85,47 @@ export const setupEntities = (fetchMock, entityStore, timeout) => {
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/Dummy_entity/count(\\?.*)?'),
+    new RegExp('^.*?/nice2/rest/entities/2.0/Dummy_entity/count(\\?.*)?'),
     () => ({count: entityStore.Dummy_entity.length})
   )
 
   fetchMock.post(
-    new RegExp('^.*?/nice2/rest/entities/Dummy_entity/count$'),
+    new RegExp('^.*?/nice2/rest/entities/2.0/Dummy_entity/count$'),
     () => ({count: entityStore.Dummy_entity.length})
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/User/count(\\?.*)?'),
+    new RegExp('^.*?/nice2/rest/entities/2.0/User/count(\\?.*)?'),
     () => sleep(timeout).then(() => ({count: entityStore.User.length}))
   )
 
   fetchMock.post(
-    new RegExp('^.*?/nice2/rest/entities/User/count$'),
+    new RegExp('^.*?/nice2/rest/entities/2.0/User/count$'),
     () => sleep(timeout).then(() => ({count: entityStore.User.length}))
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/User/[0-9]+/entitydocs/count(\\?.*)?'),
+    new RegExp('^.*?/nice2/rest/entities/2.0/User/[0-9]+/entitydocs/count(\\?.*)?'),
     () => sleep(timeout).then(() => ({count: -1}))
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/User/[0-9]+/entitydocs(\\?.*)?'),
+    new RegExp('^.*?/nice2/rest/entities/2.0/User/[0-9]+/entitydocs(\\?.*)?'),
     createEntitiesResponse('Dummy_entity', entityStore, timeout, evenFilter)
   )
 
   fetchMock.post(
-    new RegExp('^.*?/nice2/rest/entities/User/[0-9]+/entitydocs(\\?.*)?'),
+    new RegExp('^.*?/nice2/rest/entities/2.0/User/[0-9]+/entitydocs(\\?.*)?'),
     createEntitiesResponse('Dummy_entity', entityStore, timeout, evenFilter)
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/User/[0-9]+(\\?.*)?'),
+    new RegExp('^.*?/nice2/rest/entities/2.0/User/[0-9]+(\\?.*)?'),
     createEntityResponse('User', entityStore)
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/Dummy_entity/[0-9]+\\?.*'),
+    new RegExp('^.*?/nice2/rest/entities/2.0/Dummy_entity/[0-9]+\\?.*'),
     createEntityResponse('Dummy_entity', entityStore)
   )
 
@@ -140,7 +140,7 @@ export const setupEntities = (fetchMock, entityStore, timeout) => {
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/Dummy_entity(\\?.*)?$'),
+    new RegExp('^.*?/nice2/rest/entities/2.0/Dummy_entity(\\?.*)?$'),
     createEntitiesResponse('Dummy_entity', entityStore, timeout)
   )
 
@@ -155,17 +155,17 @@ export const setupEntities = (fetchMock, entityStore, timeout) => {
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/Search_filter(\\?.*)?$'),
+    new RegExp('^.*?/nice2/rest/entities/2.0/Search_filter(\\?.*)?$'),
     createSearchFilterResponse(timeout)
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/Country/[0-9]+\\?.*'),
+    new RegExp('^.*?/nice2/rest/entities/2.0/Country/[0-9]+\\?.*'),
     require('./data/countries.json').data[1]
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/Country(\\?.*)?$'),
+    new RegExp('^.*?/nice2/rest/entities/2.0/Country(\\?.*)?$'),
     require('./data/countries.json')
   )
 }
@@ -219,7 +219,7 @@ const extractBodyParams = body => () => {
 const createEntitiesDisplayResponse = (entityStore, timeout) =>
   (url, opts) =>
     sleep(timeout).then(() => ({
-      data: JSON.parse(opts.body).map(val => ({
+      data: JSON.parse(opts.body).data.map(val => ({
         model: val.model,
         values: val.keys.map(key => ({key, display: `${val.model} (${key})`}))
       }))

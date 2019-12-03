@@ -71,7 +71,13 @@
         "key": "99",
         "model": "Dummy_entity",
         "version": 1,
-        "paths": {}
+        "paths": {
+          "active": {
+            "type": "boolean",
+            "writable": true,
+            "value": true
+          }
+        }
       }
     },
     "relMulti_entity2": {

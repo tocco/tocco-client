@@ -17,32 +17,32 @@ export default function setupFetchMock(packageName, fetchMock, entityStore = def
   mockData.setupSystemMock(packageName, fetchMock, require('./textResources.json'))
 
   fetchMock.patch(
-    new RegExp('^.*?/nice2/rest/entities/User/[0-9]+\\?_validate=true'),
+    new RegExp('^.*?/nice2/rest/entities/2.0/User/[0-9]+\\?_validate=true'),
     userValidateResponse(entityStore)
   )
 
   fetchMock.patch(
-    new RegExp('^.*?/nice2/rest/entities/User/[0-9]+(\\?.*)?'),
+    new RegExp('^.*?/nice2/rest/entities/2.0/User/[0-9]+(\\?.*)?'),
     userUpdateResponse(entityStore)
   )
 
   fetchMock.post(
-    new RegExp('^.*?/nice2/rest/entities/User\\?_validate=true'),
+    new RegExp('^.*?/nice2/rest/entities/2.0/User\\?_validate=true'),
     userValidateResponse(entityStore)
   )
 
   fetchMock.post(
-    new RegExp('^.*?/nice2/rest/entities/User(\\?.*)?'),
+    new RegExp('^.*?/nice2/rest/entities/2.0/User(\\?.*)?'),
     userCreateResponse(entityStore)
   )
 
   fetchMock.post(
-    new RegExp('^.*?/nice2/rest/entities/Dummy_entity\\?_validate=true'),
+    new RegExp('^.*?/nice2/rest/entities/2.0/Dummy_entity\\?_validate=true'),
     dummyEntityValidateResponse(entityStore)
   )
 
   fetchMock.post(
-    new RegExp('^.*?/nice2/rest/entities/Dummy_entity(\\?.*)?'),
+    new RegExp('^.*?/nice2/rest/entities/2.0/Dummy_entity(\\?.*)?'),
     dummyEntityCreateResponse(entityStore)
   )
 }

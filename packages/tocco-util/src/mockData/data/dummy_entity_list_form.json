@@ -32,7 +32,7 @@
         "componentType": "table",
         "layoutType": "table",
         "hidden": false,
-        "endpoint": "entities/User/{parentKey}/entitydocs",
+        "endpoint": "entities/2.0/User/{parentKey}/entitydocs",
         "children": [
           {
             "id": "label",

@@ -42,7 +42,7 @@ export const setupReports = (fetchMock, entityStore, timeout = 2000) => {
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/entities/Output_job/*?'),
+    new RegExp('^.*?/nice2/rest/entities/2.0/Output_job/*?'),
     url => {
       const id = url.match(/^.*\/Output_job\/([a-zA-Z0-9]+)/)[1]
       const outputJob = require('./data/output_job')
@@ -73,7 +73,7 @@ const completedAnswer = {
   body: {
     _links: {
       result: {
-        href: `${__BACKEND_URL__}/nice2/rest/entities/ /33`
+        href: `${__BACKEND_URL__}/nice2/rest/entities/2.0/ /33`
       }
     },
     status: 'completed',
