@@ -1,5 +1,6 @@
 import _uniq from 'lodash/uniq'
 import {actions, form} from 'tocco-app-extensions'
+import {api} from 'tocco-util'
 
 const getTable = formDefinition =>
   formDefinition.children.find(child => child.componentType === form.componentTypes.TABLE)
@@ -34,7 +35,6 @@ export const getColumnDefinition = table =>
       }
     ))
 
-const relationFormTypes = ['single-select-box', 'multi-select-box', 'single-remote-field', 'multi-remote-field']
 export const getFields = formDefinition => {
   const relationFields = []
   const displayExpressionFields = []
@@ -45,7 +45,7 @@ export const getFields = formDefinition => {
       ...current.children
         .filter(child => !actions.isAction(child.componentType))
         .map(child => {
-          if (relationFormTypes.includes(child.dataType)) {
+          if (api.relationFieldTypes.includes(child.dataType)) {
             relationFields.push(child.path)
           } else if (child.componentType === 'display') {
             displayExpressionFields.push(child.id)

@@ -2,6 +2,7 @@ import {expectSaga} from 'redux-saga-test-plan'
 import {actions as actionUtil, externalEvents, rest} from 'tocco-app-extensions'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {put, select, call, fork, spawn, takeLatest, takeEvery, all} from 'redux-saga/effects'
+import {api} from 'tocco-util'
 
 import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
@@ -9,7 +10,6 @@ import * as selectionActions from '../selection/actions'
 import rootSaga, * as sagas from './sagas'
 import {getSorting, getSelectable, getFields, getEndpoint} from '../../util/api/forms'
 import {getSearchFormValues} from '../searchForm/sagas'
-import {getDisplayRequest} from '../../util/api/display'
 
 const generateState = (entityStore = {}, page) => ({
   initialized: false,
@@ -366,7 +366,7 @@ describe('entity-list', () => {
 
         describe('getBasicQuery', () => {
           test('should return an object with correct attributes', () => {
-            const input = {formBase: 'User', searchFilters: ['filter1', 'filter2']}
+            const input = {searchFilters: ['filter1', 'filter2']}
             const searchForm = {
               formFieldsFlat: {
                 relGender: 'single-remote-field'
@@ -384,7 +384,6 @@ describe('entity-list', () => {
 
             const expectedResult = {
               filter: ['filter1', 'filter2', 'filter3'],
-              form: 'User_list',
               search: 'full',
               conditions: {
                 'relParent.pk': {value: '1'},
@@ -409,19 +408,14 @@ describe('entity-list', () => {
               selection: ['1', '22', '99']
             }
 
-            const input = {
-              formBase: 'User'
-            }
-
             const saga = await expectSaga(sagas.getBasicQuery)
               .provide([
                 [select(sagas.selectionSelector), selection],
-                [select(sagas.inputSelector), input]
+                [select(sagas.inputSelector), {}]
               ])
               .run()
 
             expect(saga.returnValue).to.have.property('tql')
-            expect(saga.returnValue).to.have.property('form')
           })
         })
 
@@ -513,7 +507,7 @@ describe('entity-list', () => {
             return expectSaga(sagas.loadRelationDisplays, relationFields, entities)
               .provide([
                 [select(sagas.listSelector), listState],
-                [matchers.call.fn(getDisplayRequest), fakeDisplayRequest],
+                [matchers.call.fn(api.getDisplayRequest), fakeDisplayRequest],
                 [matchers.call.fn(rest.fetchDisplays), fakeDisplayResponse]
               ])
               .put(actions.setLazyData('defaultDisplays', 'relEntity1', fakeDisplayResponse.relEntity1))
