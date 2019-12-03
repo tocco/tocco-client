@@ -1,3 +1,7 @@
+0.1.14
+- Further style login view
+- Use rest 2.0
+
 0.1.13
 - Fix bug where images were not loaded correctly
 
