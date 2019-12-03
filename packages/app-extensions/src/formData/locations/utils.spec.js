@@ -13,13 +13,14 @@ describe('app-extensions', () => {
           const countryEntity = {
             key: 1,
             display: 'Switzerland',
-            fields: {iso2: {value: 'CH'}}
+            paths: {iso2: {value: 'CH'}}
           }
           utils.setCountryCache({})
 
           await expectSaga(utils.getCountryCodeByKey, countryKey)
             .provide([
               [matchers.call.fn(rest.fetchEntity), countryEntity]
+
             ])
             .call.like({fn: rest.fetchEntity})
             .returns('CH')

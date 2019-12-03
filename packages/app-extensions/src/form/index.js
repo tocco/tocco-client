@@ -3,7 +3,7 @@ import FormBuilder from './FormBuilder'
 import {getFieldId, getFieldDefinitions, getDefaultValues, getUsedPaths} from './formDefinition'
 import syncValidation from './syncValidation'
 import {
-  formValuesToEntity,
+  formValuesToFlattenEntity,
   entityToFormValues,
   getDirtyFields,
   validationErrorToFormError,
@@ -23,7 +23,7 @@ export default {
   getFieldDefinitions,
   getDefaultValues,
   getUsedPaths,
-  formValuesToEntity,
+  formValuesToFlattenEntity,
   entityToFormValues,
   getDirtyFields,
   validationErrorToFormError,

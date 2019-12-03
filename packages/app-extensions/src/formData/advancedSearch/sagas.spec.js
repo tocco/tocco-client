@@ -93,7 +93,8 @@ describe('app-extensions', () => {
                       : advancedSearchActions.advancedSearchClose()
                   }
                 },
-                [matchers.call.fn(rest.fetchEntities), entities]
+                [matchers.call.fn(rest.fetchEntities), entities],
+                [matchers.call.fn(sagas.enhanceEntitiesWithDisplays), entities]
               ])
               .call(sagas.advancedSearchUpdate, formName, fieldId, entities)
               .put.actionType(notifier.removeModalComponent().type)

@@ -1,11 +1,8 @@
 import _forOwn from 'lodash/forOwn'
 import _isEqual from 'lodash/isEqual'
-import _isEmpty from 'lodash/isEmpty'
-import {api} from 'tocco-util'
+import _reduce from 'lodash/reduce'
 
 import {generalErrorField, entityValidatorErrorsField, relatedEntityErrorsField} from './formErrors'
-
-const versionField = '__version'
 
 export const validationErrorToFormError = (entity, errors) => {
   let result = {[generalErrorField]: {[relatedEntityErrorsField]: []}}
@@ -24,68 +21,16 @@ export const validationErrorToFormError = (entity, errors) => {
   return result
 }
 
-export const formValuesToEntity = (values, dirtyFields, entityName, entityId, entityModel) => {
-  const entity = {
-    model: entityName,
-    paths: {},
-    key: entityId,
-    version: values[versionField]
-  }
-
-  const ignoreField = fieldName => (fieldName === versionField || (dirtyFields && !dirtyFields.includes(fieldName)))
-
-  Object.keys(values).forEach(key => {
-    if (!ignoreField(key)) {
-      const transformedKey = transformFieldNameBack(key)
-      const type = getType(key, entityModel)
-      if (type === 'field') {
-        entity.paths[transformedKey] = values[key]
-      } else if (type === 'entity') {
-        entity.paths[transformedKey] = values[key] && values[key].key ? {key: values[key].key} : null
-      } else if (type === 'entity-list') {
-        entity.paths[transformedKey] = values[key] ? values[key].map(value => ({key: value.key})) : []
-      }
-    }
-  })
-  return entity
-}
-
-const getType = (fieldName, entityModel) => {
-  const modelField = entityModel[fieldName]
-  if (modelField && modelField.relationName) {
-    return modelField.multi ? 'entity-list' : 'entity'
-  }
-  return 'field'
-}
-
 // workaround: redux-forms can't get the value of a field if the field-name contains a dot.
 export const transformFieldName = fieldName => (fieldName.replace(/\./g, '--'))
 export const transformFieldNameBack = fieldName => (fieldName.replace(/--/g, '.'))
 
 export const entityToFormValues = entity => {
-  if (!entity || !entity.paths) return {}
+  return _reduce(entity, (acc, val, key) => ({...acc, [transformFieldName(key)]: val}), {})
+}
 
-  const result = {
-    [versionField]: entity.version
-  }
-
-  Object.keys(entity.paths).forEach(key => {
-    const field = entity.paths[key]
-    const transformedFieldName = transformFieldName(key)
-    const typeValueTransformer = api.typeValueExtractor[field.type]
-
-    const value = field.value
-
-    if (!value || _isEmpty(value)) {
-      result[transformedFieldName] = null
-    } else {
-      result[transformedFieldName] = typeValueTransformer
-        ? typeValueTransformer(value)
-        : value.value === null ? null : value.value
-    }
-  })
-
-  return result
+export const formValuesToFlattenEntity = entity => {
+  return _reduce(entity, (acc, val, key) => ({...acc, [transformFieldNameBack(key)]: val}), {})
 }
 
 export const getDirtyFields = (initialValues, values, isCreate) => {

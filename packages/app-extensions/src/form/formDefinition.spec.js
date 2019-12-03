@@ -79,15 +79,16 @@ describe('app-extensions', () => {
       })
 
       describe('getUsedPaths', () => {
-        test('should return a list of all paths that are used in the form', () => {
+        test('should return a list of all paths that are used in the form and ignore display-expressions', () => {
           const fields = formDefinition.getFieldDefinitions(testFormDefinition)
           const fieldNames = formDefinition.getUsedPaths(fields)
-          expect(fieldNames).to.eql([testField1.path, testField2.path, testDisplay.id, testField3.path])
+          expect(fieldNames).to.eql([testField1.path, testField2.path, testField3.path])
         })
 
         test('should return location mappings in paths', () => {
           const fieldNames = formDefinition.getUsedPaths([{
             dataType: 'location',
+            componentType: 'field',
             locationMapping: {
               city: 'city_c',
               country: 'relCountry_c'
@@ -99,9 +100,11 @@ describe('app-extensions', () => {
         test('should return no douplettes in result', () => {
           const fieldNames = formDefinition.getUsedPaths([{
             dataType: 'string',
+            componentType: 'field',
             path: 'firstname'
           }, {
             dataType: 'string',
+            componentType: 'field',
             path: 'firstname'
           }])
           expect(fieldNames).to.eql(['firstname'])

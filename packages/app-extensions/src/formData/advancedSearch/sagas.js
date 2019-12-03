@@ -8,6 +8,7 @@ import rest from '../../rest'
 import * as advancedSearchActions from './actions'
 import * as valueActions from '../values/actions'
 import {getSelection, getValue, getAdvancedSearchComponent} from './utils'
+import {entityListToDisplayRequest} from '../relationEntities/sagas'
 
 export const textResourceSelector = (state, key) => state.intl.messages[key] || key
 
@@ -45,6 +46,12 @@ export function* openAdvancedSearch(config, {payload}) {
   yield spawn(closeAdvancedSearch, answerChannel, modalId, fieldId, formName, entity, multi)
 }
 
+export function* enhanceEntitiesWithDisplays(entities) {
+  const requestedDisplays = yield call(entityListToDisplayRequest, entities)
+  const displays = yield call(rest.fetchDisplays, requestedDisplays)
+  return entities.map(entity => ({...entity, display: displays[entity.model][entity.key]}))
+}
+
 export function* closeAdvancedSearch(answerChannel, modalId, fieldId, formName, entity, multi) {
   let modalOpen = true
   while (modalOpen) {
@@ -54,7 +61,8 @@ export function* closeAdvancedSearch(answerChannel, modalId, fieldId, formName, 
         const query = {
           tql: `IN(pk,${_join(payload.ids, ',')})`
         }
-        const entities = yield call(rest.fetchEntities, entity, query)
+        let entities = yield call(rest.fetchEntities, entity, query)
+        entities = yield call(enhanceEntitiesWithDisplays, entities)
         const value = yield call(getValue, entities, multi)
         yield call(advancedSearchUpdate, formName, fieldId, value)
       } else {

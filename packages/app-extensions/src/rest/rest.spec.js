@@ -80,7 +80,7 @@ describe('app-extensions', () => {
         const mockedResponse = new Response(body, {status: statusCode})
 
         fetchMock.get('*', mockedResponse)
-        const resource = 'entities/Contact'
+        const resource = 'entities/2.0/Contact'
         const options = {
           acceptedErrorCodes: ['SAVE_FAILED']
         }
@@ -98,7 +98,7 @@ describe('app-extensions', () => {
         const mockedResponse = new Response(body, {status: statusCode, statusText: 'Some error'})
 
         fetchMock.get('*', mockedResponse)
-        const resource = 'entities/Contact'
+        const resource = 'entities/2.0/Contact'
         simpleRequest(resource).catch(() => {
           done()
         })
@@ -131,7 +131,7 @@ describe('app-extensions', () => {
 
       test('should use ordered params', () => {
         fetchMock.get('*', {})
-        const resource = 'entities/Contact'
+        const resource = 'entities/2.0/Contact'
         const options = {
           queryParams: {
             _search: 'test',
@@ -141,7 +141,7 @@ describe('app-extensions', () => {
         simpleRequest(resource, options)
 
         const lastCall = fetchMock.lastCall()[0]
-        expect(lastCall).to.eql('/nice2/rest/entities/Contact?_search=test&xyz=abc')
+        expect(lastCall).to.eql('/nice2/rest/entities/2.0/Contact?_search=test&xyz=abc')
       })
 
       test('should return with accepted status code', done => {
@@ -151,7 +151,7 @@ describe('app-extensions', () => {
         const mockedResponse = new Response(body, {status: statusCode})
 
         fetchMock.get('*', mockedResponse)
-        const resource = 'entities/Contact'
+        const resource = 'entities/2.0/Contact'
         simpleRequest(resource, {
           acceptedStatusCodes: [400]
         }).then(response => {
@@ -167,7 +167,7 @@ describe('app-extensions', () => {
         const mockedResponse = new Response(body, {status: statusCode})
 
         fetchMock.get('*', mockedResponse)
-        const resource = 'entities/Contact'
+        const resource = 'entities/2.0/Contact'
         simpleRequest(resource).catch(() => {
           done()
         })
@@ -178,7 +178,7 @@ describe('app-extensions', () => {
       test(
         'should call prepareRequest, handleClientQuestions and sendRequest',
         () => {
-          const resource = 'entities/Contact'
+          const resource = 'entities/2.0/Contact'
           const options = {
             queryParams: {
               _search: 'test',
@@ -225,7 +225,7 @@ describe('app-extensions', () => {
 
     describe('prepareRequest', () => {
       test('should append params to query', () => {
-        const resource = 'entities/Contact'
+        const resource = 'entities/2.0/Contact'
         const options = {
           queryParams: {
             _search: 'test',
@@ -234,11 +234,11 @@ describe('app-extensions', () => {
         }
         const requestData = prepareRequest(resource, options)
 
-        expect(requestData.url).to.eql('/nice2/rest/entities/Contact?_search=test&xyz=abc')
+        expect(requestData.url).to.eql('/nice2/rest/entities/2.0/Contact?_search=test&xyz=abc')
       })
 
       test('should use GET as default method', () => {
-        const requestData = prepareRequest('entities/Contact')
+        const requestData = prepareRequest('entities/2.0/Contact')
         expect(requestData.options.method).to.eql('GET')
       })
 
@@ -246,7 +246,7 @@ describe('app-extensions', () => {
         const options = {
           method: 'POST'
         }
-        const requestData = prepareRequest('entities/Contact', options)
+        const requestData = prepareRequest('entities/2.0/Contact', options)
         expect(requestData.options.method).to.eql('POST')
       })
 
@@ -256,7 +256,7 @@ describe('app-extensions', () => {
       })
 
       test('should add serialized body to options', () => {
-        const resource = 'entities/Contact'
+        const resource = 'entities/2.0/Contact'
         const options = {
           method: 'POST',
           body: {
@@ -271,20 +271,20 @@ describe('app-extensions', () => {
 
       test('should add X-Business-Unit header if null business unit', () => {
         setNullBusinessUnit(true)
-        const requestData = prepareRequest('entities/Contact')
+        const requestData = prepareRequest('entities/2.0/Contact')
         setNullBusinessUnit(false)
 
         expect(requestData.options.headers.get('X-Business-Unit')).to.eql('__n-u-l-l__')
       })
 
       test('should use backend URL from options if set', () => {
-        const resource = 'entities/Contact'
+        const resource = 'entities/2.0/Contact'
         const options = {
           backendUrl: 'https://my-backend.ch'
         }
         const requestData = prepareRequest(resource, options)
 
-        expect(requestData.url).to.eql('https://my-backend.ch/nice2/rest/entities/Contact')
+        expect(requestData.url).to.eql('https://my-backend.ch/nice2/rest/entities/2.0/Contact')
       })
 
       test('should use absolute url if ressource is one', () => {
