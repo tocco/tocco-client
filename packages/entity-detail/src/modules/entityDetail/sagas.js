@@ -181,7 +181,7 @@ export function* loadDisplayExpressions(formName, paths, entities) {
 
 export function* loadRelationDisplays(relationFields, entities) {
   if (relationFields && relationFields.length > 0) {
-    const request = yield call(api.getDisplayRequest, entities, relationFields, {})
+    const request = yield call(api.getPathDisplayRequest, entities, relationFields, {})
     return yield call(rest.fetchDisplays, request)
   }
 }

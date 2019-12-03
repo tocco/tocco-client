@@ -177,19 +177,6 @@ describe('app-extensions', () => {
               })
           })
         })
-
-        describe('entityListToDisplayRequest', () => {
-          test('should return a object separated by model', () => {
-            const input = [{key: '1', model: 'Gender'}, {key: '22', model: 'Local'}, {key: '2', model: 'Gender'}]
-            const result = sagas.entityListToDisplayRequest(input)
-
-            const expectedResult = {
-              Gender: ['1', '2'],
-              Local: ['22']
-            }
-            expect(result).to.eql(expectedResult)
-          })
-        })
       })
     })
   })

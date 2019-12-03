@@ -2,13 +2,13 @@ import {channel} from 'redux-saga'
 import _join from 'lodash/join'
 import uuid from 'uuid/v4'
 import {all, call, fork, put, takeEvery, take, spawn, select} from 'redux-saga/effects'
+import {api} from 'tocco-util'
 
 import notifier from './../../notifier'
 import rest from '../../rest'
 import * as advancedSearchActions from './actions'
 import * as valueActions from '../values/actions'
 import {getSelection, getValue, getAdvancedSearchComponent} from './utils'
-import {entityListToDisplayRequest} from '../relationEntities/sagas'
 
 export const textResourceSelector = (state, key) => state.intl.messages[key] || key
 
@@ -47,7 +47,7 @@ export function* openAdvancedSearch(config, {payload}) {
 }
 
 export function* enhanceEntitiesWithDisplays(entities) {
-  const requestedDisplays = yield call(entityListToDisplayRequest, entities)
+  const requestedDisplays = yield call(api.getDisplayRequest, entities)
   const displays = yield call(rest.fetchDisplays, requestedDisplays)
   return entities.map(entity => ({...entity, display: displays[entity.model][entity.key]}))
 }

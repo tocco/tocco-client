@@ -153,7 +153,7 @@ export function* loadDisplayExpressions(formName, paths, entities) {
 export function* loadRelationDisplays(relationFields, entities) {
   if (relationFields && relationFields.length > 0) {
     const {lazyData} = yield select(listSelector)
-    const request = yield call(api.getDisplayRequest, entities, relationFields, lazyData)
+    const request = yield call(api.getPathDisplayRequest, entities, relationFields, lazyData)
     const displays = yield call(rest.fetchDisplays, request)
     yield all(Object.keys(displays).map(entity =>
       put(actions.setLazyData('defaultDisplays', entity, displays[entity]))

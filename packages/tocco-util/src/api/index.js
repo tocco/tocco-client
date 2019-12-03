@@ -1,4 +1,11 @@
 import {getFlattenEntity, toEntity, relationFieldTypes, relevantRelationAttributes} from './entities'
-import {getDisplayRequest} from './display'
+import {getDisplayRequest, getPathDisplayRequest} from './display'
 
-export default {relationFieldTypes, relevantRelationAttributes, getDisplayRequest, getFlattenEntity, toEntity}
+export default {
+  relationFieldTypes,
+  relevantRelationAttributes,
+  getFlattenEntity,
+  toEntity,
+  getPathDisplayRequest,
+  getDisplayRequest
+}

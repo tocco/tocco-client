@@ -9,10 +9,17 @@ const alreadyInRequest = (model, key, request) => {
   return _get(request, [model], []).includes(key)
 }
 
-export const getDisplayRequest = (entities, relationFields, lazyData) => {
+/**
+ * Gets a request object to retrieve all the displays of the given paths within the entities.
+ *
+ * @param {array} entities - List of all entities.
+ * @param {object} relationPaths - Field that need a display to be loaded
+ * @param {object} lazyData - Optional object with the already loaded  displays to shrink the request.
+ */
+export const getPathDisplayRequest = (entities, relationPaths, lazyData) => {
   const request = {}
   entities.forEach(entity => {
-    relationFields.forEach(field => {
+    relationPaths.forEach(field => {
       if (entity[field]) {
         const fieldValue = entity[field]
         const values = Array.isArray(fieldValue) ? fieldValue : [fieldValue]
@@ -30,3 +37,16 @@ export const getDisplayRequest = (entities, relationFields, lazyData) => {
 
   return request
 }
+
+/**
+ * Gets a request object to retrieve all displays of the entities.
+ *
+ * @param {array} entities - List of all entities.
+ */
+export const getDisplayRequest = entities => (
+  entities.reduce((acc, val) => ({
+    ...acc,
+    [val.model]: [...(acc[val.model] || []), val.key]
+  }
+  ), {})
+)

@@ -11,17 +11,8 @@ export default function* sagas() {
   ])
 }
 
-export const entityListToDisplayRequest = entityList => (
-  entityList.reduce((acc, val) => {
-    return {
-      ...acc,
-      [val.model]: [...(acc[val.model] || []), val.key]
-    }
-  }, {})
-)
-
 export function* enhanceEntitiesWithDisplays(entities) {
-  const requestedDisplays = yield call(entityListToDisplayRequest, entities)
+  const requestedDisplays = yield call(api.getDisplayRequest, entities)
   const displays = yield call(rest.fetchDisplays, requestedDisplays)
   return entities.map(entity => ({...entity, display: displays[entity.model][entity.key]}))
 }
