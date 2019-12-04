@@ -1,3 +1,7 @@
+0.1.15
+- Fix location field
+- Fix sso-login
+
 0.1.14
 - Further style login view
 - Use rest 2.0
