@@ -3,6 +3,9 @@ export default {
     paper: '#fff',
     primary: '#9E2124',
     text: '#4f5e60',
+    background: '#EDF1F5',
+    primaryBlue: '#11587f',
+    secondaryBlue: '#9BC0D5',
     signal: {
       danger: {
         paper: '#EF9A9A', // Red 200
@@ -23,20 +26,21 @@ export default {
     }
   },
   fontFamily: {
-    monospace: 'Menlo, Monaco, Consolas, "Courier New", monospace',
-    regular: '"Helvetica Neue", Helvetica, Arial, sans-serif',
-    url: ''
+    monospace: 'Ubuntu Mono, monospace',
+    regular: 'Ubuntu, sans-serif',
+    url: 'https://fonts.googleapis.com/css?family=Ubuntu+Mono:300,500|Ubuntu:300,500&display=swap'
   },
   fontSize: {
-    base: 1.4,
+    base: 1.5,
     factor: 1.1
   },
   fontWeights: {
-    regular: 400,
-    bold: 700
+    regular: 300,
+    bold: 500
   },
   lineHeights: {
     dense: 1,
+    light: 1.2,
     regular: 1.4
   },
   radii: {
