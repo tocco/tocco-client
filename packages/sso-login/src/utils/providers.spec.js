@@ -10,28 +10,20 @@ describe('sso-login', () => {
 
           const expectedResult = [
             {
-              unique_id: 'google',
+              button_icon: 'google',
+              button_label: 'Google',
+              button_primary_color: '#D44638',
+              button_secondary_color: '',
               label: 'Google',
-              active: true,
-              button_primary_color: '#bad6ff',
-              button_icon: 'fab, google',
-              button_label: 'Mit Google einloggen'
+              unique_id: 'google'
             },
             {
-              unique_id: 'facebook',
-              label: 'Facebook',
-              active: true,
-              button_primary_color: '#3A5696',
-              button_label: 'Mit Facebook einloggen'
-            },
-            {
-              unique_id: 'office365',
+              button_icon: 'microsoft',
+              button_label: 'Office 365',
+              button_primary_color: '#0078d7',
+              button_secondary_color: '',
               label: 'Office 365',
-              active: true,
-              button_primary_color: '#d33b17',
-              button_secondary_color: '#dddddd',
-              button_icon: 'fab, microsoft',
-              button_label: 'Mit Office 356 einloggen'
+              unique_id: 'office_365'
             }
           ]
 

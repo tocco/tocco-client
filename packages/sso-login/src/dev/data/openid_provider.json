@@ -1,307 +1,83 @@
 {
-  "_links": {
-    "next": null,
-    "prev": null,
-    "entity-model-list": {
-      "href": "http://localhost:8080/nice2/rest/entities"
-    },
-    "self": {
-      "href": "http://localhost:8080/nice2/rest/entities/Openid_provider"
-    },
-    "form-list": {
-      "href": "http://localhost:8080/nice2/rest/forms/Openid_provider_list"
-    },
-    "form-search": {
-      "href": "http://localhost:8080/nice2/rest/forms/Openid_provider_search"
-    },
-    "form-detail": {
-      "href": "http://localhost:8080/nice2/rest/forms/Openid_provider_detail"
-    }
-  },
+  "_links": null,
   "metaData": {
     "modelName": "Openid_provider",
     "label": "OpenID Provider"
   },
   "data": [
     {
-      "_links": {
-        "self": {
-          "href": "http://localhost:8080/nice2/rest/entities/Openid_provider/5"
-        },
-        "model": {
-          "href": "http://localhost:8080/nice2/rest/entities/Openid_provider/model"
-        },
-        "entity-list": {
-          "href": "http://localhost:8080/nice2/rest/entities/Openid_provider"
-        },
-        "default-display": {
-          "href": "http://localhost:8080/nice2/rest/entity/Openid_provider/5/display"
-        },
-        "entity-model-list": {
-          "href": "http://localhost:8080/nice2/rest/entities"
-        }
-      },
+      "_links": null,
       "key": "5",
       "model": "Openid_provider",
-      "version": 4,
-      "display": "Google",
-      "fields": null,
-      "singleRelations": [],
-      "multiRelations": [],
+      "version": 7,
       "paths": {
-        "unique_id": {
-          "path": "unique_id",
-          "type": "field",
-          "writable": true,
-          "value": {
-            "value": "google",
-            "type": "identifier",
-            "readable": true,
-            "writable": true
-          }
-        },
-        "label": {
-          "path": "label",
-          "type": "field",
-          "writable": true,
-          "value": {
-            "value": "Google",
-            "type": "string",
-            "readable": true,
-            "writable": true
-          }
-        },
-        "active": {
-          "path": "active",
-          "type": "field",
-          "writable": true,
-          "value": {
-            "value": true,
-            "type": "boolean",
-            "readable": true,
-            "writable": true
-          }
-        },
-        "button_primary_color": {
-          "path": "button_primary_color",
-          "type": "field",
-          "writable": true,
-          "value": {
-            "value": "#bad6ff",
-            "type": "string",
-            "readable": true,
-            "writable": true
-          }
-        },
         "button_icon": {
-          "path": "button_icon",
-          "type": "field",
-          "writable": true,
-          "value": {
-            "value": "fab, google",
-            "type": "string",
-            "readable": true,
-            "writable": true
-          }
+          "type": "string",
+          "writable": null,
+          "value": "google"
         },
         "button_label": {
-          "path": "button_label",
-          "type": "field",
-          "writable": true,
-          "value": {
-            "value": "Mit Google einloggen",
-            "type": "string",
-            "readable": true,
-            "writable": true
-          }
-        }
-      }
-    },
-    {
-      "_links": {
-        "self": {
-          "href": "http://localhost:8080/nice2/rest/entities/Openid_provider/7"
-        },
-        "model": {
-          "href": "http://localhost:8080/nice2/rest/entities/Openid_provider/model"
-        },
-        "entity-list": {
-          "href": "http://localhost:8080/nice2/rest/entities/Openid_provider"
-        },
-        "default-display": {
-          "href": "http://localhost:8080/nice2/rest/entity/Openid_provider/7/display"
-        },
-        "entity-model-list": {
-          "href": "http://localhost:8080/nice2/rest/entities"
-        }
-      },
-      "key": "7",
-      "model": "Openid_provider",
-      "version": 4,
-      "display": "Facebook",
-      "fields": null,
-      "singleRelations": [],
-      "multiRelations": [],
-      "paths": {
-        "unique_id": {
-          "path": "unique_id",
-          "type": "field",
-          "writable": true,
-          "value": {
-            "value": "facebook",
-            "type": "identifier",
-            "readable": true,
-            "writable": true
-          }
-        },
-        "label": {
-          "path": "label",
-          "type": "field",
-          "writable": true,
-          "value": {
-            "value": "Facebook",
-            "type": "string",
-            "readable": true,
-            "writable": true
-          }
-        },
-        "active": {
-          "path": "active",
-          "type": "field",
-          "writable": true,
-          "value": {
-            "value": true,
-            "type": "boolean",
-            "readable": true,
-            "writable": true
-          }
+          "type": "string",
+          "writable": null,
+          "value": "Google"
         },
         "button_primary_color": {
-          "path": "button_primary_color",
-          "type": "field",
-          "writable": true,
-          "value": {
-            "value": "#3A5696",
-            "type": "string",
-            "readable": true,
-            "writable": true
-          }
-        },
-        "button_label": {
-          "path": "button_label",
-          "type": "field",
-          "writable": true,
-          "value": {
-            "value": "Mit Facebook einloggen",
-            "type": "string",
-            "readable": true,
-            "writable": true
-          }
-        }
-      }
-    },
-    {
-      "_links": {
-        "self": {
-          "href": "http://localhost:8080/nice2/rest/entities/Openid_provider/23"
-        },
-        "model": {
-          "href": "http://localhost:8080/nice2/rest/entities/Openid_provider/model"
-        },
-        "entity-list": {
-          "href": "http://localhost:8080/nice2/rest/entities/Openid_provider"
-        },
-        "default-display": {
-          "href": "http://localhost:8080/nice2/rest/entity/Openid_provider/23/display"
-        },
-        "entity-model-list": {
-          "href": "http://localhost:8080/nice2/rest/entities"
-        }
-      },
-      "key": "23",
-      "model": "Openid_provider",
-      "version": 3,
-      "display": "Office 365",
-      "fields": null,
-      "singleRelations": [],
-      "multiRelations": [],
-      "paths": {
-        "unique_id": {
-          "path": "unique_id",
-          "type": "field",
-          "writable": true,
-          "value": {
-            "value": "office365",
-            "type": "identifier",
-            "readable": true,
-            "writable": true
-          }
-        },
-        "label": {
-          "path": "label",
-          "type": "field",
-          "writable": true,
-          "value": {
-            "value": "Office 365",
-            "type": "string",
-            "readable": true,
-            "writable": true
-          }
-        },
-        "active": {
-          "path": "active",
-          "type": "field",
-          "writable": true,
-          "value": {
-            "value": true,
-            "type": "boolean",
-            "readable": true,
-            "writable": true
-          }
-        },
-        "button_primary_color": {
-          "path": "button_primary_color",
-          "type": "field",
-          "writable": true,
-          "value": {
-            "value": "#d33b17",
-            "type": "string",
-            "readable": true,
-            "writable": true
-          }
+          "type": "string",
+          "writable": null,
+          "value": "#D44638"
         },
         "button_secondary_color": {
-          "path": "button_secondary_color",
-          "type": "field",
-          "writable": true,
-          "value": {
-            "value": "#dddddd",
-            "type": "string",
-            "readable": true,
-            "writable": true
-          }
+          "type": "string",
+          "writable": null,
+          "value": ""
         },
+        "label": {
+          "type": "string",
+          "writable": null,
+          "value": "Google"
+        },
+        "unique_id": {
+          "type": "identifier",
+          "writable": null,
+          "value": "google"
+        }
+      }
+    },
+    {
+      "_links": null,
+      "key": "299",
+      "model": "Openid_provider",
+      "version": 5,
+      "paths": {
         "button_icon": {
-          "path": "button_icon",
-          "type": "field",
-          "writable": true,
-          "value": {
-            "value": "fab, microsoft",
-            "type": "string",
-            "readable": true,
-            "writable": true
-          }
+          "type": "string",
+          "writable": null,
+          "value": "microsoft"
         },
         "button_label": {
-          "path": "button_label",
-          "type": "field",
-          "writable": true,
-          "value": {
-            "value": "Mit Office 356 einloggen",
-            "type": "string",
-            "readable": true,
-            "writable": true
-          }
+          "type": "string",
+          "writable": null,
+          "value": "Office 365"
+        },
+        "button_primary_color": {
+          "type": "string",
+          "writable": null,
+          "value": "#0078d7"
+        },
+        "button_secondary_color": {
+          "type": "string",
+          "writable": null,
+          "value": ""
+        },
+        "label": {
+          "type": "string",
+          "writable": null,
+          "value": "Office 365"
+        },
+        "unique_id": {
+          "type": "identifier",
+          "writable": null,
+          "value": "office_365"
         }
       }
     }
