@@ -1,9 +1,17 @@
-import React, {useRef, useState, useEffect} from 'react'
+// TODO: Dake fix marked comment sections below
+import React, {/* useRef, useState, */ useEffect} from 'react'
 import PropTypes from 'prop-types'
-import {Button} from 'tocco-ui'
+import SearchBox from 'tocco-ui/src/SearchBox'
 
 import MenuTree from '../MenuTree'
-import {StyledTabsContainer, StyledMenuEntry, StyledMenuLink, StyledNav, StyledSearch, StyledMewnuWrapper}
+import {
+  StyledTabsContainer,
+  StyledMenuEntry,
+  StyledMenuLink,
+  StyledNav,
+  StyledMenuWrapper,
+  StyledNavButton
+}
   from './StyledComponents'
 
 const MenuMenuEntry = ({item}) => {
@@ -51,8 +59,8 @@ const tabs = {
 }
 
 const Navigation = ({modulesMenuTree, settingsMenuTree, menuOpen, onClick, activeMenuTab, setActiveMenuTab}) => {
-  const inputEl = useRef(null)
-  const [filter, setFilter] = useState('')
+  // const inputEl = useRef(null)
+  // const [filter, setFilter] = useState('')
 
   const map = {
     'menu': {
@@ -77,35 +85,49 @@ const Navigation = ({modulesMenuTree, settingsMenuTree, menuOpen, onClick, activ
 
   useEffect(() => {
     if (menuOpen) {
+      /*
       inputEl.current.select()
       inputEl.current.focus()
+      */
     }
   }, [menuOpen])
 
   return <StyledNav>
     <StyledTabsContainer>
-      <Button
+      <StyledNavButton
         title="Modules"
-        ink={activeMenuTab === tabs.MODULES ? 'primary' : 'base'}
+        active={activeMenuTab === tabs.MODULES}
         onClick={() => setActiveMenuTab(tabs.MODULES)}
-        icon="cubes"
+        label="Modules"
       />
-      <Button
+      <StyledNavButton
         title="Settings"
-        ink={activeMenuTab === tabs.SETTINGS ? 'primary' : 'base'}
-        icon="cogs"
+        active={activeMenuTab === tabs.SETTINGS}
         onClick={() => setActiveMenuTab(tabs.SETTINGS)}
+        label="Settings"
       />
     </StyledTabsContainer>
-    <StyledSearch placeholder="search" ref={inputEl} onChange={e => { setFilter(e.target.value) }}/>
+    <form>
+      <SearchBox
+        debounce={300}
+        minInputLength={2}
+        /*
+        onSearch={e => {
+          setFilter(e.target.value)
+        }}
+        ref={inputEl}
+        */
+        placeholder="Suche"
+      />
+    </form>
     {activeMenuTab === tabs.MODULES
-    && <StyledMewnuWrapper>
-      <MenuTree items={modulesMenuTree} searchFilter={filter} typeMapping={map}/>
-    </StyledMewnuWrapper>}
+    && <StyledMenuWrapper>
+      <MenuTree items={modulesMenuTree} /* searchFilter={filter} */ typeMapping={map}/>
+    </StyledMenuWrapper>}
     {activeMenuTab === tabs.SETTINGS
-    && <StyledMewnuWrapper>
-      <MenuTree items={settingsMenuTree} searchFilter={filter} typeMapping={map}/>
-    </StyledMewnuWrapper>}
+    && <StyledMenuWrapper>
+      <MenuTree items={settingsMenuTree} /* searchFilter={filter} */ typeMapping={map}/>
+    </StyledMenuWrapper>}
   </StyledNav>
 }
 

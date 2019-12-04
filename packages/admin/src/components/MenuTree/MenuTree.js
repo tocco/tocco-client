@@ -1,12 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {StyledSpan} from 'tocco-ui'
+import {StyledSpan, theme} from 'tocco-ui'
 import styled from 'styled-components'
 
 const StyledMenuEntry = styled(StyledSpan)`
   && {
    padding-left: ${props => props.level * 6}px;
+   line-height: ${theme.lineHeight('light')};
  }
+`
+
+const StyledMenuEntryWrapper = styled.div`
+  > div:not(:first-child) {
+    margin-top: .9rem;
+  }
 `
 
 const MenuItem = ({item, typeMapping}) => {
@@ -70,14 +77,14 @@ const MenuTree = ({items, searchFilter, typeMapping}) => {
   }
 
   return (
-    <div>
+    <StyledMenuEntryWrapper>
       {items.map((item, idx) =>
         <MenuItem
           key={idx}
           item={prepareTree(item, searchFilter, typeMapping)}
           typeMapping={typeMapping}/>
       )}
-    </div>
+    </StyledMenuEntryWrapper>
   )
 }
 

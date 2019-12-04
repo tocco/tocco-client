@@ -1,53 +1,52 @@
 import styled from 'styled-components'
 import {Link} from 'react-router-dom'
-
-export const StyledSearch = styled.input`
-  border-radius: 20px;
-  border: 0px;
-  width: 90%;
-  font-size: 1.2rem;
-  padding: 4px 7px;
-  :focus {
-      outline: none;
-  }
-  margin-bottom: 5px;
-`
+import {Button, theme} from 'tocco-ui'
 
 export const StyledNav = styled.nav`
   height: 100%;
 `
 
-export const StyledMewnuWrapper = styled.div`
+export const StyledMenuWrapper = styled.div`
   height: 100%;
   overflow: auto;
+  padding-left: 2rem;
+  
+  div > div:last-child {
+    padding-bottom: 2rem;
+  }
+
   ::-webkit-scrollbar {
-      width: 5px;
+      width: 10px;
   }
    
   ::-webkit-scrollbar-thumb {
-    background-color: #878787;
+    background-color: ${theme.color('text')};
+    
+    &:hover {
+      background-color: ${theme.color('primaryBlue')};
+    }
   }
   
-  scrollbar-color: #878787 #253653; // Firefox workaround
+  scrollbar-color: ${theme.color('text')} transparent; // Firefox workaround
   scrollbar-width: thin;
 `
 
 export const StyledMenuEntry = styled.span`
-   color: #c5cbd4;
-   font-weight: bold;
+   color: ${theme.color('text')};
+   font-weight: ${theme.fontWeight('bold')};
 `
 
 export const StyledMenuLink = styled(Link)`
-  color: #c5cbd4;
+  color: ${theme.color('text')};
   text-decoration: none;
+  padding-left: 1.3rem;
   
   &:hover {
-      color: #555;
+      color: ${theme.color('secondaryBlue')};
     }
   
   &:focus {
-     text-decoration: underline;
-      outline: none;
+     outline: none;
     }
   
   &.active {
@@ -60,4 +59,37 @@ export const StyledTabsContainer = styled.div`
   justify-content: space-evenly;
   align-items: center; 
   margin-bottom: 10px;
+  border-bottom: 3px solid ${theme.color('background')};
+  
+  &:focus {
+    background-color: transparent;
+  }
+  
+  span {
+    padding-top: .4rem;
+    padding-bottom: .4rem;
+  }
+`
+
+export const StyledNavButton = styled(Button)`
+  && {
+    flex: 1;
+    justify-content: center;
+    border-radius: 0;
+    margin: 5px;
+    border-top: 5px solid;
+    color: ${props => props.active ? theme.color('primaryBlue') : theme.color('secondaryBlue')};
+    font-weight: ${theme.fontWeight('bold')};
+    border-color: ${props => props.active ? theme.color('primaryBlue') : 'transparent'};
+    
+    &:hover {
+      border-color: ${props => props.active ? theme.color('primaryBlue') : theme.color('secondaryBlue')};
+      background-color: transparent;
+      color: ${props => props.active ? theme.color('primaryBlue') : theme.color('secondaryBlue')};
+    }
+    
+    &:focus {
+      background-color: transparent;
+    }
+  }
 `

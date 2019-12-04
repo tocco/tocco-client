@@ -10,9 +10,7 @@ import DashboardRoute from '../../routes/dashboard'
 import EntitiesRoute from '../../routes/entities'
 import Settings from '../../routes/settings'
 import Actions from '../../routes/actions'
-import {StyledLink} from '../StyledLink'
 import {
-  StyledTitle,
   StyledWrapper,
   StyledHeader,
   StyledConfig,
@@ -57,13 +55,14 @@ const Admin = ({initializeNavigation, setMenuOpen, menuOpen, baseRoute, confirm,
       <Router history={history || {}}>
         <StyledWrapper id="outer-container">
           <StyledHeader>
-            <div><StyledLink to="/"><StyledTitle>Tocco</StyledTitle></StyledLink></div>
             <StyledConfig>
               <div><Button look="raised" icon="sign-out-alt" label="Logout" onClick={doLogout}/></div>
             </StyledConfig>
           </StyledHeader>
-          <StyledMenu isOpen={menuOpen} onStateChange={isMenuOpen}
-            customBurgerIcon={<Icon icon="bars"/>} styles={burgerMenuStyles} pageWrapId={'page-wrap'}
+          <StyledMenu isOpen={menuOpen} onStateChange={isMenuOpen} customCrossIcon={ false }
+            customBurgerIcon={menuOpen ? <Icon icon="times"/> : <Icon icon="bars"/>}
+            styles={burgerMenuStyles}
+            pageWrapId={'page-wrap'}
             outerContainerId={'outer-container'}>
             <Navigation onClick={() => {
               setMenuOpen(false)
