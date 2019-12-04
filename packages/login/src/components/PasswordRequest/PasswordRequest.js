@@ -43,7 +43,7 @@ export class PasswordRequest extends React.Component {
         <Typography.P><FormattedMessage id="client.login.passwordRequest.introduction"/></Typography.P>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <StatedValue
-            hasValue={!!this.props.username}
+            hasValue={!!this.state.username}
             id="login-username"
             label={this.msg('client.login.form.userPlaceholder')}
           >
