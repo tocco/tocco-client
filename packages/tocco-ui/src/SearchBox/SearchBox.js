@@ -2,9 +2,8 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import _debounce from 'lodash/debounce'
 
-import Button from '../Button'
 import {StyledSearchBoxForm, StyledSearchBoxInput} from './StyledSearchBox'
-import {StyledEditableWrapper, StyledEditableControl} from '../EditableValue/StyledEditableValue'
+import {StyledEditableWrapper} from '../EditableValue/StyledEditableValue'
 import StatedValue from '../StatedValue'
 
 class SearchBox extends React.Component {
@@ -54,14 +53,6 @@ class SearchBox extends React.Component {
               onChange={this.onChange}
               value={this.state.inputValue}
             />
-            <StyledEditableControl>
-              <Button
-                icon="search"
-                look="ball"
-                tabIndex={-1}
-                type="submit"
-              />
-            </StyledEditableControl>
           </StyledEditableWrapper>
         </StatedValue>
       </StyledSearchBoxForm>
