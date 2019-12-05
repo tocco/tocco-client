@@ -1,13 +1,14 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, {useState, useEffect, useRef} from 'react'
 import PropTypes from 'prop-types'
 
 import useDebounce from './useDebounce'
 
 /**
- Higher-order-component to wrap a input Component. It will debounce the onChange.
+ Higher-order-component to wrap a input Component. It will debounce the change function.
  */
-const Debouncer = (Component, delay = 300) => {
-  function Comp(props) {
+const Debouncer = (Component, delay = 300, func = 'onChange') => {
+  const Comp = React.forwardRef((props, ref) => {
     const [internalValue, setInternalValue] = useState(props.value)
     const debouncedValue = useDebounce(internalValue, delay)
 
@@ -21,18 +22,18 @@ const Debouncer = (Component, delay = 300) => {
 
     useEffect(() => {
       if (oldValue.current !== debouncedValue) {
-        props.onChange(debouncedValue)
+        props[func](debouncedValue)
         oldValue.current = debouncedValue
       }
     }, [debouncedValue])
 
     return (
-      <Component {...props} value={internalValue} onChange={setInternalValue}/>
+      <Component {...props} value={internalValue} {...{[func]: setInternalValue}} ref={ref}/>
     )
-  }
+  })
 
   Comp.propTypes = {
-    onChange: PropTypes.func,
+    [func]: PropTypes.func,
     value: PropTypes.any
   }
 
