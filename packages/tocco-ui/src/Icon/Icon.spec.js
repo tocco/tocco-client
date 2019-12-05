@@ -11,14 +11,14 @@ describe('tocco-ui', () => {
     test('should receive theme', () => {
       const wrapper = mount(
         <ThemeProvider theme={{key: 'value'}}>
-          <Icon icon="square"/>
+          <Icon icon="cog"/>
         </ThemeProvider>
       )
       expect(wrapper.prop('theme')).to.deep.equal({key: 'value'})
     })
 
     test('should render an icon', () => {
-      const wrapper = mount(<Icon icon="user"/>)
+      const wrapper = mount(<Icon icon="cog"/>)
 
       expect(wrapper.find('svg')).to.have.length(1)
       expect(wrapper.find(FontAwesomeAdapter)).to.have.length(1)
