@@ -3,15 +3,25 @@ import PropTypes from 'prop-types'
 import _get from 'lodash/get'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {library} from '@fortawesome/fontawesome-svg-core'
-import {fas} from '@fortawesome/free-solid-svg-icons'
-import {far} from '@fortawesome/free-regular-svg-icons'
+import {
+  faAngleDown, faAngleRight, faAngleLeft, faAngleUp, faStar as faStarFilled, faExclamation, faCheckCircle,
+  faExternalLink, faPhone
+} from '@fortawesome/pro-solid-svg-icons'
+import {
+  faChevronDoubleLeft, faChevronDoubleRight, faChevronRight, faChevronLeft, faChevronUp, faChevronDown, faPlus,
+  faFolders, faStar, faTimes, faArrowRight, faArrowLeft, faListUl, faFile, faFileAlt, faFileExcel, faFilePdf,
+  faIdBadge, faCheck, faMapMarked, faSearch, faCog, faBars, faDownload, faUpload, faInfo
+} from '@fortawesome/pro-regular-svg-icons'
+import {faTimes as faTimesLight, faCircle} from '@fortawesome/pro-light-svg-icons'
 import {faGoogle, faFacebook, faFacebookF, faDropbox, faMicrosoft, faJira, faApple}
   from '@fortawesome/free-brands-svg-icons'
-
 (() => {
-  library.add(faGoogle, faFacebook, faFacebookF, faDropbox, faMicrosoft, faJira, faApple)
-  library.add(far)
-  library.add(fas)
+  library.add(
+    faAngleDown, faAngleRight, faAngleLeft, faAngleUp, faChevronDoubleLeft, faChevronDoubleRight, faChevronRight,
+    faChevronLeft, faChevronUp, faChevronDown, faPlus, faFolders, faStarFilled, faStar, faTimes, faArrowRight,
+    faArrowLeft, faListUl, faFile, faFileAlt, faFileExcel, faFilePdf, faIdBadge, faCheck, faExclamation, faTimesLight,
+    faCircle, faCheckCircle, faGoogle, faFacebook, faFacebookF, faDropbox, faMicrosoft, faJira, faApple, faBars,
+    faExternalLink, faPhone, faMapMarked, faSearch, faCog, faDownload, faUpload, faInfo)
 })()
 
 const FontAwesomeAdapter = ({icon, style}) =>

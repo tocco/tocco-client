@@ -44,7 +44,7 @@ function copyTocClipboard(key) {
 
 const IconsShowcase = () => {
   const [filter, setFilter] = useState('')
-  const [size, setSize] = useState('50px')
+  const [size, setSize] = useState('16px')
 
   const mappings = require('./mapping')
 
