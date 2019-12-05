@@ -1,64 +1,41 @@
 import PropTypes from 'prop-types'
-import React from 'react'
-import _debounce from 'lodash/debounce'
+import React, {useState} from 'react'
+import {react} from 'tocco-util'
 
-import {StyledSearchBoxForm, StyledSearchBoxInput} from './StyledSearchBox'
+import {StyledSearchBox, StyledSearchBoxInput} from './StyledSearchBox'
 import {StyledEditableWrapper} from '../EditableValue/StyledEditableValue'
 import StatedValue from '../StatedValue'
 
-class SearchBox extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      inputValue: props.value || ''
-    }
+const SearchBox = React.forwardRef((props, ref) => {
+  const {value, minInputLength, onSearch, placeholder} = props
+  const [inputValue, setInputValue] = useState(value || '')
 
-    this.liveSearch = _debounce(this.onSearch, props.debounce)
-  }
+  const onChange = e => {
+    const newValue = e.target.value
+    setInputValue(newValue)
 
-  onChange = evt => {
-    const inputValue = evt.target.value
-    this.setState({inputValue})
-
-    if (this.props.liveSearch) {
-      if ((inputValue.length === 0 || inputValue.length >= this.props.minInputLength)) {
-        this.liveSearch()
-      }
+    if ((newValue.length === 0 || newValue.length >= minInputLength)) {
+      onSearch(newValue)
     }
   }
 
-  lastSearched = ''
-  onSearch = () => {
-    const inputValue = this.state.inputValue
-    if (inputValue !== this.lastSearched) {
-      this.props.onSearch(inputValue)
-      this.lastSearched = inputValue
-    }
-  }
-
-  handleSubmit = e => {
-    e.preventDefault()
-    this.onSearch()
-  }
-
-  render() {
-    return (
-      <StyledSearchBoxForm onSubmit={this.handleSubmit}>
-        <StatedValue
-          hasValue={!!this.state.inputValue}
-          label={this.props.placeholder}
-        >
-          <StyledEditableWrapper>
-            <StyledSearchBoxInput
-              onChange={this.onChange}
-              value={this.state.inputValue}
-            />
-          </StyledEditableWrapper>
-        </StatedValue>
-      </StyledSearchBoxForm>
-    )
-  }
-}
+  return (
+    <StyledSearchBox>
+      <StatedValue
+        hasValue={!!inputValue}
+        label={placeholder}
+      >
+        <StyledEditableWrapper>
+          <StyledSearchBoxInput
+            ref={ref}
+            onChange={onChange}
+            value={inputValue}
+          />
+        </StyledEditableWrapper>
+      </StatedValue>
+    </StyledSearchBox>
+  )
+})
 
 SearchBox.defaultProps = {
   debounce: 200,
@@ -79,20 +56,9 @@ SearchBox.propTypes = {
    */
   placeholder: PropTypes.string,
   /**
-   * If true, the `onSearch` function will be triggered on the fly.
-   */
-  liveSearch: PropTypes.bool,
-  /**
-   * Amount of milli seconds before the next search will be invoked. The default is set to `200`.
-   * Can be used to reduce the amount of search requests in the live search.
-   * This property is only considered if the `liveSearch` property is set to true.
-   */
-  debounce: PropTypes.number,
-  /**
-   * Amount of minimum characters before the search starts. The default is set to `3`.
-   * This property is only considered if the `liveSearch` property is set to true.
+   * onSearch is only called when the input has at least the length of minInputLength or 0
    */
   minInputLength: PropTypes.number
 }
 
-export default SearchBox
+export default react.Debouncer(SearchBox, 300, 'onSearch')
