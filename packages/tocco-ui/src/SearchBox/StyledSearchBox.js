@@ -4,7 +4,7 @@ import {scale, theme} from '../utilStyles'
 import {StyledInputCss} from '../EditableValue/StyledEditableValue'
 import {StyledStatedValueBox} from '../StatedValue'
 
-const StyledSearchBoxForm = styled.form`
+export const StyledSearchBox = styled.div`
   && {
     margin-bottom: ${scale.space(0)};
     
@@ -22,15 +22,10 @@ const StyledSearchBoxForm = styled.form`
   }
 `
 
-const StyledSearchBoxInput = styled.input.attrs({
+export const StyledSearchBoxInput = styled.input.attrs({
   type: 'search'
 })`
   && {
     ${StyledInputCss}
   }
 `
-
-export {
-  StyledSearchBoxForm,
-  StyledSearchBoxInput
-}
