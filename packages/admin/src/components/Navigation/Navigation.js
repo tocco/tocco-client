@@ -1,5 +1,4 @@
-// TODO: Dake fix marked comment sections below
-import React, {/* useRef, useState, */ useEffect} from 'react'
+import React, {useRef, useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import SearchBox from 'tocco-ui/src/SearchBox'
 
@@ -59,8 +58,8 @@ const tabs = {
 }
 
 const Navigation = ({modulesMenuTree, settingsMenuTree, menuOpen, onClick, activeMenuTab, setActiveMenuTab}) => {
-  // const inputEl = useRef(null)
-  // const [filter, setFilter] = useState('')
+  const inputEl = useRef(null)
+  const [filter, setFilter] = useState('')
 
   const map = {
     'menu': {
@@ -85,10 +84,8 @@ const Navigation = ({modulesMenuTree, settingsMenuTree, menuOpen, onClick, activ
 
   useEffect(() => {
     if (menuOpen) {
-      /*
       inputEl.current.select()
       inputEl.current.focus()
-      */
     }
   }, [menuOpen])
 
@@ -111,22 +108,18 @@ const Navigation = ({modulesMenuTree, settingsMenuTree, menuOpen, onClick, activ
       <SearchBox
         debounce={300}
         minInputLength={2}
-        /*
-        onSearch={e => {
-          setFilter(e.target.value)
-        }}
+        onSearch={setFilter}
         ref={inputEl}
-        */
         placeholder="Suche"
       />
     </form>
     {activeMenuTab === tabs.MODULES
     && <StyledMenuWrapper>
-      <MenuTree items={modulesMenuTree} /* searchFilter={filter} */ typeMapping={map}/>
+      <MenuTree items={modulesMenuTree} searchFilter={filter} typeMapping={map}/>
     </StyledMenuWrapper>}
     {activeMenuTab === tabs.SETTINGS
     && <StyledMenuWrapper>
-      <MenuTree items={settingsMenuTree} /* searchFilter={filter} */ typeMapping={map}/>
+      <MenuTree items={settingsMenuTree} searchFilter={filter} typeMapping={map}/>
     </StyledMenuWrapper>}
   </StyledNav>
 }
