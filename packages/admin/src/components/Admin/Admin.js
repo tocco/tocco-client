@@ -59,7 +59,10 @@ const Admin = ({initializeNavigation, setMenuOpen, menuOpen, baseRoute, confirm,
               <div><Button look="raised" icon="sign-out-alt" label="Logout" onClick={doLogout}/></div>
             </StyledConfig>
           </StyledHeader>
-          <StyledMenu isOpen={menuOpen} onStateChange={isMenuOpen} customCrossIcon={ false }
+          <StyledMenu
+            isOpen={menuOpen}
+            onStateChange={isMenuOpen}
+            customCrossIcon={false}
             customBurgerIcon={menuOpen ? <Icon icon="times"/> : <Icon icon="bars"/>}
             styles={burgerMenuStyles}
             pageWrapId={'page-wrap'}

@@ -104,15 +104,12 @@ const Navigation = ({modulesMenuTree, settingsMenuTree, menuOpen, onClick, activ
         label="Settings"
       />
     </StyledTabsContainer>
-    <form>
-      <SearchBox
-        debounce={300}
-        minInputLength={2}
-        onSearch={setFilter}
-        ref={inputEl}
-        placeholder="Suche"
-      />
-    </form>
+    <SearchBox
+      minInputLength={2}
+      onSearch={setFilter}
+      ref={inputEl}
+      placeholder="Suche"
+    />
     {activeMenuTab === tabs.MODULES
     && <StyledMenuWrapper>
       <MenuTree items={modulesMenuTree} searchFilter={filter} typeMapping={map}/>
