@@ -16,6 +16,7 @@ storiesOf('Tocco-UI | Icon', module)
         <Icon icon="cog" style={{fontSize: '3rem'}}/>
         <Icon icon="cog" style={{color: 'blue', fontSize: '50px'}}/>
         <Icon icon="tocco" style={{color: '#C01E30', fontSize: '80px'}}/>
+        <Icon icon="office" style={{color: 'orange', fontSize: '20px'}}/>
       </div>
     )
   )

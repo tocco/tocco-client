@@ -185,6 +185,10 @@
       "sso"
     ]
   },
+  "office": {
+    "id": "office",
+    "lib": "toc"
+  },
   "phone": {
     "id": "fas, phone",
     "lib": "fa"
