@@ -16,7 +16,7 @@ storiesOf('Tocco-UI | Buttons / Button', module)
         dense={boolean('dense', false) || undefined}
         disabled={boolean('disabled', false) || undefined}
         ink={select('ink', {'-': null, ...design.ink}) || undefined}
-        icon={text('icon', 'user')}
+        icon={text('icon', 'cog')}
         iconPosition={select('iconPosition', {
           [Button.defaultProps.iconPosition.toUpperCase()]: Button.defaultProps.iconPosition,
           ..._pick(design.position, ['APPEND', 'PREPEND'])
@@ -68,7 +68,7 @@ storiesOf('Tocco-UI | Buttons / Button', module)
         />
         <Button
           {...knobs}
-          icon="handshake"
+          icon="cog"
           iconPosition="append"
           key="5"
           label="Icon with text"
@@ -76,13 +76,13 @@ storiesOf('Tocco-UI | Buttons / Button', module)
         />
         <Button
           {...knobs}
-          icon="fab, facebook"
+          icon="facebook"
           key="6"
           label="Brand Icon"
         />
         <Button
           {...knobs}
-          icon="air-freshener"
+          icon="google"
           ink="primary"
           key="9"
           label="Pending"
@@ -90,7 +90,7 @@ storiesOf('Tocco-UI | Buttons / Button', module)
         />
         <Button
           {...knobs}
-          icon="facebook"
+          icon="jira"
           key="11"
         />
         <Button

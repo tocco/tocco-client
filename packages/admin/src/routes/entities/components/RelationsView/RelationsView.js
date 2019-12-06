@@ -65,7 +65,7 @@ const RelationsView = ({
               {relation.relationDisplay.label}</RelationLabel>{getRelationCountLabel(relation.relationName)}
             <RelationLinks>
               <StyledLink to={match.url.replace(/(relations|detail)$/, relation.relationName)}>
-                <Icon icon="external-link-alt"/>
+                <Icon icon="arrow-right"/>
               </StyledLink>
               <StyledLink to={match.url.replace(/(relations|detail)$/, relation.relationName) + '/create'}>
                 <Icon icon="plus"/>
@@ -80,7 +80,7 @@ const RelationsView = ({
         <Typography.H4>
           {selectedRelation.relationDisplay.label}&nbsp;
           <StyledLink to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName)}>
-            <Icon icon="external-link-alt"/>
+            <Icon icon="arrow-right"/>
           </StyledLink>
         </Typography.H4>
         <EntityListApp

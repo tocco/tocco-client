@@ -20,7 +20,7 @@
         "actionType": "simple",
         "readonly": false,
         "label": "Simple Action",
-        "icon": "cogs",
+        "icon": "cog",
         "Selections": 1,
         "maxSelections": 1,
         "progressMsg": "Die Beispiel Aktion wird ausgeführt..",
@@ -65,7 +65,7 @@
                 "label": null,
                 "componentType": "action",
                 "actionType": "simple",
-                "icon": "edit",
+                "icon": "cog",
                 "endpoint": "actions/simpleAction",
                 "appId": null,
                 "formDataEntityModel": "MySessionOnly"

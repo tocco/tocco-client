@@ -25,13 +25,13 @@ const Breadcrumbs = ({breadcrumbsInfo}) => {
         .map((b, idx) => {
           return <Typography.Span key={idx}>
             <StyledLink to={`/e/${b.path}`}>
-              {b.type === 'list' && <Icon icon="list" />}  {b.display ? b.display : ''}
+              {b.type === 'list' && <Icon icon="list-ul" />}  {b.display ? b.display : ''}
             </StyledLink>
           </Typography.Span>
         })
         .reduce((prev, curr, idx) =>
           [prev,
-            <Typography.Span key={'icon' + idx}> <Icon icon="caret-right"/> </Typography.Span>,
+            <Typography.Span key={'icon' + idx}> <Icon icon="angle-right"/> </Typography.Span>,
             curr]
         )}  </div>
   </StyledBreadcumbs>
