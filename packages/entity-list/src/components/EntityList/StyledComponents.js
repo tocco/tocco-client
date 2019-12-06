@@ -20,7 +20,8 @@ export const LeftPositioning = styled.div`
 `
 
 export const SearchGrid = styled.div`
-  grid-area: search;  
+  grid-area: search;
+  margin-bottom: 1rem;
 `
 
 export const ListGrid = styled.div`
