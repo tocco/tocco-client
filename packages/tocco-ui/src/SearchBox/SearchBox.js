@@ -61,4 +61,4 @@ SearchBox.propTypes = {
   minInputLength: PropTypes.number
 }
 
-export default react.Debouncer(SearchBox, 300, 'onSearch')
+export default react.Debouncer(SearchBox, 100, 'onSearch')
