@@ -31,7 +31,7 @@ const UrlEdit = props =>
     {props.value && <StyledEditableControl>
       <ButtonLink
         href={props.value}
-        icon="external-link-alt"
+        icon="external-link"
         look="ball"
         tabIndex={-1}
         target="_blank"

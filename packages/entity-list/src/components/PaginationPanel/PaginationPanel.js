@@ -22,19 +22,19 @@ const PaginationPanel = props => {
           melt>
           {currPage > 2
             && <Button
-              icon="angle-double-left"
+              icon="chevron-double-left"
               onClick={() => changePage(1)} />}
           {currPage > 1
             && <Button
-              icon="angle-left"
+              icon="chevron-left"
               onClick={() => changePage(currPage - 1)} />}
           {currPage < totalPages
             && <Button
-              icon="angle-right"
+              icon="chevron-right"
               onClick={() => changePage(currPage + 1)} />}
           {currPage < totalPages - 1
             && <Button
-              icon="angle-double-right"
+              icon="chevron-double-right"
               onClick={() => changePage(totalPages)} />}
         </ButtonGroup>
 

@@ -183,7 +183,7 @@
                   {
                     "componentType": "action",
                     "actionType": "simple",
-                    "icon": "edit",
+                    "icon": "cog",
                     "scopes": [
                       "update"
                     ],
@@ -728,7 +728,7 @@
         "componentType": "action-group",
         "action": {
           "actionType": "simple",
-          "icon": "wrench",
+          "icon": "cog",
           "label": "Simple Action",
           "endpoint": "actions/simpleAction"
         },

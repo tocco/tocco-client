@@ -98,7 +98,7 @@ class LocationEdit extends React.Component {
               {this.showGoogleMaps(this.props.value)
               && <ButtonLink
                 href={getGoogleMapsAddress(this.props.value)}
-                icon="map-marked-alt"
+                icon="map-marked"
                 look="ball"
                 tabIndex={-1}
                 target="_blank"

@@ -89,7 +89,7 @@ const createDisplayExpressionResponse = () =>
         {
           key: key.toString(),
           displayExpressions: paths.reduce((acc, path) => (
-            {...acc, [path]: `<i class="fas fa-adjust"></i><b>bold</b> <i>${key}</i>`}
+            {...acc, [path]: `<i class="far fa-check"></i><b>bold</b> <i>${key}</i>`}
           ), {})
         }))
     }

@@ -95,7 +95,7 @@ const Table = props => {
         width="30px"
         dataFormat={(cell, row, formatExtraData, rowIdx) => (
           <span onClick={e => e.stopPropagation()}>
-            {props.linkFactory.detail(null, null, row.__key, <Icon icon="external-link-alt"/>)}
+            {props.linkFactory.detail(null, null, row.__key, <Icon icon="arrow-right"/>)}
           </span>
         )}
       />

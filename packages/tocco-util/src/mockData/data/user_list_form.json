@@ -15,7 +15,7 @@
         "actionType": "simple",
         "readonly": false,
         "label": "Simple Action 1-5",
-        "icon": "cogs",
+        "icon": "cog",
         "progressMsg": "Die Beispiel Aktion wird ausgeführt..",
         "showConfirmMessage": false,
         "endpoint": "actions/simpleAction",
@@ -32,7 +32,7 @@
             "actionType": "simple",
             "readonly": false,
             "label": "Confirm Simple Action",
-            "icon": "hand-paper",
+            "icon": "cog",
             "minSelection": 1,
             "maxSelection": 1,
             "progressMsg": "Die Beispiel Aktion wird ausgeführt..",
@@ -44,7 +44,7 @@
             "actionType": "simple",
             "readonly": false,
             "label": "Simple Action (client questions)",
-            "icon": "hand-scissors",
+            "icon": "cog",
             "progressMsg": "Die Beispiel Aktion wird ausgeführt",
             "showConfirmMessage": false,
             "endpoint": "actions/yesNoClientQuestion"
@@ -54,7 +54,7 @@
             "actionType": "simple",
             "readonly": false,
             "label": "Form data Simple Action",
-            "icon": "hand-rock",
+            "icon": "cog",
             "showConfirmMessage": false,
             "endpoint": "actions/simpleAction",
             "formDataEntityModel": "MySessionOnly",
@@ -64,7 +64,7 @@
           {
             "componentType": "action",
             "actionType": "custom",
-            "icon": "handshake",
+            "icon": "cog",
             "readonly": false,
             "label": "Merge (custom action)",
             "useLabel": true,
@@ -91,7 +91,7 @@
             "actionType": "simple",
             "label": "Validation Error Action",
             "endpoint": "actions/validationError",
-            "icon": "exclamation-triangle"
+            "icon": "cog"
           }
         ]
       },
@@ -119,7 +119,7 @@
             "componentType": "report",
             "children": [],
             "actionType": "report",
-            "icon": "file-medical",
+            "icon": "file-excel",
             "minSelection": null,
             "maxSelection": null,
             "showConfirmMessage": false,
@@ -133,7 +133,7 @@
             "componentType": "report",
             "children": [],
             "actionType": "report",
-            "icon": "file-medical",
+            "icon": "file-alt",
             "minSelection": null,
             "maxSelection": null,
             "showConfirmMessage": false,
@@ -447,7 +447,7 @@
                 "name":"simpleAction",
                 "label": null,
                 "readonly": false,
-                "icon": "random",
+                "icon": "cog",
                 "showConfirmMessage": "false",
                 "endpoint": "actions/simpleAction"
               }
