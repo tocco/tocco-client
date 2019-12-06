@@ -1,18 +1,17 @@
 import styled from 'styled-components'
 
-import {scale, theme} from '../utilStyles'
+import {theme} from '../utilStyles'
 import {StyledInputCss} from '../EditableValue/StyledEditableValue'
 import {StyledStatedValueBox} from '../StatedValue'
 
 export const StyledSearchBox = styled.div`
   && {
-    margin-bottom: ${scale.space(0)};
-    
+    margin-right: 1rem;
+      
     ${StyledStatedValueBox} {
       border: 0;
-      width: 82%;
+      width: 100%;
       border-bottom: 1px solid ${theme.color('text')};
-      margin: 1rem 0 1rem 1.8rem;
       padding-right: .3rem;
 
       &:focus {

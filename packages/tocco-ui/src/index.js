@@ -8,9 +8,11 @@ export {
 } from './EditableValue'
 export {default as FormattedValue} from './FormattedValue'
 export {default as Icon} from './Icon'
+export {default as ToccoLogo} from './Images/tocco-circle.svg'
+export {default as ToccoSlogan} from './Images/tocco-white-vertical.svg'
 export {default as IconTocco} from './LoadingSpinner'
 export {default as MultiCheckbox} from './MultiCheckbox'
-export {default as Layout, StyledLayoutBox, StyledLayoutContainer} from './Layout'
+export {default as Layout, StyledLayoutBox, StyledLayoutContainer, StyledScrollbar} from './Layout'
 export {default as Link, StyledLink} from './Link'
 export {default as LoadMask, StyledLoadMask} from './LoadMask'
 export {

@@ -20,7 +20,7 @@ const SearchBox = React.forwardRef((props, ref) => {
   }
 
   return (
-    <StyledSearchBox>
+    <StyledSearchBox className="StyledSearchBox">
       <StatedValue
         hasValue={!!inputValue}
         label={placeholder}
