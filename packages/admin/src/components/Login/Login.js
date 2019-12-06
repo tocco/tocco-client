@@ -3,16 +3,13 @@ import PropTypes from 'prop-types'
 import ToccoLogin from 'tocco-login/src/main'
 import SsoLogin from 'tocco-sso-login/src/main'
 import styled from 'styled-components'
-import {Typography} from 'tocco-ui'
-
-import toccoLogo from './img/tocco-circle.svg'
-import toccoSlogan from './img/tocco-white-vertical.svg'
+import {Typography, ToccoLogo, ToccoSlogan} from 'tocco-ui'
 
 const StyledLogin = styled.div`
   height: 100vh;
   width: 100vw;
   position: absolute;
-  background-image: url(${toccoLogo});
+  background-image: url(${ToccoLogo});
   background-repeat: no-repeat;
   background-size: 61vw;
   background-position-y: -25vw;
@@ -31,7 +28,7 @@ const LoginWrapper = styled.div`
 `
 
 const Slogan = styled.div`
-  background-image: url(${toccoSlogan});
+  background-image: url(${ToccoSlogan});
   background-repeat: no-repeat;
   background-size: 11.5vw 27vw;
   background-position: -30px 10px;
