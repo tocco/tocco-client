@@ -2,10 +2,10 @@ export default {
   colors: {
     paper: '#fff',
     primary: '#9E2124',
+    secondary: '#11587f',
+    secondaryLight: '#9BC0D5',
     text: '#4f5e60',
-    background: '#EDF1F5',
-    primaryBlue: '#11587f',
-    secondaryBlue: '#9BC0D5',
+    backgroundBody: '#EDF1F5',
     signal: {
       danger: {
         paper: '#EF9A9A', // Red 200
