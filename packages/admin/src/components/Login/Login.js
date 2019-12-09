@@ -25,7 +25,20 @@ const StyledLogin = styled.div`
 
 const LoginWrapper = styled.div`
   max-width: 490px;
-  margin: 5% 5% 0 28%;
+  margin: 6% 5% 0 26%;
+  
+  && {
+    h1 {
+      margin-bottom: 5rem;
+    }
+    
+    > span{
+      text-align: center;
+      display: inline-block;
+      width: 100%;
+      margin: 1.5rem 0 2.5rem 0;
+    }
+  }
 `
 
 const Slogan = styled.div`
