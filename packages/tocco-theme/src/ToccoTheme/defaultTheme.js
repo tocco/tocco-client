@@ -6,6 +6,7 @@ export default {
     secondaryLight: '#9BC0D5',
     text: '#4f5e60',
     backgroundBody: '#EDF1F5',
+    backgroundBreadcrumbs: '#DEE6ED',
     signal: {
       danger: {
         paper: '#EF9A9A', // Red 200
