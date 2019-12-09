@@ -4,6 +4,7 @@ import ToccoLogin from 'tocco-login/src/main'
 import SsoLogin from 'tocco-sso-login/src/main'
 import styled from 'styled-components'
 import {Typography, ToccoLogo, ToccoSlogan} from 'tocco-ui'
+import {FormattedMessage} from 'react-intl'
 
 const StyledLogin = styled.div`
   height: 100vh;
@@ -48,10 +49,11 @@ const Login = props => {
     <StyledLogin>
       <Slogan/>
       <LoginWrapper>
-        <Typography.H1>Login</Typography.H1>
+        <Typography.H1><FormattedMessage id="client.admin.welcomeTitle"/></Typography.H1>
         <SsoLogin
           ssoLoginEndpoint="/sso"
         />
+        <Typography.Span><FormattedMessage id="client.admin.loginChoice"/></Typography.Span>
         <ToccoLogin
           loginSuccess={loginSuccess}
           showTitle={false}
