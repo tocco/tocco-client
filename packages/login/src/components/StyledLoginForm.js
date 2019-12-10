@@ -13,12 +13,14 @@ export const StyledLoginFormInput = styled.input`
 
   && {
     transition: background-color 50000s, color 50000s, filter 50000s;
-     &:-webkit-autofill {
+    &:-webkit-autofill {
       animation-duration: 50000s;
       animation-name: onAutoFillStart;
-     }
+    }
+    padding-top: .7rem;
+    padding-bottom: .7rem;
   }
-  
+
   ${StyledInputCss}
 `
 
@@ -33,7 +35,7 @@ export const StyledLoginButton = styled(Button)`
     border-radius: ${theme.radii('large')};
     display: flex;
     justify-content: center;
-    padding: 1rem 0 1rem 0;
+    padding: 1.25rem 0;
   
     &:not(:last-child) {
       margin-right: 0;
@@ -51,7 +53,7 @@ export const StyledTransparentButton = styled(Button)`
     margin-right: 0;
     background-color: transparent;
     color: ${theme.color('primary')};
-    padding: 1rem 0 1rem 0;
+    padding: 1.25rem 0;
     
     &:hover {
       background-color: transparent;
