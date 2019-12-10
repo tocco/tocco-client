@@ -4,12 +4,14 @@ import {StyledButton} from 'tocco-ui/src/Button'
 import {
   declareInteractionColors,
   generateInteractionColors,
-  theme
+  theme,
+  scale
 } from 'tocco-ui/src/utilStyles'
 
 export default styled(StyledButton)`
   && {
     flex: 1;
+    font-size: ${scale.font(1.3)};
     justify-content: center;
     border-radius: ${theme.radii('large')};
     ${props => declareInteractionColors(

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import ToccoLogin from 'tocco-login/src/main'
 import SsoLogin from 'tocco-sso-login/src/main'
 import styled from 'styled-components'
-import {Typography, ToccoLogo, ToccoSlogan} from 'tocco-ui'
+import {StyledH1, StyledSpan, ToccoLogo, ToccoSlogan, scale} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
 
 const StyledLogin = styled.div`
@@ -23,20 +23,29 @@ const StyledLogin = styled.div`
   }
 `
 
+const StyledHeadingLogin = styled(StyledH1)`
+  && {
+    font-size: ${scale.font(11)};
+    margin-bottom: 5rem;
+  }
+`
+const StyledSpanLogin = styled(StyledSpan)`
+  && {
+    text-align: center;
+    font-size: ${scale.font(1.3)};
+    display: inline-block;
+    width: 100%;
+    margin: 3rem 0 4rem 0;
+  }
+`
+
 const LoginWrapper = styled.div`
   max-width: 490px;
   margin: 6% 5% 0 26%;
   
   && {
-    h1 {
-      margin-bottom: 5rem;
-    }
-    
-    > span{
-      text-align: center;
-      display: inline-block;
-      width: 100%;
-      margin: 1.5rem 0 2.5rem 0;
+    .tocco-login * {
+      font-size: ${scale.font(1.3)}
     }
   }
 `
@@ -62,11 +71,11 @@ const Login = props => {
     <StyledLogin>
       <Slogan/>
       <LoginWrapper>
-        <Typography.H1><FormattedMessage id="client.admin.welcomeTitle"/></Typography.H1>
+        <StyledHeadingLogin><FormattedMessage id="client.admin.welcomeTitle"/></StyledHeadingLogin>
         <SsoLogin
           ssoLoginEndpoint="/sso"
         />
-        <Typography.Span><FormattedMessage id="client.admin.loginChoice"/></Typography.Span>
+        <StyledSpanLogin><FormattedMessage id="client.admin.loginChoice"/></StyledSpanLogin>
         <ToccoLogin
           loginSuccess={loginSuccess}
           showTitle={false}
