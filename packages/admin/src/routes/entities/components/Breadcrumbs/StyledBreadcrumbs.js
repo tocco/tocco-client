@@ -13,15 +13,12 @@ export const StyledBreadcumbs = styled.div`
     margin-left: 1.5rem;
     margin-right: 1.5rem;
   }
-  
-  span:last-child a {
-    color: ${theme.color('primary')}
-  }
 `
 
 export const StyledBreadcrumbsLink = styled(StyledLink)`
   font-weight: ${theme.fontWeight('bold')};
   text-decoration: none;
+  color: ${props => props.active && theme.color('primary')};
   
   * {
     margin-right: .5rem;
