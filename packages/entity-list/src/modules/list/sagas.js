@@ -59,11 +59,17 @@ export function* initialize() {
 
 export function* queryChanged() {
   const query = yield call(getBasicQuery)
-  yield put(actions.queryChanged(query))
+  yield put(selectionActions.setQuery(query))
 }
 
 export function* loadData(page) {
   yield put(actions.setInProgress(true))
+  const {initialized: searchFormInitialized} = yield select(searchFormSelector)
+
+  if (!searchFormInitialized) {
+    yield take(searchFormActions.SET_INITIALIZED)
+  }
+
   yield fork(countEntities)
   yield put(actions.clearEntityStore())
 

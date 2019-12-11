@@ -5,7 +5,7 @@ import {fork, select, takeLatest, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
-import {QUERY_CHANGED, SET_ENTITY_COUNT, SET_FORM_SELECTABLE} from '../list/actions'
+import {SET_FORM_SELECTABLE} from '../list/actions'
 import {showSelectionComponent} from '../../util/selection'
 
 describe('entity-list', () => {
@@ -18,9 +18,7 @@ describe('entity-list', () => {
             fork(takeLatest, actions.TOGGLE_SHOW_SELECTED_RECORDS, sagas.reloadData),
             fork(takeLatest, actions.CLEAR_SELECTION, sagas.reloadData),
             fork(takeLatest, actions.ON_SELECT_CHANGE, sagas.onSelectChange),
-            fork(takeLatest, SET_FORM_SELECTABLE, sagas.initialize),
-            fork(takeLatest, QUERY_CHANGED, sagas.setQuery),
-            fork(takeLatest, SET_ENTITY_COUNT, sagas.setCount)
+            fork(takeLatest, SET_FORM_SELECTABLE, sagas.initialize)
           ]))
           expect(generator.next().done).to.be.true
         })

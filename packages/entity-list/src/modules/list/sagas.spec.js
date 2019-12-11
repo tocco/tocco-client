@@ -197,33 +197,71 @@ describe('entity-list', () => {
         })
 
         describe('loadData saga', () => {
-          test('should request entities for current page and recount forked', () => {
-            const currentPage = 33
-            const entities = [{}]
-            const state = {currentPage}
+          test('should not load data if search form is not initialized', () =>
+            expectSaga(sagas.loadData)
+              .provide([
+                [select(sagas.searchFormSelector), {initialized: false}],
+                [matchers.fork.fn(sagas.countEntities), null],
+                [matchers.call.fn(sagas.requestEntities), null],
+                [select(sagas.listSelector), {currentPage: 2}]
+              ])
+              .not.fork(sagas.countEntities)
+              .run(200)
+          )
 
-            const gen = sagas.loadData()
-            expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
-            expect(gen.next().value).to.eql(fork(sagas.countEntities))
-            expect(gen.next(state).value).to.eql(put(actions.clearEntityStore(entities)))
-            expect(gen.next().value).to.eql(select(sagas.listSelector))
-            expect(gen.next(state).value).to.eql(call(sagas.requestEntities, currentPage))
-            expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
-            expect(gen.next().done).to.be.true
-          })
+          test('should await the initialization of search for before loading data', () =>
+            expectSaga(sagas.loadData)
+              .provide([
+                [select(sagas.searchFormSelector), {initialized: false}],
+                [matchers.fork.fn(sagas.countEntities), null],
+                [matchers.call.fn(sagas.requestEntities), null],
+                [select(sagas.listSelector), {currentPage: 2}]
+              ])
+              .dispatch(searchFormActions.setInitialized())
+              .fork(sagas.countEntities)
+              .run()
+          )
 
           test('should load data of provided page', () => {
             const requestedPage = 223
-            const entities = [{}]
+            return expectSaga(sagas.loadData, requestedPage)
+              .provide([
+                [select(sagas.searchFormSelector), {initialized: true}],
+                [matchers.fork.fn(sagas.countEntities), null],
+                [matchers.call.fn(sagas.requestEntities), null],
+                [select(sagas.listSelector), {currentPage: 2}]
+              ])
+              .put(actions.setCurrentPage(requestedPage))
+              .call(sagas.requestEntities, requestedPage)
+              .run()
+          })
 
-            const gen = sagas.loadData(requestedPage)
-            expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
-            expect(gen.next().value).to.eql(fork(sagas.countEntities))
-            expect(gen.next().value).to.eql(put(actions.clearEntityStore(entities)))
-            expect(gen.next().value).to.eql(put(actions.setCurrentPage(requestedPage)))
-            expect(gen.next().value).to.eql(call(sagas.requestEntities, requestedPage))
-            expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
-            expect(gen.next().done).to.be.true
+          test('should load data of current page if no page is passed', () => {
+            const currentPage = 33
+            return expectSaga(sagas.loadData)
+              .provide([
+                [select(sagas.searchFormSelector), {initialized: true}],
+                [matchers.fork.fn(sagas.countEntities), null],
+                [matchers.call.fn(sagas.requestEntities), null],
+                [select(sagas.listSelector), {currentPage}]
+              ])
+              .not.put(actions.setCurrentPage(currentPage))
+              .call(sagas.requestEntities, currentPage)
+              .run()
+          })
+
+          test('should dispatch inProgress actions', () => {
+            const requestedPage = 223
+            return expectSaga(sagas.loadData, requestedPage)
+              .provide([
+                [select(sagas.searchFormSelector), {initialized: true}],
+                [matchers.fork.fn(sagas.countEntities), null],
+                [matchers.call.fn(sagas.requestEntities), null],
+                [select(sagas.listSelector), {currentPage: 2}]
+              ])
+              .put(actions.setInProgress(true))
+              .put(actions.setInProgress(false))
+              .run()
           })
         })
 
