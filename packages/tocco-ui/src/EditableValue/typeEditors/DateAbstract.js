@@ -112,6 +112,7 @@ class DateAbstract extends React.Component {
 
   handleOnChange = selectedDates => {
     const isoStrings = selectedDates.map(date => date.toISOString())
+    this.setState({altInput: this.flatpickr.altInput.value})
     this.props.onChange(isoStrings)
   }
 
