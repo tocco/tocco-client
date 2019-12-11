@@ -30,7 +30,7 @@ class Story extends React.Component {
   }
 
   info1 = () => {
-    this.store.dispatch(notifier.info('info', 'client.title', 'client.message', ['far', 'thumbs-up'], 2000))
+    this.store.dispatch(notifier.info('info', 'client.title', 'client.message', 'star', 2000))
   }
 
   info2 = () => {
