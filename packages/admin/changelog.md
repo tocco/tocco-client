@@ -1,3 +1,11 @@
+0.1.16
+- New Icon set
+- Styled search-box
+- Styled top bar and menu
+- Styled login text
+- Styled breadcrumbs
+- New selection controller
+
 0.1.15
 - Fix location field
 - Fix sso-login
