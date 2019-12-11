@@ -266,23 +266,44 @@ describe('entity-list', () => {
         })
 
         describe('countEntities saga', () => {
-          test('should refresh current page', () => {
-            const formBase = 'User'
+          test('should call entity count end set result', () => {
             const entityName = 'User'
-            const fetchOptions = {}
-            const entityCount = 100
-            const searchFilters = []
-            const endpoint = null
+            const endpoint = '/fetch'
+            const showSelectedRecords = false
 
-            const input = {entityName, searchFilters, formBase}
+            const entityCount = 100
+
             return expectSaga(sagas.countEntities)
               .provide([
-                [select(sagas.inputSelector), {endpoint}],
-                [select(sagas.listSelector), input],
-                [matchers.call.fn(sagas.getBasicQuery), fetchOptions],
+                [select(sagas.selectionSelector), {showSelectedRecords}],
+                [select(sagas.inputSelector), {entityName}],
+                [select(sagas.listSelector), {endpoint}],
+                [matchers.call.fn(sagas.getBasicQuery), {}],
                 [matchers.call.fn(rest.fetchEntityCount), entityCount]
               ])
               .put(actions.setEntityCount(entityCount))
+              .put(selectionActions.setQueryCount(entityCount))
+              .run()
+          })
+
+          test('should set entityCount  as queryCount if seletion is active', () => {
+            const entityName = 'User'
+            const endpoint = '/fetch'
+            const showSelectedRecords = true
+            const selection = ['1', '3', '99']
+
+            const entityCount = 100
+
+            return expectSaga(sagas.countEntities)
+              .provide([
+                [select(sagas.selectionSelector), {showSelectedRecords, selection}],
+                [select(sagas.inputSelector), {entityName}],
+                [select(sagas.listSelector), {endpoint}],
+                [matchers.call.fn(sagas.getBasicQuery), {}],
+                [matchers.call.fn(rest.fetchEntityCount), entityCount]
+              ])
+              .put(actions.setEntityCount(3))
+              .put(selectionActions.setQueryCount(entityCount))
               .run()
           })
         })
@@ -446,7 +467,7 @@ describe('entity-list', () => {
               selection: ['1', '22', '99']
             }
 
-            const saga = await expectSaga(sagas.getBasicQuery)
+            const saga = await expectSaga(sagas.getBasicQuery, true)
               .provide([
                 [select(sagas.selectionSelector), selection],
                 [select(sagas.inputSelector), {}]

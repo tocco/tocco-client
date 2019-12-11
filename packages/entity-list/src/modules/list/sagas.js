@@ -84,11 +84,11 @@ export function* loadData(page) {
   yield put(actions.setInProgress(false))
 }
 
-export function* getBasicQuery() {
+export function* getBasicQuery(regardSelection = true) {
   const {searchFilters: inputSearchFilters} = yield select(inputSelector)
 
   const {showSelectedRecords, selection} = yield select(selectionSelector)
-  if (showSelectedRecords) {
+  if (regardSelection && showSelectedRecords) {
     return {
       tql: `IN(pk,${selection.join(',')})`
     }
@@ -114,8 +114,10 @@ export function* prepareEndpointUrl(endpoint) {
 export function* countEntities() {
   const {entityName} = yield select(inputSelector)
   const {endpoint} = yield select(listSelector)
-  const query = yield call(getBasicQuery)
+  const {showSelectedRecords, selection} = yield select(selectionSelector)
 
+  const regardSelection = !showSelectedRecords
+  const query = yield call(getBasicQuery, regardSelection)
   const preparedEndpoint = endpoint ? yield call(prepareEndpointUrl, endpoint) : endpoint
 
   const requestOptions = {
@@ -123,7 +125,14 @@ export function* countEntities() {
     ...(preparedEndpoint ? {endpoint: preparedEndpoint} : {})
   }
   const entityCount = yield call(rest.fetchEntityCount, entityName, query, requestOptions)
-  yield put(actions.setEntityCount(entityCount))
+
+  if (showSelectedRecords) {
+    yield put(actions.setEntityCount(selection.length))
+  } else {
+    yield put(actions.setEntityCount(entityCount))
+  }
+
+  yield put(selectionActions.setQueryCount(entityCount))
 }
 
 export function* changePage({payload}) {
