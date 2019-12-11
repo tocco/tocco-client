@@ -3,7 +3,7 @@ import {call, put, fork, select, takeLatest, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import selectionStyles from '../../util/selectionStyles'
-import {SET_FORM_SELECTABLE, QUERY_CHANGED, SET_ENTITY_COUNT} from '../list/actions'
+import {SET_FORM_SELECTABLE} from '../list/actions'
 import {combineSelection, showSelectionComponent, getTableSelectionStyle} from '../../util/selection'
 
 export const inputSelector = state => state.input
@@ -16,9 +16,7 @@ export default function* sagas() {
     fork(takeLatest, actions.TOGGLE_SHOW_SELECTED_RECORDS, reloadData),
     fork(takeLatest, actions.CLEAR_SELECTION, reloadData),
     fork(takeLatest, actions.ON_SELECT_CHANGE, onSelectChange),
-    fork(takeLatest, SET_FORM_SELECTABLE, initialize),
-    fork(takeLatest, QUERY_CHANGED, setQuery),
-    fork(takeLatest, SET_ENTITY_COUNT, setCount)
+    fork(takeLatest, SET_FORM_SELECTABLE, initialize)
   ])
 }
 
@@ -59,14 +57,4 @@ export function* setTableStyle() {
 
   const tableSelectionStyle = yield call(getTableSelectionStyle, selectionStyle, formSelectable)
   yield put(actions.setTableSelectionStyle(tableSelectionStyle))
-}
-
-export function* setQuery({payload}) {
-  const {query} = payload
-  yield put(actions.setQuery(query))
-}
-
-export function* setCount({payload}) {
-  const {entityCount} = payload
-  yield put(actions.setQueryCount(entityCount))
 }
