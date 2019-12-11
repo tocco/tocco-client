@@ -16,7 +16,11 @@ const Breadcrumbs = ({breadcrumbsInfo}) => {
       breadcrumbsInfo
         .map((b, idx) => {
           return <Typography.Span key={idx}>
-            <StyledBreadcrumbsLink neutral active={idx === breadcrumbsInfo.length - 1} to={`/e/${b.path}`}>
+            <StyledBreadcrumbsLink
+              neutral="true"
+              {...(idx === breadcrumbsInfo.length - 1 && {active: 'true'})}
+              to={`/e/${b.path}`}
+            >
               {b.type === 'list' && <Icon icon="list-ul" />}  {b.display ? b.display : ''}
             </StyledBreadcrumbsLink>
           </Typography.Span>
