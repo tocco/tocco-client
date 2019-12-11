@@ -3,45 +3,54 @@ import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
 import {
   Button,
-  ButtonGroup,
   Typography
 } from 'tocco-ui'
 
-import StyledSelectionController from './StyledSelectionController'
+import StyledSelectionController, {StyledButton} from './StyledSelectionController'
 
 const SelectionController = props => {
   const msg = id => (props.intl.formatMessage({id}))
-  const type = props.selection.length > 0 ? 'ID' : 'QUERY'
-  const count = type === 'ID' ? props.selection.length : props.queryCount
+  const selectionPossible = props.selection.length !== 0
 
   return (
     <StyledSelectionController>
-      {type === 'ID' && <Button
-        icon="times"
-        look="raised"
-        title={msg('client.entity-list.clearSelection')}
-        onClick={props.clearSelection}
-      />}
-      <Typography.Span>
-        <FormattedMessage
-          id={`client.entity-list.operateOn${type === 'ID' ? 'Selected' : 'Queried'}Items`}
-          values={{count: count}}/>
-      </Typography.Span>
-      {type === 'ID' && <ButtonGroup melt look="raised">
-        <Button
-          aria={{'aria-pressed': !props.showSelectedRecords}}
-          icon="search"
-          title={msg('client.entity-list.showAllFilteredItems')}
-          onClick={props.toggleShowSelectedRecords}
-        />
-        <Button
-          aria={{'aria-pressed': props.showSelectedRecords}}
-          icon="check-square"
-          title={msg('client.entity-list.showSelectedItemsOnly')}
-          onClick={props.toggleShowSelectedRecords}
-        />
-      </ButtonGroup>
-      }
+      <StyledButton
+        active={!props.showSelectedRecords}
+        onClick={() => {
+          if (selectionPossible) {
+            props.toggleShowSelectedRecords()
+          }
+        }}
+      >
+        <Typography.Span>
+          <FormattedMessage
+            id="client.entity-list.selectionAll"
+            values={{count: props.queryCount}}/>
+        </Typography.Span>
+      </StyledButton>
+      <StyledButton active={props.showSelectedRecords} disabled={!selectionPossible}
+        onClick={() => {
+          if (selectionPossible) {
+            props.toggleShowSelectedRecords()
+          }
+        }}>
+        <Typography.Span>
+          <FormattedMessage
+            id="client.entity-list.selectionSelection"
+            values={{count: props.selection.length}}/>
+          {props.selection.length > 0 && <Button
+            dense
+            icon="times"
+            look="raised"
+            title={msg('client.entity-list.clearSelection')}
+            onClick={e => {
+              e.stopPropagation()
+              props.toggleShowSelectedRecords()
+              props.clearSelection()
+            }}
+          />}
+        </Typography.Span>
+      </StyledButton>
     </StyledSelectionController>
   )
 }

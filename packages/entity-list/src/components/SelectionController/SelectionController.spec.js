@@ -19,18 +19,18 @@ describe('entity-list', () => {
     }
 
     describe('Selection', () => {
-      it('should display message operateOnQueriedItems and queryCount', () => {
+      it('should display message selectionQuery and queryCount', () => {
         const wrapper = intlEnzyme.mountWithIntl(<SelectionController {...baseProps}/>)
-        expect(wrapper.find(FormattedMessage).prop('values').count).to.be.equal(123)
+        expect(wrapper.find(FormattedMessage).at(0).prop('values').count).to.be.equal(123)
         expect(wrapper.find(Button)).to.have.length(0)
       })
 
-      it('should display message operateOnSelectedItems and count of selected items ', () => {
+      it('should display message selectionSelection and count of selected items ', () => {
         const selection = new Array(99)
         const wrapper = intlEnzyme.mountWithIntl(<SelectionController {...baseProps} selection={selection}/>)
-        expect(wrapper.find(FormattedMessage).prop('id')).to.be.equal('client.entity-list.operateOnSelectedItems')
-        expect(wrapper.find(FormattedMessage).prop('values').count).to.be.equal(99)
-        expect(wrapper.find(Button)).to.have.length(3)
+        expect(wrapper.find(FormattedMessage).at(1).prop('id')).to.be.equal('client.entity-list.selectionSelection')
+        expect(wrapper.find(FormattedMessage).at(1).prop('values').count).to.be.equal(99)
+        expect(wrapper.find(Button)).to.have.length(1)
       })
     })
   })
