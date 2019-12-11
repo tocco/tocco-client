@@ -18,7 +18,7 @@ export const StyledSearchFilterButton = styled.div`
 `
 
 const SearchFilterButton = ({setActive, active, label}) =>
-  <StyledSearchFilterButton active={active} onClick={() => setActive(true)}>
+  <StyledSearchFilterButton active={active} onClick={() => setActive(!active)}>
     <Typography.Span>{label}
       <Button
         onClick={e => {
