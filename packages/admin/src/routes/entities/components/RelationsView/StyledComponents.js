@@ -1,58 +1,62 @@
 import styled from 'styled-components'
-import {StyledSpan} from 'tocco-ui'
+import {StyledSpan, theme} from 'tocco-ui'
 
 export const StyledPreviewBox = styled.div`
   background-color: white;
-  padding: 10px;
-  border-radius: 4px;
-  margin-top: 10px;
+  padding: 1rem;
+  margin-top: 1rem;
 `
 
 export const StyledRelationBox = styled.div`
   background-color: white;
-  padding: 10px;
-  border-radius: 4px;
- 
+  padding: 1rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 140px);
-  grid-row-gap: 1px;
-  grid-column-gap: 10px;
-  justify-content: center;
+  grid-template-columns: repeat(auto-fit, 200px);
+  grid-row-gap: 1rem;
+  grid-column-gap: 1rem;
+  justify-content: space-between;
 `
 
 export const RelationLinks = styled.div`
-    display: none;
-    padding-left: 2px;
-  
+  display: none;
+  margin-left: auto;;
+  * {
+    color: ${theme.color('text')};
+    padding-left: .5rem;
+  }
 `
 
 export const RelationBox = styled.div`
- height: 40px;
-  border-radius: 10px;   
-
- ${({selected}) => selected && `
-    background-color: #edf1f5;
-    
-    ${RelationLinks} {
-      display: block;
+  border-radius: ${theme.radii('large')};
+  padding: .3rem 1rem;
+  display: flex;
+  background-color: ${({selected}) => selected && theme.color('secondary')};
+  &&& {
+    * {color: ${({selected}) => selected && theme.color('paper')}};};
   }
-  `}
 
-  text-align: center;
+  ${({selected}) => selected && `
+    ${RelationLinks} {
+      display: flex;
+    }
+    `
+  };
     
   &:hover ${RelationLinks} {
-       display: block;
+    display: flex;
   }
   
+  && {
     :hover{
-    background-color: #DEE6ED;
-    cursor: pointer;
+      background-color: ${theme.color('secondaryLight')};
+      * {color: ${theme.color('paper')}}
+      cursor: pointer;
+    }
   }
 `
 
 export const RelationLabel = styled(StyledSpan)`
   &&& {
-  max-width: 110px;
-  vertical-align: middle;
+    max-width: 110px;
   }
 `
