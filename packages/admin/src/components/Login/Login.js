@@ -3,8 +3,11 @@ import PropTypes from 'prop-types'
 import ToccoLogin from 'tocco-login/src/main'
 import SsoLogin from 'tocco-sso-login/src/main'
 import styled from 'styled-components'
-import {StyledH1, StyledSpan, ToccoLogo, ToccoSlogan, scale} from 'tocco-ui'
+import {StyledH1, StyledSpan, scale} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
+
+import ToccoLogo from '../../assets/tocco-circle.svg'
+import ToccoSlogan from '../../assets/tocco-white-vertical.svg'
 
 const StyledLogin = styled.div`
   height: 100vh;

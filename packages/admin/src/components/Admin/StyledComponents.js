@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import SlideMenu from 'react-burger-menu/lib/menus/slide'
-import {theme, ToccoLogo} from 'tocco-ui'
+import {theme} from 'tocco-ui'
+
+import ToccoLogo from '../../assets/tocco-circle.svg'
 
 export const StyledWrapper = styled.div`
   display: grid;
