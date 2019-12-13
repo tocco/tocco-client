@@ -1,3 +1,6 @@
+0.1.17
+- Fix images
+
 0.1.16
 - New Icon set
 - Styled search-box
