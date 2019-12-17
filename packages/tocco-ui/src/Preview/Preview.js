@@ -21,7 +21,7 @@ class Preview extends React.Component {
     }
   }
 
-  handleOnLoad = () => this.setState({loaded: true})
+  handleOnLoad = () => this.setState({loaded: Math.random()})
 
   render() {
     const image = this.props.thumbnailUrl ? (
