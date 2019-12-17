@@ -1,7 +1,6 @@
 [
   "client.entity-detail.invalidFieldsError",
   "client.entity-detail.invalidRelationErrors",
-  "client.entity-detail.lastSave",
   "client.entity-detail.loadingText",
   "client.entity-detail.mandatoryFieldTitle",
   "client.entity-detail.save",
