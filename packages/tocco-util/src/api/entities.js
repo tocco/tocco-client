@@ -77,7 +77,7 @@ export const toEntity = (flattenEntity, dirtyFields) => {
       return value.map(v => valueSimplifier(v))
     }
 
-    return _isObject(value) ? _pick(value, ['key', 'version']) : value
+    return _isObject(value) ? _pick(value, ['key', 'version', 'id']) : value
   }
 
   const paths = Object.keys(flattenEntity).reduce((acc, path) => {
