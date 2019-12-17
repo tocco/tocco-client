@@ -1,15 +1,13 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {reduxForm} from 'redux-form'
-import {intlShape, FormattedRelative, FormattedMessage} from 'react-intl'
-import {Button, Typography} from 'tocco-ui'
+import {intlShape} from 'react-intl'
 import {form, formField} from 'tocco-app-extensions'
 
 import SubGrid from '../../util/detailView/fromFieldFactories/subGrid'
 import ErrorBox from '../ErrorBox'
-import modes from '../../util/modes'
 import readOnlyFormFieldMapping from '../../util/detailView/readOnlyFormFieldMapping'
-import {StyledDetailFormLastSaved} from './StyledDetailFormLastSaved'
+import SaveButton from './SaveButton'
 
 export class DetailForm extends React.Component {
   componentDidUpdate(prevProps) {
@@ -17,8 +15,6 @@ export class DetailForm extends React.Component {
       this.props.fireTouched(this.props.dirty)
     }
   }
-
-  isReadOnlyForm = () => this.props.formDefinition.readonly
 
   focusErrorFields = () => {
     const firstErrorField = form.formErrorsUtil.getFirstErrorField(this.props.formErrors)
@@ -63,6 +59,10 @@ export class DetailForm extends React.Component {
   render() {
     const props = this.props
 
+    const customActions = {
+      save: () => <SaveButton intl={this.props.intl} submitting={this.props.submitting} mode={this.props.mode}/>
+    }
+
     return (
       <form
         onSubmit={this.handleSubmit}
@@ -78,28 +78,9 @@ export class DetailForm extends React.Component {
           readOnlyFormFieldMapping={readOnlyFormFieldMapping}
           mode={props.mode}
           componentMapping={{[form.componentTypes.SUB_TABLE]: SubGrid}}
+          customActions={customActions}
         />
-        {!this.isReadOnlyForm()
-        && <React.Fragment>
-          {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
-          <Button
-            data-cy="detail-form_submit-button"
-            disabled={props.submitting || (props.anyTouched && !props.valid)}
-            ink="primary"
-            label={this.msg(`client.entity-detail.${props.mode === modes.CREATE ? 'create' : 'save'}`)}
-            look="raised"
-            pending={props.submitting}
-            type="submit"
-          />
-          {props.lastSave
-          && <StyledDetailFormLastSaved>
-            <Typography.Span>
-              <FormattedMessage id="client.entity-detail.lastSave"/> <FormattedRelative value={props.lastSave}/>
-            </Typography.Span>
-          </StyledDetailFormLastSaved>
-          }
-        </React.Fragment>
-        }
+        {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={this.showErrors}/>}
       </form>
     )
   }
