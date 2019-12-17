@@ -1,3 +1,15 @@
+0.9.3
+- use _remotefield form for remotefields
+- Cache forms and models
+- Icon mapping list
+- center icon of button
+- format upload message
+- Fix filter bug
+- Adjust padding and fontsize
+- Restrict global icon dom watch
+- Add search-filters to admin search form
+- Fix FormBuilder model bug
+
 0.9.2
 - Floating labels
 - Location field support
