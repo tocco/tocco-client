@@ -124,6 +124,7 @@ class FormBuilder extends React.Component {
       selection={actions.getSingleEntitySelection(model, entityKey)}
       mode={this.props.mode}
       key={'detailAction' + key}
+      customActions={this.props.customActions}
     />
   }
 
@@ -197,7 +198,8 @@ FormBuilder.propTypes = {
   readOnlyFormFieldMapping: PropTypes.object,
   mode: PropTypes.string,
   componentMapping: PropTypes.objectOf(PropTypes.func),
-  beforeRenderField: PropTypes.func
+  beforeRenderField: PropTypes.func,
+  customActions: PropTypes.objectOf(PropTypes.func)
 }
 
 export default FormBuilder
