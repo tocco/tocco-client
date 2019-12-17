@@ -8,7 +8,11 @@ import ActionGroup from './ActionGroup'
 import SingleAction from './SingleAction'
 import {StyledAction} from './StyledAction'
 
-const ActionVisual = ({definition, onClick, selection, parent, mode, callback, disabled}) => {
+const ActionVisual = ({definition, onClick, selection, parent, mode, callback, disabled, customActions}) => {
+  if (customActions && customActions[definition.id]) {
+    return customActions[definition.id]()
+  }
+
   if (!modeFitsScopes(mode, definition.scopes)) return null
 
   const ActionType = definition.componentType === componentTypes.ACTION_GROUP ? ActionGroup : SingleAction
@@ -27,6 +31,7 @@ const ActionVisual = ({definition, onClick, selection, parent, mode, callback, d
 
 ActionVisual.propTypes = {
   definition: PropTypes.shape({
+    id: PropTypes.string,
     type: PropTypes.string,
     useLabel: PropTypes.string,
     icon: PropTypes.string,
@@ -59,7 +64,8 @@ ActionVisual.propTypes = {
     model: PropTypes.string.isRequired,
     reverseRelationName: PropTypes.string
   }),
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  customActions: PropTypes.objectOf(PropTypes.func)
 }
 
 const Action = props => {

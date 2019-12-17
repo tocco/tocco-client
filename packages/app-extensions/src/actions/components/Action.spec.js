@@ -109,6 +109,36 @@ describe('app-extensions', () => {
           expect(wrapper.find(SingleAction)).to.have.length(2)
           expect(wrapper.find(ActionGroup)).to.have.length(1)
         })
+
+        test('should render custom actions if provided', () => {
+          const definition = {
+            id: 'save',
+            label: 'Speichern',
+            componentType: 'action',
+            children: [],
+            actionType: 'custom',
+            icon: null,
+            minSelection: null,
+            maxSelection: null,
+            showConfirmMessage: false,
+            confirmationMessageText: null,
+            runInBackgroundTask: false,
+            formDataEntityModel: null,
+            formDataTitle: null,
+            formDataMessage: null,
+            endpoint: null,
+            appId: null
+          }
+          const SaveButton = () => <div>Save</div>
+          const customActions = {
+            save: () => <SaveButton/>
+          }
+
+          const wrapper = intlEnzyme.mountWithIntl(
+            <Action {...baseProps} customActions={customActions} definition={definition}/>
+          )
+          expect(wrapper.find(SaveButton)).to.have.length(1)
+        })
       })
     })
   })
