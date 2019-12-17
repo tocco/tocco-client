@@ -1,3 +1,6 @@
+0.1.19
+- Fix upload
+
 0.1.18
 - Save button in action bar
 - Style relations view
