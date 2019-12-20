@@ -12,7 +12,7 @@ import {
   faFolders, faStar, faTimes, faArrowRight, faArrowLeft, faListUl, faFile, faFileAlt, faFileExcel, faFilePdf,
   faIdBadge, faCheck, faMapMarked, faSearch, faCog, faBars, faDownload, faUpload, faInfo
 } from '@fortawesome/pro-regular-svg-icons'
-import {faTimes as faTimesLight, faCircle} from '@fortawesome/pro-light-svg-icons'
+import {faTimes as faTimesLight, faCircle, faHorizontalRule} from '@fortawesome/pro-light-svg-icons'
 import {faGoogle, faFacebook, faFacebookF, faDropbox, faMicrosoft, faJira, faApple}
   from '@fortawesome/free-brands-svg-icons'
 (() => {
@@ -21,7 +21,7 @@ import {faGoogle, faFacebook, faFacebookF, faDropbox, faMicrosoft, faJira, faApp
     faChevronLeft, faChevronUp, faChevronDown, faPlus, faFolders, faStarFilled, faStar, faTimes, faArrowRight,
     faArrowLeft, faListUl, faFile, faFileAlt, faFileExcel, faFilePdf, faIdBadge, faCheck, faExclamation, faTimesLight,
     faCircle, faCheckCircle, faGoogle, faFacebook, faFacebookF, faDropbox, faMicrosoft, faJira, faApple, faBars,
-    faExternalLink, faPhone, faMapMarked, faSearch, faCog, faDownload, faUpload, faInfo)
+    faExternalLink, faPhone, faMapMarked, faSearch, faCog, faDownload, faUpload, faInfo, faHorizontalRule)
 })()
 
 const FontAwesomeAdapter = ({icon, style}) =>
