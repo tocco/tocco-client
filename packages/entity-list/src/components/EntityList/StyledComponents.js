@@ -10,8 +10,8 @@ export const TopPositioning = styled.div`
 
 export const LeftPositioning = styled.div`
   display: grid;
-  grid-template-columns: minmax(200px, 18%) auto;
-  grid-column-gap: 15px;
+  grid-template-columns: minmax(400px, 22%) auto;
+  grid-column-gap: 2rem;
   @media (max-width: 600px) {
     grid-column-gap: 8px;
   }
@@ -26,4 +26,8 @@ export const SearchGrid = styled.div`
 
 export const ListGrid = styled.div`
   grid-area: list;
+  
+  .react-bs-table-container {
+    position: relative;
+  }
 `

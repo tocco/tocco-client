@@ -9,8 +9,8 @@ export default styled.div`
 `
 
 export const StyledButton = styled.span`
-  border-radius: 3rem;
-  padding: .5rem 2rem;
+  border-radius: ${theme.radii('medium')};
+  padding: .5rem 1.3rem;
   display: ${({disabled}) => disabled ? 'none' : 'flex'};
   margin-right: 1rem;
   align-items: center;

@@ -1,12 +1,12 @@
 import styled from 'styled-components'
 import {
-  colorizeBorder,
   declareFont,
   declareWrappingText,
   scale,
-  shadeColor,
-  theme
+  theme,
+  shadeColor
 } from 'tocco-ui'
+import _get from 'lodash/get'
 
 const CARET_WIDTH = scale.space(-2)
 
@@ -14,15 +14,35 @@ const StyledTable = styled.div`
   && {
     .react-bs-table {
       margin-bottom: ${scale.space(-1)};
+      background-color: ${theme.color('paper')};
+      
+      &:before {
+        content: ''; 
+        height: ${scale.space(-3)}; 
+        background: ${theme.color('backgroundBody')};
+        width: calc(100% + 4rem);
+        position: absolute; 
+        top: 0;
+        left: -${scale.space(0)};
+      }
 
       table {
-        background-color: transparent;
         border-collapse: collapse;
         border-spacing: 0;
         margin: 0;
         max-width: 100%;
         table-layout: fixed;
         width: 100%;
+        
+        tr {
+          border-bottom: 1px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
+          
+          th {
+            border-bottom: 2px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
+            padding-bottom: ${scale.space(-0.5)};
+            padding-top: ${scale.space(-1)};
+          }
+        }
 
         th,
         td {
@@ -31,6 +51,26 @@ const StyledTable = styled.div`
           padding: ${scale.space(-2)} ${scale.space(-1)};
           text-align: center;
           vertical-align: top;
+          
+          a {
+            color: ${theme.color('text')};
+            font-size: ${scale.font(2)};
+            
+            &:hover {
+              color: ${theme.color('secondaryLight')};
+            }
+          }
+        }
+        
+        tr:hover {
+          background-color: ${theme.color('backgroundBody')};
+        }
+        
+        tr:active, tr:focus {
+          &&& {
+            background-color: ${theme.color('secondary')} !important;
+            color: ${theme.color('paper')} !important;
+          }
         }
 
         th {
@@ -38,7 +78,6 @@ const StyledTable = styled.div`
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
-
 
           .order {
             margin-left: ${scale.space(-1)};
@@ -78,20 +117,9 @@ const StyledTable = styled.div`
         }
 
         td {
-          ${declareWrappingText()}
-          border-top: 1px solid ${props => colorizeBorder.shade2(props)};
+          ${declareWrappingText()};
           &[tabindex] {
             outline: none;
-          }
-        }
-
-        &.table-striped > tbody > tr {
-          &:nth-of-type(odd) {
-            background-color: ${props => shadeColor(theme.color('paper')(props), 0.2)};
-          }
-
-          &:hover {
-            background-color: ${props => shadeColor(theme.color('paper')(props), 0.4)};
           }
         }
       }

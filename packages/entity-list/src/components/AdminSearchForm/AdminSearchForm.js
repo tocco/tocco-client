@@ -1,34 +1,37 @@
-import React, {useState, useRef, useEffect} from 'react'
-import {Button} from 'tocco-ui'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import {Icon} from 'tocco-ui'
+import Split from 'react-split'
 
-import {AdminSearchGrid, SearchFiterBox, SearchFormBox} from './StyedComponents'
+import {AdminSearchGrid, Box, StyledGutter} from './StyedComponents'
 import BasicSearchFormContainer from '../../containers/BasicSearchFormContainer'
 import SearchFilterList from '../SearchFilterList'
 
+const getGutter = () => {
+  const gutterEl = document.createElement('div')
+  gutterEl.style.cssText = 'padding-bottom:.5rem;background:#ffffff;'
+  ReactDOM.render(<StyledGutter>
+    <Icon icon="horizontal-rule"/>
+  </StyledGutter>, gutterEl)
+  return gutterEl
+}
+
 const AdminSearchForm = () => {
-  const wrapperEl = useRef(null)
-  const [searchFilterExpanded, setSearchFilterExpanded] = useState(false)
-  const [searchFilterHasScroll, setSearchFilterHasScroll] = useState(false)
-
-  useEffect(() => {
-    setTimeout(() => {
-      setSearchFilterHasScroll(wrapperEl.current.scrollHeight > wrapperEl.current.clientHeight)
-    })
-  })
-
-  return <AdminSearchGrid searchFilterExpanded={searchFilterExpanded}>
-    <SearchFiterBox ref={wrapperEl}>
-      <SearchFilterList/>
-      {(searchFilterHasScroll || searchFilterExpanded)
-      && <Button
-        style={{position: 'sticky', left: 'calc(50% - 12px)'}}
-        icon={searchFilterExpanded ? 'arrow-up' : 'arrow-down'}
-        onClick={() => setSearchFilterExpanded(!searchFilterExpanded)}
-      />}
-    </SearchFiterBox>
-    <SearchFormBox>
-      <BasicSearchFormContainer disableSimpleSearch={true}/>
-    </SearchFormBox>
+  return <AdminSearchGrid>
+    <Split
+      direction="vertical"
+      sizes={[25, 73]}
+      minSize={[27, 100]}
+      gutterSize={15}
+      gutter={getGutter}
+    >
+      <Box>
+        <SearchFilterList/>
+      </Box>
+      <Box>
+        <BasicSearchFormContainer disableSimpleSearch={true}/>
+      </Box>
+    </Split>
   </AdminSearchGrid>
 }
 
