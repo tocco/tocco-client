@@ -8,7 +8,7 @@ const SubGrid = props => {
     <EntityListApp
       id={`${props.appId}-subgrid-${formBase}`}
       entityName={props.modelField.targetEntity}
-      formBase={formBase}
+      formName={formBase}
       limit={props.limit}
       searchFormType={props.showSearchForm ? 'basic' : 'none'}
       onRowClick={e => {
