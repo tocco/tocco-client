@@ -7,70 +7,66 @@ export const setupForms = fetchMock => {
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/User_(list|remotefield)$'),
+    new RegExp('^.*?/nice2/rest/forms/User/(list|remotefield)$'),
     require('./data/user_list_form.json')
   )
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/User_withconstriction_(list|remotefield)'),
+    new RegExp('^.*?/nice2/rest/forms/User_withconstriction/(list|remotefield)'),
     require('./data/user_list_form.json')
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/User_search$'),
+    new RegExp('^.*?/nice2/rest/forms/User/search$'),
     require('./data/user_search_form.json')
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/User_withconstriction_search'),
+    new RegExp('^.*?/nice2/rest/forms/User_withconstriction/search'),
     404
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/User_detail$'),
-    require('./data/user_detail_form.json')
-  )
-  fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/User_create$'),
+    new RegExp('^.*?/nice2/rest/forms/User/(update|create)$'),
     require('./data/user_detail_form.json')
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/User_detail_relDummySubGrid_list$'),
+    new RegExp('^.*?/nice2/rest/forms/User_detail_relDummySubGrid/list$'),
     require('./data/dummy_entity_list_form.json')
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/User_detail_relDummySubGrid_search$'),
+    new RegExp('^.*?/nice2/rest/forms/User_detail_relDummySubGrid/search$'),
     require('./data/dummy_entity_search_form.json')
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/User_small_(list|remotefield)$'),
+    new RegExp('^.*?/nice2/rest/forms/User_small/(list|remotefield)$'),
     require('./data/user_list_small_form.json')
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/User_small_search$'),
+    new RegExp('^.*?/nice2/rest/forms/User_small/search$'),
     404
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/Dummy_entity_(list|remotefield)$'),
+    new RegExp('^.*?/nice2/rest/forms/Dummy_entity/(list|remotefield)$'),
     require('./data/dummy_entity_list_form.json')
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/Dummy_entity_search$'),
+    new RegExp('^.*?/nice2/rest/forms/Dummy_entity/search$'),
     require('./data/dummy_entity_search_form.json')
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/User_Dummy_entity_detail$'),
+    new RegExp('^.*?/nice2/rest/forms/User_Dummy_entity/update'),
     require('./data/dummy_entity_detail_form.json')
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/User_Dummy_entity_create$'),
+    new RegExp('^.*?/nice2/rest/forms/User_Dummy_entity/create$'),
     require('./data/dummy_entity_create_form.json')
   )
 }
