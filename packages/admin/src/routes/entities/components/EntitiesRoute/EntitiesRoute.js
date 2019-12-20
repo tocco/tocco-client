@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import {StyledScrollbar} from 'tocco-ui'
 
 import Overview from '../../subroutes/overview'
 import Entity from '../../subroutes/entity'
@@ -18,7 +19,8 @@ const StyledWrapper = styled.div`
 
 const StyledContent = styled.div`
   grid-area: content;
-  overflow: auto;
+  overflow-x: hidden;
+  ${StyledScrollbar}
 `
 
 const StyledBreadcrumbs = styled.div`
@@ -31,8 +33,9 @@ const EntitiesRoute = ({match, history, loadCurrentViewInfo, currentViewInfo}) =
 
   return (
     <StyledWrapper>
-
-      <StyledBreadcrumbs><Breadcrumbs/></StyledBreadcrumbs>
+      <StyledBreadcrumbs>
+        <Breadcrumbs/>
+      </StyledBreadcrumbs>
       <StyledContent>
         <Switch>
           <Route
