@@ -5,10 +5,7 @@ const modes = {
 
 export const getMode = entityId => (entityId === undefined) ? modes.CREATE : modes.UPDATE
 
-export const getFormExtension = mode => (mode === modes.CREATE) ? '_create' : '_detail'
-
 export default {
   modes,
-  getMode,
-  getFormExtension
+  getMode
 }

@@ -22,7 +22,7 @@ const mapStateToProps = (state, props) => ({
   store: viewPersistor.viewInfoSelector(state, props.router.history.location.pathname).store,
   locale: state.input.locale,
   entityName: state.entityBrowser.entityName,
-  formBase: state.entityBrowser.formBase,
+  formName: state.entityBrowser.formBase,
   searchFormType: state.input.showSearchForm ? 'basic' : 'none',
   limit: state.input.limit,
   searchFilters: state.input.searchFilters,
