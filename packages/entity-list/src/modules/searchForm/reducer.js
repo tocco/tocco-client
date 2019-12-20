@@ -28,7 +28,6 @@ const setSearchFilterActive = (state, {payload: {searchFilterId, active, exclusi
 
 const ACTION_HANDLERS = {
   [actions.SET_INITIALIZED]: reducerUtil.singleTransferReducer('initialized'),
-  [actions.SET_SEARCH_FORM_NAME]: reducerUtil.singleTransferReducer('searchFormName'),
   [actions.SET_SIMPLE_SEARCH_FIELDS]: setSimpleSearchFields,
   [actions.SET_FORM_DEFINITION]: reducerUtil.singleTransferReducer('formDefinition'),
   [actions.SET_SHOW_EXTENDED_SEARCH_FORM]: reducerUtil.singleTransferReducer('showExtendedSearchForm'),
@@ -41,7 +40,6 @@ const ACTION_HANDLERS = {
 
 const initialState = {
   initialized: false,
-  searchFormName: '',
   formDefinition: {},
   showExtendedSearchForm: false,
   simpleSearchFields: ['txtFulltext'],
