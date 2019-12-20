@@ -34,8 +34,8 @@ export default function* sagas() {
   ])
 }
 
-export function* loadDetailFormDefinition(formName) {
-  const formDefinition = yield call(rest.fetchForm, formName)
+export function* loadDetailFormDefinition(formName, mode) {
+  const formDefinition = yield call(rest.fetchForm, formName, mode)
   yield put(actions.setFormDefinition(formDefinition))
   const fieldDefinitions = yield call(form.getFieldDefinitions, formDefinition)
   yield put(actions.setFieldDefinitions(fieldDefinitions))
@@ -64,7 +64,7 @@ export function* loadDetailView() {
   const {entityName, formName, mode, defaultValues} = yield select(entityDetailSelector)
 
   const model = yield call(loadEntityModel, entityName)
-  const {fieldDefinitions} = yield call(loadDetailFormDefinition, formName)
+  const {fieldDefinitions} = yield call(loadDetailFormDefinition, formName, mode)
 
   if (mode === modes.CREATE) {
     yield put(actions.setEntity({paths: {}, model: entityName}))
@@ -171,10 +171,10 @@ export function* showNotification(type, titleResourceName, messageResourceName, 
   ))
 }
 
-export function* loadDisplayExpressions(formName, paths, entities) {
+export function* loadDisplayExpressions(formName, mode, paths, entities) {
   if (paths && paths.length > 0) {
     const keys = entities.map(e => e.__key)
-    const result = yield call(rest.fetchDisplayExpressions, formName, keys, paths)
+    const result = yield call(rest.fetchDisplayExpressions, formName, mode, keys, paths)
     return result
   }
 }
@@ -187,9 +187,9 @@ export function* loadRelationDisplays(relationFields, entities) {
 }
 
 export function* enhanceEntityWithDisplayExpressions(entity) {
-  const {fieldDefinitions, formName} = yield select(entityDetailSelector)
+  const {fieldDefinitions, formName, mode} = yield select(entityDetailSelector)
   const displayExpressions = fieldDefinitions.filter(f => f.componentType === 'display').map(f => f.id)
-  const displayExpressionsL = yield call(loadDisplayExpressions, formName, displayExpressions, [entity])
+  const displayExpressionsL = yield call(loadDisplayExpressions, formName, mode, displayExpressions, [entity])
   if (displayExpressionsL) {
     Object.keys(displayExpressionsL[entity.__key]).forEach(dE => {
       entity[dE] = displayExpressionsL[entity.__key][dE]
