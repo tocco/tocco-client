@@ -82,4 +82,3 @@ export {
 } from './utilStyles'
 
 export {default as DatePicker} from './DatePicker'
-export {default as scrollbarStyle} from './utilStyles/scrollbarStyle'
