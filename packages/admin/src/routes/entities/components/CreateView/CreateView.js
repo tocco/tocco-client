@@ -39,7 +39,7 @@ const CreateView = props => {
       />
       <EntityDetailApp
         entityName={entityName}
-        formName={`${entityName}_create`}
+        formName={entityName}
         mode={mode}
         defaultValues={defaultValues}
         emitAction={action => {

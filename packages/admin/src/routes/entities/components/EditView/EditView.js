@@ -40,7 +40,7 @@ const EditView = props => {
       <EntityDetailApp
         entityName={entityName}
         entityId={props.currentViewInfo.key}
-        formName={`${entityName}_detail`}
+        formName={entityName}
         mode={mode}
         emitAction={props.emitAction}
         onTouchedChange = {handleToucheChanged}
