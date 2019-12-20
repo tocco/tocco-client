@@ -34,9 +34,6 @@ export function* loadEntityDetail({payload}) {
     formName = `${formBase}_${targetEntityName}`
   }
 
-  const formExtension = yield call(detail.getFormExtension, mode)
-  formName += formExtension
-
   const {initialKey} = yield select(inputSelector)
   const showBackButton = yield call(doShowBackButton, initialKey, modelPaths)
 

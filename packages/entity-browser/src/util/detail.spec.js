@@ -14,18 +14,6 @@ describe('entity-browser', () => {
           expect(mode).to.eql(detail.modes.CREATE)
         })
       })
-
-      describe('getFormExtension', () => {
-        test('should detail extension for update mode', () => {
-          const mode = detail.getFormExtension(detail.modes.UPDATE)
-          expect(mode).to.eql('_detail')
-        })
-
-        test('should create extension for create mode', () => {
-          const mode = detail.getFormExtension(detail.modes.CREATE)
-          expect(mode).to.eql('_create')
-        })
-      })
     })
   })
 })

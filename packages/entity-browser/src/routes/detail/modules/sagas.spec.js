@@ -42,9 +42,8 @@ describe('entity-browser', () => {
               const initialKey = '1'
               const mode = 'update'
               const url = `${parentUrl}/${modelPaths[0]}/${entityId}`
-              const formExtension = '_detail'
               const showBackButton = true
-              const expectedFormName = `${formBase}_${targetEntityName}_detail`
+              const expectedFormName = `${formBase}_${targetEntityName}`
 
               const expectedDetailParams = {
                 mode,
@@ -60,8 +59,7 @@ describe('entity-browser', () => {
               expect(gen.next({modelPaths, entityId, parentUrl}).value).to.eql(select(sagas.entityBrowserSelector))
               expect(gen.next({entityName, formBase}).value).to.eql(call(detail.getMode, entityId))
               expect(gen.next(mode).value).to.eql(call(sagas.getTargetEntity, entityName, modelPaths))
-              expect(gen.next(targetEntityName).value).to.eql(call(detail.getFormExtension, mode))
-              expect(gen.next(formExtension).value).to.eql(select(sagas.inputSelector))
+              expect(gen.next(targetEntityName).value).to.eql(select(sagas.inputSelector))
               expect(gen.next({initialKey}).value).to.eql(call(doShowBackButton, initialKey, modelPaths))
               expect(gen.next(showBackButton).value).to.eql(put(actions.setDetailParams(expectedDetailParams)))
 
