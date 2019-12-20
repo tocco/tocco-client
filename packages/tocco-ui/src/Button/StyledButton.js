@@ -95,14 +95,23 @@ const StyledButton = styled.button`
     box-sizing: border-box; //nice2 reset
     align-items: center;
     background-image: none;
-    border-radius: ${theme.radii('regular')};
-    border: none;
-    display: inline-flex;
     margin: 0;
     position: relative;
     text-align: center;
     vertical-align: middle;
     white-space: nowrap;
+    
+    border: 1px solid ${theme.color('secondaryLight')};
+    border-radius: ${theme.radii('medium')};
+    background-color: ${theme.color('paper')};
+    padding: .4rem 1.3rem;
+    color: ${theme.color('text')};
+    
+    &:hover {
+      background-color: ${theme.color('secondaryLight')};
+      color: ${theme.color('paper')}
+    }
+  }
 
     &:enabled {
       cursor: pointer;
