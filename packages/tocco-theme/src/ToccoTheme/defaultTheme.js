@@ -1,12 +1,14 @@
 export default {
   colors: {
     paper: '#fff',
-    primary: '#9E2124',
+    primary: '#B22A31',
+    primaryLight: '#e7989c',
     secondary: '#11587f',
     secondaryLight: '#9BC0D5',
     text: '#4f5e60',
     backgroundBody: '#EDF1F5',
     backgroundBreadcrumbs: '#DEE6ED',
+    backgroundDetailView: '#CDD9E5',
     signal: {
       danger: {
         paper: '#EF9A9A', // Red 200
@@ -46,6 +48,7 @@ export default {
   },
   radii: {
     regular: '4px',
+    medium: '13px',
     large: '25px'
   },
   space: {
