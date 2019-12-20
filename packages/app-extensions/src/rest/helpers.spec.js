@@ -161,7 +161,7 @@ describe('app-extensions', () => {
         test('should call fetch', () => {
           const response = {display: 'Test'}
 
-          return expectSaga(helpers.fetchDisplay, 'User', 1)
+          return expectSaga(helpers.fetchDisplay, 'User', 'update', 1)
             .provide([
               [matchers.call.fn(requestSaga), {body: response}]
             ])
@@ -172,7 +172,8 @@ describe('app-extensions', () => {
 
       describe('fetchDisplayExpressions', () => {
         test('should call requestSaga and transform response', () => {
-          const formName = 'User_list'
+          const formName = 'User'
+          const scope = 'list'
           const entityKeys = ['1', '33']
           const fields = ['display1', 'display2']
 
@@ -207,7 +208,7 @@ describe('app-extensions', () => {
             }
           }
 
-          return expectSaga(helpers.fetchDisplayExpressions, formName, entityKeys, fields)
+          return expectSaga(helpers.fetchDisplayExpressions, formName, scope, entityKeys, fields)
             .provide([
               [matchers.call.fn(requestSaga), {body: responseFake}]
             ])
@@ -300,13 +301,14 @@ describe('app-extensions', () => {
       })
 
       describe('fetchForm', () => {
-        const formName = 'User_detail'
+        const formName = 'User'
+        const mode = 'udpate'
         const resp = {body: {form: {}}}
         const transformedResponse = {}
 
         test('should call fetch and use default transformer', () => {
-          const gen = helpers.fetchForm(formName)
-          expect(gen.next().value).to.eql(call(requestSaga, `forms/${formName}`, {}))
+          const gen = helpers.fetchForm(formName, mode)
+          expect(gen.next().value).to.eql(call(requestSaga, `forms/${formName}/${mode}`, {}))
 
           expect(gen.next(resp).value).to.eql(call(helpers.defaultFormTransformer, resp.body))
 
@@ -318,21 +320,21 @@ describe('app-extensions', () => {
         test('should cache the form after first fetch', async() => {
           const formMock = {form: {}}
 
-          const result = await expectSaga(helpers.fetchForm, 'User_detail')
+          const result = await expectSaga(helpers.fetchForm, 'User', 'update')
             .provide([
               [matchers.call.fn(requestSaga), {body: formMock}]
             ])
             .call.like({fn: requestSaga})
             .run()
 
-          return expectSaga(helpers.fetchForm, 'User_detail')
+          return expectSaga(helpers.fetchForm, 'User', 'update')
             .returns(result.returnValue)
             .not.call.like({fn: requestSaga})
             .run()
         })
 
         test('should return null on allowed 404', async() => {
-          return expectSaga(helpers.fetchForm, 'User_detail', true)
+          return expectSaga(helpers.fetchForm, 'User', 'search', true)
             .provide([
               [matchers.call.fn(requestSaga), {status: 404}]
             ])
