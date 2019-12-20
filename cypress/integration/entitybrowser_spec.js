@@ -49,7 +49,9 @@ describe('Entity Browser', () => {
       cy.get('#input-detailForm-firstname').type('Cypress Test')
       cy.get('#input-detailForm-lastname').type('Test (can be deleted)').blur()
 
-      cy.get('[data-cy=detail-form_submit-button]').should('be.disabled')
+      cy.get('[data-cy=detail-form_submit-button]').click()
+      cy.contains('Dieses Feld darf nicht leer sein')
+
       cy.get('#input-detailForm-relGender').type('{downarrow}').get('#react-select-3-option-1').click()
 
       cy.get('[data-cy=detail-form_submit-button]').click()
@@ -78,17 +80,12 @@ describe('Entity Browser', () => {
       cy.get('[data-cy=form-field]').should('have.length.above', 1)
     })
 
-    it('should disable save button if form is not valid', () => {
-      cy.get('#input-detailForm-firstname').type('{selectall}{del}').blur()
-      cy.get('[data-cy=detail-form_submit-button]').should('be.disabled')
-    })
-
     it('should change value in detail view and save', () => {
       cy.get('#input-detailForm-callname')
         .type('{selectall}{del}Test')
         .should('have.value', 'Test')
       cy.get('[data-cy=detail-form_submit-button]').click()
-      cy.contains('Zuletzt gespeichert')
+      cy.contains('Gespeichert')
     })
 
     it('should change page back to list view without warning', () => {
@@ -142,7 +139,7 @@ describe('Entity Browser', () => {
         .should('be.visible')
       cy.get('[type="submit"]')
         .should('be.visible')
-      cy.contains('Aktionen auf Alle')
+      cy.contains('Alle')
       cy.get('[data-cy=list-cell]')
         .should('have.length.above', 1)
     })
