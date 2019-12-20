@@ -15,7 +15,7 @@ export function* run(params, {formDataEntityModel, formDataTitle, formDataMessag
 
   const [model, form] = yield all([
     call(rest.fetchModel, formDataEntityModel),
-    call(rest.fetchForm, `${formDataEntityModel}_detail`)
+    call(rest.fetchForm, formDataEntityModel, 'create')
   ])
 
   const id = new Date().valueOf()
