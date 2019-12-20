@@ -1,32 +1,29 @@
-import styled, {css} from 'styled-components'
-import {scrollbarStyle, theme} from 'tocco-ui'
-
-const BoxStyle = css`
-  background-color: white;
-  overflow-y: auto;
-  padding: 4px;
-  border: 1px solid grey;
-  border-radius: ${theme.radii('regular')}
-  ${scrollbarStyle}
-`
+import styled from 'styled-components'
+import {StyledScrollbar, theme} from 'tocco-ui'
 
 export const AdminSearchGrid = styled.div`
-  padding-left: 8px;
-  display: grid;
-  grid-row-gap: 10px;
-  height: 100%;
-  grid-template-rows: ${props => props.searchFilterExpanded ? 'auto' : 'fit-content(25%)'} 1fr;
-  grid-template-areas:
-    "searchFilter"
-    "searchForm";
+   height: 100%;
+  > div {
+    height: 100%;
+  }
   overflow: hidden;
 `
 
-export const SearchFiterBox = styled.div`
-  grid-area: searchFilter;  
-  ${BoxStyle}
+export const Box = styled.div`
+  background-color: ${theme.color('paper')};
+  overflow-y: auto;
+  padding: .6rem 1rem 0 1rem;
+  ${StyledScrollbar}
 `
-export const SearchFormBox = styled.div`
-  grid-area: searchForm;  
-  ${BoxStyle}
+
+export const StyledGutter = styled.div`
+   &:hover {
+    cursor:row-resize;
+   }
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   color: ${theme.color('text')};
+   font-size: 25px;
+   border-top: 3px solid #EDF1F5;
 `

@@ -111,7 +111,6 @@ const Table = props => {
         fetchInfo={{dataTotalSize: props.entityCount}}
         options={tableOption}
         trClassName="break-word pointer"
-        striped
         hover
         bordered={false}
         selectRow={selectRow}

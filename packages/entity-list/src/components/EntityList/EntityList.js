@@ -1,11 +1,18 @@
 import PropTypes from 'prop-types'
 import React, {useEffect} from 'react'
+import styled from 'styled-components'
 
 import SearchViewContainer from '../../containers/SearchViewContainer'
 import ListViewContainer from '../../containers/ListViewContainer'
 import SelectionControllerContainer from '../../containers/SelectionControllerContainer'
 import {TopPositioning, LeftPositioning, ListGrid, SearchGrid} from './StyledComponents'
 import searchFormTypes, {searchFormTypePropTypes} from '../../util/searchFormTypes'
+
+const StyledListWrapper = styled.div`
+  background-color: white;
+  padding: 1rem 2rem 1.5rem 2rem;
+  margin-right: 2rem;
+`
 
 const EntityList = ({
   initialize,
@@ -19,14 +26,14 @@ const EntityList = ({
     initializeSearchForm()
   }, [])
 
-  const List = () => <React.Fragment>
-    {showSelectionController && <SelectionControllerContainer/>}
-    <ListViewContainer/>
-  </React.Fragment>
+  const List = () => <>
+    <StyledListWrapper className={'StyledListWrapper'}>
+      {showSelectionController && <SelectionControllerContainer/>}
+      <ListViewContainer/>
+    </StyledListWrapper>
+  </>
 
-  if (searchFormType === searchFormTypes.NONE) {
-    return <List/>
-  }
+  if (searchFormType === searchFormTypes.NONE) return <List/>
 
   const PositioningContainer = searchFormPosition === 'left' ? LeftPositioning : TopPositioning
 
