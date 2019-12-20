@@ -74,6 +74,9 @@ export const StyledNavButton = styled(Button)`
     color: ${props => props.active ? theme.color('secondary') : theme.color('secondaryLight')};
     font-weight: ${theme.fontWeight('bold')};
     border-color: ${props => props.active ? theme.color('secondary') : 'transparent'};
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
     
     &:hover {
       border-color: ${props => props.active ? theme.color('secondary') : theme.color('secondaryLight')};

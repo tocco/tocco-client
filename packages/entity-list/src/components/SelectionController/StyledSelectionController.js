@@ -31,6 +31,8 @@ export const StyledButton = styled.span`
       background-color: transparent;
       margin-left: 1rem;
       margin-top: -.1rem;
+      border: 0;
+      padding: 0;
     }
   }
 `

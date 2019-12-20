@@ -33,12 +33,19 @@ export const StyledLoginFormInputWrapper = styled.div`
 export const StyledLoginButton = styled(Button)`
   &&& {
     border-radius: ${theme.radii('large')};
+    background-color: ${theme.color('primary')};
+    color: ${theme.color('paper')}
+    border: 0;
     display: flex;
     justify-content: center;
     padding: 1.25rem 0;
   
     &:not(:last-child) {
       margin-right: 0;
+    }
+    
+    &:hover {
+      background-color: ${theme.color('primaryLight')};
     }
     
     && > span {
@@ -51,12 +58,14 @@ export const StyledLoginButton = styled(Button)`
 export const StyledTransparentButton = styled(Button)`
   &&& {
     margin-right: 0;
+    border: 0;
     background-color: transparent;
     color: ${theme.color('primary')};
     padding: 1.25rem 0;
     
     &:hover {
       background-color: transparent;
+      color: ${theme.color('primaryLight')};
     }
   }
 `

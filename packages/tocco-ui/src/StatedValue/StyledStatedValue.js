@@ -97,6 +97,15 @@ const StyledStatedValueBox = styled.div`
     > ${StyledHtmlFormatter} {
       margin-bottom: 0;
     }
+    
+    button {
+      border: 0;
+      
+      &:hover {
+        background-color: transparent;
+        color: ${getTheme.color('secondaryLight')}
+      }
+    }
   }
 `
 

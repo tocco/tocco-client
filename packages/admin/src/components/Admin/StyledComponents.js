@@ -42,7 +42,7 @@ export const StyledConfig = styled.div`
   flex: 1;
   display: flex;
   justify-content: flex-end;
-  padding-top: 7px;
+  padding-top: 4px;
 `
 
 export const burgerMenuStyles = {

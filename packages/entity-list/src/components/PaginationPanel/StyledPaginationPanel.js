@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {scale} from 'tocco-ui'
+import {Button, theme} from 'tocco-ui'
 
 export const StyledPaginationPanel = styled.div`
   display: flex;
@@ -9,6 +9,16 @@ export const StyledPaginationPanel = styled.div`
     margin-right: 6px;
     padding-top: 3px;
   }
-  
-  margin-bottom: ${scale.space(0)}
+`
+
+export const StyledButton = styled(Button)`
+ && {
+    border: 0;
+    
+    &:hover, &:focus {
+      color: ${theme.color('secondaryLight')};
+      background-color: transparent;
+    }
+ }
+
 `

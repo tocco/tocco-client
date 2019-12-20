@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Button, ButtonGroup} from 'tocco-ui'
+import {ButtonGroup} from 'tocco-ui'
 
-import {StyledPaginationPanel} from './StyledPaginationPanel'
+import {StyledPaginationPanel, StyledButton} from './StyledPaginationPanel'
 
 const PaginationPanel = props => {
   const {
@@ -21,19 +21,19 @@ const PaginationPanel = props => {
           look="raised"
           melt>
           {currPage > 2
-            && <Button
+            && <StyledButton
               icon="chevron-double-left"
               onClick={() => changePage(1)} />}
           {currPage > 1
-            && <Button
+            && <StyledButton
               icon="chevron-left"
               onClick={() => changePage(currPage - 1)} />}
           {currPage < totalPages
-            && <Button
+            && <StyledButton
               icon="chevron-right"
               onClick={() => changePage(currPage + 1)} />}
           {currPage < totalPages - 1
-            && <Button
+            && <StyledButton
               icon="chevron-double-right"
               onClick={() => changePage(totalPages)} />}
         </ButtonGroup>

@@ -14,6 +14,8 @@ export default styled(StyledButton)`
     font-size: ${scale.font(1.3)};
     justify-content: center;
     border-radius: ${theme.radii('large')};
+    padding: 1.15rem 0;
+    border: 0;
     ${props => declareInteractionColors(
     generateInteractionColors(props, {
       bg: props.primaryColor,
