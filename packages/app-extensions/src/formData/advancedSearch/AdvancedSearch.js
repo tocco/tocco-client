@@ -11,7 +11,7 @@ const AdvancedSearch = props =>
     <props.ListApp
       id={`advancedSearch-${uuid()}`}
       entityName={props.entityName}
-      formBase={props.formBase}
+      formName={props.formName}
       listFormDefinition={props.listFormDefinition}
       limit={5}
       showSearchForm={true}
@@ -30,7 +30,7 @@ const AdvancedSearch = props =>
 AdvancedSearch.propTypes = {
   ListApp: PropTypes.func.isRequired,
   entityName: PropTypes.string.isRequired,
-  formBase: PropTypes.string.isRequired,
+  formName: PropTypes.string.isRequired,
   listFormDefinition: PropTypes.shape({
     children: PropTypes.arrayOf(PropTypes.object)
   }),
