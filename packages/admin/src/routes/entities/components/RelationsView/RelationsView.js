@@ -87,7 +87,7 @@ const RelationsView = ({
           id={'preview' + selectedRelation.reverseRelationName + selectedRelation.targetEntity}
           key={selectedRelation.reverseRelationName + selectedRelation.targetEntity}
           entityName={selectedRelation.targetEntity}
-          formBase={selectedRelation.targetEntity}
+          formName={selectedRelation.targetEntity}
           parent={{
             key: currentViewInfo.key,
             reverseRelationName: selectedRelation.reverseRelationName,

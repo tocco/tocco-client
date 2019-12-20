@@ -28,7 +28,7 @@ const ListView = ({match, history, currentViewInfo, emitAction, persistViewInfo,
       emitAction={emitAction}
       id={`${currentViewInfo.model.name}_list`}
       entityName={currentViewInfo.model.name}
-      formBase={currentViewInfo.model.name}
+      formName={currentViewInfo.model.name}
       onRowClick={handleRowClick}
       {...(currentViewInfo.reverseRelation && {
         parent: {
