@@ -15,8 +15,8 @@
   "client.entity-list.searchFormValidationMinLength",
   "client.entity-list.create",
   "client.entity-list.fullTextPlaceholder",
-  "client.entity-list.operateOnQueriedItems",
-  "client.entity-list.operateOnSelectedItems",
+  "client.entity-list.selectionAll",
+  "client.entity-list.selectionSelection",
   "client.entity-list.showSelectedItemsOnly",
   "client.entity-list.showAllFilteredItems",
   "client.entity-list.clearSelection"
