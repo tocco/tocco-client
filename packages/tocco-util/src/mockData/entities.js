@@ -23,11 +23,6 @@ export const setupEntities = (fetchMock, entityStore, timeout) => {
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/MySessionOnly_detail$'),
-    require('./data/my_session_only_detail_form.json')
-  )
-
-  fetchMock.get(
     new RegExp('^.*?/nice2/rest/entity/User/[0-9]+/display/tooltip(\\?.*)?'),
     createToolTipResponse('User', entityStore)
   )

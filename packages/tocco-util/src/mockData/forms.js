@@ -69,6 +69,11 @@ export const setupForms = fetchMock => {
     new RegExp('^.*?/nice2/rest/forms/User_Dummy_entity/create$'),
     require('./data/dummy_entity_create_form.json')
   )
+
+  fetchMock.get(
+    new RegExp('^.*?/nice2/rest/forms/MySessionOnly/(detail|create)$'),
+    require('./data/my_session_only_detail_form.json')
+  )
 }
 
 const createDisplayExpressionResponse = () =>
