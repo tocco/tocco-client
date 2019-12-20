@@ -239,5 +239,9 @@
   "upload": {
     "id": "far, upload",
     "lib": "fa"
+  },
+  "horizontal-rule": {
+    "id": "fal, horizontal-rule",
+    "lib": "fa"
   }
 }
