@@ -47,10 +47,11 @@ export function* fetchDisplay(entityName, key) {
  * Helper to fetch display-expressions of a form for a list of entities
  *
  * @param formName {String} Name of the form
+ * @param scope {String} Requested form scope e.g. update or list
  * @param entityKeys {Array} List of entity keys
  * @param displayExpressionFields {Array} List of desired display-expression fields
  */
-export function* fetchDisplayExpressions(formName, entityKeys, displayExpressionFields) {
+export function* fetchDisplayExpressions(formName, scope, entityKeys, displayExpressionFields) {
   const options = {
     method: 'GET',
     queryParams: {
@@ -59,7 +60,7 @@ export function* fetchDisplayExpressions(formName, entityKeys, displayExpression
     }
   }
 
-  const response = yield call(requestSaga, `forms/${formName}/display-expressions`, options)
+  const response = yield call(requestSaga, `forms/${formName}_${scope}/display-expressions`, options)
 
   return response.body.displayExpressions.reduce((acc, val) => ({...acc, [val.key]: val.displayExpressions}), {})
 }
@@ -151,11 +152,13 @@ export function* fetchEntities(
 /**
  * Helper to fetch forms.
  * @param formName {String} Name of the requested form
+ * @param scope {String} Requested form scope e.g. update or list
  * @param allowNotFound {Boolean} If true and the form does not exist null is returned.
  *                                Otherwise an exception will be thrown.
  */
-export function* fetchForm(formName, allowNotFound = false) {
-  const cachedForm = cache.get('form', formName)
+export function* fetchForm(formName, scope, allowNotFound = false) {
+  const request = `${formName}/${scope}`
+  const cachedForm = cache.get('form', request)
   if (cachedForm !== undefined) {
     return cachedForm
   }
@@ -164,15 +167,15 @@ export function* fetchForm(formName, allowNotFound = false) {
     ...(allowNotFound && {acceptedStatusCodes: [404]})
   }
 
-  const response = yield call(requestSaga, `forms/${formName}`, options)
+  const response = yield call(requestSaga, `forms/${request}`, options)
 
   if (allowNotFound && response.status === 404) {
-    cache.add('form', formName, null)
+    cache.add('form', request, null)
     return null
   }
 
   const form = yield call(defaultFormTransformer, response.body)
-  cache.add('form', formName, form)
+  cache.add('form', request, form)
   return form
 }
 
