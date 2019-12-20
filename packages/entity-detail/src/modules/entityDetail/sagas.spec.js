@@ -42,7 +42,7 @@ describe('entity-detail', () => {
           test('should fetch entity and set it in store', () => {
             const modelPaths = []
             const entityId = 99
-            const formName = 'UserSearch_detail'
+            const formName = 'UserSearch'
             const entityName = 'User'
             const formDefinition = {}
             const mode = 'update'
@@ -53,7 +53,7 @@ describe('entity-detail', () => {
               call(sagas.loadEntityModel, entityName)
             )
 
-            expect(gen.next().value).to.eql(call(sagas.loadDetailFormDefinition, formName))
+            expect(gen.next().value).to.eql(call(sagas.loadDetailFormDefinition, formName, mode))
             expect(gen.next(formDefinition).value).to.eql(call(sagas.loadData))
             expect(gen.next().done).to.be.true
           })
@@ -165,12 +165,13 @@ describe('entity-detail', () => {
 
         describe('loadDetailFormDefinition saga', () => {
           test('should load formDefinition, save to store and return ', () => {
-            const formName = 'User_detail'
+            const formName = 'User'
+            const mode = 'update'
             const formDefinition = {}
             const fieldDefinitions = {}
 
-            const gen = sagas.loadDetailFormDefinition(formName)
-            expect(gen.next().value).to.eql(call(rest.fetchForm, formName))
+            const gen = sagas.loadDetailFormDefinition(formName, mode)
+            expect(gen.next().value).to.eql(call(rest.fetchForm, formName, mode))
             expect(gen.next(formDefinition).value).to.eql(put(actions.setFormDefinition(formDefinition)))
             expect(gen.next().value).to.eql(call(form.getFieldDefinitions, formDefinition))
             expect(gen.next(fieldDefinitions).value).to.eql(put(actions.setFieldDefinitions(fieldDefinitions)))
