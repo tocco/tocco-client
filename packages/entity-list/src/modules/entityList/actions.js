@@ -5,6 +5,7 @@ export const SET_ENTITY_NAME = 'entityList/SET_ENTITY_NAME'
 export const SET_ENTITY_MODEL = 'entityList/SET_ENTITY_MODEL'
 export const SET_PARENT = 'entityList/SET_PARENT'
 export const SET_SEARCH_FORM_POSITION = 'entityList/SET_SEARCH_FORM_POSITION'
+export const SET_FORM_NAME = 'entityList/SET_FORM_NAME'
 
 export const setInitialized = (initialized = true) => ({
   type: SET_INITIALIZED,
@@ -49,5 +50,12 @@ export const setSearchFormPosition = searchFormPosition => ({
   type: SET_SEARCH_FORM_POSITION,
   payload: {
     searchFormPosition
+  }
+})
+
+export const setFormName = formName => ({
+  type: SET_FORM_NAME,
+  payload: {
+    formName
   }
 })

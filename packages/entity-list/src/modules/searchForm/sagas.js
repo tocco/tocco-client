@@ -32,7 +32,7 @@ export default function* sagas() {
 }
 
 export function* initialize() {
-  const {searchFormName, initialized} = yield select(searchFormSelector)
+  const {initialized} = yield select(searchFormSelector)
   const {searchFormType, entityName} = yield select(entityListSelector)
   const searchFormVisible = searchFormType !== searchFormTypes.NONE
 
@@ -41,7 +41,7 @@ export function* initialize() {
   }
 
   if (!initialized) {
-    const formDefinition = searchFormVisible ? yield call(loadSearchForm, searchFormName) : null
+    const formDefinition = searchFormVisible ? yield call(loadSearchForm) : null
     yield call(setInitialFormValues, searchFormVisible, formDefinition)
     yield put(actions.setInitialized())
   }
@@ -118,12 +118,12 @@ export function* loadSearchFilter(entityName) {
   ))
 }
 
-export function* loadSearchForm(searchFormName) {
-  const {searchFormType} = yield select(entityListSelector)
+export function* loadSearchForm() {
+  const {searchFormType, formName} = yield select(entityListSelector)
   if (searchFormType === searchFormTypes.SIMPLE) {
     return null
   }
-  let formDefinition = yield call(rest.fetchForm, searchFormName, true)
+  let formDefinition = yield call(rest.fetchForm, formName, 'search', true)
   if (formDefinition) {
     const {parent} = yield select(inputSelector)
     if (parent && parent.reverseRelationName) {

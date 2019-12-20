@@ -13,7 +13,7 @@ import {getSearchFormValues} from '../searchForm/sagas'
 
 const generateState = (entityStore = {}, page) => ({
   initialized: false,
-  formBase: '',
+  formName: '',
   sorting: null,
   limit: '',
   entityStore,
@@ -48,7 +48,7 @@ describe('entity-list', () => {
         describe('initialize saga', () => {
           test('should initialize the list', () => {
             const entityName = 'Test_entity'
-            const formBase = 'Base_form'
+            const formName = 'Base_form'
             const formDefinition = null
             const entityModel = {}
             const initialized = false
@@ -56,12 +56,11 @@ describe('entity-list', () => {
             const gen = sagas.initialize()
             expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
             expect(gen.next().value).to.eql(select(sagas.entityListSelector))
-            expect(gen.next({entityName}).value).to.eql(select(sagas.inputSelector))
-            expect(gen.next({formBase}).value).to.eql(select(sagas.listSelector))
+            expect(gen.next({entityName, formName}).value).to.eql(select(sagas.listSelector))
             const nextValue = gen.next({formDefinition, entityModel, initialized}).value
             expect(nextValue).to.eql(all([
               call(sagas.loadEntityModel, entityName, entityModel),
-              call(sagas.loadFormDefinition, formDefinition, formBase)
+              call(sagas.loadFormDefinition, formDefinition, formName)
             ]))
 
             expect(gen.next().value).to.eql(call(sagas.loadData, 1))
@@ -73,7 +72,7 @@ describe('entity-list', () => {
 
           test('should refresh the current page if already initialized', () => {
             const entityName = 'Test_entity'
-            const formBase = 'Base_form'
+            const formName = 'form2'
             const columnDefinition = []
             const entityModel = {}
             const initialized = true
@@ -81,8 +80,7 @@ describe('entity-list', () => {
             const gen = sagas.initialize()
             expect(gen.next().value).to.eql(put(actions.setInProgress(true)))
             expect(gen.next().value).to.eql(select(sagas.entityListSelector))
-            expect(gen.next({entityName}).value).to.eql(select(sagas.inputSelector))
-            expect(gen.next({formBase}).value).to.eql(select(sagas.listSelector))
+            expect(gen.next({entityName, formName}).value).to.eql(select(sagas.listSelector))
             expect(gen.next({columnDefinition, entityModel, initialized}).value).to.eql(call(sagas.loadData))
             expect(gen.next().value).to.eql(call(sagas.queryChanged))
             expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
@@ -123,18 +121,17 @@ describe('entity-list', () => {
         describe('fetchEntitiesAndAddToStore saga', () => {
           test('should not add entities to store if already in it', () => {
             const entityName = 'User'
-            const formBase = 'UserForm'
+            const formName = 'User'
             const entityStore = {1: {}}
 
             const gen = sagas.fetchEntitiesAndAddToStore(1)
-            expect(gen.next().value).to.eql(select(sagas.inputSelector))
-            expect(gen.next({entityName, formBase}).value).to.eql(select(sagas.listSelector))
+            expect(gen.next().value).to.eql(select(sagas.entityListSelector))
+            expect(gen.next({entityName, formName}).value).to.eql(select(sagas.listSelector))
             expect(gen.next({entityStore}).done).to.be.true
           })
 
           test('should add entities to store', () => {
             const listViewState = generateState({}, 1)
-            const input = {formBase: 'Base_form', entityName: 'User', searchFilters: []}
             const entities = []
             const fields = ['firstname', 'lastname']
 
@@ -142,7 +139,7 @@ describe('entity-list', () => {
 
             return expectSaga(sagas.fetchEntitiesAndAddToStore, page)
               .provide([
-                [select(sagas.inputSelector), input],
+                [select(sagas.entityListSelector), {formName: 'UserTest', entityName: 'User'}],
                 [select(sagas.listSelector), listViewState],
                 [matchers.call.fn(getFields), fields],
                 [matchers.call.fn(rest.fetchEntities), entities],
@@ -311,7 +308,7 @@ describe('entity-list', () => {
         describe('loadTableDefinition saga', () => {
           test('should load Columndefinition if not loaded', () => {
             const formDefinition = null
-            const formBase = 'UserSearch'
+            const formName = 'UserSearch'
             const loadedFormDefinition = {
               children: []
             }
@@ -319,8 +316,8 @@ describe('entity-list', () => {
             const selectable = true
             const endpoint = null
 
-            const gen = sagas.loadFormDefinition(formDefinition, formBase)
-            expect(gen.next().value).to.eql(call(rest.fetchForm, `${formBase}_list`))
+            const gen = sagas.loadFormDefinition(formDefinition, formName)
+            expect(gen.next().value).to.eql(call(rest.fetchForm, formName, 'list'))
             expect(gen.next(loadedFormDefinition).value).to.eql(put(actions.setFormDefinition(loadedFormDefinition)))
             expect(gen.next().value).to.eql(call(getSorting, loadedFormDefinition))
             expect(gen.next(sorting).value).to.eql(put(actions.setSorting(sorting)))
@@ -333,8 +330,8 @@ describe('entity-list', () => {
 
           test('should not load Columndefinition if already loaded', () => {
             const columnDefinition = [{someContent: true}]
-            const formBase = 'UserSearch'
-            const gen = sagas.loadFormDefinition(columnDefinition, formBase)
+            const formName = 'UserSearch'
+            const gen = sagas.loadFormDefinition(columnDefinition, formName)
             expect(gen.next().value).to.eql(call(getSorting, columnDefinition))
           })
         })
@@ -526,7 +523,7 @@ describe('entity-list', () => {
 
         describe('loadDisplayExpressions saga', () => {
           test('should call rest helper with right params and call action to set lazy data', () => {
-            const formName = 'User_list'
+            const formName = 'User'
             const paths = ['display1', 'display2']
             const entities = [{__key: '23'}, {__key: '24'}]
 
@@ -536,7 +533,7 @@ describe('entity-list', () => {
               .provide([
                 [matchers.call.fn(rest.fetchDisplayExpressions), fakeResult]
               ])
-              .call(rest.fetchDisplayExpressions, formName, ['23', '24'], paths)
+              .call(rest.fetchDisplayExpressions, formName, 'list', ['23', '24'], paths)
               .put(actions.setLazyData('displayExpressions', formName, fakeResult))
               .run()
           })

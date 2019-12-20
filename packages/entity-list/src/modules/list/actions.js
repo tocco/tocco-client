@@ -17,7 +17,6 @@ export const REFRESH = 'list/REFRESH'
 export const SET_SHOW_SEARCH_FORM = 'list/SET_SEARCH_FORM'
 export const SET_SEARCH_FILTERS = 'list/SET_SEARCH_FILTERS'
 export const SET_SIMPLE_SEARCH_FIELDS = 'list/SET_SIMPLE_SEARCH_FIELDS'
-export const SET_LIST_FORM_NAME = 'list/SET_LIST_FORM_NAME'
 export const ON_ROW_CLICK = 'list/ON_ROW_CLICK'
 export const NAVIGATE_TO_CREATE = 'entityList/NAVIGATE_TO_CREATE'
 export const SET_FORM_SELECTABLE = 'list/SET_FORM_SELECTABLE'
@@ -142,12 +141,6 @@ export const setSearchFilters = searchFilters => ({
   }
 })
 
-export const setListFormName = listFormName => ({
-  type: SET_LIST_FORM_NAME,
-  payload: {
-    listFormName
-  }
-})
 export const onRowClick = id => ({
   type: ON_ROW_CLICK,
   payload: {

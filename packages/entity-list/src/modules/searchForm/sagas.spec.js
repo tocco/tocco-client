@@ -34,7 +34,6 @@ describe('entity-list', () => {
         describe('initializeSearchForm saga', () => {
           test('should load form, initialvalues and set initialized status', () => {
             const formDefinition = []
-            const searchFormName = 'SearchForm'
             const entityName = 'User'
             const searchFormType = 'admin'
             const initialized = false
@@ -42,9 +41,9 @@ describe('entity-list', () => {
             const gen = sagas.initialize(actions.initialize(showSearchForm))
 
             expect(gen.next().value).to.eql(select(sagas.searchFormSelector))
-            expect(gen.next({searchFormName, initialized}).value).to.eql(select(sagas.entityListSelector))
+            expect(gen.next({initialized}).value).to.eql(select(sagas.entityListSelector))
             expect(gen.next({entityName, searchFormType}).value).to.eql(call(sagas.loadSearchFilter, entityName))
-            expect(gen.next().value).to.eql(call(sagas.loadSearchForm, searchFormName))
+            expect(gen.next().value).to.eql(call(sagas.loadSearchForm))
             expect(gen.next(
               formDefinition).value).to.eql(call(sagas.setInitialFormValues, showSearchForm, formDefinition)
             )

@@ -1,18 +1,17 @@
 import {
   setSearchFormType,
+  setFormName,
   setEntityName,
   setParent,
   setSearchFormPosition
 } from './modules/entityList/actions'
 import {
-  setSearchFormName,
   setDisableSimpleSearch,
   setSimpleSearchFields
 } from './modules/searchForm/actions'
 import {
   setLimit,
   setSearchFilters,
-  setListFormName,
   setFormDefinition as setListFormDefinition,
   setShowLink
 } from './modules/list/actions'
@@ -36,14 +35,11 @@ const actionSettings = [
     name: 'entityName',
     action: setEntityName,
     argsFactory: input => [input.entityName]
-  }, {
-    name: 'formBase',
-    action: setListFormName,
-    argsFactory: input => [`${input.formBase}_list`]
-  }, {
-    name: 'formBase',
-    action: setSearchFormName,
-    argsFactory: input => [`${input.formBase}_search`]
+  },
+  {
+    name: 'formName',
+    action: setFormName,
+    argsFactory: input => [input.formName]
   },
   {
     name: 'limit',

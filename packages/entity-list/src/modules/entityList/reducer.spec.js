@@ -5,6 +5,7 @@ import searchFormTypes from '../../util/searchFormTypes'
 const INITIAL_STATE = {
   entityModel: {},
   entityName: '',
+  formName: '',
   initialized: false,
   searchFormType: searchFormTypes.BASIC,
   searchFormPosition: 'top',

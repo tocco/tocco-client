@@ -3,7 +3,6 @@ import * as actions from './actions'
 
 const EXPECTED_INITIAL_STATE = {
   initialized: false,
-  searchFormName: '',
   formDefinition: {},
   showExtendedSearchForm: false,
   simpleSearchFields: ['txtFulltext'],
