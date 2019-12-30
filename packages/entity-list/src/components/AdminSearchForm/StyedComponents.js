@@ -17,6 +17,7 @@ export const Box = styled.div`
 `
 
 export const StyledGutter = styled.div`
+   background-color: ${theme.color('paper')};
    &:hover {
     cursor:row-resize;
    }
@@ -25,5 +26,5 @@ export const StyledGutter = styled.div`
    align-items: center;
    color: ${theme.color('text')};
    font-size: 25px;
-   border-top: 3px solid #EDF1F5;
+   border-top: 3px solid ${theme.color('backgroundBody')};
 `

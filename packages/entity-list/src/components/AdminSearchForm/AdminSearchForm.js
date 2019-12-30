@@ -9,7 +9,7 @@ import SearchFilterList from '../SearchFilterList'
 
 const getGutter = () => {
   const gutterEl = document.createElement('div')
-  gutterEl.style.cssText = 'padding-bottom:.5rem;background:#ffffff;'
+  gutterEl.style.cssText = 'padding-bottom:.5rem'
   ReactDOM.render(<StyledGutter>
     <Icon icon="horizontal-rule"/>
   </StyledGutter>, gutterEl)
@@ -20,10 +20,11 @@ const AdminSearchForm = () => {
   return <AdminSearchGrid>
     <Split
       direction="vertical"
-      sizes={[25, 73]}
-      minSize={[27, 100]}
+      sizes={[28, 73]}
+      minSize={[28, 100]}
       gutterSize={15}
       gutter={getGutter}
+      dragInterval={28}
     >
       <Box>
         <SearchFilterList/>
