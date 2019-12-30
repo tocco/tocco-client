@@ -1,9 +1,9 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
-import {Icon} from 'tocco-ui'
-import Split from 'react-split'
+import {Icon, Button} from 'tocco-ui'
 
-import {AdminSearchGrid, Box, StyledGutter} from './StyedComponents'
+import {StyledSplit, AdminSearchGrid, Box, StyledGutter, StyledHeader} from './StyedComponents'
 import BasicSearchFormContainer from '../../containers/BasicSearchFormContainer'
 import SearchFilterList from '../SearchFilterList'
 
@@ -16,9 +16,16 @@ const getGutter = () => {
   return gutterEl
 }
 
-const AdminSearchForm = () => {
+const AdminSearchForm = ({resetSearch}) => {
   return <AdminSearchGrid>
-    <Split
+    <StyledHeader>
+      <Button
+        data-cy="reset-button"
+        icon="times"
+        onClick={resetSearch}
+      />
+    </StyledHeader>
+    <StyledSplit
       direction="vertical"
       sizes={[28, 73]}
       minSize={[28, 100]}
@@ -32,8 +39,12 @@ const AdminSearchForm = () => {
       <Box>
         <BasicSearchFormContainer disableSimpleSearch={true}/>
       </Box>
-    </Split>
+    </StyledSplit>
   </AdminSearchGrid>
+}
+
+AdminSearchForm.propTypes = {
+  resetSearch: PropTypes.func.isRequired
 }
 
 export default AdminSearchForm

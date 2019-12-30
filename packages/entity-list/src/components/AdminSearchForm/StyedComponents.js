@@ -1,9 +1,20 @@
 import styled from 'styled-components'
 import {StyledScrollbar, theme} from 'tocco-ui'
+import Split from 'react-split'
+
+export const StyledSplit = styled(Split)``
+
+export const StyledHeader = styled.div`
+  background-color: ${theme.color('paper')};
+  margin-bottom: 5px;
+  display:flex;
+  justify-content: flex-end;
+`
 
 export const AdminSearchGrid = styled.div`
    height: 100%;
-  > div {
+ 
+  ${StyledSplit} {
     height: 100%;
   }
   overflow: hidden;
