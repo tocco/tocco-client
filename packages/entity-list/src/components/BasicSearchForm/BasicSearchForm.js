@@ -81,18 +81,6 @@ class BasicSearchForm extends React.Component {
             mode="search"
           />
           <StyledSearchFormButtonGroup look="raised">
-            <Button
-              ink="primary"
-              label={this.msg('client.entity-list.search')}
-              look="raised"
-              type="submit"
-            />
-            <Button
-              data-cy="search-form_reset-button"
-              label={this.msg('client.entity-list.reset')}
-              look="raised"
-              onClick={this.handleResetClick}
-            />
             {!props.disableSimpleSearch
             && <React.Fragment>
               <StyledSearchFormButtonGroupGap/>

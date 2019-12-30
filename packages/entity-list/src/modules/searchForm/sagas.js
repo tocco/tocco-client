@@ -2,7 +2,8 @@ import {form, rest} from 'tocco-app-extensions'
 import _reduce from 'lodash/reduce'
 import {
   actions as formActions,
-  getFormValues
+  getFormValues,
+  isDirty
 } from 'redux-form'
 import * as formActionTypes from 'redux-form/es/actionTypes'
 import {call, put, fork, select, takeLatest, take, all} from 'redux-saga/effects'
@@ -19,6 +20,7 @@ export const searchFormSelector = state => state.searchForm
 export const entityListSelector = state => state.entityList
 export const listFromDefinitionSelector = state => state.list.formDefinition
 export const searchValuesSelector = getFormValues('searchForm')
+export const isDirtySelector = isDirty('searchForm')
 
 const FORM_ID = 'searchForm'
 
@@ -148,9 +150,23 @@ export function* getEntityModel() {
   return entityList.entityModel
 }
 
+export function* resetSearchFilters() {
+  const {searchFilters} = yield select(searchFormSelector)
+
+  yield put(actions.setSearchFilters(searchFilters.map(searchFilter =>
+    ({...searchFilter, active: searchFilter.defaultFilter})
+  )))
+}
+
 export function* resetSearch() {
-  yield put(formActions.reset('searchForm'))
-  yield call(submitSearchFrom)
+  yield call(resetSearchFilters)
+
+  const isDirty = yield select(isDirtySelector)
+  if (isDirty) {
+    yield put(formActions.reset('searchForm'))
+  } else {
+    yield call(submitSearchFrom)
+  }
 }
 
 export function* getSearchFormValues() {

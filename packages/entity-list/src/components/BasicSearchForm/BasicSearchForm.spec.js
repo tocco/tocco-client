@@ -97,7 +97,7 @@ describe('entity-list', () => {
         )
 
         expect(wrapper.find(StatedValue)).to.have.length(3)
-        expect(wrapper.find(Button)).to.have.length(3)
+        expect(wrapper.find(Button)).to.have.length(1)
       })
 
       test('should render only the fulltext field', () => {
@@ -141,7 +141,7 @@ describe('entity-list', () => {
         )
 
         expect(wrapper.find(StatedValue)).to.have.length(1)
-        expect(wrapper.find(Button)).to.have.length(3)
+        expect(wrapper.find(Button)).to.have.length(1)
       })
 
       test('should render two fields', () => {
@@ -187,7 +187,7 @@ describe('entity-list', () => {
         )
 
         expect(wrapper.find(StatedValue)).to.have.length(2)
-        expect(wrapper.find(Button)).to.have.length(4)
+        expect(wrapper.find(Button)).to.have.length(2)
       })
 
       test('should not show hidden value', () => {
