@@ -137,8 +137,6 @@ describe('Entity Browser', () => {
       cy.contains('Daten werden geladen...', {timeout: LONG_TIMEOUT})
       cy.get('[title="Vorname"]')
         .should('be.visible')
-      cy.get('[type="submit"]')
-        .should('be.visible')
       cy.contains('Alle')
       cy.get('[data-cy=list-cell]')
         .should('have.length.above', 1)
@@ -157,15 +155,6 @@ describe('Entity Browser', () => {
         .click()
       cy.get('[data-cy=form-field]')
         .should('have.length.above', 1)
-    })
-
-    it('should reset list view through search button reset', () => {
-      cy.get('input#input-searchForm-txtFulltext')
-        .type('Test Person')
-      cy.get('[data-cy=search-form_reset-button]')
-        .click({force: true})
-      cy.get('[data-cy=form-field]').children().children()
-        .should('be.empty')
     })
 
     it('should find created user', () => {
