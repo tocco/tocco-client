@@ -3,6 +3,8 @@ language: node_js
 node_js:
   - "12"
 dist: trusty
+addons:
+  chrome: stable
 cache:
   directories:
     - $HOME/.cache
@@ -32,7 +34,7 @@ script:
   - jest --maxWorkers=4 --silent --verbose false
   - BACKEND=https://master.tocco.ch yarn build-storybook
   - bash deployment/deploy_storybook.sh
-  - if [[ $TRAVIS_BRANCH == "master" ]]; then yarn cypress run --env PR_BRANCH=$TRAVIS_PULL_REQUEST_BRANCH; fi
+  - if [[ $TRAVIS_BRANCH == "master" ]]; then yarn cypress run --headless --browser chrome --env PR_BRANCH=$TRAVIS_PULL_REQUEST_BRANCH; fi
   - if [[ $TRAVIS_EVENT_TYPE == "cron" ]]; then yarn cypress:master:record --parallel; fi
 
 
