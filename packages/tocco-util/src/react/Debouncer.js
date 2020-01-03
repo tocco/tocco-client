@@ -17,6 +17,7 @@ const Debouncer = (Component, delay = 300, func = 'onChange') => {
     useEffect(() => {
       if (internalValue !== props.value) {
         setInternalValue(props.value)
+        oldValue.current = props.value
       }
     }, [props.value])
 
