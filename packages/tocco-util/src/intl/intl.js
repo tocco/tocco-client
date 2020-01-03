@@ -2,6 +2,15 @@ import {updateIntl} from 'react-intl-redux'
 
 import cache from '../cache'
 
+const supportedLanguage = ['de', 'fr', 'en', 'it']
+const FALLBACK_LANGUAGE = 'en'
+
+const getBrowserLocale = () => {
+  const browserLocale = window.navigator.userLanguage || window.navigator.language
+  const lang = browserLocale.indexOf('-') > 0 ? browserLocale.split('-')[0] : browserLocale
+  return supportedLanguage.includes(lang) ? lang : FALLBACK_LANGUAGE
+}
+
 export const initIntl = async(store, modules, forcedLocale) => {
   let locale = forcedLocale
   if (!locale) {
@@ -36,7 +45,10 @@ export const getUserLocale = async() => {
 
   const response = await fetch(`${__BACKEND_URL__}/nice2/username`, fetchOptions)
   const userInfo = await response.json()
-  const {locale} = userInfo
+  let {locale, username} = userInfo
+  if (username === 'anonymous') {
+    locale = getBrowserLocale()
+  }
   cache.add('user', 'locale', locale)
   return locale
 }

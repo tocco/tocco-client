@@ -1,4 +1,4 @@
-import {consoleLogger} from 'tocco-util'
+import {consoleLogger, cache} from 'tocco-util'
 import {externalEvents} from 'tocco-app-extensions'
 import {takeLatest, fork, put, select, call, all} from 'redux-saga/effects'
 
@@ -78,6 +78,7 @@ export function* handleFailedResponse() {
 export function* handleSuccessfulLogin(response) {
   const timeout = response.timeout || DEFAULT_TIMEOUT
   yield put(externalEvents.fireExternalEvent('loginSuccess', {timeout}))
+  yield call(cache.clear)
   yield put(setPassword(''))
 }
 

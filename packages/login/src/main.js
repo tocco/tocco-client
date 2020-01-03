@@ -121,7 +121,7 @@ class LoginApp extends React.Component {
     super(props)
     this.input = {
       showTitle: props.showTitle,
-      locale: props.locale || 'de-CH',
+      locale: props.locale,
       passwordRequest: props.passwordRequest,
       username: props.username || ''
     }

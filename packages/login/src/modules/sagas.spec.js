@@ -1,5 +1,6 @@
 import {externalEvents} from 'tocco-app-extensions'
 import {takeLatest, put, select, call, fork, all} from 'redux-saga/effects'
+import {cache} from 'tocco-util'
 
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
@@ -106,6 +107,7 @@ describe('login', () => {
         test('should call external event with timeout of reponse body', () => {
           const gen = sagas.handleSuccessfulLogin({timeout: 33})
           expect(gen.next().value).to.eql(put(externalEvents.fireExternalEvent('loginSuccess', {timeout: 33})))
+          expect(gen.next().value).to.deep.equal(call(cache.clear))
           expect(gen.next().value).to.deep.equal(put(setPassword('')))
           expect(gen.next().done).to.deep.equal(true)
         })
@@ -115,6 +117,7 @@ describe('login', () => {
           expect(gen.next().value).to.eql(
             put(externalEvents.fireExternalEvent('loginSuccess', {timeout: sagas.DEFAULT_TIMEOUT}))
           )
+          expect(gen.next().value).to.deep.equal(call(cache.clear))
           expect(gen.next().value).to.deep.equal(put(setPassword('')))
           expect(gen.next().done).to.deep.equal(true)
         })
