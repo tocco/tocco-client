@@ -173,24 +173,13 @@ describe('entity-list', () => {
         })
 
         describe('resetSearch saga', () => {
-          test('should reset form if form is dirty', () => (
+          test('should trigger submit to reload with default filters', () => (
             expectSaga(sagas.resetSearch)
               .provide([
                 [matchers.call.fn(sagas.resetSearchFilters), undefined],
-                [select(sagas.isDirtySelector), true]
+                [matchers.call.fn(sagas.submitSearchFrom), undefined]
               ])
               .put(formActions.reset('searchForm'))
-              .call(sagas.resetSearchFilters)
-              .run()
-          ))
-
-          test('should trigger submit if form is not dirty to reload with default filters', () => (
-            expectSaga(sagas.resetSearch)
-              .provide([
-                [matchers.call.fn(sagas.resetSearchFilters), undefined],
-                [matchers.call.fn(sagas.submitSearchFrom), undefined],
-                [select(sagas.isDirtySelector), false]
-              ])
               .call(sagas.resetSearchFilters)
               .call(sagas.submitSearchFrom)
               .run()
