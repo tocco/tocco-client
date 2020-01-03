@@ -160,13 +160,8 @@ export function* resetSearchFilters() {
 
 export function* resetSearch() {
   yield call(resetSearchFilters)
-
-  const isDirty = yield select(isDirtySelector)
-  if (isDirty) {
-    yield put(formActions.reset('searchForm'))
-  } else {
-    yield call(submitSearchFrom)
-  }
+  yield put(formActions.reset('searchForm'))
+  yield call(submitSearchFrom)
 }
 
 export function* getSearchFormValues() {
