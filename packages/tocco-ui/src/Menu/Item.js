@@ -28,7 +28,10 @@ class Item extends React.Component {
   }
 
   toggleOpenState = () => {
-    // eslint-disable-next-line
+    if (this.props.onToggle) {
+      this.props.onToggle(this.state.isOpen)
+    }
+
     if (this.props.isToggleable) {
       if (this.state.isOpen) {
         document.removeEventListener('mousedown', this.handleClickOutside, false)
@@ -83,7 +86,12 @@ Item.propTypes = {
   /**
    * Look of menu item. Default value is 'flat'. Value is always overridden by parent element.
    */
-  look: PropTypes.oneOf([design.look.FLAT, design.look.RAISED])
+  look: PropTypes.oneOf([design.look.FLAT, design.look.RAISED]),
+  /**
+   * Optional callback that is called, if menu changes state between open / close.
+   */
+  onToggle: PropTypes.func
+
 }
 
 export default Item
