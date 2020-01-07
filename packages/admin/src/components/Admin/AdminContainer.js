@@ -2,12 +2,12 @@ import {connect} from 'react-redux'
 import {injectIntl} from 'react-intl'
 import {notifier, viewPersistor} from 'tocco-app-extensions'
 
-import {doLogout} from '../../modules/session/actions'
+import {loadPrincipal} from '../../modules/session/actions'
 import {initializeNavigation, setMenuOpen} from '../../modules/navigation/actions'
 import Admin from './Admin'
 
 const mapActionCreators = {
-  doLogout,
+  loadPrincipal,
   confirm: notifier.confirm,
   initializeNavigation,
   setMenuOpen,
