@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {Router, Route, Redirect, Switch} from 'react-router-dom'
 import {createBrowserHistory} from 'history'
-import {Icon, Button, LoadMask} from 'tocco-ui'
+import {Icon, LoadMask} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
 
 import Navigation from '../Navigation'
@@ -10,16 +10,25 @@ import DashboardRoute from '../../routes/dashboard'
 import EntitiesRoute from '../../routes/entities'
 import Settings from '../../routes/settings'
 import Actions from '../../routes/actions'
+import Header from '../Header'
 import {
   StyledWrapper,
-  StyledHeader,
-  StyledConfig,
   StyledContent,
   StyledMenu,
   burgerMenuStyles
 } from './StyledComponents'
 
-const Admin = ({initializeNavigation, setMenuOpen, menuOpen, baseRoute, confirm, doLogout, clearPersistedViews}) => {
+const Admin = ({
+  initializeNavigation,
+  setMenuOpen,
+  menuOpen,
+  baseRoute,
+  confirm,
+  loadPrincipal,
+  clearPersistedViews
+}) => {
+  useEffect(() => { loadPrincipal() }, [])
+
   const [history, setHistory] = useState(null)
 
   useEffect(() => {
@@ -54,11 +63,7 @@ const Admin = ({initializeNavigation, setMenuOpen, menuOpen, baseRoute, confirm,
     <LoadMask required={[history !== null]}>
       <Router history={history || {}}>
         <StyledWrapper id="outer-container">
-          <StyledHeader>
-            <StyledConfig>
-              <div><Button look="raised" icon="sign-out-alt" label="Logout" onClick={doLogout}/></div>
-            </StyledConfig>
-          </StyledHeader>
+          <Header/>
           <StyledMenu
             isOpen={menuOpen}
             onStateChange={isMenuOpen}
@@ -93,7 +98,7 @@ Admin.propTypes = {
   baseRoute: PropTypes.string,
   loggedIn: PropTypes.bool,
   menuOpen: PropTypes.bool,
-  doLogout: PropTypes.func.isRequired,
+  loadPrincipal: PropTypes.func.isRequired,
   clearPersistedViews: PropTypes.func.isRequired,
   setMenuOpen: PropTypes.func.isRequired,
   confirm: PropTypes.func.isRequired,

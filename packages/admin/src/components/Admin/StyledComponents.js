@@ -2,8 +2,6 @@ import styled from 'styled-components'
 import SlideMenu from 'react-burger-menu/lib/menus/slide'
 import {theme} from 'tocco-ui'
 
-import ToccoLogo from '../../assets/tocco-circle.svg'
-
 export const StyledWrapper = styled.div`
   display: grid;
   grid-template-rows: auto 1fr;
@@ -24,25 +22,8 @@ export const StyledContent = styled.div`
   background-color: ${theme.color('backgroundBody')};
   overflow: hidden;
 `
-
-export const StyledHeader = styled.div`
-  grid-area: header;
-  display: flex;
-  height: 40px;
-  background: #ffffff url(${ToccoLogo}) no-repeat fixed -300px -900px;
-  padding-right: 10px;
-  padding-left: 40px;
-`
-
 export const StyledMenu = styled(SlideMenu)`
   grid-area: menu;
-`
-
-export const StyledConfig = styled.div`
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
-  padding-top: 7px;
 `
 
 export const burgerMenuStyles = {
