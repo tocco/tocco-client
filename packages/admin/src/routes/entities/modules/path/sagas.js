@@ -136,7 +136,7 @@ export function* loadCurrentViewInfo({payload: {location}}) {
               currentViewInfo.parentModel = currentViewInfo.model
               currentViewInfo.model = yield call(getModel, targetEntity)
 
-              yield call(addEntityToBreadcrumbs, breadcrumbPath, currentViewInfo.model.name)
+              yield call(addEntityToBreadcrumbs, breadcrumbPath, currentViewInfo.model.label)
             } else {
               const key = relationStringPart
               currentViewInfo.key = key
