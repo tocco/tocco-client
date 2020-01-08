@@ -60,6 +60,10 @@ storiesOf('Tocco-UI | FormattedValue', module)
     () => <FormattedValue type="string" value={text('String', 'Simple string')}/>
   )
   .add(
+    'Text',
+    () => <FormattedValue type="text" value={text('text', 'Line1 \nLine2')} breakWords={boolean('breakWords', true)}/>
+  )
+  .add(
     'Uuid',
     () => <FormattedValue type="uuid" value={text('Uuid', '814e1266-8123-40ce-9873-8a8c0aa59be7')}/>
   )
