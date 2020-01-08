@@ -88,10 +88,9 @@ Item.propTypes = {
    */
   look: PropTypes.oneOf([design.look.FLAT, design.look.RAISED]),
   /**
-   * Optional callback that is called, if menu changes state between open / close.
+   * Optional callback when menu changes state between open / close.
    */
   onToggle: PropTypes.func
-
 }
 
 export default Item
