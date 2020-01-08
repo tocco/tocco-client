@@ -1,3 +1,13 @@
+0.1.20
+- Style list view
+- Style breadcrumbs
+- Fetch form with scope (update/create)
+- Rearrange search form buttons
+- Load language from browser
+- Translate breadcrumbs entity name
+- Add User and Businessunit menu
+- Disable word-break in table
+
 0.1.19
 - Fix upload
 
