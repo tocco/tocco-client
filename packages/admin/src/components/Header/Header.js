@@ -24,7 +24,7 @@ const Header = ({username, currentBusinessUnit, businessUnits, loadBusinessUnits
                 <Menu.Item key={`buMenu-${bU.id}` }>
                   <Button
                     disabled={bU.id === currentBusinessUnit.id}
-                    label={bU.display}
+                    label={bU.label}
                     onClick={() => { changeBusinessUnit(bU.id) }}/>
                 </Menu.Item>
               ))

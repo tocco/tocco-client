@@ -93,7 +93,7 @@ export function* loadPrincipal() {
 const businessUnitsTransformer = result => result.data.map(businessUnit => (
   {
     id: _get(businessUnit, 'paths.unique_id.value'),
-    display: _get(businessUnit, 'paths.label.value')
+    label: _get(businessUnit, 'paths.label.value')
   }
 ))
 
