@@ -19,9 +19,9 @@ import TimeFormatter from './typeFormatters/TimeFormatter'
 import UrlFormatter from './typeFormatters/UrlFormatter'
 import CoordinateFormatter from './typeFormatters/CoordinateFormatter'
 
-export default (type, value, options) => {
+export default (type, value, options, breakWords = true) => {
   if (map[type]) {
-    return React.createElement(map[type], {value, options})
+    return React.createElement(map[type], {value, options, breakWords})
   }
 
   // eslint-disable-next-line no-console

@@ -6,7 +6,7 @@ import Typography from '../../Typography'
 
 const NumberFormatter = props => {
   return (
-    <Typography.Span>
+    <Typography.Span breakWords={props.breakWords}>
       <FormattedNumber
         value={props.value}
         style="decimal"
@@ -17,7 +17,8 @@ const NumberFormatter = props => {
 }
 
 NumberFormatter.propTypes = {
-  value: PropTypes.number
+  value: PropTypes.number,
+  breakWords: PropTypes.bool
 }
 
 export default NumberFormatter

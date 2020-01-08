@@ -4,11 +4,14 @@ import React from 'react'
 import Typography from '../../Typography'
 
 const StringFormatter = props => (
-  <Typography.Span>{props.value.toString()}</Typography.Span>
+  <Typography.Span breakWords={props.breakWords}>
+    {props.value.toString()}
+  </Typography.Span>
 )
 
 StringFormatter.propTypes = {
-  value: PropTypes.any
+  value: PropTypes.any,
+  breakWords: PropTypes.bool
 }
 
 export default StringFormatter

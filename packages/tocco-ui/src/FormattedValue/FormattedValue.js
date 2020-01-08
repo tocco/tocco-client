@@ -13,7 +13,7 @@ const FormattedValue = props => {
     return <span/>
   }
 
-  return provider(props.type, props.value, props.options)
+  return provider(props.type, props.value, props.options, props.breakWords)
 }
 
 FormattedValue.propTypes = {
@@ -31,7 +31,11 @@ FormattedValue.propTypes = {
   /**
    * Type specific additional informations
    */
-  options: PropTypes.object
+  options: PropTypes.object,
+  /**
+   * If set to false (default is true), the value can be forced to be a one-liner.
+   */
+  breakWords: PropTypes.bool
 }
 
 export default FormattedValue

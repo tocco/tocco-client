@@ -5,7 +5,7 @@ import {FormattedNumber} from 'react-intl'
 import Typography from '../../Typography'
 
 const MoneyFormatter = props => (
-  <Typography.Span>
+  <Typography.Span breakWords={props.breakWords}>
     <FormattedNumber
       value={props.value}
       style="decimal"
@@ -15,7 +15,8 @@ const MoneyFormatter = props => (
 )
 
 MoneyFormatter.propTypes = {
-  value: PropTypes.number
+  value: PropTypes.number,
+  breakWords: PropTypes.bool
 }
 
 export default MoneyFormatter

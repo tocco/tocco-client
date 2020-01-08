@@ -2,22 +2,25 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import Typography from '../../Typography'
-import SingleSelectFormatter from './SingleSelectFormatter'
 
-const MultiSeparator = () => <Typography.Span>, </Typography.Span>
+export const MultiSeparator = () => ', '
 
-const MultiSelectFormatter = ({value, options}) =>
-  value && value.length > 0
-    ? value
-      .map((v, idx) => <SingleSelectFormatter key={idx} value={v} options={options}/>)
-      .reduce((prev, curr, idx) => [prev, <MultiSeparator key={'sep' + idx}/>, curr])
-    : null
+const MultiSelectFormatter = ({value, options, breakWords}) => {
+  return <Typography.Span breakWords={breakWords}>
+    {value && value.length > 0
+      ? value
+        .map(v => options && options.linkFactory ? options.linkFactory(v.key, v.display) : v.display)
+        .reduce((prev, curr, idx) => [prev, <MultiSeparator key={'sep' + idx}/>, curr])
+      : null}
+  </Typography.Span>
+}
 
 MultiSelectFormatter.propTypes = {
   value: PropTypes.array,
   options: PropTypes.shape({
     linkFactory: PropTypes.func
-  })
+  }),
+  breakWords: PropTypes.bool
 }
 
 export default MultiSelectFormatter

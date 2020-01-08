@@ -4,10 +4,9 @@ import {js} from 'tocco-util'
 
 import Typography from '../../Typography'
 
-const SingleSelectFormatter = ({value, options}) => {
+const SingleSelectFormatter = ({value, options, breakWords}) => {
   value = js.getOrFirst(value)
-
-  const display = <Typography.Span>{value.display}</Typography.Span>
+  const display = <Typography.Span breakWords={breakWords}>{value.display}</Typography.Span>
 
   return options && options.linkFactory ? options.linkFactory(value.key, display) : display
 }
@@ -24,7 +23,8 @@ SingleSelectFormatter.propTypes = {
   ]),
   options: PropTypes.shape({
     linkFactory: PropTypes.func
-  })
+  }),
+  breakWords: PropTypes.bool
 }
 
 export default SingleSelectFormatter
