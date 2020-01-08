@@ -61,6 +61,7 @@ export default (fieldDefinition, entity, intl) => {
 const FormattedValueWrapper = ({value, type, formData, intl}) =>
   <LazyDataEnhancer value={value} type={type}>
     <FormattedValue
+      breakWords={false}
       type={type}
       options={getOptions(type, value, intl, formData)}
       value={value}
