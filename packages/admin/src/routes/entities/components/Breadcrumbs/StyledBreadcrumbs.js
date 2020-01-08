@@ -19,15 +19,21 @@ export const StyledBreadcrumbsLink = styled(StyledLink)`
   text-decoration: none;
   color: ${props => props.active && theme.color('primary')};
   
+  & * {
+    font-weight: ${theme.fontWeight('bold')};
+    text-decoration: none;
+    color: ${props => props.active && theme.color('primary')};
+  }
+  
   * {
     margin-right: .5rem;
   }
   
-  &:hover {
+  &:hover, &:hover *  {
     color: ${theme.color('secondaryLight')}
   }
   
-  &:focus, &:active {
+  &:focus, &:active, &:focus *, &:active * {
     color: ${theme.color('primary')}
   }
 `

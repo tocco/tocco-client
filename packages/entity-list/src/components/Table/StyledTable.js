@@ -47,19 +47,9 @@ const StyledTable = styled.div`
         th,
         td {
           ${declareFont({fontWeight: 700})}
-          cursor: pointer;
           padding: ${scale.space(-2)} ${scale.space(-1)};
           text-align: center;
           vertical-align: top;
-          
-          a {
-            color: ${theme.color('text')};
-            font-size: ${scale.font(2)};
-            
-            &:hover {
-              color: ${theme.color('secondaryLight')};
-            }
-          }
         }
         
         tr:hover {
