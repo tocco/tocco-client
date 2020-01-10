@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {Icon, Typography} from 'tocco-ui'
+import {js} from 'tocco-util'
 import EntityListApp from 'tocco-entity-list/src/main'
 import queryString from 'query-string'
 
@@ -45,9 +46,9 @@ const RelationsView = ({
   return (
     <div>
       <StyledRelationBox>
-        {relations.map((relation, idx) => (
+        {relations.map(relation => (
           <RelationBox
-            key={idx}
+            key={`relation-${relation.relationName}`}
             selected={selectedRelation && relation.relationName === selectedRelation.relationName}
             onClick={() => {
               selectRelation(relation)
@@ -138,4 +139,11 @@ RelationsView.propTypes = {
   persistViewInfo: PropTypes.func.isRequired
 }
 
-export default RelationsView
+const updateIgnoreProps = ['persistedViewInfo']
+
+const areEqual = (prevProps, nextProps) => {
+  const diff = Object.keys(js.difference(prevProps, nextProps)).filter(key => !updateIgnoreProps.includes(key))
+  return diff.length === 0
+}
+
+export default React.memo(RelationsView, areEqual)
