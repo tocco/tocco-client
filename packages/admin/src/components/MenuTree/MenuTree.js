@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {StyledSpan, theme} from 'tocco-ui'
+import {declareFont, theme} from 'tocco-ui'
 import styled from 'styled-components'
 
-const StyledMenuEntry = styled(StyledSpan)`
+const StyledMenuEntry = styled.div`
+  ${declareFont()}
   && {
    padding-left: ${props => props.level * 6}px;
    line-height: ${theme.lineHeight('light')};
@@ -27,11 +28,10 @@ const MenuItem = ({item, typeMapping}) => {
   }
 
   const Component = mappedType.component
-  return <div><StyledMenuEntry {...item}>
+  return <StyledMenuEntry {...item}>
     <Component item={item} {...mappedType.props}/>
-    {item.children && item.children.map((child, idx) => <MenuItem key={idx} item={child} typeMapping={typeMapping} />)}
+    {item.children && item.children.map(child => <MenuItem key={child.name} item={child} typeMapping={typeMapping} />)}
   </StyledMenuEntry>
-  </div>
 }
 
 MenuItem.propTypes = {
@@ -78,12 +78,12 @@ const MenuTree = ({items, searchFilter, typeMapping}) => {
 
   return (
     <StyledMenuEntryWrapper>
-      {items.map((item, idx) =>
+      {items.map(item => (
         <MenuItem
-          key={idx}
+          key={item.name}
           item={prepareTree(item, searchFilter, typeMapping)}
           typeMapping={typeMapping}/>
-      )}
+      ))}
     </StyledMenuEntryWrapper>
   )
 }
@@ -99,4 +99,4 @@ MenuTree.propTypes = {
   )
 }
 
-export default MenuTree
+export default React.memo(MenuTree)

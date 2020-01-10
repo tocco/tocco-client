@@ -1,4 +1,4 @@
-import React, {useRef, useState, useEffect} from 'react'
+import React, {useRef, useState, useEffect, useMemo} from 'react'
 import PropTypes from 'prop-types'
 import SearchBox from 'tocco-ui/src/SearchBox'
 
@@ -61,7 +61,7 @@ const Navigation = ({modulesMenuTree, settingsMenuTree, menuOpen, onClick, activ
   const inputEl = useRef(null)
   const [filter, setFilter] = useState('')
 
-  const map = {
+  const map = useMemo(() => ({
     'menu': {
       component: MenuMenuEntry,
       filterAttributes: []
@@ -80,10 +80,13 @@ const Navigation = ({modulesMenuTree, settingsMenuTree, menuOpen, onClick, activ
       },
       filterAttributes: ['label']
     }
-  }
+  }), [])
 
   useEffect(() => {
     if (menuOpen) {
+      if (!activeMenuTab) {
+        setActiveMenuTab(tabs.MODULES)
+      }
       inputEl.current.select()
       inputEl.current.focus()
     }

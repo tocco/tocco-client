@@ -20,7 +20,7 @@ const ACTION_HANDLERS = {
 const initialState = {
   menuOpen: false,
   entities: [],
-  activeMenuTab: 'modules'
+  activeMenuTab: ''
 }
 
 export default function reducer(state = initialState, action) {
