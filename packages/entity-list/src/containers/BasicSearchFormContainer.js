@@ -4,13 +4,11 @@ import {injectIntl} from 'react-intl'
 import BasicSearchForm from '../components/BasicSearchForm'
 import {
   submitSearchForm,
-  resetSearch,
   setShowExtendedSearchForm
 } from '../modules/searchForm/actions'
 
 const mapActionCreators = {
   submitSearchForm,
-  resetSearch,
   setShowExtendedSearchForm
 }
 
