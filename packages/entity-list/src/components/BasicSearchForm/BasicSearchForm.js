@@ -109,7 +109,6 @@ BasicSearchForm.propTypes = {
     children: PropTypes.array
   }).isRequired,
   submitSearchForm: PropTypes.func.isRequired,
-  resetSearch: PropTypes.func.isRequired,
   disableSimpleSearch: PropTypes.bool,
   simpleSearchFields: PropTypes.arrayOf(
     PropTypes.string
