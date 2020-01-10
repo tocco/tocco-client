@@ -13,20 +13,35 @@ import {
 
 const REDUX_FORM_NAME = 'searchForm'
 
-class BasicSearchForm extends React.Component {
-  handleResetClick = () => {
-    this.props.resetSearch()
+const customMapping = {'fulltext-search': formField.editableValueFactory('string')}
+
+const BasicSearchForm = ({
+  disableSimpleSearch,
+  entity,
+  entityModel,
+  form: formName,
+  formValues,
+  intl,
+  preselectedSearchFields,
+  searchFormDefinition,
+  setShowExtendedSearchForm,
+  showExtendedSearchForm,
+  simpleSearchFields,
+  submitSearchForm
+}) => {
+  if (!searchFormDefinition.children || Object.keys(entityModel).length === 0) {
+    return null
   }
 
-  handleSubmit = e => {
+  const msg = id => intl.formatMessage({id})
+
+  const handleSubmit = e => {
     e.preventDefault()
     e.stopPropagation()
-    this.props.submitSearchForm()
+    submitSearchForm()
   }
 
-  msg = id => (this.props.intl.formatMessage({id}))
-
-  isHidden = (preselectedSearchFields, name) => {
+  const isHidden = (preselectedSearchFields, name) => {
     if (!preselectedSearchFields) {
       return false
     }
@@ -34,11 +49,11 @@ class BasicSearchForm extends React.Component {
     return field && field.hidden
   }
 
-  shouldRenderField = (preselectedSearchFields,
+  const shouldRenderField = (preselectedSearchFields,
     disableSimpleSearch,
     showExtendedSearchForm,
     simpleSearchFields) => name => (
-    !this.isHidden(preselectedSearchFields, name)
+    !isHidden(preselectedSearchFields, name)
     && (
       disableSimpleSearch
       || showExtendedSearchForm
@@ -46,57 +61,48 @@ class BasicSearchForm extends React.Component {
     )
   )
 
-  toggleExtendedSearchForm = () => {
-    this.props.setShowExtendedSearchForm(!this.props.showExtendedSearchForm)
+  const toggleExtendedSearchForm = () => {
+    setShowExtendedSearchForm(!showExtendedSearchForm)
   }
 
-  customMapping = {'fulltext-search': formField.editableValueFactory('string')}
-
-  render() {
-    const props = this.props
-
-    if (!props.searchFormDefinition.children || Object.keys(props.entityModel).length === 0) {
-      return null
-    }
-    return (
-      <StyledBasicSearchForm>
-        <form onSubmit={this.handleSubmit}>
-          <form.FormBuilder
-            entity={props.entity}
-            model={props.entityModel}
-            formName={props.form}
-            formDefinition={props.searchFormDefinition}
-            formValues={props.formValues}
-            formFieldMapping={{
-              ...formField.defaultMapping,
-              ...this.customMapping
-            }}
-            readOnlyFormFieldMapping={formField.defaultMapping}
-            beforeRenderField={this.shouldRenderField(
-              this.props.preselectedSearchFields,
-              this.props.disableSimpleSearch,
-              this.props.showExtendedSearchForm,
-              this.props.simpleSearchFields)
-            }
-            mode="search"
-          />
-          <StyledSearchFormButtonGroup look="raised">
-            {!props.disableSimpleSearch
-            && <React.Fragment>
-              <StyledSearchFormButtonGroupGap/>
-              <Button
-                data-cy="extend-search-button"
-                icon={`chevron-${this.props.showExtendedSearchForm ? 'up' : 'down'}`}
-                onClick={this.toggleExtendedSearchForm}
-                title={this.msg('client.entity-list.extendedSearch')}
-              />
-            </React.Fragment>
-            }
-          </StyledSearchFormButtonGroup>
-        </form>
-      </StyledBasicSearchForm>
-    )
-  }
+  return (
+    <StyledBasicSearchForm>
+      <form onSubmit={handleSubmit}>
+        <form.FormBuilder
+          entity={entity}
+          model={entityModel}
+          formName={formName}
+          formDefinition={searchFormDefinition}
+          formValues={formValues}
+          formFieldMapping={{
+            ...formField.defaultMapping,
+            ...customMapping
+          }}
+          readOnlyFormFieldMapping={formField.defaultMapping}
+          beforeRenderField={shouldRenderField(
+            preselectedSearchFields,
+            disableSimpleSearch,
+            showExtendedSearchForm,
+            simpleSearchFields)
+          }
+          mode="search"
+        />
+        <StyledSearchFormButtonGroup look="raised">
+          {!disableSimpleSearch
+          && <React.Fragment>
+            <StyledSearchFormButtonGroupGap/>
+            <Button
+              data-cy="extend-search-button"
+              icon={`chevron-${showExtendedSearchForm ? 'up' : 'down'}`}
+              onClick={toggleExtendedSearchForm}
+              title={msg('client.entity-list.extendedSearch')}
+            />
+          </React.Fragment>
+          }
+        </StyledSearchFormButtonGroup>
+      </form>
+    </StyledBasicSearchForm>
+  )
 }
 
 BasicSearchForm.propTypes = {

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {intlShape} from 'react-intl'
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
 import {Typography, Icon} from 'tocco-ui'
+import {js} from 'tocco-util'
 
 import cellRenderer from '../../util/cellRenderer'
 import selectionStyles, {selectionStylePropType} from '../../util/selectionStyles'
@@ -169,4 +170,9 @@ Table.propTypes = {
   linkFactory: PropTypes.objectOf(PropTypes.func)
 }
 
-export default Table
+const areEqual = (prevProps, nextProps) => {
+  const diff = js.difference(prevProps, nextProps)
+  return Object.keys(diff).length === 0
+}
+
+export default React.memo(Table, areEqual)
