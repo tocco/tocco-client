@@ -12,7 +12,7 @@ const StyledDashBoard = styled.div`
   }
 `
 
-const Dashboard = props => {
+const Dashboard = () => {
   const packageJson = require('../../../../../package')
   return <StyledDashBoard>
     <div><Icon style={{fontSize: '80px'}} icon="tocco"/></div>
@@ -24,4 +24,4 @@ Dashboard.propTypes = {
   match: PropTypes.object
 }
 
-export default Dashboard
+export default React.memo(Dashboard, () => true)
