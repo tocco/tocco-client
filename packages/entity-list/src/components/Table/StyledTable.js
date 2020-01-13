@@ -15,16 +15,6 @@ const StyledTable = styled.div`
     .react-bs-table {
       margin-bottom: ${scale.space(-1)};
       background-color: ${theme.color('paper')};
-      
-      &:before {
-        content: ''; 
-        height: ${scale.space(-3)}; 
-        background: ${theme.color('backgroundBody')};
-        width: calc(100% + 4rem);
-        position: absolute; 
-        top: 0;
-        left: -${scale.space(0)};
-      }
 
       table {
         border-collapse: collapse;

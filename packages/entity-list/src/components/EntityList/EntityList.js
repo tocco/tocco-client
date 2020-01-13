@@ -1,17 +1,13 @@
 import PropTypes from 'prop-types'
 import React, {useEffect} from 'react'
 import styled from 'styled-components'
-import {theme} from 'tocco-ui'
 
 import SearchViewContainer from '../../containers/SearchViewContainer'
 import ListViewContainer from '../../containers/ListViewContainer'
-import SelectionControllerContainer from '../../containers/SelectionControllerContainer'
 import {TopPositioning, LeftPositioning, ListGrid, SearchGrid} from './StyledComponents'
 import searchFormTypes, {searchFormTypePropTypes} from '../../util/searchFormTypes'
 
 const StyledListWrapper = styled.div`
-  background-color: ${theme.color('paper')};
-  padding: 1rem 2rem 1.5rem 2rem;
   margin-right: 2rem;
 `
 
@@ -19,8 +15,7 @@ const EntityList = ({
   initialize,
   initializeSearchForm,
   searchFormType,
-  searchFormPosition,
-  showSelectionController
+  searchFormPosition
 }) => {
   useEffect(() => {
     initialize()
@@ -29,7 +24,6 @@ const EntityList = ({
 
   const List = () => (
     <StyledListWrapper>
-      {showSelectionController && <SelectionControllerContainer/>}
       <ListViewContainer/>
     </StyledListWrapper>
   )
@@ -56,7 +50,6 @@ EntityList.propTypes = {
   initialize: PropTypes.func.isRequired,
   initializeSearchForm: PropTypes.func.isRequired,
   searchFormType: searchFormTypePropTypes,
-  showSelectionController: PropTypes.bool,
   searchFormPosition: PropTypes.oneOf(['top', 'left'])
 }
 
