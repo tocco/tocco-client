@@ -92,6 +92,7 @@ const BasicSearchForm = ({
           && <React.Fragment>
             <StyledSearchFormButtonGroupGap/>
             <Button
+              dense
               data-cy="extend-search-button"
               icon={`chevron-${showExtendedSearchForm ? 'up' : 'down'}`}
               onClick={toggleExtendedSearchForm}
