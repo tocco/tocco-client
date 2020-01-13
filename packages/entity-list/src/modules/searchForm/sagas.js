@@ -67,7 +67,7 @@ export function* setInitialFormValues(searchFormVisible, formDefinition) {
   if (preselectedSearchFields) {
     const model = yield call(getEntityModel)
     const preselectedValues = searchFormVisible
-      ? yield call(form.loadDisplaysOfRelationFields, preselectedSearchFields, model)
+      ? yield call(form.transformInputValues, preselectedSearchFields, model)
       : preselectedSearchFields
 
     formValues = {...formValues, ...preselectedValues}
