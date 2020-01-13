@@ -15,7 +15,8 @@ const mapStateToProps = (state, props) => {
     currentPageIds: state.list.entities.map(e => e.__key),
     entityName: state.entityList.entityName,
     parent: state.entityList.parent,
-    dataLoadingInProgress: state.list.inProgress
+    dataLoadingInProgress: state.list.inProgress,
+    showSelectionController: state.selection.showSelectionController
   }
 }
 

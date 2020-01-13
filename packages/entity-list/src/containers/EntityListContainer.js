@@ -12,8 +12,7 @@ const mapActionCreators = {
 
 const mapStateToProps = state => ({
   searchFormType: state.input.searchFormType,
-  searchFormPosition: state.input.searchFormPosition,
-  showSelectionController: state.selection.showSelectionController
+  searchFormPosition: state.input.searchFormPosition
 })
 
 export default hot(connect(mapStateToProps, mapActionCreators)(injectIntl(EntityList)))

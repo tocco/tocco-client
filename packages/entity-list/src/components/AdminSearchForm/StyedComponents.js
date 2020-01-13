@@ -6,9 +6,10 @@ export const StyledSplit = styled(Split)``
 
 export const StyledHeader = styled.div`
   background-color: ${theme.color('paper')};
-  margin-bottom: 5px;
+  margin-bottom: 3px;
   display:flex;
   justify-content: flex-end;
+  padding: 9px;
 `
 
 export const AdminSearchGrid = styled.div`

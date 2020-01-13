@@ -2,11 +2,24 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {intlShape} from 'react-intl'
 import {actions, form} from 'tocco-app-extensions'
-import {LoadMask} from 'tocco-ui'
+import {LoadMask, theme} from 'tocco-ui'
+import styled from 'styled-components'
 
+import SelectionControllerContainer from '../../containers/SelectionControllerContainer'
 import {getColumnDefinition} from '../../util/api/forms'
 import TableContainer from '../../containers/TableContainer'
 import ActionContainer from '../../containers/ActionContainer'
+
+const ListWrapper = styled.div`
+  background-color: ${theme.color('paper')};
+  padding: 3px;
+`
+
+const ActionWrapper = styled.div`
+  background-color: ${theme.color('paper')};
+  margin-bottom: 3px;
+  padding: 9px;
+`
 
 class ListView extends React.Component {
   constructor(props) {
@@ -26,14 +39,19 @@ class ListView extends React.Component {
         {
           this.props.formDefinition && this.props.formDefinition.children.map((child, idx) => {
             if (child.componentType === form.componentTypes.TABLE) {
-              return <TableContainer key={idx} columnDefinitions={getColumnDefinition(child)}/>
+              return <ListWrapper>
+                <TableContainer key={idx} columnDefinitions={getColumnDefinition(child)}/>
+              </ListWrapper>
             } else if (actions.isAction(child.componentType)) {
-              return <ActionContainer
-                key={`listAction${idx}`}
-                definition={child}
-                parent={props.parent}
-                disabled={this.props.dataLoadingInProgress}
-              />
+              return <ActionWrapper>
+                {this.props.showSelectionController && <SelectionControllerContainer/>}
+                <ActionContainer
+                  key={`listAction${idx}`}
+                  definition={child}
+                  parent={props.parent}
+                  disabled={this.props.dataLoadingInProgress}
+                />
+              </ActionWrapper>
             }
           })
         }
@@ -56,6 +74,7 @@ ListView.propTypes = {
     reverseRelationName: PropTypes.string
   }),
   dataLoadingInProgress: PropTypes.bool,
+  showSelectionController: PropTypes.bool,
   entityName: PropTypes.string
 }
 
