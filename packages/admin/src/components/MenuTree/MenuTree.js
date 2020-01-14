@@ -6,7 +6,7 @@ import styled from 'styled-components'
 const StyledMenuEntry = styled.div`
   ${declareFont()}
   && {
-   padding-left: ${props => props.level * 6}px;
+   padding-left: ${props => props.level * 7}px;
    line-height: ${theme.lineHeight('light')};
  }
 `

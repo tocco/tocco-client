@@ -30,8 +30,7 @@ export const StyledMenuEntry = styled.span`
 export const StyledMenuLink = styled(Link)`
   color: ${theme.color('text')};
   text-decoration: none;
-  padding-left: 1.3rem;
-  
+
   &:hover {
       color: ${theme.color('secondaryLight')};
     }
