@@ -31,7 +31,7 @@ const AdminSearchForm = ({resetSearch}) => {
       minSize={[28, 100]}
       gutterSize={15}
       gutter={getGutter}
-      dragInterval={28}
+      dragInterval={25}
     >
       <Box>
         <SearchFilterList/>
