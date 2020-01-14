@@ -24,7 +24,7 @@ export const AdminSearchGrid = styled.div`
 export const Box = styled.div`
   background-color: ${theme.color('paper')};
   overflow-y: auto;
-  padding: .6rem 1rem 0 1rem;
+  padding: .6rem 1rem 0 .6rem;
   ${StyledScrollbar}
 `
 

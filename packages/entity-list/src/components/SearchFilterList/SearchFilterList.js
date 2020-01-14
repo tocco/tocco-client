@@ -1,33 +1,67 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Typography, Button} from 'tocco-ui'
+import {Typography, Button, theme, StyledSpan} from 'tocco-ui'
 import styled from 'styled-components'
 
+const SearchFilterWrapper = styled.div`
+  margin-top: .4rem;
+  margin-bottom: .4rem;
+`
+
+const StyledSpanSearchFilter = styled(StyledSpan)`
+  && {display: flex;}
+  width: 100%;
+`
+
+const StyledButton = styled(Button)`
+  &&& {
+    display: none;
+    background-color: transparent;
+    margin-left: auto;
+    border: 0;
+    padding: 0;
+  }
+`
+
 export const StyledSearchFilterButton = styled.div`
-  border-radius: 10px;   
-  padding: 3px;
+  border-radius: ${theme.radii('medium')};
+  display: flex;
+  padding: .3rem 1rem;
+  margin-bottom: .2rem;
+  background-color: ${({active}) => active && theme.color('secondary')};
   
-  ${({active}) => active && `
-    background-color: #edf1f5;
-  `}
-  
-  :hover{
-    background-color: #DEE6ED;
+  && {
+    * {color: ${({active}) => active && theme.color('paper')};}
+    ${({active}) => active && `
+      ${StyledButton} {
+        display: block;
+      }
+      `
+    }
+  }
+ 
+  :hover {
+    ${StyledButton} {
+      display: flex;
+    }
+    
+    background-color: ${theme.color('secondaryLight')};
+    * {color: ${theme.color('paper')};}
     cursor: pointer;
   }
 `
 
 const SearchFilterButton = ({setActive, active, label}) =>
   <StyledSearchFilterButton active={active} onClick={() => setActive(!active)}>
-    <Typography.Span>{label}
-      <Button
+    <StyledSpanSearchFilter>{label}
+      <StyledButton
         onClick={e => {
           setActive(false)
           e.stopPropagation()
         }}
         icon="plus"
         dense />
-    </Typography.Span>
+    </StyledSpanSearchFilter>
   </StyledSearchFilterButton>
 
 SearchFilterButton.propTypes = {
@@ -43,7 +77,7 @@ const AdminSearchForm = ({searchFilters, setSearchFilterActive, executeSearch}) 
     return <div style={{paddingLeft: '8px'}}><Typography.I>No Searchfilters available</Typography.I></div>
   }
 
-  return <div>
+  return <SearchFilterWrapper>
     {searchFilters
       .sort((a, b) => {
         if (a.defaultFilter) {
@@ -62,7 +96,7 @@ const AdminSearchForm = ({searchFilters, setSearchFilterActive, executeSearch}) 
           }}
         />
       )}
-  </div>
+  </SearchFilterWrapper>
 }
 
 AdminSearchForm.propTypes = {
