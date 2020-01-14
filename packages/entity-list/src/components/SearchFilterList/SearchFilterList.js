@@ -20,6 +20,10 @@ const StyledButton = styled(Button)`
     margin-left: auto;
     border: 0;
     padding: 0;
+    
+     &:hover * {
+      color: ${theme.color('secondary')}
+    }
   }
 `
 
@@ -79,12 +83,7 @@ const AdminSearchForm = ({searchFilters, setSearchFilterActive, executeSearch}) 
 
   return <SearchFilterWrapper>
     {searchFilters
-      .sort((a, b) => {
-        if (a.defaultFilter) {
-          return -1
-        }
-        return a.sorting > b.sorting
-      })
+      .sort((a, b) => a.defaultFilter ? -1 : a.sorting > b.sorting)
       .map(searchFilter =>
         <SearchFilterButton
           key={searchFilter.uniqueId}
