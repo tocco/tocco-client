@@ -1,7 +1,6 @@
 export default {
   colors: {
     paper: '#fff',
-    primary: '#9E2124',
     secondary: '#11587f',
     secondaryLight: '#9BC0D5',
     text: '#4f5e60',
@@ -46,6 +45,7 @@ export default {
   },
   radii: {
     regular: '4px',
+    medium: '13px',
     large: '25px'
   },
   space: {
