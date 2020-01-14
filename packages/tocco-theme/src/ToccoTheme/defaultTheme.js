@@ -1,6 +1,7 @@
 export default {
   colors: {
     paper: '#fff',
+    primary: '#B22A31',
     secondary: '#11587f',
     secondaryLight: '#9BC0D5',
     text: '#4f5e60',
