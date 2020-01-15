@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {Typography, Button, theme, StyledSpan} from 'tocco-ui'
 import styled from 'styled-components'
 
-const SearchFilterWrapper = styled.div`
+const SearchFilterListWrapper = styled.div`
   margin-top: .4rem;
   margin-bottom: .4rem;
 `
@@ -81,7 +81,7 @@ const AdminSearchForm = ({searchFilters, setSearchFilterActive, executeSearch}) 
     return <div style={{paddingLeft: '8px'}}><Typography.I>No Searchfilters available</Typography.I></div>
   }
 
-  return <SearchFilterWrapper>
+  return <SearchFilterListWrapper>
     {searchFilters
       .sort((a, b) => a.defaultFilter ? -1 : a.sorting > b.sorting)
       .map(searchFilter =>
@@ -95,7 +95,7 @@ const AdminSearchForm = ({searchFilters, setSearchFilterActive, executeSearch}) 
           }}
         />
       )}
-  </SearchFilterWrapper>
+  </SearchFilterListWrapper>
 }
 
 AdminSearchForm.propTypes = {
