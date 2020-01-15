@@ -16,7 +16,7 @@ export const AdminSearchGrid = styled.div`
    height: 100%;
  
   ${StyledSplit} {
-    height: 100%;
+    height: calc(100% - 60px);
   }
   overflow: hidden;
 `
@@ -29,14 +29,13 @@ export const Box = styled.div`
 `
 
 export const StyledGutter = styled.div`
-   background-color: ${theme.color('paper')};
+   background-color: ${props => props.backgroundColor};
    &:hover {
     cursor:row-resize;
    }
    display: flex;
    justify-content: center;
    align-items: center;
-   color: ${theme.color('text')};
    font-size: 25px;
-   border-top: 3px solid ${theme.color('backgroundBody')};
+   border-top: 1px solid ${props => props.borderColor};
 `
