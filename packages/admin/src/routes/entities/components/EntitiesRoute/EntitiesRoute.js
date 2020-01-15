@@ -19,13 +19,11 @@ const StyledWrapper = styled.div`
 
 const StyledContent = styled.div`
   grid-area: content;
-  overflow-x: hidden;
   ${StyledScrollbar}
 `
 
 const StyledBreadcrumbs = styled.div`
   grid-area: breadcrumbs;
-  overflow: hidden;
 `
 
 const EntitiesRoute = ({match, history, loadCurrentViewInfo, currentViewInfo}) => {

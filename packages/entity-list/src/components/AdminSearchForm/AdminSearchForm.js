@@ -2,21 +2,22 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 import {Icon, Button} from 'tocco-ui'
+import {withTheme} from 'styled-components'
 
 import {StyledSplit, AdminSearchGrid, Box, StyledGutter, StyledHeader} from './StyedComponents'
 import BasicSearchFormContainer from '../../containers/BasicSearchFormContainer'
 import SearchFilterList from '../SearchFilterList'
 
-const getGutter = () => {
+const getGutter = (borderColor, backgroundColor) => () => {
   const gutterEl = document.createElement('div')
-  gutterEl.style.cssText = 'padding-bottom:.5rem'
-  ReactDOM.render(<StyledGutter>
+  gutterEl.style.cssText = 'padding-bottom:.7rem;'
+  ReactDOM.render(<StyledGutter borderColor={borderColor} backgroundColor={backgroundColor}>
     <Icon icon="horizontal-rule"/>
   </StyledGutter>, gutterEl)
   return gutterEl
 }
 
-const AdminSearchForm = ({resetSearch}) => {
+const AdminSearchForm = ({resetSearch, theme}) => {
   return <AdminSearchGrid>
     <StyledHeader>
       <Button
@@ -27,10 +28,10 @@ const AdminSearchForm = ({resetSearch}) => {
     </StyledHeader>
     <StyledSplit
       direction="vertical"
-      sizes={[28, 73]}
+      sizes={[28, 72]}
       minSize={[28, 100]}
       gutterSize={15}
-      gutter={getGutter}
+      gutter={getGutter(theme.colors.border, theme.colors.paper)}
       dragInterval={25}
     >
       <Box>
@@ -44,7 +45,8 @@ const AdminSearchForm = ({resetSearch}) => {
 }
 
 AdminSearchForm.propTypes = {
-  resetSearch: PropTypes.func.isRequired
+  resetSearch: PropTypes.func.isRequired,
+  theme: PropTypes.object
 }
 
-export default AdminSearchForm
+export default withTheme(AdminSearchForm)
