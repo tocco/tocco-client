@@ -32,7 +32,6 @@ const AdminSearchForm = ({resetSearch, theme}) => {
       minSize={[28, 100]}
       gutterSize={15}
       gutter={getGutter(theme.colors.border, theme.colors.paper)}
-      dragInterval={25}
     >
       <Box>
         <SearchFilterList/>
