@@ -12,7 +12,6 @@ const StyledPanel = styled.div`
     border-width: 1px;
     border-style: ${props => props.isFramed ? 'solid' : 'none'};
     border-color: ${props => shadeColor(_get(props.theme, 'colors.paper'), 1)};
-    border-radius: ${theme.radii('regular')};
   }
 `
 export default StyledPanel

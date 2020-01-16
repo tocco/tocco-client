@@ -23,7 +23,7 @@ const EntityList = ({
   }, [])
 
   const List = () => (
-    <StyledListWrapper>
+    <StyledListWrapper className="StyledListWrapper">
       <ListViewContainer/>
     </StyledListWrapper>
   )

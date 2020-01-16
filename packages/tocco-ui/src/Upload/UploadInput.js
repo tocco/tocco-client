@@ -21,6 +21,7 @@ const UploadInput = props => {
       <Icon
         icon="upload"
         position={design.position.PREPEND}
+        style={{marginRight: '5px'}}
       />
       {props.text || 'drag and drop or click'}
     </Dropzone>
