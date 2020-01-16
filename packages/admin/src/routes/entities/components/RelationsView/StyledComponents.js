@@ -1,19 +1,23 @@
 import styled from 'styled-components'
-import {StyledSpan, theme} from 'tocco-ui'
+import {StyledSpan, theme, scale} from 'tocco-ui'
 
 export const StyledPreviewBox = styled.div`
-  background-color: white;
-  padding: 1rem;
-  margin-top: 1rem;
+  background-color: ${theme.color('paper')};
+  padding: ${scale.space(-1)};
+  margin-top: ${scale.space(-1)};
+  
+  .StyledListWrapper {
+    margin: 0;
+  }
 `
 
 export const StyledRelationBox = styled.div`
-  background-color: white;
-  padding: 1rem;
+  background-color: ${theme.color('paper')};
+  padding: ${scale.space(-1)};
   display: grid;
   grid-template-columns: repeat(auto-fit, 200px);
-  grid-row-gap: 1rem;
-  grid-column-gap: 1rem;
+  grid-row-gap: ${scale.space(-3.5)};
+  grid-column-gap: ${scale.space(-2)};
   justify-content: space-between;
 `
 
@@ -22,13 +26,13 @@ export const RelationLinks = styled.div`
   margin-left: auto;;
   * {
     color: ${theme.color('text')};
-    padding-left: .5rem;
+    padding-left: ${scale.space(-2)};
   }
 `
 
 export const RelationBox = styled.div`
   border-radius: ${theme.radii('large')};
-  padding: .3rem 1rem;
+  padding: ${scale.space(-2.7)} ${scale.space(-1)};
   display: flex;
   background-color: ${({selected}) => selected && theme.color('secondary')};
   &&& {
