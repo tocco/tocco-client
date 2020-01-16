@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {intlShape} from 'react-intl'
 import styled from 'styled-components'
+import {theme} from 'tocco-ui'
 
 import RelationsView from '../RelationsView'
 import EditView from '../EditView'
@@ -12,8 +13,13 @@ const DetailViewContainer = styled.div`
 `
 
 const DetailViewPart = styled.div`
-  margin: 5px;
   flex: 1;
+  margin-right: 1rem;
+  
+  .tocco-entity-detail {
+    padding: 1rem .5rem 2rem 1.5rem;
+    background-color: ${theme.color('paper')};
+  }
 `
 
 const DetailView = props => (
