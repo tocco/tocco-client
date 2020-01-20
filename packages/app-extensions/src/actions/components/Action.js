@@ -6,7 +6,6 @@ import componentTypes from '../actionComponentTypes'
 import {modeFitsScopes} from '../actions'
 import ActionGroup from './ActionGroup'
 import SingleAction from './SingleAction'
-import {StyledAction} from './StyledAction'
 
 const ActionVisual = ({definition, onClick, selection, parent, mode, callback, disabled, customActions}) => {
   if (customActions && customActions[definition.id]) {
@@ -70,10 +69,9 @@ ActionVisual.propTypes = {
 
 const Action = props => {
   if (props.definition.componentType === componentTypes.ACTION_BAR) {
-    return props.definition.children.map((child, idx) =>
-      <StyledAction key={idx}>
-        <ActionVisual {...props} definition={child}/>
-      </StyledAction>
+    return props.definition.children.map(child => (
+      <ActionVisual key={`action-${props.definition.id}`} {...props} definition={child}/>
+    )
     )
   }
 
@@ -82,6 +80,7 @@ const Action = props => {
 
 Action.propTypes = {
   definition: PropTypes.shape({
+    id: PropTypes.string,
     componentType: PropTypes.string,
     children: PropTypes.Array
   }).isRequired
