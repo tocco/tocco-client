@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Typography, theme} from 'tocco-ui'
+import {Typography, StyledH1, StyledH3, theme} from 'tocco-ui'
 import styled from 'styled-components'
 
 import ToccoLogo from '../../../../assets/tocco_red.svg'
@@ -25,17 +25,20 @@ const StyledDashBoard = styled.div`
   align-items: flex-end;
   margin-right: -180px;
   
-  && {
-    * {
-      color: ${theme.color('primary')};
-      font-size: 10rem;
-      letter-spacing: .5rem;
-    }
+  ${StyledH1} {
+    font-size: 10rem;
+    letter-spacing: .5rem;
+    color: ${theme.color('primary')};
+  }
     
-    ${InnerWrapper} {
-      * {font-size: 3rem;}
-      text-align: right;
+  ${InnerWrapper} {
+    position: relative;
+    top: 2rem;
+    ${StyledH3} {
+      font-size: 3rem;
+      color: ${theme.color('primary')};
     }
+    text-align: right;
   }
 `
 
