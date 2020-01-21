@@ -1,5 +1,5 @@
 import React from 'react'
-import {mount} from 'enzyme'
+import {enzymeUtil} from 'tocco-test-util'
 
 import TimeEdit from './TimeEdit'
 
@@ -12,7 +12,7 @@ describe('tocco-ui', () => {
         const valueObject = {value: {hourOfDay: 8, minuteOfHour: 45}}
 
         test('should render input', () => {
-          const wrapper = mount(
+          const wrapper = enzymeUtil.mountEmbedded(
             <TimeEdit value={valueObject} onChange={EMPTY_FUNC}/>
           )
           expect(wrapper.find('input')).to.have.length(1)
@@ -20,7 +20,7 @@ describe('tocco-ui', () => {
 
         test('should return correct time string on undefined input', () => {
           const valueObject = {value: {hourOfDay: undefined, minuteOfHour: undefined}}
-          const wrapper = mount(
+          const wrapper = enzymeUtil.mountEmbedded(
             <TimeEdit value={valueObject} onChange={EMPTY_FUNC}/>
           )
           expect(wrapper.find('input').props().value).to.be.eql('--:--')
@@ -28,7 +28,7 @@ describe('tocco-ui', () => {
 
         test('should clear input', () => {
           const valueObject = {value: {hourOfDay: 6, minuteOfHour: 56}}
-          const wrapper = mount(
+          const wrapper = enzymeUtil.mountEmbedded(
             <TimeEdit value={valueObject} onChange={EMPTY_FUNC}/>
           )
           wrapper.find('button').simulate('click')

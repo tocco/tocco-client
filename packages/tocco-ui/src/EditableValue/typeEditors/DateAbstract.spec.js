@@ -1,5 +1,5 @@
 import React from 'react'
-import {intlEnzyme} from 'tocco-test-util'
+import {enzymeUtil} from 'tocco-test-util'
 
 import DateAbstract from './DateAbstract'
 
@@ -10,7 +10,7 @@ describe('tocco-ui', () => {
         test('should call initialized', done => {
           const initSpy = () => { done() }
 
-          const wrapper = intlEnzyme.mountWithIntl(
+          const wrapper = enzymeUtil.mountEmbedded(
             <DateAbstract options={{}} initialized={initSpy}/>
           )
 
