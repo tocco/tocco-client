@@ -26,7 +26,7 @@ const declareStylesIfNestedCorrectly = props => {
 }
 
 const StyledLayoutBox = styled.div`
-  && {  
+  && {
     ${props => declareStylesIfNestedCorrectly(props)}
   }
 `
