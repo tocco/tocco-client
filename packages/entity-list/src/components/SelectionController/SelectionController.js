@@ -41,7 +41,6 @@ const SelectionController = props => {
           {props.selection.length > 0 && <Button
             dense
             icon="times"
-            look="raised"
             title={msg('client.entity-list.clearSelection')}
             onClick={e => {
               e.stopPropagation()
