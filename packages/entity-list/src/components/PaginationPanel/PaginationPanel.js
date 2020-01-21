@@ -17,9 +17,7 @@ const PaginationPanel = props => {
       <span>{components.totalText}</span>
 
       {totalPages > 1
-        && <ButtonGroup
-          look="raised"
-          melt>
+        && <ButtonGroup>
           {currPage > 2
             && <Button
               icon="chevron-double-left"
@@ -37,7 +35,6 @@ const PaginationPanel = props => {
               icon="chevron-double-right"
               onClick={() => changePage(totalPages)} />}
         </ButtonGroup>
-
       }
     </StyledPaginationPanel>
   )
