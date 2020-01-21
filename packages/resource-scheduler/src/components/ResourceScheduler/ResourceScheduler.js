@@ -1,6 +1,8 @@
 import React from 'react'
 import SplitPane from 'react-split-pane'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
+import {scale} from 'tocco-ui'
 
 import SearchPanel from '../SearchPanel/SearchPanel'
 import SchedulerAppContainer from '../../containers/SchedulerAppContainer'
@@ -9,6 +11,16 @@ import {
   StyledSplitPanelWrapperLeft,
   StyledSplitPanelWrapperRight
 } from './StyledResourceScheduler'
+
+const StyledSplitPane = styled(SplitPane)`
+  position: static !important;
+  height: calc(100vh - 50px) !important;
+  
+  .react-bs-container-body {
+    height: auto !important;
+    margin-bottom: ${scale.space(0)};
+  }
+`
 
 class ResourceScheduler extends React.Component {
   constructor(props) {
@@ -22,7 +34,7 @@ class ResourceScheduler extends React.Component {
     const props = this.props
     return (
       <React.Fragment>
-        <SplitPane
+        <StyledSplitPane
           defaultSize={this.paneWidth}
           minSize={325}
           resizerStyle={resizerStyle}
@@ -39,7 +51,7 @@ class ResourceScheduler extends React.Component {
           <StyledSplitPanelWrapperRight>
             <SchedulerAppContainer/>
           </StyledSplitPanelWrapperRight>
-        </SplitPane>
+        </StyledSplitPane>
       </React.Fragment>
     )
   }

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {scale} from 'tocco-ui'
+import {scale, StyledScrollbar} from 'tocco-ui'
 
 const drawerSymbol = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==' // eslint-disable-line max-len
 
@@ -14,6 +14,7 @@ export const StyledSplitPanelWrapperLeft = styled.div`
     height: 100%;
     overflow: auto;
     padding-right: ${scale.space(-1)};
+    ${StyledScrollbar}
   }
 `
 
@@ -22,5 +23,6 @@ export const StyledSplitPanelWrapperRight = styled.div`
     height: 100%;
     overflow: auto;
     padding-left: ${scale.space(-1)};
+    ${StyledScrollbar}
   }
 `
