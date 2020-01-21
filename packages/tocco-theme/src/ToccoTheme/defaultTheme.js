@@ -32,7 +32,7 @@ export default {
     url: 'https://fonts.googleapis.com/css?family=Ubuntu+Mono:300,500|Ubuntu:300,500&display=swap'
   },
   fontSize: {
-    base: 1.5,
+    base: 1.3,
     factor: 1.1
   },
   fontWeights: {
@@ -50,7 +50,7 @@ export default {
     large: '25px'
   },
   space: {
-    base: 2,
+    base: 1.3,
     factor: 2
   }
 }
