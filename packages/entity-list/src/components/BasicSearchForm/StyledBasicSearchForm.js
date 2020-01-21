@@ -1,6 +1,4 @@
 import styled from 'styled-components'
-import {StyledButton} from 'tocco-ui/src/Button'
-import {StyledButtonGroup} from 'tocco-ui/src/ButtonGroup'
 import {StyledLayoutBox} from 'tocco-ui/src/Layout'
 
 const StyledBasicSearchForm = styled.div`
@@ -11,24 +9,14 @@ const StyledBasicSearchForm = styled.div`
   }
 `
 
-const StyledSearchFormButtonGroup = styled(StyledButtonGroup)`
+const StyledSearchFormButtons = styled.div`
   && {
     width: 100%;
-
-    ${StyledButton} {
-      margin-bottom: 0px;
-    }
-  }
-`
-
-const StyledSearchFormButtonGroupGap = styled.div`
-  && {
-    flex-grow: 1;
+    text-align: right
   }
 `
 
 export {
   StyledBasicSearchForm,
-  StyledSearchFormButtonGroup,
-  StyledSearchFormButtonGroupGap
+  StyledSearchFormButtons
 }
