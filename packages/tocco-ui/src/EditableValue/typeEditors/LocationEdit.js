@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Autosuggest from 'react-autosuggest'
 import FocusWithin from 'react-simple-focus-within'
 
-import ButtonLink from '../../ButtonLink'
+import Link from '../../Link'
 import IconTocco from '../../LoadingSpinner'
 import Typography from '../../Typography'
 import {StyledEditableControl} from '../StyledEditableValue'
@@ -96,14 +96,14 @@ class LocationEdit extends React.Component {
             <StyledEditableControl>
               {this.props.options.isLoading && <IconTocco size="1.8rem"/>}
               {this.showGoogleMaps(this.props.value)
-              && <ButtonLink
+              && <Link
                 href={getGoogleMapsAddress(this.props.value)}
                 icon="map-marked"
-                look="ball"
                 tabIndex={-1}
                 target="_blank"
                 dense={false}
                 title={this.props.options.mapButtonTitle || 'Show on map'}
+                neutral
               />
               }
             </StyledEditableControl>

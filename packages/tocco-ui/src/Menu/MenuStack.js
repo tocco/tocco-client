@@ -4,7 +4,7 @@ import Menu from './Menu'
 import StyledMenuStack from './StyledMenuStack'
 
 /**
- * Use <Menu.Stack> to structure <Button> and <ButtonLink> hierarchically as a vertical menu.
+ * Use <Menu.Stack> to structure <Button> hierarchically as a vertical menu.
  * <Menu.Stack> can be utilized on levels of hierarchy.
  */
 class MenuStack extends Menu {

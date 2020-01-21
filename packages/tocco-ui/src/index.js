@@ -1,6 +1,5 @@
 export {default as Button, StyledButton} from './Button'
 export {default as ButtonGroup, StyledButtonGroup} from './ButtonGroup'
-export {default as ButtonLink, StyledButtonLink} from './ButtonLink'
 export {
   default as EditableValue,
   StyledEditableWrapperCss,

@@ -3,7 +3,7 @@ import React from 'react'
 import _isEmpty from 'lodash/isEmpty'
 import _get from 'lodash/get'
 
-import ButtonLink from '../../ButtonLink'
+import Link from '../../Link'
 import {
   StyledEditableControl,
   StyledEditableWrapper
@@ -95,7 +95,7 @@ class PhoneEdit extends React.Component {
           value={displayValue}
         />
         {displayValue && <StyledEditableControl>
-          <ButtonLink
+          <Link
             href={`tel:${this.props.value}`}
             icon="phone"
             look="ball"
