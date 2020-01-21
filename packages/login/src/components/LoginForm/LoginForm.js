@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
 import {
-  ButtonGroup,
   SignalList,
   StatedValue,
   Typography
@@ -105,24 +104,22 @@ export class LoginForm extends Component {
               />
             </SignalList.List>
           }
-
-          <ButtonGroup look="raised">
-            <StyledLoginButton
-              disabled={
-                !this.state.autoFill
+          <StyledLoginButton
+            disabled={
+              !this.state.autoFill
                 && (this.props.loginPending || this.props.username === '' || this.props.password === '')}
-              ink="primary"
-              label={this.msg('client.login.form.button')}
-              pending={this.props.loginPending}
-              type="submit"
-              data-cy="login-form_login-button"
-            />
-            <StyledTransparentButton
-              label={this.msg('client.login.form.forgotLink')}
-              onClick={() => this.props.changePage(Pages.PASSWORD_REQUEST)}
-              data-cy="login-form_request-button"
-            />
-          </ButtonGroup>
+            ink="primary"
+            look="raised"
+            label={this.msg('client.login.form.button')}
+            pending={this.props.loginPending}
+            type="submit"
+            data-cy="login-form_login-button"
+          />
+          <StyledTransparentButton
+            label={this.msg('client.login.form.forgotLink')}
+            onClick={() => this.props.changePage(Pages.PASSWORD_REQUEST)}
+            data-cy="login-form_request-button"
+          />
         </form>
       </StyledLoginFormWrapper>
     )
