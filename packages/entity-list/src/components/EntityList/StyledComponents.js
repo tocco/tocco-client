@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const TopPositioning = styled.div`
   display: grid;
-  grid-row-gap: 6px;
+  grid-row-gap: 2px;
   grid-template-areas:
     "search"
     "list";

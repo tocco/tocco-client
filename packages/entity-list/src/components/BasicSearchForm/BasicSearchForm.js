@@ -2,13 +2,12 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {intlShape} from 'react-intl'
 import {reduxForm} from 'redux-form'
-import {Button} from 'tocco-ui'
+import {Ball} from 'tocco-ui'
 import {form, formField} from 'tocco-app-extensions'
 
 import {
   StyledBasicSearchForm,
-  StyledSearchFormButtonGroup,
-  StyledSearchFormButtonGroupGap
+  StyledSearchFormButtons
 } from './StyledBasicSearchForm'
 
 const REDUX_FORM_NAME = 'searchForm'
@@ -87,20 +86,16 @@ const BasicSearchForm = ({
           }
           mode="search"
         />
-        <StyledSearchFormButtonGroup look="raised">
-          {!disableSimpleSearch
-          && <React.Fragment>
-            <StyledSearchFormButtonGroupGap/>
-            <Button
-              dense
+        {!disableSimpleSearch
+          && <StyledSearchFormButtons>
+            <Ball
               data-cy="extend-search-button"
               icon={`chevron-${showExtendedSearchForm ? 'up' : 'down'}`}
               onClick={toggleExtendedSearchForm}
               title={msg('client.entity-list.extendedSearch')}
             />
-          </React.Fragment>
-          }
-        </StyledSearchFormButtonGroup>
+          </StyledSearchFormButtons>
+        }
       </form>
     </StyledBasicSearchForm>
   )
