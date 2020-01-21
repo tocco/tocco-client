@@ -52,14 +52,6 @@ const StyledEditableControlCss = css`
   display: flex;
   align-items: center;
   margin-right: -${scale.space(-2)};
-
-  > a,
-  > button,
-  > i,
-  > span > button {
-    margin-left: ${scale.space(-2)};
-    min-width: 2.6rem;
-  }
 `
 
 const StyledEditableControl = styled.div`

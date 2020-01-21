@@ -82,12 +82,7 @@ const reactSelectStyles = outerTheme => {
       '> span': {
         marginRight: `${space2}`
       },
-      '> span:last-child': {
-        marginRight: `-${space2}`
-      },
-      '> span > button': {
-        width: '2.6rem'
-      }
+      '> span:last-child': {marginRight: `-${space2}`}
     }),
     input: (base, state) => ({
       margin: `0 ${space2} 0 0`,

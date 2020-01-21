@@ -2,7 +2,7 @@ import React from 'react'
 import {components} from 'react-select'
 import PropTypes from 'prop-types'
 
-import Button from '../Button'
+import Ball from '../Ball'
 
 const handleMouseUp = (openAdvancedSearch, value) => event => {
   openAdvancedSearch(value)
@@ -27,9 +27,8 @@ const IndicatorsContainer = props => {
         onTouchEnd={e => e.stopPropagation()}
         onMouseDown={e => e.stopPropagation()}
         onMouseUp={handleMouseUp(openAdvancedSearch, value)}>
-        <Button
+        <Ball
           icon="search"
-          look="ball"
           tabIndex={-1}
         />
       </span>}
