@@ -1,5 +1,5 @@
 import React from 'react'
-import {intlEnzyme, TestThemeProvider} from 'tocco-test-util'
+import {TestThemeProvider, enzymeUtil} from 'tocco-test-util'
 import ReactFullCalendar from '@fullcalendar/react'
 
 import FullCalendar from './FullCalendar'
@@ -10,11 +10,7 @@ describe('scheduler', () => {
       const baseProps = {onRefresh: () => {}, events: [], resources: [], onEventClick: () => {}}
 
       test('should render calendar', () => {
-        const wrapper = intlEnzyme.mountWithIntl(
-          <TestThemeProvider>
-            <FullCalendar {...baseProps}/>
-          </TestThemeProvider>
-        )
+        const wrapper = enzymeUtil.mountEmbedded(<FullCalendar {...baseProps}/>)
         expect(wrapper.find(ReactFullCalendar)).to.have.length(1)
       })
 
@@ -32,7 +28,7 @@ describe('scheduler', () => {
       ]
 
       test('should show resources', () => {
-        const wrapper = intlEnzyme.mountWithIntl(
+        const wrapper = enzymeUtil.mountEmbedded(
           <TestThemeProvider>
             <FullCalendar {...baseProps}/>
           </TestThemeProvider>
@@ -41,7 +37,7 @@ describe('scheduler', () => {
       })
 
       test('should show mocked resources', () => {
-        const wrapper = intlEnzyme.mountWithIntl(
+        const wrapper = enzymeUtil.mountEmbedded(
           <TestThemeProvider>
             <FullCalendar {...baseProps} resources={mockResources}/>
           </TestThemeProvider>
@@ -50,10 +46,8 @@ describe('scheduler', () => {
       })
 
       test('should show events', () => {
-        const wrapper = intlEnzyme.mountWithIntl(
-          <TestThemeProvider>
-            <FullCalendar locale="de" {...baseProps} resources={mockResources} />
-          </TestThemeProvider>
+        const wrapper = enzymeUtil.mountEmbedded(
+          <FullCalendar locale="de" {...baseProps} resources={mockResources} />
         )
         wrapper.setProps({events: mockEvents})
         // its not possible to check for updated events
