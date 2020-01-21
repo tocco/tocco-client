@@ -15,6 +15,9 @@ const fadeInAnimation = css`
 `
 
 const StyledLoadMask = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   ${props => !props.isInitialized && css`
     && {
       display: flex;
