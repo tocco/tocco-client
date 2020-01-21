@@ -9,7 +9,7 @@ import {design} from '../utilStyles'
  * Use <Ball> to trigger any actions in a nice round way.
  */
 const Ball = props => (
-  <StyledBall {...props}>
+  <StyledBall type="button" {...props}>
     <Icon icon={props.icon}/>
   </StyledBall>
 )
@@ -40,17 +40,9 @@ Ball.propTypes = {
    */
   'onClick': PropTypes.func,
   /**
-   * If true, an animated spinner icon is prepended.
-   */
-  'pending': PropTypes.bool,
-  /**
    * Describe button action in detail to instruct users. It is shown as popover on mouse over.
    */
   'title': PropTypes.string,
-  /**
-   * HTML Button type. Default is 'button'.
-   */
-  'type': PropTypes.oneOf(['button', 'submit', 'reset']),
   /**
    * Tabindex indicates if the button can be focused and if/where it participates
    * in sequential keyboard navigation.
