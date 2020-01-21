@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import StyledPanelHeaderFooter from './StyledPanelHeaderFooter'
-import Button from '../Button'
+import Ball from '../Ball'
 
 /**
  * <Panel.Header/> and <Panel.Footer/> contain by default a button to toggle the visibility state of <Panel.Body>.
@@ -29,7 +29,7 @@ class PanelHeaderFooter extends React.PureComponent {
         </div>
         {isToggleable
           && showToggler
-          && <Button
+          && <Ball
             icon={isOpen ? 'chevron-up' : 'chevron-down'}
             onClick={toggleOpenState}
             title={isOpen ? this.props.options.collapseButtonText : this.props.options.unfoldButtonText}
