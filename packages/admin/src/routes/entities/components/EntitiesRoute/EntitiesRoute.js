@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {StyledScrollbar} from 'tocco-ui'
+import {StyledScrollbar, scale} from 'tocco-ui'
 
 import Overview from '../../subroutes/overview'
 import Entity from '../../subroutes/entity'
@@ -19,6 +19,8 @@ const StyledWrapper = styled.div`
 
 const StyledContent = styled.div`
   grid-area: content;
+  overflow-x: hidden;
+  padding-right: ${scale.space(-1)};
   ${StyledScrollbar}
 `
 

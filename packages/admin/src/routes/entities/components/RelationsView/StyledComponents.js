@@ -5,10 +5,6 @@ export const StyledPreviewBox = styled.div`
   background-color: ${theme.color('paper')};
   padding: ${scale.space(-1)};
   margin-top: ${scale.space(-1)};
-  
-  .StyledListWrapper {
-    margin: 0;
-  }
 `
 
 export const StyledRelationBox = styled.div`
