@@ -9,26 +9,24 @@ import {design} from '../utilStyles'
 /**
  * Use <Button> to trigger any actions. Choose look and ink according Material Design.
  */
-const Button = props => (
-  <StyledButton
+const Button = props => {
+  return <StyledButton
     {...props.aria}
     {...props}
-    ink={props.ink || props.buttonGroupInk || design.ink.BASE}
-    melt={props.buttonGroupMelt}
+    ink={props.ink || design.ink.BASE}
     data-cy={props['data-cy']}
   >
-
     {props.icon && !props.pending && <Icon
       icon={props.icon}
     />}
     {props.pending && <IconTocco
-      ink={props.ink || props.buttonGroupInk || design.ink.BASE}
+      ink={props.ink || design.ink.BASE}
       look={props.look}
       position={props.iconPosition}
       size="1em"/>}
     {props.label ? <span>{props.label}</span> : props.children ? props.children : '\u200B' }
   </StyledButton>
-)
+}
 
 Button.defaultProps = {
   iconPosition: design.position.PREPEND,
@@ -41,14 +39,6 @@ Button.propTypes = {
    * A flat object of ARIA keys and values.
    */
   'aria': PropTypes.object,
-  /**
-   * May be passed from <ButtonGroup> to use as default for ink. Do not set manually.
-   */
-  'buttonGroupInk': design.inkPropTypes,
-  /**
-   * May be passed from <ButtonGroup> to morph buttons into a split button. Do not set manually.
-   */
-  'buttonGroupMelt': PropTypes.bool,
   /**
    * Instead of using label prop it is possible to pass a child
    * (e.g. <Button><FormattedMessage id="client.message"/></Button>). This is not useful for

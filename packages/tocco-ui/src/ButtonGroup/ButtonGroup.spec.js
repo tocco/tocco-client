@@ -1,34 +1,22 @@
 import React from 'react'
 import {shallow} from 'enzyme'
 
+import Button from '../Button'
 import ButtonGroup from './ButtonGroup'
+import StyledButtonGroup from './StyledButtonGroup'
 
 describe('tocco-ui', () => {
   describe('ButtonGroup', () => {
-    test('should have three defaultProps', () => {
+    test('should wrap children in a styled container', () => {
       const wrapper = shallow(
-        <ButtonGroup><span>child</span></ButtonGroup>
+        <ButtonGroup>
+          <Button label="btn 1"/>
+          <Button label="btn 2"/>
+        </ButtonGroup>
       )
-      const {buttonGroupInk, buttonGroupMelt, look} = wrapper.find('span').props()
-      expect(look).to.equal('flat')
-      expect(buttonGroupMelt).to.equal(false)
-      expect(buttonGroupInk).to.equal('base')
-    })
-  })
 
-  describe('ButtonGroup', () => {
-    test('should pass three props to child', () => {
-      const wrapper = shallow(
-        <ButtonGroup
-          ink="primary"
-          look="raised"
-          melt={true}
-        ><span>child</span></ButtonGroup>
-      )
-      const {buttonGroupInk, look, buttonGroupMelt} = wrapper.find('span').props()
-      expect(buttonGroupInk).to.equal('primary')
-      expect(look).to.equal('raised')
-      expect(buttonGroupMelt).to.equal(true)
+      expect(wrapper.find(StyledButtonGroup)).to.have.length(1)
+      expect(wrapper.find(Button)).to.have.length(2)
     })
   })
 })

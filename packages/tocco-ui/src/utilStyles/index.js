@@ -3,7 +3,6 @@ import {
   colorizeBorder,
   colorizeText
 } from './colorMap'
-import declareDensity from './declareDensity'
 import {
   declareFocus,
   declareInteractionColors,
@@ -22,14 +21,14 @@ import filterObjectByKeysStartingWith from './filterObjectByKeysStartingWith'
 import theme from './resolveThemePath'
 import getTextOfChildren from './getTextOfChildren'
 import scale from './modularScale'
-import objectToCss from './objectToCss'
 import design from './designConstants'
 import {validateCssDimension} from './propTypesValidator'
+import interactiveStyling from './interactiveStyling'
 export {
+  interactiveStyling,
   assertObjectValuesMatchOtherObjectKeys,
   colorizeBorder,
   colorizeText,
-  declareDensity,
   declareFocus,
   declareFont,
   declareInteractionColors,
@@ -42,7 +41,6 @@ export {
   generateShades,
   getBestContrast,
   getTextOfChildren,
-  objectToCss,
   scale,
   shadeColor,
   theme,

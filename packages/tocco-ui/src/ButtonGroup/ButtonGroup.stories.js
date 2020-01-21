@@ -1,25 +1,27 @@
 import React from 'react'
 import {storiesOf} from '@storybook/react'
-import {boolean, select, withKnobs} from '@storybook/addon-knobs'
-import _pick from 'lodash/pick'
 
 import ButtonGroup from './'
 import Button from '../Button/Button'
-import ButtonLink from '../ButtonLink/ButtonLink'
-import {design} from '../utilStyles'
-
 storiesOf('Tocco-UI | Buttons / ButtonGroup', module)
-  .addDecorator(withKnobs)
+  .add(
+    'ButtonGroup Raised',
+    () => (
+      <ButtonGroup>
+        <Button label="Lorem ipsum dolor" look="raised"/>
+        <Button label="Lorem ipsum dolor 2" look="raised" ink="primary"/>
+        <Button label="Lorem ipsum dolor 2" look="raised"/>
+        <Button label="Quisquam modi nam" look="raised"/>
+      </ButtonGroup>
+    )
+  )
   .add(
     'ButtonGroup',
     () => (
-      <ButtonGroup
-        ink={select('ink', design.ink)}
-        look={select('look', {'-': null, ..._pick(design.look, ['FLAT', 'RAISED'])}) || undefined}
-        melt={boolean('melt', false)}
-      >
+      <ButtonGroup>
         <Button label="Lorem ipsum dolor"/>
-        <ButtonLink href="#ButtonGroup" label="Sit amet consectetur adipisicing"/>
+        <Button label="Lorem ipsum dolor 2" ink="primary"/>
+        <Button label="Lorem ipsum dolor 2"/>
         <Button label="Quisquam modi nam"/>
       </ButtonGroup>
     )
