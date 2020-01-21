@@ -23,7 +23,8 @@ const UploadInput = props => {
       multiple={false}
       style={{position: 'relative'}}
       onDrop={onDrop}
-    ><IconWrapper>
+    >
+      <IconWrapper>
         <Icon
           icon="upload"
           position={design.position.PREPEND}
