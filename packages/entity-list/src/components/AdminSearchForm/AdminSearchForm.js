@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 import {Icon, Button} from 'tocco-ui'
 import {withTheme} from 'styled-components'
+import {lighten} from 'polished'
 
 import {StyledSplit, AdminSearchGrid, Box, StyledGutter, StyledHeader} from './StyedComponents'
 import BasicSearchFormContainer from '../../containers/BasicSearchFormContainer'
@@ -31,7 +32,7 @@ const AdminSearchForm = ({resetSearch, theme}) => {
       sizes={[28, 72]}
       minSize={[28, 100]}
       gutterSize={15}
-      gutter={getGutter(theme.colors.border, theme.colors.paper)}
+      gutter={getGutter(lighten(0.4, theme.colors.text), theme.colors.paper)}
     >
       <Box>
         <SearchFilterList/>

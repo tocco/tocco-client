@@ -5,7 +5,6 @@ export default {
     secondary: '#11587f',
     secondaryLight: '#9BC0D5',
     text: '#4f5e60',
-    border: '#CCCCCC',
     backgroundBody: '#EDF1F5',
     backgroundBreadcrumbs: '#DEE6ED',
     signal: {
