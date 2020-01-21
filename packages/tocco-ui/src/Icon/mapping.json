@@ -218,6 +218,13 @@
       "favorite"
     ]
   },
+  "sync": {
+    "id": "fal, sync",
+    "lib": "fa",
+    "tags": [
+      "refresh"
+    ]
+  },
   "times": {
     "id": "far, times",
     "lib": "fa",
