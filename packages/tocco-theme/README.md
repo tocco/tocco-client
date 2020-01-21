@@ -11,7 +11,6 @@ The main color scheme used in the application
 - primary : Main CI/CD color (all terminologically successive entries also mark as CI/CD colors) 
 - secondaryLight: Light derivative of secondary color
 - text: Main color of text
-- border: used to differentiate elements
 - backgroundBody: Color of the Body
 - signal: Colors used to notify the user. Consisting of a background color (paper) and corresponding text color
 
