@@ -1,3 +1,8 @@
+0.1.21
+- Style filter buttons
+- Welcome screen
+- Detail view styling
+
 0.1.20
 - Style list view
 - Style breadcrumbs
