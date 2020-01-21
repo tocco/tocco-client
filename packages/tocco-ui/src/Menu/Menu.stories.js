@@ -2,7 +2,6 @@ import React from 'react'
 import {storiesOf} from '@storybook/react'
 
 import Button from '../Button'
-import ButtonLink from '../ButtonLink'
 import Typography from '../Typography'
 import {Icon} from '../Icon/Icon'
 import Menu from './'
@@ -18,16 +17,16 @@ storiesOf('Tocco-UI | Menu', module)
           <Menu.Item><Button label="<Button>"/></Menu.Item>
           <Menu.Item><Button ink="primary" label="<Button primary>"/></Menu.Item>
           <hr/>
-          <Menu.Item><ButtonLink href="#Menu" label="<ButtonLink>"/></Menu.Item>
-          <Menu.Item><ButtonLink href="#Menu" ink="primary" label="<ButtonLink primary>"/></Menu.Item>
+          <Menu.Item><Button label="<Button>"/></Menu.Item>
+          <Menu.Item><Button ink="primary" label="<Button primary>"/></Menu.Item>
         </Menu.Stack>
 
         <h3>Menu Items Raised</h3>
         <Menu.Stack look="raised">
           <Menu.Item><Button label="<Button raised>"/></Menu.Item>
           <Menu.Item><Button ink="primary" label="<Button raised primary>"/></Menu.Item>
-          <Menu.Item><ButtonLink href="#Menu" label="<ButtonLink raised>"/></Menu.Item>
-          <Menu.Item><ButtonLink href="#Menu" ink="primary" label="<ButtonLink raised primary>"/></Menu.Item>
+          <Menu.Item><Button label="<Button raised>"/></Menu.Item>
+          <Menu.Item><Button ink="primary" label="<Button raised primary>"/></Menu.Item>
         </Menu.Stack>
 
         <h3>Menu Items Miscellaneous</h3>
@@ -43,8 +42,8 @@ storiesOf('Tocco-UI | Menu', module)
           <Menu.Item><Button label="<Button>"/></Menu.Item>
           <Menu.Item><Button ink="primary" label="<Button primary>"/></Menu.Item>
           <hr/>
-          <Menu.Item><ButtonLink href="#Menu" label="<ButtonLink>"/></Menu.Item>
-          <Menu.Item><ButtonLink href="#Menu" ink="primary" label="<ButtonLink primary>"/></Menu.Item>
+          <Menu.Item><Button label="<Button>"/></Menu.Item>
+          <Menu.Item><Button ink="primary" label="<Button primary>"/></Menu.Item>
         </Menu.Bar>
 
         <h3>Menu Button Raised</h3>
@@ -52,8 +51,8 @@ storiesOf('Tocco-UI | Menu', module)
           <Menu.Item><Button label="<Button>"/></Menu.Item>
           <Menu.Item><Button ink="primary" label="<Button primary>"/></Menu.Item>
           <hr/>
-          <Menu.Item><ButtonLink href="#Menu" label="<ButtonLink>"/></Menu.Item>
-          <Menu.Item><ButtonLink href="#Menu" ink="primary" label="<ButtonLink primary>"/></Menu.Item>
+          <Menu.Item><Button label="<Button>"/></Menu.Item>
+          <Menu.Item><Button ink="primary" label="<Button primary>"/></Menu.Item>
         </Menu.Button>
 
         <h3>Menu Stack</h3>
@@ -140,10 +139,10 @@ storiesOf('Tocco-UI | Menu', module)
               <Menu.ItemFlyout>
                 <Menu.Stack>
                   <Menu.Item><Button label="Action 1-1"/></Menu.Item>
-                  <Menu.Item><ButtonLink href="#Menu" label="Action 1-2"/></Menu.Item>
+                  <Menu.Item><Button label="Action 1-2"/></Menu.Item>
                 </Menu.Stack>
               </Menu.ItemFlyout>
-              <Menu.Item><ButtonLink href="#Menu" label="Action 1"/></Menu.Item>
+              <Menu.Item><Button label="Action 1"/></Menu.Item>
             </Menu.ButtonGroup>
           </Menu.Item>
 
@@ -152,7 +151,7 @@ storiesOf('Tocco-UI | Menu', module)
               <Menu.Item><Button label="Action 2"/></Menu.Item>
               <Menu.ItemFlyout>
                 <Menu.Stack>
-                  <Menu.Item><ButtonLink href="#Menu" label="Action 2-1"/></Menu.Item>
+                  <Menu.Item><Button label="Action 2-1"/></Menu.Item>
                   <Menu.Item><Button label="Action 2-2"/></Menu.Item>
                 </Menu.Stack>
               </Menu.ItemFlyout>
@@ -165,16 +164,16 @@ storiesOf('Tocco-UI | Menu', module)
             <Menu.ButtonGroup>
               <Menu.ItemFlyout>
                 <Menu.Stack>
-                  <Menu.Item><ButtonLink href="#Menu" label="Action 4a-1"/></Menu.Item>
+                  <Menu.Item><Button label="Action 4a-1"/></Menu.Item>
                   <Menu.Item><Button label="Action 4a-2"/></Menu.Item>
                 </Menu.Stack>
               </Menu.ItemFlyout>
               <Menu.Item><Button label="Action 4c"/></Menu.Item>
-              <Menu.Item><ButtonLink href="#Menu" label="Action 4d"/></Menu.Item>
+              <Menu.Item><Button label="Action 4d"/></Menu.Item>
               <Menu.ItemFlyout>
                 <Menu.Stack>
                   <Menu.Item><Button label="Action 4b-1"/></Menu.Item>
-                  <Menu.Item><ButtonLink href="#Menu" label="Action 4b-2"/></Menu.Item>
+                  <Menu.Item><Button label="Action 4b-2"/></Menu.Item>
                 </Menu.Stack>
               </Menu.ItemFlyout>
             </Menu.ButtonGroup>
@@ -184,7 +183,7 @@ storiesOf('Tocco-UI | Menu', module)
     {
       info: {
         propTables: [Raw],
-        propTablesExclude: [Button, ButtonLink, Icon, Typography.Em, Typography.Span, Typography.Strong]
+        propTablesExclude: [Button, Button, Icon, Typography.Em, Typography.Span, Typography.Strong]
       }
     }
   )

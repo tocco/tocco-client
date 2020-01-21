@@ -96,22 +96,22 @@ describe('tocco-ui', () => {
           expect(wrapper.props().onChange).to.have.been.calledWith({postcode: '2345'})
         })
 
-        test('should render ButtonLink', () => {
+        test('should render Link', () => {
           const wrapper = mount(<LocationEdit
             options={options}
             onChange={EMPTY_FUNC}
             value={suggestions[0]}/>)
 
-          expect(wrapper.find('ButtonLink')).to.have.length(1)
+          expect(wrapper.find('Link')).to.have.length(1)
         })
 
-        test('should set ButtonLink href', () => {
+        test('should set Link href', () => {
           const wrapper = mount(<LocationEdit
             options={options}
             onChange={EMPTY_FUNC}
             value={suggestions[0]}/>)
 
-          expect(wrapper.find('ButtonLink').props().href).to.eql(locationString)
+          expect(wrapper.find('Link').props().href).to.eql(locationString)
         })
 
         describe('getMapsAddress', () => {

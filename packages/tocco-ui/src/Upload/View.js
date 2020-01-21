@@ -3,7 +3,7 @@ import React from 'react'
 import {download} from 'tocco-util'
 
 import Button from '../Button'
-import ButtonLink from '../ButtonLink'
+import Link from '../Link'
 import Preview from '../Preview'
 import StyledView from './StyledView'
 
@@ -13,7 +13,8 @@ export const getDownloadUrl = binaryLink =>
 const View = props => (
   <StyledView>
     <div>
-      <ButtonLink
+      <Link
+        neutral
         icon="download"
         download={props.value.fileName}
         href={getDownloadUrl(props.value.binaryLink)}

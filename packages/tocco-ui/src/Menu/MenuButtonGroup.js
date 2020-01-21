@@ -4,7 +4,7 @@ import Menu from './Menu'
 import StyledMenuButtonGroup from './StyledMenuButtonGroup'
 
 /**
- * Use <Menu.ButtonGroup> to morph <Button> and <ButtonLink> into a split button.
+ * Use <Menu.ButtonGroup> to morph <Button> into a split button.
  * Utilize it only as grandchild of <Menu.Button> and wrap each <Menu.ButtonGroup> in an <Item>.
  */
 

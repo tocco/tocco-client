@@ -5,7 +5,7 @@ import StyledItem from './StyledItem'
 import {design} from '../utilStyles'
 
 /**
- * Wrap all <Button> and <ButtonLink> in <Item>.
+ * Wrap all <Button> in <Item>.
  */
 class Item extends React.Component {
   constructor(props) {
