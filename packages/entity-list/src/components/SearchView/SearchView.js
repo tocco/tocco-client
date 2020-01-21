@@ -8,7 +8,7 @@ import AdminSearchForm from '../AdminSearchForm'
 import searchFormTypes, {searchFormTypePropTypes} from '../../util/searchFormTypes'
 
 const AdminSearchFormWrapper = styled.div`
-  height: calc(100vh - 80px); // TODO: This is only a temporary workaround, height needs to be 100%
+  height: calc(100vh - 77px); // TODO: This is only a temporary workaround, height needs to be 100%
   overflow-y: auto;
   overflow-x: hidden;
 `

@@ -5,7 +5,6 @@ export default styled.div`
   float: left;
   margin-right: 1rem;
   display: flex;
-  margin-bottom: 1rem;
 `
 
 export const StyledButton = styled.span`

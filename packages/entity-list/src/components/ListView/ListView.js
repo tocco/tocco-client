@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {intlShape} from 'react-intl'
 import {actions, form} from 'tocco-app-extensions'
-import {LoadMask, theme} from 'tocco-ui'
+import {LoadMask, theme, scale} from 'tocco-ui'
 import styled from 'styled-components'
 
 import SelectionControllerContainer from '../../containers/SelectionControllerContainer'
@@ -10,15 +10,18 @@ import {getColumnDefinition} from '../../util/api/forms'
 import TableContainer from '../../containers/TableContainer'
 import ActionContainer from '../../containers/ActionContainer'
 
-const ListWrapper = styled.div`
+export const ListWrapper = styled.div`
   background-color: ${theme.color('paper')};
-  padding: 3px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: ${props => props.searchFormPosition === 'left' ? scale.space(-0.5) : '0'}
 `
 
 const ActionWrapper = styled.div`
   background-color: ${theme.color('paper')};
   margin-bottom: 3px;
-  padding: 9px;
+  padding: 8px;
 `
 
 class ListView extends React.Component {
@@ -39,7 +42,7 @@ class ListView extends React.Component {
         {
           this.props.formDefinition && this.props.formDefinition.children.map(child => {
             if (child.componentType === form.componentTypes.TABLE) {
-              return <ListWrapper key={`tableWrapper-${child.id}`}>
+              return <ListWrapper searchFormPosition={this.props.searchFormPosition} key={`tableWrapper-${child.id}`}>
                 <TableContainer key={`table-${child.id}`} columnDefinitions={getColumnDefinition(child)}/>
               </ListWrapper>
             } else if (actions.isAction(child.componentType)) {
@@ -75,7 +78,8 @@ ListView.propTypes = {
   }),
   dataLoadingInProgress: PropTypes.bool,
   showSelectionController: PropTypes.bool,
-  entityName: PropTypes.string
+  entityName: PropTypes.string,
+  searchFormPosition: PropTypes.oneOf(['top', 'left'])
 }
 
 export default ListView

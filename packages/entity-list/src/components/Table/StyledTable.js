@@ -4,16 +4,24 @@ import {
   declareWrappingText,
   scale,
   theme,
-  shadeColor
+  shadeColor,
+  StyledScrollbar
 } from 'tocco-ui'
 import _get from 'lodash/get'
 
 const CARET_WIDTH = scale.space(-2)
 
 const StyledTable = styled.div`
+  
+  .react-bs-container-body {
+    height: 48vh !important;
+    max-height: 450px;
+    overflow-y: auto;
+    ${StyledScrollbar}
+  }
+   
   && {
     .react-bs-table {
-      margin-bottom: ${scale.space(-1)};
       background-color: ${theme.color('paper')};
 
       table {
@@ -103,10 +111,6 @@ const StyledTable = styled.div`
           }
         }
       }
-    }
-
-    .react-bs-table-pagination .row {
-      margin: ${scale.space(-1)} 0 0 0 !important;
     }
   }
 `
