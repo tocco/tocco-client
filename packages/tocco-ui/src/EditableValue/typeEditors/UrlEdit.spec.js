@@ -1,5 +1,6 @@
 import React from 'react'
 import {mount} from 'enzyme'
+import {enzymeUtil} from 'tocco-test-util'
 
 import UrlEdit from './UrlEdit'
 
@@ -9,7 +10,7 @@ describe('tocco-ui', () => {
       describe('UrlEdit ', () => {
         test('should show the value and a link', () => {
           const value = 'http://www.tocco.ch'
-          const wrapper = mount(<UrlEdit value={value}/>)
+          const wrapper = enzymeUtil.mountEmbedded(<UrlEdit value={value}/>)
           expect(wrapper.html()).to.have.string(value)
           expect(wrapper.find('a')).to.have.length(1)
         })
@@ -24,7 +25,7 @@ describe('tocco-ui', () => {
           const input = 'www.google.COM'
           const expectedResult = 'https://www.google.com'
           const onChangeSpy = sinon.spy()
-          const wrapper = mount(<UrlEdit value="" onChange={onChangeSpy}/>)
+          const wrapper = enzymeUtil.mountEmbedded(<UrlEdit value="" onChange={onChangeSpy}/>)
           wrapper.find('input').simulate('change', {target: {value: input}})
 
           await new Promise(resolve => setTimeout(() => {

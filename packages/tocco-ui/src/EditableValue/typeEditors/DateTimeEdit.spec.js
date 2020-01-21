@@ -1,5 +1,5 @@
 import React from 'react'
-import {intlEnzyme} from 'tocco-test-util'
+import {enzymeUtil} from 'tocco-test-util'
 
 import DateTimeEdit from './DateTimeEdit'
 import DateAbstract from './DateAbstract'
@@ -11,7 +11,7 @@ describe('tocco-ui', () => {
     describe('typeEditors', () => {
       describe('DateTimeEdit ', () => {
         test('should render an instance of DateAbstract', () => {
-          const wrapper = intlEnzyme.mountWithIntl(
+          const wrapper = enzymeUtil.mountEmbedded(
             <DateTimeEdit onChange={EMPTY_FUNC}/>
           )
 
