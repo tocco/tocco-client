@@ -69,7 +69,7 @@ export function* loadDetailView() {
   if (mode === modes.CREATE) {
     yield put(actions.setEntity({paths: {}, model: entityName}))
     const formDefaultValues = yield call(form.getDefaultValues, fieldDefinitions)
-    const inputDefaultValues = yield call(form.transformInputValues, defaultValues, model)
+    const inputDefaultValues = defaultValues ? yield call(form.transformInputValues, defaultValues, model) : {}
     const defaultValuesFields = {...formDefaultValues, ...inputDefaultValues}
     const flattenEntity = yield call(api.getFlattenEntity, {model: entityName})
     const formValues = yield call(form.entityToFormValues, {...flattenEntity, ...defaultValuesFields})
