@@ -36,15 +36,13 @@ export const StyledLoginButton = styled(Button)`
     display: flex;
     justify-content: center;
     padding: 1.25rem 0;
+    width:100%;
+    margin: 20px 0;
   
     &:not(:last-child) {
       margin-right: 0;
     }
-    
-    && > span {
-      width: auto;
-      padding-left: .4em;
-    }
+  
   }
 `
 
@@ -54,6 +52,8 @@ export const StyledTransparentButton = styled(Button)`
     background-color: transparent;
     color: ${theme.color('primary')};
     padding: 1.25rem 0;
+    width:100%;
+    justify-content: center;
     
     &:hover {
       background-color: transparent;
