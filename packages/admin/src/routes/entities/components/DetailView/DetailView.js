@@ -14,19 +14,19 @@ const DetailViewContainer = styled.div`
 
 const DetailViewPart = styled.div`
   flex: 1;
+`
+
+const DetailViewPartEdit = styled(DetailViewPart)`
+  padding: 1rem .5rem 2rem 1.5rem;
   margin-right: 1rem;
-  
-  .tocco-entity-detail {
-    padding: 1rem .5rem 2rem 1.5rem;
-    background-color: ${theme.color('paper')};
-  }
+  background-color: ${theme.color('paper')};
 `
 
 const DetailView = props => (
   <DetailViewContainer>
-    <DetailViewPart>
+    <DetailViewPartEdit>
       <EditView match={props.match} history={props.history}/>
-    </DetailViewPart>
+    </DetailViewPartEdit>
     <DetailViewPart>
       <RelationsView match={props.match} history={props.history}/>
     </DetailViewPart>
