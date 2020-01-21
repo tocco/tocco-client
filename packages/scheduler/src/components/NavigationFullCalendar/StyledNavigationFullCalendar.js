@@ -1,21 +1,18 @@
 import styled from 'styled-components'
 import {
-  scale,
-  StyledMenuButton,
-  StyledItem
+  scale
 } from 'tocco-ui'
 
 const StyledNavigationFullCalendar = styled.div`
-  && {
-   margin-top: 4px;
-    margin-bottom: ${scale.space(-2)};
-
-    > ${StyledMenuButton} {
-      display: flex;
-
-      > ${StyledItem}:nth-child(3) {
-        flex-grow: 1;
-      }
+  display: flex;
+  justify-content: space-between;
+  margin: ${scale.space(-2)};
+  
+  > div {
+    display: flex;
+    align-items: center;
+    > * {
+      margin-left: ${scale.space(-2)};
     }
   }
 `
