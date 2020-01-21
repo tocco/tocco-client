@@ -61,6 +61,7 @@ export class PasswordRequest extends React.Component {
 
           <ButtonGroup look="raised">
             <StyledLoginButton
+              look="raised"
               disabled={!this.state.username || this.props.pending}
               ink="primary"
               label={this.msg('client.login.passwordRequest.button')}
