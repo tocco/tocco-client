@@ -10,6 +10,10 @@ import EditView from '../EditView'
 const DetailViewContainer = styled.div`
   display:flex;
   flex-direction: row;
+  
+  .react-bs-container-body {
+    height: auto !important;
+  }
 `
 
 const DetailViewPart = styled.div`

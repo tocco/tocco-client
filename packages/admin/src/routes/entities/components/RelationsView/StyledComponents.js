@@ -12,7 +12,7 @@ export const StyledRelationBox = styled.div`
   padding: ${scale.space(-1)};
   display: grid;
   grid-template-columns: repeat(auto-fit, 200px);
-  grid-row-gap: ${scale.space(-3.5)};
+  grid-row-gap: ${scale.space(-2)};
   grid-column-gap: ${scale.space(-2)};
   justify-content: space-between;
 `
