@@ -3,7 +3,7 @@ import {storiesOf} from '@storybook/react'
 import {withKnobs} from '@storybook/addon-knobs'
 import {action} from '@storybook/addon-actions'
 import {Provider} from 'react-redux'
-import {Button, ButtonGroup, Typography} from 'tocco-ui'
+import {Button, Typography} from 'tocco-ui'
 
 import Readme from './README.md'
 import notifier from './'
@@ -95,17 +95,17 @@ class Story extends React.Component {
       props => (
         <React.Fragment>
           <Typography.P>Custom component starts here</Typography.P>
-          <ButtonGroup look="raised">
-            <Button
-              ink="primary"
-              label="Primary action"
-              onClick={action('Primary action')}
-            />
-            <Button
-              label="Secondary action (and close)"
-              onClick={() => { action('Secondary action')(); props.close() }}
-            />
-          </ButtonGroup>
+          <Button
+            look="raised"
+            ink="primary"
+            label="Primary action"
+            onClick={action('Primary action')}
+          />
+          <Button
+            look="raised"
+            label="Secondary action (and close)"
+            onClick={() => { action('Secondary action')(); props.close() }}
+          />
         </React.Fragment>
       ),
       true

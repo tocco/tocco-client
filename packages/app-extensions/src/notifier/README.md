@@ -93,12 +93,10 @@ store.dispatch(notifier.modalComponent(
   props => (
     <React.Fragment>
       <Typography.P>Custom component starts here</Typography.P>
-      <ButtonGroup look="raised">
         <Button
           label="Close"
           onClick={() => props.close()}
         />
-      </ButtonGroup>
     </React.Fragment>
   ),
   closable
