@@ -1,13 +1,16 @@
 import _get from 'lodash/get'
+import {ToccoTheme} from 'tocco-theme'
 
-const color = (path, fallback = 'inherit') => ({theme}) => _get(theme, `colors.${path}`, fallback)
-const fontFamily = (path, fallback = 'inherit') => ({theme}) => _get(theme, `fontFamily.${path}`, fallback)
-const fontSize = (path, fallback = '1rem') => ({theme}) => _get(theme, `fontSize.${path}`, fallback)
-const fontWeight = (path, fallback = 400) => ({theme}) => _get(theme, `fontWeights.${path}`, fallback)
-const lineHeight = (path, fallback = 1) => ({theme}) => _get(theme, `lineHeights.${path}`, fallback)
-const path = (path, fallback = 'inherit') => ({theme}) => _get(theme, path, fallback)
-const radii = (path, fallback = 0) => ({theme}) => _get(theme, `radii.${path}`, fallback)
-const space = (path, fallback = 2) => ({theme}) => _get(theme, `space.${path}`, fallback)
+const getTheme = theme => Object.keys(theme).length === 0 ? ToccoTheme : theme
+
+const color = path => ({theme}) => _get(getTheme(theme), `colors.${path}`)
+const fontFamily = path => ({theme}) => _get(getTheme(theme), `fontFamily.${path}`)
+const fontSize = path => ({theme}) => _get(getTheme(theme), `fontSize.${path}`)
+const fontWeight = path => ({theme}) => _get(getTheme(theme), `fontWeights.${path}`)
+const lineHeight = path => ({theme}) => _get(getTheme(theme), `lineHeights.${path}`)
+const path = path => ({theme}) => _get(getTheme(theme), path)
+const radii = path => ({theme}) => _get(getTheme(theme), `radii.${path}`)
+const space = path => ({theme}) => _get(getTheme(theme), `space.${path}`)
 
 export default {
   color,

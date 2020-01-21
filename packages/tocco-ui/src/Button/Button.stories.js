@@ -25,7 +25,7 @@ storiesOf('Tocco-UI | Buttons / Button', module)
         label={text('label', 'My Button')}
         look={select('look', {
           [Button.defaultProps.look.toUpperCase()]: Button.defaultProps.look,
-          ..._pick(design.look, ['BALL', 'FLAT', 'RAISED'])
+          ..._pick(design.look, ['FLAT', 'RAISED'])
         }) || undefined}
         onClick={action('clicked')}
         pending={boolean('pending', false) || undefined}
@@ -71,14 +71,14 @@ storiesOf('Tocco-UI | Buttons / Button', module)
           icon="cog"
           iconPosition="append"
           key="5"
-          label="Icon with text"
+          label="Icon append"
           type="submit"
         />
         <Button
           {...knobs}
           icon="facebook"
           key="6"
-          label="Brand Icon"
+          label="Icon prepend"
         />
         <Button
           {...knobs}
@@ -90,20 +90,16 @@ storiesOf('Tocco-UI | Buttons / Button', module)
         />
         <Button
           {...knobs}
-          icon="jira"
-          key="11"
-        />
-        <Button
-          {...knobs}
-          label="I"
-          key="12"
-          look="ball"
-        />
-        <Button
-          {...knobs}
           key="13"
           look="raised"
-        ><i>child</i></Button>
+        >
+          <i>child</i><b>child2</b>
+        </Button>
+        <Button
+          icon={'angle-up' }
+          iconPosition="append"
+          label="Menu"
+        />
       </span>
     }
   )
