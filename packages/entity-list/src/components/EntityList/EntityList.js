@@ -1,15 +1,10 @@
 import PropTypes from 'prop-types'
 import React, {useEffect} from 'react'
-import styled from 'styled-components'
 
 import SearchViewContainer from '../../containers/SearchViewContainer'
 import ListViewContainer from '../../containers/ListViewContainer'
 import {TopPositioning, LeftPositioning, ListGrid, SearchGrid} from './StyledComponents'
 import searchFormTypes, {searchFormTypePropTypes} from '../../util/searchFormTypes'
-
-const StyledListWrapper = styled.div`
-  margin-right: 2rem;
-`
 
 const EntityList = ({
   initialize,
@@ -23,9 +18,7 @@ const EntityList = ({
   }, [])
 
   const List = () => (
-    <StyledListWrapper className="StyledListWrapper">
-      <ListViewContainer/>
-    </StyledListWrapper>
+    <ListViewContainer/>
   )
 
   if (searchFormType === searchFormTypes.NONE) {
