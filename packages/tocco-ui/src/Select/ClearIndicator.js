@@ -1,14 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Button from '../Button'
+import Ball from '../Ball'
 
 const ClearIndicator = props =>
   <span {...props.innerProps}>
-    <Button
+    <Ball
       icon="times"
-      look="ball"
-      tabIndex={-1} />
+      tabIndex={-1}
+    />
   </span>
 
 ClearIndicator.propTypes = {

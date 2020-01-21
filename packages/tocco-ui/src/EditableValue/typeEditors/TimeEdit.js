@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import {stringToDuration, numbersToTimeFormat} from '../utils'
-import Button from '../../Button'
+import Ball from '../../Ball'
 import {
   StyledEditableControl,
   StyledEditableWrapper
@@ -38,9 +38,8 @@ const TimeEdit = props => {
         value={timeString}
       />
       {showClearButton && <StyledEditableControl>
-        <Button
+        <Ball
           icon="times"
-          look="ball"
           onClick={clearInput}
           tabIndex={-1}
         />

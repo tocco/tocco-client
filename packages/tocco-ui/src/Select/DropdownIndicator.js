@@ -1,14 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import Button from '../Button'
+import Ball from '../Ball'
 
 const DropdownIndicator = props =>
   !props.immutable
   && <span onMouseDown={() => props.openMenu()}>
-    <Button
+    <Ball
       icon="chevron-down"
-      look="ball"
       tabIndex={-1}
     />
   </span>
