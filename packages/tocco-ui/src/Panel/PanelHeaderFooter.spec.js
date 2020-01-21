@@ -3,7 +3,7 @@ import React from 'react'
 import {shallow} from 'enzyme'
 
 import PanelHeaderFooter from './PanelHeaderFooter'
-import Button from '../Button'
+import Ball from '../Ball'
 import StyledPanelHeaderFooter from './StyledPanelHeaderFooter'
 
 describe('tocco-ui', () => {
@@ -26,14 +26,14 @@ describe('tocco-ui', () => {
         expect(wrapper.find('span').last().text()).to.equal('child-2')
       })
 
-      test('should hide or display button according precondition', () => {
+      test('should hide or display Ball according precondition', () => {
         let wrapper = shallow(
           <PanelHeaderFooter
             isToggleable={true}
             showToggler={true}
           />
         )
-        expect(wrapper.find(Button)).to.have.length(1)
+        expect(wrapper.find(Ball)).to.have.length(1)
 
         wrapper = shallow(
           <PanelHeaderFooter
@@ -41,7 +41,7 @@ describe('tocco-ui', () => {
             showToggler={true}
           />
         )
-        expect(wrapper.find(Button)).to.have.length(0)
+        expect(wrapper.find(Ball)).to.have.length(0)
 
         wrapper = shallow(
           <PanelHeaderFooter
@@ -49,7 +49,7 @@ describe('tocco-ui', () => {
             showToggler={false}
           />
         )
-        expect(wrapper.find(Button)).to.have.length(0)
+        expect(wrapper.find(Ball)).to.have.length(0)
 
         wrapper = shallow(
           <PanelHeaderFooter
@@ -57,10 +57,10 @@ describe('tocco-ui', () => {
             showToggler={false}
           />
         )
-        expect(wrapper.find(Button)).to.have.length(0)
+        expect(wrapper.find(Ball)).to.have.length(0)
       })
 
-      test('should display button correctly', () => {
+      test('should display Ball correctly', () => {
         let wrapper = shallow(
           <PanelHeaderFooter
             isOpen={false}
@@ -68,8 +68,8 @@ describe('tocco-ui', () => {
             showToggler={true}
           />
         )
-        expect(wrapper.find(Button).prop('icon')).to.be.equal('chevron-down')
-        expect(wrapper.find(Button).prop('title')).to.be.equal('Show more information')
+        expect(wrapper.find(Ball).prop('icon')).to.be.equal('chevron-down')
+        expect(wrapper.find(Ball).prop('title')).to.be.equal('Show more information')
 
         wrapper = shallow(
           <PanelHeaderFooter
@@ -78,8 +78,8 @@ describe('tocco-ui', () => {
             showToggler={true}
           />
         )
-        expect(wrapper.find(Button).prop('icon')).to.be.equal('chevron-up')
-        expect(wrapper.find(Button).prop('title')).to.be.equal('Hide information')
+        expect(wrapper.find(Ball).prop('icon')).to.be.equal('chevron-up')
+        expect(wrapper.find(Ball).prop('title')).to.be.equal('Hide information')
       })
     })
   })

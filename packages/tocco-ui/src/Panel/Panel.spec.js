@@ -4,7 +4,7 @@ import {mount} from 'enzyme'
 import Panel from './'
 import Typography from '../Typography'
 import Icon from '../Icon'
-import Button from '../Button'
+import Ball from '../Ball'
 
 const panelIsOpen = wrapper => wrapper.find(Icon).props().icon === 'chevron-up'
 
@@ -45,9 +45,9 @@ describe('tocco-ui', () => {
           </Panel.Wrapper>)
 
         expect(panelIsOpen(wrapper)).to.be.true
-        wrapper.find(Button).simulate('click')
+        wrapper.find(Ball).simulate('click')
         expect(panelIsOpen(wrapper)).to.be.false
-        wrapper.find(Button).simulate('click')
+        wrapper.find(Ball).simulate('click')
         expect(panelIsOpen(wrapper)).to.be.true
       })
 
@@ -63,7 +63,7 @@ describe('tocco-ui', () => {
           </Panel.Wrapper>)
 
         expect(panelIsOpen(wrapper)).to.be.false
-        wrapper.find(Button).simulate('click')
+        wrapper.find(Ball).simulate('click')
         expect(onToggleSpy).to.have.been.calledWith(true)
       })
     })
