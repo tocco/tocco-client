@@ -14,8 +14,6 @@ const CARET_WIDTH = scale.space(-2)
 const StyledTable = styled.div`
   
   .react-bs-container-body {
-    height: 48vh !important;
-    max-height: 450px;
     overflow-y: auto;
     ${StyledScrollbar}
   }
