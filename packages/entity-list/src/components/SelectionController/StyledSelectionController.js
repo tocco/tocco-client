@@ -3,7 +3,6 @@ import {theme} from 'tocco-ui'
 
 export default styled.div`
   float: left;
-  margin-right: 1rem;
   display: flex;
 `
 
