@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {declareFont, theme} from 'tocco-ui'
+import {declareFont, theme, scale} from 'tocco-ui'
 import styled from 'styled-components'
 
 const StyledMenuEntry = styled.div`
@@ -12,8 +12,8 @@ const StyledMenuEntry = styled.div`
 `
 
 const StyledMenuEntryWrapper = styled.div`
-  > div:not(:first-child) {
-    margin-top: .9rem;
+  > div {
+    margin-bottom: ${scale.space(0)};
   }
 `
 

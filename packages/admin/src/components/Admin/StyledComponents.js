@@ -57,7 +57,7 @@ export const burgerMenuStyles = {
   },
   bmItemList: {
     color: '#b8b7ad',
-    height: '87%'
+    height: 'calc(100vh - 160px)'
   },
   bmItem: {
     display: 'inline-block'

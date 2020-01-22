@@ -11,15 +11,11 @@ export const StyledNav = styled.nav`
 `
 
 export const StyledMenuWrapper = styled.div`
-  height: 100%;
+  height: 101%;
   overflow: auto;
   padding-left: 2rem;
 
   ${StyledScrollbar}
-  
-  div > div:last-child {
-    padding-bottom: 2rem;
-  }
 `
 
 export const StyledMenuEntry = styled.span`
