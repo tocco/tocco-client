@@ -33,26 +33,24 @@ class ResourceScheduler extends React.Component {
   render() {
     const props = this.props
     return (
-      <React.Fragment>
-        <StyledSplitPane
-          defaultSize={this.paneWidth}
-          minSize={325}
-          resizerStyle={resizerStyle}
-          split="vertical"
-        >
-          <StyledSplitPanelWrapperLeft>
-            <SearchPanel
-              locale={props.locale}
-              calendarTypes={props.calendarTypes}
-              updateRequestedCalendars={props.updateRequestedCalendars}
-              requestedCalendars={this.props.requestedCalendars}
-            />
-          </StyledSplitPanelWrapperLeft>
-          <StyledSplitPanelWrapperRight>
-            <SchedulerAppContainer/>
-          </StyledSplitPanelWrapperRight>
-        </StyledSplitPane>
-      </React.Fragment>
+      <StyledSplitPane
+        defaultSize={this.paneWidth}
+        minSize={325}
+        resizerStyle={resizerStyle}
+        split="vertical"
+      >
+        <StyledSplitPanelWrapperLeft>
+          <SearchPanel
+            locale={props.locale}
+            calendarTypes={props.calendarTypes}
+            updateRequestedCalendars={props.updateRequestedCalendars}
+            requestedCalendars={this.props.requestedCalendars}
+          />
+        </StyledSplitPanelWrapperLeft>
+        <StyledSplitPanelWrapperRight>
+          <SchedulerAppContainer/>
+        </StyledSplitPanelWrapperRight>
+      </StyledSplitPane>
     )
   }
 }
