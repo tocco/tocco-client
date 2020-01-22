@@ -3,6 +3,11 @@ import PropTypes from 'prop-types'
 import {intlShape} from 'react-intl'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {Prompt} from 'react-router'
+import styled from 'styled-components'
+
+const EntityDetailAppWrapper = styled.div`
+  margin: 1rem 0 1rem 1rem;
+`
 
 const CreateView = props => {
   const [touched, setTouched] = useState(false)
@@ -32,7 +37,7 @@ const CreateView = props => {
   const msg = id => props.intl.formatMessage({id})
 
   return (
-    <React.Fragment>
+    <EntityDetailAppWrapper>
       <Prompt
         when={touched}
         message={msg('client.entity-browser.detail.confirmTouchedFormLeave')}
@@ -48,7 +53,7 @@ const CreateView = props => {
         onEntityCreated={handleEntityCreated}
         onTouchedChange={handleToucheChanged}
       />
-    </React.Fragment>
+    </EntityDetailAppWrapper>
   )
 }
 
