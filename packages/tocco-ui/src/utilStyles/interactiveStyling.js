@@ -31,7 +31,6 @@ const getHoverBackgroundColor = (ink, look, theme) => {
     }
     return themeSelector.color('secondaryLight')({theme})
   }
-
   return darken(0.1, themeSelector.color('paper')({theme}))
 }
 
@@ -50,7 +49,7 @@ export default props => {
   const hoverBackgroundColor = getHoverBackgroundColor(ink, look, theme)
 
   return css`
-    background: ${backgroundColor}
+    background: ${backgroundColor};
     color: ${fontColor};
     border: ${border};
     outline: none;
@@ -60,7 +59,6 @@ export default props => {
       background: ${hoverBackgroundColor}
     }
       
-   
     &:active,
     &[aria-pressed="true"] {
       background:  ${lighten(0.1, hoverBackgroundColor)};

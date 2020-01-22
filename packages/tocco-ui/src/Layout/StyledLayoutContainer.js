@@ -5,6 +5,7 @@ const declareStylesIfNestedCorrectly = props => {
     return `
       display: flex;
       flex-wrap: wrap;
+      margin-top: 1rem;
 
       &:last-child {
         margin-bottom: 0;
