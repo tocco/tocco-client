@@ -31,9 +31,13 @@ export const RelationBox = styled.div`
   padding: ${scale.space(-2.7)} ${scale.space(-1)};
   display: flex;
   background-color: ${({selected}) => selected && theme.color('secondary')};
+  
   &&& {
-    * {color: ${({selected}) => selected && theme.color('paper')}};};
-  }
+    * {
+      color: ${({selected}) => selected && theme.color('paper')};
+      box-sizing: initial;
+    }
+   }
 
   ${({selected}) => selected && `
     ${RelationLinks} {
