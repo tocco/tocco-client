@@ -1,8 +1,12 @@
+0.1.23
+- Fix list scrollbar
+
 0.1.22
 - Change fontSize and spacing
 - Style List View
 - Remove scrollbar of table
 - Button styling
+- Fix small icon bug
 
 0.1.21
 - Style filter buttons
