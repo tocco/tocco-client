@@ -4,7 +4,6 @@ import _get from 'lodash/get'
 import {
   declareFont,
   generateDisabledShade,
-  scale,
   theme
 } from '../utilStyles'
 
@@ -51,7 +50,6 @@ const StyledInputCss = css`
 const StyledEditableControlCss = css`
   display: flex;
   align-items: center;
-  margin-right: -${scale.space(-2)};
 `
 
 const StyledEditableControl = styled.div`

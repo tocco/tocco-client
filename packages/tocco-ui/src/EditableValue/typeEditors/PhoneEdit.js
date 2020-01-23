@@ -98,8 +98,8 @@ class PhoneEdit extends React.Component {
           <Link
             href={`tel:${this.props.value}`}
             icon="phone"
-            look="ball"
             tabIndex={-1}
+            neutral
           />
         </StyledEditableControl>}
       </StyledEditableWrapper>
