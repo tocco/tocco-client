@@ -110,6 +110,11 @@ const StyledTable = styled.div`
         }
       }
     }
+    
+    .react-bs-table-pagination .row {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
   }
 `
 
