@@ -1,3 +1,7 @@
+0.1.24
+- Increase list limit
+- Style fixing
+
 0.1.23
 - Fix list scrollbar
 
