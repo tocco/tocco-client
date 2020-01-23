@@ -6,7 +6,7 @@ import {StyledLink} from '../../../../components/StyledLink'
 export const StyledBreadcumbs = styled.div`
   background-color: ${theme.color('backgroundBreadcrumbs')};
   width: 100%;
-  padding: .95rem 1.7rem;
+  padding: .8rem 1.7rem;
   
   span:nth-child(even) {
     margin-left: 1.5rem;
