@@ -3,7 +3,6 @@ export const SET_CURRENT_VIEW_INFO = 'path/SET_CURRENT_VIEW_INFO'
 export const LOAD_CURRENT_VIEW_INFO = 'path/LOAD_CURRENT_VIEW_INFO'
 export const SET_BREADCRUMBS_INFO = 'path/SET_BREADCRUMBS_INFO'
 export const SET_RELATIONS = 'path/SET_RELATIONS'
-export const SET_BREADCRUMB_DISPLAY = 'path/SET_BREADCRUMB_DISPLAY'
 export const CACHE_DISPLAY = 'path/CACHE_DISPLAY'
 export const SET_RELATION_COUNT = 'path/SET_RELATION_COUNT'
 
@@ -41,14 +40,6 @@ export const setRelations = relations => ({
   type: SET_RELATIONS,
   payload: {
     relations
-  }
-})
-
-export const setBreadcrumbDisplay = (display, idx) => ({
-  type: SET_BREADCRUMB_DISPLAY,
-  payload: {
-    display,
-    idx
   }
 })
 
