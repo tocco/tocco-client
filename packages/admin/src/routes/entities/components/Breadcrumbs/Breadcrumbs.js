@@ -5,12 +5,19 @@ import {Helmet} from 'react-helmet'
 
 import {StyledBreadcumbs, StyledBreadcrumbsLink} from './StyledBreadcrumbs'
 
+const getTitle = breadcrumbsInfo =>
+  breadcrumbsInfo
+    .slice(breadcrumbsInfo.length - 2)
+    .map(breadcrumb => breadcrumb.display)
+    .reverse()
+    .join(' - ')
+
 const Breadcrumbs = ({breadcrumbsInfo}) => {
   if (breadcrumbsInfo.length === 0) { return null }
 
   return <StyledBreadcumbs>
     <Helmet defer={false}>
-      <title>Tocco - {breadcrumbsInfo[breadcrumbsInfo.length - 1].display}</title>
+      <title>{getTitle(breadcrumbsInfo)}</title>
     </Helmet>
     <div>  {
       breadcrumbsInfo
