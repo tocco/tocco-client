@@ -51,15 +51,14 @@ export function* getDisplay(entityName, key, breadcrumbsIdx) {
     yield put(actions.cacheDisplay(entityName, key, display))
   }
 
-  yield put(actions.setBreadcrumbDisplay(display, breadcrumbsIdx))
+  return display
 }
 
-export function* addEntityToBreadcrumbs(path, entityName) {
-  const breadcrumbs = yield select(breadcrumbsSelector)
+export function* addEntityToBreadcrumbs(path, entityName, breadcrumbs) {
   const type = 'list'
   const display = entityName
 
-  yield put(actions.setBreadcrumbsInfo([...breadcrumbs, {display, path, type}]))
+  breadcrumbs.push({display, path, type})
 }
 
 export function* loadRelationCounts(relations, key) {
@@ -75,15 +74,10 @@ export function* loadRelationCounts(relations, key) {
   yield put(actions.setRelationCount(relationsCount))
 }
 
-export function* addRecordToBreadcrumbs(path, entityName, key) {
+export function* addRecordToBreadcrumbs(path, entityName, key, breadcrumbs) {
   const type = 'record'
-  const breadcrumbs = yield select(breadcrumbsSelector)
-  const display = '...'
-  yield put(actions.setBreadcrumbsInfo([...breadcrumbs, {display, path, type}]))
-
-  if (type === 'record') {
-    yield spawn(getDisplay, entityName, key, breadcrumbs.length)
-  }
+  const display = yield call(getDisplay, entityName, key, breadcrumbs.length)
+  breadcrumbs.push({display, path, type})
 }
 
 export function* loadCurrentViewInfo({payload: {location}}) {
@@ -97,7 +91,7 @@ export function* loadCurrentViewInfo({payload: {location}}) {
     level: 0
   }
 
-  yield put(actions.setBreadcrumbsInfo([]))
+  const breadcrumbs = []
 
   const pathParts = []
   const re = pathToRegexp('/e/:entity/:key?/:relation*/:view(list|detail|edit|create|relations)', pathParts)
@@ -111,7 +105,7 @@ export function* loadCurrentViewInfo({payload: {location}}) {
 
     if (path.entity) {
       const baseEntityModel = yield call(getModel, path.entity)
-      yield call(addEntityToBreadcrumbs, path.entity, baseEntityModel.label)
+      yield call(addEntityToBreadcrumbs, path.entity, baseEntityModel.label, breadcrumbs)
       currentViewInfo.model = baseEntityModel
       currentViewInfo.level = 0
 
@@ -119,7 +113,7 @@ export function* loadCurrentViewInfo({payload: {location}}) {
         currentViewInfo.key = path.key
         currentViewInfo.level = 1
 
-        yield call(addRecordToBreadcrumbs, path.entity + '/' + path.key, path.entity, path.key)
+        yield call(addRecordToBreadcrumbs, path.entity + '/' + path.key, path.entity, path.key, breadcrumbs)
 
         if (path.relation) {
           const splittedRelation = path.relation.split('/')
@@ -136,11 +130,11 @@ export function* loadCurrentViewInfo({payload: {location}}) {
               currentViewInfo.parentModel = currentViewInfo.model
               currentViewInfo.model = yield call(getModel, targetEntity)
 
-              yield call(addEntityToBreadcrumbs, breadcrumbPath, currentViewInfo.model.label)
+              yield call(addEntityToBreadcrumbs, breadcrumbPath, currentViewInfo.model.label, breadcrumbs)
             } else {
               const key = relationStringPart
               currentViewInfo.key = key
-              yield call(addRecordToBreadcrumbs, breadcrumbPath, currentViewInfo.model.name, key)
+              yield call(addRecordToBreadcrumbs, breadcrumbPath, currentViewInfo.model.name, key, breadcrumbs)
             }
           }
         }
@@ -157,6 +151,8 @@ export function* loadCurrentViewInfo({payload: {location}}) {
       yield put(viewPersistor.clearPersistedViews(currentViewInfo.level + 1))
     }
   }
+
+  yield put(actions.setBreadcrumbsInfo(breadcrumbs))
 }
 
 export default function* mainSagas() {
