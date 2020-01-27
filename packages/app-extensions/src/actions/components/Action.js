@@ -70,7 +70,7 @@ ActionVisual.propTypes = {
 const Action = props => {
   if (props.definition.componentType === componentTypes.ACTION_BAR) {
     return props.definition.children.map(child => (
-      <ActionVisual key={`action-${props.definition.id}`} {...props} definition={child}/>
+      <ActionVisual key={`action-${props.definition.id}-${child.id}`} {...props} definition={child}/>
     )
     )
   }
