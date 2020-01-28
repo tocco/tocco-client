@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {FormattedMessage} from 'react-intl'
 import {Typography, StyledH1, StyledH3, theme} from 'tocco-ui'
 import styled from 'styled-components'
 
@@ -46,7 +47,9 @@ const Dashboard = () => {
   const packageJson = require('../../../../../package')
   return <StyledDashBoardWrapper>
     <StyledDashBoard>
-      <Typography.H1>Welcome</Typography.H1>
+      <Typography.H1>
+        <FormattedMessage id="client.admin.welcomeTitle"/>
+      </Typography.H1>
       <InnerWrapper>
         <img src={ToccoLogo} alt="tocco-logo"/>
         <Typography.H3>beta v{packageJson.version}</Typography.H3>

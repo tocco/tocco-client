@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Button, Menu} from 'tocco-ui'
+import {FormattedMessage} from 'react-intl'
 
 import {
   StyledHeader,
@@ -33,7 +34,9 @@ const Header = ({username, currentBusinessUnit, businessUnits, loadBusinessUnits
         </Menu.ItemFlyout>
         <Menu.ItemFlyout label={username} >
           <Menu.Stack>
-            <Menu.Item><Button label="Logout" onClick={doLogout}/></Menu.Item>
+            <Menu.Item>
+              <Button onClick={doLogout}><FormattedMessage id="client.admin.menu.logout"/></Button>
+            </Menu.Item>
           </Menu.Stack>
         </Menu.ItemFlyout>
       </StyledConfig>

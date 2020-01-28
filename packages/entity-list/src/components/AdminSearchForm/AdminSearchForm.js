@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import {Icon, Button} from 'tocco-ui'
 import {withTheme} from 'styled-components'
 import {lighten} from 'polished'
+import {injectIntl, intlShape} from 'react-intl'
 
 import {StyledSplit, AdminSearchGrid, Box, StyledGutter, StyledHeader} from './StyedComponents'
 import BasicSearchFormContainer from '../../containers/BasicSearchFormContainer'
@@ -18,13 +19,16 @@ const getGutter = (borderColor, backgroundColor) => () => {
   return gutterEl
 }
 
-const AdminSearchForm = ({resetSearch, theme}) => {
+const AdminSearchForm = ({resetSearch, theme, intl}) => {
+  const msg = id => intl.formatMessage({id})
+
   return <AdminSearchGrid>
     <StyledHeader>
       <Button
         data-cy="reset-button"
         icon="times"
         onClick={resetSearch}
+        title={msg('client.entity-list.reset')}
       />
     </StyledHeader>
     <StyledSplit
@@ -45,8 +49,9 @@ const AdminSearchForm = ({resetSearch, theme}) => {
 }
 
 AdminSearchForm.propTypes = {
+  intl: intlShape.isRequired,
   resetSearch: PropTypes.func.isRequired,
   theme: PropTypes.object
 }
 
-export default withTheme(AdminSearchForm)
+export default injectIntl(withTheme(AdminSearchForm))

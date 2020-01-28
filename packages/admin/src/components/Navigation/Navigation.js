@@ -1,6 +1,7 @@
 import React, {useRef, useState, useEffect, useMemo} from 'react'
 import PropTypes from 'prop-types'
 import SearchBox from 'tocco-ui/src/SearchBox'
+import {intlShape} from 'react-intl'
 
 import MenuTree from '../MenuTree'
 import {
@@ -57,7 +58,7 @@ const tabs = {
   SETTINGS: 'settings'
 }
 
-const Navigation = ({modulesMenuTree, settingsMenuTree, menuOpen, onClick, activeMenuTab, setActiveMenuTab}) => {
+const Navigation = ({modulesMenuTree, settingsMenuTree, menuOpen, onClick, activeMenuTab, setActiveMenuTab, intl}) => {
   const inputEl = useRef(null)
   const [filter, setFilter] = useState('')
 
@@ -92,26 +93,26 @@ const Navigation = ({modulesMenuTree, settingsMenuTree, menuOpen, onClick, activ
     }
   }, [menuOpen])
 
+  const msg = id => intl.formatMessage({id})
+
   return <StyledNav>
     <StyledTabsContainer>
       <StyledNavButton
-        title="Modules"
         active={activeMenuTab === tabs.MODULES}
         onClick={() => setActiveMenuTab(tabs.MODULES)}
-        label="Modules"
+        label={msg('client.admin.navigation.modules')}
       />
       <StyledNavButton
-        title="Settings"
         active={activeMenuTab === tabs.SETTINGS}
         onClick={() => setActiveMenuTab(tabs.SETTINGS)}
-        label="Settings"
+        label={msg('client.admin.navigation.settings')}
       />
     </StyledTabsContainer>
     <SearchBox
       minInputLength={2}
       onSearch={setFilter}
       ref={inputEl}
-      placeholder="Suche"
+      placeholder={msg('client.admin.navigation.searchBoxPlaceHolder')}
     />
     {activeMenuTab === tabs.MODULES
     && <StyledMenuWrapper>
@@ -125,6 +126,7 @@ const Navigation = ({modulesMenuTree, settingsMenuTree, menuOpen, onClick, activ
 }
 
 Navigation.propTypes = {
+  intl: intlShape.isRequired,
   activeMenuTab: PropTypes.string.isRequired,
   settingsMenuTree: PropTypes.array,
   modulesMenuTree: PropTypes.array,
