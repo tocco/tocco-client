@@ -17,7 +17,6 @@ export const AdminSearchGrid = styled.div`
  
   ${StyledSplit} {
     height: calc(100% - 60px);
-    box-sizing: content-box !important;
   }
   overflow: hidden;
 `
