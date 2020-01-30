@@ -9,30 +9,22 @@ describe('app-extensions', () => {
             const json = {
               data: [
                 {
-                  display: 'Search Filter 1',
                   key: 123,
                   paths: {
                     unique_id: {
-                      path: 'unique_id',
-                      type: 'field',
-                      value: {
-                        value: 'filter1',
-                        type: 'identifier'
-                      }
+                      type: 'identifier',
+                      writable: null,
+                      value: 'filter1'
                     }
                   }
                 },
                 {
-                  display: 'Search Filter 2',
                   key: 124,
                   paths: {
                     unique_id: {
-                      path: 'unique_id',
-                      type: 'field',
-                      value: {
-                        value: 'filter2',
-                        type: 'identifier'
-                      }
+                      type: 'identifier',
+                      writable: null,
+                      value: 'filter2'
                     }
                   }
                 }
@@ -40,8 +32,8 @@ describe('app-extensions', () => {
             }
 
             const expectedResult = [
-              {key: 123, display: 'Search Filter 1', uniqueId: 'filter1'},
-              {key: 124, display: 'Search Filter 2', uniqueId: 'filter2'}
+              {key: 123, uniqueId: 'filter1'},
+              {key: 124, uniqueId: 'filter2'}
             ]
             const transformedResult = searchFilterTransformer(json)
             expect(transformedResult).to.eql(expectedResult)
