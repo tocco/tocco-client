@@ -1,3 +1,6 @@
+0.2.3
+- Various style adjustements
+
 0.2.2
 -  Fix Chrome autofill bug
 
@@ -6,6 +9,6 @@
 
 0.2.0
 - Update React and React-Dom PeerDependency to 16.8.4
-- Remove dependency inside tocco-theme 
+- Remove dependency inside tocco-theme
 
 0.1.39
