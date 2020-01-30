@@ -28,17 +28,30 @@ describe('app-extensions', () => {
               }
             }
 
-            const filters = {
-              display: 'Filter 1',
-              key: 'filter1'
+            const filters = [
+              {key: '1', unique_id: 'filter_1'},
+              {key: '3', unique_id: 'filter_3'}
+            ]
+
+            const displays = {
+              Search_filter: {
+                1: 'Filter 1',
+                3: 'Filter 3'
+              }
             }
+
+            const expectedFilters = [
+              {key: '1', unique_id: 'filter_1', display: 'Filter 1'},
+              {key: '3', unique_id: 'filter_3', display: 'Filter 3'}
+            ]
 
             return expectSaga(sagas.loadSearchFilters, args)
               .provide([
                 [select(sagas.searchFiltersSelector), {}],
-                [matchers.call.fn(rest.fetchEntities), filters]
+                [matchers.call.fn(rest.fetchEntities), filters],
+                [matchers.call.fn(rest.fetchDisplays), displays]
               ])
-              .put(actions.setSearchFilter(args.payload.entity, filters))
+              .put(actions.setSearchFilter(args.payload.entity, expectedFilters))
               .run()
           })
 

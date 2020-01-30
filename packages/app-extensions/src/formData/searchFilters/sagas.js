@@ -12,6 +12,8 @@ export default function* sagas() {
 
 export const searchFiltersSelector = state => state.formData.searchFilters
 
+const searchFilterEntity = 'Search_filter'
+
 export function* loadSearchFilters({payload}) {
   const {entity, group} = payload
   const searchFilter = yield select(searchFiltersSelector)
@@ -26,8 +28,11 @@ export function* loadSearchFilters({payload}) {
     }
 
     const requestOptions = {method: 'GET'}
-    const searchFilters = yield call(rest.fetchEntities,
-      'Search_filter', query, requestOptions, searchFilterTransformer)
-    yield put(actions.setSearchFilter(entity, searchFilters))
+    const searchFilters = yield call(
+      rest.fetchEntities, searchFilterEntity, query, requestOptions, searchFilterTransformer
+    )
+    const displays = yield call(rest.fetchDisplays, {Search_filter: searchFilters.map(s => s.key)})
+    const searchFiltersWithDisplay = searchFilters.map(s => ({...s, display: displays[searchFilterEntity][s.key]}))
+    yield put(actions.setSearchFilter(entity, searchFiltersWithDisplay))
   }
 }
