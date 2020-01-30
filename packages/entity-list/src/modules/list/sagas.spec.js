@@ -33,7 +33,7 @@ describe('entity-list', () => {
               fork(takeLatest, actions.CHANGE_PAGE, sagas.changePage),
               fork(takeLatest, searchFormActions.EXECUTE_SEARCH, sagas.loadData, 1),
               fork(takeLatest, searchFormActions.EXECUTE_SEARCH, sagas.queryChanged),
-              fork(takeEvery, actions.SET_SORTING, sagas.setSorting),
+              fork(takeEvery, actions.SET_SORTING, sagas.reloadData),
               fork(takeEvery, actions.RESET_DATA_SET, sagas.loadData, 1),
               fork(takeLatest, actions.REFRESH, sagas.loadData),
               fork(takeLatest, actions.NAVIGATE_TO_CREATE, sagas.navigateToCreate),
@@ -101,10 +101,10 @@ describe('entity-list', () => {
           })
         })
 
-        describe('setSorting saga', () => {
+        describe('reloadData saga', () => {
           test('should call reset data if list is initialized', () => {
             const initialized = true
-            const gen = sagas.setSorting()
+            const gen = sagas.reloadData()
             expect(gen.next().value).to.eql(select(sagas.listSelector))
             expect(gen.next({initialized}).value).to.eql(call(sagas.loadData, 1))
             expect(gen.next().done).to.be.true
@@ -112,7 +112,7 @@ describe('entity-list', () => {
 
           test('should not call reset data if list isnt initialized', () => {
             const initialized = false
-            const gen = sagas.setSorting()
+            const gen = sagas.reloadData()
             expect(gen.next().value).to.eql(select(sagas.listSelector))
             expect(gen.next({initialized}).done).to.be.true
           })
@@ -190,6 +190,27 @@ describe('entity-list', () => {
             expect(gen.next().value).to.eql(select(sagas.listSelector))
             expect(gen.next(state).value).to.eql(put(actions.setEntities(entities)))
             expect(gen.next().done).to.be.true
+          })
+        })
+
+        describe('setSorting saga', () => {
+          test('should extract sorting of form', () => {
+            const sorting = [{field: 'firstname', order: 'asc'}]
+            return expectSaga(sagas.setSorting)
+              .provide([
+                [matchers.call.fn(getSorting), sorting]
+              ])
+              .put(actions.setSorting(sorting))
+              .run()
+          })
+
+          test('should set fallback if not defined in form', () => {
+            return expectSaga(sagas.setSorting)
+              .provide([
+                [matchers.call.fn(getSorting), []]
+              ])
+              .put(actions.setSorting(sagas.FALLBACK_SORTING))
+              .run()
           })
         })
 
@@ -312,27 +333,36 @@ describe('entity-list', () => {
             const loadedFormDefinition = {
               children: []
             }
-            const sorting = [{field: 'firstname', order: 'adsc'}]
-            const selectable = true
-            const endpoint = null
 
-            const gen = sagas.loadFormDefinition(formDefinition, formName)
-            expect(gen.next().value).to.eql(call(rest.fetchForm, formName, 'list'))
-            expect(gen.next(loadedFormDefinition).value).to.eql(put(actions.setFormDefinition(loadedFormDefinition)))
-            expect(gen.next().value).to.eql(call(getSorting, loadedFormDefinition))
-            expect(gen.next(sorting).value).to.eql(put(actions.setSorting(sorting)))
-            expect(gen.next().value).to.eql(call(getSelectable, loadedFormDefinition))
-            expect(gen.next(selectable).value).to.eql(put(actions.setFormSelectable(selectable)))
-            expect(gen.next().value).to.eql(call(getEndpoint, loadedFormDefinition))
-            expect(gen.next(endpoint).value).to.eql(put(actions.setEndpoint(endpoint)))
-            expect(gen.next().done).to.be.true
+            const selectable = true
+            const endpoint = 'customEndpoint'
+
+            return expectSaga(sagas.loadFormDefinition, formDefinition, formName)
+              .provide([
+                [matchers.call.fn(rest.fetchForm), loadedFormDefinition],
+                [matchers.call.fn(sagas.setSorting)],
+                [matchers.call.fn(getSelectable), selectable],
+                [matchers.call.fn(getEndpoint), endpoint]
+              ])
+              .call(rest.fetchForm, formName, 'list')
+              .put(actions.setFormDefinition(loadedFormDefinition))
+              .call(sagas.setSorting, loadedFormDefinition)
+              .put(actions.setFormSelectable(selectable))
+              .put(actions.setEndpoint(endpoint))
+              .run()
           })
 
-          test('should not load Columndefinition if already loaded', () => {
-            const columnDefinition = [{someContent: true}]
+          test('should not load formDefinition if already loaded', () => {
+            const formDefinition = [{someContent: true}]
             const formName = 'UserSearch'
-            const gen = sagas.loadFormDefinition(columnDefinition, formName)
-            expect(gen.next().value).to.eql(call(getSorting, columnDefinition))
+            return expectSaga(sagas.loadFormDefinition, formDefinition, formName)
+              .provide([
+                [matchers.call.fn(sagas.setSorting)],
+                [matchers.call.fn(getSelectable), false],
+                [matchers.call.fn(getEndpoint), null]
+              ])
+              .not.call(rest.fetchForm, formName, 'list')
+              .run()
           })
         })
 
