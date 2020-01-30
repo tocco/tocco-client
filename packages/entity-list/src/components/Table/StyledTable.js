@@ -12,12 +12,12 @@ import _get from 'lodash/get'
 const CARET_WIDTH = scale.space(-2)
 
 const StyledTable = styled.div`
-  
+
   .react-bs-container-body {
     overflow-y: auto;
     ${StyledScrollbar}
   }
-   
+
   && {
     .react-bs-table {
       background-color: ${theme.color('paper')};
@@ -29,10 +29,10 @@ const StyledTable = styled.div`
         max-width: 100%;
         table-layout: fixed;
         width: 100%;
-        
+
         tr {
           border-bottom: 1px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
-          
+
           th {
             border-bottom: 2px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
             padding-bottom: ${scale.space(-0.5)};
@@ -47,12 +47,12 @@ const StyledTable = styled.div`
           text-align: center;
           vertical-align: top;
         }
-        
-        tr:hover {
+
+        tbody > tr:hover {
           background-color: ${theme.color('backgroundBody')};
         }
-        
-        tr:active, tr:focus {
+
+        tbody >  tr:active, tr:focus {
           &&& {
             background-color: ${theme.color('secondary')} !important;
             color: ${theme.color('paper')} !important;
@@ -97,7 +97,7 @@ const StyledTable = styled.div`
             }
           }
         }
-        
+
         th:first-of-type {
          text-overflow: clip;
         }
@@ -110,7 +110,7 @@ const StyledTable = styled.div`
         }
       }
     }
-    
+
     .react-bs-table-pagination .row {
       margin-left: 0 !important;
       margin-right: 0 !important;
