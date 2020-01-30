@@ -43,6 +43,10 @@
       "burger"
     ]
   },
+  "book": {
+    "id": "far, book",
+    "lib": "fa"
+  },
   "check": {
     "id": "far, check",
     "lib": "fa",
@@ -90,6 +94,10 @@
   },
   "cog": {
     "id": "far, cog",
+    "lib": "fa"
+  },
+  "compress": {
+    "id": "far, compress",
     "lib": "fa"
   },
   "download": {
@@ -162,6 +170,10 @@
       "sso"
     ]
   },
+  "horizontal-rule": {
+    "id": "fal, horizontal-rule",
+    "lib": "fa"
+  },
   "id-badge": {
     "id": "far, id-badge",
     "lib": "fa"
@@ -204,6 +216,10 @@
     "id": "far, search",
     "lib": "fa"
   },
+  "square": {
+    "id": "fas, square",
+    "lib": "fa"
+  },
   "star": {
     "id": "far, star",
     "lib": "fa",
@@ -225,10 +241,6 @@
       "refresh"
     ]
   },
-  "square": {
-    "id": "fas, square",
-    "lib": "fa"
-  },
   "times": {
     "id": "far, times",
     "lib": "fa",
@@ -249,10 +261,6 @@
   },
   "upload": {
     "id": "far, upload",
-    "lib": "fa"
-  },
-  "horizontal-rule": {
-    "id": "fal, horizontal-rule",
     "lib": "fa"
   }
 }
