@@ -5,7 +5,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {library} from '@fortawesome/fontawesome-svg-core'
 import {
   faAngleDown, faAngleRight, faAngleLeft, faAngleUp, faStar as faStarFilled, faExclamation, faCheckCircle,
-  faExternalLink, faPhone
+  faExternalLink, faPhone, faSquare
 } from '@fortawesome/pro-solid-svg-icons'
 import {
   faChevronDoubleLeft, faChevronDoubleRight, faChevronRight, faChevronLeft, faChevronUp, faChevronDown, faPlus,
@@ -21,7 +21,8 @@ import {faGoogle, faFacebook, faFacebookF, faDropbox, faMicrosoft, faJira, faApp
     faChevronLeft, faChevronUp, faChevronDown, faPlus, faFolders, faStarFilled, faStar, faTimes, faArrowRight,
     faArrowLeft, faListUl, faFile, faFileAlt, faFileExcel, faFilePdf, faIdBadge, faCheck, faExclamation, faTimesLight,
     faCircle, faCheckCircle, faGoogle, faFacebook, faFacebookF, faDropbox, faMicrosoft, faJira, faApple, faBars,
-    faExternalLink, faPhone, faMapMarked, faSearch, faCog, faDownload, faUpload, faInfo, faHorizontalRule, faSync)
+    faExternalLink, faPhone, faMapMarked, faSearch, faCog, faDownload, faUpload, faInfo, faHorizontalRule, faSync,
+    faSquare)
 })()
 
 const FontAwesomeAdapter = ({icon, style}) =>

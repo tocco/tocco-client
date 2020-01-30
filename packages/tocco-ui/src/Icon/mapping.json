@@ -225,6 +225,10 @@
       "refresh"
     ]
   },
+  "square": {
+    "id": "fas, square",
+    "lib": "fa"
+  },
   "times": {
     "id": "far, times",
     "lib": "fa",
