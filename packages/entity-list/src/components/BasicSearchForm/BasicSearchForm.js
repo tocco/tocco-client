@@ -64,6 +64,9 @@ const BasicSearchForm = ({
     setShowExtendedSearchForm(!showExtendedSearchForm)
   }
 
+  const fields = form.getFieldDefinitions(searchFormDefinition)
+  const hasExtendedOnlySearchFields = !fields.every(field => simpleSearchFields.includes(field.id))
+
   return (
     <StyledBasicSearchForm>
       <form onSubmit={handleSubmit}>
@@ -86,7 +89,7 @@ const BasicSearchForm = ({
           }
           mode="search"
         />
-        {!disableSimpleSearch
+        {hasExtendedOnlySearchFields && !disableSimpleSearch
           && <StyledSearchFormButtons>
             <Ball
               data-cy="extend-search-button"

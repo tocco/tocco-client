@@ -12,7 +12,7 @@ const StyledBasicSearchForm = styled.div`
 const StyledSearchFormButtons = styled.div`
   && {
     width: 100%;
-    text-align: right
+    text-align: center;
   }
 `
 
