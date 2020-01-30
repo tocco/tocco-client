@@ -1,3 +1,6 @@
+0.9.4
+- Various styling adjustments
+
 0.9.3
 - use _remotefield form for remotefields
 - Cache forms and models
@@ -13,7 +16,7 @@
 0.9.2
 - Floating labels
 - Location field support
-- Various bug fixes 
+- Various bug fixes
 
 0.9.1
 - Add location field support
