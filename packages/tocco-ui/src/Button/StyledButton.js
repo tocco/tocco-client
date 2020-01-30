@@ -14,14 +14,14 @@ const declareIconPosition = props => {
       return `
         > span {
           order: -1;
-          margin-right: .3rem;
+          margin-right: .5rem;
         }
        `
     }
 
     return `
       > span {
-        margin-left: .3rem;
+        margin-left: .5rem;
       }
      `
   }
