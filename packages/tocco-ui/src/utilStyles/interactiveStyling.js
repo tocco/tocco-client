@@ -19,7 +19,7 @@ const getFontColor = (ink, look, theme, backgroundColor) => {
 
 const getBorder = (ink, look, theme) => {
   if (ink !== 'primary' && look === 'raised') {
-    return `1px solid ${themeSelector.color('secondaryLight')({theme})}`
+    return `0px 0px 0px 1px ${themeSelector.color('secondaryLight')({theme})} inset;`
   }
   return 'none'
 }
@@ -51,19 +51,20 @@ export default props => {
   return css`
     background: ${backgroundColor};
     color: ${fontColor};
-    border: ${border};
+    box-shadow: ${border};
     outline: none;
-    
+    border: none;
+
     &:focus,
     &:hover {
       background: ${hoverBackgroundColor}
     }
-      
+
     &:active,
     &[aria-pressed="true"] {
       background:  ${lighten(0.1, hoverBackgroundColor)};
     }
-    
+
     &:disabled {
       background: ${tint(0.5, backgroundColor)};
       color: ${tint(0.5, fontColor)};

@@ -10,19 +10,18 @@ import {
 
 const declareIconPosition = props => {
   if (props.icon || props.pending) {
-    const space = props.dense ? scale.space(-4)(props) : scale.space(-3)(props)
     if (props.iconPosition === design.position.APPEND) {
       return `
         > span {
           order: -1;
-          margin-right: ${space};
+          margin-right: .3rem;
         }
        `
     }
 
     return `
       > span {
-        margin-left: ${space};
+        margin-left: .3rem;
       }
      `
   }
@@ -36,22 +35,20 @@ const getDensityStyle = ({dense, theme}) =>
     : null
 
 const StyledButton = styled.button`
-  box-sizing: border-box; //nice2 reset
+  box-sizing: border-box;
   display: inline-flex;
   align-items: center;
   text-align: center;
   vertical-align: middle;
   white-space: nowrap;
-  
+
   border: none;
   border-radius: ${themeSelector.radii('medium')};
-  
-  margin-right: ${scale.space(-3)};
-  margin-left: ${scale.space(-3)};
-  padding: ${scale.space(-3)} ${scale.space(-1)};
-  
+
+  margin-right: .5em;
+  padding: .3rem 1.3rem;
+
   cursor: pointer;
-  
 
   ${declareFont()}
   ${interactiveStyling}
