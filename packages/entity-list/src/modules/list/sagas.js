@@ -25,7 +25,7 @@ export default function* sagas() {
     fork(takeLatest, actions.CHANGE_PAGE, changePage),
     fork(takeLatest, searchFormActions.EXECUTE_SEARCH, loadData, 1),
     fork(takeLatest, searchFormActions.EXECUTE_SEARCH, queryChanged),
-    fork(takeEvery, actions.SET_SORTING, setSorting),
+    fork(takeEvery, actions.SET_SORTING, reloadData),
     fork(takeEvery, actions.RESET_DATA_SET, loadData, 1),
     fork(takeLatest, actions.REFRESH, loadData),
     fork(takeLatest, actions.NAVIGATE_TO_CREATE, navigateToCreate),
@@ -142,7 +142,7 @@ export function* changePage({payload}) {
   yield put(actions.setInProgress(false))
 }
 
-export function* setSorting() {
+export function* reloadData() {
   const {initialized} = yield select(listSelector)
   if (initialized) {
     yield call(loadData, 1)
@@ -235,14 +235,21 @@ export function* displayEntity(page) {
   yield put(actions.setEntities(entities))
 }
 
+export const FALLBACK_SORTING = [{field: 'update_timestamp', order: 'desc'}]
+export function* setSorting(formDefinition) {
+  const tableSorting = yield call(getSorting, formDefinition)
+  const sorting = tableSorting.length > 0 ? tableSorting : FALLBACK_SORTING
+
+  yield put(actions.setSorting(sorting))
+}
+
 export function* loadFormDefinition(formDefinition, formName) {
   if (formDefinition === null) {
     formDefinition = yield call(rest.fetchForm, formName, 'list')
     yield put(actions.setFormDefinition(formDefinition))
   }
 
-  const sorting = yield call(getSorting, formDefinition)
-  yield put(actions.setSorting(sorting))
+  yield call(setSorting, formDefinition)
   const selectable = yield call(getSelectable, formDefinition)
   yield put(actions.setFormSelectable(selectable))
   const endpoint = yield call(getEndpoint, formDefinition)
