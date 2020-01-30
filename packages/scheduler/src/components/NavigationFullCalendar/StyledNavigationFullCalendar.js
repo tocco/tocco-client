@@ -6,8 +6,8 @@ import {
 const StyledNavigationFullCalendar = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: ${scale.space(-2)};
-  
+  margin: ${scale.space(-1)} ${scale.space(-2)};
+
   > div {
     display: flex;
     align-items: center;
