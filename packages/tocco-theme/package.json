@@ -1,6 +1,6 @@
 {
   "name": "tocco-theme",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "styling framework",
   "main": "dist/index.js",
   "scripts": {
