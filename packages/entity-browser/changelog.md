@@ -1,3 +1,6 @@
+0.9.5
+- Fallback sorting (last_updated)
+
 0.9.4
 - Various styling adjustments
 
