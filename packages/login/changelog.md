@@ -1,3 +1,6 @@
+0.2.5
+- Adjust login button style
+
 0.2.4
 - Fix locale change bug
 
