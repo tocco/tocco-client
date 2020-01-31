@@ -1,5 +1,8 @@
+0.2.4
+- Fix locale change bug
+
 0.2.3
-- Various style adjustements
+- Various style adjustments
 
 0.2.2
 -  Fix Chrome autofill bug
