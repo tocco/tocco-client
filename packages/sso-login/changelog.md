@@ -1,3 +1,6 @@
+0.2.4
+- Slightly decrease Button size
+
 0.2.3
 - Display Buttons in a wrapping grid
 
