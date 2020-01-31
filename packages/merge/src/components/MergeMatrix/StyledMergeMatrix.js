@@ -25,7 +25,7 @@ export const StyledMergeMatrixTable = styled.table`
 
 const StyledMergeMatrixCell = css`
   ${declareFont()}
-  background-color: ${props => props.selected ? theme.color('signal.info.paper') : 'transparent'};
+  background-color: ${props => props.selected ? theme.color('backgroundBody') : 'transparent'};
   font-weight: ${props => props.bold ? theme.fontWeight('bold') : theme.fontWeight('regular')};
   padding: ${scale.space(-2)} ${scale.space(-1)};
   vertical-align: top;

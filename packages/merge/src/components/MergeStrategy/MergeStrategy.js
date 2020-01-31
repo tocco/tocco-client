@@ -20,13 +20,15 @@ class MergeStrategy extends React.Component {
     return (
       <form>
         <Typography.H6>{this.msg('client.merge.copyRelationsTitle')}</Typography.H6>
-        <ButtonGroup melt look="raised">
+        <ButtonGroup>
           <Button
+            look="raised"
             aria={{'aria-pressed': this.props.strategies.copyRelations}}
             label={this.msg('client.merge.yes')}
             onClick={() => this.props.changeStrategy('copyRelations', true)}
           />
           <Button
+            look="raised"
             aria={{'aria-pressed': !this.props.strategies.copyRelations}}
             label={this.msg('client.merge.no')}
             onClick={() => this.props.changeStrategy('copyRelations', false)}

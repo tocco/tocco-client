@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import {Button, ButtonGroup} from 'tocco-ui'
+import {Button} from 'tocco-ui'
 import {intlShape} from 'react-intl'
 
 import {StyledWizard} from './StyledWizard'
@@ -64,6 +64,7 @@ export class Wizard extends React.Component {
       buttons.push(
         <Button
           ink="primary"
+          look="raised"
           key="merge-wizard-button-amount-pages"
           label={this.props.save.label}
           onClick={this.props.save.fn}
@@ -74,6 +75,7 @@ export class Wizard extends React.Component {
     if (this.state.index > 0) {
       buttons.push(
         <Button
+          look="raised"
           key="merge-wizard-button-back"
           label={this.msg('client.merge.back')}
           onClick={this.backClick}
@@ -84,6 +86,7 @@ export class Wizard extends React.Component {
     if (this.state.index < this.state.amountPages - 1) {
       buttons.push(
         <Button
+          look="raised"
           disabled={!this.state.allowNext}
           ink="primary"
           key="merge-wizard-button-next"
@@ -96,9 +99,7 @@ export class Wizard extends React.Component {
     return (
       <React.Fragment>
         <StyledWizard>{t}</StyledWizard>
-        <ButtonGroup look="raised">
-          {[...buttons]}
-        </ButtonGroup>
+        {[...buttons]}
       </React.Fragment>
     )
   }
