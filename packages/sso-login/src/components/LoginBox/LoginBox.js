@@ -1,8 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
 import {openLoginWindow} from '../../utils/loginWindow'
 import ProviderButton from '../ProviderButton/ProviderButton'
+
+const StyledButtonContainer = styled.div`
+  width: 100%;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr) )
+`
 
 class LoginBox extends React.Component {
   constructor(props) {
@@ -20,15 +28,19 @@ class LoginBox extends React.Component {
   }
 
   render() {
-    return this.props.providers
-      .map((provider, idx) => (
-        <ProviderButton
-          key={idx}
-          provider={provider}
-          loginEndpoint={this.props.loginEndpoint}
-          loginCompleted={this.props.loginCompleted}
-        />
-      ))
+    return <StyledButtonContainer>
+      {
+        this.props.providers
+          .map((provider, idx) => (
+            <ProviderButton
+              key={idx}
+              provider={provider}
+              loginEndpoint={this.props.loginEndpoint}
+              loginCompleted={this.props.loginCompleted}
+            />
+          ))
+      }
+    </StyledButtonContainer>
   }
 }
 

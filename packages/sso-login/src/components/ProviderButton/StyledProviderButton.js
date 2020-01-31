@@ -19,14 +19,11 @@ export default styled(StyledButton)`
       bg: props.primaryColor,
       fg: props.secondaryColor || `${_get(props.theme, 'colors.paper')}, ${_get(props.theme, 'colors.text')}`
     }))}
-    
-    &:not(:first-child) {
-      margin-left: 1rem;
-    }
-    
+
     span {
       margin-left: .5em;
       padding: 1rem 0;
     }
-  }
+
+   margin-right: 0;
 `
