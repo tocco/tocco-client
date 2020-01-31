@@ -3,7 +3,8 @@ import {
   StyledInputCss,
   StyledEditableWrapperCss,
   Button,
-  theme
+  theme,
+  scale
 } from 'tocco-ui'
 import {StyledButton} from 'tocco-ui/src/Button'
 import {StyledButtonGroup} from 'tocco-ui/src/ButtonGroup'
@@ -32,17 +33,18 @@ export const StyledLoginFormInputWrapper = styled.div`
 
 export const StyledLoginButton = styled(Button)`
   &&& {
+    font-size: ${scale.font(1.3)};
     border-radius: ${theme.radii('large')};
     display: flex;
     justify-content: center;
     padding: 1.25rem 0;
     width:100%;
-    margin: 20px 0;
-  
+    margin-top: 20px;
+    margin-bottom: 10px;
+
     &:not(:last-child) {
       margin-right: 0;
     }
-  
   }
 `
 
@@ -54,14 +56,14 @@ export const StyledTransparentButton = styled(Button)`
     padding: 1.25rem 0;
     width:100%;
     justify-content: center;
-    
+
     &:hover {
       background-color: transparent;
     }
   }
 `
 
-export const StyledLoginFormWrapper = styled.div`  
+export const StyledLoginFormWrapper = styled.div`
   ${StyledButtonGroup} {
     margin-top: 1.8rem;
     width: auto;
