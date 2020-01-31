@@ -1,3 +1,6 @@
+0.2.3
+- Display Buttons in a wrapping grid
+
 0.2.2
 - Various styling adjustments
 
