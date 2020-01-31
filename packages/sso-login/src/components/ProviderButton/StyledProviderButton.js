@@ -22,7 +22,7 @@ export default styled(StyledButton)`
 
     span {
       margin-left: .5em;
-      padding: 1rem 0;
+      padding: .9rem 0;
     }
 
    margin-right: 0;
