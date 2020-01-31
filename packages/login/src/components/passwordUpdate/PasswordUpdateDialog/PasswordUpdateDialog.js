@@ -2,12 +2,17 @@ import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
 import {LoadMask, SignalList, Typography} from 'tocco-ui'
+import styled from 'styled-components'
 
 import PasswordInput from './PasswordInput'
 import StyledPasswordUpdateDialog from './StyledPasswordUpdateDialog'
 import ValidationRules from '../ValidationRules'
 import FailureMessage from '../FailureMessage'
 import {StyledLoginButton} from '../../StyledLoginForm'
+
+const StyledValidationRulesWrapper = styled.div`
+  margin: 1rem;
+`
 
 class PasswordUpdateDialog extends Component {
   constructor(props) {
@@ -74,11 +79,13 @@ class PasswordUpdateDialog extends Component {
             autoFocus={this.props.showOldPasswordField !== true}
             valid={!newPasswordRepeatReadOnly}
           />
-          <ValidationRules
-            rules={validationRules}
-            errors={password.newPasswordValidationErrors}
-            rulesNeutral={!password.newPassword}
-          />
+          <StyledValidationRulesWrapper>
+            <ValidationRules
+              rules={validationRules}
+              errors={password.newPasswordValidationErrors}
+              rulesNeutral={!password.newPassword}
+            />
+          </StyledValidationRulesWrapper>
           <PasswordInput
             label={this.msg('client.login.passwordUpdate.newPasswordRepeat')}
             name="newPasswordRepeat"

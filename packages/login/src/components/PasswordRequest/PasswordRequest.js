@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
 import {
-  ButtonGroup,
   StatedValue,
   Typography
 } from 'tocco-ui'
@@ -59,24 +58,22 @@ export class PasswordRequest extends React.Component {
             </StyledLoginFormInputWrapper>
           </StatedValue>
 
-          <ButtonGroup look="raised">
-            <StyledLoginButton
-              look="raised"
-              disabled={!this.state.username || this.props.pending}
-              ink="primary"
-              label={this.msg('client.login.passwordRequest.button')}
-              pending={this.props.pending}
-              type="submit"
-              data-cy="password-request_submit-button"
-            />
-            <StyledTransparentButton
-              disabled={this.props.pending}
-              label={this.msg('client.login.passwordRequest.abortButton')}
-              name="abort"
-              onClick={() => this.props.changePage(Pages.LOGIN_FORM)}
-              data-cy="password-request_abort-button"
-            />
-          </ButtonGroup>
+          <StyledLoginButton
+            look="raised"
+            disabled={!this.state.username || this.props.pending}
+            ink="primary"
+            label={this.msg('client.login.passwordRequest.button')}
+            pending={this.props.pending}
+            type="submit"
+            data-cy="password-request_submit-button"
+          />
+          <StyledTransparentButton
+            disabled={this.props.pending}
+            label={this.msg('client.login.passwordRequest.abortButton')}
+            name="abort"
+            onClick={() => this.props.changePage(Pages.LOGIN_FORM)}
+            data-cy="password-request_abort-button"
+          />
         </form>
       </StyledLoginFormWrapper>
     )
