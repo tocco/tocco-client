@@ -19,6 +19,11 @@ export const initIntl = async(store, modules, forcedLocale) => {
   return setLocale(store, modules, locale)
 }
 
+export const changeLocale = async(store, modules, locale) => {
+  cache.clear()
+  setLocale(store, modules, locale)
+}
+
 export const setLocale = async(store, modules, locale) => {
   const textResources = await loadTextResources(locale, modules)
 

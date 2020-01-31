@@ -37,7 +37,7 @@ export const createApp = (name,
       component: <App store={store} initIntlPromise={initIntlPromise} name={name} content={content} theme={theme} />,
       store,
       methods: {
-        setLocale: locale => intl.setLocale(store, textResourceModules, locale)
+        setLocale: locale => intl.changeLocale(store, textResourceModules, locale)
       }
     }
   } catch (error) {
