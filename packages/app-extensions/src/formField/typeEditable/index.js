@@ -16,7 +16,6 @@ import percent from './percent'
 export default {
   'binary': document,
   'boolean': boolean,
-  'coordinate': coordinate,
   'counter': number,
   'data-amount': number,
   'decimal': decimal,
