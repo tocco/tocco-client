@@ -35,7 +35,13 @@ const EditView = props => {
     <React.Fragment>
       <Prompt
         when={touched}
-        message={msg('client.entity-browser.detail.confirmTouchedFormLeave')}
+        message={location => {
+          if (props.history.location.pathname !== location.pathname) {
+            return msg('client.entity-browser.detail.confirmTouchedFormLeave')
+          }
+
+          return false
+        }}
       />
       <EntityDetailApp
         entityName={entityName}
