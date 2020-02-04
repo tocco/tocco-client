@@ -13,7 +13,7 @@ export default {
   'createuser': editableValueFactory('string'),
   'date': editableValueFactory('date'),
   'datetime': editableValueFactory('datetime'),
-  'decimal': editableValueFactory('decimal'),
+  'decimal': editableValueFactory('number'),
   'display': formattedValueFactory('html'),
   'document': editableValueFactory('document'),
   'double': editableValueFactory('decimal'),
