@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
+import _get from 'lodash/get'
 import {intlShape} from 'react-intl'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {Prompt} from 'react-router'
@@ -21,8 +22,13 @@ const CreateView = props => {
   const {model, reverseRelation, key} = props.currentViewInfo
   const entityName = model.name
 
+  const isMultiReverseRelation = _get(model, `paths.${reverseRelation}.multi`, false)
+
   const defaultValues = [
-    ...((reverseRelation && key) ? [{id: reverseRelation, value: key}] : [])
+    ...((reverseRelation && key)
+      ? [{id: reverseRelation, value: isMultiReverseRelation ? [key] : key}]
+      : []
+    )
   ]
 
   const handleEntityCreated = ({id}) => {
