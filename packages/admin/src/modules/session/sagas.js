@@ -2,7 +2,6 @@ import {consoleLogger, cache} from 'tocco-util'
 import {rest} from 'tocco-app-extensions'
 import {delay} from 'redux-saga'
 import {takeLatest, fork, call, all, put, select} from 'redux-saga/effects'
-import _get from 'lodash/get'
 
 import * as actions from './actions'
 
@@ -67,21 +66,8 @@ export function* loadPrincipal() {
     return
   }
   const principal = yield call(rest.requestSaga, 'principals')
-  const {username, businessUnit} = principal.body
+  const {username, businessUnit: currentBusinessUnit} = principal.body
   yield put(actions.setUsername(username))
-
-  const fetchedBusinessUnit = yield call(rest.fetchEntities, 'Business_unit', {
-    conditions: {
-      unique_id: {value: businessUnit}
-    },
-    paths: ['label']
-  })
-
-  const currentBusinessUnit = {
-    label: _get(fetchedBusinessUnit, '[0].paths.label.value', businessUnit),
-    id: businessUnit
-  }
-
   yield put(actions.setCurrentBusinessUnit(currentBusinessUnit))
 
   yield cache.add('session', 'principal', {
@@ -90,18 +76,9 @@ export function* loadPrincipal() {
   })
 }
 
-const businessUnitsTransformer = result => result.data.map(businessUnit => (
-  {
-    id: _get(businessUnit, 'paths.unique_id.value'),
-    label: _get(businessUnit, 'paths.label.value')
-  }
-))
-
 export function* loadBusinessUnits() {
-  const options = {paths: ['unique_id', 'label']}
-  const businessUnits = yield call(rest.fetchEntities, 'Business_unit', options, {}, businessUnitsTransformer)
-
-  yield put(actions.setBusinessUnits(businessUnits))
+  const bUs = yield call(rest.requestSaga, 'principals/businessunits')
+  yield put(actions.setBusinessUnits(bUs.body.data))
 }
 
 export function* changeBusinessUnitId({payload: {businessUnitId}}) {
