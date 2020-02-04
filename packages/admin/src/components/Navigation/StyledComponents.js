@@ -4,7 +4,7 @@ import {Button, theme, StyledScrollbar} from 'tocco-ui'
 
 export const StyledNav = styled.nav`
   height: 100%;
-  
+
   .StyledSearchBox {
     margin: 1.5rem 3rem 1.8rem 1.8rem;
   }
@@ -30,13 +30,13 @@ export const StyledMenuLink = styled(Link)`
   &:hover {
       color: ${theme.color('secondaryLight')};
     }
-  
+
   &:focus {
      outline: none;
      font-weight: ${theme.fontWeight('bold')};
      color: ${theme.color('secondaryLight')};
     }
-  
+
   &.active {
       text-decoration: underline;
     }
@@ -45,14 +45,14 @@ export const StyledMenuLink = styled(Link)`
 export const StyledTabsContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
-  align-items: center; 
+  align-items: center;
   margin-bottom: 10px;
   border-bottom: 3px solid ${theme.color('backgroundBody')};
-  
+
   &:focus {
     background-color: transparent;
   }
-  
+
   span {
     padding-top: .4rem;
     padding-bottom: .4rem;
@@ -69,15 +69,19 @@ export const StyledNavButton = styled(Button)`
     color: ${props => props.active ? theme.color('secondary') : theme.color('secondaryLight')};
     font-weight: ${theme.fontWeight('bold')};
     border-color: ${props => props.active ? theme.color('secondary') : 'transparent'};
-    
+
     &:hover {
       border-color: ${props => props.active ? theme.color('secondary') : theme.color('secondaryLight')};
       background-color: transparent;
       color: ${props => props.active ? theme.color('secondary') : theme.color('secondaryLight')};
     }
-    
+
     &:focus {
       background-color: transparent;
     }
   }
+`
+
+export const StyledSearchBoxWrapper = styled.div`
+  height: 50px;
 `
