@@ -9,7 +9,7 @@ export const validationErrorToFormError = (entity, errors) => {
 
   if (!errors) return result
   errors.forEach(error => {
-    if (error.model === entity.model && error.key === entity.key) {
+    if (error.model === entity.model && ((!entity.key && !error.key) || error.key === entity.key)) {
       result = {...result, ...error.paths}
       if (Object.prototype.hasOwnProperty.call(error, entityValidatorErrorsField)) {
         result[generalErrorField][entityValidatorErrorsField] = error[entityValidatorErrorsField]
