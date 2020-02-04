@@ -9,7 +9,7 @@ describe('tocco-ui', () => {
       describe('HtmlFormatter ', () => {
         test('should format value', () => {
           const wrapper = mount(<HtmlFormatter value="<p>TEST TEST</p>"/>)
-          expect(wrapper.find('div')).to.have.length(1)
+          expect(wrapper.find('span')).to.have.length(1)
           expect(wrapper.text()).to.equal('TEST TEST')
         })
       })
