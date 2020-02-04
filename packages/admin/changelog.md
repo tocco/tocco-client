@@ -1,3 +1,6 @@
+0.1.26
+- Fix principal service usage
+
 0.1.25
 - Fallback sorting (Last_updated) in lists
 - Support of code and ipaddress datatypes fields
