@@ -12,7 +12,8 @@ describe('entity-list', () => {
   describe('util', () => {
     const getStore = () => createStore(() => ({
       formData: {linkFactory: {}},
-      list: {formDefinition: {id: 'User_list'}}
+      entityList: {formName: 'User'},
+      list: {lazyData: {}}
     }))
 
     describe('cellRenderer', () => {
