@@ -1,3 +1,11 @@
+0.9.6
+- Support of code and ipaddress datatypes fields
+- Fix display-expression not shown in list view
+- Basic display-expression bootstrap class support
+- Fix display-expression sorting in list view
+- Optimize async validation in create
+- Persist search-filters
+
 0.9.5
 - Fallback sorting (last_updated)
 
