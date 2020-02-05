@@ -1,3 +1,13 @@
+0.2.0
+- Fix display-expression not shown in list view
+- Basic display-expression bootstrap class support
+- Fix display-expression sorting in list view
+- Create multi relation create fix
+- Optimize async validation in create
+- Persist search-filters
+- Fix prompt when changing relations preview
+- Use relation-count client endpoint
+
 0.1.26
 - Fix principal service usage
 
