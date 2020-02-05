@@ -13,7 +13,8 @@ const validFieldTypes = [
   componentTypes.FIELD,
   componentTypes.DISPLAY,
   componentTypes.SEARCH_FILTER,
-  componentTypes.FULLTEXT_SEARCH
+  componentTypes.FULLTEXT_SEARCH,
+  componentTypes.REMOTE
 ]
 
 const getFieldsOfChildren = children => {
