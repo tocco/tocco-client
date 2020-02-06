@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 
 const setColumnWidth = (containerWidth, maxCellsPerRow) => {
-  const columns = containerWidth <= 500
+  const columns = containerWidth <= 300
     ? maxCellsPerRow.sm
-    : containerWidth <= 1000
+    : containerWidth <= 600
       ? maxCellsPerRow.md
-      : containerWidth <= 1500
+      : containerWidth <= 900
         ? maxCellsPerRow.lg
         : maxCellsPerRow.xl
   return `${100 / columns}%`
