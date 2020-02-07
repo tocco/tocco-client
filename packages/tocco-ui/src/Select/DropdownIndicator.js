@@ -5,12 +5,10 @@ import Ball from '../Ball'
 
 const DropdownIndicator = props =>
   !props.immutable
-  && <span onMouseDown={() => props.openMenu()}>
-    <Ball
-      icon="chevron-down"
-      tabIndex={-1}
-    />
-  </span>
+  && <Ball
+    icon="chevron-down"
+    tabIndex={-1}
+  />
 
 DropdownIndicator.propTypes = {
   immutable: PropTypes.bool,
