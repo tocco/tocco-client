@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import _isEmpty from 'lodash/isEmpty'
 import _omit from 'lodash/omit'
 
@@ -44,7 +45,7 @@ export const map = {
   'time': TimeEdit
 }
 
-export default (type, value, options, id, events, readOnly = false) => {
+const TypeEditorFactory = ({type, value, options, id, events, readOnly = false}) => {
   if (map[type]) {
     const Component = map[type]
 
@@ -79,3 +80,16 @@ export default (type, value, options, id, events, readOnly = false) => {
   console.log('No type-editor defined for type', type)
   return null
 }
+
+TypeEditorFactory.propTypes = {
+  type: PropTypes.oneOf(
+    Object.keys(map)
+  ).isRequired,
+  events: PropTypes.objectOf(PropTypes.func),
+  id: PropTypes.string,
+  readOnly: PropTypes.bool,
+  options: PropTypes.object,
+  value: PropTypes.any
+}
+
+export default TypeEditorFactory
