@@ -7,7 +7,7 @@ import useDebounce from './useDebounce'
 /**
  Higher-order-component to wrap a input Component. It will debounce the change function.
  */
-const Debouncer = (Component, delay = 300, func = 'onChange') => {
+const Debouncer = (Component, delay = 200, func = 'onChange') => {
   const Comp = React.forwardRef((props, ref) => {
     const [internalValue, setInternalValue] = useState(props.value)
     const debouncedValue = useDebounce(internalValue, delay)
