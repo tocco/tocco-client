@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import typeEditorFactory, {map as typeEditorFactoryMap} from './typeEditorFactory'
+import TypeEditorFactory, {map as typeEditorFactoryMap} from './typeEditorFactory'
 import StyledEditableValue from './StyledEditableValue'
 
 /**
@@ -9,16 +9,7 @@ import StyledEditableValue from './StyledEditableValue'
  */
 const EditableValue = props => (
   <StyledEditableValue>
-    {
-      typeEditorFactory(
-        props.type,
-        props.value,
-        props.options,
-        props.id,
-        props.events,
-        props.readOnly
-      )
-    }
+    <TypeEditorFactory {...props}/>
   </StyledEditableValue>
 )
 
