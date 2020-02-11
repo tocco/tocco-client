@@ -21,7 +21,7 @@ const detectSignal = (dirty, hasError) => {
 }
 
 /**
- * Wrap <EditableValue> and <FormattedVaule> in <StatedValue> to describe it
+ * Wrap <EditableValue> and <FormattedValUe> in <StatedValue> to describe it
  * and signal conditions.
  */
 const StatedValue = props => {
@@ -41,9 +41,9 @@ const StatedValue = props => {
     touched
   } = props
 
-  const hasError = touched && props.error && Object.keys(props.error).length > 0
+  const showError = !immutable && touched && props.error && Object.keys(props.error).length > 0
   const labelAlt = `${label}${mandatory && mandatoryTitle ? `, ${mandatoryTitle}` : ''}`
-  const signal = props.signal || detectSignal(dirty, hasError)
+  const signal = props.signal || detectSignal(dirty, showError)
 
   return (
     <FocusWithin>
@@ -69,11 +69,9 @@ const StatedValue = props => {
             </StyledStatedValueBox>
             {description
               && <StyledStatedValueDescription>{description}</StyledStatedValueDescription>}
-            {hasError
-              && !immutable
-              && <StyledStatedValueError>
-                <ErrorList error={error}/>
-              </StyledStatedValueError>
+            {<StyledStatedValueError showError={showError}>
+              <ErrorList error={error}/>
+            </StyledStatedValueError>
             }
           </StyledStatedValueWrapper>
         )
