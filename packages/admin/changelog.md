@@ -1,3 +1,8 @@
+0.2.1
+- Adjust responsive behavior of layout box in detail view
+- Fix reports
+- Animate validate error list
+
 0.2.0
 - Fix display-expression not shown in list view
 - Basic display-expression bootstrap class support
