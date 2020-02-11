@@ -58,12 +58,6 @@ const transformLabel = ({secondaryPosition, theme}) => css`
 
 const declareCursor = ({isDisplay, immutable}) => `cursor: ${(!isDisplay && immutable) ? 'not-allowed' : 'auto'};`
 
-const retainSpace = ({secondaryPosition, theme}) => css`
-  transition: padding-top ${ANIMATION_DURATION};
-  will-change: padding-top;
-  padding-top: ${secondaryPosition ? css`calc(${scale.font(-1)} / 2 )` : 0};
-`
-
 const StyledStatedValueLabel = styled.label`
   &&& {
     ${props => declareFont({
@@ -109,6 +103,17 @@ const StyledStatedValueDescription = styled.p`
 
 const StyledStatedValueError = styled.div`
   &&& {
+    max-height: 0px;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+    transition-delay: 0.5s;
+    will-change: max-height, opacity;
+
+    ${props => props.showError && css`
+      max-height: 100px;
+      opacity: 1;
+    `};
+
     li {
       font-size: ${scale.font(-1)};
     }
@@ -134,7 +139,7 @@ const StyledStatedValueWrapper = styled.div`
       margin-left: calc(${scale.space(-1)} + ${BORDER_WIDTH});
     }
 
-    ${props => retainSpace(props)}
+    padding-top: ${scale.space(-2)};
   }
 `
 
