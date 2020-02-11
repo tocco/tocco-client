@@ -9,23 +9,30 @@
     "hidden": false,
     "children": [
       {
-        "componentType": "action",
-        "actionType": "custom",
-        "id": "new",
-        "icon": "plus",
-        "label": "New"
-      },
-      {
-        "componentType": "action",
-        "actionType": "simple",
-        "readonly": false,
-        "label": "Simple Action",
-        "icon": "cog",
-        "Selections": 1,
-        "maxSelections": 1,
-        "progressMsg": "Die Beispiel Aktion wird ausgeführt..",
-        "showConfirmMessage": false,
-        "endpoint": "actions/simpleAction"
+        "id": "main-action-bar",
+        "label": null,
+        "componentType": "action-bar",
+        "children": [
+          {
+            "componentType": "action",
+            "actionType": "custom",
+            "id": "new",
+            "icon": "plus",
+            "label": "New"
+          },
+          {
+            "componentType": "action",
+            "actionType": "simple",
+            "readonly": false,
+            "label": "Simple Action",
+            "icon": "cog",
+            "Selections": 1,
+            "maxSelections": 1,
+            "progressMsg": "Die Beispiel Aktion wird ausgeführt..",
+            "showConfirmMessage": false,
+            "endpoint": "actions/simpleAction"
+          }
+        ]
       },
       {
         "id": "table",
