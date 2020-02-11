@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Button, ButtonGroup} from 'tocco-ui'
+import {Button} from 'tocco-ui'
 import {FormattedMessage, injectIntl, intlShape} from 'react-intl'
 import {download} from 'tocco-util'
 
@@ -68,8 +68,7 @@ export class ReportSettings extends React.Component {
           onChange={({values, valid}) => { this.handleCustomSettingsChange(values, valid) }}
         />
         }
-        <ButtonGroup>
-          {download.downloadSupportedByBrowser()
+        {download.downloadSupportedByBrowser()
           && <Button
             ink="primary"
             disabled={!this.state.customSettingsValid || !this.state.valid}
@@ -78,15 +77,14 @@ export class ReportSettings extends React.Component {
           >
             <FormattedMessage id="client.common.report.download"/>
           </Button>
-          }
-          <Button
-            disabled={!this.state.customSettingsValid || !this.state.valid}
-            icon="file"
-            onClick={this.handleButtonClick(submitActions.DISPLAY)}
-          >
-            <FormattedMessage id="client.common.report.display"/>
-          </Button>
-        </ButtonGroup>
+        }
+        <Button
+          disabled={!this.state.customSettingsValid || !this.state.valid}
+          icon="file"
+          onClick={this.handleButtonClick(submitActions.DISPLAY)}
+        >
+          <FormattedMessage id="client.common.report.display"/>
+        </Button>
       </StyledReportSettings>
     )
   }
