@@ -20,22 +20,18 @@ const StyledHtmlFormatter = styled(StyledSpan)`
     }
 
     .label-danger {
-      background-color: ${theme.color('signal.danger.paper')};
       color: ${theme.color('signal.danger.text')};
     }
 
     .label-info {
-      background-color: ${theme.color('signal.info.paper')};
       color: ${theme.color('signal.info.text')};
     }
 
     .label-warning {
-      background-color: ${theme.color('signal.warning.paper')};
       color: ${theme.color('signal.warning.text')};
     }
 
     .label-success {
-      background-color: ${theme.color('signal.success.paper')};
       Color: ${theme.color('signal.success.text')};
     }
   }
