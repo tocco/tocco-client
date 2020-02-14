@@ -8,7 +8,7 @@ import {FormattedMessage} from 'react-intl'
 
 import ToccoLogo from '../../assets/tocco-circle.svg'
 import ToccoSlogan from '../../assets/tocco-white-vertical.svg'
-import ToccoSloganHorizontal from '../../assets/tocco_white.png'
+import ToccoSloganHorizontal from '../../assets/tocco_white.svg'
 
 const StyledLogin = styled.div`
   height: 100vh;
