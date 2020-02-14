@@ -8,6 +8,7 @@ import {FormattedMessage} from 'react-intl'
 
 import ToccoLogo from '../../assets/tocco-circle.svg'
 import ToccoSlogan from '../../assets/tocco-white-vertical.svg'
+import ToccoSloganHorizontal from '../../assets/tocco_white.png'
 
 const StyledLogin = styled.div`
   height: 100vh;
@@ -23,6 +24,11 @@ const StyledLogin = styled.div`
     display: flex;
     justify-content: space-between;
     margin-bottom: 1.8rem;
+  }
+  
+  @media(max-width: 1024px) {
+    background-size: 2000px;
+    background-position: 50% -1850px;
   }
 `
 
@@ -50,6 +56,12 @@ const LoginWrapper = styled.div`
     .tocco-login * {
       font-size: ${scale.font(1.3)}
     }
+    
+    @media(max-width: 1024px) {
+      margin: 14rem auto 0 auto;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
   }
 `
 
@@ -63,6 +75,22 @@ const Slogan = styled.div`
   left: 0;
   width: 11.5vw;
   height: 28vw;
+  
+  @media(max-width: 1024px) {
+    display: none;
+  }
+`
+
+const StyledImg = styled.img`
+  display: none;
+  max-width: 400px;
+  width: 95%;
+  height: auto;
+  margin: 45px auto 0 auto;
+  
+  @media(max-width: 1024px) {
+    display: block;
+  }
 `
 
 const Login = props => {
@@ -72,6 +100,7 @@ const Login = props => {
 
   return (
     <StyledLogin>
+      <StyledImg src={ToccoSloganHorizontal}/>
       <Slogan/>
       <LoginWrapper>
         <StyledHeadingLogin><FormattedMessage id="client.admin.welcomeTitle"/></StyledHeadingLogin>
