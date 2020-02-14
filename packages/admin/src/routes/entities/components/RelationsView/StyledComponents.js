@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import {StyledSpan, theme, scale} from 'tocco-ui'
 
+import {StyledLink} from '../../../../components/StyledLink'
+
 export const StyledPreviewBox = styled.div`
   background-color: ${theme.color('paper')};
   padding: ${scale.space(-1)};
@@ -19,7 +21,7 @@ export const StyledRelationBox = styled.div`
 
 export const RelationLinks = styled.div`
   display: none;
-  margin-left: auto;;
+  margin-left: auto;
   * {
     color: ${theme.color('text')};
     padding-left: ${scale.space(-2)};
@@ -57,10 +59,14 @@ export const RelationBox = styled.div`
       cursor: pointer;
     }
   }
+  
+  ${StyledLink}:hover * {
+    color: ${theme.color('secondary')};
+  }
 `
 
 export const RelationLabel = styled(StyledSpan)`
-  &&& {
+  && {
     max-width: 110px;
   }
 `
