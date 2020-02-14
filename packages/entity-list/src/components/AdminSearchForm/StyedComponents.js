@@ -4,6 +4,10 @@ import Split from 'react-split'
 
 export const StyledSplit = styled(Split)``
 
+export const StyledSplitWrapper = styled.div`
+ height: 100%;
+`
+
 export const StyledHeader = styled.div`
   background-color: ${theme.color('paper')};
   margin-bottom: 3px;
@@ -14,7 +18,7 @@ export const StyledHeader = styled.div`
 
 export const AdminSearchGrid = styled.div`
    height: 100%;
- 
+
   ${StyledSplit} {
     height: calc(100% - 60px);
   }
