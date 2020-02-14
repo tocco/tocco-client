@@ -10,8 +10,7 @@ const SearchFilterListWrapper = styled.div`
 `
 
 const StyledSpanSearchFilter = styled(StyledSpan)`
-  && {display: flex;}
-  width: 100%;
+  width: 95%;
 `
 
 const StyledButton = styled(Button)`
@@ -58,15 +57,14 @@ export const StyledSearchFilterButton = styled.div`
 
 const SearchFilterButton = ({setActive, active, label}) =>
   <StyledSearchFilterButton active={active} onClick={() => setActive(!active)}>
-    <StyledSpanSearchFilter>{label}
-      <StyledButton
-        onClick={e => {
-          setActive(false)
-          e.stopPropagation()
-        }}
-        icon="plus"
-        dense />
-    </StyledSpanSearchFilter>
+    <StyledSpanSearchFilter>{label}</StyledSpanSearchFilter>
+    <StyledButton
+      onClick={e => {
+        setActive(false)
+        e.stopPropagation()
+      }}
+      icon="plus"
+      dense />
   </StyledSearchFilterButton>
 
 SearchFilterButton.propTypes = {
