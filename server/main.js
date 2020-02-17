@@ -4,6 +4,7 @@ const opn = require('opn')
 const express = require('express')
 const webpack = require('webpack')
 const compress = require('compression')
+const request = require('request')
 
 const webpackConfig = require('../build/webpack.config').default
 const config = require('../config').default
@@ -41,6 +42,19 @@ if (config.env === 'development') {
 
   app.use(express.static(publicPath))
   app.use('/static', express.static('server/static'))
+
+  // Most probably the following requests should be answered by the Nice2 instance
+  // -> pipe them through
+  app.use(['/nice2/*', '/js/*', '/img/*'], function(req, res, next) {
+    // `window.location.hostname` might be used in __BACKEND_URL__ variable
+    // eslint-disable-next-line
+    const window = {location: {hostname: 'localhost'}}
+    // eslint-disable-next-line
+    const newUrl = eval(config.globals.__BACKEND_URL__) + req.originalUrl
+    req.pipe(
+      request[req.method.toLowerCase()](newUrl))
+      .pipe(res)
+  })
 
   // This rewrites all routes requests to the root /index.html file
   // (ignoring file requests). If you want to implement universal
