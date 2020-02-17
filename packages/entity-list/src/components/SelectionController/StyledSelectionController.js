@@ -24,11 +24,16 @@ export const StyledButton = styled.span`
     color: ${({active}) => active && theme.color('paper')};
   }
   
-  &&& {
+  && {
     button {
       background-color: transparent;
-      margin-left: 1rem;
-      margin-top: -.1rem;
+      margin-left: .5rem;
+      margin-top: -.2rem;
+      margin-right: -.8rem;
+      
+      &:hover *{
+        color: ${theme.color('secondary')};
+      }
     }
   }
 `
