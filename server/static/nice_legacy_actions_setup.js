@@ -21,9 +21,6 @@ nice2.app.NewClientMockGui = function() {
       }
     }
   }
-  this._viewPort = new Ext.Viewport({
-    id: 'tocco_application_view'
-  })
 }
 Ext.extend(nice2.app.NewClientMockGui, nice2.app.AbstractGui, {})
 
