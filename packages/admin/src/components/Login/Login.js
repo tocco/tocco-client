@@ -29,12 +29,20 @@ const StyledLogin = styled.div`
     background-size: 2000px;
     background-position: 50% -1850px;
   }
+  
+  @media(max-width: 425px) {
+    background-position: 50% -1890px;
+  }
 `
 
 const StyledHeadingLogin = styled(StyledH1)`
   && {
     font-size: ${scale.font(11)};
     margin-bottom: 5rem;
+    
+    @media(max-width: 1024px) {
+      margin-bottom: 1.5rem;
+    }
   }
 `
 const StyledSpanLogin = styled(StyledSpan)`
@@ -44,6 +52,10 @@ const StyledSpanLogin = styled(StyledSpan)`
     display: inline-block;
     width: 100%;
     margin: 3rem 0 4rem 0;
+   
+    @media(max-width: 1024px) {
+      margin: 1rem 0 1.8rem 0;
+    }
   }
 `
 
@@ -60,6 +72,10 @@ const LoginWrapper = styled.div`
       margin: 14rem auto 0 auto;
       padding-left: 2rem;
       padding-right: 2rem;
+    }
+    
+    @media(max-width: 425px) {
+      margin-top: 8rem;
     }
   }
 `
@@ -85,6 +101,11 @@ const StyledImg = styled.img`
   
   @media(max-width: 1024px) {
     display: block;
+  }
+  
+  @media(max-width: 425px) {
+    max-width: 280px;
+    margin-top: 40px;
   }
 `
 
