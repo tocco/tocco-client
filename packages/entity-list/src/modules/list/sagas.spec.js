@@ -474,11 +474,7 @@ describe('entity-list', () => {
 
             const expectedResult = {
               filter: ['filter1', 'filter2', 'filter3'],
-              search: 'full',
-              conditions: {
-                'relParent.pk': {value: '1'},
-                'relGender.pk': {value: '3'}
-              }
+              tql: 'relParent.pk == 1 and relGender.pk == 3 and txtFulltext == "full"'
             }
 
             return expectSaga(sagas.getBasicQuery)
