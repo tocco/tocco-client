@@ -12,7 +12,10 @@ import {
 
 const REDUX_FORM_NAME = 'searchForm'
 
-const customMapping = {'fulltext-search': formField.editableValueFactory('string')}
+const customMapping = {
+  'fulltext-search': formField.editableValueFactory('string'),
+  'text': formField.editableValueFactory('string')
+}
 
 const BasicSearchForm = ({
   disableSimpleSearch,

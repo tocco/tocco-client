@@ -5,41 +5,26 @@ describe('entity-list', () => {
     describe('api', () => {
       describe('fetchOptions', () => {
         describe('getFetchOptionsFromSearchForm', () => {
-          test('should set basic attributes in condition attribute maintain type', () => {
+          test('should set basic attributes in tql and connect them with and operator', () => {
             const searchFormValues = {
               firstname: 'Robihoe',
+              lastname: 'Griffin',
               cool: true
             }
 
-            const expectedResult = {
-              conditions: {
-                firstname: {
-                  value: 'Robihoe'
-                },
-                cool: {
-                  value: true
-                }
-              }
-            }
+            const expectedResult = {tql: 'firstname == "Robihoe" and lastname == "Griffin" and cool == "true"'}
 
             const result = getFetchOptionsFromSearchForm(searchFormValues)
             expect(result).to.eql(expectedResult)
           })
 
-          test('should map txtFulltext to search', () => {
+          test('should ignore condition without', () => {
             const searchFormValues = {
-              txtFulltext: 'asd',
-              firstname: 'Test'
+              firstname: 'Robihoe',
+              lastname: null
             }
 
-            const expectedResult = {
-              search: 'asd',
-              conditions: {
-                firstname: {
-                  value: 'Test'
-                }
-              }
-            }
+            const expectedResult = {tql: 'firstname == "Robihoe"'}
 
             const result = getFetchOptionsFromSearchForm(searchFormValues)
             expect(result).to.eql(expectedResult)
@@ -47,17 +32,11 @@ describe('entity-list', () => {
 
           test('should map array of filter ', () => {
             const searchFormValues = {
-              searchFilter: [{uniqueId: 'filter1'}, {uniqueId: 'filter2'}],
-              firstname: 'Test'
+              searchFilter: [{uniqueId: 'filter1'}, {uniqueId: 'filter2'}]
             }
 
             const expectedResult = {
-              filters: ['filter1', 'filter2'],
-              conditions: {
-                firstname: {
-                  value: 'Test'
-                }
-              }
+              filters: ['filter1', 'filter2']
             }
 
             const result = getFetchOptionsFromSearchForm(searchFormValues)
@@ -66,70 +45,15 @@ describe('entity-list', () => {
 
           test('should map single filter ', () => {
             const searchFormValues = {
-              searchFilter: {uniqueId: 'filter1'},
-              firstname: 'Test'
+              searchFilter: {uniqueId: 'filter1'}
             }
 
             const expectedResult = {
-              filters: ['filter1'],
-              conditions: {
-                firstname: {
-                  value: 'Test'
-                }
-              }
+              filters: ['filter1']
             }
 
             const result = getFetchOptionsFromSearchForm(searchFormValues)
             expect(result).to.eql(expectedResult)
-          })
-
-          test('should set relation types in condition object with pk', () => {
-            const searchFormValues = {
-              relGenderSingle: {key: '1'},
-              relGenderMulti: [{key: '1'}, {key: '2'}],
-              relUser: {key: '100'},
-              relUsers: [{key: '99'}]
-            }
-
-            const formFields = {
-              relGenderMulti: 'multi-select-box',
-              relUsers: 'multi-remote-field',
-              relGenderSingle: 'single-select-box',
-              relUser: 'single-remote-field'
-            }
-
-            const expectedResult = {
-              conditions: {
-                'relGenderMulti.pk': [{value: '1'}, {value: '2'}],
-                'relGenderSingle.pk': {value: '1'},
-                'relUsers.pk': [{value: '99'}],
-                'relUser.pk': {value: '100'}
-              }
-            }
-
-            const result = getFetchOptionsFromSearchForm(searchFormValues, formFields)
-
-            expect(result).to.deep.eql(expectedResult)
-          })
-
-          test('should handle fields that are not in form', () => {
-            const searchFormValues = {
-              relUser: {key: '1'},
-              someString: 'TEST'
-            }
-
-            const formFields = {}
-
-            const expectedResult = {
-              conditions: {
-                'relUser.pk': {value: '1'},
-                'someString': {value: 'TEST'}
-              }
-            }
-
-            const result = getFetchOptionsFromSearchForm(searchFormValues, formFields)
-
-            expect(result).to.deep.eql(expectedResult)
           })
         })
       })

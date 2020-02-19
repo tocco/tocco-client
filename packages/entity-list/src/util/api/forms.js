@@ -69,7 +69,7 @@ export const getFormFieldFlat = formDefinition =>
 
 const searchChildren = node => {
   if (node.componentType === 'field-set') {
-    return node.children.reduce((acc, value) => ({...acc, [value.id]: value.dataType}), {})
+    return node.children.reduce((acc, value) => ({...acc, [value.path || value.id]: value.dataType}), {})
   } else if (node.children) {
     return node.children.reduce((acc, value) => ({
       ...acc,
