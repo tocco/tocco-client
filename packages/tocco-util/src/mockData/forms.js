@@ -1,4 +1,4 @@
-import {evaluateINQuery, getParameterValue} from './utils'
+import {getParameterValue} from './utils'
 
 export const setupForms = fetchMock => {
   fetchMock.get(

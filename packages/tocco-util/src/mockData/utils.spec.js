@@ -1,19 +1,19 @@
-import {evaluateINQuery, getParameterValue} from './utils'
+import {getParameterValue, evaluateFulltext} from './utils'
 
 describe('tocco-util', () => {
   describe('mockData', () => {
     describe('utils', () => {
-      describe('evaluateINQuery', () => {
-        test('should extract keys', () => {
-          const query = 'IN(pk, 1, 3, 55)'
-          const result = evaluateINQuery(query)
-          expect(result).to.eql(['1', '3', '55'])
+      describe('evaluateFulltext', () => {
+        test('should extract fulltext value', () => {
+          const query = 'firstname === "heinz" and fulltext("test")'
+          const result = evaluateFulltext(query)
+          expect(result).to.eql('test')
         })
 
-        test('should return empty array of no IN query exists', () => {
-          const query = 'YX(pk, 1, 3, 55)'
-          const result = evaluateINQuery(query)
-          expect(result).to.eql([])
+        test('should return null if no fulltext exists', () => {
+          const query = 'firstname === "heinz"'
+          const result = evaluateFulltext(query)
+          expect(result).to.be.null
         })
       })
 

@@ -60,7 +60,7 @@
                 "id": "relAddress_user.relAddress",
                 "label": null,
                 "componentType": "field",
-                "dataType": "string"
+                "dataType": "fulltext-search"
               }
             ],
             "readonly": false,

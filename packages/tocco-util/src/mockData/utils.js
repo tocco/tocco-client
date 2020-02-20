@@ -7,10 +7,10 @@ export const getParameterValue = (name, url) => {
   return decodeURIComponent(results[2].replace(/\+/g, ' '))
 }
 
-export const evaluateINQuery = query => {
-  const matchIN = query.replace(/ /g, '').match(/IN\(pk,(.*)\)/)
-  if (matchIN) {
-    return matchIN[1].split(',')
+export const evaluateFulltext = query => {
+  const matchFulltext = query.match(/.*fulltext\("(.*)"\).*/)
+  if (matchFulltext) {
+    return matchFulltext[1]
   }
-  return []
+  return null
 }

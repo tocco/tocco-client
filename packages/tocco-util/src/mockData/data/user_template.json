@@ -99,8 +99,8 @@
     },
     "relUser": {
       "type": "entity",
-      "key": "33",
       "value": {
+        "key": "33",
         "model": "User",
         "version": 1,
         "paths": {}
