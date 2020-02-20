@@ -133,29 +133,31 @@
     "label": null
   },
   "model": {
-    "textQuestion": {
-      "fieldName": "textQuestion",
-      "validation": {
-        "mandatory": true,
-        "minLength": 3
+    "paths": {
+      "textQuestion": {
+        "fieldName": "textQuestion",
+        "validation": {
+          "mandatory": true,
+          "minLength": 3
+        }
+      },
+      "relMulti_entity": {
+        "type": "relation",
+        "relationName": "relMulti_entity",
+        "targetEntity": "Dummy_entity",
+        "reverseRelationName": "relUser",
+        "multi": true,
+        "validation": {
+          "mandatory": true
+        }
+      },
+      "relRemote_entity": {
+        "type": "relation",
+        "relationName": "relRemote_entity",
+        "targetEntity": "Dummy_entity",
+        "reverseRelationName": "relUser2",
+        "multi": false
       }
-    },
-    "relMulti_entity": {
-      "type": "relation",
-      "relationName": "relMulti_entity",
-      "targetEntity": "Dummy_entity",
-      "reverseRelationName": "relUser",
-      "multi": true,
-      "validation": {
-        "mandatory": true
-      }
-    },
-    "relRemote_entity": {
-      "type": "relation",
-      "relationName": "relRemote_entity",
-      "targetEntity": "Dummy_entity",
-      "reverseRelationName": "relUser2",
-      "multi": false
     }
   }
 }
