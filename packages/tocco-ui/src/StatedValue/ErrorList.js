@@ -29,7 +29,7 @@ const ErrorList = props => {
 ErrorList.propTypes = {
   error: PropTypes.objectOf(
     PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.node, PropTypes.string]))
-  ).isRequired
+  )
 }
 
 export default ErrorList

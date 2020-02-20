@@ -10,7 +10,8 @@ import {
   StyledMenuLink,
   StyledNav,
   StyledMenuWrapper,
-  StyledNavButton
+  StyledNavButton,
+  StyledSearchBoxWrapper
 }
   from './StyledComponents'
 
@@ -108,12 +109,14 @@ const Navigation = ({modulesMenuTree, settingsMenuTree, menuOpen, onClick, activ
         label={msg('client.admin.navigation.settings')}
       />
     </StyledTabsContainer>
-    <SearchBox
-      minInputLength={2}
-      onSearch={setFilter}
-      ref={inputEl}
-      placeholder={msg('client.admin.navigation.searchBoxPlaceHolder')}
-    />
+    <StyledSearchBoxWrapper>
+      <SearchBox
+        minInputLength={2}
+        onSearch={setFilter}
+        ref={inputEl}
+        placeholder={msg('client.admin.navigation.searchBoxPlaceHolder')}
+      />
+    </StyledSearchBoxWrapper>
     {activeMenuTab === tabs.MODULES
     && <StyledMenuWrapper>
       <MenuTree items={modulesMenuTree} searchFilter={filter} typeMapping={map}/>

@@ -4,140 +4,147 @@
     "label": null,
     "children": [
       {
-        "componentType": "action",
-        "actionType": "custom",
-        "id": "new",
-        "icon": "plus",
-        "label": "New"
-      },
-      {
-        "componentType": "action",
-        "actionType": "simple",
-        "readonly": false,
-        "label": "Simple Action 1-5",
-        "icon": "cog",
-        "progressMsg": "Die Beispiel Aktion wird ausgeführt..",
-        "showConfirmMessage": false,
-        "endpoint": "actions/simpleAction",
-        "minSelection": 1,
-        "maxSelection": 5
-      },
-      {
-        "componentType": "action-group",
-        "actionType": "group",
-        "label": "Actions",
+        "id": "main-action-bar",
+        "label": null,
+        "componentType": "action-bar",
         "children": [
-          {
-            "componentType": "action",
-            "actionType": "simple",
-            "readonly": false,
-            "label": "Confirm Simple Action",
-            "icon": "cog",
-            "minSelection": 1,
-            "maxSelection": 1,
-            "progressMsg": "Die Beispiel Aktion wird ausgeführt..",
-            "showConfirmMessage": true,
-            "endpoint": "actions/simpleAction"
-          },
-          {
-            "componentType": "action",
-            "actionType": "simple",
-            "readonly": false,
-            "label": "Simple Action (client questions)",
-            "icon": "cog",
-            "progressMsg": "Die Beispiel Aktion wird ausgeführt",
-            "showConfirmMessage": false,
-            "endpoint": "actions/yesNoClientQuestion"
-          },
-          {
-            "componentType": "action",
-            "actionType": "simple",
-            "readonly": false,
-            "label": "Form data Simple Action",
-            "icon": "cog",
-            "showConfirmMessage": false,
-            "endpoint": "actions/simpleAction",
-            "formDataEntityModel": "MySessionOnly",
-            "formDataTitle": "Some Title",
-            "formDataMessage": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
-          },
           {
             "componentType": "action",
             "actionType": "custom",
-            "icon": "cog",
+            "id": "new",
+            "icon": "plus",
+            "label": "New"
+          },
+          {
+            "componentType": "action",
+            "actionType": "simple",
             "readonly": false,
-            "label": "Merge (custom action)",
-            "useLabel": true,
-            "appId": "tocco-merge"
-          },
-          {
-            "componentType": "action",
-            "actionType": "divider"
-          },
-          {
-            "componentType": "action",
-            "actionType": "delete",
-            "icon": "trash",
-            "label": "Delete"
-          },
-          {
-            "componentType": "action",
-            "actionType": "simple",
-            "label": "ReadOnly Action",
-            "readonly": true
-          },
-          {
-            "componentType": "action",
-            "actionType": "simple",
-            "label": "Validation Error Action",
-            "endpoint": "actions/validationError",
-            "icon": "cog"
-          }
-        ]
-      },
-      {
-        "componentType": "action-group",
-        "actionType": "group",
-        "label": "Reports",
-        "children": [
-          {
-            "id": "sample_report",
-            "label": "Sample Report",
-            "componentType": "report",
-            "children": [],
-            "actionType": "report",
-            "icon": "file-pdf",
-            "minSelection": null,
-            "maxSelection": null,
+            "label": "Simple Action 1-5",
+            "icon": "cog",
+            "progressMsg": "Die Beispiel Aktion wird ausgeführt..",
             "showConfirmMessage": false,
-            "confirmationMessageText": null,
-            "reportId": "sample_report"
+            "endpoint": "actions/simpleAction",
+            "minSelection": 1,
+            "maxSelection": 5
           },
           {
-            "id": "invalid_settings_report",
-            "label": "Invalid Settings Report",
-            "componentType": "report",
-            "children": [],
-            "actionType": "report",
-            "icon": "file-excel",
-            "minSelection": null,
-            "maxSelection": null,
-            "showConfirmMessage": false,
-            "confirmationMessageText": null,
-            "confirmationMessageText": null,
-            "reportId": "invalid_settings_report"
+            "componentType": "action-group",
+            "actionType": "group",
+            "label": "Actions",
+            "children": [
+              {
+                "componentType": "action",
+                "actionType": "simple",
+                "readonly": false,
+                "label": "Confirm Simple Action",
+                "icon": "cog",
+                "minSelection": 1,
+                "maxSelection": 1,
+                "progressMsg": "Die Beispiel Aktion wird ausgeführt..",
+                "showConfirmMessage": true,
+                "endpoint": "actions/simpleAction"
+              },
+              {
+                "componentType": "action",
+                "actionType": "simple",
+                "readonly": false,
+                "label": "Simple Action (client questions)",
+                "icon": "cog",
+                "progressMsg": "Die Beispiel Aktion wird ausgeführt",
+                "showConfirmMessage": false,
+                "endpoint": "actions/yesNoClientQuestion"
+              },
+              {
+                "componentType": "action",
+                "actionType": "simple",
+                "readonly": false,
+                "label": "Form data Simple Action",
+                "icon": "cog",
+                "showConfirmMessage": false,
+                "endpoint": "actions/simpleAction",
+                "formDataEntityModel": "MySessionOnly",
+                "formDataTitle": "Some Title",
+                "formDataMessage": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
+              },
+              {
+                "componentType": "action",
+                "actionType": "custom",
+                "icon": "cog",
+                "readonly": false,
+                "label": "Merge (custom action)",
+                "useLabel": true,
+                "appId": "tocco-merge"
+              },
+              {
+                "componentType": "action",
+                "actionType": "divider"
+              },
+              {
+                "componentType": "action",
+                "actionType": "delete",
+                "icon": "trash",
+                "label": "Delete"
+              },
+              {
+                "componentType": "action",
+                "actionType": "simple",
+                "label": "ReadOnly Action",
+                "readonly": true
+              },
+              {
+                "componentType": "action",
+                "actionType": "simple",
+                "label": "Validation Error Action",
+                "endpoint": "actions/validationError",
+                "icon": "cog"
+              }
+            ]
           },
           {
-            "id": "generate_fails_report",
-            "label": "Generate Fails Report",
-            "componentType": "report",
-            "children": [],
-            "actionType": "report",
-            "icon": "file-alt",
-            "minSelection": null,
-            "maxSelection": null,
-            "showConfirmMessage": false,
-            "reportId": "generate_fails_report"
+            "componentType": "action-group",
+            "actionType": "group",
+            "label": "Reports",
+            "children": [
+              {
+                "id": "sample_report",
+                "label": "Sample Report",
+                "componentType": "report",
+                "children": [],
+                "actionType": "report",
+                "icon": "file-pdf",
+                "minSelection": null,
+                "maxSelection": null,
+                "showConfirmMessage": false,
+                "confirmationMessageText": null,
+                "reportId": "sample_report"
+              },
+              {
+                "id": "invalid_settings_report",
+                "label": "Invalid Settings Report",
+                "componentType": "report",
+                "children": [],
+                "actionType": "report",
+                "icon": "file-excel",
+                "minSelection": null,
+                "maxSelection": null,
+                "showConfirmMessage": false,
+                "confirmationMessageText": null,
+                "confirmationMessageText": null,
+                "reportId": "invalid_settings_report"
+              },
+              {
+                "id": "generate_fails_report",
+                "label": "Generate Fails Report",
+                "componentType": "report",
+                "children": [],
+                "actionType": "report",
+                "icon": "file-alt",
+                "minSelection": null,
+                "maxSelection": null,
+                "showConfirmMessage": false,
+                "reportId": "generate_fails_report"
+              }
+            ]
           }
         ]
       },
@@ -471,12 +478,6 @@
             "sortable": true
           }
         ]
-      },
-      {
-        "componentType": "action",
-        "actionType": "new",
-        "icon": "plus",
-        "label": "New"
       }
     ]
   }

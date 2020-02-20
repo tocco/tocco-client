@@ -1,3 +1,25 @@
+0.2.1
+- Adjust responsive behavior of layout box in detail view
+- Fix reports
+- Animate validate error list
+
+0.2.0
+- Fix display-expression not shown in list view
+- Basic display-expression bootstrap class support
+- Fix display-expression sorting in list view
+- Create multi relation create fix
+- Optimize async validation in create
+- Persist search-filters
+- Fix prompt when changing relations preview
+- Use relation-count client endpoint
+
+0.1.26
+- Fix principal service usage
+
+0.1.25
+- Fallback sorting (Last_updated) in lists
+- Support of code and ipaddress datatypes fields
+
 0.1.24
 - Increase list limit
 - Style fixing

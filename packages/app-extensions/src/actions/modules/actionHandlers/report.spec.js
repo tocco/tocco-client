@@ -155,10 +155,8 @@ describe('app-extensions', () => {
               paths: {
                 document: {
                   value: {
-                    value: {
-                      fileName,
-                      binaryLink
-                    }
+                    fileName,
+                    binaryLink
                   }
                 }
               }

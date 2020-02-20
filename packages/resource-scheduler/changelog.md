@@ -1,3 +1,7 @@
+0.2.25
+- Fix display-expression not shown in list view
+- View height fix (double scrollbar)
+
 0.2.24
 - Various styling adjustments
 

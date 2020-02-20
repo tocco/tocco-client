@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Typography, Button, theme, StyledSpan} from 'tocco-ui'
 import styled from 'styled-components'
+import {FormattedMessage} from 'react-intl'
 
 const SearchFilterListWrapper = styled.div`
   margin-top: .4rem;
@@ -9,8 +10,7 @@ const SearchFilterListWrapper = styled.div`
 `
 
 const StyledSpanSearchFilter = styled(StyledSpan)`
-  && {display: flex;}
-  width: 100%;
+  width: 95%;
 `
 
 const StyledButton = styled(Button)`
@@ -20,7 +20,7 @@ const StyledButton = styled(Button)`
     margin-left: auto;
     border: 0;
     padding: 0;
-    
+
      &:hover * {
       color: ${theme.color('secondary')}
     }
@@ -33,7 +33,7 @@ export const StyledSearchFilterButton = styled.div`
   padding: .3rem 1rem;
   margin-bottom: .2rem;
   background-color: ${({active}) => active && theme.color('secondary')};
-  
+
   && {
     * {color: ${({active}) => active && theme.color('paper')};}
     ${({active}) => active && `
@@ -43,12 +43,12 @@ export const StyledSearchFilterButton = styled.div`
       `
     }
   }
- 
+
   :hover {
     ${StyledButton} {
       display: flex;
     }
-    
+
     background-color: ${theme.color('secondaryLight')};
     * {color: ${theme.color('paper')};}
     cursor: pointer;
@@ -57,15 +57,14 @@ export const StyledSearchFilterButton = styled.div`
 
 const SearchFilterButton = ({setActive, active, label}) =>
   <StyledSearchFilterButton active={active} onClick={() => setActive(!active)}>
-    <StyledSpanSearchFilter>{label}
-      <StyledButton
-        onClick={e => {
-          setActive(false)
-          e.stopPropagation()
-        }}
-        icon="plus"
-        dense />
-    </StyledSpanSearchFilter>
+    <StyledSpanSearchFilter title={label}>{label}</StyledSpanSearchFilter>
+    <StyledButton
+      onClick={e => {
+        setActive(false)
+        e.stopPropagation()
+      }}
+      icon="plus"
+      dense />
   </StyledSearchFilterButton>
 
 SearchFilterButton.propTypes = {
@@ -78,7 +77,9 @@ const AdminSearchForm = ({searchFilters, setSearchFilterActive, executeSearch}) 
   if (!searchFilters) return null
 
   if (searchFilters.length === 0) {
-    return <div style={{paddingLeft: '8px'}}><Typography.I>No Searchfilters available</Typography.I></div>
+    return <div style={{paddingLeft: '8px'}}><Typography.I>
+      <FormattedMessage id="client.entity-list.noSearchFilters"/>
+    </Typography.I></div>
   }
 
   return <SearchFilterListWrapper>

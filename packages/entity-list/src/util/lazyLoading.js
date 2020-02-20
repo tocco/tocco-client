@@ -19,10 +19,9 @@ const singleRelationHandler = (value, lazyData) => {
   return {...value, display}
 }
 
-const displayExpressionHandler = (value, lazyData, info) => {
-  const result = _get(lazyData, ['displayExpressions', info.formName, info.key, info.path], '')
-  return result
-}
+const displayExpressionHandler = (value, lazyData, info) => (
+  _get(lazyData, ['displayExpressions', info.formName, info.key, info.path], '')
+)
 
 const typeHandlers = {
   'multi-select': multiRelationHandler,

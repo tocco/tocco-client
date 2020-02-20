@@ -7,5 +7,6 @@ export default Object.freeze({
   SUB_TABLE: 'sub-table',
   DISPLAY: 'display',
   FULLTEXT_SEARCH: 'fulltext-search',
-  SEARCH_FILTER: 'search-filter'
+  SEARCH_FILTER: 'search-filter',
+  REMOTE: 'remote-field'
 })

@@ -93,7 +93,7 @@ export const getDownloadUrl = binaryLink =>
 export function* handleSuccessfulReport(completed, submitAction) {
   const outputJobId = completed.body.outputJobId
   const outputJob = yield call(rest.fetchEntity, 'Output_job', outputJobId, {paths: ['document']})
-  const {fileName, binaryLink} = outputJob.paths.document.value.value
+  const {fileName, binaryLink} = outputJob.paths.document.value
 
   if (submitAction === submitActions.DOWNLOAD) {
     const downloadLink = yield call(getDownloadUrl, binaryLink)

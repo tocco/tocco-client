@@ -14,7 +14,7 @@ import {
 
 const StyledSplitPane = styled(SplitPane)`
   position: static !important;
-  height: calc(100vh - 50px) !important;
+  height: calc(100vh - 100px) !important;
   
   .react-bs-container-body {
     height: auto !important;

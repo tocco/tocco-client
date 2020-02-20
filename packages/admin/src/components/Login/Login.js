@@ -7,7 +7,7 @@ import {StyledH1, StyledSpan, scale} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
 
 import ToccoLogo from '../../assets/tocco-circle.svg'
-import ToccoSlogan from '../../assets/tocco-white-vertical.svg'
+import ToccoSlogan from '../../assets/tocco_white.svg'
 
 const StyledLogin = styled.div`
   height: 100vh;
@@ -24,12 +24,25 @@ const StyledLogin = styled.div`
     justify-content: space-between;
     margin-bottom: 1.8rem;
   }
+  
+  @media(max-width: 1024px) {
+    background-size: 2000px;
+    background-position: 50% -1850px;
+  }
+  
+  @media(max-width: 425px) {
+    background-position: 50% -1890px;
+  }
 `
 
 const StyledHeadingLogin = styled(StyledH1)`
   && {
     font-size: ${scale.font(11)};
     margin-bottom: 5rem;
+    
+    @media(max-width: 1024px) {
+      margin-bottom: 1.5rem;
+    }
   }
 `
 const StyledSpanLogin = styled(StyledSpan)`
@@ -39,6 +52,10 @@ const StyledSpanLogin = styled(StyledSpan)`
     display: inline-block;
     width: 100%;
     margin: 3rem 0 4rem 0;
+   
+    @media(max-width: 1024px) {
+      margin: 1rem 0 1.8rem 0;
+    }
   }
 `
 
@@ -50,19 +67,46 @@ const LoginWrapper = styled.div`
     .tocco-login * {
       font-size: ${scale.font(1.3)}
     }
+    
+    @media(max-width: 1024px) {
+      margin: 14rem auto 0 auto;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+    
+    @media(max-width: 425px) {
+      margin-top: 8rem;
+    }
   }
 `
 
-const Slogan = styled.div`
-  background-image: url(${ToccoSlogan});
-  background-repeat: no-repeat;
-  background-size: 11.5vw 27vw;
-  background-position: -30px 10px;
-  position: fixed;
-  top: 1.5em;
-  left: 0;
-  width: 11.5vw;
-  height: 28vw;
+const SloganImg = styled.img`
+  transform: rotate(270deg);
+  position: relative;
+  top: 12.5vw;
+  left: -8%;
+  width: 25vw;
+  
+  @media(max-width: 1024px) {
+    display: none;
+  }
+`
+
+const StyledImg = styled.img`
+  display: none;
+  max-width: 400px;
+  width: 95%;
+  height: auto;
+  margin: 45px auto 0 auto;
+  
+  @media(max-width: 1024px) {
+    display: block;
+  }
+  
+  @media(max-width: 425px) {
+    max-width: 280px;
+    margin-top: 40px;
+  }
 `
 
 const Login = props => {
@@ -72,7 +116,8 @@ const Login = props => {
 
   return (
     <StyledLogin>
-      <Slogan/>
+      <StyledImg src={ToccoSlogan}/>
+      <SloganImg src={ToccoSlogan}/>
       <LoginWrapper>
         <StyledHeadingLogin><FormattedMessage id="client.admin.welcomeTitle"/></StyledHeadingLogin>
         <SsoLogin

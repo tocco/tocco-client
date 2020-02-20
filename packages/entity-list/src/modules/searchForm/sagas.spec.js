@@ -42,11 +42,12 @@ describe('entity-list', () => {
 
             expect(gen.next().value).to.eql(select(sagas.searchFormSelector))
             expect(gen.next({initialized}).value).to.eql(select(sagas.entityListSelector))
-            expect(gen.next({entityName, searchFormType}).value).to.eql(call(sagas.loadSearchFilter, entityName))
-            expect(gen.next().value).to.eql(call(sagas.loadSearchForm))
+
+            expect(gen.next({entityName, searchFormType}).value).to.eql(call(sagas.loadSearchForm))
             expect(gen.next(
               formDefinition).value).to.eql(call(sagas.setInitialFormValues, showSearchForm, formDefinition)
             )
+            expect(gen.next().value).to.eql(call(sagas.loadSearchFilter, entityName))
             expect(gen.next().value).to.eql(put(actions.setInitialized()))
             expect(gen.next().done).to.be.true
           })

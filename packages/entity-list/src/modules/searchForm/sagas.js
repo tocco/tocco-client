@@ -38,13 +38,13 @@ export function* initialize() {
   const {searchFormType, entityName} = yield select(entityListSelector)
   const searchFormVisible = searchFormType !== searchFormTypes.NONE
 
-  if (searchFormType === searchFormTypes.ADMIN) {
-    yield call(loadSearchFilter, entityName)
-  }
-
   if (!initialized) {
     const formDefinition = searchFormVisible ? yield call(loadSearchForm) : null
     yield call(setInitialFormValues, searchFormVisible, formDefinition)
+    if (searchFormType === searchFormTypes.ADMIN) {
+      yield call(loadSearchFilter, entityName)
+    }
+
     yield put(actions.setInitialized())
   }
 }

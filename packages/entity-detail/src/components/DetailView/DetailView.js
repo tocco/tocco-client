@@ -5,6 +5,7 @@ import _isEmpty from 'lodash/isEmpty'
 import {form} from 'tocco-app-extensions'
 import {LoadMask} from 'tocco-ui'
 
+import modes from '../../util/modes'
 import DetailFormContainer from '../../containers/DetailFormContainer'
 import {asyncValidate, AsyncValidationException} from '../../util/detailView/asyncValidation'
 
@@ -16,7 +17,7 @@ class DetailView extends React.Component {
   handledAsyncValidate = formValues =>
     asyncValidate(
       formValues,
-      this.props.formInitialValues,
+      this.props.mode === modes.CREATE ? {} : this.props.formInitialValues,
       this.props.entityModel,
       this.props.mode
     ).catch(error => {
