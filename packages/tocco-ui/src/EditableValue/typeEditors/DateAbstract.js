@@ -5,7 +5,7 @@ import _isEqual from 'lodash/isEqual'
 import {withTheme} from 'styled-components'
 
 import {theme} from '../../utilStyles'
-import Button from '../../Button'
+import Ball from '../../Ball'
 import {
   StyledDateAbstractControl,
   StyledDateAbstractInput,
@@ -151,9 +151,8 @@ class DateAbstract extends React.Component {
           data-clear
           hideButton={!this.hasValue() || this.props.immutable}
         >
-          <Button
+          <Ball
             icon="times"
-            look="ball"
             tabIndex={-1}
           />
         </StyledDateAbstractControl>
