@@ -1,5 +1,4 @@
 import {channel} from 'redux-saga'
-import _join from 'lodash/join'
 import uuid from 'uuid/v4'
 import {all, call, fork, put, takeEvery, take, spawn, select} from 'redux-saga/effects'
 import {api} from 'tocco-util'
@@ -59,7 +58,7 @@ export function* closeAdvancedSearch(answerChannel, modalId, fieldId, formName, 
     if (type === advancedSearchActions.ADVANCED_SEARCH_UPDATE) {
       if (payload.ids && payload.ids.length > 0) {
         const query = {
-          tql: `IN(pk,${_join(payload.ids, ',')})`
+          keys: payload.ids
         }
         let entities = yield call(rest.fetchEntities, entity, query)
         entities = yield call(enhanceEntitiesWithDisplays, entities)

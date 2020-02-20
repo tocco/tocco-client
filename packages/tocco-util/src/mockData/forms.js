@@ -79,9 +79,7 @@ export const setupForms = fetchMock => {
 const createDisplayExpressionResponse = () =>
   (url, opts) => {
     const paths = getParameterValue('_paths', url).split(',')
-    const where = getParameterValue('_where', url)
-
-    const keys = evaluateINQuery(where)
+    const keys = getParameterValue('_keys', url).split(',')
 
     const formName = url.match(/.*forms\/(.*)\/display-expressions.*/)[1]
     return {

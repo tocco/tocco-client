@@ -55,8 +55,8 @@ export function* fetchDisplayExpressions(formName, scope, entityKeys, displayExp
   const options = {
     method: 'GET',
     queryParams: {
-      _where: `IN(pk,${entityKeys.join(',')})`,
-      _paths: `${displayExpressionFields.join(',')}`
+      _keys: entityKeys.join(','),
+      _paths: displayExpressionFields.join(',')
     }
   }
 
@@ -262,6 +262,7 @@ export const buildRequestQuery = ({
   tql,
   relations,
   filter,
+  keys,
   constriction
 } = {}) => (
   {
@@ -276,6 +277,7 @@ export const buildRequestQuery = ({
     ...(tql ? {where: tql} : {}),
     ...(Array.isArray(relations) ? {relations: relations.length === 0 ? '!' : relations} : {}),
     ...(filter ? {filter} : {}),
+    ...(keys ? {keys} : {}),
     ...(constriction ? {constriction} : {})
   }
 )

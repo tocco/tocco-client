@@ -502,7 +502,7 @@ describe('entity-list', () => {
               ])
               .run()
 
-            expect(saga.returnValue).to.have.property('tql')
+            expect(saga.returnValue).to.have.property('keys')
           })
         })
 
