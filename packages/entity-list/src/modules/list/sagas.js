@@ -89,7 +89,7 @@ export function* getBasicQuery(regardSelection = true) {
   const {showSelectedRecords, selection} = yield select(selectionSelector)
   if (regardSelection && showSelectedRecords) {
     return {
-      tql: `IN(pk,${selection.join(',')})`
+      keys: selection
     }
   }
 
