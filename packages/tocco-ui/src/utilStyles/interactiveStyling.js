@@ -17,6 +17,13 @@ const getFontColor = (ink, look, theme, backgroundColor) => {
   return getMatchingFontColor(backgroundColor, theme)
 }
 
+const getHoverFontColor = (ink, look, theme, backgroundColor) => {
+  if (look === 'raised') {
+    return themeSelector.color('paper')({theme})
+  }
+  return getMatchingFontColor(backgroundColor, theme)
+}
+
 const getBorder = (ink, look, theme) => {
   if (ink !== 'primary' && look === 'raised') {
     return `0px 0px 0px 1px ${themeSelector.color('secondaryLight')({theme})} inset;`
@@ -47,6 +54,7 @@ export default props => {
   const fontColor = getFontColor(ink, look, theme, backgroundColor)
   const border = getBorder(ink, look, theme)
   const hoverBackgroundColor = getHoverBackgroundColor(ink, look, theme)
+  const hoverFontColor = getHoverFontColor(ink, look, theme, backgroundColor)
 
   return css`
     background: ${backgroundColor};
@@ -57,7 +65,8 @@ export default props => {
 
     &:focus,
     &:hover {
-      background: ${hoverBackgroundColor}
+      background: ${hoverBackgroundColor};
+      * { color: ${hoverFontColor}; }
     }
 
     &:active,

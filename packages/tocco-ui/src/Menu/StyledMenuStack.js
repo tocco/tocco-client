@@ -5,7 +5,6 @@ import StyledMenu from './StyledMenu'
 import StyledItemFlyout from './StyledItemFlyout'
 
 const StyledMenuStack = styled(StyledMenu)`
-  && {
     > li {
       flex-direction: column;
 
@@ -16,6 +15,7 @@ const StyledMenuStack = styled(StyledMenu)`
         text-align: left;
         text-transform: none;
         width: 100%;
+        background-color: ${theme.color('backgroundBody')};
       }
     }
 
@@ -30,7 +30,6 @@ const StyledMenuStack = styled(StyledMenu)`
       width: calc(100% - 20px);
       margin-left: 20px;
     }
-  }
 `
 
 export default StyledMenuStack
