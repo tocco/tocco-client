@@ -17,6 +17,7 @@
           },
           {
             "componentType": "action",
+            "id": "simple",
             "actionType": "simple",
             "readonly": false,
             "label": "Simple Action 1-5",
@@ -29,6 +30,7 @@
           },
           {
             "componentType": "action-group",
+            "id": "group1",
             "actionType": "group",
             "label": "Actions",
             "children": [
@@ -68,6 +70,7 @@
               },
               {
                 "componentType": "action",
+                "id": "merge",
                 "actionType": "custom",
                 "icon": "cog",
                 "readonly": false,
@@ -77,22 +80,26 @@
               },
               {
                 "componentType": "action",
+                "id": "div",
                 "actionType": "divider"
               },
               {
                 "componentType": "action",
+                "id": "delete",
                 "actionType": "delete",
                 "icon": "trash",
                 "label": "Delete"
               },
               {
                 "componentType": "action",
+                "id": "readonly",
                 "actionType": "simple",
                 "label": "ReadOnly Action",
                 "readonly": true
               },
               {
                 "componentType": "action",
+                "id": "validate",
                 "actionType": "simple",
                 "label": "Validation Error Action",
                 "endpoint": "actions/validationError",

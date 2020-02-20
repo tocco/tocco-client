@@ -86,7 +86,7 @@ export const createUsers = amount => {
         ...userTemplate.paths,
         user_nr: {
           type: 'counter',
-          value: i * 1000,
+          value: i * 100,
           writable: false
         },
         firstname: {

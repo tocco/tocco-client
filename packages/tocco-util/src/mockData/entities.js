@@ -2,7 +2,7 @@ import _get from 'lodash/get'
 
 import consoleLogger from '../consoleLogger'
 import {sleep} from './mockData'
-import {evaluateINQuery, getParameterValue} from './utils'
+import {getParameterValue, evaluateFulltext} from './utils'
 
 const evenFilter = (value, idx) => idx % 2 === 0
 
@@ -155,13 +155,14 @@ const extractUrlParams = url => () => (
     offset: parseInt(getParameterValue('_offset', url)) || 0,
     sort: getParameterValue('_sort', url),
     search: getParameterValue('_search', url),
-    where: getParameterValue('_where', url)
+    where: getParameterValue('_where', url),
+    keys: getParameterValue('_keys', url)
   }
 )
 
 const extractBodyParams = body => () => {
-  const {limit = 25, offset = 0, sort, search, where} = body
-  return {limit, offset, sort, search, where}
+  const {limit = 25, offset = 0, sort, search, where, keys} = body
+  return {limit, offset, sort, search, where, keys}
 }
 
 const createEntitiesDisplayResponse = (entityStore, timeout) =>
@@ -173,6 +174,48 @@ const createEntitiesDisplayResponse = (entityStore, timeout) =>
       }))
     }))
 
+const entityListMutaters = [
+  {
+    doRun: params => !!params.sort,
+    mutate: (entities, params) => {
+      const sortedEntities = [...entities]
+      const parts = params.sort.split(' ')
+      const fieldName = parts[0]
+      const direction = parts[1]
+      sortedEntities.sort((a, b) => {
+        const path = 'paths.' + [fieldName] + '.value.value'
+        const A = _get(a, path, 0)
+        const B = _get(b, path, 0)
+        return ((A < B) ? -1 : ((A > B) ? 1 : 0))
+      })
+      if (direction === 'desc') {
+        sortedEntities.reverse()
+      }
+
+      return sortedEntities
+    }
+  },
+  {
+    doRun: params => !!params.keys,
+    mutate: (entities, params) => [...entities].filter(e => params.keys.includes(e.key))
+  },
+  {
+    doRun: params => !!params.filter,
+    mutate: (entities, params) => [...entities].filter(params.filter)
+  },
+  {
+    doRun: params => !!params.search || !!params.where,
+    mutate: (entities, params) => {
+      const searchTerm = params.search || evaluateFulltext(params.where)
+      return searchTerm === 'few' ? entities.slice(0, 3) : searchTerm === 'none' ? [] : entities
+    }
+  },
+  {
+    doRun: params => params.offset !== undefined && params.limit !== undefined,
+    mutate: (entities, params) => entities.slice(params.offset, params.offset + params.limit)
+  }
+]
+
 const createEntitiesResponse = (entityName, entityStore, timeout, filter) => {
   const entities = entityStore[entityName]
 
@@ -181,37 +224,12 @@ const createEntitiesResponse = (entityName, entityStore, timeout, filter) => {
 
     const extractFunction = opts.method === 'POST' ? extractBodyParams(JSON.parse(opts.body)) : extractUrlParams(url)
 
-    const {limit, offset, sort, search, where} = extractFunction()
+    const params = extractFunction()
+    const mutatedEntities = entityListMutaters.reduce((acc, mutater) => {
+      return mutater.doRun(params) ? mutater.mutate(acc, params) : acc
+    }, entities)
 
-    if (sort) {
-      const parts = sort.split(' ')
-      const fieldName = parts[0]
-      const direction = parts[1]
-      entities.sort((a, b) => {
-        const path = 'paths.' + [fieldName] + '.value.value'
-        const A = _get(a, path, 0)
-        const B = _get(b, path, 0)
-        return ((A < B) ? -1 : ((A > B) ? 1 : 0))
-      })
-      if (direction === 'desc') {
-        entities.reverse()
-      }
-    }
-
-    const filteredEntities = filter ? entities.filter(filter) : entities
-
-    let result
-    if (where) {
-      result = wrapEntitiesResponse(entityName, handleQueryResult(where, filteredEntities))
-    } else if (search === 'few') {
-      result = wrapEntitiesResponse(entityName, filteredEntities.slice(0, 3))
-    } else if (search === 'none') {
-      result = wrapEntitiesResponse(entityName, [])
-    } else {
-      result = wrapEntitiesResponse(entityName, filteredEntities.slice(offset, offset + limit))
-    }
-
-    return sleep(timeout).then(() => result)
+    return sleep(timeout).then(() => wrapEntitiesResponse(entityName, mutatedEntities))
   }
 }
 
@@ -230,11 +248,6 @@ const createSearchFilterResponse = () =>
       return require('./data/search_filters.json')
     }
   }
-
-const handleQueryResult = (query, entities) => {
-  const keys = evaluateINQuery(query)
-  return entities.filter(e => keys.includes(e.key))
-}
 
 const wrapEntitiesResponse = (entityName, entities) => ({
   metaData: {

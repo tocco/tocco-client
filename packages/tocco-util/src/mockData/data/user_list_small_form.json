@@ -26,7 +26,8 @@
             "children": [
               {
                 "id": "user_nr",
-                "dataType": "integer",
+                "path": "user_nr",
+                "dataType": "counter",
                 "componentType": "field",
                 "hidden": false,
                 "children": [],
@@ -38,25 +39,26 @@
           },
           {
             "id": "fullname",
-            "componentType": "column",
-            "hidden": false,
+            "componentType": "Column",
+            "readonly": false,
             "children": [
               {
                 "id": "firstname",
-                "dataType": "string",
                 "componentType": "field",
-                "hidden": false,
-                "children": []
+                "path": "firstname",
+                "dataType": "string",
+                "label": null
               },
               {
                 "id": "lastname",
-                "dataType": "string",
                 "componentType": "field",
-                "hidden": false,
-                "children": []
+                "path": "firstname",
+                "dataType": "string",
+                "label": null
               }
             ],
             "label": "Fullname",
+
             "sortable": true
           }
         ],

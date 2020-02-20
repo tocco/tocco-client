@@ -48,7 +48,7 @@
         "hidden": false,
         "children": [
           {
-            "id": "box1",
+            "id": "box1-1",
             "componentType": "layout",
             "layoutType": "horizontal-box",
             "hidden": false,
@@ -296,7 +296,7 @@
             ]
           },
           {
-            "id": "box1",
+            "id": "box2",
             "componentType": "layout",
             "layoutType": "horizontal-box",
             "hidden": false,
