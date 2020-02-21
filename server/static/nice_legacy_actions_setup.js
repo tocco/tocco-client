@@ -334,12 +334,15 @@ Ext.extend(nice2.app.NewClientLegacyActionsApp, nice2.app.AbstractApp, {
   }
 })
 
-window.app = new nice2.app.NewClientLegacyActionsApp()
-window.app.loadEnv(nice2.CallbackFactory.create(
-  function() {
-    // todo
-  },
-  function(exOrInfoObj) {
-    // todo
-  }
-))
+window.setUpLegacyActionsEnv = () => new Promise((resolve, reject) => {
+  window.app = new nice2.app.NewClientLegacyActionsApp()
+  window.app.loadEnv(nice2.CallbackFactory.create(
+    function() {
+      window.legacyActionsEnvInitialized = true
+      resolve()
+    },
+    function(exOrInfoObj) {
+      reject(exOrInfoObj)
+    }
+  ))
+})
