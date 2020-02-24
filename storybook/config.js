@@ -23,7 +23,7 @@ addLocaleData(frLocaleData)
 addLocaleData(itLocaleData)
 
 setIntlConfig({
-  locales: ['de-CH', 'en', 'de', 'fr', 'it'],
+  locales: ['de-CH', 'fr-CH', 'it-CH', 'en-US'],
   defaultLocale: 'de-CH',
   getMessages: () => {}
 })
