@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 import {getTql} from './tqlBuilder'
 
 describe('entity-list', () => {
@@ -53,7 +55,7 @@ describe('entity-list', () => {
             const path = 'start'
             const fieldType = 'datetime'
 
-            const expectedResult = 'start == datetime:"2020-02-12 13:00"'
+            const expectedResult = `start == datetime:"${moment(value).format('YYYY-MM-DD HH:mm')}"`
             const result = getTql(path, value, fieldType)
 
             expect(result).to.deep.eql(expectedResult)
