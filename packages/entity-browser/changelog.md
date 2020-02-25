@@ -1,3 +1,6 @@
+0.9.9
+- Reset nice css leak
+
 0.9.7
 - Adjust responsive behavior of layout box in detail view
 - Style display expressions
