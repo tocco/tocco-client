@@ -1,3 +1,8 @@
+0.9.7
+- Adjust responsive behavior of layout box in detail view
+- Style display expressions
+- Constriction bug fix
+
 0.9.6
 - Support of code and ipaddress datatypes fields
 - Fix display-expression not shown in list view
