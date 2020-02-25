@@ -30,8 +30,8 @@ export const sources = [
   {src: '/nice2/javascript/lang.release.js', handler: loadScript},
   {src: '/nice2/javascript/nice2-ext-newclient-actions.debug.js', handler: loadScript},
   {src: '/nice2/javascript/nice2-admin.debug.js', handler: loadScript},
+  {src: '/nice2/javascript/nice2-newclient-actions-setup.debug.js', handler: loadScript},
   {src: '/nice2/dwr-all.js', handler: loadScript},
-  {src: '/static/nice_legacy_actions_setup.js', handler: loadScript},
   {src: '/css/themes/blue-medium.css', handler: loadCss},
   {src: '/css/nice2-admin.css', handler: loadCss}
 ]
