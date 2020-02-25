@@ -15,8 +15,9 @@ const StyledHtmlFormatter = styled(StyledSpan)`
     }
 
     .label {
-      border-radius: 6px;
-      padding: .3em;
+      background: none !important; // nice2 reset
+      font-size: 100% !important; // nice2 reset
+      font-weight: ${theme.fontWeight('regular')} !important; // nice2 reset
     }
 
     .label-danger {
