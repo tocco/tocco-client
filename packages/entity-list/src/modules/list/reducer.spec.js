@@ -17,7 +17,9 @@ const EXPECTED_INITIAL_STATE = {
   createPermission: false,
   formSelectable: false,
   showLink: false,
-  lazyData: {}
+  lazyData: {},
+  endpoint: null,
+  constriction: null
 }
 
 describe('entity-list', () => {

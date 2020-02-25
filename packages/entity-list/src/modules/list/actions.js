@@ -21,6 +21,7 @@ export const ON_ROW_CLICK = 'list/ON_ROW_CLICK'
 export const NAVIGATE_TO_CREATE = 'entityList/NAVIGATE_TO_CREATE'
 export const SET_FORM_SELECTABLE = 'list/SET_FORM_SELECTABLE'
 export const SET_ENDPOINT = 'list/SET_ENDPOINT'
+export const SET_CONSTRICTION = 'list/SET_CONSTRICTION'
 export const QUERY_CHANGED = 'list/QUERY_CHANGED'
 export const SET_SHOW_LINK = 'list/SET_SHOW_LINK'
 export const SET_LAZY_DATA = 'list/SET_LAZY_DATA'
@@ -166,6 +167,13 @@ export const setEndpoint = endpoint => ({
   type: SET_ENDPOINT,
   payload: {
     endpoint
+  }
+})
+
+export const setConstriction = constriction => ({
+  type: SET_CONSTRICTION,
+  payload: {
+    constriction
   }
 })
 

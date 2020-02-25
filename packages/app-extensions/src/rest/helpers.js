@@ -248,6 +248,7 @@ const isValidSorting = sorting =>
  * - tql {String} TQL query
  * - relations {String} Relations that should be returned
  * - filters {Array} List of filter names to be applied
+ * - constriction {String} Id of the constriction that should be applied
  */
 export const buildRequestQuery = ({
   conditions,
@@ -260,7 +261,8 @@ export const buildRequestQuery = ({
   paths,
   tql,
   relations,
-  filter
+  filter,
+  constriction
 } = {}) => (
   {
     ...(conditions ? {conditions} : {}),
@@ -273,7 +275,8 @@ export const buildRequestQuery = ({
     ...(paths ? {paths} : {}),
     ...(tql ? {where: tql} : {}),
     ...(Array.isArray(relations) ? {relations: relations.length === 0 ? '!' : relations} : {}),
-    ...(filter ? {filter} : {})
+    ...(filter ? {filter} : {}),
+    ...(constriction ? {constriction} : {})
   }
 )
 

@@ -6,6 +6,7 @@
         "id": "table",
        "componentType": "table",
         "layoutType": "table",
+        "constriction": "sampleConstriction",
         "hidden": false,
         "sorting": [
           {

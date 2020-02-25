@@ -20,6 +20,11 @@ export const getEndpoint = formDefinition => {
   return table.endpoint || null
 }
 
+export const getConstriction = formDefinition => {
+  const table = getTable(formDefinition)
+  return table.constriction || null
+}
+
 const isDisplayableChild = child => !child.hidden
 
 export const getColumnDefinition = table =>

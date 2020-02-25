@@ -10,7 +10,7 @@ import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import * as selectionActions from '../selection/actions'
 import {getSearchFormValues} from '../searchForm/sagas'
-import {getSorting, getSelectable, getEndpoint, getFields} from '../../util/api/forms'
+import {getSorting, getSelectable, getEndpoint, getConstriction, getFields} from '../../util/api/forms'
 import {entitiesListTransformer} from '../../util/api/entities'
 
 export const inputSelector = state => state.input
@@ -95,13 +95,15 @@ export function* getBasicQuery(regardSelection = true) {
 
   const {formFieldsFlat, searchFilters: searchFormSearchFilter} = yield select(searchFormSelector)
   const searchFormValues = yield call(getSearchFormValues)
+  const list = yield select(listSelector)
 
   const searchFormFetchOptions = yield call(getFetchOptionsFromSearchForm, searchFormValues, formFieldsFlat)
   const filter = yield call(getSearchFilter, inputSearchFilters, searchFormFetchOptions.filters, searchFormSearchFilter)
 
   return {
     ..._omit(searchFormFetchOptions, 'filters'),
-    ...(filter && filter.length > 0 ? {filter} : {})
+    ...(filter && filter.length > 0 ? {filter} : {}),
+    ...(list.constriction && {constriction: list.constriction})
   }
 }
 
@@ -254,6 +256,8 @@ export function* loadFormDefinition(formDefinition, formName) {
   yield put(actions.setFormSelectable(selectable))
   const endpoint = yield call(getEndpoint, formDefinition)
   yield put(actions.setEndpoint(endpoint))
+  const constriction = yield call(getConstriction, formDefinition)
+  yield put(actions.setConstriction(constriction))
 }
 
 export function* loadEntityModel(entityName, entityModel) {
