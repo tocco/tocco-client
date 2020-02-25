@@ -299,6 +299,32 @@ describe('entity-list', () => {
           })
         })
 
+        describe('getConstriction', () => {
+          const getFormDefinition = constriction => ({
+            children: [{
+              layoutType: 'table',
+              componentType: 'table',
+              ...(constriction !== null ? {constriction} : {})
+            }]
+          })
+
+          test('should return constriction', () => {
+            const constriction = 'sample'
+            const result = forms.getConstriction(getFormDefinition(constriction))
+            expect(result).to.eql(constriction)
+          })
+
+          test('should return null if constriction is not defined', () => {
+            const result = forms.getConstriction(getFormDefinition(null))
+            expect(result).to.be.null
+          })
+
+          test('should return null if constriction is empty', () => {
+            const result = forms.getConstriction(getFormDefinition(''))
+            expect(result).to.be.null
+          })
+        })
+
         describe('changeParentFieldType', () => {
           test('should change the type of a parent field to single-select-box', () => {
             const result = forms.changeParentFieldType(mockData.data.dummyEntitySearchForm.form, 'relUser')

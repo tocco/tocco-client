@@ -8,7 +8,7 @@ import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import * as selectionActions from '../selection/actions'
 import rootSaga, * as sagas from './sagas'
-import {getSorting, getSelectable, getFields, getEndpoint} from '../../util/api/forms'
+import {getSorting, getSelectable, getFields, getEndpoint, getConstriction} from '../../util/api/forms'
 import {getSearchFormValues} from '../searchForm/sagas'
 
 const generateState = (entityStore = {}, page) => ({
@@ -336,19 +336,22 @@ describe('entity-list', () => {
 
             const selectable = true
             const endpoint = 'customEndpoint'
+            const constriction = 'sampleConstriction'
 
             return expectSaga(sagas.loadFormDefinition, formDefinition, formName)
               .provide([
                 [matchers.call.fn(rest.fetchForm), loadedFormDefinition],
                 [matchers.call.fn(sagas.setSorting)],
                 [matchers.call.fn(getSelectable), selectable],
-                [matchers.call.fn(getEndpoint), endpoint]
+                [matchers.call.fn(getEndpoint), endpoint],
+                [matchers.call.fn(getConstriction), constriction]
               ])
               .call(rest.fetchForm, formName, 'list')
               .put(actions.setFormDefinition(loadedFormDefinition))
               .call(sagas.setSorting, loadedFormDefinition)
               .put(actions.setFormSelectable(selectable))
               .put(actions.setEndpoint(endpoint))
+              .put(actions.setConstriction(constriction))
               .run()
           })
 
@@ -359,7 +362,8 @@ describe('entity-list', () => {
               .provide([
                 [matchers.call.fn(sagas.setSorting)],
                 [matchers.call.fn(getSelectable), false],
-                [matchers.call.fn(getEndpoint), null]
+                [matchers.call.fn(getEndpoint), null],
+                [matchers.call.fn(getConstriction), null]
               ])
               .not.call(rest.fetchForm, formName, 'list')
               .run()
@@ -482,6 +486,7 @@ describe('entity-list', () => {
                 [select(sagas.inputSelector), input],
                 [select(sagas.searchFormSelector), searchForm],
                 [select(sagas.selectionSelector), selection],
+                [select(sagas.listSelector), {}],
                 [matchers.call.fn(getSearchFormValues), searchFormValues]
               ])
               .returns(expectedResult)
