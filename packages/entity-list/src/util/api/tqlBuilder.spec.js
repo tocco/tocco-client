@@ -96,16 +96,16 @@ describe('entity-list', () => {
 
           test('should handle fulltext fields of relations', () => {
             const value = 'Test'
-            const path = 'relAdress'
+            const path = 'relAddress'
             const fieldType = 'fulltext-search'
 
-            const expectedResult = 'fulltext("Test",relAdress)'
+            const expectedResult = 'fulltext("Test",relAddress)'
             const result = getTql(path, value, fieldType)
 
             expect(result).to.deep.eql(expectedResult)
           })
 
-          test('should handle unknown form types and use falback', () => {
+          test('should handle unknown form types and use fallback', () => {
             expect(getTql('relXY', {key: '23'})).to.deep.eql('relXY.pk == 23')
             expect(getTql('relXY', [{key: '23'}])).to.deep.eql('IN(relXY.pk,23)')
             expect(getTql('asd', 'test')).to.deep.eql('asd == "test"')
