@@ -1,3 +1,13 @@
+0.2.2
+- Button hover styling
+- Style display-expressions
+- Adjust search-filter size automatically
+- Crop search filter text
+- Make login responsive
+- Button adjustment for mobile
+- Style button dropdown list
+- Constriction bug fix
+
 0.2.1
 - Adjust responsive behavior of layout box in detail view
 - Fix reports
