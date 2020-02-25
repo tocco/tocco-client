@@ -36,16 +36,12 @@ const typeHandlers = type => {
 
 // For fields that are not in the search form (e.g. parent and preselectedSearchFields)
 const guessType = value => {
-  if (_isObject(value)) {
-    if (value.key) {
-      return 'single-select-box'
-    }
+  if (_isObject(value) && value.key) {
+    return 'single-select-box'
   }
 
-  if (Array.isArray(value)) {
-    if (value.every(v => !!v.key)) {
-      return 'multi-select-box'
-    }
+  if (Array.isArray(value) && value.every(v => !!v.key)) {
+    return 'multi-select-box'
   }
 
   return 'string'
