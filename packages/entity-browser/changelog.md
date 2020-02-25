@@ -1,3 +1,6 @@
+0.9.8
+- Nice2 css reset
+
 0.9.7
 - Adjust responsive behavior of layout box in detail view
 - Style display expressions
