@@ -1,6 +1,6 @@
 import {consoleLogger} from 'tocco-util'
 import {externalEvents} from 'tocco-app-extensions'
-import {takeEvery, call, fork, select, put, all} from 'redux-saga/effects'
+import {takeEvery, call, select, put, all} from 'redux-saga/effects'
 
 import sendDwrRequest from '../../utils/Dwr'
 import createMergeResult from '../../utils/MergeActionResult'
@@ -37,6 +37,6 @@ export function* save() {
 
 export default function* sagas() {
   yield all([
-    fork(takeEvery, SAVE_MERGE, save)
+    takeEvery(SAVE_MERGE, save)
   ])
 }

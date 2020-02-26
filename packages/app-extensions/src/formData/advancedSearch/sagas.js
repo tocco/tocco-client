@@ -1,6 +1,6 @@
 import {channel} from 'redux-saga'
 import uuid from 'uuid/v4'
-import {all, call, fork, put, takeEvery, take, spawn, select} from 'redux-saga/effects'
+import {all, call, put, takeEvery, take, spawn, select} from 'redux-saga/effects'
 import {api} from 'tocco-util'
 
 import notifier from './../../notifier'
@@ -13,7 +13,7 @@ export const textResourceSelector = (state, key) => state.intl.messages[key] || 
 
 export default function* sagas(config) {
   yield all([
-    fork(takeEvery, advancedSearchActions.OPEN_ADVANCED_SEARCH, openAdvancedSearch, config)
+    takeEvery(advancedSearchActions.OPEN_ADVANCED_SEARCH, openAdvancedSearch, config)
   ])
 }
 

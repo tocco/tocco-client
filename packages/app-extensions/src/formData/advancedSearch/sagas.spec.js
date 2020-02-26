@@ -2,7 +2,7 @@ import React from 'react'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {rest, notifier} from 'tocco-app-extensions'
-import {takeEvery, fork, all, select} from 'redux-saga/effects'
+import {takeEvery, all, select} from 'redux-saga/effects'
 
 import * as advancedSearchActions from './actions'
 import rootSaga, * as sagas from './sagas'
@@ -18,7 +18,7 @@ describe('app-extensions', () => {
 
             expect(generator.next().value).to.deep.equal(
               all([
-                fork(takeEvery, advancedSearchActions.OPEN_ADVANCED_SEARCH, sagas.openAdvancedSearch, config)
+                takeEvery(advancedSearchActions.OPEN_ADVANCED_SEARCH, sagas.openAdvancedSearch, config)
               ])
             )
 

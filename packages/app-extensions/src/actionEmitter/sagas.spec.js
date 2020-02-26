@@ -1,4 +1,4 @@
-import {fork, takeEvery, all, call, put} from 'redux-saga/effects'
+import {takeEvery, all, call, put} from 'redux-saga/effects'
 
 import rootSaga, * as sagas from './sagas'
 import * as actions from './actions'
@@ -14,8 +14,8 @@ describe('app-extensions', () => {
 
           expect(generator.next().value).to.deep.equal(
             all([
-              fork(takeEvery, actions.EMIT_ACTION, sagas.emitAction, parentEmitAction),
-              fork(takeEvery, actions.DISPATCH_EMITTED_ACTION, sagas.dispatchAction)
+              takeEvery(actions.EMIT_ACTION, sagas.emitAction, parentEmitAction),
+              takeEvery(actions.DISPATCH_EMITTED_ACTION, sagas.dispatchAction)
             ])
           )
 

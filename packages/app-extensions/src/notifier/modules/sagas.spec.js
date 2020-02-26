@@ -1,6 +1,6 @@
 import {actions as toastrActionsr} from 'react-redux-toastr'
 import {expectSaga} from 'redux-saga-test-plan'
-import {fork, takeEvery, all, call, put} from 'redux-saga/effects'
+import {takeEvery, all, call, put} from 'redux-saga/effects'
 
 import {getConfirmationAction, getYesNoAction, getBlockingInfo} from '../notificationActionFactory'
 import rootSaga, * as sagas from './sagas'
@@ -19,11 +19,11 @@ describe('app-extensions', () => {
 
           expect(generator.next().value).to.deep.equal(
             all([
-              fork(takeEvery, actions.INFO, sagas.handleNotify),
-              fork(takeEvery, actions.CONFIRM, sagas.handleConfirm),
-              fork(takeEvery, actions.YES_NO_QUESTION, sagas.handleYesNoQuestion),
-              fork(takeEvery, actions.BLOCKING_INFO, sagas.handleBlockingInfo),
-              fork(takeEvery, actions.REMOVE_BLOCKING_INFO, sagas.removeBlockingInfo)
+              takeEvery(actions.INFO, sagas.handleNotify),
+              takeEvery(actions.CONFIRM, sagas.handleConfirm),
+              takeEvery(actions.YES_NO_QUESTION, sagas.handleYesNoQuestion),
+              takeEvery(actions.BLOCKING_INFO, sagas.handleBlockingInfo),
+              takeEvery(actions.REMOVE_BLOCKING_INFO, sagas.removeBlockingInfo)
             ])
           )
 
@@ -36,13 +36,13 @@ describe('app-extensions', () => {
 
           expect(generator.next().value).to.deep.equal(
             all([
-              fork(takeEvery, actions.INFO, sagas.emit),
-              fork(takeEvery, actions.CONFIRM, sagas.emit),
-              fork(takeEvery, actions.YES_NO_QUESTION, sagas.emit),
-              fork(takeEvery, actions.BLOCKING_INFO, sagas.emit),
-              fork(takeEvery, actions.REMOVE_BLOCKING_INFO, sagas.emit),
-              fork(takeEvery, actions.MODAL_COMPONENT, sagas.emit),
-              fork(takeEvery, actions.REMOVE_MODAL_COMPONENT, sagas.emit)
+              takeEvery(actions.INFO, sagas.emit),
+              takeEvery(actions.CONFIRM, sagas.emit),
+              takeEvery(actions.YES_NO_QUESTION, sagas.emit),
+              takeEvery(actions.BLOCKING_INFO, sagas.emit),
+              takeEvery(actions.REMOVE_BLOCKING_INFO, sagas.emit),
+              takeEvery(actions.MODAL_COMPONENT, sagas.emit),
+              takeEvery(actions.REMOVE_MODAL_COMPONENT, sagas.emit)
             ])
           )
 

@@ -1,13 +1,13 @@
 import {actions as formActions} from 'redux-form'
-import {all, fork, put, takeEvery} from 'redux-saga/effects'
+import {all, put, takeEvery} from 'redux-saga/effects'
 
 import form from '../../form'
 import * as tooltipActions from './actions'
 
 export default function* sagas() {
   yield all([
-    fork(takeEvery, tooltipActions.CHANGE_FIELD_VALUE, changeValue),
-    fork(takeEvery, tooltipActions.TOUCH_FIELD, touchField)
+    takeEvery(tooltipActions.CHANGE_FIELD_VALUE, changeValue),
+    takeEvery(tooltipActions.TOUCH_FIELD, touchField)
   ])
 }
 

@@ -1,5 +1,5 @@
 import {rest} from 'tocco-app-extensions'
-import {call, put, select, fork, takeLatest, all} from 'redux-saga/effects'
+import {call, put, select, takeLatest, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
@@ -17,8 +17,8 @@ describe('login', () => {
           test('should fork child sagas', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal(all([
-              fork(takeLatest, actions.REQUEST_PASSWORD, sagas.requestPasswordSaga),
-              fork(takeLatest, actions.PASSWORD_REQUEST, sagas.passwordRequestSaga)
+              takeLatest(actions.REQUEST_PASSWORD, sagas.requestPasswordSaga),
+              takeLatest(actions.PASSWORD_REQUEST, sagas.passwordRequestSaga)
             ]))
             expect(generator.next().done).to.equal(true)
           })

@@ -1,4 +1,4 @@
-import {all, call, fork, put, select, takeEvery} from 'redux-saga/effects'
+import {all, call, put, select, takeEvery} from 'redux-saga/effects'
 import _pick from 'lodash/pick'
 import {api} from 'tocco-util'
 
@@ -7,7 +7,7 @@ import rest from '../../rest'
 
 export default function* sagas() {
   yield all([
-    fork(takeEvery, relationEntitiesActions.LOAD_RELATION_ENTITIES, loadRelationEntity)
+    takeEvery(relationEntitiesActions.LOAD_RELATION_ENTITIES, loadRelationEntity)
   ])
 }
 

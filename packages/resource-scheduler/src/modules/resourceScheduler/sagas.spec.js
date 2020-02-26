@@ -2,7 +2,7 @@ import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {rest} from 'tocco-app-extensions'
 import fetchMock from 'fetch-mock'
-import {fork, select, takeLatest} from 'redux-saga/effects'
+import {select, takeLatest} from 'redux-saga/effects'
 
 import mainSaga, * as sagas from './sagas'
 import * as actions from './actions'
@@ -22,12 +22,12 @@ describe('resource-scheduler', () => {
           test('should fork sagas', () => {
             const saga = testSaga(mainSaga)
             saga.next().all([
-              fork(takeLatest, actions.INITIALIZE, sagas.initialize),
-              fork(takeLatest, actions.UPDATE_REQUESTED_CALENDARS, sagas.retrieveCalendars),
-              fork(takeLatest, actions.SET_DATE_RANGE, sagas.retrieveCalendars),
-              fork(takeLatest, actions.REMOVE_REQUESTED_CALENDAR, sagas.retrieveCalendars),
-              fork(takeLatest, actions.ON_EVENT_CLICK, sagas.onEventClick),
-              fork(takeLatest, actions.ON_REFRESH, sagas.retrieveCalendars)
+              takeLatest(actions.INITIALIZE, sagas.initialize),
+              takeLatest(actions.UPDATE_REQUESTED_CALENDARS, sagas.retrieveCalendars),
+              takeLatest(actions.SET_DATE_RANGE, sagas.retrieveCalendars),
+              takeLatest(actions.REMOVE_REQUESTED_CALENDAR, sagas.retrieveCalendars),
+              takeLatest(actions.ON_EVENT_CLICK, sagas.onEventClick),
+              takeLatest(actions.ON_REFRESH, sagas.retrieveCalendars)
             ])
           })
         })

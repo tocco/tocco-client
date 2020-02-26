@@ -1,4 +1,4 @@
-import {call, put, fork, select, takeLatest, all} from 'redux-saga/effects'
+import {call, put, select, takeLatest, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import {fetchModel} from '../../../util/api/entities'
@@ -11,8 +11,8 @@ export const inputSelector = state => state.input
 
 export default function* sagas() {
   yield all([
-    fork(takeLatest, actions.LOAD_DETAIL_PARAMS, loadEntityDetail),
-    fork(takeLatest, actions.CLEAR_DETAIL_PARAMS, clearDetailParams)
+    takeLatest(actions.LOAD_DETAIL_PARAMS, loadEntityDetail),
+    takeLatest(actions.CLEAR_DETAIL_PARAMS, clearDetailParams)
   ])
 }
 

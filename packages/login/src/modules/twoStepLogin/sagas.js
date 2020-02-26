@@ -1,4 +1,4 @@
-import {takeLatest, fork, call, put, all} from 'redux-saga/effects'
+import {takeLatest, call, put, all} from 'redux-saga/effects'
 
 import {loginSaga} from '../sagas'
 import {setPending} from '../loginForm/actions'
@@ -11,6 +11,6 @@ export function* twoStepSaga(args) {
 
 export default function* rootSaga() {
   yield all([
-    fork(takeLatest, actions.TWOSTEPLOGIN, twoStepSaga)
+    takeLatest(actions.TWOSTEPLOGIN, twoStepSaga)
   ])
 }

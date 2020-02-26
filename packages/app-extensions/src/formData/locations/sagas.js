@@ -1,11 +1,11 @@
-import {all, call, fork, put, takeLatest} from 'redux-saga/effects'
+import {all, call, put, takeLatest} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import {loadCountries, transformToSuggestions, requestSuggestions, getCountry} from './utils'
 
 export default function* sagas() {
   yield all([
-    fork(takeLatest, actions.LOAD_LOCATION_SUGGESTIONS, loadLocations)
+    takeLatest(actions.LOAD_LOCATION_SUGGESTIONS, loadLocations)
   ])
 }
 

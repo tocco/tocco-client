@@ -1,6 +1,6 @@
 import {consoleLogger, cache} from 'tocco-util'
 import {externalEvents} from 'tocco-app-extensions'
-import {takeLatest, fork, put, select, call, all} from 'redux-saga/effects'
+import {takeLatest, put, select, call, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import {setMessage, setPending} from './loginForm/actions'
@@ -114,7 +114,7 @@ export function* checkSessionSaga() {
 
 export default function* mainSagas() {
   yield all([
-    fork(takeLatest, actions.LOGIN, loginSaga),
-    fork(takeLatest, actions.CHECK_SESSION, checkSessionSaga)
+    takeLatest(actions.LOGIN, loginSaga),
+    takeLatest(actions.CHECK_SESSION, checkSessionSaga)
   ])
 }

@@ -1,4 +1,4 @@
-import {put, call, fork, takeLatest, all} from 'redux-saga/effects'
+import {put, call, takeLatest, all} from 'redux-saga/effects'
 import {rest} from 'tocco-app-extensions'
 
 import * as actions from './actions'
@@ -12,7 +12,7 @@ describe('entity-list', () => {
           test('should fork child sagas', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal(all([
-              fork(takeLatest, actions.INITIALIZE, sagas.initialize)
+              takeLatest(actions.INITIALIZE, sagas.initialize)
             ]))
             expect(generator.next().done).to.be.true
           })

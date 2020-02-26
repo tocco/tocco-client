@@ -179,7 +179,7 @@ describe('app-extensions', () => {
 
           const confirmActionPut = gen.next(mockedChannel).value
 
-          const actionPayload = confirmActionPut.PUT.action.payload
+          const actionPayload = confirmActionPut.payload.action.payload
 
           expect(actionPayload.message).to.eql(question.message)
           expect(actionPayload.okText).to.eql(question.okText)
@@ -215,8 +215,7 @@ describe('app-extensions', () => {
           const mockedChannel = channel()
 
           const confirmActionPut = gen.next(mockedChannel).value
-
-          const actionPayload = confirmActionPut.PUT.action.payload
+          const actionPayload = confirmActionPut.payload.action.payload
 
           expect(actionPayload.message).to.eql(question.message)
           expect(actionPayload.title).to.eql(question.header)

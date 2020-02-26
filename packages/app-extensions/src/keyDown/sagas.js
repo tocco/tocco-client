@@ -1,10 +1,10 @@
-import {fork, takeEvery, all, put} from 'redux-saga/effects'
+import {takeEvery, all, put} from 'redux-saga/effects'
 
 import * as actions from './actions'
 
 export default function* sagas(configs) {
   yield all([
-    fork(takeEvery, actions.KEY_DOWN, emitAction, configs)
+    takeEvery(actions.KEY_DOWN, emitAction, configs)
   ])
 }
 

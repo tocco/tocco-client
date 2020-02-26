@@ -1,6 +1,6 @@
 import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {fork, select, takeEvery} from 'redux-saga/effects'
+import {select, takeEvery} from 'redux-saga/effects'
 
 import * as tooltipActions from './actions'
 import rest from '../../rest'
@@ -14,7 +14,7 @@ describe('app-extensions', () => {
           test('should fork sagas', () => {
             const saga = testSaga(sagas.default)
             saga.next().all([
-              fork(takeEvery, tooltipActions.LOAD_TOOLTIP, sagas.loadToolTip)
+              takeEvery(tooltipActions.LOAD_TOOLTIP, sagas.loadToolTip)
             ])
           })
         })

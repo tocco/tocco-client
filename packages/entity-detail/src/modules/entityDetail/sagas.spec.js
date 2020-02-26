@@ -5,7 +5,7 @@ import {
 import {externalEvents, form, actions as actionUtil, actionEmitter, rest} from 'tocco-app-extensions'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {call, put, fork, select, takeLatest, takeEvery, all} from 'redux-saga/effects'
+import {call, put, select, takeLatest, takeEvery, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import {
@@ -26,13 +26,13 @@ describe('entity-detail', () => {
           test('should fork child sagas', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal(all([
-              fork(takeLatest, actions.LOAD_DETAIL_VIEW, sagas.loadDetailView),
-              fork(takeLatest, actions.UNLOAD_DETAIL_VIEW, sagas.unloadDetailView),
-              fork(takeLatest, actions.TOUCH_ALL_FIELDS, sagas.touchAllFields),
-              fork(takeEvery, actions.SUBMIT_FORM, sagas.submitForm),
-              fork(takeEvery, actions.FIRE_TOUCHED, sagas.fireTouched),
-              fork(takeEvery, actions.NAVIGATE_TO_CREATE, sagas.navigateToCreate),
-              fork(takeEvery, actionUtil.actions.ACTION_INVOKED, sagas.actionInvoked)
+              takeLatest(actions.LOAD_DETAIL_VIEW, sagas.loadDetailView),
+              takeLatest(actions.UNLOAD_DETAIL_VIEW, sagas.unloadDetailView),
+              takeLatest(actions.TOUCH_ALL_FIELDS, sagas.touchAllFields),
+              takeEvery(actions.SUBMIT_FORM, sagas.submitForm),
+              takeEvery(actions.FIRE_TOUCHED, sagas.fireTouched),
+              takeEvery(actions.NAVIGATE_TO_CREATE, sagas.navigateToCreate),
+              takeEvery(actionUtil.actions.ACTION_INVOKED, sagas.actionInvoked)
             ]))
             expect(generator.next().done).to.be.true
           })
@@ -113,8 +113,7 @@ describe('entity-detail', () => {
             const error = new Error('error')
 
             const gen = sagas.handleSubmitError(error)
-
-            const payloadValue = gen.next().value.PUT.action.payload
+            const payloadValue = gen.next().value.payload.action.payload
             // workaround to avoid test fail due to mismatch of Date.now
             expect(payloadValue).to.include(
               {title: 'client.common.unexpectedError', description: 'client.entity-detail.saveError', error}

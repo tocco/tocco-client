@@ -1,5 +1,5 @@
 import _isEmpty from 'lodash/isEmpty'
-import {put, fork, select, call, takeLatest, all} from 'redux-saga/effects'
+import {put, select, call, takeLatest, all} from 'redux-saga/effects'
 import {rest} from 'tocco-app-extensions'
 
 import * as actions from './actions'
@@ -8,7 +8,7 @@ export const entityListSelector = state => state.entityList
 
 export default function* sagas() {
   yield all([
-    fork(takeLatest, actions.INITIALIZE, initialize)
+    takeLatest(actions.INITIALIZE, initialize)
   ])
 }
 

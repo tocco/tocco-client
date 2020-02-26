@@ -1,5 +1,5 @@
 import {rest} from 'tocco-app-extensions'
-import {fork, put, call, select, takeLatest, all} from 'redux-saga/effects'
+import {put, call, select, takeLatest, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import {changePage, setUsername} from '../login/actions'
@@ -26,7 +26,7 @@ export function* passwordRequestSaga({payload}) {
 
 export default function* saga() {
   yield all([
-    fork(takeLatest, actions.REQUEST_PASSWORD, requestPasswordSaga),
-    fork(takeLatest, actions.PASSWORD_REQUEST, passwordRequestSaga)
+    takeLatest(actions.REQUEST_PASSWORD, requestPasswordSaga),
+    takeLatest(actions.PASSWORD_REQUEST, passwordRequestSaga)
   ])
 }

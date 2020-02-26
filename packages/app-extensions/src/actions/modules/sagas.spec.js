@@ -1,7 +1,7 @@
 
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {takeEvery, fork, all} from 'redux-saga/effects'
+import {takeEvery, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import actionHandlers from './actionHandlers'
@@ -19,7 +19,7 @@ describe('app-extensions', () => {
 
             expect(generator.next().value).to.deep.equal(
               all([
-                fork(takeEvery, actions.ACTION_INVOKE, sagas.invokeAction, config)
+                takeEvery(actions.ACTION_INVOKE, sagas.invokeAction, config)
               ])
             )
 

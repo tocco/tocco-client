@@ -1,6 +1,5 @@
 import {actions as toastrActionsr} from 'react-redux-toastr'
-import {delay} from 'redux-saga'
-import {takeEvery, fork, call, put, all, take} from 'redux-saga/effects'
+import {takeEvery, call, put, all, take, delay} from 'redux-saga/effects'
 
 import {
   getInfoAction,
@@ -14,21 +13,21 @@ import actionEmitter from '../../actionEmitter'
 export default function* sagas(accept) {
   if (accept) {
     yield all([
-      fork(takeEvery, actions.INFO, handleNotify),
-      fork(takeEvery, actions.CONFIRM, handleConfirm),
-      fork(takeEvery, actions.YES_NO_QUESTION, handleYesNoQuestion),
-      fork(takeEvery, actions.BLOCKING_INFO, handleBlockingInfo),
-      fork(takeEvery, actions.REMOVE_BLOCKING_INFO, removeBlockingInfo)
+      takeEvery(actions.INFO, handleNotify),
+      takeEvery(actions.CONFIRM, handleConfirm),
+      takeEvery(actions.YES_NO_QUESTION, handleYesNoQuestion),
+      takeEvery(actions.BLOCKING_INFO, handleBlockingInfo),
+      takeEvery(actions.REMOVE_BLOCKING_INFO, removeBlockingInfo)
     ])
   } else {
     yield all([
-      fork(takeEvery, actions.INFO, emit),
-      fork(takeEvery, actions.CONFIRM, emit),
-      fork(takeEvery, actions.YES_NO_QUESTION, emit),
-      fork(takeEvery, actions.BLOCKING_INFO, emit),
-      fork(takeEvery, actions.REMOVE_BLOCKING_INFO, emit),
-      fork(takeEvery, actions.MODAL_COMPONENT, emit),
-      fork(takeEvery, actions.REMOVE_MODAL_COMPONENT, emit)
+      takeEvery(actions.INFO, emit),
+      takeEvery(actions.CONFIRM, emit),
+      takeEvery(actions.YES_NO_QUESTION, emit),
+      takeEvery(actions.BLOCKING_INFO, emit),
+      takeEvery(actions.REMOVE_BLOCKING_INFO, emit),
+      takeEvery(actions.MODAL_COMPONENT, emit),
+      takeEvery(actions.REMOVE_MODAL_COMPONENT, emit)
     ])
   }
 }

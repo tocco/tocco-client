@@ -6,7 +6,7 @@ import {
   isDirty
 } from 'redux-form'
 import * as formActionTypes from 'redux-form/es/actionTypes'
-import {call, put, fork, select, takeLatest, take, all} from 'redux-saga/effects'
+import {call, put, select, takeLatest, take, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import {getFormFieldFlat, getEndpoint, changeParentFieldType} from '../../util/api/forms'
@@ -26,10 +26,10 @@ const FORM_ID = 'searchForm'
 
 export default function* sagas() {
   yield all([
-    fork(takeLatest, actions.INITIALIZE, initialize),
-    fork(takeLatest, formActionTypes.CHANGE, submitSearchFrom),
-    fork(takeLatest, actions.SUBMIT_SEARCH_FORM, submitSearchFrom),
-    fork(takeLatest, actions.RESET_SEARCH, resetSearch)
+    takeLatest(actions.INITIALIZE, initialize),
+    takeLatest(formActionTypes.CHANGE, submitSearchFrom),
+    takeLatest(actions.SUBMIT_SEARCH_FORM, submitSearchFrom),
+    takeLatest(actions.RESET_SEARCH, resetSearch)
   ])
 }
 

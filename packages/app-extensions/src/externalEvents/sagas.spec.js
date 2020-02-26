@@ -1,4 +1,4 @@
-import {fork, takeEvery, all, call} from 'redux-saga/effects'
+import {takeEvery, all, call} from 'redux-saga/effects'
 
 import {invokeExternalEvent} from './externalEvents'
 import rootSaga, * as sagas from './sagas'
@@ -17,7 +17,7 @@ describe('app-extensions', () => {
 
           expect(generator.next().value).to.deep.equal(
             all([
-              fork(takeEvery, actions.FIRE_EXTERNAL_EVENT, sagas.fireExternalEvent, events)
+              takeEvery(actions.FIRE_EXTERNAL_EVENT, sagas.fireExternalEvent, events)
             ])
           )
 

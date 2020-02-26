@@ -1,7 +1,7 @@
 import {consoleLogger, cache} from 'tocco-util'
 import {rest} from 'tocco-app-extensions'
-import {delay} from 'redux-saga'
-import {takeLatest, fork, call, all, put, select} from 'redux-saga/effects'
+import {} from 'redux-saga'
+import {takeLatest, call, all, put, select, delay} from 'redux-saga/effects'
 
 import * as actions from './actions'
 
@@ -91,11 +91,11 @@ export function* changeBusinessUnitId({payload: {businessUnitId}}) {
 
 export default function* mainSagas() {
   yield all([
-    fork(takeLatest, actions.DO_SESSION_CHECK, sessionCheck),
-    fork(takeLatest, actions.LOGIN_SUCCESSFUL, loginSuccessful),
-    fork(takeLatest, actions.DO_LOGOUT, logout),
-    fork(takeLatest, actions.LOAD_PRINCIPAL, loadPrincipal),
-    fork(takeLatest, actions.LOAD_BUSINESS_UNITS, loadBusinessUnits),
-    fork(takeLatest, actions.CHANGE_BUSINESS_UNIT, changeBusinessUnitId)
+    takeLatest(actions.DO_SESSION_CHECK, sessionCheck),
+    takeLatest(actions.LOGIN_SUCCESSFUL, loginSuccessful),
+    takeLatest(actions.DO_LOGOUT, logout),
+    takeLatest(actions.LOAD_PRINCIPAL, loadPrincipal),
+    takeLatest(actions.LOAD_BUSINESS_UNITS, loadBusinessUnits),
+    takeLatest(actions.CHANGE_BUSINESS_UNIT, changeBusinessUnitId)
   ])
 }

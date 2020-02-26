@@ -6,7 +6,7 @@ import {
 import {externalEvents, notifier, errorLogging, form, actions as actionUtil, actionEmitter, rest}
   from 'tocco-app-extensions'
 import {api} from 'tocco-util'
-import {call, put, fork, select, takeLatest, takeEvery, all} from 'redux-saga/effects'
+import {call, put, select, takeLatest, takeEvery, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import {
@@ -24,13 +24,13 @@ const FORM_ID = 'detailForm'
 
 export default function* sagas() {
   yield all([
-    fork(takeLatest, actions.LOAD_DETAIL_VIEW, loadDetailView),
-    fork(takeLatest, actions.UNLOAD_DETAIL_VIEW, unloadDetailView),
-    fork(takeLatest, actions.TOUCH_ALL_FIELDS, touchAllFields),
-    fork(takeEvery, actions.SUBMIT_FORM, submitForm),
-    fork(takeEvery, actions.FIRE_TOUCHED, fireTouched),
-    fork(takeEvery, actions.NAVIGATE_TO_CREATE, navigateToCreate),
-    fork(takeEvery, actionUtil.actions.ACTION_INVOKED, actionInvoked)
+    takeLatest(actions.LOAD_DETAIL_VIEW, loadDetailView),
+    takeLatest(actions.UNLOAD_DETAIL_VIEW, unloadDetailView),
+    takeLatest(actions.TOUCH_ALL_FIELDS, touchAllFields),
+    takeEvery(actions.SUBMIT_FORM, submitForm),
+    takeEvery(actions.FIRE_TOUCHED, fireTouched),
+    takeEvery(actions.NAVIGATE_TO_CREATE, navigateToCreate),
+    takeEvery(actionUtil.actions.ACTION_INVOKED, actionInvoked)
   ])
 }
 
