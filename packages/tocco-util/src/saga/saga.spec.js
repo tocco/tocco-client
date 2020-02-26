@@ -22,9 +22,19 @@ describe('tocco-util', () => {
         const response = {body: {status: 'in_progress'}}
         let counter = 0
 
+        const delay = ms => new Promise(function(resolve) {
+          setTimeout(() => {
+            resolve()
+          }, ms)
+        })
+
         await expectSaga(checkStatusLoop, mockRequest, 'http://url', 'in_progress')
           .provide({
-            call(effect) {
+            async call(effect) {
+              if (effect.fn.name === 'delayP') {
+                await delay(effect.args[0])
+                return null
+              }
               if (effect.fn === mockRequest) {
                 ++counter
                 return response

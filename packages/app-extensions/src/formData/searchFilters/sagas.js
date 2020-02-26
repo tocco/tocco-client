@@ -1,4 +1,4 @@
-import {all, call, fork, put, select, takeLatest} from 'redux-saga/effects'
+import {all, call, put, select, takeLatest} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import rest from '../../rest'
@@ -6,7 +6,7 @@ import {searchFilterTransformer} from './utils'
 
 export default function* sagas() {
   yield all([
-    fork(takeLatest, actions.LOAD_SEARCH_FILTERS, loadSearchFilters)
+    takeLatest(actions.LOAD_SEARCH_FILTERS, loadSearchFilters)
   ])
 }
 

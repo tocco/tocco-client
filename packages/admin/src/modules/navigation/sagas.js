@@ -1,5 +1,5 @@
 import {rest} from 'tocco-app-extensions'
-import {takeLatest, fork, call, all, put} from 'redux-saga/effects'
+import {takeLatest, call, all, put} from 'redux-saga/effects'
 import {cache} from 'tocco-util'
 
 import * as actions from './actions'
@@ -26,6 +26,6 @@ export function* loadNavigation() {
 
 export default function* mainSagas() {
   yield all([
-    fork(takeLatest, actions.INITIALIZE_NAVIGATION, loadNavigation)
+    takeLatest(actions.INITIALIZE_NAVIGATION, loadNavigation)
   ])
 }

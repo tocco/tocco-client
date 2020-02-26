@@ -1,4 +1,4 @@
-import {takeLatest, fork, put, call, all} from 'redux-saga/effects'
+import {takeLatest, put, call, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
@@ -13,7 +13,7 @@ describe('login', () => {
           test('should fork child sagas', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal(all([
-              fork(takeLatest, actions.TWOSTEPLOGIN, sagas.twoStepSaga)
+              takeLatest(actions.TWOSTEPLOGIN, sagas.twoStepSaga)
             ]))
             expect(generator.next().done).to.equal(true)
           })

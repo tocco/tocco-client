@@ -1,7 +1,7 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import {actions as actionUtil, externalEvents, rest} from 'tocco-app-extensions'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {put, select, call, fork, spawn, takeLatest, takeEvery, all} from 'redux-saga/effects'
+import {put, select, call, spawn, takeLatest, takeEvery, all} from 'redux-saga/effects'
 import {api} from 'tocco-util'
 
 import * as actions from './actions'
@@ -29,17 +29,17 @@ describe('entity-list', () => {
           test('should fork child sagas', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal(all([
-              fork(takeLatest, actions.INITIALIZE, sagas.initialize),
-              fork(takeLatest, actions.CHANGE_PAGE, sagas.changePage),
-              fork(takeLatest, searchFormActions.EXECUTE_SEARCH, sagas.loadData, 1),
-              fork(takeLatest, searchFormActions.EXECUTE_SEARCH, sagas.queryChanged),
-              fork(takeEvery, actions.SET_SORTING, sagas.reloadData),
-              fork(takeEvery, actions.RESET_DATA_SET, sagas.loadData, 1),
-              fork(takeLatest, actions.REFRESH, sagas.loadData),
-              fork(takeLatest, actions.NAVIGATE_TO_CREATE, sagas.navigateToCreate),
-              fork(takeLatest, selectionActions.RELOAD_DATA, sagas.loadData, 1),
-              fork(takeLatest, actions.ON_ROW_CLICK, sagas.onRowClick),
-              fork(takeEvery, actionUtil.actions.ACTION_INVOKED, sagas.actionInvoked)
+              takeLatest(actions.INITIALIZE, sagas.initialize),
+              takeLatest(actions.CHANGE_PAGE, sagas.changePage),
+              takeLatest(searchFormActions.EXECUTE_SEARCH, sagas.loadData, 1),
+              takeLatest(searchFormActions.EXECUTE_SEARCH, sagas.queryChanged),
+              takeEvery(actions.SET_SORTING, sagas.reloadData),
+              takeEvery(actions.RESET_DATA_SET, sagas.loadData, 1),
+              takeLatest(actions.REFRESH, sagas.loadData),
+              takeLatest(actions.NAVIGATE_TO_CREATE, sagas.navigateToCreate),
+              takeLatest(selectionActions.RELOAD_DATA, sagas.loadData, 1),
+              takeLatest(actions.ON_ROW_CLICK, sagas.onRowClick),
+              takeEvery(actionUtil.actions.ACTION_INVOKED, sagas.actionInvoked)
             ]))
             expect(generator.next().done).to.be.true
           })

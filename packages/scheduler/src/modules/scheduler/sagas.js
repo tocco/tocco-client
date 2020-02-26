@@ -1,16 +1,16 @@
 import {externalEvents} from 'tocco-app-extensions'
-import {put, fork, takeLatest, all} from 'redux-saga/effects'
+import {put, takeLatest, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 
 export default function* sagas() {
   yield all([
-    fork(takeLatest, actions.ON_DATE_RANGE_CHANGE, onDateRangeChange),
-    fork(takeLatest, actions.ON_CALENDAR_REMOVE, onCalendarRemove),
-    fork(takeLatest, actions.ON_CALENDARS_REMOVE_ALL, onCalendarRemoveAll),
-    fork(takeLatest, actions.ON_EVENT_CLICK, onEventClick),
-    fork(takeLatest, actions.ON_REFRESH, onRefresh),
-    fork(takeLatest, actions.SET_CALENDARS, setCalendars)
+    takeLatest(actions.ON_DATE_RANGE_CHANGE, onDateRangeChange),
+    takeLatest(actions.ON_CALENDAR_REMOVE, onCalendarRemove),
+    takeLatest(actions.ON_CALENDARS_REMOVE_ALL, onCalendarRemoveAll),
+    takeLatest(actions.ON_EVENT_CLICK, onEventClick),
+    takeLatest(actions.ON_REFRESH, onRefresh),
+    takeLatest(actions.SET_CALENDARS, setCalendars)
   ])
 }
 

@@ -1,6 +1,6 @@
 import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import {externalEvents} from 'tocco-app-extensions'
-import {fork, takeLatest} from 'redux-saga/effects'
+import {takeLatest} from 'redux-saga/effects'
 
 import mainSaga, * as sagas from './sagas'
 import * as actions from './actions'
@@ -13,12 +13,12 @@ describe('scheduler', () => {
           test('should fork sagas', () => {
             const saga = testSaga(mainSaga)
             saga.next().all([
-              fork(takeLatest, actions.ON_DATE_RANGE_CHANGE, sagas.onDateRangeChange),
-              fork(takeLatest, actions.ON_CALENDAR_REMOVE, sagas.onCalendarRemove),
-              fork(takeLatest, actions.ON_CALENDARS_REMOVE_ALL, sagas.onCalendarRemoveAll),
-              fork(takeLatest, actions.ON_EVENT_CLICK, sagas.onEventClick),
-              fork(takeLatest, actions.ON_REFRESH, sagas.onRefresh),
-              fork(takeLatest, actions.SET_CALENDARS, sagas.setCalendars)
+              takeLatest(actions.ON_DATE_RANGE_CHANGE, sagas.onDateRangeChange),
+              takeLatest(actions.ON_CALENDAR_REMOVE, sagas.onCalendarRemove),
+              takeLatest(actions.ON_CALENDARS_REMOVE_ALL, sagas.onCalendarRemoveAll),
+              takeLatest(actions.ON_EVENT_CLICK, sagas.onEventClick),
+              takeLatest(actions.ON_REFRESH, sagas.onRefresh),
+              takeLatest(actions.SET_CALENDARS, sagas.setCalendars)
             ])
           })
         })

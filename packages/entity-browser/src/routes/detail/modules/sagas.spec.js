@@ -1,4 +1,4 @@
-import {call, put, fork, select, takeLatest, all} from 'redux-saga/effects'
+import {call, put, select, takeLatest, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
@@ -15,8 +15,8 @@ describe('entity-browser', () => {
           test('should fork child sagas', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal(all([
-              fork(takeLatest, actions.LOAD_DETAIL_PARAMS, sagas.loadEntityDetail),
-              fork(takeLatest, actions.CLEAR_DETAIL_PARAMS, sagas.clearDetailParams)
+              takeLatest(actions.LOAD_DETAIL_PARAMS, sagas.loadEntityDetail),
+              takeLatest(actions.CLEAR_DETAIL_PARAMS, sagas.clearDetailParams)
             ]))
             expect(generator.next().done).to.be.true
           })

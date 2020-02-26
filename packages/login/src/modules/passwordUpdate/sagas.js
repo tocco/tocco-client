@@ -1,15 +1,14 @@
 import {externalEvents} from 'tocco-app-extensions'
-import {put, fork, take, all} from 'redux-saga/effects'
+import {put, takeLatest, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 
-export function* initializeWatcher() {
-  yield take(actions.INITIALIZED)
+export function* resizeWatcher() {
   yield put(externalEvents.fireExternalEvent('resize'))
 }
 
 export default function* sagas() {
   yield all([
-    fork(initializeWatcher)
+    takeLatest(actions.INITIALIZED, resizeWatcher)
   ])
 }

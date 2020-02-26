@@ -1,5 +1,5 @@
 import {actions as formActions} from 'redux-form'
-import {all, call, fork, put, takeEvery} from 'redux-saga/effects'
+import {all, call, put, takeEvery} from 'redux-saga/effects'
 
 import {documentToFormValueTransformer, uploadRequest} from './documents'
 import * as actions from './actions'
@@ -7,7 +7,7 @@ import errorLogging from '../../errorLogging'
 
 export default function* sagas() {
   yield all([
-    fork(takeEvery, actions.UPLOAD_DOCUMENT, uploadDocument)
+    takeEvery(actions.UPLOAD_DOCUMENT, uploadDocument)
   ])
 }
 

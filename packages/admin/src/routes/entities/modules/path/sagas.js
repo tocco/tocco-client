@@ -3,7 +3,7 @@ import {rest, viewPersistor} from 'tocco-app-extensions'
 import _get from 'lodash/get'
 import _pickBy from 'lodash/pickBy'
 import _pick from 'lodash/pick'
-import {takeLatest, fork, all, call, put, select, spawn} from 'redux-saga/effects'
+import {takeLatest, all, call, put, select, spawn} from 'redux-saga/effects'
 
 import * as actions from './actions'
 
@@ -150,6 +150,6 @@ export function* loadCurrentViewInfo({payload: {location}}) {
 
 export default function* mainSagas() {
   yield all([
-    fork(takeLatest, actions.LOAD_CURRENT_VIEW_INFO, loadCurrentViewInfo)
+    takeLatest(actions.LOAD_CURRENT_VIEW_INFO, loadCurrentViewInfo)
   ])
 }

@@ -1,6 +1,6 @@
 import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import {actions as formActions} from 'redux-form'
-import {fork, takeEvery} from 'redux-saga/effects'
+import {takeEvery} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import * as sagas from './sagas'
@@ -13,8 +13,8 @@ describe('app-extensions', () => {
           test('should fork sagas', () => {
             const saga = testSaga(sagas.default)
             saga.next().all([
-              fork(takeEvery, actions.CHANGE_FIELD_VALUE, sagas.changeValue),
-              fork(takeEvery, actions.TOUCH_FIELD, sagas.touchField)
+              takeEvery(actions.CHANGE_FIELD_VALUE, sagas.changeValue),
+              takeEvery(actions.TOUCH_FIELD, sagas.touchField)
             ])
           })
         })

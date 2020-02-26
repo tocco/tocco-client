@@ -1,7 +1,7 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {externalEvents} from 'tocco-app-extensions'
-import {fork, select, takeLatest, all} from 'redux-saga/effects'
+import {select, takeLatest, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
@@ -15,10 +15,10 @@ describe('entity-list', () => {
         test('should fork child sagas', () => {
           const generator = rootSaga()
           expect(generator.next().value).to.deep.equal(all([
-            fork(takeLatest, actions.TOGGLE_SHOW_SELECTED_RECORDS, sagas.reloadData),
-            fork(takeLatest, actions.CLEAR_SELECTION, sagas.reloadData),
-            fork(takeLatest, actions.ON_SELECT_CHANGE, sagas.onSelectChange),
-            fork(takeLatest, SET_FORM_SELECTABLE, sagas.initialize)
+            takeLatest(actions.TOGGLE_SHOW_SELECTED_RECORDS, sagas.reloadData),
+            takeLatest(actions.CLEAR_SELECTION, sagas.reloadData),
+            takeLatest(actions.ON_SELECT_CHANGE, sagas.onSelectChange),
+            takeLatest(SET_FORM_SELECTABLE, sagas.initialize)
           ]))
           expect(generator.next().done).to.be.true
         })

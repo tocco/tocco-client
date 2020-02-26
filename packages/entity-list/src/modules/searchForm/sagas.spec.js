@@ -5,7 +5,7 @@ import {
   actions as formActions
 } from 'redux-form'
 import * as formActionTypes from 'redux-form/es/actionTypes'
-import {put, select, call, fork, takeLatest, all} from 'redux-saga/effects'
+import {put, select, call, takeLatest, all} from 'redux-saga/effects'
 
 import rootSaga, * as sagas from './sagas'
 import * as actions from './actions'
@@ -22,10 +22,10 @@ describe('entity-list', () => {
           test('should fork child sagas', () => {
             const generator = rootSaga()
             expect(generator.next().value).to.deep.equal(all([
-              fork(takeLatest, actions.INITIALIZE, sagas.initialize),
-              fork(takeLatest, formActionTypes.CHANGE, sagas.submitSearchFrom),
-              fork(takeLatest, actions.SUBMIT_SEARCH_FORM, sagas.submitSearchFrom),
-              fork(takeLatest, actions.RESET_SEARCH, sagas.resetSearch)
+              takeLatest(actions.INITIALIZE, sagas.initialize),
+              takeLatest(formActionTypes.CHANGE, sagas.submitSearchFrom),
+              takeLatest(actions.SUBMIT_SEARCH_FORM, sagas.submitSearchFrom),
+              takeLatest(actions.RESET_SEARCH, sagas.resetSearch)
             ]))
             expect(generator.next().done).to.be.true
           })

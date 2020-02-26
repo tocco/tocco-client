@@ -1,7 +1,6 @@
 import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {select, fork, takeEvery} from 'redux-saga/effects'
-import {asEffect} from 'redux-saga/utils'
+import {select, takeEvery} from 'redux-saga/effects'
 
 import * as relationEntitiesActions from './actions'
 import rest from '../../rest'
@@ -15,7 +14,7 @@ describe('app-extensions', () => {
           test('should fork sagas', () => {
             const saga = testSaga(sagas.default)
             saga.next().all([
-              fork(takeEvery, relationEntitiesActions.LOAD_RELATION_ENTITIES, sagas.loadRelationEntity)
+              takeEvery(relationEntitiesActions.LOAD_RELATION_ENTITIES, sagas.loadRelationEntity)
             ])
           })
         })
@@ -116,8 +115,7 @@ describe('app-extensions', () => {
                   search: options.searchTerm
                 }
 
-                const paramArg = asEffect.call(effects.call[1]).args[1]
-                expect(paramArg).to.eql(expectedFetchParams)
+                expect(effects.call[1].payload.args[1]).to.eql(expectedFetchParams)
               })
           })
         })

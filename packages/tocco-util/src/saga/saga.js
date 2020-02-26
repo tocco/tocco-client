@@ -1,6 +1,5 @@
-import {delay} from 'redux-saga'
 import _pick from 'lodash/pick'
-import {all, call, put} from 'redux-saga/effects'
+import {all, call, put, delay} from 'redux-saga/effects'
 
 import consoleLogger from '../consoleLogger'
 

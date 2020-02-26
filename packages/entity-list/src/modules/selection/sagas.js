@@ -1,5 +1,5 @@
 import {externalEvents} from 'tocco-app-extensions'
-import {call, put, fork, select, takeLatest, all} from 'redux-saga/effects'
+import {call, put, select, takeLatest, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import selectionStyles from '../../util/selectionStyles'
@@ -13,10 +13,10 @@ export const listSelector = state => state.list
 
 export default function* sagas() {
   yield all([
-    fork(takeLatest, actions.TOGGLE_SHOW_SELECTED_RECORDS, reloadData),
-    fork(takeLatest, actions.CLEAR_SELECTION, reloadData),
-    fork(takeLatest, actions.ON_SELECT_CHANGE, onSelectChange),
-    fork(takeLatest, SET_FORM_SELECTABLE, initialize)
+    takeLatest(actions.TOGGLE_SHOW_SELECTED_RECORDS, reloadData),
+    takeLatest(actions.CLEAR_SELECTION, reloadData),
+    takeLatest(actions.ON_SELECT_CHANGE, onSelectChange),
+    takeLatest(SET_FORM_SELECTABLE, initialize)
   ])
 }
 

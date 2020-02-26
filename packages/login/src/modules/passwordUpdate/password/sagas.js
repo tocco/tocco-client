@@ -1,5 +1,5 @@
 import {externalEvents, rest} from 'tocco-app-extensions'
-import {takeLatest, call, fork, select, put, all} from 'redux-saga/effects'
+import {takeLatest, call, select, put, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import localValidate from './validate'
@@ -128,11 +128,11 @@ export function* formChanged() {
 
 export default function* sagas() {
   yield all([
-    fork(takeLatest, actions.UPDATE_NEW_PASSWORD, updateNewPassword),
-    fork(takeLatest, actions.VALIDATE, validate),
-    fork(takeLatest, actions.SAVE_PASSWORD, savePassword),
-    fork(takeLatest, actions.UPDATE_NEW_PASSWORD, formChanged),
-    fork(takeLatest, actions.UPDATE_OLD_PASSWORD, formChanged),
-    fork(takeLatest, actions.UPDATE_NEW_PASSWORD_REPEAT, formChanged)
+    takeLatest(actions.UPDATE_NEW_PASSWORD, updateNewPassword),
+    takeLatest(actions.VALIDATE, validate),
+    takeLatest(actions.SAVE_PASSWORD, savePassword),
+    takeLatest(actions.UPDATE_NEW_PASSWORD, formChanged),
+    takeLatest(actions.UPDATE_OLD_PASSWORD, formChanged),
+    takeLatest(actions.UPDATE_NEW_PASSWORD_REPEAT, formChanged)
   ])
 }

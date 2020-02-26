@@ -1,6 +1,6 @@
 import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {fork, takeLatest} from 'redux-saga/effects'
+import {takeLatest} from 'redux-saga/effects'
 
 import * as locationActions from './actions'
 import * as sagas from './sagas'
@@ -41,7 +41,7 @@ describe('app-extensions', () => {
           test('should fork sagas', () => {
             const saga = testSaga(sagas.default)
             saga.next().all([
-              fork(takeLatest, locationActions.LOAD_LOCATION_SUGGESTIONS, sagas.loadLocations)
+              takeLatest(locationActions.LOAD_LOCATION_SUGGESTIONS, sagas.loadLocations)
             ])
           })
         })

@@ -21,17 +21,17 @@ export const selectionSelector = state => state.selection
 
 export default function* sagas() {
   yield all([
-    fork(takeLatest, actions.INITIALIZE, initialize),
-    fork(takeLatest, actions.CHANGE_PAGE, changePage),
-    fork(takeLatest, searchFormActions.EXECUTE_SEARCH, loadData, 1),
-    fork(takeLatest, searchFormActions.EXECUTE_SEARCH, queryChanged),
-    fork(takeEvery, actions.SET_SORTING, reloadData),
-    fork(takeEvery, actions.RESET_DATA_SET, loadData, 1),
-    fork(takeLatest, actions.REFRESH, loadData),
-    fork(takeLatest, actions.NAVIGATE_TO_CREATE, navigateToCreate),
-    fork(takeLatest, selectionActions.RELOAD_DATA, loadData, 1),
-    fork(takeLatest, actions.ON_ROW_CLICK, onRowClick),
-    fork(takeEvery, actionUtil.actions.ACTION_INVOKED, actionInvoked)
+    takeLatest(actions.INITIALIZE, initialize),
+    takeLatest(actions.CHANGE_PAGE, changePage),
+    takeLatest(searchFormActions.EXECUTE_SEARCH, loadData, 1),
+    takeLatest(searchFormActions.EXECUTE_SEARCH, queryChanged),
+    takeEvery(actions.SET_SORTING, reloadData),
+    takeEvery(actions.RESET_DATA_SET, loadData, 1),
+    takeLatest(actions.REFRESH, loadData),
+    takeLatest(actions.NAVIGATE_TO_CREATE, navigateToCreate),
+    takeLatest(selectionActions.RELOAD_DATA, loadData, 1),
+    takeLatest(actions.ON_ROW_CLICK, onRowClick),
+    takeEvery(actionUtil.actions.ACTION_INVOKED, actionInvoked)
   ])
 }
 

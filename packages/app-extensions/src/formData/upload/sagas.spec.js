@@ -1,6 +1,6 @@
 import {testSaga} from 'redux-saga-test-plan'
 import {actions as formActions} from 'redux-form'
-import {call, fork, put, takeEvery} from 'redux-saga/effects'
+import {call, put, takeEvery} from 'redux-saga/effects'
 
 import {documentToFormValueTransformer, uploadRequest} from './documents'
 import * as actions from './actions'
@@ -14,7 +14,7 @@ describe('app-extensions', () => {
           test('should fork sagas', () => {
             const saga = testSaga(sagas.default)
             saga.next().all([
-              fork(takeEvery, actions.UPLOAD_DOCUMENT, sagas.uploadDocument)
+              takeEvery(actions.UPLOAD_DOCUMENT, sagas.uploadDocument)
             ])
           })
         })
