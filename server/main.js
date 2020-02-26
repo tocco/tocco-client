@@ -45,7 +45,7 @@ if (config.env === 'development') {
 
   // Most probably the following requests should be answered by the Nice2 instance
   // -> pipe them through
-  app.use(['/nice2/*', '/js/*', '/img/*'], function(req, res, next) {
+  app.use(['/nice2/*', '/js/*', '/img/*', '/css/*'], function(req, res, next) {
     // `window.location.hostname` might be used in __BACKEND_URL__ variable
     // eslint-disable-next-line
     const window = {location: {hostname: 'localhost'}}
