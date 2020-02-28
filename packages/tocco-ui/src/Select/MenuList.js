@@ -15,8 +15,9 @@ const StyledMoreOptionsAvailable = styled.div`
     lineHeight: 'normal'
   })}
     cursor: default;
-    padding: ${props => props.reactSelectTheme.spacing.baseUnit * 2}px
-             ${props => props.reactSelectTheme.spacing.baseUnit * 3}px;
+    padding: ${props =>
+      `${props.reactSelectTheme.spacing.baseUnit * 2}px ${props.reactSelectTheme.spacing.baseUnit * 3}px`
+    };
   }
 `
 

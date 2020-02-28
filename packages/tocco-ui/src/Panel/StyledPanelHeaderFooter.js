@@ -53,7 +53,7 @@ const StyledPanelHeaderFooter = styled.div`
     display: flex;
     padding: ${props => props.isFramed ? '4px 8px 4px 8px' : 0};
     align-items: center;
- 
+
     > div {
       flex: 1 1 auto;
     }
@@ -62,7 +62,6 @@ const StyledPanelHeaderFooter = styled.div`
       margin-left: auto;
       align-self: center;
     }
-
     ${props => declareDivider(props)}
     transition: border ${props => props.isOpen ? '300ms ease-in-out' : '1ms ease-in-out 299ms'};
     will-change: border;

@@ -8,9 +8,9 @@ import RelationsView from '../RelationsView'
 import EditView from '../EditView'
 
 const DetailViewContainer = styled.div`
-  display:flex;
+  display: flex;
   flex-direction: row;
-  
+
   .react-bs-container-body {
     height: auto !important;
   }

@@ -3,7 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const StyledBoolEdit = styled.div`
-  margin: 5px 0px;
+  margin: 5px 0;
 `
 
 const BoolEdit = props => {

@@ -6,7 +6,7 @@ export const StyledHeader = styled.div`
   grid-area: header;
   display: flex;
   height: 40px;
-  background: #ffffff url(${ToccoLogo}) no-repeat fixed -300px -900px;
+  background: #fff url(${ToccoLogo}) no-repeat fixed -300px -900px;
   padding-right: 10px;
   padding-left: 40px;
 `

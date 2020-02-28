@@ -6,7 +6,7 @@ const StyledItem = styled.li`
   align-items: center;
 
   > ul {
-    display: ${props => props.isOpen ? 'block' : 'none'}
+    display: ${props => props.isOpen ? 'block' : 'none'};
   }
 `
 

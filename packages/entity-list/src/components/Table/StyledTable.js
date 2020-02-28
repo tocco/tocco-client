@@ -1,3 +1,4 @@
+/* stylelint-disable no-descending-specificity */
 import styled from 'styled-components'
 import {
   declareFont,
@@ -12,7 +13,6 @@ import _get from 'lodash/get'
 const CARET_WIDTH = scale.space(-2)
 
 const StyledTable = styled.div`
-
   .react-bs-container-body {
     overflow-y: auto;
     ${StyledScrollbar}
@@ -52,7 +52,8 @@ const StyledTable = styled.div`
           background-color: ${theme.color('backgroundBody')};
         }
 
-        tbody >  tr:active, tr:focus {
+        tbody > tr:active,
+        tr:focus {
           &&& {
             background-color: ${theme.color('secondary')} !important;
             color: ${theme.color('paper')} !important;
@@ -73,13 +74,10 @@ const StyledTable = styled.div`
             display: inline-block;
             width: 0;
             height: 0;
-            margin-left: 2px;
             vertical-align: middle;
-            border-top:   ${CARET_WIDTH} dashed;
-            border-top:   ${CARET_WIDTH} solid \9; // IE8
-            border-top:   ${CARET_WIDTH} solid \9; // IE8
+            border-top: ${CARET_WIDTH} dashed;
             border-right: ${CARET_WIDTH} solid transparent;
-            border-left:  ${CARET_WIDTH} solid transparent;
+            border-left: ${CARET_WIDTH} solid transparent;
             margin: 0 !important;
           }
 
@@ -92,18 +90,18 @@ const StyledTable = styled.div`
             .caret {
               border-top: 0;
               border-bottom: ${CARET_WIDTH} dashed;
-              border-bottom: ${CARET_WIDTH} solid \9; // IE8
-              content: "";
+              content: '';
             }
           }
         }
 
         th:first-of-type {
-         text-overflow: clip;
+          text-overflow: clip;
         }
 
         td {
           ${declareWrappingText()};
+
           &[tabindex] {
             outline: none;
           }

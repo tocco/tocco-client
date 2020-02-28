@@ -17,8 +17,7 @@ export const Header = styled.div`
 export const Box = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, 140px);
-  grid-row-gap: 20px;
-  grid-column-gap: 10px;
+  grid-gap: 20px 10px;
   justify-content: center;
 `
 
@@ -26,9 +25,9 @@ export const IconContainer = styled.div`
   text-align: center;
   display: block;
   cursor: pointer;
-  
+
   span{
-   display: block;
+    display: block;
   }
 `
 

@@ -31,7 +31,9 @@ export const StyledLocationEdit = styled.div`
     > span {
       flex: 0 0 auto;
       margin-right: ${scale.space(-2)};
-      color: ${props => props.immutable ? generateDisabledShade(_get(props.theme, 'colors.text')) : theme.color('text')}
+      color: ${props => props.immutable
+                ? generateDisabledShade(_get(props.theme, 'colors.text'))
+                : theme.color('text')};
     }
 
     .react-autosuggest__input {
@@ -41,7 +43,7 @@ export const StyledLocationEdit = styled.div`
 
     .react-autosuggest__suggestions-container--open {
       background-color: ${theme.color('paper')};
-      border-radius: ${theme.radii('regular')}
+      border-radius: ${theme.radii('regular')};
       border: 1px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
       bottom: 0;
       left: -1px;

@@ -8,8 +8,8 @@ export const StyledMergeStrategyAnswer = styled.div`
   && {
     max-width: 400px;
 
-    input[type="checkbox"],
-    input[type="radio"] {
+    input[type='checkbox'],
+    input[type='radio'] {
       margin-right: ${scale.space(-2)};
     }
   }

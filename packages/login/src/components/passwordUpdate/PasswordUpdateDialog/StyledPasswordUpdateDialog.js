@@ -7,6 +7,6 @@ export default styled.div`
 
     > span {
       width: 100%;
+    }
   }
-}
 `

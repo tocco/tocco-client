@@ -27,7 +27,6 @@ const StyledMenuButtonGroup = styled(StyledMenu)`
     }
 
     > li {
-
       > a,
       > button {
         border-radius: 0;

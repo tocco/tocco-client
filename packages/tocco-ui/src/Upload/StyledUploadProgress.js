@@ -22,9 +22,9 @@ export const StyledUploadProgressIconAndText = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
     span {
-      margin-left: ${scale.space(-2)}
+      margin-left: ${scale.space(-2)};
     }
   }
 `

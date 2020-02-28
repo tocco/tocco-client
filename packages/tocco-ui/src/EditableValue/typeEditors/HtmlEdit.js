@@ -5,19 +5,19 @@ import styled from 'styled-components'
 import {declareTypograhpy} from '../../Typography'
 
 const StyledHtmlEdit = styled.div`
-&& {
-  button {
-    margin-bottom: 0;
-  }
+  && {
+    button {
+      margin-bottom: 0;
+    }
 
-  .ql-editor {
-    ${props => declareTypograhpy(props, 'quill')}
+    .ql-editor {
+      ${props => declareTypograhpy(props, 'quill')}
 
-    &[contenteditable="false"] * {
-      cursor: not-allowed;
+      &[contenteditable='false'] * {
+        cursor: not-allowed;
+      }
     }
   }
-}
 `
 
 class HtmlEdit extends React.Component {

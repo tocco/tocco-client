@@ -1,3 +1,4 @@
+/* stylelint-disable no-descending-specificity */
 import React from 'react'
 import PropTypes from 'prop-types'
 import {Typography, Button, theme, StyledSpan} from 'tocco-ui'
@@ -21,8 +22,8 @@ const StyledButton = styled(Button)`
     border: 0;
     padding: 0;
 
-     &:hover * {
-      color: ${theme.color('secondary')}
+    &:hover * {
+      color: ${theme.color('secondary')};
     }
   }
 `
@@ -35,23 +36,15 @@ export const StyledSearchFilterButton = styled.div`
   background-color: ${({active}) => active && theme.color('secondary')};
 
   && {
-    * {color: ${({active}) => active && theme.color('paper')};}
+    * {
+      color: ${({active}) => active && theme.color('paper')};
+    }
     ${({active}) => active && `
       ${StyledButton} {
         display: block;
       }
       `
     }
-  }
-
-  :hover {
-    ${StyledButton} {
-      display: flex;
-    }
-
-    background-color: ${theme.color('secondaryLight')};
-    * {color: ${theme.color('paper')};}
-    cursor: pointer;
   }
 `
 

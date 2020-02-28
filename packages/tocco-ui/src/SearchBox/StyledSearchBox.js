@@ -7,7 +7,7 @@ import {StyledStatedValueBox} from '../StatedValue'
 export const StyledSearchBox = styled.div`
   && {
     margin-right: 1rem;
-      
+
     ${StyledStatedValueBox} {
       border: 0;
       width: 100%;

@@ -36,14 +36,17 @@ const StyledInputCss = css`
   &::-ms-clear {
     display: none;
   }
+
   &::-webkit-clear-button {
     display: none;
   }
+
   &::-webkit-inner-spin-button {
     display: none;
   }
-  &[type="number"] {
-    -moz-appearance: textfield;
+
+  &[type='number'] {
+    appearance: textfield;
   }
 `
 
@@ -67,12 +70,12 @@ const StyledEditableValue = styled.span`
     }
 
     //url
-    [ type = url ] + .input-group-addon > a {
+    [type='url'] + .input-group-addon > a {
       color: inherit;  // reset bootstrap default
     }
 
     //url
-    [ type = tel ] + .input-group-addon > a {
+    [type='tel'] + .input-group-addon > a {
       color: inherit;  // reset bootstrap default
     }
 

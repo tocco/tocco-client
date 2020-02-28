@@ -15,7 +15,7 @@ export const ListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: ${props => props.searchFormPosition === 'left' ? scale.space(-0.5) : '0'}
+  padding: ${props => props.searchFormPosition === 'left' ? scale.space(-0.5) : '0'};
 `
 
 const ActionWrapper = styled.div`
