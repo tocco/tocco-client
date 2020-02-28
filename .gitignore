@@ -4,6 +4,7 @@
 .idea
 .jestcache
 .eslintcache
+.stylelintcache
 coverage
 node_modules
 packages/*/dist
