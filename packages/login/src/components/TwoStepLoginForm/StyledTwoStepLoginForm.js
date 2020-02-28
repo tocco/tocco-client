@@ -11,8 +11,8 @@ export const StyledTwoStepLogin = styled.div`
 
     > span {
       width: 100%;
+    }
   }
-}
 `
 export const StyledTwoStepLoginInput = styled.input`
   && {

@@ -4,14 +4,12 @@ import {theme} from 'tocco-ui'
 
 export const StyledWrapper = styled.div`
   display: grid;
-  grid-template-rows: auto 1fr;
-  grid-template-columns: auto 1fr;
-  grid-template-areas:
-         "header header"
-         "menu content";
+  grid-template:
+    'header header' auto
+    'menu content' 1fr / auto 1fr;
   background-color: #fff;
   height: 100vh;
-  
+
   .bm-burger-button button:focus {
     outline: 0;
   }
@@ -34,10 +32,10 @@ export const burgerMenuStyles = {
     height: '24px',
     left: '13px',
     top: '9px',
-    color: '#ffffff'
+    color: '#fff'
   },
   bmBurgerBars: {
-    background: '#ffffff'
+    background: '#fff'
   },
   bmBurgerBarsHover: {
     background: '#a90000'
@@ -47,7 +45,7 @@ export const burgerMenuStyles = {
     height: '100%'
   },
   bmMenu: {
-    background: '#ffffff',
+    background: '#fff',
     padding: '0 0 2em 0',
     fontSize: '1.15em',
     overflow: 'hidden'

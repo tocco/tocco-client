@@ -26,12 +26,12 @@ const StyledLogin = styled.div`
     margin-bottom: 1.8rem;
   }
 
-  @media(max-width: 1024px) {
+  @media (max-width: 1024px) {
     background-size: 2000px;
     background-position: 50% -1850px;
   }
 
-  @media(max-width: 425px) {
+  @media (max-width: 425px) {
     background-position: 50% -1890px;
   }
 `
@@ -41,7 +41,7 @@ const StyledHeadingLogin = styled(StyledH1)`
     font-size: ${scale.font(11)};
     margin-bottom: 2.5rem;
 
-    @media(max-width: 1024px) {
+    @media (max-width: 1024px) {
       margin-bottom: 1.5rem;
     }
   }
@@ -52,7 +52,7 @@ const StyledSpanLogin = styled(StyledSpan)`
     font-size: ${scale.font(1.3)};
     display: inline-block;
     width: 100%;
-    margin: 1rem 0 1.8rem 0;
+    margin: 1rem 0 1.8rem;
   }
 `
 
@@ -62,16 +62,16 @@ const LoginWrapper = styled.div`
 
   && {
     .tocco-login * {
-      font-size: ${scale.font(1.3)}
+      font-size: ${scale.font(1.3)};
     }
 
-    @media(max-width: 1024px) {
-      margin: 14rem auto 0 auto;
+    @media (max-width: 1024px) {
+      margin: 14rem auto 0;
       padding-left: 2rem;
       padding-right: 2rem;
     }
 
-    @media(max-width: 425px) {
+    @media (max-width: 425px) {
       margin-top: 8rem;
     }
   }
@@ -84,7 +84,7 @@ const SloganImg = styled.img`
   left: -8%;
   width: 25vw;
 
-  @media(max-width: 1024px) {
+  @media (max-width: 1024px) {
     display: none;
   }
 `
@@ -94,13 +94,13 @@ const StyledImg = styled.img`
   max-width: 400px;
   width: 95%;
   height: auto;
-  margin: 45px auto 0 auto;
+  margin: 45px auto 0;
 
-  @media(max-width: 1024px) {
+  @media (max-width: 1024px) {
     display: block;
   }
 
-  @media(max-width: 425px) {
+  @media (max-width: 425px) {
     max-width: 280px;
     margin-top: 40px;
   }

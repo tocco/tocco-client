@@ -14,14 +14,14 @@ export const StyledRelationBox = styled.div`
   padding: ${scale.space(-1)};
   display: grid;
   grid-template-columns: repeat(auto-fit, 200px);
-  grid-row-gap: ${scale.space(-2)};
-  grid-column-gap: ${scale.space(-2)};
+  grid-gap: ${scale.space(-2)};
   justify-content: space-between;
 `
 
 export const RelationLinks = styled.div`
   display: none;
   margin-left: auto;
+
   * {
     color: ${theme.color('text')};
     padding-left: ${scale.space(-2)};
@@ -33,34 +33,36 @@ export const RelationBox = styled.div`
   padding: ${scale.space(-2.7)} ${scale.space(-1)};
   display: flex;
   background-color: ${({selected}) => selected && theme.color('secondary')};
-  
+
   &&& {
     * {
       color: ${({selected}) => selected && theme.color('paper')};
       box-sizing: initial;
     }
-   }
-
+  }
   ${({selected}) => selected && `
     ${RelationLinks} {
       display: flex;
     }
     `
   };
-    
+
   &:hover ${RelationLinks} {
     display: flex;
   }
-  
+
   && {
     :hover{
       background-color: ${theme.color('secondaryLight')};
-      * {color: ${theme.color('paper')}}
+
+      * {
+        color: ${theme.color('paper')};
+      }
       cursor: pointer;
     }
   }
-  
-  ${StyledLink}:hover * {
+
+  ${/* sc-selector */StyledLink}:hover * {
     color: ${theme.color('secondary')};
   }
 `

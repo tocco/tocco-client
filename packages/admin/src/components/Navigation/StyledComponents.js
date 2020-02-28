@@ -14,13 +14,12 @@ export const StyledMenuWrapper = styled.div`
   height: 101%;
   overflow: auto;
   padding-left: 2rem;
-
   ${StyledScrollbar}
 `
 
 export const StyledMenuEntry = styled.span`
-   color: ${theme.color('text')};
-   font-weight: ${theme.fontWeight('bold')};
+  color: ${theme.color('text')};
+  font-weight: ${theme.fontWeight('bold')};
 `
 
 export const StyledMenuLink = styled(Link)`
@@ -28,18 +27,18 @@ export const StyledMenuLink = styled(Link)`
   text-decoration: none;
 
   &:hover {
-      color: ${theme.color('secondaryLight')};
-    }
+    color: ${theme.color('secondaryLight')};
+  }
 
   &:focus {
-     outline: none;
-     font-weight: ${theme.fontWeight('bold')};
-     color: ${theme.color('secondaryLight')};
-    }
+    outline: none;
+    font-weight: ${theme.fontWeight('bold')};
+    color: ${theme.color('secondaryLight')};
+  }
 
   &.active {
-      text-decoration: underline;
-    }
+    text-decoration: underline;
+  }
 `
 
 export const StyledTabsContainer = styled.div`

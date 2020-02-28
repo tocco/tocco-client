@@ -11,6 +11,7 @@ const StyledNavigationFullCalendar = styled.div`
   > div {
     display: flex;
     align-items: center;
+
     > * {
       margin-left: ${scale.space(-2)};
     }

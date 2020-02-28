@@ -19,7 +19,7 @@ const StyledRow = styled.div`
   margin-top: 10px;
   grid-template-columns: 25% 50% 25%;
   grid-column-gap: 10px;
-  border: 1px solid #888888;
+  border: 1px solid #888;
   background: ${props => props.isOdd ? '#F5F5F5' : ''};
 `
 

@@ -10,10 +10,14 @@ import {StyledButton} from 'tocco-ui/src/Button'
 import {StyledButtonGroup} from 'tocco-ui/src/ButtonGroup'
 
 export const StyledLoginFormInput = styled.input`
-  @keyframes onAutoFillStart { from {} }
+  /* stylelint-disable-next-line block-no-empty */
+  @keyframes onAutoFillStart {
+    from {}
+  }
 
   && {
     transition: background-color 50000s, color 50000s, filter 50000s;
+
     &:-webkit-autofill {
       animation-duration: 50000s;
       animation-name: onAutoFillStart;
@@ -21,7 +25,6 @@ export const StyledLoginFormInput = styled.input`
     padding-top: .7rem;
     padding-bottom: .7rem;
   }
-
   ${StyledInputCss}
 `
 
@@ -38,7 +41,7 @@ export const StyledLoginButton = styled(Button)`
     display: flex;
     justify-content: center;
     padding: 1.25rem 0;
-    width:100%;
+    width: 100%;
     margin-top: 20px;
     margin-bottom: 10px;
 
@@ -54,7 +57,7 @@ export const StyledTransparentButton = styled(Button)`
     background-color: transparent;
     color: ${theme.color('primary')};
     padding: 1.25rem 0;
-    width:100%;
+    width: 100%;
     justify-content: center;
 
     &:hover {

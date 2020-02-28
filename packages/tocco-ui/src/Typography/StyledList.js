@@ -47,7 +47,7 @@ const StyledList = styled.ol`
     margin: 0 0 ${scale.space(-1)} 1.6rem;
     padding: 0;
 
-    & &,
+    &&,
     &:last-child {
       margin-bottom: 0;
     }

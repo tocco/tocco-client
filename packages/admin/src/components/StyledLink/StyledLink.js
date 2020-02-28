@@ -4,5 +4,5 @@ import styled from 'styled-components'
 import {linkStyle} from './linkStyle'
 
 export default styled(Link)`
- ${linkStyle}
+  ${linkStyle}
 `

@@ -35,10 +35,8 @@ const colorSchemes = {
 const declareFocus = props => {
   const infoText = _get(props.theme, 'colors.signal.info.text', design.fallbackColors.INFO)
   return css`
-    transition:  border-color ease-in-out 100ms,
-                 box-shadow ease-in-out 100ms;
-    will-change: border-color,
-                 box-shadow;
+    transition: border-color ease-in-out 100ms, box-shadow ease-in-out 100ms;
+    will-change: border-color, box-shadow;
 
     &:focus,
     &:focus-within {

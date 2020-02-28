@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import _pick from 'lodash/pick'
 const StyledDiv = styled.div`
   :focus {
-      outline: none;
+    outline: none;
   }
 `
 

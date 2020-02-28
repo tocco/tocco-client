@@ -57,26 +57,27 @@ export default props => {
   const hoverFontColor = getHoverFontColor(ink, look, theme, backgroundColor)
 
   return css`
-    background: ${backgroundColor};
-    color: ${fontColor};
-    box-shadow: ${border};
-    outline: none;
-    border: none;
+  background: ${backgroundColor};
+  color: ${fontColor};
+  box-shadow: ${border};
+  outline: none;
+  border: none;
 
-    &:focus,
-    &:hover {
-      background: ${hoverBackgroundColor};
-      color: ${hoverFontColor};
-    }
+  &:focus,
+  &:hover {
+    background: ${hoverBackgroundColor};
+    color: ${hoverFontColor};
+  }
 
-    &:active,
-    &[aria-pressed="true"] {
-      background:  ${lighten(0.1, hoverBackgroundColor)};
-    }
+  &:active,
+  &[aria-pressed='true'] {
+    background: ${lighten(0.1, hoverBackgroundColor)};
+  }
 
-    &:disabled {
-      background: ${tint(0.5, backgroundColor)};
-      color: ${tint(0.5, fontColor)};
-      cursor: not-allowed;
-    }`
+  &:disabled {
+    background: ${tint(0.5, backgroundColor)};
+    color: ${tint(0.5, fontColor)};
+    cursor: not-allowed;
+  }
+`
 }

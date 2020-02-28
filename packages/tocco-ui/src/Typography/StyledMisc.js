@@ -168,7 +168,7 @@ const StyledSub = styled.sub`
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     line-height: 0;
     position: relative;
-    bottom: -0.25em
+    bottom: -.25em;
     vertical-align: baseline;
   }
 `
@@ -181,7 +181,7 @@ const StyledSup = styled.sup`
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     line-height: 0;
     position: relative;
-    top: -0.5em
+    top: -.5em;
     vertical-align: baseline;
   }
 `
@@ -217,9 +217,11 @@ const StyledVar = styled.var`
     fontSize: scale.font(-1)
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+
     &:after {
       content: ']';
     }
+
     &:before {
       content: '[';
     }
@@ -230,9 +232,11 @@ const StyledQ = styled.q`
   && {
     ${declareFont()}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+
     &:after {
       content: close-quote;
     }
+
     &:before {
       content: open-quote;
     }

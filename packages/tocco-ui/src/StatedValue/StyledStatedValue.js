@@ -42,18 +42,18 @@ const getBorderColor = ({immutable, isDisplay, secondaryPosition, signal}) => {
 const transformLabel = ({secondaryPosition, theme}) => css`
   &&& {
     transition: color ${animationDuration},
-                font-size ${animationDuration},
-                font-weight ${animationDuration},
-                margin ${animationDuration},
-                top ${animationDuration};
+      font-size ${animationDuration},
+      font-weight ${animationDuration},
+      margin ${animationDuration},
+      top ${animationDuration};
     will-change: color, font-size, font-weight, margin, top;
-
     ${secondaryPosition && css`
       top: 0;
       font-size: ${scale.font(-1)};
       font-weight: ${getTheme.fontWeight('bold')};
       margin: calc(${scale.font(-1)} / -2) 0 0;
     `}
+  }
 `
 
 const declareCursor = ({isDisplay, immutable}) => `cursor: ${(!isDisplay && immutable) ? 'not-allowed' : 'auto'};`
@@ -74,7 +74,7 @@ const StyledStatedValueLabel = styled.label`
     top: 50%;
     ${props => transformLabel(props)}
     ${props => declareCursor(props)}
-    pointer-events: ${props => props.secondaryPosition ? 'auto' : 'none'}
+    pointer-events: ${props => props.secondaryPosition ? 'auto' : 'none'};
   }
 `
 
@@ -87,13 +87,12 @@ const StyledStatedValueBox = styled.div`
     ${props => declareCursor(props)}
     transition: border-color ${animationDuration};
     will-change: border-color;
+    margin-top: ${props => props.isDisplay && scale.space(-1)};
 
     * {
       padding-left: ${props => props.isDisplay && '0'};
       margin-bottom: 0;
-    };
-
-    margin-top: ${props => props.isDisplay && scale.space(-1)};
+    }
 
     > ${StyledHtmlFormatter} {
       padding-top: ${props => props.isDisplay && scale.space(-1)};
@@ -112,10 +111,9 @@ const StyledStatedValueError = styled.div`
   &&& {
     max-height: 0;
     opacity: 0;
-    transition: all 0.5s ease-in-out;
-    transition-delay: 0.5s;
+    transition: all .5s ease-in-out;
+    transition-delay: .5s;
     will-change: max-height, opacity;
-
     ${props => props.showError && css`
       max-height: 100px;
       opacity: 1;
@@ -130,10 +128,11 @@ const StyledStatedValueError = styled.div`
 const StyledStatedValueWrapper = styled.div`
   &&& {
     margin-bottom: ${scale.space(-1)};
+    padding-top: ${scale.space(-2)};
 
-    ${StyledStatedValueBox},
-    ${StyledStatedValueDescription},
-    ${StyledStatedValueError} {
+    ${/* sc-selector */StyledStatedValueBox},
+    ${/* sc-selector */StyledStatedValueDescription},
+    ${/* sc-selector */StyledStatedValueError} {
       margin-bottom: ${scale.space(-2)};
 
       &:last-child {
@@ -141,12 +140,10 @@ const StyledStatedValueWrapper = styled.div`
       }
     }
 
-    ${StyledStatedValueDescription},
-    ${StyledStatedValueError} {
+    ${/* sc-selector */StyledStatedValueDescription},
+    ${/* sc-selector */StyledStatedValueError} {
       margin-left: calc(${scale.space(-1)} + ${borderWidth});
     }
-
-    padding-top: ${scale.space(-2)};
   }
 `
 

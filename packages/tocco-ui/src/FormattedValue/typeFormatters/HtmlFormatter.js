@@ -33,7 +33,7 @@ const StyledHtmlFormatter = styled(StyledSpan)`
     }
 
     .label-success {
-      Color: ${theme.color('signal.success.text')};
+      color: ${theme.color('signal.success.text')};
     }
   }
 `

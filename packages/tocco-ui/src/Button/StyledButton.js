@@ -29,9 +29,9 @@ const declareIconPosition = props => {
 const getDensityStyle = ({dense, theme}) =>
   dense
     ? css`
-          line-height: ${themeSelector.lineHeight('dense')({theme})};
-          padding: ${scale.space(-3.5)({theme})} ${scale.space(-1.5)({theme})};
-         `
+  line-height: ${themeSelector.lineHeight('dense')({theme})};
+  padding: ${scale.space(-3.5)({theme})} ${scale.space(-1.5)({theme})};
+`
     : null
 
 const StyledButton = styled.button`
@@ -41,15 +41,11 @@ const StyledButton = styled.button`
   text-align: center;
   vertical-align: middle;
   white-space: nowrap;
-
   border: none;
   border-radius: ${themeSelector.radii('medium')};
-
   margin-right: .5em;
   padding: .3rem 1.3rem;
-
   cursor: pointer;
-
   ${declareFont()}
   ${interactiveStyling}
   ${props => getDensityStyle(props)}

@@ -15,22 +15,25 @@ export const StyledButton = styled.span`
   cursor: pointer;
   background-color: ${({active}) => active && theme.color('secondary')};
 
-  &:hover {
-    background-color: ${theme.color('secondaryLight')};
-    * { color: ${theme.color('paper')};}
-  }
-  
   * {
     color: ${({active}) => active && theme.color('paper')};
   }
-  
+
+  &:hover {
+    background-color: ${theme.color('secondaryLight')};
+
+    * {
+      color: ${theme.color('paper')};
+    }
+  }
+
   && {
     button {
       background-color: transparent;
       margin-left: .5rem;
       margin-top: -.2rem;
       margin-right: -.8rem;
-      
+
       &:hover *{
         color: ${theme.color('secondary')};
       }

@@ -9,14 +9,14 @@ import ToccoLogo from '../../../../assets/tocco_red.svg'
 const StyledDashBoardWrapper = styled.div`
   width: 100%;
   height: 100%;
-  background-color: ${theme.color('backgroundBody')}
+  background-color: ${theme.color('backgroundBody')};
 `
 
 const InnerWrapper = styled.div`
   width: 600px;
   height: 50px;
   position: relative;
-  left: -320px
+  left: -320px;
 `
 
 const StyledDashBoard = styled.div`
@@ -25,17 +25,18 @@ const StyledDashBoard = styled.div`
   justify-content: flex-end;
   align-items: flex-end;
   margin-right: -180px;
-  
+
   ${StyledH1} {
     font-size: 10rem;
     letter-spacing: .5rem;
     color: ${theme.color('primary')};
   }
-    
+
   ${InnerWrapper} {
     position: relative;
     top: 2rem;
-    ${StyledH3} {
+
+    ${/* sc-selector */StyledH3} {
       font-size: 3rem;
       color: ${theme.color('primary')};
     }

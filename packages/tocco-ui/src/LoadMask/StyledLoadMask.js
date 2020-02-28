@@ -6,12 +6,17 @@ import {
 import {StyledSpan} from '../Typography/StyledMisc'
 
 const fadeIn = keyframes`
-  from {opacity: 0;}
-  to {opacity: 1;}
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 `
 
 const fadeInAnimation = css`
-  ${fadeIn} 400ms ease-in-out both;
+  animation: ${fadeIn} 400ms ease-in-out both;
 `
 
 const StyledLoadMask = styled.div`
@@ -27,7 +32,7 @@ const StyledLoadMask = styled.div`
       align-items: center;
       padding: ${scale.space(-1)};
       width: 100%;
-      animation: ${fadeInAnimation};
+      ${fadeInAnimation};
 
       > ${StyledSpan} {
         margin-top: ${scale.space(-1)};

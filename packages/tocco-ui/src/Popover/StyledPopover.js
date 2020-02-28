@@ -14,7 +14,7 @@ const ARROW_WIDTH = 16
 const StyledBoxWrapper = styled('div')`
   && {
     max-width: calc(100vw - ${props => props.spacer}px - ${props => props.spacer}px);
-    margin:  ${ARROW_WIDTH / 2}px 0;
+    margin: ${ARROW_WIDTH / 2}px 0;
     z-index: 100000010;
   }
 `
@@ -39,7 +39,7 @@ const StyledArrow = styled('i')`
   &[data-placement*='bottom'] {
     top: ${ARROW_WIDTH / -2}px;
 
-    &::before {
+    &:before {
       border-width: 0 ${ARROW_WIDTH / 2}px ${ARROW_WIDTH / 2}px ${ARROW_WIDTH / 2}px;
       border-color: transparent transparent ${props => shadeColor(_get(props.theme, 'colors.paper'), 1)} transparent;
     }
@@ -48,13 +48,13 @@ const StyledArrow = styled('i')`
   &[data-placement*='top'] {
     bottom: ${ARROW_WIDTH / -2}px;
 
-    &::before {
+    &:before {
       border-width: ${ARROW_WIDTH / 2}px ${ARROW_WIDTH / 2}px 0 ${ARROW_WIDTH / 2}px;
       border-color: ${props => shadeColor(_get(props.theme, 'colors.paper'), 1)} transparent transparent transparent;
     }
   }
 
-  &::before {
+  &:before {
     content: '';
     display: block;
     border-style: solid;

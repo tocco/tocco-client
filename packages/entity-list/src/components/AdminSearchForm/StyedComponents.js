@@ -5,19 +5,19 @@ import Split from 'react-split'
 export const StyledSplit = styled(Split)``
 
 export const StyledSplitWrapper = styled.div`
- height: 100%;
+  height: 100%;
 `
 
 export const StyledHeader = styled.div`
   background-color: ${theme.color('paper')};
   margin-bottom: 3px;
-  display:flex;
+  display: flex;
   justify-content: flex-end;
   padding: 9px;
 `
 
 export const AdminSearchGrid = styled.div`
-   height: 100%;
+  height: 100%;
 
   ${StyledSplit} {
     height: calc(100% - 60px);
@@ -33,13 +33,14 @@ export const Box = styled.div`
 `
 
 export const StyledGutter = styled.div`
-   background-color: ${props => props.backgroundColor};
-   &:hover {
-    cursor:row-resize;
-   }
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   font-size: 25px;
-   border-top: 1px solid ${props => props.borderColor};
+  background-color: ${props => props.backgroundColor};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  border-top: 1px solid ${props => props.borderColor};
+
+  &:hover {
+    cursor: row-resize;
+  }
 `

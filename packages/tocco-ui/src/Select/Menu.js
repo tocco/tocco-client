@@ -6,12 +6,13 @@ import {components} from 'react-select'
 import _omit from 'lodash/omit'
 
 const StyledTether = styled(TetherComponent)`
-&& {
-  z-index: 10000000000000;
+  && {
+    z-index: 10000000000000;
+  }
 `
 
 const StyledMenu = styled(components.Menu)`
- && {
+  && {
     margin: 8px -12px;
     width: calc(${props => props.wrapperWidth}px + 22px);
     position: relative;
@@ -19,7 +20,7 @@ const StyledMenu = styled(components.Menu)`
     .tether-target-attached-top & {
       transform: translateY(-${props => props.wrapperHeight + 6}px);
     }
- }
+  }
 `
 
 const TetherPosition = () => <div/>
