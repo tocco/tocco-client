@@ -1,10 +1,11 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import ToccoLogin from 'tocco-login/src/main'
 import SsoLogin from 'tocco-sso-login/src/main'
 import styled from 'styled-components'
-import {StyledH1, StyledSpan, scale} from 'tocco-ui'
+import {StyledH1, StyledSpan, scale, theme} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
+import Cookies from 'js-cookie'
 
 import ToccoLogo from '../../assets/tocco-circle.svg'
 import ToccoSlogan from '../../assets/tocco_white.svg'
@@ -105,10 +106,59 @@ const StyledImg = styled.img`
   }
 `
 
-const Login = props => {
-  const loginSuccess = ({timeout}) => {
-    props.loginSuccessful(timeout)
+const StyledSsoMsg = styled(StyledSpan)`
+  && {
+    text-align: center;
+    font-weight: ${theme.fontWeight('bold')};
+    width: 100%;
+    color: ${theme.color('signal.info.text')};
   }
+`
+
+const StyledSsoError = styled(StyledSsoMsg)`
+  && {
+    color: ${theme.color('signal.danger.text')};
+  }
+`
+
+const Login = ({ssoAvailable, loginSuccessful, checkSsoAvailable}) => {
+  const [showError, setShowError] = useState(false)
+  const [showRegistrationText, setShowRegistrationText] = useState(false)
+  const autoLogin = Cookies.get('sso-autologin')
+
+  useEffect(() => {
+    checkSsoAvailable()
+  }, [])
+
+  const loginSuccess = ({timeout}) => {
+    loginSuccessful(timeout)
+  }
+
+  const ssoLoginCompleted = ({successful, provider, registration}) => {
+    if (successful) {
+      Cookies.set('sso-autologin', provider, {expires: 365})
+      loginSuccessful(30)
+    } else if (!successful && registration) {
+      setShowRegistrationText(true)
+    } else {
+      setShowError(true)
+    }
+  }
+
+  const SsoLoginPart = () => <div>
+    <SsoLogin
+      ssoLoginEndpoint="/sso"
+      loginCompleted={ssoLoginCompleted}
+      autoLogin={autoLogin}
+    />
+    {showRegistrationText
+    && <StyledSsoMsg breakWords={true}><FormattedMessage id="client.sso-login.registration"/></StyledSsoMsg>
+    }
+    {showError
+    && <StyledSsoError breakWords={true}><FormattedMessage id="client.sso-login.error"/></StyledSsoError>
+    }
+    <StyledSpanLogin><FormattedMessage id="client.admin.loginChoice"/></StyledSpanLogin>
+  </div>
 
   return (
     <StyledLogin>
@@ -116,10 +166,7 @@ const Login = props => {
       <SloganImg src={ToccoSlogan}/>
       <LoginWrapper>
         <StyledHeadingLogin><FormattedMessage id="client.admin.welcomeTitle"/></StyledHeadingLogin>
-        <SsoLogin
-          ssoLoginEndpoint="/sso"
-        />
-        <StyledSpanLogin><FormattedMessage id="client.admin.loginChoice"/></StyledSpanLogin>
+        {ssoAvailable && <SsoLoginPart/>}
         <ToccoLogin
           loginSuccess={loginSuccess}
           showTitle={false}
@@ -130,7 +177,9 @@ const Login = props => {
 }
 
 Login.propTypes = {
-  loginSuccessful: PropTypes.func.isRequired
+  ssoAvailable: PropTypes.bool,
+  loginSuccessful: PropTypes.func.isRequired,
+  checkSsoAvailable: PropTypes.func.isRequired
 }
 
 export default Login
