@@ -1,6 +1,5 @@
 import {consoleLogger, cache} from 'tocco-util'
 import {rest} from 'tocco-app-extensions'
-import {} from 'redux-saga'
 import {takeLatest, call, all, put, select, delay} from 'redux-saga/effects'
 
 import * as actions from './actions'
@@ -89,6 +88,18 @@ export function* changeBusinessUnitId({payload: {businessUnitId}}) {
   location.reload()
 }
 
+export function* checkSsoAvailable() {
+  const cachedSsoAvailable = cache.get('session', 'ssoAvailable')
+  if (cachedSsoAvailable !== undefined) {
+    yield put(actions.setSsoAvailable(cachedSsoAvailable))
+  } else {
+    const modules = yield call(rest.requestSaga, 'modules')
+    const ssoAvailable = modules.body.modules.includes('nice2.optional.sso')
+    cache.add('session', 'ssoAvailable', ssoAvailable)
+    yield put(actions.setSsoAvailable(ssoAvailable))
+  }
+}
+
 export default function* mainSagas() {
   yield all([
     takeLatest(actions.DO_SESSION_CHECK, sessionCheck),
@@ -96,6 +107,7 @@ export default function* mainSagas() {
     takeLatest(actions.DO_LOGOUT, logout),
     takeLatest(actions.LOAD_PRINCIPAL, loadPrincipal),
     takeLatest(actions.LOAD_BUSINESS_UNITS, loadBusinessUnits),
-    takeLatest(actions.CHANGE_BUSINESS_UNIT, changeBusinessUnitId)
+    takeLatest(actions.CHANGE_BUSINESS_UNIT, changeBusinessUnitId),
+    takeLatest(actions.CHECK_SSO_AVAILABLE, checkSsoAvailable)
   ])
 }

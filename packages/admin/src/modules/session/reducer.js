@@ -6,7 +6,8 @@ const ACTION_HANDLERS = {
   [actions.SET_LOGGED_IN]: reducerUtil.singleTransferReducer('loggedIn'),
   [actions.SET_USERNAME]: reducerUtil.singleTransferReducer('username'),
   [actions.SET_CURRENT_BUSINESS_UNIT]: reducerUtil.singleTransferReducer('currentBusinessUnit'),
-  [actions.SET_BUSINESS_UNITS]: reducerUtil.singleTransferReducer('businessUnits')
+  [actions.SET_BUSINESS_UNITS]: reducerUtil.singleTransferReducer('businessUnits'),
+  [actions.SET_SSO_AVAILABLE]: reducerUtil.singleTransferReducer('ssoAvailable')
 }
 
 const initialState = {
@@ -16,7 +17,8 @@ const initialState = {
     label: '',
     id: ''
   },
-  businessUnits: []
+  businessUnits: [],
+  ssoAvailable: false
 }
 
 export default function reducer(state = initialState, action) {
