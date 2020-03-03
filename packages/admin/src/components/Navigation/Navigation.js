@@ -61,6 +61,7 @@ const tabs = {
 
 const Navigation = ({modulesMenuTree, settingsMenuTree, menuOpen, onClick, activeMenuTab, setActiveMenuTab, intl}) => {
   const inputEl = useRef(null)
+  const navigationEl = useRef(null)
   const [filter, setFilter] = useState('')
 
   const map = useMemo(() => ({
@@ -96,7 +97,24 @@ const Navigation = ({modulesMenuTree, settingsMenuTree, menuOpen, onClick, activ
 
   const msg = id => intl.formatMessage({id})
 
-  return <StyledNav>
+  const handleCursorNavigation = key => {
+    const focusableElements = navigationEl.current.querySelectorAll('a, input')
+    const currentIndex = [...focusableElements].findIndex(el => document.activeElement.isEqualNode(el))
+    if (currentIndex !== -1) {
+      const indexDiff = key === 'ArrowDown' ? 1 : focusableElements.length - 1
+      const targetIndex = (currentIndex + indexDiff) % focusableElements.length
+      focusableElements[targetIndex].focus()
+    }
+  }
+
+  const onKeyDown = e => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault()
+      handleCursorNavigation(e.key)
+    }
+  }
+
+  return <StyledNav ref={navigationEl} onKeyDown={onKeyDown}>
     <StyledTabsContainer>
       <StyledNavButton
         active={activeMenuTab === tabs.MODULES}
