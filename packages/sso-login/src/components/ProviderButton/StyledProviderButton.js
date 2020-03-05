@@ -9,6 +9,8 @@ import {
 } from 'tocco-ui/src/utilStyles'
 
 export default styled(StyledButton)`
+   margin-right: 0;
+
   && {
     flex: 1;
     font-size: ${scale.font(1.3)};
@@ -24,6 +26,5 @@ export default styled(StyledButton)`
       margin-left: .5em;
       padding: .9rem 0;
     }
-
-   margin-right: 0;
+   }
 `
