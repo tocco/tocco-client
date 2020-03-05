@@ -66,7 +66,7 @@ export default props => {
     &:focus,
     &:hover {
       background: ${hoverBackgroundColor};
-      * { color: ${hoverFontColor}; }
+      color: ${hoverFontColor};
     }
 
     &:active,
