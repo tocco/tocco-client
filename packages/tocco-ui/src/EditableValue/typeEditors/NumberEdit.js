@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import {injectIntl, intlShape} from 'react-intl'
 import React from 'react'
+import {react} from 'tocco-util'
 
 import {parseLocalePlaceholder, convertStringToNumber} from '../utils'
 import {StyledEditableWrapper} from '../StyledEditableValue'
@@ -31,7 +32,16 @@ export const isAllowedValue = (prePointDigits, postPointDigits, minValue, maxVal
 
 const NumberEdit = props => {
   const {thousandSeparator, decimalSeparator} = parseLocalePlaceholder(props.intl.locale)
-  const {prePointDigits, postPointDigits, minValue, maxValue, allowNegative, fixedDecimalScale} = props.options
+  const {
+    prePointDigits,
+    postPointDigits,
+    minValue,
+    maxValue,
+    allowNegative,
+    fixedDecimalScale,
+    suffix,
+    prefix
+  } = props.options
 
   const numberFormatOptions = {
     isAllowed: isAllowedValue(prePointDigits, postPointDigits, minValue, maxValue),
@@ -58,6 +68,8 @@ const NumberEdit = props => {
         immutable={props.immutable}
         thousandSeparator={thousandSeparator}
         value={props.value}
+        suffix={suffix}
+        prefix={prefix}
         {...numberFormatOptions}
       />
     </StyledEditableWrapper>
@@ -77,8 +89,10 @@ NumberEdit.propTypes = {
     postPointDigits: PropTypes.number,
     prePointDigits: PropTypes.number,
     minValue: PropTypes.number,
-    maxValue: PropTypes.number
+    maxValue: PropTypes.number,
+    suffix: PropTypes.string,
+    prefix: PropTypes.string
   })
 }
 
-export default injectIntl(NumberEdit)
+export default injectIntl(react.Debouncer(NumberEdit))

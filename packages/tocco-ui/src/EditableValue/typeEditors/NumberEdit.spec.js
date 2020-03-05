@@ -30,6 +30,22 @@ describe('tocco-ui', () => {
           expect(wrapper.html()).to.contains(result)
         })
 
+        test('should add suffix and prefix', () => {
+          const result = 'pre0post'
+          const wrapper = mountWithIntl(
+            <NumberEdit
+              value={0}
+              options={{
+                prePointDigits: 1,
+                postPointDigits: 0,
+                prefix: 'pre',
+                suffix: 'post'
+              }}
+              onChange={EMPTY_FUNC} />
+          )
+          expect(wrapper.html()).to.contains(result)
+        })
+
         test('fill in postPointDigit zeros on fixedDecimalScale', () => {
           const result = '1,234,567.800'
           const wrapper = mountWithIntl(
