@@ -1,0 +1,73 @@
+[
+  {
+    "id": "node1",
+    "label": "Node 1",
+    "dataType": "number",
+    "readonly": true,
+    "options": {
+      "prePointDigits": 8,
+      "postPointDigits": 2
+    }
+  },
+  {
+    "id": "dispensed",
+    "label": "Dispensiert",
+    "dataType": "boolean",
+    "defaultValue": null,
+    "readonly": false,
+    "options": {}
+  },
+  {
+    "id": "node2",
+    "label": "Node 2",
+    "dataType": "number",
+    "defaultValue": null,
+    "readonly": false,
+    "options": {
+      "prePointDigits": 8,
+      "postPointDigits": 2
+    }
+  },
+  {
+    "id": "node3",
+    "label": "Node 3",
+    "dataType": "string",
+    "readonly": false,
+    "options": {}
+  },
+  {
+    "id": "percent",
+    "label": "Prozent",
+    "dataType": "number",
+    "readonly": false,
+    "options": {
+      "prePointDigits": 3,
+      "postPointDigits": 0,
+      "suffix": "%",
+      "minValue": 0,
+      "maxValue": 100
+    }
+  },
+  {
+    "id": "node4",
+    "label": "Node 4",
+    "dataType": "single-select",
+    "readonly": false,
+    "options": {
+      "options": [
+        {
+          "key": "good",
+          "display": "Gut"
+        },
+        {
+          "key": "average",
+          "display": "Mittel"
+        },
+        {
+          "key": "bad",
+          "display": "Schlecht"
+        }
+      ]
+    }
+  }
+]
