@@ -1,0 +1,62 @@
+{
+  "form": {
+    "id": "User_list",
+    "children": [
+      {
+        "id": "table",
+        "componentType": "table",
+        "layoutType": "table",
+        "hidden": false,
+        "sorting": [
+          {
+            "field": "relUser.user_nr",
+            "order": "asc"
+          },
+          {
+            "field": "relUser.firstname",
+            "order": "asc"
+          }
+        ],
+        "children": [
+          {
+            "id": "relUser.firstname",
+            "label": "Teilnehmer",
+            "componentType": "column",
+            "children": [
+              {
+                "id": "relUser.firstname",
+                "label": null,
+                "componentType": "field",
+                "path": "relUser.firstname",
+                "dataType": "string",
+                "defaultValue": null
+              }
+            ],
+            "readonly": false,
+            "hidden": false,
+            "sortable": true
+          },
+          {
+            "id": "relUser.participant_number",
+            "label": "Teilnehmernummer",
+            "componentType": "column",
+            "children": [
+              {
+                "id": "relUser.participant_number",
+                "label": null,
+                "componentType": "field",
+                "path": "relUser.participant_number",
+                "dataType": "integer",
+                "defaultValue": null
+              }
+            ],
+            "readonly": false,
+            "hidden": false,
+            "sortable": true
+          }
+        ],
+        "label": null
+      }
+    ]
+  }
+}

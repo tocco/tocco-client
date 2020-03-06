@@ -1,0 +1,29 @@
+{
+  "0": {
+    "pk": 1,
+    "relUser.firstname": "First User",
+    "relUser.participant_number": 13,
+    "node1": 4,
+    "node2": 5,
+    "node3": "text",
+    "percent": 100,
+    "node4": {
+      "key": 1,
+      "display": "Gut"
+    }
+  },
+  "1": {
+    "pk": 2,
+    "relUser.firstname": "Second User",
+    "relUser.participant_number": 14,
+    "node1": 3,
+    "node2": 6,
+    "node3": "text",
+    "percent": 50,
+    "node4":
+    {
+      "key": 3,
+      "display": "Schlecht"
+    }
+  }
+}
