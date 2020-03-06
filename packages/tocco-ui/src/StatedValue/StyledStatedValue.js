@@ -87,8 +87,11 @@ const StyledStatedValueBox = styled.div`
     ${props => declareCursor(props)}
     transition: border-color ${ANIMATION_DURATION};
     will-change: border-color;
+    * {padding-left: ${props => props.isDisplay && '0'}};
+    margin-top: ${props => props.isDisplay && scale.space(-1)}};
 
     > ${StyledHtmlFormatter} {
+      padding-top: ${props => props.isDisplay && scale.space(-1)};
       margin-bottom: 0;
     }
   }
