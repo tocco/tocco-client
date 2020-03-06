@@ -17,7 +17,19 @@ const getOptions = (type, modelField, formData) => {
   return {}
 }
 
+const typeMapping = {
+  'binary': 'document-compact',
+  'display': 'html',
+  'document': 'document-compact',
+  'image': 'document-compact',
+  'multi-remote-field': 'multi-remote',
+  'single-remote-field': 'remote',
+  'single-select-box': 'single-select',
+  'multi-select-box': 'multi-select'
+}
+
 export default type => (formField, modelField, formName, value, info, events, formData, key) => {
   const options = getOptions(type, modelField, formData)
-  return <FormattedValue key={key} type={type} value={value} options={options}/>
+  const dataType = typeMapping[type] ? typeMapping[type] : type
+  return <FormattedValue key={key} type={dataType} value={value} options={options}/>
 }
