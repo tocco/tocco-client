@@ -1,3 +1,10 @@
+0.2.3
+- Backend: Send searchform values with tql
+- Minimize login form dimensions
+- Menu arrow navigation
+- Harmonize stated value box padding
+- SSO integration
+
 0.2.2
 - Button hover styling
 - Style display-expressions
