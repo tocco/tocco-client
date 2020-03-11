@@ -7,8 +7,6 @@ const mapActionCreators = {
   initializeTable
 }
 
-const mapStateToProps = () => {
-  return {}
-}
+const mapStateToProps = () => ({})
 
 export default connect(mapStateToProps, mapActionCreators)(InputEdit)

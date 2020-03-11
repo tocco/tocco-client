@@ -33,18 +33,18 @@ export const setDataForm = form => ({
 export const updateValue = (inputDataKey, node, value) => ({
   type: UPDATE_VALUE,
   payload: {
-    inputDataKey: inputDataKey,
-    node: node,
-    value: value
+    inputDataKey,
+    node,
+    value
   }
 })
 
 export const setValue = (inputDataKey, node, value) => ({
   type: SET_VALUE,
   payload: {
-    inputDataKey: inputDataKey,
-    node: node,
-    value: value
+    inputDataKey,
+    node,
+    value
   }
 })
 
@@ -52,8 +52,8 @@ export const setSorting = (field, direction) => ({
   type: SET_SORTING,
   payload: {
     sorting: {
-      field: field,
-      direction: direction
+      field,
+      direction
     }
   }
 })
