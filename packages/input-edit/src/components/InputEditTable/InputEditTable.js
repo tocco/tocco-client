@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useMemo} from 'react'
 import PropTypes from 'prop-types'
 import {EditableValue} from 'tocco-ui'
 import {consoleLogger} from 'tocco-util'
@@ -7,17 +7,9 @@ import {formField} from 'tocco-app-extensions'
 import {StyledCell, StyledHeader, StyledTable} from './StyledComponents'
 
 const InputEditTable = ({data, inputDataForm, inputEditForm, updateValue, sorting, setSorting}) => {
-  const dataFormCells = getDataFormCells(inputDataForm)
+  const dataFormCells = useMemo(() => getDataFormCells(inputDataForm), [inputDataForm])
 
-  useEffect(() => {
-    const handler = arrowKeyHandler(Object.keys(data).length)
-    window.addEventListener('keydown', handler)
-    return () => {
-      window.removeEventListener('keydown', handler)
-    }
-  }, [data])
-
-  return <StyledTable>
+  return <StyledTable onKeyDown={arrowKeyHandler}>
     <thead>
       <tr>
         {
@@ -46,24 +38,18 @@ const InputEditTable = ({data, inputDataForm, inputEditForm, updateValue, sortin
   </StyledTable>
 }
 
-const arrowKeyHandler = listSize => event => {
+const arrowKeyHandler = event => {
   if (document.activeElement.tagName === 'INPUT' && (event.key === 'ArrowUp' || event.key === 'ArrowDown')) {
-    const [idIndex, node] = document.activeElement.id.split(':')
-    const index = Number.parseInt(idIndex)
     event.preventDefault()
-    const elementToFocus = getElementToFocus(index, node, listSize, event.key)
+    const [idIndex, node] = document.activeElement.id.split(':')
+    const currentIndex = Number.parseInt(idIndex)
+    const indexDiff = event.key === 'ArrowUp' ? -1 : 1
+    const idToFind = `${currentIndex + indexDiff}:${node}`
+    const elementToFocus = document.getElementById(idToFind)
     if (elementToFocus) {
       elementToFocus.focus()
       elementToFocus.select()
     }
-  }
-}
-
-const getElementToFocus = (index, node, listSize, key) => {
-  if (key === 'ArrowUp' && index > 0) {
-    return document.getElementById(`${index - 1}:${node}`)
-  } else if (key === 'ArrowDown' && index < listSize - 1) {
-    return document.getElementById(`${index + 1}:${node}`)
   }
 }
 
@@ -105,14 +91,18 @@ const TableCells = ({index, nodes, dataFormCells, inputEditForm, updateValue}) =
   return [...dataCells, ...editCells]
 }
 
-const DataCell = ({index, nodes, column}) => {
-  const field = column.children[0]
-  return <td>
-    {formField.formattedValueFactory(field.dataType)(
-      field, undefined, 'Input_edit_data_list', nodes[field.path], {}, {}, {}, `${index}:${column.id}`
-    )}
-  </td>
-}
+const DataCell = ({index, nodes, column}) => <td>
+  {formField.formattedValueFactory(column.children[0].dataType)(
+    column.children[0],
+    undefined,
+    'Input_edit_data_list',
+    nodes[column.children[0].path],
+    {},
+    {},
+    {},
+    `${index}:${column.id}`
+  )}
+</td>
 
 const InputCell = ({index, nodes, column, updateValue}) => {
   const width = column.dataType === 'single-select'

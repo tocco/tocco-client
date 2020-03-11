@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 
-import InputEditTable from '../inputedittable/InputEditTableContainer'
+import InputEditTable from '../InputEditTable/InputEditTableContainer'
 
 const InputEdit = ({initializeTable}) => {
   useEffect(() => {
