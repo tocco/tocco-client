@@ -30,12 +30,13 @@ export function* sortData({payload}) {
   yield call(loadData, payload.sorting)
 }
 
-export function* loadData(action, sorting) {
+export function* loadData(action, newSorting) {
   const {inputEntityKey} = yield select(inputSelector)
+  const sorting = newSorting || (yield select(inputEditSelector)).sorting
   const data = yield call(rest.requestSaga, `inputEdit/${inputEntityKey}/data/search`, {
     method: 'POST',
     body: {
-      sorting: sorting || (yield select(inputEditSelector)).sorting
+      sorting
     }
   })
   yield put(actions.setData({data: data.body}))
@@ -48,9 +49,9 @@ export function* updateValue({payload: {inputDataKey, node, value}}) {
     {
       method: 'POST',
       body: {
-        inputDataKey: inputDataKey,
-        node: node,
-        value: value
+        inputDataKey,
+        node,
+        value
       }
     }
   )
