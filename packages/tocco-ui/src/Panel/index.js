@@ -6,9 +6,6 @@ import StyledPanel from './StyledPanel'
 import StyledPanelBody from './StyledPanelBody'
 import StyledPanelHeaderFooter from './StyledPanelHeaderFooter'
 
-const Footer = HeaderFooter
-const Header = HeaderFooter
-
 export {
   StyledPanel,
   StyledPanelBody,
@@ -17,8 +14,8 @@ export {
 
 export default {
   Body,
-  Footer,
+  Footer: HeaderFooter,
   Group,
-  Header,
+  Header: HeaderFooter,
   Wrapper
 }
