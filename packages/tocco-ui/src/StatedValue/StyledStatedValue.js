@@ -94,7 +94,6 @@ const StyledStatedValueBox = styled.div`
     };
 
     margin-top: ${props => props.isDisplay && scale.space(-1)};
-    }
 
     > ${StyledHtmlFormatter} {
       padding-top: ${props => props.isDisplay && scale.space(-1)};
