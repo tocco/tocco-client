@@ -11,7 +11,7 @@ describe('app-extensions', () => {
     describe('Components', () => {
       describe('TitleMessage', () => {
         test(
-          'should render title as <Typography.H4> and message as <Typography.P>',
+          'should render title as <Typography.H1> and message as <Typography.P>',
           () => {
             const title = 'Title'
             const message = 'Message'
@@ -21,7 +21,7 @@ describe('app-extensions', () => {
                 message={message}
               />
             )
-            expect(wrapper.find(Typography.H4).text()).to.be.equal(title)
+            expect(wrapper.find(Typography.H1).text()).to.be.equal(title)
             expect(wrapper.find(Typography.P).text()).to.be.equal(message)
           }
         )
@@ -33,7 +33,7 @@ describe('app-extensions', () => {
               title={title}
             />
           )
-          expect(wrapper.find(Typography.H4).text()).to.be.equal(title)
+          expect(wrapper.find(Typography.H1).text()).to.be.equal(title)
           expect(wrapper.find(Typography.P)).to.have.length(0)
         })
 
@@ -44,7 +44,7 @@ describe('app-extensions', () => {
               message={message}
             />
           )
-          expect(wrapper.find(Typography.H4)).to.have.length(0)
+          expect(wrapper.find(Typography.H1)).to.have.length(0)
           expect(wrapper.find(Typography.P).text()).to.be.equal(message)
         })
 
