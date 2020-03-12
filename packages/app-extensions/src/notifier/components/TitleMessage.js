@@ -3,9 +3,11 @@ import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
 import {FormattedValue, Typography} from 'tocco-ui'
 import _isString from 'lodash/isString'
+import styled from 'styled-components'
 
 const containsHtml = s => s && /<\/?[a-zA-Z0-9]*\/?>/.test(s)
 const isKey = s => s && s.startsWith('client.')
+export const StyledTitleWrapper = styled.div``
 
 const Content = props => {
   const {content} = props
@@ -37,11 +39,13 @@ Content.propTypes = {
 
 const TitleMessage = ({title, message, children}) => {
   return (
-    <React.Fragment>
-      {title && <Content content={title} tag={Typography.H4} />}
+    <>
+      <StyledTitleWrapper>
+        {title && <Content content={title} tag={Typography.H1} />}
+      </StyledTitleWrapper>
       {message && <Content content={message} />}
       {children}
-    </React.Fragment>
+    </>
   )
 }
 
