@@ -15,7 +15,7 @@ import {
   transformValues,
   submitActions
 } from '../utils/report'
-import StyledReportSettings from './StyledReportSettings'
+import StyledReportSettings, {StyledButtonWrapper} from './StyledReportSettings'
 
 export class ReportSettings extends React.Component {
   constructor(props) {
@@ -68,23 +68,27 @@ export class ReportSettings extends React.Component {
           onChange={({values, valid}) => { this.handleCustomSettingsChange(values, valid) }}
         />
         }
-        {download.downloadSupportedByBrowser()
+        <StyledButtonWrapper>
+          {download.downloadSupportedByBrowser()
           && <Button
             ink="primary"
             disabled={!this.state.customSettingsValid || !this.state.valid}
-            icon="file-download"
+            icon="download"
             onClick={this.handleButtonClick(submitActions.DOWNLOAD)}
+            look="raised"
           >
             <FormattedMessage id="client.common.report.download"/>
           </Button>
-        }
-        <Button
-          disabled={!this.state.customSettingsValid || !this.state.valid}
-          icon="file"
-          onClick={this.handleButtonClick(submitActions.DISPLAY)}
-        >
-          <FormattedMessage id="client.common.report.display"/>
-        </Button>
+          }
+          <Button
+            disabled={!this.state.customSettingsValid || !this.state.valid}
+            icon="file"
+            onClick={this.handleButtonClick(submitActions.DISPLAY)}
+            look="raised"
+          >
+            <FormattedMessage id="client.common.report.display"/>
+          </Button>
+        </StyledButtonWrapper>
       </StyledReportSettings>
     )
   }
