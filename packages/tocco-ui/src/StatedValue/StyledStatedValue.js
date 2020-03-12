@@ -10,8 +10,8 @@ import {
 } from '../utilStyles'
 import {StyledHtmlFormatter} from '../FormattedValue/typeFormatters/HtmlFormatter'
 
-const BORDER_WIDTH = '1px'
-const ANIMATION_DURATION = '200ms'
+const borderWidth = '1px'
+const animationDuration = '200ms'
 
 const getTextColor = ({immutable, isDisplay, secondaryPosition, signal}) => {
   return isDisplay
@@ -41,15 +41,15 @@ const getBorderColor = ({immutable, isDisplay, secondaryPosition, signal}) => {
 
 const transformLabel = ({secondaryPosition, theme}) => css`
   &&& {
-    transition: color ${ANIMATION_DURATION},
-                font-size ${ANIMATION_DURATION},
-                font-weight ${ANIMATION_DURATION},
-                margin ${ANIMATION_DURATION},
-                top ${ANIMATION_DURATION};
+    transition: color ${animationDuration},
+                font-size ${animationDuration},
+                font-weight ${animationDuration},
+                margin ${animationDuration},
+                top ${animationDuration};
     will-change: color, font-size, font-weight, margin, top;
 
     ${secondaryPosition && css`
-      top: 0%;
+      top: 0;
       font-size: ${scale.font(-1)};
       font-weight: ${getTheme.fontWeight('bold')};
       margin: calc(${scale.font(-1)} / -2) 0 0;
@@ -80,19 +80,24 @@ const StyledStatedValueLabel = styled.label`
 
 const StyledStatedValueBox = styled.div`
   &&& {
-    border: ${BORDER_WIDTH} solid ${props => colorizeBorder[getBorderColor(props)](props)};
+    border: ${borderWidth} solid ${props => colorizeBorder[getBorderColor(props)](props)};
     padding: ${scale.space(-2)} ${scale.space(-1)};
     position: relative;
     ${props => !props.immutable && declareFocus(props)}
     ${props => declareCursor(props)}
-    transition: border-color ${ANIMATION_DURATION};
+    transition: border-color ${animationDuration};
     will-change: border-color;
-    * {padding-left: ${props => props.isDisplay && '0'}};
-    margin-top: ${props => props.isDisplay && scale.space(-1)}};
+
+    * {
+      padding-left: ${props => props.isDisplay && '0'};
+      margin-bottom: 0;
+    };
+
+    margin-top: ${props => props.isDisplay && scale.space(-1)};
+    }
 
     > ${StyledHtmlFormatter} {
       padding-top: ${props => props.isDisplay && scale.space(-1)};
-      margin-bottom: 0;
     }
   }
 `
@@ -106,7 +111,7 @@ const StyledStatedValueDescription = styled.p`
 
 const StyledStatedValueError = styled.div`
   &&& {
-    max-height: 0px;
+    max-height: 0;
     opacity: 0;
     transition: all 0.5s ease-in-out;
     transition-delay: 0.5s;
@@ -139,7 +144,7 @@ const StyledStatedValueWrapper = styled.div`
 
     ${StyledStatedValueDescription},
     ${StyledStatedValueError} {
-      margin-left: calc(${scale.space(-1)} + ${BORDER_WIDTH});
+      margin-left: calc(${scale.space(-1)} + ${borderWidth});
     }
 
     padding-top: ${scale.space(-2)};
