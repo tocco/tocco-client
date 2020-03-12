@@ -3,7 +3,7 @@ import {reducer as reducerUtil} from 'tocco-util'
 import * as actions from './actions'
 
 const initialState = {
-  data: {},
+  data: [],
   inputEditForm: [],
   inputDataForm: {},
   sorting: {}
@@ -11,16 +11,17 @@ const initialState = {
 
 const setValue = (state, action) => {
   const {inputDataKey, node, value} = action.payload
-  const indexToUpdate = Object.keys(state.data).find(index => state.data[index].pk === inputDataKey)
   return {
     ...state,
-    data: {
-      ...state.data,
-      [indexToUpdate]: {
-        ...state.data[indexToUpdate],
-        [node]: value
+    data: state.data.reduce((val, acc) => {
+      if (acc.pk === inputDataKey) {
+        return [...val, {
+          ...acc,
+          [node]: value
+        }]
       }
-    }
+      return [...val, acc]
+    }, [])
   }
 }
 
