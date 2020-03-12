@@ -31,11 +31,7 @@ export const burgerMenuStyles = {
     width: '24px',
     height: '24px',
     left: '13px',
-    top: '9px',
-    color: '#fff'
-  },
-  bmBurgerBars: {
-    background: '#fff'
+    top: '13px'
   },
   bmBurgerBarsHover: {
     background: '#a90000'

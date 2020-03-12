@@ -2,8 +2,9 @@ import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {Router, Route, Redirect, Switch} from 'react-router-dom'
 import {createBrowserHistory} from 'history'
-import {Icon, LoadMask} from 'tocco-ui'
+import {BurgerButton, LoadMask} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
+import {withTheme} from 'styled-components'
 
 import Navigation from '../Navigation'
 import DashboardRoute from '../../routes/dashboard'
@@ -25,7 +26,8 @@ const Admin = ({
   baseRoute,
   confirm,
   loadPrincipal,
-  clearPersistedViews
+  clearPersistedViews,
+  theme
 }) => {
   useEffect(() => { loadPrincipal() }, [])
 
@@ -68,7 +70,7 @@ const Admin = ({
             isOpen={menuOpen}
             onStateChange={isMenuOpen}
             customCrossIcon={false}
-            customBurgerIcon={menuOpen ? <Icon icon="times"/> : <Icon icon="bars"/>}
+            customBurgerIcon={<BurgerButton isOpen={menuOpen} size={20} color={theme.colors.paper}/>}
             styles={burgerMenuStyles}
             pageWrapId={'page-wrap'}
             outerContainerId={'outer-container'}>
@@ -102,7 +104,8 @@ Admin.propTypes = {
   clearPersistedViews: PropTypes.func.isRequired,
   setMenuOpen: PropTypes.func.isRequired,
   confirm: PropTypes.func.isRequired,
-  initializeNavigation: PropTypes.func.isRequired
+  initializeNavigation: PropTypes.func.isRequired,
+  theme: PropTypes.object.isRequired
 }
 
-export default Admin
+export default withTheme(Admin)
