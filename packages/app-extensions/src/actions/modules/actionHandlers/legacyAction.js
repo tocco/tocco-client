@@ -1,4 +1,5 @@
-import {call} from 'redux-saga/effects'
+import _isPlainObject from 'lodash/isPlainObject'
+import {call, all} from 'redux-saga/effects'
 
 export const loadScript = src => new Promise((resolve, reject) => {
   const s = document.createElement('script')
@@ -48,6 +49,11 @@ export default function* (definition, selection, parent, params, config) {
 
   const actionDefinition = new window.nice2.netui.actions.model.ClientActionDefinition(definition.id, definition.id)
   actionDefinition.setEnabled(!definition.readOnly)
+  if (_isPlainObject(definition.properties)) {
+    const setPropertyEffects = Object.entries(definition.properties)
+      .map(([key, value]) => call([actionDefinition, actionDefinition.setProperty], key, value))
+    yield all(setPropertyEffects)
+  }
 
   const entityExplorer = new window.nice2.modules.NewClientLegacyActionsModule({
     entityName: selection.entityName,
