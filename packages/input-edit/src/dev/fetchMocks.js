@@ -13,14 +13,16 @@ export default function setupFetchMock(packageName, fetchMock) {
       const sorting = JSON.parse(opts.body).sorting
       const data = require('./data/inputData')
       if (sorting && sorting.field) {
-        const sortedData = {}
         const direction = sorting.direction === 'asc' ? 1 : -1
-        Object.values(data)
-          .sort((first, second) => (first[sorting.field] - second[sorting.field]) * direction)
-          .forEach((value, index) => {
-            sortedData[index] = value
-          })
-        return sortedData
+        return data.sort((first, second) => {
+          if (first[sorting.field] > second[sorting.field]) {
+            return direction
+          } else if (first[sorting.field] < second[sorting.field]) {
+            return -1 * direction
+          } else {
+            return 0
+          }
+        })
       } else {
         return data
       }

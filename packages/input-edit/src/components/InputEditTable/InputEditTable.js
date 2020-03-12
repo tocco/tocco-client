@@ -24,7 +24,7 @@ const InputEditTable = ({data, inputDataForm, inputEditForm, updateValue, sortin
     </thead>
     <tbody>
       {
-        Object.entries(data).map(([index, nodes]) =>
+        data.map((nodes, index) =>
           <tr key={index}>
             <TableCells index={index}
               nodes={nodes}
@@ -124,7 +124,7 @@ const InputCell = ({index, nodes, column, updateValue}) => {
 }
 
 InputEditTable.propTypes = {
-  data: PropTypes.object.isRequired,
+  data: PropTypes.array.isRequired,
   inputDataForm: PropTypes.shape({
     children: PropTypes.array
   }).isRequired,
@@ -135,7 +135,7 @@ InputEditTable.propTypes = {
 }
 
 TableCells.propTypes = {
-  index: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
   nodes: PropTypes.object.isRequired,
   dataFormCells: PropTypes.array.isRequired,
   inputEditForm: PropTypes.array.isRequired,
@@ -143,13 +143,13 @@ TableCells.propTypes = {
 }
 
 DataCell.propTypes = {
-  index: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
   nodes: PropTypes.object.isRequired,
   column: PropTypes.object.isRequired
 }
 
 InputCell.propTypes = {
-  index: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
   nodes: PropTypes.object.isRequired,
   column: PropTypes.object.isRequired,
   updateValue: PropTypes.func.isRequired
