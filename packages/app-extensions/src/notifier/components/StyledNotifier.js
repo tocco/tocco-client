@@ -1,4 +1,3 @@
-/* stylelint-disable no-descending-specificity */
 import {rgba, shade} from 'polished'
 import styled, {keyframes} from 'styled-components'
 import _get from 'lodash/get'
