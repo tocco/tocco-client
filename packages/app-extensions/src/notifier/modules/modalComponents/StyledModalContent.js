@@ -29,7 +29,7 @@ const StyledModalContent = styled.div.attrs({
     @media (min-width: ${modalWidth + gutterWidth}px) {
       left: 50%;                                        // reset: react-redux-toastr (confirm.scss)
       margin-left: ${Math.ceil(modalWidth / -2)}px;     // reset: react-redux-toastr (confirm.scss)
-      width: ${modalWidth}px;                           // reset: react-redux-toastr (confirm.scss)
+      width: ${modalWidth + gutterWidth}px;                           // reset: react-redux-toastr (confirm.scss)
     }
 
     // copy: react-redux-toastr (index.scss)
@@ -62,7 +62,7 @@ const StyledModalContent = styled.div.attrs({
       background: ${theme.color('paper')};
       padding-top: ${scale.space(0.5)};
       padding-bottom: ${scale.space(0.2)};
-      width: ${modalWidth}px;
+      width: ${modalWidth + gutterWidth}px;
       z-index: 1;
     }
 
