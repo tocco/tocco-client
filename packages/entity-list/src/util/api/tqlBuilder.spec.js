@@ -110,6 +110,26 @@ describe('entity-list', () => {
             expect(getTql('relXY', [{key: '23'}])).to.deep.eql('IN(relXY.pk,23)')
             expect(getTql('asd', 'test')).to.deep.eql('asd == "test"')
           })
+
+          test('should handle range values', () => {
+            const numberRange = getTql('age', {isRangeValue: true, from: 4, to: 20}, 'number')
+            expect(numberRange).to.deep.eql('age >= 4 and age <= 20')
+
+            const dateRange = getTql(
+              'birthdate',
+              {isRangeValue: true, from: '1988-01-01', to: '1988-12-31'},
+              'birthdate'
+            )
+            expect(dateRange).to.deep.eql('birthdate >= date:"1988-01-01" and birthdate <= date:"1988-12-31"')
+          })
+
+          test('should handle one sided range values', () => {
+            const numberRange = getTql('age', {isRangeValue: true, to: 20}, 'number')
+            expect(numberRange).to.deep.eql('age <= 20')
+
+            const dateRange = getTql('birthdate', {isRangeValue: true, from: '1988-01-01', to: null}, 'birthdate')
+            expect(dateRange).to.deep.eql('birthdate >= date:"1988-01-01"')
+          })
         })
       })
     })
