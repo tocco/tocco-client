@@ -6,8 +6,23 @@ export const getTql = (path, value, fieldType) => {
     return null
   }
 
-  return typeHandlers(fieldType || guessType(value))(path, value)
+  const isRangeValue = value && typeof value === 'object' && value.isRangeValue
+
+  const typeHandler = typeHandlers(fieldType || guessType(value))
+
+  if (isRangeValue) {
+    return handleRangeValue(value, typeHandler, path)
+  } else {
+    return typeHandler(path, value, '==')
+  }
 }
+
+const handleRangeValue = (value, typeHandler, path) => (
+  [
+    ...(value.from !== null && value.from !== undefined ? [typeHandler(path, value.from, '>=')] : []),
+    ...(value.to !== null && value.to !== undefined ? [typeHandler(path, value.to, '<=')] : [])
+  ].join(' and ')
+)
 
 const typeHandlers = type => {
   switch (type) {
@@ -22,15 +37,15 @@ const typeHandlers = type => {
     case 'birthdate':
     case 'date':
     case 'create_timestamp':
-      return (path, value) => `${path} == date:"${value}"`
+      return (path, value, comp) => `${path} ${comp} date:"${value}"`
     case 'datetime':
     case 'createts':
     case 'updatets':
-      return (path, value) => `${path} == datetime:"${moment(value).format('YYYY-MM-DD HH:mm')}"`
+      return (path, value, comp) => `${path} ${comp} datetime:"${moment(value).format('YYYY-MM-DD HH:mm')}"`
     case 'string':
-      return (path, value) => `${path} == "${value}"`
+      return (path, value, comp) => `${path} ${comp} "${value}"`
     default:
-      return (path, value) => `${path} == ${value}`
+      return (path, value, comp) => `${path} ${comp} ${value}`
   }
 }
 
