@@ -41,7 +41,7 @@ const NumberEdit = props => {
     fixedDecimalScale,
     suffix,
     prefix
-  } = props.options
+  } = props.options || {}
 
   const numberFormatOptions = {
     isAllowed: isAllowedValue(prePointDigits, postPointDigits, minValue, maxValue),
