@@ -36,13 +36,7 @@ export default {
   'percent': editableValueFactory('number'),
   'phone': editableValueFactory('phone'),
   'postcode': editableValueFactory('string'),
-  'pulldown-date': editableValueFactory('date-range'),
-  'range': {
-    number: editableValueFactory('number'),
-    counter: editableValueFactory('number'),
-    date: editableValueFactory('date-range'),
-    birthdate: editableValueFactory('date-range')
-  },
+  'pulldown-date': editableValueFactory('date'),
   'search-filter': editableValueFactory('search-filter'),
   'serial': editableValueFactory('string'),
   'single-remote-field': editableValueFactory('remote'),

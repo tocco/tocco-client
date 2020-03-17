@@ -1,5 +1,5 @@
 import React from 'react'
-import {EditableValue} from 'tocco-ui'
+import {EditableValue, Range} from 'tocco-ui'
 
 import typeEditable from './typeEditable'
 
@@ -18,15 +18,17 @@ const getOptions = (type, formField, modelField, formName, formData) =>
     ? typeEditable[type].getOptions({formField, modelField, formName, formData})
     : {}
 
-export default type => (formField, modelField, formName, value, info, events, formData) => {
+export default (type, range) => (formField, modelField, formName, value, info, events, formData) => {
   const formType = formField.dataType || formField.componentType
   const options = getOptions(formType, formField, modelField, formName, formData)
 
   events = getEvents(formType, formField, formName, formData, events)
   value = getValue(formType, formField, modelField, formName, formData, value)
 
+  const Component = range ? Range : EditableValue
+
   return (
-    <EditableValue
+    <Component
       type={type}
       events={events}
       value={value}
