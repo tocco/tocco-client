@@ -18,6 +18,7 @@ const StyledHtmlFormatter = styled(StyledSpan)`
       background: none !important; // nice2 reset
       font-size: 100% !important; // nice2 reset
       font-weight: ${theme.fontWeight('regular')} !important; // nice2 reset
+      padding-left: 0 !important; // nice2 reset
     }
 
     .label-danger {
