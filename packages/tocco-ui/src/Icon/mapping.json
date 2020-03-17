@@ -197,6 +197,13 @@
       "sso"
     ]
   },
+  "minus": {
+    "id": "far, minus",
+    "lib": "fa",
+    "tags": [
+      "remove"
+    ]
+  },
   "office": {
     "id": "office",
     "lib": "toc"
