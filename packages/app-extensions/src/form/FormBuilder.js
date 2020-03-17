@@ -169,7 +169,7 @@ const FormBuilder = props => {
       return null
     }
 
-    const key = `layoutcomponent-${field.id}-${field.layoutType}`
+    const key = `custom-component-${field.id}-${field.layoutType}`
     const component = props.componentMapping[field.componentType]
     const fieldName = field.id
     const modelField = props.model.paths[fieldName]
