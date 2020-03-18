@@ -29,15 +29,11 @@ EditableValue.propTypes = {
    */
   options: PropTypes.object,
   /**
-   * Function that get emitted on a value change, passing the new value as first argument
-   */
-  onChange: PropTypes.func,
-  /**
    * Id of element (for htmlFor)
    */
   id: PropTypes.string,
   /**
-   * Object of functions that gets assigned to the component. E.g. {onBlur: ()=>{}}
+   * Object of functions that gets assigned to the component. E.g. {onChange: v => {}, onBlur: () => {}}
    */
   events: PropTypes.objectOf(PropTypes.func),
   /**
