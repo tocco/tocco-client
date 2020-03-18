@@ -14,7 +14,18 @@ const REDUX_FORM_NAME = 'searchForm'
 
 const customMapping = {
   'fulltext-search': formField.editableValueFactory('string'),
-  'text': formField.editableValueFactory('string')
+  'text': formField.editableValueFactory('string'),
+  'birthdate': formField.editableValueFactory('date', true),
+  'date': formField.editableValueFactory('date', true),
+  'updatets': formField.editableValueFactory('datetime', true),
+  'createts': formField.editableValueFactory('datetime', true),
+  'datetime': formField.editableValueFactory('datetime', true),
+  'moneyamount': formField.editableValueFactory('number', true),
+  'percent': formField.editableValueFactory('number', true),
+  'long': formField.editableValueFactory('number', true),
+  'integer': formField.editableValueFactory('number', true),
+  'decimal': formField.editableValueFactory('number', true),
+  'counter': formField.editableValueFactory('number', true)
 }
 
 const BasicSearchForm = ({
