@@ -106,9 +106,11 @@
             "children": [
               {
                 "id": "birthdate",
-                "dataType": "range",
+                "label": null,
                 "componentType": "field",
-                "label": null
+                "path": "birthdate",
+                "dataType": "birthdate",
+                "defaultValue": null
               }
             ],
             "readonly": false,
@@ -122,7 +124,7 @@
             "children": [
               {
                 "id": "user_nr",
-                "dataType": "range",
+                "dataType": "number",
                 "componentType": "field",
                 "label": null
               }
