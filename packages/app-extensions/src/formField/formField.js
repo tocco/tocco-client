@@ -125,19 +125,11 @@ const ValueField = ({
   const typeSelector = formField.dataType ? 'dataType' : 'componentType'
   const type = formField[typeSelector]
 
-  let typeFactory = forceReadOnly(value) ? readOnlyMapping[type] : primaryMapping[type]
+  const typeFactory = forceReadOnly(value) ? readOnlyMapping[type] : primaryMapping[type]
 
   if (!typeFactory) {
     consoleLogger.log(`FormType '${formField.dataType}' not present in typeFactoryMap`)
     return <span/>
-  } else if (typeof typeFactory === 'object') {
-    typeFactory = typeFactory[modelField.type]
-    if (!typeFactory) {
-      consoleLogger.log(
-        `FormType '${formField.dataType}' not present in typeFactoryMap for model field type ${modelField.type}`
-      )
-      return <span/>
-    }
   }
 
   if (value && value.multi) {

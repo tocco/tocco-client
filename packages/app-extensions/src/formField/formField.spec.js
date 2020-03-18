@@ -44,50 +44,6 @@ describe('app-extensions', () => {
         expect(wrapper.find(StatedValue)).to.have.length(1)
         expect(wrapper.find(EditableValue)).to.have.length(1)
       })
-
-      test('should return a StatedValue with correct EditableValue', () => {
-        const mapping = {
-          range: {
-            date: editableValueFactory('date-range'),
-            birthdate: editableValueFactory('date-range')
-          }
-        }
-
-        const formDefinitionField = {
-          name: 'range',
-          dataType: 'range',
-          children: [],
-          label: 'range'
-        }
-
-        const modelField = {
-          type: 'date'
-        }
-        const formFieldData = {
-          formDefinitionField,
-          modelField
-        }
-        const formField = formFieldFactory(mapping, mapping, formFieldData)
-
-        const store = createStore(() => ({
-          formData: {
-            relationEntities: {data: {}},
-            tooltips: {data: {}}
-          },
-          form: {
-            detailForm: {}
-          }
-        }))
-
-        const wrapper = intlEnzyme.mountWithIntl(
-          <Provider store={store}>
-            {formField}
-          </Provider>
-        )
-
-        expect(wrapper.find(StatedValue)).to.have.length(1)
-        expect(wrapper.find(EditableValue)).to.have.length(1)
-      })
     })
   })
 })
