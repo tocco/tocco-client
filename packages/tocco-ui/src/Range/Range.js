@@ -4,6 +4,7 @@ import React from 'react'
 import StyledRange from './StyledRange'
 import EditableValue from '../EditableValue'
 import Ball from '../Ball'
+import Typography from '../Typography'
 
 /**
  * Allows to render EditableValues as a range. The value can be switched between a range or single value.
@@ -31,13 +32,13 @@ const Range = props => {
       {!hasRangeValue
         ? <EditableValue {...props} events={{...events, onChange: v => handleExactChange(v)}}/>
         : <div className="input">
-          <div>from</div>
+          <Typography.Span>{props.fromText}</Typography.Span>
           <EditableValue {...props} value={value && value.from ? value.from : null} events={{
             onChange: v => {
               handleRangeChange({from: v})
             }
           }}/>
-          <div>to</div>
+          <Typography.Span>{props.toText}</Typography.Span>
           <EditableValue {...props} value={value && value.to ? value.to : null} events={{
             onChange: v => {
               handleRangeChange({to: v})
@@ -86,7 +87,15 @@ Range.propTypes = {
   /**
    * See EditableValue
    */
-  options: PropTypes.object
+  options: PropTypes.object,
+  /**
+   * Shown above "from" input
+   */
+  fromText: PropTypes.string,
+  /**
+   * Shown above "to" input
+   */
+  toText: PropTypes.string
 }
 
 export default Range

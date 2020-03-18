@@ -20,6 +20,8 @@ storiesOf('Tocco-UI | Range ', module)
             action('changed')(v)
           }
         }}
+        fromText="from"
+        toText="to"
       />
     }
   )
@@ -28,6 +30,8 @@ storiesOf('Tocco-UI | Range ', module)
     () => {
       const [value, setValue] = useState(50)
       return <Range
+        fromText="from"
+        toText="to"
         type="number"
         value={value}
         options={{
