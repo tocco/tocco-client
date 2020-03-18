@@ -75,6 +75,10 @@ const StyledStatedValueLabel = styled.label`
     ${props => transformLabel(props)}
     ${props => declareCursor(props)}
     pointer-events: ${props => props.secondaryPosition ? 'auto' : 'none'};
+
+    span {
+      white-space: nowrap;
+    }
   }
 `
 

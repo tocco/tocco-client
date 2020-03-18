@@ -97,7 +97,7 @@ describe('tocco-ui', () => {
         />)
       const el1 = wrapper1.find(StyledStatedValueLabel)
       expect(el1).to.have.length(1)
-      expect(el1.prop('alt')).to.be.equal('firstname')
+      expect(el1.prop('title')).to.be.equal('firstname')
 
       const wrapper2 = mount(
         <StatedValue
@@ -107,7 +107,7 @@ describe('tocco-ui', () => {
         />)
       const el2 = wrapper2.find(StyledStatedValueLabel)
       expect(el2).to.have.length(1)
-      expect(el2.prop('alt')).to.be.equal('lastname, input is required')
+      expect(el2.prop('title')).to.be.equal('lastname, input is required')
     })
 
     test('should extend label if mandatory', () => {
