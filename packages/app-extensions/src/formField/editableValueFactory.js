@@ -34,6 +34,10 @@ export default (type, range) => (formField, modelField, formName, value, info, e
       value={value}
       {...info}
       options={options}
+      {...(range && {
+        fromText: formData.intl.formatMessage({id: 'client.component.range.from'}),
+        toText: formData.intl.formatMessage({id: 'client.component.range.to'})
+      })}
     />
   )
 }
