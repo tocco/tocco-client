@@ -108,6 +108,7 @@ const StyledImg = styled.img`
 
 const StyledSsoMsg = styled(StyledSpan)`
   && {
+    display: inline-block;
     text-align: center;
     font-weight: ${theme.fontWeight('bold')};
     width: 100%;
