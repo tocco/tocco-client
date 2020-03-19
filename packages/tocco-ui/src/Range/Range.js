@@ -1,10 +1,30 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, {useMemo} from 'react'
 
 import StyledRange from './StyledRange'
 import EditableValue from '../EditableValue'
 import Ball from '../Ball'
 import Typography from '../Typography'
+
+const getToOptions = (type, options, fromValue) => {
+  switch (type) {
+    case 'date':
+    case 'datetime':
+      return {...options, flatpickrOptions: {minDate: fromValue}}
+    default:
+      return options
+  }
+}
+
+const getFromOptions = (type, options, toValue) => {
+  switch (type) {
+    case 'date':
+    case 'datetime':
+      return {...options, flatpickrOptions: {maxDate: toValue}}
+    default:
+      return options
+  }
+}
 
 /**
  * Allows to render EditableValues as a range. The value can be switched between a range or single value.
@@ -13,37 +33,55 @@ const Range = props => {
   const {value, events, readOnly} = props
   const hasRangeValue = typeof value === 'object' && value && value.isRangeValue
 
-  const handleExactChange = v => {
-    events.onChange(v)
-  }
+  const exactEvents = useMemo(() => ({
+    ...events,
+    onChange: value => {
+      events.onChange(value)
+    }
+  }))
 
-  const handleRangeChange = newValue => {
-    events.onChange({
-      isRangeValue: true,
-      ...value,
-      ...newValue
-    })
-  }
+  const toEvents = useMemo(() => ({
+    onChange: toValue => {
+      events.onChange({
+        ...value,
+        to: toValue
+      })
+    }
+  }))
+
+  const fromEvents = useMemo(() => ({
+    onChange: fromValue => {
+      events.onChange({
+        ...value,
+        from: fromValue
+      })
+    }
+  }))
 
   const getFromOrTo = value => value && value.to ? value.to : value && value.from ? value.from : null
 
   return <StyledRange>
     <div>
       {!hasRangeValue
-        ? <EditableValue {...props} events={{...events, onChange: v => handleExactChange(v)}}/>
+        ? <EditableValue
+          {...props}
+          events={exactEvents}
+        />
         : <div className="input">
           <Typography.Span>{props.fromText}</Typography.Span>
-          <EditableValue {...props} value={value && value.from ? value.from : null} events={{
-            onChange: v => {
-              handleRangeChange({from: v})
-            }
-          }}/>
+          <EditableValue
+            {...props}
+            options={getFromOptions(props.type, props.options, value.to)}
+            value={value && value.from ? value.from : null}
+            events={fromEvents}
+          />
           <Typography.Span>{props.toText}</Typography.Span>
-          <EditableValue {...props} value={value && value.to ? value.to : null} events={{
-            onChange: v => {
-              handleRangeChange({to: v})
-            }
-          }}/>
+          <EditableValue
+            {...props}
+            options={getToOptions(props.type, props.options, value.from)}
+            value={value && value.to ? value.to : null}
+            events={toEvents}
+          />
         </div>}
     </div>
     <div className="extender">
