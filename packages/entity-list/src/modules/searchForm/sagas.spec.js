@@ -119,34 +119,26 @@ describe('entity-list', () => {
 
         describe('submitSearchFrom saga', () => {
           test('should call executeSearch if no validation error occures', () => {
-            const FORM_ID = 'searchForm'
-
             const values = {firstname: 'a'}
             const formDefinition = {}
             const gen = sagas.submitSearchFrom()
-            expect(gen.next().value).to.eql(put(formActions.startSubmit(FORM_ID)))
             gen.next() // Function call not testable: expect(gen.next().value).to.eql(select(getFormValues(FORM_ID)))
             expect(gen.next(values).value).to.eql(select(sagas.searchFormSelector))
             expect(gen.next({formDefinition}).value).to.eql(call(validateSearchFields, values, formDefinition))
             const errors = {}
-            expect(gen.next(errors).value).to.eql(put(formActions.stopSubmit(FORM_ID, errors)))
-            expect(gen.next().value).to.eql(put(actions.executeSearch()))
+            expect(gen.next(errors).value).to.eql(put(actions.executeSearch()))
             expect(gen.next().done).to.be.true
           })
 
           test('should not call executeSearch if validation error occures', () => {
-            const FORM_ID = 'searchForm'
-
             const values = {firstname: 'a'}
             const formDefinition = {}
             const gen = sagas.submitSearchFrom()
-            expect(gen.next().value).to.eql(put(formActions.startSubmit(FORM_ID)))
             gen.next() // Function call not testable: expect(gen.next().value).to.eql(select(getFormValues(FORM_ID)))
             expect(gen.next(values).value).to.eql(select(sagas.searchFormSelector))
             expect(gen.next({formDefinition}).value).to.eql(call(validateSearchFields, values, formDefinition))
             const errors = {firstname: {minLength: ['to short!']}}
-            expect(gen.next(errors).value).to.eql(put(formActions.stopSubmit(FORM_ID, errors)))
-            expect(gen.next().done).to.be.true
+            expect(gen.next(errors).done).to.be.true
           })
         })
 
