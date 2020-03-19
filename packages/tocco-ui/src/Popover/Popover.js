@@ -60,7 +60,6 @@ class Popover extends React.Component {
       {this.state.showToolTip && content
       && ReactDOM.createPortal(
         <Popper
-          modifiers={{preventOverflow: {enabled: false}}}
           placement={placement}
         >
           {({ref, style, placement, arrowProps}) => (
@@ -83,7 +82,7 @@ class Popover extends React.Component {
             </StyledBoxWrapper>
           )}
         </Popper>
-        , document.querySelector('body'))}
+        , document.body)}
     </Manager>
   }
 }

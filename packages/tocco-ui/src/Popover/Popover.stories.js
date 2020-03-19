@@ -13,7 +13,7 @@ storiesOf('Tocco-UI | Popover', module)
     'Popover',
     () =>
       <Popover
-        content={<span>Popover <img src="https://picsum.photos/200/200" width="200" height="200"/></span>}
+        content={<span><p>Popover</p><img src="https://picsum.photos/200/200" width="200" height="200"/></span>}
         rimless={boolean('rimless', true)}
         isPlainHtml={boolean('isPlainHtml', true)}
         spacer={number('spacer', 10)}
