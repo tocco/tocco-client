@@ -101,11 +101,9 @@ export function* transformFieldNames(formValues) {
 }
 
 export function* submitSearchFrom() {
-  yield put(formActions.startSubmit(FORM_ID))
   const values = yield select(getFormValues(FORM_ID))
   const {formDefinition} = yield select(searchFormSelector)
   const errors = yield call(validateSearchFields, values, formDefinition)
-  yield put(formActions.stopSubmit(FORM_ID, errors))
 
   if (Object.keys(errors).length === 0) {
     yield put(actions.executeSearch())
