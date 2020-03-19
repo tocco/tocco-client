@@ -4,7 +4,7 @@ import {Button} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
 import uuid from 'uuid/v4'
 
-import {StyledAdvancedSearch, StyledAdvancedSearchButtonWrapper} from './StyledAdvancedSearch'
+import {StyledAdvancedSearch} from './StyledAdvancedSearch'
 
 const AdvancedSearch = props =>
   <StyledAdvancedSearch>
@@ -22,11 +22,11 @@ const AdvancedSearch = props =>
       selectOnRowClick={true}
       disableSelectionController={true}
     />
-    <StyledAdvancedSearchButtonWrapper>
+    <div className="advanced-search-button-wrapper">
       <Button look="raised" onClick={props.onOkClick}>
         <FormattedMessage id="client.common.ok"/>
       </Button>
-    </StyledAdvancedSearchButtonWrapper>
+    </div>
   </StyledAdvancedSearch>
 
 AdvancedSearch.propTypes = {

@@ -15,7 +15,7 @@ import {
   transformValues,
   submitActions
 } from '../utils/report'
-import StyledReportSettings, {StyledButtonWrapper} from './StyledReportSettings'
+import StyledReportSettings from './StyledReportSettings'
 
 export class ReportSettings extends React.Component {
   constructor(props) {
@@ -68,7 +68,7 @@ export class ReportSettings extends React.Component {
           onChange={({values, valid}) => { this.handleCustomSettingsChange(values, valid) }}
         />
         }
-        <StyledButtonWrapper>
+        <div className="button-wrapper">
           {download.downloadSupportedByBrowser()
           && <Button
             ink="primary"
@@ -88,7 +88,7 @@ export class ReportSettings extends React.Component {
           >
             <FormattedMessage id="client.common.report.display"/>
           </Button>
-        </StyledButtonWrapper>
+        </div>
       </StyledReportSettings>
     )
   }
