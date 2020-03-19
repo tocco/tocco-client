@@ -8,7 +8,6 @@ import MultiSelect from './typeEditors/MultiSelect'
 import StringEdit from './typeEditors/StringEdit'
 import TextEdit from './typeEditors/TextEdit'
 import DateEdit from './typeEditors/DateEdit'
-import DateRangeEdit from './typeEditors/DateRangeEdit'
 import DateTimeEdit from './typeEditors/DateTimeEdit'
 import TimeEdit from './typeEditors/TimeEdit'
 import BoolEdit from './typeEditors/BoolEdit'
@@ -26,7 +25,6 @@ import LocationEdit from './typeEditors/LocationEdit'
 export const map = {
   'boolean': BoolEdit,
   'date': DateEdit,
-  'date-range': DateRangeEdit,
   'datetime': DateTimeEdit,
   'document': Document,
   'duration': DurationEdit,

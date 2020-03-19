@@ -67,14 +67,6 @@ storiesOf('Tocco-UI | EditableValue', module)
         defaultValue={'2019-12-18'}
       />
   ).add(
-    'Date-Range',
-    () =>
-      <EditableValueStory
-        type="date-range"
-        knobType={object}
-        defaultValue={{from: '2019-12-21', to: '2019-12-23'}}
-      />
-  ).add(
     'Datetime',
     () =>
       <EditableValueStory
