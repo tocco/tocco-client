@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {injectIntl, intlShape} from 'react-intl'
 import _isEqual from 'lodash/isEqual'
 import {withTheme} from 'styled-components'
+import {js} from 'tocco-util'
 
 import {theme} from '../../utilStyles'
 import Ball from '../../Ball'
@@ -83,13 +84,14 @@ class DateAbstract extends React.Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.Flatpickr && this.flatpickr) {
-      if (!_isEqual(
-        prevProps.options.flatpickrOptions.altFormat,
-        this.props.options.flatpickrOptions.altFormat
-      )) {
-        this.flatpickr.set('altFormat', this.props.options.flatpickrOptions.altFormat)
+      const optionsDiff = js.difference(this.props.options.flatpickrOptions, prevProps.options.flatpickrOptions)
+      if (Object.keys(optionsDiff).length > 0) {
+        Object.entries(optionsDiff).forEach(([key, value]) => {
+          this.flatpickr.set(key, value)
+        })
         this.flatpickr.redraw()
       }
+
       if (!_isEqual(prevProps.intl.locale, this.props.intl.locale)) {
         const locale = this.getLocale(this.props.intl.locale)
         this.Flatpickr.localize(locale)
