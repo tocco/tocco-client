@@ -14,7 +14,7 @@ const basePadding = scale.space(0.5)
 const StyledModalContent = styled.div.attrs({
   className: props => `rrt-confirm animated ${props.isClosing ? 'fadeOut' : 'fadeIn'}`
 })`
-   &&& {
+  &&& {
     background-color: ${theme.color('paper')};          // reset: react-redux-toastr (confirm.scss)
     border-radius: 0;           // reset: react-redux-toastr (confirm.scss)
     box-shadow: 2px 2px 10px rgba(0, 0, 0, .4);         // reset: react-redux-toastr (confirm.scss)
@@ -61,7 +61,8 @@ const StyledModalContent = styled.div.attrs({
       }
     }
 
-    .title-wrapper, .advanced-search-button-wrapper {
+    .title-wrapper,
+    .advanced-search-button-wrapper {
       box-sizing: border-box;
       background: ${theme.color('paper')};
       padding-top: ${basePadding};
