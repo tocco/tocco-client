@@ -18,7 +18,7 @@ export default {
       },
       success: {
         paper: '#A5D6A7', // Green 200
-        text: '#1B5E20' // Green 900
+        text: '#388E3C' // Green 700
       },
       warning: {
         paper: '#FFF59D', // Yellow 200
