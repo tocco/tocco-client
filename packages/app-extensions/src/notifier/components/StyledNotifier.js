@@ -45,6 +45,65 @@ const fadeIn = keyframes`
 
 const StyledNotifier = styled.div`
   && {
+    .redux-toastr {
+      .toastr {
+        background-color: ${props =>
+        shadeColor(_get(props.theme, 'colors.paper'), 1)};  // reset: react-redux-toastr (index.scss)
+        color: ${props => theme.color('text')};  // reset: react-redux-toastr (index.scss)
+
+        .toastr-status {
+          &.success {
+            background-color: ${theme.color('signal.success.paper')};  // reset: react-redux-toastr (index.scss)
+          }
+
+          &.warning {
+            background-color: ${theme.color('signal.warning.paper')};  // reset: react-redux-toastr (index.scss)
+          }
+
+          &.info {
+            background-color: ${props =>
+            shadeColor(_get(props.theme, 'colors.paper'), 1)};  // reset: react-redux-toastr (index.scss)
+          }
+
+          &.error {
+            background-color: ${theme.color('signal.danger.paper')}; // reset: react-redux-toastr (index.scss)
+          }
+        }
+
+        &.rrt-info,
+        &.rrt-success,
+        &.rrt-warning,
+        &.rrt-error {
+          color: ${theme.color('text')};  // reset: react-redux-toastr (index.scss)
+
+          .rrt-progressbar {
+            background-color: rgba(0, 0, 0, .3);  // reset: react-redux-toastr (index.scss)
+          }
+        }
+
+        &.rrt-info {
+          background-color: ${props =>
+          shadeColor(_get(props.theme, 'colors.paper'), 1)};  // reset: react-redux-toastr (index.scss)
+        }
+
+        &.rrt-success {
+          background-color: ${theme.color('signal.success.paper')};  // reset: react-redux-toastr (index.scss)
+        }
+
+        &.rrt-warning {
+          background-color: ${theme.color('signal.warning.paper')};  // reset: react-redux-toastr (index.scss)
+        }
+
+        &.rrt-error {
+          background-color: ${theme.color('signal.danger.paper')};  // reset: react-redux-toastr (index.scss)
+        }
+
+        .rrt-holder {
+          opacity: .9;
+        }
+      }
+    }
+
     .redux-toastr,
     .tocco-notifier {
       font-size: 16px;  // reset: nice (body in scaffolding.less)
@@ -140,65 +199,6 @@ const StyledNotifier = styled.div`
 
       .rrt-confirm-holder {
         z-index: 100000000;  // reset: react-redux-toastr (index.scss) - Stacking: Toaster > Modal > Blocker
-      }
-    }
-
-    .redux-toastr {
-      .toastr {
-        background-color: ${props =>
-        shadeColor(_get(props.theme, 'colors.paper'), 1)};  // reset: react-redux-toastr (index.scss)
-        color: ${props => theme.color('text')};  // reset: react-redux-toastr (index.scss)
-
-        .toastr-status {
-          &.success {
-            background-color: ${theme.color('signal.success.paper')};  // reset: react-redux-toastr (index.scss)
-          }
-
-          &.warning {
-            background-color: ${theme.color('signal.warning.paper')};  // reset: react-redux-toastr (index.scss)
-          }
-
-          &.info {
-            background-color: ${props =>
-            shadeColor(_get(props.theme, 'colors.paper'), 1)};  // reset: react-redux-toastr (index.scss)
-          }
-
-          &.error {
-            background-color: ${theme.color('signal.danger.paper')}; // reset: react-redux-toastr (index.scss)
-          }
-        }
-
-        &.rrt-info,
-        &.rrt-success,
-        &.rrt-warning,
-        &.rrt-error {
-          color: ${theme.color('text')};  // reset: react-redux-toastr (index.scss)
-
-          .rrt-progressbar {
-            background-color: rgba(0, 0, 0, .3);  // reset: react-redux-toastr (index.scss)
-          }
-        }
-
-        &.rrt-info {
-          background-color: ${props =>
-          shadeColor(_get(props.theme, 'colors.paper'), 1)};  // reset: react-redux-toastr (index.scss)
-        }
-
-        &.rrt-success {
-          background-color: ${theme.color('signal.success.paper')};  // reset: react-redux-toastr (index.scss)
-        }
-
-        &.rrt-warning {
-          background-color: ${theme.color('signal.warning.paper')};  // reset: react-redux-toastr (index.scss)
-        }
-
-        &.rrt-error {
-          background-color: ${theme.color('signal.danger.paper')};  // reset: react-redux-toastr (index.scss)
-        }
-
-        .rrt-holder {
-          opacity: .9;
-        }
       }
     }
 
