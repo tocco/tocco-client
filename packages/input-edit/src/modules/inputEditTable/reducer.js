@@ -13,14 +13,14 @@ const setValue = (state, action) => {
   const {inputDataKey, node, value} = action.payload
   return {
     ...state,
-    data: state.data.reduce((val, acc) => {
-      if (acc.pk === inputDataKey) {
-        return [...val, {
-          ...acc,
+    data: state.data.reduce((acc, val) => {
+      if (val.pk === inputDataKey) {
+        return [...acc, {
+          ...val,
           [node]: value
         }]
       }
-      return [...val, acc]
+      return [...acc, val]
     }, [])
   }
 }
