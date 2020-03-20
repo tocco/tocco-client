@@ -24,6 +24,7 @@ cache:
     - packages/tocco-util/node_modules
     - .eslintcache
     - .jestcache
+    - .stylelintcache
 
 install:
   - yarn setup --frozen-lockfile
