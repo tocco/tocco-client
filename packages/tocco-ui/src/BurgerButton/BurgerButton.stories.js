@@ -9,8 +9,8 @@ storiesOf('Tocco-UI | Burger Button', module)
   .add(
     'Size Knob',
     () => <BurgerButton
-      height={40}
-      width={20}
+      size="20"
+      color="fuchsia"
       isOpen={boolean('open')}
     />
   )

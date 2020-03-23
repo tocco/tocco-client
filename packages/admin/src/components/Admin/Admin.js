@@ -70,7 +70,7 @@ const Admin = ({
             isOpen={menuOpen}
             onStateChange={isMenuOpen}
             customCrossIcon={false}
-            customBurgerIcon={<BurgerButton isOpen={menuOpen} size={20} color={theme.colors.paper}/>}
+            customBurgerIcon={<BurgerButton isOpen={menuOpen} size="20" color={theme.colors.paper}/>}
             styles={burgerMenuStyles}
             pageWrapId={'page-wrap'}
             outerContainerId={'outer-container'}>
