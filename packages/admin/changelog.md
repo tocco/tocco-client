@@ -1,3 +1,9 @@
+0.2.4
+- Panel animation refactoring
+- Animate burger icon
+- Fix &shy; in label
+- Improve modal ux
+
 0.2.3
 - Backend: Send searchform values with tql
 - Minimize login form dimensions
