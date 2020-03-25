@@ -9,20 +9,20 @@ export default {
     backgroundBreadcrumbs: '#DEE6ED',
     signal: {
       danger: {
-        paper: '#EF9A9A', // Red 200
-        text: '#B71C1C' // Red 900
+        paper: '#EF9A9A',
+        text: '#B71C1C'
       },
       info: {
-        paper: '#81D4FA', // Light Blue 200
-        text: '#0288D1' // Light Blue 700
+        paper: '#81D4FA',
+        text: '#0288D1'
       },
       success: {
-        paper: '#A5D6A7', // Green 200
-        text: '#388E3C' // Green 700
+        paper: '#A5D6A7',
+        text: '#388E3C'
       },
       warning: {
-        paper: '#FFF59D', // Yellow 200
-        text: '#F57F17' // Yellow 900
+        paper: '#FFF59D',
+        text: '#F57F17'
       }
     }
   },
