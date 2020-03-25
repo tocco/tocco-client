@@ -17,10 +17,10 @@ describe('tocco-ui', () => {
     test('should call onChange(\'checked\') on status unchecked', () => {
       const cb = sinon.spy()
       const wrapper = mount(
-        <MultiCheckbox onChange={cb} />
+        <MultiCheckbox value="unchecked" onChange={cb} />
       )
-      wrapper.find('input').simulate('change')
-      expect(cb).to.have.property('callCount', 1)
+      wrapper.find('input').simulate('change', {target: {checked: true}})
+      expect(cb).to.be.calledOnce
       expect(cb).to.have.been.calledWith('checked')
     })
 
@@ -28,12 +28,12 @@ describe('tocco-ui', () => {
       const cb = sinon.spy()
       const wrapper = mount(
         <MultiCheckbox
-          status="checked"
+          value="checked"
           onChange={cb}
         />
       )
-      wrapper.find('input').simulate('change')
-      expect(cb).to.have.property('callCount', 1)
+      wrapper.find('input').simulate('change', {target: {checked: false}})
+      expect(cb).to.be.calledOnce
       expect(cb).to.have.been.calledWith('unchecked')
     })
 
@@ -41,41 +41,13 @@ describe('tocco-ui', () => {
       const cb = sinon.spy()
       const wrapper = mount(
         <MultiCheckbox
-          status="indeterminate"
+          value="indeterminate"
           onChange={cb}
         />
       )
-      wrapper.find('input').simulate('change')
-      expect(cb).to.have.property('callCount', 1)
+      wrapper.find('input').simulate('change', {target: {checked: false}})
+      expect(cb).to.be.calledOnce
       expect(cb).to.have.been.calledWith('unchecked')
-    })
-
-    test('should change states correctly', () => {
-      const cb = sinon.spy()
-      const wrapper = mount(
-        <MultiCheckbox
-          status="indeterminate"
-          onChange={cb}
-        />
-      )
-      expect(wrapper.state().status).to.equal('indeterminate')
-      expect(wrapper.getDOMNode()).to.have.property('checked', true)
-      expect(wrapper.getDOMNode()).to.have.property('indeterminate', true)
-
-      wrapper.find('input').simulate('change')
-      expect(wrapper.state().status).to.be.false
-      expect(wrapper.getDOMNode()).to.have.property('checked', false)
-      expect(wrapper.getDOMNode()).to.have.property('indeterminate', false)
-
-      wrapper.find('input').simulate('change')
-      expect(wrapper.state().status).to.equal('checked')
-      expect(wrapper.getDOMNode()).to.have.property('checked', true)
-      expect(wrapper.getDOMNode()).to.have.property('indeterminate', false)
-
-      wrapper.find('input').simulate('change')
-      expect(wrapper.state().status).to.be.false
-      expect(wrapper.getDOMNode()).to.have.property('checked', false)
-      expect(wrapper.getDOMNode()).to.have.property('indeterminate', false)
     })
   })
 })
