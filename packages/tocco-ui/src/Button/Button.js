@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import Icon from '../Icon'
-import IconTocco from '../LoadingSpinner'
+import LoadingSpinner from '../LoadingSpinner'
 import StyledButton from './StyledButton'
 import {design} from '../utilStyles'
 
@@ -19,7 +19,7 @@ const Button = props => {
     {props.icon && !props.pending && <Icon
       icon={props.icon}
     />}
-    {props.pending && <IconTocco
+    {props.pending && <LoadingSpinner
       ink={props.ink || design.ink.BASE}
       look={props.look}
       position={props.iconPosition}

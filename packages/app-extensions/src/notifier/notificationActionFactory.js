@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {actions as toastrActions} from 'react-redux-toastr'
 import uuid from 'uuid/v4'
-import {Icon, IconTocco} from 'tocco-ui'
+import {Icon, LoadingSpinner} from 'tocco-ui'
 
 import {modalComponent} from './modules/actions'
 import ModalButtons from './modules/modalComponents/ModalButtons'
@@ -116,7 +116,7 @@ export function getBlockingInfo(id, title, message) {
   const options = {
     attention: true,
     component: () => <TitleMessage title={title} message={message}/>,
-    icon: <IconTocco size="3em" />,
+    icon: <LoadingSpinner size="3em" />,
     onAttentionClick: () => {},
     preventDuplicates: true,
     showCloseButton: false,

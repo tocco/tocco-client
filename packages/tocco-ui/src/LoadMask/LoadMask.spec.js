@@ -2,7 +2,7 @@ import React from 'react'
 import {shallow, mount} from 'enzyme'
 
 import LoadMask from './LoadMask'
-import IconTocco from '../LoadingSpinner'
+import LoadingSpinner from '../LoadingSpinner'
 import Typography from '../Typography'
 
 describe('tocco-ui', () => {
@@ -14,17 +14,17 @@ describe('tocco-ui', () => {
         />
       )
 
-      expect(wrapper.find(IconTocco)).to.have.length(1)
+      expect(wrapper.find(LoadingSpinner)).to.have.length(1)
       wrapper.setProps({required: [{}, undefined]})
-      expect(wrapper.find(IconTocco)).to.have.length(1)
+      expect(wrapper.find(LoadingSpinner)).to.have.length(1)
       wrapper.setProps({required: [false]})
-      expect(wrapper.find(IconTocco)).to.have.length(1)
+      expect(wrapper.find(LoadingSpinner)).to.have.length(1)
       wrapper.setProps({required: [null]})
-      expect(wrapper.find(IconTocco)).to.have.length(1)
+      expect(wrapper.find(LoadingSpinner)).to.have.length(1)
 
       wrapper.setProps({required: [{}, {}]})
       wrapper.update()
-      expect(wrapper.find(IconTocco)).to.have.length(0)
+      expect(wrapper.find(LoadingSpinner)).to.have.length(0)
     })
 
     test('shows children if loaded', () => {
@@ -47,7 +47,7 @@ describe('tocco-ui', () => {
         />
       )
 
-      expect(wrapper.find(IconTocco)).to.have.length(1)
+      expect(wrapper.find(LoadingSpinner)).to.have.length(1)
       done()
     })
 

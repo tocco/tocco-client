@@ -1,4 +1,4 @@
-import {IconTocco} from 'tocco-ui'
+import {LoadingSpinner} from 'tocco-ui'
 
 import {getInfoAction, getConfirmationAction, getYesNoAction, getBlockingInfo} from './notificationActionFactory'
 
@@ -130,7 +130,7 @@ describe('app-extensions', () => {
 
       test('should display default icon', () => {
         const action = getBlockingInfo('id', 'title', 'message')
-        expect(action.payload.options.icon.type).to.equal(IconTocco)
+        expect(action.payload.options.icon.type).to.equal(LoadingSpinner)
       })
     })
   })

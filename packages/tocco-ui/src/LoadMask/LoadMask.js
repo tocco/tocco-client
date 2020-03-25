@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import IconTocco from '../LoadingSpinner'
+import LoadingSpinner from '../LoadingSpinner'
 import Typography from '../Typography'
 import StyledLoadMask from './StyledLoadMask'
 
@@ -54,7 +54,7 @@ class LoadMask extends React.Component {
 
   render() {
     const loadingIconAndText = [
-      <IconTocco key="IconTocco" size="30px" />
+      <LoadingSpinner key="loading-spinner" size="30px" />
     ]
 
     if (this.props.loadingText) {
