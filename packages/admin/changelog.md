@@ -1,3 +1,8 @@
+0.2.5
+- Component type fix
+- Fix burger button
+- Adapt success color for better readability
+
 0.2.4
 - Panel animation refactoring
 - Animate burger icon
