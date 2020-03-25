@@ -30,8 +30,8 @@ export const burgerMenuStyles = {
     outline: '0',
     width: '24px',
     height: '24px',
-    left: '13px',
-    top: '13px'
+    left: '10px',
+    top: '10px'
   },
   bmBurgerBarsHover: {
     background: '#a90000'

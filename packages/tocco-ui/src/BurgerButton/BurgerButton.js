@@ -55,16 +55,16 @@ const BurgerButton = ({isOpen, size = '20', color}) => {
       <motion.line
         x1="0"
         x2="6"
-        y1="0"
-        y2="0"
+        y1="1"
+        y2="1"
         variants={top}
         {...lineProps}
       />
       <motion.line
         x1="0"
         x2="6"
-        y1="2"
-        y2="2"
+        y1="3"
+        y2="3"
         variants={center}
         {...lineProps}
         transition={{ease: 'easeOut', duration: 0.1}}
@@ -72,8 +72,8 @@ const BurgerButton = ({isOpen, size = '20', color}) => {
       <motion.line
         x1="0"
         x2="6"
-        y1="4"
-        y2="4"
+        y1="5"
+        y2="5"
         variants={bottom}
         {...lineProps}
       />
