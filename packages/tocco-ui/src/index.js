@@ -83,3 +83,4 @@ export {
 
 export {default as DatePicker} from './DatePicker'
 export {default as BurgerButton} from './BurgerButton'
+export {default as Pagination} from './Pagination'
