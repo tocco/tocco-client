@@ -3,7 +3,7 @@ import React from 'react'
 
 import Preview from '../Preview'
 import {bytesToSize} from './helpers'
-import IconTocco from '../LoadingSpinner'
+import LoadingSpinner from '../LoadingSpinner'
 import {design} from '../utilStyles'
 import {
   StyledUploadProgress,
@@ -21,7 +21,7 @@ const UploadProgress = props => (
       thumbnailUrl={props.file.type.startsWith('image') ? props.file.preview : null}
     />
     <StyledUploadProgressIconAndText>
-      <IconTocco position={design.position.PREPEND}/>
+      <LoadingSpinner position={design.position.PREPEND}/>
       <StyledUploadProgressText>{props.text || 'uploading'} ({bytesToSize(props.file.size)})</StyledUploadProgressText>
     </StyledUploadProgressIconAndText>
   </StyledUploadProgress>

@@ -2,7 +2,7 @@ import {enzymeUtil} from 'tocco-test-util'
 import React from 'react'
 
 import Icon from '../Icon'
-import IconTocco from '../LoadingSpinner'
+import LoadingSpinner from '../LoadingSpinner'
 import Button from './Button'
 
 describe('tocco-ui', () => {
@@ -38,13 +38,13 @@ describe('tocco-ui', () => {
 
     test('should show pending spinner', () => {
       let wrapper = enzymeUtil.mountEmbedded(<Button/>)
-      expect(wrapper.find(IconTocco)).to.have.length(0)
+      expect(wrapper.find(LoadingSpinner)).to.have.length(0)
 
       wrapper = enzymeUtil.mountEmbedded(<Button pending={false}/>)
-      expect(wrapper.find(IconTocco)).to.have.length(0)
+      expect(wrapper.find(LoadingSpinner)).to.have.length(0)
 
       wrapper = enzymeUtil.mountEmbedded(<Button pending/>)
-      expect(wrapper.find(IconTocco)).to.have.length(1)
+      expect(wrapper.find(LoadingSpinner)).to.have.length(1)
     })
 
     test('should show icon', () => {

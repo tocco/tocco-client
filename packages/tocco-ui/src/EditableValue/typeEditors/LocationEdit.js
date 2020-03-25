@@ -4,7 +4,7 @@ import Autosuggest from 'react-autosuggest'
 import FocusWithin from 'react-simple-focus-within'
 
 import Link from '../../Link'
-import IconTocco from '../../LoadingSpinner'
+import LoadingSpinner from '../../LoadingSpinner'
 import Typography from '../../Typography'
 import {StyledEditableControl} from '../StyledEditableValue'
 import {StyledLocationEdit} from './StyledLocationEdit'
@@ -94,7 +94,7 @@ class LocationEdit extends React.Component {
               shouldRenderSuggestions={v => v && !this.props.immutable}
             />
             <StyledEditableControl>
-              {this.props.options.isLoading && <IconTocco size="1.8rem"/>}
+              {this.props.options.isLoading && <LoadingSpinner size="1.8rem"/>}
               {this.showGoogleMaps(this.props.value)
               && <Link
                 href={getGoogleMapsAddress(this.props.value)}
