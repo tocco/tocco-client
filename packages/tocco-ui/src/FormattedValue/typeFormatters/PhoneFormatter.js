@@ -39,12 +39,13 @@ class PhoneFormatter extends React.Component {
   }
 
   render() {
-    return <Typography.Span>{this.getFormattedInput()}</Typography.Span>
+    return <Typography.Span breakWords={this.props.breakWords}>{this.getFormattedInput()}</Typography.Span>
   }
 }
 
 PhoneFormatter.propTypes = {
-  value: PropTypes.string
+  value: PropTypes.string,
+  breakWords: PropTypes.bool
 }
 
 export default PhoneFormatter
