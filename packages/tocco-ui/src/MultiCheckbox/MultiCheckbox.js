@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, {useLayoutEffect, useRef} from 'react'
 
-const checkboxState = {
+const checkboxValues = {
   CHECKED: 'checked',
   INDETERMINATE: 'indeterminate',
   UNCHECKED: 'unchecked'
@@ -10,54 +10,36 @@ const checkboxState = {
 /**
  * Use <MultiCheckbox> to display if none, some or all items of a portion are selected.
  */
-class MultiCheckbox extends React.Component {
-  constructor(props) {
-    super(props)
-    this.onChange = this.onChange.bind(this)
-    this.ref = React.createRef()
-    this.state = {status: this.props.status || false}
-  }
-
-  componentDidMount() {
-    this.handleIndeterminate(this.state.status)
-  }
-
-  componentDidUpdate() {
-    this.handleIndeterminate(this.state.status)
-  }
-
-  handleIndeterminate(status) {
-    this.ref.current.indeterminate = status === checkboxState.INDETERMINATE
-  }
-
-  onChange() {
-    if (this.state.status === checkboxState.CHECKED || this.state.status === checkboxState.INDETERMINATE) {
-      this.setState({status: false})
-      this.props.onChange(checkboxState.UNCHECKED)
+const MultiCheckbox = ({value, onChange}) => {
+  const inputEl = useRef(null)
+  const handleOnChange = e => {
+    if (value === checkboxValues.INDETERMINATE) {
+      onChange(checkboxValues.UNCHECKED)
     } else {
-      this.setState({status: checkboxState.CHECKED})
-      this.props.onChange(checkboxState.CHECKED)
+      onChange(e.target.checked ? checkboxValues.CHECKED : checkboxValues.UNCHECKED)
     }
   }
 
-  render() {
-    return (
-      <input
-        checked={this.state.status}
-        onChange={this.onChange}
-        ref={this.ref}
-        type="checkbox"
-      />
-    )
-  }
+  useLayoutEffect(() => {
+    inputEl.current.indeterminate = (value === checkboxValues.INDETERMINATE)
+    inputEl.current.checked = (value === checkboxValues.CHECKED)
+  }, [value])
+
+  return (
+    <input
+      ref={inputEl}
+      onChange={handleOnChange}
+      type="checkbox"
+    />
+  )
 }
 
 MultiCheckbox.propTypes = {
   /**
    *  State with 'checked' if checkbox is checked. State with 'indeterminate' if checkbox
-   *  is neither checked nor unchecked. Skip prop to state that checkbox is unchecked.
+   *  is neither checked nor unchecked.
    */
-  status: PropTypes.oneOf([checkboxState.CHECKED, checkboxState.INDETERMINATE]),
+  value: PropTypes.oneOf(Object.values(checkboxValues)),
   /**
    * Callback is executed on change. Callback receives new checkbox state, which is 'checked' or 'unchecked'.
    */

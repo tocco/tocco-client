@@ -13,11 +13,15 @@ storiesOf('Tocco-UI | MultiCheckbox', module)
           onChange={action('box-action')}
         />
         <MultiCheckbox
-          status="checked"
+          value="checked"
           onChange={action('box-action')}
         />
         <MultiCheckbox
-          status="indeterminate"
+          value="indeterminate"
+          onChange={action('box-action')}
+        />
+        <MultiCheckbox
+          value="unchecked"
           onChange={action('box-action')}
         />
       </div>
