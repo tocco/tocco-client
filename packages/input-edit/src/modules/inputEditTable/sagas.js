@@ -4,7 +4,8 @@ import {rest} from 'tocco-app-extensions'
 import * as actions from './actions'
 
 export const inputSelector = state => state.input
-export const inputEditSelector = state => state.inputEdit
+export const inputEditTableSelector = state => state.inputEditTable
+export const searchQueriesSelector = state => state.inputEditSearch.searchQueries
 
 export default function* sagas() {
   yield all([
@@ -30,13 +31,15 @@ export function* sortData({payload}) {
   yield call(loadData, payload.sorting)
 }
 
-export function* loadData(action, newSorting) {
+export function* loadData(newSorting, newSearchQueries) {
   const {inputEntityKey} = yield select(inputSelector)
-  const sorting = newSorting || (yield select(inputEditSelector)).sorting
+  const sorting = newSorting || (yield select(inputEditTableSelector)).sorting
+  const searchQueries = newSearchQueries || (yield select(searchQueriesSelector))
   const data = yield call(rest.requestSaga, `inputEdit/${inputEntityKey}/data/search`, {
     method: 'POST',
     body: {
-      sorting
+      sorting,
+      searchQueries
     }
   })
   yield put(actions.setData({data: data.body}))

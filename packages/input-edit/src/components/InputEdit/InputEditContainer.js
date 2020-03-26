@@ -2,9 +2,11 @@ import {connect} from 'react-redux'
 
 import InputEdit from './InputEdit'
 import {initializeTable} from '../../modules/inputEditTable/actions'
+import {initializeSearch} from '../../modules/inputEditSearch/actions'
 
 const mapActionCreators = {
-  initializeTable
+  initializeTable,
+  initializeSearch
 }
 
 const mapStateToProps = () => ({})
