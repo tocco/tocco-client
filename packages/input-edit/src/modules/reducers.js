@@ -1,7 +1,12 @@
-import reducer, {sagas as inputEditSagas} from './inputEditTable'
+import inputEditTableReducer, {sagas as inputEditTableSagas} from './inputEditTable'
+import inputEditSearchReducer, {sagas as inputEditSearchSagas} from './inputEditSearch'
 
 export default {
-  inputEdit: reducer
+  inputEditTable: inputEditTableReducer,
+  inputEditSearch: inputEditSearchReducer
 }
 
-export const sagas = [inputEditSagas]
+export const sagas = [
+  inputEditTableSagas,
+  inputEditSearchSagas
+]

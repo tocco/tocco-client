@@ -1,0 +1,79 @@
+{
+  "_links": {
+    "self": {
+      "href": "https://master.tocco.ch/nice2/rest/forms/Input_data/search"
+    }
+  },
+  "form": {
+    "id": "Input_data_search",
+    "label": "Noten",
+    "componentType": "form",
+    "children": [
+      {
+        "id": "box1",
+        "label": null,
+        "componentType": "layout",
+        "children": [
+          {
+            "id": "relUser.firstname",
+            "label": "Vorname",
+            "componentType": "field-set",
+            "children": [
+              {
+                "id": "relUser.firstname",
+                "label": null,
+                "componentType": "field",
+                "path": "relUser.firstname",
+                "dataType": "text",
+                "defaultValue": null,
+                "minChars": null
+              }
+            ],
+            "readonly": false,
+            "hidden": false,
+            "scopes": []
+          },
+          {
+            "id": "relUser.lastname",
+            "label": "Nachname",
+            "componentType": "field-set",
+            "children": [
+              {
+                "id": "relUser.lastname",
+                "label": null,
+                "componentType": "field",
+                "path": "relUser.lastname",
+                "dataType": "text",
+                "defaultValue": null,
+                "minChars": null
+              }
+            ],
+            "readonly": false,
+            "hidden": false,
+            "scopes": []
+          },
+          {
+            "componentType": "field-set",
+            "id": "user_nr",
+            "hidden": false,
+            "label": "Nr",
+            "scopes": [],
+            "children": [
+              {
+                "id": "user_nr",
+                "dataType": "long",
+                "componentType": "field",
+                "defaultValue": null,
+                "label": null
+              }
+            ]
+          }
+        ],
+        "layoutType": "vertical-box"
+      }
+    ],
+    "modelName": "Input_data",
+    "readonly": false
+  },
+  "model": "Input_data"
+}

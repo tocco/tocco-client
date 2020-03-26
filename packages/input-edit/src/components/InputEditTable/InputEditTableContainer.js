@@ -10,10 +10,10 @@ const mapActionCreators = {
 
 const mapStateToProps = state => {
   return {
-    data: state.inputEdit.data,
-    inputDataForm: state.inputEdit.inputDataForm,
-    inputEditForm: state.inputEdit.inputEditForm,
-    sorting: state.inputEdit.sorting
+    data: state.inputEditTable.data,
+    inputDataForm: state.inputEditTable.inputDataForm,
+    inputEditForm: state.inputEditTable.inputEditForm,
+    sorting: state.inputEditTable.sorting
   }
 }
 

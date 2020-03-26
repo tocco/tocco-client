@@ -1,7 +1,8 @@
-import {mockData} from 'tocco-util'
+import {mockData, consoleLogger} from 'tocco-util'
 
 export default function setupFetchMock(packageName, fetchMock) {
   mockData.setupSystemMock(packageName, fetchMock, require('./textResources.json'))
+  mockData.setupSystemMock('simple-form', fetchMock, require('../../../simple-form/src/dev/textResources'))
 
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/inputEdit/[0-9]*/form$'),
@@ -10,6 +11,7 @@ export default function setupFetchMock(packageName, fetchMock) {
   fetchMock.post(
     new RegExp('^.*?/nice2/rest/inputEdit/[0-9]*/data/search$'),
     (urls, opts) => sleep(1000).then(() => {
+      consoleLogger.log(`Searching for data with: ${JSON.parse(opts.body).searchQueries.join(' AND ')}`)
       const sorting = JSON.parse(opts.body).sorting
       const data = require('./data/inputData')
       if (sorting && sorting.field) {
@@ -44,6 +46,16 @@ export default function setupFetchMock(packageName, fetchMock) {
   fetchMock.get(
     new RegExp('^.*?/nice2/rest/forms/Input_edit_data/list$'),
     require('./data/inputDataForm')
+  )
+
+  fetchMock.get(
+    new RegExp('^.*?/nice2/rest/forms/Input_edit/search$'),
+    require('./data/inputEditSearch')
+  )
+
+  fetchMock.get(
+    new RegExp('^.*?/nice2/rest/entities/Input_data/model$'),
+    require('./data/inputDataModel')
   )
 
   fetchMock.spy()
