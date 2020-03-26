@@ -55,10 +55,10 @@ describe('input-edit', () => {
             field: 'field',
             direction: 'asc'
           }
-          return expectSaga(sagas.loadData, actions.loadData(), expectedSorting)
+          return expectSaga(sagas.loadData, expectedSorting)
             .provide([
               [select(sagas.inputSelector), {inputEntityKey: 12}],
-              [select(sagas.inputEditSelector), {sorting: {field: 'state sorting'}}],
+              [select(sagas.inputEditTableSelector), {sorting: {field: 'state sorting'}}],
               [matchers.call.fn(rest.requestSaga), {
                 body: expectedData
               }]
@@ -77,10 +77,10 @@ describe('input-edit', () => {
             field: 'field',
             direction: 'asc'
           }
-          return expectSaga(sagas.loadData, actions.loadData())
+          return expectSaga(sagas.loadData)
             .provide([
               [select(sagas.inputSelector), {inputEntityKey: 12}],
-              [select(sagas.inputEditSelector), {sorting: expectedSorting}],
+              [select(sagas.inputEditTableSelector), {sorting: expectedSorting}],
               [matchers.call.fn(rest.requestSaga), {body: {}}]
             ])
             .call(rest.requestSaga, 'inputEdit/12/data/search', {
