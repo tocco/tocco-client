@@ -12,11 +12,14 @@ export default function setupFetchMock(packageName, fetchMock) {
     new RegExp('^.*?/nice2/rest/inputEdit/[0-9]*/data/search$'),
     (urls, opts) => sleep(1000).then(() => {
       consoleLogger.log(`Searching for data with: ${JSON.parse(opts.body).searchQueries.join(' AND ')}`)
+      const offset = JSON.parse(opts.body).pagination.offset
+      const recordsPerPage = JSON.parse(opts.body).pagination.recordsPerPage
+      consoleLogger.log(`Reading ${recordsPerPage} records with offset ${offset}`)
       const sorting = JSON.parse(opts.body).sorting
-      const data = require('./data/inputData')
+      const response = require('./data/inputData')
       if (sorting && sorting.field) {
         const direction = sorting.direction === 'asc' ? 1 : -1
-        return data.sort((first, second) => {
+        response.data = response.data.sort((first, second) => {
           if (first[sorting.field] > second[sorting.field]) {
             return direction
           } else if (first[sorting.field] < second[sorting.field]) {
@@ -25,9 +28,8 @@ export default function setupFetchMock(packageName, fetchMock) {
             return 0
           }
         })
-      } else {
-        return data
       }
+      return response
     })
   )
   fetchMock.post(

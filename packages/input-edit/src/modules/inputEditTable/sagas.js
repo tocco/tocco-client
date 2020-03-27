@@ -6,6 +6,7 @@ import * as actions from './actions'
 export const inputSelector = state => state.input
 export const inputEditTableSelector = state => state.inputEditTable
 export const searchQueriesSelector = state => state.inputEditSearch.searchQueries
+export const inputEditPaginationSelector = state => state.inputEditPagination
 
 export default function* sagas() {
   yield all([
@@ -24,25 +25,31 @@ export function* initialize() {
   ])
   yield put(actions.setEditForm({inputEditForm: editForm.body}))
   yield put(actions.setDataForm({inputDataForm: dataForm}))
-  yield call(loadData)
+  yield call(loadData, {})
 }
 
-export function* sortData({payload}) {
-  yield call(loadData, payload.sorting)
+export function* sortData({payload: {sorting}}) {
+  yield call(loadData, {newSorting: sorting})
 }
 
-export function* loadData(newSorting, newSearchQueries) {
+export function* loadData({newSorting, newSearchQueries, newPage}) {
   const {inputEntityKey} = yield select(inputSelector)
   const sorting = newSorting || (yield select(inputEditTableSelector)).sorting
   const searchQueries = newSearchQueries || (yield select(searchQueriesSelector))
-  const data = yield call(rest.requestSaga, `inputEdit/${inputEntityKey}/data/search`, {
+  const currentPage = newPage || (yield select(inputEditPaginationSelector)).currentPage
+  const recordsPerPage = (yield select(inputEditPaginationSelector)).recordsPerPage
+  const response = yield call(rest.requestSaga, `inputEdit/${inputEntityKey}/data/search`, {
     method: 'POST',
     body: {
       sorting,
-      searchQueries
+      searchQueries,
+      pagination: {
+        offset: (currentPage - 1) * recordsPerPage,
+        recordsPerPage: recordsPerPage
+      }
     }
   })
-  yield put(actions.setData({data: data.body}))
+  yield put(actions.setData(response.body))
 }
 
 export function* updateValue({payload: {inputDataKey, node, value}}) {

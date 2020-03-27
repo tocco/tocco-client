@@ -2,18 +2,22 @@ import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 
 import InputEditTable from '../InputEditTable/InputEditTableContainer'
-import {FlexDiv} from './StyledComponents'
+import {FlexColumn, FlexRow} from './StyledComponents'
 import InputEditSearch from '../InputEditSearch'
+import InputEditPagination from '../InputEditPagination'
 
 const InputEdit = ({initializeTable, initializeSearch}) => {
   useEffect(() => {
     initializeTable()
     initializeSearch()
   }, [])
-  return <FlexDiv>
+  return <FlexRow>
     <InputEditSearch/>
-    <InputEditTable/>
-  </FlexDiv>
+    <FlexColumn>
+      <InputEditTable/>
+      <InputEditPagination/>
+    </FlexColumn>
+  </FlexRow>
 }
 
 InputEdit.propTypes = {
