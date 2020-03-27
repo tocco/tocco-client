@@ -38,9 +38,9 @@ Content.propTypes = {
 const TitleMessage = ({title, message, children}) => {
   return (
     <>
-      <div className="title-wrapper">
-        {title && <Content content={title} tag={Typography.H1} />}
-      </div>
+      {title && <div className="title-wrapper">
+        <Content content={title} tag={Typography.H1} />
+      </div>}
       {message && <Content content={message} />}
       {children}
     </>
