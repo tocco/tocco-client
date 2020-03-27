@@ -18,7 +18,7 @@ const declareBall = () => css`
   + 2.4 * ${scale.space(-3)});
 `
 
-const StyledButton = styled.button`
+export const StyledButton = styled.button`
   ${declareFont()}
   ${interactiveStyling}
   ${props => declareBall(props)}
