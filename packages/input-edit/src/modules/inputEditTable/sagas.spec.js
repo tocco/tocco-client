@@ -28,18 +28,18 @@ describe('input-edit', () => {
           const expectedDataForm = {
             dataform: 'dataform'
           }
-          return expectSaga(sagas.initialize, actions.initializeTable())
+          return expectSaga(sagas.initialize)
             .provide([
               [select(sagas.inputSelector), {inputEntityKey: 12}],
               [matchers.call.fn(rest.requestSaga), {
                 body: expectedEditForm
               }],
               [matchers.call.fn(rest.fetchForm), expectedDataForm],
-              [matchers.call.fn(sagas.loadData)]
+              [matchers.call.fn(sagas.loadData), {}]
             ])
             .put(actions.setEditForm({inputEditForm: expectedEditForm}))
             .put(actions.setDataForm({inputDataForm: expectedDataForm}))
-            .call(sagas.loadData)
+            .call(sagas.loadData, {})
             .run()
         })
       })
@@ -47,47 +47,96 @@ describe('input-edit', () => {
       describe('load-data', () => {
         test('should load data', () => {
           const expectedData = {
-            1: {
-              pk: 123
-            }
+            count: 50,
+            data: [
+              {
+                pk: 123
+              }
+            ]
           }
           const expectedSorting = {
             field: 'field',
             direction: 'asc'
           }
-          return expectSaga(sagas.loadData, expectedSorting)
+          const expectedSearchQueries = [
+            'firstname == \'something\''
+          ]
+          const expectedPagination = {
+            offset: 25,
+            recordsPerPage: 25
+          }
+          return expectSaga(sagas.loadData, {
+            newSorting: expectedSorting,
+            newSearchQueries: expectedSearchQueries,
+            newPage: 2
+          })
             .provide([
               [select(sagas.inputSelector), {inputEntityKey: 12}],
               [select(sagas.inputEditTableSelector), {sorting: {field: 'state sorting'}}],
+              [select(sagas.searchQueriesSelector), []],
+              [select(sagas.inputEditPaginationSelector), {
+                count: 0,
+                currentPage: 1,
+                recordsPerPage: 25
+              }],
               [matchers.call.fn(rest.requestSaga), {
                 body: expectedData
               }]
             ])
-            .call(rest.requestSaga, 'inputEdit/12/data/search', {
-              method: 'POST',
-              body: {
-                sorting: expectedSorting
-              }
+            .call.like({
+              fn: rest.requestSaga,
+              args: [
+                'inputEdit/12/data/search',
+                {
+                  method: 'POST',
+                  body: {
+                    sorting: expectedSorting,
+                    searchQueries: expectedSearchQueries,
+                    pagination: expectedPagination
+                  }
+                }
+              ]
             })
-            .put(actions.setData({data: expectedData}))
+            .put(actions.setData(expectedData))
             .run()
         })
-        test('should use sorting from state if none is passed', () => {
+        test('should load data from state if no arguments are passed', () => {
           const expectedSorting = {
             field: 'field',
             direction: 'asc'
           }
-          return expectSaga(sagas.loadData)
+          const expectedSearchQueries = [
+            'firstname == \'whatever\''
+          ]
+          const expectedPagination = {
+            offset: 0,
+            recordsPerPage: 25
+          }
+          return expectSaga(sagas.loadData, {})
             .provide([
               [select(sagas.inputSelector), {inputEntityKey: 12}],
               [select(sagas.inputEditTableSelector), {sorting: expectedSorting}],
+              [select(sagas.searchQueriesSelector), expectedSearchQueries],
+              [select(sagas.inputEditPaginationSelector), {
+                count: 0,
+                currentPage: 1,
+                recordsPerPage: 25
+              }],
               [matchers.call.fn(rest.requestSaga), {body: {}}]
             ])
-            .call(rest.requestSaga, 'inputEdit/12/data/search', {
-              method: 'POST',
-              body: {
-                sorting: expectedSorting
-              }
+            .call.like({
+              fn: rest.requestSaga,
+              args: [
+                'inputEdit/12/data/search',
+                {
+                  method: 'POST',
+                  body: {
+                    sorting: expectedSorting,
+                    searchQueries: expectedSearchQueries,
+                    pagination: expectedPagination
+                  }
+                }
+              ]
             })
             .run()
         })
@@ -100,8 +149,10 @@ describe('input-edit', () => {
               [matchers.call.fn(sagas.loadData)]
             ])
             .call(sagas.loadData, {
-              field: 'field',
-              direction: 'desc'
+              newSorting: {
+                field: 'field',
+                direction: 'desc'
+              }
             })
             .run()
         })
