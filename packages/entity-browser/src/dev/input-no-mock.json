@@ -1,8 +1,8 @@
 {
   "id": "DEV",
-  "entityName": "Cash_management_import",
+  "entityName": "User",
   "limit": 15,
-  "formBase": "Cash_management_import_action",
+  "formBase": "User_Test",
   "showSearchForm": true,
   "showCreateButton": true,
   "disableSimpleSearch": false,
