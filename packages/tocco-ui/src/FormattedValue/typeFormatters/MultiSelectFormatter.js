@@ -9,7 +9,10 @@ const MultiSelectFormatter = ({value, options, breakWords}) => {
   return <Typography.Span breakWords={breakWords}>
     {value && value.length > 0
       ? value
-        .map(v => options && options.linkFactory ? options.linkFactory(v.key, v.display) : v.display)
+        .map(v => options && options.linkFactory
+          ? <span onClick={e => e.stopPropagation()}>{ options.linkFactory(v.key, v.display)}</span>
+          : v.display
+        )
         .reduce((prev, curr, idx) => [prev, <MultiSeparator key={'sep' + idx}/>, curr])
       : null}
   </Typography.Span>
