@@ -1,35 +1,42 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import EntityListApp from 'tocco-entity-list/src/main'
+import styled from 'styled-components'
+
+const StyledListApp = styled.div`
+  width: 100%;
+`
 
 const SubGrid = props => {
   const formBase = `${props.detailFormName}_${props.gridName}`
   return (
-    <EntityListApp
-      id={`${props.appId}-subgrid-${formBase}`}
-      entityName={props.modelField.targetEntity}
-      formName={formBase}
-      limit={props.limit}
-      searchFormType={props.showSearchForm ? 'basic' : 'none'}
-      onRowClick={e => {
-        if (props.onRowClick) {
-          props.onRowClick({
-            id: e.id,
-            gridName: props.gridName,
-            relationName: props.relationName
-          })
-        }
-      }}
-      onNavigateToCreate={() => {
-        props.navigateToCreate(props.relationName)
-      }}
-      emitAction={action => { props.dispatchEmittedAction(action) }}
-      parent={{
-        key: props.entityKey,
-        reverseRelationName: props.modelField.reverseRelationName,
-        model: props.entityName
-      }}
-    />
+    <StyledListApp>
+      <EntityListApp
+        id={`${props.appId}-subgrid-${formBase}`}
+        entityName={props.modelField.targetEntity}
+        formName={formBase}
+        limit={props.limit}
+        searchFormType={props.showSearchForm ? 'basic' : 'none'}
+        onRowClick={e => {
+          if (props.onRowClick) {
+            props.onRowClick({
+              id: e.id,
+              gridName: props.gridName,
+              relationName: props.relationName
+            })
+          }
+        }}
+        onNavigateToCreate={() => {
+          props.navigateToCreate(props.relationName)
+        }}
+        emitAction={action => { props.dispatchEmittedAction(action) }}
+        parent={{
+          key: props.entityKey,
+          reverseRelationName: props.modelField.reverseRelationName,
+          model: props.entityName
+        }}
+      />
+    </StyledListApp>
   )
 }
 
