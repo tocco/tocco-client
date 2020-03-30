@@ -8,7 +8,9 @@ const SingleSelectFormatter = ({value, options, breakWords}) => {
   value = js.getOrFirst(value)
   const display = <Typography.Span breakWords={breakWords}>{value.display}</Typography.Span>
 
-  return options && options.linkFactory ? options.linkFactory(value.key, display) : display
+  return options && options.linkFactory
+    ? <span onClick={e => e.stopPropagation()}>{ options.linkFactory(value.key, display)}</span>
+    : display
 }
 
 const valuePropType = PropTypes.shape({
