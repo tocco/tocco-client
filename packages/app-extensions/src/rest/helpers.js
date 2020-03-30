@@ -229,9 +229,6 @@ export const defaultFormTransformer = json => (json.form)
 
 export const defaultEntityTransformer = json => (json.data)
 
-const isValidSorting = sorting =>
-  Array.isArray(sorting) && sorting.length >= 1 && sorting[0].field && sorting[0].order
-
 /**
  * Function that converts a query object into request query object that can be attached to a request.
  * Some options get converted or calculated and other removed if there are undefined.
@@ -271,7 +268,7 @@ export const buildRequestQuery = ({
     ...(form ? {form} : {}),
     ...(limit ? {limit} : {}),
     ...(search ? {search} : {}),
-    ...(isValidSorting(sorting) ? {sort: `${sorting[0].field} ${sorting[0].order}`} : {}),
+    ...(sorting ? {sort: sorting.map(s => `${s.field} ${s.order}`).join(', ')} : {}),
     ...(page && limit ? {offset: (page - 1) * limit} : {}),
     ...(paths ? {paths} : {}),
     ...(tql ? {where: tql} : {}),
