@@ -1,6 +1,6 @@
 import _isEmpty from 'lodash/isEmpty'
 import _union from 'lodash/union'
-import {externalEvents, actions as actionUtil, actionEmitter, rest} from 'tocco-app-extensions'
+import {externalEvents, actions as actionUtil, actionEmitter, rest, remoteEvents} from 'tocco-app-extensions'
 import _omit from 'lodash/omit'
 import {call, put, fork, select, spawn, takeEvery, takeLatest, all, take} from 'redux-saga/effects'
 import {api} from 'tocco-util'
@@ -31,7 +31,8 @@ export default function* sagas() {
     takeLatest(actions.NAVIGATE_TO_CREATE, navigateToCreate),
     takeLatest(selectionActions.RELOAD_DATA, loadData, 1),
     takeLatest(actions.ON_ROW_CLICK, onRowClick),
-    takeEvery(actionUtil.actions.ACTION_INVOKED, actionInvoked)
+    takeEvery(actionUtil.actions.ACTION_INVOKED, actionInvoked),
+    takeEvery(remoteEvents.REMOTE_EVENT, remoteEvent)
   ])
 }
 
@@ -284,4 +285,22 @@ export function* navigateToCreate({payload}) {
 export function* actionInvoked(action) {
   yield call(loadData)
   yield put(actionEmitter.emitAction(action))
+}
+
+const remoteEventReloadPredicates = {
+  'legacy-create-event': (payload, entityName) => payload.modelNames.includes(entityName),
+  'legacy-delete-event': (payload, entityName) => !!payload.keys.find(key => key._entityName === entityName)
+}
+
+export function* remoteEvent(action) {
+  const event = action.payload.event
+
+  const reloadPredicate = remoteEventReloadPredicates[event.type]
+
+  if (reloadPredicate) {
+    const {entityModel} = yield select(listSelector)
+    if (reloadPredicate(event.payload, entityModel.name)) {
+      yield call(reloadData)
+    }
+  }
 }

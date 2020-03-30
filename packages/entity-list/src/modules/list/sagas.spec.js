@@ -1,5 +1,5 @@
 import {expectSaga} from 'redux-saga-test-plan'
-import {actions as actionUtil, externalEvents, rest} from 'tocco-app-extensions'
+import {actions as actionUtil, externalEvents, rest, remoteEvents} from 'tocco-app-extensions'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {put, select, call, spawn, takeLatest, takeEvery, all} from 'redux-saga/effects'
 import {api} from 'tocco-util'
@@ -39,7 +39,8 @@ describe('entity-list', () => {
               takeLatest(actions.NAVIGATE_TO_CREATE, sagas.navigateToCreate),
               takeLatest(selectionActions.RELOAD_DATA, sagas.loadData, 1),
               takeLatest(actions.ON_ROW_CLICK, sagas.onRowClick),
-              takeEvery(actionUtil.actions.ACTION_INVOKED, sagas.actionInvoked)
+              takeEvery(actionUtil.actions.ACTION_INVOKED, sagas.actionInvoked),
+              takeEvery(remoteEvents.REMOTE_EVENT, sagas.remoteEvent)
             ]))
             expect(generator.next().done).to.be.true
           })
@@ -599,6 +600,80 @@ describe('entity-list', () => {
               ])
               .put(actions.setLazyData('defaultDisplays', 'relEntity1', fakeDisplayResponse.relEntity1))
               .put(actions.setLazyData('defaultDisplays', 'relEntity2', fakeDisplayResponse.relEntity2))
+              .run()
+          })
+        })
+
+        describe('remoteEvent saga', () => {
+          const createEventAction = remoteEvents.remoteEvent({
+            type: 'legacy-create-event',
+            payload: {
+              modelNames: ['User', 'Principal']
+            }
+          })
+          const deleteEventAction = remoteEvents.remoteEvent({
+            type: 'legacy-delete-event',
+            payload: {
+              keys: [
+                {_entityName: 'User', _key: 1},
+                {_entityName: 'Principal', _key: 2}
+              ]
+            }
+          })
+
+          test('should reload list if relevant legacy create event', () => {
+            const listState = {
+              entityModel: {
+                name: 'User'
+              }
+            }
+            return expectSaga(sagas.remoteEvent, createEventAction)
+              .provide([
+                [select(sagas.listSelector), listState]
+              ])
+              .call(sagas.reloadData)
+              .run()
+          })
+
+          test('should not reload list if irrelevant legacy create event', () => {
+            const listState = {
+              entityModel: {
+                name: 'Classroom'
+              }
+            }
+            return expectSaga(sagas.remoteEvent, createEventAction)
+              .provide([
+                [select(sagas.listSelector), listState]
+              ])
+              .not.call(sagas.reloadData)
+              .run()
+          })
+
+          test('should reload list if relevant legacy delete event', () => {
+            const listState = {
+              entityModel: {
+                name: 'User'
+              }
+            }
+            return expectSaga(sagas.remoteEvent, deleteEventAction)
+              .provide([
+                [select(sagas.listSelector), listState]
+              ])
+              .call(sagas.reloadData)
+              .run()
+          })
+
+          test('should not reload list if irrelevant legacy delete event', () => {
+            const listState = {
+              entityModel: {
+                name: 'Classroom'
+              }
+            }
+            return expectSaga(sagas.remoteEvent, deleteEventAction)
+              .provide([
+                [select(sagas.listSelector), listState]
+              ])
+              .not.call(sagas.reloadData)
               .run()
           })
         })
