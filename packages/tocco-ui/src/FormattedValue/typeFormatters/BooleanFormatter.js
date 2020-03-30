@@ -1,16 +1,22 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import {withTheme} from 'styled-components'
 
 import Icon from '../../Icon'
 
-const BooleanFormatter = props => {
-  return (
-    <Icon icon={props.value ? 'check' : 'times'}/>
-  )
-}
+const BooleanFormatter = props =>
+  <Icon
+    style={{fontSize: `${props.theme.fontSize.base}rem`}}
+    icon={props.value ? 'check' : 'times'}
+  />
 
 BooleanFormatter.propTypes = {
-  value: PropTypes.bool
+  value: PropTypes.bool,
+  theme: PropTypes.shape({
+    fontSize: PropTypes.shape({
+      base: PropTypes.number
+    })
+  })
 }
 
-export default BooleanFormatter
+export default withTheme(BooleanFormatter)
