@@ -1,6 +1,8 @@
-import {testSaga} from 'redux-saga-test-plan'
+import {expectSaga, testSaga} from 'redux-saga-test-plan'
+import {channel} from 'redux-saga'
+import {call, spawn} from 'redux-saga/effects'
 
-import {initLegacyActionsEnv, loadSequentially, sources, loadScript, loadCss} from './legacyAction'
+import * as legacyAction from './legacyAction'
 
 describe('app-extensions', () => {
   describe('actions', () => {
@@ -12,11 +14,13 @@ describe('app-extensions', () => {
               window.legacyActionsEnvInitialized = undefined
               window.setUpLegacyActionsEnv = () => {}
 
-              testSaga(initLegacyActionsEnv)
+              testSaga(legacyAction.initLegacyActionsEnv)
                 .next()
-                .call(loadSequentially, sources)
+                .call(legacyAction.loadSequentially, legacyAction.sources)
                 .next()
                 .call(window.setUpLegacyActionsEnv)
+                .next()
+                .call(legacyAction.registerRemoteEventsListener)
                 .next()
                 .isDone()
             })
@@ -24,7 +28,9 @@ describe('app-extensions', () => {
             test('should not init if already initialized', () => {
               window.legacyActionsEnvInitialized = true
 
-              testSaga(initLegacyActionsEnv)
+              testSaga(legacyAction.initLegacyActionsEnv)
+                .next()
+                .call(legacyAction.registerRemoteEventsListener)
                 .next()
                 .isDone()
             })
@@ -32,15 +38,37 @@ describe('app-extensions', () => {
 
           describe('loadSequentially', () => {
             test('should load the required sources sequentially', () => {
-              testSaga(loadSequentially, sources).next()
-                .call(loadScript, '/nice2/javascript/lang.release.js').next()
-                .call(loadScript, '/nice2/javascript/nice2-ext-newclient-actions.debug.js').next()
-                .call(loadScript, '/nice2/javascript/nice2-admin.debug.js').next()
-                .call(loadScript, '/nice2/javascript/nice2-newclient-actions-setup.debug.js').next()
-                .call(loadScript, '/nice2/dwr-all.js').next()
-                .call(loadCss, '/css/themes/blue-medium.css').next()
-                .call(loadCss, '/css/nice2-admin.css').next()
+              testSaga(legacyAction.loadSequentially, legacyAction.sources).next()
+                .call(legacyAction.loadScript, '/nice2/javascript/lang.release.js').next()
+                .call(legacyAction.loadScript, '/nice2/javascript/nice2-ext-newclient-actions.debug.js').next()
+                .call(legacyAction.loadScript, '/nice2/javascript/nice2-admin.debug.js').next()
+                .call(legacyAction.loadScript, '/nice2/javascript/nice2-newclient-actions-setup.debug.js').next()
+                .call(legacyAction.loadScript, '/nice2/dwr-all.js').next()
+                .call(legacyAction.loadCss, '/css/themes/blue-medium.css').next()
+                .call(legacyAction.loadCss, '/css/nice2-admin.css').next()
                 .isDone()
+            })
+          })
+
+          describe('registerRemoteEventsListener', () => {
+            test('should register callback in global DataRegistry and start listening', () => {
+              const dataRegistry = {
+                setNewClientCallback: () => {}
+              }
+              window.app = {
+                getDataRegistry: () => dataRegistry
+              }
+              const fakeChannel = {}
+              const callback = () => {}
+              return expectSaga(legacyAction.registerRemoteEventsListener)
+                .provide([
+                  [call(channel), fakeChannel],
+                  [call(legacyAction.entityEventCallback, fakeChannel), callback],
+                  [spawn(legacyAction.readRemoteEvents, fakeChannel)]
+                ])
+                .call([dataRegistry, dataRegistry.setNewClientCallback], callback)
+                .spawn(legacyAction.readRemoteEvents, fakeChannel)
+                .run()
             })
           })
         })

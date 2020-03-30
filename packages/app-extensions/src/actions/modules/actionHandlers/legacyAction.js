@@ -1,5 +1,8 @@
 import _isPlainObject from 'lodash/isPlainObject'
-import {call, all} from 'redux-saga/effects'
+import {channel} from 'redux-saga'
+import {call, all, put, spawn, take} from 'redux-saga/effects'
+
+import remoteEvents from '../../../remoteEvents'
 
 export const loadScript = src => new Promise((resolve, reject) => {
   const s = document.createElement('script')
@@ -37,11 +40,32 @@ export const sources = [
   {src: '/css/nice2-admin.css', handler: loadCss}
 ]
 
+export const entityEventCallback = remoteEventsChannel => event => {
+  remoteEventsChannel.put(event)
+}
+
+export function* readRemoteEvents(remoteEventsChannel) {
+  while (true) {
+    const event = yield take(remoteEventsChannel)
+    const action = remoteEvents.remoteEvent(event)
+    yield put(action)
+  }
+}
+
+export function* registerRemoteEventsListener() {
+  const remoteEventsChannel = yield call(channel)
+  const callback = yield call(entityEventCallback, remoteEventsChannel)
+  const dataRegistry = yield call([window.app, window.app.getDataRegistry])
+  yield call([dataRegistry, dataRegistry.setNewClientCallback], callback)
+  yield spawn(readRemoteEvents, remoteEventsChannel)
+}
+
 export function* initLegacyActionsEnv() {
   if (window.legacyActionsEnvInitialized !== true) {
     yield call(loadSequentially, sources)
     yield call(window.setUpLegacyActionsEnv)
   }
+  yield call(registerRemoteEventsListener)
 }
 
 export default function* (definition, selection, parent, params, config) {
