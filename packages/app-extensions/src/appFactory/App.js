@@ -3,10 +3,14 @@ import PropTypes from 'prop-types'
 import {Provider} from 'react-redux'
 import {LoadMask} from 'tocco-ui'
 import {IntlProvider} from 'react-intl-redux/lib'
+import styled from 'styled-components'
 
 import ThemeWrapper from './ThemeWrapper'
 import keyDown from '../keyDown'
 
+const StyledApp = styled.div`
+  display: contents;
+`
 const App = ({store, initIntlPromise, name, content, theme}) => {
   const wrapperCallback = useCallback(node => {
     if (node) {
@@ -25,9 +29,9 @@ const App = ({store, initIntlPromise, name, content, theme}) => {
         <keyDown.KeyDownWatcher>
           <LoadMask promises={[initIntlPromise]}>
             <IntlProvider>
-              <div className={`tocco-${name}`} ref={wrapperCallback}>
+              <StyledApp className={`tocco-${name}`} ref={wrapperCallback}>
                 {content}
-              </div>
+              </StyledApp>
             </IntlProvider>
           </LoadMask>
         </keyDown.KeyDownWatcher>
