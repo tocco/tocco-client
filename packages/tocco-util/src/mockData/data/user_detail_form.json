@@ -256,6 +256,7 @@
                 "children": [
                   {
                     "id": "relDummySubGrid",
+                    "path": "relDummySubGrid",
                     "componentType": "sub-table",
                     "showSearchForm": true,
                     "readonly": true,
