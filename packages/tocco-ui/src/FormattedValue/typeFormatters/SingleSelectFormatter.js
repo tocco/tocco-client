@@ -9,7 +9,7 @@ const SingleSelectFormatter = ({value, options, breakWords}) => {
   const display = <Typography.Span breakWords={breakWords}>{value.display}</Typography.Span>
 
   return options && options.linkFactory
-    ? <span onClick={e => e.stopPropagation()}>{ options.linkFactory(value.key, display)}</span>
+    ? <span onClick={e => e.stopPropagation()}>{options.linkFactory(value.key, display)}</span>
     : display
 }
 

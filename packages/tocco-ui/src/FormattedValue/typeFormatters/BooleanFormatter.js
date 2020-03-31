@@ -14,9 +14,9 @@ BooleanFormatter.propTypes = {
   value: PropTypes.bool,
   theme: PropTypes.shape({
     fontSize: PropTypes.shape({
-      base: PropTypes.number
-    })
-  })
+      base: PropTypes.number.isRequired
+    }).isRequired
+  }).isRequired
 }
 
 export default withTheme(BooleanFormatter)
