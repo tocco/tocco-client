@@ -14,7 +14,7 @@ import {getSearchFormValues} from '../searchForm/sagas'
 const generateState = (entityStore = {}, page) => ({
   initialized: false,
   formName: '',
-  sorting: null,
+  sorting: [],
   limit: '',
   entityStore,
   formDefinition: {},
@@ -34,6 +34,7 @@ describe('entity-list', () => {
               takeLatest(searchFormActions.EXECUTE_SEARCH, sagas.loadData, 1),
               takeLatest(searchFormActions.EXECUTE_SEARCH, sagas.queryChanged),
               takeEvery(actions.SET_SORTING, sagas.reloadData),
+              takeLatest(actions.SET_SORTING_INTERACTIVE, sagas.reloadData),
               takeEvery(actions.RESET_DATA_SET, sagas.loadData, 1),
               takeLatest(actions.REFRESH, sagas.loadData),
               takeLatest(actions.NAVIGATE_TO_CREATE, sagas.navigateToCreate),

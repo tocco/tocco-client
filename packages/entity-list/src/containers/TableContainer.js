@@ -6,7 +6,7 @@ import {
   changePage,
   initialize,
   onRowClick,
-  setSorting,
+  setSortingInteractive,
   refresh
 } from '../modules/list/actions'
 import {
@@ -17,7 +17,7 @@ import {
 const mapActionCreators = {
   initialize,
   changePage,
-  setSorting,
+  setSortingInteractive,
   onRowClick,
   onSelectChange,
   setSelection,
