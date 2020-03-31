@@ -1,141 +1,143 @@
-import React from 'react'
+import React, {useState, useRef} from 'react'
 import PropTypes from 'prop-types'
-import {intlShape} from 'react-intl'
-import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table'
-import {Typography, Icon} from 'tocco-ui'
+import {intlShape, FormattedMessage} from 'react-intl'
 import {js} from 'tocco-util'
+import {Typography, LoadingSpinner, Pagination} from 'tocco-ui'
+import useDeepCompareEffect from 'use-deep-compare-effect'
 
-import cellRenderer from '../../util/cellRenderer'
-import selectionStyles, {selectionStylePropType} from '../../util/selectionStyles'
-import StyledTable from './StyledTable'
-import PaginationPanel from '../PaginationPanel'
+import useSelection from './useSelection'
+import useResize from './useResize'
+import ResizingController from './ResizingController'
+import SortingState from './SortingState'
+import columnEnhancers from './columnEnhancers'
+import StaticCell from './StaticCell'
+import {selectionStylePropType} from '../../util/selectionStyles'
+import StyledTable, {StyledTableWrapper, StretchingTableContainer, PaginationContainer} from './StyledTable'
 
-const RIGHT_ALIGNED_TYPES = ['moneyamount', 'counter', 'integer', 'long']
+const rightAlignedTypes = ['moneyamount', 'counter', 'integer', 'long']
+
+const isRightAligned = column =>
+  column.children && column.children.length === 1 && rightAlignedTypes.includes(column.children[0].dataType)
 
 const Table = props => {
-  const msg = (id, values = {}) => (props.intl.formatMessage({id}, values))
+  const [columns, setColumns] = useState(props.columnDefinitions)
+  const tableEl = useRef(null)
 
-  const onSortChange = (field, order) => {
-    props.setSorting([{field, order}])
+  const resizeCallback = (columnId, width) => {
+    setColumns([...columns.map(c => c.id === columnId ? {...c, width} : c)])
   }
 
-  const onPageChange = page => {
-    props.changePage(page)
+  const {resizingColumn, startResize} = useResize(tableEl, resizeCallback)
+
+  const {isSelected, singleSelectHandler, multiSelectHandler}
+    = useSelection(props.selection, props.entities.map(e => e.__key), props.onSelectChange)
+
+  useDeepCompareEffect(() => {
+    const c = columnEnhancers.reduce(
+      (acc, columnEnhancer) => columnEnhancer.shouldApply(props)
+        ? columnEnhancer.apply(acc, {singleSelectHandler, multiSelectHandler, isSelected})
+        : acc,
+      props.columnDefinitions
+    )
+    setColumns(c)
+  }, [props.columnDefinitions, props.tableSelectionStyle])
+
+  const showPagination = props.entityCount - props.limit > 0
+
+  const thOnClick = column => e => {
+    if (!resizingColumn && column.sortable) {
+      props.setSortingInteractive(column.id, e.shiftKey)
+    }
   }
 
-  const handleRowClick = entity => {
-    if (props.onRowClick) {
+  const trOnClick = entity => e => {
+    if (e.shiftKey) {
+      singleSelectHandler(entity.__key, true, true)
+    } else if (e.metaKey || e.ctrlKey) {
+      singleSelectHandler(entity.__key)
+    } else {
       props.onRowClick(entity.__key)
     }
   }
 
-  const sortingOptions = () => (
-    (Array.isArray(props.sorting) && props.sorting.length >= 1) ? {
-      sortName: props.sorting[0].field,
-      sortOrder: props.sorting[0].order
-    } : {}
-  )
+  const ThContent = ({column}) =>
+    column.headerRender
+      ? column.headerRender({...props, singleSelectHandler, multiSelectHandler, isSelected})
+      : column.label
 
-  const renderShowsTotal = (start, to, total) => total === 0
-    ? <span/>
-    : <Typography.Span>{msg('client.entity-list.total', {start, to, total})}</Typography.Span>
+  const InProgressRow = () => <tr><td className="fullRow progress">
+    <LoadingSpinner size="20"/>
+    <Typography.P>
+      <FormattedMessage id="client.entity-list.dataLoading"/>
+    </Typography.P>
+  </td></tr>
 
-  const handleAllSelectionChange = (isSelected, rows) => {
-    const keys = rows.map(r => r.__key)
-    if (props.onSelectChange) {
-      props.onSelectChange(keys, isSelected)
-    }
-  }
+  const NoDataRow = () =>
+    <tr><td className="fullRow">
+      <Typography.Span>
+        <FormattedMessage id="client.entity-list.noData"/>
+      </Typography.Span>
+    </td></tr>
 
-  const handleSelectionChange = (row, isSelected) => {
-    if (props.onSelectChange) {
-      props.onSelectChange([row.__key], isSelected)
-    }
-  }
+  return <StyledTableWrapper>
+    <StretchingTableContainer>
+      <StyledTable ref={tableEl} columns={columns} resizingColumn={resizingColumn}>
+        <thead>
+          <tr>
+            {columns.map(column =>
+              <th
+                id={column.id}
+                key={`table-header-${column.id}`}
+                onClick={thOnClick(column)}>
+                <ThContent column={column}/>
+                <SortingState column={column} sorting={props.sorting}/>
+                <ResizingController column={column} startResize={startResize}/>
+              </th>
+            )}
+          </tr>
+        </thead>
+        <tbody>
+          {
+            props.inProgress
+              ? <InProgressRow/>
+              : props.entities.length > 0
+                ? props.entities.map(entity =>
+                  <tr
+                    key={`table-row-${entity.__key}`}
+                    className={`selectableRow ${isSelected(entity.__key) && 'selected'}`}
+                    onClick={trOnClick(entity)}
+                  >
+                    {
+                      columns.map(column =>
+                        <StaticCell
+                          {...props}
+                          key={`table-static-cell-${entity.__key}-${column.id}`}
+                          singleSelectHandler={singleSelectHandler}
+                          multiSelectHandler={multiSelectHandler}
+                          isSelected={isSelected}
+                          entity={entity}
+                          column={column}
+                          rightAligned={isRightAligned(column)}
+                        />
+                      )
+                    }
+                  </tr>
+                )
+                : <NoDataRow/>
+          }
 
-  const getSelectionMode = () =>
-    (props.tableSelectionStyle && props.tableSelectionStyle !== selectionStyles.NONE)
-      ? props.tableSelectionStyle === selectionStyles.SINGLE
-        ? {mode: 'radio'}
-        : {mode: 'checkbox'}
-      : {}
-
-  const selectRow = {
-    ...(getSelectionMode()),
-    onSelect: handleSelectionChange,
-    onSelectAll: handleAllSelectionChange,
-    selected: props.selection ? props.selection : [],
-    className: 'selected'
-  }
-
-  const tableOption = {
-    noDataText: props.inProgress
-      ? msg('client.entity-list.dataLoading')
-      : msg('client.entity-list.noData'),
-    onPageChange: onPageChange,
-    onRowClick: handleRowClick,
-    onSortChange: onSortChange,
-    page: props.currentPage,
-    paginationPanel: PaginationPanel,
-    paginationShowsTotal: renderShowsTotal,
-    sizePerPage: props.limit,
-    ...sortingOptions()
-  }
-
-  const showPagination = props.entityCount - props.limit > 0 && !props.inProgress
-
-  const cellFormatter = (column, idx) => (cell, entity) => (
-    <span key={idx} data-cy="list-cell">
-      {column.children.map(child => cellRenderer(child, entity, props.parent, {refresh: props.refresh}, props.intl))}
-    </span>
-  )
-
-  const getLinkColumn = () =>
-    props.linkFactory && props.linkFactory.detail && props.showLink
-      ? <TableHeaderColumn
-        width="30px"
-        dataFormat={(cell, row, formatExtraData, rowIdx) => (
-          <span onClick={e => e.stopPropagation()}>
-            {props.linkFactory.detail(null, null, row.__key, <Icon icon="arrow-right"/>)}
-          </span>
-        )}
+        </tbody>
+      </StyledTable>
+    </StretchingTableContainer>
+    {showPagination && <PaginationContainer>
+      <Pagination
+        onPageChange={props.changePage}
+        currentPage={props.currentPage}
+        totalCount={props.entityCount}
+        recordsPerPage={props.limit}
       />
-      : null
-
-  return (
-    <StyledTable>
-      {props.sorting
-      && <BootstrapTable
-        remote
-        data={props.inProgress ? [] : props.entities}
-        pagination={showPagination}
-        fetchInfo={{dataTotalSize: props.entityCount}}
-        options={tableOption}
-        trClassName="break-word pointer"
-        hover
-        bordered={false}
-        selectRow={selectRow}
-      >
-        {getLinkColumn()}
-        <TableHeaderColumn dataField="__key" isKey hidden>Key</TableHeaderColumn>
-        {
-          props.columnDefinitions.map((column, idx) => {
-            const field = column.children[0]
-            return <TableHeaderColumn
-              key={idx}
-              dataFormat={cellFormatter(column, idx)}
-              dataSort={column.sortable}
-              dataField={column.id}
-              {...RIGHT_ALIGNED_TYPES.includes(field.dataType) && {dataAlign: 'right'}}
-            >
-              {column.label}
-            </TableHeaderColumn>
-          })
-        }
-      </BootstrapTable>
-      }
-    </StyledTable>
-  )
+    </PaginationContainer>}
+  </StyledTableWrapper>
 }
 
 Table.propTypes = {
@@ -155,7 +157,7 @@ Table.propTypes = {
   currentPage: PropTypes.number,
   limit: PropTypes.number,
   onRowClick: PropTypes.func,
-  setSorting: PropTypes.func,
+  setSortingInteractive: PropTypes.func,
   changePage: PropTypes.func.isRequired,
   tableSelectionStyle: selectionStylePropType,
   onSelectChange: PropTypes.func,

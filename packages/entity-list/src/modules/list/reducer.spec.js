@@ -7,7 +7,7 @@ const EXPECTED_INITIAL_STATE = {
   entities: [],
   limit: 10,
   currentPage: 1,
-  sorting: null,
+  sorting: [],
   formDefinition: null,
   entityCount: null,
   entityStore: {},
@@ -260,6 +260,46 @@ describe('entity-list', () => {
 
           expect(reducer(expectedStateAfter2, actions.setLazyData('displayExpressions', 'User_list', {44: 'Test'})))
             .to.deep.equal(expectedStateAfter3)
+        })
+
+        test('should handle SET_SORTING_INTERACTIVE and switch order on same field', () => {
+          const stateBefore = {
+            sorting: [{field: 'lastname', order: 'asc'}]
+          }
+
+          const expectedStateAfter = {
+            sorting: [{field: 'firstname', order: 'asc'}]
+          }
+
+          expect(reducer(stateBefore, actions.setSortingInteractive('firstname', false)))
+            .to.deep.equal(expectedStateAfter)
+
+          const expectedStateAfter2 = {
+            sorting: [{field: 'firstname', order: 'desc'}]
+          }
+
+          expect(reducer(expectedStateAfter, actions.setSortingInteractive('firstname', false)))
+            .to.deep.equal(expectedStateAfter2)
+        })
+
+        test('should handle SET_SORTING_INTERACTIVE and add a second sorting', () => {
+          const stateBefore = {
+            sorting: [{field: 'lastname', order: 'asc'}]
+          }
+
+          const expectedStateAfter = {
+            sorting: [{field: 'lastname', order: 'asc'}, {field: 'firstname', order: 'asc'}]
+          }
+
+          expect(reducer(stateBefore, actions.setSortingInteractive('firstname', true)))
+            .to.deep.equal(expectedStateAfter)
+
+          const expectedStateAfter2 = {
+            sorting: [{field: 'lastname', order: 'asc'}, {field: 'firstname', order: 'desc'}]
+          }
+
+          expect(reducer(expectedStateAfter, actions.setSortingInteractive('firstname', true)))
+            .to.deep.equal(expectedStateAfter2)
         })
       })
     })

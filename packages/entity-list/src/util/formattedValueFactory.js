@@ -48,7 +48,7 @@ export default (fieldDefinition, entity, intl) => {
   const pathValue = entity[path]
   const values = !isMultiType && Array.isArray(pathValue) ? pathValue : [pathValue]
 
-  return <span key={id} style={{marginRight: '2px'}} onClick={e => e.stopPropagation()}>
+  return <span key={id} style={{marginRight: '2px'}}>
     {values.map((v, idx) => {
       return <formData.FormDataContainer key={idx} linkFactory={true}>
         <FormattedValueWrapper type={type} value={v} intl={intl}/>

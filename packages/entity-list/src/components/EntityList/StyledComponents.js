@@ -1,11 +1,13 @@
 import styled from 'styled-components'
 
 export const TopPositioning = styled.div`
+  height: 100%;
   display: grid;
   grid-row-gap: 8px;
   grid-template-areas:
     'search'
     'list';
+  grid-auto-rows: auto 1fr;
 `
 
 export const LeftPositioning = styled.div`
@@ -25,8 +27,4 @@ export const SearchGrid = styled.div`
 
 export const ListGrid = styled.div`
   grid-area: list;
-
-  .react-bs-table-container {
-    position: relative;
-  }
 `

@@ -27,6 +27,29 @@ const clearEntityStore = state => ({
   entityStore: {}
 })
 
+const defaultOrder = 'asc'
+const getOpposite = order => order === 'asc' ? 'desc' : 'asc'
+const setSortingInteractive = (state, {payload: {field, add}}) => {
+  if (!add) {
+    const currentSorting = state.sorting
+    const order = (currentSorting.length > 0 && currentSorting[0].field === field
+      ? getOpposite(currentSorting[0].order)
+      : defaultOrder)
+    return {
+      ...state,
+      sorting: [{field, order}]
+    }
+  } else {
+    const contains = state.sorting.filter(s => s.field === field)
+    const order = contains.length > 0 ? getOpposite(contains[0].order) : defaultOrder
+
+    return {
+      ...state,
+      sorting: [...state.sorting.filter(s => s.field !== field), {field, order}]
+    }
+  }
+}
+
 const ACTION_HANDLERS = {
   [actions.SET_INITIALIZED]: reducerUtil.singleTransferReducer('initialized'),
   [actions.SET_ENTITIES]: reducerUtil.singleTransferReducer('entities'),
@@ -35,6 +58,7 @@ const ACTION_HANDLERS = {
   [actions.SET_LIMIT]: reducerUtil.singleTransferReducer('limit'),
   [actions.SET_CURRENT_PAGE]: reducerUtil.singleTransferReducer('currentPage'),
   [actions.SET_SORTING]: reducerUtil.singleTransferReducer('sorting'),
+  [actions.SET_SORTING_INTERACTIVE]: setSortingInteractive,
   [actions.SET_ENTITY_COUNT]: reducerUtil.singleTransferReducer('entityCount'),
   [actions.ADD_ENTITIES_TO_STORE]: addEntityToStore,
   [actions.SET_LAZY_DATA]: setLazyData,
@@ -55,7 +79,7 @@ const initialState = {
   entities: [],
   limit: 10,
   currentPage: 1,
-  sorting: null,
+  sorting: [],
   formDefinition: null,
   entityCount: null,
   entityStore: {},
