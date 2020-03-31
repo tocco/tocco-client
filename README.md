@@ -1,5 +1,5 @@
 # Tocco Client
-[![travics-ci Build Status](https://travis-ci.org/tocco/tocco-client.svg?branch=master)](https://travis-ci.org/tocco/tocco-client)
+[![travics-ci Build Status](https://travis-ci.com/tocco/tocco-client.svg?branch=master)](https://travis-ci.com/tocco/tocco-client)
 [![codecov](https://codecov.io/gh/tocco/tocco-client/branch/master/graph/badge.svg)](https://codecov.io/gh/tocco/tocco-client)
 [![devDependencies Status](https://david-dm.org/tocco/tocco-client/dev-status.svg)](https://david-dm.org/tocco/tocco-client?type=dev)
 [![Documentation Status](https://readthedocs.org/projects/tocco-docs/badge/?version=latest)](http://tocco-docs.readthedocs.io/?badge=latest)
