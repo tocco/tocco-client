@@ -56,6 +56,7 @@ class EntityDetail extends React.Component {
     onSubGridRowClick={this.handleSubGridRowClick}
     onNavigateToCreate={this.handleNavigateToCreate}
     onEntityCreated={this.handleEntityCreated}
+    onEntityDeleted={this.handleGoBack}
     onTouchedChange={this.handleTouchedChange}
     emitAction={action => {
       this.props.dispatchEmittedAction(action)
