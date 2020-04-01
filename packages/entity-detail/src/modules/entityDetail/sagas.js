@@ -3,7 +3,7 @@ import {
   SubmissionError,
   getFormValues
 } from 'redux-form'
-import {externalEvents, notifier, errorLogging, form, actions as actionUtil, actionEmitter, rest}
+import {externalEvents, notifier, errorLogging, form, actions as actionUtil, actionEmitter, rest, remoteEvents}
   from 'tocco-app-extensions'
 import {api} from 'tocco-util'
 import {call, put, select, takeLatest, takeEvery, all} from 'redux-saga/effects'
@@ -30,7 +30,8 @@ export default function* sagas() {
     takeEvery(actions.SUBMIT_FORM, submitForm),
     takeEvery(actions.FIRE_TOUCHED, fireTouched),
     takeEvery(actions.NAVIGATE_TO_CREATE, navigateToCreate),
-    takeEvery(actionUtil.actions.ACTION_INVOKED, actionInvoked)
+    takeEvery(actionUtil.actions.ACTION_INVOKED, actionInvoked),
+    takeEvery(remoteEvents.REMOTE_EVENT, remoteEvent)
   ])
 }
 
@@ -234,4 +235,17 @@ export function* actionInvoked(action) {
 
 export function* navigateToCreate({payload}) {
   yield put(externalEvents.fireExternalEvent('onNavigateToCreate', payload.relationName))
+}
+
+export const entityDeleted = (event, entityName, entityId) =>
+  !!event.payload.keys.find(key => key._entityName === entityName && key.getKey().asString() === entityId)
+
+export function* remoteEvent(action) {
+  const event = action.payload.event
+  if (event.type === 'legacy-delete-event') {
+    const {entityName, entityId} = yield select(entityDetailSelector)
+    if (entityDeleted(event, entityName, entityId)) {
+      yield put(externalEvents.fireExternalEvent('onEntityDeleted'))
+    }
+  }
 }
