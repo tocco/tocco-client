@@ -32,8 +32,8 @@
     }
   },
   "peerDependencies": {
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
@@ -124,10 +124,10 @@
     "polished": "^3.4.2",
     "prop-types": "^15.7.2",
     "query-string": "^6.8.3",
-    "react": "16.8.4",
+    "react": "^16.13.1",
     "react-addons-test-utils": "^15.6.2",
     "react-bootstrap": "0.31.5",
-    "react-dom": "16.8.4",
+    "react-dom": "^16.13.1",
     "react-hot-loader": "^4.12.12",
     "react-intl": "2.4.0",
     "react-intl-redux": "2.0.0",
