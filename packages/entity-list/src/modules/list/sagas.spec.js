@@ -606,17 +606,19 @@ describe('entity-list', () => {
 
         describe('remoteEvent saga', () => {
           const createEventAction = remoteEvents.remoteEvent({
-            type: 'legacy-create-event',
+            type: 'entity-create-event',
             payload: {
-              modelNames: ['User', 'Principal']
+              entities: [
+                {entityName: 'User', key: '1'},
+                {entityName: 'Principal', key: '2'}]
             }
           })
           const deleteEventAction = remoteEvents.remoteEvent({
-            type: 'legacy-delete-event',
+            type: 'entity-delete-event',
             payload: {
-              keys: [
-                {_entityName: 'User', _key: 1},
-                {_entityName: 'Principal', _key: 2}
+              entities: [
+                {entityName: 'User', key: '1'},
+                {entityName: 'Principal', key: '2'}
               ]
             }
           })
