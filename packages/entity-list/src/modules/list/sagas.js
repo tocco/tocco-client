@@ -287,19 +287,14 @@ export function* actionInvoked(action) {
   yield put(actionEmitter.emitAction(action))
 }
 
-const remoteEventReloadPredicates = {
-  'legacy-create-event': (payload, entityName) => payload.modelNames.includes(entityName),
-  'legacy-delete-event': (payload, entityName) => !!payload.keys.find(key => key._entityName === entityName)
-}
+export const containsEntityOfModel = (event, entityName) =>
+  !!event.payload.entities.find(entity => entity.entityName === entityName)
 
 export function* remoteEvent(action) {
   const event = action.payload.event
-
-  const reloadPredicate = remoteEventReloadPredicates[event.type]
-
-  if (reloadPredicate) {
+  if (event.type === 'entity-create-event' || event.type === 'entity-delete-event') {
     const {entityModel} = yield select(listSelector)
-    if (reloadPredicate(event.payload, entityModel.name)) {
+    if (containsEntityOfModel(event, entityModel.name)) {
       yield call(reloadData)
     }
   }
