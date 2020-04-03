@@ -23,9 +23,11 @@ addLocaleData(frLocaleData)
 addLocaleData(itLocaleData)
 
 setIntlConfig({
-  locales: ['de-CH', 'fr-CH', 'it-CH', 'en-US'],
+  locales: ['de-CH'],
   defaultLocale: 'de-CH',
-  getMessages: () => {}
+  getMessages: locale => ({
+    'client.component.pagination.text': '{start} to {to} from {total}'
+  })
 })
 
 addDecorator(withInfo({
