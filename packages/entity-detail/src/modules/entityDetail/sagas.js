@@ -238,11 +238,11 @@ export function* navigateToCreate({payload}) {
 }
 
 export const entityDeleted = (event, entityName, entityId) =>
-  !!event.payload.keys.find(key => key._entityName === entityName && key.getKey().asString() === entityId)
+  !!event.payload.entities.find(entity => entity.entityName === entityName && entity.key === entityId)
 
 export function* remoteEvent(action) {
   const event = action.payload.event
-  if (event.type === 'legacy-delete-event') {
+  if (event.type === 'entity-delete-event') {
     const {entityName, entityId} = yield select(entityDetailSelector)
     if (entityDeleted(event, entityName, entityId)) {
       yield put(externalEvents.fireExternalEvent('onEntityDeleted'))

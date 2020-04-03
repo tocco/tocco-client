@@ -297,11 +297,11 @@ describe('entity-detail', () => {
 
         describe('remoteEvent saga', () => {
           const deleteEventAction = remoteEvents.remoteEvent({
-            type: 'legacy-delete-event',
+            type: 'entity-delete-event',
             payload: {
-              keys: [
-                {_entityName: 'User', getKey: () => ({asString: () => '1'})},
-                {_entityName: 'Principal', getKey: () => ({asString: () => '2'})}
+              entities: [
+                {entityName: 'User', key: '1'},
+                {entityName: 'Principal', key: '2'}
               ]
             }
           })
