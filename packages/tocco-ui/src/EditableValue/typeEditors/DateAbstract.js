@@ -6,7 +6,6 @@ import {withTheme} from 'styled-components'
 import {js} from 'tocco-util'
 
 import {theme} from '../../utilStyles'
-import Ball from '../../Ball'
 import {
   StyledDateAbstractControl,
   StyledDateAbstractInput,
@@ -155,10 +154,6 @@ class DateAbstract extends React.Component {
           data-clear
           hideButton={!this.hasValue() || this.props.immutable}
         >
-          <Ball
-            icon="times"
-            tabIndex={-1}
-          />
         </StyledDateAbstractControl>
       </StyledDateAbstractWrapper>
     )
