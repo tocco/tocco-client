@@ -13,16 +13,10 @@ const StyledRange = styled.div`
     justify-content: space-between;
     align-items: baseline;
   }
-
-  .extender {
-    display: flex;
-    align-items: flex-start;
-  }
 `
 
 export const StyledInputItemWrapper = styled.div`
   display: inline-block;
-  text-align: center;
   width: 100%;
 
   * {
