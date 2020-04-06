@@ -1,3 +1,10 @@
+0.2.26
+- Constriction handling
+- Searchform with tql
+- Panel animation refactoring
+- Fix &shy; in label
+- Component type fix
+
 0.2.25
 - Fix display-expression not shown in list view
 - View height fix (double scrollbar)
