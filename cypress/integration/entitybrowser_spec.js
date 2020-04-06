@@ -135,11 +135,51 @@ describe('Entity Browser', () => {
 
     it('should load and display essential parts of the list view', () => {
       cy.contains('Daten werden geladen...', {timeout: LONG_TIMEOUT})
-      cy.get('[title="Vorname"]')
+      cy.get('#header-cell-firstname')
         .should('be.visible')
       cy.contains('Alle')
       cy.get('[data-cy=list-cell]')
         .should('have.length.above', 1)
+    })
+
+    it('should handle selection', () => {
+      cy.get('[data-cy=list-row]')
+        .should('have.length.above', 5)
+
+      cy.get('[data-cy=list-selection-checkbox]').first().click()
+      cy.get('[data-cy=list-selection-checkbox]').eq(3).click()
+      cy.get('[data-cy=list-selection-checkbox]').eq(5).click()
+      cy.contains('Selektiert: 3')
+
+      cy.get('[data-cy=selection-controller-selection]').click()
+      cy.get('[data-cy=list-row]')
+        .should('have.length', 3)
+      cy.get('[data-cy=selection-controller-delete-selection]').click()
+
+      cy.get('[data-cy=list-row]')
+        .should('have.length.above', 5)
+    })
+
+    it('should handle column sorting and multi sorting', () => {
+      cy.get('#header-cell-firstname').click()
+      cy.get('#header-cell-firstname').find('svg').should('have.attr', 'data-icon', 'sort-up')
+      cy.get('#header-cell-firstname').click()
+      cy.get('#header-cell-firstname').find('svg').should('have.attr', 'data-icon', 'sort-down')
+      cy.get('#header-cell-lastname').click()
+      cy.get('#header-cell-firstname').find('svg').should('have.length', 0)
+      cy.get('body').type('{shift}', {release: false})
+      cy.get('#header-cell-firstname').click()
+      cy.get('#header-cell-firstname').find('svg').should('have.attr', 'data-icon', 'sort-up')
+      cy.get('#header-cell-firstname').contains('2')
+    })
+
+    it('should handle resize of a column with min width', () => {
+      cy.get('#header-cell-firstname').should('not.have.css', 'width', '30px')
+      cy.get('#header-cell-firstname > .resizeHandle').trigger('mousedown')
+        .trigger('mousemove', {clientX: 500, clientY: 0})
+        .trigger('mousemove', {clientX: 100, clientY: 0})
+        .trigger('mouseup')
+      cy.get('#header-cell-firstname').should('have.css', 'width', '30px')
     })
   })
 

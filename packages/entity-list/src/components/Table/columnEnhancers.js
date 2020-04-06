@@ -15,7 +15,10 @@ const navigationCell = {
         dynamic: false,
         headerRender: () => null,
         cellRenderer: (entity, {linkFactory}) => {
-          return <span onClick={e => e.stopPropagation()}>
+          return <span
+            onClick={e => e.stopPropagation()}
+            data-cy="list-navigation-arrow"
+          >
             {linkFactory.detail(null, null, entity.__key, <Icon icon="arrow-right"/>)}
           </span>
         }
@@ -52,8 +55,9 @@ const multiSelectionCell = {
             singleSelectHandler(entity.__key, true, true)
           }
           e.stopPropagation()
-        }
-        }>
+        }}
+        data-cy="list-selection-checkbox"
+        >
           <MultiCheckbox value={rowSelectionState(entity)} onChange={rowSelectionChange(entity)}/>
         </div>
       }

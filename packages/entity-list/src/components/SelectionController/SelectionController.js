@@ -28,17 +28,22 @@ const SelectionController = props => {
             values={{count: props.queryCount}}/>
         </Typography.Span>
       </StyledButton>
-      <StyledButton active={props.showSelectedRecords} disabled={!selectionPossible}
+      <StyledButton
+        active={props.showSelectedRecords}
+        disabled={!selectionPossible}
         onClick={() => {
           if (selectionPossible) {
             props.toggleShowSelectedRecords()
           }
-        }}>
+        }}
+        data-cy="selection-controller-selection"
+      >
         <Typography.Span>
           <FormattedMessage
             id="client.entity-list.selectionSelection"
             values={{count: props.selection.length}}/>
           {props.selection.length > 0 && <Button
+            data-cy="selection-controller-delete-selection"
             dense
             icon="times"
             title={msg('client.entity-list.clearSelection')}

@@ -21,7 +21,7 @@ export default (tableElRef, resizeCallback) => {
   const onMouseMove = e => requestAnimationFrame(() => {
     if (lastPositionX) {
       const diff = e.clientX - lastPositionX
-      const thEl = tableElRef.current.querySelector("th[id='" + tmpColResizing.id + "']")
+      const thEl = tableElRef.current.querySelector(`th[id='header-cell-${tmpColResizing.id}']`)
       const width = Math.max(50, thEl.offsetWidth + diff) + 'px'
       resizeCallback(tmpColResizing.id, width)
     }

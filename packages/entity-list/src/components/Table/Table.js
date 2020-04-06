@@ -86,8 +86,8 @@ const Table = props => {
           <tr>
             {columns.map(column =>
               <th
-                id={column.id}
-                key={`table-header-${column.id}`}
+                id={`header-cell-${column.id}`}
+                key={`header-cell-${column.id}`}
                 onClick={thOnClick(column)}>
                 <ThContent column={column}/>
                 <SortingState column={column} sorting={props.sorting}/>
@@ -103,9 +103,10 @@ const Table = props => {
               : props.entities.length > 0
                 ? props.entities.map(entity =>
                   <tr
-                    key={`table-row-${entity.__key}`}
+                    key={`list-row-${entity.__key}`}
                     className={`selectableRow ${isSelected(entity.__key) && 'selected'}`}
                     onClick={trOnClick(entity)}
+                    data-cy="list-row"
                   >
                     {
                       columns.map(column =>

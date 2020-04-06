@@ -8,6 +8,7 @@ const StaticCell = React.memo(props => {
   const {column, rightAligned, entity, refresh, intl, parent} = props
   return <td
     {...rightAligned === true && {style: {textAlign: 'right'}}}
+    data-cy="list-cell"
   >
     {column.cellRenderer
       ? column.cellRenderer(entity, props)
