@@ -1,3 +1,12 @@
+0.9.10
+- Searchform with tql
+- Harmonize stateted value box padding
+- Panel animation refactoring
+- Fix &shy; in label
+- Component type fix
+- adapt success color for better readability
+- Range component
+
 0.9.9
 - Reset nice css leak
 
