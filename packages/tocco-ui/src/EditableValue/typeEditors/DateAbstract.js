@@ -115,7 +115,7 @@ class DateAbstract extends React.Component {
   handleOnChange = selectedDates => {
     const isoStrings = selectedDates.map(date => date.toISOString())
     this.setState({altInput: this.flatpickr.altInput.value})
-    if (!(!this.hasValue() && isoStrings.length === 0)) {
+    if (this.hasValue() || isoStrings.length !== 0) {
       this.props.onChange(isoStrings)
     }
   }
@@ -169,7 +169,7 @@ DateAbstract.propTypes = {
   id: PropTypes.string,
   intl: intlShape.isRequired,
   onBlur: PropTypes.func,
-  onChange: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
   value: PropTypes.arrayOf(PropTypes.string),
   options: PropTypes.shape({
     placeholderText: PropTypes.string,
