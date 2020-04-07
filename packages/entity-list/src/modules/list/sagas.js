@@ -47,6 +47,7 @@ export function* initialize() {
       call(loadEntityModel, entityName, entityModel),
       call(loadFormDefinition, formDefinition, formName)
     ])
+    yield call(setSorting)
     yield call(loadData, 1)
   } else {
     yield call(loadData)
@@ -238,12 +239,16 @@ export function* displayEntity(page) {
   yield put(actions.setEntities(entities))
 }
 
-export const FALLBACK_SORTING = [{field: 'update_timestamp', order: 'desc'}]
-export function* setSorting(formDefinition) {
+export const FALLBACK_SORTING_FIELD = 'update_timestamp'
+export function* setSorting() {
+  const {formDefinition, entityModel} = yield select(listSelector)
   const tableSorting = yield call(getSorting, formDefinition)
-  const sorting = tableSorting.length > 0 ? tableSorting : FALLBACK_SORTING
 
-  yield put(actions.setSorting(sorting))
+  if (tableSorting.length > 0) {
+    yield put(actions.setSorting(tableSorting))
+  } else if (entityModel.paths[FALLBACK_SORTING_FIELD]) {
+    yield put(actions.setSorting([{field: FALLBACK_SORTING_FIELD, order: 'desc'}]))
+  }
 }
 
 export function* loadFormDefinition(formDefinition, formName) {
@@ -252,7 +257,6 @@ export function* loadFormDefinition(formDefinition, formName) {
     yield put(actions.setFormDefinition(formDefinition))
   }
 
-  yield call(setSorting, formDefinition)
   const selectable = yield call(getSelectable, formDefinition)
   yield put(actions.setFormSelectable(selectable))
   const endpoint = yield call(getEndpoint, formDefinition)

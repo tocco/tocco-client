@@ -104,8 +104,7 @@ const Table = props => {
 
   return (
     <StyledTable>
-      {props.sorting
-      && <BootstrapTable
+      <BootstrapTable
         remote
         data={props.inProgress ? [] : props.entities}
         pagination={showPagination}
@@ -133,7 +132,6 @@ const Table = props => {
           })
         }
       </BootstrapTable>
-      }
     </StyledTable>
   )
 }
