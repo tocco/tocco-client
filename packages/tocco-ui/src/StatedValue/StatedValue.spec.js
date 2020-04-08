@@ -14,18 +14,17 @@ import {
 describe('tocco-ui', () => {
   describe('StatedValue', () => {
     test('should show content', () => {
-      const wrapper = mount(<StatedValue><input key="StatedValueContent"/></StatedValue>)
-      expect(wrapper.find(StyledStatedValueBox).children().children().children()).to.have.length(2)
+      const wrapper = mount(<StatedValue><input key="StatedValueContent" label="Label"/></StatedValue>)
       expect(wrapper.find('input')).to.have.length(1)
     })
 
     test('should not have content', () => {
-      const wrapper = mount(<StatedValue />)
+      const wrapper = mount(<StatedValue label="Label"/>)
       expect(wrapper.find(StyledStatedValueBox).children().children().children()).to.have.length(1)
     })
 
     test('should show description', () => {
-      const wrapper = mount(<StatedValue description="description"/>)
+      const wrapper = mount(<StatedValue description="description" label="Label"/>)
       const el = wrapper.find(StyledStatedValueDescription)
       expect(el).to.have.length(1)
       expect(el.text('description')).to.be.equal('description')
@@ -37,19 +36,19 @@ describe('tocco-ui', () => {
     })
 
     test('should detect condition dirty', () => {
-      const wrapper = mount(<StatedValue dirty={true} />)
+      const wrapper = mount(<StatedValue dirty={true} label="Label"/>)
       expect(wrapper.find(StyledStatedValueBox).prop('signal')).to.be.equal('warning')
       expect(wrapper.find(StyledStatedValueLabel).prop('signal')).to.be.equal('warning')
     })
 
     test('should not detect condition error if not touched', () => {
-      const wrapper = mount(<StatedValue error={{error: ['error']}}/>)
+      const wrapper = mount(<StatedValue error={{error: ['error']}} label="Label"/>)
       expect(wrapper.find(StyledStatedValueBox).prop('signal')).to.be.undefined
       expect(wrapper.find(StyledStatedValueLabel).prop('signal')).to.be.undefined
     })
 
     test('should detect condition error if touched', () => {
-      const wrapper = mount(<StatedValue error={{error: ['error']}} touched={true}/>)
+      const wrapper = mount(<StatedValue error={{error: ['error']}} touched={true} label="Label"/>)
       expect(wrapper.find(StyledStatedValueBox).prop('signal')).to.be.equal('danger')
       expect(wrapper.find(StyledStatedValueLabel).prop('signal')).to.be.equal('danger')
     })
@@ -59,7 +58,9 @@ describe('tocco-ui', () => {
         <StatedValue
           dirty={true}
           error={{error: ['error']}}
-          touched={true}/>)
+          touched={true}
+          label="Label"
+        />)
       expect(wrapper.find(StyledStatedValueBox).prop('signal')).to.be.equal('danger')
       expect(wrapper.find(StyledStatedValueLabel).prop('signal')).to.be.equal('danger')
     })
@@ -77,7 +78,7 @@ describe('tocco-ui', () => {
     })
 
     test('should pass prop hasValue as secondaryPosition', () => {
-      const wrapper = mount(<StatedValue hasValue={true} />)
+      const wrapper = mount(<StatedValue hasValue={true} label="Label"/>)
       expect(wrapper.find(StyledStatedValueWrapper).prop('secondaryPosition')).to.be.true
       expect(wrapper.find(StyledStatedValueLabel).prop('secondaryPosition')).to.be.true
     })
@@ -116,7 +117,7 @@ describe('tocco-ui', () => {
     })
 
     test('should use prop id for htmlFor on label', () => {
-      const wrapper = mount(<StatedValue id="target-element" />)
+      const wrapper = mount(<StatedValue id="target-element" label="Label" />)
       const el = wrapper.find(StyledStatedValueLabel)
       expect(el.prop('htmlFor')).to.be.equal('target-element')
     })
