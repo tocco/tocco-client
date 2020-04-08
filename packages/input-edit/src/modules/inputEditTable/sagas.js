@@ -34,20 +34,26 @@ export function* sortData({payload: {sorting}}) {
 
 export function* loadData({newSorting, newSearchQueries, newPage}) {
   const {inputEntityKey} = yield select(inputSelector)
+  const dataForm = (yield select(inputEditTableSelector)).inputDataForm
   const sorting = newSorting || (yield select(inputEditTableSelector)).sorting
   const searchQueries = newSearchQueries || (yield select(searchQueriesSelector))
   const currentPage = newPage || (yield select(inputEditPaginationSelector)).currentPage
   const recordsPerPage = (yield select(inputEditPaginationSelector)).recordsPerPage
+  const paths = dataForm.children
+    .find(child => child.componentType === 'table')
+    .children
+    .flatMap(column => column.children.map(field => field.path))
+  paths.push('pk')
+  const searchBean = rest.buildRequestQuery({
+    limit: recordsPerPage,
+    sorting: [{field: sorting.field, order: sorting.direction}],
+    page: currentPage,
+    tql: searchQueries.join(' AND '),
+    paths: paths
+  })
   const response = yield call(rest.requestSaga, `inputEdit/${inputEntityKey}/data/search`, {
     method: 'POST',
-    body: {
-      sorting,
-      searchQueries,
-      pagination: {
-        offset: (currentPage - 1) * recordsPerPage,
-        recordsPerPage: recordsPerPage
-      }
-    }
+    body: searchBean
   })
   yield put(actions.setData(response.body))
 }
