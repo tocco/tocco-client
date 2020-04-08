@@ -14,7 +14,7 @@ export default function* sagas() {
 export function* initialize() {
   const [model, form] = yield all([
     call(rest.fetchModel, 'Input_data'),
-    call(rest.fetchForm, 'Input_edit', 'search')
+    call(rest.fetchForm, 'Input_edit_data', 'search')
   ])
   yield put(actions.setModel(model))
   yield put(actions.setForm(form))
