@@ -21,7 +21,7 @@ const setValue = (state, action) => {
   return {
     ...state,
     data: state.data.reduce((acc, val) => {
-      if (val.pk === inputDataKey) {
+      if (val.pk.value === inputDataKey) {
         return [...acc, {
           ...val,
           [node]: value

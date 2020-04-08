@@ -96,7 +96,7 @@ const DataCell = ({index, nodes, column}) => <td>
     column.children[0],
     undefined,
     'Input_edit_data_list',
-    nodes[column.children[0].path],
+    loadValue(nodes, column.children[0].path),
     {},
     {},
     {},
@@ -113,14 +113,35 @@ const InputCell = ({index, nodes, column, updateValue}) => {
       styles={{width: `${width}px`}}
       id={keyBuilder(index, column)}
       type={column.dataType}
-      value={nodes[column.id]}
+      value={loadValue(nodes, column.id)}
       readOnly={column.readonly}
       options={column.options}
       events={{
-        onChange: changedValue => updateValue(nodes.pk, column.id, changedValue),
+        onChange: changedValue => updateValue(nodes.pk.value, column.id, changedValue),
         onFocus: ({target}) => target.select()
       }}/>
   </StyledCell>
+}
+
+const loadValue = (nodes, path) => {
+  const elements = path.split('.')
+  let value = nodes
+  for (const element of elements) {
+    value = value[element]
+    if (value && Object.prototype.hasOwnProperty.call(value, 'value')) {
+      value = value.value
+    }
+    if (value && Object.prototype.hasOwnProperty.call(value, 'paths')) {
+      value = value.paths
+    }
+    if (!value) {
+      return null
+    }
+  }
+  if (Object.prototype.hasOwnProperty.call(value, 'value')) {
+    value = value.value
+  }
+  return value
 }
 
 InputEditTable.propTypes = {
