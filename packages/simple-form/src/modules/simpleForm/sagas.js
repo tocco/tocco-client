@@ -28,17 +28,27 @@ export function* initialize() {
 }
 
 export function* submit() {
-  const values = yield select(getFormValues(FORM_ID))
+  const values = yield getValues()
   yield put(externalEvents.fireExternalEvent('onSubmit', {values}))
 }
 
 export function* cancel() {
-  const values = yield select(getFormValues(FORM_ID))
+  const values = yield getValues()
   yield put(externalEvents.fireExternalEvent('onCancel', {values}))
 }
 
 export function* change() {
-  const values = yield select(getFormValues(FORM_ID))
+  const values = yield getValues()
   const valid = yield select(isValid(FORM_ID))
   yield put(externalEvents.fireExternalEvent('onChange', {values, valid}))
+}
+
+function* getValues() {
+  return Object.entries(yield select(getFormValues(FORM_ID)))
+    .reduce((acc, [key, value]) => {
+      return {
+        ...acc,
+        [key.replace('--', '.')]: value
+      }
+    }, {})
 }
