@@ -19,6 +19,7 @@ export default {
   'double': editableValueFactory('decimal'),
   'duration': editableValueFactory('duration'),
   'email': editableValueFactory('string'),
+  'fulltext-search': editableValueFactory('string'),
   'html': editableValueFactory('html'),
   'image': editableValueFactory('document'),
   'identifier': editableValueFactory('string'),
