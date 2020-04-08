@@ -48,7 +48,7 @@ export function* loadData({newSorting, newSearchQueries, newPage}) {
     limit: recordsPerPage,
     sorting: [{field: sorting.field, order: sorting.direction}],
     page: currentPage,
-    tql: searchQueries.join(' AND '),
+    tql: searchQueries.join(' and '),
     paths: paths
   })
   const response = yield call(rest.requestSaga, `inputEdit/${inputEntityKey}/data/search`, {
