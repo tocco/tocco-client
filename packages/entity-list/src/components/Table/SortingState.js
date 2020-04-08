@@ -25,7 +25,9 @@ SortingState.propTypes = {
   column: PropTypes.shape({
     id: PropTypes.string.isRequired
   }).isRequired,
-  sorting: PropTypes.arrayOf(PropTypes.shape({field: PropTypes.string, order: PropTypes.string}))
+  sorting: PropTypes.arrayOf(
+    PropTypes.shape({field: PropTypes.string, order: PropTypes.string})
+  ).isRequired
 }
 
 export default SortingState

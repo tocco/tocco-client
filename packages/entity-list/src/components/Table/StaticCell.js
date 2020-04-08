@@ -23,7 +23,7 @@ StaticCell.propTypes = {
     children: PropTypes.arrayOf(PropTypes.object),
     cellRenderer: PropTypes.func,
     dynamic: PropTypes.bool
-  }),
+  }).isRequired,
   rightAligned: PropTypes.bool,
   intl: intlShape.isRequired,
   refresh: PropTypes.func,

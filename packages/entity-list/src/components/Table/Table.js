@@ -14,7 +14,8 @@ import StaticCell from './StaticCell'
 import {selectionStylePropType} from '../../util/selectionStyles'
 import StyledTable, {StyledTableWrapper, StretchingTableContainer, PaginationContainer} from './StyledTable'
 
-const rightAlignedTypes = ['moneyamount', 'counter', 'integer', 'long']
+const rightAlignedTypes = ['counter', 'decimal', 'double', 'integer', 'latitude', 'long', 'longitude', 'moneyamount',
+  'percent', 'serial', 'sorting', 'version']
 
 const isRightAligned = column =>
   column.children && column.children.length === 1 && rightAlignedTypes.includes(column.children[0].dataType)
@@ -88,6 +89,7 @@ const Table = props => {
               <th
                 id={`header-cell-${column.id}`}
                 key={`header-cell-${column.id}`}
+                data-cy={`header-cell-${column.id}`}
                 onClick={thOnClick(column)}>
                 <ThContent column={column}/>
                 <SortingState column={column} sorting={props.sorting}/>
