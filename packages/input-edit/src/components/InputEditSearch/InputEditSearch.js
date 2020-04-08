@@ -19,11 +19,10 @@ const handleChange = (form, setSearchFields) => ({values, valid}) => {
   if (Object.keys(values).length > 0) {
     const tql = Object.entries(values)
       .map(([path, value]) => {
-        const parsedPath = path.replace('--', '.')
         return {
-          path: parsedPath,
-          fieldType: loadFieldType(parsedPath, form),
-          value: value
+          path,
+          fieldType: getFieldType(path, form),
+          value
         }
       })
       .map(({path, fieldType, value}) => tqlBuilder.getTql(path, value, fieldType))
@@ -31,7 +30,7 @@ const handleChange = (form, setSearchFields) => ({values, valid}) => {
   }
 }
 
-const loadFieldType = (path, form) => {
+const getFieldType = (path, form) => {
   const container = form.children.find(child => child.children.length > 0)
   if (container) {
     const field = container.children.find(child => child.id === path)
