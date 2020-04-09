@@ -37,7 +37,8 @@ export const sources = [
   {src: '/nice2/javascript/nice2-newclient-actions-setup.debug.js', handler: loadScript},
   {src: '/nice2/dwr-all.js', handler: loadScript},
   {src: '/css/themes/blue-medium.css', handler: loadCss},
-  {src: '/css/nice2-admin.css', handler: loadCss}
+  {src: '/css/nice2-admin.css', handler: loadCss},
+  {src: '/css/nice2-new-client-legacy-actions.css', handler: loadCss}
 ]
 
 export const entityEventCallback = remoteEventsChannel => event => {
