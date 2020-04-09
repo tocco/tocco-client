@@ -46,6 +46,7 @@ describe('app-extensions', () => {
                 .call(legacyAction.loadScript, '/nice2/dwr-all.js').next()
                 .call(legacyAction.loadCss, '/css/themes/blue-medium.css').next()
                 .call(legacyAction.loadCss, '/css/nice2-admin.css').next()
+                .call(legacyAction.loadCss, '/css/nice2-new-client-legacy-actions.css').next()
                 .isDone()
             })
           })
