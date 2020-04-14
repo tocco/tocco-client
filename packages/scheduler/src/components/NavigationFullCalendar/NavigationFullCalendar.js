@@ -82,7 +82,14 @@ const NavigationFullCalendar = props => {
           <Button
             look="raised"
             {...(getButtonInkProps('weekView', type))}
-            onClick={() => changeView('weekView')}
+            {...(getButtonInkProps('weekViewSimple', type))}
+            onClick={() => {
+              if (type !== 'weekViewSimple') {
+                changeView('weekViewSimple')
+              } else {
+                changeView('weekView')
+              }
+            }}
           >
             <FormattedMessage id="client.scheduler.week"/>
           </Button>
