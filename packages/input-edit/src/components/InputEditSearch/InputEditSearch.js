@@ -9,7 +9,8 @@ const InputEditSearch = ({form, model, setSearchFields}) => {
     return <SimpleFormApp form={form}
       model={model}
       onChange={_debounce(handleChange(form, setSearchFields), 500)}
-      noButtons={true}/>
+      noButtons={true}
+      stopValidation={true}/>
   } else {
     return null
   }
