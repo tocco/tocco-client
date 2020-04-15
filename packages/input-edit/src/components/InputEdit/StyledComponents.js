@@ -1,11 +1,12 @@
 import styled from 'styled-components'
-
-export const FlexColumn = styled.div`
-  display: flex;
-  flex-direction: column;
-`
+import {theme} from 'tocco-ui'
 
 export const FlexRow = styled.div`
   display: flex;
   flex-direction: row;
+  background-color: ${theme.color('backgroundBody')};
+
+  > * {
+    margin: 5px;
+  }
 `
