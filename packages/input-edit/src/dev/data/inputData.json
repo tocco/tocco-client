@@ -3,8 +3,10 @@
   "data": [
     {
       "pk": 1,
-      "relUser.firstname": "First User",
-      "relUser.participant_number": 13,
+      "relUser": {
+        "firstname": "First User",
+        "participant_number": 13
+      },
       "node1": 4,
       "node2": 5,
       "node3": "text",
@@ -16,8 +18,10 @@
     },
     {
       "pk": 2,
-      "relUser.firstname": "Second User",
-      "relUser.participant_number": 14,
+      "relUser": {
+        "firstname": "Second User",
+        "participant_number": 14
+      },
       "node1": 3,
       "node2": 6,
       "node3": "text",
