@@ -7,16 +7,6 @@
         "componentType": "table",
         "layoutType": "table",
         "hidden": false,
-        "sorting": [
-          {
-            "field": "relUser.user_nr",
-            "order": "asc"
-          },
-          {
-            "field": "relUser.firstname",
-            "order": "asc"
-          }
-        ],
         "children": [
           {
             "id": "relUser.firstname",
