@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
+import {Panel} from 'tocco-ui'
 
 import InputEditTable from '../InputEditTable/InputEditTableContainer'
-import {FlexColumn, FlexRow} from './StyledComponents'
-import InputEditSearch from '../InputEditSearch'
+import {FlexRow} from './StyledComponents'
 import InputEditPagination from '../InputEditPagination'
+import InputEditSearch from '../InputEditSearch'
 
 const InputEdit = ({initializeTable, initializeSearch}) => {
   useEffect(() => {
@@ -12,11 +13,19 @@ const InputEdit = ({initializeTable, initializeSearch}) => {
     initializeSearch()
   }, [])
   return <FlexRow>
-    <InputEditSearch/>
-    <FlexColumn>
-      <InputEditTable/>
-      <InputEditPagination/>
-    </FlexColumn>
+    <Panel.Wrapper key={'search'}>
+      <Panel.Body>
+        <InputEditSearch/>
+      </Panel.Body>
+    </Panel.Wrapper>
+    <Panel.Wrapper key={'list'} isToggleable={false}>
+      <Panel.Body>
+        <InputEditTable/>
+      </Panel.Body>
+      <Panel.Footer>
+        <InputEditPagination/>
+      </Panel.Footer>
+    </Panel.Wrapper>
   </FlexRow>
 }
 
