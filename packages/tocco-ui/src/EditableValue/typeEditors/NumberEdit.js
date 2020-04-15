@@ -95,4 +95,4 @@ NumberEdit.propTypes = {
   })
 }
 
-export default injectIntl(react.Debouncer(NumberEdit))
+export default injectIntl(react.Debouncer(NumberEdit, 800))
