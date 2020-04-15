@@ -7,11 +7,11 @@ import {FlexRow} from './StyledComponents'
 import InputEditPagination from '../InputEditPagination'
 import InputEditSearch from '../InputEditSearch'
 
-const InputEdit = ({initializeTable, initializeSearch}) => {
+const InputEdit = ({inputEntityKey, initializeTable, initializeSearch}) => {
   useEffect(() => {
     initializeTable()
     initializeSearch()
-  }, [])
+  }, [inputEntityKey])
   return <FlexRow>
     <Panel.Wrapper key={'search'}>
       <Panel.Body>
@@ -30,6 +30,7 @@ const InputEdit = ({initializeTable, initializeSearch}) => {
 }
 
 InputEdit.propTypes = {
+  inputEntityKey: PropTypes.number.isRequired,
   initializeTable: PropTypes.func.isRequired,
   initializeSearch: PropTypes.func.isRequired
 }

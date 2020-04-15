@@ -9,6 +9,8 @@ const mapActionCreators = {
   initializeSearch
 }
 
-const mapStateToProps = () => ({})
+const mapStateToProps = state => ({
+  inputEntityKey: state.input.inputEntityKey
+})
 
 export default connect(mapStateToProps, mapActionCreators)(InputEdit)
