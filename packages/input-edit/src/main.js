@@ -55,7 +55,7 @@ const initApp = (id, input, events, publicPath) => {
 })()
 
 const InputEditApp = props => {
-  return initApp('input-edit', props)
+  return initApp('input-edit', props).component
 }
 
 InputEditApp.propTypes = {
