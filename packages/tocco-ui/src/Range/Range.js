@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, {useMemo} from 'react'
 
-import StyledRange, {StyledInputWrapper, StyledInputItemWrapper} from './StyledRange'
+import StyledRange, {StyledInputWrapper, StyledInputItemWrapper, StyledIconWrapper} from './StyledRange'
 import EditableValue from '../EditableValue'
 import Ball from '../Ball'
 import {Icon} from '../index'
@@ -76,7 +76,9 @@ const Range = props => {
               events={fromEvents}
             />
           </StyledInputItemWrapper>
-          <Icon icon="horizontal-rule"/>
+          <StyledIconWrapper>
+            <Icon icon="horizontal-rule"/>
+          </StyledIconWrapper>
           <StyledInputItemWrapper>
             <EditableValue
               {...props}

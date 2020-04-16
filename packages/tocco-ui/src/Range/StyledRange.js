@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import {scale} from '../utilStyles'
+
 export const StyledInputWrapper = styled.div`
   width: 100%;
 `
@@ -11,6 +13,12 @@ export const StyledInputItemWrapper = styled.div`
     line-height: unset !important;
     text-align: center;
   }
+`
+
+export const StyledIconWrapper = styled.div`
+  font-size: ${scale.font(-2.7)};
+  display: flex;
+  align-items: center;
 `
 
 const StyledRange = styled.div`
