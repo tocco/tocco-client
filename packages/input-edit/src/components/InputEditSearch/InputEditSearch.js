@@ -5,30 +5,33 @@ import {tqlBuilder} from 'tocco-util'
 import PropTypes from 'prop-types'
 
 const InputEditSearch = ({form, model, setSearchFields}) => {
-  if (form.children && model.paths) {
-    return <SimpleFormApp form={form}
+  return form.children && model.paths
+    ? <SimpleFormApp
+      form={form}
       model={model}
       onChange={_debounce(handleChange(form, setSearchFields), 500)}
       noButtons={true}
-      stopValidation={true}/>
-  } else {
-    return null
-  }
+      validate={false}/>
+    : null
 }
 
 const handleChange = (form, setSearchFields) => ({values, valid}) => {
   if (Object.keys(values).length > 0) {
-    const tql = Object.entries(values)
-      .map(([path, value]) => {
-        return {
-          path,
-          fieldType: getFieldType(path, form),
-          value
-        }
-      })
-      .map(({path, fieldType, value}) => tqlBuilder.getTql(path, value, fieldType))
+    const tql = transformFormValuesToTql(values, form)
     setSearchFields(tql)
   }
+}
+
+function transformFormValuesToTql(values, form) {
+  return Object.entries(values)
+    .map(([path, value]) => (
+      {
+        path,
+        fieldType: getFieldType(path, form),
+        value
+      }
+    ))
+    .map(({path, fieldType, value}) => tqlBuilder.getTql(path, value, fieldType))
 }
 
 const getFieldType = (path, form) => {

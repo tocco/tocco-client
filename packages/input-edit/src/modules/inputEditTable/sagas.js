@@ -34,16 +34,12 @@ export function* sortData({payload: {sorting}}) {
 
 export function* loadData({newSorting, newSearchQueries, newPage}) {
   const {inputEntityKey} = yield select(inputSelector)
-  const dataForm = (yield select(inputEditTableSelector)).inputDataForm
   const sorting = newSorting || (yield select(inputEditTableSelector)).sorting
   const searchQueries = newSearchQueries || (yield select(searchQueriesSelector))
   const currentPage = newPage || (yield select(inputEditPaginationSelector)).currentPage
-  const recordsPerPage = (yield select(inputEditPaginationSelector)).recordsPerPage
-  const paths = dataForm.children
-    .find(child => child.componentType === 'table')
-    .children
-    .flatMap(column => column.children.map(field => field.path))
-  paths.push('pk')
+  const {recordsPerPage} = yield select(inputEditPaginationSelector)
+  const dataForm = (yield select(inputEditTableSelector)).inputDataForm
+  const paths = getPathsFromTable(dataForm)
   const searchBean = rest.buildRequestQuery({
     limit: recordsPerPage,
     sorting: [{field: sorting.field, order: sorting.direction}],
@@ -56,6 +52,15 @@ export function* loadData({newSorting, newSearchQueries, newPage}) {
     body: searchBean
   })
   yield put(actions.setData(response.body))
+}
+
+function getPathsFromTable(dataForm) {
+  const paths = dataForm.children
+    .find(child => child.componentType === 'table')
+    .children
+    .flatMap(column => column.children.map(field => field.path))
+  paths.push('pk')
+  return paths
 }
 
 export function* updateValue({payload: {inputDataKey, node, value}}) {
