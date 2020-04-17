@@ -8,8 +8,8 @@ import MergeStrategyContainer from './../../containers/MergeStrategyContainer'
 import {Wizard} from './../Wizard'
 import MergeResponse from './MergeResponse'
 
-const StyledWizarWrapper = styled.div`
-  background-color: ${theme.color('backgroundBody')};
+const StyledWizardWrapper = styled.div`
+  background-color: ${theme.color('paper')};
   padding: 5px;
 `
 class MergeStrategy extends React.Component {
@@ -18,7 +18,7 @@ class MergeStrategy extends React.Component {
 
     if (!this.props.mergeResponse.merged) {
       return (
-        <StyledWizarWrapper>
+        <StyledWizardWrapper>
           <Wizard
             save={{fn: this.props.saveMerge, label: saveButtonLabel}}
             intl={this.props.intl}
@@ -26,7 +26,7 @@ class MergeStrategy extends React.Component {
             <MergeStrategyContainer/>
             <MergeMatrixContainer/>
           </Wizard>
-        </StyledWizarWrapper>
+        </StyledWizardWrapper>
       )
     } else {
       return (
