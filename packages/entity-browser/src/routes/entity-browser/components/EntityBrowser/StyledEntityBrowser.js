@@ -1,10 +1,11 @@
 import styled from 'styled-components'
+import {theme, scale} from 'tocco-ui'
 
 const StyledEntityBrowser = styled.div`
   && {
+    background-color: ${theme.color('paper')};
     height: 100%;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: ${scale.space(0)};
   }
 `
 
