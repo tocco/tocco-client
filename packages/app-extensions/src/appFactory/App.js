@@ -29,7 +29,7 @@ const App = ({store, initIntlPromise, name, content, theme}) => {
         <keyDown.KeyDownWatcher>
           <LoadMask promises={[initIntlPromise]}>
             <IntlProvider>
-              <StyledApp className={`tocco-${name}`} ref={wrapperCallback}>
+              <StyledApp ref={wrapperCallback}>
                 {content}
               </StyledApp>
             </IntlProvider>
