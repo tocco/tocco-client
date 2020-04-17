@@ -1,5 +1,5 @@
-import {getFormValues, actions as formActions, isValid} from 'redux-form'
-import {CHANGE, UPDATE_SYNC_ERRORS, INITIALIZE} from 'redux-form/es/actionTypes'
+import {actions as formActions, getFormValues, isValid} from 'redux-form'
+import {CHANGE, INITIALIZE, UPDATE_SYNC_ERRORS} from 'redux-form/es/actionTypes'
 import {externalEvents, form as formUtil} from 'tocco-app-extensions'
 import {all, call, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
 
@@ -40,15 +40,18 @@ export function* cancel() {
 export function* change() {
   const values = yield getValues()
   const valid = yield select(isValid(FORM_ID))
-  yield put(externalEvents.fireExternalEvent('onChange', {values, valid}))
+  yield put(externalEvents.fireExternalEvent('onChange', {
+    values,
+    valid
+  }))
 }
 
 function* getValues() {
   return Object.entries(yield select(getFormValues(FORM_ID)))
-    .reduce((acc, [key, value]) => {
-      return {
+    .reduce((acc, [key, value]) => (
+      {
         ...acc,
         [key.replace('--', '.')]: value
       }
-    }, {})
+    ), {})
 }
