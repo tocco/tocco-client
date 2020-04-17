@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {EditableValue} from 'tocco-ui'
 import {consoleLogger} from 'tocco-util'
 import {formField} from 'tocco-app-extensions'
+import _get from 'lodash/get'
 
 import {StyledCell, StyledHeader, StyledTable} from './StyledComponents'
 
@@ -96,7 +97,7 @@ const DataCell = ({index, nodes, column}) => <td>
     column.children[0],
     undefined,
     'Input_edit_data_list',
-    loadValue(nodes, column.children[0].path),
+    _get(nodes, column.children[0].path),
     {},
     {},
     {},
@@ -113,7 +114,7 @@ const InputCell = ({index, nodes, column, updateValue}) => {
       styles={{width: `${width}px`}}
       id={keyBuilder(index, column)}
       type={column.dataType}
-      value={loadValue(nodes, column.id)}
+      value={_get(nodes, column.id)}
       readOnly={column.readonly}
       options={column.options}
       events={{
@@ -121,27 +122,6 @@ const InputCell = ({index, nodes, column, updateValue}) => {
         onFocus: ({target}) => target.select()
       }}/>
   </StyledCell>
-}
-
-const loadValue = (nodes, path) => {
-  const elements = path.split('.')
-  let value = nodes
-  for (const element of elements) {
-    value = value[element]
-    if (value && Object.prototype.hasOwnProperty.call(value, 'value')) {
-      value = value.value
-    }
-    if (value && Object.prototype.hasOwnProperty.call(value, 'paths')) {
-      value = value.paths
-    }
-    if (!value) {
-      return null
-    }
-  }
-  if (Object.prototype.hasOwnProperty.call(value, 'value')) {
-    value = value.value
-  }
-  return value
 }
 
 InputEditTable.propTypes = {
