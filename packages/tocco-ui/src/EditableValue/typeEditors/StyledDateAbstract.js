@@ -1,17 +1,9 @@
 import styled from 'styled-components'
 
 import {
-  StyledEditableControlCss,
   StyledEditableWrapperCss,
   StyledInputCss
 } from '../StyledEditableValue'
-
-const StyledDateAbstractControl = styled.div`
-  && {
-    ${StyledEditableControlCss};
-    display: ${props => props.hideButton ? 'none' : 'block'};
-  }
-`
 
 const StyledDateAbstractInput = styled.input`
   &&& {
@@ -34,7 +26,6 @@ const StyledDateAbstractWrapper = styled.div`
 `
 
 export {
-  StyledDateAbstractControl,
   StyledDateAbstractInput,
   StyledDateAbstractWrapper
 }

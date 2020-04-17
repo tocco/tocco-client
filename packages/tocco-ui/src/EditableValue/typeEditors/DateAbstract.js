@@ -7,7 +7,6 @@ import {js} from 'tocco-util'
 
 import {theme} from '../../utilStyles'
 import {
-  StyledDateAbstractControl,
   StyledDateAbstractInput,
   StyledDateAbstractWrapper
 } from './StyledDateAbstract'
@@ -150,11 +149,6 @@ class DateAbstract extends React.Component {
           immutable={this.props.immutable}
           value={this.state.altInput}
         />
-        <StyledDateAbstractControl
-          data-clear
-          hideButton={!this.hasValue() || this.props.immutable}
-        >
-        </StyledDateAbstractControl>
       </StyledDateAbstractWrapper>
     )
   }

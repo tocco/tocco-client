@@ -4,7 +4,7 @@ import React, {useMemo} from 'react'
 import StyledRange, {StyledInputWrapper, StyledInputItemWrapper, StyledIconWrapper} from './StyledRange'
 import EditableValue from '../EditableValue'
 import Ball from '../Ball'
-import {Icon} from '../index'
+import Icon from '../Icon'
 
 const getToOptions = (type, options, fromValue) => {
   switch (type) {
