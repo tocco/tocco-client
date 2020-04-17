@@ -9,13 +9,6 @@ const initialState = {
   sorting: {}
 }
 
-const setData = (state, action) => {
-  return {
-    ...state,
-    data: action.payload.data
-  }
-}
-
 const setValue = (state, action) => {
   const {inputDataKey, node, value} = action.payload
   return {
@@ -35,7 +28,7 @@ const setValue = (state, action) => {
 const ACTION_HANDLERS = {
   [actions.SET_EDIT_FORM]: reducerUtil.singleTransferReducer('inputEditForm'),
   [actions.SET_DATA_FORM]: reducerUtil.singleTransferReducer('inputDataForm'),
-  [actions.SET_DATA]: setData,
+  [actions.SET_DATA]: reducerUtil.singleTransferReducer('data'),
   [actions.SET_VALUE]: setValue,
   [actions.SET_SORTING]: reducerUtil.singleTransferReducer('sorting')
 }
