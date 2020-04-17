@@ -16,9 +16,8 @@ React-registry name: `simple-form`
 | `cancelText`           |           | Text on cancel button
 | `formData`             |           | Provides the option to set relation-entities formData in advance
 | `listApp`              |           | List app (tocco-entity-list) must be provided to support
-| `listApp`              |           | List app (tocco-entity-list) must be provided to support
+| `validate`             |           | pass false if the form should not validate inputs, defaults to true
 | `mappingType`          |           | Will be passed to field factory. Default is "editable". But can be set to use "search" mapping.
-
 
 ### Events
 
