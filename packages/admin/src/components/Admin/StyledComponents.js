@@ -19,6 +19,7 @@ export const StyledContent = styled.div`
   grid-area: content;
   background-color: ${theme.color('backgroundBody')};
   overflow: hidden;
+  display: flex;
 `
 export const StyledMenu = styled(SlideMenu)`
   grid-area: menu;
