@@ -5,17 +5,23 @@ const initialState = {
   some: {other: 'test thing'},
   data: [
     {
-      pk: 122,
+      pk: {
+        value: 122
+      },
       node: 'old',
       other: 'old'
     },
     {
-      pk: 123,
+      pk: {
+        value: 123
+      },
       node: 'old',
       other: 'old'
     },
     {
-      pk: 124,
+      pk: {
+        value: 124
+      },
       node: 'old',
       other: 'old'
     }
@@ -30,23 +36,33 @@ describe('input-edit', () => {
           some: {other: 'test thing'},
           data: [
             {
-              pk: 122,
+              pk: {
+                value: 122
+              },
               node: 'old',
               other: 'old'
             },
             {
-              pk: 123,
+              pk: {
+                value: 123
+              },
               node: 'new',
               other: 'old'
             },
             {
-              pk: 124,
+              pk: {
+                value: 124
+              },
               node: 'old',
               other: 'old'
             }
           ]
         }
-        expect(reducer(initialState, actions.setValue(123, 'node', 'new'))).to.deep.equal(expectedState)
+        expect(reducer(initialState, actions.setValue(
+          123,
+          'node',
+          'new'
+        ))).to.deep.equal(expectedState)
       })
     })
   })

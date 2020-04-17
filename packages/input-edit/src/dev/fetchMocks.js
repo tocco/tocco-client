@@ -53,7 +53,7 @@ export default function setupFetchMock(packageName, fetchMock) {
   )
 
   fetchMock.get(
-    new RegExp('^.*?/nice2/rest/forms/Input_edit/search$'),
+    new RegExp('^.*?/nice2/rest/forms/Input_edit_data/search$'),
     require('./data/inputEditSearch')
   )
 
