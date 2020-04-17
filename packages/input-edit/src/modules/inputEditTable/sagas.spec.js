@@ -1,6 +1,6 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {select, takeEvery, takeLatest, all} from 'redux-saga/effects'
+import {all, select, takeEvery, takeLatest} from 'redux-saga/effects'
 import {rest} from 'tocco-app-extensions'
 
 import * as actions from './actions'
@@ -45,6 +45,30 @@ describe('input-edit', () => {
       })
 
       describe('load-data', () => {
+        const fakeDataForm = {
+          children: [
+            {
+              componentType: 'table',
+              children: [
+                {
+                  children: [
+                    {
+                      path: 'first field'
+                    }
+                  ]
+                },
+                {
+                  children: [
+                    {
+                      path: 'second field'
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+
         test('should load data', () => {
           const expectedData = {
             count: 50,
@@ -54,25 +78,23 @@ describe('input-edit', () => {
               }
             ]
           }
-          const expectedSorting = {
-            field: 'field',
-            direction: 'asc'
-          }
-          const expectedSearchQueries = [
-            'firstname == \'something\''
-          ]
-          const expectedPagination = {
-            offset: 25,
-            recordsPerPage: 25
-          }
           return expectSaga(sagas.loadData, {
-            newSorting: expectedSorting,
-            newSearchQueries: expectedSearchQueries,
+            newSorting: {
+              field: 'field',
+              direction: 'asc'
+            },
+            newSearchQueries: [
+              'firstname == \'something\'',
+              'lastname == \'something else\''
+            ],
             newPage: 2
           })
             .provide([
+              [select(sagas.inputEditTableSelector), {
+                inputDataForm: fakeDataForm,
+                sorting: {field: 'state sorting'}
+              }],
               [select(sagas.inputSelector), {inputEntityKey: 12}],
-              [select(sagas.inputEditTableSelector), {sorting: {field: 'state sorting'}}],
               [select(sagas.searchQueriesSelector), []],
               [select(sagas.inputEditPaginationSelector), {
                 count: 0,
@@ -90,9 +112,11 @@ describe('input-edit', () => {
                 {
                   method: 'POST',
                   body: {
-                    sorting: expectedSorting,
-                    searchQueries: expectedSearchQueries,
-                    pagination: expectedPagination
+                    paths: ['first field', 'second field', 'pk'],
+                    sort: 'field asc',
+                    where: 'firstname == \'something\' and lastname == \'something else\'',
+                    limit: 25,
+                    offset: 25
                   }
                 }
               ]
@@ -101,22 +125,19 @@ describe('input-edit', () => {
             .run()
         })
         test('should load data from state if no arguments are passed', () => {
-          const expectedSorting = {
-            field: 'field',
-            direction: 'asc'
-          }
-          const expectedSearchQueries = [
-            'firstname == \'whatever\''
-          ]
-          const expectedPagination = {
-            offset: 0,
-            recordsPerPage: 25
-          }
           return expectSaga(sagas.loadData, {})
             .provide([
               [select(sagas.inputSelector), {inputEntityKey: 12}],
-              [select(sagas.inputEditTableSelector), {sorting: expectedSorting}],
-              [select(sagas.searchQueriesSelector), expectedSearchQueries],
+              [select(sagas.inputEditTableSelector), {
+                inputDataForm: fakeDataForm,
+                sorting: {
+                  field: 'field',
+                  direction: 'asc'
+                }
+              }],
+              [select(sagas.searchQueriesSelector), [
+                'firstname == \'whatever\''
+              ]],
               [select(sagas.inputEditPaginationSelector), {
                 count: 0,
                 currentPage: 1,
@@ -131,9 +152,11 @@ describe('input-edit', () => {
                 {
                   method: 'POST',
                   body: {
-                    sorting: expectedSorting,
-                    searchQueries: expectedSearchQueries,
-                    pagination: expectedPagination
+                    paths: ['first field', 'second field', 'pk'],
+                    sort: 'field asc',
+                    where: 'firstname == \'whatever\'',
+                    limit: 25,
+                    offset: 0
                   }
                 }
               ]
