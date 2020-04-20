@@ -42,8 +42,8 @@ ActionVisual.propTypes = {
   }).isRequired,
   selection: PropTypes.shape({
     entityName: PropTypes.string.isRequired,
-    if: (props, propName, componentName) => {
-      if (props.selection && props.selection.type === 'SELECTION' && !props.selection[propName]) {
+    ids: (props, propName, componentName) => {
+      if (props.selection && props.selection.type === 'ID' && !props.selection[propName]) {
         return new Error(`Selection.ids prop not defined. Component: ${componentName}'.`)
       }
     },
