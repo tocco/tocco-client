@@ -1,6 +1,6 @@
 import _isPlainObject from 'lodash/isPlainObject'
 import {channel} from 'redux-saga'
-import {call, all, put, spawn, take} from 'redux-saga/effects'
+import {call, all, put, spawn, take, select} from 'redux-saga/effects'
 
 import remoteEvents from '../../../remoteEvents'
 
@@ -69,6 +69,60 @@ export function* initLegacyActionsEnv() {
   yield call(registerRemoteEventsListener)
 }
 
+export const listSelector = state => state.list
+
+export const getOrderByString = sortingArray => sortingArray && sortingArray.length > 0
+  ? sortingArray.map(item => `${item.field} ${item.order}`).join(', ')
+  : null
+
+export const getManualQuery = (selection, listState) => {
+  const mq = new window.nice2.netui.ManualQuery()
+  mq.entityName = selection.entityName
+  mq.queryWhere = selection.query.tql
+  mq.queryOrderBy = getOrderByString(listState.sorting)
+  return mq
+}
+
+export const getListFormId = listState => {
+  const listFormId = new window.form.FormIdentifier()
+  listFormId.scope = 'list'
+  listFormId.formName = listState.formDefinition.id
+  return listFormId
+}
+
+export const getSearchFilter = selection => {
+  const filter = selection.query.filter
+  if (filter) {
+    if (filter.length === 1) {
+      return filter[0]
+    } else if (filter.length > 1) {
+      throw new Error('Multiple search filters not supported for legacy actions')
+    }
+  }
+}
+
+export function* getSelection(selection) {
+  const legacySelection = {
+    entityName: selection.entityName
+  }
+
+  if (selection.type === 'ID') {
+    legacySelection.selectedEntities = selection.ids
+    legacySelection.selectionType = 'SELECTION'
+  } else if (selection.type === 'QUERY') {
+    const listState = yield select(listSelector)
+
+    legacySelection.selectionType = 'NEW_CLIENT_QUERY'
+    legacySelection.manualQuery = getManualQuery(selection, listState)
+    legacySelection.listForm = getListFormId(listState)
+    legacySelection.searchFilter = getSearchFilter(selection)
+  } else {
+    throw new Error(`Unsupported selection type: ${selection.type}`)
+  }
+
+  return legacySelection
+}
+
 export default function* (definition, selection, parent, params, config) {
   yield call(initLegacyActionsEnv)
 
@@ -94,11 +148,10 @@ export default function* (definition, selection, parent, params, config) {
 
   const action = window.NetuiActionRegistry.newActionFromDefinition(actionDefinition, situation, ctx)
 
-  action.getSelectionNumber = () => selection.ids.length
-  action.getSelection = () => ({
-    entityName: selection.entityName,
-    selectedEntities: selection.ids
-  })
+  const legacySelection = yield call(getSelection, selection)
+
+  action.getSelectionNumber = () => selection.type === 'ID' ? selection.ids.length : 0
+  action.getSelection = () => legacySelection
 
   action.perform()
 }
