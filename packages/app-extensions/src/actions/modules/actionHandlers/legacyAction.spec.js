@@ -1,6 +1,6 @@
 import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import {channel} from 'redux-saga'
-import {call, spawn} from 'redux-saga/effects'
+import {call, spawn, select} from 'redux-saga/effects'
 
 import * as legacyAction from './legacyAction'
 
@@ -70,6 +70,111 @@ describe('app-extensions', () => {
                 .call([dataRegistry, dataRegistry.setNewClientCallback], callback)
                 .spawn(legacyAction.readRemoteEvents, fakeChannel)
                 .run()
+            })
+          })
+
+          describe('getSelection', () => {
+            window.nice2 = {
+              netui: {
+                ManualQuery: class {
+                }
+              }
+            }
+            window.form = {
+              FormIdentifier: class {}
+            }
+
+            test('should return keys for ID selection', () => {
+              const selection = {
+                entityName: 'User',
+                type: 'ID',
+                ids: ['5', '18', '3']
+              }
+              return expectSaga(legacyAction.getSelection, selection)
+                .returns({
+                  entityName: 'User',
+                  selectionType: 'SELECTION',
+                  selectedEntities: ['5', '18', '3']
+                })
+                .run()
+            })
+
+            test('should return search params for QUERY selection', () => {
+              const selection = {
+                entityName: 'User',
+                type: 'QUERY',
+                query: {
+                  tql: 'firstname == "Hans"',
+                  filter: ['active_persons']
+                }
+              }
+
+              const listState = {
+                formDefinition: {
+                  id: 'User_list'
+                },
+                sorting: [
+                  {field: 'firstname', order: 'desc'},
+                  {field: 'lastname', order: 'asc'}
+                ]
+              }
+
+              const expectedManualQuery = new window.nice2.netui.ManualQuery()
+              expectedManualQuery.entityName = 'User'
+              expectedManualQuery.queryWhere = 'firstname == "Hans"'
+              expectedManualQuery.queryOrderBy = 'firstname desc, lastname asc'
+
+              const expectedListForm = new window.form.FormIdentifier()
+              expectedListForm.scope = 'list'
+              expectedListForm.formName = 'User_list'
+
+              return expectSaga(legacyAction.getSelection, selection)
+                .provide([
+                  [select(legacyAction.listSelector), listState]
+                ])
+                .returns({
+                  entityName: 'User',
+                  selectionType: 'NEW_CLIENT_QUERY',
+                  manualQuery: expectedManualQuery,
+                  listForm: expectedListForm,
+                  searchFilter: 'active_persons'
+                })
+                .run()
+            })
+
+            test('should throw error if more than one search filter', () => {
+              const selection = {
+                type: 'QUERY',
+                query: {
+                  filter: ['active_persons', 'employees']
+                }
+              }
+
+              const listState = {
+                formDefinition: {
+                  id: 'User_list'
+                }
+              }
+
+              return expectSaga(legacyAction.getSelection, selection)
+                .provide([
+                  [select(legacyAction.listSelector), listState]
+                ])
+                .run()
+                .catch(e => {
+                  expect(e.message).to.equal('Multiple search filters not supported for legacy actions')
+                })
+            })
+
+            test('should throw error if unsupported selection type', () => {
+              const selection = {
+                type: 'UNKNOWN_SELECTION_TYPE'
+              }
+              return expectSaga(legacyAction.getSelection, selection)
+                .run()
+                .catch(e => {
+                  expect(e.message).to.equal('Unsupported selection type: UNKNOWN_SELECTION_TYPE')
+                })
             })
           })
         })
