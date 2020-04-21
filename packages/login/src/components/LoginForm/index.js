@@ -1,3 +1,5 @@
-import {LoginForm} from './LoginForm'
+import {withGoogleReCaptcha} from 'react-google-recaptcha-v3'
 
-export default LoginForm
+import LoginForm from './LoginForm'
+
+export default withGoogleReCaptcha(LoginForm)

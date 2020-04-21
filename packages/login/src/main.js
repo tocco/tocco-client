@@ -8,7 +8,6 @@ import * as passwordUpdate from './modules/passwordUpdate/dialog/actions'
 import * as passwordRequest from './modules/passwordRequest/actions'
 import * as login from './modules/login/actions'
 import LoginContainer from './containers/LoginContainer'
-import PasswordUpdateDialog from './containers/PasswordUpdateDialogContainer'
 import loginReducers, {sagas} from './modules/reducers'
 
 const packageName = 'login'
@@ -21,7 +20,6 @@ const EXTERNAL_EVENTS = [
 const initLoginApp = (id, input, events, publicPath, customTheme) => {
   const actions = [
     passwordUpdate.setShowOldPasswordField(false),
-    passwordUpdate.setForcedUpdate(true),
     passwordUpdate.setStandalone(false),
     passwordRequest.setPasswordRequest(!!input.passwordRequest),
     login.setUsername(input.username)
@@ -52,7 +50,7 @@ const initPasswordUpdateApp = (id, input, events, publicPath, customTheme) => {
   const showTitle = !!input.showTitle
   const forcedUpdate = !!input.forcedUpdate
 
-  const content = <PasswordUpdateDialog showTitle={showTitle}/>
+  const content = <LoginContainer currentPage="PASSWORD_UPDATE" showTitle={showTitle}/>
 
   if (typeof input.username !== 'string' || input.username.length === 0) {
     consoleLogger.logError('Mandatory input "username" is not set on password-update')
@@ -68,11 +66,7 @@ const initPasswordUpdateApp = (id, input, events, publicPath, customTheme) => {
     actions.push(passwordUpdate.setShowOldPasswordField(input.showOldPasswordField))
   }
 
-  const reducers = {
-    passwordUpdate: loginReducers.passwordUpdate
-  }
-
-  const store = appFactory.createStore(reducers, sagas, input, packageName)
+  const store = appFactory.createStore(loginReducers, sagas, input, packageName)
   externalEvents.addToStore(store, events)
   errorLogging.addToStore(store, true, ['console', 'remote'])
 

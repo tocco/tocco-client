@@ -5,7 +5,8 @@ import {Pages} from './../../types/Pages'
 const EXPECTED_INITIAL_STATE = {
   currentPage: Pages.LOGIN_FORM,
   username: '',
-  password: ''
+  password: '',
+  captchaKey: null
 }
 
 describe('login', () => {

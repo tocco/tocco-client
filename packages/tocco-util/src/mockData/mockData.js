@@ -7,6 +7,7 @@ import {setupSession} from './session'
 import {setupTextResources} from './textResource'
 import {setupLocation} from './location'
 import {setupLog} from './log'
+import {setupSettings} from './settings'
 
 export const setupFetchMock = (fetchMock, entityStore, timeout = 1000) => {
   setupForms(fetchMock, entityStore, timeout)
@@ -21,6 +22,7 @@ export const setupSystemMock = (packageName, fetchMock, textRessourceKeys) => {
   setupSession(fetchMock)
   setupLog(fetchMock)
   setupTextResources(packageName, fetchMock, textRessourceKeys)
+  setupSettings(fetchMock)
 }
 
 export const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))

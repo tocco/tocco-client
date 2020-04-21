@@ -1,3 +1,5 @@
+import {reducer as reducerUtil} from 'tocco-util'
+
 import * as actions from './actions'
 import {Pages} from './../../types/Pages'
 
@@ -28,13 +30,15 @@ const setPassword = (state, {payload}) => {
 const ACTION_HANDLERS = {
   [actions.CHANGE_PAGE]: changePage,
   [actions.SET_USERNAME]: setUsername,
-  [actions.SET_PASSWORD]: setPassword
+  [actions.SET_PASSWORD]: setPassword,
+  [actions.SET_CAPTCHA_KEY]: reducerUtil.singleTransferReducer('captchaKey')
 }
 
 const initialState = {
   currentPage: Pages.LOGIN_FORM,
   username: '',
-  password: ''
+  password: '',
+  captchaKey: null
 }
 
 export default function reducer(state = initialState, action) {

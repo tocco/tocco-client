@@ -5,7 +5,7 @@ import {Button} from 'tocco-ui'
 import {intlEnzyme, IntlStub} from 'tocco-test-util'
 
 import {Pages} from '../../types/Pages'
-import {LoginForm} from './LoginForm'
+import LoginForm from './LoginForm'
 
 describe('login', () => {
   describe('components', () => {
@@ -19,6 +19,7 @@ describe('login', () => {
             setUsername={() => undefined}
             setPassword={() => undefined}
             loginPending={false}
+            googleReCaptchaProps={{executeRecaptcha: () => {}}}
           />
         )
         expect(wrapper.find(Button)).to.have.length(2)
@@ -36,6 +37,7 @@ describe('login', () => {
               setPassword={() => undefined}
               loginPending={false}
               showTitle
+              googleReCaptchaProps={{executeRecaptcha: () => {}}}
             />
           )
           expect(wrapper.find(Button)).to.have.length(2)
@@ -54,6 +56,7 @@ describe('login', () => {
             loginPending={false}
             username=""
             password=""
+            googleReCaptchaProps={{executeRecaptcha: () => {}}}
           />
         )
         expect(wrapper.find(Button)).to.have.length(2)
@@ -72,6 +75,7 @@ describe('login', () => {
             loginPending={false}
             username="username"
             password=""
+            googleReCaptchaProps={{executeRecaptcha: () => {}}}
           />
         )
         expect(wrapper.find(Button)).to.have.length(2)
@@ -90,6 +94,7 @@ describe('login', () => {
             loginPending={false}
             username=""
             password="password"
+            googleReCaptchaProps={{executeRecaptcha: () => {}}}
           />
         )
         expect(wrapper.find(Button)).to.have.length(2)
@@ -108,6 +113,7 @@ describe('login', () => {
             loginPending={false}
             username="username"
             password="password"
+            googleReCaptchaProps={{executeRecaptcha: () => {}}}
           />
         )
         expect(wrapper.find('button')).to.have.length(2)
@@ -128,6 +134,7 @@ describe('login', () => {
             loginPending={false}
             username="username"
             password="password"
+            googleReCaptchaProps={{executeRecaptcha: () => {}}}
           />
         )
         const Buttons = wrapper.find(Button)
@@ -150,6 +157,7 @@ describe('login', () => {
             loginPending={false}
             username="username"
             password="password"
+            googleReCaptchaProps={{executeRecaptcha: () => {}}}
           />
         )
 
@@ -176,6 +184,7 @@ describe('login', () => {
             loginPending={false}
             username="username"
             password="password"
+            googleReCaptchaProps={{executeRecaptcha: () => {}}}
           />
         )
 
@@ -192,7 +201,7 @@ describe('login', () => {
       test('should prevent default and call login on submit', () => {
         const preventDefault = sinon.spy()
         const login = sinon.spy()
-
+        const executeRecaptcha = () => {}
         const wrapper = shallow(
           <LoginForm
             intl={IntlStub}
@@ -203,6 +212,7 @@ describe('login', () => {
             loginPending={false}
             username="username"
             password="password"
+            googleReCaptchaProps={{executeRecaptcha}}
           />
         )
 
@@ -213,7 +223,7 @@ describe('login', () => {
         expect(preventDefault).to.have.property('callCount', 1)
 
         expect(login).to.have.property('callCount', 1)
-        expect(login.firstCall.args).to.eql(['username', 'password'])
+        expect(login.firstCall.args).to.eql(['username', 'password', executeRecaptcha])
       })
 
       test('should focus password input if username is set', () => {
@@ -227,6 +237,7 @@ describe('login', () => {
             loginPending={false}
             username="username"
             password=""
+            googleReCaptchaProps={{executeRecaptcha: () => {}}}
           />
         )
 
