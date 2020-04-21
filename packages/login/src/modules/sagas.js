@@ -62,11 +62,6 @@ export function* handlePasswordUpdateResponse() {
   yield put(changePage(Pages.PASSWORD_UPDATE))
 }
 
-export function* handleOneTilLBlockResponse() {
-  const text = yield select(textResourceSelector, 'client.login.form.lastTry')
-  yield put(setMessage(text, true))
-}
-
 export function* handleBlockResponse() {
   const text = yield select(textResourceSelector, 'client.login.form.blocked')
   yield put(setMessage(text, true))
@@ -105,8 +100,6 @@ export function* loginSaga({payload}) {
       yield call(handleTwoStepLoginResponse, response)
     } else if (response.RESET_PASSWORD_REQUIRED) {
       yield call(handlePasswordUpdateResponse)
-    } else if (response.ONE_TILL_BLOCK) {
-      yield call(handleOneTilLBlockResponse)
     } else if (response.LOGIN_BLOCKED) {
       yield call(handleBlockResponse)
     } else {

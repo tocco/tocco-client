@@ -37,11 +37,6 @@ export default function setupFetchMock(packageName, fetchMock) {
         principal_id: '12345',
         timeout: 30
       }
-    } else if (opts.body.includes('username=before_blocked')) {
-      return {
-        ONE_TILL_BLOCK: true,
-        success: false
-      }
     } else if (opts.body.includes('username=blocked')) {
       return {
         LOGIN_BLOCKED: true,

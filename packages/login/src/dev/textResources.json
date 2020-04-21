@@ -6,7 +6,6 @@
   "client.login.form.passwordPlaceholder",
   "client.login.form.button",
   "client.login.form.failed",
-  "client.login.form.lastTry",
   "client.login.form.blocked",
   "client.login.passwordRequest.title",
   "client.login.passwordRequest.introduction",
