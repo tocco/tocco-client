@@ -1,12 +1,13 @@
 import {consoleLogger, cache} from 'tocco-util'
-import {externalEvents} from 'tocco-app-extensions'
+import {externalEvents, rest} from 'tocco-app-extensions'
 import {takeLatest, put, select, call, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
+import * as loginActions from './login/actions'
 import {setMessage, setPending} from './loginForm/actions'
 import {setRequestedCode} from './twoStepLogin/actions'
 import {updateOldPassword} from './passwordUpdate/password/actions'
-import {setUsername} from './passwordUpdate/dialog/actions'
+import {setUsername, setForcedUpdate} from './passwordUpdate/dialog/actions'
 import {changePage, setPassword} from './login/actions'
 import {Pages} from '../types/Pages'
 
@@ -57,6 +58,7 @@ export function* handlePasswordUpdateResponse() {
   const login = yield select(loginSelector)
   yield put(updateOldPassword(login.password))
   yield put(setUsername(login.username))
+  yield put(setForcedUpdate(true))
   yield put(changePage(Pages.PASSWORD_UPDATE))
 }
 
@@ -83,13 +85,23 @@ export function* handleSuccessfulLogin(response) {
 }
 
 export function* loginSaga({payload}) {
+  const {username, password, executeRecaptcha, captchaToken} = payload
+  const loginData = {
+    username,
+    password,
+    ...(captchaToken && {captchaToken})
+  }
   yield put(setPending(true))
-  const response = yield call(doLoginRequest, payload)
+
+  const response = yield call(doLoginRequest, loginData)
   if (response.success) {
     yield call(handleSuccessfulLogin, response)
   } else {
     yield put(changePage(Pages.LOGIN_FORM)) // in order to display possible error message
-    if (response.TWOSTEPLOGIN) {
+
+    if (response.CAPTCHA) {
+      yield call(handleCaptchaResponse, loginData, executeRecaptcha)
+    } else if (response.TWOSTEPLOGIN) {
       yield call(handleTwoStepLoginResponse, response)
     } else if (response.RESET_PASSWORD_REQUIRED) {
       yield call(handlePasswordUpdateResponse)
@@ -104,6 +116,16 @@ export function* loginSaga({payload}) {
   }
 }
 
+export function* handleCaptchaResponse(loginData, executeRecaptcha) {
+  const captchaToken = yield call(executeRecaptcha, 'login')
+  yield call(loginSaga, {
+    payload: {
+      ...loginData,
+      captchaToken
+    }
+  })
+}
+
 export function* checkSessionSaga() {
   const response = yield call(doSessionRequest)
 
@@ -112,9 +134,19 @@ export function* checkSessionSaga() {
   }
 }
 
+export function* loadSettigns() {
+  const settingsResponse = yield call(rest.requestSaga, 'client/settings')
+  yield put(loginActions.setCaptchaKey(settingsResponse.body.captchaKey))
+}
+
+export function* initialize() {
+  yield call(checkSessionSaga)
+  yield call(loadSettigns)
+}
+
 export default function* mainSagas() {
   yield all([
     takeLatest(actions.LOGIN, loginSaga),
-    takeLatest(actions.CHECK_SESSION, checkSessionSaga)
+    takeLatest(actions.INITIALIZE, initialize)
   ])
 }

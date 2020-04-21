@@ -1,4 +1,4 @@
-import {mockData} from 'tocco-util'
+import {mockData, consoleLogger} from 'tocco-util'
 
 const delay = new Promise(resolve => setTimeout(resolve, 500))
 
@@ -10,8 +10,19 @@ export default function setupFetchMock(packageName, fetchMock) {
   mockData.setupSystemMock(packageName, fetchMock, require('./textResources.json'))
 
   fetchMock.post(new RegExp('^.*?/nice2/login$'), function(url, opts) {
+    consoleLogger.log('called nice2/login', opts)
     if (opts.body.includes('username=succ')) {
       return {success: true}
+    } else if (opts.body.includes('username=captcha')) {
+      if (opts.body.includes('captchaToken')) {
+        return {success: true}
+      } else {
+        return {
+          CAPTCHA: true,
+          success: false,
+          timeout: 30
+        }
+      }
     } else if (opts.body.includes('username=two')) {
       return {
         TWOSTEPLOGIN: true,
@@ -44,6 +55,7 @@ export default function setupFetchMock(packageName, fetchMock) {
   })
   fetchMock.post(new RegExp('^.*?/nice2/rest/principals/.*/password-reset$'), {})
   fetchMock.post(new RegExp('^.*?/nice2/rest/principals/.*/password-update$'), (url, opts) => {
+    consoleLogger.log('call password-update', opts)
     const oldPassword = JSON.parse(opts.body).oldPassword
     if (oldPassword === 'wrong') {
       return {status: 400, message: 'Invalid credentials', body: {errorCode: 'INVALID_CREDENTIALS'}}

@@ -44,8 +44,11 @@ export const updateNewPasswordRepeat = newPasswordRepeat => ({
   }
 })
 
-export const savePassword = () => ({
-  type: SAVE_PASSWORD
+export const savePassword = executeRecaptcha => ({
+  type: SAVE_PASSWORD,
+  payload: {
+    executeRecaptcha
+  }
 })
 
 export const savePasswordSuccess = () => ({
