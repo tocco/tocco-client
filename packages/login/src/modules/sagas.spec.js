@@ -75,20 +75,6 @@ describe('login', () => {
           expect(gen.next().done).to.eql(true)
         })
 
-        test('should handle one till block response', () => {
-          const gen = sagas.loginSaga({payload})
-          expect(gen.next().value).to.eql(put(setPending(true)))
-          expect(gen.next().value).to.eql(call(sagas.doLoginRequest, payload))
-          const response = {
-            success: false,
-            ONE_TILL_BLOCK: true
-          }
-          expect(gen.next(response).value).to.eql(put(changePage(Pages.LOGIN_FORM)))
-          expect(gen.next().value).to.eql(call(sagas.handleOneTilLBlockResponse))
-          expect(gen.next().value).to.eql(put(setPending(false)))
-          expect(gen.next().done).to.eql(true)
-        })
-
         test('should handle login blocked response', () => {
           const gen = sagas.loginSaga({payload})
           expect(gen.next().value).to.eql(put(setPending(true)))
@@ -147,15 +133,6 @@ describe('login', () => {
           expect(gen.next().value).to.deep.equal(put(setUsername(login.username)))
           expect(gen.next().value).to.deep.equal(put(setForcedUpdate(true)))
           expect(gen.next().value).to.deep.equal(put(changePage('PASSWORD_UPDATE')))
-          expect(gen.next().done).to.deep.equal(true)
-        })
-      })
-
-      describe('handleOneTilLBlockResponse', () => {
-        test('should dispatch action setMessage', () => {
-          const gen = sagas.handleOneTilLBlockResponse({})
-          expect(gen.next().value).to.deep.equal(select(sagas.textResourceSelector, 'client.login.form.lastTry'))
-          expect(gen.next('msg').value).to.deep.equal(put(setMessage('msg', true)))
           expect(gen.next().done).to.deep.equal(true)
         })
       })
