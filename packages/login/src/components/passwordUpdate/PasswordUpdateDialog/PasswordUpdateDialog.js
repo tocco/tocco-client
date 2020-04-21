@@ -66,8 +66,8 @@ class PasswordUpdateDialog extends Component {
             onChange={updateOldPassword}
             readOnly={oldPasswordReadOnly}
             autoFocus
-            valid={
-              password.passwordUpdateFailed && password.passwordUpdateErrorCode === 'INVALID_CREDENTIALS' ? false : null
+            {...(password.passwordUpdateFailed && password.passwordUpdateErrorCode === 'INVALID_CREDENTIALS'
+              && {valid: false})
             }
           />}
           <PasswordInput

@@ -6,9 +6,11 @@ import {StyledPasswordInput, StyledPasswordInputWrapper} from './StyledPasswordI
 
 const PasswordInput = props => {
   const getSignal = props.value
-    ? props.valid
-      ? design.condition.SUCCESS
-      : design.condition.DANGER
+    ? props.valid === undefined
+      ? null
+      : props.valid
+        ? design.condition.SUCCESS
+        : design.condition.DANGER
     : null
 
   return (
