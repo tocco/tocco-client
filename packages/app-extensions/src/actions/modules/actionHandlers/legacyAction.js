@@ -75,20 +75,18 @@ export const getOrderByString = sortingArray => sortingArray && sortingArray.len
   ? sortingArray.map(item => `${item.field} ${item.order}`).join(', ')
   : null
 
-export const getManualQuery = (selection, listState) => {
-  const mq = new window.nice2.netui.ManualQuery()
-  mq.entityName = selection.entityName
-  mq.queryWhere = selection.query.tql
-  mq.queryOrderBy = getOrderByString(listState.sorting)
-  return mq
-}
+export const getManualQuery = (selection, listState) => ({
+  ...new window.nice2.netui.ManualQuery(),
+  entityName: selection.entityName,
+  queryWhere: selection.query.tql,
+  queryOrderBy: getOrderByString(listState.sorting)
+})
 
-export const getListFormId = listState => {
-  const listFormId = new window.form.FormIdentifier()
-  listFormId.scope = 'list'
-  listFormId.formName = listState.formDefinition.id
-  return listFormId
-}
+export const getListFormId = listState => ({
+  ...new window.form.FormIdentifier(),
+  scope: 'list',
+  formName: listState.formDefinition.id
+})
 
 export const getSearchFilter = selection => {
   const filter = selection.query.filter
