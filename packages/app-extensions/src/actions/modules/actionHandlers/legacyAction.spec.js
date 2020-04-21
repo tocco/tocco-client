@@ -119,14 +119,18 @@ describe('app-extensions', () => {
                 ]
               }
 
-              const expectedManualQuery = new window.nice2.netui.ManualQuery()
-              expectedManualQuery.entityName = 'User'
-              expectedManualQuery.queryWhere = 'firstname == "Hans"'
-              expectedManualQuery.queryOrderBy = 'firstname desc, lastname asc'
+              const expectedManualQuery = {
+                ...new window.nice2.netui.ManualQuery(),
+                entityName: 'User',
+                queryWhere: 'firstname == "Hans"',
+                queryOrderBy: 'firstname desc, lastname asc'
+              }
 
-              const expectedListForm = new window.form.FormIdentifier()
-              expectedListForm.scope = 'list'
-              expectedListForm.formName = 'User_list'
+              const expectedListForm = {
+                ...new window.form.FormIdentifier(),
+                scope: 'list',
+                formName: 'User_list'
+              }
 
               return expectSaga(legacyAction.getSelection, selection)
                 .provide([
