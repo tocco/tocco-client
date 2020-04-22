@@ -40,11 +40,12 @@ const StyledHtmlFormatter = styled(StyledSpan)`
 `
 
 const HtmlFormatter = props => {
-  return <StyledHtmlFormatter dangerouslySetInnerHTML={{__html: props.value}}/>
+  return <StyledHtmlFormatter dangerouslySetInnerHTML={{__html: props.value}} breakWords={props.breakWords}/>
 }
 
 HtmlFormatter.propTypes = {
-  value: PropTypes.string.isRequired
+  value: PropTypes.string.isRequired,
+  breakWords: PropTypes.bool
 }
 
 export {
