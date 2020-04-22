@@ -97,7 +97,7 @@ const DataCell = ({index, nodes, column}) => <td>
     column.children[0],
     undefined,
     'Input_edit_data_list',
-    _get(nodes, column.children[0].path),
+    _get(nodes, column.children[0].path.replace('.', '.value.paths.') + '.value'),
     {},
     {},
     {},
@@ -109,12 +109,13 @@ const InputCell = ({index, nodes, column, updateValue}) => {
   const width = column.dataType === 'single-select'
     ? Math.max(...(column.options.options.map(option => option.display.length))) * 8 + 60
     : undefined
+  const data = _get(nodes, column.id.replace('.', '.value.paths.'))
   return <StyledCell width={width}>
     <EditableValue
       styles={{width: `${width}px`}}
       id={keyBuilder(index, column)}
       type={column.dataType}
-      value={_get(nodes, column.id)}
+      value={data ? (Object.prototype.hasOwnProperty.call(data, 'value') ? data.value : data) : null}
       readOnly={column.readonly}
       options={column.options}
       events={{
