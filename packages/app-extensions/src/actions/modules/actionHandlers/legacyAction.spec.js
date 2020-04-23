@@ -2,6 +2,7 @@ import {expectSaga, testSaga} from 'redux-saga-test-plan'
 import {channel} from 'redux-saga'
 import {call, spawn, select} from 'redux-saga/effects'
 
+import notifier from '../../../notifier'
 import * as legacyAction from './legacyAction'
 
 describe('app-extensions', () => {
@@ -14,24 +15,20 @@ describe('app-extensions', () => {
               window.legacyActionsEnvInitialized = undefined
               window.setUpLegacyActionsEnv = () => {}
 
-              testSaga(legacyAction.initLegacyActionsEnv)
-                .next()
-                .call(legacyAction.loadSequentially, legacyAction.sources)
-                .next()
-                .call(window.setUpLegacyActionsEnv)
-                .next()
-                .call(legacyAction.registerRemoteEventsListener)
-                .next()
+              testSaga(legacyAction.initLegacyActionsEnv).next()
+                .call(legacyAction.loadSequentially, legacyAction.sources).next()
+                .call(window.setUpLegacyActionsEnv).next()
+                .call(legacyAction.registerRemoteEventsListener).next()
+                .call(legacyAction.registerNotificationsListener).next()
                 .isDone()
             })
 
             test('should not init if already initialized', () => {
               window.legacyActionsEnvInitialized = true
 
-              testSaga(legacyAction.initLegacyActionsEnv)
-                .next()
-                .call(legacyAction.registerRemoteEventsListener)
-                .next()
+              testSaga(legacyAction.initLegacyActionsEnv).next()
+                .call(legacyAction.registerRemoteEventsListener).next()
+                .call(legacyAction.registerNotificationsListener).next()
                 .isDone()
             })
           })
@@ -64,12 +61,65 @@ describe('app-extensions', () => {
               return expectSaga(legacyAction.registerRemoteEventsListener)
                 .provide([
                   [call(channel), fakeChannel],
-                  [call(legacyAction.entityEventCallback, fakeChannel), callback],
+                  [call(legacyAction.channelFeedingCallback, fakeChannel), callback],
                   [spawn(legacyAction.readRemoteEvents, fakeChannel)]
                 ])
                 .call([dataRegistry, dataRegistry.setNewClientCallback], callback)
                 .spawn(legacyAction.readRemoteEvents, fakeChannel)
                 .run()
+            })
+          })
+
+          describe('registerNotificationsListener', () => {
+            test('should register callback in global Notifier and start listening', () => {
+              const notifier = {setNewClientCallback: () => {}}
+              const gui = {getNotifier: () => notifier}
+              window.app = {getGui: () => gui}
+              const fakeChannel = {}
+              const callback = () => {}
+              return expectSaga(legacyAction.registerNotificationsListener)
+                .provide([
+                  [call(channel), fakeChannel],
+                  [call(legacyAction.channelFeedingCallback, fakeChannel), callback],
+                  [spawn(legacyAction.readNotifications, fakeChannel)]
+                ])
+                .call([notifier, notifier.setNewClientCallback], callback)
+                .spawn(legacyAction.readNotifications, fakeChannel)
+                .run()
+            })
+          })
+
+          describe('handleNotification', () => {
+            test('should put info notifier action', () => {
+              const notification = {
+                level: 'INFO',
+                message: 'Die Aktion wurde ausgeführt'
+              }
+              return expectSaga(legacyAction.handleNotification, notification)
+                .put(notifier.info('info', null, 'Die Aktion wurde ausgeführt'))
+                .run()
+            })
+
+            test('should put error notifier action', () => {
+              const notification = {
+                level: 'ERROR',
+                message: 'Die Aktion ist fehlgeschlagen'
+              }
+              return expectSaga(legacyAction.handleNotification, notification)
+                .put(notifier.info('error', null, 'Die Aktion ist fehlgeschlagen'))
+                .run()
+            })
+
+            test('should throw an error if unsupported notification level', () => {
+              const notification = {
+                level: 'FOOBAR',
+                message: 'My random message'
+              }
+              return expectSaga(legacyAction.handleNotification, notification)
+                .run()
+                .catch(e => {
+                  expect(e.message).to.equal('Unsupported notification level: FOOBAR')
+                })
             })
           })
 
