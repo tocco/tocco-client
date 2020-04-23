@@ -2,6 +2,7 @@ import _isPlainObject from 'lodash/isPlainObject'
 import {channel} from 'redux-saga'
 import {call, all, put, spawn, take, select} from 'redux-saga/effects'
 
+import notifier from '../../../notifier'
 import remoteEvents from '../../../remoteEvents'
 
 export const loadScript = src => new Promise((resolve, reject) => {
@@ -41,8 +42,8 @@ export const sources = [
   {src: '/css/nice2-new-client-legacy-actions.css', handler: loadCss}
 ]
 
-export const entityEventCallback = remoteEventsChannel => event => {
-  remoteEventsChannel.put(event)
+export const channelFeedingCallback = channel => arg => {
+  channel.put(arg)
 }
 
 export function* readRemoteEvents(remoteEventsChannel) {
@@ -55,10 +56,47 @@ export function* readRemoteEvents(remoteEventsChannel) {
 
 export function* registerRemoteEventsListener() {
   const remoteEventsChannel = yield call(channel)
-  const callback = yield call(entityEventCallback, remoteEventsChannel)
+  const callback = yield call(channelFeedingCallback, remoteEventsChannel)
   const dataRegistry = yield call([window.app, window.app.getDataRegistry])
   yield call([dataRegistry, dataRegistry.setNewClientCallback], callback)
   yield spawn(readRemoteEvents, remoteEventsChannel)
+}
+
+export function* handleNotification(notification) {
+  const message = notification.message.replace(/&nbsp;/g, ' ')
+
+  let action
+
+  switch (notification.level) {
+    case 'ERROR':
+      action = notifier.info('error', null, message)
+      break
+    case 'INFO':
+      action = notifier.info('info', null, message)
+      break
+    default:
+      throw new Error(`Unsupported notification level: ${notification.level}`)
+  }
+
+  if (action) {
+    yield put(action)
+  }
+}
+
+export function* readNotifications(notificationsChannel) {
+  while (true) {
+    const notification = yield take(notificationsChannel)
+    yield call(handleNotification, notification)
+  }
+}
+
+export function* registerNotificationsListener() {
+  const notificationsChannel = yield call(channel)
+  const callback = yield call(channelFeedingCallback, notificationsChannel)
+  const gui = yield call([window.app, window.app.getGui])
+  const notifier = yield call([gui, gui.getNotifier])
+  yield call([notifier, notifier.setNewClientCallback], callback)
+  yield spawn(readNotifications, notificationsChannel)
 }
 
 export function* initLegacyActionsEnv() {
@@ -67,6 +105,7 @@ export function* initLegacyActionsEnv() {
     yield call(window.setUpLegacyActionsEnv)
   }
   yield call(registerRemoteEventsListener)
+  yield call(registerNotificationsListener)
 }
 
 export const listSelector = state => state.list
