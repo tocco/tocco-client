@@ -1,3 +1,11 @@
+0.2.6
+- Style range component
+- Small date component improvements
+- Fix fallback sorting bug
+- Fix label null bug
+- Add captcha to login
+- Fix bug where old pw was displayed as invalid
+
 0.2.5
 - Component type fix
 - Fix burger button
