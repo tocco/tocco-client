@@ -64,7 +64,7 @@ const Table = props => {
   const ThContent = ({column}) =>
     column.headerRender
       ? column.headerRender({...props, singleSelectHandler, multiSelectHandler, isSelected})
-      : column.label
+      : column.label || null
 
   const InProgressRow = () => <tr><td className="fullRow progress">
     <LoadingSpinner size="20"/>
@@ -93,7 +93,7 @@ const Table = props => {
                 onClick={thOnClick(column)}>
                 <ThContent column={column}/>
                 <SortingState column={column} sorting={props.sorting}/>
-                <ResizingController column={column} startResize={startResize}/>
+                {!column.widthFixed && <ResizingController column={column} startResize={startResize}/>}
               </th>
             )}
           </tr>

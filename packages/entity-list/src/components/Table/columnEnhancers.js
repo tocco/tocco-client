@@ -10,7 +10,7 @@ const navigationCell = {
     return [
       {
         id: 'navigation-link',
-        width: '30px',
+        width: '30',
         resizable: false,
         dynamic: false,
         headerRender: () => null,
@@ -32,7 +32,7 @@ const multiSelectionCell = {
       id: 'multi-selection',
       dynamic: true,
       resizable: false,
-      width: '30px',
+      width: '30',
       headerRender: ({entities, multiSelectHandler, isSelected}) => {
         const allRowsSelectionChange = v => { multiSelectHandler(allKeys, v === 'checked') }
         const allKeys = entities.map(e => e.__key)
@@ -70,7 +70,7 @@ const singleSelectionCell = {
   apply: columns => {
     return [{
       id: 'single-selection',
-      width: '30px',
+      width: '30',
       resizable: false,
       dynamic: true,
       headerRender: () => null,

@@ -18,7 +18,7 @@ const StyledTable = styled.table`
   display: grid;
   border-collapse: collapse;
   grid-template-columns: ${props =>
-  props.columns.map(column => column.width || 'minmax(90px, auto)').join(' ')};
+  props.columns.map(column => column.width ? column.width + 'px' : 'minmax(90px, auto)').join(' ')};
   grid-auto-rows: min-content;
   min-width: 100%;
   ${StyledScrollbar}

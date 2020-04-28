@@ -22,7 +22,7 @@ export default (tableElRef, resizeCallback) => {
     if (lastPositionX) {
       const diff = e.clientX - lastPositionX
       const thEl = tableElRef.current.querySelector(`th[id='header-cell-${tmpColResizing.id}']`)
-      const width = Math.max(50, thEl.offsetWidth + diff) + 'px'
+      const width = Math.max(50, thEl.offsetWidth + diff)
       resizeCallback(tmpColResizing.id, width)
     }
 
