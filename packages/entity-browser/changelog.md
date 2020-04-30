@@ -1,3 +1,10 @@
+0.9.11
+- Small date component improvements
+- Fix fallback sorting bug
+- Fix label null bug
+- Add white background to mitigate dark theme conflict in nice2
+- Improve range style
+
 0.9.10
 - Searchform with tql
 - Harmonize stateted value box padding
