@@ -15,6 +15,7 @@ const StyledWrapper = styled.div`
     'breadcrumbs'
     'content';
   height: 100%;
+  width: 100%;
 `
 
 const StyledContent = styled.div`
