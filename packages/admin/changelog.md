@@ -1,3 +1,6 @@
+0.2.7
+- Fix admin width problem
+
 0.2.6
 - Style range component
 - Small date component improvements
