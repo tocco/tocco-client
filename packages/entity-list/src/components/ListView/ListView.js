@@ -46,15 +46,23 @@ class ListView extends React.Component {
                 <TableContainer key={`table-${child.id}`} columnDefinitions={getColumnDefinition(child)}/>
               </ListWrapper>
             } else if (actions.isAction(child.componentType)) {
-              return <ActionWrapper key={`listActionWrapper-${child.id}`}>
-                {this.props.showSelectionController && <SelectionControllerContainer/>}
-                <ActionContainer
-                  key={`listAction-${child.id}`}
-                  definition={child}
-                  parent={props.parent}
-                  disabled={this.props.dataLoadingInProgress}
-                />
-              </ActionWrapper>
+              const content = [
+                ...this.props.showSelectionController
+                  ? [<SelectionControllerContainer key="selectionController"/>] : [],
+                ...this.props.showActions !== false
+                  ? [<ActionContainer
+                    key={`listAction-${child.id}`}
+                    definition={child}
+                    parent={props.parent}
+                    disabled={this.props.dataLoadingInProgress}
+                  />] : []
+              ]
+
+              if (content.length > 0) {
+                return <ActionWrapper key={`listActionWrapper-${child.id}`}>
+                  {content}
+                </ActionWrapper>
+              }
             }
           })
         }
@@ -79,7 +87,8 @@ ListView.propTypes = {
   dataLoadingInProgress: PropTypes.bool,
   showSelectionController: PropTypes.bool,
   entityName: PropTypes.string,
-  searchFormPosition: PropTypes.oneOf(['top', 'left'])
+  searchFormPosition: PropTypes.oneOf(['top', 'left']),
+  showActions: PropTypes.bool
 }
 
 export default ListView
