@@ -2,15 +2,14 @@ import {Pagination} from 'tocco-ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const InputEditPagination = ({count, currentPage, recordsPerPage, setCurrentPage}) => {
-  return count && currentPage
+const InputEditPagination = ({count, currentPage, recordsPerPage, setCurrentPage}) =>
+  count && currentPage
     ? <Pagination
       totalCount={count}
       currentPage={currentPage}
       recordsPerPage={recordsPerPage}
       onPageChange={setCurrentPage}/>
     : null
-}
 
 InputEditPagination.propTypes = {
   count: PropTypes.number.isRequired,
