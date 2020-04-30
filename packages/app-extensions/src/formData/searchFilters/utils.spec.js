@@ -1,4 +1,4 @@
-import {searchFilterTransformer} from './utils'
+import {searchFilterResponseTransformer} from './utils'
 
 describe('app-extensions', () => {
   describe('formData', () => {
@@ -6,36 +6,21 @@ describe('app-extensions', () => {
       describe('utils', () => {
         describe('searchFilterTransformer', () => {
           test('should extract the key with the specified path', () => {
-            const json = {
-              data: [
-                {
-                  key: 123,
-                  paths: {
-                    unique_id: {
-                      type: 'identifier',
-                      writable: null,
-                      value: 'filter1'
-                    }
-                  }
-                },
-                {
-                  key: 124,
-                  paths: {
-                    unique_id: {
-                      type: 'identifier',
-                      writable: null,
-                      value: 'filter2'
-                    }
-                  }
-                }
-              ]
+            const filtersResponse = {
+              body: {
+                filters: [
+                  {key: '1', uniqueId: 'filter_1', label: 'Filter 1'},
+                  {key: '3', uniqueId: 'filter_3', label: 'Filter 3 '}
+                ]
+              }
             }
 
             const expectedResult = [
-              {key: 123, uniqueId: 'filter1'},
-              {key: 124, uniqueId: 'filter2'}
+              {key: '1', uniqueId: 'filter_1', display: 'Filter 1'},
+              {key: '3', uniqueId: 'filter_3', display: 'Filter 3 '}
             ]
-            const transformedResult = searchFilterTransformer(json)
+
+            const transformedResult = searchFilterResponseTransformer(filtersResponse)
             expect(transformedResult).to.eql(expectedResult)
           })
         })
