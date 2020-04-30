@@ -22,8 +22,8 @@ const handleChange = (form, setSearchFields) => ({values, valid}) => {
   }
 }
 
-function transformFormValuesToTql(values, form) {
-  return Object.entries(values)
+const transformFormValuesToTql = (values, form) =>
+  Object.entries(values)
     .map(([path, value]) => (
       {
         path,
@@ -32,7 +32,6 @@ function transformFormValuesToTql(values, form) {
       }
     ))
     .map(({path, fieldType, value}) => tqlBuilder.getTql(path, value, fieldType))
-}
 
 const getFieldType = (path, form) => {
   const container = form.children.find(child => child.children.length > 0)
