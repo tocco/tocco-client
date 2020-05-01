@@ -231,6 +231,77 @@ describe('app-extensions', () => {
                 })
             })
           })
+
+          describe('getScope', () => {
+            test('should return list scope if entityList in state', () =>
+              expectSaga(legacyAction.getScope)
+                .provide([
+                  [select(legacyAction.entityListSelector), {}],
+                  [select(legacyAction.entityDetailSelector), undefined]
+                ])
+                .returns('list')
+                .run()
+            )
+
+            test('should return detail scope if entityDetail with mode update in state', () =>
+              expectSaga(legacyAction.getScope)
+                .provide([
+                  [select(legacyAction.entityListSelector), undefined],
+                  [select(legacyAction.entityDetailSelector), {mode: 'update'}]
+                ])
+                .returns('detail')
+                .run()
+            )
+
+            test('should return create scope if entityDetail with mode create in state', () =>
+              expectSaga(legacyAction.getScope)
+                .provide([
+                  [select(legacyAction.entityListSelector), undefined],
+                  [select(legacyAction.entityDetailSelector), {mode: 'create'}]
+                ])
+                .returns('create')
+                .run()
+            )
+
+            test('should throw error if unknown mode in entityDetail state', () =>
+              expectSaga(legacyAction.getScope)
+                .provide([
+                  [select(legacyAction.entityListSelector), undefined],
+                  [select(legacyAction.entityDetailSelector), {mode: 'foobar'}]
+                ])
+                .run()
+                .catch(e => {
+                  expect(e.message)
+                    .to.equal('Unable to get form scope. Unexpected detail mode: foobar')
+                })
+            )
+
+            test('should throw error if entityDetail and entityList in state', () =>
+              expectSaga(legacyAction.getScope)
+                .provide([
+                  [select(legacyAction.entityListSelector), {}],
+                  [select(legacyAction.entityDetailSelector), {}]
+                ])
+                .run()
+                .catch(e => {
+                  expect(e.message)
+                    .to.equal('Unable to get form scope. Unexpected state: entityList and entityDetail exist')
+                })
+            )
+
+            test('should throw error if whether entityDetail nor entityList in state', () =>
+              expectSaga(legacyAction.getScope)
+                .provide([
+                  [select(legacyAction.entityListSelector), undefined],
+                  [select(legacyAction.entityDetailSelector), undefined]
+                ])
+                .run()
+                .catch(e => {
+                  expect(e.message)
+                    .to.equal('Unable to get form scope. Expected to find either entityList or entityDetail in state')
+                })
+            )
+          })
         })
       })
     })
