@@ -110,6 +110,9 @@ export function* initLegacyActionsEnv() {
 
 export const listSelector = state => state.list
 
+export const entityListSelector = state => state.entityList
+export const entityDetailSelector = state => state.entityDetail
+
 export const getOrderByString = sortingArray => sortingArray && sortingArray.length > 0
   ? sortingArray.map(item => `${item.field} ${item.order}`).join(', ')
   : null
@@ -160,6 +163,31 @@ export function* getSelection(selection) {
   return legacySelection
 }
 
+export function* getScope() {
+  const list = yield select(entityListSelector)
+  const detail = yield select(entityDetailSelector)
+
+  if (list && detail) {
+    throw new Error('Unable to get form scope. Unexpected state: entityList and entityDetail exist')
+  }
+
+  if (list) {
+    return 'list'
+  }
+
+  if (detail) {
+    if (detail.mode === 'update') {
+      return 'detail'
+    } else if (detail.mode === 'create') {
+      return 'create'
+    } else {
+      throw new Error(`Unable to get form scope. Unexpected detail mode: ${detail.mode}`)
+    }
+  }
+
+  throw new Error('Unable to get form scope. Expected to find either entityList or entityDetail in state')
+}
+
 export default function* (definition, selection, parent, params, config) {
   yield call(initLegacyActionsEnv)
 
@@ -180,7 +208,8 @@ export default function* (definition, selection, parent, params, config) {
   const ctx = new window.nice2.modules.entityexplorer.EntityExplorerActionContext(entityExplorer, null)
 
   const situation = {
-    entityName: selection.entityName
+    entityName: selection.entityName,
+    scope: yield call(getScope)
   }
 
   const action = window.NetuiActionRegistry.newActionFromDefinition(actionDefinition, situation, ctx)
