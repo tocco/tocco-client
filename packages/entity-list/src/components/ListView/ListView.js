@@ -40,21 +40,21 @@ class ListView extends React.Component {
         loadingText={this.msg('client.entity-list.loadingText')}
       >
         {
-          this.props.formDefinition && this.props.formDefinition.children.map(child => {
+          props.formDefinition && props.formDefinition.children.map(child => {
             if (child.componentType === form.componentTypes.TABLE) {
-              return <ListWrapper searchFormPosition={this.props.searchFormPosition} key={`tableWrapper-${child.id}`}>
+              return <ListWrapper searchFormPosition={props.searchFormPosition} key={`tableWrapper-${child.id}`}>
                 <TableContainer key={`table-${child.id}`} columnDefinitions={getColumnDefinition(child)}/>
               </ListWrapper>
             } else if (actions.isAction(child.componentType)) {
               const content = [
-                ...this.props.showSelectionController
+                ...props.showSelectionController
                   ? [<SelectionControllerContainer key="selectionController"/>] : [],
-                ...this.props.showActions !== false
+                ...props.showActions !== false
                   ? [<ActionContainer
                     key={`listAction-${child.id}`}
                     definition={child}
                     parent={props.parent}
-                    disabled={this.props.dataLoadingInProgress}
+                    disabled={props.dataLoadingInProgress}
                   />] : []
               ]
 
