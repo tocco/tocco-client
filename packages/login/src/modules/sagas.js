@@ -80,11 +80,13 @@ export function* handleSuccessfulLogin(response) {
 }
 
 export function* loginSaga({payload}) {
-  const {username, password, executeRecaptcha, captchaToken} = payload
+  const {username, password, executeRecaptcha, captchaToken, requestedCode, userCode} = payload
   const loginData = {
     username,
     password,
-    ...(captchaToken && {captchaToken})
+    ...(captchaToken && {captchaToken}),
+    ...(requestedCode && {requestedCode}),
+    ...(userCode && {userCode})
   }
   yield put(setPending(true))
 
