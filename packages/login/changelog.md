@@ -1,3 +1,6 @@
+0.2.7
+- Fix two-factor authentication bug
+
 0.2.6
 - responsive adjustments of login for mobile
 - Adapt success color for better readability
