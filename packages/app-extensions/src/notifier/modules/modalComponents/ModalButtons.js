@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {Button, design, scale} from 'tocco-ui'
 import styled from 'styled-components'
 
-const StyledModalButton = styled(Button)`
+export const StyledModalButton = styled(Button)`
   margin-bottom: ${scale.space(0)};
 `
 
