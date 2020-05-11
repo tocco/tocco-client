@@ -39,11 +39,6 @@ const StyledLogin = styled.div`
 const StyledHeadingLogin = styled(StyledH1)`
   && {
     font-size: ${scale.font(11)};
-    margin-bottom: 2.5rem;
-
-    @media (max-width: 1024px) {
-      margin-bottom: 1.5rem;
-    }
   }
 `
 const StyledSpanLogin = styled(StyledSpan)`
