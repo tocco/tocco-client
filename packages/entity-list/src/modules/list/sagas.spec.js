@@ -623,78 +623,68 @@ describe('entity-list', () => {
         })
 
         describe('remoteEvent saga', () => {
+          const payload = {
+            entities: [
+              {entityName: 'User', key: '1'},
+              {entityName: 'Principal', key: '2'}
+            ]
+          }
           const createEventAction = remoteEvents.remoteEvent({
             type: 'entity-create-event',
-            payload: {
-              entities: [
-                {entityName: 'User', key: '1'},
-                {entityName: 'Principal', key: '2'}]
-            }
+            payload
           })
           const deleteEventAction = remoteEvents.remoteEvent({
             type: 'entity-delete-event',
-            payload: {
-              entities: [
-                {entityName: 'User', key: '1'},
-                {entityName: 'Principal', key: '2'}
-              ]
-            }
+            payload
+          })
+          const updateEventAction = remoteEvents.remoteEvent({
+            type: 'entity-update-event',
+            payload
           })
 
-          test('should reload list if relevant legacy create event', () => {
-            const listState = {
-              entityModel: {
-                name: 'User'
-              }
-            }
-            return expectSaga(sagas.remoteEvent, createEventAction)
-              .provide([
-                [select(sagas.listSelector), listState]
-              ])
-              .call(sagas.reloadData)
-              .run()
+          const userListState = {
+            entityModel: {name: 'User'}
+          }
+          const classroomListState = {
+            entityModel: {name: 'Classroom'}
+          }
+
+          const expectReload = (listState, remoteEvent) => expectSaga(sagas.remoteEvent, remoteEvent)
+            .provide([
+              [select(sagas.listSelector), listState]
+            ])
+            .call(sagas.reloadData)
+            .run()
+
+          const expectNoReload = listState => expectSaga(sagas.remoteEvent, createEventAction)
+            .provide([
+              [select(sagas.listSelector), listState]
+            ])
+            .not.call(sagas.reloadData)
+            .run()
+
+          test('should reload list if relevant create event', () => {
+            return expectReload(userListState, createEventAction)
           })
 
-          test('should not reload list if irrelevant legacy create event', () => {
-            const listState = {
-              entityModel: {
-                name: 'Classroom'
-              }
-            }
-            return expectSaga(sagas.remoteEvent, createEventAction)
-              .provide([
-                [select(sagas.listSelector), listState]
-              ])
-              .not.call(sagas.reloadData)
-              .run()
+          test('should not reload list if irrelevant create event', () => {
+            return expectNoReload(classroomListState, createEventAction)
           })
 
-          test('should reload list if relevant legacy delete event', () => {
-            const listState = {
-              entityModel: {
-                name: 'User'
-              }
-            }
-            return expectSaga(sagas.remoteEvent, deleteEventAction)
-              .provide([
-                [select(sagas.listSelector), listState]
-              ])
-              .call(sagas.reloadData)
-              .run()
+          test('should reload list if relevant delete event', () => {
+            return expectReload(userListState, deleteEventAction)
           })
 
-          test('should not reload list if irrelevant legacy delete event', () => {
-            const listState = {
-              entityModel: {
-                name: 'Classroom'
-              }
-            }
-            return expectSaga(sagas.remoteEvent, deleteEventAction)
-              .provide([
-                [select(sagas.listSelector), listState]
-              ])
-              .not.call(sagas.reloadData)
-              .run()
+          test('should not reload list if irrelevant delete event', () => {
+            return expectNoReload(classroomListState, deleteEventAction)
+          })
+
+          test('should reload list if relevant update event', () => {
+            return expectReload(userListState, updateEventAction)
+          })
+
+          test('should not reload list if irrelevant update event', () => {
+            return expectNoReload(classroomListState, updateEventAction)
           })
         })
       })
