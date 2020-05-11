@@ -32,7 +32,7 @@ describe('app-extensions', () => {
       }))
 
       test('should return simple editableValue', () => {
-        const factory = editableValueFactory('string')
+        const Field = editableValueFactory('string')
 
         const formField = {}
         const modelField = {}
@@ -42,9 +42,16 @@ describe('app-extensions', () => {
         const onChangeSpy = sinon.spy()
         const events = {onChange: onChangeSpy}
 
-        const editableValue = factory(formField, modelField, formName, value, info, events)
+        const wrapper = intlEnzyme.mountWithIntl(<Provider store={store}>
+          <Field
 
-        const wrapper = intlEnzyme.mountWithIntl(<Provider store={store}>{editableValue}</Provider>)
+            formField={formField}
+            modelField={modelField}
+            formName={formName}
+            value={value}
+            info={info}
+            events={events}/>
+        </Provider>)
 
         expect(wrapper.find(EditableValue)).to.have.length(1)
         expect(wrapper.find(EditableValue).props()).to.have.property('value', 'test')

@@ -1,6 +1,6 @@
 # App-Extensions
-App extensions and helpers that can be used in any app. App extensions can connect to the store, dispatch actions and 
-run sagas. They also use tocco-ui for the visual part. 
+App extensions and helpers that can be used in any app. App extensions can connect to the store, dispatch actions and
+run sagas. They also use tocco-ui for the visual part.
 
 #### actionEmitter
 With actionEmitter it is possible to dispatch actions in the store of a parent app.
@@ -16,7 +16,7 @@ Import:
  import {actions} from 'tocco-app-extensions'
 ```
 
-Initialization: 
+Initialization:
 
 ```javascript
  actions.addToStore(store, {formApp, listApp, customActions})
@@ -27,7 +27,7 @@ config, the second parameter, is an object that can have the following propertie
 * listApp: Entity-List App, is needed to render remote fields in action settings.
 * customActions: An object with App specific custom actions. The key is the id of the custom action as defined
   in the form.
-  
+
 #### appFactory
 Helper methods to create a react/redux/saga app.
 
@@ -36,6 +36,9 @@ An abstraction to handle errors with multiple handlers such as remote logging.
 
 #### externalEvents
 Can be added to the store to call external events/callback from anywhere with an action.
+
+#### field
+Helper to create a data field. Depending on the mapping a type as editable or readonly value.
 
 #### form
 Utils for redux forms (`redux-form`).
@@ -49,7 +52,7 @@ Import:
  import {formData} from 'tocco-app-extensions'
 ```
 
-Initialization: 
+Initialization:
 
 ```javascript
  formData.addToStore(store, {listApp, linkFactory})
@@ -57,13 +60,13 @@ Initialization:
 
 config, the second parameter, is an object an can have the following properties:
 * listApp: Entity-List App component. Is used to connect the remote field with a list search.
-* linkFactory: An object consisting of different types of link factories. Form components such as remote field can use 
+* linkFactory: An object consisting of different types of link factories. Form components such as remote field can use
   these factories to create a link around the values for navigation purposes.
    e.g. {detail: (entity, relation, key, children) => <a ../>}
-  
+
 
 #### formField
-Helper to create tocco-ui FormField component.
+Helper to create tocco-ui FormField component with a label and a field.
 
 #### notifier
 Allows to dispatch actions to show a info box or confirm dialog. Just needs to be added to the store and then one of

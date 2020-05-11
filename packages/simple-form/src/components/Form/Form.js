@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {form, formField} from 'tocco-app-extensions'
+import {form} from 'tocco-app-extensions'
 import {Button} from 'tocco-ui'
 import {reduxForm} from 'redux-form'
 import {intlShape} from 'react-intl'
@@ -35,7 +35,7 @@ class Form extends React.Component {
         formName={this.props.form}
         formDefinition={this.props.formDefinition}
         formValues={this.props.formValues}
-        formFieldMapping={formField.defaultMapping}
+        fieldMappingType="editable"
         readOnlyFormFieldMapping={null}
       />
       {!this.props.noButtons

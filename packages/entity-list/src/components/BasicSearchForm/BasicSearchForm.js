@@ -3,7 +3,7 @@ import React from 'react'
 import {intlShape} from 'react-intl'
 import {reduxForm} from 'redux-form'
 import {Ball} from 'tocco-ui'
-import {form, formField} from 'tocco-app-extensions'
+import {form} from 'tocco-app-extensions'
 
 import {
   StyledBasicSearchForm,
@@ -11,22 +11,6 @@ import {
 } from './StyledBasicSearchForm'
 
 const REDUX_FORM_NAME = 'searchForm'
-
-const customMapping = {
-  'fulltext-search': formField.editableValueFactory('string'),
-  'text': formField.editableValueFactory('string'),
-  'birthdate': formField.editableValueFactory('date', true),
-  'date': formField.editableValueFactory('date', true),
-  'updatets': formField.editableValueFactory('datetime', true),
-  'createts': formField.editableValueFactory('datetime', true),
-  'datetime': formField.editableValueFactory('datetime', true),
-  'moneyamount': formField.editableValueFactory('number', true),
-  'percent': formField.editableValueFactory('number', true),
-  'long': formField.editableValueFactory('number', true),
-  'integer': formField.editableValueFactory('number', true),
-  'decimal': formField.editableValueFactory('number', true),
-  'counter': formField.editableValueFactory('number', true)
-}
 
 const BasicSearchForm = ({
   disableSimpleSearch,
@@ -90,11 +74,7 @@ const BasicSearchForm = ({
           formName={formName}
           formDefinition={searchFormDefinition}
           formValues={formValues}
-          formFieldMapping={{
-            ...formField.defaultMapping,
-            ...customMapping
-          }}
-          readOnlyFormFieldMapping={formField.defaultMapping}
+          fieldMappingType="search"
           beforeRenderField={shouldRenderField(
             preselectedSearchFields,
             disableSimpleSearch,

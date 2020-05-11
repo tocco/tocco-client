@@ -91,11 +91,7 @@ const FormBuilder = props => {
         && hasEmptyValue(transformFieldName(fieldName), props.formValues))
     }
 
-    if (shouldRenderField(
-      formDefinitionField,
-      entityField,
-      props.formValues,
-      props.formDefinition.readonly)) {
+    if (shouldRenderField(formDefinitionField, entityField)) {
       return (
         <Field
           key={`field-${fieldName}`}
@@ -107,8 +103,7 @@ const FormBuilder = props => {
           formDefinitionField={formDefinitionField}
           entityField={entityField}
           modelField={modelField}
-          formFieldMapping={props.formFieldMapping}
-          readOnlyFormFieldMapping={props.readOnlyFormFieldMapping}
+          fieldMappingType={props.fieldMappingType}
           format={null}
         />
       )
@@ -184,9 +179,7 @@ FormBuilder.propTypes = {
   model: PropTypes.object.isRequired,
   formName: PropTypes.string.isRequired,
   formDefinition: PropTypes.object.isRequired,
-  formFieldMapping: PropTypes.object.isRequired,
   formValues: PropTypes.object,
-  readOnlyFormFieldMapping: PropTypes.object,
   mode: PropTypes.string,
   componentMapping: PropTypes.objectOf(PropTypes.func),
   beforeRenderField: PropTypes.func,

@@ -5,7 +5,7 @@ describe('entity-list', () => {
     describe('lazyLoading', () => {
       test('should enhance single default displays ', () => {
         const value = {key: 1, model: 'EntityX'}
-        const type = 'remote'
+        const type = 'single-remote-field'
         const lazyData = {
           defaultDisplays: {
             EntityX: {
@@ -24,7 +24,7 @@ describe('entity-list', () => {
 
     test('should enhance multi default displays ', () => {
       const value = [{key: 1, model: 'EntityX'}, {key: 2, model: 'EntityX'}]
-      const type = 'multi-select'
+      const type = 'multi-select-box'
       const lazyData = {
         defaultDisplays: {
           EntityX: {
