@@ -296,7 +296,7 @@ export const containsEntityOfModel = (event, entityName) =>
 
 export function* remoteEvent(action) {
   const event = action.payload.event
-  if (event.type === 'entity-create-event' || event.type === 'entity-delete-event') {
+  if (['entity-create-event', 'entity-delete-event', 'entity-update-event'].includes(event.type)) {
     const {entityModel} = yield select(listSelector)
     if (containsEntityOfModel(event, entityModel.name)) {
       yield call(reloadData)
