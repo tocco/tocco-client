@@ -6,6 +6,8 @@ import {
 } from 'tocco-ui'
 import {StyledLayoutBox} from 'tocco-ui/src/Layout'
 
+import {StyledModalButton} from './ModalButtons'
+
 const modalWidth = 700
 const gutterWidth = 30
 const totalWidth = modalWidth + gutterWidth
@@ -20,7 +22,7 @@ const StyledModalContent = styled.div.attrs({
     box-shadow: 2px 2px 10px rgba(0, 0, 0, .4);         // reset: react-redux-toastr (confirm.scss)
     left: 0;                                            // reset: react-redux-toastr (confirm.scss)
     margin-left: ${Math.ceil((gutterWidth - basePadding) / 2)}px;       // reset: react-redux-toastr (confirm.scss)
-    padding: 0 ${basePadding}px; // reset: react-redux-toastr (confirm.scss)
+    padding: 0 ${basePadding}px ${basePadding}px; // reset: react-redux-toastr (confirm.scss)
     width: calc(100% - ${gutterWidth}px - ${basePadding}px);
     ${StyledScrollbar}
 
@@ -39,6 +41,11 @@ const StyledModalContent = styled.div.attrs({
     p {
       margin-top: ${basePadding}px;
       margin-bottom: ${basePadding}px;
+
+      & + ${/* sc-selector */StyledModalButton},
+      & + ${/* sc-selector */StyledModalButton} + ${/* sc-selector */StyledModalButton} {
+        margin-bottom: 0;
+      }
     }
 
     // copy: react-redux-toastr (index.scss)
@@ -81,17 +88,27 @@ const StyledModalContent = styled.div.attrs({
       max-width: calc(100% - ${gutterWidth}px - ${basePadding}px);
     }
 
+    .title-wrapper + p {
+      position: relative;
+      z-index: 1;
+      top: 4.5rem;
+      margin-top: 0;
+      margin-bottom: ${scale.space(-0.5)};
+    }
+
     .advanced-search-button-wrapper {
       position: sticky;
       bottom: 0;
+      transform: translateY(1.8rem);
     }
 
     .button-wrapper {
       position: sticky;
       bottom: 0;
-      padding-top: ${scale.space(0.5)};
-      padding-bottom: ${scale.space(0)};
+      padding-top: ${scale.space(0)};
+      padding-bottom: ${basePadding}px;
       background-color: ${theme.color('paper')};
+      transform: translateY(1.8rem);
     }
 
     ${StyledLayoutBox} {
