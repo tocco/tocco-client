@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button} from 'tocco-ui'
+import {Button, Menu} from 'tocco-ui'
 import {IntlStub} from 'tocco-test-util'
 import {shallow} from 'enzyme'
 
@@ -13,7 +13,7 @@ describe('app-extensions', () => {
       describe('GroupElement', () => {
         test('should call onClick if not readonly', () => {
           const definition = {
-            componentType: 'action-group',
+            componentType: 'action',
             readonly: false
           }
           const clickSpy = sinon.spy()
@@ -27,7 +27,7 @@ describe('app-extensions', () => {
 
         test('should not call onClick if readonly is false ', () => {
           const definition = {
-            componentType: 'action-group',
+            componentType: 'action',
             readonly: true
           }
           const clickSpy = sinon.spy()
@@ -41,11 +41,32 @@ describe('app-extensions', () => {
 
         test('should display dividers', () => {
           const definition = {
-            componentType: 'action-group',
             actionType: 'divider'
           }
           const wrapper = shallow(<GroupElement definition={definition} onClick={EMPTY_FUNC} intl={IntlStub}/>)
           expect(wrapper.find('hr')).to.have.length(1)
+        })
+
+        test('should render nested action-group in flyout menu', () => {
+          const definition = {
+            componentType: 'action-group',
+            children: [{
+              definition: {
+                componentType: 'action'
+              }
+            }, {
+              definition: {
+                componentType: 'action'
+              }
+            }]
+          }
+
+          const wrapper = shallow(<GroupElement definition={definition} onClick={EMPTY_FUNC} intl={IntlStub}/>)
+          const flyout = wrapper.find(Menu.ItemFlyout)
+          expect(flyout).to.have.length(1)
+          const stack = flyout.find(Menu.Stack)
+          expect(stack).to.have.length(1)
+          expect(stack.find(GroupElement)).to.have.length(2)
         })
       })
     })
