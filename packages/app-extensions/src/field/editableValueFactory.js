@@ -1,24 +1,24 @@
 import React from 'react'
 import {EditableValue, Range} from 'tocco-ui'
 
-import typeEditable from './typeEditable'
+import editableTypeConfigs from './editableTypeConfigs'
 
 const getEvents = (type, formField, formName, formData, events) =>
-  typeEditable[type] && typeEditable[type].getEvents
-    ? typeEditable[type].getEvents({formField, formName, formData, events})
+  editableTypeConfigs[type] && editableTypeConfigs[type].getEvents
+    ? editableTypeConfigs[type].getEvents({formField, formName, formData, events})
     : events
 
 const getValue = (type, formField, modelField, formName, formData, currentValue) =>
-  typeEditable[type] && typeEditable[type].getValue
-    ? typeEditable[type].getValue({formField, modelField, formName, formData, currentValue})
+  editableTypeConfigs[type] && editableTypeConfigs[type].getValue
+    ? editableTypeConfigs[type].getValue({formField, modelField, formName, formData, currentValue})
     : currentValue
 
 const getOptions = (type, formField, modelField, formName, formData) =>
-  typeEditable[type] && typeEditable[type].getOptions
-    ? typeEditable[type].getOptions({formField, modelField, formName, formData})
+  editableTypeConfigs[type] && editableTypeConfigs[type].getOptions
+    ? editableTypeConfigs[type].getOptions({formField, modelField, formName, formData})
     : {}
 
-export default (type, range) => (formField, modelField, formName, value, info, events, formData) => {
+export default (type, range) => ({formField, modelField, formName, value, info, events, formData}) => {
   const formType = formField.dataType || formField.componentType
   const options = getOptions(formType, formField, modelField, formName, formData)
 

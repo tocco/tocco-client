@@ -4,7 +4,7 @@ import {FormattedValue} from 'tocco-ui'
 import {createStore} from 'redux'
 import {Provider} from 'react-redux'
 
-import formattedValueFactory, {MultiSeparator} from './formattedValueFactory'
+import fieldFactory, {MultiSeparator} from './fieldFactory'
 
 describe('entity-list', () => {
   describe('util', () => {
@@ -14,7 +14,7 @@ describe('entity-list', () => {
       list: {lazyData: {}}
     }))
 
-    describe('formattedValueFactory', () => {
+    describe('fieldFactory', () => {
       test('should return FormattedValue', () => {
         const field = {
           id: 'firstname-field', // does not match path by intention (-> should use path to get data)
@@ -30,11 +30,11 @@ describe('entity-list', () => {
 
         const wrapper = intlEnzyme.mountWithIntl(
           <Provider store={getStore()}>
-            {formattedValueFactory(field, entity, IntlStub)}
+            {fieldFactory(field, entity, IntlStub)}
           </Provider>
         )
         expect(wrapper.find(FormattedValue)).to.have.length(1)
-        expect(wrapper.find(FormattedValue).props().options).to.be.null
+        expect(wrapper.find(FormattedValue).props().options).to.eql({})
       })
 
       test('should return FormattedValue and add type specific props', () => {
@@ -49,7 +49,7 @@ describe('entity-list', () => {
 
         const wrapper = intlEnzyme.mountWithIntl(
           <Provider store={getStore()}>
-            {formattedValueFactory(field, entity, IntlStub)}
+            {fieldFactory(field, entity, IntlStub)}
           </Provider>
         )
 
@@ -69,7 +69,7 @@ describe('entity-list', () => {
 
         const wrapper = intlEnzyme.mountWithIntl(
           <Provider store={getStore()}>
-            {formattedValueFactory(field, entity, IntlStub)}
+            {fieldFactory(field, entity, IntlStub)}
           </Provider>
         )
 
