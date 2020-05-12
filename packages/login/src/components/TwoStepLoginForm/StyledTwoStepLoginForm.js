@@ -8,10 +8,6 @@ import {
 export const StyledTwoStepLogin = styled.div`
   ${StyledButton} {
     width: 100%;
-
-    > span {
-      width: 100%;
-    }
   }
 `
 export const StyledTwoStepLoginInput = styled.input`
