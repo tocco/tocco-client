@@ -74,10 +74,6 @@ export const StyledLoginFormWrapper = styled.div`
 
     ${StyledButton} {
       flex-grow: 1;
-
-      > span {
-        width: 100%;
-      }
     }
   }
 `
