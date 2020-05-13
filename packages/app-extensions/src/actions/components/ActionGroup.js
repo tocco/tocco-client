@@ -33,7 +33,7 @@ MainAction.propTypes = {
 }
 
 const ActionGroup = ({definition, onClick, selectedCount, disabled, intl}) => {
-  const hasMainAction = (definition.action && Object.keys(definition.action).length > 0)
+  const hasMainAction = (definition.defaultAction && Object.keys(definition.defaultAction).length > 0)
 
   if (hasMainAction) {
     return (
@@ -44,7 +44,7 @@ const ActionGroup = ({definition, onClick, selectedCount, disabled, intl}) => {
           <Menu.ButtonGroup>
 
             <MainAction
-              definition={definition.action}
+              definition={definition.defaultAction}
               onClick={onClick}
               selectedCount={selectedCount}
               disabled={disabled}
@@ -52,7 +52,6 @@ const ActionGroup = ({definition, onClick, selectedCount, disabled, intl}) => {
             />
             <Menu.ItemFlyout
               isToggleable={definition.readonly !== true}
-              label={definition.label}
             >
               <Menu.Stack>
                 {definition.children.map((actionDefinition, idx) =>
