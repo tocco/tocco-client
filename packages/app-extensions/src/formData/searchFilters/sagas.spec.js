@@ -5,6 +5,8 @@ import {select, takeLatest} from 'redux-saga/effects'
 import rest from '../../rest'
 import * as sagas from './sagas'
 import * as actions from './actions'
+import {requestSaga} from '../../rest/rest'
+import {searchFilterResponseTransformer} from './utils'
 
 describe('app-extensions', () => {
   describe('formData', () => {
@@ -28,30 +30,61 @@ describe('app-extensions', () => {
               }
             }
 
-            const filters = [
-              {key: '1', unique_id: 'filter_1'},
-              {key: '3', unique_id: 'filter_3'}
-            ]
-
-            const displays = {
-              Search_filter: {
-                1: 'Filter 1',
-                3: 'Filter 3'
+            const filtersResponse = {
+              body: {
+                filters: [
+                  {key: '1', uniqueId: 'filter_1', label: 'Filter 1'},
+                  {key: '3', uniqueId: 'filter_3', label: 'Filter 3 '}
+                ]
               }
             }
 
-            const expectedFilters = [
-              {key: '1', unique_id: 'filter_1', display: 'Filter 1'},
-              {key: '3', unique_id: 'filter_3', display: 'Filter 3'}
+            const searchFilters = [
+              {key: '1', uniqueId: 'filter_1', display: 'Filter 1'},
+              {key: '3', uniqueId: 'filter_3', display: 'Filter 3'}
             ]
 
             return expectSaga(sagas.loadSearchFilters, args)
               .provide([
                 [select(sagas.searchFiltersSelector), {}],
-                [matchers.call.fn(rest.fetchEntities), filters],
-                [matchers.call.fn(rest.fetchDisplays), displays]
+                [matchers.call.fn(rest.requestSaga), filtersResponse],
+                [matchers.call.fn(searchFilterResponseTransformer), searchFilters]
               ])
-              .put(actions.setSearchFilter(args.payload.entity, expectedFilters))
+              .call(requestSaga, 'client/searchfilters/User')
+              .put(actions.setSearchFilter(args.payload.entity, searchFilters))
+              .run()
+          })
+
+          test('should load search filters with group', () => {
+            const args = {
+              payload: {
+                entity: 'User',
+                group: 'group'
+              }
+            }
+
+            const filtersResponse = {
+              body: {
+                filters: [
+                  {key: '1', uniqueId: 'filter_1', label: 'Filter 1'},
+                  {key: '3', uniqueId: 'filter_3', label: 'Filter 3 '}
+                ]
+              }
+            }
+
+            const searchFilters = [
+              {key: '1', uniqueId: 'filter_1', display: 'Filter 1'},
+              {key: '3', uniqueId: 'filter_3', display: 'Filter 3'}
+            ]
+
+            return expectSaga(sagas.loadSearchFilters, args)
+              .provide([
+                [select(sagas.searchFiltersSelector), {}],
+                [matchers.call.fn(rest.requestSaga), filtersResponse],
+                [matchers.call.fn(searchFilterResponseTransformer), searchFilters]
+              ])
+              .call(requestSaga, 'client/searchfilters/User?group=group')
+              .put(actions.setSearchFilter(args.payload.entity, searchFilters))
               .run()
           })
 

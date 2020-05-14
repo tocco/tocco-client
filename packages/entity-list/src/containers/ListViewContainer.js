@@ -17,7 +17,8 @@ const mapStateToProps = (state, props) => {
     parent: state.entityList.parent,
     dataLoadingInProgress: state.list.inProgress,
     showSelectionController: state.selection.showSelectionController,
-    searchFormPosition: state.input.searchFormPosition
+    searchFormPosition: state.input.searchFormPosition,
+    showActions: state.input.showActions
   }
 }
 

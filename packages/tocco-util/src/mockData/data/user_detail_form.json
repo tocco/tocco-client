@@ -727,7 +727,7 @@
       {
         "id": "a",
         "componentType": "action-group",
-        "action": {
+        "defaultAction": {
           "actionType": "simple",
           "icon": "cog",
           "label": "Simple Action",

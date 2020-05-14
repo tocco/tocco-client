@@ -40,21 +40,29 @@ class ListView extends React.Component {
         loadingText={this.msg('client.entity-list.loadingText')}
       >
         {
-          this.props.formDefinition && this.props.formDefinition.children.map(child => {
+          props.formDefinition && props.formDefinition.children.map(child => {
             if (child.componentType === form.componentTypes.TABLE) {
-              return <ListWrapper searchFormPosition={this.props.searchFormPosition} key={`tableWrapper-${child.id}`}>
+              return <ListWrapper searchFormPosition={props.searchFormPosition} key={`tableWrapper-${child.id}`}>
                 <TableContainer key={`table-${child.id}`} columnDefinitions={getColumnDefinition(child)}/>
               </ListWrapper>
             } else if (actions.isAction(child.componentType)) {
-              return <ActionWrapper key={`listActionWrapper-${child.id}`}>
-                {this.props.showSelectionController && <SelectionControllerContainer/>}
-                <ActionContainer
-                  key={`listAction-${child.id}`}
-                  definition={child}
-                  parent={props.parent}
-                  disabled={this.props.dataLoadingInProgress}
-                />
-              </ActionWrapper>
+              const content = [
+                ...props.showSelectionController
+                  ? [<SelectionControllerContainer key="selectionController"/>] : [],
+                ...props.showActions !== false
+                  ? [<ActionContainer
+                    key={`listAction-${child.id}`}
+                    definition={child}
+                    parent={props.parent}
+                    disabled={props.dataLoadingInProgress}
+                  />] : []
+              ]
+
+              if (content.length > 0) {
+                return <ActionWrapper key={`listActionWrapper-${child.id}`}>
+                  {content}
+                </ActionWrapper>
+              }
             }
           })
         }
@@ -79,7 +87,8 @@ ListView.propTypes = {
   dataLoadingInProgress: PropTypes.bool,
   showSelectionController: PropTypes.bool,
   entityName: PropTypes.string,
-  searchFormPosition: PropTypes.oneOf(['top', 'left'])
+  searchFormPosition: PropTypes.oneOf(['top', 'left']),
+  showActions: PropTypes.bool
 }
 
 export default ListView

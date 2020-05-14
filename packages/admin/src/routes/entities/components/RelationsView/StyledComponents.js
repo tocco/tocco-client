@@ -8,6 +8,9 @@ export const StyledPreviewBox = styled.div`
   padding: ${scale.space(-1)};
   margin-top: ${scale.space(-1)};
 `
+export const PreviewCreateWrapper = styled.span`
+  padding-left: ${scale.space(-1)};
+`
 
 export const StyledRelationBox = styled.div`
   background-color: ${theme.color('paper')};
