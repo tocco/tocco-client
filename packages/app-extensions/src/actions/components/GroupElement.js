@@ -16,6 +16,25 @@ export const GroupElement = ({definition, onClick, selectedCount, disabled, intl
 
   const buttonDisabled = definition.readonly === true || !validSelection || disabled
 
+  if (definition.componentType === 'action-group') {
+    return (
+      <Menu.ItemFlyout isOpen={false} label={definition.label}>
+        <Menu.Stack>
+          {definition.children.map((actionDefinition, idx) =>
+            <GroupElement
+              disabled={buttonDisabled}
+              definition={actionDefinition}
+              key={idx}
+              onClick={onClick}
+              selectedCount={selectedCount}
+              intl={intl}
+            />
+          )}
+        </Menu.Stack>
+      </Menu.ItemFlyout>
+    )
+  }
+
   return (
     <Menu.Item look="raised">
       <Button

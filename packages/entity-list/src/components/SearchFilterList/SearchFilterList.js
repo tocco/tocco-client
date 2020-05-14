@@ -15,7 +15,7 @@ const StyledSpanSearchFilter = styled(StyledSpan)`
 `
 
 const StyledButton = styled(Button)`
-  &&& {
+  && {
     display: none;
     background-color: transparent;
     margin-left: auto;
@@ -45,6 +45,18 @@ export const StyledSearchFilterButton = styled.div`
       }
       `
     }
+  }
+
+  :hover {
+    ${StyledButton} {
+      display: flex;
+    }
+    background-color: ${theme.color('secondaryLight')};
+
+    * {
+      color: ${theme.color('paper')};
+    }
+    cursor: pointer;
   }
 `
 
