@@ -159,6 +159,7 @@
         "multi": false
       }
     }
-  }
+  },
+  "mappingType": "search"
 }
 
