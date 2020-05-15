@@ -286,12 +286,7 @@ storiesOf('Tocco-UI | EditableValue', module)
       <EditableValueStory
         type="time"
         knobType={object}
-        defaultValue={{
-          hourOfDay: 8,
-          minuteOfHour: 35,
-          secondOfMinute: 0,
-          millisOfSecond: 0
-        }}
+        defaultValue="18:30"
       />
   ).add(
     'Url',

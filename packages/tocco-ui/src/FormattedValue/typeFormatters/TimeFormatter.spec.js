@@ -22,12 +22,7 @@ describe('tocco-ui', () => {
         const timeOutputEn = '11:15 PM'
         const timeOutputDe = '23:15'
 
-        const timeValue = {
-          hourOfDay: 23,
-          minuteOfHour: 15,
-          secondOfMinute: 0,
-          millisOfSecond: 0
-        }
+        const timeValue = '23:15'
 
         test('should format value', () => {
           const wrapper = mount(
