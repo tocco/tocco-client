@@ -12,13 +12,14 @@ const InputEdit = ({inputEntityKey, initializeTable, initializeSearch}) => {
     initializeTable()
     initializeSearch()
   }, [inputEntityKey])
+
   return <FlexRow>
-    <Panel.Wrapper key={'search'}>
+    <Panel.Wrapper key="search">
       <Panel.Body>
         <InputEditSearch/>
       </Panel.Body>
     </Panel.Wrapper>
-    <Panel.Wrapper key={'list'} isToggleable={false}>
+    <Panel.Wrapper key="list" isToggleable={false}>
       <Panel.Body>
         <InputEditTable/>
       </Panel.Body>
