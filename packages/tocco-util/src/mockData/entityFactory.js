@@ -17,6 +17,8 @@ const getRandomDate = (startYear, endYear) => {
 
 const getRandomInt = (min, max) => (Math.floor(Math.random() * (max - min + 1)) + min)
 
+export const makeTwoDigit = n => n.toString().padStart(2, '0')
+
 export const createDummyEntities = amount => {
   const entities = []
 
@@ -132,18 +134,12 @@ export const createUsers = amount => {
         duration: {
           value: getRandomInt(0, 1000 * 60 * 60 * 24),
           type: 'duration',
-          writable: false
-
+          writable: true
         },
         time: {
-          value: {
-            hourOfDay: getRandomInt(0, 24),
-            minuteOfHour: getRandomInt(0, 60),
-            secondOfMinute: getRandomInt(0, 60),
-            millisOfSecond: getRandomInt(0, 1000)
-          },
+          value: `${makeTwoDigit(getRandomInt(0, 23))}:${makeTwoDigit(getRandomInt(0, 59))}`,
           type: 'time',
-          writable: false
+          writable: true
         },
         decimal: {
           value: 1337.11,

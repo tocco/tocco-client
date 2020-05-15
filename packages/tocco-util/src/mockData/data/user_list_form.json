@@ -274,6 +274,22 @@
             "sortable": true
           },
           {
+            "id": "time",
+            "componentType": "Column",
+            "readonly": false,
+            "children": [
+              {
+                "id": "time",
+                "componentType": "field",
+                "path": "time",
+                "label": null,
+                "dataType": "time"
+              }
+            ],
+            "label": "Time",
+            "sortable": true
+          },
+          {
             "id": "licence_plate",
             "componentType": "Column",
             "readonly": false,

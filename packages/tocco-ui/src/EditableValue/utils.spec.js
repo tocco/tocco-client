@@ -8,7 +8,6 @@ import {
   calculateMilliseconds,
   isNullOrUndefined,
   millisecondsToDuration,
-  stringToDuration,
   numbersToTimeFormat,
   padLeadingZeros
 } from './utils'
@@ -126,19 +125,6 @@ describe('tocco-ui', () => {
         const zeroTimeObject = {hoursOfDay: 0, minutesOfHour: 0}
         test('should return time object with values zero on undefined input', () => {
           expect(millisecondsToDuration()).to.be.eql(zeroTimeObject)
-        })
-      })
-
-      describe('stringToDuration', () => {
-        const timeString = '08:45'
-        const expectedResult = {hourOfDay: 8, minuteOfHour: 45}
-        test('should return correct time object', () => {
-          expect(stringToDuration(timeString)).to.be.eql(expectedResult)
-        })
-
-        const zeroTimeObject = {hourOfDay: 0, minuteOfHour: 0}
-        test('should return time object with values zero on undefined input', () => {
-          expect(stringToDuration()).to.be.eql(zeroTimeObject)
         })
       })
 

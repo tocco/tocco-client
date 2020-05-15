@@ -6,10 +6,11 @@ import moment from 'moment'
 import Typography from '../../Typography'
 
 const TimeFormatter = props => {
-  const hours = parseInt(props.value.hourOfDay) || 0
-  const minutes = parseInt(props.value.minuteOfHour) || 0
-  const seconds = parseInt(props.value.secondOfMinute) || 0
-  const milliSeconds = parseInt(props.value.millisOfSecond) || 0
+  const hours = parseInt(props.value.split(':')[0]) || 0
+  const minutes = parseInt(props.value.split(':')[1]) || 0
+  const seconds = parseInt(props.value.split(':')[2]) || 0
+  const milliSeconds = parseInt(props.value.split(':')[4]) || 0
+
   const date = new Date(2000, 1, 1, hours, minutes, seconds, milliSeconds)
   const timeIso = moment(date).format(moment.HTML5_FMT.TIME_MS)
 
@@ -27,12 +28,7 @@ const TimeFormatter = props => {
 
 TimeFormatter.propTypes = {
   intl: intlShape.isRequired,
-  value: PropTypes.shape({
-    hourOfDay: PropTypes.number,
-    minuteOfHour: PropTypes.number,
-    secondOfMinute: PropTypes.number,
-    millisOfSecond: PropTypes.number
-  }).isRequired
+  value: PropTypes.string
 }
 
 export default injectIntl(TimeFormatter)

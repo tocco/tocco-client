@@ -1,4 +1,4 @@
-import {createDummyEntities, createUsers} from './entityFactory'
+import {createDummyEntities, createUsers, makeTwoDigit} from './entityFactory'
 
 describe('tocco-util', () => {
   describe('mockData', () => {
@@ -16,6 +16,13 @@ describe('tocco-util', () => {
           const amount = 99
           const users = createUsers(amount)
           expect(users.length).to.eql(amount)
+        })
+      })
+
+      describe('makeTwoDigit', () => {
+        test('should return a two digit string', () => {
+          expect(makeTwoDigit(9)).to.eql('09')
+          expect(makeTwoDigit(12)).to.eql('12')
         })
       })
     })

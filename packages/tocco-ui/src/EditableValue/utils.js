@@ -102,18 +102,6 @@ export const millisecondsToDuration = milliseconds => {
 }
 
 /*
- * Convert a timeString of type HH:MM to time number object
- */
-export const stringToDuration = timeString => {
-  if (!timeString && timeString !== '') {
-    return {hourOfDay: 0, minuteOfHour: 0}
-  }
-  const hourOfDay = parseInt(timeString.split(':')[0])
-  const minuteOfHour = parseInt(timeString.split(':')[1])
-  return {hourOfDay, minuteOfHour}
-}
-
-/*
  * Pad a string with leading zeros
  */
 export const padLeadingZeros = (string, numberOfZeros) => {

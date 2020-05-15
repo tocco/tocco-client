@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {stringToDuration, numbersToTimeFormat} from '../utils'
 import Ball from '../../Ball'
 import {
   StyledEditableControl,
@@ -10,13 +9,8 @@ import {
 import StyledTimeEdit from './StyledTimeEdit'
 
 const TimeEdit = props => {
-  const hours = props.value ? props.value.hourOfDay : null
-  const minutes = props.value ? props.value.minuteOfHour : null
-
-  const timeString = numbersToTimeFormat(hours, minutes)
-
   const handleChange = e => {
-    props.onChange(stringToDuration(e.target.value))
+    props.onChange(e.target.value)
   }
 
   const clearInput = () => {
@@ -27,6 +21,8 @@ const TimeEdit = props => {
 
   const showClearButton = props.value && !props.immutable && !isFirefox
 
+  const value = props.value || ''
+
   return (
     <StyledEditableWrapper immutable={props.immutable}>
       <StyledTimeEdit
@@ -35,7 +31,7 @@ const TimeEdit = props => {
         immutable={props.immutable}
         name={props.name}
         onChange={handleChange}
-        value={timeString}
+        value={value}
       />
       {showClearButton && <StyledEditableControl>
         <Ball
@@ -50,12 +46,7 @@ const TimeEdit = props => {
 
 TimeEdit.propTypes = {
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.shape({
-    hourOfDay: PropTypes.number,
-    minuteOfHour: PropTypes.number,
-    secondOfMinute: PropTypes.number,
-    millisOfSecond: PropTypes.number
-  }),
+  value: PropTypes.string,
   name: PropTypes.string,
   id: PropTypes.string,
   immutable: PropTypes.bool
