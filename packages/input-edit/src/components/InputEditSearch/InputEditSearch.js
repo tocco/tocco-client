@@ -39,11 +39,8 @@ const getFieldType = (path, form) => {
   const container = form.children.find(child => child.children.length > 0)
   if (container) {
     const field = container.children.find(child => child.id === path)
-    if (field.children.length > 0) {
-      return field.children[0].dataType
-    } else {
-      return field.dataType
-    }
+
+    return field.children.length > 0 ? field.children[0].dataType : field.dataType
   }
 }
 

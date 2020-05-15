@@ -28,6 +28,7 @@
   "client.component.duration.hoursLabel",
   "client.component.duration.minutesLabel",
   "client.component.location.mapButtonTitle",
+  "client.component.pagination.text",
   "client.common.ok",
   "client.common.cancel",
   "client.common.yes",
