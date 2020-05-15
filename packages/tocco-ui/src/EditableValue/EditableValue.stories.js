@@ -24,7 +24,7 @@ export class EditableValueStory extends React.Component {
           events={{onChange: this.changeValue}}
           options={{...this.props.options}}
           readOnly={boolean('readOnly', false)}
-          value={this.props.knobType('value', this.state.value)}
+          value={this.state.value}
         />
       </div>
     )
