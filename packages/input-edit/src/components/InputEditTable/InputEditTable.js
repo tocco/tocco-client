@@ -2,7 +2,7 @@ import React, {useMemo} from 'react'
 import PropTypes from 'prop-types'
 import {EditableValue} from 'tocco-ui'
 import {consoleLogger} from 'tocco-util'
-import {formField} from 'tocco-app-extensions'
+import {field} from 'tocco-app-extensions'
 import _get from 'lodash/get'
 
 import {StyledCell, StyledHeader, StyledTable} from './StyledComponents'
@@ -92,18 +92,17 @@ const TableCells = ({index, nodes, dataFormCells, inputEditForm, updateValue}) =
   return [...dataCells, ...editCells]
 }
 
-const DataCell = ({index, nodes, column}) => <td>
-  {formField.formattedValueFactory(column.children[0].dataType)(
-    column.children[0],
-    undefined,
-    'Input_edit_data_list',
-    _get(nodes, column.children[0].path.replace('.', '.value.paths.') + '.value'),
-    {},
-    {},
-    {},
-    `${index}:${column.id}`
-  )}
-</td>
+const DataCell = ({nodes, column}) => {
+  const Field = field.factory('list', column.children[0].dataType)
+  const value = _get(nodes, column.children[0].path.replace('.', '.value.paths.') + '.value')
+  return <td>
+    <Field
+      formField={column.children[0]}
+      formName="Input_edit_data_list"
+      value={value}
+    />
+  </td>
+}
 
 const InputCell = ({index, nodes, column, updateValue}) => {
   const width = column.dataType === 'single-select'

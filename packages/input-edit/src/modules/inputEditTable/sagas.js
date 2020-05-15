@@ -42,7 +42,7 @@ export function* loadData({newSorting, newSearchQueries, newPage}) {
   const paths = getPathsFromTable(dataForm)
   const searchBean = rest.buildRequestQuery({
     limit: recordsPerPage,
-    sorting: [{field: sorting.field, order: sorting.direction}],
+    ...(sorting && sorting.field && sorting.direction && {sorting: [{field: sorting.field, order: sorting.direction}]}),
     page: currentPage,
     tql: searchQueries.join(' and '),
     paths: paths

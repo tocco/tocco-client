@@ -11,7 +11,9 @@ const InputEditSearch = ({form, model, setSearchFields}) => {
       model={model}
       onChange={_debounce(handleChange(form, setSearchFields), 500)}
       noButtons={true}
-      validate={false}/>
+      validate={false}
+      mappingType="search"
+    />
     : null
 }
 
