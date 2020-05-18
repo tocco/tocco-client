@@ -51,7 +51,7 @@ class LoginForm extends Component {
     const usernameFocus = !passwordFocus
 
     return (
-      <StyledLoginFormWrapper>
+      <StyledLoginFormWrapper className="tocco-login">
         {this.props.showTitle
           && <React.Fragment>
             <Typography.H5><FormattedMessage id="client.login.form.title"/></Typography.H5>
