@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Typography, StyledH3, theme} from 'tocco-ui'
+import {StyledH3, theme} from 'tocco-ui'
 import styled from 'styled-components'
 
 import ToccoLogo from '../../../../assets/tocco_red.svg'
@@ -33,8 +33,10 @@ const StyledSlogan = styled.div`
     margin-left: 25px;
     margin-bottom: 0;
   }
+`
 
-  ${/* sc-selector */StyledH3} {
+const StyledTitle = styled(StyledH3)`
+  && {
     font-size: 3rem;
     color: ${theme.color('primary')};
   }
@@ -45,7 +47,7 @@ const Dashboard = () => {
   return <StyledDashBoardWrapper>
     <StyledSlogan>
       <img src={ToccoLogo} alt="tocco-logo"/>
-      <Typography.H3>beta v{packageJson.version}</Typography.H3>
+      <StyledTitle>beta v{packageJson.version}</StyledTitle>
     </StyledSlogan>
   </StyledDashBoardWrapper>
 }
