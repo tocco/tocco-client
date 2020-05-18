@@ -144,16 +144,32 @@
     "id": "far, file-alt",
     "lib": "fa"
   },
-  "file-alt": {
-    "id": "far, file-alt",
+  "file-code": {
+    "id": "far, file-code",
+    "lib": "fa"
+  },
+  "file-csv": {
+    "id": "far, file-csv",
     "lib": "fa"
   },
   "file-excel": {
     "id": "far, file-excel",
     "lib": "fa"
   },
+  "file-export": {
+    "id": "far, file-export",
+    "lib": "fa"
+  },
+  "file-import": {
+    "id": "far, file-import",
+    "lib": "fa"
+  },
   "file-pdf": {
     "id": "far, file-pdf",
+    "lib": "fa"
+  },
+  "file-spreadsheet": {
+    "id": "far, file-spreadsheet",
     "lib": "fa"
   },
   "folders": {
