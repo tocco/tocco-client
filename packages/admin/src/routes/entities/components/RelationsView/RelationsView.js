@@ -10,8 +10,7 @@ import {
   RelationLabel,
   RelationLinks,
   StyledPreviewBox,
-  StyledRelationBox,
-  PreviewCreateWrapper
+  StyledRelationBox
 } from './StyledComponents'
 import {StyledLink} from '../../../../components/StyledLink'
 import {goBack} from '../../../../utils/routing'
@@ -86,15 +85,13 @@ const RelationsView = ({
       {selectedRelation
       && <StyledPreviewBox>
         <Typography.H4>
-          {selectedRelation.relationDisplay.label}&nbsp;
+          {selectedRelation.relationDisplay.label}
           <StyledLink to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName)}>
             <Icon icon="arrow-right"/>
           </StyledLink>
-          <PreviewCreateWrapper>
-            <StyledLink to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName) + '/create'}>
-              <Icon icon="plus"/>
-            </StyledLink>
-          </PreviewCreateWrapper>
+          <StyledLink to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName) + '/create'}>
+            <Icon icon="plus"/>
+          </StyledLink>
         </Typography.H4>
         <EntityListApp
           id={'preview' + selectedRelation.reverseRelationName + selectedRelation.targetEntity}
