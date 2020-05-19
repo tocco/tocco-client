@@ -108,7 +108,7 @@ export const formFieldFactory = (fieldMappingType, data, resources = {}) => {
 
 export const MultiSeparator = () => (<Typography.Span>, </Typography.Span>)
 
-const multiTypes = ['multi-select-box', 'multi-remote-field']
+const multiTypes = ['multi-select-box', 'multi-remote-field', 'search-filter']
 
 const ValueField = ({
   fieldMappingType,
