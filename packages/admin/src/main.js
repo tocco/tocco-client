@@ -27,7 +27,9 @@ const LazyAdmin = () => (
 )
 
 const initApp = (id, input, events, publicPath) => {
-  window.reactRegistry.setReact(React, ReactDOM)
+  if (window.reactRegistry && window.reactRegistry.setReact) {
+    window.reactRegistry.setReact(React, ReactDOM)
+  }
 
   const content = <LazyAdmin/>
 
