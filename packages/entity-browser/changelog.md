@@ -1,3 +1,7 @@
+0.9.11-hotfix225.1
+- Modal styling
+- Fix fulltext search bug
+
 0.9.11
 - Small date component improvements
 - Fix fallback sorting bug
