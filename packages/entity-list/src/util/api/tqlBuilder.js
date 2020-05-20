@@ -33,7 +33,7 @@ const typeHandlers = type => {
     case 'single-select-box':
       return (path, value) => `${path}.pk == ${value.key}`
     case 'fulltext-search':
-      return (path, value) => path === 'txtFulltext' ? `fulltext("${value}")` : `fulltext("${value}",${path})`
+      return (path, value) => path === 'txtFulltext' ? `fulltext("${value}*")` : `fulltext("${value}*",${path})`
     case 'birthdate':
     case 'date':
     case 'create_timestamp':
