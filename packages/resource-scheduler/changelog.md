@@ -1,3 +1,8 @@
+0.2.27-hotfix225.1
+- Hide actions in search list
+- Fix fulltext search bug
+- General styling fixes
+
 0.2.27
 - Small date component improvements
 - Fix fallback sorting bug
