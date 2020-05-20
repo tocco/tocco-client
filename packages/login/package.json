@@ -1,6 +1,6 @@
 {
   "name": "tocco-login",
-  "version": "0.2.5",
+  "version": "0.2.7",
   "description": "Login dialog with password-update dialog that can run independently",
   "main": "dist/index.js",
   "scripts": {
@@ -8,6 +8,7 @@
     "prepublish": "npm run compile"
   },
   "devDependencies": {
+    "react-google-recaptcha-v3": "^1.4.1",
     "tocco-app-extensions": "0.1.8",
     "tocco-test-util": ">0.0.0",
     "tocco-theme": ">0.0.0",

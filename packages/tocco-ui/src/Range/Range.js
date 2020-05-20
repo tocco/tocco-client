@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
 import React, {useMemo} from 'react'
 
-import StyledRange, {StyledInputWrapper, StyledEditableValue, StyledInputItemWrapper} from './StyledRange'
+import StyledRange, {StyledInputWrapper, StyledInputItemWrapper, StyledIconWrapper} from './StyledRange'
 import EditableValue from '../EditableValue'
 import Ball from '../Ball'
-import Typography from '../Typography'
+import Icon from '../Icon'
 
 const getToOptions = (type, options, fromValue) => {
   switch (type) {
@@ -69,31 +69,28 @@ const Range = props => {
         />
         : <div className="input">
           <StyledInputItemWrapper>
-            <Typography.Span>{props.fromText}</Typography.Span>
-            <StyledEditableValue>
-              <EditableValue
-                {...props}
-                options={getFromOptions(props.type, props.options, value.to)}
-                value={value && value.from ? value.from : null}
-                events={fromEvents}
-              />
-            </StyledEditableValue>
+            <EditableValue
+              {...props}
+              options={getFromOptions(props.type, props.options, value.to)}
+              value={value && value.from ? value.from : null}
+              events={fromEvents}
+            />
           </StyledInputItemWrapper>
+          <StyledIconWrapper>
+            <Icon icon="horizontal-rule"/>
+          </StyledIconWrapper>
           <StyledInputItemWrapper>
-            <Typography.Span>{props.toText}</Typography.Span>
-            <StyledEditableValue>
-              <EditableValue
-                {...props}
-                options={getToOptions(props.type, props.options, value.from)}
-                value={value && value.to ? value.to : null}
-                events={toEvents}
-              />
-            </StyledEditableValue>
+            <EditableValue
+              {...props}
+              options={getToOptions(props.type, props.options, value.from)}
+              value={value && value.to ? value.to : null}
+              events={toEvents}
+            />
           </StyledInputItemWrapper>
         </div>}
     </StyledInputWrapper>
     <div className="extender">
-      <Ball disabled={readOnly} icon={hasRangeValue ? 'chevron-up' : 'chevron-down'} onClick={() => {
+      <Ball disabled={readOnly} icon={hasRangeValue ? 'chevron-left' : 'chevron-down'} onClick={() => {
         if (hasRangeValue) {
           events.onChange(getFromOrTo(value))
         } else {

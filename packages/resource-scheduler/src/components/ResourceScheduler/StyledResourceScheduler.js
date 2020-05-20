@@ -11,20 +11,23 @@ export const resizerStyle = {
 
 export const StyledSplitPanelWrapperLeft = styled.div`
   && {
-    background-color: ${theme.color('backgroundBody')};
+    background-color: ${theme.color('paper')};
     height: 100%;
     overflow: auto;
     padding-right: ${scale.space(-1)};
+    padding-left: ${scale.space(-1)};
+    padding-top: ${scale.space(-1)};
     ${StyledScrollbar}
   }
 `
 
 export const StyledSplitPanelWrapperRight = styled.div`
   && {
-    background-color: ${theme.color('backgroundBody')};
+    background-color: ${theme.color('paper')};
     height: 100%;
     overflow: auto;
     padding-left: ${scale.space(-1)};
+    padding-right: ${scale.space(-1)};
     ${StyledScrollbar}
   }
 `

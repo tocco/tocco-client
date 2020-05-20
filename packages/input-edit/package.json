@@ -1,0 +1,18 @@
+{
+  "name": "tocco-input-edit",
+  "version": "0.1.0",
+  "description": "action to input grades, points and other ratings",
+  "main": "dist/index.js",
+  "scripts": {
+    "compile:prod": "cd ../../ && npm run compile:prod -- --package=input-edit",
+    "prepublish": "npm run compile:prod"
+  },
+  "devDependencies": {
+    "tocco-app-extensions": ">0.1.0",
+    "tocco-simple-form": ">0.1.0",
+    "tocco-test-util": ">0.1.0",
+    "tocco-theme": ">0.1.0",
+    "tocco-ui": ">0.1.0",
+    "tocco-util": ">0.1.0"
+  }
+}

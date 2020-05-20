@@ -24,7 +24,7 @@ export class EditableValueStory extends React.Component {
           events={{onChange: this.changeValue}}
           options={{...this.props.options}}
           readOnly={boolean('readOnly', false)}
-          value={this.props.knobType('value', this.state.value)}
+          value={this.state.value}
         />
       </div>
     )
@@ -286,12 +286,7 @@ storiesOf('Tocco-UI | EditableValue', module)
       <EditableValueStory
         type="time"
         knobType={object}
-        defaultValue={{
-          hourOfDay: 8,
-          minuteOfHour: 35,
-          secondOfMinute: 0,
-          millisOfSecond: 0
-        }}
+        defaultValue="18:30"
       />
   ).add(
     'Url',

@@ -48,6 +48,7 @@ export function* initialize() {
       call(loadEntityModel, entityName, entityModel),
       call(loadFormDefinition, formDefinition, formName)
     ])
+    yield call(setSorting)
     yield call(loadData, 1)
   } else {
     yield call(loadData)
@@ -239,12 +240,16 @@ export function* displayEntity(page) {
   yield put(actions.setEntities(entities))
 }
 
-export const FALLBACK_SORTING = [{field: 'update_timestamp', order: 'desc'}]
-export function* setSorting(formDefinition) {
+export const FALLBACK_SORTING_FIELD = 'update_timestamp'
+export function* setSorting() {
+  const {formDefinition, entityModel} = yield select(listSelector)
   const tableSorting = yield call(getSorting, formDefinition)
-  const sorting = tableSorting.length > 0 ? tableSorting : FALLBACK_SORTING
 
-  yield put(actions.setSorting(sorting))
+  if (tableSorting.length > 0) {
+    yield put(actions.setSorting(tableSorting))
+  } else if (entityModel.paths[FALLBACK_SORTING_FIELD]) {
+    yield put(actions.setSorting([{field: FALLBACK_SORTING_FIELD, order: 'desc'}]))
+  }
 }
 
 export function* loadFormDefinition(formDefinition, formName) {
@@ -253,7 +258,6 @@ export function* loadFormDefinition(formDefinition, formName) {
     yield put(actions.setFormDefinition(formDefinition))
   }
 
-  yield call(setSorting, formDefinition)
   const selectable = yield call(getSelectable, formDefinition)
   yield put(actions.setFormSelectable(selectable))
   const endpoint = yield call(getEndpoint, formDefinition)
@@ -288,19 +292,14 @@ export function* actionInvoked(action) {
   yield put(actionEmitter.emitAction(action))
 }
 
-const remoteEventReloadPredicates = {
-  'legacy-create-event': (payload, entityName) => payload.modelNames.includes(entityName),
-  'legacy-delete-event': (payload, entityName) => !!payload.keys.find(key => key._entityName === entityName)
-}
+export const containsEntityOfModel = (event, entityName) =>
+  !!event.payload.entities.find(entity => entity.entityName === entityName)
 
 export function* remoteEvent(action) {
   const event = action.payload.event
-
-  const reloadPredicate = remoteEventReloadPredicates[event.type]
-
-  if (reloadPredicate) {
+  if (['entity-create-event', 'entity-delete-event', 'entity-update-event'].includes(event.type)) {
     const {entityModel} = yield select(listSelector)
-    if (reloadPredicate(event.payload, entityModel.name)) {
+    if (containsEntityOfModel(event, entityModel.name)) {
       yield call(reloadData)
     }
   }

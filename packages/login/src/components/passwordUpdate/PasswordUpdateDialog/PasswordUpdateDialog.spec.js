@@ -27,6 +27,7 @@ describe('login', () => {
           updateOldPassword={() => undefined}
           updateNewPassword={() => undefined}
           updateNewPasswordRepeat={() => undefined}
+          googleReCaptchaProps={{executeRecaptcha: () => undefined}}
         />)
         expect(fetchValidationRules).to.have.property('callCount', 1)
       })
@@ -46,6 +47,7 @@ describe('login', () => {
           updateOldPassword={() => undefined}
           updateNewPassword={() => undefined}
           updateNewPasswordRepeat={() => undefined}
+          googleReCaptchaProps={{executeRecaptcha: () => undefined}}
         />)
 
         expect(initialized).to.have.property('callCount', 0)
@@ -68,6 +70,7 @@ describe('login', () => {
           updateOldPassword={() => undefined}
           updateNewPassword={() => undefined}
           updateNewPasswordRepeat={() => undefined}
+          googleReCaptchaProps={{executeRecaptcha: () => undefined}}
         />)
         expect(wrapper.find(LoadMask)).to.have.length(1)
       })
@@ -83,6 +86,7 @@ describe('login', () => {
           updateOldPassword={() => undefined}
           updateNewPassword={() => undefined}
           updateNewPasswordRepeat={() => undefined}
+          googleReCaptchaProps={{executeRecaptcha: () => undefined}}
         />)
         expect(wrapper.find({name: 'oldPassword'}).length).to.equal(0)
       })
@@ -99,6 +103,7 @@ describe('login', () => {
           updateNewPassword={() => undefined}
           updateNewPasswordRepeat={() => undefined}
           showOldPasswordField
+          googleReCaptchaProps={{executeRecaptcha: () => undefined}}
         />)
         expect(showFieldWrapper.find({name: 'oldPassword'}).length).to.equal(1)
 
@@ -113,6 +118,7 @@ describe('login', () => {
           updateNewPassword={() => undefined}
           updateNewPasswordRepeat={() => undefined}
           showOldPasswordField={false}
+          googleReCaptchaProps={{executeRecaptcha: () => undefined}}
         />)
         expect(hideFieldWrapper.find({name: 'oldPassword'}).length).to.equal(0)
       })
@@ -129,6 +135,7 @@ describe('login', () => {
           updateOldPassword={() => undefined}
           updateNewPassword={() => undefined}
           updateNewPasswordRepeat={() => undefined}
+          googleReCaptchaProps={{executeRecaptcha: () => undefined}}
         />)
         expect(wrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(false)
         expect(wrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(true)
@@ -151,6 +158,7 @@ describe('login', () => {
           updateOldPassword={() => undefined}
           updateNewPassword={() => undefined}
           updateNewPasswordRepeat={() => undefined}
+          googleReCaptchaProps={{executeRecaptcha: () => undefined}}
         />)
         expect(wrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(false)
         expect(wrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(false)
@@ -180,6 +188,7 @@ describe('login', () => {
             updateOldPassword={() => undefined}
             updateNewPassword={() => undefined}
             updateNewPasswordRepeat={() => undefined}
+            googleReCaptchaProps={{executeRecaptcha: () => undefined}}
           />)
           expect(invalidWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(false)
           expect(invalidWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(false)
@@ -202,6 +211,7 @@ describe('login', () => {
             updateOldPassword={() => undefined}
             updateNewPassword={() => undefined}
             updateNewPasswordRepeat={() => undefined}
+            googleReCaptchaProps={{executeRecaptcha: () => undefined}}
           />)
           expect(validWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(false)
           expect(validWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(false)
@@ -229,6 +239,7 @@ describe('login', () => {
             updateOldPassword={() => undefined}
             updateNewPassword={() => undefined}
             updateNewPasswordRepeat={() => undefined}
+            googleReCaptchaProps={{executeRecaptcha: () => undefined}}
           />)
           expect(newPwRepeatEmptyWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(false)
           expect(newPwRepeatEmptyWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(false)
@@ -251,6 +262,7 @@ describe('login', () => {
             updateOldPassword={() => undefined}
             updateNewPassword={() => undefined}
             updateNewPasswordRepeat={() => undefined}
+            googleReCaptchaProps={{executeRecaptcha: () => undefined}}
           />)
           expect(newPwRepeatNoMatchWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(false)
           expect(newPwRepeatNoMatchWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(false)
@@ -273,6 +285,7 @@ describe('login', () => {
             updateOldPassword={() => undefined}
             updateNewPassword={() => undefined}
             updateNewPasswordRepeat={() => undefined}
+            googleReCaptchaProps={{executeRecaptcha: () => undefined}}
           />)
           expect(newPwRepeatMatchWrapper.find({name: 'oldPassword'}).prop('readOnly')).to.equal(false)
           expect(newPwRepeatMatchWrapper.find({name: 'newPassword'}).prop('readOnly')).to.equal(false)
@@ -293,6 +306,7 @@ describe('login', () => {
           updateOldPassword={() => undefined}
           updateNewPassword={() => undefined}
           updateNewPasswordRepeat={() => undefined}
+          googleReCaptchaProps={{executeRecaptcha: () => undefined}}
         />)
         expect(wrapper.find({name: 'oldPassword'}).prop('autoFocus')).to.equal(true)
         expect(wrapper.find({name: 'newPassword'}).prop('autoFocus')).to.equal(false)
@@ -312,6 +326,7 @@ describe('login', () => {
             updateOldPassword={() => undefined}
             updateNewPassword={() => undefined}
             updateNewPasswordRepeat={() => undefined}
+            googleReCaptchaProps={{executeRecaptcha: () => undefined}}
           />)
           expect(wrapper.find({name: 'newPassword'}).prop('autoFocus')).to.equal(true)
         }

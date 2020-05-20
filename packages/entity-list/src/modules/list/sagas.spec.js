@@ -65,6 +65,7 @@ describe('entity-list', () => {
               call(sagas.loadFormDefinition, formDefinition, formName)
             ]))
 
+            expect(gen.next().value).to.eql(call(sagas.setSorting))
             expect(gen.next().value).to.eql(call(sagas.loadData, 1))
             expect(gen.next().value).to.eql(call(sagas.queryChanged))
             expect(gen.next().value).to.eql(put(actions.setInProgress(false)))
@@ -196,11 +197,19 @@ describe('entity-list', () => {
         })
 
         describe('setSorting saga', () => {
+          const entityModel = {
+            paths: {
+              update_timestamp: {}
+            }
+          }
+
+          const formDefinition = {}
           test('should extract sorting of form', () => {
             const sorting = [{field: 'firstname', order: 'asc'}]
             return expectSaga(sagas.setSorting)
               .provide([
-                [matchers.call.fn(getSorting), sorting]
+                [matchers.call.fn(getSorting), sorting],
+                [select(sagas.listSelector), {entityModel, formDefinition}]
               ])
               .put(actions.setSorting(sorting))
               .run()
@@ -209,9 +218,20 @@ describe('entity-list', () => {
           test('should set fallback if not defined in form', () => {
             return expectSaga(sagas.setSorting)
               .provide([
-                [matchers.call.fn(getSorting), []]
+                [matchers.call.fn(getSorting), []],
+                [select(sagas.listSelector), {entityModel, formDefinition}]
               ])
-              .put(actions.setSorting(sagas.FALLBACK_SORTING))
+              .put(actions.setSorting([{field: sagas.FALLBACK_SORTING_FIELD, order: 'desc'}]))
+              .run()
+          })
+
+          test('should not set sorting if fallback does not exist in model', () => {
+            return expectSaga(sagas.setSorting)
+              .provide([
+                [matchers.call.fn(getSorting), []],
+                [select(sagas.listSelector), {entityModel: {paths: {}}, formDefinition}]
+              ])
+              .not.put.like({action: {type: 'list/SET_SORTING'}})
               .run()
           })
         })
@@ -343,14 +363,12 @@ describe('entity-list', () => {
             return expectSaga(sagas.loadFormDefinition, formDefinition, formName)
               .provide([
                 [matchers.call.fn(rest.fetchForm), loadedFormDefinition],
-                [matchers.call.fn(sagas.setSorting)],
                 [matchers.call.fn(getSelectable), selectable],
                 [matchers.call.fn(getEndpoint), endpoint],
                 [matchers.call.fn(getConstriction), constriction]
               ])
               .call(rest.fetchForm, formName, 'list')
               .put(actions.setFormDefinition(loadedFormDefinition))
-              .call(sagas.setSorting, loadedFormDefinition)
               .put(actions.setFormSelectable(selectable))
               .put(actions.setEndpoint(endpoint))
               .put(actions.setConstriction(constriction))
@@ -606,76 +624,68 @@ describe('entity-list', () => {
         })
 
         describe('remoteEvent saga', () => {
+          const payload = {
+            entities: [
+              {entityName: 'User', key: '1'},
+              {entityName: 'Principal', key: '2'}
+            ]
+          }
           const createEventAction = remoteEvents.remoteEvent({
-            type: 'legacy-create-event',
-            payload: {
-              modelNames: ['User', 'Principal']
-            }
+            type: 'entity-create-event',
+            payload
           })
           const deleteEventAction = remoteEvents.remoteEvent({
-            type: 'legacy-delete-event',
-            payload: {
-              keys: [
-                {_entityName: 'User', _key: 1},
-                {_entityName: 'Principal', _key: 2}
-              ]
-            }
+            type: 'entity-delete-event',
+            payload
+          })
+          const updateEventAction = remoteEvents.remoteEvent({
+            type: 'entity-update-event',
+            payload
           })
 
-          test('should reload list if relevant legacy create event', () => {
-            const listState = {
-              entityModel: {
-                name: 'User'
-              }
-            }
-            return expectSaga(sagas.remoteEvent, createEventAction)
-              .provide([
-                [select(sagas.listSelector), listState]
-              ])
-              .call(sagas.reloadData)
-              .run()
+          const userListState = {
+            entityModel: {name: 'User'}
+          }
+          const classroomListState = {
+            entityModel: {name: 'Classroom'}
+          }
+
+          const expectReload = (listState, remoteEvent) => expectSaga(sagas.remoteEvent, remoteEvent)
+            .provide([
+              [select(sagas.listSelector), listState]
+            ])
+            .call(sagas.reloadData)
+            .run()
+
+          const expectNoReload = listState => expectSaga(sagas.remoteEvent, createEventAction)
+            .provide([
+              [select(sagas.listSelector), listState]
+            ])
+            .not.call(sagas.reloadData)
+            .run()
+
+          test('should reload list if relevant create event', () => {
+            return expectReload(userListState, createEventAction)
           })
 
-          test('should not reload list if irrelevant legacy create event', () => {
-            const listState = {
-              entityModel: {
-                name: 'Classroom'
-              }
-            }
-            return expectSaga(sagas.remoteEvent, createEventAction)
-              .provide([
-                [select(sagas.listSelector), listState]
-              ])
-              .not.call(sagas.reloadData)
-              .run()
+          test('should not reload list if irrelevant create event', () => {
+            return expectNoReload(classroomListState, createEventAction)
           })
 
-          test('should reload list if relevant legacy delete event', () => {
-            const listState = {
-              entityModel: {
-                name: 'User'
-              }
-            }
-            return expectSaga(sagas.remoteEvent, deleteEventAction)
-              .provide([
-                [select(sagas.listSelector), listState]
-              ])
-              .call(sagas.reloadData)
-              .run()
+          test('should reload list if relevant delete event', () => {
+            return expectReload(userListState, deleteEventAction)
           })
 
-          test('should not reload list if irrelevant legacy delete event', () => {
-            const listState = {
-              entityModel: {
-                name: 'Classroom'
-              }
-            }
-            return expectSaga(sagas.remoteEvent, deleteEventAction)
-              .provide([
-                [select(sagas.listSelector), listState]
-              ])
-              .not.call(sagas.reloadData)
-              .run()
+          test('should not reload list if irrelevant delete event', () => {
+            return expectNoReload(classroomListState, deleteEventAction)
+          })
+
+          test('should reload list if relevant update event', () => {
+            return expectReload(userListState, updateEventAction)
+          })
+
+          test('should not reload list if irrelevant update event', () => {
+            return expectNoReload(classroomListState, updateEventAction)
           })
         })
       })

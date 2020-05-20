@@ -9,14 +9,15 @@ React-registry name: `simple-form`
 
 | Name                   | Mandatory | Description
 |------------------------|:---------:|-------------
-| `form`                 | x         | Full form definition 
+| `form`                 | x         | Full form definition
 | `model`                | x         | Model of the fields that are present in the form
 | `noButtons`            |           | Whether submit and cancel buttons should be shown and the form is controlled from outside (Default: false)
 | `submitText`           |           | Text on submit button
 | `cancelText`           |           | Text on cancel button
 | `formData`             |           | Provides the option to set relation-entities formData in advance
-| `listApp`              |           | List app (tocco-entity-list) must be provided to support 
-
+| `listApp`              |           | List app (tocco-entity-list) must be provided to support
+| `validate`             |           | pass false if the form should not validate inputs, defaults to true
+| `mappingType`          |           | Will be passed to field factory. Default is "editable". But can be set to use "search" mapping.
 
 ### Events
 

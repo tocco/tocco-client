@@ -1,0 +1,229 @@
+{
+  "_links": {
+    "self": {
+      "href": "https://master.tocco.ch/nice2/rest/entities/Input_data/model"
+    }
+  },
+  "name": "Input_data",
+  "label": "Noten",
+  "createPermission": false,
+  "fields": [
+    {
+      "fieldName": "pk",
+      "type": "serial",
+      "defaultValue": null,
+      "validation": {
+        "numberRange": {
+          "fromIncluding": 1.0,
+          "toIncluding": 9.223372036854776E18
+        }
+      }
+    },
+    {
+      "fieldName": "text",
+      "type": "text",
+      "defaultValue": null,
+      "validation": {}
+    },
+    {
+      "fieldName": "value",
+      "type": "decimal",
+      "defaultValue": null,
+      "validation": {
+        "decimalDigits": {
+          "prePointDigits": 7,
+          "postPointDigits": 2
+        }
+      }
+    },
+    {
+      "fieldName": "grade",
+      "type": "decimal",
+      "defaultValue": null,
+      "validation": {
+        "decimalDigits": {
+          "prePointDigits": 7,
+          "postPointDigits": 3
+        }
+      }
+    },
+    {
+      "fieldName": "pre_grade",
+      "type": "decimal",
+      "defaultValue": null,
+      "validation": {
+        "decimalDigits": {
+          "prePointDigits": 7,
+          "postPointDigits": 3
+        }
+      }
+    },
+    {
+      "fieldName": "definate_grade",
+      "type": "decimal",
+      "defaultValue": null,
+      "validation": {
+        "decimalDigits": {
+          "prePointDigits": 7,
+          "postPointDigits": 3
+        }
+      }
+    },
+    {
+      "fieldName": "dispense",
+      "type": "boolean",
+      "defaultValue": null,
+      "validation": {}
+    },
+    {
+      "fieldName": "num_ratings",
+      "type": "integer",
+      "defaultValue": 0,
+      "validation": {
+        "decimalDigits": {
+          "prePointDigits": -1,
+          "postPointDigits": 0
+        },
+        "mandatory": true,
+        "numberRange": {
+          "fromIncluding": 0.0,
+          "toIncluding": 2.147483647E9
+        }
+      }
+    },
+    {
+      "fieldName": "calculated_presence",
+      "type": "decimal",
+      "defaultValue": null,
+      "validation": {
+        "numberRange": {
+          "fromIncluding": 0.0,
+          "toIncluding": 100.0
+        }
+      }
+    },
+    {
+      "fieldName": "entered_presence",
+      "type": "decimal",
+      "defaultValue": null,
+      "validation": {
+        "numberRange": {
+          "fromIncluding": 0.0,
+          "toIncluding": 100.0
+        }
+      }
+    },
+    {
+      "fieldName": "version",
+      "type": "version",
+      "defaultValue": null,
+      "validation": {}
+    },
+    {
+      "fieldName": "create_timestamp",
+      "type": "createts",
+      "defaultValue": null,
+      "validation": {}
+    },
+    {
+      "fieldName": "update_timestamp",
+      "type": "updatets",
+      "defaultValue": null,
+      "validation": {}
+    },
+    {
+      "fieldName": "create_user",
+      "type": "createuser",
+      "defaultValue": null,
+      "validation": {}
+    },
+    {
+      "fieldName": "update_user",
+      "type": "updateuser",
+      "defaultValue": null,
+      "validation": {}
+    },
+    {
+      "fieldName": "system_entity",
+      "type": "boolean",
+      "defaultValue": false,
+      "validation": {}
+    }
+  ],
+  "relations": [
+    {
+      "relationName": "relChoice_rating_value",
+      "targetEntity": "Choice_rating_value",
+      "reverseRelationName": "relInput_data",
+      "multi": false,
+      "relationDisplay": {
+        "label": "Wert Textwahl",
+        "show": false,
+        "order": 0
+      },
+      "validation": {},
+      "defaultValues": null,
+      "defaultValueType": null
+    },
+    {
+      "relationName": "relRating",
+      "targetEntity": "Rating",
+      "reverseRelationName": "relInput_data",
+      "multi": true,
+      "relationDisplay": {
+        "label": "Bewertung",
+        "show": true,
+        "order": 100
+      },
+      "validation": {},
+      "defaultValues": [],
+      "defaultValueType": null
+    },
+    {
+      "relationName": "relBusiness_unit",
+      "targetEntity": "Business_unit",
+      "reverseRelationName": "relInput_data",
+      "multi": false,
+      "relationDisplay": {
+        "label": "Geschäftsbereich",
+        "show": false,
+        "order": 0
+      },
+      "validation": {},
+      "defaultValues": null,
+      "defaultValueType": null
+    },
+    {
+      "relationName": "relInput",
+      "targetEntity": "Input",
+      "reverseRelationName": "relInput_data",
+      "multi": false,
+      "relationDisplay": {
+        "label": "Noteneingabe",
+        "show": false,
+        "order": 0
+      },
+      "validation": {
+        "mandatory": true
+      },
+      "defaultValues": null,
+      "defaultValueType": null
+    },
+    {
+      "relationName": "relUser",
+      "targetEntity": "User",
+      "reverseRelationName": "relInput_data",
+      "multi": false,
+      "relationDisplay": {
+        "label": "Teilnehmer",
+        "show": false,
+        "order": 0
+      },
+      "validation": {
+        "mandatory": true
+      },
+      "defaultValues": null,
+      "defaultValueType": null
+    }
+  ]
+}

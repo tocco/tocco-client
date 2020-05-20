@@ -13,7 +13,8 @@ import {
   fetchEntityCount,
   fetchSearchFilters,
   fetchDisplays,
-  fetchDisplayExpressions
+  fetchDisplayExpressions,
+  buildRequestQuery
 } from './helpers'
 import ClientQuestionCancelledException from './ClientQuestionCancelledException'
 
@@ -31,5 +32,6 @@ export default {
   fetchModel,
   defaultModelTransformer,
   fetchEntityCount,
-  fetchSearchFilters
+  fetchSearchFilters,
+  buildRequestQuery
 }

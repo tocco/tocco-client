@@ -16,14 +16,17 @@ Retrieves text resources through tocco REST service regarding the principals loc
 #### mockData
 Contains a factory to create mock data and helps to mock basic REST calls for those entities.
 
-#### reducers
-Helpers for reducers. 
+#### nice
+Some utils to interact with the nice2 client
 
-#### route 
+#### reducers
+Helpers for reducers.
+
+#### route
 Helper to load a route async.
 
 #### saga
-Helpers for sagas. 
+Helpers for sagas.
 
 #### storeStorage
 Simple singleton to get and set a store by id.

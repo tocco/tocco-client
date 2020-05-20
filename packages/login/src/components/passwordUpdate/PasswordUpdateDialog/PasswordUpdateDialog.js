@@ -24,7 +24,7 @@ class PasswordUpdateDialog extends Component {
     e.preventDefault()
 
     if (this.isSubmittable() === true) {
-      this.props.savePassword()
+      this.props.savePassword(this.props.googleReCaptchaProps.executeRecaptcha)
     }
   }
 
@@ -66,8 +66,8 @@ class PasswordUpdateDialog extends Component {
             onChange={updateOldPassword}
             readOnly={oldPasswordReadOnly}
             autoFocus
-            valid={
-              password.passwordUpdateFailed && password.passwordUpdateErrorCode === 'INVALID_CREDENTIALS' ? false : null
+            {...(password.passwordUpdateFailed && password.passwordUpdateErrorCode === 'INVALID_CREDENTIALS'
+              && {valid: false})
             }
           />}
           <PasswordInput
@@ -146,6 +146,9 @@ PasswordUpdateDialog.propTypes = {
     passwordUpdatePending: PropTypes.bool.isRequired,
     passwordUpdateErrorCode: PropTypes.string,
     passwordUpdateFailed: PropTypes.bool
+  }).isRequired,
+  googleReCaptchaProps: PropTypes.shape({
+    executeRecaptcha: PropTypes.func.isRequired
   }).isRequired,
   validationRules: PropTypes.array,
   showOldPasswordField: PropTypes.bool,

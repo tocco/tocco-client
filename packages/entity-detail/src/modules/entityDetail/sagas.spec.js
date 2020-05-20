@@ -2,7 +2,7 @@ import {
   actions as formActions,
   SubmissionError
 } from 'redux-form'
-import {externalEvents, form, actions as actionUtil, actionEmitter, rest} from 'tocco-app-extensions'
+import {externalEvents, form, actions as actionUtil, actionEmitter, rest, remoteEvents} from 'tocco-app-extensions'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {call, put, select, takeLatest, takeEvery, all} from 'redux-saga/effects'
@@ -32,7 +32,8 @@ describe('entity-detail', () => {
               takeEvery(actions.SUBMIT_FORM, sagas.submitForm),
               takeEvery(actions.FIRE_TOUCHED, sagas.fireTouched),
               takeEvery(actions.NAVIGATE_TO_CREATE, sagas.navigateToCreate),
-              takeEvery(actionUtil.actions.ACTION_INVOKED, sagas.actionInvoked)
+              takeEvery(actionUtil.actions.ACTION_INVOKED, sagas.actionInvoked),
+              takeEvery(remoteEvents.REMOTE_EVENT, sagas.remoteEvent)
             ]))
             expect(generator.next().done).to.be.true
           })
@@ -290,6 +291,44 @@ describe('entity-detail', () => {
 
             return expectSaga(sagas.navigateToCreate, {payload})
               .put(externalEvents.fireExternalEvent('onNavigateToCreate', payload.relationName))
+              .run()
+          })
+        })
+
+        describe('remoteEvent saga', () => {
+          const deleteEventAction = remoteEvents.remoteEvent({
+            type: 'entity-delete-event',
+            payload: {
+              entities: [
+                {entityName: 'User', key: '1'},
+                {entityName: 'Principal', key: '2'}
+              ]
+            }
+          })
+
+          test('should call external event onEntityDeleted', () => {
+            const detailState = {
+              entityName: 'User',
+              entityId: '1'
+            }
+            return expectSaga(sagas.remoteEvent, deleteEventAction)
+              .provide([
+                [select(sagas.entityDetailSelector), detailState]
+              ])
+              .put(externalEvents.fireExternalEvent('onEntityDeleted'))
+              .run()
+          })
+
+          test('should not call external event onEntityDeleted if irrelevant event', () => {
+            const detailState = {
+              entityName: 'Classroom',
+              entityId: '99'
+            }
+            return expectSaga(sagas.remoteEvent, deleteEventAction)
+              .provide([
+                [select(sagas.entityDetailSelector), detailState]
+              ])
+              .not.put(externalEvents.fireExternalEvent('onEntityDeleted'))
               .run()
           })
         })

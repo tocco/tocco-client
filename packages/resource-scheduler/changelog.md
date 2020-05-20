@@ -1,3 +1,16 @@
+0.2.27
+- Small date component improvements
+- Fix fallback sorting bug
+- Add white background to mitigate dark theme conflict in nice2
+- Add simplified week view
+
+0.2.26
+- Constriction handling
+- Searchform with tql
+- Panel animation refactoring
+- Fix &shy; in label
+- Component type fix
+
 0.2.25
 - Fix display-expression not shown in list view
 - View height fix (double scrollbar)

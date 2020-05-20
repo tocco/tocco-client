@@ -1,4 +1,5 @@
 import React, {Suspense} from 'react'
+import ReactDOM from 'react-dom'
 import {reducer as reducerUtil} from 'tocco-util'
 import {
   appFactory,
@@ -26,6 +27,8 @@ const LazyAdmin = () => (
 )
 
 const initApp = (id, input, events, publicPath) => {
+  window.reactRegistry.setReact(React, ReactDOM)
+
   const content = <LazyAdmin/>
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)

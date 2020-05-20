@@ -6,9 +6,7 @@ import {withTheme} from 'styled-components'
 import {js} from 'tocco-util'
 
 import {theme} from '../../utilStyles'
-import Ball from '../../Ball'
 import {
-  StyledDateAbstractControl,
   StyledDateAbstractInput,
   StyledDateAbstractWrapper
 } from './StyledDateAbstract'
@@ -115,7 +113,9 @@ class DateAbstract extends React.Component {
   handleOnChange = selectedDates => {
     const isoStrings = selectedDates.map(date => date.toISOString())
     this.setState({altInput: this.flatpickr.altInput.value})
-    this.props.onChange(isoStrings)
+    if (this.hasValue() || isoStrings.length !== 0) {
+      this.props.onChange(isoStrings)
+    }
   }
 
   hasValue = () => {
@@ -149,15 +149,6 @@ class DateAbstract extends React.Component {
           immutable={this.props.immutable}
           value={this.state.altInput}
         />
-        <StyledDateAbstractControl
-          data-clear
-          hideButton={!this.hasValue() || this.props.immutable}
-        >
-          <Ball
-            icon="times"
-            tabIndex={-1}
-          />
-        </StyledDateAbstractControl>
       </StyledDateAbstractWrapper>
     )
   }
@@ -167,7 +158,7 @@ DateAbstract.propTypes = {
   id: PropTypes.string,
   intl: intlShape.isRequired,
   onBlur: PropTypes.func,
-  onChange: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
   value: PropTypes.arrayOf(PropTypes.string),
   options: PropTypes.shape({
     placeholderText: PropTypes.string,

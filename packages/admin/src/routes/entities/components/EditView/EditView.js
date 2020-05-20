@@ -28,6 +28,11 @@ const EditView = props => {
     }
   }
 
+  const handleEntityDeleted = () => {
+    const entityBaseUrl = goBack(props.match.url, 2)
+    props.history.push(entityBaseUrl)
+  }
+
   const entityName = props.currentViewInfo.model.name
   const msg = id => props.intl.formatMessage({id})
 
@@ -55,6 +60,7 @@ const EditView = props => {
             <StyledLink to={`/e/${entity}/${key}`} target="_blank">{children}</StyledLink>
         }}
         onNavigateToCreate={handleNavigateToCreate}
+        onEntityDeleted={handleEntityDeleted}
       />
     </React.Fragment>
   )

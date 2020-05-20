@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {useMemo} from 'react'
 import PropTypes from 'prop-types'
 import _get from 'lodash/get'
 import {StatedValue, Typography} from 'tocco-ui'
 import {consoleLogger} from 'tocco-util'
 
+import field from '../field'
 import fromData from '../formData'
-import typeEditables from './typeEditable'
 
 const FormFieldWrapper = props => {
   const hasValueOverwrite = props.typeEditable && props.typeEditable.hasValue
@@ -31,7 +31,7 @@ FormFieldWrapper.propTypes = {
   hasValue: PropTypes.bool
 }
 
-export const formFieldFactory = (primaryMapping, readOnlyMapping, data, resources = {}) => {
+export const formFieldFactory = (fieldMappingType, data, resources = {}) => {
   try {
     const {
       formDefinitionField,
@@ -62,7 +62,7 @@ export const formFieldFactory = (primaryMapping, readOnlyMapping, data, resource
     const type = formDefinitionField.dataType || formDefinitionField.componentType
     let requestedFromData
 
-    const typeEditable = typeEditables[type]
+    const typeEditable = field.editableTypeConfigs[type]
 
     if (typeEditable && typeEditable.dataContainerProps) {
       requestedFromData = typeEditable.dataContainerProps({formField: formDefinitionField, modelField, formName})
@@ -89,8 +89,7 @@ export const formFieldFactory = (primaryMapping, readOnlyMapping, data, resource
           formField={formDefinitionField}
         >
           <ValueField
-            primaryMapping={primaryMapping}
-            readOnlyMapping={readOnlyMapping}
+            fieldMappingType={fieldMappingType}
             formName={formName}
             formField={formDefinitionField}
             modelField={modelField}
@@ -107,13 +106,12 @@ export const formFieldFactory = (primaryMapping, readOnlyMapping, data, resource
   }
 }
 
-const forceReadOnly = value => value && value.multi
-
 export const MultiSeparator = () => (<Typography.Span>, </Typography.Span>)
 
+const multiTypes = ['multi-select-box', 'multi-remote-field', 'search-filter']
+
 const ValueField = ({
-  primaryMapping,
-  readOnlyMapping,
+  fieldMappingType,
   formName,
   formField,
   modelField,
@@ -122,25 +120,48 @@ const ValueField = ({
   events,
   formData
 }) => {
-  const typeSelector = formField.dataType ? 'dataType' : 'componentType'
-  const type = formField[typeSelector]
+  const multiField = Array.isArray(value) && !multiTypes.includes(formField.dataType)
+  const Field = useMemo(() =>
+    field.factory(multiField ? 'readOnly' : fieldMappingType, formField.dataType), []
+  )
 
-  const typeFactory = forceReadOnly(value) ? readOnlyMapping[type] : primaryMapping[type]
-
-  if (!typeFactory) {
-    consoleLogger.log(`FormType '${formField.dataType}' not present in typeFactoryMap`)
-    return <span/>
-  }
-
-  if (value && value.multi) {
-    return <React.Fragment>
+  if (multiField) {
+    return <div>
       {
-        value.values
-          .map((value, idx) => typeFactory(formField, modelField, formName, value, info, events, formData, idx))
+        value
+          .map((v, idx) => <Field
+            formField={formField}
+            modelField={modelField}
+            formName={formName}
+            value={v}
+            info={info}
+            events={events}
+            formData={formData}
+            key={'valueField-' + formField.id + idx}
+          />)
           .reduce((prev, curr, idx) => [prev, <MultiSeparator key={'sep' + idx}/>, curr])
       }
-    </React.Fragment>
-  } else {
-    return typeFactory(formField, modelField, formName, value, info, events, formData)
+    </div>
   }
+
+  return <Field
+    formField={formField}
+    modelField={modelField}
+    formName={formName}
+    value={value}
+    info={info}
+    events={events}
+    formData={formData}
+  />
+}
+
+ValueField.propTypes = {
+  events: PropTypes.objectOf(PropTypes.func),
+  fieldMappingType: PropTypes.string.isRequired,
+  formData: PropTypes.object,
+  formField: PropTypes.object,
+  formName: PropTypes.string,
+  info: PropTypes.object,
+  modelField: PropTypes.object,
+  value: PropTypes.any
 }

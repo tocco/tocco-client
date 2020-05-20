@@ -5,7 +5,13 @@ import {js} from 'tocco-util'
 import EntityListApp from 'tocco-entity-list/src/main'
 import queryString from 'query-string'
 
-import {RelationBox, RelationLabel, RelationLinks, StyledPreviewBox, StyledRelationBox} from './StyledComponents'
+import {
+  RelationBox,
+  RelationLabel,
+  RelationLinks,
+  StyledPreviewBox,
+  StyledRelationBox
+} from './StyledComponents'
 import {StyledLink} from '../../../../components/StyledLink'
 import {goBack} from '../../../../utils/routing'
 
@@ -79,9 +85,12 @@ const RelationsView = ({
       {selectedRelation
       && <StyledPreviewBox>
         <Typography.H4>
-          {selectedRelation.relationDisplay.label}&nbsp;
+          {selectedRelation.relationDisplay.label}
           <StyledLink to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName)}>
             <Icon icon="arrow-right"/>
+          </StyledLink>
+          <StyledLink to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName) + '/create'}>
+            <Icon icon="plus"/>
           </StyledLink>
         </Typography.H4>
         <EntityListApp
@@ -119,6 +128,7 @@ const RelationsView = ({
               {[`store-${selectedRelation.relationName}`]: store}
             )
           }}
+          showActions={false}
         />
       </StyledPreviewBox>
       }

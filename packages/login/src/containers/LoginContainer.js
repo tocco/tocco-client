@@ -3,15 +3,16 @@ import {injectIntl} from 'react-intl'
 import {hot} from 'react-hot-loader/root'
 
 import Login from '../components/Login'
-import {checkSession} from '../modules/actions'
+import {initialize} from '../modules/actions'
 
 const mapActionCreators = {
-  checkSession
+  initialize
 }
 
 const mapStateToProps = (state, props) => ({
-  currentPage: state.login.currentPage,
-  showTitle: props.showTitle
+  currentPage: props.currentPage || state.login.currentPage,
+  showTitle: props.showTitle,
+  captchaKey: state.login.captchaKey
 })
 
 export default hot(connect(mapStateToProps, mapActionCreators)(injectIntl(Login)))

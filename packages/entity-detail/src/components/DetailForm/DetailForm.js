@@ -2,11 +2,10 @@ import PropTypes from 'prop-types'
 import React, {useEffect, useMemo} from 'react'
 import {reduxForm} from 'redux-form'
 import {intlShape} from 'react-intl'
-import {form, formField} from 'tocco-app-extensions'
+import {form} from 'tocco-app-extensions'
 
 import SubGrid from '../../util/detailView/fromFieldFactories/subGrid'
 import ErrorBox from '../ErrorBox'
-import readOnlyFormFieldMapping from '../../util/detailView/readOnlyFormFieldMapping'
 import SaveButton from './SaveButton'
 
 const DetailForm = props => {
@@ -69,8 +68,7 @@ const DetailForm = props => {
         formName={props.form}
         formDefinition={props.formDefinition}
         formValues={props.formValues}
-        formFieldMapping={formField.defaultMapping}
-        readOnlyFormFieldMapping={readOnlyFormFieldMapping}
+        fieldMappingType={props.formDefinition.readOnly ? 'readonly' : 'editable'}
         mode={props.mode}
         componentMapping={{[form.componentTypes.SUB_TABLE]: SubGrid}}
         customActions={customActions}

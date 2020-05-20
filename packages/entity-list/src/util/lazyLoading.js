@@ -24,10 +24,10 @@ const displayExpressionHandler = (value, lazyData, info) => (
 )
 
 const typeHandlers = {
-  'multi-select': multiRelationHandler,
-  'multi-remote': multiRelationHandler,
-  'single-select': singleRelationHandler,
-  'remote': singleRelationHandler,
+  'multi-select-box': multiRelationHandler,
+  'multi-remote-field': multiRelationHandler,
+  'single-select-box': singleRelationHandler,
+  'single-remote-field': singleRelationHandler,
   'displayExpression': displayExpressionHandler
 }
 

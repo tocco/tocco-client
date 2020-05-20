@@ -11,6 +11,25 @@
     "readonly": false,
     "children": [
       {
+        "id": "save",
+        "label": "Speichern",
+        "componentType": "action",
+        "children": [ ],
+        "actionType": "custom",
+        "icon": null,
+        "minSelection": null,
+        "maxSelection": null,
+        "showConfirmMessage": false,
+        "confirmationMessageText": null,
+        "runInBackgroundTask": false,
+        "formDataEntityModel": null,
+        "formDataTitle": null,
+        "formDataMessage": null,
+        "endpoint": null,
+        "appId": null,
+        "properties": { }
+      },
+      {
         "componentType": "action",
         "actionType": "custom",
         "id": "new",
@@ -727,7 +746,7 @@
       {
         "id": "a",
         "componentType": "action-group",
-        "action": {
+        "defaultAction": {
           "actionType": "simple",
           "icon": "cog",
           "label": "Simple Action",

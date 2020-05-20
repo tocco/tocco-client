@@ -26,6 +26,7 @@ const packageName = 'entity-detail'
 const EXTERNAL_EVENTS = [
   'onSubGridRowClick',
   'onEntityCreated',
+  'onEntityDeleted',
   'onTouchedChange',
   'emitAction',
   'onNavigateToCreate'

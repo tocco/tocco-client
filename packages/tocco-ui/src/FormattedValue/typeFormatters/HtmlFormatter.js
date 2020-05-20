@@ -19,6 +19,7 @@ const StyledHtmlFormatter = styled(StyledSpan)`
       font-size: 100% !important; // nice2 reset
       font-weight: ${theme.fontWeight('regular')} !important; // nice2 reset
       padding-left: 0 !important; // nice2 reset
+      white-space: normal !important; // nice2 reset
     }
 
     .label-danger {
@@ -40,11 +41,12 @@ const StyledHtmlFormatter = styled(StyledSpan)`
 `
 
 const HtmlFormatter = props => {
-  return <StyledHtmlFormatter dangerouslySetInnerHTML={{__html: props.value}}/>
+  return <StyledHtmlFormatter dangerouslySetInnerHTML={{__html: props.value}} breakWords={props.breakWords}/>
 }
 
 HtmlFormatter.propTypes = {
-  value: PropTypes.string.isRequired
+  value: PropTypes.string.isRequired,
+  breakWords: PropTypes.bool
 }
 
 export {

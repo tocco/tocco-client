@@ -14,11 +14,14 @@ export const passwordSelector = state => state.passwordUpdate.password
 export const standaloneSelector = state => state.passwordUpdate.dialog.standalone
 export const intlSelector = state => state.intl
 
-export function* storePassword(username, data) {
+export function* storePassword(username, data, captchaToken) {
   const options = {
     method: 'POST',
     acceptedStatusCodes: [400],
-    body: data
+    body: {
+      ...data,
+      captchaToken
+    }
   }
 
   try {
@@ -74,10 +77,12 @@ export function* validate() {
   }
 }
 
-export function* savePassword() {
+export function* savePassword({payload: {executeRecaptcha}}) {
   const username = yield select(usernameSelector)
   const data = yield call(getData)
-  const result = yield call(storePassword, username, data)
+  const captchaToken = yield call(executeRecaptcha, 'passwordupdate')
+  const result = yield call(storePassword, username, data, captchaToken)
+
   if (result.error) {
     if (result.error.valid === false) {
       yield put(actions.savePasswordFailure(null, result.error.validationMessages))

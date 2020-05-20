@@ -1,3 +1,12 @@
+0.2.7
+- Fix two-factor authentication bug
+
+0.2.6
+- responsive adjustments of login for mobile
+- Adapt success color for better readability
+- Add captcha to login
+- Fix bug where old pw was displayed as invalid
+
 0.2.5
 - Adjust login button style
 

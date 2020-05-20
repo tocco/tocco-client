@@ -177,6 +177,13 @@ const FullCalendar = ({
             info => getFormattedTime(moment(info.date).locale(locale))
           ]
         },
+        weekViewSimple: {
+          type: 'resourceTimelineWeek',
+          slotDuration: {day: 1},
+          slotLabelFormat: [
+            {weekday: 'short', month: 'numeric', day: 'numeric'}
+          ]
+        },
         monthView: {
           type: 'resourceTimelineMonth',
           slotLabelFormat: {weekday: 'short', month: 'numeric', day: 'numeric', omitCommas: true}

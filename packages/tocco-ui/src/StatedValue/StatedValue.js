@@ -59,14 +59,14 @@ const StatedValue = props => {
               isDisplay={isDisplay}
               signal={signal}>
               {children}
-              <StyledStatedValueLabel
+              {label && <StyledStatedValueLabel
                 {...!isDisplay && !immutable && {htmlFor: id}}
                 title={labelAlt}
                 secondaryPosition={secondaryPosition}
                 immutable={immutable}
                 isDisplay={isDisplay}
                 signal={signal}
-              ><span dangerouslySetInnerHTML={{__html: `${label}${mandatory ? ' *' : ''}`}}/></StyledStatedValueLabel>
+              ><span dangerouslySetInnerHTML={{__html: `${label}${mandatory ? ' *' : ''}`}}/></StyledStatedValueLabel>}
             </StyledStatedValueBox>
             {description
               && <StyledStatedValueDescription>{description}</StyledStatedValueDescription>}

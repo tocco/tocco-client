@@ -16,14 +16,18 @@ import {
 } from '../StyledLoginForm'
 import {Pages} from '../../types/Pages'
 
-export class LoginForm extends Component {
+class LoginForm extends Component {
   state = {
     autoFill: false
   }
 
   handleSubmit(e) {
     e.preventDefault()
-    this.props.login(this.props.username, this.props.password)
+    this.props.login(
+      this.props.username,
+      this.props.password,
+      this.props.googleReCaptchaProps.executeRecaptcha
+    )
   }
 
   handleUsernameChange(e) {
@@ -139,6 +143,9 @@ LoginForm.propTypes = {
   setUsername: PropTypes.func.isRequired,
   loginPending: PropTypes.bool.isRequired,
   setPassword: PropTypes.func.isRequired,
+  googleReCaptchaProps: PropTypes.shape({
+    executeRecaptcha: PropTypes.func.isRequired
+  }).isRequired,
   message: PropTypes.shape({
     text: PropTypes.string,
     negative: PropTypes.bool
@@ -147,3 +154,5 @@ LoginForm.propTypes = {
   username: PropTypes.string,
   password: PropTypes.string
 }
+
+export default LoginForm

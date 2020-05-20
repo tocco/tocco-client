@@ -4,15 +4,12 @@ import {createStore} from 'redux'
 import {Provider} from 'react-redux'
 import React from 'react'
 
-import editableValueFactory from './editableValueFactory'
 import {formFieldFactory} from './formField'
 
 describe('app-extensions', () => {
   describe('formField', () => {
     describe('fieldFactory', () => {
       test('should return a StatedValue with correct EditableValue', () => {
-        const mapping = {string: editableValueFactory('string')}
-
         const formDefinitionField = {
           name: 'firstname',
           dataType: 'string',
@@ -23,7 +20,7 @@ describe('app-extensions', () => {
         const formFieldData = {
           formDefinitionField
         }
-        const formField = formFieldFactory(mapping, mapping, formFieldData)
+        const formField = formFieldFactory('editable', formFieldData)
 
         const store = createStore(() => ({
           formData: {
