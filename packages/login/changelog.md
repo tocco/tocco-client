@@ -1,3 +1,6 @@
+0.2.7-hotfix225.1
+- Fix style bugs
+
 0.2.7
 - Fix two-factor authentication bug
 
