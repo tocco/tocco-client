@@ -28,7 +28,7 @@ const initApp = (id, input, events = {}, publicPath) => {
 }
 
 (() => {
-  if (__DEV__) {
+  if (__DEV__ && __PACKAGE_NAME__ === 'merge') {
     if (!__NO_MOCK__) {
       const fetchMock = require('fetch-mock')
       const setupFetchMocks = require('./dev/fetchMocks').default
