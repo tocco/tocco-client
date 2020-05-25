@@ -1,3 +1,9 @@
+0.9.12
+- Use new search filter endpoint
+- Harmonize modal box spacing
+- Disable caching for DEV
+- Support multi-path select and remote fields
+
 0.9.11
 - Small date component improvements
 - Fix fallback sorting bug
