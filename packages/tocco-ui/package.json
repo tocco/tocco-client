@@ -20,6 +20,7 @@
     "@fortawesome/pro-solid-svg-icons": "^5.11.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
     "flatpickr": "4.5.7",
+    "qrcode.react": "^1.0.0",
     "react-autosize-textarea": "^0.4.3",
     "react-autosuggest": "^9.4.3",
     "react-dropzone": "^4.1.3",
