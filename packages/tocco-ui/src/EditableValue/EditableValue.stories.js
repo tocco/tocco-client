@@ -213,7 +213,8 @@ storiesOf('Tocco-UI | EditableValue', module)
           allowNegative: true,
           fixedDecimalScale: true,
           prefix: '#',
-          suffix: '%'
+          suffix: '%',
+          format: ''
         })}
         defaultValue={123.45}
       />
