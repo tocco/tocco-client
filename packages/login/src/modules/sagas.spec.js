@@ -6,7 +6,6 @@ import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
 import {changePage, setPassword} from './login/actions'
 import {setMessage, setPending} from './loginForm/actions'
-import {setRequestedCode} from './twoStepLogin/actions'
 import {updateOldPassword} from './passwordUpdate/password/actions'
 import {setUsername, setForcedUpdate} from './passwordUpdate/dialog/actions'
 import {Pages} from '../types/Pages'
@@ -111,11 +110,8 @@ describe('login', () => {
       })
 
       describe('handleTwoStepLoginResponse', () => {
-        test('should dispatch actions `setRequestedCode` and `changePage`', () => {
-          const gen = sagas.handleTwoStepLoginResponse({
-            REQUESTEDCODE: 'code'
-          })
-          expect(gen.next().value).to.deep.equal(put(setRequestedCode('code')))
+        test('should dispatch actions `changePage`', () => {
+          const gen = sagas.handleTwoStepLoginResponse()
           expect(gen.next().value).to.deep.equal(put(changePage('TWOSTEPLOGIN')))
           expect(gen.next().done).to.deep.equal(true)
         })

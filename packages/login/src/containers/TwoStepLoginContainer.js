@@ -11,7 +11,6 @@ const mapActionCreators = {
 const mapStateToProps = state => ({
   username: state.login.username,
   password: state.login.password,
-  requestedCode: state.twoStepLogin.requestedCode,
   loginPending: state.loginForm.loginPending
 })
 

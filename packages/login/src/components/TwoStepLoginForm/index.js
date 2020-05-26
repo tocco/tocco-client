@@ -1,3 +1,3 @@
-import {TwoStepLoginForm} from './TwoStepLoginForm'
+import TwoStepLoginForm from './TwoStepLoginForm'
 
 export default TwoStepLoginForm
