@@ -5,7 +5,6 @@ import {takeLatest, put, select, call, all} from 'redux-saga/effects'
 import * as actions from './actions'
 import * as loginActions from './login/actions'
 import {setMessage, setPending} from './loginForm/actions'
-import {setRequestedCode} from './twoStepLogin/actions'
 import {updateOldPassword} from './passwordUpdate/password/actions'
 import {setUsername, setForcedUpdate} from './passwordUpdate/dialog/actions'
 import {changePage, setPassword} from './login/actions'
@@ -49,8 +48,7 @@ function getOptions(data = {}) {
   }
 }
 
-export function* handleTwoStepLoginResponse(response) {
-  yield put(setRequestedCode(response.REQUESTEDCODE))
+export function* handleTwoStepLoginResponse() {
   yield put(changePage(Pages.TWOSTEPLOGIN))
 }
 
@@ -80,12 +78,11 @@ export function* handleSuccessfulLogin(response) {
 }
 
 export function* loginSaga({payload}) {
-  const {username, password, executeRecaptcha, captchaToken, requestedCode, userCode} = payload
+  const {username, password, executeRecaptcha, captchaToken, userCode} = payload
   const loginData = {
     username,
     password,
     ...(captchaToken && {captchaToken}),
-    ...(requestedCode && {requestedCode}),
     ...(userCode && {userCode})
   }
   yield put(setPending(true))
