@@ -1,3 +1,6 @@
+0.2.9
+- Support new two-factor authentication
+
 0.2.8
 - Disable caching for DEV
 
