@@ -1,4 +1,4 @@
-import {takeEvery, call, put} from 'redux-saga/effects'
+import {takeEvery, call, put, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import handlerRegistry from './handlerRegistry'
@@ -15,7 +15,7 @@ export default function* sagas(accept, handlers) {
 export function* handleError(handlers, {payload}) {
   const {title, description, error} = payload
 
-  yield handlers.map(handler => call(handlerRegistry[handler], title, description, error))
+  yield all(handlers.map(handler => call(handlerRegistry[handler], title, description, error)))
 }
 
 export function* emitError(action) {

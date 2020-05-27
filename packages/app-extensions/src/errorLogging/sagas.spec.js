@@ -1,4 +1,4 @@
-import {call, takeEvery} from 'redux-saga/effects'
+import {call, takeEvery, all} from 'redux-saga/effects'
 
 import rootSaga, * as sagas from './sagas'
 import * as actions from './actions'
@@ -38,10 +38,10 @@ describe('app-extensions', () => {
         const error = new Error('error')
         const gen = sagas.handleError(handlers, actions.logError(title, description, error))
 
-        expect(gen.next().value).to.eql([
+        expect(gen.next().value).to.eql(all([
           call(handlerRegistry.console, title, description, error),
           call(handlerRegistry.notifier, title, description, error)
-        ])
+        ]))
 
         expect(gen.next().done).to.be.true
       })
