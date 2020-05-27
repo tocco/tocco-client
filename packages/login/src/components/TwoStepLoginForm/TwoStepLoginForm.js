@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useState} from 'react'
+import React, {useState, useLayoutEffect, useRef} from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
 import {
   StatedValue,
@@ -14,6 +14,12 @@ import {StyledLoginButton} from '../StyledLoginForm'
 
 const TwoStepLoginForm = ({username, password, showTitle, loginPending, twoStepLogin, intl}) => {
   const [userCode, setUserCode] = useState(null)
+  const formEl = useRef()
+
+  useLayoutEffect(() => {
+    const firstInput = formEl.current.querySelector('input')
+    firstInput.focus()
+  }, [])
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -24,17 +30,15 @@ const TwoStepLoginForm = ({username, password, showTitle, loginPending, twoStepL
 
   return <StyledTwoStepLogin>
     {showTitle && <Typography.H5><FormattedMessage id="client.login.form.title"/></Typography.H5>}
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} ref={formEl}>
       <Typography.P><FormattedMessage id="client.login.twoStepLogin.introduction"/></Typography.P>
-      <Typography.P>
-        <FormattedMessage id="client.login.twoStepLogin.requestedCode"/>
-      </Typography.P>
       <StatedValue
         hasValue={!!userCode}
         id="twoFactorCode-label"
         label={msg('client.login.twoStepLogin.codePlaceholder')}
       >
-        <EditableValue type="number"
+        <EditableValue
+          type="number"
           value={userCode}
           events={{onChange: setUserCode}}
           options={{format: '### ###'}}
