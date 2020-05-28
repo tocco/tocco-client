@@ -6,9 +6,13 @@ import Upload from '../../Upload'
 const Document = props => {
   const onUpload = file => {
     if (file === null) {
-      props.onChange(null)
+      if (props.onChange) {
+        props.onChange(null)
+      }
     } else {
-      props.options.upload(file)
+      if (props.options.upload) {
+        props.options.upload(file)
+      }
     }
   }
 
@@ -25,6 +29,10 @@ const Document = props => {
       value={props.value ? props.value : null}
     />
   )
+}
+
+Document.defaultProps = {
+  options: {}
 }
 
 Document.propTypes = {
