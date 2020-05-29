@@ -131,17 +131,6 @@ export const getListFormId = listState => ({
   formName: listState.formDefinition.id
 })
 
-export const getSearchFilter = selection => {
-  const filter = selection.query.filter
-  if (filter) {
-    if (filter.length === 1) {
-      return filter[0]
-    } else if (filter.length > 1) {
-      throw new Error('Multiple search filters not supported for legacy actions')
-    }
-  }
-}
-
 export function* getSelection(selection) {
   const legacySelection = {
     entityName: selection.entityName
@@ -156,7 +145,7 @@ export function* getSelection(selection) {
     legacySelection.selectionType = 'NEW_CLIENT_QUERY'
     legacySelection.manualQuery = getManualQuery(selection, listState)
     legacySelection.listForm = getListFormId(listState)
-    legacySelection.searchFilter = getSearchFilter(selection)
+    legacySelection.searchFilters = selection.query.filter
   } else {
     throw new Error(`Unsupported selection type: ${selection.type}`)
   }
