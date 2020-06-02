@@ -24,8 +24,12 @@ export function* loadPrincipal2FAInfo() {
   const principalsResponse = yield call(rest.requestSaga, 'principals')
   const username = principalsResponse.body.username
   yield put(actions.setUserName(username))
-  const tql = `username == "${username}"`
+  const tql = `username === "${username}"`
   const principals = yield call(rest.fetchEntities, 'Principal', {tql, paths: [twoFactorField]})
+
+  if (principals.length > 1) {
+    throw new Error(`More than one user found for username ${username}`)
+  }
 
   const twoFactorKey = _get(principals, `[0].paths.${twoFactorField}.value.key`)
   const twoFactorActive = twoFactorKey === twoFactorActiveState

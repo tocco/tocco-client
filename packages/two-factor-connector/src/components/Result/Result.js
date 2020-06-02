@@ -28,8 +28,8 @@ const Result = ({secret}) => {
 
 Result.propTypes = {
   secret: PropTypes.shape({
-    text: PropTypes.string,
-    uri: PropTypes.string
+    text: PropTypes.string.isRequired,
+    uri: PropTypes.string.isRequired
   }).isRequired
 }
 

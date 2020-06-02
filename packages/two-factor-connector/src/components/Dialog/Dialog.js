@@ -14,7 +14,8 @@ const Dialog = ({twoFactorActive, connectLogin, intl}) => {
         </Typography.P>
         <Button
           label={msg('client.two-factor-connector.overwriteButton')}
-          ink="primary" look="raised"
+          ink="primary"
+          look="raised"
           onClick={connectLogin}
         />
       </div>

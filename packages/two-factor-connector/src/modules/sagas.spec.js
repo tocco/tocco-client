@@ -46,6 +46,7 @@ describe('two-factor-connector', () => {
             .put(actions.setTwoFactorActive(true))
             .run()
         )
+
         test('should set  twoFactor false is is inactive', () =>
           expectSaga(sagas.loadPrincipal2FAInfo)
             .provide([
@@ -56,6 +57,19 @@ describe('two-factor-connector', () => {
             .put(actions.setTwoFactorActive(false))
             .run()
         )
+
+        test('should throw error if multiple users found', done => {
+          expectSaga(sagas.loadPrincipal2FAInfo)
+            .provide([
+              [matchers.call.fn(rest.requestSaga), principalFake],
+              [matchers.call.fn(rest.fetchEntities), [...fakePrincipals(false), ...fakePrincipals(false)]]
+            ])
+            .silentRun()
+            .catch(error => {
+              expect(error.message).to.eql('More than one user found for username dake')
+              done()
+            })
+        })
       })
 
       describe('connectLogin', () => {
