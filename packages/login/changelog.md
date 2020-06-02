@@ -1,3 +1,6 @@
+0.2.8
+- Disable caching for DEV
+
 0.2.7
 - Fix two-factor authentication bug
 

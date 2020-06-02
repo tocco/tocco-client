@@ -1,3 +1,13 @@
+0.2.8
+- Fix two-factor authentication bug
+- Hide actions in preview list
+- Use new search filter endpoint
+- Harmonize icon spacing in preview box
+- Harmonize modal box spacing
+- Disable caching for DEV
+- Make welcome screen responsive
+- Support multi-path select and remote fields
+
 0.2.7
 - Fix admin width problem
 

@@ -8,7 +8,7 @@ import {SAVE_MERGE, setMergeResponse} from './actions'
 import {mergingWithoutProblems} from '../../utils/MergeResponse'
 
 export function sendDwr(mergeActionResult) {
-  if (__DEV__) {
+  if (__DEV__ && !__NO_MOCK__) {
     // eslint-disable-next-line no-console
     console.log('dev mode. would send dwr', mergeActionResult, JSON.stringify(mergeActionResult))
     return new Promise(resolve => {

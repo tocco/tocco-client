@@ -1,3 +1,9 @@
+0.2.28
+- Use new search filter endpoint
+- Harmonize modal box spacing
+- Disable caching for DEV
+- Support multi-path select and remote fields
+
 0.2.27
 - Small date component improvements
 - Fix fallback sorting bug
