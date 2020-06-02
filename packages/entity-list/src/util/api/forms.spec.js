@@ -48,12 +48,16 @@ describe('entity-list', () => {
                   label: 'label1',
                   useLabel: 'YES',
                   children: [field1],
-                  sortable: true
+                  sortable: true,
+                  widthFixed: false,
+                  width: null
                 }, {
                   id: 'lb2',
                   label: 'label2',
                   children: [field2],
-                  sortable: false
+                  sortable: false,
+                  widthFixed: true,
+                  width: 500
                 }
               ]
 
@@ -62,8 +66,8 @@ describe('entity-list', () => {
             const result = forms.getColumnDefinition(formDefinition)
 
             const expectedColumnDefinition = [
-              {label: 'label1', id: 'lb1', children: [field1], sortable: true},
-              {label: 'label2', id: 'lb2', children: [field2], sortable: false}
+              {label: 'label1', id: 'lb1', children: [field1], sortable: true, widthFixed: false, width: null},
+              {label: 'label2', id: 'lb2', children: [field2], sortable: false, widthFixed: true, width: 500}
             ]
 
             expect(result).to.eql(expectedColumnDefinition)
@@ -80,20 +84,26 @@ describe('entity-list', () => {
                   id: 'lb1',
                   label: 'label1',
                   children: [field1],
-                  sortable: true
+                  sortable: true,
+                  widthFixed: false,
+                  width: null
                 }, {
                   hidden: false,
                   id: 'lb2',
                   label: 'label2',
                   children: [field2Hidden],
-                  sortable: true
+                  sortable: true,
+                  widthFixed: false,
+                  width: null
                 },
                 {
                   hidden: true,
                   id: 'lb3',
                   label: 'label3',
                   children: [field1],
-                  sortable: true
+                  sortable: true,
+                  widthFixed: false,
+                  width: null
                 }
               ]
             }
@@ -101,7 +111,7 @@ describe('entity-list', () => {
             const result = forms.getColumnDefinition(formDefinition)
 
             const expectedcolumnDefinition = [
-              {label: 'label1', id: 'lb1', children: [field1], sortable: true}
+              {label: 'label1', id: 'lb1', children: [field1], sortable: true, widthFixed: false, width: null}
             ]
             expect(result).to.eql(expectedcolumnDefinition)
           })

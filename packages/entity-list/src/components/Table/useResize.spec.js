@@ -54,7 +54,7 @@ describe('entity-list', () => {
 
           map.mousemove({clientX: 100})
           map.mousemove({clientX: 200})
-          expect(resizeCallback).to.have.been.calledWith('firstname', '150px')
+          expect(resizeCallback).to.have.been.calledWith('firstname', 150)
 
           map.mouseup()
 
