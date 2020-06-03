@@ -33,7 +33,7 @@ const ListView = ({match, history, currentViewInfo, emitAction, persistViewInfo,
       onRowClick={handleRowClick}
       {...(currentViewInfo.reverseRelation && {
         parent: {
-          key: currentViewInfo.key,
+          key: currentViewInfo.parentKey,
           reverseRelationName: currentViewInfo.reverseRelation,
           model: currentViewInfo.parentModel.name
         }

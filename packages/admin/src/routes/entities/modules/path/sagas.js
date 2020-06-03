@@ -119,6 +119,9 @@ export function* loadCurrentViewInfo({payload: {location}}) {
             if (isEven(i)) {
               const relationName = relationStringPart
               const targetEntity = currentViewInfo.model.paths[relationName].targetEntity
+
+              currentViewInfo.parentKey = currentViewInfo.key
+              currentViewInfo.key = null
               currentViewInfo.reverseRelation = currentViewInfo.model.paths[relationName].reverseRelationName
               currentViewInfo.parentModel = currentViewInfo.model
               currentViewInfo.model = yield call(getModel, targetEntity)
