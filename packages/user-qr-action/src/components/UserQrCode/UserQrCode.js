@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {QRCode, LoadingSpinner, Typography} from 'tocco-ui'
 import styled from 'styled-components'
@@ -20,37 +20,31 @@ const StyledContent = styled.div`
   transform: translate(-50%, -50%);
 `
 
-class UserQrCode extends React.Component {
-  componentDidMount() {
-    this.props.fetchData()
-  }
+const UserQrCode = ({data, fetchData}) => {
+  useEffect(() => { fetchData() }, [])
 
-  render() {
-    const {data} = this.props
+  let content
 
-    let content
-
-    if (data === undefined) {
-      content = <LoadingSpinner/>
-    } else if (data === null) {
-      content = (
-        <Typography.P>
-          <FormattedMessage id="client.user-qr-action.fetchFailed"/>
-        </Typography.P>
-      )
-    } else {
-      const string = buildUserMecardString(this.props.data)
-      content = <QRCode value={string}/>
-    }
-
-    return (
-      <StyledContainer>
-        <StyledContent>
-          {content}
-        </StyledContent>
-      </StyledContainer>
+  if (data === undefined) {
+    content = <LoadingSpinner/>
+  } else if (data === null) {
+    content = (
+      <Typography.P>
+        <FormattedMessage id="client.user-qr-action.fetchFailed"/>
+      </Typography.P>
     )
+  } else {
+    const string = buildUserMecardString(data)
+    content = <QRCode value={string}/>
   }
+
+  return (
+    <StyledContainer>
+      <StyledContent>
+        {content}
+      </StyledContent>
+    </StyledContainer>
+  )
 }
 
 UserQrCode.propTypes = {
