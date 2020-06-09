@@ -196,6 +196,9 @@ export default function* (definition, selection, parent, params, config) {
   entityExplorer.init()
 
   const ctx = new window.nice2.modules.entityexplorer.EntityExplorerActionContext(entityExplorer, null)
+  if (selection.type === 'ID' && selection.ids.length === 1) {
+    ctx.getRecord = () => ({id: selection.ids[0]})
+  }
 
   const situation = {
     entityName: selection.entityName,
