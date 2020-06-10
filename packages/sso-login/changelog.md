@@ -1,3 +1,6 @@
+0.2.5-hotfix225.1
+- Harmonize modal box spacing
+
 0.2.5
 
 0.2.4
