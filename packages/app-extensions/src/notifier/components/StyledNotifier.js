@@ -198,7 +198,7 @@ const StyledNotifier = styled.div`
       }
 
       .rrt-confirm-holder {
-        z-index: 100000000;  // reset: react-redux-toastr (index.scss) - Stacking: Toaster > Modal > Blocker
+        z-index: 99999;  // reset: react-redux-toastr (index.scss) - Stacking: Toaster > Modal > Blocker
       }
     }
 
