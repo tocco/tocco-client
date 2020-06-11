@@ -5,6 +5,7 @@ import {theme} from '../utilStyles'
 export const StyledScrollbar = css`
   ::-webkit-scrollbar {
     width: 10px;
+    height: 10px;
   }
 
   ::-webkit-scrollbar-thumb {

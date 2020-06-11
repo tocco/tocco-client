@@ -12,7 +12,13 @@ import SortingState from './SortingState'
 import columnEnhancers from './columnEnhancers'
 import StaticCell from './StaticCell'
 import {selectionStylePropType} from '../../util/selectionStyles'
-import StyledTable, {StyledTableWrapper, StretchingTableContainer, PaginationContainer} from './StyledTable'
+import StyledTable, {
+  StyledTableWrapper,
+  StretchingTableContainer,
+  PaginationContainer,
+  StyledFullRowProgress,
+  StyledFullRow
+} from './StyledTable'
 
 const rightAlignedTypes = ['counter', 'decimal', 'double', 'integer', 'latitude', 'long', 'longitude', 'moneyamount',
   'percent', 'serial', 'sorting', 'version']
@@ -25,7 +31,10 @@ const Table = props => {
   const tableEl = useRef(null)
 
   const resizeCallback = (columnId, width) => {
-    setColumns([...columns.map(c => c.id === columnId ? {...c, width} : c)])
+    setColumns([...columns.map(c => c.id === columnId ? {
+      ...c,
+      width
+    } : c)])
   }
 
   const {resizingColumn, startResize} = useResize(tableEl, resizeCallback)
@@ -36,7 +45,11 @@ const Table = props => {
   useDeepCompareEffect(() => {
     const c = columnEnhancers.reduce(
       (acc, columnEnhancer) => columnEnhancer.shouldApply(props)
-        ? columnEnhancer.apply(acc, {singleSelectHandler, multiSelectHandler, isSelected})
+        ? columnEnhancer.apply(acc, {
+          singleSelectHandler,
+          multiSelectHandler,
+          isSelected
+        })
         : acc,
       props.columnDefinitions
     )
@@ -63,22 +76,30 @@ const Table = props => {
 
   const ThContent = ({column}) =>
     column.headerRender
-      ? column.headerRender({...props, singleSelectHandler, multiSelectHandler, isSelected})
+      ? column.headerRender({
+        ...props,
+        singleSelectHandler,
+        multiSelectHandler,
+        isSelected
+      })
       : column.label || null
 
-  const InProgressRow = () => <tr><td className="fullRow progress">
-    <LoadingSpinner size="20"/>
-    <Typography.P>
-      <FormattedMessage id="client.entity-list.dataLoading"/>
-    </Typography.P>
-  </td></tr>
+  const InProgressRow = () => <tr>
+    <StyledFullRowProgress>
+      <LoadingSpinner size="20"/>
+      <Typography.P>
+        <FormattedMessage id="client.entity-list.dataLoading"/>
+      </Typography.P>
+    </StyledFullRowProgress>
+  </tr>
 
-  const NoDataRow = () =>
-    <tr><td className="fullRow">
+  const NoDataRow = () => <tr>
+    <StyledFullRow>
       <Typography.Span>
         <FormattedMessage id="client.entity-list.noData"/>
       </Typography.Span>
-    </td></tr>
+    </StyledFullRow>
+  </tr>
 
   return <StyledTableWrapper>
     <StretchingTableContainer>
@@ -156,7 +177,10 @@ Table.propTypes = {
   entities: PropTypes.array.isRequired,
   entityCount: PropTypes.number,
   inProgress: PropTypes.bool,
-  sorting: PropTypes.arrayOf(PropTypes.shape({field: PropTypes.string, order: PropTypes.string})),
+  sorting: PropTypes.arrayOf(PropTypes.shape({
+    field: PropTypes.string,
+    order: PropTypes.string
+  })),
   currentPage: PropTypes.number,
   limit: PropTypes.number,
   onRowClick: PropTypes.func,

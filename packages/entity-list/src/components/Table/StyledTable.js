@@ -3,10 +3,36 @@ import {
   declareFont,
   theme,
   shadeColor,
-  StyledScrollbar
+  StyledScrollbar,
+  scale
 } from 'tocco-ui'
 import _get from 'lodash/get'
 import {lighten} from 'polished'
+import {StyledPagination} from 'tocco-ui/src/Pagination/Pagination'
+
+import {StyledResizeHandle} from './ResizingController'
+
+export const StyledSortingSpan = styled.span`
+  height: 100%;
+  position: relative;
+  left: 8px;
+  top: 0;
+  display: flex;
+  align-items: center;
+`
+
+export const StyledFullRowProgress = styled.td`
+  grid-column: 1 / -1;
+  padding-top: ${scale.space(-1)};
+  height: 50px;
+  text-align: center;
+  border: 0;
+`
+
+export const StyledFullRow = styled.td`
+  ${StyledFullRowProgress}
+  ${declareFont()};
+`
 
 const StyledTable = styled.table`
   position: absolute;
@@ -25,7 +51,7 @@ const StyledTable = styled.table`
 
   th,
   td {
-    padding: 10px;
+    padding: ${scale.space(-1)};
   }
 
   td {
@@ -61,18 +87,19 @@ const StyledTable = styled.table`
     ${declareFont({fontWeight: theme.fontWeight('bold')})};
     user-select: none;
     cursor: pointer;
-    overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    display: flex;
 
-    .sorting{
-      position: absolute;
-      top: 0;
-      right: 8px;
-      bottom: 0;
+    &:nth-child(1),
+    &:nth-child(2) {
+      &:hover {
+        background-color: transparent;
+        cursor: default;
+      }
     }
 
-    .resizeHandle {
+    ${StyledResizeHandle} {
       position: absolute;
       top: 0;
       right: 0;
@@ -86,7 +113,7 @@ const StyledTable = styled.table`
     &[id='${props => props.resizingColumn && props.resizingColumn.id}'] {
       background-color: ${props => lighten(0.25, props.theme.colors.secondaryLight)};
 
-      > .resizeHandle {
+      > ${StyledResizeHandle} {
         opacity: 1;
       }
     }
@@ -96,46 +123,27 @@ const StyledTable = styled.table`
           &:hover {
             background-color: ${lighten(0.25, props.theme.colors.secondaryLight)};
 
-            >.resizeHandle {
-              opacity: 1;
-            }
+              > ${StyledResizeHandle} {
+                opacity: 1;
+              }
           }
         `
       }
     }}
-    sup {
-      padding-left: 1px;
-      line-height: 0;
-
-      &.up {
-        vertical-align: super;
-      }
-
-      &.down {
-        vertical-align: sub;
-      }
-    }
-  }
-
-  .fullRow {
-    grid-column: 1 / -1;
-    padding-top: 10px;
-    height: 50px;
-    text-align: center;
-    border: 0;
-  }
-
-  .progress {
-    ${declareFont()};
   }
 `
 
 export const PaginationContainer = styled.div`
   grid-row-start: pagination-start;
-  height: 18px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   border-top: 1px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
-  padding-top: 5px;
-  margin-right: 0;
+
+  ${StyledPagination} {
+    margin-top: ${scale.space(0)};
+  }
 `
 
 export const StretchingTableContainer = styled.div`
@@ -145,10 +153,10 @@ export const StretchingTableContainer = styled.div`
 
 export const StyledTableWrapper = styled.div`
   display: grid;
-  padding: 10px;
+  padding: ${scale.space(-0.5)};
   background-color: ${theme.color('paper')};
   grid-template-rows: [table-start] 1fr [pagination-start] auto auto;
-  height: calc(100% - 18px);
+  height: calc(100% - 2 * ${scale.space(-0.5)});
 `
 
 export default StyledTable

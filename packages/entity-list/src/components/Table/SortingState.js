@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {Icon} from 'tocco-ui'
 
+import {StyledSortingSpan} from './StyledTable'
+
 const SortingState = ({column, sorting}) => {
   const isSortedBy = () => {
     let result = null
@@ -15,10 +17,10 @@ const SortingState = ({column, sorting}) => {
 
   const sortState = isSortedBy(column, sorting)
   return sortState
-    && <span className="sorting">
+    && <StyledSortingSpan>
       <Icon icon={`sort-${sortState.icon}`}/>
-      {sortState.rank > 1 && <sup className={sortState.icon}>{sortState.rank}</sup>}
-    </span>
+      {sortState.rank > 1 && <span>{sortState.rank}</span>}
+    </StyledSortingSpan>
 }
 
 SortingState.propTypes = {
