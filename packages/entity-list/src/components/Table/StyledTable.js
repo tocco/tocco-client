@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 import {
   declareFont,
   theme,
@@ -11,6 +11,86 @@ import {lighten} from 'polished'
 import {StyledPagination} from 'tocco-ui/src/Pagination/Pagination'
 
 import {StyledResizeHandle} from './ResizingController'
+
+export const StyledTableCell = styled.td`
+  padding: ${scale.space(-1)};
+  background-color: ${theme.color('paper')};
+  border-bottom: 1px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
+`
+
+export const StyledTableHeaderCell = styled.th`
+  padding: ${scale.space(-1)};
+  position: sticky;
+  top: 0;
+  background-color: ${theme.color('paper')};
+  text-align: left;
+  border-bottom: 2px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
+  ${declareFont({fontWeight: theme.fontWeight('bold')})};
+  user-select: none;
+  cursor: pointer;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: flex;
+
+  &:nth-child(1),
+  &:nth-child(2) {
+    &:hover {
+      background-color: transparent;
+      cursor: default;
+    }
+  }
+
+  &[id='${props => props.resizingColumn && props.resizingColumn.id}'] {
+    background-color: ${props => lighten(0.25, props.theme.colors.secondaryLight)};
+
+    > ${StyledResizeHandle} {
+      opacity: 1;
+    }
+  }
+  ${props => {
+  if (!props.resizingColumn) {
+    return `
+            &:hover {
+              background-color: ${lighten(0.25, props.theme.colors.secondaryLight)};
+
+                > ${StyledResizeHandle} {
+                  opacity: 1;
+                }
+            }
+          `
+  }
+}}
+`
+
+export const PaginationContainer = styled.div`
+  grid-row-start: pagination-start;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border-top: 1px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
+
+  ${StyledPagination} {
+    margin-top: ${scale.space(0)};
+  }
+`
+
+const selectionStyles = css`
+  display: contents;
+  cursor: pointer;
+
+  &.selected {
+    > ${StyledTableCell} {
+      background-color: ${props => lighten(0.1, props.theme.colors.secondaryLight)};
+    }
+  }
+
+  &.selectableRow:not(.selected):hover {
+    > ${StyledTableCell} {
+      background-color: ${props => lighten(0.25, props.theme.colors.secondaryLight)};
+    }
+  }
+`
 
 export const StyledSortingSpan = styled.span`
   height: 100%;
@@ -34,15 +114,17 @@ export const StyledFullRow = styled.td`
   ${declareFont()};
 `
 
-export const StyledTableHeaderCell = styled.th``
+export const StyledTableHead = styled.thead`
+  ${selectionStyles}
+`
 
-export const StyledTableHead = styled.thead``
+export const StyledTableRow = styled.tr`
+  ${selectionStyles}
+`
 
-export const StyledTableCell = styled.td``
-
-export const StyledTableRow = styled.tr``
-
-export const StyledTableBody = styled.tbody``
+export const StyledTableBody = styled.tbody`
+  ${selectionStyles}
+`
 
 const StyledTable = styled.table`
   position: absolute;
@@ -58,102 +140,6 @@ const StyledTable = styled.table`
   grid-auto-rows: min-content;
   min-width: 100%;
   ${StyledScrollbar}
-
-  ${/* sc-selector */StyledTableHeaderCell},
-  ${/* sc-selector */StyledTableCell} {
-    padding: ${scale.space(-1)};
-  }
-
-  ${/* sc-selector */StyledTableCell} {
-    background-color: ${theme.color('paper')};
-    border-bottom: 1px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
-  }
-
-  ${/* sc-selector */StyledTableHead},
-  ${/* sc-selector */StyledTableBody},
-  ${/* sc-selector */StyledTableRow} {
-    display: contents;
-    cursor: pointer;
-
-    &.selected {
-      > ${StyledTableCell} {
-        background-color: ${props => lighten(0.1, props.theme.colors.secondaryLight)};
-      }
-    }
-
-    &.selectableRow:not(.selected):hover {
-      > ${StyledTableCell} {
-        background-color: ${props => lighten(0.25, props.theme.colors.secondaryLight)};
-      }
-    }
-  }
-
-  ${StyledTableHeaderCell} {
-    position: sticky;
-    top: 0;
-    background-color: ${theme.color('paper')};
-    text-align: left;
-    border-bottom: 2px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
-    ${declareFont({fontWeight: theme.fontWeight('bold')})};
-    user-select: none;
-    cursor: pointer;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    display: flex;
-
-    &:nth-child(1),
-    &:nth-child(2) {
-      &:hover {
-        background-color: transparent;
-        cursor: default;
-      }
-    }
-
-    ${StyledResizeHandle} {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      background: ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
-      opacity: 0;
-      width: 3px;
-      cursor: col-resize;
-    }
-
-    &[id='${props => props.resizingColumn && props.resizingColumn.id}'] {
-      background-color: ${props => lighten(0.25, props.theme.colors.secondaryLight)};
-
-      > ${StyledResizeHandle} {
-        opacity: 1;
-      }
-    }
-    ${props => {
-      if (!props.resizingColumn) {
-        return `
-          &:hover {
-            background-color: ${lighten(0.25, props.theme.colors.secondaryLight)};
-
-              > ${StyledResizeHandle} {
-                opacity: 1;
-              }
-          }
-        `
-      }
-    }}
-  }
-`
-
-export const PaginationContainer = styled.div`
-  grid-row-start: pagination-start;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  border-top: 1px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
-
-  ${StyledPagination} {
-    margin-top: ${scale.space(0)};
-  }
 `
 
 export const StretchingTableContainer = styled.div`
