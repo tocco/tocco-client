@@ -34,6 +34,16 @@ export const StyledFullRow = styled.td`
   ${declareFont()};
 `
 
+export const StyledTableHeaderCell = styled.th``
+
+export const StyledTableHead = styled.thead``
+
+export const StyledTableCell = styled.td``
+
+export const StyledTableRow = styled.tr``
+
+export const StyledTableBody = styled.tbody``
+
 const StyledTable = styled.table`
   position: absolute;
   top: 0;
@@ -49,36 +59,36 @@ const StyledTable = styled.table`
   min-width: 100%;
   ${StyledScrollbar}
 
-  th,
-  td {
+  ${/* sc-selector */StyledTableHeaderCell},
+  ${/* sc-selector */StyledTableCell} {
     padding: ${scale.space(-1)};
   }
 
-  td {
+  ${/* sc-selector */StyledTableCell} {
     background-color: ${theme.color('paper')};
     border-bottom: 1px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
   }
 
-  thead,
-  tbody,
-  tr {
+  ${/* sc-selector */StyledTableHead},
+  ${/* sc-selector */StyledTableBody},
+  ${/* sc-selector */StyledTableRow} {
     display: contents;
     cursor: pointer;
 
     &.selected {
-      > td {
+      > ${StyledTableCell} {
         background-color: ${props => lighten(0.1, props.theme.colors.secondaryLight)};
       }
     }
 
     &.selectableRow:not(.selected):hover {
-      > td {
+      > ${StyledTableCell} {
         background-color: ${props => lighten(0.25, props.theme.colors.secondaryLight)};
       }
     }
   }
 
-  th {
+  ${StyledTableHeaderCell} {
     position: sticky;
     top: 0;
     background-color: ${theme.color('paper')};

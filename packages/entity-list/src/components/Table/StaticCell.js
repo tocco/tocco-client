@@ -3,10 +3,11 @@ import {intlShape} from 'react-intl'
 import PropTypes from 'prop-types'
 
 import cellRenderer from '../../util/cellRenderer'
+import {StyledTableCell} from './StyledTable'
 
 const StaticCell = React.memo(props => {
   const {column, rightAligned, entity, refresh, intl, parent} = props
-  return <td
+  return <StyledTableCell
     {...rightAligned === true && {style: {textAlign: 'right'}}}
     data-cy="list-cell"
   >
@@ -14,7 +15,7 @@ const StaticCell = React.memo(props => {
       ? column.cellRenderer(entity, props)
       : column.children.map(child => cellRenderer(child, entity, parent, {refresh}, intl))
     }
-  </td>
+  </StyledTableCell>
 }, props => !props.column.dynamic)
 
 StaticCell.propTypes = {

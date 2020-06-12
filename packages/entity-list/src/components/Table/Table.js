@@ -17,7 +17,11 @@ import StyledTable, {
   StretchingTableContainer,
   PaginationContainer,
   StyledFullRowProgress,
-  StyledFullRow
+  StyledFullRow,
+  StyledTableHead,
+  StyledTableHeaderCell,
+  StyledTableBody,
+  StyledTableRow
 } from './StyledTable'
 
 const rightAlignedTypes = ['counter', 'decimal', 'double', 'integer', 'latitude', 'long', 'longitude', 'moneyamount',
@@ -84,30 +88,30 @@ const Table = props => {
       })
       : column.label || null
 
-  const InProgressRow = () => <tr>
+  const InProgressRow = () => <StyledTableRow>
     <StyledFullRowProgress>
       <LoadingSpinner size="20"/>
       <Typography.P>
         <FormattedMessage id="client.entity-list.dataLoading"/>
       </Typography.P>
     </StyledFullRowProgress>
-  </tr>
+  </StyledTableRow>
 
-  const NoDataRow = () => <tr>
+  const NoDataRow = () => <StyledTableRow>
     <StyledFullRow>
       <Typography.Span>
         <FormattedMessage id="client.entity-list.noData"/>
       </Typography.Span>
     </StyledFullRow>
-  </tr>
+  </StyledTableRow>
 
   return <StyledTableWrapper>
     <StretchingTableContainer>
       <StyledTable ref={tableEl} columns={columns} resizingColumn={resizingColumn}>
-        <thead>
-          <tr>
+        <StyledTableHead>
+          <StyledTableRow>
             {columns.map(column =>
-              <th
+              <StyledTableHeaderCell
                 id={`header-cell-${column.id}`}
                 key={`header-cell-${column.id}`}
                 data-cy={`header-cell-${column.id}`}
@@ -115,17 +119,17 @@ const Table = props => {
                 <ThContent column={column}/>
                 <SortingState column={column} sorting={props.sorting}/>
                 {!column.widthFixed && <ResizingController column={column} startResize={startResize}/>}
-              </th>
+              </StyledTableHeaderCell>
             )}
-          </tr>
-        </thead>
-        <tbody>
+          </StyledTableRow>
+        </StyledTableHead>
+        <StyledTableBody>
           {
             props.inProgress
               ? <InProgressRow/>
               : props.entities.length > 0
                 ? props.entities.map(entity =>
-                  <tr
+                  <StyledTableRow
                     key={`list-row-${entity.__key}`}
                     className={`selectableRow ${isSelected(entity.__key) && 'selected'}`}
                     onClick={trOnClick(entity)}
@@ -145,12 +149,12 @@ const Table = props => {
                         />
                       )
                     }
-                  </tr>
+                  </StyledTableRow>
                 )
                 : <NoDataRow/>
           }
 
-        </tbody>
+        </StyledTableBody>
       </StyledTable>
     </StretchingTableContainer>
     {showPagination && <PaginationContainer>
