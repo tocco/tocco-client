@@ -30,6 +30,7 @@ export default function* sagas() {
     takeEvery(actions.RESET_DATA_SET, loadData, 1),
     takeLatest(actions.REFRESH, loadData),
     takeLatest(actions.NAVIGATE_TO_CREATE, navigateToCreate),
+    takeLatest(actions.NAVIGATE_TO_ACTION, navigateToAction),
     takeLatest(selectionActions.RELOAD_DATA, loadData, 1),
     takeLatest(actions.ON_ROW_CLICK, onRowClick),
     takeEvery(actionUtil.actions.ACTION_INVOKED, actionInvoked),
@@ -285,6 +286,11 @@ export function* onRowClick({payload}) {
 
 export function* navigateToCreate({payload}) {
   yield put(externalEvents.fireExternalEvent('onNavigateToCreate', payload.relationName))
+}
+
+export function* navigateToAction({payload}) {
+  const {definition, selection} = payload
+  yield put(externalEvents.fireExternalEvent('onNavigateToAction', {definition, selection}))
 }
 
 export function* actionInvoked(action) {
