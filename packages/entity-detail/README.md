@@ -9,11 +9,12 @@ React-registry name: `entity-detail`
 | Name                   | Mandatory | Description
 |------------------------|:---------:|-------------
 | `entityName`           | x         | Entity name of the record
-| `entityId`             | x         | The key/ID of the entity 
+| `entityId`             | x         | The key/ID of the entity
 | `formName`             |           | Detail-form that should be loaded (without scope)
 | `mode`                 |           | Determines if the detail is in `create` or `update` mode
 | `defaultValues`        |           | Array of object with attributes id, value. Only for Create mode. e.g. [{id: 'lastname', value: 'Simpson}, {id:'relGender', value: '1'}]
 | `linkFactory`          |           | Object consisting of various link factories. For more information see formData documentation.
+| `actionAppComponent`   |           | Component to render custom actions. Needs the appId and selection object property.
 
 ### Events
 
@@ -21,6 +22,7 @@ React-registry name: `entity-detail`
 |-----------------------------|--------------------------------------------------------------------------------------------------------------------|-------------
 | `onSubGridRowClick`         | `id` (id of the clicked record), `gridName` (name of the sub grid), `relationName` (name of the sub grid relation) | Is fired when a row of a sub grid is clicked
 | `onNavigateToCreate`        | `relationName` (Optional. If not defined, the create button of the current entity was clicked)                     | Is fired when a "create" button gets clicked
+| `onNavigateToAction`        | `definition` (action definition), `selection`(selection object)                                                    | Is called when an action is fired with the fullscreen flag
 | `onEntityCreated`           | `id` (of the newly created record)                                                                                 | Is fired when a a record got created
 | `onEntityDeleted`           |                                                                                                                    | Is fired when the loaded record got deleted
 | `onTouchedChange`           | `touched` (boolean flag which indicates if the form is touched)                                                    | This event is fired when the touched state changes

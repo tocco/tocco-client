@@ -17,6 +17,7 @@ export const TOUCH_ALL_FIELDS = 'entityDetail/TOCH_ALL_FIELDS'
 export const SET_DEFAULT_VALUES = 'entityDetail/SET_DEFAULT_VALUES'
 export const NAVIGATE_TO_CREATE = 'entityDetail/NAVIGATE_TO_CREATE'
 export const SET_FIELD_DEFINITIONS = 'entityDetail/SET_FIELD_DEFINITIONS'
+export const NAVIGATE_TO_ACTION = 'entityDetail/NAVIGATE_TO_ACTION'
 
 export const setFormDefinition = formDefinition => ({
   type: SET_FORM_DEFINITION,
@@ -132,5 +133,13 @@ export const setFieldDefinitions = fieldDefinitions => ({
   type: SET_FIELD_DEFINITIONS,
   payload: {
     fieldDefinitions
+  }
+})
+
+export const navigateToAction = (definition, selection) => ({
+  type: NAVIGATE_TO_ACTION,
+  payload: {
+    definition,
+    selection
   }
 })
