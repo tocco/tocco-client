@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {Icon, Typography} from 'tocco-ui'
 import {Helmet} from 'react-helmet'
 
-import {StyledBreadcumbs, StyledBreadcrumbsLink} from './StyledBreadcrumbs'
+import {StyledBreadcumbs, StyledBreadcrumbsLink, StyledBreadcrumbsTitle} from './StyledBreadcrumbs'
 
 const getTitle = breadcrumbsInfo =>
   breadcrumbsInfo
@@ -12,27 +12,32 @@ const getTitle = breadcrumbsInfo =>
     .reverse()
     .join(' - ')
 
-const Breadcrumbs = ({breadcrumbsInfo}) => {
-  if (breadcrumbsInfo.length === 0) { return null }
+const Breadcrumbs = ({breadcrumbsInfo, currentViewTitle}) => {
+  const breadcrumbs = [
+    ...(breadcrumbsInfo || []),
+    ...(currentViewTitle ? [{display: currentViewTitle}] : [])
+  ]
+
+  if (breadcrumbs.length === 0) { return null }
 
   return <StyledBreadcumbs>
     <Helmet defer={false}>
       <title>{getTitle(breadcrumbsInfo)}</title>
     </Helmet>
     <div>  {
-      breadcrumbsInfo
-        .map((b, idx) => {
-          const display = b.display || ''
-          return <Typography.Span key={`breadcrumbItem-${display}`}>
-            <StyledBreadcrumbsLink
-              neutral="true"
-              {...(idx === breadcrumbsInfo.length - 1 && {active: 'true'})}
-              to={`/e/${b.path}`}
-            >
-              {b.type === 'list' && <Icon icon="list-ul" />}  {display}
-            </StyledBreadcrumbsLink>
-          </Typography.Span>
-        })
+      breadcrumbs.map((b, idx) => {
+        const display = b.display || ''
+        const Comp = idx === breadcrumbs.length - 1 ? StyledBreadcrumbsTitle : StyledBreadcrumbsLink
+        return <Typography.Span key={`breadcrumbItem-${idx}`}>
+          <Comp
+            neutral="true"
+            {...(idx === breadcrumbsInfo.length - 1 && {active: 'true'})}
+            to={`/e/${b.path}`}
+          >
+            {b.type === 'list' && <Icon icon="list-ul" />}  {display}
+          </Comp>
+        </Typography.Span>
+      })
         .reduce((prev, curr, idx) =>
           [prev,
             <Typography.Span key={'icon' + idx}> <Icon icon="angle-right"/> </Typography.Span>,
@@ -43,7 +48,8 @@ const Breadcrumbs = ({breadcrumbsInfo}) => {
 
 Breadcrumbs.propTypes = {
   match: PropTypes.object,
-  breadcrumbsInfo: PropTypes.array
+  breadcrumbsInfo: PropTypes.array,
+  currentViewTitle: PropTypes.string
 }
 
 export default Breadcrumbs

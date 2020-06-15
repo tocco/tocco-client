@@ -39,7 +39,8 @@ const ACTION_HANDLERS = {
   [actions.SET_CURRENT_VIEW_INFO]: setCurrentViewInfo,
   [actions.SET_BREADCRUMBS_INFO]: reducerUtil.singleTransferReducer('breadcrumbsInfo'),
   [actions.SET_RELATIONS]: reducerUtil.singleTransferReducer('relations'),
-  [actions.SET_RELATION_COUNT]: reducerUtil.singleTransferReducer('relationsCount')
+  [actions.SET_RELATION_COUNT]: reducerUtil.singleTransferReducer('relationsCount'),
+  [actions.SET_CURRENT_VIEW_TITLE]: reducerUtil.singleTransferReducer('currentViewTitle')
 }
 
 const initialState = {

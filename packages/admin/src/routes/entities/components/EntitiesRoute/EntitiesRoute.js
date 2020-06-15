@@ -6,6 +6,7 @@ import {StyledScrollbar, scale} from 'tocco-ui'
 
 import Overview from '../../subroutes/overview'
 import Entity from '../../subroutes/entity'
+import Action from '../../subroutes/action'
 import Breadcrumbs from '../Breadcrumbs'
 
 const StyledWrapper = styled.div`
@@ -30,7 +31,7 @@ const StyledBreadcrumbs = styled.div`
 `
 
 const EntitiesRoute = ({match, history, loadCurrentViewInfo, currentViewInfo}) => {
-  useEffect(() => { loadCurrentViewInfo(history.location.pathname) }, [])
+  useEffect(() => { loadCurrentViewInfo(history.location) }, [])
 
   return (
     <StyledWrapper>
@@ -39,6 +40,10 @@ const EntitiesRoute = ({match, history, loadCurrentViewInfo, currentViewInfo}) =
       </StyledBreadcrumbs>
       <StyledContent>
         <Switch>
+          <Route
+            path={`${match.url}/action/:actionId`}
+            component={Action}
+          />
           <Route
             path={`${match.url}/:entity`}
             component={Entity}

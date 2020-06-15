@@ -55,7 +55,8 @@ const initApp = (id, input, events, publicPath) => {
       actions: [],
       publicPath,
       textResourceModules: [
-        'component', 'common', 'login', 'sso-login', 'entity-browser', 'entity-list', 'entity-detail', packageName
+        'component', 'common', 'actions', 'login', 'sso-login', 'entity-browser',
+        'entity-list', 'entity-detail', packageName
       ]
     }
   )

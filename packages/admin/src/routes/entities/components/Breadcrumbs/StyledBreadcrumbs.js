@@ -1,3 +1,4 @@
+/* stylelint-disable no-descending-specificity */
 import styled from 'styled-components'
 import {theme} from 'tocco-ui'
 
@@ -34,6 +35,24 @@ export const StyledBreadcrumbsLink = styled(StyledLink)`
   &:focus,
   &:active,
   &:focus *,
+  &:active * {
+    color: ${theme.color('primary')};
+  }
+`
+
+// noinspection Stylelint
+export const StyledBreadcrumbsTitle = styled.span`
+  font-weight: ${theme.fontWeight('bold')};
+  text-decoration: none;
+  color: ${props => props.active && theme.color('primary')};
+
+  & * {
+    font-weight: ${theme.fontWeight('bold')};
+    text-decoration: none;
+    color: ${props => props.active && theme.color('primary')};
+    margin-right: .5rem;
+  }
+
   &:active * {
     color: ${theme.color('primary')};
   }
