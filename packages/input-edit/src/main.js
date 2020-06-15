@@ -5,6 +5,7 @@ import {hot} from 'react-hot-loader/root'
 import PropTypes from 'prop-types'
 
 import reducers, {sagas} from './modules/reducers'
+import {setEntityKey} from './modules/inputEdit/actions'
 import InputEdit from './components/InputEdit/InputEditContainer'
 
 const packageName = 'input-edit'
@@ -21,7 +22,9 @@ const initApp = (id, input, events, publicPath) => {
     {
       input,
       events,
-      actions: [],
+      actions: [
+        setEntityKey(input.selection.ids[0])
+      ],
       publicPath,
       textResourceModules: ['component', 'common', packageName]
     }
@@ -59,7 +62,7 @@ const InputEditApp = props => {
 }
 
 InputEditApp.propTypes = {
-  inputEntityKey: PropTypes.number.isRequired
+  selection: PropTypes.object
 }
 
 export default hot(InputEditApp)

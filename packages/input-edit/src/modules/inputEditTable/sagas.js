@@ -4,6 +4,7 @@ import {rest} from 'tocco-app-extensions'
 import * as actions from './actions'
 
 export const inputSelector = state => state.input
+export const inputEditSelector = state => state.inputEdit
 export const inputEditTableSelector = state => state.inputEditTable
 export const searchQueriesSelector = state => state.inputEditSearch.searchQueries
 export const inputEditPaginationSelector = state => state.inputEditPagination
@@ -18,9 +19,9 @@ export default function* sagas() {
 }
 
 export function* initialize() {
-  const {inputEntityKey} = yield select(inputSelector)
+  const {entityKey} = yield select(inputEditSelector)
   const [editForm, dataForm] = yield all([
-    call(rest.requestSaga, `inputEdit/${inputEntityKey}/form`),
+    call(rest.requestSaga, `inputEdit/${entityKey}/form`),
     call(rest.fetchForm, 'Input_edit_data', 'list')
   ])
   yield put(actions.setEditForm({inputEditForm: editForm.body}))
@@ -33,7 +34,7 @@ export function* sortData({payload: {sorting}}) {
 }
 
 export function* loadData({newSorting, newSearchQueries, newPage}) {
-  const {inputEntityKey} = yield select(inputSelector)
+  const {entityKey} = yield select(inputEditSelector)
   const sorting = newSorting || (yield select(inputEditTableSelector)).sorting
   const searchQueries = newSearchQueries || (yield select(searchQueriesSelector))
   const currentPage = newPage || (yield select(inputEditPaginationSelector)).currentPage
@@ -47,7 +48,7 @@ export function* loadData({newSorting, newSearchQueries, newPage}) {
     tql: searchQueries.join(' and '),
     paths: paths
   })
-  const response = yield call(rest.requestSaga, `inputEdit/${inputEntityKey}/data/search`, {
+  const response = yield call(rest.requestSaga, `inputEdit/${entityKey}/data/search`, {
     method: 'POST',
     body: searchBean
   })
@@ -64,9 +65,9 @@ function getPathsFromTable(dataForm) {
 }
 
 export function* updateValue({payload: {inputDataKey, node, value}}) {
-  const {inputEntityKey} = yield select(inputSelector)
+  const {entityKey} = yield select(inputEditSelector)
   yield put(actions.setValue(inputDataKey, node, value))
-  const response = yield call(rest.requestSaga, `inputEdit/${inputEntityKey}/data`,
+  const response = yield call(rest.requestSaga, `inputEdit/${entityKey}/data`,
     {
       method: 'POST',
       body: {

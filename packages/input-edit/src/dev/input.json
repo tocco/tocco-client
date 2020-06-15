@@ -1,4 +1,7 @@
 {
-  "inputEntityKey": 1
+  "selection": {
+    "type": "ID",
+    "ids": [1]
+  }
 }
 
