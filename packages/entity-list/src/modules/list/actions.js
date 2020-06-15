@@ -25,6 +25,7 @@ export const SET_CONSTRICTION = 'list/SET_CONSTRICTION'
 export const QUERY_CHANGED = 'list/QUERY_CHANGED'
 export const SET_SHOW_LINK = 'list/SET_SHOW_LINK'
 export const SET_LAZY_DATA = 'list/SET_LAZY_DATA'
+export const NAVIGATE_TO_ACTION = 'list/NAVIGATE_TO_ACTION'
 export const SET_SORTING_INTERACTIVE = 'list/SET_SORTING_INTERACTIVE'
 
 export const initialize = () => ({
@@ -198,6 +199,14 @@ export const setLazyData = (type, id, values) => ({
     type,
     id,
     values
+  }
+})
+
+export const navigateToAction = (definition, selection) => ({
+  type: NAVIGATE_TO_ACTION,
+  payload: {
+    definition,
+    selection
   }
 })
 

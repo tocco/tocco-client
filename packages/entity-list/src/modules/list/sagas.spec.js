@@ -38,6 +38,7 @@ describe('entity-list', () => {
               takeEvery(actions.RESET_DATA_SET, sagas.loadData, 1),
               takeLatest(actions.REFRESH, sagas.loadData),
               takeLatest(actions.NAVIGATE_TO_CREATE, sagas.navigateToCreate),
+              takeLatest(actions.NAVIGATE_TO_ACTION, sagas.navigateToAction),
               takeLatest(selectionActions.RELOAD_DATA, sagas.loadData, 1),
               takeLatest(actions.ON_ROW_CLICK, sagas.onRowClick),
               takeEvery(actionUtil.actions.ACTION_INVOKED, sagas.actionInvoked),
@@ -619,6 +620,19 @@ describe('entity-list', () => {
               ])
               .put(actions.setLazyData('defaultDisplays', 'relEntity1', fakeDisplayResponse.relEntity1))
               .put(actions.setLazyData('defaultDisplays', 'relEntity2', fakeDisplayResponse.relEntity2))
+              .run()
+          })
+        })
+
+        describe('navigateToAction saga', () => {
+          test('should call external event navigateToAction', () => {
+            const payload = {
+              selection: {type: 'ID'},
+              definition: {appId: 'input-edit'}
+            }
+
+            return expectSaga(sagas.navigateToAction, {payload})
+              .put.actionType('externalEvents/FIRE_EXTERNAL_EVENT')
               .run()
           })
         })
