@@ -54,6 +54,13 @@ export function* getDisplay(entityName, key, breadcrumbsIdx) {
   return display
 }
 
+export function* addActionToBreadcrumbs(path, label, breadcrumbs) {
+  const type = 'action'
+  const display = label
+
+  breadcrumbs.push({display, path, type})
+}
+
 export function* addEntityToBreadcrumbs(path, entityName, breadcrumbs) {
   const type = 'list'
   const display = entityName
@@ -74,21 +81,24 @@ export function* addRecordToBreadcrumbs(path, entityName, key, breadcrumbs) {
 }
 
 export function* loadCurrentViewInfo({payload: {location}}) {
+  const {pathname} = location
   const currentViewInfo = {
     model: null,
     key: null,
     reverseRelation: null,
     parentModel: null,
     relations: null,
-    location,
+    pathname,
     level: 0
   }
 
   const breadcrumbs = []
 
   const pathParts = []
-  const re = pathToRegexp('/e/:entity/:key?/:relation*/:view(list|detail|edit|create|relations)', pathParts)
-  const res = re.exec(location)
+
+  const regex = '/e/:entity/:key?/:relation*/:view(list|detail|edit|create|relations|action)/:actionId?'
+  const re = pathToRegexp(regex, pathParts)
+  const res = re.exec(pathname)
 
   if (res !== null) {
     const path = {}
@@ -136,19 +146,32 @@ export function* loadCurrentViewInfo({payload: {location}}) {
         }
       }
 
+      if (path.actionId) {
+        currentViewInfo.actionId = path.actionId
+      }
+
       yield spawn(extractMultiRelations, currentViewInfo.model, currentViewInfo.key)
 
       const currentViewInfos = yield select(currentViewInfosSelector)
 
-      if (!currentViewInfos[location]) {
-        yield put(actions.setCurrentViewInfo(location, currentViewInfo))
+      if (!currentViewInfos[pathname]) {
+        yield put(actions.setCurrentViewInfo(pathname, currentViewInfo))
       }
 
       yield put(viewPersistor.clearPersistedViews(currentViewInfo.level + 1))
     }
+  } else {
+    yield call(handleActionRoute, pathname, pathParts)
   }
 
   yield put(actions.setBreadcrumbsInfo(breadcrumbs))
+}
+
+function* handleActionRoute(pathname, pathParts) {
+  const actionPathRegex = pathToRegexp('/e/action/:actionId', pathParts)
+  const result = actionPathRegex.exec(pathname)
+
+  yield put(actions.setCurrentViewInfo(pathname, {actionId: result[1]}))
 }
 
 export default function* mainSagas() {

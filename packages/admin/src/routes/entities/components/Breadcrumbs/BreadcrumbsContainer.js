@@ -8,7 +8,8 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = (state, props) => ({
-  breadcrumbsInfo: state.entities.path.breadcrumbsInfo
+  breadcrumbsInfo: state.entities.path.breadcrumbsInfo,
+  currentViewTitle: state.entities.path.currentViewTitle
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(Breadcrumbs))

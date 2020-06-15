@@ -4,6 +4,7 @@ import EntityListApp from 'tocco-entity-list/src/main'
 
 import StyledLink from '../../../../components/StyledLink/StyledLink'
 import {goBack} from '../../../../utils/routing'
+import Action from '../Action/LazyAction'
 
 const ListView = ({match, history, currentViewInfo, emitAction, persistViewInfo, persistedViewInfo}) => {
   if (!currentViewInfo) {
@@ -21,6 +22,14 @@ const ListView = ({match, history, currentViewInfo, emitAction, persistViewInfo,
       const entityBaseUrl = goBack(match.url)
       history.push(entityBaseUrl + '/create')
     }
+  }
+
+  const handleNavigateToAction = ({definition, selection}) => {
+    const entityBaseUrl = goBack(match.url)
+    history.push({
+      pathname: entityBaseUrl + '/action/' + definition.appId,
+      state: {definition, selection}
+    })
   }
 
   return (
@@ -52,6 +61,8 @@ const ListView = ({match, history, currentViewInfo, emitAction, persistViewInfo,
       onStoreCreate={store => {
         persistViewInfo(history.location.pathname, currentViewInfo.level, {store})
       }}
+      onNavigateToAction={handleNavigateToAction}
+      actionAppComponent={Action}
     />
   )
 }

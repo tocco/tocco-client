@@ -6,12 +6,13 @@ import {intlShape} from 'react-intl'
 
 import {goBack} from '../../../../utils/routing'
 import StyledLink from '../../../../components/StyledLink/StyledLink'
+import Action from '../Action'
 
 const EditView = props => {
   const [touched, setTouched] = useState(false)
   const mode = 'update'
 
-  if (!props.currentViewInfo || props.currentViewInfo.location !== props.history.location.pathname) {
+  if (!props.currentViewInfo || props.currentViewInfo.pathname !== props.history.location.pathname) {
     return null
   }
 
@@ -31,6 +32,14 @@ const EditView = props => {
   const handleEntityDeleted = () => {
     const entityBaseUrl = goBack(props.match.url, 2)
     props.history.push(entityBaseUrl)
+  }
+
+  const handleNavigateToAction = ({definition, selection}) => {
+    const entityBaseUrl = goBack(props.match.url)
+    props.history.push({
+      pathname: entityBaseUrl + '/action/' + definition.appId,
+      state: {definition, selection}
+    })
   }
 
   const entityName = props.currentViewInfo.model.name
@@ -60,7 +69,9 @@ const EditView = props => {
             <StyledLink to={`/e/${entity}/${key}`} target="_blank">{children}</StyledLink>
         }}
         onNavigateToCreate={handleNavigateToCreate}
+        onNavigateToAction={handleNavigateToAction}
         onEntityDeleted={handleEntityDeleted}
+        actionAppComponent={Action}
       />
     </React.Fragment>
   )
