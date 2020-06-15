@@ -31,7 +31,8 @@ export default function* sagas() {
     takeEvery(actions.FIRE_TOUCHED, fireTouched),
     takeEvery(actions.NAVIGATE_TO_CREATE, navigateToCreate),
     takeEvery(actionUtil.actions.ACTION_INVOKED, actionInvoked),
-    takeEvery(remoteEvents.REMOTE_EVENT, remoteEvent)
+    takeEvery(remoteEvents.REMOTE_EVENT, remoteEvent),
+    takeLatest(actions.NAVIGATE_TO_ACTION, navigateToAction)
   ])
 }
 
@@ -235,6 +236,11 @@ export function* actionInvoked(action) {
 
 export function* navigateToCreate({payload}) {
   yield put(externalEvents.fireExternalEvent('onNavigateToCreate', payload.relationName))
+}
+
+export function* navigateToAction({payload}) {
+  const {definition, selection} = payload
+  yield put(externalEvents.fireExternalEvent('onNavigateToAction', {definition, selection}))
 }
 
 export const entityDeleted = (event, entityName, entityId) =>

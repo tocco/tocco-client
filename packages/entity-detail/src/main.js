@@ -29,7 +29,8 @@ const EXTERNAL_EVENTS = [
   'onEntityDeleted',
   'onTouchedChange',
   'emitAction',
-  'onNavigateToCreate'
+  'onNavigateToCreate',
+  'onNavigateToAction'
 ]
 
 const initApp = (id, input, events = {}, publicPath) => {
@@ -40,7 +41,14 @@ const initApp = (id, input, events = {}, publicPath) => {
   actionEmitter.addToStore(store, events.emitAction)
   errorLogging.addToStore(store, false)
   notifier.addToStore(store, false)
-  actions.addToStore(store, {formApp: SimpleFormApp, listApp: EntityListApp, customActions})
+  actions.addToStore(store,
+    {
+      formApp: SimpleFormApp,
+      listApp: EntityListApp,
+      customActions,
+      appComponent: input.actionAppComponent
+    }
+  )
   formData.addToStore(store, {listApp: EntityListApp, linkFactory: input.linkFactory})
   keyDown.addToStore(store, shortcuts)
 
@@ -118,7 +126,10 @@ EntityDetailApp.propTypes = {
   ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
     propTypes[event] = PropTypes.func
     return propTypes
-  }, {})
+  }, {}),
+  onNavigateToAction: PropTypes.func,
+  onNavigateToCreate: PropTypes.func,
+  actionAppComponent: PropTypes.func
 }
 
 export default hot(EntityDetailApp)

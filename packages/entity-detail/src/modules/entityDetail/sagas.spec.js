@@ -33,7 +33,8 @@ describe('entity-detail', () => {
               takeEvery(actions.FIRE_TOUCHED, sagas.fireTouched),
               takeEvery(actions.NAVIGATE_TO_CREATE, sagas.navigateToCreate),
               takeEvery(actionUtil.actions.ACTION_INVOKED, sagas.actionInvoked),
-              takeEvery(remoteEvents.REMOTE_EVENT, sagas.remoteEvent)
+              takeEvery(remoteEvents.REMOTE_EVENT, sagas.remoteEvent),
+              takeLatest(actions.NAVIGATE_TO_ACTION, sagas.navigateToAction)
             ]))
             expect(generator.next().done).to.be.true
           })
@@ -291,6 +292,19 @@ describe('entity-detail', () => {
 
             return expectSaga(sagas.navigateToCreate, {payload})
               .put(externalEvents.fireExternalEvent('onNavigateToCreate', payload.relationName))
+              .run()
+          })
+        })
+
+        describe('navigateToAction saga', () => {
+          test('should call external event navigateToAction', () => {
+            const payload = {
+              selection: {type: 'ID'},
+              definition: {appId: 'input-edit'}
+            }
+
+            return expectSaga(sagas.navigateToAction, {payload})
+              .put.actionType('externalEvents/FIRE_EXTERNAL_EVENT')
               .run()
           })
         })
