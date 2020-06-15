@@ -30,7 +30,7 @@ describe('input-edit', () => {
           }
           return expectSaga(sagas.initialize)
             .provide([
-              [select(sagas.inputSelector), {inputEntityKey: 12}],
+              [select(sagas.inputEditSelector), {entityKey: 12}],
               [matchers.call.fn(rest.requestSaga), {
                 body: expectedEditForm
               }],
@@ -94,7 +94,7 @@ describe('input-edit', () => {
                 inputDataForm: fakeDataForm,
                 sorting: {field: 'state sorting'}
               }],
-              [select(sagas.inputSelector), {inputEntityKey: 12}],
+              [select(sagas.inputEditSelector), {entityKey: 12}],
               [select(sagas.searchQueriesSelector), []],
               [select(sagas.inputEditPaginationSelector), {
                 count: 0,
@@ -127,7 +127,7 @@ describe('input-edit', () => {
         test('should load data from state if no arguments are passed', () => {
           return expectSaga(sagas.loadData, {})
             .provide([
-              [select(sagas.inputSelector), {inputEntityKey: 12}],
+              [select(sagas.inputEditSelector), {entityKey: 12}],
               [select(sagas.inputEditTableSelector), {
                 inputDataForm: fakeDataForm,
                 sorting: {
@@ -185,7 +185,7 @@ describe('input-edit', () => {
         test('should update value', () => {
           return expectSaga(sagas.updateValue, actions.updateValue(123, 'node', 'value'))
             .provide([
-              [select(sagas.inputSelector), {inputEntityKey: 12}],
+              [select(sagas.inputEditSelector), {entityKey: 12}],
               [matchers.call.fn(rest.requestSaga), {
                 body: {
                 }
@@ -205,7 +205,7 @@ describe('input-edit', () => {
         test('should set newly calculated values', () => {
           return expectSaga(sagas.updateValue, actions.updateValue(123, 'node', 'value'))
             .provide([
-              [select(sagas.inputSelector), {inputEntityKey: 12}],
+              [select(sagas.inputEditSelector), {entityKey: 12}],
               [matchers.call.fn(rest.requestSaga), {
                 body: {
                   calculatedValues: [

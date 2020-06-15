@@ -24,7 +24,7 @@ class InputEditStory extends React.Component {
         <InputEditApp
           key={this.key++}
           locale={this.props.intl.locale}
-          inputEntityKey={number('Input primary key', 1)}
+          selection={{type: 'ID', ids: [number('Input primary key', 1)]}}
         />
       </div>
     )

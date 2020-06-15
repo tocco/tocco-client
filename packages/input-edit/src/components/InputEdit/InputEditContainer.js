@@ -10,7 +10,7 @@ const mapActionCreators = {
 }
 
 const mapStateToProps = state => ({
-  inputEntityKey: state.input.inputEntityKey
+  entityKey: state.inputEdit.entityKey
 })
 
 export default connect(mapStateToProps, mapActionCreators)(InputEdit)
