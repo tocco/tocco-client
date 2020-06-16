@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {Prompt} from 'react-router'
 import {intlShape} from 'react-intl'
+import queryString from 'query-string'
 
 import {goBack} from '../../../../utils/routing'
 import StyledLink from '../../../../components/StyledLink/StyledLink'
@@ -15,6 +16,8 @@ const EditView = props => {
   if (!props.currentViewInfo || props.currentViewInfo.pathname !== props.history.location.pathname) {
     return null
   }
+
+  const queryFormName = queryString.parse(location.search).formName
 
   const handleToucheChanged = ({touched}) => {
     setTouched(touched)
@@ -42,6 +45,11 @@ const EditView = props => {
     })
   }
 
+  const handleSubGridRowClick = ({id, relationName}) => {
+    const entityBaseUrl = goBack(props.match.url)
+    props.history.push(`${entityBaseUrl}/${relationName}/${id}`)
+  }
+
   const entityName = props.currentViewInfo.model.name
   const msg = id => props.intl.formatMessage({id})
 
@@ -60,7 +68,7 @@ const EditView = props => {
       <EntityDetailApp
         entityName={entityName}
         entityId={props.currentViewInfo.key}
-        formName={entityName}
+        formName={queryFormName || entityName}
         mode={mode}
         emitAction={props.emitAction}
         onTouchedChange = {handleToucheChanged}
@@ -72,6 +80,7 @@ const EditView = props => {
         onNavigateToAction={handleNavigateToAction}
         onEntityDeleted={handleEntityDeleted}
         actionAppComponent={Action}
+        onSubGridRowClick={handleSubGridRowClick}
       />
     </React.Fragment>
   )

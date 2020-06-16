@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import EntityListApp from 'tocco-entity-list/src/main'
+import queryString from 'query-string'
 
 import StyledLink from '../../../../components/StyledLink/StyledLink'
 import {goBack} from '../../../../utils/routing'
@@ -10,6 +11,8 @@ const ListView = ({match, history, currentViewInfo, emitAction, persistViewInfo,
   if (!currentViewInfo) {
     return null
   }
+
+  const queryFormName = queryString.parse(location.search).formName
 
   const handleRowClick = ({id}) => {
     history.push(match.url.replace(/list$/, '') + id)
@@ -38,7 +41,7 @@ const ListView = ({match, history, currentViewInfo, emitAction, persistViewInfo,
       limit={40}
       id={`${currentViewInfo.model.name}_list`}
       entityName={currentViewInfo.model.name}
-      formName={currentViewInfo.model.name}
+      formName={queryFormName || currentViewInfo.model.name}
       onRowClick={handleRowClick}
       {...(currentViewInfo.reverseRelation && {
         parent: {
