@@ -14,6 +14,8 @@
     "tocco-app-extensions": ">0.1.0",
     "tocco-entity-detail": ">0.1.0",
     "tocco-entity-list": ">0.1.0",
+    "tocco-input-edit": ">0.1.0",
+    "tocco-user-qr-action": ">0.1.0",
     "tocco-login": ">0.1.0",
     "tocco-merge": ">0.1.0",
     "tocco-resource-scheduler": "^0.2.18",

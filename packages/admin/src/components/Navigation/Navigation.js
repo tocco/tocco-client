@@ -43,7 +43,7 @@ EntityExplorerMenuEntry.propTypes = {
 }
 
 const ActionMenuEntry = ({onClick, item}) => {
-  return <StyledMenuLink onClick={onClick} to={`/a/${item.name}`}>{item.label}</StyledMenuLink>
+  return <StyledMenuLink onClick={onClick} to={`/e/action/${item.name}`}>{item.label}</StyledMenuLink>
 }
 
 ActionMenuEntry.propTypes = {
