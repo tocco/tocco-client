@@ -5,7 +5,8 @@ import {intlShape} from 'react-intl'
 
 import Action from '../Action'
 
-const ActionView = ({location, setCurrentViewTitle, currentViewInfo, intl}) => {
+const ActionView = ({history, match, setCurrentViewTitle, currentViewInfo, intl}) => {
+  const {location} = history
   useEffect(() => {
     if (currentViewInfo) {
       setCurrentViewTitle(intl.formatMessage({id: `client.actions.${currentViewInfo.actionId}.title`}))
@@ -24,26 +25,26 @@ const ActionView = ({location, setCurrentViewTitle, currentViewInfo, intl}) => {
   const querySelection = queryString.parse(location.search).selection
 
   const selection = (location.state && location.state.selection) || querySelection
-  if (!selection) {
-    return 'invalid selection'
-  }
 
-  return <Action appId={currentViewInfo.actionId} selection={selection}/>
+  return <Action history={history} match={match} appId={currentViewInfo.actionId} selection={selection}/>
 }
 
 ActionView.propTypes = {
   intl: intlShape,
   currentViewInfo: PropTypes.object,
   setCurrentViewTitle: PropTypes.func.isRequired,
-  location: PropTypes.shape({
-    search: PropTypes.string,
-    state: PropTypes.shape({
-      selection: PropTypes.object,
-      definition: PropTypes.shape({
-        appId: PropTypes.string
+  history: PropTypes.shape({
+    location: PropTypes.shape({
+      search: PropTypes.string,
+      state: PropTypes.shape({
+        selection: PropTypes.object,
+        definition: PropTypes.shape({
+          appId: PropTypes.string
+        })
       })
     })
-  })
+  }),
+  match: PropTypes.object
 }
 
 export default ActionView

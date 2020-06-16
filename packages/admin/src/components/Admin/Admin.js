@@ -10,7 +10,6 @@ import Navigation from '../Navigation'
 import DashboardRoute from '../../routes/dashboard'
 import EntitiesRoute from '../../routes/entities'
 import Settings from '../../routes/settings'
-import Actions from '../../routes/actions'
 import Header from '../Header'
 import {
   StyledWrapper,
@@ -86,7 +85,6 @@ const Admin = ({
               <Route exact={true} path="/dashboard" component={DashboardRoute}/>
               <Route path="/e" component={EntitiesRoute}/>
               <Route path="/s" component={Settings}/>
-              <Route path="/a" component={Actions}/>
               <Route render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/dashboard`}/>}/>
             </Switch>
           </StyledContent>

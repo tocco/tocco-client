@@ -7,7 +7,9 @@ import {consoleLogger} from 'tocco-util'
 
 const actions = {
   'user-qr-action': lazy(() => import(/* webpackChunkName: "actions" */'./actions/UserQrAction')),
-  'input-edit': lazy(() => import(/* webpackChunkName: "actions" */'./actions/InputEdit'))
+  'input-edit': lazy(() => import(/* webpackChunkName: "actions" */'./actions/InputEdit')),
+  'resourcescheduler': lazy(() => import(/* webpackChunkName: "actions" */'./actions/ResourceScheduler')),
+  'cash_management_import': lazy(() => import(/* webpackChunkName: "actions" */'./actions/CashManagementImport'))
 }
 
 const renderLoader = () => <LoadMask/>
