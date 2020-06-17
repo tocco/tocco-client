@@ -1,3 +1,8 @@
+0.3.0
+- Table v2
+- Fix display expressions
+- Fix license
+
 0.2.28
 - Use new search filter endpoint
 - Harmonize modal box spacing
