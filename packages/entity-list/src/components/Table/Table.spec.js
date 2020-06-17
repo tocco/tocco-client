@@ -25,7 +25,6 @@ describe('entity-list', () => {
       test('should render table', () => {
         const wrapper = shallow(<Table {...defaultProps}/>)
         expect(wrapper.find(StyledTable)).to.have.length(1)
-        expect(wrapper.find('thead')).to.have.length(1)
       })
     })
   })

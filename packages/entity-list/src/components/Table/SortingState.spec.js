@@ -29,15 +29,15 @@ describe('entity-list', () => {
         test('should render sup if second sorting is set', () => {
           const sorting = [{field: 'lastname', order: 'desc'}, {field: 'firstname', order: 'desc'}]
           const wrapper = mount(<SortingState column={{id: 'firstname'}} sorting={sorting}/>)
-          expect(wrapper.find('sup')).to.have.length(1)
-          expect(wrapper.find('sup')).to.have.html('<sup class="down">2</sup>')
+          expect(wrapper.find(Icon).prop('icon')).to.eql('sort-down')
+          expect(wrapper.html()).contains('<span>2</span>')
         })
 
-        test('should render sup if second sorting is set', () => {
+        test('should render sup if third sorting is set', () => {
           const sorting = [{}, {}, {field: 'firstname', order: 'asc'}]
           const wrapper = mount(<SortingState column={{id: 'firstname'}} sorting={sorting}/>)
-          expect(wrapper.find('sup')).to.have.length(1)
-          expect(wrapper.find('sup')).to.have.html('<sup class="up">3</sup>')
+          expect(wrapper.find(Icon).prop('icon')).to.eql('sort-up')
+          expect(wrapper.html()).contains('<span>3</span>')
         })
       })
     })
