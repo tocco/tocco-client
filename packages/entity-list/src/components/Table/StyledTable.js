@@ -1,119 +1,158 @@
-/* stylelint-disable no-descending-specificity */
-import styled from 'styled-components'
+import styled, {css} from 'styled-components'
 import {
   declareFont,
-  declareWrappingText,
-  scale,
   theme,
   shadeColor,
-  StyledScrollbar
+  StyledScrollbar,
+  scale
 } from 'tocco-ui'
 import _get from 'lodash/get'
+import {lighten} from 'polished'
+import {StyledPagination} from 'tocco-ui/src/Pagination/Pagination'
 
-const CARET_WIDTH = scale.space(-2)
+import {StyledResizeHandle} from './ResizingController'
 
-const StyledTable = styled.div`
-  .react-bs-container-body {
-    overflow-y: auto;
-    ${StyledScrollbar}
+export const StyledTableCell = styled.td`
+  padding: ${scale.space(-1)};
+  background-color: ${theme.color('paper')};
+  border-bottom: 1px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
+`
+
+export const StyledTableHeaderCell = styled.th`
+  padding: ${scale.space(-1)};
+  position: sticky;
+  top: 0;
+  background-color: ${theme.color('paper')};
+  text-align: left;
+  border-bottom: 2px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
+  ${declareFont({fontWeight: theme.fontWeight('bold')})};
+  user-select: none;
+  cursor: pointer;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: flex;
+
+  &:nth-child(1),
+  &:nth-child(2) {
+    &:hover {
+      background-color: transparent;
+      cursor: default;
+    }
   }
 
-  && {
-    .react-bs-table {
-      background-color: ${theme.color('paper')};
+  &[id='${props => props.resizingColumn && props.resizingColumn.id}'] {
+    background-color: ${props => lighten(0.25, props.theme.colors.secondaryLight)};
 
-      table {
-        border-collapse: collapse;
-        border-spacing: 0;
-        margin: 0;
-        max-width: 100%;
-        table-layout: fixed;
-        width: 100%;
+    > ${StyledResizeHandle} {
+      opacity: 1;
+    }
+  }
+  ${props => {
+  if (!props.resizingColumn) {
+    return `
+            &:hover {
+              background-color: ${lighten(0.25, props.theme.colors.secondaryLight)};
 
-        tr {
-          border-bottom: 1px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
-
-          th {
-            border-bottom: 2px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
-            padding-bottom: ${scale.space(-0.5)};
-            padding-top: ${scale.space(-1)};
-          }
-        }
-
-        th,
-        td {
-          ${declareFont({fontWeight: 700})}
-          padding: ${scale.space(-2)} ${scale.space(-1)};
-          text-align: center;
-          vertical-align: top;
-        }
-
-        tbody > tr:hover {
-          background-color: ${theme.color('backgroundBody')};
-        }
-
-        tbody > tr:active,
-        tr:focus {
-          &&& {
-            background-color: ${theme.color('secondary')} !important;
-            color: ${theme.color('paper')} !important;
-          }
-        }
-
-        th {
-          border-bottom: 0;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-
-          .order {
-            margin-left: ${scale.space(-1)};
-          }
-
-          .caret {
-            display: inline-block;
-            width: 0;
-            height: 0;
-            vertical-align: middle;
-            border-top: ${CARET_WIDTH} dashed;
-            border-right: ${CARET_WIDTH} solid transparent;
-            border-left: ${CARET_WIDTH} solid transparent;
-            margin: 0 !important;
-          }
-
-          .dropup,
-          .dropdown {
-            position: relative;
-          }
-
-          .dropup {
-            .caret {
-              border-top: 0;
-              border-bottom: ${CARET_WIDTH} dashed;
-              content: '';
+                > ${StyledResizeHandle} {
+                  opacity: 1;
+                }
             }
-          }
-        }
+          `
+  }
+}}
+`
 
-        th:first-of-type {
-          text-overflow: clip;
-        }
+export const PaginationContainer = styled.div`
+  grid-row-start: pagination-start;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border-top: 1px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
 
-        td {
-          ${declareWrappingText()};
+  ${StyledPagination} {
+    margin-top: ${scale.space(0)};
+  }
+`
 
-          &[tabindex] {
-            outline: none;
-          }
-        }
-      }
-    }
+const selectionStyles = css`
+  display: contents;
+  cursor: pointer;
 
-    .react-bs-table-pagination .row {
-      margin-left: 0 !important;
-      margin-right: 0 !important;
+  &.selected {
+    > ${StyledTableCell} {
+      background-color: ${props => lighten(0.1, props.theme.colors.secondaryLight)};
     }
   }
+
+  &.selectableRow:not(.selected):hover {
+    > ${StyledTableCell} {
+      background-color: ${props => lighten(0.25, props.theme.colors.secondaryLight)};
+    }
+  }
+`
+
+export const StyledSortingSpan = styled.span`
+  height: 100%;
+  position: relative;
+  left: 8px;
+  top: 0;
+  display: flex;
+  align-items: center;
+`
+
+export const StyledFullRowProgress = styled.td`
+  grid-column: 1 / -1;
+  padding-top: ${scale.space(-1)};
+  height: 50px;
+  text-align: center;
+  border: 0;
+`
+
+export const StyledFullRow = styled.td`
+  ${StyledFullRowProgress}
+  ${declareFont()};
+`
+
+export const StyledTableHead = styled.thead`
+  ${selectionStyles}
+`
+
+export const StyledTableRow = styled.tr`
+  ${selectionStyles}
+`
+
+export const StyledTableBody = styled.tbody`
+  ${selectionStyles}
+`
+
+const StyledTable = styled.table`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+  display: grid;
+  border-collapse: collapse;
+  grid-template-columns: ${props =>
+  props.columns.map(column => column.width ? column.width + 'px' : 'minmax(90px, auto)').join(' ')};
+  grid-auto-rows: min-content;
+  min-width: 100%;
+  ${StyledScrollbar}
+`
+
+export const StretchingTableContainer = styled.div`
+  grid-row-start: table-start;
+  position: relative;
+`
+
+export const StyledTableWrapper = styled.div`
+  display: grid;
+  padding: ${scale.space(-0.5)};
+  background-color: ${theme.color('paper')};
+  grid-template-rows: [table-start] 1fr [pagination-start] auto auto;
+  height: calc(100% - 2 * ${scale.space(-0.5)});
 `
 
 export default StyledTable

@@ -7,7 +7,7 @@ import Button from '../Button'
 import ButtonGroup from '../ButtonGroup'
 import Typography from '../Typography'
 
-const StyledPagination = styled.div`
+export const StyledPagination = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;

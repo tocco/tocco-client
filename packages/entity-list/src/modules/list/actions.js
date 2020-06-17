@@ -25,6 +25,7 @@ export const SET_CONSTRICTION = 'list/SET_CONSTRICTION'
 export const QUERY_CHANGED = 'list/QUERY_CHANGED'
 export const SET_SHOW_LINK = 'list/SET_SHOW_LINK'
 export const SET_LAZY_DATA = 'list/SET_LAZY_DATA'
+export const SET_SORTING_INTERACTIVE = 'list/SET_SORTING_INTERACTIVE'
 
 export const initialize = () => ({
   type: INITIALIZE
@@ -197,5 +198,13 @@ export const setLazyData = (type, id, values) => ({
     type,
     id,
     values
+  }
+})
+
+export const setSortingInteractive = (field, add) => ({
+  type: SET_SORTING_INTERACTIVE,
+  payload: {
+    field,
+    add
   }
 })

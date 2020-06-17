@@ -179,6 +179,8 @@
             "readonly": false,
             "hidden": false,
             "sortable": true,
+            "width": 50,
+            "widthFixed": true,
             "children": [
               {
                 "id": "user_nr",

@@ -26,6 +26,7 @@ export default function* sagas() {
     takeLatest(searchFormActions.EXECUTE_SEARCH, loadData, 1),
     takeLatest(searchFormActions.EXECUTE_SEARCH, queryChanged),
     takeEvery(actions.SET_SORTING, reloadData),
+    takeLatest(actions.SET_SORTING_INTERACTIVE, reloadData),
     takeEvery(actions.RESET_DATA_SET, loadData, 1),
     takeLatest(actions.REFRESH, loadData),
     takeLatest(actions.NAVIGATE_TO_CREATE, navigateToCreate),

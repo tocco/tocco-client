@@ -9,7 +9,6 @@
     "prepublish": "npm run compile:prod"
   },
   "devDependencies": {
-    "react-bootstrap-table": "4.2.0",
     "react-split": "^2.0.7",
     "tocco-app-extensions": "0.1.8",
     "tocco-simple-form": "0.1.15",
