@@ -1,3 +1,3 @@
-import {Wizard, WizardPage} from './Wizard'
+import {Wizard} from './Wizard'
 
-export {Wizard, WizardPage}
+export {Wizard}

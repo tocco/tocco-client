@@ -40,7 +40,8 @@ const NumberEdit = props => {
     allowNegative,
     fixedDecimalScale,
     suffix,
-    prefix
+    prefix,
+    format
   } = props.options || {}
 
   const numberFormatOptions = {
@@ -71,6 +72,7 @@ const NumberEdit = props => {
         suffix={suffix}
         prefix={prefix}
         {...numberFormatOptions}
+        format={format}
       />
     </StyledEditableWrapper>
   )
@@ -91,7 +93,8 @@ NumberEdit.propTypes = {
     minValue: PropTypes.number,
     maxValue: PropTypes.number,
     suffix: PropTypes.string,
-    prefix: PropTypes.string
+    prefix: PropTypes.string,
+    format: PropTypes.string
   })
 }
 

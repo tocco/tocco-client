@@ -1,3 +1,6 @@
+0.9.13
+-
+
 0.9.12
 - Use new search filter endpoint
 - Harmonize modal box spacing

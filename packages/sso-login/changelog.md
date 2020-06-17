@@ -1,3 +1,7 @@
+0.2.6
+- Harmonize modal box spacing
+- Disable caching for DEV
+
 0.2.5
 
 0.2.4

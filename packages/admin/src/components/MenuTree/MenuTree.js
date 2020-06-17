@@ -62,8 +62,10 @@ const prepareTree = (item, searchFilter, typeMapping, level = 0) => {
   let matchingAttribute
   if (children.length === 0 && searchFilter) {
     matchingAttribute = mappedType.filterAttributes
-      .find(filterAttribute => item[filterAttribute].toLowerCase().includes(searchFilter.toLowerCase()))
-
+      .find(filterAttribute =>
+        item[filterAttribute]
+        && item[filterAttribute].toLowerCase().includes(searchFilter.toLowerCase())
+      )
     if (!matchingAttribute) {
       return null
     }

@@ -27,7 +27,6 @@ export default function setupFetchMock(packageName, fetchMock) {
       return {
         TWOSTEPLOGIN: true,
         success: false,
-        REQUESTEDCODE: 'A8',
         timeout: 30
       }
     } else if (opts.body.includes('username=reset')) {

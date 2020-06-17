@@ -1,3 +1,7 @@
+0.2.9
+- Support new two-factor authentication
+- Adjust two factor handling
+
 0.2.8
 - Fix two-factor authentication bug
 - Hide actions in preview list

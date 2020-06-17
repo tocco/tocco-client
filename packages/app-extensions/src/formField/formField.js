@@ -122,7 +122,7 @@ const ValueField = ({
 }) => {
   const multiField = Array.isArray(value) && !multiTypes.includes(formField.dataType)
   const Field = useMemo(() =>
-    field.factory(multiField ? 'readOnly' : fieldMappingType, formField.dataType), []
+    field.factory(multiField ? 'readOnly' : fieldMappingType, formField.dataType || formField.componentType), []
   )
 
   if (multiField) {

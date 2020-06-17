@@ -192,33 +192,9 @@ describe('app-extensions', () => {
                   selectionType: 'NEW_CLIENT_QUERY',
                   manualQuery: expectedManualQuery,
                   listForm: expectedListForm,
-                  searchFilter: 'active_persons'
+                  searchFilters: ['active_persons']
                 })
                 .run()
-            })
-
-            test('should throw error if more than one search filter', () => {
-              const selection = {
-                type: 'QUERY',
-                query: {
-                  filter: ['active_persons', 'employees']
-                }
-              }
-
-              const listState = {
-                formDefinition: {
-                  id: 'User_list'
-                }
-              }
-
-              return expectSaga(legacyAction.getSelection, selection)
-                .provide([
-                  [select(legacyAction.listSelector), listState]
-                ])
-                .run()
-                .catch(e => {
-                  expect(e.message).to.equal('Multiple search filters not supported for legacy actions')
-                })
             })
 
             test('should throw error if unsupported selection type', () => {
