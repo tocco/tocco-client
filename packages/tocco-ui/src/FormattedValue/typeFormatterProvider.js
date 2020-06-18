@@ -18,6 +18,7 @@ import TextFormatter from './typeFormatters/TextFormatter'
 import TimeFormatter from './typeFormatters/TimeFormatter'
 import UrlFormatter from './typeFormatters/UrlFormatter'
 import CoordinateFormatter from './typeFormatters/CoordinateFormatter'
+import DescriptionFormatter from './typeFormatters/DescriptionFormatter'
 
 export default (type, value, options, breakWords = true) => {
   if (map[type]) {
@@ -73,5 +74,6 @@ export const map = {
   'time': TimeFormatter,
   'url': UrlFormatter,
   'uuid': StringFormatter,
-  'version': NumberFormatter
+  'version': NumberFormatter,
+  'description': DescriptionFormatter
 }

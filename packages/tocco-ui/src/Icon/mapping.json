@@ -286,5 +286,12 @@
   "upload": {
     "id": "far, upload",
     "lib": "fa"
+  },
+  "question-circle": {
+    "id": "far, question-circle",
+    "lib": "fa",
+    "tags": [
+      "help"
+    ]
   }
 }
