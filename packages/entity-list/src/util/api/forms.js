@@ -37,7 +37,6 @@ export const getColumnDefinition = table =>
         label: c.label,
         sortable: c.sortable,
         children: c.children.filter(isDisplayableChild),
-        width: c.width,
         widthFixed: c.widthFixed
       }
     ))

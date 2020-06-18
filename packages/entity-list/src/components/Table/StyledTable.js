@@ -110,7 +110,11 @@ export const StyledFullRowProgress = styled.td`
 `
 
 export const StyledFullRow = styled.td`
-  ${StyledFullRowProgress}
+  grid-column: 1 / -1;
+  padding-top: ${scale.space(-1)};
+  height: 50px;
+  text-align: center;
+  border: 0;
   ${declareFont()};
 `
 
@@ -136,7 +140,7 @@ const StyledTable = styled.table`
   display: grid;
   border-collapse: collapse;
   grid-template-columns: ${props =>
-  props.columns.map(column => column.width ? column.width + 'px' : 'minmax(90px, auto)').join(' ')};
+  props.columns.map(column => column.width ? column.width + 'px' : 'minmax(50px, auto)').join(' ')};
   grid-auto-rows: min-content;
   min-width: 100%;
   ${StyledScrollbar}
