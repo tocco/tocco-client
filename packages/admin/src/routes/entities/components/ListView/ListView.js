@@ -6,6 +6,7 @@ import queryString from 'query-string'
 import StyledLink from '../../../../components/StyledLink/StyledLink'
 import {goBack} from '../../../../utils/routing'
 import Action from '../Action/LazyAction'
+import {currentViewPropType} from '../../utils/propTypes'
 
 const ListView = ({match, history, currentViewInfo, emitAction, persistViewInfo, persistedViewInfo}) => {
   if (!currentViewInfo) {
@@ -75,7 +76,7 @@ ListView.propTypes = {
   emitAction: PropTypes.func.isRequired,
   persistViewInfo: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
-  currentViewInfo: PropTypes.object,
+  currentViewInfo: currentViewPropType,
   persistedViewInfo: PropTypes.shape({
     store: PropTypes.object
   })

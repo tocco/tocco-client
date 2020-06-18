@@ -30,6 +30,8 @@ export default function* (definition, selection, parent, params, config) {
     const handler = config && config.customActions && config.customActions[definition.id]
     if (handler) {
       yield call(handler, definition, selection, parent, params, config)
+    } else {
+      consoleLogger.logError(`Unable to load custom action with id ${definition.id}`)
     }
   }
 }

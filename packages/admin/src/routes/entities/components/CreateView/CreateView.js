@@ -6,6 +6,8 @@ import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {Prompt} from 'react-router'
 import styled from 'styled-components'
 
+import {currentViewPropType} from '../../utils/propTypes'
+
 const EntityDetailAppWrapper = styled.div`
   margin: 1rem 0 1rem 1rem;
 `
@@ -67,7 +69,7 @@ CreateView.propTypes = {
   intl: intlShape,
   match: PropTypes.object,
   history: PropTypes.object,
-  currentViewInfo: PropTypes.object,
+  currentViewInfo: currentViewPropType,
   dispatchEmittedAction: PropTypes.func.isRequired
 }
 

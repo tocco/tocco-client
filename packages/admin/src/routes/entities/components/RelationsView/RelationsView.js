@@ -14,6 +14,7 @@ import {
 } from './StyledComponents'
 import {StyledLink} from '../../../../components/StyledLink'
 import {goBack} from '../../../../utils/routing'
+import {currentViewPropType} from '../../utils/propTypes'
 
 const RelationsView = ({
   history,
@@ -140,7 +141,7 @@ const RelationsView = ({
 RelationsView.propTypes = {
   history: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
-  currentViewInfo: PropTypes.object,
+  currentViewInfo: currentViewPropType,
   relations: PropTypes.array,
   relationsCount: PropTypes.object,
   persistedViewInfo: PropTypes.shape({

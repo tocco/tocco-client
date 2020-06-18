@@ -87,7 +87,6 @@ export function* loadCurrentViewInfo({payload: {location}}) {
     key: null,
     reverseRelation: null,
     parentModel: null,
-    relations: null,
     pathname,
     level: 0
   }
@@ -171,7 +170,11 @@ function* handleActionRoute(pathname, pathParts) {
   const actionPathRegex = pathToRegexp('/e/action/:actionId', pathParts)
   const result = actionPathRegex.exec(pathname)
 
-  yield put(actions.setCurrentViewInfo(pathname, {actionId: result[1]}))
+  yield put(actions.setCurrentViewInfo(pathname,
+    {
+      actionId: result[1],
+      pathname
+    }))
 }
 
 export default function* mainSagas() {

@@ -4,6 +4,7 @@ import queryString from 'query-string'
 import {intlShape} from 'react-intl'
 
 import Action from '../Action'
+import {currentViewPropType} from '../../utils/propTypes'
 
 const ActionView = ({history, match, setCurrentViewTitle, currentViewInfo, intl}) => {
   const {location} = history
@@ -21,17 +22,15 @@ const ActionView = ({history, match, setCurrentViewTitle, currentViewInfo, intl}
     return null
   }
 
-  // TODO: Action better query param handler. allow tql
   const querySelection = queryString.parse(location.search).selection
-
   const selection = (location.state && location.state.selection) || querySelection
 
   return <Action history={history} match={match} appId={currentViewInfo.actionId} selection={selection}/>
 }
 
 ActionView.propTypes = {
-  intl: intlShape,
-  currentViewInfo: PropTypes.object,
+  intl: intlShape.isRequired,
+  currentViewInfo: currentViewPropType,
   setCurrentViewTitle: PropTypes.func.isRequired,
   history: PropTypes.shape({
     location: PropTypes.shape({
@@ -43,7 +42,7 @@ ActionView.propTypes = {
         })
       })
     })
-  }),
+  }).isRequired,
   match: PropTypes.object
 }
 
