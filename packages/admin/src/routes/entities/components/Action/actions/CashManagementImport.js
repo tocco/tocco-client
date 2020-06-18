@@ -12,7 +12,7 @@ const CashManagement = props => {
 CashManagement.propTypes = {
   match: PropTypes.shape({
     url: PropTypes.string
-  })
+  }).isRequired
 }
 
 export default CashManagement

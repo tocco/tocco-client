@@ -6,6 +6,7 @@ import {theme} from 'tocco-ui'
 
 import RelationsView from '../RelationsView'
 import EditView from '../EditView'
+import {currentViewPropType} from '../../utils/propTypes'
 
 const DetailViewContainer = styled.div`
   display: flex;
@@ -41,7 +42,7 @@ DetailView.propTypes = {
   intl: intlShape,
   match: PropTypes.object,
   history: PropTypes.object,
-  currentViewInfo: PropTypes.object
+  currentViewInfo: currentViewPropType
 }
 
 export default DetailView

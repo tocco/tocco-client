@@ -8,6 +8,7 @@ import queryString from 'query-string'
 import {goBack} from '../../../../utils/routing'
 import StyledLink from '../../../../components/StyledLink/StyledLink'
 import Action from '../Action'
+import {currentViewPropType} from '../../utils/propTypes'
 
 const EditView = props => {
   const [touched, setTouched] = useState(false)
@@ -90,7 +91,7 @@ EditView.propTypes = {
   intl: intlShape,
   match: PropTypes.object,
   history: PropTypes.object,
-  currentViewInfo: PropTypes.object,
+  currentViewInfo: currentViewPropType,
   emitAction: PropTypes.func.isRequired
 }
 

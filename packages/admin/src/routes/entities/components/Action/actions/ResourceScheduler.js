@@ -16,7 +16,7 @@ const ResourceScheduler = ({match}) => {
 ResourceScheduler.propTypes = {
   match: PropTypes.shape({
     url: PropTypes.string
-  })
+  }).isRequired
 }
 
 export default ResourceScheduler

@@ -48,7 +48,13 @@ const Breadcrumbs = ({breadcrumbsInfo, currentViewTitle}) => {
 
 Breadcrumbs.propTypes = {
   match: PropTypes.object,
-  breadcrumbsInfo: PropTypes.array,
+  breadcrumbsInfo: PropTypes.arrayOf(
+    PropTypes.shape({
+      display: PropTypes.string,
+      path: PropTypes.string,
+      type: PropTypes.string
+    })
+  ),
   currentViewTitle: PropTypes.string
 }
 
