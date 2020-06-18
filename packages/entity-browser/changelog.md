@@ -1,3 +1,7 @@
+0.10.0
+- Table v2
+- Fix display expressions
+
 0.9.13
 -
 
