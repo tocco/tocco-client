@@ -26,7 +26,7 @@ const getDisplayExpression = (field, entity) => {
       type={'displayExpression'}
       value={null}
     >
-      <FormattedValue type="html" value={entity[field.id]}/>
+      <FormattedValue type="html" breakWords={false} value={entity[field.id]}/>
     </LazyDataCell>
 
   </span>

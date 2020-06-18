@@ -66,8 +66,8 @@ describe('entity-list', () => {
             const result = forms.getColumnDefinition(formDefinition)
 
             const expectedColumnDefinition = [
-              {label: 'label1', id: 'lb1', children: [field1], sortable: true, widthFixed: false, width: null},
-              {label: 'label2', id: 'lb2', children: [field2], sortable: false, widthFixed: true, width: 500}
+              {label: 'label1', id: 'lb1', children: [field1], sortable: true, widthFixed: false},
+              {label: 'label2', id: 'lb2', children: [field2], sortable: false, widthFixed: true}
             ]
 
             expect(result).to.eql(expectedColumnDefinition)
@@ -111,7 +111,7 @@ describe('entity-list', () => {
             const result = forms.getColumnDefinition(formDefinition)
 
             const expectedcolumnDefinition = [
-              {label: 'label1', id: 'lb1', children: [field1], sortable: true, widthFixed: false, width: null}
+              {label: 'label1', id: 'lb1', children: [field1], sortable: true, widthFixed: false}
             ]
             expect(result).to.eql(expectedcolumnDefinition)
           })
