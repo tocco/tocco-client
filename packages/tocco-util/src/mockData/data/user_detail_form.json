@@ -263,6 +263,48 @@
                         "label": null
                       }
                     ]
+                  },
+                  {
+                    "id": "email_change_field_description",
+                    "label": null,
+                    "componentType": "field-set",
+                    "children": [
+                      {
+                        "id": "email_change_field_description",
+                        "label": null,
+                        "componentType": "description",
+                        "title": "Hinweis",
+                        "text": "Durch Anpassung der E-Mail-Adresse wird auch der Benutzername geändert, wenn Benutzername und E-Mail-Adresse übereinstimmen.",
+                        "mode": "tooltip"
+                      }
+                    ],
+                    "readonly": false,
+                    "hidden": false,
+                    "useLabel": "NO",
+                    "scopes": [
+                      "update",
+                      "read"
+                    ]
+                  },
+                  {
+                    "id": "groovy_logic_description",
+                    "label": null,
+                    "componentType": "field-set",
+                    "children": [
+                      {
+                        "id": "groovy_logic_description",
+                        "label": null,
+                        "componentType": "description",
+                        "title": null,
+                        "text": "Es stehen drei Variablen zur Verfügung:<ul style=\"padding-left: 30px; list-style: disc;\"><li><strong>article</strong> : verrechneter Artikel</li><li><strong>orderPosition</strong> : zu erstellende Auftragsposition</li><li><strong>source</strong> : Datenobjekt, auf dem Aktion \"Rechnung erstellen\" ausgeführt wurde.</li></ul><br>Soll anstelle der Groovy Logik eine Java Logik verwendet werden, muss das Feld leer bleiben.",
+                        "mode": "text"
+                      }
+                    ],
+                    "readonly": false,
+                    "hidden": false,
+                    "useLabel": "HIDE",
+                    "scopes": [
+                    ]
                   }
                 ],
                 "label": "Form Stuff"
