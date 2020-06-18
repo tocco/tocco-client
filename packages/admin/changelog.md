@@ -1,3 +1,8 @@
+0.3.0
+- Table v2
+- Fix display expressions
+- Add custom app action handler
+
 0.2.9
 - Support new two-factor authentication
 - Adjust two factor handling
