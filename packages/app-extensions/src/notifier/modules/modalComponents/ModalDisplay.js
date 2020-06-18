@@ -5,7 +5,7 @@ import ModalContent from './ModalContent'
 
 const ModalDisplay = props => {
   return (
-    <React.Fragment>
+    <>
       {props.modals.map((modal, idx) =>
         <ModalContent
           key={idx}
@@ -17,7 +17,7 @@ const ModalDisplay = props => {
           closable={modal.closable}
         />
       )}
-    </React.Fragment>
+    </>
   )
 }
 

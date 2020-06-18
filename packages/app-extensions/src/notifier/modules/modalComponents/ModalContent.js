@@ -1,10 +1,36 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
 import TitleMessage from '../../components/TitleMessage'
-import {StyledModalContent} from './StyledModalContent'
+import {StyledModalContent, basePadding} from './StyledModalContent'
 
-class ModalContent extends React.Component {
+export const StyledCloseButton = styled.button`
+  // copy: react-redux-toastr (index.scss)
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 22px;
+  height: auto;  // reset
+  opacity: .8;  // reset
+  outline: none;
+  position: sticky;
+  top: ${basePadding}px;  // reset
+  left: 100%;  // reset
+  padding-right: 0;
+  width: auto;  // reset
+  z-index: 2;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &:focus {
+    outline: none;
+  }
+`
+
+export class ModalContent extends React.Component {
   constructor(props) {
     super(props)
     this.state = {isClosing: false}
@@ -30,8 +56,10 @@ class ModalContent extends React.Component {
     return (
       <div className="rrt-confirm-holder">
         <StyledModalContent isClosing={isClosing}>
-          <TitleMessage title={title} message={message}>
-            {closable && <button onClick={this.handleCloseClick} type="button" className="close-toastr">✕</button>}
+          {closable && <StyledCloseButton onClick={this.handleCloseClick} type="button">
+            ✕
+          </StyledCloseButton>}
+          <TitleMessage title={title} message={message} closable={closable}>
             <this.props.component close={this.handleCloseClick}/>
           </TitleMessage>
         </StyledModalContent>

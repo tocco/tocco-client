@@ -6,12 +6,14 @@ import {
 } from 'tocco-ui'
 import {StyledLayoutBox} from 'tocco-ui/src/Layout'
 
-import {StyledModalButton} from './ModalButtons'
+import {StyledTitleWrapper} from '../../components/TitleMessage'
+import {StyledCloseButton} from './ModalContent'
 
 const modalWidth = 700
 const gutterWidth = 30
 const totalWidth = modalWidth + gutterWidth
-const basePadding = 1.8 * parseFloat(getComputedStyle(document.documentElement).fontSize) // calc px value from 1.8rem
+// eslint-disable-next-line max-len
+export const basePadding = 1.8 * parseFloat(getComputedStyle(document.documentElement).fontSize) // calc px value from 1.8rem
 
 const StyledModalContent = styled.div.attrs({
   className: props => `rrt-confirm animated ${props.isClosing ? 'fadeOut' : 'fadeIn'}`
@@ -32,48 +34,17 @@ const StyledModalContent = styled.div.attrs({
       width: ${totalWidth}px;                           // reset: react-redux-toastr (confirm.scss)
 
       && {
-        .title-wrapper {
+        ${StyledTitleWrapper} {
           max-width: ${totalWidth}px;
         }
       }
     }
 
-    p {
-      margin-top: ${basePadding}px;
-      margin-bottom: ${basePadding}px;
-
-      & + ${/* sc-selector */StyledModalButton},
-      & + ${/* sc-selector */StyledModalButton} + ${/* sc-selector */StyledModalButton} {
-        margin-bottom: 0;
-      }
-    }
-
-    // copy: react-redux-toastr (index.scss)
-    .close-toastr {
-      background-color: transparent;
-      border: none;
-      cursor: pointer;
-      font-size: 22px;
-      height: auto;  // reset
-      opacity: .8;  // reset
-      outline: none;
-      position: sticky;
-      left: 100%;  // reset
+    ${StyledCloseButton} {
       top: ${basePadding}px;  // reset
-      padding-right: 0;
-      width: auto;  // reset
-      z-index: 2;
-
-      &:hover {
-        opacity: 1;
-      }
-
-      &:focus {
-        outline: none;
-      }
     }
 
-    .title-wrapper,
+    ${/* sc-selector */StyledTitleWrapper},
     .advanced-search-button-wrapper {
       box-sizing: border-box;
       background: ${theme.color('paper')};
@@ -83,17 +54,8 @@ const StyledModalContent = styled.div.attrs({
       z-index: 1;
     }
 
-    .title-wrapper {
-      position: fixed;
+    ${StyledTitleWrapper} {
       max-width: calc(100% - ${gutterWidth}px - ${basePadding}px);
-    }
-
-    .title-wrapper + p {
-      position: relative;
-      z-index: 1;
-      top: 4.5rem;
-      margin-top: 0;
-      margin-bottom: ${scale.space(-0.5)};
     }
 
     .advanced-search-button-wrapper {
@@ -113,7 +75,7 @@ const StyledModalContent = styled.div.attrs({
 
     ${StyledLayoutBox} {
       &:first-child {
-        margin-top: 3.4rem;
+        margin-top: ${scale.space(0)};
       }
     }
   }
