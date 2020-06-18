@@ -1,6 +1,6 @@
 import React from 'react'
 import {storiesOf} from '@storybook/react'
-import {withKnobs, date, boolean, number, object, text} from '@storybook/addon-knobs'
+import {withKnobs, date, boolean, number, object, text, select} from '@storybook/addon-knobs'
 import moment from 'moment'
 
 import FormattedValue from './'
@@ -129,7 +129,18 @@ storiesOf('Tocco-UI | FormattedValue', module)
   )
   .add(
     'HTML',
-    () => <FormattedValue type="html" onChange={() => {}} value={text('HTML', storybookHtmlMarkup)}/>
+    () => <FormattedValue type="html" value={text('HTML', storybookHtmlMarkup)}/>
+  )
+  .add(
+    'Description',
+    () => <FormattedValue
+      type="description"
+      value={text('Value', 'This is a <b>strong</b> text')}
+      options={{
+        mode: select('Mode', {tooltip: 'tooltip', text: 'text'}),
+        title: text('Title', 'Title')
+      }}
+    />
   )
   .add(
     'Login',
