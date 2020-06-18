@@ -31,6 +31,8 @@ FormFieldWrapper.propTypes = {
   hasValue: PropTypes.bool
 }
 
+const displayFieldTypes = ['display', 'description']
+
 export const formFieldFactory = (fieldMappingType, data, resources = {}) => {
   try {
     const {
@@ -57,7 +59,7 @@ export const formFieldFactory = (fieldMappingType, data, resources = {}) => {
 
     const mandatory = !readOnly && _get(modelField, 'validation.mandatory', false)
     const hasValue = value !== null && value !== undefined && (value.length === undefined || value.length > 0)
-    const isDisplay = data.formDefinitionField.componentType === 'display' || readOnlyForm
+    const isDisplay = displayFieldTypes.includes(data.formDefinitionField.componentType) || readOnlyForm
 
     const type = formDefinitionField.dataType || formDefinitionField.componentType
     let requestedFromData
