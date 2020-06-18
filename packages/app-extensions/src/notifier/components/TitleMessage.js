@@ -1,8 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {FormattedMessage} from 'react-intl'
-import {FormattedValue, Typography} from 'tocco-ui'
+import {FormattedValue, Typography, scale} from 'tocco-ui'
 import _isString from 'lodash/isString'
+import styled from 'styled-components'
+
+import {StyledModalButton} from '../modules/modalComponents/ModalButtons'
 
 const containsHtml = s => s && /<\/?[a-zA-Z0-9]*\/?>/.test(s)
 const isKey = s => s && s.startsWith('client.')
@@ -20,6 +23,26 @@ const Content = props => {
       : content
 }
 
+export const StyledTitleWrapper = styled.div`
+  position: fixed;
+  top: 10%;
+`
+
+export const StyledMessageWrapper = styled.div`
+  margin-top: ${({closable, title}) => closable ? scale.space(1.5)
+    : title ? scale.space(2.2)
+    : scale.space(0.5)
+  };
+
+  ${StyledModalButton} {
+    margin-bottom: 0;
+  }
+`
+
+export const StyledChildrenWrapper = styled.div`
+  margin-top: ${scale.space(0)};
+`
+
 Content.defaultProps = {
   tag: Typography.P
 }
@@ -35,14 +58,18 @@ Content.propTypes = {
   tag: PropTypes.func
 }
 
-const TitleMessage = ({title, message, children}) => {
+const TitleMessage = ({title, message, children, closable}) => {
   return (
     <>
-      {title && <div className="title-wrapper">
+      {title && <StyledTitleWrapper>
         <Content content={title} tag={Typography.H1} />
-      </div>}
-      {message && <Content content={message} />}
-      {children}
+      </StyledTitleWrapper>}
+      <StyledMessageWrapper closable={closable} title={title}>
+        {message && <Content content={message}/>}
+        <StyledChildrenWrapper>
+          {children}
+        </StyledChildrenWrapper>
+      </StyledMessageWrapper>
     </>
   )
 }
@@ -58,7 +85,8 @@ TitleMessage.propTypes = {
    * Strings and translation keys are rendered as <p>.
    */
   message: PropTypes.node,
-  children: PropTypes.node
+  children: PropTypes.node,
+  closable: PropTypes.bool
 }
 
 export {
