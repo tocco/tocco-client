@@ -1,10 +1,14 @@
 import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
-import queryString from 'query-string'
+import {selection as selectionUtil} from 'tocco-util'
 import {intlShape} from 'react-intl'
 
 import Action from '../Action'
 import {currentViewPropType} from '../../utils/propTypes'
+
+const getSelection = location => location.state && location.state.selection
+  ? location.state.selection
+  : selectionUtil.queryStringToSelection(location.search)
 
 const ActionView = ({history, match, setCurrentViewTitle, currentViewInfo, intl}) => {
   const {location} = history
@@ -22,8 +26,7 @@ const ActionView = ({history, match, setCurrentViewTitle, currentViewInfo, intl}
     return null
   }
 
-  const querySelection = queryString.parse(location.search).selection
-  const selection = (location.state && location.state.selection) || querySelection
+  const selection = getSelection(location)
 
   return <Action history={history} match={match} appId={currentViewInfo.actionId} selection={selection}/>
 }

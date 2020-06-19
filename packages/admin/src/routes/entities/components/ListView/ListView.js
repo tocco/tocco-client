@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import EntityListApp from 'tocco-entity-list/src/main'
 import queryString from 'query-string'
+import {selection as selectionUtil} from 'tocco-util'
 
 import StyledLink from '../../../../components/StyledLink/StyledLink'
 import {goBack} from '../../../../utils/routing'
@@ -30,9 +31,11 @@ const ListView = ({match, history, currentViewInfo, emitAction, persistViewInfo,
 
   const handleNavigateToAction = ({definition, selection}) => {
     const entityBaseUrl = goBack(match.url)
+    const search = selectionUtil.selectionToQueryString(selection)
     history.push({
       pathname: entityBaseUrl + '/action/' + definition.appId,
-      state: {definition, selection}
+      state: {definition, selection},
+      search
     })
   }
 
