@@ -4,6 +4,7 @@ import EntityDetailApp from 'tocco-entity-detail/src/main'
 import {Prompt} from 'react-router'
 import {intlShape} from 'react-intl'
 import queryString from 'query-string'
+import {selection as selectionUtil} from 'tocco-util'
 
 import {goBack} from '../../../../utils/routing'
 import StyledLink from '../../../../components/StyledLink/StyledLink'
@@ -40,9 +41,11 @@ const EditView = props => {
 
   const handleNavigateToAction = ({definition, selection}) => {
     const entityBaseUrl = goBack(props.match.url)
+    const search = selectionUtil.selectionToQueryString(selection)
     props.history.push({
       pathname: entityBaseUrl + '/action/' + definition.appId,
-      state: {definition, selection}
+      state: {definition, selection},
+      search
     })
   }
 
