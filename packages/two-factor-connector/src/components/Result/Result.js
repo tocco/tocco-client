@@ -1,15 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {QRCode, Typography} from 'tocco-ui'
+import {QRCode, scale, Typography, StyledP} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
 import styled from 'styled-components'
 
 const StyledQRCodeWrapper = styled.div`
-  margin: 10px;
+  display: flex;
+  justify-content: center;
+  margin: ${scale.space(0)};
 `
 
-const Result = ({secret}) => {
-  return <React.Fragment>
+const StyledParagraph = styled(StyledP)`
+  text-align: center;
+`
+
+const Result = ({secret}) =>
+  <>
     <Typography.P>
       <FormattedMessage id="client.two-factor-connector.qrCodeInfo"/>
     </Typography.P>
@@ -19,12 +25,13 @@ const Result = ({secret}) => {
     <Typography.P>
       <FormattedMessage id="client.two-factor-connector.secretInfo"/>
     </Typography.P>
-    <Typography.P><Typography.B>{secret.text}</Typography.B> </Typography.P>
+    <StyledParagraph>
+      <Typography.B>{secret.text}</Typography.B>
+    </StyledParagraph>
     <Typography.P>
       <FormattedMessage id="client.two-factor-connector.backupInfo"/>
     </Typography.P>
-  </React.Fragment>
-}
+  </>
 
 Result.propTypes = {
   secret: PropTypes.shape({
