@@ -35,7 +35,7 @@ export const StyledTableHeaderCell = styled.th`
   &:nth-child(1),
   &:nth-child(2) {
     &:hover {
-      background-color: transparent;
+      background-color: ${theme.color('paper')};
       cursor: default;
     }
   }
@@ -153,7 +153,7 @@ export const StretchingTableContainer = styled.div`
 
 export const StyledTableWrapper = styled.div`
   display: grid;
-  padding: ${scale.space(-0.5)};
+  padding: 0 0 ${scale.space(-0.5)} ${scale.space(-0.5)};
   background-color: ${theme.color('paper')};
   grid-template-rows: [table-start] 1fr [pagination-start] auto auto;
   height: calc(100% - 2 * ${scale.space(-0.5)});
