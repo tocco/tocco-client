@@ -1,5 +1,5 @@
 import {createDummyEntities, createUsers} from './entityFactory'
-import {setupFetchMock, setupSystemMock} from './mockData'
+import {setupFetchMock, setupSystemMock, sleep} from './mockData'
 
 export default {
   createDummyEntities,
@@ -14,5 +14,6 @@ export default {
     dummyEntitySearchForm: require('./data/dummy_entity_search_form'),
     dummyEntityListForm: require('./data/dummy_entity_list_form'),
     textResources: require('./data/textResources')
-  }
+  },
+  sleep
 }

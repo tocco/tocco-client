@@ -12,6 +12,7 @@
     "react-burger-menu": "^2.6.11",
     "react-helmet": "^5.2.1",
     "tocco-app-extensions": ">0.1.0",
+    "tocco-delete": ">=0.1.0",
     "tocco-entity-detail": ">0.1.0",
     "tocco-entity-list": ">0.1.0",
     "tocco-input-edit": ">=0.1.0",

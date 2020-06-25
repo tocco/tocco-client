@@ -1,0 +1,13 @@
+[
+  "client.delete.loadingText",
+  "client.delete.cancelButton",
+  "client.delete.deleteButton",
+  "client.delete.unreadableEntities",
+  "client.delete.confirmText",
+  "client.delete.textNotDeletable",
+  "client.delete.recordInOtherBU",
+  "client.delete.tooManyRecords",
+  "client.delete.deleteInProgress",
+  "successfullyMsg",
+  "errorMsg"
+]

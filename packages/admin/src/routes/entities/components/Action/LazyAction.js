@@ -9,8 +9,9 @@ const actions = {
   'user-qr-action': lazy(() => import(/* webpackChunkName: "actions" */'./actions/UserQrAction')),
   'input-edit': lazy(() => import(/* webpackChunkName: "actions" */'./actions/InputEdit')),
   'resourcescheduler': lazy(() => import(/* webpackChunkName: "actions" */'./actions/ResourceScheduler')),
+  'show-output-jobs-action': lazy(() => import(/* webpackChunkName: "actions" */'./actions/ShowOutputJobsAction')),
   'cash_management_import': lazy(() => import(/* webpackChunkName: "actions" */'./actions/CashManagementImport')),
-  'show-output-jobs-action': lazy(() => import(/* webpackChunkName: "actions" */'./actions/ShowOutputJobsAction'))
+  'delete': lazy(() => import(/* webpackChunkName: "actions" */'./actions/Delete'))
 }
 
 const renderLoader = () => <LoadMask/>
