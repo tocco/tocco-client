@@ -88,7 +88,7 @@ export function* loadData(page) {
 }
 
 export function* getBasicQuery(regardSelection = true) {
-  const {searchFilters: inputSearchFilters} = yield select(inputSelector)
+  const {searchFilters: inputSearchFilters, tql: inputTql} = yield select(inputSelector)
 
   const {showSelectedRecords, selection} = yield select(selectionSelector)
   if (regardSelection && showSelectedRecords) {
@@ -103,10 +103,12 @@ export function* getBasicQuery(regardSelection = true) {
 
   const searchFormFetchOptions = yield call(getFetchOptionsFromSearchForm, searchFormValues, formFieldsFlat)
   const filter = yield call(getSearchFilter, inputSearchFilters, searchFormFetchOptions.filters, searchFormSearchFilter)
+  const tql = yield call(getTql, inputTql, searchFormFetchOptions.tql)
 
   return {
-    ..._omit(searchFormFetchOptions, 'filters'),
+    ..._omit(searchFormFetchOptions, ['filters', 'tql']),
     ...(filter && filter.length > 0 ? {filter} : {}),
+    ...(tql ? {tql} : {}),
     ...(list.constriction && {constriction: list.constriction})
   }
 }
@@ -161,6 +163,11 @@ export function* getSearchFilter(inputSearchFilters, searchInputsFilters, adminS
 
   return yield call(_union, inputSearchFilters, searchInputsFilters, activeSearchFormFilters)
 }
+
+export const getTql = (inputTql, searchTql) => [
+  ...(inputTql && inputTql.length > 0 ? [`(${inputTql})`] : []),
+  ...(searchTql && searchTql.length > 0 ? [`(${searchTql})`] : [])
+].join(' and ')
 
 export function* loadDisplayExpressions(formName, paths, entities) {
   if (paths && paths.length > 0 && entities.length > 0) {
