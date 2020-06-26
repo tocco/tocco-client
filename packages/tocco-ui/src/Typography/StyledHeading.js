@@ -1,6 +1,7 @@
 import styled, {css} from 'styled-components'
 
 import {
+  theme,
   declareFont,
   declareNoneWrappingText,
   declareWrappingText,
@@ -29,7 +30,7 @@ const declareHeaderFont = props => {
     default:
       fontSize = scale.font(0)(props)
   }
-  return declareFont({fontWeight: 700, fontSize})
+  return declareFont({fontWeight: theme.fontWeight('bold'), fontSize})
 }
 
 const declareSpace = props => css`
