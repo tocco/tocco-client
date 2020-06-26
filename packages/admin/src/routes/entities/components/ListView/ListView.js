@@ -14,7 +14,7 @@ const ListView = ({match, history, currentViewInfo, emitAction, persistViewInfo,
     return null
   }
 
-  const queryFormName = queryString.parse(location.search).formName
+  const queryParams = queryString.parse(location.search)
 
   const handleRowClick = ({id}) => {
     history.push(match.url.replace(/list$/, '') + id)
@@ -45,7 +45,7 @@ const ListView = ({match, history, currentViewInfo, emitAction, persistViewInfo,
       limit={40}
       id={`${currentViewInfo.model.name}_list`}
       entityName={currentViewInfo.model.name}
-      formName={queryFormName || currentViewInfo.model.name}
+      formName={queryParams.formName || currentViewInfo.model.name}
       onRowClick={handleRowClick}
       {...(currentViewInfo.reverseRelation && {
         parent: {
@@ -70,6 +70,7 @@ const ListView = ({match, history, currentViewInfo, emitAction, persistViewInfo,
       }}
       onNavigateToAction={handleNavigateToAction}
       actionAppComponent={Action}
+      tql={queryParams.tql}
     />
   )
 }
