@@ -477,7 +477,7 @@ describe('entity-list', () => {
 
         describe('getBasicQuery', () => {
           test('should return an object with correct attributes', () => {
-            const input = {searchFilters: ['filter1', 'filter2']}
+            const input = {searchFilters: ['filter1', 'filter2'], tql: 'foo == "bar"'}
             const searchForm = {
               formFieldsFlat: {
                 relGender: 'single-remote-field'
@@ -495,7 +495,7 @@ describe('entity-list', () => {
 
             const expectedResult = {
               filter: ['filter1', 'filter2', 'filter3'],
-              tql: 'relParent.pk == 1 and relGender.pk == 3 and txtFulltext == "full"'
+              tql: '(foo == "bar") and (relParent.pk == 1 and relGender.pk == 3 and txtFulltext == "full")'
             }
 
             return expectSaga(sagas.getBasicQuery)
