@@ -13,7 +13,7 @@ import {
 const StyledB = styled.b`
   && {
     ${declareFont({
-    fontWeight: 700
+    fontWeight: theme.fontWeight('bold')
   })}
   }
   ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
@@ -189,7 +189,7 @@ const StyledSup = styled.sup`
 const StyledStrong = styled.strong`
   && {
     ${declareFont({
-    fontWeight: 700
+    fontWeight: theme.fontWeight('bold')
   })}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
   }

@@ -4,7 +4,8 @@ import {
   declareFont,
   declareNoneWrappingText,
   declareWrappingText,
-  scale
+  scale,
+  theme
 } from '../utilStyles'
 
 const StyledDd = styled.dd`
@@ -27,7 +28,7 @@ const StyledDl = styled.dl`
 
 const StyledDt = styled.dt`
   && {
-    ${declareFont({fontWeight: 700})}
+    ${declareFont({fontWeight: theme.fontWeight('bold')})}
     ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
     margin: 0;
   }
