@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const TopPositioning = styled.div`
   height: 100%;
   display: grid;
-  grid-row-gap: 8px;
+  row-gap: 8px;
   grid-template-areas:
     'search'
     'list';
@@ -12,12 +12,11 @@ export const TopPositioning = styled.div`
 
 export const LeftPositioning = styled.div`
   display: grid;
-  grid-template-columns: minmax(400px, 22%) auto;
-  grid-column-gap: 2rem;
-  grid-template-areas: 'search list';
+  grid: 'search list' / minmax(350px, 16%) auto;
+  column-gap: 1rem;
 
   @media (max-width: 600px) {
-    grid-column-gap: 8px;
+    column-gap: 8px;
   }
 `
 
