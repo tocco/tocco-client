@@ -16,6 +16,10 @@ export const StyledSearchBox = styled.div`
       border-bottom: 1px solid ${theme.color('text')};
       padding-right: .3rem;
 
+      input[type='search']::-webkit-search-decoration {
+        display: none;
+      }
+
       &:focus {
         outline: none;
       }
