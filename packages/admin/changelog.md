@@ -1,3 +1,6 @@
+0.3.2
+- Support description fields
+
 0.3.1
 - Adjust table padding and hover table heading hover
 - Slim down left panel width in entity list view
