@@ -1,3 +1,9 @@
+0.3.1
+- Adjust table padding and hover table heading hover
+- Slim down left panel width in entity list view
+- Remove additional clear icon in safari
+- Fix fuzzy rendering of bold fonts in firefox
+
 0.3.0
 - Table v2
 - Fix display expressions
