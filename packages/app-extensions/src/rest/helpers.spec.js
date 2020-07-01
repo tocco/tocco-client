@@ -486,6 +486,27 @@ describe('app-extensions', () => {
             expect(result).to.eql(expectedResult)
           })
         })
+
+        describe('fetchPrincipal', () => {
+          test('should call requestSaga and return the principals info object', () => {
+            const response = {
+              username: 'tocco',
+              businessUnit: 'test1'
+            }
+
+            const expectedReturn = {
+              username: 'tocco',
+              currentBusinessUnit: 'test1'
+            }
+
+            return expectSaga(helpers.fetchPrincipal)
+              .provide([
+                [matchers.call.fn(requestSaga), {body: response}]
+              ])
+              .returns(expectedReturn)
+              .run()
+          })
+        })
       })
     })
   })

@@ -299,3 +299,25 @@ export const flattenObjectValues = value =>
     ...result,
     [key]: _isObject(value) && value.value ? value.value : value
   }), {})
+
+/**
+ * Helper to fetch information about the currently logged in user including username and active business unit.
+ */
+export function* fetchPrincipal() {
+  const cachedPrincipal = cache.get('session', 'principal')
+  if (cachedPrincipal !== undefined) {
+    return cachedPrincipal
+  }
+
+  const principalResponse = yield call(requestSaga, 'principals')
+  const {username, businessUnit: currentBusinessUnit} = principalResponse.body
+
+  const principal = {
+    username,
+    currentBusinessUnit
+  }
+
+  yield cache.add('session', 'principal', principal)
+
+  return principal
+}
