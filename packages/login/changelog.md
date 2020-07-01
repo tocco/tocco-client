@@ -1,4 +1,11 @@
-0.2.9
+0.2.10
+- Support new two-factor authentication
+- Adjust two factor handling
+- Fix display expressions
+- remove additional clear icon in safari
+- fix fuzzy rendering of bold fonts in firefox
+- Support description fields
+0.2.10
 - Adjust two factor handling
 - Fix display expressions
 - Remove additional clear icon in safari
