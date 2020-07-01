@@ -1,3 +1,9 @@
+0.10.1
+- Adjust table styling
+- Remove additional clear icon in safari
+- Fix fuzzy rendering of bold fonts in firefox
+- Support description fields
+
 0.10.0
 - Table v2
 - Fix display expressions
