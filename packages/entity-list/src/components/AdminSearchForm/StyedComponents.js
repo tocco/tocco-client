@@ -18,11 +18,13 @@ export const StyledHeader = styled.div`
 
 export const AdminSearchGrid = styled.div`
   height: 100%;
+  overflow: hidden;
 
   ${StyledSplit} {
-    height: calc(100% - 60px);
+    height: calc(100% - 40px);
+    display: flex;
+    flex-direction: column;
   }
-  overflow: hidden;
 `
 
 export const Box = styled.div`

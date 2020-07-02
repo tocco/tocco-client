@@ -8,7 +8,6 @@ import {
 } from 'tocco-ui'
 import _get from 'lodash/get'
 import {lighten} from 'polished'
-import {StyledPagination} from 'tocco-ui/src/Pagination/Pagination'
 
 import {StyledResizeHandle} from './ResizingController'
 
@@ -64,15 +63,11 @@ export const StyledTableHeaderCell = styled.th`
 
 export const PaginationContainer = styled.div`
   grid-row-start: pagination-start;
-  height: 30px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   border-top: 1px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
-
-  ${StyledPagination} {
-    margin-top: ${scale.space(0)};
-  }
 `
 
 const selectionStyles = css`
@@ -153,10 +148,10 @@ export const StretchingTableContainer = styled.div`
 
 export const StyledTableWrapper = styled.div`
   display: grid;
-  padding: 0 0 ${scale.space(-0.5)} ${scale.space(-0.5)};
+  padding-left: ${scale.space(-0.5)};
   background-color: ${theme.color('paper')};
   grid-template-rows: [table-start] 1fr [pagination-start] auto auto;
-  height: calc(100% - 2 * ${scale.space(-0.5)});
+  height: 100%;
 `
 
 export default StyledTable
