@@ -10,7 +10,8 @@ import {
   RelationLabel,
   RelationLinks,
   StyledPreviewBox,
-  StyledRelationBox
+  StyledRelationBox,
+  StyledRelationsViewWrapper
 } from './StyledComponents'
 import {StyledLink} from '../../../../components/StyledLink'
 import {goBack} from '../../../../utils/routing'
@@ -51,7 +52,7 @@ const RelationsView = ({
   }
 
   return (
-    <div>
+    <StyledRelationsViewWrapper>
       <StyledRelationBox>
         {relations.map(relation => (
           <RelationBox
@@ -133,8 +134,7 @@ const RelationsView = ({
         />
       </StyledPreviewBox>
       }
-    </div>
-
+    </StyledRelationsViewWrapper>
   )
 }
 
