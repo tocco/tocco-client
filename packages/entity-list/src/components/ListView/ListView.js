@@ -47,7 +47,8 @@ class ListView extends React.Component {
             this.props.formDefinition && this.props.formDefinition.children.map(child => {
               if (child.componentType === form.componentTypes.TABLE) {
                 return <ListWrapper searchFormPosition={this.props.searchFormPosition} key={`tableWrapper-${child.id}`}>
-                  <TableContainer key={`table-${child.id}`} columnDefinitions={getColumnDefinition(child)}/>
+                  <TableContainer key={`table-${child.id}`}
+                    columnDefinitions={getColumnDefinition(child, this.props.parent)}/>
                 </ListWrapper>
               } else if (actions.isAction(child.componentType)) {
                 const content = [
