@@ -40,17 +40,58 @@ const InputEditTable = ({data, inputDataForm, inputEditForm, updateValue, sortin
 }
 
 const arrowKeyHandler = event => {
-  if (document.activeElement.tagName === 'INPUT' && (event.key === 'ArrowUp' || event.key === 'ArrowDown')) {
+  if (document.activeElement.tagName === 'INPUT'
+    && (
+      event.key === 'ArrowUp'
+      || event.key === 'ArrowDown'
+      || event.key === 'ArrowLeft'
+      || event.key === 'ArrowRight'
+    )) {
     event.preventDefault()
-    const [idIndex, node] = document.activeElement.id.split(':')
-    const currentIndex = Number.parseInt(idIndex)
-    const indexDiff = event.key === 'ArrowUp' ? -1 : 1
-    const idToFind = `${currentIndex + indexDiff}:${node}`
-    const elementToFocus = document.getElementById(idToFind)
-    if (elementToFocus) {
-      elementToFocus.focus()
-      elementToFocus.select()
+    const [rowIndex, columnIndex] = document.activeElement.id.split(':')
+    if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+      const currentIndex = Number.parseInt(rowIndex)
+      const indexDiff = event.key === 'ArrowUp' ? -1 : 1
+      const idToFocus = `${currentIndex + indexDiff}:${columnIndex}`
+      const elementToFocus = document.getElementById(idToFocus)
+      focusElement(elementToFocus)
+    } else if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+      const currentIndex = Number.parseInt(columnIndex)
+      const indexDiff = event.key === 'ArrowLeft' ? -1 : 1
+      const elementToFocus = findHorizontalElementToFocus(rowIndex, currentIndex, indexDiff)
+      focusElement(elementToFocus)
     }
+  }
+}
+
+/**
+ * there might be readonly fields mixed in, so we need to check the rest of the fields
+ * @param rowIndex which row to navigate in
+ * @param currentIndex last checked cell index
+ * @param indexDiff which direction to move in
+ * @returns {HTMLElement}
+ */
+const findHorizontalElementToFocus = (rowIndex, currentIndex, indexDiff) => {
+  const adjustedIndex = currentIndex + indexDiff
+  const idToFocus = `${rowIndex}:${adjustedIndex}`
+  const elementToFocus = document.getElementById(idToFocus)
+  if (elementToFocus) {
+    if (elementToFocus.tagName === 'INPUT' && !elementToFocus.disabled) {
+      return elementToFocus
+    } else {
+      return findHorizontalElementToFocus(rowIndex, adjustedIndex, indexDiff)
+    }
+  } else {
+    return elementToFocus
+  }
+}
+
+const focusElement = elementToFocus => {
+  if (elementToFocus) {
+    // Reacts NumberFormat is clingy and steals focus when using left and right arrow keys, so we steal it back
+    setTimeout(() => {
+      elementToFocus.focus()
+    }, 0)
   }
 }
 
@@ -80,15 +121,16 @@ const getDataFormCells = inputDataForm => {
   return []
 }
 
-const keyBuilder = (index, column) => `${index}:${column.id}`
+const keyBuilder = (row, column) => `${row}:${column}`
 
 const TableCells = ({index, nodes, dataFormCells, inputEditForm, updateValue}) => {
   const dataCells = dataFormCells.map(column =>
-    <DataCell key={keyBuilder(index, column)} index={index} nodes={nodes} column={column}/>
+    <DataCell key={keyBuilder(index, column.id)} index={index} nodes={nodes} column={column}/>
   )
-  const editCells = inputEditForm.map(column =>
-    <InputCell key={keyBuilder(index, column)} index={index} nodes={nodes} column={column} updateValue={updateValue}/>
-  )
+  const editCells = inputEditForm.map((column, columnIndex) => {
+    const key = keyBuilder(index, columnIndex)
+    return <InputCell key={key} id={key} nodes={nodes} column={column} updateValue={updateValue}/>
+  })
   return [...dataCells, ...editCells]
 }
 
@@ -112,7 +154,7 @@ const InputCell = ({index, nodes, column, updateValue}) => {
   return <StyledCell width={width}>
     <EditableValue
       styles={{width: `${width}px`}}
-      id={keyBuilder(index, column)}
+      id={id}
       type={column.dataType}
       value={data ? (Object.prototype.hasOwnProperty.call(data, 'value') ? data.value : data) : null}
       readOnly={column.readonly}
@@ -150,7 +192,7 @@ DataCell.propTypes = {
 }
 
 InputCell.propTypes = {
-  index: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   nodes: PropTypes.object.isRequired,
   column: PropTypes.object.isRequired,
   updateValue: PropTypes.func.isRequired
