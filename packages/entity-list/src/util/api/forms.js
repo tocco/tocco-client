@@ -27,9 +27,10 @@ export const getConstriction = formDefinition => {
 
 const isDisplayableChild = child => !child.hidden
 
-export const getColumnDefinition = table =>
+export const getColumnDefinition = (table, parent) =>
   table.children
     .filter(column => !column.hidden)
+    .filter(parent ? column => column.id !== parent.reverseRelationName : () => true)
     .filter(column => column.children.filter(isDisplayableChild).length > 0)
     .map(c => (
       {
