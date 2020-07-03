@@ -136,7 +136,7 @@ const TableCells = ({index, nodes, dataFormCells, inputEditForm, updateValue}) =
 
 const DataCell = ({nodes, column}) => {
   const Field = field.factory('list', column.children[0].dataType)
-  const value = _get(nodes, column.children[0].path.replace('.', '.value.paths.') + '.value')
+  const value = loadValue(nodes, column)
   return <td>
     <Field
       formField={column.children[0]}
@@ -146,7 +146,29 @@ const DataCell = ({nodes, column}) => {
   </td>
 }
 
-const InputCell = ({index, nodes, column, updateValue}) => {
+const loadValue = (nodes, column) => {
+  const pathElements = column.children[0].path.split('.')
+  return resolvePath(nodes, pathElements)
+}
+
+const resolvePath = (current, pathElements) => {
+  if (current && pathElements.length > 0) {
+    const steppedDownPath = pathElements.splice(1)
+    const path = pathElements[0] + '.value'
+    const next = _get(current, path)
+    if (Array.isArray(next)) {
+      return next.map(element => resolvePath(element.paths, steppedDownPath)).join(', ')
+    } else if (next && Object.prototype.hasOwnProperty.call(next, 'paths')) {
+      return resolvePath(next.paths, steppedDownPath)
+    } else {
+      return next
+    }
+  } else {
+    return current
+  }
+}
+
+const InputCell = ({id, nodes, column, updateValue}) => {
   const width = column.dataType === 'single-select'
     ? Math.max(...(column.options.options.map(option => option.display.length))) * 8 + 60
     : undefined
