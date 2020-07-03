@@ -7,6 +7,8 @@ import {
   theme
 } from 'tocco-ui'
 
+import {StyledMessageWrapper, StyledTitleWrapper} from './TitleMessage'
+
 const wobbleHorizontal = keyframes`
   16.65% {
     transform: translateX(8px);
@@ -78,6 +80,15 @@ const StyledNotifier = styled.div`
 
           .rrt-progressbar {
             background-color: rgba(0, 0, 0, .3);  // reset: react-redux-toastr (index.scss)
+          }
+
+          ${StyledTitleWrapper} {
+            position: static;
+            top: unset;
+          }
+
+          ${StyledMessageWrapper} {
+            margin-top: 0;
           }
         }
 
