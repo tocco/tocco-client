@@ -1,11 +1,26 @@
 import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
-import {Panel} from 'tocco-ui'
+import {scale} from 'tocco-ui'
+import styled from 'styled-components'
+import SplitPane from 'react-split-pane'
 
 import InputEditTable from '../InputEditTable/InputEditTableContainer'
-import {FlexRow} from './StyledComponents'
 import InputEditPagination from '../InputEditPagination'
 import InputEditSearch from '../InputEditSearch'
+import {resizerStyle, StyledSplitPanelWrapperLeft, StyledSplitPanelWrapperRight} from './StyledInputEdit'
+
+const StyledSplitPane = styled(SplitPane)`
+  position: static !important;
+
+  .react-bs-container-body {
+    height: auto !important;
+    margin-bottom: ${scale.space(0)};
+  }
+
+  > div {
+    overflow-y: hidden;
+  }
+`
 
 const InputEdit = ({entityKey, initializeTable, initializeSearch}) => {
   useEffect(() => {
@@ -13,21 +28,20 @@ const InputEdit = ({entityKey, initializeTable, initializeSearch}) => {
     initializeSearch()
   }, [entityKey])
 
-  return <FlexRow>
-    <Panel.Wrapper key="search">
-      <Panel.Body>
-        <InputEditSearch/>
-      </Panel.Body>
-    </Panel.Wrapper>
-    <Panel.Wrapper key="list" isToggleable={false}>
-      <Panel.Body>
-        <InputEditTable/>
-      </Panel.Body>
-      <Panel.Footer>
-        <InputEditPagination/>
-      </Panel.Footer>
-    </Panel.Wrapper>
-  </FlexRow>
+  return <StyledSplitPane
+    defaultSize={325}
+    minSize={325}
+    resizerStyle={resizerStyle}
+    split="vertical"
+  >
+    <StyledSplitPanelWrapperLeft>
+      <InputEditSearch/>
+    </StyledSplitPanelWrapperLeft>
+    <StyledSplitPanelWrapperRight>
+      <InputEditTable/>
+      <InputEditPagination/>
+    </StyledSplitPanelWrapperRight>
+  </StyledSplitPane>
 }
 
 InputEdit.propTypes = {
