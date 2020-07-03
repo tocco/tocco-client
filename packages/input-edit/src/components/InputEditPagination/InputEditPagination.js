@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 const InputEditPagination = ({count, currentPage, recordsPerPage, setCurrentPage}) =>
-  count && currentPage
+  count && currentPage && (currentPage > 1 || count > recordsPerPage)
     ? <Pagination
       totalCount={count}
       currentPage={currentPage}
