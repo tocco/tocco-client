@@ -6,6 +6,7 @@ export const StyledTable = styled.table`
   background-color: ${theme.color('paper')};
   border-collapse: collapse;
   border-spacing: 0;
+  width: 100%;
 
   thead {
     tr {
