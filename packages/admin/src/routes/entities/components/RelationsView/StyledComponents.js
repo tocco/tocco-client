@@ -3,10 +3,19 @@ import {StyledSpan, theme, scale} from 'tocco-ui'
 
 import {StyledLink} from '../../../../components/StyledLink'
 
+export const StyledRelationsViewWrapper = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`
+
 export const StyledPreviewBox = styled.div`
   background-color: ${theme.color('paper')};
   padding: ${scale.space(-1)};
-  margin-top: ${scale.space(-1)};
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex: auto;
 
   ${StyledLink} {
     padding-left: ${scale.space(-0.5)};
