@@ -84,5 +84,10 @@ describe('tocco-ui', () => {
       const wrapper = shallow(<Link label="label text"/>)
       expect(wrapper.text()).to.equal('label text')
     })
+
+    test('should render children label', () => {
+      const wrapper = shallow(<Link>label text</Link>)
+      expect(wrapper.text()).to.equal('label text')
+    })
   })
 })
