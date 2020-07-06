@@ -48,7 +48,7 @@ class SearchPanel extends React.PureComponent {
             id={`search-panel-${calendarType.name}`}
             entityName={calendarType.targetEntity}
             formName={calendarType.formBase}
-            limit={25}
+            limit={15}
             showSearchForm={true}
             showCreateButton={false}
             selectable={true}
