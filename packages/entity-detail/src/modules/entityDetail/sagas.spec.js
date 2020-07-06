@@ -2,7 +2,7 @@ import {
   actions as formActions,
   SubmissionError
 } from 'redux-form'
-import {externalEvents, form, actions as actionUtil, actionEmitter, rest, remoteEvents} from 'tocco-app-extensions'
+import {externalEvents, form, rest, remoteEvents} from 'tocco-app-extensions'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {call, put, select, takeLatest, takeEvery, all} from 'redux-saga/effects'
@@ -32,7 +32,6 @@ describe('entity-detail', () => {
               takeEvery(actions.SUBMIT_FORM, sagas.submitForm),
               takeEvery(actions.FIRE_TOUCHED, sagas.fireTouched),
               takeEvery(actions.NAVIGATE_TO_CREATE, sagas.navigateToCreate),
-              takeEvery(actionUtil.actions.ACTION_INVOKED, sagas.actionInvoked),
               takeEvery(remoteEvents.REMOTE_EVENT, sagas.remoteEvent),
               takeLatest(actions.NAVIGATE_TO_ACTION, sagas.navigateToAction)
             ]))
@@ -257,19 +256,6 @@ describe('entity-detail', () => {
           })
         })
 
-        describe('actionInvoked saga', () => {
-          test('should refresh the data and emit the action', () => {
-            const action = {}
-            return expectSaga(sagas.actionInvoked, action)
-              .provide([
-                [matchers.call.fn(sagas.loadData), {}]
-              ])
-              .call.like({fn: sagas.loadData})
-              .put(actionEmitter.emitAction(action))
-              .run()
-          })
-        })
-
         describe('touchAllFields saga', () => {
           test('should call redux form action with all fields', () => {
             const action = {}
@@ -343,6 +329,30 @@ describe('entity-detail', () => {
                 [select(sagas.entityDetailSelector), detailState]
               ])
               .not.put(externalEvents.fireExternalEvent('onEntityDeleted'))
+              .run()
+          })
+
+          test('should call load date on entity update event', () => {
+            const updateEventAction = remoteEvents.remoteEvent({
+              type: 'entity-update-event',
+              payload: {
+                entities: [
+                  {entityName: 'User', key: '1'}
+                ]
+              }
+            })
+
+            const detailState = {
+              entityName: 'User',
+              entityId: '1'
+            }
+
+            return expectSaga(sagas.remoteEvent, updateEventAction)
+              .provide([
+                [select(sagas.entityDetailSelector), detailState],
+                [matchers.call.fn(sagas.loadData), {paths: {}}]
+              ])
+              .call(sagas.loadData, false)
               .run()
           })
         })

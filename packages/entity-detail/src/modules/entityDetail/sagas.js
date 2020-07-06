@@ -3,7 +3,7 @@ import {
   SubmissionError,
   getFormValues
 } from 'redux-form'
-import {externalEvents, notifier, errorLogging, form, actions as actionUtil, actionEmitter, rest, remoteEvents}
+import {externalEvents, notifier, errorLogging, form, rest, remoteEvents}
   from 'tocco-app-extensions'
 import {api} from 'tocco-util'
 import {call, put, select, takeLatest, takeEvery, all} from 'redux-saga/effects'
@@ -30,7 +30,6 @@ export default function* sagas() {
     takeEvery(actions.SUBMIT_FORM, submitForm),
     takeEvery(actions.FIRE_TOUCHED, fireTouched),
     takeEvery(actions.NAVIGATE_TO_CREATE, navigateToCreate),
-    takeEvery(actionUtil.actions.ACTION_INVOKED, actionInvoked),
     takeEvery(remoteEvents.REMOTE_EVENT, remoteEvent),
     takeLatest(actions.NAVIGATE_TO_ACTION, navigateToAction)
   ])
@@ -229,11 +228,6 @@ export function* loadData(reset = true) {
   yield put(formActions.initialize(FORM_ID, formValues, options))
 }
 
-export function* actionInvoked(action) {
-  yield call(loadData, false)
-  yield put(actionEmitter.emitAction(action))
-}
-
 export function* navigateToCreate({payload}) {
   yield put(externalEvents.fireExternalEvent('onNavigateToCreate', payload.relationName))
 }
@@ -243,15 +237,21 @@ export function* navigateToAction({payload}) {
   yield put(externalEvents.fireExternalEvent('onNavigateToAction', {definition, selection}))
 }
 
-export const entityDeleted = (event, entityName, entityId) =>
+export const isCurrentEntity = (event, entityName, entityId) =>
   !!event.payload.entities.find(entity => entity.entityName === entityName && entity.key === entityId)
 
 export function* remoteEvent(action) {
   const event = action.payload.event
-  if (event.type === 'entity-delete-event') {
-    const {entityName, entityId} = yield select(entityDetailSelector)
-    if (entityDeleted(event, entityName, entityId)) {
-      yield put(externalEvents.fireExternalEvent('onEntityDeleted'))
+  const {entityName, entityId} = yield select(entityDetailSelector)
+
+  if (isCurrentEntity(event, entityName, entityId)) {
+    switch (event.type) {
+      case 'entity-delete-event':
+        yield put(externalEvents.fireExternalEvent('onEntityDeleted'))
+        break
+      case 'entity-update-event':
+        yield call(loadData, false)
+        break
     }
   }
 }
