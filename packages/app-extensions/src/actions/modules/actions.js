@@ -11,7 +11,7 @@ export const actionInvoke = (definition, selection, parent) => ({
   }
 })
 
-export const actionInvoked = (definition, entity, selection, response) => ({
+export const actionInvoked = (definition, selection, response) => ({
   type: ACTION_INVOKED,
   payload: {
     definition,

@@ -1,4 +1,3 @@
-
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {takeEvery, all} from 'redux-saga/effects'
@@ -7,6 +6,7 @@ import * as actions from './actions'
 import actionHandlers from './actionHandlers'
 import preAction from './preActions'
 import rootSaga, * as sagas from './sagas'
+import remoteEvents from '../../remoteEvents'
 
 describe('app-extensions', () => {
   describe('actions', () => {
@@ -79,6 +79,33 @@ describe('app-extensions', () => {
                   [matchers.call.fn(actionHandlers[payload.definition.actionType]), {success: false}]
                 ])
                 .not.put.like({action: {type: actions.ACTION_INVOKED}})
+                .run()
+            }
+          )
+
+          test(
+            'should dispatch remote events',
+            () => {
+              const remoteEvent1 = {
+                type: 'entity-create-event',
+                payload: {entities: [{entityName: 'User', key: '2332'}]}
+              }
+              const remoteEvent2 = {
+                type: 'entity-update-event',
+                payload: {entities: [{entityName: 'User', key: '1'}]}
+              }
+
+              const actionResponse = {
+                success: true,
+                remoteEvents: [remoteEvent1, remoteEvent2]
+              }
+              return expectSaga(sagas.invokeAction, config, {payload})
+                .provide([
+                  [matchers.call.fn(preAction.run), {abort: false}],
+                  [matchers.call.fn(actionHandlers[payload.definition.actionType]), actionResponse]
+                ])
+                .put(remoteEvents.remoteEvent(remoteEvent1))
+                .put(remoteEvents.remoteEvent(remoteEvent2))
                 .run()
             }
           )
