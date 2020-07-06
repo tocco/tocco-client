@@ -23,7 +23,7 @@ const Link = props => {
       title={props.title || (props.breakWords ? undefined : props.label)}
     >
       {props.icon && <Icon icon={props.icon} position={design.position.PREPEND}/>}
-      {props.label}
+      {props.label || props.children}
     </StyledLink>
   )
 }
@@ -57,6 +57,10 @@ Link.propTypes = {
    * https://fontawesome.com/icons?d=gallery&s=regular,solid&m=free
    */
   icon: PropTypes.string,
+  /**
+   * Children element that can be set instead of label
+   */
+  children: PropTypes.node,
   /**
    * Describe link target concise.
    */
