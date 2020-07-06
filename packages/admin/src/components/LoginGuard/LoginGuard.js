@@ -2,7 +2,6 @@ import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {LoadMask} from 'tocco-ui'
 import {Helmet} from 'react-helmet'
-import {notifier} from 'tocco-app-extensions'
 
 import Login from '../../components/Login'
 import fav from './favicon.ico'
@@ -19,7 +18,6 @@ const LoginGuard = ({doSessionCheck, loggedIn}) => {
       </Helmet>
       <LoadMask required={[loggedIn !== undefined]} loadingText="Logging in...">
         <div>
-          <notifier.Notifier/>
           {!loggedIn ? <Login/> : <Admin/>}
         </div>
       </LoadMask>
