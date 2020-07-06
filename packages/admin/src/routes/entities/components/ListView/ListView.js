@@ -42,7 +42,7 @@ const ListView = ({match, history, currentViewInfo, emitAction, persistViewInfo,
   return (
     <EntityListApp
       emitAction={emitAction}
-      limit={40}
+      limit={25}
       id={`${currentViewInfo.model.name}_list`}
       entityName={currentViewInfo.model.name}
       formName={queryParams.formName || currentViewInfo.model.name}
