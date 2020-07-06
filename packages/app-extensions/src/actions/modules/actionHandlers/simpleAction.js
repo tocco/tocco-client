@@ -10,7 +10,16 @@ export default function* (definition, selection, parent, params) {
   yield put(notifier.blockingInfo(randomId, title))
   const response = yield call(invokeRequest, definition, selection, parent, params)
   yield put(notifier.removeBlockingInfo(randomId))
-  return response
+
+  return {
+    ...response,
+    remoteEvents: [
+      ...(response && response.success
+        ? [{type: 'entity-update-event', payload: {entities: [{entityName: selection.entityName}]}}]
+        : []
+      )
+    ]
+  }
 }
 
 export function* invokeRequest(definition, selection, parent, params) {
