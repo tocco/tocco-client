@@ -30,7 +30,7 @@ const isDisplayableChild = child => !child.hidden
 export const getColumnDefinition = (table, parent) =>
   table.children
     .filter(column => !column.hidden)
-    .filter(parent ? column => column.id !== parent.reverseRelationName : () => true)
+    .filter(column => !parent || column.children.length !== 1 || column.children[0].path !== parent.reverseRelationName)
     .filter(column => column.children.filter(isDisplayableChild).length > 0)
     .map(c => (
       {
