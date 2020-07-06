@@ -46,7 +46,7 @@
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.5.5",
-    "@fortawesome/fontawesome-svg-core": "^1.2.27",
+    "@fortawesome/fontawesome-svg-core": "^1.2.29",
     "@hot-loader/react-dom": "16.8.4",
     "@storybook/addon-a11y": "^5.3.18",
     "@storybook/addon-actions": "^5.3.18",

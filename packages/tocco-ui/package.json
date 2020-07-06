@@ -13,12 +13,12 @@
     "react-dom": "^15.2.1"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.24",
-    "@fortawesome/free-brands-svg-icons": "^5.11.2",
-    "@fortawesome/pro-light-svg-icons": "^5.11.2",
-    "@fortawesome/pro-regular-svg-icons": "^5.11.2",
-    "@fortawesome/pro-solid-svg-icons": "^5.11.2",
-    "@fortawesome/react-fontawesome": "^0.1.4",
+    "@fortawesome/fontawesome-svg-core": "^1.2.29",
+    "@fortawesome/free-brands-svg-icons": "^5.13.1",
+    "@fortawesome/pro-light-svg-icons": "^5.13.1",
+    "@fortawesome/pro-regular-svg-icons": "^5.13.1",
+    "@fortawesome/pro-solid-svg-icons": "^5.13.1",
+    "@fortawesome/react-fontawesome": "^0.1.11",
     "flatpickr": "4.5.7",
     "qrcode.react": "^1.0.0",
     "react-autosize-textarea": "^0.4.3",
