@@ -1,5 +1,5 @@
 import {expectSaga} from 'redux-saga-test-plan'
-import {actions as actionUtil, externalEvents, rest, remoteEvents} from 'tocco-app-extensions'
+import {externalEvents, rest, remoteEvents} from 'tocco-app-extensions'
 import * as matchers from 'redux-saga-test-plan/matchers'
 import {put, select, call, spawn, takeLatest, takeEvery, all} from 'redux-saga/effects'
 import {api} from 'tocco-util'
@@ -41,7 +41,6 @@ describe('entity-list', () => {
               takeLatest(actions.NAVIGATE_TO_ACTION, sagas.navigateToAction),
               takeLatest(selectionActions.RELOAD_DATA, sagas.loadData, 1),
               takeLatest(actions.ON_ROW_CLICK, sagas.onRowClick),
-              takeEvery(actionUtil.actions.ACTION_INVOKED, sagas.actionInvoked),
               takeEvery(remoteEvents.REMOTE_EVENT, sagas.remoteEvent)
             ]))
             expect(generator.next().done).to.be.true
@@ -700,6 +699,30 @@ describe('entity-list', () => {
 
           test('should not reload list if irrelevant update event', () => {
             return expectNoReload(classroomListState, updateEventAction)
+          })
+
+          test('should clean up selection on delete event', () => {
+            const deleteEventAction = remoteEvents.remoteEvent({
+              type: 'entity-delete-event',
+              payload: {
+                entities: [
+                  {entityName: 'User', key: '1'},
+                  {entityName: 'Login', key: '2'},
+                  {entityName: 'User', key: '99'}
+                ]
+              }
+            })
+
+            const listState = {
+              entityModel: {name: 'User'}
+            }
+
+            return expectSaga(sagas.remoteEvent, deleteEventAction)
+              .provide([
+                [select(sagas.listSelector), listState]
+              ])
+              .put(selectionActions.onSelectChange(['1', '99'], false))
+              .run()
           })
         })
       })

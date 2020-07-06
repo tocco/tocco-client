@@ -1,6 +1,6 @@
 import _isEmpty from 'lodash/isEmpty'
 import _union from 'lodash/union'
-import {externalEvents, actions as actionUtil, actionEmitter, rest, remoteEvents} from 'tocco-app-extensions'
+import {externalEvents, rest, remoteEvents} from 'tocco-app-extensions'
 import _omit from 'lodash/omit'
 import {call, put, fork, select, spawn, takeEvery, takeLatest, all, take} from 'redux-saga/effects'
 import {api} from 'tocco-util'
@@ -33,7 +33,6 @@ export default function* sagas() {
     takeLatest(actions.NAVIGATE_TO_ACTION, navigateToAction),
     takeLatest(selectionActions.RELOAD_DATA, loadData, 1),
     takeLatest(actions.ON_ROW_CLICK, onRowClick),
-    takeEvery(actionUtil.actions.ACTION_INVOKED, actionInvoked),
     takeEvery(remoteEvents.REMOTE_EVENT, remoteEvent)
   ])
 }
@@ -300,20 +299,20 @@ export function* navigateToAction({payload}) {
   yield put(externalEvents.fireExternalEvent('onNavigateToAction', {definition, selection}))
 }
 
-export function* actionInvoked(action) {
-  yield call(loadData)
-  yield put(actionEmitter.emitAction(action))
-}
-
 export const containsEntityOfModel = (event, entityName) =>
   !!event.payload.entities.find(entity => entity.entityName === entityName)
 
 export function* remoteEvent(action) {
   const event = action.payload.event
+  const {entityModel} = yield select(listSelector)
   if (['entity-create-event', 'entity-delete-event', 'entity-update-event'].includes(event.type)) {
-    const {entityModel} = yield select(listSelector)
     if (containsEntityOfModel(event, entityModel.name)) {
       yield call(reloadData)
     }
+  }
+
+  if (event.type === 'entity-delete-event') {
+    const deletedEntityKeys = event.payload.entities.filter(e => e.entityName === entityModel.name).map(e => e.key)
+    yield put(selectionActions.onSelectChange(deletedEntityKeys, false))
   }
 }
