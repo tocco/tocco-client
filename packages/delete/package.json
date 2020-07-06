@@ -1,0 +1,18 @@
+{
+  "name": "tocco-delete",
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "compile:prod": "cd ../../ && npm run compile:prod -- --package=delete",
+    "prepublish": "npm run compile:prod"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "tocco-app-extensions": ">0.1.0",
+    "tocco-test-util": ">0.1.0",
+    "tocco-theme": ">0.1.0",
+    "tocco-ui": ">0.1.0",
+    "tocco-util": ">0.1.0"
+  }
+}
