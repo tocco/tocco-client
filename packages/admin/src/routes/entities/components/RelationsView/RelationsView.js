@@ -131,6 +131,7 @@ const RelationsView = ({
             )
           }}
           showActions={false}
+          limit={15}
         />
       </StyledPreviewBox>
       }
