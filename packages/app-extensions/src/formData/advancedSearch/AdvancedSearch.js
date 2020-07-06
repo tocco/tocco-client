@@ -13,7 +13,7 @@ const AdvancedSearch = props =>
       entityName={props.entityName}
       formName={props.formName}
       listFormDefinition={props.listFormDefinition}
-      limit={5}
+      limit={15}
       showSearchForm={true}
       onSelectChange={selection => { props.onSelectionChange(selection) }}
       selection={props.selection}
