@@ -10,7 +10,8 @@ const actions = {
   'input-edit': lazy(() => import(/* webpackChunkName: "actions" */'./actions/InputEdit')),
   'resourcescheduler': lazy(() => import(/* webpackChunkName: "actions" */'./actions/ResourceScheduler')),
   'cash_management_import': lazy(() => import(/* webpackChunkName: "actions" */'./actions/CashManagementImport')),
-  'show-output-jobs-action': lazy(() => import(/* webpackChunkName: "actions" */'./actions/ShowOutputJobsAction'))
+  'show-output-jobs-action': lazy(() => import(/* webpackChunkName: "actions" */'./actions/ShowOutputJobsAction')),
+  'delete': lazy(() => import(/* webpackChunkName: "actions" */'./actions/Delete'))
 }
 
 const renderLoader = () => <LoadMask/>
