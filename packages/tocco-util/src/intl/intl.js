@@ -76,7 +76,6 @@ export const loadTextResources = async(locale, modules) => {
 
     notLoadedModules.forEach(module => {
       const filtered = Object.keys(resources)
-        .filter(key => key.includes(module))
         .reduce((obj, key) => {
           obj[key] = resources[key]
           return obj
