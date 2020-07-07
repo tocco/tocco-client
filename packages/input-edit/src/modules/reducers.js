@@ -2,17 +2,20 @@ import inputEditTableReducer, {sagas as inputEditTableSagas} from './inputEditTa
 import inputEditSearchReducer, {sagas as inputEditSearchSagas} from './inputEditSearch'
 import inputEditPaginationReducer, {sagas as inputEditPaginationSagas} from './inputEditPagination'
 import inputEditReducer, {sagas as inputEditSagas} from './inputEdit'
+import inputEditInformationReducer, {sagas as inputEditInformationSagas} from './inputEditInformation'
 
 export default {
   inputEdit: inputEditReducer,
   inputEditTable: inputEditTableReducer,
   inputEditSearch: inputEditSearchReducer,
-  inputEditPagination: inputEditPaginationReducer
+  inputEditPagination: inputEditPaginationReducer,
+  inputEditInformation: inputEditInformationReducer
 }
 
 export const sagas = [
   inputEditSagas,
   inputEditTableSagas,
   inputEditSearchSagas,
-  inputEditPaginationSagas
+  inputEditPaginationSagas,
+  inputEditInformationSagas
 ]
