@@ -1,6 +1,6 @@
 import React from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
-import {appFactory} from 'tocco-app-extensions'
+import {appFactory, actions, actionEmitter} from 'tocco-app-extensions'
 import {hot} from 'react-hot-loader/root'
 import PropTypes from 'prop-types'
 
@@ -10,10 +10,12 @@ import InputEdit from './components/InputEdit/InputEditContainer'
 
 const packageName = 'input-edit'
 
-const initApp = (id, input, events, publicPath) => {
+const initApp = (id, input, events = {}, publicPath) => {
   const content = <InputEdit/>
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
+  actionEmitter.addToStore(store)
+  actions.addToStore(store)
 
   return appFactory.createApp(
     packageName,
