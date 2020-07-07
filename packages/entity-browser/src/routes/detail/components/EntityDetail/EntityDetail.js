@@ -4,6 +4,7 @@ import {Prompt} from 'react-router-dom'
 import {intlShape} from 'react-intl'
 import {Button} from 'tocco-ui'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
+import {selection as selectionUtil} from 'tocco-util'
 
 import {StyledEntityDetailBackButton} from './StyledEntityDetail'
 
@@ -39,6 +40,15 @@ class EntityDetail extends React.Component {
     this.props.router.history.push(`${url}${id}`)
   }
 
+  handleNavigateToAction = ({definition, selection}) => {
+    const search = selectionUtil.selectionToQueryString(selection)
+    this.props.router.history.push({
+      pathname: '/action/' + definition.appId,
+      state: {definition, selection},
+      search
+    })
+  }
+
   handleTouchedChange = ({touched}) => {
     this.props.setFormTouched(touched)
   }
@@ -47,22 +57,25 @@ class EntityDetail extends React.Component {
     this.props.router.history.push(this.props.detailParams.parentUrl)
   }
 
-  getApp = ({entityName, entityId, formName, mode}) => (<EntityDetailApp
-    id={`${this.props.appId}_detail_${formName}_${entityId}` }
-    entityName={entityName}
-    entityId={entityId}
-    formName={formName}
-    mode={mode}
-    onSubGridRowClick={this.handleSubGridRowClick}
-    onNavigateToCreate={this.handleNavigateToCreate}
-    onEntityCreated={this.handleEntityCreated}
-    onEntityDeleted={this.handleGoBack}
-    onTouchedChange={this.handleTouchedChange}
-    emitAction={action => {
-      this.props.dispatchEmittedAction(action)
-    }}
-    theme={{}}
-  />)
+  getApp = ({entityName, entityId, formName, mode}) => {
+    return (<EntityDetailApp
+      id={`${this.props.appId}_detail_${formName}_${entityId}` }
+      entityName={entityName}
+      entityId={entityId}
+      formName={formName}
+      mode={mode}
+      onSubGridRowClick={this.handleSubGridRowClick}
+      onNavigateToCreate={this.handleNavigateToCreate}
+      onEntityCreated={this.handleEntityCreated}
+      onEntityDeleted={this.handleGoBack}
+      onTouchedChange={this.handleTouchedChange}
+      onNavigateToAction={this.handleNavigateToAction}
+      emitAction={action => {
+        this.props.dispatchEmittedAction(action)
+      }}
+      theme={{}}
+    />)
+  }
 
   msg = id => (this.props.intl.formatMessage({id}))
 
