@@ -19,7 +19,7 @@ export function* invokeAction(config, {payload}) {
     const actionHandler = actionHandlers[definition.actionType]
     const response = yield call(actionHandler, definition, selection, parent, params, config)
 
-    if (response.remoteEvents) {
+    if (response && response.remoteEvents) {
       yield all(response.remoteEvents.map(remoteEvent => put(remoteEvents.remoteEvent(remoteEvent))))
     }
 
