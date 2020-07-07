@@ -42,7 +42,7 @@ export function* handleCustomActionModal({definition, selection, config}) {
   const ActionComponent = config.appComponent
   yield put(notifier.modalComponent(
     `action-${definition.appId}`,
-    'client.actions.delete.title',
+    `client.actions.${definition.appId}.title`,
     null,
     ({close}) => {
       const onSuccess = ({message, remoteEvents}) => {
