@@ -76,10 +76,11 @@ export const loadTextResources = async(locale, modules) => {
 
     notLoadedModules.forEach(module => {
       const filtered = Object.keys(resources)
-        .reduce((obj, key) => {
-          obj[key] = resources[key]
-          return obj
-        }, {})
+        .filter(key => key.match(new RegExp('^client\\.' + module + '.*', 'g')))
+        .reduce((acc, key) => ({
+          ...acc,
+          [key]: resources[key]
+        }), {})
 
       cache.add('textResource', module, filtered)
       result = {...result, ...filtered}
