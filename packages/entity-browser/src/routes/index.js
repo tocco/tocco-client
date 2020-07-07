@@ -1,6 +1,7 @@
 import list from './list'
 import entityBrowser from './entity-browser'
 import detail from './detail'
+import app from './app'
 
 export const createRoutes = (store, input) => [{
   path: '/',
@@ -14,6 +15,10 @@ export const createRoutes = (store, input) => [{
     {
       path: '/detail/:entityId*',
       render: detail(store, input)
+    },
+    {
+      path: '/action/:appId*',
+      render: app(store, input)
     }
   ]
 }]
