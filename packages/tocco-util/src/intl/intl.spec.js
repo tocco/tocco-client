@@ -61,21 +61,32 @@ describe('tocco-util', () => {
         const componentsMessages = {
           'client.components': 'test2'
         }
-        const textResourceResponse = {
-          ...mergeMessages,
-          ...componentsMessages
+
+        const actionTitles = {
+          'client.actions.delete.title': 'Löschen',
+          'client.actions.input-edit.title': 'Noteneingabe'
         }
 
-        fetchMock.getOnce('/nice2/textresource?locale=en-GB&module=(merge|components)', textResourceResponse)
+        const textResourceResponse = {
+          ...mergeMessages,
+          ...componentsMessages,
+          ...actionTitles
+        }
 
-        const resources = await loadTextResources('en-GB', ['merge', 'components'])
+        fetchMock.getOnce(
+          '/nice2/textresource?locale=en-GB&module=(merge|components|actions.[^.]*\\.title)',
+          textResourceResponse
+        )
+
+        const resources = await loadTextResources('en-GB', ['merge', 'components', 'actions.[^.]*\\.title'])
 
         expect(resources).to.eql(resources)
-        const resources2 = await loadTextResources('en-GB', ['merge', 'components'])
+        const resources2 = await loadTextResources('en-GB', ['merge', 'components', 'actions.[^.]*\\.title'])
         expect(resources2).to.eql(resources)
 
         expect(cache.get('textResource', 'merge')).to.eql(mergeMessages)
         expect(cache.get('textResource', 'components')).to.eql(componentsMessages)
+        expect(cache.get('textResource', 'actions.[^.]*\\.title')).to.eql(actionTitles)
       })
     })
   })
