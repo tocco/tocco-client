@@ -116,12 +116,14 @@ const FormBuilder = props => {
     const model = _get(props, 'entity.model')
     const entityKey = _get(props, 'entity.key')
 
-    return <div className="StyledRelationsViewWrapper">
+    return <div
+      key={`action-${action.id}`}
+      className="StyledRelationsViewWrapper"
+    >
       <actions.Action
         definition={action}
         selection={actions.getSingleEntitySelection(model, entityKey)}
         mode={props.mode}
-        key={`action-${action.id}`}
         customActions={props.customActions}
       />
     </div>
