@@ -88,7 +88,7 @@ describe('entity-list', () => {
             const path = 'txtFulltext'
             const fieldType = 'fulltext-search'
 
-            const expectedResult = 'fulltext("Test*")'
+            const expectedResult = 'fulltext("Test") or fulltext("Test*")'
             const result = getTql(path, value, fieldType)
 
             expect(result).to.deep.eql(expectedResult)
@@ -99,7 +99,7 @@ describe('entity-list', () => {
             const path = 'relAddress'
             const fieldType = 'fulltext-search'
 
-            const expectedResult = 'fulltext("Test*",relAddress)'
+            const expectedResult = 'fulltext("Test", relAddress) or fulltext("Test*", relAddress)'
             const result = getTql(path, value, fieldType)
 
             expect(result).to.deep.eql(expectedResult)
