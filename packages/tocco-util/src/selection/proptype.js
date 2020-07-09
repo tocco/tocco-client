@@ -16,4 +16,4 @@ export default PropTypes.shape({
   },
   type: PropTypes.oneOf(Object.keys(selectionTypes)).isRequired,
   count: PropTypes.number
-}).isRequired
+})
