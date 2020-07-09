@@ -2,7 +2,7 @@ import React from 'react'
 import {LoadingSpinner, Typography} from 'tocco-ui'
 import {FormattedMessage, intlShape} from 'react-intl'
 
-import {deleteInfoPropTypes} from '../../utils/deleteRequestParser'
+import {deleteInfoPropType} from '../../utils/deleteRequestParser'
 import InfoPart from '../InfoPart'
 
 const DeleteProgress = ({dialogInfo, intl}) => {
@@ -12,16 +12,16 @@ const DeleteProgress = ({dialogInfo, intl}) => {
     <InfoPart
       key="infopart-deletable"
       entityName={dialogInfo.entityName}
-      entityModel={dialogInfo.entityModel}
-      primaryPks={dialogInfo.deletable}
-      relatedEntities={dialogInfo.deletableRelated}
+      entityLabel={dialogInfo.entityLabel}
+      keys={dialogInfo.keysDeletable}
+      relatedEntities={dialogInfo.relatedDeletable}
       maxCountLink={100}
     />
   </>
 }
 
 DeleteProgress.propTypes = {
-  dialogInfo: deleteInfoPropTypes,
+  dialogInfo: deleteInfoPropType.isRequired,
   intl: intlShape.isRequired
 }
 

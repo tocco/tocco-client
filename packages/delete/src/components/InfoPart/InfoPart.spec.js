@@ -6,23 +6,23 @@ import InfoPart from './InfoPart'
 
 describe('delete', () => {
   describe('components', () => {
-    describe('Dialog', () => {
+    describe('InfoPart', () => {
       it('should information and Links', () => {
         const wrapper = mount(
           <InfoPart
-            entityName="Person"
-            entityModel="User"
-            primaryPks={['1', '3']}
+            entityName="User"
+            entityLabel="Person"
+            keys={['1', '3']}
             relatedEntities={{
               Document: {
-                entityName: 'Dokument',
-                pks: ['103'],
-                pksOtherBu: ['23']
+                entityLabel: 'Dokument',
+                keys: ['103'],
+                keysOtherBu: ['23']
               },
               Addresse: {
-                entityName: 'Adresse',
-                pks: [],
-                pksOtherBu: ['23']
+                entityLabel: 'Adresse',
+                keys: [],
+                keysOtherBu: ['23']
               }
             }}
             maxCountLink={100}

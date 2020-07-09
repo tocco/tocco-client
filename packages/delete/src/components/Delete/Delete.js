@@ -4,7 +4,7 @@ import {LoadMask} from 'tocco-ui'
 import {intlShape} from 'react-intl'
 
 import Dialog from '../Dialog'
-import {deleteInfoPropTypes} from '../../utils/deleteRequestParser'
+import {deleteInfoPropType} from '../../utils/deleteRequestParser'
 import DeleteProgress from '../DeleteProgress'
 
 const Delete = ({loadDialogInfo, dialogInfo, deletingInProgress, intl}) => {
@@ -30,7 +30,7 @@ const Delete = ({loadDialogInfo, dialogInfo, deletingInProgress, intl}) => {
 
 Delete.propTypes = {
   loadDialogInfo: PropTypes.func.isRequired,
-  dialogInfo: deleteInfoPropTypes,
+  dialogInfo: deleteInfoPropType,
   deletingInProgress: PropTypes.bool,
   intl: intlShape.isRequired
 }
