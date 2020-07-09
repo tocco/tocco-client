@@ -31,14 +31,6 @@ export const StyledTableHeaderCell = styled.th`
   text-overflow: ellipsis;
   display: flex;
 
-  &:nth-child(1),
-  &:nth-child(2) {
-    &:hover {
-      background-color: ${theme.color('paper')};
-      cursor: default;
-    }
-  }
-
   &[id='${props => props.resizingColumn && props.resizingColumn.id}'] {
     background-color: ${props => lighten(0.25, props.theme.colors.secondaryLight)};
 
