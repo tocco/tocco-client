@@ -4,38 +4,7 @@ import {Button, SignalBox} from 'tocco-ui'
 
 import Dialog from './Dialog'
 import InfoPart from '../InfoPart'
-
-const dialogInfo = {
-  entityModel: 'User',
-  entityName: 'Person',
-  deletable: ['100'],
-  notDeletable: ['9', '1'],
-  deletableRelated: {
-    Resource: {
-      entityName: 'Dokument',
-      pks: ['17719', '33'],
-      pksOtherBu: []
-    },
-    Output_job_item: {
-      entityName: 'Einzeldokumente',
-      pks: ['10303'],
-      pksOtherBu: []
-    }
-  },
-  notDeletableRelated: {
-    Resource: {
-      entityName: 'Dokument',
-      pks: ['44', '20000'],
-      pksOtherBu: ['583']
-    },
-    Order: {
-      entityName: 'Auftrag',
-      pks: ['1023'],
-      pksOtherBu: []
-    }
-  },
-  unreadableEntities: true
-}
+import {dialogInfo} from '../../utils/deleteRequestParser.spec'
 
 describe('delete', () => {
   describe('components', () => {

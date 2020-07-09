@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {Button, Typography, SignalBox} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
 
-import {deleteInfoPropTypes} from '../../utils/deleteRequestParser'
+import {deleteInfoPropType} from '../../utils/deleteRequestParser'
 import InfoPart from '../InfoPart'
 
 const Dialog = ({dialogInfo, doDelete, onCancel}) =>
@@ -12,25 +12,25 @@ const Dialog = ({dialogInfo, doDelete, onCancel}) =>
     <InfoPart
       key="infopart-deletable"
       entityName={dialogInfo.entityName}
-      entityModel={dialogInfo.entityModel}
-      primaryPks={dialogInfo.deletable}
-      relatedEntities={dialogInfo.deletableRelated}
+      entityLabel={dialogInfo.entityLabel}
+      keys={dialogInfo.keysDeletable}
+      relatedEntities={dialogInfo.relatedDeletable}
       maxCountLink={100}
     />
-    {dialogInfo.notDeletable.length > 0
+    {dialogInfo.keysNotDeletable.length > 0
     && <div style={{paddingTop: '20px'}}>
       <Typography.P><FormattedMessage id="client.delete.textNotDeletable"/></Typography.P>
       <InfoPart
         key="infopart-notdeletable"
         entityName={dialogInfo.entityName}
-        entityModel={dialogInfo.entityModel}
-        primaryPks={dialogInfo.notDeletable}
-        relatedEntities={dialogInfo.notDeletableRelated}
+        entityLabel={dialogInfo.entityLabel}
+        keys={dialogInfo.keysNotDeletable}
+        relatedEntities={dialogInfo.relatedNotDeletable}
         maxCountLink={100}
       />
     </div>
     }
-    {dialogInfo.unreadableEntities
+    {dialogInfo.hasUnreadableEntities
     && <div style={{paddingTop: '20px'}}>
       <SignalBox
         condition="warning">
@@ -41,7 +41,7 @@ const Dialog = ({dialogInfo, doDelete, onCancel}) =>
     <div style={{paddingTop: '20px'}}>
       <Button
         onClick={doDelete}
-        disabled={dialogInfo.deletable.length === 0}
+        disabled={dialogInfo.keysDeletable.length === 0}
       >
         <FormattedMessage id="client.delete.deleteButton"/>
       </Button>
@@ -57,7 +57,7 @@ const Dialog = ({dialogInfo, doDelete, onCancel}) =>
 Dialog.propTypes = {
   onCancel: PropTypes.func.isRequired,
   doDelete: PropTypes.func.isRequired,
-  dialogInfo: deleteInfoPropTypes.isRequired
+  dialogInfo: deleteInfoPropType.isRequired
 }
 
 export default Dialog

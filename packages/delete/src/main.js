@@ -70,7 +70,7 @@ const DeleteApp = props => {
 }
 
 DeleteApp.propTypes = {
-  selection: selection.propType
+  selection: selection.propType.isRequired
 }
 
 export default hot(DeleteApp)
