@@ -6,15 +6,20 @@ import Typography from '../../Typography'
 import Popover from '../../Popover'
 import Icon from '../../Icon'
 import HtmlFormatter from './HtmlFormatter'
-import {theme} from '../../utilStyles'
+import {scale, theme} from '../../utilStyles'
 
 const DescriptionFormatter = props => {
   const themeContext = useContext(ThemeContext)
   const options = props.options || {}
-  const content = <React.Fragment>
+  const content = <>
     {options.title && <Typography.H5>{options.title}</Typography.H5>}
     <HtmlFormatter {...props}/>
-  </React.Fragment>
+  </>
+  const iconStyles = {
+    color: theme.color('text')({theme: themeContext}),
+    fontSize: theme.fontSize('base')({theme: themeContext}) * theme.fontSize('factor')({theme: themeContext}) + 'rem',
+    marginLeft: '-' + scale.space(-1)({theme: themeContext})
+  }
 
   if (options.mode === 'text') {
     return content
@@ -25,10 +30,7 @@ const DescriptionFormatter = props => {
     isPlainHtml={true}
     placement="top"
   ><Icon
-      style={{
-        color: theme.color('signal.info.text')({theme: themeContext}),
-        fontSize: theme.fontSize('base')({theme: themeContext}) + 'rem'
-      }}
+      style={iconStyles}
       icon="question-circle"/>
   </Popover>
 }
