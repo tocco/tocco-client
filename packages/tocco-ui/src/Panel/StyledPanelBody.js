@@ -7,7 +7,11 @@ const StyledPanelBody = styled(motion.div)`
     overflow: hidden;
 
     > div {
-      padding: ${props => props.isFramed ? '10px' : 0} 0;
+      padding: ${props => props.isFramed ? '10px' : 0} 0 0 0;
+    }
+
+    table {
+      position: static;
     }
   }
 `
