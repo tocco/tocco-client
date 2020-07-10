@@ -23,10 +23,12 @@ const deleteDialogResource = 'client/delete/dialog'
 export function* loadDialogInfo() {
   const body = yield call(getDeleteBodyFromSelection)
 
-  const response = yield call(rest.requestSaga, deleteDialogResource, {method: 'POST', body})
-  const principal = yield call(rest.fetchPrincipal)
+  const [deleteResponse, principal] = yield all([
+    call(rest.requestSaga, deleteDialogResource, {method: 'POST', body}),
+    call(rest.fetchPrincipal)
+  ])
 
-  const res = deleteRequestParser(response.body, principal.currentBusinessUnit.id)
+  const res = deleteRequestParser(deleteResponse.body, principal.currentBusinessUnit.id)
   yield put(actions.setDeleteDialogInfo(res))
 }
 
