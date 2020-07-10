@@ -9,19 +9,24 @@ cache:
   directories:
     - $HOME/.cache
     - server/static/node_modules
-    - packages/app-extensions-browser/node_modules
+    - packages/app-extensions/node_modules
+    - packages/delete/node_modules
     - packages/entity-browser/node_modules
     - packages/entity-detail/node_modules
     - packages/entity-list/node_modules
+    - packages/input-edit/node_modules
     - packages/login/node_modules
     - packages/merge/node_modules
     - packages/resource-scheduler/node_modules
     - packages/scheduler/node_modules
     - packages/simple-form/node_modules
+    - packages/sso-login/node_modules
     - packages/tocco-test-util/node_modules
     - packages/tocco-theme/node_modules
     - packages/tocco-ui/node_modules
     - packages/tocco-util/node_modules
+    - packages/two-factor-connector/node_modules
+    - packages/user-qr-action/node_modules
     - .eslintcache
     - .jestcache
     - .stylelintcache
