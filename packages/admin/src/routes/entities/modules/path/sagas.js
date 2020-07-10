@@ -160,19 +160,21 @@ export function* loadCurrentViewInfo({payload: {location}}) {
       yield put(viewPersistor.clearPersistedViews(currentViewInfo.level + 1))
     }
   } else {
-    yield call(handleActionRoute, pathname, pathParts)
+    const actionPathRegex = pathToRegexp('/e/action/:actionId', pathParts)
+    const parseResult = actionPathRegex.exec(pathname)
+
+    if (parseResult !== null) {
+      yield call(handleActionRoute, pathname, parseResult)
+    }
   }
 
   yield put(actions.setBreadcrumbsInfo(breadcrumbs))
 }
 
-function* handleActionRoute(pathname, pathParts) {
-  const actionPathRegex = pathToRegexp('/e/action/:actionId', pathParts)
-  const result = actionPathRegex.exec(pathname)
-
+function* handleActionRoute(pathname, parseResult) {
   yield put(actions.setCurrentViewInfo(pathname,
     {
-      actionId: result[1],
+      actionId: parseResult[1],
       pathname
     }))
 }

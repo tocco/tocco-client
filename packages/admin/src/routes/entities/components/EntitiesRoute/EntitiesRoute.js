@@ -30,7 +30,11 @@ const StyledBreadcrumbs = styled.div`
 `
 
 const EntitiesRoute = ({match, history, loadCurrentViewInfo}) => {
-  useEffect(() => { loadCurrentViewInfo(history.location) }, [])
+  const location = history.location
+
+  useEffect(() => {
+    loadCurrentViewInfo(location)
+  }, [location])
 
   return (
     <StyledWrapper>
