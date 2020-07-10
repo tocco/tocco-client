@@ -1,3 +1,13 @@
+0.10.2
+- Mitigate unwanted legacy action loading effects
+- Harmonize notification spacing
+- Add legacy icons
+- Adjust advanced-search list limit
+- Enable table height in resource calender to full height
+- Enable hover effect on first two table header elements
+- Harmonize question icon size/spacing in detail view
+- Adjust fulltext search to work the same way as in old client
+
 0.10.1
 - Adjust table styling
 - Remove additional clear icon in safari
