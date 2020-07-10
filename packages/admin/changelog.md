@@ -1,3 +1,16 @@
+0.3.3
+- Mitigate unwanted legacy action loading effects
+- Harmonize notification spacing
+- Enable full height scaling of detail view
+- Add legacy icons
+- Adjust list limits
+- Adjust advanced-search list limit
+- Enable table height in resource calender to full height
+- Enable hover effect on first two table header elements
+- Delete Action
+- Harmonize question icon size/spacing in detail view
+- Adjust fulltext search to work the same way as in old client
+
 0.3.2
 - Support description fields
 
