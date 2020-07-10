@@ -3,13 +3,14 @@ import React, {useState, useLayoutEffect, useRef} from 'react'
 import {FormattedMessage, intlShape} from 'react-intl'
 import {
   StatedValue,
-  Typography
+  Typography,
+  EditableValue
 } from 'tocco-ui'
 
 import {
   StyledTwoStepLogin
 } from './StyledTwoStepLoginForm'
-import {StyledLoginButton, StyledLoginFormInputWrapper, StyledLoginFormInput} from '../StyledLoginForm'
+import {StyledLoginButton, StyledLoginFormInputWrapper} from '../StyledLoginForm'
 
 const TwoStepLoginForm = ({username, password, showTitle, loginPending, twoStepLogin, intl}) => {
   const [userCode, setUserCode] = useState(null)
@@ -26,7 +27,6 @@ const TwoStepLoginForm = ({username, password, showTitle, loginPending, twoStepL
   }
 
   const msg = id => intl.formatMessage({id})
-
   return <StyledTwoStepLogin>
     {showTitle && <Typography.H5><FormattedMessage id="client.login.form.title"/></Typography.H5>}
     <form onSubmit={handleSubmit} ref={formEl}>
@@ -37,7 +37,7 @@ const TwoStepLoginForm = ({username, password, showTitle, loginPending, twoStepL
         label={msg('client.login.twoStepLogin.codePlaceholder')}
       >
         <StyledLoginFormInputWrapper>
-          <StyledLoginFormInput
+          <EditableValue
             type="number"
             value={userCode}
             events={{onChange: setUserCode}}
