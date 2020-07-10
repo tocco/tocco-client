@@ -17,8 +17,8 @@ const DescriptionFormatter = props => {
   </>
   const iconStyles = {
     color: theme.color('text')({theme: themeContext}),
-    fontSize: theme.fontSize('base')({theme: themeContext}) * theme.fontSize('factor')({theme: themeContext}) + 'rem',
-    marginLeft: '-' + scale.space(-1)({theme: themeContext})
+    fontSize: `${theme.fontSize('base')({theme: themeContext}) * theme.fontSize('factor')({theme: themeContext})}rem`,
+    marginLeft: `-${scale.space(-1)({theme: themeContext})}`
   }
 
   if (options.mode === 'text') {
