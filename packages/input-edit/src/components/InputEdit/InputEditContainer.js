@@ -1,5 +1,4 @@
 import {connect} from 'react-redux'
-import {injectIntl} from 'react-intl'
 
 import InputEdit from './InputEdit'
 import {initializeTable} from '../../modules/inputEditTable/actions'
@@ -17,4 +16,4 @@ const mapStateToProps = state => ({
   inputDataForm: state.inputEditTable.inputDataForm
 })
 
-export default connect(mapStateToProps, mapActionCreators)(injectIntl(InputEdit))
+export default connect(mapStateToProps, mapActionCreators)(InputEdit)

@@ -15,6 +15,6 @@
     "tocco-theme": ">0.0.0",
     "tocco-ui": "0.1.22",
     "tocco-util": "0.1.19",
-    "tocco-input-edit": "0.1.1"
+    "tocco-input-edit": ">0.1.0"
   }
 }

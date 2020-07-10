@@ -6,6 +6,7 @@ import {field} from 'tocco-app-extensions'
 import _get from 'lodash/get'
 
 import {StyledCell, StyledHeader, StyledTable} from './StyledComponents'
+import loadValue from './PathResolver'
 
 const InputEditTable = ({data, inputDataForm, inputEditForm, updateValue, sorting, setSorting}) => {
   const dataFormCells = useMemo(() => getDataFormCells(inputDataForm), [inputDataForm])
@@ -41,12 +42,7 @@ const InputEditTable = ({data, inputDataForm, inputEditForm, updateValue, sortin
 
 const arrowKeyHandler = event => {
   if (document.activeElement.tagName === 'INPUT'
-    && (
-      event.key === 'ArrowUp'
-      || event.key === 'ArrowDown'
-      || event.key === 'ArrowLeft'
-      || event.key === 'ArrowRight'
-    )) {
+    && ['ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowUp'].includes(event.key)) {
     event.preventDefault()
     const [rowIndex, columnIndex] = document.activeElement.id.split(':')
     if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
@@ -146,32 +142,10 @@ const DataCell = ({nodes, column}) => {
   </td>
 }
 
-const loadValue = (nodes, column) => {
-  const pathElements = column.children[0].path.split('.')
-  return resolvePath(nodes, pathElements)
-}
-
-const resolvePath = (current, pathElements) => {
-  if (current && pathElements.length > 0) {
-    const steppedDownPath = pathElements.splice(1)
-    const path = pathElements[0] + '.value'
-    const next = _get(current, path)
-    if (Array.isArray(next)) {
-      return next.map(element => resolvePath(element.paths, steppedDownPath)).join(', ')
-    } else if (next && Object.prototype.hasOwnProperty.call(next, 'paths')) {
-      return resolvePath(next.paths, steppedDownPath)
-    } else {
-      return next
-    }
-  } else {
-    return current
-  }
-}
-
 const InputCell = ({id, nodes, column, updateValue}) => {
   const width = column.dataType === 'single-select'
     ? Math.max(...(column.options.options.map(option => option.display.length))) * 8 + 60
-    : undefined
+    : null
   const data = _get(nodes, column.id.replace('.', '.value.paths.'))
   return <StyledCell width={width}>
     <EditableValue
