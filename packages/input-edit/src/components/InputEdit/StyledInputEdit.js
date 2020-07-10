@@ -19,3 +19,11 @@ export const StyledSplitPanelWrapper = styled.div`
     ${StyledScrollbar}
   }
 `
+
+export const StyledGutter = styled.div`
+  background-color: ${theme.color('paper')};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+`

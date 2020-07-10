@@ -202,7 +202,7 @@ export default function* (definition, selection, parent, params, config) {
 
   const situation = {
     entityName: selection.entityName,
-    scope: definition.scope ? definition.scope : yield call(getScope)
+    scope: definition.scope || (yield call(getScope))
   }
 
   const action = window.NetuiActionRegistry.newActionFromDefinition(actionDefinition, situation, ctx)
