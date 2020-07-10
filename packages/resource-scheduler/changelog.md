@@ -1,3 +1,14 @@
+0.3.2
+- Mitigate unwanted legacy action loading effects
+- Harmonize notification spacing
+- Add legacy icons
+- Adjust advanced-search list limit
+- Adjust list limit
+- Enable table height in resource calender to full height
+- Enable hover effect on first two table header elements
+- Harmonize question icon size/spacing in detail view
+- Adjust fulltext search to work the same way as in old client
+
 0.3.1
 - Adjust table padding and hover table heading hover
 - Slim down left panel width in entity list view
