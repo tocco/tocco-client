@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {FormattedDate, FormattedTime, injectIntl, intlShape} from 'react-intl'
+import moment from 'moment'
 
 import Typography from '../../Typography'
 
 export const DateTimeFormatter = props => {
-  const timestamp = Date.parse(props.value)
+  const timestamp = moment(props.value).toDate()
   if (isNaN(timestamp)) {
     // eslint-disable-next-line no-console
     console.error('DateTimeFormatter: Invalid date', props.value)
@@ -33,7 +34,7 @@ export const DateTimeFormatter = props => {
 
 DateTimeFormatter.propTypes = {
   intl: intlShape.isRequired,
-  value: PropTypes.string.isRequired
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
 }
 
 export default injectIntl(DateTimeFormatter)

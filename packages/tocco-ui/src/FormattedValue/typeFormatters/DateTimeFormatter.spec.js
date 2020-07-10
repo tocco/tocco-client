@@ -41,6 +41,19 @@ describe('tocco-ui', () => {
           expect(wrapper.find('time').prop('title')).to.not.equal('')
           expect(wrapper.find('time').prop('dateTime')).to.not.equal('')
         })
+
+        test('should recognize alternative datetime formats', () => {
+          const wrapper = mount(<IntlProvider locale="de">
+            <DateTimeFormatter
+              value={1594562400000}/>
+          </IntlProvider>)
+
+          // See above
+          // expect(wrapper.text()).to.equal('12.07.2020,16:00')
+          expect(wrapper.text()).to.not.equal('')
+          expect(wrapper.find('time').prop('title')).to.not.equal('')
+          expect(wrapper.find('time').prop('dateTime')).to.not.equal('')
+        })
       })
     })
   })
