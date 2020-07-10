@@ -1,3 +1,6 @@
+0.2.11
+- Fix two factor bug
+
 0.2.10
 - Support new two-factor authentication
 - Adjust two factor handling
