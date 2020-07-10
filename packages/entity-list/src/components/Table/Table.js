@@ -86,7 +86,7 @@ const Table = props => {
         multiSelectHandler,
         isSelected
       })
-      : column.label || null
+      : <div dangerouslySetInnerHTML={{__html: column.label}}/> || null
 
   const InProgressRow = () => <StyledTableRow>
     <StyledFullRowProgress>
