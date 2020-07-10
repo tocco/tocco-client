@@ -27,8 +27,8 @@ export const StyledTableHeaderCell = styled.th`
   ${declareFont({fontWeight: theme.fontWeight('bold')})};
   user-select: none;
   cursor: pointer;
+  overflow: hidden;
   white-space: nowrap;
-  text-overflow: ellipsis;
   display: flex;
 
   &[id='${props => props.resizingColumn && props.resizingColumn.id}'] {
