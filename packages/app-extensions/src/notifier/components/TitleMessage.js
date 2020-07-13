@@ -29,8 +29,10 @@ export const StyledTitleWrapper = styled.div`
 `
 
 export const StyledMessageWrapper = styled.div`
-  margin-top: ${({closable, title}) => closable ? scale.space(1.5)
-    : title ? scale.space(2.2)
+  margin-top: ${({closable, hasTitle}) => closable
+  ? scale.space(1.5)
+    : hasTitle
+    ? scale.space(2.2)
     : scale.space(0.5)
   };
 
@@ -64,7 +66,7 @@ const TitleMessage = ({title, message, children, closable}) => {
       {title && <StyledTitleWrapper>
         <Content content={title} tag={Typography.H1} />
       </StyledTitleWrapper>}
-      <StyledMessageWrapper closable={closable} title={title}>
+      <StyledMessageWrapper closable={closable} hasTitle={!!title}>
         {message && <Content content={message}/>}
         <StyledChildrenWrapper>
           {children}
