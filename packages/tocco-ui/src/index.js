@@ -11,7 +11,7 @@ export {default as Icon} from './Icon'
 export {default as LoadingSpinner} from './LoadingSpinner'
 export {default as MultiCheckbox} from './MultiCheckbox'
 export {default as Layout, StyledLayoutBox, StyledLayoutContainer, StyledScrollbar} from './Layout'
-export {default as Link, StyledLink} from './Link'
+export {default as Link, StyledLink, RouterLink} from './Link'
 export {default as LoadMask, StyledLoadMask} from './LoadMask'
 export {
   default as Menu,
