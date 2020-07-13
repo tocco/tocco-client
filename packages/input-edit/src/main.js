@@ -1,6 +1,6 @@
 import React from 'react'
 import {reducer as reducerUtil} from 'tocco-util'
-import {appFactory, actions, actionEmitter, notifier, externalEvents, errorLogging} from 'tocco-app-extensions'
+import {appFactory, actions, actionEmitter, notifier, errorLogging} from 'tocco-app-extensions'
 import {hot} from 'react-hot-loader/root'
 import PropTypes from 'prop-types'
 
@@ -18,7 +18,6 @@ const initApp = (id, input, events = {}, publicPath) => {
   actions.addToStore(store)
   notifier.addToStore(store, false)
   errorLogging.addToStore(store, false)
-  externalEvents.addToStore(store, events)
 
   return appFactory.createApp(
     packageName,
