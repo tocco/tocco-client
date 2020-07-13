@@ -187,6 +187,75 @@ describe('app-extensions', () => {
         const wrapper = shallow(<FormBuilder {...props}/>)
         expect(wrapper.find(Field)).to.have.length(1)
       })
+
+      test('should read multi paths entity fields', () => {
+        const entity = {
+          paths: {
+            relOrder: {
+              type: 'entity',
+              writable: false,
+              value: {
+                _links: null,
+                key: '12556',
+                model: 'Order',
+                version: 4,
+                paths: {
+                  relOrder_debitor_status: {
+                    type: 'entity',
+                    writable: false,
+                    value: {
+                      _links: null,
+                      key: '2',
+                      model: 'Order_debitor_status',
+                      version: 2,
+                      paths: {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        const formDefinition = {
+          id: 'UserSearch_detail',
+          readonly: false,
+          children: [
+            {
+              id: 'user_information',
+              componentType: 'layout',
+              layoutType: 'vertical-box',
+              readonly: true,
+              children: [
+                {
+                  id: 'Order_debitor_status',
+                  componentType: 'field-set',
+                  label: 'Status',
+                  hidden: false,
+                  readonly: true,
+                  children: [
+                    {
+                      id: 'Order_debitor_status', // does not match path by intention (-> should use path to get data)
+                      componentType: 'field',
+                      path: 'relOrder.relOrder_debitor_status',
+                      dataType: 'string',
+                      label: null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+
+        const {model, formName, formValues} = testData
+        const props = {entity, model, formName, formDefinition, formValues, mode: 'update', formFieldMapping: {}}
+        const wrapper = shallow(<FormBuilder {...props}/>)
+
+        expect(wrapper.find(Field).first().props().entityField).to.equal(
+          entity.paths.relOrder.value.paths.relOrder_debitor_status
+        )
+      })
     })
   })
 })
