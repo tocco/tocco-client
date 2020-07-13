@@ -1,6 +1,7 @@
 import React from 'react'
 import {mount} from 'enzyme'
-import {Link} from 'tocco-ui'
+import {RouterLink} from 'tocco-ui'
+import {MemoryRouter} from 'react-router-dom'
 
 import InfoPart from './InfoPart'
 
@@ -9,27 +10,30 @@ describe('delete', () => {
     describe('InfoPart', () => {
       it('should information and Links', () => {
         const wrapper = mount(
-          <InfoPart
-            entityName="User"
-            entityLabel="Person"
-            keys={['1', '3']}
-            relatedEntities={{
-              Document: {
-                entityLabel: 'Dokument',
-                keys: ['103'],
-                keysOtherBu: ['23']
-              },
-              Addresse: {
-                entityLabel: 'Adresse',
-                keys: [],
-                keysOtherBu: ['23']
-              }
-            }}
-            maxCountLink={100}
-          />)
+          <MemoryRouter>
+            <InfoPart
+              entityName="User"
+              entityLabel="Person"
+              keys={['1', '3']}
+              relatedEntities={{
+                Document: {
+                  entityLabel: 'Dokument',
+                  keys: ['103'],
+                  keysOtherBu: ['23']
+                },
+                Address: {
+                  entityLabel: 'Adresse',
+                  keys: [],
+                  keysOtherBu: ['23']
+                }
+              }}
+              maxCountLink={100}
+            />
+          </MemoryRouter>
+        )
 
         expect(wrapper.text()).to.eql('Person (2) / Dokument (2), Adresse (1)')
-        expect(wrapper.find(Link)).to.have.length(2)
+        expect(wrapper.find(RouterLink)).to.have.length(2)
       })
     })
   })
