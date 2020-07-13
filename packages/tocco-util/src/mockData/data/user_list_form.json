@@ -104,6 +104,16 @@
                 "label": "Validation Error Action",
                 "endpoint": "actions/validationError",
                 "icon": "cog"
+              },
+              {
+                "componentType": "action",
+                "id": "inputedit",
+                "actionType": "custom",
+                "appId": "input-edit",
+                "label": "Input Edit Fullscreen",
+                "minSelection": 1,
+                "maxSelection": 1,
+                "fullscreen": true
               }
             ]
           },

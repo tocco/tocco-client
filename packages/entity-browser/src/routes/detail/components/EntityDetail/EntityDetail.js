@@ -57,8 +57,8 @@ class EntityDetail extends React.Component {
     this.props.router.history.push(this.props.detailParams.parentUrl)
   }
 
-  getApp = ({entityName, entityId, formName, mode}) => {
-    return (<EntityDetailApp
+  getApp = ({entityName, entityId, formName, mode}) =>
+    <EntityDetailApp
       id={`${this.props.appId}_detail_${formName}_${entityId}` }
       entityName={entityName}
       entityId={entityId}
@@ -74,8 +74,7 @@ class EntityDetail extends React.Component {
         this.props.dispatchEmittedAction(action)
       }}
       theme={{}}
-    />)
-  }
+    />
 
   msg = id => (this.props.intl.formatMessage({id}))
 
