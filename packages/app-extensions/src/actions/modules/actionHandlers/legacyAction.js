@@ -33,9 +33,9 @@ export function* loadSequentially(sources) {
 
 export const sources = [
   {src: '/nice2/javascript/lang.release.js', handler: loadScript},
-  {src: '/nice2/javascript/nice2-ext-newclient-actions.debug.js', handler: loadScript},
-  {src: '/nice2/javascript/nice2-admin.debug.js', handler: loadScript},
-  {src: '/nice2/javascript/nice2-newclient-actions-setup.debug.js', handler: loadScript},
+  {src: '/nice2/javascript/nice2-ext-newclient-actions.release.js', handler: loadScript},
+  {src: '/nice2/javascript/nice2-admin.release.js', handler: loadScript},
+  {src: '/nice2/javascript/nice2-newclient-actions-setup.release.js', handler: loadScript},
   {src: '/nice2/dwr-all.js', handler: loadScript},
   {src: '/js/ext-extensions/ckeditor/ckeditor/ckeditor.js', handler: loadScript},
   {src: '/css/themes/blue-medium.css', handler: loadCss},

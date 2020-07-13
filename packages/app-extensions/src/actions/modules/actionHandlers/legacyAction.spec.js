@@ -37,9 +37,9 @@ describe('app-extensions', () => {
             test('should load the required sources sequentially', () => {
               testSaga(legacyAction.loadSequentially, legacyAction.sources).next()
                 .call(legacyAction.loadScript, '/nice2/javascript/lang.release.js').next()
-                .call(legacyAction.loadScript, '/nice2/javascript/nice2-ext-newclient-actions.debug.js').next()
-                .call(legacyAction.loadScript, '/nice2/javascript/nice2-admin.debug.js').next()
-                .call(legacyAction.loadScript, '/nice2/javascript/nice2-newclient-actions-setup.debug.js').next()
+                .call(legacyAction.loadScript, '/nice2/javascript/nice2-ext-newclient-actions.release.js').next()
+                .call(legacyAction.loadScript, '/nice2/javascript/nice2-admin.release.js').next()
+                .call(legacyAction.loadScript, '/nice2/javascript/nice2-newclient-actions-setup.release.js').next()
                 .call(legacyAction.loadScript, '/nice2/dwr-all.js').next()
                 .call(legacyAction.loadScript, '/js/ext-extensions/ckeditor/ckeditor/ckeditor.js').next()
                 .call(legacyAction.loadCss, '/css/themes/blue-medium.css').next()
