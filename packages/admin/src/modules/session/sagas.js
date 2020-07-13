@@ -1,6 +1,7 @@
 import {consoleLogger, cache} from 'tocco-util'
 import {rest} from 'tocco-app-extensions'
 import {takeLatest, call, all, put, select, delay} from 'redux-saga/effects'
+import Cookies from 'js-cookie'
 
 import * as actions from './actions'
 
@@ -48,6 +49,7 @@ export function* loginSuccessful({payload}) {
 }
 
 export function* logout({payload}) {
+  yield call(Cookies.remove, 'sso-autologin')
   yield call(doLogoutRequest)
   yield put(actions.setLoggedIn(false))
 }
