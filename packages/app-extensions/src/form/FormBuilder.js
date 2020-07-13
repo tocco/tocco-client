@@ -52,7 +52,8 @@ const FormBuilder = props => {
     }
 
     const fieldName = formDefinitionField.path || formDefinitionField.id
-    const entityField = props.entity ? props.entity.paths[fieldName] : null
+    const entityField = _get(props.entity, 'paths.' + fieldName.split('.').join('.value.paths.'))
+
     const modelSelector = formDefinitionField.path
       ? formDefinitionField.path.split('.')[0]
       : formDefinitionField.id
