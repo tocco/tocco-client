@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React, {lazy, Suspense} from 'react'
 import styled from 'styled-components'
 
-import {declareTypograhpy} from '../../Typography'
+import Typography, {declareTypograhpy} from '../../Typography'
 
 const StyledHtmlEdit = styled.div`
   && {
@@ -39,6 +39,12 @@ class HtmlEdit extends React.Component {
   }
 
   render() {
+    if (this.props.immutable) {
+      return <Typography.Span>
+        <div dangerouslySetInnerHTML={{__html: this.props.value}}></div>
+      </Typography.Span>
+    }
+
     return (
       <StyledHtmlEdit>
         <Suspense fallback={<i/>}>
@@ -48,8 +54,6 @@ class HtmlEdit extends React.Component {
             id={this.props.id}
             theme="snow"
             value={this.props.value}
-            readOnly={this.props.immutable}
-            modules={{toolbar: !this.props.immutable}}
           />
         </Suspense>
       </StyledHtmlEdit>
