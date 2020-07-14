@@ -72,6 +72,17 @@ describe('entity-list', () => {
             expect(result).to.deep.eql(expectedResult)
           })
 
+          test('should set time literal for time', () => {
+            const value = '13:32'
+            const path = 'time_limit'
+            const fieldType = 'time'
+
+            const expectedResult = 'time_limit == time:"13:32:00.000"'
+            const result = getTql(path, value, fieldType)
+
+            expect(result).to.deep.eql(expectedResult)
+          })
+
           test('should compare any other types as raw value', () => {
             const value = 33
             const path = 'amount'
