@@ -44,6 +44,8 @@ const typeHandlers = type => {
     case 'createts':
     case 'updatets':
       return (path, value, comp) => `${path} ${comp} datetime:"${moment(value).format('YYYY-MM-DD HH:mm')}"`
+    case 'time':
+      return (path, value, comp) => `${path} ${comp} time:"${moment(value, 'HH:mm').format('HH:mm:ss.sss')}"`
     case 'string':
       return (path, value, comp) => `${path} ${comp} "${value}"`
     default:
