@@ -120,7 +120,8 @@ const searchMapping = {
   long: editableValueFactory('number', true),
   integer: editableValueFactory('number', true),
   decimal: editableValueFactory('number', true),
-  counter: editableValueFactory('number', true)
+  counter: editableValueFactory('number', true),
+  time: editableValueFactory('time', true)
 }
 
 export default {
