@@ -1,3 +1,8 @@
+0.10.3
+- Fix shy in table header
+- Enable opening of other apps in entity-browser
+- Adjust HTML Edit
+
 0.10.2
 - Mitigate unwanted legacy action loading effects
 - Harmonize notification spacing
