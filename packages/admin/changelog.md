@@ -1,3 +1,15 @@
+0.3.4
+- Fix shy in table header
+- Delete sso cookie on logout
+- Adjust HTML Edit
+- Optimize admin view loading
+- Add actions to input-edit
+- Enable notifications in input-edit
+- Add information box to input-edit
+- Fix readonly fields shown as editable
+- Improve date time rendering
+- Adjust table cell width of last column
+
 0.3.3
 - Mitigate unwanted legacy action loading effects
 - Harmonize notification spacing
