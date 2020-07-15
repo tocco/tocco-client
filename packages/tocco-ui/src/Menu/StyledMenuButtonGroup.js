@@ -27,25 +27,22 @@ const StyledMenuButtonGroup = styled(StyledMenu)`
     }
 
     > li {
-      > a,
-      > button {
-        border-radius: 0;
-        height: 100%;
-      }
-
-      &:first-child {
+      :not(:first-child) {
         > a,
         > button {
-          border-top-left-radius: ${theme.radii('regular')};
-          border-bottom-left-radius: ${theme.radii('regular')};
+          margin-left: -1px;
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
         }
       }
 
-      &:last-child {
+      :not(:last-child) {
         > a,
         > button {
-          border-top-right-radius: ${theme.radii('regular')};
-          border-bottom-right-radius: ${theme.radii('regular')};
+          margin-right: 0;
+          border-right: 0;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
         }
       }
     }
