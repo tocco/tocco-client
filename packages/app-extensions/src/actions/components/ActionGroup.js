@@ -50,7 +50,7 @@ const ActionGroup = ({definition, onClick, selectedCount, disabled, intl}) => {
               disabled={disabled}
               intl={intl}
             />
-            <Menu.ItemFlyout
+            {definition.children.length > 0 ? <Menu.ItemFlyout
               isToggleable={definition.readonly !== true}
             >
               <Menu.Stack>
@@ -65,6 +65,8 @@ const ActionGroup = ({definition, onClick, selectedCount, disabled, intl}) => {
                 )}
               </Menu.Stack>
             </Menu.ItemFlyout>
+              : <React.Fragment/>
+            }
           </Menu.ButtonGroup>
         </Menu.Item>
       </Menu.Button>
