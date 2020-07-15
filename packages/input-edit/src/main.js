@@ -10,11 +10,15 @@ import InputEdit from './components/InputEdit/InputEditContainer'
 
 const packageName = 'input-edit'
 
+const EXTERNAL_EVENTS = [
+  'emitAction'
+]
+
 const initApp = (id, input, events = {}, publicPath) => {
   const content = <InputEdit/>
 
   const store = appFactory.createStore(reducers, sagas, input, packageName)
-  actionEmitter.addToStore(store)
+  actionEmitter.addToStore(store, events.emitAction)
   actions.addToStore(store)
   notifier.addToStore(store, false)
   errorLogging.addToStore(store, false)
@@ -62,11 +66,22 @@ const initApp = (id, input, events = {}, publicPath) => {
 })()
 
 const InputEditApp = props => {
-  return initApp('input-edit', props).component
+  const events = EXTERNAL_EVENTS.reduce((events, event) => {
+    if (props[event]) {
+      events[event] = props[event]
+    }
+    return events
+  }, {})
+
+  return initApp('input-edit', props, events).component
 }
 
 InputEditApp.propTypes = {
-  selection: PropTypes.object
+  selection: PropTypes.object,
+  ...EXTERNAL_EVENTS.reduce((propTypes, event) => {
+    propTypes[event] = PropTypes.func
+    return propTypes
+  }, {})
 }
 
 export default hot(InputEditApp)
