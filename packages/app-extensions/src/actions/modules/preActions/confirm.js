@@ -14,7 +14,7 @@ export function* run(params, definition, ids) {
   const onYes = () => answerChannel.put(answer(true))
   const onCancel = () => answerChannel.put(answer(null))
   const message = <FormattedMessage
-    id={definition.confirmMessage || 'client.component.actions.defaultConfirmMessage'}
+    id={definition.confirmationMessageText || 'client.component.actions.defaultConfirmMessage'}
     values={{length: ids.length}}
   />
 
