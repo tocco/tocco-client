@@ -1,3 +1,11 @@
+0.3.6
+- Fix delete bug
+
+0.3.5
+- Support time fields in search form
+- Fix split action button
+- Display notifications correctly in InputEdit
+
 0.3.4
 - Fix shy in table header
 - Delete sso cookie on logout
