@@ -12,12 +12,15 @@ const handleError = (response, acceptedErrorCodes = [], acceptedStatusCodes = []
 
 const extractBody = response => {
   const {ok, headers, status, statusText} = response
-
+  const filteredResponse = {ok, headers, status, statusText}
+  if (status === 204) {
+    return {...filteredResponse, body: null}
+  }
   return response.json()
-    .then(body => ({ok, headers, status, statusText, body}))
+    .then(body => ({...filteredResponse, body}))
     .catch(exception => {
       consoleLogger.log('Unable to extract request body', exception, response)
-      return {ok, headers, status, statusText}
+      return {...filteredResponse}
     })
 }
 
