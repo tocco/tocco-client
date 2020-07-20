@@ -7,9 +7,11 @@ import deleteRequestParser from '../../utils/deleteRequestParser'
 
 export const inputSelector = state => state.input
 export const textResourceSelector = state => state.intl.messages
+export const dialogInfoSelector = state => state.del.dialogInfo
 
 export function* getDeleteBodyFromSelection() {
   const {selection} = yield select(inputSelector)
+
   const entities = yield call(selectionUtil.getEntities, selection, rest.fetchEntities)
 
   return {
@@ -35,8 +37,12 @@ export function* loadDialogInfo() {
 const deleteResource = 'client/delete'
 
 export function* doDelete() {
+  const {keysDeletable, entityName} = yield select(dialogInfoSelector)
   yield put(actions.setDeletingInProgress(true))
-  const body = yield call(getDeleteBodyFromSelection)
+  const body = {
+    entityModel: entityName,
+    keys: keysDeletable
+  }
 
   const response = yield call(rest.requestSaga, deleteResource, {method: 'POST', body})
 
