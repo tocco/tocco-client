@@ -12,7 +12,7 @@ describe('entity-list', () => {
     describe('EntityList', () => {
       test('should render ListView', () => {
         const wrapper = shallow(
-          <EntityList initialize={EMPTY_FUNC} initializeSearchForm={EMPTY_FUNC}/>
+          <EntityList initialize={EMPTY_FUNC} initializeSearchForm={EMPTY_FUNC} loadPreferences={EMPTY_FUNC} />
         )
 
         expect(wrapper.find('List')).to.have.length(1)
@@ -23,6 +23,7 @@ describe('entity-list', () => {
           <EntityList
             initialize={EMPTY_FUNC}
             initializeSearchForm={EMPTY_FUNC}
+            loadPreferences={EMPTY_FUNC}
             navigateToCreate={EMPTY_FUNC}
             searchFormType={searchFormTypes.NONE}
           />

@@ -17,7 +17,7 @@ import SimpleFormApp from 'tocco-simple-form/src/main'
 import {hot} from 'react-hot-loader/root'
 
 import reducers, {sagas} from './modules/reducers'
-import EntityListContainer from './containers/EntityListContainer'
+import EntityList from './components/EntityList'
 import {getDispatchActions} from './input'
 import {selectionStylePropType} from './util/selectionStyles'
 import customActions from './customActions'
@@ -35,7 +35,7 @@ const EXTERNAL_EVENTS = [
 ]
 
 const initApp = (id, input, events = {}, publicPath) => {
-  const content = <EntityListContainer/>
+  const content = <EntityList/>
 
   let dispatchActions
   let store = input.store

@@ -1,3 +1,3 @@
-import EntityList from './EntityList'
+import EntityList from './EntityListContainer'
 
 export default EntityList

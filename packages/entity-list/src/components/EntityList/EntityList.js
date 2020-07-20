@@ -10,11 +10,13 @@ const EntityList = ({
   initialize,
   initializeSearchForm,
   searchFormType,
-  searchFormPosition
+  searchFormPosition,
+  loadPreferences
 }) => {
   useEffect(() => {
     initialize()
     initializeSearchForm()
+    loadPreferences()
   }, [])
 
   const List = () => (
@@ -42,6 +44,7 @@ const EntityList = ({
 EntityList.propTypes = {
   initialize: PropTypes.func.isRequired,
   initializeSearchForm: PropTypes.func.isRequired,
+  loadPreferences: PropTypes.func.isRequired,
   searchFormType: searchFormTypePropTypes,
   searchFormPosition: PropTypes.oneOf(['top', 'left'])
 }

@@ -146,4 +146,12 @@ export const StyledTableWrapper = styled.div`
   height: 100%;
 `
 
+export const StyledDnD = styled.div`
+  width: 100%;
+  display: flex;
+  border-right: ${props => props.isDraggedOver ? '3px solid ' + props.theme.colors.primary : 'none'};
+  opacity: ${props => props.isDragged ? 0.2 : 1};
+  pointer-events: ${props => props.isDraggedOver ? 'none' : 'auto'};
+`
+
 export default StyledTable
