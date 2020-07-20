@@ -30,27 +30,24 @@ export const StyledTableHeaderCell = styled.th`
   overflow: hidden;
   white-space: nowrap;
   display: flex;
-
-  &[id='${props => props.resizingColumn && props.resizingColumn.id}'] {
-    background-color: ${props => lighten(0.25, props.theme.colors.secondaryLight)};
+  ${props => props.isResizing && `
+    background-color: ${lighten(0.25, props.theme.colors.secondaryLight)};
 
     > ${StyledResizeHandle} {
       opacity: 1;
     }
+    `
   }
-  ${props => {
-  if (!props.resizingColumn) {
-    return `
-            &:hover {
-              background-color: ${lighten(0.25, props.theme.colors.secondaryLight)};
+  ${props => !props.resizingColumn && `
+    &:hover {
+      background-color: ${lighten(0.25, props.theme.colors.secondaryLight)};
 
-                > ${StyledResizeHandle} {
-                  opacity: 1;
-                }
-            }
-          `
+        > ${StyledResizeHandle} {
+          opacity: 1;
+        }
+    }
+    `
   }
-}}
 `
 
 export const PaginationContainer = styled.div`
