@@ -17,6 +17,11 @@ import {
   buildRequestQuery,
   fetchPrincipal
 } from './helpers'
+import {
+  fetchUserPreferences,
+  deleteUserPreferences,
+  savePreferences
+} from './helpers/preferences'
 import ClientQuestionCancelledException from './ClientQuestionCancelledException'
 
 export default {
@@ -35,5 +40,8 @@ export default {
   fetchEntityCount,
   fetchSearchFilters,
   buildRequestQuery,
-  fetchPrincipal
+  fetchPrincipal,
+  fetchUserPreferences,
+  deleteUserPreferences,
+  savePreferences
 }
