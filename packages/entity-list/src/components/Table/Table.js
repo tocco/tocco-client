@@ -114,7 +114,7 @@ const Table = props => {
 
   return <StyledTableWrapper>
     <StretchingTableContainer>
-      <StyledTable ref={tableEl} columns={columns} resizingColumn={resizingColumn}>
+      <StyledTable ref={tableEl} columns={columns}>
         <StyledTableHead>
           <StyledTableRow>
             {columns.map(column =>
@@ -122,7 +122,10 @@ const Table = props => {
                 id={`header-cell-${column.id}`}
                 key={`header-cell-${column.id}`}
                 data-cy={`header-cell-${column.id}`}
-                onClick={thOnClick(column)}>
+                onClick={thOnClick(column)}
+                resizingColumn={resizingColumn}
+                isResizing={resizingColumn && column.id === resizingColumn.id}
+              >
                 <div
                   style={{width: '100%', height: '100%', display: 'flex'}}
                   id={`header-cell-drop-${column.id}`}
