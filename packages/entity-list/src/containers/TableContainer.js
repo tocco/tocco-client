@@ -13,6 +13,9 @@ import {
   onSelectChange,
   setSelection
 } from '../modules/selection/actions'
+import {
+  changePosition
+} from '../modules/preferences/actions'
 
 const mapActionCreators = {
   initialize,
@@ -21,7 +24,8 @@ const mapActionCreators = {
   onRowClick,
   onSelectChange,
   setSelection,
-  refresh
+  refresh,
+  changePosition
 }
 
 const mapStateToProps = (state, props) => ({
@@ -35,7 +39,8 @@ const mapStateToProps = (state, props) => ({
   selection: state.selection.selection,
   parent: state.entityList.parent,
   showLink: state.list.showLink,
-  linkFactory: state.formData.linkFactory.linkFactory
+  linkFactory: state.formData.linkFactory.linkFactory,
+  positions: state.preferences.positions
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(Table))

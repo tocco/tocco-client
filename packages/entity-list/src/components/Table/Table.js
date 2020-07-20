@@ -4,6 +4,7 @@ import {intlShape, FormattedMessage} from 'react-intl'
 import {js} from 'tocco-util'
 import {Typography, LoadingSpinner, Pagination} from 'tocco-ui'
 import useDeepCompareEffect from 'use-deep-compare-effect'
+import _get from 'lodash/get'
 
 import useSelection from './useSelection'
 import useResize from './useResize'
@@ -21,8 +22,10 @@ import StyledTable, {
   StyledTableHead,
   StyledTableHeaderCell,
   StyledTableBody,
-  StyledTableRow
+  StyledTableRow,
+  StyledDnD
 } from './StyledTable'
+import useDnD from './useDnD'
 
 const rightAlignedTypes = ['counter', 'decimal', 'double', 'integer', 'latitude', 'long', 'longitude', 'moneyamount',
   'percent', 'serial', 'sorting', 'version']
@@ -31,7 +34,9 @@ const isRightAligned = column =>
   column.children && column.children.length === 1 && rightAlignedTypes.includes(column.children[0].dataType)
 
 const Table = props => {
-  const [columns, setColumns] = useState(props.columnDefinitions)
+  const [columns, setColumns] = useState(props.columnDefinitions.sort((a, b) =>
+    _get(props.positions, [a.id]) - _get(props.positions, [b.id])
+  ))
   const tableEl = useRef(null)
 
   const resizeCallback = (columnId, width) => {
@@ -45,6 +50,8 @@ const Table = props => {
 
   const {isSelected, singleSelectHandler, multiSelectHandler}
     = useSelection(props.selection, props.entities.map(e => e.__key), props.onSelectChange)
+
+  const {dndEvents, dndState} = useDnD(props.changePosition, columns)
 
   useDeepCompareEffect(() => {
     const c = columnEnhancers.reduce(
@@ -116,8 +123,23 @@ const Table = props => {
                 key={`header-cell-${column.id}`}
                 data-cy={`header-cell-${column.id}`}
                 onClick={thOnClick(column)}>
-                <ThContent column={column}/>
-                <SortingState column={column} sorting={props.sorting}/>
+                <div
+                  style={{width: '100%', height: '100%', display: 'flex'}}
+                  id={`header-cell-drop-${column.id}`}
+                  key={`header-cell-drop-${column.id}`}
+                  {...(!column.fixedPosition && {
+                    draggable: true,
+                    ...dndEvents(column.id)
+                  })}
+                >
+                  <StyledDnD
+                    isDraggedOver={dndState.currentlyDragOver === column.id && dndState.currentlyDragging !== column.id}
+                    isDragged={dndState.currentlyDragging === column.id}
+                  >
+                    <ThContent column={column}/>
+                    <SortingState column={column} sorting={props.sorting}/>
+                  </StyledDnD>
+                </div>
                 {!column.widthFixed && <ResizingController column={column} startResize={startResize}/>}
               </StyledTableHeaderCell>
             )}
@@ -200,7 +222,9 @@ Table.propTypes = {
     reverseRelationName: PropTypes.string
   }),
   showLink: PropTypes.bool,
-  linkFactory: PropTypes.objectOf(PropTypes.func)
+  linkFactory: PropTypes.objectOf(PropTypes.func),
+  changePosition: PropTypes.func.isRequired,
+  positions: PropTypes.objectOf(PropTypes.number)
 }
 
 const areEqual = (prevProps, nextProps) => {
