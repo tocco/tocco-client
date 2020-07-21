@@ -27,5 +27,5 @@ export function* deleteUserPreferences(path) {
  * @param preferences {object} Key/Value pairs.
  */
 export function* savePreferences(preferences) {
-  yield call(requestSaga, 'client/preferences', {method: 'PUT', body: {values: preferences}})
+  yield call(requestSaga, 'client/preferences', {method: 'PATCH', body: {values: preferences}})
 }
