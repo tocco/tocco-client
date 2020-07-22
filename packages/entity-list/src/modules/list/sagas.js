@@ -18,6 +18,7 @@ export const entityListSelector = state => state.entityList
 export const listSelector = state => state.list
 export const searchFormSelector = state => state.searchForm
 export const selectionSelector = state => state.selection
+export const preferencesSelector = state => state.preferences
 
 export default function* sagas() {
   yield all([
@@ -251,8 +252,10 @@ export const FALLBACK_SORTING_FIELD = 'update_timestamp'
 export function* setSorting() {
   const {formDefinition, entityModel} = yield select(listSelector)
   const tableSorting = yield call(getSorting, formDefinition)
-
-  if (tableSorting.length > 0) {
+  const {sorting: preferencesSorting} = yield select(preferencesSelector)
+  if (preferencesSorting.length > 0) {
+    yield put(actions.setSorting(preferencesSorting))
+  } else if (tableSorting.length > 0) {
     yield put(actions.setSorting(tableSorting))
   } else if (entityModel.paths[FALLBACK_SORTING_FIELD]) {
     yield put(actions.setSorting([{field: FALLBACK_SORTING_FIELD, order: 'desc'}]))

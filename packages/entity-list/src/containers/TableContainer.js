@@ -14,7 +14,8 @@ import {
   setSelection
 } from '../modules/selection/actions'
 import {
-  changePosition
+  changePosition,
+  resetSorting
 } from '../modules/preferences/actions'
 
 const mapActionCreators = {
@@ -25,7 +26,8 @@ const mapActionCreators = {
   onSelectChange,
   setSelection,
   refresh,
-  changePosition
+  changePosition,
+  resetSorting
 }
 
 const mapStateToProps = (state, props) => ({

@@ -3,9 +3,11 @@ import {rest} from 'tocco-app-extensions'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
 
-import {entityListSelector} from '../list/sagas'
+import {entityListSelector, listSelector} from '../list/sagas'
+import * as listSagas from '../list/sagas'
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
+import * as listActions from '../list/actions'
 
 describe('entity-list', () => {
   describe('modules', () => {
@@ -15,15 +17,32 @@ describe('entity-list', () => {
           const generator = rootSaga()
           expect(generator.next().value).to.deep.equal(all([
             takeLatest(actions.LOAD_PREFERENCES, sagas.loadPreferences),
-            takeLatest(actions.CHANGE_POSITION, sagas.changePosition)
+            takeLatest(actions.CHANGE_POSITION, sagas.changePosition),
+            takeLatest(listActions.SET_SORTING_INTERACTIVE, sagas.saveSorting),
+            takeLatest(actions.RESET_SORTING, sagas.resetSorting)
           ]))
           expect(generator.next().done).to.be.true
         })
         describe('loadPreferences', () => {
           test('should fetch user preferences and dispatch', () => {
             const preferences = {
-              'User_list.firstname.position': '5'
+              'User_list.firstname.position': '5',
+              'Principal_list.sortingField': 'first_field',
+              'Principal_list.sortingDirection': 'asc',
+              'Principal_list.sortingField.1': 'second_field',
+              'Principal_list.sortingDirection.1': 'desc'
             }
+
+            const expectedSorting = [
+              {
+                field: 'first_field',
+                order: 'asc'
+              },
+              {
+                field: 'second_field',
+                order: 'desc'
+              }
+            ]
 
             return expectSaga(sagas.loadPreferences)
               .provide([
@@ -31,6 +50,7 @@ describe('entity-list', () => {
                 [matchers.call.fn(rest.fetchUserPreferences), preferences]
               ])
               .put.actionType(actions.SET_POSITIONS)
+              .put(actions.setSorting(expectedSorting))
               .run()
           })
         })
@@ -47,6 +67,65 @@ describe('entity-list', () => {
               .put.actionType(actions.SET_POSITIONS)
               .call.like({fn: rest.savePreferences})
               .call.like({fn: rest.deleteUserPreferences})
+              .run()
+          })
+        })
+
+        describe('saveSorting ', () => {
+          test('should save sorting from list as preference', () => {
+            const providedSorting = [
+              {
+                field: 'first_field',
+                order: 'asc'
+              },
+              {
+                field: 'second_field',
+                order: 'desc'
+              }
+            ]
+            const expectedPreferences = {
+              'User_list.sortingField': 'first_field',
+              'User_list.sortingDirection': 'asc',
+              'User_list.sortingField.1': 'second_field',
+              'User_list.sortingDirection.1': 'desc'
+            }
+            return expectSaga(sagas.saveSorting)
+              .provide([
+                [select(entityListSelector), {formName: 'User'}],
+                [select(listSelector), {sorting: providedSorting}],
+                [matchers.call.fn(rest.deleteUserPreferences)],
+                [matchers.call.fn(rest.savePreferences)]
+              ])
+              .call(rest.deleteUserPreferences, 'User_list.sortingField*')
+              .call(rest.deleteUserPreferences, 'User_list.sortingDirection*')
+              .call(rest.savePreferences, expectedPreferences)
+              .run()
+          })
+          test('should not save sorting if none exists', () => {
+            return expectSaga(sagas.saveSorting)
+              .provide([
+                [select(entityListSelector), {formName: 'User'}],
+                [select(listSelector), {sorting: []}]
+              ])
+              .not.call.like({fn: rest.savePreferences})
+              .not.call.like({fn: rest.deleteUserPreferences})
+              .run()
+          })
+        })
+
+        describe('resetSorting ', () => {
+          test('should remove sorting preferences', () => {
+            return expectSaga(sagas.resetSorting)
+              .provide([
+                [select(entityListSelector), {formName: 'User'}],
+                [matchers.call.fn(rest.deleteUserPreferences)],
+                [matchers.call.fn(listSagas.setSorting)],
+                [matchers.call.fn(listSagas.reloadData)]
+              ])
+              .call(rest.deleteUserPreferences, 'User_list.sortingField*')
+              .call(rest.deleteUserPreferences, 'User_list.sortingDirection*')
+              .call.like({fn: listSagas.setSorting})
+              .call.like({fn: listSagas.reloadData})
               .run()
           })
         })

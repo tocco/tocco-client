@@ -1,4 +1,12 @@
-import {getPositions, changePosition, getPositionsPreferencesToSave, getPositionsFromColumns} from './preferences'
+import {
+  getPositions,
+  changePosition,
+  getPositionsPreferencesToSave,
+  getPositionsFromColumns,
+  getSorting,
+  getSortingPreferencesToSave,
+  getAdditionalSortingPreferencesToSave
+} from './preferences'
 
 describe('entity-list', () => {
   describe('util', () => {
@@ -88,6 +96,53 @@ describe('entity-list', () => {
 
           expect(getPositionsPreferencesToSave('User_list', positions)).to.eql(expectedResult)
         })
+      })
+
+      describe('getSorting', () => {
+        const preferences = {
+          'User_list.firstname.position': '5',
+          'Principal_list.sortingField': 'first_field',
+          'Principal_list.sortingDirection': 'asc',
+          'Principal_list.sortingField.1': 'second_field',
+          'Principal_list.sortingDirection.1': 'desc'
+        }
+
+        const expectedSorting = [
+          {
+            field: 'first_field',
+            order: 'asc'
+          },
+          {
+            field: 'second_field',
+            order: 'desc'
+          }
+        ]
+
+        expect(getSorting(preferences)).to.deep.equal(expectedSorting)
+      })
+
+      describe('getSortingPreferencesToSave', () => {
+        const sorting = {
+          field: 'field',
+          order: 'asc'
+        }
+        const expectedPreference = {
+          'User_list.sortingField': 'field',
+          'User_list.sortingDirection': 'asc'
+        }
+        expect(getSortingPreferencesToSave('User_list', sorting)).to.deep.equal(expectedPreference)
+      })
+
+      describe('getAdditionalSortingPreferencesToSave', () => {
+        const sorting = {
+          field: 'field',
+          order: 'asc'
+        }
+        const expectedPreference = {
+          'User_list.sortingField.1': 'field',
+          'User_list.sortingDirection.1': 'asc'
+        }
+        expect(getAdditionalSortingPreferencesToSave('User_list', sorting, 1)).to.deep.equal(expectedPreference)
       })
     })
   })
