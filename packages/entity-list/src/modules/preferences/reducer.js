@@ -2,12 +2,22 @@ import {reducer as reducerUtil} from 'tocco-util'
 
 import * as actions from './actions'
 
+const resetSorting = state => {
+  return {
+    ...state,
+    sorting: []
+  }
+}
+
 const ACTION_HANDLERS = {
-  [actions.SET_POSITIONS]: reducerUtil.singleTransferReducer('positions')
+  [actions.SET_POSITIONS]: reducerUtil.singleTransferReducer('positions'),
+  [actions.SET_SORTING]: reducerUtil.singleTransferReducer('sorting'),
+  [actions.RESET_SORTING]: resetSorting
 }
 
 const initialState = {
-  positions: null
+  positions: null,
+  sorting: []
 }
 
 export default function reducer(state = initialState, action) {

@@ -2,7 +2,8 @@ import reducer from './'
 import * as actions from './actions'
 
 const EXPECTED_INITIAL_STATE = {
-  positions: null
+  positions: null,
+  sorting: []
 }
 
 describe('entity-list', () => {
@@ -27,6 +28,22 @@ describe('entity-list', () => {
           }
 
           expect(reducer(stateBefore, actions.setPositions(positions))).to.deep.equal(expectedStateAfter)
+        })
+
+        test('should set sorting', () => {
+          const newSorting = {
+            field: 'field',
+            order: 'order'
+          }
+          expect(reducer({sorting: [{field: 'old'}]}, actions.setSorting(newSorting)).sorting).to.equal(newSorting)
+        })
+
+        test('should clear sorting', () => {
+          const previousSorting = {
+            field: 'field',
+            order: 'order'
+          }
+          expect(reducer({sorting: previousSorting}, actions.resetSorting()).sorting).to.be.empty
         })
       })
     })

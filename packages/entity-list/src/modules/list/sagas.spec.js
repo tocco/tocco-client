@@ -209,7 +209,8 @@ describe('entity-list', () => {
             return expectSaga(sagas.setSorting)
               .provide([
                 [matchers.call.fn(getSorting), sorting],
-                [select(sagas.listSelector), {entityModel, formDefinition}]
+                [select(sagas.listSelector), {entityModel, formDefinition}],
+                [select(sagas.preferencesSelector), {sorting: []}]
               ])
               .put(actions.setSorting(sorting))
               .run()
@@ -219,7 +220,8 @@ describe('entity-list', () => {
             return expectSaga(sagas.setSorting)
               .provide([
                 [matchers.call.fn(getSorting), []],
-                [select(sagas.listSelector), {entityModel, formDefinition}]
+                [select(sagas.listSelector), {entityModel, formDefinition}],
+                [select(sagas.preferencesSelector), {sorting: []}]
               ])
               .put(actions.setSorting([{field: sagas.FALLBACK_SORTING_FIELD, order: 'desc'}]))
               .run()
@@ -229,9 +231,23 @@ describe('entity-list', () => {
             return expectSaga(sagas.setSorting)
               .provide([
                 [matchers.call.fn(getSorting), []],
-                [select(sagas.listSelector), {entityModel: {paths: {}}, formDefinition}]
+                [select(sagas.listSelector), {entityModel: {paths: {}}, formDefinition}],
+                [select(sagas.preferencesSelector), {sorting: []}]
               ])
               .not.put.like({action: {type: 'list/SET_SORTING'}})
+              .run()
+          })
+
+          test('should prefer sorting from preferences', () => {
+            const formSorting = [{field: 'firstname', order: 'asc'}]
+            const preferenceSorting = [{field: 'other', order: 'desc'}]
+            return expectSaga(sagas.setSorting)
+              .provide([
+                [matchers.call.fn(getSorting), formSorting],
+                [select(sagas.listSelector), {entityModel, formDefinition}],
+                [select(sagas.preferencesSelector), {sorting: preferenceSorting}]
+              ])
+              .put(actions.setSorting(preferenceSorting))
               .run()
           })
         })
