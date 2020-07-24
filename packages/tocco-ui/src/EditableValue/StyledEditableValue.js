@@ -61,7 +61,7 @@ const StyledEditableControl = styled.div`
   }
 `
 
-const StyledEditableValue = styled.span`
+export const StyledEditableValue = styled.span`
   && {
     //textarea
     textarea {
