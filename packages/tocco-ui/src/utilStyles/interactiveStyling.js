@@ -74,7 +74,8 @@ export default props => {
     background: ${lighten(0.1, hoverBackgroundColor)};
   }
 
-  &:disabled {
+  &:disabled,
+  &[disabled] {
     background: ${tint(0.5, backgroundColor)};
     color: ${tint(0.5, fontColor)};
     cursor: not-allowed;
