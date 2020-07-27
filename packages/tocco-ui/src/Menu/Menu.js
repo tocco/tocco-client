@@ -1,35 +1,77 @@
+import React, {useState, useRef, useEffect} from 'react'
 import PropTypes from 'prop-types'
-import React from 'react'
+import {usePopper} from 'react-popper'
+import styled from 'styled-components'
+import ReactDOM from 'react-dom'
 
-import StyledMenu from './StyledMenu'
-import {design} from '../utilStyles'
+const StyledPopper = styled.div`
+  box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+`
 
-export class Menu extends React.Component {
-  getChildren = () => {
-    return React.Children.map(this.props.children, child =>
-      React.cloneElement(child, {look: this.props.look})
-    )
+/**
+ * Menu realised with popper.
+ */
+const Menu = props => {
+  const thisEl = useRef(null)
+  const [popperElement, setPopperElement] = useState(null)
+
+  const handleClickOutside = e => {
+    if (thisEl && thisEl.current && !thisEl.current.contains(e.target)
+      && props.referenceElement && !props.referenceElement.contains(e.target)) {
+      props.onClose()
+    }
   }
 
-  render() {
-    return (
-      <StyledMenu>
-        {this.getChildren()}
-      </StyledMenu>
-    )
-  }
-}
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [props.referenceElement])
 
-Menu.defaultProps = {
-  look: design.look.FLAT
+  const {styles, attributes} = usePopper(props.referenceElement, popperElement, {
+    placement: 'bottom-start',
+    modifiers: [
+      {
+        name: 'offset',
+        options: {
+          offset: [0, 5]
+        }
+      }
+    ]
+  }
+  )
+
+  if (!props.open) {
+    return null
+  }
+
+  return ReactDOM.createPortal(
+    <div ref={thisEl}>
+      <StyledPopper ref={setPopperElement} style={styles.popper} {...attributes.popper}>
+        {React.Children.map(props.children, child => React.cloneElement(child, {onClose: props.onClose}))}
+      </StyledPopper>
+    </div>
+    , document.body)
 }
 
 Menu.propTypes = {
   /**
-   * Look of all menu items. Default value is 'flat'.
+   * Element to attach popper menu to
    */
-  look: PropTypes.oneOf([design.look.FLAT, design.look.RAISED]),
-  children: PropTypes.node
+  referenceElement: PropTypes.any,
+  /**
+   * Will be called if menu is closed
+   */
+  onClose: PropTypes.func.isRequired,
+  /**
+   * Tree of <MenuItems>
+   */
+  children: PropTypes.node,
+  /**
+   * Whether menu is open or not
+   */
+  open: PropTypes.bool
 }
 
 export default Menu

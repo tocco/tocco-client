@@ -13,16 +13,6 @@ export {default as MultiCheckbox} from './MultiCheckbox'
 export {default as Layout, StyledLayoutBox, StyledLayoutContainer, StyledScrollbar} from './Layout'
 export {default as Link, StyledLink, RouterLink} from './Link'
 export {default as LoadMask, StyledLoadMask} from './LoadMask'
-export {
-  default as Menu,
-  StyledItem,
-  StyledItemAccordion,
-  StyledItemFlyout,
-  StyledMenu,
-  StyledMenuBar,
-  StyledMenuButton,
-  StyledMenuStack
-} from './Menu'
 export {default as Panel, StyledPanel, StyledPanelBody, StyledPanelHeaderFooter} from './Panel'
 export {default as Popover} from './Popover'
 export {default as Preview, StyledPreview} from './Preview'
@@ -86,3 +76,5 @@ export {default as Range} from './Range'
 export {default as BurgerButton} from './BurgerButton'
 export {default as Pagination} from './Pagination'
 export {default as QRCode} from './QRCode'
+
+export {Menu, MenuItem, BallMenu, ButtonMenu} from './Menu'
