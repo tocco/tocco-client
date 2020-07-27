@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {injectIntl, intlShape} from 'react-intl'
-import {ButtonMenu, MenuItem} from 'tocco-ui'
+import {ButtonMenu, MenuItem, Icon} from 'tocco-ui'
 
 import {isValidSelection, selectionText} from './selectionHelper'
 
@@ -10,13 +10,14 @@ const getChildMenuItems = input => {
   const validSelection = isValidSelection(selectedCount, definition)
   const disabled = definition.readonly === true || !validSelection
   const title = selectionText(selectedCount, definition, intl)
+  const isActionGroup = definition.componentType === 'action-group'
   return <MenuItem
-    onClick={() => !disabled && onClick(definition)}
+    {...(!isActionGroup && !disabled && {onClick: () => onClick(definition)})}
     disabled={disabled}
     title={title}
     key={`MenuItem-${definition.id}`}
   >
-    {definition.label}
+    <span>{definition.icon && <Icon icon={definition.icon}/>} {definition.label}</span>
     {definition.componentType === 'action-group' && definition.children.map(child => {
       return getChildMenuItems({...input, definition: child})
     })

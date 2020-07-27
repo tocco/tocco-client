@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Button, Menu} from 'tocco-ui'
+import {MenuItem, ButtonMenu} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
 
 import {
@@ -18,29 +18,25 @@ const Header = ({username, currentBusinessUnit, businessUnits, loadBusinessUnits
   return (
     <StyledHeader>
       <StyledConfig>
-        <Menu.ItemFlyout label={currentBusinessUnit.label} onToggle={handleBusinessUnitOpen} >
-          <Menu.Stack>
-            {
-              businessUnits.map(bU => (
-                <Menu.Item key={`buMenu-${bU.id}` }>
-                  <Button
-                    disabled={bU.id === currentBusinessUnit.id}
-                    label={bU.label}
-                    onClick={() => { changeBusinessUnit(bU.id) }}/>
-                </Menu.Item>
-              ))
-            }
-          </Menu.Stack>
-        </Menu.ItemFlyout>
-        <Menu.ItemFlyout label={username} >
-          <Menu.Stack>
-            <Menu.Item>
-              <Button onClick={doLogout}><FormattedMessage id="client.admin.menu.logout"/></Button>
-            </Menu.Item>
-          </Menu.Stack>
-        </Menu.ItemFlyout>
+        <ButtonMenu label={currentBusinessUnit.label} onOpen={handleBusinessUnitOpen}>
+          {
+            businessUnits.map(bU =>
+              <MenuItem
+                key={`buMenu-${bU.id}` }
+                disabled={bU.id === currentBusinessUnit.id}
+                onClick={() => { changeBusinessUnit(bU.id) }}
+              >
+                {bU.label}
+              </MenuItem>
+            )
+          }
+        </ButtonMenu>
+        <ButtonMenu label={username}>
+          <MenuItem onClick={doLogout}><FormattedMessage id="client.admin.menu.logout"/></MenuItem>
+        </ButtonMenu>
       </StyledConfig>
     </StyledHeader>
+
   )
 }
 
