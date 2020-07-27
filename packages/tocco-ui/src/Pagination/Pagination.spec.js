@@ -40,13 +40,14 @@ describe('tocco-ui', () => {
         <Pagination {...basicTestProps} onPageChange={onChangeSpy}/>
       )
 
-      wrapper.findWhere(n => n.name() === 'Button' && n.prop('icon') === 'chevron-right').simulate('click')
+      const buttonCompName = 'ForwardRef'
+      wrapper.findWhere(n => n.name() === buttonCompName && n.prop('icon') === 'chevron-right').simulate('click')
       expect(onChangeSpy).to.be.calledWith(4)
-      wrapper.findWhere(n => n.name() === 'Button' && n.prop('icon') === 'chevron-left').simulate('click')
+      wrapper.findWhere(n => n.name() === buttonCompName && n.prop('icon') === 'chevron-left').simulate('click')
       expect(onChangeSpy).to.be.calledWith(2)
-      wrapper.findWhere(n => n.name() === 'Button' && n.prop('icon') === 'chevron-double-left').simulate('click')
+      wrapper.findWhere(n => n.name() === buttonCompName && n.prop('icon') === 'chevron-double-left').simulate('click')
       expect(onChangeSpy).to.be.calledWith(1)
-      wrapper.findWhere(n => n.name() === 'Button' && n.prop('icon') === 'chevron-double-right').simulate('click')
+      wrapper.findWhere(n => n.name() === buttonCompName && n.prop('icon') === 'chevron-double-right').simulate('click')
       expect(onChangeSpy).to.be.calledWith(100)
     })
   })

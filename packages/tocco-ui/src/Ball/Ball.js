@@ -8,11 +8,11 @@ import {design} from '../utilStyles'
 /**
  * Use <Ball> to trigger any actions in a nice round way.
  */
-const Ball = props => (
-  <StyledBall type="button" {...props}>
+const Ball = React.forwardRef((props, ref) => (
+  <StyledBall ref={ref} type="button" {...props}>
     <Icon icon={props.icon}/>
   </StyledBall>
-)
+))
 
 Ball.propTypes = {
   /**

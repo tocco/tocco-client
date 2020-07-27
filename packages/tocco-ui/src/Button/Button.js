@@ -9,8 +9,9 @@ import {design} from '../utilStyles'
 /**
  * Use <Button> to trigger any actions. Choose look and ink according Material Design.
  */
-const Button = props => {
+const Button = React.forwardRef((props, ref) => {
   return <StyledButton
+    ref={ref}
     {...props.aria}
     {...props}
     ink={props.ink || design.ink.BASE}
@@ -26,7 +27,7 @@ const Button = props => {
       size="1em"/>}
     {props.label ? <span>{props.label}</span> : props.children ? props.children : '\u200B' }
   </StyledButton>
-}
+})
 
 Button.defaultProps = {
   iconPosition: design.position.PREPEND,
