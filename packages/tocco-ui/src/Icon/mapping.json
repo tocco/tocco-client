@@ -111,6 +111,14 @@
       "sso"
     ]
   },
+  "ellipsis-v": {
+    "id": "far, ellipsis-v",
+    "lib": "fa",
+    "tags": [
+      "dots",
+      "pünktli"
+    ]
+  },
   "exclamation": {
     "id": "fas, exclamation",
     "lib": "fa",
@@ -226,6 +234,13 @@
     "lib": "fa",
     "tags": [
       "new"
+    ]
+  },
+  "question-circle": {
+    "id": "far, question-circle",
+    "lib": "fa",
+    "tags": [
+      "help"
     ]
   },
   "search": {

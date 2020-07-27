@@ -14,7 +14,7 @@ import {
   faChevronDoubleLeft, faChevronDoubleRight, faChevronRight, faChevronLeft, faChevronUp, faChevronDown, faPlus,
   faFolders, faStar, faTimes, faArrowRight, faArrowLeft, faListUl, faFile, faFileAlt, faFileCode, faFileCsv,
   faFileExcel, faFileExport, faFileImport, faFilePdf, faFileSpreadsheet, faIdBadge, faCheck, faMapMarked, faSearch,
-  faCog, faBars, faDownload, faUpload, faInfo, faCompress, faBook, faSortDown, faSortUp, faQuestionCircle
+  faCog, faBars, faDownload, faUpload, faInfo, faCompress, faBook, faSortDown, faSortUp, faQuestionCircle, faEllipsisV
 } from '@fortawesome/pro-regular-svg-icons'
 import {faTimes as faTimesLight, faCircle, faHorizontalRule, faSync} from '@fortawesome/pro-light-svg-icons'
 import {faGoogle, faFacebook, faFacebookF, faDropbox, faMicrosoft, faJira, faApple}
@@ -27,7 +27,7 @@ import {faGoogle, faFacebook, faFacebookF, faDropbox, faMicrosoft, faJira, faApp
     faFileSpreadsheet, faIdBadge, faCheck, faExclamation, faTimesLight, faCircle, faCheckCircle, faGoogle, faFacebook,
     faFacebookF, faDropbox, faMicrosoft, faJira, faApple, faBars, faExternalLink, faPhone, faMapMarked, faSearch, faCog,
     faDownload, faUpload, faInfo, faHorizontalRule, faSync, faSquare, faCompress, faBook, faSortUp, faSortDown,
-    faQuestionCircle)
+    faQuestionCircle, faEllipsisV)
 
   library.add(
     LegacyPaperclip, LegacyAsterisk, LegacyChartBar, LegacyExclamationCircle, LegacyTimesCircle,
