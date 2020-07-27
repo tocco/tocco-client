@@ -15,6 +15,7 @@ export const ListWrapper = styled.div`
 `
 
 const ActionWrapper = styled.div`
+  display: flex;
   background-color: ${theme.color('paper')};
   margin-bottom: 3px;
   padding: 8px;
