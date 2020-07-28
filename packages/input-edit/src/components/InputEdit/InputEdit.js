@@ -14,13 +14,14 @@ import InputEditInformation from '../InputEditInformation'
 const StyledSplitPane = styled(SplitPane)`
   position: static !important;
 
+  & > div {
+    flex-direction: column;
+    overflow: hidden;
+  }
+
   .react-bs-container-body {
     height: auto !important;
     margin-bottom: ${scale.space(0)};
-  }
-
-  > div {
-    overflow-y: hidden;
   }
 `
 
@@ -42,7 +43,7 @@ const InputEdit = ({entityKey, initializeTable, initializeSearch, initializeInfo
 
   return <StyledSplitPane
     defaultSize={300}
-    minSize={300}
+    minSize={250}
     resizerStyle={resizerStyle}
     split="vertical">
     <StyledSplitPanelWrapper key={'sidebar'}>
