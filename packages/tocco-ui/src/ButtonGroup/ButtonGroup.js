@@ -6,11 +6,11 @@ import StyledButtonGroup from './StyledButtonGroup'
 /**
  * Wrap <Button> into <ButtonGroup> to control flow and style.
  */
-const ButtonGroup = props => (
-  <StyledButtonGroup>
+const ButtonGroup = React.forwardRef((props, ref) => (
+  <StyledButtonGroup ref={ref} >
     {props.children}
   </StyledButtonGroup>
-)
+))
 
 ButtonGroup.propTypes = {
   /**
