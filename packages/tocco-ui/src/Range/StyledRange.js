@@ -7,7 +7,7 @@ export const StyledInputWrapper = styled.div`
 `
 export const StyledInputItemWrapper = styled.div`
   display: inline-block;
-  width: 100%;
+  width: 50%;
 
   * {
     line-height: unset !important;
@@ -34,6 +34,7 @@ const StyledRange = styled.div`
   .extender {
     display: flex;
     align-items: center;
+    margin-left: -20px;
   }
 `
 
