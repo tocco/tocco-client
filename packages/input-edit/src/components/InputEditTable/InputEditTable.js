@@ -5,39 +5,47 @@ import {consoleLogger} from 'tocco-util'
 import {field} from 'tocco-app-extensions'
 import _get from 'lodash/get'
 
-import {StyledCell, StyledHeader, StyledTable} from './StyledComponents'
+import {
+  StyledCell,
+  StyledHeader,
+  StyledTable,
+  StyledTableRow,
+  StyledTableWrapper
+} from './StyledComponents'
 import loadValue from './PathResolver'
 
 const InputEditTable = ({data, inputDataForm, inputEditForm, updateValue, sorting, setSorting}) => {
   const dataFormCells = useMemo(() => getDataFormCells(inputDataForm), [inputDataForm])
 
-  return <StyledTable onKeyDown={arrowKeyHandler}>
-    <thead>
-      <tr>
+  return <StyledTableWrapper>
+    <StyledTable onKeyDown={arrowKeyHandler}>
+      <thead>
+        <StyledTableRow>
+          {
+            [...dataFormCells, ...inputEditForm].map(column =>
+              <StyledHeader key={`${column.id}-header`}
+                onClick={() => setSorting(column.id, getDirection(sorting, column.id))}>
+                {column.label}
+              </StyledHeader>
+            )
+          }
+        </StyledTableRow>
+      </thead>
+      <tbody>
         {
-          [...dataFormCells, ...inputEditForm].map(column =>
-            <StyledHeader key={`${column.id}-header`}
-              onClick={() => setSorting(column.id, getDirection(sorting, column.id))}>
-              {column.label}
-            </StyledHeader>
+          data.map((nodes, index) =>
+            <StyledTableRow key={index}>
+              <TableCells index={index}
+                nodes={nodes}
+                dataFormCells={dataFormCells}
+                inputEditForm={inputEditForm}
+                updateValue={updateValue}/>
+            </StyledTableRow>
           )
         }
-      </tr>
-    </thead>
-    <tbody>
-      {
-        data.map((nodes, index) =>
-          <tr key={index}>
-            <TableCells index={index}
-              nodes={nodes}
-              dataFormCells={dataFormCells}
-              inputEditForm={inputEditForm}
-              updateValue={updateValue}/>
-          </tr>
-        )
-      }
-    </tbody>
-  </StyledTable>
+      </tbody>
+    </StyledTable>
+  </StyledTableWrapper>
 }
 
 const arrowKeyHandler = event => {
@@ -133,13 +141,13 @@ const TableCells = ({index, nodes, dataFormCells, inputEditForm, updateValue}) =
 const DataCell = ({nodes, column}) => {
   const Field = field.factory('list', column.children[0].dataType)
   const value = loadValue(nodes, column)
-  return <td>
+  return <StyledCell>
     <Field
       formField={column.children[0]}
       formName="Input_edit_data_list"
       value={value}
     />
-  </td>
+  </StyledCell>
 }
 
 const InputCell = ({id, nodes, column, updateValue}) => {
