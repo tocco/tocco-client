@@ -141,6 +141,14 @@ describe('entity-list', () => {
             const dateRange = getTql('birthdate', {isRangeValue: true, from: '1988-01-01', to: null}, 'birthdate')
             expect(dateRange).to.deep.eql('birthdate >= date:"1988-01-01"')
           })
+
+          test('should not handle falsy range values expect of 0', () => {
+            const numberRange = getTql('age', {isRangeValue: true, from: '', to: null}, 'number')
+            expect(numberRange).to.eql('')
+
+            const numberRange2 = getTql('age', {isRangeValue: true, from: 0, to: undefined}, 'number')
+            expect(numberRange2).to.eql('age >= 0')
+          })
         })
       })
     })
