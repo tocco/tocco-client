@@ -3,6 +3,7 @@ import React from 'react'
 import {MultiCheckbox, Icon} from 'tocco-ui'
 
 import selectionStyles from '../../util/selectionStyles'
+import NavigationCellHeader from './NavigationCellHeader'
 
 const navigationCell = {
   shouldApply: ({linkFactory, showLink}) => linkFactory && linkFactory.detail && showLink,
@@ -14,7 +15,7 @@ const navigationCell = {
         width: '30',
         resizable: false,
         dynamic: false,
-        headerRender: () => null,
+        headerRender: () => <NavigationCellHeader/>,
         cellRenderer: (entity, {linkFactory}) => {
           return <span
             onClick={e => e.stopPropagation()}
