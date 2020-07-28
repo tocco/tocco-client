@@ -1,8 +1,10 @@
 import _isObject from 'lodash/isObject'
 import moment from 'moment'
 
+const isDefined = v => v !== null && v !== undefined && v !== ''
+
 export const getTql = (path, value, fieldType) => {
-  if (value === null || value === undefined || value === '') {
+  if (!isDefined(value)) {
     return null
   }
 
@@ -19,8 +21,8 @@ export const getTql = (path, value, fieldType) => {
 
 const handleRangeValue = (value, typeHandler, path) => (
   [
-    ...(value.from !== null && value.from !== undefined ? [typeHandler(path, value.from, '>=')] : []),
-    ...(value.to !== null && value.to !== undefined ? [typeHandler(path, value.to, '<=')] : [])
+    ...(isDefined(value.from) ? [typeHandler(path, value.from, '>=')] : []),
+    ...(isDefined(value.to) ? [typeHandler(path, value.to, '<=')] : [])
   ].join(' and ')
 )
 
