@@ -40,9 +40,9 @@ const ButtonMenu = props => {
 
   if (props.onClick) {
     return <>
-      <ButtonGroup>
+      <ButtonGroup ref={referenceElement}>
         <Button {...props.buttonProps || {}} onClick={props.onClick} label={props.label}/>
-        <Button icon={angleIcon} ref={referenceElement} onClick={handleClick} {...props.buttonProps || {}} />
+        <Button icon={angleIcon} onClick={handleClick} {...props.buttonProps || {}} />
       </ButtonGroup>
       {getMenu}
     </>
