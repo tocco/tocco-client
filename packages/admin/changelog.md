@@ -1,3 +1,8 @@
+0.3.7
+- Table column positioning
+- Style Two-Step Login
+- Fix Range delete value bug
+
 0.3.6
 - Fix delete bug
 
