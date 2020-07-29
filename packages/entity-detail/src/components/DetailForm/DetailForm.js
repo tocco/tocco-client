@@ -3,10 +3,15 @@ import React, {useEffect, useMemo} from 'react'
 import {reduxForm} from 'redux-form'
 import {intlShape} from 'react-intl'
 import {form} from 'tocco-app-extensions'
+import styled from 'styled-components'
 
 import SubGrid from '../../util/detailView/fromFieldFactories/subGrid'
 import ErrorBox from '../ErrorBox'
 import SaveButton from './SaveButton'
+
+const StyledForm = styled.form`
+  display: contents;
+`
 
 const DetailForm = props => {
   useEffect(() => {
@@ -58,7 +63,7 @@ const DetailForm = props => {
   }
 
   return (
-    <form
+    <StyledForm
       onSubmit={handleSubmit}
       onKeyDown={handleKeyPress}
     >
@@ -74,7 +79,7 @@ const DetailForm = props => {
         customActions={customActions}
       />
       {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={showErrors}/>}
-    </form>
+    </StyledForm>
   )
 }
 
