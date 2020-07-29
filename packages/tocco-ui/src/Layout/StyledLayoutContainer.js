@@ -8,6 +8,7 @@ const declareStylesIfNestedCorrectly = props => {
 
       &:last-child {
         margin-bottom: 0;
+        height: 100%;
       }
     `
   } else {
