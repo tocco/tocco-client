@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react'
 import PropTypes from 'prop-types'
-import {EditableValue} from 'tocco-ui'
+import {EditableValue, FormattedValue} from 'tocco-ui'
 import {consoleLogger} from 'tocco-util'
 import {field} from 'tocco-app-extensions'
 import _get from 'lodash/get'
@@ -156,17 +156,25 @@ const InputCell = ({id, nodes, column, updateValue}) => {
     : null
   const data = _get(nodes, column.id.replace('.', '.value.paths.'))
   return <StyledCell width={width}>
-    <EditableValue
-      styles={{width: `${width}px`}}
-      id={id}
-      type={column.dataType}
-      value={data ? (Object.prototype.hasOwnProperty.call(data, 'value') ? data.value : data) : null}
-      readOnly={column.readonly}
-      options={column.options}
-      events={{
-        onChange: changedValue => updateValue(nodes.pk.value, column.id, changedValue),
-        onFocus: ({target}) => target.select()
-      }}/>
+    {
+      column.readonly
+        ? <FormattedValue
+          id={id}
+          type={column.dataType}
+          value={data ? (Object.prototype.hasOwnProperty.call(data, 'value') ? data.value : data) : null}
+          options={column.options}/>
+        : <EditableValue
+          styles={{width: `${width}px`}}
+          id={id}
+          type={column.dataType}
+          value={data ? (Object.prototype.hasOwnProperty.call(data, 'value') ? data.value : data) : null}
+          readOnly={column.readonly}
+          options={column.options}
+          events={{
+            onChange: changedValue => updateValue(nodes.pk.value, column.id, changedValue),
+            onFocus: ({target}) => target.select()
+          }}/>
+    }
   </StyledCell>
 }
 
