@@ -17,10 +17,12 @@ const InputEditSearch = ({form, model, setSearchFields}) => {
     : null
 }
 
-const handleChange = (form, setSearchFields) => ({values, valid}) => {
+const handleChange = (form, setSearchFields) => ({values}) => {
   if (Object.keys(values).length > 0) {
     const tql = transformFormValuesToTql(values, form)
     setSearchFields(tql)
+  } else {
+    setSearchFields([])
   }
 }
 
