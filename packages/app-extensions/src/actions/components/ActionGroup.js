@@ -14,6 +14,7 @@ const MainAction = ({definition, selectedCount, onClick, disabled, intl}) => {
   return (
     <Menu.Item look="raised">
       <Button
+        data-cy={`action-${definition.id}`}
         disabled={buttonDisabled}
         icon={definition.icon}
         label={definition.label}
