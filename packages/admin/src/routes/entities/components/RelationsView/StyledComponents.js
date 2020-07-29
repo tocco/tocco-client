@@ -12,7 +12,7 @@ export const StyledRelationsViewWrapper = styled.div`
 export const StyledPreviewBox = styled.div`
   background-color: ${theme.color('paper')};
   padding: ${scale.space(-1)};
-  margin-top: 1rem;
+  margin-top: 3px;
   display: flex;
   flex-direction: column;
   flex: auto;
