@@ -175,11 +175,11 @@ describe('Entity Browser', () => {
 
     it('should handle resize of a column with min width', () => {
       cy.get('[data-cy=header-cell-firstname]').should('not.have.css', 'width', '30px')
-      cy.get('[data-cy=header-cell-firstname] > .resizeHandle').trigger('mousedown')
+      cy.get('[data-cy=header-cell-firstname-resizing-controller]').trigger('mousedown')
         .trigger('mousemove', {clientX: 500, clientY: 0})
-        .trigger('mousemove', {clientX: 100, clientY: 0})
+        .trigger('mousemove', {clientX: 40, clientY: 0})
         .trigger('mouseup')
-      cy.get('[data-cy=header-cell-firstname]').should('have.css', 'width', '30px')
+      cy.get('[data-cy=header-cell-firstname]').invoke('outerWidth').should('eq', 50)
     })
   })
 

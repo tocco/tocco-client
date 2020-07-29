@@ -16,11 +16,16 @@ export const StyledResizeHandle = styled.span`
 `
 
 const ResizingController = ({column, startResize}) =>
-  column.resizable !== false && <StyledResizeHandle onMouseDown={startResize(column)}/>
+  column.resizable !== false
+  && <StyledResizeHandle
+    data-cy={`header-cell-${column.id}-resizing-controller`}
+    onMouseDown={startResize(column)}
+  />
 
 ResizingController.propTypes = {
   column: PropTypes.shape({
-    resizable: PropTypes.bool
+    resizable: PropTypes.bool,
+    id: PropTypes.string
   }).isRequired,
   startResize: PropTypes.func.isRequired
 }
