@@ -22,7 +22,7 @@ const Header = ({username, currentBusinessUnit, businessUnits, loadBusinessUnits
           {
             businessUnits.map(bU =>
               <MenuItem
-                key={`buMenu-${bU.id}` }
+                key={`buMenu-${bU.id}`}
                 disabled={bU.id === currentBusinessUnit.id}
                 onClick={() => { changeBusinessUnit(bU.id) }}
               >
