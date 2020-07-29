@@ -10,7 +10,7 @@ const NumberFormatter = props => {
       <FormattedNumber
         value={props.value}
         style="decimal"
-        minimumFractionDigits={2}
+        minimumFractionDigits={props.options ? props.options.postPointDigits || 2 : 2}
       />
     </Typography.Span>
   )
@@ -18,6 +18,7 @@ const NumberFormatter = props => {
 
 NumberFormatter.propTypes = {
   value: PropTypes.number,
+  options: PropTypes.object,
   breakWords: PropTypes.bool
 }
 
