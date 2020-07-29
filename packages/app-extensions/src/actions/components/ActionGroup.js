@@ -18,9 +18,9 @@ const getChildMenuItems = input => {
     key={`MenuItem-${definition.id}`}
   >
     <span>{definition.icon && <Icon icon={definition.icon}/>} {definition.label}</span>
-    {definition.componentType === 'action-group' && definition.children.map(child => {
-      return getChildMenuItems({...input, definition: child})
-    })
+    {
+      definition.componentType === 'action-group'
+      && definition.children.map(child => getChildMenuItems({...input, definition: child}))
     }
   </MenuItem>
 }
@@ -33,9 +33,7 @@ const ActionGroup = props => {
   const onClickHandler = hasDefaultAction ? () => { onClick(definition.defaultAction) } : null
   return <ButtonMenu buttonProps={{look: 'raised'}} label={label} onClick={onClickHandler}>
     {
-      definition.children.map((childDefinition, idx) => {
-        return getChildMenuItems({...props, definition: childDefinition})
-      })
+      definition.children.map((childDefinition, idx) => getChildMenuItems({...props, definition: childDefinition}))
     }
   </ButtonMenu>
 }
