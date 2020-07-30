@@ -49,9 +49,9 @@ const StyledNotifier = styled.div`
   && {
     .redux-toastr {
       .toastr {
-        background-color: ${props =>
-        shadeColor(_get(props.theme, 'colors.paper'), 1)};  // reset: react-redux-toastr (index.scss)
-        color: ${props => theme.color('text')};  // reset: react-redux-toastr (index.scss)
+        background-color: ${({theme}) =>
+        shadeColor(_get(theme, 'colors.paper'), 1)};  // reset: react-redux-toastr (index.scss)
+        color: ${theme.color('text')};  // reset: react-redux-toastr (index.scss)
 
         .toastr-status {
           &.success {
@@ -63,8 +63,8 @@ const StyledNotifier = styled.div`
           }
 
           &.info {
-            background-color: ${props =>
-            shadeColor(_get(props.theme, 'colors.paper'), 1)};  // reset: react-redux-toastr (index.scss)
+            background-color: ${({theme}) =>
+            shadeColor(_get(theme, 'colors.paper'), 1)};  // reset: react-redux-toastr (index.scss)
           }
 
           &.error {
@@ -93,8 +93,8 @@ const StyledNotifier = styled.div`
         }
 
         &.rrt-info {
-          background-color: ${props =>
-          shadeColor(_get(props.theme, 'colors.paper'), 1)};  // reset: react-redux-toastr (index.scss)
+          background-color: ${({theme}) =>
+          shadeColor(_get(theme, 'colors.paper'), 1)};  // reset: react-redux-toastr (index.scss)
         }
 
         &.rrt-success {
@@ -158,6 +158,8 @@ const StyledNotifier = styled.div`
         .close-toastr {
           height: auto;
           opacity: .7;  // reset: react-redux-toastr (index.scss)
+          margin-top: 5px;
+          margin-right: 5px;
 
           &:hover {
             opacity: 1;
@@ -198,7 +200,7 @@ const StyledNotifier = styled.div`
       // reset: react-redux-toastr (index.scss & confirm.scss)
       .redux-toastr .toastr-attention,
       .rrt-confirm-holder .shadow {
-        background-color: ${props => rgba(shade(0.8, _get(props.theme, 'colors.paper')), 0.7)};
+        background-color: ${({theme}) => rgba(shade(0.8, _get(theme, 'colors.paper')), 0.7)};
       }
 
       // blockingInfo
