@@ -1,6 +1,6 @@
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
-import {takeLatest, all} from 'redux-saga/effects'
+import {takeLatest, all, select} from 'redux-saga/effects'
 import {rest} from 'tocco-app-extensions'
 
 import * as actions from './actions'
@@ -28,7 +28,8 @@ describe('input-edit', () => {
           return expectSaga(sagas.initialize)
             .provide([
               [matchers.call.fn(rest.fetchModel), expectedModel],
-              [matchers.call.fn(rest.fetchForm), expectedForm]
+              [matchers.call.fn(rest.fetchForm), expectedForm],
+              [select(sagas.inputEditSelector), {validation: {valid: true}}]
             ])
             .put(actions.setModel(expectedModel))
             .put(actions.setForm(expectedForm))
