@@ -1,13 +1,15 @@
 import {reducer as reducerUtil} from 'tocco-util'
 
-import {SET_ENTITY_KEY} from './actions'
+import {SET_SELECTION, SET_VALIDATION} from './actions'
 
 const initialState = {
-  entityKey: null
+  selection: null,
+  validation: {}
 }
 
 const ACTION_HANDLERS = {
-  [SET_ENTITY_KEY]: reducerUtil.singleTransferReducer('entityKey')
+  [SET_SELECTION]: reducerUtil.singleTransferReducer('selection'),
+  [SET_VALIDATION]: reducerUtil.singleTransferReducer('validation')
 }
 
 export default function reducer(state = initialState, action) {

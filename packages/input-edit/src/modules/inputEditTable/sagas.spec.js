@@ -30,7 +30,7 @@ describe('input-edit', () => {
           }
           return expectSaga(sagas.initialize)
             .provide([
-              [select(sagas.inputEditSelector), {entityKey: 12}],
+              [select(sagas.inputEditSelector), {selection: [12], validation: {valid: true}}],
               [matchers.call.fn(rest.requestSaga), {
                 body: expectedEditForm
               }],
@@ -78,6 +78,7 @@ describe('input-edit', () => {
               }
             ]
           }
+          const fakeSelection = {ids: ['12']}
           return expectSaga(sagas.loadData, {
             newSorting: {
               field: 'field',
@@ -94,7 +95,7 @@ describe('input-edit', () => {
                 inputDataForm: fakeDataForm,
                 sorting: {field: 'state sorting'}
               }],
-              [select(sagas.inputEditSelector), {entityKey: 12}],
+              [select(sagas.inputEditSelector), {selection: fakeSelection, validation: {valid: true}}],
               [select(sagas.searchQueriesSelector), []],
               [select(sagas.inputEditPaginationSelector), {
                 count: 0,
@@ -108,15 +109,18 @@ describe('input-edit', () => {
             .call.like({
               fn: rest.requestSaga,
               args: [
-                'inputEdit/12/data/search',
+                'inputEdit/data/search',
                 {
                   method: 'POST',
                   body: {
-                    paths: ['first field', 'second field', 'pk'],
-                    sort: 'field asc',
-                    where: 'firstname == \'something\' and lastname == \'something else\'',
-                    limit: 25,
-                    offset: 25
+                    selection: fakeSelection,
+                    searchBean: {
+                      paths: ['first field', 'second field', 'pk'],
+                      sort: 'field asc',
+                      where: 'firstname == \'something\' and lastname == \'something else\'',
+                      limit: 25,
+                      offset: 25
+                    }
                   }
                 }
               ]
@@ -125,9 +129,10 @@ describe('input-edit', () => {
             .run()
         })
         test('should load data from state if no arguments are passed', () => {
+          const fakeSelection = {ids: ['12']}
           return expectSaga(sagas.loadData, {})
             .provide([
-              [select(sagas.inputEditSelector), {entityKey: 12}],
+              [select(sagas.inputEditSelector), {selection: fakeSelection, validation: {valid: true}}],
               [select(sagas.inputEditTableSelector), {
                 inputDataForm: fakeDataForm,
                 sorting: {
@@ -148,15 +153,18 @@ describe('input-edit', () => {
             .call.like({
               fn: rest.requestSaga,
               args: [
-                'inputEdit/12/data/search',
+                'inputEdit/data/search',
                 {
                   method: 'POST',
                   body: {
-                    paths: ['first field', 'second field', 'pk'],
-                    sort: 'field asc',
-                    where: 'firstname == \'whatever\'',
-                    limit: 25,
-                    offset: 0
+                    selection: fakeSelection,
+                    searchBean: {
+                      paths: ['first field', 'second field', 'pk'],
+                      sort: 'field asc',
+                      where: 'firstname == \'whatever\'',
+                      limit: 25,
+                      offset: 0
+                    }
                   }
                 }
               ]
@@ -185,14 +193,14 @@ describe('input-edit', () => {
         test('should update value', () => {
           return expectSaga(sagas.updateValue, actions.updateValue(123, 'node', 'value'))
             .provide([
-              [select(sagas.inputEditSelector), {entityKey: 12}],
+              [select(sagas.inputEditSelector), {selection: [], validation: {valid: true}}],
               [matchers.call.fn(rest.requestSaga), {
                 body: {
                 }
               }]
             ])
             .put(actions.setValue(123, 'node', 'value'))
-            .call(rest.requestSaga, 'inputEdit/12/data', {
+            .call(rest.requestSaga, 'inputEdit/data', {
               method: 'POST',
               body: {
                 inputDataKey: 123,
@@ -205,7 +213,7 @@ describe('input-edit', () => {
         test('should set newly calculated values', () => {
           return expectSaga(sagas.updateValue, actions.updateValue(123, 'node', 'value'))
             .provide([
-              [select(sagas.inputEditSelector), {entityKey: 12}],
+              [select(sagas.inputEditSelector), {selection: [], validation: {valid: true}}],
               [matchers.call.fn(rest.requestSaga), {
                 body: {
                   calculatedValues: [

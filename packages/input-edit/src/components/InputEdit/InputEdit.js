@@ -1,6 +1,6 @@
 import React, {useEffect, useMemo} from 'react'
 import PropTypes from 'prop-types'
-import {Icon, scale} from 'tocco-ui'
+import {scale, LoadMask} from 'tocco-ui'
 import styled from 'styled-components'
 import SplitPane from 'react-split-pane'
 import {actions} from 'tocco-app-extensions'
@@ -8,7 +8,7 @@ import {actions} from 'tocco-app-extensions'
 import InputEditTable from '../InputEditTable/InputEditTableContainer'
 import InputEditPagination from '../InputEditPagination'
 import InputEditSearch from '../InputEditSearch'
-import {resizerStyle, StyledGutter, StyledSplitPanelWrapper} from './StyledInputEdit'
+import {resizerStyle, StyledSplitPanelWrapper} from './StyledInputEdit'
 import InputEditInformation from '../InputEditInformation'
 
 const StyledSplitPane = styled(SplitPane)`
@@ -25,12 +25,24 @@ const StyledSplitPane = styled(SplitPane)`
   }
 `
 
-const InputEdit = ({entityKey, initializeTable, initializeSearch, initializeInformation, inputDataForm}) => {
+const InputEdit = ({
+  selection,
+  validation: {valid, message},
+  checkSelection,
+  initializeTable,
+  initializeSearch,
+  initializeInformation,
+  inputDataForm,
+  notify
+}) => {
+  useEffect(() => {
+    checkSelection()
+  }, [selection])
   useEffect(() => {
     initializeTable()
     initializeSearch()
     initializeInformation()
-  }, [entityKey])
+  }, [selection, valid])
 
   const actionDefinitions = useMemo(() => inputDataForm.children
     ? inputDataForm.children
@@ -39,50 +51,56 @@ const InputEdit = ({entityKey, initializeTable, initializeSearch, initializeInfo
       .filter(child => child.componentType === 'action')
       .map(child => ({...child, scope: 'detail'}))
     : [], [inputDataForm])
-  const selection = actions.getSingleEntitySelection('Input', entityKey)
 
-  return <StyledSplitPane
-    defaultSize={300}
-    minSize={250}
-    resizerStyle={resizerStyle}
-    split="vertical">
-    <StyledSplitPanelWrapper key={'sidebar'}>
-      <StyledSplitPane defaultSize={300}
-        minSize={300}
+  if (valid === false) {
+    notify('error', 'client.component.input-edit.error.title', message)
+  }
+  return <LoadMask required={[valid || message]}>
+    {valid
+      ? <StyledSplitPane
+        defaultSize={300}
+        minSize={250}
         resizerStyle={resizerStyle}
-        split="horizontal">
-        <StyledSplitPanelWrapper key="search">
-          <InputEditSearch/>
+        split="vertical">
+        <StyledSplitPanelWrapper key={'sidebar'}>
+          <StyledSplitPane defaultSize={300}
+            minSize={300}
+            resizerStyle={resizerStyle}
+            split="horizontal">
+            <StyledSplitPanelWrapper key="search">
+              <InputEditSearch/>
+            </StyledSplitPanelWrapper>
+            <StyledSplitPanelWrapper key="information">
+              <InputEditInformation/>
+            </StyledSplitPanelWrapper>
+          </StyledSplitPane>
         </StyledSplitPanelWrapper>
-        <StyledSplitPanelWrapper key="information">
-          <StyledGutter>
-            <Icon icon="horizontal-rule"/>
-          </StyledGutter>
-          <InputEditInformation/>
+        <StyledSplitPanelWrapper key="table">
+          {actionDefinitions.map(definition =>
+            <actions.Action
+              key={definition.id}
+              definition={definition}
+              selection={selection}/>
+          )}
+          <InputEditTable/>
+          <InputEditPagination/>
         </StyledSplitPanelWrapper>
       </StyledSplitPane>
-    </StyledSplitPanelWrapper>
-    <StyledSplitPanelWrapper key="table">
-      {actionDefinitions.map(definition =>
-        <actions.Action
-          key={definition.id}
-          definition={definition}
-          selection={selection}/>
-      )}
-      <InputEditTable/>
-      <InputEditPagination/>
-    </StyledSplitPanelWrapper>
-  </StyledSplitPane>
+      : null}
+  </LoadMask>
 }
 
 InputEdit.propTypes = {
-  entityKey: PropTypes.string.isRequired,
+  selection: PropTypes.object.isRequired,
+  validation: PropTypes.object.isRequired,
+  checkSelection: PropTypes.func.isRequired,
   initializeTable: PropTypes.func.isRequired,
   initializeSearch: PropTypes.func.isRequired,
   initializeInformation: PropTypes.func.isRequired,
   inputDataForm: PropTypes.shape({
     children: PropTypes.array
-  }).isRequired
+  }).isRequired,
+  notify: PropTypes.func.isRequired
 }
 
 export default InputEdit
