@@ -18,12 +18,6 @@ const declareIconPosition = props => {
         }
        `
     }
-
-    return `
-      > span {
-        margin-left: .5rem;
-      }
-     `
   }
 }
 const getDensityStyle = ({dense, theme}) =>
