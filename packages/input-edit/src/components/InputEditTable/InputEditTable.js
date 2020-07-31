@@ -49,7 +49,7 @@ const InputEditTable = ({data, inputDataForm, inputEditForm, updateValue, sortin
 }
 
 const arrowKeyHandler = event => {
-  if (document.activeElement.tagName === 'INPUT'
+  if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)
     && ['ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowUp'].includes(event.key)) {
     event.preventDefault()
     const [rowIndex, columnIndex] = document.activeElement.id.split(':')
@@ -80,7 +80,7 @@ const findHorizontalElementToFocus = (rowIndex, currentIndex, indexDiff) => {
   const idToFocus = `${rowIndex}:${adjustedIndex}`
   const elementToFocus = document.getElementById(idToFocus)
   if (elementToFocus) {
-    if (elementToFocus.tagName === 'INPUT' && !elementToFocus.disabled) {
+    if (['INPUT', 'TEXTAREA'].includes(elementToFocus.tagName) && !elementToFocus.disabled) {
       return elementToFocus
     } else {
       return findHorizontalElementToFocus(rowIndex, adjustedIndex, indexDiff)
