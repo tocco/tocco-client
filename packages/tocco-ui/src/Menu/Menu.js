@@ -4,8 +4,11 @@ import {usePopper} from 'react-popper'
 import styled from 'styled-components'
 import ReactDOM from 'react-dom'
 
+import {theme} from '../'
+
 const StyledPopper = styled.div`
   box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+  border: 1px solid ${theme.color('secondaryLight')};
 `
 
 /**
