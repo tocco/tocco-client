@@ -5,73 +5,84 @@ import styled from 'styled-components'
 import {theme} from '../'
 import {
   declareFont,
-  interactiveStyling
+  interactiveStyling,
+  scale
 } from '../utilStyles'
 
 export const StyledMenuItem = styled.div`
   min-width: 200px;
   max-width: 300px;
+  background-color: ${theme.color('secondaryLight')};
 `
 
 export const StyledItemLabel = styled.div`
-  cursor: ${props => props.hasOnClick ? 'pointer' : 'default'};
+  cursor: ${({hasOnClick}) => hasOnClick ? 'pointer' : 'default'};
   ${declareFont()}
   ${interactiveStyling}
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: ${props => 10 + (props.level || 0) * 5 + 'px'};
-  font-weight: ${props => props.isGroup ? theme.fontWeight('bold') : theme.fontWeight('regular')};
+  padding:
+    ${scale.space(-2)}
+    ${scale.space(-0.5)}
+    ${scale.space(-2)}
+    calc(${scale.space(-0.5)} + ${({level}) => (level || 0) * 5 + 'px'});
+  font-weight: ${({isGroup}) => isGroup ? theme.fontWeight('bold') : theme.fontWeight('regular')};
+  box-shadow: none;
 `
 
 /**
  * Item of Menu
  */
-const MenuItem = props => {
-  const children = React.Children.toArray(props.children).filter(c => c)
-  const isGroup = children.length > 1
-  const hasOnClick = !!props.onClick
+const MenuItem = ({
+  children,
+  onClick,
+  onClose,
+  disabled,
+  closeOnClick,
+  title,
+  level
+}) => {
+  const childrenArr = React.Children.toArray(children).filter(Boolean)
+  const isGroup = childrenArr.length > 1
+  const hasOnClick = Boolean(onClick)
 
   const handleClick = e => {
-    if (hasOnClick && !props.disabled) {
-      props.onClick()
+    if (hasOnClick && !disabled) {
+      onClick()
 
-      if (props.closeOnClick && props.onClose) {
-        props.onClose()
+      if (closeOnClick && onClose) {
+        onClose()
       }
     }
     e.stopPropagation()
   }
 
-  return (
-    <StyledMenuItem
-      onClick={handleClick} level={props.level}>
-      {
-        children.map((child, idx) => {
-          const level = props.level ? props.level + 1 : 1
-          if (child.type && child.type.displayName === 'MenuItem') {
-            return React.cloneElement(child, {
-              ...child.props,
-              onClose: props.onClose,
-              closeOnClick: props.closeOnClick,
-              level,
-              key: `menu-item-${idx}-${level}`
-            })
-          }
-          return <StyledItemLabel
-            key={`menu-item-label-${idx}-${level}`}
-            hasOnClick={hasOnClick}
-            isGroup={isGroup}
-            title={props.title}
-            disabled={props.disabled}
-            look="raised"
-            level={props.level}
-          >
-            {child}
-          </StyledItemLabel>
-        })
-      }
-    </StyledMenuItem>
-  )
+  return <StyledMenuItem
+    onClick={handleClick} level={level}>
+    {
+      childrenArr.map((child, idx) => {
+        const lvl = level ? level + 1 : 1
+        if (child.type && child.type.displayName === 'MenuItem') {
+          return React.cloneElement(child, {
+            ...child.props,
+            onClose: onClose,
+            closeOnClick: closeOnClick,
+            level: lvl,
+            key: `menu-item-${idx}-${lvl}`
+          })
+        }
+        return <StyledItemLabel
+          key={`menu-item-label-${idx}-${lvl}`}
+          hasOnClick={hasOnClick}
+          isGroup={isGroup}
+          title={title}
+          disabled={disabled}
+          look="raised"
+          level={level}
+        >
+          {child}
+        </StyledItemLabel>
+      })
+    }
+  </StyledMenuItem>
 }
 
 MenuItem.defaultProps = {
