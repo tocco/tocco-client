@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import {Menu, Icon, Button, ButtonGroup} from '../'
 
 const IconWrapper = styled.div`
-  margin-left: 10px;
+  margin-left: 8px;
 `
 
 /**
