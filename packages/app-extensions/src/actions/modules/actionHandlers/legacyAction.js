@@ -181,7 +181,7 @@ export function* getScope() {
 export default function* (definition, selection, parent, params, config) {
   yield call(initLegacyActionsEnv)
 
-  const actionDefinition = new window.nice2.netui.actions.model.ClientActionDefinition(definition.id, definition.id)
+  const actionDefinition = new window.nice2.netui.actions.model.ClientActionDefinition(definition.path, definition.id)
   actionDefinition.setEnabled(!definition.readOnly)
   if (_isPlainObject(definition.properties)) {
     const setPropertyEffects = Object.entries(definition.properties)
