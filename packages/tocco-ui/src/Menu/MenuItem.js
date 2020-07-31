@@ -26,6 +26,10 @@ export const StyledItemLabel = styled.div`
     calc(${scale.space(-0.5)} + ${({level}) => (level || 0) * 5 + 'px'});
   font-weight: ${({isGroup}) => isGroup ? theme.fontWeight('bold') : theme.fontWeight('regular')};
   box-shadow: none;
+
+  span > * {
+    margin-right: 4px;
+  }
 `
 
 /**
