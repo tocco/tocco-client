@@ -4,9 +4,9 @@ import {
   StyledEditableWrapperCss
 } from 'tocco-ui'
 
-export const StyledPasswordInput = styled.input.attrs({
+export const StyledPasswordInput = styled.input.attrs(props => ({
   type: 'password'
-})`
+}))`
   && {
     ${StyledInputCss}
   }
