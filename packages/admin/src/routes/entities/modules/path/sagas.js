@@ -69,9 +69,14 @@ export function* addEntityToBreadcrumbs(path, entityName, breadcrumbs) {
 }
 
 export function* loadRelationCounts(model, key) {
-  const resource = `/client/entities/${model}/${key}/relation-count`
-  const relationCountRepsonse = yield call(rest.requestSaga, resource)
-  yield put(actions.setRelationCount(relationCountRepsonse.body.relationCounts))
+  const resource = `/client/entities/${model}/${key}/relations`
+  const relationCountResponse = yield call(rest.requestSaga, resource)
+  const relations = relationCountResponse.body.relations
+  const countObj = Object.keys(relations).reduce((acc, relation) => ({
+    ...acc,
+    [relation]: relations[relation].count
+  }), {})
+  yield put(actions.setRelationCount(countObj))
 }
 
 export function* addRecordToBreadcrumbs(path, entityName, key, breadcrumbs) {
