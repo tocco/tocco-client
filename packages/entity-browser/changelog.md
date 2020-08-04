@@ -1,3 +1,16 @@
+0.10.4
+- Support time fields in search form
+- Display notifications correctly in InputEdit
+- Table column positioning
+- Style InputEdit Table
+- Enable 100% height of layout container in old client
+- Menu makeover
+- Style new dropdown menu
+- Harmonize menu icon spacing
+- Reposition notifier close icon
+- sort list by preferences and save new preferences when changing the sorting
+- Add button to reset sorting to entity-list
+
 0.10.3
 - Fix shy in table header
 - Enable opening of other apps in entity-browser
