@@ -1,3 +1,16 @@
+0.3.8
+- Style InputEdit Table
+- Harmonize relations view spacing
+- Enable 100% height of layout container in old client
+- Menu makeover
+- Style new dropdown menu
+- Harmonize menu icon spacing
+- Reposition notifier close icon
+- sort list by preferences and save new preferences when changing the sorting
+- Add button to reset sorting to entity-list
+- Fix icon positioning within buttons
+- Fix relation count
+
 0.3.7
 - Table column positioning
 - Style Two-Step Login
