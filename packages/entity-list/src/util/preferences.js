@@ -46,28 +46,20 @@ export const getSorting = preferences => {
     .filter(([key]) => keyRegex.test(key))
     .map(([key, value]) => [transformSortingKey(key.match(keyRegex)), value])
     .reduce((acc, [key, value]) => {
-      if (!acc[key.index]) {
-        acc[key.index] = {}
+      acc[key.index] = {
+        ...acc[key.index],
+        [key.field]: value
       }
-      acc[key.index][key.field] = value
       return acc
     }, [])
 }
 
-const transformSortingKey = keyMatch => {
-  return {
-    field: transformSortingField(keyMatch[1]),
-    index: keyMatch[2] ? parseInt(keyMatch[2]) : 0
-  }
-}
+const transformSortingKey = keyMatch => ({
+  field: transformSortingField(keyMatch[1]),
+  index: keyMatch[2] ? parseInt(keyMatch[2]) : 0
+})
 
-function transformSortingField(field) {
-  if (field === 'Direction') {
-    return 'order'
-  } else {
-    return field.toLowerCase()
-  }
-}
+const transformSortingField = field => field === 'Direction' ? 'order' : field.toLowerCase()
 
 export const getSortingPreferencesToSave = (formName, sorting) => ({
   [`${formName}.sortingField`]: sorting.field,

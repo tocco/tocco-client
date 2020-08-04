@@ -8,7 +8,7 @@ import {resetSorting} from '../../modules/preferences/actions'
 
 const NavigationCellHeader = props =>
   <BallMenu buttonProps={{icon: 'ellipsis-v'}}>
-    <MenuItem onClick={() => props.resetSorting()}><FormattedMessage id="client.entity-list.sorting.reset"/></MenuItem>
+    <MenuItem onClick={props.resetSorting}><FormattedMessage id="client.entity-list.sorting.reset"/></MenuItem>
   </BallMenu>
 
 NavigationCellHeader.propTypes = {
