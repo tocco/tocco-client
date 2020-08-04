@@ -2,9 +2,9 @@ import styled from 'styled-components'
 
 import {StyledInputCss} from '../StyledEditableValue'
 
-const StyledStringEdit = styled.input.attrs({
+const StyledStringEdit = styled.input.attrs(props => ({
   type: 'text'
-})`
+}))`
   && {
     ${StyledInputCss}
   }

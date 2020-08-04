@@ -15,9 +15,9 @@ const totalWidth = modalWidth + gutterWidth
 // eslint-disable-next-line max-len
 export const basePadding = 1.8 * parseFloat(getComputedStyle(document.documentElement).fontSize) // calc px value from 1.8rem
 
-const StyledModalContent = styled.div.attrs({
-  className: props => `rrt-confirm animated ${props.isClosing ? 'fadeOut' : 'fadeIn'}`
-})`
+const StyledModalContent = styled.div.attrs(({isClosing}) => ({
+  className: `rrt-confirm animated ${isClosing ? 'fadeOut' : 'fadeIn'}`
+}))`
   &&& {
     background-color: ${theme.color('paper')};          // reset: react-redux-toastr (confirm.scss)
     border-radius: 0;           // reset: react-redux-toastr (confirm.scss)
