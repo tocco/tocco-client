@@ -18,6 +18,12 @@ const declareIconPosition = props => {
         }
        `
     }
+
+    return `
+      > span {
+        margin-left: .5rem;
+      }
+      `
   }
 }
 const getDensityStyle = ({dense, theme}) =>
@@ -44,6 +50,10 @@ const StyledButton = styled.button`
   ${interactiveStyling}
   ${props => getDensityStyle(props)}
   ${props => declareIconPosition(props)}
+
+  & > span:first-child {
+    margin-left: 0;
+  }
 `
 
 export default StyledButton
