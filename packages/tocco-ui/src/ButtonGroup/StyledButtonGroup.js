@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import {StyledButton} from '../Button'
 
 const StyledButtonGroup = styled.div`
+  display: inline;
+
   &&& > ${StyledButton} {
     :not(:first-child) {
       margin-left: -1px;
