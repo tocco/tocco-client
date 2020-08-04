@@ -1,3 +1,6 @@
+0.10.5
+- Fix icon positioning within buttons
+
 0.10.4
 - Support time fields in search form
 - Display notifications correctly in InputEdit
