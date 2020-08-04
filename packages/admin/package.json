@@ -1,6 +1,6 @@
 {
   "name": "tocco-admin",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "Alpha version of new tocco admin.",
   "main": "dist/index.js",
   "scripts": {
