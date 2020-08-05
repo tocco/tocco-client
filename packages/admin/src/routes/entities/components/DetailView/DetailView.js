@@ -34,8 +34,13 @@ const DetailViewPartEdit = styled(DetailViewPart)`
     position: sticky;
     top: 0;
     z-index: 1;
-    padding-top: ${scale.space(-0.5)};
     padding-bottom: ${scale.space(-0.5)};
+    display: flex;
+    flex-wrap: wrap;
+
+    & > * {
+      margin-top: ${scale.space(-0.5)};
+    }
   }
 `
 
