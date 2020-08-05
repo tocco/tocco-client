@@ -2,8 +2,8 @@ import styled from 'styled-components'
 import {theme} from 'tocco-ui'
 
 export default styled.div`
-  float: left;
   display: flex;
+  width: max-content;
 `
 
 export const StyledButton = styled.span`
@@ -34,7 +34,7 @@ export const StyledButton = styled.span`
       margin-top: -.2rem;
       margin-right: -.8rem;
 
-      &:hover *{
+      &:hover * {
         color: ${theme.color('secondary')};
       }
     }

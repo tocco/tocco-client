@@ -18,8 +18,13 @@ const ActionWrapper = styled.div`
   display: flex;
   background-color: ${theme.color('paper')};
   margin-bottom: 3px;
-  padding: 8px;
+  padding: 0 8px 8px;
   grid-row-start: action-start;
+  flex-wrap: wrap;
+
+  & > * {
+    margin-top: 8px;
+  }
 `
 
 const StyledListView = styled.div`
