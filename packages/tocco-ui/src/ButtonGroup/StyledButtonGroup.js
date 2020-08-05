@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {StyledButton} from '../Button'
 
 const StyledButtonGroup = styled.div`
-  display: inline;
+  display: flex;
 
   &&& > ${StyledButton} {
     :not(:first-child) {

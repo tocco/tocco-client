@@ -8,9 +8,9 @@ import {
   interactiveStyling
 } from '../utilStyles'
 
-const declareIconPosition = props => {
-  if (props.icon || props.pending) {
-    if (props.iconPosition === design.position.APPEND) {
+const declareIconPosition = ({icon, pending, iconPosition}) => {
+  if (icon || pending) {
+    if (iconPosition === design.position.APPEND) {
       return `
         > span {
           order: -1;
@@ -46,6 +46,7 @@ const StyledButton = styled.button`
   margin-right: .5em;
   padding: .3rem 1.3rem;
   cursor: pointer;
+  height: fit-content;
   ${declareFont()}
   ${interactiveStyling}
   ${props => getDensityStyle(props)}
