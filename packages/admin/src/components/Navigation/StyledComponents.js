@@ -2,6 +2,9 @@ import styled from 'styled-components'
 import {Link} from 'react-router-dom'
 import {Button, theme, StyledScrollbar} from 'tocco-ui'
 
+const secondary = theme.color('secondary')
+const secondaryLight = theme.color('secondaryLight')
+
 export const StyledNav = styled.nav`
   height: 100%;
 
@@ -33,7 +36,7 @@ export const StyledMenuLink = styled(Link)`
   &:focus {
     outline: none;
     font-weight: ${theme.fontWeight('bold')};
-    color: ${theme.color('secondaryLight')};
+    color: ${secondaryLight};
   }
 
   &.active {
@@ -59,25 +62,22 @@ export const StyledTabsContainer = styled.div`
 `
 
 export const StyledNavButton = styled(Button)`
-  && {
-    flex: 1;
-    justify-content: center;
-    border-radius: 0;
-    margin: 5px;
-    border-top: 5px solid;
-    color: ${props => props.active ? theme.color('secondary') : theme.color('secondaryLight')};
-    font-weight: ${theme.fontWeight('bold')};
-    border-color: ${props => props.active ? theme.color('secondary') : 'transparent'};
+  flex: 1;
+  justify-content: center;
+  border-radius: 0;
+  margin: 5px;
+  border-top: 5px solid ${({active}) => active ? secondary : 'transparent'};
+  color: ${({active}) => active ? secondary : secondaryLight};
+  font-weight: ${theme.fontWeight('bold')};
 
-    &:hover {
-      border-color: ${props => props.active ? theme.color('secondary') : theme.color('secondaryLight')};
-      background-color: transparent;
-      color: ${props => props.active ? theme.color('secondary') : theme.color('secondaryLight')};
-    }
+  &:hover {
+    border-color: ${({active}) => active ? secondary : secondaryLight};
+    background-color: transparent;
+    color: ${({active}) => active ? secondary : secondaryLight};
+  }
 
-    &:focus {
-      background-color: transparent;
-    }
+  &:focus {
+    background-color: transparent;
   }
 `
 
