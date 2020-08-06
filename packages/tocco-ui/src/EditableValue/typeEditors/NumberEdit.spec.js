@@ -86,8 +86,6 @@ describe('tocco-ui', () => {
         })
       })
       describe('isAllowedValue', () => {
-        const prePointDigits = 8
-        const postPointDigits = 2
         const minValue = 1
         const maxValue = 1000
         const valuesObject = {
@@ -98,36 +96,33 @@ describe('tocco-ui', () => {
           expect(isAllowedValue()(valuesObject)).to.be.eql(true)
         })
         test('should return true on empty string', () => {
-          expect(isAllowedValue(prePointDigits, postPointDigits)(valuesObject)).to.be.eql(true)
-        })
-        test('should return true on valid value and only prePointDigits', () => {
-          expect(isAllowedValue(prePointDigits)(valuesObject)).to.be.eql(true)
+          expect(isAllowedValue()(valuesObject)).to.be.eql(true)
         })
         test('should return true on valid value and only minValue', () => {
-          expect(isAllowedValue(undefined, undefined, minValue)(valuesObject)).to.be.eql(true)
+          expect(isAllowedValue(minValue)(valuesObject)).to.be.eql(true)
         })
         test('should return true on valid value and minValue/maxValue', () => {
           expect(isAllowedValue(
-            undefined,
-            undefined,
             minValue,
             maxValue
           )(valuesObject)).to.be.eql(true)
         })
-        test('should return true on valid value and pre- or postPointDigits and minValue', () => {
+        test('should return true on valid value and minValue', () => {
           expect(isAllowedValue(
-            prePointDigits,
-            postPointDigits,
             minValue
           )(valuesObject)).to.be.eql(true)
         })
-        test('should return false on valid value and pre- or postPointDigits and maxValue', () => {
+        test('should return false on valid value and maxValue', () => {
           expect(isAllowedValue(
-            1,
-            2,
             undefined,
             100
           )(valuesObject)).to.be.eql(false)
+        })
+        test('should return true on too short invalid value', () => {
+          expect(isAllowedValue(
+            1234,
+            5000
+          )(valuesObject)).to.be.eql(true)
         })
       })
     })
