@@ -162,7 +162,8 @@ const InputCell = ({id, nodes, column, updateValue}) => {
           id={id}
           type={column.dataType}
           value={data ? (Object.prototype.hasOwnProperty.call(data, 'value') ? data.value : data) : null}
-          options={column.options}/>
+          options={column.options}
+        />
         : <EditableValue
           styles={{width: `${width}px`}}
           id={id}
@@ -173,7 +174,8 @@ const InputCell = ({id, nodes, column, updateValue}) => {
           events={{
             onChange: changedValue => updateValue(nodes.pk.value, column.id, changedValue),
             onFocus: ({target}) => target.select()
-          }}/>
+          }}
+        />
     }
   </StyledCell>
 }
