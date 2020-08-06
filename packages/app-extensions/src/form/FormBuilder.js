@@ -17,14 +17,26 @@ import layoutTypes from './enums/layoutTypes'
 import {isAction} from '../actions/actions'
 
 const FormBuilder = props => {
+  const {
+    componentMapping,
+    entity,
+    model,
+    mode,
+    beforeRenderField,
+    formDefinition,
+    formValues,
+    formName,
+    fieldMappingType,
+    customActions
+  } = props
+
   const modeFitsScope = (mode, scopes) => (
     !mode || !scopes || scopes.length === 0 || scopes.includes(mode)
   )
 
   const formTraverser = children => {
     const result = []
-    for (let i = 0; i < children.length; i++) {
-      const child = children[i]
+    for (const child of children) {
       if (child.componentType === componentTypes.LAYOUT) {
         const travers = () => formTraverser(child.children)
         result.push(createLayoutComponent(child, child.layoutType, travers))
@@ -32,7 +44,7 @@ const FormBuilder = props => {
         result.push(createAction(child))
       } else if (child.componentType === componentTypes.FIELD_SET) {
         result.push(createFieldSet(child))
-      } else if (props.componentMapping && props.componentMapping[child.componentType]) {
+      } else if (componentMapping && componentMapping[child.componentType]) {
         return createCustomComponent(child)
       }
     }
@@ -52,15 +64,15 @@ const FormBuilder = props => {
     }
 
     const fieldName = formDefinitionField.path || formDefinitionField.id
-    const entityField = _get(props.entity, 'paths.' + fieldName.split('.').join('.value.paths.'))
+    const entityField = _get(entity, 'paths.' + fieldName.split('.').join('.value.paths.'))
 
     const modelSelector = formDefinitionField.path
       ? formDefinitionField.path.split('.')[0]
       : formDefinitionField.id
-    const modelField = props.model.paths[modelSelector]
+    const modelField = model.paths[modelSelector]
 
     const shouldRenderField = (formDefinitionField, entityField) => {
-      if (!modeFitsScope(props.mode, formDefinitionField.scopes)) {
+      if (!modeFitsScope(mode, formDefinitionField.scopes)) {
         return false
       }
 
@@ -68,7 +80,7 @@ const FormBuilder = props => {
         return false
       }
 
-      if (props.beforeRenderField && props.beforeRenderField(fieldName) === false) {
+      if (beforeRenderField && !beforeRenderField(fieldName)) {
         return false
       }
 
@@ -88,26 +100,24 @@ const FormBuilder = props => {
         }
       }
 
-      return !(props.formDefinition.readonly
-        && hasEmptyValue(transformFieldName(fieldName), props.formValues))
+      return !(formDefinition.readonly
+        && hasEmptyValue(transformFieldName(fieldName), formValues))
     }
 
     if (shouldRenderField(formDefinitionField, entityField)) {
-      return (
-        <Field
-          key={`field-${fieldName}`}
-          readOnlyForm={props.formDefinition.readonly}
-          name={transformFieldName(fieldName)}
-          id={getFieldId(props.formName, fieldName)}
-          formName={props.formName}
-          component={ReduxFormFieldAdapter}
-          formDefinitionField={formDefinitionField}
-          entityField={entityField}
-          modelField={modelField}
-          fieldMappingType={props.fieldMappingType}
-          format={null}
-        />
-      )
+      return <Field
+        key={`field-${fieldName}`}
+        readOnlyForm={formDefinition.readonly}
+        name={transformFieldName(fieldName)}
+        id={getFieldId(formName, fieldName)}
+        formName={formName}
+        component={ReduxFormFieldAdapter}
+        formDefinitionField={formDefinitionField}
+        entityField={entityField}
+        modelField={modelField}
+        fieldMappingType={fieldMappingType}
+        format={null}
+      />
     }
 
     return null
@@ -124,8 +134,8 @@ const FormBuilder = props => {
       <actions.Action
         definition={action}
         selection={actions.getSingleEntitySelection(model, entityKey)}
-        mode={props.mode}
-        customActions={props.customActions}
+        mode={mode}
+        customActions={customActions}
       />
     </div>
   }
@@ -134,7 +144,7 @@ const FormBuilder = props => {
     let elements = traverser()
 
     if (Array.isArray(elements)) {
-      elements = elements.filter(el => el)
+      elements = elements.filter(Boolean)
     }
 
     if (!elements || (Array.isArray(elements) && elements.length === 0)) {
@@ -165,18 +175,18 @@ const FormBuilder = props => {
   }
 
   const createCustomComponent = field => {
-    if (!modeFitsScope(props.mode, field.scopes)) {
+    if (!modeFitsScope(mode, field.scopes)) {
       return null
     }
 
     const key = `custom-component-${field.id}-${field.layoutType}`
-    const component = props.componentMapping[field.componentType]
+    const component = componentMapping[field.componentType]
     const fieldName = field.id
-    const modelField = props.model.paths[fieldName]
+    const modelField = model.paths[fieldName]
     return component(field, modelField, key)
   }
 
-  return formTraverser(props.formDefinition.children)
+  return formTraverser(formDefinition.children)
 }
 
 FormBuilder.propTypes = {
