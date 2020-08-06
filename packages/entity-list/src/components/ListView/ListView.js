@@ -42,30 +42,44 @@ class ListView extends React.Component {
   msg = (id, values = {}) => (this.props.intl.formatMessage({id}, values))
 
   render() {
-    const props = this.props
+    const {
+      dataLoadingInProgress,
+      formDefinition,
+      intl,
+      parent,
+      searchFormPosition,
+      showActions,
+      showSelectionController,
+      sorting
+    } = this.props
+
     return (
       <LoadMask
-        required={[props.formDefinition]}
+        required={[formDefinition]}
         loadingText={this.msg('client.entity-list.loadingText')}
       >
         <StyledListView>
           {
-            this.props.formDefinition && this.props.formDefinition.children.map(child => {
+            formDefinition && formDefinition.children.map(child => {
               if (child.componentType === form.componentTypes.TABLE) {
-                return <ListWrapper searchFormPosition={this.props.searchFormPosition} key={`tableWrapper-${child.id}`}>
-                  <TableContainer key={`table-${child.id}`}
-                    columnDefinitions={getColumnDefinition(child, this.props.parent)}/>
+                return <ListWrapper searchFormPosition={searchFormPosition} key={`tableWrapper-${child.id}`}>
+                  <TableContainer
+                    key={`table-${child.id}`}
+                    columnDefinitions={
+                      getColumnDefinition(child, sorting, parent, intl)
+                    }
+                  />
                 </ListWrapper>
               } else if (actions.isAction(child.componentType)) {
                 const content = [
-                  ...props.showSelectionController
+                  ...showSelectionController
                     ? [<SelectionControllerContainer key="selectionController"/>] : [],
-                  ...props.showActions !== false
+                  ...showActions !== false
                     ? [<ActionContainer
                       key={`listAction-${child.id}`}
                       definition={child}
-                      parent={props.parent}
-                      disabled={props.dataLoadingInProgress}
+                      parent={parent}
+                      disabled={dataLoadingInProgress}
                     />] : []
                 ]
 
@@ -100,7 +114,11 @@ ListView.propTypes = {
   showSelectionController: PropTypes.bool,
   entityName: PropTypes.string,
   searchFormPosition: PropTypes.oneOf(['top', 'left']),
-  showActions: PropTypes.bool
+  showActions: PropTypes.bool,
+  sorting: PropTypes.arrayOf(PropTypes.shape({
+    field: PropTypes.string,
+    order: PropTypes.string
+  }))
 }
 
 export default ListView

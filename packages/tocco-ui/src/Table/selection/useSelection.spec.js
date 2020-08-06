@@ -5,9 +5,9 @@ import useSelection from './useSelection'
 
 const EMPTY_FUNC = () => {}
 
-describe('entity-list', () => {
-  describe('components', () => {
-    describe('Table', () => {
+describe('tocco-ui', () => {
+  describe('Table', () => {
+    describe('selection', () => {
       describe('useSelection', () => {
         test('should return valid isSelected', () => {
           const selection = ['1', '3', '100']
@@ -33,8 +33,8 @@ describe('entity-list', () => {
         const {result} = renderHook(() => useSelection(selection, allKeys, onSelectChange))
 
         act(() => {
-          result.current.singleSelectHandler('1')
-          result.current.singleSelectHandler('2')
+          result.current.selectionChange('1')
+          result.current.selectionChange('2')
         })
         expect(onSelectChange).to.be.calledWith(['1'], false)
         expect(onSelectChange).to.be.calledWith(['2'], true)
@@ -48,8 +48,8 @@ describe('entity-list', () => {
         const {result} = renderHook(() => useSelection(selection, allKeys, onSelectChange))
 
         act(() => {
-          result.current.singleSelectHandler('1', true)
-          result.current.singleSelectHandler('2', true)
+          result.current.selectionChange('1', true)
+          result.current.selectionChange('2', true)
         })
 
         expect(onSelectChange).to.be.calledWith(['1'], true)
@@ -64,11 +64,11 @@ describe('entity-list', () => {
 
         const shiftPressed = true
         act(() => {
-          result.current.singleSelectHandler('2', true)
+          result.current.selectionChange('2', true)
         })
 
         act(() => {
-          result.current.singleSelectHandler('5', true, shiftPressed)
+          result.current.selectionChange('5', true, shiftPressed)
         })
 
         expect(onSelectChange).to.be.calledWith(['2', '3', '4', '5'], true)
@@ -82,11 +82,11 @@ describe('entity-list', () => {
 
         const shiftPressed = true
         act(() => {
-          result.current.singleSelectHandler('5', true)
+          result.current.selectionChange('5', true)
         })
 
         act(() => {
-          result.current.singleSelectHandler('2', true, shiftPressed)
+          result.current.selectionChange('2', true, shiftPressed)
         })
 
         expect(onSelectChange).to.be.calledWith(['2', '3', '4', '5'], true)
@@ -101,7 +101,7 @@ describe('entity-list', () => {
         const shiftPressed = true
 
         act(() => {
-          result.current.singleSelectHandler('4', true, shiftPressed)
+          result.current.selectionChange('4', true, shiftPressed)
         })
 
         expect(onSelectChange).to.be.calledWith(['1', '2', '3', '4'], true)
@@ -114,7 +114,7 @@ describe('entity-list', () => {
         const {result} = renderHook(() => useSelection([], allKeys, onSelectChange))
 
         act(() => {
-          result.current.multiSelectHandler(['4', '2'], false)
+          result.current.selectionChange(['4', '2'], false)
         })
 
         expect(onSelectChange).to.be.calledWith(['4', '2'], false)

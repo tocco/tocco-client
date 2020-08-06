@@ -1,4 +1,5 @@
 import {mockData} from 'tocco-util'
+import _omit from 'lodash/omit'
 
 import * as forms from './forms'
 
@@ -39,7 +40,7 @@ describe('entity-list', () => {
         describe('getColumnDefinition', () => {
           test('should return an array', () => {
             const field1 = {id: 'name1', componentType: 'field', dataType: 'string', label: 'label'}
-            const field2 = {id: 'name2', componentType: 'field', dataType: 'string', label: 'label'}
+            const field2 = {id: 'name2', componentType: 'field', dataType: 'decimal', label: 'label'}
 
             const formDefinition = {
               children: [
@@ -66,11 +67,26 @@ describe('entity-list', () => {
             const result = forms.getColumnDefinition(formDefinition)
 
             const expectedColumnDefinition = [
-              {label: 'label1', id: 'lb1', children: [field1], sortable: true, widthFixed: false},
-              {label: 'label2', id: 'lb2', children: [field2], sortable: false, widthFixed: true}
+              {
+                label: 'label1',
+                id: 'lb1',
+                children: [field1],
+                sorting: {sortable: true},
+                resizable: true,
+                rightAligned: false
+              },
+              {
+                label: 'label2',
+                id: 'lb2',
+                children: [field2],
+                sorting: {sortable: false},
+                resizable: false,
+                rightAligned: true
+              }
             ]
 
-            expect(result).to.eql(expectedColumnDefinition)
+            expect(result[0]).to.have.property('CellRenderer')
+            expect(result.map(r => _omit(r, ['CellRenderer']))).to.eql(expectedColumnDefinition)
           })
 
           test('should ignore HIDDEN columns and hidden fields', () => {
@@ -110,10 +126,8 @@ describe('entity-list', () => {
 
             const result = forms.getColumnDefinition(formDefinition)
 
-            const expectedcolumnDefinition = [
-              {label: 'label1', id: 'lb1', children: [field1], sortable: true, widthFixed: false}
-            ]
-            expect(result).to.eql(expectedcolumnDefinition)
+            expect(result).to.have.length(1)
+            expect(result[0].id).to.eql('lb1')
           })
         })
 

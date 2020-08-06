@@ -6,8 +6,7 @@ import {
   changePage,
   initialize,
   onRowClick,
-  setSortingInteractive,
-  refresh
+  setSortingInteractive
 } from '../modules/list/actions'
 import {
   onSelectChange,
@@ -25,14 +24,12 @@ const mapActionCreators = {
   onRowClick,
   onSelectChange,
   setSelection,
-  refresh,
   changePosition,
   resetSorting
 }
 
 const mapStateToProps = (state, props) => ({
   currentPage: state.list.currentPage,
-  sorting: state.list.sorting,
   entities: state.list.entities,
   entityCount: state.list.entityCount,
   limit: state.list.limit,
