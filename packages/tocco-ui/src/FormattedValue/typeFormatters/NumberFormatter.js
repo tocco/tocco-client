@@ -18,7 +18,9 @@ const NumberFormatter = props => {
 
 NumberFormatter.propTypes = {
   value: PropTypes.number,
-  options: PropTypes.object,
+  options: PropTypes.shape({
+    postPointDigits: PropTypes.number
+  }),
   breakWords: PropTypes.bool
 }
 

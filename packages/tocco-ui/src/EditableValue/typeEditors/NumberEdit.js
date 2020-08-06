@@ -66,6 +66,13 @@ const NumberEdit = props => {
     }
   }
 
+  const handleBlur = event => {
+    const valueBeforeBlur = Number.parseFloat(event.target.value)
+    if (props.onChange && !checkValueRange(minValue, calculatedMaxValue, valueBeforeBlur)) {
+      props.onChange(null)
+    }
+  }
+
   return (
     <StyledEditableWrapper immutable={props.immutable}>
       <StyledNumberEdit
@@ -82,6 +89,7 @@ const NumberEdit = props => {
         prefix={prefix}
         {...numberFormatOptions}
         format={format}
+        onBlur={handleBlur}
       />
     </StyledEditableWrapper>
   )
