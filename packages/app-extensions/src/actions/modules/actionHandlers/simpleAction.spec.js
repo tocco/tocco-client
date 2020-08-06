@@ -12,7 +12,8 @@ describe('app-extensions', () => {
             test('should call notifier and return an remote event', async() => {
               const definition = {}
               const selection = {entityName: 'User'}
-              const {returnValue} = await expectSaga(simpleAction, definition, selection)
+              const parent = {}
+              const {returnValue} = await expectSaga(simpleAction, definition, selection, parent)
                 .provide([
                   [matchers.call.fn(invokeRequest), {success: true}]
                 ])
@@ -22,7 +23,7 @@ describe('app-extensions', () => {
               expect(returnValue.success).to.be.true
               expect(returnValue.remoteEvents).to.have.length(1)
               expect(returnValue.remoteEvents[0]).to.eql(
-                {type: 'entity-update-event', payload: {entities: [{entityName: 'User'}]}}
+                {type: 'entity-update-event', payload: {entities: [{entityName: 'User'}], parent}}
               )
             })
           })
