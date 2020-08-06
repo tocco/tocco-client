@@ -54,6 +54,7 @@ const InputEdit = ({
 
   if (valid === false) {
     notify('error', 'client.component.input-edit.error.title', message)
+    return null
   }
   return <LoadMask required={[valid || message]}>
     {valid
