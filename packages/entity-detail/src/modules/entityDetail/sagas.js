@@ -239,6 +239,7 @@ export function* navigateToAction({payload}) {
 
 export const isCurrentEntity = (event, entityName, entityId) =>
   !!event.payload.entities.find(entity => entity.entityName === entityName && entity.key === entityId)
+  || (event.payload.parent && event.payload.parent.model === entityName && event.payload.parent.key === entityId)
 
 export function* remoteEvent(action) {
   const event = action.payload.event

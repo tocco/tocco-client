@@ -1,6 +1,6 @@
 import _isEmpty from 'lodash/isEmpty'
 import _union from 'lodash/union'
-import {externalEvents, rest, remoteEvents} from 'tocco-app-extensions'
+import {externalEvents, rest, remoteEvents, actionEmitter} from 'tocco-app-extensions'
 import _omit from 'lodash/omit'
 import {call, put, fork, select, spawn, takeEvery, takeLatest, all, take} from 'redux-saga/effects'
 import {api} from 'tocco-util'
@@ -318,4 +318,6 @@ export function* remoteEvent(action) {
     const deletedEntityKeys = event.payload.entities.filter(e => e.entityName === entityModel.name).map(e => e.key)
     yield put(selectionActions.onSelectChange(deletedEntityKeys, false))
   }
+
+  yield put(actionEmitter.emitAction(action))
 }
