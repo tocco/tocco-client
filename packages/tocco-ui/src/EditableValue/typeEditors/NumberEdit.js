@@ -16,18 +16,26 @@ export const calculateMaxValue = (prePointDigits, postPointDigits, maxValue) => 
   return maxValue
 }
 
-export const isAllowedValue = (prePointDigits, postPointDigits, minValue, maxValue) => ({floatValue}) => {
-  const calculatedMaxValue = calculateMaxValue(prePointDigits, postPointDigits, maxValue)
+const getPreDecimalPositions = number => Math.ceil(Math.log10(number + 1))
 
-  if (calculatedMaxValue && floatValue > calculatedMaxValue) {
+const checkValueRange = (minValue, maxValue, value) => {
+  if (maxValue && value > maxValue) {
     return false
   }
 
-  if (minValue && floatValue < minValue) {
+  if (minValue && value < minValue) {
     return false
   }
 
   return true
+}
+
+export const isAllowedValue = (minValue, maxValue) => ({floatValue}) => {
+  if (getPreDecimalPositions(floatValue) < getPreDecimalPositions(minValue)) {
+    return true
+  }
+
+  return checkValueRange(minValue, maxValue, floatValue)
 }
 
 const NumberEdit = props => {
@@ -44,15 +52,16 @@ const NumberEdit = props => {
     format
   } = props.options || {}
 
+  const calculatedMaxValue = calculateMaxValue(prePointDigits, postPointDigits, maxValue)
   const numberFormatOptions = {
-    isAllowed: isAllowedValue(prePointDigits, postPointDigits, minValue, maxValue),
+    isAllowed: isAllowedValue(minValue, calculatedMaxValue),
     allowNegative: !!allowNegative,
     ...(!isNaN(postPointDigits) ? {decimalScale: postPointDigits} : {}),
     fixedDecimalScale: !!fixedDecimalScale
   }
 
   const handleChange = values => {
-    if (props.onChange) {
+    if (props.onChange && checkValueRange(minValue, calculatedMaxValue, values.value)) {
       props.onChange(convertStringToNumber(values.value))
     }
   }
