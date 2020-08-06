@@ -2,6 +2,8 @@ import _uniq from 'lodash/uniq'
 import {actions, form} from 'tocco-app-extensions'
 import {api} from 'tocco-util'
 
+import cellRenderer from '../cellRenderer'
+
 const getTable = formDefinition =>
   formDefinition.children.find(child => child.componentType === form.componentTypes.TABLE)
 
@@ -27,7 +29,22 @@ export const getConstriction = formDefinition => {
 
 const isDisplayableChild = child => !child.hidden
 
-export const getColumnDefinition = (table, parent) =>
+const getSortingAttributes = (column, sorting) => {
+  const idx = sorting && sorting.findIndex(s => s.field === column.id)
+  return idx >= 0
+    ? {
+      sortRank: idx + 1,
+      order: sorting[idx].order
+    } : null
+}
+
+const rightAlignedTypes = ['counter', 'decimal', 'double', 'integer', 'latitude', 'long', 'longitude', 'moneyamount',
+  'percent', 'serial', 'sorting', 'version']
+
+const isRightAligned = column =>
+  column.children && column.children.length === 1 && rightAlignedTypes.includes(column.children[0].dataType)
+
+export const getColumnDefinition = (table, sorting, parent, intl) =>
   table.children
     .filter(column => !column.hidden)
     .filter(column => !parent || column.children.length !== 1 || column.children[0].path !== parent.reverseRelationName)
@@ -36,9 +53,14 @@ export const getColumnDefinition = (table, parent) =>
       {
         id: c.id,
         label: c.label,
-        sortable: c.sortable,
+        sorting: {
+          sortable: c.sortable,
+          ...getSortingAttributes(c, sorting)
+        },
         children: c.children.filter(isDisplayableChild),
-        widthFixed: c.widthFixed
+        resizable: !c.widthFixed,
+        rightAligned: isRightAligned(c),
+        CellRenderer: ({rowData, column}) => column.children.map(child => cellRenderer(child, rowData, parent, intl))
       }
     ))
 

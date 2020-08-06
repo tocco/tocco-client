@@ -1,8 +1,8 @@
 import React from 'react'
 import {IntlStub} from 'tocco-test-util/src/main'
 import {shallow} from 'enzyme'
+import {Table as UiTable} from 'tocco-ui'
 
-import StyledTable from './StyledTable'
 import Table from './Table'
 
 const EMPTY_FUNC = () => {}
@@ -24,7 +24,7 @@ describe('entity-list', () => {
     describe('Table', () => {
       test('should render table', () => {
         const wrapper = shallow(<Table {...defaultProps}/>)
-        expect(wrapper.find(StyledTable)).to.have.length(1)
+        expect(wrapper.find(UiTable)).to.have.length(1)
       })
     })
   })

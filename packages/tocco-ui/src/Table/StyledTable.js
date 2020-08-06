@@ -1,14 +1,14 @@
 import styled, {css} from 'styled-components'
+import _get from 'lodash/get'
+import {lighten} from 'polished'
+
 import {
   declareFont,
   theme,
   shadeColor,
   StyledScrollbar,
   scale
-} from 'tocco-ui'
-import _get from 'lodash/get'
-import {lighten} from 'polished'
-
+} from '../'
 import {StyledResizeHandle} from './ResizingController'
 
 const borderColor = ({theme}) => shadeColor(_get(theme, 'colors.paper'), 2)

@@ -1,4 +1,6 @@
 [
+  "client.component.table.dataLoading",
+  "client.component.table.noData",
   "client.component.actions.confirmTitle",
   "client.component.actions.defaultConfirmMessage",
   "client.component.actions.defaultProgressMessage",
@@ -29,6 +31,10 @@
   "client.component.duration.minutesLabel",
   "client.component.location.mapButtonTitle",
   "client.component.pagination.text",
+  "client.component.pagination.nextPageTitle",
+  "client.component.pagination.prePageTitle",
+  "client.component.pagination.firstPageTitle",
+  "client.component.pagination.lastPageTitle",
   "client.common.ok",
   "client.common.cancel",
   "client.common.yes",

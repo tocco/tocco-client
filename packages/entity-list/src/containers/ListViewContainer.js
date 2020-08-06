@@ -18,7 +18,8 @@ const mapStateToProps = (state, props) => {
     dataLoadingInProgress: state.list.inProgress,
     showSelectionController: state.selection.showSelectionController,
     searchFormPosition: state.input.searchFormPosition,
-    showActions: state.input.showActions
+    showActions: state.input.showActions,
+    sorting: state.list.sorting
   }
 }
 

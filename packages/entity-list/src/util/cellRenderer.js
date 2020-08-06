@@ -5,15 +5,15 @@ import {FormattedValue} from 'tocco-ui'
 import fieldFactory from './fieldFactory'
 import LazyDataCell from '../components/LazyDataEnhancer'
 
-export default (field, entity, parent, cb, intl) => {
+export default (field, entity, parent, intl) => {
   const {componentType} = field
 
   if (actions.isAction(componentType)) {
-    return getAction(field, entity, parent, cb)
+    return getAction(field, entity, parent)
   } else if (componentType === form.componentTypes.FIELD) {
     return fieldFactory(field, entity, intl)
   } else if (componentType === form.componentTypes.DISPLAY) {
-    return getDisplayExpression(field, entity, cb)
+    return getDisplayExpression(field, entity)
   }
 }
 
@@ -32,13 +32,12 @@ const getDisplayExpression = (field, entity) => {
   </span>
 }
 
-const getAction = (field, entity, parent, cb) =>
-  <actions.Action
-    key={'tableAction' + field.id}
-    definition={field}
-    selection={actions.getSingleEntitySelection(entity.__model, entity.__key)}
-    callback={result =>
-      cb.refresh()
-    }
-    parent={parent}
-  />
+const getAction = (field, entity, parent) =>
+  <div onClick={e => { e.stopPropagation() }}>
+    <actions.Action
+      key={'tableAction' + field.id}
+      definition={field}
+      selection={actions.getSingleEntitySelection(entity.__model, entity.__key)}
+      parent={parent}
+    />
+  </div>

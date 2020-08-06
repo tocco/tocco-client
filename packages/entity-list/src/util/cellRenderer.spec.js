@@ -32,7 +32,7 @@ describe('entity-list', () => {
 
         const wrapper = intlEnzyme.mountWithIntl(
           <Provider store={getStore()}>
-            {cellRenderer(field, entity, parent, {}, IntlStub)}
+            {cellRenderer(field, entity, parent, IntlStub)}
           </Provider>)
 
         expect(wrapper.find(FormattedValue)).to.have.length(1)

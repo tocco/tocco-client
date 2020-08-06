@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import _get from 'lodash/get'
-import {shadeColor} from 'tocco-ui'
+
+import {shadeColor} from '../'
 
 export const StyledResizeHandle = styled.span`
   position: absolute;
@@ -15,12 +16,10 @@ export const StyledResizeHandle = styled.span`
   cursor: col-resize;
 `
 
-const ResizingController = ({column, startResize}) =>
-  column.resizable !== false
-  && <StyledResizeHandle
-    data-cy={`header-cell-${column.id}-resizing-controller`}
-    onMouseDown={startResize(column)}
-  />
+const ResizingController = ({column, startResize}) => <StyledResizeHandle
+  data-cy={`header-cell-${column.id}-resizing-controller`}
+  onMouseDown={startResize(column)}
+/>
 
 ResizingController.propTypes = {
   column: PropTypes.shape({
