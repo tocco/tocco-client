@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {intlShape} from 'react-intl'
 import styled from 'styled-components'
-import {theme, StyledScrollbar, scale} from 'tocco-ui'
 
 import RelationsView from '../RelationsView'
 import EditView from '../EditView'
@@ -20,40 +19,20 @@ const DetailViewContainer = styled.div`
 
 const DetailViewPart = styled.div`
   flex: 1;
-`
 
-const DetailViewPartEdit = styled(DetailViewPart)`
-  padding: 0 0 2rem 1.5rem;
-  margin-right: 1rem;
-  background-color: ${theme.color('paper')};
-  overflow-y: auto;
-  ${StyledScrollbar}
-
-  .StyledRelationsViewWrapper {
-    background-color: ${theme.color('paper')};
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    padding-bottom: ${scale.space(-0.5)};
-    display: flex;
-    flex-wrap: wrap;
-
-    & > * {
-      margin-top: ${scale.space(-0.5)};
-    }
+  &:first-child {
+    margin-right: 1rem;
   }
 `
 
-const DetailView = props => (
-  <DetailViewContainer>
-    <DetailViewPartEdit>
-      <EditView match={props.match} history={props.history}/>
-    </DetailViewPartEdit>
-    <DetailViewPart>
-      <RelationsView match={props.match} history={props.history}/>
-    </DetailViewPart>
-  </DetailViewContainer>
-)
+const DetailView = ({match, history}) => <DetailViewContainer>
+  <DetailViewPart>
+    <EditView match={match} history={history}/>
+  </DetailViewPart>
+  <DetailViewPart>
+    <RelationsView match={match} history={history}/>
+  </DetailViewPart>
+</DetailViewContainer>
 
 DetailView.propTypes = {
   intl: intlShape,
