@@ -105,8 +105,26 @@ export const StyledFullRow = styled.td`
   ${declareFont()};
 `
 
+export const StyledDnD = styled.div`
+  width: 100%;
+  display: flex;
+  border-right: ${({isDraggedOver, theme}) => isDraggedOver ? '3px solid ' + theme.colors.primary : 'none'};
+  opacity: ${({isDragged}) => isDragged ? 0.2 : 1};
+  pointer-events: ${({isDraggedOver}) => isDraggedOver ? 'none' : 'auto'};
+`
+
 export const StyledTableHead = styled.thead`
   ${selectionStyles}
+
+  #header-cell-navigation-link {
+    ${StyledDnD} {
+      justify-content: center;
+    }
+
+    &:hover {
+      background-color: ${theme.color('paper')};
+    }
+  }
 `
 
 export const StyledTableRow = styled.tr`
@@ -148,14 +166,6 @@ export const StyledTableWrapper = styled.div`
   @media screen and (max-height: 650px) {
     grid-template-rows: [table-start] 1fr [pagination-start] auto auto;
   }
-`
-
-export const StyledDnD = styled.div`
-  width: 100%;
-  display: flex;
-  border-right: ${({isDraggedOver, theme}) => isDraggedOver ? '3px solid ' + theme.colors.primary : 'none'};
-  opacity: ${({isDragged}) => isDragged ? 0.2 : 1};
-  pointer-events: ${({isDraggedOver}) => isDraggedOver ? 'none' : 'auto'};
 `
 
 export default StyledTable
