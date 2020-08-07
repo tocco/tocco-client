@@ -5,17 +5,50 @@ import {Prompt} from 'react-router'
 import {intlShape} from 'react-intl'
 import queryString from 'query-string'
 import {selection as selectionUtil} from 'tocco-util'
+import styled from 'styled-components'
+import {scale, StyledScrollbar, theme} from 'tocco-ui'
 
 import {goBack} from '../../../../utils/routing'
 import StyledLink from '../../../../components/StyledLink/StyledLink'
 import Action from '../Action'
 import {currentViewPropType} from '../../utils/propTypes'
 
+export const EntityDetailAppWrapper = styled.div`
+  margin: 0;
+  background-color: ${theme.color('paper')};
+  padding: 0 0 0 1.5rem;
+  overflow-y: auto;
+  height: 100%;
+  ${StyledScrollbar}
+
+  .StyledRelationsViewWrapper {
+    background-color: ${theme.color('paper')};
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding-bottom: ${scale.space(-0.5)};
+    display: flex;
+    flex-wrap: wrap;
+
+    & > * {
+      margin-top: ${scale.space(-0.5)};
+    }
+  }
+`
+
 const EditView = props => {
+  const {
+    currentViewInfo,
+    history,
+    match,
+    intl,
+    emitAction
+  } = props
+
   const [touched, setTouched] = useState(false)
   const mode = 'update'
 
-  if (!props.currentViewInfo || props.currentViewInfo.pathname !== props.history.location.pathname) {
+  if (!currentViewInfo || currentViewInfo.pathname !== history.location.pathname) {
     return null
   }
 
@@ -27,22 +60,22 @@ const EditView = props => {
 
   const handleNavigateToCreate = relationName => {
     if (relationName) {
-      props.history.push(`${props.match.url}/${relationName}/create`)
+      history.push(`${match.url}/${relationName}/create`)
     } else {
-      const entityBaseUrl = goBack(props.match.url, 2)
-      props.history.push(entityBaseUrl + '/create')
+      const entityBaseUrl = goBack(match.url, 2)
+      history.push(entityBaseUrl + '/create')
     }
   }
 
   const handleEntityDeleted = () => {
-    const entityBaseUrl = goBack(props.match.url, 2)
-    props.history.push(entityBaseUrl)
+    const entityBaseUrl = goBack(match.url, 2)
+    history.push(entityBaseUrl)
   }
 
   const handleNavigateToAction = ({definition, selection}) => {
-    const entityBaseUrl = goBack(props.match.url)
+    const entityBaseUrl = goBack(match.url)
     const search = selectionUtil.selectionToQueryString(selection)
-    props.history.push({
+    history.push({
       pathname: entityBaseUrl + '/action/' + definition.appId,
       state: {definition, selection},
       search
@@ -50,44 +83,42 @@ const EditView = props => {
   }
 
   const handleSubGridRowClick = ({id, relationName}) => {
-    const entityBaseUrl = goBack(props.match.url)
-    props.history.push(`${entityBaseUrl}/${relationName}/${id}`)
+    const entityBaseUrl = goBack(match.url)
+    history.push(`${entityBaseUrl}/${relationName}/${id}`)
   }
 
-  const entityName = props.currentViewInfo.model.name
-  const msg = id => props.intl.formatMessage({id})
+  const entityName = currentViewInfo.model.name
+  const msg = id => intl.formatMessage({id})
 
-  return (
-    <React.Fragment>
-      <Prompt
-        when={touched}
-        message={location => {
-          if (props.history.location.pathname !== location.pathname) {
-            return msg('client.entity-browser.detail.confirmTouchedFormLeave')
-          }
+  return <EntityDetailAppWrapper>
+    <Prompt
+      when={touched}
+      message={location => {
+        if (history.location.pathname !== location.pathname) {
+          return msg('client.entity-browser.detail.confirmTouchedFormLeave')
+        }
 
-          return false
-        }}
-      />
-      <EntityDetailApp
-        entityName={entityName}
-        entityId={props.currentViewInfo.key}
-        formName={queryFormName || entityName}
-        mode={mode}
-        emitAction={props.emitAction}
-        onTouchedChange = {handleToucheChanged}
-        linkFactory={{
-          detail: (entity, relation, key, children) =>
-            <StyledLink to={`/e/${entity}/${key}`} target="_blank">{children}</StyledLink>
-        }}
-        onNavigateToCreate={handleNavigateToCreate}
-        onNavigateToAction={handleNavigateToAction}
-        onEntityDeleted={handleEntityDeleted}
-        actionAppComponent={Action}
-        onSubGridRowClick={handleSubGridRowClick}
-      />
-    </React.Fragment>
-  )
+        return false
+      }}
+    />
+    <EntityDetailApp
+      entityName={entityName}
+      entityId={currentViewInfo.key}
+      formName={queryFormName || entityName}
+      mode={mode}
+      emitAction={emitAction}
+      onTouchedChange = {handleToucheChanged}
+      linkFactory={{
+        detail: (entity, relation, key, children) =>
+          <StyledLink to={`/e/${entity}/${key}`} target="_blank">{children}</StyledLink>
+      }}
+      onNavigateToCreate={handleNavigateToCreate}
+      onNavigateToAction={handleNavigateToAction}
+      onEntityDeleted={handleEntityDeleted}
+      actionAppComponent={Action}
+      onSubGridRowClick={handleSubGridRowClick}
+    />
+  </EntityDetailAppWrapper>
 }
 
 EditView.propTypes = {

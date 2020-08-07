@@ -2,7 +2,6 @@ import React, {useEffect} from 'react'
 import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import {scale} from 'tocco-ui'
 
 import Overview from '../../subroutes/overview'
 import Entity from '../../subroutes/entity'
@@ -11,7 +10,7 @@ import Breadcrumbs from '../Breadcrumbs'
 
 const StyledWrapper = styled.div`
   display: grid;
-  grid-template-rows: auto  1fr;
+  grid-template-rows: auto 1fr;
   grid-template-areas:
     'breadcrumbs'
     'content';
@@ -21,8 +20,7 @@ const StyledWrapper = styled.div`
 
 const StyledContent = styled.div`
   grid-area: content;
-  overflow-x: hidden;
-  padding-right: ${scale.space(-1)};
+  overflow: hidden;
 `
 
 const StyledBreadcrumbs = styled.div`
@@ -36,26 +34,24 @@ const EntitiesRoute = ({match, history, loadCurrentViewInfo}) => {
     loadCurrentViewInfo(location)
   }, [location])
 
-  return (
-    <StyledWrapper>
-      <StyledBreadcrumbs>
-        <Breadcrumbs/>
-      </StyledBreadcrumbs>
-      <StyledContent>
-        <Switch>
-          <Route
-            path={`${match.url}/action/:actionId`}
-            component={Action}
-          />
-          <Route
-            path={`${match.url}/:entity`}
-            component={Entity}
-          />
-          <Route exact path={match.url} component={Overview}/>
-        </Switch>
-      </StyledContent>
-    </StyledWrapper>
-  )
+  return <StyledWrapper>
+    <StyledBreadcrumbs>
+      <Breadcrumbs/>
+    </StyledBreadcrumbs>
+    <StyledContent>
+      <Switch>
+        <Route
+          path={`${match.url}/action/:actionId`}
+          component={Action}
+        />
+        <Route
+          path={`${match.url}/:entity`}
+          component={Entity}
+        />
+        <Route exact path={match.url} component={Overview}/>
+      </Switch>
+    </StyledContent>
+  </StyledWrapper>
 }
 
 EntitiesRoute.propTypes = {
