@@ -139,8 +139,12 @@ export const StyledTableWrapper = styled.div`
   display: grid;
   padding-left: ${scale.space(-0.5)};
   background-color: ${theme.color('paper')};
-  grid-template-rows: [table-start] 1fr [pagination-start] auto auto;
+  grid-template-rows: [table-start] minmax(300px, 1fr) [pagination-start] auto auto;
   height: 100%;
+
+  @media screen and (max-height: 650px) {
+    grid-template-rows: [table-start] 1fr [pagination-start] auto auto;
+  }
 `
 
 export const StyledDnD = styled.div`
