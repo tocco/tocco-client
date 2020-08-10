@@ -26,21 +26,33 @@ export const loadCss = src => new Promise((resolve, reject) => {
 })
 
 export function* loadSequentially(sources) {
+  const currentEnv = window.legacyActionEnv || 'new'
   for (const source of sources) {
-    yield call(source.handler, source.src)
+    if (source.envs.includes(currentEnv)) {
+      yield call(source.handler, source.src)
+    }
   }
 }
 
 export const sources = [
-  {src: '/nice2/javascript/lang.release.js', handler: loadScript},
-  {src: '/nice2/javascript/nice2-ext-newclient-actions.release.js', handler: loadScript},
-  {src: '/nice2/javascript/nice2-admin.release.js', handler: loadScript},
-  {src: '/nice2/javascript/nice2-newclient-actions-setup.release.js', handler: loadScript},
-  {src: '/nice2/dwr-all.js', handler: loadScript},
-  {src: '/js/ext-extensions/ckeditor/ckeditor/ckeditor.js', handler: loadScript},
-  {src: '/css/themes/blue-medium.css', handler: loadCss},
-  {src: '/css/nice2-admin.css', handler: loadCss},
-  {src: '/css/nice2-new-client-legacy-actions.css', handler: loadCss}
+  {src: '/nice2/javascript/lang.release.js', handler: loadScript, envs: ['new']},
+  {src: '/nice2/javascript/nice2-ext-newclient-actions.release.js', handler: loadScript, envs: ['new']},
+  {src: '/nice2/javascript/nice2-admin.release.js', handler: loadScript, envs: ['new']},
+  {
+    src: '/nice2/javascript/nice2-newclient-actions-public.release.js',
+    handler: loadScript,
+    envs: ['legacy-public']
+  },
+  {
+    src: '/nice2/javascript/nice2-newclient-actions-setup.release.js',
+    handler: loadScript,
+    envs: ['legacy-public', 'legacy-admin', 'new']
+  },
+  {src: '/nice2/dwr-all.js', handler: loadScript, envs: ['new']},
+  {src: '/js/ext-extensions/ckeditor/ckeditor/ckeditor.js', handler: loadScript, envs: ['new']},
+  {src: '/css/themes/blue-medium.css', handler: loadCss, envs: ['new']},
+  {src: '/css/nice2-admin.css', handler: loadCss, envs: ['new']},
+  {src: '/css/nice2-new-client-legacy-actions.css', handler: loadCss, envs: ['new']}
 ]
 
 export const channelFeedingCallback = channel => arg => {
@@ -56,11 +68,13 @@ export function* readRemoteEvents(remoteEventsChannel) {
 }
 
 export function* registerRemoteEventsListener() {
-  const remoteEventsChannel = yield call(channel)
-  const callback = yield call(channelFeedingCallback, remoteEventsChannel)
   const dataRegistry = yield call([window.app, window.app.getDataRegistry])
-  yield call([dataRegistry, dataRegistry.setNewClientCallback], callback)
-  yield spawn(readRemoteEvents, remoteEventsChannel)
+  if (dataRegistry.setNewClientCallback) {
+    const remoteEventsChannel = yield call(channel)
+    const callback = yield call(channelFeedingCallback, remoteEventsChannel)
+    yield call([dataRegistry, dataRegistry.setNewClientCallback], callback)
+    yield spawn(readRemoteEvents, remoteEventsChannel)
+  }
 }
 
 export function* handleNotification(notification) {
@@ -92,12 +106,14 @@ export function* readNotifications(notificationsChannel) {
 }
 
 export function* registerNotificationsListener() {
-  const notificationsChannel = yield call(channel)
-  const callback = yield call(channelFeedingCallback, notificationsChannel)
   const gui = yield call([window.app, window.app.getGui])
   const notifier = yield call([gui, gui.getNotifier])
-  yield call([notifier, notifier.setNewClientCallback], callback)
-  yield spawn(readNotifications, notificationsChannel)
+  if (notifier.setNewClientCallback) {
+    const notificationsChannel = yield call(channel)
+    const callback = yield call(channelFeedingCallback, notificationsChannel)
+    yield call([notifier, notifier.setNewClientCallback], callback)
+    yield spawn(readNotifications, notificationsChannel)
+  }
 }
 
 export function* initLegacyActionsEnv() {

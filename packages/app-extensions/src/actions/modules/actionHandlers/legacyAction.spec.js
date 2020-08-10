@@ -34,7 +34,9 @@ describe('app-extensions', () => {
           })
 
           describe('loadSequentially', () => {
-            test('should load the required sources sequentially', () => {
+            test('should load the required sources for the new client sequentially', () => {
+              window.legacyActionEnv = undefined
+
               testSaga(legacyAction.loadSequentially, legacyAction.sources).next()
                 .call(legacyAction.loadScript, '/nice2/javascript/lang.release.js').next()
                 .call(legacyAction.loadScript, '/nice2/javascript/nice2-ext-newclient-actions.release.js').next()
@@ -45,6 +47,23 @@ describe('app-extensions', () => {
                 .call(legacyAction.loadCss, '/css/themes/blue-medium.css').next()
                 .call(legacyAction.loadCss, '/css/nice2-admin.css').next()
                 .call(legacyAction.loadCss, '/css/nice2-new-client-legacy-actions.css').next()
+                .isDone()
+            })
+
+            test('should load the required sources for the legacy admin client sequentially', () => {
+              window.legacyActionEnv = 'legacy-admin'
+
+              testSaga(legacyAction.loadSequentially, legacyAction.sources).next()
+                .call(legacyAction.loadScript, '/nice2/javascript/nice2-newclient-actions-setup.release.js').next()
+                .isDone()
+            })
+
+            test('should load the required sources for public flows sequentially', () => {
+              window.legacyActionEnv = 'legacy-public'
+
+              testSaga(legacyAction.loadSequentially, legacyAction.sources).next()
+                .call(legacyAction.loadScript, '/nice2/javascript/nice2-newclient-actions-public.release.js').next()
+                .call(legacyAction.loadScript, '/nice2/javascript/nice2-newclient-actions-setup.release.js').next()
                 .isDone()
             })
           })
