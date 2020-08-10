@@ -4,6 +4,7 @@ import {scale, LoadMask} from 'tocco-ui'
 import styled from 'styled-components'
 import SplitPane from 'react-split-pane'
 import {actions} from 'tocco-app-extensions'
+import {selection as selectionPropType} from 'tocco-util'
 
 import InputEditTable from '../InputEditTable/InputEditTableContainer'
 import InputEditPagination from '../InputEditPagination'
@@ -92,8 +93,11 @@ const InputEdit = ({
 }
 
 InputEdit.propTypes = {
-  selection: PropTypes.object.isRequired,
-  validation: PropTypes.object.isRequired,
+  selection: selectionPropType.propType.isRequired,
+  validation: PropTypes.shape({
+    valid: PropTypes.bool,
+    message: PropTypes.string
+  }).isRequired,
   checkSelection: PropTypes.func.isRequired,
   initializeTable: PropTypes.func.isRequired,
   initializeSearch: PropTypes.func.isRequired,
