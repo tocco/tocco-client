@@ -1,3 +1,10 @@
+0.10.6
+- Place button groups on same level
+- Prevent action menu appearing underneath fixed menu bar
+- Harmonize button spacing and sizing in list view
+- Harmonize button sizing and spacing of button groups
+- NumberFormatter can now handle options for setting the minimum fraction digits
+
 0.10.5
 - Fix icon positioning within buttons
 
