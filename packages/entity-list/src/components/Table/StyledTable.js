@@ -11,36 +11,39 @@ import {lighten} from 'polished'
 
 import {StyledResizeHandle} from './ResizingController'
 
+const borderColor = ({theme}) => shadeColor(_get(theme, 'colors.paper'), 2)
+const basePadding = scale.space(-1)
+
 export const StyledTableCell = styled.td`
-  padding: ${scale.space(-1)};
+  padding: ${basePadding};
   background-color: ${theme.color('paper')};
-  border-bottom: 1px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
+  border-bottom: 1px solid ${borderColor};
 `
 
 export const StyledTableHeaderCell = styled.th`
-  padding: ${scale.space(-1)};
+  padding: ${basePadding};
   position: sticky;
   top: 0;
   background-color: ${theme.color('paper')};
   text-align: left;
-  border-bottom: 2px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
+  border-bottom: 2px solid ${borderColor};
   ${declareFont({fontWeight: theme.fontWeight('bold')})};
   user-select: none;
   cursor: pointer;
   overflow: hidden;
   white-space: nowrap;
   display: flex;
-  ${props => props.isResizing && `
-    background-color: ${lighten(0.25, props.theme.colors.secondaryLight)};
+  ${({isResizing, theme}) => isResizing && `
+    background-color: ${lighten(0.25, theme.colors.secondaryLight)};
 
     > ${StyledResizeHandle} {
       opacity: 1;
     }
     `
   }
-  ${props => !props.resizingColumn && `
+  ${({resizingColumn, theme}) => !resizingColumn && `
     &:hover {
-      background-color: ${lighten(0.25, props.theme.colors.secondaryLight)};
+      background-color: ${lighten(0.25, theme.colors.secondaryLight)};
 
         > ${StyledResizeHandle} {
           opacity: 1;
@@ -56,7 +59,7 @@ export const PaginationContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  border-top: 1px solid ${props => shadeColor(_get(props.theme, 'colors.paper'), 2)};
+  border-top: 1px solid ${borderColor};
 `
 
 const selectionStyles = css`
@@ -65,13 +68,13 @@ const selectionStyles = css`
 
   &.selected {
     > ${StyledTableCell} {
-      background-color: ${props => lighten(0.1, props.theme.colors.secondaryLight)};
+      background-color: ${({theme}) => lighten(0.1, theme.colors.secondaryLight)};
     }
   }
 
   &.selectableRow:not(.selected):hover {
     > ${StyledTableCell} {
-      background-color: ${props => lighten(0.25, props.theme.colors.secondaryLight)};
+      background-color: ${({theme}) => lighten(0.25, theme.colors.secondaryLight)};
     }
   }
 `
@@ -87,7 +90,7 @@ export const StyledSortingSpan = styled.span`
 
 export const StyledFullRowProgress = styled.td`
   grid-column: 1 / -1;
-  padding-top: ${scale.space(-1)};
+  padding-top: ${basePadding};
   height: 50px;
   text-align: center;
   border: 0;
@@ -95,7 +98,7 @@ export const StyledFullRowProgress = styled.td`
 
 export const StyledFullRow = styled.td`
   grid-column: 1 / -1;
-  padding-top: ${scale.space(-1)};
+  padding-top: ${basePadding};
   height: 50px;
   text-align: center;
   border: 0;
@@ -123,8 +126,8 @@ const StyledTable = styled.table`
   overflow: auto;
   display: grid;
   border-collapse: collapse;
-  grid-template-columns: ${props =>
-  props.columns.map(column => column.width ? column.width + 'px' : 'minmax(50px, auto)').join(' ')};
+  grid-template-columns: ${({columns}) =>
+  columns.map(column => column.width ? column.width + 'px' : 'minmax(50px, auto)').join(' ')};
   grid-auto-rows: min-content;
   min-width: 100%;
   ${StyledScrollbar}
@@ -150,9 +153,9 @@ export const StyledTableWrapper = styled.div`
 export const StyledDnD = styled.div`
   width: 100%;
   display: flex;
-  border-right: ${props => props.isDraggedOver ? '3px solid ' + props.theme.colors.primary : 'none'};
-  opacity: ${props => props.isDragged ? 0.2 : 1};
-  pointer-events: ${props => props.isDraggedOver ? 'none' : 'auto'};
+  border-right: ${({isDraggedOver, theme}) => isDraggedOver ? '3px solid ' + theme.colors.primary : 'none'};
+  opacity: ${({isDragged}) => isDragged ? 0.2 : 1};
+  pointer-events: ${({isDraggedOver}) => isDraggedOver ? 'none' : 'auto'};
 `
 
 export default StyledTable
