@@ -1,3 +1,18 @@
+0.3.9
+- Place button groups on same level
+- Prevent action menu appearing underneath fixed menu bar
+- Enable wrapping of buttons in detail view with narrower screen width
+- Harmonize button spacing and sizing in list view
+- Harmonize button sizing and spacing of button groups
+- Adapt navigation bar width to match the width of list view sidebars
+- Style entity view screens
+- NumberFormatter can now handle options for setting the minimum fraction digits
+- InputEditTable now displays all readonly fields a FormattedValues
+- Allow multiple selected Inputs to be handled in input-edit, if they are compatible.
+- Add vertical scrolling to input edit table
+- Adjust minimum height of table content to 300px
+- Style kabob menu inside table header
+
 0.3.8
 - Style InputEdit Table
 - Harmonize relations view spacing
