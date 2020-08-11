@@ -1,3 +1,7 @@
+0.10.7
+- Adjust minimum height of table content to 300px
+- Style kabob menu inside table header
+
 0.10.6
 - Place button groups on same level
 - Prevent action menu appearing underneath fixed menu bar
