@@ -26,6 +26,10 @@ const StyledSplitPane = styled(SplitPane)`
   }
 `
 
+const StyledPaginationWrapper = styled.div`
+  margin: ${scale.space(-1)} 0;
+`
+
 const InputEdit = ({
   selection,
   validation: {valid, message},
@@ -85,7 +89,9 @@ const InputEdit = ({
               selection={selection}/>
           )}
           <InputEditTable/>
-          <InputEditPagination/>
+          <StyledPaginationWrapper>
+            <InputEditPagination/>
+          </StyledPaginationWrapper>
         </StyledSplitPanelWrapper>
       </StyledSplitPane>
       : null}

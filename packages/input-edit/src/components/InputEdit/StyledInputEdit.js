@@ -12,18 +12,11 @@ export const resizerStyle = {
 export const StyledSplitPanelWrapper = styled.div`
   && {
     background-color: ${theme.color('paper')};
-    height: 100%;
+    height: calc(100% - ${scale.space(-1)}); //remove top padding from total height
     padding-right: ${scale.space(-1)};
     padding-left: ${scale.space(-1)};
     padding-top: ${scale.space(-1)};
+    overflow-y: auto;
     ${StyledScrollbar}
   }
-`
-
-export const StyledGutter = styled.div`
-  background-color: ${theme.color('paper')};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 25px;
 `
