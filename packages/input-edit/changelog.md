@@ -1,3 +1,6 @@
+0.3.1
+- Add vertical scrolling to input edit table
+
 0.3.0
 - Display notifications correctly in InputEdit
 - Style InputEdit Table
