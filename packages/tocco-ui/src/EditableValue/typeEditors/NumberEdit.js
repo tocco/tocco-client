@@ -19,6 +19,10 @@ export const calculateMaxValue = (prePointDigits, postPointDigits, maxValue) => 
 const getPreDecimalPositions = number => Math.ceil(Math.log10(number + 1))
 
 const checkValueRange = (minValue, maxValue, value) => {
+  if (!value) {
+    return true
+  }
+
   if (maxValue && value > maxValue) {
     return false
   }
@@ -69,7 +73,8 @@ const NumberEdit = props => {
   const handleBlur = event => {
     const valueBeforeBlur = Number.parseFloat(event.target.value)
     if (props.onChange && !checkValueRange(minValue, calculatedMaxValue, valueBeforeBlur)) {
-      props.onChange(null)
+      // if we reach this, then onChange was never called for the last entered value, so just remove it
+      event.target.value = null
     }
   }
 
