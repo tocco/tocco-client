@@ -34,6 +34,7 @@ export const StyledSearchFilterButton = styled.div`
   padding: .3rem 1rem;
   margin-bottom: .2rem;
   background-color: ${({active}) => active && theme.color('secondary')};
+  align-items: center;
 
   && {
     * {
