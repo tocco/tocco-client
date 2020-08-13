@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {reducer as reducerUtil} from 'tocco-util'
+import {reducer as reducerUtil, selection as selectionPropType} from 'tocco-util'
 import {appFactory, externalEvents} from 'tocco-app-extensions'
 import {hot} from 'react-hot-loader/root'
 
@@ -81,7 +81,11 @@ export class ResourceSchedulerApp extends React.Component {
 ResourceSchedulerApp.propTypes = {
   id: PropTypes.string,
   locale: PropTypes.string,
-  onEventClick: PropTypes.func
+  onEventClick: PropTypes.func,
+  selection: selectionPropType.propType,
+  actionProperties: PropTypes.shape({
+    calendarType: PropTypes.string
+  })
 }
 
 export default hot(ResourceSchedulerApp)

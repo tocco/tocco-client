@@ -28,7 +28,7 @@ export function* loadCalendarTypes() {
 
 export function* retrieveCalendars() {
   const {requestedCalendars, dateRange} = yield select(resourceSchedulerSelector)
-  if (Object.keys(requestedCalendars).length > 0) {
+  if (Object.keys(requestedCalendars).length > 0 && dateRange.startDate && dateRange.endDate) {
     const calendars = yield call(transformRequestedCalendars, requestedCalendars)
     const calendarsResponse = yield call(rest.requestSaga, 'calendar/events', {
       method: 'POST',
