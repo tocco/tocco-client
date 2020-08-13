@@ -92,6 +92,22 @@ describe('resource-scheduler', () => {
                 .run()
             }
           )
+          test('should not try to load events if no date range is set', () => {
+            const mockedState = {
+              dateRange: {
+              },
+              requestedCalendars: {
+                lecturer: ['3', '5']
+              }
+            }
+            return expectSaga(sagas.retrieveCalendars)
+              .provide([
+                [select(sagas.resourceSchedulerSelector), mockedState]
+              ])
+              .not.call.like({fn: rest.requestSaga})
+              .put(actions.setCalendars([]))
+              .run()
+          })
         })
       })
     })

@@ -16,12 +16,14 @@ const mapActionCreators = {
   removeRequestedCalendar
 }
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = state => {
   return {
     calendars: state.resourceScheduler.calendars,
     calendarTypes: state.resourceScheduler.calendarTypes,
     requestedCalendars: state.resourceScheduler.requestedCalendars,
-    locale: state.intl.locale
+    locale: state.intl.locale,
+    selection: state.input.selection,
+    actionProperties: state.input.actionProperties
   }
 }
 
