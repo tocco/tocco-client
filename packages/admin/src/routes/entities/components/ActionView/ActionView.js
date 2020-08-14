@@ -2,6 +2,7 @@ import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {selection as selectionUtil} from 'tocco-util'
 import {intlShape} from 'react-intl'
+import _get from 'lodash/get'
 
 import Action from '../Action'
 import {currentViewPropType} from '../../utils/propTypes'
@@ -28,7 +29,14 @@ const ActionView = ({history, match, setCurrentViewTitle, currentViewInfo, intl}
 
   const selection = getSelection(location)
 
-  return <Action history={history} match={match} appId={currentViewInfo.actionId} selection={selection}/>
+  const properties = _get(location, 'state.definition.properties', {})
+  return <Action
+    history={history}
+    match={match}
+    appId={currentViewInfo.actionId}
+    selection={selection}
+    actionProperties={properties}
+  />
 }
 
 ActionView.propTypes = {
