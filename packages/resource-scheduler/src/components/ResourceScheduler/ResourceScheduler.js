@@ -28,7 +28,7 @@ class ResourceScheduler extends React.Component {
     this.props.initialize()
     const selection = this.props.selection
     const calendarType = this.props.actionProperties.calendarType
-    if (selection.type === 'ID' && calendarType) {
+    if (selection && selection.type === 'ID' && calendarType) {
       this.props.updateRequestedCalendars(calendarType, selection.ids)
     }
   }
