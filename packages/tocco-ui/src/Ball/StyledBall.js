@@ -16,6 +16,7 @@ const declareBall = () => css`
   * ${themeSelector.fontSize('base')}
   * ${themeSelector.lineHeight('regular')}
   + 2.4 * ${scale.space(-3)});
+  box-sizing: border-box;
 `
 
 export const StyledButton = styled.button`
