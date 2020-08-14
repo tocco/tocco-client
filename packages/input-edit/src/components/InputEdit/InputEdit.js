@@ -69,17 +69,10 @@ const InputEdit = ({
         resizerStyle={resizerStyle}
         split="vertical">
         <StyledSplitPanelWrapper key={'sidebar'}>
-          <StyledSplitPane defaultSize={300}
-            minSize={300}
-            resizerStyle={resizerStyle}
-            split="horizontal">
-            <StyledSplitPanelWrapper key="search">
-              <InputEditSearch/>
-            </StyledSplitPanelWrapper>
-            <StyledSplitPanelWrapper key="information">
-              <InputEditInformation/>
-            </StyledSplitPanelWrapper>
-          </StyledSplitPane>
+          <div>
+            <InputEditSearch/>
+            <InputEditInformation/>
+          </div>
         </StyledSplitPanelWrapper>
         <StyledSplitPanelWrapper key="table">
           {actionDefinitions.map(definition =>
