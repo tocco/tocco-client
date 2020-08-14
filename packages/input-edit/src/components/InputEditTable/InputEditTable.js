@@ -155,7 +155,7 @@ const InputCell = ({id, nodes, column, updateValue}) => {
     ? Math.max(...(column.options.options.map(option => option.display.length))) * 8 + 60
     : null
   const data = _get(nodes, column.id.replace('.', '.value.paths.'))
-  return <StyledCell width={width}>
+  return <StyledCell width={width} className={column.dataType}>
     {
       column.readonly
         ? <FormattedValue

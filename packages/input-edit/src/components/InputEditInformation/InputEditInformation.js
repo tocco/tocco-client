@@ -2,14 +2,23 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {field} from 'tocco-app-extensions'
 import {StatedValue} from 'tocco-ui'
+import styled from 'styled-components'
 
 import {StyledInputEditInformation} from './StyledInputEditInformation'
 
-const InputEditInformation = ({information}) => (
-  <StyledInputEditInformation>
-    {information.map(info => {
-      const Field = field.factory('readOnly', info.type)
-      return <StatedValue key={info.id} label={info.label} immutable={true} hasValue={true}>
+const StyledStatedValueWrapper = styled.div`
+  & > div > div > span {
+    display: inline-block;
+    margin-top: 5px;
+    padding-bottom: 3px;
+  }
+`
+
+const InputEditInformation = ({information}) => <StyledInputEditInformation>
+  {information.map(info => {
+    const Field = field.factory('readOnly', info.type)
+    return <StyledStatedValueWrapper key={info.id}>
+      <StatedValue key={info.id} label={info.label} immutable={true} hasValue={true}>
         <Field
           formField={{
             dataType: info.type
@@ -17,9 +26,9 @@ const InputEditInformation = ({information}) => (
           value={info.value}
         />
       </StatedValue>
-    })}
-  </StyledInputEditInformation>
-)
+    </StyledStatedValueWrapper>
+  })}
+</StyledInputEditInformation>
 
 InputEditInformation.propTypes = {
   information: PropTypes.array.isRequired
