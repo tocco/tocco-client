@@ -18,7 +18,8 @@ describe('resource-scheduler', () => {
             updateRequestedCalendars={EMPTY_FUNC}
             setDateRange={EMPTY_FUNC}
             removeRequestedCalendar={EMPTY_FUNC}
-            preselectedCalendars={{}}
+            selection={null}
+            actionProperties={{}}
           />
         )
         expect(wrapper.find(SearchPanel)).to.have.length(1)
@@ -33,13 +34,68 @@ describe('resource-scheduler', () => {
             updateRequestedCalendars={mockUpdateFunction}
             setDateRange={EMPTY_FUNC}
             removeRequestedCalendar={EMPTY_FUNC}
-            preselectedCalendars={{lecturer: ['1', '2'], room: ['3']}}
+            selection={{
+              entityName: 'User',
+              ids: ['1', '2'],
+              type: 'ID'
+            }}
+            actionProperties={{calendarType: 'lecturer'}}
           />
         )
         expect(mockUpdateFunction.mock.calls[0][0]).to.eq('lecturer')
         expect(mockUpdateFunction.mock.calls[0][1]).to.deep.eq(['1', '2'])
-        expect(mockUpdateFunction.mock.calls[1][0]).to.eq('room')
-        expect(mockUpdateFunction.mock.calls[1][1]).to.deep.eq(['3'])
+      })
+      test('should not use preselected calendars without selection', () => {
+        const mockUpdateFunction = jest.fn(() => {})
+        shallow(
+          <ResourceScheduler
+            initialize={EMPTY_FUNC}
+            addCalendarsOfType={EMPTY_FUNC}
+            updateRequestedCalendars={mockUpdateFunction}
+            setDateRange={EMPTY_FUNC}
+            removeRequestedCalendar={EMPTY_FUNC}
+            selection={null}
+            actionProperties={{calendarType: 'lecturer'}}
+          />
+        )
+        expect(mockUpdateFunction.mock.calls.length).to.eq(0)
+      })
+      test('should not use preselected calendars without ids', () => {
+        const mockUpdateFunction = jest.fn(() => {})
+        shallow(
+          <ResourceScheduler
+            initialize={EMPTY_FUNC}
+            addCalendarsOfType={EMPTY_FUNC}
+            updateRequestedCalendars={mockUpdateFunction}
+            setDateRange={EMPTY_FUNC}
+            removeRequestedCalendar={EMPTY_FUNC}
+            selection={{
+              entityName: 'User',
+              type: 'QUERY'
+            }}
+            actionProperties={{calendarType: 'lecturer'}}
+          />
+        )
+        expect(mockUpdateFunction.mock.calls.length).to.eq(0)
+      })
+      test('should not use preselected calendars without calendarType', () => {
+        const mockUpdateFunction = jest.fn(() => {})
+        shallow(
+          <ResourceScheduler
+            initialize={EMPTY_FUNC}
+            addCalendarsOfType={EMPTY_FUNC}
+            updateRequestedCalendars={mockUpdateFunction}
+            setDateRange={EMPTY_FUNC}
+            removeRequestedCalendar={EMPTY_FUNC}
+            selection={{
+              entityName: 'User',
+              ids: ['1', '2'],
+              type: 'ID'
+            }}
+            actionProperties={{}}
+          />
+        )
+        expect(mockUpdateFunction.mock.calls.length).to.eq(0)
       })
     })
   })
