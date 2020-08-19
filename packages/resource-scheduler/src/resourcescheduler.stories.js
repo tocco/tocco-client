@@ -1,6 +1,6 @@
 import React from 'react'
 import {storiesOf} from '@storybook/react'
-import {withKnobs} from '@storybook/addon-knobs'
+import {array, select, withKnobs} from '@storybook/addon-knobs'
 import {injectIntl, intlShape} from 'react-intl'
 
 import {ResourceSchedulerApp} from './main'
@@ -19,14 +19,22 @@ class ResourceSchedulerStory extends React.Component {
   key = 0
 
   render() {
-    return (
-      <div>
-        <ResourceSchedulerApp
-          key={this.key++}
-          locale={this.props.intl.locale}
-        />
-      </div>
-    )
+    const calendarTypeKnob = select('Calendar type to preselect', {
+      Lecturer: 'lecturer',
+      Participant: 'participant',
+      Room: 'room',
+      Appliance: 'appliance',
+      None: null
+    }, null)
+    const selectionKnob = array('Calendar keys to preselect', [])
+    return <div>
+      <ResourceSchedulerApp
+        key={this.key++}
+        locale={this.props.intl.locale}
+        actionProperties={{calendarType: calendarTypeKnob}}
+        selection={selectionKnob.length > 0 ? {type: 'ID', ids: selectionKnob.map(key => parseInt(key))} : null}
+      />
+    </div>
   }
 }
 
