@@ -25,6 +25,7 @@ describe('resource-scheduler', () => {
         expect(wrapper.find(SearchPanel)).to.have.length(1)
         expect(wrapper.find(SchedulerAppContainer)).to.have.length(1)
       })
+
       test('should use preselected calendars', () => {
         const mockUpdateFunction = jest.fn(() => {})
         shallow(
@@ -45,6 +46,7 @@ describe('resource-scheduler', () => {
         expect(mockUpdateFunction.mock.calls[0][0]).to.eq('lecturer')
         expect(mockUpdateFunction.mock.calls[0][1]).to.deep.eq(['1', '2'])
       })
+
       test('should not use preselected calendars without selection', () => {
         const mockUpdateFunction = jest.fn(() => {})
         shallow(
@@ -60,6 +62,7 @@ describe('resource-scheduler', () => {
         )
         expect(mockUpdateFunction.mock.calls.length).to.eq(0)
       })
+
       test('should not use preselected calendars without ids', () => {
         const mockUpdateFunction = jest.fn(() => {})
         shallow(
@@ -78,6 +81,7 @@ describe('resource-scheduler', () => {
         )
         expect(mockUpdateFunction.mock.calls.length).to.eq(0)
       })
+
       test('should not use preselected calendars without calendarType', () => {
         const mockUpdateFunction = jest.fn(() => {})
         shallow(

@@ -95,7 +95,7 @@ ResourceScheduler.propTypes = {
   selection: selectionPropType.propType,
   actionProperties: PropTypes.shape({
     calendarType: PropTypes.string
-  })
+  }).isRequired
 }
 
 export default ResourceScheduler
