@@ -1,3 +1,7 @@
+0.3.2
+- Finish styling of input edit table
+- Center input field of select
+
 0.3.1
 - Add vertical scrolling to input edit table
 
