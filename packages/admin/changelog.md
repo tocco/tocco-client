@@ -1,3 +1,6 @@
+0.3.11
+- Improve handling of empty values in number fields
+
 0.3.10
 - Center search filter icon vertically
 - Finish styling of input edit table
