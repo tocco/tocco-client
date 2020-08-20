@@ -16,18 +16,18 @@ export const calculateMaxValue = (prePointDigits, postPointDigits, maxValue) => 
   return maxValue
 }
 
-const getPreDecimalPositions = number => Math.ceil(Math.log10(number + 1))
+const getPreDecimalPositions = number => number !== 0 ? Math.ceil(Math.log10(Math.abs(number) + 1)) : 1
 
 const checkValueRange = (minValue, maxValue, value) => {
-  if (!value) {
+  if (isNaN(value)) {
     return true
   }
 
-  if (maxValue && value > maxValue) {
+  if (!isNaN(maxValue) && value > maxValue) {
     return false
   }
 
-  if (minValue && value < minValue) {
+  if (!isNaN(minValue) && value < minValue) {
     return false
   }
 
@@ -65,13 +65,13 @@ const NumberEdit = props => {
   }
 
   const handleChange = values => {
-    if (props.onChange && checkValueRange(minValue, calculatedMaxValue, values.value)) {
-      props.onChange(convertStringToNumber(values.value))
+    if (props.onChange && checkValueRange(minValue, calculatedMaxValue, values.floatValue)) {
+      props.onChange(values.floatValue)
     }
   }
 
   const handleBlur = event => {
-    const valueBeforeBlur = Number.parseFloat(event.target.value)
+    const valueBeforeBlur = convertStringToNumber(event.target.value)
     if (props.onChange && !checkValueRange(minValue, calculatedMaxValue, valueBeforeBlur)) {
       // if we reach this, then onChange was never called for the last entered value, so just remove it
       event.target.value = null
