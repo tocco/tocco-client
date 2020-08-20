@@ -95,9 +95,6 @@ describe('tocco-ui', () => {
         test('should return true on no arguments called', () => {
           expect(isAllowedValue()(valuesObject)).to.be.eql(true)
         })
-        test('should return true on empty string', () => {
-          expect(isAllowedValue()(valuesObject)).to.be.eql(true)
-        })
         test('should return true on valid value and only minValue', () => {
           expect(isAllowedValue(minValue)(valuesObject)).to.be.eql(true)
         })
@@ -112,7 +109,7 @@ describe('tocco-ui', () => {
             minValue
           )(valuesObject)).to.be.eql(true)
         })
-        test('should return false on valid value and maxValue', () => {
+        test('should return false on invalid value because of maxValue', () => {
           expect(isAllowedValue(
             undefined,
             100
@@ -123,6 +120,71 @@ describe('tocco-ui', () => {
             1234,
             5000
           )(valuesObject)).to.be.eql(true)
+        })
+        test('should return false on negative number with minValue 0', () => {
+          expect(isAllowedValue(
+            0
+          )({
+            formattedValue: '-1',
+            floatValue: -1
+          })).to.be.eql(false)
+        })
+        test('should return false on positive number with maxValue 0', () => {
+          expect(isAllowedValue(
+            undefined,
+            0
+          )({
+            formattedValue: '1',
+            floatValue: 1
+          })).to.be.eql(false)
+        })
+
+        const zeroObject = {
+          formattedValue: '0',
+          floatValue: 0
+        }
+        test('should return false on 0 with minValue', () => {
+          expect(isAllowedValue(
+            1
+          )(zeroObject)).to.be.eql(false)
+        })
+        test('should return false on 0 with maxValue', () => {
+          expect(isAllowedValue(
+            undefined,
+            -1
+          )(zeroObject)).to.be.eql(false)
+        })
+        test('should return true on 0 when in range', () => {
+          expect(isAllowedValue(
+            -10,
+            10
+          )(zeroObject)).to.be.eql(true)
+        })
+
+        const nullObject = {
+          formattedValue: null,
+          floatValue: null
+        }
+        test('should return true on null', () => {
+          expect(isAllowedValue()(nullObject)).to.be.eql(true)
+        })
+        test('should return true on null with minValue and maxValue', () => {
+          expect(isAllowedValue(
+            minValue,
+            maxValue
+          )(nullObject)).to.be.eql(true)
+        })
+
+        const undefinedObject = {
+        }
+        test('should return true on undefined', () => {
+          expect(isAllowedValue()(undefinedObject)).to.be.eql(true)
+        })
+        test('should return true on undefined with minValue and maxValue', () => {
+          expect(isAllowedValue(
+            minValue,
+            maxValue
+          )(undefinedObject)).to.be.eql(true)
         })
       })
     })
