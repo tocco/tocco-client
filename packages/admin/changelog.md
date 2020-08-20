@@ -1,3 +1,9 @@
+0.3.10
+- Center search filter icon vertically
+- Finish styling of input edit table
+- Center input field of select
+- Fix sizing of ball
+
 0.3.9
 - Place button groups on same level
 - Prevent action menu appearing underneath fixed menu bar
