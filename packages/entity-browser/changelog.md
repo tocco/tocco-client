@@ -1,3 +1,6 @@
+0.10.9
+
+
 0.10.8
 - Center search filter icon vertically
 - Center input field of select
