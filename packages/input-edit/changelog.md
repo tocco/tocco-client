@@ -1,3 +1,6 @@
+0.3.3
+
+
 0.3.2
 - Finish styling of input edit table
 - Center input field of select
