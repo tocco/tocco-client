@@ -1,3 +1,8 @@
+0.2.12
+- Style Inputfield in two step login form
+- Fix icon positioning within buttons
+- Harmonize button sizing and spacing of button group
+
 0.2.11
 - Fix two factor bug
 
