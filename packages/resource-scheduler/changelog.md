@@ -1,3 +1,27 @@
+0.3.3
+- Fix shy in table header
+- Adjust HTML Edit
+- Support time fields in search form
+- Table column positioning
+- Enable 100% height of layout container in old client
+- Menu makeover
+- Style new dropdown menu
+- Harmonize menu icon spacing
+- Reposition notifier close icon
+- sort list by preferences and save new preferences when changing the sorting
+- Add button to reset sorting to entity-list
+- Fix icon positioning within buttons
+- Place button groups on same level
+- Prevent action menu appearing underneath fixed menu bar
+- Harmonize button spacing and sizing in list view
+- Harmonize button sizing and spacing of button groups
+- NumberFormatter can now handle options for setting the minimum fraction digits
+- Adjust minimum height of table content to 300px
+- Style kabob menu inside table header
+- Center search filter icon vertically
+- Center input field of select
+- Fix sizing of ball
+
 0.3.2
 - Mitigate unwanted legacy action loading effects
 - Harmonize notification spacing
