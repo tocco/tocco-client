@@ -1,3 +1,6 @@
+0.3.12
+
+
 0.3.11
 - Improve handling of empty values in number fields
 
