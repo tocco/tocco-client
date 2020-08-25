@@ -16,7 +16,8 @@ export default function* sagas() {
     takeLatest(actions.LOAD_PREFERENCES, loadPreferences),
     takeLatest(actions.CHANGE_POSITION, changePosition),
     takeLatest(listActions.SET_SORTING_INTERACTIVE, saveSorting),
-    takeLatest(actions.RESET_SORTING, resetSorting)
+    takeLatest(actions.RESET_SORTING, resetSorting),
+    takeLatest(actions.RESET_PREFERENCES, resetPreferences)
   ])
 }
 
@@ -70,6 +71,13 @@ export function* resetSorting() {
     call(rest.deleteUserPreferences, `${listState.formName}_list.sortingField*`),
     call(rest.deleteUserPreferences, `${listState.formName}_list.sortingDirection*`)
   ])
+  yield call(listSagas.setSorting)
+  yield call(listSagas.reloadData)
+}
+
+export function* resetPreferences() {
+  const listState = yield select(listSagas.entityListSelector)
+  yield call(rest.deleteUserPreferences, `${listState.formName}_list.*`)
   yield call(listSagas.setSorting)
   yield call(listSagas.reloadData)
 }

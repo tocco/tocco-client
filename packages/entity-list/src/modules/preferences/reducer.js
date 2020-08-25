@@ -12,7 +12,8 @@ const resetSorting = state => {
 const ACTION_HANDLERS = {
   [actions.SET_POSITIONS]: reducerUtil.singleTransferReducer('positions'),
   [actions.SET_SORTING]: reducerUtil.singleTransferReducer('sorting'),
-  [actions.RESET_SORTING]: resetSorting
+  [actions.RESET_SORTING]: resetSorting,
+  [actions.RESET_PREFERENCES]: () => initialState
 }
 
 const initialState = {

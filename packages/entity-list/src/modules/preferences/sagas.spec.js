@@ -19,7 +19,8 @@ describe('entity-list', () => {
             takeLatest(actions.LOAD_PREFERENCES, sagas.loadPreferences),
             takeLatest(actions.CHANGE_POSITION, sagas.changePosition),
             takeLatest(listActions.SET_SORTING_INTERACTIVE, sagas.saveSorting),
-            takeLatest(actions.RESET_SORTING, sagas.resetSorting)
+            takeLatest(actions.RESET_SORTING, sagas.resetSorting),
+            takeLatest(actions.RESET_PREFERENCES, sagas.resetPreferences)
           ]))
           expect(generator.next().done).to.be.true
         })
@@ -124,6 +125,22 @@ describe('entity-list', () => {
               ])
               .call(rest.deleteUserPreferences, 'User_list.sortingField*')
               .call(rest.deleteUserPreferences, 'User_list.sortingDirection*')
+              .call.like({fn: listSagas.setSorting})
+              .call.like({fn: listSagas.reloadData})
+              .run()
+          })
+        })
+
+        describe('resetPreferences ', () => {
+          test('should remove all preferences', () => {
+            return expectSaga(sagas.resetPreferences)
+              .provide([
+                [select(entityListSelector), {formName: 'User'}],
+                [matchers.call.fn(rest.deleteUserPreferences)],
+                [matchers.call.fn(listSagas.setSorting)],
+                [matchers.call.fn(listSagas.reloadData)]
+              ])
+              .call(rest.deleteUserPreferences, 'User_list.*')
               .call.like({fn: listSagas.setSorting})
               .call.like({fn: listSagas.reloadData})
               .run()
