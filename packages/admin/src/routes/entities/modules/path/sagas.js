@@ -21,9 +21,13 @@ export function* getModel(entity) {
     return cachedModel
   }
 
-  const entityModel = yield call(rest.fetchModel, entity)
-  yield put(actions.cacheModel(entity, entityModel))
-  return entityModel
+  try {
+    const entityModel = yield call(rest.fetchModel, entity)
+    yield put(actions.cacheModel(entity, entityModel))
+    return entityModel
+  } catch (error) {
+    return {error}
+  }
 }
 
 export function* extractMultiRelations(model, key) {
@@ -81,8 +85,12 @@ export function* loadRelationCounts(model, key) {
 
 export function* addRecordToBreadcrumbs(path, entityName, key, breadcrumbs) {
   const type = 'record'
-  const display = yield call(getDisplay, entityName, key, breadcrumbs.length)
-  breadcrumbs.push({display, path, type})
+  try {
+    const display = yield call(getDisplay, entityName, key, breadcrumbs.length)
+    breadcrumbs.push({display, path, type})
+  } catch (error) {
+    return {error}
+  }
 }
 
 export function* loadCurrentViewInfo({payload: {location}}) {
@@ -112,6 +120,11 @@ export function* loadCurrentViewInfo({payload: {location}}) {
 
     if (path.entity) {
       const baseEntityModel = yield call(getModel, path.entity)
+      if (baseEntityModel && baseEntityModel.error) {
+        yield put(actions.setCurrentViewInfo(pathname, {...currentViewInfo, error: baseEntityModel.error}))
+        return
+      }
+
       yield call(addEntityToBreadcrumbs, path.entity, baseEntityModel.label, breadcrumbs)
       currentViewInfo.model = baseEntityModel
       currentViewInfo.level = 0
@@ -120,7 +133,14 @@ export function* loadCurrentViewInfo({payload: {location}}) {
         currentViewInfo.key = path.key
         currentViewInfo.level = 1
 
-        yield call(addRecordToBreadcrumbs, path.entity + '/' + path.key, path.entity, path.key, breadcrumbs)
+        const bc = yield call(
+          addRecordToBreadcrumbs, path.entity + '/' + path.key, path.entity, path.key, breadcrumbs
+        )
+
+        if (bc && bc.error) {
+          yield put(actions.setCurrentViewInfo(pathname, {...currentViewInfo, error: bc.error}))
+          return
+        }
 
         if (path.relation) {
           const splittedRelation = path.relation.split('/')

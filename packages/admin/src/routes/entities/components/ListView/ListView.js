@@ -8,8 +8,13 @@ import StyledLink from '../../../../components/StyledLink/StyledLink'
 import {goBack} from '../../../../utils/routing'
 import Action from '../Action/LazyAction'
 import {currentViewPropType} from '../../utils/propTypes'
+import ErrorView from '../../../../components/ErrorView'
 
 const ListView = ({match, history, currentViewInfo, emitAction, persistViewInfo, persistedViewInfo}) => {
+  if (currentViewInfo && currentViewInfo.error) {
+    return <ErrorView technicalReason={currentViewInfo.error.message}/>
+  }
+
   if (!currentViewInfo) {
     return null
   }
