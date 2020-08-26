@@ -45,7 +45,7 @@ describe('app-extensions', () => {
         try {
           await sendRequest(url, options, acceptedErrorCodes, acceptedStatusCodes)
         } catch (e) {
-          expect(e.message).to.contain('REST request error')
+          expect(e.message).to.contain('Bad Request')
           done()
         }
       })
