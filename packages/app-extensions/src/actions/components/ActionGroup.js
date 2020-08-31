@@ -31,7 +31,12 @@ const ActionGroup = props => {
 
   const label = hasDefaultAction ? definition.defaultAction.label : definition.label
   const onClickHandler = hasDefaultAction ? () => { onClick(definition.defaultAction) } : null
-  return <ButtonMenu buttonProps={{look: 'raised'}} label={label} onClick={onClickHandler}>
+  const actionId = hasDefaultAction ? definition.defaultAction.id : definition.id
+  return <ButtonMenu
+    buttonProps={{look: 'raised'}}
+    label={label}
+    data-cy={`action-${actionId}`}
+    onClick={onClickHandler}>
     {
       definition.children.map((childDefinition, idx) => getChildMenuItems({...props, definition: childDefinition}))
     }
