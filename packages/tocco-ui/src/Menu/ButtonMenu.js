@@ -41,7 +41,7 @@ const ButtonMenu = props => {
   if (props.onClick) {
     return <>
       <ButtonGroup ref={referenceElement}>
-        <Button {...props.buttonProps || {}} onClick={props.onClick} label={props.label}/>
+        <Button {...props.buttonProps || {}} onClick={props.onClick} label={props.label} data-cy={props['data-cy']}/>
         <Button icon={angleIcon} onClick={handleClick} {...props.buttonProps || {}} />
       </ButtonGroup>
       {getMenu}
@@ -50,6 +50,7 @@ const ButtonMenu = props => {
 
   return <>
     <Button
+      data-cy={props['data-cy']}
       {...props.buttonProps || {}} ref={referenceElement}
       onClick={handleClick}
     >
@@ -63,23 +64,27 @@ ButtonMenu.propTypes = {
   /**
    * Optional handler. If defined, a split button will be rendered
    */
-  onClick: PropTypes.func,
+  'onClick': PropTypes.func,
   /**
    * Will be shown on the button
    */
-  label: PropTypes.string,
+  'label': PropTypes.string,
   /**
    * Will be passed to the underlying Button
    */
-  buttonProps: PropTypes.object,
+  'buttonProps': PropTypes.object,
   /**
    * Tree of <MenuItem>
    */
-  children: PropTypes.any,
+  'children': PropTypes.any,
   /**
    * Callback when the menu is opened (only called once)
    */
-  onOpen: PropTypes.func
+  'onOpen': PropTypes.func,
+  /**
+   * cypress selector string
+   */
+  'data-cy': PropTypes.string
 }
 
 export default ButtonMenu
