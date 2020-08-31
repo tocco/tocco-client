@@ -2,8 +2,11 @@
   "defaultCommandTimeout": 10000,
   "pageLoadTimeout": 180000,
   "env": {
-    "BACKEND_URL": "https://master.tocco.ch",
-    "RETRIES": 3
+    "BACKEND_URL": "https://master.tocco.ch"
+  },
+  "retries": {
+    "runMode": 2,
+    "openMode": 0
   },
   "projectId": "zv466c"
 }
