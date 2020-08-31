@@ -145,7 +145,7 @@ describe('Entity Browser', () => {
     it('should handle selection', () => {
       cy.get('[data-cy=list-row]')
         .should('have.length.above', 5)
-
+      cy.wait(500) // without this wait a "detached" error is thrown
       cy.get('[data-cy=list-selection-checkbox]').first().click()
       cy.get('[data-cy=list-selection-checkbox]').eq(3).click()
       cy.get('[data-cy=list-selection-checkbox]').eq(5).click()
@@ -175,6 +175,7 @@ describe('Entity Browser', () => {
 
     it('should handle resize of a column with min width', () => {
       cy.get('[data-cy=header-cell-firstname]').should('not.have.css', 'width', '30px')
+      cy.wait(500) // without this wait, a rerender will let the test fail
       cy.get('[data-cy=header-cell-firstname-resizing-controller]').trigger('mousedown')
         .trigger('mousemove', {clientX: 500, clientY: 0})
         .trigger('mousemove', {clientX: 40, clientY: 0})
