@@ -18,16 +18,18 @@ export const calculateMaxValue = (prePointDigits, postPointDigits, maxValue) => 
 
 const getPreDecimalPositions = number => number !== 0 ? Math.ceil(Math.log10(Math.abs(number) + 1)) : 1
 
+const isNumber = number => number !== null && number !== undefined && !isNaN(parseFloat(number))
+
 const checkValueRange = (minValue, maxValue, value) => {
-  if (isNaN(value)) {
+  if (!isNumber(value)) {
     return true
   }
 
-  if (!isNaN(maxValue) && value > maxValue) {
+  if (isNumber(maxValue) && value > maxValue) {
     return false
   }
 
-  if (!isNaN(minValue) && value < minValue) {
+  if (isNumber(minValue) && value < minValue) {
     return false
   }
 
