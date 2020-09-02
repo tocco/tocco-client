@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {scale, LoadMask} from 'tocco-ui'
 import styled from 'styled-components'
 import SplitPane from 'react-split-pane'
-import {actions} from 'tocco-app-extensions'
+import {actions, notifier} from 'tocco-app-extensions'
 import {selection as selectionPropType} from 'tocco-util'
 
 import InputEditTable from '../InputEditTable/InputEditTableContainer'
@@ -59,9 +59,9 @@ const InputEdit = ({
 
   if (valid === false) {
     notify('error', 'client.component.input-edit.error.title', message)
-    return null
   }
   return <LoadMask required={[valid || message]}>
+    <notifier.Notifier/>
     {valid
       ? <StyledSplitPane
         defaultSize={300}
