@@ -4,6 +4,7 @@ import {rest} from 'tocco-app-extensions'
 import * as actions from './actions'
 import {transformResponseData} from './utils'
 
+export const inputSelector = state => state.input
 export const inputEditSelector = state => state.inputEdit
 export const inputEditTableSelector = state => state.inputEditTable
 export const searchQueriesSelector = state => state.inputEditSearch.searchQueries
@@ -35,9 +36,13 @@ export function* processDataForm(dataForm) {
 export function* initialize() {
   const {selection, validation} = yield select(inputEditSelector)
   if (validation.valid) {
+    const {actionProperties} = yield select(inputSelector)
+    const inputEditDataForm = actionProperties && actionProperties.inputEditDataForm
+      ? actionProperties.inputEditDataForm
+      : 'Input_edit_data'
     const [editForm, dataForm] = yield all([
       call(rest.requestSaga, 'inputEdit/form', {method: 'POST', body: selection}),
-      call(rest.fetchForm, 'Input_edit_data', 'list')
+      call(rest.fetchForm, inputEditDataForm, 'list')
     ])
     yield put(actions.setEditForm({inputEditForm: editForm.body}))
     yield call(processDataForm, dataForm)
