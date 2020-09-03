@@ -2,19 +2,23 @@ import React, {lazy, Suspense} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {LoadMask} from 'tocco-ui'
-import {consoleLogger, selection as selectionUtil} from 'tocco-util'
+import {consoleLogger, queryString as queryStringUtil} from 'tocco-util'
+import _get from 'lodash/get'
 
 const actions = {
   'input-edit': lazy(() => import(/* webpackChunkName: "actions" */'./actions/InputEdit'))
 }
 
-const getSelection = location => location.state && location.state.selection
-  ? location.state.selection
-  : selectionUtil.queryStringToSelection(location.search)
+const mapStateToProps = (state, props) => {
+  const queryParams = queryStringUtil.fromQueryString(location.search)
+  const selection = _get(props.router.location, 'state.selection', queryParams.actionProperties)
+  const actionProperties = _get(props.router.location, 'state.definition.properties', queryParams.actionProperties)
 
-const mapStateToProps = (state, props) => ({
-  selection: getSelection(props.router.location)
-})
+  return {
+    selection,
+    actionProperties
+  }
+}
 
 const renderLoader = () => <LoadMask/>
 
