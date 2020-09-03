@@ -102,6 +102,30 @@ const testData = {
                     ]
                   }
                 ]
+              },
+              {
+                id: 'readonly-box',
+                componentType: 'layout',
+                layoutType: 'vertical-box',
+                readonly: true,
+                children: [
+                  {
+                    id: 'not-readonly-field-set',
+                    componentType: 'field-set',
+                    label: 'Not Readonly',
+                    hidden: false,
+                    readonly: false,
+                    children: [
+                      {
+                        id: 'not-readonly-field',
+                        componentType: 'field',
+                        path: 'not-readonly-field',
+                        dataType: 'string',
+                        label: null
+                      }
+                    ]
+                  }
+                ]
               }
             ],
             label: null
@@ -118,8 +142,8 @@ describe('app-extensions', () => {
         const {entity, model, formName, formDefinition, formValues} = testData
         const props = {entity, model, formName, formDefinition, formValues, formFieldMapping: {}}
         const wrapper = shallow(<FormBuilder {...props}/>)
-        expect(wrapper.find(Layout.Box)).to.have.length(2)
-        expect(wrapper.find(Field)).to.have.length(2)
+        expect(wrapper.find(Layout.Box)).to.have.length(3)
+        expect(wrapper.find(Field)).to.have.length(3)
       })
 
       test('should not render field if beforeRenderField returns false', () => {
@@ -129,8 +153,8 @@ describe('app-extensions', () => {
 
         const props = {entity, model, formName, formDefinition, formValues, beforeRenderField, formFieldMapping: {}}
         const wrapper = shallow(<FormBuilder {...props}/>)
-        expect(wrapper.find(Layout.Box)).to.have.length(2)
-        expect(wrapper.find(Field)).to.have.length(1)
+        expect(wrapper.find(Layout.Box)).to.have.length(3)
+        expect(wrapper.find(Field)).to.have.length(2)
       })
 
       test('should not render none readable fields', () => {
@@ -149,7 +173,7 @@ describe('app-extensions', () => {
         const props = {entity, model, formName, formDefinition, formValues, formFieldMapping: {}}
         const wrapper = shallow(<FormBuilder {...props}/>)
 
-        expect(wrapper.find(Field)).to.have.length(1)
+        expect(wrapper.find(Field)).to.have.length(2)
       })
 
       test(
@@ -159,7 +183,7 @@ describe('app-extensions', () => {
           const entity = null
           const props = {entity, model, formName, formDefinition, formValues, formFieldMapping: {}}
           const wrapper = shallow(<FormBuilder {...props}/>)
-          expect(wrapper.find(Field)).to.have.length(2)
+          expect(wrapper.find(Field)).to.have.length(3)
         }
       )
 
@@ -177,7 +201,7 @@ describe('app-extensions', () => {
         const entity = null
         const props = {entity, model, formName, formDefinition, formValues, mode: 'create', formFieldMapping: {}}
         const wrapper = shallow(<FormBuilder {...props}/>)
-        expect(wrapper.find(Field)).to.have.length(2)
+        expect(wrapper.find(Field)).to.have.length(3)
       })
 
       test('should NOT render fields with unmatching scope', () => {
@@ -186,6 +210,15 @@ describe('app-extensions', () => {
         const props = {entity, model, formName, formDefinition, formValues, mode: 'update', formFieldMapping: {}}
         const wrapper = shallow(<FormBuilder {...props}/>)
         expect(wrapper.find(Field)).to.have.length(1)
+      })
+
+      test('should render children of readonly layouts to readonly', () => {
+        const {model, formName, formDefinition, formValues} = testData
+        const entity = null
+        const props = {entity, model, formName, formDefinition, formValues, mode: 'update', formFieldMapping: {}}
+        const wrapper = shallow(<FormBuilder {...props}/>)
+        const field = wrapper.findWhere(e => e.props().id === 'input-detail-not-readonly-field')
+        expect(field.props().readOnlyForm).to.be.true
       })
 
       test('should read multi paths entity fields', () => {
