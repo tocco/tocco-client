@@ -34,16 +34,15 @@ const FormBuilder = props => {
     !mode || !scopes || scopes.length === 0 || scopes.includes(mode)
   )
 
-  const formTraverser = children => {
+  const formTraverser = (children, readonly = false) => {
     const result = []
     for (const child of children) {
       if (child.componentType === componentTypes.LAYOUT) {
-        const travers = () => formTraverser(child.children)
-        result.push(createLayoutComponent(child, child.layoutType, travers))
+        result.push(createLayoutComponent(child, child.layoutType, readonly))
       } else if (isAction(child.componentType)) {
         result.push(createAction(child))
       } else if (child.componentType === componentTypes.FIELD_SET) {
-        result.push(createFieldSet(child))
+        result.push(createFieldSet(child, readonly))
       } else if (componentMapping && componentMapping[child.componentType]) {
         return createCustomComponent(child)
       }
@@ -51,7 +50,7 @@ const FormBuilder = props => {
     return result
   }
 
-  const createFieldSet = fieldSet => {
+  const createFieldSet = (fieldSet, readonly) => {
     const fieldDefinition = fieldSet.children.find(child => !isAction(child.componentType))
 
     if (!fieldDefinition) {
@@ -107,7 +106,7 @@ const FormBuilder = props => {
     if (shouldRenderField(formDefinitionField, entityField)) {
       return <Field
         key={`field-${fieldName}`}
-        readOnlyForm={formDefinition.readonly}
+        readOnlyForm={readonly}
         name={transformFieldName(fieldName)}
         id={getFieldId(formName, fieldName)}
         formName={formName}
@@ -140,8 +139,8 @@ const FormBuilder = props => {
     </div>
   }
 
-  const createLayoutComponent = (field, type, traverser) => {
-    let elements = traverser()
+  const createLayoutComponent = (field, type, readonly) => {
+    let elements = formTraverser(field.children, readonly || field.readonly)
 
     if (Array.isArray(elements)) {
       elements = elements.filter(Boolean)
@@ -186,7 +185,7 @@ const FormBuilder = props => {
     return component(field, modelField, key)
   }
 
-  return formTraverser(formDefinition.children)
+  return formTraverser(formDefinition.children, formDefinition.readonly)
 }
 
 FormBuilder.propTypes = {
