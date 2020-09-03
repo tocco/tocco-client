@@ -1,14 +1,11 @@
 import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
-import {selection as selectionUtil} from 'tocco-util'
+import {queryString as queryStringUtil} from 'tocco-util'
 import {intlShape} from 'react-intl'
+import _get from 'lodash/get'
 
 import Action from '../Action'
 import {currentViewPropType} from '../../utils/propTypes'
-
-const getSelection = location => location.state && location.state.selection
-  ? location.state.selection
-  : selectionUtil.queryStringToSelection(location.search)
 
 const ActionView = ({history, match, setCurrentViewTitle, currentViewInfo, intl}) => {
   const {location} = history
@@ -26,9 +23,19 @@ const ActionView = ({history, match, setCurrentViewTitle, currentViewInfo, intl}
     return null
   }
 
-  const selection = getSelection(location)
+  const queryParams = queryStringUtil.fromQueryString(location.search)
+  const selection = _get(location, 'state.selection', queryParams.actionProperties)
+  const actionProperties = _get(location, 'state.definition.properties', queryParams.actionProperties)
 
-  return <Action history={history} match={match} appId={currentViewInfo.actionId} selection={selection}/>
+  return (
+    <Action
+      history={history}
+      match={match}
+      appId={currentViewInfo.actionId}
+      selection={selection}
+      actionProperties={actionProperties}
+    />
+  )
 }
 
 ActionView.propTypes = {
