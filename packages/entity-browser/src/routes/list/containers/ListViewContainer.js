@@ -1,7 +1,7 @@
 import {connect} from 'react-redux'
 import EntityListApp from 'tocco-entity-list/src/main'
 import {actionEmitter, viewPersistor} from 'tocco-app-extensions'
-import {selection as selectionUtil} from 'tocco-util'
+import {queryString as queryStringUtil} from 'tocco-util'
 
 const mapDispatchToProps = (dispatch, props) => ({
   emitAction: action => { dispatch(actionEmitter.dispatchEmittedAction(action)) },
@@ -19,7 +19,10 @@ const handleNavigateToCreate = props => relationName => {
 }
 
 const handleNavigateToAction = props => ({definition, selection}) => {
-  const search = selectionUtil.selectionToQueryString(selection)
+  const search = queryStringUtil.toQueryString({
+    selection,
+    actionProperties: definition.properties
+  })
   props.router.history.push({
     pathname: '/action/' + definition.appId,
     state: {definition, selection},

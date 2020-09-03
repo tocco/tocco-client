@@ -4,7 +4,7 @@ import {Prompt} from 'react-router-dom'
 import {intlShape} from 'react-intl'
 import {Button} from 'tocco-ui'
 import EntityDetailApp from 'tocco-entity-detail/src/main'
-import {selection as selectionUtil} from 'tocco-util'
+import {queryString as queryStringUtil} from 'tocco-util'
 
 import {StyledEntityDetailBackButton} from './StyledEntityDetail'
 
@@ -41,7 +41,10 @@ class EntityDetail extends React.Component {
   }
 
   handleNavigateToAction = ({definition, selection}) => {
-    const search = selectionUtil.selectionToQueryString(selection)
+    const search = queryStringUtil.toQueryString({
+      selection,
+      actionProperties: definition.properties
+    })
     this.props.router.history.push({
       pathname: '/action/' + definition.appId,
       state: {definition, selection},
