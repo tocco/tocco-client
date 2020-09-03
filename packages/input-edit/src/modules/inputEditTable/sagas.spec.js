@@ -30,6 +30,7 @@ describe('input-edit', () => {
           }
           return expectSaga(sagas.initialize)
             .provide([
+              [select(sagas.inputSelector), {}],
               [select(sagas.inputEditSelector), {selection: [12], validation: {valid: true}}],
               [matchers.call.fn(rest.requestSaga), {
                 body: expectedEditForm
@@ -37,9 +38,35 @@ describe('input-edit', () => {
               [matchers.call.fn(rest.fetchForm), expectedDataForm],
               [matchers.call.fn(sagas.loadData), {}]
             ])
+            .call(rest.fetchForm, 'Input_edit_data', 'list')
             .put(actions.setEditForm({inputEditForm: expectedEditForm}))
             .put(actions.setDataForm({inputDataForm: expectedDataForm}))
             .call(sagas.loadData, {})
+            .run()
+        })
+
+        test('should load data form from input', () => {
+          const expectedEditForm = [{
+            editform: 'editform'
+          }]
+          const expectedDataForm = {
+            dataform: 'dataform'
+          }
+          return expectSaga(sagas.initialize)
+            .provide([
+              [select(sagas.inputSelector), {
+                actionProperties: {
+                  inputEditDataForm: 'PublicInput_edit_data'
+                }
+              }],
+              [select(sagas.inputEditSelector), {selection: [12], validation: {valid: true}}],
+              [matchers.call.fn(rest.requestSaga), {
+                body: expectedEditForm
+              }],
+              [matchers.call.fn(rest.fetchForm), expectedDataForm],
+              [matchers.call.fn(sagas.loadData), {}]
+            ])
+            .call(rest.fetchForm, 'PublicInput_edit_data', 'list')
             .run()
         })
       })
