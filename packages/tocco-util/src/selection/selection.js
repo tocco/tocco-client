@@ -1,16 +1,7 @@
-import queryStringUtil from 'query-string'
 import {call} from 'redux-saga/effects'
 
 import consoleLogger from '../consoleLogger'
 import selectionTypes from './selectionTypes'
-
-export const selectionToQueryString = selection =>
-  `selection=${encodeURIComponent(JSON.stringify(selection))}`
-
-export const queryStringToSelection = queryString => {
-  const obj = queryStringUtil.parse(queryString)
-  return obj.selection ? JSON.parse(obj.selection) : null
-}
 
 const limit = 100000
 /**
