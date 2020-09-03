@@ -62,6 +62,7 @@ export function* handleCustomActionModal({definition, selection, config}) {
 
       return <ActionComponent
         appId={definition.appId}
+        actionProperties={definition.properties}
         selection={selection}
         onSuccess={onSuccess}
         onError={onError}
