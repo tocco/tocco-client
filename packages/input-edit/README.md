@@ -7,6 +7,10 @@ React-registry name: `input-edit`
 
 ### Input parameters
 
-| Name             | Mandatory | Description
-|------------------|:---------:|------------------------------------
-| `inputEntityKey` | X         | They key of the Input entity to use
+Custom action default.
+
+### Action properties
+
+| Name                | Mandatory | Description
+|---------------------|:---------:|------------------------------------
+| `inputEditDataForm` |           | The name of the input edit data form. If not specified, 'Input_edit_data' is used as default.
