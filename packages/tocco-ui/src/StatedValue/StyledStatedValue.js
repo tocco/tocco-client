@@ -49,8 +49,7 @@ const transformLabel = ({secondaryPosition, theme}) => css`
     will-change: color, font-size, font-weight, margin, top;
     ${secondaryPosition && css`
       top: 0;
-      font-size: ${scale.font(-1)};
-      font-weight: ${getTheme.fontWeight('bold')};
+      font-size: ${scale.font(-1.2)};
       margin: calc(${scale.font(-1)} / -2) 0 0;
     `}
   }
@@ -60,7 +59,7 @@ const declareCursor = ({isDisplay, immutable}) => `cursor: ${(!isDisplay && immu
 
 const StyledStatedValueLabel = styled.label`
   &&& {
-    ${props => declareFont({
+    ${declareFont({
     fontSize: scale.font(0),
     fontWeight: getTheme.fontWeight('regular'),
     lineHeight: 1
@@ -74,7 +73,7 @@ const StyledStatedValueLabel = styled.label`
     top: 50%;
     ${props => transformLabel(props)}
     ${props => declareCursor(props)}
-    pointer-events: ${props => props.secondaryPosition ? 'auto' : 'none'};
+    pointer-events: ${({secondaryPosition}) => secondaryPosition ? 'auto' : 'none'};
 
     span {
       white-space: nowrap;
@@ -91,15 +90,15 @@ const StyledStatedValueBox = styled.div`
     ${props => declareCursor(props)}
     transition: border-color ${animationDuration};
     will-change: border-color;
-    margin-top: ${props => props.isDisplay && scale.space(-1)};
+    margin-top: ${({isDisplay}) => isDisplay && scale.space(-1)};
 
     * {
-      padding-left: ${props => props.isDisplay && '0'};
+      padding-left: ${({isDisplay}) => isDisplay && '0'};
       margin-bottom: 0;
     }
 
     > ${StyledHtmlFormatter} {
-      padding-top: ${props => props.isDisplay && scale.space(-1)};
+      padding-top: ${({isDisplay}) => isDisplay && scale.space(-1)};
     }
   }
 `
@@ -118,7 +117,7 @@ const StyledStatedValueError = styled.div`
     transition: all .5s ease-in-out;
     transition-delay: .5s;
     will-change: max-height, opacity;
-    ${props => props.showError && css`
+    ${({showError}) => showError && css`
       max-height: 100px;
       opacity: 1;
     `};

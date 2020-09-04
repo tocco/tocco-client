@@ -12,7 +12,7 @@ const colorizeText = {
 const colorizeBorder = {
   shade0: ({theme}) => _get(theme, 'colors.paper'),
   shade1: ({theme}) => shadeColor(_get(theme, 'colors.paper'), 2),
-  shade2: ({theme}) => shadeColor(_get(theme, 'colors.paper'), 4),
+  shade2: ({theme}) => shadeColor(_get(theme, 'colors.paper'), 5),
   signal: ({theme, signal}) => _get(theme, `colors.signal.${signal}.text`),
   transparent: ({theme}) => 'transparent'
 }
