@@ -2,13 +2,22 @@ import styled from 'styled-components'
 import SlideMenu from 'react-burger-menu/lib/menus/slide'
 import {theme} from 'tocco-ui'
 
+const calcViewportHeight = () => {
+  const vh = window.innerHeight * 0.01
+  document.documentElement.style.setProperty('--vh', `${vh}px`)
+}
+
+calcViewportHeight()
+
+window.addEventListener('resize', () => calcViewportHeight())
+
 export const StyledWrapper = styled.div`
   display: grid;
   grid-template:
     'header header' auto
     'menu content' 1fr / auto 1fr;
   background-color: #fff;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
 
   .bm-burger-button button:focus {
     outline: 0;
@@ -27,7 +36,7 @@ export const StyledMenu = styled(SlideMenu)`
 
 export const burgerMenuStyles = {
   bmBurgerButton: {
-    position: 'fixed',
+    position: 'absolute',
     outline: '0',
     width: '24px',
     height: '24px',
@@ -45,7 +54,7 @@ export const burgerMenuStyles = {
   },
   bmMenu: {
     background: '#fff',
-    padding: '0 0 2em 0',
+    padding: '0 0 3rem 0',
     fontSize: '1.15em',
     overflow: 'hidden'
   },
@@ -54,7 +63,7 @@ export const burgerMenuStyles = {
   },
   bmItemList: {
     color: '#b8b7ad',
-    height: 'calc(100vh - 160px)'
+    height: '100%'
   },
   bmItem: {
     display: 'inline-block'
