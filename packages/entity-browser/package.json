@@ -11,7 +11,7 @@
     "tocco-app-extensions": "0.1.8",
     "tocco-entity-detail": "0.1.24",
     "tocco-entity-list": "0.1.24",
-    "tocco-input-edit": ">0.1.0",
+    "tocco-input-edit": "*",
     "tocco-test-util": ">0.0.0",
     "tocco-theme": ">0.0.0",
     "tocco-ui": "0.1.22",
