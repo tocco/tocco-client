@@ -18,7 +18,7 @@ const mapActionCreators = {
 const mapStateToProps = state => ({
   selection: state.inputEdit.selection,
   validation: state.inputEdit.validation,
-  inputDataForm: state.inputEditTable.inputDataForm
+  actionDefinitions: state.inputEditTable.actionDefinitions
 })
 
 export default connect(mapStateToProps, mapActionCreators)(InputEdit)

@@ -2,6 +2,7 @@ import {all, call, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
 import {rest} from 'tocco-app-extensions'
 
 import * as actions from './actions'
+import {transformResponseData} from './utils'
 
 export const inputEditSelector = state => state.inputEdit
 export const inputEditTableSelector = state => state.inputEditTable
@@ -13,8 +14,22 @@ export default function* sagas() {
     takeLatest(actions.INITIALIZE_TABLE, initialize),
     takeLatest(actions.LOAD_DATA, loadData),
     takeEvery(actions.UPDATE_VALUE, updateValue),
-    takeLatest(actions.SET_SORTING, sortData)
+    takeLatest(actions.SET_SORTING, loadData)
   ])
+}
+
+export function* processDataForm(dataForm) {
+  const actionDefinitions = dataForm.children
+    .find(child => child.id === 'main-action-bar')
+    .children
+    .filter(child => child.componentType === 'action')
+    .map(child => ({...child, scope: 'detail'}))
+
+  yield put(actions.setActionDefinitions(actionDefinitions))
+
+  const dataFormColumns = dataForm.children.find(child => child.componentType === 'table').children
+
+  yield put(actions.setDataFormColumns(dataFormColumns))
 }
 
 export function* initialize() {
@@ -25,26 +40,23 @@ export function* initialize() {
       call(rest.fetchForm, 'Input_edit_data', 'list')
     ])
     yield put(actions.setEditForm({inputEditForm: editForm.body}))
-    yield put(actions.setDataForm({inputDataForm: dataForm}))
+    yield call(processDataForm, dataForm)
     yield call(loadData, {})
   }
 }
 
-export function* sortData({payload: {sorting}}) {
-  yield call(loadData, {newSorting: sorting})
-}
-
 export function* loadData({newSorting, newSearchQueries, newPage}) {
+  yield put(actions.setDataLoadingInProgress(true))
   const {selection} = yield select(inputEditSelector)
   const sorting = newSorting || (yield select(inputEditTableSelector)).sorting
   const searchQueries = newSearchQueries || (yield select(searchQueriesSelector))
   const currentPage = newPage || (yield select(inputEditPaginationSelector)).currentPage
   const {recordsPerPage} = yield select(inputEditPaginationSelector)
-  const dataForm = (yield select(inputEditTableSelector)).inputDataForm
-  const paths = getPathsFromTable(dataForm)
+  const dataFormColumns = (yield select(inputEditTableSelector)).dataFormColumns
+  const paths = getPathsFromTable(dataFormColumns)
   const searchBean = rest.buildRequestQuery({
     limit: recordsPerPage,
-    ...(sorting && sorting.field && sorting.direction && {sorting: [{field: sorting.field, order: sorting.direction}]}),
+    sorting,
     page: currentPage,
     tql: searchQueries.join(' and '),
     paths: paths
@@ -56,20 +68,20 @@ export function* loadData({newSorting, newSearchQueries, newPage}) {
       searchBean
     }
   })
-  yield put(actions.setData(response.body))
+
+  const transformedData = yield call(transformResponseData, response)
+  yield put(actions.setData(transformedData))
+  yield put(actions.setDataLoadingInProgress(false))
 }
 
-function getPathsFromTable(dataForm) {
-  const paths = dataForm.children
-    .find(child => child.componentType === 'table')
-    .children
-    .flatMap(column => column.children.map(field => field.path))
-  paths.push('pk')
-  return paths
-}
+const getPathsFromTable = dataFormColumns => [
+  'pk',
+  ...(dataFormColumns.flatMap(column => column.children.map(field => field.path)))
+]
 
 export function* updateValue({payload: {inputDataKey, node, value}}) {
   yield put(actions.setValue(inputDataKey, node, value))
+
   const response = yield call(rest.requestSaga, 'inputEdit/data',
     {
       method: 'POST',

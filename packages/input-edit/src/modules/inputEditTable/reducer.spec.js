@@ -5,23 +5,17 @@ const initialState = {
   some: {other: 'test thing'},
   data: [
     {
-      pk: {
-        value: 122
-      },
+      pk: 122,
       node: 'old',
       other: 'old'
     },
     {
-      pk: {
-        value: 123
-      },
+      pk: 123,
       node: 'old',
       other: 'old'
     },
     {
-      pk: {
-        value: 124
-      },
+      pk: 124,
       node: 'old',
       other: 'old'
     }
@@ -36,23 +30,17 @@ describe('input-edit', () => {
           some: {other: 'test thing'},
           data: [
             {
-              pk: {
-                value: 122
-              },
+              pk: 122,
               node: 'old',
               other: 'old'
             },
             {
-              pk: {
-                value: 123
-              },
+              pk: 123,
               node: 'new',
               other: 'old'
             },
             {
-              pk: {
-                value: 124
-              },
+              pk: 124,
               node: 'old',
               other: 'old'
             }

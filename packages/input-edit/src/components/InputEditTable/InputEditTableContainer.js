@@ -11,9 +11,10 @@ const mapActionCreators = {
 const mapStateToProps = state => {
   return {
     data: state.inputEditTable.data,
-    inputDataForm: state.inputEditTable.inputDataForm,
+    dataFormColumns: state.inputEditTable.dataFormColumns,
     inputEditForm: state.inputEditTable.inputEditForm,
-    sorting: state.inputEditTable.sorting
+    sorting: state.inputEditTable.sorting,
+    dataLoadingInProgress: state.inputEditTable.dataLoadingInProgress
   }
 }
 

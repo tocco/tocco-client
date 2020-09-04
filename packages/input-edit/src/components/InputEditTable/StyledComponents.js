@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {scale, shadeColor, theme, declareFont, StyledScrollbar} from 'tocco-ui'
+import {scale, shadeColor, theme, declareFont} from 'tocco-ui'
 import _get from 'lodash/get'
 import {lighten} from 'polished'
 
@@ -18,14 +18,15 @@ export const StyledTable = styled.table`
 `
 
 export const StyledTableWrapper = styled.div`
+  width: 100%;
+  height: 100%;
   overflow: auto;
-  ${StyledScrollbar}
 `
 
-export const StyledCell = styled.td`
-  padding: ${scale.space(-1)};
-  width: ${({width}) => width ? `${width}px` : 'auto'};
-  border-bottom: 1px solid ${borderColor};
+export const StyledCell = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
 
   && {
     input,

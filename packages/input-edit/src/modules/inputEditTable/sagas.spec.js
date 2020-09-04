@@ -5,17 +5,59 @@ import {rest} from 'tocco-app-extensions'
 
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
+import {transformResponseData} from './utils'
 
 describe('input-edit', () => {
   describe('input-edit-table', () => {
     describe('sagas', () => {
+      const fakeDataColumns = [
+        {
+          children: [
+            {
+              path: 'first field'
+            }
+          ]
+        },
+        {
+          children: [
+            {
+              path: 'second field'
+            }
+          ]
+        }
+      ]
+
+      const fakeDataForm = {
+        children: [
+          {
+            id: 'main-action-bar',
+            label: null,
+            componentType: 'action-bar',
+            children: [{
+              id: 'output',
+              label: 'Ausgabe'
+            }, {
+              id: 'nice2.reporting.actions.ChangelogExportAction',
+              label: 'Changelog exportieren'
+            }],
+            actions: [],
+            defaultAction: null
+
+          },
+          {
+            componentType: 'table',
+            children: fakeDataColumns
+          }
+        ]
+      }
+
       test('should fork child sagas', () => {
         const generator = rootSaga()
         expect(generator.next().value).to.deep.equal(all([
           takeLatest(actions.INITIALIZE_TABLE, sagas.initialize),
           takeLatest(actions.LOAD_DATA, sagas.loadData),
           takeEvery(actions.UPDATE_VALUE, sagas.updateValue),
-          takeLatest(actions.SET_SORTING, sagas.sortData)
+          takeLatest(actions.SET_SORTING, sagas.loadData)
         ]))
         expect(generator.next().done).to.be.true
       })
@@ -35,55 +77,23 @@ describe('input-edit', () => {
                 body: expectedEditForm
               }],
               [matchers.call.fn(rest.fetchForm), expectedDataForm],
-              [matchers.call.fn(sagas.loadData), {}]
+              [matchers.call.fn(sagas.loadData), {}],
+              [matchers.call.fn(sagas.processDataForm)]
             ])
             .put(actions.setEditForm({inputEditForm: expectedEditForm}))
-            .put(actions.setDataForm({inputDataForm: expectedDataForm}))
+            .call(sagas.processDataForm, expectedDataForm)
             .call(sagas.loadData, {})
             .run()
         })
       })
 
       describe('load-data', () => {
-        const fakeDataForm = {
-          children: [
-            {
-              componentType: 'table',
-              children: [
-                {
-                  children: [
-                    {
-                      path: 'first field'
-                    }
-                  ]
-                },
-                {
-                  children: [
-                    {
-                      path: 'second field'
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-
         test('should load data', () => {
-          const expectedData = {
-            count: 50,
-            data: [
-              {
-                pk: 123
-              }
-            ]
-          }
           const fakeSelection = {ids: ['12']}
+
+          const fakeData = []
+
           return expectSaga(sagas.loadData, {
-            newSorting: {
-              field: 'field',
-              direction: 'asc'
-            },
             newSearchQueries: [
               'firstname == \'something\'',
               'lastname == \'something else\''
@@ -92,8 +102,8 @@ describe('input-edit', () => {
           })
             .provide([
               [select(sagas.inputEditTableSelector), {
-                inputDataForm: fakeDataForm,
-                sorting: {field: 'state sorting'}
+                dataFormColumns: fakeDataColumns,
+                sorting: [{field: 'field', order: 'asc'}]
               }],
               [select(sagas.inputEditSelector), {selection: fakeSelection, validation: {valid: true}}],
               [select(sagas.searchQueriesSelector), []],
@@ -103,8 +113,9 @@ describe('input-edit', () => {
                 recordsPerPage: 25
               }],
               [matchers.call.fn(rest.requestSaga), {
-                body: expectedData
-              }]
+                body: {}
+              }],
+              [matchers.call.fn(transformResponseData), fakeData]
             ])
             .call.like({
               fn: rest.requestSaga,
@@ -125,7 +136,7 @@ describe('input-edit', () => {
                 }
               ]
             })
-            .put(actions.setData(expectedData))
+            .put(actions.setData(fakeData))
             .run()
         })
         test('should load data from state if no arguments are passed', () => {
@@ -134,11 +145,8 @@ describe('input-edit', () => {
             .provide([
               [select(sagas.inputEditSelector), {selection: fakeSelection, validation: {valid: true}}],
               [select(sagas.inputEditTableSelector), {
-                inputDataForm: fakeDataForm,
-                sorting: {
-                  field: 'field',
-                  direction: 'asc'
-                }
+                dataFormColumns: fakeDataColumns,
+                sorting: [{field: 'field', order: 'asc'}]
               }],
               [select(sagas.searchQueriesSelector), [
                 'firstname == \'whatever\''
@@ -148,7 +156,7 @@ describe('input-edit', () => {
                 currentPage: 1,
                 recordsPerPage: 25
               }],
-              [matchers.call.fn(rest.requestSaga), {body: {}}]
+              [matchers.call.fn(rest.requestSaga), {body: {data: []}}]
             ])
             .call.like({
               fn: rest.requestSaga,
@@ -173,18 +181,11 @@ describe('input-edit', () => {
         })
       })
 
-      describe('sort-data', () => {
-        test('should pass sorting to loadData', () => {
-          return expectSaga(sagas.sortData, actions.setSorting('field', 'desc'))
-            .provide([
-              [matchers.call.fn(sagas.loadData)]
-            ])
-            .call(sagas.loadData, {
-              newSorting: {
-                field: 'field',
-                direction: 'desc'
-              }
-            })
+      describe('processDataForm', () => {
+        test('should set action and column defintions', () => {
+          return expectSaga(sagas.processDataForm, fakeDataForm)
+            .put.actionType(actions.SET_ACTION_DEFINITIONS)
+            .put.actionType(actions.SET_DATA_FORM_COLUMNS)
             .run()
         })
       })
