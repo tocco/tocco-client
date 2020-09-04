@@ -62,6 +62,8 @@ const StyledEditableControl = styled.div`
 `
 
 export const StyledEditableValue = styled.span`
+  width: 100%;
+
   && {
     //textarea
     textarea {
