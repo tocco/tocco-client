@@ -18,6 +18,8 @@ export const StyledTableCell = styled.td`
   padding: ${basePadding};
   background-color: ${theme.color('paper')};
   border-bottom: 1px solid ${borderColor};
+  align-content: center;
+  display: flex;
 `
 
 export const StyledTableHeaderCell = styled.th`
@@ -29,7 +31,7 @@ export const StyledTableHeaderCell = styled.th`
   border-bottom: 2px solid ${borderColor};
   ${declareFont({fontWeight: theme.fontWeight('bold')})};
   user-select: none;
-  cursor: pointer;
+  cursor: ${props => props.sortable ? 'pointer' : 'auto'};
   overflow: hidden;
   white-space: nowrap;
   display: flex;

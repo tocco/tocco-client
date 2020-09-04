@@ -41,6 +41,7 @@ const TableHeader = ({columns, data, onColumnPositionChange, onSortingChange, ta
             onClick={thOnClick(column)}
             resizingColumn={resizingColumn}
             isResizing={resizingColumn && column.id === resizingColumn.id}
+            sortable={column.sorting && column.sorting.sortable}
           >
             <div
               style={{width: '100%', height: '100%', display: 'flex'}}

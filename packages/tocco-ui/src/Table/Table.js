@@ -22,7 +22,7 @@ const Table = props => {
   }
 
   const {isSelected, selectionChange}
-    = useSelection(props.selection, props.data.map(e => e.__key), props.onSelectionChange)
+    = useSelection(props.selection, props.data ? props.data.map(e => e.__key) : [], props.onSelectionChange)
 
   useEffect(() => {
     const selectionColumn = getSelectionCell(props.selectionStyle, props.columns, isSelected, selectionChange)

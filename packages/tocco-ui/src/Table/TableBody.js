@@ -31,7 +31,9 @@ const TableBody = ({data, columns, isSelected, selectionChange, dataLoadingInPro
     } else if (e.metaKey || e.ctrlKey) {
       selectionChange(entity.__key)
     } else {
-      onRowClick(entity.__key)
+      if (onRowClick) {
+        onRowClick(entity.__key)
+      }
     }
   }
 
@@ -41,7 +43,7 @@ const TableBody = ({data, columns, isSelected, selectionChange, dataLoadingInPro
         dataLoadingInProgress
           ? <InProgressRow/>
           : data.length > 0
-            ? data.map(rowData =>
+            ? data.map((rowData, idx) =>
               <StyledTableRow
                 key={`list-row-${rowData.__key}`}
                 className={`selectableRow ${isSelected(rowData.__key) && 'selected'}`}
@@ -52,9 +54,10 @@ const TableBody = ({data, columns, isSelected, selectionChange, dataLoadingInPro
                   columns.map(column =>
                     <StaticCell
                       key={`table-static-cell-${rowData.__key}-${column.id}`}
-                      isSelected={isSelected}
+                      selected={isSelected(rowData.__key)}
                       rowData={rowData}
                       column={column}
+                      rowIdx={idx}
                     />
                   )
                 }
@@ -72,7 +75,7 @@ TableBody.propTypes = {
   isSelected: PropTypes.func.isRequired,
   selectionChange: PropTypes.func,
   dataLoadingInProgress: PropTypes.bool,
-  onRowClick: PropTypes.func.isRequired
+  onRowClick: PropTypes.func
 }
 
 export default TableBody
