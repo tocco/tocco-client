@@ -36,7 +36,6 @@ class Form extends React.Component {
         formDefinition={this.props.formDefinition}
         formValues={this.props.formValues}
         fieldMappingType={this.props.mappingType ? this.props.mappingType : 'editable'}
-        readOnlyFormFieldMapping={null}
       />
       {!this.props.noButtons
       && <React.Fragment>

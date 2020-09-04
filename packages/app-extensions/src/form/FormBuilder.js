@@ -34,15 +34,15 @@ const FormBuilder = props => {
     !mode || !scopes || scopes.length === 0 || scopes.includes(mode)
   )
 
-  const formTraverser = (children, readonly = false) => {
+  const formTraverser = (children, parentReadOnly = false) => {
     const result = []
     for (const child of children) {
       if (child.componentType === componentTypes.LAYOUT) {
-        result.push(createLayoutComponent(child, child.layoutType, readonly))
+        result.push(createLayoutComponent(child, child.layoutType, parentReadOnly))
       } else if (isAction(child.componentType)) {
         result.push(createAction(child))
       } else if (child.componentType === componentTypes.FIELD_SET) {
-        result.push(createFieldSet(child, readonly))
+        result.push(createFieldSet(child, parentReadOnly))
       } else if (componentMapping && componentMapping[child.componentType]) {
         return createCustomComponent(child)
       }
@@ -50,7 +50,7 @@ const FormBuilder = props => {
     return result
   }
 
-  const createFieldSet = (fieldSet, readonly) => {
+  const createFieldSet = (fieldSet, parentReadOnly) => {
     const fieldDefinition = fieldSet.children.find(child => !isAction(child.componentType))
 
     if (!fieldDefinition) {
@@ -106,7 +106,7 @@ const FormBuilder = props => {
     if (shouldRenderField(formDefinitionField, entityField)) {
       return <Field
         key={`field-${fieldName}`}
-        readOnlyForm={readonly}
+        parentReadOnly={parentReadOnly}
         name={transformFieldName(fieldName)}
         id={getFieldId(formName, fieldName)}
         formName={formName}
@@ -139,8 +139,8 @@ const FormBuilder = props => {
     </div>
   }
 
-  const createLayoutComponent = (field, type, readonly) => {
-    let elements = formTraverser(field.children, readonly || field.readonly)
+  const createLayoutComponent = (field, type, parentReadOnly) => {
+    let elements = formTraverser(field.children, parentReadOnly || field.readonly)
 
     if (Array.isArray(elements)) {
       elements = elements.filter(Boolean)

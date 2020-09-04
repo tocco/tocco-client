@@ -16,7 +16,7 @@ const ReduxFormFieldAdapter = props => {
     formDefinitionField,
     entityField,
     modelField,
-    readOnlyForm,
+    parentReadOnly,
     formName
   } = props
 
@@ -34,7 +34,7 @@ const ReduxFormFieldAdapter = props => {
     events,
     error,
     entityField,
-    readOnlyForm
+    parentReadOnly
   }
   const resources = {
     mandatoryTitle: props.intl.formatMessage({id: 'client.component.form.mandatoryFieldTitle'})
@@ -62,12 +62,8 @@ ReduxFormFieldAdapter.propTypes = {
   formDefinitionField: PropTypes.object.isRequired,
   entityField: PropTypes.object,
   modelField: PropTypes.object,
-  readOnlyForm: PropTypes.bool,
-  fieldMappingType: PropTypes.string.isRequired,
-  readOnlyFormFieldMapping: PropTypes.objectOf(PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.objectOf(PropTypes.func)
-  ]))
+  parentReadOnly: PropTypes.bool,
+  fieldMappingType: PropTypes.string.isRequired
 }
 
 export default injectIntl(ReduxFormFieldAdapter)
