@@ -209,7 +209,7 @@ describe('app-extensions', () => {
         const entity = null
         const props = {entity, model, formName, formDefinition, formValues, mode: 'update', formFieldMapping: {}}
         const wrapper = shallow(<FormBuilder {...props}/>)
-        expect(wrapper.find(Field)).to.have.length(1)
+        expect(wrapper.find(Field)).to.have.length(2)
       })
 
       test('should render children of readonly layouts to readonly', () => {
@@ -218,6 +218,7 @@ describe('app-extensions', () => {
         const props = {entity, model, formName, formDefinition, formValues, mode: 'update', formFieldMapping: {}}
         const wrapper = shallow(<FormBuilder {...props}/>)
         const field = wrapper.findWhere(e => e.props().id === 'input-detail-not-readonly-field')
+        expect(field).to.have.length(1)
         expect(field.props().readOnlyForm).to.be.true
       })
 
