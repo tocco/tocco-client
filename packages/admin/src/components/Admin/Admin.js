@@ -61,39 +61,37 @@ const Admin = ({
     }
   }
 
-  return (
-    <LoadMask required={[history !== null]}>
-      <Router history={history || {}}>
-        <notifier.Notifier/>
-        <StyledWrapper id="outer-container">
-          <Header/>
-          <StyledMenu
-            isOpen={menuOpen}
-            onStateChange={isMenuOpen}
-            customCrossIcon={false}
-            customBurgerIcon={<BurgerButton isOpen={menuOpen} size="20" color={theme.colors.paper}/>}
-            styles={burgerMenuStyles}
-            pageWrapId={'page-wrap'}
-            outerContainerId={'outer-container'}>
-            <Navigation onClick={() => {
-              setMenuOpen(false)
-              clearPersistedViews()
-            }}/>
-          </StyledMenu>
-          <StyledContent id="page-wrap">
-            <Switch>
-              <Route exact path="/"
-                render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/dashboard`}/>}/>
-              <Route exact={true} path="/dashboard" component={DashboardRoute}/>
-              <Route path="/e" component={EntitiesRoute}/>
-              <Route path="/s" component={Settings}/>
-              <Route render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/dashboard`}/>}/>
-            </Switch>
-          </StyledContent>
-        </StyledWrapper>
-      </Router>
-    </LoadMask>
-  )
+  return <LoadMask required={[history !== null]}>
+    <Router history={history || {}}>
+      <notifier.Notifier/>
+      <StyledWrapper id="outer-container">
+        <Header/>
+        <StyledMenu
+          isOpen={menuOpen}
+          onStateChange={isMenuOpen}
+          customCrossIcon={false}
+          customBurgerIcon={<BurgerButton isOpen={menuOpen} size="20" color={theme.colors.paper}/>}
+          styles={burgerMenuStyles}
+          pageWrapId={'page-wrap'}
+          outerContainerId={'outer-container'}>
+          <Navigation onClick={() => {
+            setMenuOpen(false)
+            clearPersistedViews()
+          }}/>
+        </StyledMenu>
+        <StyledContent id="page-wrap">
+          <Switch>
+            <Route exact path="/"
+              render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/dashboard`}/>}/>
+            <Route exact={true} path="/dashboard" component={DashboardRoute}/>
+            <Route path="/e" component={EntitiesRoute}/>
+            <Route path="/s" component={Settings}/>
+            <Route render={({match}) => <Redirect to={`${match.url.replace(/\/$/, '')}/dashboard`}/>}/>
+          </Switch>
+        </StyledContent>
+      </StyledWrapper>
+    </Router>
+  </LoadMask>
 }
 
 Admin.propTypes = {

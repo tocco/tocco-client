@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {StyledSpan, theme, scale} from 'tocco-ui'
+import {StyledSpan, theme, scale, StyledScrollbar} from 'tocco-ui'
 
 import {StyledLink} from '../../../../components/StyledLink'
 
@@ -30,9 +30,11 @@ export const StyledRelationBox = styled.div`
   background-color: ${theme.color('paper')};
   padding: ${scale.space(-1)};
   display: grid;
-  grid-template-columns: repeat(auto-fit, 200px);
+  grid-template-columns: repeat(auto-fit, 170px);
   grid-gap: ${scale.space(-2)};
   justify-content: space-between;
+  overflow-y: auto;
+  ${StyledScrollbar}
 `
 
 export const RelationLinks = styled.div`
