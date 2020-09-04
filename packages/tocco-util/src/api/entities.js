@@ -37,10 +37,10 @@ export const getFlattenEntity = entity => ({
   [metaFields.KEY]: entity.key,
   [metaFields.MODEL]: entity.model,
   [metaFields.VERSION]: entity.version,
-  ...flattenPath(entity.paths)
+  ...flattenPaths(entity.paths)
 })
 
-const flattenPath = (paths, currentPath = []) =>
+export const flattenPaths = (paths, currentPath = []) =>
   _reduce(
     paths,
     (acc, path, pathId) => {
@@ -48,13 +48,13 @@ const flattenPath = (paths, currentPath = []) =>
       if (path.value) {
         if (Array.isArray(path.value)) {
           subPaths = path.value.reduce((acc, v) => {
-            const flatten = flattenPath(v.paths, [...currentPath, pathId])
+            const flatten = flattenPaths(v.paths, [...currentPath, pathId])
             const combinedArrayVales = _reduce(flatten, (acc2, val, key) =>
               ({...acc2, [key]: [...(acc[key] || []), val]}), {})
             return {...acc, ...combinedArrayVales}
           }, {})
         } else {
-          subPaths = flattenPath(path.value.paths, [...currentPath, pathId])
+          subPaths = flattenPaths(path.value.paths, [...currentPath, pathId])
         }
       }
 
