@@ -15,9 +15,9 @@ import {
 }
   from './StyledComponents'
 
-const MenuMenuEntry = ({item}) => {
-  return <StyledMenuEntry>{item.label}</StyledMenuEntry>
-}
+const MenuMenuEntry = ({item}) => <StyledMenuEntry>
+  {item.label}
+</StyledMenuEntry>
 
 MenuMenuEntry.propTypes = {
   item: PropTypes.shape({
@@ -42,9 +42,11 @@ EntityExplorerMenuEntry.propTypes = {
   onClick: PropTypes.func
 }
 
-const ActionMenuEntry = ({onClick, item}) => {
-  return <StyledMenuLink onClick={onClick} to={`/e/action/${item.name}`}>{item.label}</StyledMenuLink>
-}
+const ActionMenuEntry = ({onClick, item}) => <StyledMenuLink
+  onClick={onClick}
+  to={`/e/action/${item.name}`}>
+  {item.label}
+</StyledMenuLink>
 
 ActionMenuEntry.propTypes = {
   item: PropTypes.shape({
@@ -59,7 +61,15 @@ const tabs = {
   SETTINGS: 'settings'
 }
 
-const Navigation = ({modulesMenuTree, settingsMenuTree, menuOpen, onClick, activeMenuTab, setActiveMenuTab, intl}) => {
+const Navigation = ({
+  modulesMenuTree,
+  settingsMenuTree,
+  menuOpen,
+  onClick,
+  activeMenuTab,
+  setActiveMenuTab,
+  intl
+}) => {
   const inputEl = useRef(null)
   const navigationEl = useRef(null)
   const [filter, setFilter] = useState('')

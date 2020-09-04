@@ -11,7 +11,7 @@ import ToccoLogo from '../../assets/tocco-circle.svg'
 import ToccoSlogan from '../../assets/tocco_white.svg'
 
 const StyledLogin = styled.div`
-  height: 100vh;
+  height: 100%;
   width: 100vw;
   position: absolute;
   background-image: url(${ToccoLogo});
@@ -156,20 +156,18 @@ const Login = ({ssoAvailable, loginSuccessful, checkSsoAvailable}) => {
     <StyledSpanLogin><FormattedMessage id="client.admin.loginChoice"/></StyledSpanLogin>
   </div>
 
-  return (
-    <StyledLogin>
-      <StyledImg src={ToccoSlogan}/>
-      <SloganImg src={ToccoSlogan}/>
-      <LoginWrapper>
-        <StyledHeadingLogin><FormattedMessage id="client.admin.welcomeTitle"/></StyledHeadingLogin>
-        {ssoAvailable && <SsoLoginPart/>}
-        <ToccoLogin
-          loginSuccess={loginSuccess}
-          showTitle={false}
-        />
-      </LoginWrapper>
-    </StyledLogin>
-  )
+  return <StyledLogin>
+    <StyledImg src={ToccoSlogan}/>
+    <SloganImg src={ToccoSlogan}/>
+    <LoginWrapper>
+      <StyledHeadingLogin><FormattedMessage id="client.admin.welcomeTitle"/></StyledHeadingLogin>
+      {ssoAvailable && <SsoLoginPart/>}
+      <ToccoLogin
+        loginSuccess={loginSuccess}
+        showTitle={false}
+      />
+    </LoginWrapper>
+  </StyledLogin>
 }
 
 Login.propTypes = {

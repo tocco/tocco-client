@@ -1,12 +1,14 @@
 import styled from 'styled-components'
 import {Link} from 'react-router-dom'
-import {Button, theme, StyledScrollbar} from 'tocco-ui'
+import {Button, theme, StyledScrollbar, scale} from 'tocco-ui'
 
 const secondary = theme.color('secondary')
 const secondaryLight = theme.color('secondaryLight')
 
 export const StyledNav = styled.nav`
   height: 100%;
+  display: flex;
+  flex-direction: column;
 
   .StyledSearchBox {
     margin: 1.5rem 3rem 1.8rem 1.8rem;
@@ -14,10 +16,14 @@ export const StyledNav = styled.nav`
 `
 
 export const StyledMenuWrapper = styled.div`
-  height: 101%;
+  height: 100%;
   overflow: auto;
-  padding-left: 2rem;
+  padding: ${scale.space(0.6)} 0 0 ${scale.space(0.6)};
   ${StyledScrollbar}
+
+  & > div {
+    margin-bottom: ${scale.space(0.6)};
+  }
 `
 
 export const StyledMenuEntry = styled.span`
