@@ -219,7 +219,7 @@ describe('app-extensions', () => {
         const wrapper = shallow(<FormBuilder {...props}/>)
         const field = wrapper.findWhere(e => e.props().id === 'input-detail-not-readonly-field')
         expect(field).to.have.length(1)
-        expect(field.props().readOnlyForm).to.be.true
+        expect(field.props().parentReadOnly).to.be.true
       })
 
       test('should read multi paths entity fields', () => {

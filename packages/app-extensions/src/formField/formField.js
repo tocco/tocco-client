@@ -32,6 +32,26 @@ FormFieldWrapper.propTypes = {
 }
 
 const displayFieldTypes = ['display', 'description']
+const multiTypes = ['multi-select-box', 'multi-remote-field', 'search-filter']
+
+const isMultipleFields = (value, dataType) =>
+  Array.isArray(value) && !multiTypes.includes(dataType)
+
+const displayFieldAsDisplayOnly = (value, componentType, dataType, parentReadOnly) => {
+  if (parentReadOnly) {
+    return true
+  }
+
+  if (displayFieldTypes.includes(componentType)) {
+    return true
+  }
+
+  if (isMultipleFields(value, dataType)) {
+    return true
+  }
+
+  return false
+}
 
 export const formFieldFactory = (fieldMappingType, data, resources = {}) => {
   try {
@@ -46,20 +66,26 @@ export const formFieldFactory = (fieldMappingType, data, resources = {}) => {
       events,
       error,
       submitting,
-      readOnlyForm,
+      parentReadOnly,
       formName
     } = data
 
+    const {
+      componentType,
+      dataType,
+      readonly
+    } = formDefinitionField
+
     const readOnly = (
-      readOnlyForm
-      || formDefinitionField.readonly
+      parentReadOnly
+      || readonly
       || submitting
       || !_get(entityField, 'writable', true)
     )
 
     const mandatory = !readOnly && _get(modelField, 'validation.mandatory', false)
     const hasValue = value !== null && value !== undefined && (value.length === undefined || value.length > 0)
-    const isDisplay = displayFieldTypes.includes(data.formDefinitionField.componentType) || readOnlyForm
+    const isDisplay = displayFieldAsDisplayOnly(value, componentType, dataType, parentReadOnly)
 
     const type = formDefinitionField.dataType || formDefinitionField.componentType
     let requestedFromData
@@ -91,7 +117,7 @@ export const formFieldFactory = (fieldMappingType, data, resources = {}) => {
           formField={formDefinitionField}
         >
           <ValueField
-            fieldMappingType={fieldMappingType}
+            fieldMappingType={isDisplay ? 'readOnly' : fieldMappingType}
             formName={formName}
             formField={formDefinitionField}
             modelField={modelField}
@@ -110,8 +136,6 @@ export const formFieldFactory = (fieldMappingType, data, resources = {}) => {
 
 export const MultiSeparator = () => (<Typography.Span>, </Typography.Span>)
 
-const multiTypes = ['multi-select-box', 'multi-remote-field', 'search-filter']
-
 const ValueField = ({
   fieldMappingType,
   formName,
@@ -122,28 +146,23 @@ const ValueField = ({
   events,
   formData
 }) => {
-  const multiField = Array.isArray(value) && !multiTypes.includes(formField.dataType)
   const Field = useMemo(() =>
-    field.factory(multiField ? 'readOnly' : fieldMappingType, formField.dataType || formField.componentType), []
+    field.factory(fieldMappingType, formField.dataType || formField.componentType), []
   )
 
-  if (multiField) {
-    return <div>
-      {
-        value
-          .map((v, idx) => <Field
-            formField={formField}
-            modelField={modelField}
-            formName={formName}
-            value={v}
-            info={info}
-            events={events}
-            formData={formData}
-            key={'valueField-' + formField.id + idx}
-          />)
-          .reduce((prev, curr, idx) => [prev, <MultiSeparator key={'sep' + idx}/>, curr])
-      }
-    </div>
+  if (isMultipleFields(value, formField.dataType)) {
+    return value
+      .map((v, idx) => <Field
+        formField={formField}
+        modelField={modelField}
+        formName={formName}
+        value={v}
+        info={info}
+        events={events}
+        formData={formData}
+        key={'valueField-' + formField.id + idx}
+      />)
+      .reduce((prev, curr, idx) => [prev, <MultiSeparator key={'sep' + idx}/>, curr])
   }
 
   return <Field
