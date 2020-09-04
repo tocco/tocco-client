@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo} from 'react'
+import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {scale, LoadMask} from 'tocco-ui'
 import styled from 'styled-components'
@@ -37,7 +37,7 @@ const InputEdit = ({
   initializeTable,
   initializeSearch,
   initializeInformation,
-  inputDataForm,
+  actionDefinitions,
   notify
 }) => {
   useEffect(() => {
@@ -49,18 +49,11 @@ const InputEdit = ({
     initializeInformation()
   }, [selection, valid])
 
-  const actionDefinitions = useMemo(() => inputDataForm.children
-    ? inputDataForm.children
-      .find(child => child.id === 'main-action-bar')
-      .children
-      .filter(child => child.componentType === 'action')
-      .map(child => ({...child, scope: 'detail'}))
-    : [], [inputDataForm])
-
   if (valid === false) {
     notify('error', 'client.component.input-edit.error.title', message)
     return null
   }
+
   return <LoadMask required={[valid || message]}>
     {valid
       ? <StyledSplitPane
@@ -101,9 +94,9 @@ InputEdit.propTypes = {
   initializeTable: PropTypes.func.isRequired,
   initializeSearch: PropTypes.func.isRequired,
   initializeInformation: PropTypes.func.isRequired,
-  inputDataForm: PropTypes.shape({
-    children: PropTypes.array
-  }).isRequired,
+  actionDefinitions: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired
+  })),
   notify: PropTypes.func.isRequired
 }
 

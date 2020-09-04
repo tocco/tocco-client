@@ -12,7 +12,7 @@ const InputEditPagination = ({count, currentPage, recordsPerPage, setCurrentPage
     : null
 
 InputEditPagination.propTypes = {
-  count: PropTypes.number.isRequired,
+  count: PropTypes.number,
   currentPage: PropTypes.number.isRequired,
   recordsPerPage: PropTypes.number.isRequired,
   setCurrentPage: PropTypes.func.isRequired
