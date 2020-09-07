@@ -8,13 +8,13 @@
     "prepublish": "npm run compile:prod"
   },
   "devDependencies": {
-    "tocco-app-extensions": "0.1.8",
-    "tocco-entity-detail": "0.1.24",
-    "tocco-entity-list": "0.1.24",
+    "tocco-app-extensions": "*",
+    "tocco-entity-detail": "*",
+    "tocco-entity-list": "*",
     "tocco-input-edit": "*",
-    "tocco-test-util": ">0.0.0",
-    "tocco-theme": ">0.0.0",
-    "tocco-ui": "0.1.22",
-    "tocco-util": "0.1.19"
+    "tocco-test-util": "*",
+    "tocco-theme": "*",
+    "tocco-ui": "*",
+    "tocco-util": "*"
   }
 }

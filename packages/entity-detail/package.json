@@ -9,12 +9,12 @@
     "prepublish": "npm run compile:prod"
   },
   "devDependencies": {
-    "tocco-app-extensions": "0.1.8",
-    "tocco-entity-list": "0.1.24",
-    "tocco-simple-form": "0.1.15",
-    "tocco-test-util": ">0.0.0",
-    "tocco-theme": ">0.0.0",
-    "tocco-ui": "0.1.22",
-    "tocco-util": "0.1.19"
+    "tocco-app-extensions": "*",
+    "tocco-entity-list": "*",
+    "tocco-simple-form": "*",
+    "tocco-test-util": "*",
+    "tocco-theme": "*",
+    "tocco-ui": "*",
+    "tocco-util": "*"
   }
 }

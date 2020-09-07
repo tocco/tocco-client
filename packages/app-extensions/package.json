@@ -5,9 +5,9 @@
   "description": "app extensions",
   "main": "src/main.js",
   "devDependencies": {
-    "tocco-theme": ">0.0.0",
-    "tocco-ui": "0.1.22",
-    "tocco-util": "0.1.19",
+    "tocco-theme": "*",
+    "tocco-ui": "*",
+    "tocco-util": "*",
     "validator": "10.0.0"
   }
 }
