@@ -30,7 +30,7 @@ const typeHandlers = type => {
   switch (type) {
     case 'multi-select-box':
     case 'multi-remote-field':
-      return (path, value) => `IN(${path}.pk,${value.map(v => v.key).join(',')})`
+      return (path, value) => `KEYS("${path}",${value.map(v => v.key).join(',')})`
     case 'single-remote-field':
     case 'single-select-box':
       return (path, value) => `${path}.pk == ${value.key}`
