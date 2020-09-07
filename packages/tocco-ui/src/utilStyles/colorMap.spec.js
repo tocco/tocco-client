@@ -44,7 +44,7 @@ describe('tocco-ui', () => {
       })
       test('should return shade 2 of paper color', () => {
         const value = colorizeBorder.shade2(props)
-        expect(value).to.equal('#999')
+        expect(value).to.equal('#808080')
       })
       test('should return signal color', () => {
         const value = colorizeBorder.signal(props)
