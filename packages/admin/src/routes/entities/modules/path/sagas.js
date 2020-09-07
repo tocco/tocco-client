@@ -43,7 +43,7 @@ export function* extractMultiRelations(model, key) {
       .sort((a, b) => a.relationDisplay.order > b.relationDisplay.order ? 1 : -1)
 
     yield put(actions.setRelations(relationsTransformed))
-    yield spawn(loadRelationCounts, model.name, key)
+    yield spawn(loadRelationInfos, model.name, key)
   }
 }
 
@@ -72,15 +72,11 @@ export function* addEntityToBreadcrumbs(path, entityName, breadcrumbs) {
   breadcrumbs.push({display, path, type})
 }
 
-export function* loadRelationCounts(model, key) {
+export function* loadRelationInfos(model, key) {
   const resource = `/client/entities/${model}/${key}/relations`
-  const relationCountResponse = yield call(rest.requestSaga, resource)
-  const relations = relationCountResponse.body.relations
-  const countObj = Object.keys(relations).reduce((acc, relation) => ({
-    ...acc,
-    [relation]: relations[relation].count
-  }), {})
-  yield put(actions.setRelationCount(countObj))
+  const relationInfoResponse = yield call(rest.requestSaga, resource)
+  const relationsInfo = relationInfoResponse.body.relations
+  yield put(actions.setRelationsInfo(relationsInfo))
 }
 
 export function* addRecordToBreadcrumbs(path, entityName, key, breadcrumbs) {
