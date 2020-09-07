@@ -1,3 +1,11 @@
+0.3.13
+- Allow calendars to be preselected by passing them to the preselectedCalendars input
+- Table component
+- Added button to reset all preferences
+- Implement responsive height fixes for tablets
+- Make all children of readonly layouts readonly
+- Style input fields according to material design
+
 0.3.12
 
 
