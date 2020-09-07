@@ -24,7 +24,7 @@ const TableHeader = ({columns, data, onColumnPositionChange, onSortingChange, ta
   const {resizingColumn, startResize} = useResize(tableEl, resizeCallback)
 
   const thOnClick = column => e => {
-    if (!resizingColumn && column.sorting.sortable) {
+    if (!resizingColumn && column.sorting && column.sorting.sortable) {
       onSortingChange(column.id, e.shiftKey)
     }
   }
