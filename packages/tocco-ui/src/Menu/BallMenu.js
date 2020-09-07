@@ -41,7 +41,10 @@ BallMenu.propTypes = {
   /**
    * Tree of <MenuItem>
    */
-  children: PropTypes.element.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.arrayOf(PropTypes.element)
+  ]).isRequired,
   /**
    * Object of properties as described in Ball component
    */
