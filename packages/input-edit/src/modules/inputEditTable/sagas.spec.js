@@ -106,6 +106,7 @@ describe('input-edit', () => {
               [matchers.call.fn(rest.requestSaga), {
                 body: expectedEditForm
               }],
+              [matchers.call.fn(sagas.processDataForm), {}],
               [matchers.call.fn(rest.fetchForm), expectedDataForm],
               [matchers.call.fn(sagas.loadData), {}]
             ])
