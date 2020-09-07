@@ -4,8 +4,8 @@ export const LOAD_CURRENT_VIEW_INFO = 'path/LOAD_CURRENT_VIEW_INFO'
 export const SET_BREADCRUMBS_INFO = 'path/SET_BREADCRUMBS_INFO'
 export const SET_RELATIONS = 'path/SET_RELATIONS'
 export const CACHE_DISPLAY = 'path/CACHE_DISPLAY'
-export const SET_RELATION_COUNT = 'path/SET_RELATION_COUNT'
 export const SET_CURRENT_VIEW_TITLE = 'path/SET_CURRENT_VIEW_TITLE'
+export const SET_RELATIONS_INFO = 'path/SET_RELATIONS_INFO'
 
 export const cacheModel = (entity, model) => ({
   type: CACHE_MODEL,
@@ -53,16 +53,16 @@ export const cacheDisplay = (entity, key, display) => ({
   }
 })
 
-export const setRelationCount = relationsCount => ({
-  type: SET_RELATION_COUNT,
-  payload: {
-    relationsCount
-  }
-})
-
 export const setCurrentViewTitle = currentViewTitle => ({
   type: SET_CURRENT_VIEW_TITLE,
   payload: {
     currentViewTitle
+  }
+})
+
+export const setRelationsInfo = relationsInfo => ({
+  type: SET_RELATIONS_INFO,
+  payload: {
+    relationsInfo
   }
 })

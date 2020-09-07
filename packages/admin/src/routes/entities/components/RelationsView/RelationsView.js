@@ -22,7 +22,7 @@ const RelationsView = ({
   match,
   currentViewInfo,
   relations,
-  relationsCount,
+  relationsInfo,
   persistViewInfo,
   persistedViewInfo
 }) => {
@@ -44,12 +44,14 @@ const RelationsView = ({
     [relations]
   )
 
-  const getRelationCountLabel = relationName => relationsCount[relationName]
-    ? <RelationLabel>&nbsp;({relationsCount[relationName]})</RelationLabel> : null
+  const getRelationCountLabel = relationName => relationsInfo[relationName] && relationsInfo[relationName].count > 0
+    ? <RelationLabel>&nbsp;({relationsInfo[relationName].count})</RelationLabel> : null
 
   if (!relations || relations.length === 0 || !currentViewInfo) {
     return null
   }
+
+  const hasCreateRights = relationName => relationsInfo[relationName] && relationsInfo[relationName].createPermission
 
   return (
     <StyledRelationsViewWrapper>
@@ -76,9 +78,11 @@ const RelationsView = ({
               <StyledLink to={match.url.replace(/(relations|detail)$/, relation.relationName)}>
                 <Icon icon="arrow-right"/>
               </StyledLink>
-              <StyledLink to={match.url.replace(/(relations|detail)$/, relation.relationName) + '/create'}>
+              {hasCreateRights(relation.relationName)
+              && <StyledLink to={match.url.replace(/(relations|detail)$/, relation.relationName) + '/create'}>
                 <Icon icon="plus"/>
               </StyledLink>
+              }
             </RelationLinks>
           </RelationBox>
         ))}
@@ -91,9 +95,11 @@ const RelationsView = ({
           <StyledLink to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName)}>
             <Icon icon="arrow-right"/>
           </StyledLink>
-          <StyledLink to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName) + '/create'}>
+          { hasCreateRights(selectedRelation.relationName)
+          && <StyledLink to={match.url.replace(/(relations|detail)$/, selectedRelation.relationName) + '/create'}>
             <Icon icon="plus"/>
           </StyledLink>
+          }
         </Typography.H4>
         <EntityListApp
           id={'preview' + selectedRelation.reverseRelationName + selectedRelation.targetEntity}
@@ -144,7 +150,10 @@ RelationsView.propTypes = {
   match: PropTypes.object.isRequired,
   currentViewInfo: currentViewPropType,
   relations: PropTypes.array,
-  relationsCount: PropTypes.object,
+  relationsInfo: PropTypes.objectOf(PropTypes.shape({
+    count: PropTypes.number,
+    createPermission: PropTypes.bool
+  })),
   persistedViewInfo: PropTypes.shape({
     selectedRelation: PropTypes.string
   }),
