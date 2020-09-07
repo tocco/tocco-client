@@ -22,8 +22,16 @@ export const StyledTableCell = styled.td`
   display: flex;
 `
 
-export const StyledTableHeaderCell = styled.th`
+export const StyledDnD = styled.div`
   padding: ${basePadding};
+  width: 100%;
+  display: flex;
+  border-right: ${({isDraggedOver, theme}) => isDraggedOver ? '3px solid ' + theme.colors.secondary : 'none'};
+  opacity: ${({isDragged}) => isDragged ? 0.2 : 1};
+  pointer-events: ${({isDraggedOver}) => isDraggedOver ? 'none' : 'auto'};
+`
+
+export const StyledTableHeaderCell = styled.th`
   position: sticky;
   top: 0;
   background-color: ${theme.color('paper')};
@@ -31,7 +39,7 @@ export const StyledTableHeaderCell = styled.th`
   border-bottom: 2px solid ${borderColor};
   ${declareFont({fontWeight: theme.fontWeight('bold')})};
   user-select: none;
-  cursor: ${props => props.sortable ? 'pointer' : 'auto'};
+  cursor: ${({sortable}) => sortable ? 'pointer' : 'auto'};
   overflow: hidden;
   white-space: nowrap;
   display: flex;
@@ -52,6 +60,15 @@ export const StyledTableHeaderCell = styled.th`
         }
     }
     `
+  }
+  &#header-cell-navigation-column {
+    ${StyledDnD} {
+      justify-content: center;
+    }
+
+    &:hover {
+      background-color: ${theme.color('paper')};
+    }
   }
 `
 
@@ -107,26 +124,8 @@ export const StyledFullRow = styled.td`
   ${declareFont()};
 `
 
-export const StyledDnD = styled.div`
-  width: 100%;
-  display: flex;
-  border-right: ${({isDraggedOver, theme}) => isDraggedOver ? '3px solid ' + theme.colors.primary : 'none'};
-  opacity: ${({isDragged}) => isDragged ? 0.2 : 1};
-  pointer-events: ${({isDraggedOver}) => isDraggedOver ? 'none' : 'auto'};
-`
-
 export const StyledTableHead = styled.thead`
   ${selectionStyles}
-
-  #header-cell-navigation-link {
-    ${StyledDnD} {
-      justify-content: center;
-    }
-
-    &:hover {
-      background-color: ${theme.color('paper')};
-    }
-  }
 `
 
 export const StyledTableRow = styled.tr`
