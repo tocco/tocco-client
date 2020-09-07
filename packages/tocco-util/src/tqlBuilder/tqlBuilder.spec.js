@@ -33,7 +33,7 @@ describe('entity-list', () => {
             const path = 'relGender'
             const fieldType = 'multi-select-box'
 
-            const expectedResult = 'IN(relGender.pk,1,2)'
+            const expectedResult = 'KEYS("relGender",1,2)'
             const result = getTql(path, value, fieldType)
 
             expect(result).to.deep.eql(expectedResult)
@@ -118,7 +118,7 @@ describe('entity-list', () => {
 
           test('should handle unknown form types and use fallback', () => {
             expect(getTql('relXY', {key: '23'})).to.deep.eql('relXY.pk == 23')
-            expect(getTql('relXY', [{key: '23'}])).to.deep.eql('IN(relXY.pk,23)')
+            expect(getTql('relXY', [{key: '23'}])).to.deep.eql('KEYS("relXY",23)')
             expect(getTql('asd', 'test')).to.deep.eql('asd == "test"')
           })
 
