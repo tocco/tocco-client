@@ -11,7 +11,7 @@ const NonBreakingText = styled.span`
 `
 
 const InfoPart = ({entityName, entityLabel, keys, relatedEntities, maxCountLink}) => {
-  const primaryTql = 'IN(pk,' + keys.join(',') + ')'
+  const primaryTql = 'KEYS(' + keys.join(',') + ')'
   return <Typography.Span>
     <Typography.B>
       {entityLabel} ({
@@ -26,7 +26,7 @@ const InfoPart = ({entityName, entityLabel, keys, relatedEntities, maxCountLink}
         <span> / </span>
         {Object.keys(relatedEntities).map(entityName => {
           const relatedEntity = relatedEntities[entityName]
-          const tql = 'IN(pk,' + relatedEntity.keys.slice(0, maxCountLink).join(',') + ')'
+          const tql = 'KEYS(' + relatedEntity.keys.slice(0, maxCountLink).join(',') + ')'
           const linkText = [...relatedEntity.keys, ...relatedEntity.keysOtherBu].length
 
           const Count = relatedEntity.keys.length > 0
