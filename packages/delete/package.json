@@ -9,10 +9,10 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "tocco-app-extensions": ">0.1.0",
-    "tocco-test-util": ">0.1.0",
-    "tocco-theme": ">0.1.0",
-    "tocco-ui": ">0.1.0",
-    "tocco-util": ">0.1.0"
+    "tocco-app-extensions": "*",
+    "tocco-test-util": "*",
+    "tocco-theme": "*",
+    "tocco-ui": "*",
+    "tocco-util": "*"
   }
 }

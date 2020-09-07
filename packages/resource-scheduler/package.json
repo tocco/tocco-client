@@ -9,12 +9,12 @@
   },
   "devDependencies": {
     "react-split-pane": "^0.1.84",
-    "tocco-app-extensions": "0.1.8",
-    "tocco-entity-list": "0.1.24",
-    "tocco-scheduler": "0.1.14",
-    "tocco-test-util": "0.1.3",
-    "tocco-theme": ">0.0.0",
-    "tocco-ui": "0.1.22",
-    "tocco-util": "0.1.19"
+    "tocco-app-extensions": "*",
+    "tocco-entity-list": "*",
+    "tocco-scheduler": "*",
+    "tocco-test-util": "*",
+    "tocco-theme": "*",
+    "tocco-ui": "*",
+    "tocco-util": "*"
   }
 }
