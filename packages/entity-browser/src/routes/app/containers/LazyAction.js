@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import {LoadMask} from 'tocco-ui'
 import {consoleLogger, queryString as queryStringUtil} from 'tocco-util'
 import _get from 'lodash/get'
+import {actionEmitter} from 'tocco-app-extensions'
 
 const actions = {
   'input-edit': lazy(() => import(/* webpackChunkName: "actions" */'./actions/InputEdit'))
@@ -20,6 +21,10 @@ const mapStateToProps = (state, props) => {
   }
 }
 
+const mapActionCreators = {
+  emitAction: action => actionEmitter.dispatchEmittedAction(action)
+}
+
 const renderLoader = () => <LoadMask/>
 
 const LazyAction = props => {
@@ -31,7 +36,7 @@ const LazyAction = props => {
     return null
   }
 
-  const ActionComponent = connect(mapStateToProps)(LazyAction)
+  const ActionComponent = connect(mapStateToProps, mapActionCreators)(LazyAction)
 
   return <Suspense fallback={renderLoader()}>
     <ActionComponent {...props}/>
