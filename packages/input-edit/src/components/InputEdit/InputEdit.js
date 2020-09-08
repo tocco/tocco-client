@@ -33,6 +33,7 @@ const StyledPaginationWrapper = styled.div`
 const InputEdit = ({
   selection,
   validation: {valid, message},
+  handleNotifications,
   checkSelection,
   initializeTable,
   initializeSearch,
@@ -61,7 +62,7 @@ const InputEdit = ({
     notify('error', 'client.component.input-edit.error.title', message)
   }
   return <LoadMask required={[valid || message]}>
-    <notifier.Notifier/>
+    {handleNotifications && <notifier.Notifier/>}
     {valid
       ? <StyledSplitPane
         defaultSize={300}
@@ -97,6 +98,7 @@ InputEdit.propTypes = {
     valid: PropTypes.bool,
     message: PropTypes.string
   }).isRequired,
+  handleNotifications: PropTypes.bool,
   checkSelection: PropTypes.func.isRequired,
   initializeTable: PropTypes.func.isRequired,
   initializeSearch: PropTypes.func.isRequired,
