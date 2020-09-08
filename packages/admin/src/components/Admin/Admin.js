@@ -27,15 +27,16 @@ const Admin = ({
   confirm,
   loadPrincipal,
   clearPersistedViews,
+  loadServerSettings,
   theme
 }) => {
-  useEffect(() => { loadPrincipal() }, [])
-
   const [history, setHistory] = useState(null)
 
   useEffect(() => {
     initializeHistory()
     initializeNavigation()
+    loadPrincipal()
+    loadServerSettings()
   }, [])
 
   const initializeHistory = () => {
@@ -103,6 +104,7 @@ Admin.propTypes = {
   setMenuOpen: PropTypes.func.isRequired,
   confirm: PropTypes.func.isRequired,
   initializeNavigation: PropTypes.func.isRequired,
+  loadServerSettings: PropTypes.func.isRequired,
   theme: PropTypes.object.isRequired
 }
 

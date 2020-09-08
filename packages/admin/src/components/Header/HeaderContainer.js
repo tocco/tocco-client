@@ -13,7 +13,8 @@ const mapActionCreators = {
 const mapStateToProps = (state, props) => ({
   username: state.session.username,
   currentBusinessUnit: state.session.currentBusinessUnit,
-  businessUnits: state.session.businessUnits
+  businessUnits: state.session.businessUnits,
+  runEnv: state.session.serverSettings.runEnv
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(Header))
