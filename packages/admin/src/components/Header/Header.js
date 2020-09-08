@@ -8,7 +8,15 @@ import {
   StyledConfig
 } from './StyledComponents'
 
-const Header = ({username, currentBusinessUnit, businessUnits, loadBusinessUnits, changeBusinessUnit, doLogout}) => {
+const Header = ({
+  username,
+  currentBusinessUnit,
+  businessUnits,
+  loadBusinessUnits,
+  changeBusinessUnit,
+  doLogout,
+  runEnv
+}) => {
   const handleBusinessUnitOpen = () => {
     if (businessUnits.length === 0) {
       loadBusinessUnits()
@@ -51,7 +59,8 @@ Header.propTypes = {
   businessUnits: PropTypes.arrayOf(bUPropType),
   doLogout: PropTypes.func.isRequired,
   changeBusinessUnit: PropTypes.func.isRequired,
-  loadBusinessUnits: PropTypes.func.isRequired
+  loadBusinessUnits: PropTypes.func.isRequired,
+  runEnv: PropTypes.string
 }
 
 export default Header

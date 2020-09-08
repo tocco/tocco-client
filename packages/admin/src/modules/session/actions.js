@@ -2,7 +2,7 @@ export const SET_LOGGED_IN = 'root/SET_LOGGED_IN'
 export const DO_SESSION_HEART_BEAT = 'root/DO_SESSION_HEART_BEAT'
 export const DO_LOGOUT = 'session/DO_LOGOUT'
 export const LOGIN_SUCCESSFUL = 'session/LOGIN_SUCCESSFUL'
-export const DO_SESSION_CHECK = 'session/DO_SESSION_CHECK'export const LOAD_PRINCIPAL = 'session/LOAD_PRINCIPAL'export const SET_USERNAME = 'session/SET_USERNAME'export const SET_CURRENT_BUSINESS_UNIT = 'session/SET_CURRENT_BUSINESS_UNIT'export const LOAD_BUSINESS_UNITS = 'session/LOAD_BUSINESS_UNITS'export const SET_BUSINESS_UNITS = 'session/SET_BUSINESS_UNITS'export const CHANGE_BUSINESS_UNIT = 'session/CHANGE_BUSINESS_UNIT'export const CHECK_SSO_AVAILABLE = 'session/CHECK_SSO_AVAILABLE'export const SET_SSO_AVAILABLE = 'session/SET_SSO_AVAILABLE'
+export const DO_SESSION_CHECK = 'session/DO_SESSION_CHECK'export const LOAD_PRINCIPAL = 'session/LOAD_PRINCIPAL'export const SET_USERNAME = 'session/SET_USERNAME'export const SET_CURRENT_BUSINESS_UNIT = 'session/SET_CURRENT_BUSINESS_UNIT'export const LOAD_BUSINESS_UNITS = 'session/LOAD_BUSINESS_UNITS'export const SET_BUSINESS_UNITS = 'session/SET_BUSINESS_UNITS'export const CHANGE_BUSINESS_UNIT = 'session/CHANGE_BUSINESS_UNIT'export const CHECK_SSO_AVAILABLE = 'session/CHECK_SSO_AVAILABLE'export const SET_SSO_AVAILABLE = 'session/SET_SSO_AVAILABLE'export const LOAD_SERVER_SETTINGS = 'session/LOAD_SERVER_SETTINGS'export const SET_SERVER_SETTINGS = 'session/SET_SERVER_SETTINGS'
 
 export const setLoggedIn = loggedIn => ({
   type: SET_LOGGED_IN,
@@ -77,5 +77,16 @@ export const setSsoAvailable = ssoAvailable => ({
   type: SET_SSO_AVAILABLE,
   payload: {
     ssoAvailable
+  }
+})
+
+export const loadServerSettings = () => ({
+  type: LOAD_SERVER_SETTINGS
+})
+
+export const setServerSettings = serverSettings => ({
+  type: SET_SERVER_SETTINGS,
+  payload: {
+    serverSettings
   }
 })
