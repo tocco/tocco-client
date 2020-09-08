@@ -1,3 +1,10 @@
+0.3.4
+- Allow calendars to be preselected by passing them to the preselectedCalendars input
+- Table component
+- Added button to reset all preferences
+- Make all children of readonly layouts readonly
+- Style input fields according to material design
+
 0.3.3
 - Fix shy in table header
 - Adjust HTML Edit
