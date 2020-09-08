@@ -5,7 +5,7 @@ import {hot} from 'react-hot-loader/root'
 import PropTypes from 'prop-types'
 
 import reducers, {sagas} from './modules/reducers'
-import {setSelection} from './modules/inputEdit/actions'
+import {setHandleNotifications, setSelection} from './modules/inputEdit/actions'
 import InputEdit from './components/InputEdit/InputEditContainer'
 
 const packageName = 'input-edit'
@@ -20,8 +20,9 @@ const initApp = (id, input, events = {}, publicPath) => {
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   actionEmitter.addToStore(store, events.emitAction)
   actions.addToStore(store)
-  notifier.addToStore(store, true)
-  errorLogging.addToStore(store, false)
+  const handleNotifications = !events.emitAction
+  notifier.addToStore(store, handleNotifications)
+  errorLogging.addToStore(store, handleNotifications)
 
   return appFactory.createApp(
     packageName,
@@ -31,6 +32,7 @@ const initApp = (id, input, events = {}, publicPath) => {
       input,
       events,
       actions: [
+        setHandleNotifications(handleNotifications),
         setSelection(input.selection)
       ],
       publicPath,
