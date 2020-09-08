@@ -24,31 +24,29 @@ const Header = ({
     }
   }
 
-  return (
-    <>
-      <StyledBackgroundLogo runEnv={runEnv}/>
-      <StyledHeader >
-        <StyledConfig>
-          <ButtonMenu label={currentBusinessUnit.label} onOpen={handleBusinessUnitOpen}>
-            {
-              businessUnits.map(bU =>
-                <MenuItem
-                  key={`buMenu-${bU.id}`}
-                  disabled={bU.id === currentBusinessUnit.id}
-                  onClick={() => { changeBusinessUnit(bU.id) }}
-                >
-                  {bU.label}
-                </MenuItem>
-              )
-            }
-          </ButtonMenu>
-          <ButtonMenu label={username}>
-            <MenuItem onClick={doLogout}><FormattedMessage id="client.admin.menu.logout"/></MenuItem>
-          </ButtonMenu>
-        </StyledConfig>
-      </StyledHeader>
-    </>
-  )
+  return <>
+    <StyledBackgroundLogo runEnv={runEnv}/>
+    <StyledHeader>
+      <StyledConfig>
+        <ButtonMenu label={currentBusinessUnit.label} onOpen={handleBusinessUnitOpen}>
+          {
+            businessUnits.map(bU =>
+              <MenuItem
+                key={`buMenu-${bU.id}`}
+                disabled={bU.id === currentBusinessUnit.id}
+                onClick={() => { changeBusinessUnit(bU.id) }}
+              >
+                {bU.label}
+              </MenuItem>
+            )
+          }
+        </ButtonMenu>
+        <ButtonMenu label={username}>
+          <MenuItem onClick={doLogout}><FormattedMessage id="client.admin.menu.logout"/></MenuItem>
+        </ButtonMenu>
+      </StyledConfig>
+    </StyledHeader>
+  </>
 }
 
 const bUPropType = PropTypes.shape({
