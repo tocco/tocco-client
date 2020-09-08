@@ -5,7 +5,8 @@ import {FormattedMessage} from 'react-intl'
 
 import {
   StyledHeader,
-  StyledConfig
+  StyledConfig,
+  StyledBackgroundLogo
 } from './StyledComponents'
 
 const Header = ({
@@ -24,27 +25,29 @@ const Header = ({
   }
 
   return (
-    <StyledHeader>
-      <StyledConfig>
-        <ButtonMenu label={currentBusinessUnit.label} onOpen={handleBusinessUnitOpen}>
-          {
-            businessUnits.map(bU =>
-              <MenuItem
-                key={`buMenu-${bU.id}`}
-                disabled={bU.id === currentBusinessUnit.id}
-                onClick={() => { changeBusinessUnit(bU.id) }}
-              >
-                {bU.label}
-              </MenuItem>
-            )
-          }
-        </ButtonMenu>
-        <ButtonMenu label={username}>
-          <MenuItem onClick={doLogout}><FormattedMessage id="client.admin.menu.logout"/></MenuItem>
-        </ButtonMenu>
-      </StyledConfig>
-    </StyledHeader>
-
+    <>
+      <StyledBackgroundLogo runEnv={runEnv}/>
+      <StyledHeader >
+        <StyledConfig>
+          <ButtonMenu label={currentBusinessUnit.label} onOpen={handleBusinessUnitOpen}>
+            {
+              businessUnits.map(bU =>
+                <MenuItem
+                  key={`buMenu-${bU.id}`}
+                  disabled={bU.id === currentBusinessUnit.id}
+                  onClick={() => { changeBusinessUnit(bU.id) }}
+                >
+                  {bU.label}
+                </MenuItem>
+              )
+            }
+          </ButtonMenu>
+          <ButtonMenu label={username}>
+            <MenuItem onClick={doLogout}><FormattedMessage id="client.admin.menu.logout"/></MenuItem>
+          </ButtonMenu>
+        </StyledConfig>
+      </StyledHeader>
+    </>
   )
 }
 
