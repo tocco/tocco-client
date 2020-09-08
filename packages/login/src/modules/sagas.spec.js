@@ -1,6 +1,8 @@
-import {externalEvents} from 'tocco-app-extensions'
+import {externalEvents, rest} from 'tocco-app-extensions'
 import {takeLatest, put, select, call, all} from 'redux-saga/effects'
 import {cache} from 'tocco-util'
+import {expectSaga} from 'redux-saga-test-plan'
+import * as matchers from 'redux-saga-test-plan/matchers'
 
 import * as actions from './actions'
 import rootSaga, * as sagas from './sagas'
@@ -9,6 +11,7 @@ import {setMessage, setPending} from './loginForm/actions'
 import {updateOldPassword} from './passwordUpdate/password/actions'
 import {setUsername, setForcedUpdate} from './passwordUpdate/dialog/actions'
 import {Pages} from '../types/Pages'
+import * as loginActions from './login/actions'
 
 describe('login', () => {
   describe('modules', () => {
@@ -165,6 +168,19 @@ describe('login', () => {
           expect(gen.next().value).to.deep.equal(call(sagas.doSessionRequest))
           const response = {success: false}
           expect(gen.next(response).done).to.deep.equal(true)
+        })
+      })
+
+      describe('loadSettings', () => {
+        test('should call fetchServerSettings and set captchaKey', () => {
+          const captchaKey = 'xyz123'
+          const settings = {captchaKey, runEnv: 'TEST'}
+          return expectSaga(sagas.loadSettings)
+            .provide([
+              [matchers.call.fn(rest.fetchServerSettings), settings]
+            ])
+            .put(loginActions.setCaptchaKey(captchaKey))
+            .run()
         })
       })
     })

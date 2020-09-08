@@ -126,14 +126,14 @@ export function* checkSessionSaga() {
   }
 }
 
-export function* loadSettigns() {
-  const settingsResponse = yield call(rest.requestSaga, 'client/settings')
-  yield put(loginActions.setCaptchaKey(settingsResponse.body.captchaKey))
+export function* loadSettings() {
+  const settings = yield call(rest.fetchServerSettings)
+  yield put(loginActions.setCaptchaKey(settings.captchaKey))
 }
 
 export function* initialize() {
   yield call(checkSessionSaga)
-  yield call(loadSettigns)
+  yield call(loadSettings)
 }
 
 export default function* mainSagas() {
