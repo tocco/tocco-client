@@ -23,6 +23,11 @@ const DetailViewPart = styled.div`
 
   &:first-child {
     margin-right: 1rem;
+
+    @media (max-width: 1024px) {
+      flex: none;
+      width: 40%;
+    }
   }
 `
 

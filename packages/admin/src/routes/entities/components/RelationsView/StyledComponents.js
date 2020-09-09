@@ -15,7 +15,7 @@ export const StyledPreviewBox = styled.div`
   margin-top: 3px;
   display: flex;
   flex-direction: column;
-  flex: auto;
+  flex: 1;
 
   ${StyledLink} {
     padding-left: ${scale.space(-0.5)};
@@ -34,6 +34,8 @@ export const StyledRelationBox = styled.div`
   grid-gap: ${scale.space(-2)};
   justify-content: space-between;
   overflow-y: auto;
+  align-content: flex-start;
+  max-height: 25%;
   ${StyledScrollbar}
 `
 
@@ -52,6 +54,7 @@ export const RelationBox = styled.div`
   padding: ${scale.space(-2.7)} ${scale.space(-1)};
   display: flex;
   background-color: ${({selected}) => selected && theme.color('secondary')};
+  height: fit-content;
 
   &&& {
     * {
