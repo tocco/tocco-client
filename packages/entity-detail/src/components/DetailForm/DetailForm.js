@@ -10,36 +10,51 @@ import ErrorBox from '../ErrorBox'
 import SaveButton from './SaveButton'
 
 const StyledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
+  display: block;
 `
 
 const DetailForm = props => {
+  const {
+    fireTouched,
+    dirty,
+    intl,
+    submitting,
+    mode,
+    formErrors,
+    valid,
+    submitForm,
+    touchAllFields,
+    entity,
+    entityModel,
+    formDefinition,
+    formValues,
+    anyTouched
+  } = props
+
   useEffect(() => {
-    props.fireTouched(props.dirty)
-  }, [props.dirty])
+    fireTouched(dirty)
+  }, [dirty])
 
   const customActions = useMemo(() => (
     {
-      save: () => <SaveButton intl={props.intl} submitting={props.submitting} mode={props.mode}/>
+      save: () => <SaveButton intl={intl} submitting={submitting} mode={mode}/>
     }
-  ), [props.submitting, props.mode])
+  ), [submitting, mode])
 
   const focusErrorFields = () => {
-    const firstErrorField = form.formErrorsUtil.getFirstErrorField(props.formErrors)
+    const firstErrorField = form.formErrorsUtil.getFirstErrorField(formErrors)
     if (firstErrorField) {
-      const element = document.getElementById(form.getFieldId(props.form, firstErrorField))
+      const element = document.getElementById(form.getFieldId(form, firstErrorField))
       if (element) {
-        document.getElementById(form.getFieldId(props.form, firstErrorField)).focus()
+        document.getElementById(form.getFieldId(form, firstErrorField)).focus()
       }
     }
   }
 
   const save = () => {
-    if (props.valid) {
-      props.submitForm()
-    } else if (props.formErrors) {
+    if (valid) {
+      submitForm()
+    } else if (formErrors) {
       showErrors()
     }
   }
@@ -60,7 +75,7 @@ const DetailForm = props => {
       event.preventDefault()
     }
 
-    props.touchAllFields()
+    touchAllFields()
     focusErrorFields()
   }
 
@@ -69,17 +84,17 @@ const DetailForm = props => {
     onKeyDown={handleKeyPress}
   >
     <form.FormBuilder
-      entity={props.entity}
-      model={props.entityModel}
+      entity={entity}
+      model={entityModel}
       formName={props.form}
-      formDefinition={props.formDefinition}
-      formValues={props.formValues}
-      fieldMappingType={props.formDefinition.readOnly ? 'readonly' : 'editable'}
-      mode={props.mode}
+      formDefinition={formDefinition}
+      formValues={formValues}
+      fieldMappingType={formDefinition.readOnly ? 'readonly' : 'editable'}
+      mode={mode}
       componentMapping={{[form.componentTypes.SUB_TABLE]: SubGrid}}
       customActions={customActions}
     />
-    {!props.valid && props.anyTouched && <ErrorBox formErrors={props.formErrors} showErrors={showErrors}/>}
+    {!valid && anyTouched && <ErrorBox formErrors={formErrors} showErrors={showErrors}/>}
   </StyledForm>
 }
 
