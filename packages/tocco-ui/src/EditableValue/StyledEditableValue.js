@@ -9,7 +9,7 @@ import {
 
 const StyledEditableWrapperCss = css`
   align-items: center;
-  cursor: ${props => props.immutable ? 'not-allowed' : 'default'};
+  cursor: ${({immutable}) => immutable ? 'not-allowed' : 'default'};
   display: flex;
 `
 
@@ -24,7 +24,7 @@ const StyledEditableWrapper = styled.label`
 const StyledInputCss = css`
   background-color: transparent;
   border: 0;
-  cursor: ${props => props.immutable ? 'not-allowed' : 'default'};
+  cursor: ${({immutable}) => immutable ? 'not-allowed' : 'default'};
   flex-grow: 1;
   min-height: 2.6rem;
   min-width: 0;
@@ -47,6 +47,10 @@ const StyledInputCss = css`
 
   &[type='number'] {
     appearance: textfield;
+  }
+
+  &[type='search'] {
+    appearance: none;
   }
 `
 

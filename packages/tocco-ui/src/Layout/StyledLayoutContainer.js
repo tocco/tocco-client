@@ -1,14 +1,13 @@
 import styled from 'styled-components'
 
-const declareStylesIfNestedCorrectly = props => {
-  if (props.isNestedCorrectly) {
+const declareStylesIfNestedCorrectly = ({isNestedCorrectly}) => {
+  if (isNestedCorrectly) {
     return `
       display: flex;
       flex-wrap: wrap;
 
       &:last-child {
         margin-bottom: 0;
-        height: 100%;
       }
     `
   } else {
