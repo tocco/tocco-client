@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {MenuItem, ButtonMenu} from 'tocco-ui'
+import {MenuItem, ButtonMenu, BallMenu, Link} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
 
 import {
@@ -8,6 +8,7 @@ import {
   StyledConfig,
   StyledBackgroundLogo
 } from './StyledComponents'
+import AboutTocco from '../AboutTocco'
 
 const Header = ({
   username,
@@ -16,7 +17,9 @@ const Header = ({
   loadBusinessUnits,
   changeBusinessUnit,
   doLogout,
-  runEnv
+  runEnv,
+  niceVersion,
+  openModalComponent
 }) => {
   const handleBusinessUnitOpen = () => {
     if (businessUnits.length === 0) {
@@ -34,7 +37,9 @@ const Header = ({
               <MenuItem
                 key={`buMenu-${bU.id}`}
                 disabled={bU.id === currentBusinessUnit.id}
-                onClick={() => { changeBusinessUnit(bU.id) }}
+                onClick={() => {
+                  changeBusinessUnit(bU.id)
+                }}
               >
                 {bU.label}
               </MenuItem>
@@ -44,6 +49,31 @@ const Header = ({
         <ButtonMenu label={username}>
           <MenuItem onClick={doLogout}><FormattedMessage id="client.admin.menu.logout"/></MenuItem>
         </ButtonMenu>
+        <BallMenu buttonProps={{icon: 'question-circle'}}>
+          {niceVersion && <MenuItem onClick={() => {}}>
+            <Link
+              neutral
+              href={`https://${niceVersion}docs.tocco.ch/de/`}
+              target="_blank"
+            >
+              <FormattedMessage id="client.admin.menu.doc"/>
+            </Link>
+          </MenuItem>}
+          <MenuItem onClick={() => {}}>
+            <Link
+              neutral
+              href="/nice2/swagger"
+              target="_blank"
+            >
+              <FormattedMessage id="client.admin.menu.restDoc"/>
+            </Link>
+          </MenuItem>
+          <MenuItem onClick={() => {
+            openModalComponent('about', 'client.admin.menu.aboutToccoTitle', null, () => <AboutTocco/>, true)
+          }}>
+            <FormattedMessage id="client.admin.menu.aboutToccoTitle"/>
+          </MenuItem>
+        </BallMenu>
       </StyledConfig>
     </StyledHeader>
   </>
@@ -61,7 +91,9 @@ Header.propTypes = {
   doLogout: PropTypes.func.isRequired,
   changeBusinessUnit: PropTypes.func.isRequired,
   loadBusinessUnits: PropTypes.func.isRequired,
-  runEnv: PropTypes.string
+  runEnv: PropTypes.string,
+  niceVersion: PropTypes.string,
+  openModalComponent: PropTypes.func.isRequired
 }
 
 export default Header
