@@ -145,7 +145,7 @@ describe('tocco-ui', () => {
         secondaryPosition: true,
         signal: 'success'
       },
-      output: 'signal'
+      output: 'shade1'
     }, {
       input: {
         immutable: false,
@@ -153,7 +153,7 @@ describe('tocco-ui', () => {
         secondaryPosition: true,
         signal: undefined
       },
-      output: 'shade0'
+      output: 'shade1'
     }, {
       input: {
         immutable: true,
@@ -161,7 +161,7 @@ describe('tocco-ui', () => {
         secondaryPosition: false,
         signal: 'success'
       },
-      output: 'shade2'
+      output: 'shade0'
     }, {
       input: {
         immutable: true,
@@ -169,7 +169,7 @@ describe('tocco-ui', () => {
         secondaryPosition: false,
         signal: undefined
       },
-      output: 'shade2'
+      output: 'shade0'
     }, {
       input: {
         immutable: true,
@@ -273,7 +273,7 @@ describe('tocco-ui', () => {
         secondaryPosition: false,
         signal: undefined
       },
-      output: 'shade2'
+      output: 'shade1'
     }, {
       input: {
         immutable: false,
@@ -289,7 +289,7 @@ describe('tocco-ui', () => {
         secondaryPosition: true,
         signal: undefined
       },
-      output: 'shade2'
+      output: 'shade1'
     }, {
       input: {
         immutable: true,
@@ -297,7 +297,7 @@ describe('tocco-ui', () => {
         secondaryPosition: false,
         signal: 'success'
       },
-      output: 'shade1'
+      output: 'transparent'
     }, {
       input: {
         immutable: true,
@@ -305,7 +305,7 @@ describe('tocco-ui', () => {
         secondaryPosition: false,
         signal: undefined
       },
-      output: 'shade1'
+      output: 'transparent'
     }, {
       input: {
         immutable: true,
@@ -313,7 +313,7 @@ describe('tocco-ui', () => {
         secondaryPosition: true,
         signal: 'success'
       },
-      output: 'shade1'
+      output: 'transparent'
     }, {
       input: {
         immutable: true,
@@ -321,7 +321,7 @@ describe('tocco-ui', () => {
         secondaryPosition: true,
         signal: undefined
       },
-      output: 'shade1'
+      output: 'transparent'
     }, {
       input: {
         immutable: false,
