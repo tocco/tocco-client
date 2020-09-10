@@ -13,33 +13,29 @@ import {StyledHtmlFormatter} from '../FormattedValue/typeFormatters/HtmlFormatte
 const borderWidth = '1px'
 const animationDuration = '200ms'
 
-const getTextColor = ({immutable, isDisplay, secondaryPosition, signal}) => {
+const getTextColor = ({isDisplay, secondaryPosition, immutable, signal}) => {
   return isDisplay
     ? secondaryPosition
       ? 'shade0'
       : 'shade1'
-    : immutable
-      ? secondaryPosition
-        ? 'shade1'
-        : 'shade2'
-      : signal
-        ? 'signal'
-        : secondaryPosition
-          ? 'shade0'
+    : secondaryPosition
+      ? 'shade1'
+      : immutable
+        ? 'shade0'
+        : signal
+          ? 'signal'
           : 'shade1'
 }
 
-const getBorderColor = ({immutable, isDisplay, secondaryPosition, signal}) => {
-  return isDisplay
+const getBorderColor = ({immutable, isDisplay, signal}) => {
+  return isDisplay || immutable
     ? 'transparent'
-    : immutable
-      ? 'shade1'
-      : signal
-        ? 'signal'
-        : 'shade2'
+    : signal
+      ? 'signal'
+      : 'shade1'
 }
 
-const transformLabel = ({secondaryPosition, theme}) => css`
+const transformLabel = ({secondaryPosition}) => css`
   &&& {
     transition: color ${animationDuration},
       font-size ${animationDuration},

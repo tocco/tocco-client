@@ -1,15 +1,13 @@
 import styled, {css} from 'styled-components'
-import _get from 'lodash/get'
 
 import {
   declareFont,
-  generateDisabledShade,
   theme
 } from '../utilStyles'
 
 const StyledEditableWrapperCss = css`
   align-items: center;
-  cursor: ${props => props.immutable ? 'not-allowed' : 'default'};
+  cursor: ${({immutable}) => immutable ? 'not-allowed' : 'default'};
   display: flex;
 `
 
@@ -24,14 +22,14 @@ const StyledEditableWrapper = styled.label`
 const StyledInputCss = css`
   background-color: transparent;
   border: 0;
-  cursor: ${props => props.immutable ? 'not-allowed' : 'default'};
+  cursor: ${({immutable}) => immutable ? 'not-allowed' : 'default'};
   flex-grow: 1;
   min-height: 2.6rem;
   min-width: 0;
   outline: 0;
   padding: 0;
-  ${props => declareFont({
-    color: props.immutable ? generateDisabledShade(_get(props.theme, 'colors.text')) : theme.color('text')
+  ${() => declareFont({
+    color: theme.color('text')
   })}
   &::-ms-clear {
     display: none;
