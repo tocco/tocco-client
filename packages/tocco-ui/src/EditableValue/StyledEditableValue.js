@@ -1,9 +1,7 @@
 import styled, {css} from 'styled-components'
-import _get from 'lodash/get'
 
 import {
   declareFont,
-  generateDisabledShade,
   theme
 } from '../utilStyles'
 
@@ -30,8 +28,8 @@ const StyledInputCss = css`
   min-width: 0;
   outline: 0;
   padding: 0;
-  ${props => declareFont({
-    color: props.immutable ? generateDisabledShade(_get(props.theme, 'colors.text')) : theme.color('text')
+  ${() => declareFont({
+    color: theme.color('text')
   })}
   &::-ms-clear {
     display: none;
