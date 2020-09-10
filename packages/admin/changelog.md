@@ -1,3 +1,14 @@
+0.3.14
+- Style header logo depending on runEnv
+- Use KEYS instead of IN in tql
+- Style draggable table headers and kabob menu
+- Show relation create button depending of permissions
+- Handle notifications depending on parent
+- Fix iOS relations boxes on iOS Tablets and restrict width of left pane in detail view to 40%
+- Remove obsolete default searchfield styling and height in nested layout containers
+- Change Stated and Editablevalue colors for more contrast/readability
+- Fix admin resource scheduler bug
+
 0.3.13
 - Allow calendars to be preselected by passing them to the preselectedCalendars input
 - Table component
