@@ -21,9 +21,7 @@ const mapStateToProps = state => {
     calendars: state.resourceScheduler.calendars,
     calendarTypes: state.resourceScheduler.calendarTypes,
     requestedCalendars: state.resourceScheduler.requestedCalendars,
-    locale: state.intl.locale,
-    selection: state.input.selection,
-    actionProperties: state.input.actionProperties
+    locale: state.intl.locale
   }
 }
 

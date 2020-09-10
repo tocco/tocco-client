@@ -3,7 +3,6 @@ import SplitPane from 'react-split-pane'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import {scale} from 'tocco-ui'
-import {selection as selectionPropType} from 'tocco-util'
 
 import SearchPanel from '../SearchPanel/SearchPanel'
 import SchedulerAppContainer from '../../containers/SchedulerAppContainer'
@@ -26,11 +25,6 @@ class ResourceScheduler extends React.Component {
   constructor(props) {
     super(props)
     this.props.initialize()
-    const selection = this.props.selection
-    const calendarType = this.props.actionProperties.calendarType
-    if (selection && selection.type === 'ID' && calendarType) {
-      this.props.updateRequestedCalendars(calendarType, selection.ids)
-    }
   }
 
   paneWidth = 325
@@ -91,11 +85,7 @@ ResourceScheduler.propTypes = {
     }
     )),
   requestedCalendars: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
-  locale: PropTypes.string,
-  selection: selectionPropType.propType,
-  actionProperties: PropTypes.shape({
-    calendarType: PropTypes.string
-  }).isRequired
+  locale: PropTypes.string
 }
 
 export default ResourceScheduler
