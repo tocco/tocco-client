@@ -1,3 +1,6 @@
+0.3.4-hotfix226.2
+- Handle notifications depending on parent
+
 0.3.4-hotfix226.1
 
 
