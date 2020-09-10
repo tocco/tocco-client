@@ -6,6 +6,7 @@ import {hot} from 'react-hot-loader/root'
 
 import reducers, {sagas} from './modules/reducers'
 import ResourceSchedulerContainer from './containers/ResourceSchedulerContainer'
+import {updateRequestedCalendars} from './modules/resourceScheduler/actions'
 
 const packageName = 'resource-scheduler'
 
@@ -19,6 +20,12 @@ const initApp = (id, input, events, publicPath) => {
   const store = appFactory.createStore(reducers, sagas, input, packageName)
   externalEvents.addToStore(store, events)
 
+  const dispatchActions = [
+    ...(input.selection && input.selection.type === 'ID'
+    && input.actionProperties && input.actionProperties.calendarType
+      ? [updateRequestedCalendars(input.actionProperties.calendarType, input.selection.ids)] : [])
+  ]
+
   return appFactory.createApp(
     packageName,
     content,
@@ -26,7 +33,7 @@ const initApp = (id, input, events, publicPath) => {
     {
       input,
       events,
-      actions: [],
+      actions: dispatchActions,
       publicPath,
       textResourceModules: ['component', 'common', packageName]
     }

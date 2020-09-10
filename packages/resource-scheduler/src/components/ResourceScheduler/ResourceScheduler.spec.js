@@ -26,27 +26,6 @@ describe('resource-scheduler', () => {
         expect(wrapper.find(SchedulerAppContainer)).to.have.length(1)
       })
 
-      test('should use preselected calendars', () => {
-        const mockUpdateFunction = jest.fn(() => {})
-        shallow(
-          <ResourceScheduler
-            initialize={EMPTY_FUNC}
-            addCalendarsOfType={EMPTY_FUNC}
-            updateRequestedCalendars={mockUpdateFunction}
-            setDateRange={EMPTY_FUNC}
-            removeRequestedCalendar={EMPTY_FUNC}
-            selection={{
-              entityName: 'User',
-              ids: ['1', '2'],
-              type: 'ID'
-            }}
-            actionProperties={{calendarType: 'lecturer'}}
-          />
-        )
-        expect(mockUpdateFunction.mock.calls[0][0]).to.eq('lecturer')
-        expect(mockUpdateFunction.mock.calls[0][1]).to.deep.eq(['1', '2'])
-      })
-
       test('should not use preselected calendars without selection', () => {
         const mockUpdateFunction = jest.fn(() => {})
         shallow(
