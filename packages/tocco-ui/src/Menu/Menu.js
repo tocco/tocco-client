@@ -52,9 +52,9 @@ const Menu = props => {
 
   return ReactDOM.createPortal(
     <div ref={thisEl}>
-      <StyledPopper ref={setPopperElement} style={styles.popper} {...attributes.popper}>
-        {React.Children.map(props.children, child => React.cloneElement(child, {onClose: props.onClose}))}
-      </StyledPopper>
+      {props.children && <StyledPopper ref={setPopperElement} style={styles.popper} {...attributes.popper}>
+        {React.Children.map(props.children, child => child && React.cloneElement(child, {onClose: props.onClose}))}
+      </StyledPopper>}
     </div>
     , document.body)
 }
