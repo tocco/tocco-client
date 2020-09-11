@@ -1,29 +1,20 @@
 import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
-import {scale, LoadMask} from 'tocco-ui'
-import styled from 'styled-components'
-import SplitPane from 'react-split-pane'
+import {LoadMask} from 'tocco-ui'
 import {actions, notifier} from 'tocco-app-extensions'
 import {selection as selectionPropType} from 'tocco-util'
 
 import InputEditTable from '../InputEditTable/InputEditTableContainer'
 import InputEditSearch from '../InputEditSearch'
-import {resizerStyle, StyledSplitPanelWrapper} from './StyledInputEdit'
+import {
+  StyledPanelWrapperLeft,
+  StyledPanelWrapperRight,
+  StyledLeftPane,
+  StyledActionsWrapper,
+  StyledInputEditSearchWrapper,
+  StyledPaneWrapper
+} from './StyledInputEdit'
 import InputEditInformation from '../InputEditInformation'
-
-const StyledSplitPane = styled(SplitPane)`
-  position: static !important;
-
-  & > div {
-    flex-direction: column;
-    overflow: hidden;
-  }
-
-  .react-bs-container-body {
-    height: auto !important;
-    margin-bottom: ${scale.space(0)};
-  }
-`
 
 const InputEdit = ({
   selection,
@@ -52,27 +43,27 @@ const InputEdit = ({
   return <LoadMask required={[valid || message]}>
     {handleNotifications && <notifier.Notifier/>}
     {valid
-      ? <StyledSplitPane
-        defaultSize={300}
-        minSize={250}
-        resizerStyle={resizerStyle}
-        split="vertical">
-        <StyledSplitPanelWrapper key={'sidebar'}>
-          <div>
-            <InputEditSearch/>
+      ? <StyledPaneWrapper>
+        <StyledPanelWrapperLeft>
+          <StyledLeftPane>
+            <StyledInputEditSearchWrapper>
+              <InputEditSearch/>
+            </StyledInputEditSearchWrapper>
             <InputEditInformation/>
-          </div>
-        </StyledSplitPanelWrapper>
-        <StyledSplitPanelWrapper key="table">
-          {actionDefinitions.map(definition =>
-            <actions.Action
-              key={definition.id}
-              definition={definition}
-              selection={selection}/>
-          )}
+          </StyledLeftPane>
+        </StyledPanelWrapperLeft>
+        <StyledPanelWrapperRight>
+          <StyledActionsWrapper>
+            {actionDefinitions.map(definition =>
+              <actions.Action
+                key={definition.id}
+                definition={definition}
+                selection={selection}/>
+            )}
+          </StyledActionsWrapper>
           <InputEditTable/>
-        </StyledSplitPanelWrapper>
-      </StyledSplitPane>
+        </StyledPanelWrapperRight>
+      </StyledPaneWrapper>
       : null}
   </LoadMask>
 }
