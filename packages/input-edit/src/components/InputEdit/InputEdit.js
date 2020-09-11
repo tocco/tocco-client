@@ -7,7 +7,6 @@ import {actions, notifier} from 'tocco-app-extensions'
 import {selection as selectionPropType} from 'tocco-util'
 
 import InputEditTable from '../InputEditTable/InputEditTableContainer'
-import InputEditPagination from '../InputEditPagination'
 import InputEditSearch from '../InputEditSearch'
 import {resizerStyle, StyledSplitPanelWrapper} from './StyledInputEdit'
 import InputEditInformation from '../InputEditInformation'
@@ -24,10 +23,6 @@ const StyledSplitPane = styled(SplitPane)`
     height: auto !important;
     margin-bottom: ${scale.space(0)};
   }
-`
-
-const StyledPaginationWrapper = styled.div`
-  margin: ${scale.space(-1)} 0;
 `
 
 const InputEdit = ({
@@ -76,9 +71,6 @@ const InputEdit = ({
               selection={selection}/>
           )}
           <InputEditTable/>
-          <StyledPaginationWrapper>
-            <InputEditPagination/>
-          </StyledPaginationWrapper>
         </StyledSplitPanelWrapper>
       </StyledSplitPane>
       : null}

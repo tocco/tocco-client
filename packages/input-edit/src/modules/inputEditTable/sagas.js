@@ -2,6 +2,7 @@ import {all, call, put, select, takeEvery, takeLatest} from 'redux-saga/effects'
 import {rest} from 'tocco-app-extensions'
 
 import * as actions from './actions'
+import {setTotalCount} from '../inputEditPagination/actions'
 import {transformResponseData} from './utils'
 
 export const inputSelector = state => state.input
@@ -76,6 +77,7 @@ export function* loadData({newSorting, newSearchQueries, newPage}) {
 
   const transformedData = yield call(transformResponseData, response)
   yield put(actions.setData(transformedData))
+  yield put(setTotalCount(response.body.count))
   yield put(actions.setDataLoadingInProgress(false))
 }
 

@@ -68,7 +68,11 @@ const InputEditTable = ({
   updateValue,
   sorting,
   setSorting,
-  dataLoadingInProgress
+  dataLoadingInProgress,
+  totalCount,
+  currentPage,
+  recordsPerPage,
+  setCurrentPage
 }) => {
   const [columns, setColumns] = useState([])
   const [columnPosition, setColumnPosition] = useState([])
@@ -93,7 +97,7 @@ const InputEditTable = ({
       columnPosition.findIndex(e => e === a.id) - columnPosition.findIndex(e => e === b.id)
     )
     setColumns(cc)
-  }, [columnPosition, dataFormColumns, inputEditForm])
+  }, [columnPosition, dataFormColumns, inputEditForm, sorting])
 
   const onColumnPositionChange = (column, newPositionColumn, columns) => {
     setColumnPosition(columns.reduce((acc, c) => {
@@ -114,6 +118,12 @@ const InputEditTable = ({
       data={data}
       onSortingChange={setSorting}
       onColumnPositionChange={onColumnPositionChange}
+      paginationInfo={{
+        currentPage,
+        recordsPerPage,
+        totalCount
+      }}
+      onPageChange={setCurrentPage}
     />
   </StyledTableWrapper>
 }
@@ -130,7 +140,11 @@ InputEditTable.propTypes = {
   inputEditForm: PropTypes.array.isRequired,
   updateValue: PropTypes.func.isRequired,
   setSorting: PropTypes.func.isRequired,
-  dataLoadingInProgress: PropTypes.bool
+  dataLoadingInProgress: PropTypes.bool,
+  totalCount: PropTypes.number,
+  currentPage: PropTypes.number.isRequired,
+  recordsPerPage: PropTypes.number.isRequired,
+  setCurrentPage: PropTypes.func.isRequired
 }
 
 export default InputEditTable

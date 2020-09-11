@@ -1,23 +1,15 @@
 import {reducer as reducerUtil} from 'tocco-util'
 
-import {SET_CURRENT_PAGE} from './actions'
-import {SET_DATA} from '../inputEditTable/actions'
+import {SET_CURRENT_PAGE, SET_TOTAL_COUNT} from './actions'
 
 const initialState = {
-  count: 0,
+  totalCount: 0,
   currentPage: 1,
   recordsPerPage: 25
 }
 
-const setCount = (state, action) => {
-  return {
-    ...state,
-    count: action.payload.count
-  }
-}
-
 const ACTION_HANDLERS = {
-  [SET_DATA]: setCount,
+  [SET_TOTAL_COUNT]: reducerUtil.singleTransferReducer('totalCount'),
   [SET_CURRENT_PAGE]: reducerUtil.singleTransferReducer('currentPage')
 }
 
