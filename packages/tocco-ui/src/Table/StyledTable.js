@@ -19,6 +19,7 @@ export const StyledTableCell = styled.td`
   background-color: ${theme.color('paper')};
   border-bottom: 1px solid ${borderColor};
   align-content: center;
+  max-height: 23px;
 `
 
 export const StyledDnD = styled.div`
