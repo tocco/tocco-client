@@ -2,6 +2,7 @@ import {takeLatest, all, select} from 'redux-saga/effects'
 import {rest} from 'tocco-app-extensions'
 import {expectSaga} from 'redux-saga-test-plan'
 import * as matchers from 'redux-saga-test-plan/matchers'
+import {channel} from 'redux-saga'
 
 import {entityListSelector, listSelector} from '../list/sagas'
 import * as listSagas from '../list/sagas'
@@ -20,7 +21,8 @@ describe('entity-list', () => {
             takeLatest(actions.CHANGE_POSITION, sagas.changePosition),
             takeLatest(listActions.SET_SORTING_INTERACTIVE, sagas.saveSorting),
             takeLatest(actions.RESET_SORTING, sagas.resetSorting),
-            takeLatest(actions.RESET_PREFERENCES, sagas.resetPreferences)
+            takeLatest(actions.RESET_PREFERENCES, sagas.resetPreferences),
+            takeLatest(actions.DISPLAY_COLUMN_MODAL, sagas.displayColumnModal)
           ]))
           expect(generator.next().done).to.be.true
         })
@@ -143,6 +145,58 @@ describe('entity-list', () => {
               .call(rest.deleteUserPreferences, 'User_list.*')
               .call.like({fn: listSagas.setSorting})
               .call.like({fn: listSagas.reloadData})
+              .run()
+          })
+        })
+
+        describe('displayColumnModal ', () => {
+          test('should open modal', () => {
+            const expectedColumns = {first_field: true, second_field: false}
+            const expectedPreferences = {
+              'Some_list.first_field.hidden': 'false',
+              'Some_list.second_field.hidden': 'true'
+            }
+            return expectSaga(sagas.displayColumnModal)
+              .provide([
+                [select(listSagas.listSelector), {
+                  formDefinition: {
+                    id: 'Some_list',
+                    children: [{
+                      componentType: 'table',
+                      children: [
+                        {
+                          id: 'first_field'
+                        },
+                        {
+                          id: 'second_field'
+                        }
+                      ]
+                    }]
+                  }
+                }],
+                [select(sagas.preferencesSelector), {columns: {first_field: true, second_field: false}}],
+                [channel, {}],
+                {
+                  take() {
+                    return expectedColumns
+                  }
+                },
+                [matchers.call.fn(rest.savePreferences)]
+              ])
+              .put.like({
+                action: {
+                  type: 'notifier/MODAL_COMPONENT',
+                  payload: {
+                    id: 'Some_list-column-selection',
+                    title: 'client.entity-list.preferences.columns',
+                    message: null,
+                    closable: true
+                  }
+                }
+              })
+              .call.like({fn: channel})
+              .put(actions.setColumns(expectedColumns))
+              .call(rest.savePreferences, expectedPreferences)
               .run()
           })
         })
