@@ -5,7 +5,9 @@ import {
   getPositionsFromColumns,
   getSorting,
   getSortingPreferencesToSave,
-  getAdditionalSortingPreferencesToSave
+  getAdditionalSortingPreferencesToSave,
+  getColumnPreferencesToSave,
+  getColumns
 } from './preferences'
 
 describe('entity-list', () => {
@@ -99,50 +101,91 @@ describe('entity-list', () => {
       })
 
       describe('getSorting', () => {
-        const preferences = {
-          'User_list.firstname.position': '5',
-          'Principal_list.sortingField': 'first_field',
-          'Principal_list.sortingDirection': 'asc',
-          'Principal_list.sortingField.1': 'second_field',
-          'Principal_list.sortingDirection.1': 'desc'
-        }
-
-        const expectedSorting = [
-          {
-            field: 'first_field',
-            order: 'asc'
-          },
-          {
-            field: 'second_field',
-            order: 'desc'
+        test('should transform preferences to sorting', () => {
+          const preferences = {
+            'User_list.firstname.position': '5',
+            'Principal_list.sortingField': 'first_field',
+            'Principal_list.sortingDirection': 'asc',
+            'Principal_list.sortingField.1': 'second_field',
+            'Principal_list.sortingDirection.1': 'desc'
           }
-        ]
 
-        expect(getSorting(preferences)).to.deep.equal(expectedSorting)
+          const expectedSorting = [
+            {
+              field: 'first_field',
+              order: 'asc'
+            },
+            {
+              field: 'second_field',
+              order: 'desc'
+            }
+          ]
+
+          expect(getSorting(preferences)).to.deep.equal(expectedSorting)
+        })
       })
 
       describe('getSortingPreferencesToSave', () => {
-        const sorting = {
-          field: 'field',
-          order: 'asc'
-        }
-        const expectedPreference = {
-          'User_list.sortingField': 'field',
-          'User_list.sortingDirection': 'asc'
-        }
-        expect(getSortingPreferencesToSave('User_list', sorting)).to.deep.equal(expectedPreference)
+        test('should transform sorting to preference', () => {
+          const sorting = {
+            field: 'field',
+            order: 'asc'
+          }
+          const expectedPreference = {
+            'User_list.sortingField': 'field',
+            'User_list.sortingDirection': 'asc'
+          }
+          expect(getSortingPreferencesToSave('User_list', sorting)).to.deep.equal(expectedPreference)
+        })
       })
 
       describe('getAdditionalSortingPreferencesToSave', () => {
-        const sorting = {
-          field: 'field',
-          order: 'asc'
-        }
-        const expectedPreference = {
-          'User_list.sortingField.1': 'field',
-          'User_list.sortingDirection.1': 'asc'
-        }
-        expect(getAdditionalSortingPreferencesToSave('User_list', sorting, 1)).to.deep.equal(expectedPreference)
+        test('should transform sorting to preference', () => {
+          const sorting = {
+            field: 'field',
+            order: 'asc'
+          }
+          const expectedPreference = {
+            'User_list.sortingField.1': 'field',
+            'User_list.sortingDirection.1': 'asc'
+          }
+          expect(getAdditionalSortingPreferencesToSave('User_list', sorting, 1)).to.deep.equal(expectedPreference)
+        })
+      })
+
+      describe('getColumns', () => {
+        test('should transform preferences to columns', () => {
+          const preferences = {
+            'User_list.firstname.position': '5',
+            'Principal_list.sortingField': 'first_field',
+            'Principal_list.sortingDirection': 'asc',
+            'User_list.first_field.hidden': 'true',
+            'User_list.second_field.hidden': 'false',
+            'User_list.third_field.with.multiple.paths.hidden': 'false'
+          }
+
+          const expectedColumns = {
+            'first_field': false,
+            'second_field': true,
+            'third_field.with.multiple.paths': false
+          }
+
+          expect(getColumns(preferences)).to.deep.equal(expectedColumns)
+        })
+      })
+
+      describe('getColumnPreferencesToSave', () => {
+        test('should transform columns to preference', () => {
+          const columns = {
+            first_field: true,
+            second_field: false
+          }
+          const expectedPreference = {
+            'User_list.first_field.hidden': 'false',
+            'User_list.second_field.hidden': 'true'
+          }
+          expect(getColumnPreferencesToSave('User_list', columns)).to.deep.equal(expectedPreference)
+        })
       })
     })
   })

@@ -70,3 +70,25 @@ export const getAdditionalSortingPreferencesToSave = (formName, sorting, index) 
   [`${formName}.sortingField.${index}`]: sorting.field,
   [`${formName}.sortingDirection.${index}`]: sorting.order
 })
+
+export const getColumns = preferences => {
+  const keyRegex = /^[^.]+\.(.+)\.hidden$/
+  return Object.entries(preferences)
+    .filter(([key]) => keyRegex.test(key))
+    .reduce((acc, [key, value]) => {
+      const fieldName = key.match(keyRegex)[1]
+      return {
+        ...acc,
+        // old preferences marked hidden columns as true, now we mark visible columns as true
+        [fieldName]: value === 'false'
+      }
+    }, {})
+}
+
+export const getColumnPreferencesToSave = (formName, columns) =>
+  Object.keys(columns)
+    .reduce((acc, key) => ({
+      ...acc,
+      // old preferences marked hidden columns as true, now we mark visible columns as true
+      [`${formName}.${key}.hidden`]: (!columns[key]).toString()
+    }), {})

@@ -1,11 +1,14 @@
-import {rest} from 'tocco-app-extensions'
-import {all, call, put, select, takeLatest} from 'redux-saga/effects'
+import {rest, notifier} from 'tocco-app-extensions'
+import {all, call, put, select, take, takeLatest} from 'redux-saga/effects'
+import React from 'react'
+import {channel} from 'redux-saga'
 
 import * as actions from './actions'
-import {setPositions, setSorting} from './actions'
+import {setPositions, setSorting, setColumns} from './actions'
 import * as listActions from '../list/actions'
 import * as listSagas from '../list/sagas'
 import * as util from '../../util/preferences'
+import ColumnPicker from '../../components/ColumnPicker'
 
 export const inputSelector = state => state.input
 
@@ -17,7 +20,8 @@ export default function* sagas() {
     takeLatest(actions.CHANGE_POSITION, changePosition),
     takeLatest(listActions.SET_SORTING_INTERACTIVE, saveSorting),
     takeLatest(actions.RESET_SORTING, resetSorting),
-    takeLatest(actions.RESET_PREFERENCES, resetPreferences)
+    takeLatest(actions.RESET_PREFERENCES, resetPreferences),
+    takeLatest(actions.DISPLAY_COLUMN_MODAL, displayColumnModal)
   ])
 }
 
@@ -27,6 +31,7 @@ export function* loadPreferences() {
   const preferences = yield call(rest.fetchUserPreferences, `${formName}*`)
   yield put(setPositions(util.getPositions(preferences)))
   yield put(setSorting(util.getSorting(preferences)))
+  yield put(setColumns(util.getColumns(preferences)))
 }
 
 export function* changePosition({payload}) {
@@ -80,4 +85,42 @@ export function* resetPreferences() {
   yield call(rest.deleteUserPreferences, `${listState.formName}_list.*`)
   yield call(listSagas.setSorting)
   yield call(listSagas.reloadData)
+}
+
+export function* displayColumnModal() {
+  const {formDefinition} = yield select(listSagas.listSelector)
+  const {columns: preferencesColumns} = yield select(preferencesSelector)
+  const formColumns = formDefinition.children
+    .find(child => child.componentType === 'table')
+    .children
+    .map(column => ({
+      ...column,
+      hidden: Object.prototype.hasOwnProperty.call(preferencesColumns, column.id)
+        ? !preferencesColumns[column.id] : column.hidden
+    }))
+
+  const answerChannel = yield call(channel)
+  yield put(notifier.modalComponent(
+    `${formDefinition.id}-column-selection`,
+    'client.entity-list.preferences.columns',
+    null,
+    ({close}) => {
+      const onOk = columns => {
+        close()
+        answerChannel.put(columns)
+      }
+
+      return <ColumnPicker columns={formColumns} onOk={onOk}/>
+    },
+    true
+  ))
+
+  yield saveColumnPreferences(answerChannel, preferencesColumns, formDefinition)
+}
+
+function* saveColumnPreferences(answerChannel, preferencesColumns, formDefinition) {
+  const selectedColumns = yield take(answerChannel)
+  yield put(setColumns({...preferencesColumns, ...selectedColumns}))
+  const columnPreferences = yield call(util.getColumnPreferencesToSave, formDefinition.id, selectedColumns)
+  yield call(rest.savePreferences, columnPreferences)
 }
