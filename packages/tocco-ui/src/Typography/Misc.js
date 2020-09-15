@@ -10,6 +10,7 @@ import {
   StyledI,
   StyledIns,
   StyledKbd,
+  StyledLabel,
   StyledMark,
   StyledP,
   StyledPre,
@@ -73,6 +74,13 @@ const Kbd = props =>
     breakWords={props.breakWords}
     title={props.breakWords ? undefined : getTextOfChildren(props.children)}
   >{props.children}</StyledKbd>
+
+const Label = props =>
+  <StyledLabel
+    breakWords={props.breakWords}
+    title={props.breakWords ? undefined : getTextOfChildren(props.children)}
+    htmlFor={props.for}
+  >{props.children}</StyledLabel>
 
 const Mark = props =>
   <StyledMark
@@ -196,6 +204,7 @@ B.propTypes
   = I.propTypes
   = Ins.propTypes
   = Kbd.propTypes
+  = Label.propTypes
   = Mark.propTypes
   = P.propTypes
   = Pre.propTypes
@@ -230,6 +239,7 @@ export {
   I,
   Ins,
   Kbd,
+  Label,
   Mark,
   P,
   Pre,

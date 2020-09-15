@@ -92,6 +92,17 @@ const StyledKbd = styled.kbd`
     vertical-align: text-top;
   }
 `
+const StyledLabel = styled.label`
+  && {
+    ${declareFont()}
+    ${props => props.breakWords ? declareWrappingText() : declareNoneWrappingText()}
+    margin: 0 0 ${scale.space(-1)};
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+`
 
 const StyledMark = styled.mark`
   && {
@@ -252,6 +263,7 @@ export {
   StyledI,
   StyledIns,
   StyledKbd,
+  StyledLabel,
   StyledMark,
   StyledP,
   StyledPre,
