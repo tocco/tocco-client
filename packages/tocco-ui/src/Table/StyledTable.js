@@ -19,7 +19,6 @@ export const StyledTableCell = styled.td`
   background-color: ${theme.color('paper')};
   border-bottom: 1px solid ${borderColor};
   align-content: center;
-  display: flex;
 `
 
 export const StyledDnD = styled.div`
@@ -167,6 +166,12 @@ export const StyledTableWrapper = styled.div`
   @media screen and (max-height: 650px) {
     grid-template-rows: [table-start] 1fr [pagination-start] auto auto;
   }
+`
+
+export const StyledDraggable = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
 `
 
 export default StyledTable
