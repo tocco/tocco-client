@@ -197,6 +197,7 @@ describe('entity-list', () => {
               .call.like({fn: channel})
               .put(actions.setColumns(expectedColumns))
               .call(rest.savePreferences, expectedPreferences)
+              .put(listActions.refresh())
               .run()
           })
         })

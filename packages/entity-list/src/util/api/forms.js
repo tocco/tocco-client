@@ -49,9 +49,10 @@ const rightAlignedTypes = ['counter', 'decimal', 'double', 'integer', 'latitude'
 const isRightAligned = column =>
   column.children && column.children.length === 1 && rightAlignedTypes.includes(column.children[0].dataType)
 
-export const getColumnDefinition = (table, sorting, parent, intl) =>
-  table.children
-    .filter(column => !column.hidden)
+export const getColumnDefinition = (table, sorting, parent, intl, columnPreferences = {}) => {
+  return table.children
+    .filter(column => Object.prototype.hasOwnProperty.call(columnPreferences, column.id)
+      ? columnPreferences[column.id] : !column.hidden)
     .filter(column => !parent || column.children.length !== 1 || column.children[0].path !== parent.reverseRelationName)
     .filter(column => column.children.filter(isDisplayableChild).length > 0)
     .map(c => (
@@ -68,11 +69,12 @@ export const getColumnDefinition = (table, sorting, parent, intl) =>
         CellRenderer: ({rowData, column}) => column.children.map(child => cellRenderer(child, rowData, parent, intl))
       }
     ))
+}
 
-export const getFields = formDefinition => {
+export const getFields = (formDefinition, columnPreferences) => {
   const relationFields = []
   const displayExpressionFields = []
-  const columns = getColumnDefinition(getTable(formDefinition))
+  const columns = getColumnDefinition(getTable(formDefinition), undefined, undefined, undefined, columnPreferences)
   const fields = columns.reduce((accumulator, current) => (
     [
       ...accumulator,
