@@ -89,4 +89,5 @@ export const StyledNavButton = styled(Button)`
 
 export const StyledSearchBoxWrapper = styled.div`
   height: 50px;
+  padding-bottom: ${scale.space(-0.5)};
 `
