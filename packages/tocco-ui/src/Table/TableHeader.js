@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import {StyledDnD, StyledTableHead, StyledTableHeaderCell, StyledTableRow} from './StyledTable'
+import {StyledDnD, StyledTableHead, StyledTableHeaderCell, StyledTableRow, StyledDraggable} from './StyledTable'
 import SortingState from './SortingState'
 import ResizingController from './ResizingController'
 import {columnPropType, dataPropType} from './propTypes'
@@ -29,44 +29,41 @@ const TableHeader = ({columns, data, onColumnPositionChange, onSortingChange, ta
     }
   }
 
-  return (
-    <StyledTableHead>
-      <StyledTableRow>
-        {columns.map(column => {
-          const key = `header-cell-${column.id}`
-          return <StyledTableHeaderCell
-            key={key}
-            data-cy={key}
-            id={key}
-            onClick={thOnClick(column)}
-            resizingColumn={resizingColumn}
-            isResizing={resizingColumn && column.id === resizingColumn.id}
-            sortable={column.sorting && column.sorting.sortable}
+  return <StyledTableHead>
+    <StyledTableRow>
+      {columns.map(column => {
+        const key = `header-cell-${column.id}`
+        return <StyledTableHeaderCell
+          key={key}
+          data-cy={key}
+          id={key}
+          onClick={thOnClick(column)}
+          resizingColumn={resizingColumn}
+          isResizing={resizingColumn && column.id === resizingColumn.id}
+          sortable={column.sorting && column.sorting.sortable}
+        >
+          <StyledDraggable
+            id={`header-cell-drop-${column.id}`}
+            key={`header-cell-drop-${column.id}`}
+            {...(!column.fixedPosition && {
+              draggable: true,
+              ...dndEvents(column.id)
+            })}
           >
-            <div
-              style={{width: '100%', height: '100%', display: 'flex'}}
-              id={`header-cell-drop-${column.id}`}
-              key={`header-cell-drop-${column.id}`}
-              {...(!column.fixedPosition && {
-                draggable: true,
-                ...dndEvents(column.id)
-              })}
+            <StyledDnD
+              isDraggedOver={dndState.currentlyDragOver === column.id && dndState.currentlyDragging !== column.id}
+              isDragged={dndState.currentlyDragging === column.id}
             >
-              <StyledDnD
-                isDraggedOver={dndState.currentlyDragOver === column.id && dndState.currentlyDragging !== column.id}
-                isDragged={dndState.currentlyDragging === column.id}
-              >
-                <ThContent column={column} data={data}/>
-                <SortingState column={column}/>
-              </StyledDnD>
-            </div>
-            {column.resizable && <ResizingController column={column} startResize={startResize}/>}
-          </StyledTableHeaderCell>
-        }
-        )}
-      </StyledTableRow>
-    </StyledTableHead>
-  )
+              <ThContent column={column} data={data}/>
+              <SortingState column={column}/>
+            </StyledDnD>
+          </StyledDraggable>
+          {column.resizable && <ResizingController column={column} startResize={startResize}/>}
+        </StyledTableHeaderCell>
+      }
+      )}
+    </StyledTableRow>
+  </StyledTableHead>
 }
 
 TableHeader.propTypes = {
