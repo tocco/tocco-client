@@ -201,7 +201,6 @@ describe('login', () => {
       test('should prevent default and call login on submit', () => {
         const preventDefault = sinon.spy()
         const login = sinon.spy()
-        const executeRecaptcha = () => {}
         const wrapper = shallow(
           <LoginForm
             intl={IntlStub}
@@ -212,7 +211,6 @@ describe('login', () => {
             loginPending={false}
             username="username"
             password="password"
-            googleReCaptchaProps={{executeRecaptcha}}
           />
         )
 
@@ -223,7 +221,7 @@ describe('login', () => {
         expect(preventDefault).to.have.property('callCount', 1)
 
         expect(login).to.have.property('callCount', 1)
-        expect(login.firstCall.args).to.eql(['username', 'password', executeRecaptcha])
+        expect(login.firstCall.args).to.eql(['username', 'password', null])
       })
 
       test('should focus password input if username is set', () => {

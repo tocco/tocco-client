@@ -3,7 +3,8 @@ import * as actions from './actions'
 
 const EXPECTED_INITIAL_STATE = {
   message: {},
-  loginPending: false
+  loginPending: false,
+  recaptchaActivated: false
 }
 
 describe('login', () => {

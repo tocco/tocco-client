@@ -171,8 +171,8 @@ describe('login', () => {
 
           describe('savePassword', () => {
             test('should call external event on standalone mode', () => {
-              const executeRecaptcha = sinon.spy()
-              const generator = sagas.savePassword({payload: {executeRecaptcha}})
+              const captchaToken = '1234'
+              const generator = sagas.savePassword({payload: {captchaToken}})
 
               expect(generator.next().value).to.deep.equal(select(sagas.usernameSelector))
 
@@ -184,9 +184,8 @@ describe('login', () => {
                 oldPassword: 'oldpw',
                 newPassword: 'validnewpw'
               }
-              expect(generator.next(data).value).to.deep.equal(call(executeRecaptcha, 'passwordupdate'))
-              const token = '1234'
-              expect(generator.next(token).value).to.deep.equal(call(sagas.storePassword, username, data, token))
+
+              expect(generator.next(data).value).to.deep.equal(call(sagas.storePassword, username, data, captchaToken))
 
               const result = {
                 error: null
@@ -205,8 +204,8 @@ describe('login', () => {
             })
 
             test('should call login saga if not standalone', () => {
-              const executeRecaptcha = sinon.spy()
-              const generator = sagas.savePassword({payload: {executeRecaptcha}})
+              const captchaToken = '1234'
+              const generator = sagas.savePassword({payload: {captchaToken}})
 
               expect(generator.next().value).to.deep.equal(select(sagas.usernameSelector))
 
@@ -219,9 +218,7 @@ describe('login', () => {
                 newPassword: 'validnewpw'
               }
 
-              expect(generator.next(data).value).to.deep.equal(call(executeRecaptcha, 'passwordupdate'))
-              const token = '1234'
-              expect(generator.next(token).value).to.deep.equal(call(sagas.storePassword, username, data, token))
+              expect(generator.next(data).value).to.deep.equal(call(sagas.storePassword, username, data, captchaToken))
 
               const result = {
                 error: null
@@ -242,8 +239,8 @@ describe('login', () => {
             })
 
             test('should set validation errors if validation failed', () => {
-              const executeRecaptcha = sinon.spy()
-              const generator = sagas.savePassword({payload: {executeRecaptcha}})
+              const captchaToken = '1234'
+              const generator = sagas.savePassword({payload: {captchaToken}})
 
               expect(generator.next().value).to.deep.equal(select(sagas.usernameSelector))
 
@@ -256,10 +253,7 @@ describe('login', () => {
                 newPassword: 'validnewpw'
               }
 
-              expect(generator.next(data).value).to.deep.equal(call(executeRecaptcha, 'passwordupdate'))
-              const token = '1234'
-
-              expect(generator.next(token).value).to.deep.equal(call(sagas.storePassword, username, data, token))
+              expect(generator.next(data).value).to.deep.equal(call(sagas.storePassword, username, data, captchaToken))
 
               const validationMessages = [{
                 ruleName: 'DICTIONARY',
@@ -280,8 +274,8 @@ describe('login', () => {
             })
 
             test('should set error code if saving failed', () => {
-              const executeRecaptcha = sinon.spy()
-              const generator = sagas.savePassword({payload: {executeRecaptcha}})
+              const captchaToken = '1234'
+              const generator = sagas.savePassword({payload: {captchaToken}})
 
               expect(generator.next().value).to.deep.equal(select(sagas.usernameSelector))
 
@@ -294,9 +288,7 @@ describe('login', () => {
                 newPassword: 'validnewpw'
               }
 
-              expect(generator.next(data).value).to.deep.equal(call(executeRecaptcha, 'passwordupdate'))
-              const token = '1234'
-              expect(generator.next(token).value).to.deep.equal(call(sagas.storePassword, username, data, token))
+              expect(generator.next(data).value).to.deep.equal(call(sagas.storePassword, username, data, captchaToken))
 
               const result = {
                 error: {
