@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {MenuItem, ButtonMenu, BallMenu, Link} from 'tocco-ui'
 import {FormattedMessage} from 'react-intl'
+import styled from 'styled-components'
 
 import {
   StyledHeader,
@@ -9,6 +10,18 @@ import {
   StyledBackgroundLogo
 } from './StyledComponents'
 import AboutTocco from '../AboutTocco'
+
+const StyledBallMenuWrapper = styled.span`
+  margin-top: 2px;
+`
+
+const StyledLinkWrapper = styled.span`
+  && {
+    a {
+      text-decoration: none;
+    }
+  }
+`
 
 const Header = ({
   username,
@@ -49,31 +62,35 @@ const Header = ({
         <ButtonMenu label={username}>
           <MenuItem onClick={doLogout}><FormattedMessage id="client.admin.menu.logout"/></MenuItem>
         </ButtonMenu>
-        <BallMenu buttonProps={{icon: 'question-circle'}}>
-          {niceVersion && <MenuItem onClick={() => {}}>
-            <Link
-              neutral
-              href={`https://${niceVersion}docs.tocco.ch/de/`}
-              target="_blank"
-            >
-              <FormattedMessage id="client.admin.menu.doc"/>
-            </Link>
-          </MenuItem>}
-          <MenuItem onClick={() => {}}>
-            <Link
-              neutral
-              href="/nice2/swagger"
-              target="_blank"
-            >
-              <FormattedMessage id="client.admin.menu.restDoc"/>
-            </Link>
-          </MenuItem>
-          <MenuItem onClick={() => {
-            openModalComponent('about', 'client.admin.menu.aboutToccoTitle', null, () => <AboutTocco/>, true)
-          }}>
-            <FormattedMessage id="client.admin.menu.aboutToccoTitle"/>
-          </MenuItem>
-        </BallMenu>
+        <StyledBallMenuWrapper>
+          <BallMenu buttonProps={{icon: 'question-circle'}}>
+            <StyledLinkWrapper>
+              {niceVersion && <MenuItem onClick={() => {}}>
+                <Link
+                  neutral
+                  href={`https://${niceVersion}docs.tocco.ch/de/`}
+                  target="_blank"
+                >
+                  <FormattedMessage id="client.admin.menu.doc"/>
+                </Link>
+              </MenuItem>}
+              <MenuItem onClick={() => {}}>
+                <Link
+                  neutral
+                  href="/nice2/swagger"
+                  target="_blank"
+                >
+                  <FormattedMessage id="client.admin.menu.restDoc"/>
+                </Link>
+              </MenuItem>
+              <MenuItem onClick={() => {
+                openModalComponent('about', 'client.admin.menu.aboutToccoTitle', null, () => <AboutTocco/>, true)
+              }}>
+                <FormattedMessage id="client.admin.menu.aboutToccoTitle"/>
+              </MenuItem>
+            </StyledLinkWrapper>
+          </BallMenu>
+        </StyledBallMenuWrapper>
       </StyledConfig>
     </StyledHeader>
   </>
