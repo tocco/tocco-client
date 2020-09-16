@@ -1,16 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Typography} from 'tocco-ui'
+import {Typography, scale} from 'tocco-ui'
 import {FormattedMessage, intlShape} from 'react-intl'
+import styled from 'styled-components'
 
 import ToccoLogo from '../../assets/tocco_red.svg'
 import {StyledLink} from '../StyledLink'
+
+const StyledFormattedMessageWrapper = styled.div`
+  font-size: ${scale.font(-1.5)};
+  margin-top: ${scale.space(0.5)};
+`
+
+const StyledBlockWrapper = styled.div`
+  margin-top: ${scale.space(0.5)};
+`
 
 const AboutTocco = ({niceVersion, niceRevision, intl}) => {
   const msg = id => intl.formatMessage({id})
 
   return <Typography.Span>
-    <img width="450" src={ToccoLogo}/>
+    <img width="80%" src={ToccoLogo}/>
     <div dangerouslySetInnerHTML={{__html: msg('client.admin.tocco.address')}}/>
     <Typography.P>
       <StyledLink to={{pathname: msg('client.admin.tocco.homepage')}}>
@@ -23,11 +33,15 @@ const AboutTocco = ({niceVersion, niceRevision, intl}) => {
         <FormattedMessage id="client.admin.tocco.phone"/>
       </StyledLink>
     </Typography.P>
-    <Typography.P>
-      <FormattedMessage id="client.admin.about.versionLabel"/>:&nbsp; {niceVersion}<br/>
-      <FormattedMessage id="client.admin.about.revisionLabel"/>:&nbsp; {niceRevision}
-    </Typography.P>
-    <FormattedMessage id="client.admin.copyright"/>
+    <StyledBlockWrapper>
+      <Typography.P>
+        <FormattedMessage id="client.admin.about.versionLabel"/>:&nbsp; {niceVersion}<br/>
+        <FormattedMessage id="client.admin.about.revisionLabel"/>:&nbsp; {niceRevision}
+      </Typography.P>
+    </StyledBlockWrapper>
+    <StyledFormattedMessageWrapper>
+      <FormattedMessage id="client.admin.copyright"/>
+    </StyledFormattedMessageWrapper>
   </Typography.Span>
 }
 

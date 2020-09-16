@@ -3,7 +3,7 @@ import {injectIntl} from 'react-intl'
 
 import AboutTocco from './AboutTocco'
 
-const mapStateToProps = (state, props) => ({
+const mapStateToProps = state => ({
   niceVersion: state.session.serverSettings.niceVersion,
   niceRevision: state.session.serverSettings.niceRevision
 })
