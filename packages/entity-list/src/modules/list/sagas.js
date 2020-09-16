@@ -190,9 +190,10 @@ export function* loadRelationDisplays(relationFields, entities) {
 
 export function* fetchEntitiesAndAddToStore(page) {
   const {entityName, formName} = yield select(entityListSelector)
+  const {columns: columnPreferences} = yield select(preferencesSelector)
   const {entityStore, sorting, limit, formDefinition, endpoint} = yield select(listSelector)
   if (!entityStore[page]) {
-    const {paths, relationFields, displayExpressionFields} = yield call(getFields, formDefinition)
+    const {paths, relationFields, displayExpressionFields} = yield call(getFields, formDefinition, columnPreferences)
     const basicQuery = yield call(getBasicQuery)
     const query = {
       ...basicQuery,

@@ -121,6 +121,9 @@ export function* displayColumnModal() {
 function* saveColumnPreferences(answerChannel, preferencesColumns, formDefinition) {
   const selectedColumns = yield take(answerChannel)
   yield put(setColumns({...preferencesColumns, ...selectedColumns}))
+  if (Object.entries(selectedColumns).some(([, value]) => value)) {
+    yield put(listActions.refresh())
+  }
   const columnPreferences = yield call(util.getColumnPreferencesToSave, formDefinition.id, selectedColumns)
   yield call(rest.savePreferences, columnPreferences)
 }

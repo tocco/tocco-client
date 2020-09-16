@@ -129,6 +129,40 @@ describe('entity-list', () => {
             expect(result).to.have.length(1)
             expect(result[0].id).to.eql('lb1')
           })
+
+          test('should ignore columns hidden in preferences', () => {
+            const displayableField = {id: 'name1', componentType: 'field', label: 'label'}
+            const formDefinition = {
+              children: [
+                {
+                  hidden: false,
+                  id: 'lb1',
+                  label: 'label1',
+                  sortable: true,
+                  widthFixed: false,
+                  width: null,
+                  children: [displayableField]
+                }, {
+                  hidden: false,
+                  id: 'lb2',
+                  label: 'label2',
+                  sortable: true,
+                  widthFixed: false,
+                  width: null,
+                  children: [displayableField]
+                }
+              ]
+            }
+
+            const columnPreferences = {
+              lb2: false
+            }
+
+            const result = forms.getColumnDefinition(formDefinition, undefined, undefined, undefined, columnPreferences)
+
+            expect(result).to.have.length(1)
+            expect(result[0].id).to.eql('lb1')
+          })
         })
 
         describe('getFields', () => {

@@ -129,6 +129,7 @@ describe('entity-list', () => {
 
             const gen = sagas.fetchEntitiesAndAddToStore(1)
             expect(gen.next().value).to.eql(select(sagas.entityListSelector))
+            expect(gen.next({}).value).to.eql(select(sagas.preferencesSelector))
             expect(gen.next({entityName, formName}).value).to.eql(select(sagas.listSelector))
             expect(gen.next({entityStore}).done).to.be.true
           })
@@ -144,6 +145,7 @@ describe('entity-list', () => {
               .provide([
                 [select(sagas.entityListSelector), {formName: 'UserTest', entityName: 'User'}],
                 [select(sagas.listSelector), listViewState],
+                [select(sagas.preferencesSelector), {columns: {}}],
                 [matchers.call.fn(getFields), fields],
                 [matchers.call.fn(rest.fetchEntities), entities],
                 [matchers.call.fn(sagas.getBasicQuery), {}],

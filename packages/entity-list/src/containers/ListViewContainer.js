@@ -19,7 +19,8 @@ const mapStateToProps = (state, props) => {
     showSelectionController: state.selection.showSelectionController,
     searchFormPosition: state.input.searchFormPosition,
     showActions: state.input.showActions,
-    sorting: state.list.sorting
+    sorting: state.list.sorting,
+    columnPreferences: state.preferences.columns
   }
 }
 
