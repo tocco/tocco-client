@@ -6,12 +6,12 @@ export const initialized = () => ({
   type: INITIALIZED
 })
 
-export const login = (username, password, executeRecaptcha) => ({
+export const login = (username, password, captchaToken) => ({
   type: LOGIN,
   payload: {
     username,
     password,
-    executeRecaptcha
+    captchaToken
   }
 })
 

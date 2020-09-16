@@ -16,7 +16,9 @@ const mapStateToProps = state => ({
   username: state.login.username,
   password: state.login.password,
   message: state.loginForm.message,
-  loginPending: state.loginForm.loginPending
+  loginPending: state.loginForm.loginPending,
+  captchaKey: state.login.captchaKey,
+  recaptchaActivated: state.loginForm.recaptchaActivated
 })
 
 export default connect(mapStateToProps, mapActionCreators)(injectIntl(LoginForm))

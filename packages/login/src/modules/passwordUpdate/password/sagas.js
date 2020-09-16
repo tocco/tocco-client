@@ -77,10 +77,9 @@ export function* validate() {
   }
 }
 
-export function* savePassword({payload: {executeRecaptcha}}) {
+export function* savePassword({payload: {captchaToken}}) {
   const username = yield select(usernameSelector)
   const data = yield call(getData)
-  const captchaToken = yield call(executeRecaptcha, 'passwordupdate')
   const result = yield call(storePassword, username, data, captchaToken)
 
   if (result.error) {

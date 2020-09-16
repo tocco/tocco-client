@@ -1,4 +1,4 @@
-import {SET_MESSAGE, SET_PENDING} from './actions'
+import {SET_MESSAGE, SET_PENDING, ACTIVATE_RECAPTCHA} from './actions'
 
 const setMessage = (state, {payload}) => {
   const {text, negative} = payload
@@ -16,14 +16,21 @@ const setPending = (state, {payload}) => ({
   loginPending: payload.pending
 })
 
+const activateRecaptcha = state => ({
+  ...state,
+  recaptchaActivated: true
+})
+
 const ACTION_HANDLERS = {
   [SET_MESSAGE]: setMessage,
-  [SET_PENDING]: setPending
+  [SET_PENDING]: setPending,
+  [ACTIVATE_RECAPTCHA]: activateRecaptcha
 }
 
 const initialState = {
   message: {},
-  loginPending: false
+  loginPending: false,
+  recaptchaActivated: false
 }
 
 export default function reducer(state = initialState, action) {

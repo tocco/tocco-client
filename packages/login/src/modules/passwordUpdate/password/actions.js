@@ -44,10 +44,10 @@ export const updateNewPasswordRepeat = newPasswordRepeat => ({
   }
 })
 
-export const savePassword = executeRecaptcha => ({
+export const savePassword = captchaToken => ({
   type: SAVE_PASSWORD,
   payload: {
-    executeRecaptcha
+    captchaToken
   }
 })
 

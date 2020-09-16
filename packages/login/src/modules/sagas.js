@@ -4,7 +4,7 @@ import {takeLatest, put, select, call, all} from 'redux-saga/effects'
 
 import * as actions from './actions'
 import * as loginActions from './login/actions'
-import {setMessage, setPending} from './loginForm/actions'
+import {setMessage, setPending, activateRecaptcha} from './loginForm/actions'
 import {updateOldPassword} from './passwordUpdate/password/actions'
 import {setUsername, setForcedUpdate} from './passwordUpdate/dialog/actions'
 import {changePage, setPassword} from './login/actions'
@@ -78,7 +78,7 @@ export function* handleSuccessfulLogin(response) {
 }
 
 export function* loginSaga({payload}) {
-  const {username, password, executeRecaptcha, captchaToken, userCode} = payload
+  const {username, password, captchaToken, userCode} = payload
   const loginData = {
     username,
     password,
@@ -92,9 +92,8 @@ export function* loginSaga({payload}) {
     yield call(handleSuccessfulLogin, response)
   } else {
     yield put(changePage(Pages.LOGIN_FORM)) // in order to display possible error message
-
     if (response.CAPTCHA) {
-      yield call(handleCaptchaResponse, loginData, executeRecaptcha)
+      yield put(activateRecaptcha())
     } else if (response.TWOSTEPLOGIN) {
       yield call(handleTwoStepLoginResponse, response)
     } else if (response.RESET_PASSWORD_REQUIRED) {
@@ -106,16 +105,6 @@ export function* loginSaga({payload}) {
     }
     yield put(setPending(false))
   }
-}
-
-export function* handleCaptchaResponse(loginData, executeRecaptcha) {
-  const captchaToken = yield call(executeRecaptcha, 'login')
-  yield call(loginSaga, {
-    payload: {
-      ...loginData,
-      captchaToken
-    }
-  })
 }
 
 export function* checkSessionSaga() {

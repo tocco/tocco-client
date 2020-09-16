@@ -11,8 +11,7 @@ const mapActionCreators = {
 
 const mapStateToProps = (state, props) => ({
   currentPage: props.currentPage || state.login.currentPage,
-  showTitle: props.showTitle,
-  captchaKey: state.login.captchaKey
+  showTitle: props.showTitle
 })
 
 export default hot(connect(mapStateToProps, mapActionCreators)(injectIntl(Login)))

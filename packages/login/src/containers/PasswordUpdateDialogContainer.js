@@ -22,7 +22,8 @@ const mapStateToProps = state => ({
   password: state.passwordUpdate.password,
   validationRules: state.passwordUpdate.validationRules,
   showOldPasswordField: state.passwordUpdate.dialog.showOldPasswordField,
-  forcedUpdate: state.passwordUpdate.dialog.forcedUpdate
+  forcedUpdate: state.passwordUpdate.dialog.forcedUpdate,
+  captchaKey: state.login.captchaKey
 })
 
 export default hot(connect(mapStateToProps, mapActionCreators)(injectIntl(PasswordUpdateDialog)))
