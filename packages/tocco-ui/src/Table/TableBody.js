@@ -37,36 +37,34 @@ const TableBody = ({data, columns, isSelected, selectionChange, dataLoadingInPro
     }
   }
 
-  return (
-    <StyledTableBody>
-      {
-        dataLoadingInProgress
-          ? <InProgressRow/>
-          : data.length > 0
-            ? data.map((rowData, idx) =>
-              <StyledTableRow
-                key={`list-row-${rowData.__key}`}
-                className={`selectableRow ${isSelected(rowData.__key) && 'selected'}`}
-                onClick={trOnClick(rowData)}
-                data-cy="list-row"
-              >
-                {
-                  columns.map(column =>
-                    <StaticCell
-                      key={`table-static-cell-${rowData.__key}-${column.id}`}
-                      selected={isSelected(rowData.__key)}
-                      rowData={rowData}
-                      column={column}
-                      rowIdx={idx}
-                    />
-                  )
-                }
-              </StyledTableRow>
-            )
-            : <NoDataRow/>
-      }
-    </StyledTableBody>
-  )
+  return <StyledTableBody>
+    {
+      dataLoadingInProgress
+        ? <InProgressRow/>
+        : data.length > 0
+          ? data.map((rowData, idx) =>
+            <StyledTableRow
+              key={`list-row-${rowData.__key}`}
+              className={`selectableRow ${isSelected(rowData.__key) && 'selected'}`}
+              onClick={trOnClick(rowData)}
+              data-cy="list-row"
+            >
+              {
+                columns.map(column =>
+                  <StaticCell
+                    key={`table-static-cell-${rowData.__key}-${column.id}`}
+                    selected={isSelected(rowData.__key)}
+                    rowData={rowData}
+                    column={column}
+                    rowIdx={idx}
+                  />
+                )
+              }
+            </StyledTableRow>
+          )
+          : <NoDataRow/>
+    }
+  </StyledTableBody>
 }
 
 TableBody.propTypes = {
