@@ -4,6 +4,7 @@ export const CHANGE_POSITION = 'preferences/CHANGE_POSITION'
 export const SET_SORTING = 'preferences/SET_SORTING'
 export const SET_COLUMNS = 'preferences/SET_COLUMNS'
 export const RESET_SORTING = 'preferences/RESET_SORTING'
+export const RESET_COLUMNS = 'preferences/RESET_COLUMNS'
 export const RESET_PREFERENCES = 'preferences/RESET_PREFERENCES'
 export const DISPLAY_COLUMN_MODAL = 'preferences/DISPLAY_COLUMN_MODAL'
 
@@ -53,5 +54,10 @@ export const resetPreferences = () => ({
 
 export const displayColumnModal = () => ({
   type: DISPLAY_COLUMN_MODAL,
+  payload: {}
+})
+
+export const resetColumns = () => ({
+  type: RESET_COLUMNS,
   payload: {}
 })

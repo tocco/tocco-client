@@ -5,7 +5,15 @@ import * as actions from './actions'
 const resetSorting = state => {
   return {
     ...state,
-    sorting: []
+    sorting: initialState.sorting
+  }
+}
+
+const resetColumns = state => {
+  return {
+    ...state,
+    columns: initialState.columns,
+    positions: initialState.positions
   }
 }
 
@@ -14,6 +22,7 @@ const ACTION_HANDLERS = {
   [actions.SET_SORTING]: reducerUtil.singleTransferReducer('sorting'),
   [actions.SET_COLUMNS]: reducerUtil.singleTransferReducer('columns'),
   [actions.RESET_SORTING]: resetSorting,
+  [actions.RESET_COLUMNS]: resetColumns,
   [actions.RESET_PREFERENCES]: () => initialState
 }
 

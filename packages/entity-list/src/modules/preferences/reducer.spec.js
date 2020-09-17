@@ -46,6 +46,18 @@ describe('entity-list', () => {
           }
           expect(reducer({sorting: previousSorting}, actions.resetSorting()).sorting).to.be.empty
         })
+
+        test('should clear column preferences', () => {
+          const previousState = {
+            positions: {field: 1},
+            columns: {field: false},
+            sorting: ['field']
+          }
+          const newState = reducer(previousState, actions.resetColumns())
+          expect(newState.positions).to.be.null
+          expect(newState.columns).to.be.empty
+          expect(newState.sorting).to.be.deep.eq(previousState.sorting)
+        })
       })
     })
   })

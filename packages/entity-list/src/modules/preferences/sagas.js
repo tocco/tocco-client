@@ -20,6 +20,7 @@ export default function* sagas() {
     takeLatest(actions.CHANGE_POSITION, changePosition),
     takeLatest(listActions.SET_SORTING_INTERACTIVE, saveSorting),
     takeLatest(actions.RESET_SORTING, resetSorting),
+    takeLatest(actions.RESET_COLUMNS, resetColumns),
     takeLatest(actions.RESET_PREFERENCES, resetPreferences),
     takeLatest(actions.DISPLAY_COLUMN_MODAL, displayColumnModal)
   ])
@@ -126,4 +127,13 @@ function* saveColumnPreferences(answerChannel, preferencesColumns, formDefinitio
   }
   const columnPreferences = yield call(util.getColumnPreferencesToSave, formDefinition.id, selectedColumns)
   yield call(rest.savePreferences, columnPreferences)
+}
+
+export function* resetColumns() {
+  const listState = yield select(listSagas.entityListSelector)
+  yield all([
+    call(rest.deleteUserPreferences, `${listState.formName}_list.*.position`),
+    call(rest.deleteUserPreferences, `${listState.formName}_list.*.hidden`)
+  ])
+  yield put(listActions.refresh())
 }
