@@ -1,3 +1,7 @@
+0.3.17
+- Adjust gutter height in admin search form
+- Style error view
+
 0.3.16
 - Change header ball menu icon to info symbol
 - Style draggable gutter for more usability and design consistency
