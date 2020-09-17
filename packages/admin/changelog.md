@@ -1,3 +1,11 @@
+0.3.15
+- Add admin help menu
+- Fix width of table cells so that there is no overlap at the last column on smaller screens
+- Align bm button menu with content
+- Add bottom padding to search box to prevent see through of underlying text
+- Style input edit table to ensure consistend UI. Remove obsolete split pane feature
+- Invert header color for TEST/Prod
+
 0.3.14
 - Style header logo depending on runEnv
 - Use KEYS instead of IN in tql
