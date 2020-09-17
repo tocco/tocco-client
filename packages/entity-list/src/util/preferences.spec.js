@@ -167,7 +167,7 @@ describe('entity-list', () => {
           const expectedColumns = {
             'first_field': false,
             'second_field': true,
-            'third_field.with.multiple.paths': false
+            'third_field.with.multiple.paths': true
           }
 
           expect(getColumns(preferences)).to.deep.equal(expectedColumns)
