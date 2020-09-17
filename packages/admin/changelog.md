@@ -1,3 +1,8 @@
+0.3.16
+- Change header ball menu icon to info symbol
+- Style draggable gutter for more usability and design consistency
+- Revert resource-scheduler tooltip border
+
 0.3.15
 - Add admin help menu
 - Fix width of table cells so that there is no overlap at the last column on smaller screens
