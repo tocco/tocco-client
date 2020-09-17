@@ -21,9 +21,9 @@ describe('entity-list', () => {
             takeLatest(actions.CHANGE_POSITION, sagas.changePosition),
             takeLatest(listActions.SET_SORTING_INTERACTIVE, sagas.saveSorting),
             takeLatest(actions.RESET_SORTING, sagas.resetSorting),
+            takeLatest(actions.RESET_COLUMNS, sagas.resetColumns),
             takeLatest(actions.RESET_PREFERENCES, sagas.resetPreferences),
-            takeLatest(actions.DISPLAY_COLUMN_MODAL, sagas.displayColumnModal),
-            takeLatest(actions.RESET_COLUMNS, sagas.resetColumns)
+            takeLatest(actions.DISPLAY_COLUMN_MODAL, sagas.displayColumnModal)
           ]))
           expect(generator.next().done).to.be.true
         })
