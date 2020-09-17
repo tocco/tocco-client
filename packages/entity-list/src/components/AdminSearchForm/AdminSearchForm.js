@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 import {Icon, Ball} from 'tocco-ui'
 import {withTheme} from 'styled-components'
-import {lighten} from 'polished'
 import {injectIntl, intlShape} from 'react-intl'
 
 import {StyledSplit, AdminSearchGrid, Box, StyledGutter, StyledHeader, StyledSplitWrapper} from './StyedComponents'
@@ -15,12 +14,13 @@ const SEARCH_FILTER_PADDING = 15
 const MAX_HEIGHT_THRESHOLD = 30
 const MAX_SIZE_SEARCH_FILTER = 25
 
-const getGutter = (borderColor, backgroundColor) => () => {
+const getGutter = () => () => {
   const gutterEl = document.createElement('div')
-  gutterEl.style.cssText = 'padding-bottom:.7rem;'
-  ReactDOM.render(<StyledGutter borderColor={borderColor} backgroundColor={backgroundColor}>
-    <Icon icon="horizontal-rule"/>
-  </StyledGutter>, gutterEl)
+  ReactDOM.render(
+    <StyledGutter>
+      <Icon icon="horizontal-rule"/>
+    </StyledGutter>, gutterEl
+  )
   return gutterEl
 }
 
@@ -63,10 +63,10 @@ const AdminSearchForm = ({resetSearch, theme, intl, searchFilters}) => {
     <StyledSplitWrapper ref={splitWrapperEl}>
       <StyledSplit
         direction="vertical"
-        gutterSize={15}
+        gutterSize={39.25}
         sizes={size}
         minSize={[35, 0]}
-        gutter={getGutter(lighten(0.4, theme.colors.text), theme.colors.paper)}
+        gutter={getGutter()}
       >
         <Box>
           <SearchFilterList />

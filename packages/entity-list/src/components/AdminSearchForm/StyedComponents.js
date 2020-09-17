@@ -35,12 +35,13 @@ export const Box = styled.div`
 `
 
 export const StyledGutter = styled.div`
-  background-color: ${props => props.backgroundColor};
+  background-color: ${theme.color('paper')};
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 25px;
-  border-top: 1px solid ${props => props.borderColor};
+  height: calc(100% - 1px); //subtract border height from total height
+  font-size: 20px;
+  border-top: 1px solid ${theme.color('backgroundBody')};
 
   &:hover {
     cursor: row-resize;
