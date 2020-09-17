@@ -3,7 +3,8 @@ import * as actions from './actions'
 
 const EXPECTED_INITIAL_STATE = {
   positions: null,
-  sorting: []
+  sorting: [],
+  columns: {}
 }
 
 describe('entity-list', () => {
