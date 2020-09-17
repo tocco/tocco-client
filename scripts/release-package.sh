@@ -38,5 +38,14 @@ else
   echo "${color_red}Nothing pushed!${color_reset}"
 fi
 
+read -p "Create a npm dist tag? (type n for 'no' or the tag name for yes (e.g. nice227) " TAG
+if [ "$TAG" = "n" ]; then
+  echo "${color_red}No npm tag created!${color_reset}"
+else
+  echo "Trying to execute: npm dist-tag add tocco-${package}@${new_version} ${TAG}"
+  npm dist-tag add tocco-${package}@${new_version} ${TAG}
+  echo "${color_green}Npm tag created!${color_reset}"
+fi
+
 echo "${color_green}Done!${color_reset}"
 echo "---------------------"
