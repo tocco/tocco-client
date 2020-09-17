@@ -22,7 +22,8 @@ describe('entity-list', () => {
             takeLatest(listActions.SET_SORTING_INTERACTIVE, sagas.saveSorting),
             takeLatest(actions.RESET_SORTING, sagas.resetSorting),
             takeLatest(actions.RESET_PREFERENCES, sagas.resetPreferences),
-            takeLatest(actions.DISPLAY_COLUMN_MODAL, sagas.displayColumnModal)
+            takeLatest(actions.DISPLAY_COLUMN_MODAL, sagas.displayColumnModal),
+            takeLatest(actions.RESET_COLUMNS, sagas.resetColumns)
           ]))
           expect(generator.next().done).to.be.true
         })
@@ -197,6 +198,20 @@ describe('entity-list', () => {
               .call.like({fn: channel})
               .put(actions.setColumns(expectedColumns))
               .call(rest.savePreferences, expectedPreferences)
+              .put(listActions.refresh())
+              .run()
+          })
+        })
+
+        describe('resetColumn', () => {
+          test('should delete preferences', () => {
+            return expectSaga(sagas.resetColumns)
+              .provide([
+                [select(entityListSelector), {formName: 'User'}],
+                [matchers.call.fn(rest.deleteUserPreferences)]
+              ])
+              .call(rest.deleteUserPreferences, 'User_list.*.position')
+              .call(rest.deleteUserPreferences, 'User_list.*.hidden')
               .put(listActions.refresh())
               .run()
           })
