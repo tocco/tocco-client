@@ -1,3 +1,10 @@
+0.3.5
+- Remove obsolete default searchfield styling and height in nested layout containers
+- Change Stated and Editablevalue colors for more contrast/readability
+- Fix admin resource scheduler bug
+- Fix tooltip outside calendar
+- Fix width of table cells so that there is no overlap at the last column on smaller screens
+
 0.3.4
 - Allow calendars to be preselected by passing them to the preselectedCalendars input
 - Table component
