@@ -37,6 +37,7 @@ export const Box = styled.div`
 export const StyledGutter = styled.div`
   background-color: ${theme.color('paper')};
   display: flex;
+  padding-top: 3px;
   justify-content: center;
   align-items: center;
   height: calc(100% - 1px); //subtract border height from total height
