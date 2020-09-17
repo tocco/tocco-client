@@ -80,7 +80,7 @@ const Table = props => {
       singleSelectHandler(entity.__key, true, true)
     } else if (e.metaKey || e.ctrlKey) {
       singleSelectHandler(entity.__key)
-    } else {
+    } else if (props.clickable !== false) {
       props.onRowClick(entity.__key)
     }
   }
@@ -158,6 +158,7 @@ const Table = props => {
                     key={`list-row-${entity.__key}`}
                     className={`selectableRow ${isSelected(entity.__key) && 'selected'}`}
                     onClick={trOnClick(entity)}
+                    clickable={props.clickable}
                     data-cy="list-row"
                   >
                     {
@@ -216,6 +217,7 @@ Table.propTypes = {
   setSortingInteractive: PropTypes.func,
   changePage: PropTypes.func.isRequired,
   tableSelectionStyle: selectionStylePropType,
+  clickable: PropTypes.bool,
   onSelectChange: PropTypes.func,
   refresh: PropTypes.func,
   selection: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
