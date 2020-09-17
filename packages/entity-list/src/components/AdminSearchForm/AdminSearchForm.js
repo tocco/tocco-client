@@ -63,7 +63,7 @@ const AdminSearchForm = ({resetSearch, theme, intl, searchFilters}) => {
     <StyledSplitWrapper ref={splitWrapperEl}>
       <StyledSplit
         direction="vertical"
-        gutterSize={39.25}
+        gutterSize={20}
         sizes={size}
         minSize={[35, 0]}
         gutter={getGutter()}
