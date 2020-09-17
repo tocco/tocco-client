@@ -15,6 +15,11 @@ export const getSelectable = formDefinition => {
   return table.selectable !== false
 }
 
+export const getClickable = formDefinition => {
+  const table = getTable(formDefinition)
+  return table.clickable !== false
+}
+
 export const getEndpoint = formDefinition => {
   const table = getTable(formDefinition)
   return table.endpoint || null

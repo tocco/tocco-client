@@ -10,7 +10,7 @@ import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import * as selectionActions from '../selection/actions'
 import {getSearchFormValues} from '../searchForm/sagas'
-import {getSorting, getSelectable, getEndpoint, getConstriction, getFields} from '../../util/api/forms'
+import {getSorting, getSelectable, getClickable, getEndpoint, getConstriction, getFields} from '../../util/api/forms'
 import {entitiesListTransformer} from '../../util/api/entities'
 
 export const inputSelector = state => state.input
@@ -270,6 +270,8 @@ export function* loadFormDefinition(formDefinition, formName) {
 
   const selectable = yield call(getSelectable, formDefinition)
   yield put(actions.setFormSelectable(selectable))
+  const clickable = yield call(getClickable, formDefinition)
+  yield put(actions.setFormClickable(clickable))
   const endpoint = yield call(getEndpoint, formDefinition)
   yield put(actions.setEndpoint(endpoint))
   const constriction = yield call(getConstriction, formDefinition)
