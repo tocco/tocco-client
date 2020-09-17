@@ -63,7 +63,7 @@ const Header = ({
           <MenuItem onClick={doLogout}><FormattedMessage id="client.admin.menu.logout"/></MenuItem>
         </ButtonMenu>
         <StyledBallMenuWrapper>
-          <BallMenu buttonProps={{icon: 'question-circle'}}>
+          <BallMenu buttonProps={{icon: 'info'}}>
             <StyledLinkWrapper>
               {niceVersion && <MenuItem onClick={() => {}}>
                 <Link
