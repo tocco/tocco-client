@@ -1,3 +1,6 @@
+0.10.10-hotfix226.3
+- Entity list: Add support for `clickable` attribute
+
 0.10.10-hotfix226.2
 - Input Edit: Handle notifications depending on parent
 
