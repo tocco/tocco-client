@@ -132,9 +132,6 @@ const FullCalendar = ({
 
     const content = ReactDOMServer.renderToString(tooltipDescriptionContent)
 
-    const boundariesElement = document.getElementsByClassName('fc-time-area fc-widget-content').length > 0
-      ? document.getElementsByClassName('fc-time-area fc-widget-content')[0] : 'body'
-
     // eslint-disable-next-line no-new
     new Tooltip(el, {
       title: content,
@@ -142,7 +139,7 @@ const FullCalendar = ({
       trigger: 'hover',
       container: wrapperEl.current,
       html: true,
-      boundariesElement,
+      boundariesElement: 'body',
       innerSelector: '.na-tooltip-inner',
       arrowSelector: '.na-tooltip-arrow',
       template: `<div class="na-tooltip" role="tooltip"><div class="na-tooltip-arrow">
