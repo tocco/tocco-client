@@ -35,6 +35,7 @@ const mapStateToProps = (state, props) => ({
   limit: state.list.limit,
   inProgress: state.list.inProgress,
   tableSelectionStyle: state.selection.tableSelectionStyle,
+  clickable: state.list.formClickable,
   selection: state.selection.selection,
   parent: state.entityList.parent,
   showLink: state.list.showLink,

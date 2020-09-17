@@ -50,6 +50,7 @@ const Table = props => {
           selectionChange={selectionChange}
           dataLoadingInProgress={props.dataLoadingInProgress}
           onRowClick={props.onRowClick}
+          clickable={props.clickable}
         />
       </StyledTable>
     </StretchingTableContainer>
@@ -93,6 +94,10 @@ Table.propTypes = {
    * List of selected keys
    */
   selection: PropTypes.arrayOf(keyPropType),
+  /**
+   * Boolean flag to disable clicking on rows
+   */
+  clickable: PropTypes.bool,
   /**
    * Callback for selection changes
    */

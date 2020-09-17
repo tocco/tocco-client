@@ -27,6 +27,7 @@ const Table = props =>
     onSelectionChange={props.onSelectChange}
     selection={props.selection}
     onRowClick={props.onRowClick}
+    clickable={props.clickable}
     onColumnPositionChange={props.changePosition}
   />
 
@@ -38,6 +39,7 @@ Table.propTypes = {
   currentPage: PropTypes.number,
   limit: PropTypes.number,
   onRowClick: PropTypes.func,
+  clickable: PropTypes.bool,
   setSortingInteractive: PropTypes.func,
   changePage: PropTypes.func.isRequired,
   tableSelectionStyle: selectionStylePropType,
