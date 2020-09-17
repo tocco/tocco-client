@@ -16,6 +16,7 @@ const EXPECTED_INITIAL_STATE = {
   searchFilters: [],
   createPermission: false,
   formSelectable: false,
+  formClickable: false,
   showLink: false,
   lazyData: {},
   endpoint: null,
@@ -216,6 +217,18 @@ describe('entity-list', () => {
           }
 
           expect(reducer(stateBefore, actions.setFormSelectable(true))).to.deep.equal(expectedStateAfter)
+        })
+
+        test('should handle SET_FORM_CLICKABLE', () => {
+          const stateBefore = {
+            formClickable: false
+          }
+
+          const expectedStateAfter = {
+            formClickable: true
+          }
+
+          expect(reducer(stateBefore, actions.setFormClickable(true))).to.deep.equal(expectedStateAfter)
         })
 
         test('should handle SET_LAZY_DATA', () => {

@@ -281,18 +281,43 @@ describe('entity-list', () => {
             }]
           })
 
-          test('should return seletable boolean of the form definition', () => {
+          test('should return selectable boolean of the form definition', () => {
             const result = forms.getSelectable(getFormDefinition(true))
             expect(result).to.be.true
           })
 
-          test('should return seletable boolean false of the form definition', () => {
+          test('should return selectable boolean false of the form definition', () => {
             const result = forms.getSelectable(getFormDefinition(false))
             expect(result).to.be.false
           })
 
-          test('should return true if selectable not in defintion', () => {
+          test('should return true if selectable not in definition', () => {
             const result = forms.getSelectable(getFormDefinition(null))
+            expect(result).to.be.true
+          })
+        })
+
+        describe('getClickable', () => {
+          const getFormDefinition = clickable => ({
+            children: [{
+              layoutType: 'table',
+              componentType: 'table',
+              ...(clickable !== null ? {clickable} : {})
+            }]
+          })
+
+          test('should return clickable boolean of the form definition', () => {
+            const result = forms.getClickable(getFormDefinition(true))
+            expect(result).to.be.true
+          })
+
+          test('should return clickable boolean false of the form definition', () => {
+            const result = forms.getClickable(getFormDefinition(false))
+            expect(result).to.be.false
+          })
+
+          test('should return true if clickable not in definition', () => {
+            const result = forms.getClickable(getFormDefinition(null))
             expect(result).to.be.true
           })
         })

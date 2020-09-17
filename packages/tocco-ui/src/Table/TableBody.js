@@ -24,16 +24,14 @@ const NoDataRow = () => <StyledTableRow>
   </StyledFullRow>
 </StyledTableRow>
 
-const TableBody = ({data, columns, isSelected, selectionChange, dataLoadingInProgress, onRowClick}) => {
+const TableBody = ({data, columns, isSelected, selectionChange, dataLoadingInProgress, onRowClick, clickable}) => {
   const trOnClick = entity => e => {
     if (e.shiftKey) {
       selectionChange(entity.__key, true, true)
     } else if (e.metaKey || e.ctrlKey) {
       selectionChange(entity.__key)
-    } else {
-      if (onRowClick) {
-        onRowClick(entity.__key)
-      }
+    } else if (clickable && onRowClick) {
+      onRowClick(entity.__key)
     }
   }
 
@@ -47,6 +45,7 @@ const TableBody = ({data, columns, isSelected, selectionChange, dataLoadingInPro
               key={`list-row-${rowData.__key}`}
               className={`selectableRow ${isSelected(rowData.__key) && 'selected'}`}
               onClick={trOnClick(rowData)}
+              clickable={clickable}
               data-cy="list-row"
             >
               {
@@ -73,7 +72,8 @@ TableBody.propTypes = {
   isSelected: PropTypes.func.isRequired,
   selectionChange: PropTypes.func,
   dataLoadingInProgress: PropTypes.bool,
-  onRowClick: PropTypes.func
+  onRowClick: PropTypes.func,
+  clickable: PropTypes.bool
 }
 
 export default TableBody

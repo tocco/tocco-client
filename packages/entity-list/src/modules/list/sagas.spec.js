@@ -8,7 +8,7 @@ import * as actions from './actions'
 import * as searchFormActions from '../searchForm/actions'
 import * as selectionActions from '../selection/actions'
 import rootSaga, * as sagas from './sagas'
-import {getSorting, getSelectable, getFields, getEndpoint, getConstriction} from '../../util/api/forms'
+import {getSorting, getSelectable, getClickable, getFields, getEndpoint, getConstriction} from '../../util/api/forms'
 import {getSearchFormValues} from '../searchForm/sagas'
 
 const generateState = (entityStore = {}, page) => ({
@@ -373,6 +373,7 @@ describe('entity-list', () => {
             }
 
             const selectable = true
+            const clickable = true
             const endpoint = 'customEndpoint'
             const constriction = 'sampleConstriction'
 
@@ -380,12 +381,14 @@ describe('entity-list', () => {
               .provide([
                 [matchers.call.fn(rest.fetchForm), loadedFormDefinition],
                 [matchers.call.fn(getSelectable), selectable],
+                [matchers.call.fn(getClickable), clickable],
                 [matchers.call.fn(getEndpoint), endpoint],
                 [matchers.call.fn(getConstriction), constriction]
               ])
               .call(rest.fetchForm, formName, 'list')
               .put(actions.setFormDefinition(loadedFormDefinition))
               .put(actions.setFormSelectable(selectable))
+              .put(actions.setFormClickable(clickable))
               .put(actions.setEndpoint(endpoint))
               .put(actions.setConstriction(constriction))
               .run()
@@ -398,6 +401,7 @@ describe('entity-list', () => {
               .provide([
                 [matchers.call.fn(sagas.setSorting)],
                 [matchers.call.fn(getSelectable), false],
+                [matchers.call.fn(getClickable), false],
                 [matchers.call.fn(getEndpoint), null],
                 [matchers.call.fn(getConstriction), null]
               ])

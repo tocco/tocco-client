@@ -83,7 +83,7 @@ export const PaginationContainer = styled.div`
 
 const selectionStyles = css`
   display: contents;
-  cursor: pointer;
+  ${({clickable}) => clickable && 'cursor: pointer;'}
 
   &.selected {
     > ${StyledTableCell} {
