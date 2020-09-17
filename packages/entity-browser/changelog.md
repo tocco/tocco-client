@@ -1,3 +1,16 @@
+0.10.11
+- Table component
+- Added button to reset all preferences
+- Make all children of readonly layouts readonly
+- Style input fields according to material design
+- Use KEYS instead of IN in tql
+- Style draggable table headers and kabob menu
+- Handle notifications depending on parent
+- Remove obsolete default searchfield styling and height in nested layout containers
+- Change Stated and Editablevalue colors for more contrast/readability
+- Fix width of table cells so that there is no overlap at the last column on smaller screens
+- Style input edit table to ensure consistend UI. Remove obsolete split pane feature
+
 0.10.10
 
 
