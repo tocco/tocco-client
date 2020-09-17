@@ -1,3 +1,7 @@
+0.2.13
+- Style input fields according to material design
+- Change Stated and Editablevalue colors for more contrast/readability
+
 0.2.12
 - Style Inputfield in two step login form
 - Fix icon positioning within buttons
