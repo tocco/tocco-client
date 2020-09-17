@@ -33,7 +33,7 @@ cache:
 
 install:
   - yarn setup --frozen-lockfile
-  - travis_wait lerna bootstrap --concurrency=1 --mutex network
+  - travis_wait lerna bootstrap --concurrency=1 --mutex network --force-local
 
 script:
   - yarn lint
