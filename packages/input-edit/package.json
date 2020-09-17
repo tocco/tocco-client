@@ -8,7 +8,6 @@
     "prepublish": "npm run compile:prod"
   },
   "devDependencies": {
-    "react-split-pane": "^0.1.84",
     "tocco-app-extensions": "*",
     "tocco-simple-form": "*",
     "tocco-test-util": "*",
