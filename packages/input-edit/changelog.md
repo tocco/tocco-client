@@ -1,3 +1,12 @@
+0.3.5
+- Table component
+- Style input fields according to material design
+- Handle notifications depending on parent
+- Remove obsolete default searchfield styling and height in nested layout containers
+- Change Stated and Editablevalu colors for more contrast/readability
+- Fix width of table cells so that there is no overlap at the last column on smaller screens
+- Style input edit table to ensure consistend UI. Remove obsolete split pane feature
+
 0.3.4
 
 
