@@ -22,7 +22,7 @@ export const StyledBackgroundLogo = styled.div`
   z-index: 1;
   height: 40px;
   width: 100%;
-  background-color: ${({runEnv, theme}) => runEnv === 'TEST' ? theme.colors.secondary : theme.colors.primary};
+  background-color: ${({runEnv, theme}) => runEnv === 'TEST' ? theme.colors.primary : theme.colors.secondary};
   mask-image: url(${ToccoLogo});
   mask-repeat: no-repeat;
   mask-position: -300px -900px;
