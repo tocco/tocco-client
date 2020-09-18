@@ -50,6 +50,11 @@ const StyledInputCss = css`
   &[type='search'] {
     appearance: none;
   }
+
+  &:disabled {
+    -webkit-text-fill-color: ${theme.color('text')}; // Safari fix
+    opacity: 1; // iOS fix
+  }
 `
 
 const StyledEditableControlCss = css`
