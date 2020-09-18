@@ -90,7 +90,7 @@ const AdminSearchForm = ({searchFilters, setSearchFilterActive, executeSearch}) 
 
   return <SearchFilterListWrapper>
     {searchFilters
-      .sort((a, b) => a.defaultFilter ? -1 : a.sorting > b.sorting)
+      .sort((a, b) => a.defaultFilter ? -1 : a.sorting - b.sorting)
       .map(searchFilter =>
         <SearchFilterButton
           key={searchFilter.uniqueId}
