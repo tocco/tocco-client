@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, {useState} from 'react'
+import React, {useState, useMemo} from 'react'
 import {Button, SearchBox, Typography} from 'tocco-ui'
 import styled from 'styled-components'
 import {intlShape} from 'react-intl'
@@ -19,8 +19,8 @@ const StyledCheckbox = styled('input')`
 const ColumnPicker = ({columns, onOk, intl}) => {
   const [selectedColumns, setSelectedColumns] = useState({})
   const [searchTerm, setSearchTerm] = useState(null)
-  const items = columns
-    .filter(column => searchTerm === null || column.label.match(new RegExp(`${searchTerm}`, 'i')))
+  const items = useMemo(() => columns
+    .filter(column => searchTerm === null || column.label.match(new RegExp(searchTerm, 'i')))
     .map(column => <Typography.Li key={column.id}>
       <StyledCheckbox
         type={'checkbox'}
@@ -29,15 +29,17 @@ const ColumnPicker = ({columns, onOk, intl}) => {
           ? selectedColumns[column.id] : !column.hidden}
         onChange={value => setSelectedColumns({...selectedColumns, [column.id]: value.target.checked})}/>
       <Typography.Label for={column.id}>{column.label}</Typography.Label>
-    </Typography.Li>)
-  return <React.Fragment>
-    <SearchBox placeholder={intl.formatMessage({id: 'client.entity-list.preferences.columns.search'})}
+    </Typography.Li>), [columns, searchTerm, selectedColumns])
+
+  return <>
+    <SearchBox
+      placeholder={intl.formatMessage({id: 'client.entity-list.preferences.columns.search'})}
       onSearch={setSearchTerm}/>
     <StyledUl>{items}</StyledUl>
     <Button onClick={() => onOk(selectedColumns)}>
-      {intl.formatMessage({id: 'client.entity-list.preferences.columns.button'})}
+      {intl.formatMessage({id: 'client.entity-list.preferences.columns.okButton'})}
     </Button>
-  </React.Fragment>
+  </>
 }
 
 ColumnPicker.propTypes = {

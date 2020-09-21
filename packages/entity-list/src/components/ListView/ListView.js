@@ -51,7 +51,7 @@ class ListView extends React.Component {
       showActions,
       showSelectionController,
       sorting,
-      columnPreferences
+      columnDisplayPreferences
     } = this.props
 
     return (
@@ -67,7 +67,7 @@ class ListView extends React.Component {
                   <TableContainer
                     key={`table-${child.id}`}
                     columnDefinitions={
-                      getColumnDefinition(child, sorting, parent, intl, columnPreferences)
+                      getColumnDefinition(child, sorting, parent, intl, columnDisplayPreferences)
                     }
                   />
                 </ListWrapper>
@@ -120,7 +120,7 @@ ListView.propTypes = {
     field: PropTypes.string,
     order: PropTypes.string
   })),
-  columnPreferences: PropTypes.objectOf(PropTypes.bool)
+  columnDisplayPreferences: PropTypes.objectOf(PropTypes.bool)
 }
 
 export default ListView

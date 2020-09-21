@@ -2,20 +2,16 @@ import {reducer as reducerUtil} from 'tocco-util'
 
 import * as actions from './actions'
 
-const resetSorting = state => {
-  return {
-    ...state,
-    sorting: initialState.sorting
-  }
-}
+const resetSorting = state => ({
+  ...state,
+  sorting: initialState.sorting
+})
 
-const resetColumns = state => {
-  return {
-    ...state,
-    columns: initialState.columns,
-    positions: initialState.positions
-  }
-}
+const resetColumns = state => ({
+  ...state,
+  columns: initialState.columns,
+  positions: initialState.positions
+})
 
 const ACTION_HANDLERS = {
   [actions.SET_POSITIONS]: reducerUtil.singleTransferReducer('positions'),
