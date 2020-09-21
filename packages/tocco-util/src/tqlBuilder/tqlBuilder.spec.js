@@ -22,7 +22,7 @@ describe('entity-list', () => {
             const path = 'firstname'
             const fieldType = 'string'
 
-            const expectedResult = 'firstname == "Homer"'
+            const expectedResult = 'firstname ~= "Homer"'
             const result = getTql(path, value, fieldType)
 
             expect(result).to.deep.eql(expectedResult)
@@ -116,10 +116,31 @@ describe('entity-list', () => {
             expect(result).to.deep.eql(expectedResult)
           })
 
+          test('should handle boolean with true value', () => {
+            const value = true
+            const path = 'active'
+            const fieldType = 'boolean'
+
+            const expectedResult = 'active == true'
+            const result = getTql(path, value, fieldType)
+
+            expect(result).to.deep.eql(expectedResult)
+          })
+
+          test('should return null for false boolean value', () => {
+            const value = false
+            const path = 'active'
+            const fieldType = 'boolean'
+
+            const result = getTql(path, value, fieldType)
+
+            expect(result).to.be.null
+          })
+
           test('should handle unknown form types and use fallback', () => {
             expect(getTql('relXY', {key: '23'})).to.deep.eql('relXY.pk == 23')
             expect(getTql('relXY', [{key: '23'}])).to.deep.eql('KEYS("relXY",23)')
-            expect(getTql('asd', 'test')).to.deep.eql('asd == "test"')
+            expect(getTql('asd', 'test')).to.deep.eql('asd ~= "test"')
           })
 
           test('should handle range values', () => {
