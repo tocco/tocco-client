@@ -35,7 +35,6 @@ class EntityBrowserStory extends React.Component {
       initialKey={text('initialKey', '')}
       simpleSearchFields={text('simpleSearchFields', '')}
       nullBusinessUnit={boolean('nullBusinessUnit', false)}
-      showCreateButton={boolean('showCreateButton', true)}
       memoryHistory={boolean('memoryHistory', false)}
     />
   }
