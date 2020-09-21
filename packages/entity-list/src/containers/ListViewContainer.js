@@ -20,7 +20,7 @@ const mapStateToProps = (state, props) => {
     searchFormPosition: state.input.searchFormPosition,
     showActions: state.input.showActions,
     sorting: state.list.sorting,
-    columnPreferences: state.preferences.columns
+    columnDisplayPreferences: state.preferences.columns
   }
 }
 

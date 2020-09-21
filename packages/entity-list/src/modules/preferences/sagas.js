@@ -9,6 +9,7 @@ import * as listActions from '../list/actions'
 import * as listSagas from '../list/sagas'
 import * as util from '../../util/preferences'
 import ColumnPicker from '../../components/ColumnPicker'
+import {getTableColumns} from '../../util/api/forms'
 
 export const inputSelector = state => state.input
 
@@ -91,14 +92,7 @@ export function* resetPreferences() {
 export function* displayColumnModal() {
   const {formDefinition} = yield select(listSagas.listSelector)
   const {columns: preferencesColumns} = yield select(preferencesSelector)
-  const formColumns = formDefinition.children
-    .find(child => child.componentType === 'table')
-    .children
-    .map(column => ({
-      ...column,
-      hidden: Object.prototype.hasOwnProperty.call(preferencesColumns, column.id)
-        ? !preferencesColumns[column.id] : column.hidden
-    }))
+  const formColumns = getTableColumns(formDefinition, preferencesColumns)
 
   const answerChannel = yield call(channel)
   yield put(notifier.modalComponent(

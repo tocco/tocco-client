@@ -44,10 +44,10 @@ const rightAlignedTypes = ['counter', 'decimal', 'double', 'integer', 'latitude'
 const isRightAligned = column =>
   column.children && column.children.length === 1 && rightAlignedTypes.includes(column.children[0].dataType)
 
-export const getColumnDefinition = (table, sorting, parent, intl, columnPreferences = {}) => {
+export const getColumnDefinition = (table, sorting, parent, intl, columnDisplayPreferences = {}) => {
   return table.children
-    .filter(column => Object.prototype.hasOwnProperty.call(columnPreferences, column.id)
-      ? columnPreferences[column.id] : !column.hidden)
+    .filter(column => Object.prototype.hasOwnProperty.call(columnDisplayPreferences, column.id)
+      ? columnDisplayPreferences[column.id] : !column.hidden)
     .filter(column => !parent || column.children.length !== 1 || column.children[0].path !== parent.reverseRelationName)
     .filter(column => column.children.filter(isDisplayableChild).length > 0)
     .map(c => (
@@ -66,10 +66,16 @@ export const getColumnDefinition = (table, sorting, parent, intl, columnPreferen
     ))
 }
 
-export const getFields = (formDefinition, columnPreferences) => {
+export const getFields = (formDefinition, columnDisplayPreferences) => {
   const relationFields = []
   const displayExpressionFields = []
-  const columns = getColumnDefinition(getTable(formDefinition), undefined, undefined, undefined, columnPreferences)
+  const columns = getColumnDefinition(
+    getTable(formDefinition),
+    undefined,
+    undefined,
+    undefined,
+    columnDisplayPreferences
+  )
   const fields = columns.reduce((accumulator, current) => (
     [
       ...accumulator,
@@ -131,3 +137,12 @@ export const changeParentFieldType = (formElement, parentPath) => {
 
   return formElement
 }
+
+export const getTableColumns = (formDefinition, columnDisplayPreferences = {}) =>
+  getTable(formDefinition)
+    .children
+    .map(column => ({
+      ...column,
+      hidden: Object.prototype.hasOwnProperty.call(columnDisplayPreferences, column.id)
+        ? !columnDisplayPreferences[column.id] : column.hidden
+    }))
